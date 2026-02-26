@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="970,516" overflow="hidden">
+  <displayList>
+    <component id="n0_ssgm" name="reel1" src="ssgm33" fileName="moudules/gameCommon/gameSlot/Reel.xml" xy="0,0"/>
+    <component id="n1_ssgm" name="reel2" src="ssgm33" fileName="moudules/gameCommon/gameSlot/Reel.xml" xy="194,0"/>
+    <component id="n2_ssgm" name="reel3" src="ssgm33" fileName="moudules/gameCommon/gameSlot/Reel.xml" xy="388,0"/>
+    <component id="n3_ssgm" name="reel4" src="ssgm33" fileName="moudules/gameCommon/gameSlot/Reel.xml" xy="582,0"/>
+    <component id="n4_ssgm" name="reel5" src="ssgm33" fileName="moudules/gameCommon/gameSlot/Reel.xml" xy="776,0"/>
+  </displayList>
+</component>

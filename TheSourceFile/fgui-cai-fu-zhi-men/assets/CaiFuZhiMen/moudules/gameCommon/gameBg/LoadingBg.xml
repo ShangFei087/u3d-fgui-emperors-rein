@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <image id="n0_vckb" name="n0" src="vckb4" fileName="images/gameCommon/gameBg/load_bg.png" xy="-37,-317" scale="1.5,1.5"/>
+  </displayList>
+</component>

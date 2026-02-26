@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="889,699">
+  <displayList>
+    <richtext id="n1_tsjn" name="n1" xy="0,0" size="889,698" fontSize="29" color="#ffffff" autoSize="none" text="當轉軸上出現 3 個&lt;img src=&apos;ui://vdmp4vsrjjue2h&apos; width=&apos;60&apos; height=&apos;60&apos;/&gt;時，將觸發連線遊戲&#xA;。&#xA;連線遊戲中有 3 個轉軸，初始狀態下僅解鎖底部的轉軸。收集&lt;img src=&apos;ui://vdmp4vsrjjue2h&apos; width=&apos;60&apos; height=&apos;60&apos;/&gt;可解鎖新的轉軸。&#xA;&#xA;遊戲初始有 3 次旋轉機會。若轉軸上出現&lt;img src=&apos;ui://vdmp4vsrjjue2h&apos; width=&apos;60&apos; height=&apos;60&apos;/&gt;，旋轉次數將重置為 3 次。若轉軸上的獎勵形成一行、一列或一條斜線相連，該行、列或斜線上的獎勵將被收集至轉軸上方的轉軸獎勵池。&#xA;&#xA;若頂部轉軸的獎勵形成一行、一列或一條斜線相連，將直接發放對應獎勵。當遊戲次數為 0 時，兩個獎勵池的分數將被彙總作為最終獎勵。">
+      <relation target="" sidePair="center-center"/>
+    </richtext>
+  </displayList>
+</component>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="164,164">
+  <displayList>
+    <loader id="n2_6ydp" name="element" xy="82,82" pivot="0.5,0.5" anchor="true" size="156,110" url="ui://k5oi8hwrq5jy5q" autoSize="true"/>
+    <text id="n3_6ydp" name="rewardText" xy="-1,98" size="164,35" font="ui://k5oi8hwrh8erd8" fontSize="10" color="#ffffff" align="center" vAlign="middle" autoSize="none" text=""/>
+  </displayList>
+</component>

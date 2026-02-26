@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <component id="pa4i3r" name="Text2.xml" path="/components/payTable/" exported="true"/>
+    <component id="pa4i3s" name="Text3.xml" path="/components/payTable/" exported="true"/>
+    <component id="pa4i3t" name="Text4.xml" path="/components/payTable/" exported="true"/>
+    <component id="pa4i3u" name="Text5.xml" path="/components/payTable/" exported="true"/>
+    <component id="lvmsby" name="PayLineIntroduce.xml" path="/moudules/introduce/"/>
+    <image id="n813ds" name="game_name.png" path="/images/popupGameLoading/"/>
+    <component id="nimzek" name="Name.xml" path="/moudules/gameLoading/"/>
+    <movieclip id="kqamtl" name="StartAnim.jta" path="/components/freeSpinTriggle/" exported="true" atlas="alone"/>
+    <image id="9qduua" name="ng_txt_BIG.png" path="/images/popupWin/"/>
+    <image id="9qduub" name="ng_txt_HUGE.png" path="/images/popupWin/"/>
+    <image id="9qduuc" name="ng_txt_WIN.png" path="/images/popupWin/"/>
+    <image id="9qduud" name="ng_txt_WIN_1.png" path="/images/popupWin/"/>
+    <image id="9qduue" name="ng_txt_WIN_2.png" path="/images/popupWin/"/>
+    <image id="9qduuf" name="ng_txt_LEGENDARY.png" path="/images/popupWin/"/>
+    <image id="9qduug" name="ng_txt_MASSIVE.png" path="/images/popupWin/"/>
+    <image id="9qduuw" name="fg_txt_FREE GAMES.png" path="/images/freeSpinTrigger/"/>
+    <image id="9qduux" name="fg_txt_SUPER REEL.png" path="/images/freeSpinTrigger/"/>
+    <image id="7w15v5" name="gongXi.png" path="/images/popupFreeSpinResult/" exported="true"/>
+    <image id="7w15v6" name="Get.png" path="/images/popupFreeSpinResult/" exported="true"/>
+    <component id="w2bm17j" name="Text022.xml" path="/components/payTable02/" exported="true"/>
+    <component id="w2bm17k" name="Text023.xml" path="/components/payTable02/" exported="true"/>
+    <component id="w2bm17l" name="Text024.xml" path="/components/payTable02/" exported="true"/>
+    <component id="w2bm17m" name="Text025.xml" path="/components/payTable02/" exported="true"/>
+    <image id="w2bm18c" name="pay_table_WInTable_title.png" path="/images/payTableFont/" exported="true"/>
+    <image id="w2bm18d" name="pay_table_ShiWang_title.png" path="/images/payTableFont/" exported="true"/>
+    <image id="w2bm18e" name="pay_table_50GuDinLine_title.png" path="/images/payTableFont/" exported="true"/>
+    <image id="w2bm18f" name="pay_table_JP_title.png" path="/images/payTableFont/" exported="true"/>
+    <image id="w2bm18g" name="pay_table_FreeGame_title.png" path="/images/payTableFont/" exported="true"/>
+    <image id="w2bm18i" name="pay_table_50Line_title.png" path="/images/payTableFont/" exported="true"/>
+    <component id="rzdn192" name="Paytable025.xml" path="/moudules/payTable02/" exported="true"/>
+    <component id="rzdn193" name="Paytable022.xml" path="/moudules/payTable02/" exported="true"/>
+    <component id="rzdn194" name="Paytable021.xml" path="/moudules/payTable02/" exported="true"/>
+    <component id="rzdn195" name="Paytable023.xml" path="/moudules/payTable02/" exported="true"/>
+    <component id="rzdn196" name="Paytable024.xml" path="/moudules/payTable02/" exported="true"/>
+    <component id="rzdn197" name="Paytable027.xml" path="/moudules/payTable02/" exported="true"/>
+    <component id="rzdn198" name="Paytable026.xml" path="/moudules/payTable02/" exported="true"/>
+    <image id="rzdn19f" name="StopBg.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn19g" name="SpinBgL.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn19h" name="SpinBgB.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn19i" name="SpinL.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn19j" name="StopL.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn19k" name="SpinB.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn19l" name="sound.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn19m" name="sound1.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn19n" name="sound2.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn19o" name="sound3.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn19p" name="back.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn19q" name="help.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn19r" name="introduce.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn19s" name="ButtonFrame.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn19t" name="untouch.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn19u" name="auto.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn1be" name="FREE GAMES_Push.png" path="/images/pageGameMain/frame/gameFrame/"/>
+    <image id="rzdn1bf" name="CREDIT.png" path="/images/pageGameMain/frame/gameFrame/"/>
+    <image id="rzdn1bg" name="TOTAI WIN.png" path="/images/pageGameMain/frame/gameFrame/"/>
+    <image id="rzdn1bh" name="CREDIT_COIN.png" path="/images/pageGameMain/frame/gameFrame/"/>
+    <image id="rzdn1bi" name="WIN.png" path="/images/pageGameMain/frame/gameFrame/"/>
+  </resources>
+</branchDescription>

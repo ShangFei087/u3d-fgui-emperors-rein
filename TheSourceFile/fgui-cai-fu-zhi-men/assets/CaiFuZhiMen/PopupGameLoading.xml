@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_vckb" name="loadingBg" src="vckb5" fileName="moudules/gameCommon/gameBg/LoadingBg.xml" xy="0,203"/>
+    <component id="n2_vckb" name="loadingBar" src="vckb2b" fileName="components/gameCommon/gameLoading/LoadingBar.xml" xy="540,1620" pivot="0.5,0.5" anchor="true" touchable="false">
+      <Slider value="50" max="100"/>
+    </component>
+    <component id="n3_vckb" name="anchor_CatGirl" src="vckb2c" fileName="moudules/gameCommon/gameLoading/Anchors/SpineAnchors/Anchor_CatGirl.xml" xy="540,960"/>
+    <component id="n4_vckb" name="anchor_GameName" src="vckb2d" fileName="moudules/gameCommon/gameLoading/Anchors/SpineAnchors/Anchor_GameName.xml" xy="540,960"/>
+  </displayList>
+</component>

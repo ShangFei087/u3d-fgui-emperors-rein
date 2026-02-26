@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_vckb" name="normalBg" src="vckb6" fileName="moudules/gameCommon/gameBg/NormalBg.xml" xy="0,0"/>
+    <component id="n0_vckb" name="freeBg" src="vckb8" fileName="moudules/gameCommon/gameBg/FreeGame.xml" xy="0,0" visible="false"/>
+    <component id="n2_vckb" name="anchor_BlueGem" src="vckb2f" fileName="moudules/popupFreeSpinTrigger/Anchors/SpineAnchors/Anchor_BlueGem.xml" xy="539,960"/>
+    <component id="n3_vckb" name="anchor_RedRay" src="vckb2g" fileName="moudules/popupFreeSpinTrigger/Anchors/SpineAnchors/Anchor_RedRay.xml" xy="539,959"/>
+    <component id="n5_vckb" name="anchor_CatGirlClimb" src="vckb2h" fileName="moudules/popupFreeSpinTrigger/Anchors/SpineAnchors/Anchor_CatGirlClimb.xml" xy="443,1041"/>
+    <component id="n4_vckb" name="freeTriggerWindow" src="vckb2n" fileName="moudules/popupFreeSpinTrigger/FreeTriggerWindow.xml" xy="0,0"/>
+  </displayList>
+</component>

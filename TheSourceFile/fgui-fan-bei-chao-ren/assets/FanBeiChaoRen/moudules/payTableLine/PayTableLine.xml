@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="104,100">
+  <displayList>
+    <graph id="n0_kb8b" name="n0" xy="0,0" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n1_kb8b" name="n1" xy="21,0" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n2_kb8b" name="n2" xy="42,0" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n3_kb8b" name="n3" xy="63,0" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n4_kb8b" name="n4" xy="84,0" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n5_kb8b" name="n5" xy="0,22" size="20,20" type="rect" lineColor="#00000000" fillColor="#ffff9900"/>
+    <graph id="n6_kb8b" name="n6" xy="21,22" size="20,20" type="rect" lineColor="#00000000" fillColor="#ffff9900"/>
+    <graph id="n7_kb8b" name="n7" xy="42,22" size="20,20" type="rect" lineColor="#00000000" fillColor="#ffff9900"/>
+    <graph id="n8_kb8b" name="n8" xy="63,22" size="20,20" type="rect" lineColor="#00000000" fillColor="#ffff9900"/>
+    <graph id="n9_kb8b" name="n9" xy="84,22" size="20,20" type="rect" lineColor="#00000000" fillColor="#ffff9900"/>
+    <graph id="n10_kb8b" name="n10" xy="0,44" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n11_kb8b" name="n11" xy="21,44" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n12_kb8b" name="n12" xy="42,44" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n13_kb8b" name="n13" xy="63,44" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n14_kb8b" name="n14" xy="84,44" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <component id="n15_kb8b" name="n15" src="kb8but" fileName="moudules/payTableLine/LineName.xml" xy="11,71"/>
+    <text id="n16_kb8b" name="txet" xy="53,70" size="51,29" fontSize="20" color="#ff9900" align="center" vAlign="middle" autoSize="none" text="1"/>
+  </displayList>
+</component>

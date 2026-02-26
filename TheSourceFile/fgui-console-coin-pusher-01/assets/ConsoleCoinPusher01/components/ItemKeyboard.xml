@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="90,60" extention="Label">
+  <displayList>
+    <image id="n0_86hh" name="icon" src="86hhm" fileName="images/icons/icon-arrow2.png" xy="0,15" color="#ffff00"/>
+    <richtext id="n1_86hh" name="title" xy="30,0" size="59,60" fontSize="36" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="1"/>
+  </displayList>
+  <customProperty target="title" propertyId="0" label="标题"/>
+</component>

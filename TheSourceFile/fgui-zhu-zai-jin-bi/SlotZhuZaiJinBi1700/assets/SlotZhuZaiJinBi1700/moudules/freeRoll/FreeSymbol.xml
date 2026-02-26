@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="127,127">
+  <displayList>
+    <component id="n0_e6zw" name="animator" src="lnet1a" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="63,63" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>

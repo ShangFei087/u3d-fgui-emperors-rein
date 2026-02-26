@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_paul" name="base" src="paul3" fileName="moudules/MDPageBase.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="title" propertyId="0" value="/记录/彩金记录&#xA;"/>
+    </component>
+    <list id="n11_9q8e" name="items" xy="50,1518" size="980,256" overflow="hidden" defaultItem="ui://tdkeq960paul7">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <item name="date">
+        <property target="title" propertyId="0" value="日期"/>
+        <property target="value" propertyId="0" value="2025-09-28"/>
+      </item>
+      <item name="prev">
+        <property target="title" propertyId="0" value="上一页"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="next">
+        <property target="title" propertyId="0" value="下一页"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+    </list>
+    <graph id="n13_9q8e" name="n13" xy="0,99" size="1080,3" type="rect" lineSize="0"/>
+    <graph id="n14_9q8e" name="n14" xy="0,151" size="1080,3" type="rect" lineSize="0"/>
+    <list id="n15_9q8e" name="record" xy="0,163" size="1080,1202" overflow="hidden" defaultItem="ui://tdkeq960l0fl19">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <richtext id="n16_r2gc" name="n16" xy="287,1405" size="507,66" fontSize="49" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="1/10&#xA;"/>
+    <component id="n18_payl" name="titles" src="payl1j" fileName="components/ItemKeyText6JpTitle.xml" xy="0,97"/>
+  </displayList>
+</component>

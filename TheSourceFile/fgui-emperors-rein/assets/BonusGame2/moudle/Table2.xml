@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,562">
+  <displayList>
+    <component id="n28_ib9y" name="slotMachine" src="ib9y1v" fileName="moudle/slotMachine02/SlotMachine02.xml" xy="51,19" size="978,520"/>
+    <image id="n0_ib9y" name="n0" src="ib9y6" fileName="image/bonusGame2/ng_img_horizon_line_3.png" xy="72,115" size="941,5"/>
+    <image id="n1_ib9y" name="n1" src="ib9y6" fileName="image/bonusGame2/ng_img_horizon_line_3.png" xy="72,220" size="941,5"/>
+    <image id="n21_ib9y" name="n21" src="ib9y6" fileName="image/bonusGame2/ng_img_horizon_line_3.png" xy="72,325" size="941,5"/>
+    <image id="n22_ib9y" name="n22" src="ib9y6" fileName="image/bonusGame2/ng_img_horizon_line_3.png" xy="72,430" size="941,5"/>
+    <image id="n14_ib9y" name="n14" src="ib9y5" fileName="image/bonusGame2/ng_img_Vertical_line_3.png" xy="241,7"/>
+    <image id="n24_ib9y" name="n24" src="ib9y5" fileName="image/bonusGame2/ng_img_Vertical_line_3.png" xy="438,7"/>
+    <image id="n25_ib9y" name="n25" src="ib9y5" fileName="image/bonusGame2/ng_img_Vertical_line_3.png" xy="635,7"/>
+    <image id="n26_ib9y" name="n26" src="ib9y5" fileName="image/bonusGame2/ng_img_Vertical_line_3.png" xy="832,7"/>
+    <image id="n15_ib9y" name="n15" src="ib9yc" fileName="image/bonusGame2/ng_img_border_top_3.png" xy="49,0" size="494,23"/>
+    <image id="n16_ib9y" name="n16" src="ib9yc" fileName="image/bonusGame2/ng_img_border_top_3.png" xy="1035,0" skew="0,180"/>
+    <image id="n17_ib9y" name="n17" src="ib9yb" fileName="image/bonusGame2/ng_img_border_left_3.png" xy="49,21"/>
+    <image id="n18_ib9y" name="n18" src="ib9yb" fileName="image/bonusGame2/ng_img_border_left_3.png" xy="1035,23" skew="0,180"/>
+    <image id="n19_ib9y" name="n19" src="ib9y4" fileName="image/bonusGame2/ng_img_border_bottom_2.png" xy="40,436"/>
+    <image id="n20_ib9y" name="n20" src="ib9y4" fileName="image/bonusGame2/ng_img_border_bottom_2.png" xy="1044,436" skew="0,180"/>
+    <component id="n27_ib9y" name="special" src="ib9yk" fileName="components/special.xml" xy="432,7">
+      <property target="n16" propertyId="0" value=""/>
+    </component>
+    <loader id="n31_j20k" name="n31" xy="1,-249" size="1080,1100" url="ui://0bwjt84cj20k50" autoSize="true"/>
+  </displayList>
+  <transition name="t0">
+    <item time="0" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k50"/>
+    <item time="1" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k51"/>
+    <item time="2" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k52"/>
+    <item time="3" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k53"/>
+    <item time="4" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4p"/>
+    <item time="5" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4w"/>
+    <item time="6" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4s"/>
+    <item time="7" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4t"/>
+    <item time="8" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4u"/>
+    <item time="9" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4v"/>
+    <item time="10" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4x"/>
+    <item time="11" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k54"/>
+    <item time="12" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4y"/>
+    <item time="13" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4z"/>
+    <item time="14" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4o"/>
+    <item time="15" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4e"/>
+    <item time="16" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k48"/>
+    <item time="17" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k49"/>
+    <item time="18" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4a"/>
+    <item time="19" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4b"/>
+    <item time="20" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4c"/>
+    <item time="21" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4d"/>
+    <item time="22" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4f"/>
+    <item time="23" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4m"/>
+    <item time="24" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4g"/>
+    <item time="25" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4h"/>
+    <item time="26" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4i"/>
+    <item time="27" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4j"/>
+    <item time="28" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4k"/>
+    <item time="29" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4l"/>
+    <item time="30" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4n"/>
+    <item time="31" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k55"/>
+    <item time="32" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k47"/>
+    <item time="33" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4q"/>
+    <item time="34" type="Icon" target="n31_j20k" value="ui://0bwjt84cj20k4r"/>
+  </transition>
+</component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,62" extention="Slider">
+  <displayList>
+    <component id="n1_o1y0" name="bar" src="x9qzf6" fileName="components/gameLoding/Slider2.xml" xy="10,11" size="742,34"/>
+    <image id="n0_o1y0" name="n0" src="o1y0se" fileName="images/popupGameLoading/加载条01.png" xy="0,0" size="800,57">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n2_o1y0" name="grip" src="o1y0sc" fileName="components/gameLoding/Slider_grip.xml" xy="705,-13" touchable="false">
+      <relation target="n1_o1y0" sidePair="right-right"/>
+    </component>
+  </displayList>
+  <Slider/>
+</component>

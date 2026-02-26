@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_iyvn" name="n0" src="iyvn4p" fileName="i18ntest/PopupI81nBG.xml" xy="0,0"/>
+    <image id="n1_iyvn" name="n1" src="iyvn4x" fileName="i18ntest/images/help.png" xy="470,409"/>
+    <text id="n2_g8qg" name="helloWord" xy="292,772" size="475,95" fontSize="30" align="center" vAlign="middle" autoSize="none" bold="true" text="Hello China"/>
+    <component id="n3_kv1r" name="buttonConsole" src="smbpv" fileName="components/Button002.xml" xy="455,913">
+      <Button title="Console"/>
+    </component>
+    <component id="n4_pw6o" name="fromNode" src="pw6o7j" fileName="components/temp01/FromNode.xml" xy="223,530"/>
+    <component id="n6_pw6o" name="toNode" src="pw6o7m" fileName="components/temp01/ToNode.xml" xy="637,532"/>
+  </displayList>
+</component>

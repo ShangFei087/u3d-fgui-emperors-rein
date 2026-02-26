@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="330,390">
+  <displayList>
+    <image id="n18_glrj" name="n18" src="vqlx68" fileName="images/common/circle_24.png" xy="0,0" size="330,390" color="#09221f">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n3_glrj" name="No.1" src="glrj1q" fileName="components/ButtonSquare.xml" xy="15,16" group="n24_glrj">
+      <Button title="1"/>
+    </component>
+    <component id="n4_glrj" name="No.2" src="glrj1q" fileName="components/ButtonSquare.xml" xy="120,15" group="n24_glrj">
+      <Button title="2"/>
+    </component>
+    <component id="n5_glrj" name="No.3" src="glrj1q" fileName="components/ButtonSquare.xml" xy="225,15" group="n24_glrj">
+      <Button title="3"/>
+    </component>
+    <component id="n6_glrj" name="No.4" src="glrj1q" fileName="components/ButtonSquare.xml" xy="15,90" group="n24_glrj">
+      <Button title="4"/>
+    </component>
+    <component id="n7_glrj" name="No.5" src="glrj1q" fileName="components/ButtonSquare.xml" xy="120,90" group="n24_glrj">
+      <Button title="5"/>
+    </component>
+    <component id="n8_glrj" name="No.6" src="glrj1q" fileName="components/ButtonSquare.xml" xy="225,90" group="n24_glrj">
+      <Button title="6"/>
+    </component>
+    <component id="n9_glrj" name="No.7" src="glrj1q" fileName="components/ButtonSquare.xml" xy="15,165" group="n24_glrj">
+      <Button title="7"/>
+    </component>
+    <component id="n10_glrj" name="No.8" src="glrj1q" fileName="components/ButtonSquare.xml" xy="120,165" group="n24_glrj">
+      <Button title="8"/>
+    </component>
+    <component id="n11_glrj" name="No.9" src="glrj1q" fileName="components/ButtonSquare.xml" xy="225,165" group="n24_glrj">
+      <Button title="9"/>
+    </component>
+    <component id="n13_glrj" name="No.0" src="glrj1q" fileName="components/ButtonSquare.xml" xy="120,240" group="n24_glrj">
+      <Button title="0"/>
+    </component>
+    <component id="n19_glrj" name="No.Cancel" src="glrj1x" fileName="components/ButtonSquareClear.xml" xy="15,240" group="n24_glrj">
+      <Button title="Cancel"/>
+    </component>
+    <component id="n21_glrj" name="No.OK" src="glrj1z" fileName="components/ButtonSquareOK.xml" xy="225,240" group="n24_glrj"/>
+    <component id="n22_glrj" name="n22" src="glrj20" fileName="components/ButtonSquareDelete.xml" xy="120,315" group="n24_glrj"/>
+    <group id="n24_glrj" name="n24" xy="15,15" size="300,360"/>
+  </displayList>
+</component>

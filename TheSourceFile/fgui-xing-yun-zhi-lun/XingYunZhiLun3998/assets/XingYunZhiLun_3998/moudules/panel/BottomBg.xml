@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,279">
+  <displayList>
+    <image id="n10_l3cn" name="n10" src="l3cn5s" fileName="images/panel/spin/frame_down_base.png" xy="1012,0" pivot="0.5,0" anchor="true" size="135,279" scale="1.2,1"/>
+    <image id="n9_l3cn" name="n9" src="l3cn5s" fileName="images/panel/spin/frame_down_base.png" xy="67,0" pivot="0.5,0" anchor="true" size="135,279" scale="1.2,1"/>
+    <image id="n8_l3cn" name="n8" src="l3cn5t" fileName="images/panel/spin/frame_down_fixed.png" xy="135,8" size="812,271"/>
+  </displayList>
+</component>

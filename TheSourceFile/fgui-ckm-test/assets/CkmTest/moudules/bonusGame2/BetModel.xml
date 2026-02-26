@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="350,250">
+  <displayList>
+    <image id="n1_fr2h" name="bgLight" src="fr2h3a" fileName="images/bonusGame2/sg_img_yk.png" xy="11,6" scale="2,2"/>
+    <image id="n0_fr2h" name="bgNormal" src="fr2h3b" fileName="images/bonusGame2/sg_img_bk.png" xy="11,6" scale="2,2"/>
+    <text id="n2_fr2h" name="number" xy="40,65" size="255,82" font="ui://4hwvsyqffr2h1m" fontSize="12" align="center" vAlign="middle" autoSize="none" text="x5"/>
+  </displayList>
+</component>

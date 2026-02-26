@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="225,45" extention="ComboBox">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_g3lh" name="n0" src="fcfm72" fileName="images/common/circle_14.png" xy="0,0" size="225,45">
+      <gearDisplay controller="button" pages="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_g3lh" name="n1" src="fcfm72" fileName="images/common/circle_14.png" xy="0,0" size="225,45">
+      <gearDisplay controller="button" pages="1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n2_g3lh" name="n2" src="fcfm72" fileName="images/common/circle_14.png" xy="0,0" size="225,45">
+      <gearDisplay controller="button" pages="2"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n3_g3lh" name="n3" src="fcfm72" fileName="images/common/circle_14.png" xy="0,0" size="225,45">
+      <gearDisplay controller="button" pages="3"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n4_g3lh" name="title" xy="15,0" size="174,45" fontSize="20" color="#323232" vAlign="middle" autoSize="shrink" singleLine="true" text="123213213123">
+      <relation target="" sidePair="width-width,height-height"/>
+    </text>
+    <image id="n5_g3lh" name="n5" src="smbp1b" fileName="images/buttons/arrow_2.png" xy="197,14" pivot="0.5,0.5" size="16,16" rotation="-90" color="#333333"/>
+  </displayList>
+  <ComboBox dropdown="ui://xp0b9yqdg3lh5d"/>
+</component>

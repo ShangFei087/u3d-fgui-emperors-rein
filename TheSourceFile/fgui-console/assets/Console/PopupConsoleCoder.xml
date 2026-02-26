@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n4_os7y" name="n4" src="os7y3l" fileName="moudules/BasePopuoBG.xml" xy="6,-1">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n2_os7y" name="n2" src="vqlx68" fileName="images/common/circle_24.png" xy="345,563" size="390,794" group="n3_os7y" color="#143733">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n5_os7y" name="btnExit" src="os7y4l" fileName="components/ButtonClosePopup.xml" xy="657,563" size="78,78" group="n3_os7y">
+      <relation target="" sidePair="right-right,top-top"/>
+    </component>
+    <richtext id="n6_os7y" name="title" xy="374,569" size="330,70" group="n3_os7y" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="Activate Code"/>
+    <image id="n7_os7y" name="n7" src="vqlx65" fileName="images/common/line_64x4.png" xy="374,639" size="330,4" group="n3_os7y"/>
+    <image id="n10_os7y" name="n10" src="vqlx65" fileName="images/common/line_64x4.png" xy="374,911" size="330,4" group="n3_os7y"/>
+    <text id="n16_vjfj" name="A" xy="390,648" size="300,45" group="n22_vjfj" fontSize="30" color="#ffffff" autoSize="none" text="A: 38000000"/>
+    <text id="n17_vjfj" name="B" xy="390,693" size="300,45" group="n22_vjfj" fontSize="30" color="#ffffff" autoSize="none" text="B: 3800"/>
+    <text id="n18_vjfj" name="C" xy="390,738" size="300,45" group="n22_vjfj" fontSize="30" color="#ffffff" autoSize="none" text="C: 3800"/>
+    <text id="n20_vjfj" name="D" xy="390,783" size="300,45" group="n22_vjfj" fontSize="30" color="#ffffff" autoSize="none" text="D: 3800"/>
+    <text id="n19_vjfj" name="E" xy="390,828" size="300,45" group="n22_vjfj" fontSize="30" color="#ffffff" autoSize="none" text="E: 3800"/>
+    <text id="n21_vjfj" name="time" xy="390,873" size="300,30" group="n22_vjfj" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="remaining time: 2 days and 12 hours"/>
+    <group id="n22_vjfj" name="content" xy="390,648" size="300,254" group="n3_os7y"/>
+    <component id="n23_vjfj" name="keyboard" src="glrj1o" fileName="moudules/ItemCustomKeyboard.xml" xy="375,997" group="n3_os7y"/>
+    <component id="n24_vjfj" name="input" src="vjfj52" fileName="moudules/ItemCustomInput002.xml" xy="375,919" group="n3_os7y"/>
+    <group id="n3_os7y" name="popupFG" xy="345,563" size="390,794" advanced="true"/>
+  </displayList>
+</component>

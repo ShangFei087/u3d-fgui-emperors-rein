@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1000,636" overflow="hidden">
+  <displayList>
+    <component id="n36_w36x" name="reel1" src="trhy12" fileName="moudules/Reel.xml" xy="0,0"/>
+    <component id="n40_w36x" name="reel2" src="trhy12" fileName="moudules/Reel.xml" xy="200,0" size="200,636"/>
+    <component id="n37_w36x" name="reel3" src="trhy12" fileName="moudules/Reel.xml" xy="400,0" size="200,636"/>
+    <component id="n38_w36x" name="reel4" src="trhy12" fileName="moudules/Reel.xml" xy="600,0" size="200,636"/>
+    <component id="n39_w36x" name="reel5" src="trhy12" fileName="moudules/Reel.xml" xy="800,0" size="200,636"/>
+  </displayList>
+</component>

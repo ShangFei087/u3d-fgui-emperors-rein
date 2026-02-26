@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="940,330" overflow="hidden">
+  <displayList>
+    <component id="n36_w36x" name="reel1" src="ib9yn" fileName="moudle/slotMachine/Reel.xml" xy="1,9"/>
+    <component id="n40_w36x" name="reel2" src="ib9yn" fileName="moudle/slotMachine/Reel.xml" xy="193,9" size="170,300"/>
+    <component id="n37_w36x" name="reel3" src="ib9yn" fileName="moudle/slotMachine/Reel.xml" xy="385,9" size="170,300"/>
+    <component id="n38_w36x" name="reel4" src="ib9yn" fileName="moudle/slotMachine/Reel.xml" xy="577,9" size="170,300"/>
+    <component id="n39_w36x" name="reel5" src="ib9yn" fileName="moudle/slotMachine/Reel.xml" xy="769,9" size="170,300"/>
+  </displayList>
+</component>

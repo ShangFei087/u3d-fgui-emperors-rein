@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="194,516">
+  <displayList>
+    <component id="n0_ssgm" name="symbols" src="ssgm32" fileName="moudules/gameCommon/gameSlot/Symbols.xml" xy="0,0"/>
+  </displayList>
+</component>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n2_x7l3" name="n2" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#99000000"/>
+    <component id="n1_x7l3" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,960"/>
+    <component id="n3_x7l3" name="zhuanPan" src="lsvw1k" fileName="moudules/slotMachine/ZhuanPan.xml" xy="540,978" pivot="0.5,0.5" anchor="true" rotation="-90"/>
+  </displayList>
+</component>

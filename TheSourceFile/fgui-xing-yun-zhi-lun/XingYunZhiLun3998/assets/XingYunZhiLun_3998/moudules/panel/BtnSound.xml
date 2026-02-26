@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="40,40">
+  <controller name="button" pages="0,volume1,1,volume2" selected="0"/>
+  <displayList>
+    <image id="n0_x7l3" name="n0" src="x7l36y" fileName="images/panel/spin/ng_btn_Music.png" xy="0,0" size="40,40">
+      <gearDisplay controller="button" pages="0"/>
+    </image>
+    <image id="n1_x7l3" name="n1" src="x7l36z" fileName="images/panel/spin/ng_btn_Music01.png" xy="0,0" size="40,40">
+      <gearDisplay controller="button" pages="1"/>
+    </image>
+  </displayList>
+</component>

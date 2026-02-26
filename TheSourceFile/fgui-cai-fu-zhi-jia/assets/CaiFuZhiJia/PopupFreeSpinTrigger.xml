@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_rdkv" name="blueBoomEffect" src="rdkv3o" fileName="moudules/freeSpinTrigger/BlueBoomEffect.xml" xy="540,960"/>
+    <component id="n1_j09u" name="lightEffect" src="j09u3p" fileName="moudules/freeSpinTrigger/LightEffect.xml" xy="540,960"/>
+    <component id="n5_j09u" name="goldPurpleEffect" src="j09u40" fileName="moudules/freeSpinTrigger/GoldPurpleEffect.xml" xy="540,960"/>
+    <component id="n2_j09u" name="dollarSpine" src="j09u3q" fileName="moudules/freeSpinTrigger/DollerSpine.xml" xy="540,960"/>
+    <component id="n6_hhky" name="freeBridgeAnimation" src="j09u3z" fileName="moudules/freeSpinTrigger/FreeBridgeAnimaton.xml" xy="540,960"/>
+    <component id="n3_j09u" name="freeTipWindow" src="j09u3r" fileName="moudules/freeSpinTrigger/FreeTipWindow.xml" xy="0,0"/>
+  </displayList>
+</component>

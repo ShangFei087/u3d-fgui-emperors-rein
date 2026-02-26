@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="164,492">
+  <displayList>
+    <component id="n0_hjsh" name="symbol0" src="hjsh4b" fileName="moudules/slotMachine/Symbol.xml" xy="0,-164"/>
+    <component id="n1_hjsh" name="symbol1" src="hjsh4b" fileName="moudules/slotMachine/Symbol.xml" xy="0,0"/>
+    <component id="n2_hjsh" name="symbol2" src="hjsh4b" fileName="moudules/slotMachine/Symbol.xml" xy="0,164"/>
+    <component id="n3_hjsh" name="symbol3" src="hjsh4b" fileName="moudules/slotMachine/Symbol.xml" xy="0,328"/>
+    <component id="n4_hjsh" name="symbol4" src="hjsh4b" fileName="moudules/slotMachine/Symbol.xml" xy="0,492"/>
+    <component id="n5_hjsh" name="symbol5" src="hjsh4b" fileName="moudules/slotMachine/Symbol.xml" xy="0,656"/>
+    <component id="n7_hjsh" name="symbol6" src="hjsh4b" fileName="moudules/slotMachine/Symbol.xml" xy="0,820"/>
+    <component id="n6_hjsh" name="symbol7" src="hjsh4b" fileName="moudules/slotMachine/Symbol.xml" xy="0,984"/>
+  </displayList>
+</component>

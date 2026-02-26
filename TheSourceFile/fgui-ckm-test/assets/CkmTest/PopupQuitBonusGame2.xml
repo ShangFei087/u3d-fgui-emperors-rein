@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n10_fr2h" name="n10" src="fr2h2t" fileName="moudules/pop-upWindows/mask.xml" xy="0,0"/>
+    <image id="n5_fr2h" name="n5" src="fr2h1h" fileName="images/pop-upWindows/ng_txt_QUICK CHANGE BONUS .png" xy="98,359" scale="1.5,1.5"/>
+    <image id="n8_fr2h" name="n8" src="fr2h1c" fileName="images/pop-upWindows/ng_txt_Touch to continue.png" xy="223,1444" scale="2,2"/>
+    <image id="n7_fr2h" name="n7" src="fr2h1g" fileName="images/pop-upWindows/ng_txt_multiplier.png" xy="84,800" scale="2,2"/>
+    <image id="n9_fr2h" name="n9" src="fr2h1a" fileName="images/pop-upWindows/ng_txt_TOTAL BET_.png" xy="99,998" scale="2,2"/>
+    <text id="n11_fr2h" name="mNumber" xy="469,801" size="229,81" font="ui://4hwvsyqffr2h2k" fontSize="12" autoSize="none" text="88"/>
+    <text id="n12_fr2h" name="bNumber" xy="457,997" size="229,81" font="ui://4hwvsyqffr2h2k" fontSize="12" autoSize="none" text="888888"/>
+    <text id="n13_fr2h" name="tNumber" xy="-261,1166" size="1080,104" scale="1.5,1.5" font="ui://4hwvsyqffr2hx" fontSize="12" align="center" vAlign="middle" autoSize="none" text="888888"/>
+    <component id="n14_fr2h" name="continue" src="fr2h2q" fileName="components/pop-upWindows/continue.xml" xy="0,0" alpha="0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+  </displayList>
+</component>

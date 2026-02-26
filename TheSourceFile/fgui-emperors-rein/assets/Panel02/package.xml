@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="fy0phz0s">
+  <resources>
+    <component id="ebgu5t" name="PayYable.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="ebgu5u" name="Paytable1.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="ebgu5v" name="Name.xml" path="/moudules/introduce/" exported="true"/>
+    <component id="ebgu5w" name="Intorduce1Multiplier.xml" path="/components/payTable/symbolInfo/" exported="true"/>
+    <image id="ebgu5x" name="symbol1_king.png" path="/images/panel01/pageGameMain/symbols/" exported="true"/>
+    <font id="ebgu5y" name="PayTableYellow.fnt" path="/fonts/" exported="true"/>
+    <image id="ebgu5z" name="fontYellow0.png" path="/images/payTableFont/number2/"/>
+    <image id="ebgu60" name="fontYellow1.png" path="/images/payTableFont/number2/"/>
+    <image id="ebgu61" name="fontYellow2.png" path="/images/payTableFont/number2/"/>
+    <image id="ebgu62" name="fontYellow3.png" path="/images/payTableFont/number2/"/>
+    <image id="ebgu63" name="fontYellow4.png" path="/images/payTableFont/number2/"/>
+    <image id="ebgu64" name="fontYellow5.png" path="/images/payTableFont/number2/"/>
+    <image id="ebgu65" name="fontYellow6.png" path="/images/payTableFont/number2/"/>
+    <image id="ebgu66" name="fontYellow7.png" path="/images/payTableFont/number2/"/>
+    <image id="ebgu67" name="fontYellow8.png" path="/images/payTableFont/number2/"/>
+    <image id="ebgu68" name="fontYellow9.png" path="/images/payTableFont/number2/"/>
+    <font id="ebgu69" name="PayTableWhite.fnt" path="/fonts/" exported="true"/>
+    <image id="ebgu6a" name="fontWhite0.png" path="/images/payTableFont/number1/"/>
+    <image id="ebgu6b" name="fontWhite1.png" path="/images/payTableFont/number1/"/>
+    <image id="ebgu6c" name="fontWhite2.png" path="/images/payTableFont/number1/"/>
+    <image id="ebgu6d" name="fontWhite3.png" path="/images/payTableFont/number1/"/>
+    <image id="ebgu6e" name="fontWhite4.png" path="/images/payTableFont/number1/"/>
+    <image id="ebgu6f" name="fontWhite5.png" path="/images/payTableFont/number1/"/>
+    <image id="ebgu6g" name="fontWhite6.png" path="/images/payTableFont/number1/"/>
+    <image id="ebgu6h" name="fontWhite7.png" path="/images/payTableFont/number1/"/>
+    <image id="ebgu6i" name="fontWhite8.png" path="/images/payTableFont/number1/"/>
+    <image id="ebgu6j" name="fontWhite9.png" path="/images/payTableFont/number1/"/>
+    <image id="ebgu6k" name="symbol1_king.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="ebgu6l" name="symbol2_man.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="ebgu6m" name="symbol3_woman.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="ebgu6n" name="symbol4_bugle.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="ebgu6o" name="symbol5_laure.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="ebgu6p" name="symbol6_a.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="ebgu6q" name="symbol7_k.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="ebgu6r" name="symbol8_q.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="ebgu6s" name="symbol9_j.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <component id="ebgu6t" name="IntroduceBtn.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="ebgu6u" name="ButtonL.xml" path="/components/button/" exported="true"/>
+    <image id="ebgu6v" name="btn_bg.png" path="/images/button/" exported="true"/>
+    <image id="ebgu6w" name="icon_arrow_2.png" path="/images/introduce/" exported="true"/>
+    <component id="ebgu6x" name="UntouchCircle24.xml" path="/components/mask/" exported="true"/>
+    <image id="ebgu6y" name="circle_24.png" path="/images/common/" exported="true" scale="9grid" scale9grid="11,11,2,2"/>
+    <image id="ebgu6z" name="btn_select_001B.png" path="/images/introduce/" exported="true"/>
+    <image id="ebgu70" name="btn_select_001A.png" path="/images/introduce/" exported="true"/>
+    <component id="ebgu71" name="Component1.xml" path="/moudules/payTable/" exported="true"/>
+    <image id="ebgu72" name="paytable_bg.png" path="/images/introduce/" exported="true" scale="tile" scale9grid="85,80,1,1"/>
+    <image id="ebgu74" name="paytable_mask.png" path="/images/introduce/" exported="true"/>
+    <image id="ebgu75" name="BG_001_b.png" path="/images/introduce/" exported="true" scale="9grid" scale9grid="62,62,21,17"/>
+    <component id="ebgu76" name="PayTableText.xml" path="/components/" exported="true"/>
+    <component id="ebgu77" name="Panel.xml" path="/moudules/" exported="true"/>
+    <component id="ebgu78" name="GameDiFrame.xml" path="/moudules/" exported="true"/>
+    <image id="ebgu79" name="bg_3.png" path="/images/frame/" exported="true"/>
+    <image id="ebgu7a" name="bg_1.png" path="/images/frame/" exported="true" scale="9grid" scale9grid="481,25,27,50"/>
+    <image id="ebgu7b" name="bg_notice.png" path="/images/frame/" exported="true"/>
+    <image id="ebgu7f" name="icon_border.png" path="/images/frame/" exported="true"/>
+    <component id="ebgu7g" name="ButtonHelp.xml" path="/components/" exported="true"/>
+    <image id="ebgu7h" name="icon_i.png" path="/images/button/" exported="true"/>
+    <image id="ebgu7i" name="icon_return.png" path="/images/button/" exported="true"/>
+    <component id="ebgu7j" name="ButtonBetUp.xml" path="/components/button/" exported="true"/>
+    <image id="ebgu7k" name="btn_bet_up.png" path="/images/button/" exported="true"/>
+    <image id="ebgu7l" name="btn_bet_up01.png" path="/images/button/" exported="true"/>
+    <component id="ebgu7m" name="ButtonBetDown.xml" path="/components/button/" exported="true"/>
+    <image id="ebgu7n" name="btn_bet_down.png" path="/images/button/" exported="true"/>
+    <image id="ebgu7o" name="btn_bet_down01.png" path="/images/button/" exported="true"/>
+    <component id="ebgu7p" name="SetPanel.xml" path="/moudules/" exported="true"/>
+    <component id="ebgu7q" name="ButtonIntroduce.xml" path="/components/button/" exported="true"/>
+    <image id="ebgu7r" name="icon_what.png" path="/images/button/" exported="true"/>
+    <component id="ebgu7s" name="ButtonSound.xml" path="/components/" exported="true"/>
+    <image id="ebgu7t" name="sound-3.png" path="/images/button/" exported="true"/>
+    <image id="ebgu7u" name="sound.png" path="/images/button/" exported="true"/>
+    <image id="ebgu7v" name="sound-1.png" path="/images/button/" exported="true"/>
+    <image id="ebgu7w" name="sound-2.png" path="/images/button/" exported="true"/>
+    <component id="ebgu7x" name="ButtonSpin.xml" path="/components/" exported="true"/>
+    <image id="ebgu7y" name="icon_play.png" path="/images/button/" exported="true"/>
+    <component id="ebgu7z" name="AnchorSpin.xml" path="/components/" exported="true"/>
+    <image id="ebgu80" name="icon_play_1.png" path="/images/button/" exported="true"/>
+    <component id="ebgu81" name="untouch.xml" path="/components/" exported="true"/>
+    <image id="ebgu82" name="icon_stop.png" path="/images/button/" exported="true"/>
+    <image id="ebgu83" name="icon_stop_1.png" path="/images/button/" exported="true"/>
+    <image id="ebgu84" name="icon_auto.png" path="/images/button/" exported="true"/>
+    <image id="ebgu85" name="icon_auto_1.png" path="/images/button/" exported="true"/>
+    <image id="ebgu86" name="关闭.png" path="/images/introduce/" exported="true"/>
+    <image id="ebgu87" name="组 10.png" path="/images/introduce/" exported="true"/>
+    <component id="ebgu88" name="ButtonClose.xml" path="/components/button/" exported="true"/>
+    <image id="qy0j8t" name="win.png" path="/images/frame/" exported="true"/>
+    <image id="qy0j8v" name="frame_r.png" path="/images/frame/" exported="true"/>
+    <image id="qy0j8w" name="frame.png" path="/images/frame/" exported="true"/>
+    <image id="qy0j8x" name="credit.png" path="/images/frame/" exported="true"/>
+    <image id="qy0j8y" name="frame_l.png" path="/images/frame/" exported="true"/>
+    <image id="qy0j8z" name="bet.png" path="/images/frame/" exported="true"/>
+    <image id="qy0j93" name="bg_2.png" path="/images/frame/" exported="true"/>
+  </resources>
+  <publish name="" path="../../Assets\GameRes\Games\Panel02\FGUIs" packageCount="2"/>
+</packageDescription>

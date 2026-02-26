@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="980,1670">
+  <displayList>
+    <list id="n10_paul" name="items" xy="0,0" size="980,1670" overflow="scroll" lineGap="10" defaultItem="ui://tdkeq960paul7">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <item name="groupId">
+        <property target="title" propertyId="0" value="连线机台组号"/>
+        <property target="value" propertyId="0" value="9"/>
+      </item>
+      <item name="pid">
+        <property target="title" propertyId="0" value="连线机台编号"/>
+        <property target="value" propertyId="0" value="01"/>
+      </item>
+      <item name="jp">
+        <property target="title" propertyId="0" value="JP分数设定"/>
+        <property target="value" propertyId="0" value="500.1000.2000.3000"/>
+      </item>
+      <item name="language">
+        <property target="title" propertyId="0" value="语言"/>
+        <property target="value" propertyId="0" value="简体中文"/>
+      </item>
+      <item name="factorySettings">
+        <property target="title" propertyId="0" value="此页设定恢复出厂设置"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+    </list>
+  </displayList>
+</component>

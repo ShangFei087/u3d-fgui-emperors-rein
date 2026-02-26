@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="27,40">
+  <displayList>
+    <text id="n0_e6zw" name="step1_0" xy="0,0" size="27,40" font="ui://zcotsi26e6zw7z" fontSize="12" align="center" vAlign="middle" autoSize="none" text="1"/>
+    <text id="n1_e6zw" name="step2_0" xy="0,-15" size="27,40" visible="false" font="ui://zcotsi26e6zw7z" fontSize="12" align="center" vAlign="middle" autoSize="none" text="1"/>
+    <text id="n2_e6zw" name="step2_1" xy="0,30" size="27,40" visible="false" font="ui://zcotsi26e6zw7z" fontSize="12" align="center" vAlign="middle" autoSize="none" text="2"/>
+    <text id="n3_e6zw" name="step3_0" xy="0,-30" size="27,40" visible="false" font="ui://zcotsi26e6zw7z" fontSize="12" align="center" vAlign="middle" autoSize="none" text="1"/>
+    <text id="n4_e6zw" name="step3_1" xy="0,15" size="27,40" visible="false" font="ui://zcotsi26e6zw7z" fontSize="12" align="center" vAlign="middle" autoSize="none" text="2"/>
+    <text id="n5_e6zw" name="step4_0" xy="0,0" size="27,40" visible="false" font="ui://zcotsi26e6zw7z" fontSize="12" align="center" vAlign="middle" autoSize="none" text="2"/>
+  </displayList>
+  <transition name="animTurn">
+    <item time="0" type="Visible" target="n0_e6zw" value="true"/>
+    <item time="0" type="Visible" target="n1_e6zw" value="false"/>
+    <item time="0" type="Visible" target="n2_e6zw" value="false"/>
+    <item time="0" type="Visible" target="n3_e6zw" value="false"/>
+    <item time="0" type="Visible" target="n4_e6zw" value="false"/>
+    <item time="0" type="Visible" target="n5_e6zw" value="false"/>
+    <item time="3" type="Visible" target="n0_e6zw" value="false"/>
+    <item time="3" type="Visible" target="n1_e6zw" value="true"/>
+    <item time="3" type="Visible" target="n2_e6zw" value="true"/>
+    <item time="3" type="Visible" target="n3_e6zw" value="false"/>
+    <item time="3" type="Visible" target="n4_e6zw" value="false"/>
+    <item time="3" type="Visible" target="n5_e6zw" value="false"/>
+    <item time="6" type="Visible" target="n0_e6zw" value="false"/>
+    <item time="6" type="Visible" target="n1_e6zw" value="false"/>
+    <item time="6" type="Visible" target="n2_e6zw" value="false"/>
+    <item time="6" type="Visible" target="n3_e6zw" value="true"/>
+    <item time="6" type="Visible" target="n4_e6zw" value="true"/>
+    <item time="6" type="Visible" target="n5_e6zw" value="false"/>
+    <item time="9" type="Visible" target="n0_e6zw" value="false"/>
+    <item time="9" type="Visible" target="n1_e6zw" value="false"/>
+    <item time="9" type="Visible" target="n2_e6zw" value="false"/>
+    <item time="9" type="Visible" target="n3_e6zw" value="false"/>
+    <item time="9" type="Visible" target="n4_e6zw" value="false"/>
+    <item time="9" type="Visible" target="n5_e6zw" value="true"/>
+  </transition>
+</component>

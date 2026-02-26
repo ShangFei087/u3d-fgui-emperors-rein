@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_oxcq" name="n0" src="ldsc16i" fileName="moudules/panel02/payTable/Introduceframe.xml" xy="0,432"/>
+    <component id="n1_oxcq" name="payTable" src="ldsc164" fileName="moudules/panel02/payTable/PayYable.xml" xy="0,552"/>
+    <component id="n2_oxcq" name="btnController" src="ldsc16n" fileName="moudules/panel02/payTable/IntroduceBtn.xml" xy="0,1366"/>
+    <component id="n3_oxcq" name="btnExit" src="ldsc150" fileName="components/panel02/Button1.xml" xy="938,476" size="100,100"/>
+  </displayList>
+</component>

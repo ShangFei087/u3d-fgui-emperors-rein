@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="104,100">
+  <displayList>
+    <graph id="n18_11tl8" name="s11" xy="0,0" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n19_11tl8" name="s21" xy="21,0" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n20_11tl8" name="s31" xy="42,0" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n21_11tl8" name="s41" xy="63,0" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n22_11tl8" name="s51" xy="84,0" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n23_11tl8" name="s12" xy="0,22" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff9900"/>
+    <graph id="n24_11tl8" name="s22" xy="21,22" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n25_11tl8" name="s32" xy="42,22" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n26_11tl8" name="s42" xy="63,22" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n27_11tl8" name="s52" xy="84,22" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff9900"/>
+    <graph id="n28_11tl8" name="s13" xy="0,44" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n29_11tl8" name="s23" xy="21,44" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff9900"/>
+    <graph id="n30_11tl8" name="s33" xy="42,44" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff9900"/>
+    <graph id="n31_11tl8" name="s43" xy="63,44" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff9900"/>
+    <graph id="n32_11tl8" name="s53" xy="84,44" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <text id="n16_plwz" name="text" xy="60,65" size="34,30" fontSize="20" color="#ff9900" align="center" vAlign="middle" autoSize="none" text="26">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <component id="n33_gj84" name="line" src="gj847t" fileName="moudules/payTableLine/LineName.xml" xy="9,65"/>
+  </displayList>
+  <customProperty target="text" propertyId="0"/>
+</component>

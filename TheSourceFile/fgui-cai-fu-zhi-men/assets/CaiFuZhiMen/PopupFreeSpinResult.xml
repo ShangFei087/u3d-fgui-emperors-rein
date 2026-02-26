@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_ssgm" name="freeBg" src="vckb8" fileName="moudules/gameCommon/gameBg/FreeGame.xml" xy="0,0"/>
+    <component id="n1_ssgm" name="anchor_CatGirlRun" src="ssgm2s" fileName="moudules/popupFreeSpinResult/Anchors/SpineAnchors/Anchor_CatGirlRun.xml" xy="540,960"/>
+    <component id="n2_ssgm" name="anchor_RedRay" src="ssgm2t" fileName="moudules/popupFreeSpinResult/Anchors/SpineAnchors/Anchor_RedRay.xml" xy="540,960"/>
+    <component id="n3_ssgm" name="freeResultWindow" src="ssgm2u" fileName="moudules/popupFreeSpinResult/FreeResultWindow.xml" xy="0,0"/>
+  </displayList>
+</component>

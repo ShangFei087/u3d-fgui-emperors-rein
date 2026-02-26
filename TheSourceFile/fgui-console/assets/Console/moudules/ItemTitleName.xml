@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="540,76">
+  <displayList>
+    <richtext id="n0_glrj" name="key" xy="40,16" size="240,42" touchable="false" fontSize="30" color="#ffffff" vAlign="middle" autoSize="shrink" singleLine="true" text="Machine ID:"/>
+    <richtext id="n1_glrj" name="value" xy="292,17" size="240,42" touchable="false" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="http://192.168.3.152/api/game_log/caishen"/>
+  </displayList>
+  <customProperty target="key" propertyId="0" label="键"/>
+  <customProperty target="value" propertyId="0" label="值"/>
+</component>

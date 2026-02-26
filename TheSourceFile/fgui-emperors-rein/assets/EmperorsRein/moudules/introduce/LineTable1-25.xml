@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="790,597">
+  <displayList>
+    <component id="n0_plwz" name="linetable1" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="3,0" customData="1">
+      <property target="text" propertyId="0" value="LINE 1"/>
+    </component>
+    <component id="n5_plwz" name="linetable2" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="173,0" customData="1">
+      <property target="text" propertyId="0" value="LINE 2"/>
+    </component>
+    <component id="n2_plwz" name="linetable3" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="343,0">
+      <property target="text" propertyId="0" value="LINE 3"/>
+    </component>
+    <component id="n3_plwz" name="linetable4" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="513,0">
+      <property target="text" propertyId="0" value="LINE 4"/>
+    </component>
+    <component id="n4_plwz" name="linetable5" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="683,0">
+      <property target="text" propertyId="0" value="LINE 5"/>
+    </component>
+    <component id="n1_plwz" name="linetable6" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="3,120">
+      <property target="text" propertyId="0" value="LINE 6"/>
+    </component>
+    <component id="n6_plwz" name="linetable7" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="343,120">
+      <property target="text" propertyId="0" value="LINE 8"/>
+    </component>
+    <component id="n7_plwz" name="linetable8" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="173,120">
+      <property target="text" propertyId="0" value="LINE 7"/>
+    </component>
+    <component id="n8_plwz" name="linetable9" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="513,120">
+      <property target="text" propertyId="0" value="9"/>
+    </component>
+    <component id="n9_plwz" name="linetable10" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="683,120">
+      <property target="text" propertyId="0" value="10"/>
+    </component>
+    <component id="n10_plwz" name="linetable11" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="3,480" customData="1">
+      <property target="text" propertyId="0" value="11"/>
+    </component>
+    <component id="n11_plwz" name="linetable12" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="3,240">
+      <property target="text" propertyId="0" value="12"/>
+    </component>
+    <component id="n12_plwz" name="linetable13" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="173,240">
+      <property target="text" propertyId="0" value="13"/>
+    </component>
+    <component id="n13_plwz" name="linetable14" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="3,360">
+      <property target="text" propertyId="0" value="14"/>
+    </component>
+    <component id="n14_plwz" name="linetable15" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="513,240">
+      <property target="text" propertyId="0" value="15"/>
+    </component>
+    <component id="n15_plwz" name="linetable16" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="173,360" customData="1">
+      <property target="text" propertyId="0" value="16"/>
+    </component>
+    <component id="n16_plwz" name="linetable17" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="343,240">
+      <property target="text" propertyId="0" value="17"/>
+    </component>
+    <component id="n17_plwz" name="linetable18" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="683,240">
+      <property target="text" propertyId="0" value="318"/>
+    </component>
+    <component id="n18_plwz" name="linetable19" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="513,360">
+      <property target="text" propertyId="0" value="19"/>
+    </component>
+    <component id="n19_plwz" name="linetable20" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="683,360">
+      <property target="text" propertyId="0" value="20"/>
+    </component>
+    <component id="n20_plwz" name="linetable21" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="173,480" customData="1">
+      <property target="text" propertyId="0" value="21"/>
+    </component>
+    <component id="n21_plwz" name="linetable22" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="343,360">
+      <property target="text" propertyId="0" value="22"/>
+    </component>
+    <component id="n22_plwz" name="linetable23" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="343,480">
+      <property target="text" propertyId="0" value="23"/>
+    </component>
+    <component id="n23_plwz" name="linetable24" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="513,480">
+      <property target="text" propertyId="0" value="24"/>
+    </component>
+    <component id="n24_plwz" name="linetable25" src="plwz1r" fileName="moudules/intorduceFrame/LineTable.xml" xy="683,480">
+      <property target="text" propertyId="0" value="25"/>
+    </component>
+  </displayList>
+</component>

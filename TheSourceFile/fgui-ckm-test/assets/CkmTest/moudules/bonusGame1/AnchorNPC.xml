@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <graph id="n0_l9lh" name="holder" xy="0,0" pivot="0.5,0.5" anchor="true" size="211,331" visible="false" type="rect" lineColor="#ffffffff"/>
+    <loader id="n1_l9lh" name="example" xy="0,0" pivot="0.5,0.5" anchor="true" size="219,331" touchable="false" url="ui://4hwvsyqfl9lhv" autoSize="true" clearOnPublish="true"/>
+  </displayList>
+</component>

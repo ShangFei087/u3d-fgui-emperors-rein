@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n2_bllo" name="n2" src="bllo10" fileName="components/Mask.xml" xy="0,0"/>
+    <component id="n5_nz4n" name="BigWin" src="bllox" fileName="components/gameBigWin/AnchorBigWin.xml" xy="539,1285">
+      <relation target="" sidePair="center-center"/>
+    </component>
+    <text id="n3_fv27" name="number" xy="284,1436" pivot="0.5,0.5" size="511,86" font="ui://9kq20teafv2712" fontSize="12" align="center" vAlign="middle" autoSize="none" text="500">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <component id="n4_fv27" name="button" src="fv271f" fileName="components/Button1.xml" xy="0,0" size="1080,1920">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+  </displayList>
+</component>

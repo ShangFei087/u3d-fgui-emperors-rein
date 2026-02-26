@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="970,516">
+  <displayList>
+    <component id="n0_ssgm" name="reels" src="ssgm34" fileName="moudules/gameCommon/gameSlot/Reels.xml" xy="0,0"/>
+    <component id="n1_ssgm" name="slotCover" src="ssgm36" fileName="moudules/gameCommon/gameSlotMachine/SlotCover.xml" xy="0,0"/>
+    <component id="n2_ssgm" name="payLines" src="ssgm37" fileName="moudules/gameCommon/gameSlotMachine/PayLines.xml" xy="0,0"/>
+  </displayList>
+</component>

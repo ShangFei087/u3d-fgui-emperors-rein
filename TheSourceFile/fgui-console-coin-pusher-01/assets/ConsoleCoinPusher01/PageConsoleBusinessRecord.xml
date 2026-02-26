@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_paul" name="base" src="paul3" fileName="moudules/MDPageBase.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="title" propertyId="0" value="/历史总营收"/>
+    </component>
+    <list id="n13_q4ka" name="contents1" xy="50,106" size="980,120" layout="flow_hz" overflow="hidden" lineGap="10" defaultItem="ui://tdkeq960q4kaw">
+      <item name="totalBet">
+        <property target="title" propertyId="0" value="历史总押分:"/>
+        <property target="value" propertyId="0" value="1000"/>
+      </item>
+      <item name="totalWin">
+        <property target="title" propertyId="0" value="历史总赢分:"/>
+        <property target="value" propertyId="0" value="2000"/>
+      </item>
+      <item name="toralProfit">
+        <property target="title" propertyId="0" value="总盈利:"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+    </list>
+    <list id="n14_ydll" name="contents2" xy="50,266" size="980,120" layout="flow_hz" overflow="hidden" lineGap="10" defaultItem="ui://tdkeq960q4kaw">
+      <item name="totalCoinIn">
+        <property target="title" propertyId="0" value="历史总投币:"/>
+        <property target="value" propertyId="0" value="100"/>
+      </item>
+      <item name="totalCoinOut">
+        <property target="title" propertyId="0" value="历史总退票:"/>
+        <property target="value" propertyId="0" value="100"/>
+      </item>
+      <item name="toralCoinProfit">
+        <property target="title" propertyId="0" value="总盈利:"/>
+        <property target="value" propertyId="0" value="100"/>
+      </item>
+    </list>
+    <list id="n15_ydll" name="contents3" xy="50,426" size="980,120" layout="flow_hz" overflow="hidden" lineGap="10" defaultItem="ui://tdkeq960q4kaw">
+      <item name="totalScoreUp">
+        <property target="title" propertyId="0" value="历史总AS:"/>
+        <property target="value" propertyId="0" value="100"/>
+      </item>
+      <item name="totalScoreDown">
+        <property target="title" propertyId="0" value="历史总BX:"/>
+        <property target="value" propertyId="0" value="100"/>
+      </item>
+      <item name="toralScoreProfit">
+        <property target="title" propertyId="0" value="总盈利:"/>
+        <property target="value" propertyId="0" value="100"/>
+      </item>
+    </list>
+    <component id="n16_prej" name="contents4" src="prejy" fileName="components/ItemKeyText2BigValue.xml" xy="50,567">
+      <property target="title" propertyId="0" value="账单详细信息:"/>
+    </component>
+    <list id="n12_ggbp" name="items" xy="51,754" size="980,1041" overflow="hidden" lineGap="10" defaultItem="ui://tdkeq960paul7">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+    </list>
+  </displayList>
+</component>

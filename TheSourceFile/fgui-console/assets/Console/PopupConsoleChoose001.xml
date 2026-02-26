@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n4_os7y" name="n4" src="os7y3l" fileName="moudules/BasePopuoBG.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n2_os7y" name="n2" src="vqlx68" fileName="images/common/icon_circle_24.png" xy="315,691" size="450,540" group="n3_os7y" color="#143733">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n5_os7y" name="btnExit" src="os7y4l" fileName="components/ButtonClosePopup.xml" xy="687,690" size="78,78" group="n3_os7y">
+      <relation target="" sidePair="right-right,top-top"/>
+    </component>
+    <richtext id="n6_os7y" name="title" xy="344,697" size="390,70" group="n3_os7y" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="Choose Printer Model"/>
+    <image id="n7_os7y" name="n7" src="vqlx65" fileName="images/common/line_64x4.png" xy="345,767" size="390,4" group="n3_os7y"/>
+    <richtext id="n8_os7y" name="param1" xy="345,778" size="390,34" group="n3_os7y" fontSize="20" color="#ffffff" vAlign="middle" autoSize="none" singleLine="true" text="Selected language: Chinese(简体)"/>
+    <graph id="n12_os7y" name="n12" xy="345,819" size="390,330" group="n3_os7y" type="rect" lineSize="0" fillColor="#ff09221f"/>
+    <list id="n9_os7y" name="list" xy="345,819" size="390,330" group="n3_os7y" overflow="scroll" defaultItem="ui://xp0b9yqdos7y4o">
+      <item title="English"/>
+      <item title="Chinese(简体)"/>
+      <item title="Chinese(繁体)"/>
+    </list>
+    <image id="n10_os7y" name="n10" src="vqlx65" fileName="images/common/line_64x4.png" xy="345,1158" size="390,4" group="n3_os7y"/>
+    <group id="n3_os7y" name="popupFG" xy="315,690" size="450,541" advanced="true"/>
+  </displayList>
+</component>

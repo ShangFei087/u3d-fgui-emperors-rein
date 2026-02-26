@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="330,76" pivot="0.5,0.5" extention="Button">
+  <displayList>
+    <graph id="n2_cwuo" name="n2" xy="0,0" size="330,76" type="rect" lineColor="#ff09221f" fillColor="#ff09221f">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <richtext id="n1_cwuo" name="title" xy="0,0" size="330,76" fontSize="40" color="#ffffff" vAlign="middle" autoSize="shrink" singleLine="true" text="*******">
+      <relation target="" sidePair="width-width,height-height"/>
+    </richtext>
+  </displayList>
+  <Button/>
+</component>

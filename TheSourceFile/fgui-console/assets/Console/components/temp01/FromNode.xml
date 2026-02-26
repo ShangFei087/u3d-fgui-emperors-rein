@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="200,200">
+  <displayList>
+    <graph id="n4_pw6o" name="n4" xy="0,0" size="200,200" type="rect" lineSize="0" fillColor="#ff00ff00"/>
+    <graph id="n5_pw6o" name="target2" xy="0,0" size="50,50" type="rect" fillColor="#ff0000ff"/>
+    <component id="n6_pw6o" name="anchorTarget1" src="pw6o7l" fileName="components/temp01/TargetNode.xml" xy="99,99"/>
+  </displayList>
+</component>

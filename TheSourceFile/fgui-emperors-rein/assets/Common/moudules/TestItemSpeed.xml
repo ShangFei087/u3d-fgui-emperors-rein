@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="250,60">
+  <displayList>
+    <component id="n1_r8oz" name="x1" src="r8oz7" fileName="components/ButtonTestSpeed.xml" xy="10,13">
+      <Button title="x1"/>
+    </component>
+    <component id="n2_r8oz" name="x2" src="r8oz7" fileName="components/ButtonTestSpeed.xml" xy="66,13">
+      <Button title="x2"/>
+    </component>
+    <component id="n3_r8oz" name="x10" src="r8oz7" fileName="components/ButtonTestSpeed.xml" xy="122,13">
+      <Button title="x10"/>
+    </component>
+  </displayList>
+  <customProperty target="title" propertyId="0" label="标题"/>
+</component>

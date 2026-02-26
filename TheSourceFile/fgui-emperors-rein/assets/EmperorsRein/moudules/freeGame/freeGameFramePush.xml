@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <image id="n0_q50n" name="n0" src="trhyt" fileName="images/pageGameMain/frame/gameFrame/ng_img_BorderUp.png" xy="-523,-429">
+      <relation target="" sidePair="height-height"/>
+    </image>
+    <image id="n30_rzdn" name="n30" src="rzdn1bk" fileName="images/pageGameMain/frame/gameFrame/免费戏游01.png" xy="-327,-544"/>
+    <image id="n31_rzdn" name="n31" src="rzdn1ca" fileName="images/pageGameMain/frame/gameFrame/FREE GAMES_Push.png" xy="159,-488" pivot="0.5,0.5" anchor="true"/>
+    <image id="n13_qdjt" name="n13" src="o1y0pb" fileName="images/pageGameMain/frame/gameFrame/gameMainDi.png" xy="-524,-431"/>
+    <image id="n1_q50n" name="n1" src="trhys" fileName="images/pageGameMain/frame/gameFrame/ng_img_BorderLeft.png" xy="497,-283"/>
+    <image id="n2_q50n" name="n2" src="trhys" fileName="images/pageGameMain/frame/gameFrame/ng_img_BorderLeft.png" xy="-462,-289" skew="0,180"/>
+    <image id="n3_q50n" name="n3" src="trhyr" fileName="images/pageGameMain/frame/gameFrame/ng_img_BorderDown.png" xy="-492,376"/>
+    <component id="n9_m5yp" name="anchorFsEffect01" src="h33one" fileName="components/gameMainEffect/AnchorEffect.xml" xy="23,-314"/>
+    <image id="n10_m5yp" name="n10" src="trhyw" fileName="images/pageGameMain/frame/gameFrame/鹰.png" xy="-241,-352"/>
+    <image id="n8_kpxm" name="n8" src="plwz1o" fileName="images/pageGameMain/frame/gameFrame/罗马_.png" xy="-102,-332" visible="false"/>
+    <text id="n7_q50n" name="n7" xy="247,-519" size="65,62" font="ui://vdmp4vsrqdjtoy" fontSize="16" align="center" vAlign="middle" autoSize="shrink" text="6"/>
+    <text id="n17_qdjt" name="ERCredits" xy="-240,-510" size="164,47" font="ui://vdmp4vsrqdjtoz" fontSize="14" color="#666666" align="center" vAlign="middle" letterSpacing="5" autoSize="shrink" text="11">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <image id="n20_rzdn" name="n20" src="rzdn1bb" fileName="images/pageGameMain/frame/gameFrame/WIN01.png" xy="-88,-453"/>
+    <image id="n21_rzdn" name="n21" src="rzdn1ba" fileName="images/pageGameMain/frame/gameFrame/WIN.png" xy="11,-433" pivot="0.5,0.5" anchor="true"/>
+    <image id="n22_rzdn" name="n22" src="rzdn1b7" fileName="images/pageGameMain/frame/gameFrame/CREDIT01.png" xy="241,-453"/>
+    <image id="n23_rzdn" name="n23" src="rzdn1b6" fileName="images/pageGameMain/frame/gameFrame/CREDIT_COIN01.png" xy="-390,-453"/>
+    <image id="n24_rzdn" name="n24" src="rzdn1bc" fileName="images/pageGameMain/frame/gameFrame/CREDIT.png" xy="316,-433" pivot="0.5,0.5" anchor="true"/>
+    <image id="n25_rzdn" name="n25" src="rzdn1bd" fileName="images/pageGameMain/frame/gameFrame/CREDIT_COIN.png" xy="-283,-433" pivot="0.5,0.5" anchor="true"/>
+    <image id="n26_rzdn" name="n26" src="rzdn1b9" fileName="images/pageGameMain/frame/gameFrame/bg_total_win.png" xy="-251,-555"/>
+    <image id="n27_rzdn" name="n27" src="rzdn1b8" fileName="images/pageGameMain/frame/gameFrame/TOTAI WIN.png" xy="-153,-534" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>

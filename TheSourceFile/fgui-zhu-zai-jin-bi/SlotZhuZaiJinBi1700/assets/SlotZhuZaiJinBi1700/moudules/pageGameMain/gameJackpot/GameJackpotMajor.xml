@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="230,58">
+  <displayList>
+    <image id="n2_e6zw" name="n2" src="n4dd3u" fileName="images/gameJackpot/fg_Title_Maior.png" xy="0,0"/>
+    <list id="n1_e6zw" name="reels" xy="9,16" size="210,34" layout="row" overflow="hidden" defaultItem="ui://zcotsi26e6zw7n" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+  </displayList>
+</component>

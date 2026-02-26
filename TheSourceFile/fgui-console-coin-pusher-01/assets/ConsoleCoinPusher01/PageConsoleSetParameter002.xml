@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_paul" name="base" src="paul3" fileName="moudules/MDPageBase.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="title" propertyId="0" value="/游戏设定"/>
+    </component>
+    <list id="n10_paul" name="items" xy="50,125" size="980,1670" overflow="hidden" lineGap="10" defaultItem="ui://tdkeq960paul7">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <item name="setting1">
+        <property target="title" propertyId="0" value="参数1"/>
+        <property target="value" propertyId="0" value="9"/>
+      </item>
+      <item name="setting2">
+        <property target="title" propertyId="0" value="参数2"/>
+        <property target="value" propertyId="0" value="22222"/>
+      </item>
+      <item name="sure">
+        <property target="title" propertyId="0" value="确定"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+    </list>
+    <component id="n11_eu3h" name="keyboard" src="mc8pr" fileName="moudules/Keyboard02.xml" xy="49,1425"/>
+    <component id="n13_l9e6" name="keyboard01" src="86hhp" fileName="moudules/Keyboard01.xml" xy="50,1546" visible="false"/>
+    <component id="n12_q7uh" name="tip" src="86hhj" fileName="components/ItemTip2.xml" xy="50,412">
+      <property target="title" propertyId="0" value=""/>
+    </component>
+  </displayList>
+</component>

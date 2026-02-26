@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <graph id="n0_lmms" name="holder" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" type="rect" lineSize="0"/>
+    <loader id="n1_lmms" name="example" xy="1,0" pivot="0.5,0.5" anchor="true" size="488,265" url="ui://zcotsi26ipzb52" align="center" vAlign="middle" autoSize="true" clearOnPublish="true"/>
+  </displayList>
+</component>

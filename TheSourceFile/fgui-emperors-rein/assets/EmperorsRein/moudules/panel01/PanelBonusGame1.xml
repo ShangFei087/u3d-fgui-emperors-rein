@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,157">
+  <displayList>
+    <component id="n11_w36x" name="frame" src="ldsc129" fileName="moudules/GameDiFrame.xml" xy="0,0"/>
+    <component id="n23_w36x" name="win" src="ldsc12m" fileName="moudules/Win.xml" xy="453,35"/>
+    <component id="n21_w36x" name="ButtonSpin" src="ldsc14x" fileName="components/BtnSpinBonusGame1.xml" xy="875,12"/>
+    <text id="n18_w36x" name="BetTable" xy="274,67" size="100,69" fontSize="52" color="#cccccc" align="center" vAlign="middle" autoSize="shrink" text="100">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <text id="n19_w36x" name="ERCredits" xy="705,88" size="146,50" fontSize="37" color="#cccccc" align="center" vAlign="middle" letterSpacing="5" autoSize="shrink" text="99700">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <image id="n33_p2ae" name="n33" src="ldsc14n" fileName="images/button/add1_1.png" xy="380,53"/>
+    <image id="n34_p2ae" name="n34" src="ldsc14q" fileName="images/button/reduce1_1.png" xy="211,53"/>
+    <image id="n35_p2ae" name="n35" src="ldsc14v" fileName="images/frame/previewer_1.png" xy="697,59"/>
+    <image id="n36_p2ae" name="n36" src="ldsc12r" fileName="images/button/info_1.png" xy="80,75"/>
+  </displayList>
+</component>

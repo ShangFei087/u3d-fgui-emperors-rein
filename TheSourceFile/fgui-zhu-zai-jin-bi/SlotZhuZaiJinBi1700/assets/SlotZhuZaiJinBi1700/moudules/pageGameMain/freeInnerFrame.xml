@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="750,361" overflow="hidden">
+  <displayList>
+    <image id="n0_vxrw" name="n0" src="n4dd3m" fileName="images/pageGameMain/freeFrame/fg_img_bg_01.png" xy="750,0" pivot="1,0" anchor="true" size="375,361"/>
+    <image id="n1_vxrw" name="n1" src="n4dd3m" fileName="images/pageGameMain/freeFrame/fg_img_bg_01.png" xy="375,0" size="375,360" scale="-1,1"/>
+    <image id="n3_vxrw" name="n3" src="n4dd3r" fileName="images/pageGameMain/freeFrame/fg_img_Line.png" xy="48,-121"/>
+    <image id="n4_vxrw" name="n4" src="n4dd3r" fileName="images/pageGameMain/freeFrame/fg_img_Line.png" xy="178,-121"/>
+    <image id="n5_vxrw" name="n5" src="n4dd3r" fileName="images/pageGameMain/freeFrame/fg_img_Line.png" xy="308,-121"/>
+    <image id="n6_vxrw" name="n6" src="n4dd3r" fileName="images/pageGameMain/freeFrame/fg_img_Line.png" xy="438,-121"/>
+    <image id="n10_vxrw" name="n10" src="n4dd3r" fileName="images/pageGameMain/freeFrame/fg_img_Line.png" xy="568,-121"/>
+    <image id="n11_vxrw" name="n11" src="n4dd3r" fileName="images/pageGameMain/freeFrame/fg_img_Line.png" xy="700,-121"/>
+  </displayList>
+</component>

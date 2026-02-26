@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n4_jfvg" name="n4" src="vv1y5c" fileName="components/Mash.xml" xy="0,0"/>
+    <component id="n0_jfvg" name="anchorPopup" src="jfvg63" fileName="components/popupFreeSpinTrigger/AnchorPopup.xml" xy="528,863" size="1,1" scale="1.5,1.5"/>
+    <image id="n1_jfvg" name="n1" src="jfvg6i" fileName="images/popupFreeSpinTrigger/jp_txt_youwin.png" xy="357,774" pivot="0.5,0.5" scale="1.5,1.5"/>
+    <text id="n2_jfvg" name="number" xy="540,990" pivot="0.5,0.5" anchor="true" size="246,142" font="ui://zcotsi26jfvg6u" fontSize="19" align="center" vAlign="middle" text="10"/>
+    <image id="n3_jfvg" name="n3" src="jfvg6f" fileName="images/popupFreeSpinTrigger/jp_txt_enterbonus.png" xy="544,1139" pivot="0.5,0.5" anchor="true" scale="1.5,1.5"/>
+  </displayList>
+</component>

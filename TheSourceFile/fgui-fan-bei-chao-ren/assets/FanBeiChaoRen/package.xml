@@ -1,0 +1,1120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="9kq20tea">
+  <resources>
+    <component id="trw20" name="PageGameMain.xml" path="/" exported="true"/>
+    <component id="bllo2" name="PopupGameLoading.xml" path="/" exported="true"/>
+    <image id="bllo3" name="bg.png" path="/images/PopupGameLoading/"/>
+    <image id="bllo8" name="加载点.png" path="/images/PopupGameLoading/"/>
+    <image id="bllo9" name="加载条.png" path="/images/PopupGameLoading/" scale="9grid" scale9grid="145,15,290,30"/>
+    <image id="blloa" name="加载条01.png" path="/images/PopupGameLoading/"/>
+    <image id="bllob" name="图层 1556.png" path="/images/PopupGameLoading/" scale="tile" scale9grid="18,2,69,32"/>
+    <component id="blloc" name="Slider_grip.xml" path="/components/gameLoading/" exported="true"/>
+    <component id="bllod" name="Slider.xml" path="/components/gameLoading/" exported="true"/>
+    <image id="bllog" name="gme_loading_mask.png" path="/images/PopupGameLoading/" scale="9grid" scale9grid="12,8,24,16"/>
+    <component id="blloi" name="ProgressBar1.xml" path="/components/gameLoading/" exported="true"/>
+    <component id="bllol" name="PopupBigWin.xml" path="/" exported="true"/>
+    <component id="bllov" name="AnchorRootDefault.xml" path="/components/" exported="true"/>
+    <component id="bllox" name="AnchorBigWin.xml" path="/components/gameBigWin/" exported="true"/>
+    <image id="blloy" name="Img_Bigwin-idle_0.png" path="/images/example/"/>
+    <image id="blloz" name="npc_0.png" path="/images/example/" qualityOption="source" disableTrim="true"/>
+    <component id="bllo10" name="Mask.xml" path="/components/" exported="true"/>
+    <font id="fv2712" name="BigWinFont.fnt" path="/fonts/" exported="true"/>
+    <image id="fv2713" name="ng_txt_zj0.png" path="/images/PopupBigWin/number/"/>
+    <image id="fv2714" name="ng_txt_zj1.png" path="/images/PopupBigWin/number/"/>
+    <image id="fv2715" name="ng_txt_zj2.png" path="/images/PopupBigWin/number/"/>
+    <image id="fv2716" name="ng_txt_zj3.png" path="/images/PopupBigWin/number/"/>
+    <image id="fv2717" name="ng_txt_zj4.png" path="/images/PopupBigWin/number/"/>
+    <image id="fv2718" name="ng_txt_zj5.png" path="/images/PopupBigWin/number/"/>
+    <image id="fv2719" name="ng_txt_zj6.png" path="/images/PopupBigWin/number/"/>
+    <image id="fv271a" name="ng_txt_zj7.png" path="/images/PopupBigWin/number/"/>
+    <image id="fv271b" name="ng_txt_zj8.png" path="/images/PopupBigWin/number/"/>
+    <image id="fv271c" name="ng_txt_zj9.png" path="/images/PopupBigWin/number/"/>
+    <image id="fv271d" name="ng_txt_zjdian.png" path="/images/PopupBigWin/number/"/>
+    <image id="fv271e" name="ng_txt_zjdou.png" path="/images/PopupBigWin/number/"/>
+    <component id="fv271f" name="Button1.xml" path="/components/" exported="true"/>
+    <component id="fv271g" name="PopupXRay.xml" path="/" exported="true"/>
+    <image id="fv271i" name="fg_txt_X-RAY.png" path="/images/PopuXRay/"/>
+    <image id="fv271j" name="fg_txt_X-RAY2.png" path="/images/PopuXRay/"/>
+    <component id="fv271m" name="PageGameXRay.xml" path="/" exported="true"/>
+    <image id="fv271n" name="fg_ic_bxx.png" path="/images/PageGameXRay/"/>
+    <image id="fv271o" name="fg_ic_bxxk.png" path="/images/PageGameXRay/"/>
+    <image id="fv271r" name="ng_img_20 link.png" path="/images/PageGameMain/"/>
+    <image id="fv271s" name="ng_img_zhukuang.png" path="/images/PageGameMain/"/>
+    <image id="fv271t" name="ng_txt_20 link.png" path="/images/PageGameMain/"/>
+    <image id="fv271u" name="fg_bg_bj2.png" path="/images/PageGameMain/"/>
+    <image id="fv271v" name="ng_bg_bj2.png" path="/images/PageGameMain/"/>
+    <component id="fv271w" name="NormalMainFrameSlot.xml" path="/moudules/PageGameMain/" exported="true"/>
+    <image id="fv271x" name="fg_txt_X-RAY.png" path="/images/PageGameXRay/"/>
+    <component id="fv2720" name="AnchorNpc.xml" path="/components/PageGameXRay/" exported="true"/>
+    <image id="fv2721" name="fg_bg_npc_2-sheguang_3_1.png" path="/images/PageGameXRay/"/>
+    <image id="fv2722" name="fg_bg_npc_2-sheguang2_2.png" path="/images/PageGameXRay/"/>
+    <component id="fv2724" name="SafeBoxBtn.xml" path="/components/PageGameXRay/"/>
+    <image id="hjsh25" name="sg_num_h0.png" path="/images/PageGameXRay/BonusYellownumber/"/>
+    <image id="hjsh26" name="sg_num_b8.png" path="/images/PageGameXRay/BonusBluenumber/"/>
+    <image id="hjsh27" name="sg_num_b7.png" path="/images/PageGameXRay/BonusBluenumber/"/>
+    <image id="hjsh28" name="sg_num_b6.png" path="/images/PageGameXRay/BonusBluenumber/"/>
+    <image id="hjsh29" name="sg_num_b5.png" path="/images/PageGameXRay/BonusBluenumber/"/>
+    <image id="hjsh2a" name="sg_num_b4.png" path="/images/PageGameXRay/BonusBluenumber/"/>
+    <image id="hjsh2b" name="sg_num_b3.png" path="/images/PageGameXRay/BonusBluenumber/"/>
+    <image id="hjsh2c" name="sg_num_b2.png" path="/images/PageGameXRay/BonusBluenumber/"/>
+    <image id="hjsh2d" name="sg_num_b1.png" path="/images/PageGameXRay/BonusBluenumber/"/>
+    <image id="hjsh2e" name="sg_num_b0.png" path="/images/PageGameXRay/BonusBluenumber/"/>
+    <image id="hjsh2f" name="sg_num_hx.png" path="/images/PageGameXRay/BonusYellownumber/"/>
+    <image id="hjsh2g" name="sg_num_h9.png" path="/images/PageGameXRay/BonusYellownumber/"/>
+    <image id="hjsh2h" name="sg_num_h8.png" path="/images/PageGameXRay/BonusYellownumber/"/>
+    <image id="hjsh2i" name="sg_num_h7.png" path="/images/PageGameXRay/BonusYellownumber/"/>
+    <image id="hjsh2j" name="sg_num_h6.png" path="/images/PageGameXRay/BonusYellownumber/"/>
+    <image id="hjsh2k" name="sg_num_h5.png" path="/images/PageGameXRay/BonusYellownumber/"/>
+    <image id="hjsh2l" name="sg_num_h4.png" path="/images/PageGameXRay/BonusYellownumber/"/>
+    <image id="hjsh2m" name="sg_num_h3.png" path="/images/PageGameXRay/BonusYellownumber/"/>
+    <image id="hjsh2n" name="sg_num_h2.png" path="/images/PageGameXRay/BonusYellownumber/"/>
+    <image id="hjsh2o" name="sg_num_h1.png" path="/images/PageGameXRay/BonusYellownumber/"/>
+    <image id="hjsh2p" name="sg_num_b9.png" path="/images/PageGameXRay/BonusBluenumber/"/>
+    <image id="hjsh2q" name="sg_num_bx.png" path="/images/PageGameXRay/BonusBluenumber/"/>
+    <font id="hjsh2r" name="BonusBlueFont.fnt" path="/fonts/" exported="true"/>
+    <font id="hjsh2s" name="BonusYellowFont.fnt" path="/fonts/" exported="true"/>
+    <image id="hjsh2u" name="ng_txt_MULTIPLIER MAN.png" path="/images/BonusSettle/"/>
+    <image id="hjsh2v" name="ng_txt_multiplier.png" path="/images/BonusSettle/"/>
+    <image id="hjsh2w" name="ng_txt_QUICK CHANGE BONUS .png" path="/images/BonusSettle/"/>
+    <image id="hjsh2x" name="ng_txt_STACKED WILD.png" path="/images/BonusSettle/"/>
+    <image id="hjsh2y" name="ng_txt_TOTAL BET_.png" path="/images/BonusSettle/"/>
+    <image id="hjsh2z" name="ng_txt_TOUCH TO COLLECT.png" path="/images/BonusSettle/"/>
+    <image id="hjsh30" name="ng_txt_Touch to continue.png" path="/images/BonusSettle/"/>
+    <image id="hjsh31" name="ng_txt_YOU TRIGGERED.png" path="/images/BonusSettle/"/>
+    <image id="hjsh32" name="ng_txt_YOU WON.png" path="/images/BonusSettle/"/>
+    <component id="hjsh33" name="FreeMainFrameSlot.xml" path="/moudules/PageGameMain/" exported="true"/>
+    <image id="hjsh34" name="fg_img_free gamecisu.png" path="/images/PageGameMain/"/>
+    <image id="hjsh35" name="fg_txt_FREE GAMES.png" path="/images/PageGameMain/"/>
+    <image id="hjsh36" name="fg_num_0.png" path="/images/PageGameMain/freetimenumber/"/>
+    <image id="hjsh37" name="fg_num_1.png" path="/images/PageGameMain/freetimenumber/"/>
+    <image id="hjsh38" name="fg_num_2.png" path="/images/PageGameMain/freetimenumber/"/>
+    <image id="hjsh39" name="fg_num_3.png" path="/images/PageGameMain/freetimenumber/"/>
+    <image id="hjsh3a" name="fg_num_4.png" path="/images/PageGameMain/freetimenumber/"/>
+    <image id="hjsh3b" name="fg_num_5.png" path="/images/PageGameMain/freetimenumber/"/>
+    <image id="hjsh3c" name="fg_num_6.png" path="/images/PageGameMain/freetimenumber/"/>
+    <image id="hjsh3d" name="fg_num_7.png" path="/images/PageGameMain/freetimenumber/"/>
+    <image id="hjsh3e" name="fg_num_8.png" path="/images/PageGameMain/freetimenumber/"/>
+    <image id="hjsh3f" name="fg_num_9.png" path="/images/PageGameMain/freetimenumber/"/>
+    <image id="hjsh3g" name="fg_num_p.png" path="/images/PageGameMain/freetimenumber/"/>
+    <font id="hjsh3h" name="FreeTimeFont.fnt" path="/fonts/" exported="true"/>
+    <image id="hjsh3i" name="ng_Symbol1_10_00.png" path="/images/symbols/" exported="true"/>
+    <image id="hjsh3j" name="ng_Symbol2_J_00.png" path="/images/symbols/" exported="true"/>
+    <image id="hjsh3k" name="ng_Symbol3_Q_00.png" path="/images/symbols/" exported="true"/>
+    <image id="hjsh3l" name="ng_Symbol4_K_00.png" path="/images/symbols/" exported="true"/>
+    <image id="hjsh3m" name="ng_Symbol5_A_00.png" path="/images/symbols/" exported="true"/>
+    <image id="hjsh3n" name="ng_Symbol6_dog.png" path="/images/symbols/" exported="true"/>
+    <image id="hjsh3o" name="ng_Symbol7_secretary_00.png" path="/images/symbols/" exported="true"/>
+    <image id="hjsh3p" name="ng_Symbol8_Shark_00.png" path="/images/symbols/" exported="true"/>
+    <image id="hjsh3q" name="ng_Symbol9_gambler.png" path="/images/symbols/" exported="true"/>
+    <image id="hjsh3r" name="ng_Symbol10_Thief_00.png" path="/images/symbols/" exported="true"/>
+    <image id="hjsh3s" name="ng_Symbol11_Man_00.png" path="/images/symbols/" exported="true"/>
+    <image id="hjsh3t" name="ng_Symbol12_Wild.png" path="/images/symbols/" exported="true"/>
+    <image id="hjsh3u" name="ng_Symbol14_Free Spins_00.png" path="/images/symbols/" exported="true"/>
+    <image id="hjsh3v" name="ng_Symbol15_Bonus_00.png" path="/images/symbols/" exported="true"/>
+    <component id="hjsh3w" name="SlotMachine.xml" path="/moudules/slotMachine/"/>
+    <component id="hjsh4b" name="Symbol.xml" path="/moudules/slotMachine/"/>
+    <component id="hjsh4c" name="SymbolAnimator.xml" path="/moudules/slotMachine/"/>
+    <component id="hjsh4d" name="Symbols.xml" path="/moudules/slotMachine/"/>
+    <component id="hjsh4e" name="Reel.xml" path="/moudules/slotMachine/"/>
+    <component id="hjsh4f" name="Reels.xml" path="/moudules/slotMachine/"/>
+    <component id="hjsh4g" name="SlotCover.xml" path="/moudules/slotMachine/"/>
+    <component id="hjsh4h" name="Line1.xml" path="/moudules/playLine/"/>
+    <image id="hjsh4i" name="形状 3.png" path="/images/payLine/"/>
+    <image id="hjsh4j" name="形状 15 拷贝.png" path="/images/payLine/"/>
+    <image id="hjsh4k" name="形状 11.png" path="/images/payLine/"/>
+    <image id="hjsh4l" name="形状 11 拷贝.png" path="/images/payLine/"/>
+    <image id="hjsh4m" name="形状 10.png" path="/images/payLine/"/>
+    <image id="hjsh4n" name="形状 10 拷贝.png" path="/images/payLine/"/>
+    <image id="hjsh4o" name="形状 9.png" path="/images/payLine/"/>
+    <image id="hjsh4p" name="形状 9 拷贝.png" path="/images/payLine/"/>
+    <image id="hjsh4q" name="形状 8.png" path="/images/payLine/"/>
+    <image id="hjsh4r" name="形状 8 拷贝.png" path="/images/payLine/"/>
+    <image id="hjsh4s" name="形状 8 拷贝 3.png" path="/images/payLine/"/>
+    <image id="hjsh4t" name="形状 8 拷贝 2.png" path="/images/payLine/"/>
+    <image id="hjsh4u" name="形状 7.png" path="/images/payLine/"/>
+    <image id="hjsh4v" name="形状 7 拷贝.png" path="/images/payLine/"/>
+    <image id="hjsh4w" name="形状 6.png" path="/images/payLine/"/>
+    <image id="hjsh4x" name="形状 6 拷贝.png" path="/images/payLine/"/>
+    <image id="hjsh4y" name="形状 5.png" path="/images/payLine/"/>
+    <image id="hjsh4z" name="形状 4.png" path="/images/payLine/"/>
+    <image id="hjsh50" name="形状 15.png" path="/images/payLine/"/>
+    <image id="hjsh51" name="形状 19.png" path="/images/payLine/"/>
+    <image id="hjsh52" name="add1.png" path="/images/panel/Button/"/>
+    <image id="hjsh53" name="ng_coin_an_hold-hold_37.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh54" name="ng_coin_an_hold-hold_36.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh55" name="ng_coin_an_hold-hold_35.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh56" name="ng_coin_an_hold-hold_34.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh57" name="ng_coin_an_hold-hold_33.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh58" name="ng_coin_an_hold-hold_32.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh59" name="ng_coin_an_hold-hold_31.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5a" name="ng_coin_an_hold-hold_30.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5b" name="ng_coin_an_hold-hold_29.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5c" name="ng_coin_an_hold-hold_28.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5d" name="auto.png" path="/images/panel/effect/spin/"/>
+    <image id="hjsh5e" name="ng_coin_an_hold-hold_27.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5f" name="ng_coin_an_hold-hold_25.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5g" name="ng_coin_an_hold-hold_24.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5h" name="ng_coin_an_hold-hold_23.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5i" name="ng_coin_an_hold-hold_22.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5j" name="ng_coin_an_hold-hold_21.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5k" name="ng_coin_an_hold-hold_20.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5l" name="ng_coin_an_hold-hold_19.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5m" name="ng_coin_an_hold-hold_18.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5n" name="ng_coin_an_hold-hold_17.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5o" name="ng_coin_an_hold-hold_16.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5p" name="ng_coin_an_hold-hold_26.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5q" name="ng_coin_an_hold-hold_15.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh5r" name="ball_gray.png" path="/images/panel/effect/spin/"/>
+    <image id="hjsh5s" name="spin1.png" path="/images/panel/effect/spin/"/>
+    <image id="hjsh5t" name="翻页箭头1.png" path="/images/panel/Introduce/"/>
+    <image id="hjsh5u" name="翻页箭头.png" path="/images/panel/Introduce/"/>
+    <image id="hjsh5v" name="翻页按钮1.png" path="/images/panel/Introduce/"/>
+    <image id="hjsh5w" name="翻页按钮.png" path="/images/panel/Introduce/"/>
+    <image id="hjsh5x" name="矩形 1847.png" path="/images/panel/Introduce/"/>
+    <image id="hjsh5y" name="底框.png" path="/images/panel/Introduce/"/>
+    <image id="hjsh5z" name="beijing.png" path="/images/panel/Introduce/"/>
+    <image id="hjsh60" name="back_2.png" path="/images/panel/Introduce/"/>
+    <image id="hjsh61" name="back_1.png" path="/images/panel/Introduce/"/>
+    <image id="hjsh62" name="押注框1.png" path="/images/panel/frame/"/>
+    <image id="hjsh63" name="ball_red.png" path="/images/panel/effect/spin/"/>
+    <image id="hjsh64" name="底.png" path="/images/panel/frame/"/>
+    <image id="hjsh65" name="PRIZE VIEWER.png" path="/images/panel/frame/"/>
+    <image id="hjsh66" name="previewer_2.png" path="/images/panel/frame/"/>
+    <image id="hjsh67" name="previewer_1.png" path="/images/panel/frame/"/>
+    <image id="hjsh68" name="menu_ic_Roman.png" path="/images/panel/frame/"/>
+    <image id="hjsh69" name="info.png" path="/images/panel/frame/"/>
+    <image id="hjsh6a" name="GOOD LUCK.png" path="/images/panel/frame/"/>
+    <image id="hjsh6b" name="CREDUTS.png" path="/images/panel/frame/"/>
+    <image id="hjsh6c" name="Border.png" path="/images/panel/frame/"/>
+    <image id="hjsh6d" name="stop.png" path="/images/panel/effect/spin/"/>
+    <image id="hjsh6e" name="spin_gray.png" path="/images/panel/effect/spin/"/>
+    <image id="hjsh6f" name="win.png" path="/images/panel/frame/"/>
+    <image id="hjsh6g" name="边框.png" path="/images/panel/Introduce/"/>
+    <image id="hjsh6h" name="ng_coin_an_hold-hold_14.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh6i" name="ng_coin_an_hold-hold_12.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh6j" name="ng_coin_an_hold-auto_idle_05.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh6k" name="ng_coin_an_hold-auto_idle_04.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh6l" name="ng_coin_an_hold-auto_idle_03.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh6m" name="ng_coin_an_hold-auto_idle_02.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh6n" name="ng_coin_an_hold-auto_idle_01.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh6o" name="ng_coin_an_hold-auto_idle_00.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh6p" name="音量4.png" path="/images/panel/Button/"/>
+    <image id="hjsh6q" name="音量3.png" path="/images/panel/Button/"/>
+    <image id="hjsh6r" name="音量2.png" path="/images/panel/Button/"/>
+    <image id="hjsh6s" name="音量1.png" path="/images/panel/Button/"/>
+    <image id="hjsh6t" name="ng_coin_an_hold-auto_idle_06.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh6u" name="问号.png" path="/images/panel/Button/"/>
+    <image id="hjsh6v" name="spin_1.png" path="/images/panel/Button/"/>
+    <image id="hjsh6w" name="spin.png" path="/images/panel/Button/"/>
+    <image id="hjsh6x" name="reduce1_2.png" path="/images/panel/Button/"/>
+    <image id="hjsh6y" name="reduce1_1.png" path="/images/panel/Button/"/>
+    <image id="hjsh6z" name="quit_2.png" path="/images/panel/Button/"/>
+    <image id="hjsh70" name="quit_1.png" path="/images/panel/Button/"/>
+    <image id="hjsh71" name="info_2.png" path="/images/panel/Button/"/>
+    <image id="hjsh72" name="info_1.png" path="/images/panel/Button/"/>
+    <image id="hjsh73" name="auto_2.png" path="/images/panel/Button/"/>
+    <image id="hjsh74" name="add1_1.png" path="/images/panel/Button/"/>
+    <image id="hjsh75" name="stop.png" path="/images/panel/Button/"/>
+    <image id="hjsh76" name="ng_coin_an_hold-hold_13.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh77" name="ng_coin_an_hold-auto_idle_07.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh78" name="ng_coin_an_hold-auto_idle_09.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh79" name="ng_coin_an_hold-hold_11.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh7a" name="ng_coin_an_hold-hold_10.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh7b" name="ng_coin_an_hold-hold_09.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh7c" name="ng_coin_an_hold-hold_08.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh7d" name="ng_coin_an_hold-hold_07.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh7e" name="ng_coin_an_hold-hold_06.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh7f" name="ng_coin_an_hold-hold_05.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh7g" name="ng_coin_an_hold-hold_04.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh7h" name="ng_coin_an_hold-hold_03.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh7i" name="ng_coin_an_hold-hold_02.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh7j" name="ng_coin_an_hold-auto_idle_08.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh7k" name="ng_coin_an_hold-hold_01.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh7l" name="ng_coin_an_hold-auto_idle_19.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh7m" name="ng_coin_an_hold-auto_idle_18.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh7n" name="ng_coin_an_hold-auto_idle_17.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh7o" name="ng_coin_an_hold-auto_idle_16.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh7p" name="ng_coin_an_hold-auto_idle_15.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh7q" name="ng_coin_an_hold-auto_idle_14.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh7r" name="ng_coin_an_hold-auto_idle_13.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh7s" name="ng_coin_an_hold-auto_idle_12.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh7t" name="ng_coin_an_hold-auto_idle_11.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh7u" name="ng_coin_an_hold-auto_idle_10.png" path="/images/panel/effect/effectAuto/"/>
+    <image id="hjsh7v" name="ng_coin_an_hold-hold_00.png" path="/images/panel/effect/effectToAuto/"/>
+    <image id="hjsh7w" name="顶框.png" path="/images/panel/Introduce/"/>
+    <component id="hjsh7x" name="AnchorPlayLines.xml" path="/components/"/>
+    <component id="j6jo81" name="Line2.xml" path="/moudules/playLine/"/>
+    <component id="j6jo82" name="Line3.xml" path="/moudules/playLine/"/>
+    <component id="j6jo83" name="Line7.xml" path="/moudules/playLine/"/>
+    <component id="j6jo84" name="Line8.xml" path="/moudules/playLine/"/>
+    <component id="j6jo85" name="Line9.xml" path="/moudules/playLine/"/>
+    <component id="j6jo86" name="Line10.xml" path="/moudules/playLine/"/>
+    <component id="j6jo87" name="Line11.xml" path="/moudules/playLine/"/>
+    <component id="j6jo88" name="Line12.xml" path="/moudules/playLine/"/>
+    <component id="j6jo89" name="Line13.xml" path="/moudules/playLine/"/>
+    <component id="j6jo8a" name="Line14.xml" path="/moudules/playLine/"/>
+    <component id="j6jo8b" name="Line4.xml" path="/moudules/playLine/"/>
+    <component id="j6jo8c" name="Line5.xml" path="/moudules/playLine/"/>
+    <component id="j6jo8d" name="Line6.xml" path="/moudules/playLine/"/>
+    <component id="j6jo8e" name="Line15.xml" path="/moudules/playLine/"/>
+    <component id="j6jo8f" name="Line16.xml" path="/moudules/playLine/"/>
+    <component id="j6jo8g" name="Line17.xml" path="/moudules/playLine/"/>
+    <component id="j6jo8h" name="Line18.xml" path="/moudules/playLine/"/>
+    <component id="j6jo8i" name="Line19.xml" path="/moudules/playLine/"/>
+    <component id="j6jo8j" name="Line20.xml" path="/moudules/playLine/"/>
+    <image id="nyeg8k" name="sg_btn_higher.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg8l" name="sg_img_pkphtQ.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg8m" name="sg_img_pkpmh2.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg8n" name="sg_img_pkpmh3.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg8o" name="sg_img_pkpmh4.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg8p" name="sg_img_pkpmh5.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg8q" name="sg_img_pkpmh6.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg8r" name="sg_img_pkpmh7.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg8s" name="sg_img_pkpmh8.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg8t" name="sg_img_pkpmh9.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg8u" name="sg_img_pkpmh10.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg8v" name="sg_img_pkpmhA.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg8w" name="sg_img_pkpmhJ.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg8x" name="sg_img_pkpmhK.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg8y" name="sg_img_pkpmhQ.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg8z" name="sg_img_pkprt2.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg90" name="sg_img_pkprt3.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg91" name="sg_img_pkprt4.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg92" name="sg_img_pkprt5.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg93" name="sg_img_pkprt6.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg94" name="sg_img_pkprt7.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg95" name="sg_img_pkprt8.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg96" name="sg_img_pkprt9.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg97" name="sg_img_pkprt10.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg98" name="sg_img_pkprtA.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg99" name="sg_img_pkprtJ.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9a" name="sg_img_pkphtK.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9b" name="sg_img_pkphtJ.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9c" name="sg_img_pkphtA.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9d" name="sg_img_pkpht10.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9e" name="sg_btn_higher2.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9f" name="sg_btn_lower.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9g" name="sg_btn_lower2.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9h" name="sg_img_pkpbm.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9i" name="sg_img_pkpbml.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9j" name="sg_img_pkpfk2.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9k" name="sg_img_pkpfk3.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9l" name="sg_img_pkpfk4.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9m" name="sg_img_pkpfk5.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9n" name="sg_img_pkpfk6.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9o" name="sg_img_pkpfk7.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9p" name="sg_img_pkpfk8.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9q" name="sg_img_pkprtK.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9r" name="sg_img_pkpfk9.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9s" name="sg_img_pkpfkA.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9t" name="sg_img_pkpfkJ.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9u" name="sg_img_pkpfkK.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9v" name="sg_img_pkpfkQ.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9w" name="sg_img_pkpht2.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9x" name="sg_img_pkpht3.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9y" name="sg_img_pkpht4.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyeg9z" name="sg_img_pkpht5.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyega0" name="sg_img_pkpht6.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyega1" name="sg_img_pkpht7.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyega2" name="sg_img_pkpht8.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyega3" name="sg_img_pkpht9.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyega4" name="sg_img_pkpfk10.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyega5" name="sg_img_pkprtQ.png" path="/images/pageGameQuickChangeBonus/poket/"/>
+    <image id="nyega6" name="sg_img_bk.png" path="/images/pageGameQuickChangeBonus/"/>
+    <image id="nyega7" name="sg_img_bonuskuang.png" path="/images/pageGameQuickChangeBonus/"/>
+    <image id="nyega8" name="sg_img_yk.png" path="/images/pageGameQuickChangeBonus/"/>
+    <component id="hjsh7y" name="Line2.xml" path="/moudules/playLine/"/>
+    <component id="hjsh80" name="Line3.xml" path="/moudules/playLine/"/>
+    <component id="p1ks81" name="AnchorPanel.xml" path="/components/"/>
+    <image id="nphra9" name="ng_Symbol1_10_00.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphraa" name="ng_Symbol9_gambler34.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrab" name="ng_Symbol9_gambler33.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrac" name="ng_Symbol9_gambler32.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrad" name="ng_Symbol9_gambler31.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrae" name="ng_Symbol9_gambler30.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphraf" name="ng_Symbol9_gambler29.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrag" name="ng_Symbol9_gambler28.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrah" name="ng_Symbol9_gambler27.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrai" name="ng_Symbol9_gambler26.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphraj" name="ng_Symbol9_gambler25.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrak" name="ng_Symbol9_gambler24.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphral" name="ng_Symbol9_gambler23.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphram" name="ng_Symbol9_gambler22.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphran" name="ng_Symbol9_gambler35.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrao" name="ng_Symbol9_gambler21.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrap" name="ng_Symbol9_gambler19.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphraq" name="ng_Symbol9_gambler18.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrar" name="ng_Symbol9_gambler17.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphras" name="ng_Symbol9_gambler16.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrat" name="ng_Symbol9_gambler15.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrau" name="ng_Symbol9_gambler14.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrav" name="ng_Symbol9_gambler13.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphraw" name="ng_Symbol9_gambler12.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrax" name="ng_Symbol9_gambler11.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphray" name="ng_Symbol9_gambler10.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphraz" name="ng_Symbol9_gambler09.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrb0" name="ng_Symbol9_gambler08.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrb1" name="ng_Symbol9_gambler07.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrb2" name="ng_Symbol9_gambler20.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrb3" name="ng_Symbol9_gambler36.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrb4" name="ng_Symbol9_gambler37.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrb5" name="ng_Symbol9_gambler38.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrb6" name="ng_Symbol10_Thief_27.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrb7" name="ng_Symbol10_Thief_26.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrb8" name="ng_Symbol10_Thief_25.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrb9" name="ng_Symbol10_Thief_24.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrba" name="ng_Symbol10_Thief_23.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbb" name="ng_Symbol10_Thief_22.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbc" name="ng_Symbol10_Thief_21.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbd" name="ng_Symbol10_Thief_20.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbe" name="ng_Symbol10_Thief_19.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbf" name="ng_Symbol10_Thief_18.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbg" name="ng_Symbol10_Thief_17.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbh" name="ng_Symbol10_Thief_16.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbi" name="ng_Symbol10_Thief_15.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbj" name="ng_Symbol10_Thief_14.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbk" name="ng_Symbol10_Thief_13.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbl" name="ng_Symbol10_Thief_12.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbm" name="ng_Symbol10_Thief_11.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbn" name="ng_Symbol10_Thief_10.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbo" name="ng_Symbol10_Thief_09.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbp" name="ng_Symbol10_Thief_08.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbq" name="ng_Symbol10_Thief_07.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbr" name="ng_Symbol10_Thief_06.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbs" name="ng_Symbol10_Thief_05.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbt" name="ng_Symbol10_Thief_04.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbu" name="ng_Symbol10_Thief_03.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbv" name="ng_Symbol10_Thief_02.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbw" name="ng_Symbol10_Thief_01.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrbx" name="ng_Symbol10_Thief_00.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrby" name="ng_Symbol9_gambler39.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrbz" name="ng_Symbol9_gambler06.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrc0" name="ng_Symbol10_Thief_28.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrc1" name="ng_Symbol9_gambler05.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrc2" name="ng_Symbol9_gambler03.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrc3" name="ng_Symbol8_Shark_09.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrc4" name="ng_Symbol8_Shark_08.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrc5" name="ng_Symbol8_Shark_07.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrc6" name="ng_Symbol8_Shark_06.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrc7" name="ng_Symbol8_Shark_05.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrc8" name="ng_Symbol8_Shark_04.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrc9" name="ng_Symbol8_Shark_03.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrca" name="ng_Symbol8_Shark_02.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrcb" name="ng_Symbol8_Shark_01.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrcc" name="ng_Symbol8_Shark_00.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrcd" name="ng_Symbol7_secretary_39.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrce" name="ng_Symbol7_secretary_38.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrcf" name="ng_Symbol7_secretary_37.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrcg" name="ng_Symbol8_Shark_10.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrch" name="ng_Symbol7_secretary_36.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrci" name="ng_Symbol7_secretary_34.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrcj" name="ng_Symbol7_secretary_33.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrck" name="ng_Symbol7_secretary_32.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrcl" name="ng_Symbol7_secretary_31.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrcm" name="ng_Symbol7_secretary_30.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrcn" name="ng_Symbol7_secretary_29.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrco" name="ng_Symbol7_secretary_28.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrcp" name="ng_Symbol7_secretary_27.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrcq" name="ng_Symbol7_secretary_26.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrcr" name="ng_Symbol7_secretary_25.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrcs" name="ng_Symbol7_secretary_24.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrct" name="ng_Symbol7_secretary_23.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrcu" name="ng_Symbol7_secretary_22.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrcv" name="ng_Symbol7_secretary_35.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrcw" name="ng_Symbol8_Shark_11.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrcx" name="ng_Symbol8_Shark_12.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrcy" name="ng_Symbol8_Shark_13.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrcz" name="ng_Symbol9_gambler02.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrd0" name="ng_Symbol9_gambler01.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrd1" name="ng_Symbol9_gambler00.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrd2" name="ng_Symbol8_Shark_39.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrd3" name="ng_Symbol8_Shark_38.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrd4" name="ng_Symbol8_Shark_37.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrd5" name="ng_Symbol8_Shark_36.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrd6" name="ng_Symbol8_Shark_35.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrd7" name="ng_Symbol8_Shark_34.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrd8" name="ng_Symbol8_Shark_33.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrd9" name="ng_Symbol8_Shark_32.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrda" name="ng_Symbol8_Shark_31.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrdb" name="ng_Symbol8_Shark_30.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrdc" name="ng_Symbol8_Shark_29.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrdd" name="ng_Symbol8_Shark_28.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrde" name="ng_Symbol8_Shark_27.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrdf" name="ng_Symbol8_Shark_26.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrdg" name="ng_Symbol8_Shark_25.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrdh" name="ng_Symbol8_Shark_24.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrdi" name="ng_Symbol8_Shark_23.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrdj" name="ng_Symbol8_Shark_22.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrdk" name="ng_Symbol8_Shark_21.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrdl" name="ng_Symbol8_Shark_20.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrdm" name="ng_Symbol8_Shark_19.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrdn" name="ng_Symbol8_Shark_18.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrdo" name="ng_Symbol8_Shark_17.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrdp" name="ng_Symbol8_Shark_16.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrdq" name="ng_Symbol8_Shark_15.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrdr" name="ng_Symbol8_Shark_14.png" path="/images/symbolAni/ng_Symbol8_Shark/"/>
+    <image id="nphrds" name="ng_Symbol9_gambler04.png" path="/images/symbolAni/ng_Symbol9_gambler/"/>
+    <image id="nphrdt" name="ng_Symbol10_Thief_29.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrdu" name="ng_Symbol10_Thief_30.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrdv" name="ng_Symbol10_Thief_31.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrdw" name="ng_Symbol15_Bonus_04.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrdx" name="ng_Symbol15_Bonus_03.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrdy" name="ng_Symbol15_Bonus_02.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrdz" name="ng_Symbol15_Bonus_01.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphre0" name="ng_Symbol15_Bonus_00.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphre1" name="ng_Symbol14_Free Spins_39.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphre2" name="ng_Symbol14_Free Spins_38.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphre3" name="ng_Symbol14_Free Spins_37.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphre4" name="ng_Symbol14_Free Spins_36.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphre5" name="ng_Symbol14_Free Spins_35.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphre6" name="ng_Symbol14_Free Spins_34.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphre7" name="ng_Symbol14_Free Spins_33.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphre8" name="ng_Symbol14_Free Spins_32.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphre9" name="ng_Symbol15_Bonus_05.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrea" name="ng_Symbol14_Free Spins_31.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphreb" name="ng_Symbol14_Free Spins_29.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrec" name="ng_Symbol14_Free Spins_28.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphred" name="ng_Symbol14_Free Spins_27.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphree" name="ng_Symbol14_Free Spins_26.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphref" name="ng_Symbol14_Free Spins_25.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphreg" name="ng_Symbol14_Free Spins_24.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphreh" name="ng_Symbol14_Free Spins_23.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrei" name="ng_Symbol14_Free Spins_22.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrej" name="ng_Symbol14_Free Spins_21.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrek" name="ng_Symbol14_Free Spins_20.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrel" name="ng_Symbol14_Free Spins_19.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrem" name="ng_Symbol14_Free Spins_18.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphren" name="ng_Symbol14_Free Spins_17.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphreo" name="ng_Symbol14_Free Spins_30.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrep" name="ng_Symbol15_Bonus_06.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphreq" name="ng_Symbol15_Bonus_07.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrer" name="ng_Symbol15_Bonus_08.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphres" name="ng_Symbol15_Bonus_37.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphret" name="ng_Symbol15_Bonus_36.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphreu" name="ng_Symbol15_Bonus_35.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrev" name="ng_Symbol15_Bonus_34.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrew" name="ng_Symbol15_Bonus_33.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrex" name="ng_Symbol15_Bonus_32.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrey" name="ng_Symbol15_Bonus_31.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrez" name="ng_Symbol15_Bonus_30.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrf0" name="ng_Symbol15_Bonus_29.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrf1" name="ng_Symbol15_Bonus_28.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrf2" name="ng_Symbol15_Bonus_27.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrf3" name="ng_Symbol15_Bonus_26.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrf4" name="ng_Symbol15_Bonus_25.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrf5" name="ng_Symbol15_Bonus_24.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrf6" name="ng_Symbol15_Bonus_23.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrf7" name="ng_Symbol15_Bonus_22.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrf8" name="ng_Symbol15_Bonus_21.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrf9" name="ng_Symbol15_Bonus_20.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrfa" name="ng_Symbol15_Bonus_19.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrfb" name="ng_Symbol15_Bonus_18.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrfc" name="ng_Symbol15_Bonus_17.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrfd" name="ng_Symbol15_Bonus_16.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrfe" name="ng_Symbol15_Bonus_15.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrff" name="ng_Symbol15_Bonus_14.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrfg" name="ng_Symbol15_Bonus_13.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrfh" name="ng_Symbol15_Bonus_12.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrfi" name="ng_Symbol15_Bonus_11.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrfj" name="ng_Symbol15_Bonus_10.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrfk" name="ng_Symbol15_Bonus_09.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrfl" name="ng_Symbol14_Free Spins_16.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrfm" name="ng_Symbol14_Free Spins_15.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrfn" name="ng_Symbol14_Free Spins_14.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrfo" name="ng_Symbol14_Free Spins_13.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrfp" name="ng_Symbol11_Man_20.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrfq" name="ng_Symbol11_Man_19.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrfr" name="ng_Symbol11_Man_18.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrfs" name="ng_Symbol11_Man_17.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrft" name="ng_Symbol11_Man_16.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrfu" name="ng_Symbol11_Man_15.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrfv" name="ng_Symbol11_Man_14.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrfw" name="ng_Symbol11_Man_13.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrfx" name="ng_Symbol11_Man_12.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrfy" name="ng_Symbol11_Man_11.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrfz" name="ng_Symbol11_Man_10.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrg0" name="ng_Symbol11_Man_09.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrg1" name="ng_Symbol11_Man_08.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrg2" name="ng_Symbol11_Man_07.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrg3" name="ng_Symbol11_Man_06.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrg4" name="ng_Symbol11_Man_05.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrg5" name="ng_Symbol11_Man_04.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrg6" name="ng_Symbol11_Man_03.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrg7" name="ng_Symbol11_Man_02.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrg8" name="ng_Symbol11_Man_01.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrg9" name="ng_Symbol11_Man_00.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrga" name="ng_Symbol10_Thief_39.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrgb" name="ng_Symbol10_Thief_38.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrgc" name="ng_Symbol10_Thief_37.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrgd" name="ng_Symbol10_Thief_36.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrge" name="ng_Symbol10_Thief_35.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrgf" name="ng_Symbol10_Thief_34.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrgg" name="ng_Symbol10_Thief_33.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrgh" name="ng_Symbol10_Thief_32.png" path="/images/symbolAni/ng_Symbol10_Thief/"/>
+    <image id="nphrgi" name="ng_Symbol11_Man_21.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrgj" name="ng_Symbol7_secretary_21.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrgk" name="ng_Symbol11_Man_22.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrgl" name="ng_Symbol11_Man_24.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrgm" name="ng_Symbol14_Free Spins_12.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrgn" name="ng_Symbol14_Free Spins_11.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrgo" name="ng_Symbol14_Free Spins_10.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrgp" name="ng_Symbol14_Free Spins_09.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrgq" name="ng_Symbol14_Free Spins_08.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrgr" name="ng_Symbol14_Free Spins_07.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrgs" name="ng_Symbol14_Free Spins_06.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrgt" name="ng_Symbol14_Free Spins_05.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrgu" name="ng_Symbol14_Free Spins_04.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrgv" name="ng_Symbol14_Free Spins_03.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrgw" name="ng_Symbol14_Free Spins_02.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrgx" name="ng_Symbol14_Free Spins_01.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrgy" name="ng_Symbol14_Free Spins_00.png" path="/images/symbolAni/ng_Symbol14_Free Spins/"/>
+    <image id="nphrh0" name="ng_Symbol11_Man_39.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrh1" name="ng_Symbol11_Man_38.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrh2" name="ng_Symbol11_Man_37.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrh3" name="ng_Symbol11_Man_36.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrh4" name="ng_Symbol11_Man_35.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrh5" name="ng_Symbol11_Man_34.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrh6" name="ng_Symbol11_Man_33.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrh7" name="ng_Symbol11_Man_32.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrh8" name="ng_Symbol11_Man_31.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrh9" name="ng_Symbol11_Man_30.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrha" name="ng_Symbol11_Man_29.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrhb" name="ng_Symbol11_Man_28.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrhc" name="ng_Symbol11_Man_27.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrhd" name="ng_Symbol11_Man_26.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrhe" name="ng_Symbol11_Man_25.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrhf" name="ng_Symbol11_Man_23.png" path="/images/symbolAni/ng_Symbol11_Man/"/>
+    <image id="nphrhg" name="ng_Symbol15_Bonus_38.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <image id="nphrhh" name="ng_Symbol7_secretary_20.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrhi" name="ng_Symbol7_secretary_18.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrhj" name="ng_Symbol3_Q_13.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrhk" name="ng_Symbol3_Q_12.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrhl" name="ng_Symbol3_Q_11.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrhm" name="ng_Symbol3_Q_10.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrhn" name="ng_Symbol3_Q_09.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrho" name="ng_Symbol3_Q_08.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrhp" name="ng_Symbol3_Q_07.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrhq" name="ng_Symbol3_Q_06.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrhr" name="ng_Symbol3_Q_05.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrhs" name="ng_Symbol3_Q_04.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrht" name="ng_Symbol3_Q_03.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrhu" name="ng_Symbol3_Q_02.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrhv" name="ng_Symbol3_Q_01.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrhw" name="ng_Symbol3_Q_14.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrhx" name="ng_Symbol3_Q_00.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrhy" name="ng_Symbol2_J_38.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrhz" name="ng_Symbol2_J_37.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphri0" name="ng_Symbol2_J_36.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphri1" name="ng_Symbol2_J_35.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphri2" name="ng_Symbol2_J_34.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphri3" name="ng_Symbol2_J_33.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphri4" name="ng_Symbol2_J_32.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphri5" name="ng_Symbol2_J_31.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphri6" name="ng_Symbol2_J_30.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphri7" name="ng_Symbol2_J_29.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphri8" name="ng_Symbol2_J_28.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphri9" name="ng_Symbol2_J_27.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphria" name="ng_Symbol2_J_26.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrib" name="ng_Symbol2_J_39.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphric" name="ng_Symbol3_Q_15.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrid" name="ng_Symbol3_Q_16.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrie" name="ng_Symbol3_Q_17.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrif" name="ng_Symbol4_K_06.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrig" name="ng_Symbol4_K_05.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrih" name="ng_Symbol4_K_04.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrii" name="ng_Symbol4_K_03.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrij" name="ng_Symbol4_K_02.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrik" name="ng_Symbol4_K_01.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphril" name="ng_Symbol4_K_00.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrim" name="ng_Symbol3_Q_39.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrin" name="ng_Symbol3_Q_38.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrio" name="ng_Symbol3_Q_37.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrip" name="ng_Symbol3_Q_36.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphriq" name="ng_Symbol3_Q_35.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrir" name="ng_Symbol3_Q_34.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphris" name="ng_Symbol3_Q_33.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrit" name="ng_Symbol3_Q_32.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphriu" name="ng_Symbol3_Q_31.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphriv" name="ng_Symbol3_Q_30.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphriw" name="ng_Symbol3_Q_29.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrix" name="ng_Symbol3_Q_28.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphriy" name="ng_Symbol3_Q_27.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphriz" name="ng_Symbol3_Q_26.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrj0" name="ng_Symbol3_Q_25.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrj1" name="ng_Symbol3_Q_24.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrj2" name="ng_Symbol3_Q_23.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrj3" name="ng_Symbol3_Q_22.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrj4" name="ng_Symbol3_Q_21.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrj5" name="ng_Symbol3_Q_20.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrj6" name="ng_Symbol3_Q_19.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrj7" name="ng_Symbol3_Q_18.png" path="/images/symbolAni/ng_Symbol3_Q/"/>
+    <image id="nphrj8" name="ng_Symbol2_J_25.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrj9" name="ng_Symbol4_K_07.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrja" name="ng_Symbol2_J_24.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrjb" name="ng_Symbol2_J_22.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrjc" name="ng_Symbol1_10_28.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjd" name="ng_Symbol1_10_27.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrje" name="ng_Symbol1_10_26.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjf" name="ng_Symbol1_10_25.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjg" name="ng_Symbol1_10_24.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjh" name="ng_Symbol1_10_23.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrji" name="ng_Symbol1_10_22.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjj" name="ng_Symbol1_10_21.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjk" name="ng_Symbol1_10_20.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjl" name="ng_Symbol1_10_19.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjm" name="ng_Symbol1_10_18.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjn" name="ng_Symbol1_10_17.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjo" name="ng_Symbol1_10_16.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjp" name="ng_Symbol1_10_29.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjq" name="ng_Symbol1_10_15.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjr" name="ng_Symbol1_10_13.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjs" name="ng_Symbol1_10_12.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjt" name="ng_Symbol1_10_11.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrju" name="ng_Symbol1_10_10.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjv" name="ng_Symbol1_10_09.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjw" name="ng_Symbol1_10_08.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjx" name="ng_Symbol1_10_07.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjy" name="ng_Symbol1_10_06.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrjz" name="ng_Symbol1_10_05.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrk0" name="ng_Symbol1_10_04.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrk1" name="ng_Symbol1_10_03.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrk2" name="ng_Symbol1_10_02.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrk3" name="ng_Symbol1_10_01.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrk4" name="ng_Symbol1_10_14.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrk5" name="ng_Symbol1_10_30.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrk6" name="ng_Symbol1_10_31.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrk7" name="ng_Symbol1_10_32.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrk8" name="ng_Symbol2_J_21.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrk9" name="ng_Symbol2_J_20.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrka" name="ng_Symbol2_J_19.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrkb" name="ng_Symbol2_J_18.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrkc" name="ng_Symbol2_J_17.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrkd" name="ng_Symbol2_J_16.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrke" name="ng_Symbol2_J_15.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrkf" name="ng_Symbol2_J_14.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrkg" name="ng_Symbol2_J_13.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrkh" name="ng_Symbol2_J_12.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrki" name="ng_Symbol2_J_11.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrkj" name="ng_Symbol2_J_10.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrkk" name="ng_Symbol2_J_09.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrkl" name="ng_Symbol2_J_08.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrkm" name="ng_Symbol2_J_07.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrkn" name="ng_Symbol2_J_06.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrko" name="ng_Symbol2_J_05.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrkp" name="ng_Symbol2_J_04.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrkq" name="ng_Symbol2_J_03.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrkr" name="ng_Symbol2_J_02.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrks" name="ng_Symbol2_J_01.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrkt" name="ng_Symbol2_J_00.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrku" name="ng_Symbol1_10_39.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrkv" name="ng_Symbol1_10_38.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrkw" name="ng_Symbol1_10_37.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrkx" name="ng_Symbol1_10_36.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrky" name="ng_Symbol1_10_35.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrkz" name="ng_Symbol1_10_34.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrl0" name="ng_Symbol1_10_33.png" path="/images/symbolAni/ng_Symbol1_10/"/>
+    <image id="nphrl1" name="ng_Symbol2_J_23.png" path="/images/symbolAni/ng_Symbol2_J/"/>
+    <image id="nphrl2" name="ng_Symbol7_secretary_19.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrl3" name="ng_Symbol4_K_08.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrl4" name="ng_Symbol4_K_10.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrl5" name="ng_Symbol6_dog24.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrl6" name="ng_Symbol6_dog23.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrl7" name="ng_Symbol6_dog22.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrl8" name="ng_Symbol6_dog21.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrl9" name="ng_Symbol6_dog20.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrla" name="ng_Symbol6_dog19.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrlb" name="ng_Symbol6_dog18.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrlc" name="ng_Symbol6_dog17.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrld" name="ng_Symbol6_dog16.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrle" name="ng_Symbol6_dog15.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrlf" name="ng_Symbol6_dog14.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrlg" name="ng_Symbol6_dog13.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrlh" name="ng_Symbol6_dog12.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrli" name="ng_Symbol6_dog11.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrlj" name="ng_Symbol6_dog10.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrlk" name="ng_Symbol6_dog09.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrll" name="ng_Symbol6_dog08.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrlm" name="ng_Symbol6_dog07.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrln" name="ng_Symbol6_dog06.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrlo" name="ng_Symbol6_dog05.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrlp" name="ng_Symbol6_dog04.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrlq" name="ng_Symbol6_dog03.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrlr" name="ng_Symbol6_dog02.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrls" name="ng_Symbol6_dog01.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrlt" name="ng_Symbol6_dog00.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrlu" name="ng_Symbol5_A_39.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrlv" name="ng_Symbol5_A_38.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrlw" name="ng_Symbol5_A_37.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrlx" name="ng_Symbol5_A_36.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrly" name="ng_Symbol6_dog25.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrlz" name="ng_Symbol5_A_35.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrm0" name="ng_Symbol6_dog26.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrm1" name="ng_Symbol6_dog28.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrm2" name="ng_Symbol7_secretary_17.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrm3" name="ng_Symbol7_secretary_16.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrm4" name="ng_Symbol7_secretary_15.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrm5" name="ng_Symbol7_secretary_14.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrm6" name="ng_Symbol7_secretary_13.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrm7" name="ng_Symbol7_secretary_12.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrm8" name="ng_Symbol7_secretary_11.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrm9" name="ng_Symbol7_secretary_10.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrma" name="ng_Symbol7_secretary_09.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrmb" name="ng_Symbol7_secretary_08.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrmc" name="ng_Symbol7_secretary_07.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrmd" name="ng_Symbol7_secretary_06.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrme" name="ng_Symbol7_secretary_05.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrmf" name="ng_Symbol7_secretary_04.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrmg" name="ng_Symbol7_secretary_03.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrmh" name="ng_Symbol7_secretary_02.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrmi" name="ng_Symbol7_secretary_01.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrmj" name="ng_Symbol7_secretary_00.png" path="/images/symbolAni/ng_Symbol7_secretary/"/>
+    <image id="nphrmk" name="ng_Symbol6_dog39.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrml" name="ng_Symbol6_dog38.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrmm" name="ng_Symbol6_dog37.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrmn" name="ng_Symbol6_dog36.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrmo" name="ng_Symbol6_dog35.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrmp" name="ng_Symbol6_dog34.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrmq" name="ng_Symbol6_dog33.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrmr" name="ng_Symbol6_dog32.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrms" name="ng_Symbol6_dog31.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrmt" name="ng_Symbol6_dog30.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrmu" name="ng_Symbol6_dog29.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrmv" name="ng_Symbol6_dog27.png" path="/images/symbolAni/ng_Symbol6_dog/"/>
+    <image id="nphrmw" name="ng_Symbol4_K_09.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrmx" name="ng_Symbol5_A_34.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrmy" name="ng_Symbol5_A_32.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrmz" name="ng_Symbol4_K_39.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrn0" name="ng_Symbol4_K_38.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrn1" name="ng_Symbol4_K_37.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrn2" name="ng_Symbol4_K_36.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrn3" name="ng_Symbol4_K_35.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrn4" name="ng_Symbol4_K_34.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrn5" name="ng_Symbol4_K_33.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrn6" name="ng_Symbol4_K_32.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrn7" name="ng_Symbol4_K_31.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrn8" name="ng_Symbol4_K_30.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrn9" name="ng_Symbol4_K_29.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrna" name="ng_Symbol4_K_28.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrnb" name="ng_Symbol4_K_27.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrnc" name="ng_Symbol4_K_26.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrnd" name="ng_Symbol4_K_25.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrne" name="ng_Symbol4_K_24.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrnf" name="ng_Symbol4_K_23.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrng" name="ng_Symbol4_K_22.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrnh" name="ng_Symbol4_K_21.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrni" name="ng_Symbol4_K_20.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrnj" name="ng_Symbol4_K_19.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrnk" name="ng_Symbol4_K_18.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrnl" name="ng_Symbol4_K_17.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrnm" name="ng_Symbol4_K_16.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrnn" name="ng_Symbol4_K_15.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrno" name="ng_Symbol4_K_14.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrnp" name="ng_Symbol4_K_13.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrnq" name="ng_Symbol4_K_12.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrnr" name="ng_Symbol4_K_11.png" path="/images/symbolAni/ng_Symbol4_K/"/>
+    <image id="nphrns" name="ng_Symbol5_A_00.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrnt" name="ng_Symbol5_A_33.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrnu" name="ng_Symbol5_A_01.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrnv" name="ng_Symbol5_A_03.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrnw" name="ng_Symbol5_A_31.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrnx" name="ng_Symbol5_A_30.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrny" name="ng_Symbol5_A_29.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrnz" name="ng_Symbol5_A_28.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphro0" name="ng_Symbol5_A_27.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphro1" name="ng_Symbol5_A_26.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphro2" name="ng_Symbol5_A_25.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphro3" name="ng_Symbol5_A_24.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphro4" name="ng_Symbol5_A_23.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphro5" name="ng_Symbol5_A_22.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphro6" name="ng_Symbol5_A_21.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphro7" name="ng_Symbol5_A_20.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphro8" name="ng_Symbol5_A_19.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphro9" name="ng_Symbol5_A_02.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphroa" name="ng_Symbol5_A_18.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrob" name="ng_Symbol5_A_16.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphroc" name="ng_Symbol5_A_15.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrod" name="ng_Symbol5_A_14.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphroe" name="ng_Symbol5_A_13.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrof" name="ng_Symbol5_A_12.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrog" name="ng_Symbol5_A_11.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphroh" name="ng_Symbol5_A_10.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphroi" name="ng_Symbol5_A_09.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphroj" name="ng_Symbol5_A_08.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrok" name="ng_Symbol5_A_07.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrol" name="ng_Symbol5_A_06.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrom" name="ng_Symbol5_A_05.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphron" name="ng_Symbol5_A_04.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphroo" name="ng_Symbol5_A_17.png" path="/images/symbolAni/ng_Symbol5_A/"/>
+    <image id="nphrop" name="ng_Symbol15_Bonus_39.png" path="/images/symbolAni/ng_Symbol15_Bonus/"/>
+    <movieclip id="s1mkot" name="ani1.jta" path="/components/animation/" exported="true" atlas="10"/>
+    <movieclip id="s1mkou" name="ani2.jta" path="/components/animation/" exported="true" atlas="3"/>
+    <movieclip id="s1mkov" name="ani3.jta" path="/components/animation/" exported="true" atlas="3"/>
+    <movieclip id="s1mkow" name="ani4.jta" path="/components/animation/" exported="true" atlas="4"/>
+    <movieclip id="s1mkox" name="ani5.jta" path="/components/animation/" exported="true" atlas="4"/>
+    <movieclip id="s1mkoy" name="ani6.jta" path="/components/animation/" exported="true" atlas="5"/>
+    <movieclip id="s1mkoz" name="ani7.jta" path="/components/animation/" exported="true" atlas="6"/>
+    <movieclip id="s1mkp0" name="ani8.jta" path="/components/animation/" exported="true" atlas="6"/>
+    <movieclip id="s1mkp1" name="ani9.jta" path="/components/animation/" exported="true" atlas="9"/>
+    <movieclip id="s1mkp2" name="ani10.jta" path="/components/animation/" exported="true" atlas="0"/>
+    <movieclip id="s1mkp3" name="ani11.jta" path="/components/animation/" exported="true" atlas="1"/>
+    <movieclip id="s1mkp4" name="ani12.jta" path="/components/animation/" exported="true" atlas="2"/>
+    <movieclip id="s1mkp5" name="ani13.jta" path="/components/animation/" exported="true" atlas="2"/>
+    <component id="s1mkp6" name="sym1.xml" path="/components/" exported="true"/>
+    <component id="s1mkp9" name="sym2.xml" path="/components/" exported="true"/>
+    <component id="s1mkpa" name="sym6.xml" path="/components/" exported="true"/>
+    <component id="s1mkpb" name="sym7.xml" path="/components/" exported="true"/>
+    <component id="s1mkpc" name="sym8.xml" path="/components/" exported="true"/>
+    <component id="s1mkpd" name="sym9.xml" path="/components/" exported="true"/>
+    <component id="s1mkpe" name="sym10.xml" path="/components/" exported="true"/>
+    <component id="s1mkpf" name="sym11.xml" path="/components/" exported="true"/>
+    <component id="s1mkpg" name="sym12.xml" path="/components/" exported="true"/>
+    <component id="s1mkph" name="sym3.xml" path="/components/" exported="true"/>
+    <component id="s1mkpj" name="sym4.xml" path="/components/" exported="true"/>
+    <component id="s1mkpk" name="sym5.xml" path="/components/" exported="true"/>
+    <component id="s1mkpl" name="sym13.xml" path="/components/" exported="true"/>
+    <component id="nz4npn" name="PopupFreeSpinTrigger1.xml" path="/" exported="true"/>
+    <image id="nz4npo" name="fg_txt_FREE BONUS.png" path="/images/BonusSettle/"/>
+    <component id="nz4npp" name="PopupFreeSpinResult.xml" path="/" exported="true"/>
+    <image id="nz4npq" name="fg_txt_FREESPINS PLAYED_.png" path="/images/BonusSettle/"/>
+    <component id="nz4npr" name="PopupXRayResult.xml" path="/" exported="true"/>
+    <component id="qct4ps" name="Intorduce1Multiplier.xml" path="/components/payTable/symbolInfo/" exported="true"/>
+    <image id="qct4pt" name="symbol10_free_spin.png" path="/images/payTableFont/"/>
+    <image id="qct4pu" name="fontYellow9.png" path="/images/payTableFont/number2/"/>
+    <image id="qct4pv" name="fontYellow8.png" path="/images/payTableFont/number2/"/>
+    <image id="qct4pw" name="fontYellow7.png" path="/images/payTableFont/number2/"/>
+    <image id="qct4px" name="fontYellow6.png" path="/images/payTableFont/number2/"/>
+    <image id="qct4py" name="fontYellow5.png" path="/images/payTableFont/number2/"/>
+    <image id="qct4pz" name="fontYellow4.png" path="/images/payTableFont/number2/"/>
+    <image id="qct4q0" name="fontYellow3.png" path="/images/payTableFont/number2/"/>
+    <image id="qct4q1" name="fontYellow2.png" path="/images/payTableFont/number2/"/>
+    <image id="qct4q2" name="fontYellow1.png" path="/images/payTableFont/number2/"/>
+    <image id="qct4q3" name="fontYellow0.png" path="/images/payTableFont/number2/"/>
+    <image id="qct4q4" name="句号.png" path="/images/payTableFont/number2/"/>
+    <image id="qct4q5" name="逗号.png" path="/images/payTableFont/number1/"/>
+    <image id="qct4q6" name="fontWhite9.png" path="/images/payTableFont/number1/"/>
+    <image id="qct4q7" name="fontWhite8.png" path="/images/payTableFont/number1/"/>
+    <image id="qct4q8" name="fontWhite7.png" path="/images/payTableFont/number1/"/>
+    <image id="qct4q9" name="fontWhite6.png" path="/images/payTableFont/number1/"/>
+    <image id="qct4qa" name="fontWhite5.png" path="/images/payTableFont/number1/"/>
+    <image id="qct4qb" name="fontWhite4.png" path="/images/payTableFont/number1/"/>
+    <image id="qct4qc" name="fontWhite3.png" path="/images/payTableFont/number1/"/>
+    <image id="qct4qd" name="fontWhite2.png" path="/images/payTableFont/number1/"/>
+    <image id="qct4qe" name="fontWhite1.png" path="/images/payTableFont/number1/"/>
+    <image id="qct4qf" name="fontWhite0.png" path="/images/payTableFont/number1/"/>
+    <image id="qct4qg" name="句号.png" path="/images/payTableFont/number1/"/>
+    <image id="qct4qh" name="逗号.png" path="/images/payTableFont/number2/"/>
+    <font id="qct4qi" name="payTableYellow.fnt" path="/fonts/" exported="true"/>
+    <font id="qct4qj" name="payTableWhite.fnt" path="/fonts/" exported="true"/>
+    <component id="qct4qk" name="Text2.xml" path="/components/payTable/" exported="true"/>
+    <component id="qct4ql" name="Text3.xml" path="/components/payTable/" exported="true"/>
+    <component id="qct4qm" name="Text4.xml" path="/components/payTable/" exported="true"/>
+    <component id="kb8bqp" name="Name.xml" path="/moudules/panel/introduce/" exported="true"/>
+    <component id="kb8bqq" name="Paytable1.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="kb8bqr" name="Paytable2.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="kb8bqs" name="Paytable3.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="kb8bqt" name="PayYable.xml" path="/moudules/panel/payTable/" exported="true"/>
+    <component id="kb8bqv" name="Paytable1.xml" path="/moudules/panel/payTable/" exported="true"/>
+    <image id="kb8bqw" name="add1.png" path="/images/panel01/button/"/>
+    <image id="kb8bqx" name="翻页按钮.png" path="/images/panel01/introduce/"/>
+    <image id="kb8bqy" name="矩形 1847.png" path="/images/panel01/introduce/"/>
+    <image id="kb8bqz" name="底框.png" path="/images/panel01/introduce/"/>
+    <image id="kb8br0" name="beijing.png" path="/images/panel01/introduce/"/>
+    <image id="kb8br1" name="back_2.png" path="/images/panel01/introduce/"/>
+    <image id="kb8br2" name="押注框1.png" path="/images/panel01/frame/"/>
+    <image id="kb8br3" name="底.png" path="/images/panel01/frame/"/>
+    <image id="kb8br4" name="win.png" path="/images/panel01/frame/"/>
+    <image id="kb8br5" name="PRIZE VIEWER.png" path="/images/panel01/frame/"/>
+    <image id="kb8br6" name="previewer_2.png" path="/images/panel01/frame/"/>
+    <image id="kb8br7" name="previewer_1.png" path="/images/panel01/frame/"/>
+    <image id="kb8br8" name="menu_ic_Roman.png" path="/images/panel01/frame/"/>
+    <image id="kb8br9" name="info.png" path="/images/panel01/frame/"/>
+    <image id="kb8bra" name="翻页按钮1.png" path="/images/panel01/introduce/"/>
+    <image id="kb8brb" name="GOOD LUCK.png" path="/images/panel01/frame/"/>
+    <image id="kb8brc" name="Border.png" path="/images/panel01/frame/"/>
+    <image id="kb8brd" name="stop.png" path="/images/panel01/effect/spin/"/>
+    <image id="kb8bre" name="spin_gray.png" path="/images/panel01/effect/spin/"/>
+    <image id="kb8brf" name="spin1.png" path="/images/panel01/effect/spin/"/>
+    <image id="kb8brg" name="ball_red.png" path="/images/panel01/effect/spin/"/>
+    <image id="kb8brh" name="ball_gray.png" path="/images/panel01/effect/spin/"/>
+    <image id="kb8bri" name="auto.png" path="/images/panel01/effect/spin/"/>
+    <image id="kb8brj" name="ng_coin_an_hold-hold_37.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8brk" name="ng_coin_an_hold-hold_36.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8brl" name="ng_coin_an_hold-hold_35.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8brm" name="ng_coin_an_hold-hold_34.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8brn" name="ng_coin_an_hold-hold_33.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bro" name="ng_coin_an_hold-hold_32.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8brp" name="CREDUTS.png" path="/images/panel01/frame/"/>
+    <image id="kb8brq" name="ng_coin_an_hold-hold_31.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8brr" name="翻页箭头.png" path="/images/panel01/introduce/"/>
+    <image id="kb8brs" name="边框.png" path="/images/panel01/introduce/" disableTrim="true"/>
+    <image id="kb8brt" name="fontYellow7.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="kb8bru" name="fontYellow6.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="kb8brv" name="fontYellow5.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="kb8brw" name="fontYellow4.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="kb8brx" name="fontYellow3.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="kb8bry" name="fontYellow2.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="kb8brz" name="fontYellow1.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="kb8bs0" name="fontYellow0.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="kb8bs1" name="fontWhite9.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="kb8bs2" name="fontWhite8.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="kb8bs3" name="fontWhite7.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="kb8bs4" name="fontWhite6.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="kb8bs5" name="fontWhite5.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="kb8bs6" name="翻页箭头1.png" path="/images/panel01/introduce/"/>
+    <image id="kb8bs7" name="fontWhite4.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="kb8bs8" name="fontWhite2.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="kb8bs9" name="fontWhite1.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="kb8bsa" name="fontWhite0.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="kb8bsb" name="symbol9_j.png" path="/images/panel01/pageGameMain/symbols/"/>
+    <image id="kb8bsc" name="symbol8_q.png" path="/images/panel01/pageGameMain/symbols/"/>
+    <image id="kb8bsd" name="symbol7_k.png" path="/images/panel01/pageGameMain/symbols/"/>
+    <image id="kb8bse" name="symbol6_a.png" path="/images/panel01/pageGameMain/symbols/"/>
+    <image id="kb8bsf" name="symbol5_laure.png" path="/images/panel01/pageGameMain/symbols/"/>
+    <image id="kb8bsg" name="symbol4_bugle.png" path="/images/panel01/pageGameMain/symbols/"/>
+    <image id="kb8bsh" name="symbol3_woman.png" path="/images/panel01/pageGameMain/symbols/"/>
+    <image id="kb8bsi" name="symbol2_man.png" path="/images/panel01/pageGameMain/symbols/"/>
+    <image id="kb8bsj" name="symbol1_king.png" path="/images/panel01/pageGameMain/symbols/"/>
+    <image id="kb8bsk" name="顶框.png" path="/images/panel01/introduce/"/>
+    <image id="kb8bsl" name="fontWhite3.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="kb8bsm" name="fontYellow8.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="kb8bsn" name="ng_coin_an_hold-hold_30.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bso" name="ng_coin_an_hold-hold_28.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bsp" name="ng_coin_an_hold-auto_idle_15.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bsq" name="ng_coin_an_hold-auto_idle_14.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bsr" name="ng_coin_an_hold-auto_idle_13.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bss" name="ng_coin_an_hold-auto_idle_12.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bst" name="ng_coin_an_hold-auto_idle_11.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bsu" name="ng_coin_an_hold-auto_idle_10.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bsv" name="ng_coin_an_hold-auto_idle_09.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bsw" name="ng_coin_an_hold-auto_idle_08.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bsx" name="ng_coin_an_hold-auto_idle_07.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bsy" name="ng_coin_an_hold-auto_idle_06.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bsz" name="ng_coin_an_hold-auto_idle_05.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bt0" name="ng_coin_an_hold-auto_idle_04.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bt1" name="ng_coin_an_hold-auto_idle_03.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bt2" name="ng_coin_an_hold-auto_idle_16.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bt3" name="ng_coin_an_hold-auto_idle_02.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bt4" name="ng_coin_an_hold-auto_idle_00.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bt5" name="音量4.png" path="/images/panel01/button/"/>
+    <image id="kb8bt6" name="音量3.png" path="/images/panel01/button/"/>
+    <image id="kb8bt7" name="音量2.png" path="/images/panel01/button/"/>
+    <image id="kb8bt8" name="音量1.png" path="/images/panel01/button/"/>
+    <image id="kb8bt9" name="问号.png" path="/images/panel01/button/"/>
+    <image id="kb8bta" name="stop.png" path="/images/panel01/button/"/>
+    <image id="kb8btb" name="START_4.png" path="/images/panel01/button/"/>
+    <image id="kb8btc" name="reduce1_2.png" path="/images/panel01/button/"/>
+    <image id="kb8btd" name="reduce1_1.png" path="/images/panel01/button/"/>
+    <image id="kb8bte" name="info_2.png" path="/images/panel01/button/"/>
+    <image id="kb8btf" name="info_1.png" path="/images/panel01/button/"/>
+    <image id="kb8btg" name="add1_1.png" path="/images/panel01/button/"/>
+    <image id="kb8bth" name="ng_coin_an_hold-auto_idle_01.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8bti" name="ng_coin_an_hold-hold_29.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8btj" name="ng_coin_an_hold-auto_idle_17.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8btk" name="ng_coin_an_hold-auto_idle_19.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8btl" name="ng_coin_an_hold-hold_27.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8btm" name="ng_coin_an_hold-hold_26.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8btn" name="ng_coin_an_hold-hold_25.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bto" name="ng_coin_an_hold-hold_24.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8btp" name="ng_coin_an_hold-hold_23.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8btq" name="ng_coin_an_hold-hold_22.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8btr" name="ng_coin_an_hold-hold_21.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bts" name="ng_coin_an_hold-hold_20.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8btt" name="ng_coin_an_hold-hold_19.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8btu" name="ng_coin_an_hold-hold_18.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8btv" name="ng_coin_an_hold-hold_17.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8btw" name="ng_coin_an_hold-hold_16.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8btx" name="ng_coin_an_hold-hold_15.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bty" name="ng_coin_an_hold-auto_idle_18.png" path="/images/panel01/effect/effectAuto/"/>
+    <image id="kb8btz" name="ng_coin_an_hold-hold_14.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bu0" name="ng_coin_an_hold-hold_12.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bu1" name="ng_coin_an_hold-hold_11.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bu2" name="ng_coin_an_hold-hold_10.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bu3" name="ng_coin_an_hold-hold_09.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bu4" name="ng_coin_an_hold-hold_08.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bu5" name="ng_coin_an_hold-hold_07.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bu6" name="ng_coin_an_hold-hold_06.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bu7" name="ng_coin_an_hold-hold_05.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bu8" name="ng_coin_an_hold-hold_04.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bu9" name="ng_coin_an_hold-hold_03.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bua" name="ng_coin_an_hold-hold_02.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bub" name="ng_coin_an_hold-hold_01.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8buc" name="ng_coin_an_hold-hold_00.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bud" name="ng_coin_an_hold-hold_13.png" path="/images/panel01/effect/effectToAuto/"/>
+    <image id="kb8bue" name="fontYellow9.png" path="/images/panel01/payTableFont/number2/"/>
+    <component id="kb8buf" name="IntroduceBtn.xml" path="/moudules/panel/payTable/" exported="true"/>
+    <component id="kb8bug" name="BtnL.xml" path="/components/panel/introduce/"/>
+    <component id="kb8buk" name="PayTable.xml" path="/moudules/panel/" exported="true"/>
+    <component id="kb8bul" name="Introduceframe.xml" path="/moudules/panel/payTable/" exported="true"/>
+    <component id="kb8buq" name="PayLineIntroduce.xml" path="/moudules/panel/introduce/" exported="true"/>
+    <component id="kb8bus" name="Paytable4.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="kb8but" name="LineName.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="kb8buu" name="PayTableLine.xml" path="/moudules/payTableLine/"/>
+    <image id="kb8buw" name="grand.png" path="/images/gameJackpot/"/>
+    <image id="kb8bux" name="jp_number_7.png" path="/images/gameJackpot/numbers/"/>
+    <image id="kb8buy" name="jp_number_6.png" path="/images/gameJackpot/numbers/"/>
+    <image id="kb8buz" name="jp_number_5.png" path="/images/gameJackpot/numbers/"/>
+    <image id="kb8bv0" name="jp_number_4.png" path="/images/gameJackpot/numbers/"/>
+    <image id="kb8bv1" name="jp_number_3.png" path="/images/gameJackpot/numbers/"/>
+    <image id="kb8bv2" name="jp_number_2.png" path="/images/gameJackpot/numbers/"/>
+    <image id="kb8bv3" name="jp_number_11.png" path="/images/gameJackpot/numbers/"/>
+    <image id="kb8bv4" name="jp_number_10.png" path="/images/gameJackpot/numbers/"/>
+    <image id="kb8bv5" name="jp_number_1.png" path="/images/gameJackpot/numbers/"/>
+    <image id="kb8bv6" name="jp_number_0.png" path="/images/gameJackpot/numbers/"/>
+    <image id="kb8bv7" name="jackpot_bg_minor.png" path="/images/gameJackpot/bg/"/>
+    <image id="kb8bv8" name="jackpot_bg_mini.png" path="/images/gameJackpot/bg/"/>
+    <image id="kb8bv9" name="jackpot_bg_mega.png" path="/images/gameJackpot/bg/"/>
+    <image id="kb8bva" name="jackpot_bg_major.png" path="/images/gameJackpot/bg/"/>
+    <image id="kb8bvb" name="jackpot_bg_grand_罗马.png" path="/images/gameJackpot/bg/"/>
+    <image id="kb8bvc" name="jackpot_bg_grand_玛雅.png" path="/images/gameJackpot/bg/"/>
+    <image id="kb8bvd" name="jackpot_bg_grand_巴比伦.png" path="/images/gameJackpot/bg/"/>
+    <image id="kb8bve" name="jackpot_bg_grand_埃及.png" path="/images/gameJackpot/bg/"/>
+    <image id="kb8bvf" name="jackpot_bg_grand_古中国.png" path="/images/gameJackpot/bg/"/>
+    <image id="kb8bvg" name="jackpot_bg_grand_印度.png" path="/images/gameJackpot/bg/"/>
+    <image id="kb8bvh" name="minor_0.png" path="/images/gameJackpot/"/>
+    <image id="kb8bvi" name="minor.png" path="/images/gameJackpot/"/>
+    <image id="kb8bvj" name="mini_0.png" path="/images/gameJackpot/"/>
+    <image id="kb8bvk" name="mini.png" path="/images/gameJackpot/"/>
+    <image id="kb8bvl" name="mega_0.png" path="/images/gameJackpot/"/>
+    <image id="kb8bvm" name="mega.png" path="/images/gameJackpot/"/>
+    <image id="kb8bvn" name="major_0.png" path="/images/gameJackpot/"/>
+    <image id="kb8bvo" name="major.png" path="/images/gameJackpot/"/>
+    <image id="kb8bvp" name="grand_0.png" path="/images/gameJackpot/"/>
+    <image id="kb8bvq" name="jp_number_8.png" path="/images/gameJackpot/numbers/"/>
+    <image id="kb8bvr" name="jp_number_9.png" path="/images/gameJackpot/numbers/"/>
+    <component id="kb8bvs" name="GameJackpotMinor.xml" path="/moudules/PageGameMain/gameJackpot/"/>
+    <font id="kb8bvt" name="FontGameJackpot.fnt" path="/fonts/" exported="true"/>
+    <image id="kb8bvu" name="coinSroce.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bvv" name="箭头左右.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bvw" name="ng_img_BorderUp.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bvx" name="ng_img_BorderLeft.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bvy" name="ng_img_BorderDown.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bvz" name="ng_bg_border.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bw0" name="Logo.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bw1" name="JP5框.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bw2" name="JP4框.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bw3" name="JP4.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bw4" name="JP3框.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bw5" name="JP3.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bw6" name="罗马_.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bw7" name="JP2框.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bw8" name="JP1框.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bw9" name="JP1.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bwa" name="GetSroce.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bwb" name="gameMainDi.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bwc" name="freeGameTime.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bwd" name="freeGameFrame.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bwe" name="freeGameAllCredit.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bwf" name="fg_txt_FREE GAME.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bwg" name="fg_bg_FreeGame.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bwh" name="fg_bg_border.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bwi" name="credit.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bwj" name="JP2.png" path="/images/PageGameMain/gameFrame/"/>
+    <image id="kb8bwk" name="鹰.png" path="/images/PageGameMain/gameFrame/"/>
+    <component id="kb8bwl" name="GameJackpotReel.xml" path="/moudules/PageGameMain/gameJackpot/"/>
+    <component id="kb8bwm" name="GameJackpotGrand.xml" path="/moudules/PageGameMain/gameJackpot/"/>
+    <component id="kb8bwn" name="GameJackpotMajor.xml" path="/moudules/PageGameMain/gameJackpot/"/>
+    <component id="kb8bwo" name="GameJackpotMega.xml" path="/moudules/PageGameMain/gameJackpot/"/>
+    <component id="kb8bwp" name="GameJackpotMini.xml" path="/moudules/PageGameMain/gameJackpot/"/>
+  </resources>
+  <publish name="" path="../../Assets/GameRes/Games/Fan Bei Chao Ren 4000/FGUIs" packageCount="2"/>
+</packageDescription>

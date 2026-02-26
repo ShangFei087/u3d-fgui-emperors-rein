@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,157">
+  <displayList>
+    <graph id="n31_nimz" name="mash" xy="0,-1763" size="1080,1920" visible="false" type="rect" lineSize="0" lineColor="#80333333" fillColor="#99000000"/>
+    <component id="n26_lo0d" name="payTable" src="ioi7i9" fileName="moudules/payTable/Component1.xml" xy="540,90" pivot="0.5,1" anchor="true" visible="false"/>
+    <component id="n11_w36x" name="frame" src="w36xi" fileName="moudules/GameDiFrame.xml" xy="540,88"/>
+    <component id="n16_w36x" name="btnHelp" src="ioi7i0" fileName="components/ButtonHelp.xml" xy="10,68"/>
+    <component id="n24_w36x" name="btnBetUp" src="ioi7ig" fileName="components/button/ButtonBetUp.xml" xy="337,66"/>
+    <component id="n25_w36x" name="btnBetDown" src="ioi7ih" fileName="components/button/ButtonBetDown.xml" xy="108,66"/>
+    <text id="n18_w36x" name="bet" xy="181,93" size="145,50" fontSize="37" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="100">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <text id="n19_w36x" name="credit" xy="753,92" size="146,50" fontSize="37" color="#ffffff" align="center" vAlign="middle" letterSpacing="5" autoSize="shrink" text="99700">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <text id="n33_ioi7" name="win" xy="467,92" size="146,50" fontSize="37" color="#ffffff" align="center" vAlign="middle" letterSpacing="5" autoSize="shrink" text="99700">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <component id="n35_ioi7" name="setPanel" src="ioi7hg" fileName="moudules/SetPanel.xml" xy="10,-224" visible="false"/>
+    <component id="n34_ioi7" name="btnSpin" src="ioi7i2" fileName="components/ButtonSpin.xml" xy="930,14"/>
+  </displayList>
+</component>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="889,688">
+  <displayList>
+    <richtext id="n1_tsjn" name="n1" xy="0,0" size="889,688" fontSize="32" color="#ffffff" align="center" leading="1" autoSize="none" text="1, 2 or 3 &lt;img src=&quot;ui://vdmp4vsrncj2ny&quot; width=&quot;100&quot; height=&quot;106&quot;/&gt; award 1, 2 or 3 Balls respectively.&#xA;The awarded Balls are released immediately.">
+      <relation target="" sidePair="center-center"/>
+    </richtext>
+  </displayList>
+</component>

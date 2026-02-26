@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="127,410">
+  <displayList>
+    <component id="n4_e6zw" name="symbol1" src="e6zw7e" fileName="moudules/freeRoll/FreeSymbol.xml" xy="0,0"/>
+    <component id="n5_e6zw" name="symbol2" src="e6zw7e" fileName="moudules/freeRoll/FreeSymbol.xml" xy="0,142"/>
+    <component id="n6_e6zw" name="symbol3" src="e6zw7e" fileName="moudules/freeRoll/FreeSymbol.xml" xy="0,284"/>
+  </displayList>
+</component>

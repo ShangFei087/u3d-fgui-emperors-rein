@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1650,618">
+  <displayList>
+    <component id="n0_12dua" name="symbol0" src="12duab9" fileName="moudules/slotMachine/gameJackpot/JackpotSymbol.xml" xy="1650,0" size="550,618"/>
+    <component id="n1_12dua" name="symbol1" src="12duab9" fileName="moudules/slotMachine/gameJackpot/JackpotSymbol.xml" xy="1100,0" size="550,618"/>
+    <component id="n2_12dua" name="symbol2" src="12duab9" fileName="moudules/slotMachine/gameJackpot/JackpotSymbol.xml" xy="550,0"/>
+    <component id="n3_12dua" name="symbol3" src="12duab9" fileName="moudules/slotMachine/gameJackpot/JackpotSymbol.xml" xy="0,0"/>
+    <component id="n4_12dua" name="symbol4" src="12duab9" fileName="moudules/slotMachine/gameJackpot/JackpotSymbol.xml" xy="-550,0"/>
+    <component id="n5_12dua" name="symbol5" src="12duab9" fileName="moudules/slotMachine/gameJackpot/JackpotSymbol.xml" xy="-1100,0"/>
+    <component id="n6_12dua" name="symbol6" src="12duab9" fileName="moudules/slotMachine/gameJackpot/JackpotSymbol.xml" xy="-1650,0"/>
+    <component id="n7_12dua" name="symbol7" src="12duab9" fileName="moudules/slotMachine/gameJackpot/JackpotSymbol.xml" xy="-2200,0"/>
+  </displayList>
+</component>

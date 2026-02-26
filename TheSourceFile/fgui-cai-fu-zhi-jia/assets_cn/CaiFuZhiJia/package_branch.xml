@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="qirhhq" name="fg_txt_button.png" path="/images/pageGameMain/FreeGame/Common/"/>
+    <image id="qirhhr" name="fg_txt_free.png" path="/images/pageGameMain/FreeGame/Common/"/>
+    <image id="qirhhs" name="fg_txt_times.png" path="/images/pageGameMain/FreeGame/Common/"/>
+    <image id="qirhht" name="fg_txt_win_01.png" path="/images/pageGameMain/FreeGame/Common/"/>
+    <image id="qirhhu" name="ng_img_frame05.png" path="/images/pageGameMain/ReelBackground/"/>
+    <image id="qirhhv" name="ng_txt_grand.png" path="/images/popupJackpotTrigger/Background/"/>
+    <image id="qirhhw" name="ng_txt_grand_1.png" path="/images/popupJackpotTrigger/Background/"/>
+    <image id="qirhhx" name="ng_txt_major.png" path="/images/popupJackpotTrigger/Background/"/>
+    <image id="qirhhy" name="ng_txt_major_1.png" path="/images/popupJackpotTrigger/Background/"/>
+    <image id="qirhhz" name="ng_txt_mini.png" path="/images/popupJackpotTrigger/Background/"/>
+    <image id="qirhi0" name="ng_txt_mini_1.png" path="/images/popupJackpotTrigger/Background/"/>
+    <image id="qirhi1" name="ng_txt_minor.png" path="/images/popupJackpotTrigger/Background/"/>
+    <image id="qirhi2" name="ng_txt_minor_1.png" path="/images/popupJackpotTrigger/Background/"/>
+    <image id="qirhi3" name="sg_txt_collect.png" path="/images/popupJackpotTrigger/Background/"/>
+    <image id="qirhi4" name="sg_txt_start.png" path="/images/popupJackpotTrigger/Background/"/>
+    <image id="qirhi5" name="sg_txt_collect.png" path="/images/pageGameMain/FreeGame/Common/"/>
+    <image id="isifi9" name="sg_txt_congrart.png" path="/images/popupFreeTrigger/"/>
+    <image id="isific" name="fg_txt_free.png" path="/images/popupFreeTrigger/"/>
+    <image id="isifid" name="sg_txt_won.png" path="/images/popupFreeTrigger/"/>
+    <image id="isifii" name="sg_txt_congrart.png" path="/images/popupJackpotTrigger/Background/"/>
+    <image id="isifij" name="sg_txt_red.png" path="/images/popupJackpotTrigger/Background/"/>
+    <image id="isifik" name="sg_txt_won.png" path="/images/popupJackpotTrigger/Background/"/>
+  </resources>
+</branchDescription>

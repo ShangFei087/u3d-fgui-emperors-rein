@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <richtext id="n0_9ay5" name="title" xy="16,18" size="1048,197" touchable="false" fontSize="30" color="#ff0000" autoSize="none" text="【温馨提示】: 即将停止游戏。">
+      <relation target="" sidePair="left-left,top-top"/>
+    </richtext>
+  </displayList>
+</component>

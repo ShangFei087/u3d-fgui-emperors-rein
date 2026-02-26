@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="360,76">
+  <displayList>
+    <richtext id="n0_glrj" name="key" xy="40,16" size="170,42" touchable="false" fontSize="30" color="#ffffff" vAlign="middle" autoSize="shrink" singleLine="true" text="Total Coin In:"/>
+    <richtext id="n1_glrj" name="value" xy="210,16" size="150,42" touchable="false" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="1000"/>
+  </displayList>
+  <customProperty target="key" propertyId="0" label="键"/>
+  <customProperty target="value" propertyId="0" label="值"/>
+</component>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="46,80" overflow="hidden">
+  <displayList>
+    <text id="n46_u09i" name="step1_0" xy="0,0" size="46,80" font="ui://vdmp4vsrl9ylf7" fontSize="15" align="center" vAlign="middle" autoSize="none" text="1">
+      <relation target="" sidePair="width-width"/>
+    </text>
+    <text id="n47_u09i" name="step2_0" xy="0,-26" size="46,80" visible="false" font="ui://vdmp4vsrl9ylf7" fontSize="15" align="center" vAlign="middle" autoSize="none" text="1">
+      <relation target="" sidePair="width-width"/>
+    </text>
+    <text id="n48_u09i" name="step2_1" xy="0,52" size="46,80" visible="false" font="ui://vdmp4vsrl9ylf7" fontSize="15" align="center" vAlign="middle" autoSize="none" text="2">
+      <relation target="" sidePair="width-width"/>
+    </text>
+    <text id="n49_u09i" name="step3_0" xy="0,-52" size="46,80" visible="false" font="ui://vdmp4vsrl9ylf7" fontSize="15" align="center" vAlign="middle" autoSize="none" text="1">
+      <relation target="" sidePair="width-width"/>
+    </text>
+    <text id="n50_u09i" name="step3_1" xy="0,26" size="46,80" visible="false" font="ui://vdmp4vsrl9ylf7" fontSize="15" align="center" vAlign="middle" autoSize="none" text="2">
+      <relation target="" sidePair="width-width"/>
+    </text>
+    <text id="n51_u09i" name="step4_0" xy="0,0" size="46,80" visible="false" font="ui://vdmp4vsrl9ylf7" fontSize="15" align="center" vAlign="middle" autoSize="none" text="2">
+      <relation target="" sidePair="width-width"/>
+    </text>
+  </displayList>
+  <transition name="animTurn">
+    <item time="0" type="Visible" target="n46_u09i" value="true"/>
+    <item time="0" type="Visible" target="n47_u09i" value="false"/>
+    <item time="0" type="Visible" target="n48_u09i" value="false"/>
+    <item time="0" type="Visible" target="n49_u09i" value="false"/>
+    <item time="0" type="Visible" target="n50_u09i" value="false"/>
+    <item time="0" type="Visible" target="n51_u09i" value="false"/>
+    <item time="3" type="Visible" target="n46_u09i" value="false"/>
+    <item time="3" type="Visible" target="n47_u09i" value="true"/>
+    <item time="3" type="Visible" target="n48_u09i" value="true"/>
+    <item time="3" type="Visible" target="n49_u09i" value="false"/>
+    <item time="3" type="Visible" target="n50_u09i" value="false"/>
+    <item time="3" type="Visible" target="n51_u09i" value="false"/>
+    <item time="6" type="Visible" target="n46_u09i" value="false"/>
+    <item time="6" type="Visible" target="n47_u09i" value="false"/>
+    <item time="6" type="Visible" target="n48_u09i" value="false"/>
+    <item time="6" type="Visible" target="n49_u09i" value="true"/>
+    <item time="6" type="Visible" target="n50_u09i" value="true"/>
+    <item time="6" type="Visible" target="n51_u09i" value="false"/>
+    <item time="9" type="Visible" target="n46_u09i" value="false"/>
+    <item time="9" type="Visible" target="n47_u09i" value="false"/>
+    <item time="9" type="Visible" target="n48_u09i" value="false"/>
+    <item time="9" type="Visible" target="n49_u09i" value="false"/>
+    <item time="9" type="Visible" target="n50_u09i" value="false"/>
+    <item time="9" type="Visible" target="n51_u09i" value="true"/>
+  </transition>
+</component>

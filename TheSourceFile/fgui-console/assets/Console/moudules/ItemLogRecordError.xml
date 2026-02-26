@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,76">
+  <displayList>
+    <richtext id="n95_u8xf" name="value1" xy="20,0" size="369,76" fontSize="30" color="#ff0000" autoSize="none" singleLine="true" text="1231232132132"/>
+    <richtext id="n96_u8xf" name="value2" xy="400,0" size="660,76" fontSize="30" color="#ff0000" autoSize="shrink" text="343243243243243434343243243243243434343243243243243434343243243243243434343243243243243434343243243243243434343243243243243434343243243243243434343243243243243434343243243243243434343243243243243434"/>
+    <graph id="n97_u8xf" name="n97" xy="20,74" size="1040,2" type="rect" lineSize="0"/>
+  </displayList>
+</component>

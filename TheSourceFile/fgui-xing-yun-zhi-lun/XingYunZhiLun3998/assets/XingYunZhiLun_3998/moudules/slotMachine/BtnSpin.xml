@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="160,160">
+  <controller name="button" pages="0,stop,1,spin,2,hui,3,auto" selected="1">
+    <action type="play_transition" fromPage="" toPage="0" transition="animStop"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="animSpin"/>
+    <action type="play_transition" fromPage="" toPage="2" transition="animHui"/>
+  </controller>
+  <displayList>
+    <graph id="n0_l9vr" name="red" xy="0,0" size="160,160" type="rect" lineSize="0" fillColor="#ffff0000"/>
+    <graph id="n1_l9vr" name="bule" xy="0,0" size="160,160" type="rect" lineSize="0" fillColor="#ff0000cc"/>
+    <graph id="n2_l9vr" name="hui" xy="0,0" size="160,160" type="rect" lineSize="0" fillColor="#ff333333"/>
+  </displayList>
+  <transition name="animSpin">
+    <item time="0" type="Alpha" target="n0_l9vr" value="0"/>
+    <item time="0" type="Alpha" target="n1_l9vr" value="1"/>
+    <item time="0" type="Alpha" target="n2_l9vr" value="0"/>
+  </transition>
+  <transition name="animStop">
+    <item time="0" type="Alpha" target="n0_l9vr" value="1"/>
+    <item time="0" type="Alpha" target="n1_l9vr" value="0"/>
+    <item time="0" type="Alpha" target="n2_l9vr" value="0"/>
+  </transition>
+  <transition name="animHui">
+    <item time="0" type="Alpha" target="n0_l9vr" value="0"/>
+    <item time="0" type="Alpha" target="n1_l9vr" value="0"/>
+    <item time="0" type="Alpha" target="n2_l9vr" value="1"/>
+  </transition>
+  <transition name="animAuto"/>
+</component>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_nz4n" name="n0" src="bllo10" fileName="components/Mask.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n1_nz4n" name="n1" src="hjsh31" fileName="images/BonusSettle/ng_txt_YOU TRIGGERED.png" xy="332,571" size="442,53" aspect="true"/>
+    <image id="n2_nz4n" name="n2" src="nz4npo" fileName="images/BonusSettle/fg_txt_FREE BONUS.png" xy="228,790"/>
+    <text id="n4_nz4n" name="n4" xy="376,642" size="328,126" font="ui://9kq20teafv2712" fontSize="15" align="center" vAlign="middle" autoSize="none" text="5">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <image id="n5_nz4n" name="n5" src="hjsh30" fileName="images/BonusSettle/ng_txt_Touch to continue.png" xy="339,1248" size="428,34" aspect="true"/>
+    <image id="n6_nz4n" name="n6" src="hjsh2x" fileName="images/BonusSettle/ng_txt_STACKED WILD.png" xy="305,1115" size="495,49" aspect="true"/>
+    <image id="n7_nz4n" name="n7" src="hjsh2u" fileName="images/BonusSettle/ng_txt_MULTIPLIER MAN.png" xy="313,985" size="480,29" aspect="true"/>
+    <component id="n8_nz4n" name="button" src="fv271f" fileName="components/Button1.xml" xy="0,0" size="1080,1920">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+  </displayList>
+</component>

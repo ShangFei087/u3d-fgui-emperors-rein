@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1178" restrictSize="540,0,0,0">
+  <displayList>
+    <component id="n18_cwuo" name="coinOutScale" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,0" size="540,76" group="n20_cwuo">
+      <property target="key" propertyId="0" value="Coin Out Scale(Ticket : Credit):"/>
+      <property target="value" propertyId="0" value="1:100"/>
+    </component>
+    <component id="n19_cwuo" name="coinInScale" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,76" size="540,76" group="n20_cwuo">
+      <property target="key" propertyId="0" value="Coin In Scale(Coin : Credit):"/>
+      <property target="value" propertyId="0" value="1:100"/>
+    </component>
+    <component id="n27_os7y" name="scoreScale" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,152" size="540,76" group="n20_cwuo">
+      <property target="key" propertyId="0" value="Score Short Click Scale(Time : Credit):"/>
+      <property target="value" propertyId="0" value="1:100"/>
+    </component>
+    <component id="n25_cwuo" name="flipScreen" src="cwuo3a" fileName="moudules/ItemLongButton.xml" xy="0,228" group="n20_cwuo">
+      <property target="btn" propertyId="0" value="Flip Screen"/>
+      <property target="btn" propertyId="1" value="ui://xp0b9yqdos7y3r"/>
+    </component>
+    <component id="n28_os7y" name="resetMachineToFactorySettings" src="cwuo3a" fileName="moudules/ItemLongButton.xml" xy="0,304" group="n20_cwuo">
+      <property target="btn" propertyId="0" value="Reset Machine to FactorySettings"/>
+      <property target="btn" propertyId="1" value="ui://xp0b9yqdos7y3y"/>
+    </component>
+    <group id="n20_cwuo" name="left" xy="0,0" size="540,380" advanced="true">
+      <relation target="" sidePair="width-width"/>
+    </group>
+    <component id="n29_os7y" name="useBillValidator" src="cwuo2d" fileName="moudules/ItemTitleSwitch.xml" xy="540,0" group="n23_cwuo">
+      <property target="key" propertyId="0" value="Bill Validator:"/>
+    </component>
+    <component id="n30_os7y" name="billValidatorModel" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="540,76" size="540,76" group="n23_cwuo">
+      <property target="key" propertyId="0" value="Bill Validator Model:"/>
+      <property target="value" propertyId="0" value="AE2831 D5 &lt;img src=&apos;ui://xp0b9yqdos7y4j&apos; width=&apos;20&apos; height=&apos;20&apos;/&gt;"/>
+    </component>
+    <component id="n31_os7y" name="usePrinter" src="cwuo2d" fileName="moudules/ItemTitleSwitch.xml" xy="540,152" group="n23_cwuo">
+      <property target="key" propertyId="0" value="Printer:"/>
+    </component>
+    <component id="n32_os7y" name="printerModel" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="540,228" size="540,76" group="n23_cwuo">
+      <property target="key" propertyId="0" value="Printer Model:"/>
+      <property target="value" propertyId="0" value="Phoenix &lt;img src=&apos;ui://xp0b9yqdos7y4i&apos; width=&apos;20&apos; height=&apos;20&apos;/&gt;"/>
+    </component>
+    <group id="n23_cwuo" name="right" xy="540,0" size="540,304" advanced="true"/>
+  </displayList>
+</component>

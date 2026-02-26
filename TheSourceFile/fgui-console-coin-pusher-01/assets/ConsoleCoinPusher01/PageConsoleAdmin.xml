@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_paul" name="base" src="paul3" fileName="moudules/MDPageBase.xml" xy="1,-1">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="title" propertyId="0" value="/超级管理员"/>
+    </component>
+    <list id="n12_ggbp" name="tab1" xy="49,126" size="980,1670" overflow="hidden" lineGap="10" defaultItem="ui://tdkeq960paul7">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <item name="installVer">
+        <property target="title" propertyId="0" value="安装版本:"/>
+        <property target="value" propertyId="0" value="1.0.0/1.0.2"/>
+      </item>
+      <item name="sofwareVer">
+        <property target="title" propertyId="0" value="当前软件版本:"/>
+        <property target="value" propertyId="0" value="1.0.0/1.0.4"/>
+      </item>
+      <item name="appKey">
+        <property target="title" propertyId="0" value="软件编号:"/>
+        <property target="value" propertyId="0" value="er200_release_machine_20250923172835"/>
+      </item>
+      <item name="hotfixKey">
+        <property target="title" propertyId="0" value="热更新编号:"/>
+        <property target="value" propertyId="0" value="hf_release_dndroid_20250926191117"/>
+      </item>
+      <item name="severAddress">
+        <property target="title" propertyId="0" value="资源服务器地址:"/>
+        <property target="value" propertyId="0" value="http://8.138.140.180:8134"/>
+      </item>
+      <item name="autoHofixAddress">
+        <property target="title" propertyId="0" value="动态热更新目录地址:"/>
+        <property target="value" propertyId="0" value="http://"/>
+      </item>
+      <item name="isDebugLog">
+        <property target="title" propertyId="0" value="是否打印日志:"/>
+        <property target="value" propertyId="0" value="ON"/>
+      </item>
+      <item name="enableDebugTool">
+        <property target="title" propertyId="0" value="使用调试工具:"/>
+        <property target="value" propertyId="0" value="ON"/>
+      </item>
+      <item name="enableReporterPage">
+        <property target="title" propertyId="0" value="使用调试页面:"/>
+        <property target="value" propertyId="0" value="ON"/>
+      </item>
+      <item name="pauseAtPopupFreeSpinTrigger">
+        <property target="title" propertyId="0" value="暂停免费游戏触发弹窗:"/>
+        <property target="value" propertyId="0" value="OFF"/>
+      </item>
+      <item name="pauseAtPopupFreeSpinResult">
+        <property target="title" propertyId="0" value="暂停免费游戏结束弹窗:"/>
+        <property target="value" propertyId="0" value="OFF"/>
+      </item>
+      <item name="pauseAtPopupJackpotGame">
+        <property target="title" propertyId="0" value="暂停游戏彩金弹窗:"/>
+        <property target="value" propertyId="0" value="OFF"/>
+      </item>
+      <item name="pauseAtPopupJackpotOnline">
+        <property target="title" propertyId="0" value="暂停联网彩金弹窗:"/>
+        <property target="value" propertyId="0" value="OFF"/>
+      </item>
+      <item name="isUseAllConsolePage">
+        <property target="title" propertyId="0" value="显示所有后台页面:"/>
+        <property target="value" propertyId="0" value="OFF"/>
+      </item>
+      <item name="isUseMqttDefault">
+        <property target="title" propertyId="0" value="使用Mqtt默认配置:"/>
+        <property target="value" propertyId="0" value="OFF"/>
+      </item>
+      <item name="fguiInputMethod">
+        <property target="title" propertyId="0" value="Fgui输入方式"/>
+        <property target="value" propertyId="0" value="触摸"/>
+      </item>
+      <item name="next">
+        <property target="title" propertyId="0" value="下一页"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+    </list>
+    <list id="n13_ydll" name="tab2" xy="29,130" size="980,1670" visible="false" overflow="scroll" lineGap="10" defaultItem="ui://tdkeq960paul7">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <item name="pauseAtPopupGameLoadingOnce">
+        <property target="title" propertyId="0" value="停留在游戏登录界面(单次):"/>
+        <property target="value" propertyId="0" value="OFF"/>
+      </item>
+      <item name="deletePanel">
+        <property target="title" propertyId="0" value="开机删除游戏操作面板:"/>
+        <property target="value" propertyId="0" value="OFF"/>
+      </item>
+      <item name="deleteReels">
+        <property target="title" propertyId="0" value="开机删除滚轮组:"/>
+        <property target="value" propertyId="0" value="OFF"/>
+      </item>
+      <item name="destroyPanel">
+        <property target="title" propertyId="0" value="销毁游戏操作面板:"/>
+        <property target="value" propertyId="0" value="Click"/>
+      </item>
+      <item name="destroyReels">
+        <property target="title" propertyId="0" value="销毁滚轮组:"/>
+        <property target="value" propertyId="0" value="Click"/>
+      </item>
+      <item name="prev">
+        <property target="title" propertyId="0" value="上一页"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="next">
+        <property target="title" propertyId="0" value="下一页"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+    </list>
+    <list id="n14_ydll" name="footer" xy="174,1766" size="732,24" touchable="false" layout="row" overflow="scroll" colGap="20" defaultItem="ui://tdkeq960ydllx" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+    </list>
+  </displayList>
+</component>

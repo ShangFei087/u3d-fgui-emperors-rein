@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <image id="n0_fr2h" name="n0" src="fr2h2x" fileName="images/gameMain/fg_bg_bj2.png" xy="0,0" size="1080,1920" group="n6_fr2h">
+      <relation target="" sidePair="width-width,height-height%"/>
+    </image>
+    <image id="n1_fr2h" name="n1" src="fr2h31" fileName="images/bonusGame1/ng_img_zhukuang.png" xy="72,744" group="n6_fr2h"/>
+    <image id="n2_fr2h" name="n2" src="fr2h31" fileName="images/bonusGame1/ng_img_zhukuang.png" xy="513,744" size="441,564" group="n6_fr2h" flip="hz"/>
+    <image id="n7_fr2h" name="n7" src="fr2h32" fileName="images/bonusGame1/ng_img_20 link.png" xy="22,986" group="n6_fr2h"/>
+    <image id="n8_fr2h" name="n8" src="fr2h33" fileName="images/bonusGame1/ng_txt_20 link.png" xy="38,1027" group="n6_fr2h"/>
+    <image id="n3_fr2h" name="n3" src="fr2h2l" fileName="images/pop-upWindows/fg_txt_X-RAY.png" xy="98,783" group="n6_fr2h" scale="0.5,0.5"/>
+    <image id="n4_fr2h" name="n4" src="fr2h2m" fileName="images/pop-upWindows/fg_txt_X-RAY2.png" xy="133,838" group="n6_fr2h" scale="0.5,0.5"/>
+    <group id="n6_fr2h" name="n6" xy="0,0" size="1080,1920"/>
+    <component id="n5_fr2h" name="AnchorNPC" src="fr2h34" fileName="moudules/bonusGame1/AnchorNPC.xml" xy="1022,1039" size="1,1" scale="2,2"/>
+    <component id="n9_fr2h" name="Box" src="fr2h35" fileName="moudules/bonusGame1/Box.xml" xy="108,964" scale="0.8,0.8"/>
+    <component id="n10_fr2h" name="Box1" src="fr2h35" fileName="moudules/bonusGame1/Box.xml" xy="572,962" scale="0.8,0.8"/>
+    <component id="n11_fr2h" name="Box2" src="fr2h35" fileName="moudules/bonusGame1/Box.xml" xy="338,962" scale="0.8,0.8"/>
+  </displayList>
+</component>

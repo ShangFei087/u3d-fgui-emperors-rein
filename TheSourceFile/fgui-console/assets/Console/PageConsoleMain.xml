@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_yx3q" name="bg" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#ff333333">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <graph id="n1_smbp" name="n1" xy="0,575" size="1080,1344" type="rect" lineSize="0" fillColor="#ff347591">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <list id="n2_smbp" name="menu" xy="-1,572" size="1080,1344" layout="flow_hz" overflow="hidden" lineGap="50" colGap="50" lineItemCount="3" defaultItem="ui://xp0b9yqdoibks" align="center" vAlign="middle">
+      <relation target="" sidePair="width-width,height-height"/>
+      <item title="Game Information" icon="ui://xp0b9yqdoibkf" name="gameInfo"/>
+      <item title="Business Record" icon="ui://xp0b9yqdoibkg" name="businessRecord"/>
+      <item title="Game History" icon="ui://xp0b9yqdoibkh" name="gameHistory"/>
+      <item title="Event Record" icon="ui://xp0b9yqdoibki" name="logRecord"/>
+      <item title="Time And Date" icon="ui://xp0b9yqdoibkn" name="date"/>
+      <item title="Volume Setting" icon="ui://xp0b9yqdoibkk" name="sound"/>
+      <item title="Language" icon="ui://xp0b9yqdos7y3g" name="language"/>
+      <item title="Hardware" icon="ui://xp0b9yqdoibkl" name="hardware"/>
+      <item title="Touch Calbrate" icon="ui://xp0b9yqdoibkm" name="touch"/>
+      <item title="Settings" icon="ui://xp0b9yqdoibkj" name="settings"/>
+      <item title="Admin" icon="ui://xp0b9yqdoibkq" name="admin"/>
+      <item title="Exit Setup" icon="ui://xp0b9yqdoibkp" name="exit"/>
+    </list>
+    <graph id="n3_v06j" name="mask" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#03ffffff">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+  </displayList>
+</component>

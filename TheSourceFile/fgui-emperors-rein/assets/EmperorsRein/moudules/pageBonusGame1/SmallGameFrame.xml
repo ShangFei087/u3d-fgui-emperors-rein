@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1081,897">
+  <controller name="c1" pages="3,zeor,0,one,1,two,2,three" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="t0" stopOnExit="true"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="t1" stopOnExit="true"/>
+    <action type="play_transition" fromPage="" toPage="2" transition="t2" stopOnExit="true"/>
+    <action type="play_transition" fromPage="" toPage="3" transition="t3"/>
+  </controller>
+  <displayList>
+    <image id="n0_oqbo" name="n0" src="trhyt" fileName="images/pageGameMain/frame/gameFrame/ng_img_BorderUp.png" xy="1,0"/>
+    <image id="n1_oqbo" name="n1" src="trhys" fileName="images/pageGameMain/frame/gameFrame/ng_img_BorderLeft.png" xy="1020,148"/>
+    <image id="n2_oqbo" name="n2" src="trhys" fileName="images/pageGameMain/frame/gameFrame/ng_img_BorderLeft.png" xy="61,142" skew="0,180"/>
+    <image id="n3_oqbo" name="n3" src="trhyr" fileName="images/pageGameMain/frame/gameFrame/ng_img_BorderDown.png" xy="31,807"/>
+    <image id="n5_oqbo" name="n5" src="oqbofn" fileName="images/pageBonusGame1/sg_bg_HintTitleBorder.png" xy="68,36"/>
+    <image id="n6_oqbo" name="n6" src="oqbofm" fileName="images/pageBonusGame1/sg_txt_TipsSpins.png" xy="172,69"/>
+    <image id="n7_oqbo" name="n7" src="oqbofl" fileName="images/pageBonusGame1/sg_txt_TipsRemaining.png" xy="369,69"/>
+    <image id="n8_oqbo" name="n8" src="oqbofi" fileName="images/pageBonusGame1/sg_num_tips_1.png" xy="665,59"/>
+    <image id="n9_oqbo" name="n9" src="oqbofj" fileName="images/pageBonusGame1/sg_num_tips_2.png" xy="755,59"/>
+    <image id="n10_oqbo" name="n10" src="oqbofk" fileName="images/pageBonusGame1/sg_num_tips_3.png" xy="846,59"/>
+  </displayList>
+  <transition name="t0">
+    <item time="0" type="Alpha" target="n10_oqbo" value="0.5"/>
+    <item time="0" type="Alpha" target="n8_oqbo" value="1"/>
+    <item time="0" type="Alpha" target="n9_oqbo" value="0.5"/>
+  </transition>
+  <transition name="t1">
+    <item time="0" type="Alpha" target="n10_oqbo" value="0.5"/>
+    <item time="0" type="Alpha" target="n8_oqbo" value="0.5"/>
+    <item time="0" type="Alpha" target="n9_oqbo" value="1"/>
+  </transition>
+  <transition name="t2">
+    <item time="0" type="Alpha" target="n10_oqbo" value="1"/>
+    <item time="0" type="Alpha" target="n8_oqbo" value="0.5"/>
+    <item time="0" type="Alpha" target="n9_oqbo" value="0.5"/>
+  </transition>
+  <transition name="t3">
+    <item time="0" type="Alpha" target="n10_oqbo" value="0.5"/>
+    <item time="0" type="Alpha" target="n8_oqbo" value="0.5"/>
+    <item time="0" type="Alpha" target="n9_oqbo" value="0.5"/>
+  </transition>
+</component>

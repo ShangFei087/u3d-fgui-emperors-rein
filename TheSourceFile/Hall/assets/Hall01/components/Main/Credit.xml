@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <image id="n0_e5o5" name="n0" src="e5o51o" fileName="images/Main/plat_btn_Select a page.png" xy="-231,-67" size="433,121" aspect="true"/>
+    <text id="n1_e5o5" name="credit" xy="-192,-50" pivot="0,0.5" size="409,76" font="ui://jzsm3zpue5o51x" fontSize="8" vAlign="middle" autoSize="none" text="10000000"/>
+    <text id="n2_e5o5" name="machineId" xy="29,-96" size="172,29" fontSize="20" color="#ffffff" autoSize="none" text="MACHINE ID :001"/>
+  </displayList>
+</component>

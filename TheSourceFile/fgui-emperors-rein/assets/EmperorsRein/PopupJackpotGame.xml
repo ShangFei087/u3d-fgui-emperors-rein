@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_oqbo" name="n0" src="gisvtc" fileName="components/Mash.xml" xy="0,0" size="1080,1920">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n1_oqbo" name="effect" src="fzp9gj" fileName="components/gameJackpot/Effect.xml" xy="541,653">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n4_l9j1" name="Button" src="l9j1nh" fileName="moudules/popupGameJackpot/Button2.xml" xy="0,0" size="1080,1920">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+  </displayList>
+</component>

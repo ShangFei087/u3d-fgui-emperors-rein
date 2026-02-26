@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" restrictSize="0,1080,0,1920">
+  <displayList>
+    <image id="n1_bllo" name="bg" src="bllo3" fileName="images/PopupGameLoading/bg.png" xy="2,4" size="1080,1920">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n3_bllo" name="Slider" src="bllod" fileName="components/gameLoading/Slider.xml" xy="137,1635" size="830,62">
+      <Slider max="1"/>
+    </component>
+    <text id="n4_bllo" name="load" xy="415,1571" size="249,54" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="加载中:0/100"/>
+  </displayList>
+</component>

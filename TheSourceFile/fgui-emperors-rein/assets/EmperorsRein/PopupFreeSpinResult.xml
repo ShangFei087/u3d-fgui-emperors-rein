@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_uvr5" name="n0" src="gisvtc" fileName="components/Mash.xml" xy="0,0" size="1080,1920">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n15_ip7a" name="n15" src="gy7g5i" fileName="images/popupWin/BIGWIN_queen-idle_00.png" xy="3,182"/>
+    <image id="n16_7w15" name="n16" src="7w15uz" fileName="images/popupFreeSpinResult/dun.png" xy="283,643"/>
+    <component id="n9_oqbo" name="btnBG" src="rte1xn1cl" fileName="components/popupFreeSpinResult/CompBtnBG.xml" xy="531,1307" pivot="0.5,0.5" anchor="true"/>
+    <text id="n10_oqbo" name="number" xy="540,1314" pivot="0.5,0.5" anchor="true" size="577,132" font="ui://vdmp4vsroqbofo" fontSize="12" align="center" vAlign="middle" letterSpacing="20" autoSize="shrink" text="500">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </text>
+    <component id="n14_l9j1" name="Button" src="l9j1nh" fileName="moudules/popupGameJackpot/Button2.xml" xy="0,0" size="1080,1920">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n20_wbby" name="n20" src="wbby1cc" fileName="images/popupFreeSpinResult/gongXi.png" xy="528,826" pivot="0.5,0.5" anchor="true"/>
+    <image id="n21_wbby" name="n21" src="wbby1cd" fileName="images/popupFreeSpinResult/Get.png" xy="537,1019" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+  <transition name="Begin" autoPlayRepeat="-1">
+    <item time="0" type="Scale" target="n10_oqbo" tween="true" startValue="0.2,0.2" endValue="1,1" duration="6" ease="Linear"/>
+    <item time="0" type="Scale" target="n9_oqbo" tween="true" startValue="0.2,0.2" endValue="1,1" duration="6" ease="Linear"/>
+    <item time="0" type="Visible" target="n10_oqbo" value="false"/>
+    <item time="6" type="Visible" target="n10_oqbo" value="true"/>
+  </transition>
+  <transition name="Other"/>
+  <transition name="End" options="4"/>
+  <transition name="Bigger">
+    <item time="0" type="Scale" target="n10_oqbo" tween="true" startValue="1,1" endValue="1.5,1.5" duration="6" repeat="1" yoyo="true"/>
+    <item time="0" type="Scale" target="n9_oqbo" tween="true" startValue="1,1" endValue="1.5,1.5" duration="6" repeat="1" yoyo="true"/>
+  </transition>
+</component>

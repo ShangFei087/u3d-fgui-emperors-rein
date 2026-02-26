@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="889,699">
+  <displayList>
+    <richtext id="n1_tsjn" name="n1" xy="0,0" size="889,698" fontSize="29" color="#ffffff" autoSize="none" text="When 3 &lt;img src=&apos;ui://vdmp4vsrjjue2h&apos; width=&apos;60&apos; height=&apos;60&apos;/&gt; appear on the reels, the LINK GAME is triggered.&#xA;&#xA;There are 3 reels in LINK GAME. Initially, only the bottom reel is unlocked. Collecting &lt;img src=&apos;ui://vdmp4vsrjjue2h&apos; width=&apos;60&apos; height=&apos;60&apos;/&gt; can unlock new reels.&#xA;&#xA;The game starts with 3 spins. If &lt;img src=&apos;ui://vdmp4vsrjjue2h&apos; width=&apos;60&apos; height=&apos;60&apos;/&gt; appear on the reels, the number of spins will be reset to 3. If the bonuses on the reels are connected in a row, column, or oblique line, the bonuses in that row, column, or oblique line will be collected into the reel bonus pool above the reel.&#xA;&#xA;If the bonuses on the top reel are connected in a row, column, or oblique line, they will be awarded directly. When the number of game spins reaches 0, the scores from the two bonus pools will be collected as the final reward.">
+      <relation target="" sidePair="center-center"/>
+    </richtext>
+  </displayList>
+</component>

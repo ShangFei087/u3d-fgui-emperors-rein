@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="36,36">
+  <displayList>
+    <component id="n0_r8oz" name="btnMenu" src="r8oz2" fileName="components/ButtonTestMenu.xml" xy="0,0"/>
+    <component id="n1_r8oz" name="menu" src="r8oz3" fileName="moudules/TestMenu.xml" xy="0,41"/>
+    <component id="n4_och8" name="popupGMs" src="r8oze" fileName="moudules/TestSelectLst.xml" xy="108,292"/>
+    <component id="n2_r8oz" name="popupPages" src="r8oze" fileName="moudules/TestSelectLst.xml" xy="123,355"/>
+    <component id="n3_rl7y" name="popupButtons" src="r8oze" fileName="moudules/TestSelectLst.xml" xy="136,425"/>
+    <component id="n6_n7rv" name="popupDebugMode" src="n7rvnl" fileName="moudules/TestSelectdebugMode.xml" xy="146,323" size="624,312"/>
+    <richtext id="n5_cd2o" name="tip" xy="1,-222" size="249,220" touchable="false" fontSize="26" color="#00ff00" vAlign="bottom" autoSize="shrink" autoClearText="true" text="请求数据"/>
+  </displayList>
+</component>

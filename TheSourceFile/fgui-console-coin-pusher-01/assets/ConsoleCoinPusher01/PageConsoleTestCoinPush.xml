@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_paul" name="base" src="paul3" fileName="moudules/MDPageBase.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="title" propertyId="0" value="/推币测试"/>
+    </component>
+    <list id="n10_paul" name="items" xy="50,125" size="980,1670" overflow="hidden" defaultItem="ui://tdkeq960paul9">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <item name="coinPush">
+        <property target="title" propertyId="0" value="开始测试"/>
+        <property target="value1" propertyId="0" value="落币"/>
+        <property target="value2" propertyId="0" value="回币"/>
+        <property target="value3" propertyId="0" value="比例"/>
+      </item>
+      <item name="reset">
+        <property target="title" propertyId="0" value="重置测试数据"/>
+        <property target="value1" propertyId="0" value="0"/>
+        <property target="value2" propertyId="0" value="0"/>
+        <property target="value3" propertyId="0" value="0"/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+    </list>
+  </displayList>
+</component>

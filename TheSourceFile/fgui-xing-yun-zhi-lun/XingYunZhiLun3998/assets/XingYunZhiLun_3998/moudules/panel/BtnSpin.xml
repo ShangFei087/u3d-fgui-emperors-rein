@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="348,131">
+  <controller name="button" pages="0,spin,1,stop,3,hui,4,auto" selected="2">
+    <action type="play_transition" fromPage="" toPage="0" transition="animSpin"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="animStop"/>
+    <action type="play_transition" fromPage="" toPage="3" transition="animHui"/>
+    <action type="play_transition" fromPage="" toPage="4" transition="animAuto"/>
+  </controller>
+  <displayList>
+    <image id="n18_l3cn" name="n18" src="l3cn5q" fileName="images/panel/spin/btn_spin_base.png" xy="0,0" size="348,131"/>
+    <image id="n19_l3cn" name="spin" src="l3cn4z" fileName="images/panel/spin/txt_spin.png" xy="80,20" size="178,55"/>
+    <image id="n20_l3cn" name="stop" src="l3cn51" fileName="images/panel/spin/txt_stop.png" xy="80,20" size="178,55"/>
+  </displayList>
+  <transition name="animSpin">
+    <item time="0" type="Alpha" target="n19_l3cn" value="0"/>
+    <item time="0" type="Alpha" target="n20_l3cn" value="1"/>
+    <item time="0" type="Color" target="n18_l3cn" value="#ffffff"/>
+  </transition>
+  <transition name="animStop">
+    <item time="0" type="Alpha" target="n19_l3cn" value="1"/>
+    <item time="0" type="Alpha" target="n20_l3cn" value="0"/>
+    <item time="0" type="Color" target="n18_l3cn" value="#ffffff"/>
+    <item time="0" type="Color" target="n19_l3cn" value="#ffffff"/>
+  </transition>
+  <transition name="animHui">
+    <item time="0" type="Alpha" target="n19_l3cn" value="1"/>
+    <item time="0" type="Alpha" target="n20_l3cn" value="0"/>
+    <item time="0" type="Color" target="n18_l3cn" value="#666666"/>
+    <item time="0" type="Color" target="n19_l3cn" value="#666666"/>
+  </transition>
+  <transition name="animAuto">
+    <item time="0" type="Alpha" target="n19_l3cn" value="0"/>
+    <item time="0" type="Alpha" target="n20_l3cn" value="0"/>
+    <item time="0" type="Color" target="n18_l3cn" value="#ffffff"/>
+  </transition>
+</component>

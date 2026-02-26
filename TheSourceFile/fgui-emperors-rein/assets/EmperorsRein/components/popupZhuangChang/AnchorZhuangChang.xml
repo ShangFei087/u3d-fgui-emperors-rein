@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <graph id="n8_w36x" name="holder" xy="0,0" pivot="0.5,0.5" anchor="true" size="377,892" visible="false" type="rect" lineSize="0"/>
+    <loader id="n7_trhy" name="example" xy="0,0" pivot="0.5,0.5" anchor="true" size="377,892" url="ui://vdmp4vsrnb0njb" autoSize="true" clearOnPublish="true"/>
+  </displayList>
+  <customProperty target="icon" propertyId="1" label="图标"/>
+</component>

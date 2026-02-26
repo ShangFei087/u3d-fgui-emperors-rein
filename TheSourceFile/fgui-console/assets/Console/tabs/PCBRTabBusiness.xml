@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1178">
+  <displayList>
+    <graph id="n49_g3lh" name="n49" xy="40,188" size="1000,2" type="rect" lineSize="0"/>
+    <graph id="n59_g3lh" name="n59" xy="40,340" size="1000,2" type="rect" lineSize="0"/>
+    <graph id="n60_g3lh" name="n60" xy="40,492" size="1000,2" type="rect" lineSize="0"/>
+    <graph id="n63_g3lh" name="n63" xy="5,643" size="1070,3" type="rect" lineSize="0"/>
+    <component id="n31_os7y" name="mdAllBusiness" src="glrj1k" fileName="moudules/ModuleName.xml" xy="0,0" group="n27_cwuo">
+      <property target="title" propertyId="0" value="All Business"/>
+    </component>
+    <component id="n48_g3lh" name="totalBet" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="0,38" group="n27_cwuo">
+      <property target="key" propertyId="0" value="Total Bet:"/>
+      <property target="value" propertyId="0" value="10000"/>
+    </component>
+    <component id="n33_os7y" name="totalWin" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="0,114" group="n27_cwuo">
+      <property target="key" propertyId="0" value="Total Win:"/>
+      <property target="value" propertyId="0" value="10000"/>
+    </component>
+    <component id="n50_g3lh" name="totalCoinIn" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="0,190" group="n27_cwuo">
+      <property target="key" propertyId="0" value="Total Coin In:"/>
+      <property target="value" propertyId="0" value="10000"/>
+    </component>
+    <component id="n51_g3lh" name="totalCoinOut" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="0,266" group="n27_cwuo">
+      <property target="key" propertyId="0" value="Total Coin Out:"/>
+      <property target="value" propertyId="0" value="10000"/>
+    </component>
+    <component id="n52_g3lh" name="totalScoreUp" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="0,342" group="n27_cwuo">
+      <property target="key" propertyId="0" value="Total Score Up:"/>
+      <property target="value" propertyId="0" value="10000"/>
+    </component>
+    <component id="n53_g3lh" name="totalScoreDown" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="0,418" group="n27_cwuo">
+      <property target="key" propertyId="0" value="Total Score Down:"/>
+      <property target="value" propertyId="0" value="10000"/>
+    </component>
+    <component id="n61_g3lh" name="billingInformation" src="g3lh55" fileName="moudules/ItemTitleContent.xml" xy="0,494" group="n27_cwuo">
+      <property target="key" propertyId="0" value="Billing Information:"/>
+      <property target="value" propertyId="0" value="20240911 11:22:00&lt;br/&gt;111/10600001/1:100&lt;br/&gt;1.0.0/1.1735123146/100"/>
+    </component>
+    <group id="n27_cwuo" name="left" xy="0,0" size="1080,646" group="n65_g3lh" advanced="true"/>
+    <component id="n54_g3lh" name="remainingPoints" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="560,38" size="520,75" group="n56_g3lh">
+      <property target="key" propertyId="0" value="Remaining Points:"/>
+      <property target="value" propertyId="0" value="10000"/>
+    </component>
+    <component id="n55_g3lh" name="totalProfitBet" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="560,113" size="520,75" group="n56_g3lh">
+      <property target="key" propertyId="0" value="Toral Profit:"/>
+      <property target="value" propertyId="0" value="10000"/>
+    </component>
+    <component id="n57_g3lh" name="totalProfitCoinInOut" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="560,188" size="520,75" group="n56_g3lh">
+      <property target="key" propertyId="0" value="Toral Profit:"/>
+      <property target="value" propertyId="0" value="10000"/>
+    </component>
+    <component id="n58_g3lh" name="totalProfitScoreUpDown" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="560,342" size="520,75" group="n56_g3lh">
+      <property target="key" propertyId="0" value="Toral Profit:"/>
+      <property target="value" propertyId="0" value="10000"/>
+    </component>
+    <group id="n56_g3lh" name="right" xy="560,38" size="520,379" group="n65_g3lh" advanced="true"/>
+    <group id="n65_g3lh" name="allBusiness" xy="0,0" size="1080,646" advanced="true"/>
+    <component id="n64_g3lh" name="mdDalyBusiness" src="glrj1k" fileName="moudules/ModuleName.xml" xy="0,652" group="n91_g3lh">
+      <property target="title" propertyId="0" value="Daly Business"/>
+    </component>
+    <component id="n66_g3lh" name="dateDalyBusiness" src="g3lh58" fileName="moudules/ItemDateSelect.xml" xy="0,690" group="n91_g3lh"/>
+    <component id="n80_g3lh" name="totalBetDaly" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="0,766" group="n84_g3lh">
+      <property target="key" propertyId="0" value="Total Bet:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <component id="n81_g3lh" name="totalWinDaly" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="360,766" group="n84_g3lh">
+      <property target="key" propertyId="0" value="Total Win:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <component id="n82_g3lh" name="totalProfitBetDaly" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="720,766" group="n84_g3lh">
+      <property target="key" propertyId="0" value="Total Profit:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <graph id="n83_g3lh" name="n83" xy="40,839" size="1000,2" group="n84_g3lh" type="rect" lineSize="0" lineColor="#ffffffff"/>
+    <group id="n84_g3lh" name="n84" xy="0,766" size="1080,76" group="n91_g3lh"/>
+    <component id="n67_g3lh" name="totalCoinInDaly" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="0,842" group="n74_g3lh">
+      <property target="key" propertyId="0" value="Total Coin In:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <component id="n68_g3lh" name="totalCoinOutDaly" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="360,842" group="n74_g3lh">
+      <property target="key" propertyId="0" value="Total Coin Out:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <component id="n69_g3lh" name="totalProfitCoinInOutDaly" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="720,842" group="n74_g3lh">
+      <property target="key" propertyId="0" value="Total Profit:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <graph id="n79_g3lh" name="n79" xy="40,915" size="1000,2" group="n74_g3lh" type="rect" lineSize="0" lineColor="#ffffffff"/>
+    <group id="n74_g3lh" name="n74" xy="0,842" size="1080,76" group="n91_g3lh"/>
+    <component id="n85_g3lh" name="totalScoreUpDaly" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="0,918" group="n89_g3lh">
+      <property target="key" propertyId="0" value="Total Score Up:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <component id="n86_g3lh" name="totalScoreDownDaly" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="360,918" group="n89_g3lh">
+      <property target="key" propertyId="0" value="Total Score Down:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <component id="n87_g3lh" name="totalProfitScoreUpDownDaly" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="720,918" group="n89_g3lh">
+      <property target="key" propertyId="0" value="Total Profit:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <graph id="n88_g3lh" name="n88" xy="40,991" size="1000,2" group="n89_g3lh" type="rect" lineSize="0" lineColor="#ffffffff"/>
+    <group id="n89_g3lh" name="n89" xy="0,918" size="1080,76" group="n91_g3lh"/>
+    <component id="n90_g3lh" name="tipDayBusniess" src="g3lh5g" fileName="moudules/ItemTip.xml" xy="0,996" group="n91_g3lh"/>
+    <group id="n91_g3lh" name="dailyBudiness" xy="0,652" size="1080,420" advanced="true"/>
+  </displayList>
+</component>

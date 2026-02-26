@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_vckb" name="freeTriggerTip" src="vckb2i" fileName="moudules/popupFreeSpinTrigger/Anchors/SpineAnchors/Anchor_FreeTriggerWindow.xml" xy="540,960"/>
+    <text id="n2_vckb" name="freeRoundText" xy="462,880" size="149,209" font="ui://v8alnoawvckb16" fontSize="25" align="center" vAlign="middle" autoSize="none" text="8"/>
+    <component id="n0_vckb" name="startBtn" src="vckb2q" fileName="components/gameCommon/gameOther/StartButton.xml" xy="440,1200"/>
+  </displayList>
+</component>

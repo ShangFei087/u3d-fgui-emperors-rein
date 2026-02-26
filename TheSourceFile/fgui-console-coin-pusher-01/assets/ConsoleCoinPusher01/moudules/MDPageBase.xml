@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_paul" name="n0" src="paul2" fileName="components/CompPageBG.xml" xy="-1,0"/>
+    <richtext id="n1_paul" name="title" xy="40,34" size="162,49" fontSize="36" color="#ffffff" singleLine="true" text="/游戏主页">
+      <relation target="" sidePair="left-left,top-top"/>
+    </richtext>
+    <richtext id="n3_paul" name="seatId" xy="27,1832" size="240,34" fontSize="24" color="#ffffff" autoSize="shrink" singleLine="true" text="机台编号：01 ">
+      <relation target="" sidePair="left-left,top-top"/>
+    </richtext>
+    <richtext id="n7_edq5" name="groupId" xy="27,1872" size="240,34" fontSize="24" color="#ffffff" autoSize="shrink" singleLine="true" text="机台组号：1 ">
+      <relation target="" sidePair="left-left,top-top"/>
+    </richtext>
+    <richtext id="n4_paul" name="hardwareVer" xy="308,1832" size="240,34" fontSize="24" color="#ffffff" autoSize="shrink" singleLine="true" text="硬件版本: 1.0.0">
+      <relation target="" sidePair="left-left,top-top"/>
+    </richtext>
+    <richtext id="n5_paul" name="algorithmVer" xy="568,1832" size="240,34" fontSize="24" color="#ffffff" autoSize="shrink" singleLine="true" text="算法版本: 1.0.0">
+      <relation target="" sidePair="left-left,top-top"/>
+    </richtext>
+    <richtext id="n6_paul" name="softwareVer" xy="828,1832" size="240,34" fontSize="24" color="#ffffff" autoSize="shrink" singleLine="true" text="游戏版本: 1.0.0">
+      <relation target="" sidePair="left-left,top-top"/>
+    </richtext>
+  </displayList>
+  <customProperty target="title" propertyId="0" label="标题"/>
+</component>

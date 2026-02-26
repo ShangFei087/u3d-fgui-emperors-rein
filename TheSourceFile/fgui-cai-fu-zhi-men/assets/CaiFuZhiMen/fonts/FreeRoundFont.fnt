@@ -1,0 +1,12 @@
+info size=12 resizable=true colored=false
+char id=48 img=vckb17 xoffset=0 yoffset=0 xadvance=0
+char id=49 img=vckb18 xoffset=0 yoffset=0 xadvance=0
+char id=50 img=vckb19 xoffset=0 yoffset=0 xadvance=0
+char id=51 img=vckb1a xoffset=0 yoffset=0 xadvance=0
+char id=52 img=vckb1b xoffset=0 yoffset=0 xadvance=0
+char id=53 img=vckb1c xoffset=0 yoffset=0 xadvance=0
+char id=54 img=vckb1d xoffset=0 yoffset=0 xadvance=0
+char id=55 img=vckb1e xoffset=0 yoffset=0 xadvance=0
+char id=56 img=vckb1f xoffset=0 yoffset=0 xadvance=0
+char id=57 img=vckb1g xoffset=0 yoffset=0 xadvance=0
+char id=47 img=vckb1h xoffset=0 yoffset=0 xadvance=0

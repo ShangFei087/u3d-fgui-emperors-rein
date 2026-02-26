@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_paul" name="base" src="paul3" fileName="moudules/MDPageBase.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="title" propertyId="0" value="/记录/投退币记录&#xA;"/>
+    </component>
+    <list id="n11_9q8e" name="items02" xy="50,1527" size="980,246" overflow="hidden" defaultItem="ui://tdkeq960paul7">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <item name="date">
+        <property target="title" propertyId="0" value="日期"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="next">
+        <property target="title" propertyId="0" value="下一页"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="prev">
+        <property target="title" propertyId="0" value="下一页"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+    </list>
+    <richtext id="n12_9q8e" name="n12" xy="0,98" size="1080,47" font="SimHei" fontSize="24" color="#ffffff" autoSize="none" text="    投-退      积分       装置        投退前分数      投退后分数          日期"/>
+    <graph id="n13_9q8e" name="n13" xy="0,93" size="1080,3" type="rect" lineSize="0"/>
+    <graph id="n14_9q8e" name="n14" xy="0,144" size="1080,3" type="rect" lineSize="0"/>
+    <list id="n15_9q8e" name="record" xy="0,151" size="1080,1202" overflow="hidden" defaultItem="ui://tdkeq960nw5u17">
+      <item>
+        <property target="value1" propertyId="0" value="投"/>
+        <property target="value2" propertyId="0" value="10000"/>
+        <property target="value3" propertyId="0" value="AS"/>
+        <property target="value4" propertyId="0" value="18005"/>
+        <property target="value5" propertyId="0" value="18000"/>
+        <property target="value6" propertyId="0" value="2025-09-28 10:28:58"/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+      <item>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+        <property target="value4" propertyId="0" value=""/>
+        <property target="value5" propertyId="0" value=""/>
+        <property target="value6" propertyId="0" value=""/>
+      </item>
+    </list>
+    <richtext id="n16_r2gc" name="n16" xy="287,1398" size="507,66" fontSize="49" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="1/10&#xA;"/>
+  </displayList>
+</component>

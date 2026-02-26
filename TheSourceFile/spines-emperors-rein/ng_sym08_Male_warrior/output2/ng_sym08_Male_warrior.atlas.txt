@@ -1,0 +1,104 @@
+
+ng_sym08_Male_warrior.png
+size: 646,262
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bg
+  rotate: false
+  xy: 187, 93
+  size: 167, 167
+  orig: 167, 167
+  offset: 0, 0
+  index: -1
+jian
+  rotate: true
+  xy: 356, 111
+  size: 149, 174
+  orig: 149, 174
+  offset: 0, 0
+  index: -1
+kuang
+  rotate: false
+  xy: 2, 80
+  size: 183, 180
+  orig: 183, 180
+  offset: 0, 0
+  index: -1
+shen_ti1
+  rotate: false
+  xy: 187, 7
+  size: 122, 84
+  orig: 122, 84
+  offset: 0, 0
+  index: -1
+shen_ti2
+  rotate: false
+  xy: 75, 33
+  size: 61, 45
+  orig: 61, 50
+  offset: 0, 5
+  index: -1
+shen_ti3
+  rotate: true
+  xy: 2, 31
+  size: 47, 71
+  orig: 47, 71
+  offset: 0, 0
+  index: -1
+tou
+  rotate: false
+  xy: 532, 8
+  size: 98, 119
+  orig: 105, 119
+  offset: 7, 0
+  index: -1
+tou_1ysn_1
+  rotate: true
+  xy: 511, 52
+  size: 15, 8
+  orig: 15, 8
+  offset: 0, 0
+  index: -1
+tou_1ysn_2
+  rotate: true
+  xy: 511, 37
+  size: 13, 7
+  orig: 13, 7
+  offset: 0, 0
+  index: -1
+tou_2ysn_1
+  rotate: true
+  xy: 511, 69
+  size: 19, 8
+  orig: 20, 8
+  offset: 1, 0
+  index: -1
+tou_2ysn_2
+  rotate: true
+  xy: 511, 90
+  size: 19, 9
+  orig: 19, 9
+  offset: 0, 0
+  index: -1
+tou_kui1
+  rotate: true
+  xy: 356, 2
+  size: 107, 153
+  orig: 107, 153
+  offset: 0, 0
+  index: -1
+tou_kui2
+  rotate: false
+  xy: 532, 129
+  size: 112, 131
+  orig: 112, 144
+  offset: 0, 13
+  index: -1
+tou_kui3
+  rotate: false
+  xy: 311, 10
+  size: 35, 81
+  orig: 35, 81
+  offset: 0, 0
+  index: -1

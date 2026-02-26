@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="82,180">
+  <displayList>
+    <component id="n0_ioi7" name="btnPayTable" src="ebgu7q" fileName="components/button/ButtonIntroduce.xml" xy="0,94"/>
+    <component id="n1_ioi7" name="btnSound" src="ebgu7s" fileName="components/ButtonSound.xml" xy="0,0"/>
+  </displayList>
+</component>

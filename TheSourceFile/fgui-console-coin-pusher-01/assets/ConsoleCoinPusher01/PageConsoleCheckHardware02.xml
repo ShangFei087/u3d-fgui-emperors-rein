@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_paul" name="base" src="paul3" fileName="moudules/MDPageBase.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="title" propertyId="0" value="/硬件测试"/>
+    </component>
+    <list id="n10_paul" name="items" xy="50,124" size="980,1659" overflow="hidden" defaultItem="ui://tdkeq960paul9">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <item name="_title1">
+        <property target="title" propertyId="0" value=""/>
+        <property target="value1" propertyId="0" value="状态"/>
+        <property target="value2" propertyId="0" value="感测器"/>
+        <property target="value3" propertyId="0" value="计数"/>
+      </item>
+      <item name="topCoinIn">
+        <property target="title" propertyId="0" value="顶部入币"/>
+        <property target="value1" propertyId="0" value="OFF"/>
+        <property target="value2" propertyId="0" value="OFF"/>
+        <property target="value3" propertyId="0" value="0"/>
+      </item>
+      <item name="ballIn">
+        <property target="title" propertyId="0" value="发球"/>
+        <property target="value1" propertyId="0" value="OFF"/>
+        <property target="value2" propertyId="0" value="OFF"/>
+        <property target="value3" propertyId="0" value="0"/>
+      </item>
+      <item name="RegainCoins">
+        <property target="title" propertyId="0" value="回币器"/>
+        <property target="value1" propertyId="0" value="OFF"/>
+        <property target="value2" propertyId="0" value="OFF"/>
+        <property target="value3" propertyId="0" value="0"/>
+      </item>
+      <item name="RegainBalls">
+        <property target="title" propertyId="0" value="回球器"/>
+        <property target="value1" propertyId="0" value="OFF"/>
+        <property target="value2" propertyId="0" value="OFF"/>
+        <property target="value3" propertyId="0" value="0"/>
+      </item>
+      <item name="_title2">
+        <property target="title" propertyId="0" value=""/>
+        <property target="value1" propertyId="0" value="状态"/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+      <item name="wiper">
+        <property target="title" propertyId="0" value="雨刷"/>
+        <property target="value1" propertyId="0" value="OFF"/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+      <item name="pushPlate">
+        <property target="title" propertyId="0" value="推盘"/>
+        <property target="value1" propertyId="0" value="OFF"/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+    </list>
+    <list id="n13_86hh" name="items2" xy="50,125" size="980,132" visible="false" layout="flow_hz" overflow="hidden" lineGap="10" colGap="12" defaultItem="ui://tdkeq96086hhc">
+      <item name="btnSpin">
+        <property target="title" propertyId="0" value="开始键"/>
+      </item>
+      <item name="btnWiper">
+        <property target="title" propertyId="0" value="雨刷键"/>
+      </item>
+    </list>
+    <richtext id="n14_n65m" name="tip" xy="126,1449" size="833,173" fontSize="32" align="center" vAlign="middle" ubb="true" autoSize="shrink" autoClearText="true" text="0432444444444444444444444444444444444444444444444&lt;br&gt;{&quot;code&quot;:0,&quot;coinPushTestCoins&quot;:0,&quot;coinPushTestBalls&quot;:0,&quot;coinPushTestPlate&quot;:0,&quot;coinPushTestWiper&quot;:0}&#xA;UnityEngine.Debug:LogError (object)"/>
+  </displayList>
+</component>

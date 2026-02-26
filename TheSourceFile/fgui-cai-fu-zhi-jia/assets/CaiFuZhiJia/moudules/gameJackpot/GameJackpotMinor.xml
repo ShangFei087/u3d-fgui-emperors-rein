@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="373,133">
+  <displayList>
+    <image id="n0_6ydp" name="n0" src="hhky4y" fileName="images/popupJackpotTrigger/Background/ng_frame_minor.png" xy="0,57" group="n2_6ydp"/>
+    <image id="n4_qirh" name="n4" src="qirhhp" fileName="images/popupJackpotTrigger/Background/ng_txt_minor_1.png" xy="187,31" pivot="0.5,0.5" anchor="true" group="n2_6ydp"/>
+    <list id="n3_j01n" name="n1" xy="23,71" size="328,43" group="n2_6ydp" layout="row" overflow="hidden" defaultItem="ui://k5oi8hwr6ydp6z" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <group id="n2_6ydp" name="n2" xy="0,0" size="373,131"/>
+  </displayList>
+</component>

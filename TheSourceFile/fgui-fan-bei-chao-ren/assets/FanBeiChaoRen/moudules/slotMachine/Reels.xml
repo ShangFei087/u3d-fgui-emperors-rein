@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="820,492" overflow="hidden">
+  <displayList>
+    <component id="n0_hjsh" name="reel1" src="hjsh4e" fileName="moudules/slotMachine/Reel.xml" xy="0,0"/>
+    <component id="n1_hjsh" name="reel2" src="hjsh4e" fileName="moudules/slotMachine/Reel.xml" xy="164,0"/>
+    <component id="n2_hjsh" name="reel3" src="hjsh4e" fileName="moudules/slotMachine/Reel.xml" xy="328,0"/>
+    <component id="n3_hjsh" name="reel4" src="hjsh4e" fileName="moudules/slotMachine/Reel.xml" xy="492,0"/>
+    <component id="n4_hjsh" name="reel5" src="hjsh4e" fileName="moudules/slotMachine/Reel.xml" xy="656,0"/>
+  </displayList>
+</component>

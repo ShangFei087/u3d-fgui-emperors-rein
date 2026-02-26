@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <loader id="n0_fcra" name="example" xy="0,0" pivot="0.5,0.5" anchor="true" size="1080,1920"/>
+    <graph id="n1_fcra" name="holder" xy="0,0" pivot="0.5,0.5" anchor="true" size="1080,1920" visible="false" type="rect"/>
+  </displayList>
+</component>

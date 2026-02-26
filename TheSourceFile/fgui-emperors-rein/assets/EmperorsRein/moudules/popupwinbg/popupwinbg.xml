@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="464,416">
+  <displayList>
+    <image id="n6_lvms" name="n6" src="lvmsci" fileName="images/popupWin/ng_bg_WinShield.png" xy="0,0"/>
+    <image id="n7_lvms" name="n7" src="lvmscr" fileName="images/popupWin/ng_txt_BIG.png" xy="105,15"/>
+    <image id="n8_lvms" name="n8" src="lvmscn" fileName="images/popupWin/ng_txt_WIN.png" xy="78,199"/>
+  </displayList>
+</component>

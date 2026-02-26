@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="307,84" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_i6s3" name="n0" src="x7l38h" fileName="images/PopupGameBigWin/fg_img_pop_btn.png" xy="0,0" size="307,84">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_i6s3" name="n1" src="x7l38g" fileName="images/PopupGameBigWin/fg_txt_pop_collect.png" xy="20,17" size="263,50">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
+  </displayList>
+  <Button/>
+</component>

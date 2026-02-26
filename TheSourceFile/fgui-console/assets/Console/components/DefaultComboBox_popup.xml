@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="225,200">
+  <displayList>
+    <image id="n0_g3lh" name="n0" src="vqlx68" fileName="images/buttons/square_64x64_1.png" xy="0,0" size="225,200">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <list id="n1_g3lh" name="list" xy="0,0" size="225,200" overflow="scroll" defaultItem="ui://xp0b9yqdg3lh5c">
+      <relation target="" sidePair="width-width"/>
+    </list>
+  </displayList>
+  <relation target="n1_g3lh" sidePair="height-height"/>
+</component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="225,326">
+  <displayList>
+    <component id="n2_cwuo" name="bet1" src="cwuo2k" fileName="moudules/ItemBetLstItem.xml" xy="0,0"/>
+    <component id="n3_cwuo" name="bet2" src="cwuo2k" fileName="moudules/ItemBetLstItem.xml" xy="0,42"/>
+    <component id="n4_cwuo" name="bet3" src="cwuo2k" fileName="moudules/ItemBetLstItem.xml" xy="0,84"/>
+    <component id="n5_cwuo" name="bet4" src="cwuo2k" fileName="moudules/ItemBetLstItem.xml" xy="0,126"/>
+    <component id="n6_cwuo" name="bet5" src="cwuo2k" fileName="moudules/ItemBetLstItem.xml" xy="0,168"/>
+    <component id="n7_cwuo" name="bet6" src="cwuo2k" fileName="moudules/ItemBetLstItem.xml" xy="0,210"/>
+    <component id="n11_jtgo" name="bet7" src="cwuo2k" fileName="moudules/ItemBetLstItem.xml" xy="0,252"/>
+    <component id="n10_jtgo" name="bet8" src="cwuo2k" fileName="moudules/ItemBetLstItem.xml" xy="0,294"/>
+  </displayList>
+</component>

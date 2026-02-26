@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="184,350">
+  <displayList>
+    <loader id="n1_ma96" name="n1" xy="92,86" pivot="0.5,0.5" anchor="true" size="176,170" url="ui://4hwvsyqfl8m65w" autoSize="true"/>
+    <component id="n5_ma96" name="col1" src="ma96ma" fileName="components/paytable/Col.xml" xy="0,177"/>
+    <component id="n6_ma96" name="col2" src="ma96ma" fileName="components/paytable/Col.xml" xy="0,217"/>
+    <component id="n7_ma96" name="col3" src="ma96ma" fileName="components/paytable/Col.xml" xy="0,257"/>
+    <component id="n8_ma96" name="col4" src="ma96ma" fileName="components/paytable/Col.xml" xy="0,297"/>
+  </displayList>
+  <customProperty target="n1" propertyId="1"/>
+</component>

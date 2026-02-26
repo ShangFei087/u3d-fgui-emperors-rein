@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_paul" name="base" src="paul3" fileName="moudules/MDPageBase.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="title" propertyId="0" value="/硬件测试"/>
+    </component>
+    <list id="n10_paul" name="items" xy="50,568" size="980,1215" overflow="hidden" defaultItem="ui://tdkeq960paul9">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <item name="lightSpin">
+        <property target="title" propertyId="0" value="开始按钮灯"/>
+        <property target="value1" propertyId="0" value="OFF"/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+      <item name="lightWiperOFF">
+        <property target="title" propertyId="0" value="雨刷按钮灯"/>
+        <property target="value1" propertyId="0" value="OFF"/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+      <item name="_title1">
+        <property target="title" propertyId="0" value=""/>
+        <property target="value1" propertyId="0" value="状态"/>
+        <property target="value2" propertyId="0" value="感测器"/>
+        <property target="value3" propertyId="0" value="计数"/>
+      </item>
+      <item name="topCoinIn">
+        <property target="title" propertyId="0" value="顶部入币"/>
+        <property target="value1" propertyId="0" value="OFF"/>
+        <property target="value2" propertyId="0" value="OFF"/>
+        <property target="value3" propertyId="0" value="0"/>
+      </item>
+      <item name="ballIn">
+        <property target="title" propertyId="0" value="发球"/>
+        <property target="value1" propertyId="0" value="OFF"/>
+        <property target="value2" propertyId="0" value="OFF"/>
+        <property target="value3" propertyId="0" value="0"/>
+      </item>
+      <item name="collectCoin">
+        <property target="title" propertyId="0" value="回币器"/>
+        <property target="value1" propertyId="0" value="OFF"/>
+        <property target="value2" propertyId="0" value="OFF"/>
+        <property target="value3" propertyId="0" value="0"/>
+      </item>
+      <item name="ticketer">
+        <property target="title" propertyId="0" value="彩票机"/>
+        <property target="value1" propertyId="0" value="OFF"/>
+        <property target="value2" propertyId="0" value="OFF"/>
+        <property target="value3" propertyId="0" value="2"/>
+      </item>
+      <item name="_title2">
+        <property target="title" propertyId="0" value=""/>
+        <property target="value1" propertyId="0" value="状态"/>
+        <property target="value2" propertyId="0" value="感测器1"/>
+        <property target="value3" propertyId="0" value="感测器2"/>
+      </item>
+      <item name="wiper">
+        <property target="title" propertyId="0" value="雨刷"/>
+        <property target="value1" propertyId="0" value="OFF"/>
+        <property target="value2" propertyId="0" value="OFF"/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+      <item name="pushPlate">
+        <property target="title" propertyId="0" value="推盘"/>
+        <property target="value1" propertyId="0" value="ON"/>
+        <property target="value2" propertyId="0" value="OFF"/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+      <item name="bell">
+        <property target="title" propertyId="0" value="摇摆通道"/>
+        <property target="value1" propertyId="0" value="OFF"/>
+        <property target="value2" propertyId="0" value="OFF"/>
+        <property target="value3" propertyId="0" value="OFF"/>
+      </item>
+      <item name="channelLight1">
+        <property target="title" propertyId="0" value="通道灯1"/>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+      <item name="channelLight2">
+        <property target="title" propertyId="0" value="通道灯2"/>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+      <item name="channelLight3">
+        <property target="title" propertyId="0" value="通道灯3"/>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+      <item name="channelLight4">
+        <property target="title" propertyId="0" value="通道灯4"/>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+      <item name="channelLight5">
+        <property target="title" propertyId="0" value="通道灯5"/>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+      <item name="channelLight6">
+        <property target="title" propertyId="0" value="通道灯6"/>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+      <item name="channelLight7">
+        <property target="title" propertyId="0" value="通道灯7"/>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+      <item name="channelLight8">
+        <property target="title" propertyId="0" value="通道灯8"/>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+        <property target="value1" propertyId="0" value=""/>
+        <property target="value2" propertyId="0" value=""/>
+        <property target="value3" propertyId="0" value=""/>
+      </item>
+    </list>
+    <list id="n13_86hh" name="items2" xy="50,125" size="980,443" layout="flow_hz" overflow="hidden" lineGap="10" colGap="12" defaultItem="ui://tdkeq96086hhc">
+      <item name="coinIn">
+        <property target="title" propertyId="0" value="投币"/>
+        <property target="value" propertyId="0" value="0"/>
+      </item>
+      <item name="coinObtain">
+        <property target="title" propertyId="0" value="回币触发"/>
+        <property target="value" propertyId="0" value="0"/>
+      </item>
+      <item name="coinBlock">
+        <property target="title" propertyId="0" value="出币满"/>
+      </item>
+      <item name="shake">
+        <property target="title" propertyId="0" value="摇动"/>
+      </item>
+      <item name="sp1">
+        <property target="title" propertyId="0" value="SP1"/>
+      </item>
+      <item name="sp2">
+        <property target="title" propertyId="0" value="SP2"/>
+      </item>
+      <item name="brnSpin">
+        <property target="title" propertyId="0" value="开始键"/>
+      </item>
+      <item name="btnWiper">
+        <property target="title" propertyId="0" value="雨刷键"/>
+      </item>
+      <item name="channel1">
+        <property target="title" propertyId="0" value="通道1"/>
+      </item>
+      <item name="channel2">
+        <property target="title" propertyId="0" value="通道2"/>
+      </item>
+      <item name="channel3">
+        <property target="title" propertyId="0" value="通道3"/>
+      </item>
+      <item name="channel4">
+        <property target="title" propertyId="0" value="通道4"/>
+      </item>
+      <item name="channel5">
+        <property target="title" propertyId="0" value="通道5"/>
+      </item>
+      <item name="channel6">
+        <property target="title" propertyId="0" value="通道6"/>
+      </item>
+      <item name="channel7">
+        <property target="title" propertyId="0" value="通道7"/>
+      </item>
+      <item name="channel8">
+        <property target="title" propertyId="0" value="通道8"/>
+      </item>
+    </list>
+  </displayList>
+</component>

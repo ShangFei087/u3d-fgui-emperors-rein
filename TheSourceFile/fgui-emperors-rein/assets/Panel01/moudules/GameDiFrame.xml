@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <image id="n9_ldsc" name="n9" src="ldscfl" fileName="images/frame/bg_3.png" xy="-210,-50"/>
+    <image id="n7_ldsc" name="n7" src="ldscfn" fileName="images/frame/bg_1.png" xy="-540,-34" size="540,102"/>
+    <image id="n8_ldsc" name="n8" src="ldscfn" fileName="images/frame/bg_1.png" xy="540,-34" size="540,102" skew="0,180"/>
+    <image id="n10_ldsc" name="n10" src="ldscfm" fileName="images/frame/bg_notice.png" xy="-371,-26"/>
+    <image id="n11_ldsc" name="n11" src="ldscfm" fileName="images/frame/bg_notice.png" xy="200,-26"/>
+    <image id="n12_ldsc" name="n12" src="ldscfp" fileName="images/frame/credit_en.png" xy="212,-12"/>
+    <image id="n13_ldsc" name="n13" src="ldscfq" fileName="images/frame/win_en.png" xy="-79,-12"/>
+    <image id="n14_ldsc" name="n14" src="ldscfo" fileName="images/frame/bet_en.png" xy="-357,-12"/>
+    <image id="n15_ioi7" name="n15" src="ioi7ft" fileName="images/frame/icon_border.png" xy="395,-70"/>
+  </displayList>
+</component>

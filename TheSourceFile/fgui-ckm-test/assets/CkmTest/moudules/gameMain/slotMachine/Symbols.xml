@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="166,492">
+  <displayList>
+    <component id="n0_l8m6" name="symbol0" src="l8m65i" fileName="moudules/gameMain/slotMachine/Symbol.xml" xy="0,-164"/>
+    <component id="n1_l8m6" name="symbol1" src="l8m65i" fileName="moudules/gameMain/slotMachine/Symbol.xml" xy="0,0"/>
+    <component id="n2_l8m6" name="symbol2" src="l8m65i" fileName="moudules/gameMain/slotMachine/Symbol.xml" xy="0,164"/>
+    <component id="n3_l8m6" name="symbol3" src="l8m65i" fileName="moudules/gameMain/slotMachine/Symbol.xml" xy="0,328"/>
+    <component id="n5_l8m6" name="symbol4" src="l8m65i" fileName="moudules/gameMain/slotMachine/Symbol.xml" xy="0,492"/>
+    <component id="n4_l8m6" name="symbol5" src="l8m65i" fileName="moudules/gameMain/slotMachine/Symbol.xml" xy="0,656"/>
+    <component id="n6_l8m6" name="symbol6" src="l8m65i" fileName="moudules/gameMain/slotMachine/Symbol.xml" xy="0,820"/>
+    <component id="n7_l8m6" name="symbol7" src="l8m65i" fileName="moudules/gameMain/slotMachine/Symbol.xml" xy="0,984"/>
+  </displayList>
+</component>

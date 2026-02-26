@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="449,155" showSound="ui://4hwvsyqfl8m66s">
+  <displayList>
+    <image id="n1_l8m6" name="n1" src="l8m66f" fileName="images/gameMain/freeTimes/fg_txt_FREE GAMES.png" xy="72,63" size="160,30"/>
+    <text id="n2_l8m6" name="freeTimes" xy="210,59" size="135,34" scale="1.5,1.5" font="ui://4hwvsyqfl8m66s" fontSize="30" align="center" vAlign="middle" autoSize="none" text="6/7"/>
+  </displayList>
+</component>

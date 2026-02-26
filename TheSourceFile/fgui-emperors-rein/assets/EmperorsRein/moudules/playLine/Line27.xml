@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1000,636">
+  <displayList>
+    <image id="n57_umch" name="line01" src="zkosj7" fileName="images/payLine/line_tile_middle_middle.png" xy="-100,106" pivot="0,0.5" anchor="true" size="200,50" color="#FF0084"/>
+    <image id="n53_umch" name="line12" src="zkosj7" fileName="images/payLine/line_tile_middle_middle.png" xy="100,106" pivot="0,0.5" anchor="true" size="291,50" rotation="46.67" color="#FF0084"/>
+    <image id="n54_umch" name="line23" src="zkosj7" fileName="images/payLine/line_tile_middle_middle.png" xy="300,318" pivot="0,0.5" anchor="true" size="200,50" rotation="0" color="#FF0084"/>
+    <image id="n55_umch" name="line34" src="zkosj7" fileName="images/payLine/line_tile_middle_middle.png" xy="500,318" pivot="0,0.5" anchor="true" size="200,50" rotation="0" color="#FF0084"/>
+    <image id="n56_umch" name="line45" src="zkosj7" fileName="images/payLine/line_tile_middle_middle.png" xy="700,318" pivot="0,0.5" anchor="true" size="291,50" rotation="46.67" color="#FF0084"/>
+    <image id="n58_umch" name="line56" src="zkosj7" fileName="images/payLine/line_tile_middle_middle.png" xy="900,530" pivot="0,0.5" anchor="true" size="200,50" color="#FF0084"/>
+    <image id="n38_q43s" name="col1" src="igu3iu" fileName="images/payLine/line_tile_middle_down.png" xy="75,81" color="#FF0084"/>
+    <image id="n39_q43s" name="col2" src="igu3is" fileName="images/payLine/line_tile_down_middle.png" xy="275,293" color="#FF0084"/>
+    <image id="n40_q43s" name="col3" src="zkosj7" fileName="images/payLine/line_tile_middle_middle.png" xy="475,293" color="#FF0084"/>
+    <image id="n41_q43s" name="col4" src="igu3iu" fileName="images/payLine/line_tile_middle_down.png" xy="675,293" color="#FF0084"/>
+    <image id="n42_q43s" name="col5" src="igu3is" fileName="images/payLine/line_tile_down_middle.png" xy="875,505" color="#FF0084"/>
+  </displayList>
+</component>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" designImage="ui://k5oi8hwrn3ln1k">
+  <controller name="PageController" alias="游戏界面切换控制器" pages="0,NormalGame,1,FreeGame" selected="0"/>
+  <displayList>
+    <component id="n2_n3ln" name="normalGameBg" src="n3lnk" fileName="moudules/pageGameMain/GameBackground/NormalBackground.xml" xy="0,0">
+      <gearDisplay controller="PageController" pages="0"/>
+    </component>
+    <component id="n3_n3ln" name="freeGameBg" src="n3lnl" fileName="moudules/pageGameMain/GameBackground/FreeBackGround.xml" xy="0,0">
+      <gearDisplay controller="PageController" pages="1"/>
+    </component>
+    <component id="n10_rdkv" name="freeTreeSpine" src="rdkv30" fileName="moudules/pageGameMain/FreeGame/AnchorFreeTreeSpine.xml" xy="540,960">
+      <gearDisplay controller="PageController" pages="1"/>
+    </component>
+    <component id="n13_6ydp" name="jpGrand" src="6ydp5y" fileName="moudules/gameJackpot/GameJackpotGrand.xml" xy="28,166" group="n17_6ydp" visible="false"/>
+    <component id="n14_6ydp" name="jpMajor" src="6ydp6y" fileName="moudules/gameJackpot/GameJackpotMajor.xml" xy="284,145" group="n17_6ydp" scale="1.4,1.4"/>
+    <component id="n15_6ydp" name="jpMinor" src="6ydp6x" fileName="moudules/gameJackpot/GameJackpotMinor.xml" xy="10,335" group="n17_6ydp" scale="1.4,1.4"/>
+    <component id="n16_6ydp" name="jpMini" src="6ydp6w" fileName="moudules/gameJackpot/GameJackpotMini.xml" xy="596,349" group="n17_6ydp" scale="1.4,1.4"/>
+    <group id="n17_6ydp" name="jackpots" xy="10,145" size="920,334"/>
+    <component id="n4_n3ln" name="reelBg" src="n3ln1f" fileName="moudules/pageGameMain/ReelBackground/ReelBackground.xml" xy="-11,1052"/>
+    <component id="n8_rdkv" name="reelBgSpine" src="rdkv2k" fileName="moudules/pageGameMain/Common/AnchorBorder.xml" xy="540,1350"/>
+    <component id="n5_n3ln" name="slotMachine" src="n3ln2h" fileName="moudules/pageGameMain/SlotMachine/SlotMachine.xml" xy="131,1152"/>
+    <component id="n6_n3ln" name="panel" src="n3ln2i" fileName="components/pageGameMain/AnchorPanelSlot.xml" xy="540,1845"/>
+    <component id="n7_ig1b" name="anchorFrame" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="540,960"/>
+    <component id="n9_rdkv" name="FSFrame" src="rdkv2y" fileName="moudules/pageGameMain/FreeGame/FreeGame.xml" xy="59,1053">
+      <gearDisplay controller="PageController" pages="1"/>
+    </component>
+    <component id="n11_rdkv" name="anchorFreeReelEffect" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="545,605"/>
+    <component id="n12_rdkv" name="anchorBonusReelEffect" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="545,605"/>
+  </displayList>
+</component>

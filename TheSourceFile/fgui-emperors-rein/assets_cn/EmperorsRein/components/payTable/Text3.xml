@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="889,687">
+  <displayList>
+    <richtext id="n1_tsjn" name="n1" xy="0,0" size="889,687" fontSize="30" color="#ffffff" leading="0" autoSize="none" text="在基础游戏中，当转轴上出现 3 个 &lt;img src=&quot;ui://vdmp4vsrw36x19&quot;width=&quot;100&quot;height=&quot;106&quot;/&gt; 时，可触发免费游戏功能并获得 6 次免费旋转机会。&#xA;&#xA;在基础游戏中，当转轴上出现 4 个 &lt;img src=&quot;ui://vdmp4vsrw36x19&quot;width=&quot;100&quot;height=&quot;106&quot;/&gt; 时，可触发免费游戏功能并获得 9 次免费旋转机会。&#xA;&#xA;在基础游戏中，当转轴上出现 5 个 &lt;img src=&quot;ui://vdmp4vsrw36x19&quot;width=&quot;100&quot;height=&quot;106&quot;/&gt; 时，可触发免费游戏功能并获得 12 次免费旋转机会。&#xA;&#xA;在免费游戏中，当转轴上出现 &lt;img src=&quot;ui://vdmp4vsrw36x19&quot;width=&quot;100&quot;height=&quot;106&quot;/&gt; 时，免费游戏次数可增加 1 次。">
+      <relation target="" sidePair="center-center"/>
+    </richtext>
+  </displayList>
+</component>

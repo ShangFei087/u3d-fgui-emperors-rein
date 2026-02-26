@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_i6s3" name="mask" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#99000000"/>
+    <image id="n5_i6s3" name="n5" src="i6s39c" fileName="images/PopupGameNormalGame/Folder/转盘转彩金游戏转场.png" xy="0,0"/>
+    <component id="n1_i6s3" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,960"/>
+    <component id="n2_i6s3" name="anchorDoor" src="c76t8w" fileName="components/PopupJackpotGame/JackpotGameTrigger.xml" xy="540,812"/>
+  </displayList>
+</component>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="132,132">
+  <controller name="button" pages="0,spin,1,stop,2,auto,3,hui,4,toAuto" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="animSpin" delay="0.05" stopOnExit="true"/>
+    <action type="play_transition" fromPage="" toPage="4" transition="animToAuto" stopOnExit="true"/>
+    <action type="play_transition" fromPage="" toPage="2" transition="animAuto" repeat="-1" stopOnExit="true"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="animStop" stopOnExit="true"/>
+    <action type="play_transition" fromPage="" toPage="3" transition="animHui" stopOnExit="true"/>
+  </controller>
+  <displayList>
+    <loader id="n4_jkh9" name="n4" xy="66,66" pivot="0.5,0.5" anchor="true" size="210,210" url="ui://vdmp4vsrldsc12t" autoSize="true"/>
+    <image id="n13_jkh9" name="n13" src="ldsc12u" fileName="images/panel01/effect/spin/ball_red.png" xy="6,-1"/>
+    <image id="n14_jkh9" name="n14" src="ldsc12v" fileName="images/panel01/effect/spin/ball_gray.png" xy="7,-1"/>
+    <image id="n9_jkh9" name="n9" src="ldsc12w" fileName="images/panel01/effect/spin/auto.png" xy="65,65" pivot="0.5,0.5" anchor="true"/>
+    <image id="n11_jkh9" name="n11" src="ldsc12x" fileName="images/panel01/effect/spin/spin_gray.png" xy="65,65" pivot="0.5,0.5" anchor="true"/>
+    <image id="n12_jkh9" name="n12" src="ldsc12y" fileName="images/panel01/effect/spin/stop.png" xy="66,66" pivot="0.5,0.5" anchor="true"/>
+    <image id="n7_jkh9" name="n7" src="ldsc12z" fileName="images/panel01/effect/spin/spin1.png" xy="65,65" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+  <transition name="animToAuto" options="4">
+    <item time="0" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc12t"/>
+    <item time="0" type="Visible" target="n11_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n12_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n13_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n14_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n4_jkh9" value="true"/>
+    <item time="0" type="Visible" target="n7_jkh9" value="true"/>
+    <item time="0" type="Visible" target="n9_jkh9" value="false"/>
+    <item time="1" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc130"/>
+    <item time="2" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc131"/>
+    <item time="3" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc132"/>
+    <item time="4" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc133"/>
+    <item time="5" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc134"/>
+    <item time="6" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc135"/>
+    <item time="7" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc136"/>
+    <item time="8" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc137"/>
+    <item time="9" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc138"/>
+    <item time="10" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc139"/>
+    <item time="11" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13a"/>
+    <item time="12" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13b"/>
+    <item time="13" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13c"/>
+    <item time="14" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13d"/>
+    <item time="15" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13e"/>
+    <item time="16" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13f"/>
+    <item time="17" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13g"/>
+    <item time="18" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13h"/>
+    <item time="18" type="Visible" target="n7_jkh9" value="false"/>
+    <item time="19" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13i"/>
+    <item time="19" type="Visible" target="n9_jkh9" value="true"/>
+    <item time="20" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13j"/>
+    <item time="21" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13k"/>
+    <item time="22" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13l"/>
+    <item time="23" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13m"/>
+    <item time="24" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13n"/>
+    <item time="25" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13o"/>
+    <item time="26" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13p"/>
+    <item time="27" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13q"/>
+    <item time="28" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13r"/>
+    <item time="29" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13s"/>
+    <item time="30" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13t"/>
+    <item time="31" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13u"/>
+    <item time="32" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13v"/>
+    <item time="33" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13w"/>
+    <item time="34" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13x"/>
+    <item time="35" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13y"/>
+    <item time="36" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc13z"/>
+    <item time="37" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc140"/>
+  </transition>
+  <transition name="animAuto" options="4" autoPlayRepeat="-1">
+    <item time="0" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc141"/>
+    <item time="0" type="Visible" target="n11_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n12_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n13_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n14_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n4_jkh9" value="true"/>
+    <item time="0" type="Visible" target="n7_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n9_jkh9" value="true"/>
+    <item time="1" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc142"/>
+    <item time="2" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc143"/>
+    <item time="3" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc144"/>
+    <item time="4" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc145"/>
+    <item time="5" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc146"/>
+    <item time="6" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc147"/>
+    <item time="7" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc148"/>
+    <item time="8" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc149"/>
+    <item time="9" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc14a"/>
+    <item time="10" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc14b"/>
+    <item time="11" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc14c"/>
+    <item time="12" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc14d"/>
+    <item time="13" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc14e"/>
+    <item time="14" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc14f"/>
+    <item time="15" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc14g"/>
+    <item time="16" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc14h"/>
+    <item time="17" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc14i"/>
+    <item time="18" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc14j"/>
+    <item time="19" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc14k"/>
+  </transition>
+  <transition name="animSpin" options="4">
+    <item time="0" type="Visible" target="n11_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n12_jkh9" value="true"/>
+    <item time="0" type="Visible" target="n13_jkh9" value="true"/>
+    <item time="0" type="Visible" target="n14_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n4_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n7_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n9_jkh9" value="false"/>
+  </transition>
+  <transition name="animStop" options="4">
+    <item time="0" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc12t"/>
+    <item time="0" type="Visible" target="n11_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n12_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n13_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n14_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n4_jkh9" value="true"/>
+    <item time="0" type="Visible" target="n7_jkh9" value="true"/>
+    <item time="0" type="Visible" target="n9_jkh9" value="false"/>
+  </transition>
+  <transition name="animHui" options="4">
+    <item time="0" type="Visible" target="n11_jkh9" value="true"/>
+    <item time="0" type="Visible" target="n12_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n13_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n14_jkh9" value="true"/>
+    <item time="0" type="Visible" target="n4_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n7_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n9_jkh9" value="false"/>
+  </transition>
+</component>

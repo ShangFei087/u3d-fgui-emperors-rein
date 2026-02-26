@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="132,132">
+  <controller name="c1" pages="0,start,1,stop" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="Start"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="Stop"/>
+  </controller>
+  <displayList>
+    <loader id="n4_jkh9" name="n4" xy="66,66" pivot="0.5,0.5" anchor="true" size="118,127" url="ui://vdmp4vsrldsc14y" autoSize="true"/>
+  </displayList>
+  <transition name="Start">
+    <item time="0" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc14y"/>
+  </transition>
+  <transition name="Stop">
+    <item time="0" type="Icon" target="n4_jkh9" value="ui://vdmp4vsrldsc14z"/>
+  </transition>
+</component>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="240,50">
+  <displayList>
+    <image id="n14_l3cn" name="n14" src="l3cn6q" fileName="images/panel/spin/frame_totalbet_base.png" xy="235,3" size="211,39" scale="-1,1"/>
+    <image id="n12_l3cn" name="n12" src="l3cn69" fileName="images/panel/spin/ico_coins.png" xy="0,0" size="50,50"/>
+  </displayList>
+</component>

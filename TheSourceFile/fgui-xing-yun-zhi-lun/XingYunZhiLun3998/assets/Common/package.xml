@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="9ffscgs4">
+  <resources>
+    <component id="r8oz2" name="ButtonTestMenu.xml" path="/components/"/>
+    <component id="r8oz3" name="TestMenu.xml" path="/moudules/"/>
+    <component id="r8oz4" name="TestItemName.xml" path="/moudules/"/>
+    <component id="r8oz6" name="TestItemSpeed.xml" path="/moudules/"/>
+    <component id="r8oz7" name="ButtonTestSpeed.xml" path="/components/"/>
+    <component id="r8oz9" name="TestItemPages.xml" path="/moudules/"/>
+    <component id="r8oza" name="TestItemGM.xml" path="/moudules/"/>
+    <component id="r8ozd" name="TestItemButtons.xml" path="/moudules/"/>
+    <component id="r8oze" name="TestSelectLst.xml" path="/moudules/"/>
+    <component id="r8ozg" name="TestPage.xml" path="/"/>
+    <component id="r8ozh" name="TestManager.xml" path="/moudules/" exported="true"/>
+    <component id="r8ozi" name="TestItemKeyInput.xml" path="/moudules/"/>
+    <component id="rl7yk" name="TestSelectItem.xml" path="/moudules/"/>
+    <component id="opqzng" name="AnchorRootDefault.xml" path="/components/" exported="true"/>
+  </resources>
+  <publish name="" path="../../Assets/GameRes/Games/Common/FGUIs" packageCount="2"/>
+</packageDescription>

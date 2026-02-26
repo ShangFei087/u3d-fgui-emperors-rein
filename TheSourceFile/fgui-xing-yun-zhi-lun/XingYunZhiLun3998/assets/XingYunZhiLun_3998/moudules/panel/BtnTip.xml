@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="45,45" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_x7l3" name="n0" src="l3cn4x" fileName="images/panel/spin/icon_menu.png" xy="0,0" size="45,45">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_x7l3" name="untouch" src="l3cn4x" fileName="images/panel/spin/icon_menu.png" xy="0,0" size="45,45" color="#666666"/>
+  </displayList>
+  <Button/>
+</component>

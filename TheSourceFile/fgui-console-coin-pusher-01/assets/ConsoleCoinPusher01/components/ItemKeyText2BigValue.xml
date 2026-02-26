@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="791,184">
+  <displayList>
+    <richtext id="n5_paul" name="title" xy="0,0" size="238,59" fontSize="36" color="#ffffff" vAlign="middle" autoSize="shrink" singleLine="true" text="硬件功能测试"/>
+    <richtext id="n6_paul" name="value" xy="240,6" size="552,173" fontSize="36" color="#ffffff" autoSize="shrink" autoClearText="true" text="20240911 11:22:00&lt;br/&gt;111/10600001/1:100&lt;br/&gt;1.0.0/1.1735123146/100"/>
+  </displayList>
+  <customProperty target="title" propertyId="0" label="标题"/>
+  <customProperty target="value" propertyId="0" label="值"/>
+</component>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="271,73" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <displayList>
+    <image id="n4_e5o5" name="n4" src="e5o51n" fileName="images/Main/plat_btn_collect3.png" xy="-1,-14"/>
+    <image id="n0_e5o5" name="n0" src="e5o51k" fileName="images/Main/plat_btn_collect.png" xy="0,0">
+      <gearDisplay controller="button" pages="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_e5o5" name="n1" src="e5o51l" fileName="images/Main/plat_btn_collect1.png" xy="0,0">
+      <gearDisplay controller="button" pages="1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+  </displayList>
+  <Button downEffect="dark" downEffectValue="0.5"/>
+</component>

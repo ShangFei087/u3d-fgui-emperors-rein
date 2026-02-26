@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="184,280">
+  <displayList>
+    <loader id="n8_q43s" name="n8" xy="0,0" size="229,234" scale="0.8,0.8" url="ui://fy0phz0sebgu5x" autoSize="true"/>
+    <text id="n1_ls7y" name="n1" xy="71,182" size="74,99" font="ui://fy0phz0sebgu5y" fontSize="6" color="#ff9933" align="center" leading="0" autoSize="shrink" text="150"/>
+    <text id="n2_ls7y" name="n2" xy="71,214" size="74,103" font="ui://fy0phz0sebgu5y" fontSize="6" color="#ff9933" align="center" autoSize="shrink" text="50"/>
+    <text id="n3_ls7y" name="n3" xy="71,246" size="74,32" font="ui://fy0phz0sebgu5y" fontSize="6" color="#ffffff" align="center" autoSize="shrink" text="40"/>
+    <text id="n5_tsjn" name="n5" xy="35,182" size="36,32" font="ui://fy0phz0sebgu69" fontSize="6" color="#ffffff" align="center" leading="0" autoSize="none" text="5"/>
+    <text id="n6_tsjn" name="n6" xy="35,214" size="36,32" font="ui://fy0phz0sebgu69" fontSize="6" color="#ffffff" align="center" autoSize="none" text="4"/>
+    <text id="n7_tsjn" name="n7" xy="35,246" size="36,32" font="ui://fy0phz0sebgu69" fontSize="6" color="#ffffff" align="center" autoSize="none" text="3"/>
+  </displayList>
+  <customProperty target="n8" propertyId="1"/>
+  <customProperty target="n1" propertyId="0"/>
+  <customProperty target="n2" propertyId="0"/>
+  <customProperty target="n3" propertyId="0"/>
+</component>

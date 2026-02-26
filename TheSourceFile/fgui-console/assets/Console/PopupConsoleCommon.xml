@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <controller name="c1" pages="0,ok,1,yesNo,2,textOnly" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="animOK"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="animYesOk"/>
+  </controller>
+  <displayList>
+    <component id="n4_os7y" name="n4" src="os7y3l" fileName="moudules/BasePopuoBG.xml" xy="-3,2">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n2_os7y" name="n2" src="vqlx68" fileName="images/common/circle_24.png" xy="209,788" size="660,344" group="n3_os7y" color="#143733">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n5_os7y" name="btnExit" src="os7y4l" fileName="components/ButtonClosePopup.xml" xy="792,787" size="78,78" group="n3_os7y">
+      <relation target="" sidePair="right-right,top-top"/>
+    </component>
+    <richtext id="n16_vqlx" name="content02" xy="338,830" size="500,197" group="n3_os7y" fontSize="34" color="#ffffff" align="center" autoSize="shrink" text="Confirm Reboot Machine?"/>
+    <richtext id="n29_kv1r" name="title01" xy="337,884" size="500,143" group="n3_os7y" visible="false" fontSize="34" color="#ffffff" align="center" autoSize="shrink" text="Confirm Reboot Machine?"/>
+    <richtext id="n30_kv1r" name="content01" xy="338,830" size="500,46" group="n3_os7y" visible="false" fontSize="34" color="#ffffff" align="center" autoSize="shrink" text="Confirm Reboot Machine?"/>
+    <loader id="n23_vqlx" name="icon" xy="236,813" size="86,86" group="n3_os7y" url="ui://xp0b9yqdvqlx6l" fill="scaleMatchWidth" color="#ffff00"/>
+    <component id="n26_vqlx" name="button1" src="vqlx5x" fileName="components/Button005Confirm.xml" xy="259,1044" group="n3_os7y">
+      <gearDisplay controller="c1" pages="0,1"/>
+      <Button title="Cancel" icon="ui://xp0b9yqdvqlx62"/>
+    </component>
+    <component id="n28_vqlx" name="button2" src="vqlx5x" fileName="components/Button005Confirm.xml" xy="629,1044" group="n3_os7y">
+      <gearDisplay controller="c1" pages="1"/>
+    </component>
+    <group id="n3_os7y" name="popupFG" xy="209,787" size="661,345" advanced="true"/>
+  </displayList>
+  <transition name="animOK" options="4">
+    <item time="0" type="Icon" target="n26_vqlx" value="ui://xp0b9yqdvqlx61"/>
+    <item time="0" type="XY" target="n26_vqlx" value="442,1045"/>
+  </transition>
+  <transition name="animYesOk">
+    <item time="0" type="Icon" target="n26_vqlx" value="ui://xp0b9yqdvqlx62"/>
+    <item time="0" type="XY" target="n26_vqlx" value="259,1045"/>
+    <item time="0" type="XY" target="n28_vqlx" value="629,1045"/>
+  </transition>
+</component>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1000,636" overflow="hidden">
+  <displayList>
+    <component id="n41_o3dj" name="reel1" src="trhy12" fileName="moudules/slotMachine/Reel.xml" xy="0,0"/>
+    <component id="n36_w36x" name="reel2" src="o3djio" fileName="moudules/sloMachine02/Reel02.xml" xy="200,0"/>
+    <component id="n42_o3dj" name="reel3" src="trhy12" fileName="moudules/slotMachine/Reel.xml" xy="800,0"/>
+  </displayList>
+</component>

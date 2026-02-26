@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_c76t" name="mash" xy="0,0" size="1080,1920" type="rect" fillColor="#99000000"/>
+    <component id="n2_c76t" name="anchorBg" src="c76t8w" fileName="components/PopupJackpotGame/JackpotGameTrigger.xml" xy="540,960"/>
+    <component id="n3_c76t" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,960"/>
+    <component id="n4_c76t" name="Button" src="c76t90" fileName="components/PopupJackpotGame/JackpotTriggerBtn.xml" xy="409,1075" size="266,95" scale="0,0"/>
+  </displayList>
+  <transition name="idle">
+    <item time="0" type="Scale" target="n4_c76t" tween="true" startValue="1,1" endValue="0.8,0.8" duration="22" ease="Linear"/>
+    <item time="22" type="Scale" target="n4_c76t" tween="true" startValue="0.8,0.8" endValue="1,1" duration="22" ease="Linear"/>
+  </transition>
+  <transition name="end">
+    <item time="0" type="Scale" target="n4_c76t" tween="true" startValue="1,1" endValue="1.2,1.2" duration="5"/>
+    <item time="5" type="Scale" target="n4_c76t" tween="true" startValue="1.2,1.2" endValue="0,0" duration="13"/>
+    <item time="32" type="Scale" target="n4_c76t" value="0,0"/>
+  </transition>
+</component>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <image id="n6_nimz" name="n6" src="848jdz" fileName="images/popupGameLoading/bg.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n13_nimz" name="n13" src="nimzf1" fileName="images/popupGameLoading/图层 40.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n7_nimz" name="n7" src="n813dv" fileName="images/popupGameLoading/ui2.png" xy="0,161">
+      <relation target="" sidePair="center-center,top-top"/>
+    </image>
+    <image id="n9_nimz" name="n9" src="n813du" fileName="images/popupGameLoading/ui.png" xy="95,28">
+      <relation target="" sidePair="center-center,top-top"/>
+    </image>
+    <component id="n8_nimz" name="n8" src="nimzei" fileName="moudules/gameLoading/Name.xml" xy="533,303" pivot="0.5,0.5" anchor="true" size="804,423">
+      <relation target="" sidePair="center-center,top-top"/>
+    </component>
+    <image id="n16_nimz" name="n16" src="o1y0sa" fileName="images/popupGameLoading/加载条.png" xy="125,1663" size="830,57">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </image>
+    <graph id="n4_l4cw" name="n4" xy="0,1737" size="1080,186" type="rect" lineSize="0" lineColor="#00ff0000" fillColor="#ff090535">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </graph>
+    <component id="n18_nb0n" name="Slider" src="o1y0sd" fileName="components/gameLoding/Slider.xml" xy="111,1662" size="847,62">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+      <Slider max="1"/>
+    </component>
+    <text id="n5_l4cw" name="version" xy="65807,1778" pivot="540,0" anchor="true" size="121,66" fontSize="50" color="#ffffff" text="1.0.0">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </text>
+    <text id="n15_nimz" name="load" xy="161,1391" size="758,270" fontSize="20" color="#ffffff" align="center" vAlign="bottom" autoSize="none" text="加载中：0/100">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </text>
+  </displayList>
+  <transition name="t0"/>
+</component>

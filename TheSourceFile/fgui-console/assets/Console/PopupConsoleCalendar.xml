@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n4_os7y" name="n4" src="os7y3l" fileName="moudules/BasePopuoBG.xml" xy="2,-1">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n2_os7y" name="n2" src="vqlx68" fileName="images/common/circle_24.png" xy="165,656" size="750,608" group="n3_os7y" color="#143733"/>
+    <component id="n5_os7y" name="btnExit" src="os7y4l" fileName="components/ButtonClosePopup.xml" xy="837,656" size="78,78" group="n3_os7y">
+      <relation target="" sidePair="right-right,top-top"/>
+    </component>
+    <richtext id="n16_vqlx" name="selectDate" xy="215,1128" size="650,44" group="n3_os7y" fontSize="26" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="Selected Date &amp; Time: 25 October 2024 12:44PM"/>
+    <component id="n21_vqlx" name="button1" src="vqlx5x" fileName="components/Button005Confirm.xml" xy="197,1181" group="n3_os7y">
+      <Button title="Cancel" icon="ui://xp0b9yqdvqlx62"/>
+    </component>
+    <component id="n23_vqlx" name="button2" src="vqlx5x" fileName="components/Button005Confirm.xml" xy="681,1181" group="n3_os7y">
+      <Button title="Save"/>
+    </component>
+    <graph id="n24_vqlx" name="n24" xy="181,671" size="437,450" group="n27_vqlx" type="rect" lineSize="0" fillColor="#ff09221f"/>
+    <component id="n26_vqlx" name="buttonPrev" src="vqlx6h" fileName="components/ButtonIcon.xml" xy="204,674" size="38,38" group="n27_vqlx">
+      <Button icon="ui://xp0b9yqdsmbp1a"/>
+    </component>
+    <component id="n25_vqlx" name="buttonNext" src="vqlx6h" fileName="components/ButtonIcon.xml" xy="556,674" size="38,38" group="n27_vqlx" rotation="180">
+      <Button icon="ui://xp0b9yqdsmbp1a"/>
+    </component>
+    <component id="n28_vqlx" name="btnDate" src="vqlx6t" fileName="components/ButtonDate.xml" xy="287,671" group="n27_vqlx"/>
+    <text id="n31_vqlx" name="sun" xy="183,713" size="61,29" group="n38_vqlx" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="S"/>
+    <text id="n32_vqlx" name="mon" xy="245,713" size="61,29" group="n38_vqlx" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="M"/>
+    <text id="n33_vqlx" name="tue" xy="307,713" size="61,29" group="n38_vqlx" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="T"/>
+    <text id="n34_vqlx" name="wed" xy="369,713" size="61,29" group="n38_vqlx" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="W"/>
+    <text id="n35_vqlx" name="thu" xy="431,713" size="61,29" group="n38_vqlx" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="T"/>
+    <text id="n36_vqlx" name="fri" xy="493,713" size="61,29" group="n38_vqlx" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="F"/>
+    <text id="n37_vqlx" name="sat" xy="555,713" size="61,29" group="n38_vqlx" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="S"/>
+    <group id="n38_vqlx" name="weeks" xy="183,713" size="433,29" group="n27_vqlx" advanced="true"/>
+    <list id="n46_vqlx" name="days" xy="181,745" size="437,375" group="n27_vqlx" layout="flow_hz" overflow="scroll" margin="4,4,4,4" lineGap="5" colGap="5" defaultItem="ui://xp0b9yqdvqlx6v">
+      <item title="1"/>
+      <item title="2"/>
+      <item title="3"/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <graph id="n62_8qkf" name="setYearMonthBG" xy="183,711" size="434,412" group="n27_vqlx" type="rect" lineSize="0" fillColor="#ff09221f"/>
+    <list id="n61_j5jx" name="setYearMonth" xy="181,745" size="437,375" group="n27_vqlx" layout="flow_hz" overflow="scroll" margin="4,4,4,4" lineGap="5" colGap="5" lineItemCount="4" defaultItem="ui://xp0b9yqd8qkf7q" align="center" vAlign="middle">
+      <item title="1"/>
+      <item title="2"/>
+      <item title="3"/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <group id="n27_vqlx" name="date" xy="181,671" size="437,452" group="n3_os7y"/>
+    <text id="n47_vqlx" name="selectTime" xy="670,814" size="186,29" group="n60_vqlx" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="Select Time"/>
+    <text id="n48_vqlx" name="hour" xy="649,880" size="80,29" group="n60_vqlx" fontSize="20" color="#ffffff" vAlign="middle" autoSize="shrink" singleLine="true" text="Hour:"/>
+    <component id="n52_vqlx" name="buttonMinusHour" src="vqlx6w" fileName="components/keyboard003/ButtonSquare002.xml" xy="740,876" size="36,36" group="n60_vqlx">
+      <Button title=" " icon="ui://xp0b9yqdvqlx6y"/>
+    </component>
+    <text id="n50_vqlx" name="hourValue" xy="791,873" size="49,42" group="n60_vqlx" fontSize="30" color="#ffffff" align="center" vAlign="middle" leading="0" autoSize="none" underline="true" singleLine="true" text="12"/>
+    <component id="n53_vqlx" name="buttonAddHour" src="vqlx6w" fileName="components/keyboard003/ButtonSquare002.xml" xy="855,876" size="36,36" group="n60_vqlx">
+      <Button title=" " icon="ui://xp0b9yqdvqlx6x"/>
+    </component>
+    <text id="n55_vqlx" name="minute" xy="649,952" size="80,29" group="n60_vqlx" fontSize="20" color="#ffffff" vAlign="middle" autoSize="shrink" singleLine="true" text="Minute:"/>
+    <component id="n56_vqlx" name="buttonMinusMinute" src="vqlx6w" fileName="components/keyboard003/ButtonSquare002.xml" xy="740,948" size="36,36" group="n60_vqlx">
+      <Button title=" " icon="ui://xp0b9yqdvqlx6y"/>
+    </component>
+    <text id="n57_vqlx" name="minuteValue" xy="791,945" size="49,42" group="n60_vqlx" fontSize="30" color="#ffffff" align="center" vAlign="middle" leading="0" autoSize="none" underline="true" singleLine="true" text="12"/>
+    <component id="n58_vqlx" name="buttonAddMinute" src="vqlx6w" fileName="components/keyboard003/ButtonSquare002.xml" xy="855,948" size="36,36" group="n60_vqlx">
+      <Button title=" " icon="ui://xp0b9yqdvqlx6x"/>
+    </component>
+    <group id="n60_vqlx" name="times" xy="649,814" size="242,172" group="n3_os7y"/>
+    <group id="n3_os7y" name="popupFG" xy="165,656" size="750,608" advanced="true"/>
+  </displayList>
+</component>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="238,91">
+  <controller name="c1" pages="0,spin,1,stop,2,auto" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="animSpin"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="animStop"/>
+    <action type="play_transition" fromPage="" toPage="2" transition="animAuto"/>
+  </controller>
+  <displayList>
+    <loader id="n1_n45k" name="n1" xy="119,45" pivot="0.5,0.5" anchor="true" size="1080,1920" url="ui://5hielhj5n45k3s" autoSize="true"/>
+  </displayList>
+  <transition name="animAuto">
+    <item time="0" type="Alpha" target="n1_n45k" value="0"/>
+  </transition>
+  <transition name="animSpin">
+    <item time="0" type="Alpha" target="n1_n45k" value="1"/>
+  </transition>
+  <transition name="animStop">
+    <item time="0" type="Alpha" target="n1_n45k" value="0"/>
+  </transition>
+</component>

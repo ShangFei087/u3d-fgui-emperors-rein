@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="820,820">
+  <displayList>
+    <image id="n29_lsvw" name="n29" src="lsvwp" fileName="images/PopupGameNormalGame/sg_img_zhuanpan6.png" xy="0,0" size="760,760" scale="1.08,1.08"/>
+    <component id="n25_lsvw" name="ZhuanPanPoint" src="lsvw1i" fileName="moudules/slotMachine/ZhuanPanPoint.xml" xy="833,420" size="1,1"/>
+  </displayList>
+</component>

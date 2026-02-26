@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="170,100">
+  <displayList>
+    <richtext id="n32_ib9y" name="text" xy="85,50" pivot="0.5,0.5" anchor="true" size="170,100" font="ui://0bwjt84cib9y1c" fontSize="12" align="center" vAlign="middle" autoSize="none" text="45"/>
+    <component id="n33_h33o" name="AnchorSymbolEffect" src="w36x1i" fileName="components/AnchorSymbolEffect.xml" pkg="vdmp4vsr" xy="85,50"/>
+  </displayList>
+</component>

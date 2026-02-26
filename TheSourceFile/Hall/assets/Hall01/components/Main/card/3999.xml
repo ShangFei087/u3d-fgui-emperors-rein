@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="0,0">
+  <displayList>
+    <image id="n2_e5o5" name="n2" src="e5o523" fileName="images/Main/card/3999/img_godoffortune_03.png" xy="0,0" pivot="0.5,0.5" anchor="true"/>
+    <graph id="n4_e5o5" name="holder" xy="0,0" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <loader id="n3_e5o5" name="example" xy="0,0" pivot="0.5,0.5" anchor="true" size="50,50"/>
+    <image id="n1_e5o5" name="n1" src="e5o522" fileName="images/Main/card/3999/img_godoffortune_02.png" xy="0,132" pivot="0.5,0.5" anchor="true"/>
+    <image id="n0_e5o5" name="n0" src="e5o521" fileName="images/Main/card/3999/img_godoffortune_01.png" xy="0,145" pivot="0.5,0.5" anchor="true"/>
+    <component id="n5_mshr" name="btnCard3999" src="mshr2h" fileName="components/Main/CardBtn.xml" xy="0,0" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>

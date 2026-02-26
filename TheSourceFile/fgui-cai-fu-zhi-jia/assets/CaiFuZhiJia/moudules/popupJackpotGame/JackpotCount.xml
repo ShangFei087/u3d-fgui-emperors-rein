@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="260,35">
+  <displayList>
+    <image id="n2_qirh" name="n2" src="qirhhf" fileName="images/pageGameMain/FreeGame/Common/fg_txt_times.png" xy="100,18" pivot="0.5,0.5" anchor="true"/>
+    <text id="n1_q5jy" name="freeCount" xy="215,-6" size="38,46" font="ui://k5oi8hwrh8erda" fontSize="12" color="#ffae00" align="center" vAlign="middle" autoSize="none" text="3"/>
+  </displayList>
+</component>

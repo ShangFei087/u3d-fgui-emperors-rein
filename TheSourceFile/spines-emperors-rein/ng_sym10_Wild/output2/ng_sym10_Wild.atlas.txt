@@ -1,0 +1,83 @@
+
+ng_sym10_Wild.png
+size: 304,777
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+d
+  rotate: true
+  xy: 231, 288
+  size: 42, 71
+  orig: 42, 71
+  offset: 0, 0
+  index: -1
+guangyun
+  rotate: false
+  xy: 2, 496
+  size: 279, 279
+  orig: 279, 279
+  offset: 0, 0
+  index: -1
+hong_shuijiang1
+  rotate: false
+  xy: 231, 187
+  size: 65, 43
+  orig: 65, 43
+  offset: 0, 0
+  index: -1
+hong_shuijiang2
+  rotate: false
+  xy: 231, 142
+  size: 65, 43
+  orig: 65, 43
+  offset: 0, 0
+  index: -1
+i
+  rotate: true
+  xy: 231, 232
+  size: 21, 71
+  orig: 21, 71
+  offset: 0, 0
+  index: -1
+jian_1
+  rotate: true
+  xy: 2, 402
+  size: 92, 278
+  orig: 106, 278
+  offset: 7, 0
+  index: -1
+l
+  rotate: true
+  xy: 231, 255
+  size: 31, 71
+  orig: 31, 71
+  offset: 0, 0
+  index: -1
+mu_dun
+  rotate: false
+  xy: 2, 6
+  size: 170, 170
+  orig: 170, 170
+  offset: 0, 0
+  index: -1
+rentou
+  rotate: true
+  xy: 174, 2
+  size: 138, 91
+  orig: 138, 91
+  offset: 0, 0
+  index: -1
+tie_dun
+  rotate: false
+  xy: 2, 178
+  size: 227, 222
+  orig: 227, 222
+  offset: 0, 0
+  index: -1
+w
+  rotate: true
+  xy: 231, 332
+  size: 68, 71
+  orig: 68, 71
+  offset: 0, 0
+  index: -1

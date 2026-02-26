@@ -1,0 +1,118 @@
+
+ng_sym02_Q.png
+size: 931,203
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Q
+  rotate: true
+  xy: 2, 5
+  size: 196, 256
+  orig: 196, 256
+  offset: 0, 0
+  index: -1
+jin_ye
+  rotate: false
+  xy: 841, 97
+  size: 88, 104
+  orig: 88, 104
+  offset: 0, 0
+  index: -1
+q_00013
+  rotate: false
+  xy: 2, 2
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+q_00026
+  rotate: false
+  xy: 2, 2
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+q_00014
+  rotate: false
+  xy: 260, 86
+  size: 81, 115
+  orig: 81, 115
+  offset: 0, 0
+  index: -1
+q_00015
+  rotate: true
+  xy: 260, 3
+  size: 81, 115
+  orig: 81, 115
+  offset: 0, 0
+  index: -1
+q_00016
+  rotate: false
+  xy: 343, 86
+  size: 81, 115
+  orig: 81, 115
+  offset: 0, 0
+  index: -1
+q_00017
+  rotate: true
+  xy: 377, 3
+  size: 81, 115
+  orig: 81, 115
+  offset: 0, 0
+  index: -1
+q_00018
+  rotate: false
+  xy: 426, 86
+  size: 81, 115
+  orig: 81, 115
+  offset: 0, 0
+  index: -1
+q_00019
+  rotate: true
+  xy: 494, 3
+  size: 81, 115
+  orig: 81, 115
+  offset: 0, 0
+  index: -1
+q_00020
+  rotate: false
+  xy: 509, 86
+  size: 81, 115
+  orig: 81, 115
+  offset: 0, 0
+  index: -1
+q_00021
+  rotate: false
+  xy: 592, 86
+  size: 81, 115
+  orig: 81, 115
+  offset: 0, 0
+  index: -1
+q_00022
+  rotate: true
+  xy: 611, 3
+  size: 81, 115
+  orig: 81, 115
+  offset: 0, 0
+  index: -1
+q_00023
+  rotate: false
+  xy: 675, 86
+  size: 81, 115
+  orig: 81, 115
+  offset: 0, 0
+  index: -1
+q_00024
+  rotate: true
+  xy: 728, 3
+  size: 81, 115
+  orig: 81, 115
+  offset: 0, 0
+  index: -1
+q_00025
+  rotate: false
+  xy: 758, 86
+  size: 81, 115
+  orig: 81, 115
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="845,492" overflow="hidden">
+  <displayList>
+    <component id="n0_l8m6" name="reel1" src="l8m65g" fileName="moudules/gameMain/slotMachine/Reel.xml" xy="0,0"/>
+    <component id="n1_l8m6" name="reel2" src="l8m65g" fileName="moudules/gameMain/slotMachine/Reel.xml" xy="170,0"/>
+    <component id="n2_l8m6" name="reel3" src="l8m65g" fileName="moudules/gameMain/slotMachine/Reel.xml" xy="340,0"/>
+    <component id="n3_l8m6" name="reel4" src="l8m65g" fileName="moudules/gameMain/slotMachine/Reel.xml" xy="510,0"/>
+    <component id="n4_l8m6" name="reel5" src="l8m65g" fileName="moudules/gameMain/slotMachine/Reel.xml" xy="680,0"/>
+  </displayList>
+</component>

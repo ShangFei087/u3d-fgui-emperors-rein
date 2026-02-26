@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <image id="n0_hjsh" name="NormalBG" src="fv271v" fileName="images/PageGameMain/ng_bg_bj2.png" xy="0,0" size="1080,1920">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n1_hjsh" name="FreeBG" src="fv271u" fileName="images/PageGameMain/fg_bg_bj2.png" xy="0,0" size="1080,1920">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
+    <component id="n10_kb8b" name="jpGrand" src="kb8bwo" fileName="moudules/PageGameMain/gameJackpot/GameJackpotMega.xml" xy="69,233" group="n13_kb8b"/>
+    <component id="n9_kb8b" name="jpMajor" src="kb8bwn" fileName="moudules/PageGameMain/gameJackpot/GameJackpotMajor.xml" xy="662,243" group="n13_kb8b"/>
+    <component id="n11_kb8b" name="jpMini" src="kb8bwp" fileName="moudules/PageGameMain/gameJackpot/GameJackpotMini.xml" xy="669,435" group="n13_kb8b"/>
+    <component id="n12_kb8b" name="jpMinor" src="kb8bvs" fileName="moudules/PageGameMain/gameJackpot/GameJackpotMinor.xml" xy="93,435" group="n13_kb8b"/>
+    <group id="n13_kb8b" name="jackpots" xy="69,233" size="927,285"/>
+    <image id="n6_p1ks" name="n6" src="fv271s" fileName="images/PageGameMain/ng_img_zhukuang.png" xy="98,1041"/>
+    <image id="n7_p1ks" name="n7" src="fv271s" fileName="images/PageGameMain/ng_img_zhukuang.png" xy="980,1041" scale="-1,1"/>
+    <component id="n4_hjsh" name="n4" src="hjsh3w" fileName="moudules/slotMachine/SlotMachine.xml" xy="130,1084" size="820,486"/>
+    <component id="n2_hjsh" name="n2" src="fv271w" fileName="moudules/PageGameMain/NormalMainFrameSlot.xml" xy="45,1243">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n3_hjsh" name="n3" src="hjsh33" fileName="moudules/PageGameMain/FreeMainFrameSlot.xml" xy="0,0" visible="false">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n5_p1ks" name="panel" src="p1ks81" fileName="components/AnchorPanel.xml" xy="539,1839"/>
+  </displayList>
+</component>

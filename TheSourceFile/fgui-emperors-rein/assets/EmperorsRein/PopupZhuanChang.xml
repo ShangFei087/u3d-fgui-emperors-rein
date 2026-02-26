@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_nb0n" name="anchorSpine" src="q50nh6" fileName="components/popupZhuangChang/AnchorZhuangChang.xml" xy="540,960" size="1,1">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+  </displayList>
+</component>

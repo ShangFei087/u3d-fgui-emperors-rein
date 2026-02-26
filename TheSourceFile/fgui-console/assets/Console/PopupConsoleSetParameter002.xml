@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n4_os7y" name="n4" src="os7y3l" fileName="moudules/BasePopuoBG.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n2_os7y" name="n2" src="vqlx68" fileName="images/common/circle_24.png" xy="315,690" size="450,540" group="n3_os7y" color="#143733"/>
+    <component id="n5_os7y" name="btnExit" src="os7y4l" fileName="components/ButtonClosePopup.xml" xy="687,689" size="78,78" group="n3_os7y"/>
+    <richtext id="n6_os7y" name="title" xy="344,696" size="390,70" group="n3_os7y" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="Configure Remote Server Connection"/>
+    <image id="n27_vqlx" name="n27" src="vqlx65" fileName="images/common/line_64x4.png" xy="344,766" size="390,4" group="n3_os7y"/>
+    <richtext id="n8_os7y" name="param1" xy="345,777" size="390,34" group="n15_vqlx" fontSize="20" color="#ffffff" vAlign="middle" autoSize="none" singleLine="true" text="Server IP Address:"/>
+    <component id="n13_vqlx" name="input1" src="cwuo29" fileName="moudules/ItemCustomInput.xml" xy="345,811" size="390,76" group="n15_vqlx"/>
+    <richtext id="n14_vqlx" name="tip1" xy="345,887" size="390,43" group="n15_vqlx" fontSize="18" color="#ffff00" autoSize="shrink" text="The password length must be at least 8 characters and no more than 12 characters."/>
+    <image id="n26_vqlx" name="n26" src="vqlx65" fileName="images/common/line_64x4.png" xy="345,930" size="390,4" group="n15_vqlx"/>
+    <group id="n15_vqlx" name="n15" xy="345,777" size="390,157" group="n3_os7y"/>
+    <richtext id="n16_vqlx" name="param2" xy="345,934" size="390,34" group="n20_vqlx" fontSize="20" color="#ffffff" vAlign="middle" autoSize="none" singleLine="true" text="Server IP Address:"/>
+    <component id="n17_vqlx" name="input2" src="cwuo29" fileName="moudules/ItemCustomInput.xml" xy="345,968" size="390,76" group="n20_vqlx"/>
+    <richtext id="n18_vqlx" name="tip2" xy="345,1044" size="390,43" group="n20_vqlx" fontSize="18" color="#ffff00" autoSize="shrink" text="The password length must be at least 8 characters and no more than 12 characters."/>
+    <image id="n25_vqlx" name="n25" src="vqlx65" fileName="images/common/line_64x4.png" xy="345,1087" size="390,4" group="n20_vqlx"/>
+    <group id="n20_vqlx" name="n20" xy="345,934" size="390,157" group="n3_os7y"/>
+    <component id="n21_vqlx" name="btnConfirm" src="vqlx5x" fileName="components/Button005Confirm.xml" xy="442,1134" group="n3_os7y">
+      <Button icon="ui://xp0b9yqdvqlx61"/>
+    </component>
+    <group id="n3_os7y" name="popupFG" xy="315,689" size="450,541" advanced="true"/>
+    <component id="n23_vqlx" name="keyboard" src="cwuo24" fileName="moudules/ItemCustomKeyboard003.xml" xy="56,1603">
+      <relation target="" sidePair="bottom-bottom"/>
+    </component>
+  </displayList>
+</component>

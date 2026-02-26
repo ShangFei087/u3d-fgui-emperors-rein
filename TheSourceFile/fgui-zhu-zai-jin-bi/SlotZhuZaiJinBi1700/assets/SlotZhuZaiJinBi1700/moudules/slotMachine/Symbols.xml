@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="127,381">
+  <displayList>
+    <component id="n0_lnet" name="symbol0" src="lnet1e" fileName="moudules/slotMachine/Symbol.xml" xy="0,-254"/>
+    <component id="n1_lnet" name="symbol1" src="lnet1e" fileName="moudules/slotMachine/Symbol.xml" xy="0,-127" size="127,127"/>
+    <component id="n2_lnet" name="symbol2" src="lnet1e" fileName="moudules/slotMachine/Symbol.xml" xy="0,0" size="127,127"/>
+    <component id="n3_lnet" name="symbol3" src="lnet1e" fileName="moudules/slotMachine/Symbol.xml" xy="0,127" size="127,127"/>
+    <component id="n6_lnet" name="symbol4" src="lnet1e" fileName="moudules/slotMachine/Symbol.xml" xy="0,254" size="127,127"/>
+    <component id="n4_lnet" name="symbol5" src="lnet1e" fileName="moudules/slotMachine/Symbol.xml" xy="0,381" size="127,127"/>
+    <component id="n5_lnet" name="symbol6" src="lnet1e" fileName="moudules/slotMachine/Symbol.xml" xy="0,508" size="127,127"/>
+    <component id="n7_lnet" name="symbol7" src="lnet1e" fileName="moudules/slotMachine/Symbol.xml" xy="0,635" size="127,127"/>
+  </displayList>
+</component>

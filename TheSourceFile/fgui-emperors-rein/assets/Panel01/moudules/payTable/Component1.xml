@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1060">
+  <displayList>
+    <image id="n1_ioi7" name="n1" src="ioi7i7" fileName="images/introduce/paytable_bg.png" xy="0,93" size="1080,966"/>
+    <image id="n0_ioi7" name="n0" src="ebguil" fileName="images/introduce/Frame.png" xy="0,0"/>
+    <image id="n3_ioi7" name="n3" src="ioi7ik" fileName="images/introduce/paytable_mask.png" xy="0,93" size="1080,966" alpha="0.3" color="#00ff00"/>
+    <image id="n2_ioi7" name="n2" src="ioi7i5" fileName="images/introduce/BG_001_b.png" xy="40,200" size="1000,690"/>
+    <component id="n4_ioi7" name="n4" src="ioi7ij" fileName="components/PayTableText.xml" xy="413,30" size="242,63"/>
+    <component id="n5_ioi7" name="btnController" src="ioi7hu" fileName="moudules/payTable/IntroduceBtn.xml" xy="0,902"/>
+    <component id="n6_ioi7" name="payTable" src="jkh95u" fileName="moudules/payTable/PayYable.xml" xy="0,124" size="1080,768"/>
+  </displayList>
+</component>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <image id="n0_fr2h" name="n0" src="fr2h2x" fileName="images/gameMain/fg_bg_bj2.png" xy="0,0" size="1080,1920">
+      <relation target="" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </image>
+    <image id="n1_fr2h" name="n1" src="fr2h39" fileName="images/bonusGame2/sg_img_bonuskuang.png" xy="-64,629"/>
+    <component id="n2_fr2h" name="n2" src="fr2h34" fileName="moudules/bonusGame1/AnchorNPC.xml" xy="1060,1186"/>
+    <component id="n3_fr2h" name="bet5" src="fr2h50" fileName="moudules/bonusGame2/BetModel.xml" xy="107,1176" scale="0.5,0.5"/>
+    <component id="n6_fr2h" name="bet8" src="fr2h50" fileName="moudules/bonusGame2/BetModel.xml" xy="806,1152" scale="0.5,0.5"/>
+    <component id="n7_fr2h" name="bet12" src="fr2h50" fileName="moudules/bonusGame2/BetModel.xml" xy="807,966" scale="0.5,0.5"/>
+    <component id="n8_fr2h" name="bet20" src="fr2h50" fileName="moudules/bonusGame2/BetModel.xml" xy="811,799" scale="0.5,0.5"/>
+    <component id="n10_fr2h" name="card1" src="fr2h51" fileName="moudules/bonusGame2/CardModel.xml" xy="346,1217"/>
+    <component id="n11_fr2h" name="card2" src="fr2h51" fileName="moudules/bonusGame2/CardModel.xml" xy="476,1217"/>
+    <component id="n12_fr2h" name="card3" src="fr2h51" fileName="moudules/bonusGame2/CardModel.xml" xy="607,1217"/>
+    <component id="n13_fr2h" name="card4" src="fr2h51" fileName="moudules/bonusGame2/CardModel.xml" xy="738,1217"/>
+    <component id="n14_fr2h" name="card5" src="fr2h51" fileName="moudules/bonusGame2/CardModel.xml" xy="346,1044"/>
+    <component id="n15_fr2h" name="card6" src="fr2h51" fileName="moudules/bonusGame2/CardModel.xml" xy="476,1044"/>
+    <component id="n16_fr2h" name="card7" src="fr2h51" fileName="moudules/bonusGame2/CardModel.xml" xy="607,1044"/>
+    <component id="n17_fr2h" name="card8" src="fr2h51" fileName="moudules/bonusGame2/CardModel.xml" xy="738,1044"/>
+    <component id="n18_fr2h" name="card9" src="fr2h51" fileName="moudules/bonusGame2/CardModel.xml" xy="346,872"/>
+    <component id="n19_fr2h" name="card10" src="fr2h51" fileName="moudules/bonusGame2/CardModel.xml" xy="476,872"/>
+    <component id="n20_fr2h" name="card11" src="fr2h51" fileName="moudules/bonusGame2/CardModel.xml" xy="607,872"/>
+    <component id="n21_fr2h" name="card12" src="fr2h51" fileName="moudules/bonusGame2/CardModel.xml" xy="738,872"/>
+  </displayList>
+</component>

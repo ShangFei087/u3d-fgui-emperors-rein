@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="100,66" pivot="0.5,0.5" anchor="true" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <displayList>
+    <image id="n3_kb8b" name="n3" src="kb8brr" fileName="images/panel01/introduce/翻页箭头.png" xy="50,33" pivot="0.5,0.5" anchor="true" aspect="true">
+      <gearDisplay controller="button" pages="0,1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n4_kb8b" name="n4" src="kb8bs6" fileName="images/panel01/introduce/翻页箭头1.png" xy="0,0" visible="false">
+      <relation target="" sidePair="width-width,height-height%"/>
+    </image>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.8"/>
+</component>

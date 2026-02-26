@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="250,250">
+  <displayList>
+    <image id="n1_fr2h" name="n1" src="fr2h30" fileName="images/bonusGame1/fg_ic_bxxk.png" xy="3,55"/>
+    <image id="n0_fr2h" name="n0" src="fr2h2z" fileName="images/bonusGame1/fg_ic_bxx.png" xy="65,56"/>
+    <image id="n2_fr2h" name="n2" src="fr2h2y" fileName="images/bonusGame1/fg_img_tap.png" xy="32,15"/>
+    <component id="n4_fr2h" name="n4" src="fr2h37" fileName="components/bonusGame1/Select.xml" xy="63,57" alpha="0"/>
+    <text id="n5_fr2h" name="number" xy="32,107" size="211,82" font="ui://4hwvsyqffr2h1m" fontSize="12" align="center" vAlign="middle" autoSize="none" text="x8"/>
+  </displayList>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="Scale" target="n2_fr2h" tween="true" startValue="0.9,0.9" endValue="1,1" duration="12"/>
+    <item time="0" type="XY" target="n2_fr2h" tween="true" startValue="23.5,-2.5" endValue="45.5,28.5" duration="12"/>
+    <item time="12" type="Scale" target="n2_fr2h" tween="true" startValue="1,1" endValue="0.9,0.9" duration="12"/>
+    <item time="12" type="XY" target="n2_fr2h" tween="true" startValue="45.5,28.5" endValue="23,-2" duration="12"/>
+  </transition>
+</component>

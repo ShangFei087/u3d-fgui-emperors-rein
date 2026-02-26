@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="450,12" extention="Slider">
+  <displayList>
+    <image id="n0_vqlx" name="n0" src="vqlx6c" fileName="images/common/circle_16.png" xy="0,0" size="450,12">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_vqlx" name="bar" src="vqlx6c" fileName="images/common/circle_16.png" xy="0,0" size="450,12" color="#f9b5c2"/>
+    <component id="n2_vqlx" name="grip" src="vqlx6a" fileName="components/DefaultSlider_grip.xml" xy="429,-10" size="32,32">
+      <relation target="n1_vqlx" sidePair="right-right"/>
+    </component>
+  </displayList>
+  <Slider titleType="valueAndmax"/>
+</component>

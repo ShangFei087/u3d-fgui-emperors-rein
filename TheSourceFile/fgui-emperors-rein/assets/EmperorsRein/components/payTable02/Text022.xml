@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="889,687">
+  <displayList>
+    <richtext id="n1_tsjn" name="n1" xy="0,0" size="889,687" fontSize="42" color="#ffffff" align="center" leading="2" autoSize="none" text="Line wins pay left to right on consecutive reels, starting from the leftmost reel.&#xA;Winning symbols must land on an active line to qualify.&#xA;Wins on different lines are added.&#xA;Only the highest win is paid per line.">
+      <relation target="" sidePair="center-center"/>
+    </richtext>
+  </displayList>
+</component>

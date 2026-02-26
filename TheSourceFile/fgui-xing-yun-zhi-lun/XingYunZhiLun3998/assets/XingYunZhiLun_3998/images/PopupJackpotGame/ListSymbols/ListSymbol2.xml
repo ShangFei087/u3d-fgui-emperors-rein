@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="356,463">
+  <displayList>
+    <image id="n0_12dua" name="n0" src="lsvw12" fileName="images/PopupJackpotGame/ListSymbolIcons/sg_img_icon_major.png" xy="0,0"/>
+    <image id="n2_a6yp" name="n2" src="a6ypabw" fileName="images/PopupJackpotGame/ListSymbolIcons/jp_txt_major.png" xy="98,8"/>
+  </displayList>
+</component>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="905,531" overflow="hidden">
+  <displayList>
+    <component id="n0_lsvw" name="reels" src="lsvw19" fileName="moudules/slotMachine/Reels.xml" xy="0,0" size="905,531">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n1_lsvw" name="slotCover" src="lsvw1e" fileName="moudules/slotMachine/SlotCover.xml" xy="0,0" size="905,531" touchable="false">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n2_l9vr" name="playLines" src="l9vr1t" fileName="components/AnchorPlayLines.xml" xy="452,265" pivot="0.5,0.5" anchor="true" size="905,530"/>
+  </displayList>
+</component>

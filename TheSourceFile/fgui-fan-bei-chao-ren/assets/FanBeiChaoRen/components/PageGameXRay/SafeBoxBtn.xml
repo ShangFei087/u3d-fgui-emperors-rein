@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="200,200" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n5_fv27" name="Open" src="fv271o" fileName="images/PageGameXRay/fg_ic_bxxk.png" xy="-20,6" pivot="0.5,0.5">
+      <gearDisplay controller="button" pages="1,3"/>
+    </image>
+    <image id="n4_fv27" name="Close" src="fv271n" fileName="images/PageGameXRay/fg_ic_bxx.png" xy="10,7" pivot="0.5,0.5">
+      <gearDisplay controller="button" pages="0,2"/>
+    </image>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="200,636">
+  <displayList>
+    <component id="n0_plwz" name="symbol0" src="trhy10" fileName="moudules/slotMachine/Symbol.xml" xy="0,-212" size="200,212"/>
+    <component id="n1_plwz" name="symbol1" src="trhy10" fileName="moudules/slotMachine/Symbol.xml" xy="0,0"/>
+    <component id="n2_plwz" name="symbol2" src="trhy10" fileName="moudules/slotMachine/Symbol.xml" xy="0,212"/>
+    <component id="n3_plwz" name="symbol3" src="trhy10" fileName="moudules/slotMachine/Symbol.xml" xy="0,424"/>
+    <component id="n4_plwz" name="symbol4" src="trhy10" fileName="moudules/slotMachine/Symbol.xml" xy="0,636"/>
+    <component id="n5_plwz" name="symbol5" src="trhy10" fileName="moudules/slotMachine/Symbol.xml" xy="0,848"/>
+    <component id="n6_plwz" name="symbol6" src="trhy10" fileName="moudules/slotMachine/Symbol.xml" xy="0,1060"/>
+    <component id="n7_plwz" name="symbol7" src="trhy10" fileName="moudules/slotMachine/Symbol.xml" xy="0,1272"/>
+  </displayList>
+</component>

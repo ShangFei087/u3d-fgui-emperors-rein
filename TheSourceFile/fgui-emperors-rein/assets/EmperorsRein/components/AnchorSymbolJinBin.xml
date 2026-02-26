@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <loader id="n7_trhy" name="example" xy="0,0" pivot="0.5,0.5" anchor="true" size="200,212" autoSize="true" clearOnPublish="true"/>
+    <graph id="n8_w36x" name="holder" xy="0,0" pivot="0.5,0.5" anchor="true" size="200,212" visible="false" type="rect"/>
+    <graph id="n9_jpl9" name="dot" xy="1,1" pivot="0.5,0.5" anchor="true" size="20,20" visible="false" type="rect" fillColor="#ffff00ff"/>
+  </displayList>
+  <customProperty target="icon" propertyId="1" label="图标"/>
+</component>

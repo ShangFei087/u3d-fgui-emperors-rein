@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_paul" name="base" src="paul3" fileName="moudules/MDPageBase.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="title" propertyId="0" value="/设置"/>
+    </component>
+    <list id="n12_ggbp" name="tab1" xy="49,126" size="980,1670" overflow="hidden" lineGap="10" defaultItem="ui://tdkeq960paul7">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <item name="lineID">
+        <property target="title" propertyId="0" value="线号:"/>
+        <property target="value" propertyId="0" value="1110"/>
+      </item>
+      <item name="machineID">
+        <property target="title" propertyId="0" value="机台号:"/>
+        <property target="value" propertyId="0" value="11109001"/>
+      </item>
+      <item name="pid">
+        <property target="title" propertyId="0" value="机台编号:"/>
+        <property target="value" propertyId="0" value="0"/>
+      </item>
+      <item name="groupId">
+        <property target="title" propertyId="0" value="机台组号:"/>
+        <property target="value" propertyId="0" value="1"/>
+      </item>
+      <item name="active">
+        <property target="title" propertyId="0" value="激活"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="user">
+        <property target="title" propertyId="0" value="修改用户密码"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="manager">
+        <property target="title" propertyId="0" value="修改管理员密码"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="admin">
+        <property target="title" propertyId="0" value="修改超级管理员密码"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="remoteCtrlEnable">
+        <property target="title" propertyId="0" value="远端控制："/>
+        <property target="value" propertyId="0" value="OFF"/>
+      </item>
+      <item name="remoteCtrlIP">
+        <property target="title" propertyId="0" value="远程控制设置："/>
+        <property target="value" propertyId="0" value="192.168.3.27:1883"/>
+      </item>
+      <item name="remoteCtrlAccount">
+        <property target="title" propertyId="0" value="远程控制账号/密码:"/>
+        <property target="value" propertyId="0" value="test123/123456"/>
+      </item>
+      <item name="next">
+        <property target="title" propertyId="0" value="下一页"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+    </list>
+    <list id="n13_ydll" name="tab2" xy="50,125" size="980,1670" visible="false" overflow="hidden" lineGap="10" defaultItem="ui://tdkeq960paul7">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <item name="coinOutScale">
+        <property target="title" propertyId="0" value="退票比例(票:分):"/>
+        <property target="value" propertyId="0" value="1:100"/>
+      </item>
+      <item name="coinInScale">
+        <property target="title" propertyId="0" value="投币比例(币:分):"/>
+        <property target="value" propertyId="0" value="1:100"/>
+      </item>
+      <item name="scoreScale">
+        <property target="title" propertyId="0" value="ASBX短按比例(次:分):"/>
+        <property target="value" propertyId="0" value="1:10000"/>
+      </item>
+      <item name="ballRewardScale">
+        <property target="title" propertyId="0" value="回球比例:"/>
+        <property target="value" propertyId="0" value="1:1"/>
+      </item>
+      <item name="maxCoinInOutRecord">
+        <property target="title" propertyId="0" value="投退币记录最大次数:"/>
+        <property target="value" propertyId="0" value="1000"/>
+      </item>
+      <item name="maxGameRecord">
+        <property target="title" propertyId="0" value="游戏记录最大次数:"/>
+        <property target="value" propertyId="0" value="1000"/>
+      </item>
+      <item name="maxEventRecord">
+        <property target="title" propertyId="0" value="消息记录最大次数:"/>
+        <property target="value" propertyId="0" value="1000"/>
+      </item>
+      <item name="maxErrorRecord">
+        <property target="title" propertyId="0" value="警告记录最大次数:"/>
+        <property target="value" propertyId="0" value="1000"/>
+      </item>
+      <item name="maxBusinessDayRecord">
+        <property target="title" propertyId="0" value="日营收统计记录最大次数："/>
+        <property target="value" propertyId="0" value="1000"/>
+      </item>
+      <item name="prev">
+        <property target="title" propertyId="0" value="上一页"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="next">
+        <property target="title" propertyId="0" value="下一页"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+    </list>
+    <list id="n15_prej" name="tab3" xy="50,125" size="980,1670" visible="false" overflow="hidden" lineGap="10" defaultItem="ui://tdkeq960paul7">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <item name="coinOutScale">
+        <property target="title" propertyId="0" value="退票比例(票:分):"/>
+        <property target="value" propertyId="0" value="1:100"/>
+      </item>
+      <item name="coinInScale">
+        <property target="title" propertyId="0" value="投币比例(币:分):"/>
+        <property target="value" propertyId="0" value="1:100"/>
+      </item>
+      <item name="scoreScale">
+        <property target="title" propertyId="0" value="ASBX短按比例(次:分):"/>
+        <property target="value" propertyId="0" value="1:10000"/>
+      </item>
+      <item name="maxEventRecord">
+        <property target="title" propertyId="0" value="消息记录最大次数:"/>
+        <property target="value" propertyId="0" value="1000"/>
+      </item>
+      <item name="maxErrorRecord">
+        <property target="title" propertyId="0" value="警告记录最大次数:"/>
+        <property target="value" propertyId="0" value="1000"/>
+      </item>
+      <item name="prev">
+        <property target="title" propertyId="0" value="上一页"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+    </list>
+    <list id="n14_ydll" name="footer" xy="174,1766" size="732,24" touchable="false" layout="row" overflow="hidden" colGap="20" defaultItem="ui://tdkeq960ydllx" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+    </list>
+  </displayList>
+</component>

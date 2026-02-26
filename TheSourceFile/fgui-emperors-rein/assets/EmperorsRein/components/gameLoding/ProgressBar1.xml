@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,33" extention="ProgressBar" mask="n0_nb0n">
+  <displayList>
+    <image id="n0_nb0n" name="n0" src="nimzez" fileName="images/popupGameLoading/gme_loading_mask.png" xy="0,0" size="800,33">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n1_nb0n" name="bar" src="x9qzf6" fileName="components/gameLoding/Slider2.xml" xy="0,0" size="800,33"/>
+  </displayList>
+  <ProgressBar/>
+</component>

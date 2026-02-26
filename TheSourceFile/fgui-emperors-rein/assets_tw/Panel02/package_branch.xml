@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="ebgu89" name="icon_what.png" path="/images/button/" exported="true"/>
+    <image id="ebgu8a" name="icon_return.png" path="/images/button/" exported="true"/>
+    <image id="ebgu8b" name="icon_redeem.png" path="/images/button/" exported="true"/>
+    <image id="ebgu8c" name="icon_i.png" path="/images/button/" exported="true"/>
+    <image id="ebgu8d" name="icon_stop_1.png" path="/images/button/" exported="true"/>
+    <image id="ebgu8e" name="icon_auto_1.png" path="/images/button/" exported="true"/>
+    <image id="ebgu8f" name="icon_play_1.png" path="/images/button/" exported="true"/>
+    <image id="ebgu8g" name="win_.png" path="/images/frame/" exported="true"/>
+    <image id="ebgu8h" name="credit_.png" path="/images/frame/" exported="true"/>
+    <image id="ebgu8i" name="bet_.png" path="/images/frame/" exported="true"/>
+  </resources>
+</branchDescription>

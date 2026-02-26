@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="889,687">
+  <displayList>
+    <richtext id="n1_tsjn" name="n1" xy="0,0" size="889,687" fontSize="31" color="#ffffff" leading="2" autoSize="none" text="&lt;img src=&quot;ui://vdmp4vsrw36x17&quot; width=&quot;100&quot; height=&quot;106&quot;/&gt;可替代除&lt;img src=&quot;ui://vdmp4vsrw36x19&quot; width=&quot;100&quot; height=&quot;106&quot;/&gt;、&lt;img src=&quot;ui://vdmp4vsrjjue2h&quot; width=&quot;100&quot; height=&quot;106&quot;/&gt;、&lt;img src=&quot;ui://vdmp4vsrjjue2i&quot; width=&quot;100&quot; height=&quot;106&quot; style=&quot;vertical-align:middle&quot;/&gt;和&lt;img src=&quot;ui://vdmp4vsrjjue2i&quot; width=&quot;100&quot; height=&quot;106&quot; style=&quot;vertical-align:middle&quot;/&gt;之外的所有符号。&#xA;&#xA;&#xA;&#xA;每组获胜组合仅支付最高奖金。&#xA;&#xA;所有连线奖金均乘以每线投注额。&#xA;&#xA;连线奖金必须出现在相邻转轴上，且从最左侧转轴开始。所有奖金以游戏币为单位。">
+      <relation target="" sidePair="center-center"/>
+    </richtext>
+  </displayList>
+</component>

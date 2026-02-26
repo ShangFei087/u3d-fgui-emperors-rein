@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="46,80">
+  <displayList>
+    <text id="n0_oypp" name="step1_0" xy="0,0" size="46,80" font="ui://jzsm3zpuoyppz" fontSize="9" align="center" vAlign="middle" autoSize="none" text="1"/>
+    <text id="n1_oypp" name="step2_0" xy="0,-26" size="46,80" visible="false" font="ui://jzsm3zpuoyppz" fontSize="9" align="center" vAlign="middle" autoSize="none" text="1"/>
+    <text id="n2_oypp" name="step2_1" xy="0,52" size="46,80" visible="false" font="ui://jzsm3zpuoyppz" fontSize="9" align="center" vAlign="middle" autoSize="none" text="2"/>
+    <text id="n3_oypp" name="step3_0" xy="0,-52" size="46,80" visible="false" font="ui://jzsm3zpuoyppz" fontSize="9" align="center" vAlign="middle" autoSize="none" text="1"/>
+    <text id="n4_oypp" name="step3_1" xy="0,26" size="46,80" visible="false" font="ui://jzsm3zpuoyppz" fontSize="9" align="center" vAlign="middle" autoSize="none" text="2"/>
+    <text id="n5_oypp" name="step4_0" xy="0,0" size="46,80" visible="false" font="ui://jzsm3zpuoyppz" fontSize="9" align="center" vAlign="middle" autoSize="none" text="2"/>
+  </displayList>
+  <transition name="animTurn">
+    <item time="0" type="Visible" target="n0_oypp" value="true"/>
+    <item time="0" type="Visible" target="n1_oypp" value="false"/>
+    <item time="0" type="Visible" target="n2_oypp" value="false"/>
+    <item time="0" type="Visible" target="n3_oypp" value="false"/>
+    <item time="0" type="Visible" target="n4_oypp" value="false"/>
+    <item time="0" type="Visible" target="n5_oypp" value="false"/>
+    <item time="3" type="Visible" target="n0_oypp" value="false"/>
+    <item time="3" type="Visible" target="n1_oypp" value="true"/>
+    <item time="3" type="Visible" target="n2_oypp" value="true"/>
+    <item time="3" type="Visible" target="n3_oypp" value="false"/>
+    <item time="3" type="Visible" target="n4_oypp" value="false"/>
+    <item time="3" type="Visible" target="n5_oypp" value="false"/>
+    <item time="6" type="Visible" target="n0_oypp" value="false"/>
+    <item time="6" type="Visible" target="n1_oypp" value="false"/>
+    <item time="6" type="Visible" target="n2_oypp" value="false"/>
+    <item time="6" type="Visible" target="n3_oypp" value="true"/>
+    <item time="6" type="Visible" target="n4_oypp" value="true"/>
+    <item time="6" type="Visible" target="n5_oypp" value="false"/>
+    <item time="9" type="Visible" target="n0_oypp" value="false"/>
+    <item time="9" type="Visible" target="n1_oypp" value="false"/>
+    <item time="9" type="Visible" target="n2_oypp" value="false"/>
+    <item time="9" type="Visible" target="n3_oypp" value="false"/>
+    <item time="9" type="Visible" target="n4_oypp" value="false"/>
+    <item time="9" type="Visible" target="n5_oypp" value="true"/>
+  </transition>
+</component>

@@ -1,0 +1,133 @@
+# =============== #
+# Unity generated #
+# =============== #
+[Tt]emp/
+[Oo]bj/
+[Bb]uild
+[Bb]uilds
+[Ll]ibrary/
+[Ll]ogs/
+
+# =============== #
+# IDE #
+# =============== #
+.idea
+.vs
+
+/*.vsconfig
+
+# =============== #
+# File #
+# =============== #
+/*.csproj
+/*.sln*
+
+
+# =============== #
+# Test #
+# =============== #
+
+Test1*
+Test1/
+Test1/*
+
+
+*/Test1/*
+
+Output/*
+
+
+# =============== #
+# 文件 #
+# =============== #
+#*.zip
+#*.rar
+#*.zip.meta
+#*.rar.meta
+
+/**/*.zip
+/**/*.zip.meta
+
+/**/*.rar
+/**/*.rar.meta
+
+# =============== #
+# 热更 #
+# =============== #
+HybridCLRData/HotUpdateDlls/*
+
+
+# 忽略打包产生的热更资源
+Assets/StreamingAssets/**/*.unity3d
+Assets/StreamingAssets/**/*.unity3d.manifest
+Assets/StreamingAssets/**/*.unity3d.meta
+Assets/StreamingAssets/**/*.unity3d.manifest.meta
+Assets/StreamingAssets/**/*.meta
+
+
+Assets/StreamingAssets/Hotfix/**/*.bytes
+Assets/StreamingAssets/Hotfix/**/*.bytes.meta
+
+Assets/StreamingAssets/build_info
+
+# 忽略打包产生的热更资源 和 文件夹
+Assets/StreamingAssets/Hotfix/GameRes/*
+Assets/StreamingAssets/Hotfix/GameRes/**/*.bytes
+
+# 忽略打包产生的热更脚本
+Assets/StreamingAssets/Hotfix/GameDll/**/*.dll.bytes
+Assets/StreamingAssets/Hotfix/GameDll/**/*.dll.bytes.manifest
+
+Assets/StreamingAssets/Hotfix/GameDll/**/*.dll.bytes.meta
+Assets/StreamingAssets/Hotfix/GameDll/**/*.dll.bytes.manifest.meta
+
+Assets/StreamingAssets/**/test_clear_file_info.json
+Assets/StreamingAssets/**/test_clear_file_info.json.meta
+
+Assets/StreamingAssets/**/test_all_ab_info.json
+Assets/StreamingAssets/**/test_all_ab_info.json.meta
+
+
+Assets/StreamingAssets/Hotfix/GameRes/GameRes
+Assets/StreamingAssets/**/*.manifest
+
+# 屏蔽Assets/StreamingAssets文件夹里的所有.meta 文件！（没有作用）
+Assets/StreamingAssets/**/*.meta
+
+
+
+# 数据库动态创建，不进行存储
+Assets/StreamingAssets/**/*.db
+Assets/StreamingAssets/*.db
+
+# 屏蔽测试输出文件
+Assets/StreamingAssets/test_*.json
+Assets/StreamingAssets/test_*.meta
+
+
+Assets/StreamingAssets/Hotfix/GameBackup/*
+
+
+# =============== #
+# 屏蔽打包输出文件 #
+# =============== #
+TheOutput/*
+TheOutput/**/*.apk
+/Assets/HotFix/Games/Machine/Device/DeviceIOTPayment.cs
+Plugins/*
+
+# 针对某些文件：
+# TheOutput/**/U盘更新源文件_apk签名.rar
+# TheOutput/**/libil2cpp.so
+
+
+TheSourceFile/**/*.mp4
+
+
+
+# 根目录文件夹屏蔽：
+TheTemp/*
+HybridCLRData/*
+
+
+

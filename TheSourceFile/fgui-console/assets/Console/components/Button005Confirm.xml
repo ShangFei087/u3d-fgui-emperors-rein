@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="195,68" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n5_glrj" name="n5" src="vqlx68" fileName="images/common/square_64x64_1.png" xy="0,0" size="195,68" color="#606165">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <richtext id="n4_smbp" name="title" xy="59,0" size="124,68" fontSize="26" color="#ffffff" vAlign="middle" ubb="true" autoSize="shrink" singleLine="true" text="Confirm">
+      <relation target="" sidePair="width-width,height-height"/>
+    </richtext>
+    <loader id="n6_vqlx" name="icon" xy="13,14" size="40,40" url="ui://xp0b9yqdvqlx61" fill="scaleNoBorder" shrinkOnly="true" useResize="true"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.8"/>
+</component>

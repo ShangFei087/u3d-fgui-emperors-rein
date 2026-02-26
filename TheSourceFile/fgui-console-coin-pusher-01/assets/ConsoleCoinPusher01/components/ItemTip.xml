@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="980,60" extention="Label">
+  <displayList>
+    <richtext id="n5_paul" name="title" xy="108,0" size="871,59" fontSize="26" color="#ffff00" vAlign="middle" autoSize="shrink" singleLine="true" text="硬件功能测试"/>
+  </displayList>
+  <customProperty target="title" propertyId="0" label="标题"/>
+  <customProperty target="value" propertyId="0" label="值"/>
+</component>

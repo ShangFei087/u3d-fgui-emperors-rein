@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1020,656">
+  <displayList>
+    <graph id="n44_trhy" name="slotCover" xy="0,0" size="1020,656" type="rect" fillColor="#cc161515">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+  </displayList>
+</component>

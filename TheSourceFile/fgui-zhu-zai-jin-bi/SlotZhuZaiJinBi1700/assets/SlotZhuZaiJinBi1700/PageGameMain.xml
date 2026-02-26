@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" overflow="hidden">
+  <displayList>
+    <component id="n22_t0u4" name="normalBG" src="t0u45z" fileName="components/gameMain/AnchorNormalBG.xml" xy="540,398" scale="1.45,1.45"/>
+    <component id="n23_t0u4" name="freeBG" src="t0u460" fileName="components/gameMain/AnchorFreeBG.xml" xy="539,959" scale="1.5,1.5"/>
+    <component id="n7_n4dd" name="normalInnerFrame" src="n4dd3y" fileName="moudules/pageGameMain/normalInnerFrame.xml" xy="540,1387" pivot="0.5,0.5" anchor="true" aspect="true" scale="1.52,1.7"/>
+    <component id="n15_vxrw" name="freeInnerFrame" src="vxrw4d" fileName="moudules/pageGameMain/freeInnerFrame.xml" xy="540,1387" pivot="0.5,0.5" anchor="true" scale="1.52,1.7"/>
+    <component id="n1_lnet" name="slotMachine" src="lnet1j" fileName="moudules/slotMachine/SlotMachine.xml" xy="60,1091" size="641,379" scale="1.5,1.5">
+      <relation target="" sidePair="center-center"/>
+    </component>
+    <component id="n6_lnet" name="normalGameframe" src="lnet3j" fileName="moudules/pageGameMain/normalGameframe.xml" xy="0,0" size="1080,1920"/>
+    <component id="n9_n4dd" name="freeGameFrame" src="n4dd3k" fileName="moudules/pageGameMain/freeGameFrame.xml" xy="0,0"/>
+    <component id="n30_e6zw" name="jpGrand" src="e6zw80" fileName="moudules/gameJackpot/GameJackpotGrand.xml" xy="315,91" size="404,111" group="n34_e6zw" scale="1.5,1.5"/>
+    <component id="n31_e6zw" name="jpMajor" src="e6zw81" fileName="moudules/gameJackpot/GameJackpotMajor.xml" xy="378,203" size="341,99" group="n34_e6zw" scale="1.5,1.5"/>
+    <component id="n32_e6zw" name="jpMini" src="e6zw83" fileName="moudules/gameJackpot/GameJackpotMini.xml" xy="722,198" size="341,98" group="n34_e6zw" scale="1.5,1.5"/>
+    <component id="n33_e6zw" name="jpMinor" src="e6zw82" fileName="moudules/gameJackpot/GameJackpotMinor.xml" xy="27,199" size="341,99" group="n34_e6zw" scale="1.5,1.5"/>
+    <group id="n34_e6zw" name="jackpots" xy="27,91" size="1036,211"/>
+    <component id="n28_e6zw" name="freeWinBox" src="e6zw7g" fileName="moudules/pageGameMain/freeWinBox.xml" xy="0,0"/>
+    <component id="n24_jfvg" name="freeTimeBox" src="jfvg6v" fileName="moudules/pageGameMain/freeTimeBox.xml" xy="544,994" size="1,1" scale="1.5,1.5"/>
+    <component id="n26_e6zw" name="freeSlotMachine" src="e6zw7f" fileName="moudules/freeRoll/FreeSlotMachine.xml" xy="62,477"/>
+    <component id="n19_t0u4" name="anchorFrame" src="jkwq58" fileName="components/gameMain/AnchorEffect.xml" xy="539,959" size="1,1" scale="1.5,1.5">
+      <relation target="" sidePair="width-width,height-height,center-center"/>
+    </component>
+    <component id="n21_t0u4" name="anchorFreeFrame" src="t0u45x" fileName="components/gameMain/AnchorFreeFrame.xml" xy="512,959" pivot="0.5,0.5" anchor="true" scale="1.5,1.5"/>
+    <component id="n20_t0u4" name="anchorNormalFrame" src="t0u45w" fileName="components/gameMain/AnchorNormalFrame.xml" xy="539,968" pivot="0.5,0.5" anchor="true" scale="1.5,1.5"/>
+    <component id="n16_jkwq" name="panel" src="jkwq57" fileName="components/gameMain/AnchorPanelSlot.xml" xy="539,1839"/>
+  </displayList>
+</component>

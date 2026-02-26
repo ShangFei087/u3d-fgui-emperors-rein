@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n1_x7l3" name="mash" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#99000000"/>
+    <component id="n6_x7l3" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,960"/>
+    <component id="n0_x7l3" name="effect" src="x7l38f" fileName="components/PopupBigWIn/AnchorPopBorder.xml" xy="540,898">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <list id="n10_mg8x" name="reels" xy="141,935" size="795,103" touchable="false" layout="row" overflow="hidden" defaultItem="ui://5hielhj5mg8xar" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <component id="n9_i6s3" name="Button" src="i6s397" fileName="components/PopupBigWIn/JackpotCloseBtn.xml" xy="387,1217" size="309,84"/>
+  </displayList>
+</component>

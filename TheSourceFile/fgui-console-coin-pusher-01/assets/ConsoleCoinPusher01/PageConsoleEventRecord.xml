@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_paul" name="base" src="paul3" fileName="moudules/MDPageBase.xml" xy="2,0">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="title" propertyId="0" value="/记录/事件记录&#xA;"/>
+    </component>
+    <list id="n15_9q8e" name="record" xy="0,103" size="1080,1258" overflow="hidden" defaultItem="ui://tdkeq960rh4e1d">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item>
+        <property target="value1" propertyId="0" value="返回"/>
+        <property target="value2" propertyId="0" value=""/>
+      </item>
+    </list>
+    <list id="n11_9q8e" name="items" xy="50,1489" size="980,306" overflow="hidden" defaultItem="ui://tdkeq960paul7">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <item name="date">
+        <property target="title" propertyId="0" value="日期"/>
+        <property target="value" propertyId="0" value="2025-09-28"/>
+      </item>
+      <item name="prev">
+        <property target="title" propertyId="0" value="上一页"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="next">
+        <property target="title" propertyId="0" value="下一页"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="check">
+        <property target="title" propertyId="0" value="查看详情"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+        <property target="value" propertyId="0" value=""/>
+      </item>
+    </list>
+    <richtext id="n16_r2gc" name="page" xy="287,1398" size="507,66" fontSize="49" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="1/10&#xA;"/>
+    <graph id="n18_l0fl" name="n18" xy="0,1363" size="1080,3" type="rect" lineSize="0"/>
+    <component id="n20_rh4e" name="detailed" src="rh4e1e" fileName="moudules/Record.xml" xy="0,1373" size="1080,450" visible="false"/>
+  </displayList>
+</component>

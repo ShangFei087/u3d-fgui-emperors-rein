@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="700,381" overflow="hidden">
+  <displayList>
+    <component id="n1_lnet" name="reel1" src="lnet1g" fileName="moudules/slotMachine/Reel.xml" xy="26,0"/>
+    <component id="n2_lnet" name="reel2" src="lnet1g" fileName="moudules/slotMachine/Reel.xml" xy="156,0"/>
+    <component id="n3_lnet" name="reel3" src="lnet1g" fileName="moudules/slotMachine/Reel.xml" xy="291,0"/>
+    <component id="n4_lnet" name="reel4" src="lnet1g" fileName="moudules/slotMachine/Reel.xml" xy="424,0"/>
+    <component id="n5_lnet" name="reel5" src="lnet1g" fileName="moudules/slotMachine/Reel.xml" xy="554,0"/>
+  </displayList>
+</component>

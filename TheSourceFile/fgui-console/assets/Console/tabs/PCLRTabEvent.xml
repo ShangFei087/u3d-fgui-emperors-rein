@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1178">
+  <displayList>
+    <graph id="n49_g3lh" name="n49" xy="0,76" size="1080,2" type="rect" lineSize="0"/>
+    <component id="n66_g3lh" name="date" src="g3lh58" fileName="moudules/ItemDateSelect.xml" xy="0,0"/>
+    <graph id="n92_u8xf" name="n92" xy="0,910" size="1080,2" type="rect" lineSize="0"/>
+    <component id="n95_u8xf" name="item1" src="u8xf7t" fileName="moudules/ItemLogRecordEvent.xml" xy="0,76"/>
+    <component id="n99_u8xf" name="item2" src="u8xf7t" fileName="moudules/ItemLogRecordEvent.xml" xy="0,152"/>
+    <component id="n100_u8xf" name="item3" src="u8xf7t" fileName="moudules/ItemLogRecordEvent.xml" xy="0,228"/>
+    <component id="n101_u8xf" name="item4" src="u8xf7t" fileName="moudules/ItemLogRecordEvent.xml" xy="0,304"/>
+    <component id="n102_u8xf" name="item5" src="u8xf7t" fileName="moudules/ItemLogRecordEvent.xml" xy="0,380"/>
+    <component id="n103_u8xf" name="item6" src="u8xf7t" fileName="moudules/ItemLogRecordEvent.xml" xy="0,456"/>
+    <component id="n104_u8xf" name="item7" src="u8xf7t" fileName="moudules/ItemLogRecordEvent.xml" xy="0,532"/>
+    <component id="n105_u8xf" name="item8" src="u8xf7t" fileName="moudules/ItemLogRecordEvent.xml" xy="0,608"/>
+    <component id="n106_u8xf" name="item9" src="u8xf7t" fileName="moudules/ItemLogRecordEvent.xml" xy="0,684"/>
+    <component id="n107_u8xf" name="item10" src="u8xf7t" fileName="moudules/ItemLogRecordEvent.xml" xy="0,760"/>
+    <component id="n108_u8xf" name="item11" src="u8xf7t" fileName="moudules/ItemLogRecordEvent.xml" xy="0,836"/>
+    <component id="n109_u8xf" name="detail" src="u8xf7w" fileName="components/CompLogRcordDetail.xml" xy="10,916"/>
+  </displayList>
+</component>

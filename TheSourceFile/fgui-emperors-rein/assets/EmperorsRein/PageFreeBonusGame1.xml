@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n10_nb0n" name="anchorSpine" src="q50nh6" fileName="components/popupZhuangChang/AnchorZhuangChang.xml" xy="540,960">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n11_nb0n" name="slotMachine" src="nb0njd" fileName="moudules/pageBonusGame1/Component.xml" xy="0,952">
+      <relation target="" sidePair="width-width,bottom-bottom"/>
+    </component>
+    <component id="n18_ptxu" name="Expectation" src="ptxun6" fileName="moudules/pageBonusGame1/ExpectationBonusGame1.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n14_nb0n" name="anchorDi" src="nb0njz" fileName="components/AnchorPanel2.xml" xy="540,1841">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n19_mvwh" name="anchorReel2Effect" src="h33one" fileName="components/gameMainEffect/AnchorEffect.xml" xy="539,1433" visible="false">
+      <relation target="" sidePair="width-width,center-center,bottom-bottom"/>
+    </component>
+  </displayList>
+  <transition name="go" autoPlay="true">
+    <item time="0" type="XY" target="n11_nb0n" value="0,1942"/>
+    <item time="0" type="XY" target="n14_nb0n" value="540,2817"/>
+    <item time="312" type="XY" target="n11_nb0n" tween="true" startValue="0,1579" endValue="0,955" duration="7" ease="Linear"/>
+    <item time="312" type="XY" target="n14_nb0n" tween="true" startValue="540,2464" endValue="540,1841" duration="7" ease="Linear"/>
+  </transition>
+  <transition name="back" options="2">
+    <item time="0" type="XY" target="n11_nb0n" tween="true" startValue="0,952" endValue="0,1928" duration="6" ease="Linear"/>
+    <item time="0" type="XY" target="n14_nb0n" tween="true" startValue="540,1841" endValue="540,2817" duration="6" ease="Linear"/>
+  </transition>
+</component>

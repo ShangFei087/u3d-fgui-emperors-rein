@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,93">
+  <controller name="c1" pages="0,paytable1,1,paytable2,2,paytable3,3,paytable4,4,paytable5,5,paytable6,6,paytable7" selected="0"/>
+  <displayList>
+    <component id="n8_j122" name="btnPrev" src="ioi7ii" fileName="components/button/ButtonL.xml" xy="136,7"/>
+    <component id="n9_j122" name="btnNext" src="ioi7ii" fileName="components/button/ButtonL.xml" xy="842,7" skew="0,180"/>
+    <image id="n18_tsjn" name="n18" src="ioi7ht" fileName="images/introduce/btn_select_001B.png" xy="314,32"/>
+    <image id="n19_tsjn" name="n19" src="ioi7ht" fileName="images/introduce/btn_select_001B.png" xy="379,32"/>
+    <image id="n20_tsjn" name="n20" src="ioi7ht" fileName="images/introduce/btn_select_001B.png" xy="444,32"/>
+    <image id="n21_tsjn" name="n21" src="ioi7ht" fileName="images/introduce/btn_select_001B.png" xy="509,32"/>
+    <image id="n22_tsjn" name="n22" src="ioi7ht" fileName="images/introduce/btn_select_001B.png" xy="574,32"/>
+    <image id="n23_tsjn" name="n23" src="ioi7ht" fileName="images/introduce/btn_select_001B.png" xy="639,32"/>
+    <image id="n30_lvms" name="n30" src="ioi7ht" fileName="images/introduce/btn_select_001B.png" xy="704,32"/>
+    <image id="n24_tsjn" name="n24" src="ioi7hs" fileName="images/introduce/btn_select_001A.png" xy="315,31">
+      <gearDisplay controller="c1" pages="0"/>
+    </image>
+    <image id="n25_tsjn" name="n25" src="ioi7hs" fileName="images/introduce/btn_select_001A.png" xy="380,31">
+      <gearDisplay controller="c1" pages="1"/>
+    </image>
+    <image id="n26_tsjn" name="n26" src="ioi7hs" fileName="images/introduce/btn_select_001A.png" xy="445,31">
+      <gearDisplay controller="c1" pages="2"/>
+    </image>
+    <image id="n27_tsjn" name="n27" src="ioi7hs" fileName="images/introduce/btn_select_001A.png" xy="510,31">
+      <gearDisplay controller="c1" pages="3"/>
+    </image>
+    <image id="n28_tsjn" name="n28" src="ioi7hs" fileName="images/introduce/btn_select_001A.png" xy="575,31">
+      <gearDisplay controller="c1" pages="4"/>
+    </image>
+    <image id="n29_tsjn" name="n29" src="ioi7hs" fileName="images/introduce/btn_select_001A.png" xy="640,31">
+      <gearDisplay controller="c1" pages="5"/>
+    </image>
+    <image id="n31_lvms" name="n31" src="ioi7hs" fileName="images/introduce/btn_select_001A.png" xy="705,31">
+      <gearDisplay controller="c1" pages="6"/>
+    </image>
+  </displayList>
+</component>

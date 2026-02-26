@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1076">
+  <displayList>
+    <image id="n1_ioi7" name="n1" src="ebgu72" fileName="images/introduce/paytable_bg.png" xy="18,101" size="1044,955"/>
+    <image id="n3_ioi7" name="n3" src="ebgu74" fileName="images/introduce/paytable_mask.png" xy="18,101" size="1046,956" alpha="0.3" color="#00ff00"/>
+    <image id="n0_ioi7" name="n0" src="ebgu87" fileName="images/introduce/组 10.png" xy="0,0"/>
+    <image id="n2_ioi7" name="n2" src="ebgu75" fileName="images/introduce/BG_001_b.png" xy="40,200" size="1000,690"/>
+    <component id="n4_ioi7" name="n4" src="ebgu76" fileName="components/PayTableText.xml" xy="413,30" size="242,63"/>
+    <component id="n5_ioi7" name="btnController" src="ebgu6t" fileName="moudules/payTable/IntroduceBtn.xml" xy="0,902"/>
+    <component id="n6_ioi7" name="payTable" src="ebgu5t" fileName="moudules/payTable/PayYable.xml" xy="0,124" size="1080,768"/>
+    <component id="n8_ebgu" name="btnExit" src="ebgu88" fileName="components/button/ButtonClose.xml" xy="991,26"/>
+  </displayList>
+</component>

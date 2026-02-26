@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_ssgm" name="freeBg" src="vckb8" fileName="moudules/gameCommon/gameBg/FreeGame.xml" xy="0,0"/>
+    <image id="n2_ssgm" name="n2" src="ssgm3e" fileName="images/gameCommon/gameOther/fg_img_freebg.png" xy="286,749" size="497,130"/>
+    <image id="n5_ssgm" name="n5" src="ssgm3g" fileName="images/pageGameMain/fg_txt_freespins.png" xy="316,802"/>
+    <text id="n4_ssgm" name="freeRoundText" xy="568,799" size="173,59" font="ui://v8alnoawvckb1i" fontSize="12" align="center" vAlign="middle" autoSize="none" text="10/12"/>
+  </displayList>
+</component>

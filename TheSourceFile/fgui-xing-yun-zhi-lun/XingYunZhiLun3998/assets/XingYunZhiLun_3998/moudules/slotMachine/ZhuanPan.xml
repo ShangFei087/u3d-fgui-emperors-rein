@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="856,870">
+  <displayList>
+    <image id="n16_lsvw" name="ZhuanPanBg" src="lsvwo" fileName="images/PopupGameNormalGame/sg_img_zhuanpan5.png" xy="432,441" pivot="0.5,0.5" anchor="true" size="864,878"/>
+    <component id="n17_lsvw" name="Wheel" src="lsvw1m" fileName="moudules/slotMachine/WheelPanel.xml" xy="428,435" touchable="false"/>
+    <component id="n29_lsvw" name="SpinPoint" src="lsvw1l" fileName="moudules/slotMachine/ZhuanPanSpinPoint.xml" xy="436,436" pivot="0.5,0.5" anchor="true"/>
+    <component id="n30_iotq" name="anchorEffect" src="iotqat" fileName="components/PopupZhuanPan/AnchorRewardEffect.xml" xy="705,435"/>
+  </displayList>
+  <transition name="ChangeSpinPoint">
+    <item time="0" type="Rotation" target="n29_lsvw" tween="true" startValue="0" endValue="-360" duration="24" ease="Circ.InOut"/>
+    <item time="12" type="XY" target="n29_lsvw" label="changeSpinPoint" value="312,313"/>
+  </transition>
+</component>

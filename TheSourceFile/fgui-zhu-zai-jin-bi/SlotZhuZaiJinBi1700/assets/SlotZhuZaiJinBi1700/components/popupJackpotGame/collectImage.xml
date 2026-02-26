@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="268,102">
+  <displayList>
+    <image id="n1_e6zw" name="n1" src="e6zw89" fileName="images/popupJackpotGame/jp_btn_bg.png" xy="134,51" pivot="0.5,0.5" anchor="true"/>
+    <image id="n0_e6zw" name="n0" src="e6zw8a" fileName="images/popupJackpotGame/jp_btn_collect.png" xy="133,51" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>

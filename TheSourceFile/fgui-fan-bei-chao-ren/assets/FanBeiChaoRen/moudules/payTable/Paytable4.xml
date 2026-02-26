@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,814">
+  <displayList>
+    <component id="n0_kb8b" name="n0" src="kb8buq" fileName="moudules/panel/introduce/PayLineIntroduce.xml" xy="119,104"/>
+    <component id="n1_kb8b" name="n1" src="kb8bqp" fileName="moudules/panel/introduce/Name.xml" xy="0,0"/>
+    <component id="n2_kb8b" name="n2" src="kb8buu" fileName="moudules/payTableLine/PayTableLine.xml" xy="286,223"/>
+    <component id="n3_kb8b" name="n3" src="kb8buu" fileName="moudules/payTableLine/PayTableLine.xml" xy="410,223"/>
+    <component id="n4_kb8b" name="n4" src="kb8buu" fileName="moudules/payTableLine/PayTableLine.xml" xy="534,223"/>
+    <component id="n5_kb8b" name="n5" src="kb8buu" fileName="moudules/payTableLine/PayTableLine.xml" xy="658,223"/>
+    <component id="n6_kb8b" name="n6" src="kb8buu" fileName="moudules/payTableLine/PayTableLine.xml" xy="286,333"/>
+    <component id="n7_kb8b" name="n7" src="kb8buu" fileName="moudules/payTableLine/PayTableLine.xml" xy="410,333"/>
+    <component id="n8_kb8b" name="n8" src="kb8buu" fileName="moudules/payTableLine/PayTableLine.xml" xy="534,333"/>
+    <component id="n9_kb8b" name="n9" src="kb8buu" fileName="moudules/payTableLine/PayTableLine.xml" xy="658,333"/>
+    <component id="n10_kb8b" name="n10" src="kb8buu" fileName="moudules/payTableLine/PayTableLine.xml" xy="286,443"/>
+    <component id="n11_kb8b" name="n11" src="kb8buu" fileName="moudules/payTableLine/PayTableLine.xml" xy="410,443"/>
+    <component id="n12_kb8b" name="n12" src="kb8buu" fileName="moudules/payTableLine/PayTableLine.xml" xy="534,443"/>
+    <component id="n13_kb8b" name="n13" src="kb8buu" fileName="moudules/payTableLine/PayTableLine.xml" xy="658,443"/>
+    <component id="n14_kb8b" name="n14" src="kb8buu" fileName="moudules/payTableLine/PayTableLine.xml" xy="286,553"/>
+    <component id="n15_kb8b" name="n15" src="kb8buu" fileName="moudules/payTableLine/PayTableLine.xml" xy="410,553"/>
+    <component id="n16_kb8b" name="n16" src="kb8buu" fileName="moudules/payTableLine/PayTableLine.xml" xy="534,553"/>
+    <component id="n17_kb8b" name="n17" src="kb8buu" fileName="moudules/payTableLine/PayTableLine.xml" xy="658,553"/>
+  </displayList>
+</component>

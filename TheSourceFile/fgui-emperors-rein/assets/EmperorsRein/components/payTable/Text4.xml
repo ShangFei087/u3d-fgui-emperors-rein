@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="889,688">
+  <displayList>
+    <richtext id="n1_tsjn" name="n1" xy="0,0" size="889,688" fontSize="35" color="#ffffff" leading="1" autoSize="none" text="In normal games, when 3 or more &lt;img src=&apos;ui://vdmp4vsrjjue2h&apos; width=&apos;60&apos; height=&apos;60&apos;/&gt; appear on the reels, the bonus game can be triggered.&#xA;&#xA;After triggering the bonus game, there are initially 3 spins. During the spinning process, each time a new &lt;img src=&apos;ui://vdmp4vsrjjue2h&apos; width=&apos;60&apos; height=&apos;60&apos;/&gt; appears on the reel, the remaining number of spins will be reset to 3.&#xA;&#xA;The game ends when the reels are full of &lt;img src=&apos;ui://vdmp4vsrjjue2h&apos; width=&apos;60&apos; height=&apos;60&apos;/&gt; or the number of spins runs out.">
+      <relation target="" sidePair="center-center"/>
+    </richtext>
+  </displayList>
+</component>

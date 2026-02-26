@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,814">
+  <displayList>
+    <component id="n0_ls7y" name="n0" src="ldsc119" fileName="moudules/introduce/Name.xml" xy="0,0">
+      <property target="Introduce" propertyId="0" value="PAYS"/>
+    </component>
+    <component id="n19_tsjn" name="n1" src="ldsc11b" fileName="components/introduce/Intorduce1Multiplier.xml" xy="85,189">
+      <property target="n8" propertyId="1" value="ui://vdmp4vsrldsc11c"/>
+      <property target="n1" propertyId="0" value="250"/>
+      <property target="n2" propertyId="0" value="50"/>
+      <property target="n3" propertyId="0" value="40"/>
+    </component>
+    <component id="n20_tsjn" name="n2" src="ldsc11b" fileName="components/introduce/Intorduce1Multiplier.xml" xy="266,189">
+      <property target="n8" propertyId="1" value="ui://vdmp4vsrldsc11z"/>
+      <property target="n1" propertyId="0" value="125"/>
+      <property target="n2" propertyId="0" value="40"/>
+      <property target="n3" propertyId="0" value="30"/>
+    </component>
+    <component id="n21_tsjn" name="n3" src="ldsc11b" fileName="components/introduce/Intorduce1Multiplier.xml" xy="447,189">
+      <property target="n8" propertyId="1" value="ui://vdmp4vsrldsc120"/>
+      <property target="n1" propertyId="0" value="100"/>
+      <property target="n2" propertyId="0" value="35"/>
+      <property target="n3" propertyId="0" value="25"/>
+    </component>
+    <component id="n22_tsjn" name="n4" src="ldsc11b" fileName="components/introduce/Intorduce1Multiplier.xml" xy="628,189">
+      <property target="n8" propertyId="1" value="ui://vdmp4vsrldsc121"/>
+      <property target="n1" propertyId="0" value="75"/>
+      <property target="n2" propertyId="0" value="30"/>
+      <property target="n3" propertyId="0" value="20"/>
+    </component>
+    <component id="n23_tsjn" name="n5" src="ldsc11b" fileName="components/introduce/Intorduce1Multiplier.xml" xy="809,189">
+      <property target="n8" propertyId="1" value="ui://vdmp4vsrldsc122"/>
+      <property target="n1" propertyId="0" value="60"/>
+      <property target="n2" propertyId="0" value="25"/>
+      <property target="n3" propertyId="0" value="15"/>
+    </component>
+    <component id="n24_tsjn" name="n6" src="ldsc11b" fileName="components/introduce/Intorduce1Multiplier.xml" xy="174,463">
+      <property target="n8" propertyId="1" value="ui://vdmp4vsrldsc123"/>
+      <property target="n1" propertyId="0" value="45"/>
+      <property target="n2" propertyId="0" value="20"/>
+      <property target="n3" propertyId="0" value="12"/>
+    </component>
+    <component id="n25_tsjn" name="n7" src="ldsc11b" fileName="components/introduce/Intorduce1Multiplier.xml" xy="355,463">
+      <property target="n8" propertyId="1" value="ui://vdmp4vsrldsc124"/>
+      <property target="n1" propertyId="0" value="35"/>
+      <property target="n2" propertyId="0" value="15"/>
+      <property target="n3" propertyId="0" value="9"/>
+    </component>
+    <component id="n26_tsjn" name="n8" src="ldsc11b" fileName="components/introduce/Intorduce1Multiplier.xml" xy="536,463">
+      <property target="n8" propertyId="1" value="ui://vdmp4vsrldsc125"/>
+      <property target="n1" propertyId="0" value="30"/>
+      <property target="n2" propertyId="0" value="10"/>
+      <property target="n3" propertyId="0" value="6"/>
+    </component>
+    <component id="n27_tsjn" name="n9" src="ldsc11b" fileName="components/introduce/Intorduce1Multiplier.xml" xy="717,463">
+      <property target="n8" propertyId="1" value="ui://vdmp4vsrldsc126"/>
+      <property target="n1" propertyId="0" value="25"/>
+      <property target="n2" propertyId="0" value="6"/>
+      <property target="n3" propertyId="0" value="3"/>
+    </component>
+  </displayList>
+</component>

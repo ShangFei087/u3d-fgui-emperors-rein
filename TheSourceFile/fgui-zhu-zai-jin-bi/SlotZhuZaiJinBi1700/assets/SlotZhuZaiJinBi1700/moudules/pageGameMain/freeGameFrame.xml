@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <image id="n8_e6zw" name="n8" src="n4dd3s" fileName="images/pageGameMain/freeFrame/fg_img_rotary.png" xy="227,372" scale="1.5,1.5"/>
+    <image id="n1_n4dd" name="n1" src="n4dd3o" fileName="images/pageGameMain/freeFrame/fg_img_Border_02.png" xy="541,884" pivot="1,0" anchor="true" aspect="true" scale="1.5,1.5"/>
+    <image id="n3_n4dd" name="n3" src="n4dd3o" fileName="images/pageGameMain/freeFrame/fg_img_Border_02.png" xy="541,884" pivot="1,0" anchor="true" aspect="true" scale="-1.5,1.5"/>
+    <image id="n4_n4dd" name="n4" src="n4dd3q" fileName="images/pageGameMain/freeFrame/fg_img_Border_04.png" xy="1088,920" aspect="true" scale="-1.5,1.5"/>
+    <image id="n5_n4dd" name="n5" src="n4dd3q" fileName="images/pageGameMain/freeFrame/fg_img_Border_04.png" xy="-6,920" aspect="true" scale="1.5,1.5"/>
+    <image id="n6_n4dd" name="n6" src="n4dd3p" fileName="images/pageGameMain/freeFrame/fg_img_Border_03.png" xy="-10,1645" size="370,91" scale="1.5,1.5"/>
+    <image id="n7_n4dd" name="n7" src="n4dd3p" fileName="images/pageGameMain/freeFrame/fg_img_Border_03.png" xy="1088,1645" size="370,91" scale="-1.5,1.5"/>
+  </displayList>
+</component>

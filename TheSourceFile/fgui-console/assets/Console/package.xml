@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="xp0b9yqd">
+  <resources>
+    <component id="yx3q0" name="PageConsoleMain.xml" path="/" exported="true"/>
+    <image id="oibke" name="btn_bg 1.png" path="/images/mian/" exported="true" scale="9grid" scale9grid="9,14,7,9"/>
+    <image id="oibkf" name="icon_000.png" path="/images/mian/icons/" exported="true"/>
+    <image id="oibkg" name="icon_001.png" path="/images/mian/icons/" exported="true"/>
+    <image id="oibkh" name="icon_002.png" path="/images/mian/icons/" exported="true"/>
+    <image id="oibki" name="icon_003.png" path="/images/mian/icons/" exported="true"/>
+    <image id="oibkj" name="icon_004.png" path="/images/mian/icons/" exported="true"/>
+    <image id="oibkk" name="icon_005.png" path="/images/mian/icons/" exported="true"/>
+    <image id="oibkl" name="icon_006.png" path="/images/mian/icons/" exported="true"/>
+    <image id="oibkm" name="icon_007.png" path="/images/mian/icons/" exported="true"/>
+    <image id="oibkn" name="icon_008.png" path="/images/mian/icons/" exported="true"/>
+    <image id="oibko" name="icon_009.png" path="/images/mian/icons/" exported="true"/>
+    <image id="oibkp" name="icon_010.png" path="/images/mian/icons/" exported="true"/>
+    <image id="oibkq" name="icon_super_admin.png" path="/images/mian/icons/" exported="true"/>
+    <component id="oibks" name="ButtonCatrgory.xml" path="/moudules/" exported="true"/>
+    <component id="smbpv" name="Button002.xml" path="/components/" exported="true"/>
+    <component id="smbpx" name="Button003.xml" path="/components/" exported="true"/>
+    <component id="smbp19" name="Button004.xml" path="/components/" exported="true"/>
+    <image id="smbp1a" name="arrows_1.png" path="/images/buttons/" exported="true"/>
+    <image id="smbp1b" name="arrow_2.png" path="/images/buttons/" exported="true"/>
+    <image id="smbp1e" name="icon_return_02.png" path="/images/buttons/" exported="true"/>
+    <component id="smbp1f" name="ButtonButtom.xml" path="/components/" exported="true"/>
+    <component id="glrj1h" name="ButtonButtom2.xml" path="/components/" exported="true"/>
+    <component id="glrj1i" name="PageConsoleMachineSettings.xml" path="/" exported="true"/>
+    <component id="glrj1j" name="BaseBG.xml" path="/moudules/" exported="true"/>
+    <component id="glrj1k" name="ModuleName.xml" path="/moudules/" exported="true"/>
+    <component id="glrj1l" name="Buttom1.xml" path="/moudules/" exported="true"/>
+    <component id="glrj1m" name="Buttom2.xml" path="/moudules/" exported="true"/>
+    <component id="glrj1n" name="ItemTitleName.xml" path="/moudules/" exported="true"/>
+    <component id="glrj1o" name="ItemCustomKeyboard.xml" path="/moudules/" exported="true"/>
+    <component id="glrj1q" name="ButtonSquare.xml" path="/components/" exported="true"/>
+    <component id="glrj1w" name="ItemCustomKeyboard002.xml" path="/moudules/" exported="true"/>
+    <component id="glrj1x" name="ButtonSquareClear.xml" path="/components/" exported="true"/>
+    <component id="glrj1z" name="ButtonSquareOK.xml" path="/components/" exported="true"/>
+    <component id="glrj20" name="ButtonSquareDelete.xml" path="/components/" exported="true"/>
+    <component id="cwuo21" name="ItemTitleButton03.xml" path="/moudules/" exported="true"/>
+    <component id="cwuo22" name="ButtonSquare(1).xml" path="/components/keyboard003/" exported="true"/>
+    <component id="cwuo24" name="ItemCustomKeyboard003.xml" path="/moudules/" exported="true"/>
+    <image id="cwuo25" name="icon_capital_letters.png" path="/images/keyboard003/" exported="true"/>
+    <image id="cwuo26" name="icon_delete.png" path="/images/keyboard003/" exported="true"/>
+    <image id="cwuo27" name="icon_keyboard.png" path="/images/keyboard003/" exported="true"/>
+    <image id="cwuo28" name="icon_space.png" path="/images/keyboard003/" exported="true"/>
+    <component id="cwuo29" name="ItemCustomInput.xml" path="/moudules/" exported="true"/>
+    <image id="cwuo2a" name="switch_bg_1.png" path="/images/switch/" exported="true"/>
+    <image id="cwuo2b" name="switch_head.png" path="/images/switch/" exported="true"/>
+    <component id="cwuo2c" name="Switch.xml" path="/components/switch/" exported="true"/>
+    <component id="cwuo2d" name="ItemTitleSwitch.xml" path="/moudules/" exported="true"/>
+    <component id="cwuo2e" name="ToggleBetList.xml" path="/components/" exported="true"/>
+    <image id="cwuo2f" name="square_frame_32x32.png" path="/images/buttons/" exported="true" scale="9grid" scale9grid="13,13,7,7"/>
+    <image id="cwuo2g" name="hook.png" path="/images/buttons/" exported="true"/>
+    <component id="cwuo2j" name="ItemBetLst.xml" path="/moudules/" exported="true"/>
+    <component id="cwuo2k" name="ItemBetLstItem.xml" path="/moudules/" exported="true"/>
+    <component id="cwuo2p" name="ItemCategoryNav.xml" path="/moudules/" exported="true"/>
+    <component id="cwuo38" name="PCMSTabInOut.xml" path="/tabs/" exported="true"/>
+    <component id="cwuo39" name="PCMSTabProgressive.xml" path="/tabs/" exported="true"/>
+    <component id="cwuo3a" name="ItemLongButton.xml" path="/moudules/" exported="true"/>
+    <component id="jtgo3c" name="Label1.xml" path="/moudules/" exported="true"/>
+    <component id="jtgo3d" name="ItemButton005.xml" path="/moudules/" exported="true"/>
+    <component id="msw23e" name="PCMSTabMachine.xml" path="/tabs/" exported="true"/>
+    <component id="os7y3f" name="test.xml" path="/moudules/" exported="true"/>
+    <image id="os7y3g" name="icon_language.png" path="/images/mian/icons/" exported="true"/>
+    <image id="os7y3h" name="icon_lang_cn.png" path="/images/mian/lang/" exported="true"/>
+    <image id="os7y3i" name="icon_lang_en.png" path="/images/mian/lang/" exported="true"/>
+    <image id="os7y3j" name="icon_lang_xibanya.png" path="/images/mian/lang/" exported="true"/>
+    <component id="os7y3k" name="PopupConsoleChoose001.xml" path="/" exported="true"/>
+    <component id="os7y3l" name="BasePopuoBG.xml" path="/moudules/" exported="true"/>
+    <image id="os7y3o" name="icon_active.png" path="/images/buttons/icons/" exported="true"/>
+    <image id="os7y3q" name="icon_eye_3.png" path="/images/buttons/icons/" exported="true"/>
+    <image id="os7y3r" name="icon_flip_screen.png" path="/images/buttons/icons/" exported="true"/>
+    <image id="os7y3u" name="icon_link.png" path="/images/buttons/icons/" exported="true"/>
+    <image id="os7y3w" name="icon_link1.png" path="/images/buttons/icons/" exported="true"/>
+    <image id="os7y3x" name="icon_lock.png" path="/images/buttons/icons/" exported="true"/>
+    <image id="os7y3y" name="icon_restet.png" path="/images/buttons/icons/" exported="true"/>
+    <image id="os7y3z" name="icon_show_error_code.png" path="/images/buttons/icons/" exported="true"/>
+    <image id="os7y40" name="icon_template.png" path="/images/buttons/icons/" exported="true"/>
+    <image id="os7y41" name="bet_list_frame_0.png" path="/images/buttons/" exported="true" scale="9grid" scale9grid="16,18,8,7"/>
+    <image id="os7y43" name="icon_btn.png" path="/images/nav/icons/" exported="true"/>
+    <image id="os7y44" name="icon_business.png" path="/images/nav/icons/" exported="true"/>
+    <image id="os7y45" name="icon_debug.png" path="/images/nav/icons/" exported="true"/>
+    <image id="os7y46" name="icon_error.png" path="/images/nav/icons/" exported="true"/>
+    <image id="os7y47" name="icon_event.png" path="/images/nav/icons/" exported="true"/>
+    <image id="os7y48" name="icon_game_02.png" path="/images/nav/icons/" exported="true"/>
+    <image id="os7y49" name="icon_jackpot.png" path="/images/nav/icons/" exported="true"/>
+    <image id="os7y4a" name="icon_jackpot_02.png" path="/images/nav/icons/" exported="true"/>
+    <image id="os7y4b" name="icon_points.png" path="/images/nav/icons/" exported="true"/>
+    <image id="os7y4c" name="icon_set.png" path="/images/nav/icons/" exported="true"/>
+    <image id="os7y4d" name="icon_set_1.png" path="/images/nav/icons/" exported="true"/>
+    <image id="os7y4e" name="select_devices.png" path="/images/nav/icons/" exported="true"/>
+    <image id="os7y4f" name="select_games.png" path="/images/nav/icons/" exported="true"/>
+    <image id="os7y4g" name="select_machine.png" path="/images/nav/icons/" exported="true"/>
+    <image id="os7y4h" name="select_progressive.png" path="/images/nav/icons/" exported="true"/>
+    <image id="os7y4i" name="icon_link4aff00.png" path="/images/buttons/icons/" exported="true"/>
+    <image id="os7y4j" name="icon_link666666.png" path="/images/buttons/icons/" exported="true"/>
+    <image id="os7y4k" name="icon_close_0.png" path="/images/popup/" exported="true"/>
+    <component id="os7y4l" name="ButtonClosePopup.xml" path="/components/" exported="true"/>
+    <component id="os7y4o" name="ItemSelect002.xml" path="/moudules/popups/" exported="true"/>
+    <component id="iyvn4p" name="PopupI81nBG.xml" path="/i18ntest/" exported="true"/>
+    <image id="iyvn4q" name="online.png" path="/i18ntest/images/" exported="true"/>
+    <component id="iyvn4u" name="PopupI18nTest.xml" path="/" exported="true"/>
+    <image id="iyvn4x" name="help.png" path="/i18ntest/images/" exported="true"/>
+    <component id="g8qg50" name="Label2.xml" path="/"/>
+    <component id="vjfj51" name="PopupConsoleCoder.xml" path="/" exported="true"/>
+    <component id="vjfj52" name="ItemCustomInput002.xml" path="/moudules/" exported="true"/>
+    <component id="g3lh53" name="PageConsoleBusinessRecord.xml" path="/" exported="true"/>
+    <component id="g3lh54" name="PCBRTabBusiness.xml" path="/tabs/" exported="true"/>
+    <component id="g3lh55" name="ItemTitleContent.xml" path="/moudules/" exported="true"/>
+    <component id="g3lh56" name="ItemTitleName02.xml" path="/moudules/" exported="true"/>
+    <component id="g3lh58" name="ItemDateSelect.xml" path="/moudules/" exported="true"/>
+    <component id="g3lh5c" name="DefaultComboBox_item.xml" path="/components/" exported="true"/>
+    <component id="g3lh5d" name="DefaultComboBox_popup.xml" path="/components/" exported="true"/>
+    <component id="g3lh5e" name="DefaultComboBox.xml" path="/components/" exported="true"/>
+    <image id="g3lh5f" name="icon_tick.png" path="/images/buttons/" exported="true"/>
+    <component id="g3lh5g" name="ItemTip.xml" path="/moudules/" exported="true"/>
+    <component id="g3lh5i" name="PCBRTabCoin.xml" path="/tabs/" exported="true"/>
+    <component id="g3lh5k" name="ItemCoinInOutItem.xml" path="/moudules/"/>
+    <component id="g3lh5m" name="PageConsoleGameInformation.xml" path="/" exported="true"/>
+    <component id="g3lh5n" name="ItemProducedBy.xml" path="/moudules/" exported="true"/>
+    <component id="g3lh5u" name="PopupConsoleKeyboard001.xml" path="/" exported="true"/>
+    <component id="vqlx5w" name="PopupConsoleSetParameter002.xml" path="/" exported="true"/>
+    <component id="vqlx5x" name="Button005Confirm.xml" path="/components/" exported="true"/>
+    <image id="vqlx61" name="icon_confirm_64.png" path="/images/buttons/icons/"/>
+    <image id="vqlx62" name="icon_cancel_64.png" path="/images/buttons/icons/" exported="true"/>
+    <image id="vqlx63" name="icon_next_64.png" path="/images/buttons/icons/" exported="true"/>
+    <component id="vqlx64" name="PopupConsoleSetParameter001.xml" path="/" exported="true"/>
+    <image id="vqlx65" name="line_64x4.png" path="/images/common/" exported="true" scale="9grid" scale9grid="0,1,63,2"/>
+    <component id="vqlx66" name="PopupConsoleKeyboard002.xml" path="/" exported="true"/>
+    <component id="vqlx67" name="PopupConsoleSound.xml" path="/" exported="true"/>
+    <image id="vqlx68" name="circle_24.png" path="/images/common/" exported="true" scale="9grid" scale9grid="11,11,2,2"/>
+    <image id="vqlx69" name="circle_64.png" path="/images/common/" exported="true" scale="9grid" scale9grid="31,31,2,2"/>
+    <component id="vqlx6a" name="DefaultSlider_grip.xml" path="/components/" exported="true"/>
+    <component id="vqlx6b" name="DefaultSlider.xml" path="/components/" exported="true"/>
+    <image id="vqlx6c" name="circle_16.png" path="/images/common/" exported="true" scale="9grid" scale9grid="7,7,2,2"/>
+    <image id="vqlx6d" name="circle_64_02.png" path="/images/common/" exported="true"/>
+    <component id="vqlx6g" name="PopupConsoleSlideSetting.xml" path="/" exported="true"/>
+    <component id="vqlx6h" name="ButtonIcon.xml" path="/components/" exported="true"/>
+    <image id="vqlx6i" name="icon_keyboard_64.png" path="/images/buttons/icons/" exported="true"/>
+    <image id="vqlx6j" name="icon_eye_64.png" path="/images/buttons/icons/"/>
+    <component id="vqlx6k" name="PopupConsoleCommon.xml" path="/" exported="true"/>
+    <image id="vqlx6l" name="icon_i_120.png" path="/images/popup/" exported="true"/>
+    <component id="vqlx6n" name="PopupConsoleMask.xml" path="/" exported="true"/>
+    <component id="vqlx6p" name="ItemPopupTip.xml" path="/moudules/" exported="true"/>
+    <image id="vqlx6q" name="icon_mask.png" path="/images/popup/" exported="true"/>
+    <component id="vqlx6r" name="PopupConsoleTip.xml" path="/" exported="true"/>
+    <component id="vqlx6s" name="PopupConsoleCalendar.xml" path="/" exported="true"/>
+    <component id="vqlx6t" name="ButtonDate.xml" path="/components/" exported="true"/>
+    <component id="vqlx6v" name="ButtonCalendarDay.xml" path="/components/" exported="true"/>
+    <component id="vqlx6w" name="ButtonSquare002.xml" path="/components/keyboard003/" exported="true"/>
+    <image id="vqlx6x" name="icon_add_24.png" path="/images/popup/" exported="true"/>
+    <image id="vqlx6y" name="icon_minus_24.png" path="/images/popup/" exported="true"/>
+    <image id="fcfm70" name="semicircle_64.png" path="/images/common/" exported="true" scale="9grid" scale9grid="31,31,2,2"/>
+    <image id="fcfm71" name="semicircle_24.png" path="/images/common/" exported="true" scale="9grid" scale9grid="11,11,2,2"/>
+    <image id="fcfm72" name="circle_14.png" path="/images/common/" exported="true" scale="9grid" scale9grid="6,6,2,2"/>
+    <image id="fcfm73" name="semicircle_32.png" path="/images/common/"/>
+    <image id="fcfm74" name="semicircle_48.png" path="/images/common/"/>
+    <image id="fcfm75" name="square_24.png" path="/images/common/" exported="true" scale="9grid" scale9grid="11,11,2,2"/>
+    <image id="fcfm76" name="square_32.png" path="/images/common/"/>
+    <image id="fcfm77" name="square_48.png" path="/images/common/"/>
+    <component id="dzs178" name="ItemCustomKeyboard004.xml" path="/moudules/" exported="true"/>
+    <component id="dzs179" name="ItemKeyboardOperator.xml" path="/moudules/" exported="true"/>
+    <component id="dzs17a" name="ItemKeyboard123.xml" path="/moudules/" exported="true"/>
+    <component id="dzs17b" name="ItemKeyboardABC.xml" path="/moudules/" exported="true"/>
+    <component id="dzs17d" name="ItemKeyboardabcd.xml" path="/moudules/" exported="true"/>
+    <component id="mi1s7e" name="TipContent.xml" path="/moudules/" exported="true"/>
+    <component id="ev3s7i" name="betAllowedList.xml" path="/components/"/>
+    <component id="pw6o7j" name="FromNode.xml" path="/components/temp01/"/>
+    <component id="pw6o7l" name="TargetNode.xml" path="/components/temp01/"/>
+    <component id="pw6o7m" name="ToNode.xml" path="/components/temp01/"/>
+    <component id="915f7n" name="PageConsoleDrawLine.xml" path="/" exported="true"/>
+    <component id="915f7o" name="ButtonButtom3.xml" path="/components/" exported="true"/>
+    <component id="sgiq7p" name="DrawLineFG.xml" path="/components/"/>
+    <component id="8qkf7q" name="ButtonCalendarYearMonth.xml" path="/components/" exported="true"/>
+    <component id="u8xf7r" name="PageConsoleLogRecord.xml" path="/" exported="true"/>
+    <component id="u8xf7s" name="PCLRTabEvent.xml" path="/tabs/" exported="true"/>
+    <component id="u8xf7t" name="ItemLogRecordEvent.xml" path="/moudules/"/>
+    <component id="u8xf7u" name="ItemLogRecordError.xml" path="/moudules/"/>
+    <component id="u8xf7v" name="PCLRTabError.xml" path="/tabs/" exported="true"/>
+    <component id="u8xf7w" name="CompLogRcordDetail.xml" path="/components/"/>
+    <image id="u8xf1" name="s10.png.jpg" path="/bbundleDefaultScrollbars/images/" duplicatePadding="true"/>
+    <image id="u8xf3" name="s6.png.jpg" path="/bbundleDefaultScrollbars/images/" duplicatePadding="true"/>
+    <image id="u8xf4" name="s4.png.jpg" path="/bbundleDefaultScrollbars/images/" duplicatePadding="true"/>
+    <image id="u8xf5" name="s5.png.jpg" path="/bbundleDefaultScrollbars/images/" duplicatePadding="true"/>
+    <image id="u8xf7" name="s9.png.jpg" path="/bbundleDefaultScrollbars/images/" duplicatePadding="true"/>
+    <image id="u8xf8" name="s7.png.jpg" path="/bbundleDefaultScrollbars/images/" duplicatePadding="true"/>
+    <image id="u8xf9" name="s8.png.jpg" path="/bbundleDefaultScrollbars/images/" duplicatePadding="true"/>
+    <image id="u8xfb" name="s1.png.jpg" path="/bbundleDefaultScrollbars/images/" duplicatePadding="true"/>
+    <image id="u8xfc" name="s2.png.jpg" path="/bbundleDefaultScrollbars/images/" duplicatePadding="true"/>
+    <image id="u8xfd" name="s3.png.jpg" path="/bbundleDefaultScrollbars/images/" duplicatePadding="true"/>
+    <component id="u8xf0" name="ScrollBar_HZ.xml" path="/bbundleDefaultScrollbars/components/scrollbars/" exported="true"/>
+    <component id="u8xf2" name="ScrollUpButton.xml" path="/bbundleDefaultScrollbars/components/scrollbars/"/>
+    <component id="u8xf6" name="ScrollDownButton.xml" path="/bbundleDefaultScrollbars/components/scrollbars/"/>
+    <component id="u8xfa" name="GripButton_HZ.xml" path="/bbundleDefaultScrollbars/components/scrollbars/"/>
+    <component id="u8xfe" name="ScrollBar_VT.xml" path="/bbundleDefaultScrollbars/components/scrollbars/" exported="true"/>
+    <component id="u8xff" name="GripButton_VT.xml" path="/bbundleDefaultScrollbars/components/scrollbars/"/>
+  </resources>
+  <publish name="" path="../../Assets/GameRes/Games/Console/FGUIs" packageCount="2" genCode="true">
+    <atlas name="Default" index="0"/>
+  </publish>
+</packageDescription>

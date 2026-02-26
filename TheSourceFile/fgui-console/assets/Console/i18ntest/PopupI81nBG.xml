@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_iyvn" name="n0" src="os7y3l" fileName="moudules/BasePopuoBG.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n1_iyvn" name="n1" src="iyvn4q" fileName="i18ntest/images/online_en.png" xy="349,94"/>
+  </displayList>
+</component>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,76">
+  <displayList>
+    <richtext id="n0_glrj" name="title" xy="40,7" size="1000,62" touchable="false" fontSize="26" color="#ffff00" autoSize="shrink" singleLine="true" text="[注意]: 只保留最近的{0}次日营收数据。"/>
+  </displayList>
+  <customProperty target="title" propertyId="0" label="标题"/>
+</component>

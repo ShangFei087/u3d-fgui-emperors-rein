@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <controller name="tab" pages="0,machine,1,in-out,2,progressive" selected="0"/>
+  <displayList>
+    <component id="n3_glrj" name="n3" src="glrj1j" fileName="moudules/BaseBG.xml" xy="1,1">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="nav1/title" propertyId="0" value="123"/>
+    </component>
+    <component id="n5_cwuo" name="navMachine" src="cwuo2p" fileName="moudules/ItemCategoryNav.xml" xy="28,510" customData="{“i18n”: &quot;CON1jq01&quot;}">
+      <relation target="" sidePair="center-center,top-top"/>
+      <Button checked="true" title="MACHINE" controller="tab" page="0"/>
+    </component>
+    <component id="n6_cwuo" name="navInOut" src="cwuo2p" fileName="moudules/ItemCategoryNav.xml" xy="374,510">
+      <relation target="" sidePair="center-center,top-top"/>
+      <Button title="IN-OUT" icon="ui://xp0b9yqdos7y4e" selectedIcon="ui://xp0b9yqdos7y4e" controller="tab" page="1"/>
+    </component>
+    <component id="n7_cwuo" name="navPROGRESSIVE" src="cwuo2p" fileName="moudules/ItemCategoryNav.xml" xy="721,510">
+      <relation target="" sidePair="center-center,top-top"/>
+      <Button title="PROGRESSIVE" icon="ui://xp0b9yqdos7y4d" selectedIcon="ui://xp0b9yqdos7y4d" controller="tab" page="2"/>
+    </component>
+    <list id="n28_jtgo" name="tabs" xy="0,622" size="1080,1178" pageController="tab" layout="pagination" overflow="scroll" scroll="horizontal" scrollBarFlags="264">
+      <relation target="" sidePair="width-width,height-height"/>
+      <item url="ui://xp0b9yqdmsw23e"/>
+      <item url="ui://xp0b9yqdcwuo38"/>
+      <item url="ui://xp0b9yqdcwuo39"/>
+    </list>
+    <component id="n29_os7y" name="navBottom" src="glrj1l" fileName="moudules/Buttom1.xml" xy="0,1801">
+      <relation target="" sidePair="width-width,bottom-bottom"/>
+      <property target="title" propertyId="0" value="Machine Settings"/>
+    </component>
+  </displayList>
+</component>

@@ -1,0 +1,104 @@
+
+fg_bg_npc.png
+size: 208,770
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bo zi
+  rotate: false
+  xy: 64, 1
+  size: 48, 42
+  orig: 48, 42
+  offset: 0, 0
+  index: -1
+body 2
+  rotate: true
+  xy: 1, 211
+  size: 116, 201
+  orig: 116, 201
+  offset: 0, 0
+  index: -1
+da tou
+  rotate: true
+  xy: 1, 1
+  size: 37, 44
+  orig: 37, 44
+  offset: 0, 0
+  index: -1
+da tou fa
+  rotate: true
+  xy: 182, 70
+  size: 44, 24
+  orig: 44, 24
+  offset: 0, 0
+  index: -1
+da yan
+  rotate: false
+  xy: 182, 19
+  size: 22, 10
+  orig: 22, 10
+  offset: 0, 0
+  index: -1
+dou peng 1
+  rotate: false
+  xy: 1, 501
+  size: 199, 268
+  orig: 199, 268
+  offset: 0, 0
+  index: -1
+dou peng 2
+  rotate: true
+  xy: 1, 328
+  size: 172, 204
+  orig: 172, 204
+  offset: 0, 0
+  index: -1
+jian bang
+  rotate: false
+  xy: 64, 44
+  size: 61, 40
+  orig: 61, 40
+  offset: 0, 0
+  index: -1
+jiao
+  rotate: false
+  xy: 1, 85
+  size: 137, 125
+  orig: 137, 125
+  offset: 0, 0
+  index: -1
+shou l
+  rotate: false
+  xy: 139, 29
+  size: 42, 85
+  orig: 42, 85
+  offset: 0, 0
+  index: -1
+shou l 2
+  rotate: false
+  xy: 182, 30
+  size: 25, 39
+  orig: 25, 39
+  offset: 0, 0
+  index: -1
+shou r
+  rotate: false
+  xy: 139, 115
+  size: 61, 95
+  orig: 61, 95
+  offset: 0, 0
+  index: -1
+shou r 2
+  rotate: true
+  xy: 1, 39
+  size: 45, 62
+  orig: 45, 62
+  offset: 0, 0
+  index: -1
+yan pi
+  rotate: true
+  xy: 126, 62
+  size: 22, 10
+  orig: 22, 10
+  offset: 0, 0
+  index: -1

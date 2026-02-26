@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="540,76">
+  <displayList>
+    <richtext id="n0_glrj" name="key" xy="40,16" size="240,42" touchable="false" fontSize="30" color="#ffffff" vAlign="middle" autoSize="shrink" singleLine="true" text="&lt;i18n value=&quot;CON1jqid&quot;/&gt;Machine ID:"/>
+    <component id="n3_cwuo" name="switch" src="cwuo2c" fileName="components/Switch.xml" xy="378,19"/>
+  </displayList>
+  <customProperty target="key" propertyId="0" label="键"/>
+</component>

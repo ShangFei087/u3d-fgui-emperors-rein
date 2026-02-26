@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_fv27" name="n0" src="bllo10" fileName="components/Mask.xml" xy="0,0"/>
+    <image id="n1_fv27" name="n1" src="fv271i" fileName="images/PopuXRay/fg_txt_X-RAY.png" xy="192,707" scale="1.5,1.5"/>
+    <image id="n2_fv27" name="n2" src="fv271j" fileName="images/PopuXRay/fg_txt_X-RAY2.png" xy="392,863" scale="1.5,1.5"/>
+    <component id="n3_fv27" name="Button" src="fv271f" fileName="components/Button1.xml" xy="0,0" size="1080,1920"/>
+  </displayList>
+  <transition name="Start">
+    <item time="0" type="XY" target="n1_fv27" tween="true" startValue="-518,707.5" endValue="233,707.5" duration="12"/>
+    <item time="0" type="XY" target="n2_fv27" tween="true" startValue="1120,863" endValue="354,863" duration="12"/>
+  </transition>
+</component>

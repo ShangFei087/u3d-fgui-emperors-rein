@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="189,97">
+  <controller name="button" pages="0,1,1,2,2,3,3,4" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="t0"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="t1"/>
+    <action type="play_transition" fromPage="" toPage="2" transition="t2"/>
+    <action type="play_transition" fromPage="" toPage="3" transition="t3"/>
+  </controller>
+  <displayList>
+    <image id="n0_a9so" name="n0" src="a9so18v" fileName="images/panel02/button/ButtonFrame.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_a9so" name="n1" src="a9so18o" fileName="images/panel02/button/sound.png" xy="11,12" visible="false"/>
+    <image id="n2_a9so" name="n2" src="a9so18p" fileName="images/panel02/button/sound1.png" xy="11,12" visible="false"/>
+    <image id="n3_a9so" name="n3" src="a9so18q" fileName="images/panel02/button/sound2.png" xy="11,12" visible="false"/>
+    <image id="n4_a9so" name="n4" src="a9so18r" fileName="images/panel02/button/sound3.png" xy="11,12"/>
+  </displayList>
+  <transition name="t0">
+    <item time="0" type="Visible" target="n1_a9so" value="true"/>
+    <item time="0" type="Visible" target="n2_a9so" value="false"/>
+    <item time="0" type="Visible" target="n3_a9so" value="false"/>
+    <item time="0" type="Visible" target="n4_a9so" value="false"/>
+  </transition>
+  <transition name="t1">
+    <item time="0" type="Visible" target="n1_a9so" value="false"/>
+    <item time="0" type="Visible" target="n2_a9so" value="true"/>
+    <item time="0" type="Visible" target="n3_a9so" value="false"/>
+    <item time="0" type="Visible" target="n4_a9so" value="false"/>
+  </transition>
+  <transition name="t2">
+    <item time="0" type="Visible" target="n1_a9so" value="false"/>
+    <item time="0" type="Visible" target="n2_a9so" value="false"/>
+    <item time="0" type="Visible" target="n3_a9so" value="true"/>
+    <item time="0" type="Visible" target="n4_a9so" value="false"/>
+  </transition>
+  <transition name="t3">
+    <item time="0" type="Visible" target="n1_a9so" value="false"/>
+    <item time="0" type="Visible" target="n2_a9so" value="false"/>
+    <item time="0" type="Visible" target="n3_a9so" value="false"/>
+    <item time="0" type="Visible" target="n4_a9so" value="true"/>
+  </transition>
+</component>

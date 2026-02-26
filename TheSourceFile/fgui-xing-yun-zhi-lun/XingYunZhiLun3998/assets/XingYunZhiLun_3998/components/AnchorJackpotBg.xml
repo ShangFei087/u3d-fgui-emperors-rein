@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <loader id="n1_i6s3" name="example" xy="540,960" pivot="0.5,0.5" anchor="true" size="50,50"/>
+    <graph id="n2_i6s3" name="holder" xy="540,960" pivot="0.5,0.5" anchor="true" size="100,100" type="rect"/>
+    <image id="n0_i6s3" name="Bg" src="lsvwz" fileName="images/PopupJackpotGame/sg_img_bg.png" xy="0,0" size="1080,1920"/>
+  </displayList>
+</component>

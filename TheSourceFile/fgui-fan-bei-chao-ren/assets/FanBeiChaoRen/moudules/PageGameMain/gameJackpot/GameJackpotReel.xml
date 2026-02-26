@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="46,82">
+  <displayList>
+    <text id="n0_kb8b" name="step1_0" xy="0,0" size="46,80" font="ui://9kq20teakb8bvt" fontSize="15" align="center" vAlign="middle" autoSize="none" text="1">
+      <relation target="" sidePair="width-width"/>
+    </text>
+    <text id="n6_kb8b" name="step2_0" xy="0,-26" size="46,80" visible="false" font="ui://9kq20teakb8bvt" fontSize="15" align="center" vAlign="middle" autoSize="none" text="1">
+      <relation target="" sidePair="width-width"/>
+    </text>
+    <text id="n7_kb8b" name="step2_1" xy="0,52" size="46,80" visible="false" font="ui://9kq20teakb8bvt" fontSize="15" align="center" vAlign="middle" autoSize="none" text="2">
+      <relation target="" sidePair="width-width"/>
+    </text>
+    <text id="n8_kb8b" name="step3_0" xy="0,-52" size="46,80" visible="false" font="ui://9kq20teakb8bvt" fontSize="15" align="center" vAlign="middle" autoSize="none" text="1">
+      <relation target="" sidePair="width-width"/>
+    </text>
+    <text id="n9_kb8b" name="step3_1" xy="0,26" size="46,80" visible="false" font="ui://9kq20teakb8bvt" fontSize="15" align="center" vAlign="middle" autoSize="none" text="2">
+      <relation target="" sidePair="width-width"/>
+    </text>
+    <text id="n10_kb8b" name="step4_0" xy="0,0" size="46,80" visible="false" font="ui://9kq20teakb8bvt" fontSize="15" align="center" vAlign="middle" autoSize="none" text="2">
+      <relation target="" sidePair="width-width"/>
+    </text>
+  </displayList>
+  <transition name="animTurn">
+    <item time="0" type="Visible" target="n0_kb8b" value="true"/>
+    <item time="0" type="Visible" target="n10_kb8b" value="false"/>
+    <item time="0" type="Visible" target="n6_kb8b" value="false"/>
+    <item time="0" type="Visible" target="n7_kb8b" value="false"/>
+    <item time="0" type="Visible" target="n8_kb8b" value="false"/>
+    <item time="0" type="Visible" target="n9_kb8b" value="false"/>
+    <item time="3" type="Visible" target="n0_kb8b" value="false"/>
+    <item time="3" type="Visible" target="n10_kb8b" value="false"/>
+    <item time="3" type="Visible" target="n6_kb8b" value="true"/>
+    <item time="3" type="Visible" target="n7_kb8b" value="true"/>
+    <item time="3" type="Visible" target="n8_kb8b" value="false"/>
+    <item time="3" type="Visible" target="n9_kb8b" value="false"/>
+    <item time="6" type="Visible" target="n0_kb8b" value="false"/>
+    <item time="6" type="Visible" target="n10_kb8b" value="false"/>
+    <item time="6" type="Visible" target="n6_kb8b" value="false"/>
+    <item time="6" type="Visible" target="n7_kb8b" value="false"/>
+    <item time="6" type="Visible" target="n8_kb8b" value="true"/>
+    <item time="6" type="Visible" target="n9_kb8b" value="true"/>
+    <item time="9" type="Visible" target="n0_kb8b" value="false"/>
+    <item time="9" type="Visible" target="n10_kb8b" value="true"/>
+    <item time="9" type="Visible" target="n6_kb8b" value="false"/>
+    <item time="9" type="Visible" target="n7_kb8b" value="false"/>
+    <item time="9" type="Visible" target="n8_kb8b" value="false"/>
+    <item time="9" type="Visible" target="n9_kb8b" value="false"/>
+  </transition>
+</component>

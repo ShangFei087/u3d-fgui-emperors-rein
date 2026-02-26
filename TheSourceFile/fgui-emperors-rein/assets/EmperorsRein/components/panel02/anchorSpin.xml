@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <loader id="n2_qdjt" name="example" xy="1,1" pivot="0.5,0.5" anchor="true" size="232,232" url="ui://vdmp4vsrldsc15n" autoSize="true" clearOnPublish="true"/>
+    <graph id="n3_qdjt" name="holder" xy="0,0" pivot="0.5,0.5" anchor="true" size="232,232" visible="false" touchable="false" type="rect"/>
+  </displayList>
+</component>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="540,38">
+  <displayList>
+    <graph id="n0_glrj" name="n0" xy="28,4" size="7,30" type="rect" lineColor="#ff68ffd6" fillColor="#ff68ffd6"/>
+    <richtext id="n1_glrj" name="title" xy="39,-2" size="476,42" fontSize="30" color="#68ffd6" vAlign="middle" autoSize="shrink" singleLine="true" text="ALL BUSINESS"/>
+  </displayList>
+  <customProperty target="title" propertyId="0" label="标题"/>
+</component>

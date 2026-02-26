@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <component id="pa4i3n" name="Text2.xml" path="/components/payTable/" exported="true"/>
+    <component id="pa4i3o" name="Text3.xml" path="/components/payTable/" exported="true"/>
+    <component id="pa4i3p" name="Text4.xml" path="/components/payTable/" exported="true"/>
+    <component id="pa4i3q" name="Text5.xml" path="/components/payTable/" exported="true"/>
+    <component id="lvms8o" name="PayLineIntroduce.xml" path="/moudules/introduce/"/>
+    <image id="n813dy" name="game_name.png" path="/images/popupGameLoading/"/>
+    <component id="nimzej" name="Name.xml" path="/moudules/gameLoading/"/>
+    <image id="gisvt4" name="GetSroce.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="gisvt5" name="coinSroce.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="gisvt6" name="credit.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="gisvt7" name="freeGameAllCredit.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="7w15v9" name="gongXi.png" path="/images/popupFreeSpinResult/" exported="true"/>
+    <image id="7w15va" name="Get.png" path="/images/popupFreeSpinResult/" exported="true"/>
+    <image id="7w15vb" name="fg_txt_FREE GAMES.png" path="/images/freeSpinTrigger/"/>
+    <image id="7w15vc" name="fg_txt_SUPER REEL.png" path="/images/freeSpinTrigger/"/>
+    <image id="7w15vd" name="ng_txt_BIG.png" path="/images/popupWin/"/>
+    <image id="7w15ve" name="ng_txt_HUGE.png" path="/images/popupWin/"/>
+    <image id="7w15vf" name="ng_txt_WIN.png" path="/images/popupWin/"/>
+    <image id="7w15vg" name="ng_txt_WIN_1.png" path="/images/popupWin/"/>
+    <image id="7w15vh" name="ng_txt_WIN_2.png" path="/images/popupWin/"/>
+    <image id="7w15vi" name="ng_txt_LEGENDARY.png" path="/images/popupWin/"/>
+    <image id="7w15vj" name="ng_txt_MASSIVE.png" path="/images/popupWin/"/>
+  </resources>
+</branchDescription>

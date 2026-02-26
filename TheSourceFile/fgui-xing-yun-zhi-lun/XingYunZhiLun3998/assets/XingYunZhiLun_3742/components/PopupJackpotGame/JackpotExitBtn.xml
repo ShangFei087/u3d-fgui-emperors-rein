@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="287,84" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_oicb" name="n0" src="c76t8x" fileName="images/PopupJackpotGame/sg_img_pop_btn.png" xy="0,0" size="287,84">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_oicb" name="n1" src="c76t8y" fileName="images/PopupJackpotGame/sg_txt_pop_collect.png" xy="40,17" size="207,48"/>
+  </displayList>
+  <Button downEffect="dark" downEffectValue="0.8"/>
+</component>

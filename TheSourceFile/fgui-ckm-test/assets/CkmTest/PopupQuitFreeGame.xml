@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n5_fr2h" name="n5" src="fr2h2t" fileName="moudules/pop-upWindows/mask.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n0_fr2h" name="n0" src="fr2h1l" fileName="images/pop-upWindows/fg_txt_FREE BONUS.png" xy="69,471" scale="1.5,1.5"/>
+    <image id="n1_fr2h" name="n1" src="fr2h1e" fileName="images/pop-upWindows/ng_txt_YOU WON.png" xy="367,743" scale="2,2"/>
+    <image id="n2_fr2h" name="n2" src="fr2h1k" fileName="images/pop-upWindows/fg_txt_FREESPINS PLAYED_.png" xy="134,1227" scale="2,2"/>
+    <text id="n3_fr2h" name="number" xy="-276,903" size="1080,137" scale="1.5,1.5" font="ui://4hwvsyqffr2hx" fontSize="12" align="center" vAlign="middle" autoSize="none" text="10000"/>
+    <text id="n4_fr2h" name="n4" xy="740,1198" size="101,55" scale="2,2" font="ui://4hwvsyqffr2h2j" fontSize="12" align="center" vAlign="middle" autoSize="none" text="5"/>
+  </displayList>
+</component>

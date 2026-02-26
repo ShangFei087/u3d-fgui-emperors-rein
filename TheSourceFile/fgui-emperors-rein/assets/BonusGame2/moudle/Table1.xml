@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,404">
+  <displayList>
+    <component id="n27_ib9y" name="slotMachine" src="ib9yo" fileName="moudle/slotMachine/SlotMachine.xml" xy="65,32"/>
+    <image id="n11_ib9y" name="n11" src="ib9y6" fileName="image/bonusGame2/ng_img_horizon_line_3.png" xy="76,139"/>
+    <image id="n12_ib9y" name="n12" src="ib9y6" fileName="image/bonusGame2/ng_img_horizon_line_3.png" xy="76,244"/>
+    <image id="n21_ib9y" name="n21" src="ib9y7" fileName="image/bonusGame2/ng_img_Vertical_line_1.png" xy="233,31"/>
+    <image id="n22_ib9y" name="n22" src="ib9y7" fileName="image/bonusGame2/ng_img_Vertical_line_1.png" xy="430,31"/>
+    <image id="n23_ib9y" name="n23" src="ib9y7" fileName="image/bonusGame2/ng_img_Vertical_line_1.png" xy="627,31"/>
+    <image id="n24_ib9y" name="n24" src="ib9y7" fileName="image/bonusGame2/ng_img_Vertical_line_1.png" xy="824,31"/>
+    <image id="n0_ib9y" name="n0" src="ib9y2" fileName="image/bonusGame2/ng_img_border_bottom_1.png" xy="38,262"/>
+    <image id="n1_ib9y" name="n1" src="ib9y2" fileName="image/bonusGame2/ng_img_border_bottom_1.png" xy="1042,262" skew="0,180"/>
+    <image id="n2_ib9y" name="n2" src="ib9ye" fileName="image/bonusGame2/ng_img_border_left_1.png" xy="47,46"/>
+    <image id="n3_ib9y" name="n3" src="ib9ye" fileName="image/bonusGame2/ng_img_border_left_1.png" xy="1033,46" skew="0,180"/>
+    <image id="n19_ib9y" name="n19" src="ib9y3" fileName="image/bonusGame2/ng_img_border_top_1.png" xy="47,1"/>
+    <image id="n20_ib9y" name="n20" src="ib9y3" fileName="image/bonusGame2/ng_img_border_top_1.png" xy="1033,0" skew="0,180"/>
+    <component id="n14_ib9y" name="special" src="ib9yk" fileName="components/special.xml" xy="432,36">
+      <property target="n16" propertyId="0" value=""/>
+    </component>
+    <loader id="n32_j20k" name="n32" xy="1,-238" size="1080,950" url="ui://0bwjt84cj20k42" autoSize="true"/>
+  </displayList>
+  <transition name="t0">
+    <item time="0" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k42"/>
+    <item time="1" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k43"/>
+    <item time="2" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k44"/>
+    <item time="3" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3q"/>
+    <item time="4" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3x"/>
+    <item time="5" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3p"/>
+    <item time="6" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3f"/>
+    <item time="7" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k40"/>
+    <item time="8" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k41"/>
+    <item time="9" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k45"/>
+    <item time="10" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3z"/>
+    <item time="11" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3v"/>
+    <item time="12" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3w"/>
+    <item time="13" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3y"/>
+    <item time="14" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3s"/>
+    <item time="15" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3t"/>
+    <item time="16" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3u"/>
+    <item time="17" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3o"/>
+    <item time="18" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k46"/>
+    <item time="19" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k38"/>
+    <item time="20" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3r"/>
+    <item time="21" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3j"/>
+    <item time="22" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3k"/>
+    <item time="23" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3l"/>
+    <item time="24" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3m"/>
+    <item time="25" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3e"/>
+    <item time="26" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3g"/>
+    <item time="27" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3n"/>
+    <item time="28" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3h"/>
+    <item time="29" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3i"/>
+    <item time="30" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k39"/>
+    <item time="31" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3a"/>
+    <item time="32" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3b"/>
+    <item time="33" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3c"/>
+    <item time="34" type="Icon" target="n32_j20k" value="ui://0bwjt84cj20k3d"/>
+  </transition>
+</component>

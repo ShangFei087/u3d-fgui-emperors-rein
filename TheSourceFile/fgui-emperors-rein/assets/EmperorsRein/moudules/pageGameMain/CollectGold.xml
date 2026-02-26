@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="503,232">
+  <displayList>
+    <image id="n1_qdjt" name="n1" src="qewhtf" fileName="images/winTip/掉币底框01.png" xy="0,0"/>
+    <text id="n2_qdjt" name="title" xy="253,141" pivot="0.5,0.5" anchor="true" size="354,153" font="ui://vdmp4vsrtrpmd7" fontSize="12" align="center" vAlign="middle" leading="0" autoSize="shrink" text="5000"/>
+    <component id="n4_o1y0" name="anchorCollectGold" src="o1y0si" fileName="components/AnchorCollectGoldCoin.xml" xy="248,-21" size="1,1"/>
+  </displayList>
+</component>

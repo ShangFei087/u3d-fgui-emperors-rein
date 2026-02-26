@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="660,150">
+  <displayList>
+    <image id="n2_os7y" name="n2" src="vqlx68" fileName="images/common/square_64x64_1.png" xy="0,0" size="660,150" group="n3_os7y" color="#143733">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <richtext id="n16_vqlx" name="title" xy="129,14" size="501,123" group="n3_os7y" fontSize="34" color="#ffffff" align="center" vAlign="middle" ubb="true" vars="true" autoSize="shrink" text="[color=#0000ff]11[/color]80980&lt;br&gt;0808ouiipiipoipoipoipi &quot;第一行&lt;br&gt;&lt;font color=&apos;#ff0000&apos;&gt;第二行&lt;/font&gt;&quot;;"/>
+    <loader id="n23_vqlx" name="icon" xy="27,32" size="86,86" group="n3_os7y" url="ui://xp0b9yqdvqlx6l" fill="scaleMatchWidth" color="#ffff00"/>
+    <group id="n3_os7y" name="popupFG" xy="0,0" size="660,150" advanced="true"/>
+  </displayList>
+  <customProperty target="title" propertyId="0" label="标题"/>
+</component>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="zcotsi26">
+  <resources>
+    <component id="sbz30" name="PopupGameLoading.xml" path="/" exported="true"/>
+    <image id="cmra1" name="load_img_bg.png" path="/images/popupGameLoading/" scale="9grid" scale9grid="23,10,478,31"/>
+    <image id="cmra2" name="load_img_speed.png" path="/images/popupGameLoading/" scale9grid="132,14,264,28" duplicatePadding="true"/>
+    <image id="k08vd" name="Image Sequence_016_0000.png" path="/images/exmple/"/>
+    <component id="k08ve" name="AnchorLoadingBG.xml" path="/components/popupGameLoading/" exported="true"/>
+    <image id="lnetg" name="gme_loading_mask.png" path="/images/popupGameLoading/" scale="9grid" scale9grid="12,8,24,16"/>
+    <component id="lneth" name="Slider2.xml" path="/components/popupGameLoading/" exported="true"/>
+    <component id="lneti" name="Slider.xml" path="/components/popupGameLoading/" exported="true"/>
+    <image id="lnetj" name="ng_Border_PiggyBanker.png" path="/images/pageGameMain/normalFrame/"/>
+    <image id="lnetk" name="ng_img_bg.png" path="/images/pageGameMain/normalFrame/"/>
+    <image id="lnetl" name="ng_img_bg_01.png" path="/images/pageGameMain/normalFrame/" scale="9grid" scale9grid="46,0,328,360"/>
+    <image id="lnetm" name="ng_img_bg_02.png" path="/images/pageGameMain/normalFrame/"/>
+    <image id="lnetn" name="ng_img_bg_03.png" path="/images/pageGameMain/normalFrame/"/>
+    <image id="lneto" name="ng_img_bg_04.png" path="/images/pageGameMain/normalFrame/"/>
+    <image id="lnetp" name="ng_img_Border_01.png" path="/images/pageGameMain/normalFrame/"/>
+    <image id="lnetq" name="ng_img_Border_02.png" path="/images/pageGameMain/normalFrame/"/>
+    <image id="lnetr" name="ng_img_Border_03.png" path="/images/pageGameMain/normalFrame/"/>
+    <image id="lnets" name="ng_img_Border_04.png" path="/images/pageGameMain/normalFrame/" scale="9grid" scale9grid="0,126,42,106"/>
+    <image id="lnett" name="ng_img_pig.png" path="/images/pageGameMain/normalFrame/"/>
+    <component id="lnetu" name="PageGameMain.xml" path="/" exported="true"/>
+    <image id="lnetv" name="ng_sym_9.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="lnetw" name="ng_sym_10.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="lnetx" name="ng_sym_A.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="lnety" name="ng_sym_card.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="lnetz" name="ng_sym_gold.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="lnet10" name="ng_sym_gold2.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="lnet11" name="ng_sym_J.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="lnet12" name="ng_sym_K.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="lnet13" name="ng_sym_Moneyjar.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="lnet14" name="ng_sym_pMoneyjar.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="lnet15" name="ng_sym_ptycoon.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="lnet16" name="ng_sym_Q.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="lnet17" name="ng_sym_safe.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="lnet19" name="ng_sym_wallet.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <component id="lnet1a" name="SymbolAnimator.xml" path="/moudules/slotMachine/"/>
+    <image id="lnet1d" name="ng_sym_treasury.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <component id="lnet1e" name="Symbol.xml" path="/moudules/slotMachine/"/>
+    <component id="lnet1f" name="Symbols.xml" path="/moudules/slotMachine/"/>
+    <component id="lnet1g" name="Reel.xml" path="/moudules/slotMachine/"/>
+    <component id="lnet1i" name="Reels.xml" path="/moudules/slotMachine/"/>
+    <component id="lnet1j" name="SlotMachine.xml" path="/moudules/slotMachine/"/>
+    <component id="lnet1k" name="SlotCovr.xml" path="/moudules/slotMachine/"/>
+    <image id="lnet1l" name="line_tile_down2_middle.png" path="/images/payLine/"/>
+    <image id="lnet1m" name="line_tile_up_down2.png" path="/images/payLine/"/>
+    <image id="lnet1n" name="line_tile_up_down.png" path="/images/payLine/"/>
+    <image id="lnet1o" name="line_tile_up2_middle.png" path="/images/payLine/"/>
+    <image id="lnet1p" name="line_tile_up2_down2.png" path="/images/payLine/"/>
+    <image id="lnet1q" name="line_tile_up2_down.png" path="/images/payLine/"/>
+    <image id="lnet1r" name="line_tile_middle_up2.png" path="/images/payLine/"/>
+    <image id="lnet1s" name="line_tile_middle_up.png" path="/images/payLine/"/>
+    <image id="lnet1t" name="line_tile_up_middle.png" path="/images/payLine/"/>
+    <image id="lnet1u" name="line_tile_middle_middle.png" path="/images/payLine/"/>
+    <image id="lnet1v" name="line_tile_middle_down.png" path="/images/payLine/"/>
+    <image id="lnet1w" name="line_tile_down_up2.png" path="/images/payLine/"/>
+    <image id="lnet1x" name="line_tile_down_up.png" path="/images/payLine/"/>
+    <image id="lnet1y" name="line_tile_down_middle.png" path="/images/payLine/"/>
+    <image id="lnet1z" name="line_tile_down_down.png" path="/images/payLine/"/>
+    <image id="lnet20" name="line_tile_down2_up2.png" path="/images/payLine/"/>
+    <image id="lnet21" name="line_tile_down2_up.png" path="/images/payLine/"/>
+    <image id="lnet22" name="line_tile_middle_down2.png" path="/images/payLine/"/>
+    <image id="lnet23" name="line_tile_up_up.png" path="/images/payLine/"/>
+    <component id="lnet3i" name="AnchorPlayLines.xml" path="/components/" exported="true"/>
+    <component id="lnet3j" name="normalGameframe.xml" path="/moudules/pageGameMain/" exported="true"/>
+    <component id="n4dd3k" name="freeGameFrame.xml" path="/moudules/pageGameMain/" exported="true"/>
+    <image id="n4dd3l" name="fg_img_bg.png" path="/images/pageGameMain/freeFrame/"/>
+    <image id="n4dd3m" name="fg_img_bg_01.png" path="/images/pageGameMain/freeFrame/" scale="9grid" scale9grid="204,0,127,244" qualityOption="custom" quality="80" smoothing="false"/>
+    <image id="n4dd3n" name="fg_img_Border_01.png" path="/images/pageGameMain/freeFrame/"/>
+    <image id="n4dd3o" name="fg_img_Border_02.png" path="/images/pageGameMain/freeFrame/" scale="9grid" scale9grid="102,28,57,56"/>
+    <image id="n4dd3p" name="fg_img_Border_03.png" path="/images/pageGameMain/freeFrame/" scale="9grid" scale9grid="210,22,79,44"/>
+    <image id="n4dd3q" name="fg_img_Border_04.png" path="/images/pageGameMain/freeFrame/" scale9grid="11,337,18,172"/>
+    <image id="n4dd3r" name="fg_img_Line.png" path="/images/pageGameMain/freeFrame/"/>
+    <image id="n4dd3s" name="fg_img_rotary.png" path="/images/pageGameMain/freeFrame/"/>
+    <image id="n4dd3t" name="fg_Title_Grand.png" path="/images/gameJackpot/"/>
+    <image id="n4dd3u" name="fg_Title_Maior.png" path="/images/gameJackpot/"/>
+    <image id="n4dd3v" name="fg_Title_Mini.png" path="/images/gameJackpot/"/>
+    <image id="n4dd3w" name="fg_Title_Minor.png" path="/images/gameJackpot/"/>
+    <image id="n4dd3x" name="fg_txt_freegames.png" path="/images/pageGameMain/freeFrame/"/>
+    <component id="n4dd3y" name="normalInnerFrame.xml" path="/moudules/pageGameMain/" exported="true"/>
+    <image id="n4dd3z" name="效果图_免费游戏背景框.png" path="/images/exmple/"/>
+    <image id="n4dd40" name="效果图_bigwin.png" path="/images/exmple/"/>
+    <image id="n4dd41" name="效果图_bonanza.png" path="/images/exmple/"/>
+    <image id="n4dd42" name="效果图_grand.png" path="/images/exmple/"/>
+    <image id="n4dd43" name="效果图_logo登录.png" path="/images/exmple/"/>
+    <image id="n4dd44" name="效果图_major.png" path="/images/exmple/"/>
+    <image id="n4dd45" name="效果图_mini.png" path="/images/exmple/"/>
+    <image id="n4dd46" name="效果图_minor.png" path="/images/exmple/"/>
+    <image id="n4dd47" name="效果图_结算框.png" path="/images/exmple/"/>
+    <image id="n4dd48" name="效果图_结算框2.png" path="/images/exmple/"/>
+    <image id="n4dd49" name="效果图_普通游戏背景框.png" path="/images/exmple/"/>
+    <image id="n4dd4a" name="效果图_特别游戏背景框.png" path="/images/exmple/"/>
+    <image id="n4dd4b" name="效果图_猪仔金币免费转场.png" path="/images/exmple/"/>
+    <image id="n4dd4c" name="效果图_猪仔金币普通转场.png" path="/images/exmple/"/>
+    <component id="vxrw4d" name="freeInnerFrame.xml" path="/moudules/pageGameMain/" exported="true"/>
+    <image id="ipzb52" name="load_bg_piggy banker.png" path="/images/exmple/"/>
+    <component id="lmms54" name="AnchorLoadingTitle.xml" path="/components/popupGameLoading/" exported="true"/>
+    <image id="zidb55" name="load_img_bg1.png" path="/images/popupGameLoading/"/>
+    <component id="jkwq57" name="AnchorPanelSlot.xml" path="/components/gameMain/" exported="true"/>
+    <component id="jkwq58" name="AnchorEffect.xml" path="/components/gameMain/" exported="true"/>
+    <component id="vv1y59" name="PopupBigWin.xml" path="/" exported="true"/>
+    <image id="vv1y5a" name="symbol_win-bigwin_0.png" path="/images/exmple/"/>
+    <image id="vv1y5b" name="jp_tips_border-idle_1.png" path="/images/exmple/"/>
+    <component id="vv1y5c" name="Mash.xml" path="/components/" exported="true"/>
+    <component id="vv1y5d" name="AnchorBigWin.xml" path="/components/popupBigWin/" exported="true"/>
+    <image id="vv1y5e" name="_0041__0011_,.png" path="/images/pageGameMain/numberFreeTime/"/>
+    <image id="vv1y5f" name="_0042__0010_9.png" path="/images/pageGameMain/numberFreeTime/"/>
+    <image id="vv1y5g" name="_0043__0009_8.png" path="/images/pageGameMain/numberFreeTime/"/>
+    <image id="vv1y5h" name="_0044__0008_7.png" path="/images/pageGameMain/numberFreeTime/"/>
+    <image id="vv1y5i" name="_0045__0007_6.png" path="/images/pageGameMain/numberFreeTime/"/>
+    <image id="vv1y5j" name="_0046__0006_5.png" path="/images/pageGameMain/numberFreeTime/"/>
+    <image id="vv1y5k" name="_0047__0005_4.png" path="/images/pageGameMain/numberFreeTime/"/>
+    <image id="vv1y5l" name="_0048__0004_3.png" path="/images/pageGameMain/numberFreeTime/"/>
+    <image id="vv1y5m" name="_0049__0003_2.png" path="/images/pageGameMain/numberFreeTime/"/>
+    <image id="vv1y5n" name="_0050__0002_1.png" path="/images/pageGameMain/numberFreeTime/"/>
+    <image id="vv1y5o" name="_0051__0001_0.png" path="/images/pageGameMain/numberFreeTime/"/>
+    <image id="vv1y5p" name="_0052__0000_$.png" path="/images/pageGameMain/numberFreeTime/"/>
+    <font id="vv1y5q" name="FontBigWin.fnt" path="/fonts/" exported="true"/>
+    <component id="vv1y5r" name="Button1.xml" path="/components/"/>
+    <image id="t0u45t" name="Biwpig-h_01.png" path="/images/exmple/"/>
+    <component id="t0u45u" name="AnchorBigWinPig.xml" path="/components/popupBigWin/" exported="true"/>
+    <image id="t0u45v" name="symbol_zhc-open_0.png" path="/images/exmple/"/>
+    <component id="t0u45w" name="AnchorNormalFrame.xml" path="/components/gameMain/" exported="true"/>
+    <component id="t0u45x" name="AnchorFreeFrame.xml" path="/components/gameMain/" exported="true"/>
+    <image id="t0u45y" name="symbol_zhc2-animation_0.png" path="/images/exmple/"/>
+    <component id="t0u45z" name="AnchorNormalBG.xml" path="/components/gameMain/" exported="true"/>
+    <component id="t0u460" name="AnchorFreeBG.xml" path="/components/gameMain/" exported="true"/>
+    <component id="jfvg61" name="PopupFreeSpinTrigger.xml" path="/" exported="true"/>
+    <image id="jfvg62" name="ng_Popup-idle_0.png" path="/images/exmple/"/>
+    <component id="jfvg63" name="AnchorPopup.xml" path="/components/popupFreeSpinTrigger/" exported="true"/>
+    <image id="jfvg64" name="_0012__0023_0.png" path="/images/pageGameMain/numbers/numberYellow/"/>
+    <image id="jfvg65" name="_0013__0022_1.png" path="/images/pageGameMain/numbers/numberYellow/"/>
+    <image id="jfvg66" name="_0014__0021_2.png" path="/images/pageGameMain/numbers/numberYellow/"/>
+    <image id="jfvg67" name="_0015__0020_3.png" path="/images/pageGameMain/numbers/numberYellow/"/>
+    <image id="jfvg68" name="_0017__0019_4.png" path="/images/pageGameMain/numbers/numberYellow/"/>
+    <image id="jfvg69" name="_0019__0018_5.png" path="/images/pageGameMain/numbers/numberYellow/"/>
+    <image id="jfvg6a" name="_0021__0017_6.png" path="/images/pageGameMain/numbers/numberYellow/"/>
+    <image id="jfvg6b" name="_0023__0016_7.png" path="/images/pageGameMain/numbers/numberYellow/"/>
+    <image id="jfvg6c" name="_0025__0015_8.png" path="/images/pageGameMain/numbers/numberYellow/"/>
+    <image id="jfvg6d" name="_0026__0014_9.png" path="/images/pageGameMain/numbers/numberYellow/"/>
+    <font id="jfvg6e" name="FontFreeYellow.fnt" path="/fonts/" exported="true"/>
+    <image id="jfvg6f" name="jp_txt_enterbonus.png" path="/images/popupFreeSpinTriggerandResult/"/>
+    <image id="jfvg6g" name="jp_txt_freespins.png" path="/images/popupFreeSpinTriggerandResult/"/>
+    <image id="jfvg6h" name="jp_txt_maingame.png" path="/images/popupFreeSpinTriggerandResult/"/>
+    <image id="jfvg6i" name="jp_txt_youwin.png" path="/images/popupFreeSpinTriggerandResult/"/>
+    <image id="jfvg6j" name="_0006__0010_..png" path="/images/popupBigWin/number/"/>
+    <image id="jfvg6k" name="_0007__0009_9.png" path="/images/popupBigWin/number/"/>
+    <image id="jfvg6l" name="_0008__0008_8.png" path="/images/popupBigWin/number/"/>
+    <image id="jfvg6m" name="_0009__0007_7.png" path="/images/popupBigWin/number/"/>
+    <image id="jfvg6n" name="_0010__0006_6.png" path="/images/popupBigWin/number/"/>
+    <image id="jfvg6o" name="_0011__0005_5.png" path="/images/popupBigWin/number/"/>
+    <image id="jfvg6p" name="_0012__0004_4.png" path="/images/popupBigWin/number/"/>
+    <image id="jfvg6q" name="_0013__0003_3.png" path="/images/popupBigWin/number/"/>
+    <image id="jfvg6r" name="_0014__0002_2.png" path="/images/popupBigWin/number/"/>
+    <image id="jfvg6s" name="_0015__0001_1.png" path="/images/popupBigWin/number/"/>
+    <image id="jfvg6t" name="_0016__0000_0.png" path="/images/popupBigWin/number/"/>
+    <font id="jfvg6u" name="FontPopup.fnt" path="/fonts/" exported="true"/>
+    <component id="jfvg6v" name="freeTimeBox.xml" path="/moudules/pageGameMain/" exported="true"/>
+    <image id="jfvg6w" name="_0002__0033_9.png" path="/images/pageGameMain/numbers/numberGreen/"/>
+    <image id="jfvg6x" name="_0003__0032_8.png" path="/images/pageGameMain/numbers/numberGreen/"/>
+    <image id="jfvg6y" name="_0004__0031_7.png" path="/images/pageGameMain/numbers/numberGreen/"/>
+    <image id="jfvg6z" name="_0005__0030_6.png" path="/images/pageGameMain/numbers/numberGreen/"/>
+    <image id="jfvg70" name="_0006__0029_5.png" path="/images/pageGameMain/numbers/numberGreen/"/>
+    <image id="jfvg71" name="_0007__0028_4.png" path="/images/pageGameMain/numbers/numberGreen/"/>
+    <image id="jfvg72" name="_0008__0027_3.png" path="/images/pageGameMain/numbers/numberGreen/"/>
+    <image id="jfvg73" name="_0009__0026_2.png" path="/images/pageGameMain/numbers/numberGreen/"/>
+    <image id="jfvg74" name="_0010__0025_1.png" path="/images/pageGameMain/numbers/numberGreen/"/>
+    <image id="jfvg75" name="_0011__0024_0.png" path="/images/pageGameMain/numbers/numberGreen/"/>
+    <font id="jfvg76" name="FontGreen.fnt" path="/fonts/" exported="true"/>
+    <image id="jfvg77" name="of.png" path="/images/pageGameMain/freeFrame/"/>
+    <image id="jfvg79" name="freegame.png" path="/images/pageGameMain/freeFrame/"/>
+    <component id="e6zw7a" name="FreeReel.xml" path="/moudules/freeRoll/"/>
+    <component id="e6zw7b" name="FreeSymbols.xml" path="/moudules/freeRoll/"/>
+    <component id="e6zw7c" name="FreeReels.xml" path="/moudules/freeRoll/"/>
+    <component id="e6zw7e" name="FreeSymbol.xml" path="/moudules/freeRoll/"/>
+    <component id="e6zw7f" name="FreeSlotMachine.xml" path="/moudules/freeRoll/"/>
+    <component id="e6zw7g" name="freeWinBox.xml" path="/moudules/pageGameMain/" exported="true"/>
+    <image id="e6zw7h" name="sg_img_Title.png" path="/images/pageGameMain/freeFrame/"/>
+    <image id="e6zw7i" name="sg_img_grand.png" path="/images/gameJackpot/"/>
+    <image id="e6zw7j" name="sg_img_Major.png" path="/images/gameJackpot/"/>
+    <image id="e6zw7k" name="sg_img_mask.png" path="/images/gameJackpot/"/>
+    <image id="e6zw7l" name="sg_img_Mini.png" path="/images/gameJackpot/"/>
+    <image id="e6zw7m" name="sg_img_minor.png" path="/images/gameJackpot/"/>
+    <component id="e6zw7n" name="GameJackpotReel.xml" path="/moudules/pageGameMain/gameJackpot/"/>
+    <image id="e6zw7o" name="_0035__0010_0.png" path="/images/gameJackpot/number/"/>
+    <image id="e6zw7p" name="_0036__0009_9.png" path="/images/gameJackpot/number/"/>
+    <image id="e6zw7q" name="_0038__0008_8.png" path="/images/gameJackpot/number/"/>
+    <image id="e6zw7r" name="_0040__0007_7.png" path="/images/gameJackpot/number/"/>
+    <image id="e6zw7s" name="_0042__0006_6.png" path="/images/gameJackpot/number/"/>
+    <image id="e6zw7t" name="_0044__0005_5.png" path="/images/gameJackpot/number/"/>
+    <image id="e6zw7u" name="_0046__0004_4.png" path="/images/gameJackpot/number/"/>
+    <image id="e6zw7v" name="_0049__0003_3.png" path="/images/gameJackpot/number/"/>
+    <image id="e6zw7w" name="_0051__0002_2.png" path="/images/gameJackpot/number/"/>
+    <image id="e6zw7x" name="_0053__0001_1.png" path="/images/gameJackpot/number/"/>
+    <image id="e6zw7y" name="_0055__0000_$.png" path="/images/gameJackpot/number/"/>
+    <font id="e6zw7z" name="FontJackpot.fnt" path="/fonts/" exported="true"/>
+    <component id="e6zw80" name="GameJackpotGrand.xml" path="/moudules/pageGameMain/gameJackpot/"/>
+    <component id="e6zw81" name="GameJackpotMajor.xml" path="/moudules/pageGameMain/gameJackpot/"/>
+    <component id="e6zw82" name="GameJackpotMinor.xml" path="/moudules/pageGameMain/gameJackpot/"/>
+    <component id="e6zw83" name="GameJackpotMini.xml" path="/moudules/pageGameMain/gameJackpot/"/>
+    <component id="e6zw84" name="PopupBonanza.xml" path="/" exported="true"/>
+    <image id="e6zw85" name="ng_ic_bonanza-idle_06.png" path="/images/exmple/"/>
+    <component id="e6zw86" name="AnchorBonanza.xml" path="/components/popupBonanza/" exported="true"/>
+    <image id="e6zw87" name="jp_tips_border-start_2.png" path="/images/exmple/"/>
+    <component id="e6zw88" name="PopupJackpotGame.xml" path="/" exported="true"/>
+    <image id="e6zw89" name="jp_btn_bg.png" path="/images/popupJackpotGame/"/>
+    <image id="e6zw8a" name="jp_btn_collect.png" path="/images/popupJackpotGame/"/>
+    <component id="e6zw8b" name="AnchorJackpot.xml" path="/components/popupJackpotGame/" exported="true"/>
+    <component id="e6zw8c" name="collectImage.xml" path="/components/popupJackpotGame/"/>
+    <component id="e6zw8d" name="CollectButton.xml" path="/components/popupJackpotGame/"/>
+    <component id="e6zw8f" name="PopupFreeSpinResult.xml" path="/" exported="true"/>
+    <component id="ki8i8g" name="payTable1.xml" path="/moudules/payTable/" exported="true"/>
+    <image id="ki8i8h" name="1.png" path="/images/payTable/"/>
+    <image id="ki8i8i" name="2.png" path="/images/payTable/"/>
+    <image id="ki8i8j" name="3.png" path="/images/payTable/"/>
+    <image id="ki8i8k" name="4.png" path="/images/payTable/"/>
+    <image id="ki8i8l" name="5.png" path="/images/payTable/"/>
+    <image id="ki8i8m" name="6.png" path="/images/payTable/"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

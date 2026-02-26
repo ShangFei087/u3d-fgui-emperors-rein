@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="181,177" pivot="0.5,0.5" anchor="true">
+  <displayList>
+    <loader id="n0_lsvw" name="image" xy="90,88" pivot="0.5,0.5" anchor="true" size="127,127" url="ui://5hielhj5lsvwm" autoSize="true"/>
+  </displayList>
+</component>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <image id="n7_lnet" name="n7" src="lnetq" fileName="images/pageGameMain/normalFrame/ng_img_Border_02.png" xy="-3,586" scale="1.5,1.5"/>
+    <image id="n9_lnet" name="n9" src="lnetq" fileName="images/pageGameMain/normalFrame/ng_img_Border_02.png" xy="1018,587" scale="1.5,1.5"/>
+    <image id="n0_lnet" name="n0" src="lnetr" fileName="images/pageGameMain/normalFrame/ng_img_Border_03.png" xy="160,651" pivot="1,0" scale="1.5,1.5"/>
+    <image id="n1_lnet" name="n1" src="lnetr" fileName="images/pageGameMain/normalFrame/ng_img_Border_03.png" xy="160,651" pivot="1,0" scale="-1.5,1.5"/>
+    <image id="n3_lnet" name="n3" src="lnets" fileName="images/pageGameMain/normalFrame/ng_img_Border_04.png" xy="-32,1095" size="60,400" scale="1.5,1.5"/>
+    <image id="n4_lnet" name="n4" src="lnets" fileName="images/pageGameMain/normalFrame/ng_img_Border_04.png" xy="1115,1095" size="60,400" scale="-1.5,1.5"/>
+    <image id="n5_lnet" name="n5" src="lnett" fileName="images/pageGameMain/normalFrame/ng_img_pig.png" xy="430,520" scale="1.5,1.5"/>
+    <image id="n6_lnet" name="n6" src="lnetj" fileName="images/pageGameMain/normalFrame/ng_Border_PiggyBanker.png" xy="213,910" scale="1.5,1.5"/>
+    <image id="n10_lnet" name="n10" src="lnetp" fileName="images/pageGameMain/normalFrame/ng_img_Border_01.png" xy="-30,1678" size="383,372" scale="1.5,1.5"/>
+    <image id="n11_lnet" name="n11" src="lnetp" fileName="images/pageGameMain/normalFrame/ng_img_Border_01.png" xy="1117,1678" scale="-1.5,1.5"/>
+  </displayList>
+</component>

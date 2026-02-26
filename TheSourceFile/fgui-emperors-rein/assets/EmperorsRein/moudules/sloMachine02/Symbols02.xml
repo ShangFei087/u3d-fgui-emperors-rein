@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="600,1908">
+  <displayList>
+    <component id="n0_plwz" name="symbol0" src="o3djis" fileName="moudules/sloMachine02/Symbol02.xml" xy="0,-636" size="600,636"/>
+    <component id="n1_plwz" name="symbol1" src="o3djis" fileName="moudules/sloMachine02/Symbol02.xml" xy="0,0"/>
+    <component id="n2_plwz" name="symbol2" src="o3djis" fileName="moudules/sloMachine02/Symbol02.xml" xy="0,636"/>
+    <component id="n3_plwz" name="symbol3" src="o3djis" fileName="moudules/sloMachine02/Symbol02.xml" xy="0,1272"/>
+    <component id="n4_plwz" name="symbol4" src="o3djis" fileName="moudules/sloMachine02/Symbol02.xml" xy="0,1908"/>
+    <component id="n6_plwz" name="symbol6" src="o3djis" fileName="moudules/sloMachine02/Symbol02.xml" xy="0,3180"/>
+    <component id="n5_plwz" name="symbol5" src="o3djis" fileName="moudules/sloMachine02/Symbol02.xml" xy="0,2544"/>
+    <component id="n7_plwz" name="symbol7" src="o3djis" fileName="moudules/sloMachine02/Symbol02.xml" xy="0,3816"/>
+  </displayList>
+</component>

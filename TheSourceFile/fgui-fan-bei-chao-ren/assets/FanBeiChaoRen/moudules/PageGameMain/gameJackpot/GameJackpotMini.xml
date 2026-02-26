@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="292,83">
+  <displayList>
+    <image id="n1_kb8b" name="n1" src="kb8bw1" fileName="images/PageGameMain/gameFrame/JP5框.png" xy="0,0"/>
+    <list id="n2_kb8b" name="reels" xy="56,7" size="285,76" scale="0.8,0.8" layout="row" overflow="hidden" defaultItem="ui://9kq20teakb8bwl" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <image id="n0_kb8b" name="n0" src="kb8bw3" fileName="images/PageGameMain/gameFrame/JP4.png" xy="109,-57" size="133,55" aspect="true"/>
+  </displayList>
+</component>

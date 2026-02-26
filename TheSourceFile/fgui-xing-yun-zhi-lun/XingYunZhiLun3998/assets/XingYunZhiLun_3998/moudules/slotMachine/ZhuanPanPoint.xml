@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <loader id="n0_lsvw" name="example" xy="0,0" pivot="0.5,0.5" anchor="true" size="226,488" url="ui://5hielhj5lsvwl" autoSize="true"/>
+    <component id="n1_iotq" name="anchorEffect" src="lsvw1j" fileName="components/PopupGameNormalGame/AnchorEffect.xml" xy="-60,0"/>
+  </displayList>
+</component>

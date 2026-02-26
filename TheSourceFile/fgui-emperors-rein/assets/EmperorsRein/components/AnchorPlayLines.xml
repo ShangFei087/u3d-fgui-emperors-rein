@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <component id="n50_umch" name="line1" src="umchlc" fileName="moudules/playLine/Line1.xml" xy="-499,-317"/>
+    <component id="n51_umch" name="line2" src="umchmd" fileName="moudules/playLine/Line2.xml" xy="-499,-317"/>
+    <component id="n52_umch" name="line3" src="umchmn" fileName="moudules/playLine/Line3.xml" xy="-499,-317"/>
+    <component id="n53_umch" name="line4" src="umchlj" fileName="moudules/playLine/Line4.xml" xy="-499,-317"/>
+    <component id="n54_umch" name="line5" src="umchlu" fileName="moudules/playLine/Line5.xml" xy="-499,-317"/>
+    <component id="n55_umch" name="line6" src="umchlw" fileName="moudules/playLine/Line6.xml" xy="-499,-317"/>
+    <component id="n56_umch" name="line7" src="umchlx" fileName="moudules/playLine/Line7.xml" xy="-499,-317"/>
+    <component id="n57_umch" name="line8" src="umchmc" fileName="moudules/playLine/Line8.xml" xy="-499,-317"/>
+    <component id="n58_umch" name="line9" src="umchmp" fileName="moudules/playLine/Line9.xml" xy="-499,-317"/>
+    <component id="n59_umch" name="line10" src="umchm2" fileName="moudules/playLine/Line10.xml" xy="-499,-317"/>
+    <component id="n60_umch" name="line11" src="umchm3" fileName="moudules/playLine/Line11.xml" xy="-499,-317"/>
+    <component id="n61_umch" name="line12" src="umchm4" fileName="moudules/playLine/Line12.xml" xy="-499,-317"/>
+    <component id="n62_umch" name="line13" src="umchm5" fileName="moudules/playLine/Line13.xml" xy="-499,-317"/>
+    <component id="n63_umch" name="line14" src="umchm6" fileName="moudules/playLine/Line14.xml" xy="-499,-317"/>
+    <component id="n64_umch" name="line15" src="umchm7" fileName="moudules/playLine/Line15.xml" xy="-499,-317"/>
+    <component id="n65_umch" name="line16" src="umchm8" fileName="moudules/playLine/Line16.xml" xy="-499,-317"/>
+    <component id="n66_umch" name="line17" src="umchm9" fileName="moudules/playLine/Line17.xml" xy="-499,-317"/>
+    <component id="n67_umch" name="line18" src="umchma" fileName="moudules/playLine/Line18.xml" xy="-499,-317"/>
+    <component id="n68_umch" name="line19" src="umchmb" fileName="moudules/playLine/Line19.xml" xy="-499,-317"/>
+    <component id="n69_umch" name="line20" src="umchmo" fileName="moudules/playLine/Line20.xml" xy="-499,-317"/>
+    <component id="n70_umch" name="line21" src="umchme" fileName="moudules/playLine/Line21.xml" xy="-499,-317"/>
+    <component id="n71_umch" name="line22" src="umchmf" fileName="moudules/playLine/Line22.xml" xy="-499,-317"/>
+    <component id="n72_umch" name="line23" src="umchmg" fileName="moudules/playLine/Line23.xml" xy="-499,-317"/>
+    <component id="n73_umch" name="line24" src="umchmh" fileName="moudules/playLine/Line24.xml" xy="-499,-317"/>
+    <component id="n74_umch" name="line25" src="umchmi" fileName="moudules/playLine/Line25.xml" xy="-499,-317"/>
+    <component id="n75_umch" name="line26" src="umchmj" fileName="moudules/playLine/Line26.xml" xy="-499,-317"/>
+    <component id="n76_umch" name="line27" src="umchmk" fileName="moudules/playLine/Line27.xml" xy="-499,-317"/>
+    <component id="n77_umch" name="line28" src="umchml" fileName="moudules/playLine/Line28.xml" xy="-499,-317"/>
+    <component id="n78_umch" name="line29" src="umchmm" fileName="moudules/playLine/Line29.xml" xy="-499,-317"/>
+    <component id="n79_umch" name="line30" src="umchm1" fileName="moudules/playLine/Line30.xml" xy="-499,-317"/>
+    <component id="n80_umch" name="line31" src="umchm0" fileName="moudules/playLine/Line31.xml" xy="-499,-317"/>
+    <component id="n81_umch" name="line32" src="umchlz" fileName="moudules/playLine/Line32.xml" xy="-499,-317"/>
+    <component id="n82_umch" name="line33" src="umchly" fileName="moudules/playLine/Line33.xml" xy="-499,-317"/>
+    <component id="n83_umch" name="line34" src="umchld" fileName="moudules/playLine/Line34.xml" xy="-499,-317"/>
+    <component id="n84_umch" name="line35" src="umchle" fileName="moudules/playLine/Line35.xml" xy="-499,-317"/>
+    <component id="n85_umch" name="line36" src="umchlf" fileName="moudules/playLine/Line36.xml" xy="-499,-317"/>
+    <component id="n86_umch" name="line37" src="umchlg" fileName="moudules/playLine/Line37.xml" xy="-499,-317"/>
+    <component id="n87_umch" name="line38" src="umchlh" fileName="moudules/playLine/Line38.xml" xy="-499,-317"/>
+    <component id="n88_umch" name="line39" src="umchli" fileName="moudules/playLine/Line39.xml" xy="-499,-317"/>
+    <component id="n89_umch" name="line40" src="umchlk" fileName="moudules/playLine/Line40.xml" xy="-499,-317"/>
+    <component id="n90_umch" name="line41" src="umchll" fileName="moudules/playLine/Line41.xml" xy="-499,-317"/>
+    <component id="n91_umch" name="line42" src="umchlm" fileName="moudules/playLine/Line42.xml" xy="-499,-317"/>
+    <component id="n92_umch" name="line43" src="umchln" fileName="moudules/playLine/Line43.xml" xy="-499,-317"/>
+    <component id="n93_umch" name="line44" src="umchlo" fileName="moudules/playLine/Line44.xml" xy="-499,-317"/>
+    <component id="n94_umch" name="line45" src="umchlp" fileName="moudules/playLine/Line45.xml" xy="-499,-317"/>
+    <component id="n95_umch" name="line46" src="umchlq" fileName="moudules/playLine/Line46.xml" xy="-499,-317"/>
+    <component id="n96_umch" name="line47" src="umchlr" fileName="moudules/playLine/Line47.xml" xy="-499,-317"/>
+    <component id="n97_umch" name="line48" src="umchls" fileName="moudules/playLine/Line48.xml" xy="-499,-317"/>
+    <component id="n98_umch" name="line49" src="umchlt" fileName="moudules/playLine/Line49.xml" xy="-499,-317"/>
+    <component id="n99_umch" name="line50" src="umchlv" fileName="moudules/playLine/Line50.xml" xy="-499,-317"/>
+  </displayList>
+  <customProperty target="icon" propertyId="1" label="图标"/>
+</component>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="585,100">
+  <displayList>
+    <image id="n16_l3cn" name="n16" src="l3cn5u" fileName="images/panel/spin/frame_score_base.png" xy="0,0" size="585,102" aspect="true"/>
+    <text id="n17_l3cn" name="win" xy="2,10" size="620,90" font="ui://5hielhj5l3cn6p" fontSize="50" align="center" vAlign="middle" leading="0" letterSpacing="9" autoSize="none" text="999,999,999,999"/>
+  </displayList>
+</component>

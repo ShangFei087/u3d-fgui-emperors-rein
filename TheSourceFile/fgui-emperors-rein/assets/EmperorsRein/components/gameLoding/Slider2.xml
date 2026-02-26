@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,32" mask="n0_x9qz">
+  <displayList>
+    <image id="n0_x9qz" name="n0" src="nimzez" fileName="images/popupGameLoading/gme_loading_mask.png" xy="0,0" size="800,32">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_x9qz" name="bar" src="o1y0s9" fileName="images/popupGameLoading/图层 1556.png" xy="-99,0" size="990,35"/>
+  </displayList>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="XY" target="n1_x9qz" tween="true" startValue="-90,0" endValue="0,0" duration="12" ease="Linear" repeat="-1"/>
+  </transition>
+</component>

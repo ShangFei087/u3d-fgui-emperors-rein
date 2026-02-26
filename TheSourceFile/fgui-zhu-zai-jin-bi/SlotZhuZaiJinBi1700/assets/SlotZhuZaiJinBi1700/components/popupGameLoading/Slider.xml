@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="529,56" extention="ProgressBar">
+  <ProgressBar/>
+  <displayList>
+    <image id="n0_lnet" src="cmra1" name="n0" xy="0,0" size="529,56">
+      <relation target="" sidePair="width,height"/>
+    </image>
+    <component id="n1_lnet" src="lneth" name="bar" xy="0,0" size="529,56"/>
+  </displayList>
+</component>

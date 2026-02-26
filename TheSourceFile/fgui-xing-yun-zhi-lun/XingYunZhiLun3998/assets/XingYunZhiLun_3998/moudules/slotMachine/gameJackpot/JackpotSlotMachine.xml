@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,618" overflow="hidden">
+  <displayList>
+    <component id="n0_12dua" name="reels" src="12duab6" fileName="moudules/slotMachine/gameJackpot/JackpotReels.xml" xy="-285,0" size="1650,618"/>
+    <component id="n2_12dua" name="slotCover" src="lsvw1e" fileName="moudules/slotMachine/SlotCover.xml" xy="0,0" size="1080,618"/>
+    <component id="n3_12dua" name="playLines" src="l9vr1t" fileName="components/AnchorPlayLines.xml" xy="0,0" size="1080,618"/>
+  </displayList>
+</component>

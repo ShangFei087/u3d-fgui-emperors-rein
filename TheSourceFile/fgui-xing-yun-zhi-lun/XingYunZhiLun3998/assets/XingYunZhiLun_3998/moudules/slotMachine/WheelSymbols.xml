@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <component id="n20_lsvw" name="Symbol1" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="300,9" size="100,50"/>
+    <component id="n21_lsvw" name="Symbol2" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="286,99" rotation="18"/>
+    <component id="n22_lsvw" name="Symbol3" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="243,184" rotation="36"/>
+    <component id="n23_lsvw" name="Symbol4" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="177,243" rotation="54"/>
+    <component id="n24_lsvw" name="Symbol5" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="95,285" rotation="72"/>
+    <component id="n25_lsvw" name="Symbol6" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="1,300" rotation="90"/>
+    <component id="n36_lsvw" name="Symbol7" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="-95,285" rotation="108"/>
+    <component id="n37_lsvw" name="Symbol8" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="-175,249" rotation="126"/>
+    <component id="n38_lsvw" name="Symbol9" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="-240,190" rotation="144"/>
+    <component id="n39_lsvw" name="Symbol10" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="-285,105" rotation="162"/>
+    <component id="n35_lsvw" name="Symbol11" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="-300,9" rotation="-180"/>
+    <component id="n34_lsvw" name="Symbol12" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="-286,-85" rotation="-162"/>
+    <component id="n33_lsvw" name="Symbol13" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="-243,-164" rotation="-144"/>
+    <component id="n32_lsvw" name="Symbol14" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="-177,-231" rotation="-126"/>
+    <component id="n31_lsvw" name="Symbol15" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="-100,-285" rotation="-108"/>
+    <component id="n30_lsvw" name="Symbol16" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="0,-300" rotation="-90"/>
+    <component id="n29_lsvw" name="Symbol17" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="100,-285" rotation="-72"/>
+    <component id="n28_lsvw" name="Symbol18" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="177,-231" rotation="-54"/>
+    <component id="n27_lsvw" name="Symbol19" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="243,-176" rotation="-36"/>
+    <component id="n26_lsvw" name="Symbol20" src="lsvw1n" fileName="moudules/slotMachine/WheelSymbol.xml" xy="285,-86" rotation="-18"/>
+  </displayList>
+</component>

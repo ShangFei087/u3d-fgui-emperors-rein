@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_hhky" name="lightEffect" src="j09u3p" fileName="moudules/freeSpinTrigger/LightEffect.xml" xy="540,960"/>
+    <component id="n2_hhky" name="diamondBgEffect" src="hhky5i" fileName="moudules/popupJackpotTrigger/DiamondBGEffect.xml" xy="540,960"/>
+    <component id="n1_hhky" name="diamondSpine" src="hhky5h" fileName="moudules/popupJackpotTrigger/DiamondSpine.xml" xy="540,960"/>
+    <component id="n3_hhky" name="jackpotResultTipWindow" src="hhky5k" fileName="moudules/popupJackpotResult/JackpotResultTipWindow.xml" xy="0,0"/>
+  </displayList>
+</component>

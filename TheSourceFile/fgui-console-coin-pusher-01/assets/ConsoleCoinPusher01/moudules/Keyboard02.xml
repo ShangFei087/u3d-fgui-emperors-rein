@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="980,370">
+  <displayList>
+    <list id="n11_86hh" name="buttons" xy="0,0" size="980,237" layout="flow_hz" overflow="hidden" defaultItem="ui://tdkeq96086hhl" align="center">
+      <item name="No.0">
+        <property target="title" propertyId="0" value="0"/>
+      </item>
+      <item name="No.1">
+        <property target="title" propertyId="0" value="1"/>
+      </item>
+      <item name="No.2">
+        <property target="title" propertyId="0" value="2"/>
+      </item>
+      <item name="No.3">
+        <property target="title" propertyId="0" value="3"/>
+      </item>
+      <item name="No.4">
+        <property target="title" propertyId="0" value="4"/>
+      </item>
+      <item name="No.5">
+        <property target="title" propertyId="0" value="5"/>
+      </item>
+      <item name="No.6">
+        <property target="title" propertyId="0" value="6"/>
+      </item>
+      <item name="No.7">
+        <property target="title" propertyId="0" value="7"/>
+      </item>
+      <item name="No.8">
+        <property target="title" propertyId="0" value="8"/>
+      </item>
+      <item name="No.9">
+        <property target="title" propertyId="0" value="9"/>
+      </item>
+      <item name="No.-">
+        <property target="title" propertyId="0" value="-"/>
+      </item>
+      <item name="No./">
+        <property target="title" propertyId="0" value="/"/>
+      </item>
+      <item name="No.:">
+        <property target="title" propertyId="0" value=":"/>
+      </item>
+      <item name="No.;">
+        <property target="title" propertyId="0" value=";"/>
+      </item>
+      <item name="No.(">
+        <property target="title" propertyId="0" value="("/>
+      </item>
+      <item name="No.)">
+        <property target="title" propertyId="0" value=")"/>
+      </item>
+      <item name="No.$">
+        <property target="title" propertyId="0" value="$"/>
+      </item>
+      <item name="No.&amp;">
+        <property target="title" propertyId="0" value="&amp;"/>
+      </item>
+      <item name="No.@">
+        <property target="title" propertyId="0" value="@"/>
+      </item>
+      <item name="No.&quot;">
+        <property target="title" propertyId="0" value="&quot;"/>
+      </item>
+      <item name="No..">
+        <property target="title" propertyId="0" value="."/>
+      </item>
+      <item name="No.,">
+        <property target="title" propertyId="0" value=","/>
+      </item>
+      <item name="No.?">
+        <property target="title" propertyId="0" value="?"/>
+      </item>
+      <item name="No.!">
+        <property target="title" propertyId="0" value="!"/>
+      </item>
+      <item name="No.&apos;">
+        <property target="title" propertyId="0" value="&apos;"/>
+      </item>
+      <item name="space">
+        <property target="title" propertyId="0" value="空格"/>
+      </item>
+      <item name="#+=">
+        <property target="title" propertyId="0" value="字符"/>
+      </item>
+      <item name="ABC">
+        <property target="title" propertyId="0" value="字母"/>
+      </item>
+      <item name="clear">
+        <property target="title" propertyId="0" value="清空"/>
+      </item>
+      <item name="delete">
+        <property target="title" propertyId="0" value="删除"/>
+      </item>
+      <item name="ok">
+        <property target="title" propertyId="0" value="确认"/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+      </item>
+    </list>
+    <list id="n15_eu3h" name="buttonsZiFu" xy="0,0" size="980,237" visible="false" layout="flow_hz" overflow="hidden" defaultItem="ui://tdkeq96086hhl" align="center">
+      <item name="No.[">
+        <property target="title" propertyId="0" value="["/>
+      </item>
+      <item name="No.]">
+        <property target="title" propertyId="0" value="]"/>
+      </item>
+      <item name="No.{">
+        <property target="title" propertyId="0" value="}"/>
+      </item>
+      <item name="No.}">
+        <property target="title" propertyId="0" value="}"/>
+      </item>
+      <item name="No.#">
+        <property target="title" propertyId="0" value="#"/>
+      </item>
+      <item name="No.%">
+        <property target="title" propertyId="0" value="%"/>
+      </item>
+      <item name="No.^">
+        <property target="title" propertyId="0" value="^"/>
+      </item>
+      <item name="No.*">
+        <property target="title" propertyId="0" value="*"/>
+      </item>
+      <item name="No.+">
+        <property target="title" propertyId="0" value="+"/>
+      </item>
+      <item name="No.=">
+        <property target="title" propertyId="0" value="="/>
+      </item>
+      <item name="No._">
+        <property target="title" propertyId="0" value="_"/>
+      </item>
+      <item name="No.\">
+        <property target="title" propertyId="0" value="\"/>
+      </item>
+      <item name="No.|">
+        <property target="title" propertyId="0" value="|"/>
+      </item>
+      <item name="No.~">
+        <property target="title" propertyId="0" value="~"/>
+      </item>
+      <item name="No.&lt;">
+        <property target="title" propertyId="0" value="&lt;"/>
+      </item>
+      <item name="No.&gt;">
+        <property target="title" propertyId="0" value="&gt;"/>
+      </item>
+      <item name="No.€">
+        <property target="title" propertyId="0" value="€"/>
+      </item>
+      <item name="No.￡">
+        <property target="title" propertyId="0" value="￡"/>
+      </item>
+      <item name="No.￥">
+        <property target="title" propertyId="0" value="￥"/>
+      </item>
+      <item name="No.·">
+        <property target="title" propertyId="0" value="·"/>
+      </item>
+      <item name="No..">
+        <property target="title" propertyId="0" value="."/>
+      </item>
+      <item name="No.,">
+        <property target="title" propertyId="0" value=","/>
+      </item>
+      <item name="No.?">
+        <property target="title" propertyId="0" value="?"/>
+      </item>
+      <item name="No.!">
+        <property target="title" propertyId="0" value="!"/>
+      </item>
+      <item name="No.&apos;">
+        <property target="title" propertyId="0" value="&apos;"/>
+      </item>
+      <item name="space">
+        <property target="title" propertyId="0" value="空格"/>
+      </item>
+      <item name="123">
+        <property target="title" propertyId="0" value="数字"/>
+      </item>
+      <item name="ABC">
+        <property target="title" propertyId="0" value="字母"/>
+      </item>
+      <item name="clear">
+        <property target="title" propertyId="0" value="清空"/>
+      </item>
+      <item name="delete">
+        <property target="title" propertyId="0" value="删除"/>
+      </item>
+      <item name="ok">
+        <property target="title" propertyId="0" value="确认"/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+      </item>
+    </list>
+    <list id="n16_eu3h" name="buttonsDaXie" xy="0,0" size="980,237" visible="false" layout="flow_hz" overflow="hidden" defaultItem="ui://tdkeq96086hhl" align="center">
+      <item name="No.Q">
+        <property target="title" propertyId="0" value="Q"/>
+      </item>
+      <item name="No.W">
+        <property target="title" propertyId="0" value="W"/>
+      </item>
+      <item name="No.E">
+        <property target="title" propertyId="0" value="E"/>
+      </item>
+      <item name="No.R">
+        <property target="title" propertyId="0" value="R"/>
+      </item>
+      <item name="No.T">
+        <property target="title" propertyId="0" value="T"/>
+      </item>
+      <item name="No.Y">
+        <property target="title" propertyId="0" value="Y"/>
+      </item>
+      <item name="No.U">
+        <property target="title" propertyId="0" value="U"/>
+      </item>
+      <item name="No.I">
+        <property target="title" propertyId="0" value="I"/>
+      </item>
+      <item name="No.O">
+        <property target="title" propertyId="0" value="O"/>
+      </item>
+      <item name="No.P">
+        <property target="title" propertyId="0" value="P"/>
+      </item>
+      <item name="No.A">
+        <property target="title" propertyId="0" value="A"/>
+      </item>
+      <item name="No.S">
+        <property target="title" propertyId="0" value="S"/>
+      </item>
+      <item name="No.D">
+        <property target="title" propertyId="0" value="D"/>
+      </item>
+      <item name="No.F">
+        <property target="title" propertyId="0" value="F"/>
+      </item>
+      <item name="No.G">
+        <property target="title" propertyId="0" value="G"/>
+      </item>
+      <item name="No.H">
+        <property target="title" propertyId="0" value="H"/>
+      </item>
+      <item name="No.J">
+        <property target="title" propertyId="0" value="J"/>
+      </item>
+      <item name="No.K">
+        <property target="title" propertyId="0" value="K"/>
+      </item>
+      <item name="No.L">
+        <property target="title" propertyId="0" value="L"/>
+      </item>
+      <item name="No.Z">
+        <property target="title" propertyId="0" value="Z"/>
+      </item>
+      <item name="No.X">
+        <property target="title" propertyId="0" value="X"/>
+      </item>
+      <item name="No.C">
+        <property target="title" propertyId="0" value="C"/>
+      </item>
+      <item name="No.V">
+        <property target="title" propertyId="0" value="V"/>
+      </item>
+      <item name="No.B">
+        <property target="title" propertyId="0" value="B"/>
+      </item>
+      <item name="No.N">
+        <property target="title" propertyId="0" value="N"/>
+      </item>
+      <item name="No.M">
+        <property target="title" propertyId="0" value="M"/>
+      </item>
+      <item name="space">
+        <property target="title" propertyId="0" value="空格"/>
+      </item>
+      <item name="XiaoXie">
+        <property target="title" propertyId="0" value="小写"/>
+      </item>
+      <item name="ShuZi">
+        <property target="title" propertyId="0" value="数字"/>
+      </item>
+      <item name="clear">
+        <property target="title" propertyId="0" value="清空"/>
+      </item>
+      <item name="delete">
+        <property target="title" propertyId="0" value="删除"/>
+      </item>
+      <item name="ok">
+        <property target="title" propertyId="0" value="确认"/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+      </item>
+    </list>
+    <list id="n13_86hh" name="input" xy="-69,260" size="1399,62" scale="0.8,0.8" layout="row" overflow="hidden" defaultItem="ui://tdkeq96086hhn" align="center">
+      <item>
+        <property target="title" propertyId="0" value="&lt;img src=&apos;ui://ConsoleCoinPusher01/icon-asterisk&apos; /&gt;"/>
+      </item>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <list id="n17_eu3h" name="buttonsXiaoXie" xy="0,0" size="980,237" visible="false" layout="flow_hz" overflow="hidden" defaultItem="ui://tdkeq96086hhl" align="center">
+      <item name="No.q">
+        <property target="title" propertyId="0" value="q"/>
+      </item>
+      <item name="No.w">
+        <property target="title" propertyId="0" value="w"/>
+      </item>
+      <item name="No.e">
+        <property target="title" propertyId="0" value="e"/>
+      </item>
+      <item name="No.r">
+        <property target="title" propertyId="0" value="r"/>
+      </item>
+      <item name="No.t">
+        <property target="title" propertyId="0" value="t"/>
+      </item>
+      <item name="No.y">
+        <property target="title" propertyId="0" value="y"/>
+      </item>
+      <item name="No.u">
+        <property target="title" propertyId="0" value="u"/>
+      </item>
+      <item name="No.i">
+        <property target="title" propertyId="0" value="i"/>
+      </item>
+      <item name="No.o">
+        <property target="title" propertyId="0" value="o"/>
+      </item>
+      <item name="No.p">
+        <property target="title" propertyId="0" value="p"/>
+      </item>
+      <item name="No.a">
+        <property target="title" propertyId="0" value="a"/>
+      </item>
+      <item name="No.s">
+        <property target="title" propertyId="0" value="s"/>
+      </item>
+      <item name="No.d">
+        <property target="title" propertyId="0" value="d"/>
+      </item>
+      <item name="No.f">
+        <property target="title" propertyId="0" value="f"/>
+      </item>
+      <item name="No.g">
+        <property target="title" propertyId="0" value="g"/>
+      </item>
+      <item name="No.h">
+        <property target="title" propertyId="0" value="h"/>
+      </item>
+      <item name="No.j">
+        <property target="title" propertyId="0" value="j"/>
+      </item>
+      <item name="No.k">
+        <property target="title" propertyId="0" value="k"/>
+      </item>
+      <item name="No.l">
+        <property target="title" propertyId="0" value="l"/>
+      </item>
+      <item name="No.z">
+        <property target="title" propertyId="0" value="z"/>
+      </item>
+      <item name="No.x">
+        <property target="title" propertyId="0" value="x"/>
+      </item>
+      <item name="No.c">
+        <property target="title" propertyId="0" value="c"/>
+      </item>
+      <item name="No.v">
+        <property target="title" propertyId="0" value="v"/>
+      </item>
+      <item name="No.b">
+        <property target="title" propertyId="0" value="b"/>
+      </item>
+      <item name="No.n">
+        <property target="title" propertyId="0" value="n"/>
+      </item>
+      <item name="No.m">
+        <property target="title" propertyId="0" value="m"/>
+      </item>
+      <item name="space">
+        <property target="title" propertyId="0" value="空格"/>
+      </item>
+      <item name="DaXie">
+        <property target="title" propertyId="0" value="大写"/>
+      </item>
+      <item name="ShuZi">
+        <property target="title" propertyId="0" value="数字"/>
+      </item>
+      <item name="clear">
+        <property target="title" propertyId="0" value="清空"/>
+      </item>
+      <item name="delete">
+        <property target="title" propertyId="0" value="删除"/>
+      </item>
+      <item name="ok">
+        <property target="title" propertyId="0" value="确认"/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+      </item>
+    </list>
+    <component id="n14_86hh" name="tip" src="86hhj" fileName="components/ItemTip2.xml" xy="0,310">
+      <property target="title" propertyId="0" value=""/>
+    </component>
+  </displayList>
+</component>

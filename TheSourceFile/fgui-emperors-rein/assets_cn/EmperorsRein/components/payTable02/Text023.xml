@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="889,687">
+  <displayList>
+    <richtext id="n1_tsjn" name="n1" xy="0,0" size="889,687" fontSize="38" color="#ffffff" align="center" leading="0" autoSize="none" text="同一局游戏中，不同数量的&lt;img src=&quot;ui://vdmp4vsrw36x19&quot; width=&quot;100&quot; height=&quot;106&quot;/&gt; &#xA;可触发不同数量的帝国荣耀免费游戏。&#xA;3个&lt;img src=&quot;ui://vdmp4vsrw36x19&quot; width=&quot;100&quot; height=&quot;106&quot;/&gt; ＝6场帝国荣耀免费游戏&#xA;4个&lt;img src=&quot;ui://vdmp4vsrw36x19&quot; width=&quot;100&quot; height=&quot;106&quot;/&gt; ＝9场帝国荣耀免费游戏&#xA;5个&lt;img src=&quot;ui://vdmp4vsrw36x19&quot; width=&quot;100&quot; height=&quot;106&quot;/&gt; ＝12场帝国荣耀免费游戏&#xA;免费游戏期间不出现&lt;img src=&quot;ui://vdmp4vsrw36x19&quot; width=&quot;100&quot; height=&quot;106&quot;/&gt; 。">
+      <relation target="" sidePair="center-center"/>
+    </richtext>
+  </displayList>
+</component>

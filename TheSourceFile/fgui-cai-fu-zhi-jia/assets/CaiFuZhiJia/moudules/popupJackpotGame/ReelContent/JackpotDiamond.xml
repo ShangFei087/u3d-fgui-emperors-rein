@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <loader id="n0_q5jy" name="example" xy="0,0" pivot="0.5,0.5" anchor="true" size="156,110" url="ui://k5oi8hwrq5jy5q" autoSize="true" clearOnPublish="true"/>
+    <graph id="n1_q5jy" name="holder" xy="0,0" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <text id="n2_6ydp" name="rewardText" xy="-79,3" size="157,34" font="ui://k5oi8hwrh8erd8" fontSize="10" color="#ffffff" align="center" vAlign="middle" autoSize="none" text=""/>
+  </displayList>
+</component>

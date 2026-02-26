@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="529,56" mask="n0_lnet">
+  <displayList>
+    <image id="n0_lnet" name="n0" src="lnetg" fileName="images/popupGameLoading/gme_loading_mask.png" xy="0,0" size="529,56">
+      <relation target="" sidePair="width-width,height-height%"/>
+    </image>
+    <image id="n1_lnet" name="n1" src="cmra2" fileName="images/popupGameLoading/load_img_speed.png" xy="0,0" aspect="true"/>
+  </displayList>
+</component>

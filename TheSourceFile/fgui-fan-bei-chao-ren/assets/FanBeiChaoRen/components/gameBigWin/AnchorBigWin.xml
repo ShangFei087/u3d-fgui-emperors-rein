@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <graph id="n1_bllo" name="holder" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect" lineSize="0">
+      <relation target="" sidePair=""/>
+    </graph>
+    <loader id="n2_bllo" name="example" xy="-2,0" pivot="0.5,0.5" anchor="true" size="799,538" url="ui://9kq20teablloy" clearOnPublish="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+    <graph id="n3_bllo" name="n3" xy="-4,-4" pivot="0.5,0.5" size="10,10" visible="false" type="rect" lineSize="0" fillColor="#ffff0000"/>
+  </displayList>
+</component>

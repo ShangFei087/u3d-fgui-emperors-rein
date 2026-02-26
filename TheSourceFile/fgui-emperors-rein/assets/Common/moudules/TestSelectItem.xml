@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="250,60" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <graph id="n0_rl7y" name="n0" xy="5,5" size="240,50" touchable="false" type="rect" lineSize="0" fillColor="#fff0f0f0">
+      <gearDisplay controller="button" pages="0,1,2,3"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <text id="n3_rl7y" name="title" xy="5,5" size="240,50" fontSize="26" color="#333333" align="center" vAlign="middle" autoSize="shrink" text="Button1"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.8"/>
+</component>

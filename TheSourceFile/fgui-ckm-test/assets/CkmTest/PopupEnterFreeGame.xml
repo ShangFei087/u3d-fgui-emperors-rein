@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n6_fr2h" name="n6" src="fr2h2t" fileName="moudules/pop-upWindows/mask.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n0_fr2h" name="n0" src="fr2h1l" fileName="images/pop-upWindows/fg_txt_FREE BONUS.png" xy="47,823" scale="1.5,1.5"/>
+    <image id="n1_fr2h" name="n1" src="fr2h1d" fileName="images/pop-upWindows/ng_txt_YOU TRIGGERED.png" xy="289,468" scale="2,2"/>
+    <image id="n3_fr2h" name="n3" src="fr2h1f" fileName="images/pop-upWindows/ng_txt_MULTIPLIER MAN.png" xy="193,1053" scale="2,2"/>
+    <image id="n4_fr2h" name="n4" src="fr2h1i" fileName="images/pop-upWindows/ng_txt_STACKED WILD.png" xy="147,1180" scale="2,2"/>
+    <text id="n5_fr2h" name="n5" xy="322,600" size="203,104" scale="2,2" font="ui://4hwvsyqffr2hx" fontSize="12" align="center" vAlign="middle" autoSize="none" text="5"/>
+    <image id="n8_fr2h" name="n8" src="fr2h1c" fileName="images/pop-upWindows/ng_txt_Touch to continue.png" xy="233,1351" scale="2,2"/>
+    <component id="n9_fr2h" name="continue" src="fr2h2q" fileName="components/pop-upWindows/continue.xml" xy="0,0" alpha="0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+  </displayList>
+</component>

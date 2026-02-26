@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" designImage="ui://k5oi8hwrn3ln1y">
+  <displayList>
+    <component id="n7_hhky" name="freeGetAnimation" src="hhky43" fileName="moudules/freeSpinTrigger/FreeGetAnimation.xml" xy="540,960"/>
+    <component id="n8_hhky" name="freeGameResultScore" src="hhky44" fileName="moudules/freeSpinResult/FreeGameResultScore.xml" xy="0,745"/>
+    <component id="n6_j09u" name="freeStartBtn" src="j09u3y" fileName="components/freeSpinTrigger/FreeStartButton.xml" xy="372,1446"/>
+  </displayList>
+</component>

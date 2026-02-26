@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="635,381">
+  <displayList>
+    <component id="n0_lnet" name="reels" src="lnet1i" fileName="moudules/slotMachine/Reels.xml" xy="317,190" pivot="0.5,0.5" anchor="true" size="700,381">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n1_lnet" name="slotCover" src="lnet1k" fileName="moudules/slotMachine/SlotCovr.xml" xy="318,190" pivot="0.5,0.5" anchor="true"/>
+    <component id="n2_lnet" name="playLines" src="lnet3i" fileName="components/AnchorPlayLines.xml" xy="0,0"/>
+  </displayList>
+</component>

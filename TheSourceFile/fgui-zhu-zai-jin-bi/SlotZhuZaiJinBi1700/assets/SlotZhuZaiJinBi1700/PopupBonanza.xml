@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_e6zw" name="n1" src="vv1y5c" fileName="components/Mash.xml" xy="0,0"/>
+    <component id="n2_e6zw" name="n2" src="e6zw86" fileName="components/popupBonanza/AnchorBonanza.xml" xy="551,867" scale="1.5,1.5"/>
+  </displayList>
+</component>

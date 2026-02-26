@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_nz4n" name="n1" src="bllo10" fileName="components/Mask.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n2_nz4n" name="n2" src="nz4npo" fileName="images/BonusSettle/fg_txt_FREE BONUS.png" xy="215,826"/>
+    <image id="n3_nz4n" name="n3" src="hjsh32" fileName="images/BonusSettle/ng_txt_YOU WON.png" xy="391,1030" size="296,50" aspect="true"/>
+    <richtext id="n4_nz4n" name="num1" xy="199,1145" size="682,109" font="ui://9kq20teafv2712" fontSize="15" align="center" vAlign="middle" autoSize="none" text="999999"/>
+    <image id="n5_nz4n" name="n5" src="nz4npq" fileName="images/BonusSettle/fg_txt_FREESPINS PLAYED_.png" xy="263,1369"/>
+    <component id="n0_nz4n" name="button" src="fv271f" fileName="components/Button1.xml" xy="0,-6" size="1080,1920">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <richtext id="n6_nz4n" name="n6" xy="590,1362" size="57,44" font="ui://9kq20teahjsh3h" fontSize="15" align="center" vAlign="middle" autoSize="none" text="5"/>
+  </displayList>
+</component>

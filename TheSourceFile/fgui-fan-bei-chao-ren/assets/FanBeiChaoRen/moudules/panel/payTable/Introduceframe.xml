@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1093">
+  <displayList>
+    <image id="n0_kb8b" name="n0" src="kb8br0" fileName="images/panel01/introduce/beijing.png" xy="35,72" size="1009,988"/>
+    <image id="n2_kb8b" name="n2" src="kb8brs" fileName="images/panel01/introduce/边框.png" xy="11,175" size="87,763"/>
+    <image id="n3_kb8b" name="n3" src="kb8brs" fileName="images/panel01/introduce/边框.png" xy="1068,177" size="87,763" scale="-1,1"/>
+    <image id="n4_kb8b" name="n4" src="kb8bqz" fileName="images/panel01/introduce/底框.png" xy="16,935"/>
+    <image id="n5_kb8b" name="n5" src="kb8bsk" fileName="images/panel01/introduce/顶框.png" xy="1,19"/>
+  </displayList>
+</component>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="968,299">
+  <displayList>
+    <image id="n0_cwuo" name="n0" src="vqlx68" fileName="images/common/circle_24.png" xy="0,0" size="968,299" color="#333333">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n1_cwuo" name="kbabcd" src="dzs17d" fileName="moudules/ItemKeyboardabcd.xml" xy="27,29" visible="false"/>
+    <component id="n87_cwuo" name="kbABC" src="dzs17b" fileName="moudules/ItemKeyboardABC.xml" xy="27,29" visible="false"/>
+    <component id="n39_cwuo" name="kb123" src="dzs17a" fileName="moudules/ItemKeyboard123.xml" xy="27,29"/>
+    <component id="n123_cwuo" name="kbOperator" src="dzs179" fileName="moudules/ItemKeyboardOperator.xml" xy="27,29" visible="false"/>
+  </displayList>
+</component>

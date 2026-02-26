@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="frz4r9ow">
+  <resources>
+    <component id="w36x0" name="Panel.xml" path="/moudules/" exported="true"/>
+    <component id="w36xi" name="GameDiFrame.xml" path="/moudules/" exported="true"/>
+    <component id="jkh95u" name="PayYable.xml" path="/moudules/payTable/" exported="true"/>
+    <image id="ldscfl" name="bg_3.png" path="/images/frame/" exported="true"/>
+    <image id="ldscfm" name="bg_notice.png" path="/images/frame/" exported="true"/>
+    <image id="ldscfn" name="bg_1.png" path="/images/frame/" exported="true" scale="9grid" scale9grid="481,25,27,50"/>
+    <image id="ldscfo" name="bet_.png" path="/images/frame/" exported="true"/>
+    <image id="ldscfp" name="credit_.png" path="/images/frame/" exported="true"/>
+    <image id="ldscfq" name="win_.png" path="/images/frame/" exported="true"/>
+    <image id="ioi7ft" name="icon_border.png" path="/images/frame/" exported="true"/>
+    <image id="ioi7g3" name="sound-1.png" path="/images/button/" exported="true"/>
+    <image id="ioi7g4" name="sound.png" path="/images/button/" exported="true"/>
+    <image id="ioi7g5" name="icon_arrow_2.png" path="/images/introduce/" exported="true"/>
+    <image id="ioi7g6" name="btn_bg.png" path="/images/button/" exported="true"/>
+    <image id="ioi7g7" name="btn_bet_down.png" path="/images/button/" exported="true"/>
+    <image id="ioi7g8" name="btn_bet_up.png" path="/images/button/" exported="true"/>
+    <image id="ioi7g9" name="btn_bet_down01.png" path="/images/button/" exported="true"/>
+    <image id="ioi7ga" name="btn_bet_up01.png" path="/images/button/" exported="true"/>
+    <image id="ioi7gb" name="sound-3.png" path="/images/button/" exported="true"/>
+    <image id="ioi7gc" name="sound-2.png" path="/images/button/" exported="true"/>
+    <image id="ioi7gy" name="icon_play.png" path="/images/button/" exported="true"/>
+    <image id="ioi7gz" name="icon_play_1.png" path="/images/button/" exported="true"/>
+    <image id="ioi7h0" name="icon_stop.png" path="/images/button/" exported="true"/>
+    <image id="ioi7h1" name="icon_stop_1.png" path="/images/button/" exported="true"/>
+    <image id="ioi7h2" name="icon_auto.png" path="/images/button/" exported="true"/>
+    <image id="ioi7h3" name="icon_auto_1.png" path="/images/button/" exported="true"/>
+    <image id="ioi7h9" name="icon_redeem.png" path="/images/button/" exported="true"/>
+    <component id="ioi7hg" name="SetPanel.xml" path="/moudules/" exported="true"/>
+    <image id="ioi7ho" name="icon_what.png" path="/images/button/" exported="true"/>
+    <image id="ioi7hp" name="icon_return.png" path="/images/button/" exported="true"/>
+    <image id="ioi7hq" name="icon_i.png" path="/images/button/" exported="true"/>
+    <image id="ioi7hs" name="btn_select_001A.png" path="/images/introduce/" exported="true"/>
+    <image id="ioi7ht" name="btn_select_001B.png" path="/images/introduce/" exported="true"/>
+    <component id="ioi7hu" name="IntroduceBtn.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="ioi7i0" name="ButtonHelp.xml" path="/components/" exported="true"/>
+    <component id="ioi7i1" name="untouch.xml" path="/components/" exported="true"/>
+    <component id="ioi7i2" name="ButtonSpin.xml" path="/components/" exported="true"/>
+    <component id="ioi7i4" name="AnchorSpin.xml" path="/components/" exported="true"/>
+    <image id="ioi7i5" name="BG_001_b.png" path="/images/introduce/" exported="true" scale="9grid" scale9grid="62,62,21,17"/>
+    <image id="ioi7i7" name="paytable_bg.png" path="/images/introduce/" exported="true" scale="tile" scale9grid="85,80,1,1"/>
+    <component id="ioi7i9" name="Component1.xml" path="/moudules/payTable/" exported="true"/>
+    <image id="ioi7ib" name="circle_24.png" path="/images/common/" exported="true" scale="9grid" scale9grid="11,11,2,2"/>
+    <component id="ioi7ic" name="UntouchCircle24.xml" path="/components/mask/" exported="true"/>
+    <component id="ioi7ie" name="ButtonIntroduce.xml" path="/components/button/" exported="true"/>
+    <component id="ioi7if" name="ButtonSound.xml" path="/components/" exported="true"/>
+    <component id="ioi7ig" name="ButtonBetUp.xml" path="/components/button/" exported="true"/>
+    <component id="ioi7ih" name="ButtonBetDown.xml" path="/components/button/" exported="true"/>
+    <component id="ioi7ii" name="ButtonL.xml" path="/components/button/" exported="true"/>
+    <component id="ioi7ij" name="PayTableText.xml" path="/components/" exported="true"/>
+    <image id="ioi7ik" name="paytable_mask.png" path="/images/introduce/" exported="true"/>
+    <image id="ebguil" name="Frame.png" path="/images/introduce/" exported="true"/>
+    <component id="127mxj2" name="ButtonBetDown.xml" path="/components/Button/"/>
+    <image id="127mxj3" name="sound-2.png" path="/images/Button/"/>
+    <image id="127mxj4" name="sound-1.png" path="/images/Button/"/>
+    <image id="127mxj5" name="icon_what.png" path="/images/Button/"/>
+    <image id="127mxj6" name="icon_stop_1.png" path="/images/Button/"/>
+    <image id="127mxj7" name="icon_stop.png" path="/images/Button/"/>
+    <image id="127mxj8" name="icon_return.png" path="/images/Button/"/>
+    <image id="127mxj9" name="icon_redeem.png" path="/images/Button/"/>
+    <image id="127mxja" name="icon_play_1.png" path="/images/Button/"/>
+    <image id="127mxjb" name="icon_play.png" path="/images/Button/"/>
+    <image id="127mxjc" name="sound-3.png" path="/images/Button/"/>
+    <image id="127mxjd" name="icon_i.png" path="/images/Button/"/>
+    <image id="127mxje" name="icon_auto.png" path="/images/Button/"/>
+    <image id="127mxjf" name="btn_bg.png" path="/images/Button/"/>
+    <image id="127mxjg" name="btn_bet_up01.png" path="/images/Button/"/>
+    <image id="127mxjh" name="btn_bet_up.png" path="/images/Button/"/>
+    <image id="127mxji" name="btn_bet_down01.png" path="/images/Button/"/>
+    <image id="127mxjj" name="btn_bet_down.png" path="/images/Button/"/>
+    <component id="127mxjk" name="ButtonL.xml" path="/components/Button/"/>
+    <component id="127mxjl" name="ButtonIntroduce.xml" path="/components/Button/"/>
+    <component id="127mxjm" name="ButtonBetUp.xml" path="/components/Button/"/>
+    <image id="127mxjn" name="icon_auto_1.png" path="/images/Button/"/>
+    <image id="127mxjo" name="sound.png" path="/images/Button/"/>
+    <component id="mg7xxjp" name="ButtonHome.xml" path="/components/button/" exported="true"/>
+  </resources>
+  <publish name="" path="../../Assets/GameRes/Games/Panel01/FGUIs" packageCount="2"/>
+</packageDescription>

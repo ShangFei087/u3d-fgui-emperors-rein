@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1178">
+  <displayList>
+    <component id="n31_os7y" name="mdJackpotOnline" src="glrj1k" fileName="moudules/ModuleName.xml" xy="0,0" group="n27_cwuo">
+      <property target="title" propertyId="0" value="Jackpot Online"/>
+    </component>
+    <component id="n32_os7y" name="jackpotOnline" src="cwuo2d" fileName="moudules/ItemTitleSwitch.xml" xy="0,38" group="n27_cwuo">
+      <property target="key" propertyId="0" value="Jackpot Online:"/>
+    </component>
+    <component id="n33_os7y" name="jackpotScoreRate" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="0,114" group="n27_cwuo">
+      <property target="key" propertyId="0" value="Jackpot Score Rate:"/>
+      <property target="value" propertyId="0" value="0.06"/>
+    </component>
+    <component id="n34_os7y" name="jackpotPercent" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,190" group="n27_cwuo">
+      <property target="key" propertyId="0" value="Jackpot Percent:"/>
+      <property target="value" propertyId="0" value="0.005"/>
+    </component>
+    <component id="n48_vqlx" name="mdJackpotGame" src="glrj1k" fileName="moudules/ModuleName.xml" xy="0,266" group="n27_cwuo">
+      <property target="title" propertyId="0" value="Jackpot Game"/>
+    </component>
+    <component id="n49_vqlx" name="jackpotGamePercent" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,304" group="n27_cwuo">
+      <property target="key" propertyId="0" value="Jackpot Game Percent:"/>
+      <property target="value" propertyId="0" value="0.005"/>
+    </component>
+    <component id="n35_os7y" name="mdIOT" src="glrj1k" fileName="moudules/ModuleName.xml" xy="0,380" group="n27_cwuo">
+      <property target="title" propertyId="0" value="IOT"/>
+    </component>
+    <component id="n36_os7y" name="iotAddresse" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="0,418" group="n27_cwuo">
+      <property target="key" propertyId="0" value="IOT Address:"/>
+      <property target="value" propertyId="0" value="http://i.test.gzhaoku.com/admin/resp/firmware/query"/>
+    </component>
+    <component id="n37_os7y" name="iot" src="cwuo2d" fileName="moudules/ItemTitleSwitch.xml" xy="0,494" group="n27_cwuo">
+      <property target="key" propertyId="0" value="IOT:"/>
+    </component>
+    <component id="n38_os7y" name="iotAccessMethods" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,570" group="n27_cwuo">
+      <property target="key" propertyId="0" value="IOT Access Methods:"/>
+      <property target="value" propertyId="0" value="Mini Program &lt;img src=&apos;ui://xp0b9yqdos7y4i&apos; width=&apos;20&apos; height=&apos;20&apos;/&gt;[color=#666666]666[/color]"/>
+    </component>
+    <component id="n41_os7y" name="mdRemoteControl" src="glrj1k" fileName="moudules/ModuleName.xml" xy="0,646" group="n27_cwuo">
+      <property target="title" propertyId="0" value="Remote Control"/>
+    </component>
+    <component id="n43_os7y" name="iotRemoteControl" src="cwuo2d" fileName="moudules/ItemTitleSwitch.xml" xy="0,684" group="n27_cwuo">
+      <property target="key" propertyId="0" value="Remote Control:"/>
+    </component>
+    <component id="n44_os7y" name="remoteControlSetting" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,760" group="n27_cwuo">
+      <property target="key" propertyId="0" value="Remote Control Setting:"/>
+      <property target="value" propertyId="0" value="192.168.3.174:1883&lt;img src=&apos;ui://xp0b9yqdos7y4j&apos; width=&apos;20&apos; height=&apos;20&apos;/&gt;"/>
+    </component>
+    <component id="n45_os7y" name="remoteControlAccount" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,836" group="n27_cwuo">
+      <property target="key" propertyId="0" value="Remote Control Account:"/>
+      <property target="value" propertyId="0" value="tester / 123456"/>
+    </component>
+    <component id="n42_os7y" name="mdOther" src="glrj1k" fileName="moudules/ModuleName.xml" xy="0,912" group="n27_cwuo">
+      <property target="title" propertyId="0" value="Other"/>
+    </component>
+    <component id="n46_os7y" name="coinOutImmediately" src="cwuo2d" fileName="moudules/ItemTitleSwitch.xml" xy="0,950" group="n27_cwuo">
+      <property target="key" propertyId="0" value="Coin Out Immediately:"/>
+    </component>
+    <component id="n47_os7y" name="checkHotfixMultipleTimes" src="cwuo2d" fileName="moudules/ItemTitleSwitch.xml" xy="0,1026" group="n27_cwuo">
+      <property target="key" propertyId="0" value="Check Hotfix Multiple Times:"/>
+    </component>
+    <group id="n27_cwuo" name="left" xy="0,0" size="540,1102" advanced="true"/>
+    <component id="n40_os7y" name="n40" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="540,0" group="n30_cwuo" visible="false"/>
+    <group id="n30_cwuo" name="right" xy="540,0" size="540,76" advanced="true"/>
+  </displayList>
+</component>

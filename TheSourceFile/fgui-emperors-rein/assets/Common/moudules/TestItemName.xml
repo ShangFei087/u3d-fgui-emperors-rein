@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="250,60" extention="Label">
+  <displayList>
+    <text id="n0_r8oz" name="title" xy="5,0" size="240,60" fontSize="30" color="#ffffff" vAlign="middle" autoSize="shrink" text="Ver 2.23.0/2.23.6">
+      <relation target="" sidePair="width-width,height-height"/>
+    </text>
+  </displayList>
+  <customProperty target="title" propertyId="0" label="标题"/>
+</component>

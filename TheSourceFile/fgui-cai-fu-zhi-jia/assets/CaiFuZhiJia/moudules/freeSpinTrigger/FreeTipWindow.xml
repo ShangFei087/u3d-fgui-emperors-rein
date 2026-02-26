@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" designImage="ui://k5oi8hwrisifi6">
+  <displayList>
+    <component id="n15_hhky" name="freeGetAnimation" src="hhky43" fileName="moudules/freeSpinTrigger/FreeGetAnimation.xml" xy="540,960"/>
+    <image id="n17_isif" name="n17" src="isifi7" fileName="images/popupFreeTrigger/sg_txt_congrart.png" xy="543,364" pivot="0.5,0.5" anchor="true" visible="false"/>
+    <image id="n18_isif" name="n18" src="isifi8" fileName="images/popupFreeTrigger/sg_txt_won.png" xy="552,556" pivot="0.5,0.5" anchor="true" visible="false"/>
+    <image id="n19_isif" name="n19" src="isifib" fileName="images/popupFreeTrigger/fg_txt_free.png" xy="320,1235" visible="false"/>
+    <component id="n13_j09u" name="freeStartBtn" src="j09u3y" fileName="components/freeSpinTrigger/FreeStartButton.xml" xy="369,1438"/>
+    <text id="n16_qirh" name="freeRound" xy="188,659" size="624,473" font="ui://k5oi8hwrqirhh8" fontSize="12" align="center" vAlign="middle" autoSize="none" text="10"/>
+  </displayList>
+  <transition name="scaleAnim">
+    <item time="0" type="Scale" target="n13_j09u" value="1,1"/>
+    <item time="0" type="Scale" target="n16_qirh" value="1,1"/>
+    <item time="0" type="Scale" target="n17_isif" value="1,1"/>
+    <item time="0" type="Scale" target="n18_isif" value="1.4,1.4"/>
+    <item time="0" type="Scale" target="n19_isif" value="1.4,1.4"/>
+    <item time="6" type="Scale" target="n13_j09u" value="1.2,1.2"/>
+    <item time="6" type="Scale" target="n16_qirh" value="1.1,1.1"/>
+    <item time="6" type="Scale" target="n17_isif" value="1.1,1.1"/>
+    <item time="6" type="Scale" target="n18_isif" value="1.4,1.4"/>
+    <item time="6" type="Scale" target="n19_isif" value="1.4,1.4"/>
+    <item time="12" type="Scale" target="n13_j09u" value="1,1"/>
+    <item time="12" type="Scale" target="n16_qirh" value="1,1"/>
+    <item time="12" type="Scale" target="n17_isif" value="1,1"/>
+    <item time="12" type="Scale" target="n18_isif" value="1.4,1.4"/>
+    <item time="12" type="Scale" target="n19_isif" value="1.4,1.4"/>
+  </transition>
+</component>

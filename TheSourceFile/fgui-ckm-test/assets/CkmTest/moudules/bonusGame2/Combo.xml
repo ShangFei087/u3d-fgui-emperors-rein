@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="134,183">
+  <displayList>
+    <image id="n1_fr2h" name="n1" src="fr2h3c" fileName="images/bonusGame2/sg_img_pkpbml.png" xy="0,0"/>
+    <component id="n3_fr2h" name="higher" src="fr2h4y" fileName="components/bonusGame2/higher.xml" xy="13,5"/>
+    <component id="n4_fr2h" name="lower" src="fr2h4z" fileName="components/bonusGame2/kower.xml" xy="13,100"/>
+  </displayList>
+</component>

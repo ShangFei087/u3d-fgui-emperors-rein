@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <loader id="n0_t0u4" name="example" xy="1,0" pivot="0.5,0.5" anchor="true" size="750,841" url="ui://zcotsi26lnetk" autoSize="true"/>
+    <graph id="n1_t0u4" name="holdler" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect" lineSize="0" fillColor="#ffff0000"/>
+  </displayList>
+</component>

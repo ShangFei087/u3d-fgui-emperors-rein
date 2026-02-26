@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <loader id="n8_bysw" name="example" xy="0,0" pivot="0.5,0.5" anchor="true" size="50,50" autoSize="true"/>
+    <graph id="n9_bysw" name="holder" xy="0,0" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+  </displayList>
+</component>

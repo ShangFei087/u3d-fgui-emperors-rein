@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="184,280">
+  <displayList>
+    <loader id="n0_qct4" name="n0" xy="-8,-17" size="200,200" url="ui://9kq20teahjsh3q" autoSize="true"/>
+    <text id="n1_qct4" name="n1" xy="90,137" size="74,99" font="ui://9kq20teaqct4qi" fontSize="30" color="#ff9933" align="center" vAlign="middle" leading="0" autoSize="none" text="150"/>
+    <text id="n2_qct4" name="n2" xy="90,162" size="74,99" font="ui://9kq20teaqct4qi" fontSize="30" color="#ff9933" align="center" vAlign="middle" leading="0" autoSize="none" text="50"/>
+    <text id="n3_qct4" name="n3" xy="90,187" size="74,99" font="ui://9kq20teaqct4qi" fontSize="30" color="#ff9933" align="center" vAlign="middle" leading="0" autoSize="none" text="30"/>
+    <text id="n4_qct4" name="n4" xy="52,171" size="20,31" font="ui://9kq20teaqct4qj" fontSize="4" color="#ffffff" text="5"/>
+    <text id="n5_qct4" name="n5" xy="52,197" size="20,31" font="ui://9kq20teaqct4qj" fontSize="4" color="#ffffff" align="center" vAlign="middle" text="4"/>
+    <text id="n6_qct4" name="n6" xy="52,229" size="19,31" font="ui://9kq20teaqct4qj" fontSize="4" color="#ffffff" align="center" vAlign="middle" text="3"/>
+  </displayList>
+</component>

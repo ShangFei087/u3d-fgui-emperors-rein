@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n7_j122" name="n7" src="ldsc112" fileName="moudules/panel01/payTable/Introduceframe.xml" xy="0,696"/>
+    <component id="n17_q2p2" name="payTable" src="ldsc117" fileName="moudules/panel01/payTable/PayYable.xml" xy="0,816"/>
+    <component id="n16_j122" name="btnController" src="ldsc10w" fileName="moudules/panel01/payTable/IntroduceBtn.xml" xy="0,1630"/>
+  </displayList>
+</component>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <controller name="tab" pages="0,business,1,coin" selected="0"/>
+  <displayList>
+    <component id="n3_glrj" name="n3" src="glrj1j" fileName="moudules/BaseBG.xml" xy="1,0">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="nav1/title" propertyId="0" value="123"/>
+    </component>
+    <component id="n32_g3lh" name="machineName" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="0,536">
+      <property target="key" propertyId="0" value="Machine Name:"/>
+      <property target="value" propertyId="0" value="GOOD FORTUNE RETURNS"/>
+    </component>
+    <component id="n33_g3lh" name="softwareVer" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="0,612">
+      <property target="key" propertyId="0" value="Software Ver:"/>
+      <property target="value" propertyId="0" value="1.0.0/1.0.1"/>
+    </component>
+    <component id="n34_g3lh" name="hardwareVer" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="0,688">
+      <property target="key" propertyId="0" value="Hardware Ver:"/>
+      <property target="value" propertyId="0" value="1.0.0"/>
+    </component>
+    <component id="n35_g3lh" name="algorithmVer" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="0,764">
+      <property target="key" propertyId="0" value="Algorithm Ver:"/>
+      <property target="value" propertyId="0" value="1.0.1"/>
+    </component>
+    <component id="n36_g3lh" name="producedBy" src="g3lh5n" fileName="moudules/ItemProducedBy.xml" xy="0,840">
+      <property target="key" propertyId="0" value="Produced By:"/>
+      <property target="icon" propertyId="1" value="ui://xp0b9yqdoibkf"/>
+    </component>
+    <component id="n29_os7y" name="navBottom" src="glrj1l" fileName="moudules/Buttom1.xml" xy="0,1802">
+      <relation target="" sidePair="width-width,bottom-bottom"/>
+      <property target="title" propertyId="0" value="Game Information"/>
+    </component>
+  </displayList>
+</component>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="820,492">
+  <displayList>
+    <component id="n0_q5jy" name="jackpotSpine_0" src="q5jy5w" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamond.xml" xy="82,82"/>
+    <component id="n1_q5jy" name="jackpotSpine_1" src="q5jy5w" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamond.xml" xy="246,82"/>
+    <component id="n2_q5jy" name="jackpotSpine_2" src="q5jy5w" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamond.xml" xy="410,82"/>
+    <component id="n3_q5jy" name="jackpotSpine_3" src="q5jy5w" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamond.xml" xy="574,82"/>
+    <component id="n4_q5jy" name="jackpotSpine_4" src="q5jy5w" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamond.xml" xy="738,82"/>
+    <component id="n5_q5jy" name="jackpotSpine_5" src="q5jy5w" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamond.xml" xy="82,246"/>
+    <component id="n6_q5jy" name="jackpotSpine_6" src="q5jy5w" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamond.xml" xy="246,246"/>
+    <component id="n7_q5jy" name="jackpotSpine_7" src="q5jy5w" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamond.xml" xy="410,246"/>
+    <component id="n8_q5jy" name="jackpotSpine_8" src="q5jy5w" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamond.xml" xy="574,246"/>
+    <component id="n9_q5jy" name="jackpotSpine_9" src="q5jy5w" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamond.xml" xy="738,246"/>
+    <component id="n10_q5jy" name="jackpotSpine_10" src="q5jy5w" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamond.xml" xy="82,410"/>
+    <component id="n11_q5jy" name="jackpotSpine_11" src="q5jy5w" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamond.xml" xy="246,410"/>
+    <component id="n12_q5jy" name="jackpotSpine_12" src="q5jy5w" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamond.xml" xy="410,410"/>
+    <component id="n13_q5jy" name="jackpotSpine_13" src="q5jy5w" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamond.xml" xy="574,410"/>
+    <component id="n14_q5jy" name="jackpotSpine_14" src="q5jy5w" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamond.xml" xy="738,410"/>
+  </displayList>
+</component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,45" extention="Slider">
+  <displayList>
+    <image id="n0_nzm0" name="n0" src="nzm03" fileName="images/PopupGameLoading/load_slider_bg.png" xy="0,0" size="800,45">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_nzm0" name="bar" src="nzm04" fileName="images/PopupGameLoading/load_slider_fill.png" xy="0,6" size="800,33"/>
+    <component id="n2_nzm0" name="grip" src="nzm0f" fileName="components/gameLoding/Slider1_grip.xml" xy="781,4">
+      <relation target="n1_nzm0" sidePair="right-right"/>
+    </component>
+  </displayList>
+  <Slider/>
+</component>

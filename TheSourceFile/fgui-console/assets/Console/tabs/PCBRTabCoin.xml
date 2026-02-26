@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1178">
+  <displayList>
+    <graph id="n49_g3lh" name="n49" xy="40,74" size="1000,2" type="rect" lineSize="0"/>
+    <graph id="n59_g3lh" name="n59" xy="40,131" size="1000,2" type="rect" lineSize="0"/>
+    <graph id="n63_g3lh" name="n63" xy="5,890" size="1070,3" type="rect" lineSize="0"/>
+    <component id="n66_g3lh" name="dateInOut" src="g3lh58" fileName="moudules/ItemDateSelect.xml" xy="0,0"/>
+    <text id="n92_g3lh" name="inOut" xy="0,76" size="108,57" group="n98_g3lh" fontSize="26" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="In-Out"/>
+    <text id="n93_g3lh" name="credit" xy="108,76" size="108,57" group="n98_g3lh" fontSize="26" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="Credit"/>
+    <text id="n94_g3lh" name="Device" xy="216,76" size="162,57" group="n98_g3lh" fontSize="26" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="Device"/>
+    <text id="n95_g3lh" name="beforeCredit" xy="378,76" size="162,57" group="n98_g3lh" fontSize="26" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="Before Credit"/>
+    <text id="n96_g3lh" name="afterCredit" xy="540,76" size="162,57" group="n98_g3lh" fontSize="26" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="After Credit"/>
+    <text id="n97_g3lh" name="date" xy="702,76" size="378,57" group="n98_g3lh" fontSize="26" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="Date"/>
+    <group id="n98_g3lh" name="tableName" xy="0,76" size="1080,57" advanced="true"/>
+    <component id="n99_g3lh" name="row0" src="g3lh5k" fileName="moudules/ItemCoinInOutItem.xml" xy="0,133"/>
+    <component id="n106_g3lh" name="row1" src="g3lh5k" fileName="moudules/ItemCoinInOutItem.xml" xy="0,209"/>
+    <component id="n107_g3lh" name="row2" src="g3lh5k" fileName="moudules/ItemCoinInOutItem.xml" xy="0,285"/>
+    <component id="n108_g3lh" name="row3" src="g3lh5k" fileName="moudules/ItemCoinInOutItem.xml" xy="0,361"/>
+    <component id="n109_g3lh" name="row4" src="g3lh5k" fileName="moudules/ItemCoinInOutItem.xml" xy="0,437"/>
+    <component id="n110_g3lh" name="row5" src="g3lh5k" fileName="moudules/ItemCoinInOutItem.xml" xy="0,513"/>
+    <component id="n111_g3lh" name="row6" src="g3lh5k" fileName="moudules/ItemCoinInOutItem.xml" xy="0,589"/>
+    <component id="n112_g3lh" name="row7" src="g3lh5k" fileName="moudules/ItemCoinInOutItem.xml" xy="0,665"/>
+    <component id="n113_g3lh" name="row8" src="g3lh5k" fileName="moudules/ItemCoinInOutItem.xml" xy="0,741"/>
+    <component id="n114_g3lh" name="row9" src="g3lh5k" fileName="moudules/ItemCoinInOutItem.xml" xy="0,817"/>
+    <component id="n67_g3lh" name="totalCoinInSummary" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="0,893" group="n74_g3lh">
+      <property target="key" propertyId="0" value="Total Coin In:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <component id="n68_g3lh" name="totalCoinOutSummary" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="360,893" group="n74_g3lh">
+      <property target="key" propertyId="0" value="Total Coin Out:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <component id="n69_g3lh" name="totalProfitCoinSummary" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="720,893" group="n74_g3lh">
+      <property target="key" propertyId="0" value="Total Profit:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <graph id="n79_g3lh" name="n79" xy="40,966" size="1000,2" group="n74_g3lh" type="rect" lineSize="0" lineColor="#ffffffff"/>
+    <group id="n74_g3lh" name="n74" xy="0,893" size="1080,76" group="n115_g3lh"/>
+    <component id="n85_g3lh" name="totalScoreUpSummary" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="0,969" group="n89_g3lh">
+      <property target="key" propertyId="0" value="Total Score Up:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <component id="n86_g3lh" name="totalScoreDownSummary" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="360,969" group="n89_g3lh">
+      <property target="key" propertyId="0" value="Total Score Down:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <component id="n87_g3lh" name="totalProfitScoreSummary" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="720,969" group="n89_g3lh">
+      <property target="key" propertyId="0" value="Total Profit:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <graph id="n88_g3lh" name="n88" xy="40,1042" size="1000,2" group="n89_g3lh" type="rect" lineSize="0" lineColor="#ffffffff"/>
+    <group id="n89_g3lh" name="n89" xy="0,969" size="1080,76" group="n115_g3lh"/>
+    <component id="n90_g3lh" name="tipDayInOut" src="g3lh5g" fileName="moudules/ItemTip.xml" xy="0,1045" group="n115_g3lh"/>
+    <group id="n115_g3lh" name="n115" xy="0,893" size="1080,228"/>
+  </displayList>
+</component>

@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="5hielhj5">
+  <resources>
+    <component id="jjye0" name="PopupGameLoading.xml" path="/" exported="true"/>
+    <image id="nzm01" name="load_bg.png" path="/images/PopupGameLoading/" exported="true"/>
+    <image id="nzm02" name="load_img_diamond.png" path="/images/PopupGameLoading/" exported="true"/>
+    <image id="nzm03" name="load_slider_bg.png" path="/images/PopupGameLoading/" exported="true"/>
+    <image id="nzm04" name="load_slider_fill.png" path="/images/PopupGameLoading/" exported="true" scale="tile"/>
+    <image id="nzm05" name="load_bg_piggy banker.png" path="/images/example/" exported="true"/>
+    <component id="nzm06" name="AnchorTitle.xml" path="/components/PopupGameLoading/" exported="true"/>
+    <component id="nzm0f" name="Slider1_grip.xml" path="/components/PopupGameLoading/" exported="true"/>
+    <component id="nzm0g" name="Slider1.xml" path="/components/PopupGameLoading/" exported="true"/>
+    <image id="lsvwh" name="ng_img_bg.png" path="/images/PopupGameNormalGame/" exported="true"/>
+    <image id="lsvwi" name="ng_img_border.png" path="/images/PopupGameNormalGame/" exported="true" scale9grid="0,148,392,296"/>
+    <image id="lsvwj" name="sg_img_NormalWheel.png" path="/images/PopupGameNormalGame/" exported="true"/>
+    <image id="lsvwk" name="sg_img_SuperWheel.png" path="/images/PopupGameNormalGame/" exported="true"/>
+    <image id="lsvwl" name="sg_img_UpgradeWhee.png" path="/images/PopupGameNormalGame/" exported="true"/>
+    <image id="lsvwm" name="sg_img_Wheel01.png" path="/images/PopupGameNormalGame/" exported="true"/>
+    <image id="lsvwn" name="sg_img_Wheel02.png" path="/images/PopupGameNormalGame/" exported="true"/>
+    <image id="lsvwo" name="sg_img_zhuanpan5.png" path="/images/PopupGameNormalGame/" exported="true"/>
+    <image id="lsvwp" name="sg_img_zhuanpan6.png" path="/images/PopupGameNormalGame/" exported="true"/>
+    <component id="lsvwq" name="PageGameMain.xml" path="/" exported="true"/>
+    <image id="lsvwy" name="sg_icon_bg.png" path="/images/PopupJackpotGame/" exported="true"/>
+    <image id="lsvwz" name="sg_img_bg.png" path="/images/PopupJackpotGame/" exported="true"/>
+    <image id="lsvw10" name="sg_img_icon_default.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="lsvw11" name="sg_img_icon_grand.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="lsvw12" name="sg_img_icon_major.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="lsvw13" name="sg_img_icon_mini.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="lsvw14" name="sg_img_icon_minor.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="lsvw15" name="sg_img_jackpotMask.png" path="/images/PopupJackpotGame/" exported="true"/>
+    <image id="lsvw16" name="sg_img_ToJG_bg.png" path="/images/PopupJackpotGame/"/>
+    <image id="lsvw17" name="sg_img_ToNG_bg.png" path="/images/PopupJackpotGame/"/>
+    <component id="lsvw19" name="Reels.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="lsvw1a" name="Reel.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="lsvw1b" name="Symbol.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="lsvw1c" name="SymbolAnimator.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="lsvw1d" name="SlotMachine.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="lsvw1e" name="SlotCover.xml" path="/moudules/slotMachine/" exported="true"/>
+    <image id="lsvw1f" name="fg_img_bg.png" path="/images/PopupGameFreeGame/" exported="true"/>
+    <image id="lsvw1g" name="fg_img_border.png" path="/images/PopupGameFreeGame/" exported="true"/>
+    <image id="lsvw1h" name="fg_img_free_bg.png" path="/images/PopupGameFreeGame/" exported="true"/>
+    <component id="lsvw1i" name="ZhuanPanPoint.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="lsvw1j" name="AnchorEffect.xml" path="/components/PopupZhuanPan/" exported="true"/>
+    <component id="lsvw1k" name="ZhuanPan.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="lsvw1l" name="ZhuanPanSpinPoint.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="lsvw1m" name="WheelPanel.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="lsvw1n" name="WheelSymbol.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="lsvw1p" name="WheelSymbolAnimator.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="lsvw1q" name="SlotMachineBg.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="l9vr1r" name="AnchorPanelPush.xml" path="/components/" exported="true"/>
+    <component id="l9vr1t" name="AnchorPlayLines.xml" path="/components/" exported="true"/>
+    <component id="l9vr1u" name="Symbols.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="l9vr1v" name="BtnSpin.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="qr2d1w" name="AnchorBG.xml" path="/components/" exported="true"/>
+    <component id="tlio1z" name="WheelSymbols.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="fcra20" name="AnchorGrandBg.xml" path="/components/" exported="true"/>
+    <component id="fcra21" name="AnchorFreeBg.xml" path="/components/" exported="true"/>
+    <component id="fcra22" name="PopupFreeSpinTrigger.xml" path="/" exported="true"/>
+    <component id="jji82a" name="GameJackMega.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
+    <image id="jji82b" name="symbol_1.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="jji82c" name="symbol_2.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="jji82d" name="symbol_3.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="jji82e" name="symbol_4.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="jji82f" name="symbol_5.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="jji82g" name="symbol_6.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="jji82h" name="symbol_7.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="jji82i" name="symbol_8.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="jji82j" name="symbol_diamond.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="jji82k" name="symbol_9.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="jji82l" name="symbol_11.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="jji82m" name="symbol_wild.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="jji82n" name="0.png" path="/fonts/fontsImage/gameLoadingImage/" exported="true"/>
+    <image id="jji82o" name="1.png" path="/fonts/fontsImage/gameLoadingImage/" exported="true"/>
+    <image id="jji82p" name="2.png" path="/fonts/fontsImage/gameLoadingImage/" exported="true"/>
+    <image id="jji82q" name="3.png" path="/fonts/fontsImage/gameLoadingImage/" exported="true"/>
+    <image id="jji82r" name="4.png" path="/fonts/fontsImage/gameLoadingImage/" exported="true"/>
+    <image id="jji82s" name="5.png" path="/fonts/fontsImage/gameLoadingImage/" exported="true"/>
+    <image id="jji82t" name="6.png" path="/fonts/fontsImage/gameLoadingImage/" exported="true"/>
+    <image id="jji82u" name="7.png" path="/fonts/fontsImage/gameLoadingImage/" exported="true"/>
+    <image id="jji82v" name="8.png" path="/fonts/fontsImage/gameLoadingImage/" exported="true"/>
+    <image id="jji82w" name="9.png" path="/fonts/fontsImage/gameLoadingImage/" exported="true"/>
+    <image id="jji82x" name="percent.png" path="/fonts/fontsImage/gameLoadingImage/" exported="true"/>
+    <font id="jji82y" name="GameLoadingFont.fnt" path="/fonts/fontsCom/gameLoading/" exported="true"/>
+    <image id="jji82z" name="fortuneroulette_en.png" path="/images/PopupGameLoading/" exported="true"/>
+    <image id="n45k30" name="symbol_bouns.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <image id="n45k31" name="symbol_lipinghe.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <image id="n45k32" name="symbol_scatter.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <image id="n45k33" name="symbol_wild.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <image id="n45k34" name="ng_img_graod.png" path="/images/PopupGameNormalGame/gameFrame/" exported="true"/>
+    <image id="n45k35" name="ng_img_major.png" path="/images/PopupGameNormalGame/gameFrame/" exported="true"/>
+    <image id="n45k36" name="ng_img_mini.png" path="/images/PopupGameNormalGame/gameFrame/" exported="true"/>
+    <image id="n45k37" name="ng_img_minor.png" path="/images/PopupGameNormalGame/gameFrame/" exported="true"/>
+    <component id="n45k3p" name="GameJackpotMajor.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
+    <component id="n45k3q" name="GameJackpotMini.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
+    <component id="n45k3r" name="GameJackpotMinor.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
+    <component id="n45k3s" name="Panel.xml" path="/moudules/panel/" exported="true"/>
+    <component id="n45k3t" name="BtnSpin.xml" path="/components/panel/" exported="true"/>
+    <font id="hbkv4b" name="normalWheelNumFont.fnt" path="/fonts/fontsCom/normalWheelNums/" exported="true"/>
+    <component id="hbkv4c" name="symbol_3x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4d" name="symbol_4x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4e" name="symbol_9x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4f" name="symbol_5x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4g" name="symbol_7x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4h" name="symbol_10x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4i" name="symbol_11x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4j" name="symbol_15x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4k" name="symbol_6x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4l" name="symbol_8x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <image id="hbkv4m" name="wheelnum_0.png" path="/fonts/fontsImage/normalWheelNumsImage/" exported="true"/>
+    <image id="hbkv4n" name="wheelnum_1.png" path="/fonts/fontsImage/normalWheelNumsImage/" exported="true"/>
+    <image id="hbkv4o" name="wheelnum_2.png" path="/fonts/fontsImage/normalWheelNumsImage/" exported="true"/>
+    <image id="hbkv4p" name="wheelnum_3.png" path="/fonts/fontsImage/normalWheelNumsImage/" exported="true"/>
+    <image id="hbkv4q" name="wheelnum_4.png" path="/fonts/fontsImage/normalWheelNumsImage/" exported="true"/>
+    <image id="hbkv4r" name="wheelnum_5.png" path="/fonts/fontsImage/normalWheelNumsImage/" exported="true"/>
+    <image id="hbkv4s" name="wheelnum_6.png" path="/fonts/fontsImage/normalWheelNumsImage/" exported="true"/>
+    <image id="hbkv4t" name="wheelnum_7.png" path="/fonts/fontsImage/normalWheelNumsImage/" exported="true"/>
+    <image id="hbkv4u" name="wheelnum_8.png" path="/fonts/fontsImage/normalWheelNumsImage/" exported="true"/>
+    <image id="hbkv4v" name="wheelnum_9.png" path="/fonts/fontsImage/normalWheelNumsImage/" exported="true"/>
+    <image id="hbkv4w" name="wheelnum_X.png" path="/fonts/fontsImage/normalWheelNumsImage/" exported="true"/>
+    <image id="l3cn4x" name="icon_menu.png" path="/images/panel/spin/" exported="true" scale="9grid" scale9grid="17,8,7,16"/>
+    <image id="l3cn4y" name="frame_coin.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn4z" name="txt_spin.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn50" name="txt_start.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn51" name="txt_stop.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn52" name="txt_take.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn53" name="btn_back.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn54" name="ico_headbase.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn55" name="icon_exp.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn56" name="currencyNum_0.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
+    <image id="l3cn57" name="currencyNum_1.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
+    <image id="l3cn58" name="currencyNum_2.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
+    <image id="l3cn59" name="currencyNum_3.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
+    <image id="l3cn5a" name="currencyNum_4.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
+    <image id="l3cn5b" name="currencyNum_5.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
+    <image id="l3cn5c" name="currencyNum_6.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
+    <image id="l3cn5d" name="currencyNum_7.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
+    <image id="l3cn5e" name="currencyNum_8.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
+    <image id="l3cn5f" name="currencyNum_9.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
+    <image id="l3cn5g" name="currencyNum_B.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
+    <image id="l3cn5h" name="currencyNum_comma.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
+    <image id="l3cn5i" name="currencyNum_dot.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
+    <image id="l3cn5j" name="currencyNum_K.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
+    <image id="l3cn5k" name="currencyNum_M.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
+    <image id="l3cn5l" name="currencyNum_T.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
+    <image id="l3cn5m" name="bet_frequency_01.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn5n" name="btn_bet_base.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn5o" name="btn_expedite_01.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn5p" name="btn_expedite_02.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn5q" name="btn_spin_base.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn5r" name="btn_subtract.png" path="/images/panel/spin/" exported="true" scale="9grid" scale9grid="23,3,64,24" smoothing="false"/>
+    <image id="l3cn5s" name="frame_down_base.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn5t" name="frame_down_fixed.png" path="/images/panel/spin/" exported="true" scale="9grid" scale9grid="250,69,73,75"/>
+    <image id="l3cn5u" name="frame_score_base.png" path="/images/panel/spin/" exported="true" scale9grid="102,18,204,36"/>
+    <image id="l3cn5v" name="frame_up_around.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn5w" name="frame_up_base 1.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn5x" name="frame_up_fixed.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn5y" name="ico_plus.png" path="/images/panel/spin/" exported="true"/>
+    <font id="l3cn5z" name="currecyNumFont.fnt" path="/fonts/fontsCom/currecyNum/" exported="true"/>
+    <image id="l3cn60" name="加载界面.png" path="/images/panel/spin/"/>
+    <image id="l3cn61" name="btn_mandates_02.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn62" name="img_expedite.png" path="/images/panel/spin/" exported="true"/>
+    <component id="l3cn63" name="BtnSpin.xml" path="/moudules/panel/" exported="true"/>
+    <component id="l3cn64" name="Win.xml" path="/moudules/panel/" exported="true"/>
+    <component id="l3cn65" name="Btn+.xml" path="/moudules/panel/" exported="true"/>
+    <component id="l3cn66" name="Btn-.xml" path="/moudules/panel/" exported="true"/>
+    <component id="l3cn67" name="Top.xml" path="/moudules/panel/" exported="true"/>
+    <component id="l3cn68" name="BottomBg.xml" path="/moudules/panel/" exported="true"/>
+    <image id="l3cn69" name="ico_coins.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn6a" name="score_0.png" path="/fonts/fontsImage/socreImage/" exported="true"/>
+    <image id="l3cn6b" name="score_1.png" path="/fonts/fontsImage/socreImage/" exported="true"/>
+    <image id="l3cn6c" name="score_2.png" path="/fonts/fontsImage/socreImage/" exported="true"/>
+    <image id="l3cn6d" name="score_3.png" path="/fonts/fontsImage/socreImage/" exported="true"/>
+    <image id="l3cn6e" name="score_4.png" path="/fonts/fontsImage/socreImage/" exported="true"/>
+    <image id="l3cn6f" name="score_5.png" path="/fonts/fontsImage/socreImage/" exported="true"/>
+    <image id="l3cn6g" name="score_6.png" path="/fonts/fontsImage/socreImage/" exported="true"/>
+    <image id="l3cn6h" name="score_7.png" path="/fonts/fontsImage/socreImage/" exported="true"/>
+    <image id="l3cn6i" name="score_8.png" path="/fonts/fontsImage/socreImage/" exported="true"/>
+    <image id="l3cn6j" name="score_9.png" path="/fonts/fontsImage/socreImage/" exported="true"/>
+    <image id="l3cn6k" name="score_B.png" path="/fonts/fontsImage/socreImage/" exported="true"/>
+    <image id="l3cn6l" name="score_comma.png" path="/fonts/fontsImage/socreImage/" exported="true" scale9grid="7,14,13,16"/>
+    <image id="l3cn6m" name="score_dot.png" path="/fonts/fontsImage/socreImage/" exported="true"/>
+    <image id="l3cn6n" name="score_K.png" path="/fonts/fontsImage/socreImage/" exported="true"/>
+    <image id="l3cn6o" name="score_M.png" path="/fonts/fontsImage/socreImage/" exported="true"/>
+    <font id="l3cn6p" name="sorceFont.fnt" path="/fonts/fontsCom/sorceFonts/" exported="true"/>
+    <image id="l3cn6q" name="frame_totalbet_base.png" path="/images/panel/spin/" exported="true"/>
+    <component id="l3cn6r" name="totalBet.xml" path="/moudules/panel/" exported="true"/>
+    <image id="l3cn6s" name="bar_experiences_01.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn6t" name="bar_experiences_02.png" path="/images/panel/spin/" exported="true"/>
+    <image id="l3cn6u" name="plat_ic_pig.png" path="/images/panel/spin/" exported="true"/>
+    <component id="l3cn6v" name="pig.xml" path="/moudules/panel/" exported="true"/>
+    <component id="x7l36w" name="BtnTip.xml" path="/moudules/panel/" exported="true"/>
+    <component id="x7l36x" name="GameDiInstruction.xml" path="/moudules/panel/" exported="true"/>
+    <image id="x7l36y" name="ng_btn_Music.png" path="/images/panel/spin/" exported="true"/>
+    <image id="x7l36z" name="ng_btn_Music01.png" path="/images/panel/spin/" exported="true"/>
+    <component id="x7l371" name="BtnIntroduce.xml" path="/moudules/panel/" exported="true"/>
+    <component id="x7l372" name="BtnSound.xml" path="/moudules/panel/" exported="true"/>
+    <component id="x7l373" name="PayTable.xml" path="/moudules/panel/PayTable/" exported="true"/>
+    <image id="x7l374" name="icon_rules.png" path="/images/panel/spin/" exported="true"/>
+    <image id="x7l375" name="di.png" path="/images/panel/spin/payTable/" exported="true"/>
+    <image id="x7l376" name="1.png" path="/images/panel/spin/payTable/" exported="true"/>
+    <image id="x7l377" name="2.png" path="/images/panel/spin/payTable/" exported="true"/>
+    <image id="x7l378" name="3.png" path="/images/panel/spin/payTable/" exported="true"/>
+    <image id="x7l379" name="4.png" path="/images/panel/spin/payTable/" exported="true"/>
+    <image id="x7l37a" name="5.png" path="/images/panel/spin/payTable/" exported="true"/>
+    <image id="x7l37b" name="6.png" path="/images/panel/spin/payTable/" exported="true"/>
+    <component id="x7l37e" name="IntroducePayTable.xml" path="/moudules/panel/PayTable/" exported="true"/>
+    <component id="x7l37f" name="IntroduceBtn.xml" path="/moudules/panel/PayTable/" exported="true"/>
+    <image id="x7l37g" name="img_btn01.png" path="/images/panel/spin/payTable/" exported="true"/>
+    <image id="x7l37h" name="img_christmastime_01.png" path="/images/panel/spin/payTable/" exported="true"/>
+    <image id="x7l37i" name="img_christmastime_02.png" path="/images/panel/spin/payTable/" exported="true"/>
+    <component id="x7l37m" name="BtnL.xml" path="/moudules/panel/PayTable/" exported="true"/>
+    <component id="x7l37n" name="Paytable01.xml" path="/moudules/panel/PayTable/payTables/" exported="true"/>
+    <component id="x7l37o" name="Paytable02.xml" path="/moudules/panel/PayTable/payTables/" exported="true"/>
+    <component id="x7l37p" name="Paytable03.xml" path="/moudules/panel/PayTable/payTables/" exported="true"/>
+    <component id="x7l37q" name="Paytable04.xml" path="/moudules/panel/PayTable/payTables/" exported="true"/>
+    <component id="x7l37r" name="Paytable05.xml" path="/moudules/panel/PayTable/payTables/" exported="true"/>
+    <component id="x7l37s" name="Paytable06.xml" path="/moudules/panel/PayTable/payTables/" exported="true"/>
+    <component id="x7l37t" name="Paytable07.xml" path="/moudules/panel/PayTable/payTables/" exported="true"/>
+    <image id="x7l37u" name="7.png" path="/images/panel/spin/payTable/" exported="true"/>
+    <component id="x7l37v" name="PopupZhuanPan.xml" path="/" exported="true"/>
+    <component id="x7l37w" name="freeGameFramePush.xml" path="/" exported="true"/>
+    <image id="x7l37x" name="fg_txt_FreeSpin2.png" path="/images/PopupGameFreeGame/" exported="true"/>
+    <image id="x7l37y" name="freetime_0.png" path="/fonts/fontsImage/PopupGameFreeTimesImage/" exported="true"/>
+    <image id="x7l37z" name="freetime_1.png" path="/fonts/fontsImage/PopupGameFreeTimesImage/" exported="true"/>
+    <image id="x7l380" name="freetime_2.png" path="/fonts/fontsImage/PopupGameFreeTimesImage/" exported="true"/>
+    <image id="x7l381" name="freetime_3.png" path="/fonts/fontsImage/PopupGameFreeTimesImage/" exported="true"/>
+    <image id="x7l382" name="freetime_4.png" path="/fonts/fontsImage/PopupGameFreeTimesImage/" exported="true"/>
+    <image id="x7l383" name="freetime_5.png" path="/fonts/fontsImage/PopupGameFreeTimesImage/" exported="true"/>
+    <image id="x7l384" name="freetime_6.png" path="/fonts/fontsImage/PopupGameFreeTimesImage/" exported="true"/>
+    <image id="x7l385" name="freetime_7.png" path="/fonts/fontsImage/PopupGameFreeTimesImage/" exported="true"/>
+    <image id="x7l386" name="freetime_8.png" path="/fonts/fontsImage/PopupGameFreeTimesImage/" exported="true"/>
+    <image id="x7l387" name="freetime_9.png" path="/fonts/fontsImage/PopupGameFreeTimesImage/" exported="true"/>
+    <font id="x7l388" name="PopupGameFreeTimesFont.fnt" path="/fonts/fontsCom/PopupGameFreeTimes/" exported="true"/>
+    <component id="x7l389" name="closeBtn.xml" path="/moudules/panel/PayTable/" exported="true"/>
+    <image id="x7l38a" name="miniWin.png" path="/images/PopupGameBigWin/" exported="true"/>
+    <image id="x7l38b" name="minorWin.png" path="/images/PopupGameBigWin/" exported="true"/>
+    <image id="x7l38c" name="majorWin.png" path="/images/PopupGameBigWin/" exported="true"/>
+    <image id="x7l38d" name="grandWin.png" path="/images/PopupGameBigWin/" exported="true"/>
+    <component id="x7l38e" name="PopupJackpotGameResult.xml" path="/" exported="true"/>
+    <component id="x7l38f" name="AnchorPopBorder.xml" path="/components/PopupBigWIn/" exported="true"/>
+    <image id="x7l38g" name="fg_txt_pop_collect.png" path="/images/PopupGameBigWin/" exported="true"/>
+    <image id="x7l38h" name="fg_img_pop_btn.png" path="/images/PopupGameBigWin/" exported="true"/>
+    <component id="x7l38i" name="CloseBtn.xml" path="/components/PopupBigWIn/" exported="true"/>
+    <component id="yonm8j" name="TestButton.xml" path="/"/>
+    <image id="yonm8l" name="fg_text_FREE SPINS!.png" path="/images/PopupGameFreeGame/" exported="true"/>
+    <component id="yonm8n" name="AnchorSpine.xml" path="/components/PopupFreeGame/" exported="true"/>
+    <image id="yonm8p" name="屏幕截图 2025-11-27 155523.png" path="/images/PopupGameFreeGame/" exported="true"/>
+    <image id="c76t8q" name="屏幕截图 2025-11-28 112946.png" path="/images/PopupGameFreeGame/" exported="true"/>
+    <component id="c76t8r" name="PopupFreeSpinResult.xml" path="/" exported="true"/>
+    <component id="c76t8s" name="AnchorPopResult.xml" path="/components/PopupBigWIn/" exported="true"/>
+    <component id="c76t8u" name="PopupJackpotGameTrigger.xml" path="/" exported="true"/>
+    <image id="c76t8v" name="屏幕截图 2025-11-28 164631.png" path="/images/PopupJackpotGame/" exported="true"/>
+    <component id="c76t8w" name="JackpotGameTrigger.xml" path="/components/PopupJackpotGame/" exported="true"/>
+    <image id="c76t8x" name="sg_img_pop_btn.png" path="/images/PopupJackpotGame/" exported="true"/>
+    <image id="c76t8y" name="sg_txt_pop_collect.png" path="/images/PopupJackpotGame/" exported="true"/>
+    <image id="c76t8z" name="sg_txt_pop_start.png" path="/images/PopupJackpotGame/" exported="true"/>
+    <component id="c76t90" name="JackpotTriggerBtn.xml" path="/components/PopupJackpotGame/" exported="true"/>
+    <image id="c76t91" name="普通游戏.png" path="/images/Folder/"/>
+    <image id="i6s392" name="免费游戏.png" path="/images/Folder/"/>
+    <image id="i6s393" name="转盘.png" path="/images/Folder/"/>
+    <image id="i6s394" name="免费游戏次数提示框.png" path="/images/Folder/"/>
+    <image id="i6s395" name="免费游戏结算框.png" path="/images/Folder/"/>
+    <image id="i6s396" name="彩金巨奖提示.png" path="/images/Folder/"/>
+    <component id="i6s397" name="JackpotCloseBtn.xml" path="/components/PopupBigWIn/" exported="true"/>
+    <image id="i6s398" name="彩金游戏结算提示框.png" path="/images/Folder/"/>
+    <image id="i6s399" name="获得彩金游戏提示框.png" path="/images/Folder/"/>
+    <image id="i6s39a" name="彩金转普通游戏转场.png" path="/images/Folder/"/>
+    <component id="i6s39b" name="PopupJackpotGameEnter.xml" path="/" exported="true"/>
+    <image id="i6s39c" name="转盘转彩金游戏转场.png" path="/images/Folder/"/>
+    <component id="i6s39d" name="AnchorJackpotBg.xml" path="/components/" exported="true"/>
+    <image id="i6s39e" name="彩金游戏.png" path="/images/Folder/"/>
+    <component id="i6s39x" name="ListSymbol.xml" path="/components/PopupJackpotGame/" exported="true"/>
+    <component id="i6s39z" name="JackpotGameSymbol.xml" path="/components/PopupJackpotGame/" exported="true"/>
+    <image id="byswa0" name="屏幕截图 2025-12-02 105459.png" path="/images/PopupJackpotGame/"/>
+    <component id="byswa1" name="anchorHost.xml" path="/components/PopupJackpotGame/" exported="true"/>
+    <component id="byswa2" name="anchorGuest.xml" path="/components/PopupJackpotGame/" exported="true"/>
+    <component id="byswa3" name="JackpotHostAndGuest.xml" path="/components/PopupJackpotGame/" exported="true"/>
+    <component id="byswa4" name="JackpotMask.xml" path="/components/PopupJackpotGame/" exported="true"/>
+    <component id="byswa5" name="AnchorLight.xml" path="/components/PopupJackpotGame/" exported="true"/>
+    <component id="oicba6" name="PopupJackpotGameExit.xml" path="/" exported="true"/>
+    <component id="oicba7" name="JackpotGameExit.xml" path="/components/PopupJackpotGame/JackpotNumber/" exported="true"/>
+    <component id="oicba8" name="JackpotExitBtn.xml" path="/components/PopupJackpotGame/" exported="true"/>
+    <image id="mg8xaa" name="wingrandScore_0.png" path="/fonts/fontsImage/JackpotImage/JackpotGameResult/" exported="true"/>
+    <image id="mg8xab" name="wingrandScore_1.png" path="/fonts/fontsImage/JackpotImage/JackpotGameResult/" exported="true"/>
+    <image id="mg8xac" name="wingrandScore_2.png" path="/fonts/fontsImage/JackpotImage/JackpotGameResult/" exported="true"/>
+    <image id="mg8xad" name="wingrandScore_3.png" path="/fonts/fontsImage/JackpotImage/JackpotGameResult/" exported="true"/>
+    <image id="mg8xae" name="wingrandScore_4.png" path="/fonts/fontsImage/JackpotImage/JackpotGameResult/" exported="true"/>
+    <image id="mg8xaf" name="wingrandScore_5.png" path="/fonts/fontsImage/JackpotImage/JackpotGameResult/" exported="true"/>
+    <image id="mg8xag" name="wingrandScore_6.png" path="/fonts/fontsImage/JackpotImage/JackpotGameResult/" exported="true"/>
+    <image id="mg8xah" name="wingrandScore_7.png" path="/fonts/fontsImage/JackpotImage/JackpotGameResult/" exported="true"/>
+    <image id="mg8xai" name="wingrandScore_8.png" path="/fonts/fontsImage/JackpotImage/JackpotGameResult/" exported="true"/>
+    <image id="mg8xaj" name="wingrandScore_9.png" path="/fonts/fontsImage/JackpotImage/JackpotGameResult/" exported="true"/>
+    <image id="mg8xak" name="wingrandScore_B.png" path="/fonts/fontsImage/JackpotImage/JackpotGameResult/" exported="true"/>
+    <image id="mg8xal" name="wingrandScore_comma.png" path="/fonts/fontsImage/JackpotImage/JackpotGameResult/" exported="true"/>
+    <image id="mg8xam" name="wingrandScore_K.png" path="/fonts/fontsImage/JackpotImage/JackpotGameResult/" exported="true"/>
+    <image id="mg8xan" name="wingrandScore_M.png" path="/fonts/fontsImage/JackpotImage/JackpotGameResult/" exported="true"/>
+    <image id="mg8xao" name="wingrandScore_T.png" path="/fonts/fontsImage/JackpotImage/JackpotGameResult/" exported="true"/>
+    <component id="mg8xap" name="JackpotExitNumber.xml" path="/components/PopupJackpotGame/" exported="true"/>
+    <font id="mg8xaq" name="JackpotGameResultFont.fnt" path="/fonts/fontsCom/JackpotGameResultFonts/" exported="true"/>
+    <component id="mg8xar" name="JackpotGameResult.xml" path="/components/PopupJackpotGame/JackpotNumber/" exported="true"/>
+    <component id="iotqat" name="AnchorRewardEffect.xml" path="/components/PopupZhuanPan/" exported="true"/>
+    <component id="6xg0b3" name="PopupJackpotGameQuit.xml" path="/" exported="true"/>
+    <component id="12duab4" name="AnchorIconEffect.xml" path="/components/PopupJackpotGame/" exported="true"/>
+    <component id="12duab5" name="JackpotSlotMachine.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
+    <component id="12duab6" name="JackpotReels.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
+    <component id="12duab7" name="JackpotReel.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
+    <component id="12duab8" name="JackpotSymbols.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
+    <component id="12duab9" name="JackpotSymbol.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
+    <component id="12duaba" name="JackpotSymbolAnimator.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
+    <component id="12duabb" name="jackpotList.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
+    <component id="12duabc" name="JackpotSymbol.xml" path="/components/PopupJackpotGame/" exported="true"/>
+    <image id="12duabd" name="txt_grand.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="12duabe" name="txt_major.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="12duabf" name="txt_mini.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="12duabg" name="txt_minor.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <component id="12duabh" name="ListSymbol0.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
+    <component id="12duabi" name="ListSymbol1.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
+    <component id="12duabj" name="ListSymbol2.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
+    <component id="12duabk" name="ListSymbol3.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
+    <component id="12duabl" name="ListSymbol4.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
+    <component id="12duabm" name="ListSymbol5.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
+    <component id="12duabn" name="ListSymbol6.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
+    <component id="12duabo" name="ListSymbol7.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
+    <component id="12duabp" name="ListSymbol8.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
+    <component id="12duabq" name="ListSymbol9.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
+    <component id="vwy3abr" name="AnchorWild.xml" path="/components/PopupGameNormalGame/" exported="true"/>
+    <component id="iihrabs" name="AnchorTransEffect.xml" path="/components/" exported="true"/>
+    <image id="a6ypabt" name="fg_bg.png" path="/images/PopupGameFreeGame/" exported="true"/>
+    <image id="a6ypabu" name="fg_txt_freespins.png" path="/images/PopupGameFreeGame/" exported="true"/>
+    <image id="a6ypabv" name="jp_txt_grand.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="a6ypabw" name="jp_txt_major.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="a6ypabx" name="jp_txt_mini.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="a6ypaby" name="jp_txt_minor.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="a6ypabz" name="jp_num_time_00.png" path="/fonts/fontsImage/JackpotImage/GrandTipNum/" exported="true"/>
+    <image id="a6ypac0" name="jp_num_time_01.png" path="/fonts/fontsImage/JackpotImage/GrandTipNum/" exported="true"/>
+    <image id="a6ypac1" name="jp_num_time_02.png" path="/fonts/fontsImage/JackpotImage/GrandTipNum/" exported="true"/>
+    <image id="a6ypac2" name="jp_num_time_03.png" path="/fonts/fontsImage/JackpotImage/GrandTipNum/" exported="true"/>
+    <image id="a6ypac3" name="jp_num_time_04.png" path="/fonts/fontsImage/JackpotImage/GrandTipNum/" exported="true"/>
+    <image id="a6ypac4" name="jp_num_time_05.png" path="/fonts/fontsImage/JackpotImage/GrandTipNum/" exported="true"/>
+    <image id="a6ypac5" name="jp_num_time_06.png" path="/fonts/fontsImage/JackpotImage/GrandTipNum/" exported="true"/>
+    <image id="a6ypac6" name="jp_num_time_07.png" path="/fonts/fontsImage/JackpotImage/GrandTipNum/" exported="true"/>
+    <image id="a6ypac7" name="jp_num_time_08.png" path="/fonts/fontsImage/JackpotImage/GrandTipNum/" exported="true"/>
+    <image id="a6ypac8" name="jp_num_time_09.png" path="/fonts/fontsImage/JackpotImage/GrandTipNum/" exported="true"/>
+    <image id="a6ypac9" name="jp_num_time_com.png" path="/fonts/fontsImage/JackpotImage/GrandTipNum/" exported="true"/>
+    <image id="a6ypaca" name="jp_num_time_dot.png" path="/fonts/fontsImage/JackpotImage/GrandTipNum/" exported="true"/>
+    <font id="a6ypacb" name="GrandTipNumFont.fnt" path="/fonts/fontsCom/GrandTipNumFonts/" exported="true"/>
+    <image id="a6ypacc" name="jp_num_00.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
+    <image id="a6ypacd" name="jp_num_01.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
+    <image id="a6ypace" name="jp_num_02.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
+    <image id="a6ypacf" name="jp_num_03.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
+    <image id="a6ypacg" name="jp_num_04.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
+    <image id="a6ypach" name="jp_num_05.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
+    <image id="a6ypaci" name="jp_num_06.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
+    <image id="a6ypacj" name="jp_num_07.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
+    <image id="a6ypack" name="jp_num_08.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
+    <image id="a6ypacl" name="jp_num_09.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
+    <image id="a6ypacm" name="jp_num_billion.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
+    <image id="a6ypacn" name="jp_num_com.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
+    <image id="a6ypaco" name="jp_num_dot.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
+    <image id="a6ypacp" name="jp_num_kilo.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
+    <image id="a6ypacq" name="jp_num_million.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
+    <image id="a6ypacr" name="jp_num_trillion.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
+    <font id="a6ypacs" name="jackpotFont.fnt" path="/fonts/fontsCom/jackpot/" exported="true"/>
+    <image id="a6ypact" name="load_bg(1).png" path="/images/PopupGameLoading/"/>
+    <image id="a6ypacu" name="ng_bg.png" path="/images/PopupGameNormalGame/" exported="true"/>
+    <image id="a6ypacw" name="jp_frame_base_grand.png" path="/images/PopupGameNormalGame/" exported="true"/>
+    <image id="a6ypacx" name="jp_frame_base_major.png" path="/images/PopupGameNormalGame/" exported="true"/>
+    <image id="a6ypacy" name="jp_frame_base_mini.png" path="/images/PopupGameNormalGame/" exported="true"/>
+    <image id="a6ypacz" name="jp_frame_base_minor.png" path="/images/PopupGameNormalGame/" exported="true"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

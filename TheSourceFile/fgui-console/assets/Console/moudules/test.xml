@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <component id="n0_os7y" name="title" src="glrj1l" fileName="moudules/Buttom1.xml" xy="-158,205">
+      <property target="title" propertyId="0" value="666"/>
+    </component>
+  </displayList>
+  <customProperty target="title" propertyId="0" label="标题02"/>
+</component>

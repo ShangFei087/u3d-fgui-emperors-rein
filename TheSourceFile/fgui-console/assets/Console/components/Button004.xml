@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="324,54" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n7_glrj" name="n7" src="vqlx6c" fileName="images/common/circle_16.png" xy="0,0" size="324,54" color="#b8a8b2">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <richtext id="n4_smbp" name="title" xy="94,0" size="209,54" fontSize="30" color="#ffffff" vAlign="middle" autoSize="shrink" singleLine="true" text="Buttton">
+      <relation target="" sidePair="width-width,height-height"/>
+    </richtext>
+    <loader id="n6_smbp" name="icon" xy="29,0" size="54,54" url="ui://xp0b9yqdsmbp16" align="center" vAlign="middle"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.8"/>
+</component>

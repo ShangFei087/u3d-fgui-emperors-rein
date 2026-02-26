@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="225,32">
+  <displayList>
+    <component id="n0_cwuo" name="toggle" src="cwuo2e" fileName="components/ToggleBetList.xml" xy="13,0"/>
+    <loader id="n3_jtgo" name="n3" xy="85,2" size="100,28" url="ui://xp0b9yqdfcfm72" fill="scaleFree" color="#114550"/>
+    <richtext id="n1_cwuo" name="title" xy="85,2" size="100,28" fontSize="18" color="#ffffff" align="center" vAlign="middle" autoSize="none" singleLine="true" text="100000"/>
+  </displayList>
+</component>

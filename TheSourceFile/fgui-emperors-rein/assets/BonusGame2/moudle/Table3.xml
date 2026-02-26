@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,579">
+  <displayList>
+    <component id="n38_ib9y" name="slotMachine" src="ib9y1v" fileName="moudle/slotMachine02/SlotMachine02.xml" xy="58,17" size="978,520"/>
+    <image id="n21_ib9y" name="n21" src="ib9y6" fileName="image/bonusGame2/ng_img_horizon_line_3.png" xy="75,115" size="941,5"/>
+    <image id="n22_ib9y" name="n22" src="ib9y6" fileName="image/bonusGame2/ng_img_horizon_line_3.png" xy="75,220" size="941,5"/>
+    <image id="n23_ib9y" name="n23" src="ib9y6" fileName="image/bonusGame2/ng_img_horizon_line_3.png" xy="75,325" size="941,5"/>
+    <image id="n24_ib9y" name="n24" src="ib9y6" fileName="image/bonusGame2/ng_img_horizon_line_3.png" xy="75,430" size="941,5"/>
+    <image id="n25_ib9y" name="n25" src="ib9y5" fileName="image/bonusGame2/ng_img_Vertical_line_3.png" xy="242,7"/>
+    <image id="n26_ib9y" name="n26" src="ib9y5" fileName="image/bonusGame2/ng_img_Vertical_line_3.png" xy="439,7"/>
+    <image id="n27_ib9y" name="n27" src="ib9y5" fileName="image/bonusGame2/ng_img_Vertical_line_3.png" xy="636,7"/>
+    <image id="n28_ib9y" name="n28" src="ib9y5" fileName="image/bonusGame2/ng_img_Vertical_line_3.png" xy="833,7"/>
+    <image id="n29_ib9y" name="n29" src="ib9yc" fileName="image/bonusGame2/ng_img_border_top_3.png" xy="52,0" size="494,23"/>
+    <image id="n30_ib9y" name="n30" src="ib9yc" fileName="image/bonusGame2/ng_img_border_top_3.png" xy="1039,0" size="494,23" skew="0,180"/>
+    <image id="n31_ib9y" name="n31" src="ib9yb" fileName="image/bonusGame2/ng_img_border_left_3.png" xy="52,21"/>
+    <image id="n32_ib9y" name="n32" src="ib9yb" fileName="image/bonusGame2/ng_img_border_left_3.png" xy="1039,23" skew="0,180"/>
+    <image id="n36_ib9y" name="n36" src="ib9y8" fileName="image/bonusGame2/ng_img_border_bottom_3.png" xy="52,502"/>
+    <image id="n37_ib9y" name="n37" src="ib9y8" fileName="image/bonusGame2/ng_img_border_bottom_3.png" xy="1039,502" size="495,77" skew="0,180"/>
+    <image id="n39_ib9y" name="n39" src="ib9y23" fileName="image/bonusGame2/ng_txt_Spins_3.png" xy="517,544"/>
+    <text id="n41_j20k" name="Spins" xy="485,539" size="26,34" font="ui://0bwjt84cib9y2d" fontSize="17" align="center" vAlign="middle" autoSize="none" text="3"/>
+  </displayList>
+</component>

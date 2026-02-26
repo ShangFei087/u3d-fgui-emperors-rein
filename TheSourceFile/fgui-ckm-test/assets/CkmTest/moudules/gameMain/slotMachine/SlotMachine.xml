@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="845,492" overflow="hidden">
+  <displayList>
+    <component id="n0_l8m6" name="reels" src="l8m65f" fileName="moudules/gameMain/slotMachine/Reels.xml" xy="422,246" pivot="0.5,0.5" anchor="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n1_l8m6" name="slotCover" src="l8m65h" fileName="moudules/gameMain/slotMachine/SlotCover.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n2_hnye" name="playLines" src="hnyeld" fileName="moudules/AnchorPlayLines.xml" xy="0,0"/>
+  </displayList>
+</component>

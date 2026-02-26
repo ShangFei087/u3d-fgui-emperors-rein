@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <image id="n0_jfvg" name="n0" src="n4dd3n" fileName="images/pageGameMain/freeFrame/fg_img_Border_01.png" xy="-275,-35"/>
+    <image id="n5_jfvg" name="n5" src="jfvg77" fileName="images/pageGameMain/freeFrame/of.png" xy="142,-6" pivot="0.5,0.5" anchor="true"/>
+    <image id="n4_jfvg" name="n4" src="jfvg79" fileName="images/pageGameMain/freeFrame/freegame.png" xy="-99,-6" pivot="0.5,0.5" anchor="true"/>
+    <text id="n2_jfvg" name="numberGreen" xy="79,-2" pivot="0.5,0.5" anchor="true" size="70,46" font="ui://zcotsi26jfvg76" fontSize="12" align="center" vAlign="middle" autoSize="none" text="10"/>
+    <text id="n3_jfvg" name="numberYellow" xy="207,-1" pivot="0.5,0.5" anchor="true" size="70,46" font="ui://zcotsi26jfvg6e" fontSize="12" align="center" vAlign="middle" autoSize="none" text="10"/>
+  </displayList>
+  <transition name="idle" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="Scale" target="n2_jfvg" tween="true" startValue="1,1" endValue="1.05,1.05" duration="24"/>
+    <item time="0" type="Scale" target="n3_jfvg" tween="true" startValue="1,1" endValue="1.05,1.05" duration="24"/>
+    <item time="0" type="Scale" target="n4_jfvg" tween="true" startValue="1,1" endValue="1.05,1.05" duration="24"/>
+    <item time="0" type="Scale" target="n5_jfvg" tween="true" startValue="1,1" endValue="1.05,1.05" duration="24"/>
+    <item time="24" type="Scale" target="n2_jfvg" tween="true" startValue="1.05,1.05" endValue="1,1" duration="24"/>
+    <item time="24" type="Scale" target="n3_jfvg" tween="true" startValue="1.05,1.05" endValue="1,1" duration="24"/>
+    <item time="24" type="Scale" target="n4_jfvg" tween="true" startValue="1.05,1.05" endValue="1,1" duration="24"/>
+    <item time="24" type="Scale" target="n5_jfvg" tween="true" startValue="1.05,1.05" endValue="1,1" duration="24"/>
+    <item time="48" type="Scale" target="n4_jfvg" value="1,1"/>
+  </transition>
+</component>

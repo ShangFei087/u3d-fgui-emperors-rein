@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_vv1y" name="mask" src="vv1y5c" fileName="components/Mash.xml" xy="0,0"/>
+    <component id="n5_t0u4" name="anchorBigWinPig" src="t0u45u" fileName="components/popupBigWin/AnchorBigWinPig.xml" xy="549,865" size="1,1" scale="1.5,1.5"/>
+    <component id="n1_vv1y" name="anchorBigWin" src="vv1y5d" fileName="components/popupBigWin/AnchorBigWin.xml" xy="518,893" size="1,1" scale="1.5,1.5"/>
+    <text id="n3_vv1y" name="number" xy="363,1147" size="340,71" font="ui://zcotsi26vv1y5q" fontSize="12" color="#ffffff" align="center" vAlign="middle" leading="5" letterSpacing="3" autoSize="none" text="111"/>
+    <component id="n4_vv1y" name="button" src="vv1y5r" fileName="components/Button1.xml" xy="0,0" size="1080,1920"/>
+  </displayList>
+</component>

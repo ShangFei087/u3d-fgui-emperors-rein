@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,814">
+  <displayList>
+    <component id="n0_ma96" name="n0" src="ma96m9" fileName="components/paytable/SymbolPay.xml" xy="1,0" touchable="false">
+      <property target="n1" propertyId="1" value="ui://4hwvsyqfl8m65w"/>
+    </component>
+    <component id="n1_ma96" name="n1" src="ma96m9" fileName="components/paytable/SymbolPay.xml" xy="180,0">
+      <property target="n1" propertyId="1" value="ui://4hwvsyqfl8m65v"/>
+    </component>
+    <component id="n2_ma96" name="n2" src="ma96m9" fileName="components/paytable/SymbolPay.xml" xy="359,0">
+      <property target="n1" propertyId="1" value="ui://4hwvsyqfl8m65u"/>
+    </component>
+    <component id="n3_ma96" name="n3" src="ma96m9" fileName="components/paytable/SymbolPay.xml" xy="538,0">
+      <property target="n1" propertyId="1" value="ui://4hwvsyqfl8m65t"/>
+    </component>
+    <component id="n4_ma96" name="n4" src="ma96m9" fileName="components/paytable/SymbolPay.xml" xy="717,0">
+      <property target="n1" propertyId="1" value="ui://4hwvsyqfl8m65s"/>
+    </component>
+    <component id="n5_ij4g" name="n5" src="ma96m9" fileName="components/paytable/SymbolPay.xml" xy="896,0">
+      <property target="n1" propertyId="1" value="ui://4hwvsyqfl8m65r"/>
+    </component>
+    <component id="n6_ij4g" name="n6" src="ma96m9" fileName="components/paytable/SymbolPay.xml" xy="1,338">
+      <property target="n1" propertyId="1" value="ui://4hwvsyqfl8m65q"/>
+    </component>
+    <component id="n7_ij4g" name="n7" src="ma96m9" fileName="components/paytable/SymbolPay.xml" xy="180,338" size="184,350">
+      <property target="n1" propertyId="1" value="ui://4hwvsyqfl8m65p"/>
+    </component>
+    <component id="n8_ij4g" name="n8" src="ma96m9" fileName="components/paytable/SymbolPay.xml" xy="359,338" size="184,350">
+      <property target="n1" propertyId="1" value="ui://4hwvsyqfl8m65o"/>
+    </component>
+    <component id="n9_ij4g" name="n9" src="ma96m9" fileName="components/paytable/SymbolPay.xml" xy="538,338" size="184,350">
+      <property target="n1" propertyId="1" value="ui://4hwvsyqfl8m65n"/>
+    </component>
+    <component id="n10_ij4g" name="n10" src="ma96m9" fileName="components/paytable/SymbolPay.xml" xy="717,338" size="184,350">
+      <property target="n1" propertyId="1" value="ui://4hwvsyqfl8m65m"/>
+    </component>
+    <component id="n11_ij4g" name="n11" src="ma96m9" fileName="components/paytable/SymbolPay.xml" xy="896,338" size="184,350">
+      <property target="n1" propertyId="1" value="ui://4hwvsyqfl8m65x"/>
+    </component>
+  </displayList>
+</component>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="104,20">
+  <displayList>
+    <graph id="n0_plwz" name="n0" xy="0,0" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n1_plwz" name="n1" xy="21,0" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n2_plwz" name="n2" xy="42,0" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n3_plwz" name="n3" xy="63,0" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+    <graph id="n4_plwz" name="n4" xy="84,0" size="20,20" type="rect" lineColor="#00000000" fillColor="#ff666666"/>
+  </displayList>
+</component>

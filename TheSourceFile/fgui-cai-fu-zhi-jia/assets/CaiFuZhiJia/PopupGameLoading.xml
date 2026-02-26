@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_q2oi" name="n1" src="q2oi4" fileName="moudules/popupGameLoading/LoadingBG.xml" xy="0,0"/>
+    <component id="n4_q2oi" name="anchorBG" src="q2oi3" fileName="moudules/popupGameLoading/AnchorBG.xml" xy="540,960"/>
+    <component id="n2_q2oi" name="sliderLoading" src="q2oie" fileName="components/popupGameLoading/LoadingBar.xml" xy="54,1413">
+      <Slider value="50" max="100"/>
+    </component>
+    <component id="n3_q2oi" name="anchorCenter" src="q2oi2" fileName="moudules/popupGameLoading/AnchorCenter.xml" xy="540,960" size="0,1"/>
+  </displayList>
+</component>

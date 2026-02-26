@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,102">
+  <displayList>
+    <image id="n0_ls7y" name="n0" src="ldsc167" fileName="images/introduce/矩形 1847.png" xy="90,95" size="900,4">
+      <relation target="" sidePair="center-center"/>
+    </image>
+    <text id="n1_ls7y" name="Introduce" xy="119,6" size="842,65" fontSize="47" color="#ff9900" align="center" autoSize="none" text="50 PAYLINES&#xA;">
+      <relation target="" sidePair="center-center"/>
+    </text>
+  </displayList>
+  <customProperty target="Introduce" propertyId="0"/>
+</component>

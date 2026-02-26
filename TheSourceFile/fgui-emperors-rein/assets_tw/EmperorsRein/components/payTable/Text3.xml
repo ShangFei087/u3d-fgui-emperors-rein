@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="889,687">
+  <displayList>
+    <richtext id="n1_tsjn" name="n1" xy="0,0" size="889,687" fontSize="30" color="#ffffff" leading="0" autoSize="none" text="在基礎遊戲中，當轉軸上出現 3 個 &lt;img src=&quot;ui://vdmp4vsrw36x19&quot;width=&quot;100&quot;height=&quot;106&quot;/&gt; 時，可觸發免費遊戲功能並獲得 6 次免費旋轉機會。&#xA;&#xA;在基礎遊戲中，當轉軸上出現 4 個 &lt;img src=&quot;ui://vdmp4vsrw36x19&quot;width=&quot;100&quot;height=&quot;106&quot;/&gt; 時，可觸發免費遊戲功能並獲得 9 次免費旋轉機會。&#xA;&#xA;在基礎遊戲中，當轉軸上出現 5 個 &lt;img src=&quot;ui://vdmp4vsrw36x19&quot;width=&quot;100&quot;height=&quot;106&quot;/&gt; 時，可觸發免費遊戲功能並獲得 12 次免費旋轉機會。&#xA;&#xA;在免費遊戲中，當轉軸上出現 &lt;img src=&quot;ui://vdmp4vsrw36x19&quot;width=&quot;100&quot;height=&quot;106&quot;/&gt; 時，免費遊戲次數可增加 1 次。">
+      <relation target="" sidePair="center-center"/>
+    </richtext>
+  </displayList>
+</component>

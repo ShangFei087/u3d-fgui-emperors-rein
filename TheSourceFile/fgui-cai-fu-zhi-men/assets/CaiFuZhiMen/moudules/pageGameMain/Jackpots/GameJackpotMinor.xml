@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="425,162">
+  <displayList>
+    <image id="n1_ssgm" name="n1" src="ssgm3n" fileName="images/gameCommon/gameOther/ng_img_frame.png" xy="0,0" size="425,162"/>
+    <image id="n2_ssgm" name="n2" src="ssgm3s" fileName="images/gameJackpots/jp_txt_minor.png" xy="212,48" pivot="0.5,0.5" anchor="true" scale="0.6,0.6"/>
+    <component id="n3_ssgm" name="reels" src="ssgm3p" fileName="moudules/pageGameMain/jackpots/JackpotReels.xml" xy="6,97" scale="1.5,1.5"/>
+  </displayList>
+</component>

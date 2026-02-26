@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_r8oz" name="n1" src="r8oz2" fileName="components/ButtonTestMenu.xml" xy="5,293"/>
+  </displayList>
+</component>

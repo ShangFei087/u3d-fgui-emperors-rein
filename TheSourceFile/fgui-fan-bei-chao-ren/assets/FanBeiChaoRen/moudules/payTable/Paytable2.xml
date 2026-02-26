@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,814">
+  <displayList>
+    <component id="n0_kb8b" name="n0" src="kb8bqp" fileName="moudules/panel/introduce/Name.xml" xy="0,0">
+      <property target="Introduce" propertyId="0" value="PAYS"/>
+    </component>
+    <component id="n1_kb8b" name="n1" src="qct4qk" fileName="components/payTable/Text2.xml" xy="95,118"/>
+  </displayList>
+</component>

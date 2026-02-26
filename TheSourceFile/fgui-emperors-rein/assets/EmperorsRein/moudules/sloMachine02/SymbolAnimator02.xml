@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="600,636">
+  <displayList>
+    <loader id="n31_trhy" name="image" xy="299,317" pivot="0.5,0.5" anchor="true" size="648,666" url="ui://vdmp4vsro3djj9" autoSize="true" clearOnPublish="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+    <loader id="n32_f6r9" name="AnchorSymbolEffect" xy="299,317" pivot="0.5,0.5" anchor="true" size="648,666" url="ui://vdmp4vsro3djj9" autoSize="true" clearOnPublish="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+    <loader id="n33_f6r9" name="AnchorBorderEffect" xy="299,317" pivot="0.5,0.5" anchor="true" size="648,666" url="ui://vdmp4vsro3djj9" autoSize="true" clearOnPublish="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+  </displayList>
+</component>

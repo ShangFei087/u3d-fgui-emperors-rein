@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,157">
+  <displayList>
+    <graph id="n31_nimz" name="mash" xy="0,-1761" size="1080,1920" visible="false" type="rect" lineSize="0" lineColor="#80333333" fillColor="#99000000"/>
+    <component id="n11_w36x" name="frame" src="ebgu78" fileName="moudules/GameDiFrame.xml" xy="540,90"/>
+    <component id="n16_w36x" name="btnHelp" src="ebgu7g" fileName="components/ButtonHelp.xml" xy="10,68"/>
+    <text id="n18_w36x" name="bet" xy="77,-764" size="215,50" fontSize="37" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="1">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <text id="n19_w36x" name="credit" xy="781,-764" size="219,50" fontSize="37" color="#ffffff" align="center" vAlign="middle" letterSpacing="5" autoSize="shrink" text="99700">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <text id="n33_ioi7" name="win" xy="392,-816" size="290,113" fontSize="64" color="#ffffff" align="center" vAlign="middle" letterSpacing="5" autoSize="shrink" text="9970">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <image id="n36_ebgu" name="n36" src="ebgu7f" fileName="images/frame/icon_border.png" xy="935,19"/>
+    <component id="n35_ioi7" name="setPanel" src="ebgu7p" fileName="moudules/SetPanel.xml" xy="10,-130" visible="false"/>
+    <component id="n34_ioi7" name="btnSpin" src="ebgu7x" fileName="components/ButtonSpin.xml" xy="930,14"/>
+    <component id="n26_lo0d" name="payTable" src="ebgu71" fileName="moudules/payTable/Component1.xml" xy="540,-249" pivot="0.5,1" anchor="true" visible="false"/>
+  </displayList>
+</component>

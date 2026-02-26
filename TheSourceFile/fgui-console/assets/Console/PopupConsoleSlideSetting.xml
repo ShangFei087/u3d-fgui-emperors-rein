@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n4_os7y" name="n4" src="os7y3l" fileName="moudules/BasePopuoBG.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n2_os7y" name="n2" src="vqlx68" fileName="images/common/circle_24.png" xy="213,785" size="660,344" group="n3_os7y" color="#143733">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n5_os7y" name="btnExit" src="os7y4l" fileName="components/ButtonClosePopup.xml" xy="792,786" size="78,78" group="n3_os7y">
+      <relation target="" sidePair="right-right,top-top"/>
+    </component>
+    <richtext id="n16_vqlx" name="title" xy="262,810" size="562,114" group="n3_os7y" fontSize="34" color="#ffffff" align="center" autoSize="shrink" text="ticket out scale&lt;br&gt;200:1"/>
+    <component id="n14_vqlx" name="slider" src="vqlx6b" fileName="components/DefaultSlider.xml" xy="315,952" group="n3_os7y">
+      <Slider value="50" max="1"/>
+    </component>
+    <component id="n21_vqlx" name="btnConfirm" src="vqlx5x" fileName="components/Button005Confirm.xml" xy="442,1041" group="n3_os7y"/>
+    <component id="n22_vqlx" name="btnKeyboard" src="vqlx6h" fileName="components/ButtonIcon.xml" xy="805,936" size="48,48" group="n3_os7y">
+      <Button icon="ui://xp0b9yqdvqlx6i"/>
+    </component>
+    <group id="n3_os7y" name="popupFG" xy="213,785" size="660,344" advanced="true"/>
+  </displayList>
+</component>

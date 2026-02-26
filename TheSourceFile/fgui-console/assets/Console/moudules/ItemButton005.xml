@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="360,76">
+  <displayList>
+    <component id="n1_jtgo" name="btn" src="smbp19" fileName="components/Button004.xml" xy="18,11"/>
+  </displayList>
+  <customProperty target="btn" propertyId="0" label="标题"/>
+  <customProperty target="btn" propertyId="1" label="图标"/>
+</component>

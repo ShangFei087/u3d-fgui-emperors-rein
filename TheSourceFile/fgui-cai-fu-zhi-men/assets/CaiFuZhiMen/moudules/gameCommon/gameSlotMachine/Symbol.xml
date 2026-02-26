@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="194,172">
+  <displayList>
+    <component id="n0_ssgm" name="animator" src="ssgm30" fileName="moudules/gameCommon/gameSlot/SymbolAnimator.xml" xy="97,86" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>

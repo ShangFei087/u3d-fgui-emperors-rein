@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,100">
+  <controller name="c1" pages="0,paytable1,1,paytable2,2,paytable3,3,paytable4,4,paytable5,5,paytable6,6,paytable7" selected="0"/>
+  <displayList>
+    <component id="n1_x7l3" name="btnPrev" src="x7l37m" fileName="moudules/panel/PayTable/BtnL.xml" xy="182,-2">
+      <relation target="" sidePair="height-height,center-center,middle-middle"/>
+    </component>
+    <component id="n2_x7l3" name="btnNext" src="x7l37m" fileName="moudules/panel/PayTable/BtnL.xml" xy="861,0" scale="-1,1">
+      <relation target="" sidePair="height-height,center-center,middle-middle"/>
+    </component>
+    <image id="n10_x7l3" name="n10" src="x7l37h" fileName="images/panel/spin/payTable/img_christmastime_01.png" xy="260,25" scale="3,3"/>
+    <image id="n3_x7l3" name="n3" src="x7l37i" fileName="images/panel/spin/payTable/img_christmastime_02.png" xy="260,25" scale="3,3">
+      <gearDisplay controller="c1" pages="0"/>
+    </image>
+    <image id="n4_x7l3" name="n4" src="x7l37h" fileName="images/panel/spin/payTable/img_christmastime_01.png" xy="342,25" scale="3,3"/>
+    <image id="n11_x7l3" name="n11" src="x7l37i" fileName="images/panel/spin/payTable/img_christmastime_02.png" xy="342,25" scale="3,3">
+      <gearDisplay controller="c1" pages="1"/>
+    </image>
+    <image id="n5_x7l3" name="n5" src="x7l37h" fileName="images/panel/spin/payTable/img_christmastime_01.png" xy="425,25" scale="3,3"/>
+    <image id="n12_x7l3" name="n12" src="x7l37i" fileName="images/panel/spin/payTable/img_christmastime_02.png" xy="425,25" scale="3,3">
+      <gearDisplay controller="c1" pages="2"/>
+    </image>
+    <image id="n6_x7l3" name="n6" src="x7l37h" fileName="images/panel/spin/payTable/img_christmastime_01.png" xy="502,25" scale="3,3"/>
+    <image id="n13_x7l3" name="n13" src="x7l37i" fileName="images/panel/spin/payTable/img_christmastime_02.png" xy="502,25" scale="3,3">
+      <gearDisplay controller="c1" pages="3"/>
+    </image>
+    <image id="n7_x7l3" name="n7" src="x7l37h" fileName="images/panel/spin/payTable/img_christmastime_01.png" xy="579,25" scale="3,3"/>
+    <image id="n14_x7l3" name="n14" src="x7l37i" fileName="images/panel/spin/payTable/img_christmastime_02.png" xy="579,25" scale="3,3">
+      <gearDisplay controller="c1" pages="4"/>
+    </image>
+    <image id="n8_x7l3" name="n8" src="x7l37h" fileName="images/panel/spin/payTable/img_christmastime_01.png" xy="657,25" scale="3,3"/>
+    <image id="n15_x7l3" name="n15" src="x7l37i" fileName="images/panel/spin/payTable/img_christmastime_02.png" xy="657,25" scale="3,3">
+      <gearDisplay controller="c1" pages="5"/>
+    </image>
+    <image id="n9_x7l3" name="n9" src="x7l37h" fileName="images/panel/spin/payTable/img_christmastime_01.png" xy="731,25" scale="3,3"/>
+    <image id="n16_x7l3" name="n16" src="x7l37i" fileName="images/panel/spin/payTable/img_christmastime_02.png" xy="731,25" scale="3,3">
+      <gearDisplay controller="c1" pages="6"/>
+    </image>
+  </displayList>
+</component>

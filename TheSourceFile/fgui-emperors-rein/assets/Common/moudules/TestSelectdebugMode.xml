@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,500">
+  <displayList>
+    <graph id="n1_n7rv" name="bg" xy="0,1" size="800,500" type="rect" fillColor="#ff000000"/>
+    <text id="n0_n7rv" name="titleMode" xy="13,44" size="177,42" fontSize="30" color="#ffffff" autoSize="none" text="测试模式:"/>
+    <text id="n5_n7rv" name="titleResult" xy="13,139" size="144,42" fontSize="30" color="#ffffff" autoSize="none" text="开奖类型:"/>
+    <text id="n21_n7rv" name="titleBonusType" xy="13,221" size="161,42" fontSize="30" color="#ffffff" autoSize="none" text="大奖类型:"/>
+    <text id="n24_n7rv" name="titleJpType" xy="280,221" size="159,42" fontSize="30" color="#ffffff" autoSize="none" text="彩金类型:"/>
+    <component id="n10_n7rv" name="Normal" src="n7rvno" fileName="components/ButtonTestSelet.xml" xy="228,34" size="235,75" group="n17_n7rv">
+      <Button title="Normal" titleFontSize="30"/>
+    </component>
+    <component id="n11_n7rv" name="PointResData" src="n7rvno" fileName="components/ButtonTestSelet.xml" xy="502,35" size="235,75" group="n17_n7rv">
+      <Button title="PointResData" titleFontSize="30"/>
+    </component>
+    <group id="n17_n7rv" name="mode" xy="228,34" size="509,76" advanced="true"/>
+    <component id="n12_n7rv" name="Lose" src="n7rvno" fileName="components/ButtonTestSelet.xml" xy="176,129" size="82,60" group="n18_n7rv">
+      <Button title="Lose" titleFontSize="25"/>
+    </component>
+    <component id="n13_n7rv" name="Win" src="n7rvno" fileName="components/ButtonTestSelet.xml" xy="290,129" size="82,60" group="n18_n7rv">
+      <Button title="Win" titleFontSize="25"/>
+    </component>
+    <component id="n14_n7rv" name="Free" src="n7rvno" fileName="components/ButtonTestSelet.xml" xy="404,129" size="82,60" group="n18_n7rv">
+      <Button title="Free" titleFontSize="25"/>
+    </component>
+    <component id="n16_n7rv" name="Jp" src="n7rvno" fileName="components/ButtonTestSelet.xml" xy="632,129" size="82,60" group="n18_n7rv">
+      <Button title="Jp&#xA;" titleFontSize="25"/>
+    </component>
+    <component id="n15_n7rv" name="Bonus" src="n7rvno" fileName="components/ButtonTestSelet.xml" xy="518,129" size="82,60" group="n18_n7rv">
+      <Button title="Bonus" titleFontSize="25"/>
+    </component>
+    <group id="n18_n7rv" name="ReultType" xy="176,129" size="538,60"/>
+    <text id="n20_n7rv" name="BonusType" xy="160,214" size="100,57" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="0" input="true"/>
+    <text id="n23_n7rv" name="JpType" xy="430,217" size="100,52" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="0" input="true"/>
+    <component id="n22_n7rv" name="apply" src="rl7yk" fileName="moudules/TestSelectItem.xml" xy="536,424">
+      <Button title="确认"/>
+    </component>
+  </displayList>
+</component>

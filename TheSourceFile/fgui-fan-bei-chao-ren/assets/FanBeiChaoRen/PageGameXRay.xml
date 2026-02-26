@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <image id="n0_fv27" name="bg" src="fv271v" fileName="images/PageGameMain/ng_bg_bj2.png" xy="0,0" size="1080,1920" visible="false"/>
+    <component id="n18_nz4n" name="n18" src="hjsh33" fileName="moudules/PageGameMain/FreeMainFrameSlot.xml" xy="0,0"/>
+    <image id="n3_fv27" name="title" src="fv271x" fileName="images/PageGameXRay/fg_txt_X-RAY.png" xy="140,1104" scale="0.5,0.5"/>
+    <component id="n9_fv27" name="SafeBox1" src="fv2724" fileName="components/PageGameXRay/SafeBoxBtn.xml" xy="123,1253" size="200,200"/>
+    <component id="n11_fv27" name="SafeBox2" src="fv2724" fileName="components/PageGameXRay/SafeBoxBtn.xml" xy="337,1253" size="200,200"/>
+    <component id="n10_fv27" name="SafeBox3" src="fv2724" fileName="components/PageGameXRay/SafeBoxBtn.xml" xy="563,1253" size="200,200"/>
+    <text id="n12_hjsh" name="BonusBetNumber1" xy="133,1295" size="149,128" font="ui://9kq20teahjsh2r" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-10" autoSize="none" text="x12"/>
+    <text id="n14_hjsh" name="BonusBetNumber3" xy="578,1295" size="149,128" font="ui://9kq20teahjsh2r" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-10" autoSize="none" text="x12"/>
+    <text id="n13_hjsh" name="BonusBetNumber2" xy="355,1295" size="149,128" font="ui://9kq20teahjsh2r" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-10" autoSize="none" text="x12"/>
+    <component id="n8_fv27" name="Npc" src="fv2720" fileName="components/PageGameXRay/AnchorNpc.xml" xy="485,1390" size="0,0"/>
+  </displayList>
+</component>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="194,172">
+  <displayList>
+    <loader id="n0_ssgm" name="image" xy="96,86" pivot="0.5,0.5" anchor="true" size="155,136" url="ui://v8alnoawvckb1k" autoSize="true" clearOnPublish="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+  </displayList>
+</component>

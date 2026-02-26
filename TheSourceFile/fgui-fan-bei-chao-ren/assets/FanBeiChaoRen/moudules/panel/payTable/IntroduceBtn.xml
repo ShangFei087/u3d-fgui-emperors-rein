@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,83">
+  <displayList>
+    <component id="n0_kb8b" name="btnL" src="kb8bug" fileName="components/panel/introduce/BtnL.xml" xy="154,7" pivot="0.5,0.5"/>
+    <component id="n1_kb8b" name="btnR" src="kb8bug" fileName="components/panel/introduce/BtnL.xml" xy="835,7" pivot="0.5,0.5" scale="-1,1"/>
+    <image id="n2_kb8b" name="n2" src="kb8bra" fileName="images/panel01/introduce/翻页按钮1.png" xy="279,5"/>
+    <image id="n3_kb8b" name="n3" src="kb8bra" fileName="images/panel01/introduce/翻页按钮1.png" xy="358,5"/>
+    <image id="n4_kb8b" name="n4" src="kb8bra" fileName="images/panel01/introduce/翻页按钮1.png" xy="437,5"/>
+    <image id="n8_kb8b" name="n8" src="kb8bra" fileName="images/panel01/introduce/翻页按钮1.png" xy="516,5"/>
+    <image id="n9_kb8b" name="n9" src="kb8bra" fileName="images/panel01/introduce/翻页按钮1.png" xy="595,5"/>
+    <image id="n10_kb8b" name="n10" src="kb8bra" fileName="images/panel01/introduce/翻页按钮1.png" xy="674,5"/>
+    <image id="n11_kb8b" name="n11" src="kb8bra" fileName="images/panel01/introduce/翻页按钮1.png" xy="753,5"/>
+    <image id="n22_kb8b" name="n22" src="kb8bqx" fileName="images/panel01/introduce/翻页按钮.png" xy="280,4"/>
+    <image id="n23_kb8b" name="n23" src="kb8bqx" fileName="images/panel01/introduce/翻页按钮.png" xy="358,4"/>
+    <image id="n24_kb8b" name="n24" src="kb8bqx" fileName="images/panel01/introduce/翻页按钮.png" xy="437,4"/>
+    <image id="n25_kb8b" name="n25" src="kb8bqx" fileName="images/panel01/introduce/翻页按钮.png" xy="516,4"/>
+    <image id="n26_kb8b" name="n26" src="kb8bqx" fileName="images/panel01/introduce/翻页按钮.png" xy="596,4"/>
+    <image id="n27_kb8b" name="n27" src="kb8bqx" fileName="images/panel01/introduce/翻页按钮.png" xy="673,4"/>
+    <image id="n28_kb8b" name="n28" src="kb8bqx" fileName="images/panel01/introduce/翻页按钮.png" xy="753,4"/>
+  </displayList>
+</component>

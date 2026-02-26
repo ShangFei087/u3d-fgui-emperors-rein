@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="158,161">
+  <controller name="button" pages="1,stop,0,spin,3,hui,4,auto" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="animStop" delay="0.05" stopOnExit="true"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="animSpin" stopOnExit="true"/>
+    <action type="play_transition" fromPage="" toPage="3" transition="animHui" repeat="-1" stopOnExit="true"/>
+    <action type="play_transition" fromPage="" toPage="4" transition="animAuto"/>
+  </controller>
+  <displayList>
+    <image id="n17_qdjt" name="n17" src="ldsc15i" fileName="images/panel02/SpinFrame.png" xy="0,0"/>
+    <image id="n13_jkh9" name="red" src="ldsc15j" fileName="images/panel02/button/StopBg.png" xy="31,7"/>
+    <image id="n18_qdjt" name="blue" src="ldsc15k" fileName="images/panel02/button/SpinBgL.png" xy="31,7"/>
+    <image id="n19_qdjt" name="hui" src="ldsc15l" fileName="images/panel02/button/SpinBgB.png" xy="31,7"/>
+    <component id="n16_qdjt" name="anchorSpin" src="ldsc15m" fileName="components/panel02/anchorSpin.xml" xy="128,119" pivot="0.5,0.5" anchor="true" size="1,1"/>
+    <text id="n15_dpdl" name="playTotalSpins" xy="52,117" pivot="0.5,0.5" size="106,43" visible="false" font="ui://vdmp4vsrldsc15o" fontSize="14" color="#00ff00" align="center" vAlign="middle" text="99"/>
+    <loader id="n21_qdjt" name="n21" xy="103,90" pivot="0.5,0.5" anchor="true" size="110,40" url="ui://vdmp4vsrrzdn1b2" autoSize="true"/>
+  </displayList>
+  <transition name="animSpin" options="4">
+    <item time="0" type="Icon" target="n21_qdjt" value="ui://vdmp4vsrrzdn1b2"/>
+    <item time="0" type="Visible" target="n13_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n18_qdjt" value="true"/>
+    <item time="0" type="Visible" target="n19_qdjt" value="false"/>
+  </transition>
+  <transition name="animStop" options="4">
+    <item time="0" type="Icon" target="n21_qdjt" value="ui://vdmp4vsrrzdn1b3"/>
+    <item time="0" type="Visible" target="n13_jkh9" value="true"/>
+    <item time="0" type="Visible" target="n18_qdjt" value="false"/>
+    <item time="0" type="Visible" target="n19_qdjt" value="false"/>
+  </transition>
+  <transition name="animHui" options="4">
+    <item time="0" type="Icon" target="n21_qdjt" value="ui://vdmp4vsrrzdn1bp"/>
+    <item time="0" type="Visible" target="n13_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n18_qdjt" value="false"/>
+    <item time="0" type="Visible" target="n19_qdjt" value="true"/>
+  </transition>
+  <transition name="animAuto">
+    <item time="0" type="Icon" target="n21_qdjt" value="ui://vdmp4vsrrzdn1b4"/>
+    <item time="0" type="Visible" target="n13_jkh9" value="false"/>
+    <item time="0" type="Visible" target="n18_qdjt" value="true"/>
+    <item time="0" type="Visible" target="n19_qdjt" value="false"/>
+  </transition>
+</component>

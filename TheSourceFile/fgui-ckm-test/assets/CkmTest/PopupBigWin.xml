@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n8_fr2h" name="n8" src="fr2h2t" fileName="moudules/pop-upWindows/mask.xml" xy="0,0"/>
+    <component id="n6_l9lh" name="BigWin" src="l9lhu" fileName="components/BigWin/AnchorBigWin.xml" xy="540,960" size="1,1"/>
+    <text id="n7_fr2h" name="number" xy="286,1060" size="528,104" font="ui://4hwvsyqffr2hx" fontSize="12" align="center" vAlign="middle" autoSize="none" text="111"/>
+  </displayList>
+</component>

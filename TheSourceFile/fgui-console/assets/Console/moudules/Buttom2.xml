@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,120">
+  <displayList>
+    <graph id="n2_glrj" name="buttom" xy="0,0" size="1080,120" type="rect" fillColor="#ff114550">
+      <relation target="" sidePair="width-width,bottom-bottom"/>
+    </graph>
+    <component id="n3_glrj" name="btnExit" src="smbp1f" fileName="components/ButtonButtom.xml" xy="13,14">
+      <relation target="" sidePair="left-left,bottom-bottom"/>
+    </component>
+    <richtext id="n4_glrj" name="title" xy="334,41" size="521,42" fontSize="30" color="#ffffff" vAlign="middle" autoSize="none" text="Business Record">
+      <relation target="" sidePair="left-left,bottom-bottom"/>
+    </richtext>
+    <component id="n5_glrj" name="btnPrev" src="glrj1h" fileName="components/ButtonButtom2.xml" xy="268,62"/>
+    <component id="n6_glrj" name="btnNext" src="glrj1h" fileName="components/ButtonButtom2.xml" xy="915,62" rotation="180"/>
+  </displayList>
+  <customProperty target="title" propertyId="0" label="标题"/>
+</component>

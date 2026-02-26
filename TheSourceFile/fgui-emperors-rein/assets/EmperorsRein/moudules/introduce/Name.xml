@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,102">
+  <displayList>
+    <graph id="n0_ls7y" name="n0" xy="90,95" size="900,4" type="rect" lineSize="0">
+      <relation target="" sidePair="center-center"/>
+    </graph>
+    <richtext id="n3_w2bm" name="n3" xy="280,9" size="520,78" fontSize="56" color="#ffff00" align="center" vAlign="middle" autoSize="none" text="PAYS&#xA;"/>
+  </displayList>
+  <customProperty target="n3" propertyId="0"/>
+</component>

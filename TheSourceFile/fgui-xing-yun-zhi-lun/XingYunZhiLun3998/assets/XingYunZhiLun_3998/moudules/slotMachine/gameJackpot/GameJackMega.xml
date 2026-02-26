@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="395,128">
+  <displayList>
+    <image id="n2_a6yp" name="n2" src="a6ypacw" fileName="images/PopupGameNormalGame/jp_frame_base_grand.png" xy="0,49" size="395,75">
+      <relation target="" sidePair="width-width,bottom-bottom"/>
+    </image>
+    <text id="n1_n45k" name="score" xy="21,57" size="355,55" font="ui://5hielhj5a6ypacb" fontSize="18" align="center" vAlign="middle" leading="0" autoSize="none" text="123，456，789，789,789">
+      <relation target="n2_a6yp" sidePair="center-center,middle-middle"/>
+    </text>
+    <image id="n3_a6yp" name="n3" src="a6ypabv" fileName="images/PopupJackpotGame/ListSymbolIcons/jp_txt_grand.png" xy="70,0" size="230,48">
+      <relation target="" sidePair="top-top"/>
+    </image>
+  </displayList>
+</component>

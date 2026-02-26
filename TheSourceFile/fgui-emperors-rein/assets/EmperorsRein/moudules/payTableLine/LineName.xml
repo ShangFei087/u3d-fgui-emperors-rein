@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="51,30">
+  <displayList>
+    <text id="n33_gj84" name="line" xy="0,0" size="51,30" fontSize="20" color="#ff9900" align="center" vAlign="middle" autoSize="none" text="LINE">
+      <relation target="" sidePair="center-center"/>
+    </text>
+  </displayList>
+</component>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <graph id="n3_f6r9" name="holder" xy="1,1" pivot="0.5,0.5" anchor="true" size="1702,554" visible="false" type="rect"/>
+    <loader id="n4_f6r9" name="example" xy="1,1" pivot="0.5,0.5" anchor="true" size="1702,554" url="ui://vdmp4vsrlrqjnb" autoSize="true" clearOnPublish="true"/>
+    <image id="n10_lrqj" name="n10" src="f6r9n7" fileName="images/pageGameMain/Spine/qi.png" xy="172,-272" visible="false"/>
+    <image id="n11_lrqj" name="n11" src="f6r9n7" fileName="images/pageGameMain/Spine/qi.png" xy="-173,-272" skew="0,180" visible="false"/>
+  </displayList>
+</component>

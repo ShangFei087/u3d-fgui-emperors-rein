@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n4_os7y" name="n4" src="os7y3l" fileName="moudules/BasePopuoBG.xml" xy="-1,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n2_os7y" name="n2" src="vqlx68" fileName="images/common/square_64x64_1.png" xy="345,665" size="390,589" group="n3_os7y" color="#143733">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <richtext id="n6_os7y" name="title" xy="375,671" size="330,70" group="n3_os7y" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" singleLine="true" text="Choose Printer Model"/>
+    <image id="n7_os7y" name="n7" src="vqlx65" fileName="images/common/line_64x4.png" xy="375,741" size="330,4" group="n3_os7y"/>
+    <component id="n15_g3lh" name="input" src="vjfj52" fileName="moudules/ItemCustomInput002.xml" xy="375,755" size="330,76" group="n3_os7y">
+      <property target="title" propertyId="0" value="12345"/>
+    </component>
+    <component id="n16_vqlx" name="keyboard" src="glrj1w" fileName="moudules/ItemCustomKeyboard002.xml" xy="375,841" group="n3_os7y"/>
+    <group id="n3_os7y" name="popupFG" xy="345,665" size="390,589" advanced="true"/>
+  </displayList>
+</component>

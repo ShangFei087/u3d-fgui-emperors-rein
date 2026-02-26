@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_glrj" name="bg" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#ff333333">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <graph id="n1_glrj" name="fg" xy="0,478" size="1080,1440" type="rect" fillColor="#ff347591">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+  </displayList>
+  <customProperty target="nav1/title" propertyId="0" label="标题1底部导航栏"/>
+  <customProperty target="nav2" propertyId="0" label="标题2底部导航栏"/>
+</component>

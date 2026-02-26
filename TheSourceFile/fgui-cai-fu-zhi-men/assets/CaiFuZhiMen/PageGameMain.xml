@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <controller name="gameControl" pages="0,normal,1,free" selected="0"/>
+  <displayList>
+    <component id="n0_ssgm" name="normalBg" src="vckb6" fileName="moudules/gameCommon/gameBg/NormalBg.xml" xy="0,0">
+      <gearDisplay controller="gameControl" pages="0"/>
+    </component>
+    <component id="n7_ssgm" name="FSFrame" src="ssgm3d" fileName="moudules/pageGameMain/FreeFrame.xml" xy="0,0">
+      <gearDisplay controller="gameControl" pages="1"/>
+    </component>
+    <component id="n2_ssgm" name="slotReelBg" src="ssgm2z" fileName="moudules/gameCommon/gameMainView/SlotReelBg.xml" xy="0,913" scale="1.45,1.45"/>
+    <component id="n3_ssgm" name="slotMachine" src="ssgm35" fileName="moudules/gameCommon/gameMainView/SlotMachine.xml" xy="56,967"/>
+    <component id="n8_ssgm" name="jpGrand" src="ssgm3j" fileName="moudules/pageGameMain/jackpots/GameJackpotGrand.xml" xy="290,125" group="n12_ssgm"/>
+    <component id="n9_ssgm" name="jpMajor" src="ssgm3k" fileName="moudules/pageGameMain/jackpots/GameJackpotMajor.xml" xy="17,370" group="n12_ssgm"/>
+    <component id="n10_ssgm" name="jpMini" src="ssgm3l" fileName="moudules/pageGameMain/jackpots/GameJackpotMini.xml" xy="768,371" group="n12_ssgm"/>
+    <component id="n11_ssgm" name="jpMinor" src="ssgm3m" fileName="moudules/pageGameMain/jackpots/GameJackpotMinor.xml" xy="326,318" group="n12_ssgm"/>
+    <group id="n12_ssgm" name="jackpots" xy="17,125" size="1045,360"/>
+    <component id="n1_ssgm" name="panel" src="ssgm39" fileName="moudules/gameCommon/gamePanel/Anchor_PanelPush.xml" xy="535,1840"/>
+    <component id="n4_ssgm" name="anchor_Effect" src="ssgm3a" fileName="moudules/gameCommon/gameOther/Anchor_Effect.xml" xy="540,960"/>
+    <component id="n5_ssgm" name="anchor_FreeBorder" src="ssgm3b" fileName="moudules/gameCommon/gameOther/Anchor_FreeBorder.xml" xy="540,960"/>
+    <component id="n6_ssgm" name="anchor_BonusBorder" src="ssgm3c" fileName="moudules/gameCommon/gameOther/Anchor_BonusBorder.xml" xy="540,960"/>
+  </displayList>
+</component>

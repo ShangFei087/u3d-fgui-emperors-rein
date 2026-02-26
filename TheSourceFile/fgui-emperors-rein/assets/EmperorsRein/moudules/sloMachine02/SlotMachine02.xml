@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1020,656" overflow="hidden">
+  <displayList>
+    <component id="n46_w36x" name="reels" src="o3djip" fileName="moudules/sloMachine02/Reels02.xml" xy="510,328" pivot="0.5,0.5" anchor="true" size="1000,636">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n47_8zdv" name="slotCover" src="o3djiq" fileName="moudules/sloMachine02/SlotCover02.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n45_trhy" name="playLines" src="trhy14" fileName="components/AnchorPlayLines.xml" xy="509,327" touchable="false">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+  </displayList>
+</component>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" designImage="ui://k5oi8hwrn3ln1o">
+  <displayList>
+    <component id="n0_hhky" name="jackpotBg" src="hhky5n" fileName="moudules/popupJackpotGame/GameBackground/JackpotBG.xml" xy="0,0"/>
+    <component id="n10_6ydp" name="jpGrand" src="6ydp5y" fileName="moudules/gameJackpot/GameJackpotGrand.xml" xy="30,166" group="n14_6ydp" visible="false"/>
+    <component id="n11_6ydp" name="jpMajor" src="6ydp6y" fileName="moudules/gameJackpot/GameJackpotMajor.xml" xy="279,154" group="n14_6ydp" scale="1.4,1.4"/>
+    <component id="n12_6ydp" name="jpMini" src="6ydp6w" fileName="moudules/gameJackpot/GameJackpotMini.xml" xy="607,376" group="n14_6ydp" scale="1.4,1.4"/>
+    <component id="n13_6ydp" name="jpMinor" src="6ydp6x" fileName="moudules/gameJackpot/GameJackpotMinor.xml" xy="3,375" group="n14_6ydp" scale="1.4,1.4"/>
+    <group id="n14_6ydp" name="jackpots" xy="3,154" size="938,354"/>
+    <component id="n1_hhky" name="jackpotTreeSpine" src="hhky5p" fileName="moudules/popupJackpotGame/GameSpine/jackpotTree.xml" xy="540,960"/>
+    <component id="n6_q5jy" name="rewardRoll" src="q5jy5v" fileName="moudules/popupJackpotGame/ReelContent/JackpotReels.xml" xy="134,1155"/>
+    <component id="n3_q5jy" name="reelBg" src="n3ln1f" fileName="moudules/pageGameMain/ReelBackground/ReelBackground.xml" xy="-7,1056"/>
+    <component id="n5_q5jy" name="jackpotFrame" src="q5jy5s" fileName="moudules/popupJackpotGame/JackpotCount.xml" xy="694,1082" size="260,35"/>
+    <component id="n7_q5jy" name="jackpotDiamondSpines" src="q5jy5x" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamondSpines.xml" xy="134,1155"/>
+    <component id="n9_q5jy" name="reelBgSpine" src="rdkv2k" fileName="moudules/pageGameMain/Common/AnchorBorder.xml" xy="540,1350"/>
+    <component id="n15_h8er" name="panel" src="n3ln2i" fileName="components/pageGameMain/AnchorPanelSlot.xml" xy="540,1845"/>
+    <component id="n16_h8er" name="rayEffect" src="h8erdb" fileName="moudules/popupJackpotGame/GameEffect/RayEffect.xml" xy="540,960" visible="false" touchable="false"/>
+  </displayList>
+</component>

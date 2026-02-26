@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="vckb2k" name="fg_txt_start.png" path="/images/popupFreeSpinTrigger/" exported="true"/>
+    <image id="ssgm2x" name="jp_txt_collect.png" path="/images/popupFreeSpinResult/" exported="true"/>
+    <image id="ssgm3t" name="jp_txt_grand.png" path="/images/gameJackpots/" exported="true"/>
+    <image id="ssgm3u" name="jp_txt_major.png" path="/images/gameJackpots/" exported="true"/>
+    <image id="ssgm3v" name="jp_txt_mini.png" path="/images/gameJackpots/" exported="true"/>
+    <image id="ssgm3w" name="jp_txt_minor.png" path="/images/gameJackpots/" exported="true"/>
+  </resources>
+</branchDescription>

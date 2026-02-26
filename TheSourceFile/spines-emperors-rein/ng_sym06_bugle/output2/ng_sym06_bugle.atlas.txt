@@ -1,0 +1,216 @@
+
+ng_sym06_bugle.png
+size: 1906,274
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+fff
+  rotate: true
+  xy: 315, 108
+  size: 164, 124
+  orig: 164, 124
+  offset: 0, 0
+  index: -1
+haojiao
+  rotate: false
+  xy: 2, 5
+  size: 311, 267
+  orig: 311, 267
+  offset: 0, 0
+  index: -1
+hong_jin1
+  rotate: true
+  xy: 1839, 35
+  size: 135, 39
+  orig: 209, 39
+  offset: 74, 0
+  index: -1
+hong_jin2
+  rotate: false
+  xy: 315, 23
+  size: 136, 83
+  orig: 148, 84
+  offset: 12, 0
+  index: -1
+hong_jin3
+  rotate: true
+  xy: 1827, 172
+  size: 100, 77
+  orig: 100, 77
+  offset: 0, 0
+  index: -1
+号角_00018
+  rotate: false
+  xy: 2, 2
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+号角_00041
+  rotate: false
+  xy: 2, 2
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+号角_00042
+  rotate: false
+  xy: 2, 2
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+号角_00019
+  rotate: true
+  xy: 441, 140
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00020
+  rotate: true
+  xy: 453, 6
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00021
+  rotate: true
+  xy: 567, 140
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00022
+  rotate: true
+  xy: 579, 6
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00023
+  rotate: true
+  xy: 693, 140
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00024
+  rotate: true
+  xy: 705, 6
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00025
+  rotate: true
+  xy: 819, 140
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00026
+  rotate: true
+  xy: 831, 6
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00027
+  rotate: true
+  xy: 945, 140
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00028
+  rotate: true
+  xy: 957, 6
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00029
+  rotate: true
+  xy: 1071, 140
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00030
+  rotate: true
+  xy: 1083, 6
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00031
+  rotate: true
+  xy: 1197, 140
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00032
+  rotate: true
+  xy: 1209, 6
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00033
+  rotate: true
+  xy: 1323, 140
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00034
+  rotate: true
+  xy: 1335, 6
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00035
+  rotate: true
+  xy: 1449, 140
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00036
+  rotate: true
+  xy: 1461, 6
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00037
+  rotate: true
+  xy: 1575, 140
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00038
+  rotate: true
+  xy: 1587, 6
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00039
+  rotate: true
+  xy: 1701, 140
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1
+号角_00040
+  rotate: true
+  xy: 1713, 6
+  size: 132, 124
+  orig: 132, 124
+  offset: 0, 0
+  index: -1

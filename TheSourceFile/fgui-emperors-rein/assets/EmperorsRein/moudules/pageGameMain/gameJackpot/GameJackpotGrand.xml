@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="449,155">
+  <displayList>
+    <image id="n45_n813" name="n45" src="qdjtod" fileName="images/pageGameMain/frame/gameFrame/JP1框.png" xy="0,0"/>
+    <list id="n51_u09i" name="reels" xy="47,41" size="325,75" scale="1.1,1.1" layout="row" overflow="hidden" scroll="horizontal" defaultItem="ui://vdmp4vsrl9ylf8" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <image id="n52_sf7x" name="name" src="gisvsx" fileName="images/pageGameMain/frame/gameFrame/JP3.png" xy="144,-21" size="155,65"/>
+  </displayList>
+</component>

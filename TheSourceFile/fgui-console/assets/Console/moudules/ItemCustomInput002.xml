@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="330,76" extention="Button">
+  <displayList>
+    <richtext id="n1_cwuo" name="title" xy="0,0" size="330,76" fontSize="40" color="#ffffff" vAlign="middle" autoSize="shrink" singleLine="true" text="*******">
+      <relation target="" sidePair="width-width,height-height"/>
+    </richtext>
+  </displayList>
+  <Button/>
+  <customProperty target="title" propertyId="0" label="标题"/>
+</component>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <image id="n9_ldsc" name="n9" src="ebgu79" fileName="images/frame/bg_3.png" xy="-210,-50"/>
+    <image id="n7_ldsc" name="n7" src="ebgu7a" fileName="images/frame/bg_1.png" xy="-540,-34" size="540,102"/>
+    <image id="n8_ldsc" name="n8" src="ebgu7a" fileName="images/frame/bg_1.png" xy="540,-34" size="540,102" skew="0,180"/>
+    <image id="n16_qy0j" name="n16" src="qy0j93" fileName="images/frame/bg_2.png" xy="-540,-882" size="540,124"/>
+    <image id="n17_qy0j" name="n17" src="qy0j93" fileName="images/frame/bg_2.png" xy="0,-882" size="540,124" flip="hz"/>
+    <image id="n18_qy0j" name="n18" src="qy0j8w" fileName="images/frame/frame.png" xy="-218,-925"/>
+    <image id="n19_qy0j" name="n19" src="qy0j8v" fileName="images/frame/frame_r.png" xy="223,-873"/>
+    <image id="n20_qy0j" name="n20" src="qy0j8y" fileName="images/frame/frame_l.png" xy="-506,-876"/>
+    <image id="n21_qy0j" name="n21" src="qy0j8z" fileName="images/frame/bet.png" xy="-414,-893"/>
+    <image id="n22_qy0j" name="n22" src="qy0j8x" fileName="images/frame/credit.png" xy="268,-893"/>
+    <image id="n23_qy0j" name="n23" src="qy0j8t" fileName="images/frame/win.png" xy="-110,-944"/>
+  </displayList>
+</component>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n4_fr2h" name="n4" src="fr2h2t" fileName="moudules/pop-upWindows/mask.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n0_fr2h" name="n0" src="fr2h2l" fileName="images/pop-upWindows/fg_txt_X-RAY.png" xy="37,564" scale="2,2"/>
+    <image id="n1_fr2h" name="n1" src="fr2h2m" fileName="images/pop-upWindows/fg_txt_X-RAY2.png" xy="289,784" scale="2,2"/>
+    <image id="n2_fr2h" name="n2" src="fr2h1c" fileName="images/pop-upWindows/ng_txt_Touch to continue.png" xy="209,1234" scale="2,2"/>
+    <component id="n3_fr2h" name="continue" src="fr2h2q" fileName="components/pop-upWindows/continue.xml" xy="0,0" alpha="0">
+      <relation target="" sidePair="width-width%,height-height"/>
+    </component>
+  </displayList>
+</component>

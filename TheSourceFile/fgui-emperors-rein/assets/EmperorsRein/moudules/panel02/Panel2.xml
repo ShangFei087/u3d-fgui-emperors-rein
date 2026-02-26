@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,157">
+  <displayList>
+    <text id="n28_o1y0" name="win" xy="540,-721" pivot="0.5,0.5" anchor="true" size="172,57" font="ui://vdmp4vsrldsc156" fontSize="14" color="#cccccc" align="center" vAlign="middle" leading="1" letterSpacing="1" autoSize="shrink" text="99700">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <text id="n11_oxcq" name="credit" xy="815,-721" pivot="0.5,0.5" anchor="true" size="172,57" font="ui://vdmp4vsrldsc156" fontSize="14" color="#cccccc" align="center" vAlign="middle" leading="1" letterSpacing="1" autoSize="shrink" text="-+9700">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <text id="n29_o1y0" name="bet" xy="173,-750" size="172,57" font="ui://vdmp4vsrldsc156" fontSize="14" color="#cccccc" align="center" vAlign="middle" leading="1" letterSpacing="1" autoSize="shrink" text="99700">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <graph id="n0_oxcq" name="mash" xy="1,-1928" size="1080,2160" visible="false" type="rect" lineSize="0" lineColor="#80333333" fillColor="#bf000000"/>
+    <component id="n24_dpdl" name="btnBet" src="ldsc155" fileName="components/panel02/PalyTimes.xml" xy="172,-750" size="172,57"/>
+    <image id="n25_qdjt" name="n25" src="ldsc163" fileName="images/panel02/PanelBg.png" xy="0,34"/>
+    <component id="n22_dpdl" name="btnSpin" src="ldsc15h" fileName="components/panel02/BtnSpin.xml" xy="922,-4"/>
+    <component id="n16_oxcq" name="payTable" src="ldsc16h" fileName="moudules/panel02/payTable2.xml" xy="0,-1731" visible="false"/>
+    <component id="n17_oxcq" name="btnHelp" src="ldsc152" fileName="components/panel02/Button2.xml" xy="42,71"/>
+    <component id="n30_a9so" name="SetPanel" src="a9so190" fileName="components/panel02/settingPanel.xml" xy="42,-121" visible="false"/>
+  </displayList>
+</component>

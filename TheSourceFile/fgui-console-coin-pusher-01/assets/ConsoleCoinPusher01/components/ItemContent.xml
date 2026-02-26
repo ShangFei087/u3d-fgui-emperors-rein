@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="980,60">
+  <displayList>
+    <richtext id="n5_paul" name="title" xy="96,0" size="788,59" fontSize="36" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="剩余时间: {0} 天  {1} 小时  {2} 分钟"/>
+  </displayList>
+  <customProperty target="title" propertyId="0" label="标题"/>
+</component>

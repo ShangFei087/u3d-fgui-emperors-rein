@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="980,249">
+  <displayList>
+    <list id="n11_86hh" name="buttons" xy="0,0" size="980,127" layout="flow_hz" overflow="hidden" defaultItem="ui://tdkeq96086hhl" align="center">
+      <item name="No.0">
+        <property target="title" propertyId="0" value="0"/>
+      </item>
+      <item name="No.1">
+        <property target="title" propertyId="0" value="1"/>
+      </item>
+      <item name="No.2">
+        <property target="title" propertyId="0" value="2"/>
+      </item>
+      <item name="No.3">
+        <property target="title" propertyId="0" value="3"/>
+      </item>
+      <item name="No.4">
+        <property target="title" propertyId="0" value="4"/>
+      </item>
+      <item name="No.5">
+        <property target="title" propertyId="0" value="5"/>
+      </item>
+      <item name="No.6">
+        <property target="title" propertyId="0" value="6"/>
+      </item>
+      <item name="No.7">
+        <property target="title" propertyId="0" value="7"/>
+      </item>
+      <item name="No.8">
+        <property target="title" propertyId="0" value="8"/>
+      </item>
+      <item name="No.9">
+        <property target="title" propertyId="0" value="9"/>
+      </item>
+      <item name="clear">
+        <property target="title" propertyId="0" value="清空"/>
+      </item>
+      <item name="delete">
+        <property target="title" propertyId="0" value="删除"/>
+      </item>
+      <item name="ok">
+        <property target="title" propertyId="0" value="确认"/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+      </item>
+    </list>
+    <list id="n13_86hh" name="input" xy="0,127" size="980,62" layout="row" overflow="hidden" colGap="16" defaultItem="ui://tdkeq96086hhn" align="center">
+      <item>
+        <property target="title" propertyId="0" value="&lt;img src=&apos;ui://ConsoleCoinPusher01/icon-asterisk&apos; /&gt;"/>
+      </item>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <component id="n14_86hh" name="tip" src="86hhj" fileName="components/ItemTip2.xml" xy="0,189">
+      <property target="title" propertyId="0" value=""/>
+    </component>
+  </displayList>
+</component>

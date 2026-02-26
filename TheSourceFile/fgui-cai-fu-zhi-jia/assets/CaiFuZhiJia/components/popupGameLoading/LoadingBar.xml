@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="960,58" extention="Slider">
+  <displayList>
+    <component id="n0_q2oi" name="n0" src="q2oic" fileName="moudules/popupGameLoading/SliderBG.xml" xy="0,0" size="960,58">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n1_q2oi" name="bar" src="q2oi5" fileName="images/popupGameLoading/laod_img_progress.png" xy="7,6" size="941,47"/>
+    <component id="n2_q2oi" name="grip" src="q2oid" fileName="components/popupGameLoading/LoadingBar_grip.xml" xy="920,9">
+      <relation target="n1_q2oi" sidePair="right-right"/>
+    </component>
+  </displayList>
+  <Slider/>
+</component>

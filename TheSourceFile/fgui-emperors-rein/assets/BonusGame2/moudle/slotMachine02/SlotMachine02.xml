@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="974,520" overflow="hidden">
+  <displayList>
+    <component id="n46_w36x" name="reels" src="ib9y1t" fileName="moudle/slotMachine02/Reels02.xml" xy="487,260" pivot="0.5,0.5" anchor="true" size="974,520">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n47_8zdv" name="slotCover" src="ib9y1u" fileName="moudle/slotMachine02/SlotCover02.xml" xy="487,260" pivot="0.5,0.5" anchor="true" size="974,550">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+  </displayList>
+</component>

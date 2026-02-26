@@ -1,0 +1,174 @@
+
+ng_sym09_King.png
+size: 1387,525
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+2tou
+  rotate: false
+  xy: 834, 197
+  size: 252, 326
+  orig: 252, 326
+  offset: 0, 0
+  index: -1
+2tou_yan1
+  rotate: false
+  xy: 1100, 25
+  size: 49, 18
+  orig: 49, 18
+  offset: 0, 0
+  index: -1
+2tou_yan2
+  rotate: true
+  xy: 1299, 82
+  size: 47, 18
+  orig: 50, 18
+  offset: 0, 0
+  index: -1
+bg
+  rotate: false
+  xy: 456, 168
+  size: 376, 355
+  orig: 376, 355
+  offset: 0, 0
+  index: -1
+guangyun
+  rotate: false
+  xy: 834, 28
+  size: 167, 167
+  orig: 167, 167
+  offset: 0, 0
+  index: -1
+hong_dai
+  rotate: false
+  xy: 2, 57
+  size: 343, 125
+  orig: 343, 125
+  offset: 0, 0
+  index: -1
+hpng_houling1
+  rotate: false
+  xy: 1299, 131
+  size: 57, 38
+  orig: 57, 38
+  offset: 0, 0
+  index: -1
+hpng_houling2
+  rotate: true
+  xy: 442, 89
+  size: 77, 45
+  orig: 77, 45
+  offset: 0, 0
+  index: -1
+jin_bi
+  rotate: false
+  xy: 347, 99
+  size: 93, 83
+  orig: 93, 83
+  offset: 0, 0
+  index: -1
+kung
+  rotate: false
+  xy: 2, 184
+  size: 452, 339
+  orig: 452, 339
+  offset: 0, 0
+  index: -1
+kung2
+  rotate: false
+  xy: 2, 2
+  size: 485, 53
+  orig: 485, 53
+  offset: 0, 0
+  index: -1
+ling1
+  rotate: true
+  xy: 1248, 8
+  size: 72, 82
+  orig: 72, 82
+  offset: 0, 0
+  index: -1
+ling2
+  rotate: false
+  xy: 1153, 82
+  size: 144, 116
+  orig: 144, 116
+  offset: 0, 0
+  index: -1
+ling3
+  rotate: true
+  xy: 1317, 250
+  size: 179, 59
+  orig: 179, 59
+  offset: 0, 0
+  index: -1
+shou1_1
+  rotate: false
+  xy: 1317, 171
+  size: 59, 77
+  orig: 59, 77
+  offset: 0, 0
+  index: -1
+shou1_2
+  rotate: false
+  xy: 1153, 9
+  size: 93, 71
+  orig: 93, 71
+  offset: 0, 0
+  index: -1
+shou1_3
+  rotate: true
+  xy: 1317, 431
+  size: 92, 68
+  orig: 94, 73
+  offset: 0, 0
+  index: -1
+shou1_4
+  rotate: false
+  xy: 347, 57
+  size: 65, 40
+  orig: 66, 52
+  offset: 0, 0
+  index: -1
+shou1_5
+  rotate: true
+  xy: 798, 129
+  size: 37, 31
+  orig: 40, 39
+  offset: 0, 3
+  index: -1
+shou1_zhang
+  rotate: false
+  xy: 647, 13
+  size: 149, 153
+  orig: 173, 154
+  offset: 0, 0
+  index: -1
+shou2_1
+  rotate: false
+  xy: 489, 7
+  size: 156, 159
+  orig: 187, 163
+  offset: 0, 0
+  index: -1
+shou2_2
+  rotate: false
+  xy: 1003, 2
+  size: 95, 41
+  orig: 95, 51
+  offset: 0, 0
+  index: -1
+shou_bi
+  rotate: true
+  xy: 1088, 200
+  size: 323, 227
+  orig: 326, 227
+  offset: 3, 0
+  index: -1
+tou_bozi
+  rotate: false
+  xy: 1003, 45
+  size: 148, 150
+  orig: 164, 155
+  offset: 0, 5
+  index: -1

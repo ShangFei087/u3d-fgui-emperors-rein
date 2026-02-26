@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="225,45" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <graph id="n0_g3lh" name="n0" xy="0,0" size="225,45" touchable="false" type="rect" lineSize="0">
+      <gearDisplay controller="button" pages="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <graph id="n4_g3lh" name="n4" xy="0,0" size="225,45" touchable="false" type="rect" lineSize="0" fillColor="#ff999999">
+      <gearDisplay controller="button" pages="2,3"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <graph id="n1_g3lh" name="n1" xy="0,0" size="225,45" touchable="false" type="rect" lineSize="0" fillColor="#ff68ffd6">
+      <gearDisplay controller="button" pages="1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <text id="n2_g3lh" name="title" xy="22,0" size="186,45" fontSize="20" color="#323232" vAlign="middle" autoSize="shrink" singleLine="true" text="23213">
+      <relation target="" sidePair="width-width,height-height"/>
+    </text>
+    <image id="n6_g3lh" name="n6" src="g3lh5f" fileName="images/buttons/icon_tick.png" xy="2,14" pivot="0.5,0.5" size="16,16" color="#333333">
+      <gearDisplay controller="button" pages="1"/>
+    </image>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

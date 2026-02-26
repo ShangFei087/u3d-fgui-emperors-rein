@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="ioi7gq" name="icon_what.png" path="/images/button/" exported="true"/>
+    <image id="ioi7gr" name="icon_return.png" path="/images/button/" exported="true"/>
+    <image id="ioi7gs" name="icon_i.png" path="/images/button/" exported="true"/>
+    <image id="ioi7h8" name="icon_redeem.png" path="/images/button/" exported="true"/>
+    <image id="ioi7ha" name="icon_play_1.png" path="/images/button/" exported="true"/>
+    <image id="ioi7hb" name="icon_stop_1.png" path="/images/button/" exported="true"/>
+    <image id="ioi7hc" name="icon_auto_1.png" path="/images/button/" exported="true"/>
+    <image id="ebguiz" name="win_.png" path="/images/frame/" exported="true"/>
+    <image id="ebguj0" name="credit_.png" path="/images/frame/" exported="true"/>
+    <image id="ebguj1" name="bet_.png" path="/images/frame/" exported="true"/>
+  </resources>
+</branchDescription>

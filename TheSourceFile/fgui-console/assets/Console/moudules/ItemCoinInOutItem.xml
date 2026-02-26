@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,76">
+  <displayList>
+    <text id="n99_g3lh" name="col0" xy="0,0" size="108,76" fontSize="30" color="#4aff00" align="center" vAlign="middle" autoSize="shrink" text="In">
+      <relation target="" sidePair="height-height"/>
+    </text>
+    <text id="n100_g3lh" name="col1" xy="108,0" size="108,76" fontSize="30" color="#4aff00" align="center" vAlign="middle" autoSize="shrink" text="100">
+      <relation target="" sidePair="height-height"/>
+    </text>
+    <text id="n101_g3lh" name="col2" xy="216,0" size="162,76" fontSize="30" color="#4aff00" align="center" vAlign="middle" autoSize="shrink" text="score_up">
+      <relation target="" sidePair="height-height"/>
+    </text>
+    <text id="n102_g3lh" name="col3" xy="378,0" size="162,76" fontSize="30" color="#4aff00" align="center" vAlign="middle" autoSize="shrink" text="1900">
+      <relation target="" sidePair="height-height"/>
+    </text>
+    <text id="n103_g3lh" name="col4" xy="540,0" size="162,76" fontSize="30" color="#4aff00" align="center" vAlign="middle" autoSize="shrink" text="2000">
+      <relation target="" sidePair="height-height"/>
+    </text>
+    <text id="n104_g3lh" name="col5" xy="702,0" size="378,76" fontSize="30" color="#4aff00" align="center" vAlign="middle" autoSize="shrink" text="2025-07-08 11:50:21">
+      <relation target="" sidePair="height-height"/>
+    </text>
+  </displayList>
+</component>

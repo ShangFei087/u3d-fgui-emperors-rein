@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <loader id="n33_xs3q" name="example" xy="0,0" pivot="0.5,0.5" anchor="true" size="200,212" visible="false" url="ui://vdmp4vsrjjue2i" clearOnPublish="true"/>
+    <text id="n32_xs3q" name="Text" xy="0,12" pivot="0.5,0.5" anchor="true" size="200,79" font="ui://vdmp4vsrxs3qnw" fontSize="4" align="center" vAlign="middle" autoSize="shrink" text="180"/>
+  </displayList>
+</component>

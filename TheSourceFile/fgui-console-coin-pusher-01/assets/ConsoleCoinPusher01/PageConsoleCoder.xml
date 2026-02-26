@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_paul" name="base" src="paul3" fileName="moudules/MDPageBase.xml" xy="0,-3">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="title" propertyId="0" value="/激活报码"/>
+    </component>
+    <component id="n11_86hh" name="totalWin" src="86hhf" fileName="components/ItemKeyText.xml" xy="47,125">
+      <property target="title" propertyId="0" value="A:"/>
+      <property target="value" propertyId="0" value="10000"/>
+    </component>
+    <component id="n12_86hh" name="totalBet" src="86hhf" fileName="components/ItemKeyText.xml" xy="47,185">
+      <property target="title" propertyId="0" value="B:"/>
+      <property target="value" propertyId="0" value="20000"/>
+    </component>
+    <component id="n13_86hh" name="machineId" src="86hhf" fileName="components/ItemKeyText.xml" xy="47,245">
+      <property target="title" propertyId="0" value="C:"/>
+      <property target="value" propertyId="0" value="11109001"/>
+    </component>
+    <component id="n14_86hh" name="activeCount" src="86hhf" fileName="components/ItemKeyText.xml" xy="47,305">
+      <property target="title" propertyId="0" value="D:"/>
+      <property target="value" propertyId="0" value="2"/>
+    </component>
+    <component id="n15_86hh" name="checkCode" src="86hhf" fileName="components/ItemKeyText.xml" xy="47,365">
+      <property target="title" propertyId="0" value="E:"/>
+      <property target="value" propertyId="0" value="99999999"/>
+    </component>
+    <component id="n22_86hh" name="remianTime" src="86hhq" fileName="components/ItemContent.xml" xy="50,425">
+      <property target="title" propertyId="0" value="剩余时间: {0} 天  {1} 小时  {2} 分钟"/>
+    </component>
+    <component id="n24_86hh" name="keyboard" src="86hhp" fileName="moudules/Keyboard01.xml" xy="50,621"/>
+    <component id="n26_86hh" name="tip" src="86hhj" fileName="components/ItemTip2.xml" xy="50,835"/>
+  </displayList>
+</component>

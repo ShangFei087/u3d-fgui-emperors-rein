@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <image id="n0_ib9y" name="n0" src="ib9y1" fileName="image/bonusGame2/plat_bg_BackGround.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n15_ib9y" name="table1" src="ib9yg" fileName="moudle/Table1.xml" xy="0,183">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n16_ib9y" name="table2" src="ib9yi" fileName="moudle/Table2.xml" xy="0,585">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n17_ib9y" name="table3" src="ib9yj" fileName="moudle/Table3.xml" xy="0,1161">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n19_j20k" name="n19" src="nb0njz" fileName="components/AnchorPanel2.xml" pkg="vdmp4vsr" xy="0,0">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+  </displayList>
+  <transition name="t0" autoPlay="true">
+    <item time="0" type="Rotation" target="n15_ib9y" tween="true" startValue="1.5" endValue="0" duration="24" ease="Linear"/>
+    <item time="0" type="Rotation" target="n16_ib9y" tween="true" startValue="1.5" endValue="0" duration="24" ease="Linear"/>
+    <item time="0" type="Rotation" target="n17_ib9y" tween="true" startValue="1.5" endValue="0" duration="24" ease="Linear"/>
+    <item time="0" type="XY" target="n15_ib9y" tween="true" startValue="1.5,198" endValue="0,145" duration="9" ease="Linear"/>
+    <item time="0" type="XY" target="n16_ib9y" tween="true" startValue="1.5,600" endValue="0,550" duration="9" ease="Linear"/>
+    <item time="0" type="XY" target="n17_ib9y" tween="true" startValue="1.5,1176" endValue="0,1128" duration="9" ease="Linear"/>
+    <item time="9" type="XY" target="n15_ib9y" tween="true" startValue="0,145" endValue="0,183" duration="15" ease="Linear"/>
+    <item time="9" type="XY" target="n16_ib9y" tween="true" startValue="0,550" endValue="0,585" duration="15" ease="Linear"/>
+    <item time="9" type="XY" target="n17_ib9y" tween="true" startValue="0,1128" endValue="0,1161" duration="15" ease="Linear"/>
+  </transition>
+  <transition name="t3">
+    <item time="0" type="Pivot" target="n17_ib9y" value="0.5,0.5"/>
+    <item time="0" type="Rotation" target="n17_ib9y" tween="true" startValue="0.6" endValue="0" duration="3" ease="Linear"/>
+    <item time="3" type="Rotation" target="n17_ib9y" tween="true" startValue="0" endValue="0" duration="3" ease="Linear"/>
+    <item time="6" type="Rotation" target="n17_ib9y" tween="true" startValue="0" endValue="0.6" duration="3" ease="Linear"/>
+    <item time="9" type="Rotation" target="n17_ib9y" tween="true" startValue="0.6" endValue="0.6" duration="3" ease="Linear"/>
+    <item time="12" type="Rotation" target="n17_ib9y" tween="true" startValue="0.6" endValue="0" duration="3" ease="Linear"/>
+    <item time="15" type="Rotation" target="n17_ib9y" tween="true" startValue="0" endValue="0" duration="3" ease="Linear"/>
+    <item time="18" type="Rotation" target="n17_ib9y" tween="true" startValue="0" endValue="0.6" duration="3" ease="Linear"/>
+    <item time="21" type="Rotation" target="n17_ib9y" tween="true" startValue="0.6" endValue="0" duration="3" ease="Linear"/>
+  </transition>
+  <transition name="t2">
+    <item time="0" type="Pivot" target="n16_ib9y" value="0.5,0.5"/>
+    <item time="0" type="Rotation" target="n16_ib9y" tween="true" startValue="0.6" endValue="0" duration="3" ease="Linear"/>
+    <item time="3" type="Rotation" target="n16_ib9y" tween="true" startValue="0" endValue="0" duration="3" ease="Linear"/>
+    <item time="6" type="Rotation" target="n16_ib9y" tween="true" startValue="0" endValue="0.6" duration="3" ease="Linear"/>
+    <item time="9" type="Rotation" target="n16_ib9y" tween="true" startValue="0.6" endValue="0.6" duration="3" ease="Linear"/>
+    <item time="12" type="Rotation" target="n16_ib9y" tween="true" startValue="0.6" endValue="0" duration="3" ease="Linear"/>
+    <item time="15" type="Rotation" target="n16_ib9y" tween="true" startValue="0" endValue="0" duration="3" ease="Linear"/>
+    <item time="18" type="Rotation" target="n16_ib9y" tween="true" startValue="0" endValue="0.6" duration="3" ease="Linear"/>
+    <item time="21" type="Rotation" target="n16_ib9y" tween="true" startValue="0.6" endValue="0" duration="3" ease="Linear"/>
+  </transition>
+  <transition name="t1">
+    <item time="0" type="Pivot" target="n15_ib9y" value="0.5,0.5"/>
+    <item time="0" type="Rotation" target="n15_ib9y" tween="true" startValue="0.6" endValue="0" duration="3" ease="Linear"/>
+    <item time="3" type="Rotation" target="n15_ib9y" tween="true" startValue="0" endValue="0" duration="3" ease="Linear"/>
+    <item time="6" type="Rotation" target="n15_ib9y" tween="true" startValue="0" endValue="0.6" duration="3" ease="Linear"/>
+    <item time="9" type="Rotation" target="n15_ib9y" tween="true" startValue="0.6" endValue="0.6" duration="3" ease="Linear"/>
+    <item time="12" type="Rotation" target="n15_ib9y" tween="true" startValue="0.6" endValue="0" duration="3" ease="Linear"/>
+    <item time="15" type="Rotation" target="n15_ib9y" tween="true" startValue="0" endValue="0" duration="3" ease="Linear"/>
+    <item time="18" type="Rotation" target="n15_ib9y" tween="true" startValue="0" endValue="0.6" duration="3" ease="Linear"/>
+    <item time="21" type="Rotation" target="n15_ib9y" tween="true" startValue="0.6" endValue="0" duration="3" ease="Linear"/>
+  </transition>
+</component>

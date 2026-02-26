@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="889,699">
+  <displayList>
+    <richtext id="n1_tsjn" name="n1" xy="0,0" size="889,698" fontSize="38" color="#ffffff" align="center" autoSize="none" text="JP有四档＝JP1/JP2/JP3/JP4&#xA; JP1、JP2为连线累积奖，JP3/JP4为固定奖。&#xA;&#xA;5个&lt;img src=&quot;ui://vdmp4vsrjmqcuy&quot; width=&quot;100&quot; height=&quot;106&quot;/&gt; = JP1&#xA;4个&lt;img src=&quot;ui://vdmp4vsrjmqcuy&quot; width=&quot;100&quot; height=&quot;106&quot;/&gt; = JP2&#xA;3个&lt;img src=&quot;ui://vdmp4vsrjmqcuy&quot; width=&quot;100&quot; height=&quot;106&quot;/&gt; = JP3&#xA;2个&lt;img src=&quot;ui://vdmp4vsrjmqcuy&quot; width=&quot;100&quot; height=&quot;106&quot;/&gt; = JP4">
+      <relation target="" sidePair="center-center"/>
+    </richtext>
+  </displayList>
+</component>

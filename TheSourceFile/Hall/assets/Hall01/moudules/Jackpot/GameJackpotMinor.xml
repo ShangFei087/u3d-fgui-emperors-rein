@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,340">
+  <displayList>
+    <image id="n1_oypp" name="n1" src="oypp6" fileName="images/Jackpot/cg_ic_minork.png" xy="-1,178"/>
+    <list id="n3_oypp" name="reels" xy="36,222" size="738,71" layout="row" overflow="hidden" colGap="20" align="center" vAlign="middle">
+      <item url="ui://jzsm3zpuoyppo"/>
+      <item url="ui://jzsm3zpuoyppo"/>
+      <item url="ui://jzsm3zpuoyppo"/>
+      <item url="ui://jzsm3zpuoyppo"/>
+      <item url="ui://jzsm3zpuoyppo"/>
+      <item url="ui://jzsm3zpuoyppo"/>
+      <item url="ui://jzsm3zpuoyppo"/>
+    </list>
+    <image id="n0_oypp" name="n0" src="oyppe" fileName="images/Jackpot/cg_ic_minor.png" xy="399,76" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>

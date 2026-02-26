@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="200,212">
+  <displayList>
+    <loader id="n31_trhy" name="image" xy="99,105" pivot="0.5,0.5" anchor="true" size="206,211" url="ui://vdmp4vsrjjue2i" autoSize="true" clearOnPublish="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+  </displayList>
+</component>

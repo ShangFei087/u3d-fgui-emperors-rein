@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="889,687">
+  <displayList>
+    <richtext id="n1_tsjn" name="n1" xy="0,0" size="889,687" fontSize="38" color="#ffffff" align="center" leading="2" autoSize="none" text="本游戏采用“50固定获胜线”机制。&#xA;相同符号从最左转轮起，相邻连续即可成组。&#xA;所有符号必须沿有效线路出现，才能获胜。&#xA;不同获胜线或位置的获胜组合，奖励可累加。&#xA;同一条线上只计最高获胜组合。">
+      <relation target="" sidePair="center-center"/>
+    </richtext>
+  </displayList>
+</component>

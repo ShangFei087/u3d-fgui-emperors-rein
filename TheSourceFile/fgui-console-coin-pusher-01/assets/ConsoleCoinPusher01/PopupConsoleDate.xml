@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <controller name="c1" pages="0,day,1,month,2,year" selected="0"/>
+  <displayList>
+    <component id="n0_rh4e" name="base" src="paul3" fileName="moudules/MDPageBase.xml" xy="1,0">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="title" propertyId="0" value="/记录/"/>
+    </component>
+    <list id="n2_rh4e" name="items" xy="50,1291" size="980,483" overflow="hidden" lineGap="10" defaultItem="ui://tdkeq960paul5">
+      <item name="changYear">
+        <property target="title" propertyId="0" value="选择年份"/>
+      </item>
+      <item name="changMonth">
+        <property target="title" propertyId="0" value="选择月份"/>
+      </item>
+      <item name="changDay">
+        <property target="title" propertyId="0" value="选择日期"/>
+      </item>
+      <item name="changHour">
+        <property target="title" propertyId="0" value="选择小时"/>
+      </item>
+      <item name="changMinute">
+        <property target="title" propertyId="0" value="选择分钟"/>
+      </item>
+      <item name="save">
+        <property target="title" propertyId="0" value="保存"/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+      </item>
+    </list>
+    <list id="n3_gyiy" name="day" xy="149,220" size="782,350" layout="pagination" overflow="scroll" colGap="24" lineItemCount="7" lineItemCount2="6" defaultItem="ui://tdkeq96086hhl">
+      <gearDisplay controller="c1" pages="0"/>
+      <item>
+        <property target="title" propertyId="0" value="28"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="29"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="30"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="31"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="1"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="2"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="3"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="4"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="5"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="6"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="7"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="8"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="9"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="10"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="11"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="12"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="13"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="14"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="15"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="16"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="17"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="18"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="19"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="20"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="21"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="22"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="23"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="24"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="25"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="26"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="27"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="28"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="29"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="30"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="31"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="1"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="2"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="3"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="4"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="5"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="6"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="7"/>
+      </item>
+    </list>
+    <list id="n4_gyiy" name="month" xy="278,298" size="523,206" layout="pagination" overflow="scroll" lineGap="10" colGap="50" lineItemCount="4" lineItemCount2="3" defaultItem="ui://tdkeq96086hhl">
+      <gearDisplay controller="c1" pages="1"/>
+      <item>
+        <property target="title" propertyId="0" value="1"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="2"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="3"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="4"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="5"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="6"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="7"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="8"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="9"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="10"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="11"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="12"/>
+      </item>
+    </list>
+    <list id="n5_gyiy" name="year" xy="227,283" size="596,236" layout="pagination" overflow="scroll" colGap="18" lineItemCount="4" lineItemCount2="4" defaultItem="ui://tdkeq960gyiy1i">
+      <gearDisplay controller="c1" pages="2"/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item>
+        <property target="title" propertyId="0" value="上一页"/>
+      </item>
+      <item>
+        <property target="title" propertyId="0" value="下一页"/>
+      </item>
+    </list>
+    <richtext id="n6_gyiy" name="date" xy="120,1175" size="840,63" fontSize="47" color="#ffffff" autoSize="none" text="选择的日期：2025-02-23 14：01：03"/>
+    <richtext id="n7_gyiy" name="n7" xy="179,155" size="739,59" fontSize="44" color="#ffffff" autoSize="none" text="日       一       二       三       四       五       六">
+      <gearDisplay controller="c1" pages="0"/>
+    </richtext>
+  </displayList>
+</component>

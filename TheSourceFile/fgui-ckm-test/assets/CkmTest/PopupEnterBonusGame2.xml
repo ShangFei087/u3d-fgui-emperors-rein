@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n3_fr2h" name="n3" src="fr2h2t" fileName="moudules/pop-upWindows/mask.xml" xy="0,0"/>
+    <image id="n0_fr2h" name="n0" src="fr2h1h" fileName="images/pop-upWindows/ng_txt_QUICK CHANGE BONUS .png" xy="96,603" scale="1.5,1.5"/>
+    <image id="n1_fr2h" name="n1" src="fr2h1c" fileName="images/pop-upWindows/ng_txt_Touch to continue.png" xy="236,1119" scale="2,2"/>
+    <component id="n2_fr2h" name="continue" src="fr2h2q" fileName="components/pop-upWindows/continue.xml" xy="0,0" alpha="0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+  </displayList>
+</component>

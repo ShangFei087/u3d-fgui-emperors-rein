@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="845,492">
+  <displayList>
+    <image id="n0_hnye" name="n0" src="hnyelf" fileName="images/playLines/line_tile_middle_middle.png" xy="-5,215" size="250,50" color="#33ccff"/>
+    <image id="n1_hnye" name="n1" src="hnyelf" fileName="images/playLines/line_tile_middle_middle.png" xy="195,215" size="250,50" color="#33ccff"/>
+    <image id="n2_hnye" name="n2" src="hnyelf" fileName="images/playLines/line_tile_middle_middle.png" xy="395,215" size="250,50" color="#33ccff"/>
+    <image id="n3_hnye" name="n3" src="hnyelf" fileName="images/playLines/line_tile_middle_middle.png" xy="595,215" size="250,50" color="#33ccff"/>
+  </displayList>
+</component>

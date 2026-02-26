@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <image id="n0_fv27" name="n0" src="fv271s" fileName="images/PageGameMain/ng_img_zhukuang.png" xy="97,1049"/>
+    <image id="n2_fv27" name="n2" src="fv271s" fileName="images/PageGameMain/ng_img_zhukuang.png" xy="979,1049" scale="-1,1"/>
+    <image id="n1_fv27" name="n1" src="fv271r" fileName="images/PageGameMain/ng_img_20 link.png" xy="1032,1256" scale="-1,1"/>
+    <image id="n3_fv27" name="n3" src="fv271r" fileName="images/PageGameMain/ng_img_20 link.png" xy="43,1256"/>
+    <image id="n4_fv27" name="n4" src="fv271t" fileName="images/PageGameMain/ng_txt_20 link.png" xy="57,1300"/>
+    <image id="n5_fv27" name="n5" src="fv271t" fileName="images/PageGameMain/ng_txt_20 link.png" xy="979,1300"/>
+    <image id="n6_hjsh" name="n6" src="hjsh34" fileName="images/PageGameMain/fg_img_free gamecisu.png" xy="452,1554"/>
+    <image id="n7_hjsh" name="n7" src="hjsh35" fileName="images/PageGameMain/fg_txt_FREE GAMES.png" xy="483,1598">
+      <relation target="" sidePair=""/>
+    </image>
+    <richtext id="n8_hjsh" name="n8" xy="478,1563" size="122,33" font="ui://9kq20teahjsh3h" fontSize="12" align="center" vAlign="middle" autoSize="none" text="10p10"/>
+  </displayList>
+</component>

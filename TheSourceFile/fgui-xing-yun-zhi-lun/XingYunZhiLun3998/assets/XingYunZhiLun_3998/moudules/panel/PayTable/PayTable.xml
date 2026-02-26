@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n3_x7l3" name="btnExit" src="x7l389" fileName="moudules/panel/PayTable/closeBtn.xml" xy="0,0" visible="false"/>
+    <image id="n0_x7l3" name="n0" src="x7l375" fileName="images/panel/spin/payTable/di.png" xy="44,518" size="994,700"/>
+    <component id="n1_x7l3" name="payTable" src="x7l37e" fileName="moudules/panel/PayTable/IntroducePayTable.xml" xy="0,491"/>
+    <component id="n2_x7l3" name="btnController" src="x7l37f" fileName="moudules/panel/PayTable/IntroduceBtn.xml" xy="0,1096"/>
+  </displayList>
+</component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="580,36" overflow="hidden" mask="n1_l9lh" bgColor="#ff0000">
+  <displayList>
+    <image id="n1_l9lh" name="bar" src="l9lhd" fileName="images/gameLoading/gme_loading_mask.png" xy="0,0" size="580,36">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n0_l9lh" name="n0" src="l9lh5" fileName="images/gameLoading/图层 1556.png" xy="-101,0" size="800,36"/>
+  </displayList>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="XY" target="n0_l9lh" tween="true" startValue="-200,0" endValue="-19,0" duration="24" ease="Linear" repeat="-1"/>
+    <item time="25" type="XY" target="n0_l9lh" value="-200,0"/>
+  </transition>
+</component>

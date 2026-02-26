@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <loader id="n12_nb0n" name="anchorDi" xy="0,0" pivot="0.5,0.5" anchor="true" size="1080,157" url="ui://frz4r9owp2aef6" autoSize="true" clearOnPublish="true"/>
+  </displayList>
+</component>

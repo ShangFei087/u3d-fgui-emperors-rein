@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="748,430">
+  <displayList>
+    <image id="n5_ssgm" name="n5" src="vckb1y" fileName="images/gameCommon/gameSlot/ng_img_mask.png" xy="34,24" size="680,383" group="n4_ssgm"/>
+    <image id="n0_ssgm" name="n0" src="vckb1w" fileName="images/gameCommon/gameSlot/ng_img_border1.png" xy="706,10" group="n4_ssgm"/>
+    <image id="n1_ssgm" name="n1" src="vckb1x" fileName="images/gameCommon/gameSlot/ng_img_border2.png" xy="40,0" group="n4_ssgm"/>
+    <image id="n2_ssgm" name="n2" src="vckb1x" fileName="images/gameCommon/gameSlot/ng_img_border2.png" xy="40,392" group="n4_ssgm" flip="vt"/>
+    <image id="n3_ssgm" name="n3" src="vckb1w" fileName="images/gameCommon/gameSlot/ng_img_border1.png" xy="0,10" group="n4_ssgm" flip="hz"/>
+    <image id="n6_ssgm" name="n6" src="vckb1v" fileName="images/gameCommon/gameSlot/ng_img_border.png" xy="169,36" size="4,357" group="n4_ssgm"/>
+    <image id="n7_ssgm" name="n7" src="vckb1v" fileName="images/gameCommon/gameSlot/ng_img_border.png" xy="306,36" size="4,357" group="n4_ssgm"/>
+    <image id="n8_ssgm" name="n8" src="vckb1v" fileName="images/gameCommon/gameSlot/ng_img_border.png" xy="439,36" size="4,357" group="n4_ssgm"/>
+    <image id="n9_ssgm" name="n9" src="vckb1v" fileName="images/gameCommon/gameSlot/ng_img_border.png" xy="575,36" size="4,357" group="n4_ssgm"/>
+    <group id="n4_ssgm" name="n4" xy="0,0" size="747,430"/>
+  </displayList>
+</component>

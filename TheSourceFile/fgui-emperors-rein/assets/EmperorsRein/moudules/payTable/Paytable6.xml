@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,814">
+  <displayList>
+    <component id="n16_j122" name="Introduce" src="lvms8h" fileName="moudules/introduce/PayLineIntroduce.xml" xy="119,118"/>
+    <component id="n19_ls7y" name="n19" src="ls7y2l" fileName="moudules/introduce/Name.xml" xy="0,0">
+      <property target="n3" propertyId="0" value="50 PAYLINES"/>
+    </component>
+    <component id="n45_lvms" name="n45" src="gy7g66" fileName="moudules/payTableLine/PayTableLine26.xml" xy="119,223"/>
+    <component id="n46_lvms" name="n46" src="gy7g5j" fileName="moudules/payTableLine/PayTableLine27.xml" xy="303,223"/>
+    <component id="n47_lvms" name="n47" src="gy7g5k" fileName="moudules/payTableLine/PayTableLine28.xml" xy="487,223"/>
+    <component id="n48_lvms" name="n48" src="gy7g5l" fileName="moudules/payTableLine/PayTableLine29.xml" xy="671,223"/>
+    <component id="n49_lvms" name="n49" src="gy7g5n" fileName="moudules/payTableLine/PayTableLine30.xml" xy="855,223"/>
+    <component id="n50_lvms" name="n50" src="gy7g5o" fileName="moudules/payTableLine/PayTableLine31.xml" xy="119,343"/>
+    <component id="n51_lvms" name="n51" src="gy7g5p" fileName="moudules/payTableLine/PayTableLine32.xml" xy="303,343"/>
+    <component id="n52_lvms" name="n52" src="gy7g5q" fileName="moudules/payTableLine/PayTableLine33.xml" xy="487,343"/>
+    <component id="n53_lvms" name="n53" src="gy7g5r" fileName="moudules/payTableLine/PayTableLine34.xml" xy="671,343"/>
+    <component id="n54_lvms" name="n54" src="gy7g5s" fileName="moudules/payTableLine/PayTableLine35.xml" xy="855,343"/>
+    <component id="n55_lvms" name="n55" src="gy7g5t" fileName="moudules/payTableLine/PayTableLine36.xml" xy="119,463"/>
+    <component id="n56_lvms" name="n56" src="gy7g5u" fileName="moudules/payTableLine/PayTableLine37.xml" xy="303,463"/>
+    <component id="n57_lvms" name="n57" src="gy7g5v" fileName="moudules/payTableLine/PayTableLine38.xml" xy="487,463"/>
+    <component id="n58_lvms" name="n58" src="gy7g5w" fileName="moudules/payTableLine/PayTableLine39.xml" xy="671,463"/>
+    <component id="n59_lvms" name="n59" src="gy7g5y" fileName="moudules/payTableLine/PayTableLine40.xml" xy="855,463"/>
+    <component id="n60_lvms" name="n60" src="gy7g5z" fileName="moudules/payTableLine/PayTableLine41.xml" xy="119,583"/>
+    <component id="n61_lvms" name="n61" src="gy7g6d" fileName="moudules/payTableLine/PayTableLine42.xml" xy="303,583"/>
+    <component id="n62_lvms" name="n62" src="gy7g6c" fileName="moudules/payTableLine/PayTableLine43.xml" xy="487,583"/>
+    <component id="n63_lvms" name="n63" src="gy7g6b" fileName="moudules/payTableLine/PayTableLine44.xml" xy="671,583"/>
+    <component id="n64_lvms" name="n64" src="gy7g6a" fileName="moudules/payTableLine/PayTableLine45.xml" xy="855,583"/>
+    <component id="n65_lvms" name="n65" src="gy7g69" fileName="moudules/payTableLine/PayTableLine46.xml" xy="119,703"/>
+    <component id="n66_lvms" name="n66" src="gy7g68" fileName="moudules/payTableLine/PayTableLine47.xml" xy="303,703"/>
+    <component id="n67_lvms" name="n67" src="gy7g6e" fileName="moudules/payTableLine/PayTableLine48.xml" xy="487,703"/>
+    <component id="n68_lvms" name="n68" src="gy7g67" fileName="moudules/payTableLine/PayTableLine49.xml" xy="671,703"/>
+    <component id="n69_lvms" name="n69" src="gy7g64" fileName="moudules/payTableLine/PayTableLine50.xml" xy="855,703"/>
+  </displayList>
+</component>

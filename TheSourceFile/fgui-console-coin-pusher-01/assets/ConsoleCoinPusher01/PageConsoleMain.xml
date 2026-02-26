@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_paul" name="base" src="paul3" fileName="moudules/MDPageBase.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="title" propertyId="0" value="/"/>
+    </component>
+    <list id="n10_paul" name="items" xy="50,399" size="980,1396" overflow="hidden" lineGap="10" defaultItem="ui://tdkeq960paul5">
+      <item name="record">
+        <property target="title" propertyId="0" value="记录"/>
+      </item>
+      <item name="checkHardware">
+        <property target="title" propertyId="0" value="硬件功能测试"/>
+      </item>
+      <item name="checkCoinPush">
+        <property target="title" propertyId="0" value="推币测试"/>
+      </item>
+      <item name="settings">
+        <property target="title" propertyId="0" value="设置"/>
+      </item>
+      <item name="admin">
+        <property target="title" propertyId="0" value="超级管理员"/>
+      </item>
+      <item url="ui://tdkeq960paul7" name="language">
+        <property target="title" propertyId="0" value="语言"/>
+        <property target="value" propertyId="0" value="简体中文"/>
+      </item>
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+      </item>
+    </list>
+    <component id="n11_86hh" name="keyboard" src="86hhp" fileName="moudules/Keyboard01.xml" xy="50,125"/>
+    <component id="n17_86hh" name="tip" src="86hhj" fileName="components/ItemTip2.xml" xy="50,327"/>
+  </displayList>
+</component>

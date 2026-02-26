@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,173">
+  <displayList>
+    <image id="n0_l3cn" name="n0" src="l3cn5v" fileName="images/panel/spin/frame_up_around.png" xy="913,0" size="167,173"/>
+    <image id="n2_l3cn" name="n2" src="l3cn5w" fileName="images/panel/spin/frame_up_base 1.png" xy="167,0" size="746,89"/>
+    <image id="n3_l3cn" name="n3" src="l3cn5v" fileName="images/panel/spin/frame_up_around.png" xy="167,0" size="167,173" scale="-1,1"/>
+    <image id="n4_l3cn" name="n4" src="l3cn5x" fileName="images/panel/spin/frame_up_fixed.png" xy="167,0" size="746,136"/>
+    <image id="n5_l3cn" name="n5" src="l3cn51" fileName="images/panel/spin/txt_stop.png" xy="390,33" size="295,81"/>
+    <image id="n6_l3cn" name="n6" src="l3cn53" fileName="images/panel/spin/btn_back.png" xy="0,18" size="85,70"/>
+    <image id="n7_l3cn" name="n7" src="l3cn54" fileName="images/panel/spin/ico_headbase.png" xy="7,85" size="69,64" color="#686868"/>
+    <image id="n10_l3cn" name="n10" src="l3cn55" fileName="images/panel/spin/icon_exp.png" xy="206,46" size="27,25"/>
+    <image id="n11_l3cn" name="n11" src="l3cn62" fileName="images/panel/spin/img_expedite.png" xy="362,49" size="20,23"/>
+    <component id="n14_l3cn" name="n14" src="l3cn6r" fileName="moudules/panel/totalBet.xml" xy="715,28"/>
+    <image id="n15_l3cn" name="n15" src="l3cn6s" fileName="images/panel/spin/bar_experiences_01.png" xy="227,51" size="137,20"/>
+    <image id="n16_l3cn" name="n16" src="l3cn6t" fileName="images/panel/spin/bar_experiences_02.png" xy="227,50" size="138,20"/>
+    <component id="n17_l3cn" name="n17" src="l3cn6v" fileName="moudules/panel/pig.xml" xy="1001,84" size="71,68"/>
+  </displayList>
+</component>

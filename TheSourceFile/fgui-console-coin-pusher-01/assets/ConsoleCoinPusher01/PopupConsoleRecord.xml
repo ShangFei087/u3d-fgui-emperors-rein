@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_rh4e" name="base" src="paul3" fileName="moudules/MDPageBase.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="title" propertyId="0" value="/记录/"/>
+    </component>
+    <richtext id="n1_rh4e" name="info" xy="19,113" size="1039,1569" fontSize="30" color="#ffffff" autoSize="shrink" autoClearText="true" text="免费游戏：152-626-1759023621486-1248652-626-1759023621486-1248652-626-1759023621486-1248652-626-1759023621486-1248652-626-1759023621486-1248652-626-1759023621486-1248652-626-1759023621486-1248652-626-1759023621486-1248652-626-1759023621486-1248652-626-1759023621486-12486v52-626-1759023621486-12486"/>
+    <list id="n2_rh4e" name="items" xy="50,1710" size="980,64" overflow="hidden" lineGap="10" defaultItem="ui://tdkeq960paul5">
+      <item name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+      </item>
+    </list>
+  </displayList>
+</component>

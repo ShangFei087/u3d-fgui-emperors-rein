@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,60">
+  <displayList>
+    <richtext id="n5_paul" name="value1" xy="36,0" size="82,59" font="SimHei" fontSize="22" color="#00ff00" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="投"/>
+    <richtext id="n7_9q8e" name="value2" xy="141,0" size="129,59" fontSize="22" color="#00ff33" align="center" vAlign="middle" autoSize="shrink" text="10000"/>
+    <richtext id="n8_9q8e" name="value3" xy="297,0" size="90,59" font="SimHei" fontSize="22" color="#00ff00" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="AS"/>
+    <richtext id="n9_9q8e" name="value4" xy="425,0" size="170,59" fontSize="22" color="#00ff00" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="1850408"/>
+    <richtext id="n10_9q8e" name="value5" xy="624,0" size="170,59" fontSize="22" color="#00ff00" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="1860408"/>
+    <richtext id="n6_paul" name="value6" xy="813,0" size="247,59" fontSize="22" color="#00ff00" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="2025-09-28 10:12:13"/>
+  </displayList>
+  <customProperty target="value1" propertyId="0" label="投退"/>
+  <customProperty target="value2" propertyId="0"/>
+  <customProperty target="value3" propertyId="0"/>
+  <customProperty target="value4" propertyId="0"/>
+  <customProperty target="value5" propertyId="0"/>
+  <customProperty target="value6" propertyId="0"/>
+</component>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="jzsm3zpu">
+  <resources>
+    <component id="mrau0" name="GameMain.xml" path="/" exported="true"/>
+    <component id="oypp1" name="GameJackpotMini.xml" path="/moudules/Jackpot/" exported="true"/>
+    <image id="oypp2" name="cg_ic_grandk.png" path="/images/Jackpot/"/>
+    <image id="oypp3" name="cg_ic_majork.png" path="/images/Jackpot/"/>
+    <image id="oypp4" name="cg_ic_megak.png" path="/images/Jackpot/"/>
+    <image id="oypp5" name="cg_ic_minik.png" path="/images/Jackpot/"/>
+    <image id="oypp6" name="cg_ic_minork.png" path="/images/Jackpot/"/>
+    <image id="oypp7" name="coins.png" path="/images/Jackpot/"/>
+    <image id="oypp8" name="crown.png" path="/images/Jackpot/"/>
+    <image id="oypp9" name="JACKPOTlogo.png" path="/images/Jackpot/"/>
+    <image id="oyppa" name="ribbon.png" path="/images/Jackpot/"/>
+    <image id="oyppb" name="Square.png" path="/images/Jackpot/"/>
+    <image id="oyppc" name="cg_ic_major.png" path="/images/Jackpot/"/>
+    <image id="oyppd" name="cg_ic_mini.png" path="/images/Jackpot/"/>
+    <image id="oyppe" name="cg_ic_minor.png" path="/images/Jackpot/"/>
+    <component id="oyppo" name="GameJackpotReel.xml" path="/moudules/Jackpot/" exported="true"/>
+    <image id="oyppp" name="0.png" path="/images/Jackpot/numbers/"/>
+    <image id="oyppq" name="1.png" path="/images/Jackpot/numbers/"/>
+    <image id="oyppr" name="2.png" path="/images/Jackpot/numbers/"/>
+    <image id="oypps" name="3.png" path="/images/Jackpot/numbers/"/>
+    <image id="oyppt" name="4.png" path="/images/Jackpot/numbers/"/>
+    <image id="oyppu" name="5.png" path="/images/Jackpot/numbers/"/>
+    <image id="oyppv" name="6.png" path="/images/Jackpot/numbers/"/>
+    <image id="oyppw" name="7.png" path="/images/Jackpot/numbers/"/>
+    <image id="oyppx" name="8.png" path="/images/Jackpot/numbers/"/>
+    <image id="oyppy" name="9.png" path="/images/Jackpot/numbers/"/>
+    <font id="oyppz" name="FontJackpot.fnt" path="/fonts/" exported="true"/>
+    <component id="oypp10" name="GameJackpotMinor.xml" path="/moudules/Jackpot/" exported="true"/>
+    <component id="oypp11" name="GameJackpotMajor.xml" path="/moudules/Jackpot/" exported="true"/>
+    <image id="oypp12" name="plat_num_Collect_00.png" path="/images/Main/creditnumber/"/>
+    <image id="oypp13" name="plat_num_Collect_01.png" path="/images/Main/creditnumber/"/>
+    <image id="oypp14" name="plat_num_Collect_02.png" path="/images/Main/creditnumber/"/>
+    <image id="oypp15" name="plat_num_Collect_03.png" path="/images/Main/creditnumber/"/>
+    <image id="oypp16" name="plat_num_Collect_04.png" path="/images/Main/creditnumber/"/>
+    <image id="oypp17" name="plat_num_Collect_05.png" path="/images/Main/creditnumber/"/>
+    <image id="oypp18" name="plat_num_Collect_06.png" path="/images/Main/creditnumber/"/>
+    <image id="oypp19" name="plat_num_Collect_07.png" path="/images/Main/creditnumber/"/>
+    <image id="oypp1a" name="plat_num_Collect_08.png" path="/images/Main/creditnumber/"/>
+    <image id="oypp1b" name="plat_num_Collect_09.png" path="/images/Main/creditnumber/"/>
+    <image id="oypp1c" name="plat_num_Collect_Cents.png" path="/images/Main/creditnumber/"/>
+    <image id="oypp1d" name="plat_num_Collect_comma.png" path="/images/Main/creditnumber/"/>
+    <image id="oypp1e" name="plat_num_Collect_dot.png" path="/images/Main/creditnumber/"/>
+    <image id="oypp1f" name="logo_icon.png" path="/images/Main/"/>
+    <image id="e5o51g" name="load_img_bg1.png" path="/images/Main/"/>
+    <image id="e5o51h" name="Image Sequence_016_0000.png" path="/images/Main/"/>
+    <component id="e5o51i" name="AnchorBG.xml" path="/components/Main/" exported="true"/>
+    <image id="e5o51k" name="plat_btn_collect.png" path="/images/Main/"/>
+    <image id="e5o51l" name="plat_btn_collect1.png" path="/images/Main/"/>
+    <image id="e5o51m" name="plat_btn_collect2.png" path="/images/Main/"/>
+    <image id="e5o51n" name="plat_btn_collect3.png" path="/images/Main/"/>
+    <image id="e5o51o" name="plat_btn_Select a page.png" path="/images/Main/" scale="9grid" scale9grid="80,1,160,111"/>
+    <image id="e5o51p" name="plat_img_bottom.png" path="/images/Main/"/>
+    <image id="e5o51q" name="plat_img_bottom1.png" path="/images/Main/"/>
+    <image id="e5o51r" name="plat_img_bottom2.png" path="/images/Main/"/>
+    <image id="e5o51s" name="plat_img_bottom4.png" path="/images/Main/"/>
+    <image id="e5o51t" name="plat_img_bottom5.png" path="/images/Main/"/>
+    <image id="e5o51u" name="plat_img_bottom6.png" path="/images/Main/"/>
+    <image id="e5o51v" name="plat_bg_background.png" path="/images/Main/"/>
+    <component id="e5o51w" name="Credit.xml" path="/components/Main/" exported="true"/>
+    <font id="e5o51x" name="FontCredit.fnt" path="/fonts/" exported="true"/>
+    <component id="e5o51y" name="CollectBtn.xml" path="/components/Main/"/>
+    <image id="e5o51z" name="img_wheel_01.png" path="/images/Main/card/3998/"/>
+    <image id="e5o520" name="img_wheel_03.png" path="/images/Main/card/3998/"/>
+    <image id="e5o521" name="img_godoffortune_01.png" path="/images/Main/card/3999/"/>
+    <image id="e5o522" name="img_godoffortune_02.png" path="/images/Main/card/3999/"/>
+    <image id="e5o523" name="img_godoffortune_03.png" path="/images/Main/card/3999/"/>
+    <image id="e5o524" name="sk.png" path="/images/Main/card/3997/"/>
+    <image id="e5o525" name="xk.png" path="/images/Main/card/3997/"/>
+    <image id="e5o52d" name="dk.png" path="/images/Main/card/3996/"/>
+    <image id="e5o52e" name="sk.png" path="/images/Main/card/3996/"/>
+    <component id="e5o52f" name="3999.xml" path="/components/Main/card/" exported="true"/>
+    <component id="mshr2g" name="3998.xml" path="/components/Main/card/" exported="true"/>
+    <component id="mshr2h" name="CardBtn.xml" path="/components/Main/"/>
+    <component id="ncyu2i" name="3997.xml" path="/components/Main/card/" exported="true"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

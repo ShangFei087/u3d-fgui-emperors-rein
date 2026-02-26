@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,158">
+  <displayList>
+    <image id="n0_w36x" name="n0" src="ldsc12a" fileName="images/frame/menu_ic_Roman.png" xy="0,-53"/>
+    <image id="n1_w36x" name="n1" src="ldsc12a" fileName="images/frame/menu_ic_Roman.png" xy="1080,-53" skew="0,180"/>
+    <image id="n2_w36x" name="n2" src="ldsc12b" fileName="images/frame/底.png" xy="70,37"/>
+    <image id="n4_w36x" name="n4" src="ldsc12c" fileName="images/frame/CREDUTS.png" xy="731,133"/>
+    <image id="n5_w36x" name="n5" src="ldsc12d" fileName="images/frame/Border.png" xy="866,8"/>
+    <image id="n6_w36x" name="n6" src="ldsc12e" fileName="images/frame/押注框1.png" xy="198,48"/>
+  </displayList>
+</component>

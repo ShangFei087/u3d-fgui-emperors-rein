@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,814">
+  <displayList>
+    <component id="n0_tsjn" name="n0" src="w2bm17c" fileName="moudules/introduce/Name02.xml" xy="0,0">
+      <relation target="" sidePair="center-center"/>
+      <property target="n2" propertyId="1" value="ui://vdmp4vsrw2bm18d"/>
+    </component>
+    <component id="n1_tsjn" name="n1" src="w2bm17a" fileName="components/payTable02/Text024.xml" xy="95,149"/>
+  </displayList>
+</component>

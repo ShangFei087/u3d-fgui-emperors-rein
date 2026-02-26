@@ -1,0 +1,188 @@
+
+Anniu.png
+size: 824, 824
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+Textures/fx/icon_auto_000
+  rotate: false
+  xy: 766, 426
+  size: 56, 112
+  orig: 152, 152
+  offset: 12, 0
+  index: -1
+Textures/fx/icon_auto_001
+  rotate: false
+  xy: 741, 133
+  size: 69, 121
+  orig: 152, 152
+  offset: 12, 0
+  index: -1
+Textures/fx/icon_auto_002
+  rotate: false
+  xy: 658, 135
+  size: 81, 127
+  orig: 152, 152
+  offset: 12, 0
+  index: -1
+Textures/fx/icon_auto_003
+  rotate: false
+  xy: 658, 264
+  size: 94, 132
+  orig: 152, 152
+  offset: 12, 0
+  index: -1
+Textures/fx/icon_auto_004
+  rotate: false
+  xy: 658, 398
+  size: 106, 136
+  orig: 152, 152
+  offset: 12, 0
+  index: -1
+Textures/fx/icon_auto_005
+  rotate: true
+  xy: 144, 2
+  size: 119, 139
+  orig: 152, 152
+  offset: 12, 0
+  index: -1
+Textures/fx/icon_auto_006
+  rotate: true
+  xy: 516, 261
+  size: 131, 140
+  orig: 152, 152
+  offset: 12, 0
+  index: -1
+Textures/fx/icon_auto_007
+  rotate: false
+  xy: 2, 14
+  size: 140, 140
+  orig: 152, 152
+  offset: 12, 0
+  index: -1
+Textures/fx/icon_auto_008
+  rotate: false
+  xy: 156, 168
+  size: 140, 140
+  orig: 152, 152
+  offset: 12, 0
+  index: -1
+Textures/fx/icon_auto_009
+  rotate: false
+  xy: 516, 536
+  size: 140, 140
+  orig: 152, 152
+  offset: 12, 0
+  index: -1
+Textures/fx/icon_auto_010
+  rotate: true
+  xy: 516, 123
+  size: 136, 140
+  orig: 152, 152
+  offset: 16, 0
+  index: -1
+Textures/fx/icon_auto_011
+  rotate: false
+  xy: 285, 26
+  size: 124, 140
+  orig: 152, 152
+  offset: 28, 0
+  index: -1
+Textures/fx/icon_auto_012
+  rotate: true
+  xy: 512, 10
+  size: 111, 140
+  orig: 152, 152
+  offset: 41, 0
+  index: -1
+Textures/fx/icon_auto_013
+  rotate: false
+  xy: 411, 26
+  size: 99, 140
+  orig: 152, 152
+  offset: 53, 0
+  index: -1
+Textures/fx/icon_auto_014
+  rotate: false
+  xy: 658, 536
+  size: 86, 140
+  orig: 152, 152
+  offset: 66, 0
+  index: -1
+Textures/fx/icon_auto_015
+  rotate: false
+  xy: 440, 168
+  size: 74, 140
+  orig: 152, 152
+  offset: 78, 0
+  index: -1
+Textures/fx/icon_auto_016
+  rotate: false
+  xy: 746, 540
+  size: 61, 140
+  orig: 152, 152
+  offset: 91, 0
+  index: -1
+Textures/fx/icon_auto_017
+  rotate: false
+  xy: 754, 256
+  size: 49, 140
+  orig: 152, 152
+  offset: 103, 0
+  index: -1
+Textures/fx/icon_auto_018
+  rotate: true
+  xy: 658, 95
+  size: 36, 140
+  orig: 152, 152
+  offset: 116, 0
+  index: -1
+Textures/fx/icon_auto_019
+  rotate: true
+  xy: 654, 69
+  size: 24, 140
+  orig: 152, 152
+  offset: 128, 0
+  index: -1
+Textures/icon_auto
+  rotate: false
+  xy: 662, 682
+  size: 140, 140
+  orig: 152, 152
+  offset: 12, 0
+  index: -1
+Textures/icon_play
+  rotate: false
+  xy: 298, 168
+  size: 140, 140
+  orig: 152, 152
+  offset: 12, 0
+  index: -1
+Textures/icon_play2
+  rotate: false
+  xy: 2, 156
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+Textures/icon_play3
+  rotate: false
+  xy: 516, 678
+  size: 144, 144
+  orig: 152, 152
+  offset: 8, 0
+  index: -1
+Textures/icon_stop
+  rotate: false
+  xy: 516, 394
+  size: 140, 140
+  orig: 152, 152
+  offset: 12, 0
+  index: -1
+Textures/tex_m_mask_432
+  rotate: false
+  xy: 2, 310
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1

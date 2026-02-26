@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="913,240">
+  <displayList>
+    <component id="n87_cwuo" name="No.Q" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="1,0" group="n97_cwuo">
+      <Button title="Q"/>
+    </component>
+    <component id="n88_cwuo" name="No.W" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="93,0" group="n97_cwuo">
+      <Button title="W"/>
+    </component>
+    <component id="n89_cwuo" name="No.E" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="185,0" group="n97_cwuo">
+      <Button title="E"/>
+    </component>
+    <component id="n90_cwuo" name="No.R" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="277,0" group="n97_cwuo">
+      <Button title="R"/>
+    </component>
+    <component id="n91_cwuo" name="No.T" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="369,0" group="n97_cwuo">
+      <Button title="T"/>
+    </component>
+    <component id="n92_cwuo" name="No.Y" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="461,0" group="n97_cwuo">
+      <Button title="Y"/>
+    </component>
+    <component id="n93_cwuo" name="No.U" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="553,0" group="n97_cwuo">
+      <Button title="U"/>
+    </component>
+    <component id="n94_cwuo" name="No.I" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="644,0" group="n97_cwuo">
+      <Button title="I"/>
+    </component>
+    <component id="n95_cwuo" name="No.O" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="737,0" group="n97_cwuo">
+      <Button title="O"/>
+    </component>
+    <component id="n96_cwuo" name="No.P" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="829,0" group="n97_cwuo">
+      <Button title="P"/>
+    </component>
+    <group id="n97_cwuo" name="row1" xy="1,0" size="912,54"/>
+    <component id="n98_cwuo" name="No.A" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="47,62" group="n107_cwuo">
+      <Button title="A"/>
+    </component>
+    <component id="n99_cwuo" name="No.S" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="139,62" group="n107_cwuo">
+      <Button title="S"/>
+    </component>
+    <component id="n100_cwuo" name="No.D" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="231,62" group="n107_cwuo">
+      <Button title="D"/>
+    </component>
+    <component id="n101_cwuo" name="No.F" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="323,62" group="n107_cwuo">
+      <Button title="F"/>
+    </component>
+    <component id="n102_cwuo" name="No.G" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="415,62" group="n107_cwuo">
+      <Button title="G"/>
+    </component>
+    <component id="n103_cwuo" name="No.H" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="507,62" group="n107_cwuo">
+      <Button title="H"/>
+    </component>
+    <component id="n104_cwuo" name="NoJ" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="599,62" group="n107_cwuo">
+      <Button title="J"/>
+    </component>
+    <component id="n105_cwuo" name="No.K" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="691,62" group="n107_cwuo">
+      <Button title="K"/>
+    </component>
+    <component id="n106_cwuo" name="No.L" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="783,62" group="n107_cwuo">
+      <Button title="L"/>
+    </component>
+    <group id="n107_cwuo" name="row2" xy="47,62" size="820,54"/>
+    <component id="n108_cwuo" name="No.Up" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="1,124" size="130,54" group="n117_cwuo">
+      <Button title=" " icon="ui://xp0b9yqdcwuo25"/>
+    </component>
+    <component id="n109_cwuo" name="No.Z" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="139,124" group="n117_cwuo">
+      <Button title="Z"/>
+    </component>
+    <component id="n110_cwuo" name="No.X" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="232,124" group="n117_cwuo">
+      <Button title="X"/>
+    </component>
+    <component id="n111_cwuo" name="No.C" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="323,124" group="n117_cwuo">
+      <Button title="C"/>
+    </component>
+    <component id="n112_cwuo" name="No.V" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="415,124" group="n117_cwuo">
+      <Button title="V"/>
+    </component>
+    <component id="n113_cwuo" name="No.B" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="507,124" group="n117_cwuo">
+      <Button title="B"/>
+    </component>
+    <component id="n114_cwuo" name="No.N" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="599,124" group="n117_cwuo">
+      <Button title="N"/>
+    </component>
+    <component id="n115_cwuo" name="No.M" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="691,124" group="n117_cwuo">
+      <Button title="M"/>
+    </component>
+    <component id="n116_cwuo" name="No.Delete" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="783,123" size="130,54" group="n117_cwuo">
+      <Button title=" " icon="ui://xp0b9yqdcwuo26"/>
+    </component>
+    <group id="n117_cwuo" name="row3" xy="1,123" size="912,55"/>
+    <component id="n118_cwuo" name="No.123" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="0,186" size="149,54" group="n121_cwuo">
+      <Button title="123"/>
+    </component>
+    <component id="n119_cwuo" name="No.Space" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="159,186" size="595,54" group="n121_cwuo">
+      <Button title=" " icon="ui://xp0b9yqdcwuo28"/>
+    </component>
+    <component id="n120_cwuo" name="No.Exit" src="cwuo22" fileName="components/keyboard003/ButtonSquare(1).xml" xy="764,186" size="149,54" group="n121_cwuo">
+      <Button title=" " icon="ui://xp0b9yqdcwuo27"/>
+    </component>
+    <group id="n121_cwuo" name="row4" xy="0,186" size="913,54"/>
+  </displayList>
+</component>

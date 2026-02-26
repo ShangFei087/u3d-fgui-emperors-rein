@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_pizy" name="n1" src="pizy2" fileName="Button1.xml" xy="402,247" size="276,100">
+      <Button title="1700" titleColor="#000000" titleFontSize="30"/>
+    </component>
+    <component id="n4_pizy" name="n4" src="pizy2" fileName="Button1.xml" xy="402,547" size="276,100">
+      <Button title="3999" titleColor="#000000" titleFontSize="30"/>
+    </component>
+    <component id="n5_pizy" name="n5" src="pizy2" fileName="Button1.xml" xy="402,847" size="276,100">
+      <Button title="3998" titleColor="#000000" titleFontSize="30"/>
+    </component>
+    <component id="n6_pyd6" name="n6" src="pizy2" fileName="Button1.xml" xy="402,1147" size="276,100">
+      <Button title="3997" titleFontSize="30"/>
+    </component>
+    <component id="n7_pyd6" name="n7" src="pizy2" fileName="Button1.xml" xy="402,1447" size="276,100">
+      <Button title="3996" titleFontSize="30"/>
+    </component>
+  </displayList>
+</component>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,60">
+  <displayList>
+    <richtext id="n5_paul" name="value1" xy="67,29" pivot="0.5,0.5" anchor="true" size="124,59" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="彩金"/>
+    <richtext id="n7_9q8e" name="value2" xy="210,29" pivot="0.5,0.5" anchor="true" size="145,59" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="游戏编号"/>
+    <richtext id="n8_9q8e" name="value3" xy="352,29" pivot="0.5,0.5" anchor="true" size="132,59" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="积分"/>
+    <richtext id="n9_9q8e" name="value4" xy="529,29" pivot="0.5,0.5" anchor="true" size="198,59" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="中奖前分数"/>
+    <richtext id="n10_9q8e" name="value5" xy="740,29" pivot="0.5,0.5" anchor="true" size="190,59" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="中奖后分数"/>
+    <richtext id="n6_paul" name="value6" xy="955,29" pivot="0.5,0.5" anchor="true" size="214,59" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="日期"/>
+  </displayList>
+  <customProperty target="value1" propertyId="0"/>
+  <customProperty target="value2" propertyId="0"/>
+  <customProperty target="value3" propertyId="0"/>
+  <customProperty target="value4" propertyId="0"/>
+  <customProperty target="value5" propertyId="0"/>
+  <customProperty target="value6" propertyId="0"/>
+</component>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="250,60">
+  <displayList>
+    <component id="n1_r8oz" name="buttons" src="r8oz7" fileName="components/ButtonTestSpeed.xml" xy="10,13" size="72,36">
+      <Button title="Analysis"/>
+    </component>
+  </displayList>
+  <customProperty target="title" propertyId="0" label="标题"/>
+</component>

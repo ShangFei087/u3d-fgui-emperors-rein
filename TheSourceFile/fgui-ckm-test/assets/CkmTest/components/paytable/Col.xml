@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="184,30">
+  <displayList>
+    <richtext id="n0_ma96" name="n0" xy="12,2" size="24,34" font="ui://4hwvsyqfl8m66s" fontSize="12" text="5"/>
+    <richtext id="n1_ma96" name="n1" xy="80,-2" size="127,60" scale="0.55,0.55" font="ui://4hwvsyqffr2h2k" fontSize="30" align="center" vAlign="middle" text="555"/>
+  </displayList>
+</component>

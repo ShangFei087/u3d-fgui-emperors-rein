@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,152">
+  <displayList>
+    <richtext id="n0_glrj" name="key" xy="40,16" size="240,42" touchable="false" fontSize="30" color="#ffffff" vAlign="middle" autoSize="shrink" singleLine="true" text="Machine ID:"/>
+    <richtext id="n1_glrj" name="value" xy="292,16" size="748,120" touchable="false" fontSize="30" color="#ffffff" autoSize="shrink" text="20240911 11:22:00&lt;br/&gt;111/10600001/1:100&lt;br/&gt;1.0.0/1.1735123146/100"/>
+  </displayList>
+  <customProperty target="key" propertyId="0" label="键"/>
+  <customProperty target="value" propertyId="0" label="值"/>
+</component>

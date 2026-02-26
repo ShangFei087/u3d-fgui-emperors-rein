@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <controller name="c1" pages="0,BS,1,FS" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="BS" stopOnExit="true"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="FS" stopOnExit="true"/>
+  </controller>
+  <displayList>
+    <component id="n17_trhy" name="anchorBG" src="trhyq" fileName="components/AnchorBG.xml" xy="540,960">
+      <relation target="" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </component>
+    <component id="n52_lo3i" name="anchorBGQiang" src="lo3igo" fileName="components/AnchorBGQiang.xml" xy="540,959">
+      <relation target="" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </component>
+    <component id="n16_trhy" name="anchorNPC" src="trhyb" fileName="components/AnchorNPC.xml" xy="540,960">
+      <relation target="" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </component>
+    <component id="n53_lo3i" name="anchorNPCQiang" src="lo3igm" fileName="components/AnchorNPCQiang.xml" xy="540,959">
+      <relation target="" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </component>
+    <component id="n46_sf7x" name="jpGrand" src="sf7xfl" fileName="moudules/pageGameMain/gameJackpot/GameJackpotMega.xml" xy="120,68" size="334,122" group="n50_sf7x">
+      <relation target="" sidePair="width-width,top-top"/>
+    </component>
+    <component id="n47_sf7x" name="jpMajor" src="sf7xfm" fileName="moudules/pageGameMain/gameJackpot/GameJackpotMajor.xml" xy="626,68" size="334,122" group="n50_sf7x">
+      <relation target="" sidePair="width-width,top-top"/>
+    </component>
+    <component id="n48_sf7x" name="jpMinor" src="sf7xfo" fileName="moudules/pageGameMain/gameJackpot/GameJackpotMinor.xml" xy="140,268" size="293,83" group="n50_sf7x">
+      <relation target="" sidePair="width-width,top-top"/>
+    </component>
+    <component id="n49_sf7x" name="jpMini" src="sf7xfp" fileName="moudules/pageGameMain/gameJackpot/GameJackpotMini.xml" xy="646,268" size="293,83" group="n50_sf7x">
+      <relation target="" sidePair="width-width,top-top"/>
+    </component>
+    <image id="n73_qdjt" name="n73" src="qdjtoa" fileName="images/pageGameMain/frame/gameFrame/Logo.png" xy="363,166" size="354,148" group="n50_sf7x" visible="false"/>
+    <group id="n50_sf7x" name="jackpots" xy="120,68" size="840,283"/>
+    <image id="n42_q2p2" name="BSframeBG" src="trhyz" fileName="images/pageGameMain/frame/gameFrame/ng_bg_border.png" xy="25,1130">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </image>
+    <component id="n41_q2p2" name="slotMachine" src="trhy15" fileName="moudules/slotMachine/SlotMachine.xml" xy="30,1143">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </component>
+    <component id="n35_w36x" name="BSFrame" src="trhyx" fileName="moudules/pageGameMain/GameMainframePush.xml" xy="524,1418" touchable="false">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </component>
+    <component id="n57_q50n" name="FSFrame" src="dpdlo0" fileName="moudules/freeGame/freeGameFramePush.xml" xy="524,1418">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </component>
+    <component id="n71_su4g" name="anchorFrame" src="h33one" fileName="components/gameMainEffect/AnchorEffect.xml" xy="524,1385">
+      <relation target="" sidePair="width-width,center-center,bottom-bottom"/>
+    </component>
+    <component id="n44_trpm" name="winTip" src="trpmcv" fileName="moudules/pageGameMain/WinTip.xml" xy="289,1372">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </component>
+    <component id="n72_qdjt" name="CollectGold" src="qdjto1" fileName="moudules/pageGameMain/CollectGold.xml" xy="289,679"/>
+    <component id="n68_h33o" name="anchorGoldDi" src="h33one" fileName="components/gameMainEffect/AnchorEffect.xml" xy="543,1888" visible="false">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </component>
+    <component id="n63_nb0n" name="panel" src="ls7y2q" fileName="components/AnchorPanelPush.xml" xy="540,1841">
+      <relation target="" sidePair="width-width,center-center,bottom-bottom"/>
+    </component>
+    <component id="n69_h33o" name="anchorEFDropGoldCoin" src="h33one" fileName="components/gameMainEffect/AnchorEffect.xml" xy="539,1314" visible="false">
+      <relation target="" sidePair="width-width,center-center,bottom-bottom"/>
+    </component>
+    <component id="n67_lrqj" name="anchorQi" src="f6r9n8" fileName="components/AnchorQi.xml" xy="519,1275" visible="false">
+      <relation target="" sidePair="width-width,left-left,right-right,bottom-bottom"/>
+    </component>
+    <component id="n70_m5yp" name="anchorReel2Effect" src="h33one" fileName="components/gameMainEffect/AnchorEffect.xml" xy="539,1466" visible="false">
+      <relation target="" sidePair="width-width,center-center,bottom-bottom"/>
+    </component>
+  </displayList>
+  <transition name="BS">
+    <item time="0" type="Visible" target="n16_trhy" value="true"/>
+    <item time="0" type="Visible" target="n17_trhy" value="true"/>
+    <item time="0" type="Visible" target="n35_w36x" value="true"/>
+    <item time="0" type="Visible" target="n41_q2p2" value="true"/>
+    <item time="0" type="Visible" target="n42_q2p2" value="true"/>
+    <item time="0" type="Visible" target="n52_lo3i" value="false"/>
+    <item time="0" type="Visible" target="n53_lo3i" value="false"/>
+    <item time="0" type="Visible" target="n57_q50n" value="false"/>
+  </transition>
+  <transition name="FS">
+    <item time="0" type="Visible" target="n16_trhy" value="false"/>
+    <item time="0" type="Visible" target="n17_trhy" value="false"/>
+    <item time="0" type="Visible" target="n35_w36x" value="false"/>
+    <item time="0" type="Visible" target="n41_q2p2" value="true"/>
+    <item time="0" type="Visible" target="n42_q2p2" value="true"/>
+    <item time="0" type="Visible" target="n52_lo3i" value="true"/>
+    <item time="0" type="Visible" target="n53_lo3i" value="true"/>
+    <item time="0" type="Visible" target="n57_q50n" value="true"/>
+  </transition>
+</component>

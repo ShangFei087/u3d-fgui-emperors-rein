@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_c76t" name="mash" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#99000000"/>
+    <component id="n1_c76t" name="anchorResult" src="c76t8s" fileName="components/PopupBigWIn/AnchorPopResult.xml" xy="547,798"/>
+    <component id="n4_c76t" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,960"/>
+    <text id="n2_c76t" name="number" xy="534,896" pivot="0.5,0.5" anchor="true" size="924,156" font="ui://5hielhj5a6ypacb" fontSize="40" align="center" vAlign="middle" leading="0" autoSize="none" text="123，456，789，000，000"/>
+    <component id="n3_c76t" name="Button" src="x7l38i" fileName="components/PopupBigWIn/CloseBtn.xml" xy="356,1217"/>
+  </displayList>
+  <transition name="start">
+    <item time="0" type="Alpha" target="n2_c76t" value="0"/>
+    <item time="7" type="Alpha" target="n2_c76t" value="1"/>
+    <item time="10" type="Scale" target="n2_c76t" tween="true" startValue="1,1" endValue="1.2,1.2" duration="10" ease="Linear"/>
+    <item time="20" type="Scale" target="n2_c76t" tween="true" startValue="1.2,1.2" endValue="1,1" duration="12" ease="Linear"/>
+  </transition>
+  <transition name="idle">
+    <item time="0" type="Scale" target="n2_c76t" tween="true" startValue="1,1" endValue="1.2,1.2" duration="25" ease="Linear"/>
+    <item time="25" type="Scale" target="n2_c76t" tween="true" startValue="1.2,1.2" endValue="1,1" duration="24" ease="Linear"/>
+  </transition>
+  <transition name="end">
+    <item time="0" type="Alpha" target="n2_c76t" value="0"/>
+  </transition>
+</component>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="330,330">
+  <displayList>
+    <image id="n18_glrj" name="n18" src="vqlx68" fileName="images/buttons/square_64x64_1.png" xy="0,0" size="330,330" color="#09221f">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n3_glrj" name="No.1" src="glrj1q" fileName="components/ButtonSquare.xml" xy="15,23" group="n17_glrj">
+      <Button title="1"/>
+    </component>
+    <component id="n4_glrj" name="No.2" src="glrj1q" fileName="components/ButtonSquare.xml" xy="120,22" group="n17_glrj">
+      <Button title="2"/>
+    </component>
+    <component id="n5_glrj" name="No.3" src="glrj1q" fileName="components/ButtonSquare.xml" xy="225,22" group="n17_glrj">
+      <Button title="3"/>
+    </component>
+    <component id="n6_glrj" name="No.4" src="glrj1q" fileName="components/ButtonSquare.xml" xy="15,97" group="n17_glrj">
+      <Button title="4"/>
+    </component>
+    <component id="n7_glrj" name="No.5" src="glrj1q" fileName="components/ButtonSquare.xml" xy="120,97" group="n17_glrj">
+      <Button title="5"/>
+    </component>
+    <component id="n8_glrj" name="No.6" src="glrj1q" fileName="components/ButtonSquare.xml" xy="225,97" group="n17_glrj">
+      <Button title="6"/>
+    </component>
+    <component id="n9_glrj" name="No.7" src="glrj1q" fileName="components/ButtonSquare.xml" xy="15,172" group="n17_glrj">
+      <Button title="7"/>
+    </component>
+    <component id="n10_glrj" name="No.8" src="glrj1q" fileName="components/ButtonSquare.xml" xy="120,172" group="n17_glrj">
+      <Button title="8"/>
+    </component>
+    <component id="n11_glrj" name="No.9" src="glrj1q" fileName="components/ButtonSquare.xml" xy="225,172" group="n17_glrj">
+      <Button title="9"/>
+    </component>
+    <component id="n12_glrj" name="No.Delete" src="glrj1q" fileName="components/ButtonSquare.xml" xy="15,247" group="n17_glrj">
+      <Button title="Delete"/>
+    </component>
+    <component id="n13_glrj" name="No.0" src="glrj1q" fileName="components/ButtonSquare.xml" xy="120,247" group="n17_glrj">
+      <Button title="0"/>
+    </component>
+    <component id="n14_glrj" name="No.OK" src="glrj1q" fileName="components/ButtonSquare.xml" xy="225,247" group="n17_glrj">
+      <Button title="OK"/>
+    </component>
+    <group id="n17_glrj" name="n17" xy="15,22" size="300,285" group="n16_glrj"/>
+    <group id="n16_glrj" name="n16" xy="15,22" size="300,285"/>
+  </displayList>
+</component>

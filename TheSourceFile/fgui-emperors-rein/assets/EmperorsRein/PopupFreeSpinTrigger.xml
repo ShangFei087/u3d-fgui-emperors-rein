@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_q50n" name="n0" src="gisvtc" fileName="components/Mash.xml" xy="0,0" size="1080,1920">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n10_nb0n" name="anchorSpine" src="nb0njw" fileName="components/freeSpinTriggle/AnchorSpine.xml" xy="539,959" scale="1.2,1.2">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <image id="n3_q50n" name="n3" src="nb0nkz" fileName="images/freeSpinTrigger/fg_txt_WOW!.png" xy="390,642">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
+    <text id="n4_q50n" name="n4" xy="539,844" pivot="0.5,0.5" anchor="true" size="93,165" font="ui://vdmp4vsrq50nhm" fontSize="13" align="center" text="6">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </text>
+    <image id="n5_q50n" name="n5" src="nb0nky" fileName="images/freeSpinTrigger/fg_txt_SUPER REEL.png" xy="356,954">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n9_q50n" name="n9" src="nb0nkx" fileName="images/freeSpinTrigger/fg_txt_FREE GAMES.png" xy="544,1099" pivot="0.5,0.5" anchor="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
+    <component id="n11_nb0n" name="ButtonStart" src="nb0njx" fileName="components/freeSpinTriggle/ButtonStart.xml" xy="322,1193">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+  </displayList>
+  <transition name="t0" autoPlay="true">
+    <item time="0" type="Scale" target="n10_nb0n" tween="true" startValue="0.7,0.7" endValue="1.2,1.2" duration="4" ease="Linear"/>
+    <item time="0" type="Visible" target="n11_nb0n" value="false"/>
+    <item time="0" type="Visible" target="n3_q50n" value="false"/>
+    <item time="0" type="Visible" target="n4_q50n" value="false"/>
+    <item time="0" type="Visible" target="n5_q50n" value="false"/>
+    <item time="0" type="Visible" target="n9_q50n" value="false"/>
+    <item time="4" type="Scale" target="n4_q50n" tween="true" startValue="2,2" endValue="1,1" duration="3" ease="Linear"/>
+    <item time="4" type="Visible" target="n11_nb0n" value="true"/>
+    <item time="4" type="Visible" target="n3_q50n" value="true"/>
+    <item time="4" type="Visible" target="n4_q50n" value="true"/>
+    <item time="4" type="Visible" target="n5_q50n" value="true"/>
+    <item time="4" type="Visible" target="n9_q50n" value="true"/>
+  </transition>
+</component>

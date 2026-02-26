@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="tdkeq960">
+  <resources>
+    <component id="paul1" name="PageConsoleMain.xml" path="/" exported="true"/>
+    <component id="paul2" name="CompPageBG.xml" path="/components/"/>
+    <component id="paul3" name="MDPageBase.xml" path="/moudules/"/>
+    <image id="paul4" name="icon_arrow.png" path="/images/icons/"/>
+    <component id="paul5" name="ItemSelect.xml" path="/components/"/>
+    <component id="paul6" name="PageConsoleSettings.xml" path="/" exported="true"/>
+    <component id="paul7" name="ItemSelect02.xml" path="/components/"/>
+    <component id="paul8" name="PageConsoleCheckHardware.xml" path="/" exported="true"/>
+    <component id="paul9" name="ItemSelect03.xml" path="/components/"/>
+    <image id="86hhb" name="square_32.png" path="/images/common/"/>
+    <component id="86hhc" name="ItemState.xml" path="/components/"/>
+    <component id="86hhd" name="PageConsoleTestCoinPush.xml" path="/" exported="true"/>
+    <component id="86hhe" name="PageConsoleCoder.xml" path="/" exported="true"/>
+    <component id="86hhf" name="ItemKeyText.xml" path="/components/"/>
+    <component id="86hhh" name="ItemInput.xml" path="/components/"/>
+    <component id="86hhi" name="ItemTip.xml" path="/components/"/>
+    <component id="86hhj" name="ItemTip2.xml" path="/components/"/>
+    <component id="86hhk" name="ItemInput2.xml" path="/components/"/>
+    <component id="86hhl" name="ItemKeyboard.xml" path="/components/"/>
+    <image id="86hhm" name="icon-arrow2.png" path="/images/icons/"/>
+    <component id="86hhn" name="ItemKeyboardInput.xml" path="/components/"/>
+    <image id="86hho" name="icon-asterisk.png" path="/images/icons/" exported="true"/>
+    <component id="86hhp" name="Keyboard01.xml" path="/moudules/"/>
+    <component id="86hhq" name="ItemContent.xml" path="/components/"/>
+    <component id="mc8pr" name="Keyboard02.xml" path="/moudules/"/>
+    <component id="eu3hs" name="PageConsoleSetParameter001.xml" path="/" exported="true"/>
+    <component id="eu3ht" name="PageConsoleSetParameter002.xml" path="/" exported="true"/>
+    <component id="ggbpu" name="SettingItems.xml" path="/components/"/>
+    <component id="q4kav" name="PageConsoleBusinessRecord.xml" path="/" exported="true"/>
+    <component id="q4kaw" name="ItemKeyText2.xml" path="/components/"/>
+    <image id="ydllx" name="circle_24.png" path="/images/icons/"/>
+    <component id="prejy" name="ItemKeyText2BigValue.xml" path="/components/"/>
+    <component id="jn3lz" name="PageConsoleAdmin.xml" path="/" exported="true"/>
+    <component id="r96s11" name="PageConsoleCoinRecord.xml" path="/" exported="true"/>
+    <component id="9q8e13" name="PageConsoleCheckHardware02.xml" path="/" exported="true"/>
+    <component id="nw5u16" name="PageConsoleRecordChoose.xml" path="/" exported="true"/>
+    <component id="nw5u17" name="ItemKeyText6.xml" path="/components/"/>
+    <component id="l0fl18" name="PageConsoleJpRecord.xml" path="/" exported="true"/>
+    <component id="l0fl19" name="ItemKeyText6Jp.xml" path="/components/"/>
+    <component id="l0fl1a" name="PageConsoleErrorRecord.xml" path="/" exported="true"/>
+    <component id="rh4e1c" name="PageConsoleEventRecord.xml" path="/" exported="true"/>
+    <component id="rh4e1d" name="ItemKeyText2Event.xml" path="/components/" exported="true"/>
+    <component id="rh4e1e" name="Record.xml" path="/moudules/" exported="true"/>
+    <component id="rh4e1f" name="PopupConsoleRecord.xml" path="/" exported="true"/>
+    <component id="rh4e1g" name="ItemKeyText2Error.xml" path="/components/" exported="true"/>
+    <component id="gyiy1h" name="PopupConsoleDate.xml" path="/" exported="true"/>
+    <component id="gyiy1i" name="ItemKeyYear.xml" path="/components/"/>
+    <component id="payl1j" name="ItemKeyText6JpTitle.xml" path="/components/"/>
+  </resources>
+  <publish name="" path="../../Assets/GameRes/Games/Console Coin Pusher 01/FGUIs" packageCount="2"/>
+</packageDescription>

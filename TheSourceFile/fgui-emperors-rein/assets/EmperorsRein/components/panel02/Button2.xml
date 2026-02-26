@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="189,97" pivot="0.5,0.5">
+  <controller name="button" pages="2,Help,3,Back" selected="0">
+    <action type="play_transition" fromPage="" toPage="2" transition="t0"/>
+    <action type="play_transition" fromPage="" toPage="3" transition="t1"/>
+  </controller>
+  <displayList>
+    <image id="n0_oxcq" name="n0" src="a9so18v" fileName="images/panel02/button/ButtonFrame.png" xy="94,48" pivot="0.5,0.5" anchor="true">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <loader id="n3_a9so" name="icon" xy="95,41" pivot="0.5,0.5" anchor="true" size="36,39" url="ui://vdmp4vsrrzdn1bm" autoSize="true"/>
+    <component id="n1_dpdl" name="untouch" src="a9so18w" fileName="components/panel02/untouch.xml" xy="0,0" visible="false"/>
+  </displayList>
+  <transition name="t0">
+    <item time="0" type="Icon" target="n3_a9so" value="ui://vdmp4vsrrzdn1bm"/>
+  </transition>
+  <transition name="t1">
+    <item time="0" type="Icon" target="n3_a9so" value="ui://vdmp4vsrrzdn1b1"/>
+  </transition>
+</component>

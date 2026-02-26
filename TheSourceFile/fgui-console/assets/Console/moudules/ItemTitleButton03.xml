@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="540,76">
+  <displayList>
+    <richtext id="n0_glrj" name="key" xy="40,16" size="240,42" touchable="false" fontSize="30" color="#ffffff" vAlign="middle" autoSize="shrink" singleLine="true" text="Machine ID:"/>
+    <component id="n2_cwuo" name="value" src="smbpv" fileName="components/Button002.xml" xy="329,9">
+      <Button title="title3[color=#666666]666[/color]99&lt;img src=&apos;ui://xp0b9yqdos7y4i&apos; width=&apos;20&apos; height=&apos;20&apos;/&gt;"/>
+      <property target="value02" propertyId="0" value=""/>
+    </component>
+  </displayList>
+  <customProperty target="key" propertyId="0" label="键"/>
+  <customProperty target="value" propertyId="0" label="值"/>
+</component>

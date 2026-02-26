@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="850,33" mask="n0_nimz">
+  <displayList>
+    <image id="n0_nimz" name="n0" src="nimz3" fileName="images/launch_loading_mask.png" xy="0,0" size="850,33">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n4_eahz" name="n4" src="eahzl" fileName="images/up.png" xy="-10,-4" size="870,41"/>
+  </displayList>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="-1"/>
+</component>

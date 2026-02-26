@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1178">
+  <controller name="tab" pages="0,machine,1,in-out,2,progressive" selected="0"/>
+  <displayList>
+    <component id="n37_jtgo" name="agentID" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,0" size="540,76" group="n11_cwuo">
+      <property target="key" propertyId="0" value="Agent ID:"/>
+      <property target="value" propertyId="0" value="1110"/>
+    </component>
+    <component id="n38_jtgo" name="machineID" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,76" size="540,76" group="n11_cwuo">
+      <property target="key" propertyId="0" value="Machine ID:"/>
+      <property target="value" propertyId="0" value="11100001"/>
+    </component>
+    <component id="n39_jtgo" name="maxCoinInOutRecord" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,152" size="540,76" group="n11_cwuo">
+      <property target="key" propertyId="0" value="Max Coin In Out Record:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <component id="n40_jtgo" name="maxGameRecord" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,228" size="540,76" group="n11_cwuo">
+      <property target="key" propertyId="0" value="Max Game Record:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <component id="n41_jtgo" name="maxEventRecord" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,304" size="540,76" group="n11_cwuo">
+      <property target="key" propertyId="0" value="Max Event Record:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <component id="n42_jtgo" name="maxErrorRecord" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,380" size="540,76" group="n11_cwuo">
+      <property target="key" propertyId="0" value="Max Warning Record:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <component id="n43_jtgo" name="maxBusinessDayRecord" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,456" size="540,76" group="n11_cwuo">
+      <property target="key" propertyId="0" value="Max Business Day Record:"/>
+      <property target="value" propertyId="0" value="1000"/>
+    </component>
+    <group id="n11_cwuo" name="left" xy="0,0" size="540,532" advanced="true">
+      <relation target="" sidePair="width-width"/>
+    </group>
+    <component id="n32_cwuo" name="difficulty" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="540,0" group="n14_cwuo">
+      <relation target="" sidePair="left-left"/>
+      <property target="key" propertyId="0" value="&lt;i18n value=&quot;CON1x&quot;&gt;Difficulty:&lt;/i18n&gt;"/>
+      <property target="value" propertyId="0" value="980"/>
+    </component>
+    <component id="n33_cwuo" name="betAllowed" src="cwuo2j" fileName="moudules/ItemBetLst.xml" xy="540,76" group="n14_cwuo">
+      <relation target="" sidePair="left-left"/>
+    </component>
+    <component id="n34_cwuo" name="active" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="540,456" group="n14_cwuo">
+      <relation target="" sidePair="left-left"/>
+      <property target="key" propertyId="0" value=""/>
+      <property target="value" propertyId="0" value="Active"/>
+    </component>
+    <group id="n14_cwuo" name="right" xy="540,0" size="540,532" advanced="true">
+      <relation target="" sidePair="width-width"/>
+    </group>
+    <component id="n44_jtgo" name="changeShiftPassword" src="jtgo3d" fileName="moudules/ItemButton005.xml" xy="0,760" group="n48_msw2">
+      <relation target="" sidePair="width-width"/>
+      <property target="btn" propertyId="0" value="Change Shift Password"/>
+      <property target="btn" propertyId="1" value="ui://xp0b9yqdos7y3x"/>
+    </component>
+    <component id="n45_jtgo" name="changeManagerPassword" src="jtgo3d" fileName="moudules/ItemButton005.xml" xy="360,760" group="n48_msw2">
+      <relation target="" sidePair="width-width"/>
+      <property target="btn" propertyId="0" value="Change Manager Password"/>
+      <property target="btn" propertyId="1" value="ui://xp0b9yqdos7y3x"/>
+    </component>
+    <component id="n46_jtgo" name="changeAdminPassword" src="jtgo3d" fileName="moudules/ItemButton005.xml" xy="720,760" group="n48_msw2">
+      <relation target="" sidePair="width-width"/>
+      <property target="btn" propertyId="0" value="Change Admin Password"/>
+      <property target="btn" propertyId="1" value="ui://xp0b9yqdos7y3x"/>
+    </component>
+    <group id="n48_msw2" name="buttom" xy="0,760" size="1080,76" advanced="true">
+      <relation target="" sidePair="width-width"/>
+    </group>
+  </displayList>
+</component>

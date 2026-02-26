@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="334,76" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_hhky" name="n0" src="rdkv2l" fileName="images/pageGameMain/FreeGame/Common/fg_bth_button.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n2_qirh" name="n2" src="qirhhh" fileName="images/pageGameMain/FreeGame/Common/sg_txt_collect.png" xy="169,38" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+  <Button/>
+</component>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n4_os7y" name="n4" src="os7y3l" fileName="moudules/BasePopuoBG.xml" xy="2,3">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n2_os7y" name="n2" src="vqlx68" fileName="images/common/circle_24.png" xy="210,788" size="660,344" group="n3_os7y" color="#143733"/>
+    <component id="n5_os7y" name="btnExit" src="os7y4l" fileName="components/ButtonClosePopup.xml" xy="792,788" size="78,78" group="n3_os7y"/>
+    <text id="n16_vqlx" name="music" xy="239,869" size="135,43" group="n17_vqlx" fontSize="30" color="#ffffff" vAlign="middle" autoSize="none" singleLine="true" text="Music:"/>
+    <component id="n14_vqlx" name="musicSlider" src="vqlx6b" fileName="components/DefaultSlider.xml" xy="391,885" group="n17_vqlx">
+      <Slider value="1" max="1"/>
+    </component>
+    <group id="n17_vqlx" name="n17" xy="239,869" size="602,43" group="n3_os7y"/>
+    <text id="n18_vqlx" name="sound" xy="239,962" size="135,43" group="n20_vqlx" fontSize="30" color="#ffffff" vAlign="middle" autoSize="none" singleLine="true" text="Sound:"/>
+    <component id="n19_vqlx" name="soundSlider" src="vqlx6b" fileName="components/DefaultSlider.xml" xy="391,978" group="n20_vqlx">
+      <Slider value="1" max="1"/>
+    </component>
+    <group id="n20_vqlx" name="n20" xy="239,962" size="602,43" group="n3_os7y"/>
+    <component id="n21_od68" name="isMute" src="cwuo2e" fileName="components/ToggleBetList.xml" xy="394,1062" group="n23_od68"/>
+    <text id="n22_od68" name="mute" xy="239,1055" size="135,43" group="n23_od68" fontSize="30" color="#ffffff" vAlign="middle" autoSize="none" singleLine="true" text="mute:"/>
+    <group id="n23_od68" name="n23" xy="239,1055" size="187,43" group="n3_os7y"/>
+    <group id="n3_os7y" name="popupFG" xy="210,788" size="660,344" advanced="true"/>
+  </displayList>
+</component>

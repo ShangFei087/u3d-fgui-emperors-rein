@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="211,156">
+  <displayList>
+    <image id="n39_x7l3" name="n39" src="lsvw1h" fileName="images/PopupGameFreeGame/fg_img_free_bg.png" xy="0,0" size="211,156"/>
+    <text id="n46_pmk5" name="freeTimes" xy="29,59" size="154,70" font="ui://5hielhj5x7l388" fontSize="55" align="center" vAlign="middle" autoSize="none" text="10"/>
+    <image id="n47_a6yp" name="n47" src="a6ypabu" fileName="images/PopupGameFreeGame/fg_txt_freespins.png" xy="30,23" size="153,42"/>
+  </displayList>
+</component>

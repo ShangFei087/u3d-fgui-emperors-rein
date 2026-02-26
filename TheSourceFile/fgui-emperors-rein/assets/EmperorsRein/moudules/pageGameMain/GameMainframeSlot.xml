@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <image id="n7_trhy" name="n7" src="trhyt" fileName="images/pageGameMain/frame/ng_img_BorderUp.png" xy="-525,-431"/>
+    <image id="n8_trhy" name="n8" src="trhys" fileName="images/pageGameMain/frame/ng_img_BorderLeft.png" xy="495,-283"/>
+    <image id="n9_trhy" name="n9" src="trhys" fileName="images/pageGameMain/frame/ng_img_BorderLeft.png" xy="-464,-289" skew="0,180"/>
+    <image id="n10_trhy" name="n10" src="trhyr" fileName="images/pageGameMain/frame/ng_img_BorderDown.png" xy="-494,376"/>
+    <image id="n11_trhy" name="n11" src="trhyw" fileName="images/pageGameMain/frame/鹰.png" xy="-241,-379"/>
+    <image id="n12_kpxm" name="n12" src="plwz1o" fileName="images/pageGameMain/frame/罗马_.png" xy="-102,-333" visible="false"/>
+  </displayList>
+</component>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="186,100">
+  <displayList>
+    <component id="n31_trhy" name="animator" src="ib9y1x" fileName="moudle/slotMachine02/SymbolAnimator02.xml" xy="95,50" pivot="0.5,0.5" anchor="true" size="186,100"/>
+  </displayList>
+  <transition name="animBigger">
+    <item time="0" type="Scale" target="n31_trhy" tween="true" startValue="1,1" endValue="1.3,1.3" duration="3" ease="Linear"/>
+    <item time="3" type="Scale" target="n31_trhy" tween="true" startValue="1.3,1.3" endValue="0.6,0.6" duration="15" ease="Linear"/>
+  </transition>
+</component>

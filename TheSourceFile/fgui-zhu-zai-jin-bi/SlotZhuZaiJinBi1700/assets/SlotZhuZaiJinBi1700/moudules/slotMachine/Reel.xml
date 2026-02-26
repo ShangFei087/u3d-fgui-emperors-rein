@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="127,381">
+  <displayList>
+    <component id="n0_lnet" name="symbols" src="lnet1f" fileName="moudules/slotMachine/Symbols.xml" xy="0,0"/>
+  </displayList>
+</component>

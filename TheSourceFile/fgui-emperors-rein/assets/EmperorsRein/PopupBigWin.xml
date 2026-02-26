@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_uvr5" name="n0" src="gisvtc" fileName="components/Mash.xml" xy="0,0"/>
+    <component id="n1_uvr5" name="anchorNpc" src="gy1ofq" fileName="components/popupBigWin/AnchorNpc.xml" xy="539,802" pivot="0.5,0.5" anchor="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n13_gy1o" name="anchorBigWin02Effect" src="gy1ofs" fileName="components/popupBigWin/AnchorEffectDi.xml" xy="539,1312" pivot="0.5,0">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n11_oqbo" name="anchorBigWin01Effect" src="gy1ofr" fileName="components/popupBigWin/AnchorEffectgold.xml" xy="524,898" pivot="0.5,0.5" anchor="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <image id="n6_lvms" name="n6" src="lvmsci" fileName="images/popupWin/ng_bg_WinShield.png" xy="502,920" pivot="0.5,0.5" anchor="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
+    <component id="n8_lvms" name="Win" src="9qdutm" fileName="moudules/popupGameJackpot/Win.xml" xy="523,1023" pivot="0.5,0.5" anchor="true"/>
+    <loader id="n12_oqbo" name="whatWin" xy="518,824" pivot="0.5,0.5" anchor="true" size="822,199" url="ui://vdmp4vsrlvmscp" autoSize="true" clearOnPublish="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+    <image id="n9_oqbo" name="n9" src="lvmscc" fileName="images/popupWin/ng_bg_WinNumBorder.png" xy="540,1310" pivot="0.5,0.5" anchor="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
+    <text id="n10_oqbo" name="number" xy="542,1306" pivot="0.5,0.5" anchor="true" size="775,147" font="ui://vdmp4vsroqbofo" fontSize="12" align="center" vAlign="middle" letterSpacing="20" autoSize="shrink" text="1">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </text>
+    <component id="n14_l9j1" name="Button" src="l9j1nh" fileName="moudules/popupGameJackpot/Button2.xml" xy="3,-3" size="1080,1920">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+  </displayList>
+  <transition name="Begin" autoPlayRepeat="-1">
+    <item time="0" type="Alpha" target="n12_oqbo" value="0"/>
+    <item time="0" type="Alpha" target="n8_lvms" value="0"/>
+    <item time="0" type="Scale" target="n10_oqbo" tween="true" startValue="0.2,0.2" endValue="1,1" duration="6" ease="Linear"/>
+    <item time="0" type="Scale" target="n1_uvr5" tween="true" startValue="0.2,0.2" endValue="1,1" duration="6" ease="Linear"/>
+    <item time="0" type="Scale" target="n9_oqbo" tween="true" startValue="0.2,0.2" endValue="1,1" duration="6" ease="Linear"/>
+    <item time="0" type="Visible" target="n10_oqbo" value="false"/>
+    <item time="0" type="Visible" target="n11_oqbo" value="false"/>
+    <item time="0" type="Visible" target="n13_gy1o" value="false"/>
+    <item time="0" type="Visible" target="n6_lvms" value="false"/>
+    <item time="6" type="Visible" target="n10_oqbo" value="true"/>
+    <item time="24" type="Alpha" target="n12_oqbo" value="1"/>
+    <item time="24" type="Alpha" target="n8_lvms" value="1"/>
+    <item time="24" type="Scale" target="n12_oqbo" tween="true" startValue="1.5,1.5" endValue="0.5,0.5" duration="18" ease="Linear"/>
+    <item time="24" type="Scale" target="n8_lvms" tween="true" startValue="0.5,0.5" endValue="1.5,1.5" duration="18" ease="Linear"/>
+    <item time="24" type="Visible" target="n11_oqbo" value="true"/>
+    <item time="24" type="Visible" target="n13_gy1o" value="true"/>
+    <item time="24" type="Visible" target="n6_lvms" value="true"/>
+    <item time="42" type="Scale" target="n12_oqbo" tween="true" startValue="0.5,0.5" endValue="1.5,1.5" duration="18" ease="Linear"/>
+    <item time="42" type="Scale" target="n8_lvms" tween="true" startValue="1.5,1.5" endValue="0.5,0.5" duration="18" ease="Linear"/>
+    <item time="51" type="Visible" target="n11_oqbo" label="tuichu" value="true"/>
+    <item time="60" type="Alpha" target="n12_oqbo" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
+    <item time="60" type="Alpha" target="n8_lvms" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
+    <item time="60" type="Scale" target="n12_oqbo" tween="true" startValue="1.5,1.5" endValue="1.25,1.25" duration="6" ease="Linear"/>
+    <item time="60" type="Scale" target="n8_lvms" tween="true" startValue="0.5,0.5" endValue="0.75,0.75" duration="6" ease="Linear"/>
+    <item time="60" type="Visible" target="n6_lvms" value="true"/>
+  </transition>
+  <transition name="Other">
+    <item time="0" type="Alpha" target="n12_oqbo" value="0"/>
+    <item time="0" type="Alpha" target="n8_lvms" value="0"/>
+    <item time="6" type="Alpha" target="n12_oqbo" tween="true" startValue="0" endValue="1" duration="6" ease="Linear"/>
+    <item time="6" type="Alpha" target="n8_lvms" tween="true" startValue="0" endValue="1" duration="6" ease="Linear"/>
+    <item time="6" type="Scale" target="n12_oqbo" tween="true" startValue="1,1" endValue="1.5,1.5" duration="6" ease="Linear"/>
+    <item time="6" type="Scale" target="n8_lvms" tween="true" startValue="1,1" endValue="0.5,0.5" duration="6" ease="Linear"/>
+    <item time="12" type="Scale" target="n12_oqbo" tween="true" startValue="1.5,1.5" endValue="0.5,0.5" duration="21" ease="Linear"/>
+    <item time="12" type="Scale" target="n8_lvms" tween="true" startValue="0.5,0.5" endValue="1.5,1.5" duration="21" ease="Linear"/>
+    <item time="33" type="Scale" target="n12_oqbo" tween="true" startValue="0.5,0.5" endValue="1.5,1.5" duration="21" ease="Linear"/>
+    <item time="33" type="Scale" target="n8_lvms" tween="true" startValue="1.5,1.5" endValue="0.5,0.5" duration="21" ease="Linear"/>
+    <item time="54" type="Alpha" target="n12_oqbo" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
+    <item time="54" type="Alpha" target="n8_lvms" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
+    <item time="54" type="Scale" target="n12_oqbo" tween="true" startValue="1.5,1.5" endValue="1.25,1.25" duration="6" ease="Linear"/>
+    <item time="54" type="Scale" target="n8_lvms" tween="true" startValue="0.5,0.5" endValue="0.75,0.75" duration="6" ease="Linear"/>
+  </transition>
+  <transition name="End" options="4">
+    <item time="0" type="Alpha" target="n12_oqbo" value="0"/>
+    <item time="0" type="Alpha" target="n8_lvms" value="0"/>
+    <item time="6" type="Alpha" target="n12_oqbo" tween="true" startValue="0" endValue="1" duration="6" ease="Linear"/>
+    <item time="6" type="Alpha" target="n8_lvms" tween="true" startValue="0" endValue="1" duration="6" ease="Linear"/>
+    <item time="6" type="Scale" target="n12_oqbo" tween="true" startValue="1,1" endValue="1.5,1.5" duration="6" ease="Linear"/>
+    <item time="6" type="Scale" target="n8_lvms" tween="true" startValue="1,1" endValue="0.5,0.5" duration="6" ease="Linear"/>
+    <item time="12" type="Scale" target="n12_oqbo" tween="true" startValue="1.5,1.5" endValue="0.5,0.5" duration="21" ease="Linear"/>
+    <item time="12" type="Scale" target="n8_lvms" tween="true" startValue="0.5,0.5" endValue="1.5,1.5" duration="21" ease="Linear"/>
+    <item time="33" type="Scale" target="n12_oqbo" tween="true" startValue="0.5,0.5" endValue="1.5,1.5" duration="21" ease="Linear"/>
+    <item time="33" type="Scale" target="n8_lvms" tween="true" startValue="1.5,1.5" endValue="0.5,0.5" duration="21" ease="Linear"/>
+    <item time="54" type="Alpha" target="n12_oqbo" tween="true" startValue="1" endValue="1" duration="6" ease="Linear"/>
+    <item time="54" type="Alpha" target="n8_lvms" tween="true" startValue="1" endValue="1" duration="6" ease="Linear"/>
+    <item time="54" type="Scale" target="n12_oqbo" tween="true" startValue="1.5,1.5" endValue="1,1" duration="12" ease="Linear"/>
+    <item time="54" type="Scale" target="n8_lvms" tween="true" startValue="0.5,0.5" endValue="1,1" duration="12" ease="Linear"/>
+  </transition>
+  <transition name="t3">
+    <item time="0" type="Alpha" target="n12_oqbo" value="1"/>
+    <item time="0" type="Alpha" target="n8_lvms" value="1"/>
+  </transition>
+</component>

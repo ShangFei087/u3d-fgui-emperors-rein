@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="500,60">
+  <displayList>
+    <image id="n4_paul" name="icon" src="paul4" fileName="images/icons/icon_arrow.png" xy="0,0" color="#ffff00"/>
+    <richtext id="n5_paul" name="title" xy="108,0" size="390,59" fontSize="36" color="#ffffff" vAlign="middle" autoSize="none" text="硬件功能测试"/>
+  </displayList>
+  <customProperty target="title" propertyId="0" label="标题"/>
+</component>

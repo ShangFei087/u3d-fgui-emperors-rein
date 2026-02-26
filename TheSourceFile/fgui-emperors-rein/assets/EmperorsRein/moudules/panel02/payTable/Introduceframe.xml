@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1093">
+  <displayList>
+    <image id="n0_j122" name="n0" src="ldsc16j" fileName="images/introduce/beijing.png" xy="35,52" size="1009,988"/>
+    <image id="n1_j122" name="n1" src="ldsc16k" fileName="images/introduce/边框.png" xy="15,149" size="87,763"/>
+    <image id="n2_j122" name="n2" src="ldsc16l" fileName="images/introduce/顶框.png" xy="2,-3"/>
+    <image id="n3_j122" name="n3" src="ldsc16k" fileName="images/introduce/边框.png" xy="1069,146" size="87,792" skew="0,180"/>
+    <image id="n4_j122" name="n4" src="ldsc16m" fileName="images/introduce/底框.png" xy="17,915"/>
+  </displayList>
+</component>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,93">
+  <controller name="c1" pages="0,paytable1,1,paytable2,2,paytable3,3,paytable4,4,paytable5,5,paytable6,6,paytable7" selected="0"/>
+  <displayList>
+    <component id="n8_j122" name="btnPrev" src="ldsc16o" fileName="components/panel02/introduce/BtnL.xml" xy="154,7"/>
+    <component id="n9_j122" name="btnNext" src="ldsc16o" fileName="components/panel02/introduce/BtnL.xml" xy="835,7" skew="0,180"/>
+    <image id="n18_tsjn" name="n18" src="ldsc16r" fileName="images/panel02/introduce/翻页按钮1.png" xy="273,4"/>
+    <image id="n19_tsjn" name="n19" src="ldsc16r" fileName="images/panel02/introduce/翻页按钮1.png" xy="352,4"/>
+    <image id="n20_tsjn" name="n20" src="ldsc16r" fileName="images/panel02/introduce/翻页按钮1.png" xy="431,4"/>
+    <image id="n21_tsjn" name="n21" src="ldsc16r" fileName="images/panel02/introduce/翻页按钮1.png" xy="510,4"/>
+    <image id="n22_tsjn" name="n22" src="ldsc16r" fileName="images/panel02/introduce/翻页按钮1.png" xy="589,4"/>
+    <image id="n23_tsjn" name="n23" src="ldsc16r" fileName="images/panel02/introduce/翻页按钮1.png" xy="668,4"/>
+    <image id="n30_lvms" name="n30" src="ldsc16r" fileName="images/panel02/introduce/翻页按钮1.png" xy="747,4"/>
+    <image id="n24_tsjn" name="n24" src="ldsc16s" fileName="images/panel02/introduce/翻页按钮.png" xy="274,3">
+      <gearDisplay controller="c1" pages="0"/>
+    </image>
+    <image id="n25_tsjn" name="n25" src="ldsc16s" fileName="images/panel02/introduce/翻页按钮.png" xy="353,3">
+      <gearDisplay controller="c1" pages="1"/>
+    </image>
+    <image id="n26_tsjn" name="n26" src="ldsc16s" fileName="images/panel02/introduce/翻页按钮.png" xy="432,3">
+      <gearDisplay controller="c1" pages="2"/>
+    </image>
+    <image id="n27_tsjn" name="n27" src="ldsc16s" fileName="images/panel02/introduce/翻页按钮.png" xy="511,3">
+      <gearDisplay controller="c1" pages="3"/>
+    </image>
+    <image id="n28_tsjn" name="n28" src="ldsc16s" fileName="images/panel02/introduce/翻页按钮.png" xy="590,3">
+      <gearDisplay controller="c1" pages="4"/>
+    </image>
+    <image id="n29_tsjn" name="n29" src="ldsc16s" fileName="images/panel02/introduce/翻页按钮.png" xy="669,3">
+      <gearDisplay controller="c1" pages="5"/>
+    </image>
+    <image id="n31_lvms" name="n31" src="ldsc16s" fileName="images/panel02/introduce/翻页按钮.png" xy="748,3">
+      <gearDisplay controller="c1" pages="6"/>
+    </image>
+  </displayList>
+</component>

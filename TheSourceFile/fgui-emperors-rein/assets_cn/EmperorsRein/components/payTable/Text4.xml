@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="889,688">
+  <displayList>
+    <richtext id="n1_tsjn" name="n1" xy="0,0" size="889,688" fontSize="35" color="#ffffff" leading="1" autoSize="none" text="在普通游戏中，当转轴上出现 3 个或更多&lt;img src=&apos;ui://vdmp4vsrjjue2h&apos; width=&apos;60&apos; height=&apos;60&apos;/&gt;时，可触发奖励游戏。&#xA;&#xA;触发奖励游戏后，初始有 3 次旋转机会。旋转过程中，每当转轴上出现新的&lt;img src=&apos;ui://vdmp4vsrjjue2h&apos; width=&apos;60&apos; height=&apos;60&apos;/&gt;，剩余旋转次数将重置为 3 次。&#xA;&#xA;当转轴布满&lt;img src=&apos;ui://vdmp4vsrjjue2h&apos; width=&apos;60&apos; height=&apos;60&apos;/&gt;或旋转次数耗尽时，游戏结束。">
+      <relation target="" sidePair="center-center"/>
+    </richtext>
+  </displayList>
+</component>

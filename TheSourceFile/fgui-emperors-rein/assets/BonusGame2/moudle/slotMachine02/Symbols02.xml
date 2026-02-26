@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="190,520">
+  <displayList>
+    <component id="n0_plwz" name="symbol0" src="ib9y1w" fileName="moudle/slotMachine02/Symbol02.xml" xy="0,-105" size="186,100"/>
+    <component id="n1_plwz" name="symbol1" src="ib9y1w" fileName="moudle/slotMachine02/Symbol02.xml" xy="0,0"/>
+    <component id="n2_plwz" name="symbol2" src="ib9y1w" fileName="moudle/slotMachine02/Symbol02.xml" xy="0,105"/>
+    <component id="n3_plwz" name="symbol3" src="ib9y1w" fileName="moudle/slotMachine02/Symbol02.xml" xy="0,210"/>
+    <component id="n4_plwz" name="symbol4" src="ib9y1w" fileName="moudle/slotMachine02/Symbol02.xml" xy="0,315"/>
+    <component id="n5_plwz" name="symbol5" src="ib9y1w" fileName="moudle/slotMachine02/Symbol02.xml" xy="0,420"/>
+    <component id="n6_plwz" name="symbol6" src="ib9y1w" fileName="moudle/slotMachine02/Symbol02.xml" xy="0,525"/>
+    <component id="n7_plwz" name="symbol7" src="ib9y1w" fileName="moudle/slotMachine02/Symbol02.xml" xy="0,630"/>
+    <component id="n8_ib9y" name="symbol8" src="ib9y1w" fileName="moudle/slotMachine02/Symbol02.xml" xy="0,735"/>
+    <component id="n9_ib9y" name="symbol9" src="ib9y1w" fileName="moudle/slotMachine02/Symbol02.xml" xy="0,840"/>
+    <component id="n10_ib9y" name="symbol10" src="ib9y1w" fileName="moudle/slotMachine02/Symbol02.xml" xy="0,945"/>
+    <component id="n11_ib9y" name="symbol11" src="ib9y1w" fileName="moudle/slotMachine02/Symbol02.xml" xy="0,1050"/>
+  </displayList>
+</component>

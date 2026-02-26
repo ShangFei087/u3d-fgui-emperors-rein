@@ -1,0 +1,11 @@
+info size=12 resizable=true colored=false
+char id=48 img=lvmscl xoffset=0 yoffset=0 xadvance=0
+char id=49 img=lvmsck xoffset=0 yoffset=0 xadvance=0
+char id=50 img=lvmscq xoffset=0 yoffset=0 xadvance=0
+char id=51 img=lvmscj xoffset=0 yoffset=0 xadvance=0
+char id=52 img=lvmsch xoffset=0 yoffset=0 xadvance=0
+char id=53 img=lvmscm xoffset=0 yoffset=0 xadvance=0
+char id=54 img=lvmscg xoffset=0 yoffset=0 xadvance=0
+char id=55 img=lvmscf xoffset=0 yoffset=0 xadvance=0
+char id=56 img=lvmsce xoffset=0 yoffset=0 xadvance=0
+char id=57 img=lvmscd xoffset=0 yoffset=0 xadvance=0

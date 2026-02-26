@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="8grgqzwa">
+  <resources>
+    <component id="nimz0" name="PageLaunch.xml" path="/" exported="true"/>
+    <component id="nimz1" name="logo.xml" path="/components/"/>
+    <image id="nimz3" name="launch_loading_mask.png" path="/images/" scale="9grid" scale9grid="17,8,17,16"/>
+    <image id="nimz4" name="launch_loading_bg.png" path="/images/" scale="9grid" scale9grid="21,9,13,18"/>
+    <component id="nimzd" name="Slider2.xml" path="/components/"/>
+    <image id="x9qze" name="launch_loading_fg.png" path="/images/" scale="tile" duplicatePadding="true"/>
+    <image id="r8ozf" name="logo_emperors_rein.png" path="/images/gameLogo/" exported="true"/>
+    <component id="nb0ng" name="ProgressBar1.xml" path="/components/"/>
+    <component id="u59qh" name="ButtonApplicationQuit.xml" path="/components/"/>
+    <image id="eahzi" name="down.png" path="/images/"/>
+    <image id="eahzj" name="eyeryparty.png" path="/images/gameLogo/" atlas="10"/>
+    <image id="eahzk" name="icon.png" path="/images/"/>
+    <image id="eahzl" name="up.png" path="/images/" atlas="10"/>
+    <image id="jf2km" name="fg_bg2.png" path="/images/"/>
+  </resources>
+  <publish name="" path="F:\StandAloneSlotFrame\u3d-fgui-emperors-rein\Assets\Resources\Native\FGUIs" packageCount="2"/>
+</packageDescription>

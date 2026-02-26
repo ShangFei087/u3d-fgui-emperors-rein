@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <image id="n9_e5o5" name="n9" src="e5o51v" fileName="images/Main/plat_bg_background.png" xy="1,-1"/>
+    <component id="n2_oypp" name="jpMajor" src="oypp11" fileName="moudules/Jackpot/GameJackpotMajor.xml" xy="539,218" pivot="0.5,0.5" anchor="true" size="782,291" group="n5_oypp" scale="0.8,0.8"/>
+    <component id="n0_oypp" name="jpMinor" src="oypp10" fileName="moudules/Jackpot/GameJackpotMinor.xml" xy="272,532" pivot="0.5,0.5" anchor="true" size="863,326" group="n5_oypp" scale="0.65,0.65"/>
+    <component id="n1_oypp" name="jpMini" src="oypp1" fileName="moudules/Jackpot/GameJackpotMini.xml" xy="848,532" pivot="0.5,0.5" anchor="true" size="867,318" group="n5_oypp" scale="0.65,0.65"/>
+    <group id="n5_oypp" name="jackpots" xy="-159,72" size="1441,622"/>
+    <component id="n14_e5o5" name="card3999" src="e5o52f" fileName="components/Main/card/3999.xml" xy="170,1226" group="n17_bz5j" scale="1.3,1.3"/>
+    <component id="n15_mshr" name="card3998" src="mshr2g" fileName="components/Main/card/3998.xml" xy="540,1226" group="n17_bz5j" scale="1.3,1.3"/>
+    <component id="n16_ncyu" name="card3997" src="ncyu2i" fileName="components/Main/card/3997.xml" xy="910,1226" group="n17_bz5j" scale="1.3,1.3"/>
+    <group id="n17_bz5j" name="Card" xy="170,1226" size="741,1"/>
+    <component id="n11_e5o5" name="Credit" src="e5o51w" fileName="components/Main/Credit.xml" xy="874,1756"/>
+    <component id="n13_e5o5" name="Collect" src="e5o51y" fileName="components/Main/CollectBtn.xml" xy="1,1696"/>
+  </displayList>
+</component>

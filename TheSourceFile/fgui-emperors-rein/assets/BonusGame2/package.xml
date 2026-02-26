@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="0bwjt84c">
+  <resources>
+    <component id="ib9y0" name="PageFreeBonusGame2.xml" path="/" exported="true"/>
+    <image id="ib9y1" name="plat_bg_BackGround.png" path="/image/bonusGame2/" exported="true"/>
+    <image id="ib9y2" name="ng_img_border_bottom_1.png" path="/image/bonusGame2/" exported="true"/>
+    <image id="ib9y3" name="ng_img_border_top_1.png" path="/image/bonusGame2/" exported="true"/>
+    <image id="ib9y4" name="ng_img_border_bottom_2.png" path="/image/bonusGame2/" exported="true"/>
+    <image id="ib9y5" name="ng_img_Vertical_line_3.png" path="/image/bonusGame2/" exported="true"/>
+    <image id="ib9y6" name="ng_img_horizon_line_3.png" path="/image/bonusGame2/" exported="true"/>
+    <image id="ib9y7" name="ng_img_Vertical_line_1.png" path="/image/bonusGame2/" exported="true"/>
+    <image id="ib9y8" name="ng_img_border_bottom_3.png" path="/image/bonusGame2/" exported="true"/>
+    <image id="ib9yb" name="ng_img_border_left_3.png" path="/image/bonusGame2/" exported="true"/>
+    <image id="ib9yc" name="ng_img_border_top_3.png" path="/image/bonusGame2/" exported="true"/>
+    <image id="ib9ye" name="ng_img_border_left_1.png" path="/image/bonusGame2/" exported="true"/>
+    <image id="ib9yf" name="ng_img_ScoringBorder.png" path="/image/bonusGame2/" exported="true"/>
+    <component id="ib9yg" name="Table1.xml" path="/moudle/" exported="true"/>
+    <component id="ib9yi" name="Table2.xml" path="/moudle/" exported="true"/>
+    <component id="ib9yj" name="Table3.xml" path="/moudle/" exported="true"/>
+    <component id="ib9yk" name="special.xml" path="/components/" exported="true"/>
+    <component id="ib9yl" name="Symbol.xml" path="/moudle/slotMachine/" exported="true"/>
+    <component id="ib9ym" name="SymbolAnimator.xml" path="/moudle/slotMachine/" exported="true"/>
+    <component id="ib9yn" name="Reel.xml" path="/moudle/slotMachine/" exported="true"/>
+    <component id="ib9yo" name="SlotMachine.xml" path="/moudle/slotMachine/" exported="true"/>
+    <component id="ib9yp" name="Reels.xml" path="/moudle/slotMachine/" exported="true"/>
+    <component id="ib9yq" name="Symbols.xml" path="/moudle/slotMachine/" exported="true"/>
+    <component id="ib9yr" name="SlotCover.xml" path="/moudle/slotMachine/" exported="true"/>
+    <image id="ib9ys" name="ng_symNum_7.png" path="/image/number/bonusGame2White/"/>
+    <image id="ib9yt" name="ng_symNum_8.png" path="/image/number/bonusGame2White/"/>
+    <image id="ib9yu" name="ng_symNum_9.png" path="/image/number/bonusGame2White/"/>
+    <image id="ib9yv" name="ng_symNum_0.png" path="/image/number/bonusGame2White/"/>
+    <image id="ib9yw" name="ng_symNum_1.png" path="/image/number/bonusGame2White/"/>
+    <image id="ib9yx" name="ng_symNum_2.png" path="/image/number/bonusGame2White/"/>
+    <image id="ib9yy" name="ng_symNum_3.png" path="/image/number/bonusGame2White/"/>
+    <image id="ib9yz" name="ng_symNum_4.png" path="/image/number/bonusGame2White/"/>
+    <image id="ib9y10" name="ng_symNum_5.png" path="/image/number/bonusGame2White/"/>
+    <image id="ib9y11" name="ng_symNum_6.png" path="/image/number/bonusGame2White/"/>
+    <image id="ib9y12" name="ng_score_num_5.png" path="/image/number/bonusGame2Yellow/"/>
+    <image id="ib9y13" name="ng_score_num_6.png" path="/image/number/bonusGame2Yellow/"/>
+    <image id="ib9y14" name="ng_score_num_7.png" path="/image/number/bonusGame2Yellow/"/>
+    <image id="ib9y15" name="ng_score_num_8.png" path="/image/number/bonusGame2Yellow/"/>
+    <image id="ib9y16" name="ng_score_num_9.png" path="/image/number/bonusGame2Yellow/"/>
+    <image id="ib9y17" name="ng_score_num_1.png" path="/image/number/bonusGame2Yellow/"/>
+    <image id="ib9y18" name="ng_score_num_0.png" path="/image/number/bonusGame2Yellow/"/>
+    <image id="ib9y19" name="ng_score_num_2.png" path="/image/number/bonusGame2Yellow/"/>
+    <image id="ib9y1a" name="ng_score_num_3.png" path="/image/number/bonusGame2Yellow/"/>
+    <image id="ib9y1b" name="ng_score_num_4.png" path="/image/number/bonusGame2Yellow/"/>
+    <font id="ib9y1c" name="BonusGame2White.fnt" path="/fonts/" exported="true"/>
+    <font id="ib9y1d" name="BonusGame2Yellow.fnt" path="/fonts/" exported="true"/>
+    <component id="ib9y1s" name="Reel02.xml" path="/moudle/slotMachine02/" exported="true"/>
+    <component id="ib9y1t" name="Reels02.xml" path="/moudle/slotMachine02/" exported="true"/>
+    <component id="ib9y1u" name="SlotCover02.xml" path="/moudle/slotMachine02/" exported="true"/>
+    <component id="ib9y1v" name="SlotMachine02.xml" path="/moudle/slotMachine02/" exported="true"/>
+    <component id="ib9y1w" name="Symbol02.xml" path="/moudle/slotMachine02/" exported="true"/>
+    <component id="ib9y1x" name="SymbolAnimator02.xml" path="/moudle/slotMachine02/" exported="true"/>
+    <component id="ib9y1y" name="Symbols02.xml" path="/moudle/slotMachine02/" exported="true"/>
+    <image id="ib9y23" name="ng_txt_Spins_3.png" path="/image/bonusGame2/" exported="true"/>
+    <image id="ib9y24" name="ng_spinNum_4.png" path="/image/number/bonusGame2Score/"/>
+    <image id="ib9y25" name="ng_spinNum_5.png" path="/image/number/bonusGame2Score/"/>
+    <image id="ib9y26" name="ng_spinNum_6.png" path="/image/number/bonusGame2Score/"/>
+    <image id="ib9y27" name="ng_spinNum_7.png" path="/image/number/bonusGame2Score/"/>
+    <image id="ib9y28" name="ng_spinNum_8.png" path="/image/number/bonusGame2Score/"/>
+    <image id="ib9y29" name="ng_spinNum_9.png" path="/image/number/bonusGame2Score/"/>
+    <image id="ib9y2a" name="ng_spinNum_1.png" path="/image/number/bonusGame2Score/"/>
+    <image id="ib9y2b" name="ng_spinNum_2.png" path="/image/number/bonusGame2Score/"/>
+    <image id="ib9y2c" name="ng_spinNum_3.png" path="/image/number/bonusGame2Score/"/>
+    <font id="ib9y2d" name="BonusGame2Score.fnt" path="/fonts/" exported="true"/>
+    <image id="j20k2e" name="ng_sym_gold_19.png" path="/image/gold/"/>
+    <image id="j20k2f" name="ng_sym_gold_16.png" path="/image/gold/"/>
+    <image id="j20k2g" name="ng_sym_gold_15.png" path="/image/gold/"/>
+    <image id="j20k2h" name="ng_sym_gold_14.png" path="/image/gold/"/>
+    <image id="j20k2i" name="ng_sym_gold_13.png" path="/image/gold/"/>
+    <image id="j20k2j" name="ng_sym_gold_12.png" path="/image/gold/"/>
+    <image id="j20k2k" name="ng_sym_gold_11.png" path="/image/gold/"/>
+    <image id="j20k2l" name="ng_sym_gold_10.png" path="/image/gold/"/>
+    <image id="j20k2m" name="ng_sym_gold_09.png" path="/image/gold/"/>
+    <image id="j20k2n" name="ng_sym_gold_08.png" path="/image/gold/"/>
+    <image id="j20k2o" name="ng_sym_gold_07.png" path="/image/gold/"/>
+    <image id="j20k2p" name="ng_sym_gold_06.png" path="/image/gold/"/>
+    <image id="j20k2q" name="ng_sym_gold_05.png" path="/image/gold/"/>
+    <image id="j20k2r" name="ng_sym_gold_04.png" path="/image/gold/"/>
+    <image id="j20k2s" name="ng_sym_gold_03.png" path="/image/gold/"/>
+    <image id="j20k2t" name="ng_sym_gold_02.png" path="/image/gold/"/>
+    <image id="j20k2u" name="ng_sym_gold_01.png" path="/image/gold/"/>
+    <image id="j20k2v" name="ng_sym_gold_00.png" path="/image/gold/"/>
+    <image id="j20k2w" name="ng_sym_gold_29.png" path="/image/gold/"/>
+    <image id="j20k2x" name="ng_sym_gold_28.png" path="/image/gold/"/>
+    <image id="j20k2y" name="ng_sym_gold_27.png" path="/image/gold/"/>
+    <image id="j20k2z" name="ng_sym_gold_26.png" path="/image/gold/"/>
+    <image id="j20k30" name="ng_sym_gold_25.png" path="/image/gold/"/>
+    <image id="j20k31" name="ng_sym_gold_24.png" path="/image/gold/"/>
+    <image id="j20k32" name="ng_sym_gold_23.png" path="/image/gold/"/>
+    <image id="j20k33" name="ng_sym_gold_22.png" path="/image/gold/"/>
+    <image id="j20k34" name="ng_sym_gold_21.png" path="/image/gold/"/>
+    <image id="j20k35" name="ng_sym_gold_20.png" path="/image/gold/"/>
+    <image id="j20k36" name="ng_sym_gold_17.png" path="/image/gold/"/>
+    <image id="j20k37" name="ng_sym_gold_18.png" path="/image/gold/"/>
+    <image id="j20k38" name="x_bl_19.png" path="/image/table1/"/>
+    <image id="j20k39" name="x_bl_30.png" path="/image/table1/"/>
+    <image id="j20k3a" name="x_bl_31.png" path="/image/table1/"/>
+    <image id="j20k3b" name="x_bl_32.png" path="/image/table1/"/>
+    <image id="j20k3c" name="x_bl_33.png" path="/image/table1/"/>
+    <image id="j20k3d" name="x_bl_34.png" path="/image/table1/"/>
+    <image id="j20k3e" name="x_bl_25.png" path="/image/table1/"/>
+    <image id="j20k3f" name="x_bl_06.png" path="/image/table1/"/>
+    <image id="j20k3g" name="x_bl_26.png" path="/image/table1/"/>
+    <image id="j20k3h" name="x_bl_28.png" path="/image/table1/"/>
+    <image id="j20k3i" name="x_bl_29.png" path="/image/table1/"/>
+    <image id="j20k3j" name="x_bl_21.png" path="/image/table1/"/>
+    <image id="j20k3k" name="x_bl_22.png" path="/image/table1/"/>
+    <image id="j20k3l" name="x_bl_23.png" path="/image/table1/"/>
+    <image id="j20k3m" name="x_bl_24.png" path="/image/table1/"/>
+    <image id="j20k3n" name="x_bl_27.png" path="/image/table1/"/>
+    <image id="j20k3o" name="x_bl_17.png" path="/image/table1/"/>
+    <image id="j20k3p" name="x_bl_05.png" path="/image/table1/"/>
+    <image id="j20k3q" name="x_bl_03.png" path="/image/table1/"/>
+    <image id="j20k3r" name="x_bl_20.png" path="/image/table1/"/>
+    <image id="j20k3s" name="x_bl_14.png" path="/image/table1/"/>
+    <image id="j20k3t" name="x_bl_15.png" path="/image/table1/"/>
+    <image id="j20k3u" name="x_bl_16.png" path="/image/table1/"/>
+    <image id="j20k3v" name="x_bl_11.png" path="/image/table1/"/>
+    <image id="j20k3w" name="x_bl_12.png" path="/image/table1/"/>
+    <image id="j20k3x" name="x_bl_04.png" path="/image/table1/"/>
+    <image id="j20k3y" name="x_bl_13.png" path="/image/table1/"/>
+    <image id="j20k3z" name="x_bl_10.png" path="/image/table1/"/>
+    <image id="j20k40" name="x_bl_07.png" path="/image/table1/"/>
+    <image id="j20k41" name="x_bl_08.png" path="/image/table1/"/>
+    <image id="j20k42" name="x_bl_00.png" path="/image/table1/"/>
+    <image id="j20k43" name="x_bl_01.png" path="/image/table1/"/>
+    <image id="j20k44" name="x_bl_02.png" path="/image/table1/"/>
+    <image id="j20k45" name="x_bl_09.png" path="/image/table1/"/>
+    <image id="j20k46" name="x_bl_18.png" path="/image/table1/"/>
+    <image id="j20k47" name="bl_1_32.png" path="/image/table2/"/>
+    <image id="j20k48" name="bl_1_16.png" path="/image/table2/"/>
+    <image id="j20k49" name="bl_1_17.png" path="/image/table2/"/>
+    <image id="j20k4a" name="bl_1_18.png" path="/image/table2/"/>
+    <image id="j20k4b" name="bl_1_19.png" path="/image/table2/"/>
+    <image id="j20k4c" name="bl_1_20.png" path="/image/table2/"/>
+    <image id="j20k4d" name="bl_1_21.png" path="/image/table2/"/>
+    <image id="j20k4e" name="bl_1_15.png" path="/image/table2/"/>
+    <image id="j20k4f" name="bl_1_22.png" path="/image/table2/"/>
+    <image id="j20k4g" name="bl_1_24.png" path="/image/table2/"/>
+    <image id="j20k4h" name="bl_1_25.png" path="/image/table2/"/>
+    <image id="j20k4i" name="bl_1_26.png" path="/image/table2/"/>
+    <image id="j20k4j" name="bl_1_27.png" path="/image/table2/"/>
+    <image id="j20k4k" name="bl_1_28.png" path="/image/table2/"/>
+    <image id="j20k4l" name="bl_1_29.png" path="/image/table2/"/>
+    <image id="j20k4m" name="bl_1_23.png" path="/image/table2/"/>
+    <image id="j20k4n" name="bl_1_30.png" path="/image/table2/"/>
+    <image id="j20k4o" name="bl_1_14.png" path="/image/table2/"/>
+    <image id="j20k4p" name="bl_1_04.png" path="/image/table2/"/>
+    <image id="j20k4q" name="bl_1_33.png" path="/image/table2/"/>
+    <image id="j20k4r" name="bl_1_34.png" path="/image/table2/"/>
+    <image id="j20k4s" name="bl_1_06.png" path="/image/table2/"/>
+    <image id="j20k4t" name="bl_1_07.png" path="/image/table2/"/>
+    <image id="j20k4u" name="bl_1_08.png" path="/image/table2/"/>
+    <image id="j20k4v" name="bl_1_09.png" path="/image/table2/"/>
+    <image id="j20k4w" name="bl_1_05.png" path="/image/table2/"/>
+    <image id="j20k4x" name="bl_1_10.png" path="/image/table2/"/>
+    <image id="j20k4y" name="bl_1_12.png" path="/image/table2/"/>
+    <image id="j20k4z" name="bl_1_13.png" path="/image/table2/"/>
+    <image id="j20k50" name="bl_1_00.png" path="/image/table2/"/>
+    <image id="j20k51" name="bl_1_01.png" path="/image/table2/"/>
+    <image id="j20k52" name="bl_1_02.png" path="/image/table2/"/>
+    <image id="j20k53" name="bl_1_03.png" path="/image/table2/"/>
+    <image id="j20k54" name="bl_1_11.png" path="/image/table2/"/>
+    <image id="j20k55" name="bl_1_31.png" path="/image/table2/"/>
+  </resources>
+  <publish name="" path="../../Assets\GameRes\Games\BonusGame2\FGUIs" packageCount="2"/>
+</packageDescription>

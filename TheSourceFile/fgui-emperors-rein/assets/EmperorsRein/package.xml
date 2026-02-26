@@ -1,0 +1,751 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="vdmp4vsr">
+  <resources>
+    <component id="i77o0" name="PopupGameLoading.xml" path="/" exported="true"/>
+    <image id="l4cw1" name="example_BIGWIN_queen-idle_00.png" path="/images/popupGameLoading/temp01/"/>
+    <image id="l4cw2" name="bg4-animation_0.png" path="/images/popupGameLoading/temp01/"/>
+    <component id="trhy3" name="PageGameMain.xml" path="/" exported="true"/>
+    <image id="trhy4" name="example_kinglion-win.png" path="/images/pageGameMain/temp01/"/>
+    <component id="trhya" name="Queen.xml" path="/moudules/" exported="true"/>
+    <component id="trhyb" name="AnchorNPC.xml" path="/components/" exported="true"/>
+    <image id="trhyp" name="example_ng_bg0_palace.png" path="/images/pageGameMain/temp01/"/>
+    <component id="trhyq" name="AnchorBG.xml" path="/components/" exported="true"/>
+    <image id="trhyr" name="ng_img_BorderDown.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="trhys" name="ng_img_BorderLeft.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="trhyt" name="ng_img_BorderUp.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="trhyu" name="fg_bg_FreeGame.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="trhyw" name="鹰.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <component id="trhyx" name="GameMainframePush.xml" path="/moudules/pageGameMain/" exported="true"/>
+    <image id="trhyy" name="fg_bg_border.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="trhyz" name="ng_bg_border.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <component id="trhy10" name="Symbol.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="trhy11" name="SymbolAnimator.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="trhy12" name="Reel.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="trhy14" name="AnchorPlayLines.xml" path="/components/" exported="true"/>
+    <component id="trhy15" name="SlotMachine.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="trhy16" name="Reels.xml" path="/moudules/slotMachine/" exported="true"/>
+    <image id="w36x17" name="symbol0_wild.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="w36x19" name="symbol10_free_spin.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="w36x1b" name="symbol9_j.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="w36x1c" name="symbol7_k.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="w36x1d" name="symbol5_laure.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="w36x1e" name="symbol4_bugle.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="w36x1f" name="symbol3_woman.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="w36x1g" name="symbol2_man.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="w36x1h" name="symbol1_king.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <component id="w36x1i" name="AnchorSymbolEffect.xml" path="/components/" exported="true"/>
+    <component id="w36x1j" name="AnchorSymbolBorder.xml" path="/components/" exported="true"/>
+    <component id="plwz1l" name="Symbols.xml" path="/moudules/slotMachine/" exported="true"/>
+    <image id="plwz1m" name="symbol8_q.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="plwz1n" name="symbol6_a.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="plwz1o" name="罗马_.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <component id="plwz1p" name="Paytable5.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="plwz1r" name="LineTable.xml" path="/moudules/introduce/" exported="true"/>
+    <component id="plwz1s" name="OneLine.xml" path="/moudules/introduce/" exported="true"/>
+    <component id="plwz1t" name="LineTable1-25.xml" path="/moudules/introduce/" exported="true"/>
+    <image id="jjue2g" name="symbol10_free_spin_app.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="jjue2h" name="symbol11_bonus.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="jjue2i" name="symbol11_purs.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <component id="q2p22j" name="SlotCover.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="ls7y2l" name="Name.xml" path="/moudules/introduce/" exported="true"/>
+    <component id="ls7y2m" name="Paytable2.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="ls7y2p" name="Multiplier.xml" path="/moudules/introduce/" exported="true"/>
+    <component id="ls7y2q" name="AnchorPanelPush.xml" path="/components/" exported="true"/>
+    <component id="tsjn2r" name="Paytable1.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="tsjn2s" name="Paytable3.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="tsjn2t" name="Paytable4.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="q43s2z" name="Paytable7.xml" path="/moudules/payTable/" exported="true"/>
+    <image id="pa4i3m" name="symbol10_free_spin.png" path="/images/payTableFont/" exported="true"/>
+    <image id="gy7g5i" name="BIGWIN_queen-idle_00.png" path="/images/popupWin/" exported="true"/>
+    <component id="gy7g5j" name="PayTableLine27.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g5k" name="PayTableLine28.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g5l" name="PayTableLine29.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g5m" name="PayTableLine3.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g5n" name="PayTableLine30.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g5o" name="PayTableLine31.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g5p" name="PayTableLine32.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g5q" name="PayTableLine33.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g5r" name="PayTableLine34.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g5s" name="PayTableLine35.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g5t" name="PayTableLine36.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g5u" name="PayTableLine37.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g5v" name="PayTableLine38.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g5w" name="PayTableLine39.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g5x" name="PayTableLine4.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g5y" name="PayTableLine40.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g5z" name="PayTableLine41.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g60" name="PayTableLine9.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g61" name="PayTableLine8.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g62" name="PayTableLine7.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g63" name="PayTableLine6.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g64" name="PayTableLine50.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g65" name="PayTableLine5.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g66" name="PayTableLine26.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g67" name="PayTableLine49.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g68" name="PayTableLine47.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g69" name="PayTableLine46.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g6a" name="PayTableLine45.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g6b" name="PayTableLine44.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g6c" name="PayTableLine43.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g6d" name="PayTableLine42.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g6e" name="PayTableLine48.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g6g" name="PayTableLine25.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g6h" name="PayTableLine23.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g6y" name="PayTableLine1.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g6z" name="PayTableLine22.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g70" name="PayTableLine21.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g71" name="PayTableLine20.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g72" name="PayTableLine2.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g73" name="PayTableLine19.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g74" name="PayTableLine18.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g75" name="PayTableLine24.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g76" name="PayTableLine17.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g77" name="PayTableLine15.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g78" name="PayTableLine14.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g79" name="PayTableLine13.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g7a" name="PayTableLine12.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g7b" name="PayTableLine11.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g7c" name="PayTableLine10.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gy7g7d" name="PayTableLine16.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="gj847t" name="LineName.xml" path="/moudules/payTableLine/" exported="true"/>
+    <component id="lvms8h" name="PayLineIntroduce.xml" path="/moudules/introduce/" exported="true"/>
+    <component id="lvms8i" name="Paytable6.xml" path="/moudules/payTable/" exported="true"/>
+    <image id="lvmscb" name="ng_txt_HUGE.png" path="/images/popupWin/" exported="true"/>
+    <image id="lvmscc" name="ng_bg_WinNumBorder.png" path="/images/popupWin/" exported="true"/>
+    <image id="lvmscd" name="ng_num_BigWin_9.png" path="/images/popupWin/numbers/" atlas="10"/>
+    <image id="lvmsce" name="ng_num_BigWin_8.png" path="/images/popupWin/numbers/" atlas="10"/>
+    <image id="lvmscf" name="ng_num_BigWin_7.png" path="/images/popupWin/numbers/" atlas="10"/>
+    <image id="lvmscg" name="ng_num_BigWin_6.png" path="/images/popupWin/numbers/" atlas="10"/>
+    <image id="lvmsch" name="ng_num_BigWin_4.png" path="/images/popupWin/numbers/" atlas="10"/>
+    <image id="lvmsci" name="ng_bg_WinShield.png" path="/images/popupWin/" exported="true"/>
+    <image id="lvmscj" name="ng_num_BigWin_3.png" path="/images/popupWin/numbers/" atlas="10"/>
+    <image id="lvmsck" name="ng_num_BigWin_1.png" path="/images/popupWin/numbers/" atlas="10"/>
+    <image id="lvmscl" name="ng_num_BigWin_0.png" path="/images/popupWin/numbers/" atlas="10"/>
+    <image id="lvmscm" name="ng_num_BigWin_5.png" path="/images/popupWin/numbers/" atlas="10"/>
+    <image id="lvmscn" name="ng_txt_WIN.png" path="/images/popupWin/" exported="true"/>
+    <image id="lvmsco" name="ng_txt_MASSIVE.png" path="/images/popupWin/" exported="true"/>
+    <image id="lvmscp" name="ng_txt_LEGENDARY.png" path="/images/popupWin/" exported="true"/>
+    <image id="lvmscq" name="ng_num_BigWin_2.png" path="/images/popupWin/numbers/" atlas="10"/>
+    <image id="lvmscr" name="ng_txt_BIG.png" path="/images/popupWin/" exported="true"/>
+    <component id="o2lscs" name="popupwinbg.xml" path="/moudules/popupwinbg/"/>
+    <image id="trpmct" name="win_tip_bg.png" path="/images/winTip/"/>
+    <component id="trpmcv" name="WinTip.xml" path="/moudules/pageGameMain/" exported="true"/>
+    <image id="trpmcw" name="win_tip_numb_1.png" path="/images/winTip/number/" atlas="10"/>
+    <image id="trpmcx" name="win_tip_numb_10.png" path="/images/winTip/number/" atlas="10"/>
+    <image id="trpmcy" name="win_tip_numb_11.png" path="/images/winTip/number/" atlas="10"/>
+    <image id="trpmcz" name="win_tip_numb_2.png" path="/images/winTip/number/" atlas="10"/>
+    <image id="trpmd0" name="win_tip_numb_3.png" path="/images/winTip/number/" atlas="10"/>
+    <image id="trpmd1" name="win_tip_numb_4.png" path="/images/winTip/number/" atlas="10"/>
+    <image id="trpmd2" name="win_tip_numb_5.png" path="/images/winTip/number/" atlas="10"/>
+    <image id="trpmd3" name="win_tip_numb_6.png" path="/images/winTip/number/" atlas="10"/>
+    <image id="trpmd4" name="win_tip_numb_7.png" path="/images/winTip/number/" atlas="10"/>
+    <image id="trpmd5" name="win_tip_numb_8.png" path="/images/winTip/number/" atlas="10"/>
+    <image id="trpmd6" name="win_tip_numb_9.png" path="/images/winTip/number/" atlas="10"/>
+    <font id="trpmd7" name="FontWinTip.fnt" path="/fonts/" exported="true"/>
+    <image id="trpmd8" name="win_tip_numb_0.png" path="/images/winTip/number/" atlas="10"/>
+    <image id="n813d9" name="grand.png" path="/images/gameJackpot/"/>
+    <image id="n813da" name="jp_number_7.png" path="/images/gameJackpot/numbers/"/>
+    <image id="n813db" name="jp_number_6.png" path="/images/gameJackpot/numbers/"/>
+    <image id="n813dc" name="jp_number_5.png" path="/images/gameJackpot/numbers/"/>
+    <image id="n813dd" name="jp_number_4.png" path="/images/gameJackpot/numbers/"/>
+    <image id="n813de" name="jp_number_3.png" path="/images/gameJackpot/numbers/"/>
+    <image id="n813df" name="jp_number_2.png" path="/images/gameJackpot/numbers/"/>
+    <image id="n813dg" name="jp_number_8.png" path="/images/gameJackpot/numbers/"/>
+    <image id="n813dh" name="jp_number_11.png" path="/images/gameJackpot/numbers/"/>
+    <image id="n813di" name="jp_number_1.png" path="/images/gameJackpot/numbers/"/>
+    <image id="n813dj" name="jp_number_0.png" path="/images/gameJackpot/numbers/"/>
+    <image id="n813dk" name="minor.png" path="/images/gameJackpot/"/>
+    <image id="n813dl" name="mini.png" path="/images/gameJackpot/"/>
+    <image id="n813dm" name="major.png" path="/images/gameJackpot/"/>
+    <image id="n813do" name="jp_number_10.png" path="/images/gameJackpot/numbers/"/>
+    <image id="n813dp" name="jp_number_9.png" path="/images/gameJackpot/numbers/"/>
+    <component id="n813dr" name="GameJackpotGrand.xml" path="/moudules/pageGameMain/gameJackpot/"/>
+    <image id="n813dt" name="hero.png" path="/images/popupGameLoading/"/>
+    <image id="n813du" name="ui.png" path="/images/popupGameLoading/" exported="true"/>
+    <image id="n813dv" name="ui2.png" path="/images/popupGameLoading/" exported="true"/>
+    <image id="n813dw" name="ui3.png" path="/images/popupGameLoading/"/>
+    <image id="n813dx" name="game_name.png" path="/images/popupGameLoading/" exported="true"/>
+    <image id="848jdz" name="bg.png" path="/images/popupGameLoading/" exported="true"/>
+    <font id="nimzeg" name="PayTableWhite.fnt" path="/fonts/" exported="true"/>
+    <font id="nimzeh" name="PayTableYellow.fnt" path="/fonts/" exported="true"/>
+    <component id="nimzei" name="Name.xml" path="/moudules/gameLoading/"/>
+    <image id="nimzeu" name="gme_loading_bg.png" path="/images/popupGameLoading/" exported="true" scale="9grid" scale9grid="21,9,13,18"/>
+    <image id="nimzez" name="gme_loading_mask.png" path="/images/popupGameLoading/" exported="true" scale="9grid" scale9grid="19,8,13,16"/>
+    <image id="nimzf0" name="game_loading_fg_1.png" path="/images/popupGameLoading/" exported="true" scale="tile" smoothing="false" duplicatePadding="true"/>
+    <image id="nimzf1" name="图层 40.png" path="/images/popupGameLoading/" exported="true"/>
+    <component id="x9qzf6" name="Slider2.xml" path="/components/gameLoding/" exported="true"/>
+    <font id="l9ylf7" name="FontGameJackpot.fnt" path="/fonts/" exported="true"/>
+    <component id="l9ylf8" name="GameJackpotReel.xml" path="/moudules/pageGameMain/gameJackpot/"/>
+    <image id="g5gff9" name="mega.png" path="/images/gameJackpot/"/>
+    <image id="g5gffa" name="jackpot_bg_grand_印度.png" path="/images/gameJackpot/bg/"/>
+    <image id="g5gffb" name="jackpot_bg_grand_古中国.png" path="/images/gameJackpot/bg/"/>
+    <image id="g5gffc" name="jackpot_bg_grand_埃及.png" path="/images/gameJackpot/bg/"/>
+    <image id="g5gffd" name="jackpot_bg_grand_巴比伦.png" path="/images/gameJackpot/bg/"/>
+    <image id="g5gffe" name="jackpot_bg_grand_玛雅.png" path="/images/gameJackpot/bg/"/>
+    <image id="g5gfff" name="jackpot_bg_grand_罗马.png" path="/images/gameJackpot/bg/"/>
+    <image id="g5gffg" name="jackpot_bg_major.png" path="/images/gameJackpot/bg/"/>
+    <image id="g5gffh" name="jackpot_bg_mega.png" path="/images/gameJackpot/bg/"/>
+    <image id="g5gffi" name="jackpot_bg_mini.png" path="/images/gameJackpot/bg/"/>
+    <image id="g5gffj" name="jackpot_bg_minor.png" path="/images/gameJackpot/bg/"/>
+    <component id="sf7xfl" name="GameJackpotMega.xml" path="/moudules/pageGameMain/gameJackpot/"/>
+    <component id="sf7xfm" name="GameJackpotMajor.xml" path="/moudules/pageGameMain/gameJackpot/"/>
+    <component id="sf7xfo" name="GameJackpotMinor.xml" path="/moudules/pageGameMain/gameJackpot/"/>
+    <component id="sf7xfp" name="GameJackpotMini.xml" path="/moudules/pageGameMain/gameJackpot/"/>
+    <component id="oqbof9" name="PopupJackpotGame.xml" path="/" exported="true"/>
+    <component id="oqbofh" name="SmallGameFrame.xml" path="/moudules/pageBonusGame1/" exported="true"/>
+    <image id="oqbofi" name="sg_num_tips_1.png" path="/images/pageBonusGame1/" exported="true"/>
+    <image id="oqbofj" name="sg_num_tips_2.png" path="/images/pageBonusGame1/" exported="true"/>
+    <image id="oqbofk" name="sg_num_tips_3.png" path="/images/pageBonusGame1/" exported="true"/>
+    <image id="oqbofl" name="sg_txt_TipsRemaining.png" path="/images/pageBonusGame1/" exported="true"/>
+    <image id="oqbofm" name="sg_txt_TipsSpins.png" path="/images/pageBonusGame1/" exported="true"/>
+    <image id="oqbofn" name="sg_bg_HintTitleBorder.png" path="/images/pageBonusGame1/" exported="true"/>
+    <font id="oqbofo" name="popupWinfonts.fnt" path="/fonts/" exported="true"/>
+    <component id="gy1ofq" name="AnchorNpc.xml" path="/components/popupBigWin/" exported="true"/>
+    <component id="gy1ofr" name="AnchorEffectgold.xml" path="/components/popupBigWin/" exported="true"/>
+    <component id="gy1ofs" name="AnchorEffectDi.xml" path="/components/popupBigWin/" exported="true"/>
+    <image id="fzp9fu" name="fontWhite0.png" path="/images/payTableFont/number1/"/>
+    <image id="fzp9fv" name="fontYellow9.png" path="/images/payTableFont/number2/"/>
+    <image id="fzp9fw" name="fontYellow8.png" path="/images/payTableFont/number2/"/>
+    <image id="fzp9fx" name="fontYellow7.png" path="/images/payTableFont/number2/"/>
+    <image id="fzp9fy" name="fontYellow6.png" path="/images/payTableFont/number2/"/>
+    <image id="fzp9fz" name="fontYellow5.png" path="/images/payTableFont/number2/"/>
+    <image id="fzp9g0" name="fontYellow4.png" path="/images/payTableFont/number2/"/>
+    <image id="fzp9g1" name="fontYellow3.png" path="/images/payTableFont/number2/"/>
+    <image id="fzp9g2" name="fontYellow2.png" path="/images/payTableFont/number2/"/>
+    <image id="fzp9g3" name="fontYellow1.png" path="/images/payTableFont/number2/"/>
+    <image id="fzp9g4" name="fontYellow0.png" path="/images/payTableFont/number2/"/>
+    <image id="fzp9g5" name="逗号.png" path="/images/payTableFont/number1/"/>
+    <image id="fzp9g6" name="句号.png" path="/images/payTableFont/number1/"/>
+    <image id="fzp9g7" name="fontWhite9.png" path="/images/payTableFont/number1/"/>
+    <image id="fzp9g8" name="fontWhite8.png" path="/images/payTableFont/number1/"/>
+    <image id="fzp9g9" name="fontWhite7.png" path="/images/payTableFont/number1/"/>
+    <image id="fzp9ga" name="fontWhite6.png" path="/images/payTableFont/number1/"/>
+    <image id="fzp9gb" name="fontWhite5.png" path="/images/payTableFont/number1/"/>
+    <image id="fzp9gc" name="fontWhite4.png" path="/images/payTableFont/number1/"/>
+    <image id="fzp9gd" name="fontWhite3.png" path="/images/payTableFont/number1/"/>
+    <image id="fzp9ge" name="fontWhite2.png" path="/images/payTableFont/number1/"/>
+    <image id="fzp9gf" name="fontWhite1.png" path="/images/payTableFont/number1/"/>
+    <image id="fzp9gg" name="句号.png" path="/images/payTableFont/number2/"/>
+    <image id="fzp9gh" name="逗号.png" path="/images/payTableFont/number2/"/>
+    <component id="fzp9gi" name="EffectGold.xml" path="/components/gameJackpot/" exported="true"/>
+    <component id="fzp9gj" name="Effect.xml" path="/components/gameJackpot/" exported="true"/>
+    <image id="plcsfq" name="grand_0.png" path="/images/gameJackpot/"/>
+    <image id="plcsfr" name="major_0.png" path="/images/gameJackpot/"/>
+    <image id="plcsfs" name="mega_0.png" path="/images/gameJackpot/"/>
+    <image id="plcsft" name="mini_0.png" path="/images/gameJackpot/"/>
+    <image id="plcsfu" name="minor_0.png" path="/images/gameJackpot/"/>
+    <image id="lo3igk" name="symbol12_777.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="lo3igl" name="箭头左右.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <component id="lo3igm" name="AnchorNPCQiang.xml" path="/components/" exported="true"/>
+    <image id="lo3ign" name="example_king.png" path="/images/pageGameMain/temp01/"/>
+    <component id="lo3igo" name="AnchorBGQiang.xml" path="/components/" exported="true"/>
+    <component id="lo3igp" name="AnchorNPCGold.xml" path="/components/" exported="true"/>
+    <image id="q50ngr" name="example_金像.png" path="/images/pageBonusGame1/"/>
+    <image id="q50ngt" name="example_特殊界面背景01.png" path="/images/pageBonusGame1/"/>
+    <component id="q50ngu" name="freeGameFrameSlot.xml" path="/moudules/freeGame/" exported="true"/>
+    <component id="q50ngw" name="PageFreeBonusGame1.xml" path="/" exported="true"/>
+    <image id="q50nh0" name="1.png" path="/images/pageBonusGame1/" exported="true"/>
+    <image id="q50nh1" name="2.png" path="/images/pageBonusGame1/" exported="true"/>
+    <image id="q50nh2" name="3.png" path="/images/pageBonusGame1/" exported="true"/>
+    <component id="q50nh4" name="PopupFreeSpinTrigger.xml" path="/" exported="true"/>
+    <component id="q50nh5" name="PopupZhuanChang.xml" path="/" exported="true"/>
+    <component id="q50nh6" name="AnchorZhuangChang.xml" path="/components/popupZhuangChang/" exported="true"/>
+    <font id="q50nhm" name="Font1.fnt" path="/fonts/" exported="true"/>
+    <component id="o3djio" name="Reel02.xml" path="/moudules/sloMachine02/" exported="true"/>
+    <component id="o3djip" name="Reels02.xml" path="/moudules/sloMachine02/" exported="true"/>
+    <component id="o3djiq" name="SlotCover02.xml" path="/moudules/sloMachine02/" exported="true"/>
+    <component id="o3djir" name="SlotMachine02.xml" path="/moudules/sloMachine02/" exported="true"/>
+    <component id="o3djis" name="Symbol02.xml" path="/moudules/sloMachine02/" exported="true"/>
+    <component id="o3djit" name="SymbolAnimator02.xml" path="/moudules/sloMachine02/" exported="true"/>
+    <component id="o3djiu" name="Symbols02.xml" path="/moudules/sloMachine02/" exported="true"/>
+    <image id="o3djiw" name="fg_sym05_Laurel_Big.png" path="/images/pageGameMain/symbolsBig/"/>
+    <image id="o3djix" name="fg_sym06_bugle_Big.png" path="/images/pageGameMain/symbolsBig/"/>
+    <image id="o3djiy" name="fg_sym07_Woman_warrior_Big.png" path="/images/pageGameMain/symbolsBig/"/>
+    <image id="o3djiz" name="fg_sym08_Male_warrior_Big.png" path="/images/pageGameMain/symbolsBig/"/>
+    <image id="o3djj0" name="fg_sym09_King.png" path="/images/pageGameMain/symbolsBig/"/>
+    <image id="o3djj1" name="fg_sym10_Wild_Big.png" path="/images/pageGameMain/symbolsBig/"/>
+    <image id="o3djj2" name="fg_sym11_purse_Big.png" path="/images/pageGameMain/symbolsBig/"/>
+    <image id="o3djj3" name="fg_sym12_Chest_Big.png" path="/images/pageGameMain/symbolsBig/"/>
+    <image id="o3djj4" name="ng_sym11_BONUS（da) 1.png" path="/images/pageGameMain/symbolsBig/"/>
+    <image id="o3djj5" name="ng_sym12_Chest(da) 1.png" path="/images/pageGameMain/symbolsBig/"/>
+    <image id="o3djj6" name="fg_sym01_J_Big.png" path="/images/pageGameMain/symbolsBig/"/>
+    <image id="o3djj7" name="fg_sym02_Q_Big.png" path="/images/pageGameMain/symbolsBig/"/>
+    <image id="o3djj8" name="fg_sym03_K_Big.png" path="/images/pageGameMain/symbolsBig/"/>
+    <image id="o3djj9" name="fg_sym04_A_Big.png" path="/images/pageGameMain/symbolsBig/"/>
+    <image id="o3djja" name="example_freeGameBg.png" path="/images/pageGameMain/temp01/"/>
+    <image id="nb0njb" name="example_bg_3.png" path="/images/popupZhuanChang/"/>
+    <component id="nb0njd" name="Component.xml" path="/moudules/pageBonusGame1/" exported="true"/>
+    <component id="nb0nje" name="ProgressBar1.xml" path="/components/gameLoding/" exported="true"/>
+    <image id="nb0njv" name="zhuan_chang.png" path="/images/popupZhuanChang/"/>
+    <component id="nb0njw" name="AnchorSpine.xml" path="/components/freeSpinTriggle/" exported="true"/>
+    <component id="nb0njx" name="ButtonStart.xml" path="/components/freeSpinTriggle/" exported="true"/>
+    <component id="nb0njz" name="AnchorPanel2.xml" path="/components/" exported="true"/>
+    <image id="igu3iq" name="line_tile_down2_up.png" path="/images/payLine/"/>
+    <image id="igu3ir" name="line_tile_down2_up2.png" path="/images/payLine/"/>
+    <image id="igu3is" name="line_tile_down_middle.png" path="/images/payLine/"/>
+    <image id="igu3it" name="line_tile_down_up2.png" path="/images/payLine/"/>
+    <image id="igu3iu" name="line_tile_middle_down.png" path="/images/payLine/"/>
+    <image id="igu3iv" name="line_tile_middle_up.png" path="/images/payLine/"/>
+    <image id="igu3ix" name="line_tile_up2_down.png" path="/images/payLine/"/>
+    <image id="igu3iy" name="line_tile_up2_down2.png" path="/images/payLine/"/>
+    <image id="igu3iz" name="line_tile_up_down2.png" path="/images/payLine/"/>
+    <image id="igu3j1" name="line_tile_middle_up2.png" path="/images/payLine/"/>
+    <image id="igu3j2" name="line_tile_up2_middle.png" path="/images/payLine/"/>
+    <image id="igu3j3" name="line_tile_down2_middle.png" path="/images/payLine/"/>
+    <image id="igu3j4" name="line_tile_middle_down2.png" path="/images/payLine/"/>
+    <image id="zkosj6" name="line_tile_down_up.png" path="/images/payLine/"/>
+    <image id="zkosj7" name="line_tile_middle_middle.png" path="/images/payLine/" scale9grid="20,0,10,50"/>
+    <image id="zkosj8" name="line_tile_up_middle.png" path="/images/payLine/"/>
+    <image id="zkosj9" name="line_tile_up_up.png" path="/images/payLine/"/>
+    <image id="zkosja" name="line_tile_down_down.png" path="/images/payLine/"/>
+    <image id="zkosjb" name="line_tile_up_down.png" path="/images/payLine/"/>
+    <image id="vns2k1" name="fg_btn_Start.png" path="/images/popupFreeSpinTrigger/" exported="true"/>
+    <image id="vns2k2" name="fg_fade_tips.png" path="/images/popupFreeSpinTrigger/"/>
+    <image id="vns2k3" name="fg_txt_FREE GAMES.png" path="/images/popupFreeSpinTrigger/" exported="true"/>
+    <image id="vns2k4" name="fg_txt_SUPER REEL.png" path="/images/popupFreeSpinTrigger/" exported="true"/>
+    <image id="vns2k5" name="fg_txt_WOW!.png" path="/images/popupFreeSpinTrigger/" exported="true"/>
+    <image id="vns2k6" name="ng_num_tips_0.png" path="/images/popupFreeSpinTrigger/numbers/"/>
+    <image id="vns2k7" name="ng_num_tips_1.png" path="/images/popupFreeSpinTrigger/numbers/"/>
+    <image id="vns2k8" name="ng_num_tips_2.png" path="/images/popupFreeSpinTrigger/numbers/"/>
+    <image id="vns2k9" name="ng_num_tips_3.png" path="/images/popupFreeSpinTrigger/numbers/"/>
+    <image id="vns2ka" name="ng_num_tips_4.png" path="/images/popupFreeSpinTrigger/numbers/"/>
+    <image id="vns2kb" name="ng_num_tips_5.png" path="/images/popupFreeSpinTrigger/numbers/"/>
+    <image id="vns2kc" name="ng_num_tips_6.png" path="/images/popupFreeSpinTrigger/numbers/"/>
+    <image id="vns2kd" name="ng_num_tips_7.png" path="/images/popupFreeSpinTrigger/numbers/"/>
+    <image id="vns2ke" name="ng_num_tips_8.png" path="/images/popupFreeSpinTrigger/numbers/"/>
+    <image id="vns2kf" name="ng_num_tips_9.png" path="/images/popupFreeSpinTrigger/numbers/"/>
+    <image id="nb0nkv" name="fg_btn_Start.png" path="/images/freeSpinTrigger/" exported="true"/>
+    <image id="nb0nkw" name="example_fg_fade_tips.png" path="/images/freeSpinTrigger/" exported="true"/>
+    <image id="nb0nkx" name="fg_txt_FREE GAMES.png" path="/images/freeSpinTrigger/" exported="true"/>
+    <image id="nb0nky" name="fg_txt_SUPER REEL.png" path="/images/freeSpinTrigger/" exported="true"/>
+    <image id="nb0nkz" name="fg_txt_WOW!.png" path="/images/freeSpinTrigger/" exported="true"/>
+    <image id="nb0nl0" name="ng_num_tips_0.png" path="/images/freeSpinTrigger/numbers/" atlas="10"/>
+    <image id="nb0nl1" name="ng_num_tips_1.png" path="/images/freeSpinTrigger/numbers/" atlas="10"/>
+    <image id="nb0nl2" name="ng_num_tips_2.png" path="/images/freeSpinTrigger/numbers/" atlas="10"/>
+    <image id="nb0nl3" name="ng_num_tips_3.png" path="/images/freeSpinTrigger/numbers/" atlas="10"/>
+    <image id="nb0nl4" name="ng_num_tips_4.png" path="/images/freeSpinTrigger/numbers/" atlas="10"/>
+    <image id="nb0nl5" name="ng_num_tips_5.png" path="/images/freeSpinTrigger/numbers/" atlas="10"/>
+    <image id="nb0nl6" name="ng_num_tips_6.png" path="/images/freeSpinTrigger/numbers/" atlas="10"/>
+    <image id="nb0nl7" name="ng_num_tips_7.png" path="/images/freeSpinTrigger/numbers/" atlas="10"/>
+    <image id="nb0nl8" name="ng_num_tips_8.png" path="/images/freeSpinTrigger/numbers/" atlas="10"/>
+    <image id="nb0nl9" name="ng_num_tips_9.png" path="/images/freeSpinTrigger/numbers/" atlas="10"/>
+    <component id="umchlc" name="Line1.xml" path="/moudules/playLine/"/>
+    <component id="umchld" name="Line34.xml" path="/moudules/playLine/"/>
+    <component id="umchle" name="Line35.xml" path="/moudules/playLine/"/>
+    <component id="umchlf" name="Line36.xml" path="/moudules/playLine/"/>
+    <component id="umchlg" name="Line37.xml" path="/moudules/playLine/"/>
+    <component id="umchlh" name="Line38.xml" path="/moudules/playLine/"/>
+    <component id="umchli" name="Line39.xml" path="/moudules/playLine/"/>
+    <component id="umchlj" name="Line4.xml" path="/moudules/playLine/"/>
+    <component id="umchlk" name="Line40.xml" path="/moudules/playLine/"/>
+    <component id="umchll" name="Line41.xml" path="/moudules/playLine/"/>
+    <component id="umchlm" name="Line42.xml" path="/moudules/playLine/"/>
+    <component id="umchln" name="Line43.xml" path="/moudules/playLine/"/>
+    <component id="umchlo" name="Line44.xml" path="/moudules/playLine/"/>
+    <component id="umchlp" name="Line45.xml" path="/moudules/playLine/"/>
+    <component id="umchlq" name="Line46.xml" path="/moudules/playLine/"/>
+    <component id="umchlr" name="Line47.xml" path="/moudules/playLine/"/>
+    <component id="umchls" name="Line48.xml" path="/moudules/playLine/"/>
+    <component id="umchlt" name="Line49.xml" path="/moudules/playLine/"/>
+    <component id="umchlu" name="Line5.xml" path="/moudules/playLine/"/>
+    <component id="umchlv" name="Line50.xml" path="/moudules/playLine/"/>
+    <component id="umchlw" name="Line6.xml" path="/moudules/playLine/"/>
+    <component id="umchlx" name="Line7.xml" path="/moudules/playLine/"/>
+    <component id="umchly" name="Line33.xml" path="/moudules/playLine/"/>
+    <component id="umchlz" name="Line32.xml" path="/moudules/playLine/"/>
+    <component id="umchm0" name="Line31.xml" path="/moudules/playLine/"/>
+    <component id="umchm1" name="Line30.xml" path="/moudules/playLine/"/>
+    <component id="umchm2" name="Line10.xml" path="/moudules/playLine/"/>
+    <component id="umchm3" name="Line11.xml" path="/moudules/playLine/"/>
+    <component id="umchm4" name="Line12.xml" path="/moudules/playLine/"/>
+    <component id="umchm5" name="Line13.xml" path="/moudules/playLine/"/>
+    <component id="umchm6" name="Line14.xml" path="/moudules/playLine/"/>
+    <component id="umchm7" name="Line15.xml" path="/moudules/playLine/"/>
+    <component id="umchm8" name="Line16.xml" path="/moudules/playLine/"/>
+    <component id="umchm9" name="Line17.xml" path="/moudules/playLine/"/>
+    <component id="umchma" name="Line18.xml" path="/moudules/playLine/"/>
+    <component id="umchmb" name="Line19.xml" path="/moudules/playLine/"/>
+    <component id="umchmc" name="Line8.xml" path="/moudules/playLine/"/>
+    <component id="umchmd" name="Line2.xml" path="/moudules/playLine/"/>
+    <component id="umchme" name="Line21.xml" path="/moudules/playLine/"/>
+    <component id="umchmf" name="Line22.xml" path="/moudules/playLine/"/>
+    <component id="umchmg" name="Line23.xml" path="/moudules/playLine/"/>
+    <component id="umchmh" name="Line24.xml" path="/moudules/playLine/"/>
+    <component id="umchmi" name="Line25.xml" path="/moudules/playLine/"/>
+    <component id="umchmj" name="Line26.xml" path="/moudules/playLine/"/>
+    <component id="umchmk" name="Line27.xml" path="/moudules/playLine/"/>
+    <component id="umchml" name="Line28.xml" path="/moudules/playLine/"/>
+    <component id="umchmm" name="Line29.xml" path="/moudules/playLine/"/>
+    <component id="umchmn" name="Line3.xml" path="/moudules/playLine/"/>
+    <component id="umchmo" name="Line20.xml" path="/moudules/playLine/"/>
+    <component id="umchmp" name="Line9.xml" path="/moudules/playLine/"/>
+    <component id="kpxmmq" name="PopupNextWin.xml" path="/" exported="true"/>
+    <image id="kpxmmr" name="NEXT WIN_框.png" path="/images/popupNextWin/" exported="true"/>
+    <image id="kpxmms" name="ok.png" path="/images/popupNextWin/" exported="true"/>
+    <image id="kpxmmt" name="ok(按下).png" path="/images/popupNextWin/" exported="true"/>
+    <component id="kpxmmu" name="Button1.xml" path="/components/popupNextWin/"/>
+    <image id="kpxmmz" name="menu_bg_BorderBig.png" path="/images/popupNextWin/"/>
+    <image id="kpxmn0" name="menu_bg_GreenSmall.png" path="/images/popupNextWin/"/>
+    <image id="kpxmn1" name="menu_Btn_Ok.png" path="/images/popupNextWin/"/>
+    <image id="kpxmn2" name="menu_Btn_Ok2.png" path="/images/popupNextWin/"/>
+    <image id="kpxmn3" name="menu_txt_NextWin.png" path="/images/popupNextWin/"/>
+    <image id="kpxmn4" name="框.png" path="/images/popupNextWin/"/>
+    <component id="ptxun5" name="ExpectationMainGame.xml" path="/moudules/pageGameMain/" exported="true"/>
+    <component id="ptxun6" name="ExpectationBonusGame1.xml" path="/moudules/pageBonusGame1/" exported="true"/>
+    <image id="f6r9n7" name="qi.png" path="/images/pageGameMain/Spine/"/>
+    <component id="f6r9n8" name="AnchorQi.xml" path="/components/" exported="true"/>
+    <component id="gezdn5" name="AnchorExpectatopm.xml" path="/components/"/>
+    <component id="ync9n6" name="PageGameMainSlot.xml" path="/" exported="true"/>
+    <image id="lrqjnb" name="example_qi.png" path="/images/pageGameMain/temp01/"/>
+    <component id="lrqjnc" name="AnchorSymbolJinBin.xml" path="/components/" exported="true"/>
+    <component id="h33one" name="AnchorEffect.xml" path="/components/gameMainEffect/" exported="true"/>
+    <image id="h33onf" name="example_mini_caijinkuang.png" path="/images/popupJackpot/"/>
+    <movieclip id="l9j1ng" name="StartAnim.jta" path="/components/freeSpinTriggle/" exported="true" atlas="alone"/>
+    <component id="l9j1nh" name="Button2.xml" path="/moudules/popupGameJackpot/" exported="true"/>
+    <component id="l9j1ni" name="PopupJackpotOnline.xml" path="/" exported="true"/>
+    <component id="xs3qnj" name="BonusText.xml" path="/moudules/slotMachine/" exported="true"/>
+    <image id="xs3qnk" name="BonusNumber_0.png" path="/images/pageGameMain/bonusCreditNumber/" exported="true" atlas="10"/>
+    <image id="xs3qnl" name="BonusNumber_1.png" path="/images/pageGameMain/bonusCreditNumber/" exported="true" atlas="10"/>
+    <image id="xs3qnm" name="BonusNumber_2.png" path="/images/pageGameMain/bonusCreditNumber/" exported="true" atlas="10"/>
+    <image id="xs3qnn" name="BonusNumber_3.png" path="/images/pageGameMain/bonusCreditNumber/" exported="true" atlas="10"/>
+    <image id="xs3qno" name="BonusNumber_4.png" path="/images/pageGameMain/bonusCreditNumber/" exported="true" atlas="10"/>
+    <image id="xs3qnp" name="BonusNumber_5.png" path="/images/pageGameMain/bonusCreditNumber/" exported="true" atlas="10"/>
+    <image id="xs3qnq" name="BonusNumber_6.png" path="/images/pageGameMain/bonusCreditNumber/" exported="true" atlas="10"/>
+    <image id="xs3qnr" name="BonusNumber_7.png" path="/images/pageGameMain/bonusCreditNumber/" exported="true" atlas="10"/>
+    <image id="xs3qns" name="BonusNumber_8.png" path="/images/pageGameMain/bonusCreditNumber/" exported="true" atlas="10"/>
+    <image id="xs3qnt" name="BonusNumber_9.png" path="/images/pageGameMain/bonusCreditNumber/" exported="true" atlas="10"/>
+    <image id="xs3qnu" name="BonusNumber_dot1.png" path="/images/pageGameMain/bonusCreditNumber/" exported="true" atlas="10"/>
+    <image id="xs3qnv" name="BonusNumber_dot2.png" path="/images/pageGameMain/bonusCreditNumber/" exported="true" atlas="10"/>
+    <font id="xs3qnw" name="FontBonusCredit.fnt" path="/fonts/" exported="true"/>
+    <component id="su4gnx" name="PopupFreeSpinResult.xml" path="/" exported="true"/>
+    <image id="ncj2ny" name="symbol11_bonus_ball.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <component id="ip7anz" name="PopupBigWin.xml" path="/" exported="true"/>
+    <component id="dpdlo0" name="freeGameFramePush.xml" path="/moudules/freeGame/" exported="true"/>
+    <component id="qdjto1" name="CollectGold.xml" path="/moudules/pageGameMain/" exported="true"/>
+    <image id="qdjto3" name="JP2框.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="qdjto5" name="JP3框.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="qdjto7" name="JP4框.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="qdjto9" name="JP5框.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="qdjtoa" name="Logo.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="qdjtod" name="JP1框.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <component id="qdjtoi" name="GameMainframeSlot.xml" path="/moudules/pageGameMain/" exported="true"/>
+    <font id="qdjtoy" name="FreeGameYin.fnt" path="/fonts/" exported="true"/>
+    <font id="qdjtoz" name="JinShuMain.fnt" path="/fonts/" exported="true"/>
+    <image id="qdjtp0" name="0.png" path="/fonts/number2/"/>
+    <image id="qdjtp1" name="1 .png" path="/fonts/number2/"/>
+    <image id="qdjtp2" name="2.png" path="/fonts/number2/"/>
+    <image id="qdjtp3" name="3.png" path="/fonts/number2/"/>
+    <image id="qdjtp4" name="4.png" path="/fonts/number2/"/>
+    <image id="qdjtp5" name="5.png" path="/fonts/number2/"/>
+    <image id="qdjtp6" name="6.png" path="/fonts/number2/"/>
+    <image id="qdjtp7" name="7.png" path="/fonts/number2/"/>
+    <image id="qdjtp8" name="8.png" path="/fonts/number2/"/>
+    <image id="qdjtp9" name="9.png" path="/fonts/number2/"/>
+    <image id="o1y0pb" name="gameMainDi.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="o1y0pf" name="freeGameTime.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="o1y0s9" name="图层 1556.png" path="/images/popupGameLoading/" exported="true" scale="tile" duplicatePadding="true"/>
+    <image id="o1y0sa" name="加载条.png" path="/images/popupGameLoading/" exported="true" scale="9grid" scale9grid="145,15,290,30"/>
+    <image id="o1y0sb" name="加载点.png" path="/images/popupGameLoading/" exported="true"/>
+    <component id="o1y0sc" name="Slider_grip.xml" path="/components/gameLoding/" exported="true"/>
+    <component id="o1y0sd" name="Slider.xml" path="/components/gameLoding/" exported="true"/>
+    <image id="o1y0se" name="加载条01.png" path="/images/popupGameLoading/" exported="true"/>
+    <image id="o1y0sh" name="图层 1456.png" path="/images/pageGameMain/frame/"/>
+    <component id="o1y0si" name="AnchorCollectGoldCoin.xml" path="/components/" exported="true"/>
+    <image id="o1y0sj" name="4.png" path="/images/pageGameMain/frame/freeFramePush/numberYIn/"/>
+    <image id="o1y0sk" name="5.png" path="/images/pageGameMain/frame/freeFramePush/numberYIn/"/>
+    <image id="o1y0sl" name="6.png" path="/images/pageGameMain/frame/freeFramePush/numberYIn/"/>
+    <image id="o1y0sm" name="7.png" path="/images/pageGameMain/frame/freeFramePush/numberYIn/"/>
+    <image id="o1y0sn" name="8.png" path="/images/pageGameMain/frame/freeFramePush/numberYIn/"/>
+    <image id="o1y0so" name="9.png" path="/images/pageGameMain/frame/freeFramePush/numberYIn/"/>
+    <image id="o1y0sp" name="0.png" path="/images/pageGameMain/frame/freeFramePush/numberYIn/"/>
+    <image id="o1y0sq" name="1.png" path="/images/pageGameMain/frame/freeFramePush/numberYIn/"/>
+    <image id="o1y0sr" name="2.png" path="/images/pageGameMain/frame/freeFramePush/numberYIn/"/>
+    <image id="o1y0ss" name="3.png" path="/images/pageGameMain/frame/freeFramePush/numberYIn/"/>
+    <image id="gisvsw" name="JP2.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="gisvsx" name="JP3.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="gisvsy" name="JP4.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="gisvsz" name="JP1.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <component id="gisvtc" name="Mash.xml" path="/components/" exported="true"/>
+    <image id="qewhtd" name="fg_txt_FREE GAME.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <component id="qewhte" name="AnchorPanelSlot.xml" path="/components/" exported="true"/>
+    <image id="qewhtf" name="掉币底框01.png" path="/images/winTip/" exported="true"/>
+    <component id="9qdutm" name="Win.xml" path="/moudules/popupGameJackpot/" exported="true"/>
+    <image id="9qdutn" name="ng_txt_WIN_1.png" path="/images/popupWin/" exported="true"/>
+    <image id="9qduto" name="ng_txt_WIN_2.png" path="/images/popupWin/" exported="true"/>
+    <image id="jmqcuy" name="symbol12_jackpot.png" path="/images/pageGameMain/symbols/" exported="true"/>
+    <image id="7w15uz" name="dun.png" path="/images/popupFreeSpinResult/" exported="true"/>
+    <image id="7w15v2" name="CoinGlod.png" path="/images/popupFreeSpinResult/" exported="true"/>
+    <image id="7w15v3" name="Frame.png" path="/images/popupFreeSpinResult/" exported="true"/>
+    <component id="ldsc10w" name="IntroduceBtn.xml" path="/moudules/panel01/payTable/" exported="true"/>
+    <component id="ldsc10x" name="BtnL.xml" path="/components/panel01/introduce/" exported="true"/>
+    <image id="ldsc10y" name="翻页箭头.png" path="/images/panel01/introduce/" exported="true"/>
+    <image id="ldsc10z" name="翻页箭头1.png" path="/images/panel01/introduce/" exported="true"/>
+    <image id="ldsc110" name="翻页按钮1.png" path="/images/panel01/introduce/" exported="true"/>
+    <image id="ldsc111" name="翻页按钮.png" path="/images/panel01/introduce/" exported="true"/>
+    <component id="ldsc112" name="Introduceframe.xml" path="/moudules/panel01/payTable/" exported="true"/>
+    <image id="ldsc113" name="beijing.png" path="/images/panel01/introduce/" exported="true" scale="9grid" scale9grid="252,62,504,1307"/>
+    <image id="ldsc114" name="边框.png" path="/images/panel01/introduce/" exported="true"/>
+    <image id="ldsc115" name="顶框.png" path="/images/panel01/introduce/" exported="true"/>
+    <image id="ldsc116" name="底框.png" path="/images/panel01/introduce/" exported="true"/>
+    <component id="ldsc117" name="PayYable.xml" path="/moudules/panel01/payTable/" exported="true"/>
+    <component id="ldsc118" name="Paytable1.xml" path="/moudules/panel01/payTable/" exported="true"/>
+    <component id="ldsc119" name="Name.xml" path="/moudules/panel01/introduce/" exported="true"/>
+    <image id="ldsc11a" name="矩形 1847.png" path="/images/panel01/introduce/" exported="true"/>
+    <component id="ldsc11b" name="Intorduce1Multiplier.xml" path="/components/payTable/symbolInfo/" exported="true"/>
+    <image id="ldsc11c" name="symbol1_king.png" path="/images/panel01/pageGameMain/symbols/" exported="true"/>
+    <image id="ldsc11e" name="fontYellow0.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="ldsc11f" name="fontYellow1.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="ldsc11g" name="fontYellow2.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="ldsc11h" name="fontYellow3.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="ldsc11i" name="fontYellow4.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="ldsc11j" name="fontYellow5.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="ldsc11k" name="fontYellow6.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="ldsc11l" name="fontYellow7.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="ldsc11m" name="fontYellow8.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="ldsc11n" name="fontYellow9.png" path="/images/panel01/payTableFont/number2/"/>
+    <image id="ldsc11p" name="fontWhite0.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="ldsc11q" name="fontWhite1.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="ldsc11r" name="fontWhite2.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="ldsc11s" name="fontWhite3.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="ldsc11t" name="fontWhite4.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="ldsc11u" name="fontWhite5.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="ldsc11v" name="fontWhite6.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="ldsc11w" name="fontWhite7.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="ldsc11x" name="fontWhite8.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="ldsc11y" name="fontWhite9.png" path="/images/panel01/payTableFont/number1/"/>
+    <image id="ldsc11z" name="symbol2_man.png" path="/images/panel01/pageGameMain/symbols/" exported="true"/>
+    <image id="ldsc120" name="symbol3_woman.png" path="/images/panel01/pageGameMain/symbols/" exported="true"/>
+    <image id="ldsc121" name="symbol4_bugle.png" path="/images/panel01/pageGameMain/symbols/" exported="true"/>
+    <image id="ldsc122" name="symbol5_laure.png" path="/images/panel01/pageGameMain/symbols/" exported="true"/>
+    <image id="ldsc123" name="symbol6_a.png" path="/images/panel01/pageGameMain/symbols/" exported="true"/>
+    <image id="ldsc124" name="symbol7_k.png" path="/images/panel01/pageGameMain/symbols/" exported="true"/>
+    <image id="ldsc125" name="symbol8_q.png" path="/images/panel01/pageGameMain/symbols/" exported="true"/>
+    <image id="ldsc126" name="symbol9_j.png" path="/images/panel01/pageGameMain/symbols/" exported="true"/>
+    <component id="ldsc127" name="Panel.xml" path="/moudules/panel01/" exported="true"/>
+    <component id="ldsc128" name="PayTable.xml" path="/moudules/panel01/" exported="true"/>
+    <component id="ldsc129" name="GameDiFrame.xml" path="/moudules/panel01/" exported="true"/>
+    <image id="ldsc12a" name="menu_ic_Roman.png" path="/images/panel01/frame/" exported="true"/>
+    <image id="ldsc12b" name="底.png" path="/images/panel01/frame/" exported="true"/>
+    <image id="ldsc12c" name="CREDUTS.png" path="/images/panel01/frame/" exported="true"/>
+    <image id="ldsc12d" name="Border.png" path="/images/panel01/frame/" exported="true"/>
+    <image id="ldsc12e" name="押注框1.png" path="/images/panel01/frame/" exported="true"/>
+    <component id="ldsc12f" name="GameDiInstruction.xml" path="/moudules/panel01/" exported="true"/>
+    <image id="ldsc12g" name="info.png" path="/images/panel01/frame/"/>
+    <component id="ldsc12h" name="BtnSound.xml" path="/components/panel01/introduce/" exported="true"/>
+    <image id="ldsc12i" name="音量1.png" path="/images/panel01/button/" exported="true"/>
+    <image id="ldsc12j" name="音量2.png" path="/images/panel01/button/" exported="true"/>
+    <image id="ldsc12k" name="音量3.png" path="/images/panel01/button/" exported="true"/>
+    <image id="ldsc12l" name="音量4.png" path="/images/panel01/button/" exported="true"/>
+    <component id="ldsc12m" name="Win.xml" path="/moudules/panel01/" exported="true"/>
+    <image id="ldsc12n" name="win.png" path="/images/panel01/frame/" exported="true"/>
+    <component id="ldsc12o" name="BtnTip.xml" path="/components/panel01/" exported="true"/>
+    <image id="ldsc12p" name="info_2.png" path="/images/panel01/button/" exported="true"/>
+    <image id="ldsc12q" name="back_2.png" path="/images/panel01/introduce/" exported="true"/>
+    <image id="ldsc12r" name="info_1.png" path="/images/panel01/button/" exported="true"/>
+    <component id="ldsc12s" name="BtnSpin.xml" path="/components/panel01/" exported="true"/>
+    <image id="ldsc12t" name="ng_coin_an_hold-hold_00.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc12u" name="ball_red.png" path="/images/panel01/effect/spin/" exported="true"/>
+    <image id="ldsc12v" name="ball_gray.png" path="/images/panel01/effect/spin/" exported="true"/>
+    <image id="ldsc12w" name="auto.png" path="/images/panel01/effect/spin/" exported="true"/>
+    <image id="ldsc12x" name="spin_gray.png" path="/images/panel01/effect/spin/" exported="true"/>
+    <image id="ldsc12y" name="stop.png" path="/images/panel01/effect/spin/" exported="true"/>
+    <image id="ldsc12z" name="spin1.png" path="/images/panel01/effect/spin/" exported="true"/>
+    <image id="ldsc130" name="ng_coin_an_hold-hold_01.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc131" name="ng_coin_an_hold-hold_02.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc132" name="ng_coin_an_hold-hold_03.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc133" name="ng_coin_an_hold-hold_04.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc134" name="ng_coin_an_hold-hold_05.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc135" name="ng_coin_an_hold-hold_06.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc136" name="ng_coin_an_hold-hold_07.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc137" name="ng_coin_an_hold-hold_08.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc138" name="ng_coin_an_hold-hold_09.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc139" name="ng_coin_an_hold-hold_10.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13a" name="ng_coin_an_hold-hold_11.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13b" name="ng_coin_an_hold-hold_12.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13c" name="ng_coin_an_hold-hold_13.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13d" name="ng_coin_an_hold-hold_14.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13e" name="ng_coin_an_hold-hold_15.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13f" name="ng_coin_an_hold-hold_16.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13g" name="ng_coin_an_hold-hold_17.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13h" name="ng_coin_an_hold-hold_18.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13i" name="ng_coin_an_hold-hold_19.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13j" name="ng_coin_an_hold-hold_20.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13k" name="ng_coin_an_hold-hold_21.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13l" name="ng_coin_an_hold-hold_22.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13m" name="ng_coin_an_hold-hold_23.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13n" name="ng_coin_an_hold-hold_24.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13o" name="ng_coin_an_hold-hold_25.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13p" name="ng_coin_an_hold-hold_26.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13q" name="ng_coin_an_hold-hold_27.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13r" name="ng_coin_an_hold-hold_28.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13s" name="ng_coin_an_hold-hold_29.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13t" name="ng_coin_an_hold-hold_30.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13u" name="ng_coin_an_hold-hold_31.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13v" name="ng_coin_an_hold-hold_32.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13w" name="ng_coin_an_hold-hold_33.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13x" name="ng_coin_an_hold-hold_34.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13y" name="ng_coin_an_hold-hold_35.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc13z" name="ng_coin_an_hold-hold_36.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc140" name="ng_coin_an_hold-hold_37.png" path="/images/panel01/effect/effectToAuto/" exported="true"/>
+    <image id="ldsc141" name="ng_coin_an_hold-auto_idle_00.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc142" name="ng_coin_an_hold-auto_idle_01.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc143" name="ng_coin_an_hold-auto_idle_02.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc144" name="ng_coin_an_hold-auto_idle_03.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc145" name="ng_coin_an_hold-auto_idle_04.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc146" name="ng_coin_an_hold-auto_idle_05.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc147" name="ng_coin_an_hold-auto_idle_06.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc148" name="ng_coin_an_hold-auto_idle_07.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc149" name="ng_coin_an_hold-auto_idle_08.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc14a" name="ng_coin_an_hold-auto_idle_09.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc14b" name="ng_coin_an_hold-auto_idle_10.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc14c" name="ng_coin_an_hold-auto_idle_11.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc14d" name="ng_coin_an_hold-auto_idle_12.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc14e" name="ng_coin_an_hold-auto_idle_13.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc14f" name="ng_coin_an_hold-auto_idle_14.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc14g" name="ng_coin_an_hold-auto_idle_15.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc14h" name="ng_coin_an_hold-auto_idle_16.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc14i" name="ng_coin_an_hold-auto_idle_17.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc14j" name="ng_coin_an_hold-auto_idle_18.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <image id="ldsc14k" name="ng_coin_an_hold-auto_idle_19.png" path="/images/panel01/effect/effectAuto/" exported="true"/>
+    <component id="ldsc14l" name="Btn+.xml" path="/components/panel01/" exported="true"/>
+    <image id="ldsc14m" name="add1.png" path="/images/panel01/button/" exported="true"/>
+    <image id="ldsc14n" name="add1_1.png" path="/images/panel01/button/" exported="true"/>
+    <component id="ldsc14o" name="Btn-.xml" path="/components/panel01/" exported="true"/>
+    <image id="ldsc14p" name="reduce1_2.png" path="/images/panel01/button/" exported="true"/>
+    <image id="ldsc14q" name="reduce1_1.png" path="/images/panel01/button/" exported="true"/>
+    <image id="ldsc14r" name="GOOD LUCK.png" path="/images/panel01/frame/" exported="true"/>
+    <component id="ldsc14s" name="ButtonPRIZE.xml" path="/components/panel01/" exported="true"/>
+    <image id="ldsc14t" name="PRIZE VIEWER.png" path="/images/panel01/frame/" exported="true"/>
+    <image id="ldsc14u" name="previewer_2.png" path="/images/panel01/frame/"/>
+    <image id="ldsc14v" name="previewer_1.png" path="/images/panel01/frame/" exported="true"/>
+    <component id="ldsc14w" name="PanelBonusGame1.xml" path="/moudules/panel01/" exported="true"/>
+    <component id="ldsc14x" name="BtnSpinBonusGame1.xml" path="/components/panel01/" exported="true"/>
+    <image id="ldsc14y" name="START_4.png" path="/images/panel01/button/" exported="true"/>
+    <image id="ldsc14z" name="stop.png" path="/images/panel01/button/" exported="true"/>
+    <component id="ldsc150" name="Button1.xml" path="/components/panel02/" exported="true"/>
+    <image id="ldsc151" name="IntroduceClose.png" path="/images/panel02/" exported="true"/>
+    <component id="ldsc152" name="Button2.xml" path="/components/panel02/" exported="true"/>
+    <component id="ldsc155" name="PalyTimes.xml" path="/components/panel02/" exported="true"/>
+    <font id="ldsc156" name="JinShu.fnt" path="/fonts/panel02/fort/" exported="true"/>
+    <image id="ldsc157" name="0.png" path="/images/panel02/number2/"/>
+    <image id="ldsc158" name="1.png" path="/images/panel02/number2/"/>
+    <image id="ldsc159" name="2.png" path="/images/panel02/number2/"/>
+    <image id="ldsc15a" name="3.png" path="/images/panel02/number2/"/>
+    <image id="ldsc15b" name="4.png" path="/images/panel02/number2/"/>
+    <image id="ldsc15c" name="5.png" path="/images/panel02/number2/"/>
+    <image id="ldsc15d" name="6.png" path="/images/panel02/number2/"/>
+    <image id="ldsc15e" name="7.png" path="/images/panel02/number2/"/>
+    <image id="ldsc15f" name="8.png" path="/images/panel02/number2/"/>
+    <image id="ldsc15g" name="9.png" path="/images/panel02/number2/"/>
+    <component id="ldsc15h" name="BtnSpin.xml" path="/components/panel02/" exported="true"/>
+    <image id="ldsc15i" name="SpinFrame.png" path="/images/panel02/" exported="true"/>
+    <image id="ldsc15j" name="StopBg.png" path="/images/panel02/button/" exported="true"/>
+    <image id="ldsc15k" name="SpinBgL.png" path="/images/panel02/button/" exported="true"/>
+    <image id="ldsc15l" name="SpinBgB.png" path="/images/panel02/button/" exported="true"/>
+    <component id="ldsc15m" name="anchorSpin.xml" path="/components/panel02/" exported="true"/>
+    <image id="ldsc15n" name="Example_ng_but_fx-idle_blue_13.png" path="/images/panel02/"/>
+    <font id="ldsc15o" name="Light.fnt" path="/fonts/panel02/fort/" exported="true"/>
+    <image id="ldsc163" name="PanelBg.png" path="/images/panel02/" exported="true"/>
+    <component id="ldsc164" name="PayYable.xml" path="/moudules/panel02/payTable/" exported="true"/>
+    <component id="ldsc166" name="Name.xml" path="/moudules/panel02/introduce/" exported="true"/>
+    <image id="ldsc167" name="矩形 1847.png" path="/images/panel02/introduce/" exported="true"/>
+    <image id="ldsc168" name="symbol1_king.png" path="/images/panel02/pageGameMain/symbols/" exported="true"/>
+    <image id="ldsc169" name="symbol2_man.png" path="/images/panel02/pageGameMain/symbols/" exported="true"/>
+    <image id="ldsc16a" name="symbol3_woman.png" path="/images/panel02/pageGameMain/symbols/" exported="true"/>
+    <image id="ldsc16b" name="symbol4_bugle.png" path="/images/panel02/pageGameMain/symbols/" exported="true"/>
+    <image id="ldsc16c" name="symbol5_laure.png" path="/images/panel02/pageGameMain/symbols/" exported="true"/>
+    <image id="ldsc16d" name="symbol6_a.png" path="/images/panel02/pageGameMain/symbols/" exported="true"/>
+    <image id="ldsc16e" name="symbol7_k.png" path="/images/panel02/pageGameMain/symbols/" exported="true"/>
+    <image id="ldsc16f" name="symbol8_q.png" path="/images/panel02/pageGameMain/symbols/" exported="true"/>
+    <image id="ldsc16g" name="symbol9_j.png" path="/images/panel02/pageGameMain/symbols/" exported="true"/>
+    <component id="ldsc16h" name="payTable2.xml" path="/moudules/panel02/" exported="true"/>
+    <component id="ldsc16i" name="Introduceframe.xml" path="/moudules/panel02/payTable/" exported="true"/>
+    <image id="ldsc16j" name="beijing.png" path="/images/panel02/introduce/" exported="true" scale="9grid" scale9grid="252,62,504,1307"/>
+    <image id="ldsc16k" name="边框.png" path="/images/panel02/introduce/" exported="true"/>
+    <image id="ldsc16l" name="顶框.png" path="/images/panel02/introduce/" exported="true"/>
+    <image id="ldsc16m" name="底框.png" path="/images/panel02/introduce/" exported="true"/>
+    <component id="ldsc16n" name="IntroduceBtn.xml" path="/moudules/panel02/payTable/" exported="true"/>
+    <component id="ldsc16o" name="BtnL.xml" path="/components/panel02/introduce/" exported="true"/>
+    <image id="ldsc16p" name="翻页箭头.png" path="/images/panel02/introduce/" exported="true"/>
+    <image id="ldsc16q" name="翻页箭头1.png" path="/images/panel02/introduce/" exported="true"/>
+    <image id="ldsc16r" name="翻页按钮1.png" path="/images/panel02/introduce/" exported="true"/>
+    <image id="ldsc16s" name="翻页按钮.png" path="/images/panel02/introduce/" exported="true"/>
+    <component id="ldsc16t" name="Win.xml" path="/moudules/panel02/" exported="true"/>
+    <component id="ldsc16u" name="Panel2.xml" path="/moudules/panel02/" exported="true"/>
+    <component id="ldsc16v" name="Text2.xml" path="/components/payTable/" exported="true"/>
+    <component id="ldsc16w" name="Text3.xml" path="/components/payTable/" exported="true"/>
+    <component id="ldsc16x" name="Text4.xml" path="/components/payTable/" exported="true"/>
+    <component id="ldsc16y" name="Text5.xml" path="/components/payTable/" exported="true"/>
+    <component id="ldsc16z" name="BtnIntroduce.xml" path="/components/panel01/introduce/" exported="true"/>
+    <image id="ldsc170" name="问号.png" path="/images/panel01/button/" exported="true"/>
+    <component id="w2bm171" name="Paytable025.xml" path="/moudules/payTable02/" exported="true"/>
+    <component id="w2bm172" name="Paytable022.xml" path="/moudules/payTable02/" exported="true"/>
+    <component id="w2bm173" name="Paytable021.xml" path="/moudules/payTable02/" exported="true"/>
+    <component id="w2bm174" name="Paytable023.xml" path="/moudules/payTable02/" exported="true"/>
+    <component id="w2bm175" name="Paytable024.xml" path="/moudules/payTable02/" exported="true"/>
+    <component id="w2bm176" name="Paytable027.xml" path="/moudules/payTable02/" exported="true"/>
+    <component id="w2bm177" name="Paytable026.xml" path="/moudules/payTable02/" exported="true"/>
+    <component id="w2bm178" name="Text022.xml" path="/components/payTable02/" exported="true"/>
+    <component id="w2bm179" name="Text023.xml" path="/components/payTable02/" exported="true"/>
+    <component id="w2bm17a" name="Text024.xml" path="/components/payTable02/" exported="true"/>
+    <component id="w2bm17b" name="Text025.xml" path="/components/payTable02/" exported="true"/>
+    <component id="w2bm17c" name="Name02.xml" path="/moudules/introduce/" exported="true"/>
+    <image id="a9so18o" name="sound.png" path="/images/panel02/button/" exported="true"/>
+    <image id="a9so18p" name="sound1.png" path="/images/panel02/button/" exported="true"/>
+    <image id="a9so18q" name="sound2.png" path="/images/panel02/button/" exported="true"/>
+    <image id="a9so18r" name="sound3.png" path="/images/panel02/button/" exported="true"/>
+    <image id="a9so18v" name="ButtonFrame.png" path="/images/panel02/button/" exported="true"/>
+    <component id="a9so18w" name="untouch.xml" path="/components/panel02/" exported="true"/>
+    <image id="a9so18x" name="untouch.png" path="/images/panel02/button/" exported="true"/>
+    <component id="a9so18y" name="ButtonPaytable.xml" path="/components/panel02/" exported="true"/>
+    <component id="a9so18z" name="ButtonSound.xml" path="/components/panel02/" exported="true"/>
+    <component id="a9so190" name="settingPanel.xml" path="/components/panel02/" exported="true"/>
+    <image id="rzdn199" name="pay_table_FreeGame_title.png" path="/images/payTableFont/" exported="true"/>
+    <image id="rzdn19a" name="pay_table_JP_title.png" path="/images/payTableFont/" exported="true"/>
+    <image id="rzdn19c" name="pay_table_WInTable_title.png" path="/images/payTableFont/" exported="true"/>
+    <image id="rzdn19d" name="pay_table_50GuDinLine_title.png" path="/images/payTableFont/" exported="true"/>
+    <image id="rzdn19e" name="pay_table_ShiWang_title.png" path="/images/payTableFont/" exported="true"/>
+    <image id="rzdn1b1" name="back.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn1b2" name="SpinL.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn1b3" name="StopL.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn1b4" name="auto.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn1b5" name="introduce.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn1b6" name="CREDIT_COIN01.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="rzdn1b7" name="CREDIT01.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="rzdn1b8" name="TOTAI WIN.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="rzdn1b9" name="bg_total_win.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="rzdn1ba" name="WIN.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="rzdn1bb" name="WIN01.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="rzdn1bc" name="CREDIT.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="rzdn1bd" name="CREDIT_COIN.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="rzdn1bj" name="FREE GAMES.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="rzdn1bk" name="免费戏游01.png" path="/images/pageGameMain/frame/gameFrame/" exported="true"/>
+    <image id="rzdn1bm" name="help.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn1bp" name="SpinB.png" path="/images/panel02/button/" exported="true"/>
+    <image id="rzdn1c0" name="1.png" path="/images/panel02/number/"/>
+    <image id="rzdn1c1" name="2.png" path="/images/panel02/number/"/>
+    <image id="rzdn1c2" name="3.png" path="/images/panel02/number/"/>
+    <image id="rzdn1c3" name="4.png" path="/images/panel02/number/"/>
+    <image id="rzdn1c4" name="5.png" path="/images/panel02/number/"/>
+    <image id="rzdn1c5" name="6.png" path="/images/panel02/number/"/>
+    <image id="rzdn1c6" name="7.png" path="/images/panel02/number/"/>
+    <image id="rzdn1c7" name="8.png" path="/images/panel02/number/"/>
+    <image id="rzdn1c8" name="9.png" path="/images/panel02/number/"/>
+    <image id="rzdn1c9" name="0.png" path="/images/panel02/number/"/>
+    <image id="rzdn1ca" name="FREE GAMES_Push.png" path="/images/pageGameMain/frame/gameFrame/"/>
+    <image id="wbby1cb" name="pay_table_50Line_title.png" path="/images/payTableFont/" exported="true"/>
+    <image id="wbby1cc" name="gongXi.png" path="/images/popupFreeSpinResult/" exported="true"/>
+    <image id="wbby1cd" name="Get.png" path="/images/popupFreeSpinResult/" exported="true"/>
+    <image id="11i2n1ce" name="题显底框01.png" path="/images/winTip/" exported="true"/>
+    <image id="127mxn1cf" name="58.png" path="/fonts/number2/"/>
+    <image id="127mxn1cg" name="back1.png" path="/images/panel02/button/"/>
+    <misc id="127mxn1ch" name="button.rar" path="/images/panel02/button/"/>
+    <image id="127mxn1ci" name="introduce1.png" path="/images/panel02/button/"/>
+    <image id="ivkcxn1cj" name="+.png" path="/fonts/number2/"/>
+    <image id="ivkcxn1ck" name="-.png" path="/fonts/number2/"/>
+    <component id="rte1xn1cl" name="CompBtnBG.xml" path="/components/popupFreeSpinResult/"/>
+  </resources>
+  <publish name="" path="../../Assets\GameRes\Games\Emperors Rein 200\FGUIs" packageCount="2">
+    <atlas name="bonus_credit" index="10"/>
+  </publish>
+</packageDescription>

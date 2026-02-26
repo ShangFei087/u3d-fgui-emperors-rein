@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="iyvn4v" name="online.png" path="/i18ntest/images/" exported="true"/>
+    <component id="iyvn4w" name="PopupI81nBG.xml" path="/i18ntest/" exported="true"/>
+    <image id="iyvn4z" name="help.png" path="/i18ntest/images/" exported="true"/>
+  </resources>
+</branchDescription>

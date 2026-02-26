@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_e6zw" name="n1" src="vv1y5c" fileName="components/Mash.xml" xy="0,0"/>
+    <component id="n2_e6zw" name="n2" src="e6zw8b" fileName="components/popupJackpotGame/AnchorJackpot.xml" xy="413,910" scale="1.5,1.5"/>
+    <component id="n3_e6zw" name="n3" src="e6zw8d" fileName="components/popupJackpotGame/CollectButton.xml" xy="425,1173" scale="1.5,1.5"/>
+  </displayList>
+</component>

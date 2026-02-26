@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_ssgm" name="anchor_FreeResultTip" src="ssgm2y" fileName="moudules/popupFreeSpinResult/Anchors/SpineAnchors/Anchor_FreeResultTip.xml" xy="540,960"/>
+    <text id="n2_ssgm" name="resultScore" xy="133,830" size="814,260" font="ui://v8alnoawvckb16" fontSize="25" align="center" vAlign="middle" autoSize="none" text="4080"/>
+    <component id="n1_ssgm" name="collectBtn" src="ssgm2v" fileName="components/gameCommon/gameOther/CollectButton.xml" xy="457,1200"/>
+  </displayList>
+</component>

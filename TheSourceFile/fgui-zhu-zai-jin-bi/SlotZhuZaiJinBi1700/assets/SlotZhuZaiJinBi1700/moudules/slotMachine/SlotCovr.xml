@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="700,500">
+  <displayList>
+    <graph id="n0_lnet" name="slotCover" xy="0,0" size="700,500" type="rect" lineSize="0" fillColor="#b2000000"/>
+  </displayList>
+</component>

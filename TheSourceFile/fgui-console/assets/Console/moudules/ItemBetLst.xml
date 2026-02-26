@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="540,380">
+  <displayList>
+    <richtext id="n0_glrj" name="key" xy="40,169" size="240,42" touchable="false" fontSize="30" color="#ffffff" vAlign="middle" autoSize="shrink" singleLine="true" text="Bet Allowed:"/>
+    <component id="n2_cwuo" name="value" src="ev3s7i" fileName="components/betAllowedList.xml" xy="298,27"/>
+    <image id="n9_cwuo" name="n9" src="os7y41" fileName="images/buttons/bet_list_frame_0.png" xy="298,10" size="225,360"/>
+  </displayList>
+  <customProperty target="key" propertyId="0" label="键"/>
+</component>

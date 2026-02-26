@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="457,617">
+  <displayList>
+    <image id="n0_i6s3" name="SymbolBg" src="lsvwy" fileName="images/PopupJackpotGame/sg_icon_bg.png" xy="0,0">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
+    <component id="n2_i6s3" name="anchorListSymbol" src="i6s39x" fileName="components/PopupJackpotGame/ListSymbol.xml" xy="229,309">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n3_12dua" name="anchorEffect" src="12duab4" fileName="components/PopupJackpotGame/AnchorIconEffect.xml" xy="229,309"/>
+  </displayList>
+</component>

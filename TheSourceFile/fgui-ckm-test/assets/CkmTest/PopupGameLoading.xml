@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <image id="n0_l9lh" name="n0" src="l9lh2" fileName="images/gameLoading/竖版开机.png" xy="-1,-1" size="1080,1920">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n3_l9lh" name="slider" src="l9lhk" fileName="components/gameLoading/Slider1.xml" xy="244,1447">
+      <Slider value="50" max="100"/>
+    </component>
+    <text id="n4_l9lh" name="version" xy="477,1652" size="132,54" fontSize="40" color="#ffffff" text="1.0.1.0"/>
+    <text id="n5_l9lh" name="load" xy="493,1411" size="81,35" fontSize="25" color="#ffffff" text="1.0.1.0"/>
+  </displayList>
+</component>

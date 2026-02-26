@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1081,897">
+  <displayList>
+    <image id="n3_nb0n" name="n3" src="trhyz" fileName="images/pageGameMain/frame/ng_bg_border.png" xy="25,142"/>
+    <component id="n4_nb0n" name="slotMachine" src="trhy15" fileName="moudules/slotMachine/SlotMachine.xml" xy="30,156"/>
+    <component id="n5_nb0n" name="minGameFrame" src="oqbofh" fileName="moudules/pageSmallGame/SmallGameFrame.xml" xy="0,0"/>
+  </displayList>
+</component>

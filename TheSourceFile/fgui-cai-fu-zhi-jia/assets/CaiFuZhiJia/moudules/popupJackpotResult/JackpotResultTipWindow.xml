@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" designImage="ui://k5oi8hwrisifil">
+  <displayList>
+    <component id="n4_hhky" name="diamondAnimation" src="hhky43" fileName="moudules/freeSpinTrigger/FreeGetAnimation.xml" xy="540,960"/>
+    <component id="n3_hhky" name="jackpotResultScore" src="hhky44" fileName="moudules/freeSpinResult/FreeGameResultScore.xml" xy="-3,750"/>
+    <component id="n0_hhky" name="jackpotResultButton" src="hhky5l" fileName="components/popupJackpotResult/JackpotResultButton.xml" xy="371,1151"/>
+    <image id="n5_isif" name="n5" src="isifif" fileName="images/popupJackpotTrigger/Background/sg_txt_congrart.png" xy="543,410" pivot="0.5,0.5" anchor="true" visible="false"/>
+    <image id="n6_isif" name="n6" src="isifih" fileName="images/popupJackpotTrigger/Background/sg_txt_won.png" xy="331,522" visible="false"/>
+  </displayList>
+</component>

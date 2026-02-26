@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="164,164">
+  <displayList>
+    <image id="n0_rdkv" name="n0" src="rdkv31" fileName="images/symbols/ng_sym_bonus.png" xy="82,82" pivot="0.5,0.5" anchor="true" size="149,98"/>
+  </displayList>
+</component>

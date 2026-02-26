@@ -1,0 +1,139 @@
+
+ng_sym05_Laurel.png
+size: 407,218
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+gui_mu
+  rotate: false
+  xy: 2, 45
+  size: 222, 171
+  orig: 234, 171
+  offset: 6, 0
+  index: -1
+gui_mu2
+  rotate: true
+  xy: 226, 130
+  size: 86, 54
+  orig: 90, 61
+  offset: 0, 7
+  index: -1
+gui_mu3
+  rotate: false
+  xy: 330, 173
+  size: 73, 43
+  orig: 74, 48
+  offset: 0, 0
+  index: -1
+you_1
+  rotate: true
+  xy: 340, 20
+  size: 50, 47
+  orig: 50, 47
+  offset: 0, 0
+  index: -1
+you_2
+  rotate: true
+  xy: 286, 49
+  size: 59, 45
+  orig: 59, 46
+  offset: 0, 1
+  index: -1
+you_3
+  rotate: true
+  xy: 330, 123
+  size: 48, 68
+  orig: 48, 68
+  offset: 0, 0
+  index: -1
+you_4
+  rotate: false
+  xy: 48, 3
+  size: 33, 40
+  orig: 38, 44
+  offset: 5, 0
+  index: -1
+you_5
+  rotate: true
+  xy: 202, 8
+  size: 35, 30
+  orig: 38, 46
+  offset: 3, 9
+  index: -1
+you_6
+  rotate: false
+  xy: 320, 13
+  size: 18, 34
+  orig: 22, 39
+  offset: 0, 5
+  index: -1
+you_7
+  rotate: true
+  xy: 286, 110
+  size: 24, 35
+  orig: 24, 35
+  offset: 0, 0
+  index: -1
+you_8
+  rotate: false
+  xy: 166, 8
+  size: 34, 35
+  orig: 34, 35
+  offset: 0, 0
+  index: -1
+zuo_1
+  rotate: true
+  xy: 226, 47
+  size: 81, 58
+  orig: 90, 58
+  offset: 0, 0
+  index: -1
+zuo_2
+  rotate: false
+  xy: 234, 2
+  size: 84, 43
+  orig: 84, 43
+  offset: 0, 0
+  index: -1
+zuo_3
+  rotate: false
+  xy: 83, 3
+  size: 22, 40
+  orig: 22, 43
+  offset: 0, 0
+  index: -1
+zuo_4
+  rotate: true
+  xy: 340, 72
+  size: 20, 58
+  orig: 20, 58
+  offset: 0, 0
+  index: -1
+zuo_5
+  rotate: false
+  xy: 282, 136
+  size: 46, 80
+  orig: 46, 80
+  offset: 0, 0
+  index: -1
+zuo_6
+  rotate: true
+  xy: 340, 94
+  size: 27, 65
+  orig: 27, 65
+  offset: 0, 0
+  index: -1
+zuo_7
+  rotate: false
+  xy: 2, 2
+  size: 44, 41
+  orig: 44, 41
+  offset: 0, 0
+  index: -1
+zuo_8
+  rotate: false
+  xy: 107, 8
+  size: 57, 35
+  orig: 57, 36
+  offset: 0, 1
+  index: -1

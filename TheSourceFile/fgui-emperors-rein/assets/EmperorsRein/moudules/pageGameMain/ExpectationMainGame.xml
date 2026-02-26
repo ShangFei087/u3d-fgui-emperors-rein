@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1" pivot="0.5,0.5" anchor="true">
+  <displayList>
+    <component id="n19_lrqj" name="n19" src="trhyx" fileName="moudules/pageGameMain/GameMainframe.xml" xy="-16,-87" visible="false"/>
+    <loader id="n1_f6r9" name="goldEffect" xy="5,391" pivot="0.5,0.5" anchor="true" size="282,100"/>
+    <loader id="n2_f6r9" name="scatterGoldCoinsEffect" xy="0,-179" pivot="0.5,0.5" anchor="true" size="1080,522"/>
+    <component id="n6_f6r9" name="anchorQi" src="f6r9n8" fileName="components/AnchorQi.xml" xy="-16,-224" pivot="0.5,0.5" anchor="true"/>
+    <loader id="n9_f6r9" name="col1" xy="-398,-40" pivot="0.5,0.5" anchor="true" size="187,634"/>
+    <loader id="n10_f6r9" name="col2" xy="-201,-40" pivot="0.5,0.5" anchor="true" size="187,634"/>
+    <loader id="n11_f6r9" name="col3" xy="-4,-40" pivot="0.5,0.5" anchor="true" size="187,634"/>
+    <loader id="n12_f6r9" name="col4" xy="193,-40" pivot="0.5,0.5" anchor="true" size="187,634"/>
+    <loader id="n13_f6r9" name="col5" xy="397,-40" pivot="0.5,0.5" anchor="true" size="187,634"/>
+  </displayList>
+</component>

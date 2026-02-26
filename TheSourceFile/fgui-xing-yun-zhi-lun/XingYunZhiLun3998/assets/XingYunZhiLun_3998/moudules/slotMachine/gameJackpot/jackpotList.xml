@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,618">
+  <displayList>
+    <list id="n0_12dua" name="Symbols" xy="-255,-293" size="1590,1256" layout="row" overflow="scroll" scroll="horizontal" colGap="110" defaultItem="ui://5hielhj512duabc" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+    </list>
+  </displayList>
+</component>

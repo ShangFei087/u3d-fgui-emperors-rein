@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="250,700">
+  <displayList>
+    <graph id="n3_r8oz" name="n3" xy="0,0" size="250,700" type="rect" lineSize="0" fillColor="#cc161515">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <list id="n2_r8oz" name="menu" xy="0,0" size="250,700" overflow="scroll">
+      <item url="ui://9ffscgs4r8oz4"/>
+      <item url="ui://9ffscgs4r8oz4" title="FPS"/>
+      <item url="ui://9ffscgs4r8ozi"/>
+      <item url="ui://9ffscgs4r8oz6"/>
+      <item url="ui://9ffscgs4r8oza"/>
+      <item url="ui://9ffscgs4r8oz9"/>
+      <item url="ui://9ffscgs4r8ozd"/>
+    </list>
+  </displayList>
+</component>

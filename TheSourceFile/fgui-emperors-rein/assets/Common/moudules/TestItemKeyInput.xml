@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="250,60">
+  <displayList>
+    <graph id="n2_r8oz" name="n2" xy="103,7" size="140,45" type="rect" lineSize="0"/>
+    <text id="n0_r8oz" name="title" xy="5,0" size="94,60" fontSize="30" color="#ffffff" vAlign="middle" autoSize="shrink" text="KV">
+      <relation target="" sidePair="width-width,height-height"/>
+    </text>
+    <text id="n1_r8oz" name="input" xy="103,7" size="140,45" fontSize="30" color="#666666" vAlign="middle" autoSize="none" autoClearText="true" text="122" input="true"/>
+  </displayList>
+  <customProperty target="title" propertyId="0" label="标题"/>
+</component>

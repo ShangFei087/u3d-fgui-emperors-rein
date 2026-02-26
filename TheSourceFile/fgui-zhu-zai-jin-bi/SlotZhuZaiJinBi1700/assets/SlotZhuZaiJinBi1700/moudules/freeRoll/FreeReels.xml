@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="950,410">
+  <displayList>
+    <component id="n0_e6zw" name="reel1" src="e6zw7a" fileName="moudules/freeRoll/FreeReel.xml" xy="14,0"/>
+    <component id="n1_e6zw" name="reel2" src="e6zw7a" fileName="moudules/freeRoll/FreeReel.xml" xy="211,0"/>
+    <component id="n2_e6zw" name="reel3" src="e6zw7a" fileName="moudules/freeRoll/FreeReel.xml" xy="408,0"/>
+    <component id="n3_e6zw" name="reel4" src="e6zw7a" fileName="moudules/freeRoll/FreeReel.xml" xy="605,0"/>
+    <component id="n4_e6zw" name="reel5" src="e6zw7a" fileName="moudules/freeRoll/FreeReel.xml" xy="802,0"/>
+  </displayList>
+</component>

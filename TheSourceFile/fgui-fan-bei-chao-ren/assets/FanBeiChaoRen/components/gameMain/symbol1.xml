@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="124,116" pivot="0.5,0.5" anchor="true">
+  <displayList>
+    <movieclip id="n2_nyeg" name="n2" src="nyegox" fileName="animation/symbol1.jta" xy="0,0" size="124,116"/>
+  </displayList>
+</component>

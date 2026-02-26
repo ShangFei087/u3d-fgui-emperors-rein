@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="bz5j2m" name="cg_ic_major.png" path="/images/Jackpot/"/>
+    <image id="bz5j2n" name="cg_ic_mini.png" path="/images/Jackpot/"/>
+    <image id="bz5j2o" name="cg_ic_minor.png" path="/images/Jackpot/"/>
+  </resources>
+</branchDescription>

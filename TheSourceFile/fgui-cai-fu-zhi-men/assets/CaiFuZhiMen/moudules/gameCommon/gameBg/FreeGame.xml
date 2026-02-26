@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <image id="n1_vckb" name="n1" src="vckb1" fileName="images/gameCommon/gameBg/05.免费游戏背景.jpg" xy="0,0"/>
+  </displayList>
+</component>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_paul" name="base" src="paul3" fileName="moudules/MDPageBase.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+      <property target="title" propertyId="0" value="/记录"/>
+    </component>
+    <list id="n10_paul" name="items" xy="50,125" size="980,1670" overflow="hidden" defaultItem="ui://tdkeq960paul9">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <item url="ui://tdkeq960paul5" name="businessRecord">
+        <property target="title" propertyId="0" value="总营收记录"/>
+      </item>
+      <item url="ui://tdkeq960paul5" name="coinRecord">
+        <property target="title" propertyId="0" value="投退币记录"/>
+      </item>
+      <item url="ui://tdkeq960paul5" name="gameRecord">
+        <property target="title" propertyId="0" value="游戏记录"/>
+      </item>
+      <item url="ui://tdkeq960paul5" name="jpRecord">
+        <property target="title" propertyId="0" value="彩金记录"/>
+      </item>
+      <item url="ui://tdkeq960paul5" name="eventRecord">
+        <property target="title" propertyId="0" value="事件记录"/>
+      </item>
+      <item url="ui://tdkeq960paul5" name="erroRecord">
+        <property target="title" propertyId="0" value="警告记录"/>
+      </item>
+      <item url="ui://tdkeq960paul5" name="exit">
+        <property target="title" propertyId="0" value="返回"/>
+      </item>
+    </list>
+  </displayList>
+</component>

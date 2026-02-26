@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,157">
+  <displayList>
+    <graph id="n31_nimz" name="mash" xy="0,-1763" size="1080,1920" visible="false" type="rect" lineSize="0" lineColor="#80333333" fillColor="#bf000000"/>
+    <component id="n26_lo0d" name="payTable" src="ldsc128" fileName="moudules/panel01/PayTable.xml" xy="539,157" pivot="0.5,1" anchor="true" visible="false"/>
+    <component id="n11_w36x" name="frame" src="ldsc129" fileName="moudules/panel01/GameDiFrame.xml" xy="0,0"/>
+    <component id="n27_pa4i" name="setPanel" src="ldsc12f" fileName="moudules/panel01/GameDiInstruction.xml" xy="85,-121" visible="false"/>
+    <component id="n23_w36x" name="win" src="ldsc12m" fileName="moudules/panel01/Win.xml" xy="453,35" visible="false"/>
+    <component id="n16_w36x" name="btnHelp" src="ldsc12o" fileName="components/panel01/BtnTip.xml" xy="80,75"/>
+    <component id="n21_w36x" name="btnSpin" src="ldsc12s" fileName="components/panel01/BtnSpin.xml" xy="875,17"/>
+    <component id="n24_w36x" name="btnBetUp" src="ldsc14l" fileName="components/panel01/Btn+.xml" xy="382,54"/>
+    <component id="n25_w36x" name="btnBetDown" src="ldsc14o" fileName="components/panel01/Btn-.xml" xy="210,54"/>
+    <loader id="n29_lvms" name="goodLuck" xy="441,50" size="217,50" url="ui://vdmp4vsrldsc14r" autoSize="true"/>
+    <text id="n18_w36x" name="bet" xy="274,67" size="100,69" fontSize="52" color="#cccccc" align="center" vAlign="middle" autoSize="shrink" text="100">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <text id="n19_w36x" name="credit" xy="705,88" size="146,50" fontSize="37" color="#cccccc" align="center" vAlign="middle" letterSpacing="5" autoSize="shrink" text="99700">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <component id="n32_nb0n" name="btnPRIZE" src="ldsc14s" fileName="components/panel01/ButtonPRIZE.xml" xy="694,47"/>
+  </displayList>
+</component>

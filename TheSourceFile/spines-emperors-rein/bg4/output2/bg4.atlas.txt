@@ -1,0 +1,104 @@
+
+bg4.png
+size: 2033,1658
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bei_jing2
+  rotate: false
+  xy: 2, 623
+  size: 1082, 1033
+  orig: 1082, 1033
+  offset: 0, 0
+  index: -1
+bei_jing23
+  rotate: false
+  xy: 2, 2
+  size: 1080, 619
+  orig: 1082, 621
+  offset: 1, 1
+  index: -1
+bei_jing3
+  rotate: true
+  xy: 1084, 27
+  size: 541, 493
+  orig: 541, 493
+  offset: 0, 0
+  index: -1
+hongbu_ding1
+  rotate: true
+  xy: 1808, 608
+  size: 291, 220
+  orig: 291, 220
+  offset: 0, 0
+  index: -1
+hongbu_guajin
+  rotate: false
+  xy: 1327, 1423
+  size: 704, 233
+  orig: 714, 247
+  offset: 0, 0
+  index: -1
+huang_yun1
+  rotate: true
+  xy: 1579, 189
+  size: 417, 182
+  orig: 422, 193
+  offset: 2, 9
+  index: -1
+huang_yun2
+  rotate: true
+  xy: 1327, 570
+  size: 851, 227
+  orig: 851, 265
+  offset: 0, 38
+  index: -1
+huang_yun3
+  rotate: true
+  xy: 1763, 210
+  size: 396, 126
+  orig: 399, 128
+  offset: 2, 1
+  index: -1
+huang_yun4
+  rotate: false
+  xy: 1579, 45
+  size: 270, 142
+  orig: 274, 145
+  offset: 3, 2
+  index: -1
+ren_
+  rotate: false
+  xy: 1556, 608
+  size: 250, 813
+  orig: 252, 815
+  offset: 1, 1
+  index: -1
+ren_pifeng0
+  rotate: false
+  xy: 1891, 509
+  size: 110, 97
+  orig: 115, 101
+  offset: 5, 0
+  index: -1
+ren_pifeng1
+  rotate: false
+  xy: 1808, 901
+  size: 137, 520
+  orig: 146, 520
+  offset: 9, 0
+  index: -1
+ren_pifeng2
+  rotate: false
+  xy: 1947, 912
+  size: 74, 509
+  orig: 74, 515
+  offset: 0, 6
+  index: -1
+tian_kong2
+  rotate: true
+  xy: 1086, 574
+  size: 1082, 239
+  orig: 1082, 239
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n39_x7l3" name="mash" xy="0,0" size="1080,1920" visible="false" touchable="false" type="rect" lineSize="0" fillColor="#99666666"/>
+    <component id="n0_l3cn" name="top" src="l3cn67" fileName="moudules/panel/Top.xml" xy="0,0">
+      <relation target="" sidePair="width-width,center-center,top-top"/>
+    </component>
+    <component id="n8_l3cn" name="buttom" src="l3cn68" fileName="moudules/panel/BottomBg.xml" xy="0,1640">
+      <relation target="" sidePair="width-width,center-center,bottom-bottom"/>
+    </component>
+    <component id="n16_l3cn" name="win" src="l3cn64" fileName="moudules/panel/Win.xml" xy="248,1636">
+      <relation target="n8_l3cn" sidePair="center-center,top-top"/>
+    </component>
+    <component id="n18_l3cn" name="btnSpin" src="l3cn63" fileName="moudules/panel/BtnSpin.xml" xy="372,1759">
+      <relation target="n8_l3cn" sidePair="center-center,middle-middle"/>
+    </component>
+    <image id="n33_x7l3" name="n33" src="l3cn4y" fileName="images/panel/spin/frame_coin.png" xy="39,1775" size="302,51"/>
+    <image id="n22_l3cn" name="n22" src="l3cn4y" fileName="images/panel/spin/frame_coin.png" xy="743,1778" size="315,100"/>
+    <image id="n24_l3cn" name="accumlution" src="l3cn5p" fileName="images/panel/spin/btn_expedite_02.png" xy="922,1783" size="128,87"/>
+    <image id="n26_l3cn" name="maxBet" src="l3cn5n" fileName="images/panel/spin/btn_bet_base.png" xy="753,1782" size="209,91"/>
+    <image id="n28_l3cn" name="missionBg" src="l3cn61" fileName="images/panel/spin/btn_mandates_02.png" xy="155,1659" size="81,84"/>
+    <text id="n29_l3cn" name="mission" xy="157,1660" size="79,84" fontSize="22" color="#ffff00" align="center" vAlign="middle" autoSize="none" bold="true" text="挑战&#xA;任务"/>
+    <text id="n30_l3cn" name="bet" xy="28,1761" size="314,80" font="ui://5hielhj5l3cn5z" fontSize="13" color="#ffffff" align="right" vAlign="middle" leading="0" autoSize="none" text="999，999，999"/>
+    <text id="n36_x7l3" name="credit" xy="764,32" size="172,38" fontSize="25" color="#ffffff" align="center" autoSize="none" text="999,999,999"/>
+    <component id="n31_l3cn" name="btnBetUp" src="l3cn65" fileName="moudules/panel/Btn+.xml" xy="187,1833" size="157,42"/>
+    <component id="n32_l3cn" name="btnBetDown" src="l3cn66" fileName="moudules/panel/Btn-.xml" xy="26,1835" size="157,42"/>
+    <component id="n34_x7l3" name="btnHelp" src="x7l36w" fileName="moudules/panel/BtnTip.xml" xy="1004,24"/>
+    <component id="n37_x7l3" name="setPanel" src="x7l36x" fileName="moudules/panel/GameDiInstruction.xml" xy="1007,73" visible="false"/>
+    <component id="n38_x7l3" name="payTable" src="x7l373" fileName="moudules/panel/PayTable/PayTable.xml" xy="0,-1" visible="false"/>
+  </displayList>
+</component>

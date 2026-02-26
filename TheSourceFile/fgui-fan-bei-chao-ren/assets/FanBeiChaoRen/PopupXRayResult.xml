@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n7_nz4n" name="n7" src="bllo10" fileName="components/Mask.xml" xy="0,0"/>
+    <image id="n0_nz4n" name="n0" src="fv271x" fileName="images/PageGameXRay/fg_txt_X-RAY.png" xy="212,522" size="656,289" aspect="true"/>
+    <image id="n2_nz4n" name="n2" src="hjsh30" fileName="images/BonusSettle/ng_txt_Touch to continue.png" xy="377,1272"/>
+    <text id="n3_nz4n" name="winNum" xy="340,1143" size="399,75" font="ui://9kq20teafv2712" fontSize="12" align="center" vAlign="middle" autoSize="none" text="99999"/>
+    <text id="n8_nz4n" name="multiplierNum" xy="496,901" size="135,60" font="ui://9kq20teahjsh2s" fontSize="30" align="center" vAlign="middle" autoSize="none" text="10"/>
+    <text id="n9_nz4n" name="totalBetNum" xy="495,988" size="152,49" font="ui://9kq20teahjsh2s" fontSize="30" align="center" vAlign="middle" autoSize="none" text="100"/>
+    <image id="n4_nz4n" name="n4" src="hjsh2y" fileName="images/BonusSettle/ng_txt_TOTAL BET_.png" xy="285,1002" size="170,33" aspect="true"/>
+    <image id="n5_nz4n" name="n5" src="hjsh2v" fileName="images/BonusSettle/ng_txt_multiplier.png" xy="292,918" aspect="true"/>
+    <component id="n6_nz4n" name="button" src="fv271f" fileName="components/Button1.xml" xy="0,0" size="1080,1920">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+  </displayList>
+</component>

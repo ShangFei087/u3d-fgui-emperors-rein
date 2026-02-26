@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,150">
+  <displayList>
+    <image id="n3_isif" name="n3" src="hhky50" fileName="images/popupJackpotTrigger/Background/ng_frame_major.png" xy="4,31" size="1072,93"/>
+    <text id="n0_hhky" name="number" xy="0,0" size="1080,150" font="ui://k5oi8hwrqirhh8" fontSize="2" color="#fefb42" align="center" vAlign="middle" autoSize="none" text="123.456.789.000.000"/>
+  </displayList>
+</component>

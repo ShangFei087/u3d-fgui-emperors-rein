@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="980,60">
+  <displayList>
+    <image id="n4_paul" name="icon" src="paul4" fileName="images/icons/icon_arrow.png" xy="0,0" color="#ffff00"/>
+    <richtext id="n5_paul" name="title" xy="108,0" size="310,59" fontSize="36" color="#ffffff" vAlign="middle" autoSize="shrink" singleLine="true" text="硬件功能测试"/>
+    <richtext id="n9_paul" name="value1" xy="421,1" size="160,59" fontSize="36" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="01"/>
+    <richtext id="n10_paul" name="value2" xy="601,1" size="160,59" fontSize="36" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="01"/>
+    <richtext id="n7_paul" name="value3" xy="781,1" size="160,59" fontSize="36" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="01"/>
+  </displayList>
+  <customProperty target="title" propertyId="0" label="标题"/>
+  <customProperty target="value1" propertyId="0" label="值1"/>
+  <customProperty target="value2" propertyId="0" label="值2"/>
+  <customProperty target="value3" propertyId="0" label="值3"/>
+</component>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n2_os7y" name="tip" src="vqlx6p" fileName="moudules/ItemPopupTip.xml" xy="540,960" pivot="0.5,0.5" anchor="true" size="660,150" visible="false">
+      <property target="title" propertyId="0" value="[color=#0000ff]11[/color]80980&lt;br&gt;0808ouiipiipoipoipoipi &quot;第一行&lt;br&gt;&lt;font color=&apos;#ff0000&apos;&gt;第二行&lt;/font&gt;&quot;;"/>
+    </component>
+  </displayList>
+</component>

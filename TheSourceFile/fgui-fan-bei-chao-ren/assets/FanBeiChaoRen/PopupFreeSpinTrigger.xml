@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_nyeg" name="n1" src="bllo10" fileName="components/Mask.xml" xy="0,0"/>
+    <image id="n2_nyeg" name="n2" src="hjsh31" fileName="images/BonusSettle/ng_txt_YOU TRIGGERED.png" xy="415,473"/>
+    <image id="n7_nyeg" name="n7" src="nyegpi" fileName="images/PageGameMain/fg_txt_FREE BONUS.png" xy="215,697"/>
+    <text id="n3_nyeg" name="n3" xy="426,546" size="227,122" font="ui://9kq20teafv2712" fontSize="20" align="center" vAlign="middle" autoSize="none" text="5"/>
+    <image id="n4_nyeg" name="n4" src="hjsh2u" fileName="images/BonusSettle/ng_txt_MULTIPLIER MAN.png" xy="370,865"/>
+    <image id="n5_nyeg" name="n5" src="hjsh2x" fileName="images/BonusSettle/ng_txt_STACKED WILD.png" xy="343,978"/>
+    <image id="n6_nyeg" name="n6" src="hjsh30" fileName="images/BonusSettle/ng_txt_Touch to continue.png" xy="377,1066"/>
+    <component id="n9_nyeg" name="button" src="fv271f" fileName="components/Button1.xml" xy="0,0" size="1080,1920"/>
+  </displayList>
+</component>

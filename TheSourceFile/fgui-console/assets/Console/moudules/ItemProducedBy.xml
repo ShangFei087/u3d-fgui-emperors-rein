@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="540,228">
+  <displayList>
+    <richtext id="n0_glrj" name="key" xy="40,93" size="240,42" touchable="false" fontSize="30" color="#ffffff" vAlign="middle" autoSize="shrink" singleLine="true" text="Machine ID:"/>
+    <loader id="n4_g3lh" name="icon" xy="311,14" size="200,200"/>
+  </displayList>
+  <customProperty target="key" propertyId="0" label="键"/>
+  <customProperty target="icon" propertyId="1" label="图标"/>
+</component>

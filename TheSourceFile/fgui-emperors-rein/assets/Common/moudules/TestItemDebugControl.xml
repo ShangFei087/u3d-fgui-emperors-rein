@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="250,60">
+  <displayList>
+    <component id="n0_n7rv" name="n0" src="r8oz7" fileName="components/ButtonTestSpeed.xml" xy="11,13" size="136,36">
+      <Button title="DebugMode"/>
+    </component>
+  </displayList>
+</component>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="87,152">
+  <displayList>
+    <image id="n0_pa4i" name="n0" src="ldsc12g" fileName="images/panel01/frame/info.png" xy="0,0"/>
+    <component id="n2_pa4i" name="btnSound" src="ldsc12h" fileName="components/panel01/introduce/BtnSound.xml" xy="43,41" pivot="0.5,0.5" anchor="true"/>
+    <component id="n3_pa4i" name="btnPayTable" src="ldsc16z" fileName="components/panel01/introduce/BtnIntroduce.xml" xy="7,72"/>
+  </displayList>
+</component>

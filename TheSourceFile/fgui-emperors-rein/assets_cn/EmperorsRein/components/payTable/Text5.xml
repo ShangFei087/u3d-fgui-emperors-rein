@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="889,699">
+  <displayList>
+    <richtext id="n1_tsjn" name="n1" xy="0,0" size="889,698" fontSize="29" color="#ffffff" autoSize="none" text="当转轴上出现 3 个&lt;img src=&apos;ui://vdmp4vsrjjue2h&apos; width=&apos;60&apos; height=&apos;60&apos;/&gt;时，将触发连线游戏。&#xA;&#xA;连线游戏中有 3 个转轴，初始状态下仅解锁底部的转轴。收集&lt;img src=&apos;ui://vdmp4vsrjjue2h&apos; width=&apos;60&apos; height=&apos;60&apos;/&gt;可解锁新的转轴。&#xA;&#xA;游戏初始有 3 次旋转机会。若转轴上出现&lt;img src=&apos;ui://vdmp4vsrjjue2h&apos; width=&apos;60&apos; height=&apos;60&apos;/&gt;，旋转次数将重置为 3 次。若转轴上的奖励形成一行、一列或一条斜线相连，该行、列或斜线上的奖励将被收集至转轴上方的转轴奖励池。&#xA;&#xA;若顶部转轴的奖励形成一行、一列或一条斜线相连，将直接发放对应奖励。当游戏次数为 0 时，两个奖励池的分数将被汇总作为最终奖励。">
+      <relation target="" sidePair="center-center"/>
+    </richtext>
+  </displayList>
+</component>
