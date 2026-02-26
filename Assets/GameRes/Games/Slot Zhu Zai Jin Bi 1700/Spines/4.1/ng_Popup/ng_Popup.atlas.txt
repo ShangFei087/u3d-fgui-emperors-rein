@@ -1,0 +1,13 @@
+ng_Popup.png
+size:1024,512
+filter:Linear,Linear
+pma:true
+scale:0.7
+11
+bounds:579,346,207,69
+22
+bounds:579,454,300,37
+33
+bounds:579,416,300,37
+44
+bounds:1,1,577,490

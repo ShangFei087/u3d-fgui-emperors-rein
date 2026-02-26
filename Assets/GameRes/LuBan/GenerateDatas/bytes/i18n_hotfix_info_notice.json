@@ -1,0 +1,50 @@
+[
+  {
+    "id": 6,
+    "hotfix_version": "1.1.2",
+    "is_change": false,
+    "en": "",
+    "cn": "",
+    "tw": ""
+  },
+  {
+    "id": 5,
+    "hotfix_version": "1.1.0",
+    "is_change": false,
+    "en": "",
+    "cn": "",
+    "tw": ""
+  },
+  {
+    "id": 4,
+    "hotfix_version": "1.1.0",
+    "is_change": true,
+    "en": "Test A0 without upgrading",
+    "cn": "不升级的测试A6",
+    "tw": "不陞級的測試A3"
+  },
+  {
+    "id": 3,
+    "hotfix_version": "1.3.28",
+    "is_change": true,
+    "en": "Test A1 without upgrading",
+    "cn": "不升级的测试A7",
+    "tw": "不陞級的測試A2"
+  },
+  {
+    "id": 2,
+    "hotfix_version": "1.1.22",
+    "is_change": true,
+    "en": "Test A2 without upgrading",
+    "cn": "不升级的测试A8",
+    "tw": "不陞級的測試A1"
+  },
+  {
+    "id": 1,
+    "hotfix_version": "1.0.4",
+    "is_change": false,
+    "en": "Test A3 without upgrading",
+    "cn": "新热更版本管理方案",
+    "tw": ""
+  }
+]

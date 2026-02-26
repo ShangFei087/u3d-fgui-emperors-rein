@@ -1,0 +1,15 @@
+ng_fade_fginterlude.png
+size:1854,1058
+filter:Linear,Linear
+pma:true
+s
+bounds:1252,303,601,754
+s10
+bounds:1,1,1250,1056
+
+ng_fade_fginterlude_2.png
+size:1252,1058
+filter:Linear,Linear
+pma:true
+s20
+bounds:1,1,1250,1056

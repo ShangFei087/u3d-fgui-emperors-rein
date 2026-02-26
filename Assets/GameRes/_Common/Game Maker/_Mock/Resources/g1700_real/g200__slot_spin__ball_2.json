@@ -1,0 +1,16 @@
+{
+
+	"code": 0,
+	
+	"gameState": 5,
+	
+	"lineMark": 0,
+	
+	"num": 4,
+	
+	"curRound": 0,
+	
+	"maxRound": 0,
+	
+	"lineNum":[]
+}

@@ -1,0 +1,10 @@
+ng_sym01_gold.png
+size:196,108
+filter:Linear,Linear
+scale:0.9
+baibang
+bounds:136,28,18,18
+jingzhuan
+bounds:2,2,132,104
+sxx1
+bounds:136,48,58,58

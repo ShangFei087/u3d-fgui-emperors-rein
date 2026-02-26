@@ -1,0 +1,219 @@
+[
+  {
+    "id": 1000,
+    "key": "PO152yz",
+    "en": "BET",
+    "cn": "切換",
+    "tw": "切換"
+  },
+  {
+    "id": 1001,
+    "key": "PO152yf",
+    "en": "WIN",
+    "cn": "得票",
+    "tw": "得票"
+  },
+  {
+    "id": 1002,
+    "key": "PO152cj",
+    "en": "CREDIT",
+    "cn": "彩票",
+    "tw": "彩票"
+  },
+  {
+    "id": 1006,
+    "key": "PO152ks",
+    "en": "SPIN",
+    "cn": "开始",
+    "tw": "開始"
+  },
+  {
+    "id": 1007,
+    "key": "PO152tz",
+    "en": "STOP",
+    "cn": "停止",
+    "tw": "停止"
+  },
+  {
+    "id": 1008,
+    "key": "PO152zd",
+    "en": "AUTO",
+    "cn": "自动",
+    "tw": "自動"
+  },
+  {
+    "id": 1010,
+    "key": "PO152qkyz",
+    "en": "GOOD FORTUNE RETURNS",
+    "cn": "钱坤运转 ",
+    "tw": "錢坤運轉"
+  },
+  {
+    "id": 1012,
+    "key": "PO152bz",
+    "en": "HELP",
+    "cn": "帮助",
+    "tw": "幫助"
+  },
+  {
+    "id": 1013,
+    "key": "PO152wild",
+    "en": "<WILD> can replace any symbol except <BONUS>",
+    "cn": "<百搭>可以取代任何符号除了<免费游戏符合>",
+    "tw": "<百搭>可以取代任何符號除了<免费游戏符合>"
+  },
+  {
+    "id": 1014,
+    "key": "PO152yxwf",
+    "en": "243 lines gameplay",
+    "cn": "243路线游戏玩法",
+    "tw": "243路線遊戲玩法"
+  },
+  {
+    "id": 1015,
+    "key": "PO152yxwfsm",
+    "en": "The number of wheels=5<br>requires 50 lottery points<br><br>Multiplying the number of wheels by the wheel bet equals the total bet<br> All symbols must be connected from the leftmost line to the right<br> in order to receive a score.",
+    "cn": "转轮数=5<br>需50彩分<br><br>转轮数乘以转轮押注等于总投注。<br>所有符号须由最左到右连线<br>方能获得得分。<br>",
+    "tw": "轉輪數=5<br>需50彩分<br><br>轉輪數乘以轉輪押注等於總投注。<br>所有符號須由最左到右連線<br>方能獲得得分。<br>"
+  },
+  {
+    "id": 1016,
+    "key": "PO152mfyxjl",
+    "en": "Free game rewards",
+    "cn": "免费游戏奖励",
+    "tw": "免費遊戲獎勵"
+  },
+  {
+    "id": 1017,
+    "key": "PO152mfyxjlsm",
+    "en": "<BONUS>will appear at positions 1, 2, and 3 on the scroll wheel. <br> When collecting 3<BONUS>, it will activate free game rewards and receive 7 <br> free game rewards. In the free game rewards, <br> Treasure can score points by connecting from the left to the right or from the right to the left<br><br> The score of the five line connection is twice but only calculated once. In the free game rewards, when 3 <br><BONUS>appear, you will receive 7 <br> additional free game rewards, up to a maximum of 70 free game rewards<br> In the free game rewards, a treasure will randomly appear, and all the treasures on the scroll will become the same as the randomly appearing treasures<br> Any winning point has a chance to obtain a random multiple up to a maximum of 10 random multiples.",
+    "cn": "<免费游戏符号> 会出现在转轮 1、2、3 的位置，<br>当搜集3个<免费游戏符号> 时，会启动免费游戏奖赏，获得7<br>场的免费游戏奖励。 在免费游戏奖赏中，<br>宝物可从最左到右连线或最右到左连线得分。<br><br>五连线得分为两倍但只计算一次。在免费游戏奖赏中，当3<br>个<免费游戏符号> 出现，将可获得7<br>场额外的免费游戏奖励，最多可获得70场免费游戏奖励。<br>在免费游戏奖励中，会随机出现一个宝物，<br>在转轮上的所有宝物会变成跟随机出现的宝物一样。<br>任何贏分有机会获得随机倍数 随机倍数最高10倍。",
+    "tw": "<免費遊戲符號>會出現在轉輪1、2、3的位置，<br>當蒐集3個<免費遊戲符號>時，會啟動免費遊戲獎賞，獲得7<br>場的免費遊戲獎勵。 在免費遊戲獎賞中，<br>寶物可從最左到右連線或最右到左連線得分。<br><br>五連線得分為兩倍但只計算一次。 在免費遊戲獎賞中，當3<br>個<BONUS>出現，將可獲得7<br>場額外的免費遊戲獎勵，最多可獲得70場免費遊戲獎勵。<br>在免費遊戲獎勵中，會隨機出現一個寶物，<br>在轉輪上的所有寶物會變成跟隨機出現的寶物一樣。<br>任何贏分有機會獲得隨機倍數隨機倍數最高10倍。"
+  },
+  {
+    "id": 1019,
+    "key": "PO152lvsz",
+    "en": "Green numbers, the score for a single group.",
+    "cn": "绿色数字表示单组中奖时的基础得分。",
+    "tw": "綠色數位表示單組中獎時的基礎得分。"
+  },
+  {
+    "id": 1020,
+    "key": "PO152jssz",
+    "en": "Golden numbers, scores when combined multiple times.",
+    "cn": "金色数字表示在同一轮中形成最多组合时的总得分。",
+    "tw": "金色數位表示在同一輪中形成最多組合時的總得分。"
+  },
+  {
+    "id": 1021,
+    "key": "PO152wild01",
+    "en": "<WILD>can replace any symbol except<BONUS>. <br><br>When <BONUS> appear in wheels 1, 2, and 3, you will get 7 free spins.",
+    "cn": "<百搭>可以取代任何符号除了<免费游戏符号>。<br><br><免费游戏符号>同时出现在第1、2、3转轮时，获得7场免费游戏。",
+    "tw": "<百搭>可以取代任何符號除了<免費遊戲符號>。<br><br><免費遊戲符號>同時出現在第1、2、3轉輪時，獲得7場免費遊戲。"
+  },
+  {
+    "id": 1022,
+    "key": "PO152mfyxjlsm01",
+    "en": "When 3 <BONUS> are collected, the Free Game bonus will be triggered, granting 7 free spin.<br>During the free spin, blue-background symbol can score from adjacent reels, moving from right to left.<br><br>A 5-of-a-kind combination is counted only once and awards double the points. During the free spin, when 3 <BONUS> appear in the same free game round, an additional 7 free spin will be awarded, with a maximum of 70 free spin obtainable.<br><br>After each round of free spin ends, a random number of <br>blue-background symbol on the reels have a chance to uniformly <br><br>transform into one of the following symbol:     <sprite name=\"ruyi\"> <sprite name=\"lucky_bags\"> <sprite name=\"red_packet\"> <sprite name=\"firecrackers\"> <sprite name=\"tangerine\">, <br><br>and a secondary scoring assessment will be conducted.<br><br>The transformed blue-background symbol have the opportunity to receive a random reward multiplier, <br>with the highest multiplier being 10x.\n",
+    "cn": "当搜集到3个<免费游戏符号>时，会触发免费游戏奖励，<br>获得7场免费游戏。<br><br>免费游戏期间，蓝色背景宝物可以从相邻转轮上自右至左得分。<br><br>五连线仅计算一次，并获得双倍得分。在免费<br>游戏期间，当3个<免费游戏符号>出现在同一局免费游戏中，<br>将再奖励7次免费游戏，最多可获得70次免费游戏。<br><br>每轮免费游戏结束后，转轮中的随机数量的蓝色背景宝物有概率<br><br>统一变化为以下宝物中的一种： <sprite name=\"ruyi\"> <sprite name=\"lucky_bags\"> <sprite name=\"red_packet\"> <sprite name=\"firecrackers\"> <sprite name=\"tangerine\">，并进<br><br>行二次得分判定。<br><br>变化后的蓝色背景宝物有机会获得随机奖励倍数，<br>随机奖励倍数最高10倍。",
+    "tw": "當蒐集到3個<免費遊戲符號>時，會觸發免費遊戲獎勵，<br>獲得7場免費遊戲。<br><br>免費遊戲期間，藍色背景寶物可以從相鄰轉輪上自右至左得分。<br><br>五連線僅計算一次，並獲得雙倍得分。在免費<br>遊戲期間，當3個<免費遊戲符號>出現在同一局免費遊戲中，<br>將再獎勵7次免費遊戲，最多可獲得70次免費遊戲。<br><br>每輪免費遊戲結束後，轉輪中的隨機數量的藍色背景寶物有概率<br><br>統一變化為以下寶物中的一種： <sprite name=\"ruyi\"> <sprite name=\"lucky_bags\"> <sprite name=\"red_packet\"> <sprite name=\"firecrackers\"> <sprite name=\"tangerine\">，並進<br><br>行二次得分判定。<br><br>變化後的藍色背景寶物有機會獲得隨機獎勵倍數，<br>隨機獎勵倍數最高10倍。"
+  },
+  {
+    "id": 1023,
+    "key": "PO152yxwfsm01",
+    "en": "<br>requires 50 lottery points<br><br>Multiplying the number of wheels by the wheel bet equals the total bet<br> All symbols must be connected from the leftmost line to the right<br> in order to receive a score.",
+    "cn": "<br>本游戏采用“243路线游戏玩法”机制，取消了<br>传统的固定线路，最多可出现243种可能的获胜组合。<br><br>只要相同的宝物出现在相邻的转轮上，<br>从最左边的转轮开始，即可形成获胜组合。<br><br>普通游戏中，所有宝物须由最左到右连线方能获得得分。<br><br>形成多种不同宝物或不同位置相同宝物的<br>获胜组合时，得分累加。<br><br>同一位置仅奖励最高得分：如同一位置上出现了<br>5个相同宝物，系统仅会奖励5个宝物的组合得<br>分，3或4个宝物的组合将不予计分。<br><br>改变参与分数时，对应的获胜组合得分呈正比与线性变化。",
+    "tw": "<br>本遊戲採用“243路線遊戲玩法”機制，取消了<br>傳統的固定線路，最多可出現243種可能的獲勝組合。 <br><br>只要相同的寶物出現在相鄰的轉輪上，<br>從最左邊的轉輪開始，即可形成獲勝組合。 <br><br>普通遊戲中，所有寶物須由最左到右連線方能獲得得分。 <br><br>形成多種不同寶物或不同位置相同寶物的<br>獲勝組合時，得分累加。 <br><br>同一位置僅獎勵最高得分：如同一位置上出現了<br>5個相同寶物，系統僅會獎勵5個寶物的組合得<br>分，3或4個寶物的組合將不予計分。 <br><br>改變參與分數時，對應的獲勝組合得分呈正比與線性變化。"
+  },
+  {
+    "id": 1024,
+    "key": "PO152smlij01",
+    "en": "Game Jackpot",
+    "cn": "神秘累积奖1",
+    "tw": "神秘累積獎1"
+  },
+  {
+    "id": 1025,
+    "key": "PO152smlij02",
+    "en": "Game Jackpot",
+    "cn": "神秘累积奖2",
+    "tw": "神秘累積獎2"
+  },
+  {
+    "id": 1026,
+    "key": "PO152smlijms",
+    "en": "This game has four levels of game jackpots, ranked from high to low by score: JP1, JP2, JP3, and JP4. Game jackpots are triggered randomly and are independent of pattern combinations. Players only have the opportunity to randomly win any game jackpot when consuming participation points. <br>Free game rounds do not participate in triggering the game jackpot. <br>The triggering of game jackpot is an independent event, and its occurrence does not affect the outcome of the main game. <br>All four game jackpots adopt a dynamic accumulation mechanism, and the game jackpot score will continue to increase based on the participation points consumed by players. The system will extract a portion of the participation points from<br>according to a preset ratio and inject it into four game jackpots each time the participation points are consumed. <br>Once a certain level of game jackpot is triggered, the system will immediately issue the current score of the game jackpot and reset it to its initial value.",
+    "cn": "本游戏设有四个等级的神秘累积奖，<br>按得分分额从高到低依次为JP1、JP2、JP3、JP4。<br><br>神秘累积奖通过随机方式触发，与图案组合无关。<br><br>仅在消耗参与分时，玩家才有机会随机赢取<br>任意一个神秘累积奖。<br><br>免费游戏回合不参与神秘奖池的触发。<br>神秘累积奖的触发为独立事件，其发生不影响主游戏结果。<br><br>四个神秘奖池均采用动态累积机制，<br>奖池分数将根据玩家消耗的参与分持续增长。<br><br>系统将在每次消耗参与分时，按预设比例从<br>参与分中提取部分并注入至四个奖池。<br><br>一旦某一级别的神秘累积奖被触发，系统将立即发放该奖池的<br>当前分数，并将其重置为初始值。",
+    "tw": "本遊戲設有四個等級的神秘累積獎，<br>按得分分額從高到低依次為JP1、JP2、JP3、JP4。 <br><br>神秘累積獎通過隨機管道觸發，與圖案組合無關。 <br><br>僅在消耗參與分時，玩家才有機會隨機贏取<br>任意一個神秘累積獎。 <br><br>免費遊戲回合不參與神秘獎池的觸發。 <br>神秘累積獎的觸發為獨立事件，其發生不影響主遊戲結果。 <br><br>四個神秘獎池均採用動態累積機制，<br>獎池分數將根據玩家消耗的參與分持續增長。 <br><br>系統將在每次消耗參與分時，按預設比例從<br>參與分中選取部分並注入至四個獎池。 <br><br>一旦某一級別的神秘累積獎被觸發，系統將立即發放該獎池的<br>當前分數，並將其重置為初始值。"
+  },
+  {
+    "id": 1027,
+    "key": "PO152smljjfd",
+    "en": "The initial value of the Game Jackpot will be set according to the total bet,<br>and different level Game Jackpot will accumulate independently of each other, with some level Game Jackpot being shared mechanisms.",
+    "cn": "神秘累积奖池的初始数值将根据玩家所选的参与分档位而设定，<br>且不同档位奖池相互独立累积，部分档位奖池为共用机制。",
+    "tw": "神秘累積獎池的初始數值將根據玩家所選的參與分檔比特而設定，<br>且不同檔比特獎池相互獨立累積，部分檔比特獎池為共用機制。"
+  },
+  {
+    "id": 1028,
+    "key": "PO152zy",
+    "en": "Total Bet",
+    "cn": "参与分档位",
+    "tw": "參與分檔比特"
+  },
+  {
+    "id": 1029,
+    "key": "PO152jp1cz",
+    "en": "JP1 initial value",
+    "cn": "JP1初始值",
+    "tw": "JP1初始值"
+  },
+  {
+    "id": 1030,
+    "key": "PO152jp2cz",
+    "en": "JP2 initial value",
+    "cn": "JP2初始值",
+    "tw": "JP2初始值"
+  },
+  {
+    "id": 1031,
+    "key": "PO152jp3cz",
+    "en": "JP3 initial value",
+    "cn": "JP3初始值",
+    "tw": "JP3初始值"
+  },
+  {
+    "id": 1032,
+    "key": "PO152jp4cz",
+    "en": "JP4 initial value",
+    "cn": "JP4初始值",
+    "tw": "JP4初始值"
+  },
+  {
+    "id": 1034,
+    "key": "_PO152yebzqxcz",
+    "en": "<size=15>Balance is insufficient, please recharge first</size>",
+    "cn": "<size=15>积分不足，请先投币</size>",
+    "tw": "<size=15>積分不足，請先投幣</size>"
+  },
+  {
+    "id": 1035,
+    "key": "_PO152sbwjh",
+    "en": "<size=24>Machine not activated!</size>",
+    "cn": "<size=24>设备未激活</size>",
+    "tw": "<size=24>設備未啟動</size>"
+  },
+  {
+    "id": 1037,
+    "key": "_PO152smewm",
+    "en": "Scan the QR code to earn more points.",
+    "cn": "请扫描二维码，获取更多积分",
+    "tw": "請掃描二維碼，獲取更多積分"
+  },
+  {
+    "id": 1039,
+    "key": "PO152tg",
+    "en": "SKIP",
+    "cn": "跳过",
+    "tw": "跳過"
+  }
+]

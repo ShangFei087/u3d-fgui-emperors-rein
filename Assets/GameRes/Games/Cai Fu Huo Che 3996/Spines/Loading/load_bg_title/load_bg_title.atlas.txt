@@ -1,0 +1,7 @@
+load_bg_title.png
+size:892,395
+filter:Linear,Linear
+pma:true
+scale:0.9
+biaoti
+bounds:1,1,890,393

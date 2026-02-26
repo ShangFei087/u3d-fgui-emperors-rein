@@ -1,0 +1,11 @@
+ng_sym_gold.png
+size:256,128
+filter:Linear,Linear
+pma:true
+scale:0.7
+11
+bounds:1,1,4,4
+fb
+bounds:115,90,118,36
+jb
+bounds:1,6,113,120

@@ -1,0 +1,11 @@
+ng_sym_10.png
+size:192,228
+filter:Linear,Linear
+pma:true
+scale:0.41
+10
+bounds:2,36,188,190
+g0
+bounds:40,17,22,17
+g1
+bounds:2,2,36,32

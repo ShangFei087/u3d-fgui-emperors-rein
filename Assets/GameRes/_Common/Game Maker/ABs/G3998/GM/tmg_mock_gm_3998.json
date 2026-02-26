@@ -1,0 +1,47 @@
+{
+	"game_id": 3998,
+	"gm_event": {
+		"5kind": {
+			"nick_name": "5连线",
+			"event_name": "",
+			"value": "",
+			"des": "普通游戏-5连线"
+		},
+		"free_spin": {
+			"nick_name": "免费游戏",
+			"event_name": "GMFreeSpin",
+			"value": "",
+			"des": ""
+		},
+		"big_win": {
+			"nick_name": "礼盒大奖弹窗",
+			"event_name": "GMBigWin",
+			"value": "",
+			"des": ""
+		},
+		"bouns": {
+			"nick_name": "彩金游戏",
+			"event_name": "GMBonus2",
+			"value": "",
+			"des": ""
+		},
+		"Multiple": {
+			"nick_name": "中倍率奖",
+			"event_name": "GMMultipleWinLine",
+			"value": "",
+			"des": ""
+		},
+		"//jp_online": {
+			"nick_name": "联网彩金",
+			"event_name": "GMJpOnline",
+			"value": "",
+			"des": ""
+		},
+		"bonus1": {
+			"nick_name": "中wild奖",
+			"event_name": "GMBonus1",
+			"value": "",
+			"des": ""
+		}
+	}
+}

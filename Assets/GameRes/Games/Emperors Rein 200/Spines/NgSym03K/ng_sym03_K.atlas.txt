@@ -1,0 +1,139 @@
+
+ng_sym03_K.png
+size: 1118,236
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+jin_ye
+  rotate: false
+  xy: 238, 112
+  size: 64, 122
+  orig: 64, 122
+  offset: 0, 0
+  index: -1
+k
+  rotate: true
+  xy: 2, 3
+  size: 231, 234
+  orig: 231, 234
+  offset: 0, 0
+  index: -1
+k_00014
+  rotate: false
+  xy: 304, 116
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+k_00030
+  rotate: false
+  xy: 304, 116
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+k_00015
+  rotate: true
+  xy: 238, 3
+  size: 107, 115
+  orig: 107, 115
+  offset: 0, 0
+  index: -1
+k_00016
+  rotate: false
+  xy: 304, 119
+  size: 107, 115
+  orig: 107, 115
+  offset: 0, 0
+  index: -1
+k_00017
+  rotate: false
+  xy: 355, 2
+  size: 107, 115
+  orig: 107, 115
+  offset: 0, 0
+  index: -1
+k_00018
+  rotate: false
+  xy: 413, 119
+  size: 107, 115
+  orig: 107, 115
+  offset: 0, 0
+  index: -1
+k_00019
+  rotate: false
+  xy: 464, 2
+  size: 107, 115
+  orig: 107, 115
+  offset: 0, 0
+  index: -1
+k_00020
+  rotate: false
+  xy: 522, 119
+  size: 107, 115
+  orig: 107, 115
+  offset: 0, 0
+  index: -1
+k_00021
+  rotate: false
+  xy: 573, 2
+  size: 107, 115
+  orig: 107, 115
+  offset: 0, 0
+  index: -1
+k_00022
+  rotate: false
+  xy: 631, 119
+  size: 107, 115
+  orig: 107, 115
+  offset: 0, 0
+  index: -1
+k_00023
+  rotate: false
+  xy: 682, 2
+  size: 107, 115
+  orig: 107, 115
+  offset: 0, 0
+  index: -1
+k_00024
+  rotate: false
+  xy: 740, 119
+  size: 107, 115
+  orig: 107, 115
+  offset: 0, 0
+  index: -1
+k_00025
+  rotate: false
+  xy: 791, 2
+  size: 107, 115
+  orig: 107, 115
+  offset: 0, 0
+  index: -1
+k_00026
+  rotate: false
+  xy: 849, 119
+  size: 107, 115
+  orig: 107, 115
+  offset: 0, 0
+  index: -1
+k_00027
+  rotate: false
+  xy: 900, 2
+  size: 107, 115
+  orig: 107, 115
+  offset: 0, 0
+  index: -1
+k_00028
+  rotate: false
+  xy: 958, 119
+  size: 107, 115
+  orig: 107, 115
+  offset: 0, 0
+  index: -1
+k_00029
+  rotate: false
+  xy: 1009, 2
+  size: 107, 115
+  orig: 107, 115
+  offset: 0, 0
+  index: -1

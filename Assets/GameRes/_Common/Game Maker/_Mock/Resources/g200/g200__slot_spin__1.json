@@ -1,0 +1,71 @@
+{
+	"protocol_key": "slot_spin",
+
+	"data": {
+		"err": 0,
+
+		"msg": "",
+
+		"contents": {
+
+			"game_id": 200,
+
+			"credit_after": 10000,
+
+			"total_bet": 50,
+
+			"total_win_credit": 5750,
+
+			"reel_column_indexs": [16, 49, 19, 3, 7],
+
+			"deck_row_column": 	"3,2,3,10,5#2,3,2,3,5#1,1,1,1,5",
+
+			"multiplier_alone": 1,
+
+			"current_strips_index": "BS",
+
+			"next_strips_index": "BS",
+			"//next_strips_index": "FS",
+
+			"win_line_group": [
+				{
+					"win_line_type": 0,
+					"line_no": 21,
+					"symbol_id": 3,
+					"pos_xy": [11, 22, 31,42],
+					"credit": 1750,
+					"multiplier": 1
+				},
+					{
+					"win_line_type": 0,
+					"line_no": 19,
+					"symbol_id": 2,
+					"pos_xy": [12, 21, 32],
+					"credit": 1500,
+					"multiplier": 1
+				},
+					{
+					"win_line_type": 0,
+					"line_no": 3,
+					"symbol_id": 1,
+					"pos_xy": [13, 23, 33,43],
+					"credit": 2500,
+					"multiplier": 1
+				}
+			],
+
+			"bonus_result": null,
+
+			"free_spin_info": {
+				"total_spin_count": 0,
+				"current_spin_count": 0,
+				"add_spin_count": 0
+			},
+
+			"jackpot_info": null,
+
+			"custom_data": {}
+		}
+
+	}
+}

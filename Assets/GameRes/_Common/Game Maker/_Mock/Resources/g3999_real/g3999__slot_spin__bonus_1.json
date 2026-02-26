@@ -1,0 +1,25 @@
+{
+
+	"code": 0,
+	
+	"gameState": 5,
+	
+	"lineMark": 0,
+	
+	"num": 0,
+	
+	"curRound": 0,
+	
+	"maxRound": 0,
+
+	"lineNum":0,
+	
+	"lineData":[],
+	
+	"bonus":3,
+	
+	"DeckRowCol":
+	"3,2,3,11,5#
+	2,3,1,11,5#
+	8,11,8,8,5",
+}

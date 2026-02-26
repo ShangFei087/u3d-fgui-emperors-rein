@@ -1,0 +1,139 @@
+
+ng_sym07_Woman_warrior.png
+size: 450,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+TF_1
+  rotate: true
+  xy: 312, 13
+  size: 138, 136
+  orig: 178, 150
+  offset: 40, 0
+  index: -1
+TF_2
+  rotate: true
+  xy: 185, 346
+  size: 48, 73
+  orig: 50, 76
+  offset: 0, 3
+  index: -1
+bg
+  rotate: false
+  xy: 170, 166
+  size: 168, 168
+  orig: 168, 168
+  offset: 0, 0
+  index: -1
+dun_pai
+  rotate: true
+  xy: 289, 377
+  size: 144, 81
+  orig: 144, 81
+  offset: 0, 0
+  index: -1
+jian
+  rotate: false
+  xy: 2, 139
+  size: 166, 195
+  orig: 166, 195
+  offset: 0, 0
+  index: -1
+kuang
+  rotate: true
+  xy: 2, 336
+  size: 185, 181
+  orig: 185, 181
+  offset: 0, 0
+  index: -1
+lizi
+  rotate: true
+  xy: 173, 2
+  size: 144, 137
+  orig: 144, 137
+  offset: 0, 0
+  index: -1
+tou_
+  rotate: false
+  xy: 340, 254
+  size: 95, 121
+  orig: 106, 122
+  offset: 8, 0
+  index: -1
+tou_1yan1
+  rotate: false
+  xy: 282, 154
+  size: 19, 10
+  orig: 19, 10
+  offset: 0, 0
+  index: -1
+tou_2yan1
+  rotate: true
+  xy: 303, 153
+  size: 11, 9
+  orig: 11, 9
+  offset: 0, 0
+  index: -1
+tou_bi_zui1
+  rotate: false
+  xy: 254, 153
+  size: 26, 11
+  orig: 26, 11
+  offset: 0, 0
+  index: -1
+tou_bi_zui2
+  rotate: false
+  xy: 226, 150
+  size: 26, 14
+  orig: 27, 16
+  offset: 1, 1
+  index: -1
+tou_kui
+  rotate: false
+  xy: 185, 396
+  size: 102, 125
+  orig: 102, 141
+  offset: 0, 0
+  index: -1
+tou_kui2
+  rotate: false
+  xy: 340, 176
+  size: 105, 76
+  orig: 105, 77
+  offset: 0, 0
+  index: -1
+tou_kui3
+  rotate: false
+  xy: 372, 444
+  size: 61, 77
+  orig: 61, 77
+  offset: 0, 0
+  index: -1
+tou_zhang_zui1
+  rotate: false
+  xy: 170, 148
+  size: 27, 16
+  orig: 31, 20
+  offset: 2, 2
+  index: -1
+tou_zhang_zui2
+  rotate: false
+  xy: 199, 149
+  size: 25, 15
+  orig: 25, 17
+  offset: 0, 1
+  index: -1
+tou_zhang_zui3
+  rotate: true
+  xy: 260, 372
+  size: 22, 17
+  orig: 22, 17
+  offset: 0, 0
+  index: -1
+yi_fu
+  rotate: false
+  xy: 2, 8
+  size: 169, 129
+  orig: 169, 129
+  offset: 0, 0
+  index: -1

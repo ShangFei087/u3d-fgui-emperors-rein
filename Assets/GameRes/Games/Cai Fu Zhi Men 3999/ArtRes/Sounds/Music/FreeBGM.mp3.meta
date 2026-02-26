@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: c0fb7f586c7e75846bdd30cb2da3b6d0
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: games/cai fu zhi men 3999/artres/sounds/music/freebgm.unity3d
+  assetBundleVariant: 

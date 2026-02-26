@@ -1,0 +1,12 @@
+load_bg_title.png
+size:1561,709
+filter:Linear,Linear
+pma:true
+fortune
+bounds:1377,148,560,183
+rotate:90
+house
+bounds:1150,54,654,226
+rotate:90
+log
+bounds:1,1,1148,707

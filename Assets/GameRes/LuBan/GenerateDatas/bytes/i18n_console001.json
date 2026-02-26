@@ -1,0 +1,3522 @@
+[
+  {
+    "id": 1000,
+    "key": "CON1tb09",
+    "fgui": "",
+    "en": "Coin In",
+    "cn": "投币",
+    "tw": "投幣"
+  },
+  {
+    "id": 1001,
+    "key": "CON1tp09",
+    "fgui": "",
+    "en": "Coin Out",
+    "cn": "退票",
+    "tw": "退票"
+  },
+  {
+    "id": 1002,
+    "key": "CON1dy09",
+    "fgui": "",
+    "en": "Print Out",
+    "cn": "打印",
+    "tw": "列印"
+  },
+  {
+    "id": 1003,
+    "key": "CON1jc09",
+    "fgui": "",
+    "en": "Bill In",
+    "cn": "进钞",
+    "tw": "进鈔"
+  },
+  {
+    "id": 1004,
+    "key": "CON1sf09",
+    "fgui": "",
+    "en": "Score Up",
+    "cn": "上键",
+    "tw": "上鍵"
+  },
+  {
+    "id": 1005,
+    "key": "CON1xf09",
+    "fgui": "",
+    "en": "Score Down",
+    "cn": "下键",
+    "tw": "下鍵"
+  },
+  {
+    "id": 1006,
+    "key": "CON1c09",
+    "fgui": "",
+    "en": "Money",
+    "cn": "钞",
+    "tw": "鈔"
+  },
+  {
+    "id": 1007,
+    "key": "CON1jf09",
+    "fgui": "",
+    "en": "Points",
+    "cn": "积分",
+    "tw": "積分"
+  },
+  {
+    "id": 1009,
+    "key": "CON1yxxx",
+    "fgui": "xp0b9yqdyx3q0-n2_smbp-0",
+    "en": "Game Information",
+    "cn": "游戏信息",
+    "tw": "遊戲資訊"
+  },
+  {
+    "id": 1010,
+    "key": "CON1ywjl",
+    "fgui": "xp0b9yqdyx3q0-n2_smbp-1",
+    "en": "Business Record",
+    "cn": "营收记录",
+    "tw": "營收記錄"
+  },
+  {
+    "id": 1011,
+    "key": "CON1yxls",
+    "fgui": "xp0b9yqdyx3q0-n2_smbp-2",
+    "en": "Game History",
+    "cn": "游戏历史",
+    "tw": "遊戲歷史"
+  },
+  {
+    "id": 1012,
+    "key": "CON1sjjl",
+    "fgui": "xp0b9yqdyx3q0-n2_smbp-3",
+    "en": "Event Record",
+    "cn": "事件记录",
+    "tw": "事件記錄"
+  },
+  {
+    "id": 1013,
+    "key": "CON1sz",
+    "fgui": "xp0b9yqdyx3q0-n2_smbp-4",
+    "en": "Setting",
+    "cn": "设置",
+    "tw": "設定"
+  },
+  {
+    "id": 1014,
+    "key": "CON1ylsz",
+    "fgui": "xp0b9yqdyx3q0-n2_smbp-5",
+    "en": "Volume Setting",
+    "cn": "音量设置",
+    "tw": "音量設定"
+  },
+  {
+    "id": 1015,
+    "key": "CON1srcs",
+    "fgui": "xp0b9yqdyx3q0-n2_smbp-6",
+    "en": "Hardware Test",
+    "cn": "硬件测试",
+    "tw": "硬體測試"
+  },
+  {
+    "id": 1016,
+    "key": "CON1cmp",
+    "fgui": "xp0b9yqdyx3q0-n2_smbp-7",
+    "en": "Touch Callbreta",
+    "cn": "触摸屏",
+    "tw": "觸控屏"
+  },
+  {
+    "id": 1017,
+    "key": "CON1xtsj",
+    "fgui": "xp0b9yqdyx3q0-n2_smbp-8",
+    "en": "Time And Date",
+    "cn": "系统时间",
+    "tw": "系統時間"
+  },
+  {
+    "id": 1018,
+    "key": "CON1dyy",
+    "fgui": "xp0b9yqdyx3q0-n2_smbp-9",
+    "en": "Language",
+    "cn": "语言",
+    "tw": "語言"
+  },
+  {
+    "id": 1019,
+    "key": "CON1cjgly",
+    "fgui": "xp0b9yqdyx3q0-n2_smbp-10",
+    "en": "Admin",
+    "cn": "超级管理员",
+    "tw": "超級管理員"
+  },
+  {
+    "id": 1020,
+    "key": "CON1tc",
+    "fgui": "xp0b9yqdyx3q0-n2_smbp-11",
+    "en": "Exit Setup",
+    "cn": "退出",
+    "tw": "退出"
+  },
+  {
+    "id": 1021,
+    "key": "",
+    "fgui": "",
+    "en": "更新公告界面",
+    "cn": "",
+    "tw": ""
+  },
+  {
+    "id": 1022,
+    "key": "_CON1yxgxgg",
+    "fgui": "",
+    "en": "Game Update Announcement",
+    "cn": "游戏更新公告",
+    "tw": "遊戲更新公告"
+  },
+  {
+    "id": 1023,
+    "key": "_CON1gxnr",
+    "fgui": "",
+    "en": "Update content",
+    "cn": "更新内容",
+    "tw": "更新内容"
+  },
+  {
+    "id": 1024,
+    "key": "_CON1bbxx",
+    "fgui": "",
+    "en": "Version information",
+    "cn": "版本信息",
+    "tw": "版本資訊"
+  },
+  {
+    "id": 1025,
+    "key": "_CON1bb",
+    "fgui": "",
+    "en": "VER",
+    "cn": "版本",
+    "tw": "版本"
+  },
+  {
+    "id": 1026,
+    "key": "_CON1sfjt",
+    "fgui": "",
+    "en": "IS MACHINE",
+    "cn": "是否机台",
+    "tw": "是否机台"
+  },
+  {
+    "id": 1027,
+    "key": "_CON1yxzt",
+    "fgui": "",
+    "en": "GAME THEME",
+    "cn": "游戏主题",
+    "tw": "遊戲主題"
+  },
+  {
+    "id": 1028,
+    "key": "_CON1dls",
+    "fgui": "",
+    "en": "AGENT",
+    "cn": "代理商",
+    "tw": "代理商"
+  },
+  {
+    "id": 1029,
+    "key": "_CON1zsb",
+    "fgui": "",
+    "en": "Release",
+    "cn": "正式包",
+    "tw": "正式包"
+  },
+  {
+    "id": 1030,
+    "key": "_CON1csb",
+    "fgui": "",
+    "en": "Debug",
+    "cn": "测试包",
+    "tw": "測試包"
+  },
+  {
+    "id": 1031,
+    "key": "",
+    "fgui": "",
+    "en": "超级管理员界面",
+    "cn": "",
+    "tw": ""
+  },
+  {
+    "id": 1032,
+    "key": "CON1sd",
+    "fgui": "",
+    "en": "SETTINGS",
+    "cn": "设置",
+    "tw": "設定"
+  },
+  {
+    "id": 1033,
+    "key": "CON1ts",
+    "fgui": "",
+    "en": "DEBUG",
+    "cn": "调试",
+    "tw": "調試"
+  },
+  {
+    "id": 1034,
+    "key": "CON1ccms",
+    "fgui": "",
+    "en": "Frying Market Mode:",
+    "cn": "炒场模式:",
+    "tw": "炒場模式:"
+  },
+  {
+    "id": 1035,
+    "key": "CON1sbyjh",
+    "fgui": "",
+    "en": "Machine MAC:",
+    "cn": "设备硬件号:",
+    "tw": "設備硬體號:"
+  },
+  {
+    "id": 1036,
+    "key": "CON1bcsz",
+    "fgui": "",
+    "en": "Save Settings",
+    "cn": "保存设置",
+    "tw": "保存設置"
+  },
+  {
+    "id": 1037,
+    "key": "_CON1szdlsxh",
+    "fgui": "",
+    "en": "Set Agent ID",
+    "cn": "设置代理商线号",
+    "tw": "設定代理商線號"
+  },
+  {
+    "id": 1038,
+    "key": "_CON1szsbxlh",
+    "fgui": "",
+    "en": "Set Machine ID",
+    "cn": "设置设备序列号",
+    "tw": "設定設備序號"
+  },
+  {
+    "id": 1039,
+    "key": "_CON1dlshbxs4ws",
+    "fgui": "",
+    "en": "The agent ID must be a 4-digit number",
+    "cn": "代理商线号必须是4位数",
+    "tw": "代理商線號必須是4位數"
+  },
+  {
+    "id": 1040,
+    "key": "_CON1sbhbxs8ws",
+    "fgui": "",
+    "en": "The machine ID must be an 8-digit number",
+    "cn": "设备序列号必须是8位数",
+    "tw": "設備序號必須是8位數"
+  },
+  {
+    "id": 1041,
+    "key": "_CON1szmfsbhwxbc",
+    "fgui": "",
+    "en": "The settings have not changed and do not need to be saved",
+    "cn": "设置没有发生变化，不需要保存",
+    "tw": "設定沒有發生變化，不需要保存"
+  },
+  {
+    "id": 1042,
+    "key": "CON1sfdyrz",
+    "fgui": "",
+    "en": "Is Debug:",
+    "cn": "是否打印日志:",
+    "tw": "是否列印日誌:"
+  },
+  {
+    "id": 1043,
+    "key": "CON1sytsjm",
+    "fgui": "",
+    "en": "Enable Reporter Page:",
+    "cn": "使用调试页面:",
+    "tw": "使用調試頁面:"
+  },
+  {
+    "id": 1044,
+    "key": "CON1sytsgj",
+    "fgui": "",
+    "en": "Enabe Debug Tool:",
+    "cn": "使用调试工具:",
+    "tw": "使用調試工具:"
+  },
+  {
+    "id": 1045,
+    "key": "CON1sfxsrjgxxx",
+    "fgui": "",
+    "en": "Is Show Update Info:",
+    "cn": "是否显示软件更新信息:",
+    "tw": "是否顯示軟體更新資訊："
+  },
+  {
+    "id": 1046,
+    "key": "CON1rjbh",
+    "fgui": "",
+    "en": "App Key:",
+    "cn": "软件编号:",
+    "tw": "軟件編號:"
+  },
+  {
+    "id": 1047,
+    "key": "CON1zyfwqdz",
+    "fgui": "",
+    "en": "Server Address:",
+    "cn": "资源服务器地址:",
+    "tw": "資源伺服器地址:"
+  },
+  {
+    "id": 1048,
+    "key": "CON1sjsbdz",
+    "fgui": "",
+    "en": "Report Address:",
+    "cn": "数据上报地址：",
+    "tw": "數據上報地址:"
+  },
+  {
+    "id": 1049,
+    "key": "CON1rgxbh",
+    "fgui": "",
+    "en": "Hotfix Key:",
+    "cn": "热更新编号:",
+    "tw": "熱更新編號:"
+  },
+  {
+    "id": 1050,
+    "key": "CON1dtrgxdz",
+    "fgui": "",
+    "en": "Auto Hotfix Address:",
+    "cn": "动态热更新目录地址:",
+    "tw": "動態熱更新目錄地址:"
+  },
+  {
+    "id": 1051,
+    "key": "CON1azbb",
+    "fgui": "",
+    "en": "Install Ver:",
+    "cn": "安装版本:",
+    "tw": "安裝版本:"
+  },
+  {
+    "id": 1052,
+    "key": "CON1sfljsas",
+    "fgui": "",
+    "en": "Is Connect Sas:",
+    "cn": "是否连接Sas:",
+    "tw": "是否連接Sas:"
+  },
+  {
+    "id": 1053,
+    "key": "CON1saslj",
+    "fgui": "",
+    "en": "Sas Connection:",
+    "cn": "Sas配置:",
+    "tw": "Sas設定:"
+  },
+  {
+    "id": 1054,
+    "key": "CON1saszh",
+    "fgui": "",
+    "en": "Sas Account:",
+    "cn": "Sas账号:",
+    "tw": "Sas帳號:"
+  },
+  {
+    "id": 1055,
+    "key": "CON1pwd",
+    "fgui": "",
+    "en": "Sas Password:",
+    "cn": "Sas秘钥:",
+    "tw": "Sas秘鑰:"
+  },
+  {
+    "id": 1056,
+    "key": "_CON1szsaspwd",
+    "fgui": "",
+    "en": "Set Sas Password",
+    "cn": "设置Sas秘钥",
+    "tw": "設定Sas秘鑰"
+  },
+  {
+    "id": 1057,
+    "key": "_CON1sasfwqljsz",
+    "fgui": "",
+    "en": "Configure Sas Server Connection",
+    "cn": "Sas服务器连接设置",
+    "tw": "Sas服務器連接設定"
+  },
+  {
+    "id": 1058,
+    "key": "_CON1szsaszh",
+    "fgui": "",
+    "en": "Set Sas Account",
+    "cn": "设置Sas账号",
+    "tw": "設定Sas帳號"
+  },
+  {
+    "id": 1059,
+    "key": "CON1sasttbl",
+    "fgui": "",
+    "en": "Sas In Out Scale(Bill : Credit):",
+    "cn": "Sas投退比例(钞:分):",
+    "tw": "Sas投退比例(鈔:分):"
+  },
+  {
+    "id": 1060,
+    "key": "_CON1sasttbl",
+    "fgui": "",
+    "en": "Sas In Out Scale",
+    "cn": "Sas投退比例",
+    "tw": "Sas投退比例"
+  },
+  {
+    "id": 1061,
+    "key": "CON1sfljcx",
+    "fgui": "",
+    "en": "Is Connect Money Box:",
+    "cn": "是否连接钱箱:",
+    "tw": "是否連接錢箱:"
+  },
+  {
+    "id": 1062,
+    "key": "CON1hkfwqdz",
+    "fgui": "xp0b9yqdcwuo39-n36_os7y-cp-key",
+    "en": "IOT Address:",
+    "cn": "好酷服务器地址:",
+    "tw": "好酷伺服器位址："
+  },
+  {
+    "id": 1063,
+    "key": "CON1sfcszsfhk",
+    "fgui": "",
+    "en": "Is Test Offical IOT:",
+    "cn": "是否测试正式服好酷:",
+    "tw": "是否測試正式服好酷:"
+  },
+  {
+    "id": 1065,
+    "key": "CON1xzyy",
+    "fgui": "",
+    "en": "Choose Language",
+    "cn": "选择语言",
+    "tw": "選擇語言"
+  },
+  {
+    "id": 1066,
+    "key": "CON1yxzdyy",
+    "fgui": "",
+    "en": "Selected language: {0}",
+    "cn": "已选择的语言: {0}",
+    "tw": "已選擇的語言: {0}"
+  },
+  {
+    "id": 1067,
+    "key": "CON1jt",
+    "fgui": "",
+    "en": "Simplified Chinese",
+    "cn": "简体",
+    "tw": "簡體"
+  },
+  {
+    "id": 1068,
+    "key": "CON1ft",
+    "fgui": "",
+    "en": "Traditional Chinese",
+    "cn": "繁体",
+    "tw": "繁體"
+  },
+  {
+    "id": 1069,
+    "key": "CON1zwjt",
+    "fgui": "",
+    "en": "Simplified Chinese",
+    "cn": "中文简体",
+    "tw": "中文簡體"
+  },
+  {
+    "id": 1070,
+    "key": "CON1zwft",
+    "fgui": "",
+    "en": "Traditional Chinese",
+    "cn": "中文繁体",
+    "tw": "中文繁體"
+  },
+  {
+    "id": 1072,
+    "key": "CON1sbsz",
+    "fgui": "xp0b9yqdglrj1i-n29_os7y-cp-title",
+    "en": "Machine Settings",
+    "cn": "设备设置",
+    "tw": "設備設定"
+  },
+  {
+    "id": 1073,
+    "key": "CON1sb01",
+    "fgui": "xp0b9yqdglrj1i-n5_cwuo",
+    "en": "MACHINE",
+    "cn": "设备",
+    "tw": "設備"
+  },
+  {
+    "id": 1074,
+    "key": "CON1qd01",
+    "fgui": "",
+    "en": "DEVICES",
+    "cn": "驱动",
+    "tw": "驅動"
+  },
+  {
+    "id": 1075,
+    "key": "CON1zq01",
+    "fgui": "xp0b9yqdglrj1i-n7_cwuo",
+    "en": "PROGRESSIVE",
+    "cn": "增强",
+    "tw": "增强"
+  },
+  {
+    "id": 1076,
+    "key": "CON1tcj01",
+    "fgui": "",
+    "en": "JCAKPOT",
+    "cn": "彩金",
+    "tw": "彩金"
+  },
+  {
+    "id": 1077,
+    "key": "CON1tt01",
+    "fgui": "xp0b9yqdglrj1i-n6_cwuo",
+    "en": "IN-OUT",
+    "cn": "投-退",
+    "tw": "投-退"
+  },
+  {
+    "id": 1078,
+    "key": "CON1qdh",
+    "fgui": "",
+    "en": "Channel ID:",
+    "cn": "渠道号:",
+    "tw": "渠道號:"
+  },
+  {
+    "id": 1079,
+    "key": "CON1dls",
+    "fgui": "xp0b9yqdmsw23e-n37_jtgo-cp-key",
+    "en": "Agent ID:",
+    "cn": "代理商线号:",
+    "tw": "代理商線號:"
+  },
+  {
+    "id": 1080,
+    "key": "CON1sbh",
+    "fgui": "xp0b9yqdmsw23e-n38_jtgo-cp-key#xp0b9yqdglrj1n-n0_glrj#xp0b9yqdcwuo21-n0_glrj",
+    "en": "Machine ID:",
+    "cn": "设备唯一序列号:",
+    "tw": "設備唯一序號:"
+  },
+  {
+    "id": 1082,
+    "key": "CON1sbmc",
+    "fgui": "",
+    "en": "Machine Name:",
+    "cn": "设备名称:",
+    "tw": "設備名稱:"
+  },
+  {
+    "id": 1083,
+    "key": "CON1zdttbjl",
+    "fgui": "xp0b9yqdmsw23e-n39_jtgo-cp-key",
+    "en": "Max Coin In Out Record:",
+    "cn": "投退币记录最大次数:",
+    "tw": "投退幣記錄最大數:"
+  },
+  {
+    "id": 1084,
+    "key": "CON1zdywcsjl",
+    "fgui": "xp0b9yqdmsw23e-n40_jtgo-cp-key",
+    "en": "Max Game Record:",
+    "cn": "游戏记录最大次数:",
+    "tw": "游戏次記錄最大數:"
+  },
+  {
+    "id": 1085,
+    "key": "CON1zdcjjl",
+    "fgui": "",
+    "en": "Max Jackpot Record:",
+    "cn": "彩金记录最大次数:",
+    "tw": "彩金記錄最大數:"
+  },
+  {
+    "id": 1086,
+    "key": "CON1zdjgjl",
+    "fgui": "xp0b9yqdmsw23e-n42_jtgo-cp-key",
+    "en": "Max Warning Record:",
+    "cn": "警告记录最大次数:",
+    "tw": "警告記錄最大數:"
+  },
+  {
+    "id": 1087,
+    "key": "CON1zdsjjl",
+    "fgui": "xp0b9yqdmsw23e-n41_jtgo-cp-key",
+    "en": "Max Event Record:",
+    "cn": "消息记录最大次数:",
+    "tw": "消息記錄最大數:"
+  },
+  {
+    "id": 1088,
+    "key": "CON1rystjjl",
+    "fgui": "xp0b9yqdmsw23e-n43_jtgo-cp-key",
+    "en": "Max Business Day Record:",
+    "cn": "日营收统计记录最大次数:",
+    "tw": "日營收統計記錄最大次數："
+  },
+  {
+    "id": 1089,
+    "key": "CON1yy",
+    "fgui": "",
+    "en": "Language:",
+    "cn": "语言:",
+    "tw": "語言:"
+  },
+  {
+    "id": 1090,
+    "key": "CON1yzfw",
+    "fgui": "",
+    "en": "Bet Allowed:",
+    "cn": "面额:",
+    "tw": "面额:"
+  },
+  {
+    "id": 1091,
+    "key": "CON1jh",
+    "fgui": "",
+    "en": "Active",
+    "cn": "激活",
+    "tw": "激活"
+  },
+  {
+    "id": 1092,
+    "key": "CON1jhbm",
+    "fgui": "",
+    "en": "Coding:",
+    "cn": "激活报码",
+    "tw": "啟動報碼"
+  },
+  {
+    "id": 1093,
+    "key": "CON1dm",
+    "fgui": "",
+    "en": "Coding:",
+    "cn": "打码:",
+    "tw": "打碼:"
+  },
+  {
+    "id": 1094,
+    "key": "CON1xgyhmm",
+    "fgui": "xp0b9yqdmsw23e-n44_jtgo-cp-btn",
+    "en": "Change Shift Password",
+    "cn": "修改用户密码",
+    "tw": "修改使用者密碼"
+  },
+  {
+    "id": 1095,
+    "key": "CON1xgglymm",
+    "fgui": "xp0b9yqdmsw23e-n45_jtgo-cp-btn",
+    "en": "Change Manager Password",
+    "cn": "修改管理员密码",
+    "tw": "修改管理員密碼"
+  },
+  {
+    "id": 1096,
+    "key": "CON1xgcjglymm",
+    "fgui": "xp0b9yqdmsw23e-n46_jtgo-cp-btn",
+    "en": "Change Admin Password",
+    "cn": "修改超级管理员密码",
+    "tw": "修改超級管理員密碼"
+  },
+  {
+    "id": 1097,
+    "key": "CON1tpbl",
+    "fgui": "xp0b9yqdcwuo38-n18_cwuo-cp-key",
+    "en": "Coin Out Scale(Ticket : Credit):",
+    "cn": "退票比例(票:分):",
+    "tw": "退票比例(票:分):"
+  },
+  {
+    "id": 1098,
+    "key": "CON1tbbl",
+    "fgui": "xp0b9yqdcwuo38-n19_cwuo-cp-key",
+    "en": "Coin In Scale(Coin : Credit):",
+    "cn": "投币比例(币:分):",
+    "tw": "投幣比例(幣:分):"
+  },
+  {
+    "id": 1099,
+    "key": "CON1jcbl",
+    "fgui": "",
+    "en": "Bill In Scale(Bill : Credit):",
+    "cn": "入钞比例(钞:分):",
+    "tw": "入鈔比例(鈔:分):"
+  },
+  {
+    "id": 1100,
+    "key": "CON1dybl",
+    "fgui": "",
+    "en": "Print Out Scale(Bill : Credit):",
+    "cn": "打印比例(钞:分):",
+    "tw": "列印比例(鈔:分):"
+  },
+  {
+    "id": 1101,
+    "key": "CON1sxfbl",
+    "fgui": "",
+    "en": "Score Scale(Time : Credit):",
+    "cn": "ASBX比例(次:分):",
+    "tw": "ASBX比例(次:分):"
+  },
+  {
+    "id": 1102,
+    "key": "CON1sxfdabl",
+    "fgui": "xp0b9yqdcwuo38-n27_os7y-cp-key",
+    "en": "Score Short Click Scale(Time : Credit):",
+    "cn": "ASBX短按比例(次:分):",
+    "tw": "ASBX短按比例(次:分):"
+  },
+  {
+    "id": 1103,
+    "key": "CON1sfcabl",
+    "fgui": "",
+    "en": "Score Up Long Click Scale(Time : Credit):",
+    "cn": "AS长按比例(次:分):",
+    "tw": "AS長按比例(次:分):"
+  },
+  {
+    "id": 1104,
+    "key": "CON1xzpm",
+    "fgui": "xp0b9yqdsmbpx-n4_smbp#xp0b9yqdcwuo38-n25_cwuo-cp-btn",
+    "en": "Flip Screen",
+    "cn": "旋转屏幕",
+    "tw": "旋轉荧幕"
+  },
+  {
+    "id": 1105,
+    "key": "CON1hfccsz",
+    "fgui": "xp0b9yqdcwuo38-n28_os7y-cp-btn",
+    "en": "Reset Machine to FactorySettings",
+    "cn": "恢复出厂设置",
+    "tw": "恢復出廠設定"
+  },
+  {
+    "id": 1106,
+    "key": "CON1yxnd",
+    "fgui": "",
+    "en": "Difficulty:",
+    "cn": "技巧模式:",
+    "tw": "技巧模式:"
+  },
+  {
+    "id": 1107,
+    "key": "CON1zjzxz",
+    "fgui": "",
+    "en": "Machine Grand Min:",
+    "cn": "巨奖最小值:",
+    "tw": "巨獎最小值:"
+  },
+  {
+    "id": 1108,
+    "key": "CON1tjzxz",
+    "fgui": "",
+    "en": "Machine Major Min:",
+    "cn": "头奖最小值:",
+    "tw": "頭獎最小值:"
+  },
+  {
+    "id": 1109,
+    "key": "CON1djzxz",
+    "fgui": "",
+    "en": "Machine Minor Min:",
+    "cn": "大奖最小值:",
+    "tw": "大獎最小值:"
+  },
+  {
+    "id": 1110,
+    "key": "CON1xjzxz",
+    "fgui": "",
+    "en": "Machine Mini Min:",
+    "cn": "小奖最小值:",
+    "tw": "小獎最小值:"
+  },
+  {
+    "id": 1111,
+    "key": "CON1zdz",
+    "fgui": "",
+    "en": "Max:",
+    "cn": "最大值:",
+    "tw": "最大值:"
+  },
+  {
+    "id": 1112,
+    "key": "CON1cjjj",
+    "fgui": "",
+    "en": "Grand",
+    "cn": "巨奖",
+    "tw": "巨獎"
+  },
+  {
+    "id": 1113,
+    "key": "CON1cjtj",
+    "fgui": "",
+    "en": "Major",
+    "cn": "头奖",
+    "tw": "頭獎"
+  },
+  {
+    "id": 1114,
+    "key": "CON1cjdj",
+    "fgui": "",
+    "en": "Minor",
+    "cn": "大奖",
+    "tw": "大獎"
+  },
+  {
+    "id": 1115,
+    "key": "CON1cjxj",
+    "fgui": "",
+    "en": "Mini",
+    "cn": "小奖",
+    "tw": "小獎"
+  },
+  {
+    "id": 1116,
+    "key": "_CON1jjfwbxzzj",
+    "fgui": "",
+    "en": "The range for the jackpot grand must be between {0} and {1}",
+    "cn": "巨奖范围必须在{0}和{1}之间",
+    "tw": "巨獎範圍必須在{0}和{1}之間"
+  },
+  {
+    "id": 1117,
+    "key": "_CON1tjfwbxzzj",
+    "fgui": "",
+    "en": "The range for the jackpot major must be between {0} and {1}",
+    "cn": "头奖范围必须在{0}和{1}之间",
+    "tw": "頭獎範圍必須在{0}和{1}之間"
+  },
+  {
+    "id": 1118,
+    "key": "_CON1djfwbxzzj",
+    "fgui": "",
+    "en": "The range for the jackpot minor must be between {0} and {1}",
+    "cn": "大奖范围必须在{0}和{1}之间",
+    "tw": "大獎範圍必須在{0}和{1}之間"
+  },
+  {
+    "id": 1119,
+    "key": "_CON1xjfwbxzzj",
+    "fgui": "",
+    "en": "The range for the jackpot mini must be between {0} and {1}",
+    "cn": "小奖范围必须在{0}和{1}之间",
+    "tw": "小獎範圍必須在{0}和{1}之間"
+  },
+  {
+    "id": 1120,
+    "key": "CON1zcj01",
+    "fgui": "xp0b9yqdcwuo38-n29_os7y-cp-key",
+    "en": "Bill Validator:",
+    "cn": "纸钞机:",
+    "tw": "紙鈔機:"
+  },
+  {
+    "id": 1121,
+    "key": "CON1zcjxh",
+    "fgui": "xp0b9yqdcwuo38-n30_os7y-cp-key",
+    "en": "Bill Validator Model:",
+    "cn": "纸钞机型号:",
+    "tw": "纸钞机型号:"
+  },
+  {
+    "id": 1122,
+    "key": "CON1dyj01",
+    "fgui": "xp0b9yqdcwuo38-n31_os7y-cp-key",
+    "en": "Printer:",
+    "cn": "打印机:",
+    "tw": "打印機:"
+  },
+  {
+    "id": 1123,
+    "key": "CON1dyjxh",
+    "fgui": "xp0b9yqdcwuo38-n32_os7y-cp-key",
+    "en": "Printer Model:",
+    "cn": "打印机型号:",
+    "tw": "打印機型号:"
+  },
+  {
+    "id": 1124,
+    "key": "CON1lwcj",
+    "fgui": "xp0b9yqdcwuo39-n32_os7y-cp-key",
+    "en": "Jackpot Online:",
+    "cn": "联网彩金:",
+    "tw": "聯網彩金:"
+  },
+  {
+    "id": 1125,
+    "key": "CON1hk",
+    "fgui": "xp0b9yqdcwuo39-n37_os7y-cp-key",
+    "en": "IOT:",
+    "cn": "好酷:",
+    "tw": "好酷:"
+  },
+  {
+    "id": 1126,
+    "key": "CON1hk1",
+    "fgui": "xp0b9yqdcwuo39-n35_os7y-cp-title",
+    "en": "IOT",
+    "cn": "好酷",
+    "tw": "好酷"
+  },
+  {
+    "id": 1127,
+    "key": "CON1hkjrfs",
+    "fgui": "xp0b9yqdcwuo39-n38_os7y-cp-key",
+    "en": "IOT Access Methods:",
+    "cn": "好酷接入方式:",
+    "tw": "好酷接入方式:"
+  },
+  {
+    "id": 1128,
+    "key": "_CON1yxfs",
+    "fgui": "",
+    "en": "Selected Methods: {0}",
+    "cn": "已选方式: {0}",
+    "tw": "已選管道: {0}"
+  },
+  {
+    "id": 1129,
+    "key": "_CON1xzhkjrfs",
+    "fgui": "",
+    "en": "Choose IOT Access Methods",
+    "cn": "选择好酷接入方式",
+    "tw": "選擇好酷接入方式"
+  },
+  {
+    "id": 1130,
+    "key": "_CON1hkwxgzh",
+    "fgui": "",
+    "en": "WeChat Official Account",
+    "cn": "公众号",
+    "tw": "公眾號"
+  },
+  {
+    "id": 1131,
+    "key": "_CON1hkxcx",
+    "fgui": "",
+    "en": "Mini Program",
+    "cn": "小程序",
+    "tw": "小程式"
+  },
+  {
+    "id": 1132,
+    "key": "_CON1hkyzpt",
+    "fgui": "",
+    "en": "Battle Platform",
+    "cn": "约战平台",
+    "tw": "約戰平臺"
+  },
+  {
+    "id": 1133,
+    "key": "_CON1lwcjbcf",
+    "fgui": "",
+    "en": "Jackpot Percent(0.001)",
+    "cn": "联网彩金比(千分)",
+    "tw": "聯網彩金比(千分)"
+  },
+  {
+    "id": 1134,
+    "key": "_CON1lwcjb",
+    "fgui": "",
+    "en": "Jackpot Percent",
+    "cn": "联网彩金比",
+    "tw": "聯網彩金比"
+  },
+  {
+    "id": 1135,
+    "key": "CON1lwcjfzb",
+    "fgui": "xp0b9yqdcwuo39-n33_os7y-cp-key",
+    "en": "Jackpot Score Rate:",
+    "cn": "联网彩金分值比:",
+    "tw": "聯網彩金分值比:"
+  },
+  {
+    "id": 1136,
+    "key": "CON1lwcjb",
+    "fgui": "xp0b9yqdcwuo39-n34_os7y-cp-key",
+    "en": "Jackpot Percent:",
+    "cn": "联网彩金比:",
+    "tw": "聯網彩金比:"
+  },
+  {
+    "id": 1137,
+    "key": "CON1lwcj001",
+    "fgui": "xp0b9yqdcwuo39-n31_os7y-cp-title",
+    "en": "Jackpot Online",
+    "cn": "联网彩金",
+    "tw": "聯網彩金"
+  },
+  {
+    "id": 1138,
+    "key": "CON1yxcj001",
+    "fgui": "",
+    "en": "Jackpot Game",
+    "cn": "游戏彩金",
+    "tw": "遊戲彩金"
+  },
+  {
+    "id": 1139,
+    "key": "CON1yxcjb",
+    "fgui": "",
+    "en": "Jackpot Game Percent:",
+    "cn": "游戏彩金比:",
+    "tw": "遊戲彩金比:"
+  },
+  {
+    "id": 1140,
+    "key": "_CON1szyxcj",
+    "fgui": "",
+    "en": "Set Jackpot Game",
+    "cn": "设置游戏彩金",
+    "tw": "設定遊戲彩金"
+  },
+  {
+    "id": 1141,
+    "key": "CON1jzjt",
+    "fgui": "xp0b9yqdcwuo39-n46_os7y-cp-key",
+    "en": "Coin Out Immediately:",
+    "cn": "即中即退:",
+    "tw": "即中即退:"
+  },
+  {
+    "id": 1142,
+    "key": "CON1dcjcrg",
+    "fgui": "xp0b9yqdcwuo39-n47_os7y-cp-key",
+    "en": "Check Hotfix Multiple Times:",
+    "cn": "是否多次检查热更新:",
+    "tw": "是否多次檢查熱更新:"
+  },
+  {
+    "id": 1143,
+    "key": "CON1szjth",
+    "fgui": "",
+    "en": "Set Machine ID",
+    "cn": "设置机台号",
+    "tw": "設定機台號"
+  },
+  {
+    "id": 1144,
+    "key": "CON1ydkz01",
+    "fgui": "xp0b9yqdcwuo39-n41_os7y-cp-title",
+    "en": "Remote Control",
+    "cn": "远端控制",
+    "tw": "遠程控制"
+  },
+  {
+    "id": 1145,
+    "key": "CON1ydkz",
+    "fgui": "xp0b9yqdcwuo39-n43_os7y-cp-key",
+    "en": "Remote Control:",
+    "cn": "远端控制:",
+    "tw": "遠程控制:"
+  },
+  {
+    "id": 1146,
+    "key": "CON1ydkzsz",
+    "fgui": "xp0b9yqdcwuo39-n44_os7y-cp-key",
+    "en": "Remote Control Setting:",
+    "cn": "远程控制设置:",
+    "tw": "遠程控制設定:"
+  },
+  {
+    "id": 1147,
+    "key": "CON1ydkzzh",
+    "fgui": "xp0b9yqdcwuo39-n45_os7y-cp-key",
+    "en": "Remote Control Account:",
+    "cn": "远程控制账号:",
+    "tw": "遠程控制帳號:"
+  },
+  {
+    "id": 1148,
+    "key": "_CON1szyckzzh",
+    "fgui": "",
+    "en": "Set Remote Control Account",
+    "cn": "设置远程控制账号",
+    "tw": "設定遠程控制帳號"
+  },
+  {
+    "id": 1149,
+    "key": "_CON1zh",
+    "fgui": "",
+    "en": "Account:",
+    "cn": "账号:",
+    "tw": "帳號:"
+  },
+  {
+    "id": 1150,
+    "key": "_CON1mm",
+    "fgui": "",
+    "en": "Password:",
+    "cn": "密码:",
+    "tw": "密碼:"
+  },
+  {
+    "id": 1151,
+    "key": "_CON1zh01",
+    "fgui": "",
+    "en": "Account",
+    "cn": "账号",
+    "tw": "帳號"
+  },
+  {
+    "id": 1152,
+    "key": "_CON1mm01",
+    "fgui": "",
+    "en": "Password",
+    "cn": "密码",
+    "tw": "密碼"
+  },
+  {
+    "id": 1153,
+    "key": "_CON1ydfwqljsz",
+    "fgui": "",
+    "en": "Configure Remote Server Connection",
+    "cn": "远端服务器连接设置",
+    "tw": "遠端服務器連接設定"
+  },
+  {
+    "id": 1154,
+    "key": "CON1fwqip",
+    "fgui": "",
+    "en": "Server IP Address:",
+    "cn": "服务器IP:",
+    "tw": "服務器IP:"
+  },
+  {
+    "id": 1155,
+    "key": "CON1fwqdk",
+    "fgui": "",
+    "en": "Server Port Number:",
+    "cn": "服务器端口号:",
+    "tw": "服務器埠號:"
+  },
+  {
+    "id": 1156,
+    "key": "_CON1fwqip",
+    "fgui": "",
+    "en": "Server IP Address",
+    "cn": "服务器IP",
+    "tw": "服務器IP"
+  },
+  {
+    "id": 1157,
+    "key": "_CON1fwqdk",
+    "fgui": "",
+    "en": "Server Port Number",
+    "cn": "服务器端口号",
+    "tw": "服務器埠號"
+  },
+  {
+    "id": 1158,
+    "key": "CON1wewjsb",
+    "fgui": "",
+    "en": "Bonus Report",
+    "cn": "额外奖上报",
+    "tw": "額外獎上報"
+  },
+  {
+    "id": 1159,
+    "key": "CON1wewjsb01",
+    "fgui": "",
+    "en": "Bonus Report:",
+    "cn": "额外奖上报:",
+    "tw": "額外獎上報:"
+  },
+  {
+    "id": 1160,
+    "key": "CON1wewjsbdz",
+    "fgui": "",
+    "en": "Bonus Report Address:",
+    "cn": "额外奖上报地址:",
+    "tw": "額外獎上報地址:"
+  },
+  {
+    "id": 1161,
+    "key": "CON1wewjsbsz",
+    "fgui": "",
+    "en": "Bonus Report Setting:",
+    "cn": "额外奖上报地址设置:",
+    "tw": "額外獎上報地址設定:"
+  },
+  {
+    "id": 1162,
+    "key": "_CON1fuqljsz",
+    "fgui": "",
+    "en": "Configure Server Connection",
+    "cn": "服务器连接设置",
+    "tw": "服務器連接設定"
+  },
+  {
+    "id": 1164,
+    "key": "_|CON1xzzcjxh",
+    "fgui": "",
+    "en": "Choose Bill Validator Model",
+    "cn": "选择纸钞机型号",
+    "tw": "选择纸钞机型号"
+  },
+  {
+    "id": 1165,
+    "key": "_CON1xzdyjxh",
+    "fgui": "xp0b9yqdos7y3k-n6_os7y",
+    "en": "Choose Printer Model",
+    "cn": "选择打印机型号",
+    "tw": "选择打印机型号"
+  },
+  {
+    "id": 1166,
+    "key": "_CON1yxzxh",
+    "fgui": "",
+    "en": "Selected Model: {0}",
+    "cn": "已选择型号: {0}",
+    "tw": "已选择型号: {0}"
+  },
+  {
+    "id": 1167,
+    "key": "CON1cj01",
+    "fgui": "",
+    "en": "Manufacturer",
+    "cn": "厂家",
+    "tw": "廠家"
+  },
+  {
+    "id": 1168,
+    "key": "CON1xh01",
+    "fgui": "",
+    "en": "Model",
+    "cn": "型号",
+    "tw": "型號"
+  },
+  {
+    "id": 1170,
+    "key": "CON1mrzys",
+    "fgui": "",
+    "en": "DAILY BUSINESS",
+    "cn": "每日总营收",
+    "tw": "每日總營收"
+  },
+  {
+    "id": 1171,
+    "key": "CON1lszys",
+    "fgui": "xp0b9yqdglrj1k-n1_glrj",
+    "en": "ALL BUSINESS",
+    "cn": "历史总营收",
+    "tw": "历史總營收"
+  },
+  {
+    "id": 1172,
+    "key": "CON1ys",
+    "fgui": "",
+    "en": "BUSINESS",
+    "cn": "总营收",
+    "tw": "總營收"
+  },
+  {
+    "id": 1173,
+    "key": "CON1qt",
+    "fgui": "",
+    "en": "OTHER",
+    "cn": "其他",
+    "tw": "其他"
+  },
+  {
+    "id": 1174,
+    "key": "CON1qt01",
+    "fgui": "xp0b9yqdcwuo39-n42_os7y-cp-title",
+    "en": "Other",
+    "cn": "其他",
+    "tw": "其他"
+  },
+  {
+    "id": 1175,
+    "key": "CON1lszyf",
+    "fgui": "",
+    "en": "Total Bet:",
+    "cn": "历史总押分:",
+    "tw": "歷史總押分:"
+  },
+  {
+    "id": 1176,
+    "key": "CON1lszyf01",
+    "fgui": "",
+    "en": "Total Win:",
+    "cn": "历史总赢分:",
+    "tw": "歷史總贏分:"
+  },
+  {
+    "id": 1177,
+    "key": "CON1lsztb",
+    "fgui": "",
+    "en": "Total Coin In:",
+    "cn": "历史总投币:",
+    "tw": "歷史總投幣:"
+  },
+  {
+    "id": 1178,
+    "key": "CON1lsztp",
+    "fgui": "",
+    "en": "Total Coin Out:",
+    "cn": "历史总退票:",
+    "tw": "歷史總退票:"
+  },
+  {
+    "id": 1179,
+    "key": "CON1lszsf",
+    "fgui": "",
+    "en": "Total Score Up:",
+    "cn": "历史总AS:",
+    "tw": "歷史總AS:"
+  },
+  {
+    "id": 1180,
+    "key": "CON1lszxf",
+    "fgui": "",
+    "en": "Total Score Down:",
+    "cn": "历史总BX:",
+    "tw": "歷史總BX:"
+  },
+  {
+    "id": 1181,
+    "key": "CON1lsjf",
+    "fgui": "",
+    "en": "Remaining Points:",
+    "cn": "剩余积分:",
+    "tw": "剩餘積分:"
+  },
+  {
+    "id": 1182,
+    "key": "CON1lszyl",
+    "fgui": "",
+    "en": "Total Profit:",
+    "cn": "总盈利:",
+    "tw": "總盈利:"
+  },
+  {
+    "id": 1183,
+    "key": "CON1zdxxxx",
+    "fgui": "",
+    "en": "Billing Information:",
+    "cn": "账单详细信息:",
+    "tw": "帳單詳細資訊:"
+  },
+  {
+    "id": 1184,
+    "key": "_CON1nyrsf",
+    "fgui": "",
+    "en": "i",
+    "cn": "年月日时分",
+    "tw": "年月日時分"
+  },
+  {
+    "id": 1185,
+    "key": "_CON1xhjthtbbl",
+    "fgui": "",
+    "en": "i",
+    "cn": "线号/机台号/投币比例",
+    "tw": "線號/機台號/投幣比例"
+  },
+  {
+    "id": 1186,
+    "key": "_CON1zjbbsfbbnd",
+    "fgui": "",
+    "en": "i",
+    "cn": "主机版本/算法版本/难度/盈利宕机（需要乘一万）",
+    "tw": "主機版本/算灋版本/難度/盈利宕機（需要乘一萬）"
+  },
+  {
+    "id": 1187,
+    "key": "CON1dtztb",
+    "fgui": "",
+    "en": "Total Coin In:",
+    "cn": "总投币:",
+    "tw": "總投幣:"
+  },
+  {
+    "id": 1188,
+    "key": "CON1dtztp",
+    "fgui": "",
+    "en": "Total Coin Out:",
+    "cn": "总退票:",
+    "tw": "總退票:"
+  },
+  {
+    "id": 1189,
+    "key": "CON1dtzjc",
+    "fgui": "",
+    "en": "Total Bill In:",
+    "cn": "总进钞:",
+    "tw": "總進鈔:"
+  },
+  {
+    "id": 1190,
+    "key": "CON1dtzdy",
+    "fgui": "",
+    "en": "Total Print Out:",
+    "cn": "总打印:",
+    "tw": "總列印:"
+  },
+  {
+    "id": 1191,
+    "key": "CON1dtzsf",
+    "fgui": "",
+    "en": "Total Score Up:",
+    "cn": "总AS:",
+    "tw": "總AS:"
+  },
+  {
+    "id": 1192,
+    "key": "CON1dtzxf",
+    "fgui": "",
+    "en": "Total Score Down:",
+    "cn": "总BX:",
+    "tw": "總BX:"
+  },
+  {
+    "id": 1193,
+    "key": "CON1lszbet02",
+    "fgui": "",
+    "en": "Total Bet:",
+    "cn": "总押分:",
+    "tw": "總押分:"
+  },
+  {
+    "id": 1194,
+    "key": "CON1lszwin02",
+    "fgui": "",
+    "en": "Total Win:",
+    "cn": "总赢分:",
+    "tw": "總贏分:"
+  },
+  {
+    "id": 1195,
+    "key": "CON1ldtzjc",
+    "fgui": "",
+    "en": "Total Bill In (Money):",
+    "cn": "总进钞(钞):",
+    "tw": "總進鈔(鈔):"
+  },
+  {
+    "id": 1196,
+    "key": "CON1ldtzdy",
+    "fgui": "",
+    "en": "Total Printer Out (Money):",
+    "cn": "总打印(钞):",
+    "tw": "總列印(鈔):"
+  },
+  {
+    "id": 1198,
+    "key": "CON1mb",
+    "fgui": "",
+    "en": "IDECK",
+    "cn": "面板",
+    "tw": "面板"
+  },
+  {
+    "id": 1199,
+    "key": "CON1an",
+    "fgui": "",
+    "en": "BUTTONS",
+    "cn": "按钮",
+    "tw": "按鈕"
+  },
+  {
+    "id": 1200,
+    "key": "CON1pm",
+    "fgui": "",
+    "en": "SCREEN",
+    "cn": "屏幕",
+    "tw": "荧幕"
+  },
+  {
+    "id": 1201,
+    "key": "CON1tp",
+    "fgui": "",
+    "en": "Ticket Out",
+    "cn": "退票",
+    "tw": "退票"
+  },
+  {
+    "id": 1202,
+    "key": "CON1ks",
+    "fgui": "",
+    "en": "Spin",
+    "cn": "开始",
+    "tw": "開始"
+  },
+  {
+    "id": 1203,
+    "key": "CON1sz01",
+    "fgui": "",
+    "en": "Set",
+    "cn": "设置",
+    "tw": "設定"
+  },
+  {
+    "id": 1204,
+    "key": "CON1sf",
+    "fgui": "",
+    "en": "Score Up",
+    "cn": "上键",
+    "tw": "上鍵"
+  },
+  {
+    "id": 1205,
+    "key": "CON1xf",
+    "fgui": "",
+    "en": "Score Down",
+    "cn": "下键",
+    "tw": "下鍵"
+  },
+  {
+    "id": 1206,
+    "key": "CON1km",
+    "fgui": "",
+    "en": "Door",
+    "cn": "开门",
+    "tw": "開門"
+  },
+  {
+    "id": 1207,
+    "key": "CON1pmyscs",
+    "fgui": "",
+    "en": "Check Color:",
+    "cn": "屏幕颜色测试:",
+    "tw": "荧幕顏色測試:"
+  },
+  {
+    "id": 1208,
+    "key": "CON1ks02",
+    "fgui": "",
+    "en": "Start",
+    "cn": "开始",
+    "tw": "開始"
+  },
+  {
+    "id": 1210,
+    "key": "_CON1yxls",
+    "fgui": "",
+    "en": "Game History, Page {0} of {1}",
+    "cn": "游戏历史，页: {0} / {1}",
+    "tw": "遊戲歷史，頁: {0} / {1}"
+  },
+  {
+    "id": 1211,
+    "key": "_CON1ttbls",
+    "fgui": "",
+    "en": "Coin In-Out History, Page {0} of {1}",
+    "cn": "投退币历史，页: {0} / {1}",
+    "tw": "投退幣歷史，頁: {0} / {1}"
+  },
+  {
+    "id": 1212,
+    "key": "_CON1cjls",
+    "fgui": "",
+    "en": "Jackpot History, Page {0} of {1}",
+    "cn": "彩金历史，页: {0} / {1}",
+    "tw": "彩金歷史，頁: {0} / {1}"
+  },
+  {
+    "id": 1213,
+    "key": "_CON1jgls",
+    "fgui": "",
+    "en": "Warniing History, Page {0} of {1}",
+    "cn": "警告历史，页: {0} / {1}",
+    "tw": "警告歷史，頁: {0} / {1}"
+  },
+  {
+    "id": 1214,
+    "key": "CON1yxjl",
+    "fgui": "",
+    "en": "GAME",
+    "cn": "游戏记录",
+    "tw": "遊戲記錄"
+  },
+  {
+    "id": 1215,
+    "key": "CON1ttbjl",
+    "fgui": "",
+    "en": "COIN",
+    "cn": "投退币记录",
+    "tw": "投退幣記錄"
+  },
+  {
+    "id": 1216,
+    "key": "CON1cjljl",
+    "fgui": "",
+    "en": "JACKPOT",
+    "cn": "彩金记录",
+    "tw": "彩金記錄"
+  },
+  {
+    "id": 1217,
+    "key": "CON1jgjl",
+    "fgui": "",
+    "en": "WARNING",
+    "cn": "警告记录",
+    "tw": "警告記錄"
+  },
+  {
+    "id": 1218,
+    "key": "CON1yxsj",
+    "fgui": "",
+    "en": "Game Date Time:",
+    "cn": "游戏时间:",
+    "tw": "遊戲時間:"
+  },
+  {
+    "id": 1219,
+    "key": "CON1yxqfs",
+    "fgui": "",
+    "en": "Credits Before:",
+    "cn": "游戏前分数:",
+    "tw": "遊戲前分數:"
+  },
+  {
+    "id": 1220,
+    "key": "CON1yxhfs",
+    "fgui": "",
+    "en": "Credits After:",
+    "cn": "游戏后分数:",
+    "tw": "遊戲後分數:"
+  },
+  {
+    "id": 1221,
+    "key": "CON1ztz",
+    "fgui": "",
+    "en": "Total Bet:",
+    "cn": "总投注:",
+    "tw": "總投注:"
+  },
+  {
+    "id": 1222,
+    "key": "CON1zyf",
+    "fgui": "",
+    "en": "Total Win:",
+    "cn": "总赢分:",
+    "tw": "總贏分:"
+  },
+  {
+    "id": 1223,
+    "key": "CON1mfyxyf",
+    "fgui": "",
+    "en": "Free Spin Win:",
+    "cn": "免费游戏赢分:",
+    "tw": "免費遊戲贏分:"
+  },
+  {
+    "id": 1224,
+    "key": "CON1mfyxzcs",
+    "fgui": "",
+    "en": "Free Spin Total Times:",
+    "cn": "免费游戏总次数:",
+    "tw": "免費遊戲總次數:"
+  },
+  {
+    "id": 1225,
+    "key": "CON1mfyxdqhh",
+    "fgui": "",
+    "en": "Free Spin Current Round:",
+    "cn": "免费游戏当前回合:",
+    "tw": "免費遊戲當前回合:"
+  },
+  {
+    "id": 1226,
+    "key": "CON1mfyxzewzjcs",
+    "fgui": "",
+    "en": "Free Spin Add Times:",
+    "cn": "免费游戏额外增加次数:",
+    "tw": "免費遊戲額外新增次數:"
+  },
+  {
+    "id": 1227,
+    "key": "CON1zcj",
+    "fgui": "",
+    "en": "Hit The Jackpot:",
+    "cn": "是否中游戏彩金:",
+    "tw": "是否中遊戲彩金:"
+  },
+  {
+    "id": 1228,
+    "key": "CON1zlwcj",
+    "fgui": "",
+    "en": "Hit The On Line Jackpot:",
+    "cn": "是否中联网彩金:",
+    "tw": "是否中聯網彩金:"
+  },
+  {
+    "id": 1229,
+    "key": "CON1zxyx",
+    "fgui": "",
+    "en": "Hit Bonus Game:",
+    "cn": "是否小游戏:",
+    "tw": "是否中小遊戲:"
+  },
+  {
+    "id": 1230,
+    "key": "CON1lwcjyf",
+    "fgui": "",
+    "en": "Jackpot On Line Win:",
+    "cn": "联网彩金赢分:",
+    "tw": "聯網彩金贏分:"
+  },
+  {
+    "id": 1231,
+    "key": "CON1cjyf",
+    "fgui": "",
+    "en": "Jackpot Win:",
+    "cn": "彩金赢分:",
+    "tw": "彩金贏分:"
+  },
+  {
+    "id": 1232,
+    "key": "CON1jcyxyf",
+    "fgui": "",
+    "en": "Base Game Win:",
+    "cn": "基础游戏赢分:",
+    "tw": "基礎遊戲贏分:"
+  },
+  {
+    "id": 1233,
+    "key": "CON1xyxyf",
+    "fgui": "",
+    "en": "Bonus Game Win:",
+    "cn": "小游戏赢分:",
+    "tw": "小遊戲贏分:"
+  },
+  {
+    "id": 1234,
+    "key": "CON1yxbh",
+    "fgui": "",
+    "en": "Game Number:",
+    "cn": "游戏编号:",
+    "tw": "遊戲編號:"
+  },
+  {
+    "id": 1235,
+    "key": "CON1bjsfmfyx",
+    "fgui": "",
+    "en": "Is Free Spin",
+    "cn": "本局是否免费游戏:",
+    "tw": "本局是否免費遊戲:"
+  },
+  {
+    "id": 1236,
+    "key": "CON1jc",
+    "fgui": "",
+    "en": "In-Out",
+    "cn": "投-退",
+    "tw": "投-退"
+  },
+  {
+    "id": 1237,
+    "key": "CON1yf",
+    "fgui": "",
+    "en": "Credit",
+    "cn": "积分",
+    "tw": "積分"
+  },
+  {
+    "id": 1238,
+    "key": "CON1zz",
+    "fgui": "",
+    "en": "Device",
+    "cn": "装置",
+    "tw": "裝置"
+  },
+  {
+    "id": 1239,
+    "key": "CON1yxqfs1",
+    "fgui": "",
+    "en": "Before Credit",
+    "cn": "投退前分数",
+    "tw": "投退前分數"
+  },
+  {
+    "id": 1240,
+    "key": "CON1yxhfs1",
+    "fgui": "",
+    "en": "After Credit",
+    "cn": "投退后分数",
+    "tw": "投退後分數"
+  },
+  {
+    "id": 1241,
+    "key": "CON1rq",
+    "fgui": "",
+    "en": "Date",
+    "cn": "日期",
+    "tw": "日期"
+  },
+  {
+    "id": 1242,
+    "key": "CON1zjqfs",
+    "fgui": "",
+    "en": "Before Credit",
+    "cn": "中奖前分数",
+    "tw": "中獎前分數"
+  },
+  {
+    "id": 1243,
+    "key": "CON1zjhfs",
+    "fgui": "",
+    "en": "After Credit",
+    "cn": "中奖后分数",
+    "tw": "中獎後分數"
+  },
+  {
+    "id": 1244,
+    "key": "CON1cj",
+    "fgui": "",
+    "en": "Jackpot",
+    "cn": "彩金",
+    "tw": "彩金"
+  },
+  {
+    "id": 1245,
+    "key": "CON1yxbh01",
+    "fgui": "",
+    "en": "Game Number",
+    "cn": "游戏编号",
+    "tw": "遊戲編號"
+  },
+  {
+    "id": 1246,
+    "key": "CON1syy",
+    "fgui": "",
+    "en": "Prev Page",
+    "cn": "上一页",
+    "tw": "上一页"
+  },
+  {
+    "id": 1247,
+    "key": "CON1xyy",
+    "fgui": "",
+    "en": "Next Page",
+    "cn": "下一页",
+    "tw": "下一頁"
+  },
+  {
+    "id": 1248,
+    "key": "_CON1lwcj01",
+    "fgui": "",
+    "en": "jp_online",
+    "cn": "联网彩金",
+    "tw": "聯網彩金"
+  },
+  {
+    "id": 1249,
+    "key": "_CON1lwcjjj",
+    "fgui": "",
+    "en": "jp_online_grand",
+    "cn": "联网-巨奖",
+    "tw": "聯網-巨獎"
+  },
+  {
+    "id": 1250,
+    "key": "_CON1lwcjtj",
+    "fgui": "",
+    "en": "jp_online_major",
+    "cn": "联网-头奖",
+    "tw": "聯網-頭獎"
+  },
+  {
+    "id": 1251,
+    "key": "_CON1lwcjdj",
+    "fgui": "",
+    "en": "jp_online_minor",
+    "cn": "联网-大奖",
+    "tw": "聯網-大獎"
+  },
+  {
+    "id": 1252,
+    "key": "_CON1lwcjxj",
+    "fgui": "",
+    "en": "jp_online_mini",
+    "cn": "联网-小奖",
+    "tw": "聯網-小獎"
+  },
+  {
+    "id": 1253,
+    "key": "_CON1jjcj",
+    "fgui": "",
+    "en": "jp_grand",
+    "cn": "巨奖",
+    "tw": "巨獎"
+  },
+  {
+    "id": 1254,
+    "key": "_CON1tjcj",
+    "fgui": "",
+    "en": "jp_major",
+    "cn": "头奖",
+    "tw": "頭獎"
+  },
+  {
+    "id": 1255,
+    "key": "_CON1djcj",
+    "fgui": "",
+    "en": "jp_minor",
+    "cn": "大奖",
+    "tw": "大獎"
+  },
+  {
+    "id": 1256,
+    "key": "_CON1xjcj",
+    "fgui": "",
+    "en": "jp_mini",
+    "cn": "小奖",
+    "tw": "小獎"
+  },
+  {
+    "id": 1257,
+    "key": "_CON1jp1",
+    "fgui": "",
+    "en": "jp_jp1",
+    "cn": "巨奖",
+    "tw": "巨獎"
+  },
+  {
+    "id": 1258,
+    "key": "_CON1jp2",
+    "fgui": "",
+    "en": "jp_jp2",
+    "cn": "头奖",
+    "tw": "頭獎"
+  },
+  {
+    "id": 1259,
+    "key": "_CON1jp3",
+    "fgui": "",
+    "en": "jp_jp3",
+    "cn": "大奖",
+    "tw": "大獎"
+  },
+  {
+    "id": 1260,
+    "key": "_CON1jp4",
+    "fgui": "",
+    "en": "jp_jp4",
+    "cn": "小奖",
+    "tw": "小獎"
+  },
+  {
+    "id": 1261,
+    "key": "_CON1yxjldt",
+    "fgui": "",
+    "en": "{0} Game Recall {1} of {2}",
+    "cn": "“{0}”游戏记录，第{1}/{2}条",
+    "tw": "“{0}”遊戲記錄，第{1}/{2}條"
+  },
+  {
+    "id": 1262,
+    "key": "_CON1true",
+    "fgui": "",
+    "en": "True",
+    "cn": "是",
+    "tw": "是"
+  },
+  {
+    "id": 1263,
+    "key": "_CON1false",
+    "fgui": "",
+    "en": "False",
+    "cn": "否",
+    "tw": "否"
+  },
+  {
+    "id": 1265,
+    "key": "CON1sj01",
+    "fgui": "",
+    "en": "EVENT",
+    "cn": "事件记录",
+    "tw": "事件記錄"
+  },
+  {
+    "id": 1266,
+    "key": "CON1shjl",
+    "fgui": "",
+    "en": "Event Record, Page {0} of {1}",
+    "cn": "事件记录，页: {0} / {1}",
+    "tw": "事件記錄，頁: {0} / {1}"
+  },
+  {
+    "id": 1267,
+    "key": "CON1ri01",
+    "fgui": "",
+    "en": "Date:",
+    "cn": "日期:",
+    "tw": "日期:"
+  },
+  {
+    "id": 1269,
+    "key": "CON1pt",
+    "fgui": "",
+    "en": "Platform:",
+    "cn": "平台:",
+    "tw": "平臺:"
+  },
+  {
+    "id": 1270,
+    "key": "CON1yxzt",
+    "fgui": "",
+    "en": "Game Theme:",
+    "cn": "游戏主题:",
+    "tw": "遊戲主題:"
+  },
+  {
+    "id": 1271,
+    "key": "CON1ypbb",
+    "fgui": "",
+    "en": "Disk Ver:",
+    "cn": "硬盘版本:",
+    "tw": "硬碟版本:"
+  },
+  {
+    "id": 1272,
+    "key": "CON1rjbb",
+    "fgui": "",
+    "en": "Software Ver:",
+    "cn": "软件版本:",
+    "tw": "軟體版本:"
+  },
+  {
+    "id": 1273,
+    "key": "CON1stbb",
+    "fgui": "",
+    "en": "System Ver:",
+    "cn": "系统版本:",
+    "tw": "系統版本:"
+  },
+  {
+    "id": 1274,
+    "key": "CON1yjbb",
+    "fgui": "",
+    "en": "Hardware Ver:",
+    "cn": "硬件版本:",
+    "tw": "硬體版本:"
+  },
+  {
+    "id": 1275,
+    "key": "CON1sfbb",
+    "fgui": "",
+    "en": "Algorithm Ver:",
+    "cn": "算法版本:",
+    "tw": "算灋版本:"
+  },
+  {
+    "id": 1276,
+    "key": "CON1fgxbb",
+    "fgui": "",
+    "en": "Hotfix Ver:",
+    "cn": "热更新版本:",
+    "tw": "熱更新版本:"
+  },
+  {
+    "id": 1277,
+    "key": "CON1scs",
+    "fgui": "",
+    "en": "Produced By:",
+    "cn": "游戏厂商:",
+    "tw": "遊戲廠商:"
+  },
+  {
+    "id": 1278,
+    "key": "CON1jtmc",
+    "fgui": "",
+    "en": "Machine Name:",
+    "cn": "机台名称:",
+    "tw": "機台名稱:"
+  },
+  {
+    "id": 1280,
+    "key": "CON1qd",
+    "fgui": "",
+    "en": "Confirm",
+    "cn": "确定",
+    "tw": "確定"
+  },
+  {
+    "id": 1281,
+    "key": "CON1bc",
+    "fgui": "",
+    "en": "Save",
+    "cn": "保存",
+    "tw": "保存"
+  },
+  {
+    "id": 1282,
+    "key": "CON1qr",
+    "fgui": "xp0b9yqdglrj1z-n4_glrj",
+    "en": "OK",
+    "cn": "确认",
+    "tw": "確認"
+  },
+  {
+    "id": 1283,
+    "key": "CON1sc",
+    "fgui": "xp0b9yqdglrj20-n4_glrj",
+    "en": "Delete",
+    "cn": "删除",
+    "tw": "删除"
+  },
+  {
+    "id": 1284,
+    "key": "CON1qx",
+    "fgui": "",
+    "en": "Cancel",
+    "cn": "取消",
+    "tw": "取消"
+  },
+  {
+    "id": 1285,
+    "key": "CON1qc",
+    "fgui": "xp0b9yqdglrj1x-n4_glrj",
+    "en": "Clear",
+    "cn": "清除",
+    "tw": "清除"
+  },
+  {
+    "id": 1286,
+    "key": "CON1qb",
+    "fgui": "",
+    "en": "All",
+    "cn": "全部",
+    "tw": "全部"
+  },
+  {
+    "id": 1287,
+    "key": "CON1xyy01",
+    "fgui": "",
+    "en": "Next",
+    "cn": "下一页",
+    "tw": "下一頁"
+  },
+  {
+    "id": 1288,
+    "key": "CON1syy01",
+    "fgui": "",
+    "en": "Previous",
+    "cn": "上一页",
+    "tw": "上一頁"
+  },
+  {
+    "id": 1290,
+    "key": "CON1xzdrq",
+    "fgui": "",
+    "en": "Selected Date & Time: {0}",
+    "cn": "选择的日期: {0}",
+    "tw": "選擇的日期: {0}"
+  },
+  {
+    "id": 1291,
+    "key": "CON1xzsj",
+    "fgui": "",
+    "en": "Select Time",
+    "cn": "选择时间",
+    "tw": "選擇時間"
+  },
+  {
+    "id": 1292,
+    "key": "CON1xs",
+    "fgui": "",
+    "en": "Hour:",
+    "cn": "小时:",
+    "tw": "小時: "
+  },
+  {
+    "id": 1293,
+    "key": "CON1fz",
+    "fgui": "",
+    "en": "Minute:",
+    "cn": "分钟:",
+    "tw": "分鐘:"
+  },
+  {
+    "id": 1294,
+    "key": "CON1xqr",
+    "fgui": "",
+    "en": "Sun",
+    "cn": "日",
+    "tw": "日"
+  },
+  {
+    "id": 1295,
+    "key": "CON1xqy",
+    "fgui": "",
+    "en": "Mon",
+    "cn": "一",
+    "tw": "一"
+  },
+  {
+    "id": 1296,
+    "key": "CON1xqe",
+    "fgui": "",
+    "en": "Tue",
+    "cn": "二",
+    "tw": "二"
+  },
+  {
+    "id": 1297,
+    "key": "CON1xqsh",
+    "fgui": "",
+    "en": "Wed",
+    "cn": "三",
+    "tw": "三"
+  },
+  {
+    "id": 1298,
+    "key": "CON1xqs",
+    "fgui": "",
+    "en": "Thu",
+    "cn": "四",
+    "tw": "四"
+  },
+  {
+    "id": 1299,
+    "key": "CON1xqw",
+    "fgui": "",
+    "en": "Fri",
+    "cn": "五",
+    "tw": "五"
+  },
+  {
+    "id": 1300,
+    "key": "CON1xql",
+    "fgui": "",
+    "en": "Sat",
+    "cn": "六",
+    "tw": "六"
+  },
+  {
+    "id": 1301,
+    "key": "_CON1month1",
+    "fgui": "",
+    "en": "Jan.",
+    "cn": "一月",
+    "tw": "一月"
+  },
+  {
+    "id": 1302,
+    "key": "_CON1month2",
+    "fgui": "",
+    "en": "Feb.",
+    "cn": "二月",
+    "tw": "二月"
+  },
+  {
+    "id": 1303,
+    "key": "_CON1month3",
+    "fgui": "",
+    "en": "Mar.",
+    "cn": "三月",
+    "tw": "三月"
+  },
+  {
+    "id": 1304,
+    "key": "_CON1month4",
+    "fgui": "",
+    "en": "Apr.",
+    "cn": "四月",
+    "tw": "四月"
+  },
+  {
+    "id": 1305,
+    "key": "_CON1month5",
+    "fgui": "",
+    "en": "May.",
+    "cn": "五月",
+    "tw": "五月"
+  },
+  {
+    "id": 1306,
+    "key": "_CON1month6",
+    "fgui": "",
+    "en": "Jun.",
+    "cn": "六月",
+    "tw": "六月"
+  },
+  {
+    "id": 1307,
+    "key": "_CON1month7",
+    "fgui": "",
+    "en": "Jul.",
+    "cn": "七月",
+    "tw": "七月"
+  },
+  {
+    "id": 1308,
+    "key": "_CON1month8",
+    "fgui": "",
+    "en": "Aug.",
+    "cn": "八月",
+    "tw": "八月"
+  },
+  {
+    "id": 1309,
+    "key": "_CON1month9",
+    "fgui": "",
+    "en": "Sept.",
+    "cn": "九月",
+    "tw": "九月"
+  },
+  {
+    "id": 1310,
+    "key": "_CON1month10",
+    "fgui": "",
+    "en": "Oct.",
+    "cn": "十月",
+    "tw": "十月"
+  },
+  {
+    "id": 1311,
+    "key": "_CON1month11",
+    "fgui": "",
+    "en": "Nov.",
+    "cn": "十一月",
+    "tw": "十一月"
+  },
+  {
+    "id": 1312,
+    "key": "_CON1month12",
+    "fgui": "",
+    "en": "Dec.",
+    "cn": "十二月",
+    "tw": "十二月"
+  },
+  {
+    "id": 1314,
+    "key": "CON1bjyy",
+    "fgui": "",
+    "en": "Music:",
+    "cn": "背景音乐:",
+    "tw": "背景音樂:"
+  },
+  {
+    "id": 1315,
+    "key": "CON1yx",
+    "fgui": "",
+    "en": "Sound:",
+    "cn": "音效:",
+    "tw": "音效:"
+  },
+  {
+    "id": 1317,
+    "key": "_CON1tbbl",
+    "fgui": "",
+    "en": "Coin In Scale",
+    "cn": "投币比例",
+    "tw": "投幣比例"
+  },
+  {
+    "id": 1318,
+    "key": "_CON1sxfbl",
+    "fgui": "",
+    "en": "Score Scale",
+    "cn": "ASBX比例",
+    "tw": "ASBX比例"
+  },
+  {
+    "id": 1319,
+    "key": "_CON1sxfdabl",
+    "fgui": "",
+    "en": "Score Short Click Scale",
+    "cn": "ASBX短按比例",
+    "tw": "ASBX短按比例(次:分):"
+  },
+  {
+    "id": 1320,
+    "key": "_CON1sfcabl",
+    "fgui": "",
+    "en": "Score Up Long Click Scale",
+    "cn": "AS长按比例",
+    "tw": "AS长按比例"
+  },
+  {
+    "id": 1321,
+    "key": "_CON1dycpbl",
+    "fgui": "",
+    "en": "Print Out Scale",
+    "cn": "打印出票比例",
+    "tw": "列印出票比例"
+  },
+  {
+    "id": 1322,
+    "key": "_CON1rcbl",
+    "fgui": "",
+    "en": "Bill In Scale",
+    "cn": "入钞比例",
+    "tw": "入鈔比例"
+  },
+  {
+    "id": 1323,
+    "key": "_CON1cpbl",
+    "fgui": "",
+    "en": "Ticket Out Scale",
+    "cn": "出票比例",
+    "tw": "出票比例"
+  },
+  {
+    "id": 1324,
+    "key": "_CON1b",
+    "fgui": "",
+    "en": "Coin",
+    "cn": "币",
+    "tw": "幣"
+  },
+  {
+    "id": 1325,
+    "key": "_CON1f",
+    "fgui": "",
+    "en": "Credit",
+    "cn": "分",
+    "tw": "分"
+  },
+  {
+    "id": 1326,
+    "key": "_CON1c",
+    "fgui": "",
+    "en": "Time",
+    "cn": "次",
+    "tw": "次"
+  },
+  {
+    "id": 1327,
+    "key": "_CON1ch",
+    "fgui": "",
+    "en": "Bill",
+    "cn": "钞",
+    "tw": "鈔"
+  },
+  {
+    "id": 1328,
+    "key": "_CON1p",
+    "fgui": "",
+    "en": "Ticket",
+    "cn": "票",
+    "tw": "票"
+  },
+  {
+    "id": 1330,
+    "key": "CON1szmm",
+    "fgui": "",
+    "en": "Set Password",
+    "cn": "设置密码",
+    "tw": "設置密碼"
+  },
+  {
+    "id": 1331,
+    "key": "CON1srxmm",
+    "fgui": "",
+    "en": "input new password:",
+    "cn": "输入新密码:",
+    "tw": "輸入新密碼:"
+  },
+  {
+    "id": 1332,
+    "key": "CON1qexmm",
+    "fgui": "",
+    "en": "confirm new password:",
+    "cn": "确认新密码:",
+    "tw": "確認新密碼:"
+  },
+  {
+    "id": 1334,
+    "key": "_CON1srmm",
+    "fgui": "",
+    "en": "Enter Password",
+    "cn": "输入密码",
+    "tw": "輸入密碼"
+  },
+  {
+    "id": 1335,
+    "key": "_CON1czmmcjgly",
+    "fgui": "",
+    "en": "Reset Password: Admin",
+    "cn": "重置密码: 超级管理员",
+    "tw": "重置密碼: 超級管理員"
+  },
+  {
+    "id": 1336,
+    "key": "_CON1czmmgly",
+    "fgui": "",
+    "en": "Reset Password: Manager",
+    "cn": "重置密码: 管理员",
+    "tw": "重置密碼: 管理員"
+  },
+  {
+    "id": 1337,
+    "key": "_CON1czmmyh",
+    "fgui": "",
+    "en": "Reset Password: Shift",
+    "cn": "重置密码: 用户",
+    "tw": "重置密碼: 用戶"
+  },
+  {
+    "id": 1338,
+    "key": "_CON1srmmcjgly",
+    "fgui": "",
+    "en": "Enter Password: Admin",
+    "cn": "输入密码: 超级管理员",
+    "tw": "輸入密碼: 超級管理員"
+  },
+  {
+    "id": 1339,
+    "key": "_CON1srmmgly",
+    "fgui": "",
+    "en": "Enter Password: Manager",
+    "cn": "输入密码: 管理员",
+    "tw": "輸入密碼: 管理員"
+  },
+  {
+    "id": 1340,
+    "key": "_CON1srmmyh",
+    "fgui": "",
+    "en": "Enter Password: Shift",
+    "cn": "输入密码: 用户",
+    "tw": "輸入密碼: 用戶"
+  },
+  {
+    "id": 1341,
+    "key": "_CON1srmmcjgly2",
+    "fgui": "",
+    "en": "Enter Password: Manager/Admin",
+    "cn": "输入密码: 管理员/超级管理员",
+    "tw": "輸入密碼: 管理員/超級管理員"
+  },
+  {
+    "id": 1342,
+    "key": "_CON1srmmyhglycjgly",
+    "fgui": "",
+    "en": "Enter Password: Shift/Manager/Admin",
+    "cn": "输入密码: 用户/管理员/超级管理员",
+    "tw": "輸入密碼: 用戶/管理員/超級管理員"
+  },
+  {
+    "id": 1343,
+    "key": "_CON1szyz",
+    "fgui": "",
+    "en": "Set Bet",
+    "cn": "设置押注",
+    "tw": "設定壓注"
+  },
+  {
+    "id": 1344,
+    "key": "_CON1jzzdz",
+    "fgui": "",
+    "en": "Jackpot Grand Max Value",
+    "cn": "巨奖最大值",
+    "tw": "巨獎最大值"
+  },
+  {
+    "id": 1345,
+    "key": "_CON1jzzxz",
+    "fgui": "",
+    "en": "Jackpot Grand Min Value",
+    "cn": "巨奖最小值",
+    "tw": "巨獎最小值"
+  },
+  {
+    "id": 1346,
+    "key": "_CON1tjzdz",
+    "fgui": "",
+    "en": "Jackpot Major Max Value",
+    "cn": "头奖最大值",
+    "tw": "頭獎最大值"
+  },
+  {
+    "id": 1347,
+    "key": "_CON1tjzxz",
+    "fgui": "",
+    "en": "Jackpot Major Min Value",
+    "cn": "头奖最小值",
+    "tw": "頭獎最小值"
+  },
+  {
+    "id": 1348,
+    "key": "_CON1djzdz",
+    "fgui": "",
+    "en": "Jackpot Minor Max Value",
+    "cn": "大奖最大值",
+    "tw": "大獎最大值"
+  },
+  {
+    "id": 1349,
+    "key": "_CON1djzxz",
+    "fgui": "",
+    "en": "Jackpot Minor Min Value",
+    "cn": "大奖最小值",
+    "tw": "大獎最小值"
+  },
+  {
+    "id": 1350,
+    "key": "_CON1xjzdz",
+    "fgui": "",
+    "en": "Jackpot Mini Max Value",
+    "cn": "小奖最大值",
+    "tw": "小獎最大值"
+  },
+  {
+    "id": 1351,
+    "key": "_CON1zjzxz",
+    "fgui": "",
+    "en": "Jackpot Mini Min Value",
+    "cn": "小奖最小值",
+    "tw": "小獎最小值"
+  },
+  {
+    "id": 1352,
+    "key": "_CON1zdttbjlcs",
+    "fgui": "",
+    "en": "Max Coin In Out Record",
+    "cn": "投退币记录最大次数",
+    "tw": "投退幣記錄最大次數"
+  },
+  {
+    "id": 1353,
+    "key": "_CON1zdyxjlcs",
+    "fgui": "",
+    "en": "Max Game Record",
+    "cn": "游戏记录最大次数",
+    "tw": "遊戲記錄最大次數"
+  },
+  {
+    "id": 1354,
+    "key": "_CON1zdjgijl",
+    "fgui": "",
+    "en": "Max Warning Record",
+    "cn": "警告记录最大次数",
+    "tw": "警告記錄最大次數"
+  },
+  {
+    "id": 1355,
+    "key": "_CON1zdsjjl",
+    "fgui": "",
+    "en": "Max Event Record",
+    "cn": "消息记录最大次数",
+    "tw": "消息記錄最大次數"
+  },
+  {
+    "id": 1356,
+    "key": "_CON1rystjjl",
+    "fgui": "",
+    "en": "Max Business Day Record",
+    "cn": "日营收统计记录最大次数",
+    "tw": "日營收統計記錄最大次數："
+  },
+  {
+    "id": 1357,
+    "key": "_CON1srmm",
+    "fgui": "",
+    "en": "Enter the password",
+    "cn": "输入密码",
+    "tw": "輸入密碼"
+  },
+  {
+    "id": 1358,
+    "key": "_CON1qemm",
+    "fgui": "",
+    "en": "Confirm the password",
+    "cn": "确认密码",
+    "tw": "確認密碼"
+  },
+  {
+    "id": 1359,
+    "key": "_CON1srsz",
+    "fgui": "",
+    "en": "Input Custom Value",
+    "cn": "输入数值",
+    "tw": "輸入數值"
+  },
+  {
+    "id": 1360,
+    "key": "_CON1dlsxh01",
+    "fgui": "",
+    "en": "Agent ID",
+    "cn": "代理商线号",
+    "tw": "代理商線號"
+  },
+  {
+    "id": 1361,
+    "key": "_CON1sbwyxlh01",
+    "fgui": "",
+    "en": "Machine ID",
+    "cn": "设备唯一序列号",
+    "tw": "設備唯一序號:"
+  },
+  {
+    "id": 1362,
+    "key": "_CON1bxswsz",
+    "fgui": "",
+    "en": "The {0} must be {1} digits long",
+    "cn": "‘{0}’必须是 {1} 位数字",
+    "tw": "‘{0}’必須是 {1} 比特數位"
+  },
+  {
+    "id": 1363,
+    "key": "_CON1qssrddlsxh",
+    "fgui": "",
+    "en": "Please enter Agent ID first",
+    "cn": "请先输入‘代理商线号’",
+    "tw": "請先輸入‘代理商線號’"
+  },
+  {
+    "id": 1364,
+    "key": "_CON1qxsrsbwyxh",
+    "fgui": "",
+    "en": "Please enter Machine ID first",
+    "cn": "请先输入‘设备唯一序列号’",
+    "tw": "請先輸入‘設備唯一序號’"
+  },
+  {
+    "id": 1365,
+    "key": "_CON1iuiouiouiou",
+    "fgui": "",
+    "en": "Machine ID must start with Agent ID",
+    "cn": "‘设备唯一序列号’前4位数字必须是‘代理商线号’",
+    "tw": "‘設備唯一序號’前4比特數位必須是‘代理商線號’"
+  },
+  {
+    "id": 1367,
+    "key": "CON1sysj",
+    "fgui": "",
+    "en": "remaining time: {0} days; {1} hours; {2} minute;",
+    "cn": "剩余时间: {0} 天  {1} 小时  {2} 分钟",
+    "tw": "剩餘時間: {0}天  {1}小時  {2}分鐘"
+  },
+  {
+    "id": 1368,
+    "key": "CON1dm01",
+    "fgui": "",
+    "en": "Activate Code",
+    "cn": "激活报码",
+    "tw": "啟動報碼"
+  },
+  {
+    "id": 1370,
+    "key": "_CON1hktp",
+    "fgui": "",
+    "en": "iot_coin_out",
+    "cn": "好酷退票",
+    "tw": "好酷退票"
+  },
+  {
+    "id": 1371,
+    "key": "_CON1hktb",
+    "fgui": "",
+    "en": "iot_coin_in",
+    "cn": "好酷投币",
+    "tw": "好酷投幣"
+  },
+  {
+    "id": 1372,
+    "key": "_CON1tb",
+    "fgui": "",
+    "en": "coin_in",
+    "cn": "投币",
+    "tw": "投幣"
+  },
+  {
+    "id": 1373,
+    "key": "_CON1tp",
+    "fgui": "",
+    "en": "coin_out",
+    "cn": "退票",
+    "tw": "退票"
+  },
+  {
+    "id": 1374,
+    "key": "_CON1dy",
+    "fgui": "",
+    "en": "printer_out",
+    "cn": "打印",
+    "tw": "列印"
+  },
+  {
+    "id": 1375,
+    "key": "_CON1rc",
+    "fgui": "",
+    "en": "bill_in",
+    "cn": "入钞",
+    "tw": "入鈔"
+  },
+  {
+    "id": 1376,
+    "key": "_CON1sf",
+    "fgui": "",
+    "en": "score_up",
+    "cn": "AS",
+    "tw": "AS"
+  },
+  {
+    "id": 1377,
+    "key": "_CON1xf",
+    "fgui": "",
+    "en": "score_down",
+    "cn": "BX",
+    "tw": "BX"
+  },
+  {
+    "id": 1378,
+    "key": "_CON1qxewmsf",
+    "fgui": "",
+    "en": "money_box_qrcode_in",
+    "cn": "扫描二维码AS",
+    "tw": "掃描二維碼AS"
+  },
+  {
+    "id": 1379,
+    "key": "_CON1qxewmxf",
+    "fgui": "",
+    "en": "money_box_qrcode_out",
+    "cn": "打印二维码BX",
+    "tw": "列印二維碼BX"
+  },
+  {
+    "id": 1380,
+    "key": "_CON1sasdyxf",
+    "fgui": "",
+    "en": "sas_ticket_out",
+    "cn": "sas打印BX",
+    "tw": "sas列印BX"
+  },
+  {
+    "id": 1381,
+    "key": "_CON1sasjpsf",
+    "fgui": "",
+    "en": "sas_ticket_in",
+    "cn": "sas进票AS",
+    "tw": "sas進票AS"
+  },
+  {
+    "id": 1382,
+    "key": "_CON1t01",
+    "fgui": "",
+    "en": "In",
+    "cn": "投",
+    "tw": "投"
+  },
+  {
+    "id": 1383,
+    "key": "_CON1t02",
+    "fgui": "",
+    "en": "Out",
+    "cn": "退",
+    "tw": "退"
+  },
+  {
+    "id": 1384,
+    "key": "",
+    "fgui": "",
+    "en": "弹窗-修改密码",
+    "cn": "",
+    "tw": ""
+  },
+  {
+    "id": 1385,
+    "key": "_CON1mmbxs",
+    "fgui": "",
+    "en": "The password must be {0} digits long",
+    "cn": "密码必须是{0}位数",
+    "tw": "密碼必須是{0}位數"
+  },
+  {
+    "id": 1386,
+    "key": "_CON1mmcdbx",
+    "fgui": "",
+    "en": "The password length must be at least {0} characters and no more than {1} characters",
+    "cn": "密码长度必须至少为{0}个字符，不超过{1}个字符",
+    "tw": "密碼長度必須至少{0}個字符，不超過{1}個字符"
+  },
+  {
+    "id": 1388,
+    "key": "_CON1srzbyxdy",
+    "fgui": "",
+    "en": "The input value {0} cannot be greater than maximum value {1}",
+    "cn": "输入值{0}不允许大于最大值{1}",
+    "tw": "输入值{0}不允許大於最大值{1}"
+  },
+  {
+    "id": 1389,
+    "key": "_CON1srzbyxxy",
+    "fgui": "",
+    "en": "The input value {0} cannot be below the minimum value {1}",
+    "cn": "输入值{0}不允许小于最小值{1}",
+    "tw": "输入值{0}不允許小於最小值{1}"
+  },
+  {
+    "id": 1390,
+    "key": "_CON1bxzzj",
+    "fgui": "",
+    "en": "The {0} must be between {1} and {2}",
+    "cn": "“{0}”必须在{1}和{2}这间",
+    "tw": "“{0}”必須在{1}和{2}這間"
+  },
+  {
+    "id": 1391,
+    "key": "_CON1srzbxssz",
+    "fgui": "",
+    "en": "The input value must be a number",
+    "cn": "输入值必须是数字",
+    "tw": "輸入值必須是數位"
+  },
+  {
+    "id": 1392,
+    "key": "_CON1bnwk",
+    "fgui": "",
+    "en": "The {0} cannot be empty",
+    "cn": "“{0}”不能为空",
+    "tw": "“{0}”不能為空"
+  },
+  {
+    "id": 1393,
+    "key": "_CON1qsr",
+    "fgui": "",
+    "en": "Please enter {0}",
+    "cn": "请输入“{0}”",
+    "tw": "請輸入“{0}”"
+  },
+  {
+    "id": 1394,
+    "key": "_CON1dmbncg",
+    "fgui": "",
+    "en": "Code cannot exceed 12 characters",
+    "cn": "长度不能超过12位数",
+    "tw": "長度不能超過12位數"
+  },
+  {
+    "id": 1395,
+    "key": "_CON1yzfsbx",
+    "fgui": "",
+    "en": "The bet value must be between {0} and {1}",
+    "cn": "押注分数必须在{0}和{1}这间",
+    "tw": "壓注分數必須在{0}和{1}這間"
+  },
+  {
+    "id": 1396,
+    "key": "_CON1qsrndx",
+    "fgui": "",
+    "en": "Please enter your new password first",
+    "cn": "请先输入您的新密码",
+    "tw": "請先輸入您的新密碼"
+  },
+  {
+    "id": 1397,
+    "key": "_CON1qzcsr",
+    "fgui": "",
+    "en": "Please enter your password confirmation",
+    "cn": "请再次输入密码以确认",
+    "tw": "請再次輸入密碼以確認"
+  },
+  {
+    "id": 1398,
+    "key": "_CON1lcsrd",
+    "fgui": "",
+    "en": "The passwords entered twice are not the same",
+    "cn": "两次输入的密码不相同",
+    "tw": "兩次輸入的密碼不相同"
+  },
+  {
+    "id": 1399,
+    "key": "_CON1dmjhcg",
+    "fgui": "",
+    "en": "Coding activation successful",
+    "cn": "激活成功",
+    "tw": "激活成功"
+  },
+  {
+    "id": 1400,
+    "key": "_CON1dmjhsb",
+    "fgui": "",
+    "en": "Coding activation failed",
+    "cn": "激活失败",
+    "tw": "激活成功失敗"
+  },
+  {
+    "id": 1402,
+    "key": "_CON1qqcs",
+    "fgui": "",
+    "en": "Request is overtime",
+    "cn": "请求超时",
+    "tw": "請求超時"
+  },
+  {
+    "id": 1403,
+    "key": "_CON1cfqq",
+    "fgui": "",
+    "en": "Request is repeated",
+    "cn": "重复请求",
+    "tw": "重複請求"
+  },
+  {
+    "id": 1404,
+    "key": "_CON1qqcs1",
+    "fgui": "",
+    "en": "Request is overtime: [{0}]",
+    "cn": "请求超时: [{0}]",
+    "tw": "請求超時: [{0}]"
+  },
+  {
+    "id": 1405,
+    "key": "_CON1qqsb",
+    "fgui": "",
+    "en": "Request failed: [{0}]",
+    "cn": "请求失败: [{0}]",
+    "tw": "請求失敗: [{0}]"
+  },
+  {
+    "id": 1407,
+    "key": "_CON1mmcw",
+    "fgui": "",
+    "en": "Error Password",
+    "cn": "密码错误",
+    "tw": "密碼錯誤"
+  },
+  {
+    "id": 1408,
+    "key": "_CON1dyjwlj",
+    "fgui": "",
+    "en": "<size=24>Printer not connected</size>",
+    "cn": "<size=24>打印机未连接</size>",
+    "tw": "<size=24>打印機未連接</size>"
+  },
+  {
+    "id": 1409,
+    "key": "CANNOT_COIN_OUT_DURING_THE_GAME_PERIOD",
+    "fgui": "",
+    "en": "<size=24>Cannot coin out during the game period</size>",
+    "cn": "<size=24>游戏中，不允许退票</size>",
+    "tw": "<size=24>遊戲中，不允許退票</size>"
+  },
+  {
+    "id": 1410,
+    "key": "_CON1yxzbyxxf",
+    "fgui": "",
+    "en": "Cannot score down during the game period",
+    "cn": "游戏中，不允许BX",
+    "tw": "遊戲中，不允許BX"
+  },
+  {
+    "id": 1411,
+    "key": "_CON1qjh",
+    "fgui": "",
+    "en": "<size=24>Please activate : {0}</size>",
+    "cn": "<size=24>请激活: {0}</size>",
+    "tw": "<size=24>請激活： {0}</size>"
+  },
+  {
+    "id": 1412,
+    "key": "_CON1tpcs",
+    "fgui": "",
+    "en": "<size=24>Ticket out outtime</size>",
+    "cn": "<size=24>退票超时</size>",
+    "tw": "<size=24>退票超時</size>"
+  },
+  {
+    "id": 1413,
+    "key": "_CON1pyyw",
+    "fgui": "",
+    "en": "<size=24>The tickets for the machine have been used up,Please contact the administrator</size>",
+    "cn": "<size=24>票已用完，请联系管理员</size>",
+    "tw": "<size=24>票已用完，請聯系管理員</size>"
+  },
+  {
+    "id": 1414,
+    "key": "_CON1yxqjwfcz",
+    "fgui": "",
+    "en": "<size=26>Cannot recharge during the game period</size>",
+    "cn": "<size=24>游戏期间无法充值</size>",
+    "tw": "<size=24>遊戲期間無法充值</size>"
+  },
+  {
+    "id": 1415,
+    "key": "_CON1dyjqz",
+    "fgui": "",
+    "en": "<size=24>Printer out of paper</size>",
+    "cn": "<size=24>打印机缺纸</size>",
+    "tw": "<size=24>打印機缺紙</size>"
+  },
+  {
+    "id": 1416,
+    "key": "_CON1yxzbndy",
+    "fgui": "",
+    "en": "<size=24>Cannot print out during the game period</size>",
+    "cn": "<size=24>游戏中不能打印</size>",
+    "tw": "<size=24>遊戲中不能列印</size>"
+  },
+  {
+    "id": 1417,
+    "key": "_CON1dyjwcsh",
+    "fgui": "",
+    "en": "<size=24>Printer is not init</size>",
+    "cn": "<size=24>打印机未初始化</size>",
+    "tw": "<size=24>打印機未初始化</size>"
+  },
+  {
+    "id": 1418,
+    "key": "_CON1yxqjbyxdkht",
+    "fgui": "",
+    "en": "<size=26>Cannot open console during the game period</size>",
+    "cn": "<size=24>游戏期间，不允许打开后台</size>",
+    "tw": "<size=24>遊戲期間，不允許打開後臺</size>"
+  },
+  {
+    "id": 1419,
+    "key": "_CON1bccg",
+    "fgui": "",
+    "en": "Successfully saved",
+    "cn": "保存成功",
+    "tw": "保存成功"
+  },
+  {
+    "id": 1420,
+    "key": "_CON1bcsb",
+    "fgui": "",
+    "en": "Save failed",
+    "cn": "保存失败",
+    "tw": "保存失敗"
+  },
+  {
+    "id": 1421,
+    "key": "_CON1bcsbqxql",
+    "fgui": "",
+    "en": "Save failed, clear first with a reset code.",
+    "cn": "保存失败，请先打清零码。",
+    "tw": "保存失敗，請先打清零碼。"
+  },
+  {
+    "id": 1422,
+    "key": "_CON1ztjzjyxsj",
+    "fgui": "",
+    "en": "[Note]: Only retain the most recent {0} business day data.",
+    "cn": "[注意]: 只保留最近的{0}次日营收数据。",
+    "tw": "[注意]：只保留最近的{0}次日營收數據。"
+  },
+  {
+    "id": 1423,
+    "key": "_CON1ztjzjttbsj",
+    "fgui": "",
+    "en": "[Note]: Only retain the most recent {0} In-Out data.",
+    "cn": "[注意]: 只保留最近的{0}次投退币数据。",
+    "tw": "[注意]：只保留最近的{0}次投退幣數據。"
+  },
+  {
+    "id": 1424,
+    "key": "_CON1jjjrszjm",
+    "fgui": "",
+    "en": "<color=#68FFD6>[Note]:</color> We are about to enter the settings page.",
+    "cn": "<color=#68FFD6>[温馨提示]:</color> 即将进入设置页面。",
+    "tw": "<color=#68FFD6>[溫馨提示]:</color> 即將進入設定頁面。"
+  },
+  {
+    "id": 1425,
+    "key": "_CON1jjjrszjm02",
+    "fgui": "",
+    "en": "<color=red>[Note]: We are about to enter the settings page.</color>",
+    "cn": "<color=red>[温馨提示]: 即将进入设置页面。</color>",
+    "tw": "<color=red>[溫馨提示]: 即將進入設定頁面。</color>"
+  },
+  {
+    "id": 1426,
+    "key": "_CON1hkljsb",
+    "fgui": "",
+    "en": "IOT connection failed [{0}]",
+    "cn": "好酷连接失败 [{0}]",
+    "tw": "好酷連接失敗 [{0}]"
+  },
+  {
+    "id": 1427,
+    "key": "_CON1hktpcs",
+    "fgui": "",
+    "en": "IOT refund timeout",
+    "cn": "好酷退票超时",
+    "tw": "好酷退票超時"
+  },
+  {
+    "id": 1428,
+    "key": "_CON1hktpsb",
+    "fgui": "",
+    "en": "IOT refund failed [{0}]",
+    "cn": "好酷退票失败 [{0}]",
+    "tw": "好酷退票失敗 [{0}]"
+  },
+  {
+    "id": 1429,
+    "key": "_CON1dyjszcg",
+    "fgui": "",
+    "en": "Printer setup successful",
+    "cn": "打印机设置成功",
+    "tw": "打印機設定成功"
+  },
+  {
+    "id": 1430,
+    "key": "_CON1dyjszsb",
+    "fgui": "",
+    "en": "Printer setup failed",
+    "cn": "打印机设置失败",
+    "tw": "打印機設定失敗"
+  },
+  {
+    "id": 1431,
+    "key": "_CON1zcjszcg",
+    "fgui": "",
+    "en": "Biller setup successful",
+    "cn": "纸钞机设置成功",
+    "tw": "紙鈔機設定成功"
+  },
+  {
+    "id": 1432,
+    "key": "_CON1zcgsesb",
+    "fgui": "",
+    "en": "Biller setup failed",
+    "cn": "纸钞机设置失败",
+    "tw": "紙鈔機設定失敗"
+  },
+  {
+    "id": 1433,
+    "key": "_CON1zhmmxgsb",
+    "fgui": "",
+    "en": "Account password successfully changed",
+    "cn": "账号密码修改成功",
+    "tw": "帳號密碼修改成功"
+  },
+  {
+    "id": 1434,
+    "key": "_CON1zhmmxgcg",
+    "fgui": "",
+    "en": "Account password modification failed",
+    "cn": "账号密码修改失败",
+    "tw": "账号密码修改失敗"
+  },
+  {
+    "id": 1435,
+    "key": "_CON1mykqdyjgn",
+    "fgui": "",
+    "en": "Printer function not enabled.",
+    "cn": "没有开启打印机功能",
+    "tw": "沒有開啟打印機功能"
+  },
+  {
+    "id": 1436,
+    "key": "_CON1mykqzcjgn",
+    "fgui": "",
+    "en": "Biller function not enabled.",
+    "cn": "没有开启纸钞机功能",
+    "tw": "沒有開啟紙鈔機功能"
+  },
+  {
+    "id": 1437,
+    "key": "_CON1dyjmlj",
+    "fgui": "",
+    "en": "Printer not linked.",
+    "cn": "打印机没有连接",
+    "tw": "打印機沒有連結"
+  },
+  {
+    "id": 1438,
+    "key": "_CON1zcjmlj",
+    "fgui": "",
+    "en": "Biller not linked.",
+    "cn": "纸钞机没有连接",
+    "tw": "紙鈔機沒有連結"
+  },
+  {
+    "id": 1439,
+    "key": "_CON1yzlbxxbzc",
+    "fgui": "",
+    "en": "The betting list option does not support closing all options.",
+    "cn": "押注列表选项不支持全部关闭。",
+    "tw": "押注清單選項不支持全部關閉。"
+  },
+  {
+    "id": 1441,
+    "key": "_CON1syewmcz",
+    "fgui": "",
+    "en": "Using this OR Bank Code, you can add {0} points to your current account. Do you want to continue?",
+    "cn": "您即将通过二维码为账号充值 {0} 游戏积分，确认充值吗？",
+    "tw": "您即將通過二維碼為帳號充值 {0} 遊戲積分，確認充值嗎？"
+  },
+  {
+    "id": 1442,
+    "key": "_CON1ewmwx",
+    "fgui": "",
+    "en": "The QR code is invalid. Please check and try again.",
+    "cn": "该二维码无效，请检查后重试。",
+    "tw": "該二維碼無效，請檢查後重試。"
+  },
+  {
+    "id": 1443,
+    "key": "_CON1ewmczcg",
+    "fgui": "",
+    "en": "QR code recharge {0} game credits completed.",
+    "cn": "二维码充值 {0} 游戏积分已完成。",
+    "tw": "二維碼充值 {0} 遊戲積分已完成。"
+  },
+  {
+    "id": 1444,
+    "key": "_CON1qxgbjczjf",
+    "fgui": "",
+    "en": "Money Box recharge {0} game credits completed.",
+    "cn": "钱箱给本机充值 {0} 游戏积分已完成。",
+    "tw": "錢箱給本機充值 {0} 遊戲積分已完成。"
+  },
+  {
+    "id": 1445,
+    "key": "CON1jfdh",
+    "fgui": "",
+    "en": "Redeem",
+    "cn": "积分兑换",
+    "tw": "積分兌換"
+  },
+  {
+    "id": 1446,
+    "key": "CON1wdjf",
+    "fgui": "",
+    "en": "My Credit:",
+    "cn": "我的积分:",
+    "tw": "我的積分:"
+  },
+  {
+    "id": 1447,
+    "key": "CON1dhbl",
+    "fgui": "",
+    "en": "Redeem Rate(Coin : Bill):",
+    "cn": "兑换比例(币:钞):",
+    "tw": "兌換比例(幣:鈔):"
+  },
+  {
+    "id": 1448,
+    "key": "_CON1ljqxfwqsb",
+    "fgui": "",
+    "en": "Failed to link to the money box server.",
+    "cn": "无法连接到钱箱服务器。",
+    "tw": "無法連接到錢箱服務器。"
+  },
+  {
+    "id": 1449,
+    "key": "_CON1qxljewmdyj",
+    "fgui": "",
+    "en": "Please link the QR code printer first.",
+    "cn": "请先连接二维码打印机。",
+    "tw": "請先連接二維碼打印機。"
+  },
+  {
+    "id": 1450,
+    "key": "_CON1thyxjf",
+    "fgui": "",
+    "en": "Redeem Game Credits",
+    "cn": "退游戏积分",
+    "tw": "退遊戲積分"
+  },
+  {
+    "id": 1451,
+    "key": "_CON1cpcgyrh",
+    "fgui": "",
+    "en": "Ticket issuance successful, {0} credits have been redeemed.",
+    "cn": "出票成功，已兑换 {0} 积分。",
+    "tw": "出票成功，已兌換{0}積分。"
+  },
+  {
+    "id": 1452,
+    "key": "_CON1cpsb",
+    "fgui": "",
+    "en": "Ticket issuance failed.",
+    "cn": "出票失败。",
+    "tw": "出票失敗。"
+  },
+  {
+    "id": 1453,
+    "key": "_CON1znxgyc",
+    "fgui": "",
+    "en": "You can only modify the Agent ID and Machine ID once. Are you sure you want to modify it?",
+    "cn": "只能修改一次\"代理商线号\"和\"设备唯一序列号\"，确定要修改？",
+    "tw": "只能修改一次\"代理商線號\"和\"設備唯一序號\"，確定要修改？"
+  },
+  {
+    "id": 1454,
+    "key": "_CON1czyxjf",
+    "fgui": "",
+    "en": "recharge {0} game credits completed.",
+    "cn": "充值 {0} 游戏积分已完成。",
+    "tw": "充值 {0} 遊戲積分已完成。"
+  },
+  {
+    "id": 1455,
+    "key": "_CON1dhyxjf",
+    "fgui": "",
+    "en": "{0} credits have been redeemed.",
+    "cn": "兑换 {0} 游戏积分已完成。",
+    "tw": "兌換 {0} 遊戲積分已完成。"
+  },
+  {
+    "id": 1456,
+    "key": "_CON1jfstpsb",
+    "fgui": "",
+    "en": "Too few game credits, ticket refund failed.",
+    "cn": "游戏积分太少，退票失败。",
+    "tw": "遊戲積分太少，退票失敗。"
+  },
+  {
+    "id": 1457,
+    "key": "CON1cwmcx",
+    "fgui": "",
+    "en": "Error Code Query",
+    "cn": "错误码查询",
+    "tw": "錯誤碼査詢"
+  },
+  {
+    "id": 1458,
+    "key": "",
+    "fgui": "",
+    "en": "调试",
+    "cn": "",
+    "tw": ""
+  },
+  {
+    "id": 1459,
+    "key": "CON1tdpopfp",
+    "fgui": "",
+    "en": "Pause At Popup Free Spin Trigger:",
+    "cn": "暂停免费游戏触发弹窗:",
+    "tw": "暫停免費遊戲觸發彈窗:"
+  },
+  {
+    "id": 1460,
+    "key": "CON1tdpopjg",
+    "fgui": "",
+    "en": "Pause At Popup Jackpot Game:",
+    "cn": "暂停游戏彩金弹窗:",
+    "tw": "暫停遊戲彩金彈窗:"
+  },
+  {
+    "id": 1461,
+    "key": "CON1tdpopjo",
+    "fgui": "",
+    "en": "Pause At Popup Jackpot Online:",
+    "cn": "暂停联网彩金弹窗:",
+    "tw": "暫停聯網彩金彈窗:"
+  }
+]

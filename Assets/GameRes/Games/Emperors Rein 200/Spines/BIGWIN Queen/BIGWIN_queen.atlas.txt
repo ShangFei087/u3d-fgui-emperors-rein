@@ -1,0 +1,209 @@
+
+BIGWIN_queen.png
+size: 1986,938
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1jiao
+  rotate: false
+  xy: 1163, 503
+  size: 198, 433
+  orig: 198, 433
+  offset: 0, 0
+  index: -1
+2jiao
+  rotate: true
+  xy: 165, 158
+  size: 210, 449
+  orig: 210, 449
+  offset: 0, 0
+  index: -1
+bi_shou
+  rotate: true
+  xy: 1665, 165
+  size: 77, 277
+  orig: 79, 279
+  offset: 1, 1
+  index: -1
+bo_zi
+  rotate: true
+  xy: 1806, 83
+  size: 80, 76
+  orig: 80, 76
+  offset: 0, 0
+  index: -1
+guangyun
+  rotate: false
+  xy: 1665, 24
+  size: 139, 139
+  orig: 139, 139
+  offset: 0, 0
+  index: -1
+ho_pifeng_1
+  rotate: false
+  xy: 290, 7
+  size: 521, 149
+  orig: 521, 149
+  offset: 0, 0
+  index: -1
+ho_pifeng_2
+  rotate: false
+  xy: 165, 370
+  size: 996, 566
+  orig: 996, 642
+  offset: 0, 0
+  index: -1
+ho_pifeng_jibi
+  rotate: false
+  xy: 753, 183
+  size: 49, 47
+  orig: 49, 47
+  offset: 0, 0
+  index: -1
+jian
+  rotate: false
+  xy: 2, 158
+  size: 161, 778
+  orig: 175, 778
+  offset: 9, 0
+  index: -1
+jian_2
+  rotate: true
+  xy: 1550, 790
+  size: 146, 110
+  orig: 146, 110
+  offset: 0, 0
+  index: -1
+jin_Ling_1
+  rotate: true
+  xy: 1665, 244
+  size: 38, 43
+  orig: 50, 45
+  offset: 1, 1
+  index: -1
+jin_Ling_2
+  rotate: false
+  xy: 650, 169
+  size: 74, 61
+  orig: 76, 63
+  offset: 1, 1
+  index: -1
+jin_Ling_3
+  rotate: true
+  xy: 1665, 284
+  size: 106, 52
+  orig: 106, 52
+  offset: 0, 0
+  index: -1
+lan_pifeng1
+  rotate: false
+  xy: 813, 12
+  size: 338, 356
+  orig: 339, 356
+  offset: 0, 0
+  index: -1
+lan_pifeng2
+  rotate: true
+  xy: 1665, 590
+  size: 346, 319
+  orig: 346, 319
+  offset: 0, 0
+  index: -1
+shen_ti
+  rotate: false
+  xy: 1153, 14
+  size: 262, 354
+  orig: 262, 354
+  offset: 0, 0
+  index: -1
+shen_ti_lianshi1
+  rotate: false
+  xy: 1363, 592
+  size: 181, 175
+  orig: 181, 175
+  offset: 0, 0
+  index: -1
+shen_ti_lianshi2
+  rotate: false
+  xy: 2, 2
+  size: 286, 154
+  orig: 289, 155
+  offset: 3, 1
+  index: -1
+shen_ti_lianshi3
+  rotate: true
+  xy: 1731, 249
+  size: 339, 218
+  orig: 339, 218
+  offset: 0, 0
+  index: -1
+shen_ti_qun
+  rotate: true
+  xy: 1417, 30
+  size: 352, 246
+  orig: 352, 246
+  offset: 0, 0
+  index: -1
+tou_
+  rotate: true
+  xy: 616, 232
+  size: 136, 194
+  orig: 147, 199
+  offset: 3, 5
+  index: -1
+tou_1shou_0
+  rotate: true
+  xy: 1546, 575
+  size: 192, 114
+  orig: 192, 117
+  offset: 0, 3
+  index: -1
+tou_1shou_1
+  rotate: true
+  xy: 1163, 380
+  size: 121, 84
+  orig: 125, 86
+  offset: 0, 2
+  index: -1
+tou_1shou_2
+  rotate: false
+  xy: 1363, 505
+  size: 147, 83
+  orig: 147, 83
+  offset: 0, 0
+  index: -1
+tou_1shou_3
+  rotate: true
+  xy: 616, 160
+  size: 70, 32
+  orig: 70, 32
+  offset: 0, 0
+  index: -1
+tou_1shoubi_1
+  rotate: false
+  xy: 1550, 392
+  size: 179, 181
+  orig: 179, 181
+  offset: 0, 0
+  index: -1
+tou_2shou_1
+  rotate: false
+  xy: 1249, 384
+  size: 299, 117
+  orig: 299, 118
+  offset: 0, 1
+  index: -1
+tou_2shou_2
+  rotate: true
+  xy: 726, 171
+  size: 59, 25
+  orig: 59, 25
+  offset: 0, 0
+  index: -1
+tou_2shoubi_1
+  rotate: false
+  xy: 1363, 769
+  size: 185, 167
+  orig: 185, 167
+  offset: 0, 0
+  index: -1

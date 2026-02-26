@@ -1,0 +1,37 @@
+{
+  "updated_at": 1770349960847,
+  "data": [
+    {
+      "agent_name": "StandAloneSlotTest",
+      "app": "--",
+      "app_key": "StandAloneSlotTest_debug_machine_20260206115240",
+      "app_version": "1.6.0",
+      "version_suggest": null,
+      "hotfix_url": "./debug/android/1"
+    },
+    {
+      "agent_name": "StandAloneSlotTest",
+      "app": "--",
+      "app_key": "StandAloneSlotTest_debug_machine_20260205094209",
+      "app_version": "1.4.0",
+      "version_suggest": null,
+      "hotfix_url": "./debug/android/1"
+    },
+    {
+      "agent_name": "StandAloneSlotTest",
+      "app": "--",
+      "app_key": "StandAloneSlotTest_debug_machine_20260204194504",
+      "app_version": "1.2.0",
+      "version_suggest": null,
+      "hotfix_url": "./debug/android/1"
+    },
+    {
+      "agent_name": "EmperorsRein200",
+      "app": "测试包",
+      "app_key": "EmperorsRein200_debug_android_20250815170450",
+      "app_version": "1.0.0",
+      "version_suggest": null,
+      "hotfix_url": "./debug/android/1"
+    }
+  ]
+}

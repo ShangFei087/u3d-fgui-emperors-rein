@@ -1,0 +1,41 @@
+{
+
+
+	"code": 0,
+	
+
+	"gameState": 3,
+	
+
+	"lineMark": 31517,
+	
+
+	"num": 0,
+	
+
+	"curRound": 0,
+	
+
+	"maxRound": 0,
+	
+	
+	"lineNum":3,
+
+	"lineData":[
+		{
+			"icon":6,
+			"link":3,
+			"reward":40
+		},
+		{
+			"icon":8,
+			"link":4,
+			"reward":30
+		},
+		{
+			"icon":2,
+			"link":3,
+			"reward":10
+		}
+	]
+}

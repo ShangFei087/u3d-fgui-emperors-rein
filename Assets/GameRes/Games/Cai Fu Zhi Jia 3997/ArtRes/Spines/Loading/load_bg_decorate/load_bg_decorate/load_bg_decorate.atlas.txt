@@ -1,0 +1,12 @@
+load_bg_decorate.png
+size:1201,687
+filter:Linear,Linear
+pma:true
+g0
+bounds:804,1,396,685
+g1
+bounds:1,223,463,802
+rotate:90
+g2
+bounds:1,32,190,655
+rotate:90

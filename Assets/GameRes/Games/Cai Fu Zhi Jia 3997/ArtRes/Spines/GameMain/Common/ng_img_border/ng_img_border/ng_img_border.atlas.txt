@@ -1,0 +1,11 @@
+ng_img_border.png
+size:224,93
+filter:Linear,Linear
+pma:true
+shi1
+bounds:92,6,86,75
+rotate:90
+shi2
+bounds:1,1,90,91
+shi3
+bounds:168,34,55,58

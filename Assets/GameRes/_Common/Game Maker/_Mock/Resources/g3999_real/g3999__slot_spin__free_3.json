@@ -1,0 +1,15 @@
+{
+	"OpenType": 1,
+
+	"ResultType": 1,
+
+	"lineNum": 1,
+
+	"MatrixLength": 15,
+
+	"IDVec": [1303],
+
+	"Matrix": [7,3,5,4,9,
+		3,3,3,11,9,
+		6,7,7,3,9]
+}

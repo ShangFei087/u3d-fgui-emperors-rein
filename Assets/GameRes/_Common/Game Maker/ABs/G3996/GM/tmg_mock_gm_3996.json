@@ -1,0 +1,23 @@
+{
+	"game_id": 3996,
+	"gm_event": {
+		"normal_spin": {
+			"nick_name": "中普通奖",
+			"event_name": "",
+			"value": "",
+			"des": "普通游戏"
+		},
+		"free_spin": {
+			"nick_name": "免费游戏",
+			"event_name": "GMFreeSpin",
+			"value": "",
+			"des": ""
+		},
+		"jackpot_spin"{
+			"nick_name": "彩金游戏",
+			"event_name": "GMJp1",
+			"value": "",
+			"des": ""
+		}
+	}
+}

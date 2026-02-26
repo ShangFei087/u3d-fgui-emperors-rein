@@ -1,0 +1,15 @@
+ng_sym08_feiji.png
+size:184,500
+filter:Linear,Linear
+pma:true
+scale:0.9
+beij
+bounds:2,136,179,175
+offsets:0,0,181,175
+feiji k
+bounds:2,45,161,89
+kuang
+bounds:2,313,180,185
+yun
+bounds:2,2,43,41
+offsets:1,0,45,41

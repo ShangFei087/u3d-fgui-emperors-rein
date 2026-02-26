@@ -1,0 +1,132 @@
+
+ng_sym01_J.png
+size: 1015,196
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+j
+  rotate: true
+  xy: 2, 14
+  size: 180, 244
+  orig: 180, 244
+  offset: 0, 0
+  index: -1
+j_00014
+  rotate: false
+  xy: 2, 11
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+j_00015
+  rotate: false
+  xy: 2, 11
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+j_00016
+  rotate: false
+  xy: 327, 88
+  size: 84, 106
+  orig: 84, 106
+  offset: 0, 0
+  index: -1
+j_00017
+  rotate: false
+  xy: 413, 88
+  size: 84, 106
+  orig: 84, 106
+  offset: 0, 0
+  index: -1
+j_00018
+  rotate: false
+  xy: 499, 88
+  size: 84, 106
+  orig: 84, 106
+  offset: 0, 0
+  index: -1
+j_00019
+  rotate: false
+  xy: 585, 88
+  size: 84, 106
+  orig: 84, 106
+  offset: 0, 0
+  index: -1
+j_00020
+  rotate: false
+  xy: 671, 88
+  size: 84, 106
+  orig: 84, 106
+  offset: 0, 0
+  index: -1
+j_00021
+  rotate: false
+  xy: 757, 88
+  size: 84, 106
+  orig: 84, 106
+  offset: 0, 0
+  index: -1
+j_00022
+  rotate: false
+  xy: 843, 88
+  size: 84, 106
+  orig: 84, 106
+  offset: 0, 0
+  index: -1
+j_00023
+  rotate: false
+  xy: 929, 88
+  size: 84, 106
+  orig: 84, 106
+  offset: 0, 0
+  index: -1
+j_00024
+  rotate: true
+  xy: 327, 2
+  size: 84, 106
+  orig: 84, 106
+  offset: 0, 0
+  index: -1
+j_00025
+  rotate: true
+  xy: 435, 2
+  size: 84, 106
+  orig: 84, 106
+  offset: 0, 0
+  index: -1
+j_00026
+  rotate: true
+  xy: 543, 2
+  size: 84, 106
+  orig: 84, 106
+  offset: 0, 0
+  index: -1
+j_00027
+  rotate: true
+  xy: 651, 2
+  size: 84, 106
+  orig: 84, 106
+  offset: 0, 0
+  index: -1
+j_00028
+  rotate: true
+  xy: 759, 2
+  size: 84, 106
+  orig: 84, 106
+  offset: 0, 0
+  index: -1
+j_00029
+  rotate: true
+  xy: 867, 2
+  size: 84, 106
+  orig: 84, 106
+  offset: 0, 0
+  index: -1
+jin_ye
+  rotate: false
+  xy: 248, 68
+  size: 77, 126
+  orig: 77, 126
+  offset: 0, 0
+  index: -1

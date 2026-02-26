@@ -1,0 +1,16 @@
+ng_bg_cloud.png
+size:1195,355
+filter:Linear,Linear
+pma:true
+scale:0.9
+yun1
+bounds:1045,33,149,77
+yun2
+bounds:808,1,236,109
+yun3
+bounds:492,6,348,315
+rotate:90
+yun4
+bounds:1,16,490,338
+yun5
+bounds:808,111,384,243

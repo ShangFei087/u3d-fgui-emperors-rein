@@ -1,0 +1,153 @@
+
+ng_sym11_purse.png
+size: 818,253
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+di_se
+  rotate: true
+  xy: 271, 8
+  size: 243, 224
+  orig: 243, 224
+  offset: 0, 0
+  index: -1
+jin_bi_1
+  rotate: true
+  xy: 567, 2
+  size: 49, 46
+  orig: 49, 46
+  offset: 0, 0
+  index: -1
+jin_bi_10
+  rotate: false
+  xy: 497, 17
+  size: 68, 34
+  orig: 68, 34
+  offset: 0, 0
+  index: -1
+jin_bi_11
+  rotate: true
+  xy: 693, 198
+  size: 53, 28
+  orig: 53, 28
+  offset: 0, 0
+  index: -1
+jin_bi_2
+  rotate: true
+  xy: 693, 148
+  size: 48, 29
+  orig: 48, 29
+  offset: 0, 0
+  index: -1
+jin_bi_3
+  rotate: false
+  xy: 756, 220
+  size: 55, 31
+  orig: 55, 31
+  offset: 0, 0
+  index: -1
+jin_bi_4
+  rotate: false
+  xy: 615, 12
+  size: 52, 39
+  orig: 52, 39
+  offset: 0, 0
+  index: -1
+jin_bi_5
+  rotate: false
+  xy: 773, 185
+  size: 43, 33
+  orig: 43, 33
+  offset: 0, 0
+  index: -1
+jin_bi_6
+  rotate: false
+  xy: 724, 157
+  size: 47, 35
+  orig: 47, 35
+  offset: 0, 0
+  index: -1
+jin_bi_7
+  rotate: false
+  xy: 770, 56
+  size: 36, 27
+  orig: 36, 27
+  offset: 0, 0
+  index: -1
+jin_bi_8
+  rotate: true
+  xy: 727, 20
+  size: 34, 50
+  orig: 34, 50
+  offset: 0, 0
+  index: -1
+jin_bi_9
+  rotate: false
+  xy: 669, 20
+  size: 56, 31
+  orig: 56, 31
+  offset: 0, 0
+  index: -1
+kuang
+  rotate: false
+  xy: 2, 3
+  size: 267, 248
+  orig: 267, 248
+  offset: 0, 0
+  index: -1
+qian_dai_1
+  rotate: true
+  xy: 497, 53
+  size: 198, 194
+  orig: 198, 194
+  offset: 0, 0
+  index: -1
+shen_suo_1
+  rotate: false
+  xy: 497, 3
+  size: 18, 12
+  orig: 18, 12
+  offset: 0, 0
+  index: -1
+shen_suo_2
+  rotate: true
+  xy: 770, 117
+  size: 38, 41
+  orig: 48, 44
+  offset: 10, 0
+  index: -1
+shen_suo_3
+  rotate: false
+  xy: 727, 194
+  size: 19, 57
+  orig: 31, 57
+  offset: 11, 0
+  index: -1
+shen_suo_4
+  rotate: true
+  xy: 756, 4
+  size: 14, 54
+  orig: 14, 54
+  offset: 0, 0
+  index: -1
+shen_suo_5
+  rotate: true
+  xy: 770, 85
+  size: 30, 37
+  orig: 30, 37
+  offset: 0, 0
+  index: -1
+shen_suo_6
+  rotate: false
+  xy: 669, 2
+  size: 85, 16
+  orig: 85, 16
+  offset: 0, 0
+  index: -1
+shen_suo_yinying
+  rotate: true
+  xy: 693, 56
+  size: 90, 75
+  orig: 90, 76
+  offset: 0, 1
+  index: -1

@@ -1,0 +1,28 @@
+ignore:
+  # 忽略所有文件
+  # - /*  
+  
+  # 忽略.log文件
+  # - .log
+  
+  # 忽略 node_modules 目录
+  # - node_modules/
+  
+  - ./GameRes/Games/Panel001/
+    
+  - ./GameRes/Games/Panel002/
+    
+  - ./GameRes/Games/Panel003/
+  
+  - ./GameRes/Test/
+  
+  
+# 【概要】：
+# /*    : 表示忽略当前目录下的所有文件（不包括子目录）
+# **/*  : 忽略包括子目录及其下所有内容的所有文件
+# .log  : 这种写法只会忽略名为 .log 的文件，而不是忽略所有扩展名为 .log 的文件。 （无论这些文件位于项目的根目录，还是嵌套在各级子目录中。）
+# *.log : 忽略所有 .log 扩展名的文件
+# node_modules/ ：当作一个目录规则来处理。无论 node_modules 处于项目根目录，还是嵌套在多层子目录中，该规则都能起作用，即会递归地忽略所有名为 node_modules 的目录及其内部的全部文件和子目录。
+# **/node_modules/ : 递归匹配各级目录下的 node_modules 目录 （和 node_modules/ 同样的功能）。
+# /node_modules : 只会忽略项目根目录下的 node_modules 目录，而不会忽略子目录中的 node_modules 目录。
+# ./node_modules  : ./ 通常表示当前目录

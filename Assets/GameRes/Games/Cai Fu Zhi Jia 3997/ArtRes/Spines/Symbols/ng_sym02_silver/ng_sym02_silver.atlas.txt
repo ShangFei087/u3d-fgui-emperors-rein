@@ -1,0 +1,10 @@
+ng_sym02_silver.png
+size:216,127
+filter:Linear,Linear
+scale:0.9
+baibang
+bounds:156,47,18,18
+sxx1
+bounds:156,67,58,58
+yinzhuan
+bounds:2,2,152,123

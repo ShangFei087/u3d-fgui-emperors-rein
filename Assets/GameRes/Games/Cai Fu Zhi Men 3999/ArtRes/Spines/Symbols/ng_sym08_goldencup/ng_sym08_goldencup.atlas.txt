@@ -1,0 +1,15 @@
+ng_sym08_goldencup.png
+size:240,194
+filter:Linear,Linear
+pma:true
+scale:0.9
+baibang
+bounds:2,3,18,18
+jinbi6
+bounds:153,62,130,85
+offsets:0,1,131,90
+rotate:90
+kkk
+bounds:2,23,149,169
+sxx1
+bounds:153,2,58,58

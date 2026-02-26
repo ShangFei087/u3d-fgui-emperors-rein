@@ -1,0 +1,32 @@
+{
+	"page_console_main":{
+		"page_name" : "ConsolePageConsoleMain",
+		"nick_name": "管理后台",
+		"des": "",
+		"data":"{\"title\":\"XXX\"}"
+	},
+	"page_console_coin_pusher_main":{
+		"page_name" : "ConsolePusher01PageConsoleMain",
+		"nick_name": "推币机管理后台",
+		"des": "",
+		"data":"{\"title\":\"XXX\"}"
+	},
+	"//page_console_money_box":{
+		"page_name" : "ConsolePopuoConsoleMoneyBoxRedeem",
+		"nick_name": "钱箱下分弹窗",
+		"des": "",
+		"data":"{\"title\":\"XXX\"}"
+	},
+	"//popup_system_common":{
+		"page_name" : "PopupSystemCommon",
+		"nick_name": "通用弹窗",
+		"des": "",
+		"data":"{\"title\":\"XXX\"}"
+	},
+	"//Test_Qr_popup":{
+		"page_name" : "P015PopupQrCoinIn",
+		"nick_name": "【测试】显示二维码界面",
+		"des": "",
+		"data":"{\"title\":\"XXX\"}"
+	}
+}

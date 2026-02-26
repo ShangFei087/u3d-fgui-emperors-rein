@@ -1,0 +1,11 @@
+ng_sym_A.png
+size:177,234
+filter:Linear,Linear
+pma:true
+scale:0.43
+A
+bounds:2,38,173,194
+g0
+bounds:42,18,23,18
+g1
+bounds:2,2,38,34

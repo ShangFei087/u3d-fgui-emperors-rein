@@ -1,0 +1,90 @@
+
+ng_bg0_palace.png
+size: 1984,1996
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bai_yun2
+  rotate: false
+  xy: 1588, 316
+  size: 394, 530
+  orig: 394, 530
+  offset: 0, 0
+  index: -1
+bai_yun3
+  rotate: false
+  xy: 874, 105
+  size: 650, 345
+  orig: 650, 345
+  offset: 0, 0
+  index: -1
+bai_yun4
+  rotate: false
+  xy: 870, 916
+  size: 802, 542
+  orig: 802, 542
+  offset: 0, 0
+  index: -1
+bai_yun5
+  rotate: false
+  xy: 870, 452
+  size: 716, 462
+  orig: 716, 462
+  offset: 0, 0
+  index: -1
+cao_1
+  rotate: false
+  xy: 1526, 5
+  size: 217, 142
+  orig: 217, 142
+  offset: 0, 0
+  index: -1
+di_main
+  rotate: false
+  xy: 2, 309
+  size: 866, 797
+  orig: 866, 797
+  offset: 0, 0
+  index: -1
+fang_zi
+  rotate: false
+  xy: 870, 1460
+  size: 866, 534
+  orig: 866, 534
+  offset: 0, 0
+  index: -1
+hong_qi
+  rotate: false
+  xy: 1526, 149
+  size: 404, 165
+  orig: 404, 165
+  offset: 0, 0
+  index: -1
+qi_1
+  rotate: true
+  xy: 874, 2
+  size: 101, 344
+  orig: 101, 344
+  offset: 0, 0
+  index: -1
+tian_kong
+  rotate: false
+  xy: 2, 1108
+  size: 866, 886
+  orig: 866, 886
+  offset: 0, 0
+  index: -1
+zhu_zi1
+  rotate: true
+  xy: 2, 36
+  size: 271, 870
+  orig: 271, 870
+  offset: 0, 0
+  index: -1
+zhu_zi1.1
+  rotate: false
+  xy: 1738, 848
+  size: 186, 1146
+  orig: 186, 1146
+  offset: 0, 0
+  index: -1

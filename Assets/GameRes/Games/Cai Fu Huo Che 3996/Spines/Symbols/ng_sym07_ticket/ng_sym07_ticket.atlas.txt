@@ -1,0 +1,14 @@
+ng_sym07_ticket.png
+size:169,404
+filter:Linear,Linear
+pma:true
+scale:0.9
+chepiao1
+bounds:1,126,155,129
+chepiao2
+bounds:1,1,129,124
+g0
+bounds:131,77,48,37
+rotate:90
+yinying
+bounds:1,256,162,147

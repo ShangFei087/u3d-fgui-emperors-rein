@@ -1,0 +1,22 @@
+{
+
+	"code": 0,
+	
+	"gameState": 4,
+	
+	"lineMark": 36,
+	
+	"num": 0,
+	
+	"curRound": 4,
+	
+	"maxRound": 6,
+
+	"lineNum":1,
+	
+	"lineData":[{
+			"icon":9,
+			"link":3,
+			"reward":3
+		  	}]
+}

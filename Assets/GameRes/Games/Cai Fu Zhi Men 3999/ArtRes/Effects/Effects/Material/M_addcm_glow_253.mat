@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_addcm_glow_253
+  m_Shader: {fileID: 4800000, guid: 36b65ba1a9d497d43833b27d0e0b7943, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _TINTCOLOR_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ColorMaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FXTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 4e596074fa0f2d14bb5016f9b44ecd5c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex1:
+        m_Texture: {fileID: 2800000, guid: 4e596074fa0f2d14bb5016f9b44ecd5c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Alpha: 1
+    - _AlphaMulti: 1
+    - _BlendMode: 1
+    - _Brightness: 2
+    - _CullMode: 0
+    - _CutOff: 0.5
+    - _DepthOffset: 0
+    - _DestBlend: 10
+    - _DissTex_Wrap: 0
+    - _DissolveTexScreen: 0
+    - _DstBlend: 10
+    - _EdgeWidth: 0
+    - _FRE_X: 4.442736
+    - _FadeFactor: 1
+    - _Level: 1
+    - _MMultiplier: 1.5
+    - _MainTex1_Wrap: 0
+    - _MainTex2_Wrap: 0
+    - _MainTex_Alpha_Pow: 1
+    - _MainTex_Color_Pow: 1
+    - _MainTex_Wrap: 0
+    - _PolygonOffset: 0
+    - _Radius: 0
+    - _Scroll2X: 0
+    - _Scroll2Y: 0
+    - _ScrollX: 0
+    - _ScrollY: 0
+    - _Shining: 1
+    - _Smoothness: 0.2
+    - _SrcBlend: 5
+    - _UseFresnel: 1
+    - _WorldDissolve: 0
+    - _WorldSpaceScale: 0.1
+    - _ZTestMode: 8
+    - _edgeAlpha: 1
+    - _useFresnelMask: 1
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DIF_color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _DissTex_Scroll: {r: 0, g: 0, b: 0, a: 0}
+    - _DissolveDir: {r: 0, g: 1, b: 0, a: 1}
+    - _DlvEdgeColor: {r: 0, g: 0, b: 0, a: 0}
+    - _FRE_color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _MainTex_Color: {r: 1, g: 1, b: 1, a: 1}
+    - _MainTex_Scroll: {r: 0, g: 0, b: 0, a: 0}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _UVXX: {r: 0, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

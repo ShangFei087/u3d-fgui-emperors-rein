@@ -1,0 +1,26 @@
+{
+
+	"code": 0,
+	
+	"gameState": 4,
+	
+	"lineMark": 10,
+	
+	"num": 0,
+	
+	"curRound": 11,
+	
+	"maxRound": 12,
+
+	"lineNum":1,
+
+	"lineData":[{
+		"icon":4,
+		"link":3,
+		"reward":20
+	}],
+	"DeckRowCol":"
+	4,2,3,4,5#
+	2,4,7,1,5#
+	7,7,4,7,5"
+}

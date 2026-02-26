@@ -1,0 +1,762 @@
+[
+  {
+    "id": 1000,
+    "cn": "配置终端",
+    "en": "CONFIGURE TERMINAL"
+  },
+  {
+    "id": 1001,
+    "cn": "配置游戏",
+    "en": "CONFIGURE GAME"
+  },
+  {
+    "id": 1002,
+    "cn": "配置设备",
+    "en": "CONFIGURE DEVICES"
+  },
+  {
+    "id": 1003,
+    "cn": "查看屏幕截图",
+    "en": "SCREENSHOT VIEWER"
+  },
+  {
+    "id": 1004,
+    "cn": "数据报告",
+    "en": "REPORTS"
+  },
+  {
+    "id": 1005,
+    "cn": "返回游戏",
+    "en": "GAME SELECTION"
+  },
+  {
+    "id": 1006,
+    "cn": "超级管理员",
+    "en": "SUPER ADMINISTARTOR"
+  },
+  {
+    "id": 1007,
+    "cn": "密码错误 ...... 请重新输入",
+    "en": "Wrong PIN ...... Try Again"
+  },
+  {
+    "id": 1008,
+    "cn": "请输入密码",
+    "en": "Enter current PIN"
+  },
+  {
+    "id": 1009,
+    "cn": "返回主页",
+    "en": "< Admin"
+  },
+  {
+    "id": 1010,
+    "cn": "返回游戏",
+    "en": "Games >"
+  },
+  {
+    "id": 1011,
+    "cn": "音量调整",
+    "en": "Volume adjustment"
+  },
+  {
+    "id": 1012,
+    "cn": "USB更新",
+    "en": "Updata from USB"
+  },
+  {
+    "id": 1013,
+    "cn": "Web更新",
+    "en": "Updata from Web"
+  },
+  {
+    "id": 1014,
+    "cn": "测试屏幕",
+    "en": "Test Screen"
+  },
+  {
+    "id": 1015,
+    "cn": "设置数据/时间",
+    "en": "Set Data/Time"
+  },
+  {
+    "id": 1016,
+    "cn": "触摸屏",
+    "en": "TouchScreen"
+  },
+  {
+    "id": 1017,
+    "cn": "按键检测",
+    "en": "Key detection"
+  },
+  {
+    "id": 1018,
+    "cn": "测试设备通讯",
+    "en": "Test Devices Communication"
+  },
+  {
+    "id": 1019,
+    "cn": "画面旋转",
+    "en": "Screen rotation"
+  },
+  {
+    "id": 1020,
+    "cn": "修改密码",
+    "en": "Change Password"
+  },
+  {
+    "id": 1021,
+    "cn": "测试触摸屏",
+    "en": "Test TouchScreen"
+  },
+  {
+    "id": 1022,
+    "cn": "通道 #",
+    "en": "Seial #"
+  },
+  {
+    "id": 1023,
+    "cn": "代理商号:",
+    "en": "Agent ID:"
+  },
+  {
+    "id": 1024,
+    "cn": "设备号:",
+    "en": "Devices ID:"
+  },
+  {
+    "id": 1025,
+    "cn": "商家名称",
+    "en": "Business Name"
+  },
+  {
+    "id": 1026,
+    "cn": "终端 #",
+    "en": "Terminal"
+  },
+  {
+    "id": 1027,
+    "cn": "游戏起伏区间模式",
+    "en": "Game Paytables"
+  },
+  {
+    "id": 1028,
+    "cn": "MEGA初始彩金",
+    "en": "MEGA Initial Gold"
+  },
+  {
+    "id": 1029,
+    "cn": "MAJOR初始彩金",
+    "en": "MAJOR Initial Gold"
+  },
+  {
+    "id": 1030,
+    "cn": "MINOR初始彩金",
+    "en": "MINOR Initial Gold"
+  },
+  {
+    "id": 1031,
+    "cn": "MINI初始彩金",
+    "en": "MINI Initial Gold"
+  },
+  {
+    "id": 1032,
+    "cn": "投币比例",
+    "en": "Coin Ratio"
+  },
+  {
+    "id": 1033,
+    "cn": "面额:",
+    "en": "Cash:"
+  },
+  {
+    "id": 1034,
+    "cn": "切换游戏",
+    "en": "Switch Games"
+  },
+  {
+    "id": 1035,
+    "cn": "保存",
+    "en": "Save"
+  },
+  {
+    "id": 1036,
+    "cn": "恢复出厂设置",
+    "en": "Restore Factory"
+  },
+  {
+    "id": 1037,
+    "cn": "代理商线号:",
+    "en": "Agent ID:"
+  },
+  {
+    "id": 1038,
+    "cn": "设备唯一序列号:",
+    "en": "DeviceNumber:"
+  },
+  {
+    "id": 1039,
+    "cn": "设备模式:",
+    "en": "DeviceMode:"
+  },
+  {
+    "id": 1040,
+    "cn": "【合作台需打码】",
+    "en": "【The coopertion platform needs to be coded】"
+  },
+  {
+    "id": 1041,
+    "cn": "买卖台",
+    "en": "TradingDesk"
+  },
+  {
+    "id": 1042,
+    "cn": "合作台",
+    "en": "CooperationDesk"
+  },
+  {
+    "id": 1043,
+    "cn": "关闭",
+    "en": "Close"
+  },
+  {
+    "id": 1044,
+    "cn": "中文",
+    "en": "CN"
+  },
+  {
+    "id": 1045,
+    "cn": "英文",
+    "en": "EN"
+  },
+  {
+    "id": 1046,
+    "cn": "语言模式:",
+    "en": "LanMode:"
+  },
+  {
+    "id": 1047,
+    "cn": "炒场模式 :",
+    "en": "FryingMarketMode:"
+  },
+  {
+    "id": 1048,
+    "cn": "控台类型:",
+    "en": "ConsoleType:"
+  },
+  {
+    "id": 1049,
+    "cn": "开机logo：",
+    "en": "Bootlogo:"
+  },
+  {
+    "id": 1050,
+    "cn": "盈利档机:",
+    "en": "ProfitableGear:"
+  },
+  {
+    "id": 1051,
+    "cn": "联网彩金:",
+    "en": "OnlineBonus:"
+  },
+  {
+    "id": 1052,
+    "cn": "配件绑定:",
+    "en": "AccessoryBinding:"
+  },
+  {
+    "id": 1053,
+    "cn": "【开启状态达到设定值以后 重新开机需打码】",
+    "en": "1053"
+  },
+  {
+    "id": 1054,
+    "cn": "【开启模式下 更换液晶屏 触摸控台 需打码授权】",
+    "en": "【 Code authorization is required to replace the LCD screen touch console in open mode 】"
+  },
+  {
+    "id": 1055,
+    "cn": "难度调节:",
+    "en": "DifficultyAdjustment:"
+  },
+  {
+    "id": 1056,
+    "cn": "模式1",
+    "en": "Mode1"
+  },
+  {
+    "id": 1057,
+    "cn": "模式2",
+    "en": "Mode2"
+  },
+  {
+    "id": 1058,
+    "cn": "模式3",
+    "en": "Mode3"
+  },
+  {
+    "id": 1059,
+    "cn": "模式4",
+    "en": "Mode4"
+  },
+  {
+    "id": 1060,
+    "cn": "液晶触摸",
+    "en": "LCD touch"
+  },
+  {
+    "id": 1061,
+    "cn": "按键1",
+    "en": "button 1"
+  },
+  {
+    "id": 1062,
+    "cn": "按键2",
+    "en": "button 2"
+  },
+  {
+    "id": 1063,
+    "cn": "按键3",
+    "en": "button 3"
+  },
+  {
+    "id": 1064,
+    "cn": "按键4",
+    "en": "button 4"
+  },
+  {
+    "id": 1065,
+    "cn": "经销1",
+    "en": "Distribution 1"
+  },
+  {
+    "id": 1066,
+    "cn": "经销2",
+    "en": "Distribution 2"
+  },
+  {
+    "id": 1067,
+    "cn": "经销3",
+    "en": "Distribution 3"
+  },
+  {
+    "id": 1068,
+    "cn": "10000",
+    "en": "10000"
+  },
+  {
+    "id": 1069,
+    "cn": "20000",
+    "en": "20000"
+  },
+  {
+    "id": 1070,
+    "cn": "30000",
+    "en": "30000"
+  },
+  {
+    "id": 1071,
+    "cn": "50000",
+    "en": "50000"
+  },
+  {
+    "id": 1072,
+    "cn": "100000",
+    "en": "100000"
+  },
+  {
+    "id": 1073,
+    "cn": "单机模式",
+    "en": "Standalone"
+  },
+  {
+    "id": 1074,
+    "cn": "联网模式",
+    "en": "Networking"
+  },
+  {
+    "id": 1075,
+    "cn": "开启",
+    "en": "Open"
+  },
+  {
+    "id": 1076,
+    "cn": "UFLGlacierGold88a",
+    "en": "UFLGlacierGold88a"
+  },
+  {
+    "id": 1077,
+    "cn": "UFLGlacierGold88b",
+    "en": "UFLGlacierGold88b"
+  },
+  {
+    "id": 1078,
+    "cn": "UFLGlacierGold88c",
+    "en": "UFLGlacierGold88c"
+  },
+  {
+    "id": 1079,
+    "cn": "UFLGlacierGold90a",
+    "en": "UFLGlacierGold90a"
+  },
+  {
+    "id": 1080,
+    "cn": "UFLGlacierGold90b",
+    "en": "UFLGlacierGold90b"
+  },
+  {
+    "id": 1081,
+    "cn": "UFLGlacierGold90c",
+    "en": "UFLGlacierGold90c"
+  },
+  {
+    "id": 1082,
+    "cn": "UFLGlacierGold92a",
+    "en": "UFLGlacierGold92a"
+  },
+  {
+    "id": 1083,
+    "cn": "UFLGlacierGold92b",
+    "en": "UFLGlacierGold92b"
+  },
+  {
+    "id": 1084,
+    "cn": "UFLGlacierGold92c",
+    "en": "UFLGlacierGold92c"
+  },
+  {
+    "id": 1085,
+    "cn": "UFLGlacierGold94a",
+    "en": "UFLGlacierGold94a"
+  },
+  {
+    "id": 1086,
+    "cn": "UFLGlacierGold94b",
+    "en": "UFLGlacierGold94b"
+  },
+  {
+    "id": 1087,
+    "cn": "UFLGlacierGold94c",
+    "en": "UFLGlacierGold94c"
+  },
+  {
+    "id": 1088,
+    "cn": "制造商",
+    "en": "Manufacturer"
+  },
+  {
+    "id": 1089,
+    "cn": "型号",
+    "en": "Model"
+  },
+  {
+    "id": 1090,
+    "cn": "支持的纸币接收器",
+    "en": "Supported bill acceptors"
+  },
+  {
+    "id": 1091,
+    "cn": "所选纸币接收器:",
+    "en": "Selected bill acceptor:"
+  },
+  {
+    "id": 1092,
+    "cn": "状态:",
+    "en": "Status:"
+  },
+  {
+    "id": 1093,
+    "cn": "使用脉冲",
+    "en": "Also use pulse"
+  },
+  {
+    "id": 1094,
+    "cn": "使用纸钞机",
+    "en": "Use a bill"
+  },
+  {
+    "id": 1095,
+    "cn": "支持的打印机",
+    "en": "Supported receipt printers"
+  },
+  {
+    "id": 1096,
+    "cn": "使用打印机",
+    "en": "Use a printer"
+  },
+  {
+    "id": 1097,
+    "cn": "使用退币机",
+    "en": "Use a coin returner"
+  },
+  {
+    "id": 1098,
+    "cn": "使用脉冲打印机",
+    "en": "Use a pulse printer"
+  },
+  {
+    "id": 1099,
+    "cn": "禁止使用设备",
+    "en": "No Use Device"
+  },
+  {
+    "id": 1100,
+    "cn": "票据打印机:",
+    "en": "Selected receipt printer:"
+  },
+  {
+    "id": 1101,
+    "cn": "保存设备",
+    "en": "Save Device"
+  },
+  {
+    "id": 1102,
+    "cn": "选择一个日期",
+    "en": "Choose a date"
+  },
+  {
+    "id": 1103,
+    "cn": "下一张",
+    "en": "Next"
+  },
+  {
+    "id": 1104,
+    "cn": "上一张",
+    "en": "Previous"
+  },
+  {
+    "id": 1105,
+    "cn": "修改密码1",
+    "en": "Change Password1"
+  },
+  {
+    "id": 1106,
+    "cn": "修改密码2",
+    "en": "Change Password2"
+  },
+  {
+    "id": 1107,
+    "cn": "修改密码3",
+    "en": "Change Password3"
+  },
+  {
+    "id": 1108,
+    "cn": "退出",
+    "en": "Sign Out"
+  },
+  {
+    "id": 1109,
+    "cn": "修改失败，密码已经存在",
+    "en": "Modification failed, The password already exists"
+  },
+  {
+    "id": 1110,
+    "cn": "修改成功",
+    "en": "Modification succeeded"
+  },
+  {
+    "id": 1111,
+    "cn": "修改失败，密码长度不能大于8位",
+    "en": "Modification failed, Password length is greater than 8"
+  },
+  {
+    "id": 1112,
+    "cn": "修改失败，密码只能为数字",
+    "en": "Modification failed,  Password can only be a number"
+  },
+  {
+    "id": 1113,
+    "cn": "输入新密码",
+    "en": "Enter new password"
+  },
+  {
+    "id": 1114,
+    "cn": "再次输入新密码",
+    "en": "Enter the new password again"
+  },
+  {
+    "id": 1115,
+    "cn": "保存修改的密码",
+    "en": "Save new password"
+  },
+  {
+    "id": 1116,
+    "cn": "退出",
+    "en": "Exit"
+  },
+  {
+    "id": 1117,
+    "cn": "修改失败，输入的两次密码不相同",
+    "en": "Modification failed, The two passwords entered are different"
+  },
+  {
+    "id": 1118,
+    "cn": "保存成功",
+    "en": "Successfully saved"
+  },
+  {
+    "id": 1119,
+    "cn": "查看账目明细",
+    "en": "View the account details"
+  },
+  {
+    "id": 1120,
+    "cn": "数据列表",
+    "en": "Data list"
+  },
+  {
+    "id": 1121,
+    "cn": "数据生成时间",
+    "en": "Data Generation Times"
+  },
+  {
+    "id": 1122,
+    "cn": "中奖金额",
+    "en": "Winning Amount"
+  },
+  {
+    "id": 1123,
+    "cn": "中奖类型",
+    "en": "JP Type"
+  },
+  {
+    "id": 1124,
+    "cn": "状态",
+    "en": "State"
+  },
+  {
+    "id": 1125,
+    "cn": "监控ID",
+    "en": "ID"
+  },
+  {
+    "id": 1126,
+    "cn": "返回",
+    "en": "Back"
+  },
+  {
+    "id": 1127,
+    "cn": "后台键",
+    "en": "BackKey"
+  },
+  {
+    "id": 1128,
+    "cn": "门按键",
+    "en": "DoorKey"
+  },
+  {
+    "id": 1129,
+    "cn": "复位键",
+    "en": "ResetKey"
+  },
+  {
+    "id": 1130,
+    "cn": "压分键",
+    "en": "PressKey"
+  },
+  {
+    "id": 1131,
+    "cn": "年",
+    "en": "year"
+  },
+  {
+    "id": 1132,
+    "cn": "月",
+    "en": "moon"
+  },
+  {
+    "id": 1133,
+    "cn": "日",
+    "en": "day"
+  },
+  {
+    "id": 1134,
+    "cn": "时",
+    "en": "hour"
+  },
+  {
+    "id": 1135,
+    "cn": "分",
+    "en": "minute"
+  },
+  {
+    "id": 1136,
+    "cn": "秒",
+    "en": "second"
+  },
+  {
+    "id": 1137,
+    "cn": "时间设置于:   ",
+    "en": "DataTime Set To:   "
+  },
+  {
+    "id": 1138,
+    "cn": "修改失败，密码长度必须为6位",
+    "en": "Modification failed, password length must be 6 digits"
+  },
+  {
+    "id": 1139,
+    "cn": "修改失败，密码长度必须为8位",
+    "en": "Modification failed, password length must be 8 digits"
+  },
+  {
+    "id": 1140,
+    "cn": "修改失败，密码长度必须为9位",
+    "en": "Modification failed, password length must be 9 digits"
+  },
+  {
+    "id": 1141,
+    "cn": "修改失败,代理商线号必须为4位",
+    "en": "Modification failed, agent line number must be 4-digit"
+  },
+  {
+    "id": 1142,
+    "cn": "修改失败,设备唯一序列号必须为8位",
+    "en": "Modification failed, the unique serial number of the device must be 8 digits"
+  },
+  {
+    "id": 1143,
+    "cn": "历史总压分:   ",
+    "en": "Total Bet:   "
+  },
+  {
+    "id": 1144,
+    "cn": "历史总赢分:   ",
+    "en": "Total Win:   "
+  },
+  {
+    "id": 1145,
+    "cn": "历史总盈利:   ",
+    "en": "Total Profit:   "
+  },
+  {
+    "id": 1146,
+    "cn": "充值记录",
+    "en": "Top-up records"
+  },
+  {
+    "id": 1147,
+    "cn": "退款记录",
+    "en": "Refund history"
+  },
+  {
+    "id": 1148,
+    "cn": "时间:    ",
+    "en": "Time:    "
+  },
+  {
+    "id": 1149,
+    "cn": "投币:    ",
+    "en": "All In:    "
+  },
+  {
+    "id": 1150,
+    "cn": "退币111:    ",
+    "en": "All Out:   "
+  },
+  {
+    "id": 1151,
+    "cn": "测试",
+    "en": "tester"
+  }
+]

@@ -1,0 +1,10 @@
+symbol_zhcsky.png
+size:1930,1167
+filter:Linear,Linear
+pma:true
+scale:0.9
+sy0006_bg
+bounds:978,2,974,950
+rotate:90
+tk0005_bg
+bounds:2,2,974,1163

@@ -1,0 +1,13 @@
+ng_sym_card.png
+size:256,128
+filter:Linear,Linear
+pma:true
+scale:0.7
+sk
+bounds:72,3,97,69
+rotate:90
+skyy
+bounds:1,1,99,70
+rotate:90
+xk
+bounds:142,31,95,69

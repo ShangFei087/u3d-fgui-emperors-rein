@@ -1,0 +1,34 @@
+[
+  {
+    "id": 4,
+    "hotfix_key": "hf_debug_android_20250313162446",
+    "hotfix_version": "2.6.3",
+    "en": "New version of hot update function",
+    "cn": "添加新版热更功能",
+    "tw": "添加新版熱更功能"
+  },
+  {
+    "id": 3,
+    "hotfix_key": "hf_debug_android_20250311211257",
+    "hotfix_version": "2.4.1",
+    "en": "Modify the packaging version",
+    "cn": "修改打包版本管理功能",
+    "tw": "修改打包版本管理功能"
+  },
+  {
+    "id": 2,
+    "hotfix_key": "hf_debug_android_20250306154653",
+    "hotfix_version": "2.0.0",
+    "en": "Disable all debugging tools in the official package#Optimize resource packaging solution#Optimize the hot update plan",
+    "cn": "正式包禁用所有调试工具#优化资源打包方案#优化热更新方案",
+    "tw": "正式包禁用所有調試工具#優化資源打包方案#優化熱更新方案"
+  },
+  {
+    "id": 1,
+    "hotfix_key": "hf_debug_android_20250303155916",
+    "hotfix_version": "1.0.1",
+    "en": "Optimize resource packaging solution#Optimize the hot update plan",
+    "cn": "优化资源打包方案#优化热更新方案",
+    "tw": "優化資源打包方案#優化熱更新方案"
+  }
+]

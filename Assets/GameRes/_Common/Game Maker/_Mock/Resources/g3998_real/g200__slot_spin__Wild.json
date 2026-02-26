@@ -1,0 +1,21 @@
+{
+
+	"OpenType":0,
+	
+	"ResultType":3,
+
+	"BonusType":0,
+	
+	"IDVec":[1502,],
+
+	"lineNum":1,
+
+	"MatrixLength": 15,
+
+	"Matrix":[9,0,7,2,8,2,2,2,0,2,7,9,0,0,9],
+
+	"BonusData":[4,0,0,0,0,0,0,0,0,0,0],
+
+	"TotalBet":30
+
+}

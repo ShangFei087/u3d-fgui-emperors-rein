@@ -1,0 +1,27 @@
+
+fg_fade_tips.png
+size: 1019,966
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dun
+  rotate: false
+  xy: 2, 230
+  size: 544, 734
+  orig: 544, 734
+  offset: 0, 0
+  index: -1
+fu
+  rotate: false
+  xy: 548, 327
+  size: 469, 637
+  orig: 469, 638
+  offset: 0, 0
+  index: -1
+jian
+  rotate: true
+  xy: 2, 2
+  size: 226, 976
+  orig: 226, 977
+  offset: 0, 1
+  index: -1

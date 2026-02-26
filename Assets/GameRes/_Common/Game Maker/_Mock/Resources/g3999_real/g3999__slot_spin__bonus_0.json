@@ -1,0 +1,13 @@
+{
+	"OpenType": 0,
+
+	"ResultType": 3,
+	
+	"BonusType": 4,
+	
+	"BonusBet": 4080,
+
+	"MatrixLength": 15,
+	
+	"Matrix": [3,2,3,11,5,2,3,11,11,5,8,11,8,8,5]
+}

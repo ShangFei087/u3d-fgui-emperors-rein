@@ -1,0 +1,16 @@
+plat_shop.png
+size:176,287
+filter:Linear,Linear
+pma:true
+scale:0.9
+dd
+bounds:70,23,263,51
+rotate:90
+ddi
+bounds:122,39,247,53
+rotate:90
+g0
+bounds:122,1,48,37
+zz
+bounds:1,25,261,68
+rotate:90

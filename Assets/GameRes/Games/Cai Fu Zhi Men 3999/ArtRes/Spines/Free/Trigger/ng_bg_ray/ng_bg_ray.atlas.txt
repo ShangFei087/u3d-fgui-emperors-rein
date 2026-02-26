@@ -1,0 +1,7 @@
+ng_bg_ray.png
+size:1442,190
+filter:Linear,Linear
+pma:true
+scale:0.9
+glow
+bounds:2,2,1438,186

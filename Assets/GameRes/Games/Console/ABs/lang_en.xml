@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Console/PageConsoleMachineSettings.xml -->
+  <string name="xp0b9yqdglrj1i-n5_cwuo" mz="navMachine">MACHINE</string>
+  <string name="xp0b9yqdglrj1i-n6_cwuo" mz="navInOut">IN-OUT</string>
+  <string name="xp0b9yqdglrj1i-n7_cwuo" mz="navPROGRESSIVE">PROGRESSIVE</string>
+  <string name="xp0b9yqdglrj1i-n29_os7y-cp-title" mz="navBottom">Machine Settings</string>
+  <string name="xp0b9yqdglrj1i-n30_g8qg" mz="testTxt">Test</string>
+  <!-- Console/PageConsoleMain.xml -->
+  <string name="xp0b9yqdyx3q0-n2_smbp-0" mz="n2">Game Information</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-1" mz="n2">Business Record</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-2" mz="n2">Game History</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-3" mz="n2">Event Record</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-4" mz="n2">Time And Date</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-5" mz="n2">Volume Setting</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-6" mz="n2">Language</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-7" mz="n2">Harfware</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-8" mz="n2">Touch Calbrate</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-9" mz="n2">Settings</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-10" mz="n2">Admin</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-11" mz="n2">Exit Setup</string>
+  <!-- Console/PopupConsoleChoose01.xml -->
+  <string name="xp0b9yqdos7y3k-n6_os7y" mz="title">Choose Printer Model</string>
+  <string name="xp0b9yqdos7y3k-n8_os7y" mz="param1">Selected language: Chinese(简体)</string>
+  <string name="xp0b9yqdos7y3k-n9_os7y-0" mz="list">English</string>
+  <string name="xp0b9yqdos7y3k-n9_os7y-1" mz="list">Chinese(简体)</string>
+  <string name="xp0b9yqdos7y3k-n9_os7y-2" mz="list">Chinese(繁体)</string>
+  <!-- Console/PopupI18nTest.xml -->
+  <string name="xp0b9yqdiyvn4u-n2_g8qg" mz="helloWord">Hello China</string>
+  <!-- Console/components/Button002.xml -->
+  <string name="xp0b9yqdsmbpv-n4_smbp" mz="title">Buttton&lt;br&gt;1[color=#666666]666[/color]</string>
+  <!-- Console/components/Button003.xml -->
+  <string name="xp0b9yqdsmbpx-n4_smbp" mz="title">Flip Screen</string>
+  <!-- Console/components/Button004.xml -->
+  <string name="xp0b9yqdsmbp19-n4_smbp" mz="title">Buttton</string>
+  <!-- Console/components/ButtonSquareClear.xml -->
+  <string name="xp0b9yqdglrj1x-n4_glrj" mz="title">Clear</string>
+  <!-- Console/components/ButtonSquareDelete.xml -->
+  <string name="xp0b9yqdglrj20-n4_glrj" mz="title">Delete</string>
+  <!-- Console/components/ButtonSquareOK.xml -->
+  <string name="xp0b9yqdglrj1z-n4_glrj" mz="title">OK</string>
+  <!-- Console/moudules/Buttom1.xml -->
+  <string name="xp0b9yqdglrj1l-n5_os7y" mz="title">Business Record</string>
+  <!-- Console/moudules/Buttom2.xml -->
+  <string name="xp0b9yqdglrj1m-n4_glrj" mz="title">Business Record</string>
+  <!-- Console/moudules/ButtonCatrgory.xml -->
+  <string name="xp0b9yqdoibks-n6_os7y" mz="title">Business Record</string>
+  <!-- Console/moudules/ItemBetLst.xml -->
+  <string name="xp0b9yqdcwuo2j-n0_glrj" mz="n0">Bills Allowed:</string>
+  <!-- Console/moudules/ItemCategoryNav.xml -->
+  <string name="xp0b9yqdcwuo2p-n24_jtgo" mz="title">MACHINE</string>
+  <!-- Console/moudules/ItemCustomKeyboard.xml -->
+  <string name="xp0b9yqdglrj1o-n12_glrj" mz="No.Clear">Clear</string>
+  <string name="xp0b9yqdglrj1o-n14_glrj" mz="No.Delete">Delete</string>
+  <!-- Console/moudules/ItemCustomKeyboard003.xml -->
+  <string name="xp0b9yqdcwuo24-n1_cwuo" mz="No.q">q</string>
+  <string name="xp0b9yqdcwuo24-n2_cwuo" mz="No.w">w</string>
+  <string name="xp0b9yqdcwuo24-n3_cwuo" mz="No.e">e</string>
+  <string name="xp0b9yqdcwuo24-n4_cwuo" mz="No.r">r</string>
+  <string name="xp0b9yqdcwuo24-n5_cwuo" mz="No.t">t</string>
+  <string name="xp0b9yqdcwuo24-n6_cwuo" mz="No.y">y</string>
+  <string name="xp0b9yqdcwuo24-n7_cwuo" mz="No.u">u</string>
+  <string name="xp0b9yqdcwuo24-n8_cwuo" mz="No.i">i</string>
+  <string name="xp0b9yqdcwuo24-n9_cwuo" mz="No.o">o</string>
+  <string name="xp0b9yqdcwuo24-n10_cwuo" mz="No.p">p</string>
+  <string name="xp0b9yqdcwuo24-n11_cwuo" mz="No.a">a</string>
+  <string name="xp0b9yqdcwuo24-n12_cwuo" mz="No.s">s</string>
+  <string name="xp0b9yqdcwuo24-n13_cwuo" mz="No.d">d</string>
+  <string name="xp0b9yqdcwuo24-n14_cwuo" mz="No.f">f</string>
+  <string name="xp0b9yqdcwuo24-n15_cwuo" mz="No.g">g</string>
+  <string name="xp0b9yqdcwuo24-n16_cwuo" mz="No.h">h</string>
+  <string name="xp0b9yqdcwuo24-n17_cwuo" mz="No.j">j</string>
+  <string name="xp0b9yqdcwuo24-n18_cwuo" mz="No.k">k</string>
+  <string name="xp0b9yqdcwuo24-n19_cwuo" mz="No.l">l</string>
+  <string name="xp0b9yqdcwuo24-n74_cwuo" mz="No.z">z</string>
+  <string name="xp0b9yqdcwuo24-n75_cwuo" mz="No.x">x</string>
+  <string name="xp0b9yqdcwuo24-n76_cwuo" mz="No.c">c</string>
+  <string name="xp0b9yqdcwuo24-n77_cwuo" mz="No.v">v</string>
+  <string name="xp0b9yqdcwuo24-n78_cwuo" mz="Nob">b</string>
+  <string name="xp0b9yqdcwuo24-n79_cwuo" mz="No.n">n</string>
+  <string name="xp0b9yqdcwuo24-n80_cwuo" mz="No.m">m</string>
+  <string name="xp0b9yqdcwuo24-n87_cwuo" mz="No.Q">Q</string>
+  <string name="xp0b9yqdcwuo24-n88_cwuo" mz="No.W">W</string>
+  <string name="xp0b9yqdcwuo24-n89_cwuo" mz="No.E">E</string>
+  <string name="xp0b9yqdcwuo24-n90_cwuo" mz="No.R">R</string>
+  <string name="xp0b9yqdcwuo24-n91_cwuo" mz="No.T">T</string>
+  <string name="xp0b9yqdcwuo24-n92_cwuo" mz="No.Y">Y</string>
+  <string name="xp0b9yqdcwuo24-n93_cwuo" mz="No.U">U</string>
+  <string name="xp0b9yqdcwuo24-n94_cwuo" mz="No.I">I</string>
+  <string name="xp0b9yqdcwuo24-n95_cwuo" mz="No.O">O</string>
+  <string name="xp0b9yqdcwuo24-n96_cwuo" mz="No.P">P</string>
+  <string name="xp0b9yqdcwuo24-n98_cwuo" mz="No.A">A</string>
+  <string name="xp0b9yqdcwuo24-n99_cwuo" mz="No.S">S</string>
+  <string name="xp0b9yqdcwuo24-n100_cwuo" mz="No.D">D</string>
+  <string name="xp0b9yqdcwuo24-n101_cwuo" mz="No.F">F</string>
+  <string name="xp0b9yqdcwuo24-n102_cwuo" mz="No.G">G</string>
+  <string name="xp0b9yqdcwuo24-n103_cwuo" mz="No.H">H</string>
+  <string name="xp0b9yqdcwuo24-n104_cwuo" mz="NoJ">J</string>
+  <string name="xp0b9yqdcwuo24-n105_cwuo" mz="No.K">K</string>
+  <string name="xp0b9yqdcwuo24-n106_cwuo" mz="No.L">L</string>
+  <string name="xp0b9yqdcwuo24-n109_cwuo" mz="No.Z">Z</string>
+  <string name="xp0b9yqdcwuo24-n110_cwuo" mz="No.X">X</string>
+  <string name="xp0b9yqdcwuo24-n111_cwuo" mz="No.C">C</string>
+  <string name="xp0b9yqdcwuo24-n112_cwuo" mz="No.V">V</string>
+  <string name="xp0b9yqdcwuo24-n113_cwuo" mz="No.B">B</string>
+  <string name="xp0b9yqdcwuo24-n114_cwuo" mz="No.N">N</string>
+  <string name="xp0b9yqdcwuo24-n115_cwuo" mz="No.M">M</string>
+  <string name="xp0b9yqdcwuo24-n69_cwuo" mz="No.ABC">ABC</string>
+  <string name="xp0b9yqdcwuo24-n123_cwuo" mz="No.[">[</string>
+  <string name="xp0b9yqdcwuo24-n124_cwuo" mz="No.]">]</string>
+  <string name="xp0b9yqdcwuo24-n125_cwuo" mz="No.3">{</string>
+  <string name="xp0b9yqdcwuo24-n126_cwuo" mz="No.4">}</string>
+  <string name="xp0b9yqdcwuo24-n129_cwuo" mz="No.^">^</string>
+  <string name="xp0b9yqdcwuo24-n134_cwuo" mz="No._">_</string>
+  <string name="xp0b9yqdcwuo24-n135_cwuo" mz="No.\">\</string>
+  <string name="xp0b9yqdcwuo24-n136_cwuo" mz="No.|">|</string>
+  <string name="xp0b9yqdcwuo24-n137_cwuo" mz="No.~">~</string>
+  <string name="xp0b9yqdcwuo24-n140_cwuo" mz="No.€">€</string>
+  <string name="xp0b9yqdcwuo24-n141_cwuo" mz="No.￡">￡</string>
+  <string name="xp0b9yqdcwuo24-n142_cwuo" mz="No.￥">￥</string>
+  <string name="xp0b9yqdcwuo24-n143_cwuo" mz="No.·">·</string>
+  <string name="xp0b9yqdcwuo24-n153_cwuo" mz="No.ABC">ABC</string>
+  <!-- Console/moudules/ItemTitleButton03.xml -->
+  <string name="xp0b9yqdcwuo21-n0_glrj" mz="key">Machine ID:</string>
+  <string name="xp0b9yqdcwuo21-n2_cwuo" mz="value">title3[color=#666666]666[/color]</string>
+  <!-- Console/moudules/ItemTitleName.xml -->
+  <string name="xp0b9yqdglrj1n-n0_glrj" mz="key">Machine ID:</string>
+  <string name="xp0b9yqdglrj1n-n1_glrj" mz="value">http://192.168.3.152/api/game_log/caishen</string>
+  <!-- Console/moudules/ItemTitleSwitch.xml -->
+  <string name="xp0b9yqdcwuo2d-n0_glrj" mz="key">&lt;i18n value="CON1jqid"/&gt;Machine ID:</string>
+  <!-- Console/moudules/ModuleName.xml -->
+  <string name="xp0b9yqdglrj1k-n1_glrj" mz="title">ALL BUSINESS</string>
+  <!-- Console/moudules/popups/ItemSelect002.xml -->
+  <string name="xp0b9yqdos7y4o-n3_os7y" mz="title">Chinese(简体)</string>
+  <!-- Console/tabs/PamsTabInOut.xml -->
+  <string name="xp0b9yqdcwuo38-n18_cwuo-cp-key" mz="coinOutScale">Coin Out Scale(Ticket : Credit):</string>
+  <string name="xp0b9yqdcwuo38-n19_cwuo-cp-key" mz="coinInScale">Coin In Scale(Coin : Credit):</string>
+  <string name="xp0b9yqdcwuo38-n27_os7y-cp-key" mz="scoreScale">Score Short Click Scale(Time : Credit):</string>
+  <string name="xp0b9yqdcwuo38-n25_cwuo-cp-btn" mz="flipScreen">Flip Screen</string>
+  <string name="xp0b9yqdcwuo38-n28_os7y-cp-btn" mz="resetMachineToFactorySettings">Reset Machine to FactorySettings</string>
+  <string name="xp0b9yqdcwuo38-n29_os7y-cp-key" mz="billValidator">Bill Validator:</string>
+  <string name="xp0b9yqdcwuo38-n30_os7y-cp-key" mz="billValidatorModel">Bill Validator Model:</string>
+  <string name="xp0b9yqdcwuo38-n30_os7y-cp-value" mz="billValidatorModel">AE2831 D5 &lt;img src='ui://xp0b9yqdos7y4j' width='20' height='20'/&gt;</string>
+  <string name="xp0b9yqdcwuo38-n31_os7y-cp-key" mz="printer">Printer:</string>
+  <string name="xp0b9yqdcwuo38-n32_os7y-cp-key" mz="printerModel">Printer Model:</string>
+  <string name="xp0b9yqdcwuo38-n32_os7y-cp-value" mz="printerModel">Phoenix &lt;img src='ui://xp0b9yqdos7y4i' width='20' height='20'/&gt;</string>
+  <!-- Console/tabs/PamsTabProgressive.xml -->
+  <string name="xp0b9yqdcwuo39-n31_os7y-cp-title" mz="mdJackpotOnline">Jackpot Online</string>
+  <string name="xp0b9yqdcwuo39-n32_os7y-cp-key" mz="jackpotOnline">Jackpot Online:</string>
+  <string name="xp0b9yqdcwuo39-n33_os7y-cp-key" mz="jackpotScoreRate">Jackpot Score Rate:</string>
+  <string name="xp0b9yqdcwuo39-n34_os7y-cp-key" mz="jackpotPercent">Jackpot Percent:</string>
+  <string name="xp0b9yqdcwuo39-n35_os7y-cp-title" mz="mdIOT">IOT</string>
+  <string name="xp0b9yqdcwuo39-n36_os7y-cp-key" mz="iotAddresse">IOT Address:</string>
+  <string name="xp0b9yqdcwuo39-n36_os7y-cp-value" mz="iotAddresse">http://i.test.gzhaoku.com/admin/resp/firmware/query</string>
+  <string name="xp0b9yqdcwuo39-n37_os7y-cp-key" mz="iot">IOT:</string>
+  <string name="xp0b9yqdcwuo39-n38_os7y-cp-key" mz="iotAccessMethods">IOT Access Methods:</string>
+  <string name="xp0b9yqdcwuo39-n38_os7y-cp-value" mz="iotAccessMethods">Mini Program &lt;img src='ui://xp0b9yqdos7y4i' width='20' height='20'/&gt;[color=#666666]666[/color]</string>
+  <string name="xp0b9yqdcwuo39-n41_os7y-cp-title" mz="mdRemoteControl">Remote Control</string>
+  <string name="xp0b9yqdcwuo39-n43_os7y-cp-key" mz="iotRemoteControl">Remote Control:</string>
+  <string name="xp0b9yqdcwuo39-n44_os7y-cp-key" mz="remoteControlSetting">Remote Control Setting:</string>
+  <string name="xp0b9yqdcwuo39-n44_os7y-cp-value" mz="remoteControlSetting">192.168.3.174:1883&lt;img src='ui://xp0b9yqdos7y4j' width='20' height='20'/&gt;</string>
+  <string name="xp0b9yqdcwuo39-n45_os7y-cp-key" mz="remoteControlAccount">Remote Control Account:</string>
+  <string name="xp0b9yqdcwuo39-n45_os7y-cp-value" mz="remoteControlAccount">tester / 123456</string>
+  <string name="xp0b9yqdcwuo39-n42_os7y-cp-title" mz="mdOther">Other</string>
+  <string name="xp0b9yqdcwuo39-n46_os7y-cp-key" mz="coinOutImmediately">Coin Out Immediately:</string>
+  <string name="xp0b9yqdcwuo39-n47_os7y-cp-key" mz="checkHotfixMultipleTimes">Check Hotfix Multiple Times:</string>
+  <!-- Console/tabs/PcmsTabMachine.xml -->
+  <string name="xp0b9yqdmsw23e-n37_jtgo-cp-key" mz="agentID">Agent ID:</string>
+  <string name="xp0b9yqdmsw23e-n38_jtgo-cp-key" mz="machineID">Machine ID:</string>
+  <string name="xp0b9yqdmsw23e-n39_jtgo-cp-key" mz="maxCoinInOutRecord">Max Coin In Out Record:</string>
+  <string name="xp0b9yqdmsw23e-n40_jtgo-cp-key" mz="maxGameRecord">Max Game Record:</string>
+  <string name="xp0b9yqdmsw23e-n41_jtgo-cp-key" mz="maxEventRecord">Max Event Record:</string>
+  <string name="xp0b9yqdmsw23e-n42_jtgo-cp-key" mz="maxWarningRecord">Max Warning Record:</string>
+  <string name="xp0b9yqdmsw23e-n43_jtgo-cp-key" mz="maxBusinessDayRecord">Max Business Day Record:</string>
+  <string name="xp0b9yqdmsw23e-n32_cwuo-cp-key" mz="difficulty">&lt;i18n value="CON1x"&gt;Difficulty:&lt;/i18n&gt;</string>
+  <string name="xp0b9yqdmsw23e-n34_cwuo-cp-value" mz="active">Active</string>
+  <string name="xp0b9yqdmsw23e-n44_jtgo-cp-btn" mz="changeShiftPassword">Change Shift Password</string>
+  <string name="xp0b9yqdmsw23e-n45_jtgo-cp-btn" mz="changeManagerPassword">Change Manager Password</string>
+  <string name="xp0b9yqdmsw23e-n46_jtgo-cp-btn" mz="changeAdminPassword">Change Admin Password</string>
+</resources>

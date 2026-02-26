@@ -1,0 +1,11 @@
+ng_sym04_watch.png
+size:217,132
+filter:Linear,Linear
+scale:0.9
+baibang
+bounds:157,52,18,18
+shoubiao
+bounds:2,2,128,153
+rotate:90
+sxx1
+bounds:157,72,58,58

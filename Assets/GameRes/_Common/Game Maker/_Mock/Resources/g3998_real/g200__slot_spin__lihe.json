@@ -1,0 +1,22 @@
+{
+
+	"OpenType":0,
+
+	"ResultType":3,	
+
+	"BonusType":1,			
+
+	"IDVec":[8302,9402],
+
+	"lineNum":2,
+	
+	"Matrix":[3,2,6,9,9,3,0,3,3,1,1,9,5,1,5],
+
+	"BonusBet":0,
+	
+	"BonusData":[0,0,1,1,1,1,0,0,0,0,0,1,1,0,1],
+
+	"BlindSymbol":2,
+
+	"TotalBet":0
+}

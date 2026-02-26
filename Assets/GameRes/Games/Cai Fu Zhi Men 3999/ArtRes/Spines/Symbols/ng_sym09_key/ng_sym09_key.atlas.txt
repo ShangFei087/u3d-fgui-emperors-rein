@@ -1,0 +1,12 @@
+ng_sym09_key.png
+size:287,112
+filter:Linear,Linear
+pma:true
+scale:0.9
+baibang
+bounds:227,32,18,18
+f
+bounds:2,2,223,108
+offsets:0,1,225,109
+sxx
+bounds:227,52,58,58

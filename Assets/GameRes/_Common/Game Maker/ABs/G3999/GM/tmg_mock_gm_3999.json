@@ -1,0 +1,23 @@
+{
+	"game_id": 3999,
+	"gm_event": {
+		"free_spin": {
+			"nick_name": "免费游戏",
+			"event_name": "GMFreeSpin",
+			"value": "",
+			"des": ""
+		},
+		"bonus": {
+			"nick_name": "彩金游戏",
+			"event_name": "GMBonus1",
+			"value": "",
+			"des": ""
+		},
+		"normal": {
+			"nick_name": "普通游戏",
+			"event_name": "GMMultipleWinLine",
+			"value": "",
+			"des": ""
+		}
+	}
+}

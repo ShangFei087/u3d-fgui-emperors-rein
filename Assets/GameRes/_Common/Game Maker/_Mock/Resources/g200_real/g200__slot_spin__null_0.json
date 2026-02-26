@@ -1,0 +1,26 @@
+{
+
+	"//code": "数据状态；0表示成功，-1表示传参失败",
+	"code": 0,
+	
+	"//gameState": "游戏状态",
+	"gameState": 2,
+	
+	"//lineMark": "所有线数据(10000,100,1)",
+	"lineMark": 0,
+	
+	"//num": "球的个数",
+	"num": 0,
+	
+	"//curRound": "当前免费游戏次数",
+	"curRound": 0,
+	
+	"//maxRound": "最大免费游戏次数",
+	"maxRound": 0,
+	
+	"//lineNum": "中奖几条线",
+	"lineNum":0,
+	
+	"//lineData": "中奖线数据",
+	"lineData":[]
+}

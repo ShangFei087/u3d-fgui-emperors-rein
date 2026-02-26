@@ -1,0 +1,18 @@
+{
+	"0": {
+		"key": "NULL",
+		"des": "无报错"
+	},
+	"1": {
+		"key": "ERROR",
+		"des": "通用报错"
+	},
+	"4075": {
+		"key": "DEVICE_IOT_MQTT_NOT_CONNECT",
+		"des": "好酷Mqtt断开连接"
+	},
+	"4076": {
+		"key": "DEVICE_IOT_NOT_SIGN_IN",
+		"des": "好酷未登录"
+	}
+}

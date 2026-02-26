@@ -1,0 +1,17 @@
+ng_bg_decorate.png
+size:443,276
+filter:Linear,Linear
+pma:true
+g1
+bounds:379,14,49,50
+rotate:90
+g2
+bounds:379,64,63,63
+g3
+bounds:379,64,63,63
+g4
+bounds:277,25,101,102
+guang
+bounds:1,1,275,274
+guang 2
+bounds:277,128,144,147

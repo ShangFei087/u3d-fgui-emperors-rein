@@ -1,0 +1,55 @@
+
+fg_fade_flag.png
+size: 1962,1539
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1bu_1
+  rotate: true
+  xy: 144, 6
+  size: 522, 585
+  orig: 522, 642
+  offset: 0, 0
+  index: -1
+1bu_2
+  rotate: false
+  xy: 99, 25
+  size: 43, 53
+  orig: 44, 56
+  offset: 1, 1
+  index: -1
+2bu_1
+  rotate: true
+  xy: 731, 30
+  size: 498, 590
+  orig: 498, 590
+  offset: 0, 0
+  index: -1
+2bu_2
+  rotate: true
+  xy: 2, 7
+  size: 71, 95
+  orig: 73, 97
+  offset: 1, 1
+  index: -1
+qi_zhi
+  rotate: true
+  xy: 2, 530
+  size: 1007, 1607
+  orig: 1007, 1607
+  offset: 0, 0
+  index: -1
+qiang_1
+  rotate: false
+  xy: 1851, 2
+  size: 109, 1535
+  orig: 170, 1537
+  offset: 2, 1
+  index: -1
+qiang_2
+  rotate: false
+  xy: 1611, 80
+  size: 238, 1457
+  orig: 287, 1459
+  offset: 1, 1
+  index: -1

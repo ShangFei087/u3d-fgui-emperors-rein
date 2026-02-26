@@ -1,0 +1,146 @@
+
+ng_qiu.png
+size: 512, 512
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+fire/11_001
+  rotate: true
+  xy: 392, 250
+  size: 32, 48
+  orig: 64, 64
+  offset: 15, 1
+  index: -1
+fire/11_002
+  rotate: true
+  xy: 340, 260
+  size: 31, 50
+  orig: 64, 64
+  offset: 16, 2
+  index: -1
+fire/11_003
+  rotate: true
+  xy: 285, 258
+  size: 33, 53
+  orig: 64, 64
+  offset: 15, 1
+  index: -1
+fire/11_004
+  rotate: true
+  xy: 170, 258
+  size: 33, 55
+  orig: 64, 64
+  offset: 15, 1
+  index: -1
+fire/11_005
+  rotate: true
+  xy: 227, 259
+  size: 32, 56
+  orig: 64, 64
+  offset: 15, 1
+  index: -1
+fire/11_006
+  rotate: true
+  xy: 420, 284
+  size: 33, 57
+  orig: 64, 64
+  offset: 14, 1
+  index: -1
+fire/11_007
+  rotate: false
+  xy: 451, 366
+  size: 36, 59
+  orig: 64, 64
+  offset: 13, 1
+  index: -1
+fire/11_008
+  rotate: false
+  xy: 451, 427
+  size: 36, 61
+  orig: 64, 64
+  offset: 12, 1
+  index: -1
+fire/11_009
+  rotate: true
+  xy: 420, 319
+  size: 37, 61
+  orig: 64, 64
+  offset: 12, 1
+  index: -1
+fire/11_010
+  rotate: true
+  xy: 59, 259
+  size: 35, 53
+  orig: 64, 64
+  offset: 13, 1
+  index: -1
+fire/11_011
+  rotate: true
+  xy: 114, 260
+  size: 34, 54
+  orig: 64, 64
+  offset: 14, 0
+  index: -1
+fire/11_012
+  rotate: true
+  xy: 2, 260
+  size: 34, 55
+  orig: 64, 64
+  offset: 14, 1
+  index: -1
+fire/11_013
+  rotate: true
+  xy: 442, 249
+  size: 33, 46
+  orig: 64, 64
+  offset: 15, 1
+  index: -1
+fire/11_014
+  rotate: true
+  xy: 114, 226
+  size: 32, 47
+  orig: 64, 64
+  offset: 15, 0
+  index: -1
+fire/11_015
+  rotate: true
+  xy: 340, 226
+  size: 32, 45
+  orig: 64, 64
+  offset: 15, 1
+  index: -1
+fire/11_016
+  rotate: true
+  xy: 2, 226
+  size: 32, 47
+  orig: 64, 64
+  offset: 15, 1
+  index: -1
+gaoguang_000
+  rotate: true
+  xy: 319, 293
+  size: 63, 99
+  orig: 100, 105
+  offset: 19, 3
+  index: -1
+guangfan_000
+  rotate: false
+  xy: 319, 358
+  size: 130, 130
+  orig: 150, 150
+  offset: 10, 10
+  index: -1
+kuang2
+  rotate: true
+  xy: 197, 293
+  size: 195, 120
+  orig: 195, 120
+  offset: 0, 0
+  index: -1
+qiu2
+  rotate: false
+  xy: 2, 296
+  size: 193, 192
+  orig: 193, 192
+  offset: 0, 0
+  index: -1

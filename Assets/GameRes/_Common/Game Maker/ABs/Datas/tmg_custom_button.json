@@ -1,0 +1,186 @@
+{
+	"device_printer":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "CustomButtonDivicePrenter",
+		"event_data":"{\"title\":\"XXX\"}",	
+		"nick_name": "设备-打印下分"	,
+		"des": ""
+	},
+	"clear_code":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "CustomButtonClearCode",
+		"event_data": "{\"title\":\"XXX\"}",		
+		"nick_name": "清除激活码"	,
+		"des": ""
+	},
+
+	"show_code":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "ShowCode",
+		"event_data": "{\"msg\":\"null\"}",		
+		"nick_name": "显示Code"	,
+		"des": ""
+	},
+	"device_credit_up":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "CustomButtonCreditUp",
+		"event_data": "{\"title\":\"XXX\"}",		
+		"nick_name": "上分"	,
+		"des": ""
+	},
+	"device_credit_down":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "CustomButtonCreditDown",
+		"event_data": "{\"title\":\"XXX\"}",		
+		"nick_name": "下分"	,
+		"des": ""
+	},
+	"device_coin_in":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "CustomButtonCoinIn",
+		"event_data": "{\"title\":\"XXX\"}",		
+		"nick_name": "投币"	,
+		"des": ""
+	},
+	"device_ticket_out":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "CustomButtonTicketOut",
+		"event_data": "{\"title\":\"XXX\"}",		
+		"nick_name": "退票"	,
+		"des": ""
+	},
+	"tip":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "TipPopupMsg",
+		"event_data": "{\"msg\":\"test msg 01\"}",		
+		"nick_name": "提示信息"	,
+		"des": ""
+	},
+	"sbox_get_account":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "CustomButtonSboxGetAccount",
+		"event_data":"{\"title\":\"XXX\"}",	
+		"nick_name": "sbox账号积分"	,
+		"des": ""
+	},
+	"iot_coin_in":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "IOTCoinIn",
+		"event_data": "{\"msg\":\"null\"}",		
+		"nick_name": "好酷二维码充值"	,
+		"des": ""
+	},
+	
+	"aes_test":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "AesTest",
+		"event_data": "{\"msg\":\"null\"}",		
+		"nick_name": "Aes 测试"	,
+		"des": ""
+	},
+	"device_counter_clear":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "DeviceCounterClear",
+		"event_data": "{\"msg\":\"null\"}",		
+		"nick_name": "码表清除",
+		"des": ""
+	},
+	"device_counter_add_coin_in":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "DeviceCounterAddCoinIn",
+		"event_data": "{\"msg\":\"null\"}",		
+		"nick_name": "投币码表加1",
+		"des": ""
+	},
+	"device_counter_add_coin_out":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "DeviceCounterAddCoinOut",
+		"event_data": "{\"msg\":\"null\"}",		
+		"nick_name": "退币码表加1",
+		"des": ""
+	},
+	"device_counter_add_coin_in_100":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "DeviceCounterAddCoinIn100",
+		"event_data": "{\"msg\":\"null\"}",		
+		"nick_name": "投币码表加100",
+		"des": ""
+	},
+	"table_last_data_bussiness_day_record":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "ShowTableLastData",
+		"event_data": "{\"msg\":\"null\",\"table_name\":\"bussiness_day_record\",\"last_count\":7}",		
+		"nick_name": "最近7条'每日营收数据表'数据",
+		"des": ""
+	},
+	"table_last_data_coin_in_out_record":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "ShowTableLastData",
+		"event_data": "{\"msg\":\"null\",\"table_name\":\"coin_in_out_record\",\"last_count\":15}",		
+		"nick_name": "最近15条'投退币记录'数据",
+		"des": ""
+	},
+	"table_last_data_coin_in_out_record":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "ShowTableLastData",
+		"event_data": "{\"msg\":\"null\",\"table_name\":\"slot_game_record\",\"last_count\":30}",		
+		"nick_name": "最近30条'游戏记录'数据",
+		"des": ""
+	},
+	"table_last_data_coin_in_out_record":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "ShowTableLastData",
+		"event_data": "{\"msg\":\"null\",\"table_name\":\"slot_game_record\",\"last_count\":200}",		
+		"nick_name": "最近200条'游戏记录'数据",
+		"des": ""
+	},
+	"show_mark_ab":{
+		"event_type": "ON_RESOURCE_EVENT",
+		"event_name": "TestShowMarkAB",
+		"event_data": "{\"msg\":\"null\"}",		
+		"nick_name": "显示被标记的ab包（没有释放）",
+		"des": ""
+	},
+	"device_test_print_qrcode":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "DeviceTestPrintQRCode",
+		"event_data": "{\"msg\":\"null\"}",		
+		"nick_name": "测试打印二维码",
+		"des": ""
+	},
+	"device_test_print_ticket":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "DeviceTestPrintTicket",
+		"event_data": "{\"msg\":\"null\"}",		
+		"nick_name": "测试打印出票",
+		"des": ""
+	},
+	"device_test_print_jcm_950":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "DeviceTestPrintJCM950",
+		"event_data": "{\"msg\":\"null\"}",		
+		"nick_name": "测试JCM-950打印机",
+		"des": ""
+	},
+	"device_test_print_transact_950":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "DeviceTestPrintTRANSACT950",
+		"event_data": "{\"msg\":\"null\"}",		
+		"nick_name": "测试TRANSACT-950打印机",
+		"des": ""
+	},
+	"//popup_system_common":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "CustomButtonClearCode",
+		"event_data": "{\"title\":\"XXX\"}",		
+		"nick_name": "清楚激活码"	,
+		"des": ""
+	},
+	"application_quit":{
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "ApplicationQuit",
+		"event_data": "{\"msg\":\"null\"}",		
+		"nick_name": "退出当前应用",
+		"des": ""
+	}
+}

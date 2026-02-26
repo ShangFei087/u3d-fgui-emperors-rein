@@ -1,0 +1,9 @@
+load_bg_title.png
+size:885,533
+filter:Linear,Linear
+pma:true
+scale:0.9
+111
+bounds:1,1,827,287
+zs0
+bounds:1,289,883,243

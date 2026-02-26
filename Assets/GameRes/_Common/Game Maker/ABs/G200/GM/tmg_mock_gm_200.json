@@ -1,0 +1,71 @@
+{
+	"game_id": 200,
+	"gm_event":{
+		"//5kind":{
+			"nick_name": "5连线",
+			"event_name": "",
+			"value":"",
+			"des": "普通游戏-5连线"
+		},
+		"single_win_line":{
+			"nick_name": "赢单线",
+			"event_name": "GMSingleWinLine",
+			"value":"",
+			"des": ""
+		},
+		"multiple_win_line":{
+			"nick_name": "赢多线",
+			"event_name": "GMMultipleWinLine",
+			"value":"",
+			"des": ""
+		},
+		"free_spin":{
+			"nick_name": "免费游戏",
+			"event_name": "GMFreeSpin",
+			"value":"",
+			"des": ""
+		},
+		"big_win":{
+			"nick_name": "大奖弹窗",
+			"event_name": "GMBigWin",
+			"value":"",
+			"des": ""
+		},
+		"jp1":{
+			"nick_name": "头奖彩金",
+			"event_name": "GMJp1",
+			"value":"",
+			"des": ""
+		},
+		"jp2":{
+			"nick_name": "巨奖彩金",
+			"event_name": "GMJp2",
+			"value":"",
+			"des": ""
+		},
+		"jp3":{
+			"nick_name": "大奖彩金",
+			"event_name": "GMJp3",
+			"value":"",
+			"des": ""
+		},
+		"jp4":{
+			"nick_name": "小奖彩金",
+			"event_name": "GMJp4",
+			"value":"",
+			"des": ""
+		},
+		"jp_online":{
+			"nick_name": "联网彩金",
+			"event_name": "GMJpOnline",
+			"value":"",
+			"des": ""
+		},
+		"bonus1":{
+			"nick_name": "额外奖1-掉球",
+			"event_name": "GMBonus1",
+			"value":"",
+			"des": ""
+		}
+	}
+}

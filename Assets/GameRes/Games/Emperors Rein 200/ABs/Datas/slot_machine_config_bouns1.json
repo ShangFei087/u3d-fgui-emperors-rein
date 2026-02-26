@@ -1,0 +1,140 @@
+{
+	"base_reel_strips": {
+		"reel1": [7,4,8,1,9,5,7,2,8,6,9,4,7,3,8,5,9,1,7,6,8,4,9,2,7,5,8,3,9,6],
+		"reel2": [7,4,8,1,9,5,7,2,8,6,9,4,7,3,8,5,9,1,7,6,8,4,9,2,7,5,8,3,9,6],
+		"reel3": [7,4,8,1,9,5,7,2,8,6,9,4,7,3,8,5,9,1,7,6,8,4,9,2,7,5,8,3,9,6],
+		"reel4": [7,4,8,1,9,5,7,2,8,6,9,4,7,3,8,5,9,1,7,6,8,4,9,2,7,5,8,3,9,6],
+		"reel5": [7,4,8,1,9,5,7,2,8,6,9,4,7,3,8,5,9,1,7,6,8,4,9,2,7,5,8,3,9,6]
+	},
+	"free_spin_reel_strips":null,
+	"bonus1_reel_strips":null,
+	"bonus2_reel_strips":null,
+	"bonus3_reel_strips":null,
+	"custom":{
+		"pkgName": "EmperorsRein",
+		"symbol_width": 200,
+		"symbol_height": 212,
+		"column": 5,
+		"row": 3,
+		"symbol_number" : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ], 
+		"border_effect": "Assets/GameRes/Games/PssOn00152 (1080x1920)/Prefabs/Border.prefab",
+		"symbol_icon":{
+            "1": "ui://EmperorsRein/symbol1_king",
+            "2": "ui://EmperorsRein/symbol2_man",
+            "3": "ui://EmperorsRein/symbol3_woman",
+            "4": "ui://EmperorsRein/symbol4_bugle",
+            "5": "ui://EmperorsRein/symbol5_laure",
+            "6": "ui://EmperorsRein/symbol6_a",
+            "7": "ui://EmperorsRein/symbol7_k",
+            "8": "ui://EmperorsRein/symbol8_q",
+            "9": "ui://EmperorsRein/symbol9_j",
+            "10": "ui://EmperorsRein/symbol10_free_spin",
+            "11": "ui://EmperorsRein/symbol0_wild",
+            "12": "ui://EmperorsRein/symbol11_bonus"
+		},
+		"symbol_hit_effect": {
+            "1":  "Assets/GameRes/Games/Emperors Rein 200/Prefabs/Symbols/SymbolHit/SymbolHit1.prefab",
+            "2":  "Assets/GameRes/Games/Emperors Rein 200/Prefabs/Symbols/SymbolHit/SymbolHit2.prefab",
+            "3":  "Assets/GameRes/Games/Emperors Rein 200/Prefabs/Symbols/SymbolHit/SymbolHit3.prefab",
+            "4":  "Assets/GameRes/Games/Emperors Rein 200/Prefabs/Symbols/SymbolHit/SymbolHit4.prefab",
+            "5":  "Assets/GameRes/Games/Emperors Rein 200/Prefabs/Symbols/SymbolHit/SymbolHit5.prefab",
+            "6":  "Assets/GameRes/Games/Emperors Rein 200/Prefabs/Symbols/SymbolHit/SymbolHit6.prefab",
+            "7":  "Assets/GameRes/Games/Emperors Rein 200/Prefabs/Symbols/SymbolHit/SymbolHit7.prefab",
+            "8":  "Assets/GameRes/Games/Emperors Rein 200/Prefabs/Symbols/SymbolHit/SymbolHit8.prefab",
+            "9":  "Assets/GameRes/Games/Emperors Rein 200/Prefabs/Symbols/SymbolHit/SymbolHit9.prefab",
+            "10": "Assets/GameRes/Games/Emperors Rein 200/Prefabs/Symbols/SymbolHit/SymbolHit10 FreeSpin.prefab",
+            "11":  "Assets/GameRes/Games/Emperors Rein 200/Prefabs/Symbols/SymbolHit/SymbolHit0 Wild.prefab",
+            "12": "Assets/GameRes/Games/Emperors Rein 200/Prefabs/Symbols/SymbolHit/SymbolHit11 Bonus.prefab"
+		},
+		"symbol_appear_effect":{
+			"11":  "Assets/GameRes/Games/Emperors Rein 200/Prefabs/Symbols/SymbolAppear/SymbolAppear0 Wild.prefab"
+		},
+		"symbol_expectation_effect":{
+			"12":  "Assets/GameRes/Games/Emperors Rein 200/Prefabs/Symbols/SymbolAppear/SymbolAppear0 Wild.prefab"
+		}
+	},
+	
+	"reel_setting":{
+		
+		"regular": {
+			"default": {
+				"time_turn_start_delay": 0.12,
+				"time_turn_once": 0.12,
+				"time_rebound_start":0.15,
+				"time_rebound_end": 0.08,
+				"offset_y_rebound_start": -200,
+				"offset_y_rebound_end": 20,
+				"num_reel_turn":7,
+				"num_reel_turn_gap":1
+			},
+			"reel1": null
+		},
+		"slow_motion": {
+			"default": {
+				"time_turn_start_delay": 0.12,
+				"time_turn_once": 0.12,
+				"time_rebound_start":0.15,
+				"time_rebound_end": 0.08,
+				"offset_y_rebound_start": -200,
+				"offset_y_rebound_end": 20,
+				"num_reel_turn":7,
+				"num_reel_turn_gap":1
+			},
+			"reel3": {
+				"num_reel_turn":14
+			},
+			"reel4": {
+				"num_reel_turn":20
+			},
+			"reel5": {
+				"num_reel_turn":28
+			}
+		},
+		"stop_immediately": {
+			"default": {
+				"time_turn_start_delay": 0,
+				"time_turn_once": 0.06,
+				"time_rebound_start":0,
+				"time_rebound_end": 0.04,
+				"offset_y_rebound_start": -200,
+				"offset_y_rebound_end": 20,
+				"num_reel_turn":1,
+				"num_reel_turn_gap":0
+			},
+			"reel1": null
+		}
+	},
+	
+	"win_effect_setting":{
+	
+		"default":{
+			"frame": false,
+			"line": true,
+			"bigger": true,
+			"twinkle": false,
+			"anim": true,
+			"total_win_line": true,
+			"single_win_line": true,   
+			"credit": true,
+			"cover": true,
+			"hide_base_symbol": true,
+			"skip_at_stop_immediately": false,
+			"time_s":1
+		},
+		"idle": {
+			
+		},
+		"auto": {
+			
+		},
+		"stop_immediately": {
+			
+		}
+	}
+}
+
+
+
+
+
+

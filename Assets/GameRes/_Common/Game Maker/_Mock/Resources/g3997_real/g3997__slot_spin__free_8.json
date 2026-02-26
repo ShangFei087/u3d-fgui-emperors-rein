@@ -1,0 +1,17 @@
+{
+	"OpenType": 1,
+
+	"ResultType": 1,
+
+	"lineNum": 1,
+
+	"TotalBet": 10,
+
+	"MatrixLength": 15,
+
+	"IDVec": [1301],
+
+	"Matrix": [1,1,1,4,9,
+		10,3,5,11,9,
+		1,7,7,3,9]
+}

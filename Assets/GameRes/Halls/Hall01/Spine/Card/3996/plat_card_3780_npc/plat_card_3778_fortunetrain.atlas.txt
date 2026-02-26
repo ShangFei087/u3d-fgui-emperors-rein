@@ -1,0 +1,16 @@
+plat_card_3778_fortunetrain.png
+size:667,293
+filter:Linear,Linear
+pma:true
+cao
+bounds:451,21,97,126
+kj_1
+bounds:1,17,234,275
+kj_2
+bounds:549,43,117,104
+kj_yan
+bounds:236,1,214,162
+path_001
+bounds:236,164,256,128
+xingxing
+bounds:493,148,173,144
