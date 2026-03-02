@@ -1,11 +1,11 @@
 {
-  "updated_at": 1772096441728,
+  "updated_at": 1772106175336,
   "hotfix_key": "hf_debug_android_20260206115500",
-  "hotfix_version": "1.6.16",
+  "hotfix_version": "1.6.19",
   "asset_bundle": {
     "manifest": {
-      "hash": "e0c3b4f37d2d692fdbdb83c43c9088a6",
-      "size_bytes": 16732
+      "hash": "6b746bcf7da850eeed20caed874ddc60",
+      "size_bytes": 16730
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
@@ -42,7 +42,7 @@
       "_common/game maker/sounds/ui_popup_open.unity3d": "c57a15a4a556dbaab1e2b971a6686a22",
       "_common/game maker/sounds/ui_spin_auto.unity3d": "7e03dedc290ca43c75c592bd36428b71",
       "_common/game maker/sounds/ui_spin_start.unity3d": "d27a6ce2f4311f2d8f45d4e786cd8ebc",
-      "games/bonusgame2/fguis.unity3d": "fe2acb7e24dd1612a0460adeaeac6676",
+      "games/bonusgame2/fguis.unity3d": "12b3a9e50196a6b9ce0f0d6fe40e5c36",
       "games/cai fu huo che 3996/fguis.unity3d": "8a0f0a5dbab7c5b3cd4ccbcb8e11c228",
       "games/cai fu huo che 3996/prefabs/effects/freereeleffect.unity3d": "3626e37da8a112139b364646eebff8ba",
       "games/cai fu huo che 3996/prefabs/effects/jackpotreeleffect.unity3d": "99d30dabb3785f2f3f0edf75441544b2",
@@ -133,7 +133,7 @@
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_miniidlecfzj.unity3d": "a6a349f6cd76d98d73dbe835d883eb5d",
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_minoridlecfzj.unity3d": "456e9e7e4574a6a4211aaa2bd45d35b8",
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_popdidlecfzj.unity3d": "c64bbde7ed8ee3becda63e58ca470544",
-      "games/cai fu zhi jia 3997/fguis.unity3d": "867250b8b37bdecf0cea9d9623d20e7e",
+      "games/cai fu zhi jia 3997/fguis.unity3d": "2ab75f06a8718da82f20c73ea1b12bf2",
       "games/cai fu zhi jia 3997/prefabs/game controller/slot game main controller.unity3d": "30bfd1d020b7447e2506fb0269f292cc",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/bonusaccelerateborder.unity3d": "c3a0bcd639e27deb6aeb218f0a3f2555",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/freeaccelerateborder.unity3d": "6a8a29cd4249c484294bbcf4a17f195f",
@@ -245,7 +245,7 @@
       "games/console/fguis.unity3d": "5977555fb6bcd48b792f46c49a942a4d",
       "games/emperors rein 200/abs/datas/slot_machine_config_bouns1.unity3d": "b7bdf4772671474e955d5a7883d9e43d",
       "games/emperors rein 200/abs/datas/slot_machine_config_temp.unity3d": "6b732135677815a2defb0eba50dcc545",
-      "games/emperors rein 200/fguis.unity3d": "c118e88cd1d8eb50d3497e4d78d20ec9",
+      "games/emperors rein 200/fguis.unity3d": "3c47528d0317912e09418bee4ae87d21",
       "games/emperors rein 200/prefabs/effects/game jackpot/prefabs/effect.unity3d": "a690611746bcbaf472cc5ac9de60ca39",
       "games/emperors rein 200/prefabs/effects/smallgame/art/effects/prefabs/2.unity3d": "a74f88b39307b01cb5731b61f3cab686",
       "games/emperors rein 200/prefabs/effects/smallgame/art/effects/prefabs/anchordi.unity3d": "2d8ddd07b7b474c304ede3b0391c836e",
