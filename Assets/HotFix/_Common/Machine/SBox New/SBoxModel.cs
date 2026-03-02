@@ -437,7 +437,6 @@ public partial class SBoxModel: MonoSingleton<SBoxModel>
         get => (long)SboxPlayerAccount.Credit;
         set
         {
-            Debug.LogError("myCredit 赋值 =="+ value);
             SboxPlayerAccount.Credit = (int)value; //这个不发事件
         }
     }

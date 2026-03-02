@@ -1,5 +1,6 @@
 using GameMaker;
 using GameUtil;
+using Newtonsoft.Json;
 using SBoxApi;
 using SimpleJSON;
 using SlotMaker;
@@ -913,14 +914,17 @@ namespace XingYunZhiLun_3998
             */
             ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Default;
             SlotGameEffectManager.Instance.SetEffect(ContentModel.Instance.targetSlotGameEffect);
+
+            // 记录游戏数据到数据库
+            Record(totalBet, res);
         }
 
 
-
-        /*
-        public void Record()
+        /// <summary>
+        /// 记录游戏数据到数据库
+        /// </summary>
+        private void Record(long totalBet, JSONNode res)
         {
-
             // 游戏场景记录
             GameSenceData gameSenceData = new GameSenceData();
 
@@ -940,108 +944,89 @@ namespace XingYunZhiLun_3998
             gameSenceData.strDeckRowCol = ContentModel.Instance.strDeckRowCol;
             gameSenceData.deckRowCol = SlotTool.GetDeckRowCol(ContentModel.Instance.strDeckRowCol);
 
-            gameSenceData.winFreeSpinTrigger = ContentModel.Instance.winFreeSpinTriggerOrAddCopy;
+            gameSenceData.winFreeSpinTrigger = null;
             gameSenceData.winList = ContentModel.Instance.winList;
-            gameSenceData.freeSpinPlayTimes = ContentModel.Instance.freeSpinPlayTimes;
-            gameSenceData.freeSpinTotalTimes = ContentModel.Instance.freeSpinTotalTimes;
-            gameSenceData.freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCredit;
-            gameSenceData.totalBet = ContentModel.Instance.totalBet;
-            gameSenceData.creditBefore = ContentModel.Instance.creditBefore;
-            gameSenceData.creditAfter = ContentModel.Instance.creditAfter; // 这是基础游戏+彩金【外设彩金-需要修改】
-            gameSenceData.jackpotWinCredit = 0;  //【外设彩金-需要修改】
-            gameSenceData.baseGameWinCredit = ContentModel.Instance.baseGameWinCredit;
+            //gameSenceData.freeSpinPlayTimes = ContentModel.Instance.freeSpinPlayTimes;
+            //gameSenceData.freeSpinTotalTimes = ContentModel.Instance.freeSpinTotalTimes;
+            //gameSenceData.freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCredit;
+            gameSenceData.totalBet = totalBet;
 
+            // 获取游戏前后的分数
+            long creditBefore = MainBlackboardController.Instance.myTempCredit;
+            long creditAfter = MainBlackboardController.Instance.myRealCredit;
 
-            TableSlotGameRecordItem slotGameRecordItem = new TableSlotGameRecordItem()
+            gameSenceData.creditBefore = creditBefore;
+            gameSenceData.creditAfter = creditAfter;
+
+            // 计算赢分
+            long totalEarnCredit = 0;
+            if (ContentModel.Instance.winList != null)
             {
-                game_type = ContentModel.Instance.isFreeSpin ? "free_spin" : ContentModel.Instance.isFreeSpinTrigger ? "free_spin_trigger" : "spin",
-                game_id = ConfigUtils.curGameId,
-                game_uid = ContentModel.Instance.curGameGuid,
-                created_at = ContentModel.Instance.curGameCreatTimeMS,
-                total_bet = ContentModel.Instance.totalBet,
-                credit_before = gameSenceData.creditBefore,
-            };
-
-            // 本剧数据存入数据库
-            slotGameRecordItem.credit_after = gameSenceData.creditAfter;  //【外设彩金-需要修改】
-            slotGameRecordItem.base_game_win_credit = gameSenceData.baseGameWinCredit;
-
-
+                foreach (var win in ContentModel.Instance.winList)
+                {
+                    totalEarnCredit += win.earnCredit;
+                }
+            }
+            gameSenceData.baseGameWinCredit = totalEarnCredit;
 
             // 彩金数据
-            JackpotRes info = ContentModel.Instance.jackpotRes;
+            JackpotRes info = ContentModel.Instance.jpGameRes;
 
-
-            // 数据修改：
             gameSenceData.jpGrand = info.curJackpotGrand;
             gameSenceData.jpMajor = info.curJackpotMajor;
             gameSenceData.jpMinor = info.curJackpotMinior;
             gameSenceData.jpMini = info.curJackpotMini;
 
+            long jackpotWinCredit = 0;
             if (info.jpWinLst != null && info.jpWinLst.Count > 0)
             {
                 JackpotWinInfo item = info.jpWinLst[0];
-
                 gameSenceData.jpWinInfo = item;
-
-
-                int winJPCredit = (int)item.winCredit;
-
-                slotGameRecordItem.jackpot_win_credit = winJPCredit;
-                gameSenceData.jackpotWinCredit = winJPCredit;
-
-
-                long creditBefore = ContentModel.Instance.creditAfter;
-                long creditAfter = ContentModel.Instance.creditAfter += winJPCredit;
-
-                ContentModel.Instance.creditAfter = creditAfter;
-                gameSenceData.creditAfter = creditAfter;
-                slotGameRecordItem.credit_after = creditAfter;
-
-
-                // 通知算法卡
-                MachineDataManager.Instance.NotifyGameJackpot(winJPCredit);
-                SBoxModel.Instance.myCredit += winJPCredit;
-
-
-                // 游戏彩金记录
-                TableJackpotRecordAsyncManager.Instance.AddJackpotRecord(item.id, item.name, winJPCredit,
-                creditBefore, creditAfter,
-                ContentModel.Instance.curGameGuid, ContentModel.Instance.curGameCreatTimeMS);
-
-
-                // 额外奖上报
-                DeviceBonusReport.Instance.ReportBonus(item.name, item.name, winJPCredit, -1, (msg) => { }, (err) => { });
-
+                jackpotWinCredit = (long)item.winCredit;
+                gameSenceData.jackpotWinCredit = jackpotWinCredit;
             }
 
-            // 每日营收统计
-            TableBusniessDayRecordAsyncManager.Instance.AddTotalBetWin(
-                ContentModel.Instance.curReelStripsIndex == "FS" ? 0 : ContentModel.Instance.totalBet,
-             ContentModel.Instance.baseGameWinCredit + gameSenceData.jackpotWinCredit, SBoxModel.Instance.myCredit);
+            // 确定游戏类型
+            int ResultType = res != null ? (int)res["ResultType"] : 0;
+            int OpenType = res != null ? (int)res["OpenType"] : 0;
 
+            string gameType = "spin";
+            if (ContentModel.Instance.isFreeSpinTrigger)
+            {
+                gameType = "free_spin_trigger";
+            }
+            else if (OpenType == 1)
+            {
+                gameType = "free_spin";
+            }
 
-            ContentModel.Instance.totalEarnCredit = ContentModel.Instance.baseGameWinCredit + gameSenceData.jackpotWinCredit;
+            // 构建记录对象
+            TableSlotGameRecordItem slotGameRecordItem = new TableSlotGameRecordItem()
+            {
+                game_type = gameType,
+                game_id = 3998,
+                game_uid = ContentModel.Instance.curGameGuid,
+                created_at = ContentModel.Instance.curGameCreatTimeMS,
+                total_bet = totalBet,
+                credit_before = creditBefore,
+                credit_after = creditAfter,
+                base_game_win_credit = totalEarnCredit,
+                jackpot_win_credit = jackpotWinCredit,
+                strDeckRowCol = ContentModel.Instance.strDeckRowCol,
+            };
 
-
+            // 场景数据存入数据库
             slotGameRecordItem.scene = JsonConvert.SerializeObject(gameSenceData);
-            string sql = SQLiteAsyncHelper.SQLInsertTableData<TableSlotGameRecordItem>(ConsoleTableName.TABLE_SLOT_GAME_RECORD, slotGameRecordItem);
+
+            // 插入数据
+            string sql = SQLiteAsyncHelper.SQLInsertTableData<TableSlotGameRecordItem>(
+                ConsoleTableName.TABLE_SLOT_GAME_RECORD,
+                slotGameRecordItem);
             SQLiteAsyncHelper.Instance.ExecuteNonQueryAsync(sql);
 
-
-
-            //try
-            //{
-            //    // 数据数据上报
-            //    string str = ReportDataUtils.CreatReportData(gameSenceData, SBoxModel.Instance.sboxPlayerInfo);
-            //    DebugUtils.Log($"数据上报成功 {str}");
-            //    ReportManager.Instance.SendData(str, null, null);
-            //}
-            //catch (Exception ex) { }
-
-
+            //DebugUtils.Log($"[G1700] 游戏记录已写入数据库: gameType={gameType}, game_uid={ContentModel.Instance.curGameGuid}");
         }
-        */
+
 
         void OnEnable()
         {

@@ -95,7 +95,7 @@ public class AssetBundleManager02 : MonoSingleton<AssetBundleManager02>
     {
         //#seaweed# 新增 - 避免并发（异步 或 协程 ，会出现并发加载同个ab包的问题）
         //可能存在依赖包，并发加载（例如：A包需依赖包C ; B包需依赖包C）
-      while (loadingBundles.ContainsKey(bundleName) && Time.unscaledTime - loadingBundles[bundleName] > 30)
+      while (loadingBundles.ContainsKey(bundleName) && Time.unscaledTime - loadingBundles[bundleName] < 30)
         {
             DebugUtils.Save($"避免并发加载 bundleName:{bundleName}");
             yield return new WaitForSeconds(UnityEngine.Random.Range(0.03f, 0.1f));

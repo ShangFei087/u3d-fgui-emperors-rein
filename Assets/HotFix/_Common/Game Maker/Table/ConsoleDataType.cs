@@ -348,7 +348,9 @@ public class TableSlotGameRecordItem
     public string user_id = "";
     /// <summary> 游戏id </summary>
     public long game_id;
-
+    /// <summary> 滚轮界面数据 </summary>
+    public string strDeckRowCol = "";
+   
     /// <summary> 游戏类型 </summary>
     public string game_type = "spin";  //【新版本用】 "spin", "free_spin"  "bonus_minigame"
 

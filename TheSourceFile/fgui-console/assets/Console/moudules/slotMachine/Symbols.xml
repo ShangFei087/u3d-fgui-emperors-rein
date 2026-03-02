@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="127,381">
+  <displayList>
+    <component id="n0_exvp" name="Symbol0" src="exvpa3" fileName="moudules/slotMachine/Symbol.xml" xy="0,-1"/>
+    <component id="n1_exvp" name="Symbol1" src="exvpa3" fileName="moudules/slotMachine/Symbol.xml" xy="0,125"/>
+    <component id="n2_exvp" name="Symbol2" src="exvpa3" fileName="moudules/slotMachine/Symbol.xml" xy="0,252"/>
+  </displayList>
+</component>
