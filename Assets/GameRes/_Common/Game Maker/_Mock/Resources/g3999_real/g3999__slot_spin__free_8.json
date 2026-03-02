@@ -3,11 +3,13 @@
 
 	"ResultType": 1,
 
-	"lineNum": 1,
+	"lineNum": 0,
 
 	"MatrixLength": 15,
 
-	"IDVec": [1301],
+	"TotalBet": 10,
+
+	"IDVec": [],
 
 	"Matrix": [10,3,5,4,9,
 		1,1,1,11,9,

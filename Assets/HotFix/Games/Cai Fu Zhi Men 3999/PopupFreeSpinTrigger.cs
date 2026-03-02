@@ -19,10 +19,10 @@ namespace CaiFuZhiMen_3999
         private GTextField _freeRoundText;
 
         private GComponent _freeTriggerWindow, _freeBg;
-        private GComponent _compareBlueGem, _compareFreeTriggerTip, _compareCatGirlClimb;
-        
-        private GameObject _blueGemObj, _catGirlClimb, _freeTriggerTipObj;
-        private GameObject _cloneBlueGemObj, _cloneCatGirlClimb, _cloneFreeTriggerTipObj;
+        private GComponent _compareBlueGem, _compareFreeTriggerTip, _compareCatGirlClimb, _compareRedRay;
+
+        private GameObject _blueGemObj, _catGirlClimb, _freeTriggerTipObj, _redRayObj;
+        private GameObject _cloneBlueGemObj, _cloneCatGirlClimb, _cloneFreeTriggerTipObj, _cloneRedRayObj;
 
         protected override void OnInit()
         {
@@ -43,6 +43,7 @@ namespace CaiFuZhiMen_3999
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
+            GameSoundHelper3999.Instance.StopSound(SoundKey.RegularBG);
             base.OnOpen(currentPageName, eventData);
 
             InitUICom();
@@ -66,7 +67,7 @@ namespace CaiFuZhiMen_3999
 
         private void LoadResAsync()
         {
-            _resCount = 3;
+            _resCount = 4;
 
             // 加载Spine动画
             ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "BlueGem.prefab", (cloneObj) =>
@@ -82,6 +83,11 @@ namespace CaiFuZhiMen_3999
             ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "CatGirlClimb.prefab", (cloneObj) =>
             {
                 _catGirlClimb = cloneObj;
+                ResLoadedCallback();
+            });
+            ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "RedRay.prefab", (cloneObj) =>
+            {
+                _redRayObj = cloneObj;
                 ResLoadedCallback();
             });
         }
@@ -107,17 +113,18 @@ namespace CaiFuZhiMen_3999
                 _freeTriggerWindow.visible = false;
                 _cloneFreeTriggerTipObj.SetActive(false);
                 _cloneCatGirlClimb.SetActive(true);
+                _cloneRedRayObj.SetActive(true);
 
-                Timers.inst.Add(1.5f, 1, (obj) =>
+                Timers.inst.Add(0.2f, 1, (obj) =>
                 {
                     _freeBg.visible = true;
                     _cloneBlueGemObj.SetActive(false);
                 });
 
-                Timers.inst.Add(4, 1, (obj) =>
+                Timers.inst.Add(3.5f, 1, (obj) =>
                 {
                     CloseSelf(null);
-                    PageManager.Instance.OpenPage(PageName.CaiFuZhiMenPopupGameLoading);
+                    GameSoundHelper3999.Instance.PlayMusicSingle(SoundKey.FreeSpinBG);
                 });
             }));
         }
@@ -151,16 +158,42 @@ namespace CaiFuZhiMen_3999
                 _cloneCatGirlClimb.SetActive(false);
                 GameCommon.FguiUtils.AddWrapper(_compareCatGirlClimb, _cloneCatGirlClimb);
             }
+
+            currentCom = contentPane.GetChild("anchor_RedRay").asCom;
+            if (currentCom != _compareRedRay)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareRedRay);
+                _compareRedRay = currentCom;
+                _cloneRedRayObj = Object.Instantiate(_redRayObj);
+                _cloneRedRayObj.SetActive(false);
+                GameCommon.FguiUtils.AddWrapper(_compareRedRay, _cloneRedRayObj);
+            }
         }
 
         private void ResetPage()
         {
             _freeBg.visible = false;
             _freeTriggerWindow.visible = true;
+
+            Object.Destroy(_cloneBlueGemObj);
+            Object.Destroy(_cloneFreeTriggerTipObj);
+            Object.Destroy(_cloneCatGirlClimb);
+            Object.Destroy(_cloneRedRayObj);
+
+            _cloneBlueGemObj = null;
+            _cloneFreeTriggerTipObj = null;
+            _cloneCatGirlClimb = null;
+            _cloneRedRayObj = null;
+
+            _compareBlueGem = null;
+            _compareFreeTriggerTip = null;
+            _compareCatGirlClimb = null;
+            _compareRedRay = null;
             
-            _cloneBlueGemObj.SetActive(true);
-            _cloneFreeTriggerTipObj.SetActive(true);
-            _cloneCatGirlClimb.SetActive(false);
+            // _cloneBlueGemObj.SetActive(true);
+            // _cloneFreeTriggerTipObj.SetActive(true);
+            // _cloneCatGirlClimb.SetActive(false);
+            // _cloneRedRayObj.SetActive(false);
         }
     }
 }

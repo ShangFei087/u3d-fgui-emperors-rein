@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="166,167" pivot="0.5,0.5" anchor="true">
+  <displayList>
+    <component id="n2_mqd8" name="anchor_WinningType" src="mqd84o" fileName="moudules/popupJackpotGame/SpineAnchors/Anchor_WinningType.xml" xy="83,83"/>
+    <component id="n0_mqd8" name="gameBtn" src="mqd84n" fileName="components/popupJackpotGame/JackpotGameButton.xml" xy="83,83" pivot="0.5,0.5" anchor="true"/>
+    <component id="n1_mqd8" name="anchor_Light" src="mqd84p" fileName="moudules/popupJackpotGame/EffectAnchors/Anchor_Light.xml" xy="83,83" touchable="false"/>
+  </displayList>
+</component>

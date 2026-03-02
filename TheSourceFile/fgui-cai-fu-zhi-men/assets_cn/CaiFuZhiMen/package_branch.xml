@@ -7,5 +7,10 @@
     <image id="ssgm3u" name="jp_txt_major.png" path="/images/gameJackpots/" exported="true"/>
     <image id="ssgm3v" name="jp_txt_mini.png" path="/images/gameJackpots/" exported="true"/>
     <image id="ssgm3w" name="jp_txt_minor.png" path="/images/gameJackpots/" exported="true"/>
+    <image id="lnfc55" name="1.png" path="/images/gameCommon/gameIntroduce/" exported="true"/>
+    <image id="lnfc56" name="2.png" path="/images/gameCommon/gameIntroduce/" exported="true"/>
+    <image id="lnfc57" name="3.png" path="/images/gameCommon/gameIntroduce/" exported="true"/>
+    <image id="lnfc58" name="4.png" path="/images/gameCommon/gameIntroduce/" exported="true"/>
+    <image id="lnfc59" name="5.png" path="/images/gameCommon/gameIntroduce/" exported="true"/>
   </resources>
 </branchDescription>

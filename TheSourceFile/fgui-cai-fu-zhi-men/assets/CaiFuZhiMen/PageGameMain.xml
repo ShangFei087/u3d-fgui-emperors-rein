@@ -10,14 +10,15 @@
     </component>
     <component id="n2_ssgm" name="slotReelBg" src="ssgm2z" fileName="moudules/gameCommon/gameMainView/SlotReelBg.xml" xy="0,913" scale="1.45,1.45"/>
     <component id="n3_ssgm" name="slotMachine" src="ssgm35" fileName="moudules/gameCommon/gameMainView/SlotMachine.xml" xy="56,967"/>
-    <component id="n8_ssgm" name="jpGrand" src="ssgm3j" fileName="moudules/pageGameMain/jackpots/GameJackpotGrand.xml" xy="290,125" group="n12_ssgm"/>
-    <component id="n9_ssgm" name="jpMajor" src="ssgm3k" fileName="moudules/pageGameMain/jackpots/GameJackpotMajor.xml" xy="17,370" group="n12_ssgm"/>
-    <component id="n10_ssgm" name="jpMini" src="ssgm3l" fileName="moudules/pageGameMain/jackpots/GameJackpotMini.xml" xy="768,371" group="n12_ssgm"/>
-    <component id="n11_ssgm" name="jpMinor" src="ssgm3m" fileName="moudules/pageGameMain/jackpots/GameJackpotMinor.xml" xy="326,318" group="n12_ssgm"/>
-    <group id="n12_ssgm" name="jackpots" xy="17,125" size="1045,360"/>
-    <component id="n1_ssgm" name="panel" src="ssgm39" fileName="moudules/gameCommon/gamePanel/Anchor_PanelPush.xml" xy="535,1840"/>
+    <component id="n13_mqd8" name="jpGrand" src="mqd84g" fileName="moudules/pageGameMain/Jackpots/GameJackpotGrand.xml" xy="290,125" group="n12_ssgm" visible="false"/>
+    <component id="n14_mqd8" name="jpMajor" src="mqd84h" fileName="moudules/pageGameMain/Jackpots/GameJackpotMajor.xml" xy="53,466" group="n12_ssgm" scale="1.4,1.4"/>
+    <component id="n15_mqd8" name="jpMini" src="mqd84i" fileName="moudules/pageGameMain/Jackpots/GameJackpotMini.xml" xy="613,468" group="n12_ssgm" scale="1.4,1.4"/>
+    <component id="n16_mqd8" name="jpMinor" src="mqd84j" fileName="moudules/pageGameMain/Jackpots/GameJackpotMinor.xml" xy="230,146" group="n12_ssgm" scale="1.4,1.4"/>
+    <group id="n12_ssgm" name="jackpots" xy="53,125" size="854,457"/>
     <component id="n4_ssgm" name="anchor_Effect" src="ssgm3a" fileName="moudules/gameCommon/gameOther/Anchor_Effect.xml" xy="540,960"/>
     <component id="n5_ssgm" name="anchor_FreeBorder" src="ssgm3b" fileName="moudules/gameCommon/gameOther/Anchor_FreeBorder.xml" xy="540,960"/>
     <component id="n6_ssgm" name="anchor_BonusBorder" src="ssgm3c" fileName="moudules/gameCommon/gameOther/Anchor_BonusBorder.xml" xy="540,960"/>
+    <component id="n23_v1fq" name="wildFrame" src="v1fq5g" fileName="moudules/pageGameMain/wild/WildFrame.xml" xy="56,967"/>
+    <component id="n1_ssgm" name="panel" src="ssgm39" fileName="moudules/gameCommon/gamePanel/Anchor_PanelPush.xml" xy="535,1840"/>
   </displayList>
 </component>

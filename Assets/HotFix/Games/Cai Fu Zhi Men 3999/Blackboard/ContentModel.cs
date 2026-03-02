@@ -51,6 +51,21 @@ namespace CaiFuZhiMen_3999
         #region 本局游戏数据
 
         /// <summary>
+        /// 克隆的SmallWild列表
+        /// </summary>
+        [FormerlySerializedAs("SmallWildList")] public List<GameObject> smallWildList = new List<GameObject>();
+        
+        /// <summary>
+        /// 克隆的BigWild列表
+        /// </summary>
+        [FormerlySerializedAs("BigWildList")] public List<GameObject> bigWildList = new List<GameObject>();
+
+        /// <summary>
+        /// smallWild的遮罩
+        /// </summary>
+        public  List<GGraph> maskList = new List<GGraph>();
+
+        /// <summary>
         /// 免费游戏总得分
         /// </summary>
         public long freeTotalBet = 0;
@@ -59,6 +74,11 @@ namespace CaiFuZhiMen_3999
         /// 大奖总得分
         /// </summary>
         public long bonusTotalBet = 0;
+
+        /// <summary>
+        /// 彩金游戏中奖框索引
+        /// </summary>
+        public int bonusIndex = -1;
 
         /// <summary>是否开启自动</summary>
         public bool isAuto { get; set; }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_mqd8" name="winningBg" src="vckb7" fileName="moudules/gameCommon/gameBg/WinningBg.xml" xy="0,0"/>
+    <component id="n1_mqd8" name="jpGrand" src="mqd84g" fileName="moudules/pageGameMain/Jackpots/GameJackpotGrand.xml" xy="290,125" group="n5_mqd8" visible="false"/>
+    <component id="n2_mqd8" name="jpMajor" src="mqd84h" fileName="moudules/pageGameMain/Jackpots/GameJackpotMajor.xml" xy="53,466" group="n5_mqd8" scale="1.4,1.4"/>
+    <component id="n3_mqd8" name="jpMini" src="mqd84i" fileName="moudules/pageGameMain/Jackpots/GameJackpotMini.xml" xy="613,468" group="n5_mqd8" scale="1.4,1.4"/>
+    <component id="n4_mqd8" name="jpMinor" src="mqd84j" fileName="moudules/pageGameMain/Jackpots/GameJackpotMinor.xml" xy="230,146" group="n5_mqd8" scale="1.3,1.3"/>
+    <group id="n5_mqd8" name="jackpots" xy="53,125" size="854,457"/>
+    <component id="n7_mqd8" name="clickIcon_0" src="mqd84q" fileName="moudules/popupJackpotGame/ClickIcon.xml" xy="192,1060" group="n19_mqd8"/>
+    <component id="n8_mqd8" name="clickIcon_1" src="mqd84q" fileName="moudules/popupJackpotGame/ClickIcon.xml" xy="425,1060" group="n19_mqd8"/>
+    <component id="n9_mqd8" name="clickIcon_2" src="mqd84q" fileName="moudules/popupJackpotGame/ClickIcon.xml" xy="663,1060" group="n19_mqd8"/>
+    <component id="n10_mqd8" name="clickIcon_3" src="mqd84q" fileName="moudules/popupJackpotGame/ClickIcon.xml" xy="886,1060" group="n19_mqd8"/>
+    <component id="n11_mqd8" name="clickIcon_4" src="mqd84q" fileName="moudules/popupJackpotGame/ClickIcon.xml" xy="191,1260" group="n19_mqd8"/>
+    <component id="n12_mqd8" name="clickIcon_5" src="mqd84q" fileName="moudules/popupJackpotGame/ClickIcon.xml" xy="424,1260" group="n19_mqd8"/>
+    <component id="n13_mqd8" name="clickIcon_6" src="mqd84q" fileName="moudules/popupJackpotGame/ClickIcon.xml" xy="663,1260" group="n19_mqd8"/>
+    <component id="n14_mqd8" name="clickIcon_7" src="mqd84q" fileName="moudules/popupJackpotGame/ClickIcon.xml" xy="886,1260" group="n19_mqd8"/>
+    <component id="n15_mqd8" name="clickIcon_8" src="mqd84q" fileName="moudules/popupJackpotGame/ClickIcon.xml" xy="191,1460" group="n19_mqd8"/>
+    <component id="n16_mqd8" name="clickIcon_9" src="mqd84q" fileName="moudules/popupJackpotGame/ClickIcon.xml" xy="424,1460" group="n19_mqd8"/>
+    <component id="n17_mqd8" name="clickIcon_10" src="mqd84q" fileName="moudules/popupJackpotGame/ClickIcon.xml" xy="663,1460" group="n19_mqd8"/>
+    <component id="n18_mqd8" name="clickIcon_11" src="mqd84q" fileName="moudules/popupJackpotGame/ClickIcon.xml" xy="885,1460" group="n19_mqd8"/>
+    <group id="n19_mqd8" name="clickIcons" xy="108,976" size="861,567"/>
+    <graph id="n6_mqd8" name="cover" xy="0,0" size="1080,1920" visible="false" touchable="false" type="rect" fillColor="#99000000"/>
+    <component id="n20_mqd8" name="anchor_Winning_0" src="mqd84r" fileName="moudules/popupJackpotGame/SpineAnchors/Anchor_Winning.xml" xy="191,1060" group="n32_mqd8" touchable="false"/>
+    <component id="n21_mqd8" name="anchor_Winning_1" src="mqd84r" fileName="moudules/popupJackpotGame/SpineAnchors/Anchor_Winning.xml" xy="425,1060" group="n32_mqd8" touchable="false"/>
+    <component id="n22_mqd8" name="anchor_Winning_2" src="mqd84r" fileName="moudules/popupJackpotGame/SpineAnchors/Anchor_Winning.xml" xy="663,1060" group="n32_mqd8" touchable="false"/>
+    <component id="n23_mqd8" name="anchor_Winning_3" src="mqd84r" fileName="moudules/popupJackpotGame/SpineAnchors/Anchor_Winning.xml" xy="886,1060" group="n32_mqd8" touchable="false"/>
+    <component id="n24_mqd8" name="anchor_Winning_4" src="mqd84r" fileName="moudules/popupJackpotGame/SpineAnchors/Anchor_Winning.xml" xy="192,1260" group="n32_mqd8" touchable="false"/>
+    <component id="n25_mqd8" name="anchor_Winning_5" src="mqd84r" fileName="moudules/popupJackpotGame/SpineAnchors/Anchor_Winning.xml" xy="425,1260" group="n32_mqd8" touchable="false"/>
+    <component id="n26_mqd8" name="anchor_Winning_6" src="mqd84r" fileName="moudules/popupJackpotGame/SpineAnchors/Anchor_Winning.xml" xy="663,1260" group="n32_mqd8" touchable="false"/>
+    <component id="n27_mqd8" name="anchor_Winning_7" src="mqd84r" fileName="moudules/popupJackpotGame/SpineAnchors/Anchor_Winning.xml" xy="886,1260" group="n32_mqd8" touchable="false"/>
+    <component id="n28_mqd8" name="anchor_Winning_8" src="mqd84r" fileName="moudules/popupJackpotGame/SpineAnchors/Anchor_Winning.xml" xy="192,1460" group="n32_mqd8" touchable="false"/>
+    <component id="n29_mqd8" name="anchor_Winning_9" src="mqd84r" fileName="moudules/popupJackpotGame/SpineAnchors/Anchor_Winning.xml" xy="425,1460" group="n32_mqd8" touchable="false"/>
+    <component id="n30_mqd8" name="anchor_Winning_10" src="mqd84r" fileName="moudules/popupJackpotGame/SpineAnchors/Anchor_Winning.xml" xy="663,1460" group="n32_mqd8" touchable="false"/>
+    <component id="n31_mqd8" name="anchor_Winning_11" src="mqd84r" fileName="moudules/popupJackpotGame/SpineAnchors/Anchor_Winning.xml" xy="886,1460" group="n32_mqd8" touchable="false"/>
+    <group id="n32_mqd8" name="realWinnings" xy="191,1060" size="696,401"/>
+  </displayList>
+</component>

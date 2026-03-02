@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="970,516">
+  <displayList>
+    <component id="n1_v1fq" name="bigWildFrame" src="v1fq5i" fileName="moudules/pageGameMain/wild/BigWildFrame.xml" xy="0,0"/>
+    <component id="n2_v1fq" name="smallWildFrame" src="v1fq5k" fileName="moudules/pageGameMain/wild/SmallWildFrame.xml" xy="0,0"/>
+  </displayList>
+</component>

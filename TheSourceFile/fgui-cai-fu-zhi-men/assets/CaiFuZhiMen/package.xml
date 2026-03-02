@@ -114,17 +114,60 @@
     <component id="ssgm3d" name="FreeFrame.xml" path="/moudules/pageGameMain/" exported="true"/>
     <image id="ssgm3e" name="fg_img_freebg.png" path="/images/gameCommon/gameOther/" exported="true" scale="9grid" scale9grid="20,49,116,112"/>
     <image id="ssgm3g" name="fg_txt_freespins.png" path="/images/pageGameMain/" exported="true"/>
-    <component id="ssgm3i" name="GameJackpotReel.xml" path="/moudules/pageGameMain/jackpots/" exported="true"/>
-    <component id="ssgm3j" name="GameJackpotGrand.xml" path="/moudules/pageGameMain/jackpots/" exported="true"/>
-    <component id="ssgm3k" name="GameJackpotMajor.xml" path="/moudules/pageGameMain/jackpots/" exported="true"/>
-    <component id="ssgm3l" name="GameJackpotMini.xml" path="/moudules/pageGameMain/jackpots/" exported="true"/>
-    <component id="ssgm3m" name="GameJackpotMinor.xml" path="/moudules/pageGameMain/jackpots/" exported="true"/>
     <image id="ssgm3n" name="ng_img_frame.png" path="/images/gameCommon/gameOther/" exported="true" scale="9grid" scale9grid="9,0,209,78"/>
     <image id="ssgm3o" name="jp_txt_grand.png" path="/images/gameJackpots/" exported="true"/>
-    <component id="ssgm3p" name="JackpotReels.xml" path="/moudules/pageGameMain/jackpots/" exported="true"/>
     <image id="ssgm3q" name="jp_txt_major.png" path="/images/gameJackpots/" exported="true"/>
     <image id="ssgm3r" name="jp_txt_mini.png" path="/images/gameJackpots/" exported="true"/>
     <image id="ssgm3s" name="jp_txt_minor.png" path="/images/gameJackpots/" exported="true"/>
+    <component id="ui7i3x" name="PopupJackpotGame.xml" path="/" exported="true"/>
+    <component id="ui7i3y" name="PopupJackpotTrigger.xml" path="/" exported="true"/>
+    <component id="ui7i3z" name="PopupJackpotLoad.xml" path="/" exported="true"/>
+    <component id="ui7i41" name="Anchor_WinJackpot.xml" path="/moudules/popupJackpotTrigger/Anchors/SpineAnchors/" exported="true"/>
+    <component id="ui7i42" name="WinBoxWindow.xml" path="/moudules/popupJackpotTrigger/" exported="true"/>
+    <image id="ui7i43" name="sg_bnt_pop_btn.png" path="/images/popupJackpotTrigger/" exported="true"/>
+    <component id="ui7i4a" name="JackpotStartButton.xml" path="/components/popupJackpotTrigger/" exported="true"/>
+    <image id="ui7i4b" name="txt_start.png" path="/images/popupJackpotTrigger/" exported="true"/>
+    <component id="ui7i4c" name="Anchor_GirlOpenDoor.xml" path="/moudules/popupJackpotTrigger/Anchors/SpineAnchors/" exported="true"/>
+    <component id="mqd84d" name="Anchor_CatGirlGlide.xml" path="/moudules/popupJackpotLoad/SpineAnchors/" exported="true"/>
+    <component id="mqd84e" name="Anchor_FogInterlude.xml" path="/moudules/popupJackpotLoad/EffectAnchors/" exported="true"/>
+    <component id="mqd84f" name="Anchor_JackpotBg.xml" path="/moudules/popupJackpotLoad/SpineAnchors/" exported="true"/>
+    <component id="mqd84g" name="GameJackpotGrand.xml" path="/moudules/pageGameMain/Jackpots/" exported="true"/>
+    <component id="mqd84h" name="GameJackpotMajor.xml" path="/moudules/pageGameMain/Jackpots/" exported="true"/>
+    <component id="mqd84i" name="GameJackpotMini.xml" path="/moudules/pageGameMain/Jackpots/" exported="true"/>
+    <component id="mqd84j" name="GameJackpotMinor.xml" path="/moudules/pageGameMain/Jackpots/" exported="true"/>
+    <component id="mqd84k" name="GameJackpotReel.xml" path="/moudules/pageGameMain/Jackpots/" exported="true"/>
+    <component id="mqd84l" name="JackpotReels.xml" path="/moudules/pageGameMain/Jackpots/" exported="true"/>
+    <image id="mqd84m" name="sg_img_icon.png" path="/images/popupJackpotGame/" exported="true"/>
+    <component id="mqd84n" name="JackpotGameButton.xml" path="/components/popupJackpotGame/" exported="true"/>
+    <component id="mqd84o" name="Anchor_WinningType.xml" path="/moudules/popupJackpotGame/SpineAnchors/" exported="true"/>
+    <component id="mqd84p" name="Anchor_Light.xml" path="/moudules/popupJackpotGame/EffectAnchors/" exported="true"/>
+    <component id="mqd84q" name="ClickIcon.xml" path="/moudules/popupJackpotGame/" exported="true"/>
+    <component id="mqd84r" name="Anchor_Winning.xml" path="/moudules/popupJackpotGame/SpineAnchors/" exported="true"/>
+    <component id="mqd84t" name="PopupJackpotResult.xml" path="/" exported="true"/>
+    <component id="mqd84u" name="Anchor_JackpotGetWindow.xml" path="/moudules/popupJackpotResult/SpineAnchors/" exported="true"/>
+    <component id="mqd84v" name="Anchor_TotalGetWindow.xml" path="/moudules/popupJackpotResult/SpineAnchors/" exported="true"/>
+    <image id="mqd84w" name="jp_txt_collect.png" path="/images/popupJackpotResult/" exported="true"/>
+    <component id="mqd84x" name="JackpotCollectButton.xml" path="/components/popupJackpotResult/" exported="true"/>
+    <component id="mqd84y" name="JackpotGetWindow.xml" path="/moudules/popupJackpotResult/" exported="true"/>
+    <component id="mqd84z" name="TotalGetWindow.xml" path="/moudules/popupJackpotResult/" exported="true"/>
+    <image id="lnfc50" name="1.png" path="/images/gameCommon/gameIntroduce/" exported="true"/>
+    <image id="lnfc51" name="2.png" path="/images/gameCommon/gameIntroduce/" exported="true"/>
+    <image id="lnfc52" name="3.png" path="/images/gameCommon/gameIntroduce/" exported="true"/>
+    <image id="lnfc53" name="4.png" path="/images/gameCommon/gameIntroduce/" exported="true"/>
+    <image id="lnfc54" name="5.png" path="/images/gameCommon/gameIntroduce/" exported="true"/>
+    <component id="lnfc5a" name="Paytable021.xml" path="/moudules/gameCommon/payTable/" exported="true"/>
+    <component id="lnfc5b" name="Paytable022.xml" path="/moudules/gameCommon/payTable/" exported="true"/>
+    <component id="lnfc5c" name="Paytable023.xml" path="/moudules/gameCommon/payTable/" exported="true"/>
+    <component id="lnfc5d" name="Paytable024.xml" path="/moudules/gameCommon/payTable/" exported="true"/>
+    <component id="lnfc5e" name="Paytable025.xml" path="/moudules/gameCommon/payTable/" exported="true"/>
+    <component id="v1fq5g" name="WildFrame.xml" path="/moudules/pageGameMain/wild/" exported="true"/>
+    <component id="v1fq5i" name="BigWildFrame.xml" path="/moudules/pageGameMain/wild/" exported="true"/>
+    <component id="v1fq5j" name="Anchor_BigWild.xml" path="/moudules/pageGameMain/wild/" exported="true"/>
+    <component id="v1fq5k" name="SmallWildFrame.xml" path="/moudules/pageGameMain/wild/" exported="true"/>
+    <component id="v1fq5l" name="Anchor_SmallWild.xml" path="/moudules/pageGameMain/wild/" exported="true"/>
+    <component id="ntbc5m" name="FreeGameBgOther.xml" path="/moudules/gameCommon/gameBg/" exported="true"/>
+    <component id="ntbc5n" name="FreeGameOther2.xml" path="/moudules/gameCommon/gameBg/" exported="true"/>
+    <image id="ntbc5o" name="fg_bg2.png" path="/images/gameCommon/gameBg/" exported="true"/>
   </resources>
   <publish name=""/>
 </packageDescription>

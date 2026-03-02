@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: ng_sym08_goldencup_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: 97bb5d0e3f7a7a44ebee7701cef5c2d8, type: 3}
+  atlasFile: {fileID: 4900000, guid: 84adad950b7ddf649a477a8096f50954, type: 3}
   materials:
-  - {fileID: 2100000, guid: f0fccc0006e9c0347827a848a898ad97, type: 2}
+  - {fileID: 2100000, guid: e6db862a989e3094da6665584a362dca, type: 2}

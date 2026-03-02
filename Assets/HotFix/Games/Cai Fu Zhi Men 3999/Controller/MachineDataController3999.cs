@@ -20,6 +20,38 @@ namespace CaiFuZhiMen_3999
             FreeSpin,
             Bonus // cwy 新增
         };
+        
+        void OnEnable()
+        {
+            EventCenter.Instance.AddEventListener<EventData>(GlobalEvent.ON_GM_EVENT, OnGMEvent);
+        }
+
+        void OnDisable()
+        {
+            EventCenter.Instance.RemoveEventListener<EventData>(GlobalEvent.ON_GM_EVENT, OnGMEvent);
+        }
+        
+        void OnGMEvent(EventData res)
+        {
+            if (ApplicationSettings.Instance.isMock == false)
+                return;
+
+            if (res.id != 3999) return;
+
+            switch (res.name)
+            {
+                // cwy gm测试
+                case GlobalEvent.GMBonus1:
+                    _nextSpin = SpinDataType.Bonus;
+                    break;
+                case GlobalEvent.GMFreeSpin:
+                    _nextSpin = SpinDataType.FreeSpin;
+                    break;
+                case GlobalEvent.GMMultipleWinLine:
+                    _nextSpin = SpinDataType.Normal;
+                    break;
+            }
+        }
 
         private readonly Dictionary<SpinDataType, List<string[]>> _spineDataDic =
             new Dictionary<SpinDataType, List<string[]>>()
@@ -494,5 +526,7 @@ namespace CaiFuZhiMen_3999
         }
 
         #endregion
+        
+       
     }
 }
