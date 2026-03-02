@@ -27,7 +27,7 @@ public class TabLogRecordController : MonoBehaviour
         for (int i=1; i<=11; i++)
         {
             GComponent gItem = goOwnerTab.GetChild($"item{i}").asCom;
-            goItems.Add(gItem) ;
+            goItems.Add(gItem);
 
             gItem.visible = false;
             //gItem.GetChild("value1").asRichTextField.text = "";

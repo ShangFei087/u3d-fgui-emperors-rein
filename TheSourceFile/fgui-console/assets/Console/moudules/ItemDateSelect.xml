@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="540,76">
   <displayList>
-    <richtext id="n0_glrj" name="key" xy="40,16" size="150,42" touchable="false" fontSize="30" color="#ffffff" vAlign="middle" autoSize="shrink" singleLine="true" text="Date:"/>
+    <richtext id="n0_glrj" name="key" xy="40,16" size="150,42" touchable="false" fontSize="30" color="#ffffff" vAlign="middle" autoSize="shrink" singleLine="true" text="GAMEID:"/>
     <component id="n3_g3lh" name="value" src="g3lh5e" fileName="components/DefaultComboBox.xml" xy="210,14">
       <ComboBox visibleItemCount="10">
         <item title="item1"/>

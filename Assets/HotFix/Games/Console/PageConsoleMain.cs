@@ -361,9 +361,7 @@ namespace ConsoleSlot01
 
         void OnClickLogRecord() => PageManager.Instance.OpenPage(PageName.ConsolePageConsoleLogRecord);
 
-        void OnClickGameHistory() { }
-
-
+        void OnClickGameHistory() => PageManager.Instance.OpenPage(PageName.ConsolePageConsoleGameHistory);
         async void OnClickLanguage()
         {
 

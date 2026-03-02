@@ -557,7 +557,7 @@ namespace XingYunZhiLun_3998
                 yield break;
             }
 
-            if (SBoxModel.Instance.myCredit < ContentModel.Instance.totalBet)
+            if (SBoxModel.Instance.myCredit < ContentModel.Instance.totalBet* SBoxModel.Instance.SboxConfData.CoinValue)
             {
                 //tipCoinIn = true;
                 errorCallback?.Invoke("<size=15>Balance is insufficient, please recharge first</size>");
