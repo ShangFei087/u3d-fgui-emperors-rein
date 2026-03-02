@@ -309,14 +309,6 @@ namespace XingYunZhiLun_3998
         }
         #endregion
 
-        public new IEnumerator ShowWinListAwayDuringIdle(List<SymbolWin> winList)
-        {
-            while (winList.Count > 0) //while (idx < winList.Count)
-            {
-                yield return ShowWinListBySetting(winList);
-            }
-        }
-
         public override IEnumerator ShowWinListBySetting(List<SymbolWin> winList)
         {
 

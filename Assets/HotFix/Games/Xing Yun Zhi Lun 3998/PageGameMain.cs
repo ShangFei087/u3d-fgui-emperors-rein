@@ -5,6 +5,7 @@ using PusherEmperorsRein;
 using SBoxApi;
 using SimpleJSON;
 using SlotMaker;
+using SlotZhuZaiJinBi1700;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -105,7 +106,6 @@ namespace XingYunZhiLun_3998
                 {
                     isInit = true;
                     InitParam(null);
-                    Debug.LogError("MainInit");
                 }
             };
 
@@ -232,8 +232,6 @@ namespace XingYunZhiLun_3998
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
             mono.updateHandle.AddListener(WheelTrun);
 
-            InitParam(null);
-
             if (isReserve)
             {
                 GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
@@ -262,6 +260,7 @@ namespace XingYunZhiLun_3998
         {
             if (data != null) _data = data;
             if (!isInit) return;
+            isInit = false;
 
             PageManager.Instance.PreloadPage(PageName.XingYunZhiLunPopupZhuanPan, null);
 
@@ -362,12 +361,8 @@ namespace XingYunZhiLun_3998
             }
             fireworkEffect = goFireworkEffect.transform.GetChild(0).GetChild(0).GetChild(0);
 
-            if(bsTofs == null || fsTobs == null)
-            {
-                bsTofs = contentPane.GetTransition("BSToFS");
-                fsTobs = contentPane.GetTransition("FSToBS");
-            }
-            
+            bsTofs = contentPane.GetTransition("BSToFS");
+            fsTobs = contentPane.GetTransition("FSToBS");
 
             //初始化菜单ui
             gOwnerPanel = this.contentPane.GetChild("panel").asCom;
@@ -377,7 +372,6 @@ namespace XingYunZhiLun_3998
             //goGameCtrl.transform.Find("Panel").GetComponent<PanelController01>().Init();
             EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
                 new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
-            Debug.LogError(114514);
 
 
             //同步积分和押注

@@ -25,7 +25,7 @@ namespace XingYunZhiLun_3998
 
 
         private bool isInit = false;
-        private float duration = 6.0f;       //持续时间
+        private float duration = 3.0f;       //持续时间
         
         private Animator animator = null;
 
