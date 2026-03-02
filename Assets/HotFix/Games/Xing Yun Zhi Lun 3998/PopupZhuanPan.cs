@@ -129,6 +129,7 @@ namespace XingYunZhiLun_3998
             goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.2f);
 
             spinButton = contentPane.GetChild("spinBtn").asButton;
+            isClose = false;
             spinButton.onClick.Clear();
             spinButton.onClick.Add(() => StartGameOnce(() =>
             {
