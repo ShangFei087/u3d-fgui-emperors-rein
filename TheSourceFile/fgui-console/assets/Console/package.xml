@@ -194,6 +194,14 @@
     <component id="u8xfa" name="GripButton_HZ.xml" path="/bbundleDefaultScrollbars/components/scrollbars/"/>
     <component id="u8xfe" name="ScrollBar_VT.xml" path="/bbundleDefaultScrollbars/components/scrollbars/" exported="true"/>
     <component id="u8xff" name="GripButton_VT.xml" path="/bbundleDefaultScrollbars/components/scrollbars/"/>
+    <component id="exvp7x" name="PageConsoleGameHistory.xml" path="/" exported="true"/>
+    <component id="exvpa3" name="Symbol.xml" path="/moudules/slotMachine/"/>
+    <image id="exvpad" name="ng_sym_pMoneyjar.png" path="/images/SlotZhuZaiJinBi1700/symbols/" exported="true"/>
+    <component id="exvpaj" name="SymbolAnimator.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="exvpak" name="Symbols.xml" path="/moudules/slotMachine/"/>
+    <component id="exvpal" name="Reel.xml" path="/moudules/slotMachine/"/>
+    <component id="exvpam" name="Reels.xml" path="/moudules/slotMachine/"/>
+    <component id="exvpan" name="SlotMachine.xml" path="/moudules/slotMachine/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets/GameRes/Games/Console/FGUIs" packageCount="2" genCode="true">
     <atlas name="Default" index="0"/>
