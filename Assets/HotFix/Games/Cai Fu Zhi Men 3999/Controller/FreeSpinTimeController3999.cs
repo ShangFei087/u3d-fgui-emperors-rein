@@ -36,7 +36,7 @@ namespace CaiFuZhiMen_3999
 
         private void ChangFreeSpinTime(EventData eventData = null)
         {
-            if (eventData is { name: "ContentModel/showFreeSpinRemainTime" })
+            if (eventData is { name: "ContentModel/ShowFreeSpinRemainTime" })
             {
                 _freeSpinTime.text =
                     eventData.value.ToString() + "/" + ContentModel.Instance.FreeSpinTotalTimes;

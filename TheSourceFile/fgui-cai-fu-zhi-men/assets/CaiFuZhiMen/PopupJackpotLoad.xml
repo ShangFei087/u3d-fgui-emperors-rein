@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n2_mqd8" name="anchor_JackpotBg" src="mqd84f" fileName="moudules/popupJackpotLoad/SpineAnchors/Anchor_JackpotBg.xml" xy="539,960"/>
+    <component id="n1_mqd8" name="anchor_CatGirlGlide" src="mqd84d" fileName="moudules/popupJackpotLoad/SpineAnchors/Anchor_CatGirlGlide.xml" xy="540,960"/>
+  </displayList>
+</component>

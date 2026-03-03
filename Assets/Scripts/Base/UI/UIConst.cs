@@ -308,23 +308,25 @@ public class UIConst
                 {
                     "Assets/GameRes/Games/Cai Fu Zhi Men 3999/FGUIs", "CaiFuZhiMen_3999.PopupFreeSpinTrigger"
                 },
-            [PageName.CaiFuZhiMenPopupBigWin] =
-                new object[] { "Assets/GameRes/Games/Cai Fu Zhi Men 3999/FGUIs", "CaiFuZhiMen_3999.PopupBigWin" },
             [PageName.CaiFuZhiMenPopupJackpotGame] =
                 new object[] { "Assets/GameRes/Games/Cai Fu Zhi Men 3999/FGUIs", "CaiFuZhiMen_3999.PopupJackpotGame" },
-            [PageName.CaiFuZhiMenPopupJackpotGameResult] =
+            [PageName.CaiFuZhiMenPopupJackpotResult] =
                 new object[]
                 {
-                    "Assets/GameRes/Games/Cai Fu Zhi Men 3999/FGUIs", "CaiFuZhiMen_3999.PopupJackpotGameResult"
+                    "Assets/GameRes/Games/Cai Fu Zhi Men 3999/FGUIs", "CaiFuZhiMen_3999.PopupJackpotResult"
                 },
             [PageName.CaiFuZhiMenPopupFreeSpinResult] =
                 new object[]
                 {
                     "Assets/GameRes/Games/Cai Fu Zhi Men 3999/FGUIs", "CaiFuZhiMen_3999.PopupFreeSpinResult"
                 },
-            [PageName.CaiFuZhiMenPopupJackpotGameTrigger] = new object[]
+            [PageName.CaiFuZhiMenPopupJackpotTrigger] = new object[]
             {
-                "Assets/GameRes/Games/Cai Fu Zhi Men 3999/FGUIs", "CaiFuZhiMen_3999.PopupJackpotGameTrigger"
+                "Assets/GameRes/Games/Cai Fu Zhi Men 3999/FGUIs", "CaiFuZhiMen_3999.PopupJackpotTrigger"
+            },
+            [PageName.CaiFuZhiMenPopupJackpotLoad] = new object[]
+            {
+                "Assets/GameRes/Games/Cai Fu Zhi Men 3999/FGUIs", "CaiFuZhiMen_3999.PopupJackpotLoad"
             },
 
             // 财富之家
@@ -525,12 +527,12 @@ public enum PageName
     // 财富之门
     CaiFuZhiMenPopupGameLoading,
     CaiFuZhiMenPageGameMain,
-    CaiFuZhiMenPopupBigWin,
     CaiFuZhiMenPopupFreeSpinTrigger,
     CaiFuZhiMenPopupJackpotGame,
-    CaiFuZhiMenPopupJackpotGameResult,
+    CaiFuZhiMenPopupJackpotResult,
     CaiFuZhiMenPopupFreeSpinResult,
-    CaiFuZhiMenPopupJackpotGameTrigger,
+    CaiFuZhiMenPopupJackpotTrigger,
+    CaiFuZhiMenPopupJackpotLoad,
 
     // 财富之家
     CaiFuZhiJiaPopupGameLoading,

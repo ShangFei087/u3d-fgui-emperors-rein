@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="970,516">
+  <displayList>
+    <component id="n0_v1fq" name="n0" src="v1fq5j" fileName="moudules/pageGameMain/wild/Anchor_BigWild.xml" xy="100,436"/>
+    <component id="n1_v1fq" name="n1" src="v1fq5j" fileName="moudules/pageGameMain/wild/Anchor_BigWild.xml" xy="294,436"/>
+    <component id="n2_v1fq" name="n2" src="v1fq5j" fileName="moudules/pageGameMain/wild/Anchor_BigWild.xml" xy="490,436"/>
+    <component id="n3_v1fq" name="n3" src="v1fq5j" fileName="moudules/pageGameMain/wild/Anchor_BigWild.xml" xy="686,436"/>
+    <component id="n4_v1fq" name="n4" src="v1fq5j" fileName="moudules/pageGameMain/wild/Anchor_BigWild.xml" xy="880,436"/>
+  </displayList>
+</component>

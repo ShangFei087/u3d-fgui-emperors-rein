@@ -1,7 +1,6 @@
 ng_sym_Lscore.png
 size:653,174
 filter:Linear,Linear
-pma:true
 scale:0.9
 baibang
 bounds:633,154,18,18

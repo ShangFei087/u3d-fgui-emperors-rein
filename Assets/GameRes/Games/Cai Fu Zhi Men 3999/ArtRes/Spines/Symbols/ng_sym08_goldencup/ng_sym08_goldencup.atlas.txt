@@ -1,7 +1,6 @@
 ng_sym08_goldencup.png
 size:240,194
 filter:Linear,Linear
-pma:true
 scale:0.9
 baibang
 bounds:2,3,18,18

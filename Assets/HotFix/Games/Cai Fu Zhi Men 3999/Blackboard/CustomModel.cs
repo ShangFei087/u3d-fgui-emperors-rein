@@ -10,7 +10,12 @@ namespace CaiFuZhiMen_3999
         public int column => 5;
         public int row => 3;
         public float reelMaxOffsetY => symbolHeight * row;
-        public string[] payTable => new string[5];
+
+        public string[] payTable => new string[5]
+        {
+            "ui://CaiFuZhiMen/Paytable021", "ui://CaiFuZhiMen/Paytable022", "ui://CaiFuZhiMen/Paytable023",
+            "ui://CaiFuZhiMen/Paytable024", "ui://CaiFuZhiMen/Paytable025"
+        };
 
         public List<int> symbolNumber => new List<int>()
         {
@@ -37,20 +42,12 @@ namespace CaiFuZhiMen_3999
             { "2", "Assets/GameRes/Games/Cai Fu Zhi Men 3999/Prefabs/Symbols/SymbolAppear/ScoreQ_2.prefab" },
             { "3", "Assets/GameRes/Games/Cai Fu Zhi Men 3999/Prefabs/Symbols/SymbolAppear/ScoreK_3.prefab" },
             { "4", "Assets/GameRes/Games/Cai Fu Zhi Men 3999/Prefabs/Symbols/SymbolAppear/ScoreA_4.prefab" },
-            {
-                "5", "Assets/GameRes/Games/Cai Fu Zhi Men 3999/Prefabs/Symbols/SymbolAppear/YellowBox_5.prefab"
-            },
+            { "5", "Assets/GameRes/Games/Cai Fu Zhi Men 3999/Prefabs/Symbols/SymbolAppear/YellowBox_5.prefab" },
             { "6", "Assets/GameRes/Games/Cai Fu Zhi Men 3999/Prefabs/Symbols/SymbolAppear/BlueBox_6.prefab" },
-            {
-                "7", "Assets/GameRes/Games/Cai Fu Zhi Men 3999/Prefabs/Symbols/SymbolAppear/GoldenCup_7.prefab"
-            },
-            {
-                "8", "Assets/GameRes/Games/Cai Fu Zhi Men 3999/Prefabs/Symbols/SymbolAppear/GoldenKey_8.prefab"
-            },
+            { "7", "Assets/GameRes/Games/Cai Fu Zhi Men 3999/Prefabs/Symbols/SymbolAppear/GoldenCup_7.prefab" },
+            { "8", "Assets/GameRes/Games/Cai Fu Zhi Men 3999/Prefabs/Symbols/SymbolAppear/GoldenKey_8.prefab" },
             { "9", "Assets/GameRes/Games/Cai Fu Zhi Men 3999/Prefabs/Symbols/SymbolAppear/Wild_9.prefab" },
-            {
-                "10", "Assets/GameRes/Games/Cai Fu Zhi Men 3999/Prefabs/Symbols/SymbolAppear/Scatter_10.prefab"
-            },
+            { "10", "Assets/GameRes/Games/Cai Fu Zhi Men 3999/Prefabs/Symbols/SymbolAppear/Scatter_10.prefab" },
             { "11", "Assets/GameRes/Games/Cai Fu Zhi Men 3999/Prefabs/Symbols/SymbolAppear/Bonus_11.prefab" }
         };
 
