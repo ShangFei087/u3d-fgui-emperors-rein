@@ -16,7 +16,8 @@ namespace ConsoleSlot01
         GButton btnClose;
         GButton btnPrev, btnNext;//上一页和下一页按钮
         GComboBox gcbDropdownDates, gcbDropdownGameIds;//日期和游戏id下拉框
-
+        GList lstPages;
+        GComponent cmpTabGameHistory; 
         // 存储当前选中的游戏ID和日期时间（精确到秒）
         long currentGameId = 1700; // 默认游戏ID
         string currentDateTime = ""; // 格式：yyyy-MM-dd HH:mm:ss
@@ -71,13 +72,11 @@ namespace ConsoleSlot01
             {
                 CloseSelf(null);
             });
+            lstPages = this.contentPane.GetChild("pages").asList;
+            cmpTabGameHistory = lstPages.GetChildAt(0).asCom;
 
             // 初始化Tab控制器，传入两个回调
-            taGameHistoryController.InitParam(
-                this.contentPane.GetChild("Slot").asCom,
-                ConsoleTableName.TABLE_SLOT_GAME_RECORD,
-                onDatesChange,
-                onGameIdsChange);
+            taGameHistoryController.InitParam(cmpTabGameHistory, ConsoleTableName.TABLE_SLOT_GAME_RECORD,onDatesChange,onGameIdsChange);
 
             // 初始化日期时间下拉框
             gcbDropdownDates = this.contentPane.GetChild("date").asCom.GetChild("value").asComboBox;
@@ -99,7 +98,9 @@ namespace ConsoleSlot01
 
         }
 
-        // 日期时间列表变化回调
+        //初始化游戏数据
+
+        //初始化时间id下拉框
         void onDatesChange(List<string> dateTimes)
         {
             // 格式化显示：将"yyyy-MM-dd HH:mm:ss"转换为更友好的显示格式
@@ -136,7 +137,7 @@ namespace ConsoleSlot01
                 gcbDropdownDates.selectedIndex = 0;
                 currentDateTime = dateTimes[0];
                 // 自动查询第一条数据
-                taGameHistoryController.OnDateTimeChanged(currentGameId, currentDateTime);
+                taGameHistoryController.OnDateTimeChanged(currentGameId, currentDateTime, gcbDropdownDates.selectedIndex);
             }
             else
             {
@@ -148,7 +149,7 @@ namespace ConsoleSlot01
             }
         }
 
-        // 游戏ID列表变化回调
+         //初始化游戏id下拉框
         void onGameIdsChange(List<long> gameIds)
         {
             List<string> gameIdStrings = new List<string>();
@@ -175,7 +176,7 @@ namespace ConsoleSlot01
                 });
             }
         }
-
+        // 游戏ID列表变化回调
         void OnGameIdComboChanged(EventContext context)
         {
             GComboBox sender = context.sender as GComboBox;
@@ -193,7 +194,7 @@ namespace ConsoleSlot01
             }
 
         }
-
+        // 日期时间列表变化回调
         void OnDateTimeComboChanged(EventContext context)
         {
             GComboBox sender = context.sender as GComboBox;
@@ -201,14 +202,14 @@ namespace ConsoleSlot01
 
             currentDateTime = sender.value;
             // 根据选中的游戏ID和日期时间查询数据
-            taGameHistoryController.OnDateTimeChanged(currentGameId, currentDateTime);
+            taGameHistoryController.OnDateTimeChanged(currentGameId, currentDateTime, gcbDropdownDates.selectedIndex);
         }
-
+        //上一页
         public void OnClickPrev()
         {
             taGameHistoryController.PrevPage();
         }
-
+        //下一页
         public void OnClickNext()
         {
             taGameHistoryController.NextPage();

@@ -350,12 +350,14 @@ public class TableSlotGameRecordItem
     public long game_id;
     /// <summary> 滚轮界面数据 </summary>
     public string strDeckRowCol = "";
-   
-    /// <summary> 游戏类型 </summary>
-    public string game_type = "spin";  //【新版本用】 "spin", "free_spin"  "bonus_minigame"
 
-    /// <summary> 游戏奖励类型 </summary>
-    public string bonus_type = "";  //【新版本用】 "spin", "free_spin"  "bonus_minigame"
+    /// <summary> 开奖方式类型 </summary>
+    public int open_type;
+    /// <summary>开奖结果类型 </summary>
+    public int result_type; 
+
+    /// <summary> 大奖类型 </summary>
+    public string bonus_type = "";  
 
     /// <summary> 本剧游戏guid </summary>
     public string game_uid;
@@ -393,6 +395,8 @@ public class TableSlotGameRecordItem
     public string custom_data = "{}";
     /// <summary> 创建时间 </summary>
     public long created_at;
+    ///<summary> 图片 - 默认图标 </summary>
+    public string symbol_icon_mapping;
 }
 
 

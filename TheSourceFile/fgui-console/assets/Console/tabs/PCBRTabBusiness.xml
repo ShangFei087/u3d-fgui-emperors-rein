@@ -67,11 +67,11 @@
       <property target="key" propertyId="0" value="Total Win:"/>
       <property target="value" propertyId="0" value="1000"/>
     </component>
+    <graph id="n83_g3lh" name="n83" xy="40,839" size="1000,2" group="n84_g3lh" type="rect" lineSize="0" lineColor="#ffffffff"/>
     <component id="n82_g3lh" name="totalProfitBetDaly" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="720,766" group="n84_g3lh">
       <property target="key" propertyId="0" value="Total Profit:"/>
       <property target="value" propertyId="0" value="1000"/>
     </component>
-    <graph id="n83_g3lh" name="n83" xy="40,839" size="1000,2" group="n84_g3lh" type="rect" lineSize="0" lineColor="#ffffffff"/>
     <group id="n84_g3lh" name="n84" xy="0,766" size="1080,76" group="n91_g3lh"/>
     <component id="n67_g3lh" name="totalCoinInDaly" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="0,842" group="n74_g3lh">
       <property target="key" propertyId="0" value="Total Coin In:"/>

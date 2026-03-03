@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="635,381">
+<component size="1080,600">
   <displayList>
-    <component id="n5_exvp" name="n5" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="0,2"/>
-    <component id="n6_exvp" name="n6" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="126,2"/>
-    <component id="n7_exvp" name="n7" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="253,2"/>
-    <component id="n8_exvp" name="n8" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="380,2"/>
-    <component id="n9_exvp" name="n9" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="507,2"/>
-    <component id="n10_exvp" name="n10" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="0,129"/>
-    <component id="n11_exvp" name="n11" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="126,129"/>
-    <component id="n12_exvp" name="n12" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="253,129"/>
-    <component id="n13_exvp" name="n13" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="380,129"/>
-    <component id="n14_exvp" name="n14" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="507,129"/>
-    <component id="n15_exvp" name="n15" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="0,256"/>
-    <component id="n16_exvp" name="n16" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="126,256"/>
-    <component id="n17_exvp" name="n17" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="253,256"/>
-    <component id="n18_exvp" name="n18" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="380,256"/>
-    <component id="n19_exvp" name="n19" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="507,256"/>
+    <component id="n5_exvp" name="n5" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="142,96" pivot="0.5,0.5" anchor="true" size="200,200"/>
+    <component id="n6_exvp" name="n6" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="742,96" pivot="0.5,0.5" anchor="true" size="200,200"/>
+    <component id="n7_exvp" name="n7" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="342,246" pivot="0.5,0.5" anchor="true" size="200,200"/>
+    <component id="n8_exvp" name="n8" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="942,246" pivot="0.5,0.5" anchor="true" size="200,200"/>
+    <component id="n9_exvp" name="n9" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="542,396" pivot="0.5,0.5" anchor="true" size="200,200"/>
+    <component id="n10_exvp" name="n10" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="342,96" pivot="0.5,0.5" anchor="true" size="200,200"/>
+    <component id="n11_exvp" name="n11" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="942,96" pivot="0.5,0.5" anchor="true" size="200,200"/>
+    <component id="n12_exvp" name="n12" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="542,246" pivot="0.5,0.5" anchor="true" size="200,200"/>
+    <component id="n13_exvp" name="n13" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="142,396" pivot="0.5,0.5" anchor="true" size="200,200"/>
+    <component id="n14_exvp" name="n14" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="742,396" pivot="0.5,0.5" anchor="true" size="200,200"/>
+    <component id="n15_exvp" name="n15" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="542,96" pivot="0.5,0.5" anchor="true" size="200,200"/>
+    <component id="n16_exvp" name="n16" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="142,246" pivot="0.5,0.5" anchor="true" size="200,200"/>
+    <component id="n17_exvp" name="n17" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="742,246" pivot="0.5,0.5" anchor="true" size="200,200"/>
+    <component id="n18_exvp" name="n18" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="342,396" pivot="0.5,0.5" anchor="true" size="200,200"/>
+    <component id="n19_exvp" name="n19" src="exvpaj" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="942,396" pivot="0.5,0.5" anchor="true" size="200,200"/>
   </displayList>
 </component>
