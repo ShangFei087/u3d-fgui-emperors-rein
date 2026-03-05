@@ -1,8 +1,5 @@
 using FairyGUI;
 using GameMaker;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -19,94 +16,48 @@ namespace CaiFuZhiJia_3997
         // 初始化
         private int _totalResCount = -1;
         private bool _isInitialized = false;
+        private bool _isFirstOpen = true;
+        private const float Duration = 8f;
+        private GTweener _loadingGTween;
 
-        // 加载条功能
-        private Coroutine _corLoading = null;
-        private MonoHelper _monoHelper = null;
-        private GameObject _monoHelperObj = null;
-
-        // UI组件
-        private GSlider _loadSlider = null;
-
-        // 资源加载
-        private readonly List<GameObject> _spinePrefabList = new List<GameObject>(); // 存储异步加载的预制体
-        private readonly List<GameObject> _cloneSpinePrefabList = new List<GameObject>(); // 存储克隆出来的预制体
-        private readonly List<GComponent> _compareAnchorList = new List<GComponent>() { null, null }; // 多分支用做参考的组件
-
-        private readonly List<string> _spinePrefabNameList =
-            new List<string>() { "BGSpine.prefab", "CenterSpine.prefab" };
-
-        private readonly List<string> _anchorComNameList = new List<string>() { "anchorBG", "anchorCenter" };
-
+        private GSlider _loadingBar;
+        private GameObject _bgSpineObj, _centerSpineObj;
+        private GameObject _cloneBgSpineObj, _cloneCenterSpineObj;
+        private GComponent _compareBgSpine, _compareCenterSpine;
 
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            InitUICom();
-            _totalResCount = _spinePrefabNameList.Count;
-            LoadPrefabs(SpinePrefabsPath, _spinePrefabNameList, _spinePrefabList, ResLoadedCallBack);
+            LoadResAsync();
         }
 
         public override void InitParam()
         {
-            ResetView();
             if (!_isInitialized) return;
-            StartLoading();
-            InitPrefabs(contentPane, _anchorComNameList, _compareAnchorList, _spinePrefabList,
-                _cloneSpinePrefabList, null);
+            preLoadedCallback?.Invoke();
+            if (!isOpen) return;
+
+            BindPrefabsToUI();
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
+
+            InitUICom();
             InitParam();
+            StartLoading();
         }
 
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
-            ResetView();
+            ResetPage();
         }
 
-        private void InitUICom()
-        {
-            _loadSlider = contentPane.GetChild("sliderLoading").asSlider;
-            _loadSlider.touchable = false;
-            _loadSlider.value = 0;
-            _loadSlider.max = 1;
-        }
-
-        void StartLoading()
-        {
-            if (_monoHelperObj == null)
-            {
-                _monoHelperObj = new GameObject("Loading_MonoHelper");
-                _monoHelper = _monoHelperObj.AddComponent<MonoHelper>();
-            }
-
-            if (_corLoading != null && _monoHelper != null) _monoHelper.StopCoroutine(_corLoading);
-            _corLoading = _monoHelper.StartCoroutine(StartLoadingCoroutine());
-        }
-
-        IEnumerator StartLoadingCoroutine()
-        {
-            PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPageGameMain, null);
-            float currentTime = 0;
-            while (currentTime < 5)
-            {
-                _loadSlider.value = currentTime / 5;
-                yield return null;
-                currentTime += Time.deltaTime;
-            }
-
-            _loadSlider.value = 1;
-            CloseSelf(null);
-            PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPageGameMain);
-        }
-
-        void ResLoadedCallBack()
+        private void ResLoadedCallback()
         {
             if (--_totalResCount == 0)
             {
@@ -114,101 +65,88 @@ namespace CaiFuZhiJia_3997
                 InitParam();
             }
         }
-
-        /// <summary>
-        /// 加载预制体并未实例化
-        /// </summary>
-        /// <param name="prefabPath">预制体路径</param>
-        /// <param name="prefabNameList">预制体名称List</param>
-        /// <param name="prefabList">存储加载预制体的List</param>
-        /// <param name="callback">加载完成的回调函数</param>
-        private void LoadPrefabs(string prefabPath, List<string> prefabNameList, List<GameObject> prefabList,
-            Action callback = null)
+        
+        private void BindPrefabsToUI()
         {
-            // 重置预制体List，为保证异步加载不打乱加载顺序，改为强制赋值
-            prefabList.Clear();
-            for (int j = 0; j < prefabNameList.Count; j++)
+            GComponent currentCom = contentPane.GetChild("anchorBG").asCom;
+            if (_compareBgSpine != currentCom)
             {
-                prefabList.Add(null);
+                _cloneBgSpineObj = Object.Instantiate(_bgSpineObj);
+                GameCommon.FguiUtils.DeleteWrapper(_compareBgSpine);
+                _compareBgSpine = currentCom;
+                GameCommon.FguiUtils.AddWrapper(_compareBgSpine, _cloneBgSpineObj);
             }
 
-            for (int i = 0; i < prefabNameList.Count; i++)
+            currentCom = contentPane.GetChild("anchorCenter").asCom;
+            if (currentCom != _compareCenterSpine)
             {
-                int currentLoadIndex = i;
-                string path = prefabPath + prefabNameList[currentLoadIndex];
-                ResourceManager02.Instance.LoadAsset<GameObject>(path, (clone) =>
-                {
-                    prefabList[currentLoadIndex] = clone;
-                    callback?.Invoke();
-                });
+                _cloneCenterSpineObj = Object.Instantiate(_centerSpineObj);
+                GameCommon.FguiUtils.DeleteWrapper(_compareCenterSpine);
+                _compareCenterSpine = currentCom;
+                GameCommon.FguiUtils.AddWrapper(_compareCenterSpine, _cloneCenterSpineObj);
             }
         }
-
-        /// <summary>
-        /// 实例化预制体
-        /// </summary>
-        /// <param name="mainPanel">主面板组件</param>
-        /// <param name="gComNameList">需要加载的锚点名称</param>
-        /// <param name="compareComList">多分支对比List</param>
-        /// <param name="prefabList">加载好的预制体</param>
-        /// <param name="clonePrefabList">存储真正实例化的预制体的List</param>
-        /// <param name="callback">避免加载的时候对预制体进行其他操作，增加一个委托</param>
-        private void InitPrefabs(GComponent mainPanel, List<string> gComNameList, List<GComponent> compareComList,
-            List<GameObject> prefabList,
-            List<GameObject> clonePrefabList, Action callback)
+        
+        private void InitUICom()
         {
-            clonePrefabList.Clear();
-            if (prefabList == null) return;
-
-            for (int i = 0; i < gComNameList.Count; i++)
+            _loadingBar = contentPane.GetChild("sliderLoading").asSlider;
+        }
+        
+        private void StartLoading()
+        {
+            if (_isFirstOpen)
             {
-                GComponent currentCom = mainPanel.GetChild(gComNameList[i]).asCom;
-                if (currentCom != compareComList[i])
-                {
-                    GameCommon.FguiUtils.DeleteWrapper(compareComList[i]);
-                    compareComList[i] = currentCom;
-                    if (callback == null)
-                    {
-                        GameObject currentObj = Object.Instantiate(prefabList[i]);
-                        clonePrefabList.Add(currentObj);
-                        GameCommon.FguiUtils.AddWrapper(currentCom, currentObj);
-                    }
-                    else
-                        callback.Invoke();
-                }
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPageGameMain, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupFreeSpinTrigger, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupFreeSpinResult, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotTrigger, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotGame, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotResult, null);
+                _isFirstOpen = false;
+
+                Debug.LogError("CaiFuZhiJia is Preloaded!");
             }
+
+            if (_loadingGTween != null) _loadingGTween.Kill();
+            _loadingGTween = GTween.To(0, 100, Duration).SetEase(EaseType.Linear).OnUpdate((tween) =>
+            {
+                _loadingBar.value = tween.value.x;
+            }).OnComplete(() =>
+            {
+                CloseSelf(null);
+                PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPageGameMain);
+            });
         }
 
-        private void ResetView()
+        private void LoadResAsync()
         {
-            if (_corLoading != null)
+            _totalResCount = 2;
+
+            // 加载Spine动画
+            ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "BGSpine.prefab", (cloneObj) =>
             {
-                _monoHelper.StopCoroutine(_corLoading);
-                _corLoading = null;
-            }
+                _bgSpineObj = cloneObj;
+                ResLoadedCallback();
+            });
 
-            foreach (var obj in _cloneSpinePrefabList.ToArray())
+            ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "CenterSpine.prefab", (cloneObj) =>
             {
-                if (obj != null)
-                    Object.Destroy(obj);
-            }
+                _centerSpineObj = cloneObj;
+                ResLoadedCallback();
+            });
+        }
 
-            _cloneSpinePrefabList.Clear();
-
-            if (_monoHelperObj != null)
-            {
-                Object.Destroy(_monoHelperObj);
-                _monoHelperObj = null;
-                _monoHelper = null;
-            }
-
-            if (_loadSlider != null)
-                _loadSlider.value = 0;
-
-            for (int i = 0; i < _compareAnchorList.Count; i++)
-            {
-                _compareAnchorList[i] = null;
-            }
+        private void ResetPage()
+        {
+            Object.Destroy(_cloneBgSpineObj);
+            Object.Destroy(_cloneCenterSpineObj);
+            GameCommon.FguiUtils.DeleteWrapper(_compareBgSpine);
+            GameCommon.FguiUtils.DeleteWrapper(_compareCenterSpine);
+            
+            _cloneBgSpineObj = null;
+            _cloneCenterSpineObj = null;
+            _compareBgSpine = null;
+            _compareCenterSpine = null;
         }
     }
 }

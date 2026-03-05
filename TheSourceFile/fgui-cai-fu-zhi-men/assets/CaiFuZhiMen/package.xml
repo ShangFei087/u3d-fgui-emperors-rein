@@ -168,6 +168,7 @@
     <component id="ntbc5m" name="FreeGameBgOther.xml" path="/moudules/gameCommon/gameBg/" exported="true"/>
     <component id="ntbc5n" name="FreeGameOther2.xml" path="/moudules/gameCommon/gameBg/" exported="true"/>
     <image id="ntbc5o" name="fg_bg2.png" path="/images/gameCommon/gameBg/" exported="true"/>
+    <component id="obvg5p" name="Anchor_Redray.xml" path="/moudules/pageGameMain/FreeGame/" exported="true"/>
   </resources>
   <publish name=""/>
 </packageDescription>

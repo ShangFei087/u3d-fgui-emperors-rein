@@ -54,7 +54,8 @@ namespace CaiFuZhiJia_3997
         public override void InitParam()
         {
             if (!_isInitialized) return;
-            ResetView();
+            preLoadedCallback?.Invoke();
+            if (!isOpen) return;
 
             BindPrefabsToUI();
             ShowEffectAndSpine();
@@ -63,16 +64,17 @@ namespace CaiFuZhiJia_3997
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
-            
+
             _jackpotResultTipWindow = contentPane.GetChild("jackpotResultTipWindow").asCom;
             _jackpotResultButton = _jackpotResultTipWindow.GetChild("jackpotResultButton").asButton;
-            
+
             InitParam();
         }
 
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
+            ResetView();
         }
 
         private void ResLoadedCallback()
@@ -189,6 +191,11 @@ namespace CaiFuZhiJia_3997
         private void ResetView()
         {
             _jackpotResultTipWindow.visible = true;
+
+            GameCommon.FguiUtils.DeleteWrapper(_compareDiamondSpineGCom);
+            GameCommon.FguiUtils.DeleteWrapper(_compareDiamondBgEffectGCom);
+            GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
+            GameCommon.FguiUtils.DeleteWrapper(_compareDiamondAnimationGCom);
 
             _compareDiamondSpineGCom = null;
             _compareDiamondBgEffectGCom = null;

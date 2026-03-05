@@ -136,6 +136,9 @@ namespace CaiFuZhiMen_3999
         {
             _doorMask.visible = false;
             _winBoxWindow.visible = true;
+            
+            GameCommon.FguiUtils.DeleteWrapper(_compareGirlOpenDoor);
+            GameCommon.FguiUtils.DeleteWrapper(_compareWinJackpot);
 
             _compareGirlOpenDoor = null;
             _compareWinJackpot = null;

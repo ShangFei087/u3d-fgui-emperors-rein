@@ -52,6 +52,7 @@ namespace CaiFuZhiMen_3999
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
+            ResetPage();
         }
 
         private void ResLoadedCallback()
@@ -132,6 +133,19 @@ namespace CaiFuZhiMen_3999
                 CloseSelf(null);
                 PageManager.Instance.OpenPage(PageName.CaiFuZhiMenPageGameMain);
             });
+        }
+
+        private void ResetPage()
+        {
+            Object.Destroy(_cloneCatGirlObj);
+            Object.Destroy(_cloneGameNameObj);
+            GameCommon.FguiUtils.DeleteWrapper(_compareCatGirl);
+            GameCommon.FguiUtils.DeleteWrapper(_compareGameName);
+
+            _compareCatGirl = null;
+            _compareGameName = null;
+            _cloneCatGirlObj = null;
+            _cloneGameNameObj = null;
         }
     }
 }

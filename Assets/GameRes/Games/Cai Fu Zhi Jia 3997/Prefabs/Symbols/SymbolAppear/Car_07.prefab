@@ -244,31 +244,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5828155305714647974}
     m_Modifications:
-    - target: {fileID: 6651475811887714784, guid: 8d385fdbd04a09b4c854d4b1dd85adf8,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6651475811887714784, guid: 8d385fdbd04a09b4c854d4b1dd85adf8,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6651475811887714784, guid: 8d385fdbd04a09b4c854d4b1dd85adf8,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6651475812177554582, guid: 8d385fdbd04a09b4c854d4b1dd85adf8,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6651475812453982655, guid: 8d385fdbd04a09b4c854d4b1dd85adf8,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6651475813593656118, guid: 8d385fdbd04a09b4c854d4b1dd85adf8,
         type: 3}
       propertyPath: m_Pivot.x
@@ -378,11 +353,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: eff_ng_07winCFZJ
-      objectReference: {fileID: 0}
-    - target: {fileID: 6651475813694884358, guid: 8d385fdbd04a09b4c854d4b1dd85adf8,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d385fdbd04a09b4c854d4b1dd85adf8, type: 3}

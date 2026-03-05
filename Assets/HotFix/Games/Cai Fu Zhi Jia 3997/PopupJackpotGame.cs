@@ -78,25 +78,21 @@ namespace CaiFuZhiJia_3997
             150
         };
 
-        
+
         //彩金
         //MiniReelGroup uiJPGrandCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMajorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMiniCtrl = new MiniReelGroup();
-        
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
             InitUI();
             InitCanSpinReels();
-            
-            if (_monoHelper == null)
-                _monoHelper = GameObject.Find("Game Main Controller").GetComponent<MonoHelper>();
-            if (_slotMachineController == null)
-                _slotMachineController =
-                    GameObject.Find("Game Main Controller").GetComponentInChildren<SlotMachineController3997>();
+
+           
 
             _totalCount = 3;
             LoadAsyncRes();
@@ -105,7 +101,8 @@ namespace CaiFuZhiJia_3997
         public override void InitParam()
         {
             if (!_isInitialized) return;
-            ResetView();
+            preLoadedCallback?.Invoke();
+            if (!isOpen) return;
 
             // 加载Panel面板
             _gOwnerPanel = contentPane.GetChild("panel").asCom;
@@ -125,13 +122,13 @@ namespace CaiFuZhiJia_3997
 
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             BindPrefabsToUI();
-            
+
             //彩金
             //uiJPGrangCtrl.Init("Grand", this.contentPane.GetChild("jpGrand").asCom.GetChild("reels").asList, "N0");
             uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("jpMajor").asCom.GetChild("n1").asList, "N0");
             uiJPMinorCtrl.Init("Minor", this.contentPane.GetChild("jpMinor").asCom.GetChild("n1").asList, "N0");
             uiJPMiniCtrl.Init("Mini", this.contentPane.GetChild("jpMini").asCom.GetChild("n1").asList, "N0");
-            
+
             uiJPMajorCtrl.SetReelWidth(30);
             uiJPMinorCtrl.SetReelWidth(30);
             uiJPMiniCtrl.SetReelWidth(30);
@@ -146,10 +143,16 @@ namespace CaiFuZhiJia_3997
         {
             base.OnOpen(currentPageName, eventData);
             
+            if (_monoHelper == null)
+                _monoHelper = GameObject.Find("Game Main Controller").GetComponent<MonoHelper>();
+            if (_slotMachineController == null)
+                _slotMachineController =
+                    GameObject.Find("Game Main Controller").GetComponentInChildren<SlotMachineController3997>();
+
             // InitUI();
             // InitCanSpinReels();
             // InitController();
-            
+
             InitParam();
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
         }
@@ -418,7 +421,7 @@ namespace CaiFuZhiJia_3997
 
             if (!_isWinning)
             {
-                Debug.LogError("没中奖");
+                // Debug.LogError("没中奖");
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
@@ -438,7 +441,7 @@ namespace CaiFuZhiJia_3997
             }
             else
             {
-                Debug.LogError("中奖了");
+                // Debug.LogError("中奖了");
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
@@ -496,11 +499,14 @@ namespace CaiFuZhiJia_3997
 
             for (int i = 0; i < _compareJackpotSpineGComList.Count; i++)
             {
+                GameCommon.FguiUtils.DeleteWrapper(_compareJackpotSpineGComList[i]);
                 _compareJackpotSpineGComList[i] = null;
             }
 
             _compareJackpotSpineGComList.Clear();
 
+            GameCommon.FguiUtils.DeleteWrapper(_compareReelBgSpineGCom);
+            GameCommon.FguiUtils.DeleteWrapper(_compareJackpotTreeSpineGCom);
             _compareReelBgSpineGCom = null;
             _compareJackpotTreeSpineGCom = null;
 
@@ -571,6 +577,9 @@ namespace CaiFuZhiJia_3997
             {
                 _monoHelper.StopAllCoroutines();
             }
+
+            _monoHelper = null;
+            _slotMachineController = null;
 
             _gOwnerPanel = null;
         }

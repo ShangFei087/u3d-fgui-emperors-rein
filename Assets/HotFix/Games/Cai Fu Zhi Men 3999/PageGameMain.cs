@@ -66,6 +66,8 @@ namespace CaiFuZhiMen_3999
 
         private GComponent _gOwnerPanel;
 
+        private GComponent _compareRedRay;
+
         private List<GComponent> _lstPayTable;
         private FairyGUI.Controller _gameController;
         private GTextField _freeRoundText;
@@ -172,6 +174,16 @@ namespace CaiFuZhiMen_3999
 
             InitWildObjs();
 
+            // 免费游戏的射线背景
+            GComponent redRayCom = contentPane.GetChild("FSFrame").asCom.GetChild("anchor_RedRay").asCom;
+            if (redRayCom != _compareRedRay)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareRedRay);
+                _compareRedRay = redRayCom;
+                GameObject obj = Object.Instantiate(_redRaySpineObj);
+                GameCommon.FguiUtils.AddWrapper(_compareRedRay, obj);
+            }
+
             // 加速框制作
             if (_currentBorderCom != null)
                 _currentBorderCom.Dispose();
@@ -205,7 +217,10 @@ namespace CaiFuZhiMen_3999
             Debug.LogError("关闭界面");
             OnGameReset();
             _freeSpinTimeController.Dispose();
-            
+
+            GameCommon.FguiUtils.DeleteWrapper(_compareRedRay);
+            _compareRedRay = null;
+
             GameSoundHelper3999.Instance.StopSound(SoundKey.RegularBG);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
@@ -1268,11 +1283,13 @@ namespace CaiFuZhiMen_3999
                 }
             }
 
-            List<int> celRowList = GetShowWildRows(ContentModel.Instance.strDeckRowCol);
-            ShowSmallWildSpines(celRowList);
-
-            List<SymbolWin> winList = ContentModel.Instance.winList;
             long allWinCredit = 0;
+            List<SymbolWin> winList = ContentModel.Instance.winList;
+            List<int> celRowList = GetShowWildRows(ContentModel.Instance.strDeckRowCol);
+
+            ShowSmallWildSpines(celRowList);
+            if (winList.Count <= 0)
+                yield return new WaitForSeconds(1.5f);
 
             #region Win
 
@@ -1326,9 +1343,9 @@ namespace CaiFuZhiMen_3999
             }
 
             #endregion
-            
+
             ResetWildSpines();
-            
+
             ContentModel.Instance.gameState = GameState.Idle;
             successCallback?.Invoke();
         }
