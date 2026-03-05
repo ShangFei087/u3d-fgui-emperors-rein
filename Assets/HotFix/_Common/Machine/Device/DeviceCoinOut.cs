@@ -121,6 +121,7 @@ public class DeviceCoinOut : MonoSingleton<DeviceCoinOut> //  CorBehaviour
 
     public void _DoCoinOut()
     {
+        DebugUtils.LogWarning("退票键退票");
         if (!SBoxModel.Instance.isMachineActive)
         {
             DebugUtils.LogWarning("Machine not activated");
@@ -171,6 +172,7 @@ public class DeviceCoinOut : MonoSingleton<DeviceCoinOut> //  CorBehaviour
         coCoinOutOutTime = StartCoroutine(DelayTask(() =>
         {
             StopCoinOut();
+            MachineDeviceController.Instance.ExitTicketOut();
             MaskPopupHandler.Instance.ClosePopup();
             CommonPopupHandler.Instance.OpenPopupSingle(new CommonPopupInfo()
             {
@@ -283,6 +285,8 @@ public class DeviceCoinOut : MonoSingleton<DeviceCoinOut> //  CorBehaviour
     /// <param name="coinOutNum01"></param>
     private void OnHardwareCoinOut(int coinOutNum01)
     {
+
+        DebugUtils.LogWarning("硬件退票响应");
         if (coinOutNum01 <= 0)
             return;
 
@@ -359,6 +363,7 @@ public class DeviceCoinOut : MonoSingleton<DeviceCoinOut> //  CorBehaviour
 
             ClearCo(coCoinOutOutTime);
             StopCoinOut();
+            MachineDeviceController.Instance.ExitTicketOut();
             MaskPopupHandler.Instance.ClosePopup();
             HardwareSubCreditSaveOrder();
             return;
@@ -399,6 +404,7 @@ public class DeviceCoinOut : MonoSingleton<DeviceCoinOut> //  CorBehaviour
         {
             StopCoinOut();
             MaskPopupHandler.Instance.ClosePopup();
+            MachineDeviceController.Instance.ExitTicketOut();
             if (finishCoinOutNum < this.targetCoinOutNum)
             {
                 // 机器的票已用光 ，请联系管理员

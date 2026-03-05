@@ -15,9 +15,9 @@ public class MachineButtonInfo
     public bool isUp;
     public int value;
 }
+
 public enum MachineButtonKey
 {
-
     BtnLight,
 
     //////游戏按钮//////
@@ -45,18 +45,20 @@ public enum MachineButtonKey
 
     /// <summary> 门开关 </summary>
     BtnDoor,
-    
 }
 
-public class MachineDeviceController  : MonoSingleton<MachineDeviceController>  // 
+public class MachineDeviceController : MonoSingleton<MachineDeviceController>
 {
+    // 添加后台模式标志
+    private bool isInConsoleMode = false;
+
+    // 添加后台模式标志
+    private bool isInTicketOut = false;
 
     public readonly Dictionary<ulong, MachineButtonKey> keyMap = new Dictionary<ulong, MachineButtonKey>()
     {
-        
         //游戏按钮：
         { (ulong)SBOX_SWITCH.SWITCH_ENTER ,MachineButtonKey.BtnSpin},  // 开始玩 或 确认
-        //##?? { { (ulong)SBOX_IDEA_COIN_PUSH_KEYVALUE.SWITCH_SWITCH, MachineButtonKey.BtnExit},
         { (ulong)SBOX_SWITCH.SWITCH_RULE,MachineButtonKey.BtnPayTable},
 
         //管理按钮：
@@ -64,7 +66,6 @@ public class MachineDeviceController  : MonoSingleton<MachineDeviceController>  
         { (ulong)SBOX_SWITCH.SWITCH_SCORE_UP ,MachineButtonKey.BtnCreditUp},
         { (ulong)SBOX_SWITCH.SWITCH_SCORE_DOWN ,MachineButtonKey.BtnCreditDown},
         { (ulong)SBOX_SWITCH.SWITCH_SET ,MachineButtonKey.BtnConsole},  // 进入 或 退出 后台
-       //##?? { (ulong)SBOX_IDEA_COIN_PUSH_KEYVALUE.SWITCH_DOOR_SWITCH ,MachineButtonKey.BtnDoor}
         { (ulong)SBOX_SWITCH.SWITCH_UP ,MachineButtonKey.BtnUp},
         { (ulong)SBOX_SWITCH.SWITCH_DOWN ,MachineButtonKey.BtnDown},
         { (ulong)SBOX_SWITCH.SWITCH_SWITCH ,MachineButtonKey.BtnSwitch},  // 雨刷 
@@ -73,58 +74,36 @@ public class MachineDeviceController  : MonoSingleton<MachineDeviceController>  
     private void OnEnable()
     {
         AddNetButtonHandle();
-        //AddNetCmdHandle();
 
         EventCenter.Instance.AddEventListener<EventData>(MachineCustomButton.MACHINE_CUSTOM_BUTTON_FOCUS_EVENT, OnEventMachineCustomButton);
-
     }
-
-
 
     private void OnDisable()
     {
         RemoveNetButtonHandle();
-        //RemoveNetCmdHandle();
 
         EventCenter.Instance.RemoveEventListener<EventData>(MachineCustomButton.MACHINE_CUSTOM_BUTTON_FOCUS_EVENT, OnEventMachineCustomButton);
-
     }
-    
 
     private void OnEventMachineCustomButton(EventData evt)
     {
         curBtnInfo = (MachineCustomButton)evt.value;
-
-        /*
-        if (isInit == false)
-        {
-            LightAllOn();
-            yield return new WaitForSecondsRealtime(2f);
-            LightAllOff();
-            isInit = true;
-            yield return new WaitForSecondsRealtime(2f);
-        }*/
     }
 
-    
-    
     void Start()
     {
-        
+
     }
 
-
-   
-    
-#region 按钮检查
+    #region 按钮检查
     void Update()
     {
         if (!ApplicationSettings.Instance.isMachine) return;
 
-        if (  SBoxSandbox.SwitchInState() !=0)
+        if (SBoxSandbox.SwitchInState() != 0)
             GetPressedButtons(SBoxSandbox.SwitchInState());
 
-        if (btnStartTimeInfos.Count>0)
+        if (btnStartTimeInfos.Count > 0)
         {
             int i = btnStartTimeInfos.Count;
             while (--i >= 0)
@@ -139,11 +118,10 @@ public class MachineDeviceController  : MonoSingleton<MachineDeviceController>  
         }
     }
 
-    private Dictionary<ulong, float> btnStartTimeInfos 
-        = new Dictionary<ulong, float>();
-    
-    public  void GetPressedButtons(ulong buttonValue)
-    {            
+    private Dictionary<ulong, float> btnStartTimeInfos = new Dictionary<ulong, float>();
+
+    public void GetPressedButtons(ulong buttonValue)
+    {
         DebugUtils.Log($" IO值: {buttonValue}");
 
         Type t = typeof(SBOX_SWITCH);
@@ -168,56 +146,31 @@ public class MachineDeviceController  : MonoSingleton<MachineDeviceController>  
                 }
             }
         }
-
-
-        /*
-        // 遍历枚举的所有值
-        foreach (SBOX_IDEA_COIN_PUSH_KEYVALUE button in Enum.GetValues(typeof(SBOX_IDEA_COIN_PUSH_KEYVALUE)))
-        {
-            // 检查当前按钮是否被按下
-            if ((buttonValue & (int)button) != 0)
-            {
-                DebugUtils.Log($"按下：{Enum.GetName(typeof(SBOX_IDEA_COIN_PUSH_KEYVALUE),button)} ：{button}");
-                if (!btnStartTimeInfos.ContainsKey(button))
-                {
-                    btnStartTimeInfos.Add(button, Time.unscaledTime);
-                    // 【btn  down】
-                    OnKeyDown((ulong)button);
-                }else
-                {
-                    btnStartTimeInfos[button] = Time.unscaledTime;
-                }
-            }
-        }*/
     }
 
     private void OnKeyUp(ulong value)
     {
-        if(keyMap.ContainsKey(value))
+        if (keyMap.ContainsKey(value))
             OnKeyUp(keyMap[value]);
-    } 
+    }
+
     private void OnKeyDown(ulong value)
     {
-        if(keyMap.ContainsKey(value))
+        if (keyMap.ContainsKey(value))
             OnKeyDown(keyMap[value]);
-    }     
-    
-#endregion
+    }
 
+    #endregion
 
+    #region  按钮长按逻辑
 
-
-#region  按钮长按逻辑
-
-#endregion
+    #endregion
 
     public void OnKeyDown(MachineButtonKey value)
     {
-        
         string keyName = Enum.GetName(typeof(MachineButtonKey), value);
         //DebugUtils.LogWarning($"【machine】KeyDown;  Key Name = {keyName};");
-        
-        
+
         if (!longClickTime.ContainsKey(value))
             longClickTime.Add(value, Time.unscaledTime);
         else
@@ -229,9 +182,43 @@ public class MachineDeviceController  : MonoSingleton<MachineDeviceController>  
             {
                 case MachineButtonKey.BtnConsole:
                     {
-                      //  MachineDeviceCommonBiz.Instance.OpenConsole();
+                        // 如果已经在后台模式，按下后台按钮准备退出
+                        if (isInConsoleMode)
+                        {
+                            DebugUtils.Log("【machine】准备退出后台模式");
+                        }
+                        else
+                        {
+                            // 进入后台时，设置标志位
+                            isInConsoleMode = true;
+                            //MachineDeviceCommonBiz.Instance.OpenConsole();
+                        }
                     }
-                    return;
+                    break;
+                case MachineButtonKey.BtnTicketOut:
+                    {
+                        // 如果已经在退票
+                        if (isInTicketOut)
+                        {
+                            DebugUtils.Log("【machine】退票中");
+                        }
+                        else
+                        {
+                           
+                            isInTicketOut = true;
+                        }
+
+                        EventCenter.Instance.EventTrigger<EventData>(MACHINE_BUTTON_EVENT, new EventData<MachineButtonInfo>
+                      (
+                      curBtnInfo.mark,
+                      new MachineButtonInfo()
+                      {
+                          isUp = false,
+                          btnKey = value,
+                      }
+                  ));
+                    }
+                    break;
             }
             return;
         }
@@ -245,99 +232,72 @@ public class MachineDeviceController  : MonoSingleton<MachineDeviceController>  
                     return;
                 case MachineButtonKey.BtnCreditUp:
                     {
-                        if(coCreditUpLongClick != null) StopCoroutine(coCreditUpLongClick);
+                        if (coCreditUpLongClick != null) StopCoroutine(coCreditUpLongClick);
                         coCreditUpLongClick = StartCoroutine(DoCreditUpLongClick());
-
-                        //DoCo(COR_CREDIT_UP_LONG_CLICK, DoCreditUpLongClick());
                     }
                     return;
                 case MachineButtonKey.BtnCreditDown:
                     {
                         if (coCreditDownLongClick != null) StopCoroutine(coCreditDownLongClick);
                         coCreditDownLongClick = StartCoroutine(DoCreditDownLongClick());
-
-                     //DoCo(COR_CREDIT_DOWN_LONG_CLICK, DoCreditDownLongClick());
-                     }
+                    }
                     return;
                 case MachineButtonKey.BtnTicketOut:
-                    EventCenter.Instance.EventTrigger<EventData>(MACHINE_BUTTON_EVENT,
-                   new EventData<MachineButtonInfo>(
-                       curBtnInfo.mark,
-                       new MachineButtonInfo()
-                       {
-                           isUp = false,
-                           btnKey = value, //$"{keyName}_Down",
-                       }
-                   ));
+                   
                     return;
-
             }
 
-        if (curBtnInfo != null)// && curBtnInfo.isShowBtn)
+        if (curBtnInfo != null)
         {
-            /*
-            if (curBtnInfo.btnType == MachineButtonType.Light)
-            {
-                List<MachineButtonKey> lst = GetLightBtnLst();
-                if (lst.Contains(value))
-                {
-                    EventCenter.Instance.EventTrigger<EventData>(MACHINE_BUTTON_EVENT,
-                        new EventData<MachineButtonInfo>(
-                            curBtnInfo.mark,
-                            new MachineButtonInfo()
-                            {
-                                isUp = false,
-                                btnKey = MachineButtonKey.BtnLight,
-                                value = lst.IndexOf(value),
-                            }
-                        ));
-                }
-            }
-            else*/
-            {
-                EventCenter.Instance.EventTrigger<EventData>(MACHINE_BUTTON_EVENT,
-                    new EventData<MachineButtonInfo>(
-                        curBtnInfo.mark,
-                        new MachineButtonInfo()
-                        {
-                            isUp = false,
-                            btnKey = value, //$"{keyName}_Down",
-                        }
-                    ));
-            }
-            
+            EventCenter.Instance.EventTrigger<EventData>(MACHINE_BUTTON_EVENT,
+                new EventData<MachineButtonInfo>(
+                    curBtnInfo.mark,
+                    new MachineButtonInfo()
+                    {
+                        isUp = false,
+                        btnKey = value,
+                    }
+                ));
         }
     }
-
 
     public void OnKeyUp(MachineButtonKey value)
     {
         string keyName = Enum.GetName(typeof(MachineButtonKey), value);
         DebugUtils.LogWarning($"【machine】KeyUp;  Key Name = {keyName};");
-        
-        
-        
+
         if (IsSysPriority(value))
         {
             switch (value)
             {
                 case MachineButtonKey.BtnConsole:
                     {
-                        MachineDeviceCommonBiz.Instance.OpenConsole();
+                        // 如果已经在后台模式，且按下的是后台按钮，则退出后台
+                        if (isInConsoleMode)
+                        {
+                            //isInConsoleMode = false;
+                            MachineDeviceCommonBiz.Instance.OpenConsole();
+                        }
                     }
-                    return;
+                    break;
+                case MachineButtonKey.BtnTicketOut:
+                    {
+                        if(isInTicketOut)
+                        {
+                            DeviceCoinOut.Instance.DoCoinOut();
+                        }
+                    }
+                    break;
             }
             return;
         }
-        
+
         if (curBtnInfo == null || !curBtnInfo.isPriority)
             switch (value)
             {
-
                 case MachineButtonKey.BtnCreditUp:
                     {
-
-                        if (coCreditUpLongClick != null) 
+                        if (coCreditUpLongClick != null)
                             StopCoroutine(coCreditUpLongClick);
                         coCreditUpLongClick = null;
 
@@ -346,13 +306,11 @@ public class MachineDeviceController  : MonoSingleton<MachineDeviceController>  
                         {
                             DeviceCreditUpDown.Instance.CreditUp();
                         }
-
-                    }                        
+                    }
                     return;
                 case MachineButtonKey.BtnCreditDown:
                     {
-
-                        if (coCreditDownLongClick != null) 
+                        if (coCreditDownLongClick != null)
                             StopCoroutine(coCreditDownLongClick);
                         coCreditDownLongClick = null;
 
@@ -361,77 +319,87 @@ public class MachineDeviceController  : MonoSingleton<MachineDeviceController>  
                         {
                             DeviceCreditUpDown.Instance.CreditDown();
                         }
-                        
                     }
                     return;
-              case MachineButtonKey.BtnTicketOut:
+                case MachineButtonKey.BtnTicketOut:
                     {
-                        DeviceCoinOut.Instance.DoCoinOut();  
+                       
                     }
                     return;
             }
-        
-        if (curBtnInfo != null)/// && curBtnInfo.isShowBtn)
-        {
-            /*
-            if (curBtnInfo.btnType == MachineButtonType.Light)
-            {
-                List<MachineButtonKey> lst = GetLightBtnLst();
-                if (lst.Contains(value))
-                {
-                    EventCenter.Instance.EventTrigger<EventData>(MACHINE_BUTTON_EVENT,
-                        new EventData<MachineButtonInfo>(
-                            curBtnInfo.mark,
-                            new MachineButtonInfo()
-                            {
-                                isUp = true,
-                                btnKey = MachineButtonKey.BtnLight,
-                                value = lst.IndexOf(value),
-                            }
-                        ));
 
-                }
-            }
-            else*/
-            {
-                EventCenter.Instance.EventTrigger<EventData>(MACHINE_BUTTON_EVENT,
-                    new EventData<MachineButtonInfo>(
-                        curBtnInfo.mark,
-                        new MachineButtonInfo()
-                        {
-                            isUp = true,
-                            btnKey = value, // $"{keyName}_Up",
-                        }
-                ));
-            }
+        if (curBtnInfo != null)
+        {
+            EventCenter.Instance.EventTrigger<EventData>(MACHINE_BUTTON_EVENT,
+                new EventData<MachineButtonInfo>(
+                    curBtnInfo.mark,
+                    new MachineButtonInfo()
+                    {
+                        isUp = true,
+                        btnKey = value,
+                    }
+            ));
         }
     }
 
-
-   
-    
     Dictionary<MachineButtonKey, float> longClickTime = new Dictionary<MachineButtonKey, float>();
     MachineCustomButton curBtnInfo;
 
     public const string MACHINE_BUTTON_EVENT = "MACHINE_BUTTON_EVENT";
-    
+
     bool IsSysPriority(MachineButtonKey value)
     {
-        if (value == MachineButtonKey.BtnConsole && PageManager.Instance.IndexOf(PageName.ConsolePusher01PageConsoleMain) == -1)
+        // 如果已经在后台模式，禁止所有按钮（除了后台按钮本身）
+        if (isInConsoleMode)
         {
-            return true;
+            // 在后台模式下，只允许后台按钮操作（用于退出）
+            // 其他按钮都不响应
+            if (value == MachineButtonKey.BtnConsole)
+            {
+                return true; // 允许后台按钮处理退出
+            }
+            else
+            {
+                // 其他按钮都不响应
+                DebugUtils.Log($"【machine】在后台模式，按钮 {value} 被禁止");
+                return true; // 返回true表示由系统处理（实际不做任何操作）
+            }
+        }
+
+        if (isInTicketOut)
+        {
+            // 在后台模式下，只允许后台按钮操作（用于退出）
+            // 其他按钮都不响应
+            if (value == MachineButtonKey.BtnTicketOut)
+            {
+                return true; // 允许后台按钮处理退出
+            }
+            else
+            {
+                // 其他按钮都不响应
+                DebugUtils.Log($"【machine】在退票模式，按钮 {value} 被禁止");
+                return true; // 返回true表示由系统处理（实际不做任何操作）
+            }
+        }
+
+        // 正常模式下的系统优先级判断
+        if (value == MachineButtonKey.BtnConsole &&
+            PageManager.Instance.IndexOf(PageName.ConsolePageConsoleMain) == -1)
+        {
+            return true; // 允许进入后台
+        }
+
+        // 正常模式下的系统优先级判断
+        if (value == MachineButtonKey.BtnTicketOut &&
+            PageManager.Instance.IndexOf(PageName.ConsolePopupConsoleMask) == -1)
+        {
+            return true; // 允许退票
         }
 
         return false;
-
-
     }
 
-
-
-
     #region 长按上下分
-
 
     Coroutine coCreditUpLongClick, coCreditDownLongClick;
 
@@ -441,7 +409,6 @@ public class MachineDeviceController  : MonoSingleton<MachineDeviceController>  
     /// <returns></returns>
     IEnumerator DoCreditUpLongClick()
     {
-
         yield return new WaitForSecondsRealtime(3f);
 
         while (true)
@@ -457,87 +424,15 @@ public class MachineDeviceController  : MonoSingleton<MachineDeviceController>  
     /// <returns></returns>
     IEnumerator DoCreditDownLongClick()
     {
-
         yield return new WaitForSecondsRealtime(3f);
-
         DeviceCreditUpDown.Instance.CreditAllDown();
     }
 
-
-
-
     #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#if false //网络命令
-
-    const string MARK_NET_CMD_MACHINE_DEVICE = "MARK_NET_CMD_MACHINE_DEVICE";
-
-    void AddNetCmdHandle()
-    {
-        NetCmdManager.Instance.AddHandles(new NetCmdHandle()
-        {
-            cmdName = NetCmdManager.CMD_COIN_IN,
-            mark = MARK_NET_CMD_MACHINE_DEVICE,
-            onInvoke = OnNetCmdCoinIn,
-        });
-
-        NetCmdManager.Instance.AddHandles(new NetCmdHandle()
-        {
-            cmdName = NetCmdManager.CMD_SCORE_DOWN,
-            mark = MARK_NET_CMD_MACHINE_DEVICE,
-            onInvoke = OnNetCmdScoreDown,
-        });
-
-        NetCmdManager.Instance.AddHandles(new NetCmdHandle()
-        {
-            cmdName = NetCmdManager.CMD_SCORE_UP,
-            mark = MARK_NET_CMD_MACHINE_DEVICE,
-            onInvoke = OnNetCmdScoreUp,
-        });
-
-    }
-
-    void RemoveNetCmdHandle() => NetCmdManager.Instance.ReomveHandles(MARK_NET_CMD_MACHINE_DEVICE);
-
-    void OnNetCmdScoreUp(NetCmdInfo info)
-    {
-    }
-
-
-    void OnNetCmdScoreDown(NetCmdInfo info)
-    {
-    }
-
-    void OnNetCmdCoinIn(NetCmdInfo info)
-    {
-        //## MachineDeviceCommonBiz.Instance.deviceCoinIn.DoCmdCoinIn((int)info.data, info.onCallback);
-    }
-#endif
-
-
-
-
-
 
     #region 网络远程按钮 - 直接转机台按钮
     const string MARK_NET_BTN_MACHINE_DEVICE = "MARK_NET_BTN_MACHINE_DEVICE";
+
     void AddNetButtonHandle()
     {
         NetButtonManager.Instance.AddHandles(new NetButtonHandle()
@@ -577,7 +472,7 @@ public class MachineDeviceController  : MonoSingleton<MachineDeviceController>  
             mark = MARK_NET_BTN_MACHINE_DEVICE,
             onClick = OnNetBtnBetUp,
         });
-     
+
         NetButtonManager.Instance.AddHandles(new NetButtonHandle()
         {
             buttonName = NetButtonManager.BtnName.BtnBetDown,
@@ -611,25 +506,19 @@ public class MachineDeviceController  : MonoSingleton<MachineDeviceController>  
             onClick = OnNetBtnAuto,
         });
 
-
         NetButtonManager.Instance.AddHandles(new NetButtonHandle()
         {
             buttonName = NetButtonManager.BtnName.BtnWiper,
             mark = MARK_NET_BTN_MACHINE_DEVICE,
             onClick = OnNetBtnWiper,
         });
-        //BtnWiper
     }
 
     void RemoveNetButtonHandle() => NetButtonManager.Instance.ReomveHandles(MARK_NET_BTN_MACHINE_DEVICE);
 
-
-
-
-    void _OnNetBtnClick(NetButtonInfo info , MachineButtonKey mBtn, BtnName nBtn )
+    void _OnNetBtnClick(NetButtonInfo info, MachineButtonKey mBtn, BtnName nBtn)
     {
         if (info.dataType != NetButtonManager.DATA_MACHINE_BUTTON_CONTROL) return;
-        //if (PageManager.Instance.IndexOf(MainModel.Instance.contentMD.pageName) != 0) return;
 
         NetButtonManager.Instance.ShowUIAminButtonClick(() =>
         {
@@ -641,9 +530,7 @@ public class MachineDeviceController  : MonoSingleton<MachineDeviceController>  
         info.onCallback?.Invoke(true);
     }
 
-
     void OnNetBtnSpin(NetButtonInfo info) => _OnNetBtnClick(info, MachineButtonKey.BtnSpin, BtnName.BtnSpin);
-
 
     void OnNetBtnPayTable(NetButtonInfo info) => _OnNetBtnClick(info, MachineButtonKey.BtnPayTable, BtnName.BtnPayTable);
 
@@ -659,20 +546,15 @@ public class MachineDeviceController  : MonoSingleton<MachineDeviceController>  
 
     void OnNetBtnBetMax(NetButtonInfo info) => _OnNetBtnClick(info, MachineButtonKey.BtnBetMax, BtnName.BtnBetMax);
 
-
     void OnNetBtnSwitch(NetButtonInfo info) => _OnNetBtnClick(info, MachineButtonKey.BtnSwitch, BtnName.BtnSwitch);
-
 
     void OnNetBtnTicketOut(NetButtonInfo info) => _OnNetBtnClick(info, MachineButtonKey.BtnTicketOut, BtnName.BtnTicketOut);
 
-    
     void OnNetBtnWiper(NetButtonInfo info) => _OnNetBtnClick(info, MachineButtonKey.BtnSwitch, BtnName.BtnWiper);
-
 
     void OnNetBtnAuto(NetButtonInfo info)
     {
         if (info.dataType != NetButtonManager.DATA_MACHINE_BUTTON_CONTROL) return;
-        //if (PageManager.Instance.IndexOf(MainModel.Instance.contentMD.pageName) != 0) return;
 
         NetButtonManager.Instance.ShowUIAminButtonLongClick(() =>
         {
@@ -684,7 +566,33 @@ public class MachineDeviceController  : MonoSingleton<MachineDeviceController>  
         info.onCallback?.Invoke(true);
     }
 
-
     #endregion
 
+    /// <summary>
+    /// 退出后台模式
+    /// </summary>
+    public void ExitConsoleMode()
+    {
+        isInConsoleMode = false;
+        DebugUtils.Log("【machine】退出后台模式");
+    }
+
+
+
+    /// <summary>
+    /// 获取当前是否在后台模式
+    /// </summary>
+    public bool IsInConsoleMode()
+    {
+        return isInConsoleMode;
+    }
+
+    /// <summary>
+    /// 退出退票
+    /// </summary>
+    public void ExitTicketOut()
+    {
+        isInTicketOut = false;
+        DebugUtils.Log("退票完成");
+    }
 }

@@ -2,6 +2,7 @@ using FairyGUI;
 using GameMaker;
 using Newtonsoft.Json;
 using PusherEmperorsRein;
+using SBoxApi;
 using System;
 using System.Collections.Generic;
 using TestHall;
@@ -146,6 +147,21 @@ namespace SlotMaker
             btnBetDown.onClick.Add(OnClickButtonBetDown);
             bet = gOwnerPanel.GetChild("bet").asTextField;
             bet.text = SBoxModel.Instance.betList[MainModel.Instance.contentMD.betIndex].ToString();
+
+            SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
+            {
+                PlayerId = SBoxModel.Instance.pid,
+                balance = 0,
+                rfu = 0
+            };
+
+            sBoxPlayerBetsData.Bets[0] =(int) SBoxModel.Instance.betList[MainModel.Instance.contentMD.betIndex];
+            // 设置押注
+            ERPushMachineDataManager02.Instance.RequestSetBet(sBoxPlayerBetsData, (res) =>
+            {
+                ChangeBetButtonInteractable(MainModel.Instance.contentMD.betIndex, SBoxModel.Instance.betList.Count);
+            });
+
             spinBtnCtrl.InitParam(gOwnerPanel.GetChild("btnSpin").asCom, "Stop", OnClickSpinButton, goSpin);
             btnHelp = gOwnerPanel.GetChild("btnHelp").asCom;
             gIntroducePanel = gOwnerPanel.GetChild("payTable").asCom;
@@ -188,20 +204,35 @@ namespace SlotMaker
                 {
                     VolumeLevel = 0;
                 }
+                GSManager.Instance.SetMute(false);
                 switch (VolumeLevel)
                 {
 
                     case 0:
-                        //闊抽噺涓夌骇
+                        // 设置音效音量 (0-1)
+                        //GSManager.Instance.SetTotalVolumEfft(0.5f);
+                        // 设置背景音乐音量 (0-1)
+                        //GSManager.Instance.SetTotalVolumMusic(0.5f);
+                        // 设置静音
+                        GSManager.Instance.SetMute(true);
                         break;
                     case 1:
-                        //闊抽噺浜岀骇
+                        // 设置音效音量 (0-1)
+                        GSManager.Instance.SetTotalVolumEfft(0.3f);
+                        // 设置背景音乐音量 (0-1)
+                        GSManager.Instance.SetTotalVolumMusic(0.3f);
                         break;
                     case 2:
-                        //闊抽噺涓€绾ustomModel.Instance.VolumeLevel
+                        // 设置音效音量 (0-1)
+                        GSManager.Instance.SetTotalVolumEfft(0.6f);
+                        // 设置背景音乐音量 (0-1)
+                        GSManager.Instance.SetTotalVolumMusic(0.6f);
                         break;
                     case 3:
-                        //鏃犻煶閲?
+                        // 设置音效音量 (0-1)
+                        GSManager.Instance.SetTotalVolumEfft(1.0f);
+                        // 设置背景音乐音量 (0-1)
+                        GSManager.Instance.SetTotalVolumMusic(1.0f);
                         break;
                 }
 
@@ -396,6 +427,8 @@ namespace SlotMaker
 
             if (betList == null)
                 betList = SBoxModel.Instance.betList;
+
+
         }
         protected virtual void OnPropertyChangeBtnSpinState(EventData res = null)
         {
@@ -454,8 +487,6 @@ namespace SlotMaker
         {
 
         }
-
-
         protected virtual void OnPanelEventAnchorPanelChange(EventData res = null)
         {
             if (res.name == PanelEvent.AnchorPanelChange)
@@ -463,8 +494,6 @@ namespace SlotMaker
                 Init();
             }
         }
-
-
         protected virtual void OnTotalWinCredit(EventData receivedEvent)
         {
             if (receivedEvent.name == SlotMachineEvent.TotalWinCredit)
@@ -521,13 +550,9 @@ namespace SlotMaker
                 }
             }
         }
-
-
-
         // Spin鎸夐挳
         //public void OnLongClickSpinButton(string customDataOrState) => OnClickSpinButton(true);
         //public void OnShortClickSpinButton(string customDataOrState) => OnClickSpinButton(false);
-
 
         int i = 0;
         public void OnClickSpinButton(bool isLong)
@@ -595,7 +620,19 @@ namespace SlotMaker
                 betIndex = betList.Count - 1;
             }
             MainModel.Instance.contentMD.totalBet = betList[betIndex];
-            ChangeBetButtonInteractable(betIndex, betList.Count);
+            SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
+            {
+                PlayerId = SBoxModel.Instance.pid,
+                balance = 0,
+                rfu = 0
+            };
+
+            sBoxPlayerBetsData.Bets[0] = (int)MainModel.Instance.contentMD.totalBet;
+            // 设置押注
+            ERPushMachineDataManager02.Instance.RequestSetBet(sBoxPlayerBetsData, (res) =>
+            {
+                ChangeBetButtonInteractable(betIndex, betList.Count);
+            });
         }
 
         protected virtual void OnClickButtonBetDown()
@@ -611,8 +648,19 @@ namespace SlotMaker
                 betIndex = 0;
             }
             MainModel.Instance.contentMD.totalBet = betList[betIndex];
+            SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
+            {
+                PlayerId = SBoxModel.Instance.pid,
+                balance = 0,
+                rfu = 0
+            };
 
-            ChangeBetButtonInteractable(betIndex, betList.Count);
+            sBoxPlayerBetsData.Bets[0] = (int)MainModel.Instance.contentMD.totalBet;
+            // 设置押注
+            ERPushMachineDataManager02.Instance.RequestSetBet(sBoxPlayerBetsData, (res) =>
+            {
+                ChangeBetButtonInteractable(betIndex, betList.Count);
+            });
         }
         protected GButton btnBetDown, btnBetUp;
 

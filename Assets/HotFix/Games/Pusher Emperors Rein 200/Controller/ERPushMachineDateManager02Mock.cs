@@ -104,5 +104,11 @@ namespace PusherEmperorsRein
             //  return new object[] { 408, $"【ERPushMachineDataMgr - Mock】没有实现方法：{rpcName}" };
         }
 
+        /////////////////////////// Mock 方法
+        void OnMockSetBet(SBoxPlayerBetsData sBoxPlayerBetsData)
+        {
+            DebugUtils.Log($"[ERPushMachineDataManager02] Mock: SetBet {sBoxPlayerBetsData}");
+            OnResponseSetBet(0);
+        }
     }
 }

@@ -184,17 +184,17 @@ static public class DefaultSettingsUtils
 
     /// <summary>1币几分 最大值 </summary>
     [Tooltip("最大投币倍率(1币几分)")]
-    static public int maxCoinInScale = 1000;
+    static public int maxCoinInScale = 200;
     /// <summary>1币几分 最小值 </summary>
     [Tooltip("最小投币倍率(1币几分)")]
-    static public int minCoinInScale = 100;
+    static public int minCoinInScale = 1;
     [Tooltip("默认投币倍率(1币几分)")]
     static public int defCoinInScale = 1000;
 
 
     /// <summary> “1票几分”最大值 </summary>
     [Tooltip("最大退票倍率(1票几分)")]
-    static public readonly int maxCoinOutCreditPerTicket = 50;
+    static public readonly int maxCoinOutCreditPerTicket = 200;
     /// <summary> “1票几分”最小值 </summary>
     [Tooltip("最小退票倍率(1票几分)")]
     static public readonly int minCoinOutCreditPerTicket = 1;
@@ -204,7 +204,7 @@ static public class DefaultSettingsUtils
 
     /// <summary>  “1分几票”最大值 </summary>
     [Tooltip("最大退票倍率(1分几票)")]
-    static public readonly int maxCoinOutTicketPerCredit = 50;
+    static public readonly int maxCoinOutTicketPerCredit = 200;
     /// <summary>  “1分几票”最小值 </summary>
     [Tooltip("最小退票倍率(1分几票)")]
     static public readonly int minCoinOutTicketPerCredit = 1;

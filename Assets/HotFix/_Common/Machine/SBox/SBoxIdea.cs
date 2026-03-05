@@ -340,7 +340,7 @@ namespace SBoxApi
                     sBoxInfo.PlayerScoreInfoList.Add(info);
                 }
                 else
-                    info = sBoxInfo.PlayerScoreInfoList[playerIndex];
+                info = sBoxInfo.PlayerScoreInfoList[playerIndex];
                 info.PlayerId = sBoxPacket.data[pos++];
                 info.Score = sBoxPacket.data[pos++];
                 info.Wins = sBoxPacket.data[pos++];

@@ -486,8 +486,8 @@ public partial class SBoxModel: MonoSingleton<SBoxModel>
     /// <summary> 历史总退票 </summary>
     public long HistoryTotalCoinOutCredit
     {
-        // get => HistoryTotalCoinOutNums;
-        get => DeviceUtils.GetCoinOutCredit((int)HistoryTotalCoinOutNums);
+         get => HistoryTotalCoinOutNums;
+        //get => DeviceUtils.GetCoinOutCredit((int)HistoryTotalCoinOutNums);
     }
     /// <summary> 历史总投币盈利(总投币 - 总退票) </summary>
     public long HistoryTotalProfitCoinIn

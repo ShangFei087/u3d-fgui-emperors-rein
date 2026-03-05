@@ -90,7 +90,7 @@ namespace CaiFuZhiMen_3999
             _corShowBonusSymbol,
             _corEffectSlowMotion;
 
-        private long TotalBet => SBoxModel.Instance.CoinInScale;
+        private long TotalBet => (long)MainModel.Instance.contentMD.totalBet;
 
         private readonly List<Dictionary<string, object>> _stackContext = new List<Dictionary<string, object>>();
 
@@ -119,6 +119,35 @@ namespace CaiFuZhiMen_3999
                 .asTextField;
 
             LoadAsyncPrefabRes();
+
+            machineBtnClickHelper = new MachineButtonClickHelper()
+            {
+                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+                {
+                    [MachineButtonKey.BtnSpin] = (info) =>
+                    {
+                        if (PanelController02.isOpenIntroduce == true)
+                        {
+                            return;
+                        }
+
+                        Debug.LogError("游戏接受到机台短按的数据：Spin");
+                        EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false); // isLongClick
+                        OnClickSpinButton(res);
+                    },
+                },
+
+                longClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+                {
+                    [MachineButtonKey.BtnSpin] = (info) =>
+                    {
+                        DebugUtils.LogError("游戏接受到机台长按的数据：Spin");
+                        EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, true); // isLongClick
+                        OnClickSpinButton(res);
+                    }
+                }
+
+            };
         }
 
         public override void InitParam()
@@ -164,6 +193,8 @@ namespace CaiFuZhiMen_3999
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
+          
+            EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             InitParam();
 
             Debug.LogError("界面打开");
@@ -178,8 +209,9 @@ namespace CaiFuZhiMen_3999
             GameSoundHelper3999.Instance.StopSound(SoundKey.RegularBG);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
-            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
-                OnSlotDetailEvent);
+            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,OnSlotDetailEvent);
+
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             base.OnClose(eventData);
         }
 

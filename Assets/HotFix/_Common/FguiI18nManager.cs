@@ -46,7 +46,7 @@ public class FguiI18nManager : MonoSingleton<FguiI18nManager>
         if (langData.ContainsKey(lang))
         {
             SetLanguage(lang, langData[lang], onFinishCallback);
-            return;
+            //return;
         }
         
         if (langFile.ContainsKey(lang))
@@ -65,7 +65,7 @@ public class FguiI18nManager : MonoSingleton<FguiI18nManager>
 
         UIPackage.branch = Enum.GetName(typeof(I18nLang), lang);  //分支 
 
-        if (string.IsNullOrEmpty(xmlData))
+        if (!string.IsNullOrEmpty(xmlData))
         {
             //DebugUtils.Log(xmlAsset.text);
             FairyGUI.Utils.XML xml = new FairyGUI.Utils.XML(xmlData);

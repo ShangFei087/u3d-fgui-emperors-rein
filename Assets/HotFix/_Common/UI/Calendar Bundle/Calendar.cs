@@ -293,7 +293,7 @@ public class CalendarController
             calandarView.onClickYear += OnCkickYear;
 
 
-            m_selectDT = DateTime.Today;
+            //m_selectDT = DateTime.Today;
             ConfirmDT = m_selectDT;   
 
 

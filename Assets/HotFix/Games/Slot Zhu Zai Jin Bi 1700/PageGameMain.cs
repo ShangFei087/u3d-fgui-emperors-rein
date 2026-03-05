@@ -72,7 +72,7 @@ namespace SlotZhuZaiJinBi1700
         MiniReelGroup uiJPMajorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMiniCtrl = new MiniReelGroup();
-        long TotalBet => (long)SBoxModel.Instance.CoinInScale;
+        long TotalBet => (long)MainModel.Instance.contentMD.totalBet;
 
         protected override void OnInit()
         {
@@ -148,7 +148,9 @@ namespace SlotZhuZaiJinBi1700
 
                         Debug.LogError("游戏接受到机台短按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false); // isLongClick
+                        CommonPopupHandler.Instance.ClosePopup();
                         OnClickSpinButton(res);
+
                     },
                 },
 
@@ -158,6 +160,7 @@ namespace SlotZhuZaiJinBi1700
                     {
                         DebugUtils.LogError("游戏接受到机台长按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, true); // isLongClick
+                        CommonPopupHandler.Instance.ClosePopup();
                         OnClickSpinButton(res);
                     }
                 }

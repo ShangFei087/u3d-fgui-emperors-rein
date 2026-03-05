@@ -44,13 +44,19 @@ namespace ConsoleSlot01
         public override void OnOpen(PageName name, EventData data)
         {
             base.OnOpen(name, data);
-
             CommonPopupHandler.Instance.ClosePopup();
 
             InitParam();
             OnChenkUser();
         }
-
+        protected override void OnLanguageChange(I18nLang lang)
+        {
+            FguiI18nTextAssistant.Instance.DisposeAllTranslate(this.contentPane);
+            this.contentPane.Dispose(); // 释放当前UI
+            this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
+            InitParam();
+            //FguiI18nTextAssistant.Instance.TranslateComponent(this.contentPane);
+        }
 
         GList glstMenu;
 
@@ -275,6 +281,8 @@ namespace ConsoleSlot01
                     url = "ui://Console/icon_lang_en";
                     break;
                 case "cn":
+                    url = "ui://Console/icon_lang_cn";
+                    break;
                 case "tw":
                     url = "ui://Console/icon_lang_cn";
                     break;
@@ -334,6 +342,7 @@ namespace ConsoleSlot01
         void OnClickExit()
         {
             SBoxModel.Instance.curPermissions = -1;
+            MachineDeviceController.Instance.ExitConsoleMode();
             PageManager.Instance.ClosePage(this);
         }
 
@@ -398,11 +407,12 @@ namespace ConsoleSlot01
                         return;
 
                     //关闭所有弹窗
-                    CommonPopupHandler.Instance.CloseAllPopup();
+                    //CommonPopupHandler.Instance.CloseAllPopup();
+                    
+                     CommonPopupHandler.Instance.ClosePopup();
 
                     SBoxModel.Instance.language = selectNumber; 
                     MachineDeviceCommonBiz.Instance.CheckLanguage();
-
 
                     MaskPopupHandler.Instance.OpenPopup();
                     Timers.inst.Add(2, 1, (data) =>

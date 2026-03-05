@@ -35,7 +35,7 @@ public class TabGameHistoryController : MonoBehaviour
     {
         goOwnerTab = go;
         GComponent reels = go.GetChild("reels").asCom;
-
+        Symbols.Clear();
         for (int i = 0; i < 15; ++i)
         {
             GLoader img = reels.GetChildAt(i).asCom.GetChild("image").asLoader;

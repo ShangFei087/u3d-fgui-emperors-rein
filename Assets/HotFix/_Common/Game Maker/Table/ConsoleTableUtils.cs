@@ -97,6 +97,10 @@ public static partial class ConsoleTableUtils
 
         if (!SQLiteHelper.Instance.CheckTableExists(ConsoleTableName.TABLE_BET))
         {
+            //string dropSql = $"DROP TABLE {ConsoleTableName.TABLE_BET};";
+            //SQLiteHelper.Instance.ExecuteNonQuery(dropSql);
+            //Debug.LogWarning("已删除 TABLE_BET 表");
+
             string sql = SQLiteHelper.SQLCreateTable<TableBetItem>(ConsoleTableName.TABLE_BET);
             SQLiteHelper.Instance.ExecuteNonQuery(sql);
 

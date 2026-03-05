@@ -77,7 +77,7 @@ namespace XingYunZhiLun_3998
 
         private bool isReserve;
 
-        long TotalBet => (long)SBoxModel.Instance.CoinInScale;
+        long TotalBet => (long)MainModel.Instance.contentMD.totalBet;
 
         private bool isInit = false;        //是否初始化
         private bool isInitPool = false; //资源池是否初始化
@@ -557,7 +557,7 @@ namespace XingYunZhiLun_3998
                 yield break;
             }
 
-            if (SBoxModel.Instance.myCredit < ContentModel.Instance.totalBet* SBoxModel.Instance.SboxConfData.CoinValue)
+            if (SBoxModel.Instance.myCredit < TotalBet)
             {
                 //tipCoinIn = true;
                 errorCallback?.Invoke("<size=15>Balance is insufficient, please recharge first</size>");

@@ -16,8 +16,10 @@ namespace GameMaker
         public const string RedeemButtonClick = "RedeemButtonClick"; //OnSpinButtonEvent
         /// <summary> 连续玩局数  int -1 1 3 5 </summary>
         public const string TotalSpinsButtonClick = "TotalSpinsButtonClick"; //OnSpinButtonEvent
-
-
+        /// <summary> 增加押注  </summary>
+        public const string BetUpButtonClick = "BetUpButtonClick";//OnClickButtonBetUp
+        /// <summary> 减少押注  </summary>
+        public const string BetDownButtonClick = "BetDownButtonClick";//OnClickButtonBetDown
 
 
         public const string ON_PANEL_EVENT = "ON_PANEL_EVENT";

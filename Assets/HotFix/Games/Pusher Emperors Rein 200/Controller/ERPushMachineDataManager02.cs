@@ -29,6 +29,8 @@ namespace PusherEmperorsRein
             EventCenter.Instance.AddEventListener<string>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN, OnResponseCoinPushSpin);
             EventCenter.Instance.AddEventListener<string>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_END, OnResponseCoinPushSpinEnd);
             EventCenter.Instance.AddEventListener<int>(SBoxEventHandle.SBOX_COIN_PUSH_BEGIN_TURN, OnResponseBeginTurn);
+            EventCenter.Instance.AddEventListener<int>(SBoxEventHandle.SBOX_SET_PLAYER_BETS, OnResponseSetBet);
+
 
             EventCenter.Instance.AddEventListener<string>(SBoxEventHandle.SBOX_COIN_PUSH_GET_JP_CONTRIBUTION, OnResponseGetJpMajorGrandContribution);
             EventCenter.Instance.AddEventListener<string>(SBoxEventHandle.SBOX_COIN_PUSH_GET_LOCAL_JP_CONTRIBUTION, OnResponseGetJpContribution);
@@ -44,7 +46,7 @@ namespace PusherEmperorsRein
             EventCenter.Instance.RemoveEventListener<string>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN, OnResponseCoinPushSpin);
             EventCenter.Instance.RemoveEventListener<string>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_END, OnResponseCoinPushSpinEnd);
             EventCenter.Instance.RemoveEventListener<int>(SBoxEventHandle.SBOX_COIN_PUSH_BEGIN_TURN, OnResponseBeginTurn);
-
+            EventCenter.Instance.RemoveEventListener<int>(SBoxEventHandle.SBOX_SET_PLAYER_BETS, OnResponseSetBet);
 
             EventCenter.Instance.RemoveEventListener<string>(SBoxEventHandle.SBOX_COIN_PUSH_GET_JP_CONTRIBUTION, OnResponseGetJpMajorGrandContribution);
             EventCenter.Instance.RemoveEventListener<string>(SBoxEventHandle.SBOX_COIN_PUSH_GET_LOCAL_JP_CONTRIBUTION, OnResponseGetJpContribution);
@@ -61,7 +63,7 @@ namespace PusherEmperorsRein
 
 
         ///////////////////////////游戏数据
-        ///<summary> 获取游戏彩金 </summary>
+        ///<summary> 获取滚轮结果 </summary>
         public int RequestCoinPushSpin(Action<object> finishCallback, string mark = null)
         {
             int seqId = OnRequestBefore(SBoxEventHandle.SBOX_COIN_PUSH_SPIN, null, finishCallback, null, mark);
@@ -261,6 +263,81 @@ namespace PusherEmperorsRein
         void OnResponseBeginTurn(int res) => OnResponse(SBoxEventHandle.SBOX_COIN_PUSH_BEGIN_TURN, res);
 
         //            return new object[] { 408, $"【ERPushMachineDataMgr - Real】没有实现方法：{rpcName}" };
+
+
+
+        /////////////////////////// 押注相关
+
+        ///// <summary> 增加押注 </summary>
+        ///// <param name="betValue">押注金额</param>
+        //public int RequestAddBet(int betValue, Action<object> finishCallback, string mark = null)
+        //{
+        //    int seqId = OnRequestBefore(SBoxEventHandle.SBOX_SET_PLAYER_BETS, betValue, finishCallback, null, mark);
+        //    if (isMock)
+        //    {
+        //        OnMockAddBet(betValue);
+        //    }
+        //    else
+        //    {
+        //        SBoxIdea.SetPlayerBets(0, betValue);
+        //    }
+        //    return seqId;
+        //}
+        //void OnResponseAddBet(int res) => OnResponse(SBoxEventHandle.SBOX_SET_PLAYER_BETS, res);
+
+
+
+        ///// <summary> 减少押注 </summary>
+        ///// <param name="betValue">要减少的押注金额</param>
+        //public int RequestReduceBet(int betValue, Action<object> finishCallback, string mark = null)
+        //{
+        //    // 获取当前押注值
+        //    int currentBet = 0;
+        //    if (SBoxModel.Instance.betList != null && SBoxModel.Instance.betList.Count > 0)
+        //    {
+        //        currentBet = (int)SBoxModel.Instance.betList[0];
+        //    }
+
+        //    // 计算减少后的押注值（不能小于0）
+        //    int newBet = Mathf.Max(0, currentBet - betValue);
+
+        //    int seqId = OnRequestBefore(SBoxEventHandle.SBOX_SET_PLAYER_BETS, newBet, finishCallback, null, mark);
+
+        //    if (isMock)
+        //    {
+        //        OnMockReduceBet(newBet);
+        //    }
+        //    else
+        //    {
+        //        SBoxIdea.SetPlayerBets(0, newBet);
+        //    }
+        //    return seqId;
+        //}
+        //void OnResponseReduceBet(int res) => OnResponse(SBoxEventHandle.SBOX_SET_PLAYER_BETS, res);
+
+
+
+        /// <summary> 设置押注 </summary>
+        /// <param name="betValue">押注金额</param>
+        public int RequestSetBet(SBoxPlayerBetsData sBoxPlayerBetsData, Action<object> finishCallback, string mark = null)
+        {
+            int seqId = OnRequestBefore(SBoxEventHandle.SBOX_SET_PLAYER_BETS, sBoxPlayerBetsData, finishCallback, null, mark);
+
+            if (isMock)
+            {
+                OnMockSetBet(sBoxPlayerBetsData);
+            }
+            else
+            {
+                SBoxIdea.SetPlayerBets(sBoxPlayerBetsData);
+            }
+            return seqId;
+        }
+        void OnResponseSetBet(int res) => OnResponse(SBoxEventHandle.SBOX_SET_PLAYER_BETS, res);
+
+
+
+
 
 
     }
