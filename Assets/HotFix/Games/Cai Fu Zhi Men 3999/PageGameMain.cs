@@ -56,8 +56,7 @@ namespace CaiFuZhiMen_3999
         private FguiGObjectPoolHelper _gfGuiObjectPoolHelper;
         private SlotMachineController3999 _slotMachineController;
 
-        private GameObject _freeBorderEffectObj, _bonusBorderEffectObj, _redRaySpineObj;
-        // private GComponent _compareFreeBorderEffectCom, _compareBonusBorderEffectCom, _compareRedRaySpineCom;
+        private GameObject _redRaySpineObj, _freeBorderObj, _bonusBorderObj, _smallWildObj, _bigWildObj;
 
         #endregion
 
@@ -81,12 +80,33 @@ namespace CaiFuZhiMen_3999
 
         #region 玩法逻辑
 
-        private bool _tipCoinIn = false;
+        private bool _tipCoinIn = false, _isStoppedSlotMachine = false;
         private FreeSpinTimeController3999 _freeSpinTimeController;
-        private Coroutine _corGameOnce, _corGameIdle, _corReelsTurn, _corShowFreeSymbol, _corShowBonusSymbol;
+
+        private Coroutine _corGameOnce,
+            _corGameIdle,
+            _corReelsTurn,
+            _corShowFreeSymbol,
+            _corShowBonusSymbol,
+            _corEffectSlowMotion;
+
         private long TotalBet => SBoxModel.Instance.CoinInScale;
 
         private readonly List<Dictionary<string, object>> _stackContext = new List<Dictionary<string, object>>();
+
+        #endregion
+
+        #region 加速框制作
+
+        private GComponent _freeBorderCom, _bonusBorderCom, _currentBorderCom;
+        private readonly List<int> _specialSymbols = new List<int> { 10, 11 };
+        private readonly List<GComponent> _speedUpEffectComList = new List<GComponent>();
+
+        #endregion
+
+        #region Wild功能
+
+        private GComponent _wildFrameCom;
 
         #endregion
 
@@ -95,11 +115,10 @@ namespace CaiFuZhiMen_3999
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            _resCount = 5;
-            LoadAsyncPrefabRes();
-            _gameController = contentPane.GetController("gameControl");
             _freeRoundText = contentPane.GetChild("FSFrame").asCom.GetChild("freeRoundText")
                 .asTextField;
+
+            LoadAsyncPrefabRes();
         }
 
         public override void InitParam()
@@ -107,7 +126,7 @@ namespace CaiFuZhiMen_3999
             if (!isInit) return;
 
             MainModel.Instance.contentMD = ContentModel.Instance;
-            // ShowPayTable();
+            ShowPayTable();
             ParseGameInfo();
             InitUIPool();
             LoadPanel();
@@ -119,6 +138,20 @@ namespace CaiFuZhiMen_3999
             BindPrefabsToUI();
             RefreshCredit();
             ShowJackpotData();
+
+            _gameController = contentPane.GetController("gameControl");
+
+            InitWildObjs();
+
+            // 加速框制作
+            if (_currentBorderCom != null)
+                _currentBorderCom.Dispose();
+            _speedUpEffectComList.Clear();
+            _freeBorderCom = contentPane.GetChild("anchor_FreeBorder").asCom;
+            _bonusBorderCom = contentPane.GetChild("anchor_BonusBorder").asCom;
+            _speedUpEffectComList.Add(CreateUIEffect(_freeBorderObj, _freeBorderCom));
+            _speedUpEffectComList.Add(CreateUIEffect(_bonusBorderObj, _bonusBorderCom));
+
             ContentModel.Instance.betIndex = 0; // 总押注初始化
             ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
         }
@@ -126,27 +159,48 @@ namespace CaiFuZhiMen_3999
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
-
             InitFreeSpinUIAndController();
             GameSoundHelper3999.Instance.PlayMusicSingle(SoundKey.RegularBG);
+            EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
-
+            EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
             InitParam();
+
+            Debug.LogError("界面打开");
         }
 
         public override void OnClose(EventData eventData = null)
         {
+            Debug.LogError("关闭界面");
+            OnGameReset();
             _freeSpinTimeController.Dispose();
+            
             GameSoundHelper3999.Instance.StopSound(SoundKey.RegularBG);
+            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
-
+            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+                OnSlotDetailEvent);
             base.OnClose(eventData);
+        }
+
+        protected override void OnLanguageChange(I18nLang lang)
+        {
+            FguiI18nTextAssistant.Instance.DisposeAllTranslate(contentPane);
+            contentPane.Dispose(); // 释放当前UI
+            contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
+            _freeRoundText = contentPane.GetChild("FSFrame").asCom.GetChild("freeRoundText")
+                .asTextField;
+            InitFreeSpinUIAndController();
+            InitParam();
+            Debug.LogError("语言切换");
         }
 
         #region 资源加载
 
         private void LoadAsyncPrefabRes()
         {
+            _resCount = 7;
+
             // 加载公共资源包
             if (UIPackage.GetByName("Common") == null)
             {
@@ -193,12 +247,28 @@ namespace CaiFuZhiMen_3999
                     ResPreLoadCallBack();
                 });
 
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                SpinesPath + "BigWild.prefab",
+                (clone) =>
+                {
+                    _bigWildObj = clone;
+                    ResPreLoadCallBack();
+                });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                SpinesPath + "SmallWild.prefab",
+                (clone) =>
+                {
+                    _smallWildObj = clone;
+                    ResPreLoadCallBack();
+                });
+
             // 加载Effect特效
             ResourceManager02.Instance.LoadAsset<GameObject>(
                 EffectsPath + "FreeBorderEffect.prefab",
                 (clone) =>
                 {
-                    _freeBorderEffectObj = clone;
+                    _freeBorderObj = clone;
                     ResPreLoadCallBack();
                 });
 
@@ -206,7 +276,7 @@ namespace CaiFuZhiMen_3999
                 EffectsPath + "BonusBorderEffect.prefab",
                 (clone) =>
                 {
-                    _bonusBorderEffectObj = clone;
+                    _bonusBorderObj = clone;
                     ResPreLoadCallBack();
                 });
         }
@@ -214,9 +284,7 @@ namespace CaiFuZhiMen_3999
         private void ResPreLoadCallBack()
         {
             if (--_resCount != 0)
-            {
                 return;
-            }
 
             isInit = true;
             InitParam();
@@ -425,8 +493,84 @@ namespace CaiFuZhiMen_3999
                     OnClickSpinButton(res);
                     break;
                 case PanelEvent.TotalSpinsButtonClick:
+                    OnClickTotalSpinsButtonClick(res);
                     break;
             }
+        }
+
+        private void OnSlotDetailEvent(EventData res)
+        {
+            switch (res.name)
+            {
+                case SlotMachineEvent.PrepareStoppedReel:
+                    {
+                        if (ContentModel.Instance.isReelsSlowMotion && !_slotMachineController.isStopImmediately)
+                        {
+                            int colIndex = (int)res.value;
+                            if (colIndex == 1)
+                            {
+                                if (_corEffectSlowMotion != null) _monoHelper.StopCoroutine(_corEffectSlowMotion);
+                                _corEffectSlowMotion = _monoHelper.StartCoroutine(ShowEffectReelsSlowMotion(1));
+                            }
+                            else if (colIndex == 2)
+                            {
+                                if (_corEffectSlowMotion != null) _monoHelper.StopCoroutine(_corEffectSlowMotion);
+                                _corEffectSlowMotion = _monoHelper.StartCoroutine(ShowEffectReelsSlowMotion(2));
+                            }
+                            else if (colIndex == 3)
+                            {
+                                if (_corEffectSlowMotion != null) _monoHelper.StopCoroutine(_corEffectSlowMotion);
+                                _corEffectSlowMotion = _monoHelper.StartCoroutine(ShowEffectReelsSlowMotion(3));
+                            }
+                            else if (colIndex == 4)
+                            {
+                                if (_corEffectSlowMotion != null) _monoHelper.StopCoroutine(_corEffectSlowMotion);
+                                _corEffectSlowMotion = _monoHelper.StartCoroutine(ShowEffectReelsSlowMotion(4));
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+
+        private void OnStopSlot(EventData res)
+        {
+            switch (res.name)
+            {
+                case SlotMachineEvent.StoppedSlotMachine:
+                    _isStoppedSlotMachine = true;
+                    break;
+            }
+        }
+
+        void OnClickTotalSpinsButtonClick(EventData res)
+        {
+            if (ContentModel.Instance.isSpin || ContentModel.Instance.isAuto)
+                return;
+
+            int num = (int)res.value;
+            if (num != -1)
+            {
+                ContentModel.Instance.totalPlaySpins = num;
+            }
+            else
+            {
+                switch (ContentModel.Instance.totalPlaySpins)
+                {
+                    case 1:
+                        ContentModel.Instance.totalPlaySpins = 3;
+                        break;
+                    case 3:
+                        ContentModel.Instance.totalPlaySpins = 5;
+                        break;
+                    case 5:
+                    default:
+                        ContentModel.Instance.totalPlaySpins = 1;
+                        break;
+                }
+            }
+
+            ContentModel.Instance.remainPlaySpins = ContentModel.Instance.totalPlaySpins;
         }
 
         private void OnClickSpinButton(EventData res)
@@ -523,9 +667,14 @@ namespace CaiFuZhiMen_3999
         private void OnGameReset()
         {
             if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
+            if (_corEffectSlowMotion != null) _monoHelper.StopCoroutine(_corEffectSlowMotion);
+            if (_currentBorderCom != null) _currentBorderCom.visible = false;
+            _isStoppedSlotMachine = false;
             _slotMachineController.isStopImmediately = false;
             _slotMachineController.CloseSlotCover();
             _slotMachineController.SkipWinLine(true);
+
+            ResetWildSpines();
         }
 
         private List<List<int>> ParseVertical(string raw,
@@ -789,9 +938,7 @@ namespace CaiFuZhiMen_3999
             // 开始滚动
             _slotMachineController.BeginSpin();
             if (ContentModel.Instance.isReelsSlowMotion) // 开启滚轮慢动作的话 滚轮停止之后播放特效
-            {
                 _slotMachineController.ShowSymbolAppearEffectAfterReelStop(true);
-            }
             else // 否则没中奖才播放特效
                 _slotMachineController.ShowSymbolAppearEffectAfterReelStop(ContentModel.Instance.winList.Count == 0);
 
@@ -809,7 +956,7 @@ namespace CaiFuZhiMen_3999
             else // 正常滚动停止
             {
                 if (_corReelsTurn != null) _monoHelper.StopCoroutine(_corReelsTurn);
-                _corReelsTurn = _monoHelper.StartCoroutine(_slotMachineController.TurnReelsNormal(
+                _corReelsTurn = _monoHelper.StartCoroutine(_slotMachineController.TurnReelsNormal(_specialSymbols,
                     ContentModel.Instance.strDeckRowCol,
                     () => { isNext = true; }));
 
@@ -829,6 +976,9 @@ namespace CaiFuZhiMen_3999
                     isNext = false;
                 }
             }
+
+            List<int> celRowList = GetShowWildRows(ContentModel.Instance.strDeckRowCol);
+            ShowSmallWildSpines(celRowList);
 
             // 普通奖金计算
             List<SymbolWin> winList = ContentModel.Instance.winList;
@@ -868,7 +1018,7 @@ namespace CaiFuZhiMen_3999
                 _corShowBonusSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(11));
                 yield return new WaitForSeconds(1.6f);
 
-                PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiMenPopupJackpotGameTrigger,
+                PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiMenPopupJackpotTrigger,
                     new EventData<Dictionary<string, object>>("", new Dictionary<string, object> { }),
                     (res) =>
                     {
@@ -912,10 +1062,14 @@ namespace CaiFuZhiMen_3999
 
             // 进入空闲状态
             ContentModel.Instance.gameState = GameState.Idle;
+            Action bigWildCallBack = () =>
+            {
+                ShowBigWildSpines(celRowList);
+            };
             if (winList.Count > 0 && !ContentModel.Instance.isAuto && !ContentModel.Instance.isFreeSpinTrigger)
             {
                 if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
-                _corGameIdle = _monoHelper.StartCoroutine(GameIdle(winList));
+                _corGameIdle = _monoHelper.StartCoroutine(GameIdle(winList /*, bigWildCallBack*/));
             }
 
             successCallback?.Invoke();
@@ -928,7 +1082,9 @@ namespace CaiFuZhiMen_3999
             {
                 _freeRoundText.text = ContentModel.Instance.FreeSpinTotalTimes.ToString() + "/" +
                                       ContentModel.Instance.FreeSpinTotalTimes.ToString();
-                _gameController.name = "free";
+                _gameController.selectedPage = "free";
+                _slotMachineController.SkipWinLine(false);
+                _slotMachineController.CloseSlotCover();
             });
 
             PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiMenPopupFreeSpinTrigger,
@@ -937,6 +1093,7 @@ namespace CaiFuZhiMen_3999
                 (ed) =>
                 {
                     DebugUtils.Log("回调执行！isNext = true"); // 加日志
+
                     isNext = true;
                 });
 
@@ -957,6 +1114,8 @@ namespace CaiFuZhiMen_3999
                     if (sw != null && sw.cells.Count > 0)
                         _slotMachineController.ShowSymbolWinDeck(sw, true);
                     _slotMachineController.CloseSlotCover();
+                    _gameController.selectedPage = "normal";
+                    ResetWildSpines();
                 });
 
             _slotMachineController.EndBonusFreeSpin();
@@ -970,7 +1129,6 @@ namespace CaiFuZhiMen_3999
                 {
                     DebugUtils.Log("回调执行！isNext = true"); // 加日志
 
-                    _gameController.name = "normal";
                     isNext = true;
                 });
 
@@ -1053,7 +1211,7 @@ namespace CaiFuZhiMen_3999
             else
             {
                 if (_corReelsTurn != null) _monoHelper.StopCoroutine(_corReelsTurn);
-                _corReelsTurn = _monoHelper.StartCoroutine(_slotMachineController.TurnReelsNormal(
+                _corReelsTurn = _monoHelper.StartCoroutine(_slotMachineController.TurnReelsNormal(_specialSymbols,
                     ContentModel.Instance.strDeckRowCol,
                     () =>
                     {
@@ -1077,6 +1235,9 @@ namespace CaiFuZhiMen_3999
                     isNext = false;
                 }
             }
+
+            List<int> celRowList = GetShowWildRows(ContentModel.Instance.strDeckRowCol);
+            ShowSmallWildSpines(celRowList);
 
             List<SymbolWin> winList = ContentModel.Instance.winList;
             long allWinCredit = 0;
@@ -1133,7 +1294,9 @@ namespace CaiFuZhiMen_3999
             }
 
             #endregion
-
+            
+            ResetWildSpines();
+            
             ContentModel.Instance.gameState = GameState.Idle;
             successCallback?.Invoke();
         }
@@ -1264,19 +1427,18 @@ namespace CaiFuZhiMen_3999
                 _slotMachineController.ShowSymbolWinDeck(_slotMachineController.GetTotalSymbolWin(winList), true);
 
             yield return new WaitForSeconds(1.5f);
-
             //停止特效显示
             _slotMachineController.SkipWinLine(false);
             //显示遮罩
             _slotMachineController.CloseSlotCover();
         }
 
-        private IEnumerator GameIdle(List<SymbolWin> winList)
+        private IEnumerator GameIdle(List<SymbolWin> winList, Action callback = null)
         {
             if (winList.Count == 0)
                 yield break;
             SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.GameIdle);
-            yield return _slotMachineController.ShowWinListAwayDuringIdle(winList);
+            yield return _slotMachineController.ShowWinListAwayDuringIdle(winList, callback);
         }
 
         private IEnumerator ShowWinSymbol(int number, Action callback = null)
@@ -1300,6 +1462,159 @@ namespace CaiFuZhiMen_3999
             yield return _slotMachineController.ShowSymbolWinBySetting(curSymbolWin, true,
                 PusherEmperorsRein.SpinWinEvent.SingleWinLine);
             callback?.Invoke();
+        }
+
+        private IEnumerator ShowEffectReelsSlowMotion(int colIdx)
+        {
+            if (ContentModel.Instance.IsBonusTrigger) // 新增是否是彩金游戏判断
+            {
+                _currentBorderCom = _speedUpEffectComList[1];
+                _currentBorderCom.xy = _slotMachineController.SymbolCenterToNodeLocalPos(colIdx, 1, _bonusBorderCom);
+            }
+            else
+            {
+                _currentBorderCom = _speedUpEffectComList[0];
+                _currentBorderCom.xy = _slotMachineController.SymbolCenterToNodeLocalPos(colIdx, 1, _freeBorderCom);
+            }
+
+            _currentBorderCom.visible = true;
+            yield return new WaitUntil(() => _isStoppedSlotMachine == true);
+            _currentBorderCom.visible = false;
+        }
+
+        #endregion
+
+        #region 加速框制作
+
+        /// <summary>
+        /// 创建特效UI组件
+        /// </summary>
+        /// <param name="effectPrefab">特效预制体</param>
+        /// <param name="anchorReelEffectGCom">特效父物体组件</param>
+        /// <param name="packageName">包名</param>
+        /// <param name="componentName">组件名</param>
+        /// <returns>特效UI组件</returns>
+        private GComponent CreateUIEffect(GameObject effectPrefab, GComponent anchorReelEffectGCom,
+            string packageName = "Common",
+            string componentName = "AnchorRootDefault")
+        {
+            GComponent effectComponent = UIPackage.CreateObject(packageName, componentName).asCom;
+            GameCommon.FguiUtils.DeleteWrapper(effectComponent);
+            GameCommon.FguiUtils.AddWrapper(effectComponent, Object.Instantiate(effectPrefab));
+
+            effectComponent.visible = false;
+            anchorReelEffectGCom.AddChild(effectComponent);
+            anchorReelEffectGCom.visible = true;
+
+            return effectComponent;
+        }
+
+        #endregion
+
+        #region Wild功能制作
+
+        private List<int> GetShowWildRows(string strDeckRowCol)
+        {
+            List<int> wildRows = new List<int>();
+            List<List<int>> currentRoundData = ParseVertical(strDeckRowCol);
+            for (int i = 0; i < currentRoundData.Count; i++)
+            {
+                List<int> tempList = currentRoundData[i];
+                if (tempList.All(temp => temp == 9))
+                    wildRows.Add(i);
+            }
+
+            return wildRows;
+        }
+
+
+        private void PlayAnimationByName(Animator animator, string aniName)
+        {
+            animator.Rebind();
+            animator.Play(aniName);
+            animator.Update(0f);
+        }
+
+        private void InitWildObjs()
+        {
+            ContentModel.Instance.maskList.Clear();
+            ContentModel.Instance.bigWildList.Clear();
+            ContentModel.Instance.smallWildList.Clear();
+
+            _wildFrameCom = contentPane.GetChild("wildFrame").asCom;
+
+            GComponent parentCom = _wildFrameCom.GetChild("smallWildFrame").asCom;
+            for (int i = 0; i < parentCom.numChildren; i++)
+            {
+                GComponent currentCom = parentCom.GetChildAt(i).asCom;
+                GGraph maskCom = currentCom.GetChild("mask").asGraph;
+                ContentModel.Instance.maskList.Add(maskCom);
+                GameCommon.FguiUtils.DeleteWrapper(currentCom);
+                GameObject tempObj = Object.Instantiate(_smallWildObj);
+                tempObj.SetActive(false);
+                ContentModel.Instance.smallWildList.Add(tempObj);
+                GameCommon.FguiUtils.AddWrapper(currentCom, tempObj);
+            }
+
+            parentCom = _wildFrameCom.GetChild("bigWildFrame").asCom;
+            for (int i = 0; i < parentCom.numChildren; i++)
+            {
+                GComponent currentCom = parentCom.GetChildAt(i).asCom;
+                GameCommon.FguiUtils.DeleteWrapper(currentCom);
+                GameObject tempObj = Object.Instantiate(_bigWildObj);
+                tempObj.SetActive(false);
+                ContentModel.Instance.bigWildList.Add(tempObj);
+                GameCommon.FguiUtils.AddWrapper(currentCom, tempObj);
+            }
+        }
+
+        private void ShowSmallWildSpines(List<int> wildRows)
+        {
+            if (wildRows.Count > 0)
+            {
+                foreach (int index in wildRows)
+                {
+                    Animator ani = ContentModel.Instance.smallWildList[index].GetComponentInChildren<Animator>();
+                    ContentModel.Instance.smallWildList[index].SetActive(true);
+                    ContentModel.Instance.maskList[index].visible = true;
+                    PlayAnimationByName(ani, "invert");
+                    Timers.inst.Add(1f, 1, (obj) =>
+                    {
+                        ContentModel.Instance.maskList[index].visible = false;
+                        ContentModel.Instance.smallWildList[index].SetActive(false);
+                        ContentModel.Instance.bigWildList[index].SetActive(true);
+                    });
+                }
+            }
+            else
+            {
+                Debug.Log("this round no wild");
+            }
+        }
+
+        private void ShowBigWildSpines(List<int> wildRows)
+        {
+            if (wildRows.Count > 0)
+            {
+                foreach (int index in wildRows)
+                {
+                    ContentModel.Instance.bigWildList[index].SetActive(true);
+                }
+            }
+            else
+            {
+                Debug.Log("this round no wild");
+            }
+        }
+
+        private void ResetWildSpines()
+        {
+            for (int i = 0; i < ContentModel.Instance.smallWildList.Count; i++)
+            {
+                ContentModel.Instance.maskList[i].visible = false;
+                ContentModel.Instance.bigWildList[i].SetActive(false);
+                ContentModel.Instance.smallWildList[i].SetActive(false);
+            }
         }
 
         #endregion

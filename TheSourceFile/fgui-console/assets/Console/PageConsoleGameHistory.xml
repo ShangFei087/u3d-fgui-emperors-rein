@@ -2,17 +2,19 @@
 <component size="1080,1920">
   <displayList>
     <component id="n0_exvp" name="BG" src="glrj1j" fileName="moudules/BaseBG.xml" xy="0,-2"/>
-    <component id="n7_h0z3" name="gameId" src="g3lh58" fileName="moudules/ItemDateSelect.xml" xy="3,1686">
+    <list id="n9_h0z3" name="pages" xy="0,478" size="1078,1251" overflow="scroll">
+      <item url="ui://xp0b9yqdh0z3ao"/>
+    </list>
+    <component id="n7_h0z3" name="gameId" src="g3lh58" fileName="moudules/ItemDateSelect.xml" xy="-1,1725">
       <property target="key" propertyId="0" value="GameId"/>
     </component>
-    <component id="n2_exvp" name="date" src="g3lh58" fileName="moudules/ItemDateSelect.xml" xy="539,1686">
+    <component id="n2_exvp" name="date" src="g3lh58" fileName="moudules/ItemDateSelect.xml" xy="539,1724">
       <property target="key" propertyId="0" value="Data"/>
     </component>
-    <component id="n3_exvp" name="Slot" src="exvpan" fileName="moudules/slotMachine/SlotMachine.xml" xy="539,1110"/>
-    <component id="n5_exvp" name="btnPrev" src="glrj1h" fileName="components/ButtonButtom2.xml" xy="140,1100"/>
-    <component id="n6_exvp" name="btnNext" src="glrj1h" fileName="components/ButtonButtom2.xml" xy="940,1100" scale="-1,1"/>
     <component id="n1_exvp" name="navBottom" src="glrj1l" fileName="moudules/Buttom1.xml" xy="1,1802">
       <property target="title" propertyId="0" value="Game History"/>
     </component>
+    <component id="n5_exvp" name="btnPrev" src="glrj1h" fileName="components/ButtonButtom2.xml" xy="209,1616"/>
+    <component id="n6_exvp" name="btnNext" src="glrj1h" fileName="components/ButtonButtom2.xml" xy="884,1616" scale="-1,1"/>
   </displayList>
 </component>

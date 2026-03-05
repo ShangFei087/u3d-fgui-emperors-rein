@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: ng_sym_Lscore_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: 3b241702ee7468f4aac5e883c204c2ef, type: 3}
+  atlasFile: {fileID: 4900000, guid: 81c8e0debb430e9408cc8889d38b9d3f, type: 3}
   materials:
-  - {fileID: 2100000, guid: c38c0759169237546954ad088350f3ce, type: 2}
+  - {fileID: 2100000, guid: 59f8c9f865fa85443a1e266a35fe42ff, type: 2}

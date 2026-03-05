@@ -9,12 +9,14 @@ public class TabGameHistoryController : MonoBehaviour
 {
     GComponent goOwnerTab;
     GameHistoryDataController ctrl = new GameHistoryDataController();
-    List<GComponent> goSymbols = new List<GComponent>();
-    public List<GLoader> imgs = new List<GLoader>();
+    public List<GLoader> Symbols = new List<GLoader>(); //滚轮图标
+    GRichTextField _rtxtgame_uid, _rtxtcreated_at, _rtxtcredit_before, _rtxtcredit_after, _rtxttotal_bet, _rtxtbase_game_win_credit, _rtxtjackpot_win_credit, _rtxtopen_type, _rtxtresult_type,
+        _rtxtgame_name, _rtxtgame_page;
 
     // 当前显示的数据
     private GameHistoryInfo currentPageInfo;
-
+    //当前记录的符号映射
+    private Dictionary<string, string> currentSymbolIconMap;
     // 当前游戏ID
     private long currentGameId = 1700;
 
@@ -37,8 +39,20 @@ public class TabGameHistoryController : MonoBehaviour
         for (int i = 0; i < 15; ++i)
         {
             GLoader img = reels.GetChildAt(i).asCom.GetChild("image").asLoader;
-            imgs.Add(img);
+            Symbols.Add(img);
         }
+
+        _rtxtgame_uid = go.GetChild("game_uid").asCom.GetChild("value").asRichTextField;
+        _rtxtcreated_at = go.GetChild("created_at").asCom.GetChild("value").asRichTextField;
+        _rtxtcredit_before = go.GetChild("credit_before").asCom.GetChild("value").asRichTextField;
+        _rtxtcredit_after = go.GetChild("credit_after").asCom.GetChild("value").asRichTextField;
+        _rtxttotal_bet = go.GetChild("total_bet").asCom.GetChild("value").asRichTextField;
+        _rtxtbase_game_win_credit = go.GetChild("base_game_win_credit").asCom.GetChild("value").asRichTextField;
+        _rtxtjackpot_win_credit = go.GetChild("jackpot_win_credit").asCom.GetChild("value").asRichTextField;
+        _rtxtopen_type = go.GetChild("open_type").asCom.GetChild("value").asRichTextField;
+        _rtxtresult_type = go.GetChild("result_type").asCom.GetChild("value").asRichTextField;
+        _rtxtgame_name = go.GetChild("game_page").asCom.GetChild("key").asRichTextField;
+        _rtxtgame_page = go.GetChild("game_page").asCom.GetChild("value").asRichTextField;
 
         ctrl.InitParam(tabName, onDatesChange, onGameIdsChange, onPageChagne);
     }
@@ -51,9 +65,9 @@ public class TabGameHistoryController : MonoBehaviour
     }
 
     // 日期时间改变时调用
-    public void OnDateTimeChanged(long gameId, string dateTime)
+    public void OnDateTimeChanged(long gameId, string dateTime,int selectedIndex)
     {
-        ctrl.QueryByGameIdAndDateTime(gameId, dateTime, 0);
+        ctrl.QueryByGameIdAndDateTime(gameId, dateTime, selectedIndex);
     }
 
     void onPageChagne(GameHistoryInfo pageInfo)
@@ -63,67 +77,79 @@ public class TabGameHistoryController : MonoBehaviour
         // 如果有数据，显示符号
         if (pageInfo.currentRecord != null && !string.IsNullOrEmpty(pageInfo.currentRecord.strDeckRowCol))
         {
+            // 解析符号映射
+            ParseSymbolIconMap(pageInfo.currentRecord.symbol_icon_mapping);
+
+            // 显示时间信息
+            DateTime dt = DateTime.ParseExact(pageInfo.currentDateTime, "yyyy-MM-dd HH:mm:ss", null);
+
             // 解析符号布局
             List<int> deckColRow = SlotTool.GetDeckRowCol(pageInfo.currentRecord.strDeckRowCol);
 
             // 更新15个位置的图标
-            for (int i = 0; i < 15 && i < imgs.Count; ++i)
+            for (int i = 0; i < 15 && i < Symbols.Count; ++i)
             {
                 int symbolId = deckColRow[i];
                 SetSymbolImage(symbolId, i);
             }
 
-            // 显示时间信息
-            DateTime dt = DateTime.ParseExact(pageInfo.currentDateTime, "yyyy-MM-dd HH:mm:ss", null);
-            DebugUtils.Log($"显示第{pageInfo.curPageNumber}/{pageInfo.totalPageCount}页，游戏ID：{pageInfo.currentGameId}，时间：{dt.ToString("yyyy-MM-dd HH:mm:ss")}");
+            // 更新文本信息
+            _rtxtgame_uid.text = $"{pageInfo.currentRecord.game_uid}";
+            _rtxtcreated_at.text = $"{dt.ToString("yyyy-MM-dd HH:mm:ss")}";
+            _rtxtcredit_before.text = $"{pageInfo.currentRecord.credit_before}";
+            _rtxtcredit_after.text = $"{pageInfo.currentRecord.credit_after}";
+            _rtxttotal_bet.text = $"{pageInfo.currentRecord.total_bet}";
+            _rtxtbase_game_win_credit.text = $"{pageInfo.currentRecord.base_game_win_credit}";
+            _rtxtjackpot_win_credit.text = $"{pageInfo.currentRecord.jackpot_win_credit}";
+            _rtxtopen_type.text = $"{pageInfo.currentRecord.open_type}";
+            _rtxtresult_type.text = $"{pageInfo.currentRecord.result_type}"; // 原来漏掉了这个字段
+            _rtxtgame_name.text = $"{pageInfo.currentRecord.game_id}游戏记录";
+            _rtxtgame_page.text = $"第{pageInfo.curPageNumber}/{pageInfo.totalPageCount}页";
         }
         else
         {
             // 没有数据时清空图标
             ClearSymbols();
+            currentSymbolIconMap = null;
         }
     }
 
     public void SetSymbolImage(int symbolNumber, int index)
     {
-        // 这里需要根据实际的图标映射来设置
-        // 示例：根据symbolNumber映射到对应的图片URL
         string iconUrl = GetIconUrlBySymbolId(symbolNumber);
-        imgs[index].url = iconUrl;
+
+        if (string.IsNullOrEmpty(iconUrl))
+        {
+            DebugUtils.LogWarning($"符号 {symbolNumber} 没有对应的图标URL");
+            Symbols[index].url = "";
+        }
+        else
+        {
+            Symbols[index].url = iconUrl;
+            //DebugUtils.Log($"设置位置 {index} 的符号 {symbolNumber} 为: {iconUrl}");
+        }
     }
 
     // 根据符号ID获取图标URL
     private string GetIconUrlBySymbolId(int symbolId)
     {
-        // 获取当前游戏对应的包名
-        string packageName = gamePackageMap.ContainsKey(currentGameId) 
-            ? gamePackageMap[currentGameId] 
-            : "Console";
+        string symbolKey = symbolId.ToString();
 
-        // 返回对应包的图标URL
-        // 注意：每个游戏的图标名称可能不同，这里需要根据实际图标名称进行调整
-        // 以下是 SlotZhuZaiJinBi1700 的图标映射示例
-        switch (symbolId) 
+        // 优先使用从数据库读取的符号映射
+        if (currentSymbolIconMap != null && currentSymbolIconMap.ContainsKey(symbolKey))
         {
-            case 0: return $"ui://{packageName}/ng_sym_9";
-            case 1: return $"ui://{packageName}/ng_sym_10";
-            case 2: return $"ui://{packageName}/ng_sym_J";
-            case 3: return $"ui://{packageName}/ng_sym_Q";
-            case 4: return $"ui://{packageName}/ng_sym_K";
-            case 5: return $"ui://{packageName}/ng_sym_A";
-            case 6: return $"ui://{packageName}/ng_sym_card";
-            case 7: return $"ui://{packageName}/ng_sym_wallet";
-            case 8: return $"ui://{packageName}/ng_sym_safe";
-            case 9: return $"ui://{packageName}/ng_sym_ptycoon";
-            case 10: return $"ui://{packageName}/ng_sym_treasury";
-            default: return $"ui://{packageName}/ng_sym_pMoneyjar"; // 默认图标
+            return currentSymbolIconMap[symbolKey];
+        }
+        else
+        {
+            return null;
         }
     }
 
     // 清空所有图标
     private void ClearSymbols()
     {
-        foreach (var img in imgs)
+        foreach (var img in Symbols)
         {
             img.url = "";
         }
@@ -157,5 +183,28 @@ public class TabGameHistoryController : MonoBehaviour
     public void ClearDisplay()
     {
         ctrl.ClearDisplay();
+    }
+
+
+    // 解析符号映射的方法
+    private void ParseSymbolIconMap(string symbolIconMappingJson)
+    {
+        if (string.IsNullOrEmpty(symbolIconMappingJson))
+        {
+            currentSymbolIconMap = null;
+            return;
+        }
+
+        try
+        {
+            // 解析JSON为字典
+            currentSymbolIconMap = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(symbolIconMappingJson);
+            DebugUtils.Log($"成功解析符号映射，共 {currentSymbolIconMap.Count} 个符号");
+        }
+        catch (Exception e)
+        {
+            DebugUtils.LogError($"解析符号映射失败: {e.Message}");
+            currentSymbolIconMap = null;
+        }
     }
 }

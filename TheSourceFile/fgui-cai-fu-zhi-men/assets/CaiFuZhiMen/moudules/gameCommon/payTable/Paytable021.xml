@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,814">
+  <displayList>
+    <image id="n0_lnfc" name="n0" src="lnfc50" fileName="images/gameCommon/gameIntroduce/1.png" xy="540,395" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>

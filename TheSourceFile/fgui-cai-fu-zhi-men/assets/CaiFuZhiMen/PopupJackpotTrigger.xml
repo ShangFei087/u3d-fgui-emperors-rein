@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n2_ui7i" name="normalBg" src="vckb6" fileName="moudules/gameCommon/gameBg/NormalBg.xml" xy="0,0"/>
+    <graph id="n3_ui7i" name="doorMask" xy="354,911" size="337,337" visible="false" type="eclipse" fillColor="#ff000000"/>
+    <component id="n5_ui7i" name="anchor_GirlOpenDoor" src="ui7i4c" fileName="moudules/popupJackpotTrigger/Anchors/SpineAnchors/Anchor_GirlOpenDoor.xml" xy="540,960"/>
+    <component id="n4_ui7i" name="winBoxWindow" src="ui7i42" fileName="moudules/popupJackpotTrigger/WinBoxWindow.xml" xy="0,0"/>
+  </displayList>
+</component>

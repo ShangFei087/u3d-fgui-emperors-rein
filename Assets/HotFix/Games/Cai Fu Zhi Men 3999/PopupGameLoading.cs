@@ -112,13 +112,14 @@ namespace CaiFuZhiMen_3999
             if (_isFirstOpen)
             {
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiMenPageGameMain, null);
-                // PageManager.Instance.PreloadPage(PageName.CaiFuZhiMenPopupFreeSpinTrigger, null);
-                // PageManager.Instance.PreloadPage(PageName.CaiFuZhiMenPopupFreeSpinResult, null);
-                // PageManager.Instance.PreloadPage(PageName.CaiFuZhiMenPopupJackpotGameTrigger, null);
-                // PageManager.Instance.PreloadPage(PageName.CaiFuZhiMenPopupJackpotGame, null);
-                // PageManager.Instance.PreloadPage(PageName.CaiFuZhiMenPopupJackpotGameResult, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiMenPopupFreeSpinTrigger, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiMenPopupFreeSpinResult, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiMenPopupJackpotTrigger, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiMenPopupJackpotGame, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiMenPopupJackpotResult, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiMenPopupJackpotLoad, null);
                 _isFirstOpen = false;
-                
+
                 Debug.LogError("CaiFuZhiMen is Preloaded!");
             }
 

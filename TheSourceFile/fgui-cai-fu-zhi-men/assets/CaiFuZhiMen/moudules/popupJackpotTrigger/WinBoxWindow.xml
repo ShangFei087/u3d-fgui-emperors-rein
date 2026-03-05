@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_ui7i" name="anchor_WinJackpot" src="ui7i41" fileName="moudules/popupJackpotTrigger/Anchors/SpineAnchors/Anchor_WinJackpot.xml" xy="540,960"/>
+    <component id="n2_ui7i" name="jackpotStartBtn" src="ui7i4a" fileName="components/popupJackpotTrigger/JackpotStartButton.xml" xy="442,1112"/>
+  </displayList>
+</component>

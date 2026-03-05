@@ -202,6 +202,7 @@
     <component id="exvpal" name="Reel.xml" path="/moudules/slotMachine/"/>
     <component id="exvpam" name="Reels.xml" path="/moudules/slotMachine/"/>
     <component id="exvpan" name="SlotMachine.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="h0z3ao" name="PCBRTabGameHistory.xml" path="/tabs/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets/GameRes/Games/Console/FGUIs" packageCount="2" genCode="true">
     <atlas name="Default" index="0"/>

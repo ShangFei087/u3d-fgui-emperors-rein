@@ -21,6 +21,10 @@ namespace SlotMaker
         /// <summary> 开启免费游戏的 正规游戏id </summary>
         public long gameNumberFreeSpinTrigger = 0; //guid
 
+        /// <summary> 开奖方式类型 </summary>
+        public int open_type;
+        /// <summary>开奖结果类型 </summary>
+        public int result_type;
 
         /// <summary> 当前是否是免费游戏 </summary>
         public bool isFreeSpin;

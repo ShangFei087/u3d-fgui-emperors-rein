@@ -4,7 +4,7 @@
 
 	"ResultType": 2,
 
-	"lineNum": 1,
+	"lineNum": 0,
 
 	"TotalBet": 0,
 
@@ -12,7 +12,7 @@
 	
 	"TotalFreeTime":9,
 
-	"IDVec": [1302],
+	"IDVec": [],
 	
 	"FreeBetArray":[0,220,0,30,0,0,0,10,90],
 

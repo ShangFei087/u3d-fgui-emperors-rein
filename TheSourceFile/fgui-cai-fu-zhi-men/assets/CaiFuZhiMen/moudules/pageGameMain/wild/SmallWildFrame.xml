@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="970,516">
+  <displayList>
+    <component id="n7_v1fq" name="n7" src="v1fq5l" fileName="moudules/pageGameMain/wild/Anchor_SmallWild.xml" xy="100,436"/>
+    <component id="n8_v1fq" name="n8" src="v1fq5l" fileName="moudules/pageGameMain/wild/Anchor_SmallWild.xml" xy="294,436"/>
+    <component id="n9_v1fq" name="n9" src="v1fq5l" fileName="moudules/pageGameMain/wild/Anchor_SmallWild.xml" xy="490,436"/>
+    <component id="n10_v1fq" name="n10" src="v1fq5l" fileName="moudules/pageGameMain/wild/Anchor_SmallWild.xml" xy="686,436"/>
+    <component id="n11_v1fq" name="n11" src="v1fq5l" fileName="moudules/pageGameMain/wild/Anchor_SmallWild.xml" xy="880,436"/>
+  </displayList>
+</component>

@@ -214,18 +214,19 @@ namespace SlotZhuZaiJinBi1700
             ContentModel.Instance.isFreeSpinResult = ContentModel.Instance.curReelStripsIndex == "FS" && ContentModel.Instance.nextReelStripsIndex == "BS";
 
 
-            long creditBefore = MainBlackboardController.Instance.myTempCredit;
+            ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            long creditBefore = MainBlackboardController.Instance.myRealCredit;
             //赢分
             long TotalBet = (int)res["TotalBet"];
             DebugUtils.Log("本局赢分TotalBet==" + TotalBet);
             long afterBetCredit = 0;
             if (OpenType == 1)
             {
-                afterBetCredit = creditBefore + TotalBet;
+                afterBetCredit = creditBefore - totalBet + TotalBet;
             }
             else
             {
-                afterBetCredit = creditBefore + TotalBet;
+                afterBetCredit = creditBefore - totalBet + TotalBet;
 
             }
 
@@ -235,14 +236,9 @@ namespace SlotZhuZaiJinBi1700
             {
                 creditAfter = res["creditAfter"];
             }
-            MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
-
-            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={totalEarnCredit} ");
-
 
             // 免费游戏累计总赢
             long freeSpinTotalWinCredit = 0;
-
             if (OpenType == 1)
             {
                 ContentModel.Instance.freeSpinTotalWinCredit = 0;
@@ -259,17 +255,18 @@ namespace SlotZhuZaiJinBi1700
             bool isReelsSlowMotion = false;
             ContentModel.Instance.isReelsSlowMotion = isReelsSlowMotion;
 
-
             // bonus数据
             var bonusResult = new Dictionary<int, JSONNode>();
-
             ContentModel.Instance.bonusResult = bonusResult;
-
             ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Default;
             SlotGameEffectManager.Instance.SetEffect(ContentModel.Instance.targetSlotGameEffect);
 
             // 记录游戏数据到数据库
             Record(totalBet, res);
+
+            MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
+
+            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={totalEarnCredit} ");
         }
 
 
@@ -440,18 +437,18 @@ namespace SlotZhuZaiJinBi1700
 
 
             ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            long creditBefore = MainBlackboardController.Instance.myTempCredit;
+            long creditBefore = MainBlackboardController.Instance.myRealCredit;
             //赢分
             long TotalBet = (int)res["TotalBet"];
             DebugUtils.Log("本局赢分TotalBet==" + TotalBet);
             long afterBetCredit = 0;
             if (OpenType == 1)
             {
-                afterBetCredit = creditBefore + TotalBet;
+                afterBetCredit = creditBefore - totalBet + TotalBet;
             }
             else
             {
-                afterBetCredit = creditBefore + TotalBet;
+                afterBetCredit = creditBefore - totalBet + TotalBet;
 
             }
 
@@ -461,9 +458,6 @@ namespace SlotZhuZaiJinBi1700
             {
                 creditAfter = res["creditAfter"];
             }
-            MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
-
-            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={totalEarnCredit} ");
 
             // 免费游戏累计总赢
             long freeSpinTotalWinCredit = 0;
@@ -483,36 +477,18 @@ namespace SlotZhuZaiJinBi1700
             bool isReelsSlowMotion = false;
             ContentModel.Instance.isReelsSlowMotion = isReelsSlowMotion;
 
-
             // bonus数据
             var bonusResult = new Dictionary<int, JSONNode>();
-            /*
-            if (res["contents"]["bonus_result"] != null && res["contents"]["bonus_result"].Count > 0)
-            {
-               foreach (JSONNode item in res["contents"]["bonus_result"])
-               {
-                   bonusResult.Add((int)item["bonus_id"],item);
-               }
-            }*/
             ContentModel.Instance.bonusResult = bonusResult;
-
-
-            /*
-            if (ContentModel.Instance.bonusResult.Count >0 )
-            {
-               ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Expectation02;
-            }
-            else
-            {
-               ContentModel.Instance.targetSlotGameEffect = isReelsSlowMotion ? SlotGameEffect.Expectation01 :
-                   isFreeSpin ? SlotGameEffect.FreeSpin : SlotGameEffect.Default;
-            }
-            */
             ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Default;
             SlotGameEffectManager.Instance.SetEffect(ContentModel.Instance.targetSlotGameEffect);
 
             // 记录游戏数据到数据库
             Record(totalBet, res);
+
+            MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
+
+            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={totalEarnCredit} ");
         }
 
         void OnEnable()
@@ -724,23 +700,24 @@ namespace SlotZhuZaiJinBi1700
             gameSenceData.freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCredit;
             gameSenceData.totalBet = totalBet;
 
+            // 计算赢分
+            long totalEarnCredit = 0;
+            //if (ContentModel.Instance.winList != null)
+            //{
+            //    foreach (var win in ContentModel.Instance.winList)
+            //    {
+            //        totalEarnCredit += win.earnCredit;
+            //    }
+            //}
+            totalEarnCredit = (long)res["TotalBet"];
+            gameSenceData.baseGameWinCredit = totalEarnCredit;
+
             // 获取游戏前后的分数
-            long creditBefore = MainBlackboardController.Instance.myTempCredit;
-            long creditAfter = MainBlackboardController.Instance.myRealCredit;
+            long creditBefore = MainBlackboardController.Instance.myRealCredit;
+            long creditAfter = MainBlackboardController.Instance.myRealCredit - totalBet + totalEarnCredit;
 
             gameSenceData.creditBefore = creditBefore;
             gameSenceData.creditAfter = creditAfter;
-
-            // 计算赢分
-            long totalEarnCredit = 0;
-            if (ContentModel.Instance.winList != null)
-            {
-                foreach (var win in ContentModel.Instance.winList)
-                {
-                    totalEarnCredit += win.earnCredit;
-                }
-            }
-            gameSenceData.baseGameWinCredit = totalEarnCredit;
 
             // 彩金数据
             JackpotRes info = ContentModel.Instance.jpGameRes;
@@ -763,20 +740,11 @@ namespace SlotZhuZaiJinBi1700
             int ResultType = res != null ? (int)res["ResultType"] : 0;
             int OpenType = res != null ? (int)res["OpenType"] : 0;
 
-            string gameType = "spin";
-            if (ContentModel.Instance.isFreeSpinTrigger)
-            {
-                gameType = "free_spin_trigger";
-            }
-            else if (OpenType == 1)
-            {
-                gameType = "free_spin";
-            }
-
             // 构建记录对象
             TableSlotGameRecordItem slotGameRecordItem = new TableSlotGameRecordItem()
             {
-                game_type = gameType,
+                open_type =OpenType,
+                result_type = ResultType,
                 game_id = 1700,
                 game_uid = ContentModel.Instance.curGameGuid,
                 created_at = ContentModel.Instance.curGameCreatTimeMS,
@@ -786,17 +754,20 @@ namespace SlotZhuZaiJinBi1700
                 base_game_win_credit = totalEarnCredit,
                 jackpot_win_credit = jackpotWinCredit,
                 strDeckRowCol = ContentModel.Instance.strDeckRowCol,
+                symbol_icon_mapping = JsonConvert.SerializeObject(CustomModel.Instance.symbolIcon) // 
             };
             
             // 场景数据存入数据库
             slotGameRecordItem.scene = JsonConvert.SerializeObject(gameSenceData);
 
-            ////// 删除旧表
+            ////删除旧表
             //string dropSql = $"DROP TABLE IF EXISTS {ConsoleTableName.TABLE_SLOT_GAME_RECORD}";
             //SQLiteHelper.Instance.ExecuteNonQuery(dropSql);
-            //// 重建表
+            ////重建表
             //string createSql = SQLiteHelper.SQLCreateTable<TableSlotGameRecordItem>(ConsoleTableName.TABLE_SLOT_GAME_RECORD);
             //SQLiteHelper.Instance.ExecuteNonQuery(createSql);
+
+
 
             // 插入数据
             string sql = SQLiteAsyncHelper.SQLInsertTableData<TableSlotGameRecordItem>(
