@@ -223,16 +223,21 @@ namespace CaiFuHuoChe_3996
             EventCenter.Instance.AddEventListener<EventData>("RewardAddEffect", OnRewardEffectEvent);
             EventCenter.Instance.AddEventListener<EventData>("JackpotWinCredit", OnJackpotWinEvent);
 
+            InitParam(null);
+
             PlayAnim(trainAnim, "fg_ng");
         }
 
         public override void OnClose(EventData data = null)
         {
+            slotMachineCtrl.SkipWinLine(true);
+            OnGameReset();
+
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
             EventCenter.Instance.RemoveEventListener<EventData>("RewardAddEffect", OnRewardEffectEvent);
-            EventCenter.Instance.AddEventListener<EventData>("JackpotWinCredit", OnJackpotWinEvent);
+            EventCenter.Instance.RemoveEventListener<EventData>("JackpotWinCredit", OnJackpotWinEvent);
 
             base.OnClose(data);
         }
@@ -373,7 +378,9 @@ namespace CaiFuHuoChe_3996
             GameCommon.FguiUtils.AddWrapper(ComRewardEffect1, GameObject.Instantiate(goRewardEffect));
             GameCommon.FguiUtils.AddWrapper(ComRewardEffect2, GameObject.Instantiate(goRewardEffect));
             GameCommon.FguiUtils.AddWrapper(ComRewardEffect3, GameObject.Instantiate(goRewardEffect));
-            ComRewardEffect1.visible = false;
+            ComRewardEffect1.visible = false; 
+            ComRewardEffect2.visible = false;
+            ComRewardEffect3.visible = false;
             anchorFreeAdd = contentPane.GetChild("freeAddPoint").asCom;
             anchorFill1 = contentPane.GetChild("fill1Add").asCom;
             anchorFill2 = contentPane.GetChild("fill2Add").asCom;
@@ -455,6 +462,34 @@ namespace CaiFuHuoChe_3996
             //goGameCtrl.transform.Find("Panel").GetComponent<PanelController01>().Init();
             EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
                 new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
+
+            //同步积分和押注
+            MachineDataManager02.Instance.RequestGetPlayerInfo((res) =>
+            {
+                SBoxAccount data = (SBoxAccount)res;
+                int pid = SBoxModel.Instance.pid;
+                List<SBoxPlayerAccount> playerAccountList = data.PlayerAccountList;
+                for (int i = 0; i < playerAccountList.Count; i++)
+                {
+                    if (playerAccountList[i].PlayerId == pid)
+                    {
+
+                        MainBlackboardController.Instance.SetMyRealCredit(playerAccountList[i].Credit);
+                        //DebugUtils.Log("前一局算法卡CoinIn==" + playerAccountList[i].CoinIn);
+                        // DebugUtils.Log("前一局算法卡Bet==" + playerAccountList[i].Bets);
+                        // DebugUtils.Log("前一局算法卡Credit==" + );
+                        break;
+                    }
+                }
+
+            }, (BagelCodeError err) =>
+            {
+                DebugUtils.Log(err.msg);
+            });
+            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+
+
+            ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
 
             BsToFsTrans = contentPane.GetTransition("BSToFSTransform");
             FsToBsTrans = contentPane.GetTransition("FSToBSTransform");
@@ -1800,6 +1835,12 @@ namespace CaiFuHuoChe_3996
 
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
+            }
+
+            //赠送局不用扣分
+            if (ContentModel.Instance.gameState != GameState.FreeSpin)
+            {
+                MainBlackboardController.Instance.MinusMyTempCredit(totalBet, true, false);
             }
 
             // 解析数据

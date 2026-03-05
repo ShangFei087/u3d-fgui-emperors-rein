@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace CaiFuHuoChe_3996
 {
-    public class PopupGameLoading : PageBase
+    public class PopupGameLoading : MachinePageBase
     {
         public const string pkgName = "CaiFuHuoChe_3996";
         public const string resName = "PopupGameLoading";
@@ -120,23 +120,47 @@ namespace CaiFuHuoChe_3996
         {
             // 预加载界面：
             PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePageGameMain, null);
-            //PageManager.Instance.PreloadPage(PageName.PusherEmperorsReinPopupBigWin, null);
-            //PageManager.Instance.PreloadPage(PageName.PusherEmperorsReinPopupFreeSpinTrigger, null);
-            //PageManager.Instance.PreloadPage(PageName.PusherEmperorsReinPopupFreeSpinResult, null);
-            //PageManager.Instance.PreloadPage(PageName.PusherEmperorsReinPopupJackpotGame, null);
+            PageManager.Instance.PreloadPage(PageName.PusherEmperorsReinPopupBigWin, null);
+            PageManager.Instance.PreloadPage(PageName.PusherEmperorsReinPopupFreeSpinTrigger, null);
+            PageManager.Instance.PreloadPage(PageName.PusherEmperorsReinPopupFreeSpinResult, null);
+            PageManager.Instance.PreloadPage(PageName.PusherEmperorsReinPopupJackpotGame, null);
 
 
 
             // 使用GTween实现0到100的平滑过渡，时长2秒
-            if (tweener != null) tweener.Kill();
-            tweener = GTween.To(0, 100, duration)
+            //if (tweener != null)
+            //{
+            //    tweener.Kill();
+            //}
+            //tweener = GTween.To(0, 100, duration)
+            //    .SetEase(EaseType.Linear) // 线性过渡，匀速增长
+            //    .OnUpdate((tween) =>
+            //    {
+            //        // 获取当前进度值（四舍五入为整数）
+            //        int progress = Mathf.RoundToInt(tween.value.x);
+                    
+            //    })
+            //    .OnComplete(() =>
+            //    {
+            //        Load.text = $"加载完成";
+                    
+
+            //    });
+        }
+
+        private void StartLoadingAnimation2()
+        {
+            if (tweener2 != null) tweener2.Kill();
+            tweener2 = GTween.To(0, 1, duration)
                 .SetEase(EaseType.Linear) // 线性过渡，匀速增长
                 .OnUpdate((tween) =>
                 {
                     // 获取当前进度值（四舍五入为整数）
-                    int progress = Mathf.RoundToInt(tween.value.x);
+                    double progress = tween.value.x;
+                    ProgressBar.value = progress;
+
                     // 更新文本显示
-                    Load.text = $"加载中{dots[(progress / 4) % 4]}";
+                    Load.text = $"加载中{dots[((int)(progress * 100) / 4) % 4]}";
                 })
                 .OnComplete(() =>
                 {
@@ -159,26 +183,6 @@ namespace CaiFuHuoChe_3996
                     {
                         PageManager.Instance.OpenPage(PageName.CaiFuHuoChePageGameMain);
                     }
-
-                });
-        }
-
-        private void StartLoadingAnimation2()
-        {
-
-
-            if (tweener2 != null) tweener2.Kill();
-            tweener2 = GTween.To(0, 1, duration)
-                .SetEase(EaseType.Linear) // 线性过渡，匀速增长
-                .OnUpdate((tween) =>
-                {
-                    // 获取当前进度值（四舍五入为整数）
-                    double progress = tween.value.x;
-                    ProgressBar.value = progress;
-                })
-                .OnComplete(() =>
-                {
-                    CloseSelf(null);
                 });
         }
 
