@@ -24,8 +24,6 @@ public class GameHistoryDataController : MonoBehaviour
     int curPageIndex = 0;
     // 总的页数
     int totalPageCount = 0;
-    // 每页显示的数据条数（固定为1）
-    const int pageSize = 1;
     // 总记录数
     int totalRecordCount = 0;
 
@@ -165,14 +163,32 @@ public class GameHistoryDataController : MonoBehaviour
                 {
                     TableSlotGameRecordItem record = new TableSlotGameRecordItem()
                     {
-                        game_type = sdr.GetString(sdr.GetOrdinal("game_type")),
+                        open_type = sdr.GetInt32(sdr.GetOrdinal("open_type")),
+                        result_type = sdr.GetInt32(sdr.GetOrdinal("result_type")),
                         game_id = sdr.GetInt64(sdr.GetOrdinal("game_id")),
                         game_uid = sdr.GetString(sdr.GetOrdinal("game_uid")),
                         created_at = sdr.GetInt64(sdr.GetOrdinal("created_at")),
                         total_bet = sdr.GetInt64(sdr.GetOrdinal("total_bet")),
+                        credit_before = sdr.GetInt64(sdr.GetOrdinal("credit_before")),
+                        credit_after = sdr.GetInt64(sdr.GetOrdinal("credit_after")),
+                        base_game_win_credit = sdr.GetInt64(sdr.GetOrdinal("base_game_win_credit")),
                         strDeckRowCol = sdr.GetString(sdr.GetOrdinal("strDeckRowCol"))
                     };
 
+                    // 尝试读取 symbol_icon_mapping 字段（如果存在）
+                    try
+                    {
+                        int symbolIconIndex = sdr.GetOrdinal("symbol_icon_mapping");
+                        if (!sdr.IsDBNull(symbolIconIndex))
+                        {
+                            record.symbol_icon_mapping = sdr.GetString(symbolIconIndex);
+                        }
+                    }
+                    catch
+                    {
+                        // 如果字段不存在，忽略
+                        record.symbol_icon_mapping = null;
+                    }
                     allRecords.Add(record);
                 }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="635,381" pivot="0.5,0.5" anchor="true">
+<component size="1080,600" pivot="0.5,0.5" anchor="true">
   <displayList>
-    <component id="n37_exvp" name="reels" src="exvpam" fileName="moudules/slotMachine/Reels.xml" xy="0,0"/>
+    <component id="n37_exvp" name="reels" src="exvpam" fileName="moudules/slotMachine/Reels.xml" xy="0,0" size="1080,600"/>
   </displayList>
 </component>

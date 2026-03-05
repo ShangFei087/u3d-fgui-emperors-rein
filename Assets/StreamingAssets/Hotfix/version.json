@@ -1,11 +1,11 @@
 {
-  "updated_at": 1772417144216,
+  "updated_at": 1772527602812,
   "hotfix_key": "hf_debug_android_20260206115500",
-  "hotfix_version": "1.6.27",
+  "hotfix_version": "1.6.30",
   "asset_bundle": {
     "manifest": {
-      "hash": "2faafc81d1a92b5168f22d019b9a3ed2",
-      "size_bytes": 16731
+      "hash": "0e4cb81747351b79dba4dcf69c1bd90f",
+      "size_bytes": 16730
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
@@ -242,7 +242,7 @@
       "games/console/abs/lang_cn.unity3d": "cb9b249b7fd9d4a384e2532587946532",
       "games/console/abs/lang_en.unity3d": "55ffdd2a495ab3063c624c1620ab9d42",
       "games/console/abs/lang_tw.unity3d": "bba883d610ef1b8ab1c7ac557c83c424",
-      "games/console/fguis.unity3d": "ef17b112f30b6f42d7e313eb4c31e06b",
+      "games/console/fguis.unity3d": "2345101359c92f8498a935ef7ca950ce",
       "games/emperors rein 200/abs/datas/slot_machine_config_bouns1.unity3d": "b7bdf4772671474e955d5a7883d9e43d",
       "games/emperors rein 200/abs/datas/slot_machine_config_temp.unity3d": "6b732135677815a2defb0eba50dcc545",
       "games/emperors rein 200/fguis.unity3d": "c118e88cd1d8eb50d3497e4d78d20ec9",
