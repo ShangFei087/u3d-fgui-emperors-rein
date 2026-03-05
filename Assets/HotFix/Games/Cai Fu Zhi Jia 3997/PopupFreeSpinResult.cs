@@ -54,7 +54,8 @@ namespace CaiFuZhiJia_3997
         public override void InitParam()
         {
             if (!_isInitialized) return;
-            ResetView();
+            preLoadedCallback?.Invoke();
+            if (!isOpen) return;
             
             BindPrefabsToUI();
             ShowEffectAndSpine();
@@ -185,6 +186,11 @@ namespace CaiFuZhiJia_3997
         {
             _freeResultTipWindow.visible = true;
             _freeGameResultScore.visible = true;
+            
+            GameCommon.FguiUtils.DeleteWrapper(_compareDollarSpineGCom);
+            GameCommon.FguiUtils.DeleteWrapper(_compareGoldPurpleEffectGCom);
+            GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
+            GameCommon.FguiUtils.DeleteWrapper(_compareFreeGetAnimationGCom);
 
             _compareDollarSpineGCom = null;
             _compareGoldPurpleEffectGCom = null;

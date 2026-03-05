@@ -116,6 +116,9 @@ namespace CaiFuZhiMen_3999
 
             _cloneJackpotBgObj = null;
             _cloneCatGirlGlideObj = null;
+            
+            GameCommon.FguiUtils.DeleteWrapper(_compareJackpotBg);
+            GameCommon.FguiUtils.DeleteWrapper(_compareCatGirlGlide);
 
             _compareJackpotBg = null;
             _compareCatGirlGlide = null;

@@ -56,7 +56,8 @@ namespace CaiFuZhiJia_3997
             _jackpotTriggerTipWindow = contentPane.GetChild("jackpotTriggerTipWindow").asCom;
             _jackpotTriggerButton = _jackpotTriggerTipWindow.GetChild("jackpotTriggerButton").asButton;
             if (!_isInitialized) return;
-            ResetView();
+            preLoadedCallback?.Invoke();
+            if (!isOpen) return;
 
             BindPrefabsToUI();
             ShowEffectAndSpine();
@@ -187,6 +188,11 @@ namespace CaiFuZhiJia_3997
         private void ResetView()
         {
             _jackpotTriggerTipWindow.visible = true;
+            
+            GameCommon.FguiUtils.DeleteWrapper(_compareDiamondSpineGCom);
+            GameCommon.FguiUtils.DeleteWrapper(_compareDiamondBgEffectGCom);
+            GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
+            GameCommon.FguiUtils.DeleteWrapper(_compareDiamondAnimationGCom);
 
             _compareDiamondSpineGCom = null;
             _compareDiamondBgEffectGCom = null;

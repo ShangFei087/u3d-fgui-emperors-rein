@@ -392,15 +392,24 @@ namespace CaiFuZhiMen_3999
                 Object.Destroy(_cloneJackpotObjs[i]);
                 Object.Destroy(_cloneWinObjs[i]);
             }
+            
+            _cloneWinObjs.Clear();
+            _cloneJackpotObjs.Clear();
 
             _coverMask.visible = false;
 
             _winList.Clear();
+
+            for (int i = 0; i < _compareGoldCoinList.Count; i++)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareWinList[i]);
+                GameCommon.FguiUtils.DeleteWrapper(_compareGoldCoinList[i]);
+                GameCommon.FguiUtils.DeleteWrapper(_compareJackpotObjList[i]);
+            }
             _compareGoldCoinList.Clear();
             _compareJackpotObjList.Clear();
             _compareWinList.Clear();
-            _cloneWinObjs.Clear();
-            _cloneJackpotObjs.Clear();
+          
             for (int i = 0; i < _clickIconList.Count; i++)
             {
                 _clickIconList[i].gameBtn.touchable = true;

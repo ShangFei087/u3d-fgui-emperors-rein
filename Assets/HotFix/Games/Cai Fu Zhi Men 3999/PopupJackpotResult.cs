@@ -160,6 +160,9 @@ namespace CaiFuZhiMen_3999
 
             _cloneJackpotGetWindowObj = null;
             _cloneRealGetWindowObj = null;
+            
+            GameCommon.FguiUtils.DeleteWrapper(_compareJackpotGetWindow);
+            GameCommon.FguiUtils.DeleteWrapper(_compareRealGetWindow);
 
             _compareJackpotGetWindow = null;
             _compareRealGetWindow = null;

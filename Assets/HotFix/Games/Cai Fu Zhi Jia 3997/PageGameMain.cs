@@ -194,6 +194,7 @@ namespace CaiFuZhiJia_3997
 
         public override void OnClose(EventData eventData = null)
         {
+            OnGameReset();
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
                 OnSlotDetailEvent);
@@ -602,8 +603,8 @@ namespace CaiFuZhiJia_3997
 
         public IEnumerator ShowEffectReelsSlowMotion(int colIdx)
         {
-            Debug.LogError("_speedUpEffectComs.Count:" + _speedUpEffectComs.Count);
-            Debug.LogError("_comReelEffect2是否存在:" + (_comReelEffect2 != null));
+            // Debug.LogError("_speedUpEffectComs.Count:" + _speedUpEffectComs.Count);
+            // Debug.LogError("_comReelEffect2是否存在:" + (_comReelEffect2 != null));
             if (ContentModel.Instance.IsBonusTrigger) // 新增是否是彩金游戏判断
             {
                 _comReelEffect2 = _speedUpEffectComs[1];
@@ -615,7 +616,7 @@ namespace CaiFuZhiJia_3997
                 _comReelEffect2.xy = _slotMachineCtrl.SymbolCenterToNodeLocalPos(colIdx, 1, _anchorFreeExpectation);
             }
 
-            Debug.LogError("_comReelEffect2.xy:" + _comReelEffect2.xy);
+            // Debug.LogError("_comReelEffect2.xy:" + _comReelEffect2.xy);
 
             _comReelEffect2.visible = true;
             yield return new WaitUntil(() => _isStoppedSlotMachine == true);
@@ -1055,7 +1056,7 @@ namespace CaiFuZhiJia_3997
                 }
             }
 
-            Debug.LogError("第" + ContentModel.Instance.FreeSpinPlayTimes + "免费局滚动结束");
+            // Debug.LogError("第" + ContentModel.Instance.FreeSpinPlayTimes + "免费局滚动结束");
 
             // 线赢的数据
             List<SymbolWin> winList = ContentModel.Instance.winList;
@@ -1101,7 +1102,7 @@ namespace CaiFuZhiJia_3997
 
             #endregion
 
-            Debug.LogError("当前免费局得分结算结束");
+            // Debug.LogError("当前免费局得分结算结束");
 
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             isNext = false;
@@ -1111,7 +1112,7 @@ namespace CaiFuZhiJia_3997
                 yield return ShowWinListCoinCountDown(winList, allWinCredit, false); // false 替换 isHitJackpot
             }
 
-            Debug.LogError("当前免费局播放中奖线结束");
+            // Debug.LogError("当前免费局播放中奖线结束");
 
             // 即中即退
             // yield return CoinOutImmediately(allWinCredit);
@@ -1124,7 +1125,7 @@ namespace CaiFuZhiJia_3997
                 _multipleNumber.text = ContentModel.Instance.freeGameScoreMultiply.ToString();
             }
 
-            Debug.LogError("当前免费局进入Idle状态");
+            // Debug.LogError("当前免费局进入Idle状态");
             ContentModel.Instance.gameState = GameState.Idle;
             // 先结算主游戏，再进入“免费游戏”或“小游戏”，则每局都可以同步玩家真实金钱金额
 

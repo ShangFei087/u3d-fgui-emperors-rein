@@ -58,6 +58,8 @@ namespace CaiFuZhiJia_3997
         public override void InitParam()
         {
             if (!_isInitialized) return;
+            preLoadedCallback?.Invoke();
+            if (!isOpen) return;
             
             ResetView();
             BindPrefabsToUI();
@@ -213,6 +215,11 @@ namespace CaiFuZhiJia_3997
 
         private void ResetView()
         {
+            GameCommon.FguiUtils.DeleteWrapper(_compareDollarSpineGCom);
+            GameCommon.FguiUtils.DeleteWrapper(_compareBlueBoomEffectGCom);
+            GameCommon.FguiUtils.DeleteWrapper(_compareGoldPurpleEffectGCom);
+            GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
+            
             _compareDollarSpineGCom = null;
             _compareBlueBoomEffectGCom = null;
             _compareGoldPurpleEffectGCom = null;

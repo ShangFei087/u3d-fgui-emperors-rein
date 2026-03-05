@@ -163,6 +163,10 @@ namespace CaiFuZhiMen_3999
         {
             _freeResultWindow.visible = true;
             _collectBtn.onClick.Clear();
+            
+            GameCommon.FguiUtils.DeleteWrapper(_compareFreeResultTip);
+            GameCommon.FguiUtils.DeleteWrapper(_compareCatGirlRun);
+            GameCommon.FguiUtils.DeleteWrapper(_compareRedRay);
 
             _compareFreeResultTip = null;
             _compareCatGirlRun = null;
