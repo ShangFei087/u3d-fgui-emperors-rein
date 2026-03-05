@@ -367,9 +367,10 @@ namespace XingYunZhiLun_3998
                 bsTofs = contentPane.GetTransition("BSToFS");
                 fsTobs = contentPane.GetTransition("FSToBS");
             }
-            
+
 
             //初始化菜单ui
+            ContentModel.Instance.betIndex = 0;
             gOwnerPanel = this.contentPane.GetChild("panel").asCom;
             ContentModel.Instance.goAnthorPanel = gOwnerPanel;
             MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
@@ -377,7 +378,6 @@ namespace XingYunZhiLun_3998
             //goGameCtrl.transform.Find("Panel").GetComponent<PanelController01>().Init();
             EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
                 new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
-            Debug.LogError(114514);
 
 
             //同步积分和押注

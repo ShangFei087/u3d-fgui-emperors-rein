@@ -82,9 +82,7 @@ namespace CaiFuHuoChe_3996
                 }
 
                 // 整体变大特效
-                if (_spinWEMD.Instance.isTwinkle)
-                    symble.ShowTwinkleEffect();
-                else if (_spinWEMD.Instance.isBigger)
+                if (_spinWEMD.Instance.isBigger)
                     symble.ShowBiggerEffect();
             }
 
