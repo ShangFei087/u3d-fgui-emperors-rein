@@ -74,7 +74,8 @@ namespace CaiFuZhiJia_3997
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
-            ResetView();
+            if (isOpen)
+                ResetView();
         }
 
         private void ResLoadedCallback()

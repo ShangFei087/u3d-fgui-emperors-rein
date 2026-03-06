@@ -34,7 +34,7 @@ namespace CaiFuZhiMen_3999
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-
+            
             BindPrefabsToUI();
             ClosePage();
         }
@@ -42,7 +42,7 @@ namespace CaiFuZhiMen_3999
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
-
+            
             InitParam();
         }
 
@@ -64,14 +64,14 @@ namespace CaiFuZhiMen_3999
         private void LoadResAsync()
         {
             _resCount = 2;
-            
+
             // 加载Spine
             ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "JackpotBg.prefab", (cloneObj) =>
             {
                 _jackpotBgObj = cloneObj;
                 ResLoadedCallback();
             });
-            
+
             ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "CatGirlGlide.prefab", (cloneObj) =>
             {
                 _catGirlGlideObj = cloneObj;
@@ -89,7 +89,7 @@ namespace CaiFuZhiMen_3999
                 _cloneJackpotBgObj = Object.Instantiate(_jackpotBgObj);
                 GameCommon.FguiUtils.AddWrapper(_compareJackpotBg, _cloneJackpotBgObj);
             }
-            
+
             currentCom = contentPane.GetChild("anchor_CatGirlGlide").asCom;
             if (currentCom != _compareCatGirlGlide)
             {
@@ -102,7 +102,7 @@ namespace CaiFuZhiMen_3999
 
         private void ClosePage()
         {
-            Timers.inst.Add(2.5f,1, (obj) =>
+            Timers.inst.Add(2.5f, 1, (obj) =>
             {
                 CloseSelf(null);
                 GameSoundHelper3999.Instance.PlayMusicSingle(SoundKey.RegularBG);
@@ -116,7 +116,7 @@ namespace CaiFuZhiMen_3999
 
             _cloneJackpotBgObj = null;
             _cloneCatGirlGlideObj = null;
-            
+
             GameCommon.FguiUtils.DeleteWrapper(_compareJackpotBg);
             GameCommon.FguiUtils.DeleteWrapper(_compareCatGirlGlide);
 

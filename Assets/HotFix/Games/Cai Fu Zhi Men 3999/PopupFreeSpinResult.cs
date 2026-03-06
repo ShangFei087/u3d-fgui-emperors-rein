@@ -35,7 +35,6 @@ namespace CaiFuZhiMen_3999
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-
             BindPrefabsToUI();
         }
 
@@ -43,7 +42,6 @@ namespace CaiFuZhiMen_3999
         {
             GameSoundHelper3999.Instance.StopSound(SoundKey.FreeSpinBG);
             base.OnOpen(currentPageName, eventData);
-
             InitUICom();
             InitParam();
         }
@@ -51,7 +49,6 @@ namespace CaiFuZhiMen_3999
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
-
             ResetPage();
         }
 
@@ -105,6 +102,7 @@ namespace CaiFuZhiMen_3999
 
             _collectBtn.onClick.Add(() =>
             {
+                Debug.LogError("点击到按钮");
                 _freeResultWindow.visible = false;
 
                 _cloneRedRay.SetActive(true);
@@ -151,7 +149,7 @@ namespace CaiFuZhiMen_3999
                 GameCommon.FguiUtils.AddWrapper(_compareRedRay, _cloneRedRay);
             }
         }
-        
+
         private void PlayAnimationByName(Animator animator, string aniName)
         {
             animator.Rebind();
@@ -163,7 +161,7 @@ namespace CaiFuZhiMen_3999
         {
             _freeResultWindow.visible = true;
             _collectBtn.onClick.Clear();
-            
+
             GameCommon.FguiUtils.DeleteWrapper(_compareFreeResultTip);
             GameCommon.FguiUtils.DeleteWrapper(_compareCatGirlRun);
             GameCommon.FguiUtils.DeleteWrapper(_compareRedRay);

@@ -132,13 +132,13 @@ namespace CaiFuZhiMen_3999
                         {
                             return;
                         }
-
+            
                         Debug.LogError("游戏接受到机台短按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false); // isLongClick
                         OnClickSpinButton(res);
                     },
                 },
-
+            
                 longClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
@@ -148,7 +148,7 @@ namespace CaiFuZhiMen_3999
                         OnClickSpinButton(res);
                     }
                 }
-
+            
             };
         }
 
@@ -206,7 +206,7 @@ namespace CaiFuZhiMen_3999
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
           
-            EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
+            // EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             InitParam();
 
             Debug.LogError("界面打开");
@@ -226,7 +226,7 @@ namespace CaiFuZhiMen_3999
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,OnSlotDetailEvent);
 
-            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
+            // EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             base.OnClose(eventData);
         }
 

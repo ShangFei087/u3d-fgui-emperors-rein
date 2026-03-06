@@ -14,6 +14,7 @@
       <item url="ui://9ffscgs4r8ozd" name="buttons"/>
       <item url="ui://9ffscgs4hydani" name="analysis"/>
       <item url="ui://9ffscgs4n7rvnk" name="debugMode"/>
+      <item url="ui://9ffscgs4gvcxnp" name="selectProject"/>
     </list>
   </displayList>
 </component>

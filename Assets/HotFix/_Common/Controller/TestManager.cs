@@ -10,7 +10,7 @@ using UnityEngine.Events;
 
 public class TestManager : Singleton<TestManager>
 {
-    GComponent goOwnerTestMgr,goGM, goPages,goCustomButtons, goKV, goAnalysis,goDebugMode;
+    GComponent goOwnerTestMgr, goGM, goPages, goCustomButtons, goKV, goAnalysis, goDebugMode, goSelectProject;
 
 
     GButton btnMenu;
@@ -23,6 +23,7 @@ public class TestManager : Singleton<TestManager>
     public const string POP_PAGES = "POP_PAGES";
     public const string POP_BUTTONS = "POP_BUTTONS";
     public const string POP_DEBUGMODE = "POP_DEBUGMODE";
+    public const string POP_SELECTPROJECT = "POP_SELECTPROJECT";
 
     string softwareVersion;
 
@@ -31,9 +32,10 @@ public class TestManager : Singleton<TestManager>
     GButton btnNormal, btnPointResData;
     int DebugResult;
     GButton btnLose, btnWin, btnFree, btnBonus, btnJP;
-    int DebugBonusType,DebugJpType;
+    int DebugBonusType, DebugJpType;
     GTextInput TInputBonusType, TInputJpType;
     GButton btnApply;
+
 
     //bool isEnableTestTool = true;
 
@@ -61,6 +63,7 @@ public class TestManager : Singleton<TestManager>
             onFinishCallback?.Invoke(bundle);
         });
     }
+
     public void LoadAsset<T>(string pth, UnityAction<T> onFinishCallback) where T : UnityEngine.Object
     {
         ResourceManager02.Instance.LoadAsset<T>(pth, (asset) =>
@@ -77,6 +80,7 @@ public class TestManager : Singleton<TestManager>
         pops.Add(POP_PAGES, goOwnerTestMgr.GetChild("popupPages").asCom);
         pops.Add(POP_BUTTONS, goOwnerTestMgr.GetChild("popupButtons").asCom);
         pops.Add(POP_DEBUGMODE, goOwnerTestMgr.GetChild("popupDebugMode").asCom);
+        pops.Add(POP_SELECTPROJECT, goOwnerTestMgr.GetChild("selectProject").asCom); // CWY新增
         ChosePop();
 
         goMenu = goOwnerTestMgr.GetChild("menu").asCom;
@@ -88,7 +92,8 @@ public class TestManager : Singleton<TestManager>
         btnMenu.onClick.Clear();
         btnMenu.onClick.Add(OnClickBase);
 
-        glstMenu.GetChildAt(0).asLabel.title = softwareVersion;// $"Ver {ApplicationSettings.Instance.appVersion}/{"--"}";
+        glstMenu.GetChildAt(0).asLabel.title =
+            softwareVersion; // $"Ver {ApplicationSettings.Instance.appVersion}/{"--"}";
         glstMenu.GetChildAt(1).asLabel.title = $"FPS {"--"}";
 
         goKV = glstMenu.GetChildAt(2).asCom;
@@ -116,7 +121,7 @@ public class TestManager : Singleton<TestManager>
         goGM = glstMenu.GetChildAt(4).asCom;
         goGM.onClick.Clear();
         goGM.onClick.Add(OnClickGMBaseButton);
-        
+
 
         goPages = glstMenu.GetChildAt(5).asCom;
         goPages.onClick.Clear();
@@ -146,9 +151,9 @@ public class TestManager : Singleton<TestManager>
         btnPointResData.onClick.Clear();
         btnPointResData.onClick.Add(() => { OnClickMode(1); });
 
-        btnLose= popupDebugMode.GetChild("Lose").asButton;
+        btnLose = popupDebugMode.GetChild("Lose").asButton;
         btnLose.onClick.Clear();
-        btnLose.onClick.Add(() => {OnClickResult(0);});
+        btnLose.onClick.Add(() => { OnClickResult(0); });
 
         btnWin = popupDebugMode.GetChild("Win").asButton;
         btnWin.onClick.Clear();
@@ -169,9 +174,101 @@ public class TestManager : Singleton<TestManager>
         TInputBonusType = popupDebugMode.GetChild("BonusType").asTextInput;
         TInputJpType = popupDebugMode.GetChild("JpType").asTextInput;
 
-        btnApply= popupDebugMode.GetChild("apply").asButton;
+        btnApply = popupDebugMode.GetChild("apply").asButton;
         btnApply.onClick.Clear();
         btnApply.onClick.Add(OnClickApplyDebug);
+
+
+        // cwy 新增
+        GComponent selectProjectMenu = goOwnerTestMgr.GetChild("selectProject").asCom;
+        GList lstProject = selectProjectMenu.GetChild("menu").asList;
+        List<int> projectNumber = new List<int>()
+        {
+            1700,
+            3996,
+            3997,
+            3998,
+            3999
+        };
+        List<PageName> openPageNames = new List<PageName>()
+        {
+            PageName.SlotZhuZaiJinBiPopupGameLoading,
+            PageName.CaiFuHuoChePopupGameLoading,
+            PageName.CaiFuZhiJiaPopupGameLoading,
+            PageName.XingYunZhiLunPopupGameLoading,
+            PageName.CaiFuZhiMenPopupGameLoading
+        };
+
+        List<PageName> resetPageNames = new List<PageName>()
+        {
+            // 1700
+            PageName.SlotZhuZaiJinBiPageGameMain,
+            PageName.SlotZhuZaiJinBiPopupBigWin,
+            PageName.SlotZhuZaiJinBiPopupGameLoading,
+            PageName.SlotZhuZaiJinBiPopupFreeSpinTrigger,
+
+            // 3996
+            PageName.CaiFuHuoChePopupGameLoading,
+            PageName.CaiFuHuoChePopupFreeSpinTrigger,
+            PageName.CaiFuHuoChePopupJackpotGameTrigger,
+            PageName.CaiFuHuoChePopupJackpotGameExit,
+            PageName.CaiFuHuoChePopupFreeSpinResult,
+            PageName.CaiFuHuoChePageGameMain,
+
+            // 3997
+            PageName.CaiFuZhiJiaPopupGameLoading,
+            PageName.CaiFuZhiJiaPageGameMain,
+            PageName.CaiFuZhiJiaPopupFreeSpinTrigger,
+            PageName.CaiFuZhiJiaPopupFreeSpinResult,
+            PageName.CaiFuZhiJiaPopupJackpotTrigger,
+            PageName.CaiFuZhiJiaPopupJackpotResult,
+            PageName.CaiFuZhiJiaPopupJackpotGame,
+
+            // 3998
+            PageName.XingYunZhiLunPopupGameLoading,
+            PageName.XingYunZhiLunPageGameMain,
+            PageName.XingYunZhiLunPopupJackpotGameResult,
+            PageName.XingYunZhiLunPopupFreeSpinTrigger,
+            PageName.XingYunZhiLunPopupFreeSpinResult,
+            PageName.XingYunZhiLunPopupJackpotGameTrigger,
+            PageName.XingYunZhiLunPopupJackpotGameExit,
+            PageName.XingYunZhiLunPopupJackpotGameEnter,
+            PageName.XingYunZhiLunPopupJackpotGameQuit,
+            PageName.XingYunZhiLunPopupZhuanPan,
+
+            // 3999
+            PageName.CaiFuZhiMenPopupGameLoading,
+            PageName.CaiFuZhiMenPageGameMain,
+            PageName.CaiFuZhiMenPopupFreeSpinTrigger,
+            PageName.CaiFuZhiMenPopupJackpotGame,
+            PageName.CaiFuZhiMenPopupJackpotResult,
+            PageName.CaiFuZhiMenPopupFreeSpinResult,
+            PageName.CaiFuZhiMenPopupJackpotTrigger,
+            PageName.CaiFuZhiMenPopupJackpotLoad,
+        };
+
+        goSelectProject = glstMenu.GetChildAt(9).asCom;
+        goSelectProject.onClick.Clear();
+        goSelectProject.onClick.Add(() => { selectProjectMenu.visible = true; });
+        for (int i = 0; i < lstProject.numItems; i++)
+        {
+            int index = i;
+            GComponent btn = lstProject.GetChildAt(i).asCom;
+            btn.GetChild("buttons").asCom.GetChild("title").asTextField.text = projectNumber[i].ToString();
+            btn.onClick.Add((() =>
+            {
+                for (int j = 0; j < resetPageNames.Count; j++)
+                {
+                    if (PageManager.Instance.pageCacheDict.ContainsKey(resetPageNames[j]) &&
+                        PageManager.Instance.pageCacheDict[resetPageNames[j]].IsOpen())
+                        PageManager.Instance.ClosePage(resetPageNames[j]);
+                }
+
+                selectProjectMenu.visible = false;
+                PageManager.Instance.OpenPage(openPageNames[index]);
+            }));
+        }
+
 
         //goOwnerTestMgr.visible = isEnableTestTool;
         //goOwnerTestMgr.visible = false;
@@ -184,6 +281,7 @@ public class TestManager : Singleton<TestManager>
         if (rtxtTip != null)
             rtxtTip.text = content;
     }
+
     public void SetToolActive(bool active)
     {
         //return;
@@ -201,7 +299,7 @@ public class TestManager : Singleton<TestManager>
     {
         Time.timeScale = 10;
     }
-  
+
     void OnClickSpeedX2()
     {
         Time.timeScale = 2;
@@ -218,7 +316,6 @@ public class TestManager : Singleton<TestManager>
         ChosePop();
 
         //if (!goMenu.visible) OnCloseAll();
-
     }
 
     //void OnCloseAll(){ }
@@ -229,6 +326,7 @@ public class TestManager : Singleton<TestManager>
 
     public const string DATA_CUSTOM_BUTTON = "DATA_CUSTOM_BUTTON";
     public const string DATA_PAGES = "DATA_PAGES";
+
     public void SetKV(string key, string value)
     {
         if (!customKV.ContainsKey(key))
@@ -238,20 +336,24 @@ public class TestManager : Singleton<TestManager>
     }
 
     public bool HasKey(string key) => customKV.ContainsKey(key);
+
     public bool HasKeyOnce(string key)
     {
         bool isHas = customKV.ContainsKey(key);
         customKV.Remove(key);
         return isHas;
     }
+
     public string GetValue(string key)
     {
         if (!customKV.ContainsKey(key))
         {
             return "";
         }
+
         return customKV[key];
     }
+
     public string GetValueOnce(string key)
     {
         string res = "";
@@ -260,16 +362,19 @@ public class TestManager : Singleton<TestManager>
             res = customKV[key];
             customKV.Remove(key);
         }
+
         return res;
     }
+
     #endregion
 
-    Dictionary<string,GComponent> pops = new Dictionary<string,GComponent>();
+    Dictionary<string, GComponent> pops = new Dictionary<string, GComponent>();
     void ChosePop() => ChangePop("");
+
     private GComponent ChangePop(string popName = "")
     {
         GComponent goPop = null;
-        foreach (KeyValuePair<string,GComponent> kv in pops)
+        foreach (KeyValuePair<string, GComponent> kv in pops)
         {
             if (kv.Key == popName)
             {
@@ -281,6 +386,7 @@ public class TestManager : Singleton<TestManager>
                 kv.Value.visible = false;
             }
         }
+
         return goPop;
     }
 
@@ -289,7 +395,6 @@ public class TestManager : Singleton<TestManager>
 
     public void OnClickPages()
     {
-       
         if (goPages == null || !HasKey(DATA_PAGES))
             return;
 
@@ -297,7 +402,6 @@ public class TestManager : Singleton<TestManager>
 
         if (goPop != null && goPop.visible)
         {
-
             string str = GetValue(DATA_PAGES);
 
             JSONNode _gmNode = JSONNode.Parse(str);
@@ -311,11 +415,11 @@ public class TestManager : Singleton<TestManager>
             }
 
             GList glst = goPop.GetChild("menu").asList;
-            if(glst.numChildren < gmNode.Count)
+            if (glst.numChildren < gmNode.Count)
             {
                 glst.numItems = gmNode.Count;
             }
-            
+
             GObject[] items = glst.GetChildren();
             foreach (GObject item in items)
             {
@@ -324,7 +428,7 @@ public class TestManager : Singleton<TestManager>
 
             for (int i = gmNode.Count; i < glst.numChildren; i++)
             {
-                glst.GetChildAt(i).visible =  false;
+                glst.GetChildAt(i).visible = false;
             }
 
             int idx = 0;
@@ -349,15 +453,12 @@ public class TestManager : Singleton<TestManager>
         if (!string.IsNullOrEmpty(data))
         {
             EventCenter.Instance.EventTrigger<EventData>(GlobalEvent.ON_TOOL_EVENT,
-               new EventData<Dictionary<string, object>>(GlobalEvent.PageButton,
-                    new Dictionary<string, object>()
-                    {
-                        ["pageName"] = pageName,
-                        ["pageData"] = data
-                    }
+                new EventData<Dictionary<string, object>>(GlobalEvent.PageButton,
+                    new Dictionary<string, object>() { ["pageName"] = pageName, ["pageData"] = data }
                 )
-              );
+            );
         }
+
         ChosePop();
         OnClickBase();
     }
@@ -365,14 +466,16 @@ public class TestManager : Singleton<TestManager>
     #endregion
 
     bool isAnalysis = false;
+
     private void OnClickAnalysis()
     {
         isAnalysis = !isAnalysis;
         EventCenter.Instance.EventTrigger<EventData>(GlobalEvent.ON_TOOL_EVENT,
-           new EventData<bool>(GlobalEvent.AnalysisTest, isAnalysis));
+            new EventData<bool>(GlobalEvent.AnalysisTest, isAnalysis));
     }
 
     #region DebugMode
+
     public void OnClickDebugMode()
     {
         if (ApplicationSettings.Instance.isMock || goDebugMode == null)
@@ -455,15 +558,17 @@ public class TestManager : Singleton<TestManager>
     {
         DebugBonusType = Convert.ToInt32(TInputBonusType.text);
         DebugJpType = Convert.ToInt32(TInputJpType.text);
-        SBoxDebugControlModeData sBoxDCM=new SBoxDebugControlModeData();
+        SBoxDebugControlModeData sBoxDCM = new SBoxDebugControlModeData();
         sBoxDCM.mode = DebugMode;
         sBoxDCM.resType = DebugResult;
         sBoxDCM.bonusType = DebugBonusType;
         sBoxDCM.jpType = DebugJpType;
         ChosePop();
-        Debug.Log("DebugMode:"+ sBoxDCM.mode+ ",  DebugResult:" + sBoxDCM.resType + ",  DebugBonusType:" + sBoxDCM.bonusType + ",  DebugJpType:" + sBoxDCM.jpType );
+        Debug.Log("DebugMode:" + sBoxDCM.mode + ",  DebugResult:" + sBoxDCM.resType + ",  DebugBonusType:" +
+                  sBoxDCM.bonusType + ",  DebugJpType:" + sBoxDCM.jpType);
         SBoxIdea.DebugControlMode(sBoxDCM);
     }
+
     #endregion
 
     public void OnClickCustomButons()
@@ -475,7 +580,6 @@ public class TestManager : Singleton<TestManager>
 
         if (goPop != null && goPop.visible)
         {
-
             string str = GetValue(DATA_CUSTOM_BUTTON);
 
             JSONNode _gmNode = JSONNode.Parse(str);
@@ -516,7 +620,8 @@ public class TestManager : Singleton<TestManager>
 
                 tfm.onClick.Add(() =>
                 {
-                    OnClickCustomButtonItem((string)item.Value["event_type"], (string)item.Value["event_name"], (string)item.Value["event_data"]);
+                    OnClickCustomButtonItem((string)item.Value["event_type"], (string)item.Value["event_name"],
+                        (string)item.Value["event_data"]);
                 });
 
                 idx++;
@@ -540,26 +645,23 @@ public class TestManager : Singleton<TestManager>
 
         if (goPop != null && goPop.visible)
         {
-            
             string keyDataGM = $"DATA_GM_{ConfigUtils.curGameId}";
-            
+
             string str = GetValue(keyDataGM);
 
             if (string.IsNullOrEmpty(str))
             {
-                LoadAsset<TextAsset>(ConfigUtils.curGameGMURL, (asset)=>
+                LoadAsset<TextAsset>(ConfigUtils.curGameGMURL, (asset) =>
                 {
-                    SetKV(keyDataGM,asset.text);
+                    SetKV(keyDataGM, asset.text);
 
                     CreatGMPop(goPop, asset.text);
-
-                });                
+                });
             }
             else
             {
-                CreatGMPop(goPop,str);
+                CreatGMPop(goPop, str);
             }
-
         }
     }
 
@@ -594,8 +696,8 @@ public class TestManager : Singleton<TestManager>
         {
             glst.GetChildAt(i).visible = false;
         }
-        
-        
+
+
         int idx = 0;
         foreach (KeyValuePair<string, JSONNode> item in gmNode)
         {
@@ -616,10 +718,6 @@ public class TestManager : Singleton<TestManager>
             idx++;
         }
     }
-    
-    
+
     #endregion
-
-
 }
-
