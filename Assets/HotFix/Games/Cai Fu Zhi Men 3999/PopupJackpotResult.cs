@@ -38,14 +38,12 @@ namespace CaiFuZhiMen_3999
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-
             BindPrefabsToUI();
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
-
             InitUICom();
             InitParam();
         }
@@ -120,10 +118,10 @@ namespace CaiFuZhiMen_3999
             _totalGetText.visible = false;
             _jackpotCollectBtn.visible = false;
             _jackpotGetText.visible = false;
-            
+
             _totalGetText.text = ContentModel.Instance.bonusTotalBet.ToString();
             _jackpotGetText.text = ContentModel.Instance.bonusTotalBet.ToString();
-            
+
             Timers.inst.Add(1.5f, 1, (obj) =>
             {
                 _jackpotCollectBtn.visible = true;
@@ -160,7 +158,7 @@ namespace CaiFuZhiMen_3999
 
             _cloneJackpotGetWindowObj = null;
             _cloneRealGetWindowObj = null;
-            
+
             GameCommon.FguiUtils.DeleteWrapper(_compareJackpotGetWindow);
             GameCommon.FguiUtils.DeleteWrapper(_compareRealGetWindow);
 

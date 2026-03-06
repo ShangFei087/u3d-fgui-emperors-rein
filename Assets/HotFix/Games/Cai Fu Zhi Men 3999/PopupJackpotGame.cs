@@ -56,7 +56,6 @@ namespace CaiFuZhiMen_3999
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-
             BindPrefabsToUI();
             ShowJackpotData();
         }
@@ -74,7 +73,6 @@ namespace CaiFuZhiMen_3999
             };
 
             base.OnOpen(currentPageName, eventData);
-
             InitUICom();
             RandomSetWinningType();
             GameMain();
@@ -316,6 +314,7 @@ namespace CaiFuZhiMen_3999
                     Animator ani = _cloneWinObjs[index].GetComponentInChildren<Animator>();
                     ani.speed = 0;
                 }
+
                 PageManager.Instance.OpenPage(PageName.CaiFuZhiMenPopupJackpotResult);
             }));
         }
@@ -392,7 +391,7 @@ namespace CaiFuZhiMen_3999
                 Object.Destroy(_cloneJackpotObjs[i]);
                 Object.Destroy(_cloneWinObjs[i]);
             }
-            
+
             _cloneWinObjs.Clear();
             _cloneJackpotObjs.Clear();
 
@@ -406,10 +405,11 @@ namespace CaiFuZhiMen_3999
                 GameCommon.FguiUtils.DeleteWrapper(_compareGoldCoinList[i]);
                 GameCommon.FguiUtils.DeleteWrapper(_compareJackpotObjList[i]);
             }
+
             _compareGoldCoinList.Clear();
             _compareJackpotObjList.Clear();
             _compareWinList.Clear();
-          
+
             for (int i = 0; i < _clickIconList.Count; i++)
             {
                 _clickIconList[i].gameBtn.touchable = true;

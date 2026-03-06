@@ -20,6 +20,8 @@
     <component id="n7rvnk" name="TestItemDebugControl.xml" path="/moudules/"/>
     <component id="n7rvnl" name="TestSelectdebugMode.xml" path="/moudules/"/>
     <component id="n7rvno" name="ButtonTestSelet.xml" path="/components/"/>
+    <component id="gvcxnp" name="TestSelectProject.xml" path="/moudules/"/>
+    <component id="gvcxnq" name="TestProjectList.xml" path="/moudules/"/>
   </resources>
   <publish name="" path="../../Assets/GameRes/Games/Common/FGUIs" packageCount="2"/>
 </packageDescription>

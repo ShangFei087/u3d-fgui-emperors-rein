@@ -542,7 +542,7 @@ namespace CaiFuZhiMen_3999
             // 确定游戏类型
             int ResultType = res != null ? (int)res["ResultType"] : 0;
             int OpenType = res != null ? (int)res["OpenType"] : 0;
-
+            
             // 构建记录对象
             TableSlotGameRecordItem slotGameRecordItem = new TableSlotGameRecordItem()
             {
@@ -559,10 +559,17 @@ namespace CaiFuZhiMen_3999
                 strDeckRowCol = ContentModel.Instance.strDeckRowCol,
                 symbol_icon_mapping = JsonConvert.SerializeObject(CustomModel.Instance.symbolIcon) // 
             };
-
+            
             // 场景数据存入数据库
             slotGameRecordItem.scene = JsonConvert.SerializeObject(gameSenceData);
-
+            
+            // // 删除旧表
+            // string dropSql = $"DROP TABLE IF EXISTS {ConsoleTableName.TABLE_SLOT_GAME_RECORD}";
+            // SQLiteHelper.Instance.ExecuteNonQuery(dropSql);
+            // // 重建表
+            // string createSql = SQLiteHelper.SQLCreateTable<TableSlotGameRecordItem>(ConsoleTableName.TABLE_SLOT_GAME_RECORD);
+            // SQLiteHelper.Instance.ExecuteNonQuery(createSql); 
+            
             // 插入数据
             string sql = SQLiteAsyncHelper.SQLInsertTableData<TableSlotGameRecordItem>(
                 ConsoleTableName.TABLE_SLOT_GAME_RECORD,

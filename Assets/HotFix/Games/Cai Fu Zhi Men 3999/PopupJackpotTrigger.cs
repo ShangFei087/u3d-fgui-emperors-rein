@@ -40,14 +40,12 @@ namespace CaiFuZhiMen_3999
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-
             BindPrefabsToUI();
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
-
             InitUICom();
             InitParam();
         }
@@ -136,7 +134,7 @@ namespace CaiFuZhiMen_3999
         {
             _doorMask.visible = false;
             _winBoxWindow.visible = true;
-            
+
             GameCommon.FguiUtils.DeleteWrapper(_compareGirlOpenDoor);
             GameCommon.FguiUtils.DeleteWrapper(_compareWinJackpot);
 

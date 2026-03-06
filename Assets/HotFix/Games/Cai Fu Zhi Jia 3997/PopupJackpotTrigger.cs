@@ -73,7 +73,9 @@ namespace CaiFuZhiJia_3997
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
-            ResetView();
+
+            if (isOpen)
+                ResetView();
         }
 
         private void ResLoadedCallback()
@@ -188,7 +190,7 @@ namespace CaiFuZhiJia_3997
         private void ResetView()
         {
             _jackpotTriggerTipWindow.visible = true;
-            
+
             GameCommon.FguiUtils.DeleteWrapper(_compareDiamondSpineGCom);
             GameCommon.FguiUtils.DeleteWrapper(_compareDiamondBgEffectGCom);
             GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);

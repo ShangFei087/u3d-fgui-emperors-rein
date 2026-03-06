@@ -65,7 +65,7 @@ namespace CaiFuZhiJia_3997
                 InitParam();
             }
         }
-        
+
         private void BindPrefabsToUI()
         {
             GComponent currentCom = contentPane.GetChild("anchorBG").asCom;
@@ -86,12 +86,12 @@ namespace CaiFuZhiJia_3997
                 GameCommon.FguiUtils.AddWrapper(_compareCenterSpine, _cloneCenterSpineObj);
             }
         }
-        
+
         private void InitUICom()
         {
             _loadingBar = contentPane.GetChild("sliderLoading").asSlider;
         }
-        
+
         private void StartLoading()
         {
             if (_isFirstOpen)
@@ -142,7 +142,7 @@ namespace CaiFuZhiJia_3997
             Object.Destroy(_cloneCenterSpineObj);
             GameCommon.FguiUtils.DeleteWrapper(_compareBgSpine);
             GameCommon.FguiUtils.DeleteWrapper(_compareCenterSpine);
-            
+
             _cloneBgSpineObj = null;
             _cloneCenterSpineObj = null;
             _compareBgSpine = null;
