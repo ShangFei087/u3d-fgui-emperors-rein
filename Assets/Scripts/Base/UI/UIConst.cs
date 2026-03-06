@@ -76,6 +76,10 @@ public class UIConst
             {
                 "Assets/GameRes/Games/Console/FGUIs", "ConsoleSlot01.PageConsoleGameHistory"
             },
+            [PageName.ConsolePageConsoleHardware] = new object[]
+            {
+                "Assets/GameRes/Games/Console/FGUIs", "ConsoleSlot01.PageConsoleHardware"
+            },
 
             //平台
             [PageName.HallMain] = new object[] { "Assets/GameRes/Halls/TestHall/FGUIs", "TestHall.TestHallMain" },
@@ -454,6 +458,7 @@ public enum PageName
     ConsolePopupConsoleChoose001,
     ConsolePageConsoleLogRecord,
     ConsolePageConsoleGameHistory,
+    ConsolePageConsoleHardware,
 
     //大厅
     HallMain,

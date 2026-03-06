@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1178">
+  <displayList>
+    <component id="n2_es9v" name="ScreenTest" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="54,180">
+      <property target="key" propertyId="0" value="ScreenTest :"/>
+      <property target="value" propertyId="0" value="Start"/>
+    </component>
+  </displayList>
+</component>

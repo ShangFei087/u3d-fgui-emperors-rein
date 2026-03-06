@@ -684,9 +684,12 @@ public static class ConsoleTableName
         public const string TABLE_LOG_ERROR_RECORD = "log_error_record";
         public const string TABLE_LOG_EVENT_RECORD = "log_event_record";
 
-        //public const string TABLE_ORDER_ID = "order_id";
+    //硬件测试
+    public const string TABLE_HARDWARE_BTN_TEST = "hardware_btn_test";
+    public const string TABLE_HARDWARE_SCREEN_TEST = "hardware_screen_test";
+    //public const string TABLE_ORDER_ID = "order_id";
 
-        public const string TABLE_BUSINESS_DAY_RECORD = "bussiness_day_record";
+    public const string TABLE_BUSINESS_DAY_RECORD = "bussiness_day_record";
 
         public const string TABLE_BUSINESS_TOTAL_RECORD = "bussiness_total_record";
 

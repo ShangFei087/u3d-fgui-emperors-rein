@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1178">
+  <displayList>
+    <component id="n4_es9v" name="TicketOutBtn" src="8qkf7q" fileName="components/ButtonCalendarYearMonth.xml" xy="217,326" size="228,113">
+      <Button title="TicketOut" titleFontSize="40"/>
+    </component>
+    <component id="n5_es9v" name="SpinBtn" src="8qkf7q" fileName="components/ButtonCalendarYearMonth.xml" xy="664,326" size="228,113">
+      <Button title="Spin&#xA;" titleFontSize="40"/>
+    </component>
+    <component id="n9_es9v" name="ConsoleBtn" src="8qkf7q" fileName="components/ButtonCalendarYearMonth.xml" xy="100,674" size="194,77">
+      <Button title="Console&#xA;" titleFontSize="40"/>
+    </component>
+    <component id="n10_es9v" name="UpBtn" src="8qkf7q" fileName="components/ButtonCalendarYearMonth.xml" xy="342,674" size="194,77">
+      <Button title="Up" titleFontSize="40"/>
+    </component>
+    <component id="n11_es9v" name="DownBtn" src="8qkf7q" fileName="components/ButtonCalendarYearMonth.xml" xy="584,674" size="194,77">
+      <Button title="Down" titleFontSize="40"/>
+    </component>
+    <component id="n13_es9v" name="DoorBtn" src="8qkf7q" fileName="components/ButtonCalendarYearMonth.xml" xy="826,674" size="194,77">
+      <Button title="Door&#xA;" titleFontSize="40"/>
+    </component>
+  </displayList>
+</component>
