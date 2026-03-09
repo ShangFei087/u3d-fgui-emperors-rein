@@ -6,32 +6,25 @@ using System.IO;
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+
 //using YamlDotNet.Serialization.NamingConventions;
 //using YamlDotNet.Serialization;
 
 
-
-
-
 public partial class AssetBundleBuilder04 : EditorWindow
 {
-
-
-
     //##[MenuItem("NewBuild/打包1001")]
     public static void BuildPigSlotGameResource002()
     {
-
-
         string toPath = PathHelper.abDirSAPTH;
 
 
-        if (Directory.Exists(toPath) == false)  // 判断是否存在，不存在创建
+        if (Directory.Exists(toPath) == false) // 判断是否存在，不存在创建
         {
             Directory.CreateDirectory(toPath); // 根据文件夹路径创建文件夹
         }
 
-       // GetNopkDir();
+        // GetNopkDir();
 
         ResetABName_002();
 
@@ -47,7 +40,8 @@ public partial class AssetBundleBuilder04 : EditorWindow
 
         MarkResoueceFGUIs_002();
 
-        BuildPipeline.BuildAssetBundles(toPath, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
+        BuildPipeline.BuildAssetBundles(toPath, BuildAssetBundleOptions.None,
+            EditorUserBuildSettings.activeBuildTarget);
 
 
         ClearUnuseABAndManifest_002();
@@ -68,8 +62,6 @@ public partial class AssetBundleBuilder04 : EditorWindow
         // 删除所有文件
         Debug.Log(Application.persistentDataPath);
     }
-
-
 
 
     /*
@@ -110,6 +102,7 @@ public partial class AssetBundleBuilder04 : EditorWindow
         {
             targetPathLst.AddRange(GetTargetFilePath(pth, ".json"));
         }
+
         foreach (string pth in targetPathLst)
         {
             //Debug.Log($"@ ABs =={pth}");
@@ -118,17 +111,13 @@ public partial class AssetBundleBuilder04 : EditorWindow
     }
 
 
-
-
-
-/// <summary>
-/// ABs文件加下的所有文件都打包
-/// </summary>
-static void MarkResoueceABs_002()
+    /// <summary>
+    /// ABs文件加下的所有文件都打包
+    /// </summary>
+    static void MarkResoueceABs_002()
     {
-
         string rootFolderPth = PathHelper.gameResDirPROJPTH; // Application.dataPath + "/GameRes";
-        List<string> folderPthLst = GetAllFolderPath(rootFolderPth, "\\ABs");  //原有ABs
+        List<string> folderPthLst = GetAllFolderPath(rootFolderPth, "\\ABs"); //原有ABs
 
         List<string> targetPathLst = new List<string>();
         foreach (var pth in folderPthLst)
@@ -146,9 +135,8 @@ static void MarkResoueceABs_002()
 
     static void MarkResoueceFGUIs_002()
     {
-
         string rootFolderPth = PathHelper.gameResDirPROJPTH; // Application.dataPath + "/GameRes";
-        List<string> folderPthLst = GetAllFolderPath(rootFolderPth, "\\FGUIs"); 
+        List<string> folderPthLst = GetAllFolderPath(rootFolderPth, "\\FGUIs");
 
         List<string> targetPathLst = new List<string>();
         foreach (var pth in folderPthLst)
@@ -164,14 +152,11 @@ static void MarkResoueceABs_002()
     }
 
 
-
-
-
     /// <summary>
     /// 删除路劲下的所有ab包名
     /// </summary>
     /// <param name="folderPath"></param>
-    private static void ResetABName_002()//(string folderPath = "GameRes")
+    private static void ResetABName_002() //(string folderPath = "GameRes")
     {
         List<string> assetPaths = new List<string>();
         // 获取指定文件夹的完整路径
@@ -209,9 +194,9 @@ static void MarkResoueceABs_002()
             }
         }
     }
+
     static void MarkResourceNameEx_002()
     {
-
         string targetDir = PathHelper.gameResDirPROJPTH; // Application.dataPath + "/GameRes";
         //##ResetAssetBundleName_002(targetDir);
 
@@ -221,6 +206,7 @@ static void MarkResoueceABs_002()
         {
             targetPathLst.AddRange(GetTargetFilePath(pth, ".prefab"));
         }
+
         foreach (string pth in targetPathLst)
         {
             //Debug.Log($"@ ABs =={pth}");
@@ -276,7 +262,7 @@ static void MarkResoueceABs_002()
     static void MarkResourceSounds_002()
     {
         string rootFolderPth = PathHelper.gameResDirPROJPTH; // Application.dataPath + "/GameRes";
-        List<string> folderPthLst = GetAllFolderPath(rootFolderPth, "\\Sounds");  //原有Datas
+        List<string> folderPthLst = GetAllFolderPath(rootFolderPth, "\\Sounds"); //原有Datas
 
         List<string> targetPathLst = new List<string>();
         foreach (var pth in folderPthLst)
@@ -293,8 +279,6 @@ static void MarkResoueceABs_002()
     }
 
 
-
-
     /// <summary>
     /// 遍历所有预制体，设置预制体名
     /// </summary>
@@ -304,11 +288,10 @@ static void MarkResoueceABs_002()
         List<string> paths = new List<string>();
         foreach (string path in Directory.GetFiles(rootFolderPath))
         {
-
             string pth = path.Replace("\\", "/");
 
             bool isIgnore = false;
-            for (int i = 0; i< nopkDir.Count; i++)
+            for (int i = 0; i < nopkDir.Count; i++)
             {
                 if (pth.StartsWith(nopkDir[i]))
                 {
@@ -316,7 +299,8 @@ static void MarkResoueceABs_002()
                     break;
                 }
             }
-            if(isIgnore) continue;  //不参与打包
+
+            if (isIgnore) continue; //不参与打包
 
             //if (extension.EndsWith(".cs") || pth.Contains("/Editor/")) continue;       
 
@@ -334,13 +318,15 @@ static void MarkResoueceABs_002()
                 paths.Add(pth);
             }
         }
-        if (Directory.GetDirectories(rootFolderPath).Length > 0)  //遍历所有文件夹
+
+        if (Directory.GetDirectories(rootFolderPath).Length > 0) //遍历所有文件夹
         {
             foreach (string path in Directory.GetDirectories(rootFolderPath))
             {
                 paths.AddRange(GetTargetFilePath(path, extension));
             }
         }
+
         return paths;
     }
 
@@ -350,7 +336,7 @@ static void MarkResoueceABs_002()
         List<string> res = new List<string>();
         string[] chdPath = Directory.GetDirectories(pathRoot);
 
-        if (chdPath.Length > 0)  //遍历所有文件夹
+        if (chdPath.Length > 0) //遍历所有文件夹
         {
             foreach (string path in chdPath)
             {
@@ -358,12 +344,13 @@ static void MarkResoueceABs_002()
                 {
                     res.Add(path);
                 }
+
                 res.AddRange(GetAllFolderPath(path, targetFolder));
             }
         }
+
         return res;
     }
-
 
 
     static void SetBundleName(List<string> pathLst)
@@ -380,16 +367,16 @@ static void MarkResoueceABs_002()
 
         string p = pth.Substring(pth.IndexOf("Assets"));
         //string bundelName = pth.Substring(pth.IndexOf("GameRes")); //  GameRes\Games/Game Maker\Datas\page.json
-        string bundelName = pth.Substring(pth.IndexOf("GameRes") + "GameRes".Length + 1);  //  Games/Game Maker\Datas\page.json
+        string bundelName =
+            pth.Substring(pth.IndexOf("GameRes") + "GameRes".Length + 1); //  Games/Game Maker\Datas\page.json
         bundelName = bundelName.Replace(extension, ".unity3d");
         //Debug.Log($"{bundelName}");
         AssetImporter.GetAtPath(p).assetBundleName = bundelName;
     }
 
 
-    static void SetBundleNameByFolder(string pth , string folderName = "FGUIs")
+    static void SetBundleNameByFolder(string pth, string folderName = "FGUIs")
     {
-
         //Assets/GameRes/Games/Console/FGUIs/Console_atlas0.png
         //games/console/fguis
         //games/console/fguis.unity3d
@@ -421,14 +408,11 @@ static void MarkResoueceABs_002()
                 File.Delete(pth);
             }
         }
-
     }
-
 
 
     static void ClearUnuseFolderAndMeta_002() // dir = Application.streamingAssetsPath
     {
-
         // 要查找子文件夹的根目录路径，这里以 Application.dataPath 为例，即 Assets 文件夹
         string rootDirectory = PathHelper.abDirSAPTH;
         List<string> allSubDirectories = GetAllSubFolders(rootDirectory);
@@ -472,8 +456,10 @@ static void MarkResoueceABs_002()
         {
             Debug.LogError($"访问目录 {directoryPath} 时出错: {e.Message}");
         }
+
         return allFolders;
     }
+
     static List<string> GetUnuseAB()
     {
         //string manifestBundleName = "GameRes"; // 假设 manifest 文件所在的 AssetBundle 名称
@@ -494,11 +480,10 @@ static void MarkResoueceABs_002()
             // assetBundleName =  "luban/generatedatas/bytes/i18n_console001.unity3d";
             string pth1 = Path.Combine(PathHelper.abDirSAPTH, assetBundleName);
             bundlePathLst.Add(pth1.Replace("\\", "/"));
-
         }
 
         // 主包ab包，是不带".unity3d"结尾的。（"GameRes" 和 “GameRes.manifest”）
-        List<string> targetPathLst = new List<string>();  //获取普通包路劲 xxx.unity3d  和  xxx.unity3d.manifest
+        List<string> targetPathLst = new List<string>(); //获取普通包路劲 xxx.unity3d  和  xxx.unity3d.manifest
         targetPathLst.AddRange(GetTargetFilePath(PathHelper.abDirSAPTH, ".unity3d"));
         targetPathLst.AddRange(GetTargetFilePath(PathHelper.abDirSAPTH, ".unity3d.manifest"));
 
@@ -510,7 +495,9 @@ static void MarkResoueceABs_002()
         List<string> unusePths = new List<string>();
         foreach (string pth002 in targetPathLst)
         {
-            string tempPth = pth002.EndsWith(".unity3d.manifest") ? pth002.Replace(".unity3d.manifest", ".unity3d") : pth002;
+            string tempPth = pth002.EndsWith(".unity3d.manifest")
+                ? pth002.Replace(".unity3d.manifest", ".unity3d")
+                : pth002;
             if (!bundlePathLst.Contains(tempPth))
             {
                 unusePths.Add(pth002);
@@ -595,7 +582,7 @@ static void MarkResoueceABs_002()
     /// <param name="rootDirectory"></param>
     static void ClearHotfixDll_002(string rootDirectory)
     {
-        List<string> targetPathLst = new List<string>();  //获取普通包路劲 xxx.unity3d  和  xxx.unity3d.manifest
+        List<string> targetPathLst = new List<string>(); //获取普通包路劲 xxx.unity3d  和  xxx.unity3d.manifest
         targetPathLst.AddRange(GetTargetFilePath(rootDirectory, ".dll.bytes"));
 
         for (int i = 0; i < targetPathLst.Count; i++)
@@ -632,7 +619,6 @@ static void MarkResoueceABs_002()
 
         foreach (var iter in abList)
         {
-
             string pth = Path.Combine(PathHelper.abDirSAPTH, iter);
 
 
@@ -651,7 +637,7 @@ static void MarkResoueceABs_002()
 
         JObject hotfixDll = new JObject();
 
-        List<string> targetPathLst = new List<string>();  //获取普通包路劲 xxx.unity3d  和  xxx.unity3d.manifest
+        List<string> targetPathLst = new List<string>(); //获取普通包路劲 xxx.unity3d  和  xxx.unity3d.manifest
         targetPathLst.AddRange(GetTargetFilePath(PathHelper.dllDirSAPTH, ".dll.bytes"));
 
 
@@ -714,18 +700,11 @@ static void MarkResoueceABs_002()
         string content = versionFileSA.ToString();
         File.WriteAllText(versionSAPTH, content);
     }
-
-
-
 }
-
-
 
 
 public partial class AssetBundleBuilder04 : EditorWindow
 {
-
-
     public class NopkConfig
     {
         public string[] ignore { get; set; }
@@ -734,14 +713,12 @@ public partial class AssetBundleBuilder04 : EditorWindow
     //##[MenuItem("NewBuild/当前热更版本")]
     private static void ReadCurVersion()
     {
-
         string content = File.ReadAllText(PathHelper.versionSAPTH);
 
         JObject verObj = JObject.Parse(content);
 
         Debug.Log($"当前热更版本号 {verObj["hotfix_version"].Value<string>()}");
     }
-
 
 
     //##[MenuItem("NewBuild/【测试】-读取yaml文件")]
@@ -755,47 +732,42 @@ public partial class AssetBundleBuilder04 : EditorWindow
 
     static List<string> nopkDir = new List<string>();
 
-   /* public static void GetNopkDir()
-    {
-        nopkDir = new List<string>();
+    /* public static void GetNopkDir()
+     {
+         nopkDir = new List<string>();
 
-        // 读取 YAML 文件内容
-        string yamlFilePath = Application.dataPath + "/" + "nopk.yaml";
-        string yamlContent = File.ReadAllText(yamlFilePath);
+         // 读取 YAML 文件内容
+         string yamlFilePath = Application.dataPath + "/" + "nopk.yaml";
+         string yamlContent = File.ReadAllText(yamlFilePath);
 
-        // 创建反序列化器
-        var deserializer = new DeserializerBuilder()
-           .WithNamingConvention(CamelCaseNamingConvention.Instance)
-           .Build();
+         // 创建反序列化器
+         var deserializer = new DeserializerBuilder()
+            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+            .Build();
 
-        // 反序列化 YAML 内容到对象
-        NopkConfig node = deserializer.Deserialize<NopkConfig>(yamlContent);
+         // 反序列化 YAML 内容到对象
+         NopkConfig node = deserializer.Deserialize<NopkConfig>(yamlContent);
 
-        Debug.Log($" NopkConfig : {JsonConvert.SerializeObject(node)}");
-        // 输出反序列化后的对象信息
+         Debug.Log($" NopkConfig : {JsonConvert.SerializeObject(node)}");
+         // 输出反序列化后的对象信息
 
-        //Debug.Log($" pth 000 : {Application.dataPath}");
-        foreach (string item in node.ignore)
-        {
-            if (item.EndsWith("/"))
-            {
-                if (item.StartsWith("./") || item.StartsWith("../"))
-                {
-                    nopkDir.Add(FileUtils.GetDirWebUrl(yamlFilePath, item).Replace("file:///", "").Replace("\\", "/"));
-                    //Debug.Log($" pth : {FileUtils.GetDirWebUrl(yamlFilePath, item).Replace("file:///", "").Replace("\\", "/")}");
-                }
-            }
-        }
-    }*/
-
-
+         //Debug.Log($" pth 000 : {Application.dataPath}");
+         foreach (string item in node.ignore)
+         {
+             if (item.EndsWith("/"))
+             {
+                 if (item.StartsWith("./") || item.StartsWith("../"))
+                 {
+                     nopkDir.Add(FileUtils.GetDirWebUrl(yamlFilePath, item).Replace("file:///", "").Replace("\\", "/"));
+                     //Debug.Log($" pth : {FileUtils.GetDirWebUrl(yamlFilePath, item).Replace("file:///", "").Replace("\\", "/")}");
+                 }
+             }
+         }
+     }*/
 }
 
 public partial class AssetBundleBuilder04 : EditorWindow
 {
-
-
-
     //##[MenuItem("NewBuild/【测试】打印StreamingAssets所有AB包名")]
     private static void TestShowStreamingAssetsABInfo()
     {
@@ -804,7 +776,6 @@ public partial class AssetBundleBuilder04 : EditorWindow
 
     public static void ShowStreamingAssetsABInfo() // dir = Application.streamingAssetsPath
     {
-
         string manifestAssetName = "AssetBundleManifest"; // 假设 manifest 文件的资源名称
         string assetBundlePath = PathHelper.mainfestSAPTH;
         AssetBundle manifestBundle = AssetBundle.LoadFromFile(assetBundlePath);
@@ -826,7 +797,7 @@ public partial class AssetBundleBuilder04 : EditorWindow
             bundleNameLst.Add($"[{i}]", $"{assetBundleName}");
 
             // 加载该 AssetBundle
-            string abSAPTH =  Path.Combine(PathHelper.abDirSAPTH, assetBundleName);
+            string abSAPTH = Path.Combine(PathHelper.abDirSAPTH, assetBundleName);
             AssetBundle subAssetBundle = AssetBundle.LoadFromFile(abSAPTH);
 
 
@@ -864,8 +835,8 @@ public partial class AssetBundleBuilder04 : EditorWindow
         {
             Directory.CreateDirectory(directory);
         }
-        File.WriteAllText(path, content); //会覆盖写入
 
+        File.WriteAllText(path, content); //会覆盖写入
     }
 
 
@@ -876,17 +847,9 @@ public partial class AssetBundleBuilder04 : EditorWindow
     }
 
 
-
-
-
-
-
-
-
     //##[MenuItem("NewBuild/【测试】-打印ab包calendar.unity3d的CRC")]
     private static void TestShowAbCrc()
     {
-
         string iter = "games/console001/calendar bundle/prefabs/calendar.unity3d";
 
         string mainfestSAPTH = PathHelper.mainfestSAPTH;
@@ -898,13 +861,12 @@ public partial class AssetBundleBuilder04 : EditorWindow
 
 
         Debug.Log(Application.streamingAssetsPath);
-        string targetFilePth = PathHelper.GetAssetBundleSAPTH(iter);  
+        string targetFilePth = PathHelper.GetAssetBundleSAPTH(iter);
 
         //string targetFilePth = Path.Combine(Application.streamingAssetsPath, "/GameRes/games/console001/calendar bundle/prefabs/calendar.unity3d"); 这样写有问题
         //string targetFilePth = Application.streamingAssetsPath + "/GameRes/games/console001/calendar bundle/prefabs/calendar.unity3d";
         if (File.Exists(targetFilePth))
         {
-
             AssetBundle ab = AssetBundle.LoadFromFile(targetFilePth);
             //AssetBundle ab = AssetBundle.LoadFromMemory(result);
             int hash = ab.GetHashCode();
@@ -914,8 +876,8 @@ public partial class AssetBundleBuilder04 : EditorWindow
             uint calculatedCRC;
             // 计算本地保存的AB包的CRC值
             BuildPipeline.GetCRCForAssetBundle(targetFilePth, out calculatedCRC);
-            Debug.Log($"BuildPipeline.GetCRCForAssetBundle: {calculatedCRC} -- AssetBundle.GetHashCode: {hash} -- Manifest.GetAssetBundleHash: {serverHash}" );
-
+            Debug.Log(
+                $"BuildPipeline.GetCRCForAssetBundle: {calculatedCRC} -- AssetBundle.GetHashCode: {hash} -- Manifest.GetAssetBundleHash: {serverHash}");
         }
         else
         {
@@ -928,5 +890,4 @@ public partial class AssetBundleBuilder04 : EditorWindow
         BuildPipeline.GetCRCForAssetBundle(targetFilePth, out calculatedCRC);
         serverHash 和 calculatedCRC 如何比较*/
     }
-
 }
