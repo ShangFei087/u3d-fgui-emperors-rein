@@ -206,6 +206,8 @@
     <component id="es9vap" name="PageConsoleHardware.xml" path="/" exported="true"/>
     <component id="es9vaq" name="PCBTabTestBtn.xml" path="/tabs/" exported="true"/>
     <component id="es9vas" name="PCBTabTestScreen.xml" path="/tabs/" exported="true"/>
+    <component id="es9vat" name="PopupConsoleScreenColor.xml" path="/" exported="true"/>
+    <component id="es9vau" name="ButtonButtom4.xml" path="/components/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets/GameRes/Games/Console/FGUIs" packageCount="2" genCode="true">
     <atlas name="Default" index="0"/>

@@ -16,6 +16,10 @@
   <string name="xp0b9yqdg3lh5m-n35_g3lh-cp-key" mz="algorithmVer">算法版本:</string>
   <string name="xp0b9yqdg3lh5m-n36_g3lh-cp-key" mz="producedBy">游戏厂商:</string>
   <string name="xp0b9yqdg3lh5m-n29_os7y-cp-title" mz="navBottom">游戏信息</string>
+    <!-- Console/PageConsoleHardware.xml -->
+  <string name="xp0b9yqdes9vap-n1_es9v" mz="navTestBtn">按钮</string>
+  <string name="xp0b9yqdes9vap-n2_es9v" mz="navTestScreen">屏幕</string>
+  <string name="xp0b9yqdes9vap-n4_es9v-cp-title" mz="navBottom">硬件测试</string>
   <!-- Console/PageConsoleLogRecord.xml -->
   <string name="xp0b9yqdu8xf7r-n6_cwuo" mz="navEvent">事件记录</string>
   <string name="xp0b9yqdu8xf7r-n31_g3lh" mz="navWarning">警告记录</string>
@@ -354,6 +358,13 @@
   <string name="xp0b9yqdh0z3ao-n12_h0z3-cp-key" mz="result_type">本局游戏类型:</string>
   <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-key" mz="game_page">"Slot1700"游戏记录</string>
   <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-value" mz="game_page">第999/999条</string>
+    <!-- Console/tabs/PCBTabTestBtn.xml -->
+  <string name="xp0b9yqdes9vaq-n4_es9v" mz="TicketOutBtn">退票</string>
+  <string name="xp0b9yqdes9vaq-n5_es9v" mz="SpinBtn">开始</string>
+  <string name="xp0b9yqdes9vaq-n9_es9v" mz="ConsoleBtn">设置</string>
+  <string name="xp0b9yqdes9vaq-n10_es9v" mz="UpBtn">上键</string>
+  <string name="xp0b9yqdes9vaq-n11_es9v" mz="DownBtn">下键</string>
+  <string name="xp0b9yqdes9vaq-n13_es9v" mz="DoorBtn">开门</string>
   <!-- Console/tabs/PCMSTabInOut.xml -->
   <string name="xp0b9yqdcwuo38-n18_cwuo-cp-key" mz="coinOutScale">退票比例(票 : 分):</string>
   <string name="xp0b9yqdcwuo38-n19_cwuo-cp-key" mz="coinInScale">投币比例(币 : 分):</string>

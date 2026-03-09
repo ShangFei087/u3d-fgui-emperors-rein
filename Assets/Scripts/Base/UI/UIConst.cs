@@ -80,6 +80,11 @@ public class UIConst
             {
                 "Assets/GameRes/Games/Console/FGUIs", "ConsoleSlot01.PageConsoleHardware"
             },
+            [PageName.ConsolePopupConsoleScreenColor] = new object[]
+            {
+                "Assets/GameRes/Games/Console/FGUIs", "ConsoleSlot01.PopupConsoleScreenColor"
+            },
+            
 
             //平台
             [PageName.HallMain] = new object[] { "Assets/GameRes/Halls/TestHall/FGUIs", "TestHall.TestHallMain" },
@@ -459,6 +464,7 @@ public enum PageName
     ConsolePageConsoleLogRecord,
     ConsolePageConsoleGameHistory,
     ConsolePageConsoleHardware,
+    ConsolePopupConsoleScreenColor,
 
     //大厅
     HallMain,

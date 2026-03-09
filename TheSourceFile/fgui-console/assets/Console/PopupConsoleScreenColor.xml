@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_es9v" name="ColorTest" xy="0,0" size="1080,1920" type="rect"/>
+    <component id="n3_es9v" name="btnExit" src="es9vau" fileName="components/ButtonButtom4.xml" xy="2,1823"/>
+  </displayList>
+  <transition name="siwtch" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="Color" target="n0_es9v" value="#ffffff"/>
+    <item time="24" type="Color" target="n0_es9v" value="#ff0000"/>
+    <item time="48" type="Color" target="n0_es9v" value="#00ff00"/>
+    <item time="72" type="Color" target="n0_es9v" value="#0000ff"/>
+    <item time="96" type="Color" target="n0_es9v" value="#000000"/>
+    <item time="120" type="Color" target="n0_es9v" value="#000000"/>
+  </transition>
+</component>

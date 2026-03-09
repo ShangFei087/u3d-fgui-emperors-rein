@@ -1,18 +1,29 @@
+using FairyGUI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
-public class TabHardwareScreenTest : MonoBehaviour
+public class TabHardwareScreenTest 
 {
-    // Start is called before the first frame update
-    void Start()
+    GComponent owner;
+    GButton btnScreeColor;
+
+    protected  void OnInit()
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
+    public void InitParam(GComponent go, string tabName)
     {
-        
+        owner = go;
+        btnScreeColor = owner.GetChild("ScreenTest").asCom.GetChild("value").asButton;
+        btnScreeColor.onClick.Clear();
+        btnScreeColor.onClick.Add(OnClickScreeColor);
+    }
+
+    public void OnClickScreeColor()
+    {
+        PageManager.Instance.OpenPage(PageName.ConsolePopupConsoleScreenColor);
     }
 }
