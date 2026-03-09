@@ -74,8 +74,7 @@ namespace CaiFuZhiJia_3997
         {
             base.OnClose(eventData);
 
-            if (isOpen)
-                ResetView();
+            ResetView();
         }
 
         private void ResLoadedCallback()

@@ -31,30 +31,30 @@ namespace CaiFuZhiJia_3997
         private GComponent _compareReelBgSpineGCom = null, _compareJackpotTreeSpineGCom = null;
 
         private readonly List<GameObject> _cloneJackpotSpineList = new List<GameObject>();
-        private List<Animator> _cloneAnimators = new List<Animator>(); // 预制体上的动画集合
+        private readonly List<Animator> _cloneAnimators = new List<Animator>(); // 预制体上的动画集合
         private readonly List<GComponent> _compareJackpotSpineGComList = new List<GComponent>();
 
         // Fairy GUI
         private readonly List<GComponent> _rollReels = new List<GComponent>();
         private GComponent _jackpotReelsGCom, _jackpotDiamondSpinesGCom = null; //彩金游戏滚轴的父物体 he 中奖红钻石锚点的的父物体
-        List<GTextField> _diamondTextList = new List<GTextField>();
+        private readonly List<GTextField> _diamondTextList = new List<GTextField>();
         private GComponent _gOwnerPanel; //panel界面初始化
 
         // 核心逻辑
         private GTextField _freeCountText = null;
         private int _totalPlayRounds = 3;
         private bool _isWinning; // 本局是否中奖
-        private Random _random = new Random(); // 用作判断本局是否中奖
-        private List<int> _winSpineIndexList = new List<int>(); // 记录当前所有中奖的格子
-        private List<int> _canSpinReelIndexList = new List<int>(); // 当前可以旋转的滚轴
-        private List<string> _rollRewardList = new List<string>(); // 所有滚轮的中奖金额集合
+        private readonly Random _random = new Random(); // 用作判断本局是否中奖
+        private readonly List<int> _winSpineIndexList = new List<int>(); // 记录当前所有中奖的格子
+        private readonly List<int> _canSpinReelIndexList = new List<int>(); // 当前可以旋转的滚轴
+        private readonly List<string> _rollRewardList = new List<string>(); // 所有滚轮的中奖金额集合
 
         private bool _isStart = false; // 开始按钮只能点击一次
 
-        private List<Vector3> _boxCenterPosList = new List<Vector3>(); // 每个滚轴的锚点，作为特效的起点
+        // private readonly List<Vector3> _boxCenterPosList = new List<Vector3>(); // 每个滚轴的锚点，作为特效的起点
 
-        private List<SingleReelController> _singleReelControllers = new List<SingleReelController>(); // 所有滚轮控制器
-        private List<Transform> _effects = new List<Transform>(); // 钻石在彩金游戏结束之后的结算特效
+        private readonly List<SingleReelController> _singleReelControllers = new List<SingleReelController>(); // 所有滚轮控制器
+        private readonly List<Transform> _effects = new List<Transform>(); // 钻石在彩金游戏结束之后的结算特效
 
         /// <summary>
         /// 每个滚轴的旋转速度
@@ -257,7 +257,7 @@ namespace CaiFuZhiJia_3997
             for (int i = 0; i < _jackpotDiamondSpinesGCom.numChildren; i++)
             {
                 currentGCom = _jackpotDiamondSpinesGCom.GetChild("jackpotSpine_" + i).asCom;
-                _boxCenterPosList.Add(currentGCom.position); //添加初始Spine动画锚点
+                // _boxCenterPosList.Add(currentGCom.position); //添加初始Spine动画锚点
                 if (currentGCom != _compareJackpotSpineGComList[i])
                 {
                     GameCommon.FguiUtils.DeleteWrapper(_compareJackpotSpineGComList[i]);
