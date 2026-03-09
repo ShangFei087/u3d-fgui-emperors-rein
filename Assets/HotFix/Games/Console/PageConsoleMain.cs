@@ -333,7 +333,7 @@ namespace ConsoleSlot01
         void OnClickSettings() => PageManager.Instance.OpenPage(PageName.ConsolePageConsoleMachineSettings);
         //void OnClickSettings() => PageManager.Instance.OpenPage(PageName.ConsolePageConsoleSettingsMenu); 
 
-        void OnClickHardwareTest(){}
+        void OnClickHardwareTest() => PageManager.Instance.OpenPage(PageName.ConsolePageConsoleHardware);
 
 
         void OnClickAdmin() { }
@@ -364,7 +364,6 @@ namespace ConsoleSlot01
                 }
             }
         }
-
 
         void OnClickSound()=> PageManager.Instance.OpenPage(PageName.ConsolePopupConsoleSound);
 

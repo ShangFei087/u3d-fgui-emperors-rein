@@ -7,6 +7,7 @@
     <component id="n2_r8oz" name="popupPages" src="r8oze" fileName="moudules/TestSelectLst.xml" xy="123,355"/>
     <component id="n3_rl7y" name="popupButtons" src="r8oze" fileName="moudules/TestSelectLst.xml" xy="136,425"/>
     <component id="n6_n7rv" name="popupDebugMode" src="n7rvnl" fileName="moudules/TestSelectdebugMode.xml" xy="146,323" size="624,312"/>
+    <component id="n7_gvcx" name="selectProject" src="gvcxnq" fileName="moudules/TestProjectList.xml" xy="140,522"/>
     <richtext id="n5_cd2o" name="tip" xy="1,-222" size="249,220" touchable="false" fontSize="26" color="#00ff00" vAlign="bottom" autoSize="shrink" autoClearText="true" text="请求数据"/>
   </displayList>
 </component>

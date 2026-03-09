@@ -60,7 +60,7 @@ namespace CaiFuZhiJia_3997
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-            
+
             ResetView();
             BindPrefabsToUI();
             ShowEffectAndSpine();
@@ -69,11 +69,11 @@ namespace CaiFuZhiJia_3997
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
-            
+
             _freeTipWindow = contentPane.GetChild("freeTipWindow").asCom;
             _freeTipWindow.visible = false;
             _freeStartBtn = _freeTipWindow.GetChild("freeStartBtn").asButton;
-            
+
             InitParam();
         }
 
@@ -219,7 +219,7 @@ namespace CaiFuZhiJia_3997
             GameCommon.FguiUtils.DeleteWrapper(_compareBlueBoomEffectGCom);
             GameCommon.FguiUtils.DeleteWrapper(_compareGoldPurpleEffectGCom);
             GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
-            
+
             _compareDollarSpineGCom = null;
             _compareBlueBoomEffectGCom = null;
             _compareGoldPurpleEffectGCom = null;

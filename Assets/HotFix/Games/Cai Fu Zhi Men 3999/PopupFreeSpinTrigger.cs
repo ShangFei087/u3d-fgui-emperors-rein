@@ -37,7 +37,7 @@ namespace CaiFuZhiMen_3999
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-
+            
             BindPrefabsToUI();
         }
 
@@ -100,7 +100,7 @@ namespace CaiFuZhiMen_3999
             _startBtn = _freeTriggerWindow.GetChild("startBtn").asButton;
             _freeRoundText = _freeTriggerWindow.GetChild("freeRoundText").asTextField;
             _freeRoundText.text = ContentModel.Instance.FreeSpinTotalTimes.ToString();
-            
+
             _startBtn.visible = false;
             _freeRoundText.visible = false;
             Timers.inst.Add(0.5f, 1, (obj) =>
@@ -115,7 +115,7 @@ namespace CaiFuZhiMen_3999
                 _cloneFreeTriggerTipObj.SetActive(false);
                 _cloneCatGirlClimb.SetActive(true);
                 _cloneRedRayObj.SetActive(true);
-                
+
                 Timers.inst.Add(2f, 1, (obj) =>
                 {
                     _freeBg.visible = true;
@@ -185,7 +185,7 @@ namespace CaiFuZhiMen_3999
             _cloneFreeTriggerTipObj = null;
             _cloneCatGirlClimb = null;
             _cloneRedRayObj = null;
-            
+
             GameCommon.FguiUtils.DeleteWrapper(_compareBlueGem);
             GameCommon.FguiUtils.DeleteWrapper(_compareFreeTriggerTip);
             GameCommon.FguiUtils.DeleteWrapper(_compareCatGirlClimb);
@@ -195,7 +195,6 @@ namespace CaiFuZhiMen_3999
             _compareFreeTriggerTip = null;
             _compareCatGirlClimb = null;
             _compareRedRay = null;
-            
         }
     }
 }

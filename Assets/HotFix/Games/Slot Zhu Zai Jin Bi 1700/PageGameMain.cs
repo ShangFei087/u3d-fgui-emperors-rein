@@ -351,6 +351,12 @@ namespace SlotZhuZaiJinBi1700
                 yield break;
             }
 
+            // 检查余额通过后，立即扣除积分（提前扣分）
+            if (ContentModel.Instance.gameState != GameState.FreeSpin)
+            {
+                MainBlackboardController.Instance.MinusMyTempCredit(TotalBet, true, false);
+            }
+
             //test 检查算法积分
             MachineDataManager02.Instance.RequestGetPlayerInfo((res) =>
             {
@@ -416,6 +422,12 @@ namespace SlotZhuZaiJinBi1700
             //请求结果失败
             if (isBreak)
             {
+                // 退还之前扣除的积分
+                if (ContentModel.Instance.gameState != GameState.FreeSpin)
+                {
+                    MainBlackboardController.Instance.AddMyTempCredit(TotalBet, true, false);
+                }
+
                 if (errorCallback != null)
                     errorCallback.Invoke(errMsg);
                 yield break;
@@ -600,11 +612,11 @@ namespace SlotZhuZaiJinBi1700
                 else
                 {
 
-                    DebugUtils.Log("算法卡积分==" + credit);
-                    DebugUtils.Log("机器积分==" + SBoxModel.Instance.myCredit);
+                    //DebugUtils.Log("算法卡积分==" + credit);
+                    //DebugUtils.Log("机器积分==" + SBoxModel.Instance.myCredit);
                     if (credit != SBoxModel.Instance.myCredit)
                     {
-
+                        DebugUtils.LogError($" 算法卡 :[0]= {credit}   前端:[0]={SBoxModel.Instance.myCredit}");
                     }
                     isNext = true;
                 }
@@ -658,11 +670,11 @@ namespace SlotZhuZaiJinBi1700
 
             SBoxJackpotData sboxJackpotData = null;
 
-            //赠送局不用扣分
-            if (ContentModel.Instance.gameState != GameState.FreeSpin)
-            {
-                MainBlackboardController.Instance.MinusMyTempCredit(totalBet, true, false);
-            }
+            ////赠送局不用扣分
+            //if (ContentModel.Instance.gameState != GameState.FreeSpin)
+            //{
+            //    MainBlackboardController.Instance.MinusMyTempCredit(totalBet, true, false);
+            //}
 
             // 解析数据
             MachineDataG1700Controller.Instance.ParseSlotSpinMock(totalBet, resNode, sboxJackpotData);
@@ -740,11 +752,11 @@ namespace SlotZhuZaiJinBi1700
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
-            //赠送局不用扣分
-            if (ContentModel.Instance.gameState != GameState.FreeSpin)
-            {
-                MainBlackboardController.Instance.MinusMyTempCredit(totalBet, true, false);
-            }
+            ////赠送局不用扣分
+            //if (ContentModel.Instance.gameState != GameState.FreeSpin)
+            //{
+            //    MainBlackboardController.Instance.MinusMyTempCredit(totalBet, true, false);
+            //}
          
             // 解析数据
             MachineDataG1700Controller.Instance.ParseSlotSpinMachine(totalBet, resNode, sboxJackpotData);

@@ -92,7 +92,6 @@ namespace CaiFuZhiJia_3997
             InitUI();
             InitCanSpinReels();
 
-           
 
             _totalCount = 3;
             LoadAsyncRes();
@@ -142,7 +141,7 @@ namespace CaiFuZhiJia_3997
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
-            
+
             if (_monoHelper == null)
                 _monoHelper = GameObject.Find("Game Main Controller").GetComponent<MonoHelper>();
             if (_slotMachineController == null)
