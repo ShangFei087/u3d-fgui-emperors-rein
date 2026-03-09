@@ -2,7 +2,7 @@
 <resources>
   <!-- Console/PageConsoleBusinessRecord.xml -->
   <string name="xp0b9yqdg3lh53-n6_cwuo" mz="navBusiness">总营收</string>
-  <string name="xp0b9yqdg3lh53-n31_g3lh" mz="navCoin">投退币记录</string>
+  <string name="xp0b9yqdg3lh53-n31_g3lh" mz="navCoin">投退记录</string>
   <string name="xp0b9yqdg3lh53-n29_os7y-cp-title" mz="navBottom">营收记录</string>
   <!-- Console/PageConsoleGameHistory.xml -->
   <string name="xp0b9yqdexvp7x-n7_h0z3-cp-key" mz="gameId">游戏编号</string>
@@ -119,7 +119,7 @@
   <!-- Console/moudules/Buttom1.xml -->
   <string name="xp0b9yqdglrj1l-n5_os7y" mz="title">营收记录</string>
   <!-- Console/moudules/Buttom2.xml -->
-  <string name="xp0b9yqdglrj1m-n4_glrj" mz="title">营收记录</string>
+  <string name="xp0b9yqdglrj1m-n4_glrj" mz="title">投退历史</string>
   <!-- Console/moudules/ButtonCatrgory.xml -->
   <string name="xp0b9yqdoibks-n6_os7y" mz="title">营收记录</string>
   <!-- Console/moudules/ItemBetLst.xml -->
@@ -369,7 +369,7 @@
   <!-- Console/tabs/PCMSTabMachine.xml -->
   <string name="xp0b9yqdmsw23e-n37_jtgo-cp-key" mz="agentID">代理商线号:</string>
   <string name="xp0b9yqdmsw23e-n38_jtgo-cp-key" mz="machineID">设备唯一序列号:</string>
-  <string name="xp0b9yqdmsw23e-n39_jtgo-cp-key" mz="maxCoinInOutRecord">投退币记录最大次数:</string>
+  <string name="xp0b9yqdmsw23e-n39_jtgo-cp-key" mz="maxCoinInOutRecord">投退记录最大次数:</string>
   <string name="xp0b9yqdmsw23e-n40_jtgo-cp-key" mz="maxGameRecord">游戏记录最大次数:</string>
   <string name="xp0b9yqdmsw23e-n41_jtgo-cp-key" mz="maxEventRecord">消息记录最大次数:</string>
   <string name="xp0b9yqdmsw23e-n42_jtgo-cp-key" mz="maxErrorRecord">警告记录最大次数:</string>
