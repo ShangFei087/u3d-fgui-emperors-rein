@@ -19,10 +19,10 @@ MonoBehaviour:
   platformName: StandAloneSlotTest
   gameTheme: StandAloneSlotTest
   agentName: StandAloneSlotTest
-  appKey: StandAloneSlotTest_debug_machine_20260206115240
-  appVersion: 1.6.0
+  appKey: StandAloneSlotTest_debug_machine_20260303185958
+  appVersion: 1.10.0
   resourceServer: http://47.112.14.190/StandSlot
-  machineDebugUrl: 192.168.3.167
+  machineDebugUrl: 192.168.3.109
   reportUrl: http://192.168.3.152/api/game_log/send
   posterUrl: 
   logoUrl: ui://Native/eyeryparty

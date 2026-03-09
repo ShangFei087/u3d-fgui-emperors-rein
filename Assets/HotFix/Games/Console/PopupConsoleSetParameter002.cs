@@ -81,7 +81,7 @@ namespace ConsoleSlot01
 
             compInputCtrl1.Init(btnInput1, btnInput1.GetChild("title").asRichTextField, null, null);
             compInputCtrl1.GetFocus();
-
+            compInputCtrl1.SetPlaintext(false);
             compInputCtrl2.Init(btnInput2, btnInput2.GetChild("title").asRichTextField, null, null);
 
 

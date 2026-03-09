@@ -15,7 +15,36 @@ public static partial class ConsoleTableUtils
 {
 
     /// <summary>
-    /// 删除多个表
+    /// 清空所有表数据（保留表结构）
+    /// </summary>
+    public static void ClearAllTableData()
+    {
+        ClearTableData(ConsoleTableName.TABLE_COIN_IN_OUT_RECORD);
+        ClearTableData(ConsoleTableName.TABLE_SLOT_GAME_RECORD);
+        ClearTableData(ConsoleTableName.TABLE_PUSHER_GAME_RECORD);
+        ClearTableData(ConsoleTableName.TABLE_LOG_ERROR_RECORD);
+        ClearTableData(ConsoleTableName.TABLE_LOG_EVENT_RECORD);
+        ClearTableData(ConsoleTableName.TABLE_BUSINESS_DAY_RECORD);
+        ClearTableData(ConsoleTableName.TABLE_JACKPOT_RECORD);
+        
+        DebugUtils.LogWarning("【数据库】所有表数据已清空！");
+    }
+
+    /// <summary>
+    /// 清空单个表数据
+    /// </summary>
+    private static void ClearTableData(string tableName)
+    {
+        if (SQLiteHelper.Instance.CheckTableExists(tableName))
+        {
+            string sql = $"DELETE FROM {tableName};";
+            SQLiteHelper.Instance.ExecuteNonQuery(sql);
+            DebugUtils.LogWarning($"清空表数据：{tableName}");
+        }
+    }
+
+    /// <summary>
+    /// 删除所有表（谨慎使用）
     /// </summary>
     public static void DeleteTables()
     {

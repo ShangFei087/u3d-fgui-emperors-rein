@@ -1,181 +1,415 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <!-- Console/PageConsoleBusinessRecord.xml -->
+  <string name="xp0b9yqdg3lh53-n6_cwuo" mz="navBusiness">总营收</string>
+  <string name="xp0b9yqdg3lh53-n31_g3lh" mz="navCoin">投退币记录</string>
+  <string name="xp0b9yqdg3lh53-n29_os7y-cp-title" mz="navBottom">营收记录</string>
+  <!-- Console/PageConsoleGameHistory.xml -->
+  <string name="xp0b9yqdexvp7x-n7_h0z3-cp-key" mz="gameId">游戏编号</string>
+  <string name="xp0b9yqdexvp7x-n2_exvp-cp-key" mz="date">日期</string>
+  <string name="xp0b9yqdexvp7x-n1_exvp-cp-title" mz="navBottom">游戏历史</string>
+  <!-- Console/PageConsoleGameInformation.xml -->
+  <string name="xp0b9yqdg3lh5m-n32_g3lh-cp-key" mz="machineName">设备名称:</string>
+  <string name="xp0b9yqdg3lh5m-n32_g3lh-cp-value" mz="machineName">GOOD FORTUNE RETURNS</string>
+  <string name="xp0b9yqdg3lh5m-n33_g3lh-cp-key" mz="softwareVer">软件版本:</string>
+  <string name="xp0b9yqdg3lh5m-n34_g3lh-cp-key" mz="hardwareVer">硬件版本:</string>
+  <string name="xp0b9yqdg3lh5m-n35_g3lh-cp-key" mz="algorithmVer">算法版本:</string>
+  <string name="xp0b9yqdg3lh5m-n36_g3lh-cp-key" mz="producedBy">游戏厂商:</string>
+  <string name="xp0b9yqdg3lh5m-n29_os7y-cp-title" mz="navBottom">游戏信息</string>
+    <!-- Console/PageConsoleHardware.xml -->
+  <string name="xp0b9yqdes9vap-n1_es9v" mz="navTestBtn">按钮</string>
+  <string name="xp0b9yqdes9vap-n2_es9v" mz="navTestScreen">屏幕</string>
+  <string name="xp0b9yqdes9vap-n4_es9v-cp-title" mz="navBottom">硬件测试</string>
+  <!-- Console/PageConsoleLogRecord.xml -->
+  <string name="xp0b9yqdu8xf7r-n6_cwuo" mz="navEvent">事件记录</string>
+  <string name="xp0b9yqdu8xf7r-n31_g3lh" mz="navWarning">警告记录</string>
+  <string name="xp0b9yqdu8xf7r-n32_kv1r-cp-title" mz="navBottom">事件记录, 页 1 / 1</string>
   <!-- Console/PageConsoleMachineSettings.xml -->
-  <string name="xp0b9yqdglrj1i-n5_cwuo" mz="navMachine">設備</string>
+  <string name="xp0b9yqdglrj1i-n5_cwuo" mz="navMachine">设备</string>
   <string name="xp0b9yqdglrj1i-n6_cwuo" mz="navInOut">投-退</string>
   <string name="xp0b9yqdglrj1i-n7_cwuo" mz="navPROGRESSIVE">增强</string>
-  <string name="xp0b9yqdglrj1i-n29_os7y-cp-title" mz="navBottom">設備設定</string>
-  <string name="xp0b9yqdglrj1i-n30_g8qg" mz="testTxt">測試</string>
+  <string name="xp0b9yqdglrj1i-n29_os7y-cp-title" mz="navBottom">设备设置</string>
   <!-- Console/PageConsoleMain.xml -->
-  <string name="xp0b9yqdyx3q0-n2_smbp-0" mz="n2">遊戲資訊</string>
-  <string name="xp0b9yqdyx3q0-n2_smbp-1" mz="n2">營收記錄</string>
-  <string name="xp0b9yqdyx3q0-n2_smbp-2" mz="n2">遊戲歷史</string>
-  <string name="xp0b9yqdyx3q0-n2_smbp-3" mz="n2">事件記錄</string>
-  <string name="xp0b9yqdyx3q0-n2_smbp-4" mz="n2">系統時間</string>
-  <string name="xp0b9yqdyx3q0-n2_smbp-5" mz="n2">音量設定</string>
-  <string name="xp0b9yqdyx3q0-n2_smbp-6" mz="n2">語言</string>
-  <string name="xp0b9yqdyx3q0-n2_smbp-7" mz="n2">硬體測試</string>
-  <string name="xp0b9yqdyx3q0-n2_smbp-8" mz="n2">觸控式螢幕</string>
-  <string name="xp0b9yqdyx3q0-n2_smbp-9" mz="n2">設定</string>
-  <string name="xp0b9yqdyx3q0-n2_smbp-10" mz="n2">超級管理</string>
-  <string name="xp0b9yqdyx3q0-n2_smbp-11" mz="n2">退出</string>
-  <!-- Console/PopupConsoleChoose01.xml -->
-  <string name="xp0b9yqdos7y3k-n6_os7y" mz="title">Choose Printer Model</string>
-  <string name="xp0b9yqdos7y3k-n8_os7y" mz="param1">Selected language: Chinese(简体)</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-0" mz="menu">游戏信息</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-1" mz="menu">营收记录</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-2" mz="menu">游戏历史</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-3" mz="menu">事件记录</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-4" mz="menu">系统时间</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-5" mz="menu">音量设置</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-6" mz="menu">语言</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-7" mz="menu">硬件测试</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-8" mz="menu">触摸屏</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-9" mz="menu">设置</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-10" mz="menu">超级管理</string>
+  <string name="xp0b9yqdyx3q0-n2_smbp-11" mz="menu">退出</string>
+  <!-- Console/PopupConsoleCalendar.xml -->
+  <string name="xp0b9yqdvqlx6s-n16_vqlx" mz="selectDate">选择的日期: 25 October 2024 12:44PM</string>
+  <string name="xp0b9yqdvqlx6s-n21_vqlx" mz="button1">取消</string>
+  <string name="xp0b9yqdvqlx6s-n23_vqlx" mz="button2">保存</string>
+  <string name="xp0b9yqdvqlx6s-n31_vqlx" mz="sun">日</string>
+  <string name="xp0b9yqdvqlx6s-n32_vqlx" mz="mon">一</string>
+  <string name="xp0b9yqdvqlx6s-n33_vqlx" mz="tue">二</string>
+  <string name="xp0b9yqdvqlx6s-n34_vqlx" mz="wed">三</string>
+  <string name="xp0b9yqdvqlx6s-n35_vqlx" mz="thu">四</string>
+  <string name="xp0b9yqdvqlx6s-n36_vqlx" mz="fri">五</string>
+  <string name="xp0b9yqdvqlx6s-n37_vqlx" mz="sat">六</string>
+  <string name="xp0b9yqdvqlx6s-n47_vqlx" mz="selectTime">选择时间</string>
+  <string name="xp0b9yqdvqlx6s-n48_vqlx" mz="hour">小时:</string>
+  <string name="xp0b9yqdvqlx6s-n55_vqlx" mz="minute">分钟:</string>
+  <!-- Console/PopupConsoleChoose001.xml -->
+  <string name="xp0b9yqdos7y3k-n6_os7y" mz="title">选择语言</string>
+  <string name="xp0b9yqdos7y3k-n8_os7y" mz="param1">已选择的语言: Chinese(简体)</string>
   <string name="xp0b9yqdos7y3k-n9_os7y-0" mz="list">English</string>
   <string name="xp0b9yqdos7y3k-n9_os7y-1" mz="list">Chinese(简体)</string>
   <string name="xp0b9yqdos7y3k-n9_os7y-2" mz="list">Chinese(繁体)</string>
+  <!-- Console/PopupConsoleCoder.xml -->
+  <string name="xp0b9yqdvjfj51-n6_os7y" mz="title">激活密码</string>
+  <string name="xp0b9yqdvjfj51-n16_vjfj" mz="A">A: 38000000</string>
+  <string name="xp0b9yqdvjfj51-n17_vjfj" mz="B">B: 3800</string>
+  <string name="xp0b9yqdvjfj51-n18_vjfj" mz="C">C: 3800</string>
+  <string name="xp0b9yqdvjfj51-n20_vjfj" mz="D">D: 3800</string>
+  <string name="xp0b9yqdvjfj51-n19_vjfj" mz="E">E: 3800</string>
+  <string name="xp0b9yqdvjfj51-n21_vjfj" mz="time">剩余时间: 2 days and 12 hours</string>
+  <!-- Console/PopupConsoleCommon.xml -->
+  <string name="xp0b9yqdvqlx6k-n16_vqlx" mz="content02">确认重启设备吗?</string>
+  <string name="xp0b9yqdvqlx6k-n29_kv1r" mz="title01">确认重启设备吗?</string>
+  <string name="xp0b9yqdvqlx6k-n30_kv1r" mz="content01">确认重启设备吗?</string>
+  <string name="xp0b9yqdvqlx6k-n26_vqlx" mz="button1">取消</string>
+  <!-- Console/PopupConsoleKeyboard001.xml -->
+  <string name="xp0b9yqdg3lh5u-n6_os7y" mz="title">选择打印机编号</string>
+  <!-- Console/PopupConsoleKeyboard002.xml -->
+  <string name="xp0b9yqdvqlx66-n6_os7y" mz="title">选择打印机编号</string>
+  <!-- Console/PopupConsoleSetParameter001.xml -->
+  <string name="xp0b9yqdvqlx64-n6_os7y" mz="title">配置远程服务器连接</string>
+  <string name="xp0b9yqdvqlx64-n8_os7y" mz="param1">服务器IP地址:</string>
+  <string name="xp0b9yqdvqlx64-n14_vqlx" mz="tip1">密码长度必须至少为8个字符，且不超过12个字符</string>
+  <!-- Console/PopupConsoleSetParameter002.xml -->
+  <string name="xp0b9yqdvqlx5w-n6_os7y" mz="title">配置远程服务器连接</string>
+  <string name="xp0b9yqdvqlx5w-n8_os7y" mz="param1">服务器IP地址:</string>
+  <string name="xp0b9yqdvqlx5w-n14_vqlx" mz="tip1">密码长度必须至少为8个字符，且不超过12个字符</string>
+  <string name="xp0b9yqdvqlx5w-n16_vqlx" mz="param2">服务器IP地址:</string>
+  <string name="xp0b9yqdvqlx5w-n18_vqlx" mz="tip2">密码长度必须至少为8个字符，且不超过12个字符</string>
+  <!-- Console/PopupConsoleSlideSetting.xml -->
+  <string name="xp0b9yqdvqlx6g-n16_vqlx" mz="title">出票比例&lt;br&gt;200:1</string>
+  <!-- Console/PopupConsoleSound.xml -->
+  <string name="xp0b9yqdvqlx67-n16_vqlx" mz="music">背景音乐:</string>
+  <string name="xp0b9yqdvqlx67-n18_vqlx" mz="sound">音效:</string>
+  <string name="xp0b9yqdvqlx67-n22_od68" mz="mute">静音:</string>
   <!-- Console/PopupI18nTest.xml -->
-  <string name="xp0b9yqdiyvn4u-n2_g8qg" mz="helloWord">你好，中國</string>
-  <!-- Console/Tabs/PamsTabInOut.xml -->
-  <string name="xp0b9yqdcwuo38-n18_cwuo-cp-key" mz="coinOutScale">Coin Out Scale(Ticket : Credit):</string>
-  <string name="xp0b9yqdcwuo38-n19_cwuo-cp-key" mz="coinInScale">Coin In Scale(Coin : Credit):</string>
-  <string name="xp0b9yqdcwuo38-n27_os7y-cp-key" mz="scoreScale">Score Short Click Scale(Time : Credit):</string>
-  <string name="xp0b9yqdcwuo38-n25_cwuo-cp-btn" mz="flipScreen">Flip Screen</string>
-  <string name="xp0b9yqdcwuo38-n28_os7y-cp-btn" mz="resetMachineToFactorySettings">Reset Machine to FactorySettings</string>
-  <string name="xp0b9yqdcwuo38-n29_os7y-cp-key" mz="billValidator">紙鈔機:</string>
-  <string name="xp0b9yqdcwuo38-n30_os7y-cp-key" mz="billValidatorModel">紙鈔機型號:</string>
-  <string name="xp0b9yqdcwuo38-n30_os7y-cp-value" mz="billValidatorModel">AE2831 D5 &lt;img src='ui://xp0b9yqdos7y4j' width='20' height='20'/&gt;</string>
-  <string name="xp0b9yqdcwuo38-n31_os7y-cp-key" mz="printer">Printer:</string>
-  <string name="xp0b9yqdcwuo38-n32_os7y-cp-key" mz="printerModel">Printer Model:</string>
-  <string name="xp0b9yqdcwuo38-n32_os7y-cp-value" mz="printerModel">Phoenix &lt;img src='ui://xp0b9yqdos7y4i' width='20' height='20'/&gt;</string>
-  <!-- Console/Tabs/PamsTabProgressive.xml -->
-  <string name="xp0b9yqdcwuo39-n31_os7y-cp-title" mz="mdJackpotOnline">Jackpot Online</string>
-  <string name="xp0b9yqdcwuo39-n32_os7y-cp-key" mz="jackpotOnline">Jackpot Online:</string>
-  <string name="xp0b9yqdcwuo39-n33_os7y-cp-key" mz="jackpotScoreRate">Jackpot Score Rate:</string>
-  <string name="xp0b9yqdcwuo39-n34_os7y-cp-key" mz="jackpotPercent">Jackpot Percent:</string>
-  <string name="xp0b9yqdcwuo39-n35_os7y-cp-title" mz="mdIOT">IOT</string>
-  <string name="xp0b9yqdcwuo39-n36_os7y-cp-key" mz="iotAddresse">IOT Address:</string>
-  <string name="xp0b9yqdcwuo39-n36_os7y-cp-value" mz="iotAddresse">http://i.test.gzhaoku.com/admin/resp/firmware/query</string>
-  <string name="xp0b9yqdcwuo39-n37_os7y-cp-key" mz="iot">好酷:</string>
-  <string name="xp0b9yqdcwuo39-n38_os7y-cp-key" mz="iotAccessMethods">IOT Access Methods:</string>
-  <string name="xp0b9yqdcwuo39-n38_os7y-cp-value" mz="iotAccessMethods">Mini Program &lt;img src='ui://xp0b9yqdos7y4i' width='20' height='20'/&gt;[color=#666666]666[/color]</string>
-  <string name="xp0b9yqdcwuo39-n41_os7y-cp-title" mz="mdRemoteControl">Remote Control</string>
-  <string name="xp0b9yqdcwuo39-n43_os7y-cp-key" mz="iotRemoteControl">Remote Control:</string>
-  <string name="xp0b9yqdcwuo39-n44_os7y-cp-key" mz="remoteControlSetting">Remote Control Setting:</string>
-  <string name="xp0b9yqdcwuo39-n44_os7y-cp-value" mz="remoteControlSetting">192.168.3.174:1883&lt;img src='ui://xp0b9yqdos7y4j' width='20' height='20'/&gt;</string>
-  <string name="xp0b9yqdcwuo39-n45_os7y-cp-key" mz="remoteControlAccount">Remote Control Account:</string>
-  <string name="xp0b9yqdcwuo39-n45_os7y-cp-value" mz="remoteControlAccount">tester / 123456</string>
-  <string name="xp0b9yqdcwuo39-n42_os7y-cp-title" mz="mdOther">Other</string>
-  <string name="xp0b9yqdcwuo39-n46_os7y-cp-key" mz="coinOutImmediately">Coin Out Immediately:</string>
-  <string name="xp0b9yqdcwuo39-n47_os7y-cp-key" mz="checkHotfixMultipleTimes">Check Hotfix Multiple Times:</string>
-  <!-- Console/Tabs/PcmsTabMachine.xml -->
-  <string name="xp0b9yqdmsw23e-n37_jtgo-cp-key" mz="agentID">Agent ID:</string>
-  <string name="xp0b9yqdmsw23e-n38_jtgo-cp-key" mz="machineID">Machine ID:</string>
-  <string name="xp0b9yqdmsw23e-n39_jtgo-cp-key" mz="maxCoinInOutRecord">Max Coin In Out Record:</string>
-  <string name="xp0b9yqdmsw23e-n40_jtgo-cp-key" mz="maxGameRecord">Max Game Record:</string>
-  <string name="xp0b9yqdmsw23e-n41_jtgo-cp-key" mz="maxEventRecord">Max Event Record:</string>
-  <string name="xp0b9yqdmsw23e-n42_jtgo-cp-key" mz="maxWarningRecord">Max Warning Record:</string>
-  <string name="xp0b9yqdmsw23e-n43_jtgo-cp-key" mz="maxBusinessDayRecord">Max Business Day Record:</string>
-  <string name="xp0b9yqdmsw23e-n32_cwuo-cp-key" mz="difficulty">&lt;i18n value="CON1x"&gt;Difficulty:&lt;/i18n&gt;</string>
-  <string name="xp0b9yqdmsw23e-n34_cwuo-cp-value" mz="active">Active</string>
-  <string name="xp0b9yqdmsw23e-n44_jtgo-cp-btn" mz="changeShiftPassword">Change Shift Password</string>
-  <string name="xp0b9yqdmsw23e-n45_jtgo-cp-btn" mz="changeManagerPassword">Change Manager Password</string>
-  <string name="xp0b9yqdmsw23e-n46_jtgo-cp-btn" mz="changeAdminPassword">Change Admin Password</string>
+  <string name="xp0b9yqdiyvn4u-n2_g8qg" mz="helloWord">你好，中国</string>
+  <string name="xp0b9yqdiyvn4u-n3_kv1r" mz="buttonConsole">输出</string>
   <!-- Console/components/Button002.xml -->
   <string name="xp0b9yqdsmbpv-n4_smbp" mz="title">Buttton&lt;br&gt;1[color=#666666]666[/color]</string>
   <!-- Console/components/Button003.xml -->
   <string name="xp0b9yqdsmbpx-n4_smbp" mz="title">Flip Screen</string>
   <!-- Console/components/Button004.xml -->
   <string name="xp0b9yqdsmbp19-n4_smbp" mz="title">Buttton</string>
+  <!-- Console/components/Button005Confirm.xml -->
+  <string name="xp0b9yqdvqlx5x-n4_smbp" mz="title">确认</string>
+  <!-- Console/components/ButtonDate.xml -->
+  <string name="xp0b9yqdvqlx6t-n3_vqlx" mz="title">十月 2024</string>
   <!-- Console/components/ButtonSquareClear.xml -->
-  <string name="xp0b9yqdglrj1x-n4_glrj" mz="title">Clear</string>
+  <string name="xp0b9yqdglrj1x-n4_glrj" mz="title">清除</string>
   <!-- Console/components/ButtonSquareDelete.xml -->
-  <string name="xp0b9yqdglrj20-n4_glrj" mz="title">Delete</string>
+  <string name="xp0b9yqdglrj20-n4_glrj" mz="title">删除</string>
   <!-- Console/components/ButtonSquareOK.xml -->
-  <string name="xp0b9yqdglrj1z-n4_glrj" mz="title">OK</string>
+  <string name="xp0b9yqdglrj1z-n4_glrj" mz="title">确认</string>
+  <!-- Console/components/CompLogRcordDetail.xml -->
+  <string name="xp0b9yqdu8xf7w-n33_u8xf" mz="title">三体人在利用魔法般的科技锁死了地球人的科学之后，庞大的宇宙舰队直扑太阳系，意欲清除地球文明。
+面对前所未有的危局，经历过无数磨难的地球人组建起同样庞大的太空舰队，同时，利用三体人思维透明的致命缺陷，制订了神秘莫测的“面壁计划”，精选出四位“面壁者”。秘密展开对三体人的反击。
+三体人自身虽然无法识破人类的诡谲计谋，却依靠由地球人中的背叛者挑选出的“破壁人”，与“面壁者”展开智慧博弈。[9] 三体人在利用魔法般的科技锁死了地球人的科学之后，庞大的宇宙舰队直扑太阳系，意欲清除地球文明。
+面对前所未有的危局，经历过无数磨难的地球人组建起同样庞大的太空舰队，同时，利用三体人思维透明的致命缺陷，制订了神秘莫测的“面壁计划”，精选出四位“面壁者”。秘密展开对三体人的反击。
+三体人自身虽然无法识破人类的诡谲计谋，却依靠由地球人中的背叛者挑选出的“破壁人”，与“面壁者”展开智慧博弈。[9] </string>
   <!-- Console/moudules/Buttom1.xml -->
-  <string name="xp0b9yqdglrj1l-n5_os7y" mz="title">Business Record</string>
+  <string name="xp0b9yqdglrj1l-n5_os7y" mz="title">营收记录</string>
   <!-- Console/moudules/Buttom2.xml -->
-  <string name="xp0b9yqdglrj1m-n4_glrj" mz="title">Business Record</string>
+  <string name="xp0b9yqdglrj1m-n4_glrj" mz="title">营收记录</string>
   <!-- Console/moudules/ButtonCatrgory.xml -->
-  <string name="xp0b9yqdoibks-n6_os7y" mz="title">Business Record</string>
+  <string name="xp0b9yqdoibks-n6_os7y" mz="title">营收记录</string>
   <!-- Console/moudules/ItemBetLst.xml -->
-  <string name="xp0b9yqdcwuo2j-n0_glrj" mz="n0">Bills Allowed:</string>
+  <string name="xp0b9yqdcwuo2j-n0_glrj" mz="key">面额:</string>
   <!-- Console/moudules/ItemCategoryNav.xml -->
   <string name="xp0b9yqdcwuo2p-n24_jtgo" mz="title">MACHINE</string>
+  <!-- Console/moudules/ItemCoinInOutItem.xml -->
+  <string name="xp0b9yqdg3lh5k-n99_g3lh" mz="col0">In</string>
+  <string name="xp0b9yqdg3lh5k-n101_g3lh" mz="col2">score_up</string>
   <!-- Console/moudules/ItemCustomKeyboard.xml -->
-  <string name="xp0b9yqdglrj1o-n12_glrj" mz="No.Clear">Clear</string>
-  <string name="xp0b9yqdglrj1o-n14_glrj" mz="No.Delete">Delete</string>
-  <!-- Console/moudules/ItemCustomKeyboard003.xml -->
-  <string name="xp0b9yqdcwuo24-n1_cwuo" mz="No.q">q</string>
-  <string name="xp0b9yqdcwuo24-n2_cwuo" mz="No.w">w</string>
-  <string name="xp0b9yqdcwuo24-n3_cwuo" mz="No.e">e</string>
-  <string name="xp0b9yqdcwuo24-n4_cwuo" mz="No.r">r</string>
-  <string name="xp0b9yqdcwuo24-n5_cwuo" mz="No.t">t</string>
-  <string name="xp0b9yqdcwuo24-n6_cwuo" mz="No.y">y</string>
-  <string name="xp0b9yqdcwuo24-n7_cwuo" mz="No.u">u</string>
-  <string name="xp0b9yqdcwuo24-n8_cwuo" mz="No.i">i</string>
-  <string name="xp0b9yqdcwuo24-n9_cwuo" mz="No.o">o</string>
-  <string name="xp0b9yqdcwuo24-n10_cwuo" mz="No.p">p</string>
-  <string name="xp0b9yqdcwuo24-n11_cwuo" mz="No.a">a</string>
-  <string name="xp0b9yqdcwuo24-n12_cwuo" mz="No.s">s</string>
-  <string name="xp0b9yqdcwuo24-n13_cwuo" mz="No.d">d</string>
-  <string name="xp0b9yqdcwuo24-n14_cwuo" mz="No.f">f</string>
-  <string name="xp0b9yqdcwuo24-n15_cwuo" mz="No.g">g</string>
-  <string name="xp0b9yqdcwuo24-n16_cwuo" mz="No.h">h</string>
-  <string name="xp0b9yqdcwuo24-n17_cwuo" mz="No.j">j</string>
-  <string name="xp0b9yqdcwuo24-n18_cwuo" mz="No.k">k</string>
-  <string name="xp0b9yqdcwuo24-n19_cwuo" mz="No.l">l</string>
-  <string name="xp0b9yqdcwuo24-n74_cwuo" mz="No.z">z</string>
-  <string name="xp0b9yqdcwuo24-n75_cwuo" mz="No.x">x</string>
-  <string name="xp0b9yqdcwuo24-n76_cwuo" mz="No.c">c</string>
-  <string name="xp0b9yqdcwuo24-n77_cwuo" mz="No.v">v</string>
-  <string name="xp0b9yqdcwuo24-n78_cwuo" mz="Nob">b</string>
-  <string name="xp0b9yqdcwuo24-n79_cwuo" mz="No.n">n</string>
-  <string name="xp0b9yqdcwuo24-n80_cwuo" mz="No.m">m</string>
-  <string name="xp0b9yqdcwuo24-n87_cwuo" mz="No.Q">Q</string>
-  <string name="xp0b9yqdcwuo24-n88_cwuo" mz="No.W">W</string>
-  <string name="xp0b9yqdcwuo24-n89_cwuo" mz="No.E">E</string>
-  <string name="xp0b9yqdcwuo24-n90_cwuo" mz="No.R">R</string>
-  <string name="xp0b9yqdcwuo24-n91_cwuo" mz="No.T">T</string>
-  <string name="xp0b9yqdcwuo24-n92_cwuo" mz="No.Y">Y</string>
-  <string name="xp0b9yqdcwuo24-n93_cwuo" mz="No.U">U</string>
-  <string name="xp0b9yqdcwuo24-n94_cwuo" mz="No.I">I</string>
-  <string name="xp0b9yqdcwuo24-n95_cwuo" mz="No.O">O</string>
-  <string name="xp0b9yqdcwuo24-n96_cwuo" mz="No.P">P</string>
-  <string name="xp0b9yqdcwuo24-n98_cwuo" mz="No.A">A</string>
-  <string name="xp0b9yqdcwuo24-n99_cwuo" mz="No.S">S</string>
-  <string name="xp0b9yqdcwuo24-n100_cwuo" mz="No.D">D</string>
-  <string name="xp0b9yqdcwuo24-n101_cwuo" mz="No.F">F</string>
-  <string name="xp0b9yqdcwuo24-n102_cwuo" mz="No.G">G</string>
-  <string name="xp0b9yqdcwuo24-n103_cwuo" mz="No.H">H</string>
-  <string name="xp0b9yqdcwuo24-n104_cwuo" mz="NoJ">J</string>
-  <string name="xp0b9yqdcwuo24-n105_cwuo" mz="No.K">K</string>
-  <string name="xp0b9yqdcwuo24-n106_cwuo" mz="No.L">L</string>
-  <string name="xp0b9yqdcwuo24-n109_cwuo" mz="No.Z">Z</string>
-  <string name="xp0b9yqdcwuo24-n110_cwuo" mz="No.X">X</string>
-  <string name="xp0b9yqdcwuo24-n111_cwuo" mz="No.C">C</string>
-  <string name="xp0b9yqdcwuo24-n112_cwuo" mz="No.V">V</string>
-  <string name="xp0b9yqdcwuo24-n113_cwuo" mz="No.B">B</string>
-  <string name="xp0b9yqdcwuo24-n114_cwuo" mz="No.N">N</string>
-  <string name="xp0b9yqdcwuo24-n115_cwuo" mz="No.M">M</string>
-  <string name="xp0b9yqdcwuo24-n69_cwuo" mz="No.ABC">ABC</string>
-  <string name="xp0b9yqdcwuo24-n123_cwuo" mz="No.[">[</string>
-  <string name="xp0b9yqdcwuo24-n124_cwuo" mz="No.]">]</string>
-  <string name="xp0b9yqdcwuo24-n125_cwuo" mz="No.3">{</string>
-  <string name="xp0b9yqdcwuo24-n126_cwuo" mz="No.4">}</string>
-  <string name="xp0b9yqdcwuo24-n129_cwuo" mz="No.^">^</string>
-  <string name="xp0b9yqdcwuo24-n134_cwuo" mz="No._">_</string>
-  <string name="xp0b9yqdcwuo24-n135_cwuo" mz="No.\">\</string>
-  <string name="xp0b9yqdcwuo24-n136_cwuo" mz="No.|">|</string>
-  <string name="xp0b9yqdcwuo24-n137_cwuo" mz="No.~">~</string>
-  <string name="xp0b9yqdcwuo24-n140_cwuo" mz="No.€">€</string>
-  <string name="xp0b9yqdcwuo24-n141_cwuo" mz="No.￡">￡</string>
-  <string name="xp0b9yqdcwuo24-n142_cwuo" mz="No.￥">￥</string>
-  <string name="xp0b9yqdcwuo24-n143_cwuo" mz="No.·">·</string>
-  <string name="xp0b9yqdcwuo24-n153_cwuo" mz="No.ABC">ABC</string>
+  <string name="xp0b9yqdglrj1o-n12_glrj" mz="No.Delete">删除</string>
+  <string name="xp0b9yqdglrj1o-n14_glrj" mz="No.OK">确认</string>
+  <!-- Console/moudules/ItemCustomKeyboard002.xml -->
+  <string name="xp0b9yqdglrj1w-n19_glrj" mz="No.Cancel">取消</string>
+  <!-- Console/moudules/ItemCustomKeyboard004.xml -->
+  <string name="xp0b9yqddzs178-n1_cwuo" mz="No.q">q</string>
+  <string name="xp0b9yqddzs178-n2_cwuo" mz="No.w">w</string>
+  <string name="xp0b9yqddzs178-n3_cwuo" mz="No.e">e</string>
+  <string name="xp0b9yqddzs178-n4_cwuo" mz="No.r">r</string>
+  <string name="xp0b9yqddzs178-n5_cwuo" mz="No.t">t</string>
+  <string name="xp0b9yqddzs178-n6_cwuo" mz="No.y">y</string>
+  <string name="xp0b9yqddzs178-n7_cwuo" mz="No.u">u</string>
+  <string name="xp0b9yqddzs178-n8_cwuo" mz="No.i">i</string>
+  <string name="xp0b9yqddzs178-n9_cwuo" mz="No.o">o</string>
+  <string name="xp0b9yqddzs178-n10_cwuo" mz="No.p">p</string>
+  <string name="xp0b9yqddzs178-n11_cwuo" mz="No.a">a</string>
+  <string name="xp0b9yqddzs178-n12_cwuo" mz="No.s">s</string>
+  <string name="xp0b9yqddzs178-n13_cwuo" mz="No.d">d</string>
+  <string name="xp0b9yqddzs178-n14_cwuo" mz="No.f">f</string>
+  <string name="xp0b9yqddzs178-n15_cwuo" mz="No.g">g</string>
+  <string name="xp0b9yqddzs178-n16_cwuo" mz="No.h">h</string>
+  <string name="xp0b9yqddzs178-n17_cwuo" mz="No.j">j</string>
+  <string name="xp0b9yqddzs178-n18_cwuo" mz="No.k">k</string>
+  <string name="xp0b9yqddzs178-n19_cwuo" mz="No.l">l</string>
+  <string name="xp0b9yqddzs178-n74_cwuo" mz="No.z">z</string>
+  <string name="xp0b9yqddzs178-n75_cwuo" mz="No.x">x</string>
+  <string name="xp0b9yqddzs178-n76_cwuo" mz="No.c">c</string>
+  <string name="xp0b9yqddzs178-n77_cwuo" mz="No.v">v</string>
+  <string name="xp0b9yqddzs178-n78_cwuo" mz="Nob">b</string>
+  <string name="xp0b9yqddzs178-n79_cwuo" mz="No.n">n</string>
+  <string name="xp0b9yqddzs178-n80_cwuo" mz="No.m">m</string>
+  <string name="xp0b9yqddzs178-n87_cwuo" mz="No.Q">Q</string>
+  <string name="xp0b9yqddzs178-n88_cwuo" mz="No.W">W</string>
+  <string name="xp0b9yqddzs178-n89_cwuo" mz="No.E">E</string>
+  <string name="xp0b9yqddzs178-n90_cwuo" mz="No.R">R</string>
+  <string name="xp0b9yqddzs178-n91_cwuo" mz="No.T">T</string>
+  <string name="xp0b9yqddzs178-n92_cwuo" mz="No.Y">Y</string>
+  <string name="xp0b9yqddzs178-n93_cwuo" mz="No.U">U</string>
+  <string name="xp0b9yqddzs178-n94_cwuo" mz="No.I">I</string>
+  <string name="xp0b9yqddzs178-n95_cwuo" mz="No.O">O</string>
+  <string name="xp0b9yqddzs178-n96_cwuo" mz="No.P">P</string>
+  <string name="xp0b9yqddzs178-n98_cwuo" mz="No.A">A</string>
+  <string name="xp0b9yqddzs178-n99_cwuo" mz="No.S">S</string>
+  <string name="xp0b9yqddzs178-n100_cwuo" mz="No.D">D</string>
+  <string name="xp0b9yqddzs178-n101_cwuo" mz="No.F">F</string>
+  <string name="xp0b9yqddzs178-n102_cwuo" mz="No.G">G</string>
+  <string name="xp0b9yqddzs178-n103_cwuo" mz="No.H">H</string>
+  <string name="xp0b9yqddzs178-n104_cwuo" mz="NoJ">J</string>
+  <string name="xp0b9yqddzs178-n105_cwuo" mz="No.K">K</string>
+  <string name="xp0b9yqddzs178-n106_cwuo" mz="No.L">L</string>
+  <string name="xp0b9yqddzs178-n109_cwuo" mz="No.Z">Z</string>
+  <string name="xp0b9yqddzs178-n110_cwuo" mz="No.X">X</string>
+  <string name="xp0b9yqddzs178-n111_cwuo" mz="No.C">C</string>
+  <string name="xp0b9yqddzs178-n112_cwuo" mz="No.V">V</string>
+  <string name="xp0b9yqddzs178-n113_cwuo" mz="No.B">B</string>
+  <string name="xp0b9yqddzs178-n114_cwuo" mz="No.N">N</string>
+  <string name="xp0b9yqddzs178-n115_cwuo" mz="No.M">M</string>
+  <string name="xp0b9yqddzs178-n69_cwuo" mz="No.ABC">ABC</string>
+  <string name="xp0b9yqddzs178-n123_cwuo" mz="No.[">[</string>
+  <string name="xp0b9yqddzs178-n124_cwuo" mz="No.]">]</string>
+  <string name="xp0b9yqddzs178-n125_cwuo" mz="No.3">{</string>
+  <string name="xp0b9yqddzs178-n126_cwuo" mz="No.4">}</string>
+  <string name="xp0b9yqddzs178-n129_cwuo" mz="No.^">^</string>
+  <string name="xp0b9yqddzs178-n134_cwuo" mz="No._">_</string>
+  <string name="xp0b9yqddzs178-n135_cwuo" mz="No.\">\</string>
+  <string name="xp0b9yqddzs178-n136_cwuo" mz="No.|">|</string>
+  <string name="xp0b9yqddzs178-n137_cwuo" mz="No.~">~</string>
+  <string name="xp0b9yqddzs178-n140_cwuo" mz="No.€">€</string>
+  <string name="xp0b9yqddzs178-n141_cwuo" mz="No.￡">￡</string>
+  <string name="xp0b9yqddzs178-n142_cwuo" mz="No.￥">￥</string>
+  <string name="xp0b9yqddzs178-n143_cwuo" mz="No.·">·</string>
+  <string name="xp0b9yqddzs178-n153_cwuo" mz="No.ABC">ABC</string>
+  <!-- Console/moudules/ItemDateSelect.xml -->
+  <string name="xp0b9yqdg3lh58-n0_glrj" mz="key">游戏编号:</string>
+  <string name="xp0b9yqdg3lh58-n3_g3lh-0" mz="value">item1</string>
+  <string name="xp0b9yqdg3lh58-n3_g3lh-1" mz="value">item2</string>
+  <string name="xp0b9yqdg3lh58-n3_g3lh-2" mz="value">item3</string>
+  <string name="xp0b9yqdg3lh58-n3_g3lh-3" mz="value">item4</string>
+  <!-- Console/moudules/ItemKeyboard123.xml -->
+  <string name="xp0b9yqddzs17a-n69_cwuo" mz="No.ABC">ABC</string>
+  <!-- Console/moudules/ItemKeyboardABC.xml -->
+  <string name="xp0b9yqddzs17b-n87_cwuo" mz="No.Q">Q</string>
+  <string name="xp0b9yqddzs17b-n88_cwuo" mz="No.W">W</string>
+  <string name="xp0b9yqddzs17b-n89_cwuo" mz="No.E">E</string>
+  <string name="xp0b9yqddzs17b-n90_cwuo" mz="No.R">R</string>
+  <string name="xp0b9yqddzs17b-n91_cwuo" mz="No.T">T</string>
+  <string name="xp0b9yqddzs17b-n92_cwuo" mz="No.Y">Y</string>
+  <string name="xp0b9yqddzs17b-n93_cwuo" mz="No.U">U</string>
+  <string name="xp0b9yqddzs17b-n94_cwuo" mz="No.I">I</string>
+  <string name="xp0b9yqddzs17b-n95_cwuo" mz="No.O">O</string>
+  <string name="xp0b9yqddzs17b-n96_cwuo" mz="No.P">P</string>
+  <string name="xp0b9yqddzs17b-n98_cwuo" mz="No.A">A</string>
+  <string name="xp0b9yqddzs17b-n99_cwuo" mz="No.S">S</string>
+  <string name="xp0b9yqddzs17b-n100_cwuo" mz="No.D">D</string>
+  <string name="xp0b9yqddzs17b-n101_cwuo" mz="No.F">F</string>
+  <string name="xp0b9yqddzs17b-n102_cwuo" mz="No.G">G</string>
+  <string name="xp0b9yqddzs17b-n103_cwuo" mz="No.H">H</string>
+  <string name="xp0b9yqddzs17b-n104_cwuo" mz="NoJ">J</string>
+  <string name="xp0b9yqddzs17b-n105_cwuo" mz="No.K">K</string>
+  <string name="xp0b9yqddzs17b-n106_cwuo" mz="No.L">L</string>
+  <string name="xp0b9yqddzs17b-n109_cwuo" mz="No.Z">Z</string>
+  <string name="xp0b9yqddzs17b-n110_cwuo" mz="No.X">X</string>
+  <string name="xp0b9yqddzs17b-n111_cwuo" mz="No.C">C</string>
+  <string name="xp0b9yqddzs17b-n112_cwuo" mz="No.V">V</string>
+  <string name="xp0b9yqddzs17b-n113_cwuo" mz="No.B">B</string>
+  <string name="xp0b9yqddzs17b-n114_cwuo" mz="No.N">N</string>
+  <string name="xp0b9yqddzs17b-n115_cwuo" mz="No.M">M</string>
+  <!-- Console/moudules/ItemKeyboardOperator.xml -->
+  <string name="xp0b9yqddzs179-n123_cwuo" mz="No.[">[</string>
+  <string name="xp0b9yqddzs179-n124_cwuo" mz="No.]">]</string>
+  <string name="xp0b9yqddzs179-n125_cwuo" mz="No._DAT">{</string>
+  <string name="xp0b9yqddzs179-n126_cwuo" mz="No._DAT">}</string>
+  <string name="xp0b9yqddzs179-n129_cwuo" mz="No.^">^</string>
+  <string name="xp0b9yqddzs179-n134_cwuo" mz="No._">_</string>
+  <string name="xp0b9yqddzs179-n135_cwuo" mz="No.\">\</string>
+  <string name="xp0b9yqddzs179-n136_cwuo" mz="No.|">|</string>
+  <string name="xp0b9yqddzs179-n137_cwuo" mz="No.~">~</string>
+  <string name="xp0b9yqddzs179-n140_cwuo" mz="No.€">€</string>
+  <string name="xp0b9yqddzs179-n141_cwuo" mz="No.￡">￡</string>
+  <string name="xp0b9yqddzs179-n142_cwuo" mz="No.￥">￥</string>
+  <string name="xp0b9yqddzs179-n143_cwuo" mz="No.·">·</string>
+  <string name="xp0b9yqddzs179-n153_cwuo" mz="No.ABC">ABC</string>
+  <!-- Console/moudules/ItemKeyboardabcd.xml -->
+  <string name="xp0b9yqddzs17d-n1_cwuo" mz="No.q">q</string>
+  <string name="xp0b9yqddzs17d-n2_cwuo" mz="No.w">w</string>
+  <string name="xp0b9yqddzs17d-n3_cwuo" mz="No.e">e</string>
+  <string name="xp0b9yqddzs17d-n4_cwuo" mz="No.r">r</string>
+  <string name="xp0b9yqddzs17d-n5_cwuo" mz="No.t">t</string>
+  <string name="xp0b9yqddzs17d-n6_cwuo" mz="No.y">y</string>
+  <string name="xp0b9yqddzs17d-n7_cwuo" mz="No.u">u</string>
+  <string name="xp0b9yqddzs17d-n8_cwuo" mz="No.i">i</string>
+  <string name="xp0b9yqddzs17d-n9_cwuo" mz="No.o">o</string>
+  <string name="xp0b9yqddzs17d-n10_cwuo" mz="No.p">p</string>
+  <string name="xp0b9yqddzs17d-n11_cwuo" mz="No.a">a</string>
+  <string name="xp0b9yqddzs17d-n12_cwuo" mz="No.s">s</string>
+  <string name="xp0b9yqddzs17d-n13_cwuo" mz="No.d">d</string>
+  <string name="xp0b9yqddzs17d-n14_cwuo" mz="No.f">f</string>
+  <string name="xp0b9yqddzs17d-n15_cwuo" mz="No.g">g</string>
+  <string name="xp0b9yqddzs17d-n16_cwuo" mz="No.h">h</string>
+  <string name="xp0b9yqddzs17d-n17_cwuo" mz="No.j">j</string>
+  <string name="xp0b9yqddzs17d-n18_cwuo" mz="No.k">k</string>
+  <string name="xp0b9yqddzs17d-n19_cwuo" mz="No.l">l</string>
+  <string name="xp0b9yqddzs17d-n74_cwuo" mz="No.z">z</string>
+  <string name="xp0b9yqddzs17d-n75_cwuo" mz="No.x">x</string>
+  <string name="xp0b9yqddzs17d-n76_cwuo" mz="No.c">c</string>
+  <string name="xp0b9yqddzs17d-n77_cwuo" mz="No.v">v</string>
+  <string name="xp0b9yqddzs17d-n78_cwuo" mz="No.b">b</string>
+  <string name="xp0b9yqddzs17d-n79_cwuo" mz="No.n">n</string>
+  <string name="xp0b9yqddzs17d-n80_cwuo" mz="No.m">m</string>
+  <!-- Console/moudules/ItemPopupTip.xml -->
+  <string name="xp0b9yqdvqlx6p-n16_vqlx" mz="title">[color=#0000ff]11[/color]80980&lt;br&gt;0808ouiipiipoipoipoipi "第一行&lt;br&gt;&lt;font color='#ff0000'&gt;第二行&lt;/font&gt;";</string>
+  <!-- Console/moudules/ItemProducedBy.xml -->
+  <string name="xp0b9yqdg3lh5n-n0_glrj" mz="key">Machine ID:</string>
+  <!-- Console/moudules/ItemTip.xml -->
+  <string name="xp0b9yqdg3lh5g-n0_glrj" mz="title">[注意]: 只保留最近的{0}次日营收数据。</string>
   <!-- Console/moudules/ItemTitleButton03.xml -->
-  <string name="xp0b9yqdcwuo21-n0_glrj" mz="key">Machine ID:</string>
-  <string name="xp0b9yqdcwuo21-n2_cwuo" mz="value">title3[color=#666666]666[/color]</string>
-  <string name="xp0b9yqdcwuo21-n2_cwuo-cp-value02" mz="value">内容0002</string>
+  <string name="xp0b9yqdcwuo21-n0_glrj" mz="key">设备编号:</string>
+  <string name="xp0b9yqdcwuo21-n2_cwuo" mz="value">title3[color=#666666]666[/color]99&lt;img src='ui://xp0b9yqdos7y4i' width='20' height='20'/&gt;</string>
+  <!-- Console/moudules/ItemTitleContent.xml -->
+  <string name="xp0b9yqdg3lh55-n0_glrj" mz="key">Machine ID:</string>
+  <string name="xp0b9yqdg3lh55-n1_glrj" mz="value">20240911 11:22:00&lt;br/&gt;111/10600001/1:100&lt;br/&gt;1.0.0/1.1735123146/100</string>
   <!-- Console/moudules/ItemTitleName.xml -->
   <string name="xp0b9yqdglrj1n-n0_glrj" mz="key">Machine ID:</string>
   <string name="xp0b9yqdglrj1n-n1_glrj" mz="value">http://192.168.3.152/api/game_log/caishen</string>
+  <!-- Console/moudules/ItemTitleName02.xml -->
+  <string name="xp0b9yqdg3lh56-n0_glrj" mz="key">Total Coin In:</string>
   <!-- Console/moudules/ItemTitleSwitch.xml -->
-  <string name="xp0b9yqdcwuo2d-n0_glrj" mz="key">Machine ID:</string>
+  <string name="xp0b9yqdcwuo2d-n0_glrj" mz="key">&lt;i18n value="CON1jqid"/&gt;Machine ID:</string>
   <!-- Console/moudules/ModuleName.xml -->
   <string name="xp0b9yqdglrj1k-n1_glrj" mz="title">ALL BUSINESS</string>
+  <!-- Console/moudules/TipContent.xml -->
+  <string name="xp0b9yqdmi1s7e-n2_os7y-cp-title" mz="tip">[color=#0000ff]11[/color]80980&lt;br&gt;0808ouiipiipoipoipoipi "第一行&lt;br&gt;&lt;font color='#ff0000'&gt;第二行&lt;/font&gt;";</string>
   <!-- Console/moudules/popups/ItemSelect002.xml -->
   <string name="xp0b9yqdos7y4o-n3_os7y" mz="title">Chinese(简体)</string>
+  <!-- Console/tabs/PCBRTabBusiness.xml -->
+  <string name="xp0b9yqdg3lh54-n31_os7y-cp-title" mz="mdAllBusiness">历史总营收</string>
+  <string name="xp0b9yqdg3lh54-n48_g3lh-cp-key" mz="totalBet">历史总押分:</string>
+  <string name="xp0b9yqdg3lh54-n33_os7y-cp-key" mz="totalWin">历史总赢分:</string>
+  <string name="xp0b9yqdg3lh54-n50_g3lh-cp-key" mz="totalCoinIn">历史总投币:</string>
+  <string name="xp0b9yqdg3lh54-n51_g3lh-cp-key" mz="totalCoinOut">历史总退票:</string>
+  <string name="xp0b9yqdg3lh54-n52_g3lh-cp-key" mz="totalScoreUp">历史总AS:</string>
+  <string name="xp0b9yqdg3lh54-n53_g3lh-cp-key" mz="totalScoreDown">历史总BX:</string>
+  <string name="xp0b9yqdg3lh54-n61_g3lh-cp-key" mz="billingInformation">账单详细信息:</string>
+  <string name="xp0b9yqdg3lh54-n61_g3lh-cp-value" mz="billingInformation">20240911 11:22:00&lt;br/&gt;111/10600001/1:100&lt;br/&gt;1.0.0/1.1735123146/100</string>
+  <string name="xp0b9yqdg3lh54-n54_g3lh-cp-key" mz="remainingPoints">剩余积分:</string>
+  <string name="xp0b9yqdg3lh54-n55_g3lh-cp-key" mz="totalProfitBet">总盈利:</string>
+  <string name="xp0b9yqdg3lh54-n57_g3lh-cp-key" mz="totalProfitCoinInOut">总盈利:</string>
+  <string name="xp0b9yqdg3lh54-n58_g3lh-cp-key" mz="totalProfitScoreUpDown">总盈利:</string>
+  <string name="xp0b9yqdg3lh54-n64_g3lh-cp-title" mz="mdDalyBusiness">每日总营收</string>
+  <string name="xp0b9yqdg3lh54-n80_g3lh-cp-key" mz="totalBetDaly">总押分:</string>
+  <string name="xp0b9yqdg3lh54-n81_g3lh-cp-key" mz="totalWinDaly">总赢分:</string>
+  <string name="xp0b9yqdg3lh54-n82_g3lh-cp-key" mz="totalProfitBetDaly">总盈利:</string>
+  <string name="xp0b9yqdg3lh54-n67_g3lh-cp-key" mz="totalCoinInDaly">总投币:</string>
+  <string name="xp0b9yqdg3lh54-n68_g3lh-cp-key" mz="totalCoinOutDaly">总退票:</string>
+  <string name="xp0b9yqdg3lh54-n69_g3lh-cp-key" mz="totalProfitCoinInOutDaly">总盈利:</string>
+  <string name="xp0b9yqdg3lh54-n85_g3lh-cp-key" mz="totalScoreUpDaly">总AS:</string>
+  <string name="xp0b9yqdg3lh54-n86_g3lh-cp-key" mz="totalScoreDownDaly">总BX:</string>
+  <string name="xp0b9yqdg3lh54-n87_g3lh-cp-key" mz="totalProfitScoreUpDownDaly">总盈利:</string>
+  <!-- Console/tabs/PCBRTabCoin.xml -->
+  <string name="xp0b9yqdg3lh5i-n92_g3lh" mz="inOut">投-退</string>
+  <string name="xp0b9yqdg3lh5i-n93_g3lh" mz="credit">积分</string>
+  <string name="xp0b9yqdg3lh5i-n94_g3lh" mz="Device">设备</string>
+  <string name="xp0b9yqdg3lh5i-n95_g3lh" mz="beforeCredit">投退前分数</string>
+  <string name="xp0b9yqdg3lh5i-n96_g3lh" mz="afterCredit">投退后分数</string>
+  <string name="xp0b9yqdg3lh5i-n97_g3lh" mz="date">日期</string>
+  <string name="xp0b9yqdg3lh5i-n67_g3lh-cp-key" mz="totalCoinInSummary">总投币:</string>
+  <string name="xp0b9yqdg3lh5i-n68_g3lh-cp-key" mz="totalCoinOutSummary">总退票:</string>
+  <string name="xp0b9yqdg3lh5i-n69_g3lh-cp-key" mz="totalProfitCoinSummary">总盈利:</string>
+  <string name="xp0b9yqdg3lh5i-n85_g3lh-cp-key" mz="totalScoreUpSummary">总AS:</string>
+  <string name="xp0b9yqdg3lh5i-n86_g3lh-cp-key" mz="totalScoreDownSummary">总BX:</string>
+  <string name="xp0b9yqdg3lh5i-n87_g3lh-cp-key" mz="totalProfitScoreSummary">总盈利:</string>
+  <!-- Console/tabs/PCBRTabGameHistory.xml -->
+  <string name="xp0b9yqdh0z3ao-n3_h0z3-cp-key" mz="game_uid">游戏编号</string>
+  <string name="xp0b9yqdh0z3ao-n4_h0z3-cp-key" mz="created_at">游戏时间</string>
+  <string name="xp0b9yqdh0z3ao-n5_h0z3-cp-key" mz="credit_before">游戏前分数</string>
+  <string name="xp0b9yqdh0z3ao-n6_h0z3-cp-key" mz="credit_after">游戏后分数</string>
+  <string name="xp0b9yqdh0z3ao-n7_h0z3-cp-key" mz="total_bet">总投注</string>
+  <string name="xp0b9yqdh0z3ao-n8_h0z3-cp-key" mz="base_game_win_credit">基础游戏赢分</string>
+  <string name="xp0b9yqdh0z3ao-n10_h0z3-cp-key" mz="jackpot_win_credit">彩金赢分</string>
+  <string name="xp0b9yqdh0z3ao-n11_h0z3-cp-key" mz="open_type">本局是否赠送局:</string>
+  <string name="xp0b9yqdh0z3ao-n11_h0z3-cp-value" mz="open_type">false</string>
+  <string name="xp0b9yqdh0z3ao-n12_h0z3-cp-key" mz="result_type">本局游戏类型:</string>
+  <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-key" mz="game_page">"Slot1700"游戏记录</string>
+  <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-value" mz="game_page">第999/999条</string>
+    <!-- Console/tabs/PCBTabTestBtn.xml -->
+  <string name="xp0b9yqdes9vaq-n4_es9v" mz="TicketOutBtn">退票</string>
+  <string name="xp0b9yqdes9vaq-n5_es9v" mz="SpinBtn">开始</string>
+  <string name="xp0b9yqdes9vaq-n9_es9v" mz="ConsoleBtn">设置</string>
+  <string name="xp0b9yqdes9vaq-n10_es9v" mz="UpBtn">上键</string>
+  <string name="xp0b9yqdes9vaq-n11_es9v" mz="DownBtn">下键</string>
+  <string name="xp0b9yqdes9vaq-n13_es9v" mz="DoorBtn">开门</string>
+  <!-- Console/tabs/PCMSTabInOut.xml -->
+  <string name="xp0b9yqdcwuo38-n18_cwuo-cp-key" mz="coinOutScale">退票比例(票 : 分):</string>
+  <string name="xp0b9yqdcwuo38-n19_cwuo-cp-key" mz="coinInScale">投币比例(币 : 分):</string>
+  <string name="xp0b9yqdcwuo38-n27_os7y-cp-key" mz="scoreScale">ASBX短按比例(次 : 分):</string>
+  <string name="xp0b9yqdcwuo38-n25_cwuo-cp-btn" mz="flipScreen">旋转屏幕</string>
+  <string name="xp0b9yqdcwuo38-n28_os7y-cp-btn" mz="resetMachineToFactorySettings">恢复出厂设置</string>
+  <string name="xp0b9yqdcwuo38-n29_os7y-cp-key" mz="useBillValidator">纸钞机:</string>
+  <string name="xp0b9yqdcwuo38-n30_os7y-cp-key" mz="billValidatorModel">纸钞机型号:</string>
+  <string name="xp0b9yqdcwuo38-n30_os7y-cp-value" mz="billValidatorModel">AE2831 D5 &lt;img src='ui://xp0b9yqdos7y4j' width='20' height='20'/&gt;</string>
+  <string name="xp0b9yqdcwuo38-n31_os7y-cp-key" mz="usePrinter">打印机:</string>
+  <string name="xp0b9yqdcwuo38-n32_os7y-cp-key" mz="printerModel">打印机型号:</string>
+  <string name="xp0b9yqdcwuo38-n32_os7y-cp-value" mz="printerModel">Phoenix &lt;img src='ui://xp0b9yqdos7y4i' width='20' height='20'/&gt;</string>
+  <!-- Console/tabs/PCMSTabMachine.xml -->
+  <string name="xp0b9yqdmsw23e-n37_jtgo-cp-key" mz="agentID">代理商线号:</string>
+  <string name="xp0b9yqdmsw23e-n38_jtgo-cp-key" mz="machineID">设备唯一序列号:</string>
+  <string name="xp0b9yqdmsw23e-n39_jtgo-cp-key" mz="maxCoinInOutRecord">投退币记录最大次数:</string>
+  <string name="xp0b9yqdmsw23e-n40_jtgo-cp-key" mz="maxGameRecord">游戏记录最大次数:</string>
+  <string name="xp0b9yqdmsw23e-n41_jtgo-cp-key" mz="maxEventRecord">消息记录最大次数:</string>
+  <string name="xp0b9yqdmsw23e-n42_jtgo-cp-key" mz="maxErrorRecord">警告记录最大次数:</string>
+  <string name="xp0b9yqdmsw23e-n43_jtgo-cp-key" mz="maxBusinessDayRecord">日营收统计最大次数:</string>
+  <string name="xp0b9yqdmsw23e-n32_cwuo-cp-key" mz="difficulty">&lt;i18n value="CON1x"&gt;技巧模式:&lt;/i18n&gt;</string>
+  <string name="xp0b9yqdmsw23e-n34_cwuo-cp-value" mz="active">激活</string>
+  <string name="xp0b9yqdmsw23e-n44_jtgo-cp-btn" mz="changeShiftPassword">修改用户密码</string>
+  <string name="xp0b9yqdmsw23e-n45_jtgo-cp-btn" mz="changeManagerPassword">修改管理员密码</string>
+  <string name="xp0b9yqdmsw23e-n46_jtgo-cp-btn" mz="changeAdminPassword">修改超级管理员密码</string>
+  <!-- Console/tabs/PCMSTabProgressive.xml -->
+  <string name="xp0b9yqdcwuo39-n31_os7y-cp-title" mz="mdJackpotOnline">联网彩金</string>
+  <string name="xp0b9yqdcwuo39-n32_os7y-cp-key" mz="jackpotOnline">联网彩金:</string>
+  <string name="xp0b9yqdcwuo39-n33_os7y-cp-key" mz="jackpotScoreRate">联网彩金分值比:</string>
+  <string name="xp0b9yqdcwuo39-n34_os7y-cp-key" mz="jackpotPercent">联网彩金比:</string>
+  <string name="xp0b9yqdcwuo39-n48_vqlx-cp-title" mz="mdJackpotGame">游戏彩金</string>
+  <string name="xp0b9yqdcwuo39-n49_vqlx-cp-key" mz="jackpotGamePercent">游戏彩金比:</string>
+  <string name="xp0b9yqdcwuo39-n35_os7y-cp-title" mz="mdIOT">好酷</string>
+  <string name="xp0b9yqdcwuo39-n36_os7y-cp-key" mz="iotAddresse">好酷服务器地址:</string>
+  <string name="xp0b9yqdcwuo39-n36_os7y-cp-value" mz="iotAddresse">http://i.test.gzhaoku.com/admin/resp/firmware/query</string>
+  <string name="xp0b9yqdcwuo39-n37_os7y-cp-key" mz="iot">好酷:</string>
+  <string name="xp0b9yqdcwuo39-n38_os7y-cp-key" mz="iotAccessMethods">好酷接入方式:</string>
+  <string name="xp0b9yqdcwuo39-n38_os7y-cp-value" mz="iotAccessMethods">Mini Program &lt;img src='ui://xp0b9yqdos7y4i' width='20' height='20'/&gt;[color=#666666]666[/color]</string>
+  <string name="xp0b9yqdcwuo39-n41_os7y-cp-title" mz="mdRemoteControl">远端控制</string>
+  <string name="xp0b9yqdcwuo39-n43_os7y-cp-key" mz="iotRemoteControl">远端控制:</string>
+  <string name="xp0b9yqdcwuo39-n44_os7y-cp-key" mz="remoteControlSetting">远端控制设置:</string>
+  <string name="xp0b9yqdcwuo39-n44_os7y-cp-value" mz="remoteControlSetting">192.168.3.174:1883&lt;img src='ui://xp0b9yqdos7y4j' width='20' height='20'/&gt;</string>
+  <string name="xp0b9yqdcwuo39-n45_os7y-cp-key" mz="remoteControlAccount">远端控制账号:</string>
+  <string name="xp0b9yqdcwuo39-n45_os7y-cp-value" mz="remoteControlAccount">tester / 123456</string>
+  <string name="xp0b9yqdcwuo39-n42_os7y-cp-title" mz="mdOther">其他</string>
+  <string name="xp0b9yqdcwuo39-n46_os7y-cp-key" mz="coinOutImmediately">即中即退:</string>
+  <string name="xp0b9yqdcwuo39-n47_os7y-cp-key" mz="checkHotfixMultipleTimes">是否多次检查热更新:</string>
 </resources>

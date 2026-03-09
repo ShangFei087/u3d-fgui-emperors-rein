@@ -2,7 +2,7 @@
   "langFiles": [
     {
       "name": "cn",
-      "path": "F:\\StandAloneSlotFrame\\u3d-fgui-emperors-rein\\TheSourceFile\\fgui-console\\TheLanguage\\lang_cn.xml",
+      "path": "F:\\StandAloneSlotFrame\\u3d-fgui-emperors-rein\\TheSourceFile\\fgui-console\\TheSlotLanguage\\lang_cn.xml",
       "fontName": ""
     },
     {
@@ -12,7 +12,7 @@
     },
     {
       "name": "tw",
-      "path": "F:\\StandAloneSlotFrame\\u3d-fgui-emperors-rein\\TheSourceFile\\fgui-console\\TheLanguage\\lang_tw.xml",
+      "path": "F:\\StandAloneSlotFrame\\u3d-fgui-emperors-rein\\TheSourceFile\\fgui-console\\TheSlotLanguage\\lang_cn.xml",
       "fontName": ""
     }
   ]

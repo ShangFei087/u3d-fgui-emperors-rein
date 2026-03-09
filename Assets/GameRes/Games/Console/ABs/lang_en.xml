@@ -16,6 +16,10 @@
   <string name="xp0b9yqdg3lh5m-n35_g3lh-cp-key" mz="algorithmVer">Algorithm Ver:</string>
   <string name="xp0b9yqdg3lh5m-n36_g3lh-cp-key" mz="producedBy">Produced By:</string>
   <string name="xp0b9yqdg3lh5m-n29_os7y-cp-title" mz="navBottom">Game Information</string>
+  <!-- Console/PageConsoleHardware.xml -->
+  <string name="xp0b9yqdes9vap-n1_es9v" mz="navTestBtn">Button</string>
+  <string name="xp0b9yqdes9vap-n2_es9v" mz="navTestScreen">Screen</string>
+  <string name="xp0b9yqdes9vap-n4_es9v-cp-title" mz="navBottom">Hardeare</string>
   <!-- Console/PageConsoleLogRecord.xml -->
   <string name="xp0b9yqdu8xf7r-n6_cwuo" mz="navEvent">EVENT</string>
   <string name="xp0b9yqdu8xf7r-n31_g3lh" mz="navWarning">WARNING</string>
@@ -130,8 +134,8 @@
   <string name="xp0b9yqdg3lh5k-n99_g3lh" mz="col0">In</string>
   <string name="xp0b9yqdg3lh5k-n101_g3lh" mz="col2">score_up</string>
   <!-- Console/moudules/ItemCustomKeyboard.xml -->
-  <string name="xp0b9yqdglrj1o-n12_glrj" mz="No.Delete">删除</string>
-  <string name="xp0b9yqdglrj1o-n14_glrj" mz="No.OK">确认</string>
+  <string name="xp0b9yqdglrj1o-n12_glrj" mz="No.Delete">Delete</string>
+  <string name="xp0b9yqdglrj1o-n14_glrj" mz="No.OK">OK</string>
   <!-- Console/moudules/ItemCustomKeyboard002.xml -->
   <string name="xp0b9yqdglrj1w-n19_glrj" mz="No.Cancel">Cancel</string>
   <!-- Console/moudules/ItemCustomKeyboard004.xml -->
@@ -342,18 +346,31 @@
   <string name="xp0b9yqdg3lh5i-n86_g3lh-cp-key" mz="totalScoreDownSummary">Total Score Down:</string>
   <string name="xp0b9yqdg3lh5i-n87_g3lh-cp-key" mz="totalProfitScoreSummary">Total Profit:</string>
   <!-- Console/tabs/PCBRTabGameHistory.xml -->
-  <string name="xp0b9yqdh0z3ao-n3_h0z3-cp-key" mz="game_uid">Game_uid</string>
-  <string name="xp0b9yqdh0z3ao-n4_h0z3-cp-key" mz="created_at">Game_time</string>
-  <string name="xp0b9yqdh0z3ao-n5_h0z3-cp-key" mz="credit_before">游戏前分数</string>
-  <string name="xp0b9yqdh0z3ao-n6_h0z3-cp-key" mz="credit_after">游戏后分数</string>
-  <string name="xp0b9yqdh0z3ao-n7_h0z3-cp-key" mz="total_bet">总投注</string>
-  <string name="xp0b9yqdh0z3ao-n8_h0z3-cp-key" mz="base_game_win_credit">基础游戏赢分</string>
-  <string name="xp0b9yqdh0z3ao-n10_h0z3-cp-key" mz="jackpot_win_credit">彩金赢分</string>
-  <string name="xp0b9yqdh0z3ao-n11_h0z3-cp-key" mz="open_type">本局是否赠送局:</string>
+  <string name="xp0b9yqdh0z3ao-n3_h0z3-cp-key" mz="game_uid">game_uid</string>
+  <string name="xp0b9yqdh0z3ao-n4_h0z3-cp-key" mz="created_at">game_time</string>
+  <string name="xp0b9yqdh0z3ao-n5_h0z3-cp-key" mz="credit_before">credit_before</string>
+  <string name="xp0b9yqdh0z3ao-n6_h0z3-cp-key" mz="credit_after">credit_after</string>
+  <string name="xp0b9yqdh0z3ao-n7_h0z3-cp-key" mz="total_bet">total_bet</string>
+  <string name="xp0b9yqdh0z3ao-n8_h0z3-cp-key" mz="base_game_win_credit">base_game_win_credit</string>
+  <string name="xp0b9yqdh0z3ao-n10_h0z3-cp-key" mz="jackpot_win_credit">jackpot_win_credit</string>
+  <string name="xp0b9yqdh0z3ao-n11_h0z3-cp-key" mz="open_type">open_type:</string>
   <string name="xp0b9yqdh0z3ao-n11_h0z3-cp-value" mz="open_type">false</string>
-  <string name="xp0b9yqdh0z3ao-n12_h0z3-cp-key" mz="result_type">本局游戏类型:</string>
+  <string name="xp0b9yqdh0z3ao-n12_h0z3-cp-key" mz="result_type">result_type:</string>
   <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-key" mz="game_page">"Slot1700"游戏记录</string>
-  <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-value" mz="game_page">第999/999条</string>
+  <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-value" mz="game_page">999/999</string>
+  <!-- Console/tabs/PCBTabTestBtn.xml -->
+  <string name="xp0b9yqdes9vaq-n4_es9v" mz="TicketOutBtn">TicketOut</string>
+  <string name="xp0b9yqdes9vaq-n5_es9v" mz="SpinBtn">Spin
+</string>
+  <string name="xp0b9yqdes9vaq-n9_es9v" mz="ConsoleBtn">Console
+</string>
+  <string name="xp0b9yqdes9vaq-n10_es9v" mz="UpBtn">Up</string>
+  <string name="xp0b9yqdes9vaq-n11_es9v" mz="DownBtn">Down</string>
+  <string name="xp0b9yqdes9vaq-n13_es9v" mz="DoorBtn">Door
+</string>
+  <!-- Console/tabs/PCBTabTestScreen.xml -->
+  <string name="xp0b9yqdes9vas-n2_es9v-cp-key" mz="ScreenTest">ScreenTest :</string>
+  <string name="xp0b9yqdes9vas-n2_es9v-cp-value" mz="ScreenTest">Start</string>
   <!-- Console/tabs/PCMSTabInOut.xml -->
   <string name="xp0b9yqdcwuo38-n18_cwuo-cp-key" mz="coinOutScale">Coin Out Scale(Ticket : Credit):</string>
   <string name="xp0b9yqdcwuo38-n19_cwuo-cp-key" mz="coinInScale">Coin In Scale(Coin : Credit):</string>

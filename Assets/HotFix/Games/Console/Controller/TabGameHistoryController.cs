@@ -1,4 +1,5 @@
 using FairyGUI;
+using SBoxApi;
 using SlotMaker;
 using System;
 using System.Collections;
@@ -102,9 +103,18 @@ public class TabGameHistoryController : MonoBehaviour
             _rtxtbase_game_win_credit.text = $"{pageInfo.currentRecord.base_game_win_credit}";
             _rtxtjackpot_win_credit.text = $"{pageInfo.currentRecord.jackpot_win_credit}";
             _rtxtopen_type.text = $"{pageInfo.currentRecord.open_type}";
-            _rtxtresult_type.text = $"{pageInfo.currentRecord.result_type}"; // 原来漏掉了这个字段
-            _rtxtgame_name.text = $"{pageInfo.currentRecord.game_id}游戏记录";
-            _rtxtgame_page.text = $"第{pageInfo.curPageNumber}/{pageInfo.totalPageCount}页";
+            _rtxtresult_type.text = $"{pageInfo.currentRecord.result_type}";
+            if (SBoxModel.Instance.language == "cn")
+            {
+                _rtxtgame_name.text = $"{pageInfo.currentRecord.game_id}游戏记录";
+                _rtxtgame_page.text = $"第{pageInfo.curPageNumber}/{pageInfo.totalPageCount}页";
+            }
+            else
+            {
+                _rtxtgame_name.text = $"{pageInfo.currentRecord.game_id} GameHistory";
+                _rtxtgame_page.text = $"Page {pageInfo.curPageNumber} of {pageInfo.totalPageCount}";
+            }
+           
         }
         else
         {

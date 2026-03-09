@@ -169,7 +169,7 @@ public class MachineDeviceController : MonoSingleton<MachineDeviceController>
     public void OnKeyDown(MachineButtonKey value)
     {
         string keyName = Enum.GetName(typeof(MachineButtonKey), value);
-        //DebugUtils.LogWarning($"【machine】KeyDown;  Key Name = {keyName};");
+        DebugUtils.LogWarning($"【machine】KeyDown;  Key Name = {keyName};");
 
         if (!longClickTime.ContainsKey(value))
             longClickTime.Add(value, Time.unscaledTime);
@@ -185,7 +185,7 @@ public class MachineDeviceController : MonoSingleton<MachineDeviceController>
                         // 如果已经在后台模式，按下后台按钮准备退出
                         if (isInConsoleMode)
                         {
-                            DebugUtils.Log("【machine】准备退出后台模式");
+                            DebugUtils.Log("【machine】 已经后台模式");
                         }
                         else
                         {
@@ -204,8 +204,16 @@ public class MachineDeviceController : MonoSingleton<MachineDeviceController>
                         }
                         else
                         {
-                           
-                            isInTicketOut = true;
+                            if (!isInConsoleMode)
+                            {
+                                isInTicketOut = true;
+                            }
+                            else
+                            {
+                                //硬件测试
+   
+                            }
+
                         }
 
                         EventCenter.Instance.EventTrigger<EventData>(MACHINE_BUTTON_EVENT, new EventData<MachineButtonInfo>
@@ -243,7 +251,7 @@ public class MachineDeviceController : MonoSingleton<MachineDeviceController>
                     }
                     return;
                 case MachineButtonKey.BtnTicketOut:
-                   
+
                     return;
             }
 
@@ -282,9 +290,17 @@ public class MachineDeviceController : MonoSingleton<MachineDeviceController>
                     break;
                 case MachineButtonKey.BtnTicketOut:
                     {
-                        if(isInTicketOut)
+                        if (isInTicketOut)
                         {
-                            DeviceCoinOut.Instance.DoCoinOut();
+                            if (!isInConsoleMode)
+                            {
+                                DeviceCoinOut.Instance.DoCoinOut();
+                            }
+                            else
+                            {
+    
+                            }
+
                         }
                     }
                     break;
@@ -323,9 +339,21 @@ public class MachineDeviceController : MonoSingleton<MachineDeviceController>
                     return;
                 case MachineButtonKey.BtnTicketOut:
                     {
-                       
+
                     }
                     return;
+
+                case MachineButtonKey.BtnSpin:
+                    {
+                        //关闭弹窗
+                        if (CommonPopupHandler.Instance.iPopup.IsOpen())
+                        {
+                            CommonPopupHandler.Instance.ClosePopup();
+                            return;
+                        }
+
+                    }
+                    break;
             }
 
         if (curBtnInfo != null)
@@ -356,6 +384,7 @@ public class MachineDeviceController : MonoSingleton<MachineDeviceController>
             // 其他按钮都不响应
             if (value == MachineButtonKey.BtnConsole)
             {
+                DebugUtils.Log($"【machine】在后台模式下，只允许后台按钮操作");
                 return true; // 允许后台按钮处理退出
             }
             else
@@ -368,11 +397,12 @@ public class MachineDeviceController : MonoSingleton<MachineDeviceController>
 
         if (isInTicketOut)
         {
-            // 在后台模式下，只允许后台按钮操作（用于退出）
+
             // 其他按钮都不响应
             if (value == MachineButtonKey.BtnTicketOut)
             {
-                return true; // 允许后台按钮处理退出
+                DebugUtils.Log($"【machine】在退票模式下，只允许退票按钮操作");
+                return true;
             }
             else
             {
@@ -386,6 +416,7 @@ public class MachineDeviceController : MonoSingleton<MachineDeviceController>
         if (value == MachineButtonKey.BtnConsole &&
             PageManager.Instance.IndexOf(PageName.ConsolePageConsoleMain) == -1)
         {
+            DebugUtils.Log($"【machine】允许进入后台");
             return true; // 允许进入后台
         }
 
@@ -393,6 +424,7 @@ public class MachineDeviceController : MonoSingleton<MachineDeviceController>
         if (value == MachineButtonKey.BtnTicketOut &&
             PageManager.Instance.IndexOf(PageName.ConsolePopupConsoleMask) == -1)
         {
+            DebugUtils.Log($"【machine】允许退票");
             return true; // 允许退票
         }
 
@@ -523,7 +555,8 @@ public class MachineDeviceController : MonoSingleton<MachineDeviceController>
         NetButtonManager.Instance.ShowUIAminButtonClick(() =>
         {
             OnKeyDown(mBtn);
-        }, () => {
+        }, () =>
+        {
             OnKeyUp(mBtn);
         }, MARK_NET_BTN_MACHINE_DEVICE, nBtn);
 
@@ -559,7 +592,8 @@ public class MachineDeviceController : MonoSingleton<MachineDeviceController>
         NetButtonManager.Instance.ShowUIAminButtonLongClick(() =>
         {
             OnKeyDown(MachineButtonKey.BtnSpin);
-        }, () => {
+        }, () =>
+        {
             OnKeyUp(MachineButtonKey.BtnSpin);
         }, MARK_NET_BTN_MACHINE_DEVICE, BtnName.BtnAuto);
 

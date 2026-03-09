@@ -9,6 +9,8 @@ namespace ConsoleSlot01
     {
         public const string pkgName = "Console";
         public const string resName = "PageConsoleMachineSettings";
+
+        Controller myController;
         public override PageType pageType => PageType.Overlay;
         protected override void OnInit()
         {
@@ -91,7 +93,10 @@ namespace ConsoleSlot01
             {
                 CloseSelf(null);
             });
-
+            myController = this.contentPane.GetController("tab");
+            myController.onChanged.Clear();
+            myController.onChanged.Add(OnControllerChanged);
+            myController.selectedIndex = 0;
 
             cmpTabMachine = this.contentPane.GetChild("tabs").asList.GetChildAt(0).asCom;
             cmpTabInOut = this.contentPane.GetChild("tabs").asList.GetChildAt(1).asCom;
@@ -104,13 +109,25 @@ namespace ConsoleSlot01
             tabProgressive.InitParam(cmpTabProgressive);
         }
 
+        private void OnControllerChanged(EventContext context)
+        {
+            Controller controller = (Controller)context.sender;
+            DebugUtils.Log($"控制器已切换，当前页签索引: {controller.selectedIndex}, 名称: {controller.selectedPage}");
+            int pageIndex = controller.selectedIndex;
+            //OnControllerChanged(pageIndex);
+        }
 
-
-
-
-
-
-
-
+        //private void OnControllerChanged(int pageIndex)
+        //{
+        //    if (pageIndex == 0)
+        //    {
+        //        rtxtPageButtom1.text = I18nMgr.T(pageButtomInfo[pageIndex].title);
+        //    }
+        //    else if (pageIndex == 1)
+        //    {
+        //        rtxtPageButtom2.text = string.Format(I18nMgr.T(pageButtomInfo[pageIndex].title),
+        //            pageButtomInfo[pageIndex].curPageIndex + 1, pageButtomInfo[pageIndex].totalPageCount);
+        //    }
+        //}
     }
 }

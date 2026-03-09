@@ -478,8 +478,8 @@ namespace SlotMaker
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_CONTENT_EVENT,
                         new EventData(SlotMachineEvent.BeginTurn));
 
-            //同步到游戏最后的金额
-            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+            ////同步到游戏最后的金额
+            //MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
         }
 
         /// <summary>

@@ -45,13 +45,13 @@ public class TableBetItem
         DebugUtils.LogError($"@@ ConfigUtils.curGameInfoURL = {ConfigUtils.curGameInfoURL}");
 
         TextAsset jsn = await ResourceManager02.Instance.LoadAssetAsync<TextAsset>(ConfigUtils.curGameInfoURL);
-        
+
         JSONNode gameInfoNode = JSONNode.Parse(jsn.text);
         JSONNode node = JSONNode.Parse("[]");
 
         foreach (JSONNode item in gameInfoNode["bet_lst"])
         {
-            node.Add(JSONNode.Parse( string.Format("{{\"value\":{0},\"allowed\":1}}", (float)item)));
+            node.Add(JSONNode.Parse(string.Format("{{\"value\":{0},\"allowed\":1}}", (float)item)));
         }
         string betListStr = node.ToString();
 
@@ -123,7 +123,7 @@ public class TableCoinInOutRecordItem
     /// <summary> 玩家id </summary>
     public string user_id = "";
     /// <summary> 输入输出 </summary>
-    public int  in_out;
+    public int in_out;
     /// <summary> 充值前 </summary>
     public long credit_before;
     /// <summary> 充值后 </summary>
@@ -182,14 +182,14 @@ public class TableSysSettingItem
     /// <summary> 允许网络 </summary>
     public int is_network = 1;
     /// <summary> 允许调试（查看调试信息、使用调试工具） </summary>
-    public int is_debug = ApplicationSettings.Instance.isRelease? 0: 1;
+    public int is_debug = ApplicationSettings.Instance.isRelease ? 0 : 1;
     /// <summary> 允许显示包更新信息 </summary>
     public int is_update_info = 1;
     /// <summary> 使用联网彩金（1使用，0禁用）</summary>
     public int is_jackpot_online;
 
     /// <summary> 使用日志显示页面</summary>
-    public int enable_reporter_page = ApplicationSettings.Instance.isRelease? 0: 1;
+    public int enable_reporter_page = ApplicationSettings.Instance.isRelease ? 0 : 1;
 
     /// <summary> 使用测试工具</summary>
     public int enable_test_tool = ApplicationSettings.Instance.isRelease ? 0 : 1;
@@ -354,10 +354,10 @@ public class TableSlotGameRecordItem
     /// <summary> 开奖方式类型 </summary>
     public int open_type;
     /// <summary>开奖结果类型 </summary>
-    public int result_type; 
+    public int result_type;
 
     /// <summary> 大奖类型 </summary>
-    public string bonus_type = "";  
+    public string bonus_type = "";
 
     /// <summary> 本剧游戏guid </summary>
     public string game_uid;
@@ -443,7 +443,7 @@ public class TablePusherGameRecordItem
     public long credit_before = -1;
 
     /// <summary> "基础游戏 + 彩金"后金额（暂时不用） </summary>
-    public long credit_after = -1; 
+    public long credit_after = -1;
 
     /// <summary> 游戏结果 </summary>
     public string game_result = "";
@@ -547,7 +547,7 @@ public class OrderIdData
 /// <remarks>
 /// * 【这个即将弃用】 每日营销记录 和 总营销记录，将统计到同一张表中！
 /// </remarks>
-public class  TableBussinessDayRecordItem  
+public class TableBussinessDayRecordItem
 {
     public long id;
 
@@ -669,43 +669,46 @@ public static class ConsoleTableName
 {
     //public const string DB_NAME = "PssOn00152.db";
 
-        public static string DB_NAME => ApplicationSettings.Instance.dbName;
+    public static string DB_NAME => ApplicationSettings.Instance.dbName;
 
 
-        public const string TABLE_SYS_SETTING = "system_setting";
-        public const string TABLE_JACKPOT_RECORD = "jackpot_record";
-        public const string TABLE_BET = "bet";
-        /// <summary> 投退币记录</summary>
-        public const string TABLE_COIN_IN_OUT_RECORD = "coin_in_out_record";
-        /// <summary> 游戏游玩记录</summary>
-        public const string TABLE_SLOT_GAME_RECORD = "slot_game_record";
-        public const string TABLE_PUSHER_GAME_RECORD = "pusher_game_record";
+    public const string TABLE_SYS_SETTING = "system_setting";
+    public const string TABLE_JACKPOT_RECORD = "jackpot_record";
+    public const string TABLE_BET = "bet";
+    /// <summary> 投退币记录</summary>
+    public const string TABLE_COIN_IN_OUT_RECORD = "coin_in_out_record";
+    /// <summary> 游戏游玩记录</summary>
+    public const string TABLE_SLOT_GAME_RECORD = "slot_game_record";
+    public const string TABLE_PUSHER_GAME_RECORD = "pusher_game_record";
 
-        public const string TABLE_LOG_ERROR_RECORD = "log_error_record";
-        public const string TABLE_LOG_EVENT_RECORD = "log_event_record";
+    public const string TABLE_LOG_ERROR_RECORD = "log_error_record";
+    public const string TABLE_LOG_EVENT_RECORD = "log_event_record";
 
-        //public const string TABLE_ORDER_ID = "order_id";
+    //硬件测试
+    public const string TABLE_HARDWARE_BTN_TEST = "hardware_btn_test";
+    public const string TABLE_HARDWARE_SCREEN_TEST = "hardware_screen_test";
+    //public const string TABLE_ORDER_ID = "order_id";
 
-        public const string TABLE_BUSINESS_DAY_RECORD = "bussiness_day_record";
+    public const string TABLE_BUSINESS_DAY_RECORD = "bussiness_day_record";
 
-        public const string TABLE_BUSINESS_TOTAL_RECORD = "bussiness_total_record";
+    public const string TABLE_BUSINESS_TOTAL_RECORD = "bussiness_total_record";
 
-        public const string TABLE_VER_CACHER = "TABLE_VER_CACHER";
+    public const string TABLE_VER_CACHER = "TABLE_VER_CACHER";
 
-        public static readonly Dictionary<string, string> tableVer = new Dictionary<string, string>()
-        {
-            [TABLE_SYS_SETTING] = "1.0.3",
-            [TABLE_JACKPOT_RECORD] = "1.0.3",
-            [TABLE_BET] = "1.0.3",
-            [TABLE_COIN_IN_OUT_RECORD] = "1.0.3",
-            [TABLE_SLOT_GAME_RECORD] = "1.0.3",
-            [TABLE_PUSHER_GAME_RECORD] = "1.0.3",
-            [TABLE_LOG_ERROR_RECORD] = "1.0.3",
-            [TABLE_LOG_EVENT_RECORD] = "1.0.3",
-            [TABLE_BUSINESS_DAY_RECORD] = "1.0.3",
-            [TABLE_BUSINESS_TOTAL_RECORD] = "1.0.3",
-            //[TABLE_ORDER_ID] = "1.0.3",
-        };
+    public static readonly Dictionary<string, string> tableVer = new Dictionary<string, string>()
+    {
+        [TABLE_SYS_SETTING] = "1.0.3",
+        [TABLE_JACKPOT_RECORD] = "1.0.3",
+        [TABLE_BET] = "1.0.3",
+        [TABLE_COIN_IN_OUT_RECORD] = "1.0.3",
+        [TABLE_SLOT_GAME_RECORD] = "1.0.3",
+        [TABLE_PUSHER_GAME_RECORD] = "1.0.3",
+        [TABLE_LOG_ERROR_RECORD] = "1.0.3",
+        [TABLE_LOG_EVENT_RECORD] = "1.0.3",
+        [TABLE_BUSINESS_DAY_RECORD] = "1.0.3",
+        [TABLE_BUSINESS_TOTAL_RECORD] = "1.0.3",
+        //[TABLE_ORDER_ID] = "1.0.3",
+    };
 
 
 

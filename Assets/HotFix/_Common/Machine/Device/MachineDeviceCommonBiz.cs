@@ -113,7 +113,6 @@ public class MachineDeviceCommonBiz : MonoSingleton<MachineDeviceCommonBiz>
 
     public void CheckLanguage(Action onFinishCallback = null)
     {
-        DebugUtils.LogError($"当前语言： {SBoxModel.Instance.language} ");
         FguiI18nManager.Instance.ChangeLanguage((I18nLang)Enum.Parse(typeof(I18nLang), SBoxModel.Instance.language), onFinishCallback);
     }
 

@@ -6,6 +6,7 @@ using SimpleJSON;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -167,22 +168,38 @@ public class DeviceCoinOut : MonoSingleton<DeviceCoinOut> //  CorBehaviour
         // 主板 硬件退票
         SBoxSandbox.CoinOutStart(0, this.targetCoinOutNum, 0);
 
-
+       
         ClearCo(coCoinOutOutTime);
         coCoinOutOutTime = StartCoroutine(DelayTask(() =>
         {
             StopCoinOut();
             MachineDeviceController.Instance.ExitTicketOut();
             MaskPopupHandler.Instance.ClosePopup();
-            CommonPopupHandler.Instance.OpenPopupSingle(new CommonPopupInfo()
+            if (targetCoinOutNum <= 0)
             {
-                text = I18nMgr.T("<size=24>Ticket out outtime</size>"),
-                type = CommonPopupType.OK,
-                buttonText1 = I18nMgr.T("OK"),
-                buttonAutoClose1 = true,
-                callback1 = null,
-                isUseXButton = false,
-            });
+                CommonPopupHandler.Instance.OpenPopupSingle(new CommonPopupInfo()
+                {
+                    text = I18nMgr.T("Too few game credits, ticket refund failed."),
+                    type = CommonPopupType.OK,
+                    buttonText1 = I18nMgr.T("OK"),
+                    buttonAutoClose1 = true,
+                    callback1 = null,
+                    isUseXButton = false,
+                });
+            }
+            else
+            {
+                CommonPopupHandler.Instance.OpenPopupSingle(new CommonPopupInfo()
+                {
+                    text = I18nMgr.T("<size=24>Ticket out outtime</size>"),
+                    type = CommonPopupType.OK,
+                    buttonText1 = I18nMgr.T("OK"),
+                    buttonAutoClose1 = true,
+                    callback1 = null,
+                    isUseXButton = false,
+                });
+            }
+              
             DeviceOrderReship.Instance.DelayReshipOrderRepeat();
 
 
