@@ -76,15 +76,32 @@ public class JackBetInfoCoinPushR : ResponseBase
 //S2C_WinJackpot
 public class WinJackpotInfo
 {
-    public int macId;
-    public int seat;
-    public int win;
-    public int jackpotId;
-    public long orderId;
-    public long time;
+    public int macId;           // 机台号
+    public int seat;            // 分机号/座位号
+    public int win;             // 中奖金额, 传过来的是币数的100倍, 需要转换成分数进行使用
+    public int jackpotId;       // 彩金类型Id, 0:大彩金, 1:中彩金, 2:小彩金, 3:迷你彩金
+    public long orderId;        // 彩金唯一id, 用于判断是否已处理过本次彩金避免重复处理
+    public long time;           // 中奖时间戳
 }
 
-
+public class JackpotDeviceBetData
+{
+    public int macId;       	// 机台号
+    public int seatId;      	// 分机号/座位号
+    public long bet;        	// 总押分
+    public int betPercent;  	// 押分比例
+    public int scoreRate;   	// 分值比
+    public int jpPercent;   	// 分机彩金百分比，每次押分贡献给彩金的比例
+    public long win;        	// 总赢分
+    public long grandWin;   	// 大彩金总赢分
+    public int grandTimes;  	// 大彩金总赢次数
+    public long majorWin;   	// 中彩金总赢分
+    public int majorTimes;  	// 中彩金总赢次数
+    public long minorWin;   	// 小彩金总赢分
+    public int minorTimes;  	// 小彩金总赢次数
+    public long miniWin;    	// 迷你彩金总赢分
+    public int miniTimes;   	// 迷你彩金总赢次数
+}
 
 
 //S2C_Error
@@ -105,7 +122,7 @@ public enum GameType
 public class LoginInfo : RequestBase
 {
     /// <summary> 游戏类型 </summary>
-    //public int gameType;
+    public int gameType;
 
     /// <summary> 机台id </summary>
     public int macId;
@@ -118,7 +135,12 @@ public class LoginInfo : RequestBase
 public class LoginInfoR : ResponseBase { }
 
 
-
+public class JackpotConfig
+{
+    public int jackpotSwitch;  //彩金开关	0:关 1:开
+    public int betPercent;     //押分比例 	默认值100(具体数值请询问相关策划, 目前设定只允许查看, 不允许修改)
+    public int jpPercent;      //彩金百分比	默认值5  (具体数值请询问相关策划, 目前只允许查看, 不允许修改)
+}
 
 
 

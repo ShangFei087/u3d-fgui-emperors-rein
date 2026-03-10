@@ -309,7 +309,7 @@ public class Main
         MachineDeviceCommonBiz.Instance.CheckMqttRemoteButtonController();
 
 
-        //NetMgr.Instance.SetNetAutoConnect(true);
+        NetMgr.Instance.SetNetAutoConnect(false);
 
 
         DebugUtils.SetOpenDebugLog(SBoxModel.Instance.isDebugLog);

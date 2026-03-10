@@ -127,6 +127,7 @@ namespace ConsoleSlot01
         {
             string value = onChangeUI != null ? onChangeUI(valueCur) : $"1:{valueCur}";
             rtxtTitle.text = $"{title}<br>{value}";
+            //valueCur = int.Parse(value);
             // ticket out scale(票：钞)<br>200:1
         }
 
@@ -194,7 +195,7 @@ namespace ConsoleSlot01
 
         void OnClickConfirm()
         {
-            valueCur = GetCurValue(slider.value);
+            //valueCur = GetCurValue(slider.value);
             CloseSelf(new EventData<int>("Result", valueCur));
 
 
