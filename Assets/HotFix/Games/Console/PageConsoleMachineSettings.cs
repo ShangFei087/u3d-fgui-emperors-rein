@@ -55,6 +55,7 @@ namespace ConsoleSlot01
         public override void OnOpen(PageName name, EventData data)
         {
             base.OnOpen(name, data);
+           
             InitParam();
         }
 
@@ -115,6 +116,12 @@ namespace ConsoleSlot01
             DebugUtils.Log($"控制器已切换，当前页签索引: {controller.selectedIndex}, 名称: {controller.selectedPage}");
             int pageIndex = controller.selectedIndex;
             //OnControllerChanged(pageIndex);
+        }
+
+        public override void OnClose(EventData data = null)
+        {
+            tabProgressive.Disable();
+            base.OnClose(data);
         }
 
         //private void OnControllerChanged(int pageIndex)

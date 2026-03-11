@@ -2,7 +2,7 @@
 <resources>
   <!-- Console/PageConsoleBusinessRecord.xml -->
   <string name="xp0b9yqdg3lh53-n6_cwuo" mz="navBusiness">总营收</string>
-  <string name="xp0b9yqdg3lh53-n31_g3lh" mz="navCoin">投退币记录</string>
+  <string name="xp0b9yqdg3lh53-n31_g3lh" mz="navCoin">投退记录</string>
   <string name="xp0b9yqdg3lh53-n29_os7y-cp-title" mz="navBottom">营收记录</string>
   <!-- Console/PageConsoleGameHistory.xml -->
   <string name="xp0b9yqdexvp7x-n7_h0z3-cp-key" mz="gameId">游戏编号</string>

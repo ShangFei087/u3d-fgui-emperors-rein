@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,610">
+  <displayList>
+    <component id="n0_es9v" name="macId" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="1,-1" group="n16_es9v">
+      <property target="key" propertyId="0" value="macId"/>
+      <property target="value" propertyId="0" value=""/>
+    </component>
+    <component id="n1_es9v" name="seatId" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="1,151" group="n16_es9v">
+      <property target="key" propertyId="0" value="seatId"/>
+      <property target="value" propertyId="0" value=""/>
+    </component>
+    <component id="n2_es9v" name="bets" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="1,75" group="n16_es9v">
+      <property target="key" propertyId="0" value="bets"/>
+      <property target="value" propertyId="0" value=""/>
+    </component>
+    <component id="n3_es9v" name="betPercent" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="1,227" group="n16_es9v">
+      <property target="key" propertyId="0" value="betPercent"/>
+      <property target="value" propertyId="0" value=""/>
+    </component>
+    <component id="n4_es9v" name="scoreRate" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="1,303" group="n16_es9v">
+      <property target="key" propertyId="0" value="scoreRate"/>
+      <property target="value" propertyId="0" value=""/>
+    </component>
+    <component id="n5_es9v" name="jpPercent" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="1,455" group="n16_es9v">
+      <property target="key" propertyId="0" value="jpPercent"/>
+      <property target="value" propertyId="0" value=""/>
+    </component>
+    <component id="n6_es9v" name="wins" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="1,379" group="n16_es9v">
+      <property target="key" propertyId="0" value="wins"/>
+      <property target="value" propertyId="0" value=""/>
+    </component>
+    <group id="n16_es9v" name="left" xy="1,-1" size="540,532"/>
+    <component id="n7_es9v" name="grandWin" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="541,1" group="n17_es9v">
+      <property target="key" propertyId="0" value="grandWin"/>
+      <property target="value" propertyId="0" value=""/>
+    </component>
+    <component id="n8_es9v" name="grandTimes" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="541,77" group="n17_es9v">
+      <property target="key" propertyId="0" value="grandTimes"/>
+      <property target="value" propertyId="0" value=""/>
+    </component>
+    <component id="n9_es9v" name="majorWin" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="541,153" group="n17_es9v">
+      <property target="key" propertyId="0" value="majorWin"/>
+      <property target="value" propertyId="0" value=""/>
+    </component>
+    <component id="n10_es9v" name="majorTimes" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="541,229" group="n17_es9v">
+      <property target="key" propertyId="0" value="majorTimes"/>
+      <property target="value" propertyId="0" value=""/>
+    </component>
+    <component id="n11_es9v" name="minorWin" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="541,305" group="n17_es9v">
+      <property target="key" propertyId="0" value="minorWin"/>
+      <property target="value" propertyId="0" value=""/>
+    </component>
+    <component id="n12_es9v" name="minorTimes" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="541,381" group="n17_es9v">
+      <property target="key" propertyId="0" value="minorTimes"/>
+      <property target="value" propertyId="0" value=""/>
+    </component>
+    <component id="n13_es9v" name="miniWin" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="541,457" group="n17_es9v">
+      <property target="key" propertyId="0" value="miniWin"/>
+      <property target="value" propertyId="0" value=""/>
+    </component>
+    <component id="n15_es9v" name="miniTimes" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="541,533" group="n17_es9v">
+      <property target="key" propertyId="0" value="miniTimes"/>
+      <property target="value" propertyId="0" value=""/>
+    </component>
+    <group id="n17_es9v" name="right" xy="541,1" size="540,608"/>
+  </displayList>
+</component>

@@ -814,12 +814,6 @@ namespace CaiFuZhiJia_3997
                 case GlobalEvent.GMBigWin:
                     nextSpin = SpinDataType.BigWin;
                     break;
-                case GlobalEvent.GMJp1:
-                    GlobalJackpotConsole.NetClientHelper02.Instance.testIsHitJpGrandNext = true;
-                    break;
-                case GlobalEvent.GMJp2:
-                    GlobalJackpotConsole.NetClientHelper02.Instance.testIsHitJpMajorNext = true;
-                    break;
                 case GlobalEvent.GMJp3:
                     nextSpin = SpinDataType.Jp3;
                     break;

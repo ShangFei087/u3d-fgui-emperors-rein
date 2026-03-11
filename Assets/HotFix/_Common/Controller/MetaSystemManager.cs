@@ -202,16 +202,4 @@ public class MetaSystemManager : MonoSingleton<MetaSystemManager>
         //GTween.Kill(tweener);   
     }
 
-
-    [Button]
-    void TestEnum()
-    {
-        S2C_CMD cmd = S2C_CMD.S2C_LoginR;
-        string cmdStr = cmd.ToString();
-        DebugUtils.Log(cmdStr);
-
-        S2C_CMD res = (S2C_CMD)Enum.Parse(typeof(S2C_CMD), cmdStr);
-
-        DebugUtils.Log($"res = {res.ToString()}");
-    }
 }

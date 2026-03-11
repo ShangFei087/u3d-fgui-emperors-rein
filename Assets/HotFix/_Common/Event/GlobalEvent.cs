@@ -235,6 +235,8 @@ namespace GameMaker
 
         ///<summary> 获取配置完成 </summary>
         public const string GetRemoteConsoleConfigFinish = "GetRemoteConsoleConfigFinish";
+        ///<summary> 联网彩金中奖下发 </summary>
+        public const string JackpotOnlineWin = "JackpotOnlineWin";
         #endregion
 
 

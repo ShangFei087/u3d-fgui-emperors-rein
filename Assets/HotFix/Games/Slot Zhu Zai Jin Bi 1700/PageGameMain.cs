@@ -1,6 +1,5 @@
 using FairyGUI;
 using GameMaker;
-using GlobalJackpotConsole;
 using Newtonsoft.Json;
 using PusherEmperorsRein;
 using SBoxApi;
@@ -182,6 +181,7 @@ namespace SlotZhuZaiJinBi1700
             base.OnOpen(name, data);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
+            EventCenter.Instance.AddEventListener<string>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
             InitParam(data);
         }
@@ -189,6 +189,7 @@ namespace SlotZhuZaiJinBi1700
         {
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
+            EventCenter.Instance.RemoveEventListener<string>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             GameSoundHelper.Instance.StopMusic();
             base.OnClose(data);
         }
@@ -433,31 +434,10 @@ namespace SlotZhuZaiJinBi1700
                 yield break;
             }
 
-            //检查是否启用在线彩金
-            //根据运行环境（模拟或实际）请求彩金数据
+            //检查是否启用在线彩金,请求彩金数据
             if (SBoxModel.Instance.isJackpotOnLine)
             {
-                if (ApplicationSettings.Instance.isMock)
-                {
-                    // 模拟在线彩金中奖数据
-                    MachineDataManager.Instance.RequestJackpotOnLine();
-                }
-                else
-                {
-                    /*
-                    JackpotOnLineManager.Instance.RequestsJackpotOnLineData(
-                        new JackBetInfo
-                        {
-                            seat = 1,  // 固定死
-                            bet = (int)_contentBB.Instance.totalBet,  // 总压注
-                            betPercent = 100, // 固定死
-                            scoreRate =  _consoleBB.Instance.jackpotScoreRate,      //10000,  // 1 除以 币值 乘以 1000 整形   （联网彩金分值比 ：只能该币值）
-                            JPPercent =  _consoleBB.Instance.jackpotPercent,    //5  // 千分之几（1 - 100 可调 ；名称： 联网彩金比（千分）  ）
-                        },
-                        null, null
-                    );
-                    */
-                }
+                RequestOnlineJackpotBetByCurrentBet();
             }
 
             //开始滚动
@@ -642,8 +622,7 @@ namespace SlotZhuZaiJinBi1700
             if (successCallback != null)
                 successCallback.Invoke();
         }
-        const string CACHE_TOTAL_JP_MAJOR_CONTRIBUTION = "CACHE_TOTAL_JP_MAJOR_CONTRIBUTION";
-        const string CACHE_TOTAL_JP_GRAND_CONTRIBUTION = "CACHE_TOTAL_JP_GRAND_CONTRIBUTION";
+
         //请求模拟结果
         IEnumerator RequestSlotSpinFromMock(Action successCallback = null, Action<string> errorCallback = null)
         {
@@ -709,13 +688,13 @@ namespace SlotZhuZaiJinBi1700
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
-            //初始化彩金数据
+            //初始化本地彩金数据
             SBoxJackpotData sboxJackpotData =new SBoxJackpotData();
             sboxJackpotData.Lottery = new int[3];
             sboxJackpotData.JackpotOut = new int[3];
             sboxJackpotData.Jackpotlottery = new int[3];
             sboxJackpotData.JackpotOld = new int[3];
-            //获取彩金贡献值
+            //获取本地彩金贡献值
             ERPushMachineDataManager02.Instance.RequestGetJpContribution((res) =>
             {
                 Debug.Log("请求本地彩金贡献值");
@@ -752,22 +731,73 @@ namespace SlotZhuZaiJinBi1700
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
-            ////赠送局不用扣分
-            //if (ContentModel.Instance.gameState != GameState.FreeSpin)
-            //{
-            //    MainBlackboardController.Instance.MinusMyTempCredit(totalBet, true, false);
-            //}
          
             // 解析数据
             MachineDataG1700Controller.Instance.ParseSlotSpinMachine(totalBet, resNode, sboxJackpotData);
             // 数据入库
-            //MachineDataG200Controller.Instance.TestRecord();
+            //MachineDataG1700Controller.Instance.Record();
             // ui 彩金
             SetUIJackpotGameReel();
             Debug.Log("获取滚轮成功");
 
             if (successCallback != null)
                 successCallback.Invoke();
+        }
+
+        //下注时向大厅彩金主机发送当前下注
+        void RequestOnlineJackpotBetByCurrentBet()
+        {
+            //if (!SBoxModel.Instance.isJackpotOnLine
+            //    || !NetClineBiz.Instance.isLoginSuccess
+            //    || !ClientWS.Instance.IsConnected)
+            //    return;
+
+            try
+            {
+                List<JackBetInfo> jackBetInfoList = new List<JackBetInfo>();
+
+                JackBetInfo betInfo = new JackBetInfo()
+                {
+                    gameType = 300,
+                    seat = 1,
+                    bet = (int)TotalBet * 100,
+                    betPercent = 100,
+                    scoreRate = 1 * 1000,
+                    JPPercent = 1 * 1000,
+                };
+                jackBetInfoList.Add(betInfo);
+                NetMessageController.Instance.SendJackBet(jackBetInfoList);
+            }
+            catch (Exception ex)
+            {
+                DebugUtils.LogError($"请求大厅彩金下注失败: {ex.Message}");
+            }
+        }
+        private readonly HashSet<long> _handledOnlineJackpotOrderIds = new HashSet<long>();
+        private void OnJackpotOnLine(string res)
+        {
+            if (string.IsNullOrEmpty(res))
+                return;
+
+            try
+            {
+                WinJackpotInfo winInfo = JsonConvert.DeserializeObject<WinJackpotInfo>(res);
+                if (winInfo == null)
+                    return;
+
+                // 订单去重，避免重复处理
+                if (_handledOnlineJackpotOrderIds.Contains(winInfo.orderId))
+                    return;
+
+                _handledOnlineJackpotOrderIds.Add(winInfo.orderId);
+
+                // 入队给业务层后续表现/结算使用
+                ContentModel.Instance.jpOnlineWin.Add(winInfo);
+            }
+            catch (Exception ex)
+            {
+                DebugUtils.LogError($"处理大厅彩金中奖下发失败: {ex.Message}");
+            }
         }
         //显示线和中奖图标
         IEnumerator ShowWinListOnceAtNormalSpin(List<SymbolWin> winList)
@@ -1310,23 +1340,7 @@ namespace SlotZhuZaiJinBi1700
             // 有好酷优先用好酷
             if (false && SBoxModel.Instance.isUseIot && tipCoinIn)
             {
-                /*
-                tipCoinIn = false;
 
-                if (!DeviceIOTPayment.Instance.isIOTConneted)
-                {
-                    TipPopupHandler.Instance.OpenPopupOnce(string.Format(I18nMgr.T("IOT connection failed [{0}]"), Code.DEVICE_IOT_MQTT_NOT_CONNECT));
-                }
-                else if (!DeviceIOTPayment.Instance.isIOTSignInGetQRCode)
-                {
-                    TipPopupHandler.Instance.OpenPopupOnce(string.Format(I18nMgr.T("IOT connection failed [{0}]"), Code.DEVICE_IOT_NOT_SIGN_IN));
-                }
-                else
-                {}
-                    DeviceIOTPayment.Instance.DoQrCoinIn();
-                }
-                return;
-                */
             }
             else
             {
@@ -1334,51 +1348,9 @@ namespace SlotZhuZaiJinBi1700
                 TipPopupHandler.Instance.OpenPopupOnce(I18nMgr.T(msg));
             }
         }
-        bool isGetCrediting = false;
         void GetMyCredit(Action<int> onSuccessCallback, Action<string> onErrorCallback)
         {
-            //GetMyCreditSuccessQueque.Enqueue(onSuccessCallback);
-            //GetMyCreditFailQueque.Enqueue(onErrorCallback);
-            // onGetMyCreditSuccessCallback = onSuccessCallback;
-            // onGetMyCreditErrorCallback = onErrorCallback;
-            //if (isGetCrediting == true) return;
 
-            isGetCrediting = true;
-
-            ERPushMachineDataManager02.Instance.RequestGetMyCredit((res) =>
-            {
-                isGetCrediting = false;
-                try
-                {
-                    int myCredit = (int)res;
-
-                    /*while (GetMyCreditSuccessQueque.Count > 0)
-                    {
-                        Action<int>  func = GetMyCreditSuccessQueque.Dequeue();
-                        func?.Invoke(myCredit);
-                    }*/
-
-                    //onGetMyCreditSuccessCallback?.Invoke(myCredit);
-
-                    onSuccessCallback?.Invoke(myCredit);
-                }
-                catch (Exception ex)
-                {
-                    DebugUtils.LogError(ex);
-                    DebugUtils.LogError(res);
-
-                    /*while (GetMyCreditFailQueque.Count > 0)
-                    {
-                        Action<string> func = GetMyCreditFailQueque.Dequeue();
-                        func?.Invoke(ex.Message);
-                    }*/
-
-                    //onGetMyCreditErrorCallback?.Invoke(ex.Message);
-
-                    onErrorCallback?.Invoke(ex.Message);
-                }
-
-            });
         }
 
         public void SetUIJackpotGameReel()
