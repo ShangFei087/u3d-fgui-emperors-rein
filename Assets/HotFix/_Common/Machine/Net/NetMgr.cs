@@ -1,43 +1,28 @@
 using Newtonsoft.Json;
-using System;
-
-//using System.Text.RegularExpressions;
-//using System;
-//using System.Threading;
 using UnityEngine;
 
 
-/// <summary>
-/// 局域网 udp + websocket 链接
-/// </summary>
 public class NetMgr : MonoSingleton<NetMgr>
 {
-    private readonly int port = 6222;
-    public int broadcastPort = 50122; //10999; //  1220 >> 10122
-    private bool IsHost = false;
+    private readonly int port = 33653;
+    public int serverBroadcastPort = 10119;
+    public int clientBroadcastPort = 10999;
 
     //WebSocket
     ServerWS serverWS;
     ClientWS clientWS;
 
+    private bool hasBeServer;
 
     private void Awake()
     {
         serverWS = this.transform.GetComponent<ServerWS>();
         clientWS = this.transform.GetComponent<ClientWS>();
 
-        Messenger.AddListener<WSSrvMsgData>(MessageName.Event_NetworkWSServerData, OnWSServerData); // 客户端发给服务器的数据
-        Messenger.AddListener<byte[]>(MessageName.Event_NetworkClientData, OnClientData);  // 服务器发给客户端的数据
+        Messenger.AddListener<WSSrvMsgData>(MessageName.Event_NetworkWSServerData, OnWSServerData);
+        Messenger.AddListener<byte[]>(MessageName.Event_NetworkClientData, OnClientData);
     }
 
-    /// <summary>
-    /// 新加的接口，发心跳
-    /// </summary>
-    /*public void SendHeartHeatToServer()
-    {
-        if (clientWS != null)
-            clientWS.SendHeartHeat();
-    }*/
 
     public void SetLastHeartHeat()
     {
@@ -45,33 +30,28 @@ public class NetMgr : MonoSingleton<NetMgr>
             clientWS.LastHeartHeatTime = Time.time;
     }
 
-
-    /// <summary>
-    /// 服务器发给客户端的数据
-    /// </summary>
-    /// <param name="data"></param>
     void OnClientData(byte[] data)
     {
-        Messenger.Broadcast<byte[]>(MessageName.Event_ClientNetworkRecv, data);  // 直接广播出去
+        Messenger.Broadcast<byte[]>(MessageName.Event_ClientNetworkRecv, data);
     }
 
     public void SetNetAutoConnect(bool Host)
     {
-        //DebugUtils.LogError($"【UDP-WS】  SetNetAutoConnect: Host = {Host}");
-
-        IsHost = Host;
-
-        if (IsHost)  // 主机
+        if (Host)
         {
-            if (serverWS == null)
-                serverWS = gameObject.AddComponent<ServerWS>();
-            serverWS.StartServer(port, broadcastPort);
+            if (!hasBeServer)
+            {
+                if (serverWS == null)
+                    serverWS = gameObject.AddComponent<ServerWS>();
+                serverWS.StartServer(port, serverBroadcastPort);
+                hasBeServer = true;
+            }
         }
-        else // 分机
+        else
         {
             if (clientWS == null)
                 clientWS = gameObject.AddComponent<ClientWS>();
-            clientWS.StartUdp(broadcastPort);
+            clientWS.StartUdp(clientBroadcastPort);
         }
     }
 
@@ -79,52 +59,28 @@ public class NetMgr : MonoSingleton<NetMgr>
     public void SendToServer(string strMsg)
     {
         clientWS?.SendToServer(strMsg);
-
-        //OnDebug(strMsg, true);
     }
 
     //服务器发送数据给客户端
     public void SendToClient(WebSockets.ClientConnection client,string strMsg)
     {
         serverWS?.SendToClient(client, strMsg);
-
-        //OnDebug(strMsg, false);
     }
 
     //服务器给所有客户端发送消息
     public void SendToAllClient(string strMsg)
     {
         serverWS?.SendToAllClient(strMsg);
-
-        //OnDebug(strMsg,false);
     }
 
-    /*
-    public void OnDebug(string strMsg, bool C2S)
-    {
-        try
-        {
-            string cmdValue = strMsg.Split(new[] { "\"cmd\":" }, StringSplitOptions.None)[1].Split(',')[0].Trim();
-            string rpcName = C2S ?
-               $"{Enum.GetName(typeof(C2S_CMD), (C2S_CMD)(int.Parse(cmdValue)))} -" :
-                $"{Enum.GetName(typeof(S2C_CMD), (S2C_CMD)(int.Parse(cmdValue)))} -";
-
-            DebugUtils.LogWarning($"【UDP-WS】WS/{rpcName} -  {strMsg}");
-        }
-        catch (Exception ex) { }
-    }
-    */
-
-
-
-    /// <summary>
-    /// 客户端发给服务器的数据,响应函数
-    /// </summary>
-    /// <param name="data"></param>
+    //处理WS服务器收到的消息
     void OnWSServerData(WSSrvMsgData data)
     {
         if (data.Data.Length == 0)
+        {
+            Debug.LogError("OnWSServerData: data.Data.Length == 0");
             return;
+        }
         string singlePacket = data.Data;
         MsgInfo info = null;
         try
@@ -133,20 +89,19 @@ public class NetMgr : MonoSingleton<NetMgr>
         }
         catch (System.Exception ex)
         {
-            DebugUtils.LogError("【UDP-WS】MsgInfo error : " + ex.Message);
-            return;
+            Debug.LogError("JSON : " + ex.Message);
         }
         if (info != null)
         {
             switch ((C2S_CMD)info.cmd)
             {
-                case C2S_CMD.C2S_HeartHeat:
-                    info.cmd = (int)S2C_CMD.S2C_HeartHeatR;
+                case C2S_CMD.C2S_JackpotHeartHeat:
+                    info.cmd = (int)S2C_CMD.S2C_JackpotHearHeat;
                     info.id = info.id;
-                    SendToClient(data.Client, JsonConvert.SerializeObject(info));  // 心跳统一处理
+                    SendToClient(data.Client, JsonConvert.SerializeObject(info));
                     break;
                 default:
-                    Messenger.Broadcast(MessageName.Event_ServerNetworkRecv, info, data.Client);  // 其他请求广播出去
+                    Messenger.Broadcast(MessageName.Event_ServerNetworkRecv, info, data.Client);
                     break;
             }
         }

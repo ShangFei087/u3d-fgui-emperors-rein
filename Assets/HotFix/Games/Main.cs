@@ -308,8 +308,9 @@ public class Main
 
         MachineDeviceCommonBiz.Instance.CheckMqttRemoteButtonController();
 
+        NetMessageController.Instance.Init();
 
-        //NetMgr.Instance.SetNetAutoConnect(true);
+        NetMgr.Instance.SetNetAutoConnect(false);
 
 
         DebugUtils.SetOpenDebugLog(SBoxModel.Instance.isDebugLog);
@@ -343,6 +344,7 @@ public class Main
         //PageManager.Instance.OpenPage(PageName.PusherEmperorsReinPopupERGameLoading);
         //PageManager.Instance.OpenPage(PageName.SlotFanBeiChaoRenPopupLoading);
         //PageManager.Instance.OpenPage(PageName.XingYunZhiLunPopupGameLoading);
+        
         if (!ApplicationSettings.Instance.isMock)
         {
             PageManager.Instance.OpenPage(PageName.Hall01);
@@ -351,6 +353,7 @@ public class Main
         {
             PageManager.Instance.OpenPage(PageName.HallMain);
         }
+        
            
         /*
         System.Action onJPPoolSubCredit = () => {

@@ -1,6 +1,5 @@
 using FairyGUI;
 using GameMaker;
-using GlobalJackpotConsole;
 using Newtonsoft.Json;
 using PusherEmperorsRein;
 using SBoxApi;
@@ -1735,67 +1734,6 @@ namespace SlotEmperorsRein
                 SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, cacheTotalJpMajor);
                 SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, cacheTotalJpGrand);
 
-                JackBetInfoCoinPush info = new JackBetInfoCoinPush()
-                {
-                    gameType = 1,
-                    seat = SBoxModel.Instance.seatId,
-                    betPercent = 1 * 100,
-                    scoreRate = 1 * 1000,
-                    JPPercent = 1 * 1000,
-                    majorBet = majorBet * 100,
-                    grandBet = grandBet * 100,
-                };
-
-                // 没有联网彩金
-                if (!ClientWS.Instance.IsConnected && !ApplicationSettings.Instance.isMock)
-                {
-                    isNext = true;
-                    return;
-                }
-
-                NetClientHelper02.Instance.RequestJackBetMajorGrand(info, (res) =>
-                {
-                    // 【联网彩金，请求成功 ，删除数据】
-                    cacheTotalJpMajor -= majorBet;
-                    cacheTotalJpGrand -= grandBet;
-                    SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, cacheTotalJpMajor);
-                    SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, cacheTotalJpGrand);
-
-                    sboxJackpotData = res as SBoxJackpotData;
-
-                    for (int i = 0; i < sboxJackpotData.Jackpotlottery.Length; i++)
-                        sboxJackpotData.Jackpotlottery[i] = sboxJackpotData.Jackpotlottery[i] / 100;
-
-                    for (int i = 0; i < sboxJackpotData.JackpotOut.Length; i++)
-                        sboxJackpotData.JackpotOut[i] = sboxJackpotData.JackpotOut[i] / 100;
-
-                    for (int i = 0; i < sboxJackpotData.JackpotOld.Length; i++)
-                        sboxJackpotData.JackpotOld[i] = sboxJackpotData.JackpotOld[i] / 100;
-
-                    // 【如果获取到联网彩金-通知算法卡】
-                    if (sboxJackpotData.Lottery[0] == 1)
-                    {
-                        ERPushMachineDataManager02.Instance.RequestSetMajorGrandWin(sboxJackpotData.Jackpotlottery[0], (res) =>
-                        {
-
-                        });
-                    }
-                    if (sboxJackpotData.Lottery[1] == 1)
-                    {
-                        ERPushMachineDataManager02.Instance.RequestSetMajorGrandWin(sboxJackpotData.Jackpotlottery[1], (res) =>
-                        {
-
-                        });
-                    }
-                    isNext = true;
-
-                }, (err) => // 联网彩金，请求失败
-                {
-                    errorCallback?.Invoke(err.msg);
-                    isNext = true;
-                    isBreak = true;
-                });
-
             });
 
             yield return new WaitUntil(() => isNext == true);
@@ -1916,67 +1854,6 @@ namespace SlotEmperorsRein
                 cacheTotalJpGrand += grandBet;
                 SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, cacheTotalJpMajor);
                 SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, cacheTotalJpGrand);
-
-                JackBetInfoCoinPush info = new JackBetInfoCoinPush()
-                {
-                    gameType = 1,
-                    seat = SBoxModel.Instance.seatId,
-                    betPercent = 1 * 100,
-                    scoreRate = 1 * 1000,
-                    JPPercent = 1 * 1000,
-                    majorBet = majorBet * 100,
-                    grandBet = grandBet * 100,
-                };
-
-                // 没有联网彩金
-                if (!ClientWS.Instance.IsConnected && !ApplicationSettings.Instance.isMock)
-                {
-                    isNext = true;
-                    return;
-                }
-
-                NetClientHelper02.Instance.RequestJackBetMajorGrand(info, (res) =>
-                {
-                    // 【联网彩金，请求成功 ，删除数据】
-                    cacheTotalJpMajor -= majorBet;
-                    cacheTotalJpGrand -= grandBet;
-                    SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, cacheTotalJpMajor);
-                    SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, cacheTotalJpGrand);
-
-                    sboxJackpotData = res as SBoxJackpotData;
-
-                    for (int i = 0; i < sboxJackpotData.Jackpotlottery.Length; i++)
-                        sboxJackpotData.Jackpotlottery[i] = sboxJackpotData.Jackpotlottery[i] / 100;
-
-                    for (int i = 0; i < sboxJackpotData.JackpotOut.Length; i++)
-                        sboxJackpotData.JackpotOut[i] = sboxJackpotData.JackpotOut[i] / 100;
-
-                    for (int i = 0; i < sboxJackpotData.JackpotOld.Length; i++)
-                        sboxJackpotData.JackpotOld[i] = sboxJackpotData.JackpotOld[i] / 100;
-
-                    // 【如果获取到联网彩金-通知算法卡】
-                    if (sboxJackpotData.Lottery[0] == 1)
-                    {
-                        ERPushMachineDataManager02.Instance.RequestSetMajorGrandWin(sboxJackpotData.Jackpotlottery[0], (res) =>
-                        {
-
-                        });
-                    }
-                    if (sboxJackpotData.Lottery[1] == 1)
-                    {
-                        ERPushMachineDataManager02.Instance.RequestSetMajorGrandWin(sboxJackpotData.Jackpotlottery[1], (res) =>
-                        {
-
-                        });
-                    }
-                    isNext = true;
-
-                }, (err) => // 联网彩金，请求失败
-                {
-                    errorCallback?.Invoke(err.msg);
-                    isNext = true;
-                    isBreak = true;
-                });
 
             });
 

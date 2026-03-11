@@ -1,5 +1,7 @@
 public  class EventHandle
 {
+    public const string NETWORK_STATUS_CHANGE = "NETWORK_STATUS_CHANGE";
+
     public const string KEY_UP = "KEY_UP";
     public const string KEY_DOWN = "KEY_DOWN";
     public const string HARDWARE_KEY_UP = "HARDWARE_KEY_UP";
@@ -64,6 +66,9 @@ public  class EventHandle
 
     public const string NETWORK_STATUS = "NETWORK_STATUS";
     public const string UPDATE_LOAD_SLIDER = "UPDATE_LOAD_SLIDER";
+    public const string GET_NET_JACKPOT_DATA = "GET_NET_JACKPOT_DATA";
+    public const string GET_NET_JACKPOT_DATA_REQUEST_START = "GET_NET_JACKPOT_DATA_REQUEST_START";
+    public const string GET_NET_JACKPOT_DATA_REQUEST_TIMEOUT = "GET_NET_JACKPOT_DATA_REQUEST_TIMEOUT";
 
     //==========
     public const string GET_PLAYER_SCORE_LIST = "GET_PLAYER_SCORE_LIST";

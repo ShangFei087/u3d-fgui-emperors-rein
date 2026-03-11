@@ -1,6 +1,5 @@
 using FairyGUI;
 using GameMaker;
-using GlobalJackpotConsole;
 using Newtonsoft.Json;
 using PusherEmperorsRein;
 using SBoxApi;
@@ -1736,17 +1735,6 @@ namespace CaiFuHuoChe_3996
                 cacheTotalJpGrand += grandBet;
                 SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, cacheTotalJpMajor);
                 SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, cacheTotalJpGrand);
-
-                JackBetInfoCoinPush info = new JackBetInfoCoinPush()
-                {
-                    gameType = 1,
-                    seat = SBoxModel.Instance.pid,
-                    betPercent = 1 * 100,
-                    scoreRate = 1 * 1000,
-                    JPPercent = 1 * 1000,
-                    majorBet = majorBet * 100,
-                    grandBet = grandBet * 100,
-                };
 
                 // 没有联网彩金
                 //if (!ClientWS.Instance.IsConnected && !ApplicationSettings.Instance.isMock)
