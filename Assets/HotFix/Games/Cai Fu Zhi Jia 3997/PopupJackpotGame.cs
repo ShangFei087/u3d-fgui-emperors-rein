@@ -143,10 +143,10 @@ namespace CaiFuZhiJia_3997
             base.OnOpen(currentPageName, eventData);
 
             if (_monoHelper == null)
-                _monoHelper = GameObject.Find("Game Main Controller").GetComponent<MonoHelper>();
+                _monoHelper = GameObject.Find("Slot Game Main Controller 3997").GetComponent<MonoHelper>();
             if (_slotMachineController == null)
                 _slotMachineController =
-                    GameObject.Find("Game Main Controller").GetComponentInChildren<SlotMachineController3997>();
+                    GameObject.Find("Slot Game Main Controller 3997").GetComponentInChildren<SlotMachineController3997>();
 
             // InitUI();
             // InitCanSpinReels();
@@ -196,10 +196,10 @@ namespace CaiFuZhiJia_3997
         private void InitController()
         {
             if (_monoHelper == null)
-                _monoHelper = GameObject.Find("Game Main Controller").GetComponent<MonoHelper>();
+                _monoHelper = GameObject.Find("Slot Game Main Controller 3997").GetComponent<MonoHelper>();
             if (_slotMachineController == null)
                 _slotMachineController =
-                    GameObject.Find("Game Main Controller").GetComponentInChildren<SlotMachineController3997>();
+                    GameObject.Find("Slot Game Main Controller 3997").GetComponentInChildren<SlotMachineController3997>();
         }
 
         private void LoadAsyncRes()
