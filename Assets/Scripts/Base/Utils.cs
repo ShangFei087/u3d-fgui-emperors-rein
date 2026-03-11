@@ -1,4 +1,4 @@
-﻿//using cfg.lan;
+//using cfg.lan;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -100,6 +100,21 @@ public static partial class Utils
     {
         string[] enumLength = Enum.GetNames(enumType.GetType());
         return enumLength.Length;
+    }
+
+    public static bool HasLocalIP() 
+    { 
+        IPAddress[] ips = Dns.GetHostAddresses(Dns.GetHostName()); 
+        foreach (IPAddress ip in ips) 
+        { 
+            if (ip.AddressFamily == AddressFamily.InterNetwork && !IPAddress.IsLoopback(ip)) 
+            { 
+                if (ip.ToString().StartsWith("192.168.") 
+                    || ip.ToString().StartsWith("10.") 
+                    || ip.ToString().StartsWith("172.")) 
+                { return true; } 
+            } 
+        } return false; 
     }
 
     /// <summary>

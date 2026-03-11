@@ -69,6 +69,7 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         // 纸钞机列表
         EventCenter.Instance.AddEventListener<List<string>>(SBoxEventHandle.SBOX_SADNBOX_BILL_LIST_GET, OnResponseGetBillerList);
         EventCenter.Instance.AddEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_BILL_SELECT, OnResponseSelectBiller);
+
     }
 
 
@@ -122,12 +123,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
 
         base.OnDestroy();
     }
-
-
-
-
-
-
 
     /// <summary> 是否激活 </summary>
     public int RequestIsCodingActive(Action<object> successCallback,string mark = null)

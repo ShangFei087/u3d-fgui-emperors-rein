@@ -308,6 +308,7 @@ public class Main
 
         MachineDeviceCommonBiz.Instance.CheckMqttRemoteButtonController();
 
+        NetMessageController.Instance.Init();
 
         NetMgr.Instance.SetNetAutoConnect(false);
 

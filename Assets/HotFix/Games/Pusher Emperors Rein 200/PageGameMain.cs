@@ -1,7 +1,6 @@
 using ConsoleCoinPusher01;
 using FairyGUI;
 using GameMaker;
-using GlobalJackpotConsole;
 using Newtonsoft.Json;
 using SBoxApi;
 using SimpleJSON;
@@ -56,11 +55,6 @@ namespace PusherEmperorsRein
 
 
 
-            EventCenter.Instance.AddEventListener<EventData>(GlobalEvent.ON_GAME_COIN_PUSH_EVENT, OnGetJackpotGameShow);
-
-
-
-
 
             GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
             GameSoundHelper.Instance.PlaySoundEff(SoundKey.SpinBGIdle);
@@ -89,8 +83,6 @@ namespace PusherEmperorsRein
 
 
             EventCenter.Instance.RemoveEventListener<string>(GlobalEvent.ON_TEST_EVENT, OnTestEvent);
-
-            EventCenter.Instance.RemoveEventListener<EventData>(GlobalEvent.ON_GAME_COIN_PUSH_EVENT, OnGetJackpotGameShow);
 
             base.OnClose(data);
         }
@@ -838,43 +830,6 @@ namespace PusherEmperorsRein
                 }
             }
         }
-
-
-        void OnGetJackpotGameShow(EventData res)
-        {
-            if (res.name == GlobalEvent.GetJackpotGameShow)
-            {
-                JackpotGameShowInfoR jpGameShowR = res.value as JackpotGameShowInfoR;
-
-                if(ContentModel.Instance.isAuto == false && ContentModel.Instance.isSpin == false)
-                {
-                    if(jpGameShowR.code == 0)
-                    {
-                        try
-                        {
-
-                            float curJackpotGrand = jpGameShowR.curJackpotOut[0] / 100;
-                            float curJackpotMajor = jpGameShowR.curJackpotOut[1] / 100;
-                            //ContentModel.Instance.jpGameRes.curJackpotGrand = jpGameShowR.curJackpotOut[0] / 100;
-                            //ContentModel.Instance.jpGameRes.curJackpotMajor = jpGameShowR.curJackpotOut[1] / 100;
-                            uiJPGrandCtrl.SetData(curJackpotGrand);
-                            uiJPMajorCtrl.SetData(curJackpotMajor);
-                        }
-                        catch (Exception ex)
-                        {
-                            DebugUtils.Log($"Error : {JsonConvert.SerializeObject(jpGameShowR)}");
-                        }
-
-                    }
-                    else
-                    {
-                        uiJPGrandCtrl.SetData(0);
-                        uiJPMajorCtrl.SetData(0);
-                    }
-                }
-            }
-        }
-
         protected override void OnBeforetLanguageChange(I18nLang lang) {
 
             
@@ -2489,91 +2444,8 @@ namespace PusherEmperorsRein
                 SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, cacheTotalJpMajor);
                 SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, cacheTotalJpGrand);
 
-                JackBetInfoCoinPush info = new JackBetInfoCoinPush()
-                {
-                    gameType = 1,
-                    seat = SBoxModel.Instance.seatId,
-                    betPercent = 1 * 100,
-                    scoreRate = 1 * 1000,
-                    JPPercent = 1 * 1000,
-                    majorBet = majorBet * 100,
-                    grandBet = grandBet * 100,
-                };
-
-                // 没有登录后台彩金
-                if (!NetClineBiz.Instance.isLoginSuccess)
-                {
-                    isNext = true;
-                    return;
-                }
-
-                // 没有后台彩金
-                if (!ClientWS.Instance.IsConnected  && NetClientHelper02.Instance.isUseReelData)  
-                {
-                    isNext = true;
-                    return;
-                }
 
                 TestManager.Instance.ShowTip("请求后台彩金数据");
-
-                NetClientHelper02.Instance.RequestJackBetMajorGrand(info, (res) =>
-                {
-                    //#seaweed#>>>
-
-                    JackBetInfoCoinPushR result = res as JackBetInfoCoinPushR;
-                    
-                    if(result.code != 0)
-                    {
-                        // 保留报错信息   info01.msg
-                        isNext = true;
-                        return;
-                    }
-
-
-                    //#seaweed#<<<
-                    sboxJackpotData = result.sboxJackpotData;
-                    //sboxJackpotData = res as SBoxJackpotData;  //#seaweed#
-
-
-                    // 【联网彩金，请求成功 ，删除数据】
-                    cacheTotalJpMajor -= majorBet;
-                    cacheTotalJpGrand -= grandBet;
-                    SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, cacheTotalJpMajor);
-                    SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, cacheTotalJpGrand);
-
-         
-
-                    for (int i = 0; i < sboxJackpotData.Jackpotlottery.Length; i++)
-                        sboxJackpotData.Jackpotlottery[i] = sboxJackpotData.Jackpotlottery[i] / 100;
-
-                    for (int i = 0; i < sboxJackpotData.JackpotOut.Length; i++)
-                        sboxJackpotData.JackpotOut[i] = sboxJackpotData.JackpotOut[i] / 100;
-
-                    for (int i = 0; i < sboxJackpotData.JackpotOld.Length; i++)
-                        sboxJackpotData.JackpotOld[i] = sboxJackpotData.JackpotOld[i] / 100;
-
-                    // 【如果获取到联网彩金-通知算法卡】
-                    if (sboxJackpotData.Lottery[0] == 1)
-                    {
-                        ERPushMachineDataManager02.Instance.RequestSetMajorGrandWin(sboxJackpotData.Jackpotlottery[0], (res) =>
-                        {
-
-                        });
-                    }
-                    if (sboxJackpotData.Lottery[1] == 1)
-                    {
-                        ERPushMachineDataManager02.Instance.RequestSetMajorGrandWin(sboxJackpotData.Jackpotlottery[1], (res) =>
-                        {
-
-                        });
-                    }
-                    isNext = true;
-
-                }, (err) => // 联网彩金，请求失败
-                {
-                    //errorCallback?.Invoke(err.msg); // 不卡流程
-                    isNext = true;
-                });
                 
             });
 
@@ -2701,24 +2573,7 @@ namespace PusherEmperorsRein
                 SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, cacheTotalJpMajor);
                 SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, cacheTotalJpGrand);
 
-                JackBetInfoCoinPush info = new JackBetInfoCoinPush()
-                {
-                    gameType = 1,
-                    seat = SBoxModel.Instance.seatId,
-                    betPercent = 1 * 100,
-                    scoreRate = 1 * 1000,
-                    JPPercent = 1 * 1000,
-                    majorBet = majorBet * 100,
-                    grandBet = grandBet * 100,
-                };
 
-
-                // 没有登录后台彩金
-                if (!NetClineBiz.Instance.isLoginSuccess)
-                {
-                    isNext = true;
-                    return;
-                }
 
                 /*
                 // 没有联网彩金， 且非mock模式
@@ -2729,7 +2584,7 @@ namespace PusherEmperorsRein
                 }
                 */
 
-                if (!ClientWS.Instance.IsConnected )
+                if (ClientWS.Instance.CurNetStatus == NET_STATUS.NET_STATUS_DISCONNECTED)
                 {
                     isNext = true;
                     return;
@@ -2737,66 +2592,6 @@ namespace PusherEmperorsRein
 
                 TestManager.Instance.ShowTip("请求后台彩金数据");
 
-                NetClientHelper02.Instance.RequestJackBetMajorGrand(info, (res) =>
-                {
-
-                    //#seaweed#>>>
-
-                    JackBetInfoCoinPushR result = res as JackBetInfoCoinPushR;
-
-                    if (result.code != 0)
-                    {
-                        // 保留报错信息   info01.msg
-                        isNext = true;
-                        return;
-                    }
-
-                    //sboxJackpotData = res as SBoxJackpotData;
-                    sboxJackpotData = result.sboxJackpotData;
-
-                    // 【联网彩金，请求成功 ，删除数据】
-                    cacheTotalJpMajor -= majorBet;
-                    cacheTotalJpGrand -= grandBet;
-                    SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, cacheTotalJpMajor);
-                    SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, cacheTotalJpGrand);
-
-
-                    for (int i = 0; i < sboxJackpotData.Jackpotlottery.Length; i++)
-                        sboxJackpotData.Jackpotlottery[i] = sboxJackpotData.Jackpotlottery[i] / 100;
-
-                    for (int i = 0; i < sboxJackpotData.JackpotOut.Length; i++)
-                        sboxJackpotData.JackpotOut[i] = sboxJackpotData.JackpotOut[i] / 100;
-
-                    for (int i = 0; i < sboxJackpotData.JackpotOld.Length; i++)
-                        sboxJackpotData.JackpotOld[i] = sboxJackpotData.JackpotOld[i] / 100;
-
-                    // 【如果获取到联网彩金-通知算法卡】
-                    if (sboxJackpotData.Lottery[0] == 1)
-                    {
-                        ERPushMachineDataManager02.Instance.RequestSetMajorGrandWin(sboxJackpotData.Jackpotlottery[0], (res) =>
-                        {
-                            int code = (int)res;
-                            if (0 != code)
-                                DebugUtils.LogError($"存入Major、Grand赢分时，报错。 code: {code}");       
-                        });
-                    }
-                    if (sboxJackpotData.Lottery[1] == 1)
-                    {
-                        ERPushMachineDataManager02.Instance.RequestSetMajorGrandWin(sboxJackpotData.Jackpotlottery[1], (res) =>
-                        {
-                            int code = (int)res;
-                            if (0 != code)
-                                DebugUtils.LogError($"存入Major、Grand赢分时，报错。 code: {code}");
-                        });
-                    }
-                    isNext = true;
-
-                }, (err) => // 联网彩金，请求失败
-                {
-                    // 算法卡请求失败
-                    //errorCallback?.Invoke(err.msg + $"[{ErrorCode.JACKPOT_GAME_REQUEST_ERR}]");  // 不卡流程
-                    isNext = true;
-                });
 
             });
 

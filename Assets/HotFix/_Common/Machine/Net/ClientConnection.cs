@@ -24,7 +24,7 @@ namespace WebSockets
 
         public void StartReceiving()
         {
-            var buffer = new byte[8192];
+            var buffer = new byte[1024];
             var socketAsyncEventArgs = new SocketAsyncEventArgs();
 
             socketAsyncEventArgs.Completed += OnDataReceived;
@@ -105,11 +105,14 @@ namespace WebSockets
 
             m_isConnected = false;
 
-            if (m_tcpClient.Client.Connected)
-                m_tcpClient.Client.Shutdown(SocketShutdown.Both);
-            else
-                m_tcpClient.Client = null;
-            m_tcpClient.Close();
+            if (m_tcpClient != null)
+            {
+                if (m_tcpClient.Client != null && m_tcpClient.Client.Connected)
+                    m_tcpClient.Client.Shutdown(SocketShutdown.Both);
+                else
+                    m_tcpClient.Client = null;
+                m_tcpClient.Close();
+            }
             Disconnected(this);
         }
     }

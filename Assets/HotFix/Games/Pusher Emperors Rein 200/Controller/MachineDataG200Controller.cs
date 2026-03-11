@@ -631,14 +631,6 @@ namespace PusherEmperorsRein
                 case GlobalEvent.GMBigWin:
                     nextSpin = SpinDataType.BigWin;
                     break;
-                case GlobalEvent.GMJp1:
-                    //nextSpin = SpinDataType.Jp1;
-                    GlobalJackpotConsole.NetClientHelper02.Instance.testIsHitJpGrandNext = true;
-                    break;
-                case GlobalEvent.GMJp2:
-                    //nextSpin = SpinDataType.Jp2;
-                    GlobalJackpotConsole.NetClientHelper02.Instance.testIsHitJpMajorNext = true;
-                    break;
                 case GlobalEvent.GMJp3:
                     nextSpin = SpinDataType.Jp3;
                     break;

@@ -23,7 +23,7 @@
 //#define LOG_ALL_MESSAGES
 //#define LOG_ADD_LISTENER
 //#define LOG_BROADCAST_MESSAGE
-//#define REQUIRE_LISTENER 鏄惁蹇呴』娣诲姞鎺ユ敹鐩戝惉
+//#define REQUIRE_LISTENER 是否必须添加接收监听
 
 using System;
 using System.Collections.Generic;
@@ -49,7 +49,7 @@ static public class Messenger
     static public void MarkAsPermanent(string eventType)
     {
 #if LOG_ALL_MESSAGES
-        DebugUtils.Log("Messenger MarkAsPermanent \t\"" + eventType + "\"");
+        Debug.Log("Messenger MarkAsPermanent \t\"" + eventType + "\"");
 #endif
         if (!permanentMessages.Contains(eventType))
         {
@@ -60,7 +60,7 @@ static public class Messenger
     static public void Cleanup()
     {
 #if LOG_ALL_MESSAGES
-        DebugUtils.Log("MESSENGER Cleanup. Make sure that none of necessary listeners are removed.");
+        Debug.Log("MESSENGER Cleanup. Make sure that none of necessary listeners are removed.");
 #endif
 
         List<string> messagesToRemove = new List<string>();
@@ -90,14 +90,14 @@ static public class Messenger
 
     static public void PrintEventTable()
     {
-        DebugUtils.Log("\t\t\t=== MESSENGER PrintEventTable ===");
+        Debug.Log("\t\t\t=== MESSENGER PrintEventTable ===");
 
         foreach (KeyValuePair<string, Delegate> pair in eventTable)
         {
-            DebugUtils.Log("\t\t\t" + pair.Key + "\t\t" + pair.Value);
+            Debug.Log("\t\t\t" + pair.Key + "\t\t" + pair.Value);
         }
 
-        DebugUtils.Log("\n");
+        Debug.Log("\n");
     }
     #endregion
 
@@ -105,7 +105,7 @@ static public class Messenger
     static public void OnListenerAdding(string eventType, Delegate listenerBeingAdded)
     {
 #if LOG_ALL_MESSAGES || LOG_ADD_LISTENER
-        DebugUtils.Log("MESSENGER OnListenerAdding \t\"" + eventType + "\"\t{" + listenerBeingAdded.Target + " -> " + listenerBeingAdded.Method + "}");
+        Debug.Log("MESSENGER OnListenerAdding \t\"" + eventType + "\"\t{" + listenerBeingAdded.Target + " -> " + listenerBeingAdded.Method + "}");
 #endif
 
         if (!eventTable.ContainsKey(eventType))
@@ -123,7 +123,7 @@ static public class Messenger
     static public void OnListenerRemoving(string eventType, Delegate listenerBeingRemoved)
     {
 #if LOG_ALL_MESSAGES
-        DebugUtils.Log("MESSENGER OnListenerRemoving \t\"" + eventType + "\"\t{" + listenerBeingRemoved.Target + " -> " + listenerBeingRemoved.Method + "}");
+        Debug.Log("MESSENGER OnListenerRemoving \t\"" + eventType + "\"\t{" + listenerBeingRemoved.Target + " -> " + listenerBeingRemoved.Method + "}");
 #endif
         //if (eventTable.ContainsKey(eventType)) {
         //    Delegate d = eventTable[eventType];
@@ -270,7 +270,7 @@ static public class Messenger
     static public void Broadcast(string eventType)
     {
 #if LOG_ALL_MESSAGES || LOG_BROADCAST_MESSAGE
-        DebugUtils.Log("MESSENGER\t" + System.DateTime.Now.ToString("hh:mm:ss.fff") + "\t\t\tInvoking \t\"" + eventType + "\"");
+        Debug.Log("MESSENGER\t" + System.DateTime.Now.ToString("hh:mm:ss.fff") + "\t\t\tInvoking \t\"" + eventType + "\"");
 #endif
         OnBroadcasting(eventType);
 
@@ -294,7 +294,7 @@ static public class Messenger
     static public void Broadcast<T>(string eventType, T arg1)
     {
 #if LOG_ALL_MESSAGES || LOG_BROADCAST_MESSAGE
-        DebugUtils.Log("MESSENGER\t" + System.DateTime.Now.ToString("hh:mm:ss.fff") + "\t\t\tInvoking \t\"" + eventType + "\"");
+        Debug.Log("MESSENGER\t" + System.DateTime.Now.ToString("hh:mm:ss.fff") + "\t\t\tInvoking \t\"" + eventType + "\"");
 #endif
         OnBroadcasting(eventType);
 
@@ -318,7 +318,7 @@ static public class Messenger
     static public void Broadcast<T, U>(string eventType, T arg1, U arg2)
     {
 #if LOG_ALL_MESSAGES || LOG_BROADCAST_MESSAGE
-        DebugUtils.Log("MESSENGER\t" + System.DateTime.Now.ToString("hh:mm:ss.fff") + "\t\t\tInvoking \t\"" + eventType + "\"");
+        Debug.Log("MESSENGER\t" + System.DateTime.Now.ToString("hh:mm:ss.fff") + "\t\t\tInvoking \t\"" + eventType + "\"");
 #endif
         OnBroadcasting(eventType);
 
@@ -342,7 +342,7 @@ static public class Messenger
     static public void Broadcast<T, U, V>(string eventType, T arg1, U arg2, V arg3)
     {
 #if LOG_ALL_MESSAGES || LOG_BROADCAST_MESSAGE
-        DebugUtils.Log("MESSENGER\t" + System.DateTime.Now.ToString("hh:mm:ss.fff") + "\t\t\tInvoking \t\"" + eventType + "\"");
+        Debug.Log("MESSENGER\t" + System.DateTime.Now.ToString("hh:mm:ss.fff") + "\t\t\tInvoking \t\"" + eventType + "\"");
 #endif
         OnBroadcasting(eventType);
 

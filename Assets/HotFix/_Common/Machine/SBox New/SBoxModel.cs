@@ -970,9 +970,11 @@ public partial class SBoxModel: MonoSingleton<SBoxModel>
 
 
 
-    public bool isJackpotOnLine = false;
-
-
+    public bool isJackpotOnLine
+    {
+        get => tableSysSetting.is_jackpot_online == 1;
+        set => tableSysSetting.is_jackpot_online = value ? 1 : 0;
+    }
 
     #region 远程控制
 

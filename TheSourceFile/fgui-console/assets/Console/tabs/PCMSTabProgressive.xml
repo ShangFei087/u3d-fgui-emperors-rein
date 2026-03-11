@@ -51,7 +51,7 @@
     <component id="n31_os7y" name="mdJackpotOnline" src="glrj1k" fileName="moudules/ModuleName.xml" xy="-1,0" group="n54_es9v">
       <property target="title" propertyId="0" value="Jackpot Online"/>
     </component>
-    <component id="n32_os7y" name="jackpotOnline" src="cwuo2d" fileName="moudules/ItemTitleSwitch.xml" xy="-1,38" group="n54_es9v">
+    <component id="n32_os7y" name="useJpOnlineValidator" src="cwuo2d" fileName="moudules/ItemTitleSwitch.xml" xy="-1,38" group="n54_es9v">
       <property target="key" propertyId="0" value="Jackpot Online:"/>
     </component>
     <loader id="n51_es9v" name="jackpotOnlineIcon" xy="466,21" size="103,105" group="n54_es9v" url="ui://xp0b9yqdiyvn4q" align="center" vAlign="middle" fill="scale" useResize="true"/>
@@ -59,9 +59,9 @@
       <property target="key" propertyId="0" value="Jackpot Score Rate:"/>
       <property target="value" propertyId="0" value="0.06"/>
     </component>
-    <component id="n34_os7y" name="jackpotPercent" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="-1,190" group="n54_es9v">
-      <property target="key" propertyId="0" value="Jackpot Percent:"/>
-      <property target="value" propertyId="0" value="0.005"/>
+    <component id="n56_es9v" name="jackpotPercent" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="0,190" group="n54_es9v">
+      <property target="key" propertyId="0" value="Jackpot Score Rate:"/>
+      <property target="value" propertyId="0" value="0.06"/>
     </component>
     <group id="n54_es9v" name="JackpotOnline" xy="-1,0" size="570,266"/>
   </displayList>

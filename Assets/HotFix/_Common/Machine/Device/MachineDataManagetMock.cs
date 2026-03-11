@@ -682,7 +682,9 @@ public partial class MachineDataManager
                             orderId = 0,
                             time = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
                         };
-                        EventCenter.Instance.EventTrigger<string>(RpcNameJackpotOnLine, JsonConvert.SerializeObject(info));
+                        string jackpotJson = JsonConvert.SerializeObject(info);
+                        EventCenter.Instance.EventTrigger<string>(GlobalEvent.JackpotOnlineWin, jackpotJson);
+                        EventCenter.Instance.EventTrigger<string>(RpcNameJackpotOnLine, jackpotJson);
                     }
 
                 }
