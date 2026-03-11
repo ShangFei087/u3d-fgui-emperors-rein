@@ -567,7 +567,7 @@ namespace XingYunZhiLun_3998
 
                 SymbolWin sw = new SymbolWin()
                 {
-                    earnCredit = credit / lineNum,
+                    earnCredit = (credit / lineNum) * totalBet,
                     multiplier = 1,
                     lineNumber = lineNumber,
                     symbolNumber = symbolNumber,
@@ -575,7 +575,7 @@ namespace XingYunZhiLun_3998
                 };
                 winList.Add(sw);
 
-                totalEarnCredit += credit;
+                //totalEarnCredit += credit * (int)totalBet;
             }
             ContentModel.Instance.winList = winList;
 
@@ -836,10 +836,11 @@ namespace XingYunZhiLun_3998
 
 
             ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            long creditBefore = MainBlackboardController.Instance.myTempCredit;
+            long creditBefore = MainBlackboardController.Instance.myTempCredit + totalBet;
             //赢分
             long TotalBet = (int)res["TotalBet"];
             if (ResultType == 3) TotalBet += (int)res["BonusBet"];
+            TotalBet = TotalBet * totalBet;
             DebugUtils.Log("本局赢分TotalBet==" + TotalBet);
             long afterBetCredit = 0;
             if (OpenType == 1)
@@ -858,9 +859,9 @@ namespace XingYunZhiLun_3998
             {
                 creditAfter = res["creditAfter"];
             }
-            MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
+            MainBlackboardController.Instance.SetMyRealCredit(creditAfter - totalBet);
 
-            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={totalEarnCredit} ");
+            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={TotalBet} ");
 
 
             // 免费游戏累计总赢
@@ -952,7 +953,7 @@ namespace XingYunZhiLun_3998
             gameSenceData.totalBet = totalBet;
 
             // 获取游戏前后的分数
-            long creditBefore = MainBlackboardController.Instance.myTempCredit;
+            long creditBefore = MainBlackboardController.Instance.myTempCredit + totalBet;
             long creditAfter = MainBlackboardController.Instance.myRealCredit;
 
             gameSenceData.creditBefore = creditBefore;
