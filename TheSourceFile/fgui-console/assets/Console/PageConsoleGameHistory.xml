@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
+  <controller name="history" pages="0,游戏历史,1,彩金历史" selected="0"/>
   <displayList>
     <component id="n0_exvp" name="BG" src="glrj1j" fileName="moudules/BaseBG.xml" xy="0,-2"/>
-    <list id="n9_h0z3" name="pages" xy="0,478" size="1078,1251" overflow="scroll">
+    <list id="n9_h0z3" name="pages" xy="1,479" size="1078,1251" overflow="scroll">
+      <gearDisplay controller="history" pages="0"/>
       <item url="ui://xp0b9yqdh0z3ao"/>
     </list>
+    <list id="n12_knk6" name="bonusPage" xy="0,478" size="1078,1175" overflow="scroll">
+      <gearDisplay controller="history" pages="1"/>
+      <item url="ui://xp0b9yqdknk6az"/>
+    </list>
     <component id="n7_h0z3" name="gameId" src="g3lh58" fileName="moudules/ItemDateSelect.xml" xy="-1,1725">
+      <gearDisplay controller="history" pages="0"/>
       <property target="key" propertyId="0" value="GameId"/>
     </component>
     <component id="n2_exvp" name="date" src="g3lh58" fileName="moudules/ItemDateSelect.xml" xy="539,1724">
@@ -16,5 +23,11 @@
     </component>
     <component id="n5_exvp" name="btnPrev" src="glrj1h" fileName="components/ButtonButtom2.xml" xy="209,1616"/>
     <component id="n6_exvp" name="btnNext" src="glrj1h" fileName="components/ButtonButtom2.xml" xy="884,1616" scale="-1,1"/>
+    <component id="n10_knk6" name="btnGame" src="cwuo2p" fileName="moudules/ItemCategoryNav.xml" xy="152,384">
+      <Button checked="true" title="游戏记录" icon="ui://xp0b9yqdos7y48" selectedIcon="ui://xp0b9yqdos7y48" controller="history" page="0"/>
+    </component>
+    <component id="n11_knk6" name="btnBonus" src="cwuo2p" fileName="moudules/ItemCategoryNav.xml" xy="596,384">
+      <Button title="彩金记录" icon="ui://xp0b9yqdos7y4a" selectedIcon="ui://xp0b9yqdos7y4a" controller="history" page="1"/>
+    </component>
   </displayList>
 </component>

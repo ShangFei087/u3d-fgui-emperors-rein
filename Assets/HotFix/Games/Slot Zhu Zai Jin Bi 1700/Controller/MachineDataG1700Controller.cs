@@ -23,18 +23,25 @@ namespace SlotZhuZaiJinBi1700
         GSNormal = 0,
 
         GSStart = 1,
+
         /// <summary> 普通局且不中线 </summary>
         GSEnd = 2,
+
         /// <summary> 赢线 </summary>
         GSWinline = 3,
+
         /// <summary> 免费游戏 </summary>
         GSFreeGame = 4,
+
         /// <summary> 送球 </summary>
         GSBonus = 5,
+
         /// <summary> 中了中小彩金 </summary>
         GSJpSmalm = 6,
+
         /// <summary> 中了大彩金 (弃用)</summary>
         GSJpMajor = 7,
+
         /// <summary> 中了巨大彩金 (弃用)</summary>
         GSJpGrand = 8,
 
@@ -51,8 +58,8 @@ namespace SlotZhuZaiJinBi1700
 
             List<SymbolInclude> symbolInclude = new List<SymbolInclude>();
             //Matrix解析整列
-            int rows = 3;    // 3行
-            int cols = 5;    // 5列
+            int rows = 3; // 3行
+            int cols = 5; // 5列
             string strDeckRowCol = "";
             int MatrixLength = (int)res["MatrixLength"];
             for (int row = 0; row < rows; row++)
@@ -64,15 +71,16 @@ namespace SlotZhuZaiJinBi1700
 
                     if (col < cols - 1)
                     {
-                        strDeckRowCol += ",";  // 列之间用逗号分隔
+                        strDeckRowCol += ","; // 列之间用逗号分隔
                     }
                 }
 
                 if (row < rows - 1)
                 {
-                    strDeckRowCol += "#";  // 行之间用#号分隔
+                    strDeckRowCol += "#"; // 行之间用#号分隔
                 }
             }
+
             ContentModel.Instance.strDeckRowCol = strDeckRowCol;
 
             //IDVec 中奖线
@@ -85,9 +93,9 @@ namespace SlotZhuZaiJinBi1700
                 //-IDVec:万千位标识线， 百位标识消除多少个， 十个位标识ID。
                 int ID = (int)res["IDVec"][i];
 
-                int symbolNumber = ID % 100;          // 十个位：Symbol ID
-                int hitCount = (ID / 100) % 10;       // 百位：消除数量（WinCount）
-                int lineNumber = ID / 1000;           // 万千位：线编号
+                int symbolNumber = ID % 100; // 十个位：Symbol ID
+                int hitCount = (ID / 100) % 10; // 百位：消除数量（WinCount）
+                int lineNumber = ID / 1000; // 万千位：线编号
 
                 // 输出调试信息（可选）
                 Debug.Log($"ID: {ID}, Line: {lineNumber}, HitCount: {hitCount}, Symbol: {symbolNumber}");
@@ -115,17 +123,36 @@ namespace SlotZhuZaiJinBi1700
 
                 totalEarnCredit += credit;
             }
+
             ContentModel.Instance.winList = winList;
 
             //判断彩金
             JackpotRes jpGameRes = new JackpotRes();
-            bool isJackpotMajor = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 0 ? sboxJackpotData.Lottery[0] == 1 : false);
-            bool isJackpotMinor = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 1 ? sboxJackpotData.Lottery[1] == 1 : false);
-            bool isJackpotMini = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 2 ? sboxJackpotData.Lottery[2] == 1 : false);
+            bool isJackpotMajor = sboxJackpotData == null
+                ? false
+                : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 0
+                    ? sboxJackpotData.Lottery[0] == 1
+                    : false);
+            bool isJackpotMinor = sboxJackpotData == null
+                ? false
+                : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 1
+                    ? sboxJackpotData.Lottery[1] == 1
+                    : false);
+            bool isJackpotMini = sboxJackpotData == null
+                ? false
+                : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 2
+                    ? sboxJackpotData.Lottery[2] == 1
+                    : false);
 
-            jpGameRes.curJackpotMajor = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 0 ? sboxJackpotData.JackpotOut[0] : 0;
-            jpGameRes.curJackpotMinior = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 1 ? sboxJackpotData.JackpotOut[1] : 0;
-            jpGameRes.curJackpotMini = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 2 ? sboxJackpotData.JackpotOut[2] : 0;
+            jpGameRes.curJackpotMajor = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 0
+                ? sboxJackpotData.JackpotOut[0]
+                : 0;
+            jpGameRes.curJackpotMinior = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 1
+                ? sboxJackpotData.JackpotOut[1]
+                : 0;
+            jpGameRes.curJackpotMini = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 2
+                ? sboxJackpotData.JackpotOut[2]
+                : 0;
             //Debug.Log("curJackpotMajor:" + jpGameRes.curJackpotMajor);
             //Debug.Log("curJackpotMinior:" + jpGameRes.curJackpotMinior);
             //Debug.Log("curJackpotMini:" + jpGameRes.curJackpotMini);
@@ -196,6 +223,7 @@ namespace SlotZhuZaiJinBi1700
                 //    int ID = (int)res["FreeBetArray"][i];
                 //}
             }
+
             //赠送局
             if (OpenType == 1)
             {
@@ -211,7 +239,9 @@ namespace SlotZhuZaiJinBi1700
                     ContentModel.Instance.nextReelStripsIndex = "FS";
                 }
             }
-            ContentModel.Instance.isFreeSpinResult = ContentModel.Instance.curReelStripsIndex == "FS" && ContentModel.Instance.nextReelStripsIndex == "BS";
+
+            ContentModel.Instance.isFreeSpinResult = ContentModel.Instance.curReelStripsIndex == "FS" &&
+                                                     ContentModel.Instance.nextReelStripsIndex == "BS";
 
 
             ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -227,7 +257,6 @@ namespace SlotZhuZaiJinBi1700
             else
             {
                 afterBetCredit = creditBefore - totalBet + TotalBet;
-
             }
 
             long creditAfter = afterBetCredit + totalEarnCredit;
@@ -266,7 +295,8 @@ namespace SlotZhuZaiJinBi1700
 
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
 
-            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={totalEarnCredit} ");
+            DebugUtils.Log(
+                $"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={totalEarnCredit} ");
         }
 
 
@@ -274,8 +304,8 @@ namespace SlotZhuZaiJinBi1700
         {
             List<SymbolInclude> symbolInclude = new List<SymbolInclude>();
             //Matrix解析整列
-            int rows = 3;    // 3行
-            int cols = 5;    // 5列
+            int rows = 3; // 3行
+            int cols = 5; // 5列
             string strDeckRowCol = "";
             int MatrixLength = (int)res["MatrixLength"];
             for (int row = 0; row < rows; row++)
@@ -287,15 +317,16 @@ namespace SlotZhuZaiJinBi1700
 
                     if (col < cols - 1)
                     {
-                        strDeckRowCol += ",";  // 列之间用逗号分隔
+                        strDeckRowCol += ","; // 列之间用逗号分隔
                     }
                 }
 
                 if (row < rows - 1)
                 {
-                    strDeckRowCol += "#";  // 行之间用#号分隔
+                    strDeckRowCol += "#"; // 行之间用#号分隔
                 }
             }
+
             ContentModel.Instance.strDeckRowCol = strDeckRowCol;
 
             //IDVec 中奖线
@@ -308,9 +339,9 @@ namespace SlotZhuZaiJinBi1700
                 //-IDVec:万千位标识线， 百位标识消除多少个， 十个位标识ID。
                 int ID = (int)res["IDVec"][i];
 
-                int symbolNumber = ID % 100;          // 十个位：Symbol ID
-                int hitCount = (ID / 100) % 10;       // 百位：消除数量（WinCount）
-                int lineNumber = ID / 1000;           // 万千位：线编号
+                int symbolNumber = ID % 100; // 十个位：Symbol ID
+                int hitCount = (ID / 100) % 10; // 百位：消除数量（WinCount）
+                int lineNumber = ID / 1000; // 万千位：线编号
 
                 // 输出调试信息（可选）
                 Debug.Log($"ID: {ID}, Line: {lineNumber}, HitCount: {hitCount}, Symbol: {symbolNumber}");
@@ -338,17 +369,36 @@ namespace SlotZhuZaiJinBi1700
 
                 totalEarnCredit += credit;
             }
+
             ContentModel.Instance.winList = winList;
 
             //判断彩金
             JackpotRes jpGameRes = new JackpotRes();
-            bool isJackpotMajor = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 0 ? sboxJackpotData.Lottery[0] == 1 : false);
-            bool isJackpotMinor = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 1 ? sboxJackpotData.Lottery[1] == 1 : false);
-            bool isJackpotMini = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 2 ? sboxJackpotData.Lottery[2] == 1 : false);
+            bool isJackpotMajor = sboxJackpotData == null
+                ? false
+                : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 0
+                    ? sboxJackpotData.Lottery[0] == 1
+                    : false);
+            bool isJackpotMinor = sboxJackpotData == null
+                ? false
+                : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 1
+                    ? sboxJackpotData.Lottery[1] == 1
+                    : false);
+            bool isJackpotMini = sboxJackpotData == null
+                ? false
+                : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 2
+                    ? sboxJackpotData.Lottery[2] == 1
+                    : false);
 
-            jpGameRes.curJackpotMajor = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 0 ? sboxJackpotData.JackpotOut[0] : 0;
-            jpGameRes.curJackpotMinior = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 1 ? sboxJackpotData.JackpotOut[1] : 0;
-            jpGameRes.curJackpotMini = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 2 ? sboxJackpotData.JackpotOut[2] : 0;
+            jpGameRes.curJackpotMajor = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 0
+                ? sboxJackpotData.JackpotOut[0]
+                : 0;
+            jpGameRes.curJackpotMinior = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 1
+                ? sboxJackpotData.JackpotOut[1]
+                : 0;
+            jpGameRes.curJackpotMini = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 2
+                ? sboxJackpotData.JackpotOut[2]
+                : 0;
             //Debug.Log("curJackpotMajor:" + jpGameRes.curJackpotMajor);
             //Debug.Log("curJackpotMinior:" + jpGameRes.curJackpotMinior);
             //Debug.Log("curJackpotMini:" + jpGameRes.curJackpotMini);
@@ -366,6 +416,7 @@ namespace SlotZhuZaiJinBi1700
                     curCredit = sboxJackpotData.JackpotOut[1],
                 });
             }
+
             if (isJackpotMinor)
             {
                 int winCredit = (int)res["num"];
@@ -378,6 +429,7 @@ namespace SlotZhuZaiJinBi1700
                     curCredit = sboxJackpotData.JackpotOut[1],
                 });
             }
+
             if (isJackpotMini)
             {
                 int winCredit = (int)res["num"];
@@ -390,7 +442,6 @@ namespace SlotZhuZaiJinBi1700
                     curCredit = sboxJackpotData.JackpotOut[2],
                 });
             }
-
 
 
             if (++MainModel.Instance.gameNumber < 0)
@@ -419,6 +470,7 @@ namespace SlotZhuZaiJinBi1700
                 //    int ID = (int)res["FreeBetArray"][i];
                 //}
             }
+
             //赠送局
             if (OpenType == 1)
             {
@@ -449,7 +501,6 @@ namespace SlotZhuZaiJinBi1700
             else
             {
                 afterBetCredit = creditBefore - totalBet + TotalBet;
-
             }
 
             long creditAfter = afterBetCredit + totalEarnCredit;
@@ -488,7 +539,8 @@ namespace SlotZhuZaiJinBi1700
 
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
 
-            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={totalEarnCredit} ");
+            DebugUtils.Log(
+                $"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={totalEarnCredit} ");
         }
 
         void OnEnable()
@@ -539,7 +591,6 @@ namespace SlotZhuZaiJinBi1700
 
                     break;
             }
-
         }
 
 
@@ -562,43 +613,62 @@ namespace SlotZhuZaiJinBi1700
 
         private Dictionary<SpinDataType, List<string[]>> spinDatas = new Dictionary<SpinDataType, List<string[]>>()
         {
-            [SpinDataType.FreeSpin] = new List<string[]>()
-            {
-               new string[]
+            [SpinDataType.FreeSpin] =
+                new List<string[]>()
                 {
-                    "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__free_0.json",
-                    "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__free_1.json",
-                    "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__free_2.json",
-                    "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__free_3.json",
+                    new string[]
+                    {
+                        "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__free_0.json",
+                        "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__free_1.json",
+                        "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__free_2.json",
+                        "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__free_3.json",
+                    },
                 },
-            },
-            [SpinDataType.Normal] = new List<string[]>()
-            {
-                new string[] { "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__win_4.json" },
-            },
-            [SpinDataType.Jp1] = new List<string[]>()
-            {
-                new string[] { "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__jackpot_grand.json" },
-            },
-            [SpinDataType.Jp2] = new List<string[]>()
-            {
-                new string[] { "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__jackpot_major.json" },
-            },
-            [SpinDataType.Jp3] = new List<string[]>()
-            {
-                new string[] { "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__jackpot_minor.json" },
-            },
-            [SpinDataType.Jp4] = new List<string[]>()
-            {
-                new string[] { "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__jackpot_mini.json" },
-            },
-            [SpinDataType.Bonus1Ball] = new List<string[]>()
-            {
-                new string[] { "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__ball_0.json" },
-                new string[] { "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__ball_1.json" },
-                new string[] { "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__ball_2.json" },
-                new string[] { "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__ball_3.json" }
-            },
+            [SpinDataType.Normal] =
+                new List<string[]>()
+                {
+                    new string[] { "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__win_4.json" },
+                },
+            [SpinDataType.Jp1] =
+                new List<string[]>()
+                {
+                    new string[]
+                    {
+                        "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__jackpot_grand.json"
+                    },
+                },
+            [SpinDataType.Jp2] =
+                new List<string[]>()
+                {
+                    new string[]
+                    {
+                        "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__jackpot_major.json"
+                    },
+                },
+            [SpinDataType.Jp3] =
+                new List<string[]>()
+                {
+                    new string[]
+                    {
+                        "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__jackpot_minor.json"
+                    },
+                },
+            [SpinDataType.Jp4] =
+                new List<string[]>()
+                {
+                    new string[]
+                    {
+                        "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__jackpot_mini.json"
+                    },
+                },
+            [SpinDataType.Bonus1Ball] =
+                new List<string[]>()
+                {
+                    new string[] { "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__ball_0.json" },
+                    new string[] { "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__ball_1.json" },
+                    new string[] { "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__ball_2.json" },
+                    new string[] { "Assets/HotFix/Games/Mock/Resources/g1700_real/g200__slot_spin__ball_3.json" }
+                },
             [SpinDataType.BigWin] = new List<string[]>()
             {
                 new string[] { "Assets/HotFix/Games/_Mock/Resources/g1700_real/g200__slot_spin__Bigwin_0.json" },
@@ -606,7 +676,6 @@ namespace SlotZhuZaiJinBi1700
                 new string[] { "Assets/HotFix/Games/_Mock/Resources/g1700_real/g200__slot_spin__Bigwin_2.json" },
                 new string[] { "Assets/HotFix/Games/_Mock/Resources/g1700_real/g200__slot_spin__Bigwin_3.json" },
             }
-
         };
 
         Queue<string> curDatas = new Queue<string>();
@@ -629,17 +698,17 @@ namespace SlotZhuZaiJinBi1700
 
                     if (nextSpin != SpinDataType.None)
                     {
-                        target = spinDatas[nextSpin];  // 使用指定的 spin 类型
+                        target = spinDatas[nextSpin]; // 使用指定的 spin 类型
                     }
                     else
                     {
-                        target = spinDatas[SpinDataType.Normal];  // 使用默认的 Normal 类型
+                        target = spinDatas[SpinDataType.Normal]; // 使用默认的 Normal 类型
                     }
 
                     nextSpin = SpinDataType.None;
 
                     string[] strs = target[UnityEngine.Random.Range(0, target.Count)];
-                    curDatas = new Queue<string>(strs);  // 会改变引用数据  
+                    curDatas = new Queue<string>(strs); // 会改变引用数据  
                 }
 
                 string path = curDatas.Dequeue();
@@ -684,7 +753,9 @@ namespace SlotZhuZaiJinBi1700
             gameSenceData.reportId = MainModel.Instance.reportId;
             gameSenceData.timeS = ContentModel.Instance.curGameCreatTimeMS / 1000;
             gameSenceData.gameNumber = MainModel.Instance.gameNumber;
-            gameSenceData.gameNumberFreeSpinTrigger = ContentModel.Instance.isFreeSpin ? ContentModel.Instance.gameNumberFreeSpinTrigger : 0;
+            gameSenceData.gameNumberFreeSpinTrigger = ContentModel.Instance.isFreeSpin
+                ? ContentModel.Instance.gameNumberFreeSpinTrigger
+                : 0;
             gameSenceData.isFreeSpin = ContentModel.Instance.isFreeSpin;
             gameSenceData.freeSpinAddNum = ContentModel.Instance.freeSpinAddNum;
 
@@ -743,7 +814,7 @@ namespace SlotZhuZaiJinBi1700
             // 构建记录对象
             TableSlotGameRecordItem slotGameRecordItem = new TableSlotGameRecordItem()
             {
-                open_type =OpenType,
+                open_type = OpenType,
                 result_type = ResultType,
                 game_id = 1700,
                 game_uid = ContentModel.Instance.curGameGuid,
@@ -756,7 +827,7 @@ namespace SlotZhuZaiJinBi1700
                 strDeckRowCol = ContentModel.Instance.strDeckRowCol,
                 symbol_icon_mapping = JsonConvert.SerializeObject(CustomModel.Instance.symbolIcon) // 
             };
-            
+
             // 场景数据存入数据库
             slotGameRecordItem.scene = JsonConvert.SerializeObject(gameSenceData);
 
@@ -768,13 +839,12 @@ namespace SlotZhuZaiJinBi1700
             //SQLiteHelper.Instance.ExecuteNonQuery(createSql);
 
 
-
             // 插入数据
             string sql = SQLiteAsyncHelper.SQLInsertTableData<TableSlotGameRecordItem>(
                 ConsoleTableName.TABLE_SLOT_GAME_RECORD,
                 slotGameRecordItem);
             SQLiteAsyncHelper.Instance.ExecuteNonQueryAsync(sql);
-            
+
             //DebugUtils.Log($"[G1700] 游戏记录已写入数据库: gameType={gameType}, game_uid={ContentModel.Instance.curGameGuid}");
         }
     }

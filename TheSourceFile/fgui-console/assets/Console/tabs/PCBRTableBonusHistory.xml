@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1175">
+  <displayList>
+    <component id="n1_knk6" name="game_title" src="knk6b0" fileName="moudules/ItemBonusTitle.xml" xy="0,0"/>
+    <list id="n2_knk6" name="game_data" xy="0,76" size="1080,999" overflow="scroll" vAlign="middle">
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+    </list>
+    <component id="n6_knk6" name="game_page" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="270,1099">
+      <property target="key" propertyId="0" value="&quot;Slot1700&quot;游戏记录"/>
+      <property target="value" propertyId="0" value="第999/999条"/>
+    </component>
+  </displayList>
+</component>
