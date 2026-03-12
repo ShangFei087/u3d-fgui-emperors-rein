@@ -158,9 +158,10 @@ namespace SBoxApi
 
     public class SBoxWinNetJackpotInfo
     {
+        public int MachineId;                       // 机台号
         public int PlayerId;                        // 玩家ID
         public int JackpotType;                     // 彩金类型 
-        public int JackpotWins;                     // 彩金赢分
+        public long JackpotWins;                     // 彩金赢分
     }
 
     public class SBoxPlayerScoreInfo
@@ -1079,31 +1080,12 @@ namespace SBoxApi
             EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_BATS_COUNT_DOWN, sBoxPacket.data[0]);
         }
 
-        /**
-        *  @brief          玩家赢得彩金中心的彩金信息
-        *  @param          sBoxWinNetJackpotInfo.PlayerId: 玩家索引编号
-        *                  sBoxWinNetJackpotInfo.JackpotType: 获得的彩金类型
-        *                  sBoxWinNetJackpotInfo.JackpotWins: 玩家彩金的赢分(从彩金中心传过来的是币的数量, 需要乘币值)
-        *  @return         无返回
-        *  @details        
-        */
-        public static void SetPlayerWinNetJackpotInfo(SBoxWinNetJackpotInfo sBoxWinNetJackpotInfo)
-        {
-            SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20030, source: 1, target: 2, size: 3);
-            int pos = 0;
 
-            sBoxPacket.data[pos++] = sBoxWinNetJackpotInfo.PlayerId;
-            sBoxPacket.data[pos++] = sBoxWinNetJackpotInfo.JackpotType;
-            sBoxPacket.data[pos++] = sBoxWinNetJackpotInfo.JackpotWins;
-
-            SBoxIOStream.Write(sBoxPacket);
-        }
 
         /**
         *  @brief          设置基础游戏的上下拉局数
         *  @param          operate 0:读取上下拉局数
         *                  GameCount 1:设置上下拉局数
-        *                  sBoxWinNetJackpotInfo.JackpotWins: 玩家彩金的赢分(从彩金中心传过来的是币的数量, 需要乘币值)
         *  @return         无返回
         *  @details        
         */

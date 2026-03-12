@@ -412,7 +412,15 @@ namespace SlotEmperorsRein
         }
         [SerializeField]
         private long m_TotalBet = 0;
-       
+
+        /// <summary> 下注倍数 </summary>
+        public int betmultiple
+        {
+            get => m_BetMultiple;
+            set => observable.SetProperty(ref m_BetMultiple, value);
+        }
+        [SerializeField]
+        private int m_BetMultiple = 0;
 
         /// <summary> 选择的线数 </summary>
         public int selectLine

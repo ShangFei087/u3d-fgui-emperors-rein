@@ -675,7 +675,6 @@ public partial class MachineDataManager02
             };
             string jackpotJson = JsonConvert.SerializeObject(info);
             EventCenter.Instance.EventTrigger<string>(GlobalEvent.JackpotOnlineWin, jackpotJson);
-            EventCenter.Instance.EventTrigger<string>(RpcNameJackpotOnLine, jackpotJson);
         }
     }
     public bool testIsHitJackpotOnLine = false;

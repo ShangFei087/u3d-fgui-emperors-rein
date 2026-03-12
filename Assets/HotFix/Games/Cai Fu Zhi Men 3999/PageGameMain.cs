@@ -132,13 +132,12 @@ namespace CaiFuZhiMen_3999
                         {
                             return;
                         }
-            
+
                         Debug.LogError("游戏接受到机台短按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false); // isLongClick
                         OnClickSpinButton(res);
                     },
                 },
-            
                 longClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
@@ -148,7 +147,6 @@ namespace CaiFuZhiMen_3999
                         OnClickSpinButton(res);
                     }
                 }
-            
             };
         }
 
@@ -205,7 +203,7 @@ namespace CaiFuZhiMen_3999
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
-          
+
             // EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             InitParam();
 
@@ -224,7 +222,8 @@ namespace CaiFuZhiMen_3999
             GameSoundHelper3999.Instance.StopSound(SoundKey.RegularBG);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
-            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,OnSlotDetailEvent);
+            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+                OnSlotDetailEvent);
 
             // EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             base.OnClose(eventData);
@@ -264,7 +263,7 @@ namespace CaiFuZhiMen_3999
                 (clone) =>
                 {
                     GameObject goGameCtrl = Object.Instantiate(clone, null);
-                    goGameCtrl.name = "Game Main Controller";
+                    goGameCtrl.name = "Slot Game Main Controller 3999";
                     goGameCtrl.transform.SetParent(null);
 
                     _slotMachineController = goGameCtrl.transform.Find("Slot Machine")
@@ -1034,7 +1033,7 @@ namespace CaiFuZhiMen_3999
             {
                 // 计算总奖金 并判断中奖类型
                 long totalWinLineCredit = 0;
-                totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList) / winList.Count;
+                totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList) / winList.Count * TotalBet;// 新增倍率
                 allWinCredit = totalWinLineCredit;
                 _slotMachineController.SendTotalWinCreditEvent(allWinCredit); // 发送总奖金事件
                 // 本剧同步玩家金钱
@@ -1094,10 +1093,11 @@ namespace CaiFuZhiMen_3999
                 }
                 else
                 {
-                    DebugUtils.Log("算法卡积分==" + credit);
-                    DebugUtils.Log("机器积分==" + SBoxModel.Instance.myCredit);
+                    // DebugUtils.Log("算法卡积分==" + credit);
+                    // DebugUtils.Log("机器积分==" + SBoxModel.Instance.myCredit);
                     if (credit != SBoxModel.Instance.myCredit)
                     {
+                        DebugUtils.LogError($" 算法卡 :[0]= {credit}   前端:[0]={SBoxModel.Instance.myCredit}");
                     }
 
                     isNext = true;
@@ -1109,10 +1109,10 @@ namespace CaiFuZhiMen_3999
 
             // 进入空闲状态
             ContentModel.Instance.gameState = GameState.Idle;
-            Action bigWildCallBack = () =>
-            {
-                ShowBigWildSpines(celRowList);
-            };
+            // Action bigWildCallBack = () =>
+            // {
+            //     ShowBigWildSpines(celRowList);
+            // };
             if (winList.Count > 0 && !ContentModel.Instance.isAuto && !ContentModel.Instance.isFreeSpinTrigger)
             {
                 if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);

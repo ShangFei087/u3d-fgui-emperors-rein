@@ -228,7 +228,6 @@ public partial class SBoxModel: MonoSingleton<SBoxModel>
        set => SboxConfData.MachineId = int.Parse(value);
     }
 
-
     /// <summary> 组号号 </summary>
     public int groupId
     {

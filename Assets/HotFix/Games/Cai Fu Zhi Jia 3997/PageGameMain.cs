@@ -223,7 +223,7 @@ namespace CaiFuZhiJia_3997
                 (clone) =>
                 {
                     _goGameCtrl = Object.Instantiate(clone, null);
-                    _goGameCtrl.name = "Game Main Controller";
+                    _goGameCtrl.name = "Slot Game Main Controller 3997";
                     _goGameCtrl.transform.SetParent(null);
 
                     _slotMachineCtrl = _goGameCtrl.transform.Find("Slot Machine")

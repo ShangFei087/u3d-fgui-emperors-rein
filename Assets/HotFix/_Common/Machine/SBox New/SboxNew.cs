@@ -6,13 +6,10 @@ namespace SBoxApi
 {
     public partial class SBoxEventHandle
     {
-
         // 游戏
         public const string SBOX_IDEA_INFO = "SBOX_IDEA_INFO";
-
         public const string SBOX_SLOT_SPIN = "SBOX_SLOT_SPIN";
         public const string SBOX_JACKPOT_GAME = "SBOX_JACKPOT_GAME";
-
         // 推币机
         public const string SBOX_COIN_PUSH_BEGIN_TURN = "SBOX_COIN_PUSH_BEGIN_TURN";
         public const string SBOX_COIN_PUSH_SPIN = "SBOX_COIN_PUSH_SPIN";
@@ -36,6 +33,7 @@ namespace SBoxApi
         // 新增加
         public const string SBOX_DEBUG_CONTROL_MODE = "SBOX_DEBUG_CONTROL_MODE";  //算法卡调试模式
         public const string SBOX_SWITCH_GAME = "SBOX_SWITCH_GAME";//切换游戏
+        public const string SBOX_JACKPOT_ONLINE_GAME = "SBOX_JACKPOT_ONLINE_GAME";
 
 
     }

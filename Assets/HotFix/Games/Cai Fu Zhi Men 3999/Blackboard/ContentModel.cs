@@ -294,6 +294,15 @@ namespace CaiFuZhiMen_3999
         /// <summary>押注分数索引</summary>
         public int betIndex { get; set; } = 0;
 
+        /// <summary> 下注倍数 </summary>
+        public int betmultiple
+        {
+            get => m_BetMultiple;
+            set => Observable.SetProperty(ref m_BetMultiple, value);
+        }
+        [SerializeField]
+        private int m_BetMultiple = 0;
+
         /// <summary>Spin按钮状态</summary>
         public string btnSpinState { get => mBtnSpinState; set => Observable.SetProperty(ref mBtnSpinState, value); }
 
