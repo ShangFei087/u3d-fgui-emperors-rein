@@ -7,14 +7,6 @@ using GameMaker;
 using SlotMaker;
 using SBoxApi;
 using Newtonsoft.Json;
-using SimpleJSON;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-using GameMaker;
-using SlotMaker;
-using SBoxApi;
-
 
 namespace SlotZhuZaiJinBi1700
 {
@@ -45,7 +37,7 @@ namespace SlotZhuZaiJinBi1700
     {
         public List<SymbolInclude> symbolInclude;
 
-        public void ParseSlotSpinMachine(long totalBet, JSONNode res, SBoxJackpotData sboxJackpotData)
+        public void ParseSlotSpin(long totalBet, JSONNode res, SBoxJackpotData sboxJackpotData)
         {
             ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
@@ -217,16 +209,16 @@ namespace SlotZhuZaiJinBi1700
             ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             long creditBefore = MainBlackboardController.Instance.myRealCredit;
             //赢分
-            long TotalBet = (int)res["TotalBet"]* MainModel.Instance.contentMD.totalBet;
-            DebugUtils.Log("本局赢分TotalBet==" + TotalBet);
+            long TotalWins = (int)res["TotalBet"]* MainModel.Instance.contentMD.betmultiple; //乘以下注倍数
+            DebugUtils.Log("本局赢分TotalBet==" + TotalWins);
             long afterBetCredit = 0;
             if (OpenType == 1)
             {
-                afterBetCredit = creditBefore - totalBet + TotalBet;
+                afterBetCredit = creditBefore - totalBet + TotalWins;
             }
             else
             {
-                afterBetCredit = creditBefore - totalBet + TotalBet;
+                afterBetCredit = creditBefore - totalBet + TotalWins;
 
             }
 
@@ -269,7 +261,7 @@ namespace SlotZhuZaiJinBi1700
             DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={totalEarnCredit} ");
         }
 
-
+        #region ParseSlotSpinMock
         public void ParseSlotSpinMock(long totalBet, JSONNode res, SBoxJackpotData sboxJackpotData)
         {
             List<SymbolInclude> symbolInclude = new List<SymbolInclude>();
@@ -490,6 +482,7 @@ namespace SlotZhuZaiJinBi1700
 
             DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={totalEarnCredit} ");
         }
+        #endregion
 
         void OnEnable()
         {

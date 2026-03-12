@@ -24,6 +24,7 @@ namespace SlotMaker
 
         public long totalBet { get; set; }
         public int betIndex { get; set; }
+        public int betmultiple { get; set; }
 
         public int totalPlaySpins { get; }
         public int remainPlaySpins { get; }
