@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,76">
+  <displayList>
+    <text id="n0_knk6" name="n0" xy="20,0" size="96,66" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="彩金"/>
+    <text id="n1_knk6" name="n1" xy="133,0" size="195,66" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="游戏编号"/>
+    <text id="n2_knk6" name="n2" xy="350,0" size="96,66" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="积分"/>
+    <text id="n3_knk6" name="n3" xy="470,0" size="145,66" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="中奖前分数"/>
+    <text id="n4_knk6" name="n4" xy="670,0" size="150,66" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="中奖后分数"/>
+    <text id="n5_knk6" name="n5" xy="880,0" size="180,66" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="日期"/>
+    <graph id="n13_knk6" name="n13" xy="20,71" size="1040,5" type="rect"/>
+  </displayList>
+</component>

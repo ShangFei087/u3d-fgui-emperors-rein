@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using HotFix.Games.Console.Controller;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,10 +15,12 @@ namespace ConsoleSlot01
         public override PageType pageType => PageType.Overlay;
         TabGameHistoryController taGameHistoryController = new TabGameHistoryController();
         GButton btnClose;
-        GButton btnPrev, btnNext;//上一页和下一页按钮
-        GComboBox gcbDropdownDates, gcbDropdownGameIds;//日期和游戏id下拉框
+        GButton btnPrev, btnNext; //上一页和下一页按钮
+        GComboBox gcbDropdownDates, gcbDropdownGameIds; //日期和游戏id下拉框
         GList lstPages;
-        GComponent cmpTabGameHistory; 
+
+        GComponent cmpTabGameHistory;
+
         // 存储当前选中的游戏ID和日期时间（精确到秒）
         long currentGameId = 1700; // 默认游戏ID
         string currentDateTime = ""; // 格式：yyyy-MM-dd HH:mm:ss
@@ -32,6 +35,14 @@ namespace ConsoleSlot01
             { 3997, new string[] { "CaiFuZhiJia3997", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" } },
             { 3999, new string[] { "CaiFuZhiMen3999", "Assets/GameRes/Games/Cai Fu Zhi Men 3999/FGUIs" } },
         };
+
+        #region cwy 2026.3.11 新增
+
+        private Controller _historyController;
+        private GComponent _bonusPageCom;
+        private readonly TabBonusHistoryController _tabBonusHistoryController = new TabBonusHistoryController();
+
+        #endregion
 
         protected override void OnInit()
         {
@@ -76,7 +87,8 @@ namespace ConsoleSlot01
             cmpTabGameHistory = lstPages.GetChildAt(0).asCom;
 
             // 初始化Tab控制器，传入两个回调
-            taGameHistoryController.InitParam(cmpTabGameHistory, ConsoleTableName.TABLE_SLOT_GAME_RECORD,onDatesChange,onGameIdsChange);
+            taGameHistoryController.InitParam(cmpTabGameHistory, ConsoleTableName.TABLE_SLOT_GAME_RECORD, onDatesChange,
+                onGameIdsChange);
 
             // 初始化日期时间下拉框
             gcbDropdownDates = this.contentPane.GetChild("date").asCom.GetChild("value").asComboBox;
@@ -96,6 +108,12 @@ namespace ConsoleSlot01
             btnNext.onClick.Clear();
             btnNext.onClick.Add(OnClickNext);
 
+            // cwy 新增
+            _historyController = contentPane.GetController("history");
+            _bonusPageCom = contentPane.GetChild("bonusPage").asCom;
+            // GComponent bonusDataGList = _bonusPageCom.GetChildAt(0).asCom;
+            // Debug.LogError("_bonusDataGList：" + _bonusDataGList.numItems);
+            // _tabBonusHistoryController.InitParam(bonusDataGList, ConsoleTableName.TABLE_JACKPOT_RECORD, onDatesChange);
         }
 
         //初始化游戏数据
@@ -137,7 +155,8 @@ namespace ConsoleSlot01
                 gcbDropdownDates.selectedIndex = 0;
                 currentDateTime = dateTimes[0];
                 // 自动查询第一条数据
-                taGameHistoryController.OnDateTimeChanged(currentGameId, currentDateTime, gcbDropdownDates.selectedIndex);
+                taGameHistoryController.OnDateTimeChanged(currentGameId, currentDateTime,
+                    gcbDropdownDates.selectedIndex);
             }
             else
             {
@@ -149,7 +168,7 @@ namespace ConsoleSlot01
             }
         }
 
-         //初始化游戏id下拉框
+        //初始化游戏id下拉框
         void onGameIdsChange(List<long> gameIds)
         {
             List<string> gameIdStrings = new List<string>();
@@ -176,6 +195,7 @@ namespace ConsoleSlot01
                 });
             }
         }
+
         // 游戏ID列表变化回调
         void OnGameIdComboChanged(EventContext context)
         {
@@ -192,8 +212,8 @@ namespace ConsoleSlot01
                     taGameHistoryController.OnGameIdChanged(currentGameId);
                 });
             }
-
         }
+
         // 日期时间列表变化回调
         void OnDateTimeComboChanged(EventContext context)
         {
@@ -204,15 +224,23 @@ namespace ConsoleSlot01
             // 根据选中的游戏ID和日期时间查询数据
             taGameHistoryController.OnDateTimeChanged(currentGameId, currentDateTime, gcbDropdownDates.selectedIndex);
         }
+
         //上一页
         public void OnClickPrev()
         {
-            taGameHistoryController.PrevPage();
+            if (_historyController.selectedIndex == 0)
+                taGameHistoryController.PrevPage();
+            else
+                _tabBonusHistoryController.PrevPage();
         }
+
         //下一页
         public void OnClickNext()
         {
-            taGameHistoryController.NextPage();
+            if (_historyController.selectedIndex == 0)
+                taGameHistoryController.NextPage();
+            else
+                _tabBonusHistoryController.NextPage();
         }
 
         // 加载指定游戏的包（如果未加载）
@@ -249,11 +277,10 @@ namespace ConsoleSlot01
                 {
                     DebugUtils.LogWarning($"加载游戏包失败: {packageName} (gameID: {gameId})");
                 }
-                
+
                 // 包加载完成（或失败）后执行回调
                 onLoaded?.Invoke();
             });
         }
     }
 }
-

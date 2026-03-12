@@ -210,6 +210,9 @@
     <component id="es9vau" name="ButtonButtom4.xml" path="/components/" exported="true"/>
     <component id="es9vav" name="PCBTabJackpotOnlineWins.xml" path="/tabs/" exported="true"/>
     <image id="es9vaw" name="icon.png" path="/i18ntest/images/"/>
+    <component id="knk6az" name="PCBRTableBonusHistory.xml" path="/tabs/" exported="true"/>
+    <component id="knk6b0" name="ItemBonusTitle.xml" path="/moudules/" exported="true"/>
+    <component id="knk6b1" name="ItemBonusData.xml" path="/moudules/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets/GameRes/Games/Console/FGUIs" packageCount="2" genCode="true">
     <atlas name="Default" index="0"/>

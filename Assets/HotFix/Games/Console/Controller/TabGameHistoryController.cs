@@ -11,13 +11,25 @@ public class TabGameHistoryController : MonoBehaviour
     GComponent goOwnerTab;
     GameHistoryDataController ctrl = new GameHistoryDataController();
     public List<GLoader> Symbols = new List<GLoader>(); //滚轮图标
-    GRichTextField _rtxtgame_uid, _rtxtcreated_at, _rtxtcredit_before, _rtxtcredit_after, _rtxttotal_bet, _rtxtbase_game_win_credit, _rtxtjackpot_win_credit, _rtxtopen_type, _rtxtresult_type,
-        _rtxtgame_name, _rtxtgame_page;
+
+    GRichTextField _rtxtgame_uid,
+        _rtxtcreated_at,
+        _rtxtcredit_before,
+        _rtxtcredit_after,
+        _rtxttotal_bet,
+        _rtxtbase_game_win_credit,
+        _rtxtjackpot_win_credit,
+        _rtxtopen_type,
+        _rtxtresult_type,
+        _rtxtgame_name,
+        _rtxtgame_page;
 
     // 当前显示的数据
     private GameHistoryInfo currentPageInfo;
+
     //当前记录的符号映射
     private Dictionary<string, string> currentSymbolIconMap;
+
     // 当前游戏ID
     private long currentGameId = 1700;
 
@@ -32,7 +44,8 @@ public class TabGameHistoryController : MonoBehaviour
         { 3999, "CaiFuZhiMen3999" },
     };
 
-    public void InitParam(GComponent go, string tabName,Action<List<string>> onDatesChange,Action<List<long>> onGameIdsChange)
+    public void InitParam(GComponent go, string tabName, Action<List<string>> onDatesChange,
+        Action<List<long>> onGameIdsChange)
     {
         goOwnerTab = go;
         GComponent reels = go.GetChild("reels").asCom;
@@ -55,6 +68,8 @@ public class TabGameHistoryController : MonoBehaviour
         _rtxtgame_name = go.GetChild("game_page").asCom.GetChild("key").asRichTextField;
         _rtxtgame_page = go.GetChild("game_page").asCom.GetChild("value").asRichTextField;
 
+       
+        
         ctrl.InitParam(tabName, onDatesChange, onGameIdsChange, onPageChagne);
     }
 
@@ -66,7 +81,7 @@ public class TabGameHistoryController : MonoBehaviour
     }
 
     // 日期时间改变时调用
-    public void OnDateTimeChanged(long gameId, string dateTime,int selectedIndex)
+    public void OnDateTimeChanged(long gameId, string dateTime, int selectedIndex)
     {
         ctrl.QueryByGameIdAndDateTime(gameId, dateTime, selectedIndex);
     }
@@ -108,13 +123,15 @@ public class TabGameHistoryController : MonoBehaviour
             {
                 _rtxtgame_name.text = $"{pageInfo.currentRecord.game_id}游戏记录";
                 _rtxtgame_page.text = $"第{pageInfo.curPageNumber}/{pageInfo.totalPageCount}页";
+
+                // _rtxtbonusgame_name.text = $"{pageInfo.currentRecord.game_id}彩金记录";
+                // _rtxtbonusgame_page.text = $"第{pageInfo.curPageNumber}/{pageInfo.totalPageCount}页";
             }
             else
             {
                 _rtxtgame_name.text = $"{pageInfo.currentRecord.game_id} GameHistory";
                 _rtxtgame_page.text = $"Page {pageInfo.curPageNumber} of {pageInfo.totalPageCount}";
             }
-           
         }
         else
         {
@@ -208,7 +225,8 @@ public class TabGameHistoryController : MonoBehaviour
         try
         {
             // 解析JSON为字典
-            currentSymbolIconMap = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(symbolIconMappingJson);
+            currentSymbolIconMap =
+                Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(symbolIconMappingJson);
             DebugUtils.Log($"成功解析符号映射，共 {currentSymbolIconMap.Count} 个符号");
         }
         catch (Exception e)
