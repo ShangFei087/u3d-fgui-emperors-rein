@@ -209,6 +209,16 @@ namespace XingYunZhiLun_3998
                     },
                 },
 
+                longClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+                {
+                    [MachineButtonKey.BtnSpin] = (info) =>
+                    {
+                        DebugUtils.LogError("游戏接受到机台长按的数据：Spin");
+                        EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, true); // isLongClick
+                        CommonPopupHandler.Instance.ClosePopup();
+                        OnClickSpinButton(res);
+                    }
+                }
             };
         }
 

@@ -2,7 +2,8 @@
 <resources>
   <!-- Console/PageConsoleBusinessRecord.xml -->
   <string name="xp0b9yqdg3lh53-n6_cwuo" mz="navBusiness">BUSINESS</string>
-  <string name="xp0b9yqdg3lh53-n31_g3lh" mz="navCoin">COIN</string>
+  <string name="xp0b9yqdg3lh53-n33_es9v" mz="navCoin">COIN</string>
+  <string name="xp0b9yqdg3lh53-n34_es9v" mz="navJpOnline">JpOnline</string>
   <string name="xp0b9yqdg3lh53-n29_os7y-cp-title" mz="navBottom">Business Record</string>
   <!-- Console/PageConsoleGameHistory.xml -->
   <string name="xp0b9yqdexvp7x-n7_h0z3-cp-key" mz="gameId">GameId</string>
@@ -358,6 +359,22 @@
   <string name="xp0b9yqdh0z3ao-n12_h0z3-cp-key" mz="result_type">本局游戏类型:</string>
   <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-key" mz="game_page">"Slot1700"游戏记录</string>
   <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-value" mz="game_page">第999/999条</string>
+  <!-- Console/tabs/PCBTabJackpotOnlineWins.xml -->
+  <string name="xp0b9yqdes9vav-n0_es9v-cp-key" mz="macId">macId</string>
+  <string name="xp0b9yqdes9vav-n1_es9v-cp-key" mz="seatId">seatId</string>
+  <string name="xp0b9yqdes9vav-n2_es9v-cp-key" mz="bets">bets</string>
+  <string name="xp0b9yqdes9vav-n3_es9v-cp-key" mz="betPercent">betPercent</string>
+  <string name="xp0b9yqdes9vav-n4_es9v-cp-key" mz="scoreRate">scoreRate</string>
+  <string name="xp0b9yqdes9vav-n5_es9v-cp-key" mz="jpPercent">jpPercent</string>
+  <string name="xp0b9yqdes9vav-n6_es9v-cp-key" mz="wins">wins</string>
+  <string name="xp0b9yqdes9vav-n7_es9v-cp-key" mz="grandWin">grandWin</string>
+  <string name="xp0b9yqdes9vav-n8_es9v-cp-key" mz="grandTimes">grandTimes</string>
+  <string name="xp0b9yqdes9vav-n9_es9v-cp-key" mz="majorWin">majorWin</string>
+  <string name="xp0b9yqdes9vav-n10_es9v-cp-key" mz="majorTimes">majorTimes</string>
+  <string name="xp0b9yqdes9vav-n11_es9v-cp-key" mz="minorWin">minorWin</string>
+  <string name="xp0b9yqdes9vav-n12_es9v-cp-key" mz="minorTimes">minorTimes</string>
+  <string name="xp0b9yqdes9vav-n13_es9v-cp-key" mz="miniWin">miniWin</string>
+  <string name="xp0b9yqdes9vav-n15_es9v-cp-key" mz="miniTimes">miniTimes</string>
   <!-- Console/tabs/PCBTabTestBtn.xml -->
   <string name="xp0b9yqdes9vaq-n4_es9v" mz="TicketOutBtn">TicketOut</string>
   <string name="xp0b9yqdes9vaq-n5_es9v" mz="SpinBtn">Spin
@@ -397,10 +414,6 @@
   <string name="xp0b9yqdmsw23e-n45_jtgo-cp-btn" mz="changeManagerPassword">Change Manager Password</string>
   <string name="xp0b9yqdmsw23e-n46_jtgo-cp-btn" mz="changeAdminPassword">Change Admin Password</string>
   <!-- Console/tabs/PCMSTabProgressive.xml -->
-  <string name="xp0b9yqdcwuo39-n31_os7y-cp-title" mz="mdJackpotOnline">Jackpot Online</string>
-  <string name="xp0b9yqdcwuo39-n32_os7y-cp-key" mz="jackpotOnline">Jackpot Online:</string>
-  <string name="xp0b9yqdcwuo39-n33_os7y-cp-key" mz="jackpotScoreRate">Jackpot Score Rate:</string>
-  <string name="xp0b9yqdcwuo39-n34_os7y-cp-key" mz="jackpotPercent">Jackpot Percent:</string>
   <string name="xp0b9yqdcwuo39-n48_vqlx-cp-title" mz="mdJackpotGame">Jackpot Game</string>
   <string name="xp0b9yqdcwuo39-n49_vqlx-cp-key" mz="jackpotGamePercent">Jackpot Game Percent:</string>
   <string name="xp0b9yqdcwuo39-n35_os7y-cp-title" mz="mdIOT">IOT</string>
@@ -418,4 +431,8 @@
   <string name="xp0b9yqdcwuo39-n42_os7y-cp-title" mz="mdOther">Other</string>
   <string name="xp0b9yqdcwuo39-n46_os7y-cp-key" mz="coinOutImmediately">Coin Out Immediately:</string>
   <string name="xp0b9yqdcwuo39-n47_os7y-cp-key" mz="checkHotfixMultipleTimes">Check Hotfix Multiple Times:</string>
+  <string name="xp0b9yqdcwuo39-n31_os7y-cp-title" mz="mdJackpotOnline">Jackpot Online</string>
+  <string name="xp0b9yqdcwuo39-n32_os7y-cp-key" mz="useJpOnlineValidator">Jackpot Online:</string>
+  <string name="xp0b9yqdcwuo39-n33_os7y-cp-key" mz="jackpotScoreRate">Jackpot Score Rate:</string>
+  <string name="xp0b9yqdcwuo39-n56_es9v-cp-key" mz="jackpotPercent">Jackpot Score Rate:</string>
 </resources>
