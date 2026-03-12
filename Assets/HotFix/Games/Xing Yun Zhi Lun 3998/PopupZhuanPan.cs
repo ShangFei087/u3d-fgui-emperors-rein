@@ -72,6 +72,33 @@ namespace XingYunZhiLun_3998
                     goRawardEffect = clone;
                     callback();
                 });
+
+            machineBtnClickHelper = new MachineButtonClickHelper()
+            {
+                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+                {
+                    [MachineButtonKey.BtnSpin] = (info) =>
+                    {
+                        if (PanelController02.isOpenIntroduce == true)
+                        {
+                            return;
+                        }
+
+                        Debug.LogError("游戏接受到机台短按的数据：Spin");
+                        EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false); // isLongClick
+                        StartGameOnce(() =>
+                        {
+                            ContentModel.Instance.wheelIsSpin = false;
+                            ContentModel.Instance.wheelBtnSpinState = SpinButtonState.Stop;
+                            isClose = false;
+
+                            //ContentModel.Instance.gameState = GameState.Idle;
+                            CloseSelf(null);
+                            //DebugUtils.Log("游戏结束");
+                        })
+                    },
+                },
+            };
         }
 
         public override void OnOpen(PageName name, EventData data)

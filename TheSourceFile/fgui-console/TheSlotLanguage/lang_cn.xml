@@ -2,7 +2,8 @@
 <resources>
   <!-- Console/PageConsoleBusinessRecord.xml -->
   <string name="xp0b9yqdg3lh53-n6_cwuo" mz="navBusiness">总营收</string>
-  <string name="xp0b9yqdg3lh53-n31_g3lh" mz="navCoin">投退记录</string>
+	<string name="xp0b9yqdg3lh53-n33_es9v" mz="navCoin">投退记录</string>
+	<string name="xp0b9yqdg3lh53-n34_es9v" mz="navJpOnline">在线彩金</string>
   <string name="xp0b9yqdg3lh53-n29_os7y-cp-title" mz="navBottom">营收记录</string>
   <!-- Console/PageConsoleGameHistory.xml -->
   <string name="xp0b9yqdexvp7x-n7_h0z3-cp-key" mz="gameId">游戏编号</string>
@@ -358,7 +359,23 @@
   <string name="xp0b9yqdh0z3ao-n12_h0z3-cp-key" mz="result_type">本局游戏类型:</string>
   <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-key" mz="game_page">"Slot1700"游戏记录</string>
   <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-value" mz="game_page">第999/999条</string>
-    <!-- Console/tabs/PCBTabTestBtn.xml -->
+  <!-- Console/tabs/PCBTabJackpotOnlineWins.xml -->
+  <string name="xp0b9yqdes9vav-n0_es9v-cp-key" mz="macId">MAC地址</string>
+  <string name="xp0b9yqdes9vav-n1_es9v-cp-key" mz="seatId">座位ID</string>
+  <string name="xp0b9yqdes9vav-n2_es9v-cp-key" mz="bets">投注</string>
+  <string name="xp0b9yqdes9vav-n3_es9v-cp-key" mz="betPercent">投注百分比</string>
+  <string name="xp0b9yqdes9vav-n4_es9v-cp-key" mz="scoreRate">得分率</string>
+  <string name="xp0b9yqdes9vav-n5_es9v-cp-key" mz="jpPercent">彩金百分比</string>
+  <string name="xp0b9yqdes9vav-n6_es9v-cp-key" mz="wins">得分</string>
+  <string name="xp0b9yqdes9vav-n7_es9v-cp-key" mz="grandWin">巨奖得分</string>
+  <string name="xp0b9yqdes9vav-n8_es9v-cp-key" mz="grandTimes">巨奖次数</string>
+  <string name="xp0b9yqdes9vav-n9_es9v-cp-key" mz="majorWin">大奖得分</string>
+  <string name="xp0b9yqdes9vav-n10_es9v-cp-key" mz="majorTimes">大奖次数</string>
+  <string name="xp0b9yqdes9vav-n11_es9v-cp-key" mz="minorWin">中奖得分</string>
+  <string name="xp0b9yqdes9vav-n12_es9v-cp-key" mz="minorTimes">中奖次数</string>
+  <string name="xp0b9yqdes9vav-n13_es9v-cp-key" mz="miniWin">小奖得分</string>
+  <string name="xp0b9yqdes9vav-n15_es9v-cp-key" mz="miniTimes">小奖次数</string>
+  <!-- Console/tabs/PCBTabTestBtn.xml -->
   <string name="xp0b9yqdes9vaq-n4_es9v" mz="TicketOutBtn">退票</string>
   <string name="xp0b9yqdes9vaq-n5_es9v" mz="SpinBtn">开始</string>
   <string name="xp0b9yqdes9vaq-n9_es9v" mz="ConsoleBtn">设置</string>

@@ -72,6 +72,7 @@ namespace SlotZhuZaiJinBi1700
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMiniCtrl = new MiniReelGroup();
         long TotalBet => (long)MainModel.Instance.contentMD.totalBet;
+        int BetMultiple => MainModel.Instance.contentMD.betmultiple;
 
         protected override void OnInit()
         {
@@ -666,7 +667,7 @@ namespace SlotZhuZaiJinBi1700
             JSONNode resNode = null;
             
             //请求结果
-            MachineDataG1700Controller.Instance.RequestSlotSpinFromMock(TotalBet, (res) =>
+            MachineDataG1700Controller.Instance.RequestSlotSpinFromMock(totalBet, (res) =>
             {
                 resNode = res;
                 isNext = true;
@@ -690,7 +691,7 @@ namespace SlotZhuZaiJinBi1700
             //}
 
             // 解析数据
-            MachineDataG1700Controller.Instance.ParseSlotSpinMock(totalBet, resNode, sboxJackpotData);
+            MachineDataG1700Controller.Instance.ParseSlotSpin(totalBet, resNode, sboxJackpotData);
            
             // 数据入库
 
@@ -703,7 +704,7 @@ namespace SlotZhuZaiJinBi1700
         //请求算法结果
         IEnumerator RequestSlotSpinFromMachine(Action successCallback = null, Action<string> errorCallback = null)
         {
-            long totalBet = TotalBet;
+           
             bool isBreak = false;
             bool isNext = false;
             bool isGetMyCredit = false;
@@ -767,7 +768,7 @@ namespace SlotZhuZaiJinBi1700
 
          
             // 解析数据
-            MachineDataG1700Controller.Instance.ParseSlotSpinMachine(totalBet, resNode, sboxJackpotData);
+            MachineDataG1700Controller.Instance.ParseSlotSpin(TotalBet, resNode, sboxJackpotData);
             // 数据入库
             //MachineDataG1700Controller.Instance.Record();
             // ui 彩金
@@ -1403,6 +1404,7 @@ namespace SlotZhuZaiJinBi1700
             if (successCallback != null)
                 successCallback.Invoke();
         }
+
         private void ChangeBGPanel(int type )
         {
             if (type == 0)
