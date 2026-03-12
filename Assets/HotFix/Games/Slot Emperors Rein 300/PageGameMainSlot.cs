@@ -53,7 +53,6 @@ namespace SlotEmperorsRein
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
 
-            EventCenter.Instance.AddEventListener<string>(MachineDataManager02.RpcNameJackpotOnLine, OnJackpotOnLine);
 
             InitParam();
             //Dictionary<string, object> args = new Dictionary<string, object>()
@@ -72,7 +71,6 @@ namespace SlotEmperorsRein
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
                 OnSlotDetailEvent);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
-            EventCenter.Instance.RemoveEventListener<string>(MachineDataManager02.RpcNameJackpotOnLine, OnJackpotOnLine);
             base.OnClose(data);
         }
 
@@ -934,7 +932,6 @@ namespace SlotEmperorsRein
                 if (ApplicationSettings.Instance.isMock)
                 {
                     // 模拟在线彩金中奖数据
-                    MachineDataManager02.Instance.RequestJackpotOnLine();
                 }
                 else
                 {

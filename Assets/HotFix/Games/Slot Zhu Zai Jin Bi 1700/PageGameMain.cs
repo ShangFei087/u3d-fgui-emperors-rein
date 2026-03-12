@@ -332,7 +332,7 @@ namespace SlotZhuZaiJinBi1700
 
             ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
         }
-
+        //滚动一次
         IEnumerator GameOnce(Action successCallback, Action<string> errorCallback)
         {
             /*检查机器是否激活
@@ -548,6 +548,7 @@ namespace SlotZhuZaiJinBi1700
             }
             #endregion
 
+            #region Free
             //免费奖
             if (ContentModel.Instance.isFreeSpinTrigger)
             {
@@ -574,8 +575,44 @@ namespace SlotZhuZaiJinBi1700
                 yield return slotMachineCtrl.SlotWaitForSeconds(2.0f);
                 yield return FreeSpinTrigger(null, errorCallback);
             }
+            #endregion
 
+            #region Bonus
 
+            #endregion
+
+            #region JpOnline
+            while (ContentModel.Instance.jpOnlineWin.Count > 0)
+            {
+                WinJackpotInfo data = ContentModel.Instance.jpOnlineWin[0];
+                ContentModel.Instance.jpOnlineWin.RemoveAt(0);
+
+                //long fromCredit = data.win < 1000 ? data.win : data.win - 1000;
+
+                long winCredit = SBoxModel.Instance.CoinInScale * data.win;
+                allWinCredit += winCredit;
+
+                //PageManager.Instance.OpenPageAsync(PageName.PusherEmperorsReinPopupJackpotOnline,
+                //    new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
+                //    {
+                //        ["toCredit"] = winCredit,
+                //        ["jackpotType"] = data.jackpotId,
+                //        //["fromCredit"] = (long)fromCredit
+                //    }),
+                //    (res) =>
+                //    {
+                //        isNext = true;
+                //    });
+
+                //yield return new WaitUntil(() => isNext == true);
+                //isNext = false;
+
+                // 总线赢分（同步？？）
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+
+                MainBlackboardController.Instance.AddMyTempCredit(winCredit, true, isAddCreditAnim);
+            }
+            #endregion
             //核对前后端积分
             ERPushMachineDataManager02.Instance.RequestCoinPushSpinEnd(res1 =>
             {
@@ -607,8 +644,6 @@ namespace SlotZhuZaiJinBi1700
 
             // 本剧同步玩家金钱
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
-
-
             // 即中即退
             // yield return CoinOutImmediately(allWinCredit);
             // 进入空闲模式
@@ -622,7 +657,6 @@ namespace SlotZhuZaiJinBi1700
             if (successCallback != null)
                 successCallback.Invoke();
         }
-
         //请求模拟结果
         IEnumerator RequestSlotSpinFromMock(Action successCallback = null, Action<string> errorCallback = null)
         {
@@ -773,7 +807,21 @@ namespace SlotZhuZaiJinBi1700
                 DebugUtils.LogError($"请求大厅彩金下注失败: {ex.Message}");
             }
         }
+
         private readonly HashSet<long> _handledOnlineJackpotOrderIds = new HashSet<long>();
+        private static string GetOnlineJackpotName(int jackpotId)
+        {
+            switch (jackpotId)
+            {
+                case 0: return "Grand";
+                case 1: return "Major";
+                case 2: return "Minor"; 
+                case 3: return "Mini";
+                default: return "Unknown";
+            }
+        }
+
+        //大厅彩金主机赢分数据
         private void OnJackpotOnLine(string res)
         {
             if (string.IsNullOrEmpty(res))
@@ -793,12 +841,47 @@ namespace SlotZhuZaiJinBi1700
 
                 // 入队给业务层后续表现/结算使用
                 ContentModel.Instance.jpOnlineWin.Add(winInfo);
+
+                // 彩金数据入库
+                int jpLevel = winInfo.jackpotId + 1;
+                string jpName = GetOnlineJackpotName(winInfo.jackpotId);
+                long winCredit = (long)winInfo.win;
+                long crcreditBefore = MainBlackboardController.Instance.myRealCredit;
+                long creditAfter = MainBlackboardController.Instance.myRealCredit+ winCredit;
+                string gameUID = string.IsNullOrEmpty(ContentModel.Instance.curGameGuid) ? "-1" : ContentModel.Instance.curGameGuid;
+                long createdAt = winInfo.time;
+                TableJackpotRecordAsyncManager.Instance.AddJackpotRecord(jpLevel,jpName,winCredit,crcreditBefore,creditAfter,gameUID,createdAt);
+
+                //通知算法卡赢得联网彩金
+                SBoxWinNetJackpotInfo sBoxWinNetJackpotInfo = new SBoxWinNetJackpotInfo()
+                {
+                    MachineId = int.Parse(SBoxModel.Instance.MachineId),
+                    PlayerId = SBoxModel.Instance.SboxPlayerAccount.PlayerId,
+                    JackpotType = jpLevel,
+                    JackpotWins = winCredit,
+                };
+                MachineDataManager02.Instance.RequestJackpotOnline(sBoxWinNetJackpotInfo,(res) =>
+                {
+                    //算法卡加分后同步分数
+                    Debug.Log("通知算法卡赢得联网彩金");
+                    JSONNode data = JSONNode.Parse((string)res);
+                    int JackpotWin = (int)data["JackpotWin"];
+                    long creditBefore = MainBlackboardController.Instance.myRealCredit;
+                    long creditAfter = creditBefore+ JackpotWin;
+
+                    MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
+
+                }, (BagelCodeError err) =>
+                {
+                    DebugUtils.Log(err.msg);
+                });
             }
             catch (Exception ex)
             {
                 DebugUtils.LogError($"处理大厅彩金中奖下发失败: {ex.Message}");
             }
         }
+
         //显示线和中奖图标
         IEnumerator ShowWinListOnceAtNormalSpin(List<SymbolWin> winList)
         {
@@ -824,6 +907,7 @@ namespace SlotZhuZaiJinBi1700
                 slotMachineCtrl.CloseSlotCover();
             }
         }
+
         //游戏状态重置
         private void OnGameReset()
         {
@@ -833,6 +917,7 @@ namespace SlotZhuZaiJinBi1700
             slotMachineCtrl.CloseSlotCover();
             slotMachineCtrl.SkipWinLine(true);
         }
+
         //游戏状态闲置
         private IEnumerator GameIdle(List<SymbolWin> winList)
         {
@@ -847,6 +932,7 @@ namespace SlotZhuZaiJinBi1700
 
             yield return slotMachineCtrl.ShowWinListAwayDuringIdle(winList);
         }
+
         //bigwin弹窗
         IEnumerator BigWinPopup(WinLevelType winLevelType, long winCredit)
         {
@@ -865,6 +951,7 @@ namespace SlotZhuZaiJinBi1700
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
         }
+
         //免费弹窗
         IEnumerator FreeSpinTrigger(Action successCallback, Action<string> errorCallback)
         {
@@ -900,6 +987,7 @@ namespace SlotZhuZaiJinBi1700
             if (successCallback != null)
                 successCallback.Invoke();
         }
+
         //一局免费游戏
         IEnumerator GameFreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
@@ -909,6 +997,12 @@ namespace SlotZhuZaiJinBi1700
             bool isNext = false;
             bool isBreak = false;
             string errMsg = "";
+
+            // 检查余额通过后，立即扣除积分（提前扣分）
+            if (ContentModel.Instance.gameState != GameState.FreeSpin)
+            {
+                MainBlackboardController.Instance.MinusMyTempCredit(TotalBet, true, false);
+            }
 
             //获取结果
             if (ApplicationSettings.Instance.isMock)
@@ -1116,6 +1210,7 @@ namespace SlotZhuZaiJinBi1700
             if (successCallback != null)
                 successCallback.Invoke();
         }
+
         //bigwin类型
         WinLevelType GetBigWinType()
         {
@@ -1133,6 +1228,7 @@ namespace SlotZhuZaiJinBi1700
 
             return winLevelType;
         }
+
         //读取游戏配置
         private void ReadJsonBet()
         {
@@ -1198,10 +1294,12 @@ namespace SlotZhuZaiJinBi1700
                     }
                 });
         }
+
         private void OnStopSlot(EventData res)
         {
 
         }
+
         //机器按钮开始滚动
         private void OnClickSpinButton(EventData res)
         {
@@ -1249,6 +1347,7 @@ namespace SlotZhuZaiJinBi1700
                     break;
             }
         }
+
         //开始游戏
         void StartGameOnce(Action successCallback = null, Action<string> errorCallback = null)
         {
@@ -1256,12 +1355,14 @@ namespace SlotZhuZaiJinBi1700
             ContentModel.Instance.remainPlaySpins = 1;
             corGameOnce = mono.StartCoroutine(GameOnce(successCallback, errorCallback));
         }
+
         //开始自动玩
         void StartGameAuto(Action successCallback = null, Action<string> errorCallback = null)
         {
             if (coGameAuto != null) mono.StopCoroutine(coGameAuto);
             coGameAuto = mono.StartCoroutine(GameAuto(successCallback, errorCallback));
         }
+
         IEnumerator GameAuto(Action successCallback, Action<string> errorCallback)
         {
             bool isErr = false;
@@ -1352,7 +1453,6 @@ namespace SlotZhuZaiJinBi1700
         {
 
         }
-
         public void SetUIJackpotGameReel()
         {
             JackpotRes info = ContentModel.Instance.jpGameRes;

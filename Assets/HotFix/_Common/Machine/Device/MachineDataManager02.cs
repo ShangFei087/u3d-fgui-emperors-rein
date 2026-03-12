@@ -25,20 +25,16 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
 
     protected void Start()
     {
-
-
         //== 打码
         //监听下行:打码信息
         EventCenter.Instance.AddEventListener<SBoxCoderData>(SBoxEventHandle.SBOX_REQUEST_CODER, OnResponseMachineCodingInfo);
         //监听下行:打码
         EventCenter.Instance.AddEventListener<SBoxPermissionsData>(SBoxEventHandle.SBOX_CODER, OnResponseSetCoding);
 
-
         //== 硬件配置
         //监听下行:读取投退币配置信息
         EventCenter.Instance.AddEventListener<SBoxConfData>(SBoxEventHandle.SBOX_READ_CONF, OnResponseReadConf);
         EventCenter.Instance.AddEventListener<SBoxPermissionsData>(SBoxEventHandle.SBOX_WRITE_CONF, OnResponseWriteConf);
-
 
         //== 版本
         EventCenter.Instance.AddEventListener<string>(SBoxEventHandle.SBOX_IDEA_VERSION, OnResponseGetAlgorithmVersion);
@@ -48,18 +44,16 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         EventCenter.Instance.AddEventListener<SBoxPermissionsData>(SBoxEventHandle.SBOX_CHECK_PASSWORD, OnResponseCheckPassword);
         EventCenter.Instance.AddEventListener<SBoxPermissionsData>(SBoxEventHandle.SBOX_CHANGE_PASSWORD, OnResponseChangePassword);
 
-
-
         // ==玩家信息
         EventCenter.Instance.AddEventListener<SBoxAccount>(SBoxEventHandle.SBOX_GET_ACCOUNT, OnResponseGetPlayerInfo);
 
-        // ==游戏彩金
+        // ==算法卡游戏彩金
         EventCenter.Instance.AddEventListener<JackpotRes>(SBoxEventHandle.SBOX_JACKPOT_GAME, OnResponseJackpotGame);
-
+        //==联网彩金
+        EventCenter.Instance.AddEventListener<JackpotRes>(SBoxEventHandle.SBOX_JACKPOT_ONLINE_GAME, OnResponseJackpotOnline);
 
         // ==码表
         EventCenter.Instance.AddEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_METER_SET, OnResponseCounter);
-
 
         //// 打印机
         EventCenter.Instance.AddEventListener<List<string>>(SBoxEventHandle.SBOX_SADNBOX_PRINTER_LIST_GET, OnResponseGetPrinterList);
@@ -71,42 +65,34 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         EventCenter.Instance.AddEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_BILL_SELECT, OnResponseSelectBiller);
 
     }
-
-
     protected override void OnDestroy()
     {
-
         //== 打码
         //监听下行:打码信息
         EventCenter.Instance.RemoveEventListener<SBoxCoderData>(SBoxEventHandle.SBOX_REQUEST_CODER, OnResponseMachineCodingInfo);
         //监听下行:打码
         EventCenter.Instance.RemoveEventListener<SBoxPermissionsData>(SBoxEventHandle.SBOX_CODER, OnResponseSetCoding);
 
-
         //== 硬件配置
         //监听下行:读取投退币配置信息
         EventCenter.Instance.RemoveEventListener<SBoxConfData>(SBoxEventHandle.SBOX_READ_CONF, OnResponseReadConf);
         EventCenter.Instance.RemoveEventListener<SBoxPermissionsData>(SBoxEventHandle.SBOX_WRITE_CONF, OnResponseWriteConf);
 
-
         // 版本
         EventCenter.Instance.RemoveEventListener<string>(SBoxEventHandle.SBOX_IDEA_VERSION, OnResponseGetAlgorithmVersion);
         EventCenter.Instance.RemoveEventListener<string>(SBoxEventHandle.SBOX_SANDBOX_VERSION, OnResponseGetHardwareVersion);
-
 
         // 用户密码
         EventCenter.Instance.RemoveEventListener<SBoxPermissionsData>(SBoxEventHandle.SBOX_CHECK_PASSWORD, OnResponseCheckPassword);
         EventCenter.Instance.RemoveEventListener<SBoxPermissionsData>(SBoxEventHandle.SBOX_CHANGE_PASSWORD, OnResponseChangePassword);
 
-
-        // OnResponseChangePassword
         // ==玩家信息
         EventCenter.Instance.RemoveEventListener<SBoxAccount>(SBoxEventHandle.SBOX_GET_ACCOUNT, OnResponseGetPlayerInfo);
 
-
-        // ==游戏彩金
+        // ==联网游戏彩金
         EventCenter.Instance.RemoveEventListener<JackpotRes>(SBoxEventHandle.SBOX_JACKPOT_GAME, OnResponseJackpotGame);
-
+        //==联网彩金
+        EventCenter.Instance.RemoveEventListener<JackpotRes>(SBoxEventHandle.SBOX_JACKPOT_ONLINE_GAME, OnResponseJackpotOnline);
 
         // ==码表
         EventCenter.Instance.RemoveEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_METER_SET, OnResponseCounter);
@@ -116,7 +102,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         EventCenter.Instance.RemoveEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_PRINTER_SELECT, OnResponseSelectPrinter);
         EventCenter.Instance.RemoveEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_PRINTER_RESET, OnResponseResetPrinter);
 
-
         // 纸钞机列表
         EventCenter.Instance.RemoveEventListener<List<string>>(SBoxEventHandle.SBOX_SADNBOX_BILL_LIST_GET, OnResponseGetBillerList);
         EventCenter.Instance.RemoveEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_BILL_SELECT, OnResponseSelectBiller);
@@ -124,6 +109,7 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         base.OnDestroy();
     }
 
+    const string RpcNameIsCodingActive = "RpcNameIsCodingActive";
     /// <summary> 是否激活 </summary>
     public int RequestIsCodingActive(Action<object> successCallback,string mark = null)
     {
@@ -141,10 +127,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         return seqId;
     }
     void OnResponseIsCodingActive(int code) => OnResponse(RpcNameIsCodingActive, code);
-    const string RpcNameIsCodingActive = "RpcNameIsCodingActive";
-
-
-
 
     /// <summary> 显示打码数据 </summary>
     public int RequestMachineCodingInfo(Action<object> successCallback, Action<BagelCodeError> errorCallback, string mark = null)
@@ -164,8 +146,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
     }
     void OnResponseMachineCodingInfo(SBoxCoderData res) => OnResponse(SBoxEventHandle.SBOX_REQUEST_CODER, res);
 
-
-
     /// <summary> 打码 </summary>
     public int RequestSetCoding(ulong code, Action<object> successCallback, Action<BagelCodeError> errorCallback, string mark = null)
     {
@@ -183,10 +163,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         return seqId;
     }
     void OnResponseSetCoding(SBoxPermissionsData res) => OnResponse(SBoxEventHandle.SBOX_CODER, res);
-    
-        
-
-
 
     /// <summary> 密码校验 </summary>
     public int RequestCheckPassword(int password, Action<object> successCallback, Action<BagelCodeError> errorCallback, string mark = null)
@@ -206,10 +182,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
     }
     void OnResponseCheckPassword(SBoxPermissionsData res) => OnResponse(SBoxEventHandle.SBOX_CHECK_PASSWORD, res);
 
-
-
-
-
     /// <summary> 修改密码 </summary>
     public int RequestChangePassword(int password, Action<object> successCallback, Action<BagelCodeError> errorCallback, string mark = null)
     {
@@ -227,12 +199,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         return seqId;
     }
     void OnResponseChangePassword(SBoxPermissionsData res) => OnResponse(SBoxEventHandle.SBOX_CHANGE_PASSWORD, res);
-
-
-
-
-
-
 
     /// <summary>
     /// 上分
@@ -269,13 +235,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
     void OnResponseScoreUp(int credit) => OnResponse(RpcNameScoreUp, credit);
     const string RpcNameScoreUp = "RpcNameScoreUp";
 
-
-
-
-
-
-
-
     /// <summary>
     /// 下分
     /// </summary>
@@ -309,10 +268,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
     }
     void OnResponseScoreDown(int credit) => OnResponse(RpcNameScoreDown, credit);
     const string RpcNameScoreDown = "RpcNameScoreDown";
-
-
-
-
 
     /// <summary>
     /// 投币
@@ -350,10 +305,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
     void OnResponseCoinIn(int num) => OnResponse(RpcNameCoinIn, num);
     const string RpcNameCoinIn = "RpcNameCoinIn";
 
-
-
-
-
     /// <summary>
     /// 退票
     /// </summary>
@@ -390,12 +341,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
     void OnResponseCoinOut(int coinOutNum) => OnResponse(RpcNameCoinOut, coinOutNum);
     const string RpcNameCoinOut = "RpcNameCoinOut";
 
-
-
-
-
-
-
     /// <summary>
     /// 硬件版本
     /// </summary>
@@ -418,10 +363,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         return seqId;
     }
     void OnResponseGetHardwareVersion(string res) => OnResponse(SBoxEventHandle.SBOX_SANDBOX_VERSION, res);
-
-
-
-
 
     /// <summary>
     /// 算法卡版本
@@ -446,10 +387,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
     }
     void OnResponseGetAlgorithmVersion(string res) => OnResponse(SBoxEventHandle.SBOX_IDEA_VERSION, res);
 
-
-
-
-
     /// <summary> 请求配置 </summary>
     public int RequestReadConf(Action<object> successCallback, Action<BagelCodeError> errorCallback, string mark = null)
     {
@@ -466,10 +403,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         return seqId;
     }
     void OnResponseReadConf(SBoxConfData res) => OnResponse(SBoxEventHandle.SBOX_READ_CONF, res);
-
-
-
-
 
     /// <summary> 修改配置 </summary>
     public int RequestWriteConf(SBoxConfData data, Action<object> successCallback, Action<BagelCodeError> errorCallback, string mark = null)
@@ -488,9 +421,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
     }
     void OnResponseWriteConf(SBoxPermissionsData res) => OnResponse(SBoxEventHandle.SBOX_WRITE_CONF, res);
 
-
-
-
     /// <summary> 获取玩家信息20016 </summary>
     public int RequestGetPlayerInfo(Action<object> successCallback, Action<BagelCodeError> errorCallback, string mark = null)
     {
@@ -507,9 +437,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         return seqId;
     }
     void OnResponseGetPlayerInfo(SBoxAccount res) => OnResponse(SBoxEventHandle.SBOX_GET_ACCOUNT, res);
-
-
-
 
     /// <summary> 修改玩家信息 </summary>
     public int RequestSetPlayerInfo(SBoxPlayerAccount req, Action<object> successCallback, string mark = null)
@@ -530,11 +457,7 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
     void OnResponseSetPlayerInfo(SBoxPlayerAccount res) => OnResponse(RpcNameSetPlayerInfo, res);
     const string RpcNameSetPlayerInfo = "RpcNameSetPlayerInfo";
 
-
-
-
-
-    /// <summary> 获取游戏彩金 </summary>
+    /// <summary> 获取算法卡游戏彩金 </summary>
     public int RequestJackpotGame(Action<object> successCallback, Action<BagelCodeError> errorCallback, string mark = null)
     {
         int seqId = OnRequestBefore(SBoxEventHandle.SBOX_JACKPOT_GAME, null, successCallback, errorCallback, mark);
@@ -546,30 +469,27 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         else
         {
             SBoxIdea.GetJpContribution(SBoxModel.Instance.pid);
-            DebugUtils.LogError("待完成");
         }
         return seqId;
     }
     void OnResponseJackpotGame(JackpotRes res) => OnResponse(SBoxEventHandle.SBOX_JACKPOT_GAME, res);
 
-
-
-    /// <summary> 获取游戏彩金 </summary>
-    public int RequestJackpotOnLine()
+    /// <summary> 玩家赢得彩金中心的彩金信息 </summary>
+    public int RequestJackpotOnline(SBoxWinNetJackpotInfo sBoxWinNetJackpotInfo,Action<object> successCallback, Action<BagelCodeError> errorCallback, string mark = null)
     {
-        int seqId = OnRequestBefore(SBoxEventHandle.SBOX_JACKPOT_GAME, null, null, null, null);
+        int seqId = OnRequestBefore(SBoxEventHandle.SBOX_JACKPOT_ONLINE_GAME, null, successCallback, errorCallback, mark);
 
         if (isMock)
         {
-            OnMockJackpotOnLine(null);
+            DebugUtils.Log("Mock模式下没有联网彩金");
         }
         else
-        {   
-            DebugUtils.LogError("待完成");
+        {
+            SBoxIdea.SetPlayerWinNetJackpotInfo(sBoxWinNetJackpotInfo);
         }
         return seqId;
     }
-    public const string RpcNameJackpotOnLine = "RpcNameJackpotOnLine";
+    void OnResponseJackpotOnline(JackpotRes res) => OnResponse(SBoxEventHandle.SBOX_JACKPOT_ONLINE_GAME, res);
 
     /// <summary>
     /// 码表
@@ -607,13 +527,7 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
     }
     void OnResponseCounter(int res) => OnResponse(SBoxEventHandle.SBOX_SADNBOX_METER_SET, res);
 
-
-
-
-
-
-
-
+    /// <summary> 获取硬件纸钞机列表 </summary>
     public int RequestGetBillerList(Action<object> successCallback, Action<BagelCodeError> errorCallback, string mark = null)
     {
 
@@ -632,11 +546,7 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
     }
     void OnResponseGetBillerList(List<string> res) => OnResponse(SBoxEventHandle.SBOX_SADNBOX_BILL_LIST_GET, res);
 
-
-
-
-
-
+    /// <summary> 选择纸钞机 </summary>
     public int RequestSelectBiller(int index, Action<object> successCallback, Action<BagelCodeError> errorCallback, string mark = null)
     {
 
@@ -655,10 +565,7 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
     }
     void OnResponseSelectBiller(int res) => OnResponse(SBoxEventHandle.SBOX_SADNBOX_BILL_SELECT, res);
 
-
-
-
-
+    const string RpcNameIsBillerConnect = "RpcNameIsBillerConnect";
     /// <summary>
     /// 纸钞机是否链接
     /// </summary>
@@ -681,11 +588,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         return seqId;
     }
     void OnResponseIsBillerConnect(int res) => OnResponse(RpcNameIsBillerConnect, res);
-    const string RpcNameIsBillerConnect = "RpcNameIsBillerConnect";
-
-
-
-
 
     /// <summary>
     /// 获取打印机列表
@@ -709,12 +611,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         return seqId;
     }
     void OnResponseGetPrinterList(List<string> res) => OnResponse(SBoxEventHandle.SBOX_SADNBOX_PRINTER_LIST_GET, res);
-
-
-
-
-
-
 
     /// <summary>
     /// 选择打印机
@@ -740,9 +636,6 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
     }
     void OnResponseSelectPrinter(int res) => OnResponse(SBoxEventHandle.SBOX_SADNBOX_PRINTER_SELECT, res);
 
-
-
-
     /// <summary>
     /// 复位打印机
     /// </summary>
@@ -765,10 +658,7 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
 
         return seqId;
     }
-
     void OnResponseResetPrinter(int res) => OnResponse(SBoxEventHandle.SBOX_SADNBOX_PRINTER_RESET, res);
-
-
 
     /// <summary>
     /// 打印机是否链接
@@ -793,11 +683,4 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
     }
     void OnResponseIsPrinterConnect(int res) => OnResponse(RpcNameIsPrinterConnect, res);
     const string RpcNameIsPrinterConnect = nameof(RpcNameIsPrinterConnect);
-
-
-
-
-
-
-
 }

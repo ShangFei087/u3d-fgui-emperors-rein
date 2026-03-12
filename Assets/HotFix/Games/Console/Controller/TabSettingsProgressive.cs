@@ -101,7 +101,7 @@ public class TabSettingsProgressive
     {
         if (rtxtJackpotScoreRate == null || rtxtJackpotPercent == null)
             return;
-
+       
         try
         {
             JackpotDeviceBetData targetData = null;

@@ -389,6 +389,7 @@
     <type fullname="System.NullReferenceException" preserve="all" />
     <type fullname="System.Nullable`1" preserve="all" />
     <type fullname="System.Object" preserve="all" />
+    <type fullname="System.ObjectDisposedException" preserve="all" />
     <type fullname="System.ObsoleteAttribute" preserve="all" />
     <type fullname="System.ParamArrayAttribute" preserve="all" />
     <type fullname="System.Predicate`1" preserve="all" />
@@ -414,6 +415,7 @@
     <type fullname="System.Runtime.CompilerServices.CompilerGeneratedAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.ExtensionAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.IAsyncStateMachine" preserve="all" />
+    <type fullname="System.Runtime.CompilerServices.IsVolatile" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.IteratorStateMachineAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.RuntimeHelpers" preserve="all" />
@@ -432,13 +434,10 @@
     <type fullname="System.Single" preserve="all" />
     <type fullname="System.String" preserve="all" />
     <type fullname="System.StringComparison" preserve="all" />
-    <type fullname="System.StringSplitOptions" preserve="all" />
     <type fullname="System.Text.Encoding" preserve="all" />
     <type fullname="System.Text.StringBuilder" preserve="all" />
     <type fullname="System.Text.UTF8Encoding" preserve="all" />
     <type fullname="System.Threading.AutoResetEvent" preserve="all" />
-    <type fullname="System.Threading.CancellationToken" preserve="all" />
-    <type fullname="System.Threading.CancellationTokenSource" preserve="all" />
     <type fullname="System.Threading.EventWaitHandle" preserve="all" />
     <type fullname="System.Threading.Interlocked" preserve="all" />
     <type fullname="System.Threading.Monitor" preserve="all" />
@@ -447,6 +446,7 @@
     <type fullname="System.Threading.Tasks.TaskCompletionSource`1" preserve="all" />
     <type fullname="System.Threading.Tasks.Task`1" preserve="all" />
     <type fullname="System.Threading.Thread" preserve="all" />
+    <type fullname="System.Threading.ThreadAbortException" preserve="all" />
     <type fullname="System.Threading.ThreadPool" preserve="all" />
     <type fullname="System.Threading.ThreadStart" preserve="all" />
     <type fullname="System.Threading.WaitCallback" preserve="all" />
