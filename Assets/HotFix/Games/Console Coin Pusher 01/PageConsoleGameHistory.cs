@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using HotFix.Games.Console.Controller;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,7 +40,7 @@ namespace ConsoleSlot01
 
         private Controller _historyController;
         private GComponent _bonusPageCom;
-        private GList _bonusDataGList;
+        private readonly TabBonusHistoryController _tabBonusHistoryController = new TabBonusHistoryController();
 
         #endregion
 
@@ -110,8 +111,9 @@ namespace ConsoleSlot01
             // cwy 新增
             _historyController = contentPane.GetController("history");
             _bonusPageCom = contentPane.GetChild("bonusPage").asCom;
-            _bonusDataGList = _bonusPageCom.GetChildAt(0).asCom.GetChild("game_data").asList;
+            // GComponent bonusDataGList = _bonusPageCom.GetChildAt(0).asCom;
             // Debug.LogError("_bonusDataGList：" + _bonusDataGList.numItems);
+            // _tabBonusHistoryController.InitParam(bonusDataGList, ConsoleTableName.TABLE_JACKPOT_RECORD, onDatesChange);
         }
 
         //初始化游戏数据
@@ -228,6 +230,8 @@ namespace ConsoleSlot01
         {
             if (_historyController.selectedIndex == 0)
                 taGameHistoryController.PrevPage();
+            else
+                _tabBonusHistoryController.PrevPage();
         }
 
         //下一页
@@ -235,6 +239,8 @@ namespace ConsoleSlot01
         {
             if (_historyController.selectedIndex == 0)
                 taGameHistoryController.NextPage();
+            else
+                _tabBonusHistoryController.NextPage();
         }
 
         // 加载指定游戏的包（如果未加载）

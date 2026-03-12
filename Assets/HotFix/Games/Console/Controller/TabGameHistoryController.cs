@@ -24,11 +24,6 @@ public class TabGameHistoryController : MonoBehaviour
         _rtxtgame_name,
         _rtxtgame_page;
 
-
-    // cwy 新增 2026.3.11
-    GComponent _bonusPageCom;
-    GTextField _rtxtbonusgame_name,_rtxtbonusgame_page;
-
     // 当前显示的数据
     private GameHistoryInfo currentPageInfo;
 
@@ -73,10 +68,7 @@ public class TabGameHistoryController : MonoBehaviour
         _rtxtgame_name = go.GetChild("game_page").asCom.GetChild("key").asRichTextField;
         _rtxtgame_page = go.GetChild("game_page").asCom.GetChild("value").asRichTextField;
 
-        // // cwy 新增 2026.3.11
-        // _bonusPageCom = go.GetChild("bonusPage").asCom;
-        // _rtxtbonusgame_name = _bonusPageCom.GetChildAt(0).asCom.GetChild("game_page").asCom.GetChild("key").asRichTextField;
-        // _rtxtbonusgame_page = _bonusPageCom.GetChildAt(0).asCom.GetChild("game_page").asCom.GetChild("value").asRichTextField;
+       
         
         ctrl.InitParam(tabName, onDatesChange, onGameIdsChange, onPageChagne);
     }
