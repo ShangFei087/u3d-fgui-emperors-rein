@@ -628,6 +628,12 @@ namespace XingYunZhiLun_3998
             //请求结果失败
             if (isBreak)
             {
+                // 退还之前扣除的积分
+                if (ContentModel.Instance.gameState != GameState.FreeSpin)
+                {
+                    MainBlackboardController.Instance.AddMyTempCredit(TotalBet, true, false);
+                }
+
                 if (errorCallback != null)
                     errorCallback.Invoke(errMsg);
                 yield break;
