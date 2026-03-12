@@ -112,6 +112,9 @@ namespace CaiFuZhiMen_3999
 
         #endregion
 
+        private bool IsAddCreditAnim =>
+            !(_slotMachineController.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -204,15 +207,11 @@ namespace CaiFuZhiMen_3999
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
 
-            // EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             InitParam();
-
-            Debug.LogError("界面打开");
         }
 
         public override void OnClose(EventData eventData = null)
         {
-            Debug.LogError("关闭界面");
             OnGameReset();
             _freeSpinTimeController.Dispose();
 
@@ -225,7 +224,6 @@ namespace CaiFuZhiMen_3999
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
                 OnSlotDetailEvent);
 
-            // EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             base.OnClose(eventData);
         }
 
@@ -765,6 +763,36 @@ namespace CaiFuZhiMen_3999
             return result;
         }
 
+        //下注时向大厅彩金主机发送当前下注
+        void RequestOnlineJackpotBetByCurrentBet()
+        {
+            //if (!SBoxModel.Instance.isJackpotOnLine
+            //    || !NetClineBiz.Instance.isLoginSuccess
+            //    || !ClientWS.Instance.IsConnected)
+            //    return;
+
+            try
+            {
+                List<JackBetInfo> jackBetInfoList = new List<JackBetInfo>();
+
+                JackBetInfo betInfo = new JackBetInfo()
+                {
+                    gameType = 300,
+                    seat = 1,
+                    bet = (int)TotalBet * 100,
+                    betPercent = 100,
+                    scoreRate = 1 * 1000,
+                    JPPercent = 1 * 1000,
+                };
+                jackBetInfoList.Add(betInfo);
+                NetMessageController.Instance.SendJackBet(jackBetInfoList);
+            }
+            catch (Exception ex)
+            {
+                DebugUtils.LogError($"请求大厅彩金下注失败: {ex.Message}");
+            }
+        }
+
         private void SetUIJackpotGameReel()
         {
             JackpotRes info = ContentModel.Instance.jpGameRes;
@@ -977,8 +1005,19 @@ namespace CaiFuZhiMen_3999
             // 输出错误日志
             if (isBreak)
             {
-                errorCallback?.Invoke(errMsg);
+                // 退还之前扣除的积分
+                if (ContentModel.Instance.gameState != GameState.FreeSpin)
+                    MainBlackboardController.Instance.AddMyTempCredit(TotalBet, true, false);
+
+                if (errorCallback != null)
+                    errorCallback?.Invoke(errMsg);
                 yield break;
+            }
+
+            //检查是否启用在线彩金,请求彩金数据
+            if (SBoxModel.Instance.isJackpotOnLine)
+            {
+                RequestOnlineJackpotBetByCurrentBet();
             }
 
             // 开始滚动
@@ -1033,9 +1072,13 @@ namespace CaiFuZhiMen_3999
             {
                 // 计算总奖金 并判断中奖类型
                 long totalWinLineCredit = 0;
-                totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList) / winList.Count * TotalBet;// 新增倍率
+                Debug.LogError("本局得分未翻倍版：" + _slotMachineController.GetTotalWinCredit(winList) / winList.Count);
+                totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList) / winList.Count *
+                                     MainModel.Instance.contentMD.betmultiple; // 新增倍率
                 allWinCredit = totalWinLineCredit;
                 _slotMachineController.SendTotalWinCreditEvent(allWinCredit); // 发送总奖金事件
+                //加钱动画
+                MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true, IsAddCreditAnim);
                 // 本剧同步玩家金钱
                 MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             }
@@ -1109,14 +1152,10 @@ namespace CaiFuZhiMen_3999
 
             // 进入空闲状态
             ContentModel.Instance.gameState = GameState.Idle;
-            // Action bigWildCallBack = () =>
-            // {
-            //     ShowBigWildSpines(celRowList);
-            // };
             if (winList.Count > 0 && !ContentModel.Instance.isAuto && !ContentModel.Instance.isFreeSpinTrigger)
             {
                 if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
-                _corGameIdle = _monoHelper.StartCoroutine(GameIdle(winList /*, bigWildCallBack*/));
+                _corGameIdle = _monoHelper.StartCoroutine(GameIdle(winList));
             }
 
             successCallback?.Invoke();

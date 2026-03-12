@@ -201,9 +201,7 @@ namespace CaiFuZhiMen_3999
                     _cells.Add(new Cell(colIdx, rowIdx));
                 }
 
-                // TODO:单局得分暂时先用这个，后续再根据赔率进行修改
-                credit = (int)res["TotalBet"]; // 注释测试
-                // credit = 0;
+                credit = (int)res["TotalBet"];
                 SymbolWin sw = new SymbolWin()
                 {
                     earnCredit = credit,
@@ -215,9 +213,6 @@ namespace CaiFuZhiMen_3999
                 winList.Add(sw);
 
                 totalEarnCredit += credit;
-
-                // totalEarnCredit += (int)(credit * totalBet);// 新增倍率
-                Debug.LogError("totalEarnCredit:" + totalEarnCredit + "     " + "credit:" + credit);
             }
 
             ContentModel.Instance.winList = winList;
@@ -354,8 +349,10 @@ namespace CaiFuZhiMen_3999
             }
 
             // 大奖
-            int BonusType = (int)res["BonusType"];
-            int BonusBet = (int)res["BonusBet"];
+            // int BonusType = (int)res["BonusType"];
+            // int BonusBet = (int)res["BonusBet"];
+
+            ContentModel.Instance.winningTypeIndex = (int)res["BonusType"];
             if (ResultType == 3)
             {
                 ContentModel.Instance.bonusTotalBet = (int)res["BonusBet"];
@@ -366,7 +363,7 @@ namespace CaiFuZhiMen_3999
 
             long creditBefore = MainBlackboardController.Instance.myTempCredit;
             //赢分
-            long TotalBet = (int)res["TotalBet"] * totalBet; // 新增倍率
+            long TotalBet = (int)res["TotalBet"] * MainModel.Instance.contentMD.betmultiple;; // 新增倍率
             if (ResultType == 3) TotalBet = (int)res["BonusBet"]; //大奖得分
             DebugUtils.Log("本局赢分TotalBet==" + TotalBet);
             long afterBetCredit = 0;

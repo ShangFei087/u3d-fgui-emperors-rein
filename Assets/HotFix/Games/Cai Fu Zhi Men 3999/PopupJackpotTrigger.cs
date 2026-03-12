@@ -1,8 +1,10 @@
 using FairyGUI;
 using GameMaker;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CaiFuZhiMen_3999
 {
@@ -33,6 +35,7 @@ namespace CaiFuZhiMen_3999
             base.OnInit();
 
             LoadResAsync();
+            AddMachineBtnClickListener();
         }
 
         public override void InitParam()
@@ -91,20 +94,7 @@ namespace CaiFuZhiMen_3999
 
             Timers.inst.Add(0.5f, 1, (obj) => _jackpotStartBtn.visible = true);
 
-            _jackpotStartBtn.onClick.Add(() =>
-            {
-                _winBoxWindow.visible = false;
-
-                _doorMask.visible = true;
-                Animator girlAni = _cloneGirlOpenDoorObj.GetComponentInChildren<Animator>();
-                _cloneGirlOpenDoorObj.SetActive(true);
-                PlayAnimationByName(girlAni, "ng_sg");
-                Timers.inst.Add(4.5f, 1, (obj) =>
-                {
-                    CloseSelf(null);
-                    PageManager.Instance.OpenPage(PageName.CaiFuZhiMenPopupJackpotGame);
-                });
-            });
+            _jackpotStartBtn.onClick.Add(JackpotStartBtnEvent);
         }
 
         private void BindPrefabsToUI()
@@ -128,6 +118,36 @@ namespace CaiFuZhiMen_3999
                 _cloneWinJackpotObj = Object.Instantiate(_winJackpotObj);
                 GameCommon.FguiUtils.AddWrapper(_compareWinJackpot, _cloneWinJackpotObj);
             }
+        }
+
+        private void JackpotStartBtnEvent()
+        {
+            _winBoxWindow.visible = false;
+
+            _doorMask.visible = true;
+            Animator girlAni = _cloneGirlOpenDoorObj.GetComponentInChildren<Animator>();
+            _cloneGirlOpenDoorObj.SetActive(true);
+            PlayAnimationByName(girlAni, "ng_sg");
+            Timers.inst.Add(4.5f, 1, (obj) =>
+            {
+                CloseSelf(null);
+                PageManager.Instance.OpenPage(PageName.CaiFuZhiMenPopupJackpotGame);
+            });
+        }
+        
+        private void AddMachineBtnClickListener()
+        {
+            machineBtnClickHelper = new MachineButtonClickHelper()
+            {
+                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+                {
+                    [MachineButtonKey.BtnSpin] = (info) =>
+                    {
+                        Debug.LogError("游戏接受到机台短按的数据：Spin");
+                        JackpotStartBtnEvent();
+                    }
+                },
+            };
         }
 
         private void ResetPage()

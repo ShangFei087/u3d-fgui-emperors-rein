@@ -1,6 +1,9 @@
 using FairyGUI;
 using GameMaker;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CaiFuZhiMen_3999
 {
@@ -30,6 +33,7 @@ namespace CaiFuZhiMen_3999
             base.OnInit();
 
             LoadResAsync();
+            AddMachineBtnClickListener();
         }
 
         public override void InitParam()
@@ -109,25 +113,42 @@ namespace CaiFuZhiMen_3999
                 _freeRoundText.visible = true;
             });
 
-            _startBtn.onClick.Add((() =>
+            _startBtn.onClick.Add((StartBtnEvent));
+        }
+
+        private void StartBtnEvent()
+        {
+            _freeTriggerWindow.visible = false;
+            _cloneFreeTriggerTipObj.SetActive(false);
+            _cloneCatGirlClimb.SetActive(true);
+            _cloneRedRayObj.SetActive(true);
+
+            Timers.inst.Add(2f, 1, (obj) =>
             {
-                _freeTriggerWindow.visible = false;
-                _cloneFreeTriggerTipObj.SetActive(false);
-                _cloneCatGirlClimb.SetActive(true);
-                _cloneRedRayObj.SetActive(true);
+                _freeBg.visible = true;
+                _cloneBlueGemObj.SetActive(false);
+            });
 
-                Timers.inst.Add(2f, 1, (obj) =>
+            Timers.inst.Add(3.5f, 1, (obj) =>
+            {
+                CloseSelf(null);
+                GameSoundHelper3999.Instance.PlayMusicSingle(SoundKey.FreeSpinBG);
+            });
+        }
+        
+        private void AddMachineBtnClickListener()
+        {
+            machineBtnClickHelper = new MachineButtonClickHelper()
+            {
+                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
                 {
-                    _freeBg.visible = true;
-                    _cloneBlueGemObj.SetActive(false);
-                });
-
-                Timers.inst.Add(3.5f, 1, (obj) =>
-                {
-                    CloseSelf(null);
-                    GameSoundHelper3999.Instance.PlayMusicSingle(SoundKey.FreeSpinBG);
-                });
-            }));
+                    [MachineButtonKey.BtnSpin] = (info) =>
+                    {
+                        Debug.LogError("游戏接受到机台短按的数据：Spin");
+                        StartBtnEvent();
+                    }
+                },
+            };
         }
 
         private void BindPrefabsToUI()

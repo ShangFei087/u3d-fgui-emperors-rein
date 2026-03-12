@@ -2,8 +2,10 @@ using FairyGUI;
 using GameMaker;
 using PusherEmperorsRein;
 using SimpleJSON;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = System.Random;
 
 namespace CaiFuZhiMen_3999
@@ -43,12 +45,15 @@ namespace CaiFuZhiMen_3999
 
         private Dictionary<string, CountClick> _countClickDic;
 
+        private readonly List<int> _countWinningTypeList = new List<int>(); // 记录每次随机之后的不同Spine在按钮中的索引
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
             LoadResAsync();
+            AddMachineBtnClickListener();
         }
 
         public override void InitParam()
@@ -185,6 +190,7 @@ namespace CaiFuZhiMen_3999
         /// </summary>
         private void RandomSetWinningType()
         {
+            _countWinningTypeList.Clear();
             int[] prefabRemainingCount = new int[4] { 3, 3, 3, 3 };
             List<GameObject> jackpotObjList = new List<GameObject>() { _grandObj, _majorObj, _minorObj, _miniObj };
             Random random = new Random();
@@ -208,6 +214,8 @@ namespace CaiFuZhiMen_3999
                 int randomPrefabIndex = availablePrefabIndices[random.Next(0, availablePrefabIndices.Count)];
                 GameObject selectedPrefab = jackpotObjList[randomPrefabIndex];
                 prefabRemainingCount[randomPrefabIndex]--;
+
+                _countWinningTypeList.Add(randomPrefabIndex);
 
                 // 本局点击按钮显示的Spine动画
                 if (_clickIconList[i].anchorWinningType != _compareJackpotObjList[i])
@@ -305,7 +313,6 @@ namespace CaiFuZhiMen_3999
 
             Timers.inst.Add(4f, 1, (obj =>
             {
-                // CloseSelf(null);
                 _coverMask.visible = false;
                 for (int i = 0; i < _countClickDic[objName].clickIndexList.Count; i++)
                 {
@@ -375,6 +382,53 @@ namespace CaiFuZhiMen_3999
         {
             btn.scaleX = 1f;
             btn.scaleY = 1f;
+        }
+
+        private void MachineShowWinningPage()
+        {
+            _coverMask.visible = true;
+            List<int> tempList = new List<int>();
+            for (int i = 0; i < _countWinningTypeList.Count; i++)
+            {
+                if (_countWinningTypeList[i] == ContentModel.Instance.winningTypeIndex)
+                {
+                    tempList.Add(i);
+                    _clickIconList[i].gameBtn.visible = false;
+                    _cloneWinObjs[i].SetActive(true);
+                    Animator ani = _cloneWinObjs[i].GetComponentInChildren<Animator>();
+                    PlayAnimationByName(ani, "win");
+                    Debug.LogError("ContentModel.Instance.winningTypeIndex：" + ContentModel.Instance.winningTypeIndex);
+                }
+            }
+
+            Timers.inst.Add(4f, 1, (obj =>
+            {
+                _coverMask.visible = false;
+                for (int i = 0; i < tempList.Count; i++)
+                {
+                    int index = tempList[i];
+
+                    Animator ani = _cloneWinObjs[index].GetComponentInChildren<Animator>();
+                    ani.speed = 0;
+                }
+
+                PageManager.Instance.OpenPage(PageName.CaiFuZhiMenPopupJackpotResult);
+            }));
+        }
+
+        private void AddMachineBtnClickListener()
+        {
+            machineBtnClickHelper = new MachineButtonClickHelper()
+            {
+                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+                {
+                    [MachineButtonKey.BtnSpin] = (info) =>
+                    {
+                        Debug.LogError("游戏接受到机台短按的数据：Spin");
+                        MachineShowWinningPage();
+                    }
+                },
+            };
         }
 
         private void PlayAnimationByName(Animator animator, string aniName)
