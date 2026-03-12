@@ -11,6 +11,7 @@ using WebSockets;
 public class NetMessageController : BaseManager<NetMessageController>
 {
     private const float ConsoleJackpotDataRequestTimeoutSeconds = 15f;
+    private bool _isInitialized;
     private bool _isConsoleJackpotDataRequestedThisSession;
     private bool _isConsoleJackpotDataRequesting;
     private DelayTimer _consoleJackpotDataTimeoutTimer;
@@ -18,9 +19,29 @@ public class NetMessageController : BaseManager<NetMessageController>
 
     public void Init()
     {
+        if (_isInitialized)
+        {
+            Debug.LogWarning("NetMessageController.Init called repeatedly, ignored.");
+            return;
+        }
+
         EventCenter.Instance.AddEventListener(EventHandle.NETWORK_STATUS_CHANGE, OnNetworkStatus);
         Messenger.AddListener<MsgInfo, ClientConnection>(MessageName.Event_ServerNetworkRecv, OnServerNetworkRecv);
         Messenger.AddListener<byte[]>(MessageName.Event_ClientNetworkRecv, OnClientNetworkRecv);
+        _isInitialized = true;
+    }
+
+    public void DeInit()
+    {
+        if (!_isInitialized)
+            return;
+
+        EventCenter.Instance.RemoveEventListener(EventHandle.NETWORK_STATUS_CHANGE, OnNetworkStatus);
+        Messenger.RemoveListener<MsgInfo, ClientConnection>(MessageName.Event_ServerNetworkRecv, OnServerNetworkRecv);
+        Messenger.RemoveListener<byte[]>(MessageName.Event_ClientNetworkRecv, OnClientNetworkRecv);
+        CancelConsoleJackpotDataTimeoutTimer();
+        _isConsoleJackpotDataRequesting = false;
+        _isInitialized = false;
     }
 
     private void OnNetworkStatus()
@@ -201,10 +222,8 @@ public class NetMessageController : BaseManager<NetMessageController>
                 break;
         }
 
-        winJackpotInfo.win /= 100;
+        winJackpotInfo.win = winJackpotInfo.win / 100 * SBoxModel.Instance.CoinInScale;
         Debug.Log($"{winJackpotInfo.seat}号分机 中!{jackpotTitle}：{float.Parse(winJackpotInfo.win.ToString())} ");
-        //winJackpotInfo.win *= IOCanvasModel.Instance.CfgData.CoinValue;
-        //PopTips.Instance.ShowTips($"{winJackpotInfo.seat}号分机 中!{jackpotTitle}：{float.Parse(winJackpotInfo.win.ToString())} ", 10);
 
         ReceiveJackpotInfo receiveJackpotInfo = new ReceiveJackpotInfo
         {
@@ -222,8 +241,6 @@ public class NetMessageController : BaseManager<NetMessageController>
 
         // 统一转发到业务层事件入口（新事件）
         EventCenter.Instance.EventTrigger<string>(GlobalEvent.JackpotOnlineWin, jsonData);
-        // 兼容旧事件监听，后续可逐步移除
-        EventCenter.Instance.EventTrigger<string>(MachineDataManager02.RpcNameJackpotOnLine, jsonData);
     }
     private void MessageError(string jsonData)
     {

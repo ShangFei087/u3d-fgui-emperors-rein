@@ -247,7 +247,7 @@ namespace SlotZhuZaiJinBi1700
             ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             long creditBefore = MainBlackboardController.Instance.myRealCredit;
             //赢分
-            long TotalBet = (int)res["TotalBet"];
+            long TotalBet = (int)res["TotalBet"]* MainModel.Instance.contentMD.totalBet;
             DebugUtils.Log("本局赢分TotalBet==" + TotalBet);
             long afterBetCredit = 0;
             if (OpenType == 1)

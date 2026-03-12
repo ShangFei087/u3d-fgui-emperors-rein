@@ -30,7 +30,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Action<System.ValueTuple<object,int>>
 	// System.Action<UnityEngine.Color32>
 	// System.Action<UnityEngine.Vector2>
-	// System.Action<UnityEngine.Vector3>
 	// System.Action<byte>
 	// System.Action<float>
 	// System.Action<int,int>
@@ -52,7 +51,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ArraySortHelper<System.ValueTuple<object,int>>
 	// System.Collections.Generic.ArraySortHelper<UnityEngine.Color32>
 	// System.Collections.Generic.ArraySortHelper<UnityEngine.Vector2>
-	// System.Collections.Generic.ArraySortHelper<UnityEngine.Vector3>
 	// System.Collections.Generic.ArraySortHelper<byte>
 	// System.Collections.Generic.ArraySortHelper<float>
 	// System.Collections.Generic.ArraySortHelper<int>
@@ -67,7 +65,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Comparer<System.ValueTuple<object,int>>
 	// System.Collections.Generic.Comparer<UnityEngine.Color32>
 	// System.Collections.Generic.Comparer<UnityEngine.Vector2>
-	// System.Collections.Generic.Comparer<UnityEngine.Vector3>
 	// System.Collections.Generic.Comparer<byte>
 	// System.Collections.Generic.Comparer<float>
 	// System.Collections.Generic.Comparer<int>
@@ -154,7 +151,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.EqualityComparer<System.ValueTuple<object,int>>
 	// System.Collections.Generic.EqualityComparer<UnityEngine.Color32>
 	// System.Collections.Generic.EqualityComparer<UnityEngine.Vector2>
-	// System.Collections.Generic.EqualityComparer<UnityEngine.Vector3>
 	// System.Collections.Generic.EqualityComparer<byte>
 	// System.Collections.Generic.EqualityComparer<float>
 	// System.Collections.Generic.EqualityComparer<int>
@@ -163,8 +159,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.EqualityComparer<ulong>
 	// System.Collections.Generic.EqualityComparer<ushort>
 	// System.Collections.Generic.HashSet.Enumerator<int>
+	// System.Collections.Generic.HashSet.Enumerator<long>
 	// System.Collections.Generic.HashSet<int>
+	// System.Collections.Generic.HashSet<long>
 	// System.Collections.Generic.HashSetEqualityComparer<int>
+	// System.Collections.Generic.HashSetEqualityComparer<long>
 	// System.Collections.Generic.ICollection<Loom.DelayedQueueItem>
 	// System.Collections.Generic.ICollection<Loom.NoDelayedQueueItem>
 	// System.Collections.Generic.ICollection<SlotMaker.ReelSettingModel.STReelSetting>
@@ -185,7 +184,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ICollection<System.ValueTuple<object,int>>
 	// System.Collections.Generic.ICollection<UnityEngine.Color32>
 	// System.Collections.Generic.ICollection<UnityEngine.Vector2>
-	// System.Collections.Generic.ICollection<UnityEngine.Vector3>
 	// System.Collections.Generic.ICollection<byte>
 	// System.Collections.Generic.ICollection<float>
 	// System.Collections.Generic.ICollection<int>
@@ -200,7 +198,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IComparer<System.ValueTuple<object,int>>
 	// System.Collections.Generic.IComparer<UnityEngine.Color32>
 	// System.Collections.Generic.IComparer<UnityEngine.Vector2>
-	// System.Collections.Generic.IComparer<UnityEngine.Vector3>
 	// System.Collections.Generic.IComparer<byte>
 	// System.Collections.Generic.IComparer<float>
 	// System.Collections.Generic.IComparer<int>
@@ -229,7 +226,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<System.ValueTuple<object,int>>
 	// System.Collections.Generic.IEnumerable<UnityEngine.Color32>
 	// System.Collections.Generic.IEnumerable<UnityEngine.Vector2>
-	// System.Collections.Generic.IEnumerable<UnityEngine.Vector3>
 	// System.Collections.Generic.IEnumerable<byte>
 	// System.Collections.Generic.IEnumerable<float>
 	// System.Collections.Generic.IEnumerable<int>
@@ -257,7 +253,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerator<System.ValueTuple<object,int>>
 	// System.Collections.Generic.IEnumerator<UnityEngine.Color32>
 	// System.Collections.Generic.IEnumerator<UnityEngine.Vector2>
-	// System.Collections.Generic.IEnumerator<UnityEngine.Vector3>
 	// System.Collections.Generic.IEnumerator<byte>
 	// System.Collections.Generic.IEnumerator<float>
 	// System.Collections.Generic.IEnumerator<int>
@@ -280,7 +275,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IList<System.ValueTuple<object,int>>
 	// System.Collections.Generic.IList<UnityEngine.Color32>
 	// System.Collections.Generic.IList<UnityEngine.Vector2>
-	// System.Collections.Generic.IList<UnityEngine.Vector3>
 	// System.Collections.Generic.IList<byte>
 	// System.Collections.Generic.IList<float>
 	// System.Collections.Generic.IList<int>
@@ -311,7 +305,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List.Enumerator<System.ValueTuple<object,int>>
 	// System.Collections.Generic.List.Enumerator<UnityEngine.Color32>
 	// System.Collections.Generic.List.Enumerator<UnityEngine.Vector2>
-	// System.Collections.Generic.List.Enumerator<UnityEngine.Vector3>
 	// System.Collections.Generic.List.Enumerator<byte>
 	// System.Collections.Generic.List.Enumerator<float>
 	// System.Collections.Generic.List.Enumerator<int>
@@ -326,7 +319,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List.SynchronizedList<System.ValueTuple<object,int>>
 	// System.Collections.Generic.List.SynchronizedList<UnityEngine.Color32>
 	// System.Collections.Generic.List.SynchronizedList<UnityEngine.Vector2>
-	// System.Collections.Generic.List.SynchronizedList<UnityEngine.Vector3>
 	// System.Collections.Generic.List.SynchronizedList<byte>
 	// System.Collections.Generic.List.SynchronizedList<float>
 	// System.Collections.Generic.List.SynchronizedList<int>
@@ -341,7 +333,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List<System.ValueTuple<object,int>>
 	// System.Collections.Generic.List<UnityEngine.Color32>
 	// System.Collections.Generic.List<UnityEngine.Vector2>
-	// System.Collections.Generic.List<UnityEngine.Vector3>
 	// System.Collections.Generic.List<byte>
 	// System.Collections.Generic.List<float>
 	// System.Collections.Generic.List<int>
@@ -356,7 +347,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectComparer<System.ValueTuple<object,int>>
 	// System.Collections.Generic.ObjectComparer<UnityEngine.Color32>
 	// System.Collections.Generic.ObjectComparer<UnityEngine.Vector2>
-	// System.Collections.Generic.ObjectComparer<UnityEngine.Vector3>
 	// System.Collections.Generic.ObjectComparer<byte>
 	// System.Collections.Generic.ObjectComparer<float>
 	// System.Collections.Generic.ObjectComparer<int>
@@ -371,7 +361,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectEqualityComparer<System.ValueTuple<object,int>>
 	// System.Collections.Generic.ObjectEqualityComparer<UnityEngine.Color32>
 	// System.Collections.Generic.ObjectEqualityComparer<UnityEngine.Vector2>
-	// System.Collections.Generic.ObjectEqualityComparer<UnityEngine.Vector3>
 	// System.Collections.Generic.ObjectEqualityComparer<byte>
 	// System.Collections.Generic.ObjectEqualityComparer<float>
 	// System.Collections.Generic.ObjectEqualityComparer<int>
@@ -389,7 +378,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.ValueTuple<object,int>>
 	// System.Collections.ObjectModel.ReadOnlyCollection<UnityEngine.Color32>
 	// System.Collections.ObjectModel.ReadOnlyCollection<UnityEngine.Vector2>
-	// System.Collections.ObjectModel.ReadOnlyCollection<UnityEngine.Vector3>
 	// System.Collections.ObjectModel.ReadOnlyCollection<byte>
 	// System.Collections.ObjectModel.ReadOnlyCollection<float>
 	// System.Collections.ObjectModel.ReadOnlyCollection<int>
@@ -404,7 +392,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Comparison<System.ValueTuple<object,int>>
 	// System.Comparison<UnityEngine.Color32>
 	// System.Comparison<UnityEngine.Vector2>
-	// System.Comparison<UnityEngine.Vector3>
 	// System.Comparison<byte>
 	// System.Comparison<float>
 	// System.Comparison<int>
@@ -463,7 +450,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Predicate<System.ValueTuple<object,int>>
 	// System.Predicate<UnityEngine.Color32>
 	// System.Predicate<UnityEngine.Vector2>
-	// System.Predicate<UnityEngine.Vector3>
 	// System.Predicate<byte>
 	// System.Predicate<float>
 	// System.Predicate<int>

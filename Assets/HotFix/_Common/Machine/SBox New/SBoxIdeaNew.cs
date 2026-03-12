@@ -328,6 +328,45 @@ namespace SBoxApi
         }
 
 
+        /**
+            *  @brief          玩家赢得彩金中心的彩金信息
+            *  @param          sBoxWinNetJackpotInfo.PlayerId: 玩家索引编号
+            *                  sBoxWinNetJackpotInfo.JackpotType: 获得的彩金类型
+            *                  sBoxWinNetJackpotInfo.JackpotWins: 玩家彩金的赢分(从彩金中心传过来的是币的数量, 需要乘币值)
+            *  @return         无返回
+            *  @details        
+        */
+        public static void SetPlayerWinNetJackpotInfo(SBoxWinNetJackpotInfo sBoxWinNetJackpotInfo)
+        {
+            SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20030, source: 1, target: 2, size: 4);
+            int pos = 0;
+
+            sBoxPacket.data[pos++] = sBoxWinNetJackpotInfo.MachineId;
+            sBoxPacket.data[pos++] = sBoxWinNetJackpotInfo.PlayerId;
+            sBoxPacket.data[pos++] = sBoxWinNetJackpotInfo.JackpotType;
+            sBoxPacket.data[pos++] = (int)sBoxWinNetJackpotInfo.JackpotWins;
+            SBoxIOEvent.AddListener(sBoxPacket.cmd, SetPlayerWinNetJackpotInfoR);
+            SBoxIOStream.Write(sBoxPacket);
+        }
+
+        private static void SetPlayerWinNetJackpotInfoR(SBoxPacket sBoxPacket)
+        {/*
+             * ret:0表示成功，-1表示传参失败
+             */
+            int ret = sBoxPacket.data[0];
+            //JSONNode result = new JSONObject();
+            JSONNode result = JSONNode.Parse("{}");
+            result["code"] = ret;
+
+            if (ret == 0)
+            {
+                int JackpotWin = sBoxPacket.data[1];
+                result["JackpotWins"] = JackpotWin;
+            }   
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_JACKPOT_ONLINE_GAME,  result.ToString());
+        }
+
+
 
 
         /// <summary>
