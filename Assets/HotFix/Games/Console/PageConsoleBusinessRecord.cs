@@ -48,7 +48,7 @@ namespace ConsoleSlot01
             EventCenter.Instance.RemoveEventListener<EventData>(Observer.ON_PROPERTY_CHANGED_EVENT, OnPropertyChange);
 
 
-
+            jackpotOnlineWinsCtrl.Disable();
             base.OnClose(data);
         }
 
@@ -61,7 +61,7 @@ namespace ConsoleSlot01
 
         GList lstPages;
 
-        GComponent cmpTabBusiness, cmpTabCoin;
+        GComponent cmpTabBusiness, cmpTabCoin, cmpTabJackpot;
 
         Controller myController;
 
@@ -91,6 +91,8 @@ namespace ConsoleSlot01
 
         InOutRecordController inOutRecordCtrl = new InOutRecordController();
 
+        JackpotOnlineWinsController jackpotOnlineWinsCtrl = new JackpotOnlineWinsController();
+
         List<PageButtomInfo> pageButtomInfo = new List<PageButtomInfo>()
         {
             new PageButtomInfo("Business Record") ,
@@ -119,6 +121,7 @@ namespace ConsoleSlot01
 
             cmpTabBusiness = lstPages.GetChildAt(0).asCom;
             cmpTabCoin = lstPages.GetChildAt(1).asCom;
+            cmpTabJackpot = lstPages.GetChildAt(2).asCom;
 
 
             myController = this.contentPane.GetController("tab");
@@ -145,6 +148,8 @@ namespace ConsoleSlot01
             InitDayBusiness();
 
             InitInOutRecord();
+
+            InitOnlineTabJackpotWins();
 
 
             btnPrev = this.contentPane.GetChild("navBottom2").asCom.GetChild("btnPrev").asButton;
@@ -264,6 +269,44 @@ namespace ConsoleSlot01
             );
         }
 
+
+        void InitOnlineTabJackpotWins()
+        {
+            GRichTextField rtxtMacId = cmpTabJackpot.GetChild("macId").asCom.GetChild("value").asRichTextField;
+            GRichTextField rtxtSeatId = cmpTabJackpot.GetChild("seatId").asCom.GetChild("value").asRichTextField;
+            GRichTextField rtxtBets = cmpTabJackpot.GetChild("bets").asCom.GetChild("value").asRichTextField;
+            GRichTextField rtxtBetPercent = cmpTabJackpot.GetChild("betPercent").asCom.GetChild("value").asRichTextField;
+            GRichTextField rtxtScoreRate = cmpTabJackpot.GetChild("scoreRate").asCom.GetChild("value").asRichTextField;
+            GRichTextField rtxtJpPercent = cmpTabJackpot.GetChild("jpPercent").asCom.GetChild("value").asRichTextField;
+            GRichTextField rtxtWins = cmpTabJackpot.GetChild("wins").asCom.GetChild("value").asRichTextField;
+
+            GRichTextField rtxtGrandWin = cmpTabJackpot.GetChild("grandWin").asCom.GetChild("value").asRichTextField;
+            GRichTextField rtxtGrandTimes = cmpTabJackpot.GetChild("grandTimes").asCom.GetChild("value").asRichTextField;
+            GRichTextField rtxtMajorWin = cmpTabJackpot.GetChild("majorWin").asCom.GetChild("value").asRichTextField;
+            GRichTextField rtxtMajorTimes = cmpTabJackpot.GetChild("majorTimes").asCom.GetChild("value").asRichTextField;
+            GRichTextField rtxtMinorWin = cmpTabJackpot.GetChild("minorWin").asCom.GetChild("value").asRichTextField;
+            GRichTextField rtxtMinorTimes = cmpTabJackpot.GetChild("minorTimes").asCom.GetChild("value").asRichTextField;
+            GRichTextField rtxtMiniWin = cmpTabJackpot.GetChild("miniWin").asCom.GetChild("value").asRichTextField;
+            GRichTextField rtxtMiniTimes = cmpTabJackpot.GetChild("miniTimes").asCom.GetChild("value").asRichTextField;
+
+            jackpotOnlineWinsCtrl.InitParam(
+                rtxtMacId,
+                rtxtSeatId,
+                rtxtBets,
+                rtxtBetPercent,
+                rtxtScoreRate,
+                rtxtJpPercent,
+                rtxtWins,
+                rtxtGrandWin,
+                rtxtGrandTimes,
+                rtxtMajorWin,
+                rtxtMajorTimes,
+                rtxtMinorWin,
+                rtxtMinorTimes,
+                rtxtMiniWin,
+                rtxtMiniTimes
+            );
+        }
 
         void OnInOutPageIndexChange(int curPageIndex, int totalPageCount)
         {
