@@ -3,6 +3,7 @@ using GameMaker;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using Object = UnityEngine.Object;
 
 namespace CaiFuZhiMen_3999
@@ -25,6 +26,9 @@ namespace CaiFuZhiMen_3999
         private GameObject _jackpotGetWindowObj;
         private GameObject _cloneJackpotGetWindowObj;
 
+        private long winCredit;
+        private int jackpotType;
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -45,6 +49,27 @@ namespace CaiFuZhiMen_3999
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
+
+            // 解析数据
+            if (eventData?.value is Dictionary<string, object> argDic)
+            {
+                // 解析winCredit
+                if (argDic.ContainsKey("winCredit"))
+                {
+                    var scoreVal = argDic["winCredit"];
+                    if (scoreVal is long)
+                    {
+                        winCredit = (long)scoreVal;
+                    }
+                }
+
+                // 解析jackpotType
+                if (argDic.ContainsKey("jackpotType"))
+                {
+                    var typeVal = argDic["jackpotType"];
+                    jackpotType = Convert.ToInt32(typeVal);
+                }
+            }
             InitUICom();
             InitParam();
         }
@@ -96,13 +121,13 @@ namespace CaiFuZhiMen_3999
             _jackpotGetText = contentPane.GetChild("jackpotText").asTextField;
             
             // 设置获奖信息
-            WinJackpotInfo winJackpotInfo = ContentModel.Instance.jpOnlineWin[0];
-            _jackpotGetText.text = winJackpotInfo.win.ToString();
-            ContentModel.Instance.bonusIndex = winJackpotInfo.jackpotId;
+      
+            _jackpotGetText.text = winCredit.ToString();
+            ContentModel.Instance.bonusIndex = jackpotType;
 
             _jackpotCollectBtn.visible = false;
             _jackpotGetText.visible = false;
-            _jackpotGetText.text = ContentModel.Instance.bonusTotalBet.ToString();
+            _jackpotGetText.text = winCredit.ToString();
 
             Timers.inst.Add(1.5f, 1, (obj) =>
             {

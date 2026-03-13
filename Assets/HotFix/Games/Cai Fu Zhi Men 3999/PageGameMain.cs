@@ -206,7 +206,7 @@ namespace CaiFuZhiMen_3999
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
-            EventCenter.Instance.AddEventListener<string>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
+            EventCenter.Instance.AddEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             InitParam();
         }
 
@@ -223,7 +223,7 @@ namespace CaiFuZhiMen_3999
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
                 OnSlotDetailEvent);
-            EventCenter.Instance.RemoveEventListener<string>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
+            EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
 
             base.OnClose(eventData);
         }
@@ -809,14 +809,10 @@ namespace CaiFuZhiMen_3999
         }
 
         //大厅彩金主机赢分数据
-        private void OnJackpotOnLine(string res)
+        private void OnJackpotOnLine(WinJackpotInfo winInfo)
         {
-            if (string.IsNullOrEmpty(res))
-                return;
-
             try
             {
-                WinJackpotInfo winInfo = JsonConvert.DeserializeObject<WinJackpotInfo>(res);
                 if (winInfo == null)
                     return;
 
@@ -1217,13 +1213,13 @@ namespace CaiFuZhiMen_3999
 
                 //long fromCredit = data.win < 1000 ? data.win : data.win - 1000;
 
-                long winCredit = SBoxModel.Instance.CoinInScale * data.win;
+                long winCredit = data.win;
                 allWinCredit += winCredit;
 
                 PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiMenPopupOnlineJackpot,
                     new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
                     {
-                        ["toCredit"] = winCredit, ["jackpotType"] = data.jackpotId,
+                        ["winCredit"] = winCredit, ["jackpotType"] = data.jackpotId,
                         //["fromCredit"] = (long)fromCredit
                     }),
                     (res) =>
