@@ -360,9 +360,10 @@ namespace SBoxApi
 
             if (ret == 0)
             {
-                int before = sBoxPacket.data[1];
-                int atfer = sBoxPacket.data[2];
-                result["JackpotWins"] = atfer;
+                int JackpotWins = sBoxPacket.data[1];
+                int before = sBoxPacket.data[2];
+                int atfer = sBoxPacket.data[3];
+                result["JackpotWins"] = JackpotWins;
             }   
             EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_JACKPOT_ONLINE_GAME,  result.ToString());
         }

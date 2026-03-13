@@ -286,8 +286,7 @@ namespace SlotMaker
         protected virtual void IntroduceInit()
         {
             IntroduceIndex = 0;
-            Introduce.RemoveChildren();
-            Introduce.AddChild(MainModel.Instance.contentMD.goPayTableLst[IntroduceIndex]);
+            SetIntroducePage(IntroduceIndex);
             btnPrev.touchable = false;
             btnPrev.GetChild("untouch").visible = true;
             btnNext.touchable = true;
@@ -379,13 +378,38 @@ namespace SlotMaker
 
             if (IntroduceIndex < PayTableLength)
             {
-                Introduce.RemoveChildren();
-                Introduce.AddChild(MainModel.Instance.contentMD.goPayTableLst[IntroduceIndex]);
+                SetIntroducePage(IntroduceIndex);
                 gIntroducePanel.GetChild("btnController").asCom.GetController("c1").selectedIndex = IntroduceIndex;
             }
                 
            
            
+        }
+
+        /// <summary>
+        /// 说明书页通常是纯展示内容，禁用触摸避免遮挡翻页按钮点击区域。
+        /// </summary>
+        protected virtual void SetIntroducePage(int pageIndex)
+        {
+            if (Introduce == null || MainModel.Instance?.contentMD?.goPayTableLst == null)
+            {
+                return;
+            }
+
+            if (pageIndex < 0 || pageIndex >= MainModel.Instance.contentMD.goPayTableLst.Length)
+            {
+                return;
+            }
+
+            GComponent page = MainModel.Instance.contentMD.goPayTableLst[pageIndex];
+            if (page == null)
+            {
+                return;
+            }
+
+            page.touchable = false;
+            Introduce.RemoveChildren();
+            Introduce.AddChild(page);
         }
         protected virtual void OnPropertyChange(EventData res = null)
         {

@@ -866,11 +866,11 @@ namespace SlotZhuZaiJinBi1700
                     //算法卡加分后同步分数
                     Debug.Log("通知算法卡赢得联网彩金");
                     JSONNode data = JSONNode.Parse((string)res);
-                    int JackpotWin = (int)data["JackpotWin"];
+                  
                     long creditBefore = MainBlackboardController.Instance.myRealCredit;
-                    long creditAfter = creditBefore+ JackpotWin;
-
-                    //MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
+                    long JackpotWins = (long)data["JackpotWins"]; ;
+                    creditAfter = creditBefore + JackpotWins;
+                    MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
 
                 }, (BagelCodeError err) =>
                 {
