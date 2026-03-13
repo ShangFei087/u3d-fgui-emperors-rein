@@ -18,5 +18,6 @@
     </text>
     <component id="n35_ioi7" name="setPanel" src="ioi7hg" fileName="moudules/SetPanel.xml" xy="10,-224" visible="false"/>
     <component id="n34_ioi7" name="btnSpin" src="ioi7i2" fileName="components/ButtonSpin.xml" xy="930,14"/>
+    <richtext id="n36_7lu1" name="singleLine" xy="269,4" size="541,42" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="Line to 5  Win 80"/>
   </displayList>
 </component>

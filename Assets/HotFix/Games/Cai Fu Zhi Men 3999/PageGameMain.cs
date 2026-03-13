@@ -1145,7 +1145,7 @@ namespace CaiFuZhiMen_3999
             {
                 // 计算总奖金 并判断中奖类型
                 long totalWinLineCredit = 0;
-                totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList) / winList.Count *
+                totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList) *
                                      MainModel.Instance.contentMD.betmultiple; // 新增倍率
                 allWinCredit = totalWinLineCredit;
                 _slotMachineController.SendTotalWinCreditEvent(allWinCredit); // 发送总奖金事件

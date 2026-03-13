@@ -329,22 +329,13 @@ public class Main
 
     static void OpenGame()
     {
-
         PageLaunch.Instance.RemoveProgress(LoadingProgress.INIT_SETTINGS);
-
         //PageLaunch.Instance.AddProgress(LoadingProgress.ENTER_GAME,0);
         //PageLaunch.Instance.Next(LoadingProgress.ENTER_GAME,"enter game");
         PageLaunch.Instance.RemoveProgress(LoadingProgress.ENTER_GAME);
         PageLaunch.Instance.Finish("enter game");
         // 预加载 login 页 ？？
         PageLaunch.Instance.Close(2f);
-
-
-        // 游戏加载页面：
-        //PageManager.Instance.OpenPage(PageName.PusherEmperorsReinPopupERGameLoading);
-        //PageManager.Instance.OpenPage(PageName.SlotFanBeiChaoRenPopupLoading);
-        //PageManager.Instance.OpenPage(PageName.XingYunZhiLunPopupGameLoading);
-        
         if (!ApplicationSettings.Instance.isMock)
         {
             PageManager.Instance.OpenPage(PageName.Hall01);
@@ -353,51 +344,6 @@ public class Main
         {
             PageManager.Instance.OpenPage(PageName.HallMain);
         }
-        // PageManager.Instance.OpenPage(PageName.CaiFuZhiMenPopupOnlineJackpot);
-           
-        /*
-        System.Action onJPPoolSubCredit = () => {
-            DebugUtils.Log("i am here123");
-        };
-        Dictionary<string, object> args = new Dictionary<string, object>()
-        {
-            ["jackpotType"] = "grand",
-            ["totalEarnCredit"] = 1000,
-            ["onJPPoolSubCredit"] = onJPPoolSubCredit,
-        };
-        PageManager.Instance.OpenPage(PageName.EmperorsReinPopupGameJackpot,new EventData<Dictionary<string, object>>("", args));
-        */
-
-
-        /*
-        PageManager.Instance.OpenPageAsync(PageName.ConsolePopupConsoleKeyboard001,
-            new EventData<Dictionary<string, object>>("",
-                new Dictionary<string, object>()
-                {
-                    ["title"] = "Enter Password",
-                    ["isPlaintext"] = false,
-                }),
-            
-            (res) =>
-            {
-                DebugUtils.Log($"回调执行！res: {res.value}"); // 加日志
-
-            }
-
-            );*/
-        /*
-        PageManager.Instance.OpenPageAsync(PageName.EmperorsReinPopupFreeSpinTrigger,
-            new EventData<Dictionary<string, object>>("",
-                new Dictionary<string, object>()
-                {
-                    ["freeSpinCount"] = 77,
-                }),
-            (res) =>
-            {
-                DebugUtils.Log($"回调执行！Result: {res.value} "); // 加日志
-
-            });
-        */
     }
 
     #endregion

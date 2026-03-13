@@ -138,6 +138,46 @@ namespace CaiFuZhiMen_3999
         private readonly Dictionary<int, int> _freeRoundDic =
             new Dictionary<int, int>() { { 3, 8 }, { 4, 10 }, { 5, 12 } };
 
+        private int CalculateLineWinCredit(int symbolNumber, int hitCount)
+        {
+            try
+            {
+                if (hitCount < 3)
+                    return 0;
+
+                List<PayTableSymbolInfo> payTable = MainModel.Instance.contentMD?.payTableSymbolWin;
+                if (payTable == null || symbolNumber < 0 || symbolNumber >= payTable.Count)
+                {
+                    DebugUtils.LogError($"[G3999] 计算单线赢分失败，paytable越界。symbol={symbolNumber}, hit={hitCount}");
+                    return 0;
+                }
+
+                PayTableSymbolInfo info = payTable[symbolNumber];
+                double odd = 0;
+                if (hitCount >= 5)
+                {
+                    odd = info.x5;
+                }
+                else if (hitCount == 4)
+                {
+                    odd = info.x4;
+                }
+                else
+                {
+                    odd = info.x3;
+                }
+
+                // 算法返回的 TotalBet 是未乘 betmultiple 的单位，单线赢分也保持同一单位。
+                int lineWin = Mathf.Max(0, Mathf.RoundToInt((float)odd));
+                return lineWin;
+            }
+            catch (Exception ex)
+            {
+                DebugUtils.LogError($"[G3999] 计算单线赢分异常: {ex.Message}");
+                return 0;
+            }
+        }
+
         /// <summary>
         /// 算法解析
         /// </summary>
@@ -176,7 +216,6 @@ namespace CaiFuZhiMen_3999
             //IDVec 中奖线
             int lineNum = (int)res["lineNum"];
             int totalEarnCredit = 0;
-            int credit = 0;
             List<SymbolWin> winList = new List<SymbolWin>();
             for (int i = 0; i < lineNum; i++)
             {
@@ -201,10 +240,10 @@ namespace CaiFuZhiMen_3999
                     _cells.Add(new Cell(colIdx, rowIdx));
                 }
 
-                credit = (int)res["TotalBet"];
+                int lineWinCredit = CalculateLineWinCredit(symbolNumber, hitCount);
                 SymbolWin sw = new SymbolWin()
                 {
-                    earnCredit = credit,
+                    earnCredit = lineWinCredit,
                     multiplier = 1,
                     lineNumber = lineNumber,
                     symbolNumber = symbolNumber,
@@ -212,7 +251,17 @@ namespace CaiFuZhiMen_3999
                 };
                 winList.Add(sw);
 
-                totalEarnCredit += credit;
+                totalEarnCredit += lineWinCredit;
+            }
+
+            int serverTotalEarnCredit = (int)res["TotalBet"];
+            if (lineNum > 0 && totalEarnCredit != serverTotalEarnCredit)
+            {
+                // 保障总赢分与算法返回一致，避免结算和表现出现偏差。
+                int fixDelta = serverTotalEarnCredit - totalEarnCredit;
+                winList[0].earnCredit += fixDelta;
+                totalEarnCredit = serverTotalEarnCredit;
+                DebugUtils.LogWarning($"[G3999] 线赢分校正: delta={fixDelta}, lineNum={lineNum}");
             }
 
             ContentModel.Instance.winList = winList;

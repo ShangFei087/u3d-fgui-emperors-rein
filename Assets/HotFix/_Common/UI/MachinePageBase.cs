@@ -33,7 +33,6 @@ public class MachinePageBase : PageBase
         //Debug.LogError($"111 = {this.GetType().Name}");
         machineCustomButton = new MachineCustomButton()
         {
-            btnShowLst = new List<MachineButtonKey>(),
             btnType = MachineButtonType.Regular,
             mark = $"{this.GetType().Name}#{Time.unscaledTime}",
         };

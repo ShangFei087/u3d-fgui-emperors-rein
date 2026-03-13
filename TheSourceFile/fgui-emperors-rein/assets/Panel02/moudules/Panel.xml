@@ -17,5 +17,6 @@
     <component id="n35_ioi7" name="setPanel" src="ebgu7p" fileName="moudules/SetPanel.xml" xy="10,-130" visible="false"/>
     <component id="n34_ioi7" name="btnSpin" src="ebgu7x" fileName="components/ButtonSpin.xml" xy="930,14"/>
     <component id="n26_lo0d" name="payTable" src="ebgu71" fileName="moudules/payTable/Component1.xml" xy="540,-249" pivot="0.5,1" anchor="true" visible="false"/>
+    <richtext id="n37_7lu1" name="singleLine" xy="375,6" size="330,42" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="Line to 5  Win 80"/>
   </displayList>
 </component>
