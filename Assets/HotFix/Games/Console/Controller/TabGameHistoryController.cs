@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TabGameHistoryController : MonoBehaviour
+public class TabGameHistoryController 
 {
     GComponent goOwnerTab;
     GameHistoryDataController ctrl = new GameHistoryDataController();
@@ -227,7 +227,7 @@ public class TabGameHistoryController : MonoBehaviour
             // 解析JSON为字典
             currentSymbolIconMap =
                 Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(symbolIconMappingJson);
-            DebugUtils.Log($"成功解析符号映射，共 {currentSymbolIconMap.Count} 个符号");
+            //DebugUtils.Log($"成功解析符号映射，共 {currentSymbolIconMap.Count} 个符号");
         }
         catch (Exception e)
         {

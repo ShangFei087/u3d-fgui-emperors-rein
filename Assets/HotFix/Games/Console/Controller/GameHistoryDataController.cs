@@ -41,10 +41,7 @@ public class GameHistoryDataController : MonoBehaviour
     // 当前查询的所有记录
     List<TableSlotGameRecordItem> allRecords = new List<TableSlotGameRecordItem>();
 
-    public void InitParam(string tabName,
-                         Action<List<string>> onDatesChange,
-                         Action<List<long>> onGameIdsChange,
-                         Action<GameHistoryInfo> onPageChagne)
+    public void InitParam(string tabName,Action<List<string>> onDatesChange,Action<List<long>> onGameIdsChange, Action<GameHistoryInfo> onPageChagne)
     {
         this.tabName = tabName;
         this.onDatesChange = onDatesChange;

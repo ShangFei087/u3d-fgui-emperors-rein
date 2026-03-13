@@ -240,7 +240,7 @@ public class NetMessageController : BaseManager<NetMessageController>
         }));
 
         // 统一转发到业务层事件入口（新事件）
-        EventCenter.Instance.EventTrigger<string>(GlobalEvent.JackpotOnlineWin, jsonData);
+        EventCenter.Instance.EventTrigger<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, winJackpotInfo);
     }
     private void MessageError(string jsonData)
     {
@@ -257,6 +257,15 @@ public class NetMessageController : BaseManager<NetMessageController>
         {
             var jackpotData = JsonConvert.DeserializeObject<Dictionary<int, List<JackpotDeviceBetData>>>(info.jsonData);
             _cachedConsoleJackpotData = jackpotData;
+            //读取json文件并没有macId
+            foreach (var item in jackpotData)
+            {
+                if (item.Value != null && item.Value.Count > 0)
+                {
+                    item.Value[0].macId= info.id;
+                    break;
+                }
+            }
             EventCenter.Instance.EventTrigger(EventHandle.GET_NET_JACKPOT_DATA, jackpotData);
         }
         catch (Exception ex)

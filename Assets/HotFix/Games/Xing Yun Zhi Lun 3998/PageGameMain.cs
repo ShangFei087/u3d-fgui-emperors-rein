@@ -380,7 +380,7 @@ namespace XingYunZhiLun_3998
 
 
             //初始化菜单ui
-            ContentModel.Instance.betIndex = 0;
+            MainModel.Instance.contentMD.betIndex = 0;
             gOwnerPanel = this.contentPane.GetChild("panel").asCom;
             ContentModel.Instance.goAnthorPanel = gOwnerPanel;
             MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
@@ -728,6 +728,7 @@ namespace XingYunZhiLun_3998
                     yield return new WaitUntil(() => isNext == true);
                 }
             }
+
             //线赢的数据
             List<SymbolWin> winList = ContentModel.Instance.winList;
             long allWinCredit = 0;
@@ -816,7 +817,7 @@ namespace XingYunZhiLun_3998
                 allWinCredit += totalWinLineCredit;
 
                 //积分同步和退币处理
-                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * MainModel.Instance.contentMD.betmultiple);
 
                 for(int i = 0; i < winList.Count; i++)
                 {
@@ -897,7 +898,7 @@ namespace XingYunZhiLun_3998
                 allWinCredit += totalWinLineCredit;
 
                 //积分同步和退币处理
-                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * MainModel.Instance.contentMD.betmultiple);
 
                 //加钱动画
                 MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true, isAddCreditAnim);
@@ -928,81 +929,72 @@ namespace XingYunZhiLun_3998
                 if (!ContentModel.Instance.isMult)
                 {
                     //积分同步和退币处理
-                    slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+                    slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * MainModel.Instance.contentMD.betmultiple);
                     //加钱动画
-                    MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true, isAddCreditAnim);
+                    MainBlackboardController.Instance.AddMyTempCredit(allWinCredit * MainModel.Instance.contentMD.betmultiple, true, isAddCreditAnim);
                 }
                 else
                 {
+                    //显示中奖动画
+                    PageManager.Instance.PreloadPage(PageName.XingYunZhiLunPopupZhuanPan, null);
+                    slotMachineCtrl.SkipWinLine(true);
+                    slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 9 }, true, 9, true);
+                    yield return slotMachineCtrl.SlotWaitForSeconds(1.5f);
+                    slotMachineCtrl.SkipWinLine(true);
+                    slotMachineCtrl.CloseSlotCover();
+                    //slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolAppear, new List<int>() { 8 }, true, 8, true);
+
+                    //过度动画
+                    isNext = false;
+                    isMain = false;
+                    PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupZhuanPan,
+                        new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
+                        {
+                            ["jackpotType"] = "Multiple",
+                        }),
+                        (res) =>
+                        {
+                            //恢复主页面按钮
+                            ContentModel.Instance.goAnthorPanel = gOwnerPanel;
+                            MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
+                            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
+                                new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
+
+                            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+
+                            if (ContentModel.Instance.isAuto)
+                            {
+                                ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
+                            }
+                            else
+                            {
+                                ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
+                            }
+
+
+                            //long totalWinLineCredit = 0;
+                            //totalWinLineCredit = slotMachineCtrl.GetTotalWinCredit(winList);
+
+                            //积分同步和退币处理
+                            //slotMachineCtrl.SendTotalWinCreditEvent(totalWinLineCredit * ContentModel.Instance.multiple);
+                            //加钱动画
+                            //MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true, isAddCreditAnim);
+
+                            isMain = true;
+                            isNext = true;
+                        });
+
+                    yield return new WaitUntil(() => isNext == true);
+                    isNext = false;
+
+                    slotMachineCtrl.SkipWinLine(true);
+                    slotMachineCtrl.ShowMultipleHit(new List<int>() { 9 }, true, 9, true);
+
                     //积分同步和退币处理
-                    slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+                    slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * ContentModel.Instance.multiple * ContentModel.Instance.betmultiple);
                     //加钱动画
-                    MainBlackboardController.Instance.AddMyTempCredit(allWinCredit);
+                    MainBlackboardController.Instance.AddMyTempCredit(allWinCredit * ContentModel.Instance.multiple * ContentModel.Instance.betmultiple);
                 }
-            }
-
-            //// 本剧同步玩家金钱
-            //MainBlackboardController.Instance.SyncMyTempCreditToReal(false);
-
-            if (ContentModel.Instance.isMult)
-            {
-                //显示中奖动画
-                PageManager.Instance.PreloadPage(PageName.XingYunZhiLunPopupZhuanPan, null);
-                slotMachineCtrl.SkipWinLine(true);
-                slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 9 }, true, 9, true);
-                yield return slotMachineCtrl.SlotWaitForSeconds(1.5f);
-                slotMachineCtrl.SkipWinLine(true);
-                slotMachineCtrl.CloseSlotCover();
-                //slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolAppear, new List<int>() { 8 }, true, 8, true);
-
-                //过度动画
-                isNext = false;
-                isMain = false;
-                PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupZhuanPan,
-                    new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
-                    {
-                        ["jackpotType"] = "Multiple",
-                    }),
-                    (res) =>
-                    {
-                        //恢复主页面按钮
-                        ContentModel.Instance.goAnthorPanel = gOwnerPanel;
-                        MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
-                        EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                            new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
-
-                        ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-
-                        if (ContentModel.Instance.isAuto)
-                        {
-                            ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
-                        }
-                        else
-                        {
-                            ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
-                        }
-
-
-                        long totalWinLineCredit = 0;
-                        totalWinLineCredit = slotMachineCtrl.GetTotalWinCredit(winList);
-
-                        //积分同步和退币处理
-                        //slotMachineCtrl.SendTotalWinCreditEvent(totalWinLineCredit * ContentModel.Instance.multiple);
-                        //加钱动画
-                        //MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true, isAddCreditAnim);
-
-                        isMain = true;
-                        isNext = true;
-                    });
-
-                yield return new WaitUntil(() => isNext == true);
-                isNext = false;
-
-                slotMachineCtrl.SkipWinLine(true);
-                slotMachineCtrl.ShowMultipleHit(new List<int>() { 9 }, true, 9, true);
-
-                //积分同步和退币处理
-                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * ContentModel.Instance.multiple);
             }
             #endregion
 
@@ -1281,7 +1273,7 @@ namespace XingYunZhiLun_3998
                 new EventData<Dictionary<string, object>>("",
                     new Dictionary<string, object>()
                     {
-                        ["baseGameWinCredit"] = ContentModel.Instance.freeSpinTotalWinCredit,
+                        ["baseGameWinCredit"] = ContentModel.Instance.freeSpinTotalWinCredit * MainModel.Instance.contentMD.betmultiple,
                     }),
                 (ed) =>
                 {
@@ -1575,7 +1567,7 @@ namespace XingYunZhiLun_3998
                 totalWinLineCredit = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
             }
             allWinCredit = totalWinLineCredit;
-            slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+            slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * MainModel.Instance.contentMD.betmultiple);
 
 
             ContentModel.Instance.freeOnceCredit = totalWinLineCredit;

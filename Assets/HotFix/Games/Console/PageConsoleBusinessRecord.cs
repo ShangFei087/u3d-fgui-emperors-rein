@@ -48,7 +48,7 @@ namespace ConsoleSlot01
             EventCenter.Instance.RemoveEventListener<EventData>(Observer.ON_PROPERTY_CHANGED_EVENT, OnPropertyChange);
 
 
-            jackpotOnlineWinsCtrl.Disable();
+            //jackpotOnlineWinsCtrl.Disable();
             base.OnClose(data);
         }
 

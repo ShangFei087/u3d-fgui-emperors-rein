@@ -48,7 +48,6 @@ public class JackpotOnlineWinsController
         rtxtMiniWin = _rtxtMiniWin;
         rtxtMiniTimes = _rtxtMiniTimes;
 
-        NetMessageController.Instance.RequestConsoleJackpotDataOncePerSession();
         ClearAllUI();
         NetMessageController.Instance.RequestConsoleJackpotDataOncePerSession();
         Disable();
@@ -80,13 +79,10 @@ public class JackpotOnlineWinsController
 
     public void Enable()
     {
-        //EventCenter.Instance.RemoveEventListener(EventHandle.NETWORK_STATUS_CHANGE, OnNetworkStatusChange);
-        //EventCenter.Instance.AddEventListener(EventHandle.NETWORK_STATUS_CHANGE, OnNetworkStatusChange);
         EventCenter.Instance.AddEventListener<Dictionary<int, List<JackpotDeviceBetData>>>(EventHandle.GET_NET_JACKPOT_DATA, RefreshJackpotTextValue);
     }
     public void Disable()
     {
-        //EventCenter.Instance.RemoveEventListener(EventHandle.NETWORK_STATUS_CHANGE, OnNetworkStatusChange);
         EventCenter.Instance.RemoveEventListener<Dictionary<int, List<JackpotDeviceBetData>>>(EventHandle.GET_NET_JACKPOT_DATA, RefreshJackpotTextValue);
     }
 

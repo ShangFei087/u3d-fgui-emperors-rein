@@ -182,7 +182,7 @@ namespace SlotZhuZaiJinBi1700
             base.OnOpen(name, data);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
-            EventCenter.Instance.AddEventListener<string>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
+            EventCenter.Instance.AddEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
             InitParam(data);
         }
@@ -190,7 +190,7 @@ namespace SlotZhuZaiJinBi1700
         {
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
-            EventCenter.Instance.RemoveEventListener<string>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
+            EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             GameSoundHelper.Instance.StopMusic();
             base.OnClose(data);
         }
@@ -590,7 +590,7 @@ namespace SlotZhuZaiJinBi1700
 
                 //long fromCredit = data.win < 1000 ? data.win : data.win - 1000;
 
-                long winCredit = SBoxModel.Instance.CoinInScale * data.win;
+                long winCredit = data.win;
                 allWinCredit += winCredit;
 
                 //PageManager.Instance.OpenPageAsync(PageName.PusherEmperorsReinPopupJackpotOnline,
@@ -823,14 +823,14 @@ namespace SlotZhuZaiJinBi1700
         }
 
         //大厅彩金主机赢分数据
-        private void OnJackpotOnLine(string res)
+        private void OnJackpotOnLine(WinJackpotInfo winInfo)
         {
-            if (string.IsNullOrEmpty(res))
-                return;
+            //if (string.IsNullOrEmpty(res))
+            //    return;
 
             try
             {
-                WinJackpotInfo winInfo = JsonConvert.DeserializeObject<WinJackpotInfo>(res);
+                //WinJackpotInfo winInfo = JsonConvert.DeserializeObject<WinJackpotInfo>(res);
                 if (winInfo == null)
                     return;
 
@@ -870,7 +870,7 @@ namespace SlotZhuZaiJinBi1700
                     long creditBefore = MainBlackboardController.Instance.myRealCredit;
                     long creditAfter = creditBefore+ JackpotWin;
 
-                    MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
+                    //MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
 
                 }, (BagelCodeError err) =>
                 {
