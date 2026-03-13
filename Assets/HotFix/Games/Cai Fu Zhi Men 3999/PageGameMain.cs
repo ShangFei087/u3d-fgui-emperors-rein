@@ -1651,7 +1651,7 @@ namespace CaiFuZhiMen_3999
             }
 
             yield return _slotMachineController.ShowSymbolWinBySetting(curSymbolWin, true,
-                PusherEmperorsRein.SpinWinEvent.SingleWinLine);
+                SpinWinEvent.SingleWinLine);
             callback?.Invoke();
         }
 

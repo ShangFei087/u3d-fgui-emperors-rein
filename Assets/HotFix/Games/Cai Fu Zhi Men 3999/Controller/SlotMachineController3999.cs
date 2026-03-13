@@ -55,7 +55,7 @@ namespace CaiFuZhiMen_3999
                 SymbolBase symble = GetVisibleSymbolFromDeck(cel.column, cel.row);
 
                 int symbolNumber = isUseMySelfSymbolNumber ? symble.number : symbolWin.symbolNumber;
-                
+
                 // 增加wild判断 
                 if (symbolNumber == 9)
                 {
@@ -182,6 +182,84 @@ namespace CaiFuZhiMen_3999
                         ContentModel.Instance.bigWildList[cel.column].activeSelf)
                         continue;
                 }
+
+                string symbolName = CustomModel.Instance.symbolHitEffect[$"{symbolNumber}"]; // wild  or symbol;
+                GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolHit, symbolName).asCom;
+                symbolBase.AddSymbolEffect(goSymbolHit, isSymbolAnim);
+                FguiSortingOrderManager.Instance.ChangeSortingOrder(symbolBase.goOwnerSymbol,
+                    goExpectation); //goPayLines
+
+                if (_spinWEMD.Instance.isFrame)
+                {
+                    string borderEffect = CustomModel.Instance.borderEffect;
+                    GComponent
+                        goBorderEffect =
+                            fguiPoolHelper.GetObject(TagPoolObject.SymbolBorder, borderEffect).asCom;
+                    symbolBase.AddBorderEffect(goBorderEffect);
+                }
+            }
+
+            if (_spinWEMD.Instance.isShowLine)
+            {
+                if (symbolWin is TotalSymbolWin)
+                {
+                    TotalSymbolWin totalSymbolWin = symbolWin as TotalSymbolWin;
+
+                    foreach (int payLineNumber in totalSymbolWin.lineNumbers)
+                    {
+                        int lineIndex = GetPayLineIndex(payLineNumber);
+                        if (lineIndex >= 0 && lineIndex < goPayLines.numChildren)
+                        {
+                            goPayLines.GetChildAt(lineIndex).visible = true;
+                        }
+                    }
+                }
+                else
+                {
+                    int lineIndex = GetPayLineIndex(symbolWin.lineNumber);
+                    if (lineIndex >= 0
+                        && lineIndex < goPayLines.numChildren)
+                    {
+                        goPayLines.GetChildAt(lineIndex).visible = true;
+                    }
+                }
+            }
+
+            if (eventType == SpinWinEvent.TotalWinLine)
+            {
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,
+                    new EventData<SymbolWin>(SlotMachineEvent.TotalWinLine, symbolWin));
+            }
+            else if (eventType == SpinWinEvent.SingleWinLine)
+            {
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,
+                    new EventData<SymbolWin>(SlotMachineEvent.SingleWinLine, symbolWin));
+            }
+
+            yield return SlotWaitForSeconds(_spinWEMD.Instance.timeS);
+        }
+
+        public override IEnumerator ShowSymbolWinBySetting(SymbolWin symbolWin, bool isUseMySelfSymbolNumber,
+            SpinWinEvent eventType)
+        {
+            SkipWinLine(false);
+
+            if (isStopImmediately && _spinWEMD.Instance.isSkipAtStopImmediately)
+                yield break;
+
+            SetSlotCover(_spinWEMD.Instance.isShowCover);
+
+            foreach (Cell cel in symbolWin.cells)
+            {
+                SymbolBase symbolBase = GetVisibleSymbolFromDeck(cel.column, cel.row);
+                int symbolNumber = isUseMySelfSymbolNumber ? symbolBase.number : symbolWin.symbolNumber;
+                if (symbolNumber == 9)
+                {
+                    if (ContentModel.Instance.smallWildList[cel.column].activeSelf ||
+                        ContentModel.Instance.bigWildList[cel.column].activeSelf)
+                        continue;
+                }
+
                 string symbolName = CustomModel.Instance.symbolHitEffect[$"{symbolNumber}"]; // wild  or symbol;
                 GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolHit, symbolName).asCom;
                 symbolBase.AddSymbolEffect(goSymbolHit, isSymbolAnim);

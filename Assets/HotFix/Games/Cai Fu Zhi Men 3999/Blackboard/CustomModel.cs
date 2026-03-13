@@ -11,10 +11,11 @@ namespace CaiFuZhiMen_3999
         public int row => 3;
         public float reelMaxOffsetY => symbolHeight * row;
 
-        public string[] payTable => new string[5]
+        public string[] payTable => new string[7]
         {
             "ui://CaiFuZhiMen/Paytable021", "ui://CaiFuZhiMen/Paytable022", "ui://CaiFuZhiMen/Paytable023",
-            "ui://CaiFuZhiMen/Paytable024", "ui://CaiFuZhiMen/Paytable025"
+            "ui://CaiFuZhiMen/Paytable024", "ui://CaiFuZhiMen/Paytable025", "ui://CaiFuZhiMen/Paytable026",
+            "ui://CaiFuZhiMen/Paytable027"
         };
 
         public List<int> symbolNumber => new List<int>()
