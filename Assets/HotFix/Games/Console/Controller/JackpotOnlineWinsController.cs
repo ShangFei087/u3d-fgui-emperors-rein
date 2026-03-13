@@ -48,7 +48,6 @@ public class JackpotOnlineWinsController
         rtxtMiniWin = _rtxtMiniWin;
         rtxtMiniTimes = _rtxtMiniTimes;
 
-        NetMessageController.Instance.RequestConsoleJackpotDataOncePerSession();
         ClearAllUI();
         NetMessageController.Instance.RequestConsoleJackpotDataOncePerSession();
         Disable();
