@@ -802,7 +802,7 @@ namespace XingYunZhiLun_3998
             }
             else if(ResultType == 3 && (int)res["BonusType"] == 3)
             {
-                ContentModel.Instance.jackpotWinCredit = (int)res["BonusBet"];
+                ContentModel.Instance.jackpotWinCredit = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
 
                 jpGameRes.jpWinLst.Add(new JackpotWinInfo()
                 {
@@ -840,16 +840,16 @@ namespace XingYunZhiLun_3998
             //赢分
             long TotalBet = (int)res["TotalBet"];
             if (ResultType == 3) TotalBet += (int)res["BonusBet"];
-            TotalBet = TotalBet * totalBet;
+            TotalBet = TotalBet * MainModel.Instance.contentMD.betmultiple;
             DebugUtils.Log("本局赢分TotalBet==" + TotalBet);
             long afterBetCredit = 0;
             if (OpenType == 1)
             {
-                afterBetCredit = creditBefore + TotalBet;
+                afterBetCredit = creditBefore + TotalBet - totalBet;
             }
             else
             {
-                afterBetCredit = creditBefore + TotalBet;
+                afterBetCredit = creditBefore + TotalBet - totalBet;
 
             }
 
@@ -859,7 +859,7 @@ namespace XingYunZhiLun_3998
             {
                 creditAfter = res["creditAfter"];
             }
-            MainBlackboardController.Instance.SetMyRealCredit(creditAfter - totalBet);
+            MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
 
             DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={TotalBet} ");
 
