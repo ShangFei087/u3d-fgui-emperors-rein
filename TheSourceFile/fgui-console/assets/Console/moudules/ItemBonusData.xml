@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,50">
+  <displayList>
+    <text id="n0_knk6" name="bonusType" xy="20,0" size="96,50" fontSize="18" color="#ffffff" align="center" vAlign="middle" autoSize="none" text=""/>
+    <text id="n1_knk6" name="gameId" xy="133,0" size="195,50" fontSize="18" color="#ffffff" align="center" vAlign="middle" autoSize="none" text=""/>
+    <text id="n2_knk6" name="points" xy="350,0" size="96,50" fontSize="18" color="#ffffff" align="center" vAlign="middle" autoSize="none" text=""/>
+    <text id="n3_knk6" name="beforeScore" xy="470,0" size="145,50" fontSize="18" color="#ffffff" align="center" vAlign="middle" autoSize="none" text=""/>
+    <text id="n4_knk6" name="afterScore" xy="670,0" size="150,50" fontSize="18" color="#ffffff" align="center" vAlign="middle" autoSize="none" text=""/>
+    <text id="n5_knk6" name="time" xy="880,0" size="180,50" fontSize="18" color="#ffffff" align="center" vAlign="middle" autoSize="none" text=""/>
+  </displayList>
+</component>
