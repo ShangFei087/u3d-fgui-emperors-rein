@@ -197,7 +197,7 @@ namespace CaiFuZhiMen_3999
 
             // _compareJackpotGetWindow = null;
             _compareRealGetWindow = null;
-            ContentModel.Instance.bonusIndex = -1;
+            // ContentModel.Instance.bonusIndex = -1;
         }
     }
 }

@@ -51,11 +51,6 @@ namespace CaiFuZhiMen_3999
         #region 本局游戏数据
 
         /// <summary>
-        /// 彩金游戏中奖索引
-        /// </summary>
-        public int winningTypeIndex;
-
-        /// <summary>
         /// 克隆的SmallWild列表
         /// </summary>
         [FormerlySerializedAs("SmallWildList")]
@@ -287,6 +282,9 @@ namespace CaiFuZhiMen_3999
 
         /// <summary>彩金游戏是否中奖</summary>
         public bool isWinning = false;
+        
+        /// <summary> 大厅彩金中奖数据  </summary>
+        public List<WinJackpotInfo> jpOnlineWin = new List<WinJackpotInfo>();
 
         #endregion
 

@@ -121,7 +121,7 @@ namespace CaiFuZhiMen_3999
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiMenPopupJackpotLoad, null);
                 _isFirstOpen = false;
 
-                Debug.LogError("CaiFuZhiMen is Preloaded!");
+                // Debug.LogError("CaiFuZhiMen is Preloaded!");
             }
 
             if (_loadingGTween != null) _loadingGTween.Kill();

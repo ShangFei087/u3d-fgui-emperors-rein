@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_qzbz" name="anchor_Jackpot" src="mqd84u" fileName="moudules/popupJackpotResult/SpineAnchors/Anchor_JackpotGetWindow.xml" xy="539,960"/>
+    <text id="n2_qzbz" name="jackpotText" xy="256,986" size="576,77" font="ui://v8alnoawvckb16" fontSize="12" align="center" vAlign="middle" autoSize="none" text="11111111"/>
+    <component id="n0_qzbz" name="collectBtn" src="mqd84x" fileName="components/popupJackpotResult/JackpotCollectButton.xml" xy="445,1110"/>
+  </displayList>
+</component>
