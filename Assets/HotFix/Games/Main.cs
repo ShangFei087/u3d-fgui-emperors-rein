@@ -353,7 +353,7 @@ public class Main
         {
             PageManager.Instance.OpenPage(PageName.HallMain);
         }
-        
+        // PageManager.Instance.OpenPage(PageName.CaiFuZhiMenPopupOnlineJackpot);
            
         /*
         System.Action onJPPoolSubCredit = () => {
