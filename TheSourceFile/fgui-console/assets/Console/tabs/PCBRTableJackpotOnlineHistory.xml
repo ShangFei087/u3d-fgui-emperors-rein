@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1175">
+  <displayList>
+    <text id="n7_bbo0" name="n7" xy="19,0" size="87,66" group="n15_bbo0" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="JackpotTitle"/>
+    <text id="n8_bbo0" name="n8" xy="132,0" size="195,66" group="n15_bbo0" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="OrderId"/>
+    <text id="n9_bbo0" name="n9" xy="349,0" size="102,66" group="n15_bbo0" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="WinCredit"/>
+    <text id="n10_bbo0" name="n10" xy="469,0" size="145,66" group="n15_bbo0" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="CreditBefore"/>
+    <text id="n11_bbo0" name="n11" xy="669,0" size="150,66" group="n15_bbo0" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="CreditAfter"/>
+    <text id="n12_bbo0" name="n12" xy="879,0" size="180,66" group="n15_bbo0" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="Date"/>
+    <graph id="n13_bbo0" name="n13" xy="19,71" size="1040,5" group="n15_bbo0" type="rect"/>
+    <group id="n15_bbo0" name="game_title" xy="19,0" size="1040,76"/>
+    <list id="n2_knk6" name="game_data" xy="0,76" size="1080,999" overflow="scroll" align="center" vAlign="middle" scrollItemToViewOnClick="false">
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+      <item url="ui://xp0b9yqdknk6b1"/>
+    </list>
+    <component id="n6_knk6" name="game_page" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="270,1099">
+      <property target="key" propertyId="0" value="JackpotOnlineHistory"/>
+      <property target="value" propertyId="0" value="Page 999 of 999"/>
+    </component>
+  </displayList>
+</component>

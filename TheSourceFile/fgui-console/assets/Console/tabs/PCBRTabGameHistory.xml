@@ -3,44 +3,44 @@
   <displayList>
     <component id="n14_h0z3" name="reels" src="exvpam" fileName="moudules/slotMachine/Reels.xml" xy="1,1" size="1078,600"/>
     <component id="n3_h0z3" name="game_uid" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="-1,485">
-      <property target="key" propertyId="0" value="游戏编号"/>
+      <property target="key" propertyId="0" value="Game_Uid :"/>
       <property target="value" propertyId="0" value="152-390-177056450416-209135"/>
     </component>
     <component id="n4_h0z3" name="created_at" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="-1,561">
-      <property target="key" propertyId="0" value="游戏时间"/>
+      <property target="key" propertyId="0" value="Game_TIme :"/>
       <property target="value" propertyId="0" value="2026-3-3 11:41:45"/>
     </component>
     <component id="n5_h0z3" name="credit_before" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="-1,637">
-      <property target="key" propertyId="0" value="游戏前分数"/>
+      <property target="key" propertyId="0" value="Credit_Before :"/>
       <property target="value" propertyId="0" value="429165"/>
     </component>
     <component id="n6_h0z3" name="credit_after" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="-1,713">
-      <property target="key" propertyId="0" value="游戏后分数"/>
+      <property target="key" propertyId="0" value="Credit_After :"/>
       <property target="value" propertyId="0" value="429115"/>
     </component>
     <component id="n7_h0z3" name="total_bet" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="-1,789">
-      <property target="key" propertyId="0" value="总投注"/>
+      <property target="key" propertyId="0" value="Total_Bet :"/>
       <property target="value" propertyId="0" value="50"/>
     </component>
-    <component id="n8_h0z3" name="base_game_win_credit" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="-1,865">
-      <property target="key" propertyId="0" value="基础游戏赢分"/>
+    <component id="n8_h0z3" name="base_game_win_credit" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="-2,865">
+      <property target="key" propertyId="0" value="Base_Game_Win_Credit :"/>
       <property target="value" propertyId="0" value="0"/>
     </component>
     <component id="n10_h0z3" name="jackpot_win_credit" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="-1,941">
-      <property target="key" propertyId="0" value="彩金赢分"/>
+      <property target="key" propertyId="0" value="Jackpot_Win_Credit :"/>
       <property target="value" propertyId="0" value="0"/>
     </component>
-    <component id="n11_h0z3" name="open_type" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="539,485">
-      <property target="key" propertyId="0" value="本局是否赠送局:"/>
+    <component id="n11_h0z3" name="open_type" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="539,484">
+      <property target="key" propertyId="0" value="Open_Type :"/>
       <property target="value" propertyId="0" value="false"/>
     </component>
     <component id="n12_h0z3" name="result_type" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="539,561">
-      <property target="key" propertyId="0" value="本局游戏类型:"/>
+      <property target="key" propertyId="0" value="Result_Type:"/>
       <property target="value" propertyId="0" value="0"/>
     </component>
     <component id="n15_h0z3" name="game_page" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="270,1099">
-      <property target="key" propertyId="0" value="&quot;Slot1700&quot;游戏记录"/>
-      <property target="value" propertyId="0" value="第999/999条"/>
+      <property target="key" propertyId="0" value="&quot;Slot1700&quot;GameHistory"/>
+      <property target="value" propertyId="0" value="Page 999 of 999"/>
     </component>
   </displayList>
 </component>

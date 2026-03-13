@@ -27,7 +27,7 @@ public class TabSettingsProgressive
         //分机彩金百分比，每次押分贡献给彩金的比例
         rtxtJackpotPercent = goOwnerTab.GetChild("jackpotPercent").asCom.GetChild("value").asRichTextField;
         
-        NetMessageController.Instance.ResetConsoleJackpotDataRequestSession();
+      
         RefreshUI();
         OnClickRequestJackpotData();
         Disable(); //释放掉旧的事件

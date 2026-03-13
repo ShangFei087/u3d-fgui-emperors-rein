@@ -9,11 +9,8 @@ public class TableJackpotRecordAsyncManager : MonoSingleton<TableJackpotRecordAs
     [Button]
     public void AddJackpotRecord(int jpLevel, string jpName, long winCredit, long creditBefore, long creditAfter, string gameUID = "-1", long? createdAt = null)
     {
-        if (createdAt == null)
-        {
-            createdAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        }
-
+        createdAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        long CreatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         string insertQuery = @"
                 INSERT INTO jackpot_record (
                     created_at,
@@ -39,7 +36,7 @@ public class TableJackpotRecordAsyncManager : MonoSingleton<TableJackpotRecordAs
 
         SQLiteAsyncHelper.Instance.ExecuteNonQueryAsync(insertQuery, new Dictionary<string, object>()
         {
-            [":createdAt"] = createdAt,
+            [":createdAt"] = CreatedAt,
             [":userID"] = 0,
             [":gameID"] = MainModel.Instance.gameID,
             [":gameUID"] = gameUID,

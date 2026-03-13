@@ -6,6 +6,8 @@
   <string name="xp0b9yqdg3lh53-n34_es9v" mz="navJpOnline">JpOnline</string>
   <string name="xp0b9yqdg3lh53-n29_os7y-cp-title" mz="navBottom">Business Record</string>
   <!-- Console/PageConsoleGameHistory.xml -->
+  <string name="xp0b9yqdexvp7x-n10_knk6" mz="btnGame">GameHistory</string>
+  <string name="xp0b9yqdexvp7x-n11_knk6" mz="btnJpOnline">JackpotOnlineHistory</string>
   <string name="xp0b9yqdexvp7x-n7_h0z3-cp-key" mz="gameId">GameId</string>
   <string name="xp0b9yqdexvp7x-n2_exvp-cp-key" mz="date">Data</string>
   <string name="xp0b9yqdexvp7x-n1_exvp-cp-title" mz="navBottom">Game History</string>
@@ -129,6 +131,13 @@
   <string name="xp0b9yqdoibks-n6_os7y" mz="title">Business Record</string>
   <!-- Console/moudules/ItemBetLst.xml -->
   <string name="xp0b9yqdcwuo2j-n0_glrj" mz="key">Bet Allowed:</string>
+  <!-- Console/moudules/ItemBonusTitle.xml -->
+  <string name="xp0b9yqdknk6b0-n0_knk6" mz="n0">彩金</string>
+  <string name="xp0b9yqdknk6b0-n1_knk6" mz="n1">游戏编号</string>
+  <string name="xp0b9yqdknk6b0-n2_knk6" mz="n2">积分</string>
+  <string name="xp0b9yqdknk6b0-n3_knk6" mz="n3">中奖前分数</string>
+  <string name="xp0b9yqdknk6b0-n4_knk6" mz="n4">中奖后分数</string>
+  <string name="xp0b9yqdknk6b0-n5_knk6" mz="n5">日期</string>
   <!-- Console/moudules/ItemCategoryNav.xml -->
   <string name="xp0b9yqdcwuo2p-n24_jtgo" mz="title">MACHINE</string>
   <!-- Console/moudules/ItemCoinInOutItem.xml -->
@@ -324,6 +333,7 @@
   <string name="xp0b9yqdg3lh54-n57_g3lh-cp-key" mz="totalProfitCoinInOut">Toral Profit:</string>
   <string name="xp0b9yqdg3lh54-n58_g3lh-cp-key" mz="totalProfitScoreUpDown">Toral Profit:</string>
   <string name="xp0b9yqdg3lh54-n64_g3lh-cp-title" mz="mdDalyBusiness">Daly Business</string>
+  <string name="xp0b9yqdg3lh54-n66_g3lh-cp-key" mz="dateDalyBusiness">Date :</string>
   <string name="xp0b9yqdg3lh54-n80_g3lh-cp-key" mz="totalBetDaly">Total Bet:</string>
   <string name="xp0b9yqdg3lh54-n81_g3lh-cp-key" mz="totalWinDaly">Total Win:</string>
   <string name="xp0b9yqdg3lh54-n82_g3lh-cp-key" mz="totalProfitBetDaly">Total Profit:</string>
@@ -334,6 +344,7 @@
   <string name="xp0b9yqdg3lh54-n86_g3lh-cp-key" mz="totalScoreDownDaly">Total Score Down:</string>
   <string name="xp0b9yqdg3lh54-n87_g3lh-cp-key" mz="totalProfitScoreUpDownDaly">Total Profit:</string>
   <!-- Console/tabs/PCBRTabCoin.xml -->
+  <string name="xp0b9yqdg3lh5i-n66_g3lh-cp-key" mz="dateInOut">Date :</string>
   <string name="xp0b9yqdg3lh5i-n92_g3lh" mz="inOut">In-Out</string>
   <string name="xp0b9yqdg3lh5i-n93_g3lh" mz="credit">Credit</string>
   <string name="xp0b9yqdg3lh5i-n94_g3lh" mz="Device">Device</string>
@@ -347,18 +358,27 @@
   <string name="xp0b9yqdg3lh5i-n86_g3lh-cp-key" mz="totalScoreDownSummary">Total Score Down:</string>
   <string name="xp0b9yqdg3lh5i-n87_g3lh-cp-key" mz="totalProfitScoreSummary">Total Profit:</string>
   <!-- Console/tabs/PCBRTabGameHistory.xml -->
-  <string name="xp0b9yqdh0z3ao-n3_h0z3-cp-key" mz="game_uid">游戏编号</string>
-  <string name="xp0b9yqdh0z3ao-n4_h0z3-cp-key" mz="created_at">游戏时间</string>
-  <string name="xp0b9yqdh0z3ao-n5_h0z3-cp-key" mz="credit_before">游戏前分数</string>
-  <string name="xp0b9yqdh0z3ao-n6_h0z3-cp-key" mz="credit_after">游戏后分数</string>
-  <string name="xp0b9yqdh0z3ao-n7_h0z3-cp-key" mz="total_bet">总投注</string>
-  <string name="xp0b9yqdh0z3ao-n8_h0z3-cp-key" mz="base_game_win_credit">基础游戏赢分</string>
-  <string name="xp0b9yqdh0z3ao-n10_h0z3-cp-key" mz="jackpot_win_credit">彩金赢分</string>
-  <string name="xp0b9yqdh0z3ao-n11_h0z3-cp-key" mz="open_type">本局是否赠送局:</string>
+  <string name="xp0b9yqdh0z3ao-n3_h0z3-cp-key" mz="game_uid">Game_Uid :</string>
+  <string name="xp0b9yqdh0z3ao-n4_h0z3-cp-key" mz="created_at">Game_TIme :</string>
+  <string name="xp0b9yqdh0z3ao-n5_h0z3-cp-key" mz="credit_before">Credit_Before :</string>
+  <string name="xp0b9yqdh0z3ao-n6_h0z3-cp-key" mz="credit_after">Credit_After :</string>
+  <string name="xp0b9yqdh0z3ao-n7_h0z3-cp-key" mz="total_bet">Total_Bet :</string>
+  <string name="xp0b9yqdh0z3ao-n8_h0z3-cp-key" mz="base_game_win_credit">Base_Game_Win_Credit :</string>
+  <string name="xp0b9yqdh0z3ao-n10_h0z3-cp-key" mz="jackpot_win_credit">Jackpot_Win_Credit :</string>
+  <string name="xp0b9yqdh0z3ao-n11_h0z3-cp-key" mz="open_type">Open_Type :</string>
   <string name="xp0b9yqdh0z3ao-n11_h0z3-cp-value" mz="open_type">false</string>
-  <string name="xp0b9yqdh0z3ao-n12_h0z3-cp-key" mz="result_type">本局游戏类型:</string>
-  <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-key" mz="game_page">"Slot1700"游戏记录</string>
-  <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-value" mz="game_page">第999/999条</string>
+  <string name="xp0b9yqdh0z3ao-n12_h0z3-cp-key" mz="result_type">Result_Type:</string>
+  <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-key" mz="game_page">"Slot1700"GameHistory</string>
+  <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-value" mz="game_page">Page 999 of 999</string>
+  <!-- Console/tabs/PCBRTableJackpotOnlineHistory.xml -->
+  <string name="xp0b9yqdknk6az-n7_bbo0" mz="n7">JackpotTitle</string>
+  <string name="xp0b9yqdknk6az-n8_bbo0" mz="n8">OrderId</string>
+  <string name="xp0b9yqdknk6az-n9_bbo0" mz="n9">WinCredit</string>
+  <string name="xp0b9yqdknk6az-n10_bbo0" mz="n10">CreditBefore</string>
+  <string name="xp0b9yqdknk6az-n11_bbo0" mz="n11">CreditAfter</string>
+  <string name="xp0b9yqdknk6az-n12_bbo0" mz="n12">Date</string>
+  <string name="xp0b9yqdknk6az-n6_knk6-cp-key" mz="game_page">JackpotOnlineHistory</string>
+  <string name="xp0b9yqdknk6az-n6_knk6-cp-value" mz="game_page">Page 999 of 999</string>
   <!-- Console/tabs/PCBTabJackpotOnlineWins.xml -->
   <string name="xp0b9yqdes9vav-n0_es9v-cp-key" mz="macId">macId</string>
   <string name="xp0b9yqdes9vav-n1_es9v-cp-key" mz="seatId">seatId</string>
@@ -388,6 +408,10 @@
   <!-- Console/tabs/PCBTabTestScreen.xml -->
   <string name="xp0b9yqdes9vas-n2_es9v-cp-key" mz="ScreenTest">ScreenTest :</string>
   <string name="xp0b9yqdes9vas-n2_es9v-cp-value" mz="ScreenTest">Start</string>
+  <!-- Console/tabs/PCLRTabError.xml -->
+  <string name="xp0b9yqdu8xf7v-n66_g3lh-cp-key" mz="date">Date :</string>
+  <!-- Console/tabs/PCLRTabEvent.xml -->
+  <string name="xp0b9yqdu8xf7s-n66_g3lh-cp-key" mz="date">Data :</string>
   <!-- Console/tabs/PCMSTabInOut.xml -->
   <string name="xp0b9yqdcwuo38-n18_cwuo-cp-key" mz="coinOutScale">Coin Out Scale(Ticket : Credit):</string>
   <string name="xp0b9yqdcwuo38-n19_cwuo-cp-key" mz="coinInScale">Coin In Scale(Coin : Credit):</string>
@@ -434,5 +458,5 @@
   <string name="xp0b9yqdcwuo39-n31_os7y-cp-title" mz="mdJackpotOnline">Jackpot Online</string>
   <string name="xp0b9yqdcwuo39-n32_os7y-cp-key" mz="useJpOnlineValidator">Jackpot Online:</string>
   <string name="xp0b9yqdcwuo39-n33_os7y-cp-key" mz="jackpotScoreRate">Jackpot Score Rate:</string>
-  <string name="xp0b9yqdcwuo39-n56_es9v-cp-key" mz="jackpotPercent">Jackpot Score Rate:</string>
+  <string name="xp0b9yqdcwuo39-n56_es9v-cp-key" mz="jackpotPercent">Jackpot Percent:</string>
 </resources>

@@ -58,7 +58,9 @@
     <component id="n64_g3lh" name="mdDalyBusiness" src="glrj1k" fileName="moudules/ModuleName.xml" xy="0,652" group="n91_g3lh">
       <property target="title" propertyId="0" value="Daly Business"/>
     </component>
-    <component id="n66_g3lh" name="dateDalyBusiness" src="g3lh58" fileName="moudules/ItemDateSelect.xml" xy="0,690" group="n91_g3lh"/>
+    <component id="n66_g3lh" name="dateDalyBusiness" src="g3lh58" fileName="moudules/ItemDateSelect.xml" xy="0,690" group="n91_g3lh">
+      <property target="key" propertyId="0" value="Date :"/>
+    </component>
     <component id="n80_g3lh" name="totalBetDaly" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="0,766" group="n84_g3lh">
       <property target="key" propertyId="0" value="Total Bet:"/>
       <property target="value" propertyId="0" value="1000"/>

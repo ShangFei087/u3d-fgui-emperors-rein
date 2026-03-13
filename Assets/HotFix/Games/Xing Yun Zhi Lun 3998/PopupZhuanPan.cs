@@ -95,7 +95,7 @@ namespace XingYunZhiLun_3998
                             //ContentModel.Instance.gameState = GameState.Idle;
                             CloseSelf(null);
                             //DebugUtils.Log("游戏结束");
-                        })
+                        });
                     },
                 },
             };

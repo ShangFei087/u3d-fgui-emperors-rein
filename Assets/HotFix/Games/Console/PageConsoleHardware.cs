@@ -35,16 +35,6 @@ namespace ConsoleSlot01
             Timers.inst.AddUpdate(_updateCallback);
         }
 
-        // 轮询协程
-        System.Collections.IEnumerator PollHardwareButtons()
-        {
-            while (isOpen)
-            {
-                tabBtnTestCtrl.CheckButtons();
-                yield return new WaitForSeconds(0.05f); // 20fps
-            }
-        }
-
         public override void OnOpen(PageName name, EventData data)
         {
             base.OnOpen(name, data);
