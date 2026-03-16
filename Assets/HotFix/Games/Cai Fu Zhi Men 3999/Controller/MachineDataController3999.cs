@@ -359,7 +359,8 @@ namespace CaiFuZhiMen_3999
                 ContentModel.Instance.isFreeSpinTrigger = true;
                 ContentModel.Instance.FreeSpinTotalTimes = _freeRoundDic[CountTensEfficient(matrixArray)];
                 ContentModel.Instance.FreeSpinPlayTimes = 0;
-                ContentModel.Instance.freeTotalBet = (int)res["TotalFreeBet"];
+                ContentModel.Instance.freeTotalBet =
+                    (int)res["TotalFreeBet"] * MainModel.Instance.contentMD.betmultiple;
             }
 
             //赠送局
@@ -390,8 +391,6 @@ namespace CaiFuZhiMen_3999
             }
 
             // 大奖
-            // ContentModel.Instance.winningTypeIndex = (int)res["BonusType"];
-            // ContentModel.Instance.bonusIndex = ContentModel.Instance.winningTypeIndex;// 暂时先这么写
             if (ResultType == 3)
             {
                 ContentModel.Instance.bonusTotalBet = (int)res["BonusBet"];
@@ -401,12 +400,12 @@ namespace CaiFuZhiMen_3999
             long creditBefore = MainBlackboardController.Instance.myTempCredit;
             //赢分
             long TotalBet = (int)res["TotalBet"] * MainModel.Instance.contentMD.betmultiple;
-            if (ResultType == 3) TotalBet = (int)res["BonusBet"]; //大奖得分
+            if (ResultType == 3) TotalBet = (int)res["BonusBet"];
             DebugUtils.Log("本局赢分TotalBet==" + TotalBet);
             long afterBetCredit = 0;
             if (OpenType == 1)
             {
-                 afterBetCredit = creditBefore + TotalBet;
+                afterBetCredit = creditBefore + TotalBet;
             }
             else
             {

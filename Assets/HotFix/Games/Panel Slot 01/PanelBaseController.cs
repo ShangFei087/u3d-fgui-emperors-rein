@@ -753,7 +753,8 @@ namespace SlotMaker
             }
             MainModel.Instance.contentMD.betIndex = curBetIndex;
             //下注倍数现在硬数据,之后在改动  
-            MainModel.Instance.contentMD.betmultiple = (int)MainModel.Instance.contentMD.totalBet / 50;
+            // MainModel.Instance.contentMD.betmultiple = (int)MainModel.Instance.contentMD.totalBet / 50;
+            MainModel.Instance.contentMD.betmultiple = (int)MainModel.Instance.contentMD.totalBet / 1;
             bet.text = MainModel.Instance.contentMD.totalBet.ToString();
             btnBetDown.touchable = curBetIndex > 0;
             btnBetDown.GetChild("untouch").visible = btnBetDown.touchable ? false : true;

@@ -1,11 +1,11 @@
 {
-  "updated_at": 1773401564779,
+  "updated_at": 1773626110791,
   "hotfix_key": "hf_debug_android_20260303190331",
-  "hotfix_version": "1.10.38",
+  "hotfix_version": "1.10.39",
   "asset_bundle": {
     "manifest": {
-      "hash": "0f21246f9f703864258a100516405ff3",
-      "size_bytes": 17230
+      "hash": "e4203b71f30b08019601f05959017353",
+      "size_bytes": 17231
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
@@ -25,9 +25,9 @@
       "_common/game maker/abs/g3996/gm/tmg_mock_gm_3996.unity3d": "f4bc35d5cbeda0aa7e676a8788ceee31",
       "_common/game maker/abs/g3997/datas/game_info_g3997.unity3d": "0c022c1a49ffc75ffb9d2cd95cd5dbdf",
       "_common/game maker/abs/g3997/gm/tmg_mock_gm_3997.unity3d": "c9af67534e8a3d95da7f4adc3229671c",
-      "_common/game maker/abs/g3998/data/game_info_g3998.unity3d": "76097aea1eccfd6df25a397c6146a31e",
+      "_common/game maker/abs/g3998/data/game_info_g3998.unity3d": "be0b3fb8a4256709bd5d8badef9eba75",
       "_common/game maker/abs/g3998/gm/tmg_mock_gm_3998.unity3d": "062250b1eff4d1daccf13fbdabbd5c9c",
-      "_common/game maker/abs/g3999/datas/game_info_g3999.unity3d": "c07cbed66785c062572ed33c69177324",
+      "_common/game maker/abs/g3999/datas/game_info_g3999.unity3d": "dd8e6abc812e6324b19cfee144ceff72",
       "_common/game maker/abs/g3999/gm/tmg_mock_gm_3999.unity3d": "1d251e7edc6733e03a0ecdb90ba397dd",
       "_common/game maker/prefabs/instance.unity3d": "14ce620c657800ba7d3811de04ee5f7c",
       "_common/game maker/prefabs/machine controller.unity3d": "a3b2ec02d8072a7f620dc1fe7c9ac9f0",
@@ -258,7 +258,7 @@
       "games/console/abs/lang_cn.unity3d": "0cc7a0e96953d2987d723818c81acba6",
       "games/console/abs/lang_en.unity3d": "0c926abadeefdb3d851261b553bca524",
       "games/console/abs/lang_tw.unity3d": "d301d74c9c4a970d77c03f799f725392",
-      "games/console/fguis.unity3d": "c343bc9c45334b82fabdb0b8fe8b98a6",
+      "games/console/fguis.unity3d": "50b4d7cd4a421d602094ea2c36f3c813",
       "games/emperors rein 200/abs/datas/slot_machine_config_bouns1.unity3d": "b7bdf4772671474e955d5a7883d9e43d",
       "games/emperors rein 200/abs/datas/slot_machine_config_temp.unity3d": "6b732135677815a2defb0eba50dcc545",
       "games/emperors rein 200/fguis.unity3d": "88c21b66c270949c4933e3b0b5457465",
@@ -432,9 +432,9 @@
       "games/emperors rein 200/sounds/music/music_freenumbertip.unity3d": "261ff8c631b3e554e7ca6f0d73d6bb4f",
       "games/emperors rein 200/sounds/music/music_link.unity3d": "1307afd0cf8c43a8be3f0a150525da3f",
       "games/emperors rein 200/sounds/music/music_normal.unity3d": "1937df37cbabdbb1712a4d3691c81e1d",
-      "games/panel01/fguis.unity3d": "800965ff22c86c9b8666f399a3fbc5b5",
+      "games/panel01/fguis.unity3d": "b92b3c958b664a03cb244c5fc104f3a5",
       "games/panel01/prefabs/slot_btn_spin.unity3d": "0ad67a94ce27de4eb6579d03a98c5d25",
-      "games/panel02/fguis.unity3d": "ab94251841289409962c8385b8cdc5f2",
+      "games/panel02/fguis.unity3d": "57ceb9584eecbe665018e329a5cb1cbf",
       "games/slot zhu zai jin bi 1700/fguis.unity3d": "2aea00b3810df9a836cf28ca70ba1a69",
       "games/slot zhu zai jin bi 1700/prefabs/game controller/slot game main controllerclone.unity3d": "295fef48678f38ffc0959f360b83eed2",
       "games/slot zhu zai jin bi 1700/prefabs/gamemain/freeframe.unity3d": "42728f0c9ce9769f205268e30dbc566e",
