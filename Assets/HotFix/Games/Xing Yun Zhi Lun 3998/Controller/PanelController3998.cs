@@ -122,4 +122,16 @@ public class PanelController3998 : SlotMaker.PanelBaseController
                 break;
         }
     }
+
+    protected override void OnPropertyGameState(EventData res = null)
+    {
+        string gameState = (string)res?.value;
+
+        // 免费游戏期间保留面板累计赢分，只在普通Spin开始时清空
+        if (gameState == GameState.Spin)
+        {
+            win.text = 0.ToString();
+            ClearSingleLineText();
+        }
+    }
 }

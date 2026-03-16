@@ -6,6 +6,11 @@ public class TabLogRecordController : MonoBehaviour
 {
     void Init() { }
 
+    private bool IsGObjectValid(GObject go)
+    {
+        return go != null && !go.isDisposed && go.displayObject != null;
+    }
+
     GComponent goOwnerTab;
 
     LogRecordDataController ctrl = new LogRecordDataController();
@@ -18,11 +23,14 @@ public class TabLogRecordController : MonoBehaviour
     LogPageInfo pageInfo;
 
     GComboBox gcbDropdownDates;
+    System.Action<LogPageInfo> _onPageChanged;
 
 
-    public void InitParam(GComponent go, string tabName)
+    public void InitParam(GComponent go, string tabName, System.Action<LogPageInfo> onPageChanged = null)
     {
         goOwnerTab = go;
+        goItems.Clear();
+        _onPageChanged = onPageChanged;
 
         for (int i=1; i<=11; i++)
         {
@@ -58,6 +66,10 @@ public class TabLogRecordController : MonoBehaviour
     }
 
     void onDatesChange(List<string> dates) {
+        if (!IsGObjectValid(gcbDropdownDates))
+        {
+            return;
+        }
 
         gcbDropdownDates.items = dates.ToArray();
         gcbDropdownDates.values = dates.ToArray();
@@ -70,17 +82,36 @@ public class TabLogRecordController : MonoBehaviour
     }
     void onPageChagne(LogPageInfo pageInfo)
     {
+        if (!IsGObjectValid(goOwnerTab))
+        {
+            return;
+        }
+
         this.pageInfo = pageInfo;
-        rtxtDetail.text = "";
+        if (IsGObjectValid(rtxtDetail))
+        {
+            rtxtDetail.text = "";
+        }
+
         foreach (GComponent item in goItems)
         {
+            if (!IsGObjectValid(item))
+            {
+                continue;
+            }
             item.visible = false;
             item.onClick.Clear();
         }
 
         List<LogRecord> logRecords = pageInfo.logRecords;
-        for (int i = 0; i < logRecords.Count; i++)
+        int showCount = Mathf.Min(logRecords.Count, goItems.Count);
+        for (int i = 0; i < showCount; i++)
         {
+            if (!IsGObjectValid(goItems[i]))
+            {
+                continue;
+            }
+
             goItems[i].visible = true;
             goItems[i].GetChild("value1").asRichTextField.text = logRecords[i].timeStr;
             goItems[i].GetChild("value2").asRichTextField.text = logRecords[i].content;
@@ -88,8 +119,23 @@ public class TabLogRecordController : MonoBehaviour
             string detail = logRecords[i].detail;
             goItems[i].onClick.Add(() =>
             {
-                rtxtDetail.text = detail;
+                if (IsGObjectValid(rtxtDetail))
+                {
+                    rtxtDetail.text = detail;
+                }
             });
         }
+
+        _onPageChanged?.Invoke(pageInfo);
+    }
+
+    public void PrevPage()
+    {
+        ctrl.PrevPage();
+    }
+
+    public void NextPage()
+    {
+        ctrl.NextPage();
     }
 }
