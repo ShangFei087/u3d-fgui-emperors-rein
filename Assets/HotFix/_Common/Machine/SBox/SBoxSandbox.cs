@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @file    
  * @author  Huang Wen <Email:ww1383@163.com, QQ:214890094, WeChat:w18926268887>
  * @version 1.0
@@ -645,6 +645,8 @@ namespace SBoxApi
 		 */
         public static void SwitchOutStateOn(ulong state)
         {
+            //1 << n：第 n 位为 1 的掩码
+            //通过按位或 | 组合多个键位
             sBoxInfo.OutStateMask |= state;
         }
 
@@ -656,6 +658,7 @@ namespace SBoxApi
 		 */
         public static void SwitchOutStateOff(ulong state)
         {
+            //通过按位与 & 检查某个键位是否开启
             sBoxInfo.OutStateMask &= (~state);
         }
 

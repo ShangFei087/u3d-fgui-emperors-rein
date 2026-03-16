@@ -528,12 +528,51 @@ namespace XingYunZhiLun_3998
 
         private Dictionary<int, List<int>> freeWildRecord = new Dictionary<int, List<int>>();
 
+        private int CalculateLineWinCredit(int symbolNumber, int hitCount)
+        {
+            try
+            {
+                if (hitCount < 3)
+                    return 0;
+
+                List<PayTableSymbolInfo> payTable = MainModel.Instance.contentMD?.payTableSymbolWin;
+                if (payTable == null || symbolNumber < 0 || symbolNumber >= payTable.Count)
+                {
+                    DebugUtils.LogError($"[G3998] 计算单线赢分失败，paytable越界。symbol={symbolNumber}, hit={hitCount}");
+                    return 0;
+                }
+
+                PayTableSymbolInfo info = payTable[symbolNumber];
+                double odd = 0;
+                if (hitCount >= 5)
+                {
+                    odd = info.x5;
+                }
+                else if (hitCount == 4)
+                {
+                    odd = info.x4;
+                }
+                else
+                {
+                    odd = info.x3;
+                }
+
+                // ParseSlotSpin02 内保持与算法 TotalBet 相同的未乘 betmultiple 单位。
+                int lineWin = Mathf.Max(0, Mathf.RoundToInt((float)odd));
+                return lineWin;
+            }
+            catch (Exception ex)
+            {
+                DebugUtils.LogError($"[G3998] 计算单线赢分异常: {ex.Message}");
+                return 0;
+            }
+        }
+
         public void ParseSlotSpin02(long totalBet, JSONNode res, SBoxJackpotData sboxJackpotData)
         {
             //IDVec
             int lineNum = (int)res["lineNum"];
             int totalEarnCredit = 0;
-            int credit = (int)res["TotalBet"];
             List<SymbolWin> winList = new List<SymbolWin>();
 
             int maxLink = 0;
@@ -567,16 +606,26 @@ namespace XingYunZhiLun_3998
 
                 SymbolWin sw = new SymbolWin()
                 {
-                    earnCredit = (credit / lineNum) * totalBet,
+                    earnCredit = CalculateLineWinCredit(symbolNumber, hitCount),
                     multiplier = 1,
                     lineNumber = lineNumber,
                     symbolNumber = symbolNumber,
                     cells = _cells,
                 };
                 winList.Add(sw);
-
-                //totalEarnCredit += credit * (int)totalBet;
+                totalEarnCredit +=(int) sw.earnCredit;
             }
+
+            int serverTotalEarnCredit = (int)res["TotalBet"];
+            if (lineNum > 0 && totalEarnCredit != serverTotalEarnCredit)
+            {
+                // 保证所有线总和与算法总赢分一致，避免前后端口径偏差。
+                int fixDelta = serverTotalEarnCredit - totalEarnCredit;
+                winList[0].earnCredit += fixDelta;
+                totalEarnCredit = serverTotalEarnCredit;
+                DebugUtils.LogWarning($"[G3998] 线赢分校正: delta={fixDelta}, lineNum={lineNum}");
+            }
+
             ContentModel.Instance.winList = winList;
 
             //Matrix

@@ -53,8 +53,9 @@ namespace CaiFuZhiMen_3999
         /// <summary>
         /// 克隆的SmallWild列表
         /// </summary>
-        [FormerlySerializedAs("SmallWildList")] public List<GameObject> smallWildList = new List<GameObject>();
-        
+        [FormerlySerializedAs("SmallWildList")]
+        public List<GameObject> smallWildList = new List<GameObject>();
+
         /// <summary>
         /// 克隆的BigWild列表
         /// </summary>
@@ -63,7 +64,7 @@ namespace CaiFuZhiMen_3999
         /// <summary>
         /// smallWild的遮罩
         /// </summary>
-        public  List<GGraph> maskList = new List<GGraph>();
+        public List<GGraph> maskList = new List<GGraph>();
 
         /// <summary>
         /// 免费游戏总得分
@@ -281,6 +282,9 @@ namespace CaiFuZhiMen_3999
 
         /// <summary>彩金游戏是否中奖</summary>
         public bool isWinning = false;
+        
+        /// <summary> 大厅彩金中奖数据  </summary>
+        public List<WinJackpotInfo> jpOnlineWin = new List<WinJackpotInfo>();
 
         #endregion
 
@@ -300,8 +304,8 @@ namespace CaiFuZhiMen_3999
             get => m_BetMultiple;
             set => Observable.SetProperty(ref m_BetMultiple, value);
         }
-        [SerializeField]
-        private int m_BetMultiple = 0;
+
+        [SerializeField] private int m_BetMultiple = 0;
 
         /// <summary>Spin按钮状态</summary>
         public string btnSpinState { get => mBtnSpinState; set => Observable.SetProperty(ref mBtnSpinState, value); }

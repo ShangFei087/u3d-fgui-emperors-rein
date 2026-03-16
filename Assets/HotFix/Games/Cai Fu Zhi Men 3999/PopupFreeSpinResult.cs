@@ -1,6 +1,10 @@
 using FairyGUI;
 using GameMaker;
+using PusherEmperorsRein;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CaiFuZhiMen_3999
 {
@@ -28,6 +32,7 @@ namespace CaiFuZhiMen_3999
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
             LoadResAsync();
+            AddMachineBtnClickListener();
         }
 
         public override void InitParam()
@@ -100,22 +105,7 @@ namespace CaiFuZhiMen_3999
             });
 
 
-            _collectBtn.onClick.Add(() =>
-            {
-                Debug.LogError("点击到按钮");
-                _freeResultWindow.visible = false;
-
-                _cloneRedRay.SetActive(true);
-                Animator ani = _cloneCatGirlRun.GetComponentInChildren<Animator>();
-                _cloneCatGirlRun.SetActive(true);
-                PlayAnimationByName(ani, "fg_ng");
-
-                Timers.inst.Add(3.5f, 1, (obj) =>
-                {
-                    CloseSelf(null);
-                    GameSoundHelper3999.Instance.PlayMusicSingle(SoundKey.RegularBG);
-                });
-            });
+            _collectBtn.onClick.Add(CollectBtnClickEvent);
         }
 
         private void BindPrefabsToUI()
@@ -155,6 +145,37 @@ namespace CaiFuZhiMen_3999
             animator.Rebind();
             animator.Play(aniName);
             animator.Update(0f);
+        }
+
+        private void AddMachineBtnClickListener()
+        {
+            machineBtnClickHelper = new MachineButtonClickHelper()
+            {
+                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+                {
+                    [MachineButtonKey.BtnSpin] = (info) =>
+                    {
+                        Debug.LogError("游戏接受到机台短按的数据：Spin");
+                        CollectBtnClickEvent();
+                    }
+                },
+            };
+        }
+
+        private void CollectBtnClickEvent()
+        {
+            _freeResultWindow.visible = false;
+
+            _cloneRedRay.SetActive(true);
+            Animator ani = _cloneCatGirlRun.GetComponentInChildren<Animator>();
+            _cloneCatGirlRun.SetActive(true);
+            PlayAnimationByName(ani, "fg_ng");
+
+            Timers.inst.Add(3.5f, 1, (obj) =>
+            {
+                CloseSelf(null);
+                GameSoundHelper3999.Instance.PlayMusicSingle(SoundKey.RegularBG);
+            });
         }
 
         private void ResetPage()

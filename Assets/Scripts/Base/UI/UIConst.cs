@@ -337,6 +337,10 @@ public class UIConst
             {
                 "Assets/GameRes/Games/Cai Fu Zhi Men 3999/FGUIs", "CaiFuZhiMen_3999.PopupJackpotLoad"
             },
+            [PageName.CaiFuZhiMenPopupOnlineJackpot] = new object[]
+            {
+                "Assets/GameRes/Games/Cai Fu Zhi Men 3999/FGUIs", "CaiFuZhiMen_3999.PopupOnlineJackpot"
+            }, 
 
             // 财富之家
             [PageName.CaiFuZhiJiaPopupGameLoading] =
@@ -544,6 +548,7 @@ public enum PageName
     CaiFuZhiMenPopupFreeSpinResult,
     CaiFuZhiMenPopupJackpotTrigger,
     CaiFuZhiMenPopupJackpotLoad,
+    CaiFuZhiMenPopupOnlineJackpot,
 
     // 财富之家
     CaiFuZhiJiaPopupGameLoading,

@@ -2,7 +2,8 @@
 <resources>
   <!-- Console/PageConsoleBusinessRecord.xml -->
   <string name="xp0b9yqdg3lh53-n6_cwuo" mz="navBusiness">总营收</string>
-  <string name="xp0b9yqdg3lh53-n31_g3lh" mz="navCoin">投退币记录</string>
+	<string name="xp0b9yqdg3lh53-n33_es9v" mz="navCoin">投退记录</string>
+	<string name="xp0b9yqdg3lh53-n34_es9v" mz="navJpOnline">在线彩金</string>
   <string name="xp0b9yqdg3lh53-n29_os7y-cp-title" mz="navBottom">营收记录</string>
   <!-- Console/PageConsoleGameHistory.xml -->
   <string name="xp0b9yqdexvp7x-n7_h0z3-cp-key" mz="gameId">游戏编号</string>
@@ -123,7 +124,7 @@
   <!-- Console/moudules/Buttom1.xml -->
   <string name="xp0b9yqdglrj1l-n5_os7y" mz="title">营收记录</string>
   <!-- Console/moudules/Buttom2.xml -->
-  <string name="xp0b9yqdglrj1m-n4_glrj" mz="title">营收记录</string>
+  <string name="xp0b9yqdglrj1m-n4_glrj" mz="title">投退历史</string>
   <!-- Console/moudules/ButtonCatrgory.xml -->
   <string name="xp0b9yqdoibks-n6_os7y" mz="title">营收记录</string>
   <!-- Console/moudules/ItemBetLst.xml -->
@@ -323,6 +324,7 @@
   <string name="xp0b9yqdg3lh54-n57_g3lh-cp-key" mz="totalProfitCoinInOut">总盈利:</string>
   <string name="xp0b9yqdg3lh54-n58_g3lh-cp-key" mz="totalProfitScoreUpDown">总盈利:</string>
   <string name="xp0b9yqdg3lh54-n64_g3lh-cp-title" mz="mdDalyBusiness">每日总营收</string>
+    <string name="xp0b9yqdg3lh54-n66_g3lh-cp-key" mz="dateDalyBusiness">日期选择 :</string>
   <string name="xp0b9yqdg3lh54-n80_g3lh-cp-key" mz="totalBetDaly">总押分:</string>
   <string name="xp0b9yqdg3lh54-n81_g3lh-cp-key" mz="totalWinDaly">总赢分:</string>
   <string name="xp0b9yqdg3lh54-n82_g3lh-cp-key" mz="totalProfitBetDaly">总盈利:</string>
@@ -333,6 +335,7 @@
   <string name="xp0b9yqdg3lh54-n86_g3lh-cp-key" mz="totalScoreDownDaly">总BX:</string>
   <string name="xp0b9yqdg3lh54-n87_g3lh-cp-key" mz="totalProfitScoreUpDownDaly">总盈利:</string>
   <!-- Console/tabs/PCBRTabCoin.xml -->
+    <string name="xp0b9yqdg3lh5i-n66_g3lh-cp-key" mz="dateInOut">日期选择 :</string>
   <string name="xp0b9yqdg3lh5i-n92_g3lh" mz="inOut">投-退</string>
   <string name="xp0b9yqdg3lh5i-n93_g3lh" mz="credit">积分</string>
   <string name="xp0b9yqdg3lh5i-n94_g3lh" mz="Device">设备</string>
@@ -358,13 +361,36 @@
   <string name="xp0b9yqdh0z3ao-n12_h0z3-cp-key" mz="result_type">本局游戏类型:</string>
   <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-key" mz="game_page">"Slot1700"游戏记录</string>
   <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-value" mz="game_page">第999/999条</string>
-    <!-- Console/tabs/PCBTabTestBtn.xml -->
+  <!-- Console/tabs/PCBTabJackpotOnlineWins.xml -->
+  <string name="xp0b9yqdes9vav-n0_es9v-cp-key" mz="macId">MAC地址</string>
+  <string name="xp0b9yqdes9vav-n1_es9v-cp-key" mz="seatId">座位ID</string>
+  <string name="xp0b9yqdes9vav-n2_es9v-cp-key" mz="bets">投注</string>
+  <string name="xp0b9yqdes9vav-n3_es9v-cp-key" mz="betPercent">投注百分比</string>
+  <string name="xp0b9yqdes9vav-n4_es9v-cp-key" mz="scoreRate">得分率</string>
+  <string name="xp0b9yqdes9vav-n5_es9v-cp-key" mz="jpPercent">彩金百分比</string>
+  <string name="xp0b9yqdes9vav-n6_es9v-cp-key" mz="wins">得分</string>
+  <string name="xp0b9yqdes9vav-n7_es9v-cp-key" mz="grandWin">巨奖得分</string>
+  <string name="xp0b9yqdes9vav-n8_es9v-cp-key" mz="grandTimes">巨奖次数</string>
+  <string name="xp0b9yqdes9vav-n9_es9v-cp-key" mz="majorWin">大奖得分</string>
+  <string name="xp0b9yqdes9vav-n10_es9v-cp-key" mz="majorTimes">大奖次数</string>
+  <string name="xp0b9yqdes9vav-n11_es9v-cp-key" mz="minorWin">中奖得分</string>
+  <string name="xp0b9yqdes9vav-n12_es9v-cp-key" mz="minorTimes">中奖次数</string>
+  <string name="xp0b9yqdes9vav-n13_es9v-cp-key" mz="miniWin">小奖得分</string>
+  <string name="xp0b9yqdes9vav-n15_es9v-cp-key" mz="miniTimes">小奖次数</string>
+  <!-- Console/tabs/PCBTabTestBtn.xml -->
   <string name="xp0b9yqdes9vaq-n4_es9v" mz="TicketOutBtn">退票</string>
   <string name="xp0b9yqdes9vaq-n5_es9v" mz="SpinBtn">开始</string>
   <string name="xp0b9yqdes9vaq-n9_es9v" mz="ConsoleBtn">设置</string>
   <string name="xp0b9yqdes9vaq-n10_es9v" mz="UpBtn">上键</string>
   <string name="xp0b9yqdes9vaq-n11_es9v" mz="DownBtn">下键</string>
   <string name="xp0b9yqdes9vaq-n13_es9v" mz="DoorBtn">开门</string>
+  <!-- Console/tabs/PCBTabTestScreen.xml -->
+	<string name="xp0b9yqdes9vas-n2_es9v-cp-key" mz="ScreenTest">屏幕测试 :</string>
+	<string name="xp0b9yqdes9vas-n2_es9v-cp-value" mz="ScreenTest">开始</string>
+	<!-- Console/tabs/PCLRTabError.xml -->
+	<string name="xp0b9yqdu8xf7v-n66_g3lh-cp-key" mz="date">日期选择 :</string>
+	<!-- Console/tabs/PCLRTabEvent.xml -->
+	<string name="xp0b9yqdu8xf7s-n66_g3lh-cp-key" mz="date">日期选择 :</string>
   <!-- Console/tabs/PCMSTabInOut.xml -->
   <string name="xp0b9yqdcwuo38-n18_cwuo-cp-key" mz="coinOutScale">退票比例(票 : 分):</string>
   <string name="xp0b9yqdcwuo38-n19_cwuo-cp-key" mz="coinInScale">投币比例(币 : 分):</string>
@@ -380,7 +406,7 @@
   <!-- Console/tabs/PCMSTabMachine.xml -->
   <string name="xp0b9yqdmsw23e-n37_jtgo-cp-key" mz="agentID">代理商线号:</string>
   <string name="xp0b9yqdmsw23e-n38_jtgo-cp-key" mz="machineID">设备唯一序列号:</string>
-  <string name="xp0b9yqdmsw23e-n39_jtgo-cp-key" mz="maxCoinInOutRecord">投退币记录最大次数:</string>
+  <string name="xp0b9yqdmsw23e-n39_jtgo-cp-key" mz="maxCoinInOutRecord">投退记录最大次数:</string>
   <string name="xp0b9yqdmsw23e-n40_jtgo-cp-key" mz="maxGameRecord">游戏记录最大次数:</string>
   <string name="xp0b9yqdmsw23e-n41_jtgo-cp-key" mz="maxEventRecord">消息记录最大次数:</string>
   <string name="xp0b9yqdmsw23e-n42_jtgo-cp-key" mz="maxErrorRecord">警告记录最大次数:</string>

@@ -60,7 +60,7 @@
       <property target="value" propertyId="0" value="0.06"/>
     </component>
     <component id="n56_es9v" name="jackpotPercent" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="0,190" group="n54_es9v">
-      <property target="key" propertyId="0" value="Jackpot Score Rate:"/>
+      <property target="key" propertyId="0" value="Jackpot Percent:"/>
       <property target="value" propertyId="0" value="0.06"/>
     </component>
     <group id="n54_es9v" name="JackpotOnline" xy="-1,0" size="570,266"/>

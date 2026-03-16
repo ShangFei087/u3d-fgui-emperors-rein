@@ -172,6 +172,8 @@ namespace ConsoleSlot01
             btnExit = glstMenu.GetChild("exit").asButton;
             btnExit.onClick.Clear();
             btnExit.onClick.Add(OnClickExit);
+
+            NetMessageController.Instance.ResetConsoleJackpotDataRequestSession();
         }
 
 

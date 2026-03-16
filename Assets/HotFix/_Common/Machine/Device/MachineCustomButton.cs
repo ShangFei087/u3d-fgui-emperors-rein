@@ -26,9 +26,8 @@ public class MachineCustomButton
     /// <summary> 亮灯按钮列表</summary>
     public List<MachineButtonKey> btnShowLst = new List<MachineButtonKey>()
     {
-        MachineButtonKey.BtnPrev,
-        MachineButtonKey.BtnNext,
         MachineButtonKey.BtnSpin,
+        MachineButtonKey.BtnTicketOut,
     };
 
     /// <summary> 是否显示按钮灯 </summary>

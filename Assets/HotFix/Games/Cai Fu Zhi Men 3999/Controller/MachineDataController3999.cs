@@ -138,6 +138,46 @@ namespace CaiFuZhiMen_3999
         private readonly Dictionary<int, int> _freeRoundDic =
             new Dictionary<int, int>() { { 3, 8 }, { 4, 10 }, { 5, 12 } };
 
+        private int CalculateLineWinCredit(int symbolNumber, int hitCount)
+        {
+            try
+            {
+                if (hitCount < 3)
+                    return 0;
+
+                List<PayTableSymbolInfo> payTable = MainModel.Instance.contentMD?.payTableSymbolWin;
+                if (payTable == null || symbolNumber < 0 || symbolNumber >= payTable.Count)
+                {
+                    DebugUtils.LogError($"[G3999] 计算单线赢分失败，paytable越界。symbol={symbolNumber}, hit={hitCount}");
+                    return 0;
+                }
+
+                PayTableSymbolInfo info = payTable[symbolNumber];
+                double odd = 0;
+                if (hitCount >= 5)
+                {
+                    odd = info.x5;
+                }
+                else if (hitCount == 4)
+                {
+                    odd = info.x4;
+                }
+                else
+                {
+                    odd = info.x3;
+                }
+
+                // 算法返回的 TotalBet 是未乘 betmultiple 的单位，单线赢分也保持同一单位。
+                int lineWin = Mathf.Max(0, Mathf.RoundToInt((float)odd));
+                return lineWin;
+            }
+            catch (Exception ex)
+            {
+                DebugUtils.LogError($"[G3999] 计算单线赢分异常: {ex.Message}");
+                return 0;
+            }
+        }
+
         /// <summary>
         /// 算法解析
         /// </summary>
@@ -176,7 +216,6 @@ namespace CaiFuZhiMen_3999
             //IDVec 中奖线
             int lineNum = (int)res["lineNum"];
             int totalEarnCredit = 0;
-            int credit = 0;
             List<SymbolWin> winList = new List<SymbolWin>();
             for (int i = 0; i < lineNum; i++)
             {
@@ -201,12 +240,10 @@ namespace CaiFuZhiMen_3999
                     _cells.Add(new Cell(colIdx, rowIdx));
                 }
 
-                // TODO:单局得分暂时先用这个，后续再根据赔率进行修改
-                credit = (int)res["TotalBet"]; // 注释测试
-                // credit = 0;
+                int lineWinCredit = CalculateLineWinCredit(symbolNumber, hitCount);
                 SymbolWin sw = new SymbolWin()
                 {
-                    earnCredit = credit,
+                    earnCredit = lineWinCredit,
                     multiplier = 1,
                     lineNumber = lineNumber,
                     symbolNumber = symbolNumber,
@@ -214,14 +251,22 @@ namespace CaiFuZhiMen_3999
                 };
                 winList.Add(sw);
 
-                totalEarnCredit += credit;
+                totalEarnCredit += lineWinCredit;
+            }
 
-                // totalEarnCredit += (int)(credit * totalBet);// 新增倍率
-                Debug.LogError("totalEarnCredit:" + totalEarnCredit + "     " + "credit:" + credit);
+            int serverTotalEarnCredit = (int)res["TotalBet"];
+            if (lineNum > 0 && totalEarnCredit != serverTotalEarnCredit)
+            {
+                // 保障总赢分与算法返回一致，避免结算和表现出现偏差。
+                int fixDelta = serverTotalEarnCredit - totalEarnCredit;
+                winList[0].earnCredit += fixDelta;
+                totalEarnCredit = serverTotalEarnCredit;
+                DebugUtils.LogWarning($"[G3999] 线赢分校正: delta={fixDelta}, lineNum={lineNum}");
             }
 
             ContentModel.Instance.winList = winList;
 
+            // 判断彩金
             JackpotRes jpGameRes = new JackpotRes();
             bool isJackpotMajor = sboxJackpotData == null
                 ? false
@@ -301,7 +346,6 @@ namespace CaiFuZhiMen_3999
             //判断免费奖或大奖
             int ResultType = (int)res["ResultType"];
             int OpenType = (int)res["OpenType"];
-            // int TotalFreeTime = (int)res["TotalFreeTime"];
             string matrixArray = res["Matrix"].ToString();
             //免费奖
             ContentModel.Instance.isFreeSpinTrigger = false;
@@ -312,18 +356,9 @@ namespace CaiFuZhiMen_3999
                 ContentModel.Instance.nextReelStripsIndex = "FS";
 
                 ContentModel.Instance.isFreeSpinTrigger = true;
-
-                // 注：根据随机出的图标次数显示当前游戏总局数
-                // ContentModel.Instance.freeSpinTotalTimes = TotalFreeTime;
                 ContentModel.Instance.FreeSpinTotalTimes = _freeRoundDic[CountTensEfficient(matrixArray)];
                 ContentModel.Instance.FreeSpinPlayTimes = 0;
                 ContentModel.Instance.freeTotalBet = (int)res["TotalFreeBet"];
-
-
-                //for (int i = 0; i < TotalFreeTime; i++)
-                //{
-                //    int ID = (int)res["FreeBetArray"][i];
-                //}
             }
 
             //赠送局
@@ -354,19 +389,17 @@ namespace CaiFuZhiMen_3999
             }
 
             // 大奖
-            int BonusType = (int)res["BonusType"];
-            int BonusBet = (int)res["BonusBet"];
+            // ContentModel.Instance.winningTypeIndex = (int)res["BonusType"];
+            // ContentModel.Instance.bonusIndex = ContentModel.Instance.winningTypeIndex;// 暂时先这么写
             if (ResultType == 3)
             {
                 ContentModel.Instance.bonusTotalBet = (int)res["BonusBet"];
                 ContentModel.Instance.IsBonusTrigger = true;
             }
 
-            // ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();// 移到前面
-
             long creditBefore = MainBlackboardController.Instance.myTempCredit;
             //赢分
-            long TotalBet = (int)res["TotalBet"] * totalBet; // 新增倍率
+            long TotalBet = (int)res["TotalBet"] * MainModel.Instance.contentMD.betmultiple;; // 新增倍率
             if (ResultType == 3) TotalBet = (int)res["BonusBet"]; //大奖得分
             DebugUtils.Log("本局赢分TotalBet==" + TotalBet);
             long afterBetCredit = 0;
@@ -379,22 +412,18 @@ namespace CaiFuZhiMen_3999
                 afterBetCredit = creditBefore + TotalBet;
             }
 
-            // ## MainBlackboardController.Instance.SetMyTempCredit(afterBetCredit, false); // 不同步给ui
-            //long creditAfter = afterBetCredit + totalEarnCredit;
             long creditAfter = afterBetCredit;
             if (res.HasKey("creditAfter"))
             {
                 creditAfter = res["creditAfter"];
             }
 
-            // ## MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
 
             DebugUtils.Log(
                 $"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={totalEarnCredit} ");
             DebugUtils.Log($"本次计算 creditAfter= {afterBetCredit + totalEarnCredit}；  算法卡 creditAfter={creditAfter}");
-
-
+            
             // 免费游戏累计总赢
             long freeSpinTotalWinCredit = 0;
 
@@ -407,39 +436,17 @@ namespace CaiFuZhiMen_3999
                 ContentModel.Instance.freeSpinTotalWinCoins += totalEarnCredit;
                 freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCoins;
             }
-
-
+            
             List<List<int>> deckColRow = SlotTool.GetDeckColRow02(strDeckRowCol);
             // 原代码
-            //bool isReelsSlowMotion = (deckColRow[0].Contains(10) && deckColRow[1].Contains(10)) ? true : false;
+            // bool isReelsSlowMotion = (deckColRow[0].Contains(10) && deckColRow[1].Contains(10)) ? true : false;
             // bool isReelsSlowMotion = false;
             // ContentModel.Instance.isReelsSlowMotion = isReelsSlowMotion;
             ContentModel.Instance.isReelsSlowMotion = true;
 
             // bonus数据
             var bonusResult = new Dictionary<int, JSONNode>();
-            /*
-            if (res["contents"]["bonus_result"] != null && res["contents"]["bonus_result"].Count > 0)
-            {
-               foreach (JSONNode item in res["contents"]["bonus_result"])
-               {
-                   bonusResult.Add((int)item["bonus_id"],item);
-               }
-            }*/
             ContentModel.Instance.bonusResults = bonusResult; //bonusResults 替换bonusResult
-
-
-            /*
-            if (ContentModel.Instance.bonusResult.Count >0 )
-            {
-               ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Expectation02;
-            }
-            else
-            {
-               ContentModel.Instance.targetSlotGameEffect = isReelsSlowMotion ? SlotGameEffect.Expectation01 :
-                   isFreeSpin ? SlotGameEffect.FreeSpin : SlotGameEffect.Default;
-            }
-            */
             ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Default;
             SlotGameEffectManager.Instance.SetEffect(ContentModel.Instance.targetSlotGameEffect);
 

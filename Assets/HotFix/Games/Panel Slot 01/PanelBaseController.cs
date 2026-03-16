@@ -28,9 +28,10 @@ namespace SlotMaker
         protected GComponent gOwnerPanel, gIntroducePanel, setPanel, btnSound, btnHelp, Introduce;
         protected SpinButtonBaseController spinBtnCtrl = new SpinButtonBaseController();
         protected GButton btnPayTable, btnPrev, btnNext,btnHome;
-        protected GTextField bet,win;
+        protected GTextField bet,win, singleLine;
         protected bool isSet;
         protected int PayTableLength =0;
+        protected bool _isSoundBtnPressed;
 
         GameObject goSpin;
         bool isInit;
@@ -61,6 +62,12 @@ namespace SlotMaker
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnTotalWinCredit);
             EventCenter.Instance.RemoveEventListener<EventData>(MetaUIEvent.ON_CREDIT_EVENT, OnUpdateNaviCredit);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnPanelEventAnchorPanelChange);
+            Stage.inst.onTouchEnd.Remove(OnStageTouchEndResetSoundButton);
+            _isSoundBtnPressed = false;
+            if (btnSound != null)
+            {
+                btnSound.SetScale(1f, 1f);
+            }
             gOwnerPanel.visible = false;
         }
 
@@ -148,6 +155,9 @@ namespace SlotMaker
             bet = gOwnerPanel.GetChild("bet").asTextField;
             bet.text = SBoxModel.Instance.betList[MainModel.Instance.contentMD.betIndex].ToString();
 
+            singleLine= gOwnerPanel.GetChild("singleLine").asTextField;
+            singleLine.text = "";
+
             SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
             {
                 PlayerId = SBoxModel.Instance.pid,
@@ -194,51 +204,22 @@ namespace SlotMaker
             });
             btnSound = setPanel.GetChild("btnSound").asCom;
             btnSound.onTouchBegin.Clear();
-            btnSound.onTouchBegin.Add(() => { btnSound.SetScale(0.8f, 0.8f); });
+            btnSound.onTouchBegin.Add(() =>
+            {
+                _isSoundBtnPressed = true;
+                btnSound.SetScale(0.8f, 0.8f);
+            });
             btnSound.onTouchEnd.Clear();
             btnSound.onTouchEnd.Add(() =>
             {
+                _isSoundBtnPressed = false;
                 btnSound.SetScale(1f, 1f);
-                VolumeLevel += 1;
-                if (VolumeLevel == 4)
-                {
-                    VolumeLevel = 0;
-                }
-                GSManager.Instance.SetMute(false);
-                switch (VolumeLevel)
-                {
-
-                    case 0:
-                        // 设置音效音量 (0-1)
-                        //GSManager.Instance.SetTotalVolumEfft(0.5f);
-                        // 设置背景音乐音量 (0-1)
-                        //GSManager.Instance.SetTotalVolumMusic(0.5f);
-                        // 设置静音
-                        GSManager.Instance.SetMute(true);
-                        break;
-                    case 1:
-                        // 设置音效音量 (0-1)
-                        GSManager.Instance.SetTotalVolumEfft(0.3f);
-                        // 设置背景音乐音量 (0-1)
-                        GSManager.Instance.SetTotalVolumMusic(0.3f);
-                        break;
-                    case 2:
-                        // 设置音效音量 (0-1)
-                        GSManager.Instance.SetTotalVolumEfft(0.6f);
-                        // 设置背景音乐音量 (0-1)
-                        GSManager.Instance.SetTotalVolumMusic(0.6f);
-                        break;
-                    case 3:
-                        // 设置音效音量 (0-1)
-                        GSManager.Instance.SetTotalVolumEfft(1.0f);
-                        // 设置背景音乐音量 (0-1)
-                        GSManager.Instance.SetTotalVolumMusic(1.0f);
-                        break;
-                }
-
-                btnSound.GetController("button").selectedIndex = VolumeLevel;
-                GlobalSoundHelper.Instance.PlaySoundEff(GameMaker.SoundKey.NormalClick);
             });
+            btnSound.onClick.Clear();
+            btnSound.onClick.Add(OnClickSoundButton);
+            //鼠标抬起事件
+            Stage.inst.onTouchEnd.Remove(OnStageTouchEndResetSoundButton);
+            Stage.inst.onTouchEnd.Add(OnStageTouchEndResetSoundButton);
             btnSound.GetController("button").selectedIndex = 3;
 
             //btnHome
@@ -256,6 +237,52 @@ namespace SlotMaker
             OnPropertyIsConnectMoneyBox();
 
 
+        }
+
+        protected virtual void OnClickSoundButton()
+        {
+            VolumeLevel += 1;
+            if (VolumeLevel == 4)
+            {
+                VolumeLevel = 0;
+            }
+
+            GSManager.Instance.SetMute(false);
+            switch (VolumeLevel)
+            {
+                case 0:
+                    GSManager.Instance.SetMute(true);
+                    break;
+                case 1:
+                    GSManager.Instance.SetTotalVolumEfft(0.3f);
+                    GSManager.Instance.SetTotalVolumMusic(0.3f);
+                    break;
+                case 2:
+                    GSManager.Instance.SetTotalVolumEfft(0.6f);
+                    GSManager.Instance.SetTotalVolumMusic(0.6f);
+                    break;
+                case 3:
+                    GSManager.Instance.SetTotalVolumEfft(1.0f);
+                    GSManager.Instance.SetTotalVolumMusic(1.0f);
+                    break;
+            }
+
+            btnSound.GetController("button").selectedIndex = VolumeLevel;
+            GlobalSoundHelper.Instance.PlaySoundEff(GameMaker.SoundKey.NormalClick);
+        }
+
+        protected virtual void OnStageTouchEndResetSoundButton()
+        {
+            if (!_isSoundBtnPressed)
+            {
+                return;
+            }
+
+            _isSoundBtnPressed = false;
+            if (btnSound != null)
+            {
+                btnSound.SetScale(1f, 1f);
+            }
         }
 
 
@@ -286,8 +313,7 @@ namespace SlotMaker
         protected virtual void IntroduceInit()
         {
             IntroduceIndex = 0;
-            Introduce.RemoveChildren();
-            Introduce.AddChild(MainModel.Instance.contentMD.goPayTableLst[IntroduceIndex]);
+            SetIntroducePage(IntroduceIndex);
             btnPrev.touchable = false;
             btnPrev.GetChild("untouch").visible = true;
             btnNext.touchable = true;
@@ -379,13 +405,38 @@ namespace SlotMaker
 
             if (IntroduceIndex < PayTableLength)
             {
-                Introduce.RemoveChildren();
-                Introduce.AddChild(MainModel.Instance.contentMD.goPayTableLst[IntroduceIndex]);
+                SetIntroducePage(IntroduceIndex);
                 gIntroducePanel.GetChild("btnController").asCom.GetController("c1").selectedIndex = IntroduceIndex;
             }
                 
            
            
+        }
+
+        /// <summary>
+        /// 说明书页通常是纯展示内容，禁用触摸避免遮挡翻页按钮点击区域。
+        /// </summary>
+        protected virtual void SetIntroducePage(int pageIndex)
+        {
+            if (Introduce == null || MainModel.Instance?.contentMD?.goPayTableLst == null)
+            {
+                return;
+            }
+
+            if (pageIndex < 0 || pageIndex >= MainModel.Instance.contentMD.goPayTableLst.Length)
+            {
+                return;
+            }
+
+            GComponent page = MainModel.Instance.contentMD.goPayTableLst[pageIndex];
+            if (page == null)
+            {
+                return;
+            }
+
+            page.touchable = false;
+            Introduce.RemoveChildren();
+            Introduce.AddChild(page);
         }
         protected virtual void OnPropertyChange(EventData res = null)
         {
@@ -481,6 +532,7 @@ namespace SlotMaker
             if (gameState == GameState.Spin || gameState == GameState.FreeSpin)
             {
                 win.text = 0.ToString();
+                ClearSingleLineText();
             }
         }
         protected virtual void OnPropertyIsConnectMoneyBox(EventData res = null)
@@ -501,6 +553,7 @@ namespace SlotMaker
                 long totalWinCredit = (long)receivedEvent.value;
                 //gOwnerPanel.GetChild("win").asCom.GetChild("winSound").asTextField.text = totalWinCredit.ToString();
                 win.text = totalWinCredit.ToString();
+                ClearSingleLineText();
                 // uiWin.SetToCredit(totalWinCredit);
             }
             else if (receivedEvent.name == SlotMachineEvent.SingleWinBonus)
@@ -512,8 +565,32 @@ namespace SlotMaker
                                                        0.4f);
 
             }
+            else if (receivedEvent.name == SlotMachineEvent.SingleWinLine)
+            {
+                SymbolWin symbolWin = receivedEvent.value as SymbolWin;
+                if (symbolWin == null)
+                {
+                    ClearSingleLineText();
+                    return;
+                }
+
+                // 单线
+                singleLine.text = $"Line : {symbolWin.lineNumber}  symbolType : {symbolWin.symbolNumber}   Win :{symbolWin.earnCredit}";
+            }
+            else if (receivedEvent.name == SlotMachineEvent.SkipWinLine)
+            {
+                ClearSingleLineText();
+            }
 
 
+        }
+
+        protected virtual void ClearSingleLineText()
+        {
+            if (singleLine != null)
+            {
+                singleLine.text = string.Empty;
+            }
         }
         protected virtual void OnUpdateNaviCredit(EventData receivedEvent = null)
         {

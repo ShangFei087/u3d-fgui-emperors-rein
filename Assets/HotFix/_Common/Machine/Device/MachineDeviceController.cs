@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using GameMaker;
 using SBoxApi;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
-using GameMaker;
-using static NetButtonManager;
-using Debug = UnityEngine.Debug;
 using System.Reflection;
+using UnityEngine;
+using static NetButtonManager;
+using static UnityEngine.GraphicsBuffer;
+using Debug = UnityEngine.Debug;
 
 public class MachineButtonInfo
 {
@@ -54,6 +55,27 @@ public class MachineDeviceController : MonoSingleton<MachineDeviceController>
 
     // 添加后台模式标志
     private bool isInTicketOut = false;
+    private readonly Dictionary<MachineButtonKey, ulong> _btnLightMaskMap = new Dictionary<MachineButtonKey, ulong>()
+    {
+        { MachineButtonKey.BtnSpin, (ulong)SBOX_SWITCH.SWITCH_ENTER },
+        { MachineButtonKey.BtnPayTable, (ulong)SBOX_SWITCH.SWITCH_RULE },
+        { MachineButtonKey.BtnTicketOut, (ulong)SBOX_SWITCH.SWITCH_PAYOUT },
+        { MachineButtonKey.BtnCreditUp, (ulong)SBOX_SWITCH.SWITCH_SCORE_UP },
+        { MachineButtonKey.BtnCreditDown, (ulong)SBOX_SWITCH.SWITCH_SCORE_DOWN },
+        { MachineButtonKey.BtnSwitch, (ulong)SBOX_SWITCH.SWITCH_SWITCH },
+        { MachineButtonKey.BtnUp, (ulong)SBOX_SWITCH.SWITCH_UP },
+        { MachineButtonKey.BtnDown, (ulong)SBOX_SWITCH.SWITCH_DOWN },
+        { MachineButtonKey.BtnPrev, (ulong)SBOX_SWITCH.SWITCH_LEFT },
+        { MachineButtonKey.BtnNext, (ulong)SBOX_SWITCH.SWITCH_RIGHT },
+        { MachineButtonKey.BtnExit, (ulong)SBOX_SWITCH.SWITCH_ESC },
+        { MachineButtonKey.BtnConsole, (ulong)SBOX_SWITCH.SWITCH_SET },
+    };
+    private ulong _focusedLightMask = 0;
+    private ulong _currentOutputLightMask = 0;
+    private bool _isBlinkLight = false;
+    private bool _blinkVisible = true;
+    private float _nextBlinkTime = 0f;
+    private const float BlinkInterval = 0.35f;
 
     public readonly Dictionary<ulong, MachineButtonKey> keyMap = new Dictionary<ulong, MachineButtonKey>()
     {
@@ -83,11 +105,13 @@ public class MachineDeviceController : MonoSingleton<MachineDeviceController>
         RemoveNetButtonHandle();
 
         EventCenter.Instance.RemoveEventListener<EventData>(MachineCustomButton.MACHINE_CUSTOM_BUTTON_FOCUS_EVENT, OnEventMachineCustomButton);
+        ResetAllButtonLights();
     }
 
     private void OnEventMachineCustomButton(EventData evt)
     {
         curBtnInfo = (MachineCustomButton)evt.value;
+        RefreshFocusedButtonLights();
     }
 
     void Start()
@@ -99,6 +123,8 @@ public class MachineDeviceController : MonoSingleton<MachineDeviceController>
     void Update()
     {
         if (!ApplicationSettings.Instance.isMachine) return;
+
+        UpdateButtonLights();
 
         if (SBoxSandbox.SwitchInState() != 0)
             GetPressedButtons(SBoxSandbox.SwitchInState());
@@ -374,6 +400,114 @@ public class MachineDeviceController : MonoSingleton<MachineDeviceController>
     MachineCustomButton curBtnInfo;
 
     public const string MACHINE_BUTTON_EVENT = "MACHINE_BUTTON_EVENT";
+
+    private void RefreshFocusedButtonLights()
+    {
+        if (!ApplicationSettings.Instance.isMachine)
+        {
+            return;
+        }
+
+        _focusedLightMask = BuildLightMask(curBtnInfo?.btnShowLst);
+        _isBlinkLight = curBtnInfo != null && curBtnInfo.btnType == MachineButtonType.Light;
+        _blinkVisible = true;
+        _nextBlinkTime = Time.unscaledTime + BlinkInterval;
+        ApplyButtonLightMask(_focusedLightMask);
+    }
+
+    private void UpdateButtonLights()
+    {
+        if (_focusedLightMask == 0)
+        {
+            if (_currentOutputLightMask != 0)
+            {
+                ApplyButtonLightMask(0);
+            }
+            return;
+        }
+
+        if (!_isBlinkLight)
+        {
+            if (_currentOutputLightMask != _focusedLightMask)
+            {
+                ApplyButtonLightMask(_focusedLightMask);
+            }
+            return;
+        }
+
+        if (Time.unscaledTime < _nextBlinkTime)
+        {
+            return;
+        }
+
+        _nextBlinkTime = Time.unscaledTime + BlinkInterval;
+        _blinkVisible = !_blinkVisible;
+        ApplyButtonLightMask(_blinkVisible ? _focusedLightMask : 0);
+    }
+
+    private ulong BuildLightMask(List<MachineButtonKey> btnShowLst)
+    {
+        if (btnShowLst == null || btnShowLst.Count == 0)
+        {
+            return 0;
+        }
+
+        ulong mask = 0;
+        for (int i = 0; i < btnShowLst.Count; i++)
+        {
+            MachineButtonKey btnKey = btnShowLst[i];
+            if (_btnLightMaskMap.TryGetValue(btnKey, out ulong lightMask))
+            {
+                mask |= lightMask;
+            }
+        }
+
+        return mask;
+    }
+    //常亮灯
+    private void ApplyButtonLightMask(ulong targetMask)
+    {
+        if (_currentOutputLightMask == targetMask)
+        {
+            return;
+        }
+
+        /*举个简单二进制例子（4位）：
+        当前：_current = 1010（第4和第2盏亮）
+        目标：target = 1100（第4和第3盏应亮）
+        (1) 要开的灯：
+        ~_current = 0101
+        target & ~_current = 1100 & 0101 = 0100
+        结果 0100：第3盏要开
+        (2) 要关的灯：
+        ~target = 0011
+        _current & ~target = 1010 & 0011 = 0010
+        结果 0010：第2盏要关
+        这样执行后正好从 1010 变成 1100。*/
+        ulong maskNeedOn = targetMask & (~_currentOutputLightMask);
+        ulong maskNeedOff = _currentOutputLightMask & (~targetMask);
+
+        if (maskNeedOn != 0)
+        {
+            SBoxSandbox.SwitchOutStateOn(maskNeedOn);
+        }
+
+        if (maskNeedOff != 0)
+        {
+            SBoxSandbox.SwitchOutStateOff(maskNeedOff);
+        }
+
+        _currentOutputLightMask = targetMask;
+    }
+
+    private void ResetAllButtonLights()
+    {
+        _focusedLightMask = 0;
+        _isBlinkLight = false;
+        _blinkVisible = true;
+        _nextBlinkTime = 0f;
+        ApplyButtonLightMask(0);
+    }
 
     bool IsSysPriority(MachineButtonKey value)
     {

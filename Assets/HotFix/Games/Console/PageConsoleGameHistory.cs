@@ -1,10 +1,10 @@
 using FairyGUI;
 using GameMaker;
-using HotFix.Games.Console.Controller;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using static NetButtonManager;
 
 namespace ConsoleSlot01
 {
@@ -13,13 +13,16 @@ namespace ConsoleSlot01
         public const string pkgName = "Console";
         public const string resName = "PageConsoleGameHistory";
         public override PageType pageType => PageType.Overlay;
+        Controller myController;
+        GButton btnGame, btnJpOnline;
         TabGameHistoryController taGameHistoryController = new TabGameHistoryController();
+        TableJackpotOnlineHistory tabJackpotOnlineHistoryController = new TableJackpotOnlineHistory();
         GButton btnClose;
         GButton btnPrev, btnNext; //上一页和下一页按钮
         GComboBox gcbDropdownDates, gcbDropdownGameIds; //日期和游戏id下拉框
         GList lstPages;
-
         GComponent cmpTabGameHistory;
+        GComponent cmpTabJpOnineHistory;
 
         // 存储当前选中的游戏ID和日期时间（精确到秒）
         long currentGameId = 1700; // 默认游戏ID
@@ -35,14 +38,6 @@ namespace ConsoleSlot01
             { 3997, new string[] { "CaiFuZhiJia3997", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" } },
             { 3999, new string[] { "CaiFuZhiMen3999", "Assets/GameRes/Games/Cai Fu Zhi Men 3999/FGUIs" } },
         };
-
-        #region cwy 2026.3.11 新增
-
-        private Controller _historyController;
-        private GComponent _bonusPageCom;
-        private readonly TabBonusHistoryController _tabBonusHistoryController = new TabBonusHistoryController();
-
-        #endregion
 
         protected override void OnInit()
         {
@@ -76,20 +71,25 @@ namespace ConsoleSlot01
         {
             if (!isInit) return;
             if (!isOpen) return;
+            myController = this.contentPane.GetController("history");
+            myController.onChanged.Clear();
+            myController.onChanged.Add(OnControllerChanged);
+            myController.selectedIndex = 0;
+            //btnGame = this.contentPane.GetChild("btnGame").asButton;
+            //btnGame.onClick.Clear();
+            //btnGame.onClick.Add(() =>
+            //{
+            //});
+            //btnJpOnline = this.contentPane.GetChild("btnJpOnline").asButton;
+            //btnJpOnline.onClick.Clear();
+            //btnJpOnline.onClick.Add(() =>
+            //{
+            //});
 
-            btnClose = this.contentPane.GetChild("navBottom").asCom.GetChild("btnExit").asButton;
-            btnClose.onClick.Clear();
-            btnClose.onClick.Add(() =>
-            {
-                CloseSelf(null);
-            });
             lstPages = this.contentPane.GetChild("pages").asList;
             cmpTabGameHistory = lstPages.GetChildAt(0).asCom;
-
-            // 初始化Tab控制器，传入两个回调
-            taGameHistoryController.InitParam(cmpTabGameHistory, ConsoleTableName.TABLE_SLOT_GAME_RECORD, onDatesChange,
-                onGameIdsChange);
-
+            cmpTabJpOnineHistory = lstPages.GetChildAt(1).asCom;
+           
             // 初始化日期时间下拉框
             gcbDropdownDates = this.contentPane.GetChild("date").asCom.GetChild("value").asComboBox;
             gcbDropdownDates.onChanged.Clear();
@@ -108,18 +108,42 @@ namespace ConsoleSlot01
             btnNext.onClick.Clear();
             btnNext.onClick.Add(OnClickNext);
 
-            // cwy 新增
-            _historyController = contentPane.GetController("history");
-            _bonusPageCom = contentPane.GetChild("bonusPage").asCom;
-            // GComponent bonusDataGList = _bonusPageCom.GetChildAt(0).asCom;
-            // Debug.LogError("_bonusDataGList：" + _bonusDataGList.numItems);
-            // _tabBonusHistoryController.InitParam(bonusDataGList, ConsoleTableName.TABLE_JACKPOT_RECORD, onDatesChange);
+            btnClose = this.contentPane.GetChild("navBottom").asCom.GetChild("btnExit").asButton;
+            btnClose.onClick.Clear();
+            btnClose.onClick.Add(() =>
+            {
+                CloseSelf(null);
+            });
+
+            //进入回到游戏历史页面
+            OnControllerChanged(myController.selectedIndex);
+        }
+        //控制器切换
+        private void OnControllerChanged(EventContext context)
+        {
+            Controller controller = (Controller)context.sender;
+            DebugUtils.Log($"控制器已切换，当前页签索引: {controller.selectedIndex}, 名称: {controller.selectedPage}");
+            int pageIndex = controller.selectedIndex;
+            OnControllerChanged(pageIndex);
+        }
+
+        private void OnControllerChanged(int pageIndex)
+        {
+            if (pageIndex == 0)
+            {
+                // 初始化TabGameHistory控制器，传入两个回调
+                taGameHistoryController.InitParam(cmpTabGameHistory, ConsoleTableName.TABLE_SLOT_GAME_RECORD, onGameDatesChange, onGameIdsChange);
+            }
+            else if (pageIndex == 1)
+            {
+                // 初始化TabJackpotOnlineHistory控制器
+                tabJackpotOnlineHistoryController.InitParam(cmpTabJpOnineHistory, ConsoleTableName.TABLE_JACKPOT_RECORD, onJackpotDatesChange);
+            }
         }
 
         //初始化游戏数据
-
-        //初始化时间id下拉框
-        void onDatesChange(List<string> dateTimes)
+        //初始化时间下拉框
+        void onGameDatesChange(List<string> dateTimes)
         {
             // 格式化显示：将"yyyy-MM-dd HH:mm:ss"转换为更友好的显示格式
             List<string> displayItems = new List<string>();
@@ -168,6 +192,39 @@ namespace ConsoleSlot01
             }
         }
 
+        // 联网彩金日期变化回调（按日期查询）
+        void onJackpotDatesChange(List<string> dates)
+        {
+            List<string> displayItems = new List<string>();
+            List<string> displayValues = new List<string>();
+
+            foreach (string date in dates)
+            {
+                if (!string.IsNullOrEmpty(date))
+                {
+                    displayItems.Add(date);
+                    displayValues.Add(date);
+                }
+            }
+
+            gcbDropdownDates.items = displayItems.ToArray();
+            gcbDropdownDates.values = displayValues.ToArray();
+
+            if (dates.Count > 0)
+            {
+                gcbDropdownDates.selectedIndex = 0;
+                currentDateTime = dates[0];
+                tabJackpotOnlineHistoryController.OnDateTimeChanged(currentDateTime, 0);
+            }
+            else
+            {
+                gcbDropdownDates.items = new string[] { "暂无数据" };
+                gcbDropdownDates.values = new string[] { "" };
+                gcbDropdownDates.selectedIndex = 0;
+                tabJackpotOnlineHistoryController.OnDateTimeChanged("", 0);
+            }
+        }
+
         //初始化游戏id下拉框
         void onGameIdsChange(List<long> gameIds)
         {
@@ -196,6 +253,12 @@ namespace ConsoleSlot01
             }
         }
 
+        //
+        void OnJpOnlinePageIndexChange(int curPageIndex, int totalPageCount)
+        {
+
+        }
+
         // 游戏ID列表变化回调
         void OnGameIdComboChanged(EventContext context)
         {
@@ -221,26 +284,43 @@ namespace ConsoleSlot01
             DebugUtils.Log($"选择了日期时间索引：{gcbDropdownDates.selectedIndex}，值：{sender.value}");
 
             currentDateTime = sender.value;
-            // 根据选中的游戏ID和日期时间查询数据
-            taGameHistoryController.OnDateTimeChanged(currentGameId, currentDateTime, gcbDropdownDates.selectedIndex);
+            if (myController.selectedIndex == 0)
+            {
+                // 根据选中的游戏ID和日期时间查询数据
+                taGameHistoryController.OnDateTimeChanged(currentGameId, currentDateTime, gcbDropdownDates.selectedIndex);
+            }
+            else if (myController.selectedIndex == 1)
+            {
+                // 根据选中的游戏ID和日期时间查询数据
+                tabJackpotOnlineHistoryController.OnDateTimeChanged(currentDateTime, gcbDropdownDates.selectedIndex);
+            }
+           
         }
 
         //上一页
         public void OnClickPrev()
         {
-            if (_historyController.selectedIndex == 0)
+            if (myController.selectedIndex == 0)
+            {
                 taGameHistoryController.PrevPage();
-            else
-                _tabBonusHistoryController.PrevPage();
+            }
+            else if (myController.selectedIndex == 1)
+            {
+                tabJackpotOnlineHistoryController.PrevPage();
+            }
         }
 
         //下一页
         public void OnClickNext()
         {
-            if (_historyController.selectedIndex == 0)
+            if (myController.selectedIndex == 0)
+            {
                 taGameHistoryController.NextPage();
-            else
-                _tabBonusHistoryController.NextPage();
+            }
+            else if (myController.selectedIndex == 1)
+            {
+                tabJackpotOnlineHistoryController.NextPage();
+            }
         }
 
         // 加载指定游戏的包（如果未加载）

@@ -2,7 +2,9 @@
 <component size="1080,1178">
   <displayList>
     <graph id="n49_g3lh" name="n49" xy="0,76" size="1080,2" type="rect" lineSize="0"/>
-    <component id="n66_g3lh" name="date" src="g3lh58" fileName="moudules/ItemDateSelect.xml" xy="0,0"/>
+    <component id="n66_g3lh" name="date" src="g3lh58" fileName="moudules/ItemDateSelect.xml" xy="0,0">
+      <property target="key" propertyId="0" value="Data :"/>
+    </component>
     <graph id="n92_u8xf" name="n92" xy="0,910" size="1080,2" type="rect" lineSize="0"/>
     <component id="n95_u8xf" name="item1" src="u8xf7t" fileName="moudules/ItemLogRecordEvent.xml" xy="0,76"/>
     <component id="n99_u8xf" name="item2" src="u8xf7t" fileName="moudules/ItemLogRecordEvent.xml" xy="0,152"/>

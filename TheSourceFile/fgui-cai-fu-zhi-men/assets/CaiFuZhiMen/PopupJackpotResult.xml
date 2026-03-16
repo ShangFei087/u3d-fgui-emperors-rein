@@ -3,6 +3,6 @@
   <displayList>
     <graph id="n0_mqd8" name="cover" xy="0,0" size="1080,1920" type="rect" fillColor="#99000000"/>
     <component id="n1_mqd8" name="totalGetWindow" src="mqd84z" fileName="moudules/popupJackpotResult/TotalGetWindow.xml" xy="0,0" visible="false"/>
-    <component id="n2_mqd8" name="jackpotGetWindow" src="mqd84y" fileName="moudules/popupJackpotResult/JackpotGetWindow.xml" xy="0,0"/>
+    <component id="n2_mqd8" name="jackpotGetWindow" src="mqd84y" fileName="moudules/popupJackpotResult/JackpotGetWindow.xml" xy="0,0" visible="false"/>
   </displayList>
 </component>

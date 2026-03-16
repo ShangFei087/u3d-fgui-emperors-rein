@@ -1,7 +1,9 @@
 using FairyGUI;
 using GameMaker;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CaiFuZhiMen_3999
 {
@@ -16,14 +18,19 @@ namespace CaiFuZhiMen_3999
         private int _resCount = -1;
         private bool _isInitialized = false;
 
-        private GComponent _totalGetWindow, _jackpotGetWindow;
-        private GButton _totalCollectBtn, _jackpotCollectBtn;
-        private GComponent _compareJackpotGetWindow, _compareRealGetWindow;
+        private GComponent _totalGetWindow /*, _jackpotGetWindow*/;
+        private GButton _totalCollectBtn /*, _jackpotCollectBtn*/;
 
-        private GameObject _jackpotGetWindowObj, _realGetWindowObj;
-        private GameObject _cloneJackpotGetWindowObj, _cloneRealGetWindowObj;
+        private GComponent /*_compareJackpotGetWindow,*/
+            _compareRealGetWindow;
 
-        private GTextField _totalGetText, _jackpotGetText;
+        private GameObject /*_jackpotGetWindowObj,*/
+            _realGetWindowObj;
+
+        private GameObject /*_cloneJackpotGetWindowObj,*/
+            _cloneRealGetWindowObj;
+
+        private GTextField _totalGetText /*, _jackpotGetText*/;
 
         protected override void OnInit()
         {
@@ -31,6 +38,7 @@ namespace CaiFuZhiMen_3999
             base.OnInit();
 
             LoadResAsync();
+            AddMachineBtnClickListener();
         }
 
         public override void InitParam()
@@ -65,14 +73,14 @@ namespace CaiFuZhiMen_3999
 
         private void LoadResAsync()
         {
-            _resCount = 2;
+            _resCount = 1;
 
             // 加载Spine
-            ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "JackpotGetWindow.prefab", (cloneObj) =>
-            {
-                _jackpotGetWindowObj = cloneObj;
-                ResLoadedCallback();
-            });
+            // ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "JackpotGetWindow.prefab", (cloneObj) =>
+            // {
+            //     _jackpotGetWindowObj = cloneObj;
+            //     ResLoadedCallback();
+            // });
             ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "RealGetWindow.prefab", (cloneObj) =>
             {
                 _realGetWindowObj = cloneObj;
@@ -91,80 +99,105 @@ namespace CaiFuZhiMen_3999
                 GameCommon.FguiUtils.AddWrapper(_compareRealGetWindow, _cloneRealGetWindowObj);
             }
 
-            currentCom = _jackpotGetWindow.GetChild("anchor_JackpotGetWindow").asCom;
-            if (currentCom != _compareJackpotGetWindow)
-            {
-                GameCommon.FguiUtils.DeleteWrapper(_compareJackpotGetWindow);
-                _compareJackpotGetWindow = currentCom;
-                _cloneJackpotGetWindowObj = Object.Instantiate(_jackpotGetWindowObj);
-                _cloneJackpotGetWindowObj.transform.Find("Anchor").GetChild(ContentModel.Instance.bonusIndex).gameObject
-                    .SetActive(true);
-                GameCommon.FguiUtils.AddWrapper(_compareJackpotGetWindow, _cloneJackpotGetWindowObj);
-            }
+            // currentCom = _jackpotGetWindow.GetChild("anchor_JackpotGetWindow").asCom;
+            // if (currentCom != _compareJackpotGetWindow)
+            // {
+            //     GameCommon.FguiUtils.DeleteWrapper(_compareJackpotGetWindow);
+            //     _compareJackpotGetWindow = currentCom;
+            //     _cloneJackpotGetWindowObj = Object.Instantiate(_jackpotGetWindowObj);
+            //     _cloneJackpotGetWindowObj.transform.Find("Anchor").GetChild(ContentModel.Instance.bonusIndex).gameObject
+            //         .SetActive(true);
+            //     GameCommon.FguiUtils.AddWrapper(_compareJackpotGetWindow, _cloneJackpotGetWindowObj);
+            // }
         }
 
         private void InitUICom()
         {
             _totalGetWindow = contentPane.GetChild("totalGetWindow").asCom;
-            _jackpotGetWindow = contentPane.GetChild("jackpotGetWindow").asCom;
+            // _jackpotGetWindow = contentPane.GetChild("jackpotGetWindow").asCom;
 
             _totalCollectBtn = _totalGetWindow.GetChild("totalCollectBtn").asButton;
-            _jackpotCollectBtn = _jackpotGetWindow.GetChild("jackpotCollectBtn").asButton;
+            // _jackpotCollectBtn = _jackpotGetWindow.GetChild("jackpotCollectBtn").asButton;
 
             _totalGetText = _totalGetWindow.GetChild("totalGetText").asTextField;
-            _jackpotGetText = _jackpotGetWindow.GetChild("jackpotGetText").asTextField;
+            // _jackpotGetText = _jackpotGetWindow.GetChild("jackpotGetText").asTextField;
 
             _totalCollectBtn.visible = false;
             _totalGetText.visible = false;
-            _jackpotCollectBtn.visible = false;
-            _jackpotGetText.visible = false;
+            // _jackpotCollectBtn.visible = false;
+            // _jackpotGetText.visible = false;
 
             _totalGetText.text = ContentModel.Instance.bonusTotalBet.ToString();
-            _jackpotGetText.text = ContentModel.Instance.bonusTotalBet.ToString();
+            // _jackpotGetText.text = ContentModel.Instance.bonusTotalBet.ToString();
 
-            Timers.inst.Add(1.5f, 1, (obj) =>
+            // Timers.inst.Add(1.5f, 1, (obj) =>
+            // {
+            //     _jackpotCollectBtn.visible = true;
+            //     _jackpotGetText.visible = true;
+            // });
+            //
+            // _jackpotCollectBtn.onClick.Add(() =>
+            // {
+            //     _jackpotGetWindow.visible = false;
+            //     _totalGetWindow.visible = true;
+            //
+            //     Timers.inst.Add(0.5f, 1, (obj) =>
+            //     {
+            //         _totalCollectBtn.visible = true;
+            //         _totalGetText.visible = true;
+            //     });
+            // });
+            
+            _totalGetWindow.visible = true;
+            
+            Timers.inst.Add(0.5f, 1, (obj) =>
             {
-                _jackpotCollectBtn.visible = true;
-                _jackpotGetText.visible = true;
+                _totalCollectBtn.visible = true;
+                _totalGetText.visible = true;
             });
 
-            _jackpotCollectBtn.onClick.Add(() =>
-            {
-                _jackpotGetWindow.visible = false;
-                _totalGetWindow.visible = true;
+            _totalCollectBtn.onClick.Add(TotalBtnEvent);
+        }
 
-                Timers.inst.Add(0.5f, 1, (obj) =>
+        private void TotalBtnEvent()
+        {
+            CloseSelf(null);
+            PageManager.Instance.ClosePage(PageName.CaiFuZhiMenPopupJackpotGame);
+            PageManager.Instance.OpenPage(PageName.CaiFuZhiMenPopupJackpotLoad);
+        }
+        
+        private void AddMachineBtnClickListener()
+        {
+            machineBtnClickHelper = new MachineButtonClickHelper()
+            {
+                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
                 {
-                    _totalCollectBtn.visible = true;
-                    _totalGetText.visible = true;
-                });
-            });
-
-            _totalCollectBtn.onClick.Add(() =>
-            {
-                CloseSelf(null);
-                PageManager.Instance.ClosePage(PageName.CaiFuZhiMenPopupJackpotGame);
-                PageManager.Instance.OpenPage(PageName.CaiFuZhiMenPopupJackpotLoad);
-            });
+                    [MachineButtonKey.BtnSpin] = (info) =>
+                    {
+                        Debug.LogError("游戏接受到机台短按的数据：Spin");
+                        TotalBtnEvent();
+                    }
+                },
+            };
         }
 
         private void ResetPage()
         {
-            _jackpotGetWindow.visible = true;
+            // _jackpotGetWindow.visible = true;
             _totalGetWindow.visible = false;
 
-            Object.Destroy(_cloneJackpotGetWindowObj);
+            // Object.Destroy(_cloneJackpotGetWindowObj);
             Object.Destroy(_cloneRealGetWindowObj);
 
-            _cloneJackpotGetWindowObj = null;
+            // _cloneJackpotGetWindowObj = null;
             _cloneRealGetWindowObj = null;
 
-            GameCommon.FguiUtils.DeleteWrapper(_compareJackpotGetWindow);
+            // GameCommon.FguiUtils.DeleteWrapper(_compareJackpotGetWindow);
             GameCommon.FguiUtils.DeleteWrapper(_compareRealGetWindow);
 
-            _compareJackpotGetWindow = null;
+            // _compareJackpotGetWindow = null;
             _compareRealGetWindow = null;
-            ContentModel.Instance.bonusIndex = -1;
+            // ContentModel.Instance.bonusIndex = -1;
         }
     }
 }

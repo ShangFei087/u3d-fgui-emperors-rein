@@ -50,7 +50,7 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         // ==算法卡游戏彩金
         EventCenter.Instance.AddEventListener<JackpotRes>(SBoxEventHandle.SBOX_JACKPOT_GAME, OnResponseJackpotGame);
         //==联网彩金
-        EventCenter.Instance.AddEventListener<JackpotRes>(SBoxEventHandle.SBOX_JACKPOT_ONLINE_GAME, OnResponseJackpotOnline);
+        EventCenter.Instance.AddEventListener<string>(SBoxEventHandle.SBOX_JACKPOT_ONLINE_GAME, OnResponseJackpotOnline);
 
         // ==码表
         EventCenter.Instance.AddEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_METER_SET, OnResponseCounter);
@@ -92,7 +92,7 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         // ==联网游戏彩金
         EventCenter.Instance.RemoveEventListener<JackpotRes>(SBoxEventHandle.SBOX_JACKPOT_GAME, OnResponseJackpotGame);
         //==联网彩金
-        EventCenter.Instance.RemoveEventListener<JackpotRes>(SBoxEventHandle.SBOX_JACKPOT_ONLINE_GAME, OnResponseJackpotOnline);
+        EventCenter.Instance.RemoveEventListener<string>(SBoxEventHandle.SBOX_JACKPOT_ONLINE_GAME, OnResponseJackpotOnline);
 
         // ==码表
         EventCenter.Instance.RemoveEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_METER_SET, OnResponseCounter);
@@ -489,7 +489,7 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         }
         return seqId;
     }
-    void OnResponseJackpotOnline(JackpotRes res) => OnResponse(SBoxEventHandle.SBOX_JACKPOT_ONLINE_GAME, res);
+    void OnResponseJackpotOnline(string res) => OnResponse(SBoxEventHandle.SBOX_JACKPOT_ONLINE_GAME, res);
 
     /// <summary>
     /// 码表
