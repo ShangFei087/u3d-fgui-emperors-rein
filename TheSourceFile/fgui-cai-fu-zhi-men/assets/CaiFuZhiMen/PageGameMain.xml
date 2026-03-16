@@ -20,5 +20,6 @@
     <component id="n6_ssgm" name="anchor_BonusBorder" src="ssgm3c" fileName="moudules/gameCommon/gameOther/Anchor_BonusBorder.xml" xy="540,960"/>
     <component id="n23_v1fq" name="wildFrame" src="v1fq5g" fileName="moudules/pageGameMain/wild/WildFrame.xml" xy="56,967"/>
     <component id="n1_ssgm" name="panel" src="ssgm39" fileName="moudules/gameCommon/gamePanel/Anchor_PanelPush.xml" xy="535,1840"/>
+    <text id="n24_u8n1" name="testText" xy="230,1668" size="605,105" visible="false" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" bold="true" text=""/>
   </displayList>
 </component>
