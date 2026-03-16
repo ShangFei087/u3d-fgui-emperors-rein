@@ -259,15 +259,13 @@ namespace SlotZhuZaiJinBi1700
             }
 
             // 免费游戏累计总赢
-            long freeSpinTotalWinCredit = 0;
             if (OpenType == 1)
             {
-                ContentModel.Instance.freeSpinTotalWinCredit = 0;
+                ContentModel.Instance.freeSpinTotalWinCredit += totalEarnCredit;
             }
             else
             {
-                ContentModel.Instance.freeSpinTotalWinCredit += totalEarnCredit;
-                freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCredit;
+                ContentModel.Instance.freeSpinTotalWinCredit = 0;
             }
 
 

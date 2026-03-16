@@ -1337,6 +1337,13 @@ namespace CaiFuZhiMen_3999
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
+            // 免费游戏结束后，统一将免费期间累计赢分加到余额
+            long freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCoins;
+            if (freeSpinTotalWinCredit > 0)
+            {
+                MainBlackboardController.Instance.AddMyTempCredit(freeSpinTotalWinCredit, true, IsAddCreditAnim);
+            }
+
             yield return _slotMachineController.SlotWaitForSeconds(1.5f);
         }
 
@@ -1451,17 +1458,16 @@ namespace CaiFuZhiMen_3999
             {
                 long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList);
                 allWinCredit = totalWinLineCredit;
+                long freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCoins;
 
                 bool isAddToCredit = totalWinLineCredit > TotalBet * 4;
-                _slotMachineController.SendPrepareTotalWinCreditEvent(totalWinLineCredit, isAddToCredit);
-                _slotMachineController.SendTotalWinCreditEvent(totalWinLineCredit); // 总线赢分事件
-                ContentModel.Instance.FreeOnceCredit = totalWinLineCredit; // 加钱动画
+                _slotMachineController.SendPrepareTotalWinCreditEvent(freeSpinTotalWinCredit, isAddToCredit);
+                _slotMachineController.SendTotalWinCreditEvent(freeSpinTotalWinCredit); // 免费局赢票栏显示累计总赢分
+                ContentModel.Instance.FreeOnceCredit = freeSpinTotalWinCredit; // 免费局累计赢分
             }
 
             #endregion
 
-            // 本剧同步玩家金钱
-            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             isNext = false;
 
             if (winList.Count > 0 || false) // isHitJackpot
@@ -1562,7 +1568,7 @@ namespace CaiFuZhiMen_3999
             sboxJackpotData.Jackpotlottery = new int[3];
             sboxJackpotData.JackpotOld = new int[3];
 
-            //获取彩金贡献值
+            //请求本地彩金贡献值
             ERPushMachineDataManager02.Instance.RequestGetJpContribution((res) =>
             {
                 Debug.Log("请求本地彩金贡献值");
