@@ -112,6 +112,9 @@ namespace CaiFuZhiMen_3999
 
         #endregion
 
+        // 中奖线测试text
+        // private GTextField _testText;
+
         private bool IsAddCreditAnim =>
             !(_slotMachineController.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
 
@@ -172,6 +175,8 @@ namespace CaiFuZhiMen_3999
             ShowJackpotData();
 
             _gameController = contentPane.GetController("gameControl");
+
+            // _testText = contentPane.GetChild("testText").asTextField;
 
             InitWildObjs();
 
@@ -719,6 +724,8 @@ namespace CaiFuZhiMen_3999
             _slotMachineController.CloseSlotCover();
             _slotMachineController.SkipWinLine(true);
 
+            // _testText.text = "";
+
             ResetWildSpines();
         }
 
@@ -1185,7 +1192,7 @@ namespace CaiFuZhiMen_3999
                 if (_corShowBonusSymbol != null) _monoHelper.StopCoroutine(_corShowBonusSymbol);
                 _corShowBonusSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(11));
                 yield return new WaitForSeconds(1.6f);
-                
+
                 PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiMenPopupJackpotTrigger,
                     new EventData<Dictionary<string, object>>("", new Dictionary<string, object> { }),
                     (res) =>
@@ -1196,7 +1203,7 @@ namespace CaiFuZhiMen_3999
                         _slotMachineController.SkipWinLine(false);
                         isNext = true;
                     });
-                
+
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
             }
@@ -1271,7 +1278,7 @@ namespace CaiFuZhiMen_3999
             if (winList.Count > 0 && !ContentModel.Instance.isAuto && !ContentModel.Instance.isFreeSpinTrigger)
             {
                 if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
-                _corGameIdle = _monoHelper.StartCoroutine(GameIdle(winList));
+                _corGameIdle = _monoHelper.StartCoroutine(GameIdle(winList/*, _testText*/));
             }
 
             successCallback?.Invoke();
@@ -1461,7 +1468,7 @@ namespace CaiFuZhiMen_3999
             #endregion
 
             // 本剧同步玩家金钱
-            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+            // MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             isNext = false;
 
             if (winList.Count > 0 || false) // isHitJackpot
@@ -1620,12 +1627,12 @@ namespace CaiFuZhiMen_3999
             _slotMachineController.CloseSlotCover();
         }
 
-        private IEnumerator GameIdle(List<SymbolWin> winList, Action callback = null)
+        private IEnumerator GameIdle(List<SymbolWin> winList/*, GTextField textField*/, Action callback = null)
         {
             if (winList.Count == 0)
                 yield break;
             SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.GameIdle);
-            yield return _slotMachineController.ShowWinListAwayDuringIdle(winList, callback);
+            yield return _slotMachineController.ShowWinListAwayDuringIdle(winList/*, textField*/, callback);
         }
 
         private IEnumerator ShowWinSymbol(int number, Action callback = null)

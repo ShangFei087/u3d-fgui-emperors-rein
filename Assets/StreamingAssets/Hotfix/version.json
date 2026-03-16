@@ -1,10 +1,10 @@
 {
-  "updated_at": 1773387929897,
+  "updated_at": 1773401564779,
   "hotfix_key": "hf_debug_android_20260303190331",
-  "hotfix_version": "1.10.33",
+  "hotfix_version": "1.10.38",
   "asset_bundle": {
     "manifest": {
-      "hash": "e91dab45518454e98bf462afd3fe64fc",
+      "hash": "0f21246f9f703864258a100516405ff3",
       "size_bytes": 17230
     },
     "bundle_hash": {
@@ -211,7 +211,7 @@
       "games/cai fu zhi men 3999/artres/sounds/music/bonusbgm.unity3d": "d4fa1cc2f3920684513ddec22d1cea45",
       "games/cai fu zhi men 3999/artres/sounds/music/freebgm.unity3d": "be625e58387ccc97e68b55a663b195ee",
       "games/cai fu zhi men 3999/artres/sounds/music/normalbgm.unity3d": "3529d93e71ff89c2cdb06283c1475085",
-      "games/cai fu zhi men 3999/fguis.unity3d": "4fdd4a83866b322c686f4bee3030c326",
+      "games/cai fu zhi men 3999/fguis.unity3d": "7fe5b55d18fca6f2b8238a3607002ae0",
       "games/cai fu zhi men 3999/prefabs/game controller/slot game main controller.unity3d": "f9f7e42f1243b6f71f4ea51938f2d3b2",
       "games/cai fu zhi men 3999/prefabs/pagegamemain/effectprefabs/bonusbordereffect.unity3d": "6cf466f166bc76c757346bfdd050fde2",
       "games/cai fu zhi men 3999/prefabs/pagegamemain/effectprefabs/freebordereffect.unity3d": "1d2f9dbf46ea75b426ae3fa8f55bd06e",

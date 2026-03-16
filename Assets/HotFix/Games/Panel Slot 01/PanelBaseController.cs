@@ -27,13 +27,14 @@ namespace SlotMaker
         PopState popState = PopState.None;
         protected GComponent gOwnerPanel, gIntroducePanel, setPanel, btnSound, btnHelp, Introduce;
         protected SpinButtonBaseController spinBtnCtrl = new SpinButtonBaseController();
-        protected GButton btnPayTable, btnPrev, btnNext,btnHome;
-        protected GTextField bet,win;
+        protected GButton btnPayTable, btnPrev, btnNext, btnHome;
+        protected GTextField bet, win;
         protected bool isSet;
-        protected int PayTableLength =0;
+        protected int PayTableLength = 0;
 
         GameObject goSpin;
         bool isInit;
+
         /// <summary> 浠嬬粛椤电储寮?</summary>
         public int IntroduceIndex;
 
@@ -60,16 +61,14 @@ namespace SlotMaker
             EventCenter.Instance.RemoveEventListener<EventData>(Observer.ON_PROPERTY_CHANGED_EVENT, OnPropertyChange);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnTotalWinCredit);
             EventCenter.Instance.RemoveEventListener<EventData>(MetaUIEvent.ON_CREDIT_EVENT, OnUpdateNaviCredit);
-            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnPanelEventAnchorPanelChange);
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT,
+                OnPanelEventAnchorPanelChange);
             gOwnerPanel.visible = false;
         }
 
 
-
-
         public virtual void Init(EventData res = null)
         {
-
             GComponent _goAnchorPanel = null;
             if (res != null)
                 _goAnchorPanel = res.value as GComponent;
@@ -105,7 +104,6 @@ namespace SlotMaker
                         gOwnerPanel.visible = true;
                         loadComplete();
                     });
-
                 }
                 else
                 {
@@ -117,16 +115,14 @@ namespace SlotMaker
                 }
             }
 
-            ResourceManager02.Instance.LoadAsset<GameObject>("Assets/GameRes/Games/Panel01/Prefabs/Slot_btn_Spin.prefab",
-              (GameObject clone) =>
-              {
-                  goSpin = clone;
-                  loadComplete();
-              });
-
-
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                "Assets/GameRes/Games/Panel01/Prefabs/Slot_btn_Spin.prefab",
+                (GameObject clone) =>
+                {
+                    goSpin = clone;
+                    loadComplete();
+                });
         }
-
 
 
         protected virtual void InitParam()
@@ -134,7 +130,8 @@ namespace SlotMaker
             Debug.Log("初始化菜单Ui");
             gOwnerPanel = MainModel.Instance.contentMD.goAnthorPanel.asCom.GetChild("icon").asLoader.component;
             setPanel = gOwnerPanel.GetChild("setPanel").asCom;
-            gOwnerPanel.GetChild("credit").asTextField.text = MainModel.Instance.myCredit.ToString(); //SBoxModel.Instance.myCredit.ToString();
+            gOwnerPanel.GetChild("credit").asTextField.text =
+                MainModel.Instance.myCredit.ToString(); //SBoxModel.Instance.myCredit.ToString();
             win = gOwnerPanel.GetChild("win").asTextField;
             win.text = 0.ToString();
             btnBetUp = gOwnerPanel.GetChild("btnBetUp").asButton;
@@ -150,12 +147,10 @@ namespace SlotMaker
 
             SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
             {
-                PlayerId = SBoxModel.Instance.pid,
-                balance = 0,
-                rfu = 0
+                PlayerId = SBoxModel.Instance.pid, balance = 0, rfu = 0
             };
 
-            sBoxPlayerBetsData.Bets[0] =(int) SBoxModel.Instance.betList[MainModel.Instance.contentMD.betIndex];
+            sBoxPlayerBetsData.Bets[0] = (int)SBoxModel.Instance.betList[MainModel.Instance.contentMD.betIndex];
             // 设置押注
             ERPushMachineDataManager02.Instance.RequestSetBet(sBoxPlayerBetsData, (res) =>
             {
@@ -171,7 +166,6 @@ namespace SlotMaker
             btnHelp.onClick.Add(() =>
             {
                 Help();
-
             });
             btnPayTable = setPanel.GetChild("btnPayTable").asButton;
             Introduce = gIntroducePanel.GetChild("payTable").asCom;
@@ -204,10 +198,10 @@ namespace SlotMaker
                 {
                     VolumeLevel = 0;
                 }
+
                 GSManager.Instance.SetMute(false);
                 switch (VolumeLevel)
                 {
-
                     case 0:
                         // 设置音效音量 (0-1)
                         //GSManager.Instance.SetTotalVolumEfft(0.5f);
@@ -242,7 +236,7 @@ namespace SlotMaker
             btnSound.GetController("button").selectedIndex = 3;
 
             //btnHome
-            btnHome=setPanel.GetChild("btnHome").asButton;
+            btnHome = setPanel.GetChild("btnHome").asButton;
             btnHome.onClick.Clear();
             btnHome.onClick.Add(() =>
             {
@@ -254,8 +248,6 @@ namespace SlotMaker
             OnPropertyChangeTotalBet();
             OnPropertyChangeBtnSpinState();
             OnPropertyIsConnectMoneyBox();
-
-
         }
 
 
@@ -273,7 +265,6 @@ namespace SlotMaker
             }
             else
             {
-
                 setPanel.visible = false;
                 gIntroducePanel.visible = false;
                 gOwnerPanel.GetChild("mash").asGraph.visible = false;
@@ -327,7 +318,6 @@ namespace SlotMaker
             {
                 PageManager.Instance.OpenPage(PageName.HallMain);
             }
-              
         }
 
         protected virtual void OnClickIntroduceL()
@@ -337,12 +327,9 @@ namespace SlotMaker
             {
                 btnPrev.touchable = false;
                 btnPrev.GetChild("untouch").visible = true;
-
-
             }
             else
             {
-
                 btnNext.GetChild("untouch").visible = false;
                 btnNext.touchable = true;
             }
@@ -351,15 +338,13 @@ namespace SlotMaker
         protected virtual void OnClickIntroduceR()
         {
             IntroduceChange(true);
-            if (IntroduceIndex == PayTableLength-1)
+            if (IntroduceIndex == PayTableLength - 1)
             {
                 btnNext.touchable = false;
                 btnNext.GetChild("untouch").visible = true;
-
             }
             else
             {
-
                 btnPrev.touchable = true;
                 btnPrev.GetChild("untouch").visible = false;
             }
@@ -381,9 +366,6 @@ namespace SlotMaker
                 SetIntroducePage(IntroduceIndex);
                 gIntroducePanel.GetChild("btnController").asCom.GetController("c1").selectedIndex = IntroduceIndex;
             }
-                
-           
-           
         }
 
         /// <summary>
@@ -411,6 +393,7 @@ namespace SlotMaker
             Introduce.RemoveChildren();
             Introduce.AddChild(page);
         }
+
         protected virtual void OnPropertyChange(EventData res = null)
         {
             //ContentModel
@@ -451,9 +434,8 @@ namespace SlotMaker
 
             if (betList == null)
                 betList = SBoxModel.Instance.betList;
-
-
         }
+
         protected virtual void OnPropertyChangeBtnSpinState(EventData res = null)
         {
             string changeSpinState = (string)res?.value;
@@ -495,9 +477,8 @@ namespace SlotMaker
                     }
                     break;
             }
-
-
         }
+
         protected virtual void OnPropertyGameState(EventData res = null)
         {
             string gameState = (string)res?.value;
@@ -507,10 +488,11 @@ namespace SlotMaker
                 win.text = 0.ToString();
             }
         }
+
         protected virtual void OnPropertyIsConnectMoneyBox(EventData res = null)
         {
-
         }
+
         protected virtual void OnPanelEventAnchorPanelChange(EventData res = null)
         {
             if (res.name == PanelEvent.AnchorPanelChange)
@@ -518,6 +500,7 @@ namespace SlotMaker
                 Init();
             }
         }
+
         protected virtual void OnTotalWinCredit(EventData receivedEvent)
         {
             if (receivedEvent.name == SlotMachineEvent.TotalWinCredit)
@@ -531,14 +514,12 @@ namespace SlotMaker
             {
                 long totalWinCredit = (long)receivedEvent.value;
                 NumberAnimation.Instance.AnimateNumber(win,
-                                                       long.Parse(win.text),
-                                                       totalWinCredit + long.Parse(win.text),
-                                                       0.4f);
-
+                    long.Parse(win.text),
+                    totalWinCredit + long.Parse(win.text),
+                    0.4f);
             }
-
-
         }
+
         protected virtual void OnUpdateNaviCredit(EventData receivedEvent = null)
         {
             if (gOwnerPanel == null) return;
@@ -563,7 +544,8 @@ namespace SlotMaker
 
             if (isAmin)
             {
-                NumberAnimation.Instance.AnimateNumber(gOwnerPanel.GetChild("credit").asTextField, fromCredit, toCredit);
+                NumberAnimation.Instance.AnimateNumber(gOwnerPanel.GetChild("credit").asTextField, fromCredit,
+                    toCredit);
             }
             else
             {
@@ -579,15 +561,15 @@ namespace SlotMaker
         //public void OnShortClickSpinButton(string customDataOrState) => OnClickSpinButton(false);
 
         int i = 0;
+
         public void OnClickSpinButton(bool isLong)
         {
-
             EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT,
-               new EventData<bool>(PanelEvent.SpinButtonClick, isLong));
-
+                new EventData<bool>(PanelEvent.SpinButtonClick, isLong));
         }
 
         #region 置灰
+
         public virtual void ChangButtonNo(bool can)
         {
             if (can)
@@ -626,8 +608,8 @@ namespace SlotMaker
                     btnBetUp.touchable = false;
                 }
             }
-
         }
+
         #endregion
 
 
@@ -640,15 +622,13 @@ namespace SlotMaker
             int betIndex = MainModel.Instance.contentMD.betIndex;
             if (++betIndex >= betList.Count)
             {
-
                 betIndex = betList.Count - 1;
             }
+
             MainModel.Instance.contentMD.totalBet = betList[betIndex];
             SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
             {
-                PlayerId = SBoxModel.Instance.pid,
-                balance = 0,
-                rfu = 0
+                PlayerId = SBoxModel.Instance.pid, balance = 0, rfu = 0
             };
 
             sBoxPlayerBetsData.Bets[0] = (int)MainModel.Instance.contentMD.totalBet;
@@ -671,12 +651,11 @@ namespace SlotMaker
             {
                 betIndex = 0;
             }
+
             MainModel.Instance.contentMD.totalBet = betList[betIndex];
             SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
             {
-                PlayerId = SBoxModel.Instance.pid,
-                balance = 0,
-                rfu = 0
+                PlayerId = SBoxModel.Instance.pid, balance = 0, rfu = 0
             };
 
             sBoxPlayerBetsData.Bets[0] = (int)MainModel.Instance.contentMD.totalBet;
@@ -686,18 +665,20 @@ namespace SlotMaker
                 ChangeBetButtonInteractable(betIndex, betList.Count);
             });
         }
+
         protected GButton btnBetDown, btnBetUp;
 
         protected int curBetIndex = 0;
         protected int curBetListCount = 1;
+
         protected virtual void ChangeBetButtonInteractable(int? betIndex01 = null, int? betListCount01 = null)
         {
-
             if (betIndex01 != null && betListCount01 != null)
             {
                 curBetIndex = (int)betIndex01;
                 curBetListCount = (int)betListCount01;
             }
+
             MainModel.Instance.contentMD.betIndex = curBetIndex;
             //下注倍数现在硬数据,之后在改动  
             MainModel.Instance.contentMD.betmultiple = (int)MainModel.Instance.contentMD.totalBet / 50;
@@ -718,7 +699,6 @@ namespace SlotMaker
             {
                 case MachineButtonKey.BtnSpin:
                     {
-
                     }
                     break;
             }
@@ -730,7 +710,6 @@ namespace SlotMaker
             {
                 case MachineButtonKey.BtnSpin:
                     {
-
                     }
                     break;
             }

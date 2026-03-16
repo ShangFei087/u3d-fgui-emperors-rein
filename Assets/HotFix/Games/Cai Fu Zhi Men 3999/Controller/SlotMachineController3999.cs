@@ -124,15 +124,16 @@ namespace CaiFuZhiMen_3999
 
         #region 重写Idle状态方法
 
-        public new IEnumerator ShowWinListAwayDuringIdle(List<SymbolWin> winList, Action callback = null)
+        public new IEnumerator ShowWinListAwayDuringIdle(List<SymbolWin> winList/*, GTextField textField*/,
+            Action callback = null)
         {
             while (winList.Count > 0) //while (idx < winList.Count)
             {
-                yield return ShowWinListBySetting(winList, callback);
+                yield return ShowWinListBySetting(winList/*, textField*/, callback);
             }
         }
 
-        private new IEnumerator ShowWinListBySetting(List<SymbolWin> winList, Action callback)
+        private new IEnumerator ShowWinListBySetting(List<SymbolWin> winList/*, GTextField textField*/, Action callback)
         {
             // 立马停止时，不播放赢分环节？
             if (isStopImmediately && _spinWEMD.Instance.isSkipAtStopImmediately)
@@ -147,6 +148,8 @@ namespace CaiFuZhiMen_3999
                 int idx = 0;
                 while (idx < winList.Count)
                 {
+                    // textField.text =
+                    //     $"中奖线是{winList[idx].lineNumber} 中将图标是{winList[idx].symbolNumber} 中奖金额是{winList[idx].earnCredit}";
                     yield return ShowSymbolWinBySetting(winList[idx], true, SpinWinEvent.SingleWinLine, callback);
                     ++idx;
                     if (isStopImmediately && _spinWEMD.Instance.isSkipAtStopImmediately)
@@ -156,7 +159,6 @@ namespace CaiFuZhiMen_3999
 
             //关闭遮罩
             CloseSlotCover();
-
             //停止特效显示
             SkipWinLine(false);
         }
