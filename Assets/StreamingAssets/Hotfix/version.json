@@ -1,11 +1,11 @@
 {
-  "updated_at": 1773303082613,
+  "updated_at": 1773391910330,
   "hotfix_key": "hf_debug_android_20260303190331",
-  "hotfix_version": "1.10.30",
+  "hotfix_version": "1.10.48",
   "asset_bundle": {
     "manifest": {
-      "hash": "1c2d5f7f241eb34b9f44c21095ebefeb",
-      "size_bytes": 17240
+      "hash": "9e48fb767bd13d8b35f34936dcb77ba9",
+      "size_bytes": 17241
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
@@ -258,7 +258,7 @@
       "games/console/abs/lang_cn.unity3d": "d301670292c15e8c82c73d1e9b9e3064",
       "games/console/abs/lang_en.unity3d": "e25137e8d0293b79ff0609f92a39c131",
       "games/console/abs/lang_tw.unity3d": "73b7f80f37da490390e6eb8b3fefbfae",
-      "games/console/fguis.unity3d": "07e8d63c99d5fb25157b09ebfa697242",
+      "games/console/fguis.unity3d": "e0062b52f5f0a1618921c266a2d117bb",
       "games/emperors rein 200/abs/datas/slot_machine_config_bouns1.unity3d": "b7bdf4772671474e955d5a7883d9e43d",
       "games/emperors rein 200/abs/datas/slot_machine_config_temp.unity3d": "6b732135677815a2defb0eba50dcc545",
       "games/emperors rein 200/fguis.unity3d": "3c47528d0317912e09418bee4ae87d21",
@@ -460,10 +460,10 @@
       "games/slot zhu zai jin bi 1700/prefabs/symbols/symbolhit/symbolhit9.unity3d": "381319063da7285712ae36979de9ac04",
       "games/slot zhu zai jin bi 1700/sounds/music/freemusic.unity3d": "eb6a6978c5eccb57ba0212534607d716",
       "games/slot zhu zai jin bi 1700/sounds/music/normalmusic.unity3d": "b5518bef30558a43036542384d7ffaff",
-      "games/xing yun zhi lun 3998/fguis.unity3d": "2916ab74eac134d36061ca85b6ccd5f1",
+      "games/xing yun zhi lun 3998/fguis.unity3d": "c99f3b095857cf012cc552ddfba3500b",
       "games/xing yun zhi lun 3998/prefabs/effects/firework.unity3d": "b2680736f8973caf9c5de750e634a00d",
       "games/xing yun zhi lun 3998/prefabs/effects/reeleffect.unity3d": "b4b701bb47941bced47a4efd761f9b52",
-      "games/xing yun zhi lun 3998/prefabs/game controller/slot game main controllerclone.unity3d": "cdeae75dbbc36453520a562e468d3e2a",
+      "games/xing yun zhi lun 3998/prefabs/game controller/slot game main controllerclone.unity3d": "3739a226550b8908185a37ccb7bf87ff",
       "games/xing yun zhi lun 3998/prefabs/popupfreespinresult/freespinresult.unity3d": "368b549d2ed969788a77865a9ca14d0c",
       "games/xing yun zhi lun 3998/prefabs/popupfreespintrigger/fgfadetips.unity3d": "69b399950d4cfab0cc0f222d38790dc3",
       "games/xing yun zhi lun 3998/prefabs/popupgamejackpot/jackpotgameexit.unity3d": "22ce7cb6d0614f68ff26045285fe6301",

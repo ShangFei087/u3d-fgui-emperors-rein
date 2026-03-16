@@ -364,6 +364,16 @@ namespace XingYunZhiLun_3998
             set => m_UIMiniJP = value;
         }
 
+        /// <summary> 游戏画廊中奖数据 </summary>
+        public bool isDrawWins = false;
+
+        /// <summary> 游戏画廊中奖金额 </summary>
+        public int drawWinsCredits = 0;
+
+        /// <summary>
+        /// 单次得分时显示线号和线得分
+        /// </summary>
+        public GTextField creditText = null;
 
         /// <summary> 本局彩金结果 </summary>
         public JackpotRes jpGameRes;

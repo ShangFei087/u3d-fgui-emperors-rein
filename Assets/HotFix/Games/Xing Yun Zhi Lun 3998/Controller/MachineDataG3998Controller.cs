@@ -750,6 +750,7 @@ namespace XingYunZhiLun_3998
             ContentModel.Instance.isWild = false;
             ContentModel.Instance.isMult = false;
             ContentModel.Instance.isLihe = false;
+            ContentModel.Instance.isDrawWins = false;
 
             if (ResultType == 2)
             {
@@ -802,18 +803,9 @@ namespace XingYunZhiLun_3998
             }
             else if(ResultType == 3 && (int)res["BonusType"] == 3)
             {
-                ContentModel.Instance.jackpotWinCredit = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
+                ContentModel.Instance.drawWinsCredits = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
 
-                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
-                {
-                    name = "mini",
-                    id = 4,
-                    winCredit = 500,
-                    whenCredit = 500,
-                    curCredit = 500,
-                });
-
-
+                ContentModel.Instance.isDrawWins = true;
             }
 
             //赠送局
@@ -836,7 +828,7 @@ namespace XingYunZhiLun_3998
 
 
             ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            long creditBefore = MainBlackboardController.Instance.myTempCredit + totalBet;
+            long creditBefore = MainBlackboardController.Instance.myRealCredit;
             //赢分
             long TotalBet = (int)res["TotalBet"];
             if (ResultType == 3) TotalBet += (int)res["BonusBet"];
@@ -845,7 +837,7 @@ namespace XingYunZhiLun_3998
             long afterBetCredit = 0;
             if (OpenType == 1)
             {
-                afterBetCredit = creditBefore + TotalBet - totalBet;
+                afterBetCredit = creditBefore + TotalBet;
             }
             else
             {

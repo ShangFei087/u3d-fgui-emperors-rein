@@ -415,6 +415,8 @@ namespace XingYunZhiLun_3998
             });
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
 
+            //线号获奖文字
+            //ContentModel.Instance.creditText = gCredit;
 
             ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
 
@@ -921,7 +923,7 @@ namespace XingYunZhiLun_3998
                 long totalWinLineCredit = 0;
                 totalWinLineCredit = slotMachineCtrl.GetTotalWinCredit(winList);
                 allWinCredit += totalWinLineCredit;
-                if (winList.Count > 0)
+                if (winList.Count > 1)
                 {
                     //yield return ShowWinListOnceAtNormalSpin(winList);
                     yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
@@ -991,9 +993,9 @@ namespace XingYunZhiLun_3998
                     slotMachineCtrl.ShowMultipleHit(new List<int>() { 9 }, true, 9, true);
 
                     //积分同步和退币处理
-                    slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * ContentModel.Instance.multiple * ContentModel.Instance.betmultiple);
+                    slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * ContentModel.Instance.multiple * MainModel.Instance.contentMD.betmultiple);
                     //加钱动画
-                    MainBlackboardController.Instance.AddMyTempCredit(allWinCredit * ContentModel.Instance.multiple * ContentModel.Instance.betmultiple);
+                    MainBlackboardController.Instance.AddMyTempCredit(allWinCredit * ContentModel.Instance.multiple * MainModel.Instance.contentMD.betmultiple);
                 }
             }
             #endregion
@@ -1004,7 +1006,7 @@ namespace XingYunZhiLun_3998
             List<JackpotWinInfo> jpRes = ContentModel.Instance.jpGameWinLst;
 
             //List<float> jpCredit = ContentModel.Instance.jpGameWhenCreditLst;
-            if (ContentModel.Instance.jackpotWinCredit > 0)
+            if (ContentModel.Instance.isDrawWins)
             {
                 if(winList.Count > 0)
                 {
@@ -1021,15 +1023,11 @@ namespace XingYunZhiLun_3998
                 //slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolAppear, new List<int>() { 8 }, true, 8, true);
             }
 
-            if (ContentModel.Instance.jackpotWinCredit > 0)
+            if (ContentModel.Instance.isDrawWins)
             {
-                JackpotWinInfo jpWin = jpRes[0];
-                jpRes.RemoveAt(0);
-
                 isNext = false;
                 isMain = false;
-                JackpotType = jpWin.name;
-                winCredit = ContentModel.Instance.jackpotWinCredit;
+                winCredit = ContentModel.Instance.drawWinsCredits;
 
                 PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupZhuanPan,
                     new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
@@ -1052,8 +1050,11 @@ namespace XingYunZhiLun_3998
 
                 yield return JackpotGameTrigger(() => isNext = true);
                 yield return new WaitUntil(() => isNext == true);
-                isNext = false;
 
+                //积分同步和退币处理
+                slotMachineCtrl.SendTotalWinCreditEvent((int)winCredit);
+
+                isNext = false;
 
             }
 
@@ -1295,6 +1296,12 @@ namespace XingYunZhiLun_3998
                     {
                         ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
                     }
+
+                    //积分同步和退币处理
+                    slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit * MainModel.Instance.contentMD.betmultiple);
+
+                    //加钱动画
+                    MainBlackboardController.Instance.AddMyTempCredit(ContentModel.Instance.freeSpinTotalWinCredit * MainModel.Instance.contentMD.betmultiple, true, isAddCreditAnim);
                 });
 
 
@@ -1559,7 +1566,7 @@ namespace XingYunZhiLun_3998
             }
 
             // 本剧同步玩家金钱
-            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+            //MainBlackboardController.Instance.SyncMyTempCreditToReal(false);
 
             long totalWinLineCredit = 0;
             if (ContentModel.Instance.newFreeOnceCredit.Count > ContentModel.Instance.freeSpinPlayTimes - 1)
@@ -1659,7 +1666,7 @@ namespace XingYunZhiLun_3998
             else
             {
                 int i = 0;
-                while (i < 3)
+                while (winList.Count > 1 && i < 3)
                 {
                     // 立马停止时，不播放赢分环节？
                     if (slotMachineCtrl.isStopImmediately && _spinWEMD.Instance.isSkipAtStopImmediately)
@@ -2413,6 +2420,7 @@ namespace XingYunZhiLun_3998
                             ContentModel.Instance.gameState = GameState.Spin;
                         }
 
+
                         isNext = true;
                         isMain = true;
                     });
@@ -2831,9 +2839,9 @@ namespace XingYunZhiLun_3998
             if (toSetEffect)
             {
                 sorceText.text = "114514";
-                if(ContentModel.Instance.jackpotWinCredit != 0)
+                if(ContentModel.Instance.drawWinsCredits >= 0)
                 {
-                    sorceText.text = ContentModel.Instance.jackpotWinCredit.ToString();
+                    sorceText.text = ContentModel.Instance.drawWinsCredits.ToString();
                 }
 
                 string symbolName = CustomModel.Instance.jackpotHitEffect["10"];
