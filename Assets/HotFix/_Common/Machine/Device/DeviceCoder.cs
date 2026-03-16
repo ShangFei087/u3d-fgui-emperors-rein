@@ -206,11 +206,14 @@ public class DeviceCoder : MonoSingleton<DeviceCoder>
     {
 
         bool isNext = false;
+        bool needClearRecord = false;
 
         bool isSuccess = sBoxPermissionsData.result == 0;
         if (isSuccess) // 成功
         {
             DebugUtils.LogWarning("打码成功");
+            // 同步玩家金额
+            ResetHallAndPanelCreditUI();
 
             if (sBoxPermissionsData.permissions / 1000 > 0)//2001
             {
@@ -229,16 +232,13 @@ public class DeviceCoder : MonoSingleton<DeviceCoder>
                         DebugUtils.LogWarning("遮罩打卡出问题了 "+ e.Message);
                     }
 
-
                     MachineRestoreManager.Instance.ClearRecordWhenCoding();
-
                     yield return new WaitForSeconds(5f);
                 }
                 else
                 {
                     //不清帐
                     DebugUtils.LogWarning("不清帐");
-
                     //#seaweed# 打码返回有问题，默认打码就清数据库。(之后再拿掉这块代码！)
                     MachineRestoreManager.Instance.ClearRecordWhenCoding();
                 }
@@ -251,15 +251,10 @@ public class DeviceCoder : MonoSingleton<DeviceCoder>
                 DebugUtils.LogError("打码返回数据有问题！！");
             }
 
-            // 同步玩家金额
-            //SyncPlayerCredit();
-
             // 已激活
             SBoxModel.Instance.isMachineActive = true;
-
             //关掉锁死弹窗
             CommonPopupHandler.Instance.ClosePopup(MARK_IS_POPUP_CHECK_ACTIVE);
-
             // 【新加】重新获取配置
             MachineDataManager02.Instance.RequestReadConf((data) =>
             {
@@ -333,5 +328,19 @@ public class DeviceCoder : MonoSingleton<DeviceCoder>
 
         // 延时打开？？
         TipPopupHandler.Instance.OpenPopup(I18nMgr.T(isSuccess ? "Coding activation successful" : "Coding activation failed"));
+    }
+
+    /// <summary>
+    /// 打码激活后清零大厅和面板信用分显示。
+    /// </summary>
+    private void ResetHallAndPanelCreditUI()
+    {
+        if (MainBlackboardController.Instance == null)
+        {
+            return;
+        }
+
+        MainBlackboardController.Instance.SetMyTempCredit(0, true);
+        DebugUtils.LogWarning("打码激活后已清零大厅和面板Credit UI");
     }
 }

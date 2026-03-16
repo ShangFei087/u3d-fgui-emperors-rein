@@ -38,15 +38,15 @@
       <property target="key" propertyId="0" value="&lt;i18n value=&quot;CON1x&quot;&gt;Difficulty:&lt;/i18n&gt;"/>
       <property target="value" propertyId="0" value="980"/>
     </component>
-    <component id="n33_cwuo" name="betAllowed" src="cwuo2j" fileName="moudules/ItemBetLst.xml" xy="540,76" group="n14_cwuo">
+    <component id="n33_cwuo" name="betAllowed" src="cwuo2j" fileName="moudules/ItemBetLst.xml" xy="540,76" group="n14_cwuo" scale="1.5,1.5">
       <relation target="" sidePair="left-left"/>
     </component>
-    <component id="n34_cwuo" name="active" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="540,456" group="n14_cwuo">
+    <component id="n34_cwuo" name="active" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="457,623" group="n14_cwuo">
       <relation target="" sidePair="left-left"/>
       <property target="key" propertyId="0" value=""/>
       <property target="value" propertyId="0" value="Active"/>
     </component>
-    <group id="n14_cwuo" name="right" xy="540,0" size="540,532" advanced="true">
+    <group id="n14_cwuo" name="right" xy="457,0" size="623,699" advanced="true">
       <relation target="" sidePair="width-width"/>
     </group>
     <component id="n44_jtgo" name="changeShiftPassword" src="jtgo3d" fileName="moudules/ItemButton005.xml" xy="0,760" group="n48_msw2">
