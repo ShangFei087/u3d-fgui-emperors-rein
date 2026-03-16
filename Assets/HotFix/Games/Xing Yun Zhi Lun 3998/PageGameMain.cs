@@ -1525,9 +1525,7 @@ namespace XingYunZhiLun_3998
                     slotMachineCtrl.SkipWinLine(true);
 
                     yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
-
-                    // 免费游戏中赢票栏显示累计值，不即时入余额
-                    slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit);
+                    //yield return ShowWinListOnceAtNormalSpin(winList);
                 }
 
                 // 播大奖弹窗
@@ -1561,7 +1559,7 @@ namespace XingYunZhiLun_3998
             }
 
             // 本剧同步玩家金钱
-            //MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
 
             long totalWinLineCredit = 0;
             if (ContentModel.Instance.newFreeOnceCredit.Count > ContentModel.Instance.freeSpinPlayTimes - 1)
@@ -1569,7 +1567,7 @@ namespace XingYunZhiLun_3998
                 totalWinLineCredit = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
             }
             allWinCredit = totalWinLineCredit;
-            //slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * MainModel.Instance.contentMD.betmultiple);
+            slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * MainModel.Instance.contentMD.betmultiple);
 
 
             ContentModel.Instance.freeOnceCredit = totalWinLineCredit;

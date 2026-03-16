@@ -87,23 +87,28 @@ public class DayBusinessRecordController001
     void InitBusinessDayRecordInfo()
     {
         dropdownDateLstBusniessDayRecord = new List<string>();
-        string tableName = ConsoleTableName.TABLE_BUSINESS_DAY_RECORD;
-        // 仅取最近7天（含今天）的营收日期，按日期倒序。
-        string sql =
-            $"SELECT DISTINCT DATE(DATETIME(created_at / 1000, 'unixepoch', 'localtime')) AS day " +
-            $"FROM {tableName} " +
-            $"WHERE DATE(DATETIME(created_at / 1000, 'unixepoch', 'localtime')) >= DATE('now', 'localtime', '-6 day') " +
-            $"ORDER BY day DESC;"; 
+
+        string sql = $"SELECT created_at FROM {ConsoleTableName.TABLE_BUSINESS_DAY_RECORD}";
         DebugUtils.Log(sql);
+        List<long> date = new List<long>();
 
         SQLiteAsyncHelper.Instance.ExecuteQueryAsync(sql, null, (SqliteDataReader sdr) =>
         {
             while (sdr.Read())
             {
-                string day = sdr.GetString(0);
-                if (!string.IsNullOrEmpty(day))
+                long d = sdr.GetInt64(0);
+                date.Add(d);
+            }
+            foreach (long timestamp in date)
+            {
+                DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds(timestamp);
+                DateTime localDateTime = dateTimeOffset.LocalDateTime;
+                string time = localDateTime.ToString(FORMAT_DATE_DAY);
+
+                if (!dropdownDateLstBusniessDayRecord.Contains(time))
                 {
-                    dropdownDateLstBusniessDayRecord.Add(day);
+                    DebugUtils.Log($"时间搓：{timestamp} 时间 ：{time}");
+                    dropdownDateLstBusniessDayRecord.Insert(0, time); //最新排在最前
                 }
             }
 
@@ -117,12 +122,6 @@ public class DayBusinessRecordController001
             {
                 _comboDateBusinessDayRecord.selectedIndex = 0;
                 CheckBusinessDayRecord(_comboDateBusinessDayRecord.values[0]);
-            }
-            else
-            {
-                _comboDateBusinessDayRecord.items = Array.Empty<string>();
-                _comboDateBusinessDayRecord.values = Array.Empty<string>();
-                ClearAllUI();
             }
 
         });

@@ -948,13 +948,6 @@ namespace SlotZhuZaiJinBi1700
             isNext = false;
 
             yield return GameFreeSpin(null, errorCallback);
-
-            // 免费游戏结束后统一把累计赢分加到余额
-            long freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCredit;
-            if (freeSpinTotalWinCredit > 0)
-            {
-                MainBlackboardController.Instance.AddMyTempCredit(freeSpinTotalWinCredit, true, isAddCreditAnim);
-            }
         }
 
         IEnumerator GameFreeSpin(Action successCallback, Action<string> errorCallback)
@@ -1117,8 +1110,8 @@ namespace SlotZhuZaiJinBi1700
 
 
 
-                // 免费游戏中赢票栏显示累计值，不即时入余额
-                slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit);
+                // 总线赢分事件
+                slotMachineCtrl.SendTotalWinCreditEvent(totalWinLineCredit);
 
                 //加钱动画
                 //MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true, isAddCreditAnim);
@@ -1130,7 +1123,8 @@ namespace SlotZhuZaiJinBi1700
             #endregion
 
 
-            // 免费游戏中不逐局同步余额，等待免费结束后统一结算
+            // 本剧同步玩家金钱
+            MainBlackboardController.Instance.SyncMyTempCreditToReal(false);
 
             // 本局掉币
             //ERPushMachineDataManager.Instance.RequestCoinPushSpinEnd(res1 =>

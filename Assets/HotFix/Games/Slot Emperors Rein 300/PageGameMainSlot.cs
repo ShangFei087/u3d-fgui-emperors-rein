@@ -304,7 +304,6 @@ namespace SlotEmperorsRein
 
         bool tipCoinIn = false;
         List<BonusWin> bonusWins = new List<BonusWin>();
-        long _freeSpinSettleCredit = 0;
         bool isAddCreditAnim => !(slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
 
         void TestScreen()
@@ -749,8 +748,11 @@ namespace SlotEmperorsRein
                     mono.StartCoroutine(PlayTotalWinEffectFS());
                 }
 
-                // 免费游戏中仅累计赢票栏，不即时入余额
-                slotMachineCtrl.SendTotalWinCreditEvent(_freeSpinSettleCredit + totalWinLineCredit);
+                // 总线赢分事件
+                slotMachineCtrl.SendTotalWinCreditEvent(totalWinLineCredit);
+
+                //加钱动画
+                MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true, isAddCreditAnim);
 
 
 
@@ -800,21 +802,25 @@ namespace SlotEmperorsRein
                 isNext = false;
                 yield return new WaitUntil(() => isNext == true);
 
-                // 免费游戏中仅累计赢票栏，不即时入余额
-                slotMachineCtrl.SendTotalWinCreditEvent(_freeSpinSettleCredit + allWinCredit);
+                // 总线赢分事件
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+
+                MainBlackboardController.Instance.AddMyTempCredit((long)jpWin.winCredit, true, isAddCreditAnim);
             }
 
             #endregion
 
-            // 记录本次免费局总赢，等待免费结束后统一入余额
-            _freeSpinSettleCredit += allWinCredit;
 
             // 【取消】大厅彩金
 
             // 小游戏
 
 
-            // 免费游戏中不逐局同步金额、不逐局退币
+            // 本剧同步玩家金钱
+            MainBlackboardController.Instance.SyncMyTempCreditToReal(false);
+
+            // 即中即退
+            yield return CoinOutImmediately(allWinCredit);
 
 
             #region 免费游戏中，添加额外免费游戏
@@ -1196,7 +1202,6 @@ namespace SlotEmperorsRein
         IEnumerator FreeSpinTrigger(Action successCallback, Action<string> errorCallback)
         {
             bool isNext = false;
-            _freeSpinSettleCredit = 0;
 
             yield return new WaitForSeconds(3f);
 
@@ -1259,13 +1264,7 @@ namespace SlotEmperorsRein
 
             slotMachineCtrl.EndBonusFreeSpin();
 
-            // 免费游戏结束后统一加到余额
-            if (_freeSpinSettleCredit > 0)
-            {
-                MainBlackboardController.Instance.AddMyTempCredit(_freeSpinSettleCredit, true, isAddCreditAnim);
-            }
-            MainBlackboardController.Instance.SyncMyTempCreditToReal(false);
-            yield return CoinOutImmediately(_freeSpinSettleCredit);
+
 
             yield return WinPopup(GetBigWinType(), ContentModel.Instance.baseGameWinCredit);
 

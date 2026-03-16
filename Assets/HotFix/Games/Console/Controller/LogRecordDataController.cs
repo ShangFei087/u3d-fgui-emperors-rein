@@ -50,21 +50,29 @@ public class LogRecordDataController
 
     void InitLogInfo()
     {
-        string sql =
-            $"SELECT DISTINCT DATE(DATETIME(created_at / 1000, 'unixepoch', 'localtime')) AS day " +
-            $"FROM {tabName} " +
-            $"ORDER BY day DESC;";
+
+        string sql = $"SELECT created_at FROM {tabName}";
 
         DebugUtils.Log(sql);
+        List<long> date = new List<long>();
         dropdownDateLst = new List<string>();
         SQLiteAsyncHelper.Instance.ExecuteQueryAsync(sql, null, (SqliteDataReader sdr) =>
         {
             while (sdr.Read())
             {
-                string day = sdr.GetString(0);
-                if (!string.IsNullOrEmpty(day))
+                long d = sdr.GetInt64(0);
+                date.Add(d);
+            }
+            foreach (long timestamp in date)
+            {
+                DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds(timestamp);
+                DateTime localDateTime = dateTimeOffset.LocalDateTime;
+                string time = localDateTime.ToString(FORMAT_DATE_DAY);
+
+                if (!dropdownDateLst.Contains(time))
                 {
-                    dropdownDateLst.Add(day);
+                    dropdownDateLst.Insert(0, time);
+                    //DebugUtils.Log($"时间搓：{timestamp} 时间 ：{time}");
                 }
             }
 
@@ -75,7 +83,8 @@ public class LogRecordDataController
 
     void OnDropdownChangedDate(int indexDate)
     {
-        if (dropdownDateLst == null || indexDate < 0 || indexDate >= dropdownDateLst.Count)
+
+        if (indexDate > dropdownDateLst.Count)
             return;
 
 
@@ -119,17 +128,6 @@ public class LogRecordDataController
 
     void SetUIPage()
     {
-        if (resLogEventRecord == null || resLogEventRecord.Count <= 0 || totalPageCount <= 0)
-        {
-            onPageChagne?.Invoke(new LogPageInfo()
-            {
-                curPageNumber = 0,
-                totalPageCount = 0,
-                logRecords = new List<LogRecord>(),
-            });
-            return;
-        }
-
         int lastIdx = fromIdx + totalCountPerPage - 1;
         if (lastIdx > resLogEventRecord.Count - 1)
         {
@@ -181,12 +179,7 @@ public class LogRecordDataController
 
     public void ChangeDate(int? index)
     {
-        if (dropdownDateLst == null || dropdownDateLst.Count <= 0) return;
-
-        if (index != null && ((int)index < 0 || (int)index >= dropdownDateLst.Count))
-        {
-            return;
-        }
+        if (dropdownDateLst.Count <= 0) return;
 
         if (index != null)
         {
@@ -199,40 +192,6 @@ public class LogRecordDataController
         }
 
         SetDate(dateIndex);
-    }
-
-    public void PrevPage()
-    {
-        if (totalPageCount <= 0 || resLogEventRecord == null || resLogEventRecord.Count <= 0)
-        {
-            return;
-        }
-
-        if (curPageIndex <= 0)
-        {
-            return;
-        }
-
-        curPageIndex--;
-        fromIdx = curPageIndex * totalCountPerPage;
-        SetUIPage();
-    }
-
-    public void NextPage()
-    {
-        if (totalPageCount <= 0 || resLogEventRecord == null || resLogEventRecord.Count <= 0)
-        {
-            return;
-        }
-
-        if (curPageIndex >= totalPageCount - 1)
-        {
-            return;
-        }
-
-        curPageIndex++;
-        fromIdx = curPageIndex * totalCountPerPage;
-        SetUIPage();
     }
 
 

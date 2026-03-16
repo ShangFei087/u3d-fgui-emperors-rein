@@ -46,6 +46,486 @@ namespace XingYunZhiLun_3998
 
         private List<SymbolInclude> freeGameInclude = new List<SymbolInclude>();
 
+        public void ParseSlotSpin(long totalBet, JSONNode res, SBoxJackpotData sboxJackpotData)
+        {
+            SBoxGameState gameState = (SBoxGameState)((int)res["gameState"]);
+
+            List<int> LineNumbers = new List<int>();
+            int lineMark = (int)res["lineMark"];
+
+            // lineMark /10000 / 100  // 3个线的数据
+
+            int B = lineMark / 10000;
+            int remainingAfterB = lineMark - B * 10000;
+            int C = remainingAfterB / 100;
+            int D = remainingAfterB - C * 100;
+
+            if (B != 0)
+                LineNumbers.Add(B);
+            if (C != 0)
+                LineNumbers.Add(C);
+            if (D != 0)
+                LineNumbers.Add(D);
+
+            List<WinningLineInfo> winningLines = new List<WinningLineInfo>();
+
+            for (int i = 0; i < res["lineData"].Count; i++)
+            {
+                JSONNode node = res["lineData"][i];
+
+                int symbolNumber = node["icon"];
+                int hitCount = node["link"];
+                //int credit = node["reward"];
+                int lineNumber = LineNumbers[i];
+
+                winningLines.Add(new WinningLineInfo()
+                {
+                    LineNumber = lineNumber,
+                    SymbolNumber = symbolNumber,
+                    WinCount = hitCount,
+                });
+            }
+
+            //bool isJackpotGrand = sboxJackpotData == null ? false : sboxJackpotData.Lottery[0] == 1;
+
+            //bool isJackpotMajor = sboxJackpotData == null ? false : sboxJackpotData.Lottery[1] == 1;
+
+            bool isJackpotGrand = gameState == SBoxGameState.GSJpGrand;
+
+            bool isJackpotMajor = gameState == SBoxGameState.GSJpMajor;
+
+            bool isJackpotMinMinor = gameState == SBoxGameState.GSJpSmalm;
+
+            bool isBonusBall = gameState == SBoxGameState.GSBonus;
+
+            bool isLihe = gameState == SBoxGameState.GSLihe;
+
+            bool isWild = gameState == SBoxGameState.GSWild;
+
+            bool isMult = gameState == SBoxGameState.GSMult;
+
+            int freeSpinTotalTimes = (int)res["maxRound"];
+            int freeSpinPlayTimes = (int)res["curRound"];
+
+
+
+            bool isFreeSpinTrigger = freeSpinPlayTimes == 0 && freeSpinTotalTimes > 0;
+
+            bool isFreeSpinResult = freeSpinTotalTimes > 0 && freeSpinPlayTimes == freeSpinTotalTimes;
+
+            bool isFreeSpin = freeSpinPlayTimes > 0 && freeSpinTotalTimes > 0;
+
+            string strDeckRowCol = "";
+
+
+
+            List<SymbolInclude> symbolInclude = new List<SymbolInclude>();
+            
+            JackpotRes jpGameRes = new JackpotRes();
+            ContentModel.Instance.jpGameRes = jpGameRes;
+
+            //jpGameRes.curJackpotGrand = sboxJackpotData.JackpotOut[0];
+            //jpGameRes.curJackpotMajor = sboxJackpotData.JackpotOut[1];
+
+            jpGameRes.curJackpotGrand = 3000;
+            jpGameRes.curJackpotMajor = 2000;
+            jpGameRes.curJackpotMinior = 1000;
+            jpGameRes.curJackpotMini = 500;
+
+
+            if (isJackpotGrand)
+            {
+
+                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
+                {
+                    //name = "grand",
+                    //id = 0,
+                    //winCredit = sboxJackpotData.Jackpotlottery[0],
+                    //whenCredit = sboxJackpotData.JackpotOld[0],
+                    //curCredit = sboxJackpotData.JackpotOut[0],
+
+                    name = "grand",
+                    id = 0,
+                    winCredit = 3000,
+                    whenCredit = 3000,
+                    curCredit = 3000,
+                });
+
+                symbolInclude = new List<SymbolInclude>();
+                for (int i = 0; i < 5; i++)
+                {
+                    symbolInclude.Add(new SymbolInclude() { symbolNumber = 8 });
+                }
+
+                strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
+                   ContentModel.Instance.payLines,
+                   CustomModel.Instance.symbolNumber, winningLines, new int[] { 8, 9 , 10 }, symbolInclude);
+            }
+
+            else if (isJackpotMajor)
+            {
+                int winCredit = (int)res["num"];
+                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
+                {
+                    //name = "major",
+                    //id = 1,
+                    //winCredit = sboxJackpotData.Jackpotlottery[1],
+                    //whenCredit = sboxJackpotData.JackpotOld[1],
+                    //curCredit = sboxJackpotData.JackpotOut[1],
+
+                    name = "major",
+                    id = 1,
+                    winCredit = 2000,
+                    whenCredit = 2000,
+                    curCredit = 2000,
+                });
+
+                if (!isJackpotGrand)
+                {
+                    symbolInclude = new List<SymbolInclude>();
+                    for (int i = 0; i < 4; i++)
+                    {
+                        symbolInclude.Add(new SymbolInclude() { symbolNumber = 8 });
+                    }
+                }
+
+                strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
+                   ContentModel.Instance.payLines,
+                   CustomModel.Instance.symbolNumber, winningLines, new int[] { 8, 9 ,10}, symbolInclude);
+            }
+            else if (isJackpotMinMinor)
+            {
+                int winCredit = (int)res["num"];
+
+                if (winCredit == 1000)
+                {
+                    jpGameRes.jpWinLst.Add(new JackpotWinInfo()
+                    {
+                        name = "minor",
+                        id = 3,
+                        winCredit = 1000,
+                        whenCredit = 1000,
+                        curCredit = 1000,
+                    });
+                }
+                else if (winCredit == 500)
+                {
+                    jpGameRes.jpWinLst.Add(new JackpotWinInfo()
+                    {
+                        name = "mini",
+                        id = 4,
+                        winCredit = 500,
+                        whenCredit = 500,
+                        curCredit = 500,
+                    });
+                }
+
+
+                if (!isJackpotGrand && !isJackpotMajor)
+                {
+                    symbolInclude = new List<SymbolInclude>();
+                    for (int i = 0; i < 3; i++)
+                    {
+                        symbolInclude.Add(new SymbolInclude() { symbolNumber = 8 });
+                    }
+                }
+
+                strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
+                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.symbolNumber, winningLines, new int[] {8, 9, 10}, symbolInclude);
+
+            }
+            else if (isLihe)
+            {
+                for(int i = 0; i < (int)res["num"]; i++)
+                {
+                    symbolInclude.Add(new SymbolInclude() { symbolNumber = 8 });
+                }
+
+                int[] numRows = res["numRows"]?.ToString().Select(c => int.Parse(c.ToString())).ToArray();
+                int[] numCols = res["numCols"]?.ToString().Select(c => int.Parse(c.ToString())).ToArray();
+
+                ContentModel.Instance.winningLines = winningLines;
+                ContentModel.Instance.rewardIndex = (int)res["rewardIcon"];
+
+                strDeckRowCol = GenerateGameArray(
+                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.symbolNumber, null, new int[] { 8, 9, 10, (int)res["rewardIcon"] }, symbolInclude, freeGameInclude, true, numRows, numCols);
+            }
+            else if (isWild)
+            {
+                ContentModel.Instance.cols.Clear();
+                for (int i = 0; i < (int)res["num"]; i++)
+                {
+                    symbolInclude.Add(new SymbolInclude() { symbolNumber = 8 });
+                }
+
+                int[] numRows = res["numRows"]?.ToString().Select(c => int.Parse(c.ToString())).ToArray();
+                int[] numCols = res["numCols"]?.ToString().Select(c => int.Parse(c.ToString())).ToArray();
+
+                ContentModel.Instance.cols.AddRange(numCols);
+                ContentModel.Instance.maxLink = (int)res["maxLink"];
+
+                strDeckRowCol = WildGenerateGameArray(
+                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.symbolNumber, winningLines, new int[] { 8, 9 ,10}, symbolInclude, numRows, numCols);
+            }
+            else if (isMult)
+            {
+                for (int i = 0; i < (int)res["num"]; i++)
+                {
+                    symbolInclude.Add(new SymbolInclude() { symbolNumber = 8 });
+                }
+                //记录当前中奖的倍率
+                ContentModel.Instance.multiple = (int)res["multiple"];
+
+                strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
+                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.symbolNumber, winningLines, new int[] { 8, 9 , 10 }, symbolInclude);
+            }
+            else if (isFreeSpinTrigger)
+            {
+                freeGameInclude.Clear();
+                int[] numRows = res["numRows"]?.ToString().Select(c => int.Parse(c.ToString())).ToArray();
+                int[] numCols = res["numCols"]?.ToString().Select(c => int.Parse(c.ToString())).ToArray();
+
+                for (int i = 0; i < (int)res["num"]; i++)
+                {
+                    symbolInclude.Add(new SymbolInclude() { symbolNumber = 8 });
+                }
+
+                strDeckRowCol = GenerateGameArray(
+                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.symbolNumber, winningLines, new int[] { 8, 9 , 10 }, symbolInclude, freeGameInclude, isFreeSpinTrigger, numRows, numCols);
+            }
+            else if (isFreeSpin)
+            {
+                int[] numRows = null;
+                int[] numCols = null;
+                foreach(int key in ContentModel.Instance.wildPos.Keys)
+                {
+                    ContentModel.Instance.wildPos[key].Clear();
+                }
+
+                if (res["numRows"] != null && res["numCols"] != null)
+                {
+                    numRows = res["numRows"].ToString().Select(c => int.Parse(c.ToString())).ToArray();
+                    numCols = res["numCols"].ToString().Select(c => int.Parse(c.ToString())).ToArray();
+
+                    ContentModel.Instance.tempRows.AddRange(numRows);
+
+                }
+
+                for (int i = 0; i < (int)res["num"]; i++)
+                {
+                    symbolInclude.Add(new SymbolInclude() { symbolNumber = 8 });
+                }
+
+                strDeckRowCol = GenerateGameArray(
+                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.symbolNumber, winningLines, new int[] { 8, 9 , 10 }, symbolInclude, freeGameInclude, isFreeSpinTrigger, numRows, numCols);
+            }
+            else
+            {
+                strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
+                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.symbolNumber, winningLines, new int[] { 8, 9 , 10 }, symbolInclude);
+            }
+
+            long creditBefore = MainBlackboardController.Instance.myRealCredit;
+
+            long afterBetCredit = 0;
+            long totalEarnCredit = 0;
+
+            if (++MainModel.Instance.gameNumber < 0)
+                MainModel.Instance.gameNumber = 1;
+
+            ContentModel.Instance.response = res.ToString();
+
+            ContentModel.Instance.strDeckRowCol = strDeckRowCol;
+
+            List<SymbolWin> winList = new List<SymbolWin>();
+            for (int i = 0; i < LineNumbers.Count; i++)
+            {
+                int lineNumber = LineNumbers[i];
+                int lineIndex = lineNumber - 1;
+
+                int[] lineInfo = ContentModel.Instance.payLines[lineIndex].ToArray();
+
+                JSONNode lineNode = res["lineData"][i];
+                int credit = lineNode["reward"];
+                int hitCount = lineNode["link"];
+                int symbolNumber = lineNode["icon"];
+
+                List<Cell> _cells = new List<Cell>();
+
+                for (int c = 0; c < hitCount; c++)
+                {
+                    int rowIdx = lineInfo[c];
+                    int colIdx = c;
+                    _cells.Add(new Cell(colIdx, rowIdx));
+                }
+
+                SymbolWin sw = new SymbolWin()
+                {
+                    earnCredit = credit,
+                    multiplier = 1,
+                    lineNumber = lineNumber,
+                    symbolNumber = symbolNumber,
+                    cells = _cells,
+                };
+                winList.Add(sw);
+
+                totalEarnCredit += credit;
+            }
+
+            ContentModel.Instance.winList = winList;
+
+
+
+            if (isFreeSpin && freeSpinTotalTimes != 0)
+            {
+                ContentModel.Instance.freeSpinAddNum =
+                    freeSpinTotalTimes - ContentModel.Instance.freeSpinTotalTimes;
+            }
+            else
+            ContentModel.Instance.freeSpinAddNum = 0;
+
+
+            if (isFreeSpin)
+            {
+                ContentModel.Instance.showFreeSpinRemainTime = ContentModel.Instance.freeSpinTotalTimes -
+                                                               ContentModel.Instance.freeSpinPlayTimes - 1;
+            }
+            else
+            {
+                ContentModel.Instance.showFreeSpinRemainTime = 0;
+            }
+
+            ContentModel.Instance.isLihe = isLihe;
+            ContentModel.Instance.isWild = isWild;
+            ContentModel.Instance.isMult = isMult;
+
+
+            ContentModel.Instance.freeSpinTotalTimes = freeSpinTotalTimes;
+            ContentModel.Instance.freeSpinPlayTimes = freeSpinPlayTimes;
+
+
+            ContentModel.Instance.isFreeSpinTrigger = isFreeSpinTrigger;
+            ContentModel.Instance.isFreeSpinResult = isFreeSpinResult;
+
+            if (isFreeSpinTrigger)
+            {
+                ContentModel.Instance.curReelStripsIndex = "BS";
+                ContentModel.Instance.nextReelStripsIndex = "FS";
+            }
+            else if (isFreeSpinResult)
+            {
+                ContentModel.Instance.curReelStripsIndex = "FS";
+                ContentModel.Instance.nextReelStripsIndex = "BS";
+                freeGameInclude = new List<SymbolInclude>();
+                ContentModel.Instance.tempRows.Clear();
+            }
+            else if (isFreeSpin)
+            {
+                ContentModel.Instance.curReelStripsIndex = "FS";
+                ContentModel.Instance.nextReelStripsIndex = "FS";
+            }
+            else
+            {
+                ContentModel.Instance.curReelStripsIndex = "BS";
+                ContentModel.Instance.nextReelStripsIndex = "BS";
+            }
+
+            ContentModel.Instance.totalEarnCredit = totalEarnCredit;
+            ContentModel.Instance.baseGameWinCredit = totalEarnCredit;
+
+
+            //ContentModel.Instance.winFreeSpinTriggerOrAddCopy = null;
+
+
+            ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+            ContentModel.Instance.curGameGuid = isFreeSpin
+                ? $"{MainModel.Instance.gameID}-{UnityEngine.Random.Range(100, 1000)}-{ContentModel.Instance.curGameCreatTimeMS}-{MainModel.Instance.gameNumber}-{ContentModel.Instance.gameNumberFreeSpinTrigger}"
+                : $"{MainModel.Instance.gameID}-{UnityEngine.Random.Range(100, 1000)}-{ContentModel.Instance.curGameCreatTimeMS}-{MainModel.Instance.gameNumber}";
+
+
+            if (!isFreeSpin)
+            {
+                afterBetCredit = creditBefore - totalBet;
+            }
+            else
+            {
+                afterBetCredit = creditBefore;
+            }
+            // ## MainBlackboardController.Instance.SetMyTempCredit(afterBetCredit, false); // 不同步给ui
+
+
+
+            long creditAfter = afterBetCredit + totalEarnCredit;
+
+            if (res.HasKey("creditAfter"))
+            {
+                creditAfter = res["creditAfter"];
+            }
+            // ## MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
+
+            Debug.LogWarning(
+                $"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={totalEarnCredit} ");
+            Debug.LogWarning($"本次计算 creditAfter= {afterBetCredit + totalEarnCredit}；  算法卡 creditAfter={creditAfter}");
+
+
+            // 免费游戏累计总赢
+            long freeSpinTotalWinCredit = 0;
+
+            if (!isFreeSpin)
+            {
+                ContentModel.Instance.freeSpinTotalWinCredit = 0;
+            }
+            else
+            {
+                ContentModel.Instance.freeSpinTotalWinCredit += totalEarnCredit;
+                freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCredit;
+            }
+
+
+            List<List<int>> deckColRow = SlotTool.GetDeckColRow02(strDeckRowCol);
+            bool isReelsSlowMotion = ((int)res["num"] > 2) ? true : false;
+            //bool isReelsSlowMotion = false;
+            ContentModel.Instance.isReelsSlowMotion = isReelsSlowMotion;
+
+
+            // bonus数据
+            var bonusResult = new Dictionary<int, JSONNode>();
+            /*
+            if (res["contents"]["bonus_result"] != null && res["contents"]["bonus_result"].Count > 0)
+            {
+               foreach (JSONNode item in res["contents"]["bonus_result"])
+               {
+                   bonusResult.Add((int)item["bonus_id"],item);
+               }
+            }*/
+            ContentModel.Instance.bonusResult = bonusResult;
+
+
+            /*
+            if (ContentModel.Instance.bonusResult.Count >0 )
+            {
+               ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Expectation02;
+            }
+            else
+            {
+               ContentModel.Instance.targetSlotGameEffect = isReelsSlowMotion ? SlotGameEffect.Expectation01 :
+                   isFreeSpin ? SlotGameEffect.FreeSpin : SlotGameEffect.Default;
+            }
+            */
+            ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Default;
+            SlotGameEffectManager.Instance.SetEffect(ContentModel.Instance.targetSlotGameEffect);
+
+
+        }
+
         private Dictionary<int, List<int>> freeWildRecord = new Dictionary<int, List<int>>();
 
         private int CalculateLineWinCredit(int symbolNumber, int hitCount)
@@ -407,17 +887,18 @@ namespace XingYunZhiLun_3998
             ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             long creditBefore = MainBlackboardController.Instance.myTempCredit + totalBet;
             //赢分
-            long Totalwins = totalEarnCredit * MainModel.Instance.contentMD.betmultiple;
-            if (ResultType == 3) Totalwins += (int)res["BonusBet"];
-            DebugUtils.Log("本局赢分TotalBet==" + Totalwins);
+            long TotalBet = (int)res["TotalBet"];
+            if (ResultType == 3) TotalBet += (int)res["BonusBet"];
+            TotalBet = TotalBet * MainModel.Instance.contentMD.betmultiple;
+            DebugUtils.Log("本局赢分TotalBet==" + TotalBet);
             long afterBetCredit = 0;
             if (OpenType == 1)
             {
-                afterBetCredit = creditBefore + Totalwins - totalBet;
+                afterBetCredit = creditBefore + TotalBet - totalBet;
             }
             else
             {
-                afterBetCredit = creditBefore + Totalwins - totalBet;
+                afterBetCredit = creditBefore + TotalBet - totalBet;
 
             }
 
@@ -429,21 +910,25 @@ namespace XingYunZhiLun_3998
             }
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
 
-            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={Totalwins} ");
+            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={TotalBet} ");
 
 
             // 免费游戏累计总赢
             long freeSpinTotalWinCredit = 0;
 
-            if (OpenType == 1)
+            //if (OpenType == 1)
+            //{
+            //    ContentModel.Instance.freeSpinTotalWinCredit = 0;
+            //}
+            //else
+            //{
+            //    ContentModel.Instance.freeSpinTotalWinCredit += totalEarnCredit;
+            //    freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCredit;
+            //}
+
+            if (ResultType == 2)
             {
-                ContentModel.Instance.freeSpinTotalWinCredit += Totalwins;
-                freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCredit;
-             
-            }
-            else
-            {
-                ContentModel.Instance.freeSpinTotalWinCredit = 0;
+                ContentModel.Instance.freeSpinTotalWinCredit = (int)res["TotalFreeBet"];
             }
 
 

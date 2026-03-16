@@ -96,8 +96,8 @@ public class TabGameHistoryController
             // 解析符号映射
             ParseSymbolIconMap(pageInfo.currentRecord.symbol_icon_mapping);
 
-            // 翻页时应显示当前记录时间，而不是下拉框选中的固定时间
-            DateTime displayTime = DateTimeOffset.FromUnixTimeMilliseconds(pageInfo.currentRecord.created_at).LocalDateTime;
+            // 显示时间信息
+            DateTime dt = DateTime.ParseExact(pageInfo.currentDateTime, "yyyy-MM-dd HH:mm:ss", null);
 
             // 解析符号布局
             List<int> deckColRow = SlotTool.GetDeckRowCol(pageInfo.currentRecord.strDeckRowCol);
@@ -111,7 +111,7 @@ public class TabGameHistoryController
 
             // 更新文本信息
             _rtxtgame_uid.text = $"{pageInfo.currentRecord.game_uid}";
-            _rtxtcreated_at.text = $"{displayTime:yyyy-MM-dd HH:mm:ss}";
+            _rtxtcreated_at.text = $"{dt.ToString("yyyy-MM-dd HH:mm:ss")}";
             _rtxtcredit_before.text = $"{pageInfo.currentRecord.credit_before}";
             _rtxtcredit_after.text = $"{pageInfo.currentRecord.credit_after}";
             _rtxttotal_bet.text = $"{pageInfo.currentRecord.total_bet}";
