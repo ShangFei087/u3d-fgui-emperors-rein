@@ -170,6 +170,8 @@
     <image id="ntbc5o" name="fg_bg2.png" path="/images/gameCommon/gameBg/" exported="true"/>
     <component id="obvg5p" name="Anchor_Redray.xml" path="/moudules/pageGameMain/FreeGame/" exported="true"/>
     <component id="qzbz5q" name="PopupOnlineJackpot.xml" path="/" exported="true"/>
+    <component id="u8n15r" name="Paytable026.xml" path="/moudules/gameCommon/payTable/" exported="true"/>
+    <component id="u8n15s" name="Paytable027.xml" path="/moudules/gameCommon/payTable/" exported="true"/>
   </resources>
   <publish name=""/>
 </packageDescription>

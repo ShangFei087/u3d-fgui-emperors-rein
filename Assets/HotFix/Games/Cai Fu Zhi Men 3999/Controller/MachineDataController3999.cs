@@ -188,6 +188,7 @@ namespace CaiFuZhiMen_3999
         {
             List<SymbolInclude> symbolInclude = new List<SymbolInclude>();
             ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
             //Matrix
             int rows = 3; // 3行
             int cols = 5; // 5列
@@ -399,13 +400,13 @@ namespace CaiFuZhiMen_3999
 
             long creditBefore = MainBlackboardController.Instance.myTempCredit;
             //赢分
-            long TotalBet = (int)res["TotalBet"] * MainModel.Instance.contentMD.betmultiple;; // 新增倍率
+            long TotalBet = (int)res["TotalBet"] * MainModel.Instance.contentMD.betmultiple;
             if (ResultType == 3) TotalBet = (int)res["BonusBet"]; //大奖得分
             DebugUtils.Log("本局赢分TotalBet==" + TotalBet);
             long afterBetCredit = 0;
             if (OpenType == 1)
             {
-                afterBetCredit = creditBefore + TotalBet;
+                 afterBetCredit = creditBefore + TotalBet;
             }
             else
             {
@@ -423,7 +424,7 @@ namespace CaiFuZhiMen_3999
             DebugUtils.Log(
                 $"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={totalEarnCredit} ");
             DebugUtils.Log($"本次计算 creditAfter= {afterBetCredit + totalEarnCredit}；  算法卡 creditAfter={creditAfter}");
-            
+
             // 免费游戏累计总赢
             long freeSpinTotalWinCredit = 0;
 
@@ -436,7 +437,7 @@ namespace CaiFuZhiMen_3999
                 ContentModel.Instance.freeSpinTotalWinCoins += totalEarnCredit;
                 freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCoins;
             }
-            
+
             List<List<int>> deckColRow = SlotTool.GetDeckColRow02(strDeckRowCol);
             // 原代码
             // bool isReelsSlowMotion = (deckColRow[0].Contains(10) && deckColRow[1].Contains(10)) ? true : false;
