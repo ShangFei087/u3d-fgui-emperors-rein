@@ -32,7 +32,7 @@ namespace XingYunZhiLun_3998
 
         Action jackpotAction;
         float sorce;
-        string jackpotType;
+        int jackpotType;
         List<float> jpCredit = new List<float> { };
 
 
@@ -154,7 +154,7 @@ namespace XingYunZhiLun_3998
                 argDic = (Dictionary<string, object>)_data.value;
                 if (argDic.ContainsKey("jackpotType"))
                 {
-                    jackpotType = (string)argDic["jackpotType"];
+                    jackpotType = (int)argDic["jackpotType"];
                 }
 
                 if (argDic.ContainsKey("totalEarnCredit"))
@@ -189,16 +189,16 @@ namespace XingYunZhiLun_3998
         {
             switch (jackpotType)
             {
-                case "mini":
+                case 3:
                     AddWrapperEffect(goFgCloneMini);
                     break;
-                case "minor":
+                case 2:
                     AddWrapperEffect(goFgCloneMinor);
                     break;
-                case "major":
+                case 1:
                     AddWrapperEffect(goFgCloneMajor);
                     break;
-                case "grand":
+                case 0:
                     AddWrapperEffect(goFgCloneGrand);
                     break;
             }

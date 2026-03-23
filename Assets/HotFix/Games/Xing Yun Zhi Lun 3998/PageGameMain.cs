@@ -240,6 +240,7 @@ namespace XingYunZhiLun_3998
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
+            EventCenter.Instance.AddEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             mono.updateHandle.AddListener(WheelTrun);
 
             InitParam(null);
@@ -263,6 +264,7 @@ namespace XingYunZhiLun_3998
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,OnSlotDetailEvent);
+            EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             mono.updateHandle.RemoveAllListeners();
 
             base.OnClose(data);
@@ -651,6 +653,12 @@ namespace XingYunZhiLun_3998
                 yield break;
             }
 
+            //检查是否启用在线彩金,请求彩金数据
+            if (SBoxModel.Instance.isJackpotOnLine && ClientWS.Instance.CurNetStatus == NET_STATUS.NET_STATUS_CONNECTED)
+            {
+                RequestOnlineJackpotBetByCurrentBet();
+            }
+
             //检查是否启用在线彩金
             //根据运行环境（模拟或实际）请求彩金数据
             if (SBoxModel.Instance.isJackpotOnLine)
@@ -923,7 +931,7 @@ namespace XingYunZhiLun_3998
                 long totalWinLineCredit = 0;
                 totalWinLineCredit = slotMachineCtrl.GetTotalWinCredit(winList);
                 allWinCredit += totalWinLineCredit;
-                if (winList.Count > 1)
+                if (winList.Count > 0)
                 {
                     //yield return ShowWinListOnceAtNormalSpin(winList);
                     yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
@@ -1113,6 +1121,35 @@ namespace XingYunZhiLun_3998
 
             #endregion
 
+
+            #region JpOnline
+            while (ContentModel.Instance.jpOnlineWin.Count > 0)
+            {
+                WinJackpotInfo data = ContentModel.Instance.jpOnlineWin[0];
+                ContentModel.Instance.jpOnlineWin.RemoveAt(0);
+
+                long winCredit = data.win;
+                allWinCredit += winCredit;
+
+                PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameResult,
+                    new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
+                    {
+                        ["jackpotType"] = data.jackpotId,
+                        ["totalEarnCredit"] = winCredit,
+                    }),
+                    (res) =>
+                    {
+                        isNext = true;
+                    });
+                yield return new WaitUntil(() => isNext == true);
+                isNext = false;
+
+                // 总线赢分（同步？？）
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+
+                MainBlackboardController.Instance.AddMyTempCredit(winCredit, true, isAddCreditAnim);
+            }
+            #endregion
 
             //核对前后端积分
             ERPushMachineDataManager02.Instance.RequestCoinPushSpinEnd(res1 =>
@@ -1425,6 +1462,7 @@ namespace XingYunZhiLun_3998
         IEnumerator GameFreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
             OnGameReset();
+            slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
 
             ContentModel.Instance.gameState = GameState.FreeSpin;
 
@@ -1573,8 +1611,8 @@ namespace XingYunZhiLun_3998
             {
                 totalWinLineCredit = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
             }
-            allWinCredit = totalWinLineCredit;
-            slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * MainModel.Instance.contentMD.betmultiple);
+            allWinCredit += totalWinLineCredit * MainModel.Instance.contentMD.betmultiple;
+            slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
 
 
             ContentModel.Instance.freeOnceCredit = totalWinLineCredit;
@@ -1861,6 +1899,106 @@ namespace XingYunZhiLun_3998
                 successCallback.Invoke();
         }
 
+
+        //下注时向大厅彩金主机发送当前下注
+        void RequestOnlineJackpotBetByCurrentBet()
+        {
+            try
+            {
+                List<JackBetInfo> jackBetInfoList = new List<JackBetInfo>();
+
+                JackBetInfo betInfo = new JackBetInfo()
+                {
+                    gameType = 300,
+                    seat = 1,
+                    bet = (int)TotalBet * 100,
+                    betPercent = 100,
+                    scoreRate = 1 * 1000,
+                    JPPercent = 1 * 1000,
+                };
+                jackBetInfoList.Add(betInfo);
+                NetMessageController.Instance.SendJackBet(jackBetInfoList);
+            }
+            catch (Exception ex)
+            {
+
+                //下注失败需要可以累计压分,最多10次
+                DebugUtils.LogError($"请求大厅彩金下注失败: {ex.Message}");
+            }
+        }
+
+        private readonly HashSet<long> _handledOnlineJackpotOrderIds = new HashSet<long>();
+        private static string GetOnlineJackpotName(int jackpotId)
+        {
+            switch (jackpotId)
+            {
+                case 0: return "Grand";
+                case 1: return "Major";
+                case 2: return "Minor";
+                case 3: return "Mini";
+                default: return "Unknown";
+            }
+        }
+
+        //大厅彩金主机赢分数据
+        private void OnJackpotOnLine(WinJackpotInfo winInfo)
+        {
+            try
+            {
+                if (winInfo == null)
+                    return;
+
+                // 订单去重，避免重复处理
+                if (_handledOnlineJackpotOrderIds.Contains(winInfo.orderId))
+                    return;
+
+                _handledOnlineJackpotOrderIds.Add(winInfo.orderId);
+
+                // 入队给业务层后续表现/结算使用
+                ContentModel.Instance.jpOnlineWin.Add(winInfo);
+
+                // 彩金数据入库
+                int jpLevel = winInfo.jackpotId + 1;
+                string jpName = GetOnlineJackpotName(winInfo.jackpotId);
+                long winCredit = (long)winInfo.win;
+                long creditBefore = MainBlackboardController.Instance.myRealCredit;
+                long creditAfter = MainBlackboardController.Instance.myRealCredit + winCredit;
+                string gameUID = string.IsNullOrEmpty(ContentModel.Instance.curGameGuid) ? "0" : ContentModel.Instance.curGameGuid;
+                long createdAt = winInfo.time;
+                TableJackpotRecordAsyncManager.Instance.AddJackpotRecord(jpLevel, jpName, winCredit, creditBefore, creditAfter, gameUID, createdAt);
+
+                //通知算法卡赢得联网彩金
+                SBoxWinNetJackpotInfo sBoxWinNetJackpotInfo = new SBoxWinNetJackpotInfo()
+                {
+                    MachineId = int.Parse(SBoxModel.Instance.MachineId),
+                    PlayerId = SBoxModel.Instance.SboxPlayerAccount.PlayerId,
+                    JackpotType = jpLevel,
+                    JackpotWins = winCredit,
+                };
+                MachineDataManager02.Instance.RequestJackpotOnline(sBoxWinNetJackpotInfo, (res) =>
+                {
+                    //算法卡加分后同步分数
+                    Debug.Log("通知算法卡赢得联网彩金");
+                    JSONNode data = JSONNode.Parse((string)res);
+
+                    long creditBefore = MainBlackboardController.Instance.myRealCredit;
+                    long JackpotWins = (long)data["JackpotWins"]; ;
+                    creditAfter = creditBefore + JackpotWins;
+                    MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
+
+                }, (BagelCodeError err) =>
+                {
+                    DebugUtils.Log(err.msg);
+                });
+            }
+            catch (Exception ex)
+            {
+                DebugUtils.LogError($"处理大厅彩金中奖下发失败: {ex.Message}");
+            }
+        }
+
+
+
         bool isGetCrediting = false;
         void GetMyCredit(Action<int> onSuccessCallback, Action<string> onErrorCallback)
         {
@@ -2133,7 +2271,7 @@ namespace XingYunZhiLun_3998
                         if (int.TryParse(symbolKey.Replace("s", ""), out int index))
                         {
                             // 2. 检查索引是否在列表有效范围内
-                            if (index >= 0)
+                            if (index >= 0) 
                             {
                                 // 3. 为列表中对应索引的元素赋值
                                 var targetItem = MainModel.Instance.contentMD.payTableSymbolWin[index];

@@ -361,7 +361,6 @@ namespace SlotZhuZaiJinBi1700
             //test 检查算法积分
             MachineDataManager02.Instance.RequestGetPlayerInfo((res) =>
             {
-
                 SBoxAccount data = (SBoxAccount)res;
                 int pid = SBoxModel.Instance.pid;
                 List<SBoxPlayerAccount> playerAccountList = data.PlayerAccountList;
@@ -378,7 +377,6 @@ namespace SlotZhuZaiJinBi1700
 
             }, (BagelCodeError err) =>
             {
-
                 DebugUtils.Log(err.msg);
             });
 
