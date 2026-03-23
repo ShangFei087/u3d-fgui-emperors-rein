@@ -178,6 +178,8 @@ namespace CaiFuZhiMen_3999
             }
         }
 
+        private long _countFreeGetCredit = 0;
+
         /// <summary>
         /// 算法解析
         /// </summary>
@@ -397,11 +399,12 @@ namespace CaiFuZhiMen_3999
                 ContentModel.Instance.IsBonusTrigger = true;
             }
 
-            long creditBefore = MainBlackboardController.Instance.myTempCredit;
+            long creditBefore = MainBlackboardController.Instance.myRealCredit;//myTempCredit 这是显示在UI上的的数值  myRealCredit是玩家的真实数据
             //赢分
             long TotalBet = (int)res["TotalBet"] * MainModel.Instance.contentMD.betmultiple;
             if (ResultType == 3) TotalBet = (int)res["BonusBet"];
             DebugUtils.Log("本局赢分TotalBet==" + TotalBet);
+            
             long afterBetCredit = 0;
             if (OpenType == 1)
             {
@@ -423,9 +426,9 @@ namespace CaiFuZhiMen_3999
             DebugUtils.Log(
                 $"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={totalEarnCredit} ");
             DebugUtils.Log($"本次计算 creditAfter= {afterBetCredit + totalEarnCredit}；  算法卡 creditAfter={creditAfter}");
-
-            // 免费游戏累计总赢
-            long freeSpinTotalWinCredit = 0;
+            
+            // 免费游戏累计总赢 暂时没用就先注释
+            // long freeSpinTotalWinCredit = 0;
 
             if (OpenType == 1)
             {
@@ -434,10 +437,10 @@ namespace CaiFuZhiMen_3999
             else
             {
                 ContentModel.Instance.freeSpinTotalWinCoins += totalEarnCredit;
-                freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCoins;
+                // freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCoins;
             }
 
-            List<List<int>> deckColRow = SlotTool.GetDeckColRow02(strDeckRowCol);
+            // List<List<int>> deckColRow = SlotTool.GetDeckColRow02(strDeckRowCol);// 暂时没用就先注释
             // 原代码
             // bool isReelsSlowMotion = (deckColRow[0].Contains(10) && deckColRow[1].Contains(10)) ? true : false;
             // bool isReelsSlowMotion = false;

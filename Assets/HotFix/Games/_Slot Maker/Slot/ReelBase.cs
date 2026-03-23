@@ -9,16 +9,19 @@ namespace SlotMaker
     {
         /// <summary> 空闲中 </summary>
         Idle,
+
         /// <summary> 开始滚动 </summary>
         StartTurn,
+
         /// <summary> 开始停止滚动 </summary>
         StartStop,
+
         /// <summary> 滚动结束 </summary>
         EndStop,
     }
+
     public class ReelBase : MonoBehaviour
     {
-
         protected ICustomModel customModel;
 
         /// <summary> 滚轮索引号 </summary>
@@ -31,11 +34,11 @@ namespace SlotMaker
 
         public GComponent goOwnerReel;
         public GComponent goSymbols;
-        
+
         /// <summary> the anchor for "symbol hit" or "symbol appear"</summary>
         public GComponent goExpectation;
-        
-        public virtual void Init(ICustomModel customModel, GComponent gOwnerReel,GComponent gExpectation)
+
+        public virtual void Init(ICustomModel customModel, GComponent gOwnerReel, GComponent gExpectation)
         {
             this.customModel = customModel;
             goOwnerReel = gOwnerReel;
@@ -84,8 +87,6 @@ namespace SlotMaker
         }
 
 
-
-
         /////////////////////
         public virtual void SymbolAppearEffect()
         {
@@ -98,4 +99,3 @@ namespace SlotMaker
         }
     }
 }
-

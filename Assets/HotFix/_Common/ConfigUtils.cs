@@ -19,7 +19,7 @@ public class ConfigUtils
     public static readonly string[] i18nLoadFile = new string[] { "i18n_po152", "i18n_console001" };
 
     /// <summary> 游戏配置文件路劲 </summary>
-    public static string GetGameInfoURL(int gameId) => $"Assets/GameRes/_Common/Game Maker/ABs/G{gameId}/Datas/game_info_g{gameId}.json";
+    public static string GetGameInfoURL (int gameId) => $"Assets/GameRes/_Common/Game Maker/ABs/G{gameId}/Datas/game_info_g{gameId}.json";
     //$"Assets/GameRes/_Common/Game Maker/ABs/Datas/{gameId}/game_info_g{gameId}.json";
 
     /// <summary> 游戏图片路劲 </summary>

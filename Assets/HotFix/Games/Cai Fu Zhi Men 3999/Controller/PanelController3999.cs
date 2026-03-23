@@ -1,4 +1,5 @@
 using GameMaker;
+using SlotMaker;
 using UnityEngine;
 
 namespace CaiFuZhiMen_3999
@@ -13,6 +14,21 @@ namespace CaiFuZhiMen_3999
         protected override void InitParam()
         {
             base.InitParam();
+        }
+
+        protected override void OnPropertyGameState(EventData res = null)
+        {
+            string gameState = (string)res?.value;
+
+            if (gameState == GameState.Spin)
+            {
+                win.text = 0.ToString();
+                ClearSingleLineText();
+            }
+            else if (gameState == GameState.FreeSpin)
+            {
+                ClearSingleLineText();
+            }
         }
     }
 }

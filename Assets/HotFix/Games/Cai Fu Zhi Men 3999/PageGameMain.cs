@@ -605,7 +605,6 @@ namespace CaiFuZhiMen_3999
                     case 3:
                         ContentModel.Instance.totalPlaySpins = 5;
                         break;
-                    case 5:
                     default:
                         ContentModel.Instance.totalPlaySpins = 1;
                         break;
@@ -715,8 +714,6 @@ namespace CaiFuZhiMen_3999
             _slotMachineController.isStopImmediately = false;
             _slotMachineController.CloseSlotCover();
             _slotMachineController.SkipWinLine(true);
-
-            // _testText.text = "";
 
             ResetWildSpines();
         }
@@ -1327,6 +1324,9 @@ namespace CaiFuZhiMen_3999
                 (ed) =>
                 {
                     DebugUtils.Log("回调执行！isNext = true"); // 加日志
+                    MainBlackboardController.Instance.AddMyTempCredit(_allWinCredit, true, IsAddCreditAnim); //加钱动画
+                    MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+                    _allWinCredit = 0;
 
                     isNext = true;
                 });
@@ -1347,6 +1347,8 @@ namespace CaiFuZhiMen_3999
 
             successCallback?.Invoke();
         }
+
+        long _allWinCredit = 0;
 
         private IEnumerator GameFreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
@@ -1398,11 +1400,7 @@ namespace CaiFuZhiMen_3999
             {
                 if (_corReelsTurn != null) _monoHelper.StopCoroutine(_corReelsTurn);
                 _corReelsTurn = _monoHelper.StartCoroutine(_slotMachineController.TurnReelsOnce(
-                    ContentModel.Instance.strDeckRowCol,
-                    () =>
-                    {
-                        isNext = true;
-                    }));
+                    ContentModel.Instance.strDeckRowCol, () => { isNext = true; }));
 
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
@@ -1411,11 +1409,7 @@ namespace CaiFuZhiMen_3999
             {
                 if (_corReelsTurn != null) _monoHelper.StopCoroutine(_corReelsTurn);
                 _corReelsTurn = _monoHelper.StartCoroutine(_slotMachineController.TurnReelsNormal(_specialSymbols,
-                    ContentModel.Instance.strDeckRowCol,
-                    () =>
-                    {
-                        isNext = true;
-                    }));
+                    ContentModel.Instance.strDeckRowCol, () => { isNext = true; }));
 
                 yield return new WaitUntil(() => isNext == true || _slotMachineController.isStopImmediately == true);
                 isNext = false;
@@ -1434,7 +1428,6 @@ namespace CaiFuZhiMen_3999
                 }
             }
 
-            long allWinCredit = 0;
             List<SymbolWin> winList = ContentModel.Instance.winList;
             List<int> celRowList = GetShowWildRows(ContentModel.Instance.strDeckRowCol);
 
@@ -1447,26 +1440,31 @@ namespace CaiFuZhiMen_3999
             if (winList.Count > 0 || ContentModel.Instance.bonusResults != null)
             {
                 long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList) *
-                                          MainModel.Instance.contentMD.betmultiple;// 新增倍率
-                allWinCredit = totalWinLineCredit;
+                                          MainModel.Instance.contentMD.betmultiple; // 新增倍率
+                _allWinCredit += totalWinLineCredit;
+                // Debug.LogError("totalWinLineCredit：" + totalWinLineCredit);
+                Debug.LogError("_allWinCredit：" + _allWinCredit);
+                _slotMachineController.SendTotalWinCreditEvent(_allWinCredit); // 总线赢分事件
 
-                bool isAddToCredit = totalWinLineCredit > TotalBet * 4;
-                _slotMachineController.SendPrepareTotalWinCreditEvent(totalWinLineCredit, isAddToCredit);
-                _slotMachineController.SendTotalWinCreditEvent(totalWinLineCredit); // 总线赢分事件
-                ContentModel.Instance.FreeOnceCredit = totalWinLineCredit; // 加钱动画
+                // bool isAddToCredit = totalWinLineCredit > TotalBet * 4;
+                // _slotMachineController.SendPrepareTotalWinCreditEvent(totalWinLineCredit, isAddToCredit);
+                // _slotMachineController.SendTotalWinCreditEvent(totalWinLineCredit); // 总线赢分事件
+                // ContentModel.Instance.FreeOnceCredit = totalWinLineCredit; // 加钱动画
             }
 
             #endregion
 
             // 本剧同步玩家金钱
-            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+            // MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             isNext = false;
 
             if (winList.Count > 0 || false) // isHitJackpot
             {
                 yield return new WaitForSeconds(1);
-                yield return ShowWinListCoinCountDown(winList, allWinCredit, false);
+                yield return ShowWinListCoinCountDown(winList, _allWinCredit, false);
             }
+
+            ResetWildSpines();
 
             #region 免费游戏中，添加额外免费游戏
 
@@ -1491,8 +1489,6 @@ namespace CaiFuZhiMen_3999
             }
 
             #endregion
-
-            ResetWildSpines();
 
             ContentModel.Instance.gameState = GameState.Idle;
             successCallback?.Invoke();
@@ -1612,10 +1608,8 @@ namespace CaiFuZhiMen_3999
                 _slotMachineController.ShowSymbolWinDeck(_slotMachineController.GetTotalSymbolWin(winList), true);
 
             yield return new WaitForSeconds(1.5f);
-            //停止特效显示
-            _slotMachineController.SkipWinLine(false);
-            //显示遮罩
-            _slotMachineController.CloseSlotCover();
+            _slotMachineController.SkipWinLine(false); //停止特效显示
+            _slotMachineController.CloseSlotCover(); //显示遮罩
         }
 
         private IEnumerator GameIdle(List<SymbolWin> winList, Action callback = null)
@@ -1712,7 +1706,6 @@ namespace CaiFuZhiMen_3999
             return wildRows;
         }
 
-
         private void PlayAnimationByName(Animator animator, string aniName)
         {
             animator.Rebind();
@@ -1769,21 +1762,6 @@ namespace CaiFuZhiMen_3999
                         ContentModel.Instance.smallWildList[index].SetActive(false);
                         ContentModel.Instance.bigWildList[index].SetActive(true);
                     });
-                }
-            }
-            else
-            {
-                Debug.Log("this round no wild");
-            }
-        }
-
-        private void ShowBigWildSpines(List<int> wildRows)
-        {
-            if (wildRows.Count > 0)
-            {
-                foreach (int index in wildRows)
-                {
-                    ContentModel.Instance.bigWildList[index].SetActive(true);
                 }
             }
             else
