@@ -6,22 +6,19 @@ using UnityEngine.Events;
 using FairyGUI;
 
 
-
-
 namespace SlotMaker
 {
-
-
     public class Reel : ReelBase
     {
-
-
         /// <summary> 已经滚动圈数 </summary>
         private int curRollTime = 0;
+
         /// <summary> 需要滚动圈数 </summary>
         private int needRollTime = 0;
+
         /// <summary> 滚轮停止回调 </summary>
         private UnityAction reelStopCallback = null;
+
         /// <summary> 滚轮显示结果 </summary>
         private List<int> columnResult = new List<int>() { 0, 0, 0 };
 
@@ -47,7 +44,7 @@ namespace SlotMaker
         GTweener _curTweener;
 
 
-        public override void Init(ICustomModel customModel,GComponent gReel, GComponent gExpectation)
+        public override void Init(ICustomModel customModel, GComponent gReel, GComponent gExpectation)
         {
             if (goOwnerReel == gReel) return; // 避免同个对象重复初始化
 
@@ -60,7 +57,7 @@ namespace SlotMaker
             {
                 Symbol symbol = new Symbol();
                 //##symbol.Init(goSymbols.GetChildAt(i).asCom);
-                symbol.Init(customModel,goSymbols.GetChild($"symbol{i}").asCom);
+                symbol.Init(customModel, goSymbols.GetChild($"symbol{i}").asCom);
                 symbolList.Add(symbol);
             }
 
@@ -82,7 +79,6 @@ namespace SlotMaker
         }
 
 
-
         public override void StartTurn(int targetRollTime, UnityAction reelStopCallback)
         {
             this.needRollTime = isReelPointering ? 1 : targetRollTime;
@@ -90,25 +86,24 @@ namespace SlotMaker
             this.reelStopCallback = reelStopCallback;
 
             ClearReelTween();
-            if (coReelTurn != null)StopCoroutine(coReelTurn);
+            if (coReelTurn != null) StopCoroutine(coReelTurn);
             coReelTurn = StartCoroutine(_ReelTurn());
         }
-
 
 
         /// <summary> 修改滚轮图标 </summary>
         protected void ResetIconData(bool isUseStartRebound = false)
         {
-            for (int i = deckDownStartIndex; i <= deckDownEndIndex; i++) 
+            for (int i = deckDownStartIndex; i <= deckDownEndIndex; i++)
             {
-                int number = symbolList[i - customModel.row].GetSymbolNumber(); 
+                int number = symbolList[i - customModel.row].GetSymbolNumber();
                 symbolList[i].SetSymbolImage(number);
                 symbolList[i].SetBtnInteractableState(true);
             }
 
-            goSymbols.y = - customModel.reelMaxOffsetY;  // 拉上去 (这里的方向和ugui是相反的)
+            goSymbols.y = -customModel.reelMaxOffsetY; // 拉上去 (这里的方向和ugui是相反的)
 
-            for (int i = deckUpStartIndex; i <= deckUpEndIndex; i++) 
+            for (int i = deckUpStartIndex; i <= deckUpEndIndex; i++)
             {
                 symbolList[i].SetSymbolImage(customModel.symbolNumber[Random.Range(0, customModel.symbolCount)]);
                 symbolList[i].SetBtnInteractableState(true);
@@ -127,15 +122,16 @@ namespace SlotMaker
 
         public override void SetReelDeck(string reelValue = null)
         {
-            for (int i = deckDownStartIndex; i <= deckDownEndIndex; i++) 
+            for (int i = deckDownStartIndex; i <= deckDownEndIndex; i++)
             {
                 int index = symbolList[i - customModel.row].GetSymbolNumber();
                 symbolList[i].SetSymbolImage(index);
                 symbolList[i].SetBtnInteractableState(true);
             }
+
             //这里开始设置结果
             SetRollEndResult();
-            goSymbols.y = 0; 
+            goSymbols.y = 0;
         }
 
 
@@ -168,7 +164,8 @@ namespace SlotMaker
                     SetRollEndResult();
                 }
 
-                _curTweener = TweenUtils.DOLocalMoveY(goSymbols, 0, ReelSettingModel.Instance.GetTimeTurnOnce(reelIndex), EaseType.Linear, () => { isNext = true; });
+                _curTweener = TweenUtils.DOLocalMoveY(goSymbols, 0,
+                    ReelSettingModel.Instance.GetTimeTurnOnce(reelIndex), EaseType.Linear, () => { isNext = true; });
 
                 yield return new WaitUntil(() => isNext);
                 isNext = false;
@@ -189,6 +186,7 @@ namespace SlotMaker
                     ReelSettingModel.Instance.GetTimeReboundEnd(reelIndex)
                 );
             }
+
             state = ReelState.EndStop;
             reelStopCallback?.Invoke();
         }
@@ -208,6 +206,7 @@ namespace SlotMaker
             isReelPointering = true;
             ReelToStop();
         }
+
         /// <summary>
         /// 鼠标或手指，不点击
         /// </summary>
@@ -233,14 +232,12 @@ namespace SlotMaker
         }
 
 
-
-
-
         protected void ClearReelTween()
         {
             ClearTween();
             ClearCorReel();
         }
+
         protected void ClearTween()
         {
             if (_curTweener != null)
@@ -269,7 +266,8 @@ namespace SlotMaker
             state = ReelState.StartStop;
             SetRollEndResult();
 
-            _curTweener = TweenUtils.DOLocalMoveY(goSymbols, 0, ReelSettingModel.Instance.GetTimeTurnOnce(reelIndex), EaseType.Linear, () => { isNext = true; });
+            _curTweener = TweenUtils.DOLocalMoveY(goSymbols, 0, ReelSettingModel.Instance.GetTimeTurnOnce(reelIndex),
+                EaseType.Linear, () => { isNext = true; });
 
             yield return new WaitUntil(() => isNext);
             isNext = false;
@@ -286,9 +284,7 @@ namespace SlotMaker
             state = ReelState.EndStop;
 
             reelStopCallback?.Invoke();
-
         }
-
 
 
         /// <summary>
@@ -323,8 +319,6 @@ namespace SlotMaker
         }
 
 
-
-
         /// <summary>
         /// 滚轮立马停止滚动，显示最终结果
         /// </summary>
@@ -350,11 +344,9 @@ namespace SlotMaker
         }
 
 
-
         /// <summary> 回弹效果（这里方向相反）</summary>
         public IEnumerator Rebound(float yTo = 80, float durationS = 0.05f)
         {
-
             bool isNext = false;
             _curTweener = TweenUtils.DOLocalMoveY(goSymbols, yTo, durationS, EaseType.Linear, () =>
             {
@@ -370,14 +362,11 @@ namespace SlotMaker
         }
 
 
-
         /// <summary> 特殊 Symbol Effect </summary>
         public override void SymbolAppearEffect()
         {
-
-            for (int i = deckUpStartIndex; i <= deckUpEndIndex; i++) 
+            for (int i = deckUpStartIndex; i <= deckUpEndIndex; i++)
             {
-
                 SymbolBase symble = symbolList[i];
 
                 string symbleNumber = $"{symble.number}";
@@ -395,17 +384,18 @@ namespace SlotMaker
                 if (isHashSymbolAppearNumber)
                 {
                     string symbolName = customModel.symbolAppearEffect[symbleNumber];
-                    GComponent anchorSymbolEffect = FguiPoolManager.Instance.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
+                    GComponent anchorSymbolEffect =
+                        FguiPoolManager.Instance.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
                     symble.AddSymbolEffect(anchorSymbolEffect);
-                    
-                    FguiSortingOrderManager.Instance.ChangeSortingOrder(symble.goOwnerSymbol, goExpectation); 
-                    
+
+                    FguiSortingOrderManager.Instance.ChangeSortingOrder(symble.goOwnerSymbol, goExpectation);
+
                     /*
                     int rowIndex = i;
                     // 设置层级
-                    FguiSortingOrderManager.Instance.ChangeSortingOrder(symble.goOwnerSymbol, goExpectation, null,null, 
-                        (self) => rowIndex + deckUpStartIndex); 
-                    */    
+                    FguiSortingOrderManager.Instance.ChangeSortingOrder(symble.goOwnerSymbol, goExpectation, null,null,
+                        (self) => rowIndex + deckUpStartIndex);
+                    */
                 }
             }
         }
@@ -415,7 +405,7 @@ namespace SlotMaker
         protected void SetRollEndResult()
         {
             int index = 0;
-            for (int i = deckUpStartIndex; i < deckUpEndIndex; i++) 
+            for (int i = deckUpStartIndex; i < deckUpEndIndex; i++)
             {
                 symbolList[i].SetSymbolImage(columnResult[index]);
                 index++;

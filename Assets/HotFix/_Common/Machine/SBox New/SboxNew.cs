@@ -13,6 +13,8 @@ namespace SBoxApi
         // 推币机
         public const string SBOX_COIN_PUSH_BEGIN_TURN = "SBOX_COIN_PUSH_BEGIN_TURN";
         public const string SBOX_COIN_PUSH_SPIN = "SBOX_COIN_PUSH_SPIN";
+        /// <summary> 20101 成功回包时由 SBoxIdea 触发，参数为 <see cref="CoinPushSpinParseEventArgs"/>，游戏监听后写入 Result。 </summary>
+        public const string SBOX_COIN_PUSH_SPIN_PARSE = "SBOX_COIN_PUSH_SPIN_PARSE";
         public const string SBOX_COIN_PUSH_SPIN_END = "SBOX_COIN_PUSH_SPIN_END";
 
         public const string SBOX_COIN_PUSH_GET_JP_CONTRIBUTION = "SBOX_COIN_PUSH_GET_JP_CONTRIBUTION";

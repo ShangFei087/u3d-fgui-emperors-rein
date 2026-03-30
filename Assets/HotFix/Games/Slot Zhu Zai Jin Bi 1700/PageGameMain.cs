@@ -180,6 +180,7 @@ namespace SlotZhuZaiJinBi1700
         public override void OnOpen(PageName name, EventData data)
         {
             base.OnOpen(name, data);
+            EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.AddEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
@@ -188,12 +189,19 @@ namespace SlotZhuZaiJinBi1700
         }
         public override void OnClose(EventData data = null)
         {
+            EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             GameSoundHelper.Instance.StopMusic();
             base.OnClose(data);
         }
+
+        private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
+        {
+            e.Result = MachineDataG1700Controller.ParseCoinPushSpinPayload(e.Data, e.StartPos);
+        }
+
         public void InitParam(EventData data)
         {
             if (data != null) _data = data;
@@ -946,6 +954,13 @@ namespace SlotZhuZaiJinBi1700
             isNext = false;
 
             yield return GameFreeSpin(null, errorCallback);
+
+            // 免费游戏结束后统一把累计赢分加到余额
+            long freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCredit;
+            if (freeSpinTotalWinCredit > 0)
+            {
+                MainBlackboardController.Instance.AddMyTempCredit(freeSpinTotalWinCredit, true, isAddCreditAnim);
+            }
         }
 
         IEnumerator GameFreeSpin(Action successCallback, Action<string> errorCallback)
@@ -1108,8 +1123,8 @@ namespace SlotZhuZaiJinBi1700
 
 
 
-                // 总线赢分事件
-                slotMachineCtrl.SendTotalWinCreditEvent(totalWinLineCredit);
+                // 免费游戏中赢票栏显示累计值，不即时入余额
+                slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit);
 
                 //加钱动画
                 //MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true, isAddCreditAnim);
@@ -1121,8 +1136,7 @@ namespace SlotZhuZaiJinBi1700
             #endregion
 
 
-            // 本剧同步玩家金钱
-            MainBlackboardController.Instance.SyncMyTempCreditToReal(false);
+            // 免费游戏中不逐局同步余额，等待免费结束后统一结算
 
             // 本局掉币
             //ERPushMachineDataManager.Instance.RequestCoinPushSpinEnd(res1 =>

@@ -99,7 +99,7 @@ public class MonoWeakSelectSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
 
 
-    // 获取场景中所有目标对象（包括不激活的对象）不包括Prefabs:
+    // 鑾峰彇鍦烘櫙涓墍鏈夌洰鏍囧璞★紙鍖呮嫭涓嶆縺娲荤殑瀵硅薄锛変笉鍖呮嫭Prefabs:
     static List<TComponent> FindSceneObject<TComponent>(string _SceneName = "") where TComponent : UnityEngine.Component
     {
         if (string.IsNullOrEmpty(_SceneName))
@@ -115,7 +115,7 @@ public class MonoWeakSelectSingleton<T> : MonoBehaviour where T : MonoBehaviour
             if (go.hideFlags == HideFlags.NotEditable || go.hideFlags == HideFlags.HideAndDontSave)
                 continue;
 #if UNITY_EDITOR
-            if (EditorUtility.IsPersistent(go.transform.root.gameObject))// 如果对象位于Scene中，则返回false
+            if (EditorUtility.IsPersistent(go.transform.root.gameObject))// 濡傛灉瀵硅薄浣嶄簬Scene涓紝鍒欒繑鍥瀎alse
                 continue;
 #endif
             if (_SceneName != go.gameObject.scene.name)
@@ -142,7 +142,7 @@ public class MonoWeakSelectSingleton<T> : MonoBehaviour where T : MonoBehaviour
             if (go.hideFlags == HideFlags.NotEditable || go.hideFlags == HideFlags.HideAndDontSave)
                 continue;
 #if UNITY_EDITOR
-            if (EditorUtility.IsPersistent(_go.transform.root.gameObject))// 如果对象位于Scene中，则返回false
+            if (EditorUtility.IsPersistent(_go.transform.root.gameObject))// 濡傛灉瀵硅薄浣嶄簬Scene涓紝鍒欒繑鍥瀎alse
                 continue;
 #endif
             if (_SceneName != _go.gameObject.scene.name)

@@ -178,6 +178,72 @@ namespace CaiFuZhiMen_3999
             }
         }
 
+        private long _countFreeGetCredit = 0;
+
+        /// <summary>
+        ///解析为本游戏 JSON与 <"ParseSlotSpin"/> 使用的字段一致。
+        /// </summary>
+        public static JSONNode ParseCoinPushSpinPayload(int[] data, int startPos)
+        {
+            JSONNode result = JSONNode.Parse("{}");
+            if (data == null || startPos >= data.Length)
+                return result;
+
+            int pos = startPos;
+            int OpenType = data[pos++];
+            int ResultType = data[pos++];
+            int WinlineNum = data[pos++];
+            int TotalBet = data[pos++];
+            int MatrixLength = data[pos++];
+            result["OpenType"] = OpenType;
+            result["ResultType"] = ResultType;
+            result["lineNum"] = WinlineNum;
+            result["TotalBet"] = TotalBet;
+            result["IDVec"] = new JSONArray();
+            for (int i = 0; i < WinlineNum; i++)
+            {
+                int id = data[pos++];
+                result["IDVec"].Add(id);
+            }
+
+            result["Matrix"] = new JSONArray();
+            for (int i = 0; i < MatrixLength; i++)
+            {
+                int id = data[pos++];
+                result["Matrix"].Add(id);
+            }
+
+            if (OpenType == 2)
+            {
+                int TotalFreeTime = data[pos++];
+                int TotalFreeBet = data[pos++];
+                result["FreeBetArray"] = new JSONArray();
+                for (int i = 0; i < TotalFreeTime; i++)
+                {
+                    int id = data[pos++];
+                    result["FreeBetArray"].Add(id);
+                }
+                result["TotalFreeTime"] = TotalFreeTime;
+                result["TotalFreeBet"] = TotalFreeBet;
+            }
+
+            if (OpenType == 3)
+            {
+                int BonusBet = data[pos++];
+                int BonusType = data[pos++];
+                result["BonusData"] = new JSONArray();
+                for (int i = 0; i < MatrixLength; i++)
+                {
+                    int id = data[pos++];
+                    result["BonusData"].Add(id);
+                }
+                result["BonusBet"] = BonusBet;
+                result["BonusType"] = BonusType;
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// 算法解析
         /// </summary>
@@ -359,7 +425,8 @@ namespace CaiFuZhiMen_3999
                 ContentModel.Instance.isFreeSpinTrigger = true;
                 ContentModel.Instance.FreeSpinTotalTimes = _freeRoundDic[CountTensEfficient(matrixArray)];
                 ContentModel.Instance.FreeSpinPlayTimes = 0;
-                ContentModel.Instance.freeTotalBet = (int)res["TotalFreeBet"];
+                ContentModel.Instance.freeTotalBet =
+                    (int)res["TotalFreeBet"] * MainModel.Instance.contentMD.betmultiple;
             }
 
             //赠送局
@@ -390,23 +457,22 @@ namespace CaiFuZhiMen_3999
             }
 
             // 大奖
-            // ContentModel.Instance.winningTypeIndex = (int)res["BonusType"];
-            // ContentModel.Instance.bonusIndex = ContentModel.Instance.winningTypeIndex;// 暂时先这么写
             if (ResultType == 3)
             {
                 ContentModel.Instance.bonusTotalBet = (int)res["BonusBet"];
                 ContentModel.Instance.IsBonusTrigger = true;
             }
 
-            long creditBefore = MainBlackboardController.Instance.myTempCredit;
+            long creditBefore = MainBlackboardController.Instance.myRealCredit;//myTempCredit 这是显示在UI上的的数值  myRealCredit是玩家的真实数据
             //赢分
             long TotalBet = (int)res["TotalBet"] * MainModel.Instance.contentMD.betmultiple;
-            if (ResultType == 3) TotalBet = (int)res["BonusBet"]; //大奖得分
+            if (ResultType == 3) TotalBet = (int)res["BonusBet"];
             DebugUtils.Log("本局赢分TotalBet==" + TotalBet);
+            
             long afterBetCredit = 0;
             if (OpenType == 1)
             {
-                 afterBetCredit = creditBefore + TotalBet;
+                afterBetCredit = creditBefore + TotalBet;
             }
             else
             {
@@ -424,9 +490,9 @@ namespace CaiFuZhiMen_3999
             DebugUtils.Log(
                 $"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={totalEarnCredit} ");
             DebugUtils.Log($"本次计算 creditAfter= {afterBetCredit + totalEarnCredit}；  算法卡 creditAfter={creditAfter}");
-
-            // 免费游戏累计总赢
-            long freeSpinTotalWinCredit = 0;
+            
+            // 免费游戏累计总赢 暂时没用就先注释
+            // long freeSpinTotalWinCredit = 0;
 
             if (OpenType == 1)
             {
@@ -435,10 +501,10 @@ namespace CaiFuZhiMen_3999
             else
             {
                 ContentModel.Instance.freeSpinTotalWinCoins += totalEarnCredit;
-                freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCoins;
+                // freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCoins;
             }
 
-            List<List<int>> deckColRow = SlotTool.GetDeckColRow02(strDeckRowCol);
+            // List<List<int>> deckColRow = SlotTool.GetDeckColRow02(strDeckRowCol);// 暂时没用就先注释
             // 原代码
             // bool isReelsSlowMotion = (deckColRow[0].Contains(10) && deckColRow[1].Contains(10)) ? true : false;
             // bool isReelsSlowMotion = false;

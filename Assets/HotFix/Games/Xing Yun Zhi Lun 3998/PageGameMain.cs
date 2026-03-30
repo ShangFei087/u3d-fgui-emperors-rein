@@ -5,6 +5,7 @@ using PusherEmperorsRein;
 using SBoxApi;
 using SimpleJSON;
 using SlotMaker;
+using SlotZhuZaiJinBi1700;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -237,6 +238,7 @@ namespace XingYunZhiLun_3998
         {
             if (isOpen) return;
             base.OnOpen(name, data);
+            EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
@@ -261,6 +263,7 @@ namespace XingYunZhiLun_3998
             OnGameReset();
 
             GameSoundHelper.Instance.StopMusic();
+            EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,OnSlotDetailEvent);
@@ -268,6 +271,11 @@ namespace XingYunZhiLun_3998
             mono.updateHandle.RemoveAllListeners();
 
             base.OnClose(data);
+        }
+
+        private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
+        {
+            e.Result = MachineDataG3998Controller.ParseCoinPushSpinPayload(e.Data, e.StartPos);
         }
 
         public void InitParam(EventData data)

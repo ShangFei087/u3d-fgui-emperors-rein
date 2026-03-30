@@ -257,11 +257,6 @@ public class EventCenter
         }
     }
 
-
-
-
-
-
     /// <summary>
     /// 事件触发（不需要参数的）
     /// </summary>
