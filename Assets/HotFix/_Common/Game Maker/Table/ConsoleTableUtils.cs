@@ -26,6 +26,7 @@ public static partial class ConsoleTableUtils
         ClearTableData(ConsoleTableName.TABLE_LOG_EVENT_RECORD);
         ClearTableData(ConsoleTableName.TABLE_BUSINESS_DAY_RECORD);
         ClearTableData(ConsoleTableName.TABLE_JACKPOT_RECORD);
+        ClearTableData(ConsoleTableName.TABLE_BET);
         
         DebugUtils.LogWarning("【数据库】所有表数据已清空！");
     }
@@ -120,8 +121,6 @@ public static partial class ConsoleTableUtils
 
     public static async Task CheckOrCreatTableBet(Action<object[]> ononFinishCallback = null)
     {
-
-
 #if !SQLITE_ASYNC || true
 
         if (!SQLiteHelper.Instance.CheckTableExists(ConsoleTableName.TABLE_BET))

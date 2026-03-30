@@ -66,7 +66,7 @@ public class SBoxModelController : MonoSingleton<SBoxModelController>
         yield return new WaitUntil(() => isNext == true);
         isNext = false;
 
-
+        //ConsoleTableUtils.ClearAllTableData();
         ConsoleTableUtils.DeleteTables();
 
         ConsoleTableUtils.CheckOrCreatTableSysSetting();
@@ -77,7 +77,6 @@ public class SBoxModelController : MonoSingleton<SBoxModelController>
         ConsoleTableUtils.CheckOrCreatTableLogEventRecord();
         ConsoleTableUtils.CheckOrCreatTableLogErrorRecord();
         ConsoleTableUtils.CheckOrCreatTableBussinessDayRecord();
-
         // 获取历史总投退数据
 
         Task asyncTask = ConsoleTableUtils.CheckOrCreatTableBet();

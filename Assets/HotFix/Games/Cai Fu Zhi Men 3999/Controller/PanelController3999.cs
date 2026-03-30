@@ -20,10 +20,13 @@ namespace CaiFuZhiMen_3999
         {
             string gameState = (string)res?.value;
 
-            // 免费游戏期间保留累计赢分，只在普通Spin开始时清空win
             if (gameState == GameState.Spin)
             {
                 win.text = 0.ToString();
+                ClearSingleLineText();
+            }
+            else if (gameState == GameState.FreeSpin)
+            {
                 ClearSingleLineText();
             }
         }
