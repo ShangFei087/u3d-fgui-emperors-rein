@@ -339,7 +339,8 @@ namespace XingYunZhiLun_3998
                     int times = 0;
                     while(times < 3)
                     {
-                        times++;
+                        times++; 
+                        //ContentModel.Instance.creditText.text = $"线号：{winList[idx].lineNumber}\t得分：{winList[idx].earnCredit}";
                         yield return ShowSymbolWinBySetting(winList[idx], true, SpinWinEvent.SingleWinLine);
 
                         if (isStopImmediately && _spinWEMD.Instance.isSkipAtStopImmediately)
