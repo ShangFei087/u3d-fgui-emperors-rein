@@ -1,0 +1,24 @@
+{
+
+	"OpenType": 0,
+
+	"ResultType": 2,
+
+	"lineNum": 0,
+
+	"TotalBet": 0,
+
+	"TotalFreeBet":420,
+	
+	"TotalFreeTime":8,
+
+	"IDVec": [],
+	
+	"FreeBetArray":[30,60,0,90,120,0,60,60],
+
+	"MatrixLength": 15,
+
+	"Matrix": [5,2,3,1,10,
+		2,2,2,5,10,
+		8,5,8,8,10]
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="27,40">
+  <displayList>
+    <text id="n0_qkv0" name="n0" xy="0,0" size="27,44" font="ui://wnvfq681qkv04i" fontSize="14" align="center" vAlign="middle" autoSize="none" text="1"/>
+    <text id="n1_qkv0" name="n1" xy="0,-15" size="27,44" visible="false" font="ui://wnvfq681qkv04i" fontSize="12" autoSize="none" text="1"/>
+    <text id="n2_qkv0" name="n2" xy="0,30" size="27,44" visible="false" font="ui://wnvfq681qkv04i" fontSize="12" autoSize="none" text="2"/>
+    <text id="n3_qkv0" name="n3" xy="0,-30" size="27,44" visible="false" font="ui://wnvfq681qkv04i" fontSize="12" autoSize="none" text="1"/>
+    <text id="n4_qkv0" name="n4" xy="0,15" size="27,44" visible="false" font="ui://wnvfq681qkv04i" fontSize="12" autoSize="none" text="2"/>
+    <text id="n5_qkv0" name="n5" xy="0,0" size="27,44" visible="false" font="ui://wnvfq681qkv04i" fontSize="12" autoSize="none" text="2"/>
+  </displayList>
+  <transition name="animTurn">
+    <item time="0" type="Visible" target="n0_qkv0" value="true"/>
+    <item time="0" type="Visible" target="n1_qkv0" value="false"/>
+    <item time="0" type="Visible" target="n2_qkv0" value="false"/>
+    <item time="0" type="Visible" target="n3_qkv0" value="false"/>
+    <item time="0" type="Visible" target="n4_qkv0" value="false"/>
+    <item time="0" type="Visible" target="n5_qkv0" value="false"/>
+    <item time="3" type="Visible" target="n0_qkv0" value="false"/>
+    <item time="3" type="Visible" target="n1_qkv0" value="true"/>
+    <item time="3" type="Visible" target="n2_qkv0" value="true"/>
+    <item time="3" type="Visible" target="n3_qkv0" value="false"/>
+    <item time="3" type="Visible" target="n4_qkv0" value="false"/>
+    <item time="3" type="Visible" target="n5_qkv0" value="false"/>
+    <item time="6" type="Visible" target="n0_qkv0" value="false"/>
+    <item time="6" type="Visible" target="n1_qkv0" value="false"/>
+    <item time="6" type="Visible" target="n2_qkv0" value="false"/>
+    <item time="6" type="Visible" target="n3_qkv0" value="true"/>
+    <item time="6" type="Visible" target="n4_qkv0" value="true"/>
+    <item time="6" type="Visible" target="n5_qkv0" value="false"/>
+    <item time="9" type="Visible" target="n0_qkv0" value="false"/>
+    <item time="9" type="Visible" target="n1_qkv0" value="false"/>
+    <item time="9" type="Visible" target="n2_qkv0" value="false"/>
+    <item time="9" type="Visible" target="n3_qkv0" value="false"/>
+    <item time="9" type="Visible" target="n4_qkv0" value="false"/>
+    <item time="9" type="Visible" target="n5_qkv0" value="true"/>
+  </transition>
+</component>

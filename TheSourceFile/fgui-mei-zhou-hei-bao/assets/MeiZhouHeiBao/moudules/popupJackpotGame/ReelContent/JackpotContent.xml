@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="725,399">
+  <displayList>
+    <image id="n0_v1f2" name="jackpotBg" src="qkv051" fileName="images/common/SlotMachine/ReelBackground/ng_img_base.png" xy="0,0" scale="0.9,0.9"/>
+    <component id="n1_v1f2" name="rollReel_0" src="v1f26b" fileName="moudules/popupJackpotGame/ReelContent/JackpotReel.xml" xy="0,0" group="n6_v1f2"/>
+    <component id="n2_v1f2" name="rollReel_1" src="v1f26b" fileName="moudules/popupJackpotGame/ReelContent/JackpotReel.xml" xy="145,0" group="n6_v1f2"/>
+    <component id="n3_v1f2" name="rollReel_2" src="v1f26b" fileName="moudules/popupJackpotGame/ReelContent/JackpotReel.xml" xy="290,0" group="n6_v1f2"/>
+    <component id="n4_v1f2" name="rollReel_3" src="v1f26b" fileName="moudules/popupJackpotGame/ReelContent/JackpotReel.xml" xy="435,0" group="n6_v1f2"/>
+    <component id="n5_v1f2" name="rollReel_4" src="v1f26b" fileName="moudules/popupJackpotGame/ReelContent/JackpotReel.xml" xy="580,0" group="n6_v1f2"/>
+    <group id="n6_v1f2" name="firstLine" xy="0,0" size="725,133"/>
+    <component id="n7_v1f2" name="rollReel_5" src="v1f26b" fileName="moudules/popupJackpotGame/ReelContent/JackpotReel.xml" xy="0,133" group="n12_v1f2"/>
+    <component id="n8_v1f2" name="rollReel_6" src="v1f26b" fileName="moudules/popupJackpotGame/ReelContent/JackpotReel.xml" xy="145,133" group="n12_v1f2"/>
+    <component id="n9_v1f2" name="rollReel_7" src="v1f26b" fileName="moudules/popupJackpotGame/ReelContent/JackpotReel.xml" xy="290,133" group="n12_v1f2"/>
+    <component id="n10_v1f2" name="rollReel_8" src="v1f26b" fileName="moudules/popupJackpotGame/ReelContent/JackpotReel.xml" xy="435,133" group="n12_v1f2"/>
+    <component id="n11_v1f2" name="rollReel_9" src="v1f26b" fileName="moudules/popupJackpotGame/ReelContent/JackpotReel.xml" xy="580,133" group="n12_v1f2"/>
+    <group id="n12_v1f2" name="secondLine" xy="0,133" size="725,133"/>
+    <component id="n13_v1f2" name="rollReel_10" src="v1f26b" fileName="moudules/popupJackpotGame/ReelContent/JackpotReel.xml" xy="0,266" group="n18_v1f2"/>
+    <component id="n14_v1f2" name="rollReel_11" src="v1f26b" fileName="moudules/popupJackpotGame/ReelContent/JackpotReel.xml" xy="145,266" group="n18_v1f2"/>
+    <component id="n15_v1f2" name="rollReel_12" src="v1f26b" fileName="moudules/popupJackpotGame/ReelContent/JackpotReel.xml" xy="290,266" group="n18_v1f2"/>
+    <component id="n16_v1f2" name="rollReel_13" src="v1f26b" fileName="moudules/popupJackpotGame/ReelContent/JackpotReel.xml" xy="435,266" group="n18_v1f2"/>
+    <component id="n17_v1f2" name="rollReel_14" src="v1f26b" fileName="moudules/popupJackpotGame/ReelContent/JackpotReel.xml" xy="580,266" group="n18_v1f2"/>
+    <group id="n18_v1f2" name="thirdLine" xy="0,266" size="725,133"/>
+  </displayList>
+</component>

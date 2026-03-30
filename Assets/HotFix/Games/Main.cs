@@ -8,7 +8,6 @@ using System;
 
 public class Main
 {
-
     static PreloadAssetBundlesHelper preloadAB = new PreloadAssetBundlesHelper()
     {
         markBundle = "MARK_BUNDLE_MAIN",
@@ -17,7 +16,6 @@ public class Main
             // 游戏
             //UIConst.Instance.pathDict[PageName.EmperorsReinPageERGameMain],
         },
-
         preloadAssetAtPath = new List<object[]>()
         {
             // 控台
@@ -36,21 +34,15 @@ public class Main
             //UIConst.Instance.pathDict[PageName.ConsolePopupConsoleMask],
             //UIConst.Instance.pathDict[PageName.ConsolePopupConsoleSlideSetting],
         },
-
     };
 
     static PreloadAssetBundlesHelper preloadABBackground = new PreloadAssetBundlesHelper()
     {
         markBundle = "MARK_BUNDLE_MAIN",
-        preloadBundleNames = new List<object[]>()
-        {
-        },
-        preloadAssetAtPath = new List<object[]>()
-        {
-
-        },
-
+        preloadBundleNames = new List<object[]>() { },
+        preloadAssetAtPath = new List<object[]>() { },
     };
+
     public static void MainStart()
     {
         CoroutineAssistant.DoCo("COR_ON_BEFORE_PRELOAD", OnBeforePreLoadBundle());
@@ -65,6 +57,7 @@ public class Main
         {
             yield return null;
         }
+
         while (!SQLiteAsyncHelper.Instance.isInit)
         {
             yield return null;
@@ -87,19 +80,20 @@ public class Main
         if (!Application.isEditor) // 【？】这里要换成 ApplicationSettings.Instance.IsUseHotfix()
         {
             preloadAB.LoadPreloadBundleAsync((msg) =>
-            {
-                PageLaunch.Instance.Next(LoadingProgress.PRELOAD_ASSET_BUNDLE, msg);
-            },
-            () =>
-            {
-                PreLoadAsset();
-            });
+                {
+                    PageLaunch.Instance.Next(LoadingProgress.PRELOAD_ASSET_BUNDLE, msg);
+                },
+                () =>
+                {
+                    PreLoadAsset();
+                });
         }
         else
         {
             PreLoadAsset();
         }
     }
+
     /// <summary>
     /// 预加载资源，并等待完成
     /// </summary>
@@ -114,14 +108,14 @@ public class Main
         if (!Application.isEditor) // 【？】这里要换成 ApplicationSettings.Instance.IsUseHotfix()
         {
             preloadAB.LoadPreloadAssetAsync((msg) =>
-            {
-                PageLaunch.Instance.Next(LoadingProgress.PRELOAD_ASSET, msg);
-            },
-            () =>
-            {
-                PreLoadBackboard();
-                ConnectHardward();
-            });
+                {
+                    PageLaunch.Instance.Next(LoadingProgress.PRELOAD_ASSET, msg);
+                },
+                () =>
+                {
+                    PreLoadBackboard();
+                    ConnectHardward();
+                });
         }
         else
         {
@@ -134,28 +128,28 @@ public class Main
     /// </summary>
     private static void PreLoadBackboard()
     {
-
         if (!Application.isEditor) // 【？】这里要换成 ApplicationSettings.Instance.IsUseHotfix()
         {
             preloadABBackground.LoadPreloadBundleAsync(null,
-            () =>
-            {
-                preloadABBackground.LoadPreloadAssetAsync(null,
                 () =>
                 {
-                    DebugUtils.Log("【PreLoad】： 后台加载ab包、资源，完成");
+                    preloadABBackground.LoadPreloadAssetAsync(null,
+                        () =>
+                        {
+                            DebugUtils.Log("【PreLoad】： 后台加载ab包、资源，完成");
+                        });
                 });
-            });
         }
     }
+
     private static void ShowPlamtInfo()
     {
-        DebugUtils.LogWarning($"平台:{ApplicationSettings.Instance.platformName}; 版本:{ApplicationSettings.Instance.appVersion}; 是否机台包:{ApplicationSettings.Instance.isMachine}; 热更新版本:{"--"}");
+        DebugUtils.LogWarning(
+            $"平台:{ApplicationSettings.Instance.platformName}; 版本:{ApplicationSettings.Instance.appVersion}; 是否机台包:{ApplicationSettings.Instance.isMachine}; 热更新版本:{"--"}");
     }
 
     private static void ConnectHardward()
     {
-
         PageLaunch.Instance.RemoveProgress(LoadingProgress.PRELOAD_ASSET_BUNDLE);
         PageLaunch.Instance.RemoveProgress(LoadingProgress.PRELOAD_ASSET);
 
@@ -164,9 +158,9 @@ public class Main
 
         if (ApplicationSettings.Instance.isMachine)
         {
-
             PageLaunch.Instance.AddProgressCount(LoadingProgress.CONNECT_MACHINE, 2);
-            PageLaunch.Instance.Next(LoadingProgress.CONNECT_MACHINE, $"connect machine: {ApplicationSettings.Instance.machineDebugUrl} ...");
+            PageLaunch.Instance.Next(LoadingProgress.CONNECT_MACHINE,
+                $"connect machine: {ApplicationSettings.Instance.machineDebugUrl} ...");
             DebugUtils.LogWarning($"链接机台({ApplicationSettings.Instance.machineDebugUrl}), 初始化硬件...");
             /*
             if (Application.isEditor) {
@@ -185,21 +179,18 @@ public class Main
             {
                 DebugUtils.LogWarning("机台 链接成功...");
 
-                InitSettings();//OpenGame();
+                InitSettings(); //OpenGame();
             });
         }
         else
         {
-
-            InitSettings();//OpenGame();
+            InitSettings(); //OpenGame();
         }
-
     }
 
 
-
-
     #region 初始化参数
+
     static System.Timers.Timer checkTimer;
 
     static void ClearTimerInitSettings()
@@ -211,6 +202,7 @@ public class Main
             checkTimer = null;
         }
     }
+
     static void DelayCheckSettings()
     {
         ClearTimerInitSettings();
@@ -241,7 +233,8 @@ public class Main
         EventCenter.Instance.AddEventListener<EventData>(GlobalEvent.ON_INIT_SETTINGS_EVENT, OnInitSettingsEvent);
         // 获取设置参数配置
         GameObject pagePrefab =
-            ResourceManager.Instance.LoadAssetAtPathOnce<GameObject>("Assets/GameRes/_Common/Game Maker/Prefabs/INSTANCE.prefab");
+            ResourceManager.Instance.LoadAssetAtPathOnce<GameObject>(
+                "Assets/GameRes/_Common/Game Maker/Prefabs/INSTANCE.prefab");
         pagePrefab.name = "INSTANCE";
 
         DelayCheckSettings();
@@ -274,21 +267,21 @@ public class Main
 
     static void OnInitSettingFinish()
     {
-
         if (totalInitCount > 0)
         {
             //PageLaunch.Instance.Next(LoadingProgress.INIT_SETTINGS,"init settings error!");
             DebugUtils.LogError("参数初始化失败！！！");
             return;
         }
+
         DebugUtils.LogWarning("参数初始化成功！！！");
         //DebugUtils.LogError("参数初始化成功！！！");
 
         #region 参数获取成功后
+
         TestManager.Instance.Init($"Ver {ApplicationSettings.Instance.appVersion}/{GlobalData.hotfixVersion}");
         TestUtils.CheckTestManager();
         TestUtils.CheckReporter();
-
 
 
         /*##
@@ -316,12 +309,12 @@ public class Main
         DebugUtils.SetOpenDebugLog(SBoxModel.Instance.isDebugLog);
 
 
-
         // 打开FGUI鼠标功能
         //if(!ApplicationSettings.Instance.isRelease)  Stage.touchScreen = false;
         Stage.touchScreen = false;
 
         #endregion
+
         EventCenter.Instance.EventTrigger(GlobalEvent.ON_INIT_SETTINGS_FINISH_EVENT);
 
         OpenGame();
@@ -342,11 +335,17 @@ public class Main
         }
         else
         {
-            PageManager.Instance.OpenPage(PageName.HallMain);
+            // PageManager.Instance.OpenPage(PageName.HallMain);
+            PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupGameLoading);
+            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeSpinTrigger);
+            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeGameLoading);
+            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupJackpotTrigger);
+            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupJackpotResult);
+            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupJackpotLoading);
+            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPageGameMain);
+            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupJackpotGame);
         }
     }
 
     #endregion
-
-
 }

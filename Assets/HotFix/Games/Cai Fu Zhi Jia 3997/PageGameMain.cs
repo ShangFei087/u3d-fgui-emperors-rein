@@ -783,7 +783,7 @@ namespace CaiFuZhiJia_3997
         /// <returns></returns>
         IEnumerator FreeSpinTrigger(Action successCallback, Action<string> errorCallback)
         {
-            PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupFreeSpinTrigger, null);
+            // PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupFreeSpinTrigger, null);
             bool isNext = false;
             InputStackContextFreeSpin((context) =>
             {
@@ -803,7 +803,7 @@ namespace CaiFuZhiJia_3997
             _slotMachineCtrl.BeginBonusFreeSpin();
             yield return GameFreeSpin(null, errorCallback);
 
-            PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupFreeSpinResult, null);
+            // PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupFreeSpinResult, null);
             OutputStackContextFreeSpin(
                 (context) =>
                 {
