@@ -5,13 +5,14 @@ using PusherEmperorsRein;
 using SBoxApi;
 using SimpleJSON;
 using SlotMaker;
+using SlotZhuZaiJinBi1700;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Object = UnityEngine.Object;
 using _spinWEMD = SlotMaker.SpinWinEffectSettingModel;
+using Object = UnityEngine.Object;
 
 namespace CaiFuZhiMen_3999
 {
@@ -200,11 +201,17 @@ namespace CaiFuZhiMen_3999
             base.OnOpen(currentPageName, eventData);
             InitFreeSpinUIAndController();
             GameSoundHelper3999.Instance.PlayMusicSingle(SoundKey.RegularBG);
+            EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
             EventCenter.Instance.AddEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             InitParam();
+        }
+
+        private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
+        {
+            e.Result = MachineDataController3999.ParseCoinPushSpinPayload(e.Data, e.StartPos);
         }
 
         public override void OnClose(EventData eventData = null)
@@ -216,6 +223,7 @@ namespace CaiFuZhiMen_3999
             _compareRedRay = null;
 
             GameSoundHelper3999.Instance.StopSound(SoundKey.RegularBG);
+            EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,

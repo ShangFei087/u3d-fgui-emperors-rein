@@ -61,7 +61,7 @@ namespace SlotZhuZaiJinBi1700
         Queue<string> curDatas = new Queue<string>();
 
         /// <summary>
-        /// 20101 回包协议体：data[0] 为 ret，本方法从 startPos 起解析为本游戏 JSON（与 <see cref="ParseSlotSpin"/> 使用的字段一致）。
+        ///解析为本游戏 JSON与 <"ParseSlotSpin"/> 使用的字段一致。
         /// </summary>
         public static JSONNode ParseCoinPushSpinPayload(int[] data, int startPos)
         {
