@@ -23,12 +23,15 @@ namespace SlotZhuZaiJinBi1700
 
         [JsonProperty("display_name")] public string DisplayName;//显示名称
 
+        [JsonProperty("line_num")] public int LineNum;//线数
+
         [JsonProperty("win_level_multiple")] public Dictionary<string, long> WinLevelMultiple { get; set; }//赢钱倍数
 
         [JsonProperty("symbol_paytable")] public Dictionary<string, PayTableSymbolInfo> SymbolPaytable { get; set; }//符号赔率表
 
         [JsonProperty("pay_lines")] public List<List<int>> pay_lines { get; set; } //支付线
     }
+
     public class PageGameMain : MachinePageBase
     {
         public new const string pkgName = "SlotZhuZaiJinBi1700";
@@ -1221,7 +1224,7 @@ namespace SlotZhuZaiJinBi1700
         {
             //资源加载
             ResourceManager02.Instance.LoadAsset<TextAsset>(
-                "Assets/GameRes/_Common/Game Maker/ABs/G1700/Data/game_info_g1700.json", (txt) =>
+                "Assets/GameRes/_Common/Game Maker/ABs/G1700/Datas/game_info_g1700.json", (txt) =>
                 {
                     //JSON解析与错误处理
                     GameConfigRoot config = JsonConvert.DeserializeObject<GameConfigRoot>(txt.text);
@@ -1234,7 +1237,7 @@ namespace SlotZhuZaiJinBi1700
                     MainModel.Instance.gameID = config.GameId;
                     MainModel.Instance.gameName = config.GameName;
                     MainModel.Instance.displayName = config.DisplayName;
-
+                    MainModel.Instance.lineNum = config.LineNum;
                     //赢钱倍数处理
                     foreach (var item in config.WinLevelMultiple)
                     {

@@ -21,6 +21,7 @@ namespace CaiFuZhiMen_3999
         [JsonProperty("game_id")] public int gameId; //游戏 ID
         [JsonProperty("game_name")] public string gameName; //名称
         [JsonProperty("display_name")] public string displayName; //显示名称
+        [JsonProperty("line_num")] public int LineNum;//线数
         [JsonProperty("win_level_multiple")] public Dictionary<string, long> WinLevelMultiple { get; set; } //赢钱倍数
 
         [JsonProperty("symbol_paytable")]
@@ -372,6 +373,7 @@ namespace CaiFuZhiMen_3999
             MainModel.Instance.gameID = config.gameId;
             MainModel.Instance.gameName = config.gameName;
             MainModel.Instance.displayName = config.displayName;
+            MainModel.Instance.lineNum = config.LineNum;
             foreach (var item in config.WinLevelMultiple)
             {
                 string winKey = item.Key;
