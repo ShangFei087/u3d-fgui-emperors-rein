@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
+  m_Name: jp_pup_grand_Atlas
+  m_EditorClassIdentifier: 
+  atlasFile: {fileID: 4900000, guid: d29ec11a0c0c26b4f9dc04c9f02878a0, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 9a1643c49ae439046be0b5ae087d55d9, type: 2}
+  - {fileID: 2100000, guid: 27d2865900ee08243b0e1f3304fa28ce, type: 2}
+  - {fileID: 2100000, guid: be230af5c6d1b0349a1563e9dd5f70d6, type: 2}

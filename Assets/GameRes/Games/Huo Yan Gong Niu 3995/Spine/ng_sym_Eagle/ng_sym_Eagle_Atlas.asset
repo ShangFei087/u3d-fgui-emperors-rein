@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
+  m_Name: ng_sym_Eagle_Atlas
+  m_EditorClassIdentifier: 
+  atlasFile: {fileID: 4900000, guid: 35698042d4d563d4293d121dc2273218, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 690bb97a9a80a834ba62e666e98c3b66, type: 2}
+  - {fileID: 2100000, guid: 99e23a08007ff954a8c8d75b5c90d3d0, type: 2}
+  - {fileID: 2100000, guid: 9d13a3220dc979a488a74859483573fd, type: 2}

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <controller name="c1" pages="0,BS,1,FS" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="BS"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="FS"/>
+  </controller>
+  <displayList>
+    <image id="n1_q4s8" name="normalBg" src="q4s81k" fileName="images/普通背景.png" xy="0,0" size="1080,1920"/>
+    <image id="n52_j7ma" name="otherBg" src="q4s81l" fileName="images/ng_bg_Bonus_game.png" xy="0,0" size="1080,1920"/>
+    <component id="n60_xrp2" name="anchorOtherWater" src="xrp244" fileName="component/gameNormal/AnchorFlowStone.xml" xy="582,956"/>
+    <component id="n2_q4s8" name="anchorNormalTree" src="q4s81m" fileName="component/gameNormal/AnchorTree.xml" xy="534,299" pivot="0.5,0.5" anchor="true"/>
+    <component id="n3_q4s8" name="anchorNormalWater" src="q4s81n" fileName="component/gameNormal/AnchorWater.xml" xy="580,965"/>
+    <image id="n15_q4s8" name="n15" src="q4s81s" fileName="images/gameNormal/Slot/ng_bg_bottom_down.png" xy="26,1065" size="229,670" group="n20_q4s8"/>
+    <image id="n14_q4s8" name="n14" src="q4s81t" fileName="images/gameNormal/Slot/ng_bg_bottom_up.png" xy="227,1065" size="229,670" group="n20_q4s8"/>
+    <image id="n16_q4s8" name="n16" src="q4s81s" fileName="images/gameNormal/Slot/ng_bg_bottom_down.png" xy="434,1071" size="229,670" group="n20_q4s8"/>
+    <image id="n17_q4s8" name="n17" src="q4s81t" fileName="images/gameNormal/Slot/ng_bg_bottom_up.png" xy="636,1071" size="229,670" group="n20_q4s8"/>
+    <image id="n18_q4s8" name="n18" src="q4s81s" fileName="images/gameNormal/Slot/ng_bg_bottom_down.png" xy="833,1065" size="229,670" group="n20_q4s8"/>
+    <group id="n20_q4s8" name="slotMachineBg" xy="26,1065" size="1036,676" group="n21_q4s8"/>
+    <component id="n19_q4s8" name="slotMachine" src="q4s82l" fileName="moudules/slotMachine/SlotMachine.xml" xy="45,1110" size="1000,604" group="n21_q4s8"/>
+    <image id="n7_q4s8" name="n7" src="q4s81q" fileName="images/gameNormal/Slot/ng_img_line_horizontal.png" xy="7,1225" size="1072,59" group="n6_q4s8"/>
+    <image id="n9_q4s8" name="n9" src="q4s81q" fileName="images/gameNormal/Slot/ng_img_line_horizontal.png" xy="7,1537" size="1078,59" group="n6_q4s8"/>
+    <image id="n8_q4s8" name="n8" src="q4s81q" fileName="images/gameNormal/Slot/ng_img_line_horizontal.png" xy="7,1380" size="1078,59" group="n6_q4s8"/>
+    <image id="n10_q4s8" name="n10" src="q4s81r" fileName="images/gameNormal/Slot/ng_img_line_vertical.png" xy="217,1072" size="50,657" group="n6_q4s8"/>
+    <image id="n11_q4s8" name="n11" src="q4s81r" fileName="images/gameNormal/Slot/ng_img_line_vertical.png" xy="420,1061" size="50,672" group="n6_q4s8"/>
+    <image id="n12_q4s8" name="n12" src="q4s81r" fileName="images/gameNormal/Slot/ng_img_line_vertical.png" xy="624,1070" size="50,667" group="n6_q4s8"/>
+    <image id="n13_q4s8" name="n13" src="q4s81r" fileName="images/gameNormal/Slot/ng_img_line_vertical.png" xy="821,1070" size="50,670" group="n6_q4s8"/>
+    <group id="n6_q4s8" name="slotLines" xy="7,1061" size="1078,679" group="n21_q4s8"/>
+    <image id="n4_q4s8" name="normalFrame" src="q4s81o" fileName="images/gameNormal/Slot/ng_img_normal_game_frame.png" xy="6,1062" size="1072,684" group="n42_j7ma"/>
+    <image id="n44_j7ma" name="freeFrame" src="j7ma40" fileName="images/gameFree/fg_img_free_game_frame.png" xy="6,1062" size="1072,684" group="n42_j7ma"/>
+    <group id="n42_j7ma" name="slotFrame" xy="6,1062" size="1072,684" group="n21_q4s8"/>
+    <image id="n39_j7ma" name="n39" src="j7ma2y" fileName="images/gameNormal/Slot/ng_bottom.png" xy="120,1007" size="856,70" group="n38_j7ma"/>
+    <image id="n36_j7ma" name="n36" src="j7ma2x" fileName="images/gameNormal/Slot/ng_frame.png" xy="85,994" size="923,87" group="n38_j7ma"/>
+    <image id="n40_j7ma" name="n40" src="j7ma2z" fileName="images/gameNormal/Slot/ng_wheel-spin.png" xy="339,1018" size="226,30" group="n38_j7ma" scale="1.2,1.4"/>
+    <text id="n41_j7ma" name="spinTimes" xy="647,1004" size="54,66" group="n38_j7ma" font="ui://x2aorbwjj7ma3l" fontSize="15" align="center" vAlign="middle" autoSize="none" text="1"/>
+    <group id="n38_j7ma" name="WheelSpinTimes" xy="85,994" size="923,87" group="n21_q4s8"/>
+    <image id="n47_j7ma" name="n47" src="j7ma3v" fileName="images/gameFree/TipFrame2/fg_bottom.png" xy="119,1008" size="859,63" group="n46_j7ma"/>
+    <image id="n45_j7ma" name="n45" src="j7ma3w" fileName="images/gameFree/TipFrame2/fg_frame.png" xy="85,994" size="923,87" group="n46_j7ma"/>
+    <image id="n48_j7ma" name="n48" src="j7ma3x" fileName="images/gameFree/TipFrame2/fg_free-game.png" xy="238,1018" group="n46_j7ma" scale="1.2,1.4"/>
+    <image id="n49_j7ma" name="n49" src="j7ma3y" fileName="images/gameFree/TipFrame2/fg_of.png" xy="734,1018" group="n46_j7ma" scale="1.2,1.4"/>
+    <text id="n50_j7ma" name="freeSpinTimes" xy="653,1006" size="66,66" group="n46_j7ma" font="ui://x2aorbwjj7ma3l" fontSize="15" align="center" text="1"/>
+    <text id="n51_j7ma" name="freeTotalTimes" xy="807,1007" size="66,66" group="n46_j7ma" font="ui://x2aorbwjj7ma3l" fontSize="15" align="center" vAlign="middle" text="8"/>
+    <group id="n46_j7ma" name="FreeSpinTimes" xy="85,994" size="923,87" group="n21_q4s8"/>
+    <group id="n21_q4s8" name="SlotMachineGroup" xy="6,994" size="1079,752"/>
+    <component id="n22_q4s8" name="anchorFrame" src="q4s82t" fileName="component/gameNormal/Anchor.xml" xy="540,1388"/>
+    <component id="n56_xrp2" name="wheelTip" src="xrp242" fileName="component/gameNormal/AnchorWheelTip.xml" xy="541,1392" pivot="0.5,0.5" anchor="true"/>
+    <component id="n57_xrp2" name="wheelTip2" src="xrp242" fileName="component/gameNormal/AnchorWheelTip.xml" xy="541,1395"/>
+    <component id="n58_xrp2" name="wheelTip3" src="xrp242" fileName="component/gameNormal/AnchorWheelTip.xml" xy="542,1399" group="n61_xrp2"/>
+    <text id="n62_xrp2" name="wheelWinCredit" xy="103,1216" size="340,95" group="n61_xrp2" font="ui://x2aorbwjxrp24h" fontSize="18" align="center" vAlign="middle" letterSpacing="-6" autoSize="none" text="2.03k"/>
+    <text id="n63_xrp2" name="CollectedNums" xy="185,1310" size="136,176" group="n61_xrp2" font="ui://x2aorbwjxrp24s" fontSize="18" align="center" letterSpacing="-6" autoSize="none" text="0"/>
+    <group id="n61_xrp2" name="WheelTip3" xy="103,1216" size="440,270"/>
+    <component id="n25_j7ma" name="wheelContent" src="j7ma2w" fileName="WheelContent.xml" xy="540,541" group="n34_j7ma"/>
+    <image id="n29_j7ma" name="n29" src="q4s811" fileName="images/gameNormal/Wheel/ng_Turntable_frame_2.png" xy="540,541" pivot="0.5,0.5" anchor="true" group="n34_j7ma" scale="1.5,1.5"/>
+    <image id="n30_j7ma" name="n30" src="q4s813" fileName="images/gameNormal/Wheel/ng_Turntable_line.png" xy="540,541" pivot="0.5,0.5" anchor="true" group="n34_j7ma" scale="1.5,1.5"/>
+    <image id="n33_j7ma" name="n33" src="q4s8z" fileName="images/gameNormal/Wheel/ng_Turntable_frame_1.png" xy="540,541" pivot="0.5,0.5" anchor="true" group="n34_j7ma" scale="1.5,1.5"/>
+    <image id="n26_j7ma" name="n26" src="q4s8v" fileName="images/gameNormal/Wheel/ng_Turntable_bonus_frame.png" xy="432,160" group="n34_j7ma" scale="1.5,1.4"/>
+    <component id="n32_j7ma" name="wheelSpinBg" src="j7ma2v" fileName="component/gameNormal/AnchorWheelSpin.xml" xy="540,541" pivot="0.5,0.5" anchor="true" group="n34_j7ma" scale="1.5,1.5"/>
+    <image id="n35_j7ma" name="n35" src="q4s814" fileName="images/gameNormal/Wheel/ng_Turntable_spin.png" xy="540,541" pivot="0.5,0.5" anchor="true" group="n34_j7ma" scale="1.5,1.5"/>
+    <group id="n34_j7ma" name="Wheel" xy="211,160" size="658,706"/>
+    <component id="n23_j7ma" name="panel" src="j7ma2u" fileName="component/AnchorPanelPush.xml" xy="524,1853"/>
+    <component id="n59_xrp2" name="test" src="xrp243" fileName="Button1.xml" xy="374,918" size="308,77"/>
+  </displayList>
+  <transition name="BS">
+    <item time="0" type="Alpha" target="n36_j7ma" value="0"/>
+    <item time="0" type="Alpha" target="n39_j7ma" value="0"/>
+    <item time="0" type="Alpha" target="n40_j7ma" value="0"/>
+    <item time="0" type="Alpha" target="n41_j7ma" value="0"/>
+    <item time="0" type="Alpha" target="n56_xrp2" value="0"/>
+    <item time="0" type="Alpha" target="n57_xrp2" value="0"/>
+    <item time="0" type="Alpha" target="n58_xrp2" value="0"/>
+    <item time="0" type="Alpha" target="n62_xrp2" value="0"/>
+    <item time="0" type="Alpha" target="n63_xrp2" value="0"/>
+    <item time="0" type="Visible" target="n1_q4s8" value="true"/>
+    <item time="0" type="Visible" target="n25_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n26_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n29_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n30_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n32_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n33_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n35_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n36_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n39_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n3_q4s8" value="true"/>
+    <item time="0" type="Visible" target="n40_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n41_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n44_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n45_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n47_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n48_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n49_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n4_q4s8" value="true"/>
+    <item time="0" type="Visible" target="n50_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n51_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n52_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n56_xrp2" value="true"/>
+    <item time="0" type="Visible" target="n60_xrp2" value="false"/>
+  </transition>
+  <transition name="FS">
+    <item time="0" type="Visible" target="n1_q4s8" value="false"/>
+    <item time="0" type="Visible" target="n25_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n26_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n29_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n2_q4s8" value="false"/>
+    <item time="0" type="Visible" target="n30_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n32_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n33_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n35_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n36_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n39_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n40_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n41_j7ma" value="false"/>
+    <item time="0" type="Visible" target="n44_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n45_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n47_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n48_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n49_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n4_q4s8" value="false"/>
+    <item time="0" type="Visible" target="n50_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n51_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n52_j7ma" value="true"/>
+    <item time="0" type="Visible" target="n56_xrp2" value="false"/>
+    <item time="0" type="Visible" target="n57_xrp2" value="false"/>
+    <item time="0" type="Visible" target="n58_xrp2" value="false"/>
+    <item time="0" type="Visible" target="n60_xrp2" value="true"/>
+    <item time="0" type="Visible" target="n62_xrp2" value="false"/>
+    <item time="0" type="Visible" target="n63_xrp2" value="false"/>
+  </transition>
+</component>

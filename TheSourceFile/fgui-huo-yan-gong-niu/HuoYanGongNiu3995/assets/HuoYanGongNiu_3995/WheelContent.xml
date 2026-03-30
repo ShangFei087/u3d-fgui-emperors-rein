@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="476,476" pivot="0.5,0.5" anchor="true">
+  <displayList>
+    <image id="n25_j7ma" name="n25" src="q4s8w" fileName="images/gameNormal/Wheel/ng_Turntable_bottom.png" xy="238,238" pivot="0.5,0.5" anchor="true" scale="1.5,1.5"/>
+  </displayList>
+</component>

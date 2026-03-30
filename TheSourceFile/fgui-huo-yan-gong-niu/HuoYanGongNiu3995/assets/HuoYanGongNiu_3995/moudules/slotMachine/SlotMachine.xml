@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1000,604">
+  <displayList>
+    <component id="n1_q4s8" name="reels" src="q4s82n" fileName="moudules/slotMachine/Reels.xml" xy="0,0"/>
+    <component id="n0_q4s8" name="slotCover" src="q4s82m" fileName="moudules/slotMachine/SlotCover.xml" xy="0,0" size="1000,604">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n2_q4s8" name="playLines" src="q4s82s" fileName="moudules/slotMachine/AnchorPayLines.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+  </displayList>
+</component>

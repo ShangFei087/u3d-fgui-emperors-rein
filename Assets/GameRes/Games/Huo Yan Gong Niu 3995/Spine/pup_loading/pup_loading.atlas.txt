@@ -1,0 +1,176 @@
+pup_loading.png
+size:1962,538
+filter:Linear,Linear
+scale:0.5
+FIRE BULL
+bounds:2,24,345,138
+Loading
+bounds:710,191,109,31
+body
+bounds:666,224,248,312
+ear_1
+bounds:955,3,53,30
+ear_2
+bounds:899,3,54,30
+eff1/FIRE BULL_05
+bounds:322,2,9,6
+offsets:38,40,389,155
+eff1/FIRE BULL_06
+bounds:1359,353,48,51
+offsets:22,27,389,155
+eff1/FIRE BULL_07
+bounds:1182,330,56,66
+offsets:22,27,389,155
+eff1/FIRE BULL_08
+bounds:1694,103,70,86
+offsets:22,24,389,155
+eff1/FIRE BULL_09
+bounds:1857,4,77,88
+offsets:22,24,389,155
+eff1/FIRE BULL_10
+bounds:1015,233,84,91
+offsets:22,21,389,155
+eff1/FIRE BULL_11
+bounds:1183,229,92,99
+offsets:22,18,389,155
+eff1/FIRE BULL_12
+bounds:1415,6,92,100
+offsets:26,18,389,155
+eff1/FIRE BULL_13
+bounds:1671,191,101,107
+offsets:32,16,389,155
+eff1/FIRE BULL_14
+bounds:1598,34,94,117
+offsets:45,14,389,155
+eff1/FIRE BULL_15
+bounds:1770,305,92,116
+offsets:51,13,389,155
+eff1/FIRE BULL_16
+bounds:1577,413,91,123
+offsets:63,13,389,155
+eff1/FIRE BULL_17
+bounds:1484,410,91,126
+offsets:66,12,389,155
+eff1/FIRE BULL_18
+bounds:1177,99,103,128
+offsets:67,10,389,155
+eff1/FIRE BULL_19
+bounds:1282,99,102,129
+offsets:83,10,389,155
+eff1/FIRE BULL_20
+bounds:1281,406,101,130
+offsets:90,9,389,155
+eff1/FIRE BULL_21
+bounds:1384,408,98,128
+offsets:96,9,389,155
+eff1/FIRE BULL_22
+bounds:1509,6,87,129
+offsets:109,8,389,155
+eff1/FIRE BULL_23
+bounds:1386,108,98,123
+offsets:112,8,389,155
+eff1/FIRE BULL_24
+bounds:1486,137,95,134
+offsets:122,8,389,155
+eff1/FIRE BULL_25
+bounds:899,35,97,139
+offsets:126,8,389,155
+eff1/FIRE BULL_26
+bounds:1182,398,97,138
+offsets:136,8,389,155
+eff1/FIRE BULL_27
+bounds:1770,423,95,113
+offsets:144,8,389,155
+eff1/FIRE BULL_28
+bounds:1573,285,93,123
+offsets:157,8,389,155
+eff1/FIRE BULL_29
+bounds:1583,153,86,130
+offsets:173,8,389,155
+eff1/FIRE BULL_30
+bounds:1474,273,97,133
+offsets:173,8,389,155
+eff1/FIRE BULL_31
+bounds:1864,311,94,110
+offsets:181,8,389,155
+eff1/FIRE BULL_32
+bounds:916,227,97,97
+offsets:187,8,389,155
+eff1/FIRE BULL_33
+bounds:1668,300,100,111
+offsets:191,10,389,155
+eff1/FIRE BULL_34
+bounds:1371,233,101,118
+offsets:196,11,389,155
+eff1/FIRE BULL_35
+bounds:1670,423,98,113
+offsets:208,11,389,155
+eff1/FIRE BULL_36
+bounds:1864,198,89,111
+offsets:221,11,389,155
+eff1/FIRE BULL_37
+bounds:1867,426,93,110
+offsets:231,11,389,155
+eff1/FIRE BULL_38
+bounds:1277,230,92,105
+offsets:240,12,389,155
+eff1/FIRE BULL_39
+bounds:1774,88,81,103
+offsets:256,15,389,155
+eff1/FIRE BULL_40
+bounds:1774,193,88,110
+offsets:261,15,389,155
+eff1/FIRE BULL_41
+bounds:1864,94,84,102
+offsets:266,16,389,155
+eff1/FIRE BULL_42
+bounds:1257,5,80,92
+offsets:270,16,389,155
+eff1/FIRE BULL_43
+bounds:1101,229,80,95
+offsets:277,17,389,155
+eff1/FIRE BULL_44
+bounds:1177,2,78,95
+offsets:285,18,389,155
+eff1/FIRE BULL_45
+bounds:1339,4,74,93
+offsets:293,20,389,155
+eff1/FIRE BULL_46
+bounds:1303,353,54,51
+offsets:313,24,389,155
+eff1/FIRE BULL_47
+bounds:821,180,50,42
+offsets:317,26,389,155
+eff1/FIRE BULL_48
+bounds:337,12,9,10
+offsets:345,40,389,155
+eyelid_1
+bounds:322,10,13,12
+eyelid_2
+bounds:307,9,13,13
+fire
+bounds:547,9,350,161
+head
+bounds:916,326,264,210
+leg_1
+bounds:1240,337,61,59
+leg_2
+bounds:1694,16,68,85
+line_1
+bounds:2,7,255,15
+line_2
+bounds:379,172,329,47
+rock_1
+bounds:998,46,177,179
+rock_2
+bounds:349,22,196,140
+shadow
+bounds:379,221,285,315
+shine
+bounds:2,164,375,372
+smoke_1
+bounds:259,2,46,20
+smoke_2
+bounds:914,198,43,24
+tail
+bounds:873,176,39,46

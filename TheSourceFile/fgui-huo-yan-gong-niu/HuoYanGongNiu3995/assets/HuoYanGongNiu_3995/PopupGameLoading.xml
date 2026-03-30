@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <image id="n1_q4s8" name="n1" src="q4s87" fileName="images/gameLoading/bottom.png" xy="-38,-8" size="1201,1941"/>
+    <image id="n2_q4s8" name="n2" src="q4s85" fileName="images/gameLoading/bg_Loading_.png" xy="540,906" pivot="0.5,0.5" anchor="true" size="319,102"/>
+    <component id="n7_q4s8" name="Slider" src="q4s8l" fileName="component/gameLoading/Slider1.xml" xy="536,993" pivot="0.5,0.5" anchor="true" size="802,94">
+      <Slider max="1"/>
+    </component>
+    <component id="n8_q4s8" name="title" src="q4s8m" fileName="component/gameLoading/AnchorTitle.xml" xy="540,606"/>
+  </displayList>
+</component>

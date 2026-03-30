@@ -342,7 +342,8 @@ public class Main
         }
         else
         {
-            PageManager.Instance.OpenPage(PageName.HallMain);
+            //PageManager.Instance.OpenPage(PageName.HallMain);
+            PageManager.Instance.OpenPage(PageName.HuoYanGongNiuPopupGameLoading);
         }
     }
 
