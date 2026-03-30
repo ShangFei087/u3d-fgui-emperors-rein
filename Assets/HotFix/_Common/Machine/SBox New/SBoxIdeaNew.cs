@@ -26,6 +26,22 @@ using UnityEngine;
 
 namespace SBoxApi
 {
+    /// <summary>
+    /// 20101 成功回包时请求解析协议体：通过 <see cref="SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE"/> 监听；写入 <see cref="Result"/>（不要写 code，由 SBoxIdea 统一写入）。
+    /// </summary>
+    public sealed class CoinPushSpinParseEventArgs : EventArgs
+    {
+        public int[] Data { get; }
+        public int StartPos { get; }
+        public JSONNode Result { get; set; }
+
+        public CoinPushSpinParseEventArgs(int[] data, int startPos)
+        {
+            Data = data;
+            StartPos = startPos;
+        }
+    }
+
     /*
     public enum SBOX_IDEA_COIN_PUSH_KEYVALUE
     {
@@ -59,30 +75,30 @@ namespace SBoxApi
 
         public static void CoinPushReset(int pid)
         {
-            
-           // Debug.LogError($"调用 CoinPushReset pid={pid}");
-            
-            
+
+            // Debug.LogError($"调用 CoinPushReset pid={pid}");
+
+
             SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20103, source: 1, target: 2, size: 1);
             sBoxPacket.data[0] = pid;
-            
+
             SBoxIOEvent.AddListener(sBoxPacket.cmd, CoinPushResetR);
             SBoxIOStream.Write(sBoxPacket);
         }
 
         public static void CoinPushResetR(SBoxPacket sBoxPacket)
         {
-            
+
         }
-        
-        
-		/*
+
+
+        /*
 		 * 玩家按下按钮时调用一次
 		 * pid:玩家id
 		 * coin:玩家的投币数
 		 */
-		public static void CoinPushSpin(int pid,int coin)
-		{
+        public static void CoinPushSpin(int pid, int coin)
+        {
             //Debug.LogError($"调用 CoinPushSpin pid={pid}  coin={coin}");
             Debug.Log("SBoxIdea 20100");
             SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20100, source: 1, target: 2, size: 2);
@@ -121,98 +137,47 @@ namespace SBoxApi
 
         private static void CoinPushGetSpinResultR(SBoxPacket sBoxPacket)
         {
-            //Debug.LogError($"CoinPushGetSpinResultR 函数被调用");
-            JSONNode result = JSONNode.Parse("{}");
             /*
              * ret:0表示成功，-1表示传参失败
+             * data[0] 为 ret，其后为各游戏协议体（与 GameSwitch 的 gameid 对应）
              */
-            int pos = 0;
-            int ret = sBoxPacket.data[pos++];
-            if(ret !=-1)
+            if (sBoxPacket.data == null || sBoxPacket.data.Length < 1)
             {
-
-                /*
-                 * 当前游戏状态
-                     #define GS_NORMAL		0	//什么都没有
-                    #define GS_START		1
-                    #define GS_END			2
-                    #define GS_WINLINE		3	//赢线
-                    #define GS_FREEGAME		4   //免费游戏
-                    #define GS_BONUS		5	//送球
-                    #define GS_JPSMALM		6	//中了小中彩金
-                    #define GS_OPERATER		7
-                 */
-                int OpenType = sBoxPacket.data[pos++];
-                int ResultType = sBoxPacket.data[pos++];      
-                int lineNum = sBoxPacket.data[pos++];      
-                int TotalBet = sBoxPacket.data[pos++];
-                int MatrixLength = sBoxPacket.data[pos++];
-                int TotalFreeTime = sBoxPacket.data[pos++];
-                int TotalFreeBet = sBoxPacket.data[pos++];
-                int BonusBet = sBoxPacket.data[pos++];
-                int BonusType = sBoxPacket.data[pos++];
-
-                Debug.Log("OpenType==" + OpenType);
-                Debug.Log("ResultType==" + ResultType);
-                Debug.Log("lineNum==" + lineNum);
-                Debug.Log("TotalBet==" + TotalBet);
-                Debug.Log("MatrixLength==" + MatrixLength);
-                Debug.Log("TotalFreeTime==" + TotalFreeTime);
-                Debug.Log("TotalFreeBet==" + TotalFreeBet);
-                Debug.Log("BonusBet==" + TotalFreeBet);
-                Debug.Log("nBonusType==" + TotalFreeBet);
-
-                result["OpenType"] = OpenType;
-                result["ResultType"] = ResultType;
-                result["lineNum"] = lineNum;
-                result["TotalBet"] = TotalBet;
-                result["TotalFreeTime"] = TotalFreeTime;
-                result["TotalFreeBet"] = TotalFreeBet;
-                result["BonusBet"] = BonusBet;
-                result["BonusType"] = BonusType;
-
-                //IDVec
-                result["IDVec"] = new JSONArray();
-                for(int i = 0;i < lineNum; i++)
-                {
-                    int id = sBoxPacket.data[pos++];
-                    result["IDVec"].Add(id); 
-                }
-
-                //Matrix
-                result["Matrix"] = new JSONArray();
-                for (int i = 0; i < MatrixLength; i++)
-                {
-                    int id = sBoxPacket.data[pos++];
-                    result["Matrix"].Add(id);  
-                }
-
-                //FreeBetArray
-                result["FreeBetArray"] = new JSONArray();
-                for (int i = 0; i < TotalFreeTime; i++)
-                {
-                    int id = sBoxPacket.data[pos++];
-                    result["FreeBetArray"].Add(id);
-                }
-
-                //BonusData
-                result["BonusData"] = new JSONArray();
-                for (int i = 0; i < MatrixLength; i++)
-                {
-                    int id = sBoxPacket.data[pos++];
-                    result["BonusData"].Add(id);
-                }
-
-                int BlindSymbol = sBoxPacket.data[pos++]; //当大奖为神秘游戏就是BlindSymbol ,乘数游戏或者彩金游戏时就是BonusMultiply
-                result["BlindSymbol"] = BlindSymbol;
+                JSONNode empty = new JSONObject();
+                empty["code"] = -1;
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_SPIN, empty.ToString());
+                return;
             }
 
-            result["code"] = ret;
-            Debug.LogError($"------code： {ret}----------");
-            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_SPIN,result.ToString());
+            int pos = 0;
+            int ret = sBoxPacket.data[pos++];
+            JSONNode result;
+            if (ret == -1 || pos >= sBoxPacket.data.Length)
+            {
+                result = new JSONObject();
+                result["code"] = ret;
+            }
+            else
+            {
+                var parseArgs = new CoinPushSpinParseEventArgs(sBoxPacket.data, pos);
+                try
+                {
+                    EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, parseArgs);
+                    result = parseArgs.Result;
+                    if (result == null)
+                        result = new JSONObject();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"CoinPushGetSpinResultR SBOX_COIN_PUSH_SPIN_PARSE: {e}");
+                    result = new JSONObject();
+                }
+                result["code"] = ret;
+            }
+
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_SPIN, result.ToString());
         }
-        
-        
+
         /*
          * 滚轮停止后发送
          */
@@ -239,7 +204,7 @@ namespace SBoxApi
             JSONNode result = new JSONObject();
             result["code"] = ret;
             result["credit"] = credit;
-            
+
 
             foreach (SBoxPlayerScoreInfo item in sBoxInfo.PlayerScoreInfoList)
             {
@@ -248,9 +213,9 @@ namespace SBoxApi
                     result["playerCredit"] = item.Score;
                 }
             }
-            
-            
-            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_END,result.ToString());
+
+
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_END, result.ToString());
         }
 
 
@@ -276,7 +241,7 @@ namespace SBoxApi
             JSONNode result = new JSONObject();
             result["code"] = ret;
 
-            if(ret == 0)
+            if (ret == 0)
             {
                 int major = sBoxPacket.data[1];
                 int grand = sBoxPacket.data[2];
@@ -304,7 +269,7 @@ namespace SBoxApi
         private static void GetJpContributionR(SBoxPacket sBoxPacket)
         {
 
-           
+
             /*
              * ret:0表示成功，-1表示传参失败
              */
@@ -318,7 +283,7 @@ namespace SBoxApi
                 int major = sBoxPacket.data[1];
                 int minor = sBoxPacket.data[2];
                 int mini = sBoxPacket.data[3];
-             
+
                 result["major"] = major;
                 result["minor"] = minor;
                 result["mini"] = mini;
@@ -364,8 +329,8 @@ namespace SBoxApi
                 int before = sBoxPacket.data[2];
                 int atfer = sBoxPacket.data[3];
                 result["JackpotWins"] = JackpotWins;
-            }   
-            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_JACKPOT_ONLINE_GAME,  result.ToString());
+            }
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_JACKPOT_ONLINE_GAME, result.ToString());
         }
 
 
@@ -487,13 +452,6 @@ namespace SBoxApi
 
         }
 
-
-
-
-
-
-
-
         /// <summary>
         /// 获取硬件状态
         /// </summary>
@@ -513,7 +471,7 @@ namespace SBoxApi
             //返回两个值，data[0]表示成功，data[1]是标志位。
 
             JSONNode result = new JSONObject();
-            result["code"] = ret; 
+            result["code"] = ret;
             result["flag"] = sBoxPacket.data[1]; //1bit 发币，2bit 发球
 
             // int bit0 = number & 1;  bool isCoinDown = bit0 != 0;
@@ -573,7 +531,7 @@ namespace SBoxApi
         {
             JSONNode result = new JSONObject();
             result["code"] = sBoxPacket.data[0]; //data[0]表示成功
-           // EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_CONSOLE_HARDWARE_RESULT, result.ToString());
+                                                 // EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_CONSOLE_HARDWARE_RESULT, result.ToString());
         }
 
 

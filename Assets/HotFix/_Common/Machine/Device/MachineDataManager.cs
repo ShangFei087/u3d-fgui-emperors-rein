@@ -500,41 +500,6 @@ public partial class MachineDataManager : MonoBehaviour //:MonoSingleton<Machine
                     SBoxSandbox.MeterSet((int)dic["id"], (int)dic["counts"], (int)dic["type"]);
                 }
                 return result;
-
-                /*##
-                case SBoxEventHandle.SBOX_COIN_PUSH_SPIN:
-                    {
-                        SBoxIdea.CoinPushGetSpinResult(0);
-                    }
-                    return resault;
-
-                case SBoxEventHandle.SBOX_COIN_PUSH_SPIN_END:
-                    {
-                        // 滚轮停止
-                        SBoxIdea.CoinPushGetSpinEnd(0);
-                    }
-                    return resault;
-
-                case RpcNameCoinCountDown:
-                    {
-                        OnResponseCoinCountDown(SBoxIdea.Jackpot());
-                    }
-                    return resault;
-                case RpcNameGetMyCredit:
-                    {
-
-                        foreach (SBoxPlayerScoreInfo item in SBoxIdea.sBoxInfo.PlayerScoreInfoList)
-                        {
-                            if (item.PlayerId == 1)
-                            {
-                                mycredit = item.Score;
-                            }
-                        }
-
-                        OnResponseGetMyCredit(mycredit);
-                    }
-                    return resault;
-                */
         }
 
         //DebugUtils.LogError($"【MachineDataMgr - Real】没有实现方法：{rpcName}");

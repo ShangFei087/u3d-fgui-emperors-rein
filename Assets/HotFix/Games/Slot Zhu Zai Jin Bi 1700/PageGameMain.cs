@@ -180,6 +180,7 @@ namespace SlotZhuZaiJinBi1700
         public override void OnOpen(PageName name, EventData data)
         {
             base.OnOpen(name, data);
+            EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.AddEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
@@ -188,12 +189,19 @@ namespace SlotZhuZaiJinBi1700
         }
         public override void OnClose(EventData data = null)
         {
+            EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             GameSoundHelper.Instance.StopMusic();
             base.OnClose(data);
         }
+
+        private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
+        {
+            e.Result = MachineDataG1700Controller.ParseCoinPushSpinPayload(e.Data, e.StartPos);
+        }
+
         public void InitParam(EventData data)
         {
             if (data != null) _data = data;
