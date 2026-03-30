@@ -46,6 +46,72 @@ namespace XingYunZhiLun_3998
 
         private List<SymbolInclude> freeGameInclude = new List<SymbolInclude>();
 
+
+        /// <summary>
+        ///解析为本游戏 JSON与 <"ParseSlotSpin"/> 使用的字段一致。
+        /// </summary>
+        public static JSONNode ParseCoinPushSpinPayload(int[] data, int startPos)
+        {
+            JSONNode result = JSONNode.Parse("{}");
+            if (data == null || startPos >= data.Length)
+                return result;
+
+            int pos = startPos;
+            int OpenType = data[pos++];
+            int ResultType = data[pos++];
+            int WinlineNum = data[pos++];
+            int TotalBet = data[pos++];
+            int MatrixLength = data[pos++];
+            result["OpenType"] = OpenType;
+            result["ResultType"] = ResultType;
+            result["lineNum"] = WinlineNum;
+            result["TotalBet"] = TotalBet;
+            result["IDVec"] = new JSONArray();
+            for (int i = 0; i < WinlineNum; i++)
+            {
+                int id = data[pos++];
+                result["IDVec"].Add(id);
+            }
+
+            result["Matrix"] = new JSONArray();
+            for (int i = 0; i < MatrixLength; i++)
+            {
+                int id = data[pos++];
+                result["Matrix"].Add(id);
+            }
+
+            if (OpenType == 2)
+            {
+                int TotalFreeTime = data[pos++];
+                int TotalFreeBet = data[pos++];
+                result["FreeBetArray"] = new JSONArray();
+                for (int i = 0; i < TotalFreeTime; i++)
+                {
+                    int id = data[pos++];
+                    result["FreeBetArray"].Add(id);
+                }
+                result["TotalFreeTime"] = TotalFreeTime;
+                result["TotalFreeBet"] = TotalFreeBet;
+            }
+
+            if (OpenType == 3)
+            {
+                int BonusBet = data[pos++];
+                int BonusType = data[pos++];
+                int BlindSymbol = data[pos++];
+                result["BonusData"] = new JSONArray();
+                for (int i = 0; i < MatrixLength; i++)
+                {
+                    int id = data[pos++];
+                    result["BonusData"].Add(id);
+                }
+                result["BonusBet"] = BonusBet;
+                result["BonusType"] = BonusType;
+                result["BlindSymbol"] = BonusType;
+            }
+
+            return result;
+        }
         public void ParseSlotSpin(long totalBet, JSONNode res, SBoxJackpotData sboxJackpotData)
         {
             SBoxGameState gameState = (SBoxGameState)((int)res["gameState"]);
@@ -799,6 +865,7 @@ namespace XingYunZhiLun_3998
             ContentModel.Instance.isWild = false;
             ContentModel.Instance.isMult = false;
             ContentModel.Instance.isLihe = false;
+            ContentModel.Instance.isDrawWins = false;
 
             if (ResultType == 2)
             {
@@ -851,18 +918,9 @@ namespace XingYunZhiLun_3998
             }
             else if(ResultType == 3 && (int)res["BonusType"] == 3)
             {
-                ContentModel.Instance.jackpotWinCredit = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
+                ContentModel.Instance.drawWinsCredits = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
 
-                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
-                {
-                    name = "mini",
-                    id = 4,
-                    winCredit = 500,
-                    whenCredit = 500,
-                    curCredit = 500,
-                });
-
-
+                ContentModel.Instance.isDrawWins = true;
             }
 
             //赠送局
@@ -885,7 +943,7 @@ namespace XingYunZhiLun_3998
 
 
             ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            long creditBefore = MainBlackboardController.Instance.myTempCredit + totalBet;
+            long creditBefore = MainBlackboardController.Instance.myRealCredit;
             //赢分
             long TotalBet = (int)res["TotalBet"];
             if (ResultType == 3) TotalBet += (int)res["BonusBet"];
@@ -894,7 +952,7 @@ namespace XingYunZhiLun_3998
             long afterBetCredit = 0;
             if (OpenType == 1)
             {
-                afterBetCredit = creditBefore + TotalBet - totalBet;
+                afterBetCredit = creditBefore + TotalBet;
             }
             else
             {
