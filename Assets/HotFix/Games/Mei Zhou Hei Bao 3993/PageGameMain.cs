@@ -22,6 +22,7 @@ namespace MeiZhouHeiBao_3993
         [JsonProperty("game_name")] public string gameName; //名称
         [JsonProperty("display_name")] public string displayName; //显示名称
         [JsonProperty("win_level_multiple")] public Dictionary<string, long> WinLevelMultiple { get; set; } //赢钱倍数
+        
 
         [JsonProperty("symbol_paytable")]
         public Dictionary<string, PayTableSymbolInfo> SymbolPayTable { get; set; } //符号赔率表
@@ -45,10 +46,17 @@ namespace MeiZhouHeiBao_3993
         private int _resCount = -1;
         private TextAsset _gameInfo;
 
+        private GComponent _compareFgBgCom;
+        private GameObject _fgBgObj, _cloneFgBgObj;
+
         private MonoHelper _monoHelper;
         private FguiPoolHelper _fGuiPoolHelper;
         private FguiGObjectPoolHelper _gfGuiObjectPoolHelper;
         private SlotMachineController3993 _slotMachineController;
+        private FreeSpinTimeController3993 _freeSpinTimeController;
+
+        private GTextField _freeRoundText;
+        private Controller _gameController;
 
         private bool _isInitPool;
         private GComponent _gOwnerPanel;
@@ -71,7 +79,9 @@ namespace MeiZhouHeiBao_3993
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
-
+            _freeRoundText = contentPane.GetChild("freeFrame").asCom.GetChild("n16").asCom
+                .GetChild("freeRoundText")
+                .asTextField;
             LoadAsyncPrefabRes();
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
@@ -113,11 +123,15 @@ namespace MeiZhouHeiBao_3993
 
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
+            BindPrefabsToUI();
+            RefreshCredit();
+            _gameController = contentPane.GetController("gameController");
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
+            InitFreeSpinUIAndController();
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             InitParam();
         }
@@ -125,13 +139,27 @@ namespace MeiZhouHeiBao_3993
         public override void OnClose(EventData eventData = null)
         {
             OnGameReset();
+            _freeSpinTimeController.Dispose();
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             base.OnClose(eventData);
         }
 
+        protected override void OnLanguageChange(I18nLang lang)
+        {
+            FguiI18nTextAssistant.Instance.DisposeAllTranslate(contentPane);
+            contentPane.Dispose(); // 释放当前UI
+            contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
+            _freeRoundText = contentPane.GetChild("freeFrame").asCom.GetChild("n16").asCom
+                .GetChild("freeRoundText")
+                .asTextField;
+            InitFreeSpinUIAndController();
+            InitParam();
+            Debug.LogError("语言切换");
+        }
+
         private void LoadAsyncPrefabRes()
         {
-            _resCount = 2;
+            _resCount = 3;
             // 加载公共资源包
             if (UIPackage.GetByName("Common") == null)
             {
@@ -164,6 +192,15 @@ namespace MeiZhouHeiBao_3993
                 ConfigUtils.GetGameInfoURL(3993), (txt) =>
                 {
                     _gameInfo = txt;
+                    ResPreLoadCallBack();
+                });
+
+            // 加载Spine动画
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                SpinesPath + "fg_Background.prefab",
+                (clone) =>
+                {
+                    _fgBgObj = clone;
                     ResPreLoadCallBack();
                 });
         }
@@ -220,6 +257,12 @@ namespace MeiZhouHeiBao_3993
                 ContentModel.Instance.payLines.Add(item);
         }
 
+        private void InitFreeSpinUIAndController()
+        {
+            _freeSpinTimeController = new FreeSpinTimeController3993();
+            _freeSpinTimeController.InitParam(_freeRoundText);
+        }
+
         private void InitUIPool()
         {
             if (_fGuiPoolHelper != null && _isInitPool == false)
@@ -259,6 +302,46 @@ namespace MeiZhouHeiBao_3993
             GComponent gFrame = contentPane.GetChild("anchor_Effect").asCom;
             _slotMachineController.Init(gSlotCover, gPlayLines, gReels, gFrame, _fGuiPoolHelper,
                 _gfGuiObjectPoolHelper);
+        }
+
+        private void RefreshCredit()
+        {
+            //同步积分和押注
+            MachineDataManager02.Instance.RequestGetPlayerInfo((res) =>
+            {
+                SBoxAccount sBoxAccount = (SBoxAccount)res;
+                int pid = SBoxModel.Instance.pid;
+                List<SBoxPlayerAccount> playerAccountList = sBoxAccount.PlayerAccountList;
+                for (int i = 0; i < playerAccountList.Count; i++)
+                {
+                    if (playerAccountList[i].PlayerId == pid)
+                    {
+                        MainBlackboardController.Instance.SetMyRealCredit(playerAccountList[i].Credit);
+                        //DebugUtils.Log("前一局算法卡CoinIn==" + playerAccountList[i].CoinIn);
+                        // DebugUtils.Log("前一局算法卡Bet==" + playerAccountList[i].Bets);
+                        // DebugUtils.Log("前一局算法卡Credit==" + );
+                        break;
+                    }
+                }
+            }, (BagelCodeError err) =>
+            {
+                DebugUtils.Log(err.msg);
+            });
+
+            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+        }
+
+
+        private void BindPrefabsToUI()
+        {
+            GComponent currentCom = contentPane.GetChild("anchor_FgBackground").asCom;
+            if (currentCom != _compareFgBgCom)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareFgBgCom);
+                _compareFgBgCom = currentCom;
+                _cloneFgBgObj = Object.Instantiate(_fgBgObj);
+                GameCommon.FguiUtils.AddWrapper(_compareFgBgCom, _cloneFgBgObj);
+            }
         }
 
         private void OnPanelInputEvent(EventData res)
@@ -996,6 +1079,8 @@ namespace MeiZhouHeiBao_3993
             bool isNext = false;
             InputStackContextFreeSpin((context) =>
             {
+                _freeRoundText.text = ContentModel.Instance.FreeSpinTotalTimes.ToString();
+                _gameController.selectedPage = "freeGame";
                 _slotMachineController.SkipWinLine(false);
                 _slotMachineController.CloseSlotCover();
             });
@@ -1007,7 +1092,6 @@ namespace MeiZhouHeiBao_3993
                 {
                     DebugUtils.Log("回调执行！isNext = true"); // 加日志
                     isNext = true;
-                    Debug.LogError(123);
                 });
 
             yield return new WaitUntil(() => isNext == true);
@@ -1019,7 +1103,6 @@ namespace MeiZhouHeiBao_3993
                 {
                     DebugUtils.Log("回调执行！isNext = true"); // 加日志
                     isNext = true;
-                    Debug.LogError(456);
                 });
 
             yield return new WaitUntil(() => isNext == true);
@@ -1039,9 +1122,22 @@ namespace MeiZhouHeiBao_3993
                     if (sw != null && sw.cells.Count > 0)
                         _slotMachineController.ShowSymbolWinDeck(sw, true);
                     _slotMachineController.CloseSlotCover();
+                    _gameController.selectedPage = "normalGame";
                 });
 
             _slotMachineController.EndBonusFreeSpin();
+            
+            PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupFreeGameLoading,
+                null,
+                (ed) =>
+                {
+                    DebugUtils.Log("回调执行！isNext = true"); // 加日志
+                    isNext = true;
+                });
+
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+            
             PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupFreeSpinResult,
                 new EventData<Dictionary<string, object>>("",
                     new Dictionary<string, object>()
@@ -1207,23 +1303,15 @@ namespace MeiZhouHeiBao_3993
 
             if (winList.Count > 0 || ContentModel.Instance.bonusResults != null)
             {
-                long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList) *
-                                          MainModel.Instance.contentMD.betmultiple; // 新增倍率
+                long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList) /* *
+                                          MainModel.Instance.contentMD.betmultiple*/; // 新增倍率
                 _allWinCredit += totalWinLineCredit;
-                // Debug.LogError("totalWinLineCredit：" + totalWinLineCredit);
                 Debug.LogError("_allWinCredit：" + _allWinCredit);
                 _slotMachineController.SendTotalWinCreditEvent(_allWinCredit); // 总线赢分事件
-
-                // bool isAddToCredit = totalWinLineCredit > TotalBet * 4;
-                // _slotMachineController.SendPrepareTotalWinCreditEvent(totalWinLineCredit, isAddToCredit);
-                // _slotMachineController.SendTotalWinCreditEvent(totalWinLineCredit); // 总线赢分事件
-                // ContentModel.Instance.FreeOnceCredit = totalWinLineCredit; // 加钱动画
             }
 
             #endregion
 
-            // 本剧同步玩家金钱
-            // MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             isNext = false;
 
             if (winList.Count > 0 || false) // isHitJackpot
@@ -1231,30 +1319,6 @@ namespace MeiZhouHeiBao_3993
                 yield return new WaitForSeconds(1);
                 yield return ShowWinListCoinCountDown(winList, _allWinCredit, false);
             }
-
-            #region 免费游戏中，添加额外免费游戏
-
-            if (ContentModel.Instance.isFreeSpinAdd)
-            {
-                _slotMachineController.BeginBonusFreeSpinAdd();
-                _monoHelper.StartCoroutine(ShowWinSymbol(10, () =>
-                {
-                    isNext = true;
-                }));
-
-                yield return new WaitUntil(() => isNext == true);
-                isNext = false;
-
-                // 【待修改】重置剩余的局数 
-                ContentModel.Instance.ShowFreeSpinRemainTime =
-                    ContentModel.Instance.FreeSpinTotalTimes - ContentModel.Instance.FreeSpinPlayTimes;
-
-                yield return _slotMachineController.SlotWaitForSeconds(1.5f);
-                _slotMachineController.EndBonusFreeSpinAdd();
-                ContentModel.Instance.isFreeSpinAdd = false;
-            }
-
-            #endregion
 
             ContentModel.Instance.gameState = GameState.Idle;
             successCallback?.Invoke();

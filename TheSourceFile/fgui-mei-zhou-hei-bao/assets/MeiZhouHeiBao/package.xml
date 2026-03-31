@@ -250,6 +250,7 @@
     <component id="dtum6y" name="NormalReels.xml" path="/moudules/common/SlotMachine/GameJackpots/" exported="true"/>
     <component id="dtum6z" name="PopupFreeSpinResult.xml" path="/" exported="true"/>
     <component id="dtum70" name="Anchor_FgBackground.xml" path="/moudules/pageGameMain/FreeGame/" exported="true"/>
+    <component id="l0db71" name="FreeFrame2.xml" path="/moudules/pageGameMain/FreeGame/"/>
   </resources>
   <publish name=""/>
 </packageDescription>

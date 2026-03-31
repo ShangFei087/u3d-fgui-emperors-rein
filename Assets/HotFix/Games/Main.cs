@@ -344,6 +344,7 @@ public class Main
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupJackpotLoading);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPageGameMain);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupJackpotGame);
+            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeSpinResult);
         }
     }
 

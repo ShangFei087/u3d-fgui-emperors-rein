@@ -68,7 +68,6 @@ namespace MeiZhouHeiBao_3993
             _freeStartBtn.onClick.Add((() =>
             {
                 CloseSelf(null);
-                // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeGameLoading);
             }));
         }
 
