@@ -120,6 +120,7 @@ namespace ConsoleSlot01
 
         public override void OnClose(EventData data = null)
         {
+            tabMachineCtrl.OnClose();
             //tabProgressive.Disable();
             base.OnClose(data);
         }

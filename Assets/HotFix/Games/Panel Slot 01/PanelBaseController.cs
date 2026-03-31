@@ -479,7 +479,47 @@ namespace SlotMaker
             if (betList == null)
                 betList = SBoxModel.Instance.betList;
 
+            if (betList == null || betList.Count == 0 || MainModel.Instance?.contentMD == null)
+                return;
 
+            int betIndex = MainModel.Instance.contentMD.betIndex;
+            if (betIndex < 0)
+                betIndex = 0;
+            if (betIndex >= betList.Count)
+                betIndex = betList.Count - 1;
+
+            // 同步下注金额与界面文案
+            MainModel.Instance.contentMD.betIndex = betIndex;
+            MainModel.Instance.contentMD.totalBet = betList[betIndex];
+
+            if (gOwnerPanel != null && bet != null && btnBetDown != null && btnBetUp != null)
+            {
+                ChangeBetButtonInteractable(betIndex, betList.Count);
+            }
+
+            // 如果当前还没开始旋转，重新下发当前下注到机台
+            if (MainModel.Instance.contentMD.gameState == GameState.Idle)
+            {
+                try
+                {
+                    SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
+                    {
+                        PlayerId = SBoxModel.Instance.pid,
+                        balance = 0,
+                        rfu = 0
+                    };
+                    sBoxPlayerBetsData.Bets[0] = (int)MainModel.Instance.contentMD.totalBet;
+
+                    ERPushMachineDataManager02.Instance.RequestSetBet(sBoxPlayerBetsData, (callbackRes) =>
+                    {
+                        // 这里只需要保证下注值刷新，不做额外 UI 变更
+                    });
+                }
+                catch (Exception ex)
+                {
+                    DebugUtils.LogError($"[PanelBaseController] RequestSetBet after betList refresh failed: {ex}");
+                }
+            }
         }
         protected virtual void OnPropertyChangeBtnSpinState(EventData res = null)
         {
@@ -753,7 +793,7 @@ namespace SlotMaker
             }
             MainModel.Instance.contentMD.betIndex = curBetIndex;
             //下注倍数现在硬数据,之后在改动  
-            MainModel.Instance.contentMD.betmultiple = (int)MainModel.Instance.contentMD.totalBet / 50;
+            MainModel.Instance.contentMD.betmultiple = (int)MainModel.Instance.contentMD.totalBet / MainModel.Instance.lineNum;
             bet.text = MainModel.Instance.contentMD.totalBet.ToString();
             btnBetDown.touchable = curBetIndex > 0;
             btnBetDown.GetChild("untouch").visible = btnBetDown.touchable ? false : true;
