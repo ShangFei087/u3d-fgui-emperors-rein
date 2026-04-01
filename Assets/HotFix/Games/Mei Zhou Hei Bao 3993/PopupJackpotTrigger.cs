@@ -17,8 +17,15 @@ namespace MeiZhouHeiBao_3993
 
         private GButton _jackpotStartBtn;
         private GTextField _jackpotRoundText;
-        private GComponent _compareJpPupCollectFrame;
-        private GameObject _jpPupCollectFrameObj, _cloneJpPupCollectFrameObj;
+        private GComponent _compareJpPupCollectFrame, _compareTransitionFgToJp;
+
+        private GameObject _jpPupCollectFrameObj,
+            _cloneJpPupCollectFrameObj,
+            _transitionFgToJpObj,
+            _cloneTransitionFgToJpObj;
+
+        private Animator _animator;
+        private Transform _effectTransform;
 
         protected override void OnInit()
         {
@@ -65,20 +72,41 @@ namespace MeiZhouHeiBao_3993
         {
             _jackpotStartBtn = contentPane.GetChild("jackpotStartBtn").asButton;
             _jackpotRoundText = contentPane.GetChild("jackpotRoundText").asTextField;
-           
+            _jackpotRoundText.visible = false;
+            Timers.inst.Add(3.3f, 1, (obj) =>
+            {
+                _jackpotRoundText.visible = true;
+                _cloneJpPupCollectFrameObj.SetActive(true);
+            });
             _jackpotStartBtn.onClick.Add((() =>
             {
-                CloseSelf(null);
+                _jackpotRoundText.visible = false;
+                _cloneJpPupCollectFrameObj.SetActive(false);
+                PlayAnimationByName(_animator, "transition");
+                Timers.inst.Add(2.5f,1, (obj) =>
+                {
+                    _effectTransform.gameObject.SetActive(true);
+                });
+                Timers.inst.Add(3.8f, 1, (obj) =>
+                {
+                    CloseSelf(null);
+                });
             }));
         }
 
         private void LoadResAsync()
         {
-            _resCount = 1;
+            _resCount = 2;
             ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "jp_pup_CollectFrame.prefab",
                 (cloneObj) =>
                 {
                     _jpPupCollectFrameObj = cloneObj;
+                    ResLoadedCallback();
+                });
+            ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "Transition_FgToJp.prefab",
+                (cloneObj) =>
+                {
+                    _transitionFgToJpObj = cloneObj;
                     ResLoadedCallback();
                 });
         }
@@ -89,19 +117,43 @@ namespace MeiZhouHeiBao_3993
             if (_compareJpPupCollectFrame != currentCom)
             {
                 _cloneJpPupCollectFrameObj = Object.Instantiate(_jpPupCollectFrameObj);
+                _cloneJpPupCollectFrameObj.SetActive(false);
                 GameCommon.FguiUtils.DeleteWrapper(_compareJpPupCollectFrame);
                 _compareJpPupCollectFrame = currentCom;
                 GameCommon.FguiUtils.AddWrapper(_compareJpPupCollectFrame, _cloneJpPupCollectFrameObj);
             }
+
+            currentCom = contentPane.GetChild("anchor_Transition_FgToJp").asCom;
+            if (_compareTransitionFgToJp != currentCom)
+            {
+                _cloneTransitionFgToJpObj = Object.Instantiate(_transitionFgToJpObj);
+                _animator = _cloneTransitionFgToJpObj.GetComponentInChildren<Animator>();
+                _effectTransform = _cloneTransitionFgToJpObj.transform.Find("Effect").transform.Find("fg_eff_pup_TipFrame");
+                _effectTransform.gameObject.SetActive(false);
+                GameCommon.FguiUtils.DeleteWrapper(_compareTransitionFgToJp);
+                _compareTransitionFgToJp = currentCom;
+                GameCommon.FguiUtils.AddWrapper(_compareTransitionFgToJp, _cloneTransitionFgToJpObj);
+            }
+        }
+
+        private void PlayAnimationByName(Animator animator, string aniName)
+        {
+            animator.Rebind();
+            animator.Play(aniName);
+            animator.Update(0f);
         }
 
         private void ResetPage()
         {
             Object.Destroy(_cloneJpPupCollectFrameObj);
+            Object.Destroy(_cloneTransitionFgToJpObj);
             GameCommon.FguiUtils.DeleteWrapper(_compareJpPupCollectFrame);
+            GameCommon.FguiUtils.DeleteWrapper(_compareTransitionFgToJp);
 
+            _compareTransitionFgToJp = null;
             _compareJpPupCollectFrame = null;
             _cloneJpPupCollectFrameObj = null;
+            _cloneTransitionFgToJpObj = null;
         }
     }
 }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
+    <component id="n3_ntds" name="anchor_eff_Slash 1" src="ntds74" fileName="moudules/popupFreeSpinTrigger/Anchor_eff_Slash 1.xml" xy="540,960"/>
     <component id="n0_rjnl" name="anchor_FreeStartFrame" src="rjnl5u" fileName="moudules/popupFreeSpinTrigger/Anchor_FreeStartFrame.xml" xy="540,960"/>
-    <text id="n1_rjnl" name="freeRoundText" xy="284,860" size="500,147" font="ui://wnvfq681qkv033" fontSize="12" align="center" vAlign="middle" autoSize="none" text="11111111"/>
+    <text id="n1_rjnl" name="freeRoundText" xy="284,860" size="500,150" font="ui://wnvfq681qkv033" fontSize="15" align="center" vAlign="middle" autoSize="none" text="11111111"/>
     <component id="n2_rjnl" name="freeStartBtn" src="rjnl5v" fileName="components/popupFreeSpinTrigger/FreeStartBtn.xml" xy="416,1112" size="261,65" alpha="0"/>
   </displayList>
 </component>

@@ -60,6 +60,9 @@ namespace MeiZhouHeiBao_3993
             },
             { "11", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/ng_sym12_Bird.prefab" },
             { "12", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/ng_sym13_Snake.prefab" },
+            { "13", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/ng_sym14_WILD_X2.prefab" },
+            { "14", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/ng_sym15_WILD_X3.prefab" },
+            { "15", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/ng_sym16_WILD_X5.prefab" },
         };
 
         public List<int> specialHitSymbols => new List<int>();

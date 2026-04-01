@@ -3,15 +3,15 @@
 
 	"ResultType": 1,
 
-	"lineNum": 0,
+	"lineNum": 2,
 
 	"TotalBet": 30,
 
 	"MatrixLength": 15,
 
-	"IDVec": [],
+	"IDVec": [301,1400],
 
-	"Matrix": [7,3,5,4,9,
-		2,2,2,11,9,
+	"Matrix": [0,0,0,0,9,
+		15,1,1,5,9,
 		6,7,7,3,9]
 }

@@ -250,7 +250,10 @@
     <component id="dtum6y" name="NormalReels.xml" path="/moudules/common/SlotMachine/GameJackpots/" exported="true"/>
     <component id="dtum6z" name="PopupFreeSpinResult.xml" path="/" exported="true"/>
     <component id="dtum70" name="Anchor_FgBackground.xml" path="/moudules/pageGameMain/FreeGame/" exported="true"/>
-    <component id="l0db71" name="FreeFrame2.xml" path="/moudules/pageGameMain/FreeGame/"/>
+    <image id="l0db71" name="fg_img_Black Panther Icon Collection UI_YOU GOT.png" path="/images/pageGameMain/"/>
+    <component id="l0db72" name="Anchor_fg_eff_kuang_glow.xml" path="/moudules/pageGameMain/FreeGame/" exported="true"/>
+    <component id="l0db73" name="Anchor_Transition_FgToJp.xml" path="/moudules/popupJackpotTrigger/" exported="true"/>
+    <component id="ntds74" name="Anchor_eff_Slash 1.xml" path="/moudules/popupFreeSpinTrigger/" exported="true"/>
   </resources>
   <publish name=""/>
 </packageDescription>

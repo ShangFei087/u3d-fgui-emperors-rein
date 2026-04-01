@@ -21,8 +21,9 @@ namespace MeiZhouHeiBao_3993
         [JsonProperty("game_id")] public int gameId; //游戏 ID
         [JsonProperty("game_name")] public string gameName; //名称
         [JsonProperty("display_name")] public string displayName; //显示名称
+        [JsonProperty("line_num")] public int LineNum; //线数
         [JsonProperty("win_level_multiple")] public Dictionary<string, long> WinLevelMultiple { get; set; } //赢钱倍数
-        
+
 
         [JsonProperty("symbol_paytable")]
         public Dictionary<string, PayTableSymbolInfo> SymbolPayTable { get; set; } //符号赔率表
@@ -48,6 +49,17 @@ namespace MeiZhouHeiBao_3993
 
         private GComponent _compareFgBgCom;
         private GameObject _fgBgObj, _cloneFgBgObj;
+
+        private GComponent _compareBorderGlowCom,
+            _compareBorderGlowCom1,
+            _compareBorderGlowCom2,
+            _compareBorderGlowCom3;
+
+        private GameObject _borderGlowObj,
+            _cloneBorderGlowObj,
+            _cloneBorderGlowObj1,
+            _cloneBorderGlowObj2,
+            _cloneBorderGlowObj3;
 
         private MonoHelper _monoHelper;
         private FguiPoolHelper _fGuiPoolHelper;
@@ -159,7 +171,7 @@ namespace MeiZhouHeiBao_3993
 
         private void LoadAsyncPrefabRes()
         {
-            _resCount = 3;
+            _resCount = 4;
             // 加载公共资源包
             if (UIPackage.GetByName("Common") == null)
             {
@@ -203,6 +215,15 @@ namespace MeiZhouHeiBao_3993
                     _fgBgObj = clone;
                     ResPreLoadCallBack();
                 });
+
+            // 加载Effect动画
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                EffectsPath + "fg_eff_kuang_glow.prefab",
+                (clone) =>
+                {
+                    _borderGlowObj = clone;
+                    ResPreLoadCallBack();
+                });
         }
 
         private void ResPreLoadCallBack()
@@ -226,6 +247,7 @@ namespace MeiZhouHeiBao_3993
             MainModel.Instance.gameID = config.gameId;
             MainModel.Instance.gameName = config.gameName;
             MainModel.Instance.displayName = config.displayName;
+            MainModel.Instance.lineNum = config.LineNum;
             foreach (var item in config.WinLevelMultiple)
             {
                 string winKey = item.Key;
@@ -331,9 +353,9 @@ namespace MeiZhouHeiBao_3993
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
         }
 
-
         private void BindPrefabsToUI()
         {
+            // 绑定Spine动画
             GComponent currentCom = contentPane.GetChild("anchor_FgBackground").asCom;
             if (currentCom != _compareFgBgCom)
             {
@@ -341,6 +363,48 @@ namespace MeiZhouHeiBao_3993
                 _compareFgBgCom = currentCom;
                 _cloneFgBgObj = Object.Instantiate(_fgBgObj);
                 GameCommon.FguiUtils.AddWrapper(_compareFgBgCom, _cloneFgBgObj);
+            }
+
+            // 绑定Effect特效
+            GComponent freeFrameCom = contentPane.GetChild("freeFrame").asCom;
+            currentCom = freeFrameCom.GetChild("n17").asCom.GetChild("anchor_fg_eff_kuang_glow").asCom;
+            if (currentCom != _compareBorderGlowCom)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareBorderGlowCom);
+                _compareBorderGlowCom = currentCom;
+                _cloneBorderGlowObj = Object.Instantiate(_borderGlowObj);
+                _cloneBorderGlowObj.SetActive(false);
+                GameCommon.FguiUtils.AddWrapper(_compareBorderGlowCom, _cloneBorderGlowObj);
+            }
+
+            currentCom = freeFrameCom.GetChild("n18").asCom.GetChild("anchor_fg_eff_kuang_glow").asCom;
+            if (currentCom != _compareBorderGlowCom)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareBorderGlowCom1);
+                _compareBorderGlowCom1 = currentCom;
+                _cloneBorderGlowObj1 = Object.Instantiate(_borderGlowObj);
+                _cloneBorderGlowObj1.SetActive(false);
+                GameCommon.FguiUtils.AddWrapper(_compareBorderGlowCom1, _cloneBorderGlowObj1);
+            }
+
+            currentCom = freeFrameCom.GetChild("n19").asCom.GetChild("anchor_fg_eff_kuang_glow").asCom;
+            if (currentCom != _compareBorderGlowCom2)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareBorderGlowCom2);
+                _compareBorderGlowCom2 = currentCom;
+                _cloneBorderGlowObj2 = Object.Instantiate(_borderGlowObj);
+                _cloneBorderGlowObj2.SetActive(false);
+                GameCommon.FguiUtils.AddWrapper(_compareBorderGlowCom2, _cloneBorderGlowObj2);
+            }
+
+            currentCom = freeFrameCom.GetChild("n20").asCom.GetChild("anchor_fg_eff_kuang_glow").asCom;
+            if (currentCom != _compareBorderGlowCom3)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareBorderGlowCom3);
+                _compareBorderGlowCom3 = currentCom;
+                _cloneBorderGlowObj3 = Object.Instantiate(_borderGlowObj);
+                _cloneBorderGlowObj3.SetActive(false);
+                GameCommon.FguiUtils.AddWrapper(_compareBorderGlowCom3, _cloneBorderGlowObj3);
             }
         }
 
@@ -837,10 +901,10 @@ namespace MeiZhouHeiBao_3993
             if (ContentModel.Instance.IsBonusTrigger)
             {
                 if (_corShowBonusSymbol != null) _monoHelper.StopCoroutine(_corShowBonusSymbol);
-                _corShowBonusSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(11));
+                _corShowBonusSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(10));
                 yield return new WaitForSeconds(1.6f);
 
-                PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiMenPopupJackpotTrigger,
+                PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupJackpotTrigger,
                     new EventData<Dictionary<string, object>>("", new Dictionary<string, object> { }),
                     (res) =>
                     {
@@ -867,7 +931,7 @@ namespace MeiZhouHeiBao_3993
                 long winCredit = data.win;
                 allWinCredit += winCredit;
 
-                PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiMenPopupOnlineJackpot,
+                PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupJackpotResult,
                     new EventData<Dictionary<string, object>>("",
                         new Dictionary<string, object>
                         {
@@ -1126,18 +1190,7 @@ namespace MeiZhouHeiBao_3993
                 });
 
             _slotMachineController.EndBonusFreeSpin();
-            
-            PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupFreeGameLoading,
-                null,
-                (ed) =>
-                {
-                    DebugUtils.Log("回调执行！isNext = true"); // 加日志
-                    isNext = true;
-                });
 
-            yield return new WaitUntil(() => isNext == true);
-            isNext = false;
-            
             PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupFreeSpinResult,
                 new EventData<Dictionary<string, object>>("",
                     new Dictionary<string, object>()
@@ -1157,7 +1210,18 @@ namespace MeiZhouHeiBao_3993
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
-            yield return _slotMachineController.SlotWaitForSeconds(1.5f);
+            PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupFreeGameLoading,
+                null,
+                (ed) =>
+                {
+                    DebugUtils.Log("回调执行！isNext = true"); // 加日志
+                    isNext = true;
+                });
+
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+
+            yield return _slotMachineController.SlotWaitForSeconds(1f);
         }
 
         private void InputStackContextFreeSpin(Action<Dictionary<string, object>> inputStackCallBack)
@@ -1303,10 +1367,11 @@ namespace MeiZhouHeiBao_3993
 
             if (winList.Count > 0 || ContentModel.Instance.bonusResults != null)
             {
-                long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList) /* *
-                                          MainModel.Instance.contentMD.betmultiple*/; // 新增倍率
+                long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList) *
+                                          MainModel.Instance.contentMD.betmultiple; // 新增倍率
                 _allWinCredit += totalWinLineCredit;
-                Debug.LogError("_allWinCredit：" + _allWinCredit);
+                Debug.LogError("_allWinCredit：" + _allWinCredit + "              totalWinLineCredit：" +
+                               totalWinLineCredit);
                 _slotMachineController.SendTotalWinCreditEvent(_allWinCredit); // 总线赢分事件
             }
 

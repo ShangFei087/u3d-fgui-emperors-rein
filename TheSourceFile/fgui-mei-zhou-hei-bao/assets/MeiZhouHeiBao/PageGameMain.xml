@@ -18,10 +18,7 @@
     <component id="n6_rjnl" name="freeReelBg" src="rjnl5s" fileName="moudules/common/SlotMachine/ReelBackground/FreeReelBackground.xml" xy="30,807" scale="0.9,0.9">
       <gearDisplay controller="gameController" pages="1"/>
     </component>
-    <component id="n10_l0db" name="freeFrame" src="l0db71" fileName="moudules/pageGameMain/FreeGame/FreeFrame2.xml" xy="0,508">
-      <gearDisplay controller="gameController" pages="1"/>
-    </component>
-    <component id="n8_dtum" name="freeFrame1" src="dtum6m" fileName="moudules/pageGameMain/FreeGame/FreeFrame.xml" xy="0,568" visible="false">
+    <component id="n8_dtum" name="freeFrame" src="dtum6m" fileName="moudules/pageGameMain/FreeGame/FreeFrame.xml" xy="0,568">
       <gearDisplay controller="gameController" pages="1"/>
     </component>
     <component id="n3_vcbb" name="anchor_Effect" src="vcbb5o" fileName="moudules/common/SlotMachine/Content/Anchor_Effect.xml" xy="540,960"/>
