@@ -374,7 +374,7 @@ namespace SlotZhuZaiJinBi1700
 
             //赢分
             long creditBefore = MainBlackboardController.Instance.myRealCredit;
-            long creditAfter = creditBefore - totalBet + totalLineWin;
+            long creditAfter = creditBefore - totalBet + totalLineWin ;
 
             //List<List<int>> deckColRow = SlotTool.GetDeckColRow02(strDeckRowCol);
             ////bool isReelsSlowMotion = (deckColRow[0].Contains(10) && deckColRow[1].Contains(10)) ? true : false;
@@ -394,7 +394,7 @@ namespace SlotZhuZaiJinBi1700
 
         private int GetLineOdds(int symbolType, int hitCount)
         {
-            List<PayTableSymbolInfo> payTable = CustomModel.Instance.payTableSymbolWin;
+            List<PayTableSymbolInfo> payTable = ContentModel.Instance.payTableSymbolWin;
 
             PayTableSymbolInfo info = null;
             if (symbolType >= 0 && symbolType < payTable.Count && payTable[symbolType].symbol == symbolType)
@@ -419,25 +419,25 @@ namespace SlotZhuZaiJinBi1700
         }
 
         //检查算法结果
-        private void CheckGameResult(string strDeckRowCol,int TotalWin)
+        private void CheckGameResult(string strDeckRowCol, int TotalWin)
         {
-            List<List<int>> deckColRow = SlotTool.GetDeckColRow03(strDeckRowCol); 
-            int wild = CustomModel.Instance.symbolNumber[9]; 
-            int scatter = CustomModel.Instance.symbolNumber[10]; 
+            List<List<int>> deckColRow = SlotTool.GetDeckColRow03(strDeckRowCol);
+            int wild = CustomModel.Instance.symbolNumber[9];
+            int scatter = CustomModel.Instance.symbolNumber[10];
             const int bonus = 11;
             int colCount = CustomModel.Instance.column;
             int calcTotalWin = 0; // 本地累计的总赢分（用于和服务器回包对比）
             List<List<int>> winLinesRule = CustomModel.Instance.payLines; // 中奖线
             List<PayTableSymbolInfo> payTable = CustomModel.Instance.payTableSymbolWin; // 赔率表
 
-            if (deckColRow == null || deckColRow.Count == 0 || winLinesRule == null || payTable == null) 
+            if (deckColRow == null || deckColRow.Count == 0 || winLinesRule == null || payTable == null)
             {
-                DebugUtils.LogError("[G1700][CheckGameResult] 数据为空，无法校验中奖结果。"); 
+                DebugUtils.LogError("[G1700][CheckGameResult] 数据为空，无法校验中奖结果。");
                 return;
             }
 
             //判断中奖线,遍历每一条支付线
-            for (int i = 0; i < MainModel.Instance.lineNum; ++i) 
+            for (int i = 0; i < MainModel.Instance.lineNum; ++i)
             {
                 // 取当前线的行索引规则
                 List<int> currentLineRule = winLinesRule[i];
@@ -449,22 +449,22 @@ namespace SlotZhuZaiJinBi1700
                 // 从第 2 列开始累计“连续命中数量”（不含第 1 列）
                 int sameTypeCount = 0;
                 // 从第 2 列开始向右连续判断
-                for (int n = 1; n < colCount; ++n) 
+                for (int n = 1; n < colCount; ++n)
                 {
                     // 当前列在线上的行索引
                     int curRow = currentLineRule[n];
                     // 当前列该线位置的图标类型
-                    int currentSymbolType = deckColRow[n][curRow]; 
+                    int currentSymbolType = deckColRow[n][curRow];
 
                     // Wild 无法替代 Scatter 或 Bonus
-                    if ((firstSymbolType == scatter || firstSymbolType == bonus) && currentSymbolType == firstSymbolType) 
+                    if ((firstSymbolType == scatter || firstSymbolType == bonus) && currentSymbolType == firstSymbolType)
                     {
-                        sameTypeCount += 1; 
+                        sameTypeCount += 1;
                     }
-                    else if ((firstSymbolType != scatter && firstSymbolType != bonus) && 
-                             (currentSymbolType == firstSymbolType || currentSymbolType == wild)) 
+                    else if ((firstSymbolType != scatter && firstSymbolType != bonus) &&
+                             (currentSymbolType == firstSymbolType || currentSymbolType == wild))
                     {
-                        sameTypeCount += 1; 
+                        sameTypeCount += 1;
                     }
                     // 第一个图标是 Wild，遇到可替代图标后以该图标作为基准
                     else if ((currentSymbolType != scatter && currentSymbolType != bonus) && firstSymbolType == wild)
@@ -472,19 +472,19 @@ namespace SlotZhuZaiJinBi1700
                         firstSymbolType = currentSymbolType; // 把当前普通图标设为新的基准图标
                         sameTypeCount += 1;
                     }
-                    else 
+                    else
                     {
-                        break; 
+                        break;
                     }
                 }
 
                 // 命中个数 = 连续计数 + 第 1 列自身
                 int hitCount = sameTypeCount + 1;
                 // 普通奖不统计 Scatter/Bonus
-                if (firstSymbolType != scatter && firstSymbolType != bonus&& hitCount>=3) 
+                if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 3)
                 {
-                    int lineOdds = GetLineOdds(firstSymbolType, hitCount); 
-                    if (lineOdds > 0) 
+                    int lineOdds = GetLineOdds(firstSymbolType, hitCount);
+                    if (lineOdds > 0)
                     {
                         calcTotalWin += lineOdds; // 累加本地计算总赢分
                     }
@@ -492,13 +492,13 @@ namespace SlotZhuZaiJinBi1700
             }
 
             int diff = Math.Abs(calcTotalWin - TotalWin); // 计算本地校验值与算法差值
-            if (diff !=0)
+            if (diff != 0)
             {
-                DebugUtils.LogError($"[G1700][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}"); 
+                DebugUtils.LogError($"[G1700][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}");
             }
-            else 
+            else
             {
-                DebugUtils.Log($"[G1700][CheckGameResult] 校验通过，TotalWin={TotalWin}"); 
+                DebugUtils.Log($"[G1700][CheckGameResult] 校验通过，TotalWin={TotalWin}");
             }
         }
 
