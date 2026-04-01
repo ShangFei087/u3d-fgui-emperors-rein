@@ -4,6 +4,17 @@ namespace SlotMaker
 {
     public class SlotTool
     {
+        /// <summary>
+        /// 将按列组织的二维牌面数据转换为字符串（列优先输出，列之间用#分隔）。
+        /// </summary>
+        /// <example>
+        /// 若按矩阵视角为 [3][5]（3行5列）：
+        /// [[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15]]
+        /// 对应输入列数据：[[1,6,11],[2,7,12],[3,8,13],[4,9,14],[5,10,15]]
+        /// 输出字符串："1,6,11#2,7,12#3,8,13#4,9,14#5,10,15"
+        /// </example>
+        /// <param name="deckColRowList">按列存储的牌面数据集合。</param>
+        /// <returns>形如 "1,2,3#4,5,6" 的列优先字符串。</returns>
         public static string GetDeckColRow(List<List<int>> deckColRowList)
         {
             string res = "";
@@ -22,6 +33,15 @@ namespace SlotMaker
 
         }
 
+        /// <summary>
+        /// 将按列组织的二维牌面数据转换为字符串（按行遍历输出，行之间用#分隔）。
+        /// </summary>
+        /// <example>
+        /// 输入列数据：[[1,6,11],[2,7,12],[3,8,13],[4,9,14],[5,10,15]]
+        /// 输出字符串："1,2,3,4,5#6,7,8,9,10#11,12,13,14,15"
+        /// </example>
+        /// <param name="deckColRowList">按列存储的牌面数据集合。</param>
+        /// <returns>形如 "1,4,7#2,5,8" 的行优先字符串。</returns>
         public static string GetDeckRowCol(List<List<int>> deckColRowList)
         {
             string res = "";
@@ -41,6 +61,15 @@ namespace SlotMaker
         }
 
 
+        /// <summary>
+        /// 将行优先字符串解析为一维列优先数组。
+        /// </summary>
+        /// <example>
+        /// 输入字符串："1,2,3,4,5#6,7,8,9,10#11,12,13,14,15"
+        /// 输出列表：[1,6,11,2,7,12,3,8,13,4,9,14,5,10,15]
+        /// </example>
+        /// <param name="strDeckRowCol">行优先字符串，行之间用#分隔，列之间用,分隔。</param>
+        /// <returns>列优先排列的一维整型列表。</returns>
         public static List<int> GetDeckColRow(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3")
         {
             string[] rows = strDeckRowCol.Split('#');
@@ -69,6 +98,11 @@ namespace SlotMaker
             return colrow;
         }
 
+        /// <summary>
+        /// 将行优先字符串解析为按列存储的二维列表（每列内部按从下到上顺序）。
+        /// </summary>
+        /// <param name="strDeckRowCol">行优先字符串，行之间用#分隔，列之间用,分隔。</param>
+        /// <returns>按列组织的二维整型列表。</returns>
         public static List<List<int>> GetDeckColRow02(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3")
         {
             string[] rows = strDeckRowCol.Split('#');
@@ -90,7 +124,47 @@ namespace SlotMaker
             return colrowLst;
         }
 
+        /// <summary>
+        /// 将行优先字符串解析为按列存储的二维列表（每列内部按从上到下顺序）。
+        /// </summary>
+        /// <example>
+        /// 输入字符串："1,2,3,4,5#6,7,8,9,10#11,12,13,14,15"
+        /// 输出列数据：[[1,6,11],[2,7,12],[3,8,13],[4,9,14],[5,10,15]]
+        /// </example>
+        /// <param name="strDeckRowCol">行优先字符串，行之间用#分隔，列之间用,分隔。</param>
+        /// <returns>按列组织的二维整型列表（列内顺序为上到下）。</returns>
+        public static List<List<int>> GetDeckColRow03(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3")
+        {
+            string[] rows = strDeckRowCol.Split('#');
+            int rowNum = rows.Length;
+            int colNum = rows[0].Split(',').Length;
 
+            List<List<int>> colrowLst = new List<List<int>>();
+            for (int colIndex = 0; colIndex < colNum; colIndex++)
+            {
+                List<int> _col = new List<int>();
+                for (int rowIndex = 0; rowIndex < rowNum; rowIndex++)
+                {
+                    string[] cols = rows[rowIndex].Split(',');
+                    _col.Add(int.Parse(cols[colIndex]));
+                }
+
+                colrowLst.Add(_col);
+            }
+
+            return colrowLst;
+        }
+
+
+        /// <summary>
+        /// 将行优先字符串解析为一维行优先数组。
+        /// </summary>
+        /// <example>
+        /// 输入字符串："1,2,3,4,5#6,7,8,9,10#11,12,13,14,15"
+        /// 输出列表：[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+        /// </example>
+        /// <param name="strDeckRowCol">行优先字符串，行之间用#分隔，列之间用,分隔。</param>
+        /// <returns>行优先排列的一维整型列表。</returns>
         public static List<int> GetDeckRowCol(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3")
         {
             string[] rows = strDeckRowCol.Split('#');
@@ -113,6 +187,17 @@ namespace SlotMaker
         }
 
 
+        /// <summary>
+        /// 将列优先一维数组还原为按列组织的二维列表。
+        /// </summary>
+        /// <example>
+        /// 输入数组：[1,6,11,2,7,12,3,8,13,4,9,14,5,10,15]，colCount=5，rowCount=3
+        /// 输出列数据：[[1,6,11],[2,7,12],[3,8,13],[4,9,14],[5,10,15]]
+        /// </example>
+        /// <param name="deckColRow">列优先一维牌面数据。</param>
+        /// <param name="colCount">列数。</param>
+        /// <param name="rowCount">每列行数。</param>
+        /// <returns>按列组织的二维整型列表。</returns>
         public static List<List<int>> GetDeckColRow(int[] deckColRow, int colCount, int rowCount)
         {
             List<List<int>> colrowLsts = new List<List<int>>();
@@ -128,6 +213,18 @@ namespace SlotMaker
             }
             return colrowLsts;
         }
+
+        /// <summary>
+        /// 将行优先一维数组转换为按列组织的二维列表。
+        /// </summary>
+        /// <example>
+        /// 输入数组：[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]，colCount=5，rowCount=3
+        /// 输出列数据：[[1,6,11],[2,7,12],[3,8,13],[4,9,14],[5,10,15]]
+        /// </example>
+        /// <param name="deckRowCol">行优先一维牌面数据。</param>
+        /// <param name="colCount">列数。</param>
+        /// <param name="rowCount">每列行数。</param>
+        /// <returns>按列组织的二维整型列表。</returns>
         public static List<List<int>> GetDeckColRow01(int[] deckRowCol, int colCount, int rowCount)
         {
             List<List<int>> colrowLsts = new List<List<int>>();
@@ -145,6 +242,13 @@ namespace SlotMaker
             return colrowLsts;
         }
 
+        /// <summary>
+        /// 将行优先一维数组还原为按行组织的二维列表。
+        /// </summary>
+        /// <param name="deckRowCol">行优先一维牌面数据。</param>
+        /// <param name="colCount">列数。</param>
+        /// <param name="rowCount">行数。</param>
+        /// <returns>按行组织的二维整型列表。</returns>
         public static List<List<int>> GetDeckRowCol01(int[] deckRowCol, int colCount, int rowCount)
         {
             List<List<int>> lst = new List<List<int>>();
@@ -163,6 +267,17 @@ namespace SlotMaker
 
 
 
+        /// <summary>
+        /// 将行优先一维数组格式化为字符串（行之间用#分隔）。
+        /// </summary>
+        /// <example>
+        /// 输入数组：[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]，colCount=5，rowCount=3
+        /// 输出字符串："1,2,3,4,5#6,7,8,9,10#11,12,13,14,15"
+        /// </example>
+        /// <param name="deckRowCol">行优先一维牌面数据。</param>
+        /// <param name="colCount">列数。</param>
+        /// <param name="rowCount">行数。</param>
+        /// <returns>形如 "1,2,3#4,5,6" 的牌面字符串。</returns>
         public static string GetDeckRowCol(int[] deckRowCol, int colCount, int rowCount)
         {
 

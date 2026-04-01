@@ -1,4 +1,5 @@
 using FairyGUI;
+using GameMaker;
 using SlotMaker;
 using System.Collections;
 using System.Collections.Generic;
@@ -131,6 +132,41 @@ namespace SlotEmperorsRein
                 {"12", "ui://EmperorsRein/symbol12_jackpot" }
 
         };
+
+        #region 赔付线与赔付表
+
+        public List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>()
+        {
+            new PayTableSymbolInfo()
+            {
+                symbol = 0,
+                x5 = 0,
+                x4 = 0,
+                x3 = 0,
+            },
+        };
+
+        public List<PayTableSymbolInfo> payTableSymbolWin
+        {
+            get => m_PayTableSymbolWin;
+            set => m_PayTableSymbolWin = value;
+        }
+
+        public List<List<int>> payLines
+        {
+            get => m_payLines;
+            set => m_payLines = value;
+        }
+        List<List<int>> m_payLines;
+
+        public List<WinMultiple> winLevelMultiple
+        {
+            get => _winMultipleList;
+            set => _winMultipleList = value;
+        }
+        List<WinMultiple> _winMultipleList = new List<WinMultiple>();
+
+        #endregion
 
     }
 }

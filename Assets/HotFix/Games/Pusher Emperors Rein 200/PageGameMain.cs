@@ -525,6 +525,7 @@ namespace PusherEmperorsRein
 
 
             MainModel.Instance.contentMD = ContentModel.Instance;
+            MainModel.Instance.cutomMD = CustomModel.Instance;
 
             // 同步玩家金额
             //MainBlackboardController.Instance.AutoSyncMyCreditToReel();
@@ -544,7 +545,7 @@ namespace PusherEmperorsRein
 
             ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
             payTableController.Init(lstPayTable);
-            //ContentModel.Instance.payLines = new List<List<int>>();
+            //CustomModel.Instance.payLines = new List<List<int>>();
 
             ParseGameInfo();
 
@@ -2262,7 +2263,7 @@ namespace PusherEmperorsRein
         WinLevelType GetBigWinType(long? winCredit = null)
         {
             long baseGameWinCredit = winCredit != null ? (long)winCredit : ContentModel.Instance.baseGameWinCoins;
-            List<WinMultiple> winMultipleList = ContentModel.Instance.winLevelMultiple;
+            List<WinMultiple> winMultipleList = CustomModel.Instance.winLevelMultiple;
 
             WinLevelType winLevelType = WinLevelType.None;
             for (int i = 0; i < winMultipleList.Count; i++)
@@ -3067,10 +3068,10 @@ namespace PusherEmperorsRein
             {
                 string winKey = item.Key;
                 long winValue = item.Value;
-                MainModel.Instance.contentMD.winLevelMultiple.Add(new WinMultiple(winKey, winValue));
+                MainModel.Instance.cutomMD.winLevelMultiple.Add(new WinMultiple(winKey, winValue));
             }
 
-            ContentModel.Instance.payTableSymbolWin = new List<PayTableSymbolInfo>();
+            CustomModel.Instance.payTableSymbolWin = new List<PayTableSymbolInfo>();
             foreach (var kvp in config.SymbolPaytable)
             {
 
@@ -3090,7 +3091,7 @@ namespace PusherEmperorsRein
                             x4 = jsonData1.x4,
                             x5 = jsonData1.x5,
                         };
-                        ContentModel.Instance.payTableSymbolWin.Add(item);
+                        CustomModel.Instance.payTableSymbolWin.Add(item);
                     }
                 }
                 else
@@ -3100,12 +3101,12 @@ namespace PusherEmperorsRein
             }
         
 
-           // DebugUtils.LogError($"payTableSymbolWin ({ContentModel.Instance.name}) = ：{JsonConvert.SerializeObject(ContentModel.Instance.payTableSymbolWin)}");
+           // DebugUtils.LogError($"payTableSymbolWin ({ContentModel.Instance.name}) = ：{JsonConvert.SerializeObject(CustomModel.Instance.payTableSymbolWin)}");
 
-            ContentModel.Instance.payLines = new List<List<int>>() { };
+            CustomModel.Instance.payLines = new List<List<int>>() { };
             foreach (var item in config.pay_lines)
             {
-                ContentModel.Instance.payLines.Add(item);
+                CustomModel.Instance.payLines.Add(item);
             }
 
             payTableController.OnPropertyChangeTotalBet();

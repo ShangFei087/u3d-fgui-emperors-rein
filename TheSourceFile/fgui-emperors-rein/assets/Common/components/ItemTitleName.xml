@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="450,50">
+  <displayList>
+    <richtext id="n0_t3gy" name="key" xy="0,5" size="264,42" touchable="false" fontSize="30" color="#ffffff" vAlign="middle" autoSize="shrink" text="TotalPlayTime :"/>
+    <richtext id="n1_t3gy" name="value" xy="266,4" size="168,42" touchable="false" fontSize="30" color="#ffffff" autoSize="shrink" text="3000000"/>
+  </displayList>
+  <customProperty target="key" propertyId="0" label="键"/>
+  <customProperty target="value" propertyId="0" label="值"/>
+</component>

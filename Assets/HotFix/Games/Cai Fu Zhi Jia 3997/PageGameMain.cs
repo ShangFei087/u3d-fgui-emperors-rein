@@ -291,6 +291,7 @@ namespace CaiFuZhiJia_3997
         private void InitGameView()
         {
             MainModel.Instance.contentMD = ContentModel.Instance;
+            MainModel.Instance.cutomMD = CustomModel.Instance;
             ParseGameInfo();
 
             // 初始化对象池，通过配置文件读取出中奖特效等
@@ -314,6 +315,7 @@ namespace CaiFuZhiJia_3997
             // 加载Panel面板
             _gOwnerPanel = contentPane.GetChild("panel").asCom;
             MainModel.Instance.contentMD = ContentModel.Instance;
+            MainModel.Instance.cutomMD = CustomModel.Instance;
             ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
             MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
             EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
@@ -370,7 +372,7 @@ namespace CaiFuZhiJia_3997
             {
                 string winKey = item.Key;
                 long winValue = item.Value;
-                MainModel.Instance.contentMD.winLevelMultiple.Add(new WinMultiple(winKey, winValue));
+                MainModel.Instance.cutomMD.winLevelMultiple.Add(new WinMultiple(winKey, winValue));
             }
 
             foreach (var kvp in config.SymbolPaytable)
@@ -385,7 +387,7 @@ namespace CaiFuZhiJia_3997
                     if (index >= 0)
                     {
                         // 3. 为列表中对应索引的元素赋值
-                        var targetItem = MainModel.Instance.contentMD.payTableSymbolWin[index];
+                        var targetItem = MainModel.Instance.cutomMD.payTableSymbolWin[index];
                         targetItem.x3 = jsonData1.x3; // 假设jsonData的属性是X3（根据实际定义调整）
                         targetItem.x4 = jsonData1.x4;
                         targetItem.x5 = jsonData1.x5;
@@ -397,10 +399,10 @@ namespace CaiFuZhiJia_3997
                     DebugUtils.LogWarning($"无效的符号键：{symbolKey}，无法解析索引");
             }
 
-            if (ContentModel.Instance.payLines == null)
-                ContentModel.Instance.payLines = new List<List<int>>() { };
+            if (CustomModel.Instance.payLines == null)
+                CustomModel.Instance.payLines = new List<List<int>>() { };
             foreach (var item in config.pay_lines)
-                ContentModel.Instance.payLines.Add(item);
+                CustomModel.Instance.payLines.Add(item);
         }
 
         private void BindSpinesToUI()
@@ -670,7 +672,7 @@ namespace CaiFuZhiJia_3997
         WinLevelType GetBigWinType(long? winCredit = null)
         {
             long baseGameWinCredit = winCredit != null ? (long)winCredit : ContentModel.Instance.baseGameWinCoins;
-            List<WinMultiple> winMultipleList = ContentModel.Instance.winLevelMultiple;
+            List<WinMultiple> winMultipleList = CustomModel.Instance.winLevelMultiple;
 
             WinLevelType winLevelType = WinLevelType.None;
             for (int i = 0; i < winMultipleList.Count; i++)
@@ -1324,6 +1326,7 @@ namespace CaiFuZhiJia_3997
                         // 加载Panel面板
                         _gOwnerPanel = contentPane.GetChild("panel").asCom;
                         MainModel.Instance.contentMD = ContentModel.Instance;
+                        MainModel.Instance.cutomMD = CustomModel.Instance;
                         ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
                         MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
                         EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,

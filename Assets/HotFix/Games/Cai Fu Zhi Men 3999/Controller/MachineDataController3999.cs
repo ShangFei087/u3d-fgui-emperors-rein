@@ -145,7 +145,7 @@ namespace CaiFuZhiMen_3999
                 if (hitCount < 3)
                     return 0;
 
-                List<PayTableSymbolInfo> payTable = MainModel.Instance.contentMD?.payTableSymbolWin;
+                List<PayTableSymbolInfo> payTable = MainModel.Instance.cutomMD?.payTableSymbolWin;
                 if (payTable == null || symbolNumber < 0 || symbolNumber >= payTable.Count)
                 {
                     DebugUtils.LogError($"[G3999] 计算单线赢分失败，paytable越界。symbol={symbolNumber}, hit={hitCount}");
@@ -297,7 +297,7 @@ namespace CaiFuZhiMen_3999
                 Debug.Log($"ID: {ID}, Line: {lineNumber}, HitCount: {hitCount}, Symbol: {symbolNumber}");
 
                 int lineIndex = lineNumber; // 注：中奖线索引从0开始
-                int[] lineInfo = ContentModel.Instance.payLines[lineIndex].ToArray();
+                int[] lineInfo = CustomModel.Instance.payLines[lineIndex].ToArray();
                 List<Cell> _cells = new List<Cell>();
 
                 for (int c = 0; c < hitCount; c++)

@@ -218,7 +218,7 @@ namespace CaiFuZhiJia_3997
                 }
 
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, winningLines, new int[] { 11, 10, 12 }, symbolInclude);
             }
             else if (isBonusBall)
@@ -231,7 +231,7 @@ namespace CaiFuZhiJia_3997
                 }
 
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                    ContentModel.Instance?.payLines,
+                    CustomModel.Instance?.payLines,
                     CustomModel.Instance?.symbolNumber, winningLines, new int[] { 11, 10, 12 }, symbolInclude);
             }
             else if (isFreeSpinTrigger)
@@ -258,13 +258,13 @@ namespace CaiFuZhiJia_3997
                 }
 
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                    ContentModel.Instance?.payLines,
+                    CustomModel.Instance?.payLines,
                     CustomModel.Instance?.symbolNumber, winningLines, new int[] { 11, 10, 12 }, symbolInclude);
             }
             else
             {
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                    ContentModel.Instance?.payLines,
+                    CustomModel.Instance?.payLines,
                     CustomModel.Instance?.symbolNumber, winningLines, new int[] { 11, 10, 12 }, symbolInclude);
             }
 
@@ -291,7 +291,7 @@ namespace CaiFuZhiJia_3997
                 int lineNumber = LineNumbers[i];
                 int lineIndex = lineNumber - 1;
 
-                int[] lineInfo = ContentModel.Instance.payLines[lineIndex].ToArray();
+                int[] lineInfo = CustomModel.Instance.payLines[lineIndex].ToArray();
 
                 JSONNode lineNode = res["lineData"][i];
 
@@ -484,7 +484,7 @@ namespace CaiFuZhiJia_3997
                 Debug.Log($"ID: {ID}, Line: {lineNumber}, HitCount: {hitCount}, Symbol: {symbolNumber}");
 
                 int lineIndex = lineNumber; // 注：中奖线索引从0开始
-                int[] lineInfo = ContentModel.Instance.payLines[lineIndex].ToArray();
+                int[] lineInfo = CustomModel.Instance.payLines[lineIndex].ToArray();
                 List<Cell> _cells = new List<Cell>();
 
                 for (int c = 0; c < hitCount; c++)

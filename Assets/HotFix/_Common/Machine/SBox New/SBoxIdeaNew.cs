@@ -67,6 +67,27 @@ namespace SBoxApi
         public int jpType;       //大奖类型
     }
 
+    // 调试统计信息
+    public class SBoxDebugInfo
+    {
+        public long dwPlayScore;                // 总下注
+        public long dwWinScore;                 // 总赢钱
+        public long dwTotalPlayTime;            // 总局数
+        public long dwNormalOpenTime;           // 普通开局次数
+        public long dwGiveOpenTime;             // 赠送开局次数
+        public long dwNormalWinTime;            // 普通中奖次数
+        public long dwBonusTime;                // Bonus 次数
+        public long dwFreeGameTime;             // 免费游戏触发次数
+        public long dwLooseTime;                // 输局次数
+        public long dwJackpotTime;              // Jackpot 次数
+        public long dwJackpotOnlineTime;        // 联网Jackpot 次数
+        public long dwBaseWinScore;             // 线奖赢钱总额（金额口径）
+        public long dwFreeWinScore;             // 免费游戏赢钱总额（金额口径）
+        public long dwBonusWinScore;            // Bonus 游戏赢钱总额（金额口径）
+        public long dwJackpotWinScore;          // Jackpot 赢钱总额（金额口径）
+        public long dwJackpotOnlineWinScore;    // 联网Jackpot 赢钱总额（金额口径）
+        public long dwFreeGameBetError;         // 免费游戏剩余倍数误差
+    }
 
     public partial class SBoxIdea
     {
@@ -537,14 +558,14 @@ namespace SBoxApi
 
 
         /**
-        *  @brief         切换游戏
+        *  @brief         切换游戏 20200
         *  @param         gameid 为游戏id
         *  @return          
         *  @details                          
         */
         public static void GameSwitch(int gameid)
         {
-            Debug.LogError("SBoxIdea 20200:" + gameid);
+            Debug.Log("SBoxIdea 20200:" + gameid);
             SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20200, source: 1, target: 2, size: 2);
 
             sBoxPacket.data[0] = gameid;
@@ -561,14 +582,14 @@ namespace SBoxApi
 
 
         /**
-        *  @brief         调试模式
+        *  @brief         调试模式20202
         *  @param        
         *  @return          
         *  @details                          
         */
         public static void DebugControlMode(SBoxDebugControlModeData sBoxDCM)
         {
-            Debug.LogError("SBoxIdea 20202");
+            Debug.Log("SBoxIdea 20202");
 
             SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20202, source: 1, target: 2, size: 4);
 
@@ -586,5 +607,73 @@ namespace SBoxApi
             EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_DEBUG_CONTROL_MODE, sBoxPacket.data[0]);
         }
 
+
+        /**
+        *  @brief    获取调试信息20203
+        *  @param        
+        *  @return          
+        *  @details                          
+        */
+        public static void GetDebugInfo()
+        {
+            Debug.Log("SBoxIdea 20203");
+
+            SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20203, source: 1, target: 2, size: 1);
+
+            sBoxPacket.data[0] = 1;
+
+            SBoxIOEvent.AddListener(sBoxPacket.cmd, GetDebugInfoR);
+            SBoxIOStream.Write(sBoxPacket);
+        }
+
+        private static void GetDebugInfoR(SBoxPacket sBoxPacket)
+        { 
+            SBoxDebugInfo debugInfo = new SBoxDebugInfo();
+
+            try
+            {
+                if (sBoxPacket == null || sBoxPacket.data == null || sBoxPacket.data.Length < 2)
+                {
+                    Debug.LogError("GetDebugInfoR: invalid packet data.");
+                    EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_DEBUG_INFO, debugInfo);
+                    return;
+                }
+
+                // data[0] : 成功标识(1=成功)
+                // data[1..17] : SBoxDebugInfo 字段依次映射
+                if (sBoxPacket.data[0] == 1)
+                {
+                    long ToLong(int index)
+                    {
+                        if (index < 0 || sBoxPacket.data == null || index >= sBoxPacket.data.Length) return 0;
+                        return (long)sBoxPacket.data[index];
+                    }
+
+                    debugInfo.dwPlayScore = ToLong(1);
+                    debugInfo.dwWinScore = ToLong(2);
+                    debugInfo.dwTotalPlayTime = ToLong(3);
+                    debugInfo.dwNormalOpenTime = ToLong(4);
+                    debugInfo.dwGiveOpenTime = ToLong(5);
+                    debugInfo.dwNormalWinTime = ToLong(6);
+                    debugInfo.dwBonusTime = ToLong(7);
+                    debugInfo.dwFreeGameTime = ToLong(8);
+                    debugInfo.dwLooseTime = ToLong(9);
+                    debugInfo.dwJackpotTime = ToLong(10);
+                    debugInfo.dwJackpotOnlineTime = ToLong(11);
+                    debugInfo.dwBaseWinScore = ToLong(12);
+                    debugInfo.dwFreeWinScore = ToLong(13);
+                    debugInfo.dwBonusWinScore = ToLong(14);
+                    debugInfo.dwJackpotWinScore = ToLong(15);
+                    debugInfo.dwJackpotOnlineWinScore = ToLong(16);
+                    debugInfo.dwFreeGameBetError = ToLong(17);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"GetDebugInfoR exception: {e}");
+            }
+
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_DEBUG_INFO, debugInfo);
+        }
     }
 }
