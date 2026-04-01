@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="800,500">
   <displayList>
-    <graph id="n1_n7rv" name="bg" xy="0,1" size="800,500" type="rect" fillColor="#ff000000"/>
-    <text id="n0_n7rv" name="titleMode" xy="13,44" size="177,42" fontSize="30" color="#ffffff" autoSize="none" text="测试模式:"/>
-    <text id="n5_n7rv" name="titleResult" xy="13,139" size="144,42" fontSize="30" color="#ffffff" autoSize="none" text="开奖类型:"/>
-    <text id="n21_n7rv" name="titleBonusType" xy="13,221" size="161,42" fontSize="30" color="#ffffff" autoSize="none" text="大奖类型:"/>
-    <text id="n24_n7rv" name="titleJpType" xy="280,221" size="159,42" fontSize="30" color="#ffffff" autoSize="none" text="彩金类型:"/>
+    <graph id="n1_n7rv" name="bg" xy="-3,1" size="800,1214" type="rect" fillColor="#ff000000"/>
+    <text id="n0_n7rv" name="titleMode" xy="13,44" size="177,42" group="n48_nxbl" fontSize="30" color="#ffffff" autoSize="none" text="测试模式:"/>
+    <text id="n5_n7rv" name="titleResult" xy="13,139" size="144,42" group="n48_nxbl" fontSize="30" color="#ffffff" autoSize="none" text="开奖类型:"/>
+    <text id="n21_n7rv" name="titleBonusType" xy="13,221" size="161,42" group="n48_nxbl" fontSize="30" color="#ffffff" autoSize="none" text="大奖类型:"/>
+    <text id="n24_n7rv" name="titleJpType" xy="280,221" size="159,42" group="n48_nxbl" fontSize="30" color="#ffffff" autoSize="none" text="彩金类型:"/>
+    <text id="n45_nxbl" name="titleDebugInfo" xy="1,332" size="236,42" group="n48_nxbl" fontSize="30" color="#ffffff" autoSize="none" text="汇总测试信息"/>
+    <text id="n46_nxbl" name="titleProb" xy="1,524" size="236,42" group="n48_nxbl" fontSize="30" color="#ffffff" autoSize="none" text="输赢概率"/>
+    <text id="n47_nxbl" name="titleRTP" xy="3,766" size="236,42" group="n48_nxbl" fontSize="30" color="#ffffff" autoSize="none" text="返还率"/>
+    <group id="n48_nxbl" name="Title" xy="1,44" size="438,764"/>
     <component id="n10_n7rv" name="Normal" src="n7rvno" fileName="components/ButtonTestSelet.xml" xy="228,34" size="235,75" group="n17_n7rv">
       <Button title="Normal" titleFontSize="30"/>
     </component>
     <component id="n11_n7rv" name="PointResData" src="n7rvno" fileName="components/ButtonTestSelet.xml" xy="502,35" size="235,75" group="n17_n7rv">
       <Button title="PointResData" titleFontSize="30"/>
     </component>
-    <group id="n17_n7rv" name="mode" xy="228,34" size="509,76" advanced="true"/>
+    <group id="n17_n7rv" name="Mode" xy="228,34" size="509,76" advanced="true"/>
     <component id="n12_n7rv" name="Lose" src="n7rvno" fileName="components/ButtonTestSelet.xml" xy="176,129" size="82,60" group="n18_n7rv">
       <Button title="Lose" titleFontSize="25"/>
     </component>
@@ -29,10 +33,76 @@
       <Button title="Bonus" titleFontSize="25"/>
     </component>
     <group id="n18_n7rv" name="ReultType" xy="176,129" size="538,60"/>
-    <text id="n20_n7rv" name="BonusType" xy="160,214" size="100,57" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="0" input="true"/>
-    <text id="n23_n7rv" name="JpType" xy="430,217" size="100,52" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="0" input="true"/>
-    <component id="n22_n7rv" name="apply" src="rl7yk" fileName="moudules/TestSelectItem.xml" xy="536,424">
+    <text id="n20_n7rv" name="BonusType" xy="160,214" size="100,57" group="n25_hzgc" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="0" input="true"/>
+    <text id="n23_n7rv" name="JpType" xy="430,217" size="100,52" group="n25_hzgc" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="0" input="true"/>
+    <group id="n25_hzgc" name="ResulitMode" xy="160,214" size="370,57"/>
+    <component id="n22_n7rv" name="apply" src="rl7yk" fileName="moudules/TestSelectItem.xml" xy="538,280">
       <Button title="确认"/>
     </component>
+    <component id="n28_nxbl" name="TotalPlayTime" src="t3gynr" fileName="components/ItemTitleName.xml" xy="-1,378" size="357,50" group="n49_nxbl">
+      <property target="key" propertyId="0" value="TotalPlayTime :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n30_nxbl" name="WinScore" src="t3gynr" fileName="components/ItemTitleName.xml" xy="-1,428" size="357,50" group="n49_nxbl">
+      <property target="key" propertyId="0" value="WinScore :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n31_nxbl" name="PlayScore" src="t3gynr" fileName="components/ItemTitleName.xml" xy="-1,478" size="357,50" group="n49_nxbl">
+      <property target="key" propertyId="0" value="PlayScore:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n37_nxbl" name="TotalProb" src="t3gynr" fileName="components/ItemTitleName.xml" xy="0,567" size="357,50" group="n49_nxbl">
+      <property target="key" propertyId="0" value="TotalProb :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n32_nxbl" name="LoseProb" src="t3gynr" fileName="components/ItemTitleName.xml" xy="3,618" size="357,50" group="n49_nxbl" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="LoseProb:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n33_nxbl" name="FreeGameProb" src="t3gynr" fileName="components/ItemTitleName.xml" xy="433,618" size="357,50" group="n49_nxbl" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="FreeGameProb :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n34_nxbl" name="BonusGamesProb" src="t3gynr" fileName="components/ItemTitleName.xml" xy="3,668" size="357,50" group="n49_nxbl" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="BonusGamesProb :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n35_nxbl" name="JackpotProb" src="t3gynr" fileName="components/ItemTitleName.xml" xy="433,668" size="357,50" group="n49_nxbl" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="JackpotProb :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n36_nxbl" name="JackpotOnlineProb" src="t3gynr" fileName="components/ItemTitleName.xml" xy="3,718" size="357,50" group="n49_nxbl" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="JackpotOnlineProb :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n43_nxbl" name="TotalRTP" src="t3gynr" fileName="components/ItemTitleName.xml" xy="3,817" size="357,50" group="n49_nxbl">
+      <property target="key" propertyId="0" value="TotalRTP :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n44_nxbl" name="TotalRTPByParts" src="t3gynr" fileName="components/ItemTitleName.xml" xy="5,866" size="357,50" group="n49_nxbl">
+      <property target="key" propertyId="0" value="TotalRTPByParts :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n38_nxbl" name="BaseRTP" src="t3gynr" fileName="components/ItemTitleName.xml" xy="6,923" size="357,50" group="n49_nxbl" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="BaseRTP :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n39_nxbl" name="FreeRTP" src="t3gynr" fileName="components/ItemTitleName.xml" xy="433,923" size="357,50" group="n49_nxbl" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="FreeRTP :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n40_nxbl" name="BounsRTP" src="t3gynr" fileName="components/ItemTitleName.xml" xy="6,973" size="357,50" group="n49_nxbl" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="BounsRTP :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n41_nxbl" name="JackpotRTP" src="t3gynr" fileName="components/ItemTitleName.xml" xy="433,973" size="357,50" group="n49_nxbl" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="JackpotRTP :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n42_nxbl" name="JackpotOnlineRTP" src="t3gynr" fileName="components/ItemTitleName.xml" xy="6,1023" size="357,50" group="n49_nxbl" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="JackpotOnlineRTP :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <group id="n49_nxbl" name="DebugInfo" xy="-1,378" size="791,695"/>
   </displayList>
 </component>

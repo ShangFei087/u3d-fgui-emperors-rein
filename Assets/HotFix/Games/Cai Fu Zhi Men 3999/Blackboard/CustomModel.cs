@@ -1,3 +1,4 @@
+using GameMaker;
 using SlotMaker;
 using System.Collections.Generic;
 
@@ -73,5 +74,23 @@ namespace CaiFuZhiMen_3999
             { "10", "ui://CaiFuZhiMen/symbol_11" },
             { "11", "ui://CaiFuZhiMen/symbol_12" }
         };
+
+        private List<PayTableSymbolInfo> _mPayTableSymbolWin = new List<PayTableSymbolInfo>()
+        {
+            new PayTableSymbolInfo()
+            {
+                symbol = 0, x5 = 0, x4 = 0, x3 = 0,
+            },
+        };
+
+        public List<PayTableSymbolInfo> payTableSymbolWin
+        {
+            get => _mPayTableSymbolWin;
+            set => _mPayTableSymbolWin = value;
+        }
+
+        public List<List<int>> payLines { get; set; } = new List<List<int>>();
+
+        public List<WinMultiple> winLevelMultiple { get; set; } = new List<WinMultiple>();
     }
 }

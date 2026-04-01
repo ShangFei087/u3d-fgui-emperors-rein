@@ -395,7 +395,7 @@ namespace XingYunZhiLun_3998
         /// <param name="targetIndex"> 想要更换的图标索引 </param>
         public void ChangeSymbolIcon(List<WinningLineInfo> winningLines, int targetIndex)
         {
-            List<List<int>> allLines = ContentModel.Instance.payLines;
+            List<List<int>> allLines = CustomModel.Instance.payLines;
             foreach (WinningLineInfo item in winningLines)
             {
                 int lineIndex = item.LineNumber - 1;

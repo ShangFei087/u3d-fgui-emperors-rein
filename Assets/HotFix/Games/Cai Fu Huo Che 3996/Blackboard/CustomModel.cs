@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameMaker;
 using SlotMaker;
 
 namespace CaiFuHuoChe_3996
@@ -128,5 +129,117 @@ namespace CaiFuHuoChe_3996
                 {"11", "ui://CaiFuHuoChe_3996/symbol_12" },
                 {"12", "ui://CaiFuHuoChe_3996/symbol_12" },
         };
+
+        #region 赔付线与赔付表
+
+        public List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>()
+        {
+            new PayTableSymbolInfo()
+            {
+                symbol = 0,
+                x5 = 0,
+                x4 = 0,
+                x3 = 0,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 1,
+                x5 = 0,
+                x4 = 0,
+                x3 = 2,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 2,
+                x5 = 10,
+                x4 = 4,
+                x3 = 1,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 3,
+                x5 = 6,
+                x4 = 2,
+                x3 = 1,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 4,
+                x5 = 2,
+                x4 = 1,
+                x3 = 1,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 5,
+                x5 = 1,
+                x4 = 1,
+                x3 = 1,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 6,
+                x5 = 1,
+                x4 = 1,
+                x3 = 1,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 7,
+                x5 = 1,
+                x4 = 1,
+                x3 = 1,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 8,
+                x5 = 1,
+                x4 = 1,
+                x3 = 1,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 9,
+                x5 = 1,
+                x4 = 1,
+                x3 = 1,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 10,
+                x5 = 1,
+                x4 = 1,
+                x3 = 1,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 11,
+                x5 = 1,
+                x4 = 1,
+                x3 = 1,
+            },
+        };
+
+        public List<PayTableSymbolInfo> payTableSymbolWin
+        {
+            get => m_PayTableSymbolWin;
+            set => m_PayTableSymbolWin = value;
+        }
+
+        public List<List<int>> payLines
+        {
+            get => m_payLines;
+            set => m_payLines = value;
+        }
+        List<List<int>> m_payLines;
+
+        public List<WinMultiple> winLevelMultiple
+        {
+            get => _winMultipleList;
+            set => _winMultipleList = value;
+        }
+        List<WinMultiple> _winMultipleList = new List<WinMultiple>();
+
+        #endregion
     }
 }

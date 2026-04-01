@@ -135,7 +135,7 @@ namespace SlotEmperorsRein
                     symbolInclude.Add(new SymbolInclude() { symbolNumber = 12 });
                 }
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                    ContentModel.Instance.payLines, //ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines, //CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, winningLines, new int[] { 11, 10, 12 }, symbolInclude);*/
             }
 
@@ -200,7 +200,7 @@ namespace SlotEmperorsRein
                 }
 
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, winningLines, new int[] { 11, 10, 12 }, symbolInclude);
 
             }
@@ -213,7 +213,7 @@ namespace SlotEmperorsRein
                 }
 
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, winningLines, new int[] { 11, 10, 12 }, symbolInclude);
             }
             else if (isFreeSpinTrigger)
@@ -225,13 +225,13 @@ namespace SlotEmperorsRein
                 }
 
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, winningLines, new int[] { 11, 10, 12 }, symbolInclude);
             }
             else
             {
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, winningLines, new int[] { 11, 10, 12 }, symbolInclude);
             }
 
@@ -253,7 +253,7 @@ namespace SlotEmperorsRein
                 int lineNumber = LineNumbers[i];
                 int lineIndex = lineNumber - 1;
 
-                int[] lineInfo = ContentModel.Instance.payLines[lineIndex].ToArray();
+                int[] lineInfo = CustomModel.Instance.payLines[lineIndex].ToArray();
 
                 JSONNode lineNode = res["lineData"][i];
                 int credit = lineNode["reward"];

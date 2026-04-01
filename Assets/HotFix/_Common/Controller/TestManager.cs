@@ -8,26 +8,28 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// 测试工具入口管理器，负责测试菜单、调试模式与 GM 面板逻辑。
+/// </summary>
 public class TestManager : Singleton<TestManager>
 {
+    // TestManager 根节点与功能入口组件
     GComponent goOwnerTestMgr, goGM, goPages, goCustomButtons, goKV, goAnalysis, goDebugMode, goSelectProject;
-
-
+    // 菜单展开按钮
     GButton btnMenu;
-
+    // 菜单容器、菜单列表与提示文本
     GComponent goMenu;
     GList glstMenu;
     GRichTextField rtxtTip;
-
+    // 各功能弹窗标识
     public const string POP_GMS = "POP_GMS";
     public const string POP_PAGES = "POP_PAGES";
     public const string POP_BUTTONS = "POP_BUTTONS";
     public const string POP_DEBUGMODE = "POP_DEBUGMODE";
     public const string POP_SELECTPROJECT = "POP_SELECTPROJECT";
-
+    // 当前软件版本显示文本
     string softwareVersion;
-
-    //调试模式
+    // 调试模式状态与控件
     int DebugMode;
     GButton btnNormal, btnPointResData;
     int DebugResult;
@@ -35,10 +37,14 @@ public class TestManager : Singleton<TestManager>
     int DebugBonusType, DebugJpType;
     GTextInput TInputBonusType, TInputJpType;
     GButton btnApply;
+    GRichTextField rtxtTotalPlayTime, rtxtWinScore, rtxtPlayScore,
+     rtxtTotalProb, rtxtLoseProb, rtxtFreeGameProb, rtxtBonusGamesProb, rtxtJackpotProb, rtxtJackpotOnlineProb,
+     rtxtTotalRTP, rtxtTotalRTPByParts, rtxtBaseRTP, rtxtFreeRTP, rtxtBounsRTP, rtxtJackpotRTP, rtxtJackpotOnlineRTP;
 
 
     //bool isEnableTestTool = true;
 
+    // 初始化测试工具并异步加载 UI 资源
     public void Init(string softwareVersion)
     {
         this.softwareVersion = softwareVersion;
@@ -56,6 +62,7 @@ public class TestManager : Singleton<TestManager>
         });
     }
 
+    // 异步加载 AssetBundle
     public void LoadAssetBundleAsync(string pth, UnityAction<AssetBundle> onFinishCallback)
     {
         ResourceManager02.Instance.LoadAssetBundleAsync(pth, (bundle) =>
@@ -64,6 +71,7 @@ public class TestManager : Singleton<TestManager>
         });
     }
 
+    // 按类型异步加载资源
     public void LoadAsset<T>(string pth, UnityAction<T> onFinishCallback) where T : UnityEngine.Object
     {
         ResourceManager02.Instance.LoadAsset<T>(pth, (asset) =>
@@ -72,7 +80,7 @@ public class TestManager : Singleton<TestManager>
         });
     }
 
-
+    // 初始化菜单、弹窗和点击事件
     void InitParam()
     {
         pops.Clear();
@@ -178,6 +186,44 @@ public class TestManager : Singleton<TestManager>
         btnApply.onClick.Clear();
         btnApply.onClick.Add(OnClickApplyDebug);
 
+        rtxtTotalPlayTime = popupDebugMode.GetChild("TotalPlayTime").asCom.GetChild("value").asRichTextField;
+        rtxtWinScore = popupDebugMode.GetChild("WinScore").asCom.GetChild("value").asRichTextField;
+        rtxtPlayScore = popupDebugMode.GetChild("PlayScore").asCom.GetChild("value").asRichTextField;
+        rtxtTotalProb = popupDebugMode.GetChild("TotalProb").asCom.GetChild("value").asRichTextField;
+        rtxtLoseProb = popupDebugMode.GetChild("LoseProb").asCom.GetChild("value").asRichTextField;
+        rtxtFreeGameProb = popupDebugMode.GetChild("FreeGameProb").asCom.GetChild("value").asRichTextField;
+        rtxtBonusGamesProb = popupDebugMode.GetChild("BonusGamesProb").asCom.GetChild("value").asRichTextField;
+        rtxtJackpotProb = popupDebugMode.GetChild("JackpotProb").asCom.GetChild("value").asRichTextField;
+        rtxtJackpotOnlineProb = popupDebugMode.GetChild("JackpotOnlineProb").asCom.GetChild("value").asRichTextField;
+        rtxtTotalRTP = popupDebugMode.GetChild("TotalRTP").asCom.GetChild("value").asRichTextField;
+        rtxtTotalRTPByParts = popupDebugMode.GetChild("TotalRTPByParts").asCom.GetChild("value").asRichTextField;
+        rtxtBaseRTP = popupDebugMode.GetChild("BaseRTP").asCom.GetChild("value").asRichTextField;
+        rtxtFreeRTP = popupDebugMode.GetChild("FreeRTP").asCom.GetChild("value").asRichTextField;
+        rtxtBounsRTP = popupDebugMode.GetChild("BounsRTP").asCom.GetChild("value").asRichTextField;
+        rtxtJackpotRTP = popupDebugMode.GetChild("JackpotRTP").asCom.GetChild("value").asRichTextField;
+        rtxtJackpotOnlineRTP = popupDebugMode.GetChild("JackpotOnlineRTP").asCom.GetChild("value").asRichTextField;
+
+        rtxtTotalPlayTime.text = "";
+        rtxtWinScore.text = "";
+        rtxtPlayScore.text = "";
+        rtxtTotalProb.text = "";
+        rtxtLoseProb.text = "";
+        rtxtFreeGameProb.text = "";
+        rtxtBonusGamesProb.text = "";
+        rtxtJackpotProb.text = "";
+        rtxtJackpotOnlineProb.text = "";
+        rtxtTotalRTP.text = "";
+        rtxtTotalRTPByParts.text = "";
+        rtxtBaseRTP.text = "";
+        rtxtFreeRTP.text = "";
+        rtxtBounsRTP.text = "";
+        rtxtJackpotRTP.text = "";
+        rtxtJackpotOnlineRTP.text = "";
+
+        // 监听算法卡调试信息回包（由 SBoxIdea.GetDebugInfoR 触发）
+        EventCenter.Instance.RemoveEventListener<SBoxDebugInfo>(SBoxEventHandle.SBOX_DEBUG_INFO, OnSBoxDebugInfoChanged);
+        EventCenter.Instance.AddEventListener<SBoxDebugInfo>(SBoxEventHandle.SBOX_DEBUG_INFO, OnSBoxDebugInfoChanged);
+
 
         // cwy 新增
         GComponent selectProjectMenu = goOwnerTestMgr.GetChild("selectProject").asCom;
@@ -276,12 +322,14 @@ public class TestManager : Singleton<TestManager>
         goOwnerTestMgr.visible = !ApplicationSettings.Instance.isRelease;
     }
 
+    // 显示顶部提示文本
     public void ShowTip(string content)
     {
         if (rtxtTip != null)
             rtxtTip.text = content;
     }
 
+    // 外部控制测试工具显示状态
     public void SetToolActive(bool active)
     {
         //return;
@@ -290,26 +338,31 @@ public class TestManager : Singleton<TestManager>
             goOwnerTestMgr.visible = active;
     }
 
+    // FPS 变化回调
     public void OnFPSChange(string value)
     {
         glstMenu.GetChildAt(1).asLabel.title = value;
     }
 
+    // 设置 10 倍速
     void OnClickSpeedX10()
     {
         Time.timeScale = 10;
     }
 
+    // 设置 2 倍速
     void OnClickSpeedX2()
     {
         Time.timeScale = 2;
     }
 
+    // 设置 1 倍速
     void OnClickSpeedX1()
     {
         Time.timeScale = 1;
     }
 
+    // 主菜单按钮点击：切换菜单并重置弹窗显示
     void OnClickBase()
     {
         goMenu.visible = !goMenu.visible;
@@ -318,15 +371,17 @@ public class TestManager : Singleton<TestManager>
         //if (!goMenu.visible) OnCloseAll();
     }
 
-    //void OnCloseAll(){ }
-
     #region KV
 
+    // 运行时 KV 缓存
     Dictionary<string, string> customKV = new Dictionary<string, string>();
 
+    // 自定义按钮配置键
     public const string DATA_CUSTOM_BUTTON = "DATA_CUSTOM_BUTTON";
+    // 页面配置键
     public const string DATA_PAGES = "DATA_PAGES";
 
+    // 设置 KV（存在则覆盖）
     public void SetKV(string key, string value)
     {
         if (!customKV.ContainsKey(key))
@@ -335,8 +390,10 @@ public class TestManager : Singleton<TestManager>
             customKV[key] = value;
     }
 
+    // 检查键是否存在
     public bool HasKey(string key) => customKV.ContainsKey(key);
 
+    // 检查键是否存在并移除（一次性）
     public bool HasKeyOnce(string key)
     {
         bool isHas = customKV.ContainsKey(key);
@@ -344,6 +401,7 @@ public class TestManager : Singleton<TestManager>
         return isHas;
     }
 
+    // 获取键值，不存在返回空字符串
     public string GetValue(string key)
     {
         if (!customKV.ContainsKey(key))
@@ -354,6 +412,7 @@ public class TestManager : Singleton<TestManager>
         return customKV[key];
     }
 
+    // 获取键值并移除（一次性）
     public string GetValueOnce(string key)
     {
         string res = "";
@@ -368,9 +427,12 @@ public class TestManager : Singleton<TestManager>
 
     #endregion
 
+    // 弹窗缓存字典
     Dictionary<string, GComponent> pops = new Dictionary<string, GComponent>();
+    // 关闭当前所有弹窗
     void ChosePop() => ChangePop("");
 
+    // 切换目标弹窗显示并关闭其他弹窗
     private GComponent ChangePop(string popName = "")
     {
         GComponent goPop = null;
@@ -393,6 +455,7 @@ public class TestManager : Singleton<TestManager>
 
     #region Button Page
 
+    // 页面功能按钮点击：动态生成页面列表
     public void OnClickPages()
     {
         if (goPages == null || !HasKey(DATA_PAGES))
@@ -448,6 +511,7 @@ public class TestManager : Singleton<TestManager>
         }
     }
 
+    // 页面项点击：派发页面打开事件
     private void OnClickPageItem(string pageName, string data)
     {
         if (!string.IsNullOrEmpty(data))
@@ -465,8 +529,10 @@ public class TestManager : Singleton<TestManager>
 
     #endregion
 
+    // 分析模式开关状态
     bool isAnalysis = false;
 
+    // 分析按钮点击：切换分析模式并广播事件
     private void OnClickAnalysis()
     {
         isAnalysis = !isAnalysis;
@@ -476,6 +542,8 @@ public class TestManager : Singleton<TestManager>
 
     #region DebugMode
 
+
+    // 调试模式按钮点击：打开面板并重置状态
     public void OnClickDebugMode()
     {
         if (ApplicationSettings.Instance.isMock || goDebugMode == null)
@@ -500,9 +568,13 @@ public class TestManager : Singleton<TestManager>
             DebugJpType = 0;
             TInputBonusType.text = "0";
             TInputJpType.text = "0";
+
+            // 打开面板时请求一次算法调试统计
+            SBoxIdea.GetDebugInfo();
         }
     }
 
+    // 选择调试模式
     public void OnClickMode(int index)
     {
         DebugMode = index;
@@ -516,6 +588,7 @@ public class TestManager : Singleton<TestManager>
         }
     }
 
+    // 选择调试结果类型
     public void OnClickResult(int index)
     {
         DebugResult = index;
@@ -554,6 +627,7 @@ public class TestManager : Singleton<TestManager>
         }
     }
 
+    // 应用调试参数并发送到底层调试接口
     public void OnClickApplyDebug()
     {
         DebugBonusType = Convert.ToInt32(TInputBonusType.text);
@@ -569,8 +643,62 @@ public class TestManager : Singleton<TestManager>
         SBoxIdea.DebugControlMode(sBoxDCM);
     }
 
+    // 接收算法调试统计信息并刷新 Debug 面板
+    private void OnSBoxDebugInfoChanged(SBoxDebugInfo debugInfo)
+    {
+        if (debugInfo == null)
+        {
+            return;
+        }
+
+        long totalPlayTime = debugInfo.dwTotalPlayTime;
+        long playScore = debugInfo.dwPlayScore;
+        long winScore = debugInfo.dwWinScore;
+
+        rtxtTotalPlayTime.text = totalPlayTime.ToString();
+        rtxtWinScore.text = winScore.ToString();
+        rtxtPlayScore.text = playScore.ToString();
+
+        rtxtTotalProb.text = FormatPercent(CalcRatio(totalPlayTime - debugInfo.dwLooseTime, totalPlayTime));
+        rtxtLoseProb.text = FormatPercent(CalcRatio(debugInfo.dwLooseTime, totalPlayTime));
+        rtxtFreeGameProb.text = FormatPercent(CalcRatio(debugInfo.dwFreeGameTime, totalPlayTime));
+        rtxtBonusGamesProb.text = FormatPercent(CalcRatio(debugInfo.dwBonusTime, totalPlayTime));
+        rtxtJackpotProb.text = FormatPercent(CalcRatio(debugInfo.dwJackpotTime, totalPlayTime));
+        rtxtJackpotOnlineProb.text = FormatPercent(CalcRatio(debugInfo.dwJackpotOnlineTime, totalPlayTime));
+
+        double baseRtp = CalcRatio(debugInfo.dwBaseWinScore, playScore);
+        double freeRtp = CalcRatio(debugInfo.dwFreeWinScore, playScore);
+        double bonusRtp = CalcRatio(debugInfo.dwBonusWinScore, playScore);
+        double jackpotRtp = CalcRatio(debugInfo.dwJackpotWinScore, playScore);
+        double jackpotOnlineRtp = CalcRatio(debugInfo.dwJackpotOnlineWinScore, playScore);
+
+        rtxtTotalRTP.text = FormatPercent(CalcRatio(winScore, playScore));
+        rtxtTotalRTPByParts.text = FormatPercent(baseRtp + freeRtp + bonusRtp + jackpotRtp + jackpotOnlineRtp);
+        rtxtBaseRTP.text = FormatPercent(baseRtp);
+        rtxtFreeRTP.text = FormatPercent(freeRtp);
+        rtxtBounsRTP.text = FormatPercent(bonusRtp);
+        rtxtJackpotRTP.text = FormatPercent(jackpotRtp);
+        rtxtJackpotOnlineRTP.text = FormatPercent(jackpotOnlineRtp);
+    }
+
+    private double CalcRatio(long numerator, long denominator)
+    {
+        if (denominator <= 0)
+        {
+            return 0d;
+        }
+
+        return numerator * 1.0d / denominator;
+    }
+
+    private string FormatPercent(double ratio)
+    {
+        return $"{ratio * 100d:F2}%";
+    }
+
     #endregion
 
+    // 自定义按钮入口点击：动态生成按钮列表
     public void OnClickCustomButons()
     {
         if (goCustomButtons == null || !HasKey(DATA_CUSTOM_BUTTON))
@@ -629,6 +757,7 @@ public class TestManager : Singleton<TestManager>
         }
     }
 
+    // 自定义按钮项点击：派发自定义事件
     private void OnClickCustomButtonItem(string eventType, string eventName, string eventData)
     {
         EventCenter.Instance.EventTrigger<EventData>(eventType, new EventData<string>(eventName, eventData));
@@ -636,6 +765,7 @@ public class TestManager : Singleton<TestManager>
 
     #region GM
 
+    // GM 按钮点击：加载并展示当前游戏 GM 列表
     public void OnClickGMBaseButton()
     {
         if (goGM == null || MainModel.Instance.gameID == -1)
@@ -666,6 +796,7 @@ public class TestManager : Singleton<TestManager>
     }
 
 
+    // 根据 GM 配置创建按钮并绑定事件
     void CreatGMPop(GComponent goPop, string jsn)
     {
         JSONNode _gmNode = JSONNode.Parse(jsn);

@@ -1,4 +1,5 @@
 using FairyGUI;
+using GameMaker;
 using SlotMaker;
 using System.Collections;
 using System.Collections.Generic;
@@ -113,6 +114,98 @@ namespace SlotZhuZaiJinBi1700
                 {"8", "ui://SlotZhuZaiJinBi1700/ng_sym_safe" },
                 {"9", "ui://SlotZhuZaiJinBi1700/ng_sym_ptycoon" },
                 {"10", "ui://SlotZhuZaiJinBi1700/ng_sym_treasury" },        
+        };
+
+        #region 赔付线与赔付表
+        public List<PayTableSymbolInfo> payTableSymbolWin
+        {
+            get => m_PayTableSymbolWin;
+            set => m_PayTableSymbolWin = value;
+        }
+        public List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>()
+        {
+            new PayTableSymbolInfo(){ symbol = 0,x3 = 40,x4 = 50,x5 = 250,},
+            new PayTableSymbolInfo(){ symbol = 1,x3 = 30,x4 = 40,x5 = 125,},
+            new PayTableSymbolInfo(){ symbol = 2,x3 = 25,x4 = 35,x5 = 100,},
+            new PayTableSymbolInfo(){ symbol = 3,x3 = 20,x4 = 30,x5 = 75,},
+            new PayTableSymbolInfo(){ symbol = 4,x3 = 15,x4 = 25,x5 = 60,},
+            new PayTableSymbolInfo(){ symbol = 5,x3 = 12,x4 = 20,x5 = 45,},
+            new PayTableSymbolInfo(){ symbol = 6,x3 = 9,x4 = 15,x5 = 35,},
+            new PayTableSymbolInfo(){ symbol = 7,x3 = 6,x4 = 10,x5 = 30,},
+            new PayTableSymbolInfo(){ symbol = 8,x3 = 3,x4 = 6,x5 = 25,},
+            new PayTableSymbolInfo(){ symbol = 9,x3 = 0,x4 = 0,x5 = 0,}, //WILD
+            new PayTableSymbolInfo(){ symbol = 10,x3 = 0,x4 = 0,x5 = 0,},//SCATTER
+        };
+
+
+
+        public List<List<int>> payLines
+        {
+            get => m_payLines;
+            set => m_payLines = value;
+        }
+        List<List<int>> m_payLines = new List<List<int>>()
+        {
+            new List<int> { 1, 1, 1, 1, 1 },
+            new List<int> { 0, 0, 0, 0, 0 },
+            new List<int> { 2, 2, 2, 2, 2 },
+            new List<int> { 0, 1, 2, 1, 0 },
+            new List<int> { 2, 1, 0, 1, 2 },
+            new List<int> { 0, 0, 1, 2, 2 },
+            new List<int> { 2, 2, 1, 0, 0 },
+            new List<int> { 1, 2, 2, 2, 1 },
+            new List<int> { 1, 0, 0, 0, 1 },
+            new List<int> { 0, 1, 1, 1, 0 },
+            new List<int> { 2, 1, 1, 1, 2 },
+            new List<int> { 0, 1, 0, 1, 0 },
+            new List<int> { 2, 1, 2, 1, 2 },
+            new List<int> { 1, 1, 0, 1, 1 },
+            new List<int> { 1, 1, 2, 1, 1 }
+        };
+
+        public List<WinMultiple> winLevelMultiple
+        {
+            get => _winMultipleList;
+            set => _winMultipleList = value;
+        }
+        List<WinMultiple> _winMultipleList = new List<WinMultiple>()
+        {
+            new WinMultiple("BIG", 15),
+            new WinMultiple("HUGE", 30),
+            new WinMultiple("MASSIVE", 50),
+            new WinMultiple("LEGENDARY", 100)
+        };
+
+        #endregion
+
+        public FreeGameConfig freeGameConfig
+        {
+            get => _freeGameConfig;
+
+        }
+
+        public FreeGameConfig _freeGameConfig = new FreeGameConfig()
+        {
+            IsUseCommonFreeTimes = false,                          //是否使用公共的免费次数框
+            IsHasFreeGame = true,                                  //是否有免费奖
+            FreeGameType = MakeFreeGameType.OnScatter,             //触发免费奖方式
+            IsScatterInLine = false,                               //Scatter图标是否依赖中奖线
+            Make2FreeGameCount = new int[] { 3, 4, 5 },            //触发免费奖所需数量(Scatter图标/充能)
+            FreeGameTime = new int[] { 3, 3, 3 },                  //免费次数
+        };
+
+        public BonusGameConfig bonusGameconfig
+        {
+            get => _bonusGameconfig;
+
+        }
+
+        public BonusGameConfig _bonusGameconfig = new BonusGameConfig()
+        {
+            IsHasBonusGame = true,                                 //是否有大奖
+            BonusGameType = MakeBonusGameType.OnBonus,            // 触发大奖方式
+            IsBonusInLine = false,                                  //Bonus图标是否依赖中奖线
+            Make2BonusGameCount = 3,                               //触发大奖所需数量(Bonus图标)
         };
 
     }
