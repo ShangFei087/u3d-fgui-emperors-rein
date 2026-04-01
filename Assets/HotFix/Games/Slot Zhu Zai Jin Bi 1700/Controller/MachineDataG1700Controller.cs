@@ -394,7 +394,7 @@ namespace SlotZhuZaiJinBi1700
 
         private int GetLineOdds(int symbolType, int hitCount)
         {
-            List<PayTableSymbolInfo> payTable = ContentModel.Instance.payTableSymbolWin;
+            List<PayTableSymbolInfo> payTable = CustomModel.Instance.payTableSymbolWin;
 
             PayTableSymbolInfo info = null;
             if (symbolType >= 0 && symbolType < payTable.Count && payTable[symbolType].symbol == symbolType)
