@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="150,112">
+  <displayList>
+    <image id="n0_qc7n" name="n0" src="q4s8t" fileName="images/gameNormal/Wheel/ng_sym_Turntable_Taurus.png" xy="0,0" scale="0.8,1"/>
+    <image id="n1_qc7n" name="n1" src="q4s8t" fileName="images/gameNormal/Wheel/ng_sym_Turntable_Taurus.png" xy="78,0" scale="0.8,1"/>
+  </displayList>
+</component>

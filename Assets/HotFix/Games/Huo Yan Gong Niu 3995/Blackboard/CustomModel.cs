@@ -65,7 +65,9 @@ namespace HuoYanGongNiu_3995
             {"11", "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit11.prefab" },
             {"12", "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit12.prefab" },
             {"13", "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit13.prefab" },
-            {"16", "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit16.prefab" },
+            {"15", "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit15.prefab" },
+            {"22", "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit22.prefab" },
+            {"33", "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit33.prefab" },
             //{"12", "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit12.prefab" },
         };
 
@@ -127,13 +129,28 @@ namespace HuoYanGongNiu_3995
 
 
                 {"11", "ui://HuoYanGongNiu_3995/ng_sym_WILD" },
-                {"12", "ui://HuoYanGongNiu_3995/ng_sym_WILD_X2" },
-                {"13", "ui://HuoYanGongNiu_3995/ng_sym_WILD_X3" },
 
+                {"12", "ui://HuoYanGongNiu_3995/ng_sym_Scatter" },
+
+                {"13", "ui://HuoYanGongNiu_3995/ng_sym_Bonus" },
                 {"14", "ui://HuoYanGongNiu_3995/ng_sym_Bonus" },
-                {"15", "ui://HuoYanGongNiu_3995/ng_sym_Bonus" },
 
-                {"16", "ui://HuoYanGongNiu_3995/ng_sym_Scatter" },
+                {"15", "ui://HuoYanGongNiu_3995/ng_sym_Taurus" },
+
+
+                {"22", "ui://HuoYanGongNiu_3995/ng_sym_WILD_X2" },
+                {"33", "ui://HuoYanGongNiu_3995/ng_sym_WILD_X3" },
+        };
+
+        //转盘金牛图标
+        public Dictionary<int, string> wheelGoldBull => new Dictionary<int, string>
+        {
+            {0,  "ui://HuoYanGongNiu_3995/OneGoldBull"},
+            {1,  "ui://HuoYanGongNiu_3995/OneGoldBull"},
+            {2,  "ui://HuoYanGongNiu_3995/TwoGoldBull"},
+            {3,  "ui://HuoYanGongNiu_3995/ThreeGoldBull"},
+            {4,  "ui://HuoYanGongNiu_3995/FourGoldBull"},
+            {5,  "ui://HuoYanGongNiu_3995/FiveBull"},
         };
     }
 }

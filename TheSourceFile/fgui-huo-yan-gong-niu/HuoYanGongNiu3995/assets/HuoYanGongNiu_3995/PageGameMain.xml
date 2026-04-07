@@ -55,9 +55,41 @@
     <image id="n26_j7ma" name="n26" src="q4s8v" fileName="images/gameNormal/Wheel/ng_Turntable_bonus_frame.png" xy="432,160" group="n34_j7ma" scale="1.5,1.4"/>
     <component id="n32_j7ma" name="wheelSpinBg" src="j7ma2v" fileName="component/gameNormal/AnchorWheelSpin.xml" xy="540,541" pivot="0.5,0.5" anchor="true" group="n34_j7ma" scale="1.5,1.5"/>
     <image id="n35_j7ma" name="n35" src="q4s814" fileName="images/gameNormal/Wheel/ng_Turntable_spin.png" xy="540,541" pivot="0.5,0.5" anchor="true" group="n34_j7ma" scale="1.5,1.5"/>
-    <group id="n34_j7ma" name="Wheel" xy="211,160" size="658,706"/>
-    <component id="n23_j7ma" name="panel" src="j7ma2u" fileName="component/AnchorPanelPush.xml" xy="524,1853"/>
+    <component id="n65_k1q0" name="wheelEffect" src="k1q068" fileName="component/gameNormal/wheel/AnchorWheelEffect.xml" xy="540,883" group="n34_j7ma"/>
+    <component id="n64_k1q0" name="wheelSpinBtn" src="k1q067" fileName="component/gameNormal/wheel/wheelSpinBtn.xml" xy="426,424" size="229,236" group="n34_j7ma"/>
+    <group id="n34_j7ma" name="Wheel" xy="211,160" size="658,724"/>
+    <image id="n80_bn1g" name="n80" src="bn1g85" fileName="images/gameFree/gameFreeLeft/fg_Measuring instrument_The left_bottom.png" xy="29,224" size="366,641" group="n84_bn1g"/>
+    <image id="n79_bn1g" name="n79" src="bn1g87" fileName="images/gameFree/gameFreeLeft/fg_Measuring instrument_The left_frame.png" xy="11,210" size="418,684" group="n84_bn1g"/>
+    <image id="n81_bn1g" name="n81" src="bn1g89" fileName="images/gameFree/gameFreeLeft/fg_sym_Taurus.png" xy="48,170" size="229,286" group="n84_bn1g" scale="1.5,1.5"/>
+    <text id="n82_bn1g" name="goldBullNums" xy="65,599" size="309,180" group="n84_bn1g" font="ui://x2aorbwjbn1g8k" fontSize="16" align="center" vAlign="middle" autoSize="none" text="0"/>
+    <image id="n83_bn1g" name="n83" src="bn1g86" fileName="images/gameFree/gameFreeLeft/fg_Measuring instrument_The left_collect.png" xy="20,784" size="398,99" group="n84_bn1g"/>
+    <group id="n84_bn1g" name="freeLeft" xy="11,170" size="418,724" advanced="true"/>
+    <image id="n87_bn1g" name="n87" src="bn1g8l" fileName="images/gameFree/gameFreeRight/fg_Measuring instrument_Right_bottom.png" xy="438,242" size="617,612" group="n86_bn1g"/>
+    <image id="n85_bn1g" name="n85" src="bn1g8n" fileName="images/gameFree/gameFreeRight/fg_Measuring instrument_Right_frame.png" xy="414,210" size="660,683" group="n86_bn1g"/>
+    <image id="n88_bn1g" name="n88" src="bn1g8m" fileName="images/gameFree/gameFreeRight/fg_Measuring instrument_Right_collect.png" xy="480,287" size="302,78" group="n86_bn1g"/>
+    <text id="n89_bn1g" name="collectNum" xy="778,278" size="105,91" group="n86_bn1g" font="ui://x2aorbwjbn1g92" fontSize="16" align="center" vAlign="middle" autoSize="none" text="4"/>
+    <image id="n90_bn1g" name="n90" src="bn1g8r" fileName="images/gameFree/gameFreeRight/fg_sym_Taurus.png" xy="475,395" group="n86_bn1g" scale="1.2,1.2"/>
+    <image id="n91_bn1g" name="n91" src="bn1g8p" fileName="images/gameFree/gameFreeRight/fg_Measuring instrument_Right_too-change-all.png" xy="581,449" size="288,52" group="n86_bn1g"/>
+    <component id="n92_bn1g" name="anchorDeer" src="bn1g93" fileName="component/gameFreeGame/AnchorDeer.xml" xy="961,328" group="n86_bn1g" scale="1.2,1.2"/>
+    <component id="n93_bn1g" name="anchorWolf" src="bn1g94" fileName="component/gameFreeGame/AnchorWolf.xml" xy="961,479" group="n86_bn1g" scale="1.2,1.2"/>
+    <component id="n95_bn1g" name="anchorLeopard" src="bn1g96" fileName="component/gameFreeGame/AnchorLeopard.xml" xy="961,630" group="n86_bn1g" scale="1.2,1.2"/>
+    <component id="n94_bn1g" name="anchorEagle" src="bn1g95" fileName="component/gameFreeGame/AnchorEagle.xml" xy="961,781" group="n86_bn1g" scale="1.2,1.2"/>
+    <component id="n96_md44" name="targetIcon" src="md4497" fileName="component/gameFreeGame/AnchorTargetIcon.xml" xy="667,625" group="n86_bn1g" scale="1.5,1.5"/>
+    <image id="n97_md44" name="n97" src="bn1g8o" fileName="images/gameFree/gameFreeRight/fg_Measuring instrument_Right_T0.png" xy="499,718" size="158,106" group="n86_bn1g"/>
+    <image id="n98_md44" name="n98" src="q4s825" fileName="images/Symbols/ng_sym_Bull.png" xy="668,703" size="185,139" group="n86_bn1g"/>
+    <group id="n86_bn1g" name="freeRight" xy="414,210" size="660,683" advanced="true"/>
+    <component id="n69_k1q0" name="mini" src="k1q06o" fileName="component/gameJackpotTip/Mini.xml" xy="733,969" group="n78_k1q0"/>
+    <component id="n71_k1q0" name="minor" src="k1q07e" fileName="component/gameJackpotTip/Minor.xml" xy="0,946" group="n78_k1q0"/>
+    <component id="n75_k1q0" name="grand" src="k1q07s" fileName="Grand.xml" xy="259,796" group="n78_k1q0"/>
+    <component id="n73_k1q0" name="major" src="k1q07r" fileName="component/gameJackpotTip/Major.xml" xy="321,928" group="n78_k1q0"/>
+    <group id="n78_k1q0" name="JackpotTip" xy="0,796" size="1080,287"/>
+    <component id="n104_z9k8" name="anchorChangeIconAnim" src="z9k899" fileName="component/gameFreeGame/AnchorChangeIconAnim.xml" xy="716,618" scale="2,2"/>
+    <component id="n23_j7ma" name="panel" src="j7ma2u" fileName="component/AnchorPanelPush.xml" xy="540,1854" pivot="0.5,0.5" anchor="true"/>
     <component id="n59_xrp2" name="test" src="xrp243" fileName="Button1.xml" xy="374,918" size="308,77"/>
+    <component id="n99_md44" name="anchorCreditStart" src="md4498" fileName="component/gameFreeGame/AnchorCreditEffect.xml" xy="248,1261"/>
+    <component id="n101_md44" name="anchorCreditTarget" src="md4498" fileName="component/gameFreeGame/AnchorCreditEffect.xml" xy="540,1844" pivot="0.5,0.5" anchor="true"/>
+    <component id="n102_md44" name="anchorCollectedStart" src="md4498" fileName="component/gameFreeGame/AnchorCreditEffect.xml" xy="251,1402"/>
+    <component id="n103_md44" name="anchorCollectedTarget" src="md4498" fileName="component/gameFreeGame/AnchorCreditEffect.xml" xy="222,689"/>
   </displayList>
   <transition name="BS">
     <item time="0" type="Alpha" target="n36_j7ma" value="0"/>
@@ -69,6 +101,10 @@
     <item time="0" type="Alpha" target="n58_xrp2" value="0"/>
     <item time="0" type="Alpha" target="n62_xrp2" value="0"/>
     <item time="0" type="Alpha" target="n63_xrp2" value="0"/>
+    <item time="0" type="Alpha" target="n69_k1q0" value="1"/>
+    <item time="0" type="Alpha" target="n71_k1q0" value="1"/>
+    <item time="0" type="Alpha" target="n73_k1q0" value="1"/>
+    <item time="0" type="Alpha" target="n75_k1q0" value="1"/>
     <item time="0" type="Visible" target="n1_q4s8" value="true"/>
     <item time="0" type="Visible" target="n25_j7ma" value="true"/>
     <item time="0" type="Visible" target="n26_j7ma" value="true"/>
@@ -93,6 +129,29 @@
     <item time="0" type="Visible" target="n52_j7ma" value="false"/>
     <item time="0" type="Visible" target="n56_xrp2" value="true"/>
     <item time="0" type="Visible" target="n60_xrp2" value="false"/>
+    <item time="0" type="Visible" target="n62_xrp2" value="true"/>
+    <item time="0" type="Visible" target="n69_k1q0" value="true"/>
+    <item time="0" type="Visible" target="n71_k1q0" value="true"/>
+    <item time="0" type="Visible" target="n73_k1q0" value="true"/>
+    <item time="0" type="Visible" target="n75_k1q0" value="true"/>
+    <item time="0" type="Visible" target="n79_bn1g" value="false"/>
+    <item time="0" type="Visible" target="n80_bn1g" value="false"/>
+    <item time="0" type="Visible" target="n81_bn1g" value="false"/>
+    <item time="0" type="Visible" target="n82_bn1g" value="false"/>
+    <item time="0" type="Visible" target="n83_bn1g" value="false"/>
+    <item time="0" type="Visible" target="n85_bn1g" value="false"/>
+    <item time="0" type="Visible" target="n87_bn1g" value="false"/>
+    <item time="0" type="Visible" target="n88_bn1g" value="false"/>
+    <item time="0" type="Visible" target="n89_bn1g" value="false"/>
+    <item time="0" type="Visible" target="n90_bn1g" value="false"/>
+    <item time="0" type="Visible" target="n91_bn1g" value="false"/>
+    <item time="0" type="Visible" target="n92_bn1g" value="false"/>
+    <item time="0" type="Visible" target="n93_bn1g" value="false"/>
+    <item time="0" type="Visible" target="n94_bn1g" value="false"/>
+    <item time="0" type="Visible" target="n95_bn1g" value="false"/>
+    <item time="0" type="Visible" target="n96_md44" value="false"/>
+    <item time="0" type="Visible" target="n97_md44" value="false"/>
+    <item time="0" type="Visible" target="n98_md44" value="false"/>
   </transition>
   <transition name="FS">
     <item time="0" type="Visible" target="n1_q4s8" value="false"/>
@@ -119,9 +178,71 @@
     <item time="0" type="Visible" target="n52_j7ma" value="true"/>
     <item time="0" type="Visible" target="n56_xrp2" value="false"/>
     <item time="0" type="Visible" target="n57_xrp2" value="false"/>
-    <item time="0" type="Visible" target="n58_xrp2" value="false"/>
+    <item time="0" type="Visible" target="n58_xrp2" value="true"/>
     <item time="0" type="Visible" target="n60_xrp2" value="true"/>
-    <item time="0" type="Visible" target="n62_xrp2" value="false"/>
-    <item time="0" type="Visible" target="n63_xrp2" value="false"/>
+    <item time="0" type="Visible" target="n62_xrp2" value="true"/>
+    <item time="0" type="Visible" target="n63_xrp2" value="true"/>
+    <item time="0" type="Visible" target="n69_k1q0" value="false"/>
+    <item time="0" type="Visible" target="n71_k1q0" value="false"/>
+    <item time="0" type="Visible" target="n73_k1q0" value="false"/>
+    <item time="0" type="Visible" target="n75_k1q0" value="false"/>
+    <item time="0" type="Visible" target="n79_bn1g" value="true"/>
+    <item time="0" type="Visible" target="n80_bn1g" value="true"/>
+    <item time="0" type="Visible" target="n81_bn1g" value="true"/>
+    <item time="0" type="Visible" target="n82_bn1g" value="true"/>
+    <item time="0" type="Visible" target="n83_bn1g" value="true"/>
+    <item time="0" type="Visible" target="n85_bn1g" value="true"/>
+    <item time="0" type="Visible" target="n87_bn1g" value="true"/>
+    <item time="0" type="Visible" target="n88_bn1g" value="true"/>
+    <item time="0" type="Visible" target="n89_bn1g" value="true"/>
+    <item time="0" type="Visible" target="n90_bn1g" value="true"/>
+    <item time="0" type="Visible" target="n91_bn1g" value="true"/>
+    <item time="0" type="Visible" target="n92_bn1g" value="true"/>
+    <item time="0" type="Visible" target="n93_bn1g" value="true"/>
+    <item time="0" type="Visible" target="n94_bn1g" value="true"/>
+    <item time="0" type="Visible" target="n95_bn1g" value="true"/>
+    <item time="0" type="Visible" target="n96_md44" value="true"/>
+    <item time="0" type="Visible" target="n97_md44" value="true"/>
+    <item time="0" type="Visible" target="n98_md44" value="true"/>
+  </transition>
+  <transition name="FreeTigger">
+    <item time="0" type="Alpha" target="n69_k1q0" tween="true" startValue="1" endValue="0" duration="12" ease="Linear"/>
+    <item time="0" type="Alpha" target="n71_k1q0" tween="true" startValue="1" endValue="0" duration="12" ease="Linear"/>
+    <item time="0" type="Alpha" target="n73_k1q0" tween="true" startValue="1" endValue="0" duration="12" ease="Linear"/>
+    <item time="0" type="Alpha" target="n75_k1q0" tween="true" startValue="1" endValue="0" duration="12" ease="Linear"/>
+    <item time="12" type="Alpha" target="n36_j7ma" tween="true" startValue="0" endValue="1" duration="12" ease="Linear"/>
+    <item time="12" type="Alpha" target="n39_j7ma" tween="true" startValue="0" endValue="1" duration="12" ease="Linear"/>
+    <item time="12" type="Alpha" target="n40_j7ma" tween="true" startValue="0" endValue="1" duration="12" ease="Linear"/>
+    <item time="12" type="Alpha" target="n41_j7ma" tween="true" startValue="0" endValue="1" duration="12" ease="Linear"/>
+  </transition>
+  <transition name="EnterFreeGame">
+    <item time="0" type="XY" target="n84_bn1g" tween="true" startValue="-500,170" endValue="11,170" duration="10" ease="Linear"/>
+    <item time="0" type="XY" target="n86_bn1g" tween="true" startValue="1085,210" endValue="414,210" duration="10" ease="Linear"/>
+  </transition>
+  <transition name="StartChangeIcon">
+    <item time="0" type="Alpha" target="n88_bn1g" tween="true" startValue="1" endValue="0" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n89_bn1g" tween="true" startValue="1" endValue="0" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n90_bn1g" tween="true" startValue="1" endValue="0" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n91_bn1g" tween="true" startValue="1" endValue="0" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n92_bn1g" tween="true" startValue="1" endValue="0" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n93_bn1g" tween="true" startValue="1" endValue="0" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n94_bn1g" tween="true" startValue="1" endValue="0" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n95_bn1g" tween="true" startValue="1" endValue="0" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n96_md44" tween="true" startValue="1" endValue="0" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n97_md44" tween="true" startValue="1" endValue="0" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n98_md44" tween="true" startValue="1" endValue="0" duration="20" ease="Linear"/>
+  </transition>
+  <transition name="EndChangeIcon">
+    <item time="0" type="Alpha" target="n88_bn1g" tween="true" startValue="0" endValue="1" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n89_bn1g" tween="true" startValue="0" endValue="1" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n90_bn1g" tween="true" startValue="0" endValue="1" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n91_bn1g" tween="true" startValue="0" endValue="1" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n92_bn1g" tween="true" startValue="0" endValue="1" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n93_bn1g" tween="true" startValue="0" endValue="1" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n94_bn1g" tween="true" startValue="0" endValue="1" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n95_bn1g" tween="true" startValue="0" endValue="1" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n96_md44" tween="true" startValue="0" endValue="1" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n97_md44" tween="true" startValue="0" endValue="1" duration="20" ease="Linear"/>
+    <item time="0" type="Alpha" target="n98_md44" tween="true" startValue="0" endValue="1" duration="20" ease="Linear"/>
   </transition>
 </component>

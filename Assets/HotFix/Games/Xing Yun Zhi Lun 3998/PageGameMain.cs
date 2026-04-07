@@ -2484,7 +2484,6 @@ namespace XingYunZhiLun_3998
                             ContentModel.Instance.isSpin = false;
                             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                             ContentModel.Instance.gameState = GameState.Idle;
-                            
                         }
 
                         isNext = true;

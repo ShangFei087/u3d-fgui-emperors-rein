@@ -426,6 +426,7 @@ namespace HuoYanGongNiu_3995
             ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
             List<SymbolInclude> symbolInclude = new List<SymbolInclude>();
+            ContentModel.Instance.SpecialBullIcon.Clear();
             //Matrix解析整列
             int rows = 4; // 3行
             int cols = 5; // 5列
@@ -436,7 +437,28 @@ namespace HuoYanGongNiu_3995
                 for (int col = 0; col < cols; col++)
                 {
                     int index = row * cols + col;
-                    strDeckRowCol += res["Matrix"][index].Value;
+                    if (int.Parse(res["WildData"][index].Value) != 0)
+                    {
+                        // 获取原始值并加上 (WildData值 - 1)
+                        int originalValue = int.Parse(res["Matrix"][index].Value);
+                        int wildValue = int.Parse(res["WildData"][index].Value);
+                        int newValue = originalValue + (wildValue - 1);
+                        strDeckRowCol += newValue.ToString();
+                    }
+                    else
+                    {
+                        // 如果没有WildData，直接使用原值
+                        strDeckRowCol += res["Matrix"][index].Value;
+                    }
+
+                    if (int.Parse(res["Matrix"][index].Value) == 15)
+                    {
+                        ContentModel.Instance.SpecialBullIcon.Add(new Cell()
+                        { 
+                            column = col,
+                            row = row,
+                        });
+                    }
 
                     if (col < cols - 1)
                     {
@@ -560,10 +582,12 @@ namespace HuoYanGongNiu_3995
 
             ContentModel.Instance.curReelStripsIndex = "BS";
             ContentModel.Instance.nextReelStripsIndex = "BS";
+
             //判断免费奖或大奖
             int ResultType = (int)res["ResultType"];
             int OpenType = (int)res["OpenType"];
             int TotalFreeTime = (int)res["TotalFreeTime"];
+
             //免费奖
             ContentModel.Instance.isFreeSpinTrigger = false;
             if (ResultType == 2)
@@ -572,13 +596,22 @@ namespace HuoYanGongNiu_3995
                 ContentModel.Instance.curReelStripsIndex = "BS";
                 ContentModel.Instance.nextReelStripsIndex = "FS";
 
+                ContentModel.Instance.wheelData.Clear();
                 ContentModel.Instance.isFreeSpinTrigger = true;
                 ContentModel.Instance.freeSpinTotalTimes = TotalFreeTime;
+                ContentModel.Instance.newFreeOnceCredit.Clear();
                 ContentModel.Instance.freeSpinPlayTimes = 0;
-                //for (int i = 0; i < TotalFreeTime; i++)
-                //{
-                //    int ID = (int)res["FreeBetArray"][i];
-                //}
+
+
+                for(int i = 0; i < res["WheelData"].AsArray.Count; i++)
+                {
+                    ContentModel.Instance.wheelData.Add((int)res["WheelData"][i]);
+                }
+
+                for (int i = 0; i < TotalFreeTime; i++)
+                {
+                    ContentModel.Instance.newFreeOnceCredit.Add((int)res["FreeBetArray"][i]);
+                }
             }
 
             //赠送局
@@ -773,7 +806,7 @@ namespace HuoYanGongNiu_3995
         {
             if (ApplicationSettings.Instance.isMock == false) return;
 
-            if (res.id != 3996) return;
+            if (res.id != 3995) return;
 
             switch (res.name)
             {
@@ -814,8 +847,8 @@ namespace HuoYanGongNiu_3995
             {
                new string[]
                 {
-                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin_free_0.json",
-                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin_free_1.json",
+                    "Assets/HotFix/Games/Mock/Resources/g3995_real/g3995__slot_spin_free_0.json",
+                    "Assets/HotFix/Games/Mock/Resources/g3995_real/g3995__slot_spin_free_1.json",
                     "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin_free_2.json",
                     "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin_free_3.json",
                     "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin_free_4.json",

@@ -11,7 +11,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
-using System.Runtime.Remoting.Contexts;
 using UnityEngine;
 
 using _spinWEMD = SlotMaker.SpinWinEffectSettingModel;
@@ -25,6 +24,10 @@ namespace HuoYanGongNiu_3995
         [JsonProperty("game_name")] public string GameName;
 
         [JsonProperty("display_name")] public string DisplayName;
+
+        [JsonProperty("bet_lst")] public int[] BetList;
+
+        [JsonProperty("Wheel_Data")] public int[] InitalWheel;
 
         [JsonProperty("win_level_multiple")] public Dictionary<string, long> WinLevelMultiple { get; set; }
 
@@ -46,7 +49,7 @@ namespace HuoYanGongNiu_3995
         private GameObject goGameCtrl;
 
         PayTableController payTableController = new PayTableController();
-        Coroutine corReelsTurn, corGameIdel, corGameOnce, corEffectSlowMotion, corRewardEffect;
+        Coroutine corReelsTurn, corGameIdel, corGameOnce, corEffectSlowMotion, corRewardEffect, corWheelSpin;
 
         //游戏控制
         private MonoHelper mono;
@@ -72,11 +75,62 @@ namespace HuoYanGongNiu_3995
         private GameObject norTree, norWater, othWater;
         private GComponent anchorNorTree, anchorNorWater, anchorOthWater;
 
+        //转盘旋转的内容
+        private GComponent gWheel;
+
+        //转盘旋转相关参数
+        private float segmentAngle = 30f; //     360 / 12 = 30°
+        private float extralyAngle = 0;  //因为转盘分区角度不同，可能需要额外补充一些角度
 
         //转盘游戏开始时下面出现的提示框
         private GameObject wheelTip, wheelTip2, wheelTip3;
         private GameObject wheelTipObj, wheelTip2Obj, wheelTip3Obj;
         private GComponent gWheelTip, gWheelTip2, gWheelTip3;
+        private Animator wheelTipAnim, wheelTipAnim2, wheelTipAnim3;
+        private GTextField wheelWinCredit, collectedNums, wheelSpinTimesTxt;
+        private bool isStartSpin, isEndSpin;
+        private Transition freeTiggerInWheel;
+
+        //转盘上的特效组件
+        private GameObject wheelEff, wheelEffObj;
+        private GComponent gWheelEffect;
+        private Transform wheelCenterEff, wheelBoardEff, wheelRewardEff;
+        private List<GLoader> gBulls = new List<GLoader>();
+        private int wheelOnceWin = 0, wheelWinGoldBull = 0;
+
+        //转盘上的触发按钮
+        private GButton wheelSpinBtn;
+        private bool isWheelSpin = false;
+        private int wheelSpinTimes = 0;
+
+
+        //轮盘游戏中对不同的种类数据进行存储(其实只需要对金额进行存储，其他的可以直接初始化)
+        private List<int> wheelCredit = new List<int>();
+
+
+
+        //免费游戏上面两个提示框的数据，因为设为了高级组要先获取组,之后获取里面的数字，图标装载器等
+        private GGroup freeTipLeft, freeTipRight;
+        private GTextField freeTipLeftNum, freeTipRightNum;
+        private GComponent deerIcon, wolfIcon, leopardIcon, eagleIcon, targetIcon;
+        private Transition enterFreeGame;
+
+
+        //免费游戏开始之前的特效增加分数或者金牛数量
+        private GComponent creditsReward, collectedReward;
+        private GComponent creditsStart, creditsTarget, collectedStart, collectedTarget;
+        private GameObject creditsEffPrefab, creditsEff, collectedEffPrefab, collectEff;
+
+        //免费游戏当中免费次数和总次数
+        private GTextField freeRemainTimes, freeTotalTimes;
+
+        //免费游戏记录当前解锁图标应该在哪个阶段
+        private int stageIndex = 0;
+
+        //免费游戏金牛数量达标时播放动效
+        private Transition StartChangeIcon, EndChangeIcon;
+        private GComponent anchorChangeIconAnim;
+        private GameObject changeIconAnim, changeIconAnimPre;
 
 
         //测试按钮
@@ -87,7 +141,7 @@ namespace HuoYanGongNiu_3995
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 8;
+            int count = 11;
 
             Action callback = () =>
             {
@@ -135,7 +189,7 @@ namespace HuoYanGongNiu_3995
             });
 
             ResourceManager02.Instance.LoadAsset<GameObject>(
-                "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PageGameMain/normalTree", 
+                "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PageGameMain/normalTree",
                 (GameObject clone) =>
                 {
                     normalTree = clone;
@@ -179,6 +233,31 @@ namespace HuoYanGongNiu_3995
                 (GameObject clone) =>
                 {
                     wheelTip3 = clone;
+                    callback();
+                });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PageGameMain/wheelEffect",
+                (GameObject clone) =>
+                {
+                    wheelEff = clone;
+                    callback();
+                });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Effect/CreditsEffect",
+                (GameObject clone) =>
+                {
+                    creditsEffPrefab = clone;
+                    collectedEffPrefab = clone;
+                    callback();
+                });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit10",
+                (GameObject clone) =>
+                {
+                    changeIconAnimPre = clone;
                     callback();
                 });
 
@@ -251,6 +330,14 @@ namespace HuoYanGongNiu_3995
                             ContentModel.Instance.gameState = GameState.Idle;
                         };
 
+                        if (isWheelSpin)
+                        {
+                            ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
+                            ContentModel.Instance.curBtnSpinState = SpinButtonState.Spin;
+                            StartWheelSpinOnce(ContentModel.Instance.wheelData[wheelSpinTimes]);
+                            return;
+                        }
+
                         if (isLongClick)
                         {
                             TestManager.Instance.ShowTip("Spin按钮 - 长按");
@@ -264,9 +351,6 @@ namespace HuoYanGongNiu_3995
                         {
                             TestManager.Instance.ShowTip("Spin按钮 - 短按");
 
-                            //ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
-                            //StartGameOnce(successCallback, StopGameWhenError);//开始玩
-
                             ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
                             StartGameOnce(successCallback, StopGameWhenError); //开始玩
                         }
@@ -278,7 +362,7 @@ namespace HuoYanGongNiu_3995
                 case SpinButtonState.Spin:
                     {
                         // 已经在游戏时，去停止游戏
-                        if (!ContentModel.Instance.isSpin) return; // 已经停止直接退出
+                        if (!ContentModel.Instance.isSpin || isWheelSpin) return; // 已经停止直接退出
 
                         slotMachineCtrl.isStopImmediately = true; // 去停止游戏  
 
@@ -349,6 +433,16 @@ namespace HuoYanGongNiu_3995
             //读取json配置
             ReadJsonBet();
 
+
+
+            //初始化轮盘元素
+            ResetWheel();
+            gWheel = contentPane.GetChild("wheelContent").asCom;
+            wheelSpinBtn = contentPane.GetChild("wheelSpinBtn").asButton;
+            wheelSpinBtn.onClick.Clear();
+            wheelSpinBtn.onClick.Add(OnClickWheelSpinBtn);
+
+
             // 玩家积分初始化
             SBoxModel.Instance.myCredit = 9900;
             foreach (SBoxPlayerScoreInfo item in SBoxIdea.SBoxInfo.PlayerScoreInfoList)
@@ -370,7 +464,7 @@ namespace HuoYanGongNiu_3995
             }
 
             GComponent loadNorWater = contentPane.GetChild("anchorNormalWater").asCom;
-            if(anchorNorWater != loadNorWater)
+            if (anchorNorWater != loadNorWater)
             {
                 GameCommon.FguiUtils.DeleteWrapper(anchorNorWater);
                 anchorNorWater = loadNorWater;
@@ -379,7 +473,7 @@ namespace HuoYanGongNiu_3995
             }
 
             GComponent loadOthWater = contentPane.GetChild("anchorOtherWater").asCom;
-            if(anchorOthWater != loadOthWater)
+            if (anchorOthWater != loadOthWater)
             {
                 GameCommon.FguiUtils.DeleteWrapper(anchorOthWater);
                 anchorOthWater = loadOthWater;
@@ -388,11 +482,12 @@ namespace HuoYanGongNiu_3995
             }
 
             GComponent loadWheelTip = contentPane.GetChild("wheelTip").asCom;
-            if(gWheelTip != loadWheelTip)
+            if (gWheelTip != loadWheelTip)
             {
                 GameCommon.FguiUtils.DeleteWrapper(gWheelTip);
                 gWheelTip = loadWheelTip;
                 wheelTipObj = GameObject.Instantiate(wheelTip);
+                wheelTipAnim = wheelTipObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
                 GameCommon.FguiUtils.AddWrapper(gWheelTip, wheelTipObj);
                 wheelTipObj.SetActive(false);
             }
@@ -403,6 +498,7 @@ namespace HuoYanGongNiu_3995
                 GameCommon.FguiUtils.DeleteWrapper(gWheelTip2);
                 gWheelTip2 = loadWheelTip2;
                 wheelTip2Obj = GameObject.Instantiate(wheelTip2);
+                wheelTipAnim2 = wheelTip2Obj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
                 GameCommon.FguiUtils.AddWrapper(gWheelTip2, wheelTip2Obj);
                 wheelTip2Obj.SetActive(false);
             }
@@ -413,10 +509,76 @@ namespace HuoYanGongNiu_3995
                 GameCommon.FguiUtils.DeleteWrapper(gWheelTip3);
                 gWheelTip3 = loadWheelTip3;
                 wheelTip3Obj = GameObject.Instantiate(wheelTip3);
+                wheelTipAnim3 = wheelTip3Obj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
                 GameCommon.FguiUtils.AddWrapper(gWheelTip3, wheelTip3Obj);
                 wheelTip3Obj.SetActive(false);
             }
 
+            GComponent loadWheelEffect = contentPane.GetChild("wheelEffect").asCom;
+            if (gWheelEffect != loadWheelEffect)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(gWheelEffect);
+                gWheelEffect = loadWheelEffect;
+                wheelEffObj = GameObject.Instantiate(wheelEff);
+                wheelCenterEff = wheelEffObj.transform.GetChild(0).GetChild(0);
+                wheelBoardEff = wheelEffObj.transform.GetChild(0).GetChild(1);
+                wheelRewardEff = wheelEffObj.transform.GetChild(0).GetChild(2);
+                GameCommon.FguiUtils.AddWrapper(gWheelEffect, wheelEffObj);
+            }
+
+            GComponent loadChangeIconAnim = contentPane.GetChild("anchorChangeIconAnim").asCom;
+            if(anchorChangeIconAnim != loadChangeIconAnim)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorChangeIconAnim);
+                anchorChangeIconAnim = loadChangeIconAnim;
+                changeIconAnim = GameObject.Instantiate(changeIconAnimPre);
+                GameCommon.FguiUtils.AddWrapper(anchorChangeIconAnim, changeIconAnim);
+                anchorChangeIconAnim.visible = false;
+
+                StartChangeIcon = contentPane.GetTransition("StartChangeIcon");
+                EndChangeIcon = contentPane.GetTransition("EndChangeIcon");
+            }
+
+            if (creditsReward == null)
+            {
+                creditsReward = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
+                GameCommon.FguiUtils.DeleteWrapper(creditsReward);
+                creditsEff = GameObject.Instantiate(creditsEffPrefab);
+                GameCommon.FguiUtils.AddWrapper(creditsReward, creditsEff);
+                creditsStart = contentPane.GetChild("anchorCreditStart").asCom;
+                creditsTarget = contentPane.GetChild("anchorCreditTarget").asCom;
+            }
+
+            if (collectedReward == null)
+            {
+                collectedReward = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
+                GameCommon.FguiUtils.DeleteWrapper(collectedReward);
+                collectEff = GameObject.Instantiate(collectedEffPrefab);
+                GameCommon.FguiUtils.AddWrapper(collectedReward, collectEff);
+                collectedStart = contentPane.GetChild("anchorCollectedStart").asCom;
+                collectedTarget = contentPane.GetChild("anchorCollectedTarget").asCom;
+            }
+
+
+            wheelWinCredit = contentPane.GetChild("wheelWinCredit").asTextField;
+            collectedNums = contentPane.GetChild("CollectedNums").asTextField;
+            wheelSpinTimesTxt = contentPane.GetChild("spinTimes").asTextField;
+
+            freeTipLeft = contentPane.GetChild("freeLeft").asGroup;
+            freeTipLeftNum = contentPane.GetChildInGroup(freeTipLeft, "goldBullNums").asTextField;
+
+            freeTipRight = contentPane.GetChild("freeRight").asGroup;
+            freeTipRightNum = contentPane.GetChildInGroup(freeTipRight, "collectNum").asTextField;
+            deerIcon = contentPane.GetChildInGroup(freeTipRight, "anchorDeer").asCom;
+            wolfIcon = contentPane.GetChildInGroup(freeTipRight, "anchorWolf").asCom;
+            leopardIcon = contentPane.GetChildInGroup(freeTipRight, "anchorLeopard").asCom;
+            eagleIcon = contentPane.GetChildInGroup(freeTipRight, "anchorEagle").asCom;
+            targetIcon = contentPane.GetChild("targetIcon").asCom;
+
+            enterFreeGame = contentPane.GetTransition("EnterFreeGame");
+
+            freeRemainTimes = contentPane.GetChild("freeSpinTimes").asTextField;
+            freeTotalTimes = contentPane.GetChild("freeTotalTimes").asTextField;
 
             testBtn = contentPane.GetChild("test").asButton;
             testBtn.onClick.Clear();
@@ -425,6 +587,7 @@ namespace HuoYanGongNiu_3995
             #endregion
 
             ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
+            freeTiggerInWheel = contentPane.GetTransition("FreeTigger");
 
             //初始化菜单ui
             gOwnerPanel = this.contentPane.GetChild("panel").asCom;
@@ -497,6 +660,20 @@ namespace HuoYanGongNiu_3995
                         MainModel.Instance.contentMD.winLevelMultiple.Add(new WinMultiple(winKey, winValue));
                     }
 
+                    //轮盘数据存储
+                    wheelCredit.Clear();
+                    foreach (var item in config.InitalWheel)
+                    {
+                        // 万位代表种类 1:金牛,2:奖金 3:免费游戏。千百十个位是携带的个数或者金额
+                        int count = item % 10000;
+                        int kind = item / 10000;
+
+                        if (kind == 2)
+                        {
+                            wheelCredit.Add(count);
+                        }
+                    }
+
                     //符号支付表处理
                     foreach (var kvp in config.SymbolPaytable)
                     {
@@ -540,7 +717,6 @@ namespace HuoYanGongNiu_3995
         {
             ContentModel.Instance.totalPlaySpins = 1;
             ContentModel.Instance.remainPlaySpins = 1;
-            if (corGameOnce != null) mono.StopCoroutine(corGameOnce);
             corGameOnce = mono.StartCoroutine(GameOnce(successCallback, errorCallback));
         }
 
@@ -597,7 +773,7 @@ namespace HuoYanGongNiu_3995
             }
         }
 
-      
+
 
         private IEnumerator GameOnce(Action successCallback, Action<string> errorCallback)
         {
@@ -801,7 +977,7 @@ namespace HuoYanGongNiu_3995
                 PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupFreeSpinTrigger, null);
                 //显示中奖动画
                 slotMachineCtrl.SkipWinLine(true);
-                slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 10 }, true, 10, true);
+                slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 12 }, true, 12, true);
                 yield return slotMachineCtrl.SlotWaitForSeconds(1f);
                 isNext = false;
 
@@ -870,8 +1046,52 @@ namespace HuoYanGongNiu_3995
 
         IEnumerator FreeSpinTrigger(Action successCallback, Action<string> errorCallback)
         {
+            FreeGameInit();
+
+            slotMachineCtrl.SkipWinLine(false);
+            slotMachineCtrl.CloseSlotCover();
+
+            wheelTipObj.SetActive(true);
+
+            yield return new WaitForSeconds(2f);
+
+            PlayAnim(wheelTipAnim, "wheel_feature_out");
+
+            yield return new WaitForSeconds(1f);
+
+            wheelTipObj.SetActive(false);
+            wheelTip2Obj.SetActive(true);
+            isStartSpin = false;
+            isEndSpin = false;
+
+            yield return new WaitForSeconds(1f);
+            freeTiggerInWheel.Play();
+            wheelSpinTimesTxt.text = "0";
+            isWheelSpin = true;
+
+            ContentModel.Instance.isSpin = false;
+            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            ContentModel.Instance.gameState = GameState.Idle;
+
+            yield return new WaitUntil(() => isStartSpin == true);
+
+            PlayAnim(wheelTipAnim2, "collect_prizes_out");
+
+            yield return new WaitForSeconds(1f);
+            wheelTip2Obj.SetActive(false);
+
+            yield return new WaitUntil(() => isEndSpin == true);
+            collectedNums.alpha = 1;
+            wheelWinCredit.alpha = 1;
+            wheelTip3Obj.SetActive(true);
+
+            yield return new WaitUntil(() => isWheelSpin == false);
+            collectedNums.alpha = 0;
+            wheelWinCredit.alpha = 0;
+            PlayAnim(wheelTipAnim3, "credits_won_out");
+
             bool isNext = false;
-            PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupFreeSpinTrigger,
+            PageManager.Instance.OpenPageAsync(PageName.HuoYanGongNiuPopupFreeSpinTrigger,
             new EventData<Dictionary<string, object>>("",
                 new Dictionary<string, object>()
                 {
@@ -886,19 +1106,78 @@ namespace HuoYanGongNiu_3995
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
-            slotMachineCtrl.SkipWinLine(false);
-            slotMachineCtrl.CloseSlotCover();
 
             InputStackContextFreeSpin((context) =>
             {
             });
 
-            yield return new WaitForSeconds(1.5f);
             ChangeBGPanel(1);
+            enterFreeGame.Play();
+            collectedNums.alpha = 1;
+            wheelWinCredit.alpha = 1;
+            PlayAnim(wheelTipAnim3, "credits_won_in");
+            yield return new WaitForSeconds(2);
+
+            if (wheelOnceWin != 0)
+            {
+                creditsReward.visible = true;
+
+                Vector2 startPos = TransFormParentNode(creditsReward, creditsTarget);
+                if (creditsReward.parent != null) creditsReward.parent.RemoveChild(creditsReward);
+                creditsTarget.AddChild(creditsReward);
+                creditsReward.xy = startPos;
+
+                yield return MoveToZeroOverTime(creditsReward, startPos, 0.7f, () =>
+                {
+                    creditsReward.visible = false;
+                });
+            }
+
+            if (wheelWinGoldBull != 0)
+            {
+                collectedReward.visible = true;
+
+                Vector2 startPos = TransFormParentNode(collectedReward, collectedTarget);
+                if (collectedReward.parent != null) collectedReward.parent.RemoveChild(collectedReward);
+                collectedTarget.AddChild(collectedReward);
+                collectedReward.xy = startPos;
+
+                yield return MoveToZeroOverTime(collectedReward, startPos, 0.8f, () =>
+                {
+                    freeTipLeftNum.text = wheelWinGoldBull.ToString();
+                    collectedReward.visible = false;
+                });
+
+                if(wheelWinGoldBull > ContentModel.Instance.goldBullNums[0])
+                {
+                    StartChangeIcon.Play();
+
+                    yield return new WaitForSeconds(0.85f);
+
+                    anchorChangeIconAnim.visible = true;
+                    int addTimes = wheelWinGoldBull / 4;
+                    while(stageIndex < addTimes)
+                    {
+                        stageIndex++;
+                        ShowChangeIcon();
+                    }
+
+                    yield return new WaitForSeconds(1.85f);
+
+                    anchorChangeIconAnim.visible = false;
+                    EndChangeIcon.Play();
+                    yield return new WaitForSeconds(0.85f);
+                }
+
+                freeTipRightNum.text = (ContentModel.Instance.goldBullNums[stageIndex] - wheelWinGoldBull).ToString();
+            }
+
+            collectedNums.alpha = 0;
+            wheelWinCredit.alpha = 0;
+            PlayAnim(wheelTipAnim3, "credits_won_out");
+            yield return new WaitForSeconds(0.85f);
 
             slotMachineCtrl.BeginBonusFreeSpin();
-
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupFreeSpinResult, null);
 
             yield return GameFreeSpin(null, errorCallback);
 
@@ -965,7 +1244,10 @@ namespace HuoYanGongNiu_3995
         IEnumerator GameFreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
             OnGameReset();
-            ContentModel.Instance.haveFreeSpecialIcon = false;
+
+            freeTotalTimes.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
+            freeRemainTimes.text = (ContentModel.Instance.freeSpinPlayTimes + 1).ToString();
+
             ContentModel.Instance.gameState = GameState.FreeSpin;
 
             bool isNext = false;
@@ -1010,6 +1292,8 @@ namespace HuoYanGongNiu_3995
 
             //开始转动
             slotMachineCtrl.BeginSpin();
+
+            ContentModel.Instance.haveFreeSpecialIcon = ContentModel.Instance.SpecialBullIcon.Count > 0;
 
             //停止特效显示
             slotMachineCtrl.SkipWinLine(true);
@@ -1058,6 +1342,7 @@ namespace HuoYanGongNiu_3995
 
             if (ContentModel.Instance.haveFreeSpecialIcon)
             {
+                yield return ShowGoldBullDestroy(ContentModel.Instance.SpecialBullIcon);
                 yield return new WaitForSeconds(1f);
             }
 
@@ -1118,102 +1403,6 @@ namespace HuoYanGongNiu_3995
 
             /* 先结算“免费游戏”或“小游戏”再回主游戏结算主游戏，则每局不能同步玩家真实金钱金额
            MainBlackboardController.Instance.SyncMyCreditToReal(false);*/
-
-            /*
-             if (ContentModel.Instance.isFreeSpinTrigger"))
-             {
-                 //增加免费游戏？？
-             }*/
-
-
-            #region 中游戏彩金
-
-            //bool isHitJackpot = ContentModel.Instance.jpGameWinLst.Count > 0;
-            //List<JackpotWinInfo> jpRes = ContentModel.Instance.jpGameWinLst;
-            //while (jpRes.Count > 0)
-            //{
-            //    JackpotWinInfo jpWin = jpRes[0];
-            //    jpRes.RemoveAt(0);
-
-            //    Action onJPPoolSubCredit = () =>
-            //    {
-            //        SetJPCurCredit(jpWin);
-            //    };
-
-            //    allWinCredit += (long)jpWin.winCredit;
-
-            //    PageManager.Instance.OpenPageAsync(PageName.PusherEmperorsReinPopupJackpotGame,
-            //        new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
-            //        {
-            //            ["jackpotType"] = jpWin.name,
-            //            ["totalEarnCredit"] = jpWin.winCredit,
-            //            ["onJPPoolSubCredit"] = onJPPoolSubCredit,
-            //            ["jpCredit"] = ContentModel.Instance.jpGameWhenCreditLst,
-            //        }),
-            //        (res) =>
-            //        {
-            //            isNext = true;
-            //        });
-
-            //    yield return new WaitUntil(() => isNext == true);
-            //    isNext = false;
-
-            //    // 总线赢分事件
-            //    slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
-
-            //    //MainBlackboardController.Instance.AddMyTempCredit((long)jpWin.winCredit, true, isAddCreditAnim);
-            //}
-
-            #endregion
-
-
-
-
-            // 【取消】大厅彩金
-
-            // 小游戏
-
-
-            // 本剧同步玩家金钱
-            //MainBlackboardController.Instance.SyncMyTempCreditToReal(false);
-
-            // 本局掉币
-            //ERPushMachineDataManager.Instance.RequestCoinPushSpinEnd(res1 =>
-            //{
-            //    isNext = true;
-            //});
-
-            //yield return new WaitUntil(() => isNext == true);
-            //isNext = false;
-
-            //if (winList.Count > 0 || isHitJackpot)
-            //{
-            //    //yield return ShowWinListCoinCountDown(winList, allWinCredit, isHitJackpot);
-            //}
-
-            // 即中即退
-            //yield return CoinOutImmediately(allWinCredit);
-
-
-            #region 免费游戏中，添加额外免费游戏
-
-            if (ContentModel.Instance.freeSpinAddNum > 0)
-            {
-                slotMachineCtrl.BeginBonusFreeSpinAdd();
-
-                // 【待修改】重置剩余的局数 
-                ContentModel.Instance.showFreeSpinRemainTime =
-                    ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes;
-
-                if (!ApplicationSettings.Instance.isMock)
-                {
-                    ContentModel.Instance.freeSpinTotalTimes += ContentModel.Instance.freeSpinAddNum;
-                }
-
-                slotMachineCtrl.EndBonusFreeSpinAdd();
-            }
-
-            #endregion
 
 
             ContentModel.Instance.gameState = GameState.Idle;
@@ -1887,6 +2076,8 @@ namespace HuoYanGongNiu_3995
 
             // 确保最终位置准确
             effect.xy = Vector2.zero;
+
+            successCallback?.Invoke();
         }
 
         //播放指定动画
@@ -1921,6 +2112,302 @@ namespace HuoYanGongNiu_3995
             {
                 StopEffectAnim(child);
             }
+        }
+
+
+        private void FreeGameInit()
+        {
+            wheelSpinTimes = 0;
+            wheelWinGoldBull = 0;
+            wheelOnceWin = 0;
+            stageIndex = 0;
+
+            eagleIcon.GetChild("example").asLoader.url = "ui://x2aorbwjq4s82k";
+            leopardIcon.GetChild("example").asLoader.url = "ui://x2aorbwjq4s82i";
+            wolfIcon.GetChild("example").asLoader.url = "ui://x2aorbwjq4s82j";
+            deerIcon.GetChild("example").asLoader.url = "ui://x2aorbwjq4s82h";
+            targetIcon.GetChild("example").asLoader.url = "ui://x2aorbwjq4s824";
+
+            creditsReward.visible = false;
+            if (creditsReward.parent != null) creditsReward.parent.RemoveChild(creditsReward);
+            creditsStart.AddChild(creditsReward);
+            creditsReward.xy = Vector2.zero;
+
+            collectedReward.visible = false;
+            if (collectedReward.parent != null) collectedReward.parent.RemoveChild(collectedReward);
+            collectedStart.AddChild(collectedReward);
+            collectedReward.xy = Vector2.zero;
+
+            wheelWinCredit.text = wheelOnceWin.ToString();
+            collectedNums.text = wheelWinGoldBull.ToString();
+        }
+
+        #region 转盘相关的方法
+        //初始化/重置 轮盘元素
+        private void ResetWheel()
+        {
+            if (wheelCredit.Count <= 0) return;
+            gBulls.Clear();
+            for (int i = 0; i < 12; i++)
+            {
+                if (i % 2 == 1)
+                {
+                    GTextField gText = contentPane.GetChild("wheelContent").asCom.GetChild("item" + i).asTextField;
+                    gText.text = wheelCredit[i / 2].ToString();
+                }
+                else if (i % 4 == 0)
+                {
+                    GLoader goldBull = contentPane.GetChild("wheelContent").asCom.GetChild("item" + i).asLoader;
+                    goldBull.url = CustomModel.Instance.wheelGoldBull[0];
+                    gBulls.Add(goldBull);
+                }
+            }
+        }
+
+
+        private void OnClickWheelSpinBtn()
+        {
+            if (!isWheelSpin)
+            {
+                return;
+            }
+            EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false); // isLongClick
+            OnClickSpinButton(res);
+        }
+
+
+        private void StartWheelSpinOnce(int targetIndex)
+        {
+            Action successCallback = () =>
+            {
+                ContentModel.Instance.isSpin = false;
+                ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+                ContentModel.Instance.gameState = GameState.Idle;
+                isEndSpin = true;
+
+                if (targetIndex % 2 == 1)
+                {
+                    wheelOnceWin += wheelCredit[targetIndex / 2];
+                    wheelWinCredit.text = wheelOnceWin.ToString();
+                }
+                if (targetIndex % 4 == 0)
+                {
+                    wheelWinGoldBull += wheelSpinTimes;
+                    collectedNums.text = wheelWinGoldBull.ToString();
+                }
+                if (wheelSpinTimes >= ContentModel.Instance.wheelData.Count) isWheelSpin = false;
+            };
+
+            wheelSpinTimes++;
+            wheelSpinTimesTxt.text = wheelSpinTimes.ToString();
+
+            foreach (GLoader item in gBulls)
+            {
+                item.url = CustomModel.Instance.wheelGoldBull[wheelSpinTimes % 6];
+            }
+
+            isStartSpin = true;
+            if (corWheelSpin != null) mono.StopCoroutine(corWheelSpin);
+            corWheelSpin = mono.StartCoroutine(SpinWheelToTarget(targetIndex, successCallback, null));
+        }
+
+
+        //轮盘旋转方法
+        private IEnumerator SpinWheelToTarget(int targetIndex, Action successCallback, Action<string> errorCallback = null)
+        {
+            float currentAngle = NormalizeAngle(gWheel.rotation);
+            float targetAngleCenter = 360 - (targetIndex * segmentAngle);
+
+            int minCircles = 2;
+            int extraCircles = UnityEngine.Random.Range(3, 7);
+            int totalCircles = minCircles + extraCircles;
+
+            // ========================
+            // 重点：彻底删掉 +10，纯公式
+            // ========================
+            float totalRotation = totalCircles * 360f + (targetAngleCenter - currentAngle);
+            if (totalRotation < 0) totalRotation += 360f;
+
+            float speed = 100f;
+            float maxSpeed = 1280f;
+            float accelerateTime = 1f;
+            float decelerateTime = 2f;
+
+            float elapsed = 0f;
+            float rotated = 0f;
+
+            // 阶段1：加速（原样）
+            while (elapsed < accelerateTime)
+            {
+                elapsed += Time.deltaTime;
+                float t = elapsed / accelerateTime;
+                speed = Mathf.Lerp(100f, maxSpeed, t * t);
+
+                float deltaRot = speed * Time.deltaTime;
+                gWheel.rotation += deltaRot;
+                rotated += deltaRot;
+
+                yield return null;
+            }
+
+            speed = maxSpeed;
+
+            // 阶段2：匀速（原样）
+            float accelerateDistance = 0.5f * (100f + maxSpeed) * accelerateTime;
+            float decelerateDistance = 0.5f * maxSpeed * decelerateTime;
+            float constantDistance = totalRotation - accelerateDistance - decelerateDistance;
+            float constantTime = constantDistance / maxSpeed;
+
+            elapsed = 0f;
+            while (elapsed < constantTime)
+            {
+                elapsed += Time.deltaTime;
+                float deltaRot = speed * Time.deltaTime;
+                gWheel.rotation += deltaRot;
+                rotated += deltaRot;
+
+                yield return null;
+            }
+
+            // ================================
+            // 阶段3：匀减速 → 但最后自动对齐
+            // ================================
+            float remainingRotation = totalRotation - rotated;
+            float startSpeed = speed;
+            float deceleration = (startSpeed * startSpeed) / (2 * remainingRotation);
+
+            // 先减速到速度很低，但不追求完全走完
+            while (speed > 200f)
+            {
+                speed -= deceleration * Time.deltaTime;
+                float deltaRot = speed * Time.deltaTime;
+
+                gWheel.rotation += deltaRot;
+                remainingRotation -= deltaRot;
+
+                yield return null;
+            }
+
+            // ================================
+            // 关键：剩下角度平滑滑过去（跨设备稳定）
+            // ================================
+            float slideTime = 0.8f;
+            float slideElapsed = 0f;
+            float startRot = gWheel.rotation;
+            float targetRot = startRot + remainingRotation;
+
+            while (slideElapsed < slideTime)
+            {
+                slideElapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(slideElapsed / slideTime);
+
+                // 关键：这个曲线就是真实转盘“越转越慢”的效果
+                t = 1 - Mathf.Pow(1 - t, 3); // 缓动曲线：Out Cubic（最强物理感）
+
+                gWheel.rotation = Mathf.Lerp(startRot, targetRot, t);
+                yield return null;
+            }
+
+            gWheel.rotation = targetRot;
+
+            successCallback?.Invoke();
+        }
+
+        // 辅助函数：规范化角度到0-360
+        private float NormalizeAngle(float angle)
+        {
+            angle %= 360f;
+            if (angle < 0) angle += 360f;
+            return angle;
+        }
+        #endregion
+
+        public Vector2 TransFormParentNode(GComponent node, GComponent targetNode)
+        {
+            Vector2 worldPos = node.LocalToGlobal(Vector2.zero);
+            return targetNode.GlobalToLocal(worldPos);
+        }
+
+
+
+
+        private IEnumerator ShowGoldBullDestroy(List<Cell> symbolWin)
+        {
+            //停止特效显示
+            slotMachineCtrl.SkipWinLine(false);
+
+            //// 立马停止时，不播放赢分环节？
+            //if (isStopImmediately && _spinWEMD.Instance.isSkipAtStopImmediately)
+            //    yield break;
+
+
+            foreach (Cell cel in symbolWin)
+            {
+                Symbol01 symble = (Symbol01)slotMachineCtrl.GetVisibleSymbolFromDeck(cel.column, cel.row);
+
+                int symbolNumber = symble.number;
+
+                string symbolName = CustomModel.Instance.symbolHitEffect[$"{symbolNumber}"];  // wild  or symbol;
+
+                // 图标动画  
+                GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolHit, symbolName).asCom;
+                symble.AddSymbolEffect(goSymbolHit, false);
+
+                yield return new WaitForSeconds(0.85f);
+                wheelWinGoldBull++;
+                freeTipLeftNum.text = wheelWinGoldBull.ToString();
+                freeTipRightNum.text = (ContentModel.Instance.goldBullNums[stageIndex] - wheelWinGoldBull).ToString();
+
+                slotMachineCtrl.SkipWinLine(false);
+                symble.SetSymbolImage(10);
+
+                freeTipRightNum.text = (ContentModel.Instance.goldBullNums[stageIndex] - wheelWinGoldBull).ToString();
+
+                if (ContentModel.Instance.goldBullNums[stageIndex] - wheelWinGoldBull <= 0)
+                {
+                    StartChangeIcon.Play();
+
+                    yield return new WaitForSeconds(0.85f);
+
+                    anchorChangeIconAnim.visible = true;
+                    stageIndex++;
+                    ShowChangeIcon();
+                    yield return new WaitForSeconds(1.85f);
+
+                    anchorChangeIconAnim.visible = false;
+                    freeTipRightNum.text = (ContentModel.Instance.goldBullNums[stageIndex] - wheelWinGoldBull).ToString();
+                    EndChangeIcon.Play();
+                    yield return new WaitForSeconds(0.85f);
+                }
+            }
+
+        }
+
+
+
+        private void ShowChangeIcon()
+        {
+            switch (stageIndex - 1) 
+            {
+                case 0:
+                    eagleIcon.GetChild("example").asLoader.url = "ui://x2aorbwjq4s824";
+                    targetIcon.GetChild("example").asLoader.url = "ui://x2aorbwjq4s820";
+                    break;
+                case 1:
+                    leopardIcon.GetChild("example").asLoader.url = "ui://x2aorbwjq4s820";
+                    targetIcon.GetChild("example").asLoader.url = "ui://x2aorbwjq4s82e";
+                    break;
+                case 2:
+                    wolfIcon.GetChild("example").asLoader.url = "ui://x2aorbwjq4s82e";
+                    targetIcon.GetChild("example").asLoader.url = "ui://x2aorbwjq4s82d";
+                    break;
+                case 3:
+                    deerIcon.GetChild("example").asLoader.url = "ui://x2aorbwjq4s82d";
+                    break;
+                default: 
+                    break;
+            }
+
         }
     }
 }

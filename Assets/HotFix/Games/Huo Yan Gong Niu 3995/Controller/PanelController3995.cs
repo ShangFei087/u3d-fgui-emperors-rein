@@ -65,6 +65,7 @@ public class PanelController3995 : SlotMaker.PanelBaseController
 
     protected override void OnPropertyChangeBtnSpinState(EventData res = null)
     {
+        base.OnPropertyChangeBtnSpinState(res);
         string changeSpinState = (string)res?.value;
 
         if (changeSpinState == null)

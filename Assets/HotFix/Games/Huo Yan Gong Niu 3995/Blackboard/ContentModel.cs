@@ -186,6 +186,9 @@ namespace HuoYanGongNiu_3995
         /// <summary> 免费游戏出现特殊图标 </summary>
         public bool haveFreeSpecialIcon;
 
+        /// <summary> 免费游戏出现特殊图标 </summary>
+        public List<Cell> SpecialBullIcon = new List<Cell>();
+
         /// <summary> 彩金游戏开始 </summary>
         public bool isJackpotSpinTrigger;
 
@@ -308,6 +311,11 @@ namespace HuoYanGongNiu_3995
         /// 新算法获取中免费游戏单局赢分
         /// </summary>
         public List<int> newFreeOnceCredit = new List<int>();
+
+        /// <summary>
+        /// 免费游戏激活每个图标所需要的金牛数量
+        /// </summary>
+        public int[] goldBullNums = new int[4] { 4, 8, 12, 16 };
 
         /// <summary> 游戏前 </summary>
         public long creditBefore;
@@ -658,6 +666,8 @@ namespace HuoYanGongNiu_3995
         /// <summary> bonus数据 </summary>
         public Dictionary<int, JSONNode> bonusResult = new Dictionary<int, JSONNode>();
 
+        ///<summary> 游戏轮盘获奖数据 </summary>
+        public List<int> wheelData = new List<int>();
 
 
         #region  礼盒游戏和Wild游戏的部分数据
