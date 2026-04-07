@@ -222,8 +222,71 @@ public static partial class ConsoleTableUtils
 
 public static partial class ConsoleTableUtils
 {
+    /// <summary>
+    /// 确保当前 <see cref="MainModel.Instance.gameID"/> 在 bet 表中至少有一行。
+    /// </summary>
+    static void EnsureBetRowForCurrentGameIfMissing(Action onReady)
+    {
+        int gameId = MainModel.Instance.gameID;
+        string dbName = ConsoleTableName.DB_NAME;
+        string countSql = $"SELECT COUNT(*) FROM {ConsoleTableName.TABLE_BET} WHERE game_id = {gameId}";
+
+        // 用 SQLiteHelper 做标量查询；如果没配置就根据 game_info_g{gameId}.json 生成默认 bet_list 并插入一行。
+        SQLiteHelper.Instance.ExecuteQueryAfterOpenDB(dbName, countSql, (reader) =>
+        {
+            long count = 0;
+            try
+            {
+                if (reader != null && reader.Read())
+                {
+                    object v = reader.GetValue(0);
+                    count = Convert.ToInt64(v);
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugUtils.LogError($"[ConsoleTableUtils] EnsureBetRow count query failed. gameId={gameId}, err={ex}");
+            }
+            finally
+            {
+                try { reader?.Close(); } catch { }
+            }
+
+            if (count > 0)
+            {
+                onReady?.Invoke();
+                return;
+            }
+
+            EnsureBetRowInsertDefaultAsync(onReady);
+        });
+    }
+
+    /// <summary>
+    /// 从游戏配置生成默认 bet 行并写入 SQLite。
+    /// </summary>
+    static async void EnsureBetRowInsertDefaultAsync(Action onReady)
+    {
+        try
+        {
+            TableBetItem[] defaultTable = await TableBetItem.DefaultTable();
+            foreach (TableBetItem item in defaultTable)
+            {
+                string sql = SQLiteHelper.SQLInsertTableData<TableBetItem>(ConsoleTableName.TABLE_BET, item);
+                SQLiteHelper.Instance.ExecuteNonQuery(sql);
+            }
+        }
+        catch (Exception ex)
+        {
+            DebugUtils.LogError($"[ConsoleTableUtils] EnsureBetRowInsertDefaultAsync failed. err={ex}");
+        }
+        onReady?.Invoke();
+    }
+
     public static void GetTableBet(Action<TableBetItem> onFinishCallback = null)
     {
+        EnsureBetRowForCurrentGameIfMissing(() =>
+        {
 #if !SQLITE_ASYNC
         string sql = $"SELECT* FROM {ConsoleTableName.TABLE_BET} WHERE game_id = {MainModel.Instance.gameID}";
         SQLiteHelper.Instance.ConvertSqliteToJsonAfterOpenDB(ConsoleTableName.DB_NAME, sql, (res) =>
@@ -246,7 +309,6 @@ public static partial class ConsoleTableUtils
 
             SBoxModel.Instance.betAllowList = betAllowList;
 
-
             List<long> betList = new List<long>();
             foreach (BetAllow nd in betAllowList)
             {
@@ -261,7 +323,7 @@ public static partial class ConsoleTableUtils
         });
 
 #else
-        string sql = $"SELECT* FROM {ConsoleTableName.TABLE_BET} WHERE game_id = {HotfixSettings.gameId}";
+        string sql = $"SELECT* FROM {ConsoleTableName.TABLE_BET} WHERE game_id = {MainModel.Instance.gameID}";
         SQLiteAsyncHelper.Instance.ConvertSqliteToJsonAsync(sql, (res) =>
         {
             if (res.StartsWith("[") && res.EndsWith("]"))
@@ -298,6 +360,7 @@ public static partial class ConsoleTableUtils
 #endif
 
 
+        });
     }
 
     /*public static void GetTableButtons(Action<List<TableButtonsItem>> onFinishCallback = null)

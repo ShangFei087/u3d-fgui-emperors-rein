@@ -224,7 +224,7 @@ namespace XingYunZhiLun_3998
                 }
 
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                   ContentModel.Instance.payLines,
+                   CustomModel.Instance.payLines,
                    CustomModel.Instance.symbolNumber, winningLines, new int[] { 8, 9 , 10 }, symbolInclude);
             }
 
@@ -256,7 +256,7 @@ namespace XingYunZhiLun_3998
                 }
 
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                   ContentModel.Instance.payLines,
+                   CustomModel.Instance.payLines,
                    CustomModel.Instance.symbolNumber, winningLines, new int[] { 8, 9 ,10}, symbolInclude);
             }
             else if (isJackpotMinMinor)
@@ -297,7 +297,7 @@ namespace XingYunZhiLun_3998
                 }
 
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, winningLines, new int[] {8, 9, 10}, symbolInclude);
 
             }
@@ -315,7 +315,7 @@ namespace XingYunZhiLun_3998
                 ContentModel.Instance.rewardIndex = (int)res["rewardIcon"];
 
                 strDeckRowCol = GenerateGameArray(
-                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, null, new int[] { 8, 9, 10, (int)res["rewardIcon"] }, symbolInclude, freeGameInclude, true, numRows, numCols);
             }
             else if (isWild)
@@ -333,7 +333,7 @@ namespace XingYunZhiLun_3998
                 ContentModel.Instance.maxLink = (int)res["maxLink"];
 
                 strDeckRowCol = WildGenerateGameArray(
-                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, winningLines, new int[] { 8, 9 ,10}, symbolInclude, numRows, numCols);
             }
             else if (isMult)
@@ -346,7 +346,7 @@ namespace XingYunZhiLun_3998
                 ContentModel.Instance.multiple = (int)res["multiple"];
 
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, winningLines, new int[] { 8, 9 , 10 }, symbolInclude);
             }
             else if (isFreeSpinTrigger)
@@ -361,7 +361,7 @@ namespace XingYunZhiLun_3998
                 }
 
                 strDeckRowCol = GenerateGameArray(
-                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, winningLines, new int[] { 8, 9 , 10 }, symbolInclude, freeGameInclude, isFreeSpinTrigger, numRows, numCols);
             }
             else if (isFreeSpin)
@@ -388,13 +388,13 @@ namespace XingYunZhiLun_3998
                 }
 
                 strDeckRowCol = GenerateGameArray(
-                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, winningLines, new int[] { 8, 9 , 10 }, symbolInclude, freeGameInclude, isFreeSpinTrigger, numRows, numCols);
             }
             else
             {
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, winningLines, new int[] { 8, 9 , 10 }, symbolInclude);
             }
 
@@ -416,7 +416,7 @@ namespace XingYunZhiLun_3998
                 int lineNumber = LineNumbers[i];
                 int lineIndex = lineNumber - 1;
 
-                int[] lineInfo = ContentModel.Instance.payLines[lineIndex].ToArray();
+                int[] lineInfo = CustomModel.Instance.payLines[lineIndex].ToArray();
 
                 JSONNode lineNode = res["lineData"][i];
                 int credit = lineNode["reward"];
@@ -601,7 +601,7 @@ namespace XingYunZhiLun_3998
                 if (hitCount < 3)
                     return 0;
 
-                List<PayTableSymbolInfo> payTable = MainModel.Instance.contentMD?.payTableSymbolWin;
+                List<PayTableSymbolInfo> payTable = MainModel.Instance.cutomMD?.payTableSymbolWin;
                 if (payTable == null || symbolNumber < 0 || symbolNumber >= payTable.Count)
                 {
                     DebugUtils.LogError($"[G3998] 计算单线赢分失败，paytable越界。symbol={symbolNumber}, hit={hitCount}");
@@ -657,7 +657,7 @@ namespace XingYunZhiLun_3998
                 Debug.Log($"ID: {ID}, Line: {lineNumber}, HitCount: {hitCount}, Symbol: {symbolNumber}");
 
                 int lineIndex = lineNumber;
-                int[] lineInfo = ContentModel.Instance.payLines[lineIndex].ToArray();
+                int[] lineInfo = CustomModel.Instance.payLines[lineIndex].ToArray();
                 List<Cell> _cells = new List<Cell>();
 
                 maxLink = maxLink >= hitCount ? maxLink : hitCount;

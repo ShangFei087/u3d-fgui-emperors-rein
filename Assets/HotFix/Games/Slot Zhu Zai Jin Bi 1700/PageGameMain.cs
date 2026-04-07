@@ -23,12 +23,15 @@ namespace SlotZhuZaiJinBi1700
 
         [JsonProperty("display_name")] public string DisplayName;//显示名称
 
+        [JsonProperty("line_num")] public int LineNum;//线数
+
         [JsonProperty("win_level_multiple")] public Dictionary<string, long> WinLevelMultiple { get; set; }//赢钱倍数
 
         [JsonProperty("symbol_paytable")] public Dictionary<string, PayTableSymbolInfo> SymbolPaytable { get; set; }//符号赔率表
 
         [JsonProperty("pay_lines")] public List<List<int>> pay_lines { get; set; } //支付线
     }
+
     public class PageGameMain : MachinePageBase
     {
         public new const string pkgName = "SlotZhuZaiJinBi1700";
@@ -236,6 +239,7 @@ namespace SlotZhuZaiJinBi1700
 
             //说明书
             MainModel.Instance.contentMD = ContentModel.Instance;
+            MainModel.Instance.cutomMD = CustomModel.Instance;
             List<GComponent> lstPayTable = new List<GComponent>();
             foreach (string url in CustomModel.Instance.payTable)
             {
@@ -1202,7 +1206,7 @@ namespace SlotZhuZaiJinBi1700
         WinLevelType GetBigWinType()
         {
             long baseGameWinCredit = ContentModel.Instance.baseGameWinCredit;
-            List<WinMultiple> winMultipleList = ContentModel.Instance.winLevelMultiple;
+            List<WinMultiple> winMultipleList = CustomModel.Instance.winLevelMultiple;
             long totalBet=ContentModel.Instance.totalBet;
             WinLevelType winLevelType = WinLevelType.None;
             for (int i = 0; i < winMultipleList.Count; i++)
@@ -1221,7 +1225,7 @@ namespace SlotZhuZaiJinBi1700
         {
             //资源加载
             ResourceManager02.Instance.LoadAsset<TextAsset>(
-                "Assets/GameRes/_Common/Game Maker/ABs/G1700/Data/game_info_g1700.json", (txt) =>
+                "Assets/GameRes/_Common/Game Maker/ABs/G1700/Datas/game_info_g1700.json", (txt) =>
                 {
                     //JSON解析与错误处理
                     GameConfigRoot config = JsonConvert.DeserializeObject<GameConfigRoot>(txt.text);
@@ -1234,51 +1238,7 @@ namespace SlotZhuZaiJinBi1700
                     MainModel.Instance.gameID = config.GameId;
                     MainModel.Instance.gameName = config.GameName;
                     MainModel.Instance.displayName = config.DisplayName;
-
-                    //赢钱倍数处理
-                    foreach (var item in config.WinLevelMultiple)
-                    {
-                        string winKey = item.Key;
-                        long winValue = item.Value;
-                        MainModel.Instance.contentMD.winLevelMultiple.Add(new WinMultiple(winKey, winValue));
-                    }
-
-                    //符号支付表处理
-                    foreach (var kvp in config.SymbolPaytable)
-                    {
-                        string symbolKey = kvp.Key; // 如 "s0"、"s1"、"s2"
-                        var jsonData1 = kvp.Value; // 对应x3、x4、x5的数据
-
-                        // 1. 从symbolKey中提取索引（如"s0" → 0，"s1" → 1）
-                        if (int.TryParse(symbolKey.Replace("s", ""), out int index))
-                        {
-                            // 2. 检查索引是否在列表有效范围内
-                            if (index >= 0)
-                            {
-                                // 3. 为列表中对应索引的元素赋值
-                                var targetItem = MainModel.Instance.contentMD.payTableSymbolWin[index];
-                                targetItem.x3 = jsonData1.x3; // 假设jsonData的属性是X3（根据实际定义调整）
-                                targetItem.x4 = jsonData1.x4;
-                                targetItem.x5 = jsonData1.x5;
-                                // 若需要同步symbol字段（可选，确保一致）
-                                targetItem.symbol = index;
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogWarning($"无效的符号键：{symbolKey}，无法解析索引");
-                        }
-                    }
-
-                    //支付线处理
-                    if (ContentModel.Instance.payLines == null)
-                    {
-                        ContentModel.Instance.payLines = new List<List<int>>() { };
-                    }
-                    foreach (var item in config.pay_lines)
-                    {
-                        ContentModel.Instance.payLines.Add(item);
-                    }
+                    MainModel.Instance.lineNum = config.LineNum;
                 });
         }
 

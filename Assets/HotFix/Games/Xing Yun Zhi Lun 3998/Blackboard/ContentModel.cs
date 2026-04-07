@@ -482,105 +482,6 @@ namespace XingYunZhiLun_3998
         #endregion
 
 
-        #region 读取配置表
-
-
-
-        public List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>()
-        {
-            new PayTableSymbolInfo()
-            {
-                symbol = 0,
-                x5 = 0,
-                x4 = 0,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 1,
-                x5 = 0,
-                x4 = 0,
-                x3 = 2,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 2,
-                x5 = 10,
-                x4 = 4,
-                x3 = 1,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 3,
-                x5 = 6,
-                x4 = 2,
-                x3 = 0.6,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 4,
-                x5 = 2,
-                x4 = 1,
-                x3 = 0.5,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 5,
-                x5 = 1.6,
-                x4 = 0.6,
-                x3 = 0.3,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 6,
-                x5 = 1,
-                x4 = 0.3,
-                x3 = 0.2,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 7,
-                x5 = 0.6,
-                x4 = 0.2,
-                x3 = 0.16,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 8,
-                x5 = 0.6,
-                x4 = 0.2,
-                x3 = 0.16,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 9,
-                x5 = 0.4,
-                x4 = 0.2,
-                x3 = 0.1,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 10,
-                x5 = 0.4,
-                x4 = 0.2,
-                x3 = 0.1,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 11,
-                x5 = 0.4,
-                x4 = 0.2,
-                x3 = 0.1,
-            },
-        };
-
-        public List<PayTableSymbolInfo> payTableSymbolWin
-        {
-            get => m_PayTableSymbolWin;
-            set => observable.SetProperty(ref m_PayTableSymbolWin, value);
-        }
-
-
         public GComponent[] goPayTableLst
         {
             get => m_GoPayTable;
@@ -588,24 +489,7 @@ namespace XingYunZhiLun_3998
         }
         GComponent[] m_GoPayTable;
 
-        public List<List<int>> payLines
-        {
-            get => m_payLines;
-            set => m_payLines = value;
-        }
-        List<List<int>> m_payLines;
-
-
-        public List<WinMultiple> winLevelMultiple
-        {
-            get => _winMultipleList;
-            set => _winMultipleList = value;
-        }
         public bool isRequestToRealCreditWhenStop { set => throw new System.NotImplementedException(); }
-
-        public List<WinMultiple> _winMultipleList = new List<WinMultiple>();
-
-        #endregion
 
 
         /// <summary> bonus数据 </summary>

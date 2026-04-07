@@ -131,7 +131,7 @@ namespace CaiFuHuoChe_3996
 
                 jackpotSymbolInclude.Clear();
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, winningLines, new int[] { 9, 11, 10, 12 }, symbolInclude);
             }
             else if (isJackpotSpin)
@@ -153,7 +153,7 @@ namespace CaiFuHuoChe_3996
                 }
                 
                 strDeckRowCol = GenerateGameArray(
-                   ContentModel.Instance.payLines,
+                   CustomModel.Instance.payLines,
                    CustomModel.Instance.symbolNumber, winningLines, new int[] { 9, 11, 10, 12 }, symbolInclude, jackpotSymbolInclude);
             }
             else if (isFreeSpinTrigger)
@@ -165,7 +165,7 @@ namespace CaiFuHuoChe_3996
                 }
 
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, winningLines, new int[] {9, 11, 10, 12}, symbolInclude);
             }
             else if (isFreeSpin)
@@ -181,13 +181,13 @@ namespace CaiFuHuoChe_3996
                 }
 
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, winningLines, new int[] { 9, 11, 10, 12 }, symbolInclude);
             }
             else
             {
                 strDeckRowCol = AdvancedLineGenerator.Instance.GenerateGameArray(
-                    ContentModel.Instance.payLines,
+                    CustomModel.Instance.payLines,
                     CustomModel.Instance.symbolNumber, winningLines, new int[] { 9, 11, 10, 12 }, symbolInclude);
             }
 
@@ -209,7 +209,7 @@ namespace CaiFuHuoChe_3996
                 int lineNumber = LineNumbers[i];
                 int lineIndex = lineNumber - 1;
 
-                int[] lineInfo = ContentModel.Instance.payLines[lineIndex].ToArray();
+                int[] lineInfo = CustomModel.Instance.payLines[lineIndex].ToArray();
 
                 JSONNode lineNode = res["lineData"][i];
                 int credit = lineNode["reward"];
@@ -452,7 +452,7 @@ namespace CaiFuHuoChe_3996
                 Debug.Log($"ID: {ID}, Line: {lineNumber}, HitCount: {hitCount}, Symbol: {symbolNumber}");
 
                 int lineIndex = lineNumber - 1;
-                int[] lineInfo = ContentModel.Instance.payLines[lineIndex].ToArray();
+                int[] lineInfo = CustomModel.Instance.payLines[lineIndex].ToArray();
                 List<Cell> _cells = new List<Cell>();
 
                 for (int c = 0; c < hitCount; c++)

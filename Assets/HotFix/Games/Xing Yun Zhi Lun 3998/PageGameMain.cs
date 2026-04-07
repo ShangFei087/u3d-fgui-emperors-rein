@@ -25,6 +25,7 @@ namespace XingYunZhiLun_3998
 
         [JsonProperty("display_name")] public string DisplayName;//显示名称
 
+        [JsonProperty("line_num")] public int LineNum;//线数
         [JsonProperty("win_level_multiple")] public Dictionary<string, long> WinLevelMultiple { get; set; }//赢钱倍数
 
         [JsonProperty("symbol_paytable")] public Dictionary<string, PayTableSymbolInfo> SymbolPaytable { get; set; }//符号赔率表
@@ -342,6 +343,7 @@ namespace XingYunZhiLun_3998
 
             //说明书
             MainModel.Instance.contentMD = ContentModel.Instance;
+            MainModel.Instance.cutomMD = CustomModel.Instance;
 
             List<GComponent> lstPayTable = new List<GComponent>();
 
@@ -356,7 +358,7 @@ namespace XingYunZhiLun_3998
 
             ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
             payTableController.Init(lstPayTable);
-            ContentModel.Instance.payLines = new List<List<int>>();
+            CustomModel.Instance.payLines = new List<List<int>>();
 
             //读取json配置
             ReadJsonBet();
@@ -1661,7 +1663,7 @@ namespace XingYunZhiLun_3998
         private WinLevelType GetBigWinType()
         {
             long baseGameWinCredit = ContentModel.Instance.baseGameWinCredit;
-            List<WinMultiple> winMultipleList = ContentModel.Instance.winLevelMultiple;
+            List<WinMultiple> winMultipleList = CustomModel.Instance.winLevelMultiple;
             long totalBet = ContentModel.Instance.totalBet;
             WinLevelType winLevelType = WinLevelType.None;
             for (int i = 0; i < winMultipleList.Count; i++)
@@ -2247,7 +2249,7 @@ namespace XingYunZhiLun_3998
         {
             //资源加载
             ResourceManager02.Instance.LoadAsset<TextAsset>(
-                "Assets/GameRes/_Common/Game Maker/ABs/G3998/Data/game_info_g3998.json", (txt) =>
+                "Assets/GameRes/_Common/Game Maker/ABs/G3998/Datas/game_info_g3998.json", (txt) =>
                 {
                     //JSON解析与错误处理
                     GameConfigRoot config = JsonConvert.DeserializeObject<GameConfigRoot>(txt.text);
@@ -2260,13 +2262,14 @@ namespace XingYunZhiLun_3998
                     MainModel.Instance.gameID = config.GameId;
                     MainModel.Instance.gameName = config.GameName;
                     MainModel.Instance.displayName = config.DisplayName;
+                    MainModel.Instance.lineNum = config.LineNum;
 
                     //赢钱倍数处理
                     foreach (var item in config.WinLevelMultiple)
                     {
                         string winKey = item.Key;
                         long winValue = item.Value;
-                        MainModel.Instance.contentMD.winLevelMultiple.Add(new WinMultiple(winKey, winValue));
+                        MainModel.Instance.cutomMD.winLevelMultiple.Add(new WinMultiple(winKey, winValue));
                     }
 
                     //符号支付表处理
@@ -2282,7 +2285,7 @@ namespace XingYunZhiLun_3998
                             if (index >= 0) 
                             {
                                 // 3. 为列表中对应索引的元素赋值
-                                var targetItem = MainModel.Instance.contentMD.payTableSymbolWin[index];
+                                var targetItem = MainModel.Instance.cutomMD.payTableSymbolWin[index];
                                 targetItem.x3 = jsonData1.x3; // 假设jsonData的属性是X3（根据实际定义调整）
                                 targetItem.x4 = jsonData1.x4;
                                 targetItem.x5 = jsonData1.x5;
@@ -2297,13 +2300,13 @@ namespace XingYunZhiLun_3998
                     }
 
                     //支付线处理
-                    if (ContentModel.Instance.payLines == null)
+                    if (CustomModel.Instance.payLines == null)
                     {
-                        ContentModel.Instance.payLines = new List<List<int>>() { };
+                        CustomModel.Instance.payLines = new List<List<int>>() { };
                     }
                     foreach (var item in config.pay_lines)
                     {
-                        ContentModel.Instance.payLines.Add(item);
+                        CustomModel.Instance.payLines.Add(item);
                     }
                 });
         }

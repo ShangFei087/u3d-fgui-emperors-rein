@@ -1,6 +1,7 @@
 using FairyGUI;
 using SimpleJSON;
 using SlotMaker;
+using SBoxApi;
 using UnityEngine;
 
 public class MainModel : MonoSingleton<MainModel>
@@ -16,7 +17,34 @@ public class MainModel : MonoSingleton<MainModel>
         }
         set
         {
+            if (_gameID == value)
+                return;
+
             _gameID = value;
+
+            // 当切换游戏时，刷新该游戏对应的 betAllowList/betList。
+            // Panel/下注逻辑依赖 betList，因此需要随游戏同步更新。
+            TryRefreshBetAllowListByGameId();
+        }
+    }
+
+    void TryRefreshBetAllowListByGameId()
+    {
+        try
+        {
+            // bet 表在启动初始化流程里会先加载一次；
+            // 这里用 tableBet.game_id 做二次刷新判断，避免重复查询。
+            if (SBoxModel.Instance == null || SBoxModel.Instance.tableBet == null)
+                return;
+
+            if (SBoxModel.Instance.tableBet.game_id == (long)_gameID)
+                return;
+
+            ConsoleTableUtils.GetTableBet();
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"[MainModel] Refresh betAllowList failed, gameID={_gameID}, err={ex}");
         }
     }
 
@@ -26,7 +54,18 @@ public class MainModel : MonoSingleton<MainModel>
 
     public string displayName;
 
-
+    public int _lineNum;
+    public int lineNum
+    {
+        get
+        {
+            return _lineNum;
+        }
+        set
+        {
+            _lineNum = value;
+        }
+    }
 
 
     public bool isSpin

@@ -13,7 +13,7 @@ public class TabSettingsMachineController
 {
     GComponent _comp;
 
-
+    bool _isSubscribed;
 
     GButton btnAgentID, btnMachineID,
         btnChangePwdShift, btnChangePwdManager, btnChangePwdAdmin,
@@ -30,6 +30,10 @@ public class TabSettingsMachineController
     ChangePasswordController managerChangePwdCtrl = new ChangePasswordController(UserType.Manager);
     ChangePasswordController shiftChangePwdCtrl = new ChangePasswordController(UserType.Shift);
 
+    /// <summary>
+    /// 初始化 Tab 页面所需的 UI 组件引用，并绑定按钮点击/开关变更事件。
+    /// </summary>
+    /// <param name="comp">Tab 根组件。</param>
     public  void InitParam(GComponent comp)
     {
         _comp = comp;
@@ -134,6 +138,11 @@ public class TabSettingsMachineController
             title.text = betAllowList[i].value.ToString();
         }
 
+        if (!_isSubscribed)
+        {
+            EventCenter.Instance.AddEventListener<EventData>(Observer.ON_PROPERTY_CHANGED_EVENT, OnPropertyChange);
+            _isSubscribed = true;
+        }
 
         //RefreshUIBetLst();
 
@@ -141,21 +150,68 @@ public class TabSettingsMachineController
     }
 
     bool isNeedRefreshUIBetLst = false;
-    /*【这个暂时不用】
+
     void RefreshUIBetLst()
     {
         isNeedRefreshUIBetLst = true;
-
-        List<BetAllow> betAllowList = SBoxModel.Instance.betAllowList;
-
-        for (int i = 0; i < betAllowList.Count; i++)
+        try
         {
-            GComponent cmpBet = cmpBetAllowed.GetChildAt(i).asCom;
-            GButton toggle = cmpBet.GetChild("toggle").asButton;
-            toggle.selected = betAllowList[i].allowed == 1;
+            List<BetAllow> betAllowList = SBoxModel.Instance.betAllowList;
+            if (betAllowList == null || cmpBetAllowed == null)
+                return;
+
+            // 先根据新列表长度控制可见性
+            for (int i = 0; i < cmpBetAllowed.numChildren; i++)
+            {
+                GComponent cmpBet = cmpBetAllowed.GetChildAt(i).asCom;
+                cmpBet.visible = i < betAllowList.Count;
+            }
+
+            // 再刷新每一项的 toggle/title
+            for (int i = 0; i < betAllowList.Count; i++)
+            {
+                GComponent cmpBet = cmpBetAllowed.GetChildAt(i).asCom;
+
+                GButton toggle = cmpBet.GetChild("toggle").asButton;
+                toggle.selected = betAllowList[i].allowed == 1;
+
+                GTextField title = cmpBet.GetChild("title").asTextField;
+                title.text = betAllowList[i].value.ToString();
+            }
         }
-        isNeedRefreshUIBetLst = false;
-    }*/
+        finally
+        {
+            isNeedRefreshUIBetLst = false;
+        }
+    }
+
+    void OnPropertyChange(EventData res = null)
+    {
+        if (res == null || string.IsNullOrEmpty(res.name))
+            return;
+
+        // betAllowList 切换游戏时会重新加载
+        if (res.name == "SBoxModel/betAllowList")
+        {
+            RefreshUIBetLst();
+        }
+    }
+
+    public void OnClose()
+    {
+        if (!_isSubscribed)
+            return;
+
+        EventCenter.Instance.RemoveEventListener<EventData>(Observer.ON_PROPERTY_CHANGED_EVENT, OnPropertyChange);
+        _isSubscribed = false;
+    }
+    
+    /// <summary>
+    /// 赌注允许列表（BetAllow）开关变更回调。
+    /// </summary>
+    /// <param name="index">当前变更项在列表中的索引。</param>
+    /// <param name="isOn">开关是否开启。</param>
+    /// <param name="btn">对应的开关按钮。</param>
     void OnValueChangeBetAllowed(int index, bool isOn, GButton btn)
     {
         if (isNeedRefreshUIBetLst)
@@ -194,9 +250,15 @@ public class TabSettingsMachineController
         }
         betAllowList[index].allowed = isOn ? 1 : 0;
     }
+
+    /// <summary>
+    /// 点击修改线路号/机台号（Agent ID / Machine ID）。
+    /// 会弹出输入页进行校验；通过权限控制是否允许保存，并在保存后刷新按钮可编辑状态。
+    /// </summary>
     async void OnClickAgentIDMachineID()
     {
 
+        // 参数校验：Agent ID 要求为 4 位纯数字
         Func<string, string> checkAgnetIDFunc = (res) =>
         {
             if (string.IsNullOrEmpty(res))
@@ -216,6 +278,7 @@ public class TabSettingsMachineController
             return null;
         };
 
+        // 参数校验：Machine ID 要求为 8 位纯数字
         Func<string, string> checkMachineIDFunc = (res) =>
         {
             if (string.IsNullOrEmpty(res))
@@ -248,7 +311,7 @@ public class TabSettingsMachineController
                 }
             ));
 
-
+        // 弹窗返回值约定：res.value 为 List<string>，顺序为 [agentId, machineId]
         if (res.value!= null)
         {     
             List<string> lst = (List<string>)res.value;
@@ -314,8 +377,9 @@ public class TabSettingsMachineController
 
     }
 
-
-
+    /// <summary>
+    /// 刷新线路号/机台号按钮的显示内容与可编辑状态（基于当前权限）。
+    /// </summary>
     void CheckAgentIDMachineIDActive()
     {
 
@@ -348,15 +412,9 @@ public class TabSettingsMachineController
         // DoCo(COR_DELAY_CHECK_ID, DoTask(callback, 500));
     }
 
-
-
-
-
-
-
-
-
-
+    /// <summary>
+    /// 设置“出入账记录上限”（Max Coin In Out Record）。
+    /// </summary>
     async void OnClickMaxCoinInOutRecord()
     {
         EventData res = await PageManager.Instance.OpenPageAsync(PageName.ConsolePopupConsoleKeyboard002,
@@ -396,8 +454,9 @@ public class TabSettingsMachineController
         }
     }
 
-
-
+    /// <summary>
+    /// 设置“游戏记录上限”（Max Game Record）。
+    /// </summary>
     async void OnClickMaxGameRecord()
     {
         EventData res = await PageManager.Instance.OpenPageAsync(PageName.ConsolePopupConsoleKeyboard002,
@@ -436,8 +495,9 @@ public class TabSettingsMachineController
         }
     }
 
-
-
+    /// <summary>
+    /// 设置“事件记录上限”（Max Event Record）。
+    /// </summary>
     async void OnClickMaxEventRecord()
     {
         EventData res = await PageManager.Instance.OpenPageAsync(PageName.ConsolePopupConsoleKeyboard002,
@@ -481,6 +541,9 @@ public class TabSettingsMachineController
 
 
 
+    /// <summary>
+    /// 设置“警告/错误记录上限”（Max Warning Record / Max Error Record）。
+    /// </summary>
     async void OnClickMaxErrorRecord()
     {
         EventData res = await PageManager.Instance.OpenPageAsync(PageName.ConsolePopupConsoleKeyboard002,
@@ -520,6 +583,9 @@ public class TabSettingsMachineController
     }
 
 
+    /// <summary>
+    /// 设置“营业日记录上限”（Max Business Day Record）。
+    /// </summary>
     async void OnClickMaxBusinessDayRecord()
     {
         EventData res = await PageManager.Instance.OpenPageAsync(PageName.ConsolePopupConsoleKeyboard002,
@@ -559,6 +625,9 @@ public class TabSettingsMachineController
     }
 
 
+    /// <summary>
+    /// 点击“编码/开发”按钮，触发事件以显示编码弹窗。
+    /// </summary>
     void OnClickCoder()
     {
         EventCenter.Instance.EventTrigger<EventData>(MachineUIEvent.ON_MACHINE_UI_EVENT,

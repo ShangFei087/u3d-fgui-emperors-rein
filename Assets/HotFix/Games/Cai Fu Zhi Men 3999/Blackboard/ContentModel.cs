@@ -370,76 +370,7 @@ namespace CaiFuZhiMen_3999
 
         #endregion
 
-        #region 读取配置表
-
-        /// <summary>赔付表</summary>
-        public List<PayTableSymbolInfo> payTableSymbolWin
-        {
-            get => _mPayTableSymbolWin;
-            set => Observable.SetProperty(ref _mPayTableSymbolWin, value);
-        }
-
-        private List<PayTableSymbolInfo> _mPayTableSymbolWin = new List<PayTableSymbolInfo>()
-        {
-            new PayTableSymbolInfo()
-            {
-                symbol = 0, x5 = 0, x4 = 0, x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 1, x5 = 0, x4 = 0, x3 = 2,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 2, x5 = 10, x4 = 4, x3 = 1,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 3, x5 = 6, x4 = 2, x3 = 0.6,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 4, x5 = 2, x4 = 1, x3 = 0.5,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 5, x5 = 1.6, x4 = 0.6, x3 = 0.3,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 6, x5 = 1, x4 = 0.3, x3 = 0.2,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 7, x5 = 0.6, x4 = 0.2, x3 = 0.16,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 8, x5 = 0.6, x4 = 0.2, x3 = 0.16,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 9, x5 = 0.4, x4 = 0.2, x3 = 0.1,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 10, x5 = 0.4, x4 = 0.2, x3 = 0.1,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 11, x5 = 0.4, x4 = 0.2, x3 = 0.1,
-            },
-        };
-
         /// <summary>赔付表说明UI集合</summary>
         public GComponent[] goPayTableLst { get; set; } = Array.Empty<GComponent>();
-
-        /// <summary>赔付线</summary>
-        public List<List<int>> payLines { get; set; } = new List<List<int>>();
-
-        /// <summary>所有获奖类型及倍率的集合</summary>
-        public List<WinMultiple> winLevelMultiple { get; set; } = new List<WinMultiple>();
-
-        #endregion
     }
 }

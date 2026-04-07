@@ -51,9 +51,9 @@ namespace PusherEmperorsRein
             for (int i = 1; i < 10; i++)
             {
                 GComponent symbol = goOwnerPayTableLst[1].GetChild("n" + i).asCom;
-                symbol.GetChild("n1").asTextField.text = (MainModel.Instance.contentMD.payTableSymbolWin[i].x5).ToString();
-                symbol.GetChild("n2").asTextField.text = (MainModel.Instance.contentMD.payTableSymbolWin[i].x4).ToString();
-                symbol.GetChild("n3").asTextField.text = (MainModel.Instance.contentMD.payTableSymbolWin[i].x3).ToString();
+                symbol.GetChild("n1").asTextField.text = (MainModel.Instance.cutomMD.payTableSymbolWin[i].x5).ToString();
+                symbol.GetChild("n2").asTextField.text = (MainModel.Instance.cutomMD.payTableSymbolWin[i].x4).ToString();
+                symbol.GetChild("n3").asTextField.text = (MainModel.Instance.cutomMD.payTableSymbolWin[i].x3).ToString();
 
             }
         }
@@ -75,9 +75,9 @@ namespace PusherEmperorsRein
             for (int i = 1; i < 10; i++)
             {
                 GComponent symbol = goOwnerPayTableLst[1].GetChild("n" + i).asCom;
-                symbol.GetChild("n1").asTextField.text = (MainModel.Instance.contentMD.payTableSymbolWin[i].x5 / Lastmultiplier * multiplier).ToString();
-                symbol.GetChild("n2").asTextField.text = (MainModel.Instance.contentMD.payTableSymbolWin[i].x4 / Lastmultiplier * multiplier).ToString();
-                symbol.GetChild("n3").asTextField.text = (MainModel.Instance.contentMD.payTableSymbolWin[i].x3 / Lastmultiplier * multiplier).ToString();
+                symbol.GetChild("n1").asTextField.text = (MainModel.Instance.cutomMD.payTableSymbolWin[i].x5 / Lastmultiplier * multiplier).ToString();
+                symbol.GetChild("n2").asTextField.text = (MainModel.Instance.cutomMD.payTableSymbolWin[i].x4 / Lastmultiplier * multiplier).ToString();
+                symbol.GetChild("n3").asTextField.text = (MainModel.Instance.cutomMD.payTableSymbolWin[i].x3 / Lastmultiplier * multiplier).ToString();
 
             }
         }

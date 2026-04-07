@@ -21,6 +21,7 @@ namespace CaiFuZhiMen_3999
         [JsonProperty("game_id")] public int gameId; //游戏 ID
         [JsonProperty("game_name")] public string gameName; //名称
         [JsonProperty("display_name")] public string displayName; //显示名称
+        [JsonProperty("line_num")] public int LineNum;//线数
         [JsonProperty("win_level_multiple")] public Dictionary<string, long> WinLevelMultiple { get; set; } //赢钱倍数
 
         [JsonProperty("symbol_paytable")]
@@ -156,6 +157,7 @@ namespace CaiFuZhiMen_3999
             if (!isInit) return;
 
             MainModel.Instance.contentMD = ContentModel.Instance;
+            MainModel.Instance.cutomMD = CustomModel.Instance;
             ShowPayTable();
             ParseGameInfo();
             InitUIPool();
@@ -372,11 +374,12 @@ namespace CaiFuZhiMen_3999
             MainModel.Instance.gameID = config.gameId;
             MainModel.Instance.gameName = config.gameName;
             MainModel.Instance.displayName = config.displayName;
+            MainModel.Instance.lineNum = config.LineNum;
             foreach (var item in config.WinLevelMultiple)
             {
                 string winKey = item.Key;
                 long winValue = item.Value;
-                MainModel.Instance.contentMD.winLevelMultiple.Add(new WinMultiple(winKey, winValue));
+                MainModel.Instance.cutomMD.winLevelMultiple.Add(new WinMultiple(winKey, winValue));
             }
 
             foreach (var kvp in config.SymbolPayTable)
@@ -391,7 +394,7 @@ namespace CaiFuZhiMen_3999
                     if (index >= 0)
                     {
                         // 3. 为列表中对应索引的元素赋值
-                        var targetItem = MainModel.Instance.contentMD.payTableSymbolWin[index];
+                        var targetItem = MainModel.Instance.cutomMD.payTableSymbolWin[index];
                         targetItem.x3 = jsonData1.x3; // 假设jsonData的属性是X3（根据实际定义调整）
                         targetItem.x4 = jsonData1.x4;
                         targetItem.x5 = jsonData1.x5;
@@ -403,10 +406,10 @@ namespace CaiFuZhiMen_3999
                     DebugUtils.LogWarning($"无效的符号键：{symbolKey}，无法解析索引");
             }
 
-            // if (ContentModel.Instance.payLines == null)
-            //     ContentModel.Instance.payLines = new List<List<int>>() { };
+            // if (CustomModel.Instance.payLines == null)
+            //     CustomModel.Instance.payLines = new List<List<int>>() { };
             foreach (var item in config.PayLines)
-                ContentModel.Instance.payLines.Add(item);
+                CustomModel.Instance.payLines.Add(item);
             // payTableController.OnPropertyChangeTotalBet();
         }
 
@@ -434,6 +437,7 @@ namespace CaiFuZhiMen_3999
         {
             _gOwnerPanel = contentPane.GetChild("panel").asCom;
             MainModel.Instance.contentMD = ContentModel.Instance;
+            MainModel.Instance.cutomMD = CustomModel.Instance;
             ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
             MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
             EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
@@ -483,7 +487,6 @@ namespace CaiFuZhiMen_3999
 
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
         }
-
         private void ShowJackpotData()
         {
             //彩金
