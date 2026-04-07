@@ -82,7 +82,10 @@ namespace MeiZhouHeiBao_3993
                     },
                 [SpinDataType.Normal] = new List<string[]>()
                 {
-                    new string[] { "Assets/HotFix/Games/Mock/Resources/g3993_real/g3993__slot_spin__null_0.json" }, // 不中
+                    new string[]
+                    {
+                        "Assets/HotFix/Games/Mock/Resources/g3993_real/g3993__slot_spin__null_0.json"
+                    }, // 不中
                     new string[] { "Assets/HotFix/Games/Mock/Resources/g3993_real/g3993__slot_spin__win_1.json" }, // 单线
                     new string[] { "Assets/HotFix/Games/Mock/Resources/g3993_real/g3993__slot_spin__win_2.json" }, // 多线
                 },
@@ -144,7 +147,7 @@ namespace MeiZhouHeiBao_3993
                 if (hitCount < 3)
                     return 0;
 
-                List<PayTableSymbolInfo> payTable = MainModel.Instance.contentMD?.payTableSymbolWin;
+                List<PayTableSymbolInfo> payTable = CustomModel.Instance?.payTableSymbolWin;
                 if (payTable == null || symbolNumber < 0 || symbolNumber >= payTable.Count)
                 {
                     DebugUtils.LogError($"[g3993] 计算单线赢分失败，paytable越界。symbol={symbolNumber}, hit={hitCount}");
@@ -212,7 +215,34 @@ namespace MeiZhouHeiBao_3993
                 }
             }
 
+            if (ContentModel.Instance.currentBootCount >= 4)
+            {
+                strDeckRowCol = strDeckRowCol.Replace("12", "8");
+            }
+
+            if (ContentModel.Instance.currentBootCount >= 10)
+            {
+                strDeckRowCol = strDeckRowCol.Replace("12", "8");
+                strDeckRowCol = strDeckRowCol.Replace("11", "8");
+            }
+
+            if (ContentModel.Instance.currentBootCount >= 18)
+            {
+                strDeckRowCol = strDeckRowCol.Replace("12", "8");
+                strDeckRowCol = strDeckRowCol.Replace("11", "8");
+                strDeckRowCol = strDeckRowCol.Replace("9", "8");
+            }
+
+            if (ContentModel.Instance.currentBootCount >= 28)
+            {
+                strDeckRowCol = strDeckRowCol.Replace("12", "8");
+                strDeckRowCol = strDeckRowCol.Replace("11", "8");
+                strDeckRowCol = strDeckRowCol.Replace("9", "8");
+                strDeckRowCol = strDeckRowCol.Replace("7", "8");
+            }
+
             ContentModel.Instance.strDeckRowCol = strDeckRowCol;
+
 
             //IDVec 中奖线
             int lineNum = (int)res["lineNum"];
@@ -231,7 +261,7 @@ namespace MeiZhouHeiBao_3993
                 Debug.Log($"ID: {ID}, Line: {lineNumber}, HitCount: {hitCount}, Symbol: {symbolNumber}");
 
                 int lineIndex = lineNumber; // 注：中奖线索引从0开始
-                int[] lineInfo = ContentModel.Instance.payLines[lineIndex].ToArray();
+                int[] lineInfo = CustomModel.Instance.payLines[lineIndex].ToArray();
                 List<Cell> _cells = new List<Cell>();
 
                 for (int c = 0; c < hitCount; c++)
@@ -370,6 +400,26 @@ namespace MeiZhouHeiBao_3993
                                                                 ContentModel.Instance.FreeSpinPlayTimes - 1);
                 ContentModel.Instance.FreeSpinPlayTimes += 1;
 
+                List<List<int>> currentStrDeck = SlotTool.GetDeckColRow03(strDeckRowCol); // 获取一局免费游戏图标
+                ContentModel.Instance.currentBootList.Clear();
+
+                for (int i = 0; i < currentStrDeck.Count; i++)
+                {
+                    for (int j = 0; j < currentStrDeck[i].Count; j++)
+                    {
+                        if (currentStrDeck[i][j] == 8)
+                        {
+                            ContentModel.Instance.currentBootList.Add(new Cell(i, j));
+                        }
+                    }
+                }
+
+                for (int m = 0; m < ContentModel.Instance.currentBootList.Count; m++)
+                {
+                    Debug.LogError(ContentModel.Instance.currentBootList[m].column + " " +
+                                   ContentModel.Instance.currentBootList[m].row);
+                }
+
                 if (ContentModel.Instance.FreeSpinTotalTimes == ContentModel.Instance.FreeSpinPlayTimes)
                 {
                     ContentModel.Instance.nextReelStripsIndex = "BS";
@@ -380,19 +430,19 @@ namespace MeiZhouHeiBao_3993
                 }
             }
 
-            // 大奖
-            if (ResultType == 3)
-            {
-                ContentModel.Instance.bonusTotalBet = (int)res["BonusBet"];
-                ContentModel.Instance.IsBonusTrigger = true;
-            }
+            // // 大奖
+            // if (ResultType == 3)
+            // {
+            //     ContentModel.Instance.bonusTotalBet = (int)res["BonusBet"];
+            //     ContentModel.Instance.IsBonusTrigger = true;
+            // }
 
             long creditBefore =
                 MainBlackboardController.Instance.myRealCredit; //myTempCredit 这是显示在UI上的的数值  myRealCredit是玩家的真实数据
             //赢分
             long TotalBet = (int)res["TotalBet"] * MainModel.Instance.contentMD.betmultiple;
-            if (ResultType == 3) TotalBet = (int)res["BonusBet"];
-            DebugUtils.Log("本局赢分TotalBet==" + TotalBet);
+            // if (ResultType == 3) TotalBet = (int)res["BonusBet"];
+            // DebugUtils.Log("本局赢分TotalBet==" + TotalBet);
 
             long afterBetCredit = 0;
             if (OpenType == 1)
@@ -512,8 +562,8 @@ namespace MeiZhouHeiBao_3993
             {
                 open_type = OpenType,
                 result_type = ResultType,
-                game_id = 3999,
-                game_uid = ContentModel.Instance.curGameGuid,
+                game_id = 3993,
+                game_uid = "", //ContentModel.Instance.curGameGuid
                 created_at = ContentModel.Instance.curGameCreatTimeMS,
                 total_bet = totalBet,
                 credit_before = creditBefore,
@@ -527,8 +577,15 @@ namespace MeiZhouHeiBao_3993
             // 场景数据存入数据库
             slotGameRecordItem.scene = JsonConvert.SerializeObject(gameSenceData);
 
+            // // 删除旧表
+            // string dropSql = $"DROP TABLE IF EXISTS {ConsoleTableName.TABLE_SLOT_GAME_RECORD}";
+            // SQLiteHelper.Instance.ExecuteNonQuery(dropSql);
+            // // 重建表
+            // string createSql = SQLiteHelper.SQLCreateTable<TableSlotGameRecordItem>(ConsoleTableName.TABLE_SLOT_GAME_RECORD);
+            // SQLiteHelper.Instance.ExecuteNonQuery(createSql); 
+
             // 插入数据
-            string sql = SQLiteAsyncHelper.SQLInsertTableData<TableSlotGameRecordItem>(
+            string sql = SQLiteAsyncHelper.SQLInsertTableData(
                 ConsoleTableName.TABLE_SLOT_GAME_RECORD,
                 slotGameRecordItem);
             SQLiteAsyncHelper.Instance.ExecuteNonQueryAsync(sql);

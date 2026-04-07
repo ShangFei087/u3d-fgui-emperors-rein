@@ -44,11 +44,11 @@ namespace MeiZhouHeiBao_3993
             {
                 GComponent symbol = _goOwnerPayTableLst[1].GetChild("n" + i).asCom;
                 symbol.GetChild("n1").asTextField.text =
-                    (MainModel.Instance.contentMD.payTableSymbolWin[i].x5).ToString();
+                    (CustomModel.Instance.payTableSymbolWin[i].x5).ToString();
                 symbol.GetChild("n2").asTextField.text =
-                    (MainModel.Instance.contentMD.payTableSymbolWin[i].x4).ToString();
+                    (CustomModel.Instance.payTableSymbolWin[i].x4).ToString();
                 symbol.GetChild("n3").asTextField.text =
-                    (MainModel.Instance.contentMD.payTableSymbolWin[i].x3).ToString();
+                    (CustomModel.Instance.payTableSymbolWin[i].x3).ToString();
             }
         }
     }

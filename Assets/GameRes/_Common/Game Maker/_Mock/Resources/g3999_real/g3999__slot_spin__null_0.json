@@ -5,13 +5,13 @@
 
   "lineNum": 1,
 
-  "TotalBet": 18,
+  "TotalBet": 25,
 
   "MatrixLength": 15,
 
   "IDVec": [12302],
 
-  "Matrix": [2,1,3,4,5,
+  "Matrix": [7,1,3,4,5,
     1,2,2,11,5,
-    7,7,8,7,5]
+    2,7,8,7,5]
 }

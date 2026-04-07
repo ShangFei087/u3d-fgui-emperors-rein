@@ -75,22 +75,246 @@ namespace CaiFuZhiMen_3999
             { "11", "ui://CaiFuZhiMen/symbol_12" }
         };
 
-        private List<PayTableSymbolInfo> _mPayTableSymbolWin = new List<PayTableSymbolInfo>()
+        public List<PayTableSymbolInfo> payTableSymbolWin { get; set; } = new List<PayTableSymbolInfo>()
         {
             new PayTableSymbolInfo()
             {
-                symbol = 0, x5 = 0, x4 = 0, x3 = 0,
+                symbol = 0, x5 = 100, x4 = 50, x3 = 25,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 1, x5 = 100, x4 = 50, x3 = 25,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 2, x5 = 100, x4 = 50, x3 = 25,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 3, x5 = 100, x4 = 50, x3 = 25,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 4, x5 = 100, x4 = 50, x3 = 25,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 5, x5 = 250, x4 = 100, x3 = 50,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 6, x5 = 250, x4 = 100, x3 = 50,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 7, x5 = 400, x4 = 250, x3 = 100,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 8, x5 = 500, x4 = 300, x3 = 150,
+            },
+            new PayTableSymbolInfo() // wild
+            {
+                symbol = 9, x5 = 0, x4 = 0, x3 = 0,
+            },
+            new PayTableSymbolInfo() // scatter
+            {
+                symbol = 10, x5 = 0, x4 = 0, x3 = 0,
+            },
+            new PayTableSymbolInfo() // bonus
+            {
+                symbol = 11, x5 = 0, x4 = 0, x3 = 0,
             },
         };
 
-        public List<PayTableSymbolInfo> payTableSymbolWin
+        public List<List<int>> payLines { get; set; } = new List<List<int>>()
         {
-            get => _mPayTableSymbolWin;
-            set => _mPayTableSymbolWin = value;
-        }
+            new List<int>()
+            {
+                1,
+                1,
+                1,
+                1,
+                1
+            },
+            new List<int>()
+            {
+                0,
+                0,
+                0,
+                0,
+                0
+            },
+            new List<int>()
+            {
+                2,
+                2,
+                2,
+                2,
+                2
+            },
+            new List<int>()
+            {
+                0,
+                1,
+                2,
+                1,
+                0
+            },
+            new List<int>()
+            {
+                2,
+                1,
+                0,
+                1,
+                2
+            },
+            new List<int>()
+            {
+                1,
+                0,
+                0,
+                0,
+                1
+            },
+            new List<int>()
+            {
+                1,
+                2,
+                2,
+                2,
+                1
+            },
+            new List<int>()
+            {
+                0,
+                0,
+                1,
+                2,
+                2
+            },
+            new List<int>()
+            {
+                2,
+                2,
+                1,
+                0,
+                0
+            },
+            new List<int>()
+            {
+                1,
+                2,
+                1,
+                0,
+                1
+            },
+            new List<int>()
+            {
+                1,
+                0,
+                1,
+                2,
+                1
+            },
+            new List<int>()
+            {
+                0,
+                1,
+                1,
+                1,
+                0
+            },
+            new List<int>()
+            {
+                2,
+                1,
+                1,
+                1,
+                2
+            },
+            new List<int>()
+            {
+                0,
+                1,
+                0,
+                1,
+                0
+            },
+            new List<int>()
+            {
+                2,
+                1,
+                2,
+                1,
+                2
+            },
+            new List<int>()
+            {
+                1,
+                1,
+                0,
+                1,
+                1
+            },
+            new List<int>()
+            {
+                1,
+                1,
+                2,
+                1,
+                1
+            },
+            new List<int>()
+            {
+                0,
+                0,
+                2,
+                0,
+                0
+            },
+            new List<int>()
+            {
+                2,
+                2,
+                0,
+                2,
+                2
+            },
+            new List<int>()
+            {
+                0,
+                2,
+                2,
+                2,
+                0
+            },
+        };
 
-        public List<List<int>> payLines { get; set; } = new List<List<int>>();
+        public List<WinMultiple> winLevelMultiple { get; set; } = new List<WinMultiple>()
+        {
+            new WinMultiple("BIG", 15),
+            new WinMultiple("HUGE", 30),
+            new WinMultiple("MASSIVE", 50),
+            new WinMultiple("LEGENDARY", 100)
+        };
 
-        public List<WinMultiple> winLevelMultiple { get; set; } = new List<WinMultiple>();
+        public FreeGameConfig FreeGameConfig { get; } = new FreeGameConfig()
+        {
+            IsUseCommonFreeTimes = false, //是否使用公共的免费次数框
+            IsHasFreeGame = true, //是否有免费奖
+            FreeGameType = MakeFreeGameType.OnScatter, //触发免费奖方式
+            IsScatterInLine = false, //Scatter图标是否依赖中奖线
+            Make2FreeGameCount = new int[] { 3, 4, 5 }, //触发免费奖所需数量(Scatter图标/充能)
+            FreeGameTime = new int[] { 8, 10, 12 }, //免费次数
+        };
+
+        public BonusGameConfig BonusGameConfig { get; } = new BonusGameConfig()
+        {
+            IsHasBonusGame = true, //是否有大奖
+            BonusGameType = MakeBonusGameType.OnBonus, // 触发大奖方式
+            IsBonusInLine = false, //Bonus图标是否依赖中奖线
+            Make2BonusGameCount = 6, //触发大奖所需数量(Bonus图标)
+        };
     }
 }

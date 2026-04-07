@@ -254,6 +254,7 @@
     <component id="l0db72" name="Anchor_fg_eff_kuang_glow.xml" path="/moudules/pageGameMain/FreeGame/" exported="true"/>
     <component id="l0db73" name="Anchor_Transition_FgToJp.xml" path="/moudules/popupJackpotTrigger/" exported="true"/>
     <component id="ntds74" name="Anchor_eff_Slash 1.xml" path="/moudules/popupFreeSpinTrigger/" exported="true"/>
+    <component id="jtut75" name="Anchor_EffectParent.xml" path="/moudules/pageGameMain/FreeGame/" exported="true"/>
   </resources>
   <publish name=""/>
 </packageDescription>

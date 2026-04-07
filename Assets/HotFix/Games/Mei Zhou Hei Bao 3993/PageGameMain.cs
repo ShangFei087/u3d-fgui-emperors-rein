@@ -67,18 +67,23 @@ namespace MeiZhouHeiBao_3993
         private SlotMachineController3993 _slotMachineController;
         private FreeSpinTimeController3993 _freeSpinTimeController;
 
-        private GTextField _freeRoundText;
+        private GTextField _freeRoundText, _currentBootNumberText;
         private Controller _gameController;
 
         private bool _isInitPool;
-        private GComponent _gOwnerPanel;
+        private GComponent _gOwnerPanel, _freeParticalEffectParent;
         private bool _tipCoinIn = false;
+
+        // 免费游戏特效功能制作
+        private GComponent _rewardEffectCom;
+        private GameObject _goRewardEffect;
 
         private Coroutine _corGameOnce,
             _corGameIdle,
             _corReelsTurn,
             _corShowFreeSymbol,
-            _corShowBonusSymbol;
+            _corShowBonusSymbol,
+            _corRewardEffect;
 
         private long TotalBet => MainModel.Instance.contentMD.totalBet;
 
@@ -91,9 +96,7 @@ namespace MeiZhouHeiBao_3993
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
-            _freeRoundText = contentPane.GetChild("freeFrame").asCom.GetChild("n16").asCom
-                .GetChild("freeRoundText")
-                .asTextField;
+            InitUICom();
             LoadAsyncPrefabRes();
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
@@ -135,6 +138,14 @@ namespace MeiZhouHeiBao_3993
 
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
+            // 粒子特效功能制作
+            _rewardEffectCom = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
+            GameCommon.FguiUtils.DeleteWrapper(_rewardEffectCom);
+            GameCommon.FguiUtils.AddWrapper(_rewardEffectCom, Object.Instantiate(_goRewardEffect));
+            _rewardEffectCom.visible = false;
+            _freeParticalEffectParent.AddChild(_rewardEffectCom);
+            _freeParticalEffectParent.visible = true;
+
             BindPrefabsToUI();
             RefreshCredit();
             _gameController = contentPane.GetController("gameController");
@@ -161,9 +172,7 @@ namespace MeiZhouHeiBao_3993
             FguiI18nTextAssistant.Instance.DisposeAllTranslate(contentPane);
             contentPane.Dispose(); // 释放当前UI
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
-            _freeRoundText = contentPane.GetChild("freeFrame").asCom.GetChild("n16").asCom
-                .GetChild("freeRoundText")
-                .asTextField;
+            InitUICom();
             InitFreeSpinUIAndController();
             InitParam();
             Debug.LogError("语言切换");
@@ -171,7 +180,7 @@ namespace MeiZhouHeiBao_3993
 
         private void LoadAsyncPrefabRes()
         {
-            _resCount = 4;
+            _resCount = 5;
             // 加载公共资源包
             if (UIPackage.GetByName("Common") == null)
             {
@@ -224,6 +233,14 @@ namespace MeiZhouHeiBao_3993
                     _borderGlowObj = clone;
                     ResPreLoadCallBack();
                 });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                EffectsPath + "RewardEffect.prefab",
+                (clone) =>
+                {
+                    _goRewardEffect = clone;
+                    ResPreLoadCallBack();
+                });
         }
 
         private void ResPreLoadCallBack()
@@ -252,7 +269,7 @@ namespace MeiZhouHeiBao_3993
             {
                 string winKey = item.Key;
                 long winValue = item.Value;
-                MainModel.Instance.contentMD.winLevelMultiple.Add(new WinMultiple(winKey, winValue));
+                CustomModel.Instance.winLevelMultiple.Add(new WinMultiple(winKey, winValue));
             }
 
             foreach (var kvp in config.SymbolPayTable)
@@ -264,7 +281,7 @@ namespace MeiZhouHeiBao_3993
                 {
                     if (index >= 0)
                     {
-                        var targetItem = MainModel.Instance.contentMD.payTableSymbolWin[index];
+                        var targetItem = CustomModel.Instance.payTableSymbolWin[index];
                         targetItem.x3 = jsonData1.x3;
                         targetItem.x4 = jsonData1.x4;
                         targetItem.x5 = jsonData1.x5;
@@ -276,13 +293,24 @@ namespace MeiZhouHeiBao_3993
             }
 
             foreach (var item in config.PayLines)
-                ContentModel.Instance.payLines.Add(item);
+                CustomModel.Instance.payLines.Add(item);
         }
 
         private void InitFreeSpinUIAndController()
         {
             _freeSpinTimeController = new FreeSpinTimeController3993();
             _freeSpinTimeController.InitParam(_freeRoundText);
+        }
+
+        private void InitUICom()
+        {
+            _freeRoundText = contentPane.GetChild("freeFrame").asCom.GetChild("n16").asCom
+                .GetChild("freeRoundText")
+                .asTextField;
+            _currentBootNumberText = contentPane.GetChild("freeFrame").asCom.GetChild("n25").asCom
+                .GetChild("currentBootNumber").asTextField;
+            _freeParticalEffectParent = contentPane.GetChild("freeFrame").asCom.GetChild("n25").asCom
+                .GetChild("anchor_EffectParent").asCom;
         }
 
         private void InitUIPool()
@@ -889,6 +917,8 @@ namespace MeiZhouHeiBao_3993
             {
                 if (_corShowFreeSymbol != null) _monoHelper.StopCoroutine(_corShowFreeSymbol);
                 _corShowFreeSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(5));
+                ContentModel.Instance.currentBootCount = 3;
+                _currentBootNumberText.text = "0" + ContentModel.Instance.currentBootCount;
                 yield return new WaitForSeconds(1.6f);
                 yield return FreeSpinTrigger(null, errorCallback);
             }
@@ -1187,6 +1217,11 @@ namespace MeiZhouHeiBao_3993
                         _slotMachineController.ShowSymbolWinDeck(sw, true);
                     _slotMachineController.CloseSlotCover();
                     _gameController.selectedPage = "normalGame";
+                    if (_corRewardEffect != null) _monoHelper.StopCoroutine(_corRewardEffect);
+                    _cloneBorderGlowObj.SetActive(false);
+                    _cloneBorderGlowObj1.SetActive(false);
+                    _cloneBorderGlowObj2.SetActive(false);
+                    _cloneBorderGlowObj3.SetActive(false);
                 });
 
             _slotMachineController.EndBonusFreeSpin();
@@ -1385,6 +1420,16 @@ namespace MeiZhouHeiBao_3993
                 yield return ShowWinListCoinCountDown(winList, _allWinCredit, false);
             }
 
+            // 黑豹特效测试
+            // OnRewardEffectEvent(() =>
+            // {
+            //     isNext = true;
+            // });
+            if (_corRewardEffect != null) _monoHelper.StopCoroutine(_corRewardEffect);
+            _corRewardEffect = _monoHelper.StartCoroutine(ProcessBootList(() => isNext = true));
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+
             ContentModel.Instance.gameState = GameState.Idle;
             successCallback?.Invoke();
         }
@@ -1416,6 +1461,115 @@ namespace MeiZhouHeiBao_3993
 
             if (successCallback != null)
                 successCallback.Invoke();
+        }
+
+        //显示中奖后飞行粒子特效
+        void OnRewardEffectEvent(Action callback)
+        {
+            foreach (var cell in ContentModel.Instance.currentBootList)
+            {
+                _monoHelper.StartCoroutine(ShowRewardEffect(cell.column, cell.row, _freeParticalEffectParent));
+                ContentModel.Instance.currentBootCount++;
+                if (ContentModel.Instance.currentBootCount < 10)
+                    _currentBootNumberText.text = "0" + ContentModel.Instance.currentBootCount;
+                else
+                    _currentBootNumberText.text = ContentModel.Instance.currentBootCount.ToString();
+
+                if (ContentModel.Instance.currentBootCount >= 4)
+                {
+                    _cloneBorderGlowObj.SetActive(true);
+                }
+
+                if (ContentModel.Instance.currentBootCount >= 10)
+                {
+                    _cloneBorderGlowObj1.SetActive(true);
+                }
+
+                if (ContentModel.Instance.currentBootCount >= 18)
+                {
+                    _cloneBorderGlowObj2.SetActive(true);
+                }
+
+                if (ContentModel.Instance.currentBootCount >= 28)
+                {
+                    _cloneBorderGlowObj3.SetActive(true);
+                }
+            }
+
+            callback?.Invoke();
+        }
+
+        IEnumerator ProcessBootList(Action callback)
+        {
+            foreach (var cell in ContentModel.Instance.currentBootList)
+            {
+                // 第一步：播放特效移动协程
+                yield return _monoHelper.StartCoroutine(ShowRewardEffect(cell.column, cell.row,
+                    _freeParticalEffectParent));
+                yield return new WaitForSeconds(0.5f); // 特效后延迟
+
+                // 第二步：更新文本内容
+                ContentModel.Instance.currentBootCount++;
+                if (ContentModel.Instance.currentBootCount < 10)
+                    _currentBootNumberText.text = "0" + ContentModel.Instance.currentBootCount;
+                else
+                    _currentBootNumberText.text = ContentModel.Instance.currentBootCount.ToString();
+                yield return new WaitForSeconds(0.5f); // 文本更新后延迟
+
+                // 第三步：判断物体是否激活
+                if (ContentModel.Instance.currentBootCount >= 4)
+                    _cloneBorderGlowObj.SetActive(true);
+                if (ContentModel.Instance.currentBootCount >= 10)
+                    _cloneBorderGlowObj1.SetActive(true);
+                if (ContentModel.Instance.currentBootCount >= 18)
+                    _cloneBorderGlowObj2.SetActive(true);
+                if (ContentModel.Instance.currentBootCount >= 28)
+                    _cloneBorderGlowObj3.SetActive(true);
+                yield return new WaitForSeconds(0.5f); // 物体激活后延迟
+            }
+
+            callback?.Invoke();
+        }
+
+
+        private IEnumerator ShowRewardEffect(int colIdx, int rowIdx, GComponent toNode)
+        {
+            GComponent rewardEffect = _rewardEffectCom;
+
+
+            if (rewardEffect != null)
+            {
+                rewardEffect.parent.RemoveChild(rewardEffect);
+                toNode.AddChild(rewardEffect);
+                rewardEffect.visible = false;
+                rewardEffect.xy = _slotMachineController.SymbolCenterToNodeLocalPos(colIdx, rowIdx, toNode);
+                rewardEffect.visible = true;
+
+                yield return MoveToZeroOverTime(rewardEffect,
+                    _slotMachineController.SymbolCenterToNodeLocalPos(colIdx, rowIdx, toNode));
+            }
+        }
+
+        private IEnumerator MoveToZeroOverTime(GComponent effect, Vector2 startPosition, float duration = 1f,
+            Action successCallback = null)
+        {
+            Vector2 endPos = Vector2.zero; // (0,0)
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+
+                // 应用OutQuad缓动（更自然）
+                float easedT = t * (2 - t);
+
+                effect.xy = Vector2.Lerp(startPosition, endPos, easedT);
+                yield return null;
+            }
+
+            // 确保最终位置准确
+            effect.xy = Vector2.zero;
         }
     }
 }

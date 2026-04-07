@@ -408,8 +408,8 @@ namespace CaiFuZhiMen_3999
 
             // if (CustomModel.Instance.payLines == null)
             //     CustomModel.Instance.payLines = new List<List<int>>() { };
-            foreach (var item in config.PayLines)
-                CustomModel.Instance.payLines.Add(item);
+            // foreach (var item in config.PayLines)
+            //     CustomModel.Instance.payLines.Add(item);
             // payTableController.OnPropertyChangeTotalBet();
         }
 
