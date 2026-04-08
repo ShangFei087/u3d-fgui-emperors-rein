@@ -22,6 +22,8 @@ namespace CaiFuZhiJia_3997
         [JsonProperty("game_name")] public string GameName; //名称
 
         [JsonProperty("display_name")] public string DisplayName; //显示名称
+        
+        [JsonProperty("line_num")] public int LineNum; //线数
 
         [JsonProperty("win_level_multiple")] public Dictionary<string, long> WinLevelMultiple { get; set; } //赢钱倍数
 
@@ -35,9 +37,6 @@ namespace CaiFuZhiJia_3997
     {
         public new const string pkgName = "CaiFuZhiJia";
         public new const string resName = "PageGameMain";
-
-        // const string CACHE_TOTAL_JP_MAJOR_CONTRIBUTION = "CACHE_TOTAL_JP_MAJOR_CONTRIBUTION";
-        // const string CACHE_TOTAL_JP_GRAND_CONTRIBUTION = "CACHE_TOTAL_JP_GRAND_CONTRIBUTION";
 
         private const string SpinePrefabPath =
             "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PageGameMain/SpinePrefabs/";
@@ -292,8 +291,8 @@ namespace CaiFuZhiJia_3997
         {
             MainModel.Instance.contentMD = ContentModel.Instance;
             MainModel.Instance.cutomMD = CustomModel.Instance;
-            ParseGameInfo();
-
+            // ParseGameInfo();
+            ReadJsonBet();
             // 初始化对象池，通过配置文件读取出中奖特效等
             if (_fGuiPoolHelper != null && _isInitPool == false)
             {
@@ -403,6 +402,28 @@ namespace CaiFuZhiJia_3997
                 CustomModel.Instance.payLines = new List<List<int>>() { };
             foreach (var item in config.pay_lines)
                 CustomModel.Instance.payLines.Add(item);
+        }
+        
+        //读取游戏配置
+        private void ReadJsonBet()
+        {
+            //资源加载
+            ResourceManager02.Instance.LoadAsset<TextAsset>(
+                "Assets/GameRes/_Common/Game Maker/ABs/G3997/Datas/game_info_g3997.json", (txt) =>
+                {
+                    //JSON解析与错误处理
+                    GameConfigRoot config = JsonConvert.DeserializeObject<GameConfigRoot>(txt.text);
+                    if (config?.SymbolPaytable == null)
+                    {
+                        Debug.LogError("解析symbol_paytable失败，数据为空");
+                        return;
+                    }
+
+                    MainModel.Instance.gameID = config.GameId;
+                    MainModel.Instance.gameName = config.GameName;
+                    MainModel.Instance.displayName = config.DisplayName;
+                    MainModel.Instance.lineNum = config.LineNum;
+                });
         }
 
         private void BindSpinesToUI()
