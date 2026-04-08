@@ -394,7 +394,7 @@ namespace CaiFuZhiMen_3999
                 {
                     yield return new WaitForSeconds(_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx));
                 }
-
+                
                 int _reelIdx = reelIdx;
                 int extraReelTimes = 0;
                 bool isTrriger = false;

@@ -1,4 +1,5 @@
 using GameMaker;
+using SlotMaker;
 
 namespace CaiFuZhiJia_3997
 {
@@ -12,6 +13,21 @@ namespace CaiFuZhiJia_3997
         protected override void InitParam()
         {
             base.InitParam();
+        }
+        
+        protected override void OnPropertyGameState(EventData res = null)
+        {
+            string gameState = (string)res?.value;
+
+            if (gameState == GameState.Spin)
+            {
+                win.text = 0.ToString();
+                ClearSingleLineText();
+            }
+            else if (gameState == GameState.FreeSpin)
+            {
+                ClearSingleLineText();
+            }
         }
     }
 }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="145,133">
+  <displayList>
+    <loader id="n1_qkv0" name="image" xy="73,67" pivot="0.5,0.5" anchor="true" size="130,113" scale="0.9,0.9" url="ui://wnvfq681qkv00" autoSize="true" clearOnPublish="true"/>
+  </displayList>
+</component>

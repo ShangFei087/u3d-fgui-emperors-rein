@@ -171,6 +171,78 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e212c3cedcf58444abcc71d8dc791b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smallWildList: []
+  bigWildList: []
+  freeTotalBet: 0
+  bonusTotalBet: 0
+  bonusIndex: -1
+  response: 
+  strDeckRowCol: 
+  winList: []
+  isFreeSpinTrigger: 0
+  isFreeSpinResult: 0
+  isFreeSpinAdd: 0
+  freeSpinAddNum: 0
+  isBonus1: 0
+  hitBallCount: 0
+  isHitJackpotGame: 0
+  totalBonusReward: 0
+  curReelStripsIndex: BS
+  nextReelStripsIndex: BS
+  totalEarnCoins: 0
+  baseGameWinCoins: 0
+  curGameCreatTimeMS: 0
+  curGameGuid: 
+  freeSpinTriggerGuid: 
+  curGameNumber: 0
+  gameNumberFreeSpinTrigger: 0
+  freeSpinTotalWinCoins: 0
+  isReelsSlowMotion: 0
+  winFreeSpinTriggerOrAddCopy:
+    earnCredit: 0
+    multiplier: 1
+    lineNumber: -1
+    symbolNumber: -1
+    cells: []
+    customData: 
+  mFreeOnceCredit: 0
+  freeGameScoreMultiply: 2
+  bonusGameRewardList:
+  - 200
+  - 1400
+  - 2600
+  isWinning: 0
+  mTotalBet: 0
+  m_BetMultiple: 0
+  mBtnSpinState: Stop
+  mUIGrandJp:
+    name: JPGrand
+    id: 0
+    nowCredit: 69000
+    curCredit: 69204
+    maxCredit: 11100000
+    minCredit: 0
+  mUIMajorJp:
+    name: JPMajor
+    id: 1
+    nowCredit: 15000
+    curCredit: 15134
+    maxCredit: 2500000
+    minCredit: 0
+  mUIMinorJp:
+    name: JPMinor
+    id: 2
+    nowCredit: 240000
+    curCredit: 244073
+    maxCredit: 300000
+    minCredit: 0
+  mUIMiniJp:
+    name: JPMini
+    id: 3
+    nowCredit: 10000
+    curCredit: 10581
+    maxCredit: 30000
+    minCredit: 0
 --- !u!1 &688775989822330055
 GameObject:
   m_ObjectHideFlags: 0

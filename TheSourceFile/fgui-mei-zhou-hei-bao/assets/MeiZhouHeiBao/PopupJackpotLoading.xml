@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_rjnl" name="anchor_TransitionFgToJp" src="rjnl65" fileName="moudules/popupJackpotLoading/Anchor_TransitionFgToJp.xml" xy="540,959"/>
+  </displayList>
+</component>

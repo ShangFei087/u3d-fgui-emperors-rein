@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,218">
+  <displayList>
+    <component id="n16_dtum" name="n16" src="dtum6u" fileName="moudules/pageGameMain/FreeGame/FreeRoundTip.xml" xy="0,0" scale="0.7,0.7"/>
+    <component id="n17_dtum" name="n17" src="dtum6v" fileName="moudules/pageGameMain/FreeGame/ChangeTipTemplate.xml" xy="150,104"/>
+    <component id="n18_dtum" name="n18" src="dtum6v" fileName="moudules/pageGameMain/FreeGame/ChangeTipTemplate.xml" xy="333,103"/>
+    <component id="n19_dtum" name="n19" src="dtum6v" fileName="moudules/pageGameMain/FreeGame/ChangeTipTemplate.xml" xy="518,104"/>
+    <component id="n20_dtum" name="n20" src="dtum6v" fileName="moudules/pageGameMain/FreeGame/ChangeTipTemplate.xml" xy="706,104"/>
+    <image id="n21_dtum" name="n21" src="qkv02k" fileName="images/common/Fonts/CollectCountFont/fg_num_Black Panther Icon Collection UI_4.png" xy="172,154"/>
+    <image id="n22_dtum" name="n22" src="qkv021" fileName="images/common/Fonts/CollectCountFont/fg_num_Black Panther Icon Collection UI_10.png" xy="355,152"/>
+    <image id="n23_dtum" name="n23" src="qkv02m" fileName="images/common/Fonts/CollectCountFont/fg_num_Black Panther Icon Collection UI_18.png" xy="540,152"/>
+    <image id="n24_dtum" name="n24" src="qkv02l" fileName="images/common/Fonts/CollectCountFont/fg_num_Black Panther Icon Collection UI_28.png" xy="729,152"/>
+    <component id="n25_dtum" name="n25" src="dtum6w" fileName="moudules/pageGameMain/FreeGame/CurrentBootNumberTip.xml" xy="850,15" scale="0.8,0.8"/>
+  </displayList>
+</component>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="170,80">
+  <displayList>
+    <component id="n6_l0db" name="anchor_fg_eff_kuang_glow" src="l0db72" fileName="moudules/pageGameMain/FreeGame/Anchor_fg_eff_kuang_glow.xml" xy="85,40"/>
+    <image id="n0_dtum" name="n0" src="dtum6h" fileName="images/pageGameMain/fg_img_Black Panther Icon Collection UI_02.png" xy="0,0"/>
+    <image id="n1_dtum" name="n1" src="dtum6p" fileName="images/pageGameMain/fg_img_Black Panther Icon Collection UI_ALL.png" xy="81,13"/>
+    <image id="n2_dtum" name="n2" src="dtum6q" fileName="images/pageGameMain/fg_img_Black Panther Icon Collection UI_TO.png" xy="84,50"/>
+    <image id="n3_dtum" name="n3" src="dtum6t" fileName="images/pageGameMain/fg_img_Crocodile.png" xy="122,11"/>
+    <image id="n4_dtum" name="n4" src="dtum6r" fileName="images/pageGameMain/fg_img_black panther.png" xy="123,43"/>
+    <image id="n5_dtum" name="n5" src="dtum6s" fileName="images/pageGameMain/fg_img_black panther_02.png" xy="26,10"/>
+  </displayList>
+</component>

@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameUtil;
+using Newtonsoft.Json;
 using System.Linq;
 
 namespace CaiFuZhiJia_3997
@@ -62,6 +63,22 @@ namespace CaiFuZhiJia_3997
     {
         private long TotalBet => SBoxModel.Instance.CoinInScale;
         SpinDataType nextSpin = SpinDataType.None;
+
+        enum OpenType
+        {
+            OT_Normal,
+            OT_Give,
+        }
+
+        enum ResultType
+        {
+            RT_Lose,
+            RT_Win,
+            RT_FreeWin,
+            RT_BonusWin,
+            RT_Jackpot,
+            RT_JackpotOnline,
+        }
 
         public void ParseSlotSpin(long totalBet, JSONNode res, SBoxJackpotData sboxJackpotData)
         {
@@ -973,6 +990,336 @@ namespace CaiFuZhiJia_3997
                     DebugUtils.LogError($"数据报错： {remainingPath}");
                 }
             });
+        }
+
+
+        private int CalculateLineWinCredit(int symbolNumber, int hitCount)
+        {
+            try
+            {
+                if (hitCount < 3)
+                    return 0;
+
+                List<PayTableSymbolInfo> payTable = MainModel.Instance.cutomMD?.payTableSymbolWin;
+                if (payTable == null || symbolNumber < 0 || symbolNumber >= payTable.Count)
+                {
+                    DebugUtils.LogError($"[G3997] 计算单线赢分失败，paytable越界。symbol={symbolNumber}, hit={hitCount}");
+                    return 0;
+                }
+
+                PayTableSymbolInfo info = payTable[symbolNumber];
+                double odd = 0;
+                if (hitCount >= 5)
+                {
+                    odd = info.x5;
+                }
+                else if (hitCount == 4)
+                {
+                    odd = info.x4;
+                }
+                else
+                {
+                    odd = info.x3;
+                }
+
+                // 算法返回的 TotalBet 是未乘 betmultiple 的单位，单线赢分也保持同一单位。
+                int lineWin = Mathf.Max(0, Mathf.RoundToInt((float)odd));
+                return lineWin;
+            }
+            catch (Exception ex)
+            {
+                DebugUtils.LogError($"[G3997] 计算单线赢分异常: {ex.Message}");
+                return 0;
+            }
+        }
+
+        private long _countFreeGetCredit = 0;
+
+        /// <summary>
+        ///解析为本游戏 JSON与"ParseSlotSpin"/> 使用的字段一致。
+        /// </summary>
+        public static JSONNode ParseCoinPushSpinPayload(int[] data, int startPos)
+        {
+            JSONNode result = JSONNode.Parse("{}");
+            if (data == null || startPos >= data.Length)
+                return result;
+
+            int pos = startPos;
+            int OpenType = data[pos++];
+            int ResultType = data[pos++];
+            int WinlineNum = data[pos++];
+            int TotalBet = data[pos++];
+            int MatrixLength = data[pos++];
+            result["OpenType"] = OpenType;
+            result["ResultType"] = ResultType;
+            result["lineNum"] = WinlineNum;
+            result["TotalBet"] = TotalBet;
+            result["IDVec"] = new JSONArray();
+            for (int i = 0; i < WinlineNum; i++)
+            {
+                int id = data[pos++];
+                result["IDVec"].Add(id);
+            }
+
+            result["Matrix"] = new JSONArray();
+            for (int i = 0; i < MatrixLength; i++)
+            {
+                int id = data[pos++];
+                result["Matrix"].Add(id);
+            }
+
+            if (OpenType == 2)
+            {
+                int TotalFreeTime = data[pos++];
+                int TotalFreeBet = data[pos++];
+                result["FreeBetArray"] = new JSONArray();
+                for (int i = 0; i < TotalFreeTime; i++)
+                {
+                    int id = data[pos++];
+                    result["FreeBetArray"].Add(id);
+                }
+
+                result["TotalFreeTime"] = TotalFreeTime;
+                result["TotalFreeBet"] = TotalFreeBet;
+            }
+
+            if (OpenType == 3)
+            {
+                int BonusBet = data[pos++];
+                int BonusType = data[pos++];
+                result["BonusData"] = new JSONArray();
+                for (int i = 0; i < MatrixLength; i++)
+                {
+                    int id = data[pos++];
+                    result["BonusData"].Add(id);
+                }
+
+                result["BonusBet"] = BonusBet;
+                result["BonusType"] = BonusType;
+            }
+
+            return result;
+        }
+
+        private int GetLineOdds(int symbolType, int hitCount)
+        {
+            List<PayTableSymbolInfo> payTable = CustomModel.Instance.payTableSymbolWin;
+
+            PayTableSymbolInfo info = null;
+            if (symbolType >= 0 && symbolType < payTable.Count && payTable[symbolType].symbol == symbolType)
+            {
+                info = payTable[symbolType];
+            }
+            else
+            {
+                info = payTable.Find(x => x.symbol == symbolType);
+            }
+
+            if (info == null)
+                return 0;
+
+            switch (hitCount)
+            {
+                case 3: return info.x3;
+                case 4: return info.x4;
+                case 5: return info.x5;
+                default: return 0;
+            }
+        }
+
+        //检查算法结果
+        private void CheckGameResult(string strDeckRowCol, int TotalWin)
+        {
+            List<List<int>> deckColRow = SlotTool.GetDeckColRow03(strDeckRowCol);
+            int wild = CustomModel.Instance.symbolNumber[9];
+            int scatter = CustomModel.Instance.symbolNumber[10];
+            const int bonus = 11;
+            int colCount = CustomModel.Instance.column;
+            int calcTotalWin = 0; // 本地累计的总赢分（用于和服务器回包对比）
+            List<List<int>> winLinesRule = CustomModel.Instance.payLines; // 中奖线
+            List<PayTableSymbolInfo> payTable = CustomModel.Instance.payTableSymbolWin; // 赔率表
+
+            if (deckColRow == null || deckColRow.Count == 0 || winLinesRule == null || payTable == null)
+            {
+                DebugUtils.LogError("[G3997][CheckGameResult] 数据为空，无法校验中奖结果。");
+                return;
+            }
+
+            //判断中奖线,遍历每一条支付线
+            for (int i = 0; i < MainModel.Instance.lineNum; ++i)
+            {
+                // 取当前线的行索引规则
+                List<int> currentLineRule = winLinesRule[i];
+
+                // 第 1 列在线上的行索引
+                int firstRow = currentLineRule[0];
+                // 线首个图标类型（作为中奖类型）
+                int firstSymbolType = deckColRow[0][firstRow];
+                // 从第 2 列开始累计“连续命中数量”（不含第 1 列）
+                int sameTypeCount = 0;
+                // 从第 2 列开始向右连续判断
+                for (int n = 1; n < colCount; ++n)
+                {
+                    // 当前列在线上的行索引
+                    int curRow = currentLineRule[n];
+                    // 当前列该线位置的图标类型
+                    int currentSymbolType = deckColRow[n][curRow];
+
+                    // Wild 无法替代 Scatter 或 Bonus
+                    if ((firstSymbolType == scatter || firstSymbolType == bonus) &&
+                        currentSymbolType == firstSymbolType)
+                    {
+                        sameTypeCount += 1;
+                    }
+                    else if ((firstSymbolType != scatter && firstSymbolType != bonus) &&
+                             (currentSymbolType == firstSymbolType || currentSymbolType == wild))
+                    {
+                        sameTypeCount += 1;
+                    }
+                    // 第一个图标是 Wild，遇到可替代图标后以该图标作为基准
+                    else if ((currentSymbolType != scatter && currentSymbolType != bonus) && firstSymbolType == wild)
+                    {
+                        firstSymbolType = currentSymbolType; // 把当前普通图标设为新的基准图标
+                        sameTypeCount += 1;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                // 命中个数 = 连续计数 + 第 1 列自身
+                int hitCount = sameTypeCount + 1;
+                // 普通奖不统计 Scatter/Bonus
+                if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 3)
+                {
+                    int lineOdds = GetLineOdds(firstSymbolType, hitCount);
+                    if (lineOdds > 0)
+                    {
+                        calcTotalWin += lineOdds; // 累加本地计算总赢分
+                    }
+                }
+            }
+
+            int diff = Math.Abs(calcTotalWin - TotalWin); // 计算本地校验值与算法差值
+            if (diff != 0)
+            {
+                DebugUtils.LogError($"[G3997][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}");
+            }
+            else
+            {
+                DebugUtils.Log($"[G3997][CheckGameResult] 校验通过，TotalWin={TotalWin}");
+            }
+        }
+
+        /// <summary>
+        /// 记录游戏数据到数据库
+        /// </summary>
+        private void Record(long totalBet, JSONNode res)
+        {
+            // 游戏场景记录
+            GameSenceData gameSenceData = new GameSenceData();
+
+            if (++MainModel.Instance.reportId < 0)
+                MainModel.Instance.reportId = 1;
+
+            gameSenceData.respone = ContentModel.Instance.response;
+            gameSenceData.reportId = MainModel.Instance.reportId;
+            gameSenceData.timeS = ContentModel.Instance.curGameCreatTimeMS / 1000;
+            gameSenceData.gameNumber = MainModel.Instance.gameNumber;
+            gameSenceData.gameNumberFreeSpinTrigger = ContentModel.Instance.isFreeSpin
+                ? ContentModel.Instance.gameNumberFreeSpinTrigger
+                : 0;
+            gameSenceData.isFreeSpin = ContentModel.Instance.isFreeSpin;
+            gameSenceData.freeSpinAddNum = ContentModel.Instance.freeSpinAddNum;
+
+            gameSenceData.curStripsIndex = ContentModel.Instance.curReelStripsIndex;
+            gameSenceData.nextStripsIndex = ContentModel.Instance.nextReelStripsIndex;
+            gameSenceData.strDeckRowCol = ContentModel.Instance.strDeckRowCol;
+            gameSenceData.deckRowCol = SlotTool.GetDeckRowCol(ContentModel.Instance.strDeckRowCol);
+
+            gameSenceData.winFreeSpinTrigger = null;
+            gameSenceData.winList = ContentModel.Instance.winList;
+            // gameSenceData.freeSpinPlayTimes = ContentModel.Instance.FreeSpinPlayTimes;
+            // gameSenceData.freeSpinTotalTimes = ContentModel.Instance.FreeSpinTotalTimes;
+            // gameSenceData.freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCoins;// freeSpinTotalWinCredit
+            gameSenceData.totalBet = totalBet;
+
+            // 计算赢分
+            long totalEarnCredit = 0;
+            if (ContentModel.Instance.winList != null)
+            {
+                foreach (var win in ContentModel.Instance.winList)
+                {
+                    totalEarnCredit += win.earnCredit;
+                }
+            }
+            // totalEarnCredit = (long)res["TotalBet"];// 新增代码
+
+            gameSenceData.baseGameWinCredit = totalEarnCredit;
+
+            // 获取游戏前后的分数
+            long creditBefore = MainBlackboardController.Instance.myTempCredit + totalBet; // 修改数据库中记录的是扣分之后的值
+            long creditAfter = MainBlackboardController.Instance.myRealCredit;
+
+            gameSenceData.creditBefore = creditBefore;
+            gameSenceData.creditAfter = creditAfter;
+
+            // 彩金数据
+            JackpotRes info = ContentModel.Instance.jpGameRes;
+
+            gameSenceData.jpGrand = info.curJackpotGrand;
+            gameSenceData.jpMajor = info.curJackpotMajor;
+            gameSenceData.jpMinor = info.curJackpotMinior;
+            gameSenceData.jpMini = info.curJackpotMini;
+
+            long jackpotWinCredit = 0;
+            if (info.jpWinLst != null && info.jpWinLst.Count > 0)
+            {
+                JackpotWinInfo item = info.jpWinLst[0];
+                gameSenceData.jpWinInfo = item;
+                jackpotWinCredit = (long)item.winCredit;
+                gameSenceData.jackpotWinCredit = jackpotWinCredit;
+            }
+
+            // 确定游戏类型
+            int ResultType = res != null ? (int)res["ResultType"] : 0;
+            int OpenType = res != null ? (int)res["OpenType"] : 0;
+
+            // 构建记录对象
+            TableSlotGameRecordItem slotGameRecordItem = new TableSlotGameRecordItem()
+            {
+                open_type = OpenType,
+                result_type = ResultType,
+                game_id = 3999,
+                game_uid = ContentModel.Instance.curGameGuid,
+                created_at = ContentModel.Instance.curGameCreatTimeMS,
+                total_bet = totalBet,
+                credit_before = creditBefore,
+                credit_after = creditAfter,
+                base_game_win_credit = totalEarnCredit,
+                jackpot_win_credit = jackpotWinCredit,
+                strDeckRowCol = ContentModel.Instance.strDeckRowCol,
+                symbol_icon_mapping = JsonConvert.SerializeObject(CustomModel.Instance.symbolIcon)
+            };
+
+            // 场景数据存入数据库
+            slotGameRecordItem.scene = JsonConvert.SerializeObject(gameSenceData);
+
+            // // 删除旧表
+            // string dropSql = $"DROP TABLE IF EXISTS {ConsoleTableName.TABLE_SLOT_GAME_RECORD}";
+            // SQLiteHelper.Instance.ExecuteNonQuery(dropSql);
+            // // 重建表
+            // string createSql = SQLiteHelper.SQLCreateTable<TableSlotGameRecordItem>(ConsoleTableName.TABLE_SLOT_GAME_RECORD);
+            // SQLiteHelper.Instance.ExecuteNonQuery(createSql); 
+
+            // 插入数据
+            string sql = SQLiteAsyncHelper.SQLInsertTableData<TableSlotGameRecordItem>(
+                ConsoleTableName.TABLE_SLOT_GAME_RECORD,
+                slotGameRecordItem);
+            SQLiteAsyncHelper.Instance.ExecuteNonQueryAsync(sql);
+
+            //DebugUtils.Log($"[G3997] 游戏记录已写入数据库: gameType={gameType}, game_uid={ContentModel.Instance.curGameGuid}");
         }
     }
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="725,399" overflow="hidden">
+  <displayList>
+    <component id="n0_qkv0" name="reel1" src="qkv05m" fileName="moudules/common/SlotMachine/Content/Reel.xml" xy="0,0"/>
+    <component id="n1_qkv0" name="reel2" src="qkv05m" fileName="moudules/common/SlotMachine/Content/Reel.xml" xy="145,0"/>
+    <component id="n2_qkv0" name="reel3" src="qkv05m" fileName="moudules/common/SlotMachine/Content/Reel.xml" xy="290,0"/>
+    <component id="n3_qkv0" name="reel4" src="qkv05m" fileName="moudules/common/SlotMachine/Content/Reel.xml" xy="435,0"/>
+    <component id="n4_qkv0" name="reel5" src="qkv05m" fileName="moudules/common/SlotMachine/Content/Reel.xml" xy="580,0"/>
+  </displayList>
+</component>
