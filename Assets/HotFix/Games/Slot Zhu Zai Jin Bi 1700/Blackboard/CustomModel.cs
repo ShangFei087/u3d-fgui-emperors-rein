@@ -137,8 +137,6 @@ namespace SlotZhuZaiJinBi1700
             new PayTableSymbolInfo(){ symbol = 10,x3 = 0,x4 = 0,x5 = 0,},//SCATTER
         };
 
-
-
         public List<List<int>> payLines
         {
             get => m_payLines;

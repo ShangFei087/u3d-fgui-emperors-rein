@@ -14,7 +14,7 @@ namespace PusherEmperorsRein
 
         protected void Awake()
         {
-            receiveOvertimeS = 1.5f;
+            receiveOvertimeS = 30.0f;
             isDebugLog = true;
             prefix = "【SBox】";
         }

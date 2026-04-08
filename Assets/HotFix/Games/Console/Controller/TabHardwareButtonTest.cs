@@ -30,7 +30,7 @@ public class TabHardwareButtonTest
         { (ulong)SBOX_SWITCH.SWITCH_SWITCH ,MachineButtonKey.BtnSwitch},  // 雨刷 
     };
     Dictionary<MachineButtonKey, float> longClickTime = new Dictionary<MachineButtonKey, float>();
-    public void InitParam(GComponent go, string tabName)
+    public void InitParam(GComponent go)
     {
         goOwnerTab = go;
 

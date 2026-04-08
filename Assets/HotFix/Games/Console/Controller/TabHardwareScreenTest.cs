@@ -14,7 +14,7 @@ public class TabHardwareScreenTest
     {
         
     }
-    public void InitParam(GComponent go, string tabName)
+    public void InitParam(GComponent go)
     {
         owner = go;
         btnScreeColor = owner.GetChild("ScreenTest").asCom.GetChild("value").asButton;

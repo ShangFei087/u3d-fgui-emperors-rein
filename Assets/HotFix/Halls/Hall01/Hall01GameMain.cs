@@ -294,7 +294,7 @@ namespace Hall01
 
                 DebugUtils.Log(err.msg);
             });
-          
+            // hallCredit.text = MainBlackboardController.Instance.myRealCredit.ToString();
         }
 
         public void GameSwitch(int gameid)

@@ -424,10 +424,13 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Func<object,object>
 	// System.Func<object>
 	// System.Func<ushort,byte>
+	// System.Func<ushort,int>
+	// System.Linq.Buffer<int>
 	// System.Linq.Buffer<object>
 	// System.Linq.Enumerable.Iterator<Loom.DelayedQueueItem>
 	// System.Linq.Enumerable.Iterator<int>
 	// System.Linq.Enumerable.Iterator<object>
+	// System.Linq.Enumerable.Iterator<ushort>
 	// System.Linq.Enumerable.WhereArrayIterator<Loom.DelayedQueueItem>
 	// System.Linq.Enumerable.WhereArrayIterator<object>
 	// System.Linq.Enumerable.WhereEnumerableIterator<Loom.DelayedQueueItem>
@@ -437,10 +440,13 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Linq.Enumerable.WhereListIterator<object>
 	// System.Linq.Enumerable.WhereSelectArrayIterator<object,int>
 	// System.Linq.Enumerable.WhereSelectArrayIterator<object,object>
+	// System.Linq.Enumerable.WhereSelectArrayIterator<ushort,int>
 	// System.Linq.Enumerable.WhereSelectEnumerableIterator<object,int>
 	// System.Linq.Enumerable.WhereSelectEnumerableIterator<object,object>
+	// System.Linq.Enumerable.WhereSelectEnumerableIterator<ushort,int>
 	// System.Linq.Enumerable.WhereSelectListIterator<object,int>
 	// System.Linq.Enumerable.WhereSelectListIterator<object,object>
+	// System.Linq.Enumerable.WhereSelectListIterator<ushort,int>
 	// System.Nullable<UnityEngine.Color>
 	// System.Nullable<byte>
 	// System.Nullable<float>
@@ -516,13 +522,16 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// int System.Linq.Enumerable.First<int>(System.Collections.Generic.IEnumerable<int>)
 		// object System.Linq.Enumerable.FirstOrDefault<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
 		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Select<object,int>(System.Collections.Generic.IEnumerable<object>,System.Func<object,int>)
+		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Select<ushort,int>(System.Collections.Generic.IEnumerable<ushort>,System.Func<ushort,int>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,object>)
+		// int[] System.Linq.Enumerable.ToArray<int>(System.Collections.Generic.IEnumerable<int>)
 		// object[] System.Linq.Enumerable.ToArray<object>(System.Collections.Generic.IEnumerable<object>)
 		// System.Collections.Generic.List<int> System.Linq.Enumerable.ToList<int>(System.Collections.Generic.IEnumerable<int>)
 		// System.Collections.Generic.List<object> System.Linq.Enumerable.ToList<object>(System.Collections.Generic.IEnumerable<object>)
 		// System.Collections.Generic.IEnumerable<Loom.DelayedQueueItem> System.Linq.Enumerable.Where<Loom.DelayedQueueItem>(System.Collections.Generic.IEnumerable<Loom.DelayedQueueItem>,System.Func<Loom.DelayedQueueItem,bool>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Where<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
 		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Iterator<object>.Select<int>(System.Func<object,int>)
+		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Iterator<ushort>.Select<int>(System.Func<ushort,int>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Iterator<object>.Select<object>(System.Func<object,object>)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,InOutRecordController.<WaitUntil>d__27>(System.Runtime.CompilerServices.TaskAwaiter&,InOutRecordController.<WaitUntil>d__27&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,PageBase.<WaitUntil>d__28>(System.Runtime.CompilerServices.TaskAwaiter&,PageBase.<WaitUntil>d__28&)
@@ -561,6 +570,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,ConsoleSlot01.PageConsoleMain.<OnClickLanguage>d__39>(System.Runtime.CompilerServices.TaskAwaiter<object>&,ConsoleSlot01.PageConsoleMain.<OnClickLanguage>d__39&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,ConsoleSlot01.PageConsoleMain.<OnClickTimeDate>d__35>(System.Runtime.CompilerServices.TaskAwaiter<object>&,ConsoleSlot01.PageConsoleMain.<OnClickTimeDate>d__35&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,ConsoleSlot01.PopupConsoleSlideSetting.<OnClickKeyboard>d__25>(System.Runtime.CompilerServices.TaskAwaiter<object>&,ConsoleSlot01.PopupConsoleSlideSetting.<OnClickKeyboard>d__25&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,ConsoleTableUtils.<EnsureBetRowInsertDefaultAsync>d__15>(System.Runtime.CompilerServices.TaskAwaiter<object>&,ConsoleTableUtils.<EnsureBetRowInsertDefaultAsync>d__15&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,DeviceCoder.<OnResponseShowCoder>d__11>(System.Runtime.CompilerServices.TaskAwaiter<object>&,DeviceCoder.<OnResponseShowCoder>d__11&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,PageManager.<OpenPageAsync>d__10>(System.Runtime.CompilerServices.TaskAwaiter<object>&,PageManager.<OpenPageAsync>d__10&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettings01.<OnClickAccount>d__17>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettings01.<OnClickAccount>d__17&)
@@ -574,12 +584,12 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsInOutController.<OnClickCoinOutScale>d__13>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsInOutController.<OnClickCoinOutScale>d__13&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsInOutController.<OnClickPrinterModel>d__18>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsInOutController.<OnClickPrinterModel>d__18&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsInOutController.<OnClickScoreScale>d__15>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsInOutController.<OnClickScoreScale>d__15&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickAgentIDMachineID>d__20>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickAgentIDMachineID>d__20&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxBusinessDayRecord>d__26>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxBusinessDayRecord>d__26&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxCoinInOutRecord>d__22>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxCoinInOutRecord>d__22&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxErrorRecord>d__25>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxErrorRecord>d__25&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxEventRecord>d__24>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxEventRecord>d__24&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxGameRecord>d__23>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxGameRecord>d__23&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickAgentIDMachineID>d__24>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickAgentIDMachineID>d__24&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxBusinessDayRecord>d__30>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxBusinessDayRecord>d__30&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxCoinInOutRecord>d__26>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxCoinInOutRecord>d__26&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxErrorRecord>d__29>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxErrorRecord>d__29&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxEventRecord>d__28>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxEventRecord>d__28&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxGameRecord>d__27>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxGameRecord>d__27&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,Test02.<OpenABConsoleMainPage>d__5>(System.Runtime.CompilerServices.TaskAwaiter<object>&,Test02.<OpenABConsoleMainPage>d__5&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,Test02.<ShowJson>d__9>(System.Runtime.CompilerServices.TaskAwaiter<object>&,Test02.<ShowJson>d__9&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<ConsoleCoinPusher01.PageConsoleSetParameter001.<Sure>d__32>(ConsoleCoinPusher01.PageConsoleSetParameter001.<Sure>d__32&)
@@ -589,6 +599,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<ConsoleSlot01.PageConsoleMain.<OnClickLanguage>d__39>(ConsoleSlot01.PageConsoleMain.<OnClickLanguage>d__39&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<ConsoleSlot01.PageConsoleMain.<OnClickTimeDate>d__35>(ConsoleSlot01.PageConsoleMain.<OnClickTimeDate>d__35&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<ConsoleSlot01.PopupConsoleSlideSetting.<OnClickKeyboard>d__25>(ConsoleSlot01.PopupConsoleSlideSetting.<OnClickKeyboard>d__25&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<ConsoleTableUtils.<EnsureBetRowInsertDefaultAsync>d__15>(ConsoleTableUtils.<EnsureBetRowInsertDefaultAsync>d__15&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DeviceCoder.<OnResponseShowCoder>d__11>(DeviceCoder.<OnResponseShowCoder>d__11&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<InOutRecordController.<SetInOutTotal>d__26>(InOutRecordController.<SetInOutTotal>d__26&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<PageManager.<OpenPageAsync>d__10>(PageManager.<OpenPageAsync>d__10&)
@@ -605,12 +616,12 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsInOutController.<OnClickCoinOutScale>d__13>(TabSettingsInOutController.<OnClickCoinOutScale>d__13&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsInOutController.<OnClickPrinterModel>d__18>(TabSettingsInOutController.<OnClickPrinterModel>d__18&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsInOutController.<OnClickScoreScale>d__15>(TabSettingsInOutController.<OnClickScoreScale>d__15&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickAgentIDMachineID>d__20>(TabSettingsMachineController.<OnClickAgentIDMachineID>d__20&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxBusinessDayRecord>d__26>(TabSettingsMachineController.<OnClickMaxBusinessDayRecord>d__26&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxCoinInOutRecord>d__22>(TabSettingsMachineController.<OnClickMaxCoinInOutRecord>d__22&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxErrorRecord>d__25>(TabSettingsMachineController.<OnClickMaxErrorRecord>d__25&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxEventRecord>d__24>(TabSettingsMachineController.<OnClickMaxEventRecord>d__24&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxGameRecord>d__23>(TabSettingsMachineController.<OnClickMaxGameRecord>d__23&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickAgentIDMachineID>d__24>(TabSettingsMachineController.<OnClickAgentIDMachineID>d__24&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxBusinessDayRecord>d__30>(TabSettingsMachineController.<OnClickMaxBusinessDayRecord>d__30&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxCoinInOutRecord>d__26>(TabSettingsMachineController.<OnClickMaxCoinInOutRecord>d__26&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxErrorRecord>d__29>(TabSettingsMachineController.<OnClickMaxErrorRecord>d__29&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxEventRecord>d__28>(TabSettingsMachineController.<OnClickMaxEventRecord>d__28&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxGameRecord>d__27>(TabSettingsMachineController.<OnClickMaxGameRecord>d__27&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Test02.<OpenABConsoleMainPage>d__5>(Test02.<OpenABConsoleMainPage>d__5&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Test02.<ShowJson>d__9>(Test02.<ShowJson>d__9&)
 		// byte UnityEngine.AndroidJNIHelper.ConvertFromJNIArray<byte>(System.IntPtr)

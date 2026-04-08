@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: rugby_red_cloth_base color
+  m_Shader: {fileID: 4800000, guid: 999a5e43744281345a0cc2b2dac119db, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - USE_AO
+  - USE_CAVITY
+  - USE_MAIN_TEX
+  - USE_METALLIC
+  - USE_NORMAL_MAP
+  - USE_SMOOTHNESS
+  - USE_SSS
+  - USE_THICKNESS
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AOTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CavityTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 443d7b7b1863c794f8bc14687a6e5f5b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SSSMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SSSTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SmoothnessMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ThicknessMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AOScale: 1
+    - _AOToggle: 1
+    - _CavityScale: 1
+    - _CavityToggle: 1
+    - _CullMode: 2
+    - _MainTexToggle: 1
+    - _MetallicScale: 1
+    - _MetallicToggle: 1
+    - _NormalPower: 1
+    - _NormalToggle: 1
+    - _Ref: 1
+    - _SSSDistortion: 0.5
+    - _SSSPower: 5
+    - _SSSScale: 1
+    - _SSSToggle: 1
+    - _SmoothnessBias: 0
+    - _SmoothnessScale: 1
+    - _SmoothnessToggle: 1
+    - _StencilComp: 3
+    - _StencilOp: 0
+    - _ThicknessScale: 1
+    - _ThicknessToggle: 1
+    m_Colors:
+    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SSSColor: {r: 1, g: 0.5, b: 0.5, a: 1}
+  m_BuildTextureStacks: []

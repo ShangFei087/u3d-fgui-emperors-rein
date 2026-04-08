@@ -259,6 +259,9 @@ namespace SlotZhuZaiJinBi1700
         /// <summary>  触发免费游戏的编号 </summary>
         public int gameNumberFreeSpinTrigger;
 
+        /// <summary> 是否等待下一局 Parse 校验（本地免费快照恢复后首局 Spin） </summary>
+        public bool PendingFreeSpinReconnectValidation { get; set; }
+
 
         #endregion
         
