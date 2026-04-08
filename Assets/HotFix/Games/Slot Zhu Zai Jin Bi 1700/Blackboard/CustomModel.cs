@@ -189,7 +189,7 @@ namespace SlotZhuZaiJinBi1700
             FreeGameType = MakeFreeGameType.OnScatter,             //触发免费奖方式
             IsScatterInLine = false,                               //Scatter图标是否依赖中奖线
             Make2FreeGameCount = new int[] { 3, 4, 5 },            //触发免费奖所需数量(Scatter图标/充能)
-            FreeGameTime = new int[] { 3, 3, 3 },                  //免费次数
+            FreeGameTime = new int[] { 5, 5, 5 },                  //免费次数
         };
 
         public BonusGameConfig bonusGameconfig

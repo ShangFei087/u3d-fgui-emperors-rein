@@ -335,8 +335,8 @@ public class Main
         }
         else
         {
-            // PageManager.Instance.OpenPage(PageName.HallMain);
-            PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupGameLoading);
+            PageManager.Instance.OpenPage(PageName.HallMain);
+            //PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupGameLoading);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeSpinTrigger);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeGameLoading);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupJackpotTrigger);

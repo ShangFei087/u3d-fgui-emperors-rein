@@ -444,14 +444,7 @@ namespace SlotZhuZaiJinBi1700
 
             if (ContentModel.Instance.freeSpinTotalTimes > 0&& ContentModel.Instance.nextReelStripsIndex == "FS")
             {
-                yield return GameFreeSpinOnce(successCallback, errorCallback);
-                if (ContentModel.Instance.nextReelStripsIndex != "FS")
-                {
-                    long freeWin = ContentModel.Instance.freeSpinTotalWinCredit;
-                    if (freeWin > 0)
-                        MainBlackboardController.Instance.AddMyTempCredit(freeWin, true, isAddCreditAnim);
-                }
-
+                yield return GameFreeSpinFromReconnect(successCallback, errorCallback);
                 yield break;
             }
 
@@ -1220,6 +1213,26 @@ namespace SlotZhuZaiJinBi1700
                 yield return GameFreeSpinOnce(null, errorCallback);
                 yield return slotMachineCtrl.SlotWaitForSeconds(1);
             }
+
+            if (successCallback != null)
+                successCallback.Invoke();
+        }
+
+        /// <summary>
+        /// 断电重连恢复免费局：点击一次开始后自动跑完整段免费，并统一结算与切回普通游戏。
+        /// </summary>
+        IEnumerator GameFreeSpinFromReconnect(Action successCallback, Action<string> errorCallback)
+        {
+            yield return GameFreeSpin(null, errorCallback);
+
+            long freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCredit;
+            if (freeSpinTotalWinCredit > 0)
+            {
+                MainBlackboardController.Instance.AddMyTempCredit(freeSpinTotalWinCredit, true, isAddCreditAnim);
+            }
+
+            ChangeBGPanel(0);
+            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
 
             if (successCallback != null)
                 successCallback.Invoke();
