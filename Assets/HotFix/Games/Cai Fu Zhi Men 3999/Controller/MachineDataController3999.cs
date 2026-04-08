@@ -355,6 +355,7 @@ namespace CaiFuZhiMen_3999
                     if (lineOdds > 0)
                     {
                         calcTotalWin += lineOdds; // 累加本地计算总赢分
+                        DebugUtils.Log($"[G3999][CheckGameResult] 中奖线{i}，图标{firstSymbolType}，中奖个数{hitCount}，倍数{lineOdds}");
                     }
                 }
             }
@@ -436,7 +437,7 @@ namespace CaiFuZhiMen_3999
                 int hitCount = (ID / 100) % 10; // 百位：消除数量（WinCount）
                 int lineNumber = ID / 1000; // 万千位：线编号
                 // 输出调试信息（可选）
-                Debug.Log($"ID: {ID}, Line: {lineNumber}, HitCount: {hitCount}, Symbol: {symbolNumber}");
+                //Debug.Log($"ID: {ID}, Line: {lineNumber}, HitCount: {hitCount}, Symbol: {symbolNumber}");
 
                 int lineIndex = lineNumber;
                 int[] lineInfo = CustomModel.Instance.payLines[lineIndex].ToArray();

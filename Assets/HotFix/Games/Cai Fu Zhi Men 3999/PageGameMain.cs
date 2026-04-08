@@ -1448,7 +1448,7 @@ namespace CaiFuZhiMen_3999
                 if (_corReelsTurn != null) _monoHelper.StopCoroutine(_corReelsTurn);
                 _corReelsTurn = _monoHelper.StartCoroutine(_slotMachineController.TurnReelsNormal(_specialSymbols,
                     ContentModel.Instance.strDeckRowCol, () => { isNext = true; }));
-
+                
                 yield return new WaitUntil(() => isNext == true || _slotMachineController.isStopImmediately == true);
                 isNext = false;
 
