@@ -679,7 +679,7 @@ namespace CaiFuZhiMen_3999
                 case SpinButtonState.Spin:
                     if (!ContentModel.Instance.isSpin) return;
                     _slotMachineController.isStopImmediately = true;
-                    SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.StopImmediately);
+                    //SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.StopImmediately);
                     break;
 
                 case SpinButtonState.Auto:
