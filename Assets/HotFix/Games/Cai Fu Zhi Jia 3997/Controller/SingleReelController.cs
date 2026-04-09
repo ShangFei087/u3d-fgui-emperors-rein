@@ -7,21 +7,21 @@ namespace CaiFuZhiJia_3997
 {
     public class SingleReelController
     {
-        private int _wheelIndex; // 当前滚轴索引
+        private readonly int _wheelIndex; // 当前滚轴索引
         private readonly GComponent _wheelRootNode; // 滚轴的根节点 elementBox
         private WheelState _reelState = WheelState.None; // 当前滚轴的状态
         private Coroutine _rollCoroutine;
 
         /// <summary>滚轴上的所有图标信息List</summary>
-        public List<GComponent> RollElements = new List<GComponent>();
+        public readonly List<GComponent> RollElements = new List<GComponent>();
 
         /// <summary>滚轴上所有的文本组件</summary>
-        public List<GTextField> RewardTexts = new List<GTextField>();
+        public readonly List<GTextField> RewardTexts = new List<GTextField>();
 
         /// <summary>临时存储滚轴的位置</summary>
-        private List<float> _elementStartPosList = new List<float>();
+        private readonly List<float> _elementStartPosList = new List<float>();
 
-        public string Wheeleward = "";
+        // public string Wheeleward = "";
 
         public SingleReelController(GComponent wheelRootNode, int wheelIndex)
         {
@@ -41,16 +41,16 @@ namespace CaiFuZhiJia_3997
                     RollElements.Add(parentGCom);
                     RewardTexts.Add(rewardText);
                     _elementStartPosList.Add(parentGCom.y); // 记录初始位置
-                    Wheeleward = RandomReward();
+                    // Wheeleward = RandomReward();
                 }
             }
         }
 
-        string RandomReward()
-        {
-            return ContentModel.Instance.bonusGameRewardList[
-                Random.Range(0, ContentModel.Instance.bonusGameRewardList.Count)];
-        }
+        // string RandomReward()
+        // {
+        //     return ContentModel.Instance.bonusGameRewardList[
+        //         Random.Range(0, ContentModel.Instance.bonusGameRewardList.Count)];
+        // }
 
         public void StartRoll(MonoHelper monoHelper, float speed)
         {

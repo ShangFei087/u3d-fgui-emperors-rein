@@ -71,17 +71,12 @@ namespace CaiFuZhiJia_3997
             }
             else
             {
-                //显示遮罩
-                //goSlotCover?.SetActive(_spinWEBB.Instance.isShowCover);
-
                 int idx = 0;
                 while (idx < winList.Count)
                 {
                     yield return ShowSymbolWinBySetting(winList[idx], true, SpinWinEvent.SingleWinLine);
 
                     ++idx;
-
-                    // 立马停止时，不播放赢分环节？
                     if (isStopImmediately && _spinWEMD.Instance.isSkipAtStopImmediately)
                         break;
                 }
@@ -293,6 +288,61 @@ namespace CaiFuZhiJia_3997
 
             EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_SLOT_EVENT,
                 new EventData(SlotMachineEvent.StoppedSlotMachine));
+        }
+
+        #endregion
+        
+          #region 解决Symbol播放变大特效问题
+
+        public new void ShowSymbolWinDeck(SymbolWin symbolWin, bool isUseMySelfSymbolNumber, Action callback = null)
+        {
+            SkipWinLine(false);
+            callback?.Invoke();
+            SetSlotCover(_spinWEMD.Instance.isShowCover);
+
+            foreach (Cell cel in symbolWin.cells)
+            {
+                SymbolBase symble = GetVisibleSymbolFromDeck(cel.column, cel.row);
+
+                int symbolNumber = isUseMySelfSymbolNumber ? symble.number : symbolWin.symbolNumber;
+                string symbolName = CustomModel.Instance.symbolHitEffect[$"{symbolNumber}"];
+                GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolHit, symbolName).asCom;
+                symble.AddSymbolEffect(goSymbolHit, isSymbolAnim);
+                FguiSortingOrderManager.Instance.ChangeSortingOrder(symble.goOwnerSymbol, goExpectation);
+                if (_spinWEMD.Instance.isFrame)
+                {
+                    string borderEffect = CustomModel.Instance.borderEffect;
+                    GComponent
+                        goBorderEffect = fguiPoolHelper.GetObject(TagPoolObject.SymbolBorder, borderEffect).asCom;
+                    symble.AddBorderEffect(goBorderEffect);
+                }
+            }
+
+            if (_spinWEMD.Instance.isShowLine)
+            {
+                if (symbolWin is TotalSymbolWin)
+                {
+                    TotalSymbolWin totalSymbolWin = symbolWin as TotalSymbolWin;
+
+                    foreach (int payLineNumber in totalSymbolWin.lineNumbers)
+                    {
+                        int lineIndex = GetPayLineIndex(payLineNumber);
+                        if (lineIndex >= 0 && lineIndex < goPayLines.numChildren)
+                        {
+                            goPayLines.GetChildAt(lineIndex).visible = true;
+                        }
+                    }
+                }
+                else
+                {
+                    int lineIndex = GetPayLineIndex(symbolWin.lineNumber);
+                    if (lineIndex >= 0
+                        && lineIndex < goPayLines.numChildren)
+                    {
+                        goPayLines.GetChildAt(lineIndex).visible = true;
+                    }
+                }
+            }
         }
 
         #endregion

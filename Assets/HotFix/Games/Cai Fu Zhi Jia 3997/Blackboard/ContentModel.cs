@@ -106,9 +106,6 @@ namespace CaiFuZhiJia_3997
         /// <summary> 免费游戏开始 </summary>
         public bool isFreeSpinTrigger;
 
-        /// <summary> 彩金游戏开始 </summary>
-        // public bool isBonusTrigger;
-
         /// <summary> 免费游戏结束 </summary>
         public bool isFreeSpinResult;
 
@@ -166,7 +163,12 @@ namespace CaiFuZhiJia_3997
         /// <summary>
         /// 彩金游戏总得分
         /// </summary>
-        [FormerlySerializedAs("TotalBonusReward")] public long totalBonusReward = 0;
+        public long totalBonusReward = 0;
+
+        /// <summary>
+        /// 一局彩金游戏的数据
+        /// </summary>
+        public List<string> currentBonusDataList = new List<string>();
 
         public string curReelStripsIndex = "BS";
 
@@ -231,12 +233,13 @@ namespace CaiFuZhiJia_3997
                 return jps;
             }
         }
-        
+
         public float freeOnceCredit
         {
             get => m_freeOnceCredit;
             set => Observable.SetProperty(ref m_freeOnceCredit, value);
         }
+
         public float m_freeOnceCredit = 0;
 
         /// <summary>免费游戏分数倍率</summary>
@@ -245,12 +248,7 @@ namespace CaiFuZhiJia_3997
 
         /// <summary>彩金游戏钻石得分模拟</summary>
         [FormerlySerializedAs("BonusGameRewardList")]
-        public List<string> bonusGameRewardList = new List<string>()
-        {
-            "200",
-            "1400",
-            "2600",
-        };
+        public List<string> bonusGameRewardList = new List<string>() { "200", "1400", "2600", };
 
         /// <summary>彩金游戏是否中奖</summary>
         public bool isWinning = false;
@@ -264,14 +262,14 @@ namespace CaiFuZhiJia_3997
 
         [SerializeField] private long mTotalBet = 0;
 
-                /// <summary> 下注倍数 </summary>
+        /// <summary> 下注倍数 </summary>
         public int betmultiple
         {
             get => m_BetMultiple;
             set => Observable.SetProperty(ref m_BetMultiple, value);
         }
-        [SerializeField]
-        private int m_BetMultiple = 0;
+
+        [SerializeField] private int m_BetMultiple = 0;
 
         /// <summary>押注分数索引</summary>
         public int betIndex { get; set; } = 0;
@@ -341,5 +339,8 @@ namespace CaiFuZhiJia_3997
 
         /// <summary>赔付表说明UI集合</summary>
         public GComponent[] goPayTableLst { get; set; } = Array.Empty<GComponent>();
+
+        /// <summary> 大厅彩金中奖数据  </summary>
+        public List<WinJackpotInfo> jpOnlineWin = new List<WinJackpotInfo>();
     }
 }
