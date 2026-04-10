@@ -67,6 +67,8 @@ namespace CaiFuZhiJia_3997
 
             _jackpotResultTipWindow = contentPane.GetChild("jackpotResultTipWindow").asCom;
             _jackpotResultButton = _jackpotResultTipWindow.GetChild("jackpotResultButton").asButton;
+            _jackpotResultTipWindow.GetChild("jackpotResultScore").asCom.GetChild("number").asTextField.text =
+                ContentModel.Instance.totalBonusReward.ToString();
 
             InitParam();
         }
@@ -183,6 +185,7 @@ namespace CaiFuZhiJia_3997
                 {
                     CloseSelf(null);
                     PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPopupJackpotGame);
+                    MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
                     ContentModel.Instance.totalBonusReward = 0;
                 });
             }));

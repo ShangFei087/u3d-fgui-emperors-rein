@@ -679,7 +679,7 @@ namespace CaiFuZhiMen_3999
                 case SpinButtonState.Spin:
                     if (!ContentModel.Instance.isSpin) return;
                     _slotMachineController.isStopImmediately = true;
-                    SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.StopImmediately);
+                    //SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.StopImmediately);
                     break;
 
                 case SpinButtonState.Auto:
@@ -943,7 +943,26 @@ namespace CaiFuZhiMen_3999
             ContentModel.Instance.gameState = GameState.Idle;
 
             // 有好酷优先用好酷
-            if (false && SBoxModel.Instance.isUseIot && _tipCoinIn) { }
+            if (false && SBoxModel.Instance.isUseIot && _tipCoinIn)
+            {
+                /*
+                    tipCoinIn = false;
+
+                    if (!DeviceIOTPayment.Instance.isIOTConneted)
+                    {
+                        TipPopupHandler.Instance.OpenPopupOnce(string.Format(I18nMgr.T("IOT connection failed [{0}]"), Code.DEVICE_IOT_MQTT_NOT_CONNECT));
+                    }
+                    else if (!DeviceIOTPayment.Instance.isIOTSignInGetQRCode)
+                    {
+                        TipPopupHandler.Instance.OpenPopupOnce(string.Format(I18nMgr.T("IOT connection failed [{0}]"), Code.DEVICE_IOT_NOT_SIGN_IN));
+                    }
+                    else
+                    {
+                        DeviceIOTPayment.Instance.DoQrCoinIn();
+                    }
+                    return;
+                    */
+            }
             else
             {
                 string massage = I18nMgr.T(msg);
@@ -1178,8 +1197,7 @@ namespace CaiFuZhiMen_3999
             {
                 // 计算总奖金 并判断中奖类型
                 long totalWinLineCredit = 0;
-                totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList) *
-                                     MainModel.Instance.contentMD.betmultiple; // 新增倍率
+                totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList);/* * MainModel.Instance.contentMD.betmultiple; // 新增倍率*/
                 allWinCredit = totalWinLineCredit;
                 _slotMachineController.SendTotalWinCreditEvent(allWinCredit); // 发送总奖金事件
                 //加钱动画
@@ -1448,7 +1466,7 @@ namespace CaiFuZhiMen_3999
                 if (_corReelsTurn != null) _monoHelper.StopCoroutine(_corReelsTurn);
                 _corReelsTurn = _monoHelper.StartCoroutine(_slotMachineController.TurnReelsNormal(_specialSymbols,
                     ContentModel.Instance.strDeckRowCol, () => { isNext = true; }));
-                
+
                 yield return new WaitUntil(() => isNext == true || _slotMachineController.isStopImmediately == true);
                 isNext = false;
 
@@ -1477,8 +1495,7 @@ namespace CaiFuZhiMen_3999
 
             if (winList.Count > 0 || ContentModel.Instance.bonusResults != null)
             {
-                long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList) *
-                                          MainModel.Instance.contentMD.betmultiple; // 新增倍率
+                long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList); /* *MainModel.Instance.contentMD.betmultiple; // 新增倍率*/
                 _allWinCredit += totalWinLineCredit;
                 Debug.LogError("_allWinCredit：" + _allWinCredit + "-------totalWinLineCredit：" + totalWinLineCredit);
                 _slotMachineController.SendTotalWinCreditEvent(_allWinCredit); // 总线赢分事件
