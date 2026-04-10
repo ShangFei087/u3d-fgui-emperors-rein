@@ -320,6 +320,7 @@ namespace CaiFuHuoChe_3996
                     {
                         isBonus = true;
                         bonusCount = CustomModel.Instance.jackpotGameConfig.FreeGameTime[i];
+                        break;
                     }
                 }
 
@@ -331,6 +332,7 @@ namespace CaiFuHuoChe_3996
                     ContentModel.Instance.jackpotSpinTotalTimes = bonusCount;
                     ContentModel.Instance.jackpotSpinPlayTimes = 0;
                     ContentModel.Instance.jackpotSpinWinCredit = 0;
+                    jackpotSymbolInclude.Clear();
                 }
             }
             else if (ContentModel.Instance.jackpotSpinPlayTimes < ContentModel.Instance.jackpotSpinTotalTimes)
@@ -1123,6 +1125,23 @@ namespace CaiFuHuoChe_3996
             */
             ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Default;
             SlotGameEffectManager.Instance.SetEffect(ContentModel.Instance.targetSlotGameEffect);
+        }
+
+        public void JackpotSlotSpin(long totalBet, JSONNode res, SBoxJackpotData sboxJackpotData)
+        {
+            List<WinningLineInfo> winningLines = new List<WinningLineInfo>();
+            List<SymbolInclude> symbolInclude = new List<SymbolInclude>();
+
+            foreach (int key in ContentModel.Instance.itemPos.Keys)
+            {
+                ContentModel.Instance.itemPos[key].Clear();
+            }
+
+
+
+            strDeckRowCol = GenerateGameArray(
+                   CustomModel.Instance.payLines,
+                   CustomModel.Instance.symbolNumber, winningLines, new int[] { 9, 11, 10, 12 }, symbolInclude, jackpotSymbolInclude);
         }
 
         void OnEnable()

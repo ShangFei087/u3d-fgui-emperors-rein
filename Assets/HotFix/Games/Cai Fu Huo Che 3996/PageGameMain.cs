@@ -1137,7 +1137,7 @@ namespace CaiFuHuoChe_3996
             OnGameReset();
 
             ContentModel.Instance.haveJackpotCredit = false;
-            ContentModel.Instance.gameState = GameState.Spin;
+            ContentModel.Instance.gameState = GameState.FreeSpin;
 
             bool isNext = false;
             bool isBreak = false;
@@ -1229,6 +1229,7 @@ namespace CaiFuHuoChe_3996
             if (ContentModel.Instance.haveJackpotCredit)
             {
                 freeTimes.text = ContentModel.Instance.jackpotSpinTotalTimes.ToString();
+                ContentModel.Instance.jackpotSpinPlayTimes = 0;
             }
         }
 
