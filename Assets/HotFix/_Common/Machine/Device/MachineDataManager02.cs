@@ -18,7 +18,7 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
 
     protected void Awake()
     {
-        receiveOvertimeS = 1.5f;
+        receiveOvertimeS = 30.0f;
         isDebugLog = true;
         prefix = "【SBox】";
     }

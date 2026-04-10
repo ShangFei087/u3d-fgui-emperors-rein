@@ -7,6 +7,50 @@ using SimpleJSON;
 using System.Resources;
 using System.Threading.Tasks;
 
+
+/// <summary>
+/// 订单号管理
+/// </summary>
+ /*
+[System.Serializable]
+public class TableOrdeId
+{
+    public long id;
+
+    /// <summary> 订单号的hash(MD5码)） </summary>
+    public string hash; 
+
+    /// <summary> 订单数据（OrderIdData对象） </summary>
+    public string data;
+
+    /// <summary> 创建时间 </summary>
+    public long created_at;
+
+    /// <summary> 密文 </summary>
+    public string ciphertext;
+
+}
+
+
+[System.Serializable]
+public class OrderIdData
+{
+    /// <summary> 点单号 </summary>
+    public string order_id;
+
+    /// <summary> 类型 </summary>
+    public string order_type;
+
+    /// <summary> 状态 0:订单创建  1:订单待完成   2:订单完成 </summary>
+    public int state;
+
+    /// <summary> 多少ms后过期  -1:不使用</summary>
+    public long overtime_ms = -1;
+
+    /// <summary> 创建时间 ms </summary>
+    public long created_at;
+}
+*/
 [System.Serializable]
 public class BetAllow
 {
@@ -70,7 +114,6 @@ public class TableBetItem
         };
     }
 }
-
 
 /// <summary>
 /// 语言支持
@@ -150,9 +193,6 @@ public class TableCoinInOutRecordItem
     /// <summary> 日期 </summary>
     public long created_at;
 }
-
-
-
 
 /// <summary>
 /// 机台设置
@@ -301,9 +341,6 @@ public class TableSysSettingItem
     }
 }
 
-
-
-
 /// <summary>
 /// 彩金记录
 /// </summary>
@@ -333,14 +370,10 @@ public class TableJackpotRecordItem
     public long created_at;
 }
 
-
-
-
 /// <summary>
 /// 拉霸-游戏记录
 /// </summary>
 [System.Serializable]
-
 public class TableSlotGameRecordItem
 {
     public long id;
@@ -399,15 +432,10 @@ public class TableSlotGameRecordItem
     public string symbol_icon_mapping;
 }
 
-
-
-
-
 /// <summary>
 /// 推币机-游戏记录
 /// </summary>
 [System.Serializable]
-
 public class TablePusherGameRecordItem
 {
     public long id;
@@ -471,9 +499,6 @@ public class TablePusherGameRecordItem
     public long created_at;
 }
 
-
-
-
 /// <summary>
 ///日志记录
 /// </summary>
@@ -494,52 +519,6 @@ public class TableLogRecordItem
     /// <summary> 创建时间 </summary>
     public long created_at;
 }
-
-
-/*
-/// <summary>
-/// 订单号管理
-/// </summary>
-[System.Serializable]
-public class TableOrdeId
-{
-    public long id;
-
-    /// <summary> 订单号的hash(MD5码)） </summary>
-    public string hash; 
-
-    /// <summary> 订单数据（OrderIdData对象） </summary>
-    public string data;
-
-    /// <summary> 创建时间 </summary>
-    public long created_at;
-
-    /// <summary> 密文 </summary>
-    public string ciphertext;
-
-}
-
-
-[System.Serializable]
-public class OrderIdData
-{
-    /// <summary> 点单号 </summary>
-    public string order_id;
-
-    /// <summary> 类型 </summary>
-    public string order_type;
-
-    /// <summary> 状态 0:订单创建  1:订单待完成   2:订单完成 </summary>
-    public int state;
-
-    /// <summary> 多少ms后过期  -1:不使用</summary>
-    public long overtime_ms = -1;
-
-    /// <summary> 创建时间 ms </summary>
-    public long created_at;
-}
-*/
-
 
 /// <summary>
 /// 每日营收统计
@@ -590,9 +569,11 @@ public class TableBussinessDayRecordItem
     //public long update_at;
 }
 
-
-
-
+/// <summary>
+/// 营业汇总记录表
+/// </summary>
+/// <remarks>
+/// </remarks>
 public class TableBussinessTotalRecordItem    //public class TableBussinessRecordItem
 {
     public long id;
@@ -662,37 +643,33 @@ public class TableBussinessTotalRecordItem    //public class TableBussinessRecor
     }
 }
 
-
-
-
 public static class ConsoleTableName
 {
     //public const string DB_NAME = "PssOn00152.db";
 
     public static string DB_NAME => ApplicationSettings.Instance.dbName;
 
-
+    // <summary> 系统设置表 </summary>
     public const string TABLE_SYS_SETTING = "system_setting";
+    /// <summary> 奖池记录表 </summary>
     public const string TABLE_JACKPOT_RECORD = "jackpot_record";
+    /// <summary> 投注记录表 </summary>
     public const string TABLE_BET = "bet";
-    /// <summary> 投退币记录</summary>
+    /// <summary> 投退币记录表 </summary>
     public const string TABLE_COIN_IN_OUT_RECORD = "coin_in_out_record";
-    /// <summary> 游戏游玩记录</summary>
+    /// <summary> 游戏游玩记录表 </summary>
     public const string TABLE_SLOT_GAME_RECORD = "slot_game_record";
+    /// <summary> 推币机游戏记录表 </summary>
     public const string TABLE_PUSHER_GAME_RECORD = "pusher_game_record";
-
+    /// <summary> 错误日志记录表 </summary>
     public const string TABLE_LOG_ERROR_RECORD = "log_error_record";
+    /// <summary> 事件日志记录表 </summary>
     public const string TABLE_LOG_EVENT_RECORD = "log_event_record";
-
-    //硬件测试
-    public const string TABLE_HARDWARE_BTN_TEST = "hardware_btn_test";
-    public const string TABLE_HARDWARE_SCREEN_TEST = "hardware_screen_test";
-    //public const string TABLE_ORDER_ID = "order_id";
-
+    /// <summary> 营业日记录表 </summary>
     public const string TABLE_BUSINESS_DAY_RECORD = "bussiness_day_record";
-
+    /// <summary> 营业汇总记录表 </summary>
     public const string TABLE_BUSINESS_TOTAL_RECORD = "bussiness_total_record";
-
+    /// <summary> 版本缓存表 </summary>
     public const string TABLE_VER_CACHER = "TABLE_VER_CACHER";
 
     public static readonly Dictionary<string, string> tableVer = new Dictionary<string, string>()

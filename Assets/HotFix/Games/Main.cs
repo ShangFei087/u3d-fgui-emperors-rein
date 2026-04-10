@@ -335,8 +335,8 @@ public class Main
         }
         else
         {
-            // PageManager.Instance.OpenPage(PageName.HallMain);
-            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupGameLoading);
+            PageManager.Instance.OpenPage(PageName.HallMain);
+            //PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupGameLoading);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeSpinTrigger);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeGameLoading);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupJackpotTrigger);
@@ -345,9 +345,6 @@ public class Main
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPageGameMain);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupJackpotGame);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeSpinResult);
-            
-            // PageManager.Instance.OpenPage(PageName.CaiFuZhiMenPopupGameLoading);
-            PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupGameLoading);
         }
     }
 

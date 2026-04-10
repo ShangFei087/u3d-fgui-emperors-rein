@@ -144,8 +144,6 @@ namespace SlotMaker
     }
 }
 
-
-
 /*
 public class ContentDefault : IContentModel
 {
