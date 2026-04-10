@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
+  m_Name: jp_sym_free_game_volcano_settlement_Atlas
+  m_EditorClassIdentifier: 
+  atlasFile: {fileID: 4900000, guid: 087acb374f647c8478e7684725e0d116, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 0b00a4f60a8ae10478a79e96569391d6, type: 2}
+  - {fileID: 2100000, guid: 85e5078eae4931046ad813bf9d42cb4a, type: 2}

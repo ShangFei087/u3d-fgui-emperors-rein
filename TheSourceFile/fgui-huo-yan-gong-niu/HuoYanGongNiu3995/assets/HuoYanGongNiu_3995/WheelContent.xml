@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="476,476" pivot="0.5,0.5" anchor="true">
+  <displayList>
+    <image id="n25_j7ma" name="n25" src="q4s8w" fileName="images/gameNormal/Wheel/ng_Turntable_bottom.png" xy="238,238" pivot="0.5,0.5" anchor="true" scale="1.5,1.5"/>
+    <loader id="n27_qc7n" name="item0" xy="238,-35" pivot="0.5,0.5" anchor="true" size="138,157" touchable="false" url="ui://x2aorbwjk1q066" align="center" vAlign="middle" autoSize="true" clearOnPublish="true"/>
+    <text id="n28_qc7n" name="item11" xy="102,1" pivot="0.5,0.5" anchor="true" size="140,60" rotation="-30" font="ui://x2aorbwjqc7n64" fontSize="15" align="center" vAlign="middle" autoSize="none" text="2.08"/>
+    <loader id="n29_qc7n" name="item10" xy="2,102" pivot="0.5,0.5" anchor="true" size="112,68" scale="1.5,1.5" rotation="-60" touchable="false" url="ui://x2aorbwjq4s812" align="center" vAlign="middle" autoSize="true"/>
+    <text id="n30_qc7n" name="item9" xy="-35,238" pivot="0.5,0.5" anchor="true" size="140,60" rotation="-90" font="ui://x2aorbwjqc7n64" fontSize="12" align="center" autoSize="none" text=""/>
+    <loader id="n32_qc7n" name="item8" xy="2,375" pivot="0.5,0.5" anchor="true" size="50,50" rotation="-120" align="center" vAlign="middle" autoSize="true"/>
+    <text id="n33_qc7n" name="item7" xy="102,475" pivot="0.5,0.5" anchor="true" size="140,60" rotation="-150" font="ui://x2aorbwjqc7n64" fontSize="12" align="center" autoSize="none" text=""/>
+    <loader id="n34_qc7n" name="item6" xy="238,511" pivot="0.5,0.5" anchor="true" size="112,68" scale="1.5,1.5" rotation="-180" url="ui://x2aorbwjq4s812" align="center" vAlign="middle" autoSize="true"/>
+    <text id="n35_qc7n" name="item5" xy="375,475" pivot="0.5,0.5" anchor="true" size="140,60" rotation="-210" font="ui://x2aorbwjqc7n64" fontSize="12" align="center" autoSize="none" text=""/>
+    <loader id="n36_qc7n" name="item4" xy="475,375" pivot="0.5,0.5" anchor="true" size="50,50" rotation="-240" align="center" vAlign="middle" autoSize="true"/>
+    <text id="n37_qc7n" name="item3" xy="511,238" pivot="0.5,0.5" anchor="true" size="140,60" rotation="-270" font="ui://x2aorbwjqc7n64" fontSize="12" align="center" autoSize="none" text=""/>
+    <loader id="n38_qc7n" name="item2" xy="475,102" pivot="0.5,0.5" anchor="true" size="112,68" scale="1.5,1.5" rotation="-300" url="ui://x2aorbwjq4s812" align="center" vAlign="middle" autoSize="true"/>
+    <text id="n39_qc7n" name="item1" xy="375,2" pivot="0.5,0.5" anchor="true" size="140,60" rotation="-330" font="ui://x2aorbwjqc7n64" fontSize="12" align="center" autoSize="none" text=""/>
+  </displayList>
+</component>

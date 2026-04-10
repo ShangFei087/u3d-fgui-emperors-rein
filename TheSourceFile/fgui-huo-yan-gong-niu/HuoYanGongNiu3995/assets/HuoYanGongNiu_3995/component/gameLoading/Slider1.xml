@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="658,94" extention="Slider">
+  <displayList>
+    <image id="n0_q4s8" name="n0" src="q4s8a" fileName="images/gameLoading/bg_line_2.png" xy="0,-2" size="662,97">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n1_q4s8" name="bar" src="q4s8j" fileName="component/gameLoading/SliderFill.xml" xy="30,32" size="605,30"/>
+    <component id="n2_q4s8" name="grip" src="q4s8k" fileName="component/gameLoading/Slider1_grip.xml" xy="630,37" visible="false" touchable="false">
+      <relation target="n1_q4s8" sidePair="right-right"/>
+    </component>
+  </displayList>
+  <Slider/>
+</component>

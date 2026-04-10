@@ -137,108 +137,278 @@ namespace CaiFuHuoChe_3996
             new PayTableSymbolInfo()
             {
                 symbol = 0,
+                x5 = 300,
+                x4 = 60,
+                x3 = 30,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 1,
+                x5 = 300,
+                x4 = 60,
+                x3 = 30,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 2,
+                x5 = 300,
+                x4 = 60,
+                x3 = 30,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 3,
+                x5 = 300,
+                x4 = 60,
+                x3 = 30,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 4,
+                x5 = 300,
+                x4 = 60,
+                x3 = 30,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 5,
+                x5 = 900,
+                x4 = 180,
+                x3 = 90,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 6,
+                x5 = 1200,
+                x4 = 240,
+                x3 = 120,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 7,
+                x5 = 1500,
+                x4 = 300,
+                x3 = 150,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 8,
+                x5 = 3000,
+                x4 = 300,
+                x3 = 150,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 9,
                 x5 = 0,
                 x4 = 0,
                 x3 = 0,
             },
             new PayTableSymbolInfo()
             {
-                symbol = 1,
+                symbol = 10,
                 x5 = 0,
                 x4 = 0,
-                x3 = 2,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 2,
-                x5 = 10,
-                x4 = 4,
-                x3 = 1,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 3,
-                x5 = 6,
-                x4 = 2,
-                x3 = 1,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 4,
-                x5 = 2,
-                x4 = 1,
-                x3 = 1,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 5,
-                x5 = 1,
-                x4 = 1,
-                x3 = 1,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 6,
-                x5 = 1,
-                x4 = 1,
-                x3 = 1,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 7,
-                x5 = 1,
-                x4 = 1,
-                x3 = 1,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 8,
-                x5 = 1,
-                x4 = 1,
-                x3 = 1,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 9,
-                x5 = 1,
-                x4 = 1,
-                x3 = 1,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 10,
-                x5 = 1,
-                x4 = 1,
-                x3 = 1,
+                x3 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 11,
-                x5 = 1,
-                x4 = 1,
-                x3 = 1,
+                x5 = 0,
+                x4 = 0,
+                x3 = 0,
             },
         };
 
         public List<PayTableSymbolInfo> payTableSymbolWin
         {
-            get => m_PayTableSymbolWin;
+            get => new List<PayTableSymbolInfo>()
+        {
+            new PayTableSymbolInfo()
+            {
+                symbol = 0,
+                x5 = 300,
+                x4 = 60,
+                x3 = 30,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 1,
+                x5 = 300,
+                x4 = 60,
+                x3 = 30,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 2,
+                x5 = 300,
+                x4 = 60,
+                x3 = 30,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 3,
+                x5 = 300,
+                x4 = 60,
+                x3 = 30,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 4,
+                x5 = 300,
+                x4 = 60,
+                x3 = 30,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 5,
+                x5 = 900,
+                x4 = 180,
+                x3 = 90,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 6,
+                x5 = 1200,
+                x4 = 240,
+                x3 = 120,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 7,
+                x5 = 1500,
+                x4 = 300,
+                x3 = 150,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 8,
+                x5 = 3000,
+                x4 = 300,
+                x3 = 150,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 9,
+                x5 = 0,
+                x4 = 0,
+                x3 = 0,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 10,
+                x5 = 0,
+                x4 = 0,
+                x3 = 0,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 11,
+                x5 = 0,
+                x4 = 0,
+                x3 = 0,
+            },
+        };
             set => m_PayTableSymbolWin = value;
         }
 
         public List<List<int>> payLines
         {
-            get => m_payLines;
+            get => new List<List<int>>
+            {
+                new List<int> { 1,1,1,1,1 },
+                new List<int> { 0,0,0,0,0 },
+                new List<int> { 2,2,2,2,2 },
+                new List<int> { 0,1,2,1,0 },
+                new List<int> { 2,1,0,1,2 },
+                new List<int> { 0,0,1,2,2 },
+                new List<int> { 2,2,1,1,0 },
+                new List<int> { 1,0,1,2,1 },
+                new List<int> { 1,2,1,0,1 },
+                new List<int> { 0,1,1,1,0 },
+                new List<int> { 2,1,1,1,2 },
+                new List<int> { 1,0,0,1,2 },
+                new List<int> { 1,2,2,1,0 },
+                new List<int> { 1,1,0,1,2 },
+                new List<int> { 1,1,2,1,0 },
+                new List<int> { 0,0,1,2,1 },
+                new List<int> { 2,2,1,0,1 },
+                new List<int> { 1,0,1,2,2 },
+                new List<int> { 1,2,1,0,0 },
+                new List<int> { 0,0,0,1,2 },
+                new List<int> { 2,2,2,1,0 },
+                new List<int> { 0,1,2,2,2 },
+                new List<int> { 2,1,0,0,0 },
+                new List<int> { 0,1,0,1,0 },
+                new List<int> { 2,1,2,1,2 },
+                new List<int> { 0,1,1,1,0 },
+                new List<int> { 2,0,0,0,1 },
+                new List<int> { 1,0,0,0,1 },
+                new List<int> { 1,2,2,2,1 },
+                new List<int> { 0,1,0,1,2 }
+            };
             set => m_payLines = value;
         }
-        List<List<int>> m_payLines;
+        List<List<int>> m_payLines = new List<List<int>>();
 
         public List<WinMultiple> winLevelMultiple
         {
-            get => _winMultipleList;
+            get => new List<WinMultiple>()
+            {
+                new WinMultiple("BIG", 15),
+                new WinMultiple("HUGE", 30),
+                new WinMultiple("MASSIVE", 50),
+                new WinMultiple("LEGENDARY", 100),
+            };
             set => _winMultipleList = value;
         }
         List<WinMultiple> _winMultipleList = new List<WinMultiple>();
+
+        public FreeGameConfig freeGameConfig
+        {
+            get => _freeGameConfig;
+
+        }
+
+        public FreeGameConfig _freeGameConfig = new FreeGameConfig()
+        {
+            IsUseCommonFreeTimes = false,                          //是否使用公共的免费次数框
+            IsHasFreeGame = true,                                  //是否有免费奖
+            FreeGameType = MakeFreeGameType.OnScatter,             //触发免费奖方式
+            IsScatterInLine = false,                               //Scatter图标是否依赖中奖线
+            Make2FreeGameCount = new int[] { 3, 4, 5 },            //触发免费奖所需数量(Scatter图标/充能)
+            FreeGameTime = new int[] { 8, 10, 12 },                  //免费次数
+        };
+
+        public FreeGameConfig jackpotGameConfig
+        {
+            get => _jackpotGameConfig;
+
+        }
+
+        public FreeGameConfig _jackpotGameConfig = new FreeGameConfig()
+        {
+            IsUseCommonFreeTimes = false,                          //是否使用公共的免费次数框
+            IsHasFreeGame = true,                                  //是否有免费奖
+            FreeGameType = MakeFreeGameType.OnScatter,             //触发免费奖方式
+            IsScatterInLine = false,                               //Scatter图标是否依赖中奖线
+            Make2FreeGameCount = new int[] { 3, 4, 5 },            //触发免费奖所需数量(Scatter图标/充能)
+            FreeGameTime = new int[] { 3, 4, 5 },                  //免费次数
+        };
+
+        public BonusGameConfig bonusGameconfig
+        {
+            get => _bonusGameconfig;
+
+        }
+
+        public BonusGameConfig _bonusGameconfig = new BonusGameConfig()
+        {
+            IsHasBonusGame = true,                                 //是否有大奖
+            BonusGameType = MakeBonusGameType.OnBonus,            // 触发大奖方式
+            IsBonusInLine = false,                                  //Bonus图标是否依赖中奖线
+            Make2BonusGameCount = 3,                               //触发大奖所需数量(Bonus图标)
+        };
 
         #endregion
     }

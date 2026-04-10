@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="200,151">
+  <displayList>
+    <component id="n0_q4s8" name="animator" src="q4s82r" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="100,75" pivot="0.5,0.5" anchor="true" scale="1.3,1.3"/>
+  </displayList>
+  <transition name="animBigger">
+    <item time="0" type="Scale" target="n0_q4s8" tween="true" startValue="1.3,1.3" endValue="1.4,1.4" duration="9" ease="Linear"/>
+    <item time="9" type="Scale" target="n0_q4s8" tween="true" startValue="1.4,1.4" endValue="1.3,1.3" duration="9" ease="Linear"/>
+  </transition>
+</component>

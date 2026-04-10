@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="x2aorbwj">
+  <resources>
+    <component id="q4s81" name="PopupGameLoading.xml" path="/" exported="true"/>
+    <image id="q4s83" name="bg_line_1.png" path="/images/gameLoading/" exported="true" scale9grid="150,7,300,14"/>
+    <image id="q4s85" name="bg_Loading_.png" path="/images/gameLoading/" exported="true"/>
+    <image id="q4s87" name="bottom.png" path="/images/gameLoading/"/>
+    <image id="q4s8a" name="bg_line_2.png" path="/images/gameLoading/" scale="9grid" scale9grid="28,26,601,44"/>
+    <component id="q4s8j" name="SliderFill.xml" path="/component/gameLoading/" exported="true"/>
+    <component id="q4s8k" name="Slider1_grip.xml" path="/component/gameLoading/" exported="true"/>
+    <component id="q4s8l" name="Slider1.xml" path="/component/gameLoading/" exported="true"/>
+    <component id="q4s8m" name="AnchorTitle.xml" path="/component/gameLoading/" exported="true"/>
+    <component id="q4s8n" name="PageGameMain.xml" path="/" exported="true"/>
+    <image id="q4s8o" name="ng_bottom.png" path="/images/gameNormal/TipFrame/" exported="true"/>
+    <image id="q4s8p" name="ng_frame.png" path="/images/gameNormal/TipFrame/" exported="true"/>
+    <image id="q4s8q" name="ng_sym_wheel_spin.png" path="/images/gameNormal/TipFrame/" exported="true"/>
+    <image id="q4s8r" name="ng_wheel-spin.png" path="/images/gameNormal/TipFrame/" exported="true"/>
+    <image id="q4s8s" name="ng_+free game.png" path="/images/gameNormal/Wheel/"/>
+    <image id="q4s8t" name="ng_sym_Turntable_Taurus.png" path="/images/gameNormal/Wheel/"/>
+    <image id="q4s8u" name="ng_sym_Turntable_wheel.png" path="/images/gameNormal/Wheel/"/>
+    <image id="q4s8v" name="ng_Turntable_bonus_frame.png" path="/images/gameNormal/Wheel/"/>
+    <image id="q4s8w" name="ng_Turntable_bottom.png" path="/images/gameNormal/Wheel/"/>
+    <image id="q4s8x" name="ng_Turntable_center_1.png" path="/images/gameNormal/Wheel/"/>
+    <image id="q4s8y" name="ng_Turntable_center_2.png" path="/images/gameNormal/Wheel/"/>
+    <image id="q4s8z" name="ng_Turntable_frame_1.png" path="/images/gameNormal/Wheel/"/>
+    <image id="q4s811" name="ng_Turntable_frame_2.png" path="/images/gameNormal/Wheel/"/>
+    <image id="q4s812" name="ng_Turntable_FREE.png" path="/images/gameNormal/Wheel/"/>
+    <image id="q4s813" name="ng_Turntable_line.png" path="/images/gameNormal/Wheel/"/>
+    <image id="q4s814" name="ng_Turntable_spin.png" path="/images/gameNormal/Wheel/"/>
+    <image id="q4s815" name="ng_Turntable_0.png" path="/fonts/fontImages/wheelFonts/" exported="true" scale9grid="0,0,-21,-13"/>
+    <image id="q4s816" name="ng_Turntable_1.png" path="/fonts/fontImages/wheelFonts/" exported="true" scale9grid="0,0,-29,-13"/>
+    <image id="q4s817" name="ng_Turntable_2.png" path="/fonts/fontImages/wheelFonts/" exported="true" scale9grid="0,0,-21,-13"/>
+    <image id="q4s818" name="ng_Turntable_3.png" path="/fonts/fontImages/wheelFonts/" exported="true" scale9grid="0,0,-21,-12"/>
+    <image id="q4s819" name="ng_Turntable_4.png" path="/fonts/fontImages/wheelFonts/" exported="true" scale9grid="0,0,-21,-13"/>
+    <image id="q4s81a" name="ng_Turntable_5.png" path="/fonts/fontImages/wheelFonts/" exported="true" scale9grid="0,0,-21,-13"/>
+    <image id="q4s81b" name="ng_Turntable_6.png" path="/fonts/fontImages/wheelFonts/" exported="true" scale9grid="0,0,-21,-13"/>
+    <image id="q4s81c" name="ng_Turntable_7.png" path="/fonts/fontImages/wheelFonts/" exported="true" scale9grid="0,0,-25,-13"/>
+    <image id="q4s81d" name="ng_Turntable_8.png" path="/fonts/fontImages/wheelFonts/" exported="true" scale9grid="0,0,-21,-13"/>
+    <image id="q4s81e" name="ng_Turntable_9.png" path="/fonts/fontImages/wheelFonts/" exported="true" scale9grid="0,0,-21,-13"/>
+    <image id="q4s81f" name="ng_Turntable_dot.png" path="/fonts/fontImages/wheelFonts/" exported="true" scale9grid="0,0,-35,-33"/>
+    <image id="q4s81g" name="ng_Turntable_k.png" path="/fonts/fontImages/wheelFonts/" exported="true" scale9grid="0,0,-21,-15"/>
+    <image id="q4s81k" name="普通背景.png" path="/images/"/>
+    <image id="q4s81l" name="ng_bg_Bonus_game.png" path="/images/"/>
+    <component id="q4s81m" name="AnchorTree.xml" path="/component/gameNormal/" exported="true"/>
+    <component id="q4s81n" name="AnchorWater.xml" path="/component/gameNormal/" exported="true"/>
+    <image id="q4s81o" name="ng_img_normal_game_frame.png" path="/images/gameNormal/Slot/" exported="true"/>
+    <image id="q4s81p" name="屏幕截图 2026-03-24 144643.png" path="/images/"/>
+    <image id="q4s81q" name="ng_img_line_horizontal.png" path="/images/gameNormal/Slot/" exported="true"/>
+    <image id="q4s81r" name="ng_img_line_vertical.png" path="/images/gameNormal/Slot/" exported="true"/>
+    <image id="q4s81s" name="ng_bg_bottom_down.png" path="/images/gameNormal/Slot/" exported="true"/>
+    <image id="q4s81t" name="ng_bg_bottom_up.png" path="/images/gameNormal/Slot/" exported="true"/>
+    <image id="q4s81u" name="ng_sym_9.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s81v" name="ng_sym_WILD_X2.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s81w" name="ng_sym_WILD.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s81x" name="ng_sym_Taurus.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s81y" name="ng_sym_Scatter.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s81z" name="ng_sym_Q.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s820" name="ng_sym_Leopard.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s821" name="ng_sym_K.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s822" name="ng_sym_J.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s823" name="ng_sym_WILD_X3.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s824" name="ng_sym_Eagle.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s825" name="ng_sym_Bull.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s826" name="ng_sym_Bonus_minor.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s827" name="ng_sym_Bonus_mini.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s828" name="ng_sym_Bonus_major.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s829" name="ng_sym_Bonus_grand.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s82a" name="ng_sym_Bonus.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s82b" name="ng_sym_A.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s82c" name="ng_sym_10.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s82d" name="ng_sym_Deer.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s82e" name="ng_sym_Wolf.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s82g" name="ng_sym_Bull_Black.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s82h" name="ng_sym_Deer_Black.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s82i" name="ng_sym_Leopard_Black.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s82j" name="ng_sym_Wolf_Black.png" path="/images/Symbols/" exported="true"/>
+    <image id="q4s82k" name="ng_sym_Eagle_Black.png" path="/images/Symbols/" exported="true"/>
+    <component id="q4s82l" name="SlotMachine.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="q4s82m" name="SlotCover.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="q4s82n" name="Reels.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="q4s82o" name="Reel.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="q4s82p" name="Symbols.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="q4s82q" name="Symbol.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="q4s82r" name="SymbolAnimator.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="q4s82s" name="AnchorPayLines.xml" path="/moudules/slotMachine/"/>
+    <component id="q4s82t" name="Anchor.xml" path="/component/gameNormal/" exported="true"/>
+    <component id="j7ma2u" name="AnchorPanelPush.xml" path="/component/" exported="true"/>
+    <component id="j7ma2v" name="AnchorWheelSpin.xml" path="/component/gameNormal/" exported="true"/>
+    <component id="j7ma2w" name="WheelContent.xml" path="/"/>
+    <image id="j7ma2x" name="ng_frame.png" path="/images/gameNormal/Slot/" exported="true"/>
+    <image id="j7ma2y" name="ng_bottom.png" path="/images/gameNormal/Slot/" exported="true"/>
+    <image id="j7ma2z" name="ng_wheel-spin.png" path="/images/gameNormal/Slot/" exported="true"/>
+    <image id="j7ma3b" name="0.png" path="/fonts/fontImages/TipFrameNums/" exported="true"/>
+    <image id="j7ma3c" name="1.png" path="/fonts/fontImages/TipFrameNums/" exported="true"/>
+    <image id="j7ma3d" name="2.png" path="/fonts/fontImages/TipFrameNums/" exported="true"/>
+    <image id="j7ma3e" name="3.png" path="/fonts/fontImages/TipFrameNums/" exported="true"/>
+    <image id="j7ma3f" name="4.png" path="/fonts/fontImages/TipFrameNums/" exported="true"/>
+    <image id="j7ma3g" name="5.png" path="/fonts/fontImages/TipFrameNums/" exported="true"/>
+    <image id="j7ma3h" name="6.png" path="/fonts/fontImages/TipFrameNums/" exported="true"/>
+    <image id="j7ma3i" name="7.png" path="/fonts/fontImages/TipFrameNums/" exported="true"/>
+    <image id="j7ma3j" name="8.png" path="/fonts/fontImages/TipFrameNums/" exported="true"/>
+    <image id="j7ma3k" name="9.png" path="/fonts/fontImages/TipFrameNums/" exported="true"/>
+    <font id="j7ma3l" name="wheelSpinTimes.fnt" path="/fonts/font/TipFrameNums/" exported="true"/>
+    <image id="j7ma3m" name="fg_frame.png" path="/images/gameFree/TipFrame1/"/>
+    <image id="j7ma3n" name="fg_credits-won-!.png" path="/images/gameFree/TipFrame1/"/>
+    <image id="j7ma3o" name="fg_bottom_2.png" path="/images/gameFree/TipFrame1/"/>
+    <image id="j7ma3p" name="fg_collected-!.png" path="/images/gameFree/TipFrame1/"/>
+    <image id="j7ma3q" name="fg_bottom_1.png" path="/images/gameFree/TipFrame1/"/>
+    <image id="j7ma3r" name="fg_spin--the--wheel--to--upgrade--bonus-!.png" path="/images/gameFree/TipFrame1/"/>
+    <image id="j7ma3s" name="fg_sym_Taurus.png" path="/images/gameFree/TipFrame1/"/>
+    <image id="j7ma3t" name="参考.png" path="/images/gameFree/TipFrame1/"/>
+    <image id="j7ma3u" name="fg_x.png" path="/images/gameFree/TipFrame1/"/>
+    <image id="j7ma3v" name="fg_bottom.png" path="/images/gameFree/TipFrame2/"/>
+    <image id="j7ma3w" name="fg_frame.png" path="/images/gameFree/TipFrame2/"/>
+    <image id="j7ma3x" name="fg_free-game.png" path="/images/gameFree/TipFrame2/"/>
+    <image id="j7ma3y" name="fg_of.png" path="/images/gameFree/TipFrame2/"/>
+    <image id="j7ma3z" name="参考.png" path="/images/gameFree/TipFrame2/"/>
+    <image id="j7ma40" name="fg_img_free_game_frame.png" path="/images/gameFree/"/>
+    <image id="xrp241" name="fg_YOU---WON.png" path="/images/gameFree/"/>
+    <component id="xrp242" name="AnchorWheelTip.xml" path="/component/gameNormal/" exported="true"/>
+    <component id="xrp243" name="Button1.xml" path="/"/>
+    <component id="xrp244" name="AnchorFlowStone.xml" path="/component/gameNormal/" exported="true"/>
+    <image id="xrp245" name="fg_text_0.png" path="/fonts/fontImages/CreditsWonNums/" exported="true" scale9grid="0,0,-23,-11"/>
+    <image id="xrp246" name="fg_text_1.png" path="/fonts/fontImages/CreditsWonNums/" exported="true" scale="9grid" scale9grid="0,0,27,46"/>
+    <image id="xrp247" name="fg_text_2.png" path="/fonts/fontImages/CreditsWonNums/" exported="true" scale="9grid" scale9grid="2,0,35,49"/>
+    <image id="xrp248" name="fg_text_3.png" path="/fonts/fontImages/CreditsWonNums/" exported="true" scale="9grid" scale9grid="3,0,32,47"/>
+    <image id="xrp249" name="fg_text_4.png" path="/fonts/fontImages/CreditsWonNums/" exported="true" scale9grid="0,0,-23,-11"/>
+    <image id="xrp24a" name="fg_text_5.png" path="/fonts/fontImages/CreditsWonNums/" exported="true" scale="9grid" scale9grid="2,6,32,38"/>
+    <image id="xrp24b" name="fg_text_6.png" path="/fonts/fontImages/CreditsWonNums/" exported="true" scale="9grid" scale9grid="12,8,13,27"/>
+    <image id="xrp24c" name="fg_text_7.png" path="/fonts/fontImages/CreditsWonNums/" exported="true"/>
+    <image id="xrp24d" name="fg_text_8.png" path="/fonts/fontImages/CreditsWonNums/" exported="true" scale9grid="0,0,-23,-10"/>
+    <image id="xrp24e" name="fg_text_9.png" path="/fonts/fontImages/CreditsWonNums/" exported="true" scale9grid="0,0,-23,-11"/>
+    <image id="xrp24f" name="fg_text_dot.png" path="/fonts/fontImages/CreditsWonNums/" exported="true" scale="9grid" scale9grid="15,15,-9,-4"/>
+    <image id="xrp24g" name="fg_text_K.png" path="/fonts/fontImages/CreditsWonNums/" exported="true" scale="9grid" scale9grid="15,8,7,22"/>
+    <font id="xrp24h" name="CreditsWonFonts.fnt" path="/fonts/font/CreditsWonNums/" exported="true"/>
+    <image id="xrp24i" name="fg_num_0.png" path="/fonts/fontImages/CollectedNums/" exported="true"/>
+    <image id="xrp24j" name="fg_num_1.png" path="/fonts/fontImages/CollectedNums/" exported="true"/>
+    <image id="xrp24k" name="fg_num_2.png" path="/fonts/fontImages/CollectedNums/" exported="true"/>
+    <image id="xrp24l" name="fg_num_3.png" path="/fonts/fontImages/CollectedNums/" exported="true"/>
+    <image id="xrp24m" name="fg_num_4.png" path="/fonts/fontImages/CollectedNums/" exported="true"/>
+    <image id="xrp24n" name="fg_num_5.png" path="/fonts/fontImages/CollectedNums/" exported="true"/>
+    <image id="xrp24o" name="fg_num_6.png" path="/fonts/fontImages/CollectedNums/" exported="true"/>
+    <image id="xrp24p" name="fg_num_7.png" path="/fonts/fontImages/CollectedNums/" exported="true"/>
+    <image id="xrp24q" name="fg_num_8.png" path="/fonts/fontImages/CollectedNums/" exported="true"/>
+    <image id="xrp24r" name="fg_num_9.png" path="/fonts/fontImages/CollectedNums/" exported="true"/>
+    <font id="xrp24s" name="CollectedFont.fnt" path="/fonts/font/CollectedFonts/" exported="true"/>
+    <component id="xrp24t" name="PopupFreeSpinTrigger.xml" path="/" exported="true"/>
+    <image id="xrp24u" name="fg_congratulations!.png" path="/images/gameFreeTrigger/"/>
+    <image id="xrp24v" name="fg_dark.png" path="/images/gameFreeTrigger/"/>
+    <image id="xrp24w" name="fg_FREE-GAMES.png" path="/images/gameFreeTrigger/"/>
+    <image id="xrp24x" name="fg_num_8.png" path="/images/gameFreeTrigger/"/>
+    <image id="xrp24y" name="fg_num_15.png" path="/images/gameFreeTrigger/"/>
+    <image id="xrp24z" name="fg_num_20.png" path="/images/gameFreeTrigger/"/>
+    <image id="xrp250" name="fg_sca0000.png" path="/images/gameFreeTrigger/"/>
+    <image id="xrp251" name="fg_shadow.png" path="/images/gameFreeTrigger/"/>
+    <image id="xrp252" name="fg_start.png" path="/images/gameFreeTrigger/"/>
+    <image id="xrp253" name="fg_start_dark.png" path="/images/gameFreeTrigger/"/>
+    <image id="xrp254" name="fg_sym_free_game_tips.png" path="/images/gameFreeTrigger/"/>
+    <image id="xrp255" name="fg_YOU---WON.png" path="/images/gameFreeTrigger/"/>
+    <component id="xrp256" name="AnchorFreeTigger.xml" path="/component/gameFreeGame/" exported="true"/>
+    <component id="xrp257" name="FreeTriggerBtn.xml" path="/component/gameFreeGame/" exported="true"/>
+    <image id="xrp258" name="fg_num_8.png" path="/images/gameFree/gameFreeTimes/"/>
+    <image id="xrp259" name="fg_num_15.png" path="/images/gameFree/gameFreeTimes/"/>
+    <image id="xrp25a" name="fg_num_20.png" path="/images/gameFree/gameFreeTimes/"/>
+    <component id="xrp25b" name="PopupFreeSpinExit.xml" path="/" exported="true"/>
+    <image id="u9rq5c" name="fg_num_0.png" path="/fonts/fontImages/gameFreeExitNums/" exported="true"/>
+    <image id="u9rq5d" name="fg_num_1.png" path="/fonts/fontImages/gameFreeExitNums/" exported="true"/>
+    <image id="u9rq5e" name="fg_num_2.png" path="/fonts/fontImages/gameFreeExitNums/" exported="true"/>
+    <image id="u9rq5f" name="fg_num_3.png" path="/fonts/fontImages/gameFreeExitNums/" exported="true"/>
+    <image id="u9rq5g" name="fg_num_4.png" path="/fonts/fontImages/gameFreeExitNums/" exported="true"/>
+    <image id="u9rq5h" name="fg_num_5.png" path="/fonts/fontImages/gameFreeExitNums/" exported="true"/>
+    <image id="u9rq5i" name="fg_num_6.png" path="/fonts/fontImages/gameFreeExitNums/" exported="true"/>
+    <image id="u9rq5j" name="fg_num_7.png" path="/fonts/fontImages/gameFreeExitNums/" exported="true"/>
+    <image id="u9rq5k" name="fg_num_8.png" path="/fonts/fontImages/gameFreeExitNums/" exported="true"/>
+    <image id="u9rq5l" name="fg_num_9.png" path="/fonts/fontImages/gameFreeExitNums/" exported="true"/>
+    <image id="u9rq5m" name="fg_num_comma.png" path="/fonts/fontImages/gameFreeExitNums/" exported="true"/>
+    <font id="u9rq5n" name="FreeExitNumsFont.fnt" path="/fonts/font/gameFreeExitNums/" exported="true"/>
+    <image id="u9rq5p" name="fg_Settlement box_collect.png" path="/images/gameFreeExit/"/>
+    <image id="u9rq5q" name="fg_Settlement box_collect_dark.png" path="/images/gameFreeExit/"/>
+    <image id="u9rq5r" name="fg_Settlement box_congratulations!.png" path="/images/gameFreeExit/"/>
+    <image id="u9rq5s" name="fg_Settlement box_dark.png" path="/images/gameFreeExit/"/>
+    <image id="u9rq5t" name="fg_Settlement box_frame.png" path="/images/gameFreeExit/"/>
+    <image id="u9rq5u" name="fg_Settlement box_sca0000.png" path="/images/gameFreeExit/"/>
+    <image id="u9rq5v" name="fg_Settlement box_shadow.png" path="/images/gameFreeExit/"/>
+    <image id="u9rq5y" name="fg_Settlement box_YOU---WON-!.png" path="/images/gameFreeExit/"/>
+    <image id="u9rq5z" name="参考.png" path="/images/gameFreeExit/"/>
+    <component id="u9rq60" name="FreeExitBtn.xml" path="/component/gameFreeGame/" exported="true"/>
+    <component id="qc7n61" name="OneGoldBull.xml" path="/moudules/wheelitem/" exported="true"/>
+    <component id="qc7n62" name="TwoGoldBull.xml" path="/moudules/wheelitem/" exported="true"/>
+    <component id="qc7n63" name="ThreeGoldBull.xml" path="/moudules/wheelitem/" exported="true"/>
+    <font id="qc7n64" name="wheelFonts.fnt" path="/fonts/font/wheelNums/" exported="true"/>
+    <component id="k1q065" name="FourGoldBull.xml" path="/moudules/wheelitem/" exported="true"/>
+    <component id="k1q066" name="FiveBull.xml" path="/moudules/wheelitem/" exported="true"/>
+    <component id="k1q067" name="wheelSpinBtn.xml" path="/component/gameNormal/wheel/" exported="true"/>
+    <component id="k1q068" name="AnchorWheelEffect.xml" path="/component/gameNormal/wheel/" exported="true"/>
+    <image id="k1q06b" name="jp_bottom_1.png" path="/images/gameJackpot/jpTip/" exported="true"/>
+    <image id="k1q06c" name="jp_bottom_2.png" path="/images/gameJackpot/jpTip/" exported="true"/>
+    <image id="k1q06d" name="jp_bottom_3.png" path="/images/gameJackpot/jpTip/" exported="true"/>
+    <image id="k1q06e" name="jp_bottom_4.png" path="/images/gameJackpot/jpTip/" exported="true"/>
+    <image id="k1q06f" name="jp_frame_1.png" path="/images/gameJackpot/jpTip/" exported="true"/>
+    <image id="k1q06g" name="jp_frame_2.png" path="/images/gameJackpot/jpTip/" exported="true"/>
+    <image id="k1q06h" name="jp_frame_3.png" path="/images/gameJackpot/jpTip/" exported="true"/>
+    <image id="k1q06i" name="jp_frame_4.png" path="/images/gameJackpot/jpTip/" exported="true"/>
+    <image id="k1q06j" name="jp_grand.png" path="/images/gameJackpot/jpTip/" exported="true"/>
+    <image id="k1q06k" name="jp_major.png" path="/images/gameJackpot/jpTip/" exported="true"/>
+    <image id="k1q06l" name="jp_mini.png" path="/images/gameJackpot/jpTip/" exported="true"/>
+    <image id="k1q06m" name="jp_minor.png" path="/images/gameJackpot/jpTip/" exported="true"/>
+    <image id="k1q06n" name="jp_sym_bonus_frame.png" path="/images/gameJackpot/jpTip/" exported="true"/>
+    <component id="k1q06o" name="Mini.xml" path="/component/gameJackpotTip/"/>
+    <font id="k1q072" name="MinorAndMiniFont.fnt" path="/fonts/font/Minor - mini/" exported="true"/>
+    <image id="k1q073" name="jp_num_minor_mini_0.png" path="/fonts/fontImages/Minor - mini/" exported="true"/>
+    <image id="k1q074" name="jp_num_minor_mini_1.png" path="/fonts/fontImages/Minor - mini/" exported="true"/>
+    <image id="k1q075" name="jp_num_minor_mini_2.png" path="/fonts/fontImages/Minor - mini/" exported="true"/>
+    <image id="k1q076" name="jp_num_minor_mini_3.png" path="/fonts/fontImages/Minor - mini/" exported="true"/>
+    <image id="k1q077" name="jp_num_minor_mini_4.png" path="/fonts/fontImages/Minor - mini/" exported="true"/>
+    <image id="k1q078" name="jp_num_minor_mini_5.png" path="/fonts/fontImages/Minor - mini/" exported="true"/>
+    <image id="k1q079" name="jp_num_minor_mini_6.png" path="/fonts/fontImages/Minor - mini/" exported="true"/>
+    <image id="k1q07a" name="jp_num_minor_mini_7.png" path="/fonts/fontImages/Minor - mini/" exported="true"/>
+    <image id="k1q07b" name="jp_num_minor_mini_8.png" path="/fonts/fontImages/Minor - mini/" exported="true"/>
+    <image id="k1q07c" name="jp_num_minor_mini_9.png" path="/fonts/fontImages/Minor - mini/" exported="true"/>
+    <image id="k1q07d" name="jp_num_minor_mini_comma.png" path="/fonts/fontImages/Minor - mini/" exported="true"/>
+    <component id="k1q07e" name="Minor.xml" path="/component/gameJackpotTip/"/>
+    <image id="k1q07f" name="jp_num_major_1.png" path="/fonts/fontImages/MajorNumsImage/" exported="true"/>
+    <image id="k1q07g" name="jp_num_major_2.png" path="/fonts/fontImages/MajorNumsImage/" exported="true"/>
+    <image id="k1q07h" name="jp_num_major_3.png" path="/fonts/fontImages/MajorNumsImage/" exported="true"/>
+    <image id="k1q07i" name="jp_num_major_4.png" path="/fonts/fontImages/MajorNumsImage/" exported="true"/>
+    <image id="k1q07j" name="jp_num_major_5.png" path="/fonts/fontImages/MajorNumsImage/" exported="true"/>
+    <image id="k1q07k" name="jp_num_major_6.png" path="/fonts/fontImages/MajorNumsImage/" exported="true"/>
+    <image id="k1q07l" name="jp_num_major_7.png" path="/fonts/fontImages/MajorNumsImage/" exported="true"/>
+    <image id="k1q07m" name="jp_num_major_8.png" path="/fonts/fontImages/MajorNumsImage/" exported="true"/>
+    <image id="k1q07n" name="jp_num_major_9.png" path="/fonts/fontImages/MajorNumsImage/" exported="true"/>
+    <image id="k1q07o" name="jp_num_major_comma.png" path="/fonts/fontImages/MajorNumsImage/" exported="true"/>
+    <image id="k1q07p" name="jp_num_major_0.png" path="/fonts/fontImages/MajorNumsImage/" exported="true"/>
+    <font id="k1q07q" name="MajorNumsFont.fnt" path="/fonts/font/MajorNumsFonts/" exported="true"/>
+    <component id="k1q07r" name="Major.xml" path="/component/gameJackpotTip/"/>
+    <component id="k1q07s" name="Grand.xml" path="/"/>
+    <image id="k1q07t" name="jp_num_grand_0.png" path="/fonts/fontImages/GrandNumsImage/" exported="true"/>
+    <image id="k1q07u" name="jp_num_grand_1.png" path="/fonts/fontImages/GrandNumsImage/" exported="true"/>
+    <image id="k1q07v" name="jp_num_grand_2.png" path="/fonts/fontImages/GrandNumsImage/" exported="true"/>
+    <image id="k1q07w" name="jp_num_grand_3.png" path="/fonts/fontImages/GrandNumsImage/" exported="true"/>
+    <image id="k1q07x" name="jp_num_grand_4.png" path="/fonts/fontImages/GrandNumsImage/" exported="true"/>
+    <image id="k1q07y" name="jp_num_grand_5.png" path="/fonts/fontImages/GrandNumsImage/" exported="true"/>
+    <image id="k1q07z" name="jp_num_grand_6.png" path="/fonts/fontImages/GrandNumsImage/" exported="true"/>
+    <image id="k1q080" name="jp_num_grand_7.png" path="/fonts/fontImages/GrandNumsImage/" exported="true"/>
+    <image id="k1q081" name="jp_num_grand_8.png" path="/fonts/fontImages/GrandNumsImage/" exported="true"/>
+    <image id="k1q082" name="jp_num_grand_9.png" path="/fonts/fontImages/GrandNumsImage/" exported="true"/>
+    <image id="k1q083" name="jp_num_grand_comma.png" path="/fonts/fontImages/GrandNumsImage/" exported="true"/>
+    <font id="k1q084" name="GrandNumsFont.fnt" path="/fonts/font/GrandNumsFonts/" exported="true"/>
+    <image id="bn1g85" name="fg_Measuring instrument_The left_bottom.png" path="/images/gameFree/gameFreeLeft/" exported="true"/>
+    <image id="bn1g86" name="fg_Measuring instrument_The left_collect.png" path="/images/gameFree/gameFreeLeft/" exported="true"/>
+    <image id="bn1g87" name="fg_Measuring instrument_The left_frame.png" path="/images/gameFree/gameFreeLeft/" exported="true"/>
+    <image id="bn1g88" name="fg_sym_counter_left.png" path="/images/gameFree/gameFreeLeft/" exported="true"/>
+    <image id="bn1g89" name="fg_sym_Taurus.png" path="/images/gameFree/gameFreeLeft/" exported="true"/>
+    <image id="bn1g8a" name="fg_num_The left_1.png" path="/fonts/fontImages/gameFreeLeft/" exported="true"/>
+    <image id="bn1g8b" name="fg_num_The left_2.png" path="/fonts/fontImages/gameFreeLeft/" exported="true"/>
+    <image id="bn1g8c" name="fg_num_The left_3.png" path="/fonts/fontImages/gameFreeLeft/" exported="true"/>
+    <image id="bn1g8d" name="fg_num_The left_4.png" path="/fonts/fontImages/gameFreeLeft/" exported="true"/>
+    <image id="bn1g8e" name="fg_num_The left_5.png" path="/fonts/fontImages/gameFreeLeft/" exported="true"/>
+    <image id="bn1g8f" name="fg_num_The left_6.png" path="/fonts/fontImages/gameFreeLeft/" exported="true"/>
+    <image id="bn1g8g" name="fg_num_The left_7.png" path="/fonts/fontImages/gameFreeLeft/" exported="true"/>
+    <image id="bn1g8h" name="fg_num_The left_8.png" path="/fonts/fontImages/gameFreeLeft/" exported="true"/>
+    <image id="bn1g8i" name="fg_num_The left_9.png" path="/fonts/fontImages/gameFreeLeft/" exported="true"/>
+    <image id="bn1g8j" name="fg_num_The left_0.png" path="/fonts/fontImages/gameFreeLeft/" exported="true"/>
+    <font id="bn1g8k" name="gameLeftFont.fnt" path="/fonts/font/gameFreeLeft/" exported="true"/>
+    <image id="bn1g8l" name="fg_Measuring instrument_Right_bottom.png" path="/images/gameFree/gameFreeRight/"/>
+    <image id="bn1g8m" name="fg_Measuring instrument_Right_collect.png" path="/images/gameFree/gameFreeRight/"/>
+    <image id="bn1g8n" name="fg_Measuring instrument_Right_frame.png" path="/images/gameFree/gameFreeRight/"/>
+    <image id="bn1g8o" name="fg_Measuring instrument_Right_T0.png" path="/images/gameFree/gameFreeRight/"/>
+    <image id="bn1g8p" name="fg_Measuring instrument_Right_too-change-all.png" path="/images/gameFree/gameFreeRight/"/>
+    <image id="bn1g8q" name="fg_sym_counter_right.png" path="/images/gameFree/gameFreeRight/"/>
+    <image id="bn1g8r" name="fg_sym_Taurus.png" path="/images/gameFree/gameFreeRight/"/>
+    <image id="bn1g8s" name="fg_num_Right_0.png" path="/fonts/fontImages/gameFreeRight/" exported="true"/>
+    <image id="bn1g8t" name="fg_num_Right_1.png" path="/fonts/fontImages/gameFreeRight/" exported="true"/>
+    <image id="bn1g8u" name="fg_num_Right_2.png" path="/fonts/fontImages/gameFreeRight/" exported="true"/>
+    <image id="bn1g8v" name="fg_num_Right_3.png" path="/fonts/fontImages/gameFreeRight/" exported="true"/>
+    <image id="bn1g8w" name="fg_num_Right_4.png" path="/fonts/fontImages/gameFreeRight/" exported="true"/>
+    <image id="bn1g8x" name="fg_num_Right_5.png" path="/fonts/fontImages/gameFreeRight/" exported="true"/>
+    <image id="bn1g8y" name="fg_num_Right_6.png" path="/fonts/fontImages/gameFreeRight/" exported="true"/>
+    <image id="bn1g8z" name="fg_num_Right_7.png" path="/fonts/fontImages/gameFreeRight/" exported="true"/>
+    <image id="bn1g90" name="fg_num_Right_8.png" path="/fonts/fontImages/gameFreeRight/" exported="true"/>
+    <image id="bn1g91" name="fg_num_Right_9.png" path="/fonts/fontImages/gameFreeRight/" exported="true"/>
+    <font id="bn1g92" name="gameFreeRightFont.fnt" path="/fonts/font/gameFreeRight/" exported="true"/>
+    <component id="bn1g93" name="AnchorDeer.xml" path="/component/gameFreeGame/" exported="true"/>
+    <component id="bn1g94" name="AnchorWolf.xml" path="/component/gameFreeGame/" exported="true"/>
+    <component id="bn1g95" name="AnchorEagle.xml" path="/component/gameFreeGame/" exported="true"/>
+    <component id="bn1g96" name="AnchorLeopard.xml" path="/component/gameFreeGame/" exported="true"/>
+    <component id="md4497" name="AnchorTargetIcon.xml" path="/component/gameFreeGame/"/>
+    <component id="md4498" name="AnchorCreditEffect.xml" path="/component/gameFreeGame/" exported="true"/>
+    <component id="z9k899" name="AnchorChangeIconAnim.xml" path="/component/gameFreeGame/" exported="true"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>
