@@ -657,7 +657,7 @@ namespace HuoYanGongNiu_3995
                     {
                         string winKey = item.Key;
                         long winValue = item.Value;
-                        MainModel.Instance.contentMD.winLevelMultiple.Add(new WinMultiple(winKey, winValue));
+                        CustomModel.Instance.winLevelMultiple.Add(new WinMultiple(winKey, winValue));
                     }
 
                     //轮盘数据存储
@@ -687,7 +687,7 @@ namespace HuoYanGongNiu_3995
                             if (index >= 0)
                             {
                                 // 3. 为列表中对应索引的元素赋值
-                                var targetItem = MainModel.Instance.contentMD.payTableSymbolWin[index];
+                                var targetItem = CustomModel.Instance.payTableSymbolWin[index];
                                 targetItem.x3 = jsonData1.x3; // 假设jsonData的属性是X3（根据实际定义调整）
                                 targetItem.x4 = jsonData1.x4;
                                 targetItem.x5 = jsonData1.x5;
@@ -1454,7 +1454,7 @@ namespace HuoYanGongNiu_3995
         WinLevelType GetBigWinType()
         {
             long baseGameWinCredit = ContentModel.Instance.baseGameWinCredit;
-            List<WinMultiple> winMultipleList = ContentModel.Instance.winLevelMultiple;
+            List<WinMultiple> winMultipleList = CustomModel.Instance.winLevelMultiple;
             long totalBet = ContentModel.Instance.totalBet;
             WinLevelType winLevelType = WinLevelType.None;
             for (int i = 0; i < winMultipleList.Count; i++)

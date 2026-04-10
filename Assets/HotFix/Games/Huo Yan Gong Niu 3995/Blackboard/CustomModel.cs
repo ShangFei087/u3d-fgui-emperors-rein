@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SlotMaker;
+using GameMaker;
 
 namespace HuoYanGongNiu_3995
 {
@@ -152,5 +153,105 @@ namespace HuoYanGongNiu_3995
             {4,  "ui://HuoYanGongNiu_3995/FourGoldBull"},
             {5,  "ui://HuoYanGongNiu_3995/FiveBull"},
         };
+
+        public List<PayTableSymbolInfo> payTableSymbolWin => new List<PayTableSymbolInfo>
+        {
+            new PayTableSymbolInfo()
+            {
+                symbol = 0,
+                x5 = 0,
+                x4 = 0,
+                x3 = 0,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 1,
+                x5 = 0,
+                x4 = 0,
+                x3 = 2,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 2,
+                x5 = 10,
+                x4 = 4,
+                x3 = 1,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 3,
+                x5 = 6,
+                x4 = 2,
+                x3 = 6,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 4,
+                x5 = 2,
+                x4 = 1,
+                x3 = 5,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 5,
+                x5 = 4,
+                x4 = 5,
+                x3 = 6,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 6,
+                x5 = 1,
+                x4 = 4,
+                x3 = 6,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 7,
+                x5 = 5,
+                x4 = 4,
+                x3 = 4,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 8,
+                x5 = 1,
+                x4 = 5,
+                x3 = 8,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 9,
+                x5 = 4,
+                x4 = 5,
+                x3 = 2,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 10,
+                x5 = 5,
+                x4 = 5,
+                x3 = 5,
+            },
+            new PayTableSymbolInfo()
+            {
+                symbol = 11,
+                x5 = 5,
+                x4 = 5,
+                x3 = 5,
+            },
+        };
+        public List<List<int>> payLines => new List<List<int>> 
+        { 
+
+        };
+        public List<WinMultiple> winLevelMultiple => new List<WinMultiple> 
+        {
+            
+        };
+
+        List<PayTableSymbolInfo> ICustomModel.payTableSymbolWin { get => payTableSymbolWin; set => throw new System.NotImplementedException(); }
+        List<List<int>> ICustomModel.payLines { get => payLines; set => throw new System.NotImplementedException(); }
+        List<WinMultiple> ICustomModel.winLevelMultiple { get => winLevelMultiple; set => throw new System.NotImplementedException(); }
     }
 }

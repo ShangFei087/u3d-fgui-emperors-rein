@@ -1072,6 +1072,9 @@ namespace XingYunZhiLun_3998
                 //积分同步和退币处理
                 slotMachineCtrl.SendTotalWinCreditEvent((int)winCredit);
 
+                //加分动画
+                MainBlackboardController.Instance.AddMyTempCredit((int)winCredit, true, isAddCreditAnim);
+
                 isNext = false;
 
             }
@@ -1123,7 +1126,8 @@ namespace XingYunZhiLun_3998
                 isNext = false;
 
                 yield return FreeSpinTrigger(() => isNext = true, errorCallback);
-
+                //积分同步和退币处理
+                slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit * MainModel.Instance.contentMD.betmultiple);
 
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
@@ -1314,6 +1318,7 @@ namespace XingYunZhiLun_3998
 
             yield return GameFreeSpin(null, errorCallback);
 
+            slotMachineCtrl.CloseSlotCover();
             slotMachineCtrl.SkipIdle(true);
             slotMachineCtrl.SkipWinLine(true);
 
@@ -1387,6 +1392,9 @@ namespace XingYunZhiLun_3998
 
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
+
+            //积分同步和退币处理
+            slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit * MainModel.Instance.contentMD.betmultiple);
 
             yield return slotMachineCtrl.SlotWaitForSeconds(0.5f);
 
@@ -1898,7 +1906,7 @@ namespace XingYunZhiLun_3998
 
             Debug.Log("解析数据");
             // 解析数据
-            MachineDataG3998Controller.Instance.ParseSlotSpin02(totalBet, resNode, sboxJackpotData);
+            MachineDataG3998Controller.Instance.ParseSlotSpin(totalBet, resNode, sboxJackpotData);
             // 数据入库
             //MachineDataG200Controller.Instance.TestRecord();
             // ui 彩金
@@ -2199,7 +2207,7 @@ namespace XingYunZhiLun_3998
             }
 
             // 解析数据
-            MachineDataG3998Controller.Instance.ParseSlotSpin02(totalBet, resNode, sboxJackpotData);
+            MachineDataG3998Controller.Instance.ParseSlotSpin(totalBet, resNode, sboxJackpotData);
 
             // 数据入库
 
@@ -2263,51 +2271,6 @@ namespace XingYunZhiLun_3998
                     MainModel.Instance.gameName = config.GameName;
                     MainModel.Instance.displayName = config.DisplayName;
                     MainModel.Instance.lineNum = config.LineNum;
-
-                    //赢钱倍数处理
-                    foreach (var item in config.WinLevelMultiple)
-                    {
-                        string winKey = item.Key;
-                        long winValue = item.Value;
-                        MainModel.Instance.cutomMD.winLevelMultiple.Add(new WinMultiple(winKey, winValue));
-                    }
-
-                    //符号支付表处理
-                    foreach (var kvp in config.SymbolPaytable)
-                    {
-                        string symbolKey = kvp.Key; // 如 "s0"、"s1"、"s2"
-                        var jsonData1 = kvp.Value; // 对应x3、x4、x5的数据
-
-                        // 1. 从symbolKey中提取索引（如"s0" → 0，"s1" → 1）
-                        if (int.TryParse(symbolKey.Replace("s", ""), out int index))
-                        {
-                            // 2. 检查索引是否在列表有效范围内
-                            if (index >= 0) 
-                            {
-                                // 3. 为列表中对应索引的元素赋值
-                                var targetItem = MainModel.Instance.cutomMD.payTableSymbolWin[index];
-                                targetItem.x3 = jsonData1.x3; // 假设jsonData的属性是X3（根据实际定义调整）
-                                targetItem.x4 = jsonData1.x4;
-                                targetItem.x5 = jsonData1.x5;
-                                // 若需要同步symbol字段（可选，确保一致）
-                                targetItem.symbol = index;
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogWarning($"无效的符号键：{symbolKey}，无法解析索引");
-                        }
-                    }
-
-                    //支付线处理
-                    if (CustomModel.Instance.payLines == null)
-                    {
-                        CustomModel.Instance.payLines = new List<List<int>>() { };
-                    }
-                    foreach (var item in config.pay_lines)
-                    {
-                        CustomModel.Instance.payLines.Add(item);
-                    }
                 });
         }
 
@@ -2567,7 +2530,6 @@ namespace XingYunZhiLun_3998
                             ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
                             ContentModel.Instance.gameState = GameState.Spin;
                         }
-
 
                         isNext = true;
                         isMain = true;
