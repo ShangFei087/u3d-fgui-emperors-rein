@@ -483,96 +483,17 @@ public class UIConst
                 },
             [PageName.CaiFuHuoChePageGameMain] =
                 new object[] { "Assets/GameRes/Games/Cai Fu Huo Che 3996/FGUIs", "CaiFuHuoChe_3996.PageGameMain" },
-            [PageName.XingYunZhiLunPopupGameLoading] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupGameLoading"
-                },
-            [PageName.XingYunZhiLunPageGameMain] =
-                new object[] { "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PageGameMain" },
-            [PageName.XingYunZhiLunPopupJackpotGameResult] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupJackpotGameResult"
-                },
-            [PageName.XingYunZhiLunPopupFreeSpinTrigger] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupFreeSpinTrigger"
-                },
-            [PageName.XingYunZhiLunPopupFreeSpinResult] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupFreeSpinResult"
-                },
-            [PageName.XingYunZhiLunPopupJackpotGameTrigger] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupJackpotGameTrigger"
-                },
-            [PageName.XingYunZhiLunPopupJackpotGameExit] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupJackpotGameExit"
-                },
-            [PageName.XingYunZhiLunPopupJackpotGameEnter] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupJackpotGameEnter"
-                },
-            [PageName.XingYunZhiLunPopupJackpotGameQuit] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupJackpotGameQuit"
-                },
-            [PageName.XingYunZhiLunPopupZhuanPan] =
-                new object[] { "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupZhuanPan" },
-            [PageName.XingYunZhiLunPopupGameLoading] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupGameLoading"
-                },
-            [PageName.XingYunZhiLunPageGameMain] =
-                new object[] { "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PageGameMain" },
-            [PageName.XingYunZhiLunPopupJackpotGameResult] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupJackpotGameResult"
-                },
-            [PageName.XingYunZhiLunPopupFreeSpinTrigger] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupFreeSpinTrigger"
-                },
-            [PageName.XingYunZhiLunPopupFreeSpinResult] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupFreeSpinResult"
-                },
-            [PageName.XingYunZhiLunPopupJackpotGameTrigger] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupJackpotGameTrigger"
-                },
-            [PageName.XingYunZhiLunPopupJackpotGameExit] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupJackpotGameExit"
-                },
-            [PageName.XingYunZhiLunPopupJackpotGameEnter] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupJackpotGameEnter"
-                },
-            [PageName.XingYunZhiLunPopupJackpotGameQuit] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupJackpotGameQuit"
-                },
-            [PageName.XingYunZhiLunPopupZhuanPan] = new object[]
-            {
-                "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupZhuanPan"
-            }
+
+
+            //火焰公牛
+             [PageName.HuoYanGongNiuPopupGameLoading] =
+                new object[] { "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PopupGameLoading" },
+            [PageName.HuoYanGongNiuPageGameMain] =
+                new object[] { "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PageGameMain" },
+            [PageName.HuoYanGongNiuPopupFreeSpinTrigger] = 
+                new object[] { "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PopupFreeSpinTrigger" },
+            [PageName.HuoYanGongNiuPopupFreeSpinExit] = 
+                new object[] { "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PopupFreeSpinExit" },
         };
     }
 }
@@ -727,4 +648,10 @@ public enum PageName
     CaiFuHuoChePopupJackpotGameExit,
     CaiFuHuoChePopupFreeSpinResult,
     CaiFuHuoChePageGameMain,
+
+    //火焰公牛
+    HuoYanGongNiuPopupFreeSpinExit,
+    HuoYanGongNiuPopupFreeSpinTrigger,
+    HuoYanGongNiuPopupGameLoading,
+    HuoYanGongNiuPageGameMain,
 }
