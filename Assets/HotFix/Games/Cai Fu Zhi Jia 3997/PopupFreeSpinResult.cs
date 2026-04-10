@@ -68,6 +68,7 @@ namespace CaiFuZhiJia_3997
             _freeResultTipWindow = contentPane.GetChild("freeResultTipWindow").asCom;
             _freeStartBtn = _freeResultTipWindow.GetChild("freeStartBtn").asButton;
             _freeGameResultScore = _freeResultTipWindow.GetChild("freeGameResultScore").asCom;
+            _freeGameResultScore.GetChild("number").asTextField.text = ContentModel.Instance.freeSpinTotalWinCoins.ToString();
 
             InitParam();
         }
