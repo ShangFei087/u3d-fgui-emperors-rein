@@ -244,6 +244,14 @@ public class TestManager : Singleton<TestManager>
             PageName.XingYunZhiLunPopupGameLoading,
             PageName.CaiFuZhiMenPopupGameLoading
         };
+        List<int> openPageId= new List<int>()
+        {
+            1700,
+            3996,
+            3997,
+            3998,
+            3999
+        };
 
         List<PageName> resetPageNames = new List<PageName>()
         {
@@ -311,6 +319,7 @@ public class TestManager : Singleton<TestManager>
                 }
 
                 selectProjectMenu.visible = false;
+                SBoxIdea.GameSwitch(openPageId[index]);
                 PageManager.Instance.OpenPage(openPageNames[index]);
             }));
         }
