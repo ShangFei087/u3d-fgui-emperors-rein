@@ -1,0 +1,17 @@
+{
+	"OpenType": 0,
+
+	"ResultType": 3,
+	
+	"BonusType": 4,
+	
+	"BonusBet": 4900,
+  
+	"IDVec":[],
+
+	"MatrixLength": 15,
+	
+	"Matrix": [10,9,6,10,4,
+		3,10,1,10,7,
+		5,10,8,0,10]
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="288,209">
+  <displayList>
+    <image id="n0_dtum" name="n0" src="dtum6g" fileName="images/pageGameMain/fg_img_Black Panther Icon Collection UI_01.png" xy="0,0"/>
+    <image id="n2_dtum" name="n2" src="qkv07" fileName="images/common/SlotMachine/Symbols/ng_sym09_BlackPanther.png" xy="83,153" scale="0.3,0.3"/>
+    <image id="n4_l0db" name="n4" src="l0db71" fileName="images/pageGameMain/fg_img_Black Panther Icon Collection UI_YOU GOT.png" xy="96,93"/>
+    <text id="n3_dtum" name="currentBootNumber" xy="146,152" size="82,40" font="ui://wnvfq681qkv04l" fontSize="6" align="center" vAlign="middle" autoSize="none" text=""/>
+    <component id="n5_jtut" name="anchor_EffectParent" src="jtut75" fileName="moudules/pageGameMain/FreeGame/Anchor_EffectParent.xml" xy="105,172"/>
+  </displayList>
+</component>

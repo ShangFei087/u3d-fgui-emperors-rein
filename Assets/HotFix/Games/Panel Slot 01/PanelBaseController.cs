@@ -542,22 +542,14 @@ namespace SlotMaker
                 case SpinButtonState.Spin:
                     {
                         spinBtnCtrl.State = "Spin";
-                        //if (gOwnerPanel != null)
-                        //{
-                        //    gOwnerPanel.GetChild("goodLuck").asLoader.visible = false;
-                        //    gOwnerPanel.GetChild("win").asCom.visible = true;
-                        //}
+                      
                         ChangButtonNo(true);
                     }
                     break;
                 case SpinButtonState.Auto:
                     {
                         spinBtnCtrl.State = "Auto";
-                        //if (gOwnerPanel != null)
-                        //{
-                        //    gOwnerPanel.GetChild("goodLuck").asLoader.visible = false;
-                        //    gOwnerPanel.GetChild("win").asCom.visible = true;
-                        //}
+                       
                         ChangButtonNo(true);
                     }
                     break;
@@ -569,7 +561,7 @@ namespace SlotMaker
         {
             string gameState = (string)res?.value;
 
-            if (gameState == GameState.Spin || gameState == GameState.FreeSpin)
+            if (gameState == GameState.Spin )
             {
                 win.text = 0.ToString();
                 ClearSingleLineText();
@@ -591,19 +583,13 @@ namespace SlotMaker
             if (receivedEvent.name == SlotMachineEvent.TotalWinCredit)
             {
                 long totalWinCredit = (long)receivedEvent.value;
-                //gOwnerPanel.GetChild("win").asCom.GetChild("winSound").asTextField.text = totalWinCredit.ToString();
                 win.text = totalWinCredit.ToString();
                 ClearSingleLineText();
-                // uiWin.SetToCredit(totalWinCredit);
             }
             else if (receivedEvent.name == SlotMachineEvent.SingleWinBonus)
             {
                 long totalWinCredit = (long)receivedEvent.value;
-                NumberAnimation.Instance.AnimateNumber(win,
-                                                       long.Parse(win.text),
-                                                       totalWinCredit + long.Parse(win.text),
-                                                       0.4f);
-
+                NumberAnimation.Instance.AnimateNumber(win,long.Parse(win.text),totalWinCredit + long.Parse(win.text), 0.4f);
             }
             else if (receivedEvent.name == SlotMachineEvent.SingleWinLine)
             {

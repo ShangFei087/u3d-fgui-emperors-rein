@@ -21,7 +21,7 @@ namespace CaiFuZhiMen_3999
         [JsonProperty("game_id")] public int gameId; //游戏 ID
         [JsonProperty("game_name")] public string gameName; //名称
         [JsonProperty("display_name")] public string displayName; //显示名称
-        [JsonProperty("line_num")] public int LineNum;//线数
+        [JsonProperty("line_num")] public int LineNum; //线数
         [JsonProperty("win_level_multiple")] public Dictionary<string, long> WinLevelMultiple { get; set; } //赢钱倍数
 
         [JsonProperty("symbol_paytable")]
@@ -159,7 +159,8 @@ namespace CaiFuZhiMen_3999
             MainModel.Instance.contentMD = ContentModel.Instance;
             MainModel.Instance.cutomMD = CustomModel.Instance;
             ShowPayTable();
-            ParseGameInfo();
+            // ParseGameInfo();
+            ReadJsonBet();
             InitUIPool();
             LoadPanel();
             InitSlotReelView();
@@ -203,7 +204,8 @@ namespace CaiFuZhiMen_3999
             base.OnOpen(currentPageName, eventData);
             InitFreeSpinUIAndController();
             GameSoundHelper3999.Instance.PlayMusicSingle(SoundKey.RegularBG);
-            EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
+            EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE,
+                OnCoinPushSpinResultParse);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
@@ -225,7 +227,8 @@ namespace CaiFuZhiMen_3999
             _compareRedRay = null;
 
             GameSoundHelper3999.Instance.StopSound(SoundKey.RegularBG);
-            EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
+            EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(
+                SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
@@ -408,9 +411,31 @@ namespace CaiFuZhiMen_3999
 
             // if (CustomModel.Instance.payLines == null)
             //     CustomModel.Instance.payLines = new List<List<int>>() { };
-            foreach (var item in config.PayLines)
-                CustomModel.Instance.payLines.Add(item);
+            // foreach (var item in config.PayLines)
+            //     CustomModel.Instance.payLines.Add(item);
             // payTableController.OnPropertyChangeTotalBet();
+        }
+
+        //读取游戏配置
+        private void ReadJsonBet()
+        {
+            //资源加载
+            ResourceManager02.Instance.LoadAsset<TextAsset>(
+                "Assets/GameRes/_Common/Game Maker/ABs/G3999/Datas/game_info_g3999.json", (txt) =>
+                {
+                    //JSON解析与错误处理
+                    GameConfigRoot config = JsonConvert.DeserializeObject<GameConfigRoot>(txt.text);
+                    if (config?.SymbolPayTable == null)
+                    {
+                        Debug.LogError("解析symbol_paytable失败，数据为空");
+                        return;
+                    }
+
+                    MainModel.Instance.gameID = config.gameId;
+                    MainModel.Instance.gameName = config.gameName;
+                    MainModel.Instance.displayName = config.displayName;
+                    MainModel.Instance.lineNum = config.LineNum;
+                });
         }
 
         private void InitUIPool()
@@ -487,6 +512,7 @@ namespace CaiFuZhiMen_3999
 
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
         }
+
         private void ShowJackpotData()
         {
             //彩金
@@ -653,7 +679,7 @@ namespace CaiFuZhiMen_3999
                 case SpinButtonState.Spin:
                     if (!ContentModel.Instance.isSpin) return;
                     _slotMachineController.isStopImmediately = true;
-                    SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.StopImmediately);
+                    //SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.StopImmediately);
                     break;
 
                 case SpinButtonState.Auto:
@@ -917,7 +943,26 @@ namespace CaiFuZhiMen_3999
             ContentModel.Instance.gameState = GameState.Idle;
 
             // 有好酷优先用好酷
-            if (false && SBoxModel.Instance.isUseIot && _tipCoinIn) { }
+            if (false && SBoxModel.Instance.isUseIot && _tipCoinIn)
+            {
+                /*
+                    tipCoinIn = false;
+
+                    if (!DeviceIOTPayment.Instance.isIOTConneted)
+                    {
+                        TipPopupHandler.Instance.OpenPopupOnce(string.Format(I18nMgr.T("IOT connection failed [{0}]"), Code.DEVICE_IOT_MQTT_NOT_CONNECT));
+                    }
+                    else if (!DeviceIOTPayment.Instance.isIOTSignInGetQRCode)
+                    {
+                        TipPopupHandler.Instance.OpenPopupOnce(string.Format(I18nMgr.T("IOT connection failed [{0}]"), Code.DEVICE_IOT_NOT_SIGN_IN));
+                    }
+                    else
+                    {
+                        DeviceIOTPayment.Instance.DoQrCoinIn();
+                    }
+                    return;
+                    */
+            }
             else
             {
                 string massage = I18nMgr.T(msg);
@@ -1152,8 +1197,7 @@ namespace CaiFuZhiMen_3999
             {
                 // 计算总奖金 并判断中奖类型
                 long totalWinLineCredit = 0;
-                totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList) *
-                                     MainModel.Instance.contentMD.betmultiple; // 新增倍率
+                totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList);/* * MainModel.Instance.contentMD.betmultiple; // 新增倍率*/
                 allWinCredit = totalWinLineCredit;
                 _slotMachineController.SendTotalWinCreditEvent(allWinCredit); // 发送总奖金事件
                 //加钱动画
@@ -1323,6 +1367,7 @@ namespace CaiFuZhiMen_3999
                     _slotMachineController.CloseSlotCover();
                     _gameController.selectedPage = "normal";
                     ResetWildSpines();
+                    ContentModel.Instance.isFreeSpinTrigger = false;
                 });
 
             _slotMachineController.EndBonusFreeSpin();
@@ -1450,23 +1495,14 @@ namespace CaiFuZhiMen_3999
 
             if (winList.Count > 0 || ContentModel.Instance.bonusResults != null)
             {
-                long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList) *
-                                          MainModel.Instance.contentMD.betmultiple; // 新增倍率
+                long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList); /* *MainModel.Instance.contentMD.betmultiple; // 新增倍率*/
                 _allWinCredit += totalWinLineCredit;
-                // Debug.LogError("totalWinLineCredit：" + totalWinLineCredit);
-                Debug.LogError("_allWinCredit：" + _allWinCredit);
+                Debug.LogError("_allWinCredit：" + _allWinCredit + "-------totalWinLineCredit：" + totalWinLineCredit);
                 _slotMachineController.SendTotalWinCreditEvent(_allWinCredit); // 总线赢分事件
-
-                // bool isAddToCredit = totalWinLineCredit > TotalBet * 4;
-                // _slotMachineController.SendPrepareTotalWinCreditEvent(totalWinLineCredit, isAddToCredit);
-                // _slotMachineController.SendTotalWinCreditEvent(totalWinLineCredit); // 总线赢分事件
-                // ContentModel.Instance.FreeOnceCredit = totalWinLineCredit; // 加钱动画
             }
 
             #endregion
 
-            // 本剧同步玩家金钱
-            // MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             isNext = false;
 
             if (winList.Count > 0 || false) // isHitJackpot

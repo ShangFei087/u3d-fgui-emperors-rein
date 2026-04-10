@@ -97,56 +97,56 @@ namespace SlotZhuZaiJinBi1700
                 return result;
 
             int pos = startPos;
-            int OpenType = data[pos++];
-            int ResultType = data[pos++];
-            int WinlineNum = data[pos++];
-            int TotalBet = data[pos++];
-            int MatrixLength = data[pos++];
-            result["OpenType"] = OpenType;
-            result["ResultType"] = ResultType;
-            result["lineNum"] = WinlineNum;
-            result["TotalBet"] = TotalBet;
-            result["MatrixLength"] = MatrixLength;
+            int openType = data[pos++];
+            int resultType = data[pos++];
+            int winlineNum = data[pos++];
+            int totalBet = data[pos++];
+            int matrixLength = data[pos++];
+            result["OpenType"] = openType;
+            result["ResultType"] = resultType;
+            result["lineNum"] = winlineNum;
+            result["TotalBet"] = totalBet;
+            result["MatrixLength"] = matrixLength;
             result["IDVec"] = new JSONArray();
-            for (int i = 0; i < WinlineNum; i++)
+            for (int i = 0; i < winlineNum; i++)
             {
                 int id = data[pos++];
                 result["IDVec"].Add(id);
             }
 
             result["Matrix"] = new JSONArray();
-            for (int i = 0; i < MatrixLength; i++)
+            for (int i = 0; i < matrixLength; i++)
             {
                 int id = data[pos++];
                 result["Matrix"].Add(id);
             }
 
-            if (OpenType == 2)
+            if (resultType == (int)ResultType.RT_FreeWin)
             {
-                int TotalFreeTime = data[pos++];
-                int TotalFreeBet = data[pos++];
+                int totalFreeTime = data[pos++];
+                int totalFreeBet = data[pos++];
                 result["FreeBetArray"] = new JSONArray();
-                for (int i = 0; i < TotalFreeTime; i++)
+                for (int i = 0; i < totalFreeTime; i++)
                 {
                     int id = data[pos++];
                     result["FreeBetArray"].Add(id);
                 }
-                result["TotalFreeTime"] = TotalFreeTime;
-                result["TotalFreeBet"] = TotalFreeBet;
+                result["TotalFreeTime"] = totalFreeTime;
+                result["TotalFreeBet"] = totalFreeBet;
             }
 
-            if (OpenType == 3)
+            if (resultType == (int)ResultType.RT_FreeWin)
             {
-                int BonusBet = data[pos++];
-                int BonusType = data[pos++];
+                int bonusBet = data[pos++];
+                int bonusType = data[pos++];
                 result["BonusData"] = new JSONArray();
-                for (int i = 0; i < MatrixLength; i++)
+                for (int i = 0; i < matrixLength; i++)
                 {
                     int id = data[pos++];
                     result["BonusData"].Add(id);
                 }
-                result["BonusBet"] = BonusBet;
-                result["BonusType"] = BonusType;
+                result["BonusBet"] = bonusBet;
+                result["BonusType"] = bonusType;
             }
 
             return result;
@@ -162,6 +162,19 @@ namespace SlotZhuZaiJinBi1700
             ContentModel.Instance.isFreeSpinTrigger = false;
 
             int openType = (int)res["OpenType"];
+            if (ContentModel.Instance.PendingFreeSpinReconnectValidation)
+            {
+                ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
+                bool expectGiveSpin = ContentModel.Instance.freeSpinTotalTimes > 0 && ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes;
+                if (expectGiveSpin && openType != (int)OpenType.OT_Give)
+                {
+                    DebugUtils.LogError(
+                        $"[G1700] 免费局重连校验失败：预期赠送局 OpenType={(int)OpenType.OT_Give}，实际={openType}。已清除本地快照并回退主游戏。");
+                    FreeSpinSessionStoreG1700.Clear(SBoxModel.Instance.pid);
+                    FreeSpinSessionStoreG1700.ResetContentModelFreeStateToBaseGame();
+                }
+            }
+
             int resultType = (int)res["ResultType"];
             int lineNum = (int)res["lineNum"];
             int totalwin = (int)res["TotalBet"];
@@ -237,13 +250,13 @@ namespace SlotZhuZaiJinBi1700
             CheckGameResult(strDeckRowCol, totalwin);
 
             //判断彩金
-            bool isJackpotMajor = sboxJackpotData == null? false: (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 0 ? sboxJackpotData.Lottery[0] == 1: false);
-            bool isJackpotMinor = sboxJackpotData == null? false: (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 1? sboxJackpotData.Lottery[1] == 1: false);
-            bool isJackpotMini = sboxJackpotData == null? false: (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 2? sboxJackpotData.Lottery[2] == 1: false);
+            bool isJackpotMajor = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 0 ? sboxJackpotData.Lottery[0] == 1 : false);
+            bool isJackpotMinor = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 1 ? sboxJackpotData.Lottery[1] == 1 : false);
+            bool isJackpotMini = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 2 ? sboxJackpotData.Lottery[2] == 1 : false);
 
-            jpGameRes.curJackpotMajor = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 0? sboxJackpotData.JackpotOut[0]: 0;
-            jpGameRes.curJackpotMinior = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 1? sboxJackpotData.JackpotOut[1]: 0;
-            jpGameRes.curJackpotMini = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 2? sboxJackpotData.JackpotOut[2]: 0;
+            jpGameRes.curJackpotMajor = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 0 ? sboxJackpotData.JackpotOut[0] : 0;
+            jpGameRes.curJackpotMinior = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 1 ? sboxJackpotData.JackpotOut[1] : 0;
+            jpGameRes.curJackpotMini = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 2 ? sboxJackpotData.JackpotOut[2] : 0;
             ContentModel.Instance.jpGameRes = jpGameRes;
 
             if (isJackpotMajor)
@@ -258,7 +271,6 @@ namespace SlotZhuZaiJinBi1700
                     curCredit = sboxJackpotData.JackpotOut[1],
                 });
             }
-
             if (isJackpotMinor)
             {
                 int winCredit = (int)res["num"];
@@ -271,7 +283,6 @@ namespace SlotZhuZaiJinBi1700
                     curCredit = sboxJackpotData.JackpotOut[1],
                 });
             }
-
             if (isJackpotMini)
             {
                 int winCredit = (int)res["num"];
@@ -285,54 +296,10 @@ namespace SlotZhuZaiJinBi1700
                 });
             }
 
-            List<int> deckRowCol = SlotTool.GetDeckRowCol(strDeckRowCol);
-            int wild = CustomModel.Instance.symbolNumber[9];
-            int scatter = CustomModel.Instance.symbolNumber[10];
-            const int bonus = 11;
-
-            //判断免费奖
-            if (CustomModel.Instance.freeGameConfig.IsHasFreeGame && !CustomModel.Instance.freeGameConfig.IsScatterInLine)
-            {
-                int scatterCount = 0;
-                bool isFree = false;
-                int freeTime = 0;
-                for (int i = 0; i < wheelChessNum; ++i)
-                {
-                    if (deckRowCol[i]== scatter)
-                    {
-                        scatterCount += 1;
-                    }
-                   
-                }
-                for (int i = 0; i < CustomModel.Instance.freeGameConfig.Make2FreeGameCount.Length; ++i)
-                {
-                    if (scatterCount == CustomModel.Instance.freeGameConfig.Make2FreeGameCount[i])
-                    {
-                        isFree = true;
-                        freeTime = CustomModel.Instance.freeGameConfig.FreeGameTime[i];
-                        
-                    }
-                }
-
-
-                if (resultType == (int)ResultType.RT_FreeWin && isFree&& (freeTime== (int)res["TotalFreeTime"]))
-                {
-                    int TotalFreeTime = (int)res["TotalFreeTime"];
-                    ContentModel.Instance.curReelStripsIndex = "BS";
-                    ContentModel.Instance.nextReelStripsIndex = "FS";
-                    ContentModel.Instance.isFreeSpinTrigger = true;
-                    ContentModel.Instance.freeSpinTotalTimes = TotalFreeTime;
-                    ContentModel.Instance.freeSpinPlayTimes = 0;
-                    ContentModel.Instance.freeSpinTotalWinCredit = 0;
-                }
-                else
-                {
-                    DebugUtils.LogError($"[G1700][CheckFree] 校验不一致，算法回ResultType={resultType} ，本地计算isFree={isFree},算法FreeTime={(int)res["TotalFreeTime"]},本地计算freeTime={freeTime}");
-                }
-            }
-
-            //判断赠送局
-            if (ContentModel.Instance.freeSpinTotalTimes < ContentModel.Instance.freeSpinPlayTimes  )
+            long creditBefore = 0; 
+            long creditAfter = 0; 
+            //判断赠送局(未完成免费序列的每一局，算法 OpenType 为赠送)
+            if (ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes)
             {
                 if (openType != (int)OpenType.OT_Give)
                 {
@@ -352,29 +319,88 @@ namespace SlotZhuZaiJinBi1700
                     ContentModel.Instance.nextReelStripsIndex = "FS";
                 }
                 ContentModel.Instance.isFreeSpinResult = ContentModel.Instance.curReelStripsIndex == "FS" && ContentModel.Instance.nextReelStripsIndex == "BS";
-            }
-            
-            //判断大奖
-            if (CustomModel.Instance.bonusGameconfig.IsHasBonusGame && !CustomModel.Instance.bonusGameconfig.IsBonusInLine)
-            {
-                int bonusCount = 0;
-                bool isBonus = false;
 
-                for (int i = 0; i < wheelChessNum; ++i)
+                //赢分
+                creditBefore = MainBlackboardController.Instance.myRealCredit;
+                creditAfter = creditBefore + totalLineWin;
+            }
+            else
+            {
+
+
+                List<int> deckRowCol = SlotTool.GetDeckRowCol(strDeckRowCol);
+                int wild = CustomModel.Instance.symbolNumber[9];
+                int scatter = CustomModel.Instance.symbolNumber[10];
+                const int bonus = 11;
+
+
+                //判断免费奖
+                if (CustomModel.Instance.freeGameConfig.IsHasFreeGame && !CustomModel.Instance.freeGameConfig.IsScatterInLine)
                 {
-                    if (deckRowCol[i] == bonus)
+                    int scatterCount = 0;
+                    bool isFree = false;
+                    int customfreeTime = 0;
+                    for (int i = 0; i < wheelChessNum; ++i)
                     {
-                        bonusCount += 1;
+                        if (deckRowCol[i] == scatter)
+                        {
+                            scatterCount += 1;
+                        }
+
+                    }
+                    for (int i = 0; i < CustomModel.Instance.freeGameConfig.Make2FreeGameCount.Length; ++i)
+                    {
+                        if (scatterCount == CustomModel.Instance.freeGameConfig.Make2FreeGameCount[i])
+                        {
+                            isFree = true;
+                            customfreeTime = CustomModel.Instance.freeGameConfig.FreeGameTime[i];
+                        }
                     }
 
+                    if (isFree)
+                    {
+                        if (resultType == (int)ResultType.RT_FreeWin && (customfreeTime == (int)res["TotalFreeTime"]))
+                        {
+                            int TotalFreeTime = (int)res["TotalFreeTime"];
+                            ContentModel.Instance.curReelStripsIndex = "BS";
+                            ContentModel.Instance.nextReelStripsIndex = "FS";
+                            ContentModel.Instance.isFreeSpinTrigger = true;
+                            ContentModel.Instance.gameNumberFreeSpinTrigger = MainModel.Instance.gameNumber;
+                            ContentModel.Instance.freeSpinTotalTimes = TotalFreeTime;
+                            ContentModel.Instance.freeSpinPlayTimes = 0;
+                            ContentModel.Instance.freeSpinTotalWinCredit = 0;
+
+                        }
+                        else
+                        {
+                            DebugUtils.LogError($"[G1700][CheckFree] 校验不一致，算法回ResultType={resultType} ，本地计算isFree={isFree},算法FreeTime={(int)res["TotalFreeTime"]},本地计算freeTime={customfreeTime}");
+                        }
+                    }
                 }
 
-                //....................
+                //判断大奖
+                if (CustomModel.Instance.bonusGameconfig.IsHasBonusGame && !CustomModel.Instance.bonusGameconfig.IsBonusInLine)
+                {
+                    int bonusCount = 0;
+                    bool isBonus = false;
+
+                    for (int i = 0; i < wheelChessNum; ++i)
+                    {
+                        if (deckRowCol[i] == bonus)
+                        {
+                            bonusCount += 1;
+                        }
+
+                    }
+
+                    //....................
+                }
+
+                //赢分
+                creditBefore = MainBlackboardController.Instance.myRealCredit;
+                creditAfter = creditBefore - totalBet + totalLineWin;
             }
 
-            //赢分
-            long creditBefore = MainBlackboardController.Instance.myRealCredit;
-            long creditAfter = creditBefore - totalBet + totalLineWin ;
 
             //List<List<int>> deckColRow = SlotTool.GetDeckColRow02(strDeckRowCol);
             ////bool isReelsSlowMotion = (deckColRow[0].Contains(10) && deckColRow[1].Contains(10)) ? true : false;
@@ -385,11 +411,14 @@ namespace SlotZhuZaiJinBi1700
             //ContentModel.Instance.bonusResult = bonusResult;
             //ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Default;
             //SlotGameEffectManager.Instance.SetEffect(ContentModel.Instance.targetSlotGameEffect);
+        
 
             // 记录游戏数据到数据库
             Record(totalBet, res);
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
             DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple} ");
+
+            FreeSpinSessionStoreG1700.TryPersistOrClearSession();
         }
 
         private int GetLineOdds(int symbolType, int hitCount)

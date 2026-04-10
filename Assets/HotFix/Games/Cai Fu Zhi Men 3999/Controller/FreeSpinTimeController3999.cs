@@ -37,11 +37,17 @@ namespace CaiFuZhiMen_3999
         private void ChangFreeSpinTime(EventData eventData = null)
         {
             if (eventData is { name: "ContentModel/ShowFreeSpinRemainTime" })
-            {
-                _freeSpinTime.text =
-                    eventData.value.ToString() + "/" + ContentModel.Instance.FreeSpinTotalTimes;
-            }
+                _freeSpinTime.text = eventData.value + "/" + ContentModel.Instance.FreeSpinTotalTimes;
         }
+
+        // private void ChangFreeSpinTime(EventData eventData = null)
+        // {
+        //     if (eventData is { name: "ContentModel/FreeSpinPlayTimes" })
+        //     {
+        //         int remainTime = ContentModel.Instance.FreeSpinTotalTimes - (int)eventData.value + 1;
+        //         _freeSpinTime.text = remainTime + "/" + ContentModel.Instance.FreeSpinTotalTimes;
+        //     }
+        // }
 
         void IContorller.Dispose()
         {

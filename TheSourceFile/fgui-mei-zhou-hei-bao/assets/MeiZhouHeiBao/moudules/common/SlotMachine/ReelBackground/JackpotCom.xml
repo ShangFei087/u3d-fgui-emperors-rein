@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1115,708">
+  <controller name="jackpotState" pages="0,normal,1,grey" selected="0"/>
+  <displayList>
+    <image id="n0_dtum" name="n0" src="rjnl5p" fileName="images/common/SlotMachine/ReelBackground/fg_img_base plate 2.png" xy="0,0"/>
+    <image id="n1_dtum" name="n1" src="qkv055" fileName="images/common/SlotMachine/GameJackpot/ng_img_Bonus Tips_GRAND.png" xy="122,63" group="n5_dtum">
+      <gearDisplay controller="jackpotState" pages="0"/>
+    </image>
+    <image id="n2_dtum" name="n2" src="qkv056" fileName="images/common/SlotMachine/GameJackpot/ng_img_Bonus Tips_MAJOR.png" xy="921,64" group="n5_dtum">
+      <gearDisplay controller="jackpotState" pages="0"/>
+    </image>
+    <image id="n3_dtum" name="n3" src="qkv057" fileName="images/common/SlotMachine/GameJackpot/ng_img_Bonus Tips_MINI.png" xy="899,99" group="n5_dtum">
+      <gearDisplay controller="jackpotState" pages="0"/>
+    </image>
+    <image id="n4_dtum" name="n4" src="qkv058" fileName="images/common/SlotMachine/GameJackpot/ng_img_Bonus Tips_MINOR.png" xy="142,99" group="n5_dtum">
+      <gearDisplay controller="jackpotState" pages="0"/>
+    </image>
+    <group id="n5_dtum" name="normalJackpot" xy="122,63" size="884,64"/>
+    <image id="n6_dtum" name="n6" src="qkv059" fileName="images/common/SlotMachine/GameJackpot/ng_img_Gray bonus prompt word_GRAND.png" xy="122,63" group="n10_dtum">
+      <gearDisplay controller="jackpotState" pages="1"/>
+    </image>
+    <image id="n7_dtum" name="n7" src="qkv05a" fileName="images/common/SlotMachine/GameJackpot/ng_img_Gray bonus prompt word_MAJOR.png" xy="921,64" group="n10_dtum">
+      <gearDisplay controller="jackpotState" pages="1"/>
+    </image>
+    <image id="n8_dtum" name="n8" src="qkv05b" fileName="images/common/SlotMachine/GameJackpot/ng_img_Gray bonus prompt word_MINOR.png" xy="143,99" group="n10_dtum">
+      <gearDisplay controller="jackpotState" pages="1"/>
+    </image>
+    <image id="n9_dtum" name="n9" src="qkv05c" fileName="images/common/SlotMachine/GameJackpot/ng_img_Gray bonus prompt word_MNI.png" xy="900,100" group="n10_dtum">
+      <gearDisplay controller="jackpotState" pages="1"/>
+    </image>
+    <group id="n10_dtum" name="greyJackpot" xy="122,63" size="884,65"/>
+  </displayList>
+</component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1332,78" extention="ProgressBar">
+  <displayList>
+    <image id="n0_qkv0" name="n0" src="qkv04p" fileName="images/gameLoading/Load_base.png" xy="0,0" size="1332,78">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_qkv0" name="bar" src="qkv04r" fileName="images/gameLoading/Load_Progress bar.png" xy="10,8" size="1314,59"/>
+    <component id="n2_qkv0" name="anchor_BarEffect" src="qkv04w" fileName="moudules/gameLoading/Anchor_BarEffect.xml" xy="1309,38">
+      <relation target="n1_qkv0" sidePair="right-right"/>
+    </component>
+  </displayList>
+  <ProgressBar/>
+</component>

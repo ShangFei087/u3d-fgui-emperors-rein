@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="145,399">
+  <displayList>
+    <component id="n0_qkv0" name="symbol0" src="qkv05k" fileName="moudules/common/SlotMachine/Content/Symbol.xml" xy="0,-266"/>
+    <component id="n1_qkv0" name="symbol1" src="qkv05k" fileName="moudules/common/SlotMachine/Content/Symbol.xml" xy="0,-133"/>
+    <component id="n2_qkv0" name="symbol2" src="qkv05k" fileName="moudules/common/SlotMachine/Content/Symbol.xml" xy="0,0"/>
+    <component id="n3_qkv0" name="symbol3" src="qkv05k" fileName="moudules/common/SlotMachine/Content/Symbol.xml" xy="0,133"/>
+    <component id="n4_qkv0" name="symbol4" src="qkv05k" fileName="moudules/common/SlotMachine/Content/Symbol.xml" xy="0,266"/>
+    <component id="n5_qkv0" name="symbol5" src="qkv05k" fileName="moudules/common/SlotMachine/Content/Symbol.xml" xy="0,399"/>
+    <component id="n6_qkv0" name="symbol6" src="qkv05k" fileName="moudules/common/SlotMachine/Content/Symbol.xml" xy="0,532"/>
+    <component id="n7_qkv0" name="symbol7" src="qkv05k" fileName="moudules/common/SlotMachine/Content/Symbol.xml" xy="0,665"/>
+  </displayList>
+</component>

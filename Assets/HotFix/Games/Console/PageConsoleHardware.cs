@@ -83,8 +83,8 @@ namespace ConsoleSlot01
                 CloseSelf(null);
             });
 
-            tabBtnTestCtrl.InitParam(this.contentPane.GetChild("pages").asCom.GetChildAt(0).asCom, ConsoleTableName.TABLE_HARDWARE_BTN_TEST);
-            tabScreenTestCtrl.InitParam(this.contentPane.GetChild("pages").asCom.GetChildAt(1).asCom, ConsoleTableName.TABLE_HARDWARE_SCREEN_TEST);
+            tabBtnTestCtrl.InitParam(this.contentPane.GetChild("pages").asCom.GetChildAt(0).asCom);
+            tabScreenTestCtrl.InitParam(this.contentPane.GetChild("pages").asCom.GetChildAt(1).asCom);
         }
     }
 }

@@ -34,10 +34,9 @@ namespace SlotZhuZaiJinBi1700
 
     public class PageGameMain : MachinePageBase
     {
-        public new const string pkgName = "SlotZhuZaiJinBi1700";
-        public new const string resName = "PageGameMain";
+        public const string pkgName = "SlotZhuZaiJinBi1700";
+        public const string resName = "PageGameMain";
 
-        private bool isInit = false;        //是否初始化
         private bool isInitPool = false; //资源池是否初始化
         private bool tipCoinIn = false; //提示硬币输入
         bool isAddCreditAnim => !(slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
@@ -66,6 +65,10 @@ namespace SlotZhuZaiJinBi1700
         private GameObject CLonegoNormalFrame, ClonegoFreeFrame;
         private Animator animatorNormalFrame;
         private SkeletonMecanim SMNormalFrame;
+        //Npc
+        private GComponent anchorNpc;
+        private GameObject goNpc;
+        private GameObject CLonegoNpc;
         //免费组件
         private GComponent gFreeTimeBox, gFreeWinBox;
         private GComponent gFreeSlotMachine;
@@ -83,7 +86,7 @@ namespace SlotZhuZaiJinBi1700
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 4;
+            int count = 5;
 
             Action callback = () =>
             {
@@ -94,8 +97,10 @@ namespace SlotZhuZaiJinBi1700
                 }
             };
 
+
+            //1
             ResourceManager02.Instance.LoadAsset<GameObject>(
-            "Assets/GameRes/Games/Slot Zhu Zai Jin Bi 1700/Prefabs/Game Controller/Slot Game Main ControllerClone.prefab",
+                "Assets/GameRes/Games/Slot Zhu Zai Jin Bi 1700/Prefabs/Game Controller/Slot Game Main ControllerClone.prefab",
             (GameObject clone) =>
             {
                 if (goGameCtrl != null) //防止重复加载
@@ -115,13 +120,14 @@ namespace SlotZhuZaiJinBi1700
                 gObjectPoolHelper = goGameCtrl.transform.Find("GObject Pool").GetComponent<FguiGObjectPoolHelper>();
                 callback();
             });
-
-            ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/Emperors Rein 200/FGUIs", (ab) =>
+            //2
+            ResourceManager02.Instance.LoadAssetBundleAsync(
+                "Assets/GameRes/Games/Emperors Rein 200/FGUIs", (ab) =>
             {
                 UIPackage.AddPackage(ab);
                 callback();
             });
-
+            //3
             ResourceManager02.Instance.LoadAsset<GameObject>(
             "Assets/GameRes/Games/Slot Zhu Zai Jin Bi 1700/Prefabs/GameMain/NormalFrame.prefab",
              (GameObject clone) =>
@@ -129,7 +135,7 @@ namespace SlotZhuZaiJinBi1700
                  goNormalFrame = clone;
                  callback();
              });
-
+            //4
             ResourceManager02.Instance.LoadAsset<GameObject>(
             "Assets/GameRes/Games/Slot Zhu Zai Jin Bi 1700/Prefabs/GameMain/FreeFrame.prefab",
             (GameObject clone) =>
@@ -137,6 +143,14 @@ namespace SlotZhuZaiJinBi1700
                 goFreeFrame = clone;
                 callback();
             });
+            //5
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+          "Assets/GameRes/Games/Slot Zhu Zai Jin Bi 1700/Prefabs/GameMain/Npc.prefab",
+          (GameObject clone) =>
+          {
+              goNpc = clone;
+              callback();
+          });
 
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
@@ -236,7 +250,6 @@ namespace SlotZhuZaiJinBi1700
             });
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
 
-
             //说明书
             MainModel.Instance.contentMD = ContentModel.Instance;
             MainModel.Instance.cutomMD = CustomModel.Instance;
@@ -304,6 +317,16 @@ namespace SlotZhuZaiJinBi1700
             gFreeWinBox.visible = false;
             gFreeSlotMachine.visible = false;
 
+            GComponent LocalNpc = this.contentPane.GetChild("anchorNpc").asCom;
+            if (anchorNpc != LocalNpc)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorNpc);
+                CLonegoNpc = GameObject.Instantiate(goNpc);
+                anchorNpc = LocalNpc;
+                GameCommon.FguiUtils.AddWrapper(anchorNpc, CLonegoNpc);
+
+            }
+
 
             //对象池初始化
             if (fguiPoolHelper != null && isInitPool == false)
@@ -325,26 +348,88 @@ namespace SlotZhuZaiJinBi1700
             gOwnerPanel = this.contentPane.GetChild("panel").asCom;
             ContentModel.Instance.goAnthorPanel = gOwnerPanel;
             MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
-            // 事件放出
-            //goGameCtrl.transform.Find("Panel").GetComponent<PanelController01>().Init();
-            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
-
+            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
 
             //彩金
-            //uiJPGrangCtrl.Init("Grand", this.contentPane.GetChild("jpGrand").asCom.GetChild("reels").asList, "N0");
             uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("jpMajor").asCom.GetChild("reels").asList, "N0");
             uiJPMinorCtrl.Init("Minor", this.contentPane.GetChild("jpMinor").asCom.GetChild("reels").asList, "N0");
             uiJPMiniCtrl.Init("Mini", this.contentPane.GetChild("jpMini").asCom.GetChild("reels").asList, "N0");
 
-            //uiJPGrangCtrl.SetData(50000);
-            uiJPMajorCtrl.SetData(30000);
-            uiJPMinorCtrl.SetData(1000);
-            uiJPMiniCtrl.SetData(500);
-
+            uiJPMajorCtrl.SetData(0);
+            uiJPMinorCtrl.SetData(0);
+            uiJPMiniCtrl.SetData(0);
+            ChangeBGPanel(0);
             ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
+
+            TryRestoreFreeSpinSession();
         }
-        //滚动一次
+
+        /// <summary> 从本地快照恢复未完成的免费局（不自动请求 Spin，由玩家点转）。 </summary>
+        void TryRestoreFreeSpinSession()
+        {
+            if (ApplicationSettings.Instance.isMock || slotMachineCtrl == null) return;
+            if (!SQLitePlayerPrefs03.Instance.isInit) return;
+            if (!isOpen) return;
+
+            int pid = SBoxModel.Instance.pid;
+            var snap = FreeSpinSessionStoreG1700.TryLoad(pid);
+            if (snap == null) return;
+
+            bool sessionStillValid = snap.FreeSpinTotalTimes > 0
+                && (snap.FreeSpinPlayTimes < snap.FreeSpinTotalTimes
+                    || (snap.FreeSpinPlayTimes == 0 && snap.NextReelStripsIndex == "FS"));
+            if (!sessionStillValid)
+            {
+                FreeSpinSessionStoreG1700.Clear(pid);
+                return;
+            }
+
+            var cm = ContentModel.Instance;
+            cm.freeSpinTotalTimes = snap.FreeSpinTotalTimes;
+            cm.freeSpinPlayTimes = snap.FreeSpinPlayTimes;
+            cm.freeSpinTotalWinCredit = snap.FreeSpinTotalWinCredit;
+            cm.curReelStripsIndex = snap.CurReelStripsIndex;
+            cm.nextReelStripsIndex = snap.NextReelStripsIndex;
+            cm.gameNumberFreeSpinTrigger = snap.GameNumberFreeSpinTrigger;
+            cm.isFreeSpinTrigger = false;
+            cm.isFreeSpinResult = false;
+            cm.isFreeSpinAdd = false;
+            cm.freeSpinAddNum = 0;
+
+            if (snap.BetIndex >= 0 && SBoxModel.Instance.betList != null
+                                    && snap.BetIndex < SBoxModel.Instance.betList.Count)
+            {
+                cm.betIndex = snap.BetIndex;
+                cm.totalBet = SBoxModel.Instance.betList[cm.betIndex];
+            }
+            else
+            {
+                cm.totalBet = snap.TotalBet;
+            }
+
+            cm.betmultiple = snap.BetMultiple;
+            cm.showFreeSpinRemainTime = cm.freeSpinTotalTimes - cm.freeSpinPlayTimes;
+            cm.gameState = GameState.Idle;
+            cm.PendingFreeSpinReconnectValidation = true;
+
+            if (!string.IsNullOrEmpty(snap.StrDeckRowCol))
+            {
+                cm.strDeckRowCol = snap.StrDeckRowCol;
+                slotMachineCtrl.SetReelsDeck(snap.StrDeckRowCol);
+            }
+
+            if (cm.curReelStripsIndex == "FS" || cm.nextReelStripsIndex == "FS")
+            {
+                ChangeBGPanel(1);
+                SetUIFreeTimeBox(cm.freeSpinPlayTimes, cm.freeSpinTotalTimes);
+            }
+
+
+            slotMachineCtrl.SendTotalWinCreditEvent(cm.freeSpinTotalWinCredit);
+            DebugUtils.Log( $"[G1700] 已恢复免费局快照：剩余 {cm.showFreeSpinRemainTime} / 总 {cm.freeSpinTotalTimes}，待首局 Spin 与算法校验。");
+        }
+
+        //普通滚动一次
         IEnumerator GameOnce(Action successCallback, Action<string> errorCallback)
         {
             /*检查机器是否激活
@@ -354,6 +439,12 @@ namespace SlotZhuZaiJinBi1700
             if (!SBoxModel.Instance.isMachineActive)
             {
                 errorCallback?.Invoke("<size=24>Machine not activated!</size>");
+                yield break;
+            }
+
+            if (ContentModel.Instance.freeSpinTotalTimes > 0&& ContentModel.Instance.nextReelStripsIndex == "FS")
+            {
+                yield return GameFreeSpinFromReconnect(successCallback, errorCallback);
                 yield break;
             }
 
@@ -391,7 +482,6 @@ namespace SlotZhuZaiJinBi1700
             {
                 DebugUtils.Log(err.msg);
             });
-
 
             // 游戏状态重置和旋转请求
             OnGameReset();
@@ -479,7 +569,6 @@ namespace SlotZhuZaiJinBi1700
             else
             {
                 // 正常旋转模式
-                Debug.Log(ContentModel.Instance.strDeckRowCol);
                 if (corReelsTurn != null) mono.StopCoroutine(corReelsTurn);
                 corReelsTurn = mono.StartCoroutine(slotMachineCtrl.TurnReelsNormal(ContentModel.Instance.strDeckRowCol,
                     () =>
@@ -565,25 +654,15 @@ namespace SlotZhuZaiJinBi1700
                 //显示中奖动画
                 slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 10 }, true, 10, true);
                 yield return slotMachineCtrl.SlotWaitForSeconds(1.5f);
-                //过度动画
-                anchorNormalFrame.visible = true;
-                //过度淡入，持续1秒
-                GTween.To(0, 1, 1)
-                .SetEase(EaseType.Linear) // 线性过渡，匀速增长
-                .OnUpdate((tween) =>
-                {
-                    float progress = tween.value.x;
-                    SMNormalFrame.Skeleton.SetColor(new Color(1, 1, 1, progress));
-                })
-                .OnComplete(() =>
-                {
-                    slotMachineCtrl.SkipWinLine(false);
-                    animatorNormalFrame.Play("open");
-                    //切换背景和边框
-                    ChangeBGPanel(0);
-                });
+                slotMachineCtrl.SkipWinLine(false);
+           
+                //切换背景和边框
+                ChangeBGPanel(1);
+                SetUIFreeTimeBox(ContentModel.Instance.freeSpinPlayTimes, ContentModel.Instance.freeSpinTotalTimes);
                 yield return slotMachineCtrl.SlotWaitForSeconds(2.0f);
                 yield return FreeSpinTrigger(null, errorCallback);
+                ChangeBGPanel(0);
+                MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             }
             #endregion
 
@@ -645,6 +724,165 @@ namespace SlotZhuZaiJinBi1700
                 if (corGameIdel != null) mono.StopCoroutine(corGameIdel);
                 corGameIdel = mono.StartCoroutine(GameIdle(winList));
             }
+
+            if (successCallback != null)
+                successCallback.Invoke();
+        }
+        //免费游戏滚动一次
+        IEnumerator GameFreeSpinOnce(Action successCallback, Action<string> errorCallback)
+        {
+            OnGameReset();
+            ContentModel.Instance.gameState = GameState.FreeSpin;
+
+            bool isNext = false;
+            bool isBreak = false;
+            string errMsg = "";
+
+            //获取结果
+            if (ApplicationSettings.Instance.isMock)
+            {
+                yield return RequestSlotSpinFromMock(() =>
+                {
+                    isNext = true;
+                }, (err) =>
+                {
+                    errMsg = err;
+                    isNext = true;
+                    isBreak = true;
+                });
+            }
+            else
+            {
+                yield return RequestSlotSpinFromMachine(() =>
+                {
+                    isNext = true;
+                }, (err) =>
+                {
+                    errMsg = err;
+                    isNext = true;
+                    isBreak = true;
+                });
+            }
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+            if (isBreak)
+            {
+
+                if (errorCallback != null)
+                    errorCallback.Invoke(errMsg);
+                yield break;
+            }
+
+            //免费次数UI
+            SetUIFreeTimeBox(ContentModel.Instance.freeSpinPlayTimes, ContentModel.Instance.freeSpinTotalTimes);
+            //开始转动
+            slotMachineCtrl.BeginSpin();
+            if (ContentModel.Instance.isReelsSlowMotion)
+            {
+                if (corEffectSlowMotion != null) mono.StopCoroutine(corEffectSlowMotion);
+                corEffectSlowMotion = mono.StartCoroutine(ShowEffectReelsSlowMotion());
+
+                slotMachineCtrl.ShowSymbolAppearEffectAfterReelStop(true);
+            }
+            else
+            {
+                slotMachineCtrl.ShowSymbolAppearEffectAfterReelStop(ContentModel.Instance.winList.Count == 0);
+            }
+
+            if (slotMachineCtrl.isStopImmediately)
+            {
+                //reelsTurnType = ReelsTurnType.Once;
+
+                if (corReelsTurn != null) mono.StopCoroutine(corReelsTurn);
+                corReelsTurn = mono.StartCoroutine(slotMachineCtrl.TurnReelsOnce(ContentModel.Instance.strDeckRowCol,
+                    () =>
+                    {
+                        isNext = true;
+                    }));
+
+                yield return new WaitUntil(() => isNext == true);
+                isNext = false;
+
+            }
+            else
+            {
+                //reelsTurnType = ReelsTurnType.Normal;
+                if (corReelsTurn != null) mono.StopCoroutine(corReelsTurn);
+                corReelsTurn = mono.StartCoroutine(slotMachineCtrl.TurnReelsNormal(ContentModel.Instance.strDeckRowCol,
+                    () =>
+                    {
+                        isNext = true;
+                    }));
+
+                yield return new WaitUntil(() => isNext == true || slotMachineCtrl.isStopImmediately == true);
+                isNext = false;
+
+                // 等待移动结束
+                if (slotMachineCtrl.isStopImmediately && isNext == false)
+                {
+                    if (corReelsTurn != null) mono.StopCoroutine(corReelsTurn);
+                    corReelsTurn = mono.StartCoroutine(slotMachineCtrl.ReelsToStopOrTurnOnce(() =>
+                    {
+                        isNext = true;
+                    }));
+
+                    yield return new WaitUntil(() => isNext == true);
+                    isNext = false;
+                }
+            }
+
+            List<SymbolWin> winList = ContentModel.Instance.winList;
+            long allWinCredit = 0;
+            #region Win
+
+            if (winList.Count > 0)
+            {
+                long totalWinLineCredit = slotMachineCtrl.GetTotalWinCredit(winList);
+                allWinCredit = totalWinLineCredit;
+
+                if (winList.Count > 0)
+                {
+                    yield return ShowWinListOnceAtNormalSpin(winList);
+                }
+
+                // 播大奖弹窗
+                WinLevelType winLevelType = GetBigWinType();
+                if (winLevelType != WinLevelType.None)
+                {
+                    slotMachineCtrl.ShowSymbolWinDeck(slotMachineCtrl.GetTotalSymbolWin(winList), true);
+
+                    // 大奖弹窗
+                    yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
+
+                    slotMachineCtrl.CloseSlotCover();
+
+                    slotMachineCtrl.SkipWinLine(false);
+                }
+                else
+                {
+
+                    // 总线赢分（同步？？）
+                    bool isAddToCredit = totalWinLineCredit > TotalBet * 4;
+                    slotMachineCtrl.SendPrepareTotalWinCreditEvent(totalWinLineCredit, isAddToCredit);
+                }
+
+
+
+                // 免费游戏中赢票栏显示累计值，不即时入余额
+                slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit);
+
+                //加钱动画
+                //MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true, isAddCreditAnim);
+                ContentModel.Instance.freeOnceCredit = totalWinLineCredit;
+
+
+            }
+
+            #endregion
+
+
+            // 免费游戏中不逐局同步余额，等待免费结束后统一结算
+            ContentModel.Instance.gameState = GameState.Idle;
 
             if (successCallback != null)
                 successCallback.Invoke();
@@ -980,223 +1218,21 @@ namespace SlotZhuZaiJinBi1700
                 successCallback.Invoke();
         }
 
-        //一局免费游戏
-        IEnumerator GameFreeSpinOnce(Action successCallback, Action<string> errorCallback)
+        /// <summary>
+        /// 断电重连恢复免费局：点击一次开始后自动跑完整段免费，并统一结算与切回普通游戏。
+        /// </summary>
+        IEnumerator GameFreeSpinFromReconnect(Action successCallback, Action<string> errorCallback)
         {
-            OnGameReset();
-            ContentModel.Instance.gameState = GameState.FreeSpin;
+            yield return GameFreeSpin(null, errorCallback);
 
-            bool isNext = false;
-            bool isBreak = false;
-            string errMsg = "";
-
-            // 检查余额通过后，立即扣除积分（提前扣分）
-            if (ContentModel.Instance.gameState != GameState.FreeSpin)
+            long freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCredit;
+            if (freeSpinTotalWinCredit > 0)
             {
-                MainBlackboardController.Instance.MinusMyTempCredit(TotalBet, true, false);
+                MainBlackboardController.Instance.AddMyTempCredit(freeSpinTotalWinCredit, true, isAddCreditAnim);
             }
 
-            //获取结果
-            if (ApplicationSettings.Instance.isMock)
-            {
-                yield return RequestSlotSpinFromMock(() =>
-                {
-                    isNext = true;
-                }, (err) =>
-                {
-                    errMsg = err;
-                    isNext = true;
-                    isBreak = true;
-                });
-            }
-            else
-            {
-                yield return RequestSlotSpinFromMachine(() =>
-                {
-                    isNext = true;
-                }, (err) =>
-                {
-                    errMsg = err;
-                    isNext = true;
-                    isBreak = true;
-                });
-            }
-
-            yield return new WaitUntil(() => isNext == true);
-            isNext = false;
-            if (isBreak)
-            {
-
-                if (errorCallback != null)
-                    errorCallback.Invoke(errMsg);
-                yield break;
-            }
-
-            //开始转动
-            slotMachineCtrl.BeginSpin();
-            if (ContentModel.Instance.isReelsSlowMotion)
-            {
-                if (corEffectSlowMotion != null) mono.StopCoroutine(corEffectSlowMotion);
-                corEffectSlowMotion = mono.StartCoroutine(ShowEffectReelsSlowMotion());
-
-                slotMachineCtrl.ShowSymbolAppearEffectAfterReelStop(true);
-            }
-            else
-            {
-                slotMachineCtrl.ShowSymbolAppearEffectAfterReelStop(ContentModel.Instance.winList.Count == 0);
-            }
-
-            if (slotMachineCtrl.isStopImmediately)
-            {
-                //reelsTurnType = ReelsTurnType.Once;
-
-                if (corReelsTurn != null) mono.StopCoroutine(corReelsTurn);
-                corReelsTurn = mono.StartCoroutine(slotMachineCtrl.TurnReelsOnce(ContentModel.Instance.strDeckRowCol,
-                    () =>
-                    {
-                        isNext = true;
-                    }));
-
-                yield return new WaitUntil(() => isNext == true);
-                isNext = false;
-
-            }
-            else
-            {
-                //reelsTurnType = ReelsTurnType.Normal;
-                if (corReelsTurn != null) mono.StopCoroutine(corReelsTurn);
-                corReelsTurn = mono.StartCoroutine(slotMachineCtrl.TurnReelsNormal(ContentModel.Instance.strDeckRowCol,
-                    () =>
-                    {
-                        isNext = true;
-                    }));
-
-                yield return new WaitUntil(() => isNext == true || slotMachineCtrl.isStopImmediately == true);
-                isNext = false;
-
-                // 等待移动结束
-                if (slotMachineCtrl.isStopImmediately && isNext == false)
-                {
-                    if (corReelsTurn != null) mono.StopCoroutine(corReelsTurn);
-                    corReelsTurn = mono.StartCoroutine(slotMachineCtrl.ReelsToStopOrTurnOnce(() =>
-                    {
-                        isNext = true;
-                    }));
-
-                    yield return new WaitUntil(() => isNext == true);
-                    isNext = false;
-                }
-            }
-
-            List<SymbolWin> winList = ContentModel.Instance.winList;
-            long allWinCredit = 0;
-
-
-            #region Win
-
-            if (winList.Count > 0)
-            {
-                long totalWinLineCredit = slotMachineCtrl.GetTotalWinCredit(winList);
-                allWinCredit = totalWinLineCredit;
-
-                if (winList.Count > 0)
-                {
-                    yield return ShowWinListOnceAtNormalSpin(winList);
-                }
-
-                // 播大奖弹窗
-                WinLevelType winLevelType = GetBigWinType();
-                if (winLevelType != WinLevelType.None)
-                {
-                    slotMachineCtrl.ShowSymbolWinDeck(slotMachineCtrl.GetTotalSymbolWin(winList), true);
-
-                    // 大奖弹窗
-                    yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
-
-                    slotMachineCtrl.CloseSlotCover();
-
-                    slotMachineCtrl.SkipWinLine(false);
-                }
-                else
-                {
-
-                    // 总线赢分（同步？？）
-                    bool isAddToCredit = totalWinLineCredit > TotalBet * 4;
-                    slotMachineCtrl.SendPrepareTotalWinCreditEvent(totalWinLineCredit, isAddToCredit);
-                }
-
-
-
-                // 免费游戏中赢票栏显示累计值，不即时入余额
-                slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit);
-
-                //加钱动画
-                //MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true, isAddCreditAnim);
-                ContentModel.Instance.freeOnceCredit = totalWinLineCredit;
-
-
-            }
-
-            #endregion
-
-
-            // 免费游戏中不逐局同步余额，等待免费结束后统一结算
-
-            // 本局掉币
-            //ERPushMachineDataManager.Instance.RequestCoinPushSpinEnd(res1 =>
-            //{
-            //    isNext = true;
-            //});
-
-            //yield return new WaitUntil(() => isNext == true);
-            //isNext = false;
-
-            //if (winList.Count > 0 || isHitJackpot)
-            //{
-            //    //yield return ShowWinListCoinCountDown(winList, allWinCredit, isHitJackpot);
-            //}
-
-            // 即中即退
-            //yield return CoinOutImmediately(allWinCredit);
-
-
-            #region 免费游戏中，添加额外免费游戏
-
-            if (ContentModel.Instance.isFreeSpinAdd)
-            {
-
-                slotMachineCtrl.BeginBonusFreeSpinAdd();
-                PageManager.Instance.OpenPageAsync(PageName.PusherEmperorsReinPopupFreeSpinTrigger,
-                    new EventData<Dictionary<string, object>>("",
-                        new Dictionary<string, object>()
-                        {
-                            ["freeSpinCount"] = ContentModel.Instance.freeSpinAddNum,
-                            ["isAddFreeGame"] = true,
-                        }),
-                    (ed) =>
-                    {
-                        isNext = true;
-                    });
-
-
-                yield return new WaitUntil(() => isNext == true);
-                isNext = false;
-
-                // 【待修改】重置剩余的局数 
-                ContentModel.Instance.showFreeSpinRemainTime =
-                    ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes;
-
-
-                yield return slotMachineCtrl.SlotWaitForSeconds(1.5f);
-                slotMachineCtrl.EndBonusFreeSpinAdd();
-
-            }
-
-            #endregion
-
-
-            ContentModel.Instance.gameState = GameState.Idle;
-            // 先结算主游戏，再进入“免费游戏”或“小游戏”，则每局都可以同步玩家真实金钱金额
+            ChangeBGPanel(0);
+            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
 
             if (successCallback != null)
                 successCallback.Invoke();
@@ -1358,15 +1394,19 @@ namespace SlotZhuZaiJinBi1700
                 gFreeBg.visible = false;
                 gFreeGameFrame.visible = false;
                 gFreeInnerFrame.visible = false;
+                gFreeTimeBox.visible = false;
                 gNormalBg.visible = true;
                 gNormalGameFrame.visible = true;
                 gNormalInnerFrame.visible = true;
+     
             }
             else
             {
                 gNormalBg.visible = false;
                 gNormalGameFrame.visible = false;
                 gNormalInnerFrame.visible = false;
+                gFreeTimeBox.visible = true;
+
                 gFreeBg.visible = true;
                 gFreeGameFrame.visible = true;
                 gFreeInnerFrame.visible = true;
@@ -1378,6 +1418,7 @@ namespace SlotZhuZaiJinBi1700
         {
             yield return new WaitUntil(() => isEffectSlowMotion2 == true);
         }
+
         //错误提示
         private void StopGameWhenError(string msg)
         {
@@ -1397,10 +1438,12 @@ namespace SlotZhuZaiJinBi1700
                 TipPopupHandler.Instance.OpenPopupOnce(I18nMgr.T(msg));
             }
         }
+
         void GetMyCredit(Action<int> onSuccessCallback, Action<string> onErrorCallback)
         {
 
         }
+
         public void SetUIJackpotGameReel()
         {
             JackpotRes info = ContentModel.Instance.jpGameRes;
@@ -1427,6 +1470,13 @@ namespace SlotZhuZaiJinBi1700
             uiJPMajorCtrl.SetData(info.curJackpotMajor);
             uiJPMinorCtrl.SetData(info.curJackpotMinior);
             uiJPMiniCtrl.SetData(info.curJackpotMini);
+        }
+
+        protected void SetUIFreeTimeBox(int freeSpinPlayTimes, int freeSpinTotalTimes)
+        {
+            gFreeTimeBox.visible = true;
+            gFreeTimeBox.GetChild("numberGreen").asTextField.text= freeSpinPlayTimes.ToString();
+            gFreeTimeBox.GetChild("numberYellow").asTextField.text = freeSpinTotalTimes.ToString();
         }
     }
 }

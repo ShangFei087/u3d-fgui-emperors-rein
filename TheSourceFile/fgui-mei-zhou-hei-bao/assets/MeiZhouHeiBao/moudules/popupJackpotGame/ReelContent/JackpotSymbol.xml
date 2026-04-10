@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="145,133">
+  <displayList>
+    <loader id="n0_v1f2" name="icon" xy="73,67" pivot="0.5,0.5" anchor="true" size="130,113" url="ui://wnvfq681qkv00" autoSize="true" color="#999999" clearOnPublish="true"/>
+    <component id="n1_v1f2" name="anchor_JackpotSpine" src="v1f26f" fileName="moudules/popupJackpotGame/ReelContent/Anchor_JackpotSpine.xml" xy="73,67"/>
+  </displayList>
+</component>

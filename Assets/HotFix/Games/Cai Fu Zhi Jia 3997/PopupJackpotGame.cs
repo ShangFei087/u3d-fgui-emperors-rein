@@ -1,10 +1,12 @@
 using FairyGUI;
 using GameMaker;
 using SlotMaker;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = System.Random;
 
 namespace CaiFuZhiJia_3997
@@ -47,19 +49,21 @@ namespace CaiFuZhiJia_3997
         private readonly Random _random = new Random(); // 用作判断本局是否中奖
         private readonly List<int> _winSpineIndexList = new List<int>(); // 记录当前所有中奖的格子
         private readonly List<int> _canSpinReelIndexList = new List<int>(); // 当前可以旋转的滚轴
-        private readonly List<string> _rollRewardList = new List<string>(); // 所有滚轮的中奖金额集合
+        private List<string> _rollRewardList = new List<string>(); // 所有滚轮的中奖金额集合
 
         private bool _isStart = false; // 开始按钮只能点击一次
 
-        // private readonly List<Vector3> _boxCenterPosList = new List<Vector3>(); // 每个滚轴的锚点，作为特效的起点
+        private List<int> _bonusIsNotZeroList = new List<int>(); // 彩金游戏中数据不为0的格子的索引集合
 
-        private readonly List<SingleReelController> _singleReelControllers = new List<SingleReelController>(); // 所有滚轮控制器
+        private readonly List<SingleReelController>
+            _singleReelControllers = new List<SingleReelController>(); // 所有滚轮控制器
+
         private readonly List<Transform> _effects = new List<Transform>(); // 钻石在彩金游戏结束之后的结算特效
 
         /// <summary>
         /// 每个滚轴的旋转速度
         /// </summary>
-        private List<int> _moveSpeedList = new List<int>()
+        private readonly List<int> _moveSpeedList = new List<int>()
         {
             100,
             110,
@@ -115,16 +119,20 @@ namespace CaiFuZhiJia_3997
             for (int i = 0; i < _canSpinReelIndexList.Count; i++)
             {
                 SingleReelController testReelController = new SingleReelController(_rollReels[i], i);
-                _rollRewardList.Add(testReelController.Wheeleward);
+                // _rollRewardList.Add(testReelController.Wheeleward);
                 _singleReelControllers.Add(testReelController);
             }
 
-
+            _rollRewardList = ContentModel.Instance.currentBonusDataList;
+            _bonusIsNotZeroList = _rollRewardList
+                .Select((value, index) => new { value, index })
+                .Where(item => item.value != "0")
+                .Select(item => item.index)
+                .ToList();
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             BindPrefabsToUI();
 
             //彩金
-            //uiJPGrangCtrl.Init("Grand", this.contentPane.GetChild("jpGrand").asCom.GetChild("reels").asList, "N0");
             uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("jpMajor").asCom.GetChild("n1").asList, "N0");
             uiJPMinorCtrl.Init("Minor", this.contentPane.GetChild("jpMinor").asCom.GetChild("n1").asList, "N0");
             uiJPMiniCtrl.Init("Mini", this.contentPane.GetChild("jpMini").asCom.GetChild("n1").asList, "N0");
@@ -133,7 +141,6 @@ namespace CaiFuZhiJia_3997
             uiJPMinorCtrl.SetReelWidth(30);
             uiJPMiniCtrl.SetReelWidth(30);
 
-            //uiJPGrangCtrl.SetData(50000);
             uiJPMajorCtrl.SetData(ContentModel.Instance.uiMajorJP.nowCredit);
             uiJPMinorCtrl.SetData(ContentModel.Instance.uiMinorJP.nowCredit);
             uiJPMiniCtrl.SetData(ContentModel.Instance.uiMiniJP.nowCredit);
@@ -147,11 +154,8 @@ namespace CaiFuZhiJia_3997
                 _monoHelper = GameObject.Find("Slot Game Main Controller 3997").GetComponent<MonoHelper>();
             if (_slotMachineController == null)
                 _slotMachineController =
-                    GameObject.Find("Slot Game Main Controller 3997").GetComponentInChildren<SlotMachineController3997>();
-
-            // InitUI();
-            // InitCanSpinReels();
-            // InitController();
+                    GameObject.Find("Slot Game Main Controller 3997")
+                        .GetComponentInChildren<SlotMachineController3997>();
 
             InitParam();
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
@@ -192,15 +196,6 @@ namespace CaiFuZhiJia_3997
                     .asCom;
                 _rollReels.Add(reelGCom);
             }
-        }
-
-        private void InitController()
-        {
-            if (_monoHelper == null)
-                _monoHelper = GameObject.Find("Slot Game Main Controller 3997").GetComponent<MonoHelper>();
-            if (_slotMachineController == null)
-                _slotMachineController =
-                    GameObject.Find("Slot Game Main Controller 3997").GetComponentInChildren<SlotMachineController3997>();
         }
 
         private void LoadAsyncRes()
@@ -258,7 +253,6 @@ namespace CaiFuZhiJia_3997
             for (int i = 0; i < _jackpotDiamondSpinesGCom.numChildren; i++)
             {
                 currentGCom = _jackpotDiamondSpinesGCom.GetChild("jackpotSpine_" + i).asCom;
-                // _boxCenterPosList.Add(currentGCom.position); //添加初始Spine动画锚点
                 if (currentGCom != _compareJackpotSpineGComList[i])
                 {
                     GameCommon.FguiUtils.DeleteWrapper(_compareJackpotSpineGComList[i]);
@@ -291,38 +285,66 @@ namespace CaiFuZhiJia_3997
         /// <returns></returns>
         bool RandomIsWinThisRound()
         {
-            // Debug.LogError("_canSpinReelIndexList.Count:" + _canSpinReelIndexList.Count);
-            if (_canSpinReelIndexList.Count > 13) // 保证至少中两个图标
-            {
-                return true;
-            }
-            else if (_canSpinReelIndexList.Count > 5) // 限制最多中奖次数为多少个 避免疯狂中奖
-            {
-                return _random.Next(100) < 10;
-            }
-            else
-            {
+            if (_bonusIsNotZeroList.Count <= 0)
                 return false;
-            }
+                    
+            // 计算当前中奖概率
+            double winRate = CalculateWinRate();
+            
+            // 随机判定
+            bool isWin = _random.NextDouble() < winRate;
+            return isWin;
         }
 
+        /// <summary>
+        ///  计算中奖概率
+        /// </summary>
+        /// <returns></returns>
+        double CalculateWinRate()
+        {
+            int count = _bonusIsNotZeroList.Count;
+            double rate = 0.7;
+
+            if (_totalPlayRounds == 1 && count > 0)
+            {
+                return 1;
+            }
+
+            // 动态调整：元素越少，中奖率越低（让游戏自然结束）
+            // 但保证在轮数危险时提高中奖率
+            double itemRatio = (double)count / (count + 5); // 元素比例因子
+            double roundPressure = Math.Max(0, (3 - _totalPlayRounds) * 0.15); // 轮数压力
+            rate = 0.7 + roundPressure - (itemRatio * 0.3);
+
+            // 确保在危险情况下概率不会太低
+            if (_totalPlayRounds <= 2 && count > 0)
+            {
+                rate = Math.Max(rate, 0.85);
+            }
+
+            return Math.Max(0.1, Math.Min(1.0, rate));
+        }
+        
         void GetCurrentWinningDiamondList()
         {
-            Random tempRandom = new Random();
-
-            // _winSpineIndexList.Clear();
-            for (int i = 0; i < 2; i++)
+            if (_bonusIsNotZeroList.Count == 0) return;
+    
+            // 确定中奖个数：1 ~ 剩余元素数
+            int count = _random.Next(1, _bonusIsNotZeroList.Count + 1);
+    
+            for (int i = 0; i < count; i++)
             {
-                int randomIndex = tempRandom.Next(_canSpinReelIndexList.Count);
-                int selectedValue = _canSpinReelIndexList[randomIndex];
-                if (!_winSpineIndexList.Contains(selectedValue))
-                {
-                    _winSpineIndexList.Add(selectedValue);
-                    _canSpinReelIndexList.RemoveAt(randomIndex);
-                }
+                // 每次从当前剩余元素中随机取（范围随 i 缩小）
+                int randomIndex = _random.Next(_bonusIsNotZeroList.Count);
+                int selectedValue = _bonusIsNotZeroList[randomIndex];
+        
+                _winSpineIndexList.Add(selectedValue);
+                _canSpinReelIndexList.Remove(selectedValue);
+        
+                // 移除已选中的，保证下次不重复
+                _bonusIsNotZeroList.RemoveAt(randomIndex);
             }
         }
-
 
         private void ShowWinningSpine()
         {
@@ -366,26 +388,21 @@ namespace CaiFuZhiJia_3997
         {
             List<Coroutine> coroutines = new List<Coroutine>();
 
-            _winSpineIndexList.Sort(); // 排序，保证钻石关闭是按顺序关闭
-            Debug.LogError("_winSpineIndexList.Count:" + _winSpineIndexList.Count);
-            // 为每个对象启动独立的协程
-            for (int i = 0; i < _winSpineIndexList.Count /*_cloneJackpotSpineList.Count*/; i++)
+            _winSpineIndexList.Sort();
+            for (int i = 0; i < _winSpineIndexList.Count; i++)
             {
-                int index = _winSpineIndexList[i]; // 创建局部变量，避免闭包问题
+                int index = _winSpineIndexList[i];
                 coroutines.Add(_monoHelper.StartCoroutine(ProcessSingleResult(index)));
 
-                // 每个对象之间等待一段时间
                 yield return new WaitForSeconds(2f); // 调整这个间隔来控制逐个出现的速度
             }
 
-            // 等待所有协程完成（可选）
             foreach (var coroutine in coroutines)
             {
                 yield return coroutine;
             }
 
             yield return new WaitForSeconds(3);
-            // CloseSelf(null);
             PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotResult);
         }
 
@@ -421,7 +438,7 @@ namespace CaiFuZhiJia_3997
 
             if (!_isWinning)
             {
-                // Debug.LogError("没中奖");
+                Debug.LogError("没中奖");
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
@@ -441,7 +458,7 @@ namespace CaiFuZhiJia_3997
             }
             else
             {
-                // Debug.LogError("中奖了");
+                Debug.LogError("中奖了");
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
@@ -550,6 +567,7 @@ namespace CaiFuZhiJia_3997
             }
 
             _rollRewardList.Clear();
+            _bonusIsNotZeroList.Clear();
 
             foreach (var text in _diamondTextList)
             {
