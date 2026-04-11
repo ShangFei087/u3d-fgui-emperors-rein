@@ -39,7 +39,7 @@ public class MainModel : MonoSingleton<MainModel>
 
             if (SBoxModel.Instance.tableBet.game_id == (long)_gameID)
                 return;
-
+            ConsoleTableUtils.ClearTableData(ConsoleTableName.TABLE_BET);
             ConsoleTableUtils.GetTableBet();
         }
         catch (System.Exception ex)

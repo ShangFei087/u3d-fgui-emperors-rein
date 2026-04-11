@@ -86,7 +86,7 @@ public class SBoxModelController : MonoSingleton<SBoxModelController>
         }
 
         LoadingPageInitSeting("get table sys settings");
-
+       
         ConsoleTableUtils.GetTableBet();
 
         TableBusniessTotalRecordAsyncManager.Instance.GetTotalBusniess();

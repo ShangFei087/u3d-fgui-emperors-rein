@@ -31,10 +31,12 @@ public static partial class ConsoleTableUtils
         DebugUtils.LogWarning("【数据库】所有表数据已清空！");
     }
 
+
+
     /// <summary>
     /// 清空单个表数据
     /// </summary>
-    private static void ClearTableData(string tableName)
+    public static void ClearTableData(string tableName)
     {
         if (SQLiteHelper.Instance.CheckTableExists(tableName))
         {
@@ -386,8 +388,6 @@ public static partial class ConsoleTableUtils
         });
     }*/
 
-
-
     /*public static void GetTableCoinInOutRecord(Action<List<TableCoinInOutRecordItem>> onFinishCallback = null)
     {
 
@@ -410,11 +410,6 @@ public static partial class ConsoleTableUtils
             onFinishCallback?.Invoke(lst);
         });
     }*/
-
-
-
-
-
 
     public static void GetTableSysSetting(Action<TableSysSettingItem> onFinishCallback = null)
     {

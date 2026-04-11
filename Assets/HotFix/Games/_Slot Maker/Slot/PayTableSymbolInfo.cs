@@ -5,6 +5,7 @@ namespace SlotMaker
     public class PayTableSymbolInfo
     {
         public int symbol;
+        public int x2;
         public int x3;
         public int x4;
         public int x5;
