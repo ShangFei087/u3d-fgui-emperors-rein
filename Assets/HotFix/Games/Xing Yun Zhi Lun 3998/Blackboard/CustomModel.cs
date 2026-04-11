@@ -451,7 +451,8 @@ namespace XingYunZhiLun_3998
         public FreeGameConfig _freeGameConfig = new FreeGameConfig()
         {
             IsUseCommonFreeTimes = false,                          //是否使用公共的免费次数框
-            IsHasFreeGame = true,                                  //是否有免费奖
+            IsHasFreeGame = true,                        
+            //是否有免费奖
             FreeGameType = MakeFreeGameType.OnScatter,             //触发免费奖方式
             IsScatterInLine = false,                               //Scatter图标是否依赖中奖线
             Make2FreeGameCount = new int[] { 3, 4, 5 },            //触发免费奖所需数量(Scatter图标/充能)

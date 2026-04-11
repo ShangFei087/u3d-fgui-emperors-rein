@@ -33,7 +33,8 @@ namespace CaiFuHuoChe_3996
     public class MachineDataG3996Controller : MonoSingleton<MachineDataG3996Controller>
     {
         public List<SymbolInclude> jackpotSymbolInclude = new List<SymbolInclude>();
-
+        public List<int> jackpotPos = new List<int>();
+        private int curJackpotIndex = 0;
 
         public static JSONNode ParseCoinPushSpinPayload(int[] data, int startPos)
         {
@@ -333,23 +334,25 @@ namespace CaiFuHuoChe_3996
                     ContentModel.Instance.jackpotSpinPlayTimes = 0;
                     ContentModel.Instance.jackpotSpinWinCredit = 0;
                     jackpotSymbolInclude.Clear();
-                }
-            }
-            else if (ContentModel.Instance.jackpotSpinPlayTimes < ContentModel.Instance.jackpotSpinTotalTimes)
-            {
-                ContentModel.Instance.curReelStripsIndex = "JS";
-                ContentModel.Instance.freeSpinPlayTimes += 1;
-                ContentModel.Instance.freeSpinTotalWinCredit += totalLineWin;
+                    jackpotPos.Clear();
+                    ContentModel.Instance.jackpotWin.Clear();
+                    curJackpotIndex = 0;
 
-                if (ContentModel.Instance.freeSpinTotalTimes == ContentModel.Instance.freeSpinPlayTimes)
-                {
-                    ContentModel.Instance.nextReelStripsIndex = "BS";
+                    JSONArray bonusArray = res["BonusData"].AsArray;
+                    int[] bonusData = new int[bonusArray.Count];
+                    for (int i = 0; i < bonusArray.Count; i++)
+                    {
+                        bonusData[i] = bonusArray[i].AsInt;
+                    }
+
+                    for (int i = 0; i < bonusData.Length; i++)
+                    {
+                        if (bonusData[i] == 0) continue;
+
+                        ContentModel.Instance.jackpotWin[i] = bonusData[i];
+                        jackpotPos.Add(i);
+                    }
                 }
-                else
-                {
-                    ContentModel.Instance.nextReelStripsIndex = "JS";
-                }
-                ContentModel.Instance.isJackpotSpinTrigger = ContentModel.Instance.curReelStripsIndex == "JS" && ContentModel.Instance.nextReelStripsIndex == "BS";
             }
 
             //赢分
@@ -1137,11 +1140,43 @@ namespace CaiFuHuoChe_3996
                 ContentModel.Instance.itemPos[key].Clear();
             }
 
+            ContentModel.Instance.jackpotSpinPlayTimes++;
+            int winCount = 0;
+            if (ContentModel.Instance.jackpotSpinPlayTimes >= ContentModel.Instance.jackpotSpinTotalTimes)
+            {
+                winCount = UnityEngine.Random.Range(1, 4);
+            }
+            else
+            {
+                winCount = UnityEngine.Random.Range(0, 4);
+            }
 
+            while (winCount > 0 && curJackpotIndex < jackpotPos.Count)
+            {
+                symbolInclude.Add(new SymbolInclude
+                {
+                   colIdx = jackpotPos[curJackpotIndex] % 5,
+                   rowIdx = jackpotPos[curJackpotIndex] / 5,
+                   symbolNumber = 12
+                });
+                winCount--;
+                curJackpotIndex++;
+            }
+            Debug.LogError("jackpotPos.Count == " + jackpotPos.Count + ",\t" + "curJackpotIndex == " + curJackpotIndex);  
+            if(ContentModel.Instance.jackpotSpinPlayTimes >= ContentModel.Instance.jackpotSpinTotalTimes)
+            {
+                ContentModel.Instance.curReelStripsIndex = "JS";
+                ContentModel.Instance.nextReelStripsIndex = "BS";
+            }
+            else
+            {
+                ContentModel.Instance.curReelStripsIndex = "JS";
+                ContentModel.Instance.nextReelStripsIndex = "JS";
+            }
 
-            strDeckRowCol = GenerateGameArray(
-                   CustomModel.Instance.payLines,
-                   CustomModel.Instance.symbolNumber, winningLines, new int[] { 9, 11, 10, 12 }, symbolInclude, jackpotSymbolInclude);
+            ContentModel.Instance.strDeckRowCol = GenerateGameArray(
+                       CustomModel.Instance.payLines,
+                       CustomModel.Instance.symbolNumber, winningLines, new int[] { 9, 11, 10, 12 }, symbolInclude, jackpotSymbolInclude);
         }
 
         void OnEnable()
@@ -1214,19 +1249,12 @@ namespace CaiFuHuoChe_3996
             [SpinDataType.Normal] = new List<string[]>()
             {
                 new string[] { "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__win0.json" },
-                new string[] { "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__win1.json" },
-                new string[] { "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__win2.json" },
             },
             [SpinDataType.JpSpin] = new List<string[]>()
             {
                 new string[]
                 { 
                     "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__jackpot0.json" ,
-                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__jackpot1.json" ,
-                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__jackpot2.json" ,
-                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__jackpot3.json" ,
-                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__jackpot4.json" ,
-                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__jackpot5.json" ,
                 }
             },
             [SpinDataType.Bonus1Ball] = new List<string[]>()
@@ -1467,40 +1495,11 @@ namespace CaiFuHuoChe_3996
                 gameResultList[symbolInclude.rowIdx][symbolInclude.colIdx] = symbolInclude.symbolNumber;
             }
 
-            //将新加入的彩金元素随机放入位置并记录
+            //将新加入的彩金元素放入位置并记录
             foreach (SymbolInclude symbolInclude in include)
             {
                 int colIdx = symbolInclude.colIdx;
                 int rowIdx = symbolInclude.rowIdx;
-                int endlessLoop = 1000;
-                if (colIdx == -1 && rowIdx == -1)
-                {
-                    do
-                    {
-                        colIdx = UnityEngine.Random.Range(0, 5);
-                        rowIdx = UnityEngine.Random.Range(0, 3);
-                    } while (gameResultList[rowIdx][colIdx] != -1 && --endlessLoop >= 0);
-                }
-                else if (colIdx == -1)
-                {
-                    do
-                    {
-                        colIdx = UnityEngine.Random.Range(0, 5);
-                    } while (gameResultList[rowIdx][colIdx] != -1 && --endlessLoop >= 0);
-                }
-                else if (rowIdx == -1)
-                {
-                    do
-                    {
-                        rowIdx = UnityEngine.Random.Range(0, 3);
-                    } while (gameResultList[rowIdx][colIdx] != -1 && --endlessLoop >= 0);
-                }
-
-                if (endlessLoop < 0)
-                    DebugUtils.LogError($"【endless loop】: when add include symbol");
-
-                symbolInclude.rowIdx = rowIdx;
-                symbolInclude.colIdx = colIdx;
 
                 gameResultList[rowIdx][colIdx] = symbolInclude.symbolNumber;
 

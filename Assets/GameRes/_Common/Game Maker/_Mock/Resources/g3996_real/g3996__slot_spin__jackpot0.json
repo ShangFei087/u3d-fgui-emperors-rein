@@ -1,18 +1,1 @@
-{
-
-	"code": 0,
-	
-	"gameState": 5,
-	
-	"lineMark": 0,
-	
-	"num": 6,
-	
-	"curRound": 0,
-	
-	"maxRound": 3,
-
-	"lineNum":0,
-	
-	"lineData":[]
-}
+{"OpenType":0,"ResultType":3,"IDVec":[],"Matrix":[11,5,8,3,11,4,7,11,6,9,11,0,8,11,4],"BonusType":0,"BonusBet":2700,"BonusData":[450,0,0,600,0,0,750,0,0,0,0,0,0,450,0],"TotalBet":0}

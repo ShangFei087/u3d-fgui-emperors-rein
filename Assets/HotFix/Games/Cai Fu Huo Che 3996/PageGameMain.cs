@@ -25,6 +25,8 @@ namespace CaiFuHuoChe_3996
 
         [JsonProperty("display_name")] public string DisplayName;
 
+        [JsonProperty("line_num")] public int LineNum;//线数
+
         [JsonProperty("win_level_multiple")] public Dictionary<string, long> WinLevelMultiple { get; set; }
 
         [JsonProperty("symbol_paytable")] public Dictionary<string, PayTableSymbolInfo> SymbolPaytable { get; set; }
@@ -216,6 +218,7 @@ namespace CaiFuHuoChe_3996
         {
             if (isOpen) return;
             base.OnOpen(name, data);
+            EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
@@ -232,6 +235,7 @@ namespace CaiFuHuoChe_3996
             slotMachineCtrl.SkipWinLine(true);
             OnGameReset();
 
+            EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
@@ -507,7 +511,7 @@ namespace CaiFuHuoChe_3996
         {
             //资源加载
             ResourceManager02.Instance.LoadAsset<TextAsset>(
-                "Assets/GameRes/_Common/Game Maker/ABs/G3996/Data/game_info_g3996.json", (txt) =>
+                "Assets/GameRes/_Common/Game Maker/ABs/G3996/Datas/game_info_g3996.json", (txt) =>
                 {
                     //JSON解析与错误处理
                     GameConfigRoot config = JsonConvert.DeserializeObject<GameConfigRoot>(txt.text);
@@ -520,51 +524,7 @@ namespace CaiFuHuoChe_3996
                     MainModel.Instance.gameID = config.GameId;
                     MainModel.Instance.gameName = config.GameName;
                     MainModel.Instance.displayName = config.DisplayName;
-
-                    //赢钱倍数处理
-                    foreach (var item in config.WinLevelMultiple)
-                    {
-                        string winKey = item.Key;
-                        long winValue = item.Value;
-                        MainModel.Instance.cutomMD.winLevelMultiple.Add(new WinMultiple(winKey, winValue));
-                    }
-
-                    //符号支付表处理
-                    foreach (var kvp in config.SymbolPaytable)
-                    {
-                        string symbolKey = kvp.Key; // 如 "s0"、"s1"、"s2"
-                        var jsonData1 = kvp.Value; // 对应x3、x4、x5的数据
-
-                        // 1. 从symbolKey中提取索引（如"s0" → 0，"s1" → 1）
-                        if (int.TryParse(symbolKey.Replace("s", ""), out int index))
-                        {
-                            // 2. 检查索引是否在列表有效范围内
-                            if (index >= 0)
-                            {
-                                // 3. 为列表中对应索引的元素赋值
-                                var targetItem = MainModel.Instance.cutomMD.payTableSymbolWin[index];
-                                targetItem.x3 = jsonData1.x3; // 假设jsonData的属性是X3（根据实际定义调整）
-                                targetItem.x4 = jsonData1.x4;
-                                targetItem.x5 = jsonData1.x5;
-                                // 若需要同步symbol字段（可选，确保一致）
-                                targetItem.symbol = index;
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogWarning($"无效的符号键：{symbolKey}，无法解析索引");
-                        }
-                    }
-
-                    //支付线处理
-                    if (CustomModel.Instance.payLines == null)
-                    {
-                        CustomModel.Instance.payLines = new List<List<int>>() { };
-                    }
-                    foreach (var item in config.pay_lines)
-                    {
-                        CustomModel.Instance.payLines.Add(item);
-                    }
+                    MainModel.Instance.lineNum = config.LineNum;
                 });
         }
 
@@ -942,18 +902,17 @@ namespace CaiFuHuoChe_3996
                 {
                     // 普通赢钱处理
                     bool isAddToCredit = totalWinLineCredit > ContentModel.Instance.totalBet * 4;
+                    //积分同步和退币处理
                     slotMachineCtrl.SendPrepareTotalWinCreditEvent(totalWinLineCredit, isAddToCredit);
                 }
 
                 //积分同步和退币处理
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
                 //加钱动画
-                MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true, isAddCreditAnim);
+                MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
             }
             #endregion
 
-            // 本剧同步玩家金钱
-            MainBlackboardController.Instance.SyncMyTempCreditToReal(false);
             // 即中即退
             // yield return CoinOutImmediately(allWinCredit);
 
@@ -991,6 +950,9 @@ namespace CaiFuHuoChe_3996
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
             }
+
+            // 本剧同步玩家金钱
+            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
 
             // 进入空闲模式
             ContentModel.Instance.gameState = GameState.Idle;
@@ -1146,7 +1108,7 @@ namespace CaiFuHuoChe_3996
             //获取结果
             if (ApplicationSettings.Instance.isMock)
             {
-                yield return RequestSlotSpinFromMock(() =>
+                yield return JackpotRequestSlotSpinFromMock(() =>
                 {
                     isNext = true;
                 }, (err) =>
@@ -2257,6 +2219,11 @@ namespace CaiFuHuoChe_3996
             slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
         }
 
+        private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
+        {
+            e.Result = MachineDataG3996Controller.ParseCoinPushSpinPayload(e.Data, e.StartPos);
+        }
+
         IEnumerator MoveToZeroOverTime(GComponent effect ,Vector2 startPosition, float duration = 1f, Action successCallback = null)
         {
             Vector2 endPos = Vector2.zero; // (0,0)
@@ -2310,6 +2277,107 @@ namespace CaiFuHuoChe_3996
             {
                 StopEffectAnim(child);
             }
+        }
+
+
+
+        IEnumerator JackpotRequestSlotSpinFromMock(Action successCallback = null, Action<string> errorCallback = null)
+        {
+            bool isNext = false;
+            bool isBreak = false;
+            long totalBet = TotalBet;
+            JSONNode resNode = null;
+            //请求结果
+            MachineDataG3996Controller.Instance.RequestSlotSpinFromMock(TotalBet, (res) =>
+            {
+                resNode = res;
+                isNext = true;
+            }, (err) =>
+            {
+                errorCallback?.Invoke(err.msg);
+                isNext = true;
+                isBreak = true;
+            });
+
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+            if (isBreak) yield break;
+
+            SBoxJackpotData sboxJackpotData = null;
+            // 获取彩金贡献值
+            int cacheTotalJpMajor = SQLitePlayerPrefs03.Instance.GetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, 0);
+            int cacheTotalJpGrand = SQLitePlayerPrefs03.Instance.GetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, 0);
+
+            SlotG3996MachineDataManager.Instance.RequestGetJpMajorGrandContribution((res) =>
+            {
+                JSONNode data = JSONNode.Parse((string)res);
+                if (0 != (int)data["code"])
+                {
+                    errorCallback?.Invoke("请求贡献值报错");
+                    isNext = true;
+                    isBreak = true;
+                    return;
+                }
+
+                int majorBet = (int)data["major"];
+                int grandBet = (int)data["grand"];
+
+                // 【保存数据，等下行时，删除数据】。
+                cacheTotalJpMajor += majorBet;
+                cacheTotalJpGrand += grandBet;
+                SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, cacheTotalJpMajor);
+                SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, cacheTotalJpGrand);
+
+                isNext = true;
+            });
+
+            isNext = true;
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+            if (isBreak) yield break;
+
+            // 【贡献返回给算法卡】
+            if (cacheTotalJpMajor > 10 || cacheTotalJpGrand > 10)
+            {
+                ERPushMachineDataManager.Instance.RequestReturnMajorGrandContribution(
+                    cacheTotalJpMajor > 10 ? cacheTotalJpMajor : 0,
+                    cacheTotalJpGrand > 10 ? cacheTotalJpGrand : 0,
+                    (res) =>
+                    {
+
+                        if ((int)res == 0)
+                        {
+                            if (cacheTotalJpMajor > 10)
+                            {
+                                cacheTotalJpMajor = 0;
+                                SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, 0);
+                            }
+
+                            if (cacheTotalJpGrand > 10)
+                            {
+                                cacheTotalJpGrand = 0;
+                                SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, 0);
+                            }
+                        }
+
+                        isNext = true;
+                    });
+
+                yield return new WaitUntil(() => isNext == true);
+                isNext = false;
+            }
+
+            //赠送局不用扣分
+            if (ContentModel.Instance.gameState != GameState.FreeSpin)
+            {
+                MainBlackboardController.Instance.MinusMyTempCredit(totalBet, true, false);
+            }
+
+            // 解析数据
+            MachineDataG3996Controller.Instance.JackpotSlotSpin(totalBet, resNode, sboxJackpotData);
+
+            if (successCallback != null)
+                successCallback.Invoke();
         }
     }
 }

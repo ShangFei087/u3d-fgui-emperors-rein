@@ -371,13 +371,16 @@ namespace CaiFuHuoChe_3996
                                     GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
                                     reels[_reelIdx].symbolList[i].AddSymbolEffect(goSymbolHit, true);
                                     GTextField socre = reels[_reelIdx].symbolList[i].goOwnerSymbol.GetChild("socre").asTextField;
-                                    socre.text = UnityEngine.Random.Range(5, 30).ToString();
+                                    socre.text = ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx].ToString();
                                     socre.visible = true;
 
                                     ContentModel.Instance.haveJackpotCredit = true;
 
                                     // 设置层级
                                     TempSortOrder(reels[_reelIdx].symbolList[i].goOwnerSymbol, goExpectation);
+
+                                    ContentModel.Instance.jackpotSpinPlayTimes = 0;
+                                    if(ContentModel.Instance.nextReelStripsIndex == "BS") ContentModel.Instance.nextReelStripsIndex = "JS";
                                 }
                             }
                         }
