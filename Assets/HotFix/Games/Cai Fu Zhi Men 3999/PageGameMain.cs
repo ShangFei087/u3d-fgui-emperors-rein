@@ -91,7 +91,7 @@ namespace CaiFuZhiMen_3999
             _corShowBonusSymbol,
             _corEffectSlowMotion;
 
-        private long TotalBet => (long)MainModel.Instance.contentMD.totalBet;
+        private long TotalBet => MainModel.Instance.contentMD.totalBet;
 
         private readonly List<Dictionary<string, object>> _stackContext = new List<Dictionary<string, object>>();
 

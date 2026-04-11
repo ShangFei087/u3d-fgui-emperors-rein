@@ -1,11 +1,11 @@
 {
-  "updated_at": 1775879547309,
+  "updated_at": 1775874896561,
   "hotfix_key": "hf_debug_android_20260303190331",
-  "hotfix_version": "1.10.59",
+  "hotfix_version": "1.10.56",
   "asset_bundle": {
     "manifest": {
-      "hash": "c2ee8187aed72c2b25dbce6333611c33",
-      "size_bytes": 21054
+      "hash": "04af0df69766934bd2ff88443c98ce6f",
+      "size_bytes": 21112
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
@@ -25,9 +25,9 @@
       "_common/game maker/abs/g3993/gm/tmg_mock_gm_3993.unity3d": "8430a3957a13dfb6e567fadf19c0b03b",
       "_common/game maker/abs/g3995/data/game_info_g3995.unity3d": "c0188692a6159b22a8703925f669b5c1",
       "_common/game maker/abs/g3995/gm/tmg_mock_gm_3995.unity3d": "7b118001e3688502d2404e5e5b861ff3",
-      "_common/game maker/abs/g3996/datas/game_info_g3996.unity3d": "0015b1baee2def442fa6cdfaab0e24ff",
+      "_common/game maker/abs/g3996/data/game_info_g3996.unity3d": "469cee149dddde7fc1eb17c9c5b80713",
       "_common/game maker/abs/g3996/gm/tmg_mock_gm_3996.unity3d": "f4bc35d5cbeda0aa7e676a8788ceee31",
-      "_common/game maker/abs/g3997/datas/game_info_g3997.unity3d": "f9f4a88e957db733efb7b4e34ef356bf",
+      "_common/game maker/abs/g3997/datas/game_info_g3997.unity3d": "0ac4b01d1087c8c08dc853cd1473f44b",
       "_common/game maker/abs/g3997/gm/tmg_mock_gm_3997.unity3d": "c9af67534e8a3d95da7f4adc3229671c",
       "_common/game maker/abs/g3998/datas/game_info_g3998.unity3d": "5c572f90a7d66ea1c18a3d3c119c7a52",
       "_common/game maker/abs/g3998/gm/tmg_mock_gm_3998.unity3d": "062250b1eff4d1daccf13fbdabbd5c9c",
@@ -46,7 +46,7 @@
       "_common/game maker/sounds/ui_popup_open.unity3d": "c57a15a4a556dbaab1e2b971a6686a22",
       "_common/game maker/sounds/ui_spin_auto.unity3d": "7e03dedc290ca43c75c592bd36428b71",
       "_common/game maker/sounds/ui_spin_start.unity3d": "d27a6ce2f4311f2d8f45d4e786cd8ebc",
-      "games/bonusgame2/fguis.unity3d": "12b3a9e50196a6b9ce0f0d6fe40e5c36",
+      "games/bonusgame2/fguis.unity3d": "fe2acb7e24dd1612a0460adeaeac6676",
       "games/cai fu huo che 3996/fguis.unity3d": "8a0f0a5dbab7c5b3cd4ccbcb8e11c228",
       "games/cai fu huo che 3996/prefabs/effects/freereeleffect.unity3d": "3626e37da8a112139b364646eebff8ba",
       "games/cai fu huo che 3996/prefabs/effects/jackpotreeleffect.unity3d": "99d30dabb3785f2f3f0edf75441544b2",
@@ -166,7 +166,7 @@
       "games/cai fu zhi jia 3997/prefabs/symbols/symbolappear/car_07.unity3d": "c94203a3f4599f58af2e9ac2d8ec20f9",
       "games/cai fu zhi jia 3997/prefabs/symbols/symbolappear/dollar_05.unity3d": "87fc877b476d8dc793be2f5f05655873",
       "games/cai fu zhi jia 3997/prefabs/symbols/symbolappear/gold_01.unity3d": "92499fa303e7bb292d56005473593043",
-      "games/cai fu zhi jia 3997/prefabs/symbols/symbolappear/plane_09.unity3d": "9e379fb59861e395fe483640bbd393f3",
+      "games/cai fu zhi jia 3997/prefabs/symbols/symbolappear/plane_09.unity3d": "fc91711c0eb8f068c9ee4694bc72b65f",
       "games/cai fu zhi jia 3997/prefabs/symbols/symbolappear/ring_06.unity3d": "e5b92e3ef3743b13b5335b777af29bc8",
       "games/cai fu zhi jia 3997/prefabs/symbols/symbolappear/scatter_11.unity3d": "22dd02c474fe384d60b6773e0e66bbb4",
       "games/cai fu zhi jia 3997/prefabs/symbols/symbolappear/ships_08.unity3d": "bc239ea88e7a4ddeae5393f4dddc2547",
@@ -215,7 +215,7 @@
       "games/cai fu zhi men 3999/artres/sounds/music/bonusbgm.unity3d": "d4fa1cc2f3920684513ddec22d1cea45",
       "games/cai fu zhi men 3999/artres/sounds/music/freebgm.unity3d": "be625e58387ccc97e68b55a663b195ee",
       "games/cai fu zhi men 3999/artres/sounds/music/normalbgm.unity3d": "3529d93e71ff89c2cdb06283c1475085",
-      "games/cai fu zhi men 3999/fguis.unity3d": "7fe5b55d18fca6f2b8238a3607002ae0",
+      "games/cai fu zhi men 3999/fguis.unity3d": "c972a53087f39c9f5d131c0455c2b89b",
       "games/cai fu zhi men 3999/prefabs/game controller/slot game main controller.unity3d": "f9f7e42f1243b6f71f4ea51938f2d3b2",
       "games/cai fu zhi men 3999/prefabs/pagegamemain/effectprefabs/bonusbordereffect.unity3d": "6cf466f166bc76c757346bfdd050fde2",
       "games/cai fu zhi men 3999/prefabs/pagegamemain/effectprefabs/freebordereffect.unity3d": "1d2f9dbf46ea75b426ae3fa8f55bd06e",
@@ -260,12 +260,12 @@
       "games/common/prefabs/gs/gssource.unity3d": "7d076b5c6bb0da738ba1294619c690c7",
       "games/console coin pusher 01/fguis.unity3d": "58fe80235a943e87f151132d00b91c6d",
       "games/console/abs/lang_cn.unity3d": "0cc7a0e96953d2987d723818c81acba6",
-      "games/console/abs/lang_en.unity3d": "0c926abadeefdb3d851261b553bca524",
+      "games/console/abs/lang_en.unity3d": "f00c07a1f51cc74633d1e5167d320eb8",
       "games/console/abs/lang_tw.unity3d": "d301d74c9c4a970d77c03f799f725392",
       "games/console/fguis.unity3d": "50b4d7cd4a421d602094ea2c36f3c813",
       "games/emperors rein 200/abs/datas/slot_machine_config_bouns1.unity3d": "b7bdf4772671474e955d5a7883d9e43d",
       "games/emperors rein 200/abs/datas/slot_machine_config_temp.unity3d": "6b732135677815a2defb0eba50dcc545",
-      "games/emperors rein 200/fguis.unity3d": "3c47528d0317912e09418bee4ae87d21",
+      "games/emperors rein 200/fguis.unity3d": "c118e88cd1d8eb50d3497e4d78d20ec9",
       "games/emperors rein 200/prefabs/effects/game jackpot/prefabs/effect.unity3d": "a690611746bcbaf472cc5ac9de60ca39",
       "games/emperors rein 200/prefabs/effects/smallgame/art/effects/prefabs/2.unity3d": "a74f88b39307b01cb5731b61f3cab686",
       "games/emperors rein 200/prefabs/effects/smallgame/art/effects/prefabs/anchordi.unity3d": "2d8ddd07b7b474c304ede3b0391c836e",
@@ -317,7 +317,7 @@
       "games/emperors rein 200/prefabs/pageergamemain/qi.unity3d": "fde4eedc2390404252bd614976c8a159",
       "games/emperors rein 200/prefabs/pageergamemain/reeleffect.unity3d": "5d2839d4d82d4d0e9d8f79f2ca001a02",
       "games/emperors rein 200/prefabs/popup jackpot on line/effects/coins/prefabs/eff_pup_grand.unity3d": "3b012edadfa315f1690b594ee015ceb4",
-      "games/emperors rein 200/prefabs/popup jackpot on line/prefabs/anchor jackpot online.unity3d": "330836a833baa1f9cd9ce650a94f6dc6",
+      "games/emperors rein 200/prefabs/popup jackpot on line/prefabs/anchor jackpot online.unity3d": "5f9938d60148929c041ed168628f9182",
       "games/emperors rein 200/prefabs/popupbigwin/begin queen.unity3d": "14ef493fa08351e78af8b552e666d4f2",
       "games/emperors rein 200/prefabs/popupbigwin/bigwineffect01.unity3d": "5dff4f588962f8475bcd58212348e3c0",
       "games/emperors rein 200/prefabs/popupbigwin/bigwineffect02.unity3d": "ea4dd8a6547651c1209287fef9cf1191",
@@ -700,12 +700,12 @@
   },
   "hotfix_dll": {
     "Base": {
-      "hash": "f863fdb7b43a5b368df99901ea2c68a3",
-      "size_bytes": 167424
+      "hash": "6d3f4bc14ca85f292db08c86b75b2f68",
+      "size_bytes": 168960
     },
     "HotFix": {
-      "hash": "0f78a91718e6acf8773fd3d738a2be7f",
-      "size_bytes": 1494016
+      "hash": "5c686ca481c71f5748cb5dc1a2ff188c",
+      "size_bytes": 1568768
     }
   },
   "hotfix_dll_load_order": [
