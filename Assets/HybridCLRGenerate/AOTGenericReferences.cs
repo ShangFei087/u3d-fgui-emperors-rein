@@ -419,18 +419,17 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Func<object,System.Nullable<byte>>
 	// System.Func<object,System.Threading.Tasks.VoidTaskResult>
 	// System.Func<object,byte>
+	// System.Func<object,int,object>
 	// System.Func<object,int>
 	// System.Func<object,object,object>
 	// System.Func<object,object>
 	// System.Func<object>
 	// System.Func<ushort,byte>
-	// System.Func<ushort,int>
-	// System.Linq.Buffer<int>
 	// System.Linq.Buffer<object>
+	// System.Linq.Enumerable.<SelectIterator>d__5<object,object>
 	// System.Linq.Enumerable.Iterator<Loom.DelayedQueueItem>
 	// System.Linq.Enumerable.Iterator<int>
 	// System.Linq.Enumerable.Iterator<object>
-	// System.Linq.Enumerable.Iterator<ushort>
 	// System.Linq.Enumerable.WhereArrayIterator<Loom.DelayedQueueItem>
 	// System.Linq.Enumerable.WhereArrayIterator<object>
 	// System.Linq.Enumerable.WhereEnumerableIterator<Loom.DelayedQueueItem>
@@ -440,13 +439,10 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Linq.Enumerable.WhereListIterator<object>
 	// System.Linq.Enumerable.WhereSelectArrayIterator<object,int>
 	// System.Linq.Enumerable.WhereSelectArrayIterator<object,object>
-	// System.Linq.Enumerable.WhereSelectArrayIterator<ushort,int>
 	// System.Linq.Enumerable.WhereSelectEnumerableIterator<object,int>
 	// System.Linq.Enumerable.WhereSelectEnumerableIterator<object,object>
-	// System.Linq.Enumerable.WhereSelectEnumerableIterator<ushort,int>
 	// System.Linq.Enumerable.WhereSelectListIterator<object,int>
 	// System.Linq.Enumerable.WhereSelectListIterator<object,object>
-	// System.Linq.Enumerable.WhereSelectListIterator<ushort,int>
 	// System.Nullable<UnityEngine.Color>
 	// System.Nullable<byte>
 	// System.Nullable<float>
@@ -522,16 +518,15 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// int System.Linq.Enumerable.First<int>(System.Collections.Generic.IEnumerable<int>)
 		// object System.Linq.Enumerable.FirstOrDefault<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
 		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Select<object,int>(System.Collections.Generic.IEnumerable<object>,System.Func<object,int>)
-		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Select<ushort,int>(System.Collections.Generic.IEnumerable<ushort>,System.Func<ushort,int>)
+		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,int,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,object>)
-		// int[] System.Linq.Enumerable.ToArray<int>(System.Collections.Generic.IEnumerable<int>)
+		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.SelectIterator<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,int,object>)
 		// object[] System.Linq.Enumerable.ToArray<object>(System.Collections.Generic.IEnumerable<object>)
 		// System.Collections.Generic.List<int> System.Linq.Enumerable.ToList<int>(System.Collections.Generic.IEnumerable<int>)
 		// System.Collections.Generic.List<object> System.Linq.Enumerable.ToList<object>(System.Collections.Generic.IEnumerable<object>)
 		// System.Collections.Generic.IEnumerable<Loom.DelayedQueueItem> System.Linq.Enumerable.Where<Loom.DelayedQueueItem>(System.Collections.Generic.IEnumerable<Loom.DelayedQueueItem>,System.Func<Loom.DelayedQueueItem,bool>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Where<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
 		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Iterator<object>.Select<int>(System.Func<object,int>)
-		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Iterator<ushort>.Select<int>(System.Func<ushort,int>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Iterator<object>.Select<object>(System.Func<object,object>)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,InOutRecordController.<WaitUntil>d__27>(System.Runtime.CompilerServices.TaskAwaiter&,InOutRecordController.<WaitUntil>d__27&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,PageBase.<WaitUntil>d__28>(System.Runtime.CompilerServices.TaskAwaiter&,PageBase.<WaitUntil>d__28&)
