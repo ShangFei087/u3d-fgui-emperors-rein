@@ -86,7 +86,7 @@ namespace CaiFuZhiJia_3997
         readonly List<Dictionary<string, object>> _stackContext = new List<Dictionary<string, object>>();
 
         private bool _isMain = true;
-        long TotalBet => (long)SBoxModel.Instance.CoinInScale;
+        long TotalBet => MainModel.Instance.contentMD.totalBet;
 
         // Spine动画
         private GameObject _reelBgSpineObj = null, _freeTreeSpineObj = null; // 物体模板
