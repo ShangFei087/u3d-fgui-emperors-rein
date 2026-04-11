@@ -54,14 +54,28 @@ namespace CaiFuZhiJia_3997
         public Dictionary<string, string> symbolHitEffect => new Dictionary<string, string>()
         {
             { "0", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Gold_01.prefab" }, // 15 30 90
-            { "1", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Sliver_02.prefab" }, // 15 30 90
+            {
+                "1", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Sliver_02.prefab"
+            }, // 15 30 90
             { "2", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Bar_03.prefab" }, // 15 30 90
-            { "3", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Watch_04.prefab" }, // 20 60 150 
-            { "4", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Dollar_05.prefab" }, // 20 60 150 
-            { "5", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Ring_06.prefab" }, // 30 150 600 
-            { "6", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Car_07.prefab" }, // 30 150 600 
-            { "7", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Ships_08.prefab" }, // 60 600 1500 
-            { "8", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Plane_09.prefab" }, // 300 1500 3000 
+            {
+                "3", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Watch_04.prefab"
+            }, // 20 60 150 
+            {
+                "4", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Dollar_05.prefab"
+            }, // 20 60 150 
+            {
+                "5", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Ring_06.prefab"
+            }, // 30 150 600 
+            {
+                "6", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Car_07.prefab"
+            }, // 30 150 600 
+            {
+                "7", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Ships_08.prefab"
+            }, // 60 600 1500 
+            {
+                "8", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Plane_09.prefab"
+            }, // 300 1500 3000 
             { "9", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Wild_10.prefab" },
             { "10", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Scatter_11.prefab" },
             { "11", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Bonus_12.prefab" },
@@ -111,51 +125,99 @@ namespace CaiFuZhiJia_3997
         {
             new PayTableSymbolInfo()
             {
-                symbol = 0, x5 = 90, x4 = 30, x3 = 15,
+                symbol = 0,
+                x5 = 15,
+                x4 = 5,
+                x3 = 2,
+                x2 = 0,
             },
             new PayTableSymbolInfo()
             {
-                symbol = 1, x5 = 90, x4 = 30, x3 = 15,
+                symbol = 1,
+                x5 = 15,
+                x4 = 5,
+                x3 = 2,
+                x2 = 0,
             },
             new PayTableSymbolInfo()
             {
-                symbol = 2, x5 = 90, x4 = 30, x3 = 15,
+                symbol = 2,
+                x5 = 15,
+                x4 = 5,
+                x3 = 2,
+                x2 = 0,
             },
             new PayTableSymbolInfo()
             {
-                symbol = 3, x5 = 150, x4 = 60, x3 = 20,
+                symbol = 3,
+                x5 = 25,
+                x4 = 10,
+                x3 = 3,
+                x2 = 0,
             },
             new PayTableSymbolInfo()
             {
-                symbol = 4, x5 = 150, x4 = 60, x3 = 20,
+                symbol = 4,
+                x5 = 25,
+                x4 = 10,
+                x3 = 3,
+                x2 = 0,
             },
             new PayTableSymbolInfo()
             {
-                symbol = 5, x5 = 600, x4 = 150, x3 = 30,
+                symbol = 5,
+                x5 = 100,
+                x4 = 20,
+                x3 = 5,
+                x2 = 2,
             },
             new PayTableSymbolInfo()
             {
-                symbol = 6, x5 = 600, x4 = 150, x3 = 30,
+                symbol = 6,
+                x5 = 100,
+                x4 = 20,
+                x3 = 5,
+                x2 = 2,
             },
             new PayTableSymbolInfo()
             {
-                symbol = 7, x5 = 1500, x4 = 600, x3 = 60,
+                symbol = 7,
+                x5 = 500,
+                x4 = 100,
+                x3 = 10,
+                x2 = 3,
             },
             new PayTableSymbolInfo()
             {
-                symbol = 8, x5 = 3000, x4 = 1500, x3 = 300,
+                symbol = 8,
+                x5 = 2500,
+                x4 = 500,
+                x3 = 50,
+                x2 = 2,
             },
             new PayTableSymbolInfo() // wild
             {
-                symbol = 9, x5 = 0, x4 = 0, x3 = 0,
+                symbol = 9,
+                x5 = 0,
+                x4 = 0,
+                x3 = 0,
+                x2 = 0,
             },
             new PayTableSymbolInfo() // scatter
             {
-                symbol = 10, x5 = 0, x4 = 0, x3 = 0,
+                symbol = 10,
+                x5 = 0,
+                x4 = 0,
+                x3 = 0,
+                x2 = 0,
             },
             new PayTableSymbolInfo() // bonus
             {
-                symbol = 11, x5 = 0, x4 = 0, x3 = 0,
+                symbol = 11,
+                x5 = 0,
+                x4 = 0,
+                x3 = 0,
+                x2 = 0,
             },
         };
 
