@@ -92,7 +92,7 @@ public class MatchDebugManager : MonoSingleton<MatchDebugManager>
             udpClient.Close();
             udpClient = null;
         }
-        sendEndPoint = new IPEndPoint(IPAddress.Parse(mMatchIp), 8098);
+        sendEndPoint = new IPEndPoint(IPAddress.Parse(mMatchIp), 8094);
         udpClient = new UdpClient();
 
         if (udpReceive != null)
@@ -100,7 +100,7 @@ public class MatchDebugManager : MonoSingleton<MatchDebugManager>
             udpReceive.Close();
             udpReceive = null;
         }
-        remoteEndPoint = new IPEndPoint(IPAddress.Any, 8097);
+        remoteEndPoint = new IPEndPoint(IPAddress.Any, 8093);
         udpReceive = new UdpClient(remoteEndPoint);
         udpReceive.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
         UdpData data = new UdpData(remoteEndPoint, udpReceive);
@@ -115,6 +115,7 @@ public class MatchDebugManager : MonoSingleton<MatchDebugManager>
             UdpData state = ar.AsyncState as UdpData;
             IPEndPoint iPEndPoint = state.EndPoint;
             byte[] bytes = udpReceive.EndReceive(ar, ref iPEndPoint);
+            //Debug.Log($"[MatchUDP] recv {bytes.Length} bytes from {iPEndPoint}");
             reciveQueue.Enqueue(System.Text.Encoding.UTF8.GetString(bytes));
             udpReceive.BeginReceive(CallBackRecive, state);
         }
