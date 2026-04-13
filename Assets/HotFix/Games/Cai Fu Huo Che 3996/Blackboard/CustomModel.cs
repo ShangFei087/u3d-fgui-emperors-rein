@@ -41,7 +41,7 @@ namespace CaiFuHuoChe_3996
 
 
         /// <summary> 通过图标索引，获取图标真实编号 </summary>
-        public List<int> symbolNumber => new List<int>() {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        public List<int> symbolNumber => new List<int>() {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
 
         /// <summary> 所有图标个数 </summary>
         public int symbolCount => symbolNumber.Count;
@@ -223,92 +223,99 @@ namespace CaiFuHuoChe_3996
         public List<PayTableSymbolInfo> payTableSymbolWin
         {
             get => new List<PayTableSymbolInfo>()
-        {
-            new PayTableSymbolInfo()
             {
-                symbol = 0,
-                x5 = 300,
-                x4 = 60,
-                x3 = 30,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 1,
-                x5 = 300,
-                x4 = 60,
-                x3 = 30,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 2,
-                x5 = 300,
-                x4 = 60,
-                x3 = 30,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 3,
-                x5 = 300,
-                x4 = 60,
-                x3 = 30,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 4,
-                x5 = 300,
-                x4 = 60,
-                x3 = 30,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 5,
-                x5 = 900,
-                x4 = 180,
-                x3 = 90,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 6,
-                x5 = 1200,
-                x4 = 240,
-                x3 = 120,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 7,
-                x5 = 1500,
-                x4 = 300,
-                x3 = 150,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 8,
-                x5 = 3000,
-                x4 = 300,
-                x3 = 150,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 9,
-                x5 = 0,
-                x4 = 0,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 10,
-                x5 = 0,
-                x4 = 0,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 11,
-                x5 = 0,
-                x4 = 0,
-                x3 = 0,
-            },
-        };
+                new PayTableSymbolInfo()
+                {
+                    symbol = 0,
+                    x5 = 300,
+                    x4 = 60,
+                    x3 = 30,
+                },
+                new PayTableSymbolInfo()
+                {
+                    symbol = 1,
+                    x5 = 300,
+                    x4 = 60,
+                    x3 = 30,
+                },
+                new PayTableSymbolInfo()
+                {
+                    symbol = 2,
+                    x5 = 300,
+                    x4 = 60,
+                    x3 = 30,
+                },
+                new PayTableSymbolInfo()
+                {
+                    symbol = 3,
+                    x5 = 300,
+                    x4 = 60,
+                    x3 = 30,
+                },
+                new PayTableSymbolInfo()
+                {
+                    symbol = 4,
+                    x5 = 300,
+                    x4 = 60,
+                    x3 = 30,
+                },
+                new PayTableSymbolInfo()
+                {
+                    symbol = 5,
+                    x5 = 900,
+                    x4 = 180,
+                    x3 = 90,
+                },
+                new PayTableSymbolInfo()
+                {
+                    symbol = 6,
+                    x5 = 1200,
+                    x4 = 240,
+                    x3 = 120,
+                },
+                new PayTableSymbolInfo()
+                {
+                    symbol = 7,
+                    x5 = 1500,
+                    x4 = 300,
+                    x3 = 150,
+                },
+                new PayTableSymbolInfo()
+                {
+                    symbol = 8,
+                    x5 = 3000,
+                    x4 = 300,
+                    x3 = 150,
+                },
+                new PayTableSymbolInfo()
+                {
+                    symbol = 9,
+                    x5 = 0,
+                    x4 = 0,
+                    x3 = 0,
+                },
+                new PayTableSymbolInfo()
+                {
+                    symbol = 10,
+                    x5 = 0,
+                    x4 = 0,
+                    x3 = 0,
+                },
+                new PayTableSymbolInfo()
+                {
+                    symbol = 11,
+                    x5 = 0,
+                    x4 = 0,
+                    x3 = 0,
+                },
+                new PayTableSymbolInfo()
+                {
+                    symbol = 12,
+                    x5 = 0,
+                    x4 = 0,
+                    x3 = 0,
+                },
+            };
             set => m_PayTableSymbolWin = value;
         }
 
@@ -382,33 +389,29 @@ namespace CaiFuHuoChe_3996
 
         public FreeGameConfig jackpotGameConfig
         {
-            get => _jackpotGameConfig;
+            get => new FreeGameConfig()
+            {
+                IsUseCommonFreeTimes = false,                          //是否使用公共的免费次数框
+                IsHasFreeGame = true,                                  //是否有免费奖
+                FreeGameType = MakeFreeGameType.OnScatter,             //触发免费奖方式
+                IsScatterInLine = false,                               //Scatter图标是否依赖中奖线
+                Make2FreeGameCount = new int[] { 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 },            //触发免费奖所需数量(Scatter图标/充能)
+                FreeGameTime = new int[] { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 },                  //免费次数
+            };
 
         }
-
-        public FreeGameConfig _jackpotGameConfig = new FreeGameConfig()
-        {
-            IsUseCommonFreeTimes = false,                          //是否使用公共的免费次数框
-            IsHasFreeGame = true,                                  //是否有免费奖
-            FreeGameType = MakeFreeGameType.OnScatter,             //触发免费奖方式
-            IsScatterInLine = false,                               //Scatter图标是否依赖中奖线
-            Make2FreeGameCount = new int[] { 3, 4, 5 },            //触发免费奖所需数量(Scatter图标/充能)
-            FreeGameTime = new int[] { 3, 4, 5 },                  //免费次数
-        };
 
         public BonusGameConfig bonusGameconfig
         {
-            get => _bonusGameconfig;
+            get => new BonusGameConfig()
+            {
+                IsHasBonusGame = true,                                 //是否有大奖
+                BonusGameType = MakeBonusGameType.OnBonus,            // 触发大奖方式
+                IsBonusInLine = false,                                  //Bonus图标是否依赖中奖线
+                Make2BonusGameCount = 3,                               //触发大奖所需数量(Bonus图标)
+            };
 
         }
-
-        public BonusGameConfig _bonusGameconfig = new BonusGameConfig()
-        {
-            IsHasBonusGame = true,                                 //是否有大奖
-            BonusGameType = MakeBonusGameType.OnBonus,            // 触发大奖方式
-            IsBonusInLine = false,                                  //Bonus图标是否依赖中奖线
-            Make2BonusGameCount = 3,                               //触发大奖所需数量(Bonus图标)
-        };
 
         #endregion
     }
