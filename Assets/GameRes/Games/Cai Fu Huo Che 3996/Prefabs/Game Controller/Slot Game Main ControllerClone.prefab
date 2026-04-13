@@ -201,11 +201,17 @@ MonoBehaviour:
   isReelsSlowMotion: 0
   isFreeSpinTrigger: 0
   isFreeSpinResult: 0
+  haveFreeSpecialIcon: 0
+  isJackpotSpinTrigger: 0
+  isJackpotSpinResult: 0
+  haveJackpotCredit: 0
   freeSpinAddNum: 0
   bonusType: 
   isFreeSpinAdd: 0
   m_showFreeSpinRemainTime: 0
+  m_showJackpotSpinRemainTime: 0
   m_freeOnceCredit: 0
+  newFreeOnceCredit: 
   creditBefore: 0
   creditAfter: 0
   curGameCreatTimeMS: 0
@@ -251,58 +257,9 @@ MonoBehaviour:
   m_BtnSpinState: Stop
   m_WheelBtnSpinState: Stop
   m_TotalBet: 0
+  m_BetMultiple: 0
   m_SelectLine: 0
   m_ApostarCredit: 0
-  m_PayTableSymbolWin:
-  - symbol: 0
-    x3: 0
-    x4: 0
-    x5: 0
-  - symbol: 1
-    x3: 2
-    x4: 0
-    x5: 0
-  - symbol: 2
-    x3: 1
-    x4: 4
-    x5: 10
-  - symbol: 3
-    x3: 0.6
-    x4: 2
-    x5: 6
-  - symbol: 4
-    x3: 0.5
-    x4: 1
-    x5: 2
-  - symbol: 5
-    x3: 0.3
-    x4: 0.6
-    x5: 1.6
-  - symbol: 6
-    x3: 0.2
-    x4: 0.3
-    x5: 1
-  - symbol: 7
-    x3: 0.16
-    x4: 0.2
-    x5: 0.6
-  - symbol: 8
-    x3: 0.16
-    x4: 0.2
-    x5: 0.6
-  - symbol: 9
-    x3: 0.1
-    x4: 0.2
-    x5: 0.4
-  - symbol: 10
-    x3: 0.1
-    x4: 0.2
-    x5: 0.4
-  - symbol: 11
-    x3: 0.1
-    x4: 0.2
-    x5: 0.4
-  _winMultipleList: []
   isLihe: 0
   winningLines: []
   rewardIndex: 0
@@ -311,8 +268,6 @@ MonoBehaviour:
   multiple: 0
   cols: 
   maxLink: 0
-  tempRows: 
-  tempCols: 
   m_curBtnSpinState: Stop
 --- !u!1 &2553517512364735740
 GameObject:
@@ -762,7 +717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a182cce8ee1f18b4abea9e8aa397d145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winEffectSetting: 080000000700000000000000060000000200000009000000
+  winEffectSetting: 08000000070000000000000006000000020000000900000000000000
   timeS: 0.8
 --- !u!1 &7844526404495075882
 GameObject:
@@ -899,6 +854,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1532c2afb67d4044b17ba6e6538d3a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PayTableSymbolWin:
+  - symbol: 0
+    x2: 0
+    x3: 30
+    x4: 60
+    x5: 300
+  - symbol: 1
+    x2: 0
+    x3: 30
+    x4: 60
+    x5: 300
+  - symbol: 2
+    x2: 0
+    x3: 30
+    x4: 60
+    x5: 300
+  - symbol: 3
+    x2: 0
+    x3: 30
+    x4: 60
+    x5: 300
+  - symbol: 4
+    x2: 0
+    x3: 30
+    x4: 60
+    x5: 300
+  - symbol: 5
+    x2: 0
+    x3: 90
+    x4: 180
+    x5: 900
+  - symbol: 6
+    x2: 0
+    x3: 120
+    x4: 240
+    x5: 1200
+  - symbol: 7
+    x2: 0
+    x3: 150
+    x4: 300
+    x5: 1500
+  - symbol: 8
+    x2: 0
+    x3: 150
+    x4: 300
+    x5: 3000
+  - symbol: 9
+    x2: 0
+    x3: 0
+    x4: 0
+    x5: 0
+  - symbol: 10
+    x2: 0
+    x3: 0
+    x4: 0
+    x5: 0
+  - symbol: 11
+    x2: 0
+    x3: 0
+    x4: 0
+    x5: 0
 --- !u!1 &9156710847660138124
 GameObject:
   m_ObjectHideFlags: 0

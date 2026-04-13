@@ -271,6 +271,12 @@ namespace CaiFuHuoChe_3996
                     ContentModel.Instance.freeSpinTotalTimes = TotalFreeTime;
                     ContentModel.Instance.freeSpinPlayTimes = 0;
                     ContentModel.Instance.freeSpinTotalWinCredit = 0;
+
+                    ContentModel.Instance.newFreeOnceCredit.Clear();
+                    for (int i = 0; i < TotalFreeTime; i++)
+                    {
+                        ContentModel.Instance.newFreeOnceCredit.Add((int)res["FreeBetArray"][i]);
+                    }
                 }
                 else 
                 {
@@ -279,7 +285,7 @@ namespace CaiFuHuoChe_3996
             }
 
             //判断赠送局
-            else if (ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes)
+            if (openType == 1 && ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes)
             {
                 if (openType != (int)OpenType.OT_Give)
                 {
@@ -339,6 +345,8 @@ namespace CaiFuHuoChe_3996
                     curJackpotIndex = 0;
 
                     JSONArray bonusArray = res["BonusData"].AsArray;
+                    totalLineWin += (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
+
                     int[] bonusData = new int[bonusArray.Count];
                     for (int i = 0; i < bonusArray.Count; i++)
                     {
@@ -348,7 +356,6 @@ namespace CaiFuHuoChe_3996
                     for (int i = 0; i < bonusData.Length; i++)
                     {
                         if (bonusData[i] == 0) continue;
-
                         ContentModel.Instance.jackpotWin[i] = bonusData[i];
                         jackpotPos.Add(i);
                     }
@@ -700,7 +707,6 @@ namespace CaiFuHuoChe_3996
             {
                 ContentModel.Instance.freeSpinAddNum =
                     freeSpinTotalTimes - ContentModel.Instance.freeSpinTotalTimes;
-                
             }
             else
                 ContentModel.Instance.freeSpinAddNum = 0;
