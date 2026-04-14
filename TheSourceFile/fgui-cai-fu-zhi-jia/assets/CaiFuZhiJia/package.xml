@@ -190,6 +190,42 @@
     <image id="isifig" name="sg_txt_red.png" path="/images/popupJackpotTrigger/Background/"/>
     <image id="isifih" name="sg_txt_won.png" path="/images/popupJackpotTrigger/Background/"/>
     <image id="isifil" name="14.png" path="/images/Compare/"/>
+    <image id="prjjim" name="1.png" path="/images/效果图/"/>
+    <image id="prjjin" name="普通转免费.png" path="/images/效果图/"/>
+    <image id="prjjio" name="普通转免费 中文.png" path="/images/效果图/"/>
+    <image id="prjjip" name="普通背景.png" path="/images/效果图/"/>
+    <image id="prjjiq" name="普通游戏.png" path="/images/效果图/"/>
+    <image id="prjjir" name="普通游戏 中文.png" path="/images/效果图/"/>
+    <image id="prjjis" name="彩金背景.png" path="/images/效果图/"/>
+    <image id="prjjit" name="彩金游戏.png" path="/images/效果图/"/>
+    <image id="prjjiu" name="开机.jpg" path="/images/效果图/"/>
+    <image id="prjjiv" name="免费背景.png" path="/images/效果图/"/>
+    <image id="prjjiw" name="免费游戏.png" path="/images/效果图/"/>
+    <image id="prjjix" name="免费游戏 中文.png" path="/images/效果图/"/>
+    <image id="prjjiy" name="super.png" path="/images/效果图/"/>
+    <image id="prjjiz" name="mega.png" path="/images/效果图/"/>
+    <image id="prjjj0" name="mega win.png" path="/images/效果图/"/>
+    <image id="prjjj1" name="big win.png" path="/images/效果图/"/>
+    <image id="prjjj2" name="9.png" path="/images/效果图/"/>
+    <image id="prjjj3" name="8.png" path="/images/效果图/"/>
+    <image id="prjjj4" name="10.png" path="/images/效果图/"/>
+    <image id="prjjj5" name="11.png" path="/images/效果图/"/>
+    <image id="prjjj6" name="12.png" path="/images/效果图/"/>
+    <image id="prjjj7" name="13 cjts.png" path="/images/效果图/"/>
+    <image id="prjjj8" name="14.png" path="/images/效果图/"/>
+    <image id="prjjj9" name="15.png" path="/images/效果图/"/>
+    <image id="prjjja" name="普通转彩金.png" path="/images/效果图/"/>
+    <image id="prjjjb" name="16.png" path="/images/效果图/"/>
+    <image id="prjjjc" name="3.png" path="/images/效果图/"/>
+    <image id="prjjjd" name="4.png" path="/images/效果图/"/>
+    <image id="prjjje" name="5.png" path="/images/效果图/"/>
+    <image id="prjjjf" name="55.png" path="/images/效果图/"/>
+    <image id="prjjjg" name="6.png" path="/images/效果图/"/>
+    <image id="prjjjh" name="7.png" path="/images/效果图/"/>
+    <image id="prjjji" name="2.png" path="/images/效果图/"/>
+    <image id="prjjjj" name="说明书.png" path="/images/效果图/"/>
+    <image id="prjjjk" name="load_img_bg01.png" path="/images/popupGameLoading/"/>
+    <image id="prjjjl" name="load_img_bg02.png" path="/images/popupGameLoading/"/>
   </resources>
   <publish name=""/>
 </packageDescription>

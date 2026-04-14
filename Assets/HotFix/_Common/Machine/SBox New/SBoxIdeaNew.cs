@@ -1,5 +1,5 @@
 /**
- * @file    
+ * @file
  * @author  Huang Wen <Email:ww1383@163.com, QQ:214890094, WeChat:w18926268887>
  * @version 1.0
  *
@@ -11,7 +11,7 @@
  * the rights to use, copy, modify, merge, publish, distribute, sublicense,
  * and/or sell copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  *
@@ -19,6 +19,7 @@
  *
  * This file is ...
  */
+
 using Hal;
 using SimpleJSON;
 using System;
@@ -57,36 +58,34 @@ namespace SBoxApi
     }*/
 
 
-
-
     public class SBoxDebugControlModeData
     {
-        public int mode;           //调试模式
-        public int resType;       //结果类型
-        public int bonusType;      //大奖类型
-        public int jpType;       //大奖类型
+        public int mode; //调试模式
+        public int resType; //结果类型
+        public int bonusType; //大奖类型
+        public int jpType; //大奖类型
     }
 
     // 调试统计信息
     public class SBoxDebugInfo
     {
-        public long dwPlayScore;                // 总下注
-        public long dwWinScore;                 // 总赢钱
-        public long dwTotalPlayTime;            // 总局数
-        public long dwNormalOpenTime;           // 普通开局次数
-        public long dwGiveOpenTime;             // 赠送开局次数
-        public long dwNormalWinTime;            // 普通中奖次数
-        public long dwBonusTime;                // Bonus 次数
-        public long dwFreeGameTime;             // 免费游戏触发次数
-        public long dwLooseTime;                // 输局次数
-        public long dwJackpotTime;              // Jackpot 次数
-        public long dwJackpotOnlineTime;        // 联网Jackpot 次数
-        public long dwBaseWinScore;             // 线奖赢钱总额（金额口径）
-        public long dwFreeWinScore;             // 免费游戏赢钱总额（金额口径）
-        public long dwBonusWinScore;            // Bonus 游戏赢钱总额（金额口径）
-        public long dwJackpotWinScore;          // Jackpot 赢钱总额（金额口径）
-        public long dwJackpotOnlineWinScore;    // 联网Jackpot 赢钱总额（金额口径）
-        public long dwFreeGameBetError;         // 免费游戏剩余倍数误差
+        public long dwPlayScore; // 总下注
+        public long dwWinScore; // 总赢钱
+        public long dwTotalPlayTime; // 总局数
+        public long dwNormalOpenTime; // 普通开局次数
+        public long dwGiveOpenTime; // 赠送开局次数
+        public long dwNormalWinTime; // 普通中奖次数
+        public long dwBonusTime; // Bonus 次数
+        public long dwFreeGameTime; // 免费游戏触发次数
+        public long dwLooseTime; // 输局次数
+        public long dwJackpotTime; // Jackpot 次数
+        public long dwJackpotOnlineTime; // 联网Jackpot 次数
+        public long dwBaseWinScore; // 线奖赢钱总额（金额口径）
+        public long dwFreeWinScore; // 免费游戏赢钱总额（金额口径）
+        public long dwBonusWinScore; // Bonus 游戏赢钱总额（金额口径）
+        public long dwJackpotWinScore; // Jackpot 赢钱总额（金额口径）
+        public long dwJackpotOnlineWinScore; // 联网Jackpot 赢钱总额（金额口径）
+        public long dwFreeGameBetError; // 免费游戏剩余倍数误差
     }
 
     public partial class SBoxIdea
@@ -96,7 +95,6 @@ namespace SBoxApi
 
         public static void CoinPushReset(int pid)
         {
-
             // Debug.LogError($"调用 CoinPushReset pid={pid}");
 
 
@@ -109,15 +107,14 @@ namespace SBoxApi
 
         public static void CoinPushResetR(SBoxPacket sBoxPacket)
         {
-
         }
 
 
         /*
-		 * 玩家按下按钮时调用一次
-		 * pid:玩家id
-		 * coin:玩家的投币数
-		 */
+         * 玩家按下按钮时调用一次
+         * pid:玩家id
+         * coin:玩家的投币数
+         */
         public static void CoinPushSpin(int pid, int coin)
         {
             //Debug.LogError($"调用 CoinPushSpin pid={pid}  coin={coin}");
@@ -193,8 +190,10 @@ namespace SBoxApi
                     Debug.LogError($"CoinPushGetSpinResultR SBOX_COIN_PUSH_SPIN_PARSE: {e}");
                     result = new JSONObject();
                 }
+
                 result["code"] = ret;
             }
+
             Debug.Log(result);
             EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_SPIN, result.ToString());
         }
@@ -252,6 +251,7 @@ namespace SBoxApi
             SBoxIOEvent.AddListener(sBoxPacket.cmd, GetJpMajorGrandContributionR);
             SBoxIOStream.Write(sBoxPacket);
         }
+
         private static void GetJpMajorGrandContributionR(SBoxPacket sBoxPacket)
         {
             /*
@@ -287,10 +287,9 @@ namespace SBoxApi
             SBoxIOEvent.AddListener(sBoxPacket.cmd, GetJpContributionR);
             SBoxIOStream.Write(sBoxPacket);
         }
+
         private static void GetJpContributionR(SBoxPacket sBoxPacket)
         {
-
-
             /*
              * ret:0表示成功，-1表示传参失败
              */
@@ -310,7 +309,8 @@ namespace SBoxApi
                 result["mini"] = mini;
             }
 
-            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_GET_LOCAL_JP_CONTRIBUTION, result.ToString());
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_GET_LOCAL_JP_CONTRIBUTION,
+                result.ToString());
         }
 
 
@@ -320,7 +320,7 @@ namespace SBoxApi
             *                  sBoxWinNetJackpotInfo.JackpotType: 获得的彩金类型
             *                  sBoxWinNetJackpotInfo.JackpotWins: 玩家彩金的赢分(从彩金中心传过来的是币的数量, 需要乘币值)
             *  @return         无返回
-            *  @details        
+            *  @details
         */
         public static void SetPlayerWinNetJackpotInfo(SBoxWinNetJackpotInfo sBoxWinNetJackpotInfo)
         {
@@ -336,7 +336,8 @@ namespace SBoxApi
         }
 
         private static void SetPlayerWinNetJackpotInfoR(SBoxPacket sBoxPacket)
-        {/*
+        {
+            /*
              * ret:0表示成功，-1表示传参失败
              */
             int ret = sBoxPacket.data[0];
@@ -351,10 +352,9 @@ namespace SBoxApi
                 int atfer = sBoxPacket.data[3];
                 result["JackpotWins"] = JackpotWins;
             }
+
             EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_JACKPOT_ONLINE_GAME, result.ToString());
         }
-
-
 
 
         /// <summary>
@@ -371,6 +371,7 @@ namespace SBoxApi
             SBoxIOEvent.AddListener(sBoxPacket.cmd, SetJpMajorGrandWinR);
             SBoxIOStream.Write(sBoxPacket);
         }
+
         private static void SetJpMajorGrandWinR(SBoxPacket sBoxPacket)
         {
             int ret = sBoxPacket.data[0];
@@ -379,7 +380,6 @@ namespace SBoxApi
 
             EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_SET_MAJOR_GRAND_WIN, ret);
         }
-
 
 
         /// <summary>
@@ -411,9 +411,6 @@ namespace SBoxApi
         }
 
 
-
-
-
         /// <summary>
         /// 推币机硬件测试“开始”或“停止”
         /// </summary>
@@ -443,8 +440,8 @@ namespace SBoxApi
             int ret = sBoxPacket.data[0];
 
             // 新加
-            int coinPushTestCoins = sBoxPacket.data[1];  // 当前发币总个数
-            int coinPushTestBalls = sBoxPacket.data[2];  // 当前发球总个数
+            int coinPushTestCoins = sBoxPacket.data[1]; // 当前发币总个数
+            int coinPushTestBalls = sBoxPacket.data[2]; // 当前发球总个数
             int coinPushTestPlate = sBoxPacket.data[3]; // 是否测试推盘 1:是 0:否
             int coinPushTestWiper = sBoxPacket.data[4]; // 是否测试雨刷 1:是 0:否
 
@@ -461,16 +458,16 @@ namespace SBoxApi
             Version targetVersion = new Version("1.0.6");
             if (currentVersion >= targetVersion)
             {
-                int coinPushTestRegainCoins = sBoxPacket.data[5];  // 回币总个数
-                int coinPushTestRegainBalls = sBoxPacket.data[6];  // 回球总个数
+                int coinPushTestRegainCoins = sBoxPacket.data[5]; // 回币总个数
+                int coinPushTestRegainBalls = sBoxPacket.data[6]; // 回球总个数
 
                 result["coinPushTestRegainCoins"] = coinPushTestRegainCoins;
                 result["coinPushTestRegainBalls"] = coinPushTestRegainBalls;
             }
 
 
-            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_HARDWARE_TEST_START_END, result.ToString());
-
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_HARDWARE_TEST_START_END,
+                result.ToString());
         }
 
         /// <summary>
@@ -485,6 +482,7 @@ namespace SBoxApi
             SBoxIOEvent.AddListener(sBoxPacket.cmd, GetHardwareFlagR);
             SBoxIOStream.Write(sBoxPacket);
         }
+
         private static void GetHardwareFlagR(SBoxPacket sBoxPacket)
         {
             int ret = sBoxPacket.data[0];
@@ -501,7 +499,6 @@ namespace SBoxApi
         }
 
 
-
         /// <summary>
         /// 获取硬件状态
         /// </summary>
@@ -512,6 +509,7 @@ namespace SBoxApi
             SBoxIOEvent.AddListener(sBoxPacket.cmd, GetHardwareResultR);
             SBoxIOStream.Write(sBoxPacket);
         }
+
         private static void GetHardwareResultR(SBoxPacket sBoxPacket)
         {
             JSONNode result = new JSONObject();
@@ -525,16 +523,16 @@ namespace SBoxApi
             Version targetVersion = new Version("1.0.6");
             if (currentVersion >= targetVersion)
             {
-                int coinPushTestRegainCoins = sBoxPacket.data[5];  // 回币总个数
-                int coinPushTestRegainBalls = sBoxPacket.data[6];  // 回球总个数
+                int coinPushTestRegainCoins = sBoxPacket.data[5]; // 回币总个数
+                int coinPushTestRegainBalls = sBoxPacket.data[6]; // 回球总个数
 
                 result["coinPushTestRegainCoins"] = coinPushTestRegainCoins;
                 result["coinPushTestRegainBalls"] = coinPushTestRegainBalls;
             }
 
-            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_CONSOLE_HARDWARE_RESULT, result.ToString());
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_CONSOLE_HARDWARE_RESULT,
+                result.ToString());
         }
-
 
 
         /// <summary>
@@ -548,20 +546,20 @@ namespace SBoxApi
             SBoxIOEvent.AddListener(sBoxPacket.cmd, IntoConsolePageR);
             SBoxIOStream.Write(sBoxPacket);
         }
+
         private static void IntoConsolePageR(SBoxPacket sBoxPacket)
         {
             JSONNode result = new JSONObject();
             result["code"] = sBoxPacket.data[0]; //data[0]表示成功
-                                                 // EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_CONSOLE_HARDWARE_RESULT, result.ToString());
+            // EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_CONSOLE_HARDWARE_RESULT, result.ToString());
         }
-
 
 
         /**
         *  @brief         切换游戏 20200
         *  @param         gameid 为游戏id
-        *  @return          
-        *  @details                          
+        *  @return
+        *  @details
         */
         public static void GameSwitch(int gameid)
         {
@@ -574,6 +572,7 @@ namespace SBoxApi
             SBoxIOEvent.AddListener(sBoxPacket.cmd, GameSwitchR);
             SBoxIOStream.Write(sBoxPacket);
         }
+
         private static void GameSwitchR(SBoxPacket sBoxPacket)
         {
             Debug.Log("算法切换游戏成功:" + sBoxPacket.data[0]);
@@ -583,9 +582,9 @@ namespace SBoxApi
 
         /**
         *  @brief         调试模式20202
-        *  @param        
-        *  @return          
-        *  @details                          
+        *  @param
+        *  @return
+        *  @details
         */
         public static void DebugControlMode(SBoxDebugControlModeData sBoxDCM)
         {
@@ -601,6 +600,7 @@ namespace SBoxApi
             SBoxIOEvent.AddListener(sBoxPacket.cmd, DebugControlModeR);
             SBoxIOStream.Write(sBoxPacket);
         }
+
         private static void DebugControlModeR(SBoxPacket sBoxPacket)
         {
             Debug.Log("算法调试模式设置成功" + sBoxPacket.data[0]);
@@ -610,9 +610,9 @@ namespace SBoxApi
 
         /**
         *  @brief    获取调试信息20203
-        *  @param        
-        *  @return          
-        *  @details                          
+        *  @param
+        *  @return
+        *  @details
         */
         public static void GetDebugInfo()
         {
@@ -627,7 +627,7 @@ namespace SBoxApi
         }
 
         private static void GetDebugInfoR(SBoxPacket sBoxPacket)
-        { 
+        {
             SBoxDebugInfo debugInfo = new SBoxDebugInfo();
 
             try
