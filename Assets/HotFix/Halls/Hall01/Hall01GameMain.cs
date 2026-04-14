@@ -173,10 +173,12 @@ namespace Hall01
             {
                 if (!ApplicationSettings.Instance.isMock)
                 {
-                    SBoxIdea.GameSwitch(1700);
+                    // SBoxIdea.GameSwitch(1700);
+                    SBoxIdea.GameSwitch(3997);
                 }
                   
-                PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinBiPopupGameLoading);
+                // PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinBiPopupGameLoading);
+                PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupGameLoading);
                 CloseSelf(null);
             });
 
