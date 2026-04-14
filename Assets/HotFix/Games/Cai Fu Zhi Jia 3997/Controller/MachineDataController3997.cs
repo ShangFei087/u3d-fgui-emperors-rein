@@ -12,36 +12,6 @@ using System.Linq;
 
 namespace CaiFuZhiJia_3997
 {
-    // public enum SBoxGameState
-    // {
-    //     GSNormal = 0,
-    //
-    //     GSStart = 1,
-    //
-    //     /// <summary> 普通局且不中线 </summary>
-    //     GSEnd = 2,
-    //
-    //     /// <summary> 赢线 </summary>
-    //     GSWinline = 3,
-    //
-    //     /// <summary> 免费游戏 </summary>
-    //     GSFreeGame = 4,
-    //
-    //     /// <summary> 送球 </summary>
-    //     GSBonus = 5,
-    //
-    //     /// <summary> 中了中小彩金 </summary>
-    //     GSJpSmalm = 6,
-    //
-    //     /// <summary> 中了大彩金 (弃用)</summary>
-    //     GSJpMajor = 7,
-    //
-    //     /// <summary> 中了巨大彩金 (弃用)</summary>
-    //     GSJpGrand = 8,
-    //
-    //     GSOperater = 9
-    // }
-
     enum SpinDataType
     {
         None,
@@ -128,6 +98,22 @@ namespace CaiFuZhiJia_3997
             bool isInFreeSpin = ContentModel.Instance.FreeSpinPlayTimes < ContentModel.Instance.FreeSpinTotalTimes;
 
             int openType = (int)res["OpenType"];
+
+            if (ContentModel.Instance.PendingFreeSpinReconnectValidation)
+            {
+                ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
+                bool expectGiveSpin = ContentModel.Instance.FreeSpinTotalTimes > 0 &&
+                                      ContentModel.Instance.FreeSpinPlayTimes <
+                                      ContentModel.Instance.FreeSpinTotalTimes;
+                if (expectGiveSpin && openType != (int)OpenType.OT_Give)
+                {
+                    DebugUtils.LogError(
+                        $"[G3997] 免费局重连校验失败：预期赠送局 OpenType={(int)OpenType.OT_Give}，实际={openType}。已清除本地快照并回退主游戏。");
+                    FreeSpinSessionStoreG3997.Clear(SBoxModel.Instance.pid);
+                    FreeSpinSessionStoreG3997.ResetContentModelFreeStateToBaseGame();
+                }
+            }
+
             int resultType = (int)res["ResultType"];
             int lineNum = (int)res["lineNum"];
             int totalwin = (int)res["TotalBet"];
@@ -203,6 +189,7 @@ namespace CaiFuZhiJia_3997
                               ContentModel.Instance.freeGameScoreMultiply;
                 else
                     lineWin = GetLineOdds(symbolNumber, hitCount) * MainModel.Instance.contentMD.betmultiple;
+
 
                 SymbolWin sw = new SymbolWin()
                 {
@@ -331,10 +318,8 @@ namespace CaiFuZhiJia_3997
                     ContentModel.Instance.ShowFreeSpinRemainTime = totalFreeTime;
                 }
                 else if (!isInFreeSpin)
-                {
                     DebugUtils.LogError(
                         $"[G3997][CheckFree] 校验不一致，算法回ResultType={resultType} ，本地计算isFree={isFree},算法FreeTime={(int)res["TotalFreeTime"]},本地计算freeTime={freeTime}");
-                }
             }
 
             // 判断赠送局
@@ -342,9 +327,7 @@ namespace CaiFuZhiJia_3997
             {
                 // 验证OpenType是否为赠送局
                 if (openType != (int)OpenType.OT_Give)
-                {
                     DebugUtils.LogError($"[G3997][CheckOpenType] 校验不一致，当前处于免费游戏但OpenType={openType}");
-                }
 
                 ContentModel.Instance.curReelStripsIndex = "FS";
                 ContentModel.Instance.FreeSpinPlayTimes += 1;
@@ -379,7 +362,6 @@ namespace CaiFuZhiJia_3997
 
                 if (resultType == (int)ResultType.RT_BonusWin && isBonus)
                 {
-                    // ContentModel.Instance.totalBonusReward = bonusBet;
                     ContentModel.Instance.IsBonusTrigger = true;
                     ContentModel.Instance.currentBonusDataList.Clear();
                     ContentModel.Instance.currentBonusDataList = bonusData.Trim('[', ']').Split(',').ToList();
@@ -410,6 +392,8 @@ namespace CaiFuZhiJia_3997
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
             DebugUtils.Log(
                 $"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple} ");
+
+            FreeSpinSessionStoreG3997.TryPersistOrClearSession();
         }
 
         private void OnEnable()
@@ -490,7 +474,7 @@ namespace CaiFuZhiJia_3997
 
 
         /// <summary>
-        /// 解析为本游戏 JSON与"ParseSlotSpin"/> 使用的字段一致。
+        ///解析为本游戏 JSON与 <"ParseSlotSpin"/> 使用的字段一致。
         /// </summary>
         public static JSONNode ParseCoinPushSpinPayload(int[] data, int startPos)
         {
@@ -499,57 +483,58 @@ namespace CaiFuZhiJia_3997
                 return result;
 
             int pos = startPos;
-            int OpenType = data[pos++];
-            int ResultType = data[pos++];
-            int WinlineNum = data[pos++];
-            int TotalBet = data[pos++];
-            int MatrixLength = data[pos++];
-            result["OpenType"] = OpenType;
-            result["ResultType"] = ResultType;
-            result["lineNum"] = WinlineNum;
-            result["TotalBet"] = TotalBet;
+            int openType = data[pos++];
+            int resultType = data[pos++];
+            int winlineNum = data[pos++];
+            int totalBet = data[pos++];
+            int matrixLength = data[pos++];
+            result["OpenType"] = openType;
+            result["ResultType"] = resultType;
+            result["lineNum"] = winlineNum;
+            result["TotalBet"] = totalBet;
+            result["MatrixLength"] = matrixLength;
             result["IDVec"] = new JSONArray();
-            for (int i = 0; i < WinlineNum; i++)
+            for (int i = 0; i < winlineNum; i++)
             {
                 int id = data[pos++];
                 result["IDVec"].Add(id);
             }
 
             result["Matrix"] = new JSONArray();
-            for (int i = 0; i < MatrixLength; i++)
+            for (int i = 0; i < matrixLength; i++)
             {
                 int id = data[pos++];
                 result["Matrix"].Add(id);
             }
 
-            if (OpenType == 2)
+            if (resultType == (int)ResultType.RT_FreeWin)
             {
-                int TotalFreeTime = data[pos++];
-                int TotalFreeBet = data[pos++];
+                int totalFreeTime = data[pos++];
+                int totalFreeBet = data[pos++];
                 result["FreeBetArray"] = new JSONArray();
-                for (int i = 0; i < TotalFreeTime; i++)
+                for (int i = 0; i < totalFreeTime; i++)
                 {
                     int id = data[pos++];
                     result["FreeBetArray"].Add(id);
                 }
 
-                result["TotalFreeTime"] = TotalFreeTime;
-                result["TotalFreeBet"] = TotalFreeBet;
+                result["TotalFreeTime"] = totalFreeTime;
+                result["TotalFreeBet"] = totalFreeBet;
             }
 
-            if (OpenType == 3)
+            if (resultType == (int)ResultType.RT_BonusWin)
             {
-                int BonusBet = data[pos++];
-                int BonusType = data[pos++];
+                int bonusBet = data[pos++];
+                int bonusType = data[pos++];
                 result["BonusData"] = new JSONArray();
-                for (int i = 0; i < MatrixLength; i++)
+                for (int i = 0; i < matrixLength; i++)
                 {
                     int id = data[pos++];
                     result["BonusData"].Add(id);
                 }
 
-                result["BonusBet"] = BonusBet;
-                result["BonusType"] = BonusType;
+                result["BonusBet"] = bonusBet;
+                result["BonusType"] = bonusType;
             }
 
             return result;
@@ -574,6 +559,7 @@ namespace CaiFuZhiJia_3997
 
             switch (hitCount)
             {
+                case 2: return info.x2;
                 case 3: return info.x3;
                 case 4: return info.x4;
                 case 5: return info.x5;
