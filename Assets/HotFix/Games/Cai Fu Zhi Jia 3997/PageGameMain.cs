@@ -1546,7 +1546,7 @@ namespace CaiFuZhiJia_3997
                 resNode = JSONNode.Parse((string)res);
                 isNext = true;
                 Debug.Log("算法结果");
-                // Debug.Log((string)res);
+                Debug.Log((string)res);
             });
 
             yield return new WaitUntil(() => isNext == true);
