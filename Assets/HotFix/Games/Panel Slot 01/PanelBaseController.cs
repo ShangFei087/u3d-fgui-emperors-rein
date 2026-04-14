@@ -24,16 +24,30 @@ namespace SlotMaker
 {
     public class PanelBaseController : MonoBehaviour, IPanel
     {
+        // 当前弹窗状态（设置、帮助、赔付表等）
         PopState popState = PopState.None;
+        // 面板根节点与常用子面板引用
         protected GComponent gOwnerPanel, gIntroducePanel, setPanel, btnSound, btnHelp, Introduce;
+        // Spin 按钮控制器
         protected SpinButtonBaseController spinBtnCtrl = new SpinButtonBaseController();
+        // 赔付表翻页与导航按钮
         protected GButton btnPayTable, btnPrev, btnNext,btnHome;
+        // 常用文本显示：下注、总赢分、单线赢分
         protected GTextField bet,win, singleLine;
+        // 当前是否处于设置弹窗状态
         protected bool isSet;
+        // 赔付表总页数
         protected int PayTableLength =0;
+        // 标记音量按钮是否处于按下状态（用于全局抬起恢复）
         protected bool _isSoundBtnPressed;
 
+        protected GButton btnBetDown, btnBetUp;
+        protected int curBetIndex = 0;
+        protected int curBetListCount = 1;
+
+        // Spin 预制体实例引用
         GameObject goSpin;
+        // 是否已完成初始化
         bool isInit;
         /// <summary> 浠嬬粛椤电储寮?</summary>
         public int IntroduceIndex;
@@ -43,6 +57,9 @@ namespace SlotMaker
 
         protected virtual int IntroduceIndexMax => 6;
 
+        /// <summary>
+        /// 面板启用：注册事件并初始化 UI。
+        /// </summary>
         protected virtual void OnEnable()
         {
             EventCenter.Instance.AddEventListener<EventData>(Observer.ON_PROPERTY_CHANGED_EVENT, OnPropertyChange);
@@ -55,7 +72,9 @@ namespace SlotMaker
             Init();
         }
 
-
+        /// <summary>
+        /// 面板禁用：移除事件并重置按钮状态。
+        /// </summary>
         protected virtual void OnDisable()
         {
             EventCenter.Instance.RemoveEventListener<EventData>(Observer.ON_PROPERTY_CHANGED_EVENT, OnPropertyChange);
@@ -71,9 +90,9 @@ namespace SlotMaker
             gOwnerPanel.visible = false;
         }
 
-
-
-
+        /// <summary>
+        /// 初始化入口：加载面板资源与 Spin 按钮预制体。
+        /// </summary>
         public virtual void Init(EventData res = null)
         {
 
@@ -91,6 +110,7 @@ namespace SlotMaker
             int count = 2;
             Action loadComplete = () =>
             {
+                // 两个异步资源都完成后再进行参数初始化
                 if (--count == 0)
                 {
                     isInit = true;
@@ -103,6 +123,7 @@ namespace SlotMaker
             {
                 if (UIPackage.GetByName("Panel01") == null)
                 {
+                    // 首次进入时先加载 FairyGUI 包
                     ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/Panel01/FGUIs", (ab) =>
                     {
                         UIPackage.AddPackage(ab);
@@ -116,6 +137,7 @@ namespace SlotMaker
                 }
                 else
                 {
+                    // 已加载过包时直接复用
                     GLoader anchorPanel = _goAnchorPanel.GetChild("icon").asLoader;
                     anchorPanel.url = "ui://Panel01/Panel";
 
@@ -124,6 +146,7 @@ namespace SlotMaker
                 }
             }
 
+            // 异步加载 Spin 按钮预制体
             ResourceManager02.Instance.LoadAsset<GameObject>("Assets/GameRes/Games/Panel01/Prefabs/Slot_btn_Spin.prefab",
               (GameObject clone) =>
               {
@@ -134,8 +157,9 @@ namespace SlotMaker
 
         }
 
-
-
+        /// <summary>
+        /// 绑定 UI、注册按钮事件并同步初始数据。
+        /// </summary>
         protected virtual void InitParam()
         {
             Debug.Log("初始化菜单Ui");
@@ -158,6 +182,7 @@ namespace SlotMaker
             singleLine= gOwnerPanel.GetChild("singleLine").asTextField;
             singleLine.text = "";
 
+            // 初始化时将当前下注同步到机台
             SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
             {
                 PlayerId = SBoxModel.Instance.pid,
@@ -217,7 +242,7 @@ namespace SlotMaker
             });
             btnSound.onClick.Clear();
             btnSound.onClick.Add(OnClickSoundButton);
-            //鼠标抬起事件
+            // 监听舞台抬起事件，避免拖出按钮后缩放状态残留
             Stage.inst.onTouchEnd.Remove(OnStageTouchEndResetSoundButton);
             Stage.inst.onTouchEnd.Add(OnStageTouchEndResetSoundButton);
             btnSound.GetController("button").selectedIndex = 3;
@@ -239,6 +264,9 @@ namespace SlotMaker
 
         }
 
+        /// <summary>
+        /// 音量按钮点击：循环切换静音/低/中/高四档音量。
+        /// </summary>
         protected virtual void OnClickSoundButton()
         {
             VolumeLevel += 1;
@@ -271,6 +299,9 @@ namespace SlotMaker
             GlobalSoundHelper.Instance.PlaySoundEff(GameMaker.SoundKey.NormalClick);
         }
 
+        /// <summary>
+        /// 舞台触摸抬起时重置音量按钮缩放状态。
+        /// </summary>
         protected virtual void OnStageTouchEndResetSoundButton()
         {
             if (!_isSoundBtnPressed)
@@ -285,7 +316,9 @@ namespace SlotMaker
             }
         }
 
-
+        /// <summary>
+        /// 打开/关闭设置面板，同时切换蒙层与 Spin 按钮可交互状态。
+        /// </summary>
         protected virtual void Help()
         {
             btnHelp.SetScale(1f, 1f);
@@ -310,6 +343,9 @@ namespace SlotMaker
             }
         }
 
+        /// <summary>
+        /// 赔付表初始化到第一页并刷新翻页按钮状态。
+        /// </summary>
         protected virtual void IntroduceInit()
         {
             IntroduceIndex = 0;
@@ -321,7 +357,103 @@ namespace SlotMaker
             gIntroducePanel.GetChild("btnController").asCom.GetController("c1").selectedIndex = IntroduceIndex;
         }
 
-        //返回大厅
+        /// <summary>
+        /// 向左翻页并更新边界按钮状态
+        /// </summary>
+        protected virtual void OnClickIntroduceL()
+        {
+            // 向左翻页并更新边界按钮状态
+            IntroduceChange(false);
+            if (IntroduceIndex == 0)
+            {
+                btnPrev.touchable = false;
+                btnPrev.GetChild("untouch").visible = true;
+
+
+            }
+            else
+            {
+
+                btnNext.GetChild("untouch").visible = false;
+                btnNext.touchable = true;
+            }
+        }
+
+        /// <summary>
+        /// 向右翻页并更新边界按钮状态
+        /// </summary>
+        protected virtual void OnClickIntroduceR()
+        {
+            // 向右翻页并更新边界按钮状态
+            IntroduceChange(true);
+            if (IntroduceIndex == PayTableLength - 1)
+            {
+                btnNext.touchable = false;
+                btnNext.GetChild("untouch").visible = true;
+
+            }
+            else
+            {
+
+                btnPrev.touchable = true;
+                btnPrev.GetChild("untouch").visible = false;
+            }
+        }
+
+        /// <summary>
+        /// 赔付表翻页核心逻辑。
+        /// </summary>
+        protected virtual void IntroduceChange(bool jia)
+        {
+            if (jia)
+            {
+                IntroduceIndex += 1;
+            }
+            else
+            {
+                IntroduceIndex -= 1;
+            }
+
+            if (IntroduceIndex < PayTableLength)
+            {
+                // 切换展示页并同步底部页码控制器
+                SetIntroducePage(IntroduceIndex);
+                gIntroducePanel.GetChild("btnController").asCom.GetController("c1").selectedIndex = IntroduceIndex;
+            }
+
+
+
+        }
+
+        /// <summary>
+        /// 说明书页通常是纯展示内容，禁用触摸避免遮挡翻页按钮点击区域。
+        /// </summary>
+        protected virtual void SetIntroducePage(int pageIndex)
+        {
+            if (Introduce == null || MainModel.Instance?.contentMD?.goPayTableLst == null)
+            {
+                return;
+            }
+
+            if (pageIndex < 0 || pageIndex >= MainModel.Instance.contentMD.goPayTableLst.Length)
+            {
+                return;
+            }
+
+            GComponent page = MainModel.Instance.contentMD.goPayTableLst[pageIndex];
+            if (page == null)
+            {
+                return;
+            }
+
+            page.touchable = false;
+            Introduce.RemoveChildren();
+            Introduce.AddChild(page);
+        }
+
+        /// <summary>
+        /// 返回大厅
+        /// </summary>
         protected virtual void BackHall()
         {
             Debug.Log("返回大厅:");
@@ -357,90 +489,9 @@ namespace SlotMaker
               
         }
 
-        protected virtual void OnClickIntroduceL()
-        {
-            IntroduceChange(false);
-            if (IntroduceIndex == 0)
-            {
-                btnPrev.touchable = false;
-                btnPrev.GetChild("untouch").visible = true;
-
-
-            }
-            else
-            {
-
-                btnNext.GetChild("untouch").visible = false;
-                btnNext.touchable = true;
-            }
-        }
-
-        protected virtual void OnClickIntroduceR()
-        {
-            IntroduceChange(true);
-            if (IntroduceIndex == PayTableLength-1)
-            {
-                btnNext.touchable = false;
-                btnNext.GetChild("untouch").visible = true;
-
-            }
-            else
-            {
-
-                btnPrev.touchable = true;
-                btnPrev.GetChild("untouch").visible = false;
-            }
-        }
-
-        protected virtual void IntroduceChange(bool jia)
-        {
-            if (jia)
-            {
-                IntroduceIndex += 1;
-            }
-            else
-            {
-                IntroduceIndex -= 1;
-            }
-
-            if (IntroduceIndex < PayTableLength)
-            {
-                SetIntroducePage(IntroduceIndex);
-                gIntroducePanel.GetChild("btnController").asCom.GetController("c1").selectedIndex = IntroduceIndex;
-            }
-                
-           
-           
-        }
-
-        /// <summary>
-        /// 说明书页通常是纯展示内容，禁用触摸避免遮挡翻页按钮点击区域。
-        /// </summary>
-        protected virtual void SetIntroducePage(int pageIndex)
-        {
-            if (Introduce == null || MainModel.Instance?.contentMD?.goPayTableLst == null)
-            {
-                return;
-            }
-
-            if (pageIndex < 0 || pageIndex >= MainModel.Instance.contentMD.goPayTableLst.Length)
-            {
-                return;
-            }
-
-            GComponent page = MainModel.Instance.contentMD.goPayTableLst[pageIndex];
-            if (page == null)
-            {
-                return;
-            }
-
-            page.touchable = false;
-            Introduce.RemoveChildren();
-            Introduce.AddChild(page);
-        }
         protected virtual void OnPropertyChange(EventData res = null)
         {
-            //ContentModel
+            // 根据属性名分发对应刷新逻辑
             string name = res.name;
             switch (name)
             {
@@ -474,6 +525,7 @@ namespace SlotMaker
 
         protected virtual void OnPropertyChangeBetList(EventData res = null)
         {
+            // betList 变化后校正下注索引并刷新 UI
             List<long> betList = (List<long>)res?.value;
 
             if (betList == null)
@@ -517,10 +569,15 @@ namespace SlotMaker
                 }
                 catch (Exception ex)
                 {
+                    // 异常仅记录日志，避免中断主流程
                     DebugUtils.LogError($"[PanelBaseController] RequestSetBet after betList refresh failed: {ex}");
                 }
             }
         }
+
+        /// <summary>
+        /// 根据 Spin 状态切换按钮样式及其他按钮可交互状态。
+        /// </summary>
         protected virtual void OnPropertyChangeBtnSpinState(EventData res = null)
         {
             string changeSpinState = (string)res?.value;
@@ -557,6 +614,9 @@ namespace SlotMaker
 
 
         }
+        /// <summary>
+        /// 游戏状态变更处理：进入 Spin 时清空赢分展示。
+        /// </summary>
         protected virtual void OnPropertyGameState(EventData res = null)
         {
             string gameState = (string)res?.value;
@@ -567,17 +627,24 @@ namespace SlotMaker
                 ClearSingleLineText();
             }
         }
+
         protected virtual void OnPropertyIsConnectMoneyBox(EventData res = null)
         {
 
         }
+
         protected virtual void OnPanelEventAnchorPanelChange(EventData res = null)
         {
             if (res.name == PanelEvent.AnchorPanelChange)
             {
+                // 锚点面板切换后重建 UI 绑定
                 Init();
             }
         }
+
+        /// <summary>
+        /// 处理总赢分、单次奖励、单线赢分等事件并更新文本。
+        /// </summary>
         protected virtual void OnTotalWinCredit(EventData receivedEvent)
         {
             if (receivedEvent.name == SlotMachineEvent.TotalWinCredit)
@@ -618,6 +685,7 @@ namespace SlotMaker
                 singleLine.text = string.Empty;
             }
         }
+
         protected virtual void OnUpdateNaviCredit(EventData receivedEvent = null)
         {
             if (gOwnerPanel == null) return;
@@ -642,10 +710,12 @@ namespace SlotMaker
 
             if (isAmin)
             {
+                // 需要动画时做数字滚动
                 NumberAnimation.Instance.AnimateNumber(gOwnerPanel.GetChild("credit").asTextField, fromCredit, toCredit);
             }
             else
             {
+                // 不需要动画时直接设置最终值
                 NumberAnimation.Instance.PauseTextFieldAnimation(gOwnerPanel.GetChild("credit").asTextField);
                 if (gOwnerPanel.GetChild("credit").asTextField != null)
                 {
@@ -657,10 +727,10 @@ namespace SlotMaker
         //public void OnLongClickSpinButton(string customDataOrState) => OnClickSpinButton(true);
         //public void OnShortClickSpinButton(string customDataOrState) => OnClickSpinButton(false);
 
-        int i = 0;
         public void OnClickSpinButton(bool isLong)
         {
 
+            // 向面板输入事件总线派发 Spin 按钮点击（长按/短按）
             EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT,
                new EventData<bool>(PanelEvent.SpinButtonClick, isLong));
 
@@ -709,7 +779,6 @@ namespace SlotMaker
         }
         #endregion
 
-
         protected virtual void OnClickButtonBetUp()
         {
             GlobalSoundHelper.Instance.PlaySoundEff(SoundKey.BetUp);
@@ -723,6 +792,7 @@ namespace SlotMaker
                 betIndex = betList.Count - 1;
             }
             MainModel.Instance.contentMD.totalBet = betList[betIndex];
+            // 下注变更后同步机台，并在回调内刷新加减注按钮状态
             SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
             {
                 PlayerId = SBoxModel.Instance.pid,
@@ -751,6 +821,7 @@ namespace SlotMaker
                 betIndex = 0;
             }
             MainModel.Instance.contentMD.totalBet = betList[betIndex];
+            // 下注变更后同步机台，并在回调内刷新加减注按钮状态
             SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
             {
                 PlayerId = SBoxModel.Instance.pid,
@@ -765,10 +836,10 @@ namespace SlotMaker
                 ChangeBetButtonInteractable(betIndex, betList.Count);
             });
         }
-        protected GButton btnBetDown, btnBetUp;
 
-        protected int curBetIndex = 0;
-        protected int curBetListCount = 1;
+        /// <summary>
+        /// 统一处理加减注按钮可点击状态与下注文本刷新。
+        /// </summary>
         protected virtual void ChangeBetButtonInteractable(int? betIndex01 = null, int? betListCount01 = null)
         {
 
