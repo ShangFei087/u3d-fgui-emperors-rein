@@ -107,17 +107,17 @@ namespace CaiFuZhiJia_3997
         /// </summary>
         public Dictionary<string, string> symbolIcon => new Dictionary<string, string>()
         {
-            { "0", "ui://CaiFuZhiJia/ng_sym01_gold" }, // 金砖
-            { "1", "ui://CaiFuZhiJia/ng_sym02_silver" }, // 银砖
-            { "2", "ui://CaiFuZhiJia/ng_sym03_bar" }, // 一堆金砖
-            { "3", "ui://CaiFuZhiJia/ng_sym04_watch" }, // 怀表
-            { "4", "ui://CaiFuZhiJia/ng_sym05_dollar" }, // 纸币
-            { "5", "ui://CaiFuZhiJia/ng_sym06_ring" }, // 钻戒
-            { "6", "ui://CaiFuZhiJia/ng_sym07_car" }, // 跑车
-            { "7", "ui://CaiFuZhiJia/ng_sym08_ships" }, // 游艇
-            { "8", "ui://CaiFuZhiJia/ng_sym09_planes" }, // 飞机
-            { "9", "ui://CaiFuZhiJia/ng_sym10_wild" }, // WILD
-            { "10", "ui://CaiFuZhiJia/ng_sym11_scatter" }, // Scatter
+            { "0", "ui://CaiFuZhiJia/ng_sym01_gold_com" }, // 金砖
+            { "1", "ui://CaiFuZhiJia/ng_sym02_silver_com" }, // 银砖
+            { "2", "ui://CaiFuZhiJia/ng_sym03_bar_com" }, // 一堆金砖
+            { "3", "ui://CaiFuZhiJia/ng_sym04_watch_com" }, // 怀表
+            { "4", "ui://CaiFuZhiJia/ng_sym05_dollar_com" }, // 纸币
+            { "5", "ui://CaiFuZhiJia/ng_sym06_ring_com" }, // 钻戒
+            { "6", "ui://CaiFuZhiJia/ng_sym07_car_com" }, // 跑车
+            { "7", "ui://CaiFuZhiJia/ng_sym08_ships_com" }, // 游艇
+            { "8", "ui://CaiFuZhiJia/ng_sym09_planes_com" }, // 飞机
+            { "9", "ui://CaiFuZhiJia/ng_sym10_wild_com" }, // WILD
+            { "10", "ui://CaiFuZhiJia/ng_sym11_scatter_com" }, // Scatter
             { "11", "ui://CaiFuZhiJia/ng_sym_bonus_com" }, // Bonus
         };
 
@@ -223,7 +223,7 @@ namespace CaiFuZhiJia_3997
 
         public List<List<int>> payLines { get; set; } = new List<List<int>>()
         {
-            new List<int>()
+            new List<int>()// 0
             {
                 1,
                 1,
@@ -231,7 +231,7 @@ namespace CaiFuZhiJia_3997
                 1,
                 1
             },
-            new List<int>()
+            new List<int>()// 1
             {
                 0,
                 0,
@@ -239,7 +239,7 @@ namespace CaiFuZhiJia_3997
                 0,
                 0
             },
-            new List<int>()
+            new List<int>()// 2
             {
                 2,
                 2,
@@ -247,7 +247,7 @@ namespace CaiFuZhiJia_3997
                 2,
                 2
             },
-            new List<int>()
+            new List<int>()// 3
             {
                 0,
                 1,
@@ -255,7 +255,7 @@ namespace CaiFuZhiJia_3997
                 1,
                 0
             },
-            new List<int>()
+            new List<int>()// 4
             {
                 2,
                 1,
@@ -263,7 +263,7 @@ namespace CaiFuZhiJia_3997
                 1,
                 2
             },
-            new List<int>()
+            new List<int>()// 5
             {
                 1,
                 0,
@@ -271,7 +271,7 @@ namespace CaiFuZhiJia_3997
                 0,
                 1
             },
-            new List<int>()
+            new List<int>()// 6
             {
                 1,
                 2,
@@ -279,7 +279,7 @@ namespace CaiFuZhiJia_3997
                 2,
                 1
             },
-            new List<int>()
+            new List<int>()// 7
             {
                 0,
                 0,
@@ -287,7 +287,7 @@ namespace CaiFuZhiJia_3997
                 2,
                 2
             },
-            new List<int>()
+            new List<int>()// 8
             {
                 2,
                 2,
@@ -295,7 +295,7 @@ namespace CaiFuZhiJia_3997
                 0,
                 0
             },
-            new List<int>()
+            new List<int>()// 9
             {
                 1,
                 0,
@@ -303,7 +303,7 @@ namespace CaiFuZhiJia_3997
                 0,
                 1
             },
-            new List<int>()
+            new List<int>()// 10
             {
                 1,
                 2,
@@ -311,7 +311,7 @@ namespace CaiFuZhiJia_3997
                 2,
                 1
             },
-            new List<int>()
+            new List<int>()// 11
             {
                 0,
                 1,
@@ -319,7 +319,7 @@ namespace CaiFuZhiJia_3997
                 1,
                 0
             },
-            new List<int>()
+            new List<int>()// 12
             {
                 2,
                 1,
@@ -327,7 +327,7 @@ namespace CaiFuZhiJia_3997
                 1,
                 0
             },
-            new List<int>()
+            new List<int>()// 13
             {
                 1,
                 1,

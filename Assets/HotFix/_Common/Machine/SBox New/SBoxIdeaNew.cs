@@ -148,7 +148,6 @@ namespace SBoxApi
             Debug.Log("SBoxIdea 20101");
             SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20101, source: 1, target: 2, size: 1);
             sBoxPacket.data[0] = pid;
-
             SBoxIOEvent.AddListener(sBoxPacket.cmd, CoinPushGetSpinResultR);
             SBoxIOStream.Write(sBoxPacket);
         }

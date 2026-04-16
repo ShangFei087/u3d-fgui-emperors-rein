@@ -170,8 +170,6 @@ namespace CaiFuZhiJia_3997
                 int symbolNumber = ID % 100; // 十个位：Symbol ID
                 int hitCount = (ID / 100) % 10; // 百位：消除数量（WinCount）
                 int lineNumber = ID / 1000; // 万千位：线编号
-                // 输出调试信息（可选）
-                //Debug.Log($"ID: {ID}, Line: {lineNumber}, HitCount: {hitCount}, Symbol: {symbolNumber}");
 
                 int lineIndex = lineNumber;
                 int[] lineInfo = CustomModel.Instance.payLines[lineIndex].ToArray();

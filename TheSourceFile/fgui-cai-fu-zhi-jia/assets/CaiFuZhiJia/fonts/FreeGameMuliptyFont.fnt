@@ -1,11 +1,12 @@
 info size=12 resizable=true colored=false
-char id=48 img=rdkv3a xoffset=0 yoffset=0 xadvance=0
-char id=49 img=rdkv39 xoffset=0 yoffset=0 xadvance=0
-char id=50 img=rdkv38 xoffset=0 yoffset=0 xadvance=0
-char id=51 img=rdkv37 xoffset=0 yoffset=0 xadvance=0
-char id=52 img=rdkv36 xoffset=0 yoffset=0 xadvance=0
-char id=53 img=rdkv35 xoffset=0 yoffset=0 xadvance=0
-char id=54 img=rdkv34 xoffset=0 yoffset=0 xadvance=0
-char id=55 img=rdkv33 xoffset=0 yoffset=0 xadvance=0
-char id=56 img=rdkv3k xoffset=0 yoffset=0 xadvance=0
-char id=57 img=rdkv3l xoffset=0 yoffset=0 xadvance=0
+char id=48 img=t2pali xoffset=0 yoffset=0 xadvance=0
+char id=49 img=t2palj xoffset=0 yoffset=0 xadvance=0
+char id=50 img=t2palk xoffset=0 yoffset=0 xadvance=0
+char id=51 img=t2pall xoffset=0 yoffset=0 xadvance=0
+char id=52 img=t2palm xoffset=0 yoffset=0 xadvance=0
+char id=53 img=t2paln xoffset=0 yoffset=0 xadvance=0
+char id=54 img=t2palo xoffset=0 yoffset=0 xadvance=0
+char id=55 img=t2palp xoffset=0 yoffset=0 xadvance=0
+char id=56 img=t2palq xoffset=0 yoffset=0 xadvance=0
+char id=57 img=t2palr xoffset=0 yoffset=0 xadvance=0
+char id=120 img=t2pals xoffset=0 yoffset=0 xadvance=0

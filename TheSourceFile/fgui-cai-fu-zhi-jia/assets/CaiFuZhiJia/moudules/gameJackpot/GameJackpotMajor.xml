@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="389,134">
+<component size="514,141">
   <displayList>
-    <image id="n0_6ydp" name="n0" src="hhky50" fileName="images/popupJackpotTrigger/Background/ng_frame_major.png" xy="0,47" group="n2_6ydp"/>
-    <image id="n5_qirh" name="n5" src="qirhhl" fileName="images/popupJackpotTrigger/Background/ng_txt_major_1.png" xy="200,31" pivot="0.5,0.5" anchor="true" group="n2_6ydp"/>
-    <list id="n3_j01n" name="n1" xy="26,62" size="343,42" group="n2_6ydp" layout="row" overflow="hidden" defaultItem="ui://k5oi8hwr6ydp6z" align="center" vAlign="middle">
+    <image id="n6_t2pa" name="n6" src="hhky50" fileName="images/popupJackpotTrigger/Background/ng_frame_major.png" xy="0,56" size="514,84" group="n2_6ydp"/>
+    <image id="n9_t2pa" name="n9" src="t2pale" fileName="images/popupJackpotTrigger/Background/ng_txt_major_1.png" xy="261,31" pivot="0.5,0.5" anchor="true" group="n2_6ydp"/>
+    <group id="n2_6ydp" name="n2" xy="0,0" size="514,140"/>
+    <list id="n3_j01n" name="n1" xy="34,70" size="343,42" scale="1.3,1.3" layout="row" overflow="hidden" defaultItem="ui://k5oi8hwr6ydp6z" align="center" vAlign="middle">
       <item/>
       <item/>
       <item/>
@@ -17,6 +18,5 @@
       <item/>
       <item/>
     </list>
-    <group id="n2_6ydp" name="n2" xy="0,0" size="389,120"/>
   </displayList>
 </component>

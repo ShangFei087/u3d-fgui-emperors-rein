@@ -439,7 +439,7 @@ namespace CaiFuZhiJia_3997
             _freeSpinTimeController = new FreeSpinTimeController();
             _freeFrameCom = contentPane.GetChild("FSFrame").asCom;
             _freeSpinsNumber = _freeFrameCom.GetChild("FreeSpinsNumber").asTextField;
-            _multipleNumber = _freeFrameCom.GetChild("multipleNumber").asTextField;
+            _multipleNumber = contentPane.GetChild("freeGameBg").asCom.GetChild("multipleNumber").asTextField;
             _freeSpinTimeController.InitParam(_freeSpinsNumber);
         }
 
@@ -888,11 +888,11 @@ namespace CaiFuZhiJia_3997
                 {
                     _pageController.selectedPage = "NormalGame";
                     ContentModel.Instance.freeGameScoreMultiply = 2;
-                    _multipleNumber.text = "2";
+                    _multipleNumber.text = "x2";
                     MainBlackboardController.Instance.AddMyTempCredit(_allWinCredit, true, IsAddCreditAnim); //加钱动画
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
-                    _allWinCredit = 0;
                     isNext = true;
+                    // _allWinCredit = 0;
                 });
 
             yield return new WaitUntil(() => isNext == true);
@@ -1142,7 +1142,7 @@ namespace CaiFuZhiJia_3997
                 yield return ShowWinListCoinCountDown(winList, _allWinCredit, false);
             }
 
-            _multipleNumber.text = ContentModel.Instance.freeGameScoreMultiply.ToString();
+            _multipleNumber.text = "x" + ContentModel.Instance.freeGameScoreMultiply;
 
             ContentModel.Instance.gameState = GameState.Idle;
             successCallback?.Invoke();
@@ -1318,7 +1318,6 @@ namespace CaiFuZhiJia_3997
                     {
                         isNext = true;
                     }));
-
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
             }
@@ -1545,8 +1544,7 @@ namespace CaiFuZhiJia_3997
             {
                 resNode = JSONNode.Parse((string)res);
                 isNext = true;
-                Debug.Log("算法结果");
-                Debug.Log((string)res);
+                Debug.Log("算法结果：" + (string)res);
             });
 
             yield return new WaitUntil(() => isNext == true);
@@ -1650,8 +1648,7 @@ namespace CaiFuZhiJia_3997
         }
 
         #endregion
-
-
+        
         private void OnGameReset()
         {
             if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
