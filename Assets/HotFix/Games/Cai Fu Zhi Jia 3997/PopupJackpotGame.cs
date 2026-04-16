@@ -426,8 +426,11 @@ namespace CaiFuZhiJia_3997
                 _singleReelControllers[index].RewardTexts[3].text = _rollRewardList[index];
 
                 // 加钱
-                ContentModel.Instance.totalBonusReward += long.Parse(_rollRewardList[index]);
-                _slotMachineController.SendTotalWinCreditEvent(ContentModel.Instance.totalBonusReward);
+                if (_rollRewardList != null)
+                {
+                    ContentModel.Instance.totalBonusReward += long.Parse(_rollRewardList[index]);
+                    _slotMachineController.SendTotalWinCreditEvent(ContentModel.Instance.totalBonusReward);
+                }
             }
         }
 
