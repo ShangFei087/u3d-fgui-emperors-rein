@@ -115,6 +115,17 @@ namespace XingYunZhiLun_3998
             {
                 int bonusBet = data[pos++];
                 int bonusType = data[pos++];
+                if (bonusType == 1)
+                {
+                    int blindSymbol = data[pos++];
+                    result["BlindSymbol"] = blindSymbol;
+                }
+                else if (bonusType == 2)
+                {
+                    int bonusMultiply = data[pos++];
+                    result["BonusMultiply"] = bonusMultiply;
+                }
+
                 result["BonusData"] = new JSONArray();
                 for (int i = 0; i < matrixLength; i++)
                 {
@@ -439,14 +450,18 @@ namespace XingYunZhiLun_3998
                     }
                 }
 
+                ContentModel.Instance.bonusWinCredit = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
+
                 if (resultType == 3 && (int)res["BonusType"] == 0)
                 {
                     ContentModel.Instance.isWild = true;
                     ContentModel.Instance.maxLink = maxLink;
                     ContentModel.Instance.cols.Clear();
 
-                    for (int i = 0; i <= bonusCount - 3; i++)
+                    for (int i = 0; i <= 5; i++)
                     {
+                        if (res["BonusData"][i] == 0) break;
+                        if (ContentModel.Instance.cols.Contains(res["BonusData"][i])) continue;
                         ContentModel.Instance.cols.Add(res["BonusData"][i]);
                     }
                 }
@@ -470,7 +485,7 @@ namespace XingYunZhiLun_3998
                 else if (resultType == 3 && (int)res["BonusType"] == 2)
                 {
                     ContentModel.Instance.isMult = true;
-                    ContentModel.Instance.multiple = (int)res["BlindSymbol"];
+                    ContentModel.Instance.multiple = (int)res["BonusMultiply"];
                 }
                 else if (resultType == 3 && (int)res["BonusType"] == 3)
                 {

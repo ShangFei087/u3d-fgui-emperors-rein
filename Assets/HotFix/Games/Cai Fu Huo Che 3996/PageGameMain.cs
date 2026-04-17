@@ -441,7 +441,6 @@ namespace CaiFuHuoChe_3996
 
             ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
             payTableController.Init(lstPayTable);
-            CustomModel.Instance.payLines = new List<List<int>>();
 
             //读取json配置
             ReadJsonBet();
