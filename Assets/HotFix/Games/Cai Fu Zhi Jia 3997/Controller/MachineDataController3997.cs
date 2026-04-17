@@ -385,9 +385,11 @@ namespace CaiFuZhiJia_3997
                 creditAfter = creditBefore - totalBet + totalLineWin;
 
             ContentModel.Instance.isReelsSlowMotion = true;
+
             // 记录游戏数据到数据库
             Record(totalBet, res);
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
+
             DebugUtils.Log(
                 $"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple} ");
 
