@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using SBoxApi;
 using SimpleJSON;
 using SlotMaker;
+using SlotZhuZaiJinBi1700;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,10 +31,28 @@ namespace CaiFuHuoChe_3996
         GSOperater = 9
     }
 
+    enum ResultType
+    {
+        RT_Lose,
+        RT_Win,
+        RT_FreeWin,
+        RT_BonusWin,
+        RT_Jackpot,
+        RT_JackpotOnline,
+    }
+
+    enum OpenType
+    {
+        OT_Normal,
+        OT_Give,
+    }
+
+
     public class MachineDataG3996Controller : MonoSingleton<MachineDataG3996Controller>
     {
         public List<SymbolInclude> jackpotSymbolInclude = new List<SymbolInclude>();
-
+        public List<int> jackpotPos = new List<int>();
+        private int curJackpotIndex = 0;
 
         public static JSONNode ParseCoinPushSpinPayload(int[] data, int startPos)
         {
@@ -42,56 +61,56 @@ namespace CaiFuHuoChe_3996
                 return result;
 
             int pos = startPos;
-            int OpenType = data[pos++];
-            int ResultType = data[pos++];
-            int WinlineNum = data[pos++];
-            int TotalBet = data[pos++];
-            int MatrixLength = data[pos++];
-            result["OpenType"] = OpenType;
-            result["ResultType"] = ResultType;
-            result["lineNum"] = WinlineNum;
-            result["TotalBet"] = TotalBet;
-            result["MatrixLength"] = MatrixLength;
+            int openType = data[pos++];
+            int resultType = data[pos++];
+            int winlineNum = data[pos++];
+            int totalBet = data[pos++];
+            int matrixLength = data[pos++];
+            result["OpenType"] = openType;
+            result["ResultType"] = resultType;
+            result["lineNum"] = winlineNum;
+            result["TotalBet"] = totalBet;
+            result["MatrixLength"] = matrixLength;
             result["IDVec"] = new JSONArray();
-            for (int i = 0; i < WinlineNum; i++)
+            for (int i = 0; i < winlineNum; i++)
             {
                 int id = data[pos++];
                 result["IDVec"].Add(id);
             }
 
             result["Matrix"] = new JSONArray();
-            for (int i = 0; i < MatrixLength; i++)
+            for (int i = 0; i < matrixLength; i++)
             {
                 int id = data[pos++];
                 result["Matrix"].Add(id);
             }
 
-            if (OpenType == 2)
+            if (resultType == (int)ResultType.RT_FreeWin)
             {
-                int TotalFreeTime = data[pos++];
-                int TotalFreeBet = data[pos++];
+                int totalFreeTime = data[pos++];
+                int totalFreeBet = data[pos++];
                 result["FreeBetArray"] = new JSONArray();
-                for (int i = 0; i < TotalFreeTime; i++)
+                for (int i = 0; i < totalFreeTime; i++)
                 {
                     int id = data[pos++];
                     result["FreeBetArray"].Add(id);
                 }
-                result["TotalFreeTime"] = TotalFreeTime;
-                result["TotalFreeBet"] = TotalFreeBet;
+                result["TotalFreeTime"] = totalFreeTime;
+                result["TotalFreeBet"] = totalFreeBet;
             }
 
-            if (OpenType == 3)
+            if (resultType == (int)ResultType.RT_FreeWin)
             {
-                int BonusBet = data[pos++];
-                int BonusType = data[pos++];
+                int bonusBet = data[pos++];
+                int bonusType = data[pos++];
                 result["BonusData"] = new JSONArray();
-                for (int i = 0; i < MatrixLength; i++)
+                for (int i = 0; i < matrixLength; i++)
                 {
                     int id = data[pos++];
                     result["BonusData"].Add(id);
                 }
-                result["BonusBet"] = BonusBet;
-                result["BonusType"] = BonusType;
+                result["BonusBet"] = bonusBet;
+                result["BonusType"] = bonusType;
             }
 
             return result;
@@ -108,6 +127,19 @@ namespace CaiFuHuoChe_3996
             ContentModel.Instance.isJackpotSpinTrigger = false;
 
             int openType = (int)res["OpenType"];
+            if (ContentModel.Instance.PendingFreeSpinReconnectValidation)
+            {
+                ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
+                bool expectGiveSpin = ContentModel.Instance.freeSpinTotalTimes > 0 && ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes;
+                if (expectGiveSpin && openType != (int)OpenType.OT_Give)
+                {
+                    DebugUtils.LogError(
+                        $"[G3996] 免费局重连校验失败：预期赠送局 OpenType={(int)OpenType.OT_Give}，实际={openType}。已清除本地快照并回退主游戏。");
+                    FreeSpinSessionStoreG3996.Clear(SBoxModel.Instance.pid);
+                    FreeSpinSessionStoreG3996.ResetContentModelFreeStateToBaseGame();
+                }
+            }
+
             int resultType = (int)res["ResultType"];
             int lineNum = (int)res["lineNum"];
             int totalwin = (int)res["TotalBet"];
@@ -142,6 +174,7 @@ namespace CaiFuHuoChe_3996
                 }
             }
             ContentModel.Instance.strDeckRowCol = strDeckRowCol;
+            Debug.LogError(ContentModel.Instance.strDeckRowCol);
             //IDVec 
             for (int i = 0; i < lineNum; i++)
             {
@@ -270,6 +303,12 @@ namespace CaiFuHuoChe_3996
                     ContentModel.Instance.freeSpinTotalTimes = TotalFreeTime;
                     ContentModel.Instance.freeSpinPlayTimes = 0;
                     ContentModel.Instance.freeSpinTotalWinCredit = 0;
+
+                    ContentModel.Instance.newFreeOnceCredit.Clear();
+                    for (int i = 0; i < TotalFreeTime; i++)
+                    {
+                        ContentModel.Instance.newFreeOnceCredit.Add((int)res["FreeBetArray"][i]);
+                    }
                 }
                 else 
                 {
@@ -278,7 +317,7 @@ namespace CaiFuHuoChe_3996
             }
 
             //判断赠送局
-            else if (ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes)
+            if (openType == 1 && ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes)
             {
                 if (openType != (int)OpenType.OT_Give)
                 {
@@ -333,23 +372,26 @@ namespace CaiFuHuoChe_3996
                     ContentModel.Instance.jackpotSpinPlayTimes = 0;
                     ContentModel.Instance.jackpotSpinWinCredit = 0;
                     jackpotSymbolInclude.Clear();
-                }
-            }
-            else if (ContentModel.Instance.jackpotSpinPlayTimes < ContentModel.Instance.jackpotSpinTotalTimes)
-            {
-                ContentModel.Instance.curReelStripsIndex = "JS";
-                ContentModel.Instance.freeSpinPlayTimes += 1;
-                ContentModel.Instance.freeSpinTotalWinCredit += totalLineWin;
+                    jackpotPos.Clear();
+                    ContentModel.Instance.jackpotWin.Clear();
+                    curJackpotIndex = 0;
 
-                if (ContentModel.Instance.freeSpinTotalTimes == ContentModel.Instance.freeSpinPlayTimes)
-                {
-                    ContentModel.Instance.nextReelStripsIndex = "BS";
+                    JSONArray bonusArray = res["BonusData"].AsArray;
+                    totalLineWin += (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
+
+                    int[] bonusData = new int[bonusArray.Count];
+                    for (int i = 0; i < bonusArray.Count; i++)
+                    {
+                        bonusData[i] = bonusArray[i].AsInt;
+                    }
+
+                    for (int i = 0; i < bonusData.Length; i++)
+                    {
+                        if (bonusData[i] == 0) continue;
+                        ContentModel.Instance.jackpotWin[i] = bonusData[i];
+                        jackpotPos.Add(i);
+                    }
                 }
-                else
-                {
-                    ContentModel.Instance.nextReelStripsIndex = "JS";
-                }
-                ContentModel.Instance.isJackpotSpinTrigger = ContentModel.Instance.curReelStripsIndex == "JS" && ContentModel.Instance.nextReelStripsIndex == "BS";
             }
 
             //赢分
@@ -370,6 +412,9 @@ namespace CaiFuHuoChe_3996
             Record(totalBet, res);
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
             DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple} ");
+
+
+            FreeSpinSessionStoreG3996.TryPersistOrClearSession();
         }
 
         private int GetLineOdds(int symbolType, int hitCount)
@@ -412,7 +457,7 @@ namespace CaiFuHuoChe_3996
 
             if (deckColRow == null || deckColRow.Count == 0 || winLinesRule == null || payTable == null)
             {
-                DebugUtils.LogError("[G1700][CheckGameResult] 数据为空，无法校验中奖结果。");
+                DebugUtils.LogError("[G3996][CheckGameResult] 数据为空，无法校验中奖结果。");
                 return;
             }
 
@@ -463,7 +508,7 @@ namespace CaiFuHuoChe_3996
                 // 普通奖不统计 Scatter/Bonus
                 if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 3)
                 {
-                    int lineOdds = GetLineOdds(firstSymbolType, hitCount);
+                    int lineOdds = GetLineOdds(firstSymbolType, hitCount) * ContentModel.Instance.curFreeMult;
                     if (lineOdds > 0)
                     {
                         calcTotalWin += lineOdds; // 累加本地计算总赢分
@@ -474,11 +519,11 @@ namespace CaiFuHuoChe_3996
             int diff = Math.Abs(calcTotalWin - TotalWin); // 计算本地校验值与算法差值
             if (diff != 0)
             {
-                DebugUtils.LogError($"[G1700][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}");
+                DebugUtils.LogError($"[G3996][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}");
             }
             else
             {
-                DebugUtils.Log($"[G1700][CheckGameResult] 校验通过，TotalWin={TotalWin}");
+                DebugUtils.Log($"[G3996][CheckGameResult] 校验通过，TotalWin={TotalWin}");
             }
         }
 
@@ -697,7 +742,6 @@ namespace CaiFuHuoChe_3996
             {
                 ContentModel.Instance.freeSpinAddNum =
                     freeSpinTotalTimes - ContentModel.Instance.freeSpinTotalTimes;
-                
             }
             else
                 ContentModel.Instance.freeSpinAddNum = 0;
@@ -1137,11 +1181,43 @@ namespace CaiFuHuoChe_3996
                 ContentModel.Instance.itemPos[key].Clear();
             }
 
+            ContentModel.Instance.jackpotSpinPlayTimes++;
+            int winCount = 0;
+            if (ContentModel.Instance.jackpotSpinPlayTimes >= ContentModel.Instance.jackpotSpinTotalTimes)
+            {
+                winCount = UnityEngine.Random.Range(1, 4);
+            }
+            else
+            {
+                winCount = UnityEngine.Random.Range(0, 4);
+            }
 
+            while (winCount > 0 && curJackpotIndex < jackpotPos.Count)
+            {
+                symbolInclude.Add(new SymbolInclude
+                {
+                   colIdx = jackpotPos[curJackpotIndex] % 5,
+                   rowIdx = jackpotPos[curJackpotIndex] / 5,
+                   symbolNumber = 12
+                });
+                winCount--;
+                curJackpotIndex++;
+            }
+            Debug.LogError("jackpotPos.Count == " + jackpotPos.Count + ",\t" + "curJackpotIndex == " + curJackpotIndex);  
+            if(ContentModel.Instance.jackpotSpinPlayTimes >= ContentModel.Instance.jackpotSpinTotalTimes)
+            {
+                ContentModel.Instance.curReelStripsIndex = "JS";
+                ContentModel.Instance.nextReelStripsIndex = "BS";
+            }
+            else
+            {
+                ContentModel.Instance.curReelStripsIndex = "JS";
+                ContentModel.Instance.nextReelStripsIndex = "JS";
+            }
 
-            strDeckRowCol = GenerateGameArray(
-                   CustomModel.Instance.payLines,
-                   CustomModel.Instance.symbolNumber, winningLines, new int[] { 9, 11, 10, 12 }, symbolInclude, jackpotSymbolInclude);
+            ContentModel.Instance.strDeckRowCol = GenerateGameArray(
+                       CustomModel.Instance.payLines,
+                       CustomModel.Instance.symbolNumber, winningLines, new int[] { 9, 11, 10, 12 }, symbolInclude, jackpotSymbolInclude);
         }
 
         void OnEnable()
@@ -1214,19 +1290,12 @@ namespace CaiFuHuoChe_3996
             [SpinDataType.Normal] = new List<string[]>()
             {
                 new string[] { "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__win0.json" },
-                new string[] { "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__win1.json" },
-                new string[] { "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__win2.json" },
             },
             [SpinDataType.JpSpin] = new List<string[]>()
             {
                 new string[]
                 { 
                     "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__jackpot0.json" ,
-                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__jackpot1.json" ,
-                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__jackpot2.json" ,
-                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__jackpot3.json" ,
-                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__jackpot4.json" ,
-                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__jackpot5.json" ,
                 }
             },
             [SpinDataType.Bonus1Ball] = new List<string[]>()
@@ -1467,40 +1536,11 @@ namespace CaiFuHuoChe_3996
                 gameResultList[symbolInclude.rowIdx][symbolInclude.colIdx] = symbolInclude.symbolNumber;
             }
 
-            //将新加入的彩金元素随机放入位置并记录
+            //将新加入的彩金元素放入位置并记录
             foreach (SymbolInclude symbolInclude in include)
             {
                 int colIdx = symbolInclude.colIdx;
                 int rowIdx = symbolInclude.rowIdx;
-                int endlessLoop = 1000;
-                if (colIdx == -1 && rowIdx == -1)
-                {
-                    do
-                    {
-                        colIdx = UnityEngine.Random.Range(0, 5);
-                        rowIdx = UnityEngine.Random.Range(0, 3);
-                    } while (gameResultList[rowIdx][colIdx] != -1 && --endlessLoop >= 0);
-                }
-                else if (colIdx == -1)
-                {
-                    do
-                    {
-                        colIdx = UnityEngine.Random.Range(0, 5);
-                    } while (gameResultList[rowIdx][colIdx] != -1 && --endlessLoop >= 0);
-                }
-                else if (rowIdx == -1)
-                {
-                    do
-                    {
-                        rowIdx = UnityEngine.Random.Range(0, 3);
-                    } while (gameResultList[rowIdx][colIdx] != -1 && --endlessLoop >= 0);
-                }
-
-                if (endlessLoop < 0)
-                    DebugUtils.LogError($"【endless loop】: when add include symbol");
-
-                symbolInclude.rowIdx = rowIdx;
-                symbolInclude.colIdx = colIdx;
 
                 gameResultList[rowIdx][colIdx] = symbolInclude.symbolNumber;
 

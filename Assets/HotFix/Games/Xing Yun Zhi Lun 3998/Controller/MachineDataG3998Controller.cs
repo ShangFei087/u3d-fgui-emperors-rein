@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using SBoxApi;
 using SimpleJSON;
 using SlotMaker;
+using SlotZhuZaiJinBi1700;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -73,57 +74,55 @@ namespace XingYunZhiLun_3998
                 return result;
 
             int pos = startPos;
-            int OpenType = data[pos++];
-            int ResultType = data[pos++];
-            int WinlineNum = data[pos++];
-            int TotalBet = data[pos++];
-            int MatrixLength = data[pos++];
-            result["OpenType"] = OpenType;
-            result["ResultType"] = ResultType;
-            result["lineNum"] = WinlineNum;
-            result["TotalBet"] = TotalBet;
+            int openType = data[pos++];
+            int resultType = data[pos++];
+            int winlineNum = data[pos++];
+            int totalBet = data[pos++];
+            int matrixLength = data[pos++];
+            result["OpenType"] = openType;
+            result["ResultType"] = resultType;
+            result["lineNum"] = winlineNum;
+            result["TotalBet"] = totalBet;
             result["IDVec"] = new JSONArray();
-            for (int i = 0; i < WinlineNum; i++)
+            for (int i = 0; i < winlineNum; i++)
             {
                 int id = data[pos++];
                 result["IDVec"].Add(id);
             }
 
             result["Matrix"] = new JSONArray();
-            for (int i = 0; i < MatrixLength; i++)
+            for (int i = 0; i < matrixLength; i++)
             {
                 int id = data[pos++];
                 result["Matrix"].Add(id);
             }
 
-            if (OpenType == 2)
+            if (resultType == (int)ResultType.RT_FreeWin)
             {
-                int TotalFreeTime = data[pos++];
-                int TotalFreeBet = data[pos++];
+                int totalFreeTime = data[pos++];
+                int totalFreeBet = data[pos++];
                 result["FreeBetArray"] = new JSONArray();
-                for (int i = 0; i < TotalFreeTime; i++)
+                for (int i = 0; i < totalFreeTime; i++)
                 {
                     int id = data[pos++];
                     result["FreeBetArray"].Add(id);
                 }
-                result["TotalFreeTime"] = TotalFreeTime;
-                result["TotalFreeBet"] = TotalFreeBet;
+                result["TotalFreeTime"] = totalFreeTime;
+                result["TotalFreeBet"] = totalFreeBet;
             }
 
-            if (OpenType == 3)
+            if (resultType == (int)ResultType.RT_BonusWin)
             {
-                int BonusBet = data[pos++];
-                int BonusType = data[pos++];
-                int BlindSymbol = data[pos++];
+                int bonusBet = data[pos++];
+                int bonusType = data[pos++];
                 result["BonusData"] = new JSONArray();
-                for (int i = 0; i < MatrixLength; i++)
+                for (int i = 0; i < matrixLength; i++)
                 {
                     int id = data[pos++];
                     result["BonusData"].Add(id);
                 }
-                result["BonusBet"] = BonusBet;
-                result["BonusType"] = BonusType;
-                result["BlindSymbol"] = BonusType;
+                result["BonusBet"] = bonusBet;
+                result["BonusType"] = bonusType;
             }
 
             return result;
@@ -139,6 +138,19 @@ namespace XingYunZhiLun_3998
             ContentModel.Instance.isFreeSpinTrigger = false;
 
             int openType = (int)res["OpenType"];
+            if (ContentModel.Instance.PendingFreeSpinReconnectValidation)
+            {
+                ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
+                bool expectGiveSpin = ContentModel.Instance.freeSpinTotalTimes > 0 && ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes;
+                if (expectGiveSpin && openType != (int)OpenType.OT_Give)
+                {
+                    DebugUtils.LogError(
+                        $"[G3998] 免费局重连校验失败：预期赠送局 OpenType={(int)OpenType.OT_Give}，实际={openType}。已清除本地快照并回退主游戏。");
+                    FreeSpinSessionStoreG3998.Clear(SBoxModel.Instance.pid);
+                    FreeSpinSessionStoreG3998.ResetContentModelFreeStateToBaseGame();
+                }
+            }
+
             int resultType = (int)res["ResultType"];
             int lineNum = (int)res["lineNum"];
             int totalwin = (int)res["TotalBet"];
@@ -400,6 +412,7 @@ namespace XingYunZhiLun_3998
                 ContentModel.Instance.curReelStripsIndex = "FS";
                 ContentModel.Instance.freeSpinPlayTimes += 1;
                 ContentModel.Instance.freeSpinTotalWinCredit += totalLineWin;
+                Debug.LogError("免费游戏单局赢取：" + totalLineWin);
 
                 if (ContentModel.Instance.freeSpinTotalTimes == ContentModel.Instance.freeSpinPlayTimes)
                 {
@@ -485,6 +498,9 @@ namespace XingYunZhiLun_3998
             Record(totalBet, res);
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
             DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple} ");
+
+
+            FreeSpinSessionStoreG3998.TryPersistOrClearSession();
         }
 
 
@@ -622,6 +638,7 @@ namespace XingYunZhiLun_3998
                 if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 3)
                 {
                     int lineOdds = GetLineOdds(firstSymbolType, hitCount);
+                    Debug.LogError("赢得了：" + lineOdds + "\t" + "获奖编号：" + firstSymbolType + "\t" + "中奖个数：" + hitCount);
                     if (lineOdds > 0)
                     {
                         calcTotalWin += lineOdds; // 累加本地计算总赢分

@@ -82,8 +82,8 @@ namespace CaiFuHuoChe_3996
                 }
 
                 // 整体变大特效
-                if (_spinWEMD.Instance.isBigger)
-                    symble.ShowBiggerEffect();
+                //if (_spinWEMD.Instance.isBigger)
+                //    symble.ShowBiggerEffect();
             }
 
 
@@ -136,7 +136,7 @@ namespace CaiFuHuoChe_3996
         public override void ShowSymbolWinDeck(SymbolWin symbolWin, bool isUseMySelfSymbolNumber)
         {
             //停止特效显示
-            SkipWinLine(false);
+            SkipWinLine(true);
 
             //显示遮罩
             SetSlotCover(_spinWEMD.Instance.isShowCover);
@@ -166,10 +166,10 @@ namespace CaiFuHuoChe_3996
                 }
 
                 // 整体变大特效
-                if (_spinWEMD.Instance.isTwinkle)
-                    symble.ShowTwinkleEffect();
-                else if (_spinWEMD.Instance.isBigger)
-                    symble.ShowBiggerEffect();
+                //if (_spinWEMD.Instance.isTwinkle)
+                //    symble.ShowTwinkleEffect();
+                //else if (_spinWEMD.Instance.isBigger)
+                //    symble.ShowBiggerEffect();
 
             }
 
@@ -255,6 +255,8 @@ namespace CaiFuHuoChe_3996
         /// <returns></returns>
         public override IEnumerator ShowWinListBySetting(List<SymbolWin> winList)
         {
+            //停止特效显示
+            SkipWinLine(false);
 
             // 立马停止时，不播放赢分环节？
             if (isStopImmediately && _spinWEMD.Instance.isSkipAtStopImmediately)
@@ -272,15 +274,17 @@ namespace CaiFuHuoChe_3996
                 int idx = 0;
                 while (idx < winList.Count)
                 {
-                    int times = 0;
-                    while (times < 3)
-                    {
-                        times++;
-                        yield return ShowSymbolWinBySetting(winList[idx], true, SpinWinEvent.SingleWinLine);
+                    //int times = 0;
+                    //while (times < 3)
+                    //{
+                    //    times++;
+                    //    yield return ShowSymbolWinBySetting(winList[idx], true, SpinWinEvent.SingleWinLine);
 
-                        if (isStopImmediately && _spinWEMD.Instance.isSkipAtStopImmediately)
-                            break;
-                    }
+                    //    if (isStopImmediately && _spinWEMD.Instance.isSkipAtStopImmediately)
+                    //        break;
+                    //}
+
+                    yield return ShowSymbolWinBySetting(winList[idx], true, SpinWinEvent.SingleWinLine);
 
                     ++idx;
 
@@ -309,6 +313,9 @@ namespace CaiFuHuoChe_3996
 
             bool isNext = false;
 
+            bool haveSlotTip = false;
+            ContentModel.Instance.isFreeSlotTip = false;
+
             for (int reelIdx = 0; reelIdx < this.column; reelIdx++)
             {
                 if (_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx) > 0)
@@ -319,15 +326,30 @@ namespace CaiFuHuoChe_3996
                 int _reelIdx = reelIdx;
                 int extraReelTimes = 0;
                 bool isTrriger = false;
+                int extraReelTimesReel = 0;
 
-                if (ContentModel.Instance.isReelsSlowMotion && freeIconCols.Count > 1 && reelIdx >= freeIconCols[1])
+                if ((freeIconCols.Count > 1 && reelIdx >= freeIconCols[1]) || (jackpotIconCols.Count > 1 && reelIdx >= jackpotIconCols[1]))  //ContentModel.Instance.isReelsSlowMotion && 
                 {
                     extraReelTimes = 15;
                     isTrriger = true;
+                    if(!haveSlotTip && freeIconCols.Count > 1 && reelIdx >= freeIconCols[1])
+                    {
+                        ContentModel.Instance.isFreeSlotTip = true;
+                    }
+                    haveSlotTip = true;
+
+                    if (freeIconCols.Count > 1)
+                    {
+                        extraReelTimesReel = reelIdx - freeIconCols[1];
+                    }
+                    else
+                    {
+                        extraReelTimesReel = reelIdx - jackpotIconCols[1];
+                    }
                 }
 
                 reels[reelIdx].StartTurn(
-                    _reelSetMD.Instance.GetNumReelTurn(reelIdx) + reelIdx * _reelSetMD.Instance.GetNumReelTurnGap(reelIdx) + extraReelTimes * (reelIdx - (freeIconCols.Count < 2 ? reelIdx : freeIconCols[1])),
+                    _reelSetMD.Instance.GetNumReelTurn(reelIdx) + reelIdx * _reelSetMD.Instance.GetNumReelTurnGap(reelIdx) + extraReelTimes * extraReelTimesReel,
                     () =>
                     {
                         if (isTrriger)
@@ -371,13 +393,16 @@ namespace CaiFuHuoChe_3996
                                     GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
                                     reels[_reelIdx].symbolList[i].AddSymbolEffect(goSymbolHit, true);
                                     GTextField socre = reels[_reelIdx].symbolList[i].goOwnerSymbol.GetChild("socre").asTextField;
-                                    socre.text = UnityEngine.Random.Range(5, 30).ToString();
+                                    socre.text = ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx].ToString();
                                     socre.visible = true;
 
                                     ContentModel.Instance.haveJackpotCredit = true;
 
                                     // 设置层级
                                     TempSortOrder(reels[_reelIdx].symbolList[i].goOwnerSymbol, goExpectation);
+
+                                    ContentModel.Instance.jackpotSpinPlayTimes = 0;
+                                    if(ContentModel.Instance.nextReelStripsIndex == "BS") ContentModel.Instance.nextReelStripsIndex = "JS";
                                 }
                             }
                         }
@@ -465,12 +490,16 @@ namespace CaiFuHuoChe_3996
 
 
         List<int> freeIconCols = new List<int>();
+        List<int> jackpotIconCols = new List<int>();
         Dictionary<int, List<int>> freeAddIcon = new Dictionary<int, List<int>>();
         Dictionary<int, List<int>> multAddIcon = new Dictionary<int, List<int>>();
 
         public List<List<int>> GetDeckColRow(int[] deckColRow, int colCount, int rowCount)
         {
-            if (ContentModel.Instance.isReelsSlowMotion) freeIconCols.Clear();
+            //if (ContentModel.Instance.isReelsSlowMotion) freeIconCols.Clear();
+            if (freeIconCols.Count > 0) freeIconCols.Clear();
+            if (jackpotIconCols.Count > 0) jackpotIconCols.Clear();
+
             if (ContentModel.Instance.isFreeSpin)
             {
                 foreach(int key in freeAddIcon.Keys)
@@ -505,9 +534,13 @@ namespace CaiFuHuoChe_3996
                             multAddIcon[col].Add(row);
                         }
                     }
-                    else if (ContentModel.Instance.isReelsSlowMotion && (syb == 10 || syb == 11))
+                    else if (syb == 10)
                     {
                         freeIconCols.Add(col);
+                    }
+                    else if (syb == 11)
+                    {
+                        jackpotIconCols.Add(col);
                     }
                     colLst.Add(syb);
                 }
@@ -625,7 +658,7 @@ namespace CaiFuHuoChe_3996
                                     GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
                                     reels[_reelIdx].symbolList[i].AddSymbolEffect(goSymbolHit, true);
                                     GTextField socre = reels[_reelIdx].symbolList[i].goOwnerSymbol.GetChild("socre").asTextField;
-                                    socre.text = UnityEngine.Random.Range(5, 30).ToString();
+                                    socre.text = ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx].ToString();
                                     socre.visible = true;
 
                                     ContentModel.Instance.haveJackpotCredit = true;

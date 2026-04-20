@@ -115,6 +115,7 @@ public class MatchDebugManager : MonoSingleton<MatchDebugManager>
             UdpData state = ar.AsyncState as UdpData;
             IPEndPoint iPEndPoint = state.EndPoint;
             byte[] bytes = udpReceive.EndReceive(ar, ref iPEndPoint);
+            //Debug.Log($"[MatchUDP] recv {bytes.Length} bytes from {iPEndPoint}");
             reciveQueue.Enqueue(System.Text.Encoding.UTF8.GetString(bytes));
             udpReceive.BeginReceive(CallBackRecive, state);
         }
