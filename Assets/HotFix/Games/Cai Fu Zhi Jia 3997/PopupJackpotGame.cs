@@ -84,7 +84,6 @@ namespace CaiFuZhiJia_3997
 
 
         //彩金
-        //MiniReelGroup uiJPGrandCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMajorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMiniCtrl = new MiniReelGroup();
@@ -119,7 +118,6 @@ namespace CaiFuZhiJia_3997
             for (int i = 0; i < _canSpinReelIndexList.Count; i++)
             {
                 SingleReelController testReelController = new SingleReelController(_rollReels[i], i);
-                // _rollRewardList.Add(testReelController.Wheeleward);
                 _singleReelControllers.Add(testReelController);
             }
 
