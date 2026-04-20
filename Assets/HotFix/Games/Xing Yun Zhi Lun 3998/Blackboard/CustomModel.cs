@@ -211,86 +211,7 @@ namespace XingYunZhiLun_3998
         #region 赔付线与赔付表
         public List<PayTableSymbolInfo> payTableSymbolWin
         {
-            get => new List<PayTableSymbolInfo>()
-        {
-            new PayTableSymbolInfo()
-            {
-                symbol = 0,
-                x5 = 225,
-                x4 = 75,
-                x3 = 25,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 1,
-                x5 = 250,
-                x4 = 75,
-                x3 = 25,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 2,
-                x5 = 275,
-                x4 = 100,
-                x3 = 25,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 3,
-                x5 = 300,
-                x4 = 100,
-                x3 = 25,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 4,
-                x5 = 400,
-                x4 = 150,
-                x3 = 50,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 5,
-                x5 = 450,
-                x4 = 150,
-                x3 = 50,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 6,
-                x5 = 600,
-                x4 = 225,
-                x3 = 75,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 7,
-                x5 = 750,
-                x4 = 250,
-                x3 = 75,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 8,
-                x5 = 0,
-                x4 = 0,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 9,
-                x5 = 0,
-                x4 = 0,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 10,
-                x5 = 0,
-                x4 = 0,
-                x3 = 0,
-            }
-            };
+            get => m_PayTableSymbolWin;
             set => m_PayTableSymbolWin = value;
         }
 
@@ -299,64 +220,64 @@ namespace XingYunZhiLun_3998
             new PayTableSymbolInfo()
             {
                 symbol = 0,
-                x5 = 225,
-                x4 = 75,
-                x3 = 25,
+                x5 = 45,
+                x4 = 15,
+                x3 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 1,
-                x5 = 250,
-                x4 = 75,
-                x3 = 25,
+                x5 = 50,
+                x4 = 15,
+                x3 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 2,
-                x5 = 275,
-                x4 = 100,
-                x3 = 25,
+                x5 = 55,
+                x4 = 50,
+                x3 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 3,
-                x5 = 300,
-                x4 = 100,
-                x3 = 25,
+                x5 = 60,
+                x4 = 20,
+                x3 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 4,
-                x5 = 400,
-                x4 = 150,
-                x3 = 50,
+                x5 = 80,
+                x4 = 30,
+                x3 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 5,
-                x5 = 450,
-                x4 = 150,
-                x3 = 50,
+                x5 = 90,
+                x4 = 30,
+                x3 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 6,
-                x5 = 600,
-                x4 = 225,
-                x3 = 75,
+                x5 = 125,
+                x4 = 45,
+                x3 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 7,
-                x5 = 750,
-                x4 = 250,
-                x3 = 75,
+                x5 = 150,
+                x4 = 50,
+                x3 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 8,
-                x5 = 0,
-                x4 = 0,
+                x5 = 200,
+                x4 = 60,
                 x3 = 0,
             },
             new PayTableSymbolInfo()
@@ -376,33 +297,6 @@ namespace XingYunZhiLun_3998
         };
 
 
-        public List<List<int>> payLines
-        {
-            get => new List<List<int>>()
-        {
-            new List<int> { 1, 1, 1, 1, 1 },
-            new List<int> { 0, 0, 0, 0, 0 },
-            new List<int> { 2, 2, 2, 2, 2 },
-            new List<int> { 0, 1, 2, 1, 0 },
-            new List<int> { 2, 1, 0, 1, 2 },
-            new List<int> { 0, 0, 1, 0, 0 },
-            new List<int> { 2, 2, 1, 2, 2 },
-            new List<int> { 1, 2, 2, 2, 1 },
-            new List<int> { 1, 0, 0, 0, 1 },
-            new List<int> { 0, 1, 1, 1, 0 },
-            new List<int> { 2, 1, 1, 1, 2 },
-            new List<int> { 0, 1, 0, 1, 0 },
-            new List<int> { 2, 1, 1, 1, 2 },
-            new List<int> { 1, 0, 1, 0, 1 },
-            new List<int> { 1, 2, 1, 2, 1 },
-            new List<int> { 1, 1, 0, 1, 1 },
-            new List<int> { 1, 1, 2, 1, 1 },
-            new List<int> { 0, 2, 0, 2, 0 },
-            new List<int> { 2, 0, 2, 0, 2 },
-            new List<int> { 1, 0, 2, 0, 1 }
-        };
-            set => m_payLines = value;
-        }
         List<List<int>> m_payLines = new List<List<int>>()
         {
             new List<int> { 1, 1, 1, 1, 1 },
@@ -426,12 +320,13 @@ namespace XingYunZhiLun_3998
             new List<int> { 2, 0, 2, 0, 2 },
             new List<int> { 1, 0, 2, 0, 1 }
         };
-
-        public List<WinMultiple> winLevelMultiple
+        public List<List<int>> payLines
         {
-            get => _winMultipleList;
-            set => _winMultipleList = value;
+            get => m_payLines;
+            set => m_payLines = value;
         }
+
+
         List<WinMultiple> _winMultipleList = new List<WinMultiple>()
         {
             new WinMultiple("BIG", 15),
@@ -439,6 +334,11 @@ namespace XingYunZhiLun_3998
             new WinMultiple("MASSIVE", 50),
             new WinMultiple("LEGENDARY", 100),
         };
+        public List<WinMultiple> winLevelMultiple
+        {
+            get => _winMultipleList;
+            set => _winMultipleList = value;
+        }
 
         #endregion
 

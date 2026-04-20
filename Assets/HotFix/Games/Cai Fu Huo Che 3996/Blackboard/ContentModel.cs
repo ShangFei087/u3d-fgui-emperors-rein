@@ -183,6 +183,9 @@ namespace CaiFuHuoChe_3996
         /// <summary> 免费游戏结束 </summary>
         public bool isFreeSpinResult;
 
+        /// <summary> 免费游戏加速框 </summary>
+        public bool isFreeSlotTip;
+
         /// <summary> 免费游戏出现特殊图标 </summary>
         public bool haveFreeSpecialIcon;
 
@@ -240,7 +243,13 @@ namespace CaiFuHuoChe_3996
         }
         private int m_FreeSpinTotalTimes = 0;
 
-
+        /// <summary> 免费游戏当前倍数  </summary>
+        public int curFreeMult
+        {
+            get => m_curFreeMult;
+            set => observable.SetProperty(ref m_curFreeMult, value);
+        }
+        private int m_curFreeMult = 1;
 
         /// <summary>
         /// 免费游戏显示剩余多少次
@@ -586,5 +595,10 @@ namespace CaiFuHuoChe_3996
         }
         [SerializeField]
         private string m_curBtnSpinState = "Stop";
+
+
+
+        /// <summary> 是否等待下一局 Parse 校验（本地免费快照恢复后首局 Spin） </summary>
+        public bool PendingFreeSpinReconnectValidation { get; set; }
     }
 }

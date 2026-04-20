@@ -544,5 +544,8 @@ namespace XingYunZhiLun_3998
         }
         [SerializeField]
         private string m_curBtnSpinState = "Stop";
+
+        /// <summary> 是否等待下一局 Parse 校验（本地免费快照恢复后首局 Spin） </summary>
+        public bool PendingFreeSpinReconnectValidation { get; set; }
     }
 }

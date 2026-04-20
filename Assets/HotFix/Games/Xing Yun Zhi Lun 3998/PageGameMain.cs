@@ -358,7 +358,6 @@ namespace XingYunZhiLun_3998
 
             ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
             payTableController.Init(lstPayTable);
-            CustomModel.Instance.payLines = new List<List<int>>();
 
             //读取json配置
             ReadJsonBet();
@@ -426,9 +425,6 @@ namespace XingYunZhiLun_3998
                 DebugUtils.Log(err.msg);
             });
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
-
-            //线号获奖文字
-            //ContentModel.Instance.creditText = gCredit;
 
             ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
 
