@@ -287,10 +287,10 @@ namespace CaiFuZhiJia_3997
         {
             if (_bonusIsNotZeroList.Count <= 0)
                 return false;
-                    
+
             // 计算当前中奖概率
             double winRate = CalculateWinRate();
-            
+
             // 随机判定
             bool isWin = _random.NextDouble() < winRate;
             return isWin;
@@ -324,23 +324,24 @@ namespace CaiFuZhiJia_3997
 
             return Math.Max(0.1, Math.Min(1.0, rate));
         }
-        
+
         void GetCurrentWinningDiamondList()
         {
             if (_bonusIsNotZeroList.Count == 0) return;
-    
+
             // 确定中奖个数：1 ~ 剩余元素数
-            int count = _random.Next(1, _bonusIsNotZeroList.Count + 1);
-    
+            int maxCount = Math.Min(3, _bonusIsNotZeroList.Count);
+            int count = _random.Next(1, maxCount + 1); // _bonusIsNotZeroList.Count + 1
+
             for (int i = 0; i < count; i++)
             {
                 // 每次从当前剩余元素中随机取（范围随 i 缩小）
                 int randomIndex = _random.Next(_bonusIsNotZeroList.Count);
                 int selectedValue = _bonusIsNotZeroList[randomIndex];
-        
+
                 _winSpineIndexList.Add(selectedValue);
                 _canSpinReelIndexList.Remove(selectedValue);
-        
+
                 // 移除已选中的，保证下次不重复
                 _bonusIsNotZeroList.RemoveAt(randomIndex);
             }
@@ -434,11 +435,10 @@ namespace CaiFuZhiJia_3997
             }
         }
 
-
         IEnumerator GameOnceCoroutine()
         {
             _isWinning = RandomIsWinThisRound();
-
+        
             if (!_isWinning)
             {
                 Debug.LogError("没中奖");
@@ -447,15 +447,15 @@ namespace CaiFuZhiJia_3997
                     int reelIndex = _canSpinReelIndexList[i];
                     _singleReelControllers[reelIndex].StartRoll(_monoHelper, _moveSpeedList[i]);
                 }
-
+        
                 yield return new WaitForSeconds(5f);
-
+        
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
                     _singleReelControllers[reelIndex].StopRoll(_monoHelper, _winSpineIndexList);
                 }
-
+        
                 _totalPlayRounds--;
                 _freeCountText.text = _totalPlayRounds.ToString();
             }
@@ -467,22 +467,22 @@ namespace CaiFuZhiJia_3997
                     int reelIndex = _canSpinReelIndexList[i];
                     _singleReelControllers[reelIndex].StartRoll(_monoHelper, _moveSpeedList[i]);
                 }
-
+        
                 yield return new WaitForSeconds(5f);
-
+        
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
                     _singleReelControllers[reelIndex].StopRoll(_monoHelper, _winSpineIndexList);
                 }
-
+        
                 GetCurrentWinningDiamondList();
                 ShowWinningSpine();
                 // 重置局数
                 _freeCountText.text = "3";
                 _totalPlayRounds = 3;
             }
-
+        
             yield return new WaitForSeconds(2);
         }
 

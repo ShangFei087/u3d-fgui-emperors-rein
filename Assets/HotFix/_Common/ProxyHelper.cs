@@ -198,7 +198,7 @@ public  class ProxyHelper<T> : MonoBehaviour where T : MonoBehaviour
             DebugUtils.LogWarning($"==@ {prefix}:<color=red>warn</color>:  {eventName} ; Request is repeated");
             dicResponse[eventName].errorCallback?.Invoke(res);
         }
-        dicResponse[eventName].successCallback = successCallback;
+         dicResponse[eventName].successCallback = successCallback;
         dicResponse[eventName].errorCallback = errorCallback;
         dicResponse[eventName].seqID = seqId;
         dicResponse[eventName].runTimeS = Time.unscaledTime;

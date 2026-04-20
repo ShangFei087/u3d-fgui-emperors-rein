@@ -195,9 +195,9 @@ namespace CaiFuZhiJia_3997
             _speedUpEffectComs.Add(CreateUIEffect(_bonusBorderObj, _anchorBonusExpectation));
 
             //彩金
-            uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("jpMajor").asCom.GetChild("n1").asList, "N0");
-            uiJPMinorCtrl.Init("Minor", this.contentPane.GetChild("jpMinor").asCom.GetChild("n1").asList, "N0");
-            uiJPMiniCtrl.Init("Mini", this.contentPane.GetChild("jpMini").asCom.GetChild("n1").asList, "N0");
+            uiJPMajorCtrl.Init("Major", contentPane.GetChild("jpMajor").asCom.GetChild("n1").asList, "N0");
+            uiJPMinorCtrl.Init("Minor", contentPane.GetChild("jpMinor").asCom.GetChild("n1").asList, "N0");
+            uiJPMiniCtrl.Init("Mini", contentPane.GetChild("jpMini").asCom.GetChild("n1").asList, "N0");
 
             uiJPMajorCtrl.SetReelWidth(30);
             uiJPMinorCtrl.SetReelWidth(30);
@@ -439,7 +439,7 @@ namespace CaiFuZhiJia_3997
             _freeSpinTimeController = new FreeSpinTimeController();
             _freeFrameCom = contentPane.GetChild("FSFrame").asCom;
             _freeSpinsNumber = _freeFrameCom.GetChild("FreeSpinsNumber").asTextField;
-            _multipleNumber = _freeFrameCom.GetChild("multipleNumber").asTextField;
+            _multipleNumber = contentPane.GetChild("freeGameBg").asCom.GetChild("multipleNumber").asTextField;
             _freeSpinTimeController.InitParam(_freeSpinsNumber);
         }
 
@@ -662,7 +662,7 @@ namespace CaiFuZhiJia_3997
                 // 彩金数据入库
                 int jpLevel = winInfo.jackpotId + 1;
                 string jpName = GetOnlineJackpotName(winInfo.jackpotId);
-                long winCredit = (long)winInfo.win;
+                long winCredit = winInfo.win;
                 long crcreditBefore = MainBlackboardController.Instance.myRealCredit;
                 long creditAfter = MainBlackboardController.Instance.myRealCredit + winCredit;
                 string gameUID = string.IsNullOrEmpty(ContentModel.Instance.curGameGuid)
@@ -869,11 +869,10 @@ namespace CaiFuZhiJia_3997
                     SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.Default);
                     _slotMachineCtrl.SetReelsDeck((string)context["./strDeckRowCol"]);
                     _spinWEMD.Instance.SelectData(_spinWEMD.SPIN_WIN_EFFECT_FREE_SPIN_TRIGGER);
-
+            
                     SymbolWin sw = (SymbolWin)context["./winFreeSpinTriggerOrAddCopy"];
                     if (sw != null && sw.cells.Count > 0)
                         _slotMachineCtrl.ShowSymbolWinDeck(sw, true);
-
                     ContentModel.Instance.isFreeSpinTrigger = false;
                 });
 
@@ -888,13 +887,19 @@ namespace CaiFuZhiJia_3997
                 {
                     _pageController.selectedPage = "NormalGame";
                     ContentModel.Instance.freeGameScoreMultiply = 2;
-                    _multipleNumber.text = "2";
+                    _multipleNumber.text = "x2";
                     MainBlackboardController.Instance.AddMyTempCredit(_allWinCredit, true, IsAddCreditAnim); //加钱动画
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
                     _allWinCredit = 0;
+                    
+                    ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
+                    MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
+                    EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
+                        new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
+            
                     isNext = true;
                 });
-
+            
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
             yield return _slotMachineCtrl.SlotWaitForSeconds(1.5f);
@@ -928,8 +933,8 @@ namespace CaiFuZhiJia_3997
         {
             Dictionary<string, object> context = _stackContext[0];
             _stackContext.RemoveAt(0);
-
-            ContentModel.Instance.gameState = (string)context["./gameState"];
+            
+            // ContentModel.Instance.gameState = (string)context["./gameState"];
             ContentModel.Instance.winList = (List<SymbolWin>)context["./winList"];
             ContentModel.Instance.response = (string)context["./response"];
             ContentModel.Instance.winFreeSpinTriggerOrAddCopy = (SymbolWin)context["./winFreeSpinTriggerOrAddCopy"];
@@ -1142,7 +1147,7 @@ namespace CaiFuZhiJia_3997
                 yield return ShowWinListCoinCountDown(winList, _allWinCredit, false);
             }
 
-            _multipleNumber.text = ContentModel.Instance.freeGameScoreMultiply.ToString();
+            _multipleNumber.text = "x" + ContentModel.Instance.freeGameScoreMultiply;
 
             ContentModel.Instance.gameState = GameState.Idle;
             successCallback?.Invoke();
@@ -1318,7 +1323,6 @@ namespace CaiFuZhiJia_3997
                     {
                         isNext = true;
                     }));
-
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
             }
@@ -1545,8 +1549,7 @@ namespace CaiFuZhiJia_3997
             {
                 resNode = JSONNode.Parse((string)res);
                 isNext = true;
-                Debug.Log("算法结果");
-                // Debug.Log((string)res);
+                Debug.Log("算法结果：" + (string)res);
             });
 
             yield return new WaitUntil(() => isNext == true);
@@ -1650,7 +1653,6 @@ namespace CaiFuZhiJia_3997
         }
 
         #endregion
-
 
         private void OnGameReset()
         {

@@ -390,10 +390,11 @@ namespace CaiFuZhiMen_3999
 
             for (int reelIdx = 0; reelIdx < this.column; reelIdx++)
             {
-                if (_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx) > 0)
-                {
-                    yield return new WaitForSeconds(_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx));
-                }
+                // 每次旋转都会至少转一圈，取消等待时间就可以实现急停
+                // if (_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx) > 0)
+                // {
+                //     yield return new WaitForSeconds(_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx));
+                // }
                 
                 int _reelIdx = reelIdx;
                 int extraReelTimes = 0;
