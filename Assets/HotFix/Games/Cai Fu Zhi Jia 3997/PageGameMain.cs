@@ -257,6 +257,7 @@ namespace CaiFuZhiJia_3997
             // 总押注初始化
             ContentModel.Instance.betIndex = 0;
             ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
+            TryRestoreFreeSpinSession();
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
@@ -285,7 +286,6 @@ namespace CaiFuZhiJia_3997
             base.OnClose(eventData);
             _freeSpinTimeController.Dispose();
         }
-
 
         private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
         {
@@ -601,11 +601,6 @@ namespace CaiFuZhiJia_3997
         //下注时向大厅彩金主机发送当前下注
         void RequestOnlineJackpotBetByCurrentBet()
         {
-            //if (!SBoxModel.Instance.isJackpotOnLine
-            //    || !NetClineBiz.Instance.isLoginSuccess
-            //    || !ClientWS.Instance.IsConnected)
-            //    return;
-
             try
             {
                 List<JackBetInfo> jackBetInfoList = new List<JackBetInfo>();
@@ -869,7 +864,7 @@ namespace CaiFuZhiJia_3997
                     SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.Default);
                     _slotMachineCtrl.SetReelsDeck((string)context["./strDeckRowCol"]);
                     _spinWEMD.Instance.SelectData(_spinWEMD.SPIN_WIN_EFFECT_FREE_SPIN_TRIGGER);
-            
+
                     SymbolWin sw = (SymbolWin)context["./winFreeSpinTriggerOrAddCopy"];
                     if (sw != null && sw.cells.Count > 0)
                         _slotMachineCtrl.ShowSymbolWinDeck(sw, true);
@@ -891,16 +886,16 @@ namespace CaiFuZhiJia_3997
                     MainBlackboardController.Instance.AddMyTempCredit(_allWinCredit, true, IsAddCreditAnim); //加钱动画
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
                     _allWinCredit = 0;
-                    
+
                     // 重新注册
                     ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
                     MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
                     EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
                         new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
-            
+
                     isNext = true;
                 });
-            
+
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
             yield return _slotMachineCtrl.SlotWaitForSeconds(1.5f);
@@ -934,7 +929,7 @@ namespace CaiFuZhiJia_3997
         {
             Dictionary<string, object> context = _stackContext[0];
             _stackContext.RemoveAt(0);
-            
+
             // ContentModel.Instance.gameState = (string)context["./gameState"];
             ContentModel.Instance.winList = (List<SymbolWin>)context["./winList"];
             ContentModel.Instance.response = (string)context["./response"];
@@ -1211,9 +1206,10 @@ namespace CaiFuZhiJia_3997
             if (cm.curReelStripsIndex == "FS" || cm.nextReelStripsIndex == "FS")
             {
                 // Todo：免费游戏触发逻辑
+                _pageController.selectedPage = "FreeGame";
+                _freeSpinsNumber.text = ContentModel.Instance.FreeSpinTotalTimes.ToString();
             }
-
-
+            
             _slotMachineCtrl.SendTotalWinCreditEvent(cm.freeSpinTotalWinCoins);
             DebugUtils.Log(
                 $"[G3997] 已恢复免费局快照：剩余 {cm.ShowFreeSpinRemainTime} / 总 {cm.FreeSpinTotalTimes}，待首局 Spin 与算法校验。");
@@ -1227,6 +1223,12 @@ namespace CaiFuZhiJia_3997
                 errorCallback?.Invoke(I18nMgr.language == I18nLang.cn
                     ? "请激活机台"
                     : "<size=24>Machine not activated!</size>");
+                yield break;
+            }
+
+            if (ContentModel.Instance.FreeSpinTotalTimes > 0 && ContentModel.Instance.nextReelStripsIndex == "FS")
+            {
+                yield return GameFreeSpinFromReconnect(successCallback, errorCallback);
                 yield break;
             }
 
@@ -1532,8 +1534,7 @@ namespace CaiFuZhiJia_3997
             if (successCallback != null)
                 successCallback.Invoke();
         }
-
-
+        
         //请求算法结果
         IEnumerator RequestSlotSpinFromMachine(Action successCallback = null, Action<string> errorCallback = null)
         {
@@ -1619,6 +1620,27 @@ namespace CaiFuZhiJia_3997
                 yield break;
             SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.GameIdle);
             yield return _slotMachineCtrl.ShowWinListAwayDuringIdle(winList);
+        }
+
+        /// <summary>
+        /// 断电重连恢复免费局：点击一次开始后自动跑完整段免费，并统一结算与切回普通游戏。
+        /// </summary>
+        IEnumerator GameFreeSpinFromReconnect(Action successCallback, Action<string> errorCallback)
+        {
+            yield return GameFreeSpin(null, errorCallback);
+
+            long freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCoins;
+            if (freeSpinTotalWinCredit > 0)
+            {
+                MainBlackboardController.Instance.AddMyTempCredit(freeSpinTotalWinCredit, true, IsAddCreditAnim);
+            }
+
+            //ChangeBGPanel(0);
+            _pageController.selectedPage = "NormalGame";
+            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+
+            if (successCallback != null)
+                successCallback.Invoke();
         }
 
         #endregion

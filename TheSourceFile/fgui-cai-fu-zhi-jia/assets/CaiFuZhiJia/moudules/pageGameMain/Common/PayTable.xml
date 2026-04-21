@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920" designImage="ui://k5oi8hwrnbj9od">
-  <displayList>
-    <component id="n2_nbj9" name="btnController" src="nbj9ox" fileName="moudules/pageGameMain/Common/BtnController.xml" xy="0,0"/>
-    <component id="n1_nbj9" name="payTable" src="nbj9ow" fileName="moudules/pageGameMain/Common/PayYable.xml" xy="130,385"/>
-  </displayList>
-</component>
