@@ -58,6 +58,10 @@ namespace SlotMaker
         public int VolumeLevel;
 
         protected virtual int IntroduceIndexMax => 6;
+        protected virtual string PanelPackageName => "Panel01";
+        protected virtual string PanelPackagePath => "Assets/GameRes/Games/Panel01/FGUIs";
+        protected virtual string PanelUrl => "ui://Panel01/Panel";
+        protected virtual string SpinPrefabPath => "Assets/GameRes/Games/Panel01/Prefabs/Slot_btn_Spin.prefab";
 
         /// <summary>
         /// 面板启用：注册事件并初始化 UI。
@@ -127,14 +131,14 @@ namespace SlotMaker
 
             if (gOwnerPanel != _goAnchorPanel && _goAnchorPanel != null)
             {
-                if (UIPackage.GetByName("Panel01") == null)
+                if (UIPackage.GetByName(PanelPackageName) == null)
                 {
                     // 首次进入时先加载 FairyGUI 包
-                    ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/Panel01/FGUIs", (ab) =>
+                    ResourceManager02.Instance.LoadAssetBundleAsync(PanelPackagePath, (ab) =>
                     {
                         UIPackage.AddPackage(ab);
                         GLoader anchorPanel = _goAnchorPanel.GetChild("icon").asLoader;
-                        anchorPanel.url = "ui://Panel01/Panel";
+                        anchorPanel.url = PanelUrl;
                         gOwnerPanel = _goAnchorPanel.GetChild("icon").asLoader.component;
                         gOwnerPanel.visible = true;
                         loadComplete();
@@ -145,7 +149,7 @@ namespace SlotMaker
                 {
                     // 已加载过包时直接复用
                     GLoader anchorPanel = _goAnchorPanel.GetChild("icon").asLoader;
-                    anchorPanel.url = "ui://Panel01/Panel";
+                    anchorPanel.url = PanelUrl;
 
                     gOwnerPanel = _goAnchorPanel.GetChild("icon").asLoader.component;
                     loadComplete();
@@ -153,7 +157,7 @@ namespace SlotMaker
             }
 
             // 异步加载 Spin 按钮预制体
-            ResourceManager02.Instance.LoadAsset<GameObject>("Assets/GameRes/Games/Panel01/Prefabs/Slot_btn_Spin.prefab",
+            ResourceManager02.Instance.LoadAsset<GameObject>(SpinPrefabPath,
               (GameObject clone) =>
               {
                   goSpin = clone;
@@ -575,7 +579,7 @@ namespace SlotMaker
             }
             else
             {
-                PageManager.Instance.OpenPage(PageName.HallMain);
+                PageManager.Instance.OpenPage(PageName.Hall01);
             }
               
         }
