@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="128,87">
+  <displayList>
+    <image id="n0_nbj9" name="n0" src="t2pamm" fileName="images/panel/spin按钮/pb_txt_spin.png" xy="5,5"/>
+    <image id="n1_nbj9" name="n1" src="t2pamn" fileName="images/panel/spin按钮/pb_txt_hold.png" xy="0,65"/>
+  </displayList>
+</component>

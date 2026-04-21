@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920" overflow="hidden" designImage="ui://k5oi8hwrprjjiq">
+<component size="1080,235" overflow="hidden">
   <displayList>
-    <image id="n0_t2pa" name="n0" src="t2pam3" fileName="images/panel/pb_img_bottom.png" xy="0,1688"/>
-    <image id="n5_t2pa" name="n5" src="t2pams" fileName="images/panel/spin按钮/pb_img_button02.png" xy="899,1776"/>
-    <image id="n1_t2pa" name="n1" src="t2pamo" fileName="images/panel/spin按钮/pb_img_button01.png" xy="890,1822"/>
-    <image id="n2_t2pa" name="n2" src="t2pamp" fileName="images/panel/spin按钮/pb_img_button.png" xy="915,1701"/>
-    <image id="n3_t2pa" name="n3" src="t2pamn" fileName="images/panel/spin按钮/pb_txt_hold.png" xy="945,1795"/>
-    <image id="n4_t2pa" name="n4" src="t2pamm" fileName="images/panel/spin按钮/pb_txt_spin.png" xy="950,1738"/>
-    <image id="n7_t2pa" name="n7" src="t2pamr" fileName="images/panel/鼓励值/pb_txt_bet.png" xy="773,1832"/>
-    <image id="n8_t2pa" name="n8" src="t2pam9" fileName="images/panel/投币数/pb_img_toubi.png" xy="161,1746"/>
-    <image id="n9_t2pa" name="n9" src="t2pam8" fileName="images/panel/投币数/pb_txt_credits.png" xy="191,1831"/>
-    <image id="n11_t2pa" name="n11" src="t2pam7" fileName="images/panel/赢分框/pb_img_dik.png" xy="190,1875" size="729,28"/>
-    <image id="n12_t2pa" name="n12" src="t2pam4" fileName="images/panel/赢分框/pb_txt_zw.png" xy="366,1878"/>
-    <image id="n14_t2pa" name="n14" src="t2pam6" fileName="images/panel/赢分框/pb_img_score.png" xy="372,1721" size="314,147"/>
-    <image id="n13_t2pa" name="n13" src="t2pam5" fileName="images/panel/赢分框/pb_txt_win.png" xy="494,1805"/>
-    <image id="n15_t2pa" name="n15" src="t2pam6" fileName="images/panel/赢分框/pb_img_score.png" xy="144,1723" size="225,109"/>
-    <image id="n16_t2pa" name="n16" src="t2pame" fileName="images/panel/鼓励值/pb_img_kuang.png" xy="689,1722" size="228,109"/>
+    <graph id="n29_nbj9" name="mash" xy="0,-1685" size="1080,1920" visible="false" type="rect" fillColor="#99000000"/>
+    <component id="n33_nbj9" name="payTable" src="nbj9o6" fileName="moudules/pageGameMain/Common/PayTable.xml" xy="540,-725" pivot="0.5,0.5" anchor="true" visible="false"/>
+    <component id="n25_nbj9" name="frame" src="nbj9n3" fileName="moudules/pageGameMain/Common/GameDiFrame.xml" xy="0,0"/>
+    <component id="n17_nbj9" name="btnHelp" src="nbj9n1" fileName="components/Panel/ButtonHelp.xml" xy="73,124" pivot="0.5,0.5" anchor="true"/>
+    <text id="n19_nbj9" name="bet" xy="750,56" size="108,73" font="ui://k5oi8hwrnbj9ny" fontSize="10" color="#ffffff" align="center" vAlign="middle" letterSpacing="3" autoSize="shrink" text="100">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <text id="n20_nbj9" name="win" xy="417,67" size="227,43" font="ui://k5oi8hwrnbj9nz" fontSize="10" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="99700"/>
+    <text id="n21_nbj9" name="credit" xy="221,59" size="131,64" font="ui://k5oi8hwrnbj9ny" fontSize="10" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="99700"/>
+    <component id="n23_nbj9" name="btnBetDown" src="nbj9n2" fileName="components/Panel/ButtonBet.xml" xy="693,42" alpha="0"/>
+    <component id="n24_nbj9" name="btnBetUp" src="nbj9n2" fileName="components/Panel/ButtonBet.xml" xy="866,40" alpha="0"/>
+    <component id="n28_nbj9" name="btnSpin" src="nbj9o2" fileName="components/Panel/ButtonSpin.xml" xy="909,18"/>
+    <component id="n18_nbj9" name="setPanel" src="enimmt" fileName="moudules/pageGameMain/Common/SetPanel.xml" xy="18,-195" visible="false"/>
+    <text id="n32_nbj9" name="singleLine" xy="4,182" size="388,51" fontSize="17" color="#ffffff" align="center" vAlign="middle" autoSize="none" text=""/>
   </displayList>
 </component>

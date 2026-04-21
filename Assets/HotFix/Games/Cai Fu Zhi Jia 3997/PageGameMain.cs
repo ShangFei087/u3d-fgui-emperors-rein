@@ -892,6 +892,7 @@ namespace CaiFuZhiJia_3997
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
                     _allWinCredit = 0;
                     
+                    // 重新注册
                     ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
                     MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
                     EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
