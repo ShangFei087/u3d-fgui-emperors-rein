@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="200,16" mask="n1_jzlm">
+  <displayList>
+    <image id="n1_jzlm" name="n1" src="jzlmxkk" fileName="images/new/gme_loading_mask.png" xy="0,0" size="200,16">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n2_jzlm" name="n2" src="p0ggxjx" fileName="images/new/pb_img_music04.png" xy="-13,0" size="221,16"/>
+  </displayList>
+</component>

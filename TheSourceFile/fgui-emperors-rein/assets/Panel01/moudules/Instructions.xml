@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n7_p0gg" name="mask" xy="0,0" size="1080,1920" visible="false" type="rect" lineSize="0" fillColor="#80000000"/>
+    <image id="n0_p0gg" name="n0" src="p0gg14" fileName="images/PayTable/border.png" xy="43,91"/>
+    <component id="n5_p0gg" name="introduce" src="p0ggxkf" fileName="moudules/payTable1/Introduce.xml" xy="0,364" size="1080,940"/>
+    <component id="n2_p0gg" name="btnPrev" src="p0ggxkd" fileName="moudules/payTable1/BtnNext.xml" xy="-88,1418" pivot="1,0.5" scale="-1,1"/>
+    <component id="n1_p0gg" name="btnNect" src="p0ggxkd" fileName="moudules/payTable1/BtnNext.xml" xy="832,1418" pivot="1,0.5"/>
+    <component id="n3_p0gg" name="btnBackGame" src="p0ggxke" fileName="moudules/payTable1/BtnBackGame.xml" xy="282,1397"/>
+  </displayList>
+</component>
