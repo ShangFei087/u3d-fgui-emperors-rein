@@ -170,8 +170,6 @@ namespace CaiFuZhiJia_3997
                 int symbolNumber = ID % 100; // 十个位：Symbol ID
                 int hitCount = (ID / 100) % 10; // 百位：消除数量（WinCount）
                 int lineNumber = ID / 1000; // 万千位：线编号
-                // 输出调试信息（可选）
-                //Debug.Log($"ID: {ID}, Line: {lineNumber}, HitCount: {hitCount}, Symbol: {symbolNumber}");
 
                 int lineIndex = lineNumber;
                 int[] lineInfo = CustomModel.Instance.payLines[lineIndex].ToArray();
@@ -387,9 +385,11 @@ namespace CaiFuZhiJia_3997
                 creditAfter = creditBefore - totalBet + totalLineWin;
 
             ContentModel.Instance.isReelsSlowMotion = true;
+
             // 记录游戏数据到数据库
             Record(totalBet, res);
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
+
             DebugUtils.Log(
                 $"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple} ");
 

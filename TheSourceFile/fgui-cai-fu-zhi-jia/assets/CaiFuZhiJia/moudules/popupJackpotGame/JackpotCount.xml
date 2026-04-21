@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="260,35">
+<component size="373,184">
   <displayList>
-    <image id="n2_qirh" name="n2" src="qirhhf" fileName="images/pageGameMain/FreeGame/Common/fg_txt_times.png" xy="100,18" pivot="0.5,0.5" anchor="true"/>
-    <text id="n1_q5jy" name="freeCount" xy="215,-6" size="38,46" font="ui://k5oi8hwrh8erda" fontSize="12" color="#ffae00" align="center" vAlign="middle" autoSize="none" text="3"/>
+    <image id="n3_enim" name="n3" src="enimmz" fileName="images/popupJackpotGame/GameBackground/sg_img_dp.png" xy="0,0"/>
+    <text id="n1_q5jy" name="freeCount" xy="48,84" size="52,54" font="ui://k5oi8hwrh8erda" fontSize="15" color="#ffae00" align="center" vAlign="middle" autoSize="none" text="3"/>
+    <image id="n4_enim" name="n4" src="enimn0" fileName="images/popupJackpotGame/GameBackground/sg_txt_spins left.png" xy="109,94"/>
   </displayList>
 </component>

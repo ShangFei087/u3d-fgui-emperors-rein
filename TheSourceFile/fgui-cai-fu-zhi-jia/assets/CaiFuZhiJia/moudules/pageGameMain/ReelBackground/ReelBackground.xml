@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1098,657">
+<component size="1080,669" overflow="hidden">
   <displayList>
-    <image id="n5_n3ln" name="n5" src="n3ln1c" fileName="images/pageGameMain/ReelBackground/ng_img_frame04.png" xy="128,74" group="n10_n3ln"/>
-    <image id="n1_n3ln" name="n1" src="n3ln18" fileName="images/pageGameMain/ReelBackground/ng_img_frame.png" xy="0,72" group="n10_n3ln"/>
-    <image id="n7_n3ln" name="n7" src="n3ln1b" fileName="images/pageGameMain/ReelBackground/ng_img_frame03.png" xy="117,62" group="n10_n3ln"/>
-    <image id="n6_n3ln" name="n6" src="n3ln18" fileName="images/pageGameMain/ReelBackground/ng_img_frame.png" xy="971,73" group="n10_n3ln" flip="hz"/>
-    <image id="n2_n3ln" name="n2" src="n3ln19" fileName="images/pageGameMain/ReelBackground/ng_img_frame01.png" xy="67,0" group="n10_n3ln" scale="1.01,1.01"/>
-    <image id="n3_n3ln" name="n3" src="n3ln1a" fileName="images/pageGameMain/ReelBackground/ng_img_frame02.png" xy="5,603" group="n10_n3ln"/>
-    <image id="n15_qirh" name="n15" src="n3ln1d" fileName="images/pageGameMain/ReelBackground/ng_img_frame05.png" xy="71,328" pivot="0.5,0.5" anchor="true" group="n10_n3ln"/>
-    <image id="n16_qirh" name="n16" src="n3ln1d" fileName="images/pageGameMain/ReelBackground/ng_img_frame05.png" xy="1028,328" pivot="0.5,0.5" anchor="true" group="n10_n3ln"/>
-    <group id="n10_n3ln" name="n10" xy="0,0" size="1098,657"/>
+    <image id="n30_k7bh" name="n30" src="n3ln1c" fileName="images/pageGameMain/ReelBackground/ng_img_frame04.png" xy="104,67" size="877,548"/>
+    <image id="n20_k7bh" name="n20" src="n3ln1a" fileName="images/pageGameMain/ReelBackground/ng_img_frame02.png" xy="17,618" group="n29_k7bh"/>
+    <image id="n17_k7bh" name="n17" src="n3ln18" fileName="images/pageGameMain/ReelBackground/ng_img_frame.png" xy="-32,57" group="n29_k7bh"/>
+    <image id="n18_k7bh" name="n18" src="n3ln18" fileName="images/pageGameMain/ReelBackground/ng_img_frame.png" xy="978,60" group="n29_k7bh" flip="hz"/>
+    <image id="n19_k7bh" name="n19" src="n3ln19" fileName="images/pageGameMain/ReelBackground/ng_img_frame01.png" xy="33,-2" group="n29_k7bh"/>
+    <image id="n22_k7bh" name="n22" src="n3ln1d" fileName="images/pageGameMain/ReelBackground/ng_img_frame05.png" xy="45,328" pivot="0.5,0.5" anchor="true" group="n29_k7bh"/>
+    <image id="n23_k7bh" name="n23" src="n3ln1d" fileName="images/pageGameMain/ReelBackground/ng_img_frame05.png" xy="1038,328" pivot="0.5,0.5" anchor="true" group="n29_k7bh"/>
+    <image id="n27_k7bh" name="n27" src="n3ln1b" fileName="images/pageGameMain/ReelBackground/ng_img_frame03.png" xy="-45,615" group="n29_k7bh"/>
+    <group id="n29_k7bh" name="n29" xy="-45,-2" size="1169,674"/>
   </displayList>
 </component>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="215,51" pivot="0.5,0.5" anchor="true" extention="Slider">
+  <displayList>
+    <image id="n4_p0gg" name="n4" src="p0ggxjz" fileName="images/new/pb_img_music06.png" xy="107,25" pivot="0.5,0.5" anchor="true" size="215,51"/>
+    <image id="n0_p0gg" name="n0" src="p0ggxjw" fileName="images/new/pb_img_music03.png" xy="107,25" pivot="0.5,0.5" anchor="true" size="205,20">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n12_jzlm" name="bar" src="jzlmxkj" fileName="components/bar.xml" xy="5,17" size="200,16"/>
+    <component id="n3_p0gg" name="grip" src="p0ggxk7" fileName="components/SetPanel/SobudSlider_grip.xml" xy="192,12" pivot="0.5,0.5">
+      <relation target="" sidePair=""/>
+      <relation target="n12_jzlm" sidePair="right-right"/>
+    </component>
+  </displayList>
+  <Slider titleType="valueAndmax"/>
+</component>

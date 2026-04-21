@@ -170,8 +170,8 @@ namespace CaiFuZhiJia_3997
 
             yield return SlotWaitForSeconds(_spinWEMD.Instance.timeS);
         }
-        
-         #region 新增滚轮加速方法
+
+        #region 新增滚轮加速方法
 
         public new IEnumerator TurnReelsNormal( /*int symbolIndex*/ List<int> specialSymbols,
             string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3",
@@ -202,7 +202,7 @@ namespace CaiFuZhiJia_3997
         List<int> slowCols = new List<int>();
 
         public List<List<int>> GetDeckColRow(int[] deckColRow, int colCount, int rowCount, /*int symbolIndex*/
-            List<int> specialSymbols)// 修改参数，传入特殊图标数组
+            List<int> specialSymbols) // 修改参数，传入特殊图标数组
         {
             if (ContentModel.Instance.isReelsSlowMotion) slowCols.Clear();
 
@@ -214,7 +214,7 @@ namespace CaiFuZhiJia_3997
                 {
                     int syb = deckColRow[col * rowCount + row];
                     if (ContentModel.Instance.isReelsSlowMotion && syb == specialSymbols[0] &&
-                        !ContentModel.Instance.IsBonusTrigger)// 新增判断，是否使彩金游戏
+                        !ContentModel.Instance.IsBonusTrigger) // 新增判断，是否使彩金游戏
                     {
                         slowCols.Add(col);
                     }
@@ -243,10 +243,10 @@ namespace CaiFuZhiJia_3997
 
             for (int reelIdx = 0; reelIdx < this.column; reelIdx++)
             {
-                if (_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx) > 0)
-                {
-                    yield return new WaitForSeconds(_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx));
-                }
+                // if (_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx) > 0)
+                // {
+                //     yield return new WaitForSeconds(_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx));
+                // }
 
                 int _reelIdx = reelIdx;
                 int extraReelTimes = 0;
@@ -291,8 +291,8 @@ namespace CaiFuZhiJia_3997
         }
 
         #endregion
-        
-          #region 解决Symbol播放变大特效问题
+
+        #region 解决Symbol播放变大特效问题
 
         public new void ShowSymbolWinDeck(SymbolWin symbolWin, bool isUseMySelfSymbolNumber, Action callback = null)
         {
