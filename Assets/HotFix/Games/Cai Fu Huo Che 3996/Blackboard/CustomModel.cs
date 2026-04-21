@@ -132,8 +132,7 @@ namespace CaiFuHuoChe_3996
 
         #region 赔付线与赔付表
 
-        public List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>()
-        {
+        private List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>(){
             new PayTableSymbolInfo(){symbol = 0, x5 = 20, x4 = 10, x3 = 5, },
             new PayTableSymbolInfo(){symbol = 1, x5 = 20, x4 = 10, x3 = 5, },
             new PayTableSymbolInfo(){symbol = 2, x5 = 20, x4 = 10, x3 = 5, },
@@ -187,7 +186,7 @@ namespace CaiFuHuoChe_3996
                 new List<int> { 0,1,0,1,0 },
                 new List<int> { 2,1,2,1,2 },
                 new List<int> { 0,1,1,1,2 },
-                new List<int> { 2,0,0,0,1 },
+                new List<int> { 2,1,1,1,0 },
                 new List<int> { 1,0,0,0,1 },
                 new List<int> { 1,2,2,2,1 },
                 new List<int> { 0,1,0,1,2 }

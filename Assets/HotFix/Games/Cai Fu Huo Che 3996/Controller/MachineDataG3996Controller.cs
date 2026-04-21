@@ -99,7 +99,7 @@ namespace CaiFuHuoChe_3996
                 result["TotalFreeBet"] = totalFreeBet;
             }
 
-            if (resultType == (int)ResultType.RT_FreeWin)
+            if (resultType == (int)ResultType.RT_BonusWin)
             {
                 int bonusBet = data[pos++];
                 int bonusType = data[pos++];

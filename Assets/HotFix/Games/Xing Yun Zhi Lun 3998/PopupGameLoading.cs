@@ -69,9 +69,10 @@ namespace XingYunZhiLun_3998
 
             //loadText = contentPane.GetChild("load").asTextField;
             progressBar = contentPane.GetChild("n11").asSlider;
+            progressBar.value = 0;
 
             //初始化UI锚点
-            GComponent LocalAnchorLoadingText = contentPane.GetChild("n1").asCom;
+            GComponent LocalAnchorLoadingText = contentPane.GetChild("title").asCom;
             if (anchorLoadText != LocalAnchorLoadingText)
             {
                 GameCommon.FguiUtils.DeleteWrapper(anchorLoadText);
@@ -132,7 +133,7 @@ namespace XingYunZhiLun_3998
             PageManager.Instance.PreloadPage(PageName.XingYunZhiLunPopupFreeSpinResult, null);
 
             if (tweener2 != null) tweener2.Kill();
-            tweener2 = GTween.To(0, 100, duration)
+            tweener2 = GTween.To(0, 1, duration)
                 .SetEase(EaseType.Linear) // 线性过渡，匀速增长
                 .OnUpdate((tween) =>
                 {

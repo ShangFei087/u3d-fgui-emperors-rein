@@ -61,10 +61,12 @@ public class PanelController3996 : SlotMaker.PanelBaseController
         base.InitParam();
 
         btnSound.GetController("button").selectedIndex = 1;
+        bet.text = SBoxModel.Instance.betList[MainModel.Instance.contentMD.betIndex].ToString();
     }
 
     protected override void OnPropertyChangeBtnSpinState(EventData res = null)
     {
+        base.OnPropertyChangeBtnSpinState(res);
         string changeSpinState = (string)res?.value;
 
         if (changeSpinState == null)
@@ -117,6 +119,22 @@ public class PanelController3996 : SlotMaker.PanelBaseController
                     ChangButtonNo(true);
                 }
                 break;
+        }
+    }
+
+    protected override void OnPropertyGameState(EventData res = null)
+    {
+        string gameState = (string)res?.value;
+
+        if (gameState == GameState.Spin)
+        {
+            win.text = 0.ToString();
+            ClearSingleLineText();
+        }
+
+        else if (gameState == GameState.FreeSpin)
+        {
+            ClearSingleLineText();
         }
     }
 }
