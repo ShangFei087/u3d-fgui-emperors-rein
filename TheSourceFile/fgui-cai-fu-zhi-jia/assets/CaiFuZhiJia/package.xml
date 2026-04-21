@@ -208,5 +208,5 @@
     <image id="enimmz" name="sg_img_dp.png" path="/images/popupJackpotGame/GameBackground/"/>
     <image id="enimn0" name="sg_txt_spins left.png" path="/images/popupJackpotGame/GameBackground/"/>
   </resources>
-  <publish name=""/>
+  <publish name="" path="../../Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>

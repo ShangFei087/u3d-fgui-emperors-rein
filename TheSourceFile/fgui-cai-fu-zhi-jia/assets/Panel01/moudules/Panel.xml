@@ -2,18 +2,18 @@
 <component size="1080,235" overflow="hidden">
   <displayList>
     <graph id="n29_nbj9" name="mash" xy="0,-1685" size="1080,1920" visible="false" type="rect" fillColor="#99000000"/>
-    <component id="n25_nbj9" name="frame" src="nbj9n3" fileName="moudules/pageGameMain/Common/GameDiFrame.xml" xy="0,0"/>
-    <component id="n17_nbj9" name="btnHelp" src="nbj9n1" fileName="components/Panel/ButtonHelp.xml" xy="73,124" pivot="0.5,0.5" anchor="true"/>
+    <component id="n25_nbj9" name="frame" src="nbj9n3" fileName="moudules/Panel/GameDiFrame.xml" xy="0,0"/>
+    <component id="n17_nbj9" name="btnHelp" src="nbj9n1" fileName="components/SetPanel/ButtonHelp.xml" xy="73,124" pivot="0.5,0.5" anchor="true"/>
     <text id="n19_nbj9" name="bet" xy="750,56" size="108,73" font="ui://oqimay09nbj9ny" fontSize="10" color="#ffffff" align="center" vAlign="middle" letterSpacing="3" autoSize="shrink" text="100">
       <relation target="" sidePair="center-center"/>
     </text>
     <text id="n20_nbj9" name="win" xy="417,67" size="227,43" font="ui://oqimay09nbj9nz" fontSize="10" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="99700"/>
     <text id="n21_nbj9" name="credit" xy="221,59" size="131,64" font="ui://oqimay09nbj9ny" fontSize="10" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="99700"/>
-    <component id="n23_nbj9" name="btnBetDown" src="nbj9n2" fileName="components/Panel/ButtonBet.xml" xy="693,42" alpha="0"/>
-    <component id="n24_nbj9" name="btnBetUp" src="nbj9n2" fileName="components/Panel/ButtonBet.xml" xy="866,40" alpha="0"/>
-    <component id="n28_nbj9" name="btnSpin" src="nbj9o2" fileName="components/Panel/ButtonSpin.xml" xy="909,18"/>
-    <component id="n18_nbj9" name="setPanel" src="enimmt" fileName="moudules/pageGameMain/Common/SetPanel.xml" xy="18,-195" visible="false"/>
+    <component id="n36_f6tv" name="btnBetUp" src="f6tv2i" fileName="components/Button/ButtonBetUp.xml" xy="866,39"/>
+    <component id="n37_f6tv" name="btnBetDown" src="f6tv2h" fileName="components/Button/ButtonBetDown.xml" xy="691,39"/>
+    <component id="n28_nbj9" name="btnSpin" src="nbj9o2" fileName="components/Button/ButtonSpin.xml" xy="909,18"/>
+    <component id="n18_nbj9" name="setPanel" src="enimmt" fileName="moudules/SetPanel.xml" xy="18,-195" visible="false"/>
     <text id="n32_nbj9" name="singleLine" xy="4,182" size="388,51" fontSize="17" color="#ffffff" align="center" vAlign="middle" autoSize="none" text=""/>
-    <component id="n34_f6tv" name="instructions" src="f6tvp6" fileName="moudules/pageGameMain/Common/Instructions.xml" xy="0,-1685"/>
+    <component id="n34_f6tv" name="instructions" src="f6tvp6" fileName="moudules/Panel/Instructions.xml" xy="0,-1685"/>
   </displayList>
 </component>

@@ -26,25 +26,34 @@ namespace SlotMaker
     {
         // 当前弹窗状态（设置、帮助、赔付表等）
         PopState popState = PopState.None;
+
         // 面板根节点与常用子面板引用
         protected GComponent gOwnerPanel, gIntroducePanel, setPanel, btnSound, btnHelp, Introduce;
+
         // Spin 按钮控制器
         protected SpinButtonBaseController spinBtnCtrl = new SpinButtonBaseController();
+
         // 赔付表翻页与导航按钮
-        protected GButton btnPayTable, btnPrev, btnNext,btnHome, btnBackGame;
+        protected GButton btnPayTable, btnPrev, btnNext, btnHome, btnBackGame;
+
         // 常用文本显示：下注、总赢分、单线赢分
-        protected GTextField bet,win, singleLine;
+        protected GTextField bet, win, singleLine;
+
         //声音滑动条
         protected GSlider silderSound;
+
         // 当前是否处于设置弹窗状态
         protected bool isSet;
+
         // 赔付表总页数
-        protected int PayTableLength =0;
+        protected int PayTableLength = 0;
+
         // 标记音量按钮是否处于按下状态（用于全局抬起恢复）
         protected bool _isSoundBtnPressed;
+
         // 记录最近一次非静音音量，用于按钮恢复声音时回滚
         protected float _lastNonMuteVolume = 1f;
-        
+
         //下注按钮So
         protected GButton btnBetDown, btnBetUp;
         protected int curBetIndex = 0;
@@ -52,6 +61,7 @@ namespace SlotMaker
 
         // Spin 预制体实例引用
         GameObject goSpin;
+
         // 是否已完成初始化
         bool isInit;
         public int IntroduceIndex;
@@ -86,17 +96,20 @@ namespace SlotMaker
             EventCenter.Instance.RemoveEventListener<EventData>(Observer.ON_PROPERTY_CHANGED_EVENT, OnPropertyChange);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnTotalWinCredit);
             EventCenter.Instance.RemoveEventListener<EventData>(MetaUIEvent.ON_CREDIT_EVENT, OnUpdateNaviCredit);
-            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnPanelEventAnchorPanelChange);
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT,
+                OnPanelEventAnchorPanelChange);
             Stage.inst.onTouchEnd.Remove(OnStageTouchEndResetSoundButton);
             if (silderSound != null)
             {
                 silderSound.onChanged.Clear();
             }
+
             _isSoundBtnPressed = false;
             if (btnSound != null)
             {
                 btnSound.SetScale(1f, 1f);
             }
+
             gOwnerPanel.visible = false;
         }
 
@@ -105,7 +118,6 @@ namespace SlotMaker
         /// </summary>
         public virtual void Init(EventData res = null)
         {
-
             GComponent _goAnchorPanel = null;
             if (res != null)
                 _goAnchorPanel = res.value as GComponent;
@@ -143,7 +155,6 @@ namespace SlotMaker
                         gOwnerPanel.visible = true;
                         loadComplete();
                     });
-
                 }
                 else
                 {
@@ -158,13 +169,11 @@ namespace SlotMaker
 
             // 异步加载 Spin 按钮预制体
             ResourceManager02.Instance.LoadAsset<GameObject>(SpinPrefabPath,
-              (GameObject clone) =>
-              {
-                  goSpin = clone;
-                  loadComplete();
-              });
-
-
+                (GameObject clone) =>
+                {
+                    goSpin = clone;
+                    loadComplete();
+                });
         }
 
         /// <summary>
@@ -176,7 +185,8 @@ namespace SlotMaker
             gOwnerPanel = MainModel.Instance.contentMD.goAnthorPanel.asCom.GetChild("icon").asLoader.component;
             setPanel = gOwnerPanel.GetChild("setPanel").asCom;
             setPanel.visible = false;
-            gOwnerPanel.GetChild("credit").asTextField.text = MainModel.Instance.myCredit.ToString(); //SBoxModel.Instance.myCredit.ToString();
+            gOwnerPanel.GetChild("credit").asTextField.text =
+                MainModel.Instance.myCredit.ToString(); //SBoxModel.Instance.myCredit.ToString();
             win = gOwnerPanel.GetChild("win").asTextField;
             win.text = 0.ToString();
             btnBetUp = gOwnerPanel.GetChild("btnBetUp").asButton;
@@ -190,18 +200,16 @@ namespace SlotMaker
             bet = gOwnerPanel.GetChild("bet").asTextField;
             bet.text = SBoxModel.Instance.betList[MainModel.Instance.contentMD.betIndex].ToString();
 
-            singleLine= gOwnerPanel.GetChild("singleLine").asTextField;
+            singleLine = gOwnerPanel.GetChild("singleLine").asTextField;
             singleLine.text = "";
 
             // 初始化时将当前下注同步到机台
             SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
             {
-                PlayerId = SBoxModel.Instance.pid,
-                balance = 0,
-                rfu = 0
+                PlayerId = SBoxModel.Instance.pid, balance = 0, rfu = 0
             };
 
-            sBoxPlayerBetsData.Bets[0] =(int) SBoxModel.Instance.betList[MainModel.Instance.contentMD.betIndex];
+            sBoxPlayerBetsData.Bets[0] = (int)SBoxModel.Instance.betList[MainModel.Instance.contentMD.betIndex];
             // 设置押注
             ERPushMachineDataManager02.Instance.RequestSetBet(sBoxPlayerBetsData, (res) =>
             {
@@ -246,8 +254,6 @@ namespace SlotMaker
                 gIntroducePanel.GetChild("mask").asGraph.visible = true;
                 IntroduceInit();
                 GlobalSoundHelper.Instance.PlaySoundEff(GameMaker.SoundKey.PopupOpen);
-       
-
             });
             //声音
             btnSound = setPanel.GetChild("btnSound").asCom;
@@ -273,10 +279,10 @@ namespace SlotMaker
             silderSound.visible = true;
             silderSound.onChanged.Clear();
             silderSound.onChanged.Add(OnSoundSliderChanged);
-            
+
 
             //返回大厅
-            btnHome =setPanel.GetChild("btnHome").asButton;
+            btnHome = setPanel.GetChild("btnHome").asButton;
             btnHome.onClick.Clear();
             btnHome.onClick.Add(() =>
             {
@@ -289,7 +295,6 @@ namespace SlotMaker
             OnPropertyChangeBtnSpinState();
             OnPropertyIsConnectMoneyBox();
             SyncSoundUIFromCurrentState();
-
         }
 
         /// <summary>
@@ -417,7 +422,6 @@ namespace SlotMaker
             }
             else
             {
-
                 setPanel.visible = false;
                 gIntroducePanel.visible = false;
                 gOwnerPanel.GetChild("mash").asGraph.visible = false;
@@ -451,12 +455,9 @@ namespace SlotMaker
             {
                 btnPrev.touchable = false;
                 btnPrev.GetChild("untouch").visible = true;
-
-
             }
             else
             {
-
                 btnNext.GetChild("untouch").visible = false;
                 btnNext.touchable = true;
             }
@@ -473,11 +474,9 @@ namespace SlotMaker
             {
                 btnNext.touchable = false;
                 btnNext.GetChild("untouch").visible = true;
-
             }
             else
             {
-
                 btnPrev.touchable = true;
                 btnPrev.GetChild("untouch").visible = false;
             }
@@ -581,7 +580,6 @@ namespace SlotMaker
             {
                 PageManager.Instance.OpenPage(PageName.Hall01);
             }
-              
         }
 
         protected virtual void OnPropertyChange(EventData res = null)
@@ -651,9 +649,7 @@ namespace SlotMaker
                 {
                     SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
                     {
-                        PlayerId = SBoxModel.Instance.pid,
-                        balance = 0,
-                        rfu = 0
+                        PlayerId = SBoxModel.Instance.pid, balance = 0, rfu = 0
                     };
                     sBoxPlayerBetsData.Bets[0] = (int)MainModel.Instance.contentMD.totalBet;
 
@@ -694,21 +690,20 @@ namespace SlotMaker
                 case SpinButtonState.Spin:
                     {
                         spinBtnCtrl.State = "Spin";
-                      
+
                         ChangButtonNo(true);
                     }
                     break;
                 case SpinButtonState.Auto:
                     {
                         spinBtnCtrl.State = "Auto";
-                       
+
                         ChangButtonNo(true);
                     }
                     break;
             }
-
-
         }
+
         /// <summary>
         /// 游戏状态变更处理：进入 Spin 时清空赢分展示。
         /// </summary>
@@ -716,7 +711,7 @@ namespace SlotMaker
         {
             string gameState = (string)res?.value;
 
-            if (gameState == GameState.Spin )
+            if (gameState == GameState.Spin)
             {
                 win.text = 0.ToString();
                 ClearSingleLineText();
@@ -725,7 +720,6 @@ namespace SlotMaker
 
         protected virtual void OnPropertyIsConnectMoneyBox(EventData res = null)
         {
-
         }
 
         protected virtual void OnPanelEventAnchorPanelChange(EventData res = null)
@@ -751,7 +745,8 @@ namespace SlotMaker
             else if (receivedEvent.name == SlotMachineEvent.SingleWinBonus)
             {
                 long totalWinCredit = (long)receivedEvent.value;
-                NumberAnimation.Instance.AnimateNumber(win,long.Parse(win.text),totalWinCredit + long.Parse(win.text), 0.4f);
+                NumberAnimation.Instance.AnimateNumber(win, long.Parse(win.text), totalWinCredit + long.Parse(win.text),
+                    0.4f);
             }
             else if (receivedEvent.name == SlotMachineEvent.SingleWinLine)
             {
@@ -763,14 +758,13 @@ namespace SlotMaker
                 }
 
                 // 单线
-                singleLine.text = $"Line : {symbolWin.lineNumber}  symbolType : {symbolWin.symbolNumber}   Win :{symbolWin.earnCredit}";
+                singleLine.text =
+                    $"Line : {symbolWin.lineNumber}  symbolType : {symbolWin.symbolNumber}   Win :{symbolWin.earnCredit}";
             }
             else if (receivedEvent.name == SlotMachineEvent.SkipWinLine)
             {
                 ClearSingleLineText();
             }
-
-
         }
 
         protected virtual void ClearSingleLineText()
@@ -806,7 +800,8 @@ namespace SlotMaker
             if (isAmin)
             {
                 // 需要动画时做数字滚动
-                NumberAnimation.Instance.AnimateNumber(gOwnerPanel.GetChild("credit").asTextField, fromCredit, toCredit);
+                NumberAnimation.Instance.AnimateNumber(gOwnerPanel.GetChild("credit").asTextField, fromCredit,
+                    toCredit);
             }
             else
             {
@@ -824,14 +819,13 @@ namespace SlotMaker
 
         public void OnClickSpinButton(bool isLong)
         {
-
             // 向面板输入事件总线派发 Spin 按钮点击（长按/短按）
             EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT,
-               new EventData<bool>(PanelEvent.SpinButtonClick, isLong));
-
+                new EventData<bool>(PanelEvent.SpinButtonClick, isLong));
         }
 
         #region 置灰
+
         public virtual void ChangButtonNo(bool can)
         {
             if (can)
@@ -870,8 +864,8 @@ namespace SlotMaker
                     btnBetUp.touchable = false;
                 }
             }
-
         }
+
         #endregion
 
         protected virtual void OnClickButtonBetUp()
@@ -883,16 +877,14 @@ namespace SlotMaker
             int betIndex = MainModel.Instance.contentMD.betIndex;
             if (++betIndex >= betList.Count)
             {
-
                 betIndex = betList.Count - 1;
             }
+
             MainModel.Instance.contentMD.totalBet = betList[betIndex];
             // 下注变更后同步机台，并在回调内刷新加减注按钮状态
             SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
             {
-                PlayerId = SBoxModel.Instance.pid,
-                balance = 0,
-                rfu = 0
+                PlayerId = SBoxModel.Instance.pid, balance = 0, rfu = 0
             };
 
             sBoxPlayerBetsData.Bets[0] = (int)MainModel.Instance.contentMD.totalBet;
@@ -915,13 +907,12 @@ namespace SlotMaker
             {
                 betIndex = 0;
             }
+
             MainModel.Instance.contentMD.totalBet = betList[betIndex];
             // 下注变更后同步机台，并在回调内刷新加减注按钮状态
             SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
             {
-                PlayerId = SBoxModel.Instance.pid,
-                balance = 0,
-                rfu = 0
+                PlayerId = SBoxModel.Instance.pid, balance = 0, rfu = 0
             };
 
             sBoxPlayerBetsData.Bets[0] = (int)MainModel.Instance.contentMD.totalBet;
@@ -937,15 +928,16 @@ namespace SlotMaker
         /// </summary>
         protected virtual void ChangeBetButtonInteractable(int? betIndex01 = null, int? betListCount01 = null)
         {
-
             if (betIndex01 != null && betListCount01 != null)
             {
                 curBetIndex = (int)betIndex01;
                 curBetListCount = (int)betListCount01;
             }
+
             MainModel.Instance.contentMD.betIndex = curBetIndex;
             //下注倍数现在硬数据,之后在改动  
-            MainModel.Instance.contentMD.betmultiple = (int)MainModel.Instance.contentMD.totalBet / MainModel.Instance.lineNum;
+            MainModel.Instance.contentMD.betmultiple =
+                (int)MainModel.Instance.contentMD.totalBet / MainModel.Instance.lineNum;
             bet.text = MainModel.Instance.contentMD.totalBet.ToString();
             btnBetDown.touchable = curBetIndex > 0;
             btnBetDown.GetChild("untouch").visible = btnBetDown.touchable ? false : true;
@@ -963,7 +955,6 @@ namespace SlotMaker
             {
                 case MachineButtonKey.BtnSpin:
                     {
-
                     }
                     break;
             }
@@ -975,7 +966,6 @@ namespace SlotMaker
             {
                 case MachineButtonKey.BtnSpin:
                     {
-
                     }
                     break;
             }

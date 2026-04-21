@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="52,100">
+  <displayList>
+    <image id="n0_f6tv" name="n0" src="f6tv29" fileName="images/鼓励值/pb_img_kuang_01.png" xy="52,100" rotation="180" color="#999999"/>
+    <image id="n1_f6tv" name="n1" src="f6tv2a" fileName="images/鼓励值/pb_img_kuang_03.png" xy="-1,39"/>
+  </displayList>
+</component>
