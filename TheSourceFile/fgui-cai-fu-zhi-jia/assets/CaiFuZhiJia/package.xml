@@ -159,17 +159,6 @@
     <image id="isifif" name="sg_txt_congrart.png" path="/images/popupJackpotTrigger/Background/"/>
     <image id="isifig" name="sg_txt_red.png" path="/images/popupJackpotTrigger/Background/"/>
     <image id="isifih" name="sg_txt_won.png" path="/images/popupJackpotTrigger/Background/"/>
-    <image id="prjjim" name="1.png" path="/images/效果图/"/>
-    <image id="prjjin" name="普通转免费.png" path="/images/效果图/"/>
-    <image id="prjjiq" name="普通游戏.png" path="/images/效果图/"/>
-    <image id="prjjit" name="彩金游戏.png" path="/images/效果图/"/>
-    <image id="prjjiu" name="开机.jpg" path="/images/效果图/"/>
-    <image id="prjjiw" name="免费游戏.png" path="/images/效果图/"/>
-    <image id="prjjj7" name="13 cjts.png" path="/images/效果图/"/>
-    <image id="prjjj8" name="14.png" path="/images/效果图/"/>
-    <image id="prjjja" name="普通转彩金.png" path="/images/效果图/"/>
-    <image id="prjjji" name="2.png" path="/images/效果图/"/>
-    <image id="prjjjj" name="说明书.png" path="/images/效果图/"/>
     <image id="prjjjk" name="load_img_bg01.png" path="/images/popupGameLoading/"/>
     <image id="prjjjl" name="load_img_bg02.png" path="/images/popupGameLoading/"/>
     <component id="k7bhjm" name="ng_sym01_gold_com.xml" path="/images/symbols/" exported="true"/>
@@ -199,10 +188,6 @@
     <image id="k7bhka" name="ng_img_frame07.png" path="/images/pageGameMain/GameBackground/freeBg/"/>
     <image id="k7bhkb" name="ng_img_frame08.png" path="/images/pageGameMain/GameBackground/freeBg/"/>
     <image id="k7bhkc" name="ng_img_frame09.png" path="/images/pageGameMain/GameBackground/freeBg/"/>
-    <image id="k7bhl9" name="15.png" path="/images/效果图/"/>
-    <image id="k7bhla" name="16.png" path="/images/效果图/"/>
-    <image id="k7bhlb" name="3.png" path="/images/效果图/"/>
-    <image id="k7bhlc" name="4.png" path="/images/效果图/"/>
     <image id="t2pale" name="ng_txt_major_1.png" path="/images/popupJackpotTrigger/Background/"/>
     <image id="t2palf" name="ng_txt_mini_1.png" path="/images/popupJackpotTrigger/Background/"/>
     <image id="t2palg" name="ng_txt_minor_1.png" path="/images/popupJackpotTrigger/Background/"/>
@@ -219,119 +204,9 @@
     <image id="t2pals" name="fg_num2_x.png" path="/images/pageGameMain/FreeGame/MulyipleNumber/"/>
     <image id="t2palt" name="fg_txt_times.png" path="/images/pageGameMain/GameBackground/freeBg/"/>
     <component id="t2palu" name="freeFrame.xml" path="/moudules/pageGameMain/FreeGame/" exported="true"/>
-    <component id="t2pam1" name="Panel.xml" path="/moudules/pageGameMain/Common/" exported="true"/>
-    <image id="t2pam3" name="pb_img_bottom.png" path="/images/panel/"/>
-    <image id="t2pam4" name="pb_txt_zw.png" path="/images/panel/赢分框/"/>
-    <image id="t2pam5" name="pb_txt_win.png" path="/images/panel/赢分框/"/>
-    <image id="t2pam6" name="pb_img_score.png" path="/images/panel/赢分框/" scale="9grid" scale9grid="37,10,46,116"/>
-    <image id="t2pam7" name="pb_img_dik.png" path="/images/panel/赢分框/" scale="9grid" scale9grid="129,0,260,27"/>
-    <image id="t2pam8" name="pb_txt_credits.png" path="/images/panel/投币数/"/>
-    <image id="t2pam9" name="pb_img_toubi.png" path="/images/panel/投币数/"/>
-    <image id="t2pama" name="pb_img_red.png" path="/images/panel/多功能按钮/"/>
-    <image id="t2pamb" name="pb_img_music06.png" path="/images/panel/多功能按钮/" scale="9grid" scale9grid="9,12,20,29"/>
-    <image id="t2pamc" name="pb_img_music05.png" path="/images/panel/多功能按钮/"/>
-    <image id="t2pamd" name="pb_img_music04.png" path="/images/panel/多功能按钮/" scale="tile"/>
-    <image id="t2pame" name="pb_img_kuang.png" path="/images/panel/鼓励值/" scale="9grid" scale9grid="54,0,12,101"/>
-    <image id="t2pamf" name="pb_img_music03.png" path="/images/panel/多功能按钮/" scale="9grid" scale9grid="9,5,15,11"/>
-    <image id="t2pamg" name="pb_img_music01.png" path="/images/panel/多功能按钮/"/>
-    <image id="t2pamh" name="pb_img_music.png" path="/images/panel/多功能按钮/"/>
-    <image id="t2pami" name="pb_img_help.png" path="/images/panel/多功能按钮/"/>
-    <image id="t2pamj" name="pb_img_expand.png" path="/images/panel/多功能按钮/"/>
-    <image id="t2pamk" name="pb_img_dgn.png" path="/images/panel/多功能按钮/"/>
-    <image id="t2paml" name="pb_txt_stop.png" path="/images/panel/spin按钮/"/>
-    <image id="t2pamm" name="pb_txt_spin.png" path="/images/panel/spin按钮/"/>
-    <image id="t2pamn" name="pb_txt_hold.png" path="/images/panel/spin按钮/"/>
-    <image id="t2pamo" name="pb_img_button01.png" path="/images/panel/spin按钮/"/>
-    <image id="t2pamp" name="pb_img_button.png" path="/images/panel/spin按钮/"/>
-    <image id="t2pamq" name="pb_img_music02.png" path="/images/panel/多功能按钮/"/>
-    <image id="t2pamr" name="pb_txt_bet.png" path="/images/panel/鼓励值/"/>
-    <image id="t2pams" name="pb_img_button02.png" path="/images/panel/spin按钮/"/>
-    <component id="enimmt" name="SetPanel.xml" path="/moudules/pageGameMain/Common/" exported="true"/>
-    <component id="enimmu" name="ButtonHome.xml" path="/components/Panel/" exported="true"/>
-    <component id="enimmv" name="ButtonIntroduce.xml" path="/components/Panel/" exported="true"/>
-    <component id="enimmx" name="ButtonSound.xml" path="/components/Panel/" exported="true"/>
     <image id="enimmy" name="sg_img_bg.png" path="/images/popupJackpotGame/GameBackground/"/>
     <image id="enimmz" name="sg_img_dp.png" path="/images/popupJackpotGame/GameBackground/"/>
     <image id="enimn0" name="sg_txt_spins left.png" path="/images/popupJackpotGame/GameBackground/"/>
-    <component id="nbj9n1" name="ButtonHelp.xml" path="/components/Panel/" exported="true"/>
-    <component id="nbj9n2" name="ButtonBet.xml" path="/components/Panel/" exported="true"/>
-    <component id="nbj9n3" name="GameDiFrame.xml" path="/moudules/pageGameMain/Common/" exported="true"/>
-    <image id="nbj9n4" name="pb_num_0.png" path="/images/panel/ui_number/" scale9grid="0,0,-17,0"/>
-    <image id="nbj9n5" name="pb_num_kilo.png" path="/images/panel/ui_number/" scale9grid="0,0,-14,0"/>
-    <image id="nbj9n6" name="pb_num_bill.png" path="/images/panel/ui_number/" scale9grid="0,0,-17,-1"/>
-    <image id="nbj9n7" name="pb_num_bet_trillion.png" path="/images/panel/ui_number/" scale9grid="0,0,-17,-1"/>
-    <image id="nbj9n8" name="pb_num_bet_million.png" path="/images/panel/ui_number/"/>
-    <image id="nbj9n9" name="pb_num_bet_kilo.png" path="/images/panel/ui_number/" scale9grid="0,0,-13,0"/>
-    <image id="nbj9na" name="pb_num_bet_dot.png" path="/images/panel/ui_number/"/>
-    <image id="nbj9nb" name="pb_num_bet_com.png" path="/images/panel/ui_number/"/>
-    <image id="nbj9nc" name="pb_num_bet_bill.png" path="/images/panel/ui_number/" scale9grid="0,0,-16,-1"/>
-    <image id="nbj9nd" name="pb_num_bet_9.png" path="/images/panel/ui_number/" scale9grid="0,0,-17,0"/>
-    <image id="nbj9ne" name="pb_num_bet_8.png" path="/images/panel/ui_number/" scale9grid="0,0,-17,0"/>
-    <image id="nbj9nf" name="pb_num_bet_7.png" path="/images/panel/ui_number/" scale9grid="0,0,-16,-1"/>
-    <image id="nbj9ng" name="pb_num_bet_6.png" path="/images/panel/ui_number/" scale9grid="0,0,-17,0"/>
-    <image id="nbj9nh" name="pb_num_bet_5.png" path="/images/panel/ui_number/" scale9grid="0,0,-18,-1"/>
-    <image id="nbj9ni" name="pb_num_bet_4.png" path="/images/panel/ui_number/" scale9grid="0,0,-14,-1"/>
-    <image id="nbj9nj" name="pb_num_bet_3.png" path="/images/panel/ui_number/" scale9grid="0,0,-17,0"/>
-    <image id="nbj9nk" name="pb_num_bet_2.png" path="/images/panel/ui_number/" scale9grid="0,0,-18,-1"/>
-    <image id="nbj9nl" name="pb_num_bet_1.png" path="/images/panel/ui_number/" scale9grid="0,0,-29,-1"/>
-    <image id="nbj9nm" name="pb_num_bet_0.png" path="/images/panel/ui_number/" scale9grid="0,0,-16,0"/>
-    <image id="nbj9nn" name="pb_num_9.png" path="/images/panel/ui_number/" scale9grid="0,0,-18,0"/>
-    <image id="nbj9no" name="pb_num_8.png" path="/images/panel/ui_number/" scale9grid="0,0,-18,0"/>
-    <image id="nbj9np" name="pb_num_7.png" path="/images/panel/ui_number/" scale9grid="0,0,-17,-1"/>
-    <image id="nbj9nq" name="pb_num_6.png" path="/images/panel/ui_number/" scale9grid="0,0,-18,0"/>
-    <image id="nbj9nr" name="pb_num_5.png" path="/images/panel/ui_number/" scale9grid="0,0,-19,0"/>
-    <image id="nbj9ns" name="pb_num_4.png" path="/images/panel/ui_number/" scale9grid="0,0,-15,0"/>
-    <image id="nbj9nt" name="pb_num_3.png" path="/images/panel/ui_number/" scale9grid="0,0,-18,0"/>
-    <image id="nbj9nu" name="pb_num_2.png" path="/images/panel/ui_number/" scale9grid="0,0,-19,0"/>
-    <image id="nbj9nv" name="pb_num_1.png" path="/images/panel/ui_number/" scale9grid="0,0,-30,-1"/>
-    <image id="nbj9nw" name="pb_num_million.png" path="/images/panel/ui_number/"/>
-    <image id="nbj9nx" name="pb_num_trillion.png" path="/images/panel/ui_number/" scale9grid="0,0,-18,-1"/>
-    <font id="nbj9ny" name="BetAndCreditesFront.fnt" path="/fonts/" exported="true"/>
-    <font id="nbj9nz" name="WinFont.fnt" path="/fonts/" exported="true"/>
-    <component id="nbj9o2" name="ButtonSpin.xml" path="/components/Panel/" exported="true"/>
-    <component id="nbj9o3" name="SpinIcon.xml" path="/moudules/pageGameMain/Common/" exported="true"/>
-    <component id="nbj9o4" name="untouch.xml" path="/moudules/pageGameMain/Common/" exported="true"/>
-    <component id="nbj9o5" name="AnchorSpin.xml" path="/moudules/pageGameMain/Common/" exported="true"/>
-    <component id="nbj9o6" name="PayTable.xml" path="/moudules/pageGameMain/Common/" exported="true"/>
-    <image id="nbj9o7" name="arrow.png" path="/images/panel/财富之家说明书资源输出/"/>
-    <image id="nbj9o8" name="0_0004_2.png" path="/images/panel/财富之家说明书资源输出/英文/" scale9grid="0,0,-272,-1124"/>
-    <image id="nbj9o9" name="0_0003_3.png" path="/images/panel/财富之家说明书资源输出/英文/" scale9grid="0,0,-274,-1055"/>
-    <image id="nbj9oa" name="0_0002_4.png" path="/images/panel/财富之家说明书资源输出/英文/" scale9grid="0,0,-338,-1286"/>
-    <image id="nbj9ob" name="0_0001_5.png" path="/images/panel/财富之家说明书资源输出/英文/" scale9grid="0,0,-287,-1014"/>
-    <image id="nbj9oc" name="0_0000_6.png" path="/images/panel/财富之家说明书资源输出/英文/" scale9grid="0,0,-369,-1226"/>
-    <image id="nbj9od" name="1PAYS.png" path="/images/panel/财富之家说明书资源输出/效果图/英文/"/>
-    <font id="nbj9oe" name="方正粗圆_GBK.ttf" path="/images/panel/财富之家说明书资源输出/字体/" renderMode="" samplePointSize="16"/>
-    <font id="nbj9of" name="San Antonio Charros_personal_use_only.ttf" path="/images/panel/财富之家说明书资源输出/字体/" renderMode="" samplePointSize="16"/>
-    <font id="nbj9og" name="Hunger Games.ttf" path="/images/panel/财富之家说明书资源输出/字体/" renderMode="" samplePointSize="16"/>
-    <font id="nbj9oh" name="BrothersCircus-Regular.ttf" path="/images/panel/财富之家说明书资源输出/字体/" renderMode="" samplePointSize="16"/>
-    <image id="nbj9oi" name="0_0005_1.png" path="/images/panel/财富之家说明书资源输出/英文/" scale9grid="0,0,-265,-1097"/>
-    <font id="nbj9oj" name="Brighton vintage.ttf" path="/images/panel/财富之家说明书资源输出/字体/" renderMode="" samplePointSize="16"/>
-    <image id="nbj9ok" name="5.png" path="/images/panel/财富之家说明书资源输出/中文/"/>
-    <image id="nbj9ol" name="4.png" path="/images/panel/财富之家说明书资源输出/中文/"/>
-    <image id="nbj9om" name="3.png" path="/images/panel/财富之家说明书资源输出/中文/"/>
-    <image id="nbj9on" name="2.png" path="/images/panel/财富之家说明书资源输出/中文/"/>
-    <image id="nbj9oo" name="1.png" path="/images/panel/财富之家说明书资源输出/中文/"/>
-    <image id="nbj9op" name="返回游戏.png" path="/images/panel/财富之家说明书资源输出/"/>
-    <image id="nbj9oq" name="GAME1.png" path="/images/panel/财富之家说明书资源输出/"/>
-    <image id="nbj9or" name="GAME.png" path="/images/panel/财富之家说明书资源输出/"/>
-    <image id="nbj9os" name="button.png" path="/images/panel/财富之家说明书资源输出/"/>
-    <image id="nbj9ot" name="Back to game.png" path="/images/panel/财富之家说明书资源输出/"/>
-    <font id="nbj9ou" name="1060-方正汉真广标简体.ttf" path="/images/panel/财富之家说明书资源输出/字体/" renderMode="" samplePointSize="16"/>
-    <image id="nbj9ov" name="Border.png" path="/images/panel/财富之家说明书资源输出/英文/"/>
-    <component id="nbj9ow" name="PayYable.xml" path="/moudules/pageGameMain/Common/" exported="true"/>
-    <component id="nbj9ox" name="BtnController.xml" path="/moudules/pageGameMain/Common/" exported="true"/>
-    <component id="nbj9oy" name="BackButton.xml" path="/components/Panel/"/>
-    <component id="nbj9oz" name="ButtonL.xml" path="/components/Panel/"/>
-    <component id="nbj9p0" name="Paytable1.xml" path="/moudules/pageGameMain/Common/Paytable/" exported="true"/>
-    <component id="nbj9p1" name="Paytable2.xml" path="/moudules/pageGameMain/Common/Paytable/" exported="true"/>
-    <component id="nbj9p2" name="Paytable3.xml" path="/moudules/pageGameMain/Common/Paytable/" exported="true"/>
-    <component id="nbj9p3" name="Paytable4.xml" path="/moudules/pageGameMain/Common/Paytable/" exported="true"/>
-    <component id="nbj9p4" name="Paytable5.xml" path="/moudules/pageGameMain/Common/Paytable/" exported="true"/>
-    <component id="nbj9p5" name="Paytable6.xml" path="/moudules/pageGameMain/Common/Paytable/" exported="true"/>
-    <component id="f6tvp6" name="Instructions.xml" path="/moudules/pageGameMain/Common/"/>
-    <component id="f6tvp9" name="SoundSliderBg.xml" path="/moudules/pageGameMain/Common/"/>
-    <component id="f6tvpa" name="SobudSlider_grip.xml" path="/components/Panel/"/>
-    <component id="f6tvpb" name="SobudSlider.xml" path="/components/Panel/"/>
   </resources>
   <publish name=""/>
 </packageDescription>

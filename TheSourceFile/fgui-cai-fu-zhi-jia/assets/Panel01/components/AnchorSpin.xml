@@ -2,6 +2,6 @@
 <component size="1,1">
   <displayList>
     <graph id="n0_nbj9" name="holder" xy="0,0" pivot="0.5,0.5" anchor="true" size="187,152" visible="false" type="rect"/>
-    <loader id="n1_nbj9" name="example" xy="0,0" pivot="0.5,0.5" anchor="true" size="187,152" url="ui://k5oi8hwrt2pamp" autoSize="true"/>
+    <loader id="n1_nbj9" name="example" xy="0,0" pivot="0.5,0.5" anchor="true" size="187,152" url="ui://oqimay09t2pamp" autoSize="true"/>
   </displayList>
 </component>

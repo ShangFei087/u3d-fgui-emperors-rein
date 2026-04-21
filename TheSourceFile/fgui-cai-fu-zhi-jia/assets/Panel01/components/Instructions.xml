@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920" designImage="ui://k5oi8hwrnbj9od">
+<component size="1080,1920" designImage="ui://oqimay09nbj9od">
   <displayList>
     <graph id="n0_f6tv" name="mask" xy="0,0" size="1080,1920" type="rect" fillColor="#99000000"/>
     <image id="n1_f6tv" name="n1" src="nbj9ov" fileName="images/panel/财富之家说明书资源输出/英文/Border.png" xy="113,310"/>

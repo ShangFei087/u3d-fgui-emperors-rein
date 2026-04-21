@@ -21,7 +21,8 @@ namespace CaiFuZhiJia_3997
         /// </summary>
         public string[] payTable => new[]
         {
-            "ui://CaiFuZhiJia/", "ui://CaiFuZhiJia/", "ui://CaiFuZhiJia/", "ui://CaiFuZhiJia/", "ui://CaiFuZhiJia/"
+            "ui://CaiFuZhiJia/Paytable1", "ui://CaiFuZhiJia/Paytable2", "ui://CaiFuZhiJia/Paytable3",
+            "ui://CaiFuZhiJia/Paytable4", "ui://CaiFuZhiJia/Paytable5", "ui://CaiFuZhiJia/Paytable6"
         };
 
         /// <summary>
@@ -223,7 +224,7 @@ namespace CaiFuZhiJia_3997
 
         public List<List<int>> payLines { get; set; } = new List<List<int>>()
         {
-            new List<int>()// 0
+            new List<int>() // 0
             {
                 1,
                 1,
@@ -231,7 +232,7 @@ namespace CaiFuZhiJia_3997
                 1,
                 1
             },
-            new List<int>()// 1
+            new List<int>() // 1
             {
                 0,
                 0,
@@ -239,7 +240,7 @@ namespace CaiFuZhiJia_3997
                 0,
                 0
             },
-            new List<int>()// 2
+            new List<int>() // 2
             {
                 2,
                 2,
@@ -247,7 +248,7 @@ namespace CaiFuZhiJia_3997
                 2,
                 2
             },
-            new List<int>()// 3
+            new List<int>() // 3
             {
                 0,
                 1,
@@ -255,7 +256,7 @@ namespace CaiFuZhiJia_3997
                 1,
                 0
             },
-            new List<int>()// 4
+            new List<int>() // 4
             {
                 2,
                 1,
@@ -263,7 +264,7 @@ namespace CaiFuZhiJia_3997
                 1,
                 2
             },
-            new List<int>()// 5
+            new List<int>() // 5
             {
                 1,
                 0,
@@ -271,7 +272,7 @@ namespace CaiFuZhiJia_3997
                 0,
                 1
             },
-            new List<int>()// 6
+            new List<int>() // 6
             {
                 1,
                 2,
@@ -279,7 +280,7 @@ namespace CaiFuZhiJia_3997
                 2,
                 1
             },
-            new List<int>()// 7
+            new List<int>() // 7
             {
                 0,
                 0,
@@ -287,7 +288,7 @@ namespace CaiFuZhiJia_3997
                 2,
                 2
             },
-            new List<int>()// 8
+            new List<int>() // 8
             {
                 2,
                 2,
@@ -295,7 +296,7 @@ namespace CaiFuZhiJia_3997
                 0,
                 0
             },
-            new List<int>()// 9
+            new List<int>() // 9
             {
                 1,
                 0,
@@ -303,7 +304,7 @@ namespace CaiFuZhiJia_3997
                 0,
                 1
             },
-            new List<int>()// 10
+            new List<int>() // 10
             {
                 1,
                 2,
@@ -311,7 +312,7 @@ namespace CaiFuZhiJia_3997
                 2,
                 1
             },
-            new List<int>()// 11
+            new List<int>() // 11
             {
                 0,
                 1,
@@ -319,7 +320,7 @@ namespace CaiFuZhiJia_3997
                 1,
                 0
             },
-            new List<int>()// 12
+            new List<int>() // 12
             {
                 2,
                 1,
@@ -327,7 +328,7 @@ namespace CaiFuZhiJia_3997
                 1,
                 0
             },
-            new List<int>()// 13
+            new List<int>() // 13
             {
                 1,
                 1,
