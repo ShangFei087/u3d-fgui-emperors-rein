@@ -53,6 +53,8 @@ namespace CaiFuHuoChe_3996
         public List<SymbolInclude> jackpotSymbolInclude = new List<SymbolInclude>();
         public List<int> jackpotPos = new List<int>();
         private int curJackpotIndex = 0;
+        private int betIndex = 0;
+        private int wildNums = 0;
 
         public static JSONNode ParseCoinPushSpinPayload(int[] data, int startPos)
         {
@@ -161,6 +163,13 @@ namespace CaiFuHuoChe_3996
                 {
                     int index = row * cols + col;
                     strDeckRowCol += res["Matrix"][index].Value;
+                    if(openType == (int)OpenType.OT_Give && int.Parse(res["Matrix"][index].Value) == 9)
+                    {
+                        wildNums++;
+                        betIndex = (wildNums / 4) + 1;
+                        betIndex = betIndex > 4 ? 4 : betIndex;
+                        if (betIndex != ContentModel.Instance.curFreeMult) ContentModel.Instance.curFreeMult = betIndex;
+                    }
 
                     if (col < cols - 1)
                     {
@@ -174,7 +183,7 @@ namespace CaiFuHuoChe_3996
                 }
             }
             ContentModel.Instance.strDeckRowCol = strDeckRowCol;
-            Debug.LogError(ContentModel.Instance.strDeckRowCol);
+
             //IDVec 
             for (int i = 0; i < lineNum; i++)
             {
@@ -294,25 +303,23 @@ namespace CaiFuHuoChe_3996
                 }
 
 
-                if (resultType == (int)ResultType.RT_FreeWin && isFree && (freeTime == (int)res["TotalFreeTime"]))
+                if (resultType == (int)ResultType.RT_FreeWin && isFree)        //&& (freeTime == (int)res["TotalFreeTime"])
                 {
                     int TotalFreeTime = (int)res["TotalFreeTime"];
                     ContentModel.Instance.curReelStripsIndex = "BS";
                     ContentModel.Instance.nextReelStripsIndex = "FS";
                     ContentModel.Instance.isFreeSpinTrigger = true;
-                    ContentModel.Instance.freeSpinTotalTimes = TotalFreeTime;
+                    ContentModel.Instance.freeSpinTotalTimes = freeTime;
                     ContentModel.Instance.freeSpinPlayTimes = 0;
                     ContentModel.Instance.freeSpinTotalWinCredit = 0;
+                    betIndex = 0;
+                    wildNums = 0;
 
                     ContentModel.Instance.newFreeOnceCredit.Clear();
                     for (int i = 0; i < TotalFreeTime; i++)
                     {
                         ContentModel.Instance.newFreeOnceCredit.Add((int)res["FreeBetArray"][i]);
                     }
-                }
-                else 
-                {
-                    DebugUtils.LogError($"[G3996][CheckFree] 校验不一致，算法回ResultType={resultType} ，本地计算isFree={isFree},算法FreeTime={(int)res["TotalFreeTime"]},本地计算freeTime={freeTime}");
                 }
             }
 

@@ -13,47 +13,47 @@ public class PanelController3996 : SlotMaker.PanelBaseController
     new SpinButtonController spinBtnCtrl = new SpinButtonController();
 
 
-    //public override void Init(EventData res = null)
-    //{
-    //    GComponent _goAnchorPanel = null;
-    //    if (res != null)
-    //        _goAnchorPanel = res.value as GComponent;
-    //    else if (MainModel.Instance.contentMD != null)
-    //        _goAnchorPanel = MainModel.Instance.contentMD.goAnthorPanel;
+    public override void Init(EventData res = null)
+    {
+        base.Init(res);
+        GComponent _goAnchorPanel = null;
+        if (res != null)
+            _goAnchorPanel = res.value as GComponent;
+        else if (MainModel.Instance.contentMD != null)
+            _goAnchorPanel = MainModel.Instance.contentMD.goAnthorPanel;
 
-    //    if (_goAnchorPanel == null)
-    //    {
+        if (_goAnchorPanel == null)
+        {
+            return;
+        }
 
-    //        return;
-    //    }
+        if (gOwnerPanel != _goAnchorPanel && _goAnchorPanel != null)
+        {
+            if (UIPackage.GetByName("Panel01") == null)
+            {
+                ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/CaiFuHuoChe3996_Panel01/FGUIs", (ab) =>
+                {
+                    UIPackage.AddPackage(ab);
+                    GLoader anchorPanel = _goAnchorPanel.GetChild("icon").asLoader;
+                    anchorPanel.url = "ui://Panel01/Panel";
+                    gOwnerPanel = _goAnchorPanel.GetChild("icon").asLoader.component;
+
+                    InitParam();
+                });
+
+            }
+            else
+            {
+                GLoader anchorPanel = _goAnchorPanel.GetChild("icon").asLoader;
+                anchorPanel.url = "ui://Panel01/Panel";
+
+                gOwnerPanel = _goAnchorPanel.GetChild("icon").asLoader.component;
 
 
-    //    if (gOwnerPanel != _goAnchorPanel && _goAnchorPanel != null)
-    //    {
-    //        if (UIPackage.GetByName("XingYunZhiLun_3998") == null)
-    //        {
-    //            ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", (ab) =>
-    //            {
-    //                UIPackage.AddPackage(ab);
-    //                GLoader anchorPanel = _goAnchorPanel.GetChild("icon").asLoader;
-    //                anchorPanel.url = "ui://XingYunZhiLun_3998/Panel";
-    //                gOwnerPanel = _goAnchorPanel.GetChild("icon").asLoader.component;
-    //                InitParam();
-    //            });
-
-    //        }
-    //        else
-    //        {
-    //            GLoader anchorPanel = _goAnchorPanel.GetChild("icon").asLoader;
-    //            anchorPanel.url = "ui://XingYunZhiLun_3998/Panel";
-
-    //            gOwnerPanel = _goAnchorPanel.GetChild("icon").asLoader.component;
-
-    //            InitParam();
-    //        }
-    //    }
-
-    //}
+                InitParam();
+            }
+        }
+    }
 
 
     protected override void InitParam()
