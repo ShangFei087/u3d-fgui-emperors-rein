@@ -1534,8 +1534,7 @@ namespace CaiFuZhiJia_3997
             if (successCallback != null)
                 successCallback.Invoke();
         }
-
-
+        
         //请求算法结果
         IEnumerator RequestSlotSpinFromMachine(Action successCallback = null, Action<string> errorCallback = null)
         {

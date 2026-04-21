@@ -228,11 +228,11 @@
     <image id="t2pam8" name="pb_txt_credits.png" path="/images/panel/投币数/"/>
     <image id="t2pam9" name="pb_img_toubi.png" path="/images/panel/投币数/"/>
     <image id="t2pama" name="pb_img_red.png" path="/images/panel/多功能按钮/"/>
-    <image id="t2pamb" name="pb_img_music06.png" path="/images/panel/多功能按钮/"/>
+    <image id="t2pamb" name="pb_img_music06.png" path="/images/panel/多功能按钮/" scale="9grid" scale9grid="9,12,20,29"/>
     <image id="t2pamc" name="pb_img_music05.png" path="/images/panel/多功能按钮/"/>
-    <image id="t2pamd" name="pb_img_music04.png" path="/images/panel/多功能按钮/"/>
+    <image id="t2pamd" name="pb_img_music04.png" path="/images/panel/多功能按钮/" scale="tile"/>
     <image id="t2pame" name="pb_img_kuang.png" path="/images/panel/鼓励值/" scale="9grid" scale9grid="54,0,12,101"/>
-    <image id="t2pamf" name="pb_img_music03.png" path="/images/panel/多功能按钮/"/>
+    <image id="t2pamf" name="pb_img_music03.png" path="/images/panel/多功能按钮/" scale="9grid" scale9grid="9,5,15,11"/>
     <image id="t2pamg" name="pb_img_music01.png" path="/images/panel/多功能按钮/"/>
     <image id="t2pamh" name="pb_img_music.png" path="/images/panel/多功能按钮/"/>
     <image id="t2pami" name="pb_img_help.png" path="/images/panel/多功能按钮/"/>
@@ -328,6 +328,10 @@
     <component id="nbj9p3" name="Paytable4.xml" path="/moudules/pageGameMain/Common/Paytable/" exported="true"/>
     <component id="nbj9p4" name="Paytable5.xml" path="/moudules/pageGameMain/Common/Paytable/" exported="true"/>
     <component id="nbj9p5" name="Paytable6.xml" path="/moudules/pageGameMain/Common/Paytable/" exported="true"/>
+    <component id="f6tvp6" name="Instructions.xml" path="/moudules/pageGameMain/Common/"/>
+    <component id="f6tvp9" name="SoundSliderBg.xml" path="/moudules/pageGameMain/Common/"/>
+    <component id="f6tvpa" name="SobudSlider_grip.xml" path="/components/Panel/"/>
+    <component id="f6tvpb" name="SobudSlider.xml" path="/components/Panel/"/>
   </resources>
   <publish name=""/>
 </packageDescription>

@@ -5,5 +5,8 @@
     <component id="n2_enim" name="btnPayTable" src="enimmv" fileName="components/Panel/ButtonIntroduce.xml" xy="10,86"/>
     <component id="n0_enim" name="btnHome" src="enimmu" fileName="components/Panel/ButtonHome.xml" xy="10,154"/>
     <component id="n3_enim" name="btnSound" src="enimmx" fileName="components/Panel/ButtonSound.xml" xy="10,15"/>
+    <component id="n4_f6tv" name="silderSound" src="f6tvpb" fileName="components/Panel/SobudSlider.xml" xy="222,41" pivot="0.5,0.5" anchor="true">
+      <Slider value="50" max="100"/>
+    </component>
   </displayList>
 </component>

@@ -26,7 +26,7 @@ namespace CaiFuZhiJia_3997
 
             if (gameState == GameState.Spin)
                 win.text = 0.ToString();
-            ClearSingleLineText(); 
+            ClearSingleLineText();
         }
     }
 }
