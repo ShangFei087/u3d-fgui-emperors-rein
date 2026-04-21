@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="90,55" pivot="0.5,5" anchor="true">
+  <controller name="button" pages="0,t0,1,t1" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="t0"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="t1"/>
+  </controller>
+  <displayList>
+    <image id="n0_p0gg" name="n0" src="p0ggxjt" fileName="images/new/pb_img_music.png" xy="45,27" pivot="0.5,0.5" anchor="true"/>
+    <loader id="n5_p0gg" name="n5" xy="66,25" pivot="0.5,0.5" anchor="true" size="21,43" url="ui://frz4r9owp0ggxju" align="center" vAlign="middle" autoSize="true" clearOnPublish="true"/>
+  </displayList>
+  <transition name="t0">
+    <item time="0" type="Icon" target="n5_p0gg" value="ui://frz4r9owp0ggxju"/>
+  </transition>
+  <transition name="t1">
+    <item time="0" type="Icon" target="n5_p0gg" value="ui://frz4r9owp0ggxjv"/>
+  </transition>
+</component>

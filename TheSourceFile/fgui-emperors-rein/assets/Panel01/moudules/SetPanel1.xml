@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="112,266" pivot="0.5,0.5">
+  <displayList>
+    <image id="n3_p0gg" name="n3" src="p0ggxjr" fileName="images/new/pb_img_expand.png" xy="0,0"/>
+    <component id="n2_p0gg" name="btnSound" src="p0ggxk5" fileName="components/SetPanel/BtnSound.xml" xy="56,37" pivot="0.5,0.5" anchor="true"/>
+    <component id="n5_p0gg" name="silderSound" src="p0ggxk8" fileName="components/SetPanel/SobudSlider.xml" xy="223,36">
+      <Slider value="50" max="100"/>
+    </component>
+    <component id="n1_p0gg" name="btnPayTable" src="p0ggxk4" fileName="components/SetPanel/BtnHelp.xml" xy="11,84"/>
+    <component id="n0_p0gg" name="btnHome" src="p0ggxk3" fileName="components/SetPanel/BtnBack.xml" xy="11,157"/>
+  </displayList>
+</component>

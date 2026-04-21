@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="82,82" pivot="0.5,0.5">
+  <controller name="button" pages="0,Help,1,Back" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="Help"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="Back"/>
+  </controller>
+  <displayList>
+    <image id="n0_ioi7" name="n0" src="ioi7g6" fileName="images/button/btn_bg.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <loader id="n6_ioi7" name="n6" xy="41,41" pivot="0.5,0.5" anchor="true" size="32,58" url="ui://frz4r9owioi7hq" autoSize="true" clearOnPublish="true"/>
+    <component id="n5_ioi7" name="untouch" src="ioi7ic" fileName="components/mask/UntouchCircle24.xml" xy="0,0" visible="false"/>
+  </displayList>
+  <transition name="Help">
+    <item time="0" type="Icon" target="n6_ioi7" value="ui://frz4r9owioi7hq"/>
+  </transition>
+  <transition name="Back">
+    <item time="0" type="Icon" target="n6_ioi7" value="ui://frz4r9owioi7hp"/>
+  </transition>
+</component>
