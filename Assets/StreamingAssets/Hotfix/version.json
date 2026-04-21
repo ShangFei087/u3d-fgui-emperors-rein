@@ -1,11 +1,11 @@
 {
-  "updated_at": 1776326509165,
+  "updated_at": 1776677527683,
   "hotfix_key": "hf_debug_android_20260303190331",
-  "hotfix_version": "1.10.81",
+  "hotfix_version": "1.10.98",
   "asset_bundle": {
     "manifest": {
-      "hash": "9fc6867919d3f1d29ed0259934523822",
-      "size_bytes": 21071
+      "hash": "ea83ba1a179d36d5b9b9704a59cc0024",
+      "size_bytes": 21072
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
@@ -47,11 +47,11 @@
       "_common/game maker/sounds/ui_spin_auto.unity3d": "7e03dedc290ca43c75c592bd36428b71",
       "_common/game maker/sounds/ui_spin_start.unity3d": "d27a6ce2f4311f2d8f45d4e786cd8ebc",
       "games/bonusgame2/fguis.unity3d": "12b3a9e50196a6b9ce0f0d6fe40e5c36",
-      "games/cai fu huo che 3996/fguis.unity3d": "249083bf6ef85f1314ffd55146b55398",
+      "games/cai fu huo che 3996/fguis.unity3d": "38dc3aaf53a29593ba75b09928a05265",
       "games/cai fu huo che 3996/prefabs/effects/freereeleffect.unity3d": "3626e37da8a112139b364646eebff8ba",
       "games/cai fu huo che 3996/prefabs/effects/jackpotreeleffect.unity3d": "99d30dabb3785f2f3f0edf75441544b2",
       "games/cai fu huo che 3996/prefabs/effects/rewardeffect.unity3d": "fb8901e49e02f6eccff3ac9e3bd716a4",
-      "games/cai fu huo che 3996/prefabs/game controller/slot game main controllerclone.unity3d": "995797010f9e164ad6c225a16985c1c7",
+      "games/cai fu huo che 3996/prefabs/game controller/slot game main controllerclone.unity3d": "411aad7e866840e6ee2244673e7e0f4a",
       "games/cai fu huo che 3996/prefabs/pagegamemain/idletrain.unity3d": "5d0a84535860a4d586770c2307adcdbc",
       "games/cai fu huo che 3996/prefabs/pagegamemain/ngandsgeffect.unity3d": "3734d9ce3f50bbfcab01af8792e47179",
       "games/cai fu huo che 3996/prefabs/pagegamemain/train.unity3d": "6a1221913358f415baf5538ec8f18aeb",
@@ -590,10 +590,10 @@
       "games/slot zhu zai jin bi 1700/prefabs/symbols/symbolhit/symbolhit9.unity3d": "381319063da7285712ae36979de9ac04",
       "games/slot zhu zai jin bi 1700/sounds/music/freemusic.unity3d": "eb6a6978c5eccb57ba0212534607d716",
       "games/slot zhu zai jin bi 1700/sounds/music/normalmusic.unity3d": "b5518bef30558a43036542384d7ffaff",
-      "games/xing yun zhi lun 3998/fguis.unity3d": "2916ab74eac134d36061ca85b6ccd5f1",
+      "games/xing yun zhi lun 3998/fguis.unity3d": "0c547bf3be9d026466134d0f8a7d62f8",
       "games/xing yun zhi lun 3998/prefabs/effects/firework.unity3d": "b2680736f8973caf9c5de750e634a00d",
       "games/xing yun zhi lun 3998/prefabs/effects/reeleffect.unity3d": "b4b701bb47941bced47a4efd761f9b52",
-      "games/xing yun zhi lun 3998/prefabs/game controller/slot game main controllerclone.unity3d": "489f9e6bcd44e5d717374445d41acbe1",
+      "games/xing yun zhi lun 3998/prefabs/game controller/slot game main controllerclone.unity3d": "c8218599f2f1a3a5590786e2e7e95bb0",
       "games/xing yun zhi lun 3998/prefabs/popupfreespinresult/freespinresult.unity3d": "368b549d2ed969788a77865a9ca14d0c",
       "games/xing yun zhi lun 3998/prefabs/popupfreespintrigger/fgfadetips.unity3d": "69b399950d4cfab0cc0f222d38790dc3",
       "games/xing yun zhi lun 3998/prefabs/popupgamejackpot/jackpotgameexit.unity3d": "22ce7cb6d0614f68ff26045285fe6301",
