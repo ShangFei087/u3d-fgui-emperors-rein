@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="90,55" extention="Button">
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <controller name="button" pages="0,t0,1,t1" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="t0"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="t1"/>
+  </controller>
   <displayList>
-    <image id="n1_enim" name="n1" src="t2pamh" fileName="images/panel/多功能按钮/pb_img_music.png" xy="0,1"/>
-    <loader id="n2_f6tv" name="n5" xy="54,5" size="21,43" url="ui://oqimay09t2pamg" autoSize="true"/>
+    <image id="n1_enim" name="n1" src="t2pamh" fileName="images/多功能按钮/pb_img_music.png" xy="0,1"/>
+    <loader id="n2_f6tv" name="n5" xy="64,26" pivot="0.5,0.5" anchor="true" size="21,43" url="ui://oqimay09t2pamg" autoSize="true"/>
   </displayList>
   <Button/>
   <transition name="t0">
     <item time="0" type="Icon" target="n2_f6tv" value="ui://oqimay09t2pamg"/>
-    <item time="0" type="XY" target="n2_f6tv" value="54,5"/>
   </transition>
   <transition name="t1">
     <item time="0" type="Icon" target="n2_f6tv" value="ui://oqimay09t2pamq"/>
-    <item time="0" type="XY" target="n2_f6tv" value="54,13"/>
   </transition>
 </component>

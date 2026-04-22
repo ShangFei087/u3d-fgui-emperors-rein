@@ -98,6 +98,10 @@ namespace CaiFuZhiJia_3997
         MiniReelGroup uiJPMajorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMiniCtrl = new MiniReelGroup();
+        
+        // 说明书
+        private List<GComponent> _lstPayTable;
+        private readonly PayTableController3997 _payTableController = new PayTableController3997();
 
         private bool IsAddCreditAnim =>
             !(_slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
@@ -159,6 +163,8 @@ namespace CaiFuZhiJia_3997
                     CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 10);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear);
             }
+
+            ShowPayTable();
 
             // 加载Panel面板
             _gOwnerPanel = contentPane.GetChild("panel").asCom;
@@ -441,6 +447,22 @@ namespace CaiFuZhiJia_3997
             _freeSpinsNumber = _freeFrameCom.GetChild("FreeSpinsNumber").asTextField;
             _multipleNumber = contentPane.GetChild("freeGameBg").asCom.GetChild("multipleNumber").asTextField;
             _freeSpinTimeController.InitParam(_freeSpinsNumber);
+        }
+        
+        private void ShowPayTable()
+        {
+            _lstPayTable = new List<GComponent>();
+            foreach (string url in CustomModel.Instance.payTable)
+            {
+                GComponent payTable = UIPackage.CreateObjectFromURL(url).asCom;
+                payTable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().InitParam(payTable);
+
+                _lstPayTable.Add(payTable);
+                payTable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().referenceCount++;
+            }
+
+            ContentModel.Instance.goPayTableLst = _lstPayTable.ToArray();
+            _payTableController.Init(_lstPayTable);
         }
 
         #endregion
