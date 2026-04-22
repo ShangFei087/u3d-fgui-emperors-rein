@@ -383,15 +383,16 @@ public class TableSlotGameRecordItem
     public long game_id;
     /// <summary> 滚轮界面数据 </summary>
     public string strDeckRowCol = "";
-
     /// <summary> 开奖方式类型 </summary>
     public int open_type;
     /// <summary>开奖结果类型 </summary>
     public int result_type;
-
+    /// <summary>当前免费局数 </summary>
+    public int free_curtime;
+    /// <summary>免费总局数 </summary>
+    public int free_totaltime;
     /// <summary> 大奖类型 </summary>
     public string bonus_type = "";
-
     /// <summary> 本剧游戏guid </summary>
     public string game_uid;
     /// <summary> 自定义场景数据（json） </summary>
@@ -415,11 +416,9 @@ public class TableSlotGameRecordItem
     /// <summary> 彩金赢分 </summary>
     public long jackpot_win_credit = 0;
     public string jackpot_type = "";
-
     /// <summary> 小游戏赢分 </summary>
     public long bonus_game_win_credit = 0;
     public string bonus_game_type = "";
-
     public long link_game_win_credit = 0;
     public long skill_game_win_credit = 0;
     /// <summary> 额外奖励分数 </summary>

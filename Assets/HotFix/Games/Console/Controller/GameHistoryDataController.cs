@@ -162,6 +162,8 @@ public class GameHistoryDataController : MonoBehaviour
                     {
                         open_type = sdr.GetInt32(sdr.GetOrdinal("open_type")),
                         result_type = sdr.GetInt32(sdr.GetOrdinal("result_type")),
+                        free_curtime = sdr.GetInt32(sdr.GetOrdinal("free_curtime")),
+                        free_totaltime = sdr.GetInt32(sdr.GetOrdinal("free_totaltime")),
                         game_id = sdr.GetInt64(sdr.GetOrdinal("game_id")),
                         game_uid = sdr.GetString(sdr.GetOrdinal("game_uid")),
                         created_at = sdr.GetInt64(sdr.GetOrdinal("created_at")),

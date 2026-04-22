@@ -22,7 +22,11 @@ public class TabGameHistoryController
         _rtxtopen_type,
         _rtxtresult_type,
         _rtxtgame_name,
-        _rtxtgame_page;
+        _rtxtgame_page,
+        _rtxtfree_playtime,
+        _rtxtfree_totaltime
+        ;
+
 
     // 当前显示的数据
     private GameHistoryInfo currentPageInfo;
@@ -65,11 +69,12 @@ public class TabGameHistoryController
         _rtxtjackpot_win_credit = go.GetChild("jackpot_win_credit").asCom.GetChild("value").asRichTextField;
         _rtxtopen_type = go.GetChild("open_type").asCom.GetChild("value").asRichTextField;
         _rtxtresult_type = go.GetChild("result_type").asCom.GetChild("value").asRichTextField;
+        _rtxtfree_playtime = go.GetChild("free_playtime").asCom.GetChild("value").asRichTextField;
+        _rtxtfree_totaltime = go.GetChild("free_totaltime").asCom.GetChild("value").asRichTextField;
         _rtxtgame_name = go.GetChild("game_page").asCom.GetChild("key").asRichTextField;
         _rtxtgame_page = go.GetChild("game_page").asCom.GetChild("value").asRichTextField;
+      
 
-       
-        
         ctrl.InitParam(tabName, onDatesChange, onGameIdsChange, onPageChagne);
     }
 
@@ -119,6 +124,8 @@ public class TabGameHistoryController
             _rtxtjackpot_win_credit.text = $"{pageInfo.currentRecord.jackpot_win_credit}";
             _rtxtopen_type.text = GetOpenTypeText(pageInfo.currentRecord.open_type);
             _rtxtresult_type.text = GetResultTypeText(pageInfo.currentRecord.result_type);
+            _rtxtfree_playtime.text= $"{pageInfo.currentRecord.free_curtime}";
+            _rtxtfree_totaltime.text = $"{pageInfo.currentRecord.free_totaltime}";
             string gameHistoryLabel = I18nMgr.T("CON1yxjl");
             _rtxtgame_name.text = $"{pageInfo.currentRecord.game_id} {gameHistoryLabel}".Trim();
             _rtxtgame_page.text = string.Format(I18nMgr.T("_CON1yxls"),pageInfo.curPageNumber,pageInfo.totalPageCount);
