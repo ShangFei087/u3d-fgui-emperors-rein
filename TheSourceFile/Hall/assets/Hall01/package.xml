@@ -76,5 +76,5 @@
     <component id="mshr2h" name="CardBtn.xml" path="/components/Main/"/>
     <component id="ncyu2i" name="3997.xml" path="/components/Main/card/" exported="true"/>
   </resources>
-  <publish name=""/>
+  <publish name="Hall01" path="../../Assets/GameRes/Halls/Hall01/FGUIs" packageCount="2"/>
 </packageDescription>

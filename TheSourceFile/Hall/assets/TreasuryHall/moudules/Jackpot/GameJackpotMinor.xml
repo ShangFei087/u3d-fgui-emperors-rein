@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="522,157">
+  <displayList>
+    <image id="n4_jscy" name="n4" src="jscyq" fileName="images/ui/plat_frame_minor.png" xy="-15,0"/>
+    <image id="n5_jscy" name="n5" src="jscy14" fileName="images/ui/plat_txt_inorm.png" xy="260,25" pivot="0.5,0.5" anchor="true"/>
+    <list id="n3_oypp" name="reels" xy="44,51" size="433,71" scale="1.05,1.05" layout="row" overflow="hidden" align="center" vAlign="middle">
+      <item url="ui://lt62kxotjscy1c"/>
+      <item url="ui://lt62kxotjscy1c"/>
+      <item url="ui://lt62kxotjscy1c"/>
+      <item url="ui://lt62kxotjscy1c"/>
+      <item url="ui://lt62kxotjscy1c"/>
+      <item url="ui://lt62kxotjscy1c"/>
+      <item url="ui://lt62kxotjscy1c"/>
+    </list>
+  </displayList>
+</component>

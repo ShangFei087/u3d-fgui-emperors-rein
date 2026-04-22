@@ -97,23 +97,18 @@
     <component id="p0ggxk9" name="ButtonHelp1.xml" path="/components/" exported="true"/>
     <component id="p0ggxka" name="UntouchCircle.xml" path="/components/mask/" exported="true"/>
     <component id="p0ggxkb" name="Instructions.xml" path="/moudules/"/>
-    <image id="p0gg11" name="0_0005_1.png" path="/images/PayTable/英文/"/>
-    <image id="p0gg1c" name="0_0005_5.png" path="/images/PayTable/英文/"/>
-    <image id="p0gg1d" name="0_0005_4.png" path="/images/PayTable/英文/"/>
-    <image id="p0gg1e" name="0_0005_3(2).png" path="/images/PayTable/英文/"/>
-    <image id="p0gg1f" name="0_0005_3(1).png" path="/images/PayTable/英文/"/>
-    <image id="p0gg1g" name="0_0005_2(2).png" path="/images/PayTable/英文/"/>
-    <image id="p0gg1h" name="0_0005_2(1).png" path="/images/PayTable/英文/"/>
+    <image id="p0gg11" name="1.png" path="/images/PayTable/Paytable/"/>
+    <image id="p0gg1c" name="7.png" path="/images/PayTable/Paytable/"/>
+    <image id="p0gg1d" name="6.png" path="/images/PayTable/Paytable/"/>
+    <image id="p0gg1e" name="5.png" path="/images/PayTable/Paytable/"/>
+    <image id="p0gg1f" name="4.png" path="/images/PayTable/Paytable/"/>
+    <image id="p0gg1g" name="3.png" path="/images/PayTable/Paytable/"/>
+    <image id="p0gg1h" name="2.png" path="/images/PayTable/Paytable/"/>
     <image id="p0gg12" name="GAME.png" path="/images/PayTable/"/>
     <image id="p0gg13" name="button.png" path="/images/PayTable/"/>
     <image id="p0gg14" name="border.png" path="/images/PayTable/"/>
     <image id="p0gg15" name="Back to game.png" path="/images/PayTable/"/>
     <image id="p0gg16" name="arrow.png" path="/images/PayTable/"/>
-    <image id="p0gg17" name="5.png" path="/images/PayTable/中文/"/>
-    <image id="p0gg18" name="4.png" path="/images/PayTable/中文/"/>
-    <image id="p0gg1a" name="3.png" path="/images/PayTable/中文/"/>
-    <image id="p0gg1b" name="1.png" path="/images/PayTable/中文/"/>
-    <image id="p0gg1i" name="2.png" path="/images/PayTable/中文/"/>
     <image id="p0gg19" name="GAME1.png" path="/images/PayTable/"/>
     <image id="p0gg1j" name="返回游戏.png" path="/images/PayTable/"/>
     <component id="p0ggxkd" name="BtnNext.xml" path="/moudules/payTable1/"/>
@@ -124,6 +119,7 @@
     <component id="p0ggxki" name="Slider1.xml" path="/components/SetPanel/"/>
     <component id="jzlmxkj" name="bar.xml" path="/components/"/>
     <image id="jzlmxkk" name="gme_loading_mask.png" path="/images/new/" exported="true" scale="9grid" scale9grid="19,8,13,16"/>
+    <component id="gxg0xkl" name="Paytable01.xml" path="/moudules/payTable/Paytable/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets/GameRes/Games/Panel01/FGUIs" packageCount="2"/>
 </packageDescription>

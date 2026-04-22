@@ -80,9 +80,10 @@ public class UIConst
             },
 
 
-            //平台
-            [PageName.HallMain] = new object[] { "Assets/GameRes/Halls/TestHall/FGUIs", "TestHall.TestHallMain" },
+            //大厅
             [PageName.Hall01] = new object[] { "Assets/GameRes/Halls/Hall01/FGUIs", "Hall01.Hall01GameMain" },
+            [PageName.TreasuryHallMain] = new object[] { "Assets/GameRes/Halls/TreasuryHall/FGUIs", "TreasuryHall.TreasuryHallMain" },
+
 
             // 推币机新后台
             [PageName.ConsolePusher01PageConsoleAdmin] =
@@ -532,8 +533,9 @@ public enum PageName
     ConsolePopupConsoleScreenColor,
 
     //大厅
-    HallMain,
     Hall01,
+    //财富大厅
+    TreasuryHallMain,
 
     // 推币机新后台
     ConsolePusher01PageConsoleMain,
