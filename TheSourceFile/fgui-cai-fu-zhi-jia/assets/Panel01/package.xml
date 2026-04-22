@@ -118,5 +118,5 @@
     <component id="f6tv2h" name="ButtonBetDown.xml" path="/components/Button/" exported="true"/>
     <component id="f6tv2i" name="ButtonBetUp.xml" path="/components/Button/" exported="true"/>
   </resources>
-  <publish name="CaiFuZhiJia_Panel" path="../../Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
+  <publish name="CaiFuZhiJia_Panel" path="../../Assets/GameRes/Panel/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>

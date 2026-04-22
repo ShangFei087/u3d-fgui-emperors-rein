@@ -11,7 +11,7 @@ namespace CaiFuZhiJia_3997
     public class PanelController3997 : PanelBaseController
     {
         // protected override string PanelUrl => "ui://CaiFuZhiJia_Panel/Panel";
-        // protected override string PanelPackagePath => "Assets/GameRes/Games/Panel 3997";
+        // protected override string PanelPackagePath => "Assets/GameRes/Panel/Cai Fu Zhi Jia 3997/FGUIs";
 
         protected override void OnPropertyGameState(EventData res = null)
         {

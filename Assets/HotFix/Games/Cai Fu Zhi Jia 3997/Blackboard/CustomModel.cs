@@ -411,5 +411,16 @@ namespace CaiFuZhiJia_3997
             IsBonusInLine = false, //Bonus图标是否依赖中奖线
             Make2BonusGameCount = 6, //触发大奖所需数量(Bonus图标)
         };
+
+        /// <summary>
+        /// 彩金和大奖游戏的滚动钻石背景路径
+        /// </summary>
+        public List<string> JackpotBgPath { get; } = new List<string>()
+        {
+            "ui://k5oi8hwrq5jy5q",
+            "ui://k5oi8hwrlqp8n1",
+            "ui://k5oi8hwrq5jy5q",
+            "ui://k5oi8hwrlqp8n1",
+        };
     }
 }
