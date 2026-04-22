@@ -69,9 +69,9 @@ namespace SlotMaker
 
         protected virtual int IntroduceIndexMax => 6;
         protected virtual string PanelPackageName => "Panel01";
-        protected virtual string PanelPackagePath => "Assets/GameRes/Games/Panel01/FGUIs";
+        protected virtual string PanelPackagePath => "Assets/GameRes/Panel/Panel01/FGUIs";
         protected virtual string PanelUrl => "ui://Panel01/Panel";
-        protected virtual string SpinPrefabPath => "Assets/GameRes/Games/Panel01/Prefabs/Slot_btn_Spin.prefab";
+        protected virtual string SpinPrefabPath => "Assets/GameRes/Panel/Panel01/Prefabs/Slot_btn_Spin.prefab";
 
         /// <summary>
         /// 面板启用：注册事件并初始化 UI。
@@ -936,8 +936,7 @@ namespace SlotMaker
 
             MainModel.Instance.contentMD.betIndex = curBetIndex;
             //下注倍数现在硬数据,之后在改动  
-            MainModel.Instance.contentMD.betmultiple =
-                (int)MainModel.Instance.contentMD.totalBet / MainModel.Instance.lineNum;
+            MainModel.Instance.contentMD.betmultiple =(int)MainModel.Instance.contentMD.totalBet / MainModel.Instance.lineNum;
             bet.text = MainModel.Instance.contentMD.totalBet.ToString();
             btnBetDown.touchable = curBetIndex > 0;
             btnBetDown.GetChild("untouch").visible = btnBetDown.touchable ? false : true;

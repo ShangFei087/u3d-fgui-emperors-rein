@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d10c5d84c46f2d540a91553794b1e287
+guid: 25c733d34dfb82845bc606add864456d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -92,5 +92,5 @@ TextureImporter:
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
   userData: 
-  assetBundleName: games/panel02/fguis.unity3d
+  assetBundleName: panel/panel01/fguis.unity3d
   assetBundleVariant: 
