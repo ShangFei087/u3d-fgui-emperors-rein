@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="jscys" name="plat_txt_collect.png" path="/images/ui/" exported="true"/>
+    <image id="jscyv" name="plat_txt_inorm.png" path="/images/ui/" exported="true"/>
+    <image id="jscyx" name="plat_txt_major.png" path="/images/ui/" exported="true"/>
+    <image id="jscyy" name="plat_txt_mini.png" path="/images/ui/" exported="true"/>
+  </resources>
+</branchDescription>

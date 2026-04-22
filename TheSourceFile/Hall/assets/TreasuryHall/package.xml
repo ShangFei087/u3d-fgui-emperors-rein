@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="lt62kxot">
+  <resources>
+    <image id="jscy0" name="plat_bg.png" path="/images/ui/" exported="true"/>
+    <image id="jscy1" name="plat_num_08.png" path="/images/number/FontJackpot/" exported="true"/>
+    <image id="jscy2" name="plat_num_09.png" path="/images/number/FontJackpot/" exported="true"/>
+    <image id="jscy3" name="plat_num_a.png" path="/images/number/FontJackpot/" exported="true"/>
+    <image id="jscy4" name="plat_num_b.png" path="/images/number/FontJackpot/" exported="true"/>
+    <image id="jscy5" name="plat_num_billion.png" path="/images/number/FontJackpot/" exported="true"/>
+    <image id="jscy6" name="plat_num_c.png" path="/images/number/FontJackpot/" exported="true"/>
+    <image id="jscy7" name="plat_num_collect_0.png" path="/images/number/FontCredit/" exported="true"/>
+    <image id="jscy8" name="plat_num_collect_01.png" path="/images/number/FontCredit/" exported="true"/>
+    <image id="jscy9" name="plat_num_collect_02.png" path="/images/number/FontCredit/" exported="true"/>
+    <image id="jscya" name="plat_num_collect_03.png" path="/images/number/FontCredit/" exported="true"/>
+    <image id="jscyb" name="plat_num_collect_04.png" path="/images/number/FontCredit/" exported="true"/>
+    <image id="jscyc" name="plat_num_collect_05.png" path="/images/number/FontCredit/" exported="true"/>
+    <image id="jscyd" name="plat_num_collect_06.png" path="/images/number/FontCredit/" exported="true"/>
+    <image id="jscye" name="plat_num_collect_07.png" path="/images/number/FontCredit/" exported="true"/>
+    <image id="jscyf" name="plat_num_collect_08.png" path="/images/number/FontCredit/" exported="true"/>
+    <image id="jscyg" name="plat_num_collect_09.png" path="/images/number/FontCredit/" exported="true"/>
+    <image id="jscyh" name="plat_num_kilo.png" path="/images/number/FontJackpot/" exported="true"/>
+    <image id="jscyi" name="plat_num_07.png" path="/images/number/FontJackpot/" exported="true"/>
+    <image id="jscyj" name="plat_num_06.png" path="/images/number/FontJackpot/" exported="true"/>
+    <image id="jscyk" name="plat_num_05.png" path="/images/number/FontJackpot/" exported="true"/>
+    <image id="jscyl" name="plat_num_04.png" path="/images/number/FontJackpot/" exported="true"/>
+    <image id="jscym" name="plat_btn_collect.png" path="/images/ui/" exported="true"/>
+    <image id="jscyn" name="plat_frame_collect_bg.png" path="/images/ui/" exported="true" scale="9grid" scale9grid="320,203,143,88"/>
+    <image id="jscyo" name="plat_frame_major.png" path="/images/ui/" exported="true"/>
+    <image id="jscyp" name="plat_frame_mini.png" path="/images/ui/" exported="true"/>
+    <image id="jscyq" name="plat_frame_minor.png" path="/images/ui/" exported="true"/>
+    <image id="jscyr" name="plat_mega.png" path="/images/ui/" exported="true"/>
+    <image id="jscyt" name="plat_txt_collect.png" path="/images/ui/" exported="true"/>
+    <image id="jscyu" name="plat_num_million.png" path="/images/number/FontJackpot/" exported="true"/>
+    <image id="jscyw" name="plat_txt_major.png" path="/images/ui/" exported="true"/>
+    <image id="jscyz" name="plat_txt_mini.png" path="/images/ui/" exported="true"/>
+    <image id="jscy10" name="plat_num_0.png" path="/images/number/FontJackpot/" exported="true"/>
+    <image id="jscy11" name="plat_num_01.png" path="/images/number/FontJackpot/" exported="true"/>
+    <image id="jscy12" name="plat_num_02.png" path="/images/number/FontJackpot/" exported="true"/>
+    <image id="jscy13" name="plat_num_03.png" path="/images/number/FontJackpot/" exported="true"/>
+    <image id="jscy14" name="plat_txt_inorm.png" path="/images/ui/" exported="true"/>
+    <image id="jscy15" name="plat_num_trillion.png" path="/images/number/FontJackpot/" exported="true"/>
+    <component id="jscy16" name="TreasuryHallMain.xml" path="/" exported="true"/>
+    <image id="jscy17" name="财富主题大厅.png" path="/images/Example/"/>
+    <component id="jscy18" name="ButtonCollect.xml" path="/components/" exported="true"/>
+    <component id="jscy19" name="GameJackpotMini.xml" path="/moudules/Jackpot/" exported="true"/>
+    <component id="jscy1c" name="GameJackpotReel.xml" path="/moudules/Jackpot/" exported="true"/>
+    <component id="jscy1d" name="GameJackpotMinor.xml" path="/moudules/Jackpot/" exported="true"/>
+    <component id="jscy1g" name="GameJackpotMajor.xml" path="/moudules/Jackpot/" exported="true"/>
+    <font id="jscy1j" name="FontJackpot.fnt" path="/fonts/" exported="true"/>
+    <component id="jscy1k" name="3998.xml" path="/moudules/card/" exported="true"/>
+    <component id="jscy1l" name="CardBtn.xml" path="/components/" exported="true"/>
+    <font id="jscy1o" name="FontCredit.fnt" path="/fonts/" exported="true"/>
+  </resources>
+  <publish name="TreasuryHall" path="../../Assets/GameRes/Halls/TreasuryHall/FGUIs" packageCount="2"/>
+</packageDescription>

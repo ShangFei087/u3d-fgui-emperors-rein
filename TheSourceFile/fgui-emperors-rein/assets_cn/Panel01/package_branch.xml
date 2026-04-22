@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <branchDescription>
   <resources>
+    <image id="p0gg17" name="5.png" path="/images/PayTable/Paytable/"/>
+    <image id="p0gg18" name="4.png" path="/images/PayTable/Paytable/"/>
+    <image id="p0gg1a" name="3.png" path="/images/PayTable/Paytable/"/>
+    <image id="p0gg1b" name="1.png" path="/images/PayTable/Paytable/"/>
+    <image id="p0gg1i" name="2.png" path="/images/PayTable/Paytable/"/>
     <image id="ioi7gq" name="icon_what.png" path="/images/button/" exported="true"/>
     <image id="ioi7gr" name="icon_return.png" path="/images/button/" exported="true"/>
     <image id="ioi7gs" name="icon_i.png" path="/images/button/" exported="true"/>

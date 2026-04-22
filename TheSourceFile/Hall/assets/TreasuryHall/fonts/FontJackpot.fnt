@@ -1,0 +1,13 @@
+info size=12 resizable=true colored=true
+char id=48 img=jscy10 xoffset=0 yoffset=0 xadvance=0
+char id=49 img=jscy11 xoffset=0 yoffset=0 xadvance=0
+char id=50 img=jscy12 xoffset=0 yoffset=0 xadvance=0
+char id=51 img=jscy13 xoffset=0 yoffset=0 xadvance=0
+char id=52 img=jscyl xoffset=0 yoffset=0 xadvance=0
+char id=53 img=jscyk xoffset=0 yoffset=0 xadvance=0
+char id=54 img=jscyj xoffset=0 yoffset=0 xadvance=0
+char id=55 img=jscyi xoffset=0 yoffset=0 xadvance=0
+char id=56 img=jscy1 xoffset=0 yoffset=0 xadvance=0
+char id=57 img=jscy2 xoffset=0 yoffset=0 xadvance=0
+char id=44 img=jscy3 xoffset=0 yoffset=0 xadvance=0
+char id=46 img=jscy4 xoffset=0 yoffset=0 xadvance=0
