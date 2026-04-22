@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8ab64e39977c05c41a27859602b41aeb
+guid: 69f29fe828e79e541946205c45cd4f52
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -92,5 +92,5 @@ TextureImporter:
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
   userData: 
-  assetBundleName: games/caifuhuoche3996_panel01/fguis.unity3d
+  assetBundleName: panel/panel3998/fguis.unity3d
   assetBundleVariant: 

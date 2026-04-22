@@ -13,48 +13,12 @@ public class PanelController3998 : SlotMaker.PanelBaseController
 {
     new SpinButtonController spinBtnCtrl = new SpinButtonController();
 
+    protected override string PanelPackagePath => "Assets/GameRes/Panel/Panel3998/FGUIs";
 
-    //public override void Init(EventData res = null)
-    //{
-    //    GComponent _goAnchorPanel = null;
-    //    if (res != null)
-    //        _goAnchorPanel = res.value as GComponent;
-    //    else if (MainModel.Instance.contentMD != null)
-    //        _goAnchorPanel = MainModel.Instance.contentMD.goAnthorPanel;
-
-    //    if (_goAnchorPanel == null)
-    //    {
-
-    //        return;
-    //    }
-
-
-    //    if (gOwnerPanel != _goAnchorPanel && _goAnchorPanel != null)
-    //    {
-    //        if (UIPackage.GetByName("XingYunZhiLun_3998") == null)
-    //        {
-    //            ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", (ab) =>
-    //            {
-    //                UIPackage.AddPackage(ab);
-    //                GLoader anchorPanel = _goAnchorPanel.GetChild("icon").asLoader;
-    //                anchorPanel.url = "ui://XingYunZhiLun_3998/Panel";
-    //                gOwnerPanel = _goAnchorPanel.GetChild("icon").asLoader.component;
-    //                InitParam();
-    //            });
-
-    //        }
-    //        else
-    //        {
-    //            GLoader anchorPanel = _goAnchorPanel.GetChild("icon").asLoader;
-    //            anchorPanel.url = "ui://XingYunZhiLun_3998/Panel";
-
-    //            gOwnerPanel = _goAnchorPanel.GetChild("icon").asLoader.component;
-
-    //            InitParam();
-    //        }
-    //    }
-
-    //}
+    public override void Init(EventData res = null)
+    {
+        base.Init();
+    }
 
 
     protected override void InitParam()

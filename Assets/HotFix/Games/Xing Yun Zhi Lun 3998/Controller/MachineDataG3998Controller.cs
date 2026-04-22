@@ -97,6 +97,16 @@ namespace XingYunZhiLun_3998
                 result["Matrix"].Add(id);
             }
 
+            if(openType == (int)OpenType.OT_Give)
+            {
+                result["WildPosArrray"] = new JSONArray();
+                for (int i = 0; i < matrixLength; i++)
+                {
+                    int id = data[pos++];
+                    result["WildPosArrray"].Add(id);
+                }
+            }
+
             if (resultType == (int)ResultType.RT_FreeWin)
             {
                 int totalFreeTime = data[pos++];
@@ -115,12 +125,16 @@ namespace XingYunZhiLun_3998
             {
                 int bonusBet = data[pos++];
                 int bonusType = data[pos++];
-                if (bonusType == 1)
+                if(bonusType == 0)
+                {
+                    int blindSymbol = data[pos++];
+                }
+                else if (bonusType == 1)
                 {
                     int blindSymbol = data[pos++];
                     result["BlindSymbol"] = blindSymbol;
                 }
-                else if (bonusType == 2)
+                else 
                 {
                     int bonusMultiply = data[pos++];
                     result["BonusMultiply"] = bonusMultiply;
@@ -406,10 +420,6 @@ namespace XingYunZhiLun_3998
                         ContentModel.Instance.newFreeOnceCredit.Add((int)res["FreeBetArray"][i]);
                     }
                 }
-                else
-                {
-                    DebugUtils.LogError($"[G3998][CheckFree] 校验不一致，算法回ResultType={resultType} ，本地计算isFree={isFree},算法FreeTime={(int)res["TotalFreeTime"]},本地计算freeTime={freeTime}");
-                }
             }
 
             //判断赠送局
@@ -653,7 +663,6 @@ namespace XingYunZhiLun_3998
                 if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 3)
                 {
                     int lineOdds = GetLineOdds(firstSymbolType, hitCount);
-                    Debug.LogError("赢得了：" + lineOdds + "\t" + "获奖编号：" + firstSymbolType + "\t" + "中奖个数：" + hitCount);
                     if (lineOdds > 0)
                     {
                         calcTotalWin += lineOdds; // 累加本地计算总赢分
