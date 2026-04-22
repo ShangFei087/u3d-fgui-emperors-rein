@@ -11,7 +11,7 @@ using UnityEngine;
 public class PanelController3996 : SlotMaker.PanelBaseController
 {
     new SpinButtonController spinBtnCtrl = new SpinButtonController();
-    protected override string PanelPackagePath => "Assets/GameRes/Games/CaiFuHuoChe3996_Panel01/FGUIs";
+    protected override string PanelPackagePath => "Assets/GameRes/Panel/CaiFuHuoChe3996_Panel01/FGUIs";
 
 
     public override void Init(EventData res = null)
