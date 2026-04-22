@@ -331,11 +331,11 @@ public class Main
         PageLaunch.Instance.Close(2f);
         if (!ApplicationSettings.Instance.isMock)
         {
-            PageManager.Instance.OpenPage(PageName.Hall01);
+            PageManager.Instance.OpenPage(PageName.TreasuryHallMain);
         }
         else
         {
-             PageManager.Instance.OpenPage(PageName.TreasuryHallMain);
+            PageManager.Instance.OpenPage(PageName.Hall01);
             //PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupGameLoading);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeSpinTrigger);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeGameLoading);

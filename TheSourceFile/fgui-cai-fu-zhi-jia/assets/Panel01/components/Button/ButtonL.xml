@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="56,71" extention="Button">
-  <Button/>
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n0_nbj9" src="nbj9o7" name="n0" xy="0,0">
-      <relation target="" sidePair="width,height"/>
+    <image id="n0_nbj9" name="n0" src="nbj9o7" fileName="images/财富之家说明书资源输出/arrow.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
     </image>
+    <image id="n1_dtwo" name="untouch" src="nbj9o7" fileName="images/财富之家说明书资源输出/arrow.png" xy="0,0" visible="false" color="#666666"/>
   </displayList>
+  <Button/>
 </component>

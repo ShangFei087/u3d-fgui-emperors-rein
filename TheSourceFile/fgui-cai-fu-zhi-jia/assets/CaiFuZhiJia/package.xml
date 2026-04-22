@@ -207,6 +207,15 @@
     <image id="enimmy" name="sg_img_bg.png" path="/images/popupJackpotGame/GameBackground/"/>
     <image id="enimmz" name="sg_img_dp.png" path="/images/popupJackpotGame/GameBackground/"/>
     <image id="enimn0" name="sg_txt_spins left.png" path="/images/popupJackpotGame/GameBackground/"/>
+    <image id="lqp8n1" name="ng_sym_diamonds.png" path="/images/popupJackpotGame/Symbol/" scale9grid="0,0,-27,-80"/>
+    <component id="lqp8n2" name="PopupJackpotWin.xml" path="/" exported="true"/>
+    <component id="lqp8n3" name="Anchor_JackpotWin.xml" path="/moudules/popupJackpotWin/" exported="true"/>
+    <component id="nbj9p0" name="Paytable1.xml" path="/moudules/Paytable/" exported="true"/>
+    <component id="nbj9p1" name="Paytable2.xml" path="/moudules/Paytable/" exported="true"/>
+    <component id="nbj9p2" name="Paytable3.xml" path="/moudules/Paytable/" exported="true"/>
+    <component id="nbj9p3" name="Paytable4.xml" path="/moudules/Paytable/" exported="true"/>
+    <component id="nbj9p4" name="Paytable5.xml" path="/moudules/Paytable/" exported="true"/>
+    <component id="nbj9p5" name="Paytable6.xml" path="/moudules/Paytable/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>

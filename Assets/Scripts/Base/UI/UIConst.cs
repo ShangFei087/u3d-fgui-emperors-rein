@@ -363,6 +363,8 @@ public class UIConst
                 },
             [PageName.CaiFuZhiJiaPopupJackpotGame] =
                 new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupJackpotGame" },
+            [PageName.CaiFuZhiJiaPopupJackpotWin] =
+                new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupJackpotWin" },
 
             // 美洲黑豹
             [PageName.MeiZhouHeiBaoPopupGameLoading] =
@@ -619,6 +621,7 @@ public enum PageName
     CaiFuZhiJiaPopupJackpotTrigger,
     CaiFuZhiJiaPopupJackpotResult,
     CaiFuZhiJiaPopupJackpotGame,
+    CaiFuZhiJiaPopupJackpotWin,
 
     // 美洲黑豹
     MeiZhouHeiBaoPopupGameLoading,
