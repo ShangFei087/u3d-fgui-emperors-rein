@@ -433,7 +433,6 @@ namespace XingYunZhiLun_3998
                 ContentModel.Instance.curReelStripsIndex = "FS";
                 ContentModel.Instance.freeSpinPlayTimes += 1;
                 ContentModel.Instance.freeSpinTotalWinCredit += totalLineWin;
-                Debug.LogError("免费游戏单局赢取：" + totalLineWin);
 
                 if (ContentModel.Instance.freeSpinTotalTimes == ContentModel.Instance.freeSpinPlayTimes)
                 {

@@ -232,6 +232,11 @@ namespace CaiFuHuoChe_3996
                 totalLineWin += lineWin;
             }
             ContentModel.Instance.winList = winList;
+
+            #region  当出现像是礼盒之类的会变化的数据时，需要先替换在校验分数
+
+            #endregion
+
             //检查算法结果
             CheckGameResult(strDeckRowCol, totalwin);
 
@@ -400,7 +405,11 @@ namespace CaiFuHuoChe_3996
                     int[] bonusData = new int[bonusArray.Count];
                     for (int i = 0; i < bonusArray.Count; i++)
                     {
-                        bonusData[i] = bonusArray[i].AsInt;
+                        int data = bonusArray[i].AsInt;
+                        if(data / 1000 == 1)
+                        {
+                            bonusData[i] = data % 1000;
+                        }
                     }
 
                     for (int i = 0; i < bonusData.Length; i++)

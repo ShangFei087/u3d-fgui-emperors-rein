@@ -837,11 +837,7 @@ namespace XingYunZhiLun_3998
                 //积分同步和退币处理
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * MainModel.Instance.contentMD.betmultiple);
 
-                for(int i = 0; i < winList.Count; i++)
-                {
-                    winNumber.Add(winList[i].symbolNumber);
-                }
-                slotMachineCtrl.IsWildShowSymbolEffect(TagPoolObject.SymbolHit, winNumber, true, 0, true);
+                yield return slotMachineCtrl.IsWildShowSymbolEffect(TagPoolObject.SymbolHit, slotMachineCtrl.GetTotalSymbolWin(winList), true, SpinWinEvent.TotalWinLine);
 
                 //加钱动画
                 //MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true, isAddCreditAnim);
@@ -1623,7 +1619,6 @@ namespace XingYunZhiLun_3998
             //MainBlackboardController.Instance.SyncMyTempCreditToReal(false);
 
             long totalWinLineCredit = 0;
-            Debug.LogError(ContentModel.Instance.strDeckRowCol);
             if (ContentModel.Instance.newFreeOnceCredit.Count > ContentModel.Instance.freeSpinPlayTimes - 1)
             {
                 totalWinLineCredit = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
@@ -1771,7 +1766,7 @@ namespace XingYunZhiLun_3998
                     }
                 }
 
-                slotMachineCtrl.IsWildShowSymbolEffect(TagPoolObject.SymbolHit, winNumber, true, 0, true);
+                yield return slotMachineCtrl.IsWildShowSymbolEffect(TagPoolObject.SymbolHit, slotMachineCtrl.GetTotalSymbolWin(winList), true, SpinWinEvent.TotalWinLine);
                 yield return new WaitForSeconds(1.6f);
             }
         }
