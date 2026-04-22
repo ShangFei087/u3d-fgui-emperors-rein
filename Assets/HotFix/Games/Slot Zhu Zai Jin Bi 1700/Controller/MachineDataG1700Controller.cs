@@ -411,7 +411,10 @@ namespace SlotZhuZaiJinBi1700
             //ContentModel.Instance.bonusResult = bonusResult;
             //ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Default;
             //SlotGameEffectManager.Instance.SetEffect(ContentModel.Instance.targetSlotGameEffect);
-        
+          
+            string machineId = string.IsNullOrEmpty(SBoxModel.Instance.MachineId) ? "00000000" : SBoxModel.Instance.MachineId;
+            string algorithmVer = string.IsNullOrEmpty(SBoxModel.Instance.AlgorithmVer) ? "0_0_0" : SBoxModel.Instance.AlgorithmVer.Replace(".", "_");
+            ContentModel.Instance.curGameGuid = $"{MainModel.Instance.gameID}-{ContentModel.Instance.curGameCreatTimeMS}-{machineId}-A{algorithmVer}";
 
             // 记录游戏数据到数据库
             Record(totalBet, res);

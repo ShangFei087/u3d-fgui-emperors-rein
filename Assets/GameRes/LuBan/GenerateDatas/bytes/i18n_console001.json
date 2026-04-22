@@ -3518,5 +3518,45 @@
     "en": "Pause At Popup Jackpot Online:",
     "cn": "暂停联网彩金弹窗:",
     "tw": "暫停聯網彩金彈窗:"
+  },
+  {
+    "id": 1462,
+    "key": "_CON1result_lose",
+    "fgui": "",
+    "en": "Lose",
+    "cn": "输",
+    "tw": "輸"
+  },
+  {
+    "id": 1463,
+    "key": "_CON1result_win",
+    "fgui": "",
+    "en": "Win",
+    "cn": "普通赢",
+    "tw": "普通贏"
+  },
+  {
+    "id": 1464,
+    "key": "_CON1result_free_win",
+    "fgui": "",
+    "en": "FreeWin",
+    "cn": "免费奖",
+    "tw": "免費奖"
+  },
+  {
+    "id": 1465,
+    "key": "_CON1result_bonus_win",
+    "fgui": "",
+    "en": "BonusWin",
+    "cn": "小游戏奖",
+    "tw": "小遊戲奖"
+  },
+  {
+    "id": 1466,
+    "key": "_CON1result_jackpot_online",
+    "fgui": "",
+    "en": "JackpotOnline",
+    "cn": "联网彩金",
+    "tw": "聯網彩金"
   }
 ]

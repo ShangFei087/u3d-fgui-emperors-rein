@@ -117,21 +117,11 @@ public class TabGameHistoryController
             _rtxttotal_bet.text = $"{pageInfo.currentRecord.total_bet}";
             _rtxtbase_game_win_credit.text = $"{pageInfo.currentRecord.base_game_win_credit}";
             _rtxtjackpot_win_credit.text = $"{pageInfo.currentRecord.jackpot_win_credit}";
-            _rtxtopen_type.text = $"{pageInfo.currentRecord.open_type}";
-            _rtxtresult_type.text = $"{pageInfo.currentRecord.result_type}";
-            if (SBoxModel.Instance.language == "cn")
-            {
-                _rtxtgame_name.text = $"{pageInfo.currentRecord.game_id}游戏记录";
-                _rtxtgame_page.text = $"第{pageInfo.curPageNumber}/{pageInfo.totalPageCount}页";
-
-                // _rtxtbonusgame_name.text = $"{pageInfo.currentRecord.game_id}彩金记录";
-                // _rtxtbonusgame_page.text = $"第{pageInfo.curPageNumber}/{pageInfo.totalPageCount}页";
-            }
-            else
-            {
-                _rtxtgame_name.text = $"{pageInfo.currentRecord.game_id} GameHistory";
-                _rtxtgame_page.text = $"Page {pageInfo.curPageNumber} of {pageInfo.totalPageCount}";
-            }
+            _rtxtopen_type.text = GetOpenTypeText(pageInfo.currentRecord.open_type);
+            _rtxtresult_type.text = GetResultTypeText(pageInfo.currentRecord.result_type);
+            string gameHistoryLabel = I18nMgr.T("CON1yxjl");
+            _rtxtgame_name.text = $"{pageInfo.currentRecord.game_id} {gameHistoryLabel}".Trim();
+            _rtxtgame_page.text = string.Format(I18nMgr.T("_CON1yxls"),pageInfo.curPageNumber,pageInfo.totalPageCount);
         }
         else
         {
@@ -233,6 +223,32 @@ public class TabGameHistoryController
         {
             DebugUtils.LogError($"解析符号映射失败: {e.Message}");
             currentSymbolIconMap = null;
+        }
+    }
+
+    private string GetOpenTypeText(int openType)
+    {
+        return openType == 1 ? I18nMgr.T("_CON1true") : I18nMgr.T("_CON1false");
+    }
+
+    private string GetResultTypeText(int resultType)
+    {
+        switch (resultType)
+        {
+            case 0:
+                return I18nMgr.T("_CON1result_lose");
+            case 1:
+                return I18nMgr.T("_CON1result_win");
+            case 2:
+                return I18nMgr.T("_CON1result_free_win");
+            case 3:
+                return I18nMgr.T("_CON1result_bonus_win");
+            case 4:
+                return I18nMgr.T("CON1cj");
+            case 5:
+                return I18nMgr.T("_CON1result_jackpot_online");
+            default:
+                return $"{resultType}";
         }
     }
 }
