@@ -441,7 +441,6 @@ namespace CaiFuHuoChe_3996
 
             ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
             payTableController.Init(lstPayTable);
-            CustomModel.Instance.payLines = new List<List<int>>();
 
             //读取json配置
             ReadJsonBet();
@@ -1185,7 +1184,7 @@ namespace CaiFuHuoChe_3996
             }
             else
             {
-                yield return RequestSlotSpinFromMachine(() =>
+                yield return JackpotRequestSlotSpinFromMock(() =>
                 {
                     isNext = true;
                 }, (err) =>
@@ -1932,7 +1931,7 @@ namespace CaiFuHuoChe_3996
         int rewardEffectIndex = 0;
         long allWinCredit = 0;
         //显示中奖后飞行粒子特效
-        public IEnumerator ShowRewardEffect(int colIdx, int rowIdx, GComponent toNode, Action successCallback = null)
+        public IEnumerator ShowRewardEffect(int colIdx, int rowIdx, GComponent toNode, Action successCallback = null, bool isJackpot = false)
         {
             GComponent rewardEffect = null;
             rewardEffectIndex = (rewardEffectIndex + 1) % 3;
@@ -1962,8 +1961,12 @@ namespace CaiFuHuoChe_3996
             }
 
             //记录并显示累计分数
-            //allWinCredit += ContentModel.Instance.jackpotSpinWinCredit * MainModel.Instance.contentMD.betmultiple;
-            //slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+            if(!(ContentModel.Instance.curReelStripsIndex == "FS"))
+            {
+                allWinCredit += ContentModel.Instance.jackpotSpinWinCredit * MainModel.Instance.contentMD.betmultiple;
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+            }
+            
         }
 
         private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)

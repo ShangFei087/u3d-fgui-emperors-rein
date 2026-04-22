@@ -209,93 +209,26 @@ namespace XingYunZhiLun_3998
         };
 
         #region 赔付线与赔付表
+        private List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>()
+        {
+            new PayTableSymbolInfo(){symbol = 0, x5 = 45, x4 = 15, x3 = 0, },
+            new PayTableSymbolInfo(){symbol = 1, x5 = 50, x4 = 15, x3 = 0, },
+            new PayTableSymbolInfo(){symbol = 2, x5 = 55, x4 = 50, x3 = 0, },
+            new PayTableSymbolInfo(){symbol = 3, x5 = 60, x4 = 20, x3 = 0, },
+            new PayTableSymbolInfo(){symbol = 4, x5 = 80, x4 = 30, x3 = 0, },
+            new PayTableSymbolInfo(){symbol = 5, x5 = 90, x4 = 30, x3 = 0, },
+            new PayTableSymbolInfo(){symbol = 6, x5 = 125, x4 = 45, x3 = 0, },
+            new PayTableSymbolInfo(){symbol = 7, x5 = 150, x4 = 50, x3 = 0, },
+            new PayTableSymbolInfo(){symbol = 8, x5 = 200, x4 = 60, x3 = 0, },
+            new PayTableSymbolInfo(){symbol = 9, x5 = 0, x4 = 0, x3 = 0, },
+            new PayTableSymbolInfo(){symbol = 10, x5 = 0, x4 = 0, x3 = 0, },
+        };
+
         public List<PayTableSymbolInfo> payTableSymbolWin
         {
             get => m_PayTableSymbolWin;
             set => m_PayTableSymbolWin = value;
         }
-
-        public List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>()
-        {
-            new PayTableSymbolInfo()
-            {
-                symbol = 0,
-                x5 = 45,
-                x4 = 15,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 1,
-                x5 = 50,
-                x4 = 15,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 2,
-                x5 = 55,
-                x4 = 50,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 3,
-                x5 = 60,
-                x4 = 20,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 4,
-                x5 = 80,
-                x4 = 30,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 5,
-                x5 = 90,
-                x4 = 30,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 6,
-                x5 = 125,
-                x4 = 45,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 7,
-                x5 = 150,
-                x4 = 50,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 8,
-                x5 = 200,
-                x4 = 60,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 9,
-                x5 = 0,
-                x4 = 0,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 10,
-                x5 = 0,
-                x4 = 0,
-                x3 = 0,
-            },
-        };
-
 
         List<List<int>> m_payLines = new List<List<int>>()
         {

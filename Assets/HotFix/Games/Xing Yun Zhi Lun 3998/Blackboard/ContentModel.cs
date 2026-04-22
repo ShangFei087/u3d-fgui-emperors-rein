@@ -370,6 +370,9 @@ namespace XingYunZhiLun_3998
         /// <summary> 游戏画廊中奖金额 </summary>
         public int drawWinsCredits = 0;
 
+        /// <summary> 大奖游戏得分 </summary>
+        public int bonusWinCredit = 0;
+
         /// <summary>
         /// 单次得分时显示线号和线得分
         /// </summary>
