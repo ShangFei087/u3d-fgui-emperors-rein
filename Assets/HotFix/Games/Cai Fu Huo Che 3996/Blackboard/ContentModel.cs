@@ -271,7 +271,7 @@ namespace CaiFuHuoChe_3996
         private int m_JackpotSpinPlayTimes = 0;
 
 
-        public Dictionary<int, int> jackpotWin = new Dictionary<int, int>();    //第一个是中奖位置（row * 5 + col），第二个是中奖金额
+        public Dictionary<int, string> jackpotWin = new Dictionary<int, string>();    //第一个是中奖位置（row * 5 + col），第二个是中奖金额
 
 
         /// <summary> 彩金游戏总次数  </summary>

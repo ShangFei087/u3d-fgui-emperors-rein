@@ -115,6 +115,17 @@ namespace CaiFuHuoChe_3996
                 result["BonusType"] = bonusType;
             }
 
+            if (resultType == (int)ResultType.RT_Jackpot)
+            {
+                int bonusBet = data[pos++];
+                result["BonusData"] = new JSONArray();
+                for (int i = 0; i < matrixLength; i++)
+                {
+                    int id = data[pos++];
+                    result["BonusData"].Add(id);
+                }
+            }
+
             return result;
         }
 
@@ -395,7 +406,7 @@ namespace CaiFuHuoChe_3996
                     for (int i = 0; i < bonusData.Length; i++)
                     {
                         if (bonusData[i] == 0) continue;
-                        ContentModel.Instance.jackpotWin[i] = bonusData[i];
+                        ContentModel.Instance.jackpotWin[i] = bonusData[i].ToString();
                         jackpotPos.Add(i);
                     }
                 }

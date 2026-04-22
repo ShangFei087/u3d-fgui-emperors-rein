@@ -393,7 +393,7 @@ namespace CaiFuHuoChe_3996
                                     GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
                                     reels[_reelIdx].symbolList[i].AddSymbolEffect(goSymbolHit, true);
                                     GTextField socre = reels[_reelIdx].symbolList[i].goOwnerSymbol.GetChild("socre").asTextField;
-                                    socre.text = ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx].ToString();
+                                    socre.text = ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx];
                                     socre.visible = true;
 
                                     ContentModel.Instance.haveJackpotCredit = true;
@@ -658,7 +658,7 @@ namespace CaiFuHuoChe_3996
                                     GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
                                     reels[_reelIdx].symbolList[i].AddSymbolEffect(goSymbolHit, true);
                                     GTextField socre = reels[_reelIdx].symbolList[i].goOwnerSymbol.GetChild("socre").asTextField;
-                                    socre.text = ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx].ToString();
+                                    socre.text = ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx];
                                     socre.visible = true;
 
                                     ContentModel.Instance.haveJackpotCredit = true;
