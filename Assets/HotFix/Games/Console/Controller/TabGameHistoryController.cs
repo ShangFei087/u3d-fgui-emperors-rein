@@ -22,7 +22,11 @@ public class TabGameHistoryController
         _rtxtopen_type,
         _rtxtresult_type,
         _rtxtgame_name,
-        _rtxtgame_page;
+        _rtxtgame_page,
+        _rtxtfree_playtime,
+        _rtxtfree_totaltime
+        ;
+
 
     // 当前显示的数据
     private GameHistoryInfo currentPageInfo;
@@ -65,11 +69,12 @@ public class TabGameHistoryController
         _rtxtjackpot_win_credit = go.GetChild("jackpot_win_credit").asCom.GetChild("value").asRichTextField;
         _rtxtopen_type = go.GetChild("open_type").asCom.GetChild("value").asRichTextField;
         _rtxtresult_type = go.GetChild("result_type").asCom.GetChild("value").asRichTextField;
+        _rtxtfree_playtime = go.GetChild("free_playtime").asCom.GetChild("value").asRichTextField;
+        _rtxtfree_totaltime = go.GetChild("free_totaltime").asCom.GetChild("value").asRichTextField;
         _rtxtgame_name = go.GetChild("game_page").asCom.GetChild("key").asRichTextField;
         _rtxtgame_page = go.GetChild("game_page").asCom.GetChild("value").asRichTextField;
+      
 
-       
-        
         ctrl.InitParam(tabName, onDatesChange, onGameIdsChange, onPageChagne);
     }
 
@@ -117,21 +122,13 @@ public class TabGameHistoryController
             _rtxttotal_bet.text = $"{pageInfo.currentRecord.total_bet}";
             _rtxtbase_game_win_credit.text = $"{pageInfo.currentRecord.base_game_win_credit}";
             _rtxtjackpot_win_credit.text = $"{pageInfo.currentRecord.jackpot_win_credit}";
-            _rtxtopen_type.text = $"{pageInfo.currentRecord.open_type}";
-            _rtxtresult_type.text = $"{pageInfo.currentRecord.result_type}";
-            if (SBoxModel.Instance.language == "cn")
-            {
-                _rtxtgame_name.text = $"{pageInfo.currentRecord.game_id}游戏记录";
-                _rtxtgame_page.text = $"第{pageInfo.curPageNumber}/{pageInfo.totalPageCount}页";
-
-                // _rtxtbonusgame_name.text = $"{pageInfo.currentRecord.game_id}彩金记录";
-                // _rtxtbonusgame_page.text = $"第{pageInfo.curPageNumber}/{pageInfo.totalPageCount}页";
-            }
-            else
-            {
-                _rtxtgame_name.text = $"{pageInfo.currentRecord.game_id} GameHistory";
-                _rtxtgame_page.text = $"Page {pageInfo.curPageNumber} of {pageInfo.totalPageCount}";
-            }
+            _rtxtopen_type.text = GetOpenTypeText(pageInfo.currentRecord.open_type);
+            _rtxtresult_type.text = GetResultTypeText(pageInfo.currentRecord.result_type);
+            _rtxtfree_playtime.text= $"{pageInfo.currentRecord.free_curtime}";
+            _rtxtfree_totaltime.text = $"{pageInfo.currentRecord.free_totaltime}";
+            string gameHistoryLabel = I18nMgr.T("CON1yxjl");
+            _rtxtgame_name.text = $"{pageInfo.currentRecord.game_id} {gameHistoryLabel}".Trim();
+            _rtxtgame_page.text = string.Format(I18nMgr.T("_CON1yxls"),pageInfo.curPageNumber,pageInfo.totalPageCount);
         }
         else
         {
@@ -233,6 +230,32 @@ public class TabGameHistoryController
         {
             DebugUtils.LogError($"解析符号映射失败: {e.Message}");
             currentSymbolIconMap = null;
+        }
+    }
+
+    private string GetOpenTypeText(int openType)
+    {
+        return openType == 1 ? I18nMgr.T("_CON1true") : I18nMgr.T("_CON1false");
+    }
+
+    private string GetResultTypeText(int resultType)
+    {
+        switch (resultType)
+        {
+            case 0:
+                return I18nMgr.T("_CON1result_lose");
+            case 1:
+                return I18nMgr.T("_CON1result_win");
+            case 2:
+                return I18nMgr.T("_CON1result_free_win");
+            case 3:
+                return I18nMgr.T("_CON1result_bonus_win");
+            case 4:
+                return I18nMgr.T("CON1cj");
+            case 5:
+                return I18nMgr.T("_CON1result_jackpot_online");
+            default:
+                return $"{resultType}";
         }
     }
 }

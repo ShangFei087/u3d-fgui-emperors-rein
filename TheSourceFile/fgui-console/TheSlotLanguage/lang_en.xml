@@ -368,6 +368,8 @@
   <string name="xp0b9yqdh0z3ao-n11_h0z3-cp-key" mz="open_type">Open_Type :</string>
   <string name="xp0b9yqdh0z3ao-n11_h0z3-cp-value" mz="open_type">false</string>
   <string name="xp0b9yqdh0z3ao-n12_h0z3-cp-key" mz="result_type">Result_Type:</string>
+  <string name="xp0b9yqdh0z3ao-n16_pi0n-cp-key" mz="free_playtime">Free_PlayTime:</string>
+  <string name="xp0b9yqdh0z3ao-n17_pi0n-cp-key" mz="free_totaltime">Free_TotalTime:</string>
   <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-key" mz="game_page">"Slot1700"GameHistory</string>
   <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-value" mz="game_page">Page 999 of 999</string>
   <!-- Console/tabs/PCBRTableJackpotOnlineHistory.xml -->

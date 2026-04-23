@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 077af73ea2192904b961f79a09bbf2c9
+guid: 69f29fe828e79e541946205c45cd4f52
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -92,5 +92,5 @@ TextureImporter:
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
   userData: 
-  assetBundleName: games/xing yun zhi lun 3998/fguis.unity3d
+  assetBundleName: panel/panel3998/fguis.unity3d
   assetBundleVariant: 

@@ -38,6 +38,14 @@
       <property target="key" propertyId="0" value="Result_Type:"/>
       <property target="value" propertyId="0" value="0"/>
     </component>
+    <component id="n16_pi0n" name="free_playtime" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="539,637">
+      <property target="key" propertyId="0" value="Free_PlayTime:"/>
+      <property target="value" propertyId="0" value="0"/>
+    </component>
+    <component id="n17_pi0n" name="free_totaltime" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="539,713">
+      <property target="key" propertyId="0" value="Free_TotalTime:"/>
+      <property target="value" propertyId="0" value="0"/>
+    </component>
     <component id="n15_h0z3" name="game_page" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="270,1099">
       <property target="key" propertyId="0" value="&quot;Slot1700&quot;GameHistory"/>
       <property target="value" propertyId="0" value="Page 999 of 999"/>

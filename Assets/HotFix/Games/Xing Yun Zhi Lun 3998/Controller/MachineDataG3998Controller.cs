@@ -97,6 +97,16 @@ namespace XingYunZhiLun_3998
                 result["Matrix"].Add(id);
             }
 
+            if(openType == (int)OpenType.OT_Give)
+            {
+                result["WildPosArrray"] = new JSONArray();
+                for (int i = 0; i < matrixLength; i++)
+                {
+                    int id = data[pos++];
+                    result["WildPosArrray"].Add(id);
+                }
+            }
+
             if (resultType == (int)ResultType.RT_FreeWin)
             {
                 int totalFreeTime = data[pos++];
@@ -115,6 +125,21 @@ namespace XingYunZhiLun_3998
             {
                 int bonusBet = data[pos++];
                 int bonusType = data[pos++];
+                if(bonusType == 0)
+                {
+                    int blindSymbol = data[pos++];
+                }
+                else if (bonusType == 1)
+                {
+                    int blindSymbol = data[pos++];
+                    result["BlindSymbol"] = blindSymbol;
+                }
+                else 
+                {
+                    int bonusMultiply = data[pos++];
+                    result["BonusMultiply"] = bonusMultiply;
+                }
+
                 result["BonusData"] = new JSONArray();
                 for (int i = 0; i < matrixLength; i++)
                 {
@@ -395,10 +420,6 @@ namespace XingYunZhiLun_3998
                         ContentModel.Instance.newFreeOnceCredit.Add((int)res["FreeBetArray"][i]);
                     }
                 }
-                else
-                {
-                    DebugUtils.LogError($"[G3998][CheckFree] 校验不一致，算法回ResultType={resultType} ，本地计算isFree={isFree},算法FreeTime={(int)res["TotalFreeTime"]},本地计算freeTime={freeTime}");
-                }
             }
 
             //判断赠送局
@@ -439,14 +460,18 @@ namespace XingYunZhiLun_3998
                     }
                 }
 
+                ContentModel.Instance.bonusWinCredit = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
+
                 if (resultType == 3 && (int)res["BonusType"] == 0)
                 {
                     ContentModel.Instance.isWild = true;
                     ContentModel.Instance.maxLink = maxLink;
                     ContentModel.Instance.cols.Clear();
 
-                    for (int i = 0; i <= bonusCount - 3; i++)
+                    for (int i = 0; i <= 5; i++)
                     {
+                        if (res["BonusData"][i] == 0) break;
+                        if (ContentModel.Instance.cols.Contains(res["BonusData"][i])) continue;
                         ContentModel.Instance.cols.Add(res["BonusData"][i]);
                     }
                 }
@@ -470,7 +495,7 @@ namespace XingYunZhiLun_3998
                 else if (resultType == 3 && (int)res["BonusType"] == 2)
                 {
                     ContentModel.Instance.isMult = true;
-                    ContentModel.Instance.multiple = (int)res["BlindSymbol"];
+                    ContentModel.Instance.multiple = (int)res["BonusMultiply"];
                 }
                 else if (resultType == 3 && (int)res["BonusType"] == 3)
                 {
@@ -638,7 +663,6 @@ namespace XingYunZhiLun_3998
                 if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 3)
                 {
                     int lineOdds = GetLineOdds(firstSymbolType, hitCount);
-                    Debug.LogError("赢得了：" + lineOdds + "\t" + "获奖编号：" + firstSymbolType + "\t" + "中奖个数：" + hitCount);
                     if (lineOdds > 0)
                     {
                         calcTotalWin += lineOdds; // 累加本地计算总赢分

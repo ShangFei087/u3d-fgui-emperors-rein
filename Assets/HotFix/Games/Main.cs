@@ -331,11 +331,11 @@ public class Main
         PageLaunch.Instance.Close(2f);
         if (!ApplicationSettings.Instance.isMock)
         {
-            PageManager.Instance.OpenPage(PageName.Hall01);
+            PageManager.Instance.OpenPage(PageName.TreasuryHallMain);
         }
         else
         {
-            // PageManager.Instance.OpenPage(PageName.HallMain);
+            PageManager.Instance.OpenPage(PageName.Hall01);
             //PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupGameLoading);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeSpinTrigger);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeGameLoading);
@@ -345,10 +345,7 @@ public class Main
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPageGameMain);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupJackpotGame);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeSpinResult);
-            
-            // 财富之家测试
-            PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupGameLoading);
-            // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotWin);
+            //PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupGameLoading);
         }
     }
 

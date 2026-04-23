@@ -411,6 +411,7 @@ namespace SlotMaker
         /// </summary>
         protected virtual void Help()
         {
+            GlobalSoundHelper.Instance.PlaySoundEff(GameMaker.SoundKey.Tab);
             btnHelp.SetScale(1f, 1f);
             isSet = !isSet;
             if (isSet)
@@ -451,6 +452,7 @@ namespace SlotMaker
         {
             // 向左翻页并更新边界按钮状态
             IntroduceChange(false);
+            GlobalSoundHelper.Instance.PlaySoundEff(GameMaker.SoundKey.NormalClick);
             if (IntroduceIndex == 0)
             {
                 btnPrev.touchable = false;
@@ -470,6 +472,7 @@ namespace SlotMaker
         {
             // 向右翻页并更新边界按钮状态
             IntroduceChange(true);
+            GlobalSoundHelper.Instance.PlaySoundEff(GameMaker.SoundKey.NormalClick);
             if (IntroduceIndex == PayTableLength - 1)
             {
                 btnNext.touchable = false;
@@ -534,6 +537,7 @@ namespace SlotMaker
         /// </summary>
         protected virtual void OnClickBackGame()
         {
+            GlobalSoundHelper.Instance.PlaySoundEff(GameMaker.SoundKey.PopupClose);
             gIntroducePanel.visible = false;
             setPanel.visible = false;
             gIntroducePanel.GetChild("mask").asGraph.visible = false;

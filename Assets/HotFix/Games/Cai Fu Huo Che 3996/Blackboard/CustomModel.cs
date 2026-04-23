@@ -132,92 +132,19 @@ namespace CaiFuHuoChe_3996
 
         #region 赔付线与赔付表
 
-        public List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>()
-        {
-            new PayTableSymbolInfo()
-            {
-                symbol = 0,
-                x5 = 300,
-                x4 = 60,
-                x3 = 30,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 1,
-                x5 = 300,
-                x4 = 60,
-                x3 = 30,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 2,
-                x5 = 300,
-                x4 = 60,
-                x3 = 30,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 3,
-                x5 = 300,
-                x4 = 60,
-                x3 = 30,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 4,
-                x5 = 300,
-                x4 = 60,
-                x3 = 30,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 5,
-                x5 = 900,
-                x4 = 180,
-                x3 = 90,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 6,
-                x5 = 1200,
-                x4 = 240,
-                x3 = 120,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 7,
-                x5 = 1500,
-                x4 = 300,
-                x3 = 150,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 8,
-                x5 = 3000,
-                x4 = 300,
-                x3 = 150,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 9,
-                x5 = 0,
-                x4 = 0,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 10,
-                x5 = 0,
-                x4 = 0,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 11,
-                x5 = 0,
-                x4 = 0,
-                x3 = 0,
-            },
+        private List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>(){
+            new PayTableSymbolInfo(){symbol = 0, x5 = 20, x4 = 10, x3 = 5, },
+            new PayTableSymbolInfo(){symbol = 1, x5 = 20, x4 = 10, x3 = 5, },
+            new PayTableSymbolInfo(){symbol = 2, x5 = 20, x4 = 10, x3 = 5, },
+            new PayTableSymbolInfo(){symbol = 3, x5 = 20, x4 = 10, x3 = 5, },
+            new PayTableSymbolInfo(){symbol = 4, x5 = 20, x4 = 10, x3 = 5, },
+            new PayTableSymbolInfo(){symbol = 5, x5 = 50, x4 = 20, x3 = 10, },
+            new PayTableSymbolInfo(){symbol = 6, x5 = 50, x4 = 20, x3 = 10, },
+            new PayTableSymbolInfo(){symbol = 7, x5 = 100, x4 = 60, x3 = 30, },
+            new PayTableSymbolInfo(){symbol = 8, x5 = 100, x4 = 60, x3 = 30, },
+            new PayTableSymbolInfo(){symbol = 9, x5 = 0, x4 = 0, x3 = 0, },
+            new PayTableSymbolInfo(){symbol = 10, x5 = 0, x4 = 0, x3 = 0, },
+            new PayTableSymbolInfo(){symbol = 11, x5 = 0, x4 = 0, x3 = 0, },
         };
 
         public List<PayTableSymbolInfo> payTableSymbolWin
@@ -259,7 +186,7 @@ namespace CaiFuHuoChe_3996
                 new List<int> { 0,1,0,1,0 },
                 new List<int> { 2,1,2,1,2 },
                 new List<int> { 0,1,1,1,2 },
-                new List<int> { 2,0,0,0,1 },
+                new List<int> { 2,1,1,1,0 },
                 new List<int> { 1,0,0,0,1 },
                 new List<int> { 1,2,2,2,1 },
                 new List<int> { 0,1,0,1,2 }

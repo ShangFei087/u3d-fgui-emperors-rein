@@ -411,7 +411,10 @@ namespace SlotZhuZaiJinBi1700
             //ContentModel.Instance.bonusResult = bonusResult;
             //ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Default;
             //SlotGameEffectManager.Instance.SetEffect(ContentModel.Instance.targetSlotGameEffect);
-        
+          
+            string machineId = string.IsNullOrEmpty(SBoxModel.Instance.MachineId) ? "00000000" : SBoxModel.Instance.MachineId;
+            string algorithmVer = string.IsNullOrEmpty(SBoxModel.Instance.AlgorithmVer) ? "0_0_0" : SBoxModel.Instance.AlgorithmVer.Replace(".", "_");
+            ContentModel.Instance.curGameGuid = $"{MainModel.Instance.gameID}-{ContentModel.Instance.curGameCreatTimeMS}-{machineId}-A{algorithmVer}";
 
             // 记录游戏数据到数据库
             Record(totalBet, res);
@@ -702,8 +705,7 @@ namespace SlotZhuZaiJinBi1700
             // 游戏场景记录
             GameSenceData gameSenceData = new GameSenceData();
 
-            if (++MainModel.Instance.reportId < 0)
-                MainModel.Instance.reportId = 1;
+            if (++MainModel.Instance.reportId < 0) MainModel.Instance.reportId = 1;
 
             gameSenceData.respone = ContentModel.Instance.response;
             gameSenceData.reportId = MainModel.Instance.reportId;
@@ -729,13 +731,6 @@ namespace SlotZhuZaiJinBi1700
 
             // 计算赢分
             long totalEarnCredit = 0;
-            //if (ContentModel.Instance.winList != null)
-            //{
-            //    foreach (var win in ContentModel.Instance.winList)
-            //    {
-            //        totalEarnCredit += win.earnCredit;
-            //    }
-            //}
             totalEarnCredit = (long)res["TotalBet"];
             gameSenceData.baseGameWinCredit = totalEarnCredit;
 
@@ -772,6 +767,8 @@ namespace SlotZhuZaiJinBi1700
             {
                 open_type = OpenType,
                 result_type = ResultType,
+                free_curtime= ContentModel.Instance.freeSpinPlayTimes,
+                free_totaltime= ContentModel.Instance.freeSpinTotalTimes,
                 game_id = 1700,
                 game_uid = ContentModel.Instance.curGameGuid,
                 created_at = ContentModel.Instance.curGameCreatTimeMS,
