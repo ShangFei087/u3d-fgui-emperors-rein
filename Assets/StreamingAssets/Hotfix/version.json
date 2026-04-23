@@ -1,11 +1,11 @@
 {
-  "updated_at": 1776827282410,
+  "updated_at": 1776850496561,
   "hotfix_key": "hf_debug_android_20260303190331",
-  "hotfix_version": "1.10.78",
+  "hotfix_version": "1.10.87",
   "asset_bundle": {
     "manifest": {
-      "hash": "e551cb11290f772dd33123cf7fd7c291",
-      "size_bytes": 21254
+      "hash": "b6af22ba84b33c765e7131deed7a9767",
+      "size_bytes": 21309
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
@@ -47,11 +47,11 @@
       "_common/game maker/sounds/ui_spin_auto.unity3d": "7e03dedc290ca43c75c592bd36428b71",
       "_common/game maker/sounds/ui_spin_start.unity3d": "d27a6ce2f4311f2d8f45d4e786cd8ebc",
       "games/bonusgame2/fguis.unity3d": "fe2acb7e24dd1612a0460adeaeac6676",
-      "games/cai fu huo che 3996/fguis.unity3d": "0261d58c650a0aeb0a0c1d1ef87106a9",
+      "games/cai fu huo che 3996/fguis.unity3d": "ad38fb4a6bb09a0750201745aee0150b",
       "games/cai fu huo che 3996/prefabs/effects/freereeleffect.unity3d": "3626e37da8a112139b364646eebff8ba",
       "games/cai fu huo che 3996/prefabs/effects/jackpotreeleffect.unity3d": "99d30dabb3785f2f3f0edf75441544b2",
       "games/cai fu huo che 3996/prefabs/effects/rewardeffect.unity3d": "fb8901e49e02f6eccff3ac9e3bd716a4",
-      "games/cai fu huo che 3996/prefabs/game controller/slot game main controllerclone.unity3d": "995797010f9e164ad6c225a16985c1c7",
+      "games/cai fu huo che 3996/prefabs/game controller/slot game main controllerclone.unity3d": "411aad7e866840e6ee2244673e7e0f4a",
       "games/cai fu huo che 3996/prefabs/pagegamemain/idletrain.unity3d": "5d0a84535860a4d586770c2307adcdbc",
       "games/cai fu huo che 3996/prefabs/pagegamemain/ngandsgeffect.unity3d": "3734d9ce3f50bbfcab01af8792e47179",
       "games/cai fu huo che 3996/prefabs/pagegamemain/train.unity3d": "6a1221913358f415baf5538ec8f18aeb",
@@ -138,7 +138,7 @@
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_miniidlecfzj.unity3d": "a6a349f6cd76d98d73dbe835d883eb5d",
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_minoridlecfzj.unity3d": "456e9e7e4574a6a4211aaa2bd45d35b8",
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_popdidlecfzj.unity3d": "c64bbde7ed8ee3becda63e58ca470544",
-      "games/cai fu zhi jia 3997/fguis.unity3d": "684ee6054b12fbb868afbd885583ee6e",
+      "games/cai fu zhi jia 3997/fguis.unity3d": "e5b726660515750d683f27e102afd0db",
       "games/cai fu zhi jia 3997/prefabs/game controller/slot game main controller.unity3d": "fa29263efcb4da26dc2aeabac6b6ab2f",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/bonusaccelerateborder.unity3d": "3d28cc85bf41f8735bafa12ca4650f60",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/freeaccelerateborder.unity3d": "fc60c2fcaa85570fbe706b232a70ba81",
@@ -261,10 +261,10 @@
       "games/common/prefabs/gs/gs manager.unity3d": "77326e125f6c9ddc9e54c6075ebba530",
       "games/common/prefabs/gs/gssource.unity3d": "7d076b5c6bb0da738ba1294619c690c7",
       "games/console coin pusher 01/fguis.unity3d": "58fe80235a943e87f151132d00b91c6d",
-      "games/console/abs/lang_cn.unity3d": "0cc7a0e96953d2987d723818c81acba6",
-      "games/console/abs/lang_en.unity3d": "f00c07a1f51cc74633d1e5167d320eb8",
+      "games/console/abs/lang_cn.unity3d": "41999f63663f6ec4836ba176fb100830",
+      "games/console/abs/lang_en.unity3d": "82ab5883e5ebc82dc9c46daf7a9689f8",
       "games/console/abs/lang_tw.unity3d": "d301d74c9c4a970d77c03f799f725392",
-      "games/console/fguis.unity3d": "50b4d7cd4a421d602094ea2c36f3c813",
+      "games/console/fguis.unity3d": "484aecffe60f7570d01b37c732fdb5e5",
       "games/emperors rein 200/abs/datas/slot_machine_config_bouns1.unity3d": "b7bdf4772671474e955d5a7883d9e43d",
       "games/emperors rein 200/abs/datas/slot_machine_config_temp.unity3d": "6b732135677815a2defb0eba50dcc545",
       "games/emperors rein 200/fguis.unity3d": "c118e88cd1d8eb50d3497e4d78d20ec9",
@@ -588,10 +588,10 @@
       "games/slot zhu zai jin bi 1700/prefabs/symbols/symbolhit/symbolhit9.unity3d": "381319063da7285712ae36979de9ac04",
       "games/slot zhu zai jin bi 1700/sounds/music/freemusic.unity3d": "eb6a6978c5eccb57ba0212534607d716",
       "games/slot zhu zai jin bi 1700/sounds/music/normalmusic.unity3d": "b5518bef30558a43036542384d7ffaff",
-      "games/xing yun zhi lun 3998/fguis.unity3d": "2916ab74eac134d36061ca85b6ccd5f1",
+      "games/xing yun zhi lun 3998/fguis.unity3d": "664318e2bbbdb1e910e4ac9d9cfd23ac",
       "games/xing yun zhi lun 3998/prefabs/effects/firework.unity3d": "b2680736f8973caf9c5de750e634a00d",
       "games/xing yun zhi lun 3998/prefabs/effects/reeleffect.unity3d": "b4b701bb47941bced47a4efd761f9b52",
-      "games/xing yun zhi lun 3998/prefabs/game controller/slot game main controllerclone.unity3d": "489f9e6bcd44e5d717374445d41acbe1",
+      "games/xing yun zhi lun 3998/prefabs/game controller/slot game main controllerclone.unity3d": "c8218599f2f1a3a5590786e2e7e95bb0",
       "games/xing yun zhi lun 3998/prefabs/popupfreespinresult/freespinresult.unity3d": "368b549d2ed969788a77865a9ca14d0c",
       "games/xing yun zhi lun 3998/prefabs/popupfreespintrigger/fgfadetips.unity3d": "69b399950d4cfab0cc0f222d38790dc3",
       "games/xing yun zhi lun 3998/prefabs/popupgamejackpot/jackpotgameexit.unity3d": "22ce7cb6d0614f68ff26045285fe6301",
@@ -697,20 +697,22 @@
       "luban/generatedatas/bytes/i18n_old_hotfix_info_notice.unity3d": "9f17ccc4f672ff2b2dbfeb90ddd6e228",
       "luban/generatedatas/bytes/i18n_po152.unity3d": "f7f958bfb0eb1e05b38e5026169cdf2a",
       "luban/generatedatas/bytes/lan_language.unity3d": "2c95d31638c19fb0f994a743793daf12",
-      "panel/cai fu zhi jia 3997/fguis.unity3d": "47046e5ebfee70744f150aaaf8600979",
+      "panel/cai fu zhi jia 3997/fguis.unity3d": "ccb3a1a36900a5d754cfb9cea545586f",
+      "panel/caifuhuoche3996_panel01/fguis.unity3d": "b8e31fe51d9c2ee6928d51edb417be62",
       "panel/panel01/fguis.unity3d": "ca46c2658143be06b8c3ee7110f981d8",
       "panel/panel01/prefabs/slot_btn_spin.unity3d": "d9fea5a891e73653bf8c2931f1ec4df2",
-      "panel/panel02/fguis.unity3d": "745e3e08447ba94730eb76e69b5d83d3"
+      "panel/panel02/fguis.unity3d": "745e3e08447ba94730eb76e69b5d83d3",
+      "panel/panel3998/fguis.unity3d": "a950530d5b469aac9e1f5041a57b69b7"
     }
   },
   "hotfix_dll": {
     "Base": {
-      "hash": "840b27fc358f76aebd72de84cb416845",
+      "hash": "fc439fbcf5ca1be7ec120fd419670b87",
       "size_bytes": 170496
     },
     "HotFix": {
-      "hash": "d0e385a6e0a49f4c8671293d43819a48",
-      "size_bytes": 1756160
+      "hash": "75a8df0e237f3e45a2a3ab6777cc657f",
+      "size_bytes": 1758208
     }
   },
   "hotfix_dll_load_order": [
