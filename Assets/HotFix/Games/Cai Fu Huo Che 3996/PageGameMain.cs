@@ -70,7 +70,7 @@ namespace CaiFuHuoChe_3996
 
         //免费游戏以及彩金游戏中特殊奖时特效
         private GameObject goRewardEffect;
-        private GComponent anchorFreeAdd, anchorFill1, anchorFill2, anchorFill3, anchorFill4, ComRewardEffect1, ComRewardEffect2, ComRewardEffect3;
+        private GComponent anchorFreeAdd, anchorJackpotAdd,anchorFill1, anchorFill2, anchorFill3, anchorFill4, ComRewardEffect1, ComRewardEffect2, ComRewardEffect3;
 
         //正常游戏和彩金游戏之间转场火车开门时特效
         private GameObject goOpenEffect;
@@ -385,6 +385,7 @@ namespace CaiFuHuoChe_3996
             ComRewardEffect2.visible = false;
             ComRewardEffect3.visible = false;
             anchorFreeAdd = contentPane.GetChild("freeAddPoint").asCom;
+            anchorJackpotAdd = contentPane.GetChild("jackpotAddPoint").asCom;
             anchorFill1 = contentPane.GetChild("fill1Add").asCom;
             anchorFill2 = contentPane.GetChild("fill2Add").asCom;
             anchorFill3 = contentPane.GetChild("fill3Add").asCom;
@@ -652,6 +653,10 @@ namespace CaiFuHuoChe_3996
                                     ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes;
 
                                 ContentModel.Instance.freeSpinTotalTimes ++;
+                                if (ContentModel.Instance.nextReelStripsIndex == "BS")
+                                {
+                                    ContentModel.Instance.nextReelStripsIndex = "FS";
+                                }
 
                                 freeTotalTimes.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
 
@@ -697,7 +702,7 @@ namespace CaiFuHuoChe_3996
         void OnJackpotWinEvent(EventData res)
         {
             Dictionary<int, int> tempPos = (Dictionary<int, int>)res.value;
-            mono.StartCoroutine(ShowRewardEffect(tempPos.Keys.First(), tempPos.Values.First(), anchorFreeAdd));
+            mono.StartCoroutine(ShowRewardEffect(tempPos.Keys.First(), tempPos.Values.First(), anchorJackpotAdd));
         }
 
 
@@ -955,9 +960,6 @@ namespace CaiFuHuoChe_3996
 
                 //积分同步和退币处理
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
-
-                // 本剧同步玩家金钱
-                MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             }
             #endregion
 
@@ -985,7 +987,7 @@ namespace CaiFuHuoChe_3996
                 isNext = false;
             }
 
-            //彩金奖
+            //中游戏大奖
             if (ContentModel.Instance.isJackpotSpinTrigger)
             {
                 if (winList.Count > 0)
@@ -1483,7 +1485,7 @@ namespace CaiFuHuoChe_3996
 
                 if (winList.Count > 0)
                 {
-                    yield return ShowWinListOnceAtNormalSpin(winList);
+                    yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
                 }
 
                 // 播大奖弹窗
@@ -1963,7 +1965,7 @@ namespace CaiFuHuoChe_3996
             //记录并显示累计分数
             if(!(ContentModel.Instance.curReelStripsIndex == "FS"))
             {
-                allWinCredit += ContentModel.Instance.jackpotSpinWinCredit * MainModel.Instance.contentMD.betmultiple;
+                allWinCredit += ContentModel.Instance.jackpotSpinWinCredit;
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
             }
             

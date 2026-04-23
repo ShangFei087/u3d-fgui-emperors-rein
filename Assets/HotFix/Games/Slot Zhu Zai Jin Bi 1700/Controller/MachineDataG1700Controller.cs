@@ -326,13 +326,10 @@ namespace SlotZhuZaiJinBi1700
             }
             else
             {
-
-
                 List<int> deckRowCol = SlotTool.GetDeckRowCol(strDeckRowCol);
                 int wild = CustomModel.Instance.symbolNumber[9];
                 int scatter = CustomModel.Instance.symbolNumber[10];
                 const int bonus = 11;
-
 
                 //判断免费奖
                 if (CustomModel.Instance.freeGameConfig.IsHasFreeGame && !CustomModel.Instance.freeGameConfig.IsScatterInLine)

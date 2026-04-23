@@ -21,9 +21,12 @@ namespace TreasuryHall
         private GameObject ClonegoCard3999, ClonegoCard3998, ClonegoCard3997;
         private Animator animator3999, animator3998, animator3997;
         private SkeletonMecanim _skeletonMecanim3998;
-        GButton btn3999, btn3998, btn3997;
+        private GButton btn3999, btn3998, btn3997;
         private GTextField hallCredit;
+        private GButton btnCollect;
 
+
+        private bool IsClickCard;
         //彩金
         MiniReelGroup uiJPMajorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
@@ -115,7 +118,7 @@ namespace TreasuryHall
 
         public override void InitParam()
         {
-
+            IsClickCard = true;
             if (!isInit) return;
 
             if (!isOpen) return;
@@ -172,8 +175,12 @@ namespace TreasuryHall
             btn3998.onClick.Clear();
             btn3998.onClick.Add(() =>
             {
-                float clickAnimDuration = PlayCardClickAnimation(animator3998);
-                Timers.inst.Add(clickAnimDuration, 1, (obj) => EnterGame3998());
+                if (IsClickCard)
+                {
+                    IsClickCard = !IsClickCard;
+                    float clickAnimDuration = PlayCardClickAnimation(animator3998);
+                    Timers.inst.Add(clickAnimDuration, 1, (obj) => EnterGame3998());
+                }
             });
 
             //btn3997 = this.contentPane.GetChild("card3997").asCom.GetChild("btnCard").asButton;
@@ -193,6 +200,13 @@ namespace TreasuryHall
             uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("jpMajor").asCom.GetChild("reels").asList, "N0");
             uiJPMinorCtrl.Init("Minor", this.contentPane.GetChild("jpMinor").asCom.GetChild("reels").asList, "N0");
             uiJPMiniCtrl.Init("Mini", this.contentPane.GetChild("jpMini").asCom.GetChild("reels").asList, "N0");
+
+            btnCollect = this.contentPane.GetChild("btnCollect").asButton;
+            btnCollect.onClick.Clear();
+            btnCollect.onClick.Add(() =>
+            {
+                OnClickBtnTicketOut();
+            });
 
             hallCredit = this.contentPane.GetChild("Credit").asTextField;
 

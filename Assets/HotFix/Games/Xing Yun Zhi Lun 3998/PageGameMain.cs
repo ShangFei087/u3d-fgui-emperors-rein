@@ -835,13 +835,9 @@ namespace XingYunZhiLun_3998
                 allWinCredit += ContentModel.Instance.bonusWinCredit;
 
                 //积分同步和退币处理
-                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * MainModel.Instance.contentMD.betmultiple);
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
 
-                for(int i = 0; i < winList.Count; i++)
-                {
-                    winNumber.Add(winList[i].symbolNumber);
-                }
-                slotMachineCtrl.IsWildShowSymbolEffect(TagPoolObject.SymbolHit, winNumber, true, 0, true);
+                yield return slotMachineCtrl.IsWildShowSymbolEffect(TagPoolObject.SymbolHit, slotMachineCtrl.GetTotalSymbolWin(winList), true, SpinWinEvent.TotalWinLine);
 
                 //加钱动画
                 //MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true, isAddCreditAnim);
@@ -918,7 +914,7 @@ namespace XingYunZhiLun_3998
                 allWinCredit += ContentModel.Instance.bonusWinCredit;
 
                 //积分同步和退币处理
-                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * MainModel.Instance.contentMD.betmultiple);
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
 
                 //加钱动画
                 MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
@@ -974,9 +970,9 @@ namespace XingYunZhiLun_3998
                 allWinCredit += ContentModel.Instance.bonusWinCredit;
 
                 //积分同步和退币处理
-                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * MainModel.Instance.contentMD.betmultiple);
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
                 //加钱动画
-                MainBlackboardController.Instance.AddMyTempCredit(allWinCredit * MainModel.Instance.contentMD.betmultiple);
+                MainBlackboardController.Instance.AddMyTempCredit(allWinCredit);
             }
 
             //普通赢
@@ -1002,21 +998,13 @@ namespace XingYunZhiLun_3998
                     yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
                 }
                 //积分同步和退币处理
-                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * MainModel.Instance.contentMD.betmultiple);
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
                 //加钱动画
-                MainBlackboardController.Instance.AddMyTempCredit(allWinCredit * MainModel.Instance.contentMD.betmultiple, true, isAddCreditAnim);
-                if (!ContentModel.Instance.isMult)
-                {
-
-                }
-                else
-                {
-                    
-                }
+                MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
             }
             #endregion
 
-            #region 中游戏彩金
+            #region 中游戏大奖
 
             bool isHitJackpot = ContentModel.Instance.jpGameWinLst.Count > 0;
             List<JackpotWinInfo> jpRes = ContentModel.Instance.jpGameWinLst;
@@ -1623,7 +1611,6 @@ namespace XingYunZhiLun_3998
             //MainBlackboardController.Instance.SyncMyTempCreditToReal(false);
 
             long totalWinLineCredit = 0;
-            Debug.LogError(ContentModel.Instance.strDeckRowCol);
             if (ContentModel.Instance.newFreeOnceCredit.Count > ContentModel.Instance.freeSpinPlayTimes - 1)
             {
                 totalWinLineCredit = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
@@ -1771,7 +1758,7 @@ namespace XingYunZhiLun_3998
                     }
                 }
 
-                slotMachineCtrl.IsWildShowSymbolEffect(TagPoolObject.SymbolHit, winNumber, true, 0, true);
+                yield return slotMachineCtrl.IsWildShowSymbolEffect(TagPoolObject.SymbolHit, slotMachineCtrl.GetTotalSymbolWin(winList), true, SpinWinEvent.TotalWinLine);
                 yield return new WaitForSeconds(1.6f);
             }
         }

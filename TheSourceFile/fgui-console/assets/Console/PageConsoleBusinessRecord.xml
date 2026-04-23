@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
-  <controller name="tab" pages="0,business,1,coin,2,jponline" selected="2">
+  <controller name="tab" pages="0,business,1,coin,2,jponline" selected="0">
     <action type="play_transition" fromPage="" toPage="0" transition="animBusiness"/>
     <action type="play_transition" fromPage="" toPage="1" transition="animCoin"/>
+    <action type="play_transition" fromPage="" toPage="2" transition="animBusiness"/>
   </controller>
   <displayList>
     <component id="n3_glrj" name="n3" src="glrj1j" fileName="moudules/BaseBG.xml" xy="1,0">
@@ -11,7 +12,7 @@
     </component>
     <component id="n6_cwuo" name="navBusiness" src="cwuo2p" fileName="moudules/ItemCategoryNav.xml" xy="11,502" size="340,91">
       <relation target="" sidePair="center-center,top-top"/>
-      <Button title="BUSINESS" icon="ui://xp0b9yqdos7y44" selectedIcon="ui://xp0b9yqdos7y44" controller="tab" page="0"/>
+      <Button checked="true" title="BUSINESS" icon="ui://xp0b9yqdos7y44" selectedIcon="ui://xp0b9yqdos7y44" controller="tab" page="0"/>
     </component>
     <component id="n33_es9v" name="navCoin" src="cwuo2p" fileName="moudules/ItemCategoryNav.xml" xy="371,502" size="340,91">
       <relation target="" sidePair="center-center,top-top"/>
