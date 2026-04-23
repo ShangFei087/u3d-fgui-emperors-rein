@@ -332,6 +332,7 @@ public class Main
         if (!ApplicationSettings.Instance.isMock)
         {
             PageManager.Instance.OpenPage(PageName.TreasuryHallMain);
+            //PageManager.Instance.OpenPage(PageName.Hall01);
         }
         else
         {

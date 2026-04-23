@@ -22,7 +22,7 @@ MonoBehaviour:
   appKey: StandAloneSlotTest_debug_machine_20260303185958
   appVersion: 1.10.0
   resourceServer: http://47.112.14.190/StandSlot
-  machineDebugUrl: 192.168.0.93
+  machineDebugUrl: 192.168.0.147
   reportUrl: http://192.168.3.152/api/game_log/send
   posterUrl: 
   logoUrl: ui://Native/eyeryparty

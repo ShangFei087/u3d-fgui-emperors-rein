@@ -29,7 +29,7 @@ namespace SlotMaker
 
         // 面板根节点与常用子面板引用
         protected GComponent gOwnerPanel, gIntroducePanel, setPanel, btnSound, btnHelp, Introduce;
-
+        private GComponent _cachedAnchorPanel;
         // Spin 按钮控制器
         protected SpinButtonBaseController spinBtnCtrl = new SpinButtonBaseController();
 
@@ -58,7 +58,7 @@ namespace SlotMaker
         protected GButton btnBetDown, btnBetUp;
         protected int curBetIndex = 0;
         protected int curBetListCount = 1;
-
+  
         // Spin 预制体实例引用
         GameObject goSpin;
 
@@ -141,8 +141,9 @@ namespace SlotMaker
             };
 
 
-            if (gOwnerPanel != _goAnchorPanel && _goAnchorPanel != null)
+            if (_goAnchorPanel != null && _cachedAnchorPanel != _goAnchorPanel)
             {
+                _cachedAnchorPanel = _goAnchorPanel;
                 if (UIPackage.GetByName(PanelPackageName) == null)
                 {
                     // 首次进入时先加载 FairyGUI 包
@@ -165,6 +166,10 @@ namespace SlotMaker
                     gOwnerPanel = _goAnchorPanel.GetChild("icon").asLoader.component;
                     loadComplete();
                 }
+            }
+            else
+            {
+                loadComplete();
             }
 
             // 异步加载 Spin 按钮预制体
