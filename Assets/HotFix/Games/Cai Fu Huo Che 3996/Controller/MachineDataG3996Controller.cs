@@ -409,7 +409,7 @@ namespace CaiFuHuoChe_3996
                         int data = bonusArray[i].AsInt;
                         if(data / 1000 == 1)
                         {
-                            bonusData[i] = data % 1000;
+                            bonusData[i] = (data % 1000) * MainModel.Instance.contentMD.betmultiple;
                         }
                     }
 
@@ -1231,7 +1231,6 @@ namespace CaiFuHuoChe_3996
                 winCount--;
                 curJackpotIndex++;
             }
-            Debug.LogError("jackpotPos.Count == " + jackpotPos.Count + ",\t" + "curJackpotIndex == " + curJackpotIndex);  
             if(ContentModel.Instance.jackpotSpinPlayTimes >= ContentModel.Instance.jackpotSpinTotalTimes)
             {
                 ContentModel.Instance.curReelStripsIndex = "JS";
