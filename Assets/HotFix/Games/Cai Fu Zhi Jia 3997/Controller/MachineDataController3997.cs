@@ -396,7 +396,7 @@ namespace CaiFuZhiJia_3997
             else if (ContentModel.Instance.isFreeSpinTrigger)
             {
                 // 免费游戏只有第一次需要扣积分
-                if (ContentModel.Instance.FreeSpinPlayTimes == 1)
+                if (ContentModel.Instance.FreeSpinPlayTimes == 0)
                     creditAfter = creditBefore + totalLineWin - totalBet;
                 else
                     creditAfter = creditBefore + totalLineWin;
@@ -411,7 +411,7 @@ namespace CaiFuZhiJia_3997
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
 
             DebugUtils.Log(
-                $"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple} ");
+                $"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple}    玩家真实金币={creditAfter}");
 
             FreeSpinSessionStoreG3997.TryPersistOrClearSession();
         }
@@ -769,7 +769,9 @@ namespace CaiFuZhiJia_3997
             {
                 open_type = OpenType,
                 result_type = ResultType,
-                game_id = 3999,
+                free_curtime = ContentModel.Instance.FreeSpinPlayTimes,
+                free_totaltime = ContentModel.Instance.FreeSpinTotalTimes,
+                game_id = 3997,
                 game_uid = ContentModel.Instance.curGameGuid,
                 created_at = ContentModel.Instance.curGameCreatTimeMS,
                 total_bet = totalBet,

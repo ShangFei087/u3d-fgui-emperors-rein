@@ -1154,7 +1154,6 @@ namespace CaiFuZhiJia_3997
             {
                 long totalWinLineCredit = _slotMachineCtrl.GetTotalWinCredit(winList); // 新增倍率
                 _allWinCredit += totalWinLineCredit;
-                Debug.LogError("_allWinCredit：" + _allWinCredit + "-------totalWinLineCredit：" + totalWinLineCredit);
                 _slotMachineCtrl.SendTotalWinCreditEvent(_allWinCredit); // 总线赢分事件
             }
 

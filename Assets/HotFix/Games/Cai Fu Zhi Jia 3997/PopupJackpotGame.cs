@@ -530,14 +530,14 @@ namespace CaiFuZhiJia_3997
 
                 yield return new WaitForSeconds(5f);
 
-                GetCurrentWinningDiamondList();
 
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
                     _singleReelControllers[reelIndex].StopRoll(_monoHelper, _winSpineIndexList);
                 }
-
+                
+                GetCurrentWinningDiamondList();
                 ShowWinningSpine();
                 // 重置局数
                 _freeCountText.text = "3";
