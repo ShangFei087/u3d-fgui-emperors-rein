@@ -337,7 +337,7 @@ namespace CaiFuZhiJia_3997
 
         void GetCurrentWinningDiamondList()
         {
-            if (_bonusIsNotZeroList.Count == 0) return ;
+            if (_bonusIsNotZeroList.Count == 0) return;
             // 确定中奖个数：1 ~ 剩余元素数
             int maxCount = Math.Min(3, _bonusIsNotZeroList.Count);
             int count = _random.Next(1, maxCount + 1); // _bonusIsNotZeroList.Count + 1
@@ -414,7 +414,7 @@ namespace CaiFuZhiJia_3997
                     {
                         if (i == ContentModel.Instance.currentJpIndexList[j])
                         {
-                            _rollRewardList.Add(ContentModel.Instance.jpBetArray[j]);
+                            _rollRewardList.Add(ContentModel.Instance.JpBetDic[ContentModel.Instance.jpTypeArray[j]]);
                         }
                     }
                 }
@@ -423,20 +423,11 @@ namespace CaiFuZhiJia_3997
 
         private IEnumerator GameResultCoroutine()
         {
-            List<Coroutine> coroutines = new List<Coroutine>();
-
             _winSpineIndexList.Sort();
             for (int i = 0; i < _winSpineIndexList.Count; i++)
             {
                 int index = _winSpineIndexList[i];
-                coroutines.Add(_monoHelper.StartCoroutine(ProcessSingleResult(index)));
-
-                yield return new WaitForSeconds(2f); // 调整这个间隔来控制逐个出现的速度
-            }
-
-            foreach (var coroutine in coroutines)
-            {
-                yield return coroutine;
+                yield return _monoHelper.StartCoroutine(ProcessSingleResult(index));
             }
 
             yield return new WaitForSeconds(2f);
@@ -463,7 +454,8 @@ namespace CaiFuZhiJia_3997
                     {
                         if (index == ContentModel.Instance.currentJpIndexList[i])
                         {
-                            ContentModel.Instance.currentShowJpBet = int.Parse(ContentModel.Instance.jpBetArray[i]);
+                            ContentModel.Instance.currentShowJpBet =
+                                int.Parse(ContentModel.Instance.JpBetDic[ContentModel.Instance.jpTypeArray[i]]);
                         }
                     }
 
@@ -479,12 +471,22 @@ namespace CaiFuZhiJia_3997
                     yield return new WaitUntil(() => isNext == true);
                 }
 
+                if (currentBet > 4000)
+                {
+                    GComponent tempCom = _singleReelControllers[index].RollElements[3];
+                    tempCom.GetChild("element").asLoader.url =
+                        CustomModel.Instance.JackpotTypePath[ContentModel.Instance.currentJpSpineIndex];
+                    tempCom.visible = true;
+                }
+                else
+                {
+                    _singleReelControllers[index].RollElements[3].visible = true;
+                    _singleReelControllers[index].RewardTexts[3].visible = true;
+                    _singleReelControllers[index].RewardTexts[3].text = _rollRewardList[index];
+                }
+
                 currentObj.SetActive(false);
                 _diamondTextList[index].visible = false;
-
-                _singleReelControllers[index].RollElements[3].visible = true;
-                _singleReelControllers[index].RewardTexts[3].visible = true;
-                _singleReelControllers[index].RewardTexts[3].text = _rollRewardList[index];
 
                 // 加钱
                 if (_rollRewardList != null)
@@ -536,7 +538,7 @@ namespace CaiFuZhiJia_3997
                     int reelIndex = _canSpinReelIndexList[i];
                     _singleReelControllers[reelIndex].StopRoll(_monoHelper, _winSpineIndexList);
                 }
-                
+
                 GetCurrentWinningDiamondList();
                 ShowWinningSpine();
                 // 重置局数

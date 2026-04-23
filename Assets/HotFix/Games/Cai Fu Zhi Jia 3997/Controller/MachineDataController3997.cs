@@ -125,6 +125,7 @@ namespace CaiFuZhiJia_3997
             int lineNum = (int)res["lineNum"];
             int totalwin = (int)res["TotalBet"];
             string jpBetArray = res["JPBetArray"].ToString();
+            string jPTypeArray = res["JPTypeArray"].ToString();
             int matrixLength = (int)res["MatrixLength"];
             int bonusBet = (int)res["BonusBet"];
             string matrixArray = res["Matrix"].ToString();
@@ -381,8 +382,16 @@ namespace CaiFuZhiJia_3997
                         .Select(item => item.index)
                         .ToList();
                     ContentModel.Instance.jpBetArray.Clear();
-                    Debug.LogError("jpBetArray:" + jpBetArray);
+                    ContentModel.Instance.jpTypeArray.Clear();
+                    ContentModel.Instance.JpBetDic.Clear();
+                    // Debug.LogError("jpBetArray:" + jpBetArray);
                     ContentModel.Instance.jpBetArray = jpBetArray.Trim('[', ']').Split(',').ToList();
+                    ContentModel.Instance.jpTypeArray = jPTypeArray.Trim('[', ']').Split(',').ToList();
+                    for (int i = 0; i < ContentModel.Instance.jpTypeArray.Count; i++)
+                    {
+                        ContentModel.Instance.JpBetDic.Add(ContentModel.Instance.jpTypeArray[i],
+                            ContentModel.Instance.jpBetArray[i]);
+                    }
                 }
                 // else
                 //     DebugUtils.LogError(
@@ -558,6 +567,39 @@ namespace CaiFuZhiJia_3997
 
                 result["BonusBet"] = bonusBet;
                 result["BonusType"] = bonusType;
+            }
+
+            if (resultType == (int)ResultType.RT_Jackpot)
+            {
+                int bonusBet = data[pos++];
+                result["BonusBet"] = bonusBet;
+
+                result["BonusData"] = new JSONArray();
+                for (int i = 0; i < matrixLength; i++)
+                {
+                    int id = data[pos++];
+                    result["BonusData"].Add(id);
+                }
+
+                int jpCount = data[pos++];
+                result["JPCount"] = jpCount;
+
+                result["JPTypeArray"] = new JSONArray();
+                for (int i = 0; i < 3; i++)
+                {
+                    int id = data[pos++];
+                    result["JPTypeArray"].Add(id);
+                }
+
+                result["JPBetArray"] = new JSONArray();
+                for (int i = 0; i < 3; i++)
+                {
+                    int id = data[pos++];
+                    result["JPBetArray"].Add(id);
+                }
+
+                int totalJackpotBet = data[pos++];
+                result["TotalJackpotBet"] = totalJackpotBet;
             }
 
             return result;

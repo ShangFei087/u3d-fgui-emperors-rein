@@ -170,6 +170,16 @@ namespace CaiFuZhiJia_3997
         public List<string> jpBetArray = new List<string>();
 
         /// <summary>
+        /// 彩金类型数组
+        /// </summary>
+        public List<string> jpTypeArray = new List<string>();
+
+        /// <summary>
+        /// 彩金得分类型对照表
+        /// </summary>
+        public Dictionary<string, string> JpBetDic = new Dictionary<string, string>();
+
+        /// <summary>
         /// 大奖游戏中中Jackpot奖弹窗显示的数据
         /// </summary>
         public int currentShowJpBet = 0;

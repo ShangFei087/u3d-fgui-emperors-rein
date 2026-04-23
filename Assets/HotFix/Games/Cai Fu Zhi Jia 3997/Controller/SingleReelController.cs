@@ -59,15 +59,14 @@ namespace CaiFuZhiJia_3997
             if (_reelState != WheelState.Roll) return;
             _reelState = WheelState.Stop;
             if (_rollCoroutine != null) monoHelper.StopCoroutine(_rollCoroutine);
-            
+            ResetReelPos();
             if (!winedIndexList.Contains(_wheelIndex))
             {
-                ResetReelPos();
                 _wheelRootNode.GetChild("rollElement_4").asCom.visible = false;
             }
             else
             {
-                _rollCoroutine = monoHelper.StartCoroutine(BounceCoroutine());
+                // _rollCoroutine = monoHelper.StartCoroutine(BounceCoroutine());
             }
         }
 
@@ -101,57 +100,62 @@ namespace CaiFuZhiJia_3997
             }
         }
 
-        private IEnumerator BounceCoroutine()
-        {
-            // 记录当前位置
-            List<float> currentPositions = new List<float>();
-            for (int i = 0; i < RollElements.Count; i++)
-            {
-                currentPositions.Add(RollElements[i].y);
-            }
+        #region 无用代码
 
-            // 回弹距离（一个元素高度，向上回弹用负数）
-            float bounceDistance = -RollElements[0].height;
+        // private IEnumerator BounceCoroutine()
+        // {
+        //     // 记录当前位置
+        //     List<float> currentPositions = new List<float>();
+        //     for (int i = 0; i < RollElements.Count; i++)
+        //     {
+        //         currentPositions.Add(RollElements[i].y);
+        //     }
+        //
+        //     // 回弹距离（一个元素高度，向上回弹用负数）
+        //     float bounceDistance = -RollElements[0].height;
+        //
+        //     // 回弹动画
+        //     float bounceDuration = 0.3f;
+        //     float elapsedTime = 0f;
+        //
+        //     while (elapsedTime < bounceDuration)
+        //     {
+        //         elapsedTime += Time.deltaTime;
+        //         float progress = Mathf.Clamp01(elapsedTime / bounceDuration);
+        //
+        //         // 缓动：先快后慢（EaseOutCubic）
+        //         float easedProgress = 1f - Mathf.Pow(1f - progress, 3f);
+        //
+        //         for (int i = 0; i < RollElements.Count; i++)
+        //         {
+        //             RollElements[i].y = currentPositions[i] + bounceDistance * easedProgress;
+        //         }
+        //
+        //         yield return null;
+        //     }
+        //
+        //     // 确保最终位置准确
+        //     for (int i = 0; i < RollElements.Count; i++)
+        //     {
+        //         RollElements[i].y = currentPositions[i] + bounceDistance;
+        //     }
+        //
+        //     // 显示中奖元素
+        //     _wheelRootNode.GetChild("rollElement_4").asCom.visible = true;
+        //
+        //     // 延迟后复位
+        //     yield return new WaitForSeconds(0.5f);
+        //     ResetReelPos();
+        // }
 
-            // 回弹动画
-            float bounceDuration = 0.3f;
-            float elapsedTime = 0f;
 
-            while (elapsedTime < bounceDuration)
-            {
-                elapsedTime += Time.deltaTime;
-                float progress = Mathf.Clamp01(elapsedTime / bounceDuration);
-
-                // 缓动：先快后慢（EaseOutCubic）
-                float easedProgress = 1f - Mathf.Pow(1f - progress, 3f);
-
-                for (int i = 0; i < RollElements.Count; i++)
-                {
-                    RollElements[i].y = currentPositions[i] + bounceDistance * easedProgress;
-                }
-
-                yield return null;
-            }
-
-            // 确保最终位置准确
-            for (int i = 0; i < RollElements.Count; i++)
-            {
-                RollElements[i].y = currentPositions[i] + bounceDistance;
-            }
-
-            // 显示中奖元素
-            _wheelRootNode.GetChild("rollElement_4").asCom.visible = true;
-
-            // 延迟后复位
-            yield return new WaitForSeconds(0.5f);
-            ResetReelPos();
-        }
+        #endregion
     }
 
-    // public enum WheelState
-    // {
-    //     None,
-    //     Roll,
-    //     Stop,
-    // }
+    public enum WheelState
+    {
+        None,
+        Roll,
+        Stop,
+    }
 }

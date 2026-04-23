@@ -216,6 +216,9 @@
     <component id="nbj9p3" name="Paytable4.xml" path="/moudules/Paytable/" exported="true"/>
     <component id="nbj9p4" name="Paytable5.xml" path="/moudules/Paytable/" exported="true"/>
     <component id="nbj9p5" name="Paytable6.xml" path="/moudules/Paytable/" exported="true"/>
+    <image id="eq5hp6" name="ng_sym_diamonds3.png" path="/images/popupJackpotGame/Symbol/" exported="true"/>
+    <image id="eq5hp7" name="ng_sym_diamonds4.png" path="/images/popupJackpotGame/Symbol/" exported="true"/>
+    <image id="eq5hp8" name="ng_sym_diamonds6.png" path="/images/popupJackpotGame/Symbol/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>
