@@ -3,7 +3,6 @@ using SBoxApi;
 using SimpleJSON;
 using SlotMaker;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameUtil;
@@ -17,12 +16,12 @@ namespace CaiFuZhiJia_3997
         None,
         Normal,
         FreeSpin,
-        Bonus // cwy 新增
+        Bonus, // cwy 新增
+        Jackpot // cwy 新增
     };
 
     public class MachineDataController3997 : MonoSingleton<MachineDataController3997>
     {
-        // private long _countFreeGetCredit = 0;
         private SpinDataType _nextSpin = SpinDataType.None;
         private long TotalBet => SBoxModel.Instance.CoinInScale;
 
@@ -52,6 +51,14 @@ namespace CaiFuZhiJia_3997
                         new string[]
                         {
                             "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bonus_0.json"
+                        },
+                    },
+                [SpinDataType.Jackpot] =
+                    new List<string[]>()
+                    {
+                        new string[]
+                        {
+                            "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__jackpot_0.json"
                         },
                     },
                 [SpinDataType.Normal] = new List<string[]>()
@@ -117,6 +124,7 @@ namespace CaiFuZhiJia_3997
             int resultType = (int)res["ResultType"];
             int lineNum = (int)res["lineNum"];
             int totalwin = (int)res["TotalBet"];
+            string jpBetArray = res["JPBetArray"].ToString();
             int matrixLength = (int)res["MatrixLength"];
             int bonusBet = (int)res["BonusBet"];
             string matrixArray = res["Matrix"].ToString();
@@ -152,6 +160,7 @@ namespace CaiFuZhiJia_3997
             }
 
             ContentModel.Instance.strDeckRowCol = strDeckRowCol;
+
 
             if (isInFreeSpin)
             {
@@ -204,7 +213,7 @@ namespace CaiFuZhiJia_3997
 
             ContentModel.Instance.winList = winList;
             //检查算法结果
-            CheckGameResult(strDeckRowCol, totalwin);
+            CheckGameResult(strDeckRowCol, totalwin, isInFreeSpin);
 
             //判断彩金
             bool isJackpotMajor = sBoxJackpotData == null
@@ -301,7 +310,6 @@ namespace CaiFuZhiJia_3997
                     isFree = true;
                     freeTime = CustomModel.Instance.FreeGameConfig.FreeGameTime[i];
                 }
-
                 if (resultType == (int)ResultType.RT_FreeWin && isFree && (freeTime == (int)res["TotalFreeTime"]))
                 {
                     int totalFreeTime = (int)res["TotalFreeTime"];
@@ -315,9 +323,9 @@ namespace CaiFuZhiJia_3997
                     // 立即更新剩余次数显示 修改代码
                     ContentModel.Instance.ShowFreeSpinRemainTime = totalFreeTime;
                 }
-                else if (!isInFreeSpin)
-                    DebugUtils.LogError(
-                        $"[G3997][CheckFree] 校验不一致，算法回ResultType={resultType} ，本地计算isFree={isFree},算法FreeTime={(int)res["TotalFreeTime"]},本地计算freeTime={freeTime}");
+                // else if (!isInFreeSpin)
+                //     DebugUtils.LogError(
+                //         $"[G3997][CheckFree] 校验不一致，算法回ResultType={resultType} ，本地计算isFree={isFree},算法FreeTime={(int)res["TotalFreeTime"]},本地计算freeTime={freeTime}");
             }
 
             // 判断赠送局
@@ -358,15 +366,26 @@ namespace CaiFuZhiJia_3997
                 if (bonusCount >= CustomModel.Instance.BonusGameConfig.Make2BonusGameCount)
                     isBonus = true;
 
-                if (resultType == (int)ResultType.RT_BonusWin && isBonus)
+                if ((resultType == (int)ResultType.RT_BonusWin || resultType == (int)ResultType.RT_Jackpot) &&
+                    isBonus) // 中彩金奖
                 {
                     ContentModel.Instance.IsBonusTrigger = true;
                     ContentModel.Instance.currentBonusDataList.Clear();
                     ContentModel.Instance.currentBonusDataList = bonusData.Trim('[', ']').Split(',').ToList();
+
+                    ContentModel.Instance.currentJpIndexList.Clear();
+                    ContentModel.Instance.currentJpIndexList = ContentModel.Instance.currentBonusDataList
+                        .Select((value, index) => new { value, index })
+                        .Where(item => int.Parse(item.value) > 4000)
+                        .Select(item => item.index)
+                        .ToList();
+                    ContentModel.Instance.jpBetArray.Clear();
+                    Debug.LogError("jpBetArray:" + jpBetArray);
+                    ContentModel.Instance.jpBetArray = jpBetArray.Trim('[', ']').Split(',').ToList();
                 }
-                else
-                    DebugUtils.LogError(
-                        $"[G3997][CheckBonus] 校验不一致，算法回ResultType={resultType} ，本地计算isFree={isBonus}");
+                // else
+                //     DebugUtils.LogError(
+                //         $"[G3997][CheckBonus] 校验不一致，算法回ResultType={resultType} ，本地计算isBonus={isBonus}");
             }
 
             //赢分
@@ -423,6 +442,9 @@ namespace CaiFuZhiJia_3997
                     break;
                 case GlobalEvent.GMMultipleWinLine:
                     _nextSpin = SpinDataType.Normal;
+                    break;
+                case GlobalEvent.GMJp1:
+                    _nextSpin = SpinDataType.Jackpot;
                     break;
             }
         }
@@ -568,7 +590,7 @@ namespace CaiFuZhiJia_3997
         }
 
         //检查算法结果
-        private void CheckGameResult(string strDeckRowCol, int TotalWin)
+        private void CheckGameResult(string strDeckRowCol, int TotalWin, bool isInFreeSpin)
         {
             List<List<int>> deckColRow = SlotTool.GetDeckColRow03(strDeckRowCol);
             int wild = CustomModel.Instance.symbolNumber[9];
@@ -631,9 +653,12 @@ namespace CaiFuZhiJia_3997
                 // 命中个数 = 连续计数 + 第 1 列自身
                 int hitCount = sameTypeCount + 1;
                 // 普通奖不统计 Scatter/Bonus
-                if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 3)
+                if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 2)
                 {
                     int lineOdds = GetLineOdds(firstSymbolType, hitCount);
+                    if (isInFreeSpin)
+                        lineOdds = GetLineOdds(firstSymbolType, hitCount) * MainModel.Instance.contentMD.betmultiple *
+                                   ContentModel.Instance.freeGameScoreMultiply;
                     if (lineOdds > 0)
                     {
                         calcTotalWin += lineOdds; // 累加本地计算总赢分

@@ -148,7 +148,6 @@ namespace CaiFuZhiJia_3997
         /// <summary> 本局彩金结果 </summary>
         public JackpotRes JpGameRes;
 
-
         /// <summary> 额外奖 - 掉球 </summary>
         public bool isBonus1 = false;
 
@@ -164,6 +163,26 @@ namespace CaiFuZhiJia_3997
         /// 彩金游戏总得分
         /// </summary>
         public long totalBonusReward = 0;
+        
+        /// <summary>
+        /// 彩金得分数组
+        /// </summary>
+        public List<string> jpBetArray = new List<string>();
+
+        /// <summary>
+        /// 大奖游戏中中Jackpot奖弹窗显示的数据
+        /// </summary>
+        public int currentShowJpBet = 0;
+
+        /// <summary>
+        /// 大奖游戏中中Jackpot奖弹窗显示的Spine动画索引
+        /// </summary>
+        public int currentJpSpineIndex = -1;
+
+        /// <summary>
+        /// 本局Jackpot索引
+        /// </summary>
+        public List<int> currentJpIndexList = new List<int>();
 
         /// <summary>
         /// 一局彩金游戏的数据
@@ -194,7 +213,7 @@ namespace CaiFuZhiJia_3997
 
         /// <summary>  触发免费游戏的编号 </summary>
         public int gameNumberFreeSpinTrigger;
-        
+
         /// <summary> 是否等待下一局 Parse 校验（本地免费快照恢复后首局 Spin） </summary>
         public bool PendingFreeSpinReconnectValidation { get; set; }
 

@@ -345,7 +345,10 @@ public class Main
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPageGameMain);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupJackpotGame);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeSpinResult);
+            
+            // 财富之家测试
             PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupGameLoading);
+            // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotWin);
         }
     }
 

@@ -21,8 +21,6 @@ namespace CaiFuZhiJia_3997
         /// <summary>临时存储滚轴的位置</summary>
         private readonly List<float> _elementStartPosList = new List<float>();
 
-        // public string Wheeleward = "";
-
         public SingleReelController(GComponent wheelRootNode, int wheelIndex)
         {
             _wheelRootNode = wheelRootNode;
@@ -38,19 +36,14 @@ namespace CaiFuZhiJia_3997
                 {
                     GComponent parentGCom = _wheelRootNode.GetChild("rollElement_" + (i + 1)).asCom;
                     GTextField rewardText = parentGCom.GetChild("rewardText").asTextField;
+                    GLoader elementLoader = parentGCom.GetChild("element").asLoader;
+                    elementLoader.url = CustomModel.Instance.JackpotBgPath[i];
                     RollElements.Add(parentGCom);
                     RewardTexts.Add(rewardText);
                     _elementStartPosList.Add(parentGCom.y); // 记录初始位置
-                    // Wheeleward = RandomReward();
                 }
             }
         }
-
-        // string RandomReward()
-        // {
-        //     return ContentModel.Instance.bonusGameRewardList[
-        //         Random.Range(0, ContentModel.Instance.bonusGameRewardList.Count)];
-        // }
 
         public void StartRoll(MonoHelper monoHelper, float speed)
         {
@@ -66,15 +59,17 @@ namespace CaiFuZhiJia_3997
             if (_reelState != WheelState.Roll) return;
             _reelState = WheelState.Stop;
             if (_rollCoroutine != null) monoHelper.StopCoroutine(_rollCoroutine);
-            ResetReelPos();
+            // ResetReelPos();  原来的
             if (!winningList.Contains(_wheelIndex))
             {
+                ResetReelPos();
                 _wheelRootNode.GetChild("rollElement_4").asCom.visible = false;
             }
             else
             {
                 // _wheelRootNode.GetChild("rollElement_4").asCom.visible = true;
                 // RewardTexts[3].text = RandomReward();
+                _rollCoroutine = monoHelper.StartCoroutine(BounceCoroutine(monoHelper));
             }
         }
 
@@ -107,12 +102,68 @@ namespace CaiFuZhiJia_3997
                 yield return null;
             }
         }
+        
+        /// <summary>
+        /// 新增回弹功能
+        /// </summary>
+        /// <param name="monoHelper"></param>
+        /// <returns></returns>
+        private IEnumerator BounceCoroutine(MonoHelper monoHelper)
+        {
+            // 记录当前位置
+            List<float> currentPositions = new List<float>();
+            for (int i = 0; i < RollElements.Count; i++)
+            {
+                currentPositions.Add(RollElements[i].y);
+            }
+    
+            // 计算回弹距离（一个元素的高度）
+            float bounceDistance = RollElements[0].height;
+    
+            // 回弹动画参数
+            float bounceDuration = 0.3f; // 回弹持续时间
+            float elapsedTime = 0f;
+    
+            // 执行回弹动画
+            while (elapsedTime < bounceDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                float progress = elapsedTime / bounceDuration;
+        
+                // 使用缓动函数使回弹更自然
+                float easedProgress = 1f - Mathf.Pow(1f - progress, 3f);
+        
+                // 更新所有元素位置
+                for (int i = 0; i < RollElements.Count; i++)
+                {
+                    RollElements[i].y = currentPositions[i] + bounceDistance * easedProgress;
+                }
+        
+                yield return null;
+            }
+    
+            // 确保最终位置准确
+            for (int i = 0; i < RollElements.Count; i++)
+            {
+                RollElements[i].y = currentPositions[i] + bounceDistance;
+            }
+    
+            // 显示中奖元素
+            _wheelRootNode.GetChild("rollElement_4").asCom.visible = true;
+            // RewardTexts[3].text = RandomReward();
+    
+            // 短暂延迟后恢复初始位置
+            yield return new WaitForSeconds(0.5f);
+    
+            // 恢复到初始位置
+            ResetReelPos();
+        }
     }
 
-    public enum WheelState
-    {
-        None,
-        Roll,
-        Stop,
-    }
+    // public enum WheelState
+    // {
+    //     None,
+    //     Roll,
+    //     Stop,
+    // }
 }

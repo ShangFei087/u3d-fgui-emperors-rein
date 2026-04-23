@@ -31,6 +31,9 @@ namespace CaiFuZhiJia_3997
             _collectBtn = contentPane.GetChild("winCollectBtn").asButton;
             _winBetText = contentPane.GetChild("jackpotWinBet").asTextField;
 
+            _collectBtn.visible = false;
+            _winBetText.visible = false;
+
             _totalCount = 1;
             LoadAsyncRes();
         }
@@ -42,6 +45,7 @@ namespace CaiFuZhiJia_3997
             if (!isOpen) return;
 
             BindPrefabsToUI();
+
             ShowWinBet();
         }
 
@@ -87,22 +91,24 @@ namespace CaiFuZhiJia_3997
                 GameCommon.FguiUtils.DeleteWrapper(_compareJackpotWinGCom);
                 _compareJackpotWinGCom = currentGCom;
                 _cloneJackpotWinObj = Object.Instantiate(_jackpotWinObj);
-                _cloneJackpotWinObj.SetActive(false);
+                _cloneJackpotWinObj.transform.GetChild(0).GetChild(ContentModel.Instance.currentJpSpineIndex).gameObject
+                    .SetActive(true);
                 GameCommon.FguiUtils.AddWrapper(_compareJackpotWinGCom, _cloneJackpotWinObj);
             }
         }
-        
+
         private void ShowWinBet()
         {
-            Timers.inst.Add(1f, 1, (obj) =>
+            Timers.inst.Add(2f, 1, (obj) =>
             {
                 _winBetText.visible = true;
+                _collectBtn.visible = true;
+                _winBetText.text = ContentModel.Instance.currentShowJpBet.ToString();
             });
 
             _collectBtn.onClick.Add((() =>
             {
-                _cloneJackpotWinObj.SetActive(false);
-                Timers.inst.Add(3, 1, (obj) => CloseSelf(null));
+                CloseSelf(null);
             }));
         }
 
