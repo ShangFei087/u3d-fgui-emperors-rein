@@ -150,6 +150,24 @@ namespace XingYunZhiLun_3998
                 result["BonusType"] = bonusType;
             }
 
+            if(resultType == (int)ResultType.RT_Jackpot)
+            {
+                int jpCount = data[pos++];
+                result["JPCount"] = jpCount;
+                result["JPTypeArray"] = new JSONArray();
+                for(int i = 0; i < jpCount; i++)
+                {
+                    result["JPTypeArray"].Add(data[pos++]);
+                }
+
+                result["JPBetArray"] = new JSONArray();
+                for(int i = 0; i < jpCount; i++)
+                {
+                    result["JPBetArray"].Add(data[pos++]);
+                }
+                result["TotalJackpotBet"] = data[pos++];
+            }
+
             return result;
         }
 
@@ -197,6 +215,7 @@ namespace XingYunZhiLun_3998
             ContentModel.Instance.isMult = false;
             ContentModel.Instance.isLihe = false;
             ContentModel.Instance.isDrawWins = false;
+            ContentModel.Instance.isJackpotWin = false;
 
             //免费游戏记录新出现的wild
             if (openType == 1)
@@ -501,6 +520,14 @@ namespace XingYunZhiLun_3998
                     drawWin = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
                     ContentModel.Instance.isDrawWins = true;
                 }
+            }
+
+            //判断彩金
+            if(resultType == (int)ResultType.RT_Jackpot)
+            {
+                ContentModel.Instance.isJackpotWin = true;
+                ContentModel.Instance.jackpotWinCredit = res["TotalJackpotBet"];
+                ContentModel.Instance.jackpotType = res["JPTypeArray"][0];
             }
 
             //赢分

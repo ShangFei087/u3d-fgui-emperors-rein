@@ -1005,33 +1005,30 @@ namespace XingYunZhiLun_3998
             #endregion
 
             #region 中游戏大奖
+            #region 暂时不知何意味，可能是又中大奖又中普通播放动画？？
+            //if (ContentModel.Instance.isDrawWins)
+            //{
+            //    if(winList.Count > 0)
+            //    {
+            //        yield return new WaitForSeconds(0.7f);
 
-            bool isHitJackpot = ContentModel.Instance.jpGameWinLst.Count > 0;
-            List<JackpotWinInfo> jpRes = ContentModel.Instance.jpGameWinLst;
+            //        slotMachineCtrl.SendTotalWinCreditEvent(0);
+            //    }
 
-            //List<float> jpCredit = ContentModel.Instance.jpGameWhenCreditLst;
-            if (ContentModel.Instance.isDrawWins)
-            {
-                if(winList.Count > 0)
-                {
-                    yield return new WaitForSeconds(0.7f);
+            //    slotMachineCtrl.SkipWinLine(true);
+            //    slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 9 }, true, 9, true);
+            //    yield return slotMachineCtrl.SlotWaitForSeconds(1.5f);
+            //    slotMachineCtrl.SkipWinLine(true);
+            //    slotMachineCtrl.CloseSlotCover();
+            //    //slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolAppear, new List<int>() { 8 }, true, 8, true);
+            //}
+            #endregion
 
-                    slotMachineCtrl.SendTotalWinCreditEvent(0);
-                }
-
-                slotMachineCtrl.SkipWinLine(true);
-                slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 9 }, true, 9, true);
-                yield return slotMachineCtrl.SlotWaitForSeconds(1.5f);
-                slotMachineCtrl.SkipWinLine(true);
-                slotMachineCtrl.CloseSlotCover();
-                //slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolAppear, new List<int>() { 8 }, true, 8, true);
-            }
-
-            if (ContentModel.Instance.isDrawWins)
+            if (ContentModel.Instance.isDrawWins || ContentModel.Instance.isJackpotWin)
             {
                 isNext = false;
                 isMain = false;
-                winCredit = ContentModel.Instance.drawWinsCredits;
+                winCredit = ContentModel.Instance.isDrawWins ? ContentModel.Instance.drawWinsCredits : ContentModel.Instance.jackpotWinCredit;
 
                 PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupZhuanPan,
                     new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
@@ -2929,15 +2926,18 @@ namespace XingYunZhiLun_3998
             GTextField sorceText = exampleLoader.component.GetChild("Socre").asTextField;
             if (sorceText != null)
             {
-                sorceText.text = UnityEngine.Random.Range(50000, 500000).ToString();
+                sorceText.text = UnityEngine.Random.Range(500, 5000).ToString();
             }
 
             if (toSetEffect)
             {
-                sorceText.text = "114514";
-                if(ContentModel.Instance.drawWinsCredits >= 0)
+                if(sorceText != null)
                 {
-                    sorceText.text = ContentModel.Instance.drawWinsCredits.ToString();
+                    sorceText.text = "114514";
+                    if (ContentModel.Instance.drawWinsCredits >= 0)
+                    {
+                        sorceText.text = ContentModel.Instance.drawWinsCredits.ToString();
+                    }
                 }
 
                 string symbolName = CustomModel.Instance.jackpotHitEffect["10"];
@@ -2992,7 +2992,7 @@ namespace XingYunZhiLun_3998
             }
 
             // 其他索引随机
-            return Random.Range(5, 10).ToString();
+            return Random.Range(0, 10).ToString();
         }
 
         // 放大效果
@@ -3091,26 +3091,8 @@ namespace XingYunZhiLun_3998
 
         private int GetJackpotId()
         {
-            int id = 0;
-            //switch (JackpotType)
-            //{
-            //    case "mini":
-            //        id = 0;
-            //        break;
-            //    case "minor":
-            //        id = 1;
-            //        break;
-            //    case "major":
-            //        id = 2; 
-            //        break;
-            //    case "grand":
-            //        id = 3;
-            //        break;
-
-            //}
-
-            id = UnityEngine.Random.Range(5, 10);
-            return id;
+            if (ContentModel.Instance.isJackpotWin) return UnityEngine.Random.Range(0, 3);
+            return UnityEngine.Random.Range(3, 10);
         }
 
         //播放指定动画
