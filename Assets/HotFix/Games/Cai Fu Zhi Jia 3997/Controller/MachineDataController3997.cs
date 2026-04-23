@@ -310,6 +310,7 @@ namespace CaiFuZhiJia_3997
                     isFree = true;
                     freeTime = CustomModel.Instance.FreeGameConfig.FreeGameTime[i];
                 }
+
                 if (resultType == (int)ResultType.RT_FreeWin && isFree && (freeTime == (int)res["TotalFreeTime"]))
                 {
                     int totalFreeTime = (int)res["TotalFreeTime"];
@@ -607,6 +608,10 @@ namespace CaiFuZhiJia_3997
                 return;
             }
 
+            // // 新增中奖线输出
+            // List<int> currentLines = new List<int>();
+            // currentLines.Clear();
+
             //判断中奖线,遍历每一条支付线
             for (int i = 0; i < MainModel.Instance.lineNum; ++i)
             {
@@ -656,20 +661,28 @@ namespace CaiFuZhiJia_3997
                 if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 2)
                 {
                     int lineOdds = GetLineOdds(firstSymbolType, hitCount);
-                    if (isInFreeSpin)
-                        lineOdds = GetLineOdds(firstSymbolType, hitCount) * MainModel.Instance.contentMD.betmultiple *
-                                   ContentModel.Instance.freeGameScoreMultiply;
                     if (lineOdds > 0)
                     {
                         calcTotalWin += lineOdds; // 累加本地计算总赢分
+                        Debug.Log("当前中奖线：" + i + "   中奖图标：" + firstSymbolType + "   中奖个数：" + hitCount + "  中奖得分：" +
+                                  lineOdds);
                     }
+
+                    // currentLines.Add(i);
                 }
+            }
+
+            if (isInFreeSpin)
+            {
+                calcTotalWin = calcTotalWin * MainModel.Instance.contentMD.betmultiple *
+                               ContentModel.Instance.freeGameScoreMultiply;
             }
 
             int diff = Math.Abs(calcTotalWin - TotalWin); // 计算本地校验值与算法差值
             if (diff != 0)
             {
-                DebugUtils.LogError($"[G3997][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}");
+                DebugUtils.LogError(
+                    $"[G3997][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}，正常倍率是={MainModel.Instance.contentMD.betmultiple}，免费额外倍率是={ContentModel.Instance.freeGameScoreMultiply}");
             }
             else
             {

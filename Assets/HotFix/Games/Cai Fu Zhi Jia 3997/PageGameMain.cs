@@ -872,7 +872,7 @@ namespace CaiFuZhiJia_3997
                 (ed) =>
                 {
                     _pageController.selectedPage = "FreeGame";
-                    ContentModel.Instance.isFreeSpinTrigger = false;
+                    // ContentModel.Instance.isFreeSpinTrigger = false;
                     isNext = true;
                 });
             yield return new WaitUntil(() => isNext == true);
@@ -891,7 +891,7 @@ namespace CaiFuZhiJia_3997
                     SymbolWin sw = (SymbolWin)context["./winFreeSpinTriggerOrAddCopy"];
                     if (sw != null && sw.cells.Count > 0)
                         _slotMachineCtrl.ShowSymbolWinDeck(sw, true);
-                    // ContentModel.Instance.isFreeSpinTrigger = false;
+                    ContentModel.Instance.isFreeSpinTrigger = false;
                 });
 
             _slotMachineCtrl.EndBonusFreeSpin();
@@ -909,6 +909,7 @@ namespace CaiFuZhiJia_3997
                     MainBlackboardController.Instance.AddMyTempCredit(_allWinCredit, true, IsAddCreditAnim); //加钱动画
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
                     _allWinCredit = 0;
+                    ContentModel.Instance.FreeSpinTotalTimes = 0; // 免费游戏结束之后，把免费游戏局数重置
 
                     // 重新注册
                     ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
@@ -1574,7 +1575,7 @@ namespace CaiFuZhiJia_3997
             {
                 resNode = JSONNode.Parse((string)res);
                 isNext = true;
-                Debug.Log("算法结果：" + (string)res);
+                Debug.Log("算法结果：" + (string)res + "     当前免费倍率：" + ContentModel.Instance.freeGameScoreMultiply);
             });
 
             yield return new WaitUntil(() => isNext == true);

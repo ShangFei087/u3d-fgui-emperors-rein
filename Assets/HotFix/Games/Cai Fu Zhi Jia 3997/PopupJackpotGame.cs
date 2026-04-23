@@ -337,8 +337,7 @@ namespace CaiFuZhiJia_3997
 
         void GetCurrentWinningDiamondList()
         {
-            if (_bonusIsNotZeroList.Count == 0) return;
-
+            if (_bonusIsNotZeroList.Count == 0) return ;
             // 确定中奖个数：1 ~ 剩余元素数
             int maxCount = Math.Min(3, _bonusIsNotZeroList.Count);
             int count = _random.Next(1, maxCount + 1); // _bonusIsNotZeroList.Count + 1
@@ -351,7 +350,6 @@ namespace CaiFuZhiJia_3997
 
                 _winSpineIndexList.Add(selectedValue);
                 _canSpinReelIndexList.Remove(selectedValue);
-
                 // 移除已选中的，保证下次不重复
                 _bonusIsNotZeroList.RemoveAt(randomIndex);
             }
@@ -470,17 +468,17 @@ namespace CaiFuZhiJia_3997
                     }
 
                     bool isNext = false;
-                    
+
                     PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupJackpotWin,
                         new EventData<Dictionary<string, object>>("",
-                            new Dictionary<string, object>() {}),
+                            new Dictionary<string, object>() { }),
                         (ed) =>
                         {
                             isNext = true;
                         });
                     yield return new WaitUntil(() => isNext == true);
-                    
                 }
+
                 currentObj.SetActive(false);
                 _diamondTextList[index].visible = false;
 
@@ -532,13 +530,14 @@ namespace CaiFuZhiJia_3997
 
                 yield return new WaitForSeconds(5f);
 
+                GetCurrentWinningDiamondList();
+
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
                     _singleReelControllers[reelIndex].StopRoll(_monoHelper, _winSpineIndexList);
                 }
 
-                GetCurrentWinningDiamondList();
                 ShowWinningSpine();
                 // 重置局数
                 _freeCountText.text = "3";

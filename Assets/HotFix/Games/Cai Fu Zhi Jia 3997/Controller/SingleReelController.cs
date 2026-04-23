@@ -54,22 +54,20 @@ namespace CaiFuZhiJia_3997
         }
 
 
-        public void StopRoll(MonoHelper monoHelper, List<int> winningList)
+        public void StopRoll(MonoHelper monoHelper, List<int> winedIndexList)
         {
             if (_reelState != WheelState.Roll) return;
             _reelState = WheelState.Stop;
             if (_rollCoroutine != null) monoHelper.StopCoroutine(_rollCoroutine);
-            // ResetReelPos();  原来的
-            if (!winningList.Contains(_wheelIndex))
+            
+            if (!winedIndexList.Contains(_wheelIndex))
             {
                 ResetReelPos();
                 _wheelRootNode.GetChild("rollElement_4").asCom.visible = false;
             }
             else
             {
-                // _wheelRootNode.GetChild("rollElement_4").asCom.visible = true;
-                // RewardTexts[3].text = RandomReward();
-                _rollCoroutine = monoHelper.StartCoroutine(BounceCoroutine(monoHelper));
+                _rollCoroutine = monoHelper.StartCoroutine(BounceCoroutine());
             }
         }
 
@@ -102,13 +100,8 @@ namespace CaiFuZhiJia_3997
                 yield return null;
             }
         }
-        
-        /// <summary>
-        /// 新增回弹功能
-        /// </summary>
-        /// <param name="monoHelper"></param>
-        /// <returns></returns>
-        private IEnumerator BounceCoroutine(MonoHelper monoHelper)
+
+        private IEnumerator BounceCoroutine()
         {
             // 记录当前位置
             List<float> currentPositions = new List<float>();
@@ -116,46 +109,41 @@ namespace CaiFuZhiJia_3997
             {
                 currentPositions.Add(RollElements[i].y);
             }
-    
-            // 计算回弹距离（一个元素的高度）
-            float bounceDistance = RollElements[0].height;
-    
-            // 回弹动画参数
-            float bounceDuration = 0.3f; // 回弹持续时间
+
+            // 回弹距离（一个元素高度，向上回弹用负数）
+            float bounceDistance = -RollElements[0].height;
+
+            // 回弹动画
+            float bounceDuration = 0.3f;
             float elapsedTime = 0f;
-    
-            // 执行回弹动画
+
             while (elapsedTime < bounceDuration)
             {
                 elapsedTime += Time.deltaTime;
-                float progress = elapsedTime / bounceDuration;
-        
-                // 使用缓动函数使回弹更自然
+                float progress = Mathf.Clamp01(elapsedTime / bounceDuration);
+
+                // 缓动：先快后慢（EaseOutCubic）
                 float easedProgress = 1f - Mathf.Pow(1f - progress, 3f);
-        
-                // 更新所有元素位置
+
                 for (int i = 0; i < RollElements.Count; i++)
                 {
                     RollElements[i].y = currentPositions[i] + bounceDistance * easedProgress;
                 }
-        
+
                 yield return null;
             }
-    
+
             // 确保最终位置准确
             for (int i = 0; i < RollElements.Count; i++)
             {
                 RollElements[i].y = currentPositions[i] + bounceDistance;
             }
-    
+
             // 显示中奖元素
             _wheelRootNode.GetChild("rollElement_4").asCom.visible = true;
-            // RewardTexts[3].text = RandomReward();
-    
-            // 短暂延迟后恢复初始位置
+
+            // 延迟后复位
             yield return new WaitForSeconds(0.5f);
-    
-            // 恢复到初始位置
             ResetReelPos();
         }
     }
