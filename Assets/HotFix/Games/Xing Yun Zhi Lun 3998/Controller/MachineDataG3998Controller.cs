@@ -467,9 +467,8 @@ namespace XingYunZhiLun_3998
                     ContentModel.Instance.maxLink = maxLink;
                     ContentModel.Instance.cols.Clear();
 
-                    for (int i = 0; i <= 5; i++)
+                    for (int i = 0; i < bonusCount - 2; i++)
                     {
-                        if (res["BonusData"][i] == 0) break;
                         if (ContentModel.Instance.cols.Contains(res["BonusData"][i])) continue;
                         ContentModel.Instance.cols.Add(res["BonusData"][i]);
                     }
@@ -1150,6 +1149,8 @@ namespace XingYunZhiLun_3998
             {
                 open_type = OpenType,
                 result_type = ResultType,
+                free_curtime = ContentModel.Instance.freeSpinPlayTimes,
+                free_totaltime = ContentModel.Instance.freeSpinTotalTimes,
                 game_id = 3998,
                 game_uid = ContentModel.Instance.curGameGuid,
                 created_at = ContentModel.Instance.curGameCreatTimeMS,

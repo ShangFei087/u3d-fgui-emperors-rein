@@ -652,6 +652,10 @@ namespace CaiFuHuoChe_3996
                                     ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes;
 
                                 ContentModel.Instance.freeSpinTotalTimes ++;
+                                if (ContentModel.Instance.nextReelStripsIndex == "BS")
+                                {
+                                    ContentModel.Instance.nextReelStripsIndex = "FS";
+                                }
 
                                 freeTotalTimes.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
 
@@ -1483,7 +1487,7 @@ namespace CaiFuHuoChe_3996
 
                 if (winList.Count > 0)
                 {
-                    yield return ShowWinListOnceAtNormalSpin(winList);
+                    yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
                 }
 
                 // 播大奖弹窗

@@ -101,6 +101,12 @@ namespace CaiFuHuoChe_3996
                 result["TotalFreeBet"] = totalFreeBet;
             }
 
+            if(openType == (int)OpenType.OT_Give)
+            {
+                int wildMultiply = data[pos++];
+                result["WildMultiply"] = wildMultiply;
+            }
+
             if (resultType == (int)ResultType.RT_BonusWin)
             {
                 int bonusBet = data[pos++];
@@ -233,10 +239,6 @@ namespace CaiFuHuoChe_3996
             }
             ContentModel.Instance.winList = winList;
 
-            #region  当出现像是礼盒之类的会变化的数据时，需要先替换在校验分数
-
-            #endregion
-
             //检查算法结果
             CheckGameResult(strDeckRowCol, totalwin);
 
@@ -327,7 +329,7 @@ namespace CaiFuHuoChe_3996
                     ContentModel.Instance.isFreeSpinTrigger = true;
                     ContentModel.Instance.freeSpinTotalTimes = freeTime;
                     ContentModel.Instance.freeSpinPlayTimes = 0;
-                    ContentModel.Instance.freeSpinTotalWinCredit = 0;
+                    ContentModel.Instance.freeSpinTotalWinCredit = (int)res["TotalFreeBet"];
                     betIndex = 0;
                     wildNums = 0;
 
@@ -349,7 +351,6 @@ namespace CaiFuHuoChe_3996
 
                 ContentModel.Instance.curReelStripsIndex = "FS";
                 ContentModel.Instance.freeSpinPlayTimes += 1;
-                ContentModel.Instance.freeSpinTotalWinCredit += totalLineWin;
 
                 if (ContentModel.Instance.freeSpinTotalTimes == ContentModel.Instance.freeSpinPlayTimes)
                 {
@@ -1479,7 +1480,9 @@ namespace CaiFuHuoChe_3996
             {
                 open_type = OpenType,
                 result_type = ResultType,
-                game_id = 1700,
+                free_curtime = ContentModel.Instance.freeSpinPlayTimes,
+                free_totaltime = ContentModel.Instance.freeSpinTotalTimes,
+                game_id = 3996,
                 game_uid = ContentModel.Instance.curGameGuid,
                 created_at = ContentModel.Instance.curGameCreatTimeMS,
                 total_bet = totalBet,
