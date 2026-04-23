@@ -835,7 +835,7 @@ namespace XingYunZhiLun_3998
                 allWinCredit += ContentModel.Instance.bonusWinCredit;
 
                 //积分同步和退币处理
-                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * MainModel.Instance.contentMD.betmultiple);
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
 
                 yield return slotMachineCtrl.IsWildShowSymbolEffect(TagPoolObject.SymbolHit, slotMachineCtrl.GetTotalSymbolWin(winList), true, SpinWinEvent.TotalWinLine);
 
@@ -914,7 +914,7 @@ namespace XingYunZhiLun_3998
                 allWinCredit += ContentModel.Instance.bonusWinCredit;
 
                 //积分同步和退币处理
-                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * MainModel.Instance.contentMD.betmultiple);
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
 
                 //加钱动画
                 MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
@@ -970,9 +970,9 @@ namespace XingYunZhiLun_3998
                 allWinCredit += ContentModel.Instance.bonusWinCredit;
 
                 //积分同步和退币处理
-                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * MainModel.Instance.contentMD.betmultiple);
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
                 //加钱动画
-                MainBlackboardController.Instance.AddMyTempCredit(allWinCredit * MainModel.Instance.contentMD.betmultiple);
+                MainBlackboardController.Instance.AddMyTempCredit(allWinCredit);
             }
 
             //普通赢
@@ -998,21 +998,13 @@ namespace XingYunZhiLun_3998
                     yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
                 }
                 //积分同步和退币处理
-                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit * MainModel.Instance.contentMD.betmultiple);
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
                 //加钱动画
-                MainBlackboardController.Instance.AddMyTempCredit(allWinCredit * MainModel.Instance.contentMD.betmultiple, true, isAddCreditAnim);
-                if (!ContentModel.Instance.isMult)
-                {
-
-                }
-                else
-                {
-                    
-                }
+                MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
             }
             #endregion
 
-            #region 中游戏彩金
+            #region 中游戏大奖
 
             bool isHitJackpot = ContentModel.Instance.jpGameWinLst.Count > 0;
             List<JackpotWinInfo> jpRes = ContentModel.Instance.jpGameWinLst;

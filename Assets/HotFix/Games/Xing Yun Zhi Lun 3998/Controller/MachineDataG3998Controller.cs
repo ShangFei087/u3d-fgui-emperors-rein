@@ -506,6 +506,7 @@ namespace XingYunZhiLun_3998
             //赢分
             long creditBefore = MainBlackboardController.Instance.myRealCredit;
             long creditAfter = creditBefore - totalBet + totalLineWin + drawWin;
+            if (ContentModel.Instance.gameState == GameState.FreeSpin) creditAfter += totalBet;
 
             //List<List<int>> deckColRow = SlotTool.GetDeckColRow02(strDeckRowCol);
             ////bool isReelsSlowMotion = (deckColRow[0].Contains(10) && deckColRow[1].Contains(10)) ? true : false;
@@ -517,10 +518,10 @@ namespace XingYunZhiLun_3998
             //ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Default;
             //SlotGameEffectManager.Instance.SetEffect(ContentModel.Instance.targetSlotGameEffect);
 
-            // 记录游戏数据到数据库
+                // 记录游戏数据到数据库
             Record(totalBet, res);
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
-            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple} ");
+            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 当前押注倍率：{MainModel.Instance.contentMD.betmultiple} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin} ");
 
 
             FreeSpinSessionStoreG3998.TryPersistOrClearSession();
