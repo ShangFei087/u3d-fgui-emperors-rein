@@ -436,24 +436,6 @@ namespace XingYunZhiLun_3998
 
         #endregion
 
-        public List<SymbolBase> IsWildGetSymbol(List<int> symbolNumbers)
-        {
-            int[] cols = ContentModel.Instance.cols.ToArray();
-            List<SymbolBase> symbols = new List<SymbolBase>();
-            for (int r = bufferTop; r < row + bufferTop; r++)
-            {
-                for (int c = 0; c < column; c++)
-                {
-                    if (cols.Contains(c)) continue;
-                    ReelBase reel = reels[c];
-                    SymbolBase symbol = reel.symbolList[r];
-                    if (symbolNumbers.Contains(symbol.number))
-                        symbols.Add(symbol);
-                }
-            }
-            return symbols;
-        }
-
         private List<GComponent> tempSymbols = new List<GComponent>();
         //特殊添加的播放转化的函数
         public void ShowSymbolTransform(List<int> symbolNumbers, bool isAmin, int symbolNumber, bool isUseMySelfSymbolNumber)
@@ -462,8 +444,74 @@ namespace XingYunZhiLun_3998
         public void ShowSymbolIdle(List<int> symbolNumbers, bool isAmin, int symbolNumber, bool isUseMySelfSymbolNumber)
             => ShowSymbolIdle(TagPoolObject.SymbolAppear, GetSymbol(symbolNumbers), isAmin, symbolNumber, isUseMySelfSymbolNumber);
 
-        public void IsWildShowSymbolEffect(TagPoolObject tp, List<int> symbolNumbers, bool isAmin, int symbolNumber, bool isUseMySelfSymbolNumber)
-            => ShowSymbolEffect(tp, IsWildGetSymbol(symbolNumbers), isAmin, symbolNumber, isUseMySelfSymbolNumber);
+        public IEnumerator IsWildShowSymbolEffect(TagPoolObject tp, SymbolWin symbolWin, bool isUseMySelfSymbolNumber, SpinWinEvent eventType)
+        {
+            // 立马停止时，不播放赢分环节？
+            if (isStopImmediately && _spinWEMD.Instance.isSkipAtStopImmediately)
+                yield break;
+
+            foreach (Cell cel in symbolWin.cells)
+            {
+                if (ContentModel.Instance.cols.Contains(cel.column)) continue;
+                Symbol01 symble = (Symbol01)GetVisibleSymbolFromDeck(cel.column, cel.row);
+
+                int symbolNumber = isUseMySelfSymbolNumber ? symble.number : symbolWin.symbolNumber;
+
+                string symbolName = CustomModel.Instance.symbolHitEffect[$"{symbolNumber}"];  // wild  or symbol;
+
+                // 图标动画  
+                GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolHit, symbolName).asCom;
+                symble.AddSymbolEffect(goSymbolHit, isSymbolAnim);
+
+
+
+                // 设置层级
+                FguiSortingOrderManager.Instance.ChangeSortingOrder(symble.goOwnerSymbol, goExpectation); //goPayLines
+
+
+                // 边框
+                if (_spinWEMD.Instance.isFrame)
+                {
+                    string borderEffect = CustomModel.Instance.borderEffect;
+                    GComponent goBorderEffect = //FguiPoolManager.Instance.GetObject(TagPoolObject.SymbolBorder, borderEffect).asCom;
+                        fguiPoolHelper.GetObject(TagPoolObject.SymbolBorder, borderEffect).asCom;
+                    symble.AddBorderEffect(goBorderEffect);
+                }
+
+            }
+
+
+
+            // 是否显示线
+            if (_spinWEMD.Instance.isShowLine)
+            {
+                if (symbolWin is TotalSymbolWin)
+                {
+                    TotalSymbolWin totalSymbolWin = symbolWin as TotalSymbolWin;
+
+                    foreach (int payLineNumber in totalSymbolWin.lineNumbers)
+                    {
+                        int lineIndex = GetPayLineIndex(payLineNumber);
+                        if (lineIndex >= 0 && lineIndex < goPayLines.numChildren)
+                        {
+                            goPayLines.GetChildAt(lineIndex).visible = true;
+                        }
+                    }
+                }
+                else
+                {
+
+                    int lineIndex = GetPayLineIndex(symbolWin.lineNumber);
+                    if (lineIndex >= 0
+                        && lineIndex < goPayLines.numChildren)
+                    {
+                        goPayLines.GetChildAt(lineIndex).visible = true;
+                    }
+                }
+            }
+        }
+
+
 
         #region 添加的切换动画的函数
         public void ShowSymbolTransform(TagPoolObject tp, List<SymbolBase> symbols, bool isAmin, int symbolNumber, bool isUseMySelfSymbolNumber)

@@ -48,7 +48,7 @@ namespace CaiFuHuoChe_3996
         public override IEnumerator ShowSymbolWinBySetting(SymbolWin symbolWin, bool isUseMySelfSymbolNumber, SpinWinEvent eventType)
         {
             //停止特效显示
-            SkipWinLine(false);
+            SkipWinLine(true);
 
             // 立马停止时，不播放赢分环节？
             if (isStopImmediately && _spinWEMD.Instance.isSkipAtStopImmediately)
