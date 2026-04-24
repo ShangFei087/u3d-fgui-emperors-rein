@@ -656,6 +656,7 @@ namespace CaiFuHuoChe_3996
                                 if (ContentModel.Instance.nextReelStripsIndex == "BS")
                                 {
                                     ContentModel.Instance.nextReelStripsIndex = "FS";
+                                    ContentModel.Instance.isFreeSpinResult = false;
                                 }
 
                                 freeTotalTimes.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
@@ -701,6 +702,7 @@ namespace CaiFuHuoChe_3996
 
         void OnJackpotWinEvent(EventData res)
         {
+            Debug.LogError(res.name);
             Dictionary<int, int> tempPos = (Dictionary<int, int>)res.value;
             mono.StartCoroutine(ShowRewardEffect(tempPos.Keys.First(), tempPos.Values.First(), anchorJackpotAdd));
         }
@@ -960,6 +962,8 @@ namespace CaiFuHuoChe_3996
 
                 //积分同步和退币处理
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+                //加钱动画
+                MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
             }
             #endregion
 
@@ -971,6 +975,8 @@ namespace CaiFuHuoChe_3996
             {
                 if(winList.Count > 0)
                 {
+                    // 本剧同步玩家金钱
+                    MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
                     yield return new WaitForSeconds(1);
                 }
                 PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupFreeSpinTrigger, null);
@@ -985,6 +991,7 @@ namespace CaiFuHuoChe_3996
 
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
+                ContentModel.Instance.nextReelStripsIndex = "BS";
             }
 
             //中游戏大奖
@@ -1004,12 +1011,6 @@ namespace CaiFuHuoChe_3996
                 yield return slotMachineCtrl.SlotWaitForSeconds(1.5f);
                 slotMachineCtrl.SkipWinLine(true);
                 yield return jackpotSpinTrigger(() => isNext = true, errorCallback);
-
-                //积分同步和退币处理
-                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
-
-                //加钱动画
-                MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
 
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
@@ -1316,6 +1317,7 @@ namespace CaiFuHuoChe_3996
                     DebugUtils.Log("回调执行！isNext = true"); // 加日志
                     isNext = true;
                     ContentModel.Instance.curFreeMult = 1;
+                    ContentModel.Instance.nextReelStripsIndex = "BS";
                 });
 
             yield return new WaitUntil(() => isNext == true);

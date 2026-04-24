@@ -55,6 +55,7 @@ namespace CaiFuHuoChe_3996
         private int curJackpotIndex = 0;
         private int betIndex = 0;
         private int wildNums = 0;
+        private bool isFreeSpin = false;
 
         public static JSONNode ParseCoinPushSpinPayload(int[] data, int startPos)
         {
@@ -105,6 +106,7 @@ namespace CaiFuHuoChe_3996
             {
                 int wildMultiply = data[pos++];
                 result["WildMultiply"] = wildMultiply;
+                
             }
 
             if (resultType == (int)ResultType.RT_BonusWin)
@@ -124,12 +126,39 @@ namespace CaiFuHuoChe_3996
             if (resultType == (int)ResultType.RT_Jackpot)
             {
                 int bonusBet = data[pos++];
+                result["BonusBet"] = bonusBet;
                 result["BonusData"] = new JSONArray();
                 for (int i = 0; i < matrixLength; i++)
                 {
                     int id = data[pos++];
                     result["BonusData"].Add(id);
                 }
+
+                int jpCount = data[pos++];
+                result["JPCount"] = jpCount;
+                result["JPTypeArray"] = new JSONArray();
+                for(int i = 0; i < 3; i++)
+                {
+                    if (data[pos] == 0)
+                    {
+                        pos++;
+                        continue;
+                    }
+                    result["JPTypeArray"].Add(data[pos++]);
+                }
+
+                result["JPBetArray"] = new JSONArray();
+                for(int i = 0; i < 3; i++)
+                {
+                    if (data[pos] == 0)
+                    {
+                        pos++;
+                        continue;
+                    }
+                    result["JPBetArray"].Add(data[pos++]);
+                }
+
+                result["TotalJackpotBet"] = data[pos++];
             }
 
             return result;
@@ -144,6 +173,7 @@ namespace CaiFuHuoChe_3996
             ContentModel.Instance.nextReelStripsIndex = "BS";
             ContentModel.Instance.isFreeSpinTrigger = false;
             ContentModel.Instance.isJackpotSpinTrigger = false;
+            isFreeSpin = false;
 
             int openType = (int)res["OpenType"];
             if (ContentModel.Instance.PendingFreeSpinReconnectValidation)
@@ -157,6 +187,11 @@ namespace CaiFuHuoChe_3996
                     FreeSpinSessionStoreG3996.Clear(SBoxModel.Instance.pid);
                     FreeSpinSessionStoreG3996.ResetContentModelFreeStateToBaseGame();
                 }
+            }
+
+            if (openType == (int)OpenType.OT_Give)
+            {
+                isFreeSpin = true;
             }
 
             int resultType = (int)res["ResultType"];
@@ -316,7 +351,6 @@ namespace CaiFuHuoChe_3996
                     {
                         isFree = true;
                         freeTime = CustomModel.Instance.freeGameConfig.FreeGameTime[i];
-
                     }
                 }
 
@@ -329,14 +363,14 @@ namespace CaiFuHuoChe_3996
                     ContentModel.Instance.isFreeSpinTrigger = true;
                     ContentModel.Instance.freeSpinTotalTimes = freeTime;
                     ContentModel.Instance.freeSpinPlayTimes = 0;
-                    ContentModel.Instance.freeSpinTotalWinCredit = (int)res["TotalFreeBet"];
+                    ContentModel.Instance.freeSpinTotalWinCredit = (int)res["TotalFreeBet"] * MainModel.Instance.contentMD.betmultiple;
                     betIndex = 0;
                     wildNums = 0;
 
                     ContentModel.Instance.newFreeOnceCredit.Clear();
                     for (int i = 0; i < TotalFreeTime; i++)
                     {
-                        ContentModel.Instance.newFreeOnceCredit.Add((int)res["FreeBetArray"][i]);
+                        ContentModel.Instance.newFreeOnceCredit.Add((int)res["FreeBetArray"][i] * MainModel.Instance.contentMD.betmultiple) ;
                     }
                 }
             }
@@ -361,6 +395,13 @@ namespace CaiFuHuoChe_3996
                     ContentModel.Instance.nextReelStripsIndex = "FS";
                 }
                 ContentModel.Instance.isFreeSpinResult = ContentModel.Instance.curReelStripsIndex == "FS" && ContentModel.Instance.nextReelStripsIndex == "BS";
+
+
+
+                if (openType == (int)OpenType.OT_Give)
+                {
+                    totalLineWin = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
+                }
             }
 
             //判断大奖
@@ -387,7 +428,7 @@ namespace CaiFuHuoChe_3996
                     }
                 }
 
-                if (resultType == (int)ResultType.RT_BonusWin && isBonus)
+                if ((resultType == (int)ResultType.RT_BonusWin || resultType == (int)ResultType.RT_Jackpot)&& isBonus)
                 {
                     ContentModel.Instance.curReelStripsIndex = "BS";
                     ContentModel.Instance.nextReelStripsIndex = "JS";
@@ -407,10 +448,7 @@ namespace CaiFuHuoChe_3996
                     for (int i = 0; i < bonusArray.Count; i++)
                     {
                         int data = bonusArray[i].AsInt;
-                        if(data / 1000 == 1)
-                        {
-                            bonusData[i] = (data % 1000) * MainModel.Instance.contentMD.betmultiple;
-                        }
+                        bonusData[i] = data;
                     }
 
                     for (int i = 0; i < bonusData.Length; i++)
@@ -419,12 +457,23 @@ namespace CaiFuHuoChe_3996
                         ContentModel.Instance.jackpotWin[i] = bonusData[i].ToString();
                         jackpotPos.Add(i);
                     }
+
+                    if(resultType == (int)ResultType.RT_Jackpot)
+                    {
+                        ContentModel.Instance.jackpotSocre.Clear();
+                        for(int i = 0; i < res["JPTypeArray"].Count; i++)
+                        {
+                            ContentModel.Instance.jackpotSocre[res["JPTypeArray"][i]] = res["JPBetArray"][i];
+                            totalLineWin += res["TotalJackpotBet"];
+                        }
+                    }
                 }
             }
 
             //赢分
             long creditBefore = MainBlackboardController.Instance.myRealCredit;
             long creditAfter = creditBefore - totalBet + totalLineWin;
+            if (ContentModel.Instance.gameState == GameState.FreeSpin) creditAfter += totalBet;
 
             //List<List<int>> deckColRow = SlotTool.GetDeckColRow02(strDeckRowCol);
             ////bool isReelsSlowMotion = (deckColRow[0].Contains(10) && deckColRow[1].Contains(10)) ? true : false;
@@ -439,7 +488,7 @@ namespace CaiFuHuoChe_3996
             // 记录游戏数据到数据库
             Record(totalBet, res);
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
-            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple} ");
+            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin} ");
 
 
             FreeSpinSessionStoreG3996.TryPersistOrClearSession();
@@ -492,6 +541,7 @@ namespace CaiFuHuoChe_3996
             //判断中奖线,遍历每一条支付线
             for (int i = 0; i < MainModel.Instance.lineNum; ++i)
             {
+                bool isFreeSpinMultLine = false;
                 // 取当前线的行索引规则
                 List<int> currentLineRule = winLinesRule[i];
 
@@ -518,12 +568,20 @@ namespace CaiFuHuoChe_3996
                              (currentSymbolType == firstSymbolType || currentSymbolType == wild))
                     {
                         sameTypeCount += 1;
+                        if (isFreeSpin && currentSymbolType == wild)
+                        {
+                            isFreeSpinMultLine = true;
+                        }
                     }
                     // 第一个图标是 Wild，遇到可替代图标后以该图标作为基准
                     else if ((currentSymbolType != scatter && currentSymbolType != bonus) && firstSymbolType == wild)
                     {
                         firstSymbolType = currentSymbolType; // 把当前普通图标设为新的基准图标
                         sameTypeCount += 1;
+                        if (isFreeSpin)
+                        {
+                            isFreeSpinMultLine = true;
+                        }
                     }
                     else
                     {
@@ -536,7 +594,7 @@ namespace CaiFuHuoChe_3996
                 // 普通奖不统计 Scatter/Bonus
                 if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 3)
                 {
-                    int lineOdds = GetLineOdds(firstSymbolType, hitCount) * ContentModel.Instance.curFreeMult;
+                    int lineOdds = GetLineOdds(firstSymbolType, hitCount) * (isFreeSpinMultLine ? ContentModel.Instance.curFreeMult : 1);
                     if (lineOdds > 0)
                     {
                         calcTotalWin += lineOdds; // 累加本地计算总赢分

@@ -188,8 +188,8 @@ namespace XingYunZhiLun_3998
             {"5", "ui://XingYunZhiLun_3998/ListSymbol5"},
             {"6", "ui://XingYunZhiLun_3998/ListSymbol6"},
             {"7", "ui://XingYunZhiLun_3998/ListSymbol7"},
-            {"8", "ui://XingYunZhiLun_3998/ListSymbol8"},
 
+            //{"8", "ui://XingYunZhiLun_3998/ListSymbol8"},
             //{"9", "ui://XingYunZhiLun_3998/ListSymbol9"},
         };
 

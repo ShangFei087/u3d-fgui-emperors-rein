@@ -155,14 +155,24 @@ namespace XingYunZhiLun_3998
                 int jpCount = data[pos++];
                 result["JPCount"] = jpCount;
                 result["JPTypeArray"] = new JSONArray();
-                for(int i = 0; i < jpCount; i++)
+                for(int i = 0; i < 3; i++)
                 {
+                    if (data[pos] == 0)
+                    {
+                        pos++;
+                        continue;
+                    }
                     result["JPTypeArray"].Add(data[pos++]);
                 }
 
                 result["JPBetArray"] = new JSONArray();
-                for(int i = 0; i < jpCount; i++)
+                for(int i = 0; i < 3; i++)
                 {
+                    if (data[pos] == 0)
+                    {
+                        pos++;
+                        continue;
+                    }
                     result["JPBetArray"].Add(data[pos++]);
                 }
                 result["TotalJackpotBet"] = data[pos++];
@@ -205,7 +215,7 @@ namespace XingYunZhiLun_3998
             string strDeckRowCol = "";
             int totalLineWin = 0;
             int lineWin = 0;
-            int drawWin = 0;
+            int bonusWin = 0;
             List<SymbolWin> winList = new List<SymbolWin>();
             JackpotRes jpGameRes = new JackpotRes();
 
@@ -513,11 +523,12 @@ namespace XingYunZhiLun_3998
                 {
                     ContentModel.Instance.isMult = true;
                     ContentModel.Instance.multiple = (int)res["BonusMultiply"];
+                    bonusWin = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
                 }
                 else if (resultType == 3 && (int)res["BonusType"] == 3)
                 {
                     ContentModel.Instance.drawWinsCredits = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
-                    drawWin = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
+                    bonusWin = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
                     ContentModel.Instance.isDrawWins = true;
                 }
             }
@@ -532,7 +543,7 @@ namespace XingYunZhiLun_3998
 
             //赢分
             long creditBefore = MainBlackboardController.Instance.myRealCredit;
-            long creditAfter = creditBefore - totalBet + totalLineWin + drawWin;
+            long creditAfter = creditBefore - totalBet + totalLineWin + bonusWin;
             if (ContentModel.Instance.gameState == GameState.FreeSpin) creditAfter += totalBet;
 
             //List<List<int>> deckColRow = SlotTool.GetDeckColRow02(strDeckRowCol);
