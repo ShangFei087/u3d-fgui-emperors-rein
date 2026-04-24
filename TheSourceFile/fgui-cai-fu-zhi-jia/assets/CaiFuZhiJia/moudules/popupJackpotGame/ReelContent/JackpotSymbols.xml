@@ -6,4 +6,13 @@
     <component id="n2_q5jy" name="rollElement_3" src="q5jy5r" fileName="moudules/popupJackpotGame/ReelContent/JackpotSymbol.xml" xy="0,-169"/>
     <component id="n3_q5jy" name="rollElement_4" src="q5jy5r" fileName="moudules/popupJackpotGame/ReelContent/JackpotSymbol.xml" xy="0,0" visible="false"/>
   </displayList>
+  <transition name="roll" autoPlay="true" autoPlayRepeat="0">
+    <item time="0" type="XY" target="n0_q5jy" tween="true" startValue="0,-507" endValue="0,169" duration="24" ease="Linear"/>
+    <item time="0" type="XY" target="n1_q5jy" tween="true" startValue="1,-338" endValue="1,169" duration="18" ease="Linear"/>
+    <item time="0" type="XY" target="n2_q5jy" tween="true" startValue="0,-169" endValue="0,169" duration="12" ease="Linear"/>
+    <item time="0" type="XY" target="n3_q5jy" tween="true" startValue="0,0" endValue="0,169" duration="6" ease="Linear"/>
+    <item time="12" type="XY" target="n2_q5jy" value="0,169"/>
+    <item time="18" type="XY" target="n1_q5jy" value="1,169"/>
+    <item time="24" type="XY" target="n0_q5jy" value="0,169"/>
+  </transition>
 </component>

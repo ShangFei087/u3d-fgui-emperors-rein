@@ -111,6 +111,9 @@ namespace CaiFuZhiJia_3997
 
         /// <summary> 额外添加免费游戏 </summary>
         public bool isFreeSpinAdd;
+        
+        /// <summary> 断电前免费得分 </summary>
+        [FormerlySerializedAs("CurrentWinBet")] public long currentWinBet;
 
         /// <summary> 当前局，免费增加局数 </summary>
         public int freeSpinAddNum;
@@ -229,6 +232,9 @@ namespace CaiFuZhiJia_3997
 
         /// <summary> 免费游戏总赢分  </summary>
         public long freeSpinTotalWinCoins; // freeSpinTotalWinCredit;
+
+        /// <summary> 是否发生断电重连  </summary>
+        public bool isPowerTrigger;
 
         /// <summary> 是否长滚动 </summary>
         public bool isReelsSlowMotion;

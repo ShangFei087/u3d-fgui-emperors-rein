@@ -86,8 +86,8 @@ namespace CaiFuZhiJia_3997
                 GameNumberFreeSpinTrigger = cm.gameNumberFreeSpinTrigger,
                 StrDeckRowCol = cm.strDeckRowCol,
                 SavedUtcMs = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+                FreeGameScoreMultiply = cm.freeGameScoreMultiply,
             };
-
             string json = JsonConvert.SerializeObject(snap);
             SQLitePlayerPrefs03.Instance.SetString(key, json);
         }
