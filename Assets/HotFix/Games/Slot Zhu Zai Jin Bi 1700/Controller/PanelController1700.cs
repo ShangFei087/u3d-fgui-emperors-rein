@@ -11,8 +11,6 @@ public class PanelController1700 : SlotMaker.PanelBaseController
     {
         base.Init(res);
     }
-
-
     protected override void InitParam()
     {
         base.InitParam();
@@ -29,6 +27,5 @@ public class PanelController1700 : SlotMaker.PanelBaseController
             ClearSingleLineText();
         }
     }
-
   
 }

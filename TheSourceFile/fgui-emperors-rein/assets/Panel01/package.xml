@@ -120,6 +120,11 @@
     <component id="jzlmxkj" name="bar.xml" path="/components/"/>
     <image id="jzlmxkk" name="gme_loading_mask.png" path="/images/new/" exported="true" scale="9grid" scale9grid="19,8,13,16"/>
     <component id="gxg0xkl" name="Paytable01.xml" path="/moudules/payTable/Paytable/" exported="true"/>
+    <component id="eiu2xkm" name="ExhibitionPanel.xml" path="/moudules/" exported="true"/>
+    <component id="eiu2xkn" name="ButtonColUp.xml" path="/components/button/" exported="true"/>
+    <component id="eiu2xko" name="ButtonColDown.xml" path="/components/button/" exported="true"/>
+    <component id="eiu2xkq" name="ReelBtn.xml" path="/moudules/Exhibition/" exported="true"/>
+    <component id="eiu2xkr" name="ButtonExhibition.xml" path="/components/button/"/>
   </resources>
-  <publish name="" path="../../Assets/GameRes/Games/Panel01/FGUIs" packageCount="2"/>
+  <publish name="" path="../../Assets/GameRes/Panel/Panel01/FGUIs" packageCount="2"/>
 </packageDescription>

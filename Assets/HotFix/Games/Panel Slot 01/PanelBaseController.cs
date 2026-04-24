@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using PusherEmperorsRein;
 using SBoxApi;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TestHall;
 using UnityEngine;
@@ -42,6 +43,11 @@ namespace SlotMaker
 
         //声音滑动条
         protected GSlider silderSound;
+
+        //展会模式
+        protected GComponent ExhibitionPanel;
+        protected List<GButton> btnColUps, btnColDowns;
+        protected GButton btnExhibition;
 
         // 当前是否处于设置弹窗状态
         protected bool isSet;
@@ -322,6 +328,16 @@ namespace SlotMaker
                 Help();
                 BackHall();
             });
+
+            //展会模式
+            ExhibitionPanel = gOwnerPanel.GetChild("ExhibitionPanel").asCom;
+            for (int i = 0; i < ExhibitionPanel.numChildren-1; ++i)
+            {
+                btnColUps.Add(ExhibitionPanel.GetChildAt(i).asCom.GetChildAt(0).asButton);
+                btnColUps.Add(ExhibitionPanel.GetChildAt(i).asCom.GetChildAt(1).asButton);
+            }
+            btnExhibition = ExhibitionPanel.GetChild("btnExhibition").asButton;
+
             OnPropertyChangeBetList();
             OnPropertyChangeTotalBet();
             OnPropertyChangeBtnSpinState();
