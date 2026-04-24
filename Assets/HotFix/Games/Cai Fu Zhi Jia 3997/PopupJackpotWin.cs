@@ -31,8 +31,7 @@ namespace CaiFuZhiJia_3997
             _collectBtn = contentPane.GetChild("winCollectBtn").asButton;
             _winBetText = contentPane.GetChild("jackpotWinBet").asTextField;
 
-            _collectBtn.visible = false;
-            _winBetText.visible = false;
+            
 
             _totalCount = 1;
             LoadAsyncRes();
@@ -99,6 +98,8 @@ namespace CaiFuZhiJia_3997
 
         private void ShowWinBet()
         {
+            _collectBtn.visible = false;
+            _winBetText.visible = false;
             Timers.inst.Add(2f, 1, (obj) =>
             {
                 _winBetText.visible = true;

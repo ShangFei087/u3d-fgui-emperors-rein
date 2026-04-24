@@ -128,6 +128,7 @@ namespace CaiFuZhiJia_3997
             string jPTypeArray = res["JPTypeArray"].ToString();
             int matrixLength = (int)res["MatrixLength"];
             int bonusBet = (int)res["BonusBet"];
+            int totalJackpotBet = (int)res["TotalJackpotBet"];
             string matrixArray = res["Matrix"].ToString();
             string bonusData = res["BonusData"].ToString();
             int rows = CustomModel.Instance.row; // 3行
@@ -389,8 +390,9 @@ namespace CaiFuZhiJia_3997
                     ContentModel.Instance.jpTypeArray = jPTypeArray.Trim('[', ']').Split(',').ToList();
                     for (int i = 0; i < ContentModel.Instance.jpTypeArray.Count; i++)
                     {
-                        ContentModel.Instance.JpBetDic.Add(ContentModel.Instance.jpTypeArray[i],
-                            ContentModel.Instance.jpBetArray[i]);
+                        if (ContentModel.Instance.jpTypeArray[i] != "0")
+                            ContentModel.Instance.JpBetDic.Add(ContentModel.Instance.jpTypeArray[i],
+                                ContentModel.Instance.jpBetArray[i]);
                     }
                 }
                 // else
@@ -401,7 +403,7 @@ namespace CaiFuZhiJia_3997
             //赢分
             long creditAfter = 0, creditBefore = MainBlackboardController.Instance.myRealCredit;
             if (ContentModel.Instance.IsBonusTrigger)
-                creditAfter = creditBefore + bonusBet - totalBet;
+                creditAfter = creditBefore + bonusBet - totalBet + totalJackpotBet;
             else if (ContentModel.Instance.isFreeSpinTrigger)
             {
                 // 免费游戏只有第一次需要扣积分

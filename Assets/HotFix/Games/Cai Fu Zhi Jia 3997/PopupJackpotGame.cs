@@ -264,7 +264,7 @@ namespace CaiFuZhiJia_3997
                     }
                     else
                     {
-                        currentObj = jackpotSpineCloneObj.transform.GetChild(1).GetChild(3).gameObject;
+                        currentObj = jackpotSpineCloneObj.transform.GetChild(1).GetChild(0).gameObject;
                     }
 
                     currentObj.SetActive(true);
