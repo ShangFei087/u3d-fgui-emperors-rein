@@ -30,6 +30,7 @@ namespace SlotMaker
         // 面板根节点与常用子面板引用
         protected GComponent gOwnerPanel, gIntroducePanel, setPanel, btnSound, btnHelp, Introduce;
         private GComponent _cachedAnchorPanel;
+ 
         // Spin 按钮控制器
         protected SpinButtonBaseController spinBtnCtrl = new SpinButtonBaseController();
 
@@ -70,9 +71,12 @@ namespace SlotMaker
         protected virtual int IntroduceIndexMax => 6;
         protected virtual string PanelPackageName => "Panel01";
         protected virtual string PanelPackagePath => "Assets/GameRes/Panel/Panel01/FGUIs";
-        protected virtual string PanelUrl => "ui://Panel01/Panel";
+        protected virtual string PanelComponentName => "Panel";
         protected virtual string SpinPrefabPath => "Assets/GameRes/Panel/Panel01/Prefabs/Slot_btn_Spin.prefab";
-
+        // 记录当前已加载的面板包路径，切换不同游戏路径时用于强制重载
+        private string _loadedPanelPackagePath;
+        // 记录当前已加载的面板包名，切换时用于精准卸载
+        private string _loadedPanelPackageName;
         /// <summary>
         /// 面板启用：注册事件并初始化 UI。
         /// </summary>
@@ -141,17 +145,43 @@ namespace SlotMaker
             };
 
 
-            if (_goAnchorPanel != null && _cachedAnchorPanel != _goAnchorPanel)
+           
+            if (_goAnchorPanel != null )
             {
-                _cachedAnchorPanel = _goAnchorPanel;
-                if (UIPackage.GetByName(PanelPackageName) == null)
+                // 是否已有历史记录的面板包路径
+                bool hasTrackedPackagePath = !string.IsNullOrEmpty(_loadedPanelPackagePath);
+                // 当前游戏面板路径与历史路径不一致，说明发生了跨游戏切换
+                bool isPackagePathChanged = hasTrackedPackagePath &&!string.Equals(_loadedPanelPackagePath, PanelPackagePath, StringComparison.Ordinal);
+                if (isPackagePathChanged)
                 {
-                    // 首次进入时先加载 FairyGUI 包
+                    // 跨游戏切换时先移除当前已绑定包，避免误复用到其他游戏 Panel
+                    if (!string.IsNullOrEmpty(_loadedPanelPackageName))
+                    {
+                        UIPackage.RemovePackage(_loadedPanelPackageName);
+                    }
+                }
+
+                // 当前记录的包名是否仍然有效（防止包被外部移除）
+                bool hasCurrentPackage = !string.IsNullOrEmpty(_loadedPanelPackageName) &&UIPackage.GetByName(_loadedPanelPackageName) != null;
+                // 首次进入、路径变化、或包失效时，统一重新加载当前游戏的 FairyGUI 包
+                if (isPackagePathChanged || !hasCurrentPackage)
+                {
                     ResourceManager02.Instance.LoadAssetBundleAsync(PanelPackagePath, (ab) =>
                     {
-                        UIPackage.AddPackage(ab);
+                        UIPackage loadedPackage = UIPackage.AddPackage(ab);
+                        if (loadedPackage == null)
+                        {
+                            // 加载失败也必须回调，避免初始化计数卡住
+                            loadComplete();
+                            return;
+                        }
+
+                        // 记录当前生效的包名与路径，供下次切换时判断
+                        _loadedPanelPackageName = loadedPackage.name;
+                        _loadedPanelPackagePath = PanelPackagePath;
                         GLoader anchorPanel = _goAnchorPanel.GetChild("icon").asLoader;
-                        anchorPanel.url = PanelUrl;
+                        // 使用“实际包名 + 组件名”拼 URL，确保显示当前游戏对应的 Panel
+                        anchorPanel.url = $"ui://{_loadedPanelPackageName}/{PanelComponentName}";
                         gOwnerPanel = _goAnchorPanel.GetChild("icon").asLoader.component;
                         gOwnerPanel.visible = true;
                         loadComplete();
@@ -159,18 +189,15 @@ namespace SlotMaker
                 }
                 else
                 {
-                    // 已加载过包时直接复用
+                    // 包有效且路径一致时直接复用，避免重复加载
+                    _loadedPanelPackagePath = PanelPackagePath;
                     GLoader anchorPanel = _goAnchorPanel.GetChild("icon").asLoader;
-                    anchorPanel.url = PanelUrl;
-
+                    anchorPanel.url = $"ui://{_loadedPanelPackageName}/{PanelComponentName}";
                     gOwnerPanel = _goAnchorPanel.GetChild("icon").asLoader.component;
                     loadComplete();
                 }
             }
-            else
-            {
-                loadComplete();
-            }
+            
 
             // 异步加载 Spin 按钮预制体
             ResourceManager02.Instance.LoadAsset<GameObject>(SpinPrefabPath,
