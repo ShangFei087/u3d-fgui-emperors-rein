@@ -1,0 +1,23 @@
+{
+	"OpenType": 0,
+
+	"ResultType": 4,
+
+	"TotalJackpotBet":750,
+
+	"BonusBet": 40,
+
+	"JPBetArray":[750],
+
+	"JPCount":1,
+
+	"BonusData":[0,0,4002,0,0,
+		1400,0,0,0,0,
+		0,0,0,0,0],
+
+	"MatrixLength": 15,
+
+	"Matrix": [6,1,6,3,11,
+		11,3,11,9,3,
+		11,11,11,4,1]
+}

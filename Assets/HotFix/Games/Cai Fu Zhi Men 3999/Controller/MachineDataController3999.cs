@@ -755,6 +755,8 @@ namespace CaiFuZhiMen_3999
             {
                 open_type = OpenType,
                 result_type = ResultType,
+                free_curtime= ContentModel.Instance.FreeSpinPlayTimes,
+                free_totaltime= ContentModel.Instance.FreeSpinTotalTimes,
                 game_id = 3999,
                 game_uid = ContentModel.Instance.curGameGuid,
                 created_at = ContentModel.Instance.curGameCreatTimeMS,

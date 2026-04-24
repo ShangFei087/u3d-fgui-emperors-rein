@@ -98,7 +98,7 @@ namespace CaiFuZhiJia_3997
         MiniReelGroup uiJPMajorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMiniCtrl = new MiniReelGroup();
-        
+
         // 说明书
         private List<GComponent> _lstPayTable;
         private readonly PayTableController3997 _payTableController = new PayTableController3997();
@@ -448,7 +448,7 @@ namespace CaiFuZhiJia_3997
             _multipleNumber = contentPane.GetChild("freeGameBg").asCom.GetChild("multipleNumber").asTextField;
             _freeSpinTimeController.InitParam(_freeSpinsNumber);
         }
-        
+
         private void ShowPayTable()
         {
             _lstPayTable = new List<GComponent>();
@@ -872,6 +872,7 @@ namespace CaiFuZhiJia_3997
                 (ed) =>
                 {
                     _pageController.selectedPage = "FreeGame";
+                    // ContentModel.Instance.isFreeSpinTrigger = false;
                     isNext = true;
                 });
             yield return new WaitUntil(() => isNext == true);
@@ -908,6 +909,7 @@ namespace CaiFuZhiJia_3997
                     MainBlackboardController.Instance.AddMyTempCredit(_allWinCredit, true, IsAddCreditAnim); //加钱动画
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
                     _allWinCredit = 0;
+                    ContentModel.Instance.FreeSpinTotalTimes = 0; // 免费游戏结束之后，把免费游戏局数重置
 
                     // 重新注册
                     ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
@@ -1152,7 +1154,6 @@ namespace CaiFuZhiJia_3997
             {
                 long totalWinLineCredit = _slotMachineCtrl.GetTotalWinCredit(winList); // 新增倍率
                 _allWinCredit += totalWinLineCredit;
-                Debug.LogError("_allWinCredit：" + _allWinCredit + "-------totalWinLineCredit：" + totalWinLineCredit);
                 _slotMachineCtrl.SendTotalWinCreditEvent(_allWinCredit); // 总线赢分事件
             }
 
@@ -1231,7 +1232,7 @@ namespace CaiFuZhiJia_3997
                 _pageController.selectedPage = "FreeGame";
                 _freeSpinsNumber.text = ContentModel.Instance.FreeSpinTotalTimes.ToString();
             }
-            
+
             _slotMachineCtrl.SendTotalWinCreditEvent(cm.freeSpinTotalWinCoins);
             DebugUtils.Log(
                 $"[G3997] 已恢复免费局快照：剩余 {cm.ShowFreeSpinRemainTime} / 总 {cm.FreeSpinTotalTimes}，待首局 Spin 与算法校验。");
@@ -1556,7 +1557,7 @@ namespace CaiFuZhiJia_3997
             if (successCallback != null)
                 successCallback.Invoke();
         }
-        
+
         //请求算法结果
         IEnumerator RequestSlotSpinFromMachine(Action successCallback = null, Action<string> errorCallback = null)
         {
@@ -1573,7 +1574,7 @@ namespace CaiFuZhiJia_3997
             {
                 resNode = JSONNode.Parse((string)res);
                 isNext = true;
-                Debug.Log("算法结果：" + (string)res);
+                Debug.Log("算法结果：" + (string)res + "     当前免费倍率：" + ContentModel.Instance.freeGameScoreMultiply);
             });
 
             yield return new WaitUntil(() => isNext == true);
@@ -1651,13 +1652,15 @@ namespace CaiFuZhiJia_3997
         {
             yield return GameFreeSpin(null, errorCallback);
 
+            ContentModel.Instance.freeGameScoreMultiply = 2;
+            _multipleNumber.text = "x2";
+
             long freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCoins;
             if (freeSpinTotalWinCredit > 0)
             {
                 MainBlackboardController.Instance.AddMyTempCredit(freeSpinTotalWinCredit, true, IsAddCreditAnim);
             }
 
-            //ChangeBGPanel(0);
             _pageController.selectedPage = "NormalGame";
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
 
