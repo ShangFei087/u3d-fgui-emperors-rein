@@ -1733,8 +1733,17 @@ namespace CaiFuZhiJia_3997
             ContentModel.Instance.freeGameScoreMultiply = 2;
             ContentModel.Instance.isFreeSpinTrigger = false;
             ContentModel.Instance.freeSpinTotalWinCoins = 0;
+            ContentModel.Instance.FreeSpinTotalTimes = 0;
+            ContentModel.Instance.FreeSpinPlayTimes = 0;
+            ContentModel.Instance.ShowFreeSpinRemainTime = 0;
+            ContentModel.Instance.curReelStripsIndex = "BS";
+            ContentModel.Instance.nextReelStripsIndex = "BS";
+            ContentModel.Instance.isFreeSpinResult = false;
+            ContentModel.Instance.isFreeSpinAdd = false;
+            ContentModel.Instance.freeSpinAddNum = 0;
+            ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
-
+            FreeSpinSessionStoreG3997.Clear(SBoxModel.Instance.pid);
             if (successCallback != null)
                 successCallback.Invoke();
         }

@@ -131,7 +131,6 @@ namespace TreasuryHall
             //    animator3999 = ClonegoCard3999.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
             //    anchorCard3999 = LocalCard3999;
             //    GameCommon.FguiUtils.AddWrapper(anchorCard3999, ClonegoCard3999);
-
             //}
 
             GComponent LocalCard3998 = this.contentPane.GetChild("card3998").asCom;
