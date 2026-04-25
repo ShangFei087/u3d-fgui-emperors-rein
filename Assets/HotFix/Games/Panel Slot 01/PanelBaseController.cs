@@ -895,24 +895,29 @@ namespace SlotMaker
             {
                 return;
             }
-            if (!MainModel.Instance.isExhibitionModeMode)
+
+            for (int i = 0; i < btnColUps.Count; i++)
             {
-                for (int i = 0; i < btnColUps.Count; i++)
+                int colIndex = i;
+                btnColUps[i].onClick.Clear();
+                btnColUps[i].onClick.Add(() => OnClickButtonColUp(colIndex));
+                if (!MainModel.Instance.isExhibitionModeMode)
                 {
-                    int colIndex = i;
-                    btnColUps[i].onClick.Clear();
-                    btnColUps[i].onClick.Add(() => OnClickButtonColUp(colIndex));
                     btnColUps[i].visible = false;
                 }
-                for (int i = 0; i < btnColDowns.Count; i++)
+            }
+            for (int i = 0; i < btnColDowns.Count; i++)
+            {
+                int colIndex = i;
+                btnColDowns[i].onClick.Clear();
+                btnColDowns[i].onClick.Add(() => OnClickButtonColDown(colIndex));
+                if (!MainModel.Instance.isExhibitionModeMode)
                 {
-                    int colIndex = i;
-                    btnColDowns[i].onClick.Clear();
-                    btnColDowns[i].onClick.Add(() => OnClickButtonColDown(colIndex));
+
                     btnColDowns[i].visible = false;
                 }
             }
-           
+
         }
 
         //滚轴上移一格
