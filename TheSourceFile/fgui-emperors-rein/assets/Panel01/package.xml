@@ -67,9 +67,9 @@
     <image id="127mxje" name="icon_auto.png" path="/images/Button/"/>
     <image id="127mxjf" name="btn_bg.png" path="/images/Button/"/>
     <image id="127mxjg" name="btn_bet_up01.png" path="/images/Button/"/>
-    <image id="127mxjh" name="btn_bet_up.png" path="/images/Button/"/>
+    <image id="127mxjh" name="btn_bet_up.png" path="/images/Button/" qualityOption="source" atlas="1"/>
     <image id="127mxji" name="btn_bet_down01.png" path="/images/Button/"/>
-    <image id="127mxjj" name="btn_bet_down.png" path="/images/Button/"/>
+    <image id="127mxjj" name="btn_bet_down.png" path="/images/Button/" qualityOption="source" atlas="1"/>
     <component id="127mxjk" name="ButtonL.xml" path="/components/Button/"/>
     <component id="127mxjl" name="ButtonIntroduce.xml" path="/components/Button/"/>
     <component id="127mxjm" name="ButtonBetUp.xml" path="/components/Button/"/>

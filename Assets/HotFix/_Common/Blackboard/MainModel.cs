@@ -67,7 +67,6 @@ public class MainModel : MonoSingleton<MainModel>
         }
     }
 
-
     public bool isSpin
     {
         get
@@ -77,6 +76,7 @@ public class MainModel : MonoSingleton<MainModel>
             return MainModel.Instance.contentMD.isSpin;
         }
     }
+
     public bool isAuto
     {
         get
@@ -86,6 +86,40 @@ public class MainModel : MonoSingleton<MainModel>
             return MainModel.Instance.contentMD.isAuto;
         }
     }
+
+    /// <summary>
+    /// 展会模式（可运行时开关；未写入过偏好时默认与 ApplicationSettings 一致，写入后持久化）。
+    /// </summary>
+    public const string PARAM_EXPO_MODE = "PARAM_EXPO_MODE";
+    bool _expoModeLoaded;
+    bool _ExhibitionMode;
+
+    void EnsureExpoModeLoaded()
+    {
+        if (_expoModeLoaded)
+            return;
+        _expoModeLoaded = true;
+        int def = ApplicationSettings.Instance.IsExpoMode() ? 1 : 0;
+        _ExhibitionMode = SQLitePlayerPrefs03.Instance.GetInt(PARAM_EXPO_MODE, def) != 0;
+    }
+
+    public bool isExhibitionModeMode
+    {
+        get
+        {
+            EnsureExpoModeLoaded();
+            return _ExhibitionMode;
+        }
+        set
+        {
+            EnsureExpoModeLoaded();
+            if (_ExhibitionMode == value)
+                return;
+            _ExhibitionMode = value;
+            SQLitePlayerPrefs03.Instance.SetInt(PARAM_EXPO_MODE, value ? 1 : 0);
+        }
+    }
+
 
     public bool isRequestToRealCreditWhenStop
     {
@@ -139,9 +173,6 @@ public class MainModel : MonoSingleton<MainModel>
             _panel = value;
         }
     }
-
-
-
 
     /// <summary>
     /// 数据上报编号

@@ -331,12 +331,23 @@ namespace SlotMaker
 
             //展会模式
             ExhibitionPanel = gOwnerPanel.GetChild("ExhibitionPanel").asCom;
+            btnColUps = btnColUps ?? new List<GButton>();
+            btnColDowns = btnColDowns ?? new List<GButton>();
+            btnColUps.Clear();
+            btnColDowns.Clear();
             for (int i = 0; i < ExhibitionPanel.numChildren-1; ++i)
             {
                 btnColUps.Add(ExhibitionPanel.GetChildAt(i).asCom.GetChildAt(0).asButton);
-                btnColUps.Add(ExhibitionPanel.GetChildAt(i).asCom.GetChildAt(1).asButton);
+                btnColDowns.Add(ExhibitionPanel.GetChildAt(i).asCom.GetChildAt(1).asButton);
             }
+            BindColumnButtons();
             btnExhibition = ExhibitionPanel.GetChild("btnExhibition").asButton;
+            btnExhibition.onClick.Clear();
+            btnExhibition.onClick.Add(OnClickExhibition);
+            if (!ApplicationSettings.Instance.IsExpoMode())
+            {
+                btnExhibition.visible = false;
+            }
 
             OnPropertyChangeBetList();
             OnPropertyChangeTotalBet();
@@ -658,7 +669,6 @@ namespace SlotMaker
             }
         }
 
-
         //  panel ctl  --> game ctl  --> model -->  panel ctl
         protected virtual void OnPropertyChangeTotalBet(EventData res = null)
         {
@@ -865,19 +875,65 @@ namespace SlotMaker
                 }
             }
         }
-        // Spin鎸夐挳
-        //public void OnLongClickSpinButton(string customDataOrState) => OnClickSpinButton(true);
-        //public void OnShortClickSpinButton(string customDataOrState) => OnClickSpinButton(false);
 
+        // 向面板输入事件总线派发 Spin 按钮点击（长按/短按）
         public void OnClickSpinButton(bool isLong)
         {
-            // 向面板输入事件总线派发 Spin 按钮点击（长按/短按）
-            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT,
-                new EventData<bool>(PanelEvent.SpinButtonClick, isLong));
+            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT,new EventData<bool>(PanelEvent.SpinButtonClick, isLong));
         }
 
-        #region 置灰
+        //展会模式按钮
+        private void BindColumnButtons()
+        {
+            if (btnColUps == null || btnColDowns == null)
+            {
+                return;
+            }
 
+            for (int i = 0; i < btnColUps.Count; i++)
+            {
+                int colIndex = i;
+                btnColUps[i].onClick.Clear();
+                btnColUps[i].onClick.Add(() => OnClickButtonColUp(colIndex));
+                btnColUps[i].visible = false;
+            }
+            for (int i = 0; i < btnColDowns.Count; i++)
+            {
+                int colIndex = i;
+                btnColDowns[i].onClick.Clear();
+                btnColDowns[i].onClick.Add(() => OnClickButtonColDown(colIndex));
+                btnColDowns[i].visible = false;
+            }
+        }
+
+        //滚轴上移一格
+        public void OnClickButtonColUp(int col)
+        {
+            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT,new EventData<int>(PanelEvent.ColUpButtonClick, col));
+        }
+
+        //滚轴下移一格
+        public void OnClickButtonColDown(int col)
+        {
+            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, new EventData<int>(PanelEvent.ColDownButtonClick, col));
+        }
+
+        public void OnClickExhibition()
+        {
+            for (int i = 0; i < btnColUps.Count; i++)
+            {
+                btnColUps[i].visible = MainModel.Instance.isExhibitionModeMode;
+            }
+
+            for (int i = 0; i < btnColDowns.Count; i++)
+            {
+                btnColDowns[i].visible = MainModel.Instance.isExhibitionModeMode;
+            }
+
+            MainModel.Instance.isExhibitionModeMode = !MainModel.Instance.isExhibitionModeMode;
+        }
+
+        //置灰
         public virtual void ChangButtonNo(bool can)
         {
             if (can)
@@ -917,8 +973,6 @@ namespace SlotMaker
                 }
             }
         }
-
-        #endregion
 
         protected virtual void OnClickButtonBetUp()
         {
