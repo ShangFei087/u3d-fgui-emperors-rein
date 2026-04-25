@@ -6,6 +6,6 @@
     <component id="n2_d58a" name="reel3" src="d58apc" fileName="moudules/Exhibition/ReelBtn.xml" xy="500,542"/>
     <component id="n3_d58a" name="reel4" src="d58apc" fileName="moudules/Exhibition/ReelBtn.xml" xy="670,542"/>
     <component id="n4_d58a" name="reel5" src="d58apc" fileName="moudules/Exhibition/ReelBtn.xml" xy="850,542"/>
-    <component id="n5_d58a" name="btnExhibition" src="d58apd" fileName="components/Button/ButtonExhibition.xml" xy="0,0"/>
+    <component id="n5_d58a" name="btnExhibition" src="d58apd" fileName="components/Button/ButtonExhibition.xml" xy="0,88"/>
   </displayList>
 </component>

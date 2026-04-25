@@ -486,13 +486,15 @@ namespace CaiFuZhiJia_3997
                         break;
                     case PanelEvent.ColUpButtonClick:
                         int col = (int)res.value;
-                        _monoHelper.StartCoroutine(_slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Up));
+                        _monoHelper.StartCoroutine(
+                            _slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Up));
                         break;
                     case PanelEvent.ColDownButtonClick:
-                            col = (int)res.value;
-                        _monoHelper.StartCoroutine(_slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Down));
+                        col = (int)res.value;
+                        _monoHelper.StartCoroutine(
+                            _slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Down));
                         break;
-               }
+                }
         }
 
         /// <summary>
@@ -1489,7 +1491,7 @@ namespace CaiFuZhiJia_3997
                     });
 
                 yield return new WaitUntil(() => isNext == true);
-
+                Debug.LogError("动画播放完成，触发");
                 isNext = false;
                 PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupJackpotGame,
                     new EventData<Dictionary<string, object>>("", new Dictionary<string, object> { }),
