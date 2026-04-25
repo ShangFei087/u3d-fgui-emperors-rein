@@ -53,7 +53,7 @@ namespace CaiFuZhiJia_3997
 
         public new IEnumerator ShowWinListAwayDuringIdle(List<SymbolWin> winList)
         {
-            while (winList.Count > 0 && !isNudgingOneStep) //while (idx < winList.Count)
+            while (winList.Count > 0) //while (idx < winList.Count)
             {
                 yield return ShowWinListBySetting(winList);
             }
