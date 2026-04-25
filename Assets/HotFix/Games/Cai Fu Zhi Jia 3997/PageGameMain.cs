@@ -484,7 +484,15 @@ namespace CaiFuZhiJia_3997
                     case PanelEvent.TotalSpinsButtonClick:
                         OnClickTotalSpinsButtonClick(res);
                         break;
-                }
+                    case PanelEvent.ColUpButtonClick:
+                        int col = (int)res.value;
+                        _monoHelper.StartCoroutine(_slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Up));
+                        break;
+                    case PanelEvent.ColDownButtonClick:
+                            col = (int)res.value;
+                        _monoHelper.StartCoroutine(_slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Down));
+                        break;
+               }
         }
 
         /// <summary>
@@ -529,49 +537,65 @@ namespace CaiFuZhiJia_3997
         {
             if (res.name != PanelEvent.SpinButtonClick) return;
 
-            bool isLongClick = (bool)res.value;
-            switch (ContentModel.Instance.btnSpinState)
+            if (res.name == "SpinButtonClick")
             {
-                case SpinButtonState.Stop:
-                    {
-                        if (ContentModel.Instance.isSpin) return; // 已经开始玩直接退出
-                        ContentModel.Instance.isSpin = true;
-                        Action successCallback = () =>
+                bool isLongClick = (bool)res.value;
+                switch (ContentModel.Instance.btnSpinState)
+                {
+                    case SpinButtonState.Stop:
                         {
-                            DebugUtils.Log("游戏结束");
-                            ContentModel.Instance.isSpin = false;
-                            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-                            ContentModel.Instance.gameState = GameState.Idle;
-                        };
+                            if (ContentModel.Instance.isSpin) return; // 已经开始玩直接退出
+                            ContentModel.Instance.isSpin = true;
+                            Action successCallback = () =>
+                            {
+                                DebugUtils.Log("游戏结束");
+                                ContentModel.Instance.isSpin = false;
+                                ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+                                ContentModel.Instance.gameState = GameState.Idle;
+                            };
 
-                        if (isLongClick)
-                        {
-                            ContentModel.Instance.isAuto = true;
-                            ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
-                            StartGameAuto(successCallback, StopGameWhenError); //自动玩
+                            if (isLongClick)
+                            {
+                                ContentModel.Instance.isAuto = true;
+                                ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
+                                StartGameAuto(successCallback, StopGameWhenError); //自动玩
+                            }
+                            else
+                            {
+                                ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
+                                StartGameTotalSpins(successCallback, StopGameWhenError); //开始玩
+                            }
                         }
-                        else
+                        break;
+
+                    case SpinButtonState.Spin:
                         {
+                            if (!ContentModel.Instance.isSpin) return; // 已经停止直接退出
+                            _slotMachineCtrl.isStopImmediately = true; // 去停止游戏  
+                        }
+                        break;
+                    case SpinButtonState.Auto:
+                        {
+                            //停止自动玩
+                            ContentModel.Instance.isSpin = true;
+                            ContentModel.Instance.isAuto = false;
                             ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
-                            StartGameTotalSpins(successCallback, StopGameWhenError); //开始玩
                         }
-                    }
-                    break;
+                        break;
+                }
+            }
 
-                case SpinButtonState.Spin:
-                    {
-                        if (!ContentModel.Instance.isSpin) return; // 已经停止直接退出
-                        _slotMachineCtrl.isStopImmediately = true; // 去停止游戏  
-                    }
-                    break;
-                case SpinButtonState.Auto:
-                    {
-                        //停止自动玩
-                        ContentModel.Instance.isSpin = true;
-                        ContentModel.Instance.isAuto = false;
-                        ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
-                    }
-                    break;
+            if (res.name == "ColUpButtonClick")
+            {
+                int col = (int)res.value;
+                _monoHelper.StartCoroutine(_slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Up));
+            }
+
+            if (res.name == "ColDownButtonClick")
+            {
+                int col = (int)res.value;
+                _monoHelper.StartCoroutine(
+                    _slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Down));
             }
         }
 
@@ -1310,7 +1334,7 @@ namespace CaiFuZhiJia_3997
             string errMsg = "";
 
             //展会模式
-            if (ApplicationSettings.Instance.IsExpoMode())
+            if (ApplicationSettings.Instance.IsExpoMode() && MainModel.Instance.isExhibitionModeMode)
             {
                 string currentDeck = GetCurrentVisibleDeckRowCol();
                 if (!string.IsNullOrEmpty(currentDeck))
