@@ -20,6 +20,12 @@ namespace SlotMaker
         EndStop,
     }
 
+    public enum ReelNudgeDirection
+    {
+        Down = 0,
+        Up = 1,
+    }
+
     public class ReelBase : MonoBehaviour
     {
         protected ICustomModel customModel;
@@ -78,6 +84,15 @@ namespace SlotMaker
         public virtual void ReelSetEndImmediately(UnityAction action = null)
         {
             DebugUtils.LogWarning("==@ BaseReel - ReelSetEndImmediately");
+        }
+
+        /// <summary>
+        /// 滚轮滚动一格（仅建议在空闲状态下调用）
+        /// </summary>
+        public virtual void NudgeOneStep(UnityAction action = null, bool isUseResult = false,
+            ReelNudgeDirection direction = ReelNudgeDirection.Down)
+        {
+            DebugUtils.LogWarning("==@ BaseReel - NudgeOneStep");
         }
 
 

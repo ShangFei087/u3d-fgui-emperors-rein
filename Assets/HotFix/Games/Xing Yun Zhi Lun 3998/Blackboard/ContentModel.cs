@@ -364,6 +364,9 @@ namespace XingYunZhiLun_3998
             set => m_UIMiniJP = value;
         }
 
+        /// <summary> 游戏画廊中奖彩金数据 </summary>
+        public bool isJackpotWin = false;
+
         /// <summary> 游戏画廊中奖数据 </summary>
         public bool isDrawWins = false;
 
@@ -537,6 +540,9 @@ namespace XingYunZhiLun_3998
 
         ///<summary> 彩金游戏获得的分数 </summary>
         public int jackpotWinCredit = 0;
+
+        ///<summary> 彩金游戏获得的彩金种类 </summary>
+        public int jackpotType = 0;
 
 
         /// <summary> 当前按钮状态 </summary>

@@ -273,6 +273,8 @@ namespace CaiFuHuoChe_3996
 
         public Dictionary<int, string> jackpotWin = new Dictionary<int, string>();    //第一个是中奖位置（row * 5 + col），第二个是中奖金额
 
+        public Dictionary<int, int> jackpotSocre = new Dictionary<int, int>();        //第一个类型是表示大奖类型，第二个类型表示这个类型对应的分数
+
 
         /// <summary> 彩金游戏总次数  </summary>
         public int jackpotSpinTotalTimes

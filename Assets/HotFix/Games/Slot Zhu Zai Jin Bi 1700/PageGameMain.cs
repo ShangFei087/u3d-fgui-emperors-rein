@@ -54,11 +54,11 @@ namespace SlotZhuZaiJinBi1700
         FguiGObjectPoolHelper gObjectPoolHelper;
         PayTableController payTableController = new PayTableController(); //说明书赔率配置控制
         //组件
-        GComponent gSlotCover, gPlayLines, gFrame; //滚轴组件
-        private GComponent gOwnerPanel;//菜单
-        private GComponent gNormalGameFrame, gFreeGameFrame; //外框
-        private GComponent gNormalInnerFrame, gFreeInnerFrame; //内框
-        private GComponent gNormalBg, gFreeBg; //背景
+        GComponent gSlotCover, gPlayLines, gFrame;              //滚轴组件
+        private GComponent gOwnerPanel;                         //菜单
+        private GComponent gNormalGameFrame, gFreeGameFrame;    //外框
+        private GComponent gNormalInnerFrame, gFreeInnerFrame;  //内框
+        private GComponent gNormalBg, gFreeBg;                  //背景
         //过度动画
         private GComponent anchorNormalFrame, anchorFreeFrame;
         private GameObject goNormalFrame, goFreeFrame;
@@ -78,7 +78,6 @@ namespace SlotZhuZaiJinBi1700
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMiniCtrl = new MiniReelGroup();
         long TotalBet => (long)MainModel.Instance.contentMD.totalBet;
-        int BetMultiple => MainModel.Instance.contentMD.betmultiple;
 
         protected override void OnInit()
         {
@@ -199,6 +198,7 @@ namespace SlotZhuZaiJinBi1700
             base.OnOpen(name, data);
             EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
+
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.AddEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
@@ -490,6 +490,31 @@ namespace SlotZhuZaiJinBi1700
             bool isNext = false;
             bool isBreak = false;
             string errMsg = "";
+
+            //展会模式
+            if (ApplicationSettings.Instance.IsExpoMode())
+            {
+                string currentDeck = GetCurrentVisibleDeckRowCol();
+                if (!string.IsNullOrEmpty(currentDeck))
+                {
+                    try
+                    {
+                        int[] deckData = SlotTool.GetDeckRowCol(currentDeck).ToArray();
+                        SBoxExhibitionData sBoxExhibitionData = new SBoxExhibitionData
+                        {
+                            wheelChessNum = deckData.Length,
+                            data = deckData
+                        };
+                        SBoxIdea.SetExhibitionData(sBoxExhibitionData);
+                    }
+                    catch (Exception e)
+                    {
+                        DebugUtils.LogError($"[G1700] 设置展会模式结果失败，deck={currentDeck}");
+                        DebugUtils.LogException(e);
+                    }
+                }
+            }
+          
 
             //模拟结果
             if (ApplicationSettings.Instance.isMock)
@@ -933,7 +958,6 @@ namespace SlotZhuZaiJinBi1700
         //请求算法结果
         IEnumerator RequestSlotSpinFromMachine(Action successCallback = null, Action<string> errorCallback = null)
         {
-           
             bool isBreak = false;
             bool isNext = false;
             bool isGetMyCredit = false;
@@ -1286,49 +1310,65 @@ namespace SlotZhuZaiJinBi1700
         //机器按钮开始滚动
         private void OnClickSpinButton(EventData res)
         {
-          
-            bool isLongClick = (bool)res.value;
-            switch (ContentModel.Instance.btnSpinState)
+
+            if (res.name == "SpinButtonClick")
             {
-                case SpinButtonState.Stop:
-                    if (ContentModel.Instance.isSpin) return; //已经开始玩直接退出？
-                    ContentModel.Instance.isSpin = true;
+                bool isLongClick = (bool)res.value;
+                switch (ContentModel.Instance.btnSpinState)
+                {
+                    case SpinButtonState.Stop:
+                        if (ContentModel.Instance.isSpin) return; //已经开始玩直接退出？
+                        ContentModel.Instance.isSpin = true;
 
-                    Action successCallback = () =>
-                    {
-                        ContentModel.Instance.isSpin = false;
-                        ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-                        ContentModel.Instance.gameState = GameState.Idle;
-                        DebugUtils.Log("游戏结束");
-                    };
+                        Action successCallback = () =>
+                        {
+                            ContentModel.Instance.isSpin = false;
+                            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+                            ContentModel.Instance.gameState = GameState.Idle;
+                            DebugUtils.Log("游戏结束");
+                        };
 
-                    if (isLongClick)
-                    {
-                        Debug.Log("机器按钮开始滚动 :Long");
-                        ContentModel.Instance.isAuto = true;
-                        ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
-                        StartGameAuto(successCallback, StopGameWhenError); //自动玩
-                    }
-                    else
-                    {
-                        Debug.Log("机器按钮开始滚动:Short");
+                        if (isLongClick)
+                        {
+                            Debug.Log("机器按钮开始滚动 :Long");
+                            ContentModel.Instance.isAuto = true;
+                            ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
+                            StartGameAuto(successCallback, StopGameWhenError); //自动玩
+                        }
+                        else
+                        {
+                            Debug.Log("机器按钮开始滚动:Short");
+                            ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
+                            StartGameOnce(successCallback, StopGameWhenError); //开始玩
+                        }
+                        break;
+                    case SpinButtonState.Spin:
+                        // 已经在游戏时，去停止游戏
+                        if (!ContentModel.Instance.isSpin) return; // 已经停止直接退出
+                        slotMachineCtrl.isStopImmediately = true; // 去停止游戏  
+                        break;
+                    case SpinButtonState.Auto:
+                        //停止自动玩
+                        //停止自动玩
+                        ContentModel.Instance.isSpin = true;
+                        ContentModel.Instance.isAuto = false;
                         ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
-                        StartGameOnce(successCallback, StopGameWhenError); //开始玩
-                    }
-                    break;
-                case SpinButtonState.Spin:
-                    // 已经在游戏时，去停止游戏
-                    if (!ContentModel.Instance.isSpin) return; // 已经停止直接退出
-                    slotMachineCtrl.isStopImmediately = true; // 去停止游戏  
-                    break;
-                case SpinButtonState.Auto:
-                    //停止自动玩
-                    //停止自动玩
-                    ContentModel.Instance.isSpin = true;
-                    ContentModel.Instance.isAuto = false;
-                    ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
-                    break;
+                        break;
+                }
             }
+
+            if (res.name == "ColUpButtonClick")
+            {
+                int col = (int)res.value;
+                mono.StartCoroutine(slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Up));
+            }
+
+            if (res.name == "ColDownButtonClick")
+            {
+                int col = (int)res.value;
+                mono.StartCoroutine(slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Down));
+            }
+
         }
 
         //开始游戏
@@ -1477,6 +1517,28 @@ namespace SlotZhuZaiJinBi1700
             gFreeTimeBox.visible = true;
             gFreeTimeBox.GetChild("numberGreen").asTextField.text= freeSpinPlayTimes.ToString();
             gFreeTimeBox.GetChild("numberYellow").asTextField.text = freeSpinTotalTimes.ToString();
+        }
+
+        //读取当前滚轴显示的图标
+        private string GetCurrentVisibleDeckRowCol()
+        {
+            if (slotMachineCtrl == null)
+            {
+                return string.Empty;
+            }
+            List<string> rows = new List<string>(slotMachineCtrl.row);
+            for (int row = 0; row < slotMachineCtrl.row; row++)
+            {
+                List<string> cols = new List<string>(slotMachineCtrl.column);
+                for (int col = 0; col < slotMachineCtrl.column; col++)
+                {
+                    SymbolBase symbol = slotMachineCtrl.GetVisibleSymbolFromDeck(col, row);
+                    int symbolNumber = symbol != null ? symbol.GetSymbolNumber() : 0;
+                    cols.Add(symbolNumber.ToString());
+                }
+                rows.Add(string.Join(",", cols));
+            }
+            return string.Join("#", rows);
         }
     }
 }

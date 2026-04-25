@@ -66,6 +66,11 @@ namespace SBoxApi
         public int jpType; //大奖类型
     }
 
+    public class SBoxExhibitionData
+    {
+        public int wheelChessNum;
+        public int[] data;
+    }
     // 调试统计信息
     public class SBoxDebugInfo
     {
@@ -673,6 +678,34 @@ namespace SBoxApi
             }
 
             EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_DEBUG_INFO, debugInfo);
+        }
+
+
+        /**
+        *  @brief    设置展会模式结果
+        *  @param
+        *  @return
+        *  @details
+        */
+        public static void SetExhibitionData(SBoxExhibitionData sBoxExhibitionData)
+        {
+            Debug.Log("SBoxIdea 20204");
+
+            SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20204, source: 1, target: 2, size: sBoxExhibitionData.wheelChessNum);
+
+            for (int i = 0; i < sBoxExhibitionData.wheelChessNum; ++i)
+            {
+                sBoxPacket.data[i] = sBoxExhibitionData.data[i];
+            }
+
+            SBoxIOEvent.AddListener(sBoxPacket.cmd, SetExhibitionDataR);
+            SBoxIOStream.Write(sBoxPacket);
+        }
+
+        private static void SetExhibitionDataR(SBoxPacket sBoxPacket)
+        {
+            Debug.Log("SetExhibitionDataR:=" + sBoxPacket.data[0]);
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_EXHIBITION_MODE, sBoxPacket.data[0]);
         }
     }
 }

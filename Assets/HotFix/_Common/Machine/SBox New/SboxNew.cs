@@ -34,10 +34,9 @@ namespace SBoxApi
 
         // 新增加
         public const string SBOX_DEBUG_CONTROL_MODE = "SBOX_DEBUG_CONTROL_MODE";  //算法卡调试模式
+        public const string SBOX_EXHIBITION_MODE = "SBOX_EXHIBITION_MODE";  //展会模式
         public const string SBOX_DEBUG_INFO = "SBOX_DEBUG_INFO";  //算法卡调试信息
         public const string SBOX_SWITCH_GAME = "SBOX_SWITCH_GAME";//切换游戏
         public const string SBOX_JACKPOT_ONLINE_GAME = "SBOX_JACKPOT_ONLINE_GAME";
-
-
     }
 }
