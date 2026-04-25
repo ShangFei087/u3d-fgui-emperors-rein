@@ -1153,7 +1153,16 @@ namespace CaiFuZhiJia_3997
             if (winList.Count > 0 || ContentModel.Instance.BonusResults != null)
             {
                 long totalWinLineCredit = _slotMachineCtrl.GetTotalWinCredit(winList); // 新增倍率
+                if (ContentModel.Instance.isPowerTrigger)
+                {
+                    _allWinCredit += ContentModel.Instance.freeSpinTotalWinCoins - totalWinLineCredit;// 测试
+                    ContentModel.Instance.isPowerTrigger = false;
+                }
+
                 _allWinCredit += totalWinLineCredit;
+                Debug.LogError("_allWinCredit:" + _allWinCredit + "          totalWinLineCredit: " +
+                               totalWinLineCredit + "        ContentModel.Instance.freeSpinTotalWinCoins: " +
+                               ContentModel.Instance.freeSpinTotalWinCoins);
                 _slotMachineCtrl.SendTotalWinCreditEvent(_allWinCredit); // 总线赢分事件
             }
 
@@ -1167,6 +1176,7 @@ namespace CaiFuZhiJia_3997
             }
 
             _multipleNumber.text = "x" + ContentModel.Instance.freeGameScoreMultiply;
+
 
             ContentModel.Instance.gameState = GameState.Idle;
             successCallback?.Invoke();
@@ -1203,6 +1213,8 @@ namespace CaiFuZhiJia_3997
             cm.isFreeSpinResult = false;
             cm.isFreeSpinAdd = false;
             cm.freeSpinAddNum = 0;
+            cm.freeGameScoreMultiply = snap.FreeGameScoreMultiply;
+            cm.currentWinBet = snap.CurrentWinBet;
 
             if (snap.BetIndex >= 0 && SBoxModel.Instance.betList != null
                                    && snap.BetIndex < SBoxModel.Instance.betList.Count)
@@ -1233,6 +1245,7 @@ namespace CaiFuZhiJia_3997
                 _freeSpinsNumber.text = ContentModel.Instance.FreeSpinTotalTimes.ToString();
             }
 
+
             _slotMachineCtrl.SendTotalWinCreditEvent(cm.freeSpinTotalWinCoins);
             DebugUtils.Log(
                 $"[G3997] 已恢复免费局快照：剩余 {cm.ShowFreeSpinRemainTime} / 总 {cm.FreeSpinTotalTimes}，待首局 Spin 与算法校验。");
@@ -1251,6 +1264,7 @@ namespace CaiFuZhiJia_3997
 
             if (ContentModel.Instance.FreeSpinTotalTimes > 0 && ContentModel.Instance.nextReelStripsIndex == "FS")
             {
+                Debug.LogError("进入断电重连");
                 yield return GameFreeSpinFromReconnect(successCallback, errorCallback);
                 yield break;
             }
@@ -1574,7 +1588,7 @@ namespace CaiFuZhiJia_3997
             {
                 resNode = JSONNode.Parse((string)res);
                 isNext = true;
-                Debug.Log("算法结果：" + (string)res + "     当前免费倍率：" + ContentModel.Instance.freeGameScoreMultiply);
+                Debug.Log("算法结果：" + (string)res + "     上一局免费倍率：" + ContentModel.Instance.freeGameScoreMultiply);
             });
 
             yield return new WaitUntil(() => isNext == true);
@@ -1650,10 +1664,11 @@ namespace CaiFuZhiJia_3997
         /// </summary>
         IEnumerator GameFreeSpinFromReconnect(Action successCallback, Action<string> errorCallback)
         {
-            yield return GameFreeSpin(null, errorCallback);
+            ContentModel.Instance.isPowerTrigger = true;
+            ContentModel.Instance.isFreeSpinTrigger = true;
+            _multipleNumber.text = "x" + ContentModel.Instance.freeGameScoreMultiply;
 
-            ContentModel.Instance.freeGameScoreMultiply = 2;
-            _multipleNumber.text = "x2";
+            yield return GameFreeSpin(null, errorCallback);
 
             long freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCoins;
             if (freeSpinTotalWinCredit > 0)
@@ -1661,7 +1676,12 @@ namespace CaiFuZhiJia_3997
                 MainBlackboardController.Instance.AddMyTempCredit(freeSpinTotalWinCredit, true, IsAddCreditAnim);
             }
 
+            _allWinCredit = 0;
             _pageController.selectedPage = "NormalGame";
+            _multipleNumber.text = "x2";
+            ContentModel.Instance.freeGameScoreMultiply = 2;
+            ContentModel.Instance.isFreeSpinTrigger = false;
+            ContentModel.Instance.freeSpinTotalWinCoins = 0;
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
 
             if (successCallback != null)

@@ -411,6 +411,10 @@ namespace CaiFuZhiJia_3997
                     creditAfter = creditBefore + totalLineWin - totalBet;
                 else
                     creditAfter = creditBefore + totalLineWin;
+
+                // 断电重连之后，加上之前得到的分数
+                if (ContentModel.Instance.isPowerTrigger)
+                    creditAfter = creditAfter + ContentModel.Instance.freeSpinTotalWinCoins - totalLineWin;
             }
             else if (!ContentModel.Instance.IsBonusTrigger && !ContentModel.Instance.isFreeSpinTrigger)
                 creditAfter = creditBefore - totalBet + totalLineWin;
@@ -522,11 +526,13 @@ namespace CaiFuZhiJia_3997
             int winlineNum = data[pos++];
             int totalBet = data[pos++];
             int matrixLength = data[pos++];
+
             result["OpenType"] = openType;
             result["ResultType"] = resultType;
             result["lineNum"] = winlineNum;
             result["TotalBet"] = totalBet;
             result["MatrixLength"] = matrixLength;
+
             result["IDVec"] = new JSONArray();
             for (int i = 0; i < winlineNum; i++)
             {
@@ -554,6 +560,12 @@ namespace CaiFuZhiJia_3997
 
                 result["TotalFreeTime"] = totalFreeTime;
                 result["TotalFreeBet"] = totalFreeBet;
+            }
+
+            if (resultType == (int)OpenType.OT_Give)
+            {
+                int wildMultiply = data[pos++];
+                result["WildMultiply"] = wildMultiply;
             }
 
             if (resultType == (int)ResultType.RT_BonusWin)

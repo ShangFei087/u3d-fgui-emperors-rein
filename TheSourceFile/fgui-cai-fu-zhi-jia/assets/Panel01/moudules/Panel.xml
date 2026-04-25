@@ -8,7 +8,7 @@
       <relation target="" sidePair="center-center"/>
     </text>
     <text id="n20_nbj9" name="win" xy="417,67" size="227,43" font="ui://oqimay09nbj9nz" fontSize="10" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="99700"/>
-    <text id="n21_nbj9" name="credit" xy="221,59" size="131,64" font="ui://oqimay09nbj9ny" fontSize="10" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="99700"/>
+    <text id="n21_nbj9" name="credit" xy="221,59" size="131,64" font="ui://oqimay09nbj9ny" fontSize="8" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="99700"/>
     <component id="n36_f6tv" name="btnBetUp" src="f6tv2i" fileName="components/Button/ButtonBetUp.xml" xy="866,39"/>
     <component id="n37_f6tv" name="btnBetDown" src="f6tv2h" fileName="components/Button/ButtonBetDown.xml" xy="691,39"/>
     <component id="n28_nbj9" name="btnSpin" src="nbj9o2" fileName="components/Button/ButtonSpin.xml" xy="909,18"/>
