@@ -1,11 +1,11 @@
 {
-  "updated_at": 1777115909910,
-  "hotfix_key": "hf_debug_android_20260303190331",
-  "hotfix_version": "1.10.114",
+  "updated_at": 1777113455299,
+  "hotfix_key": "hf_debug_android_20260425183430",
+  "hotfix_version": "1.2.1",
   "asset_bundle": {
     "manifest": {
-      "hash": "5ab204435b527c0ff2f00c6bd2ec51b0",
-      "size_bytes": 21227
+      "hash": "2d09520b355ef6a99a8bea371e082117",
+      "size_bytes": 21350
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
@@ -46,8 +46,8 @@
       "_common/game maker/sounds/ui_popup_open.unity3d": "c57a15a4a556dbaab1e2b971a6686a22",
       "_common/game maker/sounds/ui_spin_auto.unity3d": "7e03dedc290ca43c75c592bd36428b71",
       "_common/game maker/sounds/ui_spin_start.unity3d": "d27a6ce2f4311f2d8f45d4e786cd8ebc",
-      "games/bonusgame2/fguis.unity3d": "ffd8315ebfb1c0bc084a301e80181c4b",
-      "games/cai fu huo che 3996/fguis.unity3d": "7935e1d9bc3211a65ab4e2c2fbf661d4",
+      "games/bonusgame2/fguis.unity3d": "fe2acb7e24dd1612a0460adeaeac6676",
+      "games/cai fu huo che 3996/fguis.unity3d": "424409d39087b8ac0456043fdd36accc",
       "games/cai fu huo che 3996/prefabs/effects/freereeleffect.unity3d": "5a44a39589eb278b2a6eac1e663bbca2",
       "games/cai fu huo che 3996/prefabs/effects/jackpotreeleffect.unity3d": "cd58e4b6f778547b03c3362011f8ce8d",
       "games/cai fu huo che 3996/prefabs/effects/rewardeffect.unity3d": "fb8901e49e02f6eccff3ac9e3bd716a4",
@@ -138,7 +138,7 @@
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_miniidlecfzj.unity3d": "a6a349f6cd76d98d73dbe835d883eb5d",
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_minoridlecfzj.unity3d": "456e9e7e4574a6a4211aaa2bd45d35b8",
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_popdidlecfzj.unity3d": "c64bbde7ed8ee3becda63e58ca470544",
-      "games/cai fu zhi jia 3997/fguis.unity3d": "45e7182d8b05209503aa685a457581c3",
+      "games/cai fu zhi jia 3997/fguis.unity3d": "0a2a06fcb8202cd3d8c2e48ae8f98ae3",
       "games/cai fu zhi jia 3997/prefabs/game controller/slot game main controller.unity3d": "1725d3cbdbf18cb86fad934c56cacaff",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/bonusaccelerateborder.unity3d": "3d28cc85bf41f8735bafa12ca4650f60",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/freeaccelerateborder.unity3d": "fc60c2fcaa85570fbe706b232a70ba81",
@@ -217,7 +217,7 @@
       "games/cai fu zhi men 3999/artres/sounds/music/bonusbgm.unity3d": "d4fa1cc2f3920684513ddec22d1cea45",
       "games/cai fu zhi men 3999/artres/sounds/music/freebgm.unity3d": "be625e58387ccc97e68b55a663b195ee",
       "games/cai fu zhi men 3999/artres/sounds/music/normalbgm.unity3d": "3529d93e71ff89c2cdb06283c1475085",
-      "games/cai fu zhi men 3999/fguis.unity3d": "7fe5b55d18fca6f2b8238a3607002ae0",
+      "games/cai fu zhi men 3999/fguis.unity3d": "c972a53087f39c9f5d131c0455c2b89b",
       "games/cai fu zhi men 3999/prefabs/game controller/slot game main controller.unity3d": "f9f7e42f1243b6f71f4ea51938f2d3b2",
       "games/cai fu zhi men 3999/prefabs/pagegamemain/effectprefabs/bonusbordereffect.unity3d": "6cf466f166bc76c757346bfdd050fde2",
       "games/cai fu zhi men 3999/prefabs/pagegamemain/effectprefabs/freebordereffect.unity3d": "1d2f9dbf46ea75b426ae3fa8f55bd06e",
@@ -262,12 +262,12 @@
       "games/common/prefabs/gs/gssource.unity3d": "7d076b5c6bb0da738ba1294619c690c7",
       "games/console coin pusher 01/fguis.unity3d": "58fe80235a943e87f151132d00b91c6d",
       "games/console/abs/lang_cn.unity3d": "41999f63663f6ec4836ba176fb100830",
-      "games/console/abs/lang_en.unity3d": "da3efe40fe481948ccf6fd00920d6b77",
+      "games/console/abs/lang_en.unity3d": "82ab5883e5ebc82dc9c46daf7a9689f8",
       "games/console/abs/lang_tw.unity3d": "d301d74c9c4a970d77c03f799f725392",
       "games/console/fguis.unity3d": "484aecffe60f7570d01b37c732fdb5e5",
       "games/emperors rein 200/abs/datas/slot_machine_config_bouns1.unity3d": "b7bdf4772671474e955d5a7883d9e43d",
       "games/emperors rein 200/abs/datas/slot_machine_config_temp.unity3d": "6b732135677815a2defb0eba50dcc545",
-      "games/emperors rein 200/fguis.unity3d": "88c21b66c270949c4933e3b0b5457465",
+      "games/emperors rein 200/fguis.unity3d": "c118e88cd1d8eb50d3497e4d78d20ec9",
       "games/emperors rein 200/prefabs/effects/game jackpot/prefabs/effect.unity3d": "a690611746bcbaf472cc5ac9de60ca39",
       "games/emperors rein 200/prefabs/effects/smallgame/art/effects/prefabs/2.unity3d": "a74f88b39307b01cb5731b61f3cab686",
       "games/emperors rein 200/prefabs/effects/smallgame/art/effects/prefabs/anchordi.unity3d": "2d8ddd07b7b474c304ede3b0391c836e",
@@ -693,7 +693,7 @@
       "halls/testhall/fguis.unity3d": "1522015c4e1961e1e195e71c0dbb6b7d",
       "halls/testhall/sounds/music/hallmucis.unity3d": "bf490314ee023327a6a78678adedb7ba",
       "halls/treasuryhall/fguis.unity3d": "8d32e86149f30f136c8222281518a528",
-      "halls/treasuryhall/prefabs/card/card_3998.unity3d": "1719927bf063f816d2983c4a129a034f",
+      "halls/treasuryhall/prefabs/card/card_3998.unity3d": "0a49bedee00feb747df24beee54d86fb",
       "luban/generatedatas/bytes/i18n_console001.unity3d": "dfd9335496ccc22237de045fb33a0ad5",
       "luban/generatedatas/bytes/i18n_hotfix_info_notice.unity3d": "e12b9eed2eca63a794ebe36e8248c05c",
       "luban/generatedatas/bytes/i18n_old_hotfix_info_notice.unity3d": "9f17ccc4f672ff2b2dbfeb90ddd6e228",
@@ -709,12 +709,12 @@
   },
   "hotfix_dll": {
     "Base": {
-      "hash": "55030565010b9b2210e7b39e96f89ec0",
+      "hash": "fc439fbcf5ca1be7ec120fd419670b87",
       "size_bytes": 170496
     },
     "HotFix": {
-      "hash": "2452e923a4a93752826519a7af60b032",
-      "size_bytes": 1739264
+      "hash": "32b8034392b767b0db5577478a2bfd42",
+      "size_bytes": 1774592
     }
   },
   "hotfix_dll_load_order": [
