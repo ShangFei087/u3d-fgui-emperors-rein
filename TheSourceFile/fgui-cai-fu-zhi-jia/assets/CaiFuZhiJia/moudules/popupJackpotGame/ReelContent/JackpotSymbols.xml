@@ -5,7 +5,8 @@
     <component id="n1_q5jy" name="rollElement_2" src="q5jy5r" fileName="moudules/popupJackpotGame/ReelContent/JackpotSymbol.xml" xy="1,-338"/>
     <component id="n2_q5jy" name="rollElement_3" src="q5jy5r" fileName="moudules/popupJackpotGame/ReelContent/JackpotSymbol.xml" xy="0,-169"/>
     <component id="n3_q5jy" name="rollElement_4" src="q5jy5r" fileName="moudules/popupJackpotGame/ReelContent/JackpotSymbol.xml" xy="0,0" visible="false"/>
-    <component id="n4_d58a" name="result" src="q5jy5r" fileName="moudules/popupJackpotGame/ReelContent/JackpotSymbol.xml" xy="0,-169"/>
+    <graph id="n5_d58a" name="n5" xy="0,0" size="171,167" type="rect" fillColor="#66000000"/>
+    <component id="n4_d58a" name="rollElement_5" src="q5jy5r" fileName="moudules/popupJackpotGame/ReelContent/JackpotSymbol.xml" xy="0,-169"/>
   </displayList>
   <transition name="roll" autoPlayRepeat="3">
     <item time="0" type="XY" target="n0_q5jy" tween="true" startValue="0,-507" endValue="0,169" duration="24" ease="Linear"/>

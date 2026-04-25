@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace CaiFuZhiJia_3997
 {
@@ -11,21 +12,17 @@ namespace CaiFuZhiJia_3997
         private readonly int _wheelIndex; // 当前滚轴索引
 
         private readonly GComponent _wheelRootNode; // 滚轴的根节点 elementBox
-        // private WheelState _reelState = WheelState.None; // 当前滚轴的状态
-        // private Coroutine _rollCoroutine;
 
         private readonly Transition _rollTransition;
-        private Transition _backTransition;
-        public Transition ResetTransition;
+        private readonly Transition _backTransition;
+        public readonly Transition ResetTransition;
+        // private GComponent _backCom;
 
         /// <summary>滚轴上的所有图标信息List</summary>
         public readonly List<GComponent> RollElements = new List<GComponent>();
 
         /// <summary>滚轴上所有的文本组件</summary>
         public readonly List<GTextField> RewardTexts = new List<GTextField>();
-
-        // /// <summary>临时存储滚轴的位置</summary>
-        private readonly List<float> _elementStartPosList = new List<float>();
 
         public SingleReelController(GComponent wheelRootNode, int wheelIndex)
         {
@@ -41,70 +38,58 @@ namespace CaiFuZhiJia_3997
         {
             if (_wheelRootNode != null)
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     GComponent parentGCom = _wheelRootNode.GetChild("rollElement_" + (i + 1)).asCom;
                     GTextField rewardText = parentGCom.GetChild("rewardText").asTextField;
+                    if (i == 1)
+                        rewardText.text = Random.Range(100, 900).ToString();
                     GLoader elementLoader = parentGCom.GetChild("element").asLoader;
-                    elementLoader.url = CustomModel.Instance.JackpotBgPath[i];
+                    elementLoader.url = CustomModel.Instance.JackpotBgPath[Random.Range(0,1)];
                     RollElements.Add(parentGCom);
                     RewardTexts.Add(rewardText);
-                    _elementStartPosList.Add(parentGCom.y); // 记录初始位置
                 }
+
+                // _backCom = _wheelRootNode.GetChild("result").asCom;
             }
         }
 
-        public void StartRoll( /*MonoHelper monoHelper,*/ float speed)
+        public void StartRoll(float speed)
         {
-            // if (_reelState == WheelState.Roll) return;
-            // _reelState = WheelState.Roll;
-            // if (_rollCoroutine != null) monoHelper.StopCoroutine(_rollCoroutine);
-            // _rollCoroutine = monoHelper.StartCoroutine(RollCoroutine(speed));
-            // _rollTransition.repeatCount = 0;
-            _rollTransition.timeScale = speed;
-            // _rollTransition.timeScale = 0.5f;
-            // _rollTransition.Play();
-            PlayWithLoops();
+            // _rollTransition.timeScale = speed;
+            // PlayWithLoops();
+
+            // _backTransition.timeScale = speed;
+            _backTransition.Play();
         }
 
-
-        public void StopRoll(MonoHelper monoHelper, List<int> winedIndexList)
-        {
-            // if (_reelState != WheelState.Roll) return;
-            // _reelState = WheelState.Stop;
-            _rollTransition.Stop();
-            // ResetTransition.Play();
-
-            // ResetReelPos();
-            if (winedIndexList.Contains(_wheelIndex))
-            {
-                _backTransition.Play();
-            }
-            // if (_rollCoroutine != null) monoHelper.StopCoroutine(_rollCoroutine);
-            // if (!winedIndexList.Contains(_wheelIndex))
-            // {
-            //     // ResetReelPos();
-            //     _rollTransition.Stop();
-            //     _wheelRootNode.GetChild("rollElement_4").asCom.visible = false;
-            // }
-            // else
-            // {
-            //     _rollTransition.Stop();
-            //     _backTransition.Play();
-            //     // _rollCoroutine = monoHelper.StartCoroutine(BounceCoroutine());
-            // }
-        }
 
         public void StopRoll()
         {
             _rollTransition.Stop();
+            _rollTransition.timeScale = 1f;
+            // _rollTransition.Stop(true);
         }
 
         public void PlayBack(Action callback)
         {
-            _backTransition.Play(() => callback?.Invoke());
-        }
+            // Debug.LogError($"[{_wheelIndex}] back 播放前 isPlaying={_backTransition.playing}");
 
+            // GComponent result = _wheelRootNode.GetChild("result").asCom;
+            // if (result != null)
+            // {
+            //     result.visible = true;
+            //     result.alpha = 1;
+            // }
+
+            _backTransition.Play(() =>
+            {
+                // Debug.LogError($"[{_wheelIndex}] back 播放完成回调触发");
+                callback?.Invoke();
+            });
+
+            // Debug.LogError($"[{_wheelIndex}] back 播放后 isPlaying={_backTransition.playing}");
+        }
 
         void PlayWithLoops()
         {
@@ -123,42 +108,5 @@ namespace CaiFuZhiJia_3997
                 }
             });
         }
-
-        void ResetReelPos()
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                GComponent parentGCom = _wheelRootNode.GetChild("rollElement_" + (i + 1)).asCom;
-                parentGCom.y = _elementStartPosList[i];
-            }
-        }
-
-        // private IEnumerator RollCoroutine(float speed)
-        // {
-        //     while (_reelState == WheelState.Roll)
-        //     {
-        //         for (int i = 0; i < RollElements.Count; i++)
-        //         {
-        //             GComponent elementCom = RollElements[i];
-        //             float newY = elementCom.y + speed * Time.deltaTime;
-        //
-        //             if (newY > elementCom.height * 3)
-        //             {
-        //                 newY -= elementCom.height * 4f;
-        //             }
-        //
-        //             elementCom.y = newY;
-        //         }
-        //
-        //         yield return null;
-        //     }
-        // }
-    }
-
-    public enum WheelState
-    {
-        None,
-        Roll,
-        Stop,
     }
 }

@@ -1,11 +1,11 @@
 {
-  "updated_at": 1777109031664,
+  "updated_at": 1777115909910,
   "hotfix_key": "hf_debug_android_20260303190331",
-  "hotfix_version": "1.10.107",
+  "hotfix_version": "1.10.114",
   "asset_bundle": {
     "manifest": {
-      "hash": "78ff1041fb9cc4e0da05d9bd81b4281e",
-      "size_bytes": 21219
+      "hash": "5ab204435b527c0ff2f00c6bd2ec51b0",
+      "size_bytes": 21227
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
@@ -138,7 +138,7 @@
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_miniidlecfzj.unity3d": "a6a349f6cd76d98d73dbe835d883eb5d",
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_minoridlecfzj.unity3d": "456e9e7e4574a6a4211aaa2bd45d35b8",
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_popdidlecfzj.unity3d": "c64bbde7ed8ee3becda63e58ca470544",
-      "games/cai fu zhi jia 3997/fguis.unity3d": "e8e50f97c26e7e222dc2acdfb1efc733",
+      "games/cai fu zhi jia 3997/fguis.unity3d": "45e7182d8b05209503aa685a457581c3",
       "games/cai fu zhi jia 3997/prefabs/game controller/slot game main controller.unity3d": "1725d3cbdbf18cb86fad934c56cacaff",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/bonusaccelerateborder.unity3d": "3d28cc85bf41f8735bafa12ca4650f60",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/freeaccelerateborder.unity3d": "fc60c2fcaa85570fbe706b232a70ba81",
@@ -700,7 +700,7 @@
       "luban/generatedatas/bytes/i18n_po152.unity3d": "f7f958bfb0eb1e05b38e5026169cdf2a",
       "luban/generatedatas/bytes/lan_language.unity3d": "2c95d31638c19fb0f994a743793daf12",
       "panel/cai fu zhi jia 3997/fguis.unity3d": "5a380d167b1412c274cbc81385ea081c",
-      "panel/panel01/fguis.unity3d": "cca73a6dc01b6dcb356969e5b1075b5a",
+      "panel/panel01/fguis.unity3d": "ccf9edad6768733452c292f8f41ad3bf",
       "panel/panel01/prefabs/slot_btn_spin.unity3d": "d9fea5a891e73653bf8c2931f1ec4df2",
       "panel/panel02/fguis.unity3d": "745e3e08447ba94730eb76e69b5d83d3",
       "panel/panel3996/fguis.unity3d": "cbbaf4d24949da3c0881b71edbf547d9",

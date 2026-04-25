@@ -65,13 +65,13 @@ namespace CaiFuZhiJia_3997
         /// </summary>
         private readonly List<float> _moveSpeedList = new List<float>()
         {
-            0.72f,
+            0.52f,
+            0.55f,
+            0.63f,
+            0.74f,
             0.65f,
-            0.83f,
-            0.84f,
-            0.85f,
-            1f,
-            0.65f,
+            0.66f,
+            0.88f,
             0.77f,
             0.82f,
             0.75f,
@@ -533,33 +533,56 @@ namespace CaiFuZhiJia_3997
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
-                    _singleReelControllers[reelIndex].StartRoll(_moveSpeedList[i] /*_monoHelper, */);
+                    _singleReelControllers[reelIndex].StartRoll(_moveSpeedList[i]);
                 }
 
                 yield return new WaitForSeconds(4f);
-
-
+                
                 foreach (var reelIndex in _canSpinReelIndexList)
                 {
                     _singleReelControllers[reelIndex].StopRoll();
                 }
+
+                yield return null;
+                // for (int i = 0; i < _currentWinIndexList.Count; i++)
+                // {
+                //     int reelIndex = _currentWinIndexList[i];
+                //
+                //     // 连贯执行：停止 → 回弹 → 等待完成
+                //     yield return _monoHelper.StartCoroutine(StopAndBackSequence(reelIndex));
+                //
+                //     // 显示这个的中奖
+                //     ShowSingleWinningSpine(reelIndex);
+                //
+                //     yield return new WaitForSeconds(0.5f); // 间隔节奏
+                // }
                 
-                // 播放回弹动画 - 使用计数器确保全部完成后再显示 Spine
-                int completedCount = 0;
-                int totalWinCount = _currentWinIndexList.Count;
-        
+                // 再逐个播放回弹并等待
                 foreach (var reelIndex in _currentWinIndexList)
                 {
-                    _singleReelControllers[reelIndex].PlayBack(() => {
-                        completedCount++;
-                        if (completedCount >= totalWinCount)
-                        {
-                            // 所有回弹动画都完成后，统一显示 Spine
-                            ShowWinningSpine();
-                        }
-                    });
+                    bool isBackDone = false;
+                    _singleReelControllers[reelIndex].PlayBack(() => isBackDone = true);
+                    yield return new WaitUntil(() => isBackDone);
+                    yield return new WaitForSeconds(0.2f);  // 间隔节奏
                 }
-
+                
+                // // 播放回弹动画 - 使用计数器确保全部完成后再显示 Spine
+                // int completedCount = 0;
+                // int totalWinCount = _currentWinIndexList.Count;
+                //
+                // foreach (var reelIndex in _currentWinIndexList)
+                // {
+                //     _singleReelControllers[reelIndex].StopRoll();
+                //     _singleReelControllers[reelIndex].PlayBack(() => {
+                //         completedCount++;
+                //         if (completedCount >= totalWinCount)
+                //         {
+                //             // 所有回弹动画都完成后，统一显示 Spine
+                //             ShowWinningSpine();
+                //         }
+                //     });
+                // }
+                ShowWinningSpine();
 
                 // foreach (var reelIndex in _currentWinIndexList)
                 // {
@@ -588,6 +611,46 @@ namespace CaiFuZhiJia_3997
             yield return new WaitForSeconds(2);
         }
 
+        // /// <summary>
+        // /// 只显示指定索引的Spine中奖动画（从ShowWinningSpine拆分出来）
+        // /// </summary>
+        // void ShowSingleWinningSpine(int index)
+        // {
+        //     if (!_cloneJackpotSpineList[index].activeSelf)
+        //     {
+        //         if (int.Parse(ContentModel.Instance.currentBonusDataList[index]) < 4000)
+        //             _diamondTextList[index].text = _rollRewardList[index];
+        //     
+        //         _cloneJackpotSpineList[index].SetActive(true);
+        //         PlayAnimationByName(_cloneAnimators[index], "start");
+        //
+        //         // 1秒后切换到idle
+        //         int capturedIndex = index; // 闭包捕获
+        //         Timers.inst.Add(1, 1, (obj) => {
+        //             PlayAnimationByName(_cloneAnimators[capturedIndex], "idle");
+        //         });
+        //     }
+        // }
+        
+        // /// <summary>
+        // /// 停止并回弹一个滚轴，等待整个序列完成
+        // /// </summary>
+        // IEnumerator StopAndBackSequence(int reelIndex)
+        // {
+        //     var controller = _singleReelControllers[reelIndex];
+        //
+        //     // 先停止滚动
+        //     controller.StopRoll();
+        //
+        //     // 等一帧确保停止生效（可选）
+        //     yield return null;
+        //
+        //     // 再播放回弹，等待完成
+        //     bool isBackDone = false;
+        //     controller.PlayBack(() => isBackDone = true);
+        //     yield return new WaitUntil(() => isBackDone);
+        // }
+        
         // 调用方式
         IEnumerator PlayMultipleRounds()
         {
