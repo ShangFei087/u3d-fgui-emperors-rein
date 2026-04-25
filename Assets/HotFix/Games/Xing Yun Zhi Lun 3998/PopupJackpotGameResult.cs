@@ -189,17 +189,14 @@ namespace XingYunZhiLun_3998
         {
             switch (jackpotType)
             {
-                case 3:
+                case 1:
                     AddWrapperEffect(goFgCloneMini);
                     break;
                 case 2:
                     AddWrapperEffect(goFgCloneMinor);
                     break;
-                case 1:
+                case 3:
                     AddWrapperEffect(goFgCloneMajor);
-                    break;
-                case 0:
-                    AddWrapperEffect(goFgCloneGrand);
                     break;
             }
 

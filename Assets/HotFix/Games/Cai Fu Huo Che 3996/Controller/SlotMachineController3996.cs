@@ -387,16 +387,27 @@ namespace CaiFuHuoChe_3996
                             {
                                 if (reels[_reelIdx].symbolList[i].number >= 12 && ContentModel.Instance.itemPos[_reelIdx].Contains(i - 2))
                                 {
+                                    ContentModel.Instance.haveJackpotCredit = true;
+
                                     string symbolName = CustomModel.Instance.symbolAppearEffect[reels[_reelIdx].symbolList[i].number.ToString()];
 
                                     // 图标动画
                                     GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
                                     reels[_reelIdx].symbolList[i].AddSymbolEffect(goSymbolHit, true);
-                                    GTextField socre = reels[_reelIdx].symbolList[i].goOwnerSymbol.GetChild("socre").asTextField;
-                                    socre.text = ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx];
-                                    socre.visible = true;
 
-                                    ContentModel.Instance.haveJackpotCredit = true;
+                                    if(int.Parse(ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx]) / 1000 == 4)
+                                    {
+                                        GLoader jackpotIcon = reels[_reelIdx].symbolList[i].goOwnerSymbol.GetChild("jackpot").asLoader;
+                                        int jackpotIndex = int.Parse(ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx]) % 1000;
+                                        jackpotIcon.url = CustomModel.Instance.jackpotIcon[jackpotIndex];
+                                        jackpotIcon.visible = true;
+                                    }
+                                    else if (int.Parse(ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx]) / 1000 == 1)
+                                    {
+                                        GTextField socre = reels[_reelIdx].symbolList[i].goOwnerSymbol.GetChild("socre").asTextField;
+                                        socre.text = ((int.Parse(ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx]) % 1000) * MainModel.Instance.contentMD.betmultiple).ToString();
+                                        socre.visible = true;
+                                    }
 
                                     // 设置层级
                                     TempSortOrder(reels[_reelIdx].symbolList[i].goOwnerSymbol, goExpectation);
@@ -652,16 +663,29 @@ namespace CaiFuHuoChe_3996
                             {
                                 if (reels[_reelIdx].symbolList[i].number >= 12 && ContentModel.Instance.itemPos[_reelIdx].Contains(i - 2))
                                 {
+                                    ContentModel.Instance.haveJackpotCredit = true;
+
                                     string symbolName = CustomModel.Instance.symbolAppearEffect[reels[_reelIdx].symbolList[i].number.ToString()];
 
                                     // 图标动画
                                     GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
                                     reels[_reelIdx].symbolList[i].AddSymbolEffect(goSymbolHit, true);
-                                    GTextField socre = reels[_reelIdx].symbolList[i].goOwnerSymbol.GetChild("socre").asTextField;
-                                    socre.text = ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx];
-                                    socre.visible = true;
 
-                                    ContentModel.Instance.haveJackpotCredit = true;
+
+                                    if (int.Parse(ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx]) / 1000 == 4)
+                                    {
+                                        GLoader jackpotIcon = reels[_reelIdx].symbolList[i].goOwnerSymbol.GetChild("jackpot").asLoader;
+                                        int jackpotIndex = int.Parse(ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx]) % 1000;
+                                        jackpotIcon.url = CustomModel.Instance.jackpotIcon[jackpotIndex];
+                                        jackpotIcon.visible = true;
+                                    }
+                                    else if (int.Parse(ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx]) / 1000 == 1)
+                                    {
+                                        GTextField socre = reels[_reelIdx].symbolList[i].goOwnerSymbol.GetChild("socre").asTextField;
+                                        socre.text = ((int.Parse(ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx]) % 1000) * MainModel.Instance.contentMD.betmultiple).ToString();
+                                        socre.visible = true;
+                                    }
+
 
                                     // 设置层级
                                     TempSortOrder(reels[_reelIdx].symbolList[i].goOwnerSymbol, goExpectation);
@@ -738,6 +762,8 @@ namespace CaiFuHuoChe_3996
             {
                 for (int r = bufferTop; r < row + bufferTop; r++)
                 {
+                    string isJackpotWin = "BonusRewardEffect";
+
                     ReelBase reel = reels[c];
                     SymbolBase symbol = reel.symbolList[r];
                     if (symbolNumbers.Contains(symbol.number))
@@ -756,17 +782,40 @@ namespace CaiFuHuoChe_3996
                         // 设置层级
                         FguiSortingOrderManager.Instance.ChangeSortingOrder(symbol.goOwnerSymbol, goExpectation);
 
-                        ContentModel.Instance.jackpotSpinWinCredit = int.Parse(symbol.goOwnerSymbol.GetChild("socre").asTextField.text);
+                        if (symbol.goOwnerSymbol.GetChild("jackpot").visible)
+                        {
+                            isJackpotWin = "JackpotRewardEffect";
+                            int jackpotType = int.Parse(ContentModel.Instance.jackpotWin[c + (r - bufferTop) * 5]) % 1000;
+                            ContentModel.Instance.jackpotSpinWinCredit = ContentModel.Instance.jackpotSocre[jackpotType];
+                        }
+                        else if(symbol.goOwnerSymbol.GetChild("socre").visible)
+                        {
+                            ContentModel.Instance.jackpotSpinWinCredit = int.Parse(symbol.goOwnerSymbol.GetChild("socre").asTextField.text);
+                        }
+
                         EventCenter.Instance.EventTrigger<EventData>("JackpotWinCredit",
-                                new EventData<Dictionary<int, int>>("FreeRewardEffect", new Dictionary<int, int>
+                                new EventData<Dictionary<int, int>>(isJackpotWin, new Dictionary<int, int>
                                 {
                                     {c, r - bufferTop}
                                 }));
-                        symbol.goOwnerSymbol.GetChild("socre").asTextField.visible = false;
 
+                        if (symbol.goOwnerSymbol.GetChild("jackpot").visible)
+                        {
+                            symbol.goOwnerSymbol.GetChild("jackpot").asLoader.visible = false;
+                        }
+                        else if (symbol.goOwnerSymbol.GetChild("socre").visible)
+                        {
+                            symbol.goOwnerSymbol.GetChild("socre").asTextField.visible = false;
+                        }
+                        
                         yield return new WaitForSeconds(1.5f);
 
                         SkipWinLine(true);
+
+                        if(isJackpotWin == "JackpotRewardEffect")
+                        {
+                            Debug.LogError("----------------------这里应该等待彩金打印之后继续进行-----------------------------------");
+                        }
                     }
                         
                 }

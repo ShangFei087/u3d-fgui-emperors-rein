@@ -150,6 +150,34 @@ namespace XingYunZhiLun_3998
                 result["BonusType"] = bonusType;
             }
 
+            if(resultType == (int)ResultType.RT_Jackpot)
+            {
+                int jpCount = data[pos++];
+                result["JPCount"] = jpCount;
+                result["JPTypeArray"] = new JSONArray();
+                for(int i = 0; i < 3; i++)
+                {
+                    if (data[pos] == 0)
+                    {
+                        pos++;
+                        continue;
+                    }
+                    result["JPTypeArray"].Add(data[pos++]);
+                }
+
+                result["JPBetArray"] = new JSONArray();
+                for(int i = 0; i < 3; i++)
+                {
+                    if (data[pos] == 0)
+                    {
+                        pos++;
+                        continue;
+                    }
+                    result["JPBetArray"].Add(data[pos++]);
+                }
+                result["TotalJackpotBet"] = data[pos++];
+            }
+
             return result;
         }
 
@@ -187,7 +215,7 @@ namespace XingYunZhiLun_3998
             string strDeckRowCol = "";
             int totalLineWin = 0;
             int lineWin = 0;
-            int drawWin = 0;
+            int bonusWin = 0;
             List<SymbolWin> winList = new List<SymbolWin>();
             JackpotRes jpGameRes = new JackpotRes();
 
@@ -197,6 +225,7 @@ namespace XingYunZhiLun_3998
             ContentModel.Instance.isMult = false;
             ContentModel.Instance.isLihe = false;
             ContentModel.Instance.isDrawWins = false;
+            ContentModel.Instance.isJackpotWin = false;
 
             //免费游戏记录新出现的wild
             if (openType == 1)
@@ -494,18 +523,27 @@ namespace XingYunZhiLun_3998
                 {
                     ContentModel.Instance.isMult = true;
                     ContentModel.Instance.multiple = (int)res["BonusMultiply"];
+                    bonusWin = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
                 }
                 else if (resultType == 3 && (int)res["BonusType"] == 3)
                 {
                     ContentModel.Instance.drawWinsCredits = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
-                    drawWin = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
+                    bonusWin = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
                     ContentModel.Instance.isDrawWins = true;
                 }
             }
 
+            //判断彩金
+            if(resultType == (int)ResultType.RT_Jackpot)
+            {
+                ContentModel.Instance.isJackpotWin = true;
+                ContentModel.Instance.jackpotWinCredit = res["TotalJackpotBet"];
+                ContentModel.Instance.jackpotType = res["JPTypeArray"][0];
+            }
+
             //赢分
             long creditBefore = MainBlackboardController.Instance.myRealCredit;
-            long creditAfter = creditBefore - totalBet + totalLineWin + drawWin;
+            long creditAfter = creditBefore - totalBet + totalLineWin + bonusWin;
             if (ContentModel.Instance.gameState == GameState.FreeSpin) creditAfter += totalBet;
 
             //List<List<int>> deckColRow = SlotTool.GetDeckColRow02(strDeckRowCol);

@@ -1005,14 +1005,9 @@ namespace XingYunZhiLun_3998
             #endregion
 
             #region 中游戏大奖
-
-            bool isHitJackpot = ContentModel.Instance.jpGameWinLst.Count > 0;
-            List<JackpotWinInfo> jpRes = ContentModel.Instance.jpGameWinLst;
-
-            //List<float> jpCredit = ContentModel.Instance.jpGameWhenCreditLst;
-            if (ContentModel.Instance.isDrawWins)
+            if (ContentModel.Instance.isDrawWins || ContentModel.Instance.isJackpotWin)
             {
-                if(winList.Count > 0)
+                if (winList.Count > 0)
                 {
                     yield return new WaitForSeconds(0.7f);
 
@@ -1027,11 +1022,11 @@ namespace XingYunZhiLun_3998
                 //slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolAppear, new List<int>() { 8 }, true, 8, true);
             }
 
-            if (ContentModel.Instance.isDrawWins)
+            if (ContentModel.Instance.isDrawWins || ContentModel.Instance.isJackpotWin)
             {
                 isNext = false;
                 isMain = false;
-                winCredit = ContentModel.Instance.drawWinsCredits;
+                winCredit = ContentModel.Instance.isDrawWins ? ContentModel.Instance.drawWinsCredits : ContentModel.Instance.jackpotWinCredit;
 
                 PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupZhuanPan,
                     new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
@@ -2459,21 +2454,21 @@ namespace XingYunZhiLun_3998
 
             isMain = false;
 
-            //PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameResult,
-            //    new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
-            //    {
-            //        ["jackpotType"] = JackpotType,
-            //        ["totalEarnCredit"] = winCredit,
-            //    }),
-            //    (res) =>
-            //    {
-            //        isNext = true;
+            PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameResult,
+                new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
+                {
+                    ["jackpotType"] = ContentModel.Instance.jackpotType,
+                    ["totalEarnCredit"] = winCredit,
+                }),
+                (res) =>
+                {
+                    isNext = true;
 
-            //        //积分同步和退币处理
-            //        slotMachineCtrl.SendTotalWinCreditEvent((long)winCredit);
-            //    });
-            //yield return new WaitUntil(() => isNext == true);
-            //isNext = false;
+                    //积分同步和退币处理
+                    slotMachineCtrl.SendTotalWinCreditEvent((long)winCredit);
+                });
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
 
             PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameExit,
                 new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
@@ -2926,18 +2921,23 @@ namespace XingYunZhiLun_3998
             GLoader exampleLoader = listSymbols.GetChild("example").asLoader;
             exampleLoader.url = CustomModel.Instance.ListSymbolsIcon[iconIndex];
 
-            GTextField sorceText = exampleLoader.component.GetChild("Socre").asTextField;
-            if (sorceText != null)
+            GObject sorceTextObj = exampleLoader.component.GetChild("Socre");
+            if (sorceTextObj != null)
             {
-                sorceText.text = UnityEngine.Random.Range(50000, 500000).ToString();
+                GTextField textField = sorceTextObj.asTextField;
+                textField.text = UnityEngine.Random.Range(500, 5000).ToString();
             }
 
             if (toSetEffect)
             {
-                sorceText.text = "114514";
-                if(ContentModel.Instance.drawWinsCredits >= 0)
+                if(sorceTextObj != null)
                 {
-                    sorceText.text = ContentModel.Instance.drawWinsCredits.ToString();
+                    GTextField textField = sorceTextObj.asTextField;
+                    textField.text = "114514";
+                    if (ContentModel.Instance.drawWinsCredits >= 0)
+                    {
+                        textField.text = ContentModel.Instance.drawWinsCredits.ToString();
+                    }
                 }
 
                 string symbolName = CustomModel.Instance.jackpotHitEffect["10"];
@@ -2992,7 +2992,7 @@ namespace XingYunZhiLun_3998
             }
 
             // 其他索引随机
-            return Random.Range(5, 10).ToString();
+            return Random.Range(0, 8).ToString();
         }
 
         // 放大效果
@@ -3091,26 +3091,8 @@ namespace XingYunZhiLun_3998
 
         private int GetJackpotId()
         {
-            int id = 0;
-            //switch (JackpotType)
-            //{
-            //    case "mini":
-            //        id = 0;
-            //        break;
-            //    case "minor":
-            //        id = 1;
-            //        break;
-            //    case "major":
-            //        id = 2; 
-            //        break;
-            //    case "grand":
-            //        id = 3;
-            //        break;
-
-            //}
-
-            id = UnityEngine.Random.Range(5, 10);
-            return id;
+            if (ContentModel.Instance.isJackpotWin) return UnityEngine.Random.Range(0, 3);
+            return UnityEngine.Random.Range(3, 8);
         }
 
         //播放指定动画

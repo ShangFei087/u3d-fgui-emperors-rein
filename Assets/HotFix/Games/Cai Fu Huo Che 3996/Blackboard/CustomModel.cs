@@ -28,15 +28,13 @@ namespace CaiFuHuoChe_3996
         }
 
         /// <summary> 说明页 </summary>
-        public string[] payTable => new string[7]
+        public string[] payTable => new string[5]
         {
-            "ui://EmperorsRein/Paytable021",
-            "ui://EmperorsRein/Paytable022",
-            "ui://EmperorsRein/Paytable023",
-            "ui://EmperorsRein/Paytable024",
-            "ui://EmperorsRein/Paytable025",
-            "ui://EmperorsRein/Paytable026",
-            "ui://EmperorsRein/Paytable027",
+            "ui://CaiFuHuoChe_3996/Paytable1",
+            "ui://CaiFuHuoChe_3996/Paytable2",
+            "ui://CaiFuHuoChe_3996/Paytable3",
+            "ui://CaiFuHuoChe_3996/Paytable4",
+            "ui://CaiFuHuoChe_3996/Paytable5",
         };
 
 
@@ -128,6 +126,15 @@ namespace CaiFuHuoChe_3996
                 {"10", "ui://CaiFuHuoChe_3996/symbol_11" },
                 {"11", "ui://CaiFuHuoChe_3996/symbol_12" },
                 {"12", "ui://CaiFuHuoChe_3996/symbol_12" },
+        };
+
+
+        /// <summary> 彩金游戏对应图标</summary>
+        public Dictionary<int, string> jackpotIcon = new Dictionary<int, string>
+        {
+            { 1, "ui://CaiFuHuoChe_3996/Major"},
+            { 2, "ui://CaiFuHuoChe_3996/Minor"},
+            { 3, "ui://CaiFuHuoChe_3996/Mini"},
         };
 
         #region 赔付线与赔付表

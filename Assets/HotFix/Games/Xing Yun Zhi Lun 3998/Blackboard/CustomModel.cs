@@ -188,8 +188,9 @@ namespace XingYunZhiLun_3998
             {"5", "ui://XingYunZhiLun_3998/ListSymbol5"},
             {"6", "ui://XingYunZhiLun_3998/ListSymbol6"},
             {"7", "ui://XingYunZhiLun_3998/ListSymbol7"},
-            {"8", "ui://XingYunZhiLun_3998/ListSymbol8"},
-            {"9", "ui://XingYunZhiLun_3998/ListSymbol9"},
+
+            //{"8", "ui://XingYunZhiLun_3998/ListSymbol8"},
+            //{"9", "ui://XingYunZhiLun_3998/ListSymbol9"},
         };
 
 
@@ -206,6 +207,13 @@ namespace XingYunZhiLun_3998
             {"10", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X10.prefab"},
             {"11", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X11.prefab"},
             {"15", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X15.prefab"}
+        };
+
+
+        /// <summary> 彩金游戏中不同序号对应的彩金图标 </summary>
+        public List<string> jackpotIcon = new List<string>
+        {
+
         };
 
         #region 赔付线与赔付表
