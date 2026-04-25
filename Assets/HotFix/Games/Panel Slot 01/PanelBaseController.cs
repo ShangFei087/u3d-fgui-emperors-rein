@@ -348,7 +348,7 @@ namespace SlotMaker
             {
                 btnExhibition.visible = false;
             }
-
+            isSet = false;
             OnPropertyChangeBetList();
             OnPropertyChangeTotalBet();
             OnPropertyChangeBtnSpinState();
@@ -479,6 +479,8 @@ namespace SlotMaker
                 gOwnerPanel.GetChild("mash").asGraph.visible = true;
                 spinBtnCtrl.goOwnerSpin.GetController("button").selectedPage = "hui";
                 spinBtnCtrl.goOwnerSpin.touchable = false;
+                //隐藏展会模式UI
+                SetExhibitionUIState(false);
             }
             else
             {
@@ -487,6 +489,8 @@ namespace SlotMaker
                 gOwnerPanel.GetChild("mash").asGraph.visible = false;
                 spinBtnCtrl.goOwnerSpin.GetController("button").selectedPage = "stop";
                 spinBtnCtrl.goOwnerSpin.touchable = true;
+                //显示展会模式UI
+                SetExhibitionUIState(true);
             }
         }
 
@@ -501,6 +505,7 @@ namespace SlotMaker
             btnPrev.GetChild("untouch").visible = true;
             btnNext.touchable = true;
             btnNext.GetChild("untouch").visible = false;
+
             //gIntroducePanel.GetChild("btnController").asCom.GetController("c1").selectedIndex = IntroduceIndex;
         }
 
@@ -606,6 +611,7 @@ namespace SlotMaker
             btnHelp.touchable = true;
             btnBetDown.touchable = true;
             btnBetUp.touchable = true;
+            SetExhibitionUIState(true);
         }
 
         /// <summary>
@@ -889,21 +895,24 @@ namespace SlotMaker
             {
                 return;
             }
-
-            for (int i = 0; i < btnColUps.Count; i++)
+            if (!MainModel.Instance.isExhibitionModeMode)
             {
-                int colIndex = i;
-                btnColUps[i].onClick.Clear();
-                btnColUps[i].onClick.Add(() => OnClickButtonColUp(colIndex));
-                btnColUps[i].visible = false;
+                for (int i = 0; i < btnColUps.Count; i++)
+                {
+                    int colIndex = i;
+                    btnColUps[i].onClick.Clear();
+                    btnColUps[i].onClick.Add(() => OnClickButtonColUp(colIndex));
+                    btnColUps[i].visible = false;
+                }
+                for (int i = 0; i < btnColDowns.Count; i++)
+                {
+                    int colIndex = i;
+                    btnColDowns[i].onClick.Clear();
+                    btnColDowns[i].onClick.Add(() => OnClickButtonColDown(colIndex));
+                    btnColDowns[i].visible = false;
+                }
             }
-            for (int i = 0; i < btnColDowns.Count; i++)
-            {
-                int colIndex = i;
-                btnColDowns[i].onClick.Clear();
-                btnColDowns[i].onClick.Add(() => OnClickButtonColDown(colIndex));
-                btnColDowns[i].visible = false;
-            }
+           
         }
 
         //滚轴上移一格
@@ -917,9 +926,11 @@ namespace SlotMaker
         {
             EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, new EventData<int>(PanelEvent.ColDownButtonClick, col));
         }
-
+        //开启关闭展会模式
         public void OnClickExhibition()
         {
+            MainModel.Instance.isExhibitionModeMode = !MainModel.Instance.isExhibitionModeMode;
+
             for (int i = 0; i < btnColUps.Count; i++)
             {
                 btnColUps[i].visible = MainModel.Instance.isExhibitionModeMode;
@@ -929,17 +940,30 @@ namespace SlotMaker
             {
                 btnColDowns[i].visible = MainModel.Instance.isExhibitionModeMode;
             }
+        }
 
-            MainModel.Instance.isExhibitionModeMode = !MainModel.Instance.isExhibitionModeMode;
+        public void SetExhibitionUIState(bool state)
+        {
+            for (int i = 0; i < btnColUps.Count; i++)
+            {
+                btnColUps[i].visible = state;
+            }
+
+            for (int i = 0; i < btnColDowns.Count; i++)
+            {
+                btnColDowns[i].visible = state;
+            }
+            btnExhibition.visible = state;
         }
 
         //置灰
         public virtual void ChangButtonNo(bool can)
         {
+            Color normalColor = Color.white;
+            Color disableColor = new Color(0.5f, 0.5f, 0.5f, 1f);
+
             if (can)
             {
-                //gOwnerPanel.GetChild("ButtonPRIZE").asButton.GetChild("n1").visible = true;
-                //gOwnerPanel.GetChild("ButtonPRIZE").asButton.touchable = false;
                 btnHelp.GetChild("untouch").visible = true;
                 btnHelp.touchable = false;
                 btnBetUp.GetChild("untouch").visible = true;
@@ -947,12 +971,19 @@ namespace SlotMaker
                 btnBetDown.GetChild("untouch").visible = true;
                 btnBetDown.touchable = false;
 
-                // ChangeBetButtonInteractable(MainModel.Instance.contentMD.betIndex, SBoxModel.Instance.betList.Count);
+                for (int i = 0; i < btnColUps.Count; i++)
+                {
+                    btnColUps[i].touchable = false;
+                    btnColUps[i].GetChildAt(0).asImage.color = disableColor;
+                }
+                for (int i = 0; i < btnColDowns.Count; i++)
+                {
+                    btnColDowns[i].touchable = false;
+                    btnColDowns[i].GetChildAt(0).asImage.color = disableColor;
+                }
             }
             else
             {
-                //gOwnerPanel.GetChild("ButtonPRIZE").asButton.GetChild("n1").visible = false;
-                //gOwnerPanel.GetChild("ButtonPRIZE").asButton.touchable = true;
                 btnHelp.GetChild("untouch").visible = false;
                 btnHelp.touchable = true;
                 btnBetUp.GetChild("untouch").visible = false;
@@ -970,6 +1001,17 @@ namespace SlotMaker
                 {
                     btnBetUp.GetChild("untouch").visible = true;
                     btnBetUp.touchable = false;
+                }
+
+                for (int i = 0; i < btnColUps.Count; i++)
+                {
+                    btnColUps[i].touchable = true;
+                    btnColUps[i].GetChildAt(0).asImage.color = normalColor;
+                }
+                for (int i = 0; i < btnColDowns.Count; i++)
+                {
+                    btnColDowns[i].touchable = true;
+                    btnColDowns[i].GetChildAt(0).asImage.color = normalColor;
                 }
             }
         }

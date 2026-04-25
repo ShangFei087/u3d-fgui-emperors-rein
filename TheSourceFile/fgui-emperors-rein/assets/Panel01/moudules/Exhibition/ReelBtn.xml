@@ -2,6 +2,6 @@
 <component size="86,1000">
   <displayList>
     <component id="n3_eiu2" name="btnUp" src="eiu2xkn" fileName="components/button/ButtonColUp.xml" xy="12,-8" rotation="-90"/>
-    <component id="n2_eiu2" name="BtnDown" src="eiu2xko" fileName="components/button/ButtonColDown.xml" xy="10,916" rotation="-90"/>
+    <component id="n2_eiu2" name="btnDown" src="eiu2xko" fileName="components/button/ButtonColDown.xml" xy="10,916" rotation="-90"/>
   </displayList>
 </component>

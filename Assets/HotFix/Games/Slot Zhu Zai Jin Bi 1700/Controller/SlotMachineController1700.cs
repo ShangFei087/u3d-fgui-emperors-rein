@@ -11,8 +11,6 @@ using PusherEmperorsRein;
 
 namespace SlotZhuZaiJinBi1700
 {
-
-
     public partial class SlotMachineController1700 : SlotMachineBaseController
     {
         /// <summary> the anchor for "symbol hit" or "symbol appear"</summary>
@@ -39,10 +37,6 @@ namespace SlotZhuZaiJinBi1700
             //gPayLines.visible = false;
 
         }
-
-
-
-        #region 开奖动画
 
         public override IEnumerator ShowSymbolWinBySetting(SymbolWin symbolWin, bool isUseMySelfSymbolNumber, SpinWinEvent eventType)
         {
@@ -135,8 +129,6 @@ namespace SlotZhuZaiJinBi1700
             yield return SlotWaitForSeconds(_spinWEMD.Instance.timeS);
         }
 
-
- 
         public override void ShowSymbolWinDeck(SymbolWin symbolWin, bool isUseMySelfSymbolNumber)
         {
             //停止特效显示
@@ -205,9 +197,6 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
-
-
-
         public override void ShowSymbolEffect(TagPoolObject tp, List<SymbolBase> symbols, bool isAmin, int symbolNumber, bool isUseMySelfSymbolNumber)
         {
             foreach (Symbol01 symbol in symbols)
@@ -240,8 +229,5 @@ namespace SlotZhuZaiJinBi1700
                 }
             }
         }
-
-        #endregion
-
     }
 }

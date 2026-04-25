@@ -492,7 +492,7 @@ namespace SlotZhuZaiJinBi1700
             string errMsg = "";
 
             //展会模式
-            if (ApplicationSettings.Instance.IsExpoMode())
+            if (ApplicationSettings.Instance.IsExpoMode()&&MainModel.Instance.isExhibitionModeMode)
             {
                 string currentDeck = GetCurrentVisibleDeckRowCol();
                 if (!string.IsNullOrEmpty(currentDeck))
