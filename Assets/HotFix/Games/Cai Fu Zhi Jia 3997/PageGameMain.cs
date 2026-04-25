@@ -1155,7 +1155,7 @@ namespace CaiFuZhiJia_3997
                 long totalWinLineCredit = _slotMachineCtrl.GetTotalWinCredit(winList); // 新增倍率
                 if (ContentModel.Instance.isPowerTrigger)
                 {
-                    _allWinCredit += ContentModel.Instance.freeSpinTotalWinCoins - totalWinLineCredit;// 测试
+                    _allWinCredit += ContentModel.Instance.freeSpinTotalWinCoins - totalWinLineCredit; // 测试
                     ContentModel.Instance.isPowerTrigger = false;
                 }
 
@@ -1242,7 +1242,9 @@ namespace CaiFuZhiJia_3997
             {
                 // Todo：免费游戏触发逻辑
                 _pageController.selectedPage = "FreeGame";
-                _freeSpinsNumber.text = ContentModel.Instance.FreeSpinTotalTimes.ToString();
+                _multipleNumber.text = "x" + ContentModel.Instance.freeGameScoreMultiply;
+                _freeSpinsNumber.text =
+                    (ContentModel.Instance.FreeSpinTotalTimes - ContentModel.Instance.FreeSpinPlayTimes).ToString();
             }
 
 
@@ -1306,7 +1308,7 @@ namespace CaiFuZhiJia_3997
             bool isNext = false;
             bool isBreak = false;
             string errMsg = "";
-            
+
             //展会模式
             if (ApplicationSettings.Instance.IsExpoMode())
             {
@@ -1318,8 +1320,7 @@ namespace CaiFuZhiJia_3997
                         int[] deckData = SlotTool.GetDeckRowCol(currentDeck).ToArray();
                         SBoxExhibitionData sBoxExhibitionData = new SBoxExhibitionData
                         {
-                            wheelChessNum = deckData.Length,
-                            data = deckData
+                            wheelChessNum = deckData.Length, data = deckData
                         };
                         SBoxIdea.SetExhibitionData(sBoxExhibitionData);
                     }
@@ -1745,7 +1746,7 @@ namespace CaiFuZhiJia_3997
         }
 
         #endregion
-        
+
         //读取当前滚轴显示的图标
         private string GetCurrentVisibleDeckRowCol()
         {
@@ -1753,6 +1754,7 @@ namespace CaiFuZhiJia_3997
             {
                 return string.Empty;
             }
+
             List<string> rows = new List<string>(_slotMachineCtrl.row);
             for (int row = 0; row < _slotMachineCtrl.row; row++)
             {
@@ -1763,8 +1765,10 @@ namespace CaiFuZhiJia_3997
                     int symbolNumber = symbol != null ? symbol.GetSymbolNumber() : 0;
                     cols.Add(symbolNumber.ToString());
                 }
+
                 rows.Add(string.Join(",", cols));
             }
+
             return string.Join("#", rows);
         }
 
