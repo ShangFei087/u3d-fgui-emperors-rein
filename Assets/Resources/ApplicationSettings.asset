@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff66f75f9c0ad434daa9b0c4338e1541, type: 3}
   m_Name: ApplicationSettings
   m_EditorClassIdentifier: 
-  isMachine: 1
+  isMachine: 0
   isRelease: 0
-  isMock: 0
+  isMock: 1
   isExpoMode: 1
   isUseProtectApplication: 0
   platformName: StandAloneSlotTest
@@ -23,7 +23,7 @@ MonoBehaviour:
   appKey: StandAloneSlotTest_debug_machine_20260303185958
   appVersion: 1.10.0
   resourceServer: http://47.112.14.190/StandSlot
-  machineDebugUrl: 192.168.0.198
+  machineDebugUrl: 192.168.0.93
   reportUrl: http://192.168.3.152/api/game_log/send
   posterUrl: 
   logoUrl: ui://Native/eyeryparty
