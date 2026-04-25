@@ -63,23 +63,23 @@ namespace CaiFuZhiJia_3997
         /// <summary>
         /// 每个滚轴的旋转速度
         /// </summary>
-        private readonly List<int> _moveSpeedList = new List<int>()
+        private readonly List<float> _moveSpeedList = new List<float>()
         {
-            150,
-            180,
-            230,
-            200,
-            160,
-            330,
-            310,
-            400,
-            120,
-            190,
-            130,
-            150,
-            260,
-            300,
-            250
+            0.72f,
+            0.65f,
+            0.83f,
+            0.84f,
+            0.85f,
+            1f,
+            0.65f,
+            0.77f,
+            0.82f,
+            0.75f,
+            0.66f,
+            0.8f,
+            0.58f,
+            0.65f,
+            0.67f
         };
 
 
@@ -287,8 +287,6 @@ namespace CaiFuZhiJia_3997
             _monoHelper.StartCoroutine(PlayMultipleRounds());
         }
 
-        // Todo：随机给每个滚轮的两个图标设置奖励；当中奖的时候，从当前滚轴索引中随机出一个中奖的图标；设置指定图标来进行显示
-
         /// <summary>
         /// 本局是否中奖
         /// </summary>
@@ -349,6 +347,7 @@ namespace CaiFuZhiJia_3997
                 int selectedValue = _bonusIsNotZeroList[randomIndex];
 
                 _winSpineIndexList.Add(selectedValue);
+                // 修改
                 _canSpinReelIndexList.Remove(selectedValue);
                 // 移除已选中的，保证下次不重复
                 _bonusIsNotZeroList.RemoveAt(randomIndex);
@@ -510,7 +509,7 @@ namespace CaiFuZhiJia_3997
                     _singleReelControllers[reelIndex].StartRoll(_monoHelper, _moveSpeedList[i]);
                 }
 
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(4f);
 
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
@@ -530,16 +529,21 @@ namespace CaiFuZhiJia_3997
                     _singleReelControllers[reelIndex].StartRoll(_monoHelper, _moveSpeedList[i]);
                 }
 
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(4f);
 
-
+                GetCurrentWinningDiamondList();
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
                     _singleReelControllers[reelIndex].StopRoll(_monoHelper, _winSpineIndexList);
                 }
 
-                GetCurrentWinningDiamondList();
+                // for (int i = 0; i < _winSpineIndexList.Count; i++)
+                // {
+                //     if(_canSpinReelIndexList.Contains(i))
+                //         _canSpinReelIndexList.Remove(i);
+                // }
+                // GetCurrentWinningDiamondList();
                 ShowWinningSpine();
                 // 重置局数
                 _freeCountText.text = "3";

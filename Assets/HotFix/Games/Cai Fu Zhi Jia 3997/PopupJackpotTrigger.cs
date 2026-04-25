@@ -182,6 +182,7 @@ namespace CaiFuZhiJia_3997
                 Timers.inst.Add(7, 1, (obj) =>
                 {
                     CloseSelf(null);
+                    // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotGame);
                 });
             }));
         }
