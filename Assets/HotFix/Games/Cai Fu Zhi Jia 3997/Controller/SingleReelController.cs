@@ -21,8 +21,6 @@ namespace CaiFuZhiJia_3997
         /// <summary>临时存储滚轴的位置</summary>
         private readonly List<float> _elementStartPosList = new List<float>();
 
-        // public string Wheeleward = "";
-
         public SingleReelController(GComponent wheelRootNode, int wheelIndex)
         {
             _wheelRootNode = wheelRootNode;
@@ -38,19 +36,14 @@ namespace CaiFuZhiJia_3997
                 {
                     GComponent parentGCom = _wheelRootNode.GetChild("rollElement_" + (i + 1)).asCom;
                     GTextField rewardText = parentGCom.GetChild("rewardText").asTextField;
+                    GLoader elementLoader = parentGCom.GetChild("element").asLoader;
+                    elementLoader.url = CustomModel.Instance.JackpotBgPath[i];
                     RollElements.Add(parentGCom);
                     RewardTexts.Add(rewardText);
                     _elementStartPosList.Add(parentGCom.y); // 记录初始位置
-                    // Wheeleward = RandomReward();
                 }
             }
         }
-
-        // string RandomReward()
-        // {
-        //     return ContentModel.Instance.bonusGameRewardList[
-        //         Random.Range(0, ContentModel.Instance.bonusGameRewardList.Count)];
-        // }
 
         public void StartRoll(MonoHelper monoHelper, float speed)
         {
@@ -61,20 +54,19 @@ namespace CaiFuZhiJia_3997
         }
 
 
-        public void StopRoll(MonoHelper monoHelper, List<int> winningList)
+        public void StopRoll(MonoHelper monoHelper, List<int> winedIndexList)
         {
             if (_reelState != WheelState.Roll) return;
             _reelState = WheelState.Stop;
             if (_rollCoroutine != null) monoHelper.StopCoroutine(_rollCoroutine);
             ResetReelPos();
-            if (!winningList.Contains(_wheelIndex))
+            if (!winedIndexList.Contains(_wheelIndex))
             {
                 _wheelRootNode.GetChild("rollElement_4").asCom.visible = false;
             }
             else
             {
-                // _wheelRootNode.GetChild("rollElement_4").asCom.visible = true;
-                // RewardTexts[3].text = RandomReward();
+                // _rollCoroutine = monoHelper.StartCoroutine(BounceCoroutine());
             }
         }
 
@@ -107,6 +99,57 @@ namespace CaiFuZhiJia_3997
                 yield return null;
             }
         }
+
+        #region 无用代码
+
+        // private IEnumerator BounceCoroutine()
+        // {
+        //     // 记录当前位置
+        //     List<float> currentPositions = new List<float>();
+        //     for (int i = 0; i < RollElements.Count; i++)
+        //     {
+        //         currentPositions.Add(RollElements[i].y);
+        //     }
+        //
+        //     // 回弹距离（一个元素高度，向上回弹用负数）
+        //     float bounceDistance = -RollElements[0].height;
+        //
+        //     // 回弹动画
+        //     float bounceDuration = 0.3f;
+        //     float elapsedTime = 0f;
+        //
+        //     while (elapsedTime < bounceDuration)
+        //     {
+        //         elapsedTime += Time.deltaTime;
+        //         float progress = Mathf.Clamp01(elapsedTime / bounceDuration);
+        //
+        //         // 缓动：先快后慢（EaseOutCubic）
+        //         float easedProgress = 1f - Mathf.Pow(1f - progress, 3f);
+        //
+        //         for (int i = 0; i < RollElements.Count; i++)
+        //         {
+        //             RollElements[i].y = currentPositions[i] + bounceDistance * easedProgress;
+        //         }
+        //
+        //         yield return null;
+        //     }
+        //
+        //     // 确保最终位置准确
+        //     for (int i = 0; i < RollElements.Count; i++)
+        //     {
+        //         RollElements[i].y = currentPositions[i] + bounceDistance;
+        //     }
+        //
+        //     // 显示中奖元素
+        //     _wheelRootNode.GetChild("rollElement_4").asCom.visible = true;
+        //
+        //     // 延迟后复位
+        //     yield return new WaitForSeconds(0.5f);
+        //     ResetReelPos();
+        // }
+
+
+        #endregion
     }
 
     public enum WheelState

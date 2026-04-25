@@ -20,7 +20,10 @@ namespace GameMaker
         public const string BetUpButtonClick = "BetUpButtonClick";//OnClickButtonBetUp
         /// <summary> 减少押注  </summary>
         public const string BetDownButtonClick = "BetDownButtonClick";//OnClickButtonBetDown
-
+        /// <summary> 上移一格  </summary>
+        public const string ColUpButtonClick = "ColUpButtonClick";//OnClickButtonColUp
+        /// <summary> 下移一格  </summary>
+        public const string ColDownButtonClick = "ColDownButtonClick";//OnClickButtonColDown
 
         public const string ON_PANEL_EVENT = "ON_PANEL_EVENT";
         /// <summary> 面板锚点变化事件(多语言！) </summary>

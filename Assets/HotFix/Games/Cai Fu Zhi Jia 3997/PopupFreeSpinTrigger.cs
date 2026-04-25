@@ -209,7 +209,10 @@ namespace CaiFuZhiJia_3997
                 _cloneGoldPurpleEffectObj.SetActive(true);
 
                 Timers.inst.Add(3, 1, (obj) => _cloneDollarSpineObj.SetActive(false));
-                Timers.inst.Add(7, 1, (obj) => CloseSelf(null));
+                Timers.inst.Add(7, 1, (obj) =>
+                {
+                    CloseSelf(null);
+                });
             }));
         }
 

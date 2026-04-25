@@ -18,6 +18,12 @@
 			"event_name": "GMMultipleWinLine",
 			"value": "",
 			"des": ""
+		},
+		"jackpot": {
+			"nick_name": "大奖游戏",
+			"event_name": "GMJp1",
+			"value": "",
+			"des": ""
 		}
 	}
 }

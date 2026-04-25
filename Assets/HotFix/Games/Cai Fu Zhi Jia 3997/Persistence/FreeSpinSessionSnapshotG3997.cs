@@ -41,6 +41,12 @@ namespace CaiFuZhiJia_3997
 
         /// <summary> 快照保存时间（UTC 毫秒时间戳）。 </summary>
         public long SavedUtcMs;
+
+        /// <summary> 免费游戏倍率。 </summary>
+        public int FreeGameScoreMultiply;
+
+        /// <summary> 断电前免费得分 </summary>
+        public long CurrentWinBet;
     }
 }
 

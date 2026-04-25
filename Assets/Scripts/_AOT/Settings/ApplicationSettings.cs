@@ -61,6 +61,9 @@ public partial class ApplicationSettings : ScriptableObjectSingleton<Application
     [Tooltip("是否是测试数据")]
     public bool isMock;
 
+    [Tooltip("是否开启展会模式")]
+    public bool isExpoMode = false;
+
     [Tooltip("是否开启防护功能")]
     public bool isUseProtectApplication = false;
 
@@ -151,6 +154,17 @@ public partial class ApplicationSettings : ScriptableObjectSingleton<Application
             return true;
         }
         return isMachine;
+    }
+
+    [Tooltip("在编辑器，测试展会模式")]
+    public bool isTestExpoModeAtEditor = false;
+    public bool IsExpoMode()
+    {
+        if (Application.isEditor && isTestExpoModeAtEditor)
+        {
+            return true;
+        }
+        return isExpoMode;
     }
 
     [Title("其他")]

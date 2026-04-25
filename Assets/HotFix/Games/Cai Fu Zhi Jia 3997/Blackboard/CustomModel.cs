@@ -127,74 +127,74 @@ namespace CaiFuZhiJia_3997
             new PayTableSymbolInfo()
             {
                 symbol = 0,
-                x5 = 15,
-                x4 = 5,
-                x3 = 2,
+                x5 = 30,
+                x4 = 10,
+                x3 = 4,
                 x2 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 1,
-                x5 = 15,
-                x4 = 5,
-                x3 = 2,
+                x5 = 30,
+                x4 = 10,
+                x3 = 4,
                 x2 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 2,
-                x5 = 15,
-                x4 = 5,
-                x3 = 2,
+                x5 = 30,
+                x4 = 10,
+                x3 = 4,
                 x2 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 3,
-                x5 = 25,
-                x4 = 10,
-                x3 = 3,
+                x5 = 50,
+                x4 = 20,
+                x3 = 6,
                 x2 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 4,
-                x5 = 25,
-                x4 = 10,
-                x3 = 3,
+                x5 = 50,
+                x4 = 20,
+                x3 = 6,
                 x2 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 5,
-                x5 = 100,
-                x4 = 20,
-                x3 = 5,
-                x2 = 2,
+                x5 = 200,
+                x4 = 40,
+                x3 = 10,
+                x2 = 4,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 6,
-                x5 = 100,
-                x4 = 20,
-                x3 = 5,
-                x2 = 2,
+                x5 = 200,
+                x4 = 40,
+                x3 = 10,
+                x2 = 4,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 7,
                 x5 = 500,
-                x4 = 100,
-                x3 = 10,
-                x2 = 3,
+                x4 = 400,
+                x3 = 20,
+                x2 = 6,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 8,
-                x5 = 2500,
-                x4 = 500,
-                x3 = 50,
-                x2 = 2,
+                x5 = 1000,
+                x4 = 800,
+                x3 = 40,
+                x2 = 8,
             },
             new PayTableSymbolInfo() // wild
             {
@@ -417,10 +417,18 @@ namespace CaiFuZhiJia_3997
         /// </summary>
         public List<string> JackpotBgPath { get; } = new List<string>()
         {
-            "ui://k5oi8hwrq5jy5q",
-            "ui://k5oi8hwrlqp8n1",
-            "ui://k5oi8hwrq5jy5q",
-            "ui://k5oi8hwrlqp8n1",
+            "ui://CaiFuZhiJia/ng_sym_diamonds",
+            "ui://CaiFuZhiJia/ng_sym_diamonds2",
+            "ui://CaiFuZhiJia/ng_sym_diamonds",
+            "ui://CaiFuZhiJia/ng_sym_diamonds2",
+        };
+
+        public List<string> JackpotTypePath { get; } = new List<string>()
+        {
+            "ui://CaiFuZhiJia/ng_sym_diamonds",
+            "ui://CaiFuZhiJia/ng_sym_diamonds4",
+            "ui://CaiFuZhiJia/ng_sym_diamonds3",
+            "ui://CaiFuZhiJia/ng_sym_diamonds6",
         };
     }
 }

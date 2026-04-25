@@ -40,8 +40,10 @@ namespace SlotMaker
 
         Coroutine coReelTurn = null;
         Coroutine coReelToStop = null;
+        Coroutine coReelNudge = null;
 
         GTweener _curTweener;
+        private bool _isNudging = false;
 
 
         public override void Init(ICustomModel customModel, GComponent gReel, GComponent gExpectation)
@@ -221,6 +223,9 @@ namespace SlotMaker
         /// </summary>
         protected void ReelToStop()
         {
+            if (_isNudging)
+                return;
+
             if (state == ReelState.StartTurn)
             {
                 state = ReelState.StartStop;
@@ -257,6 +262,9 @@ namespace SlotMaker
 
             if (coReelToStop != null) StopCoroutine(coReelToStop);
             coReelToStop = null;
+
+            if (coReelNudge != null) StopCoroutine(coReelNudge);
+            coReelNudge = null;
         }
 
 
@@ -416,6 +424,87 @@ namespace SlotMaker
         public override void SetResult(List<int> result)
         {
             columnResult = result;
+        }
+
+        public override void NudgeOneStep(UnityAction action = null, bool isUseResult = false,
+            ReelNudgeDirection direction = ReelNudgeDirection.Down)
+        {
+            if (action != null)
+                reelStopCallback = action;
+
+            if (state != ReelState.Idle)
+                return;
+
+            ClearReelTween();
+            coReelNudge = StartCoroutine(_NudgeOneStep(isUseResult, direction));
+        }
+
+        private IEnumerator _NudgeOneStep(bool isUseResult, ReelNudgeDirection direction)
+        {
+            bool isNext = false;
+            _isNudging = true;
+            state = ReelState.StartTurn;
+
+            if (direction == ReelNudgeDirection.Up)
+                ResetIconDataNudgeUpOneRow();
+            else
+                ResetIconDataNudgeDownOneRow();
+
+            if (isUseResult)
+            {
+                SetRollEndResult();
+            }
+
+            _curTweener = TweenUtils.DOLocalMoveY(goSymbols, 0,
+                ReelSettingModel.Instance.GetTimeTurnOnce(reelIndex), EaseType.Linear, () => { isNext = true; });
+
+            yield return new WaitUntil(() => isNext);
+            _curTweener = null;
+
+            state = ReelState.EndStop;
+            reelStopCallback?.Invoke();
+            state = ReelState.Idle;
+            _isNudging = false;
+            coReelNudge = null;
+        }
+
+        /// <summary> 向下移动一行（不是整圈） </summary>
+        private void ResetIconDataNudgeDownOneRow()
+        {
+            if (symbolList == null || symbolList.Count <= 0)
+                return;
+
+            for (int i = symbolList.Count - 1; i >= 1; i--)
+            {
+                int number = symbolList[i - 1].GetSymbolNumber();
+                symbolList[i].SetSymbolImage(number);
+                symbolList[i].SetBtnInteractableState(true);
+            }
+
+            symbolList[0].SetSymbolImage(customModel.symbolNumber[Random.Range(0, customModel.symbolCount)]);
+            symbolList[0].SetBtnInteractableState(true);
+
+            goSymbols.y = -customModel.symbolHeight;
+        }
+
+        /// <summary> 向上移动一行（不是整圈） </summary>
+        private void ResetIconDataNudgeUpOneRow()
+        {
+            if (symbolList == null || symbolList.Count <= 0)
+                return;
+
+            for (int i = 0; i < symbolList.Count - 1; i++)
+            {
+                int number = symbolList[i + 1].GetSymbolNumber();
+                symbolList[i].SetSymbolImage(number);
+                symbolList[i].SetBtnInteractableState(true);
+            }
+
+            int lastIndex = symbolList.Count - 1;
+            symbolList[lastIndex].SetSymbolImage(customModel.symbolNumber[Random.Range(0, customModel.symbolCount)]);
+            symbolList[lastIndex].SetBtnInteractableState(true);
+
+            goSymbols.y = customModel.symbolHeight;
         }
     }
 }
