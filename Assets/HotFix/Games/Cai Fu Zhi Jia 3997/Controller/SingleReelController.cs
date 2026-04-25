@@ -1,4 +1,5 @@
 using FairyGUI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace CaiFuZhiJia_3997
 
         private readonly Transition _rollTransition;
         private Transition _backTransition;
-        private Transition _resetTransition;
+        public Transition ResetTransition;
 
         /// <summary>滚轴上的所有图标信息List</summary>
         public readonly List<GComponent> RollElements = new List<GComponent>();
@@ -32,7 +33,7 @@ namespace CaiFuZhiJia_3997
             _wheelIndex = wheelIndex;
             _rollTransition = _wheelRootNode.GetTransition("roll");
             _backTransition = _wheelRootNode.GetTransition("back");
-            _resetTransition = _wheelRootNode.GetTransition("reset");
+            ResetTransition = _wheelRootNode.GetTransition("reset");
             InitReel();
         }
 
@@ -53,7 +54,7 @@ namespace CaiFuZhiJia_3997
             }
         }
 
-        public void StartRoll(MonoHelper monoHelper, float speed)
+        public void StartRoll( /*MonoHelper monoHelper,*/ float speed)
         {
             // if (_reelState == WheelState.Roll) return;
             // _reelState = WheelState.Roll;
@@ -61,6 +62,7 @@ namespace CaiFuZhiJia_3997
             // _rollCoroutine = monoHelper.StartCoroutine(RollCoroutine(speed));
             // _rollTransition.repeatCount = 0;
             _rollTransition.timeScale = speed;
+            // _rollTransition.timeScale = 0.5f;
             // _rollTransition.Play();
             PlayWithLoops();
         }
@@ -71,7 +73,7 @@ namespace CaiFuZhiJia_3997
             // if (_reelState != WheelState.Roll) return;
             // _reelState = WheelState.Stop;
             _rollTransition.Stop();
-            _resetTransition.Play();
+            // ResetTransition.Play();
 
             // ResetReelPos();
             if (winedIndexList.Contains(_wheelIndex))
@@ -91,6 +93,16 @@ namespace CaiFuZhiJia_3997
             //     _backTransition.Play();
             //     // _rollCoroutine = monoHelper.StartCoroutine(BounceCoroutine());
             // }
+        }
+
+        public void StopRoll()
+        {
+            _rollTransition.Stop();
+        }
+
+        public void PlayBack(Action callback)
+        {
+            _backTransition.Play(() => callback?.Invoke());
         }
 
 

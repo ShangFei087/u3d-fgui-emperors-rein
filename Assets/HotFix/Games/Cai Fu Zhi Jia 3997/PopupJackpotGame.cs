@@ -336,6 +336,7 @@ namespace CaiFuZhiJia_3997
         void GetCurrentWinningDiamondList()
         {
             if (_bonusIsNotZeroList.Count == 0) return;
+            _currentWinIndexList.Clear();
             // 确定中奖个数：1 ~ 剩余元素数
             int maxCount = Math.Min(3, _bonusIsNotZeroList.Count);
             int count = _random.Next(1, maxCount + 1); // _bonusIsNotZeroList.Count + 1
@@ -347,6 +348,7 @@ namespace CaiFuZhiJia_3997
                 int selectedValue = _bonusIsNotZeroList[randomIndex];
 
                 _winSpineIndexList.Add(selectedValue);
+                _currentWinIndexList.Add(selectedValue);
                 // 修改
                 _canSpinReelIndexList.Remove(selectedValue);
                 // 移除已选中的，保证下次不重复
@@ -470,6 +472,7 @@ namespace CaiFuZhiJia_3997
                     yield return new WaitUntil(() => isNext == true);
                 }
 
+                _singleReelControllers[index].ResetTransition.Play();
                 if (currentBet > 4000)
                 {
                     GComponent tempCom = _singleReelControllers[index].RollElements[3];
@@ -496,6 +499,8 @@ namespace CaiFuZhiJia_3997
             }
         }
 
+        private List<int> _currentWinIndexList = new List<int>(); // 当前中的索引List 主要用作存储本局中奖索引，播放回弹动画
+
         IEnumerator GameOnceCoroutine()
         {
             _isWinning = RandomIsWinThisRound();
@@ -506,7 +511,7 @@ namespace CaiFuZhiJia_3997
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
-                    _singleReelControllers[reelIndex].StartRoll(_monoHelper, _moveSpeedList[i]);
+                    _singleReelControllers[reelIndex].StartRoll(_moveSpeedList[i] /*_monoHelper, */);
                 }
 
                 yield return new WaitForSeconds(4f);
@@ -514,7 +519,7 @@ namespace CaiFuZhiJia_3997
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
-                    _singleReelControllers[reelIndex].StopRoll(_monoHelper, _winSpineIndexList);
+                    _singleReelControllers[reelIndex].StopRoll();
                 }
 
                 _totalPlayRounds--;
@@ -523,20 +528,50 @@ namespace CaiFuZhiJia_3997
             else
             {
                 Debug.LogError("中奖了");
+                GetCurrentWinningDiamondList();
+
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
-                    _singleReelControllers[reelIndex].StartRoll(_monoHelper, _moveSpeedList[i]);
+                    _singleReelControllers[reelIndex].StartRoll(_moveSpeedList[i] /*_monoHelper, */);
                 }
 
                 yield return new WaitForSeconds(4f);
 
-                GetCurrentWinningDiamondList();
-                for (int i = 0; i < _canSpinReelIndexList.Count; i++)
+
+                foreach (var reelIndex in _canSpinReelIndexList)
                 {
-                    int reelIndex = _canSpinReelIndexList[i];
-                    _singleReelControllers[reelIndex].StopRoll(_monoHelper, _winSpineIndexList);
+                    _singleReelControllers[reelIndex].StopRoll();
                 }
+                
+                // 播放回弹动画 - 使用计数器确保全部完成后再显示 Spine
+                int completedCount = 0;
+                int totalWinCount = _currentWinIndexList.Count;
+        
+                foreach (var reelIndex in _currentWinIndexList)
+                {
+                    _singleReelControllers[reelIndex].PlayBack(() => {
+                        completedCount++;
+                        if (completedCount >= totalWinCount)
+                        {
+                            // 所有回弹动画都完成后，统一显示 Spine
+                            ShowWinningSpine();
+                        }
+                    });
+                }
+
+
+                // foreach (var reelIndex in _currentWinIndexList)
+                // {
+                //     _singleReelControllers[reelIndex].StopRoll();
+                //     _singleReelControllers[reelIndex].PlayBack(ShowWinningSpine);
+                // }
+
+                // for (int i = 0; i < _canSpinReelIndexList.Count; i++)
+                // {
+                //     int reelIndex = _canSpinReelIndexList[i];
+                //     _singleReelControllers[reelIndex].StopRoll();
+                // }
 
                 // for (int i = 0; i < _winSpineIndexList.Count; i++)
                 // {
@@ -544,7 +579,7 @@ namespace CaiFuZhiJia_3997
                 //         _canSpinReelIndexList.Remove(i);
                 // }
                 // GetCurrentWinningDiamondList();
-                ShowWinningSpine();
+                // ShowWinningSpine();
                 // 重置局数
                 _freeCountText.text = "3";
                 _totalPlayRounds = 3;
