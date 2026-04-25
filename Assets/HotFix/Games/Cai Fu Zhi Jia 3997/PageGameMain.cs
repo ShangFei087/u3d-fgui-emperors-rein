@@ -1306,6 +1306,30 @@ namespace CaiFuZhiJia_3997
             bool isNext = false;
             bool isBreak = false;
             string errMsg = "";
+            
+            //展会模式
+            if (ApplicationSettings.Instance.IsExpoMode())
+            {
+                string currentDeck = GetCurrentVisibleDeckRowCol();
+                if (!string.IsNullOrEmpty(currentDeck))
+                {
+                    try
+                    {
+                        int[] deckData = SlotTool.GetDeckRowCol(currentDeck).ToArray();
+                        SBoxExhibitionData sBoxExhibitionData = new SBoxExhibitionData
+                        {
+                            wheelChessNum = deckData.Length,
+                            data = deckData
+                        };
+                        SBoxIdea.SetExhibitionData(sBoxExhibitionData);
+                    }
+                    catch (Exception e)
+                    {
+                        DebugUtils.LogError($"[G1700] 设置展会模式结果失败，deck={currentDeck}");
+                        DebugUtils.LogException(e);
+                    }
+                }
+            }
 
             if (ApplicationSettings.Instance.isMock) // 模拟结果
             {
@@ -1721,6 +1745,28 @@ namespace CaiFuZhiJia_3997
         }
 
         #endregion
+        
+        //读取当前滚轴显示的图标
+        private string GetCurrentVisibleDeckRowCol()
+        {
+            if (_slotMachineCtrl == null)
+            {
+                return string.Empty;
+            }
+            List<string> rows = new List<string>(_slotMachineCtrl.row);
+            for (int row = 0; row < _slotMachineCtrl.row; row++)
+            {
+                List<string> cols = new List<string>(_slotMachineCtrl.column);
+                for (int col = 0; col < _slotMachineCtrl.column; col++)
+                {
+                    SymbolBase symbol = _slotMachineCtrl.GetVisibleSymbolFromDeck(col, row);
+                    int symbolNumber = symbol != null ? symbol.GetSymbolNumber() : 0;
+                    cols.Add(symbolNumber.ToString());
+                }
+                rows.Add(string.Join(",", cols));
+            }
+            return string.Join("#", rows);
+        }
 
         private void OnGameReset()
         {

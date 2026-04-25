@@ -13,6 +13,6 @@
     <item time="0" type="XY" target="n3_q5jy" tween="true" startValue="0,0" endValue="0,169" duration="6" ease="Linear"/>
   </transition>
   <transition name="back">
-    <item time="0" type="XY" target="n2_q5jy" tween="true" startValue="0,-169" endValue="0,0" duration="6" ease="Linear"/>
+    <item time="0" type="XY" target="n2_q5jy" tween="true" startValue="0,-169" endValue="0,0" duration="5" ease="Linear"/>
   </transition>
 </component>

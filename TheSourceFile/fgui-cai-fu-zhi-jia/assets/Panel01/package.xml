@@ -111,6 +111,15 @@
     <component id="f6tv2f" name="BetDownMask.xml" path="/moudules/Panel/" exported="true"/>
     <component id="f6tv2h" name="ButtonBetDown.xml" path="/components/Button/" exported="true"/>
     <component id="f6tv2i" name="ButtonBetUp.xml" path="/components/Button/" exported="true"/>
+    <component id="d58apc" name="ReelBtn.xml" path="/moudules/Exhibition/" exported="true"/>
+    <component id="d58apd" name="ButtonExhibition.xml" path="/components/Button/" exported="true"/>
+    <image id="d58ape" name="btn_bet_down.png" path="/images/"/>
+    <image id="d58apf" name="btn_bet_down01.png" path="/images/"/>
+    <image id="d58apg" name="btn_bet_up.png" path="/images/"/>
+    <image id="d58aph" name="btn_bet_up01.png" path="/images/"/>
+    <component id="d58api" name="ButtonColUp.xml" path="/components/Button/" exported="true"/>
+    <component id="d58apj" name="ButtonColDown.xml" path="/components/Button/" exported="true"/>
+    <component id="d58apk" name="ExhibitionPanel.xml" path="/moudules/" exported="true"/>
   </resources>
   <publish name="CaiFuZhiJia_Panel" path="../../Assets/GameRes/Panel/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>

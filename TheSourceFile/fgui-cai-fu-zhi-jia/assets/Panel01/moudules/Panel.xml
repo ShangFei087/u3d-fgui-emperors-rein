@@ -15,5 +15,6 @@
     <text id="n32_nbj9" name="singleLine" xy="4,182" size="388,51" fontSize="17" color="#ffffff" align="center" vAlign="middle" autoSize="none" text=""/>
     <component id="n18_nbj9" name="setPanel" src="enimmt" fileName="moudules/SetPanel.xml" xy="18,-195" visible="false"/>
     <component id="n34_f6tv" name="instructions" src="f6tvp6" fileName="moudules/Panel/Instructions.xml" xy="0,-1685"/>
+    <component id="n38_d58a" name="ExhibitionPanel" src="d58apk" fileName="moudules/ExhibitionPanel.xml" xy="0,-1203"/>
   </displayList>
 </component>
