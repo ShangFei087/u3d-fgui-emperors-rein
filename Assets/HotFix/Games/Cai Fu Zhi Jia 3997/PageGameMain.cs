@@ -836,7 +836,7 @@ namespace CaiFuZhiJia_3997
             callback?.Invoke();
         }
 
-        public static List<List<int>> ParseVertical(string raw,
+        private static List<List<int>> ParseVertical(string raw,
             int expectedCols = 5) // 已知 5 列可写死，也可调用时传
         {
             var result = new List<List<int>>();
@@ -881,7 +881,6 @@ namespace CaiFuZhiJia_3997
         #endregion
 
         /// 触发免费游戏以及免费游戏一整个流程的执行
-        /// </summary>
         /// <param name="successCallback"></param>
         /// <param name="errorCallback"></param>
         /// <returns></returns>
@@ -1083,8 +1082,7 @@ namespace CaiFuZhiJia_3997
         }
 
         long _allWinCredit = 0;
-
-
+        
         IEnumerator GameFreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
             OnGameReset();
@@ -1487,6 +1485,7 @@ namespace CaiFuZhiJia_3997
                     {
                         PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotGame, null);
                         ContentModel.Instance.IsBonusTrigger = false;
+                        ContentModel.Instance.IsJackpotTrigger = false;
                         isNext = true;
                     });
 
@@ -1726,24 +1725,65 @@ namespace CaiFuZhiJia_3997
             {
                 MainBlackboardController.Instance.AddMyTempCredit(freeSpinTotalWinCredit, true, IsAddCreditAnim);
             }
+            
+            PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupFreeSpinResult,
+                new EventData<Dictionary<string, object>>("",
+                    new Dictionary<string, object>()
+                    {
+                        ["baseGameWinCredit"] = ContentModel.Instance.freeSpinTotalWinCoins
+                    }),
+                (ed) =>
+                {
+                    // _allWinCredit = 0;
+                    // _pageController.selectedPage = "NormalGame";
+                    // ContentModel.Instance.freeGameScoreMultiply = 2;
+                    // _multipleNumber.text = "x2";
+                    // MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+                    // ContentModel.Instance.FreeSpinTotalTimes = 0; // 免费游戏结束之后，把免费游戏局数重置
+                    
+                    _allWinCredit = 0;
+                    _pageController.selectedPage = "NormalGame";
+                    _multipleNumber.text = "x2";
+                    ContentModel.Instance.freeGameScoreMultiply = 2;
+                    ContentModel.Instance.isFreeSpinTrigger = false;
+                    ContentModel.Instance.freeSpinTotalWinCoins = 0;
+                    ContentModel.Instance.FreeSpinTotalTimes = 0;
+                    ContentModel.Instance.FreeSpinPlayTimes = 0;
+                    ContentModel.Instance.ShowFreeSpinRemainTime = 0;
+                    ContentModel.Instance.curReelStripsIndex = "BS";
+                    ContentModel.Instance.nextReelStripsIndex = "BS";
+                    ContentModel.Instance.isFreeSpinResult = false;
+                    ContentModel.Instance.isFreeSpinAdd = false;
+                    ContentModel.Instance.freeSpinAddNum = 0;
+                    ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
+                    MainBlackboardController.Instance.AddMyTempCredit(_allWinCredit, true, IsAddCreditAnim); //加钱动画
+                    MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+                    FreeSpinSessionStoreG3997.Clear(SBoxModel.Instance.pid);
 
-            _allWinCredit = 0;
-            _pageController.selectedPage = "NormalGame";
-            _multipleNumber.text = "x2";
-            ContentModel.Instance.freeGameScoreMultiply = 2;
-            ContentModel.Instance.isFreeSpinTrigger = false;
-            ContentModel.Instance.freeSpinTotalWinCoins = 0;
-            ContentModel.Instance.FreeSpinTotalTimes = 0;
-            ContentModel.Instance.FreeSpinPlayTimes = 0;
-            ContentModel.Instance.ShowFreeSpinRemainTime = 0;
-            ContentModel.Instance.curReelStripsIndex = "BS";
-            ContentModel.Instance.nextReelStripsIndex = "BS";
-            ContentModel.Instance.isFreeSpinResult = false;
-            ContentModel.Instance.isFreeSpinAdd = false;
-            ContentModel.Instance.freeSpinAddNum = 0;
-            ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
-            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
-            FreeSpinSessionStoreG3997.Clear(SBoxModel.Instance.pid);
+                    // 重新注册
+                    ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
+                    MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
+                    EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
+                        new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
+                });
+
+            // _allWinCredit = 0;
+            // _pageController.selectedPage = "NormalGame";
+            // _multipleNumber.text = "x2";
+            // ContentModel.Instance.freeGameScoreMultiply = 2;
+            // ContentModel.Instance.isFreeSpinTrigger = false;
+            // ContentModel.Instance.freeSpinTotalWinCoins = 0;
+            // ContentModel.Instance.FreeSpinTotalTimes = 0;
+            // ContentModel.Instance.FreeSpinPlayTimes = 0;
+            // ContentModel.Instance.ShowFreeSpinRemainTime = 0;
+            // ContentModel.Instance.curReelStripsIndex = "BS";
+            // ContentModel.Instance.nextReelStripsIndex = "BS";
+            // ContentModel.Instance.isFreeSpinResult = false;
+            // ContentModel.Instance.isFreeSpinAdd = false;
+            // ContentModel.Instance.freeSpinAddNum = 0;
+            // ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
+            // MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+            // FreeSpinSessionStoreG3997.Clear(SBoxModel.Instance.pid);
             if (successCallback != null)
                 successCallback.Invoke();
         }
