@@ -1,4 +1,5 @@
 using FairyGUI;
+using LZ4;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -44,13 +45,15 @@ namespace CaiFuZhiJia_3997
 
                     GLoader elementLoader = parentGCom.GetChild("element").asLoader;
                     if (i != 4)
-                        elementLoader.url = CustomModel.Instance.JackpotBgPath[Random.Range(0, 3)];
+                    {
+                        elementLoader.url =
+                            CustomModel.Instance.JackpotBgPath[
+                                Random.Range(0, CustomModel.Instance.JackpotBgPath.Count)];
+                        if (elementLoader.url == "ui://CaiFuZhiJia/ng_sym_diamonds2")
+                            rewardText.text = Random.Range(100, 900).ToString();
+                    }
                     else
                         elementLoader.url = CustomModel.Instance.JackpotTypePath[0]; // 默认是没中奖类型
-
-                    if (elementLoader.url != "")
-                        if (i == 1)
-                            rewardText.text = Random.Range(100, 900).ToString();
 
                     RollElements.Add(parentGCom);
                     RewardTexts.Add(rewardText);
@@ -69,18 +72,30 @@ namespace CaiFuZhiJia_3997
         {
             _rollTransition.Stop();
             _rollTransition.timeScale = 1f;
-
-            if (winList != null && winList.Contains(_reelIndex))
-            {
-                PlayBack(() => callback?.Invoke());
-            }
+            callback?.Invoke();
         }
 
-        public void PlayBack(Action callback)
+        public void PlayBack(Action callback, string normalBet)
         {
+            _wheelRootNode.GetChild("rollElement_5").asCom.GetChild("element").asLoader.url =
+                CustomModel.Instance.JackpotBgPath[2];
+            _wheelRootNode.GetChild("rollElement_5").asCom.GetChild("rewardText").asTextField.text = normalBet;
+
             _backTransition.Play(() =>
             {
-                BackResetTransition.timeScale = 1.5f;
+                BackResetTransition.timeScale = 2f;
+                BackResetTransition.Play(() => callback?.Invoke());
+            });
+        }
+
+        public void PlayBack(Action callback, int winType)
+        {
+            _wheelRootNode.GetChild("rollElement_5").asCom.GetChild("element").asLoader.url =
+                CustomModel.Instance.JackpotTypePath[winType];
+            _wheelRootNode.GetChild("rollElement_5").asCom.GetChild("rewardText").asTextField.text = "";
+            _backTransition.Play(() =>
+            {
+                BackResetTransition.timeScale = 2f;
                 BackResetTransition.Play(() => callback?.Invoke());
             });
         }

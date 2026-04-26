@@ -343,7 +343,6 @@ namespace CaiFuZhiJia_3997
 
                 _winSpineIndexList.Add(selectedValue);
                 _currentWinIndexList.Add(selectedValue);
-                // _canSpinReelIndexList.Remove(selectedValue);
                 _bonusIsNotZeroList.RemoveAt(randomIndex);
             }
         }
@@ -366,25 +365,6 @@ namespace CaiFuZhiJia_3997
                 PlayAnimationByName(_cloneAnimators[reelIndex], "idle");
             });
         }
-
-        // private void ShowWinningSpine()
-        // {
-        //     for (int i = 0; i < _winSpineIndexList.Count; i++)
-        //     {
-        //         if (!_cloneJackpotSpineList[_winSpineIndexList[i]].activeSelf)
-        //         {
-        //             if (int.Parse(ContentModel.Instance.currentBonusDataList[_winSpineIndexList[i]]) < 4000)
-        //                 _diamondTextList[_winSpineIndexList[i]].text = _rollRewardList[_winSpineIndexList[i]];
-        //             _cloneJackpotSpineList[_winSpineIndexList[i]].SetActive(true);
-        //             PlayAnimationByName(_cloneAnimators[_winSpineIndexList[i]], "start");
-        //             int index = _winSpineIndexList[i];
-        //             Timers.inst.Add(1, 1, (obj) =>
-        //             {
-        //                 PlayAnimationByName(_cloneAnimators[index], "idle");
-        //             });
-        //         }
-        //     }
-        // }
 
         /// <summary>
         /// 初始化可以旋转的Reels
@@ -484,12 +464,14 @@ namespace CaiFuZhiJia_3997
                 }
 
                 SingleReelController parentCom = _singleReelControllers[index];
+                parentCom.RollElements[3].GetChild("element").asLoader.url = CustomModel.Instance.JackpotBgPath[2];
                 parentCom.ResetTransition.Play();
                 if (currentBet > 4000)
                 {
                     GComponent tempCom = parentCom.RollElements[3];
                     tempCom.GetChild("element").asLoader.url =
                         CustomModel.Instance.JackpotTypePath[ContentModel.Instance.currentJpSpineIndex];
+                    parentCom.RewardTexts[3].visible = false;
                     tempCom.visible = true;
                 }
                 else
@@ -517,16 +499,24 @@ namespace CaiFuZhiJia_3997
         {
             _isWinning = RandomIsWinThisRound();
 
+            for (int i = 0; i < _canSpinReelIndexList.Count; i++)
+            {
+                int reelIndex = _canSpinReelIndexList[i];
+                _singleReelControllers[reelIndex].StartRoll(_moveSpeedList[i]);
+            }
+
+            yield return new WaitForSeconds(2f);
+
             if (!_isWinning)
             {
                 Debug.LogError("没中奖");
-                for (int i = 0; i < _canSpinReelIndexList.Count; i++)
-                {
-                    int reelIndex = _canSpinReelIndexList[i];
-                    _singleReelControllers[reelIndex].StartRoll(_moveSpeedList[i]);
-                }
-
-                yield return new WaitForSeconds(2f);
+                // for (int i = 0; i < _canSpinReelIndexList.Count; i++)
+                // {
+                //     int reelIndex = _canSpinReelIndexList[i];
+                //     _singleReelControllers[reelIndex].StartRoll(_moveSpeedList[i]);
+                // }
+                //
+                // yield return new WaitForSeconds(2f);
 
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
@@ -542,38 +532,39 @@ namespace CaiFuZhiJia_3997
                 Debug.LogError("中奖了");
                 GetCurrentWinningDiamondList();
 
-                for (int i = 0; i < _canSpinReelIndexList.Count; i++)
-                {
-                    int reelIndex = _canSpinReelIndexList[i];
-                    _singleReelControllers[reelIndex].StartRoll(_moveSpeedList[i]);
-                }
+                var stopCallbacks = new List<Action>();
+                int completedCount = 0;
+                int totalToComplete = _canSpinReelIndexList.Count;
 
-                yield return new WaitForSeconds(3f);
-
-                var backDoneFlags = new bool[_currentWinIndexList.Count];
-
+                // 先收集所有需要停止的滚轴
                 foreach (var reelIndex in _canSpinReelIndexList)
                 {
-                    _singleReelControllers[reelIndex].StopRoll(_currentWinIndexList, (() =>
-                    {
-                        // 3. 中奖格子并行回弹，回弹回调中播放动画
+                    bool isWin = _currentWinIndexList.Contains(reelIndex);
+                    int capturedReelIndex = reelIndex; // 闭包捕获
 
-                        for (int i = 0; i < _currentWinIndexList.Count; i++)
+                    _singleReelControllers[reelIndex].StopRoll(
+                        _currentWinIndexList, () =>
                         {
-                            int flagIdx = i;
-                            int reelIdx = _currentWinIndexList[i];
-
-                            _singleReelControllers[reelIdx].PlayBack(() =>
+                            if (isWin)
                             {
-                                PlayWinningSpineAt(reelIdx);
-                                backDoneFlags[flagIdx] = true;
-                            });
+                                int tempBet = int.Parse(ContentModel.Instance.currentBonusDataList[capturedReelIndex]);
+                                if (tempBet > 4000)
+                                {
+                                    int type = tempBet % 10;
+                                    OnReelStopped(capturedReelIndex, () => completedCount++, type);
+                                }
+                                else
+                                {
+                                    OnReelStopped(capturedReelIndex, () => completedCount++,tempBet.ToString());
+                                }
+                            }
+                            else
+                                completedCount++;
                         }
-                    }));
+                    );
                 }
 
-                // 等待所有回弹和动画都完成
-                yield return new WaitUntil(() => backDoneFlags.All(done => done));
+                yield return new WaitUntil(() => completedCount >= totalToComplete);
 
                 // 统一从可旋转列表中移除中奖项
                 foreach (var reelIndex in _currentWinIndexList)
@@ -586,6 +577,24 @@ namespace CaiFuZhiJia_3997
             }
 
             yield return new WaitForSeconds(2);
+        }
+
+        private void OnReelStopped(int reelIndex, Action onComplete, string normalBet)
+        {
+            _singleReelControllers[reelIndex].PlayBack(() =>
+            {
+                PlayWinningSpineAt(reelIndex);
+                onComplete?.Invoke();
+            }, normalBet);
+        }
+
+        private void OnReelStopped(int reelIndex, Action onComplete, int winType)
+        {
+            _singleReelControllers[reelIndex].PlayBack(() =>
+            {
+                PlayWinningSpineAt(reelIndex);
+                onComplete?.Invoke();
+            }, winType);
         }
 
         // 调用方式

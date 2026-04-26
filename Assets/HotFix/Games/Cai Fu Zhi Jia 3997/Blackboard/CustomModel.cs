@@ -418,8 +418,22 @@ namespace CaiFuZhiJia_3997
         public List<string> JackpotBgPath { get; } = new List<string>()
         {
             "",
+            "",
+            "ui://CaiFuZhiJia/ng_sym_diamonds2",
+            "",
+            "",
             "ui://CaiFuZhiJia/ng_sym_diamonds",
             "ui://CaiFuZhiJia/ng_sym_diamonds2",
+            "ui://CaiFuZhiJia/ng_sym_diamonds2",
+            "ui://CaiFuZhiJia/ng_sym_diamonds2",
+            "ui://CaiFuZhiJia/ng_sym_diamonds2",
+            "ui://CaiFuZhiJia/ng_sym_diamonds2",
+            "ui://CaiFuZhiJia/ng_sym_diamonds2",
+            "ui://CaiFuZhiJia/ng_sym_diamonds2",
+            "ui://CaiFuZhiJia/ng_sym_diamonds2",
+            "ui://CaiFuZhiJia/ng_sym_diamonds4",
+            "ui://CaiFuZhiJia/ng_sym_diamonds3",
+            "ui://CaiFuZhiJia/ng_sym_diamonds6",
         };
 
         public List<string> JackpotTypePath { get; } = new List<string>()
