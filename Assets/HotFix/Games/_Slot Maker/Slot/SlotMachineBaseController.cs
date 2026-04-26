@@ -64,6 +64,8 @@ namespace SlotMaker
         /// <summary> 立马停止 </summary>
         public bool isStopImmediately = false;
 
+        public bool isIdleEffect = false;
+
 
         /// <summary> 滚轮静止时顶部预留图标个数 </summary>
         public int bufferTop = 1;
@@ -375,7 +377,8 @@ namespace SlotMaker
 
             // 手动挪动一格前先停止当前图标特效，避免残留效果干扰观察
             SkipWinLine(false);
-
+            CloseSlotCover();
+            isIdleEffect = false;
             if (reelIndex < 0 || reelIndex >= reels.Count)
                 yield break;
 
