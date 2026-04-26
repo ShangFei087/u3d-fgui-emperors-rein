@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace CaiFuHuoChe_3996
 {
@@ -17,7 +18,7 @@ namespace CaiFuHuoChe_3996
         /// <summary> 快照版本号（用于反序列化后兼容校验）。 </summary>
         public int SessionVersion = CurrentSessionVersion;
         /// <summary> 游戏 ID（用于跨游戏隔离校验）。 </summary>
-        public int GameId = 1700;
+        public int GameId = 3996;
         /// <summary> 玩家 ID（用于跨账号隔离校验）。 </summary>
         public int PlayerId;
 
@@ -45,6 +46,23 @@ namespace CaiFuHuoChe_3996
 
         /// <summary> 最后一局已落地的盘面，用于恢复滚轮显示 </summary>
         public string StrDeckRowCol;
+
+        ///<summary> 当前免费游戏已经有的wild的数量（用于判断当前免费游戏所处的倍率） </summary>
+        public int wildNum = 0;
+
+        /// <summary> 当前免费游戏已经获得分数 </summary>
+        public int curFreeCredit = 0;
+
+        /// <summary> 当前玩家真实的金币数 </summary>
+        public long realCredit = 0;
+
+        /// <summary>
+        /// 新算法获取中免费游戏单局赢分
+        /// </summary>
+        public List<int> newFreeOnceCredit = new List<int>();
+
+        ///<summary> 免费游戏应该加完之后的局数 </summary>
+        public int tempFreeTotalTimes = 0;
 
         /// <summary> 快照保存时间（UTC 毫秒时间戳）。 </summary>
         public long SavedUtcMs;

@@ -241,7 +241,7 @@ namespace XingYunZhiLun_3998
             //记录当前免费游戏之前的wild数据
             if (resultType == 2)
             {
-                foreach (List<int> value in freeWildRecord.Values)
+                foreach (List<int> value in ContentModel.Instance.freeWildRecord.Values)
                 {
                     value.Clear();
                 }
@@ -258,11 +258,11 @@ namespace XingYunZhiLun_3998
                     {
                         if (int.Parse(res["Matrix"][index].Value) == 9 || int.Parse(res["Matrix"][index].Value) == 8)
                         {
-                            if (!freeWildRecord.ContainsKey(col))
+                            if (!ContentModel.Instance.freeWildRecord.ContainsKey(col))
                             {
-                                freeWildRecord[col] = new List<int>();
+                                ContentModel.Instance.freeWildRecord[col] = new List<int>();
                             }
-                            freeWildRecord[col].Add(row);
+                            ContentModel.Instance.freeWildRecord[col].Add(row);
                         }
                     }
                     else if (openType == 1)
@@ -270,16 +270,16 @@ namespace XingYunZhiLun_3998
                         if (int.Parse(res["Matrix"][index].Value) == 8)
                         {
                             bool haveNewWild = false;
-                            if (!freeWildRecord.ContainsKey(col))
+                            if (!ContentModel.Instance.freeWildRecord.ContainsKey(col))
                             {
-                                freeWildRecord[col] = new List<int>();
+                                ContentModel.Instance.freeWildRecord[col] = new List<int>();
                                 haveNewWild = true;
                             }
-                            else if (!freeWildRecord[col].Contains(row))
+                            else if (!ContentModel.Instance.freeWildRecord[col].Contains(row))
                             {
                                 haveNewWild = true;
                             }
-                            freeWildRecord[col].Add(row);
+                            ContentModel.Instance.freeWildRecord[col].Add(row);
 
                             if (haveNewWild)
                             {
@@ -292,7 +292,7 @@ namespace XingYunZhiLun_3998
                             }
                         }
 
-                        if (freeWildRecord.ContainsKey(col) && freeWildRecord[col].Contains(row))
+                        if (ContentModel.Instance.freeWildRecord.ContainsKey(col) && ContentModel.Instance.freeWildRecord[col].Contains(row))
                         {
                             res["Matrix"][index].Value = 8.ToString();
                         }
@@ -311,6 +311,7 @@ namespace XingYunZhiLun_3998
                     strDeckRowCol += "#"; // 行之间用#号分隔
                 }
             }
+
             ContentModel.Instance.strDeckRowCol = strDeckRowCol;
             //IDVec 
             for (int i = 0; i < lineNum; i++)
@@ -442,6 +443,7 @@ namespace XingYunZhiLun_3998
                     ContentModel.Instance.freeSpinTotalTimes = TotalFreeTime;
                     ContentModel.Instance.freeSpinPlayTimes = 0;
                     ContentModel.Instance.freeSpinTotalWinCredit = 0;
+                    ContentModel.Instance.curFreeCredit = 0;
 
                     ContentModel.Instance.newFreeOnceCredit.Clear();
                     for (int i = 0; i < TotalFreeTime; i++)
@@ -461,6 +463,7 @@ namespace XingYunZhiLun_3998
 
                 ContentModel.Instance.curReelStripsIndex = "FS";
                 ContentModel.Instance.freeSpinPlayTimes += 1;
+                ContentModel.Instance.curFreeCredit += ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
                 ContentModel.Instance.freeSpinTotalWinCredit += totalLineWin;
 
                 if (ContentModel.Instance.freeSpinTotalTimes == ContentModel.Instance.freeSpinPlayTimes)
@@ -543,6 +546,11 @@ namespace XingYunZhiLun_3998
 
             //赢分
             long creditBefore = MainBlackboardController.Instance.myRealCredit;
+            if (ContentModel.Instance.isSysCredit)
+            {
+                ContentModel.Instance.isSysCredit = false;
+                creditBefore = ContentModel.Instance.realCredit;
+            }
             long creditAfter = creditBefore - totalBet + totalLineWin + bonusWin;
             if (ContentModel.Instance.gameState == GameState.FreeSpin) creditAfter += totalBet;
 
@@ -556,12 +564,13 @@ namespace XingYunZhiLun_3998
             //ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Default;
             //SlotGameEffectManager.Instance.SetEffect(ContentModel.Instance.targetSlotGameEffect);
 
-                // 记录游戏数据到数据库
-            Record(totalBet, res);
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
+            ContentModel.Instance.realCredit = creditAfter;
             DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 当前押注倍率：{MainModel.Instance.contentMD.betmultiple} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin} ");
 
 
+            // 记录游戏数据到数据库
+            Record(totalBet, res);
             FreeSpinSessionStoreG3998.TryPersistOrClearSession();
         }
 
@@ -592,7 +601,6 @@ namespace XingYunZhiLun_3998
             }
         }
 
-        private Dictionary<int, List<int>> freeWildRecord = new Dictionary<int, List<int>>();
 
         private int CalculateLineWinCredit(int symbolNumber, int hitCount)
         {
@@ -803,7 +811,7 @@ namespace XingYunZhiLun_3998
             if(ResultType == 2)
             {
                 //记录当前免费游戏之前的wild数据
-                foreach (List<int> value in freeWildRecord.Values)
+                foreach (List<int> value in ContentModel.Instance.freeWildRecord.Values)
                 {
                     value.Clear();
                 }
@@ -825,11 +833,11 @@ namespace XingYunZhiLun_3998
                     {
                         if(int.Parse(res["Matrix"][index].Value) == 9 || int.Parse(res["Matrix"][index].Value) == 8)
                         {
-                            if (!freeWildRecord.ContainsKey(col))
+                            if (!ContentModel.Instance.freeWildRecord.ContainsKey(col))
                             {
-                                freeWildRecord[col] = new List<int>();
+                                ContentModel.Instance.freeWildRecord[col] = new List<int>();
                             }
-                            freeWildRecord[col].Add(row);
+                            ContentModel.Instance.freeWildRecord[col].Add(row);
                         }
                     }
                     else if ((int)res["OpenType"] == 1)
@@ -837,16 +845,16 @@ namespace XingYunZhiLun_3998
                         if (int.Parse(res["Matrix"][index].Value) == 8)
                         {
                             bool haveNewWild = false;
-                            if (!freeWildRecord.ContainsKey(col))
+                            if (!ContentModel.Instance.freeWildRecord.ContainsKey(col))
                             {
-                                freeWildRecord[col] = new List<int>();
+                                ContentModel.Instance.freeWildRecord[col] = new List<int>();
                                 haveNewWild = true;
                             }
-                            else if (!freeWildRecord[col].Contains(row))
+                            else if (!ContentModel.Instance.freeWildRecord[col].Contains(row))
                             {
                                 haveNewWild = true;
                             }
-                            freeWildRecord[col].Add(row);
+                            ContentModel.Instance.freeWildRecord[col].Add(row);
 
                             if (haveNewWild)
                             {
@@ -859,7 +867,7 @@ namespace XingYunZhiLun_3998
                             }
                         }
 
-                        if(freeWildRecord.ContainsKey(col) && freeWildRecord[col].Contains(row))
+                        if(ContentModel.Instance.freeWildRecord.ContainsKey(col) && ContentModel.Instance.freeWildRecord[col].Contains(row))
                         {
                             res["Matrix"][index].Value = 8.ToString();
                         }

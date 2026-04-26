@@ -84,6 +84,10 @@ namespace XingYunZhiLun_3998
                 TotalBet = cm.totalBet,
                 GameNumberFreeSpinTrigger = cm.gameNumberFreeSpinTrigger,
                 StrDeckRowCol = cm.strDeckRowCol,
+                freeWildRecord = cm.freeWildRecord,
+                newFreeOnceCredit = cm.newFreeOnceCredit,
+                curFreeCredit = cm.curFreeCredit,
+                realCredit = cm.realCredit,
                 SavedUtcMs = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
             };
 
@@ -150,6 +154,9 @@ namespace XingYunZhiLun_3998
             cm.freeSpinAddNum = 0;
             cm.showFreeSpinRemainTime = 0;
             cm.gameNumberFreeSpinTrigger = 0;
+            cm.curFreeCredit = 0;
+            cm.realCredit = 0;
+            cm.newFreeOnceCredit.Clear();
             cm.PendingFreeSpinReconnectValidation = false;
         }
     }
