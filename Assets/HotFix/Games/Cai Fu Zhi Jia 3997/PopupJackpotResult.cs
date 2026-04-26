@@ -189,6 +189,18 @@ namespace CaiFuZhiJia_3997
                     ContentModel.Instance.totalBonusReward = 0;
                 });
             }));
+
+            if (TestManager.Instance.IsAutoModeRunning)
+            {
+                Timers.inst.Add(0.3f, 1, (obj) =>
+                {
+                    if (_jackpotResultButton != null && _jackpotResultTipWindow != null &&
+                        _jackpotResultTipWindow.visible)
+                    {
+                        _jackpotResultButton.onClick.Call();
+                    }
+                });
+            }
         }
 
         private void ResetView()

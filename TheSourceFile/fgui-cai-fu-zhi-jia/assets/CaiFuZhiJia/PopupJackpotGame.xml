@@ -10,7 +10,7 @@
     <component id="n21_enim" name="jackpotFrame" src="q5jy5s" fileName="moudules/popupJackpotGame/JackpotCount.xml" xy="106,427"/>
     <component id="n3_q5jy" name="reelBg" src="n3ln1f" fileName="moudules/pageGameMain/ReelBackground/ReelBackground.xml" xy="0,1056"/>
     <component id="n6_q5jy" name="rewardRoll" src="q5jy5v" fileName="moudules/popupJackpotGame/ReelContent/JackpotReels.xml" xy="111,1153"/>
-    <component id="n7_q5jy" name="jackpotDiamondSpines" src="q5jy5x" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamondSpines.xml" xy="111,1153"/>
+    <component id="n7_q5jy" name="jackpotDiamondSpines" src="q5jy5x" fileName="moudules/popupJackpotGame/ReelContent/JackpotDiamondSpines.xml" xy="111,1150"/>
     <component id="n9_q5jy" name="reelBgSpine" src="rdkv2k" fileName="moudules/pageGameMain/Common/AnchorBorder.xml" xy="540,1350"/>
     <component id="n15_h8er" name="panel" src="n3ln2i" fileName="components/pageGameMain/AnchorPanelSlot.xml" xy="540,1845"/>
     <component id="n16_h8er" name="rayEffect" src="h8erdb" fileName="moudules/popupJackpotGame/GameBackground/GameEffect/RayEffect.xml" xy="540,960" visible="false" touchable="false"/>

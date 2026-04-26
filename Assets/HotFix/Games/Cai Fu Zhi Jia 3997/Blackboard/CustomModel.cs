@@ -419,8 +419,6 @@ namespace CaiFuZhiJia_3997
         {
             "ui://CaiFuZhiJia/ng_sym_diamonds",
             "ui://CaiFuZhiJia/ng_sym_diamonds2",
-            "ui://CaiFuZhiJia/ng_sym_diamonds",
-            "ui://CaiFuZhiJia/ng_sym_diamonds2",
         };
 
         public List<string> JackpotTypePath { get; } = new List<string>()

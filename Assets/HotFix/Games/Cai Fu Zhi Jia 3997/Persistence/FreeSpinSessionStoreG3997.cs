@@ -87,6 +87,7 @@ namespace CaiFuZhiJia_3997
                 StrDeckRowCol = cm.strDeckRowCol,
                 SavedUtcMs = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
                 FreeGameScoreMultiply = cm.freeGameScoreMultiply,
+                CurrentWinBet = cm.currentWinBet,
             };
             string json = JsonConvert.SerializeObject(snap);
             SQLitePlayerPrefs03.Instance.SetString(key, json);
@@ -121,7 +122,7 @@ namespace CaiFuZhiJia_3997
             }
             catch (System.Exception e)
             {
-                Debug.LogError($"[G1700] FreeSpinSession 反序列化失败: {e.Message}");
+                Debug.LogError($"[G3997] FreeSpinSession 反序列化失败: {e.Message}");
                 return null;
             }
         }

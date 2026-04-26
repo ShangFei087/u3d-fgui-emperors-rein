@@ -373,6 +373,9 @@ namespace SlotMaker
             if (isStopImmediately)
                 yield break;
 
+            // 手动挪动一格前先停止当前图标特效，避免残留效果干扰观察
+            SkipWinLine(false);
+
             if (reelIndex < 0 || reelIndex >= reels.Count)
                 yield break;
 

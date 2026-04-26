@@ -5,14 +5,24 @@
     <component id="n1_q5jy" name="rollElement_2" src="q5jy5r" fileName="moudules/popupJackpotGame/ReelContent/JackpotSymbol.xml" xy="1,-338"/>
     <component id="n2_q5jy" name="rollElement_3" src="q5jy5r" fileName="moudules/popupJackpotGame/ReelContent/JackpotSymbol.xml" xy="0,-169"/>
     <component id="n3_q5jy" name="rollElement_4" src="q5jy5r" fileName="moudules/popupJackpotGame/ReelContent/JackpotSymbol.xml" xy="0,0" visible="false"/>
+    <graph id="n5_d58a" name="n5" xy="0,0" size="171,167" type="rect" fillColor="#66000000"/>
+    <component id="n4_d58a" name="rollElement_5" src="q5jy5r" fileName="moudules/popupJackpotGame/ReelContent/JackpotSymbol.xml" xy="0,-169"/>
   </displayList>
-  <transition name="roll" autoPlayRepeat="0">
+  <transition name="roll" autoPlayRepeat="3">
     <item time="0" type="XY" target="n0_q5jy" tween="true" startValue="0,-507" endValue="0,169" duration="24" ease="Linear"/>
     <item time="0" type="XY" target="n1_q5jy" tween="true" startValue="1,-338" endValue="1,169" duration="18" ease="Linear"/>
     <item time="0" type="XY" target="n2_q5jy" tween="true" startValue="0,-169" endValue="0,169" duration="12" ease="Linear"/>
     <item time="0" type="XY" target="n3_q5jy" tween="true" startValue="0,0" endValue="0,169" duration="6" ease="Linear"/>
-    <item time="12" type="XY" target="n2_q5jy" value="0,169"/>
-    <item time="18" type="XY" target="n1_q5jy" value="1,169"/>
-    <item time="24" type="XY" target="n0_q5jy" value="0,169"/>
+  </transition>
+  <transition name="back" autoPlayRepeat="0">
+    <item time="0" type="XY" target="n4_d58a" tween="true" startValue="0,-169" endValue="0,0" duration="6" ease="Linear"/>
+    <item time="6" type="XY" target="n4_d58a" tween="true" startValue="0,0" endValue="0,169" duration="6" ease="Linear"/>
+    <item time="12" type="XY" target="n4_d58a" tween="true" startValue="0,169" endValue="0,0" duration="6" ease="Linear"/>
+  </transition>
+  <transition name="reset">
+    <item time="0" type="XY" target="n0_q5jy" value="0,-507"/>
+    <item time="0" type="XY" target="n1_q5jy" value="1,-338"/>
+    <item time="0" type="XY" target="n2_q5jy" value="0,-169"/>
+    <item time="0" type="XY" target="n3_q5jy" value="0,0"/>
   </transition>
 </component>

@@ -17,8 +17,8 @@
     </text>
     <component id="n34_ioi7" name="btnSpin" src="ioi7i2" fileName="components/ButtonSpin.xml" xy="930,14"/>
     <richtext id="n36_7lu1" name="singleLine" xy="269,4" size="541,42" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="Line to 5  Win 80"/>
-    <component id="n38_p0gg" name="setPanel" src="p0ggxk2" fileName="moudules/SetPanel1.xml" xy="9,-254"/>
-    <component id="n39_p0gg" name="instructions" src="p0ggxkb" fileName="moudules/Instructions.xml" xy="0,-1762"/>
     <component id="n41_eiu2" name="ExhibitionPanel" src="eiu2xkm" fileName="moudules/ExhibitionPanel.xml" xy="-2,-1203" size="1080,1200"/>
+    <component id="n39_p0gg" name="instructions" src="p0ggxkb" fileName="moudules/Instructions.xml" xy="0,-1762"/>
+    <component id="n38_p0gg" name="setPanel" src="p0ggxk2" fileName="moudules/SetPanel1.xml" xy="9,-254"/>
   </displayList>
 </component>

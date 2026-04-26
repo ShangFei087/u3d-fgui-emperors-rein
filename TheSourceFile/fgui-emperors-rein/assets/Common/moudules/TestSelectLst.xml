@@ -5,42 +5,18 @@
       <relation target="" sidePair="width-width,height-height"/>
     </graph>
     <list id="n2_r8oz" name="menu" xy="0,0" size="250,700" overflow="scroll" defaultItem="ui://9ffscgs4rl7yk">
-      <item>
-        <property target="title" propertyId="0" value="Button1"/>
-      </item>
-      <item>
-        <property target="title" propertyId="0" value="Button2"/>
-      </item>
-      <item>
-        <property target="title" propertyId="0" value=""/>
-      </item>
-      <item>
-        <property target="title" propertyId="0" value=""/>
-      </item>
-      <item>
-        <property target="title" propertyId="0" value=""/>
-      </item>
-      <item>
-        <property target="title" propertyId="0" value=""/>
-      </item>
-      <item>
-        <property target="title" propertyId="0" value=""/>
-      </item>
-      <item>
-        <property target="title" propertyId="0" value=""/>
-      </item>
-      <item>
-        <property target="title" propertyId="0" value=""/>
-      </item>
-      <item>
-        <property target="title" propertyId="0" value=""/>
-      </item>
-      <item>
-        <property target="title" propertyId="0" value=""/>
-      </item>
-      <item>
-        <property target="title" propertyId="0" value=""/>
-      </item>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
     </list>
   </displayList>
 </component>

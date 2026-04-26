@@ -91,16 +91,16 @@ public class MainModel : MonoSingleton<MainModel>
     /// 展会模式（可运行时开关；未写入过偏好时默认与 ApplicationSettings 一致，写入后持久化）。
     /// </summary>
     public const string PARAM_EXPO_MODE = "PARAM_EXPO_MODE";
-    bool _expoModeLoaded;
+    bool _expoModeLoaded=false;
     bool _ExhibitionMode;
 
     void EnsureExpoModeLoaded()
     {
-        if (_expoModeLoaded)
-            return;
+        if (_expoModeLoaded) return;
         _expoModeLoaded = true;
-        int def = ApplicationSettings.Instance.IsExpoMode() ? 1 : 0;
-        _ExhibitionMode = SQLitePlayerPrefs03.Instance.GetInt(PARAM_EXPO_MODE, def) != 0;
+        // int def = ApplicationSettings.Instance.IsExpoMode() ? 1 : 0;
+        //_ExhibitionMode = SQLitePlayerPrefs03.Instance.GetInt(PARAM_EXPO_MODE, def) != 0;
+        _ExhibitionMode= ApplicationSettings.Instance.IsExpoMode() ? true : false;
     }
 
     public bool isExhibitionModeMode
@@ -116,7 +116,7 @@ public class MainModel : MonoSingleton<MainModel>
             if (_ExhibitionMode == value)
                 return;
             _ExhibitionMode = value;
-            SQLitePlayerPrefs03.Instance.SetInt(PARAM_EXPO_MODE, value ? 1 : 0);
+           // SQLitePlayerPrefs03.Instance.SetInt(PARAM_EXPO_MODE, value ? 1 : 0);
         }
     }
 
