@@ -25,4 +25,7 @@
     <item time="0" type="XY" target="n2_q5jy" value="0,-169"/>
     <item time="0" type="XY" target="n3_q5jy" value="0,0"/>
   </transition>
+  <transition name="backReset">
+    <item time="0" type="XY" target="n4_d58a" value="0,-169"/>
+  </transition>
 </component>

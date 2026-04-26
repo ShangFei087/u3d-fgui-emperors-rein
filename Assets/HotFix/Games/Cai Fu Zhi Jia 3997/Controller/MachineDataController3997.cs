@@ -373,6 +373,8 @@ namespace CaiFuZhiJia_3997
                     isBonus) // 中彩金奖
                 {
                     ContentModel.Instance.IsBonusTrigger = true;
+                    if (resultType == (int)ResultType.RT_Jackpot)
+                        ContentModel.Instance.IsJackpotTrigger = true;
                     ContentModel.Instance.currentBonusDataList.Clear();
                     ContentModel.Instance.currentBonusDataList = bonusData.Trim('[', ']').Split(',').ToList();
 

@@ -9,14 +9,12 @@ namespace CaiFuZhiJia_3997
 {
     public class SingleReelController
     {
-        private readonly int _wheelIndex; // 当前滚轴索引
-
+        private readonly int _reelIndex;
         private readonly GComponent _wheelRootNode; // 滚轴的根节点 elementBox
-
         private readonly Transition _rollTransition;
         private readonly Transition _backTransition;
         public readonly Transition ResetTransition;
-        // private GComponent _backCom;
+        public readonly Transition BackResetTransition;
 
         /// <summary>滚轴上的所有图标信息List</summary>
         public readonly List<GComponent> RollElements = new List<GComponent>();
@@ -24,13 +22,14 @@ namespace CaiFuZhiJia_3997
         /// <summary>滚轴上所有的文本组件</summary>
         public readonly List<GTextField> RewardTexts = new List<GTextField>();
 
-        public SingleReelController(GComponent wheelRootNode, int wheelIndex)
+        public SingleReelController(GComponent wheelRootNode, int reelIndex)
         {
             _wheelRootNode = wheelRootNode;
-            _wheelIndex = wheelIndex;
+            _reelIndex = reelIndex;
             _rollTransition = _wheelRootNode.GetTransition("roll");
             _backTransition = _wheelRootNode.GetTransition("back");
             ResetTransition = _wheelRootNode.GetTransition("reset");
+            BackResetTransition = _wheelRootNode.GetTransition("backReset");
             InitReel();
         }
 
@@ -42,53 +41,62 @@ namespace CaiFuZhiJia_3997
                 {
                     GComponent parentGCom = _wheelRootNode.GetChild("rollElement_" + (i + 1)).asCom;
                     GTextField rewardText = parentGCom.GetChild("rewardText").asTextField;
-                    if (i == 1)
-                        rewardText.text = Random.Range(100, 900).ToString();
+
                     GLoader elementLoader = parentGCom.GetChild("element").asLoader;
-                    elementLoader.url = CustomModel.Instance.JackpotBgPath[Random.Range(0,1)];
+                    if (i != 4)
+                    {
+                        elementLoader.url =
+                            CustomModel.Instance.JackpotBgPath[
+                                Random.Range(0, CustomModel.Instance.JackpotBgPath.Count)];
+                        // if (elementLoader.url == "ui://CaiFuZhiJia/ng_sym_diamonds2")
+                        //     rewardText.text = Random.Range(100, 900).ToString();
+                    }
+                    else
+                        elementLoader.url = CustomModel.Instance.JackpotTypePath[0]; // 默认是没中奖类型
+
                     RollElements.Add(parentGCom);
                     RewardTexts.Add(rewardText);
                 }
-
-                // _backCom = _wheelRootNode.GetChild("result").asCom;
             }
         }
 
         public void StartRoll(float speed)
         {
-            // _rollTransition.timeScale = speed;
-            // PlayWithLoops();
-
-            // _backTransition.timeScale = speed;
-            _backTransition.Play();
+            _rollTransition.timeScale = speed;
+            PlayWithLoops();
         }
 
 
-        public void StopRoll()
+        public void StopRoll(List<int> winList, Action callback)
         {
             _rollTransition.Stop();
             _rollTransition.timeScale = 1f;
-            // _rollTransition.Stop(true);
+            callback?.Invoke();
         }
 
-        public void PlayBack(Action callback)
+        public void PlayBack(Action callback, string normalBet)
         {
-            // Debug.LogError($"[{_wheelIndex}] back 播放前 isPlaying={_backTransition.playing}");
-
-            // GComponent result = _wheelRootNode.GetChild("result").asCom;
-            // if (result != null)
-            // {
-            //     result.visible = true;
-            //     result.alpha = 1;
-            // }
+            _wheelRootNode.GetChild("rollElement_5").asCom.GetChild("element").asLoader.url =
+                CustomModel.Instance.JackpotBgPath[2];
+            _wheelRootNode.GetChild("rollElement_5").asCom.GetChild("rewardText").asTextField.text = normalBet;
 
             _backTransition.Play(() =>
             {
-                // Debug.LogError($"[{_wheelIndex}] back 播放完成回调触发");
-                callback?.Invoke();
+                BackResetTransition.timeScale = 2f;
+                BackResetTransition.Play(() => callback?.Invoke());
             });
+        }
 
-            // Debug.LogError($"[{_wheelIndex}] back 播放后 isPlaying={_backTransition.playing}");
+        public void PlayBack(Action callback, int winType)
+        {
+            _wheelRootNode.GetChild("rollElement_5").asCom.GetChild("element").asLoader.url =
+                CustomModel.Instance.JackpotTypePath[winType];
+            _wheelRootNode.GetChild("rollElement_5").asCom.GetChild("rewardText").asTextField.text = "";
+            _backTransition.Play(() =>
+            {
+                BackResetTransition.timeScale = 2f;
+                BackResetTransition.Play(() => callback?.Invoke());
+            });
         }
 
         void PlayWithLoops()

@@ -80,7 +80,7 @@ public class PageLaunch
                 if(UIPackage.GetByName("Native") == null)
                     UIPackage.AddPackage("Native/FGUIs/Native"); // Native/FGUIs/ == Resources/Native/FGUIs
                 _instance = new PageLaunch();
-                _instance.goOwnerPage = UIPackage.CreateObject("Native", "PageLaunch").asCom;
+                _instance.goOwnerPage = UIPackage.CreateObject("Native", "TreasuryPageLaunch").asCom;
                 GRoot.inst.AddChild(_instance.goOwnerPage);
                 _instance.goOwnerPage.sortingOrder = 99;
             }
@@ -123,7 +123,7 @@ public class PageLaunch
         pbLoading = goOwnerPage.GetChild("progress").asProgress;
         txtMsg = goOwnerPage.GetChild("title").asTextField;
         lodLogo = goOwnerPage.GetChild("logo").asLoader;
-        lodLogo.url = ApplicationSettings.Instance.logoUrl;
+        //lodLogo.url = ApplicationSettings.Instance.logoUrl;
 
         msgLst.Clear();
         isError = false;
@@ -302,11 +302,6 @@ public class PageLaunch
         goOwnerPage.visible = false;
     }
 
-
-
-
-
-
     float lastRunTimeS = 0;
     public void Update(object data)
     {
@@ -323,7 +318,6 @@ public class PageLaunch
             ShowProgressUIMsg();
         }
     }
-
 
     float curShowProgress = 0f;
     string curShowMsg = "";

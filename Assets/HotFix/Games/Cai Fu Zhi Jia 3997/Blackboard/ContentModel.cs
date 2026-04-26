@@ -49,6 +49,9 @@ namespace CaiFuZhiJia_3997
         public bool isRequestToRealCreditWhenStop { set => throw new System.NotImplementedException(); }
 
         #region 本局游戏数据
+        
+        /// <summary> 免费游戏加速框 </summary>
+        public bool isFreeSlotTip;
 
         /// <summary>是否开启自动</summary>
         public bool isAuto { get; set; }
@@ -111,9 +114,10 @@ namespace CaiFuZhiJia_3997
 
         /// <summary> 额外添加免费游戏 </summary>
         public bool isFreeSpinAdd;
-        
+
         /// <summary> 断电前免费得分 </summary>
-        [FormerlySerializedAs("CurrentWinBet")] public long currentWinBet;
+        [FormerlySerializedAs("CurrentWinBet")]
+        public long currentWinBet;
 
         /// <summary> 当前局，免费增加局数 </summary>
         public int freeSpinAddNum;
@@ -162,11 +166,13 @@ namespace CaiFuZhiJia_3997
         /// <summary>彩金游戏触发</summary>
         public bool IsBonusTrigger { get; set; }
 
+        public bool IsJackpotTrigger { get; set; }
+
         /// <summary>
         /// 彩金游戏总得分
         /// </summary>
         public long totalBonusReward = 0;
-        
+
         /// <summary>
         /// 彩金得分数组
         /// </summary>

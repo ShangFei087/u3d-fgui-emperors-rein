@@ -102,6 +102,7 @@ namespace CaiFuZhiJia_3997
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotTrigger, null);
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotGame, null);
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotResult, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotWin, null);
                 _isFirstOpen = false;
 
                 Debug.LogError("CaiFuZhiJia is Preloaded!");
