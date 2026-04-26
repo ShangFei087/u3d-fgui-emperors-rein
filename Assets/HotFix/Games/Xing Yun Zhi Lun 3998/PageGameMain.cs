@@ -76,6 +76,10 @@ namespace XingYunZhiLun_3998
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMiniCtrl = new MiniReelGroup();
 
+        //新增背景效果
+        private GameObject norBgPref, freeBgPref, norBgObj, freeBgObj;
+        private GComponent anchorNor, anchorFree;
+
 
         private bool isReserve;
 
@@ -101,7 +105,7 @@ namespace XingYunZhiLun_3998
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 8;
+            int count = 10;
 
             Action callback = () =>
             {
@@ -193,6 +197,22 @@ namespace XingYunZhiLun_3998
                 (GameObject clone) =>
                 {
                     goReelEffcet = clone;
+                    callback();
+                });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/GameBgEffect/NorBg.prefab",
+                (GameObject clone) =>
+                {
+                    norBgPref = clone;
+                    callback();
+                });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/GameBgEffect/FreeBg.prefab",
+                (GameObject clone) =>
+                {
+                    freeBgPref = clone;
                     callback();
                 });
 
@@ -364,15 +384,24 @@ namespace XingYunZhiLun_3998
             //读取json配置
             ReadJsonBet();
 
-            //// 玩家积分初始化
-            //SBoxModel.Instance.myCredit = 9900;
-            //foreach (SBoxPlayerScoreInfo item in SBoxIdea.sBoxInfo.PlayerScoreInfoList)
-            //{
-            //    if (item.PlayerId == 1)
-            //    {
-            //        SBoxModel.Instance.myCredit = item.Score;
-            //    }
-            //}
+            GComponent loadNorAnchor = contentPane.GetChild("anchorBG").asCom;
+            if(anchorNor != loadNorAnchor)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorNor);
+                norBgObj = GameObject.Instantiate(norBgPref);
+                anchorNor = loadNorAnchor;
+                GameCommon.FguiUtils.AddWrapper(anchorNor, norBgObj);
+            }
+
+            GComponent loadFreeAnchor = contentPane.GetChild("anchorFreeBg").asCom;
+            if (anchorFree != loadFreeAnchor)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorFree);
+                freeBgObj = GameObject.Instantiate(freeBgPref);
+                anchorFree = loadFreeAnchor;
+                GameCommon.FguiUtils.AddWrapper(anchorFree, freeBgObj);
+                anchorFree.visible = false;
+            }
 
 
             GComponent loadFirwork = contentPane.GetChild("anchorEffect").asCom;
@@ -1348,7 +1377,7 @@ namespace XingYunZhiLun_3998
             if (cm.curReelStripsIndex == "FS" || cm.nextReelStripsIndex == "FS")
             {
                 ChangeBGPanel(1);
-                freeTimes.text = (ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes - 1).ToString();
+                freeTimes.text = (ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes).ToString();
                 isConnectFreeSpin = true;
             }
 
