@@ -400,9 +400,8 @@ namespace XingYunZhiLun_3998
                 freeBgObj = GameObject.Instantiate(freeBgPref);
                 anchorFree = loadFreeAnchor;
                 GameCommon.FguiUtils.AddWrapper(anchorFree, freeBgObj);
-                anchorFree.visible = false;
+                freeBgObj.SetActive(false);
             }
-
 
             GComponent loadFirwork = contentPane.GetChild("anchorEffect").asCom;
             if(gFireWork != loadFirwork)
@@ -1425,6 +1424,7 @@ namespace XingYunZhiLun_3998
                 isNext = false;
 
                 slotMachineCtrl.SkipWinLine(true);
+                norBgObj.SetActive(false);
                 bsTofs.Play();
 
                 bsTofs.SetHook("PlayEffect", () =>
@@ -1562,12 +1562,18 @@ namespace XingYunZhiLun_3998
             {
                 case 0:
                     this.contentPane.GetController("c1").selectedPage = "BS";
+                    freeBgObj.SetActive(false);
+                    norBgObj.SetActive(true);
                     break;
                 case 1:
                     this.contentPane.GetController("c1").selectedPage = "FS";
+                    norBgObj.SetActive(false);
+                    freeBgObj.SetActive(true);
                     break;
                 case 2:
                     this.contentPane.GetController("c1").selectedPage = "JS";
+                    freeBgObj.SetActive(false);
+                    norBgObj.SetActive(false);
                     break;
             }
         }
