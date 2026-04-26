@@ -48,8 +48,8 @@ namespace CaiFuZhiJia_3997
                         elementLoader.url =
                             CustomModel.Instance.JackpotBgPath[
                                 Random.Range(0, CustomModel.Instance.JackpotBgPath.Count)];
-                        if (elementLoader.url == "ui://CaiFuZhiJia/ng_sym_diamonds2")
-                            rewardText.text = Random.Range(100, 900).ToString();
+                        // if (elementLoader.url == "ui://CaiFuZhiJia/ng_sym_diamonds2")
+                        //     rewardText.text = Random.Range(100, 900).ToString();
                     }
                     else
                         elementLoader.url = CustomModel.Instance.JackpotTypePath[0]; // 默认是没中奖类型

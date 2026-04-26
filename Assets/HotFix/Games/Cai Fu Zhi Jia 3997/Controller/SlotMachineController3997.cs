@@ -199,34 +199,88 @@ namespace CaiFuZhiJia_3997
             finishCallback?.Invoke();
         }
 
-        List<int> slowCols = new List<int>();
+        // List<int> slowCols = new List<int>();
+        
+        List<int> freeIconCols = new List<int>();
+        List<int> jackpotIconCols = new List<int>();
+        Dictionary<int, List<int>> freeAddIcon = new Dictionary<int, List<int>>();
+        Dictionary<int, List<int>> multAddIcon = new Dictionary<int, List<int>>();
 
         public List<List<int>> GetDeckColRow(int[] deckColRow, int colCount, int rowCount, /*int symbolIndex*/
             List<int> specialSymbols) // 修改参数，传入特殊图标数组
         {
-            if (ContentModel.Instance.isReelsSlowMotion) slowCols.Clear();
+            // if (ContentModel.Instance.isReelsSlowMotion) slowCols.Clear();
 
+            if (freeIconCols.Count > 0) freeIconCols.Clear();
+            if (jackpotIconCols.Count > 0) jackpotIconCols.Clear();
+            
+            if (ContentModel.Instance.isFreeSpin)
+            {
+                foreach(int key in freeAddIcon.Keys)
+                {
+                    freeAddIcon[key].Clear();
+                }
+
+                foreach(int key in multAddIcon.Keys)
+                {
+                    multAddIcon[key].Clear();
+                }
+            }
+            
             List<List<int>> colrowLsts = new List<List<int>>();
+            // for (int col = 0; col < colCount; col++)
+            // {
+            //     List<int> colLst = new List<int>();
+            //     for (int row = 0; row < rowCount; row++)
+            //     {
+            //         int syb = deckColRow[col * rowCount + row];
+            //         if (ContentModel.Instance.isReelsSlowMotion && syb == specialSymbols[0] &&
+            //             !ContentModel.Instance.IsBonusTrigger) // 新增判断，是否使彩金游戏
+            //         {
+            //             slowCols.Add(col);
+            //         }
+            //         else if (ContentModel.Instance.isReelsSlowMotion && syb == specialSymbols[1] &&
+            //                  ContentModel.Instance.IsBonusTrigger)
+            //         {
+            //             slowCols.Add(col);
+            //         }
+            //
+            //         colLst.Add(syb);
+            //     }
+            //
+            //     colrowLsts.Add(colLst);
+            // }
+            
             for (int col = 0; col < colCount; col++)
             {
                 List<int> colLst = new List<int>();
                 for (int row = 0; row < rowCount; row++)
                 {
                     int syb = deckColRow[col * rowCount + row];
-                    if (ContentModel.Instance.isReelsSlowMotion && syb == specialSymbols[0] &&
-                        !ContentModel.Instance.IsBonusTrigger) // 新增判断，是否使彩金游戏
-                    {
-                        slowCols.Add(col);
-                    }
-                    else if (ContentModel.Instance.isReelsSlowMotion && syb == specialSymbols[1] &&
-                             ContentModel.Instance.IsBonusTrigger)
-                    {
-                        slowCols.Add(col);
-                    }
 
+                    // if (ContentModel.Instance.isFreeSpin)
+                    // {
+                    //     if (syb == 10)
+                    //     {
+                    //         if (!freeAddIcon.ContainsKey(col)) freeAddIcon[col] = new List<int>();
+                    //         freeAddIcon[col].Add(row);
+                    //     }
+                    //     else if (syb == 9)
+                    //     {
+                    //         if (!multAddIcon.ContainsKey(col)) multAddIcon[col] = new List<int>();
+                    //         multAddIcon[col].Add(row);
+                    //     }
+                    // }
+                    if (syb == 10)
+                    {
+                        freeIconCols.Add(col);
+                    }
+                    else if (syb == 11)
+                    {
+                        jackpotIconCols.Add(col);
+                    }
                     colLst.Add(syb);
                 }
-
                 colrowLsts.Add(colLst);
             }
 
@@ -241,6 +295,9 @@ namespace CaiFuZhiJia_3997
 
             bool isNext = false;
 
+            bool haveSlotTip = false;
+            ContentModel.Instance.isFreeSlotTip = false;
+            
             for (int reelIdx = 0; reelIdx < this.column; reelIdx++)
             {
                 // if (_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx) > 0)
@@ -251,17 +308,36 @@ namespace CaiFuZhiJia_3997
                 int _reelIdx = reelIdx;
                 int extraReelTimes = 0;
                 bool isTrriger = false;
+                int extraReelTimesReel = 0;
 
-                if (ContentModel.Instance.isReelsSlowMotion && slowCols.Count > 1 && reelIdx >= slowCols[1])
+                // if (ContentModel.Instance.isReelsSlowMotion && slowCols.Count > 1 && reelIdx >= slowCols[1])
+                // {
+                //     extraReelTimes = 15;
+                //     isTrriger = true;
+                // }
+                
+                if ((freeIconCols.Count > 1 && reelIdx >= freeIconCols[1]) || (jackpotIconCols.Count > 1 && reelIdx >= jackpotIconCols[1]))  //ContentModel.Instance.isReelsSlowMotion && 
                 {
                     extraReelTimes = 15;
                     isTrriger = true;
+                    if(!haveSlotTip && freeIconCols.Count > 1 && reelIdx >= freeIconCols[1])
+                    {
+                        ContentModel.Instance.isFreeSlotTip = true;
+                    }
+                    haveSlotTip = true;
+
+                    if (freeIconCols.Count > 1)
+                    {
+                        extraReelTimesReel = reelIdx - freeIconCols[1];
+                    }
+                    else
+                    {
+                        extraReelTimesReel = reelIdx - jackpotIconCols[1];
+                    }
                 }
 
                 reels[reelIdx].StartTurn(
-                    _reelSetMD.Instance.GetNumReelTurn(reelIdx) +
-                    reelIdx * _reelSetMD.Instance.GetNumReelTurnGap(reelIdx) +
-                    extraReelTimes * (reelIdx - (slowCols.Count < 2 ? reelIdx : slowCols[1])),
+                        _reelSetMD.Instance.GetNumReelTurn(reelIdx) + reelIdx * _reelSetMD.Instance.GetNumReelTurnGap(reelIdx) + extraReelTimes * extraReelTimesReel,
                     () =>
                     {
                         if (isTrriger)
@@ -269,7 +345,7 @@ namespace CaiFuZhiJia_3997
                             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
                                 new EventData<int>(SlotMachineEvent.PrepareStoppedReel, _reelIdx + 1));
                         }
-
+                
                         if (--reelsCount <= 0)
                         {
                             isNext = true;

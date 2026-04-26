@@ -49,6 +49,9 @@ namespace CaiFuZhiJia_3997
         public bool isRequestToRealCreditWhenStop { set => throw new System.NotImplementedException(); }
 
         #region 本局游戏数据
+        
+        /// <summary> 免费游戏加速框 </summary>
+        public bool isFreeSlotTip;
 
         /// <summary>是否开启自动</summary>
         public bool isAuto { get; set; }
