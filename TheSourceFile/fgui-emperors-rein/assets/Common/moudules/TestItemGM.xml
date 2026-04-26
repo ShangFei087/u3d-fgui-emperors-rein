@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="250,60">
   <displayList>
-    <component id="n1_r8oz" name="gm" src="r8oz7" fileName="components/ButtonTestSpeed.xml" xy="10,13">
+    <component id="n1_r8oz" name="gm" src="r8oz7" fileName="components/ButtonTestSpeed.xml" xy="0,10">
       <Button title="GM"/>
     </component>
   </displayList>

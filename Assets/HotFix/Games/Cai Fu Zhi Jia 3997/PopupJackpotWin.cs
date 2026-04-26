@@ -105,6 +105,11 @@ namespace CaiFuZhiJia_3997
                 _winBetText.visible = true;
                 _collectBtn.visible = true;
                 _winBetText.text = ContentModel.Instance.currentShowJpBet.ToString();
+
+                if (TestManager.Instance.IsAutoModeRunning && _collectBtn != null && _collectBtn.visible)
+                {
+                    _collectBtn.onClick.Call();
+                }
             });
 
             _collectBtn.onClick.Add((() =>

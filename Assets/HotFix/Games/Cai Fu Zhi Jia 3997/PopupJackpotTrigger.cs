@@ -185,6 +185,18 @@ namespace CaiFuZhiJia_3997
                     // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotGame);
                 });
             }));
+
+            if (TestManager.Instance.IsAutoModeRunning)
+            {
+                Timers.inst.Add(0.3f, 1, (obj) =>
+                {
+                    if (_jackpotTriggerButton != null && _jackpotTriggerTipWindow != null &&
+                        _jackpotTriggerTipWindow.visible)
+                    {
+                        _jackpotTriggerButton.onClick.Call();
+                    }
+                });
+            }
         }
 
         private void ResetView()

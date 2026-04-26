@@ -1,10 +1,10 @@
 {
-  "updated_at": 1777113455299,
-  "hotfix_key": "hf_debug_android_20260425183430",
-  "hotfix_version": "1.2.1",
+  "updated_at": 1777173983375,
+  "hotfix_key": "hf_debug_android_20260426101712",
+  "hotfix_version": "1.2.5",
   "asset_bundle": {
     "manifest": {
-      "hash": "2d09520b355ef6a99a8bea371e082117",
+      "hash": "3f507c6f30d9bd591492e477e4fe1e64",
       "size_bytes": 21350
     },
     "bundle_hash": {
@@ -138,7 +138,7 @@
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_miniidlecfzj.unity3d": "a6a349f6cd76d98d73dbe835d883eb5d",
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_minoridlecfzj.unity3d": "456e9e7e4574a6a4211aaa2bd45d35b8",
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_popdidlecfzj.unity3d": "c64bbde7ed8ee3becda63e58ca470544",
-      "games/cai fu zhi jia 3997/fguis.unity3d": "0a2a06fcb8202cd3d8c2e48ae8f98ae3",
+      "games/cai fu zhi jia 3997/fguis.unity3d": "45e7182d8b05209503aa685a457581c3",
       "games/cai fu zhi jia 3997/prefabs/game controller/slot game main controller.unity3d": "1725d3cbdbf18cb86fad934c56cacaff",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/bonusaccelerateborder.unity3d": "3d28cc85bf41f8735bafa12ca4650f60",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/freeaccelerateborder.unity3d": "fc60c2fcaa85570fbe706b232a70ba81",
@@ -257,7 +257,7 @@
       "games/cai fu zhi men 3999/prefabs/symbols/symbolappear/scoreten_0.unity3d": "da6002985f4cd80fa9ec78c0e5dade80",
       "games/cai fu zhi men 3999/prefabs/symbols/symbolappear/wild_9.unity3d": "f7f5dc8061471804bd650593cc493093",
       "games/cai fu zhi men 3999/prefabs/symbols/symbolappear/yellowbox_5.unity3d": "f590ce706c854cf351dee82a7a9568e1",
-      "games/common/fguis.unity3d": "c534a25b1c75ad827aa695dcfe5e0792",
+      "games/common/fguis.unity3d": "04bed8975f946c4d407efd6720d8514d",
       "games/common/prefabs/gs/gs manager.unity3d": "77326e125f6c9ddc9e54c6075ebba530",
       "games/common/prefabs/gs/gssource.unity3d": "7d076b5c6bb0da738ba1294619c690c7",
       "games/console coin pusher 01/fguis.unity3d": "58fe80235a943e87f151132d00b91c6d",
@@ -713,8 +713,8 @@
       "size_bytes": 170496
     },
     "HotFix": {
-      "hash": "32b8034392b767b0db5577478a2bfd42",
-      "size_bytes": 1774592
+      "hash": "1d5ec4208e94a980fa5c41a1f895448d",
+      "size_bytes": 1776640
     }
   },
   "hotfix_dll_load_order": [
