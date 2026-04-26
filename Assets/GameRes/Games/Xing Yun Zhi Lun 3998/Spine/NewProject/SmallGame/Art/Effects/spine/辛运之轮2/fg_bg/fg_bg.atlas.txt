@@ -1,0 +1,12 @@
+fg_bg.png
+size:1690,760
+filter:Linear,Linear
+pma:true
+scale:0.7
+bg
+bounds:2,2,756,1610
+rotate:90
+tx/03
+bounds:1614,682,76,74
+offsets:1,0,77,74
+rotate:90

@@ -84,6 +84,12 @@ namespace CaiFuHuoChe_3996
                 TotalBet = cm.totalBet,
                 GameNumberFreeSpinTrigger = cm.gameNumberFreeSpinTrigger,
                 StrDeckRowCol = cm.strDeckRowCol,
+                wildNum = cm.wildNums,
+                realCredit = cm.realCredit,
+                curFreeCredit = cm.curFreeCredit,
+                newFreeOnceCredit = cm.newFreeOnceCredit,
+                tempFreeTotalTimes = cm.tempFreeTotalTimes,
+
                 SavedUtcMs = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
             };
 
@@ -151,6 +157,11 @@ namespace CaiFuHuoChe_3996
             cm.showFreeSpinRemainTime = 0;
             cm.gameNumberFreeSpinTrigger = 0;
             cm.PendingFreeSpinReconnectValidation = false;
+            cm.newFreeOnceCredit.Clear();
+            cm.wildNums = 0;
+            cm.realCredit = 0;
+            cm.curFreeCredit = 0;
+            cm.tempFreeTotalTimes = 0;
         }
     }
 }

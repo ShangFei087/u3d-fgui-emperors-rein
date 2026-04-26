@@ -4,13 +4,11 @@ using Newtonsoft.Json;
 using SBoxApi;
 using SimpleJSON;
 using SlotMaker;
-using SlotZhuZaiJinBi1700;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using XingYunZhiLun_3998;
 
 namespace CaiFuHuoChe_3996
 {
@@ -54,8 +52,8 @@ namespace CaiFuHuoChe_3996
         public List<int> jackpotPos = new List<int>();
         private int curJackpotIndex = 0;
         private int betIndex = 0;
-        private int wildNums = 0;
         private bool isFreeSpin = false;
+        private int addFreeTimes = 0;
 
         public static JSONNode ParseCoinPushSpinPayload(int[] data, int startPos)
         {
@@ -173,7 +171,9 @@ namespace CaiFuHuoChe_3996
             ContentModel.Instance.nextReelStripsIndex = "BS";
             ContentModel.Instance.isFreeSpinTrigger = false;
             ContentModel.Instance.isJackpotSpinTrigger = false;
+            ContentModel.Instance.isFreeSpinAdd = false;
             isFreeSpin = false;
+            addFreeTimes = 0;
 
             int openType = (int)res["OpenType"];
             if (ContentModel.Instance.PendingFreeSpinReconnectValidation)
@@ -217,10 +217,14 @@ namespace CaiFuHuoChe_3996
                     strDeckRowCol += res["Matrix"][index].Value;
                     if(openType == (int)OpenType.OT_Give && int.Parse(res["Matrix"][index].Value) == 9)
                     {
-                        wildNums++;
-                        betIndex = (wildNums / 4) + 1;
+                        ContentModel.Instance.wildNums++;
+                        betIndex = (ContentModel.Instance.wildNums / 4) + 1;
                         betIndex = betIndex > 4 ? 4 : betIndex;
                         if (betIndex != ContentModel.Instance.curFreeMult) ContentModel.Instance.curFreeMult = betIndex;
+                    }
+                    else if(openType == (int)OpenType.OT_Give && int.Parse(res["Matrix"][index].Value) == 10)
+                    {
+                        addFreeTimes++;
                     }
 
                     if (col < cols - 1)
@@ -365,7 +369,8 @@ namespace CaiFuHuoChe_3996
                     ContentModel.Instance.freeSpinPlayTimes = 0;
                     ContentModel.Instance.freeSpinTotalWinCredit = (int)res["TotalFreeBet"] * MainModel.Instance.contentMD.betmultiple;
                     betIndex = 0;
-                    wildNums = 0;
+                    ContentModel.Instance.wildNums = 0;
+                    ContentModel.Instance.curFreeCredit = 0;
 
                     ContentModel.Instance.newFreeOnceCredit.Clear();
                     for (int i = 0; i < TotalFreeTime; i++)
@@ -396,11 +401,19 @@ namespace CaiFuHuoChe_3996
                 }
                 ContentModel.Instance.isFreeSpinResult = ContentModel.Instance.curReelStripsIndex == "FS" && ContentModel.Instance.nextReelStripsIndex == "BS";
 
+                ContentModel.Instance.tempFreeTotalTimes = ContentModel.Instance.freeSpinTotalTimes;
+                if (addFreeTimes > 0)
+                {
+                    ContentModel.Instance.tempFreeTotalTimes += addFreeTimes;
+                    ContentModel.Instance.nextReelStripsIndex = "FS";
+                    ContentModel.Instance.isFreeSpinAdd = true;
+                }
 
 
                 if (openType == (int)OpenType.OT_Give)
                 {
                     totalLineWin = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
+                    ContentModel.Instance.curFreeCredit += totalLineWin;
                 }
             }
 
@@ -472,6 +485,11 @@ namespace CaiFuHuoChe_3996
 
             //赢分
             long creditBefore = MainBlackboardController.Instance.myRealCredit;
+            if (ContentModel.Instance.isSysCredit)
+            {
+                ContentModel.Instance.isSysCredit = false;
+                creditBefore = ContentModel.Instance.realCredit;
+            }
             long creditAfter = creditBefore - totalBet + totalLineWin;
             if (ContentModel.Instance.gameState == GameState.FreeSpin) creditAfter += totalBet;
 
@@ -485,11 +503,13 @@ namespace CaiFuHuoChe_3996
             //ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Default;
             //SlotGameEffectManager.Instance.SetEffect(ContentModel.Instance.targetSlotGameEffect);
 
-            // 记录游戏数据到数据库
-            Record(totalBet, res);
+            
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
+            ContentModel.Instance.realCredit = creditAfter;
             DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin} ");
 
+            // 记录游戏数据到数据库
+            Record(totalBet, res);
 
             FreeSpinSessionStoreG3996.TryPersistOrClearSession();
         }
