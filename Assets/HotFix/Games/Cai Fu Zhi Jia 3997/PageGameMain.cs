@@ -75,7 +75,8 @@ namespace CaiFuZhiJia_3997
             _corEffectSlowMotion = null;
 
         // 加速框制作
-        private GComponent _comReelEffect2;
+        // private GComponent _comReelEffect3;
+        private GComponent _anchorExpectation;
         private GComponent _anchorFreeExpectation;
         private GComponent _anchorBonusExpectation;
         private GameObject _freeBorderObj = null; // 免费加速特效
@@ -188,17 +189,27 @@ namespace CaiFuZhiJia_3997
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
 
-            if (_comReelEffect2 != null)
-            {
-                _comReelEffect2.Dispose();
-            }
+            // if (_comReelEffect2 != null)
+            // {
+            //     _comReelEffect2.Dispose();
+            // }
 
             // 加速框
             _speedUpEffectComs.Clear();
+            _anchorExpectation = contentPane.GetChild("anchorReelEffect").asCom;
             _anchorFreeExpectation = contentPane.GetChild("anchorFreeReelEffect").asCom;
             _anchorBonusExpectation = contentPane.GetChild("anchorBonusReelEffect").asCom;
-            _speedUpEffectComs.Add(CreateUIEffect(_freeBorderObj, _anchorFreeExpectation));
-            _speedUpEffectComs.Add(CreateUIEffect(_bonusBorderObj, _anchorBonusExpectation));
+            GameCommon.FguiUtils.DeleteWrapper(_anchorFreeExpectation);
+            GameCommon.FguiUtils.AddWrapper(_anchorFreeExpectation, Object.Instantiate(_freeBorderObj));
+            _anchorFreeExpectation.visible = false;
+            GameCommon.FguiUtils.DeleteWrapper(_anchorBonusExpectation);
+            GameCommon.FguiUtils.AddWrapper(_anchorBonusExpectation, Object.Instantiate(_bonusBorderObj));
+            _anchorBonusExpectation.visible = false;
+            _anchorExpectation.AddChild(_anchorFreeExpectation);
+            _anchorExpectation.AddChild(_anchorBonusExpectation);
+            _anchorExpectation.visible = true;
+            // _speedUpEffectComs.Add(CreateUIEffect(_freeBorderObj, _anchorFreeExpectation));
+            // _speedUpEffectComs.Add(CreateUIEffect(_bonusBorderObj, _anchorBonusExpectation));
 
             //彩金
             uiJPMajorCtrl.Init("Major", contentPane.GetChild("jpMajor").asCom.GetChild("n1").asList, "N0");
@@ -746,20 +757,35 @@ namespace CaiFuZhiJia_3997
 
         private IEnumerator ShowEffectReelsSlowMotion(int colIdx)
         {
-            if (ContentModel.Instance.IsBonusTrigger)
+            // if (ContentModel.Instance.IsBonusTrigger)
+            // {
+            //     _comReelEffect2 = _speedUpEffectComs[1];
+            //     _comReelEffect2.xy = _slotMachineCtrl.SymbolCenterToNodeLocalPos(colIdx, 1, _anchorBonusExpectation);
+            // }
+            // else
+            // {
+            //     _comReelEffect2 = _speedUpEffectComs[0];
+            //     _comReelEffect2.xy = _slotMachineCtrl.SymbolCenterToNodeLocalPos(colIdx, 1, _anchorFreeExpectation);
+            // }
+            //
+            // _comReelEffect2.visible = true;
+            // yield return new WaitUntil(() => _isStoppedSlotMachine == true);
+            // _comReelEffect2.visible = false;
+            
+            GComponent ComReelEffect = _anchorBonusExpectation;
+            if (ContentModel.Instance.isFreeSlotTip)
             {
-                _comReelEffect2 = _speedUpEffectComs[1];
-                _comReelEffect2.xy = _slotMachineCtrl.SymbolCenterToNodeLocalPos(colIdx, 1, _anchorBonusExpectation);
-            }
-            else
-            {
-                _comReelEffect2 = _speedUpEffectComs[0];
-                _comReelEffect2.xy = _slotMachineCtrl.SymbolCenterToNodeLocalPos(colIdx, 1, _anchorFreeExpectation);
+                ComReelEffect = _anchorFreeExpectation;
             }
 
-            _comReelEffect2.visible = true;
+            ComReelEffect.visible = false;
+            ComReelEffect.xy = _slotMachineCtrl.SymbolCenterToNodeLocalPos(colIdx, 1, _anchorExpectation);
+            ComReelEffect.visible = true;
+            // GameSoundHelper.Instance.PlaySoundEff(SoundKey.SlowMotionEffect);
+
             yield return new WaitUntil(() => _isStoppedSlotMachine == true);
-            _comReelEffect2.visible = false;
+            // 关闭Expectation
+            ComReelEffect.visible = false;
         }
 
         /// <summary>
@@ -798,21 +824,20 @@ namespace CaiFuZhiJia_3997
         /// <param name="packageName">包名</param>
         /// <param name="componentName">组件名</param>
         /// <returns>特效UI组件</returns>
-        private GComponent CreateUIEffect(GameObject effectPrefab, GComponent anchorReelEffectGCom,
-            string packageName = "Common",
-            string componentName = "AnchorRootDefault")
-        {
-            GComponent effectComponent = UIPackage.CreateObject(packageName, componentName).asCom;
-            GameCommon.FguiUtils.DeleteWrapper(effectComponent);
-            GameCommon.FguiUtils.AddWrapper(effectComponent, Object.Instantiate(effectPrefab));
-
-            effectComponent.visible = false;
-            anchorReelEffectGCom.AddChild(effectComponent);
-            anchorReelEffectGCom.visible = true;
-
-            return effectComponent;
-        }
-
+        // private GComponent CreateUIEffect(GameObject effectPrefab, GComponent anchorReelEffectGCom,
+        //     string packageName = "Common",
+        //     string componentName = "AnchorRootDefault")
+        // {
+        //     GComponent effectComponent = UIPackage.CreateObject(packageName, componentName).asCom;
+        //     GameCommon.FguiUtils.DeleteWrapper(effectComponent);
+        //     GameCommon.FguiUtils.AddWrapper(effectComponent, Object.Instantiate(effectPrefab));
+        //
+        //     effectComponent.visible = false;
+        //     anchorReelEffectGCom.AddChild(effectComponent);
+        //     anchorReelEffectGCom.visible = true;
+        //
+        //     return effectComponent;
+        // }
         IEnumerator ShowWinSymbol(int number, Action callback = null)
         {
             SymbolWin curSymbolWin = new SymbolWin();
@@ -1082,7 +1107,7 @@ namespace CaiFuZhiJia_3997
         }
 
         long _allWinCredit = 0;
-        
+
         IEnumerator GameFreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
             OnGameReset();
@@ -1725,7 +1750,7 @@ namespace CaiFuZhiJia_3997
             {
                 MainBlackboardController.Instance.AddMyTempCredit(freeSpinTotalWinCredit, true, IsAddCreditAnim);
             }
-            
+
             PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupFreeSpinResult,
                 new EventData<Dictionary<string, object>>("",
                     new Dictionary<string, object>()
@@ -1740,7 +1765,7 @@ namespace CaiFuZhiJia_3997
                     // _multipleNumber.text = "x2";
                     // MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
                     // ContentModel.Instance.FreeSpinTotalTimes = 0; // 免费游戏结束之后，把免费游戏局数重置
-                    
+
                     _allWinCredit = 0;
                     _pageController.selectedPage = "NormalGame";
                     _multipleNumber.text = "x2";
@@ -1855,6 +1880,8 @@ namespace CaiFuZhiJia_3997
             _slotMachineCtrl.isStopImmediately = false;
             _slotMachineCtrl.CloseSlotCover();
             _isStoppedSlotMachine = false;
+            _anchorFreeExpectation.visible = false;
+            _anchorBonusExpectation.visible = false;
             _slotMachineCtrl.SkipWinLine(true);
         }
     }
