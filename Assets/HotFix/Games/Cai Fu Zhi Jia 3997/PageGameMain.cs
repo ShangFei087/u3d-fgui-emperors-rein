@@ -601,14 +601,15 @@ namespace CaiFuZhiJia_3997
             if (res.name == "ColUpButtonClick")
             {
                 int col = (int)res.value;
+                if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
                 _monoHelper.StartCoroutine(_slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Up));
             }
 
             if (res.name == "ColDownButtonClick")
             {
                 int col = (int)res.value;
-                _monoHelper.StartCoroutine(
-                    _slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Down));
+                if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
+                _monoHelper.StartCoroutine(_slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Down));
             }
         }
 
@@ -1598,6 +1599,8 @@ namespace CaiFuZhiJia_3997
 
             if (successCallback != null)
                 successCallback.Invoke();
+
+            _slotMachineCtrl.isStopImmediately = false;
         }
 
         IEnumerator ShowWinListCoinCountDown(List<SymbolWin> winList, long totalWinLineCredit, bool isHitJackpot)
@@ -1877,7 +1880,7 @@ namespace CaiFuZhiJia_3997
             if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
             if (_corEffectSlowMotion != null) _monoHelper.StopCoroutine(_corEffectSlowMotion);
 
-            _slotMachineCtrl.isStopImmediately = false;
+         
             _slotMachineCtrl.CloseSlotCover();
             _isStoppedSlotMachine = false;
             _anchorFreeExpectation.visible = false;

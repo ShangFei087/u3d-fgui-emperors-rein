@@ -16,14 +16,13 @@
     <image id="eahzl" name="up.png" path="/images/gameLogo/" atlas="10"/>
     <image id="jf2km" name="fg_bg2.png" path="/images/gameLogo/"/>
     <component id="kyxfu" name="TreasuryPageLaunch.xml" path="/" exported="true"/>
-    <image id="kyxfv" name="plat_load_architecture.png" path="/images/TreasuryLoading/"/>
-    <image id="kyxfw" name="plat_load_bar_01.png" path="/images/TreasuryLoading/"/>
-    <image id="kyxfx" name="plat_load_bar_02.png" path="/images/TreasuryLoading/" scale="9grid" scale9grid="14,3,684,28" smoothing="false"/>
-    <image id="kyxfy" name="plat_load_bar_diamond.png" path="/images/TreasuryLoading/"/>
-    <image id="kyxfz" name="plat_load_bg.png" path="/images/TreasuryLoading/"/>
-    <image id="kyxf10" name="plat_load_img_lightBulb.png" path="/images/TreasuryLoading/"/>
-    <image id="kyxf11" name="plat_load_mega_en.png" path="/images/TreasuryLoading/"/>
-    <image id="kyxf12" name="财富大厅开机界面.png" path="/images/TreasuryLoading/"/>
+    <image id="kyxfv" name="plat_load_architecture.png" path="/images/TreasuryLoading/" exported="true" qualityOption="source" atlas="1"/>
+    <image id="kyxfw" name="plat_load_bar_01.png" path="/images/TreasuryLoading/" exported="true" atlas="1"/>
+    <image id="kyxfx" name="plat_load_bar_02.png" path="/images/TreasuryLoading/" exported="true" scale="9grid" scale9grid="14,3,684,28" smoothing="false" atlas="1"/>
+    <image id="kyxfy" name="plat_load_bar_diamond.png" path="/images/TreasuryLoading/" exported="true" atlas="1"/>
+    <image id="kyxfz" name="plat_load_bg.png" path="/images/TreasuryLoading/" exported="true" atlas="1"/>
+    <image id="kyxf10" name="plat_load_img_lightBulb.png" path="/images/TreasuryLoading/" exported="true" atlas="1"/>
+    <image id="kyxf11" name="plat_load_mega_en.png" path="/images/TreasuryLoading/" exported="true" qualityOption="source" atlas="1"/>
     <component id="kyxf13" name="ProgressBar2.xml" path="/components/"/>
   </resources>
   <publish name="" path="F:\StandAloneSlotFrame\u3d-fgui-emperors-rein\Assets\Resources\Native\FGUIs" packageCount="2"/>
