@@ -9,6 +9,7 @@ namespace CaiFuZhiJia_3997
 {
     public class SingleReelController
     {
+        private readonly int _reelIndex;
         private readonly GComponent _wheelRootNode; // 滚轴的根节点 elementBox
         private readonly Transition _rollTransition;
         private readonly Transition _backTransition;
@@ -21,9 +22,10 @@ namespace CaiFuZhiJia_3997
         /// <summary>滚轴上所有的文本组件</summary>
         public readonly List<GTextField> RewardTexts = new List<GTextField>();
 
-        public SingleReelController(GComponent wheelRootNode)
+        public SingleReelController(GComponent wheelRootNode, int reelIndex)
         {
             _wheelRootNode = wheelRootNode;
+            _reelIndex = reelIndex;
             _rollTransition = _wheelRootNode.GetTransition("roll");
             _backTransition = _wheelRootNode.GetTransition("back");
             ResetTransition = _wheelRootNode.GetTransition("reset");
@@ -44,7 +46,7 @@ namespace CaiFuZhiJia_3997
                     if (i != 4)
                         elementLoader.url = CustomModel.Instance.JackpotBgPath[Random.Range(0, 3)];
                     else
-                        elementLoader.url = CustomModel.Instance.JackpotTypePath[0];// 默认是没中奖类型
+                        elementLoader.url = CustomModel.Instance.JackpotTypePath[0]; // 默认是没中奖类型
 
                     if (elementLoader.url != "")
                         if (i == 1)
@@ -63,15 +65,24 @@ namespace CaiFuZhiJia_3997
         }
 
 
-        public void StopRoll()
+        public void StopRoll(List<int> winList, Action callback)
         {
             _rollTransition.Stop();
             _rollTransition.timeScale = 1f;
+
+            if (winList != null && winList.Contains(_reelIndex))
+            {
+                PlayBack(() => callback?.Invoke());
+            }
         }
 
         public void PlayBack(Action callback)
         {
-            _backTransition.Play(() => { callback?.Invoke(); });
+            _backTransition.Play(() =>
+            {
+                BackResetTransition.timeScale = 1.5f;
+                BackResetTransition.Play(() => callback?.Invoke());
+            });
         }
 
         void PlayWithLoops()

@@ -115,7 +115,7 @@ namespace CaiFuZhiJia_3997
 
             for (int i = 0; i < _canSpinReelIndexList.Count; i++)
             {
-                SingleReelController testReelController = new SingleReelController(_rollReels[i]/*, i*/);
+                SingleReelController testReelController = new SingleReelController(_rollReels[i], i);
                 _singleReelControllers.Add(testReelController);
             }
 
@@ -347,7 +347,7 @@ namespace CaiFuZhiJia_3997
                 _bonusIsNotZeroList.RemoveAt(randomIndex);
             }
         }
-        
+
         /// <summary>
         /// 在指定索引处播放中奖Spine动画
         /// </summary>
@@ -531,7 +531,7 @@ namespace CaiFuZhiJia_3997
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
-                    _singleReelControllers[reelIndex].StopRoll();
+                    _singleReelControllers[reelIndex].StopRoll(_currentWinIndexList, null);
                 }
 
                 _totalPlayRounds--;
@@ -550,28 +550,26 @@ namespace CaiFuZhiJia_3997
 
                 yield return new WaitForSeconds(3f);
 
+                var backDoneFlags = new bool[_currentWinIndexList.Count];
+
                 foreach (var reelIndex in _canSpinReelIndexList)
                 {
-                    _singleReelControllers[reelIndex].StopRoll();
-                }
-
-                yield return null;
-                
-                // 3. 中奖格子并行回弹，回弹回调中播放动画
-                var backDoneFlags = new bool[_currentWinIndexList.Count];
-    
-                for (int i = 0; i < _currentWinIndexList.Count; i++)
-                {
-                    int flagIdx = i;
-                    int reelIdx = _currentWinIndexList[i];
-        
-                    _singleReelControllers[reelIdx].PlayBack(() =>
+                    _singleReelControllers[reelIndex].StopRoll(_currentWinIndexList, (() =>
                     {
-                        // _singleReelControllers[reelIdx].BackResetTransition.Play();
-                        // 回弹结束 -> 播放Spine动画
-                        PlayWinningSpineAt(reelIdx);
-                        backDoneFlags[flagIdx] = true;
-                    });
+                        // 3. 中奖格子并行回弹，回弹回调中播放动画
+
+                        for (int i = 0; i < _currentWinIndexList.Count; i++)
+                        {
+                            int flagIdx = i;
+                            int reelIdx = _currentWinIndexList[i];
+
+                            _singleReelControllers[reelIdx].PlayBack(() =>
+                            {
+                                PlayWinningSpineAt(reelIdx);
+                                backDoneFlags[flagIdx] = true;
+                            });
+                        }
+                    }));
                 }
 
                 // 等待所有回弹和动画都完成
@@ -583,15 +581,6 @@ namespace CaiFuZhiJia_3997
                     _canSpinReelIndexList.Remove(reelIndex);
                 }
 
-                // foreach (var reelIndex in _currentWinIndexList)
-                // {
-                //     bool isBackDone = false;
-                //     _singleReelControllers[reelIndex].PlayBack(() => isBackDone = true);
-                //     yield return new WaitUntil(() => isBackDone);
-                //     _canSpinReelIndexList.Remove(reelIndex);
-                // }
-
-                // ShowWinningSpine();
                 _freeCountText.text = "3";
                 _totalPlayRounds = 3;
             }
@@ -671,7 +660,7 @@ namespace CaiFuZhiJia_3997
 
                 _singleReelControllers.Clear();
             }
-            
+
             _rollRewardList.Clear();
             _bonusIsNotZeroList.Clear();
 
