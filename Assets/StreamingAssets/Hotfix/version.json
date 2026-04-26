@@ -1,11 +1,11 @@
 {
-  "updated_at": 1777187384209,
-  "hotfix_key": "hf_debug_android_20260426101712",
-  "hotfix_version": "1.2.10",
+  "updated_at": 1777191849439,
+  "hotfix_key": "hf_debug_android_20260426162355",
+  "hotfix_version": "1.4.1",
   "asset_bundle": {
     "manifest": {
-      "hash": "29b29b38ad92ea5245febc7b179097d1",
-      "size_bytes": 21350
+      "hash": "50abeecdbdaff18f0eead92ad0018315",
+      "size_bytes": 21349
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
@@ -138,8 +138,8 @@
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_miniidlecfzj.unity3d": "a6a349f6cd76d98d73dbe835d883eb5d",
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_minoridlecfzj.unity3d": "456e9e7e4574a6a4211aaa2bd45d35b8",
       "games/cai fu zhi jia 3997/artres/effects/prefabs/smallgame/eff_sg_popdidlecfzj.unity3d": "c64bbde7ed8ee3becda63e58ca470544",
-      "games/cai fu zhi jia 3997/fguis.unity3d": "43289e5c36babcace54a2d0986b0ce25",
-      "games/cai fu zhi jia 3997/prefabs/game controller/slot game main controller.unity3d": "1725d3cbdbf18cb86fad934c56cacaff",
+      "games/cai fu zhi jia 3997/fguis.unity3d": "99045c5b2beecfae3515901528ccab9e",
+      "games/cai fu zhi jia 3997/prefabs/game controller/slot game main controller.unity3d": "bea3e6c93f56850193b046ccd5a55acf",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/bonusaccelerateborder.unity3d": "3d28cc85bf41f8735bafa12ca4650f60",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/freeaccelerateborder.unity3d": "fc60c2fcaa85570fbe706b232a70ba81",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/spineprefabs/freetreespine.unity3d": "28079df8a033894d17df698c8e0352bb",
@@ -713,8 +713,8 @@
       "size_bytes": 170496
     },
     "HotFix": {
-      "hash": "1d5ec4208e94a980fa5c41a1f895448d",
-      "size_bytes": 1776640
+      "hash": "6168f7a4aec07963409fd0950ea9e1c4",
+      "size_bytes": 1783808
     }
   },
   "hotfix_dll_load_order": [
