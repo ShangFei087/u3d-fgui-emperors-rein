@@ -26,6 +26,13 @@ namespace SlotMaker
         Up = 1,
     }
 
+    public enum ReelNudgeFillMode
+    {
+        Random = 0,
+        Loop = 1,
+        Ordered = 2,
+    }
+
     public class ReelBase : MonoBehaviour
     {
         protected ICustomModel customModel;
@@ -90,7 +97,8 @@ namespace SlotMaker
         /// 滚轮滚动一格（仅建议在空闲状态下调用）
         /// </summary>
         public virtual void NudgeOneStep(UnityAction action = null, bool isUseResult = false,
-            ReelNudgeDirection direction = ReelNudgeDirection.Down)
+            ReelNudgeDirection direction = ReelNudgeDirection.Down,
+            ReelNudgeFillMode fillMode = ReelNudgeFillMode.Ordered)
         {
             DebugUtils.LogWarning("==@ BaseReel - NudgeOneStep");
         }
