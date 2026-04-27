@@ -195,6 +195,10 @@ namespace SlotZhuZaiJinBi1700
         }
         public override void OnOpen(PageName name, EventData data)
         {
+            if (goGameCtrl != null && !goGameCtrl.activeSelf)
+            {
+                goGameCtrl.SetActive(true);
+            }
             base.OnOpen(name, data);
             EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
@@ -211,6 +215,10 @@ namespace SlotZhuZaiJinBi1700
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             GameSoundHelper.Instance.StopMusic();
+            if (goGameCtrl != null && goGameCtrl.activeSelf)
+            {
+                goGameCtrl.SetActive(false);
+            }
             base.OnClose(data);
         }
 

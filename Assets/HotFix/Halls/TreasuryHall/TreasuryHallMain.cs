@@ -255,6 +255,7 @@ namespace TreasuryHall
                 SBoxIdea.GameSwitch(3998);
             }
             PageManager.Instance.OpenPage(PageName.XingYunZhiLunPopupGameLoading);
+
             CloseSelf(null);
         }
 

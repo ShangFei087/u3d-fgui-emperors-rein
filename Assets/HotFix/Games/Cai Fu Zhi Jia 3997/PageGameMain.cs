@@ -279,6 +279,10 @@ namespace CaiFuZhiJia_3997
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
+            if (_goGameCtrl != null && !_goGameCtrl.activeSelf)
+            {
+                _goGameCtrl.SetActive(true);
+            }
             base.OnOpen(currentPageName, eventData);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
@@ -300,6 +304,10 @@ namespace CaiFuZhiJia_3997
                 OnSlotDetailEvent);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
+            if (_goGameCtrl != null && _goGameCtrl.activeSelf)
+            {
+                _goGameCtrl.SetActive(false);
+            }
             base.OnClose(eventData);
             _freeSpinTimeController.Dispose();
         }
