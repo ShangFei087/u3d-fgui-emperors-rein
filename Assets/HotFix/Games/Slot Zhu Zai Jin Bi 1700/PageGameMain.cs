@@ -69,6 +69,7 @@ namespace SlotZhuZaiJinBi1700
         private GComponent anchorNpc;
         private GameObject goNpc;
         private GameObject CLonegoNpc;
+        private Transform _npcAttachBone;
         //免费组件
         private GComponent gFreeTimeBox, gFreeWinBox;
         private GComponent gFreeSlotMachine;
@@ -144,7 +145,7 @@ namespace SlotZhuZaiJinBi1700
             });
             //5
             ResourceManager02.Instance.LoadAsset<GameObject>(
-          "Assets/GameRes/Games/Slot Zhu Zai Jin Bi 1700/Prefabs/GameMain/Npc.prefab",
+          "Assets/GameRes/Games/Slot Zhu Zai Jin Bi 1700/Prefabs/TurnTable/TurnTable.prefab",
           (GameObject clone) =>
           {
               goNpc = clone;
@@ -325,16 +326,22 @@ namespace SlotZhuZaiJinBi1700
             gFreeWinBox.visible = false;
             gFreeSlotMachine.visible = false;
 
-            GComponent LocalNpc = this.contentPane.GetChild("anchorNpc").asCom;
+            GComponent LocalNpc = this.contentPane.GetChild("anchorTurnTable").asCom;
             if (anchorNpc != LocalNpc)
             {
                 GameCommon.FguiUtils.DeleteWrapper(anchorNpc);
                 CLonegoNpc = GameObject.Instantiate(goNpc);
                 anchorNpc = LocalNpc;
                 GameCommon.FguiUtils.AddWrapper(anchorNpc, CLonegoNpc);
-
+                _npcAttachBone = null;
             }
 
+            if (_npcAttachBone == null)
+            {
+                _npcAttachBone = FindNpcAttachBone(CLonegoNpc, "c_circle");
+                AttachNormalFrameToNpcBone();
+            }
+         
 
             //对象池初始化
             if (fguiPoolHelper != null && isInitPool == false)
@@ -370,6 +377,52 @@ namespace SlotZhuZaiJinBi1700
             ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
 
             TryRestoreFreeSpinSession();
+        }
+
+        private Transform FindNpcAttachBone(GameObject npcObject, string boneName)
+        {
+            string candidatePaths = $"Anchor/Spine Mecanim GameObject (ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/{boneName}";
+            Transform pathTransform = npcObject.transform.Find(candidatePaths);
+            return pathTransform;
+        }
+
+        private void AttachNormalFrameToNpcBone()
+        {
+
+            GObject jpMajor = this.contentPane.GetChild("jpMajor");
+            if (jpMajor?.displayObject?.gameObject != null && _npcAttachBone != null)
+            {
+                Transform t = jpMajor.displayObject.gameObject.transform;
+                t.SetParent(_npcAttachBone, false);
+                t.localPosition = Vector3.zero;
+                //t.localRotation = Quaternion.identity;
+                //t.localScale = Vector3.one;
+            }
+        }
+
+        private Transform FindChildRecursiveByName(Transform parent, string targetName)
+        {
+            if (parent == null || string.IsNullOrEmpty(targetName))
+            {
+                return null;
+            }
+
+            if (parent.name == targetName)
+            {
+                return parent;
+            }
+
+            for (int i = 0; i < parent.childCount; i++)
+            {
+                Transform child = parent.GetChild(i);
+                Transform result = FindChildRecursiveByName(child, targetName);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+
+            return null;
         }
 
         /// <summary> 从本地快照恢复未完成的免费局（不自动请求 Spin，由玩家点转）。 </summary>
