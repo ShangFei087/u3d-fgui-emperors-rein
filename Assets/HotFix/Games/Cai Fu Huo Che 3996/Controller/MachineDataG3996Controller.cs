@@ -366,6 +366,7 @@ namespace CaiFuHuoChe_3996
                     ContentModel.Instance.nextReelStripsIndex = "FS";
                     ContentModel.Instance.isFreeSpinTrigger = true;
                     ContentModel.Instance.freeSpinTotalTimes = freeTime;
+                    ContentModel.Instance.tempFreeTotalTimes = freeTime;
                     ContentModel.Instance.freeSpinPlayTimes = 0;
                     ContentModel.Instance.freeSpinTotalWinCredit = (int)res["TotalFreeBet"] * MainModel.Instance.contentMD.betmultiple;
                     betIndex = 0;

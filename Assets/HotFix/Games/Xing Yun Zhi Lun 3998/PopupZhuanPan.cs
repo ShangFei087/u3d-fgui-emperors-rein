@@ -38,7 +38,7 @@ namespace XingYunZhiLun_3998
         private int targetIndex = 2; // 免费游戏在转盘上的位置（0-19）
         private float segmentAngle = 18f; //     360 / 20 = 18°
         private float rotateSpeed = 15f;
-        private float extralyAngle = 0;  //因为转盘分区角度不同，可能需要额外补充一些角度
+        private float extralyAngle = 1.5f;  //因为转盘分区角度不同，可能需要额外补充一些角度
 
         protected override void OnInit()
         {
@@ -321,72 +321,72 @@ namespace XingYunZhiLun_3998
                     break;
             }
 
-            switch (targetIndex)
-            {
-                case 0:
-                    extralyAngle = -0.65f;
-                    goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.3f);
-                    break;
-                case 1:
-                    extralyAngle = -1.55f;
-                    rewardEffect.position = new Vector3(713, 458, 0);
-                    break;
-                case 2:
-                    extralyAngle = -0.4f;
-                    break;
-                case 3:
-                    extralyAngle = -1.3f;
-                    rewardEffect.position = new Vector3(713, 452, 0);
-                    break;
-                case 4:
-                    extralyAngle = 0;
-                    rewardEffect.position = new Vector3(713, 456, 0);
-                    break;
-                case 5:
-                    extralyAngle = -1.2f;
-                    rewardEffect.position = new Vector3(713, 451, 0);
-                    goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.3f);
-                    break;
-                case 6:
-                    extralyAngle = -1.4f;
-                    rewardEffect.position = new Vector3(713, 451, 0);
-                    goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.27f);
-                    break;
-                case 7:
-                    extralyAngle = -0.2f;
-                    rewardEffect.position = new Vector3(719, 452, 0);
-                    goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.1f);
-                    break;
-                case 8:
-                    extralyAngle = 0.8f;
-                    rewardEffect.position = new Vector3(719, 450.5f, 0);
-                    goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.25f);
-                    break;
-                case 9:
-                    extralyAngle = 0.5f;
-                    rewardEffect.position = new Vector3(719, 447, 0);
-                    break;
-                case 10:
-                    extralyAngle = 0.1f;
-                    rewardEffect.position = new Vector3(713, 449, 0);
-                    goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.3f);
-                    break;
-                case 11:
-                    rewardEffect.position = new Vector3(713, 451, 0);
-                    break;
-                case 12:
-                    rewardEffect.position = new Vector3(713, 451, 0);
-                    break;
-                case 13:
-                    rewardEffect.position = new Vector3(713, 452, 0);
-                    break;
-                case 14:
-                    extralyAngle = 1.7f;
-                    break;
-                default:
-                    extralyAngle = 0;
-                    break;
-            }
+            //switch (targetIndex)
+            //{
+            //    case 0:
+            //        extralyAngle = -0.65f;
+            //        goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.3f);
+            //        break;
+            //    case 1:
+            //        extralyAngle = -1.55f;
+            //        rewardEffect.position = new Vector3(713, 458, 0);
+            //        break;
+            //    case 2:
+            //        extralyAngle = -0.4f;
+            //        break;
+            //    case 3:
+            //        extralyAngle = -1.3f;
+            //        rewardEffect.position = new Vector3(713, 452, 0);
+            //        break;
+            //    case 4:
+            //        extralyAngle = 0;
+            //        rewardEffect.position = new Vector3(713, 456, 0);
+            //        break;
+            //    case 5:
+            //        extralyAngle = -1.2f;
+            //        rewardEffect.position = new Vector3(713, 451, 0);
+            //        goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.3f);
+            //        break;
+            //    case 6:
+            //        extralyAngle = -1.4f;
+            //        rewardEffect.position = new Vector3(713, 451, 0);
+            //        goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.27f);
+            //        break;
+            //    case 7:
+            //        extralyAngle = -0.2f;
+            //        rewardEffect.position = new Vector3(719, 452, 0);
+            //        goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.1f);
+            //        break;
+            //    case 8:
+            //        extralyAngle = 0.8f;
+            //        rewardEffect.position = new Vector3(719, 450.5f, 0);
+            //        goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.25f);
+            //        break;
+            //    case 9:
+            //        extralyAngle = 0.5f;
+            //        rewardEffect.position = new Vector3(719, 447, 0);
+            //        break;
+            //    case 10:
+            //        extralyAngle = 0.1f;
+            //        rewardEffect.position = new Vector3(713, 449, 0);
+            //        goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.3f);
+            //        break;
+            //    case 11:
+            //        rewardEffect.position = new Vector3(713, 451, 0);
+            //        break;
+            //    case 12:
+            //        rewardEffect.position = new Vector3(713, 451, 0);
+            //        break;
+            //    case 13:
+            //        rewardEffect.position = new Vector3(713, 452, 0);
+            //        break;
+            //    case 14:
+            //        extralyAngle = 1.7f;
+            //        break;
+            //    default:
+            //        extralyAngle = 0;
+            //        break;
+            //}
         }
 
 
@@ -435,38 +435,35 @@ namespace XingYunZhiLun_3998
 
 
 
-        private IEnumerator SpinWheelToTarget(int targetIndex,Action successCallback, Action<string> errorCallback)
+        //轮盘旋转方法
+        private IEnumerator SpinWheelToTarget(int targetIndex, Action successCallback, Action<string> errorCallback = null)
         {
-            // 当前角度
             float currentAngle = NormalizeAngle(gWheel.rotation);
+            float targetAngleCenter = 360 - (targetIndex * segmentAngle);
 
-            // 目标角度（免费游戏分区的中心位置）
-            float targetAngleCenter = 360 - (targetIndex * segmentAngle - (segmentAngle / 2f));
-
-            // 总旋转角度 = 至少2圈 + 随机额外圈数
             int minCircles = 2;
-            int extraCircles = UnityEngine.Random.Range(1, 3); // 总共3-4圈
+            int extraCircles = UnityEngine.Random.Range(3, 7);
             int totalCircles = minCircles + extraCircles;
 
+            // ========================
+            // 重点：彻底删掉 +10，纯公式
+            // ========================
             float totalRotation = totalCircles * 360f + (targetAngleCenter - currentAngle);
             if (totalRotation < 0) totalRotation += 360f;
 
-            // 旋转参数
-            float speed = 100f;      // 起始速度
-            float maxSpeed = 1280f;   // 最大速度
-            float accelerateTime = 1f;  // 加速到最大速度的时间
-            float decelerateTime = 2f;  // 减速到0的时间
+            float speed = 100f;
+            float maxSpeed = 1280f;
+            float accelerateTime = 1f;
+            float decelerateTime = 2f;
 
             float elapsed = 0f;
             float rotated = 0f;
 
-            // 阶段1：加速
+            // 阶段1：加速（原样）
             while (elapsed < accelerateTime)
             {
                 elapsed += Time.deltaTime;
                 float t = elapsed / accelerateTime;
-
-                // 缓动加速
                 speed = Mathf.Lerp(100f, maxSpeed, t * t);
 
                 float deltaRot = speed * Time.deltaTime;
@@ -478,8 +475,7 @@ namespace XingYunZhiLun_3998
 
             speed = maxSpeed;
 
-            // 阶段2：计算匀速阶段需要的时间
-            // 总角度 = 加速阶段角度 + 匀速阶段角度 + 减速阶段角度
+            // 阶段2：匀速（原样）
             float accelerateDistance = 0.5f * (100f + maxSpeed) * accelerateTime;
             float decelerateDistance = 0.5f * maxSpeed * decelerateTime;
             float constantDistance = totalRotation - accelerateDistance - decelerateDistance;
@@ -489,7 +485,6 @@ namespace XingYunZhiLun_3998
             while (elapsed < constantTime)
             {
                 elapsed += Time.deltaTime;
-
                 float deltaRot = speed * Time.deltaTime;
                 gWheel.rotation += deltaRot;
                 rotated += deltaRot;
@@ -497,53 +492,48 @@ namespace XingYunZhiLun_3998
                 yield return null;
             }
 
-            // 阶段3：减速（关键修改）
-            elapsed = 0f;
+            // ================================
+            // 阶段3：匀减速 → 但最后自动对齐
+            // ================================
             float remainingRotation = totalRotation - rotated;
-            float startDecelerateSpeed = speed;
+            float startSpeed = speed;
+            float deceleration = (startSpeed * startSpeed) / (2 * remainingRotation);
 
-            // 计算需要的减速度，确保正好停在目标位置
-            float deceleration = (startDecelerateSpeed * startDecelerateSpeed) / (2 * remainingRotation);
-
-            // 匀减速到停
-            while (speed > 1f && remainingRotation > 0.1f)
+            // 先减速到速度很低，但不追求完全走完
+            while (speed > 200f)
             {
-                elapsed += Time.deltaTime;
-
-                // 匀减速
                 speed -= deceleration * Time.deltaTime;
-                if (speed < 0) speed = 0;
-
-                // 计算这一帧转动的角度
                 float deltaRot = speed * Time.deltaTime;
 
-                // 确保不会转过头
-                if (remainingRotation < deltaRot)
-                {
-                    deltaRot = remainingRotation;
-                    speed = 0;
-                }
-
                 gWheel.rotation += deltaRot;
-                rotated += deltaRot;
                 remainingRotation -= deltaRot;
 
                 yield return null;
             }
 
-            // 微小的最终调整（如果有需要）
-            float finalAngle = NormalizeAngle(gWheel.rotation);
-            float angleDiff = targetAngleCenter - finalAngle;
-            if (Mathf.Abs(angleDiff) > 0.5f)
+            // ================================
+            // 关键：剩下角度平滑滑过去（跨设备稳定）
+            // ================================
+            float slideTime = 0.8f;
+            float slideElapsed = 0f;
+            float startRot = gWheel.rotation;
+            float targetRot = startRot + remainingRotation + extralyAngle;
+
+            while (slideElapsed < slideTime)
             {
-                // 非常缓慢地调整最后一点角度
-                gWheel.rotation += angleDiff * 0.3f + 0.8f + extralyAngle;
-                yield return new WaitForSeconds(0.2f);
+                slideElapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(slideElapsed / slideTime);
+
+                // 关键：这个曲线就是真实转盘“越转越慢”的效果
+                t = 1 - Mathf.Pow(1 - t, 3); // 缓动曲线：Out Cubic（最强物理感）
+
+                gWheel.rotation = Mathf.Lerp(startRot, targetRot, t);
+                yield return null;
             }
 
-            // 完成
-            successCallback?.Invoke();
+            gWheel.rotation = targetRot;
 
+            successCallback?.Invoke();
         }
 
         // 辅助函数：规范化角度到0-360
@@ -554,6 +544,11 @@ namespace XingYunZhiLun_3998
             return angle;
         }
 
+        public Vector2 TransFormParentNode(GComponent node, GComponent targetNode)
+        {
+            Vector2 worldPos = node.LocalToGlobal(Vector2.zero);
+            return targetNode.GlobalToLocal(worldPos);
+        }
 
         //播放某一个特定的特效
         private void PlayEffectAnim(Transform effect)

@@ -440,7 +440,7 @@ namespace XingYunZhiLun_3998
                     ContentModel.Instance.curReelStripsIndex = "BS";
                     ContentModel.Instance.nextReelStripsIndex = "FS";
                     ContentModel.Instance.isFreeSpinTrigger = true;
-                    ContentModel.Instance.freeSpinTotalTimes = TotalFreeTime;
+                    ContentModel.Instance.freeSpinTotalTimes = freeTime;
                     ContentModel.Instance.freeSpinPlayTimes = 0;
                     ContentModel.Instance.freeSpinTotalWinCredit = 0;
                     ContentModel.Instance.curFreeCredit = 0;
