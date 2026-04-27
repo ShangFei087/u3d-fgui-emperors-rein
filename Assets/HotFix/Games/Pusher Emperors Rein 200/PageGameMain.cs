@@ -39,6 +39,10 @@ namespace PusherEmperorsRein
 
         public override void OnOpen(PageName name, EventData data)
         {
+            if (goGameCtrl != null && !goGameCtrl.activeSelf)
+            {
+                goGameCtrl.SetActive(true);
+            }
             base.OnOpen(name, data);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
@@ -80,6 +84,10 @@ namespace PusherEmperorsRein
 
 
             EventCenter.Instance.RemoveEventListener<string>(GlobalEvent.ON_TEST_EVENT, OnTestEvent);
+            if (goGameCtrl != null && goGameCtrl.activeSelf)
+            {
+                goGameCtrl.SetActive(false);
+            }
 
             base.OnClose(data);
         }

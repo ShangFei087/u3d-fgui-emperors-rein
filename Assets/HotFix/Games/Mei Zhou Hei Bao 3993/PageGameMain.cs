@@ -65,6 +65,7 @@ namespace MeiZhouHeiBao_3993
         private FguiPoolHelper _fGuiPoolHelper;
         private FguiGObjectPoolHelper _gfGuiObjectPoolHelper;
         private SlotMachineController3993 _slotMachineController;
+        private GameObject _goGameCtrl;
         private FreeSpinTimeController3993 _freeSpinTimeController;
 
         private GTextField _freeRoundText, _currentBootNumberText;
@@ -153,6 +154,10 @@ namespace MeiZhouHeiBao_3993
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
+            if (_goGameCtrl != null && !_goGameCtrl.activeSelf)
+            {
+                _goGameCtrl.SetActive(true);
+            }
             base.OnOpen(currentPageName, eventData);
             InitFreeSpinUIAndController();
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
@@ -164,6 +169,10 @@ namespace MeiZhouHeiBao_3993
             OnGameReset();
             _freeSpinTimeController.Dispose();
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
+            if (_goGameCtrl != null && _goGameCtrl.activeSelf)
+            {
+                _goGameCtrl.SetActive(false);
+            }
             base.OnClose(eventData);
         }
 
@@ -196,14 +205,14 @@ namespace MeiZhouHeiBao_3993
                 GameControllerPath + "Slot Game Main Controller.prefab",
                 (clone) =>
                 {
-                    GameObject goGameCtrl = Object.Instantiate(clone, null);
-                    goGameCtrl.name = "Slot Game Main Controller 3993";
-                    goGameCtrl.transform.SetParent(null);
+                    _goGameCtrl = Object.Instantiate(clone, null);
+                    _goGameCtrl.name = "Slot Game Main Controller 3993";
+                    _goGameCtrl.transform.SetParent(null);
 
-                    _monoHelper = goGameCtrl.GetComponentInChildren<MonoHelper>();
-                    _fGuiPoolHelper = goGameCtrl.GetComponentInChildren<FguiPoolHelper>();
-                    _gfGuiObjectPoolHelper = goGameCtrl.GetComponentInChildren<FguiGObjectPoolHelper>();
-                    _slotMachineController = goGameCtrl.GetComponentInChildren<SlotMachineController3993>();
+                    _monoHelper = _goGameCtrl.GetComponentInChildren<MonoHelper>();
+                    _fGuiPoolHelper = _goGameCtrl.GetComponentInChildren<FguiPoolHelper>();
+                    _gfGuiObjectPoolHelper = _goGameCtrl.GetComponentInChildren<FguiGObjectPoolHelper>();
+                    _slotMachineController = _goGameCtrl.GetComponentInChildren<SlotMachineController3993>();
 
                     ResPreLoadCallBack();
                 });

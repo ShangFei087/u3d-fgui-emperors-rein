@@ -427,7 +427,8 @@ namespace SlotMaker
         }
 
         public override void NudgeOneStep(UnityAction action = null, bool isUseResult = false,
-            ReelNudgeDirection direction = ReelNudgeDirection.Down)
+            ReelNudgeDirection direction = ReelNudgeDirection.Down,
+            ReelNudgeFillMode fillMode = ReelNudgeFillMode.Ordered)
         {
             if (action != null)
                 reelStopCallback = action;
@@ -436,19 +437,19 @@ namespace SlotMaker
                 return;
 
             ClearReelTween();
-            coReelNudge = StartCoroutine(_NudgeOneStep(isUseResult, direction));
+            coReelNudge = StartCoroutine(_NudgeOneStep(isUseResult, direction, fillMode));
         }
 
-        private IEnumerator _NudgeOneStep(bool isUseResult, ReelNudgeDirection direction)
+        private IEnumerator _NudgeOneStep(bool isUseResult, ReelNudgeDirection direction, ReelNudgeFillMode fillMode)
         {
             bool isNext = false;
             _isNudging = true;
             state = ReelState.StartTurn;
 
             if (direction == ReelNudgeDirection.Up)
-                ResetIconDataNudgeUpOneRow();
+                ResetIconDataNudgeUpOneRow(fillMode);
             else
-                ResetIconDataNudgeDownOneRow();
+                ResetIconDataNudgeDownOneRow(fillMode);
 
             if (isUseResult)
             {
@@ -468,12 +469,13 @@ namespace SlotMaker
             coReelNudge = null;
         }
 
-        /// <summary> 向下移动一行（不是整圈） </summary>
-        private void ResetIconDataNudgeDownOneRow()
+        /// <summary> 向下移动一行 </summary>
+        private void ResetIconDataNudgeDownOneRow(ReelNudgeFillMode fillMode)
         {
             if (symbolList == null || symbolList.Count <= 0)
                 return;
 
+            int loopFillNumber = symbolList[symbolList.Count - 1].GetSymbolNumber();
             for (int i = symbolList.Count - 1; i >= 1; i--)
             {
                 int number = symbolList[i - 1].GetSymbolNumber();
@@ -481,18 +483,20 @@ namespace SlotMaker
                 symbolList[i].SetBtnInteractableState(true);
             }
 
-            symbolList[0].SetSymbolImage(customModel.symbolNumber[Random.Range(0, customModel.symbolCount)]);
+            int firstFillNumber = GetNudgeFillNumber(fillMode, ReelNudgeDirection.Down, 0, loopFillNumber);
+            symbolList[0].SetSymbolImage(firstFillNumber);
             symbolList[0].SetBtnInteractableState(true);
 
             goSymbols.y = -customModel.symbolHeight;
         }
 
-        /// <summary> 向上移动一行（不是整圈） </summary>
-        private void ResetIconDataNudgeUpOneRow()
+        /// <summary> 向上移动一行 </summary>
+        private void ResetIconDataNudgeUpOneRow(ReelNudgeFillMode fillMode)
         {
             if (symbolList == null || symbolList.Count <= 0)
                 return;
 
+            int loopFillNumber = symbolList[0].GetSymbolNumber();
             for (int i = 0; i < symbolList.Count - 1; i++)
             {
                 int number = symbolList[i + 1].GetSymbolNumber();
@@ -501,10 +505,55 @@ namespace SlotMaker
             }
 
             int lastIndex = symbolList.Count - 1;
-            symbolList[lastIndex].SetSymbolImage(customModel.symbolNumber[Random.Range(0, customModel.symbolCount)]);
+            int lastFillNumber = GetNudgeFillNumber(fillMode, ReelNudgeDirection.Up, lastIndex, loopFillNumber);
+            symbolList[lastIndex].SetSymbolImage(lastFillNumber);
             symbolList[lastIndex].SetBtnInteractableState(true);
 
             goSymbols.y = customModel.symbolHeight;
+        }
+
+        /// <summary>
+        /// 按 customModel.symbolNumber 的配置顺序偏移符号编号，支持循环边界。
+        /// </summary>
+        private int GetSymbolNumberByOrderOffset(int baseSymbolNumber, int offset)
+        {
+            if (customModel?.symbolNumber == null || customModel.symbolNumber.Count == 0 || offset == 0)
+                return baseSymbolNumber;
+
+            int index = customModel.symbolNumber.IndexOf(baseSymbolNumber);
+            if (index < 0)
+                return baseSymbolNumber;
+
+            int count = customModel.symbolNumber.Count;
+            int targetIndex = (index + offset) % count;
+            if (targetIndex < 0)
+                targetIndex += count;
+
+            return customModel.symbolNumber[targetIndex];
+        }
+
+        private int GetNudgeFillNumber(ReelNudgeFillMode fillMode, ReelNudgeDirection direction, int fillIndex,
+            int loopFillNumber)
+        {
+            switch (fillMode)
+            {
+                case ReelNudgeFillMode.Random:
+                    return customModel.symbolNumber[Random.Range(0, customModel.symbolCount)];
+                case ReelNudgeFillMode.Loop:
+                    return loopFillNumber;
+                case ReelNudgeFillMode.Ordered:
+                default:
+                    if (direction == ReelNudgeDirection.Up)
+                    {
+                        return fillIndex > 0
+                            ? GetSymbolNumberByOrderOffset(symbolList[fillIndex - 1].GetSymbolNumber(), -1)
+                            : symbolList[fillIndex].GetSymbolNumber();
+                    }
+
+                    return symbolList.Count > 1
+                        ? GetSymbolNumberByOrderOffset(symbolList[1].GetSymbolNumber(), 1)
+                        : symbolList[0].GetSymbolNumber();
+            }
         }
     }
 }

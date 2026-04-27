@@ -370,7 +370,8 @@ namespace SlotMaker
         /// 指定列滚动一格（仅在整机非急停且该列空闲时执行）
         /// </summary>
         public virtual IEnumerator NudgeReelOneStep(int reelIndex, Action finishCallback = null, bool isUseResult = false,
-            ReelNudgeDirection direction = ReelNudgeDirection.Down)
+            ReelNudgeDirection direction = ReelNudgeDirection.Down,
+            ReelNudgeFillMode fillMode = ReelNudgeFillMode.Ordered)
         {
             if (isStopImmediately)
                 yield break;
@@ -387,7 +388,7 @@ namespace SlotMaker
                 yield break;
 
             bool isNext = false;
-            reel.NudgeOneStep(() => { isNext = true; }, isUseResult, direction);
+            reel.NudgeOneStep(() => { isNext = true; }, isUseResult, direction, fillMode);
             yield return new WaitUntil(() => isNext);
 
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
@@ -400,7 +401,8 @@ namespace SlotMaker
         /// 所有列依次滚动一格
         /// </summary>
         public virtual IEnumerator NudgeAllReelsOneStep(Action finishCallback = null, bool isUseResult = false,
-            ReelNudgeDirection direction = ReelNudgeDirection.Down)
+            ReelNudgeDirection direction = ReelNudgeDirection.Down,
+            ReelNudgeFillMode fillMode = ReelNudgeFillMode.Ordered)
         {
             if (isStopImmediately)
                 yield break;
@@ -408,7 +410,7 @@ namespace SlotMaker
             for (int reelIndex = 0; reelIndex < reels.Count; reelIndex++)
             {
                 bool isNext = false;
-                yield return NudgeReelOneStep(reelIndex, () => { isNext = true; }, isUseResult, direction);
+                yield return NudgeReelOneStep(reelIndex, () => { isNext = true; }, isUseResult, direction, fillMode);
                 yield return new WaitUntil(() => isNext);
             }
 

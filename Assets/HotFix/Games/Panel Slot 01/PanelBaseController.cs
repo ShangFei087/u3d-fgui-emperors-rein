@@ -65,6 +65,10 @@ namespace SlotMaker
         protected GButton btnBetDown, btnBetUp;
         protected int curBetIndex = 0;
         protected int curBetListCount = 1;
+        private int _lastRequestedBet = int.MinValue;
+        private bool _isRequestSetBetInFlight;
+        private int? _pendingRequestBet;
+        private Action<object> _pendingRequestSetBetCallback;
   
         // Spin 预制体实例引用
         GameObject goSpin;
@@ -119,6 +123,11 @@ namespace SlotMaker
             {
                 btnSound.SetScale(1f, 1f);
             }
+
+            _lastRequestedBet = int.MinValue;
+            _isRequestSetBetInFlight = false;
+            _pendingRequestBet = null;
+            _pendingRequestSetBetCallback = null;
 
             gOwnerPanel.visible = false;
         }
@@ -241,15 +250,9 @@ namespace SlotMaker
             singleLine = gOwnerPanel.GetChild("singleLine").asTextField;
             singleLine.text = "";
 
-            // 初始化时将当前下注同步到机台
-            SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
-            {
-                PlayerId = SBoxModel.Instance.pid, balance = 0, rfu = 0
-            };
-
-            sBoxPlayerBetsData.Bets[0] = (int)SBoxModel.Instance.betList[MainModel.Instance.contentMD.betIndex];
-            // 设置押注
-            ERPushMachineDataManager02.Instance.RequestSetBet(sBoxPlayerBetsData, (res) =>
+            // 初始化时将当前下注同步到机台（去重处理由统一方法负责）
+            int initBet = (int)SBoxModel.Instance.betList[MainModel.Instance.contentMD.betIndex];
+            RequestSetBetWithDedup(initBet, (res) =>
             {
                 ChangeBetButtonInteractable(MainModel.Instance.contentMD.betIndex, SBoxModel.Instance.betList.Count);
             });
@@ -715,13 +718,7 @@ namespace SlotMaker
             {
                 try
                 {
-                    SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
-                    {
-                        PlayerId = SBoxModel.Instance.pid, balance = 0, rfu = 0
-                    };
-                    sBoxPlayerBetsData.Bets[0] = (int)MainModel.Instance.contentMD.totalBet;
-
-                    ERPushMachineDataManager02.Instance.RequestSetBet(sBoxPlayerBetsData, (callbackRes) =>
+                    RequestSetBetWithDedup((int)MainModel.Instance.contentMD.totalBet, (callbackRes) =>
                     {
                         // 这里只需要保证下注值刷新，不做额外 UI 变更
                     });
@@ -1035,14 +1032,7 @@ namespace SlotMaker
 
             MainModel.Instance.contentMD.totalBet = betList[betIndex];
             // 下注变更后同步机台，并在回调内刷新加减注按钮状态
-            SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
-            {
-                PlayerId = SBoxModel.Instance.pid, balance = 0, rfu = 0
-            };
-
-            sBoxPlayerBetsData.Bets[0] = (int)MainModel.Instance.contentMD.totalBet;
-            // 设置押注
-            ERPushMachineDataManager02.Instance.RequestSetBet(sBoxPlayerBetsData, (res) =>
+            RequestSetBetWithDedup((int)MainModel.Instance.contentMD.totalBet, (res) =>
             {
                 ChangeBetButtonInteractable(betIndex, betList.Count);
             });
@@ -1063,17 +1053,78 @@ namespace SlotMaker
 
             MainModel.Instance.contentMD.totalBet = betList[betIndex];
             // 下注变更后同步机台，并在回调内刷新加减注按钮状态
-            SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
-            {
-                PlayerId = SBoxModel.Instance.pid, balance = 0, rfu = 0
-            };
-
-            sBoxPlayerBetsData.Bets[0] = (int)MainModel.Instance.contentMD.totalBet;
-            // 设置押注
-            ERPushMachineDataManager02.Instance.RequestSetBet(sBoxPlayerBetsData, (res) =>
+            RequestSetBetWithDedup((int)MainModel.Instance.contentMD.totalBet, (res) =>
             {
                 ChangeBetButtonInteractable(betIndex, betList.Count);
             });
+        }
+
+        /// <summary>
+        /// 下发下注值：去重同值请求，并在请求进行中合并为“最后一次下注”。
+        /// </summary>
+        protected virtual void RequestSetBetWithDedup(int betValue, Action<object> finishCallback = null)
+        {
+            // 当前无请求进行，且下注值和上次一致时直接跳过
+            if (!_isRequestSetBetInFlight && betValue == _lastRequestedBet)
+            {
+                finishCallback?.Invoke(null);
+                return;
+            }
+
+            if (_isRequestSetBetInFlight)
+            {
+                // 请求中仅保留最后一次下注，避免短时间重复下发
+                _pendingRequestBet = betValue;
+                _pendingRequestSetBetCallback = finishCallback;
+                return;
+            }
+
+            SendSetBetRequest(betValue, finishCallback);
+        }
+
+        protected virtual void SendSetBetRequest(int betValue, Action<object> finishCallback = null)
+        {
+            _isRequestSetBetInFlight = true;
+            _lastRequestedBet = betValue;
+
+            try
+            {
+                SBoxPlayerBetsData sBoxPlayerBetsData = new SBoxPlayerBetsData()
+                {
+                    PlayerId = SBoxModel.Instance.pid, balance = 0, rfu = 0
+                };
+                sBoxPlayerBetsData.Bets[0] = betValue;
+
+                ERPushMachineDataManager02.Instance.RequestSetBet(sBoxPlayerBetsData, (res) =>
+                {
+                    _isRequestSetBetInFlight = false;
+                    finishCallback?.Invoke(res);
+
+                    if (_pendingRequestBet.HasValue)
+                    {
+                        int pendingBet = _pendingRequestBet.Value;
+                        Action<object> pendingCallback = _pendingRequestSetBetCallback;
+                        _pendingRequestBet = null;
+                        _pendingRequestSetBetCallback = null;
+
+                        if (pendingBet != _lastRequestedBet)
+                        {
+                            SendSetBetRequest(pendingBet, pendingCallback);
+                        }
+                        else
+                        {
+                            pendingCallback?.Invoke(res);
+                        }
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                _isRequestSetBetInFlight = false;
+                _pendingRequestBet = null;
+                _pendingRequestSetBetCallback = null;
+                DebugUtils.LogError($"[PanelBaseController] RequestSetBet failed, bet={betValue}, ex={ex}");
+            }
         }
 
         /// <summary>

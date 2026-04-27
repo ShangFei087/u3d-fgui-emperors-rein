@@ -47,6 +47,10 @@ namespace SlotEmperorsRein
 
         public override void OnOpen(PageName name, EventData data)
         {
+            if (goGameCtrl != null && !goGameCtrl.activeSelf)
+            {
+                goGameCtrl.SetActive(true);
+            }
             base.OnOpen(name, data);
 
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
@@ -71,6 +75,10 @@ namespace SlotEmperorsRein
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
                 OnSlotDetailEvent);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
+            if (goGameCtrl != null && goGameCtrl.activeSelf)
+            {
+                goGameCtrl.SetActive(false);
+            }
             base.OnClose(data);
         }
 
