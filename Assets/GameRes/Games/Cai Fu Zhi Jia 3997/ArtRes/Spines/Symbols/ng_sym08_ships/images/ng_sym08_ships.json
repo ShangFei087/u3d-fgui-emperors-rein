@@ -1,0 +1,36 @@
+{ "skeleton": { "images": "E:/项目4/2024.10.26财富之家/ng_sym08_ships/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "bj", "bone": "root", "attachment": "bj" },
+	{ "name": "yun", "bone": "root", "attachment": "yun" },
+	{ "name": "shui", "bone": "root", "attachment": "shui" },
+	{ "name": "shui2", "bone": "root", "attachment": "shui2" },
+	{ "name": "kuang", "bone": "root", "attachment": "kuang" },
+	{ "name": "chuan", "bone": "root", "attachment": "chuan" }
+],
+"skins": {
+	"default": {
+		"bj": {
+			"bj": { "x": 141.5, "y": -143, "width": 191, "height": 182 }
+		},
+		"yun": {
+			"yun": { "x": 198.5, "y": -56, "width": 105, "height": 26 }
+		},
+		"shui": {
+			"shui": { "x": 141, "y": -185, "width": 180, "height": 110 }
+		},
+		"shui2": {
+			"shui2": { "x": 131, "y": -173.5, "width": 148, "height": 91 }
+		},
+		"kuang": {
+			"kuang": { "x": 141.5, "y": -144.5, "width": 197, "height": 189 }
+		},
+		"chuan": {
+			"chuan": { "x": 154.5, "y": -133.5, "width": 199, "height": 197 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

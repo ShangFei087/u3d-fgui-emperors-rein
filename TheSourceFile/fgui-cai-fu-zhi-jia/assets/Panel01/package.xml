@@ -55,12 +55,6 @@
     <image id="nbj9nv" name="pb_num_1.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-30,-1"/>
     <image id="nbj9nw" name="pb_num_million.png" path="/images/ui_number/" exported="true"/>
     <image id="nbj9nx" name="pb_num_trillion.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-18,-1"/>
-    <image id="nbj9o8" name="0_0004_2.png" path="/images/财富之家说明书资源输出/英文/" exported="true" scale9grid="0,0,-272,-1124"/>
-    <image id="nbj9o9" name="0_0003_3.png" path="/images/财富之家说明书资源输出/英文/" exported="true" scale9grid="0,0,-274,-1055"/>
-    <image id="nbj9oa" name="0_0002_4.png" path="/images/财富之家说明书资源输出/英文/" exported="true" scale9grid="0,0,-338,-1286"/>
-    <image id="nbj9ob" name="0_0001_5.png" path="/images/财富之家说明书资源输出/英文/" exported="true" scale9grid="0,0,-287,-1014"/>
-    <image id="nbj9oc" name="0_0000_6.png" path="/images/财富之家说明书资源输出/英文/" exported="true" scale9grid="0,0,-738,-2452"/>
-    <image id="nbj9oi" name="0_0005_1.png" path="/images/财富之家说明书资源输出/英文/" exported="true" scale9grid="0,0,-265,-1097"/>
     <image id="nbj9ov" name="Border.png" path="/images/财富之家说明书资源输出/英文/" exported="true"/>
     <image id="nbj9o7" name="arrow.png" path="/images/财富之家说明书资源输出/" exported="true"/>
     <image id="nbj9oq" name="GAME1.png" path="/images/财富之家说明书资源输出/" exported="true"/>
@@ -99,7 +93,6 @@
     <component id="f6tv2h" name="ButtonBetDown.xml" path="/components/Button/" exported="true"/>
     <component id="f6tv2i" name="ButtonBetUp.xml" path="/components/Button/" exported="true"/>
     <component id="d58apc" name="ReelBtn.xml" path="/moudules/Exhibition/" exported="true"/>
-    <component id="d58apd" name="ButtonExhibition.xml" path="/components/Button/" exported="true"/>
     <image id="d58ape" name="btn_bet_down.png" path="/images/"/>
     <image id="d58apf" name="btn_bet_down01.png" path="/images/"/>
     <image id="d58apg" name="btn_bet_up.png" path="/images/"/>
@@ -107,6 +100,19 @@
     <component id="d58api" name="ButtonColUp.xml" path="/components/Button/" exported="true"/>
     <component id="d58apj" name="ButtonColDown.xml" path="/components/Button/" exported="true"/>
     <component id="d58apk" name="ExhibitionPanel.xml" path="/moudules/" exported="true"/>
+    <image id="f29ks6" name="1.png" path="/images/财富之家说明书资源输出/英文/" exported="true"/>
+    <image id="f29ks8" name="5.png" path="/images/财富之家说明书资源输出/英文/" exported="true"/>
+    <image id="f29ks9" name="4.png" path="/images/财富之家说明书资源输出/英文/" exported="true"/>
+    <image id="f29ksa" name="3.png" path="/images/财富之家说明书资源输出/英文/" exported="true"/>
+    <image id="f29ksb" name="2.png" path="/images/财富之家说明书资源输出/英文/" exported="true"/>
+    <image id="f29ksm" name="6.png" path="/images/财富之家说明书资源输出/英文/" exported="true"/>
+    <component id="f29ksn" name="exhibitionUpBtn.xml" path="/moudules/Exhibition/" exported="true"/>
+    <image id="f29kp9" name="ng_img_bor.png" path="/images/exhibitionMode/" exported="true"/>
+    <image id="f29kpa" name="ng_img_der_01.png" path="/images/exhibitionMode/" exported="true"/>
+    <image id="f29kpb" name="ng_img_der_02.png" path="/images/exhibitionMode/" exported="true"/>
+    <image id="f29kpc" name="ng_img_jian.png" path="/images/exhibitionMode/" exported="true"/>
+    <image id="f29kpd" name="ng_txt_off.png" path="/images/exhibitionMode/" exported="true"/>
+    <image id="f29kpe" name="ng_txt_on.png" path="/images/exhibitionMode/" exported="true"/>
   </resources>
   <publish name="CaiFuZhiJia_Panel" path="../../Assets/GameRes/Panel/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>

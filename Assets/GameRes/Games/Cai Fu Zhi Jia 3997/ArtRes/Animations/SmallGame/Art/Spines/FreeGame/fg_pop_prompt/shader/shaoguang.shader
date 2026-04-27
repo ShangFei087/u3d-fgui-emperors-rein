@@ -25,8 +25,7 @@ Shader "Custom/MoveLight"
             struct appdata
             {
                 float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;     
-                float4 color : COLOR;
+                float2 uv : TEXCOORD0;            
             };
 
             struct v2f
@@ -34,7 +33,6 @@ Shader "Custom/MoveLight"
                 float2 uv : TEXCOORD0;
                 float2 lightUV : TEXCOORD1;
                 float4 vertex : SV_POSITION;
-                float4 color : COLOR;
             };
 
             sampler2D _MainTex;
@@ -54,7 +52,6 @@ Shader "Custom/MoveLight"
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.lightUV = TRANSFORM_TEX(v.uv, _LightTex);
-                o.color=v.color;
                 // o.lightUV = v.uv;
                 
                 return o;
@@ -85,8 +82,8 @@ Shader "Custom/MoveLight"
                 
                 float4 result = col;
                 float alpha = step(1,lightCol.a);
-                result = lerp(col,col + lightCol * _LightColor * _LightStrength,alpha)*i.color;
-                result.a = col.a*i.color.a;
+                result = lerp(col,col + lightCol * _LightColor * _LightStrength,alpha);
+                result.a = col.a;
                 return result;
 
             }

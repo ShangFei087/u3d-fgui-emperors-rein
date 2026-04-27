@@ -18,6 +18,8 @@ namespace CaiFuZhiJia_3997
 
         private const string SpinePrefabPath =
             "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupJackpotGame/SpinePrefabs/";
+        private const string ModelPrefabPath =
+            "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupJackpotGame/ModelPrefabs/";
 
         private int _totalCount = -1;
         private bool _isInitialized = false;
@@ -26,14 +28,19 @@ namespace CaiFuZhiJia_3997
 
         // Spine
         private GameObject
-            _reelBgSpineObj = null, _bonusTreeSpineObj = null, _bonusSpineObj = null; // 第三个是钻石Spine动画
+            _reelBgSpineObj = null, /*_bonusTreeSpineObj = null,*/ _bonusSpineObj = null; // 第三个是钻石Spine动画
 
-        private GameObject _cloneReelBgSpineObj = null, _cloneBonusTreeSpineObj = null;
+        private GameObject _cloneReelBgSpineObj = null/*, _cloneBonusTreeSpineObj = null*/;
         private GComponent _compareReelBgSpineGCom = null, _compareBonusTreeSpineGCom = null;
 
         private readonly List<GameObject> _cloneJackpotSpineList = new List<GameObject>();
         private readonly List<Animator> _cloneAnimators = new List<Animator>(); // 预制体上的动画集合
         private readonly List<GComponent> _compareJackpotSpineGComList = new List<GComponent>();
+        
+        // // 3D Model
+        // private GComponent _compareNpcCom;
+        // private GameObject _npcObj, _cloneNpcObj;
+        
 
         // Fairy GUI
         private readonly List<GComponent> _rollReels = new List<GComponent>();
@@ -94,7 +101,7 @@ namespace CaiFuZhiJia_3997
             InitUI();
             InitCanSpinReels();
 
-            _totalCount = 3;
+            _totalCount = 2;
             LoadAsyncRes();
         }
 
@@ -204,13 +211,13 @@ namespace CaiFuZhiJia_3997
                     ResLoadedCallback();
                 });
 
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                SpinePrefabPath + "jackpotTreeSpine.prefab",
-                (clone) =>
-                {
-                    _bonusTreeSpineObj = clone;
-                    ResLoadedCallback();
-                });
+            // ResourceManager02.Instance.LoadAsset<GameObject>(
+            //     SpinePrefabPath + "jackpotTreeSpine.prefab",
+            //     (clone) =>
+            //     {
+            //         _bonusTreeSpineObj = clone;
+            //         ResLoadedCallback();
+            //     });
 
             ResourceManager02.Instance.LoadAsset<GameObject>(
                 SpinePrefabPath + "jackpotSpine.prefab",
@@ -219,6 +226,14 @@ namespace CaiFuZhiJia_3997
                     _bonusSpineObj = clone;
                     ResLoadedCallback();
                 });
+            
+            // ResourceManager02.Instance.LoadAsset<GameObject>(
+            //     ModelPrefabPath + "NPC_Obj.prefab",
+            //     (clone) =>
+            //     {
+            //         _npcObj = clone;
+            //         ResLoadedCallback();
+            //     });
         }
 
         private void BindPrefabsToUI()
@@ -232,14 +247,23 @@ namespace CaiFuZhiJia_3997
                 GameCommon.FguiUtils.AddWrapper(_compareReelBgSpineGCom, _cloneReelBgSpineObj);
             }
 
-            currentGCom = contentPane.GetChild("jackpotTreeSpine").asCom;
-            if (currentGCom != _compareBonusTreeSpineGCom)
-            {
-                GameCommon.FguiUtils.DeleteWrapper(_compareBonusTreeSpineGCom);
-                _compareBonusTreeSpineGCom = currentGCom;
-                _cloneBonusTreeSpineObj = Object.Instantiate(_bonusTreeSpineObj);
-                GameCommon.FguiUtils.AddWrapper(_compareBonusTreeSpineGCom, _cloneBonusTreeSpineObj);
-            }
+            // currentGCom = contentPane.GetChild("jackpotTreeSpine").asCom;
+            // if (currentGCom != _compareBonusTreeSpineGCom)
+            // {
+            //     GameCommon.FguiUtils.DeleteWrapper(_compareBonusTreeSpineGCom);
+            //     _compareBonusTreeSpineGCom = currentGCom;
+            //     _cloneBonusTreeSpineObj = Object.Instantiate(_bonusTreeSpineObj);
+            //     GameCommon.FguiUtils.AddWrapper(_compareBonusTreeSpineGCom, _cloneBonusTreeSpineObj);
+            // }
+            
+            // currentGCom = contentPane.GetChild("anchorNpcModel").asCom;
+            // if (currentGCom != _compareNpcCom)
+            // {
+            //     GameCommon.FguiUtils.DeleteWrapper(_compareNpcCom);
+            //     _compareNpcCom = currentGCom;
+            //     _cloneNpcObj = Object.Instantiate(_npcObj);
+            //     GameCommon.FguiUtils.AddWrapper(_compareNpcCom, _cloneNpcObj);
+            // }
 
             for (int i = 0; i < _jackpotDiamondSpinesGCom.numChildren; i++)
             {
@@ -621,11 +645,13 @@ namespace CaiFuZhiJia_3997
 
             _cloneJackpotSpineList.Clear();
 
+            // Object.Destroy(_cloneNpcObj);
             Object.Destroy(_cloneReelBgSpineObj);
-            Object.Destroy(_cloneBonusTreeSpineObj);
+            // Object.Destroy(_cloneBonusTreeSpineObj);
 
+            // _cloneNpcObj = null;
             _cloneReelBgSpineObj = null;
-            _cloneBonusTreeSpineObj = null;
+            // _cloneBonusTreeSpineObj = null;
 
             for (int i = 0; i < _compareJackpotSpineGComList.Count; i++)
             {

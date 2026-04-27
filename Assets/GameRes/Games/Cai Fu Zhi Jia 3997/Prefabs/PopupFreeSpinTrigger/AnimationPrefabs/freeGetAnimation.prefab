@@ -743,6 +743,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: fg_pop_prompt_V
       objectReference: {fileID: 0}
+    - target: {fileID: 4199742923194540321, guid: bdbb2f15a889bbb48947eaa008350207,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4378888921903379764, guid: bdbb2f15a889bbb48947eaa008350207,
         type: 3}
       propertyPath: m_AnchoredPosition.x

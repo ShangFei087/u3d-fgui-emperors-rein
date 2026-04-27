@@ -90,8 +90,8 @@ namespace CaiFuZhiJia_3997
         long TotalBet => MainModel.Instance.contentMD.totalBet;
 
         // Spine动画
-        private GameObject _reelBgSpineObj = null, _freeTreeSpineObj = null; // 物体模板
-        private GameObject _cloneReelBgSpineObj = null, _cloneFreeTreeSpineObj = null; // 克隆的物体
+        private GameObject _reelBgSpineObj = null, _freeTreeSpineObj = null/*, _npcSpineObj*/; // 物体模板
+        private GameObject _cloneReelBgSpineObj = null, _cloneFreeTreeSpineObj = null/*, _cloneNpcSpineObj*/; // 克隆的物体
         private GComponent _compareReelBgSpineCom = null, _compareFreeTreeSpineCom = null; // 多分支对照的UI组件
 
 
@@ -771,7 +771,7 @@ namespace CaiFuZhiJia_3997
             // _comReelEffect2.visible = true;
             // yield return new WaitUntil(() => _isStoppedSlotMachine == true);
             // _comReelEffect2.visible = false;
-            
+
             GComponent ComReelEffect = _anchorBonusExpectation;
             if (ContentModel.Instance.isFreeSlotTip)
             {
@@ -921,8 +921,8 @@ namespace CaiFuZhiJia_3997
                     new Dictionary<string, object>() { ["freeSpinCount"] = ContentModel.Instance.FreeSpinTotalTimes, }),
                 (ed) =>
                 {
+                    _slotMachineCtrl.SendTotalWinCreditEvent(0);
                     _pageController.selectedPage = "FreeGame";
-                    // ContentModel.Instance.isFreeSpinTrigger = false;
                     isNext = true;
                 });
             yield return new WaitUntil(() => isNext == true);
@@ -1427,7 +1427,6 @@ namespace CaiFuZhiJia_3997
             else // 否则没中奖才播放特效
                 _slotMachineCtrl.ShowSymbolAppearEffectAfterReelStop(ContentModel.Instance.winList.Count == 0);
 
-
             if (_slotMachineCtrl.isStopImmediately)
             {
                 if (_corReelsTurn != null) _monoHelper.StopCoroutine(_corReelsTurn);
@@ -1474,6 +1473,7 @@ namespace CaiFuZhiJia_3997
             List<SymbolWin> winList = ContentModel.Instance.winList;
             long allWinCredit = 0;
 
+
             // 普通赢
             if (winList.Count > 0)
             {
@@ -1483,7 +1483,6 @@ namespace CaiFuZhiJia_3997
 
                 _slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
                 MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true);
-
                 MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             }
 
@@ -1491,6 +1490,17 @@ namespace CaiFuZhiJia_3997
             if (winList.Count > 0 || false)
             {
                 yield return ShowWinListCoinCountDown(winList, allWinCredit, false);
+            }
+
+            // Free Spin
+            if (ContentModel.Instance.isFreeSpinTrigger)
+            {
+                if (_corShowFreeSymbol != null) _monoHelper.StopCoroutine(_corShowFreeSymbol);
+                _corShowFreeSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(10));
+                yield return new WaitForSeconds(2f);
+                //停止特效显示
+                _slotMachineCtrl.SkipWinLine(false);
+                yield return FreeSpinTrigger(null, errorCallback);
             }
 
             // 彩金游戏
@@ -1515,7 +1525,6 @@ namespace CaiFuZhiJia_3997
                     });
 
                 yield return new WaitUntil(() => isNext == true);
-                Debug.LogError("动画播放完成，触发");
                 isNext = false;
                 PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupJackpotGame,
                     new EventData<Dictionary<string, object>>("", new Dictionary<string, object> { }),
@@ -1545,21 +1554,9 @@ namespace CaiFuZhiJia_3997
                     new EventData<Dictionary<string, object>>("", new Dictionary<string, object> { }),
                     (res) =>
                     {
-                        // MainBlackboardController.Instance.SyncMyUICreditToTemp();
                         isNext = true;
                     });
                 yield return new WaitUntil(() => isNext == true);
-            }
-
-            // Free Spin
-            if (ContentModel.Instance.isFreeSpinTrigger)
-            {
-                if (_corShowFreeSymbol != null) _monoHelper.StopCoroutine(_corShowFreeSymbol);
-                _corShowFreeSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(10));
-                yield return new WaitForSeconds(2f);
-                //停止特效显示
-                _slotMachineCtrl.SkipWinLine(false);
-                yield return FreeSpinTrigger(null, errorCallback);
             }
 
 

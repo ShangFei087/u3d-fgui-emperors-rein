@@ -200,7 +200,7 @@ namespace CaiFuZhiJia_3997
         }
 
         // List<int> slowCols = new List<int>();
-        
+
         List<int> freeIconCols = new List<int>();
         List<int> jackpotIconCols = new List<int>();
         Dictionary<int, List<int>> freeAddIcon = new Dictionary<int, List<int>>();
@@ -213,20 +213,20 @@ namespace CaiFuZhiJia_3997
 
             if (freeIconCols.Count > 0) freeIconCols.Clear();
             if (jackpotIconCols.Count > 0) jackpotIconCols.Clear();
-            
+
             if (ContentModel.Instance.isFreeSpin)
             {
-                foreach(int key in freeAddIcon.Keys)
+                foreach (int key in freeAddIcon.Keys)
                 {
                     freeAddIcon[key].Clear();
                 }
 
-                foreach(int key in multAddIcon.Keys)
+                foreach (int key in multAddIcon.Keys)
                 {
                     multAddIcon[key].Clear();
                 }
             }
-            
+
             List<List<int>> colrowLsts = new List<List<int>>();
             // for (int col = 0; col < colCount; col++)
             // {
@@ -250,7 +250,7 @@ namespace CaiFuZhiJia_3997
             //
             //     colrowLsts.Add(colLst);
             // }
-            
+
             for (int col = 0; col < colCount; col++)
             {
                 List<int> colLst = new List<int>();
@@ -279,8 +279,10 @@ namespace CaiFuZhiJia_3997
                     {
                         jackpotIconCols.Add(col);
                     }
+
                     colLst.Add(syb);
                 }
+
                 colrowLsts.Add(colLst);
             }
 
@@ -297,7 +299,7 @@ namespace CaiFuZhiJia_3997
 
             bool haveSlotTip = false;
             ContentModel.Instance.isFreeSlotTip = false;
-            
+
             for (int reelIdx = 0; reelIdx < this.column; reelIdx++)
             {
                 // if (_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx) > 0)
@@ -315,15 +317,18 @@ namespace CaiFuZhiJia_3997
                 //     extraReelTimes = 15;
                 //     isTrriger = true;
                 // }
-                
-                if ((freeIconCols.Count > 1 && reelIdx >= freeIconCols[1]) || (jackpotIconCols.Count > 1 && reelIdx >= jackpotIconCols[1]))  //ContentModel.Instance.isReelsSlowMotion && 
+
+                if ((freeIconCols.Count > 1 && reelIdx >= freeIconCols[1]) ||
+                    (jackpotIconCols.Count > 1 &&
+                     reelIdx >= jackpotIconCols[1])) //ContentModel.Instance.isReelsSlowMotion && 
                 {
                     extraReelTimes = 15;
                     isTrriger = true;
-                    if(!haveSlotTip && freeIconCols.Count > 1 && reelIdx >= freeIconCols[1])
+                    if (!haveSlotTip && freeIconCols.Count > 1 && reelIdx >= freeIconCols[1])
                     {
                         ContentModel.Instance.isFreeSlotTip = true;
                     }
+
                     haveSlotTip = true;
 
                     if (freeIconCols.Count > 1)
@@ -337,7 +342,8 @@ namespace CaiFuZhiJia_3997
                 }
 
                 reels[reelIdx].StartTurn(
-                        _reelSetMD.Instance.GetNumReelTurn(reelIdx) + reelIdx * _reelSetMD.Instance.GetNumReelTurnGap(reelIdx) + extraReelTimes * extraReelTimesReel,
+                    _reelSetMD.Instance.GetNumReelTurn(reelIdx) +
+                    reelIdx * _reelSetMD.Instance.GetNumReelTurnGap(reelIdx) + extraReelTimes * extraReelTimesReel,
                     () =>
                     {
                         if (isTrriger)
@@ -345,7 +351,7 @@ namespace CaiFuZhiJia_3997
                             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
                                 new EventData<int>(SlotMachineEvent.PrepareStoppedReel, _reelIdx + 1));
                         }
-                
+
                         if (--reelsCount <= 0)
                         {
                             isNext = true;
