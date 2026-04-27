@@ -88,6 +88,22 @@ namespace CaiFuHuoChe_3996
         //免费游戏的剩余次数和总次数
         private GTextField freeTimes, freeTotalTimes;
 
+        //免费游戏火车
+        private GameObject freeTrainPref, freeTrainObj;
+        private GComponent freeAnchor; 
+        private Animator freeTrainAnim;
+
+        //游戏中的女生
+        private GameObject girlPref, girlObj;
+        private GComponent anchorGirl;
+        private Animator girlAnim;
+
+
+        //用于记录未中奖的次数
+        private int noWinTimes = 0;
+        //本局游戏中是否存在中奖
+        private bool isWin = false;
+
         private bool isConnectFreeSpin = false;
 
         bool isAddCreditAnim => !(slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
@@ -101,7 +117,7 @@ namespace CaiFuHuoChe_3996
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 8;
+            int count = 10;
 
             Action callback = () =>
             {
@@ -194,6 +210,22 @@ namespace CaiFuHuoChe_3996
                 goOpenEffect = clone;
                 callback();
             });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+            "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PageGameMain/Girl.prefab",
+            (GameObject clone) =>
+            {
+                girlPref = clone;
+                callback();
+            });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+           "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PopupGameFree/FreeGameTrain.prefab",
+           (GameObject clone) =>
+           {
+               freeTrainPref = clone;
+               callback();
+           });
 
 
             machineBtnClickHelper = new MachineButtonClickHelper()
@@ -413,6 +445,27 @@ namespace CaiFuHuoChe_3996
                 train = GameObject.Instantiate(goTrain);
                 trainAnim = train.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
                 GameCommon.FguiUtils.AddWrapper(gTrain, train);
+            }
+
+            GComponent loadFreeTrain = contentPane.GetChild("anchorFreeTrain").asCom;
+            if(freeAnchor != loadFreeTrain)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(freeAnchor);
+                freeAnchor = loadFreeTrain;
+                freeTrainObj = GameObject.Instantiate(freeTrainPref);
+                freeTrainAnim = freeTrainObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                GameCommon.FguiUtils.AddWrapper(freeAnchor, freeTrainObj);
+            }
+
+            GComponent loadGirl = contentPane.GetChild("anchorGirl").asCom;
+            if(anchorGirl != loadGirl)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorGirl);
+                anchorGirl = loadGirl;
+                girlObj = GameObject.Instantiate(girlPref);
+                girlAnim = girlObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                GameCommon.FguiUtils.AddWrapper(anchorGirl, girlObj);
+                PlayAnim(girlAnim, "ng_idle1");
             }
 
             GComponent loadOpenEffect = contentPane.GetChild("JpEffect").asCom;
@@ -722,37 +775,40 @@ namespace CaiFuHuoChe_3996
             float temp = 0;
             if (fill1.fillAmount != 1)
             {
-                if(fill1.fillAmount + value <= 1) fill1.fillAmount += value;
+                if(fill1.fillAmount + value <= 0.95f) fill1.fillAmount += value;
                 else
                 {
                     temp = fill1.fillAmount;
                     fill1.fillAmount = 1;
-                    SkipAddMult(value + temp - 1);
+                    SetFreeTrainState();
+                    if(value + temp - 1 > 0) SkipAddMult(value + temp - 1);
                 }
             }
             else if (fill2.fillAmount != 1)
             {
-                if (fill2.fillAmount + value <= 1)  fill2.fillAmount += value;
+                if (fill2.fillAmount + value <= 0.95f)  fill2.fillAmount += value;
                 else
                 {
                     temp = fill2.fillAmount;
                     fill2.fillAmount = 1;
-                    SkipAddMult(value + temp - 1);
+                    PlayAnim(freeTrainAnim, "win2");
+                    if (value + temp - 1 > 0) SkipAddMult(value + temp - 1);
                 }
             }
             else if (fill3.fillAmount != 1)
             {
-                if (fill3.fillAmount + value <= 1)  fill3.fillAmount += value;
+                if (fill3.fillAmount + value <= 0.95f)  fill3.fillAmount += value;
                 else
                 {
                     temp = fill3.fillAmount;
                     fill3.fillAmount = 1;
-                    SkipAddMult(value + temp - 1);
+                    PlayAnim(freeTrainAnim, "win");
+                    if (value + temp - 1 > 0) SkipAddMult(value + temp - 1);
                 }
             }
             else if (fill4.fillAmount != 1)
             {
-                if (fill4.fillAmount + value <= 1) fill4.fillAmount += value;
+                if (fill4.fillAmount + value <= 0.95f) fill4.fillAmount += value;
                 else fill4.fillAmount = 1;
             }
         }
@@ -806,6 +862,7 @@ namespace CaiFuHuoChe_3996
             slotMachineCtrl.BeginTurn();
             bool isNext = false;
             bool isBreak = false;
+            isWin = false;
             string errMsg = "";
 
             //模拟结果
@@ -930,6 +987,7 @@ namespace CaiFuHuoChe_3996
             //普通赢
             if (winList.Count > 0 || ContentModel.Instance.bonusResult != null)
             {
+                isWin = true;
                 //中奖特效
                 if (_spinWEMD.Instance.isSingleWin)
                 {
@@ -983,7 +1041,8 @@ namespace CaiFuHuoChe_3996
             //免费奖
             if (ContentModel.Instance.isFreeSpinTrigger)
             {
-                if(winList.Count > 0)
+                isWin = false;
+                if (winList.Count > 0)
                 {
                     // 本剧同步玩家金钱
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
@@ -1007,6 +1066,7 @@ namespace CaiFuHuoChe_3996
             //中游戏大奖
             if (ContentModel.Instance.isJackpotSpinTrigger)
             {
+                isWin = true;
                 if (winList.Count > 0)
                 {
                     yield return new WaitForSeconds(1);
@@ -1024,6 +1084,20 @@ namespace CaiFuHuoChe_3996
 
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
+            }
+
+            if (!isWin)
+            {
+                noWinTimes++;
+                if(noWinTimes >= 5)
+                {
+                    noWinTimes = 0;
+                    PlayAnim(girlAnim, "ng_not win");
+                }
+            }
+            else
+            {
+                noWinTimes = 0;
             }
 
             // 本剧同步玩家金钱
@@ -1303,13 +1377,13 @@ namespace CaiFuHuoChe_3996
 
                 yield return new WaitForSeconds(1.5f);
                 ChangeBGPanel(1);
-                gTrain.visible = false;
             }
             else
             {
                 isConnectFreeSpin = false;
             }
 
+            SetFreeTrainState();
 
             InputStackContextFreeSpin((context) =>
             {
@@ -2001,6 +2075,7 @@ namespace CaiFuHuoChe_3996
         //显示加速框
         public IEnumerator ShowEffectReelsSlowMotion(int colIdx)
         {
+            PlayAnim(girlAnim, "");
             GComponent ComReelEffect = ComReelEffect3;
             if (ContentModel.Instance.isFreeSlotTip)
             {
@@ -2284,6 +2359,26 @@ namespace CaiFuHuoChe_3996
                         fill4.fillAmount += (ContentModel.Instance.wildNums % 4) / 4.0f;
                         break;
                 }
+            }
+        }
+
+        private void SetFreeTrainState()
+        {
+            if (fill3.fillAmount == 1)
+            {
+                PlayAnim(freeTrainAnim, "idle4");
+            }
+            else if (fill2.fillAmount == 1)
+            {
+                PlayAnim(freeTrainAnim, "idle3");
+            }
+            else if (fill1.fillAmount == 1)
+            {
+                PlayAnim(freeTrainAnim, "idle2");
+            }
+            else
+            {
+                PlayAnim(freeTrainAnim, "idle1");
             }
         }
     }
