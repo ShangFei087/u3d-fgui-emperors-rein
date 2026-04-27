@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="86,1000">
   <displayList>
-    <component id="n3_eiu2" name="btnUp" src="eiu2xkn" fileName="components/button/ButtonColUp.xml" xy="12,-8" rotation="-90"/>
-    <component id="n2_eiu2" name="btnDown" src="eiu2xko" fileName="components/button/ButtonColDown.xml" xy="10,916" rotation="-90"/>
+    <component id="n3_eiu2" name="btnUp" src="eiu2xkn" fileName="components/button/ButtonColUp.xml" xy="43,52" pivot="0.5,0.5" anchor="true"/>
+    <component id="n4_ij9l" name="btnDown" src="eiu2xkn" fileName="components/button/ButtonColUp.xml" xy="-17,878" rotation="180"/>
   </displayList>
 </component>

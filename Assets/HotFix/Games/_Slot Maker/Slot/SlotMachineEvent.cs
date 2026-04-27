@@ -94,9 +94,8 @@ namespace SlotMaker
         /// <summary> 开始一个Bonus(小游戏、彩金、免费游戏) </summary>
         public const string BeginBonus = "BeginBonus";
         public const string EndBonus = "EndBonus";
+
         #endregion
-
-
 
         #region Game FSM
         //public const string ON_GAME_STATE_EVEN = "ON_CONTENT_EVEN";
@@ -110,7 +109,6 @@ namespace SlotMaker
         #endregion
 
     }
-
 
     public class MetaUIEvent
     {
@@ -140,9 +138,6 @@ namespace SlotMaker
         public const string UpdateBetIndex = "UpdateBetIndex"; //eventName = OnCreditEvent ， name = UpdateBetIndex value = 7
         */
         #endregion
-
-
-
 
         public const string ON_SPIN_BUTTON_EVENT = "ON_SPIN_BUTTON_EVENT";
         public const string OnSpinButtonEvent = "OnSpinButtonEvent";

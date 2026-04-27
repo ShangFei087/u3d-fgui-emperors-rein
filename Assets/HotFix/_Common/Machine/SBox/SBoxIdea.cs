@@ -840,7 +840,7 @@ namespace SBoxApi
 		 */
         public static void SetPlayerBets(SBoxPlayerBetsData sBoxPlayerBetsData)
         {
-            Debug.Log("SBoxIdea 20012");
+            Debug.Log("SBoxIdea r");
             SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20012, source: 1, target: 2, size: sBoxPlayerBetsData.Bets.Length + 3);
 
             sBoxPacket.data[0] = sBoxPlayerBetsData.PlayerId;
