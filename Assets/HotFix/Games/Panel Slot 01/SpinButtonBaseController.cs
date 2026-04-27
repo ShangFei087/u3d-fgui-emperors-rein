@@ -38,9 +38,6 @@ public class SpinButtonBaseController // : IContorller
             onClickCallblack?.Invoke(difTimeS > 1.2f? true: false);
         });
     }
-
-
-
     public virtual void InitParam(GComponent spin, string state, UnityAction<bool> onClick,GameObject gameObject)
     {
         goOwnerSpin = spin;
@@ -69,18 +66,12 @@ public class SpinButtonBaseController // : IContorller
             onClickCallblack?.Invoke(difTimeS > 1.2f ? true : false);
         });
     }
-
     protected virtual void DoAutoEffect(object param)
     {
         //animator.Play("hold",-1,0);
         GlobalSoundHelper.Instance.PlaySoundEff(SoundKey.SpinAutoClick);
         
     }
-
-
-
-
-
 
     protected string _state;
     public virtual string State
@@ -92,28 +83,29 @@ public class SpinButtonBaseController // : IContorller
             {
                 return;
             }
+            //Spin状态下再按Stop，Stop置灰
+            switch (_state)
+            {
+                case SpinButtonState.Spin:
+                    goOwnerSpin.GetController("button").selectedPage = "hui";
+                    break;
+            }
             _state = value;
             switch (_state)
             {
                 case SpinButtonState.Stop:
                     goOwnerSpin.GetController("button").selectedPage = "stop";
-                    //animator.Play("play", -1, 0);
                     break;
                 case SpinButtonState.Auto:
                     goOwnerSpin.GetController("button").selectedPage = "auto";
-                   // animator.Play("auto", -1, 0);
                     break;
                 case SpinButtonState.Spin:
                     goOwnerSpin.GetController("button").selectedPage = "spin";
-                    //animator.Play("stop", -1, 0);
                     break;
-
             }
-
         }
 
     } 
-
 
     public virtual void Init(GObject goTarget)
     {

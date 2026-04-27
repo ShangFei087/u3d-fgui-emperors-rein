@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="62,86" pivot="0.5,0.5" extention="Button">
+<component size="121,121" pivot="0.5,0.5" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n0_eiu2" name="n0" src="127mxjh" fileName="images/Button/btn_bet_up.png" xy="0,0">
-      <relation target="" sidePair="width-width,height-height"/>
-    </image>
-    <image id="n1_eiu2" name="untouch" src="127mxjg" fileName="images/Button/btn_bet_up01.png" xy="0,0" visible="false"/>
+    <image id="n2_ij9l" name="n2" src="ij9lxks" fileName="images/new/Exhibition/ng_img_bor.png" xy="1,0"/>
+    <image id="n3_ij9l" name="n3" src="ij9lxkv" fileName="images/new/Exhibition/ng_img_jian.png" xy="29,20"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.8"/>
 </component>

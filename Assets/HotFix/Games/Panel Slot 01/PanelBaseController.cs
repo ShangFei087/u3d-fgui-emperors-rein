@@ -34,6 +34,7 @@ namespace SlotMaker
  
         // Spin 按钮控制器
         protected SpinButtonBaseController spinBtnCtrl = new SpinButtonBaseController();
+        protected bool _isSpinStopButtonLocked;
 
         // 赔付表翻页与导航按钮
         protected GButton btnPayTable, btnPrev, btnNext, btnHome, btnBackGame;
@@ -96,7 +97,7 @@ namespace SlotMaker
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnTotalWinCredit);
             EventCenter.Instance.AddEventListener<EventData>(MetaUIEvent.ON_CREDIT_EVENT, OnUpdateNaviCredit);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnPanelEventAnchorPanelChange);
-
+            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_CONTENT_EVENT, OnContentChang);
             MainModel.Instance.panel = this;
 
             Init();
@@ -110,8 +111,9 @@ namespace SlotMaker
             EventCenter.Instance.RemoveEventListener<EventData>(Observer.ON_PROPERTY_CHANGED_EVENT, OnPropertyChange);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnTotalWinCredit);
             EventCenter.Instance.RemoveEventListener<EventData>(MetaUIEvent.ON_CREDIT_EVENT, OnUpdateNaviCredit);
-            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT,
-                OnPanelEventAnchorPanelChange);
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT,OnPanelEventAnchorPanelChange);
+            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_CONTENT_EVENT, OnContentChang);
+            
             Stage.inst.onTouchEnd.Remove(OnStageTouchEndResetSoundButton);
             if (silderSound != null)
             {
@@ -128,6 +130,7 @@ namespace SlotMaker
             _isRequestSetBetInFlight = false;
             _pendingRequestBet = null;
             _pendingRequestSetBetCallback = null;
+            _isSpinStopButtonLocked = false;
 
             gOwnerPanel.visible = false;
         }
@@ -343,7 +346,6 @@ namespace SlotMaker
                 btnColUps.Add(ExhibitionPanel.GetChildAt(i).asCom.GetChildAt(0).asButton);
                 btnColDowns.Add(ExhibitionPanel.GetChildAt(i).asCom.GetChildAt(1).asButton);
             }
-            BindColumnButtons();
             btnExhibition = ExhibitionPanel.GetChild("btnExhibition").asButton;
             btnExhibition.onClick.Clear();
             btnExhibition.onClick.Add(OnClickExhibition);
@@ -351,6 +353,9 @@ namespace SlotMaker
             {
                 btnExhibition.visible = false;
             }
+
+            BindColumnButtons();
+        
             isSet = false;
             OnPropertyChangeBetList();
             OnPropertyChangeTotalBet();
@@ -678,6 +683,30 @@ namespace SlotMaker
             }
         }
 
+        /// <summary>
+        /// UI状态改变:状态
+        /// </summary>
+        public virtual void OnContentChang(EventData res = null)
+        {
+            if (res == null) return;
+
+            string name = res.name;
+            switch (name)
+            {
+                case "BeginBonus":
+                    {
+                        SetExhibitionUIState(false);
+                    }
+                    break;
+
+                case "EndBonus":
+                    {
+                        SetExhibitionUIState(true);
+                    }
+                    break;
+            }
+        }
+
         //  panel ctl  --> game ctl  --> model -->  panel ctl
         protected virtual void OnPropertyChangeTotalBet(EventData res = null)
         {
@@ -748,25 +777,56 @@ namespace SlotMaker
             {
                 case SpinButtonState.Stop:
                     {
-                        spinBtnCtrl.State = "Stop";
+                        if (!_isSpinStopButtonLocked)
+                        {
+                            spinBtnCtrl.State = "Stop";
+                        }
                         ChangButtonNo(false);
                     }
                     break;
                 case SpinButtonState.Spin:
                     {
-                        spinBtnCtrl.State = "Spin";
+                        if (!_isSpinStopButtonLocked)
+                        {
+                            spinBtnCtrl.State = "Spin";
+                        }
 
                         ChangButtonNo(true);
                     }
                     break;
                 case SpinButtonState.Auto:
                     {
-                        spinBtnCtrl.State = "Auto";
+                        if (!_isSpinStopButtonLocked)
+                        {
+                            spinBtnCtrl.State = "Auto";
+                        }
 
                         ChangButtonNo(true);
                     }
                     break;
             }
+        }
+
+        public virtual bool IsSpinStopButtonLocked => _isSpinStopButtonLocked;
+
+        public virtual void SetSpinButtonLocked(bool locked)
+        {
+            _isSpinStopButtonLocked = locked;
+            if (spinBtnCtrl?.goOwnerSpin == null)
+            {
+                return;
+            }
+
+            if (locked)
+            {
+                spinBtnCtrl.goOwnerSpin.touchable = false;
+                spinBtnCtrl.goOwnerSpin.GetController("button").selectedPage = "hui";
+                return;
+            }
+
+            spinBtnCtrl.goOwnerSpin.touchable = true;
+            string spinState = MainModel.Instance?.contentMD?.btnSpinState ?? SpinButtonState.Stop;
+            spinBtnCtrl.State = spinState;
         }
 
         /// <summary>
@@ -915,6 +975,7 @@ namespace SlotMaker
                 }
             }
 
+            btnExhibition.GetChild("closeGroup").asGroup.visible = false;
         }
 
         //滚轴上移一格
@@ -932,7 +993,7 @@ namespace SlotMaker
         public void OnClickExhibition()
         {
             MainModel.Instance.isExhibitionModeMode = !MainModel.Instance.isExhibitionModeMode;
-
+            btnExhibition.GetChild("closeGroup").asGroup.visible = MainModel.Instance.isExhibitionModeMode;
             for (int i = 0; i < btnColUps.Count; i++)
             {
                 btnColUps[i].visible = MainModel.Instance.isExhibitionModeMode;
