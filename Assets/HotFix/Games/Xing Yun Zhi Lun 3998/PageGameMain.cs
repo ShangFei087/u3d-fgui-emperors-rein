@@ -1511,6 +1511,7 @@ namespace XingYunZhiLun_3998
 
             slotMachineCtrl.SkipWinLine(true);
             StopEffectAnim(fireworkEffect);
+            freeBgObj.SetActive(false);
             fsTobs.Play();
 
             OutputStackContextFreeSpin(
