@@ -113,6 +113,7 @@
     <image id="f29kpc" name="ng_img_jian.png" path="/images/exhibitionMode/" exported="true"/>
     <image id="f29kpd" name="ng_txt_off.png" path="/images/exhibitionMode/" exported="true"/>
     <image id="f29kpe" name="ng_txt_on.png" path="/images/exhibitionMode/" exported="true"/>
+    <component id="f29kso" name="ButtonExhibition.xml" path="/components/Button/" exported="true"/>
   </resources>
   <publish name="CaiFuZhiJia_Panel" path="../../Assets/GameRes/Panel/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>
