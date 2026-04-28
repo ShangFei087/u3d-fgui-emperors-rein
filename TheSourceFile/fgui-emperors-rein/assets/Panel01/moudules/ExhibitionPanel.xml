@@ -6,6 +6,6 @@
     <component id="n2_eiu2" name="reel3" src="eiu2xkq" fileName="moudules/Exhibition/ReelBtn.xml" xy="520,196"/>
     <component id="n3_eiu2" name="ree4" src="eiu2xkq" fileName="moudules/Exhibition/ReelBtn.xml" xy="728,196"/>
     <component id="n4_eiu2" name="reel5" src="eiu2xkq" fileName="moudules/Exhibition/ReelBtn.xml" xy="936,196"/>
-    <component id="n6_eiu2" name="btnExhibition" src="eiu2xkr" fileName="components/button/ButtonExhibition.xml" xy="-1,-2" size="199,50"/>
+    <component id="n6_eiu2" name="btnExhibition" src="eiu2xkr" fileName="components/button/ButtonExhibition.xml" xy="5,4" size="269,82"/>
   </displayList>
 </component>

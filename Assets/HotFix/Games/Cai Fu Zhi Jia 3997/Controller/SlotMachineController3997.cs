@@ -53,7 +53,8 @@ namespace CaiFuZhiJia_3997
 
         public new IEnumerator ShowWinListAwayDuringIdle(List<SymbolWin> winList)
         {
-            while (winList.Count > 0) //while (idx < winList.Count)
+            isIdleEffect = true;
+            while (winList.Count > 0&& isIdleEffect) //while (idx < winList.Count)
             {
                 yield return ShowWinListBySetting(winList);
             }
@@ -74,6 +75,8 @@ namespace CaiFuZhiJia_3997
                 int idx = 0;
                 while (idx < winList.Count)
                 {
+                    if (!isIdleEffect) break;
+                   
                     yield return ShowSymbolWinBySetting(winList[idx], true, SpinWinEvent.SingleWinLine);
 
                     ++idx;
@@ -84,7 +87,6 @@ namespace CaiFuZhiJia_3997
 
             //关闭遮罩
             CloseSlotCover();
-
             //停止特效显示
             SkipWinLine(false);
         }

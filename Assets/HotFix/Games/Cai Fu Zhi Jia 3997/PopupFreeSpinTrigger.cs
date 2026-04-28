@@ -216,6 +216,17 @@ namespace CaiFuZhiJia_3997
                     CloseSelf(null);
                 });
             }));
+
+            if (TestManager.Instance.IsAutoModeRunning)
+            {
+                Timers.inst.Add(3.0f, 1, (obj) =>
+                {
+                    if (_freeStartBtn != null && _freeTipWindow != null && _freeTipWindow.visible)
+                    {
+                        _freeStartBtn.onClick.Call();
+                    }
+                });
+            }
         }
 
         private void ResetView()

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_kyxf" name="n0" xy="0,0" size="1080,1920" type="rect" fillColor="#ff314d79"/>
+    <image id="n2_kyxf" name="n2" src="kyxfz" fileName="images/TreasuryLoading/plat_load_bg.png" xy="0,0"/>
+    <image id="n1_kyxf" name="n1" src="kyxfv" fileName="images/TreasuryLoading/plat_load_architecture.png" xy="0,693"/>
+    <image id="n4_kyxf" name="n4" src="kyxf10" fileName="images/TreasuryLoading/plat_load_img_lightBulb.png" xy="460,557"/>
+    <image id="n6_kyxf" name="n6" src="kyxfw" fileName="images/TreasuryLoading/plat_load_bar_01.png" xy="149,1721"/>
+    <loader id="n3_kyxf" name="logo" xy="58,142" size="946,368" url="ui://8grgqzwakyxf11" align="center" vAlign="middle" autoSize="true"/>
+    <text id="n7_kyxf" name="title" xy="167,1203" size="724,522" fontSize="25" color="#ffffff" align="center" vAlign="bottom" autoSize="shrink" text="loading...">
+      <relation target="" sidePair="width-width,bottom-bottom"/>
+    </text>
+    <component id="n9_kyxf" name="progress" src="kyxf13" fileName="components/ProgressBar2.xml" xy="187,1721" size="725,71">
+      <ProgressBar value="1" max="1"/>
+    </component>
+    <component id="n8_kyxf" name="btnQuit" src="u59qh" fileName="components/ButtonApplicationQuit.xml" xy="0,3"/>
+  </displayList>
+</component>

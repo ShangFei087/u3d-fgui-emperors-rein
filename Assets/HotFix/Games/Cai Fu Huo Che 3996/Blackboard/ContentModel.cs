@@ -148,6 +148,8 @@ namespace CaiFuHuoChe_3996
         /// <summary>  这个已经改为：基本游戏+彩金了  </summary>
         public long totalEarnCredit;
 
+        /// <summary> 断线重连时同步分数 </summary>
+        public bool isSysCredit = false;
 
 
         /// <summary> 基础游戏赢分（单局普通游戏 或 免费游戏） </summary>
@@ -177,11 +179,17 @@ namespace CaiFuHuoChe_3996
         public bool isReelsSlowMotion;
 
 
+        ///<summary> 服务器额外记录当前的真实分数，否则前面的分数会丢失  </summary>
+        public long realCredit = 0;
+
         /// <summary> 免费游戏开始 </summary>
         public bool isFreeSpinTrigger;
 
         /// <summary> 免费游戏结束 </summary>
         public bool isFreeSpinResult;
+
+        ///<summary> 免费游戏应该加完之后的局数 </summary>
+        public int tempFreeTotalTimes = 0;
 
         /// <summary> 免费游戏加速框 </summary>
         public bool isFreeSlotTip;
@@ -206,6 +214,9 @@ namespace CaiFuHuoChe_3996
 
         /// <summary> 额外添加免费游戏 </summary>
         public bool isFreeSpinAdd;
+
+        /// <summary> 免费当前分数 </summary>
+        public int curFreeCredit = 0;
 
         public bool isFreeSpin => curReelStripsIndex == "FS";
 
@@ -321,6 +332,9 @@ namespace CaiFuHuoChe_3996
         /// 新算法获取中免费游戏单局赢分
         /// </summary>
         public List<int> newFreeOnceCredit = new List<int>();
+
+        /// <summary> 免费游戏中已经获得的wild的数量 </summary>
+        public int wildNums = 0;
 
         /// <summary> 游戏前 </summary>
         public long creditBefore;

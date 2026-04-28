@@ -148,7 +148,8 @@ namespace XingYunZhiLun_3998
         /// <summary>  这个已经改为：基本游戏+彩金了  </summary>
         public long totalEarnCredit;
 
-
+        ///<summary> 服务器额外记录当前的真实分数，否则前面的分数会丢失  </summary>
+        public long realCredit = 0;
 
         /// <summary> 基础游戏赢分（单局普通游戏 或 免费游戏） </summary>
         public long baseGameWinCredit;
@@ -157,6 +158,9 @@ namespace XingYunZhiLun_3998
         /// <summary> 免费游戏总赢分  </summary>
         public long freeSpinTotalWinCredit;
 
+
+        ///<summary> 免费游戏用于记录wild位置信息的列表  </summary>
+        public Dictionary<int, List<int>> freeWildRecord = new Dictionary<int, List<int>>();
 
         /// <summary> 算法卡数据 </summary>
         public string response;
@@ -183,6 +187,9 @@ namespace XingYunZhiLun_3998
 
         /// <summary> 免费游戏结束 </summary>
         public bool isFreeSpinResult;
+
+        /// <summary> 断线重连时同步分数 </summary>
+        public bool isSysCredit = false;    
 
 
         /// <summary> 当前局，免费增加局数 </summary>
@@ -250,6 +257,9 @@ namespace XingYunZhiLun_3998
         /// 新算法获取中免费游戏单局赢分
         /// </summary>
         public List<int> newFreeOnceCredit = new List<int>();
+
+        /// <summary> 免费当前分数 </summary>
+        public int curFreeCredit = 0;
 
         /// <summary> 游戏前 </summary>
         public long creditBefore;

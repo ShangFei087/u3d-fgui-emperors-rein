@@ -13,8 +13,14 @@ using UnityEngine.Events;
 /// </summary>
 public class TestManager : Singleton<TestManager>
 {
+    enum AutoModeState
+    {
+        Idle = 0,
+        Running = 1,
+    }
+
     // TestManager 根节点与功能入口组件
-    GComponent goOwnerTestMgr, goGM, goPages, goCustomButtons, goKV, goAnalysis, goDebugMode, goSelectProject;
+    GComponent goOwnerTestMgr, goGM, goPages, goCustomButtons, goKV, goAnalysis, goDebugMode, goSelectProject,goAutoMode;
     // 菜单展开按钮
     GButton btnMenu;
     // 菜单容器、菜单列表与提示文本
@@ -100,8 +106,7 @@ public class TestManager : Singleton<TestManager>
         btnMenu.onClick.Clear();
         btnMenu.onClick.Add(OnClickBase);
 
-        glstMenu.GetChildAt(0).asLabel.title =
-            softwareVersion; // $"Ver {ApplicationSettings.Instance.appVersion}/{"--"}";
+        glstMenu.GetChildAt(0).asLabel.title =softwareVersion; // $"Ver {ApplicationSettings.Instance.appVersion}/{"--"}";
         glstMenu.GetChildAt(1).asLabel.title = $"FPS {"--"}";
 
         goKV = glstMenu.GetChildAt(2).asCom;
@@ -186,45 +191,6 @@ public class TestManager : Singleton<TestManager>
         btnApply.onClick.Clear();
         btnApply.onClick.Add(OnClickApplyDebug);
 
-        rtxtTotalPlayTime = popupDebugMode.GetChild("TotalPlayTime").asCom.GetChild("value").asRichTextField;
-        rtxtWinScore = popupDebugMode.GetChild("WinScore").asCom.GetChild("value").asRichTextField;
-        rtxtPlayScore = popupDebugMode.GetChild("PlayScore").asCom.GetChild("value").asRichTextField;
-        rtxtTotalProb = popupDebugMode.GetChild("TotalProb").asCom.GetChild("value").asRichTextField;
-        rtxtLoseProb = popupDebugMode.GetChild("LoseProb").asCom.GetChild("value").asRichTextField;
-        rtxtFreeGameProb = popupDebugMode.GetChild("FreeGameProb").asCom.GetChild("value").asRichTextField;
-        rtxtBonusGamesProb = popupDebugMode.GetChild("BonusGamesProb").asCom.GetChild("value").asRichTextField;
-        rtxtJackpotProb = popupDebugMode.GetChild("JackpotProb").asCom.GetChild("value").asRichTextField;
-        rtxtJackpotOnlineProb = popupDebugMode.GetChild("JackpotOnlineProb").asCom.GetChild("value").asRichTextField;
-        rtxtTotalRTP = popupDebugMode.GetChild("TotalRTP").asCom.GetChild("value").asRichTextField;
-        rtxtTotalRTPByParts = popupDebugMode.GetChild("TotalRTPByParts").asCom.GetChild("value").asRichTextField;
-        rtxtBaseRTP = popupDebugMode.GetChild("BaseRTP").asCom.GetChild("value").asRichTextField;
-        rtxtFreeRTP = popupDebugMode.GetChild("FreeRTP").asCom.GetChild("value").asRichTextField;
-        rtxtBounsRTP = popupDebugMode.GetChild("BounsRTP").asCom.GetChild("value").asRichTextField;
-        rtxtJackpotRTP = popupDebugMode.GetChild("JackpotRTP").asCom.GetChild("value").asRichTextField;
-        rtxtJackpotOnlineRTP = popupDebugMode.GetChild("JackpotOnlineRTP").asCom.GetChild("value").asRichTextField;
-
-        rtxtTotalPlayTime.text = "";
-        rtxtWinScore.text = "";
-        rtxtPlayScore.text = "";
-        rtxtTotalProb.text = "";
-        rtxtLoseProb.text = "";
-        rtxtFreeGameProb.text = "";
-        rtxtBonusGamesProb.text = "";
-        rtxtJackpotProb.text = "";
-        rtxtJackpotOnlineProb.text = "";
-        rtxtTotalRTP.text = "";
-        rtxtTotalRTPByParts.text = "";
-        rtxtBaseRTP.text = "";
-        rtxtFreeRTP.text = "";
-        rtxtBounsRTP.text = "";
-        rtxtJackpotRTP.text = "";
-        rtxtJackpotOnlineRTP.text = "";
-
-        // 监听算法卡调试信息回包（由 SBoxIdea.GetDebugInfoR 触发）
-        EventCenter.Instance.RemoveEventListener<SBoxDebugInfo>(SBoxEventHandle.SBOX_DEBUG_INFO, OnSBoxDebugInfoChanged);
-        EventCenter.Instance.AddEventListener<SBoxDebugInfo>(SBoxEventHandle.SBOX_DEBUG_INFO, OnSBoxDebugInfoChanged);
-
-
         // cwy 新增
         GComponent selectProjectMenu = goOwnerTestMgr.GetChild("selectProject").asCom;
         GList lstProject = selectProjectMenu.GetChild("menu").asList;
@@ -244,7 +210,7 @@ public class TestManager : Singleton<TestManager>
             PageName.XingYunZhiLunPopupGameLoading,
             PageName.CaiFuZhiMenPopupGameLoading
         };
-        List<int> openPageId= new List<int>()
+        List<int> openPageId = new List<int>()
         {
             1700,
             3996,
@@ -307,8 +273,13 @@ public class TestManager : Singleton<TestManager>
         for (int i = 0; i < lstProject.numItems; i++)
         {
             int index = i;
-            GComponent btn = lstProject.GetChildAt(i).asCom;
-            btn.GetChild("buttons").asCom.GetChild("title").asTextField.text = projectNumber[i].ToString();
+            GButton btn = lstProject.GetChildAt(i).asButton;
+            if (i > openPageId.Count-1)
+            {
+                btn.visible = false;
+                continue;
+            }
+            btn.GetChild("title").asTextField.text = projectNumber[i].ToString();
             btn.onClick.Add((() =>
             {
                 for (int j = 0; j < resetPageNames.Count; j++)
@@ -322,8 +293,51 @@ public class TestManager : Singleton<TestManager>
                 SBoxIdea.GameSwitch(openPageId[index]);
                 PageManager.Instance.OpenPage(openPageNames[index]);
             }));
+
+            
         }
 
+        goAutoMode = glstMenu.GetChildAt(10).asCom;
+        goAutoMode.onClick.Clear();
+        goAutoMode.onClick.Add(OnClickAutoMode);
+
+        rtxtTotalPlayTime = popupDebugMode.GetChild("TotalPlayTime").asCom.GetChild("value").asRichTextField;
+        rtxtWinScore = popupDebugMode.GetChild("WinScore").asCom.GetChild("value").asRichTextField;
+        rtxtPlayScore = popupDebugMode.GetChild("PlayScore").asCom.GetChild("value").asRichTextField;
+        rtxtTotalProb = popupDebugMode.GetChild("TotalProb").asCom.GetChild("value").asRichTextField;
+        rtxtLoseProb = popupDebugMode.GetChild("LoseProb").asCom.GetChild("value").asRichTextField;
+        rtxtFreeGameProb = popupDebugMode.GetChild("FreeGameProb").asCom.GetChild("value").asRichTextField;
+        rtxtBonusGamesProb = popupDebugMode.GetChild("BonusGamesProb").asCom.GetChild("value").asRichTextField;
+        rtxtJackpotProb = popupDebugMode.GetChild("JackpotProb").asCom.GetChild("value").asRichTextField;
+        rtxtJackpotOnlineProb = popupDebugMode.GetChild("JackpotOnlineProb").asCom.GetChild("value").asRichTextField;
+        rtxtTotalRTP = popupDebugMode.GetChild("TotalRTP").asCom.GetChild("value").asRichTextField;
+        rtxtTotalRTPByParts = popupDebugMode.GetChild("TotalRTPByParts").asCom.GetChild("value").asRichTextField;
+        rtxtBaseRTP = popupDebugMode.GetChild("BaseRTP").asCom.GetChild("value").asRichTextField;
+        rtxtFreeRTP = popupDebugMode.GetChild("FreeRTP").asCom.GetChild("value").asRichTextField;
+        rtxtBounsRTP = popupDebugMode.GetChild("BounsRTP").asCom.GetChild("value").asRichTextField;
+        rtxtJackpotRTP = popupDebugMode.GetChild("JackpotRTP").asCom.GetChild("value").asRichTextField;
+        rtxtJackpotOnlineRTP = popupDebugMode.GetChild("JackpotOnlineRTP").asCom.GetChild("value").asRichTextField;
+
+        rtxtTotalPlayTime.text = "";
+        rtxtWinScore.text = "";
+        rtxtPlayScore.text = "";
+        rtxtTotalProb.text = "";
+        rtxtLoseProb.text = "";
+        rtxtFreeGameProb.text = "";
+        rtxtBonusGamesProb.text = "";
+        rtxtJackpotProb.text = "";
+        rtxtJackpotOnlineProb.text = "";
+        rtxtTotalRTP.text = "";
+        rtxtTotalRTPByParts.text = "";
+        rtxtBaseRTP.text = "";
+        rtxtFreeRTP.text = "";
+        rtxtBounsRTP.text = "";
+        rtxtJackpotRTP.text = "";
+        rtxtJackpotOnlineRTP.text = "";
+
+        // 监听算法卡调试信息回包（由 SBoxIdea.GetDebugInfoR 触发）
+        EventCenter.Instance.RemoveEventListener<SBoxDebugInfo>(SBoxEventHandle.SBOX_DEBUG_INFO, OnSBoxDebugInfoChanged);
+        EventCenter.Instance.AddEventListener<SBoxDebugInfo>(SBoxEventHandle.SBOX_DEBUG_INFO, OnSBoxDebugInfoChanged);
 
         //goOwnerTestMgr.visible = isEnableTestTool;
         //goOwnerTestMgr.visible = false;
@@ -540,6 +554,8 @@ public class TestManager : Singleton<TestManager>
 
     // 分析模式开关状态
     bool isAnalysis = false;
+    AutoModeState autoModeState = AutoModeState.Idle;
+    const float AUTO_SPIN_INTERVAL_SECONDS = 3f;
 
     // 分析按钮点击：切换分析模式并广播事件
     private void OnClickAnalysis()
@@ -860,4 +876,49 @@ public class TestManager : Singleton<TestManager>
     }
 
     #endregion
+
+    public void OnClickAutoMode()
+    {
+        if (autoModeState == AutoModeState.Running)
+        {
+            autoModeState = AutoModeState.Idle;
+            ShowTip("AutoMode: Stop");
+            StopAutoSpinTicker();
+            return;
+        }
+
+        autoModeState = AutoModeState.Running;
+        ShowTip("AutoMode: Running");
+        StartAutoSpinTicker();
+    }
+
+    public bool IsAutoModeRunning
+    {
+        get
+        {
+            return autoModeState == AutoModeState.Running;
+        }
+    }
+
+    private void StartAutoSpinTicker()
+    {
+        Timers.inst.Remove(DoAutoSpinTick);
+        Timers.inst.Add(0.1f, 1, DoAutoSpinTick);
+        Timers.inst.Add(AUTO_SPIN_INTERVAL_SECONDS, 0, DoAutoSpinTick);
+    }
+
+    private void StopAutoSpinTicker()
+    {
+        Timers.inst.Remove(DoAutoSpinTick);
+    }
+
+    private void DoAutoSpinTick(object _)
+    {
+        if (autoModeState != AutoModeState.Running)
+        {
+            return;
+        }
+        EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT,
+            new EventData<bool>(PanelEvent.SpinButtonClick, false));
+    }
 }

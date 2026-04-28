@@ -4,11 +4,14 @@
     <graph id="n1_gvcx" name="n1" xy="0,0" size="251,397" type="rect" fillColor="#99000000"/>
     <list id="n0_gvcx" name="menu" xy="0,0" size="248,400" overflow="scroll" defaultItem="ui://9ffscgs4r8ozd" align="center" vAlign="middle">
       <relation target="" sidePair="width-width,height-height"/>
-      <item/>
-      <item/>
-      <item/>
-      <item/>
-      <item/>
+      <item url="ui://9ffscgs4rl7yk"/>
+      <item url="ui://9ffscgs4rl7yk"/>
+      <item url="ui://9ffscgs4rl7yk"/>
+      <item url="ui://9ffscgs4rl7yk"/>
+      <item url="ui://9ffscgs4rl7yk"/>
+      <item url="ui://9ffscgs4rl7yk"/>
+      <item url="ui://9ffscgs4rl7yk"/>
+      <item url="ui://9ffscgs4rl7yk"/>
     </list>
   </displayList>
 </component>

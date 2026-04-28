@@ -181,6 +181,17 @@ namespace CaiFuZhiJia_3997
                 Timers.inst.Add(3, 1, (obj) => _cloneDollarSpineObj.SetActive(false));
                 Timers.inst.Add(7, 1, (obj) => CloseSelf(null));
             }));
+
+            if (TestManager.Instance.IsAutoModeRunning)
+            {
+                Timers.inst.Add(0.3f, 1, (obj) =>
+                {
+                    if (_freeStartBtn != null && _freeResultTipWindow != null && _freeResultTipWindow.visible)
+                    {
+                        _freeStartBtn.onClick.Call();
+                    }
+                });
+            }
         }
 
         private void ResetView()

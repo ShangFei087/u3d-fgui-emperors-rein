@@ -10,15 +10,8 @@ using UnityEngine;
 public class GSManager : MonoSingleton<GSManager>
 {
     public ObjectPool pool; // 每个pool的子对象有GSSource组件
-
-
     const string MARK_BUNDLE_SOUND_MANAGER = "MARK_BUNDLE_SOUND_MANAGER";
-
-
     private Dictionary<string, AudioClip> audioClipResDic = new Dictionary<string, AudioClip>();
-
-
-
     private void Start()
     {
         DebugUtils.LogWarning($"【GS】 IsMute:{IsMute}  TotalVolumeEff:{TotalVolumeEff}  TotalVolumeMusic:{TotalVolumeMusic}  pool childCount:{pool.transform.childCount}");
@@ -26,14 +19,11 @@ public class GSManager : MonoSingleton<GSManager>
         SetTotalVolumEfft(TotalVolumeEff);
         SetTotalVolumMusic(TotalVolumeMusic);
     }
-
-
     public float TotalVolumeMusic
     {
         get => totalVolumeMusic;
         //set => SetTotalVolumMusic(value);
     }
-
     float totalVolumeMusic
     {
         get
@@ -54,14 +44,11 @@ public class GSManager : MonoSingleton<GSManager>
     private float? _totalVolumeMusic = null; //背景音乐声音大小比例
     const string TOTAL_VOLUME_MUSIC = "TOTAL_VOLUME_MUSIC";
 
-
-
     public float TotalVolumeEff
     {
         get => totalVolumeEff;
         //set => SetTotalVolumEfft(value);
     }
-
     float totalVolumeEff
     {
         get
@@ -81,8 +68,6 @@ public class GSManager : MonoSingleton<GSManager>
     }
     private float? _totalVolumeEff = null; //音效声音大小比例
     const string TOTAL_VOLUME_EFF = "TOTAL_VOLUME_EFF";
-
-
 
     public bool IsMute
     {
@@ -108,7 +93,6 @@ public class GSManager : MonoSingleton<GSManager>
     }
     private bool? _isMute = null; 
     const string IS_MUTE = "IS_MUTE";
-
 
     #region 背景音乐、特效音乐、静音
     //设置静音
@@ -154,9 +138,6 @@ public class GSManager : MonoSingleton<GSManager>
 
     #endregion
 
-
-
-
     //解暂停
     public void UnPause()
     {
@@ -191,8 +172,6 @@ public class GSManager : MonoSingleton<GSManager>
         }
     }
 
-
-
     public void StopMusic()
     {
         foreach (Transform tfm in pool.transform)
@@ -207,6 +186,7 @@ public class GSManager : MonoSingleton<GSManager>
             }
         }
     }
+
     public void StopSoundEff()
     {
         foreach (Transform tfm in pool.transform)
@@ -221,6 +201,7 @@ public class GSManager : MonoSingleton<GSManager>
             }
         }
     }
+
     public void StopSound(string assetPath)
     {
         foreach (Transform tfm in pool.transform)
@@ -235,7 +216,6 @@ public class GSManager : MonoSingleton<GSManager>
             }
         }
     }
-
 
     public bool IsPlaySound(string assetPath)
     {
@@ -267,9 +247,6 @@ public class GSManager : MonoSingleton<GSManager>
         }
         return count;   
     }
-
-
-
     public void PlayMusic(string assetPath, float volume, bool loop = true)
     {
         if (!audioClipResDic.ContainsKey(assetPath))
@@ -292,19 +269,11 @@ public class GSManager : MonoSingleton<GSManager>
         }
 
     }
-
-
-
-    
-    
-    
     public void PlayMusicSingle(string assetPath, float volume, bool loop = false)
     {
         StopMusic();
         PlayMusic(assetPath, volume, loop);
     }
-
-
     public void PlaySoundEffSingle(string assetPath, float volume, bool loop = false)
     {
         StopSound(assetPath);
@@ -342,11 +311,6 @@ public class GSManager : MonoSingleton<GSManager>
         return gss;
     }
 
-
-    
-    
-
-    
     #region GSHandler
     
     public void PlaySound(GSHandler gsh)
@@ -400,8 +364,6 @@ public class GSManager : MonoSingleton<GSManager>
         PlaySound(gsh);
     }
 
-
-
     public void PlaySoundEff(GSHandler gsh)
     {
         if (gsh.outputType != GSOutType.SoundEffect)
@@ -411,7 +373,6 @@ public class GSManager : MonoSingleton<GSManager>
         }
         PlaySound(gsh);
     }
-
     public void PlaySoundEffSingle(GSHandler gsh)
     {
         if (gsh.outputType != GSOutType.SoundEffect)
@@ -422,7 +383,6 @@ public class GSManager : MonoSingleton<GSManager>
         PlaySoundSingle(gsh);
     }
 
-
     public void PlayMusicSingle(GSHandler gsh)
     {
         if (gsh.outputType != GSOutType.Music)
@@ -432,7 +392,6 @@ public class GSManager : MonoSingleton<GSManager>
         }
         PlaySoundSingle(gsh);
     }
-    
     public void PlayMusic(GSHandler gsh)
     {
         if (gsh.outputType != GSOutType.Music)
@@ -444,9 +403,6 @@ public class GSManager : MonoSingleton<GSManager>
     }
     
     #endregion
-    
-
-
 
     [Button]
     public void TestPlaySound(float volume = 0.7f)

@@ -66,6 +66,7 @@ namespace CaiFuZhiJia_3997
 
         // 开始游戏
         private bool _tipCoinIn = false, _isStoppedSlotMachine = false;
+        private bool _isStopButtonLocked;
 
         private Coroutine _corGameAuto = null,
             _corReelsTurn = null,
@@ -279,6 +280,10 @@ namespace CaiFuZhiJia_3997
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
+            if (_goGameCtrl != null && !_goGameCtrl.activeSelf)
+            {
+                _goGameCtrl.SetActive(true);
+            }
             base.OnOpen(currentPageName, eventData);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
@@ -292,6 +297,7 @@ namespace CaiFuZhiJia_3997
 
         public override void OnClose(EventData eventData = null)
         {
+            UnlockStopButton();
             OnGameReset();
             EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(
                 SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
@@ -300,6 +306,10 @@ namespace CaiFuZhiJia_3997
                 OnSlotDetailEvent);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
+            if (_goGameCtrl != null && _goGameCtrl.activeSelf)
+            {
+                _goGameCtrl.SetActive(false);
+            }
             base.OnClose(eventData);
             _freeSpinTimeController.Dispose();
         }
@@ -558,10 +568,12 @@ namespace CaiFuZhiJia_3997
                     case SpinButtonState.Stop:
                         {
                             if (ContentModel.Instance.isSpin) return; // 已经开始玩直接退出
+                            UnlockStopButton();
                             ContentModel.Instance.isSpin = true;
                             Action successCallback = () =>
                             {
                                 DebugUtils.Log("游戏结束");
+                                UnlockStopButton();
                                 ContentModel.Instance.isSpin = false;
                                 ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                                 ContentModel.Instance.gameState = GameState.Idle;
@@ -584,6 +596,8 @@ namespace CaiFuZhiJia_3997
                     case SpinButtonState.Spin:
                         {
                             if (!ContentModel.Instance.isSpin) return; // 已经停止直接退出
+                            if (_isStopButtonLocked) return;
+                            LockStopButton();
                             _slotMachineCtrl.isStopImmediately = true; // 去停止游戏  
                         }
                         break;
@@ -601,14 +615,15 @@ namespace CaiFuZhiJia_3997
             if (res.name == "ColUpButtonClick")
             {
                 int col = (int)res.value;
+                if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
                 _monoHelper.StartCoroutine(_slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Up));
             }
 
             if (res.name == "ColDownButtonClick")
             {
                 int col = (int)res.value;
-                _monoHelper.StartCoroutine(
-                    _slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Down));
+                if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
+                _monoHelper.StartCoroutine(_slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Down));
             }
         }
 
@@ -653,6 +668,7 @@ namespace CaiFuZhiJia_3997
             {
                 case SlotMachineEvent.StoppedSlotMachine:
                     _isStoppedSlotMachine = true;
+                    UnlockStopButton();
                     break;
             }
         }
@@ -794,6 +810,7 @@ namespace CaiFuZhiJia_3997
         /// <param name="msg"></param>
         private void StopGameWhenError(string msg)
         {
+            UnlockStopButton();
             ContentModel.Instance.isSpin = false;
             ContentModel.Instance.isAuto = false;
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
@@ -811,6 +828,34 @@ namespace CaiFuZhiJia_3997
                     string massage = I18nMgr.T(msg);
                     TipPopupHandler.Instance.OpenPopupOnce(massage);
                 }
+            }
+        }
+
+        private void LockStopButton()
+        {
+            if (_isStopButtonLocked)
+            {
+                return;
+            }
+
+            _isStopButtonLocked = true;
+            if (MainModel.Instance.panel is PanelBaseController panelBaseController)
+            {
+                panelBaseController.SetSpinButtonLocked(true);
+            }
+        }
+
+        private void UnlockStopButton()
+        {
+            if (!_isStopButtonLocked)
+            {
+                return;
+            }
+
+            _isStopButtonLocked = false;
+            if (MainModel.Instance.panel is PanelBaseController panelBaseController)
+            {
+                panelBaseController.SetSpinButtonLocked(false);
             }
         }
 
@@ -1595,6 +1640,8 @@ namespace CaiFuZhiJia_3997
 
             if (successCallback != null)
                 successCallback.Invoke();
+
+            _slotMachineCtrl.isStopImmediately = false;
         }
 
         IEnumerator ShowWinListCoinCountDown(List<SymbolWin> winList, long totalWinLineCredit, bool isHitJackpot)
@@ -1874,7 +1921,7 @@ namespace CaiFuZhiJia_3997
             if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
             if (_corEffectSlowMotion != null) _monoHelper.StopCoroutine(_corEffectSlowMotion);
 
-            _slotMachineCtrl.isStopImmediately = false;
+         
             _slotMachineCtrl.CloseSlotCover();
             _isStoppedSlotMachine = false;
             _anchorFreeExpectation.visible = false;

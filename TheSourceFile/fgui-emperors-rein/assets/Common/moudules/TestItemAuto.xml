@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="250,60">
+  <displayList>
+    <component id="n3_gh8w" name="n3" src="gh8wny" fileName="components/ButtonTestItem.xml" xy="0,10">
+      <Button title="AutoMode"/>
+    </component>
+  </displayList>
+</component>

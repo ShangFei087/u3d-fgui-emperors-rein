@@ -88,6 +88,8 @@ namespace CaiFuHuoChe_3996
         //免费游戏的剩余次数和总次数
         private GTextField freeTimes, freeTotalTimes;
 
+        private bool isConnectFreeSpin = false;
+
         bool isAddCreditAnim => !(slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
         private EventData _data = null;
 
@@ -217,6 +219,10 @@ namespace CaiFuHuoChe_3996
         public override void OnOpen(PageName name, EventData data)
         {
             if (isOpen) return;
+            if (goGameCtrl != null && !goGameCtrl.activeSelf)
+            {
+                goGameCtrl.SetActive(true);
+            }
             base.OnOpen(name, data);
             EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
@@ -241,6 +247,10 @@ namespace CaiFuHuoChe_3996
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
             EventCenter.Instance.RemoveEventListener<EventData>("RewardAddEffect", OnRewardEffectEvent);
             EventCenter.Instance.RemoveEventListener<EventData>("JackpotWinCredit", OnJackpotWinEvent);
+            if (goGameCtrl != null && goGameCtrl.activeSelf)
+            {
+                goGameCtrl.SetActive(false);
+            }
 
             base.OnClose(data);
         }
@@ -503,6 +513,12 @@ namespace CaiFuHuoChe_3996
             fill4 = contentPane.GetChild("fill4").asImage;
             freeTimes = contentPane.GetChild("freeRemainTimes").asTextField;
             freeTotalTimes = contentPane.GetChild("freeTotalTimes").asTextField;
+
+
+            //int pid = SBoxModel.Instance.pid;
+            //FreeSpinSessionStoreG3996.Clear(pid);
+
+            TryRestoreFreeSpinSession();
         }
 
 
@@ -673,27 +689,20 @@ namespace CaiFuHuoChe_3996
                         if(fill1.fillAmount != 1)
                         {
                             mono.StartCoroutine(ShowRewardEffect(col, row, anchorFill1));
-                            fill1.fillAmount += 0.25f;
-                            if (fill1.fillAmount == 1) ContentModel.Instance.curFreeMult = 1;
                         }
                         else if(fill2.fillAmount != 1)
                         {
                             mono.StartCoroutine(ShowRewardEffect(col, row, anchorFill2));
-                            fill2.fillAmount += 0.25f;
-                            if (fill2.fillAmount == 1) ContentModel.Instance.curFreeMult = 2;
                         }
                         else if(fill3.fillAmount != 1)
                         {
                             mono.StartCoroutine(ShowRewardEffect(col, row, anchorFill3));
-                            fill3.fillAmount += 0.25f;
-                            if (fill3.fillAmount == 1) ContentModel.Instance.curFreeMult = 3;
                         }
                         else if(fill4.fillAmount != 1)
                         {
                             mono.StartCoroutine(ShowRewardEffect(col, row, anchorFill4));
-                            fill4.fillAmount += 0.25f;
-                            if (fill4.fillAmount == 1) ContentModel.Instance.curFreeMult = 4;
                         }
+                        SkipAddMult(0.25f);
                     }
                     break;
             }
@@ -743,7 +752,8 @@ namespace CaiFuHuoChe_3996
             }
             else if (fill4.fillAmount != 1)
             {
-                if (fill3.fillAmount + value <= 1) fill4.fillAmount += value;
+                if (fill4.fillAmount + value <= 1) fill4.fillAmount += value;
+                else fill4.fillAmount = 1;
             }
         }
 
@@ -1267,36 +1277,43 @@ namespace CaiFuHuoChe_3996
         IEnumerator FreeSpinTrigger(Action successCallback, Action<string> errorCallback)
         {
             bool isNext = false;
-            freeAllWin = 0;
-            PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupFreeSpinTrigger,
-            new EventData<Dictionary<string, object>>("",
-                new Dictionary<string, object>()
-                {
-                    ["freeSpinCount"] = ContentModel.Instance.freeSpinTotalTimes,
-                }),
-            (ed) =>
+            if (!isConnectFreeSpin)
             {
-                Debug.Log("回调执行！isNext = true"); // 加日志
-                isNext = true;
-            });
+                PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupFreeSpinTrigger,
+                new EventData<Dictionary<string, object>>("",
+                    new Dictionary<string, object>()
+                    {
+                        ["freeSpinCount"] = ContentModel.Instance.freeSpinTotalTimes,
+                    }),
+                (ed) =>
+                {
+                    Debug.Log("回调执行！isNext = true"); // 加日志
+                    isNext = true;
+                });
 
-            yield return new WaitUntil(() => isNext == true);
-            isNext = false;
+                yield return new WaitUntil(() => isNext == true);
+                isNext = false;
 
-            slotMachineCtrl.SkipWinLine(false);
-            slotMachineCtrl.CloseSlotCover();
+                slotMachineCtrl.SkipWinLine(false);
+                slotMachineCtrl.CloseSlotCover();
 
-            FreeGameReset();
-            PlayAnim(trainAnim, "ng_fg");
-            BsToFsTrans.Play();
+                FreeGameReset();
+                PlayAnim(trainAnim, "ng_fg");
+                BsToFsTrans.Play();
+
+                yield return new WaitForSeconds(1.5f);
+                ChangeBGPanel(1);
+                gTrain.visible = false;
+            }
+            else
+            {
+                isConnectFreeSpin = false;
+            }
+
 
             InputStackContextFreeSpin((context) =>
             {
             });
-
-            yield return new WaitForSeconds(1.5f);
-            ChangeBGPanel(1);
-            gTrain.visible = false;
 
             slotMachineCtrl.BeginBonusFreeSpin();
 
@@ -1350,6 +1367,7 @@ namespace CaiFuHuoChe_3996
 
             yield return new WaitForSeconds(0.75f);
             ChangeBGPanel(0);
+            ContentModel.Instance.nextReelStripsIndex = "BS";
 
             slotMachineCtrl.SkipWinLine(true);
             successCallback?.Invoke();
@@ -1374,7 +1392,7 @@ namespace CaiFuHuoChe_3996
         IEnumerator GameFreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
             OnGameReset();
-            slotMachineCtrl.SendTotalWinCreditEvent(freeAllWin);
+            slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.curFreeCredit);
             ContentModel.Instance.haveFreeSpecialIcon = false;
             freeTimes.text = (ContentModel.Instance.freeSpinPlayTimes + 1).ToString();
             ContentModel.Instance.gameState = GameState.FreeSpin;
@@ -1503,19 +1521,9 @@ namespace CaiFuHuoChe_3996
 
                     slotMachineCtrl.SkipWinLine(false);
                 }
-                //else
-                //{
-                //    // 总线赢分（同步？？）
-                //    bool isAddToCredit = totalWinLineCredit > TotalBet * 4;
-                //    slotMachineCtrl.SendPrepareTotalWinCreditEvent(totalWinLineCredit, isAddToCredit);
-                //}
-
-
-
-                // 总线赢分事件
-                slotMachineCtrl.SendTotalWinCreditEvent(freeAllWin);
-
             }
+            // 总线赢分事件
+            slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.curFreeCredit);
 
             #endregion
 
@@ -1528,6 +1536,84 @@ namespace CaiFuHuoChe_3996
                 successCallback.Invoke();
         }
 
+        /// <summary> 从本地快照恢复未完成的免费局（不自动请求 Spin，由玩家点转）。 </summary>
+        void TryRestoreFreeSpinSession()
+        {
+            if (ApplicationSettings.Instance.isMock || slotMachineCtrl == null) return;
+            if (!SQLitePlayerPrefs03.Instance.isInit) return;
+            if (!isOpen) return;
+
+            int pid = SBoxModel.Instance.pid;
+            var snap = FreeSpinSessionStoreG3996.TryLoad(pid);
+            if (snap == null) return;
+
+            bool sessionStillValid = snap.FreeSpinTotalTimes > 0
+                && (snap.FreeSpinPlayTimes < snap.FreeSpinTotalTimes
+                    || (snap.FreeSpinPlayTimes == 0 && snap.NextReelStripsIndex == "FS"));
+            if (!sessionStillValid)
+            {
+                FreeSpinSessionStoreG3996.Clear(pid);
+                return;
+            }
+
+            var cm = ContentModel.Instance;
+            cm.freeSpinTotalTimes = snap.tempFreeTotalTimes;
+            cm.freeSpinPlayTimes = snap.FreeSpinPlayTimes;
+            cm.freeSpinTotalWinCredit = snap.FreeSpinTotalWinCredit;
+            cm.curReelStripsIndex = snap.CurReelStripsIndex;
+            cm.nextReelStripsIndex = snap.NextReelStripsIndex;
+            cm.gameNumberFreeSpinTrigger = snap.GameNumberFreeSpinTrigger;
+            cm.isFreeSpinTrigger = false;
+            cm.isFreeSpinResult = false;
+            cm.isFreeSpinAdd = false;
+            cm.curFreeCredit = snap.curFreeCredit;
+            cm.newFreeOnceCredit = snap.newFreeOnceCredit;
+            cm.wildNums = snap.wildNum;
+            cm.realCredit = snap.realCredit;
+            MainBlackboardController.Instance.SetMyTempCredit(cm.realCredit - cm.curFreeCredit);
+
+            int betIndex = (ContentModel.Instance.wildNums / 4) + 1;
+            betIndex = betIndex > 4 ? 4 : betIndex;
+            if (betIndex != ContentModel.Instance.curFreeMult) ContentModel.Instance.curFreeMult = betIndex;
+
+            if (snap.BetIndex >= 0 && SBoxModel.Instance.betList != null
+                                    && snap.BetIndex < SBoxModel.Instance.betList.Count)
+            {
+                cm.betIndex = snap.BetIndex;
+                cm.totalBet = SBoxModel.Instance.betList[cm.betIndex];
+            }
+            else
+            {
+                cm.totalBet = snap.TotalBet;
+            }
+
+            cm.betmultiple = snap.BetMultiple;
+            cm.showFreeSpinRemainTime = cm.freeSpinTotalTimes - cm.freeSpinPlayTimes;
+            cm.gameState = GameState.Idle;
+            cm.PendingFreeSpinReconnectValidation = true;
+
+            if (!string.IsNullOrEmpty(snap.StrDeckRowCol))
+            {
+                cm.strDeckRowCol = snap.StrDeckRowCol;
+                slotMachineCtrl.SetReelsDeck(snap.StrDeckRowCol);
+            }
+
+            if (cm.curReelStripsIndex == "FS" || cm.nextReelStripsIndex == "FS")
+            {
+                ChangeBGPanel(1);
+                SetFillAmount();
+
+                ContentModel.Instance.isSysCredit = true;
+                freeTimes.text = (ContentModel.Instance.freeSpinPlayTimes).ToString();
+                freeTotalTimes.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
+                isConnectFreeSpin = true;
+            }
+
+
+            slotMachineCtrl.SendTotalWinCreditEvent(cm.curFreeCredit);
+            FreeSpinSessionStoreG3996.TryPersistOrClearSession();
+            DebugUtils.Log($"[G3996] 已恢复免费局快照：剩余 {cm.showFreeSpinRemainTime} / 总 {cm.freeSpinTotalTimes}，待首局 Spin 与算法校验。");
+        }
 
         void OnGameReset()
         {
@@ -2139,7 +2225,7 @@ namespace CaiFuHuoChe_3996
         /// </summary>
         IEnumerator GameFreeSpinFromReconnect(Action successCallback, Action<string> errorCallback)
         {
-            yield return GameFreeSpin(null, errorCallback);
+            yield return FreeSpinTrigger(null, errorCallback);
 
             long freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCredit;
             if (freeSpinTotalWinCredit > 0)
@@ -2152,6 +2238,53 @@ namespace CaiFuHuoChe_3996
 
             if (successCallback != null)
                 successCallback.Invoke();
+        }
+
+
+        void SetFillAmount()
+        {
+            fill1.fillAmount = 0;
+            fill2.fillAmount = 0;
+            fill3.fillAmount = 0;
+            fill4.fillAmount = 0;
+
+            if (ContentModel.Instance.wildNums >= 4)
+            {
+                fill1.fillAmount = 1;
+                if (ContentModel.Instance.wildNums >= 8)
+                {
+                    fill2.fillAmount = 1;
+                    if (ContentModel.Instance.wildNums >= 12)
+                    {
+                        fill3.fillAmount = 1;
+                        if(ContentModel.Instance.wildNums >= 16)
+                        {
+                            fill4.fillAmount = 1;
+                        }
+                    }
+                }
+            }
+
+
+            if (ContentModel.Instance.wildNums % 4 != 0)
+            {
+                int index = ContentModel.Instance.wildNums / 4;
+                switch (index)
+                {
+                    case 0:
+                        fill1.fillAmount += (ContentModel.Instance.wildNums % 4) / 4.0f;
+                        break;
+                    case 1:
+                        fill2.fillAmount += (ContentModel.Instance.wildNums % 4) / 4.0f;
+                        break;
+                    case 3:
+                        fill2.fillAmount += (ContentModel.Instance.wildNums % 4) / 4.0f;
+                        break;
+                    case 4:
+                        fill4.fillAmount += (ContentModel.Instance.wildNums % 4) / 4.0f;
+                        break;
+                }
+            }
         }
     }
 }
