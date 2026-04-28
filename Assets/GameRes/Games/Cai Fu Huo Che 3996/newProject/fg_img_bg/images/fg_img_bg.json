@@ -1,0 +1,180 @@
+{ "skeleton": { "images": "E:/财富火车/PSD切片文件/fg_img_bg/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "caodi", "bone": "root", "attachment": "caodi" },
+	{ "name": "yun7", "bone": "root", "attachment": "yun7" },
+	{ "name": "yun6", "bone": "root", "attachment": "yun6" },
+	{ "name": "yun5", "bone": "root", "attachment": "yun5" },
+	{ "name": "yun4", "bone": "root", "attachment": "yun4" },
+	{ "name": "yun3", "bone": "root", "attachment": "yun3" },
+	{ "name": "yun2", "bone": "root", "attachment": "yun2" },
+	{ "name": "yun1", "bone": "root", "attachment": "yun1" },
+	{ "name": "lz2", "bone": "root", "attachment": "lz2" },
+	{ "name": "lz3", "bone": "root", "attachment": "lz3" },
+	{ "name": "j5", "bone": "root", "attachment": "j5" },
+	{ "name": "train_43", "bone": "root", "attachment": "train_43" },
+	{ "name": "j4", "bone": "root", "attachment": "j4" },
+	{ "name": "j3", "bone": "root", "attachment": "j3" },
+	{ "name": "h3", "bone": "root", "attachment": "h3" },
+	{ "name": "h2", "bone": "root", "attachment": "h2" },
+	{ "name": "j8", "bone": "root", "attachment": "j8" },
+	{ "name": "j2", "bone": "root", "attachment": "j2" },
+	{ "name": "h1", "bone": "root", "attachment": "h1" },
+	{ "name": "jm1", "bone": "root", "attachment": "jm1" },
+	{ "name": "jm", "bone": "root", "attachment": "jm" },
+	{ "name": "hm1", "bone": "root", "attachment": "hm1" },
+	{ "name": "hm", "bone": "root", "attachment": "hm" },
+	{ "name": "lz9", "bone": "root", "attachment": "lz9" },
+	{ "name": "j1", "bone": "root", "attachment": "j1" },
+	{ "name": "a6", "bone": "root", "attachment": "a6" },
+	{ "name": "lz", "bone": "root", "attachment": "lz" },
+	{ "name": "train_24", "bone": "root", "attachment": "train_24" },
+	{ "name": "train_23", "bone": "root", "attachment": "train_23" },
+	{ "name": "train_22", "bone": "root", "attachment": "train_22" },
+	{ "name": "a5", "bone": "root", "attachment": "a5" },
+	{ "name": "a4", "bone": "root", "attachment": "a4" },
+	{ "name": "a3", "bone": "root", "attachment": "a3" },
+	{ "name": "a2", "bone": "root", "attachment": "a2" },
+	{ "name": "lz5", "bone": "root", "attachment": "lz5" },
+	{ "name": "a1", "bone": "root", "attachment": "a1" },
+	{ "name": "lz6", "bone": "root", "attachment": "lz6" },
+	{ "name": "lz7", "bone": "root", "attachment": "lz7" },
+	{ "name": "lz8", "bone": "root", "attachment": "lz8" },
+	{ "name": "train_2", "bone": "root", "attachment": "train_2" },
+	{ "name": "train_1", "bone": "root", "attachment": "train_1" },
+	{ "name": "y", "bone": "root", "attachment": "y" }
+],
+"skins": {
+	"default": {
+		"caodi": {
+			"caodi": { "x": 2673.5, "y": -1681, "width": 1083, "height": 1266 }
+		},
+		"yun7": {
+			"yun7": { "x": 2600, "y": -583.5, "width": 456, "height": 395 }
+		},
+		"yun6": {
+			"yun6": { "x": 2496, "y": -686, "width": 916, "height": 410 }
+		},
+		"yun5": {
+			"yun5": { "x": 2329, "y": -189, "width": 378, "height": 296 }
+		},
+		"yun4": {
+			"yun4": { "x": 2594.5, "y": -147.5, "width": 199, "height": 129 }
+		},
+		"yun3": {
+			"yun3": { "x": 2942, "y": -201.5, "width": 450, "height": 393 }
+		},
+		"yun2": {
+			"yun2": { "x": 3095, "y": -428, "width": 446, "height": 720 }
+		},
+		"yun1": {
+			"yun1": { "x": 2703.5, "y": -794.5, "width": 1285, "height": 533 }
+		},
+		"lz2": {
+			"lz2": { "x": 2153, "y": -1225.5, "width": 158, "height": 201 }
+		},
+		"lz3": {
+			"lz3": { "x": 1973, "y": -1233.5, "width": 96, "height": 115 }
+		},
+		"j5": {
+			"j5": { "x": 384.5, "y": -866, "width": 711, "height": 350 }
+		},
+		"train_43": {
+			"train_43": { "x": 1211, "y": -813, "width": 210, "height": 274 }
+		},
+		"j4": {
+			"j4": { "x": 2532.5, "y": -550, "width": 133, "height": 156 }
+		},
+		"j3": {
+			"j3": { "x": 2332.5, "y": -565.5, "width": 121, "height": 147 }
+		},
+		"h3": {
+			"h3": { "x": 2335, "y": -564, "width": 128, "height": 152 }
+		},
+		"h2": {
+			"h2": { "x": 2532.5, "y": -541, "width": 123, "height": 140 }
+		},
+		"j8": {
+			"j8": { "x": 2787, "y": -511.5, "width": 96, "height": 153 }
+		},
+		"j2": {
+			"j2": { "x": 1887, "y": -767, "width": 2486, "height": 544 }
+		},
+		"h1": {
+			"h1": { "x": 1887.5, "y": -774, "width": 2487, "height": 560 }
+		},
+		"jm1": {
+			"jm1": { "x": 1171.5, "y": -825.5, "width": 95, "height": 249 }
+		},
+		"jm": {
+			"jm": { "x": 1251.5, "y": -821.5, "width": 95, "height": 251 }
+		},
+		"hm1": {
+			"hm1": { "x": 1171.5, "y": -825.5, "width": 95, "height": 249 }
+		},
+		"hm": {
+			"hm": { "x": 1251.5, "y": -821.5, "width": 95, "height": 251 }
+		},
+		"lz9": {
+			"lz9": { "x": 1816, "y": -1142, "width": 184, "height": 206 }
+		},
+		"j1": {
+			"j1": { "x": 2467.5, "y": -893, "width": 693, "height": 186 }
+		},
+		"a6": {
+			"a6": { "x": 386, "y": -875, "width": 714, "height": 370 }
+		},
+		"lz": {
+			"lz": { "x": 2467.5, "y": -1336.5, "width": 157, "height": 201 }
+		},
+		"train_24": {
+			"train_24": { "x": 1212, "y": -813.5, "width": 210, "height": 275 }
+		},
+		"train_23": {
+			"train_23": { "x": 1172, "y": -826, "width": 94, "height": 250 }
+		},
+		"train_22": {
+			"train_22": { "x": 1252, "y": -822, "width": 96, "height": 252 }
+		},
+		"a5": {
+			"a5": { "x": 2786.5, "y": -511, "width": 97, "height": 152 }
+		},
+		"a4": {
+			"a4": { "x": 2533, "y": -541, "width": 130, "height": 140 }
+		},
+		"a3": {
+			"a3": { "x": 2338, "y": -564, "width": 138, "height": 146 }
+		},
+		"a2": {
+			"a2": { "x": 1724.5, "y": -807.5, "width": 2831, "height": 625 }
+		},
+		"lz5": {
+			"lz5": { "x": 2355, "y": -947.5, "width": 194, "height": 217 }
+		},
+		"a1": {
+			"a1": { "x": 2468, "y": -894.5, "width": 692, "height": 189 }
+		},
+		"lz6": {
+			"lz6": { "x": 1955.5, "y": -992, "width": 119, "height": 126 }
+		},
+		"lz7": {
+			"lz7": { "x": 1023.5, "y": -383, "width": 367, "height": 368 }
+		},
+		"lz8": {
+			"lz8": { "x": 466.5, "y": -383, "width": 367, "height": 368 }
+		},
+		"train_2": {
+			"train_2": { "x": 694.5, "y": -383.5, "width": 39, "height": 369 }
+		},
+		"train_1": {
+			"train_1": { "x": 1276.5, "y": -383.5, "width": 39, "height": 369 }
+		},
+		"y": {
+			"y": { "x": 2393.5, "y": -335.5, "width": 877, "height": 589 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}
