@@ -218,6 +218,7 @@
     <image id="ki8i8l" name="5.png" path="/images/payTable/"/>
     <image id="ki8i8m" name="6.png" path="/images/payTable/"/>
     <component id="mol58n" name="AnchorNpc.xml" path="/components/gameMain/" exported="true"/>
+    <component id="tvr88o" name="AnchorTurnTable.xml" path="/components/gameMain/" exported="true"/>
   </resources>
-  <publish name=""/>
+  <publish name="" path="F:\StandAloneSlotFrame\u3d-fgui-emperors-rein\Assets\GameRes\Games\Slot Zhu Zai Jin Bi 1700\FGUIs" packageCount="2"/>
 </packageDescription>

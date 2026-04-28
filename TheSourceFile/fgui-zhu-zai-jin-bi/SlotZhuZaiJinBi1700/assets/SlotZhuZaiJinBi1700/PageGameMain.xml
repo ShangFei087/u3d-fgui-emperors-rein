@@ -24,6 +24,7 @@
     </component>
     <component id="n21_t0u4" name="anchorFreeFrame" src="t0u45x" fileName="components/gameMain/AnchorFreeFrame.xml" xy="512,959" pivot="0.5,0.5" anchor="true" scale="1.5,1.5"/>
     <component id="n20_t0u4" name="anchorNormalFrame" src="t0u45w" fileName="components/gameMain/AnchorNormalFrame.xml" xy="539,968" pivot="0.5,0.5" anchor="true" scale="1.5,1.5"/>
+    <component id="n36_tvr8" name="anchorTurnTable" src="tvr88o" fileName="components/gameMain/AnchorTurnTable.xml" xy="517,651"/>
     <component id="n16_jkwq" name="panel" src="jkwq57" fileName="components/gameMain/AnchorPanelSlot.xml" xy="539,1839"/>
   </displayList>
 </component>
