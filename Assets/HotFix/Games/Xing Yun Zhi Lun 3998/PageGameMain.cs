@@ -92,6 +92,10 @@ namespace XingYunZhiLun_3998
         private GComponent anchorExpectation, ComReelEffect2;
         private GameObject goReelEffcet;
 
+        // 开始游戏
+        private bool _tipCoinIn = false, _isStoppedSlotMachine = false;
+        private bool _isStopButtonLocked;
+
         bool isAddCreditAnim => !(slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
         private EventData _data = null;
 
@@ -289,6 +293,7 @@ namespace XingYunZhiLun_3998
             slotMachineCtrl.SkipWinLine(true);
             OnGameReset();
 
+            UnlockStopButton();
             GameSoundHelper.Instance.StopMusic();
             EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
@@ -527,10 +532,12 @@ namespace XingYunZhiLun_3998
                 {
                     case SpinButtonState.Stop:
                         if (ContentModel.Instance.isSpin) return; //已经开始玩直接退出？
+                        UnlockStopButton();
                         ContentModel.Instance.isSpin = true;
 
                         Action successCallback = () =>
                         {
+                            UnlockStopButton();
                             ContentModel.Instance.isSpin = false;
                             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                             ContentModel.Instance.curBtnSpinState = SpinButtonState.Stop;
@@ -564,7 +571,7 @@ namespace XingYunZhiLun_3998
                         {
                             // 已经在游戏时，去停止游戏
                             if (!ContentModel.Instance.isSpin) return; // 已经停止直接退出
-
+                            LockStopButton();
                             slotMachineCtrl.isStopImmediately = true; // 去停止游戏  
 
                             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_EVENT,
@@ -1996,6 +2003,7 @@ namespace XingYunZhiLun_3998
                 case SlotMachineEvent.StoppedSlotMachine:
                     {
                         isStoppedSlotMachine = true;
+                        UnlockStopButton();
                     }
                     break;
             }
@@ -2382,41 +2390,6 @@ namespace XingYunZhiLun_3998
 
             if (successCallback != null)
                 successCallback.Invoke();
-        }
-
-        private void StopGameWhenError(string msg)
-        {
-            ContentModel.Instance.isSpin = false;
-            ContentModel.Instance.isAuto = false;
-            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-            ContentModel.Instance.gameState = GameState.Idle;
-
-            // 有好酷优先用好酷
-            if (false && SBoxModel.Instance.isUseIot && tipCoinIn)
-            {
-                /*
-                tipCoinIn = false;
-
-                if (!DeviceIOTPayment.Instance.isIOTConneted)
-                {
-                    TipPopupHandler.Instance.OpenPopupOnce(string.Format(I18nMgr.T("IOT connection failed [{0}]"), Code.DEVICE_IOT_MQTT_NOT_CONNECT));
-                }
-                else if (!DeviceIOTPayment.Instance.isIOTSignInGetQRCode)
-                {
-                    TipPopupHandler.Instance.OpenPopupOnce(string.Format(I18nMgr.T("IOT connection failed [{0}]"), Code.DEVICE_IOT_NOT_SIGN_IN));
-                }
-                else
-                {}
-                    DeviceIOTPayment.Instance.DoQrCoinIn();
-                }
-                return;
-                */
-            }
-            else
-            {
-                string massage = I18nMgr.T(msg);
-                TipPopupHandler.Instance.OpenPopupOnce(I18nMgr.T(msg));
-            }
         }
 
         private void ReadJsonBet()
@@ -3356,6 +3329,61 @@ namespace XingYunZhiLun_3998
 
             if (successCallback != null)
                 successCallback.Invoke();
+        }
+
+        /// <summary>
+        /// 点击Spin按钮旋转失败的报错
+        /// </summary>
+        /// <param name="msg"></param>
+        private void StopGameWhenError(string msg)
+        {
+            UnlockStopButton();
+            ContentModel.Instance.isSpin = false;
+            ContentModel.Instance.isAuto = false;
+            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            ContentModel.Instance.gameState = GameState.Idle;
+
+
+            // 有好酷优先用好酷
+            if (false && SBoxModel.Instance.isUseIot && _tipCoinIn)
+            {
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(msg))
+                {
+                    string massage = I18nMgr.T(msg);
+                    TipPopupHandler.Instance.OpenPopupOnce(massage);
+                }
+            }
+        }
+
+        private void LockStopButton()
+        {
+            if (_isStopButtonLocked)
+            {
+                return;
+            }
+
+            _isStopButtonLocked = true;
+            if (MainModel.Instance.panel is PanelBaseController panelBaseController)
+            {
+                panelBaseController.SetSpinButtonLocked(true);
+            }
+        }
+
+        private void UnlockStopButton()
+        {
+            if (!_isStopButtonLocked)
+            {
+                return;
+            }
+
+            _isStopButtonLocked = false;
+            if (MainModel.Instance.panel is PanelBaseController panelBaseController)
+            {
+                panelBaseController.SetSpinButtonLocked(false);
+            }
         }
     }
 
