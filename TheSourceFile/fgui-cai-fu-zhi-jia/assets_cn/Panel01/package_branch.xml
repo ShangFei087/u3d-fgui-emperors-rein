@@ -14,7 +14,10 @@
     <image id="f29ksj" name="4.png" path="/images/财富之家说明书资源输出/英文/" exported="true"/>
     <image id="f29ksk" name="5.png" path="/images/财富之家说明书资源输出/英文/" exported="true"/>
     <image id="f29ksl" name="6.png" path="/images/财富之家说明书资源输出/英文/" exported="true"/>
-    <image id="f29kpf" name="ng_txt_guan.png" path="/images/exhibitionMode/" exported="true"/>
-    <image id="f29kpg" name="ng_txt_kai.png" path="/images/exhibitionMode/" exported="true"/>
+    <image id="f29kpf" name="ng_txt_off.png" path="/images/exhibitionMode/" exported="true"/>
+    <image id="f29kpg" name="ng_txt_on.png" path="/images/exhibitionMode/" exported="true"/>
+    <image id="lyrxsx" name="pb_txt_spin HoldToAuto.png" path="/images/spin按钮/"/>
+    <image id="lyrxsy" name="pb_txt_spin HoldToAuto_grey.png" path="/images/spin按钮/"/>
+    <image id="lyrxsz" name="pb_txt_jieshu_grey.png" path="/images/spin按钮/"/>
   </resources>
 </branchDescription>

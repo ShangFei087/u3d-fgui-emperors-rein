@@ -12,8 +12,8 @@
     </image>
     <loader id="n6_nbj9" name="n0" xy="0,0" size="187,152" visible="false" url="ui://oqimay09t2pamp"/>
     <component id="n7_nbj9" name="anchorSpin" src="nbj9o5" fileName="moudules/Panel/AnchorSpin.xml" xy="94,76"/>
-    <image id="n8_dtwo" name="untouch" src="t2pamp" fileName="images/spin按钮/pb_img_button.png" xy="0,0" visible="false" color="#666666"/>
-    <loader id="n4_nbj9" name="n1" xy="30,31" size="128,87" url="ui://oqimay09nbj9o3" autoSize="true"/>
+    <loader id="n4_nbj9" name="n1" xy="30,31" size="128,81" url="ui://oqimay09lyrxst" autoSize="true"/>
+    <graph id="n12_lyrx" name="untouch" xy="0,0" size="187,152" visible="false" type="rect" fillColor="#99000000"/>
   </displayList>
   <Button/>
   <transition name="spin">
