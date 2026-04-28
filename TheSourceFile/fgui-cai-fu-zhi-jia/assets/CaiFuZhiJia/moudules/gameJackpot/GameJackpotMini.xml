@@ -2,7 +2,7 @@
 <component size="362,117">
   <displayList>
     <image id="n5_t2pa" name="n5" src="hhky4z" fileName="images/popupJackpotTrigger/Background/ng_frame_mini.png" xy="0,48" size="362,68" group="n2_6ydp"/>
-    <image id="n6_t2pa" name="n6" src="t2palf" fileName="images/popupJackpotTrigger/Background/ng_txt_mini_1.png" xy="105,-9" group="n2_6ydp"/>
+    <image id="n6_t2pa" name="n6" src="t2palf" fileName="images/popupJackpotTrigger/Background/ng_txt_mini_1.png" xy="106,5" group="n2_6ydp"/>
     <list id="n3_j01n" name="n1" xy="36,57" size="297,41" group="n2_6ydp" layout="row" overflow="hidden" defaultItem="ui://k5oi8hwr6ydp6z" align="center" vAlign="middle">
       <item/>
       <item/>
@@ -16,6 +16,6 @@
       <item/>
       <item/>
     </list>
-    <group id="n2_6ydp" name="n2" xy="0,-9" size="362,125"/>
+    <group id="n2_6ydp" name="n2" xy="0,5" size="362,111"/>
   </displayList>
 </component>

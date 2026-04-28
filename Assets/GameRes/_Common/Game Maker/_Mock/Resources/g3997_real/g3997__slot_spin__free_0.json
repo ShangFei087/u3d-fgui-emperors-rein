@@ -3,21 +3,21 @@
 
 	"ResultType": 2,
 
-	"lineNum": 0,
+	"lineNum": 1,
 
-	"TotalBet": 0,
+	"TotalBet": 10,
 
-	"TotalFreeBet":30,
+	"TotalFreeBet":16,
 
 	"TotalFreeTime":10,
 
-	"IDVec": [],
+	"IDVec": [502],
 
-	"FreeBetArray":[15,15,0,0,0,0,0,0,0,0],
+	"FreeBetArray":[8,8,0,0,0,0,0,0,0,0],
 
 	"MatrixLength": 15,
 
-	"Matrix": [2,2,2,1,5,
-		10,5,4,10,5,
+	"Matrix": [5,5,10,1,5,
+		11,11,4,10,5,
 		8,10,8,8,5]
 }

@@ -201,6 +201,8 @@ namespace CaiFuZhiJia_3997
                 _freeTipWindow.visible = true;
                 _cloneLightEffectObj.SetActive(true);
             });
+            // _freeTipWindow.visible = true;
+            // _cloneLightEffectObj.SetActive(true);
 
             _freeStartBtn.onClick.Add((() =>
             {
