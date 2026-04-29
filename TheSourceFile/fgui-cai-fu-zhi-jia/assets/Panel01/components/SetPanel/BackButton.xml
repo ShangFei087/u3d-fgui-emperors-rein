@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="324,88" extention="Button">
+<component size="324,88" pivot="0.5,0.5" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n0_nbj9" name="n0" src="nbj9os" fileName="images/panel/财富之家说明书资源输出/button.png" xy="0,0">
+    <image id="n0_nbj9" name="n0" src="nbj9os" fileName="images/财富之家说明书资源输出/button.png" xy="0,0">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <image id="n1_nbj9" name="n1" src="nbj9ot" fileName="images/panel/财富之家说明书资源输出/Back to game.png" xy="162,48" pivot="0.5,0.5" anchor="true"/>
+    <image id="n1_nbj9" name="n1" src="nbj9ot" fileName="images/财富之家说明书资源输出/Back to game.png" xy="162,48" pivot="0.5,0.5" anchor="true"/>
   </displayList>
-  <Button/>
+  <Button downEffect="scale" downEffectValue="0.8"/>
 </component>

@@ -1,8 +1,8 @@
+#region 原版彩金游戏
+
 using FairyGUI;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace CaiFuZhiJia_3997
@@ -14,7 +14,7 @@ namespace CaiFuZhiJia_3997
         private readonly Transition _rollTransition;
         private readonly Transition _backTransition;
         public readonly Transition ResetTransition;
-        public readonly Transition BackResetTransition;
+        private readonly Transition _backResetTransition;
 
         /// <summary>滚轴上的所有图标信息List</summary>
         public readonly List<GComponent> RollElements = new List<GComponent>();
@@ -29,7 +29,7 @@ namespace CaiFuZhiJia_3997
             _rollTransition = _wheelRootNode.GetTransition("roll");
             _backTransition = _wheelRootNode.GetTransition("back");
             ResetTransition = _wheelRootNode.GetTransition("reset");
-            BackResetTransition = _wheelRootNode.GetTransition("backReset");
+            _backResetTransition = _wheelRootNode.GetTransition("backReset");
             InitReel();
         }
 
@@ -66,7 +66,6 @@ namespace CaiFuZhiJia_3997
             PlayWithLoops();
         }
 
-
         public void StopRoll(List<int> winList, Action callback)
         {
             _rollTransition.Stop();
@@ -82,8 +81,8 @@ namespace CaiFuZhiJia_3997
 
             _backTransition.Play(() =>
             {
-                BackResetTransition.timeScale = 2f;
-                BackResetTransition.Play(() => callback?.Invoke());
+                _backResetTransition.timeScale = 2f;
+                _backResetTransition.Play(() => callback?.Invoke());
             });
         }
 
@@ -94,12 +93,12 @@ namespace CaiFuZhiJia_3997
             _wheelRootNode.GetChild("rollElement_5").asCom.GetChild("rewardText").asTextField.text = "";
             _backTransition.Play(() =>
             {
-                BackResetTransition.timeScale = 2f;
-                BackResetTransition.Play(() => callback?.Invoke());
+                _backResetTransition.timeScale = 2f;
+                _backResetTransition.Play(() => callback?.Invoke());
             });
         }
 
-        void PlayWithLoops(int maxLoops = 3)
+        private void PlayWithLoops(int maxLoops = 3)
         {
             int playCount = 0;
             _rollTransition.Play(() =>
@@ -117,3 +116,5 @@ namespace CaiFuZhiJia_3997
         }
     }
 }
+
+#endregion

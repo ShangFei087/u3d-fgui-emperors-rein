@@ -18,6 +18,7 @@ namespace CaiFuZhiJia_3997
 
         private const string SpinePrefabPath =
             "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupJackpotGame/SpinePrefabs/";
+
         private const string ModelPrefabPath =
             "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupJackpotGame/ModelPrefabs/";
 
@@ -30,17 +31,17 @@ namespace CaiFuZhiJia_3997
         private GameObject
             _reelBgSpineObj = null, /*_bonusTreeSpineObj = null,*/ _bonusSpineObj = null; // 第三个是钻石Spine动画
 
-        private GameObject _cloneReelBgSpineObj = null/*, _cloneBonusTreeSpineObj = null*/;
+        private GameObject _cloneReelBgSpineObj = null /*, _cloneBonusTreeSpineObj = null*/;
         private GComponent _compareReelBgSpineGCom = null, _compareBonusTreeSpineGCom = null;
 
         private readonly List<GameObject> _cloneJackpotSpineList = new List<GameObject>();
         private readonly List<Animator> _cloneAnimators = new List<Animator>(); // 预制体上的动画集合
         private readonly List<GComponent> _compareJackpotSpineGComList = new List<GComponent>();
-        
+
         // // 3D Model
         // private GComponent _compareNpcCom;
         // private GameObject _npcObj, _cloneNpcObj;
-        
+
 
         // Fairy GUI
         private readonly List<GComponent> _rollReels = new List<GComponent>();
@@ -159,7 +160,7 @@ namespace CaiFuZhiJia_3997
                 _slotMachineController =
                     GameObject.Find("Slot Game Main Controller 3997")
                         .GetComponentInChildren<SlotMachineController3997>();
-
+            GameSoundHelper3997.Instance.PlayMusicSingle(SoundKey.JackpotBG);
             InitParam();
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
         }
@@ -167,9 +168,21 @@ namespace CaiFuZhiJia_3997
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
+            GameSoundHelper3997.Instance.StopSound(SoundKey.JackpotBG);
             ResetView();
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
         }
+        
+        // protected override void OnLanguageChange(I18nLang lang)
+        // {
+        //     FguiI18nTextAssistant.Instance.DisposeAllTranslate(contentPane);
+        //     contentPane.Dispose(); // 释放当前UI
+        //     contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
+        //     InitUI();
+        //     InitCanSpinReels();
+        //     InitParam();
+        //     Debug.LogError("语言切换");
+        // }
 
         private void ResLoadedCallback()
         {
@@ -226,7 +239,7 @@ namespace CaiFuZhiJia_3997
                     _bonusSpineObj = clone;
                     ResLoadedCallback();
                 });
-            
+
             // ResourceManager02.Instance.LoadAsset<GameObject>(
             //     ModelPrefabPath + "NPC_Obj.prefab",
             //     (clone) =>
@@ -255,7 +268,7 @@ namespace CaiFuZhiJia_3997
             //     _cloneBonusTreeSpineObj = Object.Instantiate(_bonusTreeSpineObj);
             //     GameCommon.FguiUtils.AddWrapper(_compareBonusTreeSpineGCom, _cloneBonusTreeSpineObj);
             // }
-            
+
             // currentGCom = contentPane.GetChild("anchorNpcModel").asCom;
             // if (currentGCom != _compareNpcCom)
             // {
@@ -519,18 +532,21 @@ namespace CaiFuZhiJia_3997
 
         private readonly List<int> _currentWinIndexList = new List<int>(); // 当前中的索引List 主要用作存储本局中奖索引，播放回弹动画
 
+
+        #region 原版GameOnceCoroutine
+
         IEnumerator GameOnceCoroutine()
         {
             _isWinning = RandomIsWinThisRound();
-
+        
             for (int i = 0; i < _canSpinReelIndexList.Count; i++)
             {
                 int reelIndex = _canSpinReelIndexList[i];
                 _singleReelControllers[reelIndex].StartRoll(_moveSpeedList[i]);
             }
-
+        
             yield return new WaitForSeconds(2f);
-
+        
             if (!_isWinning)
             {
                 Debug.LogError("没中奖");
@@ -541,13 +557,13 @@ namespace CaiFuZhiJia_3997
                 // }
                 //
                 // yield return new WaitForSeconds(2f);
-
+        
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
                     _singleReelControllers[reelIndex].StopRoll(_currentWinIndexList, null);
                 }
-
+        
                 _totalPlayRounds--;
                 _freeCountText.text = _totalPlayRounds.ToString();
             }
@@ -555,17 +571,17 @@ namespace CaiFuZhiJia_3997
             {
                 Debug.LogError("中奖了");
                 GetCurrentWinningDiamondList();
-
+        
                 var stopCallbacks = new List<Action>();
                 int completedCount = 0;
                 int totalToComplete = _canSpinReelIndexList.Count;
-
+        
                 // 先收集所有需要停止的滚轴
                 foreach (var reelIndex in _canSpinReelIndexList)
                 {
                     bool isWin = _currentWinIndexList.Contains(reelIndex);
                     int capturedReelIndex = reelIndex; // 闭包捕获
-
+        
                     _singleReelControllers[reelIndex].StopRoll(
                         _currentWinIndexList, () =>
                         {
@@ -579,7 +595,7 @@ namespace CaiFuZhiJia_3997
                                 }
                                 else
                                 {
-                                    OnReelStopped(capturedReelIndex, () => completedCount++,tempBet.ToString());
+                                    OnReelStopped(capturedReelIndex, () => completedCount++, tempBet.ToString());
                                 }
                             }
                             else
@@ -587,21 +603,23 @@ namespace CaiFuZhiJia_3997
                         }
                     );
                 }
-
+        
                 yield return new WaitUntil(() => completedCount >= totalToComplete);
-
+        
                 // 统一从可旋转列表中移除中奖项
                 foreach (var reelIndex in _currentWinIndexList)
                 {
                     _canSpinReelIndexList.Remove(reelIndex);
                 }
-
+        
                 _freeCountText.text = "3";
                 _totalPlayRounds = 3;
             }
-
+        
             yield return new WaitForSeconds(2);
         }
+
+        #endregion
 
         private void OnReelStopped(int reelIndex, Action onComplete, string normalBet)
         {

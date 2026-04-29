@@ -13,18 +13,19 @@
     <loader id="n6_nbj9" name="n0" xy="0,0" size="187,152" visible="false" url="ui://oqimay09t2pamp"/>
     <component id="n7_nbj9" name="anchorSpin" src="nbj9o5" fileName="moudules/Panel/AnchorSpin.xml" xy="94,76"/>
     <loader id="n4_nbj9" name="n1" xy="30,21" size="128,81" url="ui://oqimay09lyrxst" autoSize="true"/>
-    <image id="n13_lyrx" name="untouch" src="lyrxsq" fileName="images/spin按钮/pb_img_button_grey.png" xy="0,0" visible="false" alpha="0.7" color="#000000"/>
+    <image id="n13_lyrx" name="untouch" src="lyrxsq" fileName="images/spin按钮/pb_img_button_grey.png" xy="0,0" visible="false" alpha="0.6" color="#000000"/>
   </displayList>
   <Button/>
   <transition name="spin">
     <item time="0" type="Icon" target="n4_nbj9" value="ui://oqimay09nbj9o3"/>
     <item time="0" type="Icon" target="n6_nbj9" value="ui://oqimay09t2pamp"/>
+    <item time="0" type="Visible" target="n13_lyrx" value="false"/>
     <item time="0" type="XY" target="n4_nbj9" value="30,18"/>
   </transition>
   <transition name="stop">
     <item time="0" type="Icon" target="n4_nbj9" value="ui://oqimay09t2paml"/>
     <item time="0" type="Icon" target="n6_nbj9" value="ui://oqimay09t2pamp"/>
-    <item time="0" type="XY" target="n4_nbj9" value="30,44"/>
+    <item time="0" type="XY" target="n4_nbj9" value="30,31"/>
   </transition>
   <transition name="hui">
     <item time="0" type="Visible" target="n13_lyrx" value="true"/>
@@ -32,6 +33,7 @@
   <transition name="auto">
     <item time="0" type="Icon" target="n4_nbj9" value="ui://oqimay09lyrxt1"/>
     <item time="0" type="Icon" target="n6_nbj9" value="ui://oqimay09t2pamp"/>
+    <item time="0" type="Visible" target="n13_lyrx" value="false"/>
     <item time="0" type="XY" target="n4_nbj9" value="12,22"/>
   </transition>
 </component>
