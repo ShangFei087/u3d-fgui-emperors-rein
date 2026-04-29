@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="243,82" extention="Button">
+<component size="243,82" pivot="0.5,0.5" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
     <image id="n4_w05q" name="n4" src="w05qakc" fileName="images/Button/btn_exhibition_02.png" xy="0,0" group="n6_w05q">
@@ -13,5 +13,5 @@
     <image id="n8_w05q" name="n8" src="w05qakf" fileName="images/Button/txt_close.png" xy="125,40" pivot="0.5,0.5" anchor="true" group="n9_w05q"/>
     <group id="n9_w05q" name="closeGroup" xy="0,0" size="243,82" advanced="true"/>
   </displayList>
-  <Button/>
+  <Button downEffect="scale" downEffectValue="0.8"/>
 </component>

@@ -1201,6 +1201,7 @@ namespace CaiFuHuoChe_3996
             train.SetActive(false);
 
             ChangeBGPanel(2);
+            PlayAnim(girlAnim, "sg_idle1");
             freeTotalTimes.text = ContentModel.Instance.jackpotSpinTotalTimes.ToString();
             freeTimes.text = ContentModel.Instance.jackpotSpinTotalTimes.ToString();
 

@@ -7,7 +7,7 @@
     <component id="n60_q05j" name="reel4" src="q05jaj5" fileName="moudules/panel/Exhibition/ReelBtn.xml" xy="698,741" size="62,571" group="n62_q05j"/>
     <component id="n61_q05j" name="reel5" src="q05jaj5" fileName="moudules/panel/Exhibition/ReelBtn.xml" xy="876,741" size="62,570" group="n62_q05j"/>
     <group id="n62_q05j" name="n62" xy="142,741" size="796,577"/>
-    <component id="n63_q05j" name="btnExhibition" src="q05jaj7" fileName="moudules/panel/Exhibition/ButtonExhibition.xml" xy="834,0" size="243,82">
+    <component id="n63_q05j" name="btnExhibition" src="q05jaj7" fileName="moudules/panel/Exhibition/ButtonExhibition.xml" xy="955,41" pivot="0.5,0.5" anchor="true" size="243,82">
       <relation target="" sidePair="top-top"/>
     </component>
   </displayList>

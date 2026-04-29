@@ -6,9 +6,15 @@
     <component id="n3_yl9o" name="introduce" src="yl9o5" fileName="moudules/panel/Introduce.xml" xy="153,440" size="774,1014" group="n7_yl9o">
       <relation target="" sidePair="center-center,middle-middle"/>
     </component>
-    <component id="n4_yl9o" name="btnPrev" src="yl9o6" fileName="moudules/panel/SetPanel/BtnNext.xml" xy="184,1572" group="n7_yl9o"/>
-    <component id="n5_yl9o" name="btnNect" src="yl9o6" fileName="moudules/panel/SetPanel/BtnNext.xml" xy="901,1572" group="n7_yl9o" scale="-1,1"/>
-    <component id="n9_i9hy" name="btnBackGame" src="yl9o8" fileName="moudules/panel/BtnBackGame.xml" xy="348,1582" group="n7_yl9o"/>
-    <group id="n7_yl9o" name="n7" xy="88,367" size="921,1317"/>
+    <component id="n4_yl9o" name="btnPrev" src="yl9o6" fileName="moudules/panel/SetPanel/BtnNext.xml" xy="238,1628" pivot="0.5,0.5" anchor="true" group="n7_yl9o">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n5_yl9o" name="btnNect" src="yl9o6" fileName="moudules/panel/SetPanel/BtnNext.xml" xy="852,1628" pivot="0.5,0.5" anchor="true" group="n7_yl9o" scale="-1,1">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n9_i9hy" name="btnBackGame" src="yl9o8" fileName="moudules/panel/BtnBackGame.xml" xy="549,1633" pivot="0.5,0.5" anchor="true" group="n7_yl9o">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <group id="n7_yl9o" name="n7" xy="88,367" size="907,1317"/>
   </displayList>
 </component>

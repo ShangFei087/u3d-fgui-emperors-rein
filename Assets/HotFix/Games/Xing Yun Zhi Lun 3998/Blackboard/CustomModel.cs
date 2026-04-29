@@ -215,13 +215,6 @@ namespace XingYunZhiLun_3998
             { "freeSlotBg", "ui://XingYunZhiLun_3998/slotFree" },
         };
 
-
-        /// <summary> 彩金游戏中不同序号对应的彩金图标 </summary>
-        public List<string> jackpotIcon = new List<string>
-        {
-
-        };
-
         #region 赔付线与赔付表
         private List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>()
         {

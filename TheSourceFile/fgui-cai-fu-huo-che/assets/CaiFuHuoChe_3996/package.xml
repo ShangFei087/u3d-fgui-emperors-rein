@@ -266,6 +266,7 @@
     <component id="v2k7cd" name="Paytable4.xml" path="/moudules/payTable/" exported="true"/>
     <component id="v2k7ce" name="Paytable5.xml" path="/moudules/payTable/" exported="true"/>
     <component id="znm9cf" name="AnchorGirl.xml" path="/component/popupNormalGame/"/>
+    <component id="iilzcl" name="AnchorBox.xml" path="/component/popupNormalGame/"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Cai Fu Huo Che 3996\FGUIs" packageCount="2"/>
 </packageDescription>

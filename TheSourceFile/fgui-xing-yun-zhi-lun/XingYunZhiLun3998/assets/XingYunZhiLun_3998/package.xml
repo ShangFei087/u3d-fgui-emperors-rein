@@ -21,8 +21,6 @@
     <image id="lsvw13" name="sg_img_icon_mini.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
     <image id="lsvw14" name="sg_img_icon_minor.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
     <image id="lsvw15" name="sg_img_jackpotMask.png" path="/images/PopupJackpotGame/" exported="true"/>
-    <image id="lsvw16" name="sg_img_ToJG_bg.png" path="/images/PopupJackpotGame/" exported="true"/>
-    <image id="lsvw17" name="sg_img_ToNG_bg.png" path="/images/PopupJackpotGame/" exported="true"/>
     <component id="lsvw19" name="Reels.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="lsvw1a" name="Reel.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="lsvw1b" name="Symbol.xml" path="/moudules/slotMachine/" exported="true"/>

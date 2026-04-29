@@ -7,6 +7,6 @@
     <component id="n25_tpfb" name="reel4" src="tpfbc5" fileName="moudules/Exhibition/ReelBtn.xml" xy="711,485" size="62,655" group="n28_tpfb"/>
     <component id="n26_tpfb" name="reel5" src="tpfbc5" fileName="moudules/Exhibition/ReelBtn.xml" xy="898,485" size="62,655" group="n28_tpfb"/>
     <group id="n28_tpfb" name="n28" xy="125,485" size="835,655"/>
-    <component id="n27_tpfb" name="btnExhibition" src="tpfbc4" fileName="moudules/Exhibition/ButtonExhibition.xml" xy="0,0"/>
+    <component id="n27_tpfb" name="btnExhibition" src="tpfbc4" fileName="moudules/Exhibition/ButtonExhibition.xml" xy="135,55" pivot="0.5,0.5" anchor="true"/>
   </displayList>
 </component>
