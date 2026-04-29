@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="znm9c7" name="pb_txt_help.png" path="/images/Panel/spin按钮/" exported="true"/>
+    <image id="znm9c8" name="pb_txt_stop.png" path="/images/Panel/spin按钮/" exported="true"/>
+    <image id="znm9c9" name="pb_txt_spin.png" path="/images/Panel/spin按钮/" exported="true"/>
+    <image id="znm9ca" name="pb_txt_bet.png" path="/images/Panel/鼓励值/" exported="true"/>
+    <image id="znm9cb" name="pb_txt_credits.png" path="/images/Panel/投币数/" exported="true"/>
+    <image id="znm9cd" name="Back to game.png" path="/images/Panel/说明书/" exported="true"/>
+    <image id="s21fck" name="ng_txt_on.png" path="/images/Button/" exported="true"/>
+    <image id="s21fcl" name="ng_txt_dff.png" path="/images/Button/" exported="true"/>
+    <image id="s21fcm" name="pb_img_help.png" path="/images/Panel/多功能按钮/" exported="true"/>
+  </resources>
+</branchDescription>

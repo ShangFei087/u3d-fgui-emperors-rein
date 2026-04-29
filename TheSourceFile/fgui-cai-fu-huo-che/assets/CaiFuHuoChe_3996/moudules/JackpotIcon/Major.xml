@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="192,44">
+  <displayList>
+    <image id="n5_efde" name="n5" src="o8uc1b" fileName="images/normalGame/jackpotTip/sg_txt_major.png" xy="0,0" size="192,44" aspect="true">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+  </displayList>
+</component>

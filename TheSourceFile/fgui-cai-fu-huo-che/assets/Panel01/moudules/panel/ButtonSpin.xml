@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="223,237">
+  <controller name="button" pages="0,spin,1,stop,2,auto,3,hui" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="spin"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="stop"/>
+    <action type="play_transition" fromPage="" toPage="2" transition="auto"/>
+    <action type="play_transition" fromPage="" toPage="3" transition=""/>
+  </controller>
+  <displayList>
+    <image id="n13_jaxj" name="n4" src="pmae9b" fileName="images/Panel/spin按钮/pb_img_b.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <loader id="n19_soe7" name="n0" xy="111,118" pivot="0.5,0.5" anchor="true" size="50,50" align="center" vAlign="middle" autoSize="true"/>
+    <image id="n14_jaxj" name="n14" src="pmae9t" fileName="images/Panel/spin按钮/pb_img_b_01.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <loader id="n20_soe7" name="n1" xy="111,118" pivot="0.5,0.5" anchor="true" size="50,50"/>
+    <image id="n15_jaxj" name="n15" src="pmae9x" fileName="images/Panel/spin按钮/pb_txt_spin.png" xy="49,76"/>
+    <image id="n16_jaxj" name="n16" src="pmae9w" fileName="images/Panel/spin按钮/pb_txt_stop.png" xy="50,75"/>
+    <image id="n17_jaxj" name="n17" src="pmae9v" fileName="images/Panel/spin按钮/pb_txt_hold.png" xy="54,135"/>
+    <component id="n21_soe7" name="anchorSpin" src="soe7a" fileName="moudules/panel/AnchorSpin.xml" xy="110,118"/>
+    <component id="n18_jaxj" name="untouch" src="pmaeaf" fileName="moudules/panel/UntouchCircle24.xml" xy="0,0" size="223,227"/>
+  </displayList>
+  <transition name="spin">
+    <item time="0" type="Visible" target="n13_jaxj" value="false"/>
+    <item time="0" type="Visible" target="n14_jaxj" value="true"/>
+    <item time="0" type="Visible" target="n15_jaxj" value="false"/>
+    <item time="0" type="Visible" target="n16_jaxj" value="true"/>
+    <item time="0" type="Visible" target="n17_jaxj" value="false"/>
+    <item time="0" type="Visible" target="n18_jaxj" value="false"/>
+  </transition>
+  <transition name="stop">
+    <item time="0" type="Visible" target="n13_jaxj" value="true"/>
+    <item time="0" type="Visible" target="n14_jaxj" value="false"/>
+    <item time="0" type="Visible" target="n15_jaxj" value="true"/>
+    <item time="0" type="Visible" target="n16_jaxj" value="false"/>
+    <item time="0" type="Visible" target="n17_jaxj" value="true"/>
+    <item time="0" type="Visible" target="n18_jaxj" value="false"/>
+  </transition>
+  <transition name="auto">
+    <item time="0" type="Visible" target="n13_jaxj" value="true"/>
+    <item time="0" type="Visible" target="n14_jaxj" value="false"/>
+    <item time="0" type="Visible" target="n15_jaxj" value="false"/>
+    <item time="0" type="Visible" target="n16_jaxj" value="false"/>
+    <item time="0" type="Visible" target="n17_jaxj" value="false"/>
+    <item time="0" type="Visible" target="n18_jaxj" value="false"/>
+  </transition>
+  <transition name="hui">
+    <item time="0" type="Visible" target="n13_jaxj" value="true"/>
+    <item time="0" type="Visible" target="n14_jaxj" value="false"/>
+    <item time="0" type="Visible" target="n15_jaxj" value="true"/>
+    <item time="0" type="Visible" target="n16_jaxj" value="false"/>
+    <item time="0" type="Visible" target="n17_jaxj" value="true"/>
+    <item time="0" type="Visible" target="n18_jaxj" value="true"/>
+  </transition>
+</component>

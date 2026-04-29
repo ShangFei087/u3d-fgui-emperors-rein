@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <loader id="n0_fkjs" name="icon" xy="0,0" pivot="0.5,0.5" anchor="true" size="1080,1920" url="ui://rkl59i4tpmae9a" align="center" vAlign="middle" autoSize="true"/>
+  </displayList>
+</component>

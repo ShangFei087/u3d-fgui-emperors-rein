@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="re27c1j7">
+  <resources>
+    <component id="n45k3s" name="Panel.xml" path="/moudules/panel/" exported="true"/>
+    <component id="a666ahi" name="ButtomFrame.xml" path="/moudules/panel/" exported="true"/>
+    <component id="a666ahj" name="BtnHelp.xml" path="/moudules/panel/SetPanel/" exported="true"/>
+    <component id="a666ahl" name="BtnBetUp.xml" path="/moudules/panel/" exported="true"/>
+    <component id="a666ahm" name="BtnBetDown.xml" path="/moudules/panel/" exported="true"/>
+    <component id="a666aie" name="SetPanel.xml" path="/moudules/panel/" exported="true"/>
+    <component id="yl9oaig" name="ButtonIntroduce.xml" path="/moudules/panel/SetPanel/" exported="true"/>
+    <image id="a666agy" name="pb_txt_bet.png" path="/images/panel/bet/" exported="true"/>
+    <image id="a666ah3" name="pb_frame_bet.png" path="/images/panel/bet/" exported="true"/>
+    <image id="a666ah6" name="pb_btn_sub.png" path="/images/panel/bet/" exported="true"/>
+    <image id="a666ahd" name="pb_btn_add.png" path="/images/panel/bet/" exported="true"/>
+    <image id="a666agv" name="pb_txt_credits.png" path="/images/panel/credit/" exported="true"/>
+    <image id="a666agz" name="pb_icon_credits.png" path="/images/panel/credit/" exported="true"/>
+    <image id="a666ahb" name="pb_btn_credits.png" path="/images/panel/credit/" exported="true"/>
+    <image id="a666ah2" name="pb_frame_multifunctional.png" path="/images/panel/Help/" exported="true"/>
+    <image id="a666ah8" name="pb_btn_out.png" path="/images/panel/Help/" exported="true"/>
+    <image id="a666ah9" name="pb_btn_multifunctional.png" path="/images/panel/Help/" exported="true"/>
+    <image id="a666aha" name="pb_btn_help.png" path="/images/panel/Help/" exported="true"/>
+    <image id="x7l37h" name="img_christmastime_01.png" path="/images/panel/payTable/" exported="true"/>
+    <image id="x7l37i" name="img_christmastime_02.png" path="/images/panel/payTable/" exported="true"/>
+    <image id="a666agr" name="pb_txt_stop.png" path="/images/panel/spin/" exported="true"/>
+    <image id="a666agt" name="pb_txt_spin.png" path="/images/panel/spin/" exported="true"/>
+    <image id="a666agp" name="pb_bar_volume_01.png" path="/images/panel/volume/" exported="true"/>
+    <image id="a666ah0" name="pb_frame_volume.png" path="/images/panel/volume/" exported="true"/>
+    <image id="a666ah4" name="pb_btn_volume_02.png" path="/images/panel/volume/" exported="true"/>
+    <image id="a666ah5" name="pb_btn_volume_01.png" path="/images/panel/volume/" exported="true"/>
+    <image id="a666ah7" name="pb_btn_spin.png" path="/images/panel/spin/" exported="true"/>
+    <image id="a666ahc" name="pb_btn_bar_volume.png" path="/images/panel/volume/" exported="true"/>
+    <image id="a666ahe" name="pb_bar_volume_02.png" path="/images/panel/volume/" exported="true" scale="9grid" scale9grid="8,4,243,17"/>
+    <image id="a666ah1" name="pb_frame_ui_bg.png" path="/images/panel/" exported="true"/>
+    <image id="a666ahf" name="pb_txt_tips.png" path="/images/panel/" exported="true"/>
+    <image id="a666ahg" name="pb_txt_win.png" path="/images/panel/" exported="true"/>
+    <image id="a666ahh" name="sg_img01.png" path="/"/>
+    <component id="yl9o0" name="BtnBack.xml" path="/moudules/panel/SetPanel/" exported="true"/>
+    <component id="yl9o1" name="ButtonSound.xml" path="/moudules/panel/" exported="true"/>
+    <component id="yl9o2" name="SobudSlider_grip.xml" path="/moudules/panel/SetPanel/" exported="true"/>
+    <component id="yl9o3" name="SobudSlider.xml" path="/moudules/panel/SetPanel/" exported="true"/>
+    <component id="yl9o4" name="Instructions.xml" path="/moudules/panel/" exported="true"/>
+    <component id="yl9o5" name="Introduce.xml" path="/moudules/panel/" exported="true"/>
+    <component id="yl9o6" name="BtnNext.xml" path="/moudules/panel/SetPanel/" exported="true"/>
+    <component id="yl9o7" name="UntouchRect24.xml" path="/moudules/panel/" exported="true"/>
+    <component id="yl9o8" name="BtnBackGame.xml" path="/moudules/panel/" exported="true"/>
+    <component id="yl9o9" name="ButtonSpin.xml" path="/moudules/panel/" exported="true"/>
+    <component id="yl9oa" name="AnchorSpin.xml" path="/moudules/panel/" exported="true"/>
+    <image id="yl9ob" name="circle_24.png" path="/images/panel/" exported="true"/>
+    <component id="yl9oc" name="UntouchCircle24.xml" path="/moudules/panel/" exported="true"/>
+    <component id="q05jaj0" name="ButtonColUp.xml" path="/moudules/panel/Exhibition/" exported="true"/>
+    <component id="q05jaj1" name="ButtonColDown.xml" path="/moudules/panel/Exhibition/" exported="true"/>
+    <component id="q05jaj5" name="ReelBtn.xml" path="/moudules/panel/Exhibition/" exported="true"/>
+    <component id="q05jaj6" name="ExhibitionPanel.xml" path="/moudules/panel/" exported="true"/>
+    <component id="q05jaj7" name="ButtonExhibition.xml" path="/moudules/panel/Exhibition/" exported="true"/>
+    <image id="i9hyaj8" name="frame_base.png" path="/images/panel/payTable/" exported="true"/>
+    <image id="i9hyajg" name="btn_left.png" path="/images/panel/payTable/" exported="true"/>
+    <image id="i9hyaji" name="btn_exit.png" path="/images/panel/payTable/" exported="true"/>
+    <image id="i9hyajm" name="txt_exit.png" path="/images/panel/payTable/Text/" exported="true"/>
+    <image id="i9hyak4" name="pb_btn_auto_en.png" path="/images/panel/spin/" exported="true"/>
+    <image id="i9hyak5" name="pb_txt_holdToAuto_en.png" path="/images/panel/spin/" exported="true"/>
+    <image id="w05qaka" name="txt_open.png" path="/images/Button/" exported="true"/>
+    <image id="w05qakb" name="btn_exhibition_01.png" path="/images/Button/" exported="true"/>
+    <image id="w05qakc" name="btn_exhibition_02.png" path="/images/Button/" exported="true"/>
+    <image id="w05qakd" name="btn_respin_01.png" path="/images/Button/" exported="true"/>
+    <image id="w05qake" name="btn_respin_02.png" path="/images/Button/" exported="true"/>
+    <image id="w05qakf" name="txt_close.png" path="/images/Button/" exported="true"/>
+    <image id="xiz6akh" name="ng_btn_sub_02.png" path="/images/panel/" exported="true"/>
+    <image id="echiaki" name="ng_btn_sub_02.png" path="/images/panel/bet/"/>
+    <component id="echiakj" name="UntouchBetButton.xml" path="/moudules/panel/" exported="true"/>
+  </resources>
+  <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Panel\Panel3998\FGUIs" packageCount="2"/>
+</packageDescription>

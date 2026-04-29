@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_9mnq" name="mask" xy="0,0" size="1080,1920" alpha="0" touchable="false" type="rect" fillColor="#d9000000"/>
+    <component id="n8_9mnq" name="anchorSpine" src="9mnq21" fileName="component/popupFreeGame/AnchorTriggerBg.xml" xy="540,880"/>
+    <component id="n6_9mnq" name="ButtonStart" src="9mnq1p" fileName="component/freeSpin/FreeTriggerBtn.xml" xy="218,1395"/>
+    <text id="n7_9mnq" name="times" xy="540,960" pivot="0.5,0.5" anchor="true" size="731,352" scale="0.8,0.8" font="ui://q8n13f0f9mnq20" fontSize="15" align="center" vAlign="middle" autoSize="none" text="12"/>
+  </displayList>
+  <transition name="idle">
+    <item time="0" type="Scale" target="n7_9mnq" tween="true" startValue="1,1" endValue="0.8,0.8" duration="10" ease="Linear"/>
+    <item time="0" type="XY" target="n7_9mnq" tween="true" startValue="540.5,960" endValue="540.5,960" duration="15" ease="Linear"/>
+    <item time="10" type="Scale" target="n7_9mnq" tween="true" startValue="0.8,0.8" endValue="1,1" duration="17" ease="Linear"/>
+    <item time="15" type="XY" target="n7_9mnq" tween="true" startValue="540.5,960" endValue="540.5,960" duration="17" ease="Linear"/>
+  </transition>
+  <transition name="end">
+    <item time="0" type="Alpha" target="n0_9mnq" tween="true" startValue="1" endValue="0" duration="17" ease="Linear"/>
+    <item time="2" type="Alpha" target="n7_9mnq" tween="true" startValue="1" endValue="0" duration="4"/>
+  </transition>
+  <transition name="start">
+    <item time="0" type="Alpha" target="n0_9mnq" tween="true" startValue="0" endValue="1" duration="17" ease="Linear"/>
+    <item time="0" type="Scale" target="n7_9mnq" tween="true" startValue="1,1" endValue="2,2" duration="5" ease="Linear"/>
+    <item time="0" type="XY" target="n7_9mnq" tween="true" startValue="540,960" endValue="540,1005" duration="5" ease="Linear"/>
+    <item time="5" type="Scale" target="n7_9mnq" tween="true" startValue="2,2" endValue="1,1" duration="7" ease="Linear"/>
+    <item time="5" type="XY" target="n7_9mnq" tween="true" startValue="540,1005" endValue="540,960" duration="7" ease="Linear"/>
+  </transition>
+</component>

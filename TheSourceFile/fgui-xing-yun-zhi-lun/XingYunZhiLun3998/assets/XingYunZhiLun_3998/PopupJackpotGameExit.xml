@@ -2,7 +2,7 @@
 <component size="1080,1920">
   <displayList>
     <graph id="n0_oicb" name="mask" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#99000000"/>
-    <component id="n1_oicb" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,960"/>
+    <component id="n1_oicb" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,1850" visible="false" touchable="false"/>
     <component id="n3_oicb" name="anchorBg" src="oicba7" fileName="components/PopupJackpotGame/JackpotNumber/JackpotGameExit.xml" xy="540,968"/>
     <component id="n4_oicb" name="ButtonClose" src="oicba8" fileName="components/PopupJackpotGame/JackpotExitBtn.xml" xy="541,1119" pivot="0.5,0.5" anchor="true" size="287,84"/>
     <list id="n5_mg8x" name="reels" xy="540,986" pivot="0.5,0.5" anchor="true" size="795,103" touchable="false" layout="row" overflow="hidden" defaultItem="ui://5hielhj5mg8xap" align="center" vAlign="middle">

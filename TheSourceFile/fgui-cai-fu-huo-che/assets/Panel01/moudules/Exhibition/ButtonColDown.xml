@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="125,127" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_q05j" name="n0" src="s21fce" fileName="images/Button/ng_img_bor.png" xy="0,0" size="125,127">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_s21f" name="n1" src="s21fcf" fileName="images/Button/ng_img_jian.png" xy="59,64" pivot="0.5,0.5" anchor="true" rotation="-90">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.8"/>
+</component>

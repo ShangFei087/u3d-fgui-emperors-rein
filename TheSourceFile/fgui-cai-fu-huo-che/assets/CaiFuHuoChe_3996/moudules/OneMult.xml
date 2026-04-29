@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="127,79">
+  <displayList>
+    <text id="n45_9mnq" name="OneBet" xy="0,0" size="127,79" font="ui://q8n13f0f9mnq2x" fontSize="18" leading="0" letterSpacing="-13" autoSize="none" text="X1">
+      <relation target="n33_9mnq" sidePair="center-center,middle-middle"/>
+    </text>
+  </displayList>
+</component>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_jhxn" name="mask" xy="0,0" size="1080,1920" alpha="0" touchable="false" type="rect" fillColor="#d9000000">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <component id="n1_jhxn" name="anchorSpine" src="jhxn32" fileName="component/popupFreeGame/AnchorResult.xml" xy="540,880"/>
+    <component id="n2_jhxn" name="ButtonStart" src="jhxn34" fileName="component/freeSpin/FreeResultBtn.xml" xy="171,1295"/>
+    <text id="n3_jhxn" name="win" xy="540,947" pivot="0.5,0.5" anchor="true" size="1080,137" font="ui://q8n13f0fjhxn3l" fontSize="13" align="center" vAlign="middle" leading="0" autoSize="none" text="38,700,000"/>
+  </displayList>
+  <transition name="end">
+    <item time="0" type="Alpha" target="n0_jhxn" tween="true" startValue="1" endValue="0" duration="17" ease="Linear"/>
+    <item time="0" type="Scale" target="n3_jhxn" tween="true" startValue="1,1" endValue="1.1,1.1" duration="6" ease="Linear"/>
+    <item time="0" type="XY" target="n3_jhxn" tween="true" startValue="540,947" endValue="540,960" duration="6" ease="Linear"/>
+    <item time="6" type="Scale" target="n3_jhxn" tween="true" startValue="1.1,1.1" endValue="0.9,0.9" duration="3" ease="Linear"/>
+    <item time="6" type="XY" target="n3_jhxn" tween="true" startValue="540,960" endValue="540,875" duration="6" ease="Linear"/>
+    <item time="9" type="Scale" target="n3_jhxn" tween="true" startValue="0.9,0.9" endValue="0,0" duration="3" ease="Linear"/>
+  </transition>
+  <transition name="start">
+    <item time="0" type="Alpha" target="n0_jhxn" tween="true" startValue="0" endValue="1" duration="17" ease="Linear"/>
+    <item time="0" type="Scale" target="n3_jhxn" value="1,1"/>
+    <item time="0" type="XY" target="n3_jhxn" value="540,947"/>
+  </transition>
+</component>

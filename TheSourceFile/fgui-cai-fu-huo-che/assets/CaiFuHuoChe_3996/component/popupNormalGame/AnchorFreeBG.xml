@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1" pivot="0.5,0.5" anchor="true">
+  <displayList>
+    <image id="n0_sqmz" name="bg" src="baxv6m" fileName="images/normalGame/fg_img_bg_02.png" xy="0,0" size="1080,1920"/>
+    <image id="n1_pjjx" name="n1" src="sqmze" fileName="images/normalGame/ng_img_bg_01.png" xy="0,860" size="1080,1066"/>
+  </displayList>
+</component>

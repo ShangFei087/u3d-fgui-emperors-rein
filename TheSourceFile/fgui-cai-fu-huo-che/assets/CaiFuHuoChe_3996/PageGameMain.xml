@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" designImage="ui://q8n13f0fpmaeac" designImageAlpha="16">
+  <controller name="c1" pages="0,BS,1,FS,2,JS" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="BS"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="FS"/>
+    <action type="play_transition" fromPage="" toPage="2" transition="JS"/>
+  </controller>
+  <displayList>
+    <component id="n7_fkjs" name="anchorFreeBg" src="pjjxi" fileName="component/popupNormalGame/AnchorFreeBG.xml" xy="0,0"/>
+    <component id="n47_9mnq" name="anchorFreeCloude" src="9mnq2y" fileName="component/popupFreeGame/AnchorCloude.xml" xy="1650,980"/>
+    <image id="n57_l8f4" name="n57" src="sqmze" fileName="images/freeGame/ng_img_bg_01.png" xy="0,860" size="1080,1066"/>
+    <component id="n53_ldad" name="jackpotBg" src="baxv7z" fileName="component/popupNormalGame/AnchorJackpotBG.xml" xy="0,0"/>
+    <component id="n67_iilz" name="anchorBox" src="iilzcl" fileName="component/popupNormalGame/AnchorBox.xml" xy="347,778"/>
+    <component id="n59_baxv" name="anchorNorBg" src="baxv6n" fileName="component/popupNormalGame/AnchorNorBG.xml" xy="0,0"/>
+    <component id="n21_o8uc" name="anchorTrain" src="o8uc1i" fileName="component/popupNormalGame/AnchorTrain.xml" xy="540,1066"/>
+    <image id="n61_baxv" name="n61" src="baxv6p" fileName="images/normalGame/ng_img_bg_02.png" xy="125,0"/>
+    <component id="n66_znm9" name="anchorGirl" src="znm9cf" fileName="component/popupNormalGame/AnchorGirl.xml" xy="840,1940"/>
+    <component id="n65_znm9" name="anchorFreeTrain" src="o8uc1i" fileName="component/popupNormalGame/AnchorTrain.xml" xy="484,1040"/>
+    <image id="n10_o8uc" name="slotBottom" src="baxv7s" fileName="images/ng_img_bottom.png" xy="59,1042" size="970,582" group="n9_o8uc">
+      <relation target="n3_pjjx" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n60_baxv" name="slotJackpotBottom" src="baxv7y" fileName="images/sg_img_border.png" xy="59,1042" size="970,600" group="n9_o8uc">
+      <relation target="n3_pjjx" sidePair="center-center,middle-middle"/>
+    </image>
+    <component id="n8_o8uc" name="slotMachine" src="o8uco" fileName="moudules/slotMachine/SlotMachine.xml" xy="59,1044" size="970,582" group="n9_o8uc">
+      <relation target="n10_o8uc" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n3_pjjx" name="slotMachineBG" src="pjjxk" fileName="moudules/slotMachine/SlotMachineBG.xml" xy="-18,936" size="1118,770" group="n9_o8uc"/>
+    <group id="n9_o8uc" name="slot" xy="-18,936" size="1118,770"/>
+    <component id="n5_fkjs" name="anchorFrame" src="fkjsm" fileName="component/AnchorEffect.xml" xy="541,1319"/>
+    <component id="n22_9mnq" name="anchorReelEffect" src="fkjsm" fileName="component/AnchorEffect.xml" xy="540,1299"/>
+    <image id="n24_9mnq" name="n24" src="9mnq22" fileName="images/freeGame/fg_bg_freeTimes.png" xy="380,1624" size="326,75" group="n46_9mnq">
+      <relation target="n3_pjjx" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n25_9mnq" name="n25" src="baxv83" fileName="images/freeGame/fg_txt_01_free spins.png" xy="496,1660" pivot="0.5,0.5" anchor="true" size="164,36" group="n46_9mnq" aspect="true">
+      <relation target="n24_9mnq" sidePair="center-center,middle-middle"/>
+    </image>
+    <text id="n28_9mnq" name="freeRemainTimes" xy="580,1634" size="49,52" group="n46_9mnq" font="ui://q8n13f0f9mnq2l" fontSize="18" align="right" vAlign="middle" leading="0" letterSpacing="-13" autoSize="none" text="12">
+      <relation target="n24_9mnq" sidePair="center-center,middle-middle"/>
+    </text>
+    <text id="n29_9mnq" name="div" xy="618,1640" size="32,46" group="n46_9mnq" font="ui://q8n13f0f9mnq2l" fontSize="18" align="center" vAlign="middle" leading="0" autoSize="none" text="/">
+      <relation target="n24_9mnq" sidePair="center-center,middle-middle"/>
+    </text>
+    <text id="n30_9mnq" name="freeTotalTimes" xy="636,1634" size="48,52" group="n46_9mnq" font="ui://q8n13f0f9mnq2l" fontSize="18" vAlign="middle" leading="0" letterSpacing="-13" autoSize="none" text="12">
+      <relation target="n24_9mnq" sidePair="center-center,middle-middle"/>
+    </text>
+    <image id="n39_9mnq" name="n39" src="9mnq24" fileName="images/freeGame/fg_img_doubling_02.png" xy="643,874" size="337,75" group="n46_9mnq">
+      <relation target="n33_9mnq" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n34_9mnq" name="fill1" src="baxv81" fileName="images/freeGame/fg_img_doubling_03(1).png" xy="860,874" size="45,75" group="n46_9mnq" fillMethod="vt" fillOrigin="1">
+      <relation target="n33_9mnq" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n35_9mnq" name="fill2" src="baxv81" fileName="images/freeGame/fg_img_doubling_03(1).png" xy="653,874" size="45,75" group="n46_9mnq" fillMethod="vt" fillOrigin="1" fillAmount="50">
+      <relation target="n33_9mnq" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n33_9mnq" name="n33" src="9mnq23" fileName="images/freeGame/fg_img_doubling_01.png" xy="544,846" size="567,131" group="n46_9mnq">
+      <relation target="n3_pjjx" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n38_9mnq" name="n38" src="9mnq24" fileName="images/freeGame/fg_img_doubling_02.png" xy="68,874" size="368,75" group="n46_9mnq">
+      <relation target="n32_9mnq" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n36_9mnq" name="fill3" src="baxv81" fileName="images/freeGame/fg_img_doubling_03(1).png" xy="290,874" size="45,75" group="n46_9mnq" fillMethod="vt" fillOrigin="1" fillAmount="50">
+      <relation target="n32_9mnq" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n37_9mnq" name="fill4" src="baxv81" fileName="images/freeGame/fg_img_doubling_03(1).png" xy="82,874" size="45,75" group="n46_9mnq" fillMethod="vt" fillOrigin="1" fillAmount="60">
+      <relation target="n32_9mnq" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n32_9mnq" name="n32" src="9mnq23" fileName="images/freeGame/fg_img_doubling_01.png" xy="-26,847" size="567,131" group="n46_9mnq">
+      <relation target="n3_pjjx" sidePair="center-center,middle-middle"/>
+    </image>
+    <component id="n42_9mnq" name="fourBet" src="iii963" fileName="component/popupFreeGame/FourMult.xml" xy="135,874" size="127,79" group="n46_9mnq" alpha="0.6">
+      <relation target="n32_9mnq" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n43_9mnq" name="threeBet" src="iii964" fileName="component/popupFreeGame/ThreeMult.xml" xy="338,874" size="127,79" group="n46_9mnq" alpha="0.6">
+      <relation target="n32_9mnq" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n44_9mnq" name="twoBet" src="iii965" fileName="component/popupFreeGame/TwoMult.xml" xy="700,874" size="127,79" group="n46_9mnq">
+      <relation target="n33_9mnq" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n45_9mnq" name="oneBet" src="iii966" fileName="moudules/OneMult.xml" xy="909,874" size="127,79" group="n46_9mnq">
+      <relation target="n33_9mnq" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n48_iwtc" name="freeAddPoint" src="fkjsm" fileName="component/AnchorEffect.xml" xy="540,1635" size="1,1" group="n46_9mnq"/>
+    <component id="n49_iwtc" name="fill1Add" src="fkjsm" fileName="component/AnchorEffect.xml" xy="880,890" size="1,1" group="n46_9mnq"/>
+    <component id="n50_iwtc" name="fill2Add" src="fkjsm" fileName="component/AnchorEffect.xml" xy="670,890" size="1,1" group="n46_9mnq"/>
+    <component id="n51_iwtc" name="fill3Add" src="fkjsm" fileName="component/AnchorEffect.xml" xy="308,890" size="1,1" group="n46_9mnq"/>
+    <component id="n52_iwtc" name="fill4Add" src="fkjsm" fileName="component/AnchorEffect.xml" xy="100,889" size="1,1" group="n46_9mnq"/>
+    <image id="n54_ldad" name="n54" src="9mnq27" fileName="images/jackpotGame/fg_txt_freeSpines.png" xy="496,1660" pivot="0.5,0.5" anchor="true" size="164,36" group="n46_9mnq">
+      <relation target="n24_9mnq" sidePair="center-center,middle-middle"/>
+    </image>
+    <component id="n62_vxx6" name="jackpotAddPoint" src="fkjsm" fileName="component/AnchorEffect.xml" xy="540,1759" group="n46_9mnq"/>
+    <group id="n46_9mnq" name="freeGame" xy="-26,846" size="1137,914"/>
+    <component id="n55_ucv0" name="JpEffect" src="ucv05j" fileName="component/popupNormalGame/OpenDoor.xml" xy="540,700"/>
+    <component id="n19_o8uc" name="mini" src="o8uc1h" fileName="moudules/JackpotMini.xml" xy="650,141" group="n13_o8uc"/>
+    <component id="n18_o8uc" name="minor" src="o8uc1g" fileName="moudules/JackpotMinor.xml" xy="39,144" group="n13_o8uc"/>
+    <component id="n16_o8uc" name="major" src="o8uc1f" fileName="moudules/JackpotMajor.xml" xy="340,15" group="n13_o8uc"/>
+    <component id="n11_o8uc" name="grand" src="o8uc1e" fileName="moudules/JackpotGrand.xml" xy="41,15" group="n13_o8uc" visible="false" touchable="false"/>
+    <group id="n13_o8uc" name="jackpotTip" xy="39,15" size="1020,267"/>
+    <component id="n63_vxx6" name="panel" src="fkjsl" fileName="component/popupNormalGame/AnchorPanelPush.xml" xy="540,960"/>
+    <graph id="n64_znm9" name="mask" xy="-4,-2" size="1080,1920" visible="false" touchable="false" type="rect" lineSize="0" fillColor="#ff000000">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+  </displayList>
+  <transition name="BS">
+    <item time="0" type="Alpha" target="n10_o8uc" value="1"/>
+    <item time="0" type="Alpha" target="n11_o8uc" value="1"/>
+    <item time="0" type="Alpha" target="n16_o8uc" value="1"/>
+    <item time="0" type="Alpha" target="n18_o8uc" value="1"/>
+    <item time="0" type="Alpha" target="n19_o8uc" value="1"/>
+    <item time="0" type="Alpha" target="n21_o8uc" value="1"/>
+    <item time="0" type="Alpha" target="n22_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n24_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n25_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n28_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n29_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n30_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n32_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n33_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n34_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n35_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n36_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n37_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n38_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n39_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n3_pjjx" value="1"/>
+    <item time="0" type="Alpha" target="n42_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n43_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n44_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n45_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n47_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n53_ldad" value="0"/>
+    <item time="0" type="Alpha" target="n54_ldad" value="0"/>
+    <item time="0" type="Alpha" target="n57_l8f4" value="1"/>
+    <item time="0" type="Alpha" target="n59_baxv" value="1"/>
+    <item time="0" type="Alpha" target="n5_fkjs" value="1"/>
+    <item time="0" type="Alpha" target="n7_fkjs" value="0"/>
+    <item time="0" type="Alpha" target="n8_o8uc" value="1"/>
+    <item time="0" type="Visible" target="n10_o8uc" value="true"/>
+    <item time="0" type="Visible" target="n21_o8uc" value="true"/>
+    <item time="0" type="Visible" target="n59_baxv" value="true"/>
+    <item time="0" type="Visible" target="n60_baxv" value="false"/>
+    <item time="0" type="Visible" target="n61_baxv" value="true"/>
+    <item time="0" type="Visible" target="n65_znm9" value="false"/>
+    <item time="0" type="Visible" target="n66_znm9" value="true"/>
+    <item time="0" type="Visible" target="n67_iilz" value="false"/>
+    <item time="0" type="XY" target="n47_9mnq" value="1650,980"/>
+  </transition>
+  <transition name="FS">
+    <item time="0" type="Alpha" target="n10_o8uc" value="1"/>
+    <item time="0" type="Alpha" target="n11_o8uc" value="1"/>
+    <item time="0" type="Alpha" target="n16_o8uc" value="1"/>
+    <item time="0" type="Alpha" target="n18_o8uc" value="1"/>
+    <item time="0" type="Alpha" target="n19_o8uc" value="1"/>
+    <item time="0" type="Alpha" target="n21_o8uc" value="0"/>
+    <item time="0" type="Alpha" target="n22_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n24_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n25_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n28_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n29_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n30_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n32_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n33_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n34_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n35_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n36_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n37_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n38_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n39_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n3_pjjx" value="1"/>
+    <item time="0" type="Alpha" target="n42_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n43_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n44_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n45_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n47_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n53_ldad" value="0"/>
+    <item time="0" type="Alpha" target="n54_ldad" value="0"/>
+    <item time="0" type="Alpha" target="n57_l8f4" value="1"/>
+    <item time="0" type="Alpha" target="n59_baxv" value="0"/>
+    <item time="0" type="Alpha" target="n5_fkjs" value="1"/>
+    <item time="0" type="Alpha" target="n7_fkjs" value="1"/>
+    <item time="0" type="Alpha" target="n8_o8uc" value="1"/>
+    <item time="0" type="Visible" target="n10_o8uc" value="true"/>
+    <item time="0" type="Visible" target="n21_o8uc" value="false"/>
+    <item time="0" type="Visible" target="n60_baxv" value="false"/>
+    <item time="0" type="Visible" target="n61_baxv" value="false"/>
+    <item time="0" type="Visible" target="n65_znm9" value="true"/>
+    <item time="0" type="Visible" target="n66_znm9" value="false"/>
+    <item time="0" type="Visible" target="n67_iilz" value="false"/>
+    <item time="0" type="XY" target="n47_9mnq" value="540,980"/>
+  </transition>
+  <transition name="BSToFSTransform">
+    <item time="0" type="Alpha" target="n10_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n11_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n16_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n18_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n19_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n24_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n25_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n28_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n29_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n30_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n32_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n33_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n34_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n35_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n36_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n37_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n38_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n39_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n3_pjjx" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n42_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n43_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n44_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n45_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n47_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n64_znm9" tween="true" startValue="0" endValue="1" duration="18"/>
+    <item time="0" type="Alpha" target="n8_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Visible" target="n64_znm9" value="true"/>
+    <item time="0" type="Visible" target="n67_iilz" value="false"/>
+    <item time="0" type="XY" target="n47_9mnq" tween="true" startValue="1650,980" endValue="540,980" duration="36" ease="Linear"/>
+    <item time="18" type="Alpha" target="n10_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n11_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n16_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n18_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n19_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n24_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n25_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n28_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n29_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n30_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n32_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n33_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n34_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n35_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n36_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n37_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n38_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n39_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n3_pjjx" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n42_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n43_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n44_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n45_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n8_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="22" type="Alpha" target="n21_o8uc" value="0"/>
+    <item time="22" type="Visible" target="n21_o8uc" value="false"/>
+    <item time="22" type="Visible" target="n65_znm9" value="true"/>
+    <item time="22" type="Visible" target="n66_znm9" value="false"/>
+    <item time="29" type="Alpha" target="n64_znm9" tween="true" startValue="1" endValue="0" duration="7"/>
+    <item time="36" type="Visible" target="n64_znm9" value="false"/>
+  </transition>
+  <transition name="FSToBSTransform">
+    <item time="0" type="Alpha" target="n10_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n21_o8uc" value="1"/>
+    <item time="0" type="Alpha" target="n24_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n25_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n28_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n29_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n30_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n32_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n33_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n34_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n35_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n36_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n37_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n38_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n39_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n3_pjjx" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n42_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n43_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n44_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n45_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n47_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n8_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Visible" target="n21_o8uc" value="true"/>
+    <item time="0" type="Visible" target="n65_znm9" value="false"/>
+    <item time="0" type="Visible" target="n67_iilz" value="false"/>
+    <item time="0" type="XY" target="n47_9mnq" tween="true" startValue="540,980" endValue="-700,980" duration="36" ease="Linear"/>
+    <item time="18" type="Alpha" target="n10_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n24_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n25_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n28_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n29_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n30_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n32_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n33_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n34_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n35_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n36_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n37_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n38_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n39_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n3_pjjx" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n42_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n43_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n44_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n45_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n8_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+  </transition>
+  <transition name="JS">
+    <item time="0" type="Alpha" target="n21_o8uc" value="0"/>
+    <item time="0" type="Alpha" target="n24_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n25_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n28_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n29_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n30_9mnq" value="1"/>
+    <item time="0" type="Alpha" target="n32_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n33_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n34_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n35_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n36_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n37_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n38_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n39_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n42_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n43_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n44_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n45_9mnq" value="0"/>
+    <item time="0" type="Alpha" target="n53_ldad" value="1"/>
+    <item time="0" type="Alpha" target="n54_ldad" value="1"/>
+    <item time="0" type="Alpha" target="n57_l8f4" value="0"/>
+    <item time="0" type="Alpha" target="n7_fkjs" value="0"/>
+    <item time="0" type="Visible" target="n10_o8uc" value="false"/>
+    <item time="0" type="Visible" target="n21_o8uc" value="false"/>
+    <item time="0" type="Visible" target="n25_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n59_baxv" value="false"/>
+    <item time="0" type="Visible" target="n60_baxv" value="true"/>
+    <item time="0" type="Visible" target="n61_baxv" value="false"/>
+    <item time="0" type="Visible" target="n65_znm9" value="false"/>
+    <item time="0" type="Visible" target="n67_iilz" value="true"/>
+  </transition>
+  <transition name="JSToBSTransform">
+    <item time="0" type="Visible" target="n21_o8uc" value="true"/>
+  </transition>
+</component>

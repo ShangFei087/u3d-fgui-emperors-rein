@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,235">
+  <displayList>
+    <image id="n2_pmae" name="n2" src="pmaea9" fileName="images/Panel/pb_img_bottom.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </image>
+    <image id="n3_pmae" name="n3" src="pmae9c" fileName="images/Panel/赢分框/pb_img_score.png" xy="534,108" pivot="0.5,0.5" anchor="true" size="322,140"/>
+    <image id="n4_pmae" name="n4" src="pmae9z" fileName="images/Panel/赢分框/pb_txt_win.png" xy="530,131" pivot="0.5,0.5" anchor="true"/>
+    <image id="n5_pmae" name="n5" src="pmae9e" fileName="images/Panel/投币数/pb_txt_credits.png" xy="257,165" pivot="0.5,0.5" anchor="true"/>
+    <image id="n7_uz53" name="n7" src="uz53bl" fileName="images/Panel/鼓励值/pb_img_kuang_02.png" xy="144,41" size="224,100"/>
+    <image id="n6_pmae" name="n6" src="pmae9g" fileName="images/Panel/投币数/pb_img_toubi.png" xy="157,61"/>
+    <image id="n8_uz53" name="n8" src="uz53bl" fileName="images/Panel/鼓励值/pb_img_kuang_02.png" xy="713,40" size="193,105"/>
+    <image id="n9_uz53" name="n9" src="pmae9h" fileName="images/Panel/鼓励值/pb_txt_bet.png" xy="806,167" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>

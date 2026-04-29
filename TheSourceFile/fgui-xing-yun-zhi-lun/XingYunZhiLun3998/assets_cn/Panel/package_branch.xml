@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="a666ags" name="pb_txt_stop.png" path="/panel/spin/"/>
+    <image id="a666agu" name="pb_txt_spin.png" path="/panel/spin/"/>
+    <image id="f2szaft" name="1.png" path="/panel/payTable/" exported="true"/>
+    <image id="f2szafu" name="2.png" path="/panel/payTable/" exported="true"/>
+    <image id="f2szafv" name="3.png" path="/panel/payTable/" exported="true"/>
+    <image id="f2szafw" name="4.png" path="/panel/payTable/" exported="true"/>
+    <image id="f2szafx" name="5.png" path="/panel/payTable/" exported="true"/>
+    <image id="f2szafy" name="6.png" path="/panel/payTable/" exported="true"/>
+    <image id="f2szafz" name="7.png" path="/panel/payTable/" exported="true"/>
+  </resources>
+</branchDescription>

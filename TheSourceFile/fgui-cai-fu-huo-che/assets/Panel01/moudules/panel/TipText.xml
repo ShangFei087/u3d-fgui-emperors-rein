@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="791,28">
+  <displayList>
+    <image id="n18_uz53" name="n18" src="pmae9d" fileName="images/Panel/赢分框/pb_img_dik.png" xy="0,0" size="791,28"/>
+    <image id="n17_uz53" name="n17" src="pmaea8" fileName="images/Panel/赢分框/pb_txt_zw.png" xy="197,3" size="377,23"/>
+  </displayList>
+</component>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="jhxn33" name="fg_pop_btn_collect.png" path="/images/freeGame/" exported="true"/>
+    <image id="ldad3q" name="fg_txt_freeSpines.png" path="/images/jackpotGame/" exported="true"/>
+    <image id="pmae97" name="fg_pop_btn_start.png" path="/images/freeGame/" exported="true"/>
+    <image id="sqmz9" name="logo_bg_zw.png" path="/images/gameLoading/"/>
+    <image id="efdebo" name="fg_txt_01_free spins.png" path="/images/freeGame/"/>
+    <image id="znm9cg" name="1.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="znm9ch" name="2.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="znm9ci" name="3.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="znm9cj" name="4.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="znm9ck" name="5.png" path="/images/Panel/payTable/" exported="true"/>
+  </resources>
+</branchDescription>

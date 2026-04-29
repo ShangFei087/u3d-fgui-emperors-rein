@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="395,128">
+<component size="451,128">
   <displayList>
-    <image id="n3_a6yp" name="n3" src="a6ypacy" fileName="images/PopupGameNormalGame/jp_frame_base_mini.png" xy="0,50" size="395,75"/>
-    <text id="n1_n45k" name="score" xy="15,61" size="364,51" font="ui://5hielhj5a6ypacb" fontSize="18" align="center" vAlign="middle" leading="0" autoSize="none" text="123，456，789，789，789">
+    <image id="n7_a666" name="n7" src="powcajx" fileName="images/PopupGameNormalGame/wheelSymbols/ng_frame_mini.png" xy="464,48" size="462,102" scale="-1,1"/>
+    <image id="n5_wtp2" name="n5" src="a6ypabx" fileName="images/PopupJackpotGame/ListSymbolIcons/jp_txt_mini.png" xy="347,31" pivot="0.5,0.5" anchor="true" aspect="true" scale="1.5,1.5">
       <relation target="" sidePair="center-center,middle-middle"/>
-    </text>
-    <image id="n2_a6yp" name="n2" src="a6ypabx" fileName="images/PopupJackpotGame/ListSymbolIcons/jp_txt_mini.png" xy="126,4" size="160,52"/>
+    </image>
+    <list id="n6_n5h9" name="reels" xy="37,70" size="395,65" layout="row" overflow="hidden" defaultItem="ui://5hielhj5n5h9ael" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
   </displayList>
 </component>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="271,111" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n4_s21f" name="n4" src="s21fcg" fileName="images/Button/ng_img_der_02.png" xy="0,0" group="n6_s21f">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n5_s21f" name="n5" src="s21fci" fileName="images/Button/ng_txt_on.png" xy="136,57" pivot="0.5,0.5" anchor="true" group="n6_s21f">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
+    <group id="n6_s21f" name="openGroup" xy="0,0" size="271,111" advanced="true"/>
+    <image id="n7_s21f" name="n7" src="s21fch" fileName="images/Button/ng_img_der_01.png" xy="0,0" group="n9_s21f">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n8_s21f" name="n8" src="s21fcj" fileName="images/Button/ng_txt_dff.png" xy="136,57" pivot="0.5,0.5" anchor="true" group="n9_s21f"/>
+    <group id="n9_s21f" name="closeGroup" xy="0,0" size="274,111" advanced="true"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.8"/>
+</component>

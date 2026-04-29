@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_i9hy" name="exit" src="i9hyaik" fileName="moudules/PopupBigWin/ExitButton.xml" xy="0,0"/>
+  </displayList>
+</component>

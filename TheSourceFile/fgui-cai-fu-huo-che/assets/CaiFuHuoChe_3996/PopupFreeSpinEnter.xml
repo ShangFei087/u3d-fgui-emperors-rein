@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_pmae" name="mask" xy="0,0" size="1080,1920" alpha="0.6" type="rect" lineSize="0" fillColor="#ff333333">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <component id="n1_pmae" name="anchorTrain" src="pmae99" fileName="component/popupFreeSpinEnter/AnchorEnterAnim.xml" xy="540,960"/>
+  </displayList>
+</component>

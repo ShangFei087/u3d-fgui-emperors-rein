@@ -3,7 +3,7 @@
   <displayList>
     <graph id="n0_c76t" name="mash" xy="0,0" size="1080,1920" type="rect" fillColor="#99000000"/>
     <component id="n2_c76t" name="anchorBg" src="c76t8w" fileName="components/PopupJackpotGame/JackpotGameTrigger.xml" xy="540,960"/>
-    <component id="n3_c76t" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,960"/>
+    <component id="n3_c76t" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,1850" visible="false" touchable="false"/>
     <component id="n4_c76t" name="Button" src="c76t90" fileName="components/PopupJackpotGame/JackpotTriggerBtn.xml" xy="409,1075" size="266,95" scale="0,0"/>
   </displayList>
   <transition name="idle">

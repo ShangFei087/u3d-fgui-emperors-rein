@@ -2,11 +2,11 @@
 <component size="1080,1920">
   <displayList>
     <graph id="n0_fcra" name="mask" xy="0,3" size="1080,1920" type="rect" lineSize="0" lineColor="#00000000" fillColor="#99000000"/>
-    <component id="n9_yonm" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,960"/>
+    <component id="n9_yonm" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,1850" visible="false" touchable="false"/>
     <component id="n5_yonm" name="anchorSpine" src="yonm8n" fileName="components/PopupFreeGame/AnchorSpine.xml" xy="528,782"/>
-    <image id="n7_yonm" name="n7" src="yonm8l" fileName="images/PopupGameFreeGame/fg_text_FREE SPINS!.png" xy="542,973" pivot="0.5,0.5" anchor="true" size="384,77" scale="0.8,0.8" alpha="0"/>
-    <text id="n6_yonm" name="times" xy="524,796" pivot="0.5,0.5" anchor="true" size="567,300" alpha="0" font="ui://5hielhj5x7l388" fontSize="200" align="center" vAlign="middle" leading="0" letterSpacing="22" autoSize="none" text="10"/>
-    <component id="n8_yonm" name="ButtonStart" src="x7l38i" fileName="components/PopupBigWIn/CloseBtn.xml" xy="357,1220" size="381,104"/>
+    <image id="n7_yonm" name="n7" src="yonm8l" fileName="images/PopupGameFreeGame/fg_text_FREE SPINS!.png" xy="542,973" pivot="0.5,0.5" anchor="true" size="448,90" aspect="true" scale="0.8,0.8"/>
+    <text id="n6_yonm" name="times" xy="524,796" pivot="0.5,0.5" anchor="true" size="567,217" alpha="0" font="ui://5hielhj5a6ypacb" fontSize="24" align="center" vAlign="middle" leading="0" letterSpacing="25" autoSize="none" text="10"/>
+    <component id="n8_yonm" name="ButtonStart" src="gkbyaed" fileName="components/PopupBigWIn/StartBtn.xml" xy="357,1220" size="381,104"/>
   </displayList>
   <transition name="end">
     <item time="0" type="Alpha" target="n6_yonm" value="0"/>

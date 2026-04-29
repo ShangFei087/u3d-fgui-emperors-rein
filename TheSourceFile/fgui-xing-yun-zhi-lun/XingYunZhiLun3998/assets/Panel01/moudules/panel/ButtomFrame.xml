@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,253">
+  <displayList>
+    <image id="n41_a666" name="n41" src="a666ah1" fileName="images/panel/pb_frame_ui_bg.png" xy="0,0"/>
+    <image id="n45_a666" name="n45" src="a666ahb" fileName="images/panel/credit/pb_btn_credits.png" xy="252,119"/>
+    <image id="n43_a666" name="n43" src="a666agz" fileName="images/panel/credit/pb_icon_credits.png" xy="280,133"/>
+    <image id="n46_a666" name="n46" src="a666ah3" fileName="images/panel/bet/pb_frame_bet.png" xy="536,122"/>
+    <image id="n44_a666" name="n44" src="a666agv" fileName="images/panel/credit/pb_txt_credits.png" xy="379,192" pivot="0.5,0.5" anchor="true"/>
+    <image id="n47_a666" name="n47" src="a666agy" fileName="images/panel/bet/pb_txt_bet.png" xy="675,191" pivot="0.5,0.5" anchor="true"/>
+    <image id="n48_a666" name="n48" src="a666ahg" fileName="images/panel/pb_txt_win.png" xy="533,99" pivot="0.5,0.5" anchor="true"/>
+    <image id="n49_xiz6" name="n49" src="a666ahf" fileName="images/panel/pb_txt_tips_en.png" xy="533,233" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>

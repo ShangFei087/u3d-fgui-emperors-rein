@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="62,594">
+  <displayList>
+    <component id="n56_q05j" name="btnUp" src="q05jaj0" fileName="moudules/panel/Exhibition/ButtonColUp.xml" xy="29,609" pivot="0.5,0.5" anchor="true" rotation="-90">
+      <relation target="" sidePair="bottom-bottom"/>
+    </component>
+    <component id="n55_q05j" name="BtnDown" src="q05jaj1" fileName="moudules/panel/Exhibition/ButtonColDown.xml" xy="29,0" pivot="0.5,0.5" anchor="true" rotation="-90">
+      <relation target="" sidePair="top-top"/>
+    </component>
+  </displayList>
+</component>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="96,61">
+  <controller name="button" pages="0,t0,1,t1" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="t0"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="t1"/>
+  </controller>
+  <displayList>
+    <image id="n9_jaxj" name="n9" src="pmaea4" fileName="images/Panel/多功能按钮/pb_img_music.png" xy="0,0"/>
+    <loader id="n10_jaxj" name="n5" xy="64,31" pivot="0.5,0.5" anchor="true" size="25,47" url="ui://rkl59i4tpmaea5" align="center" vAlign="middle" autoSize="true"/>
+  </displayList>
+  <transition name="t0">
+    <item time="0" type="Icon" target="n10_jaxj" value="ui://rkl59i4tpmaea5"/>
+  </transition>
+  <transition name="t1">
+    <item time="0" type="Icon" target="n10_jaxj" value="ui://rkl59i4tpmaea6"/>
+  </transition>
+</component>

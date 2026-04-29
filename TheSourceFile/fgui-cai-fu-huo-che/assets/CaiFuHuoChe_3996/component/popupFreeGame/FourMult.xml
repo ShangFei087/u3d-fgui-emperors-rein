@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="127,79">
+  <displayList>
+    <text id="n42_9mnq" name="FourBet" xy="0,0" size="127,79" font="ui://q8n13f0f9mnq2x" fontSize="18" vAlign="middle" leading="0" letterSpacing="-13" autoSize="none" text="X4"/>
+  </displayList>
+</component>
