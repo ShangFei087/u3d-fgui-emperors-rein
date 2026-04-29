@@ -324,7 +324,6 @@ namespace SlotMaker
             silderSound.onChanged.Clear();
             silderSound.onChanged.Add(OnSoundSliderChanged);
 
-
             //返回大厅
             btnHome = setPanel.GetChild("btnHome").asButton;
             btnHome.onClick.Clear();
@@ -362,6 +361,8 @@ namespace SlotMaker
             OnPropertyChangeBtnSpinState();
             OnPropertyIsConnectMoneyBox();
             SyncSoundUIFromCurrentState();
+
+            Debug.Log("初始化菜单Ui完成");
         }
 
         /// <summary>
@@ -1000,15 +1001,19 @@ namespace SlotMaker
 
         public void SetExhibitionUIState(bool state)
         {
-            for (int i = 0; i < btnColUps.Count; i++)
+            if (MainModel.Instance.isExhibitionModeMode)
             {
-                btnColUps[i].visible = state;
-            }
+                for (int i = 0; i < btnColUps.Count; i++)
+                {
+                    btnColUps[i].visible = state;
+                }
 
-            for (int i = 0; i < btnColDowns.Count; i++)
-            {
-                btnColDowns[i].visible = state;
+                for (int i = 0; i < btnColDowns.Count; i++)
+                {
+                    btnColDowns[i].visible = state;
+                }
             }
+         
             btnExhibition.visible = state;
         }
 
