@@ -82,7 +82,8 @@ public class UIConst
 
             //大厅
             [PageName.Hall01] = new object[] { "Assets/GameRes/Halls/Hall01/FGUIs", "Hall01.Hall01GameMain" },
-            [PageName.TreasuryHallMain] = new object[] { "Assets/GameRes/Halls/TreasuryHall/FGUIs", "TreasuryHall.TreasuryHallMain" },
+            [PageName.TreasuryHallMain] =
+                new object[] { "Assets/GameRes/Halls/TreasuryHall/FGUIs", "TreasuryHall.TreasuryHallMain" },
 
 
             // 推币机新后台
@@ -365,7 +366,8 @@ public class UIConst
                 new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupJackpotGame" },
             [PageName.CaiFuZhiJiaPopupJackpotWin] =
                 new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupJackpotWin" },
-
+            [PageName.CaiFuZhiJiaPopupOverWin] =
+                new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupOverWin" },
             // 美洲黑豹
             [PageName.MeiZhouHeiBaoPopupGameLoading] =
                 new object[]
@@ -373,46 +375,43 @@ public class UIConst
                     "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/FGUIs", "MeiZhouHeiBao_3993.PopupGameLoading"
                 },
             [PageName.MeiZhouHeiBaoPageGameMain] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/FGUIs", "MeiZhouHeiBao_3993.PageGameMain"
-                }, 
+                new object[] { "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/FGUIs", "MeiZhouHeiBao_3993.PageGameMain" },
             [PageName.MeiZhouHeiBaoPopupFreeSpinTrigger] =
                 new object[]
                 {
                     "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/FGUIs", "MeiZhouHeiBao_3993.PopupFreeSpinTrigger"
-                }, 
+                },
             [PageName.MeiZhouHeiBaoPopupFreeGameLoading] =
                 new object[]
                 {
                     "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/FGUIs", "MeiZhouHeiBao_3993.PopupFreeGameLoading"
-                }, 
+                },
             [PageName.MeiZhouHeiBaoPopupFreeSpinResult] =
                 new object[]
                 {
                     "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/FGUIs", "MeiZhouHeiBao_3993.PopupFreeSpinResult"
-                }, 
+                },
             [PageName.MeiZhouHeiBaoPopupJackpotTrigger] =
                 new object[]
                 {
                     "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/FGUIs", "MeiZhouHeiBao_3993.PopupJackpotTrigger"
-                }, 
+                },
             [PageName.MeiZhouHeiBaoPopupJackpotResult] =
                 new object[]
                 {
                     "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/FGUIs", "MeiZhouHeiBao_3993.PopupJackpotResult"
-                }, 
+                },
             [PageName.MeiZhouHeiBaoPopupJackpotGame] =
                 new object[]
                 {
                     "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/FGUIs", "MeiZhouHeiBao_3993.PopupJackpotGame"
-                }, 
+                },
             [PageName.MeiZhouHeiBaoPopupJackpotLoading] =
                 new object[]
                 {
                     "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/FGUIs", "MeiZhouHeiBao_3993.PopupJackpotLoading"
                 },
-            
+
             //幸运之轮
             [PageName.XingYunZhiLunPopupGameLoading] =
                 new object[]
@@ -489,14 +488,23 @@ public class UIConst
 
 
             //火焰公牛
-             [PageName.HuoYanGongNiuPopupGameLoading] =
-                new object[] { "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PopupGameLoading" },
+            [PageName.HuoYanGongNiuPopupGameLoading] =
+                new object[]
+                {
+                    "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PopupGameLoading"
+                },
             [PageName.HuoYanGongNiuPageGameMain] =
                 new object[] { "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PageGameMain" },
-            [PageName.HuoYanGongNiuPopupFreeSpinTrigger] = 
-                new object[] { "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PopupFreeSpinTrigger" },
-            [PageName.HuoYanGongNiuPopupFreeSpinExit] = 
-                new object[] { "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PopupFreeSpinExit" },
+            [PageName.HuoYanGongNiuPopupFreeSpinTrigger] =
+                new object[]
+                {
+                    "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PopupFreeSpinTrigger"
+                },
+            [PageName.HuoYanGongNiuPopupFreeSpinExit] =
+                new object[]
+                {
+                    "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PopupFreeSpinExit"
+                },
         };
     }
 }
@@ -534,6 +542,7 @@ public enum PageName
 
     //大厅
     Hall01,
+
     //财富大厅
     TreasuryHallMain,
 
@@ -622,6 +631,7 @@ public enum PageName
     CaiFuZhiJiaPopupJackpotResult,
     CaiFuZhiJiaPopupJackpotGame,
     CaiFuZhiJiaPopupJackpotWin,
+    CaiFuZhiJiaPopupOverWin,
 
     // 美洲黑豹
     MeiZhouHeiBaoPopupGameLoading,

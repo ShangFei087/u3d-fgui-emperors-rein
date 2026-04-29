@@ -2,10 +2,14 @@
 <component size="270,82" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n0_f29k" name="n0" src="f29kpa" fileName="images/exhibitionMode/ng_img_der_01.png" xy="0,0">
+    <image id="n3_lyrx" name="n3" src="f29kpa" fileName="images/exhibitionMode/ng_img_der_01.png" xy="0,0" group="n2_lyrx"/>
+    <image id="n1_lyrx" name="n1" src="f29kpe" fileName="images/exhibitionMode/ng_txt_on.png" xy="135,40" pivot="0.5,0.5" anchor="true" group="n2_lyrx"/>
+    <group id="n2_lyrx" name="openGroup" xy="0,0" size="270,82" advanced="true"/>
+    <image id="n0_lyrx" name="n0" src="f29kpb" fileName="images/exhibitionMode/ng_img_der_02.png" xy="0,0" group="n6_lyrx">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <image id="n1_f29k" name="n1" src="f29kpe" fileName="images/exhibitionMode/ng_txt_on.png" xy="15,25"/>
+    <image id="n4_lyrx" name="n4" src="f29kpd" fileName="images/exhibitionMode/ng_txt_off.png" xy="135,40" pivot="0.5,0.5" anchor="true" group="n6_lyrx"/>
+    <group id="n6_lyrx" name="closeGroup" xy="0,0" size="270,82" advanced="true"/>
   </displayList>
   <Button/>
 </component>

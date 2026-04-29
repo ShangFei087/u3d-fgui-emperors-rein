@@ -50,6 +50,8 @@ namespace CaiFuZhiJia_3997
 
         #region 本局游戏数据
         
+        
+        
         /// <summary> 免费游戏加速框 </summary>
         public bool isFreeSlotTip;
 
@@ -169,6 +171,11 @@ namespace CaiFuZhiJia_3997
         public bool IsJackpotTrigger { get; set; }
 
         /// <summary>
+        /// 玩家没中奖计数
+        /// </summary>
+        public int noWinCount = 0;
+
+        /// <summary>
         /// 彩金游戏总得分
         /// </summary>
         public long totalBonusReward = 0;
@@ -207,6 +214,9 @@ namespace CaiFuZhiJia_3997
         /// 一局彩金游戏的数据
         /// </summary>
         public List<string> currentBonusDataList = new List<string>();
+
+        /// <summary>  本局普通线赢得分 </summary>
+        public long normalWinBet = 0;
 
         public string curReelStripsIndex = "BS";
 

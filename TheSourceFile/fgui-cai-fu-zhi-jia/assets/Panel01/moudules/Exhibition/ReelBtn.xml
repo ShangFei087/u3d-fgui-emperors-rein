@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="89,710">
   <displayList>
-    <component id="n3_f29k" name="btnUp" src="f29ksn" fileName="moudules/Exhibition/exhibitionUpBtn.xml" xy="14,11" scale="0.5,0.5"/>
-    <component id="n4_f29k" name="BtnDown" src="f29ksn" fileName="moudules/Exhibition/exhibitionUpBtn.xml" xy="75,700" scale="0.5,0.5" rotation="180"/>
+    <component id="n3_f29k" name="btnUp" src="f29ksn" fileName="moudules/Exhibition/exhibitionUpBtn.xml" xy="-14,21" pivot="0.5,0.5" scale="0.8,0.8"/>
+    <component id="n4_f29k" name="BtnDown" src="f29ksn" fileName="moudules/Exhibition/exhibitionUpBtn.xml" xy="-16,585" pivot="0.5,0.5" scale="0.8,0.8" rotation="180"/>
   </displayList>
 </component>

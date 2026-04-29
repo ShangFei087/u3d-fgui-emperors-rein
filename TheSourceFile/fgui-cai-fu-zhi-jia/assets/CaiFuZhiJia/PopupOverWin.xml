@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_lyrx" name="anchorPlayer" src="lyrxpg" fileName="moudules/popupOverWin/anchorPlayer.xml" xy="540,960"/>
+    <component id="n1_lyrx" name="anchorOverWin" src="lyrxph" fileName="moudules/popupOverWin/anchorOverWin.xml" xy="540,960"/>
+    <text id="n2_lyrx" name="overWinText" xy="289,1042" size="522,88" font="ui://k5oi8hwrh8erda" fontSize="15" align="center" vAlign="middle" autoSize="shrink" text="111111111111111"/>
+  </displayList>
+</component>

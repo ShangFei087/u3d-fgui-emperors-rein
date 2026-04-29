@@ -606,8 +606,8 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 50
-      minScalar: 25
+      scalar: 0.5
+      minScalar: 0.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4850,7 +4850,8 @@ ParticleSystemRenderer:
   m_VertexStreams: 00010304
   m_Mesh: {fileID: -3326148489197951004, guid: 3e80898b8fed991499b588e46e5a8cd2, type: 3}
   m_Mesh1: {fileID: 2702192995196345617, guid: 58ceeffb56a40014fa30387d8818b4f1, type: 3}
-  m_Mesh2: {fileID: -7087545663711856541, guid: 7d6d85edcce69804fbf776cb99838a57, type: 3}
+  m_Mesh2: {fileID: -7087545663711856541, guid: 7d6d85edcce69804fbf776cb99838a57,
+    type: 3}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
 --- !u!1 &8472207650357913600
@@ -4876,7 +4877,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8472207650357913600}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5169,7 +5170,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
