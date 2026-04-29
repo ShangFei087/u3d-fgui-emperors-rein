@@ -703,7 +703,7 @@ namespace XingYunZhiLun_3998
                     }
                     catch (Exception e)
                     {
-                        DebugUtils.LogError($"[G1700] 设置展会模式结果失败，deck={currentDeck}");
+                        DebugUtils.LogError($"[G3998] 设置展会模式结果失败，deck={currentDeck}");
                         DebugUtils.LogException(e);
                     }
                 }
@@ -1463,9 +1463,6 @@ namespace XingYunZhiLun_3998
                 slotMachineCtrl.ShowSymbolTransform(new List<int>() { 8 }, true, 8, true);
 
                 yield return new WaitForSecondsRealtime(1.5f);
-
-
-                slotMachineCtrl.BeginBonusFreeSpin();
             }
             else
             {

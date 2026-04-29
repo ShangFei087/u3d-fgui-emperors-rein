@@ -417,6 +417,11 @@ namespace CaiFuHuoChe_3996
             if (data != null) _data = data;
             if (!isInit) return;
 
+            if (isOpen)
+            {
+                TryRestoreFreeSpinSession();
+            }
+
             //确保初始化只进行一次
             if (isReady) return;
             isReady = true;
@@ -642,7 +647,6 @@ namespace CaiFuHuoChe_3996
             //int pid = SBoxModel.Instance.pid;
             //FreeSpinSessionStoreG3996.Clear(pid);
 
-            TryRestoreFreeSpinSession();
         }
 
 
@@ -902,6 +906,31 @@ namespace CaiFuHuoChe_3996
             isWinFreeOrJacpot = false;
             isTriggerFrame = false;
             string errMsg = "";
+
+
+            //展会模式
+            if (ApplicationSettings.Instance.IsExpoMode() && MainModel.Instance.isExhibitionModeMode)
+            {
+                string currentDeck = GetCurrentVisibleDeckRowCol();
+                if (!string.IsNullOrEmpty(currentDeck))
+                {
+                    try
+                    {
+                        int[] deckData = SlotTool.GetDeckRowCol(currentDeck).ToArray();
+                        SBoxExhibitionData sBoxExhibitionData = new SBoxExhibitionData
+                        {
+                            wheelChessNum = deckData.Length,
+                            data = deckData
+                        };
+                        SBoxIdea.SetExhibitionData(sBoxExhibitionData);
+                    }
+                    catch (Exception e)
+                    {
+                        DebugUtils.LogError($"[G1700] 设置展会模式结果失败，deck={currentDeck}");
+                        DebugUtils.LogException(e);
+                    }
+                }
+            }
 
             //模拟结果
             if (ApplicationSettings.Instance.isMock)
@@ -1741,7 +1770,7 @@ namespace CaiFuHuoChe_3996
             }
 
 
-            slotMachineCtrl.SendTotalWinCreditEvent(cm.curFreeCredit);
+            slotMachineCtrl.SendTotalWinCreditEvent(snap.curFreeCredit);
             DebugUtils.Log($"[G3996] 已恢复免费局快照：剩余 {cm.showFreeSpinRemainTime} / 总 {cm.freeSpinTotalTimes}，待首局 Spin 与算法校验。");
         }
 
@@ -2509,5 +2538,28 @@ namespace CaiFuHuoChe_3996
                 PlayAnim(girlAnim, "sg_appear");
             }
         }
+
+        //读取当前滚轴显示的图标
+        private string GetCurrentVisibleDeckRowCol()
+        {
+            if (slotMachineCtrl == null)
+            {
+                return string.Empty;
+            }
+            List<string> rows = new List<string>(slotMachineCtrl.row);
+            for (int row = 0; row < slotMachineCtrl.row; row++)
+            {
+                List<string> cols = new List<string>(slotMachineCtrl.column);
+                for (int col = 0; col < slotMachineCtrl.column; col++)
+                {
+                    SymbolBase symbol = slotMachineCtrl.GetVisibleSymbolFromDeck(col, row);
+                    int symbolNumber = symbol != null ? symbol.GetSymbolNumber() : 0;
+                    cols.Add(symbolNumber.ToString());
+                }
+                rows.Add(string.Join(",", cols));
+            }
+            return string.Join("#", rows);
+        }
+
     }
 }
