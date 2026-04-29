@@ -1,9 +1,9 @@
 #define DISABLE_DELAY
-using System.Collections.Generic;
-using UnityEngine;
-using System;
 using FairyGUI;
+using System;
+using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine;
 
 
 public class LoadingProgress
@@ -81,6 +81,13 @@ public class PageLaunch
                     UIPackage.AddPackage("Native/FGUIs/Native"); // Native/FGUIs/ == Resources/Native/FGUIs
                 _instance = new PageLaunch();
                 _instance.goOwnerPage = UIPackage.CreateObject("Native", "TreasuryPageLaunch").asCom;
+
+             //   ResourceManager02.Instance.LoadAsset<GameObject>("Resources/Native/Prefabs/plat_load_bg",
+             //(GameObject clone) =>
+             //{
+             //    goLoadBG = clone;
+             //    callback();
+             //});
                 GRoot.inst.AddChild(_instance.goOwnerPage);
                 _instance.goOwnerPage.sortingOrder = 99;
             }
@@ -98,6 +105,11 @@ public class PageLaunch
 
     GButton btnQuit;
 
+    //private GameObject goLoadBG;
+    //private GComponent anchorLoadBG;
+    //private GameObject ClonegoLoadBG;
+
+
     Dictionary<string, int> allProgress = new Dictionary<string, int>();
 
     Dictionary<string, int> curProgress = new Dictionary<string, int>();
@@ -113,6 +125,14 @@ public class PageLaunch
 
     private void InitParam()
     {
+        //GComponent LocalAnchorBG = this.goOwnerPage.GetChild("card3996").asCom;
+        //if (anchorLoadBG != LocalAnchorBG)
+        //{
+        //    GameCommon.FguiUtils.DeleteWrapper(anchorLoadBG);
+        //    ClonegoLoadBG = GameObject.Instantiate(goLoadBG);
+        //    anchorLoadBG = LocalAnchorBG;
+        //    GameCommon.FguiUtils.AddWrapper(anchorLoadBG, ClonegoLoadBG);
+        //}
 
         btnQuit = goOwnerPage.GetChild("btnQuit").asButton;
         btnQuit.onClick.Clear();
