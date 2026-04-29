@@ -426,9 +426,7 @@ namespace SlotMaker
             columnResult = result;
         }
 
-        public override void NudgeOneStep(UnityAction action = null, bool isUseResult = false,
-            ReelNudgeDirection direction = ReelNudgeDirection.Down,
-            ReelNudgeFillMode fillMode = ReelNudgeFillMode.Ordered)
+        public override void NudgeOneStep(UnityAction action = null, bool isUseResult = false,ReelNudgeDirection direction = ReelNudgeDirection.Down, ReelNudgeFillMode fillMode = ReelNudgeFillMode.Ordered)
         {
             if (action != null)
                 reelStopCallback = action;
@@ -470,7 +468,7 @@ namespace SlotMaker
         }
 
         /// <summary> 向下移动一行 </summary>
-        private void ResetIconDataNudgeDownOneRow(ReelNudgeFillMode fillMode)
+        protected virtual void ResetIconDataNudgeDownOneRow(ReelNudgeFillMode fillMode)
         {
             if (symbolList == null || symbolList.Count <= 0)
                 return;
@@ -491,7 +489,7 @@ namespace SlotMaker
         }
 
         /// <summary> 向上移动一行 </summary>
-        private void ResetIconDataNudgeUpOneRow(ReelNudgeFillMode fillMode)
+        protected virtual void ResetIconDataNudgeUpOneRow(ReelNudgeFillMode fillMode)
         {
             if (symbolList == null || symbolList.Count <= 0)
                 return;
@@ -515,7 +513,7 @@ namespace SlotMaker
         /// <summary>
         /// 按 customModel.symbolNumber 的配置顺序偏移符号编号，支持循环边界。
         /// </summary>
-        private int GetSymbolNumberByOrderOffset(int baseSymbolNumber, int offset)
+        protected virtual int GetSymbolNumberByOrderOffset(int baseSymbolNumber, int offset)
         {
             if (customModel?.symbolNumber == null || customModel.symbolNumber.Count == 0 || offset == 0)
                 return baseSymbolNumber;
@@ -532,8 +530,7 @@ namespace SlotMaker
             return customModel.symbolNumber[targetIndex];
         }
 
-        private int GetNudgeFillNumber(ReelNudgeFillMode fillMode, ReelNudgeDirection direction, int fillIndex,
-            int loopFillNumber)
+        private int GetNudgeFillNumber(ReelNudgeFillMode fillMode, ReelNudgeDirection direction, int fillIndex,int loopFillNumber)
         {
             switch (fillMode)
             {
@@ -545,14 +542,10 @@ namespace SlotMaker
                 default:
                     if (direction == ReelNudgeDirection.Up)
                     {
-                        return fillIndex > 0
-                            ? GetSymbolNumberByOrderOffset(symbolList[fillIndex - 1].GetSymbolNumber(), -1)
-                            : symbolList[fillIndex].GetSymbolNumber();
+                        return fillIndex > 0? GetSymbolNumberByOrderOffset(symbolList[fillIndex - 1].GetSymbolNumber(), -1): symbolList[fillIndex].GetSymbolNumber();
                     }
 
-                    return symbolList.Count > 1
-                        ? GetSymbolNumberByOrderOffset(symbolList[1].GetSymbolNumber(), 1)
-                        : symbolList[0].GetSymbolNumber();
+                    return symbolList.Count > 1? GetSymbolNumberByOrderOffset(symbolList[1].GetSymbolNumber(), 1): symbolList[0].GetSymbolNumber();
             }
         }
     }

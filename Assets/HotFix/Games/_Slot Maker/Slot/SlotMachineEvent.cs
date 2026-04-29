@@ -19,6 +19,9 @@ namespace SlotMaker
 
         #region 拉霸机-运行细节
         public const string ON_SLOT_DETAIL_EVENT = "ON_SLOT_DETAIL_EVENT";
+
+        /// <summary> 卷轴转到一步 - value : int </summary>
+        public const string ReelOneStep = "ReelOneStep";  //ReelOneStep  value = 0
         /// <summary> 已经停止某个滚轮的转动 - value : int </summary>
         public const string PrepareStoppedReel = "PrepareStoppedReel";  //PrepareStoppedReel  value = 0
         /// <summary> 开启某列的特效 - value : int </summary>

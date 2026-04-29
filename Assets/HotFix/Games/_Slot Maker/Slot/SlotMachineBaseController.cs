@@ -391,8 +391,8 @@ namespace SlotMaker
             reel.NudgeOneStep(() => { isNext = true; }, isUseResult, direction, fillMode);
             yield return new WaitUntil(() => isNext);
 
-            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
-                new EventData<int>(SlotMachineEvent.PrepareStoppedReel, reelIndex));
+            //EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+            //    new EventData<int>(SlotMachineEvent.ReelOneStep, reelIndex));
 
             finishCallback?.Invoke();
         }
