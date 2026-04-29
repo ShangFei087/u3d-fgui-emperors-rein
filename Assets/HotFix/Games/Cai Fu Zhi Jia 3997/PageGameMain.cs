@@ -430,11 +430,11 @@ namespace CaiFuZhiJia_3997
                         Debug.LogError("解析symbol_paytable失败，数据为空");
                         return;
                     }
-
+                    MainModel.Instance.lineNum = config.LineNum;
                     MainModel.Instance.gameID = config.GameId;
                     MainModel.Instance.gameName = config.GameName;
                     MainModel.Instance.displayName = config.DisplayName;
-                    MainModel.Instance.lineNum = config.LineNum;
+                    
                 });
         }
 
@@ -973,8 +973,8 @@ namespace CaiFuZhiJia_3997
                     // 重新注册
                     ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
                     MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
-                    EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                        new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
+                    EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
+                 
 
                     isNext = true;
                 });

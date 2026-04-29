@@ -603,8 +603,7 @@ namespace CaiFuHuoChe_3996
             MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
             // 事件放出
             //goGameCtrl.transform.Find("Panel").GetComponent<PanelController01>().Init();
-            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
+            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT, new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
 
             //同步积分和押注
             MachineDataManager02.Instance.RequestGetPlayerInfo((res) =>
@@ -664,10 +663,10 @@ namespace CaiFuHuoChe_3996
                         return;
                     }
 
+                    MainModel.Instance.lineNum = config.LineNum;
                     MainModel.Instance.gameID = config.GameId;
                     MainModel.Instance.gameName = config.GameName;
                     MainModel.Instance.displayName = config.DisplayName;
-                    MainModel.Instance.lineNum = config.LineNum;
                 });
         }
 

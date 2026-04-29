@@ -76,6 +76,7 @@ namespace SlotMaker
 
         // 是否已完成初始化
         bool isInit;
+        private bool _isInitializing;
         public int IntroduceIndex;
         public int VolumeLevel;
 
@@ -97,7 +98,7 @@ namespace SlotMaker
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnTotalWinCredit);
             EventCenter.Instance.AddEventListener<EventData>(MetaUIEvent.ON_CREDIT_EVENT, OnUpdateNaviCredit);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnPanelEventAnchorPanelChange);
-            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_CONTENT_EVENT, OnContentChang);
+            EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_CONTENT_EVENT, OnContentChang);
             MainModel.Instance.panel = this;
 
             Init();
@@ -131,6 +132,7 @@ namespace SlotMaker
             _pendingRequestBet = null;
             _pendingRequestSetBetCallback = null;
             _isSpinStopButtonLocked = false;
+            _isInitializing = false;
 
             gOwnerPanel.visible = false;
         }
@@ -151,6 +153,21 @@ namespace SlotMaker
                 return;
             }
 
+            if (_isInitializing)
+            {
+                return;
+            }
+
+            // 同一锚点且已初始化完成时不重复执行，避免重复触发 InitParam
+            if (isInit && ReferenceEquals(_cachedAnchorPanel, _goAnchorPanel))
+            {
+                Debug.Log("同一锚点且已初始化完成时不重复执行，避免重复触发 InitParam");
+                return;
+            }
+
+            _cachedAnchorPanel = _goAnchorPanel;
+            _isInitializing = true;
+
             int count = 2;
             Action loadComplete = () =>
             {
@@ -159,6 +176,7 @@ namespace SlotMaker
                 {
                     isInit = true;
                     InitParam();
+                    _isInitializing = false;
                 }
             };
 
@@ -231,6 +249,7 @@ namespace SlotMaker
         /// </summary>
         protected virtual void InitParam()
         {
+            Debug.Log($"初始化菜单Ui id={GetInstanceID()} active={gameObject.activeInHierarchy}");
             Debug.Log("初始化菜单Ui");
             gOwnerPanel = MainModel.Instance.contentMD.goAnthorPanel.asCom.GetChild("icon").asLoader.component;
             setPanel = gOwnerPanel.GetChild("setPanel").asCom;
@@ -843,11 +862,19 @@ namespace SlotMaker
 
         protected virtual void OnPanelEventAnchorPanelChange(EventData res = null)
         {
-            if (res.name == PanelEvent.AnchorPanelChange)
+            if (res == null || res.name != PanelEvent.AnchorPanelChange)
             {
-                // 锚点面板切换后重建 UI 绑定
-                Init();
+                return;
             }
+
+            GComponent newAnchorPanel = res.value as GComponent;
+            if (newAnchorPanel == null)
+            {
+                return;
+            }
+
+            // 锚点面板切换后重建 UI 绑定
+            Init(res);
         }
 
         /// <summary>
