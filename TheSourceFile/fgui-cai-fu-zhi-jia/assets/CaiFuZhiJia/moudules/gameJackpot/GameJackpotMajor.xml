@@ -2,9 +2,7 @@
 <component size="514,141">
   <displayList>
     <image id="n6_t2pa" name="n6" src="hhky50" fileName="images/popupJackpotTrigger/Background/ng_frame_major.png" xy="0,56" size="514,84" group="n2_6ydp"/>
-    <image id="n9_t2pa" name="n9" src="t2pale" fileName="images/popupJackpotTrigger/Background/ng_txt_major_1.png" xy="259,40" pivot="0.5,0.5" anchor="true" group="n2_6ydp"/>
-    <group id="n2_6ydp" name="n2" xy="0,9" size="514,131"/>
-    <list id="n3_j01n" name="n1" xy="34,70" size="343,42" scale="1.3,1.3" layout="row" overflow="hidden" defaultItem="ui://k5oi8hwr6ydp6z" align="center" vAlign="middle">
+    <list id="n3_j01n" name="n1" xy="34,70" size="343,42" group="n2_6ydp" scale="1.3,1.3" layout="row" overflow="hidden" defaultItem="ui://k5oi8hwr6ydp6z" align="center" vAlign="middle">
       <item/>
       <item/>
       <item/>
@@ -18,5 +16,7 @@
       <item/>
       <item/>
     </list>
+    <image id="n10_lyrx" name="n10" src="lyrxpc" fileName="images/popupJackpotTrigger/Background/ng_txt_major_1(1).png" xy="251,40" pivot="0.5,0.5" anchor="true" group="n2_6ydp"/>
+    <group id="n2_6ydp" name="n2" xy="0,-1" size="514,141"/>
   </displayList>
 </component>

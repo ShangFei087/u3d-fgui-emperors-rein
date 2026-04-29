@@ -10,8 +10,8 @@
     <image id="isifi9" name="sg_txt_congrart.png" path="/images/popupFreeTrigger/"/>
     <image id="isific" name="fg_txt_free.png" path="/images/popupFreeTrigger/"/>
     <image id="isifid" name="sg_txt_won.png" path="/images/popupFreeTrigger/"/>
-    <image id="t2paly" name="ng_txt_major_1.png" path="/images/popupJackpotTrigger/Background/"/>
-    <image id="t2palz" name="ng_txt_mini_1.png" path="/images/popupJackpotTrigger/Background/"/>
-    <image id="t2pam0" name="ng_txt_minor_1.png" path="/images/popupJackpotTrigger/Background/"/>
+    <image id="lyrxp9" name="ng_txt_major_1(1).png" path="/images/popupJackpotTrigger/Background/" exported="true"/>
+    <image id="lyrxpa" name="ng_txt_mini_1(1).png" path="/images/popupJackpotTrigger/Background/" exported="true"/>
+    <image id="lyrxpb" name="ng_txt_minor_1(1).png" path="/images/popupJackpotTrigger/Background/" exported="true"/>
   </resources>
 </branchDescription>

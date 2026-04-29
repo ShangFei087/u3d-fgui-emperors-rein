@@ -21,9 +21,9 @@ namespace CaiFuZhiJia_3997
         private GTweener _loadingGTween;
 
         private GSlider _loadingBar;
-        private GameObject _bgSpineObj, _centerSpineObj;
-        private GameObject _cloneBgSpineObj, _cloneCenterSpineObj;
-        private GComponent _compareBgSpine, _compareCenterSpine;
+        private GameObject _traderObj, _gameTitleObj;
+        private GameObject _cloneTraderObj, _cloneGameTitleObj;
+        private GComponent _compareTrader, _compareGameTitle;
 
         protected override void OnInit()
         {
@@ -68,22 +68,22 @@ namespace CaiFuZhiJia_3997
 
         private void BindPrefabsToUI()
         {
-            GComponent currentCom = contentPane.GetChild("anchorBG").asCom;
-            if (_compareBgSpine != currentCom)
+            GComponent currentCom = contentPane.GetChild("anchorTrader").asCom;
+            if (_compareTrader != currentCom)
             {
-                _cloneBgSpineObj = Object.Instantiate(_bgSpineObj);
-                GameCommon.FguiUtils.DeleteWrapper(_compareBgSpine);
-                _compareBgSpine = currentCom;
-                GameCommon.FguiUtils.AddWrapper(_compareBgSpine, _cloneBgSpineObj);
+                _cloneTraderObj = Object.Instantiate(_traderObj);
+                GameCommon.FguiUtils.DeleteWrapper(_compareTrader);
+                _compareTrader = currentCom;
+                GameCommon.FguiUtils.AddWrapper(_compareTrader, _cloneTraderObj);
             }
 
-            currentCom = contentPane.GetChild("anchorCenter").asCom;
-            if (currentCom != _compareCenterSpine)
+            currentCom = contentPane.GetChild("anchorGameTitle").asCom;
+            if (currentCom != _compareGameTitle)
             {
-                _cloneCenterSpineObj = Object.Instantiate(_centerSpineObj);
-                GameCommon.FguiUtils.DeleteWrapper(_compareCenterSpine);
-                _compareCenterSpine = currentCom;
-                GameCommon.FguiUtils.AddWrapper(_compareCenterSpine, _cloneCenterSpineObj);
+                _cloneGameTitleObj = Object.Instantiate(_gameTitleObj);
+                GameCommon.FguiUtils.DeleteWrapper(_compareGameTitle);
+                _compareGameTitle = currentCom;
+                GameCommon.FguiUtils.AddWrapper(_compareGameTitle, _cloneGameTitleObj);
             }
         }
 
@@ -103,6 +103,7 @@ namespace CaiFuZhiJia_3997
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotGame, null);
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotResult, null);
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotWin, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupOverWin, null);
                 _isFirstOpen = false;
 
                 Debug.LogError("CaiFuZhiJia is Preloaded!");
@@ -124,30 +125,30 @@ namespace CaiFuZhiJia_3997
             _totalResCount = 2;
 
             // 加载Spine动画
-            ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "BGSpine.prefab", (cloneObj) =>
+            ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "Trader.prefab", (cloneObj) =>
             {
-                _bgSpineObj = cloneObj;
+                _traderObj = cloneObj;
                 ResLoadedCallback();
             });
 
-            ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "CenterSpine.prefab", (cloneObj) =>
+            ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "GameTitle.prefab", (cloneObj) =>
             {
-                _centerSpineObj = cloneObj;
+                _gameTitleObj = cloneObj;
                 ResLoadedCallback();
             });
         }
 
         private void ResetPage()
         {
-            Object.Destroy(_cloneBgSpineObj);
-            Object.Destroy(_cloneCenterSpineObj);
-            GameCommon.FguiUtils.DeleteWrapper(_compareBgSpine);
-            GameCommon.FguiUtils.DeleteWrapper(_compareCenterSpine);
+            Object.Destroy(_cloneTraderObj);
+            Object.Destroy(_cloneGameTitleObj);
+            GameCommon.FguiUtils.DeleteWrapper(_compareTrader);
+            GameCommon.FguiUtils.DeleteWrapper(_compareGameTitle);
 
-            _cloneBgSpineObj = null;
-            _cloneCenterSpineObj = null;
-            _compareBgSpine = null;
-            _compareCenterSpine = null;
+            _cloneTraderObj = null;
+            _cloneGameTitleObj = null;
+            _compareTrader = null;
+            _compareGameTitle = null;
         }
     }
 }

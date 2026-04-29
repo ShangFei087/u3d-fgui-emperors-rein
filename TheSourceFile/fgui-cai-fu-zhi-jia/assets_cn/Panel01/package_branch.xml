@@ -19,5 +19,6 @@
     <image id="lyrxsx" name="pb_txt_spin HoldToAuto.png" path="/images/spin按钮/"/>
     <image id="lyrxsy" name="pb_txt_spin HoldToAuto_grey.png" path="/images/spin按钮/"/>
     <image id="lyrxsz" name="pb_txt_jieshu_grey.png" path="/images/spin按钮/"/>
+    <image id="lyrxt2" name="pb_txt_auto.png" path="/images/spin按钮/"/>
   </resources>
 </branchDescription>

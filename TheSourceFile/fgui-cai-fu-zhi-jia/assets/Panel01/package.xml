@@ -113,13 +113,14 @@
     <image id="f29kpc" name="ng_img_jian.png" path="/images/exhibitionMode/" exported="true"/>
     <image id="f29kpd" name="ng_txt_off.png" path="/images/exhibitionMode/" exported="true"/>
     <image id="f29kpe" name="ng_txt_on.png" path="/images/exhibitionMode/" exported="true"/>
-    <component id="lyrxsp" name="ButtonExhibition.xml" path="/components/Button/"/>
-    <image id="lyrxsq" name="pb_img_button_grey.png" path="/images/spin按钮/"/>
-    <image id="lyrxsr" name="pb_img_button01_grey.png" path="/images/spin按钮/"/>
-    <image id="lyrxss" name="pb_img_button02_grey.png" path="/images/spin按钮/"/>
-    <image id="lyrxst" name="pb_txt_spin HoldToAuto.png" path="/images/spin按钮/"/>
+    <component id="lyrxsp" name="ButtonExhibition.xml" path="/components/Button/" exported="true"/>
+    <image id="lyrxsq" name="pb_img_button_grey.png" path="/images/spin按钮/" exported="true"/>
+    <image id="lyrxsr" name="pb_img_button01_grey.png" path="/images/spin按钮/" exported="true"/>
+    <image id="lyrxss" name="pb_img_button02_grey.png" path="/images/spin按钮/" exported="true"/>
+    <image id="lyrxst" name="pb_txt_spin HoldToAuto.png" path="/images/spin按钮/" exported="true"/>
     <component id="lyrxsv" name="SpinGrey.xml" path="/moudules/" exported="true"/>
-    <image id="lyrxsw" name="pb_txt_spin HoldToAuto_grey.png" path="/images/spin按钮/"/>
+    <image id="lyrxsw" name="pb_txt_spin HoldToAuto_grey.png" path="/images/spin按钮/" exported="true"/>
+    <image id="lyrxt1" name="pb_txt_auto.png" path="/images/spin按钮/" exported="true"/>
   </resources>
   <publish name="CaiFuZhiJia_Panel" path="../../Assets/GameRes/Panel/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>

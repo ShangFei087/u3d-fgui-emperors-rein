@@ -2,8 +2,8 @@
 <packageDescription id="k5oi8hwr">
   <resources>
     <component id="q2oi1" name="PopupGameLoading.xml" path="/" exported="true"/>
-    <component id="q2oi2" name="AnchorCenter.xml" path="/moudules/popupGameLoading/" exported="true"/>
-    <component id="q2oi3" name="AnchorBG.xml" path="/moudules/popupGameLoading/" exported="true"/>
+    <component id="q2oi2" name="anchorTitle.xml" path="/moudules/popupGameLoading/" exported="true"/>
+    <component id="q2oi3" name="anchorTrader.xml" path="/moudules/popupGameLoading/" exported="true"/>
     <component id="q2oi4" name="LoadingBG.xml" path="/moudules/popupGameLoading/" exported="true"/>
     <image id="q2oi5" name="laod_img_progress.png" path="/images/popupGameLoading/" exported="true" scale="9grid" scale9grid="17,2,187,47"/>
     <image id="q2oi6" name="laod_img_progress01.png" path="/images/popupGameLoading/" exported="true"/>
@@ -48,7 +48,7 @@
     <component id="rdkv2k" name="AnchorBorder.xml" path="/moudules/pageGameMain/Common/" exported="true"/>
     <image id="rdkv2l" name="fg_bth_button.png" path="/images/pageGameMain/FreeGame/Common/" exported="true"/>
     <image id="rdkv2z" name="fg_txt_win_02.png" path="/images/pageGameMain/FreeGame/Common/" exported="true"/>
-    <component id="rdkv30" name="AnchorFreeTreeSpine.xml" path="/moudules/pageGameMain/FreeGame/" exported="true"/>
+    <component id="rdkv30" name="anchorRobot.xml" path="/moudules/pageGameMain/FreeGame/" exported="true"/>
     <image id="rdkv31" name="ng_sym_bonus.png" path="/images/symbols/" exported="true" scale9grid="0,0,-78,-179"/>
     <image id="rdkv32" name="fg_num_times_00.png" path="/images/pageGameMain/FreeGame/FreeSpinsNumber/" exported="true"/>
     <image id="rdkv3b" name="fg_num_times_09.png" path="/images/pageGameMain/FreeGame/FreeSpinsNumber/" exported="true"/>
@@ -188,9 +188,6 @@
     <image id="k7bhka" name="ng_img_frame07.png" path="/images/pageGameMain/GameBackground/freeBg/"/>
     <image id="k7bhkb" name="ng_img_frame08.png" path="/images/pageGameMain/GameBackground/freeBg/"/>
     <image id="k7bhkc" name="ng_img_frame09.png" path="/images/pageGameMain/GameBackground/freeBg/"/>
-    <image id="t2pale" name="ng_txt_major_1.png" path="/images/popupJackpotTrigger/Background/"/>
-    <image id="t2palf" name="ng_txt_mini_1.png" path="/images/popupJackpotTrigger/Background/"/>
-    <image id="t2palg" name="ng_txt_minor_1.png" path="/images/popupJackpotTrigger/Background/"/>
     <image id="t2pali" name="fg_num2_0.png" path="/images/pageGameMain/FreeGame/MulyipleNumber/"/>
     <image id="t2palj" name="fg_num2_1.png" path="/images/pageGameMain/FreeGame/MulyipleNumber/"/>
     <image id="t2palk" name="fg_num2_2.png" path="/images/pageGameMain/FreeGame/MulyipleNumber/"/>
@@ -219,6 +216,12 @@
     <image id="eq5hp6" name="ng_sym_diamonds3.png" path="/images/popupJackpotGame/Symbol/" exported="true"/>
     <image id="eq5hp7" name="ng_sym_diamonds4.png" path="/images/popupJackpotGame/Symbol/" exported="true"/>
     <image id="eq5hp8" name="ng_sym_diamonds6.png" path="/images/popupJackpotGame/Symbol/" exported="true"/>
+    <image id="lyrxpc" name="ng_txt_major_1(1).png" path="/images/popupJackpotTrigger/Background/"/>
+    <image id="lyrxpd" name="ng_txt_mini_1(1).png" path="/images/popupJackpotTrigger/Background/"/>
+    <image id="lyrxpe" name="ng_txt_minor_1(1).png" path="/images/popupJackpotTrigger/Background/"/>
+    <component id="lyrxpf" name="PopupOverWin.xml" path="/" exported="true"/>
+    <component id="lyrxpg" name="anchorPlayer.xml" path="/moudules/popupOverWin/" exported="true"/>
+    <component id="lyrxph" name="anchorOverWin.xml" path="/moudules/popupOverWin/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>
