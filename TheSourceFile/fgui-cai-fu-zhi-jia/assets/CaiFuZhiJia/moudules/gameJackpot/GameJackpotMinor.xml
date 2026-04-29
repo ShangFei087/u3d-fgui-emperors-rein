@@ -15,7 +15,7 @@
       <item/>
       <item/>
     </list>
-    <image id="n7_lyrx" name="n7" src="lyrxpe" fileName="images/popupJackpotTrigger/Background/ng_txt_minor_1(1).png" xy="188,31" pivot="0.5,0.5" anchor="true" group="n6_t2pa"/>
-    <group id="n6_t2pa" name="n6" xy="0,-10" size="373,127"/>
+    <image id="n7_lyrx" name="n7" src="lyrxpe" fileName="images/popupJackpotTrigger/Background/ng_txt_minor_1(1).png" xy="188,16" pivot="0.5,0.5" anchor="true" group="n6_t2pa"/>
+    <group id="n6_t2pa" name="n6" xy="0,-25" size="373,142"/>
   </displayList>
 </component>

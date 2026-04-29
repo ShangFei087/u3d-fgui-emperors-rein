@@ -148,6 +148,9 @@ namespace CaiFuZhiJia_3997
         public override void InitParam()
         {
             if (!isInit) return;
+            // if (!isOpen) return;
+          
+
 
             MainModel.Instance.contentMD = ContentModel.Instance;
             MainModel.Instance.cutomMD = CustomModel.Instance;
@@ -195,10 +198,14 @@ namespace CaiFuZhiJia_3997
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
 
+            if (_anchorFreeExpectation != null)
+                _anchorFreeExpectation.Dispose();
+            if (_anchorBonusExpectation != null)
+                _anchorBonusExpectation.Dispose();
             // 加速框
             _anchorExpectation = contentPane.GetChild("anchorReelEffect").asCom;
-            _anchorFreeExpectation = contentPane.GetChild("anchorFreeReelEffect").asCom;
-            _anchorBonusExpectation = contentPane.GetChild("anchorBonusReelEffect").asCom;
+            _anchorFreeExpectation = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
+            _anchorBonusExpectation = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
             GameCommon.FguiUtils.DeleteWrapper(_anchorFreeExpectation);
             GameCommon.FguiUtils.AddWrapper(_anchorFreeExpectation, Object.Instantiate(_freeBorderObj));
             _anchorFreeExpectation.visible = false;
@@ -1315,7 +1322,7 @@ namespace CaiFuZhiJia_3997
             DebugUtils.Log(
                 $"[G3997] 已恢复免费局快照：剩余 {cm.ShowFreeSpinRemainTime} / 总 {cm.FreeSpinTotalTimes}，待首局 Spin 与算法校验。");
         }
-        
+
         IEnumerator GameOnce(Action successCallback, Action<string> errorCallback)
         {
             // 检测机台是否激活
@@ -1502,7 +1509,7 @@ namespace CaiFuZhiJia_3997
                 //     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win2");
                 // else if (allWinCredit > TotalBet * 3 && allWinCredit < TotalBet * 4)
                 //     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win3");
-                
+
                 // 计数没到五局中奖之后刷新计数
                 if (ContentModel.Instance.noWinCount < 5)
                     ContentModel.Instance.noWinCount = 0;
