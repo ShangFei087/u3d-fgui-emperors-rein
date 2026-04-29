@@ -7,8 +7,8 @@ using SlotMaker;
 using Spine.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using static NetButtonManager;
 namespace TreasuryHall
 {
     public class TreasuryHallMain : MachinePageBase
@@ -16,14 +16,17 @@ namespace TreasuryHall
         public const string pkgName = "TreasuryHall";
         public const string resName = "TreasuryHallMain";
 
-        private GameObject goCard3999, goCard3998, goCard3997;
-        private GComponent anchorCard3999, anchorCard3998, anchorCard3997;
-        private GameObject ClonegoCard3999, ClonegoCard3998, ClonegoCard3997;
-        private Animator animator3999, animator3998, animator3997;
-        private SkeletonMecanim _skeletonMecanim3998;
-        private GButton btn3999, btn3998, btn3997;
+        private GameObject goCard3996, goCard3998, goCard3997;
+        private GComponent anchorCard3996, anchorCard3998, anchorCard3997;
+        private GameObject ClonegoCard3996, ClonegoCard3998, ClonegoCard3997;
+        private Animator animator3996, animator3998, animator3997;
+        private SkeletonMecanim _skeletonMecanim3998, _skeletonMecanim3997, _skeletonMecanim3996;
+        private GButton btn3996, btn3998, btn3997;
         private GTextField hallCredit;
         private GButton btnCollect;
+
+        //特效
+        private ParticleSystem goplat_card_cfzj, goplat_card_cfhc1, goplat_card_cfhc2, goplat_card_cfhc3;
 
 
         private bool IsClickCard;
@@ -36,7 +39,7 @@ namespace TreasuryHall
 
             base.OnInit();
 
-            int count = 1;
+            int count = 3;
             //GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
             Action callback = () =>
             {
@@ -47,12 +50,12 @@ namespace TreasuryHall
                 }
             };
 
-            //ResourceManager02.Instance.LoadAsset<GameObject>("Assets/GameRes/Halls/Hall01/Prefabs/card/card_3999",
-            //   (GameObject clone) =>
-            //   {
-            //        goCard3999 = clone;
-            //        callback();
-            //   });
+            ResourceManager02.Instance.LoadAsset<GameObject>("Assets/GameRes/Halls/TreasuryHall/Prefabs/card/card_3996",
+               (GameObject clone) =>
+               {
+                   goCard3996 = clone;
+                   callback();
+               });
 
             ResourceManager02.Instance.LoadAsset<GameObject>("Assets/GameRes/Halls/TreasuryHall/Prefabs/card/card_3998",
             (GameObject clone) =>
@@ -61,12 +64,12 @@ namespace TreasuryHall
                 callback();
             });
 
-            //ResourceManager02.Instance.LoadAsset<GameObject>("Assets/GameRes/Halls/Hall01/Prefabs/card/card_3997",
-            //    (GameObject clone) =>
-            //    {
-            //        goCard3997 = clone;
-            //        callback();
-            //    });
+            ResourceManager02.Instance.LoadAsset<GameObject>("Assets/GameRes/Halls/TreasuryHall/Prefabs/card/card_3997",
+                (GameObject clone) =>
+                {
+                    goCard3997 = clone;
+                    callback();
+                });
 
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
@@ -123,78 +126,117 @@ namespace TreasuryHall
 
             if (!isOpen) return;
 
-            //GComponent LocalCard3999 = this.contentPane.GetChild("card3999").asCom;
-            //if (anchorCard3999 != LocalCard3999)
-            //{
-            //    GameCommon.FguiUtils.DeleteWrapper(anchorCard3999);
-            //    ClonegoCard3999 = GameObject.Instantiate(goCard3999);
-            //    animator3999 = ClonegoCard3999.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-            //    anchorCard3999 = LocalCard3999;
-            //    GameCommon.FguiUtils.AddWrapper(anchorCard3999, ClonegoCard3999);
-            //}
-
             GComponent LocalCard3998 = this.contentPane.GetChild("card3998").asCom;
             if (anchorCard3998 != LocalCard3998)
             {
                 GameCommon.FguiUtils.DeleteWrapper(anchorCard3998);
                 ClonegoCard3998 = GameObject.Instantiate(goCard3998);
                 // 卡牌预制体层级可能调整，使用全子节点查找 Animator 更稳
-                animator3998 = ClonegoCard3998.GetComponentsInChildren<Animator>(true).FirstOrDefault();
-                _skeletonMecanim3998 = ClonegoCard3998.GetComponentInChildren<SkeletonMecanim>(true);
+                animator3998 = ClonegoCard3998.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                _skeletonMecanim3998 = ClonegoCard3998.transform.GetChild(0).GetChild(0).GetComponent<SkeletonMecanim>();
                 anchorCard3998 = LocalCard3998;
                 GameCommon.FguiUtils.AddWrapper(anchorCard3998, ClonegoCard3998);
 
             }
 
+            GComponent LocalCard3997 = this.contentPane.GetChild("card3997").asCom;
+            if (anchorCard3997 != LocalCard3997)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorCard3997);
+                ClonegoCard3997 = GameObject.Instantiate(goCard3997);
+                animator3997 = ClonegoCard3997.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                _skeletonMecanim3997 = ClonegoCard3997.transform.GetChild(0).GetChild(0).GetComponent<SkeletonMecanim>();
+                anchorCard3997 = LocalCard3997;
+                GameCommon.FguiUtils.AddWrapper(anchorCard3997, ClonegoCard3997);
+                //绑定特效
+                string Paths = $"Anchor/Spine Mecanim GameObject (plat_card_cfzj)/SkeletonUtility-SkeletonRoot/root/zhijia/plat_card_cfzj/effect";
+                //Transform pathTransform = npcObject.transform.Find(candidatePaths);
+                goplat_card_cfzj= ClonegoCard3997.transform.Find(Paths).gameObject.GetComponent<ParticleSystem>();
+              
+            }
 
-            //GComponent LocalCard3997 = this.contentPane.GetChild("card3997").asCom;
-            //if (anchorCard3997 != LocalCard3997)
-            //{
-            //    GameCommon.FguiUtils.DeleteWrapper(anchorCard3997);
-            //    ClonegoCard3997 = GameObject.Instantiate(goCard3997);
-            //    animator3997 = ClonegoCard3997.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-            //    anchorCard3997 = LocalCard3997;
-            //    GameCommon.FguiUtils.AddWrapper(anchorCard3997, ClonegoCard3997);
-            //}
+            GComponent LocalCard3996 = this.contentPane.GetChild("card3996").asCom;
+            if (anchorCard3996 != LocalCard3996)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorCard3996);
+                ClonegoCard3996 = GameObject.Instantiate(goCard3996);
+                animator3996 = ClonegoCard3996.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                _skeletonMecanim3996 = ClonegoCard3996.transform.GetChild(0).GetChild(0).GetComponent<SkeletonMecanim>();
+                anchorCard3996 = LocalCard3996;
+                GameCommon.FguiUtils.AddWrapper(anchorCard3996, ClonegoCard3996);
+                //绑定特效
+                string Paths = $"Anchor/Spine Mecanim GameObject (plat_card_cfhc)/SkeletonUtility-SkeletonRoot/root/zong/All/che/BIG_che/plat_card_cfhc1/effect1";
+                //Transform pathTransform = npcObject.transform.Find(candidatePaths);
+                goplat_card_cfhc1 = ClonegoCard3996.transform.Find(Paths).gameObject.GetComponent<ParticleSystem>();
 
+                Paths = $"Anchor/Spine Mecanim GameObject (plat_card_cfhc)/SkeletonUtility-SkeletonRoot/root/zong/All/che/BIG_che/plat_card_cfhc2/effect2";
+                goplat_card_cfhc2 = ClonegoCard3996.transform.Find(Paths).gameObject.GetComponent<ParticleSystem>();
 
-            //btn3999 = this.contentPane.GetChild("card3999").asCom.GetChild("btnCard").asButton;
-            //btn3999.onClick.Add(() =>
-            //{
-            //    if (!ApplicationSettings.Instance.isMock)
-            //    {
-            //        SBoxIdea.GameSwitch(3999);
-            //    }
-            //    PageManager.Instance.OpenPage(PageName.CaiFuZhiMenPopupGameLoading);
-            //    CloseSelf(null);
-            //});
+                Paths = $"Anchor/Spine Mecanim GameObject (plat_card_cfhc)/SkeletonUtility-SkeletonRoot/root/zong/All/che/BIG_che/plat_card_cfhc2/effect3";
+                goplat_card_cfhc3 = ClonegoCard3996.transform.Find(Paths).gameObject.GetComponent<ParticleSystem>();
+              
+            }
 
-            btn3998 = this.contentPane.GetChild("card3998").asCom.GetChild("btnCard").asButton;
+          
+            //清除所有粒子
+            if (goplat_card_cfhc3 != null && goplat_card_cfhc2 != null && goplat_card_cfhc1 != null && goplat_card_cfhc3 != null)
+            {
+                // 停止粒子特效
+                goplat_card_cfzj.Stop();
+                // 清除所有粒子
+                goplat_card_cfzj.Clear();
+                goplat_card_cfhc1.Stop();
+                goplat_card_cfhc1.Clear();
+                goplat_card_cfhc2.Stop();
+                goplat_card_cfhc2.Clear();
+                goplat_card_cfhc3.Stop();
+                goplat_card_cfhc3.Clear();
+            }
+
             // 点击卡牌：先播 click 动画，再按动画时长延时进游戏
+            btn3998 = this.contentPane.GetChild("card3998").asCom.GetChild("btnCard").asButton;
             btn3998.onClick.Clear();
             btn3998.onClick.Add(() =>
             {
                 if (IsClickCard)
                 {
                     IsClickCard = !IsClickCard;
+                    btnCollect.touchable = false;
                     float clickAnimDuration = PlayCardClickAnimation(animator3998);
                     Timers.inst.Add(clickAnimDuration, 1, (obj) => EnterGame3998());
                 }
             });
 
-            //btn3997 = this.contentPane.GetChild("card3997").asCom.GetChild("btnCard").asButton;
-            //btn3997.onClick.Add(() =>
-            //{
-            //    if (!ApplicationSettings.Instance.isMock)
-            //    {
-            //        // SBoxIdea.GameSwitch(1700);
-            //        SBoxIdea.GameSwitch(3997);
-            //    }
-                  
-            //    // PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinBiPopupGameLoading);
-            //    PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupGameLoading);
-            //    CloseSelf(null);
-            //});
+            btn3997 = this.contentPane.GetChild("card3997").asCom.GetChild("btnCard").asButton;
+            btn3997.onClick.Clear();
+            btn3997.onClick.Add(() =>
+            {
+                if (IsClickCard)
+                {
+                    IsClickCard = !IsClickCard;
+                    btnCollect.touchable = false;
+                    goplat_card_cfzj.Play();
+                    float clickAnimDuration = PlayCardClickAnimation(animator3997);
+                    Timers.inst.Add(clickAnimDuration, 1, (obj) => EnterGame3997());
+                }
+            });
+
+            btn3996 = this.contentPane.GetChild("card3996").asCom.GetChild("btnCard").asButton;
+            btn3996.onClick.Clear();
+            btn3996.onClick.Add(() =>
+            {
+                if (IsClickCard)
+                {
+                    IsClickCard = !IsClickCard;
+                    btnCollect.touchable = false;
+                    // 播放粒子特效
+                    goplat_card_cfhc1.Play();
+                    goplat_card_cfhc2.Play();
+                    goplat_card_cfhc3.Play();
+                    float clickAnimDuration = PlayCardClickAnimation(animator3996);
+                    Timers.inst.Add(clickAnimDuration, 1, (obj) => EnterGame3996());
+                }
+            });
 
             uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("jpMajor").asCom.GetChild("reels").asList, "N0");
             uiJPMinorCtrl.Init("Minor", this.contentPane.GetChild("jpMinor").asCom.GetChild("reels").asList, "N0");
@@ -206,6 +248,7 @@ namespace TreasuryHall
             {
                 OnClickBtnTicketOut();
             });
+            btnCollect.touchable = true;
 
             hallCredit = this.contentPane.GetChild("Credit").asTextField;
 
@@ -220,6 +263,8 @@ namespace TreasuryHall
         private void RefreshCardSkinByLanguage()
         {
             ApplySpineInitialSkinByLanguage(_skeletonMecanim3998);
+            ApplySpineInitialSkinByLanguage(_skeletonMecanim3997);
+            ApplySpineInitialSkinByLanguage(_skeletonMecanim3996);
         }
 
         /// <summary>
@@ -255,6 +300,34 @@ namespace TreasuryHall
                 SBoxIdea.GameSwitch(3998);
             }
             PageManager.Instance.OpenPage(PageName.XingYunZhiLunPopupGameLoading);
+
+            CloseSelf(null);
+        }
+
+        /// <summary>
+        /// 执行 3997 游戏切换与页面跳转（在点击动画播放完成后调用）。
+        /// </summary>
+        private void EnterGame3997()
+        {
+            if (!ApplicationSettings.Instance.isMock)
+            {
+                SBoxIdea.GameSwitch(3997);
+            }
+            PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupGameLoading);
+
+            CloseSelf(null);
+        }
+
+        /// <summary>
+        /// 执行 3996 游戏切换与页面跳转（在点击动画播放完成后调用）。
+        /// </summary>
+        private void EnterGame3996()
+        {
+            if (!ApplicationSettings.Instance.isMock)
+            {
+                SBoxIdea.GameSwitch(3996);
+            }
+            PageManager.Instance.OpenPage(PageName.CaiFuHuoChePopupGameLoading);
 
             CloseSelf(null);
         }

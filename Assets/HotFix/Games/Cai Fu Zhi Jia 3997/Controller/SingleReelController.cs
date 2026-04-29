@@ -99,10 +99,9 @@ namespace CaiFuZhiJia_3997
             });
         }
 
-        void PlayWithLoops()
+        void PlayWithLoops(int maxLoops = 3)
         {
             int playCount = 0;
-            int maxLoops = 3;
             _rollTransition.Play(() =>
             {
                 playCount++;

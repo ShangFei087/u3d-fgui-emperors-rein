@@ -30,10 +30,7 @@ namespace SlotMaker
         //eventName = OnSlotDetailEvent ， name = PrepareStoppedSpecialSymbol  value = Symbol (SlotMaker.Symbol)
         #endregion
 
-
-
         //public const string ON_BONUS_EVENT = "ON_BONUS_EVENT";
-
 
         #region 赢分事件-通知panel面板
         public const string ON_WIN_EVENT = "ON_WIN_EVENT";

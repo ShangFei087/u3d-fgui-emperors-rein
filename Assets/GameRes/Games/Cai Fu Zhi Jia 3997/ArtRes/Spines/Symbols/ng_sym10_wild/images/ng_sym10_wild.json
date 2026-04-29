@@ -1,0 +1,40 @@
+{ "skeleton": { "images": "E:/项目4/2024.10.26财富之家/ng_sym10_wild/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "cq", "bone": "root", "attachment": "cq" },
+	{ "name": "zsh1", "bone": "root", "attachment": "zsh1" },
+	{ "name": "zsh", "bone": "root", "attachment": "zsh" },
+	{ "name": "d", "bone": "root", "attachment": "d" },
+	{ "name": "l", "bone": "root", "attachment": "l" },
+	{ "name": "i", "bone": "root", "attachment": "i" },
+	{ "name": "w", "bone": "root", "attachment": "w" }
+],
+"skins": {
+	"default": {
+		"cq": {
+			"cq": { "x": 144, "y": -144.5, "width": 196, "height": 205 }
+		},
+		"zsh1": {
+			"zsh1": { "x": 144, "y": -144.5, "width": 198, "height": 203 }
+		},
+		"zsh": {
+			"zsh": { "x": 141.5, "y": -144, "width": 187, "height": 188 }
+		},
+		"d": {
+			"d": { "x": 224.5, "y": -189, "width": 65, "height": 64 }
+		},
+		"l": {
+			"l": { "x": 174, "y": -183, "width": 56, "height": 62 }
+		},
+		"i": {
+			"i": { "x": 132.5, "y": -180.5, "width": 39, "height": 59 }
+		},
+		"w": {
+			"w": { "x": 73, "y": -189, "width": 92, "height": 70 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

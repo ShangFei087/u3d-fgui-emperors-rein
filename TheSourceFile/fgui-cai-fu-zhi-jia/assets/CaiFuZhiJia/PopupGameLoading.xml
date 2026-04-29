@@ -6,6 +6,6 @@
     <component id="n2_q2oi" name="sliderLoading" src="q2oie" fileName="components/popupGameLoading/LoadingBar.xml" xy="67,1770" touchable="false">
       <Slider value="50" max="100"/>
     </component>
-    <component id="n3_q2oi" name="anchorCenter" src="q2oi2" fileName="moudules/popupGameLoading/AnchorCenter.xml" xy="540,1437" size="0,1"/>
+    <component id="n3_q2oi" name="anchorCenter" src="q2oi2" fileName="moudules/popupGameLoading/AnchorCenter.xml" xy="540,960" size="0,1"/>
   </displayList>
 </component>

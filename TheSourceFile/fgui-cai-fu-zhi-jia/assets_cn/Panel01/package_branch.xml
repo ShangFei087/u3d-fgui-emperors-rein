@@ -6,12 +6,15 @@
     <image id="d58arc" name="pb_txt_spin.png" path="/images/spin按钮/" exported="true"/>
     <image id="d58as1" name="pb_img_help.png" path="/images/多功能按钮/" exported="true"/>
     <image id="nbj9op" name="Back to game.png" path="/images/财富之家说明书资源输出/" exported="true"/>
-    <image id="nbj9oo" name="0_0005_1.png" path="/images/财富之家说明书资源输出/英文/" exported="true" scale9grid="0,0,-312,-1334"/>
-    <image id="nbj9on" name="0_0004_2.png" path="/images/财富之家说明书资源输出/英文/" exported="true" scale9grid="0,0,-313,-1334"/>
-    <image id="nbj9om" name="0_0003_3.png" path="/images/财富之家说明书资源输出/英文/" exported="true" scale9grid="0,0,-299,-1147"/>
-    <image id="nbj9ol" name="0_0002_4.png" path="/images/财富之家说明书资源输出/英文/" exported="true" scale9grid="0,0,-331,-1116"/>
-    <image id="nbj9ok" name="0_0001_5.png" path="/images/财富之家说明书资源输出/英文/" exported="true" scale9grid="0,0,-369,-1218"/>
     <image id="d58as3" name="pb_txt_bet.png" path="/images/鼓励值/"/>
     <image id="d58as4" name="pb_txt_credits.png" path="/images/投币数/"/>
+    <image id="f29ksg" name="1.png" path="/images/财富之家说明书资源输出/英文/" exported="true"/>
+    <image id="f29ksh" name="2.png" path="/images/财富之家说明书资源输出/英文/" exported="true"/>
+    <image id="f29ksi" name="3.png" path="/images/财富之家说明书资源输出/英文/" exported="true"/>
+    <image id="f29ksj" name="4.png" path="/images/财富之家说明书资源输出/英文/" exported="true"/>
+    <image id="f29ksk" name="5.png" path="/images/财富之家说明书资源输出/英文/" exported="true"/>
+    <image id="f29ksl" name="6.png" path="/images/财富之家说明书资源输出/英文/" exported="true"/>
+    <image id="f29kpf" name="ng_txt_guan.png" path="/images/exhibitionMode/" exported="true"/>
+    <image id="f29kpg" name="ng_txt_kai.png" path="/images/exhibitionMode/" exported="true"/>
   </resources>
 </branchDescription>

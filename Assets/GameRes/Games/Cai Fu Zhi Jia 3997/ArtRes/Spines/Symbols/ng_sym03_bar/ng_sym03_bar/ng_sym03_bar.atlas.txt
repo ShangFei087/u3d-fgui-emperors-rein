@@ -1,0 +1,10 @@
+ng_sym03_bar.png
+size:259,133
+filter:Linear,Linear
+pma:true
+baibang
+bounds:194,47,20,20
+jingzhuan2
+bounds:1,1,192,131
+sxx1
+bounds:194,68,64,64

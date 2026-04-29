@@ -7,14 +7,13 @@
     <component id="n7_jscy" name="jpMinor" src="jscy1d" fileName="moudules/Jackpot/GameJackpotMinor.xml" xy="292,612" group="n10_jscy"/>
     <component id="n9_jscy" name="jpMini" src="jscy19" fileName="moudules/Jackpot/GameJackpotMini.xml" xy="318,791" group="n10_jscy"/>
     <group id="n10_jscy" name="jackpots" xy="240,427" size="610,499"/>
-    <component id="n12_jscy" name="card3998" src="jscy1k" fileName="moudules/card/3998.xml" xy="891,1334" size="0,0" group="n15_jscy"/>
-    <component id="n13_jscy" name="2" src="jscy1k" fileName="moudules/card/3998.xml" xy="537,1334" size="0,0" group="n15_jscy"/>
-    <component id="n14_jscy" name="3" src="jscy1k" fileName="moudules/card/3998.xml" xy="184,1334" size="0,0" group="n15_jscy"/>
-    <group id="n15_jscy" name="Card" xy="184,1334" size="707,0"/>
+    <component id="n12_jscy" name="card3998" src="jscy1k" fileName="moudules/card/AnchorCard.xml" xy="194,1366" size="0,0" group="n15_jscy"/>
+    <component id="n14_jscy" name="card3996" src="jscy1k" fileName="moudules/card/AnchorCard.xml" xy="537,1334" size="0,0" group="n15_jscy"/>
+    <component id="n13_jscy" name="card3997" src="jscy1k" fileName="moudules/card/AnchorCard.xml" xy="881,1316" size="0,0" group="n15_jscy"/>
+    <group id="n15_jscy" name="Card" xy="194,1316" size="687,50"/>
     <image id="n5_jscy" name="n5" src="jscyn" fileName="images/ui/plat_frame_collect_bg.png" xy="1075,1585" size="778,337" scale="-1,1"/>
     <text id="n11_jscy" name="Credit" xy="501,1786" size="501,92" font="ui://lt62kxotjscy1o" fontSize="15" align="right" vAlign="bottom" autoSize="none" text="12346789"/>
     <component id="n4_jscy" name="btnCollect" src="jscy18" fileName="components/ButtonCollect.xml" xy="27,1773"/>
-    <image id="n17_jscy" name="n17" src="jscy17" fileName="images/Example/财富主题大厅.png" xy="0,0" visible="false" alpha="0.3"/>
     <graph id="n16_jscy" name="n16" xy="891,1334" pivot="0.5,0.5" anchor="true" size="330,686" visible="false" type="rect"/>
     <graph id="n18_jscy" name="n18" xy="537,1334" pivot="0.5,0.5" anchor="true" size="330,686" visible="false" type="rect"/>
     <graph id="n19_jscy" name="n19" xy="184,1334" pivot="0.5,0.5" anchor="true" size="330,686" visible="false" type="rect"/>
