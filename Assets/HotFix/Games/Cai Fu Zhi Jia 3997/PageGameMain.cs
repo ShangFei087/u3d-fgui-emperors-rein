@@ -60,6 +60,7 @@ namespace CaiFuZhiJia_3997
         private SlotMachineController3997 _slotMachineCtrl;
         private FguiGObjectPoolHelper _fGuiGObjectPoolHelper;
         private Controller _pageController; // FairyGUI的控制器
+        private PanelController3997 _panelController3997;
 
         // 免费游戏
         private FreeSpinTimeController _freeSpinTimeController; // 免费游戏次数管理器
@@ -357,7 +358,7 @@ namespace CaiFuZhiJia_3997
                     _fGuiPoolHelper = _goGameCtrl.transform.Find("Pool").GetComponent<FguiPoolHelper>();
                     _fGuiGObjectPoolHelper =
                         _goGameCtrl.transform.Find("GObject Pool").GetComponent<FguiGObjectPoolHelper>();
-
+                    _panelController3997 = _goGameCtrl.GetComponentInChildren<PanelController3997>();
                     ResLoadedCallback();
                 });
 
@@ -1525,8 +1526,14 @@ namespace CaiFuZhiJia_3997
             if (ContentModel.Instance.isFreeSpinTrigger)
             {
                 // PlayAnimationByName(_traderAnimator,"Wealth_ng_npc_trigger fg");
+                
                 if (_corShowFreeSymbol != null) _monoHelper.StopCoroutine(_corShowFreeSymbol);
                 _corShowFreeSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(10));
+                // 免费触发，关闭展会模式
+                if (MainModel.Instance.isExhibitionModeMode)
+                {
+                    _panelController3997.OnClickExhibition();
+                }
                 yield return new WaitForSeconds(2f);
                 //停止特效显示
                 _slotMachineCtrl.SkipWinLine(false);
@@ -1540,6 +1547,12 @@ namespace CaiFuZhiJia_3997
                 // 显示中奖图标
                 if (_corShowBonusSymbol != null) _monoHelper.StopCoroutine(_corShowBonusSymbol);
                 _corShowBonusSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(11));
+                
+                // 彩金触发，关闭展会模式
+                if (MainModel.Instance.isExhibitionModeMode)
+                {
+                    _panelController3997.OnClickExhibition();
+                }
                 yield return new WaitForSeconds(2f);
                 _isMain = false;
                 _slotMachineCtrl.SkipWinLine(false);
