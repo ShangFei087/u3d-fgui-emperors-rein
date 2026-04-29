@@ -17,7 +17,7 @@ namespace CaiFuZhiJia_3997
         private int _totalResCount = -1;
         private bool _isInitialized = false;
         private bool _isFirstOpen = true;
-        private const float Duration = 8f;
+        private const float Duration = 10f;
         private GTweener _loadingGTween;
 
         private GSlider _loadingBar;

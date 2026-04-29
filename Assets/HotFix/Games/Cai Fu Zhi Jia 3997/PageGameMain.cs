@@ -148,9 +148,6 @@ namespace CaiFuZhiJia_3997
         public override void InitParam()
         {
             if (!isInit) return;
-            // if (!isOpen) return;
-          
-
 
             MainModel.Instance.contentMD = ContentModel.Instance;
             MainModel.Instance.cutomMD = CustomModel.Instance;
@@ -284,11 +281,6 @@ namespace CaiFuZhiJia_3997
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
-            if (_goGameCtrl != null && !_goGameCtrl.activeSelf)
-            {
-                _goGameCtrl.SetActive(true);
-            }
-
             GameSoundHelper3997.Instance.PlayMusicSingle(SoundKey.RegularBG);
             base.OnOpen(currentPageName, eventData);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
@@ -314,11 +306,6 @@ namespace CaiFuZhiJia_3997
                 OnSlotDetailEvent);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
-            if (_goGameCtrl != null && _goGameCtrl.activeSelf)
-            {
-                _goGameCtrl.SetActive(false);
-            }
-
             base.OnClose(eventData);
             _freeSpinTimeController.Dispose();
         }
