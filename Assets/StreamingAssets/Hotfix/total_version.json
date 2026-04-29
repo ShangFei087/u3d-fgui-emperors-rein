@@ -1,10 +1,10 @@
 {
-  "updated_at": 1777260489305,
+  "updated_at": 1777427116995,
   "data": [
     {
       "agent_name": "Treasury",
       "app": "--",
-      "app_key": "Treasury_debug_machine_20260427112809",
+      "app_key": "Treasury_debug_android_20260429094516",
       "app_version": "1.2.0",
       "version_suggest": null,
       "hotfix_url": "./debug/android/1"
