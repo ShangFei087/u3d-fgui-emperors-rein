@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="50,50">
+<component size="266,200">
   <displayList>
-    <graph id="n2_yl9o" name="n2" xy="0,0" size="50,50" type="rect" lineSize="0" fillColor="#cc333333">
+    <graph id="n5_echi" name="n5" xy="0,0" size="266,200" type="rect" lineSize="0" fillColor="#99666666">
       <relation target="" sidePair="width-width,height-height"/>
     </graph>
   </displayList>

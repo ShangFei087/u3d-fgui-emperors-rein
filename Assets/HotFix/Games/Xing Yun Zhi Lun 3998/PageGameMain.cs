@@ -5,7 +5,6 @@ using PusherEmperorsRein;
 using SBoxApi;
 using SimpleJSON;
 using SlotMaker;
-using SlotZhuZaiJinBi1700;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -1205,7 +1204,7 @@ namespace XingYunZhiLun_3998
 
                 yield return FreeSpinTrigger(() => isNext = true, errorCallback);
                 //积分同步和退币处理
-                slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit * MainModel.Instance.contentMD.betmultiple);
+                slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit);
 
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
@@ -1287,6 +1286,7 @@ namespace XingYunZhiLun_3998
                 corGameIdel = mono.StartCoroutine(GameIdle(winList));
             }
 
+            slotMachineCtrl.isStopImmediately = false;
             if (successCallback != null)
                 successCallback.Invoke();
         }
@@ -1478,6 +1478,7 @@ namespace XingYunZhiLun_3998
             {
             });
 
+            slotMachineCtrl.BeginBonusFreeSpin();
             yield return GameFreeSpin(null, errorCallback);
 
             slotMachineCtrl.CloseSlotCover();
@@ -1488,7 +1489,7 @@ namespace XingYunZhiLun_3998
                 new EventData<Dictionary<string, object>>("",
                     new Dictionary<string, object>()
                     {
-                        ["baseGameWinCredit"] = ContentModel.Instance.freeSpinTotalWinCredit * MainModel.Instance.contentMD.betmultiple,
+                        ["baseGameWinCredit"] = ContentModel.Instance.freeSpinTotalWinCredit,
                     }),
                 (ed) =>
                 {
@@ -1512,10 +1513,10 @@ namespace XingYunZhiLun_3998
                     }
 
                     //积分同步和退币处理
-                    slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit * MainModel.Instance.contentMD.betmultiple);
+                    slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit);
 
                     //加钱动画
-                    MainBlackboardController.Instance.AddMyTempCredit(ContentModel.Instance.freeSpinTotalWinCredit * MainModel.Instance.contentMD.betmultiple, true, isAddCreditAnim);
+                    MainBlackboardController.Instance.AddMyTempCredit(ContentModel.Instance.freeSpinTotalWinCredit, true, isAddCreditAnim);
                 });
 
 
@@ -1558,7 +1559,7 @@ namespace XingYunZhiLun_3998
             isNext = false;
 
             //积分同步和退币处理
-            slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit * MainModel.Instance.contentMD.betmultiple);
+            slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit);
 
             yield return slotMachineCtrl.SlotWaitForSeconds(0.5f);
 
@@ -1636,7 +1637,6 @@ namespace XingYunZhiLun_3998
         //开始免费游戏
         IEnumerator GameFreeSpin(Action successCallback, Action<string> errorCallback)
         {
-            Debug.LogError(SBoxModel.Instance.myCredit);
             while (ContentModel.Instance.nextReelStripsIndex == "FS")
             {
                 allWinCredit = ContentModel.Instance.curFreeCredit;
@@ -1795,31 +1795,19 @@ namespace XingYunZhiLun_3998
                 slotMachineCtrl.ShowSymbolIdle(new List<int> { 8 }, true, 8, true);
             }
 
-            // 本剧同步玩家金钱
-            //MainBlackboardController.Instance.SyncMyTempCreditToReal(false);
-
             long totalWinLineCredit = 0;
             if (ContentModel.Instance.newFreeOnceCredit.Count > ContentModel.Instance.freeSpinPlayTimes - 1)
             {
-                totalWinLineCredit = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
+                totalWinLineCredit = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1] * MainModel.Instance.contentMD.betmultiple;
             }
-            allWinCredit += totalWinLineCredit * MainModel.Instance.contentMD.betmultiple;
-            slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
 
 
             ContentModel.Instance.freeOnceCredit = totalWinLineCredit;
-
             #endregion
 
 
-            // 本局掉币
-            //ERPushMachineDataManager.Instance.RequestCoinPushSpinEnd(res1 =>
-            //{
-            //    isNext = true;
-            //});
-
-            //yield return new WaitUntil(() => isNext == true);
-            //isNext = false;
+            slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.curFreeCredit);
+            Debug.LogError(ContentModel.Instance.curFreeCredit);
 
             ContentModel.Instance.gameState = GameState.Idle;
             // 先结算主游戏，再进入“免费游戏”或“小游戏”，则每局都可以同步玩家真实金钱金额

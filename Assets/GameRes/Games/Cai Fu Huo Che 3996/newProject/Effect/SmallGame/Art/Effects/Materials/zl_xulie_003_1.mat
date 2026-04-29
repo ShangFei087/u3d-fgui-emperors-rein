@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: zl_xulie_003_1
+  m_Shader: {fileID: 4800000, guid: 4ed54930b03505a48a8616fbcf26fd68, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 33029838199053d4589916c39fce8df7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RampTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _CullMode: 0
+    - _Dissolve_ry: 0.51
+    - _Dst: 10
+    - _Float4: 0.5
+    - _Float5: 0.5
+    - _Float6: 0
+    - _Float7: 0
+    - _NoiseIntensity: 0
+    - _NoiseIntensity1: 0
+    - _NoiseIntensity2: 0
+    - _Src: 5
+    - _Toggle: 0
+    - _ToggleSwitch0: 0
+    - _ToggleSwitch1: 0
+    - _ZTestMode: 4
+    - _speed: 0
+    m_Colors:
+    - _DissolvSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _MainColor: {r: 1.5691682, g: 1.5691682, b: 1.5691682, a: 1}
+    - _MainSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _MaskSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _MaskSpeed1: {r: 0, g: 0, b: 0, a: 0}
+    - _NoiseSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _NoiseSpeed1: {r: 0, g: 0, b: 0, a: 0}
+    - _NoiseSpeed2: {r: 0, g: 0, b: 0, a: 0}
+    - _RampSpeed: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []

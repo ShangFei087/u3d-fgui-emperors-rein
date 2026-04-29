@@ -10,7 +10,7 @@
     <component id="n47_9mnq" name="anchorFreeCloude" src="9mnq2y" fileName="component/popupFreeGame/AnchorCloude.xml" xy="1650,980"/>
     <image id="n57_l8f4" name="n57" src="sqmze" fileName="images/freeGame/ng_img_bg_01.png" xy="0,860" size="1080,1066"/>
     <component id="n53_ldad" name="jackpotBg" src="baxv7z" fileName="component/popupNormalGame/AnchorJackpotBG.xml" xy="0,0"/>
-    <component id="n67_iilz" name="anchorBox" src="iilzcl" fileName="component/popupNormalGame/AnchorBox.xml" xy="347,778"/>
+    <component id="n67_iilz" name="anchorBox" src="iilzcl" fileName="component/popupNormalGame/AnchorBox.xml" xy="318,850"/>
     <component id="n59_baxv" name="anchorNorBg" src="baxv6n" fileName="component/popupNormalGame/AnchorNorBG.xml" xy="0,0"/>
     <component id="n21_o8uc" name="anchorTrain" src="o8uc1i" fileName="component/popupNormalGame/AnchorTrain.xml" xy="540,1066"/>
     <image id="n61_baxv" name="n61" src="baxv6p" fileName="images/normalGame/ng_img_bg_02.png" xy="125,0"/>
@@ -96,7 +96,7 @@
     <component id="n16_o8uc" name="major" src="o8uc1f" fileName="moudules/JackpotMajor.xml" xy="340,15" group="n13_o8uc"/>
     <group id="n13_o8uc" name="jackpotTip" xy="39,15" size="1020,267"/>
     <component id="n63_vxx6" name="panel" src="fkjsl" fileName="component/popupNormalGame/AnchorPanelPush.xml" xy="540,960"/>
-    <graph id="n64_znm9" name="mask" xy="-4,-2" size="1080,1920" visible="false" touchable="false" type="rect" lineSize="0" fillColor="#ff000000">
+    <graph id="n64_znm9" name="mask" xy="0,0" size="1080,1920" visible="false" touchable="false" type="rect" lineSize="0" fillColor="#ff000000">
       <relation target="" sidePair="width-width,height-height"/>
     </graph>
   </displayList>

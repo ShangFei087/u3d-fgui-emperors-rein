@@ -463,7 +463,7 @@ namespace XingYunZhiLun_3998
 
                 ContentModel.Instance.curReelStripsIndex = "FS";
                 ContentModel.Instance.freeSpinPlayTimes += 1;
-                ContentModel.Instance.curFreeCredit += ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
+                ContentModel.Instance.curFreeCredit += ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1] * MainModel.Instance.contentMD.betmultiple;
                 ContentModel.Instance.freeSpinTotalWinCredit += totalLineWin;
 
                 if (ContentModel.Instance.freeSpinTotalTimes == ContentModel.Instance.freeSpinPlayTimes)

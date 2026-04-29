@@ -73,10 +73,10 @@ namespace CaiFuHuoChe_3996
         private GameObject goRewardEffect;
         private GComponent anchorFreeAdd, anchorJackpotAdd,anchorFill1, anchorFill2, anchorFill3, anchorFill4, ComRewardEffect1, ComRewardEffect2, ComRewardEffect3;
 
-        //正常游戏和彩金游戏之间转场火车开门时特效
+        //正常游戏和彩金游戏和免费游戏之间转场火车开门时特效
         private GameObject goOpenEffect;
         private GComponent anchorOpenEffect;
-        private Transform norToJp, jpToNor;
+        private Transform norToJp, jpToNor, fgToNor, norToFg;
 
         //火车预制体、动画
         private GameObject train, goTrain, freeCloude, goFreeCloude;
@@ -108,9 +108,19 @@ namespace CaiFuHuoChe_3996
         private bool isTriggerFrame = false;
         private bool isWinFreeOrJacpot = false;
 
+        //彩金游戏中钱箱相关信息
+        private GComponent anchorBox;
+        private GameObject moneyBoxPref, moneyBoxObj;
+        private Animator moneyBoxAnim;
+
         // 开始游戏
         private bool _tipCoinIn = false, _isStoppedSlotMachine = false;
         private bool _isStopButtonLocked;
+
+        /// <summary>
+        /// 彩金游戏当中判断是否前面已经出现过彩金图标判断是否需要播放鼓掌动画
+        /// </summary>
+        private bool showClawAnim = false;  
 
         private bool isConnectFreeSpin = false;
 
@@ -125,7 +135,7 @@ namespace CaiFuHuoChe_3996
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 10;
+            int count = 11;
 
             Action callback = () =>
             {
@@ -212,7 +222,7 @@ namespace CaiFuHuoChe_3996
             });
 
             ResourceManager02.Instance.LoadAsset<GameObject>(
-            "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PageGameMain/ngAndsgEffect.prefab",
+            "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PageGameMain/TransEffect.prefab",
             (GameObject clone) =>
             {
                 goOpenEffect = clone;
@@ -232,6 +242,14 @@ namespace CaiFuHuoChe_3996
            (GameObject clone) =>
            {
                freeTrainPref = clone;
+               callback();
+           });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+           "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PopupGameJackpot/MoneyBox.prefab",
+           (GameObject clone) =>
+           {
+               moneyBoxPref = clone;
                callback();
            });
 
@@ -267,6 +285,7 @@ namespace CaiFuHuoChe_3996
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
             EventCenter.Instance.AddEventListener<EventData>("RewardAddEffect", OnRewardEffectEvent);
             EventCenter.Instance.AddEventListener<EventData>("JackpotWinCredit", OnJackpotWinEvent);
+            EventCenter.Instance.AddEventListener<EventData>("PlayGirlClaw", OnPlayGirlClaw);
 
             InitParam(null);
 
@@ -285,6 +304,7 @@ namespace CaiFuHuoChe_3996
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
             EventCenter.Instance.RemoveEventListener<EventData>("RewardAddEffect", OnRewardEffectEvent);
             EventCenter.Instance.RemoveEventListener<EventData>("JackpotWinCredit", OnJackpotWinEvent);
+            EventCenter.Instance.RemoveEventListener<EventData>("PlayGirlClaw", OnPlayGirlClaw);
 
             base.OnClose(data);
         }
@@ -505,6 +525,7 @@ namespace CaiFuHuoChe_3996
                 GameObject temp = GameObject.Instantiate(goOpenEffect);
                 norToJp = temp.transform.GetChild(0).GetChild(0);
                 jpToNor = temp.transform.GetChild(1).GetChild(0);
+                fgToNor = temp.transform.GetChild(2).GetChild(0);
                 GameCommon.FguiUtils.AddWrapper(anchorOpenEffect, temp);
             }
 
@@ -515,6 +536,16 @@ namespace CaiFuHuoChe_3996
                 gFreeCloude = loadFreeCloude;
                 freeCloude = GameObject.Instantiate(goFreeCloude);
                 GameCommon.FguiUtils.AddWrapper(gFreeCloude, freeCloude);
+            }
+
+            GComponent loadMoneyBox = contentPane.GetChild("anchorBox").asCom;
+            if (anchorBox != loadMoneyBox)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorBox);
+                anchorBox = loadMoneyBox;
+                moneyBoxObj = GameObject.Instantiate(moneyBoxPref);
+                moneyBoxAnim = moneyBoxObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                GameCommon.FguiUtils.AddWrapper(anchorBox, moneyBoxObj);
             }
 
             //说明书
@@ -1121,6 +1152,8 @@ namespace CaiFuHuoChe_3996
                 if (corGameIdel != null) mono.StopCoroutine(corGameIdel);
                 corGameIdel = mono.StartCoroutine(GameIdle(winList));
             }
+            
+            slotMachineCtrl.isStopImmediately = false;
 
             if (successCallback != null)
                 successCallback.Invoke();
@@ -1191,14 +1224,18 @@ namespace CaiFuHuoChe_3996
             PlayAnim(trainAnim, "ng_sg");
             yield return new WaitForSeconds(0.7f);
             PlayEffectAnim(norToJp);
-            yield return new WaitForSeconds(1.2f);
+            yield return new WaitForSeconds(0.6f);
 
             train.SetActive(false);
+            yield return new WaitForSeconds(0.3f);
 
             ChangeBGPanel(2);
             PlayAnim(girlAnim, "sg_idle1");
             freeTotalTimes.text = ContentModel.Instance.jackpotSpinTotalTimes.ToString();
             freeTimes.text = ContentModel.Instance.jackpotSpinTotalTimes.ToString();
+            yield return new WaitForSeconds(1);
+
+            PlayAnim(moneyBoxAnim, "sg_appear");
 
             yield return GameJackpotSpin(null, errorCallback);
 
@@ -1209,6 +1246,10 @@ namespace CaiFuHuoChe_3996
 
             slotMachineCtrl.SkipIdle(true);
             slotMachineCtrl.SkipWinLine(true);
+
+            PlayAnim(girlAnim, "sg_settlement");
+            PlayAnim(moneyBoxAnim, "sg_settlement");
+            yield return new WaitForSeconds(4.5f);
 
             PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupJackpotGameExit,
                 new EventData<Dictionary<string, object>>("", new Dictionary<string, object>()
@@ -1234,9 +1275,6 @@ namespace CaiFuHuoChe_3996
             train.SetActive(true);
             JsToBsTrans.Play();
             PlayAnim(trainAnim, "sg_ng");
-            yield return new WaitForSeconds(2.6f);
-
-            PlayAnim(trainAnim, "idle");
 
             successCallback?.Invoke();
         }
@@ -1261,6 +1299,7 @@ namespace CaiFuHuoChe_3996
 
             ContentModel.Instance.haveJackpotCredit = false;
             ContentModel.Instance.gameState = GameState.FreeSpin;
+            showClawAnim = false;
 
             bool isNext = false;
             bool isBreak = false;
@@ -1398,9 +1437,9 @@ namespace CaiFuHuoChe_3996
             InputStackContextFreeSpin((context) =>
             {
             });
+            
 
             slotMachineCtrl.BeginBonusFreeSpin();
-
             yield return GameFreeSpin(null, errorCallback);
 
             OnGameReset();
@@ -1623,7 +1662,6 @@ namespace CaiFuHuoChe_3996
         {
             if (ApplicationSettings.Instance.isMock || slotMachineCtrl == null) return;
             if (!SQLitePlayerPrefs03.Instance.isInit) return;
-            if (!isOpen) return;
 
             int pid = SBoxModel.Instance.pid;
             var snap = FreeSpinSessionStoreG3996.TryLoad(pid);
@@ -2448,6 +2486,16 @@ namespace CaiFuHuoChe_3996
             if (MainModel.Instance.panel is PanelBaseController panelBaseController)
             {
                 panelBaseController.SetSpinButtonLocked(false);
+            }
+        }
+
+        private void OnPlayGirlClaw(EventData res)
+        {
+            if (!showClawAnim)
+            {
+                showClawAnim = true;
+                PlayAnim(moneyBoxAnim, "sg_appear");
+                PlayAnim(girlAnim, "sg_appear");
             }
         }
     }
