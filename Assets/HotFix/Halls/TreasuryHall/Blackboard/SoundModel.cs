@@ -1,7 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace Hall01
+namespace TreasuryHall
 {
+
     public enum SoundKey
     {
         /// <summary> 正常游戏背景音乐 </summary>
@@ -93,15 +96,13 @@ namespace Hall01
 
     public class SoundModel : MonoSingleton<SoundModel>
     {
-
-
         public Dictionary<SoundKey, GSHandler> gsHandlers = new Dictionary<SoundKey, GSHandler>
         {
 
 
             [SoundKey.RegularBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Halls/Hall01/Sounds/Music/hallmucis.mp3",
+                assetPath = "Assets/GameRes/Halls/TreasuryHall/Sounds/Music/TLHallBGM.wav",
                 outputType = GSOutType.Music,
                 loop = true,
             },

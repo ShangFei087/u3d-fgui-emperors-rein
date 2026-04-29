@@ -1,6 +1,5 @@
 using FairyGUI;
 using GameMaker;
-using Newtonsoft.Json;
 using PusherEmperorsRein;
 using SBoxApi;
 using SimpleJSON;
@@ -8,7 +7,6 @@ using SlotMaker;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static SBoxApi.SBoxSandbox;
 namespace Hall01
 {
     public class Hall01GameMain : MachinePageBase
