@@ -60,6 +60,7 @@ namespace CaiFuZhiJia_3997
         private SlotMachineController3997 _slotMachineCtrl;
         private FguiGObjectPoolHelper _fGuiGObjectPoolHelper;
         private Controller _pageController; // FairyGUI的控制器
+        private PanelController3997 _panelController3997;
 
         // 免费游戏
         private FreeSpinTimeController _freeSpinTimeController; // 免费游戏次数管理器
@@ -148,9 +149,6 @@ namespace CaiFuZhiJia_3997
         public override void InitParam()
         {
             if (!isInit) return;
-            // if (!isOpen) return;
-          
-
 
             MainModel.Instance.contentMD = ContentModel.Instance;
             MainModel.Instance.cutomMD = CustomModel.Instance;
@@ -284,11 +282,6 @@ namespace CaiFuZhiJia_3997
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
-            if (_goGameCtrl != null && !_goGameCtrl.activeSelf)
-            {
-                _goGameCtrl.SetActive(true);
-            }
-
             GameSoundHelper3997.Instance.PlayMusicSingle(SoundKey.RegularBG);
             base.OnOpen(currentPageName, eventData);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
@@ -314,11 +307,6 @@ namespace CaiFuZhiJia_3997
                 OnSlotDetailEvent);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
-            if (_goGameCtrl != null && _goGameCtrl.activeSelf)
-            {
-                _goGameCtrl.SetActive(false);
-            }
-
             base.OnClose(eventData);
             _freeSpinTimeController.Dispose();
         }
@@ -370,7 +358,7 @@ namespace CaiFuZhiJia_3997
                     _fGuiPoolHelper = _goGameCtrl.transform.Find("Pool").GetComponent<FguiPoolHelper>();
                     _fGuiGObjectPoolHelper =
                         _goGameCtrl.transform.Find("GObject Pool").GetComponent<FguiGObjectPoolHelper>();
-
+                    _panelController3997 = _goGameCtrl.GetComponentInChildren<PanelController3997>();
                     ResLoadedCallback();
                 });
 
@@ -1538,8 +1526,14 @@ namespace CaiFuZhiJia_3997
             if (ContentModel.Instance.isFreeSpinTrigger)
             {
                 // PlayAnimationByName(_traderAnimator,"Wealth_ng_npc_trigger fg");
+                
                 if (_corShowFreeSymbol != null) _monoHelper.StopCoroutine(_corShowFreeSymbol);
                 _corShowFreeSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(10));
+                // 免费触发，关闭展会模式
+                if (MainModel.Instance.isExhibitionModeMode)
+                {
+                    _panelController3997.OnClickExhibition();
+                }
                 yield return new WaitForSeconds(2f);
                 //停止特效显示
                 _slotMachineCtrl.SkipWinLine(false);
@@ -1553,6 +1547,12 @@ namespace CaiFuZhiJia_3997
                 // 显示中奖图标
                 if (_corShowBonusSymbol != null) _monoHelper.StopCoroutine(_corShowBonusSymbol);
                 _corShowBonusSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(11));
+                
+                // 彩金触发，关闭展会模式
+                if (MainModel.Instance.isExhibitionModeMode)
+                {
+                    _panelController3997.OnClickExhibition();
+                }
                 yield return new WaitForSeconds(2f);
                 _isMain = false;
                 _slotMachineCtrl.SkipWinLine(false);
