@@ -1331,7 +1331,6 @@ namespace XingYunZhiLun_3998
         {
             if (ApplicationSettings.Instance.isMock || slotMachineCtrl == null) return;
             if (!SQLitePlayerPrefs03.Instance.isInit) return;
-            if (!isOpen) return;
 
             int pid = SBoxModel.Instance.pid;
             var snap = FreeSpinSessionStoreG3998.TryLoad(pid);
