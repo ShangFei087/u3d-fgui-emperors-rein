@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="90,55" extention="Button">
+<component size="90,55" pivot="0.5,0.5" extention="Button">
   <controller name="button" pages="0,t0,1,t1" selected="0">
     <action type="play_transition" fromPage="" toPage="0" transition="t0"/>
     <action type="play_transition" fromPage="" toPage="1" transition="t1"/>
@@ -8,7 +8,7 @@
     <image id="n1_enim" name="n1" src="t2pamh" fileName="images/多功能按钮/pb_img_music.png" xy="0,1"/>
     <loader id="n2_f6tv" name="n5" xy="64,26" pivot="0.5,0.5" anchor="true" size="21,43" url="ui://oqimay09t2pamg" autoSize="true"/>
   </displayList>
-  <Button/>
+  <Button downEffect="scale" downEffectValue="0.8"/>
   <transition name="t0">
     <item time="0" type="Icon" target="n2_f6tv" value="ui://oqimay09t2pamg"/>
   </transition>
