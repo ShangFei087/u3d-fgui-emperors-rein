@@ -2,8 +2,8 @@
 <component size="1080,1920">
   <displayList>
     <graph id="n0_i6s3" name="mask" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#99000000"/>
-    <image id="n5_i6s3" name="n5" src="i6s39c" fileName="images/PopupGameNormalGame/Folder/转盘转彩金游戏转场.png" xy="0,0"/>
-    <component id="n1_i6s3" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,960"/>
-    <component id="n2_i6s3" name="anchorDoor" src="c76t8w" fileName="components/PopupJackpotGame/JackpotGameTrigger.xml" xy="540,812"/>
+    <image id="n6_mmia" name="n6" src="mmiaaej" fileName="images/PopupJackpotGame/ListSymbolIcons/sg_fade_jp01.png" xy="0,0" size="1080,1920"/>
+    <component id="n2_i6s3" name="anchorDoor" src="c76t8w" fileName="components/PopupJackpotGame/JackpotGameTrigger.xml" xy="540,877"/>
+    <component id="n1_i6s3" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,1850" visible="false" touchable="false"/>
   </displayList>
 </component>

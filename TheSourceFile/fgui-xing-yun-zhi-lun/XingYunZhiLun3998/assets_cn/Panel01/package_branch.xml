@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="a666agq" name="pb_txt_tips.png" path="/images/panel/" exported="true"/>
+    <image id="a666agx" name="pb_txt_bet.png" path="/images/panel/bet/" exported="true"/>
+    <image id="a666agw" name="pb_txt_credits.png" path="/images/panel/credit/" exported="true"/>
+    <image id="i9hyajl" name="txt_exit.png" path="/images/panel/payTable/Text/" exported="true"/>
+    <image id="i9hyajx" name="1.png" path="/images/panel/payTable/" exported="true"/>
+    <image id="i9hyajy" name="2.png" path="/images/panel/payTable/" exported="true"/>
+    <image id="i9hyajz" name="3.png" path="/images/panel/payTable/" exported="true"/>
+    <image id="i9hyak0" name="4.png" path="/images/panel/payTable/" exported="true"/>
+    <image id="i9hyak1" name="5.png" path="/images/panel/payTable/" exported="true"/>
+    <image id="i9hyak2" name="6.png" path="/images/panel/payTable/" exported="true"/>
+    <image id="i9hyak3" name="7.png" path="/images/panel/payTable/" exported="true"/>
+    <image id="czg2ak6" name="pb_txt_stop.png" path="/images/panel/spin/" exported="true"/>
+    <image id="czg2ak7" name="pb_txt_spin.png" path="/images/panel/spin/" exported="true"/>
+    <image id="w05qak8" name="txt_open.png" path="/images/Button/" exported="true"/>
+    <image id="w05qak9" name="txt_close.png" path="/images/Button/" exported="true"/>
+    <image id="xiz6akg" name="pb_txt_win.png" path="/images/panel/" exported="true"/>
+  </resources>
+</branchDescription>

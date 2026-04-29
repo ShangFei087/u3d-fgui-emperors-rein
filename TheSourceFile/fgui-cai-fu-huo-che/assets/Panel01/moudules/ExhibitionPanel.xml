@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1140">
+  <displayList>
+    <component id="n22_tpfb" name="reel1" src="tpfbc5" fileName="moudules/Exhibition/ReelBtn.xml" xy="125,485" size="62,655" group="n28_tpfb"/>
+    <component id="n23_tpfb" name="reel2" src="tpfbc5" fileName="moudules/Exhibition/ReelBtn.xml" xy="318,485" size="62,655" group="n28_tpfb"/>
+    <component id="n24_tpfb" name="reel3" src="tpfbc5" fileName="moudules/Exhibition/ReelBtn.xml" xy="520,485" size="62,655" group="n28_tpfb"/>
+    <component id="n25_tpfb" name="reel4" src="tpfbc5" fileName="moudules/Exhibition/ReelBtn.xml" xy="711,485" size="62,655" group="n28_tpfb"/>
+    <component id="n26_tpfb" name="reel5" src="tpfbc5" fileName="moudules/Exhibition/ReelBtn.xml" xy="898,485" size="62,655" group="n28_tpfb"/>
+    <group id="n28_tpfb" name="n28" xy="125,485" size="835,655"/>
+    <component id="n27_tpfb" name="btnExhibition" src="tpfbc4" fileName="moudules/Exhibition/ButtonExhibition.xml" xy="0,0"/>
+  </displayList>
+</component>

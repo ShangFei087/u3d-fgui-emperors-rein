@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="409,137">
+  <displayList>
+    <image id="n11_o8uc" name="n11" src="o8uc19" fileName="images/normalGame/jackpotTip/ng_img_red.png" xy="0,22" size="409,115"/>
+    <image id="n14_o8uc" name="n14" src="o8uc1a" fileName="images/normalGame/jackpotTip/sg_txt_grand.png" xy="88,0" size="233,53"/>
+    <text id="n15_sb0x" name="n15" xy="33,46" size="345,68" font="ui://q8n13f0fsb0x60" fontSize="20" align="center" vAlign="middle" autoSize="none" text="435，000，000"/>
+  </displayList>
+</component>

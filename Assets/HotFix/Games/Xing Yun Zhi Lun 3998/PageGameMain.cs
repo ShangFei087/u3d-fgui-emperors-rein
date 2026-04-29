@@ -79,7 +79,7 @@ namespace XingYunZhiLun_3998
         //新增背景效果
         private GameObject norBgPref, freeBgPref, norBgObj, freeBgObj;
         private GComponent anchorNor, anchorFree;
-
+        private GLoader slotLoad;
 
         private bool isReserve;
 
@@ -351,6 +351,8 @@ namespace XingYunZhiLun_3998
             gWheel = gZhuanPan.GetChild("Wheel").asCom;
             gWheel.rotation = 0;
             WheelInit(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 });
+
+            slotLoad = contentPane.GetChild("slotMachiineBg").asCom.GetChild("slotBgLoad").asLoader;
 
             ////列表滚动游戏测试列表
             gList = contentPane.GetChild("JackpotList").asCom.GetChild("Symbols").asList;
@@ -1580,11 +1582,14 @@ namespace XingYunZhiLun_3998
                     this.contentPane.GetController("c1").selectedPage = "BS";
                     freeBgObj.SetActive(false);
                     norBgObj.SetActive(true);
+                    slotLoad.url = CustomModel.Instance.SlotBgURL["normalSlotBg"];
+
                     break;
                 case 1:
                     this.contentPane.GetController("c1").selectedPage = "FS";
                     norBgObj.SetActive(false);
                     freeBgObj.SetActive(true);
+                    slotLoad.url = CustomModel.Instance.SlotBgURL["freeSlotBg"];
                     break;
                 case 2:
                     this.contentPane.GetController("c1").selectedPage = "JS";

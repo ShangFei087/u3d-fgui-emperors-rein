@@ -7,8 +7,6 @@
     <text id="n1_n45k" name="score" xy="21,57" size="355,55" font="ui://5hielhj5a6ypacb" fontSize="18" align="center" vAlign="middle" leading="0" autoSize="none" text="123，456，789，789,789">
       <relation target="n2_a6yp" sidePair="center-center,middle-middle"/>
     </text>
-    <image id="n3_a6yp" name="n3" src="a6ypabv" fileName="images/PopupJackpotGame/ListSymbolIcons/jp_txt_grand.png" xy="70,0" size="230,48">
-      <relation target="" sidePair="top-top"/>
-    </image>
+    <image id="n5_wtp2" name="n5" src="a6ypabv" fileName="images/PopupJackpotGame/ListSymbolIcons/jp_txt_grand.png" xy="69,-1" size="237,54"/>
   </displayList>
 </component>

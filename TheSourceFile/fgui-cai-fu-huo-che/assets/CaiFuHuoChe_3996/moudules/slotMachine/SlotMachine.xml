@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="970,582">
+  <displayList>
+    <component id="n0_o8uc" name="reels" src="o8ucp" fileName="moudules/slotMachine/Reels.xml" xy="485,290" pivot="0.5,0.5" anchor="true"/>
+    <component id="n1_o8uc" name="slotCover" src="o8ucq" fileName="moudules/slotMachine/SlotCover.xml" xy="0,0" size="970,582">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n2_o8uc" name="playLines" src="o8ucr" fileName="moudules/slotMachine/AnchorPayLines.xml" xy="485,290"/>
+  </displayList>
+</component>

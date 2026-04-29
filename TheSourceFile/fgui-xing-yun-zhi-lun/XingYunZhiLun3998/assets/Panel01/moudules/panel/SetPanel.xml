@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="171,635">
+  <displayList>
+    <image id="n49_a666" name="n49" src="a666ah2" fileName="images/panel/Help/pb_frame_multifunctional.png" xy="0,0"/>
+    <component id="n52_yl9o" name="btnPayTable" src="yl9oaig" fileName="moudules/panel/SetPanel/ButtonIntroduce.xml" xy="12,160"/>
+    <component id="n51_yl9o" name="btnHome" src="yl9o0" fileName="moudules/panel/SetPanel/BtnBack.xml" xy="12,319"/>
+    <component id="n53_yl9o" name="btnSound" src="yl9o1" fileName="moudules/panel/ButtonSound.xml" xy="12,17"/>
+    <component id="n55_yl9o" name="silderSound" src="yl9o3" fileName="moudules/panel/SetPanel/SobudSlider.xml" xy="232,76">
+      <Slider value="50" max="100"/>
+    </component>
+  </displayList>
+</component>

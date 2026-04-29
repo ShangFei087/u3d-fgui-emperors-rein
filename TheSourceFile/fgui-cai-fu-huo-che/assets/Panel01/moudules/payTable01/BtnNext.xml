@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="170,181" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_soe7" name="n0" src="uz53bo" fileName="images/Panel/说明书/ng_img_d.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n1_soe7" name="untouch" src="pmaeaf" fileName="moudules/panel/UntouchCircle24.xml" xy="0,0" size="170,181" visible="false"/>
+  </displayList>
+  <Button/>
+</component>

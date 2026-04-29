@@ -209,6 +209,12 @@ namespace XingYunZhiLun_3998
             {"15", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X15.prefab"}
         };
 
+        public Dictionary<string, string> SlotBgURL => new Dictionary<string, string>
+        {
+            { "normalSlotBg", "ui://XingYunZhiLun_3998/slotNormal"},
+            { "freeSlotBg", "ui://XingYunZhiLun_3998/slotFree" },
+        };
+
 
         /// <summary> 彩金游戏中不同序号对应的彩金图标 </summary>
         public List<string> jackpotIcon = new List<string>

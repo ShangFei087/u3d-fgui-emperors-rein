@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="133,136">
+  <displayList>
+    <image id="n5_ioi7" name="untouch" src="yl9ob" fileName="images/panel/circle_24.png" xy="0,0" size="133,136" alpha="0.5" color="#000000">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+  </displayList>
+</component>

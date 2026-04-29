@@ -1,0 +1,15 @@
+info size=12 resizable=true colored=false
+char id=48 img=pmaeax xoffset=0 yoffset=0 xadvance=0
+char id=49 img=pmaeak xoffset=0 yoffset=0 xadvance=0
+char id=50 img=pmaeal xoffset=0 yoffset=0 xadvance=0
+char id=51 img=pmaeam xoffset=0 yoffset=0 xadvance=0
+char id=52 img=pmaean xoffset=0 yoffset=0 xadvance=0
+char id=53 img=pmaeao xoffset=0 yoffset=0 xadvance=0
+char id=54 img=pmaeap xoffset=0 yoffset=0 xadvance=0
+char id=55 img=pmaeaq xoffset=0 yoffset=0 xadvance=0
+char id=56 img=pmaear xoffset=0 yoffset=0 xadvance=0
+char id=57 img=pmaeas xoffset=0 yoffset=0 xadvance=0
+char id=66 img=pmaeat xoffset=0 yoffset=0 xadvance=0
+char id=75 img=pmaeau xoffset=0 yoffset=0 xadvance=0
+char id=77 img=pmaeav xoffset=0 yoffset=0 xadvance=0
+char id=84 img=pmaeaw xoffset=0 yoffset=0 xadvance=0

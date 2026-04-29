@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n29_s21f" name="mask" xy="0,0" size="1080,1920" visible="false" touchable="false" type="rect" lineSize="0" fillColor="#99333333">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <image id="n19_uz53" name="n19" src="uz53bn" fileName="images/Panel/说明书/ng_img_broder.png" xy="39,72" group="n26_soe7"/>
+    <image id="n24_v2k7" name="n24" src="v2k7bu" fileName="images/Panel/说明书/Back to game.png" xy="546,1493" pivot="0.5,0.5" anchor="true" group="n26_soe7"/>
+    <component id="n28_soe7" name="btnPrev" src="soe78" fileName="moudules/payTable01/BtnNext.xml" xy="238,1402" group="n26_soe7" scale="-1,1"/>
+    <component id="n27_soe7" name="btnNect" src="soe78" fileName="moudules/payTable01/BtnNext.xml" xy="840,1402" group="n26_soe7"/>
+    <component id="n21_uz53" name="btnBackGame" src="soe79" fileName="moudules/payTable01/BtnBackGame.xml" xy="279,1380" group="n26_soe7"/>
+    <component id="n25_v2k7" name="introduce" src="v2k7bx" fileName="moudules/panel/PayYable.xml" xy="147,328" group="n26_soe7"/>
+    <group id="n26_soe7" name="n26" xy="39,72" size="999,1526"/>
+  </displayList>
+</component>

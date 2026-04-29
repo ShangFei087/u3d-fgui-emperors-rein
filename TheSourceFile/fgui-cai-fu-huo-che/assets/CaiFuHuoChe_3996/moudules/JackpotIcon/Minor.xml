@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="189,48">
+  <displayList>
+    <image id="n4_efde" name="n4" src="o8uc1d" fileName="images/normalGame/jackpotTip/sg_txt_minor.png" xy="0,0" size="189,48" aspect="true">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+  </displayList>
+</component>

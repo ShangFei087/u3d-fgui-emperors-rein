@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="266,32" extention="Slider">
+  <displayList>
+    <image id="n3_yl9o" name="n3" src="a666ah0" fileName="images/panel/volume/pb_frame_volume.png" xy="-61,-23"/>
+    <image id="n0_yl9o" name="n0" src="a666agp" fileName="images/panel/volume/pb_bar_volume_01.png" xy="-39,0" size="360,32">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_yl9o" name="bar" src="a666ahe" fileName="images/panel/volume/pb_bar_volume_02.png" xy="-31,3" size="335,25"/>
+    <component id="n2_yl9o" name="grip" src="yl9o2" fileName="moudules/panel/SetPanel/SobudSlider_grip.xml" xy="275,-13">
+      <relation target="n1_yl9o" sidePair="right-right"/>
+    </component>
+  </displayList>
+  <Slider/>
+</component>

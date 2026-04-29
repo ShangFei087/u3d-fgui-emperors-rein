@@ -103,6 +103,9 @@ namespace CaiFuHuoChe_3996
         private int noWinTimes = 0;
         //本局游戏中是否存在中奖
         private bool isWin = false;
+        //当前游戏触发加速框后是否中奖
+        private bool isTriggerFrame = false;
+        private bool isWinFreeOrJacpot = false;
 
         // 开始游戏
         private bool _tipCoinIn = false, _isStoppedSlotMachine = false;
@@ -855,6 +858,8 @@ namespace CaiFuHuoChe_3996
             bool isNext = false;
             bool isBreak = false;
             isWin = false;
+            isWinFreeOrJacpot = false;
+            isTriggerFrame = false;
             string errMsg = "";
 
             //模拟结果
@@ -1034,19 +1039,25 @@ namespace CaiFuHuoChe_3996
             if (ContentModel.Instance.isFreeSpinTrigger)
             {
                 isWin = false;
+                isWinFreeOrJacpot = true;
                 if (winList.Count > 0)
                 {
                     // 本剧同步玩家金钱
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
                     yield return new WaitForSeconds(1);
                 }
-                PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupFreeSpinTrigger, null);
+
                 //显示中奖动画
                 slotMachineCtrl.SkipWinLine(true);
                 slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 10 }, true, 10, true);
                 yield return slotMachineCtrl.SlotWaitForSeconds(1f);
-                isNext = false;
 
+                slotMachineCtrl.SkipWinLine(true);
+                PlayAnim(girlAnim, "ng_trigger fg");
+                yield return new WaitForSeconds(5.5f);
+                PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupFreeSpinTrigger, null);
+                
+                isNext = false;
                 slotMachineCtrl.SkipWinLine(true);
                 yield return FreeSpinTrigger(() => isNext = true, errorCallback);
 
@@ -1059,6 +1070,7 @@ namespace CaiFuHuoChe_3996
             if (ContentModel.Instance.isJackpotSpinTrigger)
             {
                 isWin = true;
+                isWinFreeOrJacpot = true;
                 if (winList.Count > 0)
                 {
                     yield return new WaitForSeconds(1);
@@ -1071,11 +1083,21 @@ namespace CaiFuHuoChe_3996
                 slotMachineCtrl.SkipWinLine(true);
                 slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 11 }, true, 11, true);
                 yield return slotMachineCtrl.SlotWaitForSeconds(1.5f);
+
+                //播放动画
                 slotMachineCtrl.SkipWinLine(true);
+                PlayAnim(girlAnim, "ng_trigger sg");
+                yield return new WaitForSeconds(1.8f);
+
                 yield return jackpotSpinTrigger(() => isNext = true, errorCallback);
 
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
+            }
+
+            if (isTriggerFrame && !isWinFreeOrJacpot)
+            {
+                PlayAnim(girlAnim, "ng_not triggered");
             }
 
             if (!isWin)
@@ -2071,7 +2093,8 @@ namespace CaiFuHuoChe_3996
         //显示加速框
         public IEnumerator ShowEffectReelsSlowMotion(int colIdx)
         {
-            PlayAnim(girlAnim, "");
+            PlayAnim(girlAnim, "ng_atmosphere");
+            isTriggerFrame = true;
             GComponent ComReelEffect = ComReelEffect3;
             if (ContentModel.Instance.isFreeSlotTip)
             {

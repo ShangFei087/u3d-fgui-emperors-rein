@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="903,181">
+  <controller name="c1" pages="0,paytable1,1,paytable2,2,paytable3,3,paytable4,4,paytable5,5,paytable6,6,paytable7" selected="0"/>
+  <displayList>
+    <image id="n22_uz53" name="n22" src="uz53bo" fileName="images/Panel/说明书/ng_img_d.png" xy="818,90" pivot="0.5,0.5" anchor="true" group="n24_v2k7"/>
+    <image id="n23_uz53" name="n23" src="uz53bo" fileName="images/Panel/说明书/ng_img_d.png" xy="85,90" pivot="0.5,0.5" anchor="true" group="n24_v2k7" scale="-1,1"/>
+    <group id="n24_v2k7" name="n24" xy="0,0" size="903,181"/>
+  </displayList>
+</component>

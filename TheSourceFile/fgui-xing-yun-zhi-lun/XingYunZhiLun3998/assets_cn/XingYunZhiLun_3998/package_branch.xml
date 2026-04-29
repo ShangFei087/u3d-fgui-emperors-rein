@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="gkbyadi" name="jp_txt_grand.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="gkbyadk" name="jp_txt_mini.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="gkbyadl" name="jp_txt_minor.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="n5h9afl" name="jp_txt_major.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="a666ag7" name="load_mega_cn.png" path="/images/PopupGameLoading/" exported="true"/>
+    <image id="czg2aim" name="ng_txt_start.png" path="/images/PopupGameNormalGame/" exported="true"/>
+    <image id="xiz6aiu" name="fg_num_freespin.png" path="/images/PopupGameFreeGame/" exported="true"/>
+    <image id="i9hyajj" name="txt__charitygame.png" path="/images/payTable/Text/" exported="true"/>
+    <image id="i9hyajn" name="txt_freegame.png" path="/images/payTable/Text/" exported="true"/>
+    <image id="i9hyajp" name="txt_maingame.png" path="/images/payTable/Text/" exported="true"/>
+    <image id="i9hyajr" name="txt_prizetable.png" path="/images/payTable/Text/" exported="true"/>
+    <image id="i9hyajt" name="txt_wheelgame.png" path="/images/payTable/Text/" exported="true"/>
+    <image id="i9hyajv" name="txt_winningline.png" path="/images/payTable/Text/" exported="true"/>
+    <image id="xiz6aj4" name="1.png" path="/images/payTable/" exported="true"/>
+    <image id="xiz6aj5" name="2.png" path="/images/payTable/" exported="true"/>
+    <image id="xiz6aj6" name="3.png" path="/images/payTable/" exported="true"/>
+    <image id="xiz6aj7" name="4.png" path="/images/payTable/" exported="true"/>
+    <image id="xiz6aj8" name="5.png" path="/images/payTable/" exported="true"/>
+    <image id="xiz6aj9" name="6.png" path="/images/payTable/" exported="true"/>
+    <image id="xiz6aja" name="7.png" path="/images/payTable/" exported="true"/>
+  </resources>
+</branchDescription>

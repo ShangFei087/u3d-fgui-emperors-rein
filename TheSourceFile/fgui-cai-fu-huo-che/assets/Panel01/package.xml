@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="rkl59i4t">
+  <resources>
+    <component id="pmae9a" name="Panel.xml" path="/moudules/" exported="true"/>
+    <component id="pmaeaa" name="frame.xml" path="/moudules/panel/" exported="true"/>
+    <component id="pmaead" name="ButtonHelp.xml" path="/moudules/panel/" exported="true"/>
+    <component id="pmaeaf" name="UntouchCircle24.xml" path="/moudules/panel/" exported="true"/>
+    <component id="pmaeai" name="ButtonBetUp.xml" path="/moudules/panel/" exported="true"/>
+    <component id="pmaeaj" name="ButtonBetDown.xml" path="/moudules/panel/" exported="true"/>
+    <component id="pmaebg" name="SetPanel.xml" path="/moudules/panel/" exported="true"/>
+    <component id="pmaebh" name="ButtonIntroduce.xml" path="/moudules/SetPanel/" exported="true"/>
+    <component id="jaxjbi" name="ButtonSound.xml" path="/moudules/SetPanel/" exported="true"/>
+    <component id="jaxjbj" name="ButtonSpin.xml" path="/moudules/panel/" exported="true"/>
+    <component id="uz53bq" name="TipText.xml" path="/moudules/panel/" exported="true"/>
+    <component id="uz53br" name="PayTable.xml" path="/moudules/panel/" exported="true"/>
+    <component id="v2k7bv" name="IntroduceBtn.xml" path="/moudules/panel/" exported="true"/>
+    <component id="v2k7bx" name="PayYable.xml" path="/moudules/panel/" exported="true"/>
+    <image id="pmae9w" name="pb_txt_stop.png" path="/images/Panel/spin按钮/"/>
+    <image id="pmae9x" name="pb_txt_spin.png" path="/images/Panel/spin按钮/"/>
+    <image id="pmae9y" name="pb_txt_help.png" path="/images/Panel/spin按钮/"/>
+    <image id="pmae9n" name="pb_img_help.png" path="/images/Panel/多功能按钮/"/>
+    <image id="pmae9e" name="pb_txt_credits.png" path="/images/Panel/投币数/"/>
+    <image id="v2k7bu" name="Back to game.png" path="/images/Panel/说明书/"/>
+    <image id="pmae9h" name="pb_txt_bet.png" path="/images/Panel/鼓励值/"/>
+    <component id="soe71" name="BtnBack.xml" path="/moudules/SetPanel/" exported="true"/>
+    <component id="soe74" name="Bar.xml" path="/moudules/SetPanel/" exported="true"/>
+    <image id="pmae9b" name="pb_img_b.png" path="/images/Panel/spin按钮/"/>
+    <image id="pmae9t" name="pb_img_b_01.png" path="/images/Panel/spin按钮/"/>
+    <image id="pmae9v" name="pb_txt_hold.png" path="/images/Panel/spin按钮/"/>
+    <image id="pmae9o" name="pb_img_red.png" path="/images/Panel/多功能按钮/"/>
+    <image id="pmae9q" name="pb_img_music05.png" path="/images/Panel/多功能按钮/"/>
+    <image id="pmae9r" name="pb_img_music04.png" path="/images/Panel/多功能按钮/" scale="9grid" scale9grid="8,3,199,10"/>
+    <image id="pmae9s" name="pb_img_music03.png" path="/images/Panel/多功能按钮/"/>
+    <image id="pmaea1" name="pb_img_dgn.png" path="/images/Panel/多功能按钮/"/>
+    <image id="pmaea2" name="pb_img_expand.png" path="/images/Panel/多功能按钮/"/>
+    <image id="pmaea4" name="pb_img_music.png" path="/images/Panel/多功能按钮/"/>
+    <image id="pmaea5" name="pb_img_music01.png" path="/images/Panel/多功能按钮/"/>
+    <image id="pmaea6" name="pb_img_music02.png" path="/images/Panel/多功能按钮/"/>
+    <image id="uz53bs" name="pb_img_music06.png" path="/images/Panel/多功能按钮/" scale="9grid" scale9grid="13,12,36,24"/>
+    <image id="pmae9g" name="pb_img_toubi.png" path="/images/Panel/投币数/"/>
+    <image id="uz53bn" name="ng_img_broder.png" path="/images/Panel/说明书/"/>
+    <image id="uz53bo" name="ng_img_d.png" path="/images/Panel/说明书/"/>
+    <image id="uz53bp" name="ng_img_p.png" path="/images/Panel/说明书/"/>
+    <image id="pmae9c" name="pb_img_score.png" path="/images/Panel/赢分框/" scale="9grid" scale9grid="38,36,76,72"/>
+    <image id="pmae9d" name="pb_img_dik.png" path="/images/Panel/赢分框/"/>
+    <image id="pmae9z" name="pb_txt_win.png" path="/images/Panel/赢分框/"/>
+    <image id="pmaea8" name="pb_txt_zw.png" path="/images/Panel/赢分框/"/>
+    <image id="pmae9j" name="pb_img_kuang_04.png" path="/images/Panel/鼓励值/"/>
+    <image id="pmae9k" name="pb_img_kuang_03.png" path="/images/Panel/鼓励值/"/>
+    <image id="pmae9m" name="pb_img_kuang_01.png" path="/images/Panel/鼓励值/"/>
+    <image id="uz53bl" name="pb_img_kuang_02.png" path="/images/Panel/鼓励值/" scale="9grid" scale9grid="23,25,27,50"/>
+    <image id="pmaea9" name="pb_img_bottom.png" path="/images/Panel/"/>
+    <image id="pmaeae" name="circle_24.png" path="/images/Panel/"/>
+    <component id="soe75" name="SobudSlider_grip.xml" path="/moudules/SetPanel/" exported="true"/>
+    <component id="soe76" name="SobudSlider.xml" path="/moudules/SetPanel/" exported="true"/>
+    <image id="soe77" name="gme_loading_mask.png" path="/images/Panel/多功能按钮/"/>
+    <component id="soe78" name="BtnNext.xml" path="/moudules/payTable01/" exported="true"/>
+    <component id="soe79" name="BtnBackGame.xml" path="/moudules/payTable01/" exported="true"/>
+    <component id="soe7a" name="AnchorSpin.xml" path="/moudules/panel/" exported="true"/>
+    <component id="soe7b" name="BtnHelp.xml" path="/moudules/SetPanel/" exported="true"/>
+    <component id="tpfbc2" name="ButtonColDown.xml" path="/moudules/Exhibition/" exported="true"/>
+    <component id="tpfbc3" name="ButtonColUp.xml" path="/moudules/Exhibition/" exported="true"/>
+    <component id="tpfbc4" name="ButtonExhibition.xml" path="/moudules/Exhibition/" exported="true"/>
+    <component id="tpfbc5" name="ReelBtn.xml" path="/moudules/Exhibition/" exported="true"/>
+    <component id="tpfbc6" name="ExhibitionPanel.xml" path="/moudules/"/>
+    <image id="s21fce" name="ng_img_bor.png" path="/images/Button/"/>
+    <image id="s21fcf" name="ng_img_jian.png" path="/images/Button/"/>
+    <image id="s21fcg" name="ng_img_der_02.png" path="/images/Button/"/>
+    <image id="s21fch" name="ng_img_der_01.png" path="/images/Button/"/>
+    <image id="s21fci" name="ng_txt_on.png" path="/images/Button/"/>
+    <image id="s21fcj" name="ng_txt_dff.png" path="/images/Button/"/>
+  </resources>
+  <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Panel\Panel3996\FGUIs" packageCount="2"/>
+</packageDescription>

@@ -6,11 +6,11 @@
     <component id="n7_bysw" name="mask" src="byswa4" fileName="components/PopupJackpotGame/JackpotMask.xml" xy="0,0"/>
   </displayList>
   <transition name="Start">
-    <item time="0" type="XY" target="n3_bysw" tween="true" startValue="-300,1200" endValue="200,1200" duration="6" ease="Linear"/>
-    <item time="0" type="XY" target="n5_bysw" tween="true" startValue="540,2000" endValue="540,1500" duration="6" ease="Linear"/>
+    <item time="0" type="XY" target="n3_bysw" tween="true" startValue="-300,1450" endValue="200,1450" duration="6" ease="Linear"/>
+    <item time="0" type="XY" target="n5_bysw" tween="true" startValue="540,2200" endValue="540,1580" duration="6" ease="Linear"/>
   </transition>
   <transition name="Init">
-    <item time="0" type="XY" target="n3_bysw" value="-300,1200"/>
-    <item time="0" type="XY" target="n5_bysw" value="540,2000"/>
+    <item time="0" type="XY" target="n3_bysw" value="-300,1450"/>
+    <item time="0" type="XY" target="n5_bysw" value="540,2200"/>
   </transition>
 </component>
