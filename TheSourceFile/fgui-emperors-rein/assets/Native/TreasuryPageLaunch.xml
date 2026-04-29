@@ -7,6 +7,7 @@
     <image id="n4_kyxf" name="n4" src="kyxf10" fileName="images/TreasuryLoading/plat_load_img_lightBulb.png" xy="460,557"/>
     <image id="n6_kyxf" name="n6" src="kyxfw" fileName="images/TreasuryLoading/plat_load_bar_01.png" xy="149,1721"/>
     <loader id="n3_kyxf" name="logo" xy="58,142" size="946,368" url="ui://8grgqzwakyxf11" align="center" vAlign="middle" autoSize="true"/>
+    <component id="n10_f8vp" name="anchorBG" src="f8vp14" fileName="components/AnchorBG.xml" xy="539,959"/>
     <text id="n7_kyxf" name="title" xy="167,1203" size="724,522" fontSize="25" color="#ffffff" align="center" vAlign="bottom" autoSize="shrink" text="loading...">
       <relation target="" sidePair="width-width,bottom-bottom"/>
     </text>

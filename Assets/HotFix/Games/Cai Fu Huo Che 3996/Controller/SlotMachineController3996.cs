@@ -338,7 +338,7 @@ namespace CaiFuHuoChe_3996
                     }
                     haveSlotTip = true;
 
-                    if (freeIconCols.Count > 1)
+                    if (ContentModel.Instance.isFreeSlotTip)
                     {
                         extraReelTimesReel = reelIdx - freeIconCols[1];
                     }

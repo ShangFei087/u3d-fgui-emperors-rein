@@ -649,14 +649,7 @@ namespace SlotMaker
                     break;
             }
 
-            if (!ApplicationSettings.Instance.isMock)
-            {
-                PageManager.Instance.OpenPage(PageName.Hall01);
-            }
-            else
-            {
-                PageManager.Instance.OpenPage(PageName.Hall01);
-            }
+            PageManager.Instance.OpenPage(PageName.TreasuryHallMain);
         }
 
         protected virtual void OnPropertyChange(EventData res = null)

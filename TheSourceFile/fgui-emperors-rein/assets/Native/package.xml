@@ -24,6 +24,7 @@
     <image id="kyxf10" name="plat_load_img_lightBulb.png" path="/images/TreasuryLoading/" exported="true" atlas="1"/>
     <image id="kyxf11" name="plat_load_mega_en.png" path="/images/TreasuryLoading/" exported="true" qualityOption="source" atlas="1"/>
     <component id="kyxf13" name="ProgressBar2.xml" path="/components/"/>
+    <component id="f8vp14" name="AnchorBG.xml" path="/components/" exported="true"/>
   </resources>
   <publish name="" path="F:\StandAloneSlotFrame\u3d-fgui-emperors-rein\Assets\Resources\Native\FGUIs" packageCount="2"/>
 </packageDescription>

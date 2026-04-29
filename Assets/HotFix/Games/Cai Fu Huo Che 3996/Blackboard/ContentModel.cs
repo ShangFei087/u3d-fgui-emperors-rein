@@ -151,6 +151,8 @@ namespace CaiFuHuoChe_3996
         /// <summary> 断线重连时同步分数 </summary>
         public bool isSysCredit = false;
 
+        /// <summary> 当前数据是否已经请求过且使用完毕 </summary>
+        public bool isUsedRes = false;
 
         /// <summary> 基础游戏赢分（单局普通游戏 或 免费游戏） </summary>
         public long baseGameWinCredit;

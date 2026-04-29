@@ -88,6 +88,26 @@ namespace CaiFuHuoChe_3996
         //免费游戏的剩余次数和总次数
         private GTextField freeTimes, freeTotalTimes;
 
+        //免费游戏火车
+        private GameObject freeTrainPref, freeTrainObj;
+        private GComponent freeAnchor; 
+        private Animator freeTrainAnim;
+
+        //游戏中的女生
+        private GameObject girlPref, girlObj;
+        private GComponent anchorGirl;
+        private Animator girlAnim;
+
+
+        //用于记录未中奖的次数
+        private int noWinTimes = 0;
+        //本局游戏中是否存在中奖
+        private bool isWin = false;
+
+        // 开始游戏
+        private bool _tipCoinIn = false, _isStoppedSlotMachine = false;
+        private bool _isStopButtonLocked;
+
         private bool isConnectFreeSpin = false;
 
         bool isAddCreditAnim => !(slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
@@ -101,7 +121,7 @@ namespace CaiFuHuoChe_3996
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 8;
+            int count = 10;
 
             Action callback = () =>
             {
@@ -195,6 +215,22 @@ namespace CaiFuHuoChe_3996
                 callback();
             });
 
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+            "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PageGameMain/Girl.prefab",
+            (GameObject clone) =>
+            {
+                girlPref = clone;
+                callback();
+            });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+           "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PopupGameFree/FreeGameTrain.prefab",
+           (GameObject clone) =>
+           {
+               freeTrainPref = clone;
+               callback();
+           });
+
 
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
@@ -240,7 +276,7 @@ namespace CaiFuHuoChe_3996
         {
             slotMachineCtrl.SkipWinLine(true);
             OnGameReset();
-
+            UnlockStopButton();
             EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
@@ -255,70 +291,93 @@ namespace CaiFuHuoChe_3996
             base.OnClose(data);
         }
 
+        protected override void OnLanguageChange(I18nLang lang)
+        {
+            FguiI18nTextAssistant.Instance.DisposeAllTranslate(contentPane);
+            contentPane.Dispose(); // 释放当前UI
+            contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
+            InitParam();
+            Debug.LogError("语言切换");
+        }
+
 
         private void OnClickSpinButton(EventData res)
         {
-            if (res.name != PanelEvent.SpinButtonClick) return;
-
-            bool isLongClick = (bool)res.value;
-            switch (ContentModel.Instance.btnSpinState)
+            if (res.name == PanelEvent.SpinButtonClick)
             {
-                case SpinButtonState.Stop:
-                    {
-                        if (ContentModel.Instance.isSpin) return; // 已经开始玩直接退出
-
-                        ContentModel.Instance.isSpin = true;
-
-                        Action successCallback = () =>
+                bool isLongClick = (bool)res.value;
+                switch (ContentModel.Instance.btnSpinState)
+                {
+                    case SpinButtonState.Stop:
                         {
-                            DebugUtils.Log("游戏结束");
-                            ContentModel.Instance.isSpin = false;
-                            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-                            ContentModel.Instance.gameState = GameState.Idle;
-                        };
+                            if (ContentModel.Instance.isSpin) return; // 已经开始玩直接退出
+                            UnlockStopButton();
+                            ContentModel.Instance.isSpin = true;
 
-                        if (isLongClick)
-                        {
-                            TestManager.Instance.ShowTip("Spin按钮 - 长按");
+                            Action successCallback = () =>
+                            {
+                                DebugUtils.Log("游戏结束");
+                                UnlockStopButton();
+                                ContentModel.Instance.isSpin = false;
+                                ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+                                ContentModel.Instance.gameState = GameState.Idle;
+                            };
 
-                            ContentModel.Instance.isAuto = true;
-                            ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
+                            if (isLongClick)
+                            {
+                                TestManager.Instance.ShowTip("Spin按钮 - 长按");
 
-                            StartGameAuto(successCallback, StopGameWhenError); //自动玩
+                                ContentModel.Instance.isAuto = true;
+                                ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
+
+                                StartGameAuto(successCallback, StopGameWhenError); //自动玩
+                            }
+                            else
+                            {
+                                TestManager.Instance.ShowTip("Spin按钮 - 短按");
+
+                                //ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
+                                //StartGameOnce(successCallback, StopGameWhenError);//开始玩
+
+                                ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
+                                StartGameOnce(successCallback, StopGameWhenError); //开始玩
+                            }
+
+
                         }
-                        else
+                        break;
+
+                    case SpinButtonState.Spin:
                         {
-                            TestManager.Instance.ShowTip("Spin按钮 - 短按");
+                            // 已经在游戏时，去停止游戏
+                            if (!ContentModel.Instance.isSpin) return; // 已经停止直接退出
+                            LockStopButton();
+                            slotMachineCtrl.isStopImmediately = true; // 去停止游戏  
 
-                            //ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
-                            //StartGameOnce(successCallback, StopGameWhenError);//开始玩
-
+                            SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.StopImmediately);
+                        }
+                        break;
+                    case SpinButtonState.Auto:
+                        {
+                            //停止自动玩
+                            ContentModel.Instance.isSpin = true;
+                            ContentModel.Instance.isAuto = false;
                             ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
-                            StartGameOnce(successCallback, StopGameWhenError); //开始玩
                         }
+                        break;
+                }
+            }
 
+            if (res.name == "ColUpButtonClick")
+            {
+                int col = (int)res.value;
+                mono.StartCoroutine(slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Up));
+            }
 
-                    }
-                    break;
-
-                case SpinButtonState.Spin:
-                    {
-                        // 已经在游戏时，去停止游戏
-                        if (!ContentModel.Instance.isSpin) return; // 已经停止直接退出
-
-                        slotMachineCtrl.isStopImmediately = true; // 去停止游戏  
-
-                        SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.StopImmediately);
-                    }
-                    break;
-                case SpinButtonState.Auto:
-                    {
-                        //停止自动玩
-                        ContentModel.Instance.isSpin = true;
-                        ContentModel.Instance.isAuto = false;
-                        ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
-                    }
-                    break;
+            if (res.name == "ColDownButtonClick")
+            {
+                int col = (int)res.value;
+                mono.StartCoroutine(slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Down));
             }
 
         }
@@ -413,6 +472,27 @@ namespace CaiFuHuoChe_3996
                 train = GameObject.Instantiate(goTrain);
                 trainAnim = train.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
                 GameCommon.FguiUtils.AddWrapper(gTrain, train);
+            }
+
+            GComponent loadFreeTrain = contentPane.GetChild("anchorFreeTrain").asCom;
+            if(freeAnchor != loadFreeTrain)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(freeAnchor);
+                freeAnchor = loadFreeTrain;
+                freeTrainObj = GameObject.Instantiate(freeTrainPref);
+                freeTrainAnim = freeTrainObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                GameCommon.FguiUtils.AddWrapper(freeAnchor, freeTrainObj);
+            }
+
+            GComponent loadGirl = contentPane.GetChild("anchorGirl").asCom;
+            if(anchorGirl != loadGirl)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorGirl);
+                anchorGirl = loadGirl;
+                girlObj = GameObject.Instantiate(girlPref);
+                girlAnim = girlObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                GameCommon.FguiUtils.AddWrapper(anchorGirl, girlObj);
+                PlayAnim(girlAnim, "ng_idle1");
             }
 
             GComponent loadOpenEffect = contentPane.GetChild("JpEffect").asCom;
@@ -556,42 +636,6 @@ namespace CaiFuHuoChe_3996
             mono.StartCoroutine(GameAuto(successCallback, errorCallback));
         }
 
-        private void StopGameWhenError(string msg)
-        {
-            ContentModel.Instance.isSpin = false;
-            ContentModel.Instance.isAuto = false;
-            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-            ContentModel.Instance.gameState = GameState.Idle;
-
-            // 有好酷优先用好酷
-            if (false && SBoxModel.Instance.isUseIot && tipCoinIn)
-            {
-                /*
-                tipCoinIn = false;
-
-                if (!DeviceIOTPayment.Instance.isIOTConneted)
-                {
-                    TipPopupHandler.Instance.OpenPopupOnce(string.Format(I18nMgr.T("IOT connection failed [{0}]"), Code.DEVICE_IOT_MQTT_NOT_CONNECT));
-                }
-                else if (!DeviceIOTPayment.Instance.isIOTSignInGetQRCode)
-                {
-                    TipPopupHandler.Instance.OpenPopupOnce(string.Format(I18nMgr.T("IOT connection failed [{0}]"), Code.DEVICE_IOT_NOT_SIGN_IN));
-                }
-                else
-                {}
-                    DeviceIOTPayment.Instance.DoQrCoinIn();
-                }
-                return;
-                */
-            }
-            else
-            {
-                string massage = I18nMgr.T(msg);
-                TipPopupHandler.Instance.OpenPopupOnce(I18nMgr.T(msg));
-            }
-        }
-
-
         void OnStopSlot(EventData res)
         {
             switch (res.name)
@@ -599,6 +643,7 @@ namespace CaiFuHuoChe_3996
                 case SlotMachineEvent.StoppedSlotMachine:
                     {
                         isStoppedSlotMachine = true;
+                        UnlockStopButton();
                     }
                     break;
             }
@@ -722,37 +767,40 @@ namespace CaiFuHuoChe_3996
             float temp = 0;
             if (fill1.fillAmount != 1)
             {
-                if(fill1.fillAmount + value <= 1) fill1.fillAmount += value;
+                if(fill1.fillAmount + value <= 0.95f) fill1.fillAmount += value;
                 else
                 {
                     temp = fill1.fillAmount;
                     fill1.fillAmount = 1;
-                    SkipAddMult(value + temp - 1);
+                    SetFreeTrainState();
+                    if(value + temp - 1 > 0) SkipAddMult(value + temp - 1);
                 }
             }
             else if (fill2.fillAmount != 1)
             {
-                if (fill2.fillAmount + value <= 1)  fill2.fillAmount += value;
+                if (fill2.fillAmount + value <= 0.95f)  fill2.fillAmount += value;
                 else
                 {
                     temp = fill2.fillAmount;
                     fill2.fillAmount = 1;
-                    SkipAddMult(value + temp - 1);
+                    PlayAnim(freeTrainAnim, "win2");
+                    if (value + temp - 1 > 0) SkipAddMult(value + temp - 1);
                 }
             }
             else if (fill3.fillAmount != 1)
             {
-                if (fill3.fillAmount + value <= 1)  fill3.fillAmount += value;
+                if (fill3.fillAmount + value <= 0.95f)  fill3.fillAmount += value;
                 else
                 {
                     temp = fill3.fillAmount;
                     fill3.fillAmount = 1;
-                    SkipAddMult(value + temp - 1);
+                    PlayAnim(freeTrainAnim, "win");
+                    if (value + temp - 1 > 0) SkipAddMult(value + temp - 1);
                 }
             }
             else if (fill4.fillAmount != 1)
             {
-                if (fill4.fillAmount + value <= 1) fill4.fillAmount += value;
+                if (fill4.fillAmount + value <= 0.95f) fill4.fillAmount += value;
                 else fill4.fillAmount = 1;
             }
         }
@@ -806,6 +854,7 @@ namespace CaiFuHuoChe_3996
             slotMachineCtrl.BeginTurn();
             bool isNext = false;
             bool isBreak = false;
+            isWin = false;
             string errMsg = "";
 
             //模拟结果
@@ -928,8 +977,9 @@ namespace CaiFuHuoChe_3996
 
             #region Win
             //普通赢
-            if (winList.Count > 0 || ContentModel.Instance.bonusResult != null)
+            if (winList.Count > 0)
             {
+                isWin = true;
                 //中奖特效
                 if (_spinWEMD.Instance.isSingleWin)
                 {
@@ -983,7 +1033,8 @@ namespace CaiFuHuoChe_3996
             //免费奖
             if (ContentModel.Instance.isFreeSpinTrigger)
             {
-                if(winList.Count > 0)
+                isWin = false;
+                if (winList.Count > 0)
                 {
                     // 本剧同步玩家金钱
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
@@ -1007,6 +1058,7 @@ namespace CaiFuHuoChe_3996
             //中游戏大奖
             if (ContentModel.Instance.isJackpotSpinTrigger)
             {
+                isWin = true;
                 if (winList.Count > 0)
                 {
                     yield return new WaitForSeconds(1);
@@ -1024,6 +1076,20 @@ namespace CaiFuHuoChe_3996
 
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
+            }
+
+            if (!isWin)
+            {
+                noWinTimes++;
+                if(noWinTimes >= 5)
+                {
+                    noWinTimes = 0;
+                    PlayAnim(girlAnim, "ng_not win");
+                }
+            }
+            else
+            {
+                noWinTimes = 0;
             }
 
             // 本剧同步玩家金钱
@@ -1303,13 +1369,13 @@ namespace CaiFuHuoChe_3996
 
                 yield return new WaitForSeconds(1.5f);
                 ChangeBGPanel(1);
-                gTrain.visible = false;
             }
             else
             {
                 isConnectFreeSpin = false;
             }
 
+            SetFreeTrainState();
 
             InputStackContextFreeSpin((context) =>
             {
@@ -1602,7 +1668,7 @@ namespace CaiFuHuoChe_3996
             {
                 ChangeBGPanel(1);
                 SetFillAmount();
-
+                SetFreeTrainState();
                 ContentModel.Instance.isSysCredit = true;
                 freeTimes.text = (ContentModel.Instance.freeSpinPlayTimes).ToString();
                 freeTotalTimes.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
@@ -1611,7 +1677,6 @@ namespace CaiFuHuoChe_3996
 
 
             slotMachineCtrl.SendTotalWinCreditEvent(cm.curFreeCredit);
-            FreeSpinSessionStoreG3996.TryPersistOrClearSession();
             DebugUtils.Log($"[G3996] 已恢复免费局快照：剩余 {cm.showFreeSpinRemainTime} / 总 {cm.freeSpinTotalTimes}，待首局 Spin 与算法校验。");
         }
 
@@ -1766,12 +1831,17 @@ namespace CaiFuHuoChe_3996
             JSONNode resNode = null;
             int myCredit = -1;
 
-            ERPushMachineDataManager02.Instance.RequestCoinPushSpin((res) =>
+            if (!ContentModel.Instance.isUsedRes)
             {
-                Debug.Log("请求算法结果");
-                resNode = JSONNode.Parse((string)res);
-                isNext = true;
-            });
+                ERPushMachineDataManager02.Instance.RequestCoinPushSpin((res) =>
+                {
+                    Debug.Log("请求算法结果");
+                    resNode = JSONNode.Parse((string)res);
+                    isNext = true;
+                });
+                ContentModel.Instance.isUsedRes = false;
+            }
+            
 
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
@@ -2001,6 +2071,7 @@ namespace CaiFuHuoChe_3996
         //显示加速框
         public IEnumerator ShowEffectReelsSlowMotion(int colIdx)
         {
+            PlayAnim(girlAnim, "");
             GComponent ComReelEffect = ComReelEffect3;
             if (ContentModel.Instance.isFreeSlotTip)
             {
@@ -2284,6 +2355,82 @@ namespace CaiFuHuoChe_3996
                         fill4.fillAmount += (ContentModel.Instance.wildNums % 4) / 4.0f;
                         break;
                 }
+            }
+        }
+
+        private void SetFreeTrainState()
+        {
+            if (fill3.fillAmount == 1)
+            {
+                PlayAnim(freeTrainAnim, "idle4");
+            }
+            else if (fill2.fillAmount == 1)
+            {
+                PlayAnim(freeTrainAnim, "idle3");
+            }
+            else if (fill1.fillAmount == 1)
+            {
+                PlayAnim(freeTrainAnim, "idle2");
+            }
+            else
+            {
+                PlayAnim(freeTrainAnim, "idle1");
+            }
+        }
+
+
+        /// <summary>
+        /// 点击Spin按钮旋转失败的报错
+        /// </summary>
+        /// <param name="msg"></param>
+        private void StopGameWhenError(string msg)
+        {
+            UnlockStopButton();
+            ContentModel.Instance.isSpin = false;
+            ContentModel.Instance.isAuto = false;
+            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            ContentModel.Instance.gameState = GameState.Idle;
+
+
+            // 有好酷优先用好酷
+            if (false && SBoxModel.Instance.isUseIot && _tipCoinIn)
+            {
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(msg))
+                {
+                    string massage = I18nMgr.T(msg);
+                    TipPopupHandler.Instance.OpenPopupOnce(massage);
+                }
+            }
+        }
+
+        private void LockStopButton()
+        {
+            if (_isStopButtonLocked)
+            {
+                return;
+            }
+
+            _isStopButtonLocked = true;
+            if (MainModel.Instance.panel is PanelBaseController panelBaseController)
+            {
+                panelBaseController.SetSpinButtonLocked(true);
+            }
+        }
+
+        private void UnlockStopButton()
+        {
+            if (!_isStopButtonLocked)
+            {
+                return;
+            }
+
+            _isStopButtonLocked = false;
+            if (MainModel.Instance.panel is PanelBaseController panelBaseController)
+            {
+                panelBaseController.SetSpinButtonLocked(false);
             }
         }
     }

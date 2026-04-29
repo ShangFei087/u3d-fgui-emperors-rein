@@ -47,7 +47,7 @@
     <component id="jscy1d" name="GameJackpotMinor.xml" path="/moudules/Jackpot/" exported="true"/>
     <component id="jscy1g" name="GameJackpotMajor.xml" path="/moudules/Jackpot/" exported="true"/>
     <font id="jscy1j" name="FontJackpot.fnt" path="/fonts/" exported="true"/>
-    <component id="jscy1k" name="3998.xml" path="/moudules/card/" exported="true"/>
+    <component id="jscy1k" name="AnchorCard.xml" path="/moudules/card/" exported="true"/>
     <component id="jscy1l" name="CardBtn.xml" path="/components/" exported="true"/>
     <font id="jscy1o" name="FontCredit.fnt" path="/fonts/" exported="true"/>
   </resources>
