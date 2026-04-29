@@ -94,7 +94,6 @@
     <component id="n19_o8uc" name="mini" src="o8uc1h" fileName="moudules/JackpotMini.xml" xy="650,141" group="n13_o8uc"/>
     <component id="n18_o8uc" name="minor" src="o8uc1g" fileName="moudules/JackpotMinor.xml" xy="39,144" group="n13_o8uc"/>
     <component id="n16_o8uc" name="major" src="o8uc1f" fileName="moudules/JackpotMajor.xml" xy="340,15" group="n13_o8uc"/>
-    <component id="n11_o8uc" name="grand" src="o8uc1e" fileName="moudules/JackpotGrand.xml" xy="41,15" group="n13_o8uc" visible="false" touchable="false"/>
     <group id="n13_o8uc" name="jackpotTip" xy="39,15" size="1020,267"/>
     <component id="n63_vxx6" name="panel" src="fkjsl" fileName="component/popupNormalGame/AnchorPanelPush.xml" xy="540,960"/>
     <graph id="n64_znm9" name="mask" xy="-4,-2" size="1080,1920" visible="false" touchable="false" type="rect" lineSize="0" fillColor="#ff000000">
@@ -103,7 +102,6 @@
   </displayList>
   <transition name="BS">
     <item time="0" type="Alpha" target="n10_o8uc" value="1"/>
-    <item time="0" type="Alpha" target="n11_o8uc" value="1"/>
     <item time="0" type="Alpha" target="n16_o8uc" value="1"/>
     <item time="0" type="Alpha" target="n18_o8uc" value="1"/>
     <item time="0" type="Alpha" target="n19_o8uc" value="1"/>
@@ -147,7 +145,6 @@
   </transition>
   <transition name="FS">
     <item time="0" type="Alpha" target="n10_o8uc" value="1"/>
-    <item time="0" type="Alpha" target="n11_o8uc" value="1"/>
     <item time="0" type="Alpha" target="n16_o8uc" value="1"/>
     <item time="0" type="Alpha" target="n18_o8uc" value="1"/>
     <item time="0" type="Alpha" target="n19_o8uc" value="1"/>
@@ -190,7 +187,6 @@
   </transition>
   <transition name="BSToFSTransform">
     <item time="0" type="Alpha" target="n10_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
-    <item time="0" type="Alpha" target="n11_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
     <item time="0" type="Alpha" target="n16_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
     <item time="0" type="Alpha" target="n18_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
     <item time="0" type="Alpha" target="n19_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
@@ -219,7 +215,6 @@
     <item time="0" type="Visible" target="n67_iilz" value="false"/>
     <item time="0" type="XY" target="n47_9mnq" tween="true" startValue="1650,980" endValue="540,980" duration="36" ease="Linear"/>
     <item time="18" type="Alpha" target="n10_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
-    <item time="18" type="Alpha" target="n11_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n16_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n18_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n19_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>

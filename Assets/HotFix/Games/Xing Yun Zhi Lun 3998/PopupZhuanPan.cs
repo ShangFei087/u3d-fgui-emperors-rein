@@ -43,7 +43,6 @@ namespace XingYunZhiLun_3998
         protected override void OnInit()
         {
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
-            mono = GameObject.Find("Slot Game Main Controller3998").GetComponent<MonoHelper>();
             base.OnInit();
 
             int count = 2;
@@ -105,6 +104,8 @@ namespace XingYunZhiLun_3998
         {
             base.OnOpen(name, data);
             //EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
+            mono = GameObject.Find("Slot Game Main Controller3998").GetComponent<MonoHelper>();
+            mono.updateHandle.AddListener(WheelTrun);
             InitParam(data);
         }
 
@@ -174,8 +175,6 @@ namespace XingYunZhiLun_3998
 
             //确定获得奖励后再播放特效
             StopEffectAnim(effectRaward);
-
-            mono.updateHandle.AddListener(WheelTrun);
 
             gWheel = this.contentPane.GetChild("zhuanPan").asCom.GetChild("Wheel").asCom;
             WheelInit(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 });

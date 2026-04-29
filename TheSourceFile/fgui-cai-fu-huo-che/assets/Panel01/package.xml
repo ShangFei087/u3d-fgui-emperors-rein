@@ -69,6 +69,7 @@
     <image id="s21fch" name="ng_img_der_01.png" path="/images/Button/"/>
     <image id="s21fci" name="ng_txt_on.png" path="/images/Button/"/>
     <image id="s21fcj" name="ng_txt_dff.png" path="/images/Button/"/>
+    <image id="iilzco" name="pb_txt_auto.png" path="/images/Panel/spin按钮/"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Panel\Panel3996\FGUIs" packageCount="2"/>
 </packageDescription>

@@ -56,8 +56,8 @@
     <image id="i9hyajg" name="btn_left.png" path="/images/panel/payTable/" exported="true"/>
     <image id="i9hyaji" name="btn_exit.png" path="/images/panel/payTable/" exported="true"/>
     <image id="i9hyajm" name="txt_exit.png" path="/images/panel/payTable/Text/" exported="true"/>
-    <image id="i9hyak4" name="pb_btn_auto_en.png" path="/images/panel/spin/" exported="true"/>
-    <image id="i9hyak5" name="pb_txt_holdToAuto_en.png" path="/images/panel/spin/" exported="true"/>
+    <image id="i9hyak4" name="pb_btn_auto.png" path="/images/panel/spin/" exported="true"/>
+    <image id="i9hyak5" name="pb_txt_holdToAuto.png" path="/images/panel/spin/" exported="true"/>
     <image id="w05qaka" name="txt_open.png" path="/images/Button/" exported="true"/>
     <image id="w05qakb" name="btn_exhibition_01.png" path="/images/Button/" exported="true"/>
     <image id="w05qakc" name="btn_exhibition_02.png" path="/images/Button/" exported="true"/>

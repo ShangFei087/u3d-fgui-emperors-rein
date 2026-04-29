@@ -86,6 +86,7 @@ namespace XingYunZhiLun_3998
         long TotalBet => (long)MainModel.Instance.contentMD.totalBet;
 
         private bool isInit = false;        //是否初始化
+        private bool isReady = false;
         private bool isInitPool = false; //资源池是否初始化
         private bool tipCoinIn = false; //提示硬币输入
         private bool isStoppedSlotMachine = false;
@@ -264,10 +265,7 @@ namespace XingYunZhiLun_3998
         public override void OnOpen(PageName name, EventData data)
         {
             if (isOpen) return;
-            if (goGameCtrl != null && !goGameCtrl.activeSelf)
-            {
-                goGameCtrl.SetActive(true);
-            }
+
             base.OnOpen(name, data);
             EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
@@ -292,7 +290,7 @@ namespace XingYunZhiLun_3998
         {
             slotMachineCtrl.SkipWinLine(true);
             OnGameReset();
-
+            isReady = false;
             UnlockStopButton();
             GameSoundHelper.Instance.StopMusic();
             EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
@@ -301,10 +299,6 @@ namespace XingYunZhiLun_3998
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,OnSlotDetailEvent);
             EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             mono.updateHandle.RemoveAllListeners();
-            if (goGameCtrl != null && goGameCtrl.activeSelf)
-            {
-                goGameCtrl.SetActive(false);
-            }
 
             base.OnClose(data);
         }
@@ -319,7 +313,9 @@ namespace XingYunZhiLun_3998
             if (data != null) _data = data;
             if (!isInit) return;
 
-            PageManager.Instance.PreloadPage(PageName.XingYunZhiLunPopupZhuanPan, null);
+            //确保初始化只进行一次
+            if (isReady) return;
+            isReady = true;
 
             //对象池初始化
             if (fguiPoolHelper != null && isInitPool == false)

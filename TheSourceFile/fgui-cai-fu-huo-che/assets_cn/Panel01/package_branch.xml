@@ -10,5 +10,8 @@
     <image id="s21fck" name="ng_txt_on.png" path="/images/Button/" exported="true"/>
     <image id="s21fcl" name="ng_txt_dff.png" path="/images/Button/" exported="true"/>
     <image id="s21fcm" name="pb_img_help.png" path="/images/Panel/多功能按钮/" exported="true"/>
+    <image id="iilzcn" name="pb_txt_win.png" path="/images/Panel/赢分框/"/>
+    <image id="iilzcp" name="pb_txt_hold.png" path="/images/Panel/spin按钮/"/>
+    <image id="iilzcq" name="pb_txt_auto.png" path="/images/Panel/spin按钮/"/>
   </resources>
 </branchDescription>

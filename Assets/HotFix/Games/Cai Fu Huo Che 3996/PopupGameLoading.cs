@@ -120,10 +120,10 @@ namespace CaiFuHuoChe_3996
         {
             // 预加载界面：
             PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePageGameMain, null);
-            PageManager.Instance.PreloadPage(PageName.PusherEmperorsReinPopupBigWin, null);
-            PageManager.Instance.PreloadPage(PageName.PusherEmperorsReinPopupFreeSpinTrigger, null);
-            PageManager.Instance.PreloadPage(PageName.PusherEmperorsReinPopupFreeSpinResult, null);
-            PageManager.Instance.PreloadPage(PageName.PusherEmperorsReinPopupJackpotGame, null);
+            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupFreeSpinTrigger, null);
+            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupJackpotGameTrigger, null);
+            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupJackpotGameExit, null);
+            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupFreeSpinResult, null);
 
 
 
@@ -138,12 +138,12 @@ namespace CaiFuHuoChe_3996
             //    {
             //        // 获取当前进度值（四舍五入为整数）
             //        int progress = Mathf.RoundToInt(tween.value.x);
-                    
+
             //    })
             //    .OnComplete(() =>
             //    {
             //        Load.text = $"加载完成";
-                    
+
 
             //    });
         }

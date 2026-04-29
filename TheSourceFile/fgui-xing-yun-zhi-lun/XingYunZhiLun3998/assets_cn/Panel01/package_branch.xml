@@ -17,5 +17,7 @@
     <image id="w05qak8" name="txt_open.png" path="/images/Button/" exported="true"/>
     <image id="w05qak9" name="txt_close.png" path="/images/Button/" exported="true"/>
     <image id="xiz6akg" name="pb_txt_win.png" path="/images/panel/" exported="true"/>
+    <image id="echiakk" name="pb_btn_auto.png" path="/images/panel/spin/"/>
+    <image id="echiakl" name="pb_txt_holdToAuto.png" path="/images/panel/spin/"/>
   </resources>
 </branchDescription>

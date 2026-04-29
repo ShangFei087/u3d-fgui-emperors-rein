@@ -5,7 +5,9 @@
     <image id="n0_jhxn" name="n0" src="9mnq1m" fileName="images/freeGame/fg_pop_btn_border.png" xy="0,0" size="742,250">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <image id="n1_jhxn" name="n1" src="jhxn33" fileName="images/freeGame/fg_txt_start_collect_CN.png" xy="371,126" pivot="0.5,0.5" anchor="true" size="268,103"/>
+    <image id="n1_jhxn" name="n1" src="iilzcm" fileName="images/freeGame/fg_txt_start_collect.png" xy="377,124" pivot="0.5,0.5" anchor="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
   </displayList>
   <Button downEffect="dark" downEffectValue="0.8"/>
 </component>

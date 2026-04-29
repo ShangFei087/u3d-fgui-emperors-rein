@@ -37,8 +37,6 @@
     <component id="9mnq1k" name="PopupFreeSpinTrigger.xml" path="/" exported="true"/>
     <image id="9mnq1l" name="7免费游戏提示框.png" path="/images/cankao/" exported="true"/>
     <image id="9mnq1m" name="fg_pop_btn_border.png" path="/images/freeGame/" exported="true"/>
-    <image id="9mnq1n" name="fg_pop_btn_collect.png" path="/images/freeGame/" exported="true"/>
-    <image id="9mnq1o" name="fg_pop_btn_start.png" path="/images/freeGame/" exported="true"/>
     <component id="9mnq1p" name="FreeTriggerBtn.xml" path="/component/freeSpin/" exported="true"/>
     <font id="9mnq20" name="freeSpinTriggerFont.fnt" path="/fonts/font/freeSpinTrigger/" exported="true"/>
     <component id="9mnq21" name="AnchorTriggerBg.xml" path="/component/popupFreeGame/" exported="true"/>
@@ -267,6 +265,8 @@
     <component id="v2k7ce" name="Paytable5.xml" path="/moudules/payTable/" exported="true"/>
     <component id="znm9cf" name="AnchorGirl.xml" path="/component/popupNormalGame/"/>
     <component id="iilzcl" name="AnchorBox.xml" path="/component/popupNormalGame/"/>
+    <image id="iilzcm" name="fg_txt_start_collect.png" path="/images/freeGame/"/>
+    <image id="iilzco" name="fg_txt_start.png" path="/images/freeGame/"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Cai Fu Huo Che 3996\FGUIs" packageCount="2"/>
 </packageDescription>

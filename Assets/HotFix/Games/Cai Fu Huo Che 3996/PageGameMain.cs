@@ -60,6 +60,7 @@ namespace CaiFuHuoChe_3996
         long TotalBet => (long)MainModel.Instance.contentMD.totalBet;
 
         private new bool isInit = false;        //是否初始化
+        private bool isReady = false;
         private bool isInitPool = false;
         private bool tipCoinIn = false; //提示硬币输入
         private bool isStoppedSlotMachine = false;
@@ -258,10 +259,7 @@ namespace CaiFuHuoChe_3996
         public override void OnOpen(PageName name, EventData data)
         {
             if (isOpen) return;
-            if (goGameCtrl != null && !goGameCtrl.activeSelf)
-            {
-                goGameCtrl.SetActive(true);
-            }
+
             base.OnOpen(name, data);
             EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
@@ -278,6 +276,7 @@ namespace CaiFuHuoChe_3996
         public override void OnClose(EventData data = null)
         {
             slotMachineCtrl.SkipWinLine(true);
+            isReady = false;
             OnGameReset();
             UnlockStopButton();
             EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
@@ -286,10 +285,6 @@ namespace CaiFuHuoChe_3996
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
             EventCenter.Instance.RemoveEventListener<EventData>("RewardAddEffect", OnRewardEffectEvent);
             EventCenter.Instance.RemoveEventListener<EventData>("JackpotWinCredit", OnJackpotWinEvent);
-            if (goGameCtrl != null && goGameCtrl.activeSelf)
-            {
-                goGameCtrl.SetActive(false);
-            }
 
             base.OnClose(data);
         }
@@ -390,6 +385,10 @@ namespace CaiFuHuoChe_3996
         {
             if (data != null) _data = data;
             if (!isInit) return;
+
+            //确保初始化只进行一次
+            if (isReady) return;
+            isReady = true;
 
             //对象池初始化
             if (fguiPoolHelper != null && isInitPool == false)
@@ -1055,7 +1054,6 @@ namespace CaiFuHuoChe_3996
                 slotMachineCtrl.SkipWinLine(true);
                 PlayAnim(girlAnim, "ng_trigger fg");
                 yield return new WaitForSeconds(5.5f);
-                PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupFreeSpinTrigger, null);
                 
                 isNext = false;
                 slotMachineCtrl.SkipWinLine(true);
@@ -1076,8 +1074,6 @@ namespace CaiFuHuoChe_3996
                     yield return new WaitForSeconds(1);
                 }
                 isNext = false;
-                //预加载触发动画防止字体闪烁
-                PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupJackpotGameTrigger, null);
 
                 //显示中奖动画
                 slotMachineCtrl.SkipWinLine(true);
@@ -1175,7 +1171,6 @@ namespace CaiFuHuoChe_3996
         //彩金游戏进入和退出
         IEnumerator jackpotSpinTrigger(Action successCallback, Action<string> errorCallback)
         {
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupJackpotGameExit, null);
             ContentModel.Instance.jackpotSpinWinCredit = 0;
             allWinCredit = 0;
 
@@ -1405,8 +1400,6 @@ namespace CaiFuHuoChe_3996
             });
 
             slotMachineCtrl.BeginBonusFreeSpin();
-
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupFreeSpinResult, null);
 
             yield return GameFreeSpin(null, errorCallback);
 
