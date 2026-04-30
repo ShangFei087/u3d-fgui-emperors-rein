@@ -388,6 +388,7 @@ namespace CaiFuHuoChe_3996
                                 if (reels[_reelIdx].symbolList[i].number >= 12 && ContentModel.Instance.itemPos[_reelIdx].Contains(i - 2))
                                 {
                                     ContentModel.Instance.haveJackpotCredit = true;
+                                    EventCenter.Instance.EventTrigger<EventData>("PlayGirlClaw", new EventData("PlayGirlClaw"));
 
                                     string symbolName = CustomModel.Instance.symbolAppearEffect[reels[_reelIdx].symbolList[i].number.ToString()];
 

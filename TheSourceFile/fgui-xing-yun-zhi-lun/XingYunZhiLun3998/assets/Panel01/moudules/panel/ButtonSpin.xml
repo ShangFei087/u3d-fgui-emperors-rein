@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="260,164">
+<component size="260,164" overflow="hidden">
   <controller name="button" pages="0,spin,1,stop,2,auto,3,hui" selected="0">
     <action type="play_transition" fromPage="" toPage="0" transition="stop"/>
     <action type="play_transition" fromPage="" toPage="1" transition="spin"/>
@@ -8,25 +8,23 @@
   </controller>
   <displayList>
     <image id="n52_yl9o" name="n52" src="a666ah7" fileName="images/panel/spin/pb_btn_spin.png" xy="0,0"/>
-    <loader id="n54_yl9o" name="n0" xy="131,82" pivot="0.5,0.5" anchor="true" size="142,58" align="center" vAlign="middle" autoSize="true">
+    <loader id="n54_yl9o" name="n0" xy="131,82" pivot="0.5,0.5" anchor="true" size="130,53" align="center" vAlign="middle" autoSize="true">
       <relation target="" sidePair="center-center,middle-middle"/>
     </loader>
     <component id="n55_yl9o" name="anchorSpin" src="yl9oa" fileName="moudules/panel/AnchorSpin.xml" xy="130,84"/>
-    <component id="n57_yl9o" name="untouch" src="yl9o7" fileName="moudules/panel/UntouchRect24.xml" xy="-4,1" size="266,162"/>
+    <component id="n58_echi" name="untouch" src="yl9o7" fileName="moudules/panel/UntouchRect24.xml" xy="-2,-4" size="266,167"/>
   </displayList>
   <transition name="spin">
     <item time="0" type="Icon" target="n54_yl9o" value="ui://re27c1j7a666agt"/>
-    <item time="0" type="Visible" target="n57_yl9o" value="false"/>
+    <item time="0" type="Visible" target="n58_echi" value="false"/>
   </transition>
   <transition name="stop">
     <item time="0" type="Icon" target="n54_yl9o" value="ui://re27c1j7a666agr"/>
-    <item time="0" type="Visible" target="n57_yl9o" value="false"/>
   </transition>
   <transition name="auto">
     <item time="0" type="Icon" target="n54_yl9o" value="ui://re27c1j7i9hyak4"/>
-    <item time="0" type="Visible" target="n57_yl9o" value="false"/>
   </transition>
   <transition name="hui">
-    <item time="0" type="Visible" target="n57_yl9o" value="true"/>
+    <item time="0" type="Visible" target="n58_echi" value="true"/>
   </transition>
 </component>

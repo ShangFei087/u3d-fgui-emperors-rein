@@ -23,7 +23,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _interval1: 50
-    - _strengthX: 0.035
-    - _strengthY: 0.055
+    - _strengthX: 0.03
+    - _strengthY: 0.05
     m_Colors: []
   m_BuildTextureStacks: []

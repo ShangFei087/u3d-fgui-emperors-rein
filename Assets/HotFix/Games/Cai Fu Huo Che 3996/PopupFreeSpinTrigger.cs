@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using PusherEmperorsRein;
 using SlotMaker;
 using System;
 using System.Collections;
@@ -51,6 +52,24 @@ namespace CaiFuHuoChe_3996
                     go = clone;
                     callback();
                 });
+
+            machineBtnClickHelper = new MachineButtonClickHelper()
+            {
+                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+                {
+                    [MachineButtonKey.BtnSpin] = (info) =>
+                    {
+                        if (PanelController02.isOpenIntroduce == true)
+                        {
+                            return;
+                        }
+
+                        Debug.LogError("游戏接受到机台短按的数据：Spin");
+                        EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false); // isLongClick
+                        OnBtnStartClick();
+                    },
+                }
+            };
         }
 
         public override void OnOpen(PageName name, EventData data)

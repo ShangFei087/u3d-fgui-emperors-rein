@@ -1,14 +1,14 @@
 using FairyGUI;
+using UnityEngine;
 using GameMaker;
-using PusherEmperorsRein;
 using SBoxApi;
 using SimpleJSON;
 using SlotMaker;
 using Spine.Unity;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using static NetButtonManager;
+using PusherEmperorsRein;
+
 namespace TreasuryHall
 {
     public class TreasuryHallMain : MachinePageBase
@@ -40,7 +40,7 @@ namespace TreasuryHall
             base.OnInit();
 
             int count = 3;
-            //GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
+           
             Action callback = () =>
             {
                 if (--count == 0)
@@ -77,11 +77,6 @@ namespace TreasuryHall
                 {
                     [MachineButtonKey.BtnTicketOut] = (info) =>
                     {
-                        if (PanelController02.isOpenIntroduce == true)
-                        {
-                            return;
-                        }
-
                         Debug.LogError("游戏接受到机台短按的数据：BtnTicketOut");
                         //EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false); // isLongClick
                         OnClickBtnTicketOut();
@@ -106,7 +101,7 @@ namespace TreasuryHall
         public override void OnOpen(PageName name, EventData data)
         {
             base.OnOpen(name, data);
-            //GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
+            GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
             // 添加事件监听 - 彩金贡献值
             EventCenter.Instance.AddEventListener<EventData>(MetaUIEvent.ON_CREDIT_EVENT, OnUpdateNaviCredit);
             InitParam();

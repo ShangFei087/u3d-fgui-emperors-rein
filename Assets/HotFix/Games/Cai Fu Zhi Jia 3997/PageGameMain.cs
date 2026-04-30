@@ -51,6 +51,7 @@ namespace CaiFuZhiJia_3997
         private bool _isInitPool = false;
         private int _totalCount = -1;
         private GComponent _gOwnerPanel;
+        private GComponent _lastAnchorPanelForDispatch;
         private TextAsset _gameInfo = null;
 
         // 游戏控制器
@@ -183,8 +184,7 @@ namespace CaiFuZhiJia_3997
             MainModel.Instance.cutomMD = CustomModel.Instance;
             ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
             MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
-            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
+            TryTriggerAnchorPanelChange();
 
             // 初始化滚轴界面
             GComponent gSlotMachine = contentPane.GetChild("slotMachine").asCom;
@@ -304,6 +304,7 @@ namespace CaiFuZhiJia_3997
         {
             UnlockStopButton();
             OnGameReset();
+            _lastAnchorPanelForDispatch = null;
 
             GameSoundHelper3997.Instance.StopSound(SoundKey.RegularBG);
             EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(
@@ -316,6 +317,22 @@ namespace CaiFuZhiJia_3997
             base.OnClose(eventData);
             _freeSpinTimeController.Dispose();
             // _isReady = false;
+        }
+
+        private void TryTriggerAnchorPanelChange()
+        {
+            if (_gOwnerPanel == null)
+            {
+                return;
+            }
+
+            if (ReferenceEquals(_lastAnchorPanelForDispatch, _gOwnerPanel))
+            {
+                return;
+            }
+
+            _lastAnchorPanelForDispatch = _gOwnerPanel;
+            EventCenter.Instance.EventTrigger<EventData>( PanelEvent.ON_PANEL_EVENT, new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
         }
 
         private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
@@ -437,11 +454,11 @@ namespace CaiFuZhiJia_3997
                         Debug.LogError("解析symbol_paytable失败，数据为空");
                         return;
                     }
-
+                    MainModel.Instance.lineNum = config.LineNum;
                     MainModel.Instance.gameID = config.GameId;
                     MainModel.Instance.gameName = config.GameName;
                     MainModel.Instance.displayName = config.DisplayName;
-                    MainModel.Instance.lineNum = config.LineNum;
+                    
                 });
         }
 
@@ -980,8 +997,8 @@ namespace CaiFuZhiJia_3997
                     // 重新注册
                     ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
                     MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
-                    EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                        new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
+                    TryTriggerAnchorPanelChange();
+                 
 
                     isNext = true;
                 });
@@ -1589,8 +1606,7 @@ namespace CaiFuZhiJia_3997
                         MainModel.Instance.cutomMD = CustomModel.Instance;
                         ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
                         MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
-                        EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                            new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
+                        TryTriggerAnchorPanelChange();
                         ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                         ContentModel.Instance.isSpin = false;
                         ContentModel.Instance.remainPlaySpins = 1;
@@ -1830,8 +1846,7 @@ namespace CaiFuZhiJia_3997
                     // 重新注册
                     ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
                     MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
-                    EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                        new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
+                    TryTriggerAnchorPanelChange();
                 });
             successCallback?.Invoke();
         }

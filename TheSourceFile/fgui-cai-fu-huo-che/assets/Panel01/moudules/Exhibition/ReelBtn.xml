@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="62,594">
   <displayList>
-    <component id="n56_q05j" name="btnUp" src="tpfbc3" fileName="moudules/Exhibition/ButtonColUp.xml" xy="29,0" pivot="0.5,0.5" anchor="true" rotation="-90">
+    <component id="n56_q05j" name="btnUp" src="tpfbc3" fileName="moudules/Exhibition/ButtonColUp.xml" xy="29,0" pivot="0.5,0.5" anchor="true" scale="0.8,0.8" rotation="-90">
       <relation target="" sidePair="center-center,top-top"/>
     </component>
-    <component id="n55_q05j" name="BtnDown" src="tpfbc2" fileName="moudules/Exhibition/ButtonColDown.xml" xy="30,610" pivot="0.5,0.5" anchor="true" rotation="-90">
+    <component id="n55_q05j" name="BtnDown" src="tpfbc2" fileName="moudules/Exhibition/ButtonColDown.xml" xy="30,610" pivot="0.5,0.5" anchor="true" scale="0.8,0.8" rotation="-90">
       <relation target="" sidePair="center-center,top-bottom"/>
     </component>
   </displayList>

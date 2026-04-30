@@ -28,8 +28,6 @@ public class MiniReel
         if (_tran != null)
             _tran.Stop();
     }
-
-
     Transition _tran;
     Transition tran
     {
@@ -40,14 +38,11 @@ public class MiniReel
             return _tran;
         }
     }
-
-
     void SetSymbol(int index)
     {
         string value = codes[index];
         SetSymbol(value);
     }
-
 
     public void SetSymbol(string value)
     {
@@ -66,9 +61,6 @@ public class MiniReel
     }
 
     string data;
-
-
-
     void CheckSymbol(string value)
     {
         if (!goOwnerReel.visible)
@@ -76,7 +68,6 @@ public class MiniReel
 
         goOwnerReel.width = codes.Contains(value) ? width : width / 2f;
     }
-
     float _speed = 1f;
     public void TurnOrKeepSymbol(string value, Action cb = null, float speed = 1f) 
     {
@@ -100,14 +91,11 @@ public class MiniReel
 
         TurnSymbol(nowIdx, idx, cb);
     }
-
     void TurnSymbol(int startIdx = 0, int endIdx = -1, Action cb = null)
     {
         tran?.Stop();
         _TurnSymbolOnce(startIdx, endIdx,cb);
     }
-
-
 
     void _TurnSymbolOnce(int startIdx = 0, int endIdx = -1, Action cb = null)
     {
