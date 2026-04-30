@@ -29,10 +29,11 @@ namespace CaiFuZhiJia_3997
 
         // Spine
         private GameObject
-            _reelBgSpineObj = null, /*_bonusTreeSpineObj = null,*/ _bonusSpineObj = null; // 第三个是钻石Spine动画
+            /*_reelBgSpineObj = null,*/ /*_bonusTreeSpineObj = null,*/
+            _bonusSpineObj = null; // 第三个是钻石Spine动画
 
-        private GameObject _cloneReelBgSpineObj = null /*, _cloneBonusTreeSpineObj = null*/;
-        private GComponent _compareReelBgSpineGCom = null, _compareBonusTreeSpineGCom = null;
+        // private GameObject _cloneReelBgSpineObj = null /*, _cloneBonusTreeSpineObj = null*/;
+        // private GComponent _compareReelBgSpineGCom = null, _compareBonusTreeSpineGCom = null;
 
         private readonly List<GameObject> _cloneJackpotSpineList = new List<GameObject>();
         private readonly List<Animator> _cloneAnimators = new List<Animator>(); // 预制体上的动画集合
@@ -95,6 +96,8 @@ namespace CaiFuZhiJia_3997
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMiniCtrl = new MiniReelGroup();
 
+        // private bool _isReady;
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -102,15 +105,13 @@ namespace CaiFuZhiJia_3997
             InitUI();
             InitCanSpinReels();
 
-            _totalCount = 2;
+            _totalCount = 1;
             LoadAsyncRes();
         }
 
         public override void InitParam()
         {
             if (!_isInitialized) return;
-            preLoadedCallback?.Invoke();
-            if (!isOpen) return;
 
             // 加载Panel面板
             _gOwnerPanel = contentPane.GetChild("panel").asCom;
@@ -120,6 +121,13 @@ namespace CaiFuZhiJia_3997
             MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
             EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
                 new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
+
+            
+            preLoadedCallback?.Invoke();
+            if (!isOpen) return;
+            
+            // if (_isReady) return;
+            // _isReady = true;
 
             for (int i = 0; i < _canSpinReelIndexList.Count; i++)
             {
@@ -135,6 +143,8 @@ namespace CaiFuZhiJia_3997
                 .ToList();
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             BindPrefabsToUI();
+            
+           
 
             //彩金
             uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("jpMajor").asCom.GetChild("n1").asList, "N0");
@@ -170,9 +180,10 @@ namespace CaiFuZhiJia_3997
             base.OnClose(eventData);
             GameSoundHelper3997.Instance.StopSound(SoundKey.JackpotBG);
             ResetView();
+            // _isReady = false;
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
         }
-        
+
         // protected override void OnLanguageChange(I18nLang lang)
         // {
         //     FguiI18nTextAssistant.Instance.DisposeAllTranslate(contentPane);
@@ -181,7 +192,6 @@ namespace CaiFuZhiJia_3997
         //     InitUI();
         //     InitCanSpinReels();
         //     InitParam();
-        //     Debug.LogError("语言切换");
         // }
 
         private void ResLoadedCallback()
@@ -216,13 +226,13 @@ namespace CaiFuZhiJia_3997
 
         private void LoadAsyncRes()
         {
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                SpinePrefabPath + "reelBgSpine.prefab",
-                (clone) =>
-                {
-                    _reelBgSpineObj = clone;
-                    ResLoadedCallback();
-                });
+            // ResourceManager02.Instance.LoadAsset<GameObject>(
+            //     SpinePrefabPath + "reelBgSpine.prefab",
+            //     (clone) =>
+            //     {
+            //         _reelBgSpineObj = clone;
+            //         ResLoadedCallback();
+            //     });
 
             // ResourceManager02.Instance.LoadAsset<GameObject>(
             //     SpinePrefabPath + "jackpotTreeSpine.prefab",
@@ -251,14 +261,14 @@ namespace CaiFuZhiJia_3997
 
         private void BindPrefabsToUI()
         {
-            GComponent currentGCom = contentPane.GetChild("reelBgSpine").asCom;
-            if (currentGCom != _compareReelBgSpineGCom)
-            {
-                GameCommon.FguiUtils.DeleteWrapper(_compareReelBgSpineGCom);
-                _compareReelBgSpineGCom = currentGCom;
-                _cloneReelBgSpineObj = Object.Instantiate(_reelBgSpineObj);
-                GameCommon.FguiUtils.AddWrapper(_compareReelBgSpineGCom, _cloneReelBgSpineObj);
-            }
+            // GComponent currentGCom = contentPane.GetChild("reelBgSpine").asCom;
+            // if (currentGCom != _compareReelBgSpineGCom)
+            // {
+            //     GameCommon.FguiUtils.DeleteWrapper(_compareReelBgSpineGCom);
+            //     _compareReelBgSpineGCom = currentGCom;
+            //     _cloneReelBgSpineObj = Object.Instantiate(_reelBgSpineObj);
+            //     GameCommon.FguiUtils.AddWrapper(_compareReelBgSpineGCom, _cloneReelBgSpineObj);
+            // }
 
             // currentGCom = contentPane.GetChild("jackpotTreeSpine").asCom;
             // if (currentGCom != _compareBonusTreeSpineGCom)
@@ -285,7 +295,7 @@ namespace CaiFuZhiJia_3997
 
             for (int i = 0; i < _jackpotDiamondSpinesGCom.numChildren; i++)
             {
-                currentGCom = _jackpotDiamondSpinesGCom.GetChild("jackpotSpine_" + i).asCom;
+                GComponent currentGCom = _jackpotDiamondSpinesGCom.GetChild("jackpotSpine_" + i).asCom;
                 if (currentGCom != _compareJackpotSpineGComList[i])
                 {
                     GameCommon.FguiUtils.DeleteWrapper(_compareJackpotSpineGComList[i]);
@@ -538,18 +548,18 @@ namespace CaiFuZhiJia_3997
         IEnumerator GameOnceCoroutine()
         {
             _isWinning = RandomIsWinThisRound();
-        
+
             for (int i = 0; i < _canSpinReelIndexList.Count; i++)
             {
                 int reelIndex = _canSpinReelIndexList[i];
                 _singleReelControllers[reelIndex].StartRoll(_moveSpeedList[i]);
             }
-        
+
             yield return new WaitForSeconds(2f);
-        
+
             if (!_isWinning)
             {
-                Debug.LogError("没中奖");
+                // Debug.LogError("没中奖");
                 // for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 // {
                 //     int reelIndex = _canSpinReelIndexList[i];
@@ -557,31 +567,31 @@ namespace CaiFuZhiJia_3997
                 // }
                 //
                 // yield return new WaitForSeconds(2f);
-        
+
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
                     _singleReelControllers[reelIndex].StopRoll(_currentWinIndexList, null);
                 }
-        
+
                 _totalPlayRounds--;
                 _freeCountText.text = _totalPlayRounds.ToString();
             }
             else
             {
-                Debug.LogError("中奖了");
+                // Debug.LogError("中奖了");
                 GetCurrentWinningDiamondList();
-        
+
                 var stopCallbacks = new List<Action>();
                 int completedCount = 0;
                 int totalToComplete = _canSpinReelIndexList.Count;
-        
+
                 // 先收集所有需要停止的滚轴
                 foreach (var reelIndex in _canSpinReelIndexList)
                 {
                     bool isWin = _currentWinIndexList.Contains(reelIndex);
                     int capturedReelIndex = reelIndex; // 闭包捕获
-        
+
                     _singleReelControllers[reelIndex].StopRoll(
                         _currentWinIndexList, () =>
                         {
@@ -603,19 +613,19 @@ namespace CaiFuZhiJia_3997
                         }
                     );
                 }
-        
+
                 yield return new WaitUntil(() => completedCount >= totalToComplete);
-        
+
                 // 统一从可旋转列表中移除中奖项
                 foreach (var reelIndex in _currentWinIndexList)
                 {
                     _canSpinReelIndexList.Remove(reelIndex);
                 }
-        
+
                 _freeCountText.text = "3";
                 _totalPlayRounds = 3;
             }
-        
+
             yield return new WaitForSeconds(2);
         }
 
@@ -664,11 +674,11 @@ namespace CaiFuZhiJia_3997
             _cloneJackpotSpineList.Clear();
 
             // Object.Destroy(_cloneNpcObj);
-            Object.Destroy(_cloneReelBgSpineObj);
+            // Object.Destroy(_cloneReelBgSpineObj);
             // Object.Destroy(_cloneBonusTreeSpineObj);
 
             // _cloneNpcObj = null;
-            _cloneReelBgSpineObj = null;
+            // _cloneReelBgSpineObj = null;
             // _cloneBonusTreeSpineObj = null;
 
             for (int i = 0; i < _compareJackpotSpineGComList.Count; i++)
@@ -679,10 +689,10 @@ namespace CaiFuZhiJia_3997
 
             _compareJackpotSpineGComList.Clear();
 
-            GameCommon.FguiUtils.DeleteWrapper(_compareReelBgSpineGCom);
-            GameCommon.FguiUtils.DeleteWrapper(_compareBonusTreeSpineGCom);
-            _compareReelBgSpineGCom = null;
-            _compareBonusTreeSpineGCom = null;
+            // GameCommon.FguiUtils.DeleteWrapper(_compareReelBgSpineGCom);
+            // GameCommon.FguiUtils.DeleteWrapper(_compareBonusTreeSpineGCom);
+            // _compareReelBgSpineGCom = null;
+            // _compareBonusTreeSpineGCom = null;
 
             _cloneAnimators.Clear();
             _effects.Clear();

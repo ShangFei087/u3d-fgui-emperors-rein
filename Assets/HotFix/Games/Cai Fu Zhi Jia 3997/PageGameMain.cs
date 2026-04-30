@@ -111,6 +111,8 @@ namespace CaiFuZhiJia_3997
         private List<GComponent> _lstPayTable;
         private readonly PayTableController3997 _payTableController = new PayTableController3997();
 
+        // private bool _isReady;
+
         private bool IsAddCreditAnim =>
             !(_slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
 
@@ -149,6 +151,7 @@ namespace CaiFuZhiJia_3997
         public override void InitParam()
         {
             if (!isInit) return;
+
 
             MainModel.Instance.contentMD = ContentModel.Instance;
             MainModel.Instance.cutomMD = CustomModel.Instance;
@@ -195,6 +198,9 @@ namespace CaiFuZhiJia_3997
 
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
+            // if (_isReady) return;
+            // _isReady = true;
+
 
             if (_anchorFreeExpectation != null)
                 _anchorFreeExpectation.Dispose();
@@ -309,6 +315,7 @@ namespace CaiFuZhiJia_3997
             EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             base.OnClose(eventData);
             _freeSpinTimeController.Dispose();
+            // _isReady = false;
         }
 
         private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
@@ -1218,9 +1225,9 @@ namespace CaiFuZhiJia_3997
                 }
 
                 _allWinCredit += totalWinLineCredit;
-                Debug.LogError("_allWinCredit:" + _allWinCredit + "          totalWinLineCredit: " +
-                               totalWinLineCredit + "        ContentModel.Instance.freeSpinTotalWinCoins: " +
-                               ContentModel.Instance.freeSpinTotalWinCoins);
+                // Debug.LogError("_allWinCredit:" + _allWinCredit + "          totalWinLineCredit: " +
+                //                totalWinLineCredit + "        ContentModel.Instance.freeSpinTotalWinCoins: " +
+                //                ContentModel.Instance.freeSpinTotalWinCoins);
                 _slotMachineCtrl.SendTotalWinCreditEvent(_allWinCredit); // 总线赢分事件
             }
 
@@ -1526,7 +1533,7 @@ namespace CaiFuZhiJia_3997
             if (ContentModel.Instance.isFreeSpinTrigger)
             {
                 // PlayAnimationByName(_traderAnimator,"Wealth_ng_npc_trigger fg");
-                
+
                 if (_corShowFreeSymbol != null) _monoHelper.StopCoroutine(_corShowFreeSymbol);
                 _corShowFreeSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(10));
                 // 免费触发，关闭展会模式
@@ -1534,6 +1541,7 @@ namespace CaiFuZhiJia_3997
                 {
                     _panelController3997.OnClickExhibition();
                 }
+
                 yield return new WaitForSeconds(2f);
                 //停止特效显示
                 _slotMachineCtrl.SkipWinLine(false);
@@ -1547,12 +1555,13 @@ namespace CaiFuZhiJia_3997
                 // 显示中奖图标
                 if (_corShowBonusSymbol != null) _monoHelper.StopCoroutine(_corShowBonusSymbol);
                 _corShowBonusSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(11));
-                
+
                 // 彩金触发，关闭展会模式
                 if (MainModel.Instance.isExhibitionModeMode)
                 {
                     _panelController3997.OnClickExhibition();
                 }
+
                 yield return new WaitForSeconds(2f);
                 _isMain = false;
                 _slotMachineCtrl.SkipWinLine(false);

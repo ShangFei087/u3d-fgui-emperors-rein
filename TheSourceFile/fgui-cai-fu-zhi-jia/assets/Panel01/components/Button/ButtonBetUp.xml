@@ -7,6 +7,7 @@
     </component>
     <image id="n3_f6tv" name="untouch" src="f6tv29" fileName="images/鼓励值/pb_img_kuang_01.png" xy="0,-2" visible="false" color="#999999"/>
     <image id="n2_f6tv" name="n2" src="f6tv2b" fileName="images/鼓励值/pb_img_kuang_04.png" xy="0,24"/>
+    <component id="n4_p94i" name="anchorBetEffect" src="p94it3" fileName="moudules/Panel/anchorBetBtnEffect.xml" xy="25,50"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.8"/>
 </component>

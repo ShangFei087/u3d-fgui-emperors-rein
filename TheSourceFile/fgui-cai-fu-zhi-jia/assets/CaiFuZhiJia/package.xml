@@ -222,6 +222,7 @@
     <component id="lyrxpf" name="PopupOverWin.xml" path="/" exported="true"/>
     <component id="lyrxpg" name="anchorPlayer.xml" path="/moudules/popupOverWin/" exported="true"/>
     <component id="lyrxph" name="anchorOverWin.xml" path="/moudules/popupOverWin/" exported="true"/>
+    <component id="rhifpn" name="ng_null.xml" path="/images/popupJackpotGame/Symbol/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>
