@@ -25,6 +25,8 @@ namespace SlotMaker
 {
     public class PanelBaseController : MonoBehaviour, IPanel
     {
+        private static PanelBaseController _activeInstance;
+
         // 当前弹窗状态（设置、帮助、赔付表等）
         PopState popState = PopState.None;
 
@@ -77,6 +79,8 @@ namespace SlotMaker
         // 是否已完成初始化
         bool isInit;
         private bool _isInitializing;
+        private int _initSequence;
+        private GComponent _pendingAnchorPanel;
         public int IntroduceIndex;
         public int VolumeLevel;
 
@@ -94,6 +98,13 @@ namespace SlotMaker
         /// </summary>
         protected virtual void OnEnable()
         {
+            if (_activeInstance != null && _activeInstance != this)
+            {
+                _activeInstance.CleanupLifecycleListeners();
+                Debug.Log($"PanelBaseController handover. oldId={_activeInstance.GetInstanceID()}, newId={GetInstanceID()}");
+            }
+            _activeInstance = this;
+
             EventCenter.Instance.AddEventListener<EventData>(Observer.ON_PROPERTY_CHANGED_EVENT, OnPropertyChange);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnTotalWinCredit);
             EventCenter.Instance.AddEventListener<EventData>(MetaUIEvent.ON_CREDIT_EVENT, OnUpdateNaviCredit);
@@ -109,13 +120,8 @@ namespace SlotMaker
         /// </summary>
         protected virtual void OnDisable()
         {
-            EventCenter.Instance.RemoveEventListener<EventData>(Observer.ON_PROPERTY_CHANGED_EVENT, OnPropertyChange);
-            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnTotalWinCredit);
-            EventCenter.Instance.RemoveEventListener<EventData>(MetaUIEvent.ON_CREDIT_EVENT, OnUpdateNaviCredit);
-            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT,OnPanelEventAnchorPanelChange);
-            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_CONTENT_EVENT, OnContentChang);
-            
-            Stage.inst.onTouchEnd.Remove(OnStageTouchEndResetSoundButton);
+            CleanupLifecycleListeners();
+
             if (silderSound != null)
             {
                 silderSound.onChanged.Clear();
@@ -133,8 +139,32 @@ namespace SlotMaker
             _pendingRequestSetBetCallback = null;
             _isSpinStopButtonLocked = false;
             _isInitializing = false;
+            _pendingAnchorPanel = null;
+            _initSequence++;
 
-            gOwnerPanel.visible = false;
+            if (gOwnerPanel != null)
+            {
+                gOwnerPanel.visible = false;
+            }
+        }
+
+        protected virtual void OnDestroy()
+        {
+            CleanupLifecycleListeners();
+            if (_activeInstance == this)
+            {
+                _activeInstance = null;
+            }
+        }
+
+        private void CleanupLifecycleListeners()
+        {
+            EventCenter.Instance.RemoveEventListener<EventData>(Observer.ON_PROPERTY_CHANGED_EVENT, OnPropertyChange);
+            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnTotalWinCredit);
+            EventCenter.Instance.RemoveEventListener<EventData>(MetaUIEvent.ON_CREDIT_EVENT, OnUpdateNaviCredit);
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnPanelEventAnchorPanelChange);
+            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_CONTENT_EVENT, OnContentChang);
+            Stage.inst.onTouchEnd.Remove(OnStageTouchEndResetSoundButton);
         }
 
         /// <summary>
@@ -155,28 +185,45 @@ namespace SlotMaker
 
             if (_isInitializing)
             {
+                _pendingAnchorPanel = _goAnchorPanel;
                 return;
             }
 
             // 同一锚点且已初始化完成时不重复执行，避免重复触发 InitParam
             if (isInit && ReferenceEquals(_cachedAnchorPanel, _goAnchorPanel))
             {
-                Debug.Log("同一锚点且已初始化完成时不重复执行，避免重复触发 InitParam");
+                Debug.Log("Skip Init: same anchor panel and already initialized.");
                 return;
             }
 
             _cachedAnchorPanel = _goAnchorPanel;
             _isInitializing = true;
+            int currentInitSequence = ++_initSequence;
 
             int count = 2;
             Action loadComplete = () =>
             {
+                if (currentInitSequence != _initSequence || _activeInstance != this || !isActiveAndEnabled)
+                {
+                    return;
+                }
+
                 // 两个异步资源都完成后再进行参数初始化
                 if (--count == 0)
                 {
                     isInit = true;
                     InitParam();
                     _isInitializing = false;
+
+                    if (_pendingAnchorPanel != null && !ReferenceEquals(_pendingAnchorPanel, _cachedAnchorPanel))
+                    {
+                        GComponent nextAnchorPanel = _pendingAnchorPanel;
+                        _pendingAnchorPanel = null;
+                        Init(new EventData<GComponent>(PanelEvent.AnchorPanelChange, nextAnchorPanel));
+                        return;
+                    }
+
+                    _pendingAnchorPanel = null;
                 }
             };
 
@@ -204,6 +251,11 @@ namespace SlotMaker
                 {
                     ResourceManager02.Instance.LoadAssetBundleAsync(PanelPackagePath, (ab) =>
                     {
+                        if (currentInitSequence != _initSequence || _activeInstance != this || !isActiveAndEnabled)
+                        {
+                            return;
+                        }
+
                         UIPackage loadedPackage = UIPackage.AddPackage(ab);
                         if (loadedPackage == null)
                         {
@@ -239,6 +291,11 @@ namespace SlotMaker
             ResourceManager02.Instance.LoadAsset<GameObject>(SpinPrefabPath,
                 (GameObject clone) =>
                 {
+                    if (currentInitSequence != _initSequence || _activeInstance != this || !isActiveAndEnabled)
+                    {
+                        return;
+                    }
+
                     goSpin = clone;
                     loadComplete();
                 });
@@ -249,9 +306,22 @@ namespace SlotMaker
         /// </summary>
         protected virtual void InitParam()
         {
-            Debug.Log($"初始化菜单Ui id={GetInstanceID()} active={gameObject.activeInHierarchy}");
-            Debug.Log("初始化菜单Ui");
-            gOwnerPanel = MainModel.Instance.contentMD.goAnthorPanel.asCom.GetChild("icon").asLoader.component;
+            if (_cachedAnchorPanel == null)
+            {
+                Debug.LogError("InitParam failed: _cachedAnchorPanel is null.");
+                _isInitializing = false;
+                return;
+            }
+
+            GLoader anchorLoader = _cachedAnchorPanel.GetChild("icon")?.asLoader;
+            if (anchorLoader == null || anchorLoader.component == null)
+            {
+                Debug.LogError("InitParam failed: anchor icon loader/component is null.");
+                _isInitializing = false;
+                return;
+            }
+
+            gOwnerPanel = anchorLoader.component;
             setPanel = gOwnerPanel.GetChild("setPanel").asCom;
             setPanel.visible = false;
             gOwnerPanel.GetChild("credit").asTextField.text =
