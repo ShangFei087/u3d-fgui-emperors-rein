@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: zl_dilie_001
+  m_Name: zl_smoke_005_2
   m_Shader: {fileID: 4800000, guid: 4d6b60c468c76274993e3d2bc67e3824, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 0

@@ -7,10 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: zl_glow_0010
-  m_Shader: {fileID: 4800000, guid: 4d6b60c468c76274993e3d2bc67e3824, type: 3}
+  m_Name: WorldGridMaterial2
+  m_Shader: {fileID: 4800000, guid: 60b39682f034cc24792b0882d32e3441, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 4
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -23,31 +23,43 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _DissolveTex:
-        m_Texture: {fileID: 2800000, guid: 27268d69c9c3b254e93cfd742ea66f99, type: 3}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissMap:
+        m_Texture: {fileID: 2800000, guid: a21b2ad21e1aef24aabb0ca39246f277, type: 3}
+        m_Scale: {x: 0.01, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 18170b5bbdb3f6348b669dfc28773686, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MaskTex1:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MaskTex2:
+    - _Mask:
+        m_Texture: {fileID: 2800000, guid: 273d91f132fa56b40aed2f29b7bcbe87, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0.01, y: 0}
+    - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _NoiseTex:
+    - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _RampTex:
+    - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -56,43 +68,35 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BlendOp: 0
+    - _Alpha: 1
     - _BumpScale: 1
-    - _CameraFadingEnabled: 0
-    - _CameraFarFadeDistance: 2
-    - _CameraNearFadeDistance: 1
-    - _ColorMode: 0
-    - _Cull: 2
-    - _CullMode: 0
+    - _CullMode: 1
     - _Cutoff: 0.5
-    - _Dissolve_ry: 1
-    - _DistortionBlend: 0.5
-    - _DistortionEnabled: 0
-    - _DistortionStrength: 1
-    - _DistortionStrengthScaled: 0
-    - _Dst: 1
+    - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _EmissionEnabled: 0
-    - _FlipbookMode: 0
-    - _LightingEnabled: 0
+    - _EmissIntensity: 1
+    - _Expand: 0.5
+    - _FadeOffset: 0.3
+    - _FadePower: 1
+    - _GlossMapScale: 1
+    - _Glossiness: 0
+    - _GlossyReflections: 1
+    - _Metallic: 0
     - _Mode: 0
-    - _SoftParticlesEnabled: 0
-    - _SoftParticlesFarFadeDistance: 1
-    - _SoftParticlesNearFadeDistance: 0
-    - _Src: 5
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimMax: 1
+    - _RimMin: 0
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Toggle: 0
-    - _ZTestMode: 4
+    - _UVSec: 0
     - _ZWrite: 1
+    - _ZWriteModel: 0
+    - __dirty: 0
     m_Colors:
-    - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
-    - _DissolveSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.2158605, g: 0.2158605, b: 0.2158605, a: 1}
+    - _EmissColor: {r: 0, g: 0.41884828, b: 1, a: 1}
+    - _EmissSpeed: {r: -0.15, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
-    - _MainUV: {r: 1, g: 1, b: 0, a: 0}
-    - _MaskSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _NoiseSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
