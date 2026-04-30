@@ -606,12 +606,14 @@ namespace XingYunZhiLun_3998
             if (res.name == "ColUpButtonClick")
             {
                 int col = (int)res.value;
+                if (corGameIdel != null) mono.StopCoroutine(corGameIdel);
                 mono.StartCoroutine(slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Up));
             }
 
             if (res.name == "ColDownButtonClick")
             {
                 int col = (int)res.value;
+                if (corGameIdel != null) mono.StopCoroutine(corGameIdel);
                 mono.StartCoroutine(slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Down));
             }
         }
