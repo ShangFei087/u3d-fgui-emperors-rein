@@ -98,13 +98,14 @@ namespace CaiFuZhiJia_3997
             if (_isFirstOpen)
             {
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPageGameMain, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotGame, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupOverWin, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotWin, null);
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupFreeSpinTrigger, null);
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupFreeSpinResult, null);
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotTrigger, null);
-                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotGame, null);
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotResult, null);
-                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotWin, null);
-                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupOverWin, null);
+                
                 _isFirstOpen = false;
 
                 Debug.LogError("CaiFuZhiJia is Preloaded!");

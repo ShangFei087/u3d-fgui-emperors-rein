@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 6964759355696932518}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 6964759356797321006}
   - {fileID: 5061293381053855779}
@@ -82,7 +82,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6964759356797321006
 Transform:
   m_ObjectHideFlags: 0
@@ -272,6 +272,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: eff_sg_fade1hitCFZJ
+      objectReference: {fileID: 0}
+    - target: {fileID: 3322498237243459396, guid: 0a8f7bf55b66a654e8b1dd19f2de50c5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a8f7bf55b66a654e8b1dd19f2de50c5, type: 3}

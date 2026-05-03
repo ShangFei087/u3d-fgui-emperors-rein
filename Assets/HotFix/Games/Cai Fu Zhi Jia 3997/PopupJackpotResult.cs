@@ -191,14 +191,16 @@ namespace CaiFuZhiJia_3997
                 _cloneDiamondSpineObj.SetActive(true);
                 _cloneDiamondBgEffectObj.SetActive(true);
                 Timers.inst.Add(3, 1, (obj) => _cloneDiamondSpineObj.SetActive(false));
+                Timers.inst.Add(5, 1, (obj) =>
+                {
+                    PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPopupJackpotGame);
+                    PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPageGameMain); 
+                });
                 Timers.inst.Add(7, 1, (obj) =>
                 {
                     CloseSelf(null);
-                    PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPopupJackpotGame);
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
                     ContentModel.Instance.totalBonusReward = 0;
-                    PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPageGameMain); 
-                    // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotTrigger); // 新增测试
                 });
             }));
 
