@@ -578,6 +578,7 @@ namespace SlotMaker
                 spinBtnCtrl.goOwnerSpin.touchable = false;
                 //隐藏展会模式UI
                 SetExhibitionUIState(false);
+                SetBetUIState(false);
             }
             else
             {
@@ -588,6 +589,7 @@ namespace SlotMaker
                 spinBtnCtrl.goOwnerSpin.touchable = true;
                 //显示展会模式UI
                 SetExhibitionUIState(true);
+                SetBetUIState(true);
             }
         }
 
@@ -709,6 +711,7 @@ namespace SlotMaker
             btnBetDown.touchable = true;
             btnBetUp.touchable = true;
             SetExhibitionUIState(true);
+            SetBetUIState(true);
         }
 
         /// <summary>
@@ -778,12 +781,14 @@ namespace SlotMaker
                 case "BeginBonus":
                     {
                         SetExhibitionUIState(false);
+                        SetBetUIState(false);
                     }
                     break;
 
                 case "EndBonus":
                     {
                         SetExhibitionUIState(true);
+                        SetBetUIState(true);
                     }
                     break;
             }
@@ -839,6 +844,38 @@ namespace SlotMaker
                     // 异常仅记录日志，避免中断主流程
                     DebugUtils.LogError($"[PanelBaseController] RequestSetBet after betList refresh failed: {ex}");
                 }
+            }
+        }
+
+        public virtual void SetBetUIState(bool Stete)
+        {
+            if (Stete)
+            {
+                btnBetUp.GetChild("untouch").visible = false;
+                btnBetUp.touchable = true;
+                btnBetDown.GetChild("untouch").visible = false;
+                btnBetDown.touchable = true;
+
+                if (MainModel.Instance.contentMD.betIndex == 0)
+                {
+                    btnBetDown.GetChild("untouch").visible = true;
+                    btnBetDown.touchable = false;
+                }
+
+                if (MainModel.Instance.contentMD.betIndex == 7)
+                {
+                    btnBetUp.GetChild("untouch").visible = true;
+                    btnBetUp.touchable = false;
+                }
+            }
+            else
+            {
+                btnBetUp.GetChild("untouch").visible = true;
+                btnBetUp.touchable = false;
+                btnBetDown.GetChild("untouch").visible = true;
+                btnBetDown.touchable = false;
+
+         
             }
         }
 

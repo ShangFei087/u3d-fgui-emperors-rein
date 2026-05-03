@@ -122,6 +122,16 @@ namespace TreasuryHall
             InitParam();
         }
 
+        /// <summary>
+        /// 进入宝库后预载 3996 / 3997 / 3998 的 Loading 页：创建隐藏实例并触发各自资源加载，与后续 OpenPage 共用缓存实例。
+        /// </summary>
+        private static void PreloadTreasuryCardGameLoadingPages()
+        {
+            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupGameLoading, null);
+            PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupGameLoading, null);
+            PageManager.Instance.PreloadPage(PageName.XingYunZhiLunPopupGameLoading, null);
+        }
+
         public override void OnClose(EventData data = null)
         {
             // 关闭宝库大厅前先中止「进游戏」过渡，避免卡在不可点状态或残留 Loading
@@ -272,6 +282,8 @@ namespace TreasuryHall
             RefreshCardSkinByLanguage();
             InitJackpot();
             InitHallCredit();
+            // 后台预热三张卡牌对应子游戏的 PopupGameLoading（含各自包内预制体异步加载），缩短首次点击后的等待
+            PreloadTreasuryCardGameLoadingPages();
         }
 
         /// <summary>
@@ -322,11 +334,12 @@ namespace TreasuryHall
             _cardEnterLoadingPage = loadingPage;
             _cardEnterGameId = gameId;
 
-            // 关键步骤 1：与卡牌 click 同时发起打开 Loading（同步路径会立刻回调；AB 异步路径则等资源就绪后再回调）
-            PageManager.Instance.OpenPage(loadingPage, null, OnCardEnterLoadingOpenFinished);
-
-            // 关键步骤 2：按 click 片段时长计时，到期表示「卡牌点击动画阶段」结束
+            // 与卡牌 click 同时发起打开 Loading（同步路径会立刻回调；AB 异步路径则等资源就绪后再回调）
+            //PageManager.Instance.OpenPage(loadingPage, null, OnCardEnterLoadingOpenFinished);
+            
+            //按 click 片段时长计时，到期表示「卡牌点击动画阶段」结束
             float wait = clickAnimDurationSeconds > 0f ? clickAnimDurationSeconds : 0.15f;
+            Timers.inst.Add(wait, 1, (object _) => { PageManager.Instance.OpenPage(loadingPage, null, OnCardEnterLoadingOpenFinished); });
             Timers.inst.Add(wait, 1, OnCardClickAnimationTimeUp);
         }
 
