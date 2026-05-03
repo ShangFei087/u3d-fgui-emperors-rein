@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/GameRes/Games/Cai Fu Zhi Jia 3997/ArtRes/Game Effect/Prefabs/SmallGame.meta
+guid: 637ba8368f185e04594a57cb7b76e311
+========
 guid: d921ed8ccc5c9cc4183574176df52fe9
+>>>>>>>> master:Assets/GameRes/Games/Cai Fu Huo Che 3996/newProject/Effect/SmallGame.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

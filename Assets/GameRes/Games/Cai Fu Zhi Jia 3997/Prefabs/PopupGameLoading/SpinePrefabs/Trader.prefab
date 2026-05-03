@@ -3246,6 +3246,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2532447521450812523, guid: 4359053c50cacf84dab4e22549dbc5e0,
+        type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532447521450812523, guid: 4359053c50cacf84dab4e22549dbc5e0,
+        type: 3}
+      propertyPath: InitialModule.gravityModifier.minScalar
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 5506219407155129871, guid: 4359053c50cacf84dab4e22549dbc5e0,
         type: 3}
       propertyPath: VelocityModule.enabled

@@ -58,6 +58,7 @@ namespace CaiFuZhiJia_3997
             if (!isOpen) return;
 
             BindPrefabsToUI();
+            BindUIToAnimator();
             ShowEffectAndSpine();
         }
 
@@ -200,6 +201,34 @@ namespace CaiFuZhiJia_3997
                         _jackpotResultButton.onClick.Call();
                     }
                 });
+            }
+        }
+
+        private void BindUIToAnimator()
+        {
+            //fgui放入ugui
+            string parentPath = $"Anchor/sg_pop_settlement/Animation/btn";
+            Transform num01 = _cloneDiamondAnimationObj.transform.Find(parentPath);
+            GObject gObject = contentPane.GetChild("jackpotResultTipWindow").asCom.GetChild("jackpotResultButton");
+            if (gObject?.displayObject?.gameObject != null)
+            {
+                Transform t = gObject.displayObject.gameObject.transform;
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(-1.76f, 0.34f, 0);
+                //t.localRotation = Quaternion.identity;
+                t.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+            }
+
+            parentPath = $"Anchor/sg_pop_settlement/Animation/numdi";
+            gObject = contentPane.GetChild("jackpotResultTipWindow").asCom.GetChild("jackpotResultScore").asCom;
+            num01 = _cloneDiamondAnimationObj.transform.Find(parentPath);
+            if (gObject?.displayObject?.gameObject != null)
+            {
+                Transform t = gObject.displayObject.gameObject.transform;
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(-2.83f, 0.01f, 0);
+                //t.localRotation = Quaternion.identity;
+                t.localScale = new Vector3(0.005f, 0.005f, 0.01f);
             }
         }
 

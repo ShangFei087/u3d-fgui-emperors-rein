@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/GameRes/Games/Cai Fu Zhi Jia 3997/ArtRes/Game Effect/Animations/eff_sg_fade1hitCFZJ.anim.meta
+guid: d162a55825dc6a7409527e7172616e47
+========
 guid: 1206535dca9d50f4e9b1ca7cbb608dc4
+>>>>>>>> master:Assets/GameRes/Games/Cai Fu Huo Che 3996/newProject/Effect/SmallGame/Art/Effects/Animations/eff_sg_img_suitcase_tw.anim.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 7400000

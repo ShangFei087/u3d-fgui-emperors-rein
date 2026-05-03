@@ -7,7 +7,7 @@
     <image id="n18_k7bh" name="n18" src="n3ln18" fileName="images/pageGameMain/ReelBackground/ng_img_frame.png" xy="978,60" group="n29_k7bh" flip="hz"/>
     <image id="n19_k7bh" name="n19" src="n3ln19" fileName="images/pageGameMain/ReelBackground/ng_img_frame01.png" xy="33,-2" group="n29_k7bh"/>
     <image id="n22_k7bh" name="n22" src="n3ln1d" fileName="images/pageGameMain/ReelBackground/ng_img_frame05.png" xy="45,328" pivot="0.5,0.5" anchor="true" group="n29_k7bh"/>
-    <image id="n23_k7bh" name="n23" src="n3ln1d" fileName="images/pageGameMain/ReelBackground/ng_img_frame05.png" xy="1038,328" pivot="0.5,0.5" anchor="true" group="n29_k7bh"/>
+    <image id="n23_k7bh" name="n23" src="n3ln1d" fileName="images/pageGameMain/ReelBackground/ng_img_frame05.png" xy="1033,328" pivot="0.5,0.5" anchor="true" group="n29_k7bh"/>
     <image id="n27_k7bh" name="n27" src="n3ln1b" fileName="images/pageGameMain/ReelBackground/ng_img_frame03.png" xy="-45,615" group="n29_k7bh"/>
     <group id="n29_k7bh" name="n29" xy="-45,-2" size="1169,674"/>
   </displayList>

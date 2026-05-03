@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/GameRes/Games/Cai Fu Zhi Jia 3997/ArtRes/Game Effect/Materials.meta
+guid: 91b3d9143de229f4a99b3094d2481ca0
+========
 guid: 9448505c49c29a647bbdb0940971188f
+>>>>>>>> master:Assets/GameRes/Games/Cai Fu Huo Che 3996/newProject/Effect/SmallGame/Art/Effects/Materials.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -20,12 +20,12 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _DissolveTex:
-        m_Texture: {fileID: 2800000, guid: 1990d7bcf7983a04c960e80860a94f7f, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 2bca093ca7beb3c4ba3f205821c994cb, type: 3}
-        m_Scale: {x: 2, y: 1}
+        m_Texture: {fileID: 2800000, guid: 4326be589c8604342b80c4c52861caca, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
         m_Texture: {fileID: 0}
@@ -49,7 +49,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _CullMode: 0
-    - _Dissolve_ry: 1
+    - _Dissolve_ry: 0.51
     - _Dst: 1
     - _Float4: 0.5
     - _Float5: 0.5
@@ -61,7 +61,7 @@ Material:
     - _Toggle: 0
     - _ToggleSwitch0: 0
     - _ToggleSwitch1: 0
-    - _ZTestMode: 0
+    - _ZTestMode: 4
     m_Colors:
     - _DissolvSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _MainColor: {r: 1, g: 1, b: 1, a: 1}
