@@ -165,6 +165,8 @@ namespace CaiFuZhiJia_3997
 
         public bool isHitJackpotGame;
 
+        public bool isHaveWildSymbol;
+
         /// <summary>彩金游戏触发</summary>
         public bool IsBonusTrigger { get; set; }
 

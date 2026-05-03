@@ -51,6 +51,7 @@ namespace CaiFuZhiJia_3997
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
 
+            ContentModel.Instance.currentJpSpineIndex = 1;// 临时测试
             BindPrefabsToUI();
             BindAnimatorToUI();
             ShowWinBet();
@@ -205,7 +206,7 @@ namespace CaiFuZhiJia_3997
         {
             _collectBtn.visible = false;
             _winBetText.visible = false;
-            Timers.inst.Add(2f, 1, (obj) =>
+            Timers.inst.Add(0.5f, 1, (obj) =>
             {
                 _winBetText.visible = true;
                 _collectBtn.visible = true;

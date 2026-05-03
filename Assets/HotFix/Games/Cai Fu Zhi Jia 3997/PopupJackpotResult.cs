@@ -197,7 +197,7 @@ namespace CaiFuZhiJia_3997
                     PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPopupJackpotGame);
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
                     ContentModel.Instance.totalBonusReward = 0;
-
+                    PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPageGameMain); 
                     // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotTrigger); // 新增测试
                 });
             }));
