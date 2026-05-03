@@ -93,6 +93,7 @@ namespace CaiFuHuoChe_3996
         private GameObject freeTrainPref, freeTrainObj;
         private GComponent freeAnchor; 
         private Animator freeTrainAnim;
+        private Transform idleEffect1, idleEffect2, idleEffect3, idleEffect4, idleEffect5, curIdleEffect;
 
         //游戏中的女生
         private GameObject girlPref, girlObj;
@@ -112,10 +113,15 @@ namespace CaiFuHuoChe_3996
         private GComponent anchorBox;
         private GameObject moneyBoxPref, moneyBoxObj;
         private Animator moneyBoxAnim;
+        private Transform startEffect, boxIdleEffect, boxRewardEffect;
 
         // 开始游戏
         private bool _tipCoinIn = false, _isStoppedSlotMachine = false;
         private bool _isStopButtonLocked;
+
+        MiniReelGroup uiJPMajorCtrl = new MiniReelGroup();
+        MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
+        MiniReelGroup uiJPMiniCtrl = new MiniReelGroup();
 
         /// <summary>
         /// 彩金游戏当中判断是否前面已经出现过彩金图标判断是否需要播放鼓掌动画
@@ -400,12 +406,14 @@ namespace CaiFuHuoChe_3996
             if (res.name == "ColUpButtonClick")
             {
                 int col = (int)res.value;
+                if (corGameIdel != null) mono.StopCoroutine(corGameIdel);
                 mono.StartCoroutine(slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Up));
             }
 
             if (res.name == "ColDownButtonClick")
             {
                 int col = (int)res.value;
+                if (corGameIdel != null) mono.StopCoroutine(corGameIdel);
                 mono.StartCoroutine(slotMachineCtrl.NudgeReelOneStep(col, null, false, ReelNudgeDirection.Down));
             }
 
@@ -518,7 +526,12 @@ namespace CaiFuHuoChe_3996
                 GameCommon.FguiUtils.DeleteWrapper(freeAnchor);
                 freeAnchor = loadFreeTrain;
                 freeTrainObj = GameObject.Instantiate(freeTrainPref);
-                freeTrainAnim = freeTrainObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                freeTrainAnim = freeTrainObj.transform.GetChild(1).GetChild(0).GetComponent<Animator>();
+                idleEffect1 = freeTrainObj.transform.GetChild(0).GetChild(0);
+                idleEffect2 = freeTrainObj.transform.GetChild(0).GetChild(1);
+                idleEffect3 = freeTrainObj.transform.GetChild(0).GetChild(2);
+                idleEffect4 = freeTrainObj.transform.GetChild(0).GetChild(3);
+                idleEffect5 = freeTrainObj.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(0);
                 GameCommon.FguiUtils.AddWrapper(freeAnchor, freeTrainObj);
             }
 
@@ -561,6 +574,9 @@ namespace CaiFuHuoChe_3996
                 anchorBox = loadMoneyBox;
                 moneyBoxObj = GameObject.Instantiate(moneyBoxPref);
                 moneyBoxAnim = moneyBoxObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                startEffect = moneyBoxObj.transform.GetChild(1).GetChild(0).GetChild(0);
+                boxIdleEffect = moneyBoxObj.transform.GetChild(1).GetChild(1).GetChild(0);
+                boxRewardEffect = moneyBoxObj.transform.GetChild(1).GetChild(2).GetChild(0);
                 GameCommon.FguiUtils.AddWrapper(anchorBox, moneyBoxObj);
             }
 
@@ -645,6 +661,43 @@ namespace CaiFuHuoChe_3996
 
             //int pid = SBoxModel.Instance.pid;
             //FreeSpinSessionStoreG3996.Clear(pid);
+
+            uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("major").asCom.GetChild("reels").asList, "N0");
+            uiJPMinorCtrl.Init("Minor", this.contentPane.GetChild("minor").asCom.GetChild("reels").asList, "N0");
+            uiJPMiniCtrl.Init("Mini", this.contentPane.GetChild("mini").asCom.GetChild("reels").asList, "N0");
+
+            if (ApplicationSettings.Instance.isMock)
+            {
+                uiJPMajorCtrl.SetData(30000);
+                uiJPMinorCtrl.SetData(1000);
+                uiJPMiniCtrl.SetData(500);
+
+            }
+            else
+            {
+                //获取彩金贡献值
+                ERPushMachineDataManager02.Instance.RequestGetJpContribution((res) =>
+                {
+
+                    JSONNode data = JSONNode.Parse((string)res);
+                    Debug.Log(data);
+                    int code = (int)data["code"];
+                    if (0 != code)
+                    {
+                        DebugUtils.LogError($"请求贡献值报错。 code: {code}");
+                        return;
+                    }
+
+                    int majorBet = (int)data["major"];
+                    int minorBet = (int)data["minor"];
+                    int miniBet = (int)data["mini"];
+
+                    uiJPMajorCtrl.SetData(majorBet);
+                    uiJPMinorCtrl.SetData(minorBet);
+                    uiJPMiniCtrl.SetData(miniBet);
+
+                });
+            }
 
         }
 
@@ -805,7 +858,7 @@ namespace CaiFuHuoChe_3996
         {
             Debug.LogError(res.name);
             Dictionary<int, int> tempPos = (Dictionary<int, int>)res.value;
-            mono.StartCoroutine(ShowRewardEffect(tempPos.Keys.First(), tempPos.Values.First(), anchorJackpotAdd));
+            mono.StartCoroutine(ShowRewardEffect(tempPos.Keys.First(), tempPos.Values.First(), anchorJackpotAdd, null, true));
         }
 
 
@@ -830,6 +883,7 @@ namespace CaiFuHuoChe_3996
                 {
                     temp = fill2.fillAmount;
                     fill2.fillAmount = 1;
+                    SetFreeTrainState();
                     PlayAnim(freeTrainAnim, "win2");
                     if (value + temp - 1 > 0) SkipAddMult(value + temp - 1);
                 }
@@ -841,6 +895,7 @@ namespace CaiFuHuoChe_3996
                 {
                     temp = fill3.fillAmount;
                     fill3.fillAmount = 1;
+                    SetFreeTrainState();
                     PlayAnim(freeTrainAnim, "win");
                     if (value + temp - 1 > 0) SkipAddMult(value + temp - 1);
                 }
@@ -1261,7 +1316,7 @@ namespace CaiFuHuoChe_3996
             isNext = false;
 
             PlayAnim(trainAnim, "ng_sg");
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(0.9f);
             PlayEffectAnim(norToJp);
             yield return new WaitForSeconds(0.6f);
 
@@ -1272,9 +1327,11 @@ namespace CaiFuHuoChe_3996
             PlayAnim(girlAnim, "sg_idle1");
             freeTotalTimes.text = ContentModel.Instance.jackpotSpinTotalTimes.ToString();
             freeTimes.text = ContentModel.Instance.jackpotSpinTotalTimes.ToString();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.4f);
 
-            PlayAnim(moneyBoxAnim, "sg_appear");
+            PlayAnim(moneyBoxAnim, "sg_start");
+            yield return new WaitForSeconds(0.2f);
+            PlayEffectAnim(startEffect);
 
             yield return GameJackpotSpin(null, errorCallback);
 
@@ -1288,7 +1345,11 @@ namespace CaiFuHuoChe_3996
 
             PlayAnim(girlAnim, "sg_settlement");
             PlayAnim(moneyBoxAnim, "sg_settlement");
-            yield return new WaitForSeconds(4.5f);
+            yield return new WaitForSeconds(2);
+
+
+            StopEffectAnim(boxIdleEffect);
+            yield return new WaitForSeconds(2.5f);
 
             PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupJackpotGameExit,
                 new EventData<Dictionary<string, object>>("", new Dictionary<string, object>()
@@ -1321,6 +1382,7 @@ namespace CaiFuHuoChe_3996
         //开始彩金游戏
         IEnumerator GameJackpotSpin(Action successCallback, Action<string> errorCallback)
         {
+            PlayEffectAnim(boxIdleEffect);
             while (ContentModel.Instance.nextReelStripsIndex == "JS")
             {
                 yield return slotMachineCtrl.SlotWaitForSeconds(1);
@@ -1463,7 +1525,7 @@ namespace CaiFuHuoChe_3996
                 PlayAnim(trainAnim, "ng_fg");
                 BsToFsTrans.Play();
 
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(1.3f);
                 ChangeBGPanel(1);
             }
             else
@@ -1476,7 +1538,7 @@ namespace CaiFuHuoChe_3996
             InputStackContextFreeSpin((context) =>
             {
             });
-            
+
 
             slotMachineCtrl.BeginBonusFreeSpin();
             yield return GameFreeSpin(null, errorCallback);
@@ -1500,11 +1562,16 @@ namespace CaiFuHuoChe_3996
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
+            PlayEffectAnim(fgToNor);
+            yield return new WaitForSeconds(0.7f);
+
+            StopChildEffectAnim(idleEffect5);
+            StopChildEffectAnim(curIdleEffect);
             gTrain.visible = true;
-            PlayAnim(trainAnim, "fg_ng");
             FsToBsTrans.Play();
 
-            yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(0.5f);
+            PlayAnim(trainAnim, "fg_ng");
 
             OutputStackContextFreeSpin(
                 (context) =>
@@ -1525,9 +1592,11 @@ namespace CaiFuHuoChe_3996
 
             slotMachineCtrl.EndBonusFreeSpin();
 
-            yield return new WaitForSeconds(0.75f);
+
             ChangeBGPanel(0);
             ContentModel.Instance.nextReelStripsIndex = "BS";
+
+            yield return new WaitForSeconds(1);
 
             slotMachineCtrl.SkipWinLine(true);
             successCallback?.Invoke();
@@ -2212,7 +2281,11 @@ namespace CaiFuHuoChe_3996
                 rewardEffect.visible = true;
 
                 yield return MoveToZeroOverTime(rewardEffect, slotMachineCtrl.SymbolCenterToNodeLocalPos(colIdx, rowIdx, toNode));
-                successCallback?.Invoke();
+            }
+
+            if (isJackpot)
+            {
+                PlayEffectAnim(boxRewardEffect);
             }
 
             //记录并显示累计分数
@@ -2221,7 +2294,9 @@ namespace CaiFuHuoChe_3996
                 allWinCredit += ContentModel.Instance.jackpotSpinWinCredit;
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
             }
-            
+
+
+            successCallback?.Invoke();
         }
 
         private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
@@ -2271,12 +2346,32 @@ namespace CaiFuHuoChe_3996
             }
         }
 
+        //根据传入的父节点依次播放粒子特效
+        private void PlayChildEffectAnim(Transform effect)
+        {
+            // 递归播放所有子物体的粒子系统
+            foreach (Transform child in effect)
+            {
+                PlayEffectAnim(child);
+            }
+        }
+
         //根据传入的节点依次停止粒子特效
         private void StopEffectAnim(Transform effect)
         {
             ParticleSystem particle = effect.GetComponent<ParticleSystem>();
             particle.Stop(true);
 
+            // 递归播放所有子物体的粒子系统
+            foreach (Transform child in effect)
+            {
+                StopEffectAnim(child);
+            }
+        }
+
+        //根据传入的父节点依次停止粒子特效
+        private void StopChildEffectAnim(Transform effect)
+        {
             // 递归播放所有子物体的粒子系统
             foreach (Transform child in effect)
             {
@@ -2457,18 +2552,30 @@ namespace CaiFuHuoChe_3996
             if (fill3.fillAmount == 1)
             {
                 PlayAnim(freeTrainAnim, "idle4");
+                StopChildEffectAnim(idleEffect3);
+                PlayChildEffectAnim(idleEffect4);
+                PlayChildEffectAnim(idleEffect5);
+                curIdleEffect = idleEffect4;
             }
             else if (fill2.fillAmount == 1)
             {
+                StopChildEffectAnim(idleEffect2);
+                PlayChildEffectAnim(idleEffect3);
+                curIdleEffect = idleEffect3;
                 PlayAnim(freeTrainAnim, "idle3");
             }
             else if (fill1.fillAmount == 1)
             {
                 PlayAnim(freeTrainAnim, "idle2");
+                StopChildEffectAnim(idleEffect1);
+                PlayChildEffectAnim(idleEffect2);
+                curIdleEffect = idleEffect2;
             }
             else
             {
                 PlayAnim(freeTrainAnim, "idle1");
+                PlayChildEffectAnim(idleEffect1);
+                curIdleEffect = idleEffect1;
             }
         }
 
