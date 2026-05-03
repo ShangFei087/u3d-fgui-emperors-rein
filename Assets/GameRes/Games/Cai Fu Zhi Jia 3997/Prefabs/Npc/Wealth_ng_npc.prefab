@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2639808409510920211}
   m_Layer: 0
-  m_Name: npc2
+  m_Name: Wealth_ng_npc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
