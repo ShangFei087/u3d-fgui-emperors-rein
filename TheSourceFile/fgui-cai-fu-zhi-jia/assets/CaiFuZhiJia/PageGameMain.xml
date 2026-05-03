@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920" designImage="ui://k5oi8hwrprjjiw">
-  <controller name="PageController" alias="游戏界面切换控制器" pages="0,NormalGame,1,FreeGame" selected="0"/>
+  <controller name="PageController" alias="游戏界面切换控制器" pages="0,NormalGame,1,FreeGame" selected="1"/>
   <displayList>
     <component id="n2_n3ln" name="normalGameBg" src="n3lnk" fileName="moudules/pageGameMain/GameBackground/NormalBackground.xml" xy="0,0">
       <gearDisplay controller="PageController" pages="0"/>

@@ -45,7 +45,7 @@ namespace CaiFuZhiJia_3997
             "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PageGameMain/EffectPrefabs/";
 
         private const string ModelPrefabPath =
-            "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PageGameMain/ModelPrefabs/";
+            "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Npc/";
 
         // 界面初始化
         private bool _isInitPool = false;
@@ -68,6 +68,9 @@ namespace CaiFuZhiJia_3997
         private GComponent _freeFrameCom;
         private GTextField _freeSpinsNumber;
         private GTextField _multipleNumber;
+        private GComponent _compareRadar;
+        private GameObject _radarObj, _cloneRadarObj;
+        private Animator _radarAnimator;
 
         // 开始游戏
         private bool _tipCoinIn = false, _isStoppedSlotMachine = false;
@@ -104,9 +107,9 @@ namespace CaiFuZhiJia_3997
         private Animator _traderAnimator = null; // 商人动画
 
         // 按钮点击特效
-        private GameObject _betEffect, _cloneBetUpEffect, _cloneBetDownEffect;
-        private GComponent _compareBetUpEffect, _compareBetDownEffect;
-        private GButton _betUpBtn, _betDownBtn;
+        // private GameObject _betEffect, _cloneBetUpEffect, _cloneBetDownEffect;
+        // private GComponent _compareBetUpEffect, _compareBetDownEffect;
+        // private GButton _betUpBtn, _betDownBtn;
 
         //彩金
         MiniReelGroup uiJPMajorCtrl = new MiniReelGroup();
@@ -127,7 +130,7 @@ namespace CaiFuZhiJia_3997
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
             _pageController = contentPane.GetController("PageController");
-            
+
             // _betUpBtn = contentPane.GetChild("btnBetUp").asButton;
             // _betDownBtn = contentPane.GetChild("btnBetDown").asButton;
 
@@ -155,16 +158,16 @@ namespace CaiFuZhiJia_3997
                     }
                 }
             };
+            ReadJsonBet();
         }
 
         public override void InitParam()
         {
             if (!isInit) return;
 
-
             MainModel.Instance.contentMD = ContentModel.Instance;
             MainModel.Instance.cutomMD = CustomModel.Instance;
-            ReadJsonBet();
+            // ReadJsonBet();
 
             // 初始化对象池，通过配置文件读取出中奖特效等
             if (_fGuiPoolHelper != null && _isInitPool == false)
@@ -185,6 +188,7 @@ namespace CaiFuZhiJia_3997
             }
 
             ShowPayTable();
+
 
             // 加载Panel面板
             _gOwnerPanel = contentPane.GetChild("panel").asCom;
@@ -365,7 +369,7 @@ namespace CaiFuZhiJia_3997
 
         private void LoadAsyncRes()
         {
-            _totalCount = 6; // 7
+            _totalCount = 7;
 
             // 加载公共资源包
             if (UIPackage.GetByName("Common") == null)
@@ -405,6 +409,14 @@ namespace CaiFuZhiJia_3997
                 });
 
             // 加载Spine动画
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                SpinePrefabPath + "Radar.prefab",
+                (clone) =>
+                {
+                    _radarObj = clone;
+                    ResLoadedCallback();
+                });
+
 
             // 加载特效
             ResourceManager02.Instance.LoadAsset<GameObject>(
@@ -431,23 +443,23 @@ namespace CaiFuZhiJia_3997
                     ResLoadedCallback();
                 });
 
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                EffectPrefabPath + "betClickEffect.prefab",
-                (clone) =>
-                {
-                    _betEffect = clone;
-                    ResLoadedCallback();
-                });
-
-            // Todo:等3D模型绑定完成之后处理的逻辑
-            // // 加载3D动画  
             // ResourceManager02.Instance.LoadAsset<GameObject>(
-            //     ModelPrefabPath + "trader.prefab",
+            //     EffectPrefabPath + "betClickEffect.prefab",
             //     (clone) =>
             //     {
-            //         _npcObj = clone;
+            //         _betEffect = clone;
             //         ResLoadedCallback();
             //     });
+
+            // Todo:等3D模型绑定完成之后处理的逻辑
+            // 加载3D动画  
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                ModelPrefabPath + "Wealth_ng_npc.prefab",
+                (clone) =>
+                {
+                    _npcObj = clone;
+                    ResLoadedCallback();
+                });
         }
 
         private void ResLoadedCallback()
@@ -461,23 +473,28 @@ namespace CaiFuZhiJia_3997
 
         private void ReadJsonBet()
         {
-            //资源加载
-            ResourceManager02.Instance.LoadAsset<TextAsset>(
-                "Assets/GameRes/_Common/Game Maker/ABs/G3997/Datas/game_info_g3997.json", (txt) =>
-                {
-                    //JSON解析与错误处理
-                    GameConfigRoot config = JsonConvert.DeserializeObject<GameConfigRoot>(txt.text);
-                    if (config?.SymbolPaytable == null)
-                    {
-                        Debug.LogError("解析symbol_paytable失败，数据为空");
-                        return;
-                    }
-
-                    MainModel.Instance.lineNum = config.LineNum;
-                    MainModel.Instance.gameID = config.GameId;
-                    MainModel.Instance.gameName = config.GameName;
-                    MainModel.Instance.displayName = config.DisplayName;
-                });
+            // //资源加载
+            // ResourceManager02.Instance.LoadAsset<TextAsset>(
+            //     "Assets/GameRes/_Common/Game Maker/ABs/G3997/Datas/game_info_g3997.json", (txt) =>
+            //     {
+            //         //JSON解析与错误处理
+            //         GameConfigRoot config = JsonConvert.DeserializeObject<GameConfigRoot>(txt.text);
+            //         if (config?.SymbolPaytable == null)
+            //         {
+            //             Debug.LogError("解析symbol_paytable失败，数据为空");
+            //             return;
+            //         }
+            //
+            //         MainModel.Instance.lineNum = config.LineNum;
+            //         MainModel.Instance.gameID = config.GameId;
+            //         MainModel.Instance.gameName = config.GameName;
+            //         MainModel.Instance.displayName = config.DisplayName;
+            //     });
+            
+            MainModel.Instance.lineNum = 20;
+            MainModel.Instance.gameID = 3997;
+            MainModel.Instance.gameName = "CaiFuZhiJia3997";
+            MainModel.Instance.displayName = "CaiFuZhiJia_3997";
         }
 
         private void BindSpinesToUI()
@@ -513,15 +530,26 @@ namespace CaiFuZhiJia_3997
             }
 
             // Todo: 绑定商人3D模型
-            // currentCom = contentPane.GetChild("anchorPlayer").asCom;
-            // if (currentCom != _compareNpc)
-            // {
-            //     GameCommon.FguiUtils.DeleteWrapper(_compareNpc);
-            //     _compareNpc = currentCom;
-            //     _cloneNpcObj = Object.Instantiate(_npcObj);
-            //     _traderAnimator = _cloneNpcObj.GetComponentInChildren<Animator>();
-            //     GameCommon.FguiUtils.AddWrapper(currentCom, _cloneNpcObj);
-            // }
+            currentCom = contentPane.GetChild("anchorPlayer").asCom;
+            if (currentCom != _compareNpc)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareNpc);
+                _compareNpc = currentCom;
+                _cloneNpcObj = Object.Instantiate(_npcObj);
+                _traderAnimator = _cloneNpcObj.GetComponentInChildren<Animator>();
+                GameCommon.FguiUtils.AddWrapper(currentCom, _cloneNpcObj);
+            }
+            
+            // 免费游戏收音机
+            currentCom = contentPane.GetChild("freeGameBg").asCom.GetChild("anchorVideo").asCom;
+            if (currentCom != _compareRadar)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareRadar);
+                _compareRadar = currentCom;
+                _cloneRadarObj = Object.Instantiate(_radarObj);
+                _radarAnimator = _cloneRadarObj.GetComponentInChildren<Animator>();
+                GameCommon.FguiUtils.AddWrapper(_compareRadar, _cloneRadarObj);
+            }
         }
 
         private void InitFreeSpinUIAndController()
@@ -1552,13 +1580,13 @@ namespace CaiFuZhiJia_3997
                 totalWinLineCredit = _slotMachineCtrl.GetTotalWinCredit(winList);
                 allWinCredit = totalWinLineCredit;
 
-                // // 播放3D人物动画
-                // if (allWinCredit < TotalBet * 2)
-                //     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win1");
-                // else if (allWinCredit > TotalBet * 2 && allWinCredit < TotalBet * 3)
-                //     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win2");
-                // else if (allWinCredit > TotalBet * 3 && allWinCredit < TotalBet * 4)
-                //     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win3");
+                // 播放3D人物动画
+                if (allWinCredit < TotalBet * 2)
+                    PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win1");
+                else if (allWinCredit > TotalBet * 2 && allWinCredit < TotalBet * 3)
+                    PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win2");
+                else if (allWinCredit > TotalBet * 3 && allWinCredit < TotalBet * 4)
+                    PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win3");
 
                 // 计数没到五局中奖之后刷新计数
                 if (ContentModel.Instance.noWinCount < 5)
@@ -1571,12 +1599,12 @@ namespace CaiFuZhiJia_3997
             else
                 ContentModel.Instance.noWinCount++;
 
-            // // 连续五局没中奖播放动画
-            // if (ContentModel.Instance.noWinCount >= 5)
-            // {
-            //     PlayAnimationByName(_traderAnimator,"Wealth_ng_npc_not winning");
-            //     ContentModel.Instance.noWinCount = 0;
-            // }
+            // 连续五局没中奖播放动画
+            if (ContentModel.Instance.noWinCount >= 5)
+            {
+                PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_not winning");
+                ContentModel.Instance.noWinCount = 0;
+            }
 
             isNext = false;
             if (winList.Count > 0 || false)
@@ -1587,7 +1615,7 @@ namespace CaiFuZhiJia_3997
             // Free Spin
             if (ContentModel.Instance.isFreeSpinTrigger)
             {
-                // PlayAnimationByName(_traderAnimator,"Wealth_ng_npc_trigger fg");
+                PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_trigger fg");
 
                 if (_corShowFreeSymbol != null) _monoHelper.StopCoroutine(_corShowFreeSymbol);
                 _corShowFreeSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(10));
@@ -1606,7 +1634,7 @@ namespace CaiFuZhiJia_3997
             // 彩金游戏
             if (ContentModel.Instance.IsBonusTrigger)
             {
-                // PlayAnimationByName(_traderAnimator,"Wealth_ng_npc_trigger sg");
+                PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_trigger sg");
                 // 显示中奖图标
                 if (_corShowBonusSymbol != null) _monoHelper.StopCoroutine(_corShowBonusSymbol);
                 _corShowBonusSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(11));

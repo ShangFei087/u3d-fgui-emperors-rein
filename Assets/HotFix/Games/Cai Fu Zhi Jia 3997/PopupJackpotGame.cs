@@ -19,8 +19,7 @@ namespace CaiFuZhiJia_3997
         private const string SpinePrefabPath =
             "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupJackpotGame/SpinePrefabs/";
 
-        private const string ModelPrefabPath =
-            "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupJackpotGame/ModelPrefabs/";
+        private const string ModelPrefabPath = "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Npc/";
 
         private int _totalCount = -1;
         private bool _isInitialized = false;
@@ -39,9 +38,15 @@ namespace CaiFuZhiJia_3997
         private readonly List<Animator> _cloneAnimators = new List<Animator>(); // 预制体上的动画集合
         private readonly List<GComponent> _compareJackpotSpineGComList = new List<GComponent>();
 
-        // // 3D Model
-        // private GComponent _compareNpcCom;
-        // private GameObject _npcObj, _cloneNpcObj;
+        // 3D Model
+        private GComponent _compareNpcCom;
+        private GameObject _npcObj, _cloneNpcObj;
+        private Animator _npcAnimator;
+
+        // 提示灯物体
+        private GComponent _compareWarn;
+        private GameObject _warnObj, _cloneWarnObj;
+        private Animator _warnAnimator;
 
 
         // Fairy GUI
@@ -105,7 +110,7 @@ namespace CaiFuZhiJia_3997
             InitUI();
             InitCanSpinReels();
 
-            _totalCount = 1;
+            _totalCount = 3;
             LoadAsyncRes();
         }
 
@@ -122,10 +127,10 @@ namespace CaiFuZhiJia_3997
             EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
                 new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
 
-            
+
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-            
+
             // if (_isReady) return;
             // _isReady = true;
 
@@ -143,8 +148,7 @@ namespace CaiFuZhiJia_3997
                 .ToList();
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             BindPrefabsToUI();
-            
-           
+
 
             //彩金
             uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("jpMajor").asCom.GetChild("n1").asList, "N0");
@@ -250,13 +254,21 @@ namespace CaiFuZhiJia_3997
                     ResLoadedCallback();
                 });
 
-            // ResourceManager02.Instance.LoadAsset<GameObject>(
-            //     ModelPrefabPath + "NPC_Obj.prefab",
-            //     (clone) =>
-            //     {
-            //         _npcObj = clone;
-            //         ResLoadedCallback();
-            //     });
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                ModelPrefabPath + "Wealth_sg_npc.prefab",
+                (clone) =>
+                {
+                    _npcObj = clone;
+                    ResLoadedCallback();
+                });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                SpinePrefabPath + "GameBorder.prefab",
+                (clone) =>
+                {
+                    _warnObj = clone;
+                    ResLoadedCallback();
+                });
         }
 
         private void BindPrefabsToUI()
@@ -279,14 +291,25 @@ namespace CaiFuZhiJia_3997
             //     GameCommon.FguiUtils.AddWrapper(_compareBonusTreeSpineGCom, _cloneBonusTreeSpineObj);
             // }
 
-            // currentGCom = contentPane.GetChild("anchorNpcModel").asCom;
-            // if (currentGCom != _compareNpcCom)
-            // {
-            //     GameCommon.FguiUtils.DeleteWrapper(_compareNpcCom);
-            //     _compareNpcCom = currentGCom;
-            //     _cloneNpcObj = Object.Instantiate(_npcObj);
-            //     GameCommon.FguiUtils.AddWrapper(_compareNpcCom, _cloneNpcObj);
-            // }
+            GComponent currentGCom = contentPane.GetChild("anchorNpcModel").asCom;
+            if (currentGCom != _compareNpcCom)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareNpcCom);
+                _compareNpcCom = currentGCom;
+                _cloneNpcObj = Object.Instantiate(_npcObj);
+                _npcAnimator = _cloneNpcObj.GetComponentInChildren<Animator>();
+                GameCommon.FguiUtils.AddWrapper(_compareNpcCom, _cloneNpcObj);
+            }
+
+            currentGCom = contentPane.GetChild("jackpotFrame").asCom.GetChild("anchorWarn").asCom;
+            if (currentGCom != _compareWarn)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareWarn);
+                _compareWarn = currentGCom;
+                _cloneWarnObj = Object.Instantiate(_warnObj);
+                _warnAnimator = _cloneWarnObj.GetComponentInChildren<Animator>();
+                GameCommon.FguiUtils.AddWrapper(_compareWarn, _cloneWarnObj);
+            }
 
             for (int i = 0; i < _jackpotDiamondSpinesGCom.numChildren; i++)
             {
@@ -295,7 +318,7 @@ namespace CaiFuZhiJia_3997
 
             for (int i = 0; i < _jackpotDiamondSpinesGCom.numChildren; i++)
             {
-                GComponent currentGCom = _jackpotDiamondSpinesGCom.GetChild("jackpotSpine_" + i).asCom;
+                currentGCom = _jackpotDiamondSpinesGCom.GetChild("jackpotSpine_" + i).asCom;
                 if (currentGCom != _compareJackpotSpineGComList[i])
                 {
                     GameCommon.FguiUtils.DeleteWrapper(_compareJackpotSpineGComList[i]);
@@ -758,6 +781,19 @@ namespace CaiFuZhiJia_3997
             _slotMachineController = null;
 
             _gOwnerPanel = null;
+
+            GameCommon.FguiUtils.DeleteWrapper(_compareWarn);
+            GameCommon.FguiUtils.DeleteWrapper(_compareNpcCom);
+
+            _compareWarn = null;
+            _compareNpcCom = null;
+
+            Object.Destroy(_cloneWarnObj);
+            Object.Destroy(_cloneNpcObj);
+            _cloneNpcObj = null;
+            _cloneWarnObj = null;
+            _npcAnimator = null;
+            _warnAnimator = null;
         }
     }
 }
