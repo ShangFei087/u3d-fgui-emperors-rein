@@ -31,7 +31,8 @@ namespace CaiFuZhiJia_3997
         private GComponent _compareDollarSpineGCom = null;
 
         // Effect
-        private GameObject /*_blueBoomEffectObj = null, */_goldPurpleEffectObj = null/*, _lightEffectObj = null*/;
+        private GameObject /*_blueBoomEffectObj = null, */
+            _goldPurpleEffectObj = null /*, _lightEffectObj = null*/;
 
         private GameObject /*_cloneBlueBoomEffectObj = null,*/
             _cloneGoldPurpleEffectObj = null
@@ -45,7 +46,7 @@ namespace CaiFuZhiJia_3997
         private GameObject _freeGetAnimationObj = null;
         private GameObject _cloneFreeGetAnimationObj = null;
         private GComponent _compareFreeGetAnimationGCom = null;
-        
+
         // ========== 新增：记录原始父节点，用于还原 ==========
         private Transform _freeRoundOriginalParent = null;
         private Vector3 _freeRoundOriginalPos;
@@ -202,10 +203,10 @@ namespace CaiFuZhiJia_3997
             }
         }
 
-            private void BindUIToAnimator()
+        private void BindUIToAnimator()
         {
             // ========== 修改：绑定前先记录原始状态，方便后续还原 ==========
-            
+
             // freeRound 文本
             string candidatePaths = $"Anchor/fg_pop_prompt/Animation/all1/all3/num02";
             Transform num01 = _cloneFreeGetAnimationObj.transform.Find(candidatePaths);
@@ -213,7 +214,7 @@ namespace CaiFuZhiJia_3997
             if (_gfreetxt?.displayObject?.gameObject != null)
             {
                 Transform t = _gfreetxt.displayObject.gameObject.transform;
-                
+
                 // 记录原始父节点和变换（只在第一次绑定时记录）
                 if (_freeRoundOriginalParent == null)
                 {
@@ -221,7 +222,7 @@ namespace CaiFuZhiJia_3997
                     _freeRoundOriginalPos = t.localPosition;
                     _freeRoundOriginalScale = t.localScale;
                 }
-                
+
                 t.SetParent(num01, false);
                 t.localPosition = new Vector3(-2.6f, 2.33f, 0);
                 t.localScale = new Vector3(0.008f, 0.008f, 0.01f);
@@ -234,7 +235,7 @@ namespace CaiFuZhiJia_3997
             if (gStartBtn?.displayObject?.gameObject != null)
             {
                 Transform t = gStartBtn.displayObject.gameObject.transform;
-                
+
                 // 记录原始父节点和变换
                 if (_freeStartBtnOriginalParent == null)
                 {
@@ -242,7 +243,7 @@ namespace CaiFuZhiJia_3997
                     _freeStartBtnOriginalPos = t.localPosition;
                     _freeStartBtnOriginalScale = t.localScale;
                 }
-                
+
                 t.SetParent(num01, false);
                 t.localPosition = new Vector3(-1.34f, -0.33f, 0);
                 t.localScale = new Vector3(0.008f, 0.008f, 0.01f);
@@ -276,7 +277,7 @@ namespace CaiFuZhiJia_3997
         //         t.localScale = new Vector3(0.008f, 0.008f, 0.01f);
         //     }
         // }
-        
+
         // ========== 新增：还原 FGUI UI 元素到原始父节点 ==========
         private void RestoreUIElements()
         {
@@ -322,6 +323,9 @@ namespace CaiFuZhiJia_3997
                 {
                     _cloneDollarSpineObj.SetActive(false);
                     CloseSelf(null);
+                    
+                    // 新增测试
+                    // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupFreeSpinResult);
                 });
             }));
 
