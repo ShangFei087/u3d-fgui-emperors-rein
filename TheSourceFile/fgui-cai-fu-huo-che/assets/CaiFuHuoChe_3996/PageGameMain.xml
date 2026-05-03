@@ -88,8 +88,8 @@
     <image id="n54_ldad" name="n54" src="9mnq27" fileName="images/jackpotGame/fg_txt_freeSpines.png" xy="496,1660" pivot="0.5,0.5" anchor="true" size="164,36" group="n46_9mnq">
       <relation target="n24_9mnq" sidePair="center-center,middle-middle"/>
     </image>
-    <component id="n62_vxx6" name="jackpotAddPoint" src="fkjsm" fileName="component/AnchorEffect.xml" xy="540,1759" group="n46_9mnq"/>
-    <group id="n46_9mnq" name="freeGame" xy="-26,846" size="1137,914"/>
+    <component id="n62_vxx6" name="jackpotAddPoint" src="fkjsm" fileName="component/AnchorEffect.xml" xy="318,690" group="n46_9mnq"/>
+    <group id="n46_9mnq" name="freeGame" xy="-26,690" size="1137,1009"/>
     <component id="n55_ucv0" name="JpEffect" src="ucv05j" fileName="component/popupNormalGame/OpenDoor.xml" xy="540,700"/>
     <component id="n19_o8uc" name="mini" src="o8uc1h" fileName="moudules/JackpotMini.xml" xy="650,141" group="n13_o8uc"/>
     <component id="n18_o8uc" name="minor" src="o8uc1g" fileName="moudules/JackpotMinor.xml" xy="39,144" group="n13_o8uc"/>

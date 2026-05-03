@@ -159,7 +159,6 @@
     <image id="baxv74" name="ng_num_8.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-21,-14"/>
     <image id="baxv75" name="ng_num_9.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-21,-14"/>
     <image id="baxv76" name="ng_num_a.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-8,-31"/>
-    <image id="baxv77" name="ng_num_b.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-8,-30"/>
     <image id="baxv78" name="ng_num_billion.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-20,-14"/>
     <image id="baxv79" name="ng_num_kilo.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-19,-14"/>
     <image id="baxv7a" name="ng_num_million.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-12,-14"/>
@@ -267,6 +266,12 @@
     <component id="iilzcl" name="AnchorBox.xml" path="/component/popupNormalGame/"/>
     <image id="iilzcm" name="fg_txt_start_collect.png" path="/images/freeGame/"/>
     <image id="iilzco" name="fg_txt_start.png" path="/images/freeGame/"/>
+    <component id="drzncq" name="GameJackpotNumReel.xml" path="/moudules/JackpotTip/" exported="true"/>
+    <image id="drzncr" name="ng_num_b.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-8,-30"/>
+    <component id="drzncs" name="PopupJackpotResult.xml" path="/" exported="true"/>
+    <component id="drznct" name="AnchorJackpotResult.xml" path="/component/popupJackpotGame/" exported="true"/>
+    <component id="drzncu" name="PopupBigWin.xml" path="/"/>
+    <component id="drzncv" name="AnchorBigWin.xml" path="/component/popupJackpotGame/" exported="true"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Cai Fu Huo Che 3996\FGUIs" packageCount="2"/>
 </packageDescription>

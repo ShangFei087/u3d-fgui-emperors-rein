@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_drzn" name="mask" xy="540,960" pivot="0.5,0.5" anchor="true" size="1080,1920" type="rect" lineSize="0" fillColor="#99333333">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <component id="n2_drzn" name="anchorBg" src="drzncv" fileName="component/popupJackpotGame/AnchorBigWin.xml" xy="540,960"/>
+  </displayList>
+</component>

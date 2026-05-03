@@ -3,6 +3,11 @@
   <displayList>
     <image id="n19_o8uc" name="n19" src="baxv6v" fileName="images/normalGame/jackpotTip/ng_img_green.png" xy="0,22" size="409,115"/>
     <image id="n20_o8uc" name="n20" src="o8uc1c" fileName="images/normalGame/jackpotTip/sg_txt_mini.png" xy="132,0" size="149,53"/>
-    <text id="n21_sb0x" name="credit" xy="33,46" size="345,68" font="ui://q8n13f0fsb0x60" fontSize="20" align="center" vAlign="middle" autoSize="none" text="15，000，000"/>
+    <list id="n22_drzn" name="reels" xy="31,55" size="356,62" layout="row" overflow="hidden" colGap="-10" defaultItem="ui://q8n13f0fdrzncq" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
   </displayList>
 </component>
