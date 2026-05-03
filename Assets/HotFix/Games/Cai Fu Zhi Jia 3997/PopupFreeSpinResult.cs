@@ -58,6 +58,7 @@ namespace CaiFuZhiJia_3997
             if (!isOpen) return;
 
             BindPrefabsToUI();
+            BindUIToAnimator();
             ShowEffectAndSpine();
         }
 
@@ -68,7 +69,8 @@ namespace CaiFuZhiJia_3997
             _freeResultTipWindow = contentPane.GetChild("freeResultTipWindow").asCom;
             _freeStartBtn = _freeResultTipWindow.GetChild("freeStartBtn").asButton;
             _freeGameResultScore = _freeResultTipWindow.GetChild("freeGameResultScore").asCom;
-            _freeGameResultScore.GetChild("number").asTextField.text = ContentModel.Instance.freeSpinTotalWinCoins.ToString();
+            _freeGameResultScore.GetChild("number").asTextField.text =
+                ContentModel.Instance.freeSpinTotalWinCoins.ToString();
 
             InitParam();
         }
@@ -178,8 +180,11 @@ namespace CaiFuZhiJia_3997
                 _cloneDollarSpineObj.SetActive(true);
                 _cloneGoldPurpleEffectObj.SetActive(true);
 
-                Timers.inst.Add(3, 1, (obj) => _cloneDollarSpineObj.SetActive(false));
-                Timers.inst.Add(7, 1, (obj) => CloseSelf(null));
+                Timers.inst.Add(3.03f, 1, (obj) =>
+                {
+                    _cloneDollarSpineObj.SetActive(false);
+                    CloseSelf(null);
+                });
             }));
 
             if (TestManager.Instance.IsAutoModeRunning)
@@ -191,6 +196,34 @@ namespace CaiFuZhiJia_3997
                         _freeStartBtn.onClick.Call();
                     }
                 });
+            }
+        }
+
+        private void BindUIToAnimator()
+        {
+            //fgui放入ugui
+            string candidatePaths = $"Anchor/sg_pop_settlement/Animation/numdi";
+            Transform num01 = _cloneFreeGetAnimationObj.transform.Find(candidatePaths);
+            GObject _gfreetxt = this.contentPane.GetChild("freeResultTipWindow").asCom.GetChild("freeGameResultScore");
+            if (_gfreetxt?.displayObject?.gameObject != null)
+            {
+                Transform t = _gfreetxt.displayObject.gameObject.transform;
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(-2.79f, 0.02f, 0);
+                //t.localRotation = Quaternion.identity;
+                t.localScale = new Vector3(0.005f, 0.005f, 0.01f);
+            }
+
+            string startButtonPath = $"Anchor/sg_pop_settlement/Animation/btn";
+            num01 = _cloneFreeGetAnimationObj.transform.Find(startButtonPath);
+            GObject gStartBtn = this.contentPane.GetChild("freeResultTipWindow").asCom.GetChild("freeStartBtn");
+            if (gStartBtn?.displayObject?.gameObject != null)
+            {
+                Transform t = gStartBtn.displayObject.gameObject.transform;
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(-1.34f, -0.33f, 0);
+                //t.localRotation = Quaternion.identity;
+                t.localScale = new Vector3(0.008f, 0.008f, 0.01f);
             }
         }
 

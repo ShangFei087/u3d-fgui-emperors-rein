@@ -103,6 +103,11 @@ namespace CaiFuZhiJia_3997
         private GameObject _npcObj, _cloneNpcObj;
         private Animator _traderAnimator = null; // 商人动画
 
+        // 按钮点击特效
+        private GameObject _betEffect, _cloneBetUpEffect, _cloneBetDownEffect;
+        private GComponent _compareBetUpEffect, _compareBetDownEffect;
+        private GButton _betUpBtn, _betDownBtn;
+
         //彩金
         MiniReelGroup uiJPMajorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
@@ -122,6 +127,9 @@ namespace CaiFuZhiJia_3997
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
             _pageController = contentPane.GetController("PageController");
+            
+            // _betUpBtn = contentPane.GetChild("btnBetUp").asButton;
+            // _betDownBtn = contentPane.GetChild("btnBetDown").asButton;
 
             LoadAsyncRes();
 
@@ -201,6 +209,7 @@ namespace CaiFuZhiJia_3997
             // if (_isReady) return;
             // _isReady = true;
 
+            // _betUpBtn.onClick.Add(()=>);
 
             if (_anchorFreeExpectation != null)
                 _anchorFreeExpectation.Dispose();
@@ -332,7 +341,8 @@ namespace CaiFuZhiJia_3997
             }
 
             _lastAnchorPanelForDispatch = _gOwnerPanel;
-            EventCenter.Instance.EventTrigger<EventData>( PanelEvent.ON_PANEL_EVENT, new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
+            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
+                new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
         }
 
         private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
@@ -355,7 +365,7 @@ namespace CaiFuZhiJia_3997
 
         private void LoadAsyncRes()
         {
-            _totalCount = 5; // 6
+            _totalCount = 6; // 7
 
             // 加载公共资源包
             if (UIPackage.GetByName("Common") == null)
@@ -421,6 +431,14 @@ namespace CaiFuZhiJia_3997
                     ResLoadedCallback();
                 });
 
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                EffectPrefabPath + "betClickEffect.prefab",
+                (clone) =>
+                {
+                    _betEffect = clone;
+                    ResLoadedCallback();
+                });
+
             // Todo:等3D模型绑定完成之后处理的逻辑
             // // 加载3D动画  
             // ResourceManager02.Instance.LoadAsset<GameObject>(
@@ -454,16 +472,36 @@ namespace CaiFuZhiJia_3997
                         Debug.LogError("解析symbol_paytable失败，数据为空");
                         return;
                     }
+
                     MainModel.Instance.lineNum = config.LineNum;
                     MainModel.Instance.gameID = config.GameId;
                     MainModel.Instance.gameName = config.GameName;
                     MainModel.Instance.displayName = config.DisplayName;
-                    
                 });
         }
 
         private void BindSpinesToUI()
         {
+            // // 押注按钮点击特效
+            // GComponent currentCom = contentPane.GetChild("panel").asCom.GetChild("btnBetUp").asCom.GetChild("anchorBetEffect").asCom;
+            //
+            // if (currentCom != _compareBetUpEffect)
+            // {
+            //     GameCommon.FguiUtils.DeleteWrapper(_compareBetUpEffect);
+            //     _compareBetUpEffect = currentCom;
+            //     _cloneBetUpEffect = Object.Instantiate(_betEffect);
+            //     GameCommon.FguiUtils.AddWrapper(_compareBetUpEffect, _cloneBetUpEffect);
+            // }
+            //
+            // currentCom = contentPane.GetChild("panel").asCom.GetChild("btnBetDown").asCom.GetChild("anchorBetEffect").asCom;
+            // if (currentCom != _compareBetDownEffect)
+            // {
+            //     GameCommon.FguiUtils.DeleteWrapper(_compareBetDownEffect);
+            //     _compareBetDownEffect = currentCom;
+            //     _cloneBetDownEffect = Object.Instantiate(_betEffect);
+            //     GameCommon.FguiUtils.AddWrapper(_compareBetDownEffect, _cloneBetDownEffect);
+            // }
+
             // 免费游戏的机器人投影特效
             GComponent currentCom = contentPane.GetChild("anchorRobot").asCom;
             if (currentCom != _compareRobot)
@@ -998,7 +1036,7 @@ namespace CaiFuZhiJia_3997
                     ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
                     MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
                     TryTriggerAnchorPanelChange();
-                 
+
 
                     isNext = true;
                 });
