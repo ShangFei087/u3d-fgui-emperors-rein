@@ -816,6 +816,21 @@ namespace CaiFuHuoChe_3996
                         if(isJackpotWin == "JackpotRewardEffect")
                         {
                             Debug.LogError("----------------------这里应该等待彩金打印之后继续进行-----------------------------------");
+
+                            bool isNext = false;
+                            int jackpotType = int.Parse(ContentModel.Instance.jackpotWin[c + (r - bufferTop) * 5]) % 1000;
+                            PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupJackpotResult,
+                                new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
+                                {
+                                    ["jackpotType"] = jackpotType,
+                                    ["totalEarnCredit"] = ContentModel.Instance.jackpotSocre[jackpotType],
+                                }),
+                                (res) =>
+                                {
+                                    isNext = true;
+                                });
+                            yield return new WaitUntil(() => isNext == true);
+                            isNext = false;
                         }
                     }
                         

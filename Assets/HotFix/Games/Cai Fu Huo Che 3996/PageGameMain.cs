@@ -705,22 +705,27 @@ namespace CaiFuHuoChe_3996
         private void ReadJsonBet()
         {
             //资源加载
-            ResourceManager02.Instance.LoadAsset<TextAsset>(
-                "Assets/GameRes/_Common/Game Maker/ABs/G3996/Datas/game_info_g3996.json", (txt) =>
-                {
-                    //JSON解析与错误处理
-                    GameConfigRoot config = JsonConvert.DeserializeObject<GameConfigRoot>(txt.text);
-                    if (config?.SymbolPaytable == null)
-                    {
-                        Debug.LogError("解析symbol_paytable失败，数据为空");
-                        return;
-                    }
+            //ResourceManager02.Instance.LoadAsset<TextAsset>(
+            //    "Assets/GameRes/_Common/Game Maker/ABs/G3996/Datas/game_info_g3996.json", (txt) =>
+            //    {
+            //        //JSON解析与错误处理
+            //        GameConfigRoot config = JsonConvert.DeserializeObject<GameConfigRoot>(txt.text);
+            //        if (config?.SymbolPaytable == null)
+            //        {
+            //            Debug.LogError("解析symbol_paytable失败，数据为空");
+            //            return;
+            //        }
 
-                    MainModel.Instance.lineNum = config.LineNum;
-                    MainModel.Instance.gameID = config.GameId;
-                    MainModel.Instance.gameName = config.GameName;
-                    MainModel.Instance.displayName = config.DisplayName;
-                });
+            //        MainModel.Instance.lineNum = 30;
+            //        MainModel.Instance.gameID = 3996;
+            //        MainModel.Instance.gameName = "CaiFuHuoChe3996";
+            //        MainModel.Instance.displayName = "CaiFuHuoChe_3996";
+            //    });
+
+            MainModel.Instance.lineNum = 30;
+            MainModel.Instance.gameID = 3996;
+            MainModel.Instance.gameName = "CaiFuHuoChe3996";
+            MainModel.Instance.displayName = "CaiFuHuoChe_3996";
         }
 
         void StartGameOnce(Action successCallback = null, Action<string> errorCallback = null)
@@ -856,7 +861,6 @@ namespace CaiFuHuoChe_3996
 
         void OnJackpotWinEvent(EventData res)
         {
-            Debug.LogError(res.name);
             Dictionary<int, int> tempPos = (Dictionary<int, int>)res.value;
             mono.StartCoroutine(ShowRewardEffect(tempPos.Keys.First(), tempPos.Values.First(), anchorJackpotAdd, null, true));
         }
@@ -980,7 +984,7 @@ namespace CaiFuHuoChe_3996
                     }
                     catch (Exception e)
                     {
-                        DebugUtils.LogError($"[G1700] 设置展会模式结果失败，deck={currentDeck}");
+                        DebugUtils.LogError($"[G3996] 设置展会模式结果失败，deck={currentDeck}");
                         DebugUtils.LogException(e);
                     }
                 }
@@ -1136,7 +1140,7 @@ namespace CaiFuHuoChe_3996
                     //显示全部中奖图标和中奖线
                      slotMachineCtrl.ShowSymbolWinDeck(slotMachineCtrl.GetTotalSymbolWin(winList), true);
                     //bigwin弹窗
-                    //yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
+                    yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
 
                     slotMachineCtrl.CloseSlotCover();
                     slotMachineCtrl.SkipWinLine(false);
@@ -1914,7 +1918,7 @@ namespace CaiFuHuoChe_3996
         IEnumerator BigWinPopup(WinLevelType winLevelType, long winCredit)
         {
             bool isNext = false;
-            PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinBiPopupBigWin,
+            PageManager.Instance.OpenPage(PageName.CaiFuHuoChePopupBigWin,
                 new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
                 {
                     ["baseGameWinCredit"] = winCredit, //ContentModel.Instance.baseGameWinCredit,

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <graph id="n0_drzn" name="mask" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#99666666">
+    <graph id="n0_drzn" name="mask" xy="536,960" pivot="0.5,0.5" anchor="true" size="1080,1920" type="rect" lineSize="0" fillColor="#99666666">
       <relation target="" sidePair="width-width,height-height"/>
     </graph>
     <component id="n1_drzn" name="anchorBg" src="drznct" fileName="component/popupJackpotGame/AnchorJackpotResult.xml" xy="540,960"/>
+    <text id="n2_ke3p" name="score" xy="2,1154" size="1057,190" font="ui://q8n13f0fke3pdd" fontSize="8" align="center" vAlign="middle" autoSize="none" text="132165456"/>
   </displayList>
 </component>
