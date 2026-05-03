@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="38,50" overflow="hidden">
+  <displayList>
+    <text id="n19_sb0x" name="step1_0" xy="0,0" size="38,53" font="ui://q8n13f0fsb0x60" fontSize="20" align="center" vAlign="bottom" leading="0" autoSize="none" text="，"/>
+    <text id="n20_drzn" name="step2_0" xy="0,-30" size="38,50" visible="false" font="ui://q8n13f0fsb0x60" fontSize="20" align="center" vAlign="middle" leading="0" autoSize="none" text="1"/>
+    <text id="n21_drzn" name="step2_1" xy="0,60" size="38,50" visible="false" font="ui://q8n13f0fsb0x60" fontSize="20" align="center" vAlign="middle" leading="0" autoSize="none" text="2"/>
+    <text id="n22_drzn" name="step3_0" xy="0,-60" size="38,50" visible="false" font="ui://q8n13f0fsb0x60" fontSize="20" align="center" vAlign="middle" leading="0" autoSize="none" text="1"/>
+    <text id="n23_drzn" name="step3_1" xy="0,30" size="38,50" visible="false" font="ui://q8n13f0fsb0x60" fontSize="20" align="center" vAlign="middle" leading="0" autoSize="none" text="2"/>
+    <text id="n24_drzn" name="step4_0" xy="0,0" size="38,50" visible="false" font="ui://q8n13f0fsb0x60" fontSize="20" align="center" vAlign="middle" leading="0" autoSize="none" text="2"/>
+  </displayList>
+  <transition name="animTurn">
+    <item time="0" type="Visible" target="n19_sb0x" value="true"/>
+    <item time="0" type="Visible" target="n20_drzn" value="false"/>
+    <item time="0" type="Visible" target="n21_drzn" value="false"/>
+    <item time="0" type="Visible" target="n22_drzn" value="false"/>
+    <item time="0" type="Visible" target="n23_drzn" value="false"/>
+    <item time="0" type="Visible" target="n24_drzn" value="false"/>
+    <item time="3" type="Visible" target="n19_sb0x" value="false"/>
+    <item time="3" type="Visible" target="n20_drzn" value="true"/>
+    <item time="3" type="Visible" target="n21_drzn" value="true"/>
+    <item time="3" type="Visible" target="n22_drzn" value="false"/>
+    <item time="3" type="Visible" target="n23_drzn" value="false"/>
+    <item time="3" type="Visible" target="n24_drzn" value="false"/>
+    <item time="6" type="Visible" target="n19_sb0x" value="false"/>
+    <item time="6" type="Visible" target="n20_drzn" value="false"/>
+    <item time="6" type="Visible" target="n21_drzn" value="false"/>
+    <item time="6" type="Visible" target="n22_drzn" value="true"/>
+    <item time="6" type="Visible" target="n23_drzn" value="true"/>
+    <item time="6" type="Visible" target="n24_drzn" value="false"/>
+    <item time="9" type="Visible" target="n19_sb0x" value="false"/>
+    <item time="9" type="Visible" target="n20_drzn" value="false"/>
+    <item time="9" type="Visible" target="n21_drzn" value="false"/>
+    <item time="9" type="Visible" target="n22_drzn" value="false"/>
+    <item time="9" type="Visible" target="n23_drzn" value="false"/>
+    <item time="9" type="Visible" target="n24_drzn" value="true"/>
+  </transition>
+</component>
