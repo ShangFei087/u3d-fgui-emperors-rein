@@ -78,7 +78,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1927013825348490161
 Transform:
   m_ObjectHideFlags: 0
@@ -231,6 +231,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 534423048828579911}
     m_Modifications:
+    - target: {fileID: 343630617816991859, guid: 0aeff68e68b903b458c010f34b1ae38d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4848957769655534336, guid: 0aeff68e68b903b458c010f34b1ae38d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 4891613408607323432, guid: 0aeff68e68b903b458c010f34b1ae38d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 6961757494785977082, guid: 0aeff68e68b903b458c010f34b1ae38d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 31
+      objectReference: {fileID: 0}
     - target: {fileID: 8312296776503291704, guid: 0aeff68e68b903b458c010f34b1ae38d,
         type: 3}
       propertyPath: m_Pivot.x

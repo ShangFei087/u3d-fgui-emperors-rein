@@ -53,7 +53,8 @@ namespace CaiFuZhiJia_3997
                             Random.Range(0, CustomModel.Instance.JackpotBgPath.Count)];
                         if (url != null)
                         {
-                            elementLoader.url = "ui://CaiFuZhiJia/ng_sym_diamonds2";
+                            // elementLoader.url = "ui://CaiFuZhiJia/ng_sym_diamonds2";
+                            elementLoader.url = url;
                         }
                         // elementLoader.url =
                         //     CustomModel.Instance.JackpotBgPath[

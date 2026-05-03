@@ -131,7 +131,10 @@ namespace CaiFuZhiJia_3997
 
             // if (_isReady) return;
             // _isReady = true;
-
+            // 加载Panel面板
+            ContentModel.Instance.isSpin = false;
+            ContentModel.Instance.remainPlaySpins = 1;
+            
             // 加载Panel面板
             _gOwnerPanel = contentPane.GetChild("panel").asCom;
             MainModel.Instance.contentMD = ContentModel.Instance;
@@ -477,6 +480,7 @@ namespace CaiFuZhiJia_3997
 
         private IEnumerator GameResultCoroutine()
         {
+            // PlayAnimationByName(_warnAnimator, "");
             _winSpineIndexList.Sort();
             for (int i = 0; i < _winSpineIndexList.Count; i++)
             {
@@ -484,7 +488,9 @@ namespace CaiFuZhiJia_3997
                 yield return _monoHelper.StartCoroutine(ProcessSingleResult(index));
             }
 
+            PlayAnimationByName(_npcAnimator,"Wealth_sg_npc_settlement3");
             yield return new WaitForSeconds(2f);
+            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotResult);
         }
 

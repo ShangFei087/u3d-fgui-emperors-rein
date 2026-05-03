@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using Mono.Data.Sqlite;
 using Newtonsoft.Json;
 using PusherEmperorsRein;
 using SBoxApi;
@@ -81,7 +82,8 @@ namespace CaiFuZhiJia_3997
             _corGameIdle = null,
             _corShowFreeSymbol = null,
             _corShowBonusSymbol = null,
-            _corEffectSlowMotion = null;
+            _corEffectSlowMotion = null,
+            corGameOnce=null;
 
         // 加速框制作
         private GComponent _anchorExpectation;
@@ -314,6 +316,7 @@ namespace CaiFuZhiJia_3997
         {
             GameSoundHelper3997.Instance.PlayMusicSingle(SoundKey.RegularBG);
             base.OnOpen(currentPageName, eventData);
+            _isMain = true;
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
@@ -690,7 +693,8 @@ namespace CaiFuZhiJia_3997
                             else
                             {
                                 ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
-                                StartGameTotalSpins(successCallback, StopGameWhenError); //开始玩
+                                //StartGameTotalSpins(successCallback, StopGameWhenError); //开始玩
+                                StartGameOnce(successCallback, StopGameWhenError); //开始玩
                             }
                         }
                         break;
@@ -1208,6 +1212,14 @@ namespace CaiFuZhiJia_3997
             if (successCallback != null)
                 successCallback.Invoke();
         }
+        
+        void StartGameOnce(Action successCallback = null, Action<string> errorCallback = null)
+        {
+            ContentModel.Instance.totalPlaySpins = 1;
+            ContentModel.Instance.remainPlaySpins = 1;
+            corGameOnce = _monoHelper.StartCoroutine(GameOnce(successCallback, errorCallback));
+        }
+
 
         IEnumerator GameFreeSpin(Action successCallback, Action<string> errorCallback)
         {
@@ -1433,6 +1445,7 @@ namespace CaiFuZhiJia_3997
 
         IEnumerator GameOnce(Action successCallback, Action<string> errorCallback)
         {
+            DebugUtils.Log("GameOnce！！！");
             // 检测机台是否激活
             if (!SBoxModel.Instance.isMachineActive)
             {
@@ -1680,7 +1693,7 @@ namespace CaiFuZhiJia_3997
                 }
 
                 yield return new WaitForSeconds(3f);
-                CloseSelf(null);
+                // CloseSelf(null);
 
                 _isMain = false;
                 _slotMachineCtrl.SkipWinLine(false);
@@ -1695,37 +1708,38 @@ namespace CaiFuZhiJia_3997
                     });
 
                 yield return new WaitUntil(() => isNext == true);
-                isNext = false;
-                PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupJackpotGame,
-                    new EventData<Dictionary<string, object>>("", new Dictionary<string, object> { }),
-                    (res) =>
-                    {
-                        _isMain = true;
-                        // 加载Panel面板
-                        _gOwnerPanel = contentPane.GetChild("panel").asCom;
-                        MainModel.Instance.contentMD = ContentModel.Instance;
-                        MainModel.Instance.cutomMD = CustomModel.Instance;
-                        ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
-                        MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
-                        TryTriggerAnchorPanelChange();
-                        ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-                        ContentModel.Instance.isSpin = false;
-                        ContentModel.Instance.remainPlaySpins = 1;
-                        _slotMachineCtrl.CloseSlotCover();
-                        PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotResult, null);
-                        isNext = true;
-                    });
-
-                yield return new WaitUntil(() => isNext == true);
-
-                isNext = false;
-                PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupJackpotResult,
-                    new EventData<Dictionary<string, object>>("", new Dictionary<string, object> { }),
-                    (res) =>
-                    {
-                        isNext = true;
-                    });
-                yield return new WaitUntil(() => isNext == true);
+                ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+                _slotMachineCtrl.CloseSlotCover();
+                // PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupJackpotGame,
+                //     new EventData<Dictionary<string, object>>("", new Dictionary<string, object> { }),
+                //     (res) =>
+                //     {
+                //         CloseSelf(null);
+                //         _isMain = true;
+                //         // 加载Panel面板
+                //         _gOwnerPanel = contentPane.GetChild("panel").asCom;
+                //         MainModel.Instance.contentMD = ContentModel.Instance;
+                //         MainModel.Instance.cutomMD = CustomModel.Instance;
+                //         ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
+                //         MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
+                //         TryTriggerAnchorPanelChange();
+                //         ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+                //         ContentModel.Instance.isSpin = false;
+                //         ContentModel.Instance.remainPlaySpins = 1;
+                //         _slotMachineCtrl.CloseSlotCover();
+                //         PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotResult, null);
+                //         isNext = true;
+                //     });
+            
+                //
+                // isNext = false;
+                // PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupJackpotResult,
+                //     new EventData<Dictionary<string, object>>("", new Dictionary<string, object> { }),
+                //     (res) =>
+                //     {
+                //         isNext = true;
+                //     });
+                // yield return new WaitUntil(() => isNext == true);
             }
 
 
