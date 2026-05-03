@@ -46,11 +46,14 @@ namespace CaiFuZhiJia_3997
                     GLoader elementLoader = parentGCom.GetChild("element").asLoader;
                     if (i != 4)
                     {
+                        //ui://CaiFuZhiJia/ng_null
+                        Debug.Log("i= "+i);
+                        Debug.Log(elementLoader);
                         string url = CustomModel.Instance.JackpotBgPath[
                             Random.Range(0, CustomModel.Instance.JackpotBgPath.Count)];
                         if (url != null)
                         {
-                            elementLoader.url = url;
+                            elementLoader.url = "ui://CaiFuZhiJia/ng_sym_diamonds2";
                         }
                         // elementLoader.url =
                         //     CustomModel.Instance.JackpotBgPath[

@@ -169,7 +169,10 @@ namespace CaiFuZhiJia_3997
                 // 免费游戏积分倍数增加
                 int currentWildCount = strDeckRowCol.Count(c => c == '9');
                 if (currentWildCount > 0)
+                {
+                    ContentModel.Instance.isHaveWildSymbol = true;
                     ContentModel.Instance.freeGameScoreMultiply += currentWildCount;
+                }
             }
 
             //IDVec 

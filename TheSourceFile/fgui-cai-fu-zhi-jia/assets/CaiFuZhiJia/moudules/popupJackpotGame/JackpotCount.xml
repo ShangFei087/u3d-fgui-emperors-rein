@@ -6,5 +6,6 @@
     <component id="n6_f93l" name="anchorWarn" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="186,100"/>
     <text id="n1_q5jy" name="freeCount" xy="48,84" size="52,54" font="ui://k5oi8hwrh8erda" fontSize="15" color="#ffae00" align="center" vAlign="middle" autoSize="none" text="3"/>
     <image id="n4_enim" name="n4" src="enimn0" fileName="images/popupJackpotGame/GameBackground/sg_txt_spins left.png" xy="109,94"/>
+    <component id="n7_f93l" name="anchorFrameLoss" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="186,98"/>
   </displayList>
 </component>

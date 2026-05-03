@@ -1,7 +1,5 @@
 using FairyGUI;
 using GameMaker;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -19,7 +17,7 @@ namespace CaiFuZhiJia_3997
         private int _totalResCount = -1;
         private bool _isInitialized = false;
         private bool _isFirstOpen = true;
-        private const float Duration = 12f;
+        private const float Duration = 8f;
         private GTweener _loadingGTween;
 
         private GSlider _loadingBar;
@@ -51,10 +49,7 @@ namespace CaiFuZhiJia_3997
 
             InitUICom();
             InitParam();
-            // if (_monoHelper == null)
-            //     _monoHelper = new GameObject("MonoHelper").AddComponent<MonoHelper>();
             StartLoading();
-            // _monoHelper.StartCoroutine(StartGameLoading(8));
         }
 
         public override void OnClose(EventData eventData = null)
@@ -97,59 +92,6 @@ namespace CaiFuZhiJia_3997
         {
             _loadingBar = contentPane.GetChild("sliderLoading").asSlider;
         }
-        
-        
-        // private IEnumerator StartGameLoading(float duration)
-        // {
-        //     _loadingBar.value = 0;
-        //     _loadingBar.max = 100;
-        //
-        //     if (_isFirstOpen)
-        //     {
-        //         // ========== 串行预加载，但每完成一个更新进度 ==========
-        //         var pagesToPreload = new List<PageName>
-        //         {
-        //             PageName.CaiFuZhiJiaPageGameMain,
-        //             PageName.CaiFuZhiJiaPopupFreeSpinTrigger,
-        //             PageName.CaiFuZhiJiaPopupFreeSpinResult,
-        //             PageName.CaiFuZhiJiaPopupJackpotTrigger,
-        //             PageName.CaiFuZhiJiaPopupJackpotGame,
-        //             PageName.CaiFuZhiJiaPopupJackpotResult,
-        //             PageName.CaiFuZhiJiaPopupJackpotWin,
-        //             PageName.CaiFuZhiJiaPopupOverWin,
-        //         };
-        //
-        //         int totalCount = pagesToPreload.Count;
-        //
-        //         for (int i = 0; i < totalCount; i++)
-        //         {
-        //             bool isLoaded = false;
-        //             PageManager.Instance.PreloadPage(pagesToPreload[i], () => isLoaded = true);
-        //             yield return new WaitUntil(() => isLoaded);
-        //
-        //             // 每加载完一个页面，更新进度
-        //             _loadingBar.value = (float)(i + 1) / totalCount * 90f;
-        //         }
-        //
-        //         _isFirstOpen = false;
-        //         Debug.Log("CaiFuZhiJia is Preloaded!");
-        //     }
-        //
-        //     // ========== 最后 10% 快速走完 ==========
-        //     float elapsed = 0f;
-        //     double startValue = _loadingBar.value;
-        //
-        //     while (elapsed < 0.2f)
-        //     {
-        //         elapsed += Time.deltaTime;
-        //         float t = Mathf.Clamp01(elapsed / 0.2f);
-        //         _loadingBar.value = Mathf.Lerp((float)startValue, 100, t);
-        //         yield return null;
-        //     }
-        //
-        //     _loadingBar.value = 100;
-        // }
-
 
         private void StartLoading()
         {
