@@ -809,6 +809,9 @@ namespace CaiFuZhiJia_3997
                     {
                         if (ContentModel.Instance.isReelsSlowMotion && !_slotMachineCtrl.isStopImmediately)
                         {
+                            AnimatorStateInfo temp = _traderAnimator.GetCurrentAnimatorStateInfo(0);
+                            if (!temp.IsName("Wealth_ng_npc_atmosphere"))
+                                PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_atmosphere");
                             int colIndex = (int)res.value;
                             if (colIndex == 1)
                             {
@@ -948,7 +951,6 @@ namespace CaiFuZhiJia_3997
         private IEnumerator ShowEffectReelsSlowMotion(int colIdx)
         {
             _isTriggerFrame = true;
-            PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_atmosphere");
             GComponent comReelEffect = _anchorBonusExpectation;
             if (ContentModel.Instance.isFreeSlotTip)
             {
@@ -1158,7 +1160,7 @@ namespace CaiFuZhiJia_3997
             // 确保最终位置准确
             effect.xy = Vector2.zero;
         }
-        
+
         private IEnumerator MoveToEndPosTime(GComponent effect, Vector2 endPos, float duration = 1f,
             Action successCallback = null)
         {
@@ -1243,7 +1245,7 @@ namespace CaiFuZhiJia_3997
                 {
                     _slotMachineCtrl.SendTotalWinCreditEvent(0);
                     _pageController.selectedPage = "FreeGame";
-                    PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
+                    // PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
                     isNext = true;
                 });
             yield return new WaitUntil(() => isNext == true);
@@ -1252,7 +1254,11 @@ namespace CaiFuZhiJia_3997
             _slotMachineCtrl.BeginBonusFreeSpin();
             yield return GameFreeSpin(null, errorCallback);
 
+
+            PlayAnimationByName(_radarAnimator, "Settlement");
             PlayAnimationByName(_traderAnimator, "Wealth_fg_npc_settlement");
+            _cloneRadarObj.transform.Find("Effect").transform.Find("eff_fg_img_multiple11").gameObject.SetActive(true);
+            yield return new WaitForSeconds(2.5f);
 
             OutputStackContextFreeSpin(
                 (context) =>
@@ -1280,6 +1286,10 @@ namespace CaiFuZhiJia_3997
                     ContentModel.Instance.freeGameScoreMultiply = 2;
                     _multipleNumber.text = "x2";
                     _freeMultiplier = 2;
+                    for (int i = 0; i < _lightningEffectList.Count; i++)
+                        _lightningEffectList[i].visible = false;
+                    _wildBoomCom.visible = false;
+                    _rewardEffectCom.visible = false;
                     _cloneFireEffect.SetActive(false);
                     _radarEffectParent.Find("effect1").gameObject.SetActive(false);
                     _radarEffectParent.Find("effect2").gameObject.SetActive(false);
@@ -1287,6 +1297,8 @@ namespace CaiFuZhiJia_3997
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
                     _allWinCredit = 0;
                     ContentModel.Instance.FreeSpinTotalTimes = 0; // 免费游戏结束之后，把免费游戏局数重置
+                    _cloneRadarObj.transform.Find("Effect").transform.Find("eff_fg_img_multiple11").gameObject
+                        .SetActive(false);
 
                     // 重新注册
                     ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
@@ -1531,7 +1543,21 @@ namespace CaiFuZhiJia_3997
 
             if (ContentModel.Instance.isHaveWildSymbol)
             {
-                PlayAnimationByName(_traderAnimator, "Wealth_fg_npc_upgrade1");
+                if (_freeMultiplier < 5)
+                {
+                    PlayAnimationByName(_traderAnimator, "Wealth_fg_npc_upgrade1");
+                    PlayAnimationByName(_radarAnimator, "upgrade");
+                    yield return new WaitForSeconds(3f);
+                    PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
+                }
+                else
+                {
+                    PlayAnimationByName(_traderAnimator, "Wealth_fg_npc_upgrade2");
+                    PlayAnimationByName(_radarAnimator, "upgrade");
+                    yield return new WaitForSeconds(4.3f);
+                    PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
+                }
+
                 isNext = false;
                 if (_corLightningEffect != null) _monoHelper.StopCoroutine(_corLightningEffect);
                 _corLightningEffect = _monoHelper.StartCoroutine(ProcessLightningList(() => isNext = true));
@@ -1558,14 +1584,33 @@ namespace CaiFuZhiJia_3997
                     _allWinCredit += ContentModel.Instance.freeSpinTotalWinCoins - totalWinLineCredit; // 测试
                     ContentModel.Instance.isPowerTrigger = false;
                 }
+                
+                // 新增BigWin
+                WinLevelType winLevelType = GetBigWinType();
+                if (winLevelType != WinLevelType.None)
+                {
+                    yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
+
+                    _slotMachineCtrl.CloseSlotCover();
+                    _slotMachineCtrl.SkipWinLine(false);
+                }
 
                 // 播放3D人物动画
-                if (totalWinLineCredit < TotalBet * 2)
+                if (totalWinLineCredit < TotalBet * 2 && totalWinLineCredit > 0)
+                {
                     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win1");
+                    Timers.inst.Add(2.667f, 1, (obj) => PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01"));
+                }
                 else if (totalWinLineCredit >= TotalBet * 2 && totalWinLineCredit < TotalBet * 3)
+                {
                     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win2");
-                else if (totalWinLineCredit >= TotalBet * 3 && totalWinLineCredit < TotalBet * 4)
+                    Timers.inst.Add(4.167f, 1, (obj) => PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01"));
+                }
+                else if (totalWinLineCredit >= TotalBet * 3)
+                {
                     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win3");
+                    Timers.inst.Add(3.167f, 1, (obj) => PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01"));
+                }
 
                 _allWinCredit += totalWinLineCredit;
                 // Debug.LogError("_allWinCredit:" + _allWinCredit + "          totalWinLineCredit: " +
@@ -1582,13 +1627,6 @@ namespace CaiFuZhiJia_3997
             {
                 yield return ShowWinListCoinCountDown(winList, _allWinCredit, false);
             }
-
-            // if (_corRewardEffect != null) _monoHelper.StopCoroutine(_corRewardEffect);
-            // _corRewardEffect = _monoHelper.StartCoroutine(ProcessWildList(() => isNext = true));
-            // yield return new WaitUntil(() => isNext == true);
-            // isNext = false;
-            // _multipleNumber.text = "x" + ContentModel.Instance.freeGameScoreMultiply;
-
 
             ContentModel.Instance.gameState = GameState.Idle;
             successCallback?.Invoke();
@@ -1847,14 +1885,37 @@ namespace CaiFuZhiJia_3997
                 long totalWinLineCredit = 0;
                 totalWinLineCredit = _slotMachineCtrl.GetTotalWinCredit(winList);
                 allWinCredit = totalWinLineCredit;
+                
+                // 新增BigWin
+                WinLevelType winLevelType = GetBigWinType();
+                if (winLevelType != WinLevelType.None)
+                {
+                    yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
 
-                // 播放3D人物动画
-                if (allWinCredit < TotalBet * 2)
-                    PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win1");
-                else if (allWinCredit >= TotalBet * 2 && allWinCredit < TotalBet * 3)
-                    PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win2");
-                else if (allWinCredit >= TotalBet * 3 && allWinCredit < TotalBet * 4)
-                    PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win3");
+                    _slotMachineCtrl.CloseSlotCover();
+                    _slotMachineCtrl.SkipWinLine(false);
+                }
+
+                if (!ContentModel.Instance.IsBonusTrigger && !ContentModel.Instance.isFreeSpinTrigger)
+                    // 播放3D人物动画
+                    if (totalWinLineCredit < TotalBet * 2 && totalWinLineCredit > 0)
+                    {
+                        PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win1");
+                        Timers.inst.Add(2.667f, 1,
+                            (obj) => PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01"));
+                    }
+                    else if (totalWinLineCredit >= TotalBet * 2 && totalWinLineCredit < TotalBet * 3)
+                    {
+                        PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win2");
+                        Timers.inst.Add(4.167f, 1,
+                            (obj) => PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01"));
+                    }
+                    else if (totalWinLineCredit >= TotalBet * 3)
+                    {
+                        PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win3");
+                        Timers.inst.Add(3.167f, 1,
+                            (obj) => PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01"));
+                    }
 
                 // 计数没到五局中奖之后刷新计数
                 if (ContentModel.Instance.noWinCount < 5)
@@ -1871,6 +1932,7 @@ namespace CaiFuZhiJia_3997
             if (ContentModel.Instance.noWinCount >= 5)
             {
                 PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_not winning");
+                Timers.inst.Add(2.667f, 1, (obj) => PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01"));
                 ContentModel.Instance.noWinCount = 0;
             }
 
@@ -1883,10 +1945,11 @@ namespace CaiFuZhiJia_3997
             // Free Spin
             if (ContentModel.Instance.isFreeSpinTrigger)
             {
-                PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_trigger fg");
+                // Timers.inst.Add(2.833f, 1, (obj) => );
                 _isWinFreeOrBonus = true;
                 if (_corShowFreeSymbol != null) _monoHelper.StopCoroutine(_corShowFreeSymbol);
                 _corShowFreeSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(10));
+                PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_trigger fg");
                 // 免费触发，关闭展会模式
                 if (MainModel.Instance.isExhibitionModeMode)
                 {
@@ -1894,6 +1957,8 @@ namespace CaiFuZhiJia_3997
                 }
 
                 yield return new WaitForSeconds(2f);
+                PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
+
                 //停止特效显示
                 _slotMachineCtrl.SkipWinLine(false);
                 yield return FreeSpinTrigger(null, errorCallback);
@@ -1904,6 +1969,7 @@ namespace CaiFuZhiJia_3997
             {
                 _isWinFreeOrBonus = true;
                 PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_trigger sg");
+                Timers.inst.Add(5.3f, 1, (obj) => PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01"));
                 // 显示中奖图标
                 if (_corShowBonusSymbol != null) _monoHelper.StopCoroutine(_corShowBonusSymbol);
                 _corShowBonusSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(11));
@@ -1938,6 +2004,7 @@ namespace CaiFuZhiJia_3997
             if (_isTriggerFrame && !_isWinFreeOrBonus)
             {
                 PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_not triggered");
+                Timers.inst.Add(3.5f, 1, (obj) => PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01"));
             }
 
             //核对前后端积分
@@ -1975,6 +2042,24 @@ namespace CaiFuZhiJia_3997
                 successCallback.Invoke();
 
             _slotMachineCtrl.isStopImmediately = false;
+        }
+        
+        IEnumerator BigWinPopup(WinLevelType winLevelType, long winCredit)
+        {
+            bool isNext = false;
+            PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupOverWin,
+                new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
+                {
+                    ["baseGameWinCredit"] = winCredit,
+                    ["WinType"] = winLevelType,
+                }),
+                (res) =>
+                {
+                    isNext = true;
+                });
+
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
         }
 
         IEnumerator ShowWinListCoinCountDown(List<SymbolWin> winList, long totalWinLineCredit, bool isHitJackpot)
@@ -2193,6 +2278,27 @@ namespace CaiFuZhiJia_3997
             uiJPMajorCtrl.SetData(info.curJackpotMajor);
             uiJPMinorCtrl.SetData(info.curJackpotMinior);
             uiJPMiniCtrl.SetData(info.curJackpotMini);
+        }
+
+        #endregion
+
+        #region BigWin
+
+        WinLevelType GetBigWinType()
+        {
+            long baseGameWinCredit = ContentModel.Instance.baseGameWinCredit;
+            List<WinMultiple> winMultipleList = CustomModel.Instance.winLevelMultiple;
+            long totalBet = ContentModel.Instance.totalBet;
+            WinLevelType winLevelType = WinLevelType.None;
+            for (int i = 0; i < winMultipleList.Count; i++)
+            {
+                if (baseGameWinCredit > totalBet * winMultipleList[i].multiple)
+                {
+                    winLevelType = winMultipleList[i].winLevelType;
+                }
+            }
+
+            return winLevelType;
         }
 
         #endregion

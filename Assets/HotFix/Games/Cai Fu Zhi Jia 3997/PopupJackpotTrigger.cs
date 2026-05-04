@@ -30,9 +30,9 @@ namespace CaiFuZhiJia_3997
         private GComponent _compareDiamondSpineGCom = null;
 
         // Effect
-        private GameObject _diamondBgEffectObj = null, _lightEffectObj = null;
-        private GameObject _cloneDiamondBgEffectObj = null, _cloneLightEffectObj = null;
-        private GComponent _compareDiamondBgEffectGCom = null, _compareLightEffectGCom = null;
+        private GameObject _diamondBgEffectObj = null /*, _lightEffectObj = null*/;
+        private GameObject _cloneDiamondBgEffectObj = null /*, _cloneLightEffectObj = null*/;
+        private GComponent _compareDiamondBgEffectGCom = null /*, _compareLightEffectGCom = null*/;
 
         // Todo：等Animation做出来之后，直接取消注释即可
         // Animation
@@ -51,7 +51,7 @@ namespace CaiFuZhiJia_3997
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            _totalCount = 4;
+            _totalCount = 3;//4
             LoadAsyncRes();
         }
 
@@ -111,13 +111,13 @@ namespace CaiFuZhiJia_3997
                     ResLoadedCallback();
                 });
 
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                EffectPrefabPath + "lightEffect.prefab",
-                (clone) =>
-                {
-                    _lightEffectObj = clone;
-                    ResLoadedCallback();
-                });
+            // ResourceManager02.Instance.LoadAsset<GameObject>(
+            //     EffectPrefabPath + "lightEffect.prefab",
+            //     (clone) =>
+            //     {
+            //         _lightEffectObj = clone;
+            //         ResLoadedCallback();
+            //     });
 
             // 加载Animation
             ResourceManager02.Instance.LoadAsset<GameObject>(
@@ -153,14 +153,14 @@ namespace CaiFuZhiJia_3997
                 GameCommon.FguiUtils.AddWrapper(_compareDiamondBgEffectGCom, _cloneDiamondBgEffectObj);
             }
 
-            currentGCom = contentPane.GetChild("lightEffect").asCom;
-            if (currentGCom != _compareLightEffectGCom)
-            {
-                GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
-                _compareLightEffectGCom = currentGCom;
-                _cloneLightEffectObj = Object.Instantiate(_lightEffectObj);
-                GameCommon.FguiUtils.AddWrapper(_compareLightEffectGCom, _cloneLightEffectObj);
-            }
+            // currentGCom = contentPane.GetChild("lightEffect").asCom;
+            // if (currentGCom != _compareLightEffectGCom)
+            // {
+            //     GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
+            //     _compareLightEffectGCom = currentGCom;
+            //     _cloneLightEffectObj = Object.Instantiate(_lightEffectObj);
+            //     GameCommon.FguiUtils.AddWrapper(_compareLightEffectGCom, _cloneLightEffectObj);
+            // }
 
             // Animation
             currentGCom = _jackpotTriggerTipWindow.GetChild("diamondAnimation").asCom;
@@ -178,7 +178,7 @@ namespace CaiFuZhiJia_3997
             _jackpotTriggerButton.onClick.Add((() =>
             {
                 _jackpotTriggerTipWindow.visible = false;
-                _cloneLightEffectObj.SetActive(false);
+                // _cloneLightEffectObj.SetActive(false);
                 _cloneDiamondAnimationObj.SetActive(false);
 
                 _cloneDiamondSpineObj.SetActive(true);
@@ -186,8 +186,8 @@ namespace CaiFuZhiJia_3997
                 Timers.inst.Add(3, 1, (obj) => _cloneDiamondSpineObj.SetActive(false));
                 Timers.inst.Add(5, 1, (obj) =>
                 {
-                     PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPageGameMain);
-                     PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotGame);
+                    PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPageGameMain);
+                    PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotGame);
                 });
                 Timers.inst.Add(7, 1, (obj) =>
                 {
@@ -276,22 +276,22 @@ namespace CaiFuZhiJia_3997
 
             GameCommon.FguiUtils.DeleteWrapper(_compareDiamondSpineGCom);
             GameCommon.FguiUtils.DeleteWrapper(_compareDiamondBgEffectGCom);
-            GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
+            // GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
             GameCommon.FguiUtils.DeleteWrapper(_compareDiamondAnimationGCom);
 
             _compareDiamondSpineGCom = null;
             _compareDiamondBgEffectGCom = null;
-            _compareLightEffectGCom = null;
+            // _compareLightEffectGCom = null;
             _compareDiamondAnimationGCom = null;
 
             Object.Destroy(_cloneDiamondSpineObj);
             Object.Destroy(_cloneDiamondBgEffectObj);
-            Object.Destroy(_cloneLightEffectObj);
+            // Object.Destroy(_cloneLightEffectObj);
             Object.Destroy(_cloneDiamondAnimationObj);
 
             _cloneDiamondSpineObj = null;
             _cloneDiamondBgEffectObj = null;
-            _cloneLightEffectObj = null;
+            // _cloneLightEffectObj = null;
             _cloneDiamondAnimationObj = null;
         }
     }

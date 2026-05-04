@@ -50,7 +50,8 @@ namespace CaiFuZhiJia_3997
 
         #region 本局游戏数据
         
-        
+        /// <summary> 基础游戏赢分（单局普通游戏 或 免费游戏） </summary>
+        public long baseGameWinCredit;
         
         /// <summary> 免费游戏加速框 </summary>
         public bool isFreeSlotTip;
