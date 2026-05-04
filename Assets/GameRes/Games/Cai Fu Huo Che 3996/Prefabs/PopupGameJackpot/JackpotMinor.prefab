@@ -94,10 +94,20 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 193
       objectReference: {fileID: 0}
+    - target: {fileID: 1161599416412145077, guid: 8b224229e1337c94ea50eae8e8c4d676,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1161599416542384009, guid: 8b224229e1337c94ea50eae8e8c4d676,
         type: 3}
       propertyPath: m_SortingOrder
       value: 194
+      objectReference: {fileID: 0}
+    - target: {fileID: 1161599416542384011, guid: 8b224229e1337c94ea50eae8e8c4d676,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1161599416696537087, guid: 8b224229e1337c94ea50eae8e8c4d676,
         type: 3}
