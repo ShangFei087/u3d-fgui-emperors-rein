@@ -485,6 +485,11 @@ public class UIConst
                 },
             [PageName.CaiFuHuoChePageGameMain] =
                 new object[] { "Assets/GameRes/Games/Cai Fu Huo Che 3996/FGUIs", "CaiFuHuoChe_3996.PageGameMain" },
+            
+            [PageName.CaiFuHuoChePopupBigWin] = 
+                new object[] { "Assets/GameRes/Games/Cai Fu Huo Che 3996/FGUIs", "CaiFuHuoChe_3996.PopupBigWin" },
+            [PageName.CaiFuHuoChePopupJackpotResult] = 
+                new object[] { "Assets/GameRes/Games/Cai Fu Huo Che 3996/FGUIs", "CaiFuHuoChe_3996.PopupJackpotResult" },
 
 
             //火焰公牛
@@ -663,6 +668,8 @@ public enum PageName
     CaiFuHuoChePopupJackpotGameExit,
     CaiFuHuoChePopupFreeSpinResult,
     CaiFuHuoChePageGameMain,
+    CaiFuHuoChePopupBigWin,
+    CaiFuHuoChePopupJackpotResult,
 
     //火焰公牛
     HuoYanGongNiuPopupFreeSpinExit,

@@ -113,7 +113,7 @@ namespace XingYunZhiLun_3998
             GameSoundHelper.Instance.PlaySoundEff(SoundKey.PopupWinOn);
         }
 
-        public   void InitParam(EventData data)
+        public void InitParam(EventData data)
         {
             if (data != null) _data = data;
 

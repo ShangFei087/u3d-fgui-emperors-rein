@@ -172,6 +172,7 @@ namespace CaiFuHuoChe_3996
             ContentModel.Instance.isFreeSpinTrigger = false;
             ContentModel.Instance.isJackpotSpinTrigger = false;
             ContentModel.Instance.isFreeSpinAdd = false;
+            ContentModel.Instance.baseGameWinCredit = 0;
             isFreeSpin = false;
             addFreeTimes = 0;
 
@@ -277,6 +278,7 @@ namespace CaiFuHuoChe_3996
                 totalLineWin += lineWin;
             }
             ContentModel.Instance.winList = winList;
+            ContentModel.Instance.baseGameWinCredit = totalLineWin;
 
             //检查算法结果
             CheckGameResult(strDeckRowCol, totalwin);
@@ -415,6 +417,7 @@ namespace CaiFuHuoChe_3996
                 {
                     totalLineWin = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
                     ContentModel.Instance.curFreeCredit += totalLineWin;
+                    ContentModel.Instance.baseGameWinCredit = totalLineWin;
                 }
             }
 
@@ -478,8 +481,9 @@ namespace CaiFuHuoChe_3996
                         for(int i = 0; i < res["JPTypeArray"].Count; i++)
                         {
                             ContentModel.Instance.jackpotSocre[res["JPTypeArray"][i]] = res["JPBetArray"][i];
-                            totalLineWin += res["TotalJackpotBet"];
                         }
+
+                        totalLineWin += res["TotalJackpotBet"];
                     }
                 }
             }
