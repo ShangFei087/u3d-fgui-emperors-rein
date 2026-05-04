@@ -33,6 +33,9 @@
     <component id="n25_hmyf" name="anchor_EffectParent" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="208,855">
       <gearDisplay controller="PageController" pages="1"/>
     </component>
+    <component id="n26_hmyf" name="lightningEffectParent" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="202,616">
+      <gearDisplay controller="PageController" pages="1"/>
+    </component>
     <component id="n6_n3ln" name="panel" src="n3ln2i" fileName="components/pageGameMain/AnchorPanelSlot.xml" xy="540,1802"/>
   </displayList>
 </component>

@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using _spinWEMD = SlotMaker.SpinWinEffectSettingModel;
@@ -71,6 +72,7 @@ namespace CaiFuZhiJia_3997
         private GTextField _multipleNumber;
         private GComponent _compareRadar;
         private GameObject _radarObj, _cloneRadarObj;
+        private Transform _radarEffectParent;
         private Animator _radarAnimator;
 
         // 开始游戏
@@ -84,11 +86,22 @@ namespace CaiFuZhiJia_3997
             _corShowBonusSymbol = null,
             _corEffectSlowMotion = null,
             _corGameOnce = null,
-            _corRewardEffect;
+            _corRewardEffect,
+            _corLightningEffect;
 
         // 免费游戏倍数增加特效制作
+        private int _freeMultiplier = 2; // 显示在免费游戏text上的倍率 不用ContentModel中的了
         private GameObject _goRewardEffect, _wildBoomEffect;
         private GComponent _rewardEffectCom, _wildBoomCom, _freeParticleEffectParent;
+
+        // 收音机中的倍数遮罩和火焰特效
+        private GComponent _compareMaskEffect, _compareFireEffect;
+        private GameObject _goFireEffect, _goMaskEffect, _cloneFireEffect, _cloneMaskEffect;
+
+        // 收音机的闪电特效
+        private GComponent _lightningParentCom;
+        private GameObject _lightningObj, _cloneLightningObj;
+        private List<GComponent> _lightningEffectList = new List<GComponent>();
 
         // 加速框制作
         private GComponent _anchorExpectation;
@@ -112,11 +125,6 @@ namespace CaiFuZhiJia_3997
         private GComponent _compareNpc;
         private GameObject _npcObj, _cloneNpcObj;
         private Animator _traderAnimator = null; // 商人动画
-
-        // 按钮点击特效
-        // private GameObject _betEffect, _cloneBetUpEffect, _cloneBetDownEffect;
-        // private GComponent _compareBetUpEffect, _compareBetDownEffect;
-        // private GButton _betUpBtn, _betDownBtn;
 
         //当前游戏触发加速框后是否中奖
         private bool _isTriggerFrame = false;
@@ -227,6 +235,26 @@ namespace CaiFuZhiJia_3997
             _freeParticleEffectParent.AddChild(_wildBoomCom);
             _freeParticleEffectParent.AddChild(_rewardEffectCom);
             _freeParticleEffectParent.visible = true;
+
+            // 闪电特效制作
+            for (int i = 0; i < _lightningEffectList.Count; i++)
+            {
+                if (_lightningEffectList[i] != null)
+                    _lightningEffectList[i].Dispose();
+            }
+
+            _lightningEffectList.Clear();
+            for (int i = 0; i < 5; i++)
+            {
+                GComponent tempCom = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
+                GameCommon.FguiUtils.DeleteWrapper(tempCom);
+                GameCommon.FguiUtils.AddWrapper(tempCom, Object.Instantiate(_lightningObj));
+                tempCom.visible = false;
+                _lightningParentCom.AddChild(tempCom);
+                _lightningEffectList.Add(tempCom);
+            }
+
+            _lightningParentCom.visible = true;
 
             BindSpinesToUI();
 
@@ -387,7 +415,7 @@ namespace CaiFuZhiJia_3997
 
         private void LoadAsyncRes()
         {
-            _totalCount = 9;
+            _totalCount = 12;
 
             // 加载公共资源包
             if (UIPackage.GetByName("Common") == null)
@@ -468,12 +496,36 @@ namespace CaiFuZhiJia_3997
                     _goRewardEffect = clone;
                     ResLoadedCallback();
                 });
-            
+
             ResourceManager02.Instance.LoadAsset<GameObject>(
                 EffectPrefabPath + "WildBoomEffect.prefab",
                 (clone) =>
                 {
                     _wildBoomEffect = clone;
+                    ResLoadedCallback();
+                });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                EffectPrefabPath + "FireEffect.prefab",
+                (clone) =>
+                {
+                    _goFireEffect = clone;
+                    ResLoadedCallback();
+                });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                EffectPrefabPath + "MaskEffect.prefab",
+                (clone) =>
+                {
+                    _goMaskEffect = clone;
+                    ResLoadedCallback();
+                });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                EffectPrefabPath + "Lightning.prefab",
+                (clone) =>
+                {
+                    _lightningObj = clone;
                     ResLoadedCallback();
                 });
 
@@ -546,6 +598,26 @@ namespace CaiFuZhiJia_3997
                 GameCommon.FguiUtils.AddWrapper(currentCom, _cloneNpcObj);
             }
 
+            currentCom = contentPane.GetChild("freeGameBg").asCom.GetChild("anchorFire").asCom;
+            if (currentCom != _compareFireEffect)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareFireEffect);
+                _compareFireEffect = currentCom;
+                _cloneFireEffect = Object.Instantiate(_goFireEffect);
+                _cloneFireEffect.SetActive(false);
+                GameCommon.FguiUtils.AddWrapper(_compareFireEffect, _cloneFireEffect);
+            }
+
+            currentCom = contentPane.GetChild("freeGameBg").asCom.GetChild("anchorMask").asCom;
+            if (currentCom != _compareMaskEffect)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareMaskEffect);
+                _compareMaskEffect = currentCom;
+                _cloneMaskEffect = Object.Instantiate(_goMaskEffect);
+                _cloneMaskEffect.SetActive(false);
+                GameCommon.FguiUtils.AddWrapper(_compareMaskEffect, _cloneMaskEffect);
+            }
+
             // 免费游戏收音机
             currentCom = contentPane.GetChild("freeGameBg").asCom.GetChild("anchorVideo").asCom;
             if (currentCom != _compareRadar)
@@ -554,6 +626,7 @@ namespace CaiFuZhiJia_3997
                 _compareRadar = currentCom;
                 _cloneRadarObj = Object.Instantiate(_radarObj);
                 _radarAnimator = _cloneRadarObj.GetComponentInChildren<Animator>();
+                _radarEffectParent = _cloneRadarObj.transform.Find("Effect").transform.Find("eff_fg_img_multiple9");
                 GameCommon.FguiUtils.AddWrapper(_compareRadar, _cloneRadarObj);
             }
         }
@@ -565,6 +638,7 @@ namespace CaiFuZhiJia_3997
             _freeSpinsNumber = _freeFrameCom.GetChild("FreeSpinsNumber").asTextField;
             _multipleNumber = contentPane.GetChild("freeGameBg").asCom.GetChild("multipleNumber").asTextField;
             _freeParticleEffectParent = contentPane.GetChild("anchor_EffectParent").asCom;
+            _lightningParentCom = contentPane.GetChild("lightningEffectParent").asCom;
             _freeSpinTimeController.InitParam(_freeSpinsNumber);
         }
 
@@ -974,10 +1048,24 @@ namespace CaiFuZhiJia_3997
         {
             foreach (var cell in ContentModel.Instance.currentWildList)
             {
-                // 第一步：播放特效移动协程
                 yield return _monoHelper.StartCoroutine(ShowRewardEffect(cell.column, cell.row,
                     _freeParticleEffectParent));
+                _cloneMaskEffect.SetActive(true);
+                _freeMultiplier++;
                 yield return new WaitForSeconds(0.5f); // 特效后延迟
+                _cloneMaskEffect.SetActive(false);
+                _multipleNumber.text = "x" + _freeMultiplier;
+                if (_freeMultiplier > 4)
+                {
+                    _cloneFireEffect.SetActive(true);
+                    _radarEffectParent.Find("effect1").gameObject.SetActive(true);
+                    PlayAnimationByName(_radarAnimator, "idle2");
+                }
+
+                if (_freeMultiplier > 7)
+                {
+                    _radarEffectParent.Find("effect2").gameObject.SetActive(true);
+                }
             }
 
             callback?.Invoke();
@@ -987,7 +1075,7 @@ namespace CaiFuZhiJia_3997
         {
             GComponent rewardEffect = _rewardEffectCom;
             GComponent wildBoomEffect = _wildBoomCom;
-            
+
             if (wildBoomEffect != null)
             {
                 wildBoomEffect.parent.RemoveChild(wildBoomEffect);
@@ -995,7 +1083,7 @@ namespace CaiFuZhiJia_3997
                 wildBoomEffect.visible = false;
                 wildBoomEffect.xy = _slotMachineCtrl.SymbolCenterToNodeLocalPos(colIdx, rowIdx, toNode);
                 wildBoomEffect.visible = true;
-                
+
                 yield return new WaitForSeconds(0.2f);
             }
 
@@ -1009,6 +1097,43 @@ namespace CaiFuZhiJia_3997
 
                 yield return MoveToZeroOverTime(rewardEffect,
                     _slotMachineCtrl.SymbolCenterToNodeLocalPos(colIdx, rowIdx, toNode));
+            }
+        }
+
+        IEnumerator ProcessLightningList(Action callback)
+        {
+            var coroutines = new List<Coroutine>();
+            for (int i = 0; i < ContentModel.Instance.currentWildList.Count; i++)
+            {
+                Cell temp = ContentModel.Instance.currentWildList[i];
+                Coroutine c = _monoHelper.StartCoroutine(ShowLighningEffect(
+                    _lightningEffectList[i],
+                    _lightningParentCom,
+                    temp.column,
+                    temp.row));
+                coroutines.Add(c);
+            }
+
+            for (int i = 0; i < coroutines.Count; i++)
+            {
+                yield return coroutines[i];
+            }
+
+            callback?.Invoke();
+        }
+
+
+        private IEnumerator ShowLighningEffect(GComponent startPosCom, GComponent toNode, int colIdx, int rowIdx)
+        {
+            if (startPosCom != null)
+            {
+                startPosCom.parent.RemoveChild(startPosCom);
+                toNode.AddChild(startPosCom);
+                startPosCom.visible = false;
+                startPosCom.xy = _slotMachineCtrl.SymbolCenterToNodeLocalPos(colIdx, rowIdx, toNode);
+                startPosCom.visible = true;
+
+                yield return MoveToEndPosTime(startPosCom, startPosCom.xy);
             }
         }
 
@@ -1032,6 +1157,28 @@ namespace CaiFuZhiJia_3997
 
             // 确保最终位置准确
             effect.xy = Vector2.zero;
+        }
+        
+        private IEnumerator MoveToEndPosTime(GComponent effect, Vector2 endPos, float duration = 1f,
+            Action successCallback = null)
+        {
+            Vector2 startPosition = Vector2.zero; // (0,0)
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+
+                // 应用OutQuad缓动（更自然）
+                float easedT = t * (2 - t);
+
+                effect.xy = Vector2.Lerp(startPosition, endPos, easedT);
+                yield return null;
+            }
+
+            // 确保最终位置准确
+            effect.xy = endPos;
         }
 
         private static List<List<int>> ParseVertical(string raw,
@@ -1132,6 +1279,10 @@ namespace CaiFuZhiJia_3997
                     _pageController.selectedPage = "NormalGame";
                     ContentModel.Instance.freeGameScoreMultiply = 2;
                     _multipleNumber.text = "x2";
+                    _freeMultiplier = 2;
+                    _cloneFireEffect.SetActive(false);
+                    _radarEffectParent.Find("effect1").gameObject.SetActive(false);
+                    _radarEffectParent.Find("effect2").gameObject.SetActive(false);
                     MainBlackboardController.Instance.AddMyTempCredit(_allWinCredit, true, IsAddCreditAnim); //加钱动画
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
                     _allWinCredit = 0;
@@ -1381,6 +1532,16 @@ namespace CaiFuZhiJia_3997
             if (ContentModel.Instance.isHaveWildSymbol)
             {
                 PlayAnimationByName(_traderAnimator, "Wealth_fg_npc_upgrade1");
+                isNext = false;
+                if (_corLightningEffect != null) _monoHelper.StopCoroutine(_corLightningEffect);
+                _corLightningEffect = _monoHelper.StartCoroutine(ProcessLightningList(() => isNext = true));
+                yield return new WaitUntil(() => isNext == true);
+                yield return new WaitForSeconds(0.5f);
+                isNext = false;
+                if (_corRewardEffect != null) _monoHelper.StopCoroutine(_corRewardEffect);
+                _corRewardEffect = _monoHelper.StartCoroutine(ProcessWildList(() => isNext = true));
+                yield return new WaitUntil(() => isNext == true);
+                isNext = false;
                 ContentModel.Instance.isHaveWildSymbol = false;
             }
 
@@ -1422,11 +1583,11 @@ namespace CaiFuZhiJia_3997
                 yield return ShowWinListCoinCountDown(winList, _allWinCredit, false);
             }
 
-            if (_corRewardEffect != null) _monoHelper.StopCoroutine(_corRewardEffect);
-            _corRewardEffect = _monoHelper.StartCoroutine(ProcessWildList(() => isNext = true));
-            yield return new WaitUntil(() => isNext == true);
-            isNext = false;
-            _multipleNumber.text = "x" + ContentModel.Instance.freeGameScoreMultiply;
+            // if (_corRewardEffect != null) _monoHelper.StopCoroutine(_corRewardEffect);
+            // _corRewardEffect = _monoHelper.StartCoroutine(ProcessWildList(() => isNext = true));
+            // yield return new WaitUntil(() => isNext == true);
+            // isNext = false;
+            // _multipleNumber.text = "x" + ContentModel.Instance.freeGameScoreMultiply;
 
 
             ContentModel.Instance.gameState = GameState.Idle;
