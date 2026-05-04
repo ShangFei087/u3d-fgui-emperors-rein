@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace CaiFuHuoChe_3996
 {
@@ -86,6 +87,7 @@ namespace CaiFuHuoChe_3996
         {
             base.OnOpen(name, data);
             InitParam(data);
+            isClose = false;
         }
 
         public void InitParam(EventData data)
@@ -218,7 +220,7 @@ namespace CaiFuHuoChe_3996
         {
             StopAll();
 
-            PlayAnim("end");
+            PlayAnim("sg_pop_border_end");
             isend = true;
             DelayedExit();
         }
@@ -248,12 +250,26 @@ namespace CaiFuHuoChe_3996
             {
                 Transform t = _gfreetxt.displayObject.gameObject.transform;
                 t.SetParent(num01, false);
-                t.localPosition = new Vector3(-523, 95, 0);
+                t.localPosition = new Vector3(-368, 69, -10);
                 //t.localRotation = Quaternion.identity;
-                t.localScale = new Vector3(1, 1, 1);
+                t.localScale = new Vector3(0.7f, 0.7f, 1);
+            }
+            NumberAnimation.Instance.AnimateNumber(_gfreetxt, 0, sorce, 1, EaseType.Linear, () => { });
+
+            string exitBtnPaths = $"Anchor/sg_pop_border/Animation/btn/num";
+            Transform btnPos = go.transform.Find(candidatePaths);
+            GButton exitBtn = this.contentPane.GetChild("exitBtn").asButton;
+            if (exitBtn?.displayObject?.gameObject != null)
+            {
+                Transform b = exitBtn.displayObject.gameObject.transform;
+                b.SetParent(btnPos, false);
+                b.localPosition = new Vector3(-255, -267, 0);
+                //t.localRotation = Quaternion.identity;
+                b.localScale = new Vector3(1, 1, 1);
             }
 
-            _gfreetxt.text = sorce.ToString();
+            exitBtn.onClick.Clear();
+            exitBtn.onClick.Add(SpinDown);
         }
     }
 }
