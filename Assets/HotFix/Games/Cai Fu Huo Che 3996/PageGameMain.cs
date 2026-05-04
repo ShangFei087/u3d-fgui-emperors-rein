@@ -303,7 +303,7 @@ namespace CaiFuHuoChe_3996
             EventCenter.Instance.AddEventListener<EventData>("RewardAddEffect", OnRewardEffectEvent);
             EventCenter.Instance.AddEventListener<EventData>("JackpotWinCredit", OnJackpotWinEvent);
             EventCenter.Instance.AddEventListener<EventData>("PlayGirlClaw", OnPlayGirlClaw);
-
+            GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
             InitParam(null);
 
             PlayAnim(trainAnim, "fg_ng");
@@ -332,7 +332,6 @@ namespace CaiFuHuoChe_3996
             contentPane.Dispose(); // 释放当前UI
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             InitParam();
-            Debug.LogError("语言切换");
         }
 
 
@@ -1545,6 +1544,7 @@ namespace CaiFuHuoChe_3996
 
 
             slotMachineCtrl.BeginBonusFreeSpin();
+
             yield return GameFreeSpin(null, errorCallback);
 
             OnGameReset();
@@ -1596,7 +1596,7 @@ namespace CaiFuHuoChe_3996
 
             slotMachineCtrl.EndBonusFreeSpin();
 
-
+            GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
             ChangeBGPanel(0);
             ContentModel.Instance.nextReelStripsIndex = "BS";
 
@@ -1610,6 +1610,7 @@ namespace CaiFuHuoChe_3996
         //开始免费游戏
         IEnumerator GameFreeSpin(Action successCallback, Action<string> errorCallback)
         {
+            GameSoundHelper.Instance.PlayMusicSingle(SoundKey.FreeSpinBG);
             while (ContentModel.Instance.nextReelStripsIndex == "FS")
             {
                 yield return GameFreeSpinOnce(null, errorCallback);

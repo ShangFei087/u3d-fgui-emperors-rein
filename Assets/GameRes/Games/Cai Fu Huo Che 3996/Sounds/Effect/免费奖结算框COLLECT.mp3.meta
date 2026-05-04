@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 865ac4e928f3da440bb8caf55e5d0cd4
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: "games/cai fu huo che 3996/sounds/effect/\u514D\u8D39\u5956\u7ED3\u7B97\u6846collect.unity3d"
+  assetBundleVariant: 

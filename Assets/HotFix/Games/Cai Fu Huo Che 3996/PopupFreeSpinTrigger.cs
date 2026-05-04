@@ -81,6 +81,7 @@ namespace CaiFuHuoChe_3996
             //GameSoundHelper.Instance.PlayMusicSingle(SoundKey.FreeSpinTriggerBG);
 
             base.OnOpen(name, data);
+            GameSoundHelper.Instance.PlayMusicSingle(SoundKey.FreeSpinTriggerBG);
             InitParam(data);
         }
 
