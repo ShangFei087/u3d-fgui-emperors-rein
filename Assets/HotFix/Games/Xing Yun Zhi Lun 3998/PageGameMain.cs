@@ -38,7 +38,7 @@ namespace XingYunZhiLun_3998
         public new const string resName = "PageGameMain";
 
         private SlotMachineController3998 slotMachineCtrl;
-        private GComponent slotCover, gOwnerPanel, gPlayLines, gFrame, gWheel, gZhuanPan, gJackpotBg, gFireWork;
+        private GComponent slotCover, gOwnerPanel, gPlayLines, gFrame, gWheel, gZhuanPan, gJackpotBg, gFireWork, gWheelFrame;
         private GList gList;
         private GImage gMask;
         private GTextField freeTimes;
@@ -52,7 +52,7 @@ namespace XingYunZhiLun_3998
 
         private GameObject goHost, goGuest, goLight, goSpineHost, goSpineGuest, goSpineLight, wildObject;
         private GameObject[] goWild = new GameObject[5];
-        private List<GComponent> gWild = new List<GComponent>(); 
+        private List<GComponent> gWild = new List<GComponent>();
         private GComponent loadAnchorHost, loadAnchorGuest, loadAnchorLight;
 
         PayTableController payTableController = new PayTableController();
@@ -68,6 +68,8 @@ namespace XingYunZhiLun_3998
         private bool isMain = true, isJackpot = false, JackpotFinish = false;
         private string JackpotType = "";
         private float winCredit = 0;
+        private GameObject wheelPref, wheelObj;
+        private Animator wheelAnim;
 
         //彩金
         //MiniReelGroup uiJPGrandCtrl = new MiniReelGroup();
@@ -79,6 +81,7 @@ namespace XingYunZhiLun_3998
         private GameObject norBgPref, freeBgPref, norBgObj, freeBgObj;
         private GComponent anchorNor, anchorFree;
         private GLoader slotLoad;
+
 
         private bool isReserve;
 
@@ -109,7 +112,7 @@ namespace XingYunZhiLun_3998
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 10;
+            int count = 11;
 
             Action callback = () =>
             {
@@ -149,6 +152,10 @@ namespace XingYunZhiLun_3998
                 gObjectPoolHelper = goGameCtrl.transform.Find("GObject Pool").GetComponent<FguiGObjectPoolHelper>();
                 callback();
             });
+
+
+            //读取json配置
+            ReadJsonBet();
 
             ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/Emperors Rein 200/FGUIs", (ab) =>
             {
@@ -220,6 +227,14 @@ namespace XingYunZhiLun_3998
                     callback();
                 });
 
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/PopupZhuanPan/ZhuanPan.prefab",
+                (GameObject clone) =>
+                {
+                    wheelPref = clone;
+                    callback();
+                });
+
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
                 shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
@@ -275,6 +290,9 @@ namespace XingYunZhiLun_3998
 
             InitParam(null);
 
+
+            PlayWheelAnim("01_start");
+
             if (isReserve)
             {
                 GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
@@ -295,7 +313,7 @@ namespace XingYunZhiLun_3998
             EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
-            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,OnSlotDetailEvent);
+            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
             EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             mono.updateHandle.RemoveAllListeners();
 
@@ -396,11 +414,9 @@ namespace XingYunZhiLun_3998
             ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
             payTableController.Init(lstPayTable);
 
-            //读取json配置
-            ReadJsonBet();
 
             GComponent loadNorAnchor = contentPane.GetChild("anchorBG").asCom;
-            if(anchorNor != loadNorAnchor)
+            if (anchorNor != loadNorAnchor)
             {
                 GameCommon.FguiUtils.DeleteWrapper(anchorNor);
                 norBgObj = GameObject.Instantiate(norBgPref);
@@ -419,7 +435,7 @@ namespace XingYunZhiLun_3998
             }
 
             GComponent loadFirwork = contentPane.GetChild("anchorEffect").asCom;
-            if(gFireWork != loadFirwork)
+            if (gFireWork != loadFirwork)
             {
                 GameCommon.FguiUtils.DeleteWrapper(gFireWork);
                 goFireworkEffect = GameObject.Instantiate(goFirework);
@@ -428,7 +444,19 @@ namespace XingYunZhiLun_3998
             }
             fireworkEffect = goFireworkEffect.transform.GetChild(0).GetChild(0).GetChild(0);
 
-            if(bsTofs == null || fsTobs == null)
+            GComponent loadWheelFrame = contentPane.GetChild("anchorZhuanPan").asCom;
+            if (gWheelFrame != loadWheelFrame)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(gWheelFrame);
+                wheelObj = GameObject.Instantiate(wheelPref);
+                gWheelFrame = loadWheelFrame;
+                wheelAnim = wheelObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                GameCommon.FguiUtils.AddWrapper(gWheelFrame, wheelObj);
+
+                ChangeParent(gWheel, wheelObj, "Anchor/Spine Mecanim GameObject (ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/c_circle");
+            }
+
+            if (bsTofs == null || fsTobs == null)
             {
                 bsTofs = contentPane.GetTransition("BSToFS");
                 fsTobs = contentPane.GetTransition("FSToBS");
@@ -900,7 +928,7 @@ namespace XingYunZhiLun_3998
                 int[] cols = ContentModel.Instance.cols.ToArray();
 
                 gWild.Clear();
-                for(int i = 0; i < cols.Length; i++)
+                for (int i = 0; i < cols.Length; i++)
                 {
                     GComponent wildEffect = contentPane.GetChild("slotMachine").asCom.GetChild("reels").asCom.GetChild("reel" + (cols[i] + 1)).asCom.GetChild("anchorWild").asCom;
                     gWild.Add(wildEffect);
@@ -1622,7 +1650,7 @@ namespace XingYunZhiLun_3998
                                 if (corEffectSlowMotion != null) mono.StopCoroutine(corEffectSlowMotion);
                                 corEffectSlowMotion = mono.StartCoroutine(ShowEffectReelsSlowMotion(3));
                             }
-                            else if(colIndex == 4)
+                            else if (colIndex == 4)
                             {
                                 if (corEffectSlowMotion != null) mono.StopCoroutine(corEffectSlowMotion);
                                 corEffectSlowMotion = mono.StartCoroutine(ShowEffectReelsSlowMotion(4));
@@ -1963,7 +1991,7 @@ namespace XingYunZhiLun_3998
             slotMachineCtrl.CloseSlotCover();
             isStoppedSlotMachine = false;
             ComReelEffect2.visible = false;
-            if(winNumber.Count > 0) winNumber.Clear();
+            if (winNumber.Count > 0) winNumber.Clear();
 
             if (ContentModel.Instance.isWild)
             {
@@ -2400,7 +2428,7 @@ namespace XingYunZhiLun_3998
                     MainModel.Instance.gameID = config.GameId;
                     MainModel.Instance.gameName = config.GameName;
                     MainModel.Instance.displayName = config.DisplayName;
-                   
+
                 });
         }
 
@@ -2771,7 +2799,7 @@ namespace XingYunZhiLun_3998
             if (rollCoroutine != null)
                 mono.StopCoroutine(rollCoroutine);
 
-            Action successCallback = () =>{
+            Action successCallback = () => {
                 isJackpot = false;
                 JackpotFinish = true;
                 GameCommon.FguiUtils.DeleteWrapper(gEffect);
@@ -2965,7 +2993,7 @@ namespace XingYunZhiLun_3998
 
             isRolling = false;
 
-            if(JackpotListEffect != null)
+            if (JackpotListEffect != null)
             {
                 goEffect.SetActive(true);
                 PlayEffectAnim(JackpotListEffect);
@@ -3079,7 +3107,7 @@ namespace XingYunZhiLun_3998
 
             if (toSetEffect)
             {
-                if(sorceTextObj != null)
+                if (sorceTextObj != null)
                 {
                     GTextField textField = sorceTextObj.asTextField;
                     textField.text = "114514";
@@ -3375,6 +3403,23 @@ namespace XingYunZhiLun_3998
             {
                 panelBaseController.SetSpinButtonLocked(false);
             }
+        }
+
+        private void ChangeParent(GObject gComponent, GameObject go, string path)
+        {
+            Transform num01 = go.transform.Find(path);
+            if (gComponent.displayObject?.gameObject != null)
+            {
+                Transform t = gComponent.displayObject.gameObject.transform;
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(-275.9f, 275.9f, 0);
+                t.localScale = new Vector3(0.01f, 0.01f, 1);
+            }
+        }
+
+        private void PlayWheelAnim(string state)
+        {
+            PlayAnim(wheelAnim, state);
         }
     }
 

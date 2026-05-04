@@ -12,7 +12,8 @@
     <component id="n48_bysw" name="HostAndGuest" src="byswa3" fileName="components/PopupJackpotGame/JackpotHostAndGuest.xml" xy="0,1"/>
     <component id="n0_lsvw" name="anchorBG" src="qr2d1w" fileName="components/AnchorBG.xml" xy="540,960"/>
     <component id="n31_fcra" name="anchorGrandBg" src="fcra20" fileName="components/AnchorGrandBg.xml" xy="540,960"/>
-    <component id="n16_lsvw" name="ZhuanPan" src="lsvw1k" fileName="moudules/slotMachine/ZhuanPan.xml" xy="541,739" pivot="0.5,0.5" anchor="true" size="894,894" rotation="-90"/>
+    <component id="n16_lsvw" name="ZhuanPan" src="lsvw1k" fileName="moudules/slotMachine/ZhuanPan.xml" xy="547,762" pivot="0.5,0.5" anchor="true" size="552,552" rotation="-90"/>
+    <component id="n56_ugp6" name="anchorZhuanPan" src="ugp6ak5" fileName="components/PageMainZhuanPan/AnchorZhuanPan.xml" xy="540,835"/>
     <component id="n32_fcra" name="anchorFreeBg" src="fcra21" fileName="components/AnchorFreeBg.xml" xy="540,960"/>
     <component id="n5_lsvw" name="slotMachiineBg" src="lsvw1q" fileName="moudules/slotMachine/SlotMachineBg.xml" xy="556,1428" size="1080,721" group="n38_n45k"/>
     <component id="n10_lsvw" name="slotMachine" src="lsvw1d" fileName="moudules/slotMachine/SlotMachine.xml" xy="87,1088" size="915,543" group="n38_n45k"/>
