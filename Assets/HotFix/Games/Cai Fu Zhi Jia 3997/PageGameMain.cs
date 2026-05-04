@@ -83,7 +83,12 @@ namespace CaiFuZhiJia_3997
             _corShowFreeSymbol = null,
             _corShowBonusSymbol = null,
             _corEffectSlowMotion = null,
-            corGameOnce=null;
+            _corGameOnce = null,
+            _corRewardEffect;
+
+        // 免费游戏倍数增加特效制作
+        private GameObject _goRewardEffect, _wildBoomEffect;
+        private GComponent _rewardEffectCom, _wildBoomCom, _freeParticleEffectParent;
 
         // 加速框制作
         private GComponent _anchorExpectation;
@@ -113,13 +118,6 @@ namespace CaiFuZhiJia_3997
         // private GComponent _compareBetUpEffect, _compareBetDownEffect;
         // private GButton _betUpBtn, _betDownBtn;
 
-
-        //用于记录未中奖的次数
-        private int _noWinTimes = 0;
-
-        //本局游戏中是否存在中奖
-        private bool _isWin = false;
-
         //当前游戏触发加速框后是否中奖
         private bool _isTriggerFrame = false;
         private bool _isWinFreeOrBonus = false;
@@ -133,8 +131,6 @@ namespace CaiFuZhiJia_3997
         private List<GComponent> _lstPayTable;
         private readonly PayTableController3997 _payTableController = new PayTableController3997();
 
-        // private bool _isReady;
-
         private bool IsAddCreditAnim =>
             !(_slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
 
@@ -143,10 +139,7 @@ namespace CaiFuZhiJia_3997
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
             _pageController = contentPane.GetController("PageController");
-
-            // _betUpBtn = contentPane.GetChild("btnBetUp").asButton;
-            // _betDownBtn = contentPane.GetChild("btnBetDown").asButton;
-
+            InitFreeSpinUIAndController();
             LoadAsyncRes();
 
             machineBtnClickHelper = new MachineButtonClickHelper()
@@ -201,8 +194,6 @@ namespace CaiFuZhiJia_3997
             }
 
             ShowPayTable();
-
-
             // 加载Panel面板
             _gOwnerPanel = contentPane.GetChild("panel").asCom;
             MainModel.Instance.contentMD = ContentModel.Instance;
@@ -219,14 +210,28 @@ namespace CaiFuZhiJia_3997
             GComponent gFrame = contentPane.GetChild("anchorFrame").asCom;
             _slotMachineCtrl.Init(gSlotCover, gPlayLines, gReels, gFrame, _fGuiPoolHelper, _fGuiGObjectPoolHelper);
 
+            if (_wildBoomCom != null)
+                _wildBoomCom.Dispose();
+            if (_rewardEffectCom != null)
+                _rewardEffectCom.Dispose();
+
+            // 粒子特效功能制作
+            _wildBoomCom = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
+            _rewardEffectCom = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
+            GameCommon.FguiUtils.DeleteWrapper(_wildBoomCom);
+            GameCommon.FguiUtils.DeleteWrapper(_rewardEffectCom);
+            GameCommon.FguiUtils.AddWrapper(_rewardEffectCom, Object.Instantiate(_goRewardEffect));
+            GameCommon.FguiUtils.AddWrapper(_wildBoomCom, Object.Instantiate(_wildBoomEffect));
+            _wildBoomCom.visible = false;
+            _rewardEffectCom.visible = false;
+            _freeParticleEffectParent.AddChild(_wildBoomCom);
+            _freeParticleEffectParent.AddChild(_rewardEffectCom);
+            _freeParticleEffectParent.visible = true;
+
             BindSpinesToUI();
 
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-            // if (_isReady) return;
-            // _isReady = true;
-
-            // _betUpBtn.onClick.Add(()=>);
 
             if (_anchorFreeExpectation != null)
                 _anchorFreeExpectation.Dispose();
@@ -320,7 +325,6 @@ namespace CaiFuZhiJia_3997
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
-            InitFreeSpinUIAndController();
             EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE,
                 OnCoinPushSpinResultParse);
             EventCenter.Instance.AddEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
@@ -383,7 +387,7 @@ namespace CaiFuZhiJia_3997
 
         private void LoadAsyncRes()
         {
-            _totalCount = 7;
+            _totalCount = 9;
 
             // 加载公共资源包
             if (UIPackage.GetByName("Common") == null)
@@ -457,13 +461,21 @@ namespace CaiFuZhiJia_3997
                     ResLoadedCallback();
                 });
 
-            // ResourceManager02.Instance.LoadAsset<GameObject>(
-            //     EffectPrefabPath + "betClickEffect.prefab",
-            //     (clone) =>
-            //     {
-            //         _betEffect = clone;
-            //         ResLoadedCallback();
-            //     });
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                EffectPrefabPath + "RewardEffect.prefab",
+                (clone) =>
+                {
+                    _goRewardEffect = clone;
+                    ResLoadedCallback();
+                });
+            
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                EffectPrefabPath + "WildBoomEffect.prefab",
+                (clone) =>
+                {
+                    _wildBoomEffect = clone;
+                    ResLoadedCallback();
+                });
 
             // Todo:等3D模型绑定完成之后处理的逻辑
             // 加载3D动画  
@@ -513,26 +525,6 @@ namespace CaiFuZhiJia_3997
 
         private void BindSpinesToUI()
         {
-            // // 押注按钮点击特效
-            // GComponent currentCom = contentPane.GetChild("panel").asCom.GetChild("btnBetUp").asCom.GetChild("anchorBetEffect").asCom;
-            //
-            // if (currentCom != _compareBetUpEffect)
-            // {
-            //     GameCommon.FguiUtils.DeleteWrapper(_compareBetUpEffect);
-            //     _compareBetUpEffect = currentCom;
-            //     _cloneBetUpEffect = Object.Instantiate(_betEffect);
-            //     GameCommon.FguiUtils.AddWrapper(_compareBetUpEffect, _cloneBetUpEffect);
-            // }
-            //
-            // currentCom = contentPane.GetChild("panel").asCom.GetChild("btnBetDown").asCom.GetChild("anchorBetEffect").asCom;
-            // if (currentCom != _compareBetDownEffect)
-            // {
-            //     GameCommon.FguiUtils.DeleteWrapper(_compareBetDownEffect);
-            //     _compareBetDownEffect = currentCom;
-            //     _cloneBetDownEffect = Object.Instantiate(_betEffect);
-            //     GameCommon.FguiUtils.AddWrapper(_compareBetDownEffect, _cloneBetDownEffect);
-            // }
-
             // 免费游戏的机器人投影特效
             GComponent currentCom = contentPane.GetChild("anchorRobot").asCom;
             if (currentCom != _compareRobot)
@@ -572,6 +564,7 @@ namespace CaiFuZhiJia_3997
             _freeFrameCom = contentPane.GetChild("FSFrame").asCom;
             _freeSpinsNumber = _freeFrameCom.GetChild("FreeSpinsNumber").asTextField;
             _multipleNumber = contentPane.GetChild("freeGameBg").asCom.GetChild("multipleNumber").asTextField;
+            _freeParticleEffectParent = contentPane.GetChild("anchor_EffectParent").asCom;
             _freeSpinTimeController.InitParam(_freeSpinsNumber);
         }
 
@@ -977,6 +970,70 @@ namespace CaiFuZhiJia_3997
             callback?.Invoke();
         }
 
+        IEnumerator ProcessWildList(Action callback)
+        {
+            foreach (var cell in ContentModel.Instance.currentWildList)
+            {
+                // 第一步：播放特效移动协程
+                yield return _monoHelper.StartCoroutine(ShowRewardEffect(cell.column, cell.row,
+                    _freeParticleEffectParent));
+                yield return new WaitForSeconds(0.5f); // 特效后延迟
+            }
+
+            callback?.Invoke();
+        }
+
+        private IEnumerator ShowRewardEffect(int colIdx, int rowIdx, GComponent toNode)
+        {
+            GComponent rewardEffect = _rewardEffectCom;
+            GComponent wildBoomEffect = _wildBoomCom;
+            
+            if (wildBoomEffect != null)
+            {
+                wildBoomEffect.parent.RemoveChild(wildBoomEffect);
+                toNode.AddChild(wildBoomEffect);
+                wildBoomEffect.visible = false;
+                wildBoomEffect.xy = _slotMachineCtrl.SymbolCenterToNodeLocalPos(colIdx, rowIdx, toNode);
+                wildBoomEffect.visible = true;
+                
+                yield return new WaitForSeconds(0.2f);
+            }
+
+            if (rewardEffect != null)
+            {
+                rewardEffect.parent.RemoveChild(rewardEffect);
+                toNode.AddChild(rewardEffect);
+                rewardEffect.visible = false;
+                rewardEffect.xy = _slotMachineCtrl.SymbolCenterToNodeLocalPos(colIdx, rowIdx, toNode);
+                rewardEffect.visible = true;
+
+                yield return MoveToZeroOverTime(rewardEffect,
+                    _slotMachineCtrl.SymbolCenterToNodeLocalPos(colIdx, rowIdx, toNode));
+            }
+        }
+
+        private IEnumerator MoveToZeroOverTime(GComponent effect, Vector2 startPosition, float duration = 1f,
+            Action successCallback = null)
+        {
+            Vector2 endPos = Vector2.zero; // (0,0)
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+
+                // 应用OutQuad缓动（更自然）
+                float easedT = t * (2 - t);
+
+                effect.xy = Vector2.Lerp(startPosition, endPos, easedT);
+                yield return null;
+            }
+
+            // 确保最终位置准确
+            effect.xy = Vector2.zero;
+        }
+
         private static List<List<int>> ParseVertical(string raw,
             int expectedCols = 5) // 已知 5 列可写死，也可调用时传
         {
@@ -1212,12 +1269,12 @@ namespace CaiFuZhiJia_3997
             if (successCallback != null)
                 successCallback.Invoke();
         }
-        
+
         void StartGameOnce(Action successCallback = null, Action<string> errorCallback = null)
         {
             ContentModel.Instance.totalPlaySpins = 1;
             ContentModel.Instance.remainPlaySpins = 1;
-            corGameOnce = _monoHelper.StartCoroutine(GameOnce(successCallback, errorCallback));
+            _corGameOnce = _monoHelper.StartCoroutine(GameOnce(successCallback, errorCallback));
         }
 
 
@@ -1365,6 +1422,10 @@ namespace CaiFuZhiJia_3997
                 yield return ShowWinListCoinCountDown(winList, _allWinCredit, false);
             }
 
+            if (_corRewardEffect != null) _monoHelper.StopCoroutine(_corRewardEffect);
+            _corRewardEffect = _monoHelper.StartCoroutine(ProcessWildList(() => isNext = true));
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
             _multipleNumber.text = "x" + ContentModel.Instance.freeGameScoreMultiply;
 
 
@@ -1710,36 +1771,6 @@ namespace CaiFuZhiJia_3997
                 yield return new WaitUntil(() => isNext == true);
                 ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                 _slotMachineCtrl.CloseSlotCover();
-                // PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupJackpotGame,
-                //     new EventData<Dictionary<string, object>>("", new Dictionary<string, object> { }),
-                //     (res) =>
-                //     {
-                //         CloseSelf(null);
-                //         _isMain = true;
-                //         // 加载Panel面板
-                //         _gOwnerPanel = contentPane.GetChild("panel").asCom;
-                //         MainModel.Instance.contentMD = ContentModel.Instance;
-                //         MainModel.Instance.cutomMD = CustomModel.Instance;
-                //         ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
-                //         MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
-                //         TryTriggerAnchorPanelChange();
-                //         ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-                //         ContentModel.Instance.isSpin = false;
-                //         ContentModel.Instance.remainPlaySpins = 1;
-                //         _slotMachineCtrl.CloseSlotCover();
-                //         PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotResult, null);
-                //         isNext = true;
-                //     });
-            
-                //
-                // isNext = false;
-                // PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupJackpotResult,
-                //     new EventData<Dictionary<string, object>>("", new Dictionary<string, object> { }),
-                //     (res) =>
-                //     {
-                //         isNext = true;
-                //     });
-                // yield return new WaitUntil(() => isNext == true);
             }
 
 
