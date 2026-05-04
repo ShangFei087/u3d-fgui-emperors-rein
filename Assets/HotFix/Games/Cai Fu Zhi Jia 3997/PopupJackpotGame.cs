@@ -347,7 +347,7 @@ namespace CaiFuZhiJia_3997
         {
             if (_isStart) return;
             _isStart = true;
-            ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
+            ContentModel.Instance.btnSpinState = SpinButtonState.Hui;
             _monoHelper.StartCoroutine(PlayMultipleRounds());
         }
 

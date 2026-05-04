@@ -30,6 +30,9 @@
     <component id="n5_n3ln" name="slotMachine" src="n3ln2h" fileName="moudules/pageGameMain/SlotMachine/SlotMachine.xml" xy="115,1135" size="855,507"/>
     <component id="n7_ig1b" name="anchorFrame" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="540,960"/>
     <component id="n19_kwwo" name="anchorReelEffect" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="540,1380"/>
+    <component id="n25_hmyf" name="anchor_EffectParent" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="208,855">
+      <gearDisplay controller="PageController" pages="1"/>
+    </component>
     <component id="n6_n3ln" name="panel" src="n3ln2i" fileName="components/pageGameMain/AnchorPanelSlot.xml" xy="540,1802"/>
   </displayList>
 </component>
