@@ -3,6 +3,7 @@
 using FairyGUI;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace CaiFuZhiJia_3997
@@ -45,9 +46,19 @@ namespace CaiFuZhiJia_3997
                     GLoader elementLoader = parentGCom.GetChild("element").asLoader;
                     if (i != 4)
                     {
-                        elementLoader.url =
-                            CustomModel.Instance.JackpotBgPath[
-                                Random.Range(0, CustomModel.Instance.JackpotBgPath.Count)];
+                        //ui://CaiFuZhiJia/ng_null
+                        Debug.Log("i= "+i);
+                        Debug.Log(elementLoader);
+                        string url = CustomModel.Instance.JackpotBgPath[
+                            Random.Range(0, CustomModel.Instance.JackpotBgPath.Count)];
+                        if (url != null)
+                        {
+                            // elementLoader.url = "ui://CaiFuZhiJia/ng_sym_diamonds2";
+                            elementLoader.url = url;
+                        }
+                        // elementLoader.url =
+                        //     CustomModel.Instance.JackpotBgPath[
+                        //         Random.Range(0, CustomModel.Instance.JackpotBgPath.Count)];
                         // if (elementLoader.url == "ui://CaiFuZhiJia/ng_sym_diamonds2")
                         //     rewardText.text = Random.Range(100, 900).ToString();
                     }

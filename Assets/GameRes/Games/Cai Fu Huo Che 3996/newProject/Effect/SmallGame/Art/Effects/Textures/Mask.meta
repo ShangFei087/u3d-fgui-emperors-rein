@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/GameRes/Games/Cai Fu Zhi Jia 3997/ArtRes/Game Effect/Textures/Mask.meta
+guid: cce0c720629cf91458f9172cb7ac9a13
+========
 guid: 29a02e052f62e7645a6f8f8e1bbaf8a6
+>>>>>>>> master:Assets/GameRes/Games/Cai Fu Huo Che 3996/newProject/Effect/SmallGame/Art/Effects/Textures/Mask.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

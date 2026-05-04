@@ -165,6 +165,8 @@ namespace CaiFuZhiJia_3997
 
         public bool isHitJackpotGame;
 
+        public bool isHaveWildSymbol;
+
         /// <summary>彩金游戏触发</summary>
         public bool IsBonusTrigger { get; set; }
 
@@ -174,6 +176,11 @@ namespace CaiFuZhiJia_3997
         /// 玩家没中奖计数
         /// </summary>
         public int noWinCount = 0;
+        
+        /// <summary>
+        /// 一局游戏中wild图标的行列索引信息
+        /// </summary>
+        public List<Cell> currentWildList = new List<Cell>();
 
         /// <summary>
         /// 彩金游戏总得分

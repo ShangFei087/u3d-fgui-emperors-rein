@@ -2,6 +2,13 @@
 <component size="1080,1920" designImage="ui://k5oi8hwrprjjiw">
   <controller name="PageController" alias="游戏界面切换控制器" pages="0,NormalGame,1,FreeGame" selected="0"/>
   <displayList>
+    <image id="n22_f93l" name="n22" src="k7bhjx" fileName="images/pageGameMain/GameBackground/normalBg/ng_img_bg.png" xy="0,0">
+      <gearDisplay controller="PageController" pages="0"/>
+    </image>
+    <image id="n23_f93l" name="n23" src="k7bhk7" fileName="images/pageGameMain/GameBackground/freeBg/ng_img_bg.png" xy="0,0">
+      <gearDisplay controller="PageController" pages="1"/>
+    </image>
+    <component id="n20_kwwo" name="anchorPlayer" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="540,960"/>
     <component id="n2_n3ln" name="normalGameBg" src="n3lnk" fileName="moudules/pageGameMain/GameBackground/NormalBackground.xml" xy="0,0">
       <gearDisplay controller="PageController" pages="0"/>
     </component>
@@ -11,7 +18,6 @@
     <component id="n10_rdkv" name="anchorRobot" src="rdkv30" fileName="moudules/pageGameMain/FreeGame/anchorRobot.xml" xy="540,960">
       <gearDisplay controller="PageController" pages="1"/>
     </component>
-    <component id="n20_kwwo" name="anchorPlayer" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="540,960"/>
     <component id="n13_t2pa" name="jpMajor" src="6ydp6y" fileName="moudules/gameJackpot/GameJackpotMajor.xml" xy="279,3" group="n16_t2pa"/>
     <component id="n14_t2pa" name="jpMini" src="6ydp6w" fileName="moudules/gameJackpot/GameJackpotMini.xml" xy="693,149" group="n16_t2pa"/>
     <component id="n15_t2pa" name="jpMinor" src="6ydp6x" fileName="moudules/gameJackpot/GameJackpotMinor.xml" xy="39,147" group="n16_t2pa"/>
@@ -24,6 +30,9 @@
     <component id="n5_n3ln" name="slotMachine" src="n3ln2h" fileName="moudules/pageGameMain/SlotMachine/SlotMachine.xml" xy="115,1135" size="855,507"/>
     <component id="n7_ig1b" name="anchorFrame" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="540,960"/>
     <component id="n19_kwwo" name="anchorReelEffect" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="540,1380"/>
+    <component id="n25_hmyf" name="anchor_EffectParent" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="208,855">
+      <gearDisplay controller="PageController" pages="1"/>
+    </component>
     <component id="n6_n3ln" name="panel" src="n3ln2i" fileName="components/pageGameMain/AnchorPanelSlot.xml" xy="540,1802"/>
   </displayList>
 </component>

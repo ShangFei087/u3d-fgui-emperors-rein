@@ -42,6 +42,15 @@ namespace CaiFuZhiJia_3997
         private GameObject _cloneFreeGetAnimationObj = null;
         private GComponent _compareFreeGetAnimationGCom = null;
 
+        // ========== 新增：记录原始父节点，用于还原 ==========
+        private Transform _freeGameResultScoreOriginalParent = null;
+        private Vector3 _freeGameResultScoreOriginalPos;
+        private Vector3 _freeGameResultScoreOriginalScale;
+        private Transform _freeStartBtnOriginalParent = null;
+        private Vector3 _freeStartBtnOriginalPos;
+        private Vector3 _freeStartBtnOriginalScale;
+        // ========== 新增结束 ==========
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -58,6 +67,7 @@ namespace CaiFuZhiJia_3997
             if (!isOpen) return;
 
             BindPrefabsToUI();
+            BindUIToAnimator();
             ShowEffectAndSpine();
         }
 
@@ -68,7 +78,8 @@ namespace CaiFuZhiJia_3997
             _freeResultTipWindow = contentPane.GetChild("freeResultTipWindow").asCom;
             _freeStartBtn = _freeResultTipWindow.GetChild("freeStartBtn").asButton;
             _freeGameResultScore = _freeResultTipWindow.GetChild("freeGameResultScore").asCom;
-            _freeGameResultScore.GetChild("number").asTextField.text = ContentModel.Instance.freeSpinTotalWinCoins.ToString();
+            _freeGameResultScore.GetChild("number").asTextField.text =
+                ContentModel.Instance.freeSpinTotalWinCoins.ToString();
 
             InitParam();
         }
@@ -178,8 +189,14 @@ namespace CaiFuZhiJia_3997
                 _cloneDollarSpineObj.SetActive(true);
                 _cloneGoldPurpleEffectObj.SetActive(true);
 
-                Timers.inst.Add(3, 1, (obj) => _cloneDollarSpineObj.SetActive(false));
-                Timers.inst.Add(7, 1, (obj) => CloseSelf(null));
+                Timers.inst.Add(3.03f, 1, (obj) =>
+                {
+                    _cloneDollarSpineObj.SetActive(false);
+                    CloseSelf(null);
+
+                    // 新增测试
+                    // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupFreeSpinTrigger);
+                });
             }));
 
             if (TestManager.Instance.IsAutoModeRunning)
@@ -194,8 +211,112 @@ namespace CaiFuZhiJia_3997
             }
         }
 
+        // private void BindUIToAnimator()
+        // {
+        //     //fgui放入ugui
+        //     string candidatePaths = $"Anchor/sg_pop_settlement/Animation/numdi";
+        //     Transform num01 = _cloneFreeGetAnimationObj.transform.Find(candidatePaths);
+        //     GObject _gfreetxt = this.contentPane.GetChild("freeResultTipWindow").asCom.GetChild("freeGameResultScore");
+        //     if (_gfreetxt?.displayObject?.gameObject != null)
+        //     {
+        //         Transform t = _gfreetxt.displayObject.gameObject.transform;
+        //         t.SetParent(num01, false);
+        //         t.localPosition = new Vector3(-2.79f, 0.02f, 0);
+        //         //t.localRotation = Quaternion.identity;
+        //         t.localScale = new Vector3(0.005f, 0.005f, 0.01f);
+        //     }
+        //
+        //     string startButtonPath = $"Anchor/sg_pop_settlement/Animation/btn";
+        //     num01 = _cloneFreeGetAnimationObj.transform.Find(startButtonPath);
+        //     GObject gStartBtn = this.contentPane.GetChild("freeResultTipWindow").asCom.GetChild("freeStartBtn");
+        //     if (gStartBtn?.displayObject?.gameObject != null)
+        //     {
+        //         Transform t = gStartBtn.displayObject.gameObject.transform;
+        //         t.SetParent(num01, false);
+        //         t.localPosition = new Vector3(-1.34f, -0.33f, 0);
+        //         //t.localRotation = Quaternion.identity;
+        //         t.localScale = new Vector3(0.008f, 0.008f, 0.01f);
+        //     }
+        // }
+
+        private void BindUIToAnimator()
+        {
+            // ========== 修改：绑定前先记录原始状态，方便后续还原 ==========
+
+            // freeGameResultScore 文本
+            string candidatePaths = $"Anchor/sg_pop_settlement/Animation/numdi";
+            Transform num01 = _cloneFreeGetAnimationObj.transform.Find(candidatePaths);
+            GObject _gfreetxt = this.contentPane.GetChild("freeResultTipWindow").asCom.GetChild("freeGameResultScore");
+            if (_gfreetxt?.displayObject?.gameObject != null)
+            {
+                Transform t = _gfreetxt.displayObject.gameObject.transform;
+
+                // 记录原始父节点和变换（只在第一次绑定时记录）
+                if (_freeGameResultScoreOriginalParent == null)
+                {
+                    _freeGameResultScoreOriginalParent = t.parent;
+                    _freeGameResultScoreOriginalPos = t.localPosition;
+                    _freeGameResultScoreOriginalScale = t.localScale;
+                }
+
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(-2.79f, 0.02f, 0);
+                t.localScale = new Vector3(0.005f, 0.005f, 0.01f);
+            }
+
+            // freeStartBtn 按钮
+            string startButtonPath = $"Anchor/sg_pop_settlement/Animation/btn";
+            num01 = _cloneFreeGetAnimationObj.transform.Find(startButtonPath);
+            GObject gStartBtn = this.contentPane.GetChild("freeResultTipWindow").asCom.GetChild("freeStartBtn");
+            if (gStartBtn?.displayObject?.gameObject != null)
+            {
+                Transform t = gStartBtn.displayObject.gameObject.transform;
+
+                // 记录原始父节点和变换
+                if (_freeStartBtnOriginalParent == null)
+                {
+                    _freeStartBtnOriginalParent = t.parent;
+                    _freeStartBtnOriginalPos = t.localPosition;
+                    _freeStartBtnOriginalScale = t.localScale;
+                }
+
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(-1.34f, -0.33f, 0);
+                t.localScale = new Vector3(0.008f, 0.008f, 0.01f);
+            }
+        }
+
+        // ========== 新增：还原 FGUI UI 元素到原始父节点 ==========
+        private void RestoreUIElements()
+        {
+            if (contentPane == null) return;
+            var freeResultTipWindow = contentPane.GetChild("freeResultTipWindow")?.asCom;
+            if (freeResultTipWindow == null) return;
+
+            GObject _gfreetxt = freeResultTipWindow.GetChild("freeGameResultScore");
+            if (_gfreetxt?.displayObject?.gameObject != null && _freeGameResultScoreOriginalParent != null)
+            {
+                Transform t = _gfreetxt.displayObject.gameObject.transform;
+                t.SetParent(_freeGameResultScoreOriginalParent, false);
+                t.localPosition = _freeGameResultScoreOriginalPos;
+                t.localScale = _freeGameResultScoreOriginalScale;
+            }
+
+            GObject gStartBtn = freeResultTipWindow.GetChild("freeStartBtn");
+            if (gStartBtn?.displayObject?.gameObject != null && _freeStartBtnOriginalParent != null)
+            {
+                Transform t = gStartBtn.displayObject.gameObject.transform;
+                t.SetParent(_freeStartBtnOriginalParent, false);
+                t.localPosition = _freeStartBtnOriginalPos;
+                t.localScale = _freeStartBtnOriginalScale;
+            }
+        }
+        // ========== 新增结束 ==========
+
         private void ResetView()
         {
+            RestoreUIElements();
+
             _freeResultTipWindow.visible = true;
             _freeGameResultScore.visible = true;
 

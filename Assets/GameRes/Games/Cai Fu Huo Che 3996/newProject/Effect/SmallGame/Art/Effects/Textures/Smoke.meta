@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/GameRes/Games/Cai Fu Zhi Jia 3997/ArtRes/Game Effect/Textures/Smoke.meta
+guid: d97ad0423f1299844b3e80da736204c8
+========
 guid: cd3929561da9196448e4172008cc9ad7
+>>>>>>>> master:Assets/GameRes/Games/Cai Fu Huo Che 3996/newProject/Effect/SmallGame/Art/Effects/Textures/Smoke.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

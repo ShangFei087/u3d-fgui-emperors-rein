@@ -94,7 +94,8 @@ namespace SlotMaker
         // 记录当前已加载的面板包名，切换时用于精准卸载
         private string _loadedPanelPackageName;
         /// <summary>
-        /// 面板启用：注册事件并初始化 UI。
+        /// 面板启用：注册事件；不在此处 Init，避免机台预制体 OnEnable 早于 PageGameMain 写好锚点/线数。
+        /// UI 初始化由 <see cref="PanelEvent.AnchorPanelChange"/>（如 TryTriggerAnchorPanelChange）触发 <see cref="Init"/>.
         /// </summary>
         protected virtual void OnEnable()
         {
@@ -111,8 +112,6 @@ namespace SlotMaker
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnPanelEventAnchorPanelChange);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_CONTENT_EVENT, OnContentChang);
             MainModel.Instance.panel = this;
-
-            Init();
         }
 
         /// <summary>
@@ -579,6 +578,7 @@ namespace SlotMaker
                 spinBtnCtrl.goOwnerSpin.touchable = false;
                 //隐藏展会模式UI
                 SetExhibitionUIState(false);
+                SetBetUIState(false);
             }
             else
             {
@@ -589,6 +589,7 @@ namespace SlotMaker
                 spinBtnCtrl.goOwnerSpin.touchable = true;
                 //显示展会模式UI
                 SetExhibitionUIState(true);
+                SetBetUIState(true);
             }
         }
 
@@ -710,6 +711,7 @@ namespace SlotMaker
             btnBetDown.touchable = true;
             btnBetUp.touchable = true;
             SetExhibitionUIState(true);
+            SetBetUIState(true);
         }
 
         /// <summary>
@@ -779,12 +781,14 @@ namespace SlotMaker
                 case "BeginBonus":
                     {
                         SetExhibitionUIState(false);
+                        SetBetUIState(false);
                     }
                     break;
 
                 case "EndBonus":
                     {
                         SetExhibitionUIState(true);
+                        SetBetUIState(true);
                     }
                     break;
             }
@@ -840,6 +844,38 @@ namespace SlotMaker
                     // 异常仅记录日志，避免中断主流程
                     DebugUtils.LogError($"[PanelBaseController] RequestSetBet after betList refresh failed: {ex}");
                 }
+            }
+        }
+
+        public virtual void SetBetUIState(bool Stete)
+        {
+            if (Stete)
+            {
+                btnBetUp.GetChild("untouch").visible = false;
+                btnBetUp.touchable = true;
+                btnBetDown.GetChild("untouch").visible = false;
+                btnBetDown.touchable = true;
+
+                if (MainModel.Instance.contentMD.betIndex == 0)
+                {
+                    btnBetDown.GetChild("untouch").visible = true;
+                    btnBetDown.touchable = false;
+                }
+
+                if (MainModel.Instance.contentMD.betIndex == 7)
+                {
+                    btnBetUp.GetChild("untouch").visible = true;
+                    btnBetUp.touchable = false;
+                }
+            }
+            else
+            {
+                btnBetUp.GetChild("untouch").visible = true;
+                btnBetUp.touchable = false;
+                btnBetDown.GetChild("untouch").visible = true;
+                btnBetDown.touchable = false;
+
+         
             }
         }
 
@@ -1295,8 +1331,19 @@ namespace SlotMaker
             }
 
             MainModel.Instance.contentMD.betIndex = curBetIndex;
-            //下注倍数现在硬数据,之后在改动  
-            MainModel.Instance.contentMD.betmultiple =(int)MainModel.Instance.contentMD.totalBet / MainModel.Instance.lineNum;
+            //下注倍数现在硬数据,之后在改动
+            int lineNum = MainModel.Instance.lineNum;
+            long totalBet = MainModel.Instance.contentMD.totalBet;
+            if (lineNum <= 0)
+            {
+                DebugUtils.LogError(
+                    $"[PanelBaseController] ChangeBetButtonInteractable: invalid lineNum={lineNum}, totalBet={totalBet}, curBetIndex={curBetIndex}. Call stack:\n{Environment.StackTrace}");
+                MainModel.Instance.contentMD.betmultiple = 0;
+            }
+            else
+            {
+                MainModel.Instance.contentMD.betmultiple = (int)totalBet / lineNum;
+            }
             bet.text = MainModel.Instance.contentMD.totalBet.ToString();
             btnBetDown.touchable = curBetIndex > 0;
             btnBetDown.GetChild("untouch").visible = btnBetDown.touchable ? false : true;

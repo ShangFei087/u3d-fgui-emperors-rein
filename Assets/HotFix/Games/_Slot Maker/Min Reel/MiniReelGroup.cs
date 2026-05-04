@@ -101,7 +101,8 @@ public class MiniReelGroup
     private void _SetData(float value, Action callBack = null)
     {
         nowData = value;
-        char[] charArray = nowData.ToString(format).ToCharArray();
+        //char[] charArray = nowData.ToString(format).ToCharArray();
+        char[] charArray = nowData.ToString().ToCharArray();
         List<char> dataStr = new List<char>(charArray);
         // dataStr.Reverse();  //数组方向
         SetNumb(dataStr, callBack);

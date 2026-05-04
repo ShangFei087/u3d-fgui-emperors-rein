@@ -82,7 +82,7 @@ public class MiniReel
                 cb();
             return;
         }
-        //Debug.LogError($"@@ {data} - {value}");
+
         int nowIdx = 0;
         if (codes.Contains(data))
             nowIdx = codes.IndexOf(data);

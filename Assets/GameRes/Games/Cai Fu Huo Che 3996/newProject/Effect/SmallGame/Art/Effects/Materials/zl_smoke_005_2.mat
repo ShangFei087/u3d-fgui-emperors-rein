@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: zl_smoke_005_2
-  m_Shader: {fileID: 4800000, guid: ad9722ae727bcb541bcd9a2fd7d2c3db, type: 3}
+  m_Shader: {fileID: 4800000, guid: 4d6b60c468c76274993e3d2bc67e3824, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -23,12 +23,8 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Dissolve:
-        m_Texture: {fileID: 2800000, guid: 3285fc9b825b01a47a2698313b96b1a2, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _DissolveTex:
-        m_Texture: {fileID: 2800000, guid: 1990d7bcf7983a04c960e80860a94f7f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 911d7673dfddfae4da5f961dabf643fe, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -36,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 21792a656992fb740ad5d8b60da5c7cb, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7a7cf0f45d538dd4297686310843c7e1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -44,6 +40,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -102,16 +106,17 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 1.6817929, g: 1.6817929, b: 1.6817929, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _DissolvSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _DissolveSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainColor: {r: 1, g: 1, b: 1, a: 1}
     - _MainSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _MainUV: {r: 1, g: 1, b: 0, a: 0}
     - _MaskSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _MaskSpeed1: {r: 0, g: 0, b: 0, a: 0}
-    - _MaskTiling: {r: 0, g: 0, b: 0, a: 0}
+    - _NoiseSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _NoiseSpeed1: {r: 0, g: 0, b: 0, a: 0}
     - _NoiseSpeed2: {r: 0, g: 0, b: 0, a: 0}
     - _RampSpeed: {r: 0, g: 0, b: 0, a: 0}

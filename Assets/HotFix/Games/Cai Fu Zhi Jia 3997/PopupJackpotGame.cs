@@ -19,8 +19,10 @@ namespace CaiFuZhiJia_3997
         private const string SpinePrefabPath =
             "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupJackpotGame/SpinePrefabs/";
 
-        private const string ModelPrefabPath =
-            "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupJackpotGame/ModelPrefabs/";
+        private const string EffectPrefabPath =
+            "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupJackpotGame/EffectPrefabs/";
+
+        private const string ModelPrefabPath = "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Npc/";
 
         private int _totalCount = -1;
         private bool _isInitialized = false;
@@ -29,18 +31,29 @@ namespace CaiFuZhiJia_3997
 
         // Spine
         private GameObject
-            _reelBgSpineObj = null, /*_bonusTreeSpineObj = null,*/ _bonusSpineObj = null; // 第三个是钻石Spine动画
+            /*_reelBgSpineObj = null,*/ /*_bonusTreeSpineObj = null,*/
+            _bonusSpineObj = null; // 第三个是钻石Spine动画
 
-        private GameObject _cloneReelBgSpineObj = null /*, _cloneBonusTreeSpineObj = null*/;
-        private GComponent _compareReelBgSpineGCom = null, _compareBonusTreeSpineGCom = null;
+        // private GameObject _cloneReelBgSpineObj = null /*, _cloneBonusTreeSpineObj = null*/;
+        // private GComponent _compareReelBgSpineGCom = null, _compareBonusTreeSpineGCom = null;
 
         private readonly List<GameObject> _cloneJackpotSpineList = new List<GameObject>();
         private readonly List<Animator> _cloneAnimators = new List<Animator>(); // 预制体上的动画集合
         private readonly List<GComponent> _compareJackpotSpineGComList = new List<GComponent>();
 
-        // // 3D Model
-        // private GComponent _compareNpcCom;
-        // private GameObject _npcObj, _cloneNpcObj;
+        // 3D Model
+        private GComponent _compareNpcCom;
+        private GameObject _npcObj, _cloneNpcObj;
+        private Animator _npcAnimator;
+
+        // 提示灯物体
+        private GComponent _compareWarn;
+        private GameObject _warnObj, _cloneWarnObj;
+        private Animator _warnAnimator;
+
+        // 失帧特效
+        private GComponent _compareFrameLoss;
+        private GameObject _frameLossObj, _cloneFrameLossObj;
 
 
         // Fairy GUI
@@ -95,6 +108,8 @@ namespace CaiFuZhiJia_3997
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMiniCtrl = new MiniReelGroup();
 
+        // private bool _isReady;
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -102,16 +117,24 @@ namespace CaiFuZhiJia_3997
             InitUI();
             InitCanSpinReels();
 
-            _totalCount = 2;
+            _totalCount = 4;
             LoadAsyncRes();
         }
 
         public override void InitParam()
         {
             if (!_isInitialized) return;
+
+
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
 
+            // if (_isReady) return;
+            // _isReady = true;
+            // 加载Panel面板
+            ContentModel.Instance.isSpin = false;
+            ContentModel.Instance.remainPlaySpins = 1;
+            
             // 加载Panel面板
             _gOwnerPanel = contentPane.GetChild("panel").asCom;
             MainModel.Instance.contentMD = ContentModel.Instance;
@@ -135,6 +158,8 @@ namespace CaiFuZhiJia_3997
                 .ToList();
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             BindPrefabsToUI();
+            Timers.inst.Add(2, 1, (obj) => _cloneFrameLossObj.SetActive(false));
+
 
             //彩金
             uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("jpMajor").asCom.GetChild("n1").asList, "N0");
@@ -170,9 +195,10 @@ namespace CaiFuZhiJia_3997
             base.OnClose(eventData);
             GameSoundHelper3997.Instance.StopSound(SoundKey.JackpotBG);
             ResetView();
+            // _isReady = false;
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
         }
-        
+
         // protected override void OnLanguageChange(I18nLang lang)
         // {
         //     FguiI18nTextAssistant.Instance.DisposeAllTranslate(contentPane);
@@ -181,7 +207,6 @@ namespace CaiFuZhiJia_3997
         //     InitUI();
         //     InitCanSpinReels();
         //     InitParam();
-        //     Debug.LogError("语言切换");
         // }
 
         private void ResLoadedCallback()
@@ -217,22 +242,6 @@ namespace CaiFuZhiJia_3997
         private void LoadAsyncRes()
         {
             ResourceManager02.Instance.LoadAsset<GameObject>(
-                SpinePrefabPath + "reelBgSpine.prefab",
-                (clone) =>
-                {
-                    _reelBgSpineObj = clone;
-                    ResLoadedCallback();
-                });
-
-            // ResourceManager02.Instance.LoadAsset<GameObject>(
-            //     SpinePrefabPath + "jackpotTreeSpine.prefab",
-            //     (clone) =>
-            //     {
-            //         _bonusTreeSpineObj = clone;
-            //         ResLoadedCallback();
-            //     });
-
-            ResourceManager02.Instance.LoadAsset<GameObject>(
                 SpinePrefabPath + "jackpotSpine.prefab",
                 (clone) =>
                 {
@@ -240,43 +249,62 @@ namespace CaiFuZhiJia_3997
                     ResLoadedCallback();
                 });
 
-            // ResourceManager02.Instance.LoadAsset<GameObject>(
-            //     ModelPrefabPath + "NPC_Obj.prefab",
-            //     (clone) =>
-            //     {
-            //         _npcObj = clone;
-            //         ResLoadedCallback();
-            //     });
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                ModelPrefabPath + "Wealth_sg_npc.prefab",
+                (clone) =>
+                {
+                    _npcObj = clone;
+                    ResLoadedCallback();
+                });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                SpinePrefabPath + "GameBorder.prefab",
+                (clone) =>
+                {
+                    _warnObj = clone;
+                    ResLoadedCallback();
+                });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                EffectPrefabPath + "FrameLoss.prefab",
+                (clone) =>
+                {
+                    _frameLossObj = clone;
+                    ResLoadedCallback();
+                });
         }
 
         private void BindPrefabsToUI()
         {
-            GComponent currentGCom = contentPane.GetChild("reelBgSpine").asCom;
-            if (currentGCom != _compareReelBgSpineGCom)
+            GComponent currentGCom = contentPane.GetChild("anchorNpcModel").asCom;
+            if (currentGCom != _compareNpcCom)
             {
-                GameCommon.FguiUtils.DeleteWrapper(_compareReelBgSpineGCom);
-                _compareReelBgSpineGCom = currentGCom;
-                _cloneReelBgSpineObj = Object.Instantiate(_reelBgSpineObj);
-                GameCommon.FguiUtils.AddWrapper(_compareReelBgSpineGCom, _cloneReelBgSpineObj);
+                GameCommon.FguiUtils.DeleteWrapper(_compareNpcCom);
+                _compareNpcCom = currentGCom;
+                _cloneNpcObj = Object.Instantiate(_npcObj);
+                _npcAnimator = _cloneNpcObj.GetComponentInChildren<Animator>();
+                GameCommon.FguiUtils.AddWrapper(_compareNpcCom, _cloneNpcObj);
             }
 
-            // currentGCom = contentPane.GetChild("jackpotTreeSpine").asCom;
-            // if (currentGCom != _compareBonusTreeSpineGCom)
-            // {
-            //     GameCommon.FguiUtils.DeleteWrapper(_compareBonusTreeSpineGCom);
-            //     _compareBonusTreeSpineGCom = currentGCom;
-            //     _cloneBonusTreeSpineObj = Object.Instantiate(_bonusTreeSpineObj);
-            //     GameCommon.FguiUtils.AddWrapper(_compareBonusTreeSpineGCom, _cloneBonusTreeSpineObj);
-            // }
+            currentGCom = contentPane.GetChild("jackpotFrame").asCom.GetChild("anchorWarn").asCom;
+            if (currentGCom != _compareWarn)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareWarn);
+                _compareWarn = currentGCom;
+                _cloneWarnObj = Object.Instantiate(_warnObj);
+                _warnAnimator = _cloneWarnObj.GetComponentInChildren<Animator>();
+                GameCommon.FguiUtils.AddWrapper(_compareWarn, _cloneWarnObj);
+            }
 
-            // currentGCom = contentPane.GetChild("anchorNpcModel").asCom;
-            // if (currentGCom != _compareNpcCom)
-            // {
-            //     GameCommon.FguiUtils.DeleteWrapper(_compareNpcCom);
-            //     _compareNpcCom = currentGCom;
-            //     _cloneNpcObj = Object.Instantiate(_npcObj);
-            //     GameCommon.FguiUtils.AddWrapper(_compareNpcCom, _cloneNpcObj);
-            // }
+            currentGCom = contentPane.GetChild("jackpotFrame").asCom.GetChild("anchorFrameLoss").asCom;
+            if (currentGCom != _compareFrameLoss)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareFrameLoss);
+                _compareFrameLoss = currentGCom;
+                _cloneFrameLossObj = Object.Instantiate(_frameLossObj);
+                _cloneFrameLossObj.SetActive(true);
+                GameCommon.FguiUtils.AddWrapper(_compareFrameLoss, _cloneFrameLossObj);
+            }
 
             for (int i = 0; i < _jackpotDiamondSpinesGCom.numChildren; i++)
             {
@@ -319,7 +347,7 @@ namespace CaiFuZhiJia_3997
         {
             if (_isStart) return;
             _isStart = true;
-            ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
+            ContentModel.Instance.btnSpinState = SpinButtonState.Hui;
             _monoHelper.StartCoroutine(PlayMultipleRounds());
         }
 
@@ -452,6 +480,7 @@ namespace CaiFuZhiJia_3997
 
         private IEnumerator GameResultCoroutine()
         {
+            // PlayAnimationByName(_warnAnimator, "");
             _winSpineIndexList.Sort();
             for (int i = 0; i < _winSpineIndexList.Count; i++)
             {
@@ -459,7 +488,9 @@ namespace CaiFuZhiJia_3997
                 yield return _monoHelper.StartCoroutine(ProcessSingleResult(index));
             }
 
+            PlayAnimationByName(_npcAnimator,"Wealth_sg_npc_settlement3");
             yield return new WaitForSeconds(2f);
+            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotResult);
         }
 
@@ -538,50 +569,54 @@ namespace CaiFuZhiJia_3997
         IEnumerator GameOnceCoroutine()
         {
             _isWinning = RandomIsWinThisRound();
-        
+
             for (int i = 0; i < _canSpinReelIndexList.Count; i++)
             {
                 int reelIndex = _canSpinReelIndexList[i];
                 _singleReelControllers[reelIndex].StartRoll(_moveSpeedList[i]);
             }
-        
+
             yield return new WaitForSeconds(2f);
-        
+
             if (!_isWinning)
             {
-                Debug.LogError("没中奖");
-                // for (int i = 0; i < _canSpinReelIndexList.Count; i++)
-                // {
-                //     int reelIndex = _canSpinReelIndexList[i];
-                //     _singleReelControllers[reelIndex].StartRoll(_moveSpeedList[i]);
-                // }
-                //
-                // yield return new WaitForSeconds(2f);
-        
                 for (int i = 0; i < _canSpinReelIndexList.Count; i++)
                 {
                     int reelIndex = _canSpinReelIndexList[i];
                     _singleReelControllers[reelIndex].StopRoll(_currentWinIndexList, null);
                 }
-        
+
                 _totalPlayRounds--;
+                switch (_totalPlayRounds)
+                {
+                    case 2:
+                        PlayAnimationByName(_warnAnimator, "idle2");
+                        break;
+                    case 1:
+                        PlayAnimationByName(_warnAnimator, "idle1");
+                        break;
+                    case 0:
+                        PlayAnimationByName(_warnAnimator, "none");
+                        break;
+                }
+
                 _freeCountText.text = _totalPlayRounds.ToString();
             }
             else
             {
-                Debug.LogError("中奖了");
                 GetCurrentWinningDiamondList();
-        
+
                 var stopCallbacks = new List<Action>();
                 int completedCount = 0;
                 int totalToComplete = _canSpinReelIndexList.Count;
-        
+
+                bool isWinJackpot = false;
                 // 先收集所有需要停止的滚轴
                 foreach (var reelIndex in _canSpinReelIndexList)
                 {
                     bool isWin = _currentWinIndexList.Contains(reelIndex);
                     int capturedReelIndex = reelIndex; // 闭包捕获
-        
+
                     _singleReelControllers[reelIndex].StopRoll(
                         _currentWinIndexList, () =>
                         {
@@ -592,6 +627,7 @@ namespace CaiFuZhiJia_3997
                                 {
                                     int type = tempBet % 10;
                                     OnReelStopped(capturedReelIndex, () => completedCount++, type);
+                                    isWinJackpot = true;
                                 }
                                 else
                                 {
@@ -603,19 +639,34 @@ namespace CaiFuZhiJia_3997
                         }
                     );
                 }
-        
+
                 yield return new WaitUntil(() => completedCount >= totalToComplete);
-        
+
                 // 统一从可旋转列表中移除中奖项
                 foreach (var reelIndex in _currentWinIndexList)
                 {
                     _canSpinReelIndexList.Remove(reelIndex);
                 }
-        
+
+                if (isWinJackpot)
+                {
+                    PlayAnimationByName(_npcAnimator, "Wealth_sg_npc_appear");
+                    Timers.inst.Add(4.833f, 1, (obj) => isWinJackpot = false);
+                    yield return new WaitUntil(() => isWinJackpot == false);
+                }
+
+                _cloneFrameLossObj.SetActive(true);
+                PlayAnimationByName(_npcAnimator, "Wealth_sg_npc_reset");
+                PlayAnimationByName(_warnAnimator, "idle4");
+                Timers.inst.Add(0.833f, 1, (obj) =>
+                {
+                    PlayAnimationByName(_warnAnimator, "idle3");
+                    _cloneFrameLossObj.SetActive(false);
+                });
                 _freeCountText.text = "3";
                 _totalPlayRounds = 3;
             }
-        
+
             yield return new WaitForSeconds(2);
         }
 
@@ -663,14 +714,6 @@ namespace CaiFuZhiJia_3997
 
             _cloneJackpotSpineList.Clear();
 
-            // Object.Destroy(_cloneNpcObj);
-            Object.Destroy(_cloneReelBgSpineObj);
-            // Object.Destroy(_cloneBonusTreeSpineObj);
-
-            // _cloneNpcObj = null;
-            _cloneReelBgSpineObj = null;
-            // _cloneBonusTreeSpineObj = null;
-
             for (int i = 0; i < _compareJackpotSpineGComList.Count; i++)
             {
                 GameCommon.FguiUtils.DeleteWrapper(_compareJackpotSpineGComList[i]);
@@ -678,11 +721,6 @@ namespace CaiFuZhiJia_3997
             }
 
             _compareJackpotSpineGComList.Clear();
-
-            GameCommon.FguiUtils.DeleteWrapper(_compareReelBgSpineGCom);
-            GameCommon.FguiUtils.DeleteWrapper(_compareBonusTreeSpineGCom);
-            _compareReelBgSpineGCom = null;
-            _compareBonusTreeSpineGCom = null;
 
             _cloneAnimators.Clear();
             _effects.Clear();
@@ -748,6 +786,23 @@ namespace CaiFuZhiJia_3997
             _slotMachineController = null;
 
             _gOwnerPanel = null;
+
+            GameCommon.FguiUtils.DeleteWrapper(_compareWarn);
+            GameCommon.FguiUtils.DeleteWrapper(_compareNpcCom);
+            GameCommon.FguiUtils.DeleteWrapper(_compareFrameLoss);
+
+            _compareWarn = null;
+            _compareNpcCom = null;
+            _compareFrameLoss = null;
+
+            Object.Destroy(_cloneWarnObj);
+            Object.Destroy(_cloneNpcObj);
+            Object.Destroy(_cloneFrameLossObj);
+            _cloneNpcObj = null;
+            _cloneWarnObj = null;
+            _npcAnimator = null;
+            _warnAnimator = null;
+            _cloneFrameLossObj = null;
         }
     }
 }

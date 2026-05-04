@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/GameRes/Games/Cai Fu Zhi Jia 3997/ArtRes/Game Effect/Textures/Glow.meta
+guid: 52460decd91b99741b6198a4f56e3eb4
+========
 guid: 49412015d59b88b48ac39b74e5ae036f
+>>>>>>>> master:Assets/GameRes/Games/Cai Fu Huo Che 3996/newProject/Effect/SmallGame/Art/Effects/Textures/Glow.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

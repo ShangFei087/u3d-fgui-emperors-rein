@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/GameRes/Games/Cai Fu Zhi Jia 3997/ArtRes/Game Effect/Textures/Glow/zl_glow_019.png.meta
+guid: cb784c8be9f57594980bce5ff5ff58ab
+========
 guid: 30aaf551c7d9d7548bae7dd423ea66b9
+>>>>>>>> master:Assets/GameRes/Games/Cai Fu Huo Che 3996/newProject/Effect/SmallGame/Art/Effects/Textures/Glow/zl_glow_002.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

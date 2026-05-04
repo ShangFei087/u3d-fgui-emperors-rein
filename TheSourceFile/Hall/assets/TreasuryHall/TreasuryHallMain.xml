@@ -14,8 +14,5 @@
     <image id="n5_jscy" name="n5" src="jscyn" fileName="images/ui/plat_frame_collect_bg.png" xy="1075,1585" size="778,337" scale="-1,1"/>
     <text id="n11_jscy" name="Credit" xy="501,1786" size="501,92" font="ui://lt62kxotjscy1o" fontSize="15" align="right" vAlign="bottom" autoSize="none" text="12346789"/>
     <component id="n4_jscy" name="btnCollect" src="jscy18" fileName="components/ButtonCollect.xml" xy="27,1773"/>
-    <graph id="n16_jscy" name="n16" xy="891,1334" pivot="0.5,0.5" anchor="true" size="330,686" visible="false" type="rect"/>
-    <graph id="n18_jscy" name="n18" xy="537,1334" pivot="0.5,0.5" anchor="true" size="330,686" visible="false" type="rect"/>
-    <graph id="n19_jscy" name="n19" xy="184,1334" pivot="0.5,0.5" anchor="true" size="330,686" visible="false" type="rect"/>
   </displayList>
 </component>

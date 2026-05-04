@@ -1,7 +1,5 @@
 using FairyGUI;
 using GameMaker;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace CaiFuZhiJia_3997
@@ -42,6 +40,12 @@ namespace CaiFuZhiJia_3997
         private GameObject _cloneDiamondAnimationObj = null;
         private GComponent _compareDiamondAnimationGCom = null;
 
+        // ========== 新增：记录原始父节点，用于还原 ==========
+        private Transform _jackpotTriggerButtonOriginalParent = null;
+        private Vector3 _jackpotTriggerButtonOriginalPos;
+        private Vector3 _jackpotTriggerButtonOriginalScale;
+        // ========== 新增结束 ==========
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -60,6 +64,7 @@ namespace CaiFuZhiJia_3997
             if (!isOpen) return;
 
             BindPrefabsToUI();
+            BindUIToAnimator();
             ShowEffectAndSpine();
         }
 
@@ -179,10 +184,16 @@ namespace CaiFuZhiJia_3997
                 _cloneDiamondSpineObj.SetActive(true);
                 _cloneDiamondBgEffectObj.SetActive(true);
                 Timers.inst.Add(3, 1, (obj) => _cloneDiamondSpineObj.SetActive(false));
+                Timers.inst.Add(5, 1, (obj) =>
+                {
+                     PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPageGameMain);
+                     PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotGame);
+                });
                 Timers.inst.Add(7, 1, (obj) =>
                 {
                     CloseSelf(null);
-                    // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotGame);
+                    // PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPageGameMain);
+                    // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotResult);
                 });
             }));
 
@@ -199,8 +210,68 @@ namespace CaiFuZhiJia_3997
             }
         }
 
+        // private void BindUIToAnimator()
+        // {
+        //     //fgui放入ugui
+        //     string parentPath = $"Anchor/sg_pop_prompt/Animation/btn";
+        //     Transform num01 = _cloneDiamondAnimationObj.transform.Find(parentPath);
+        //     GObject gStartBtn = this.contentPane.GetChild("jackpotTriggerTipWindow").asCom.GetChild("jackpotTriggerButton");
+        //     if (gStartBtn?.displayObject?.gameObject != null)
+        //     {
+        //         Transform t = gStartBtn.displayObject.gameObject.transform;
+        //         t.SetParent(num01, false);
+        //         t.localPosition = new Vector3(-1.76f, 0.34f, 0);
+        //         //t.localRotation = Quaternion.identity;
+        //         t.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+        //     }
+        // }
+
+        private void BindUIToAnimator()
+        {
+            // ========== 修改：绑定前先记录原始状态，方便后续还原 ==========
+
+            string parentPath = $"Anchor/sg_pop_prompt/Animation/btn";
+            Transform num01 = _cloneDiamondAnimationObj.transform.Find(parentPath);
+            GObject gStartBtn = this.contentPane.GetChild("jackpotTriggerTipWindow").asCom
+                .GetChild("jackpotTriggerButton");
+            if (gStartBtn?.displayObject?.gameObject != null)
+            {
+                Transform t = gStartBtn.displayObject.gameObject.transform;
+
+                if (_jackpotTriggerButtonOriginalParent == null)
+                {
+                    _jackpotTriggerButtonOriginalParent = t.parent;
+                    _jackpotTriggerButtonOriginalPos = t.localPosition;
+                    _jackpotTriggerButtonOriginalScale = t.localScale;
+                }
+
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(-1.76f, 0.34f, 0);
+                t.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+            }
+        }
+
+        // ========== 新增：还原 FGUI UI 元素到原始父节点 ==========
+        private void RestoreUIElements()
+        {
+            if (contentPane == null) return;
+            var jackpotTriggerTipWindow = contentPane.GetChild("jackpotTriggerTipWindow")?.asCom;
+            if (jackpotTriggerTipWindow == null) return;
+
+            GObject gStartBtn = jackpotTriggerTipWindow.GetChild("jackpotTriggerButton");
+            if (gStartBtn?.displayObject?.gameObject != null && _jackpotTriggerButtonOriginalParent != null)
+            {
+                Transform t = gStartBtn.displayObject.gameObject.transform;
+                t.SetParent(_jackpotTriggerButtonOriginalParent, false);
+                t.localPosition = _jackpotTriggerButtonOriginalPos;
+                t.localScale = _jackpotTriggerButtonOriginalScale;
+            }
+        }
+        // ========== 新增结束 ==========
+
         private void ResetView()
         {
+            RestoreUIElements();
             _jackpotTriggerTipWindow.visible = true;
 
             GameCommon.FguiUtils.DeleteWrapper(_compareDiamondSpineGCom);

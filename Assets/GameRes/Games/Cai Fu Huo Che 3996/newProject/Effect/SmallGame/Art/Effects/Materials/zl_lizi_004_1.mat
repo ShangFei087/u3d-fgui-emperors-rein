@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: zl_lizi_004_1
-  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: c6eefee2febeb544b8b69d936502babf, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -24,7 +24,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9e3cae48a7de66643ae80bf3e0301634, type: 3}
+        m_Texture: {fileID: 2800000, guid: ca8db257951a44e4695a664a498b6f1f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -36,13 +36,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _InvFade: 1
+    - _Dissolve_ry: 0.51
     - _NoiseIntensity: 0
     m_Colors:
     - _DissolvSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _MainColor: {r: 2, g: 2, b: 2, a: 1}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
     - _MainSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _MaskSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _NoiseSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
   m_BuildTextureStacks: []

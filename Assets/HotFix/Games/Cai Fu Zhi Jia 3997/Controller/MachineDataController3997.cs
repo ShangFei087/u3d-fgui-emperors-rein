@@ -169,7 +169,10 @@ namespace CaiFuZhiJia_3997
                 // 免费游戏积分倍数增加
                 int currentWildCount = strDeckRowCol.Count(c => c == '9');
                 if (currentWildCount > 0)
+                {
+                    ContentModel.Instance.isHaveWildSymbol = true;
                     ContentModel.Instance.freeGameScoreMultiply += currentWildCount;
+                }
             }
 
             //IDVec 
@@ -341,6 +344,20 @@ namespace CaiFuZhiJia_3997
                 ContentModel.Instance.curReelStripsIndex = "FS";
                 ContentModel.Instance.FreeSpinPlayTimes += 1;
                 ContentModel.Instance.freeSpinTotalWinCoins += totalLineWin;
+                
+                List<List<int>> currentStrDeck = SlotTool.GetDeckColRow03(strDeckRowCol); // 获取一局免费游戏图标
+                ContentModel.Instance.currentWildList.Clear();
+                
+                for (int i = 0; i < currentStrDeck.Count; i++)
+                {
+                    for (int j = 0; j < currentStrDeck[i].Count; j++)
+                    {
+                        if (currentStrDeck[i][j] == 9)
+                        {
+                            ContentModel.Instance.currentWildList.Add(new Cell(i, j));
+                        }
+                    }
+                }
 
                 // 更新剩余次数显示
                 ContentModel.Instance.ShowFreeSpinRemainTime = ContentModel.Instance.FreeSpinTotalTimes -
