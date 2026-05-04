@@ -24,19 +24,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DissolveTex:
-        m_Texture: {fileID: 2800000, guid: 9dc264d9d1ea88c419fc38f22d868700, type: 3}
-        m_Scale: {x: 3, y: 0.8}
+        m_Texture: {fileID: 2800000, guid: a609019b42683404ea2458492d35ef80, type: 3}
+        m_Scale: {x: 5, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 5b973eecb3b5b974d9a8496cf2592dec, type: 3}
-        m_Scale: {x: 3, y: 0.8}
+        m_Texture: {fileID: 2800000, guid: 4ebbe4ab87f4d8a498d8f0465f3b6e2f, type: 3}
+        m_Scale: {x: 5, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
-        m_Texture: {fileID: 2800000, guid: f93c2ea9c249ddc48820c3540e8fd883, type: 3}
+        m_Texture: {fileID: 2800000, guid: bb718f67ac45af24c910eaaf8a876983, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex1:
@@ -44,11 +44,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NoiseTex1:
-        m_Texture: {fileID: 2800000, guid: d1a64febe2807b546b66b78d88b44564, type: 3}
+        m_Texture: {fileID: 2800000, guid: e2aa10d109a6c3a4cabca133f6704f73, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NoiseTex2:
-        m_Texture: {fileID: 2800000, guid: d1a64febe2807b546b66b78d88b44564, type: 3}
+        m_Texture: {fileID: 2800000, guid: e2aa10d109a6c3a4cabca133f6704f73, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RampTex:
@@ -81,7 +81,7 @@ Material:
     - _LightingEnabled: 0
     - _Mode: 0
     - _NoiseIntensity1: 0.1
-    - _NoiseIntensity2: 0.05
+    - _NoiseIntensity2: 0.1
     - _SoftParticlesEnabled: 0
     - _SoftParticlesFarFadeDistance: 1
     - _SoftParticlesNearFadeDistance: 0
@@ -102,7 +102,7 @@ Material:
     - _MainSpeed: {r: 0, g: -1, b: 0, a: 0}
     - _MaskSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _MaskSpeed1: {r: 0, g: 0, b: 0, a: 0}
-    - _NoiseSpeed1: {r: 0, g: 0.1, b: 0, a: 0}
+    - _NoiseSpeed1: {r: 0, g: 0, b: 0, a: 0}
     - _NoiseSpeed2: {r: 0, g: 0, b: 0, a: 0}
     - _RampSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
