@@ -131,7 +131,8 @@ namespace XingYunZhiLun_3998
             PageManager.Instance.PreloadPage(PageName.XingYunZhiLunPopupJackpotGameEnter, null);
             PageManager.Instance.PreloadPage(PageName.XingYunZhiLunPopupFreeSpinTrigger, null);
             PageManager.Instance.PreloadPage(PageName.XingYunZhiLunPopupFreeSpinResult, null);
-            //PageManager.Instance.PreloadPage(PageName.XingYunZhiLunPopupZhuanPan, null);
+            PageManager.Instance.PreloadPage(PageName.XingYunZhiLunPopupBigWin, null);
+            PageManager.Instance.PreloadPage(PageName.XingYunZhiLunPopupZhuanPan, null);
 
             if (tweener2 != null) tweener2.Kill();
             tweener2 = GTween.To(0, 1, duration)

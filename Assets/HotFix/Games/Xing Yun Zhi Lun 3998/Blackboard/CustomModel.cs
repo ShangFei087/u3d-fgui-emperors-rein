@@ -215,6 +215,13 @@ namespace XingYunZhiLun_3998
             { "freeSlotBg", "ui://XingYunZhiLun_3998/slotFree" },
         };
 
+        //<summary> 不同等级下的轮盘图标 </summary>
+        public Dictionary<string, string> wheelState => new Dictionary<string, string>
+        {
+            { "low", "ui://XingYunZhiLun_3998/LowWheel"},
+            { "mid", "ui://XingYunZhiLun_3998/MidWheel"},
+        };
+
         #region 赔付线与赔付表
         private List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>()
         {

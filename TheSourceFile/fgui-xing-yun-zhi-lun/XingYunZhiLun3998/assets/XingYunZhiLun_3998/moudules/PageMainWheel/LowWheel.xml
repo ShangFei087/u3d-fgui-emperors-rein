@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="552,552">
   <displayList>
-    <image id="n0_ugp6" name="n0" src="ugp6ak6" fileName="images/PopupZhuanPan/img_lowspin_01.png" xy="0,0" size="552,552">
+    <image id="n0_ugp6" name="n0" src="ugp6ak6" fileName="images/PopupZhuanPan/img_lowspin_01.png" xy="276,276" pivot="0.5,0.5" anchor="true" size="552,552">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <component id="n2_ugp6" name="Symbols" src="tlio1z" fileName="moudules/slotMachine/WheelSymbols.xml" xy="276,276" scale="0.7,0.7" rotation="10"/>
+    <component id="n2_ugp6" name="Symbols" src="tlio1z" fileName="moudules/slotMachine/WheelSymbols.xml" xy="276,276" scale="0.7,0.7" rotation="-9"/>
   </displayList>
 </component>

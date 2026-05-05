@@ -172,6 +172,9 @@ namespace XingYunZhiLun_3998
         /// <summary> 赢线 </summary>
         public List<SymbolWin> winList;
 
+        /// <summary> 触发特殊游戏时免费图标的个数 </summary>
+        public int scatterCount = 0;
+
 
         /// <summary> 触发免费游戏的线-（备份 winList 的数据） </summary>
         public SymbolWin winFreeSpinTriggerOrAddCopy;

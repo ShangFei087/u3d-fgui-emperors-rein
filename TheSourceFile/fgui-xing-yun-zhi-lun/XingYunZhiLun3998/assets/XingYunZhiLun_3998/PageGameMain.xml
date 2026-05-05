@@ -39,7 +39,10 @@
     <item time="0" type="Alpha" target="n39_x7l3" value="0"/>
     <item time="0" type="Alpha" target="n45_i6s3" value="0"/>
     <item time="0" type="Alpha" target="n48_bysw" value="0"/>
+    <item time="0" type="Alpha" target="n56_ugp6" value="1"/>
     <item time="0" type="Alpha" target="n5_lsvw" value="1"/>
+    <item time="0" type="Visible" target="n16_lsvw" value="true"/>
+    <item time="0" type="Visible" target="n56_ugp6" value="true"/>
   </transition>
   <transition name="FS">
     <item time="0" type="Alpha" target="n0_lsvw" value="0"/>
@@ -52,29 +55,40 @@
     <item time="0" type="Alpha" target="n39_x7l3" value="1"/>
     <item time="0" type="Alpha" target="n45_i6s3" value="0"/>
     <item time="0" type="Alpha" target="n48_bysw" value="0"/>
+    <item time="0" type="Alpha" target="n56_ugp6" value="0"/>
     <item time="0" type="Alpha" target="n5_lsvw" value="1"/>
+    <item time="0" type="Visible" target="n16_lsvw" value="false"/>
+    <item time="0" type="Visible" target="n56_ugp6" value="false"/>
   </transition>
   <transition name="JS">
     <item time="0" type="Alpha" target="n0_lsvw" value="0"/>
     <item time="0" type="Alpha" target="n10_lsvw" value="0"/>
     <item time="0" type="Alpha" target="n16_lsvw" value="0"/>
+    <item time="0" type="Alpha" target="n31_fcra" value="0"/>
     <item time="0" type="Alpha" target="n32_fcra" value="0"/>
     <item time="0" type="Alpha" target="n39_x7l3" value="0"/>
     <item time="0" type="Alpha" target="n45_i6s3" value="1"/>
     <item time="0" type="Alpha" target="n48_bysw" value="1"/>
     <item time="0" type="Alpha" target="n52_12dua" value="1"/>
+    <item time="0" type="Alpha" target="n56_ugp6" value="0"/>
     <item time="0" type="Alpha" target="n5_lsvw" value="0"/>
+    <item time="0" type="Visible" target="n16_lsvw" value="false"/>
+    <item time="0" type="Visible" target="n56_ugp6" value="false"/>
   </transition>
   <transition name="BSToFS">
     <item time="0" type="Alpha" target="n10_lsvw" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
-    <item time="0" type="Alpha" target="n16_lsvw" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
+    <item time="0" type="Alpha" target="n16_lsvw" tween="true" startValue="0" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n34_n45k" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n35_n45k" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n36_n45k" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n39_x7l3" value="0"/>
     <item time="0" type="Alpha" target="n48_bysw" value="0"/>
     <item time="0" type="Alpha" target="n52_12dua" value="0"/>
+    <item time="0" type="Alpha" target="n56_ugp6" value="0"/>
+    <item time="0" type="Alpha" target="n56_ugp6" tween="true" startValue="0" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n5_lsvw" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
+    <item time="0" type="Visible" target="n16_lsvw" value="false"/>
+    <item time="0" type="Visible" target="n56_ugp6" value="false"/>
     <item time="6" type="Alpha" target="n0_lsvw" tween="true" startValue="1" endValue="0" duration="24" ease="Linear"/>
     <item time="6" type="Alpha" target="n32_fcra" tween="true" startValue="0" endValue="1" duration="24" ease="Linear"/>
     <item time="18" type="Alpha" target="n53_iihr" label="PlayEffect" value="1"/>
@@ -82,14 +96,18 @@
   </transition>
   <transition name="FSToBS">
     <item time="0" type="Alpha" target="n10_lsvw" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
-    <item time="0" type="Alpha" target="n16_lsvw" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
+    <item time="0" type="Alpha" target="n16_lsvw" tween="true" startValue="0" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n34_n45k" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n35_n45k" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n36_n45k" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n39_x7l3" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n48_bysw" value="0"/>
     <item time="0" type="Alpha" target="n52_12dua" value="0"/>
+    <item time="0" type="Alpha" target="n56_ugp6" value="0"/>
+    <item time="0" type="Alpha" target="n56_ugp6" tween="true" startValue="0" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n5_lsvw" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
+    <item time="0" type="Visible" target="n16_lsvw" value="false"/>
+    <item time="0" type="Visible" target="n56_ugp6" value="false"/>
     <item time="6" type="Alpha" target="n0_lsvw" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
     <item time="6" type="Alpha" target="n32_fcra" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
     <item time="23" type="Alpha" target="n53_iihr" label="End" value="1"/>
