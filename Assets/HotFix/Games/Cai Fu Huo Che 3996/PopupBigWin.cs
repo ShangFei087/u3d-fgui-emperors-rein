@@ -202,8 +202,24 @@ namespace CaiFuHuoChe_3996
                     Timers.inst.Add(3.5f, 1, innerCallback);
                     _timerCallbacks.Add(innerCallback);
                 };
-              
-                Timers.inst.Add(3.0f, WinIndex, sequenceCallback);
+                if(WinIndex == 0)
+                {
+                    TimerCallback innerCallback = innerObj =>
+                    {
+                        if (playCount == WinIndex)
+                        {
+                            NumberAnimation.Instance.StopAllAnimations();
+                            anchorScore.text = score.ToString();
+                            AniEnd();
+                        }
+                    };
+                    Timers.inst.Add(3.5f, 1, innerCallback);
+                }
+                else
+                {
+                    Timers.inst.Add(3.0f, WinIndex, sequenceCallback);
+                }
+
 
             }
             catch (Exception e)
