@@ -129,12 +129,9 @@ namespace CaiFuHuoChe_3996
 
             isend = false;
 
-            if (ContentModel.Instance.isAuto)
+            if (ContentModel.Instance.IsAutoPlayMode)
             {
-                AddTimer(1f, (object obj) =>
-                {
-                    SpinDown();
-                });
+                AddTimer(1f, (object obj) => { SpinDown(); });
             }
         }
 
