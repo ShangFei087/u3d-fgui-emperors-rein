@@ -130,6 +130,8 @@ namespace CaiFuZhiJia_3997
         private bool _isTriggerFrame = false;
         private bool _isWinFreeOrBonus = false;
 
+        private Transform _npcEffectParent;
+
         //彩金
         MiniReelGroup uiJPMajorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
@@ -595,6 +597,7 @@ namespace CaiFuZhiJia_3997
                 _compareNpc = currentCom;
                 _cloneNpcObj = Object.Instantiate(_npcObj);
                 _traderAnimator = _cloneNpcObj.GetComponentInChildren<Animator>();
+                _npcEffectParent = _cloneNpcObj.transform.Find("Effect");
                 GameCommon.FguiUtils.AddWrapper(currentCom, _cloneNpcObj);
             }
 
@@ -1597,22 +1600,34 @@ namespace CaiFuZhiJia_3997
                 else if (totalWinLineCredit >= TotalBet * 2 && totalWinLineCredit < TotalBet * 3)
                 {
                     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win2");
+                    _npcEffectParent.Find("npc_ng_npc_win2").gameObject.SetActive(true);
                     // yield return new WaitForSeconds(4.167f);
                     // PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
-                    Timers.inst.Add(4.167f, 1, (obj) => PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01"));
+                    Timers.inst.Add(4.167f, 1, (obj) =>
+                    {
+                        PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
+                        _npcEffectParent.Find("npc_ng_npc_win2").gameObject.SetActive(false);
+                    });
                 }
                 else if (totalWinLineCredit >= TotalBet * 3 && totalWinLineCredit < TotalBet * 5)
                 {
                     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win3");
+                    _npcEffectParent.Find("npc_ng_npc_win3").gameObject.SetActive(true);
                     // yield return new WaitForSeconds(3.167f);
                     // PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
-                    Timers.inst.Add(3.167f, 1, (obj) => PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01"));
+                    Timers.inst.Add(3.167f, 1, (obj) =>
+                    {
+                        _npcEffectParent.Find("npc_ng_npc_win3").gameObject.SetActive(false);
+                        PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
+                    });
                 }
                 else if (totalWinLineCredit >= 5)
                 {
                     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win3");
+                    _npcEffectParent.Find("npc_ng_npc_win3").gameObject.SetActive(true);
                     yield return new WaitForSeconds(3.167f);
                     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
+                    _npcEffectParent.Find("npc_ng_npc_win3").gameObject.SetActive(false);
                 }
 
                 // 新增BigWin
@@ -1926,22 +1941,34 @@ namespace CaiFuZhiJia_3997
                 else if (totalWinLineCredit >= TotalBet * 2 && totalWinLineCredit < TotalBet * 3)
                 {
                     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win2");
+                    _npcEffectParent.Find("npc_ng_npc_win2").gameObject.SetActive(true);
                     // yield return new WaitForSeconds(4.167f);
                     // PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
-                    Timers.inst.Add(4.167f, 1, (obj) => PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01"));
+                    Timers.inst.Add(4.167f, 1, (obj) =>
+                    {
+                        _npcEffectParent.Find("npc_ng_npc_win2").gameObject.SetActive(false);
+                        PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
+                    });
                 }
                 else if (totalWinLineCredit >= TotalBet * 3 && totalWinLineCredit < TotalBet * 5)
                 {
                     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win3");
+                    _npcEffectParent.Find("npc_ng_npc_win3").gameObject.SetActive(true);
                     // yield return new WaitForSeconds(3.167f);
                     // PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
-                    Timers.inst.Add(3.167f, 1, (obj) => PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01"));
+                    Timers.inst.Add(3.167f, 1, (obj) =>
+                    {
+                        _npcEffectParent.Find("npc_ng_npc_win3").gameObject.SetActive(false);
+                        PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
+                    });
                 }
                 else if (totalWinLineCredit >= 5)
                 {
                     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_win3");
+                    _npcEffectParent.Find("npc_ng_npc_win3").gameObject.SetActive(true);
                     yield return new WaitForSeconds(3.167f);
                     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
+                    _npcEffectParent.Find("npc_ng_npc_win3").gameObject.SetActive(false);
                 }
 
                 // 新增BigWin
@@ -2004,14 +2031,17 @@ namespace CaiFuZhiJia_3997
                 if (_corShowFreeSymbol != null) _monoHelper.StopCoroutine(_corShowFreeSymbol);
                 _corShowFreeSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(10));
                 PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_trigger fg");
+                _npcEffectParent.Find("npc_ng_trigger_fg").gameObject.SetActive(true);
                 // 免费触发，关闭展会模式
                 if (MainModel.Instance.isExhibitionModeMode)
                 {
                     _panelController3997.OnClickExhibition();
                 }
 
+                Timers.inst.Add(1.3f, 1, (obj) => {_npcEffectParent.Find("npc_ng_trigger_fg").gameObject.SetActive(false); });
                 yield return new WaitForSeconds(2f);
                 // PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
+                
 
                 //停止特效显示
                 _slotMachineCtrl.SkipWinLine(false);
@@ -2023,7 +2053,12 @@ namespace CaiFuZhiJia_3997
             {
                 _isWinFreeOrBonus = true;
                 PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_trigger sg");
-                Timers.inst.Add(5.3f, 1, (obj) => PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01"));
+                _npcEffectParent.Find("npc_ng_trigger_sg").gameObject.SetActive(true);
+                Timers.inst.Add(5.3f, 1, (obj) =>
+                {
+                    PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
+                    _npcEffectParent.Find("npc_ng_trigger_sg").gameObject.SetActive(false);
+                });
                 // 显示中奖图标
                 if (_corShowBonusSymbol != null) _monoHelper.StopCoroutine(_corShowBonusSymbol);
                 _corShowBonusSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(11));
