@@ -390,7 +390,9 @@ public class GSManager : MonoSingleton<GSManager>
             DebugUtils.LogError($"{gsh.assetPath} 的配置不是音效");
             return;
         }
-        PlaySoundSingle(gsh);
+        // 与 PlayMusicSingle(string) 一致：先停掉所有 Music，避免不同 assetPath 的 BGM 叠播
+        StopMusic();
+        PlaySound(gsh);
     }
     public void PlayMusic(GSHandler gsh)
     {

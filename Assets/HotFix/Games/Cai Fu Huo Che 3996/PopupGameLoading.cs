@@ -124,6 +124,8 @@ namespace CaiFuHuoChe_3996
             PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupJackpotGameTrigger, null);
             PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupJackpotGameExit, null);
             PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupFreeSpinResult, null);
+            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupJackpotResult, null);
+            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupBigWin, null);
 
 
 

@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/GameRes/Games/Cai Fu Zhi Jia 3997/ArtRes/Game Effect/Textures/Glow/zl_glow_005.png.meta
-guid: fdb10ba08129e984fbc5b0a5534aca75
-========
-guid: b1bb9be2fe239ea4dbe82251c88bca7f
->>>>>>>> master:Assets/GameRes/Games/Cai Fu Huo Che 3996/newProject/Effect/SmallGame/Art/Effects/Textures/Mask/zl_mask_056.png.meta
+guid: 8ee2599936eb02549be8e30be2ea68a2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

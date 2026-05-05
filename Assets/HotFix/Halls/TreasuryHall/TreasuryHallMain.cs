@@ -30,6 +30,21 @@ namespace TreasuryHall
 
 
         private bool IsClickCard;
+
+        // ---------- 点击卡牌 → 子游戏 Loading 的并行过渡状态 ----------
+        /// <summary> 是否处于「点击卡牌进游戏」过渡中；为 false 时异步回调应忽略或只做收尾（如关掉多余的 Loading）。 </summary>
+        private bool _cardEnterFlowActive;
+        /// <summary> PopupGameLoading 是否已通过 OpenPage 完成 Show + OnOpen（含资源包异步加载完成后的那条路径）。 </summary>
+        private bool _cardEnterLoadingReady;
+        /// <summary> 卡牌 click 动画是否已按时长播完（Timer 到期）。 </summary>
+        private bool _cardEnterClickFinished;
+        /// <summary> 当前过渡对应的目标 Loading 页面枚举，用于中止时关闭已弹出的 Loading。 </summary>
+        private PageName _cardEnterLoadingPage;
+        /// <summary> 目标机台游戏 ID，提交时用于 GameSwitch。 </summary>
+        private int _cardEnterGameId;
+        /// <summary> 当前点击的那张卡牌上的 Animator，用于 click 结束后在未打开 Loading 时切 idle。 </summary>
+        private Animator _cardEnterAnimator;
+
         //彩金
         MiniReelGroup uiJPMajorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
@@ -107,8 +122,20 @@ namespace TreasuryHall
             InitParam();
         }
 
+        /// <summary>
+        /// 进入宝库后预载 3996 / 3997 / 3998 的 Loading 页：创建隐藏实例并触发各自资源加载，与后续 OpenPage 共用缓存实例。
+        /// </summary>
+        private static void PreloadTreasuryCardGameLoadingPages()
+        {
+            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupGameLoading, null);
+            PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupGameLoading, null);
+            PageManager.Instance.PreloadPage(PageName.XingYunZhiLunPopupGameLoading, null);
+        }
+
         public override void OnClose(EventData data = null)
         {
+            // 关闭宝库大厅前先中止「进游戏」过渡，避免卡在不可点状态或残留 Loading
+            AbortCardEnterTransitionIfAny();
             EventCenter.Instance.RemoveEventListener<EventData>(MetaUIEvent.ON_CREDIT_EVENT, OnUpdateNaviCredit);
             GameSoundHelper.Instance.StopMusic();
             base.OnClose(data);
@@ -176,29 +203,32 @@ namespace TreasuryHall
             //清除所有粒子
             if (goplat_card_cfhc3 != null && goplat_card_cfhc2 != null && goplat_card_cfhc1 != null && goplat_card_cfhc3 != null)
             {
-                // 停止粒子特效
+                // 停止粒子特效  清除所有粒子
                 goplat_card_cfzj.Stop();
-                // 清除所有粒子
                 goplat_card_cfzj.Clear();
+
                 goplat_card_cfhc1.Stop();
                 goplat_card_cfhc1.Clear();
+
                 goplat_card_cfhc2.Stop();
                 goplat_card_cfhc2.Clear();
+
                 goplat_card_cfhc3.Stop();
                 goplat_card_cfhc3.Clear();
             }
 
-            // 点击卡牌：先播 click 动画，再按动画时长延时进游戏
+            // 点击卡牌：先播 click；同时 StartCardGameEnter 内会 OpenPage(Loading)，与动画并行
             btn3998 = this.contentPane.GetChild("card3998").asCom.GetChild("btnCard").asButton;
             btn3998.onClick.Clear();
             btn3998.onClick.Add(() =>
             {
                 if (IsClickCard)
                 {
-                    IsClickCard = !IsClickCard;
+                    GameSoundHelper.Instance.PlaySoundEff(SoundKey.TLClickGame);
+                   IsClickCard = !IsClickCard;
                     btnCollect.touchable = false;
                     float clickAnimDuration = PlayCardClickAnimation(animator3998);
-                    Timers.inst.Add(clickAnimDuration, 1, (obj) => EnterGame3998());
+                    StartCardGameEnter(animator3998, PageName.XingYunZhiLunPopupGameLoading, 3998, clickAnimDuration);
                 }
             });
 
@@ -208,11 +238,12 @@ namespace TreasuryHall
             {
                 if (IsClickCard)
                 {
+                    GameSoundHelper.Instance.PlaySoundEff(SoundKey.TLClickGame);
                     IsClickCard = !IsClickCard;
                     btnCollect.touchable = false;
                     goplat_card_cfzj.Play();
                     float clickAnimDuration = PlayCardClickAnimation(animator3997);
-                    Timers.inst.Add(clickAnimDuration, 1, (obj) => EnterGame3997());
+                    StartCardGameEnter(animator3997, PageName.CaiFuZhiJiaPopupGameLoading, 3997, clickAnimDuration);
                 }
             });
 
@@ -222,14 +253,15 @@ namespace TreasuryHall
             {
                 if (IsClickCard)
                 {
+                    GameSoundHelper.Instance.PlaySoundEff(SoundKey.TLClickGame);
                     IsClickCard = !IsClickCard;
                     btnCollect.touchable = false;
                     // 播放粒子特效
                     goplat_card_cfhc1.Play();
-                    goplat_card_cfhc2.Play();
+                    //goplat_card_cfhc2.Play();
                     goplat_card_cfhc3.Play();
                     float clickAnimDuration = PlayCardClickAnimation(animator3996);
-                    Timers.inst.Add(clickAnimDuration, 1, (obj) => EnterGame3996());
+                    StartCardGameEnter(animator3996, PageName.CaiFuHuoChePopupGameLoading, 3996, clickAnimDuration);
                 }
             });
 
@@ -250,6 +282,8 @@ namespace TreasuryHall
             RefreshCardSkinByLanguage();
             InitJackpot();
             InitHallCredit();
+            // 后台预热三张卡牌对应子游戏的 PopupGameLoading（含各自包内预制体异步加载），缩短首次点击后的等待
+            PreloadTreasuryCardGameLoadingPages();
         }
 
         /// <summary>
@@ -286,45 +320,134 @@ namespace TreasuryHall
         }
 
         /// <summary>
-        /// 执行 3998 游戏切换与页面跳转（在点击动画播放完成后调用）。
+        /// 开始「点击卡牌进子游戏」过渡（调用前应先播放 click 动画）。
+        /// 关键步骤：① 立刻 OpenPage 打开对应 PopupGameLoading（与卡牌动画并行，首包未加载时会在异步回调里才真正 Show）；② 用 Timer 记录 click 时长；
+        /// ③ Loading 打开完成且 click 时长都满足后，由 TryFinishCardEnterTransition → CommitAfterLoadingPageVisible 执行 GameSwitch 并关闭宝库大厅。
         /// </summary>
-        private void EnterGame3998()
+        private void StartCardGameEnter(Animator cardAnimator, PageName loadingPage, int gameId, float clickAnimDurationSeconds)
+        {
+            // 重置过渡标志与上下文
+            _cardEnterFlowActive = true;
+            _cardEnterLoadingReady = false;
+            _cardEnterClickFinished = false;
+            _cardEnterAnimator = cardAnimator;
+            _cardEnterLoadingPage = loadingPage;
+            _cardEnterGameId = gameId;
+
+            // 与卡牌 click 同时发起打开 Loading（同步路径会立刻回调；AB 异步路径则等资源就绪后再回调）
+            //PageManager.Instance.OpenPage(loadingPage, null, OnCardEnterLoadingOpenFinished);
+            
+            //按 click 片段时长计时，到期表示「卡牌点击动画阶段」结束
+            float wait = clickAnimDurationSeconds > 0f ? clickAnimDurationSeconds : 0.15f;
+            Timers.inst.Add(wait, 1, (object _) => { PageManager.Instance.OpenPage(loadingPage, null, OnCardEnterLoadingOpenFinished); });
+            Timers.inst.Add(wait, 1, OnCardClickAnimationTimeUp);
+        }
+
+        /// <summary>
+        /// OpenPage(Loading) 完成后的回调（page 非 null 表示 Show + OnOpen 已走完）。
+        /// 若打开失败（page == null）且仍在过渡中：中止并恢复可点。
+        /// 若大厅已中止过渡但 Loading 晚到：关掉孤儿 Loading，避免界面叠乱。
+        /// </summary>
+        private void OnCardEnterLoadingOpenFinished(PageBase page)
+        {
+            // 打开失败：路径错误、重复打开等 → 结束过渡，恢复大厅交互
+            if (page == null)
+            {
+                if (_cardEnterFlowActive)
+                {
+                    AbortCardEnterTransitionIfAny();
+                }
+
+                return;
+            }
+
+            // 过渡已取消（例如大厅提前关闭），但 Loading 这次才真正打开 → 关掉多余 Loading
+            if (!_cardEnterFlowActive)
+            {
+                PageManager.Instance.ClosePage(page, null);
+                return;
+            }
+
+            // 标记 Loading 已就绪，若 click 计时也已结束则一并提交
+            _cardEnterLoadingReady = true;
+            TryFinishCardEnterTransition();
+        }
+
+        /// <summary>
+        /// 卡牌 click 动画计时结束（与 Loading 是否打开无关）。
+        /// 若此时 Loading 仍未打开：播放 idle，用户在画面上等待直到 OnCardEnterLoadingOpenFinished 触发后再一并提交。
+        /// </summary>
+        private void OnCardClickAnimationTimeUp(object _)
+        {
+            if (!_cardEnterFlowActive)
+            {
+                return;
+            }
+
+            _cardEnterClickFinished = true;
+            // Loading 还没到：用 idle 衔接等待，避免停在 click 最后一帧观感生硬
+            if (!_cardEnterLoadingReady)
+            {
+                PlayCardIdleAnimation(_cardEnterAnimator);
+            }
+
+            TryFinishCardEnterTransition();
+        }
+
+        /// <summary>
+        /// 仅当「Loading 已打开」且「click 计时已结束」同时成立时，提交 GameSwitch 并关闭宝库大厅。
+        /// </summary>
+        private void TryFinishCardEnterTransition()
+        {
+            if (!_cardEnterFlowActive || !_cardEnterClickFinished || !_cardEnterLoadingReady)
+            {
+                return;
+            }
+
+            _cardEnterFlowActive = false;
+            CommitAfterLoadingPageVisible();
+        }
+
+        /// <summary>
+        /// 提交进入游戏：Loading 界面已在 StartCardGameEnter 里 OpenPage 打开，这里只做切机台协议与关闭当前宝库大厅页面。
+        /// </summary>
+        private void CommitAfterLoadingPageVisible()
         {
             if (!ApplicationSettings.Instance.isMock)
             {
-                SBoxIdea.GameSwitch(3998);
+                SBoxIdea.GameSwitch(_cardEnterGameId);
             }
-            PageManager.Instance.OpenPage(PageName.XingYunZhiLunPopupGameLoading);
 
             CloseSelf(null);
         }
 
         /// <summary>
-        /// 执行 3997 游戏切换与页面跳转（在点击动画播放完成后调用）。
+        /// 中止进行中的「点击进游戏」过渡：恢复卡牌与收集按钮可点；若 Loading 已经弹出则一并关闭。
         /// </summary>
-        private void EnterGame3997()
+        private void AbortCardEnterTransitionIfAny()
         {
-            if (!ApplicationSettings.Instance.isMock)
+            if (!_cardEnterFlowActive)
             {
-                SBoxIdea.GameSwitch(3997);
+                return;
             }
-            PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupGameLoading);
 
-            CloseSelf(null);
-        }
+            bool loadingAlreadyVisible = _cardEnterLoadingReady;
+            PageName loadingPageToClose = _cardEnterLoadingPage;
 
-        /// <summary>
-        /// 执行 3996 游戏切换与页面跳转（在点击动画播放完成后调用）。
-        /// </summary>
-        private void EnterGame3996()
-        {
-            if (!ApplicationSettings.Instance.isMock)
+            _cardEnterFlowActive = false;
+            _cardEnterLoadingReady = false;
+            _cardEnterClickFinished = false;
+            IsClickCard = true;
+            if (btnCollect != null)
             {
-                SBoxIdea.GameSwitch(3996);
+                btnCollect.touchable = true;
             }
-            PageManager.Instance.OpenPage(PageName.CaiFuHuoChePopupGameLoading);
 
-            CloseSelf(null);
+            // 若 Loading 已经显示，关掉以免挡住大厅（用户未完成进入游戏）
+            if (loadingAlreadyVisible)
+            {
+                PageManager.Instance.ClosePage(loadingPageToClose, null);
+            }
         }
 
         /// <summary>
@@ -345,6 +468,23 @@ namespace TreasuryHall
             }
 
             return 0.15f;
+        }
+
+        /// <summary>
+        /// 在 click 计时已结束但 PopupGameLoading 尚未打开时调用：切换到 idle 状态，直到 Loading 打开。
+        /// Animator 需存在名为 idle 的状态；若无则保持当前姿态不变。
+        /// </summary>
+        private void PlayCardIdleAnimation(Animator animator)
+        {
+            if (animator == null)
+            {
+                return;
+            }
+
+            if (animator.HasState(0, Animator.StringToHash("idle")))
+            {
+                animator.Play("idle", 0, 0f);
+            }
         }
 
         /// <summary>
