@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using SlotMaker;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -142,6 +143,9 @@ namespace CaiFuHuoChe_3996
             if (isClose) return;
             isClose = true;
 
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(SlotMachineEvent.JackpotPopupDisappear));
+
             StopAll();
             if (!isend)
             {
@@ -170,6 +174,8 @@ namespace CaiFuHuoChe_3996
                     break;
             }
 
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(SlotMachineEvent.JackpotPopupAppear));
 
             PlayAnim("sg_pop_border_start");
         }

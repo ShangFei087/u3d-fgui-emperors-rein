@@ -81,7 +81,10 @@ namespace CaiFuHuoChe_3996
             //GameSoundHelper.Instance.PlayMusicSingle(SoundKey.FreeSpinTriggerBG);
 
             base.OnOpen(name, data);
-            GameSoundHelper.Instance.PlayMusicSingle(SoundKey.FreeSpinTriggerBG);
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(SlotMachineEvent.FreeSpinPopupAppear));
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(Game3996AudioEvent.BgmFreeSpinTrigger));
             InitParam(data);
         }
 
@@ -145,6 +148,8 @@ namespace CaiFuHuoChe_3996
             {
                 btnStrat.visible = true;
                 btnStrat.touchable = true;
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                    new EventData(SlotMachineEvent.FreeSpinStartButtonShown));
                 idleTransition.Play(-1, 0, null);
             });
 
@@ -165,6 +170,8 @@ namespace CaiFuHuoChe_3996
             btnStrat.visible = false;
             btnStrat.touchable = false;
 
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(SlotMachineEvent.FreeSpinPopupDisappear));
             PlayAnim("fg_pop_prompt_end");
 
             AddTimer(0.1f, (object obj) =>

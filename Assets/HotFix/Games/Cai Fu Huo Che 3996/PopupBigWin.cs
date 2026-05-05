@@ -99,7 +99,8 @@ namespace CaiFuHuoChe_3996
                 WinType = dic.TryGetValue("WinType", out var wt) ? wt.ToString() : "";
             }
             WinIndex = Array.IndexOf(WinString, WinType);
-
+            Debug.Log("WinIndex==" + WinIndex);
+            Debug.Log("WinType==" + WinType);
             InitParam(data);
 
             isok = false;
@@ -201,6 +202,7 @@ namespace CaiFuHuoChe_3996
                     Timers.inst.Add(3.5f, 1, innerCallback);
                     _timerCallbacks.Add(innerCallback);
                 };
+              
                 Timers.inst.Add(3.0f, WinIndex, sequenceCallback);
 
             }
