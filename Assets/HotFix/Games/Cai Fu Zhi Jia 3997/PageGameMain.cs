@@ -1248,7 +1248,7 @@ namespace CaiFuZhiJia_3997
                 {
                     _slotMachineCtrl.SendTotalWinCreditEvent(0);
                     _pageController.selectedPage = "FreeGame";
-                    // PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
+                    PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
                     isNext = true;
                 });
             yield return new WaitUntil(() => isNext == true);
@@ -1641,18 +1641,18 @@ namespace CaiFuZhiJia_3997
                     _slotMachineCtrl.SkipWinLine(false);
                 }
 
-                if (winLevelType == WinLevelType.BIG)
-                {
-                    Timers.inst.Add(4, 1, (obj) => _compareNpc.visible = true);
-                }
-                else if (winLevelType == WinLevelType.HUGE)
-                {
-                    Timers.inst.Add(7, 1, (obj) => _compareNpc.visible = true);
-                }
-                else if (winLevelType == WinLevelType.MASSIVE)
-                {
-                    Timers.inst.Add(10, 1, (obj) => _compareNpc.visible = true);
-                }
+                // if (winLevelType == WinLevelType.BIG)
+                // {
+                //     Timers.inst.Add(4, 1, (obj) => _compareNpc.visible = true);
+                // }
+                // else if (winLevelType == WinLevelType.HUGE)
+                // {
+                //     Timers.inst.Add(7, 1, (obj) => _compareNpc.visible = true);
+                // }
+                // else if (winLevelType == WinLevelType.MASSIVE)
+                // {
+                //     Timers.inst.Add(10, 1, (obj) => _compareNpc.visible = true);
+                // }
 
                 _allWinCredit += totalWinLineCredit;
                 // Debug.LogError("_allWinCredit:" + _allWinCredit + "          totalWinLineCredit: " +
@@ -1984,18 +1984,18 @@ namespace CaiFuZhiJia_3997
                     _slotMachineCtrl.SkipWinLine(false);
                 }
 
-                if (winLevelType == WinLevelType.BIG)
-                {
-                    Timers.inst.Add(4, 1, (obj) => _compareNpc.visible = true);
-                }
-                else if (winLevelType == WinLevelType.HUGE)
-                {
-                    Timers.inst.Add(7, 1, (obj) => _compareNpc.visible = true);
-                }
-                else if (winLevelType == WinLevelType.MASSIVE)
-                {
-                    Timers.inst.Add(10, 1, (obj) => _compareNpc.visible = true);
-                }
+                // if (winLevelType == WinLevelType.BIG)
+                // {
+                //     Timers.inst.Add(4, 1, (obj) => _compareNpc.visible = true);
+                // }
+                // else if (winLevelType == WinLevelType.HUGE)
+                // {
+                //     Timers.inst.Add(7, 1, (obj) => _compareNpc.visible = true);
+                // }
+                // else if (winLevelType == WinLevelType.MASSIVE)
+                // {
+                //     Timers.inst.Add(10, 1, (obj) => _compareNpc.visible = true);
+                // }
 
                 // 计数没到五局中奖之后刷新计数
                 if (ContentModel.Instance.noWinCount < 5)
@@ -2144,7 +2144,24 @@ namespace CaiFuZhiJia_3997
                     isNext = true;
                     // Debug.LogError("1111");
                 });
-
+            _compareNpc.visible = true;
+            
+            if (winLevelType == WinLevelType.BIG)
+            {
+                yield return new WaitForSeconds(4.0f);
+                _compareNpc.visible = true;
+            }
+            else if (winLevelType == WinLevelType.HUGE)
+            {
+                yield return new WaitForSeconds(7.0f);
+                _compareNpc.visible = true;
+            }
+            else if (winLevelType == WinLevelType.MASSIVE)
+            {
+                yield return new WaitForSeconds(10.0f);
+                _compareNpc.visible = true;
+            }
+            
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
             callback?.Invoke();
