@@ -52,7 +52,7 @@ public class Main
     {
         // 预加载前:
         PageLaunch.Instance.RefreshProgressUIMsg("on before preload bundle");
-
+        PageManager.Instance.PreloadPage(PageName.TreasuryHallMain, null);
         while (!SQLitePlayerPrefs03.Instance.isInit)
         {
             yield return null;

@@ -301,6 +301,31 @@ namespace CaiFuHuoChe_3996
             SkipWinLine(false);
         }
 
+        /// <summary> 扫描单列可视区是否含 Scatter/Bonus（symbolNumber[10]/[11]），供 ScatterBonusColumnStopSound 载荷。 </summary>
+        private void ComputeScatterBonusColumnStopFlags(ReelBase reel, int column0Based, out bool hasScatter, out bool hasBonus)
+        {
+            hasScatter = false;
+            hasBonus = false;
+            if (reel?.symbolList == null)
+                return;
+
+            int row = CustomModel.Instance.row;
+            if (column0Based < 0 || column0Based >= CustomModel.Instance.column)
+                return;
+
+            int scatterId = CustomModel.Instance.symbolNumber[10];
+            int bonusId = CustomModel.Instance.symbolNumber[11];
+            for (int i = 2; i < 2 + row; i++)
+            {
+                if (i >= reel.symbolList.Count)
+                    break;
+                int n = reel.symbolList[i].number;
+                if (n == scatterId)
+                    hasScatter = true;
+                if (n == bonusId)
+                    hasBonus = true;
+            }
+        }
 
         #region 滚轮滚动接口
 
@@ -352,10 +377,23 @@ namespace CaiFuHuoChe_3996
                     _reelSetMD.Instance.GetNumReelTurn(reelIdx) + reelIdx * _reelSetMD.Instance.GetNumReelTurnGap(reelIdx) + extraReelTimes * extraReelTimesReel,
                     () =>
                     {
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+                            new EventData<int>(SlotMachineEvent.ReelColumnStopSound, _reelIdx));
+                        ComputeScatterBonusColumnStopFlags(reels[_reelIdx], _reelIdx, out bool scatterCol, out bool bonusCol);
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+                            new EventData<ScatterBonusColumnStopPayload>(SlotMachineEvent.ScatterBonusColumnStopSound,
+                                new ScatterBonusColumnStopPayload
+                                {
+                                    column0Based = _reelIdx,
+                                    hasScatter = scatterCol,
+                                    hasBonus = bonusCol,
+                                }));
+
                         if (isTrriger)
                         {
+                            // 0-based 列索引；仅缓动相关列触发，供加速框 UI 使用
                             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
-                            new EventData<int>(SlotMachineEvent.PrepareStoppedReel, _reelIdx + 1));
+                            new EventData<int>(SlotMachineEvent.PrepareStoppedReel, _reelIdx));
                         }
 
                         if (ContentModel.Instance.isFreeSpin)
@@ -631,6 +669,18 @@ namespace CaiFuHuoChe_3996
                     () =>
                     {
                         EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+                            new EventData<int>(SlotMachineEvent.ReelColumnStopSound, _reelIdx));
+                        ComputeScatterBonusColumnStopFlags(reels[_reelIdx], _reelIdx, out bool scatterCol2, out bool bonusCol2);
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+                            new EventData<ScatterBonusColumnStopPayload>(SlotMachineEvent.ScatterBonusColumnStopSound,
+                                new ScatterBonusColumnStopPayload
+                                {
+                                    column0Based = _reelIdx,
+                                    hasScatter = scatterCol2,
+                                    hasBonus = bonusCol2,
+                                }));
+
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
                             new EventData<int>(SlotMachineEvent.PrepareStoppedReel, _reelIdx));
 
                         //if (isSymbolAppearEffectWhenReelStop)
@@ -774,14 +824,18 @@ namespace CaiFuHuoChe_3996
 
                         string symbolName = CustomModel.Instance.symbolHitEffect["12"];
 
-                        // 图标动画
+                        // 图标动画（与 BonusSymbolAppear 音效同步：特效挂上即播）
                         GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolHit, symbolName).asCom;
                         symbol.AddSymbolEffect(goSymbolHit, true);
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                            new EventData(Game3996AudioEvent.BonusSymbolAppear));
 
                         yield return new WaitForSeconds(1f);
 
                         // 设置层级
                         FguiSortingOrderManager.Instance.ChangeSortingOrder(symbol.goOwnerSymbol, goExpectation);
+
+                        bool isBonusCoinScore = symbol.goOwnerSymbol.GetChild("socre").visible;
 
                         if (symbol.goOwnerSymbol.GetChild("jackpot").visible)
                         {
@@ -789,10 +843,11 @@ namespace CaiFuHuoChe_3996
                             int jackpotType = int.Parse(ContentModel.Instance.jackpotWin[c + (r - bufferTop) * 5]) % 1000;
                             ContentModel.Instance.jackpotSpinWinCredit = ContentModel.Instance.jackpotSocre[jackpotType];
                         }
-                        else if(symbol.goOwnerSymbol.GetChild("socre").visible)
+                        else if (isBonusCoinScore)
                         {
                             ContentModel.Instance.jackpotSpinWinCredit = int.Parse(symbol.goOwnerSymbol.GetChild("socre").asTextField.text);
                         }
+
 
                         EventCenter.Instance.EventTrigger<EventData>("JackpotWinCredit",
                                 new EventData<Dictionary<int, int>>(isJackpotWin, new Dictionary<int, int>
@@ -810,6 +865,12 @@ namespace CaiFuHuoChe_3996
                         }
                         
                         yield return new WaitForSeconds(1.5f);
+
+                        if (isBonusCoinScore)
+                        {
+                            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                                new EventData(Game3996AudioEvent.BonusSymbolCollect));
+                        }
 
                         SkipWinLine(true);
 

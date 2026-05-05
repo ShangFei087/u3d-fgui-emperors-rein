@@ -1,7 +1,5 @@
 using FairyGUI;
 using GameMaker;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace CaiFuZhiJia_3997
@@ -32,9 +30,9 @@ namespace CaiFuZhiJia_3997
         private GComponent _compareDiamondSpineGCom = null;
 
         // Effect
-        private GameObject _diamondBgEffectObj = null, _lightEffectObj = null;
-        private GameObject _cloneDiamondBgEffectObj = null, _cloneLightEffectObj = null;
-        private GComponent _compareDiamondBgEffectGCom = null, _compareLightEffectGCom = null;
+        private GameObject _diamondBgEffectObj = null /*, _lightEffectObj = null*/;
+        private GameObject _cloneDiamondBgEffectObj = null /*, _cloneLightEffectObj = null*/;
+        private GComponent _compareDiamondBgEffectGCom = null /*, _compareLightEffectGCom = null*/;
 
         // Todo：等Animation做出来之后，直接取消注释即可
         // Animation
@@ -42,12 +40,18 @@ namespace CaiFuZhiJia_3997
         private GameObject _cloneDiamondAnimationObj = null;
         private GComponent _compareDiamondAnimationGCom = null;
 
+        // ========== 新增：记录原始父节点，用于还原 ==========
+        private Transform _jackpotTriggerButtonOriginalParent = null;
+        private Vector3 _jackpotTriggerButtonOriginalPos;
+        private Vector3 _jackpotTriggerButtonOriginalScale;
+        // ========== 新增结束 ==========
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            _totalCount = 4;
+            _totalCount = 3;//4
             LoadAsyncRes();
         }
 
@@ -60,6 +64,7 @@ namespace CaiFuZhiJia_3997
             if (!isOpen) return;
 
             BindPrefabsToUI();
+            BindUIToAnimator();
             ShowEffectAndSpine();
         }
 
@@ -106,13 +111,13 @@ namespace CaiFuZhiJia_3997
                     ResLoadedCallback();
                 });
 
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                EffectPrefabPath + "lightEffect.prefab",
-                (clone) =>
-                {
-                    _lightEffectObj = clone;
-                    ResLoadedCallback();
-                });
+            // ResourceManager02.Instance.LoadAsset<GameObject>(
+            //     EffectPrefabPath + "lightEffect.prefab",
+            //     (clone) =>
+            //     {
+            //         _lightEffectObj = clone;
+            //         ResLoadedCallback();
+            //     });
 
             // 加载Animation
             ResourceManager02.Instance.LoadAsset<GameObject>(
@@ -148,14 +153,14 @@ namespace CaiFuZhiJia_3997
                 GameCommon.FguiUtils.AddWrapper(_compareDiamondBgEffectGCom, _cloneDiamondBgEffectObj);
             }
 
-            currentGCom = contentPane.GetChild("lightEffect").asCom;
-            if (currentGCom != _compareLightEffectGCom)
-            {
-                GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
-                _compareLightEffectGCom = currentGCom;
-                _cloneLightEffectObj = Object.Instantiate(_lightEffectObj);
-                GameCommon.FguiUtils.AddWrapper(_compareLightEffectGCom, _cloneLightEffectObj);
-            }
+            // currentGCom = contentPane.GetChild("lightEffect").asCom;
+            // if (currentGCom != _compareLightEffectGCom)
+            // {
+            //     GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
+            //     _compareLightEffectGCom = currentGCom;
+            //     _cloneLightEffectObj = Object.Instantiate(_lightEffectObj);
+            //     GameCommon.FguiUtils.AddWrapper(_compareLightEffectGCom, _cloneLightEffectObj);
+            // }
 
             // Animation
             currentGCom = _jackpotTriggerTipWindow.GetChild("diamondAnimation").asCom;
@@ -173,16 +178,22 @@ namespace CaiFuZhiJia_3997
             _jackpotTriggerButton.onClick.Add((() =>
             {
                 _jackpotTriggerTipWindow.visible = false;
-                _cloneLightEffectObj.SetActive(false);
+                // _cloneLightEffectObj.SetActive(false);
                 _cloneDiamondAnimationObj.SetActive(false);
 
                 _cloneDiamondSpineObj.SetActive(true);
                 _cloneDiamondBgEffectObj.SetActive(true);
                 Timers.inst.Add(3, 1, (obj) => _cloneDiamondSpineObj.SetActive(false));
+                Timers.inst.Add(5, 1, (obj) =>
+                {
+                    PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPageGameMain);
+                    PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotGame);
+                });
                 Timers.inst.Add(7, 1, (obj) =>
                 {
                     CloseSelf(null);
-                    // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotGame);
+                    // PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPageGameMain);
+                    // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotResult);
                 });
             }));
 
@@ -199,28 +210,88 @@ namespace CaiFuZhiJia_3997
             }
         }
 
+        // private void BindUIToAnimator()
+        // {
+        //     //fgui放入ugui
+        //     string parentPath = $"Anchor/sg_pop_prompt/Animation/btn";
+        //     Transform num01 = _cloneDiamondAnimationObj.transform.Find(parentPath);
+        //     GObject gStartBtn = this.contentPane.GetChild("jackpotTriggerTipWindow").asCom.GetChild("jackpotTriggerButton");
+        //     if (gStartBtn?.displayObject?.gameObject != null)
+        //     {
+        //         Transform t = gStartBtn.displayObject.gameObject.transform;
+        //         t.SetParent(num01, false);
+        //         t.localPosition = new Vector3(-1.76f, 0.34f, 0);
+        //         //t.localRotation = Quaternion.identity;
+        //         t.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+        //     }
+        // }
+
+        private void BindUIToAnimator()
+        {
+            // ========== 修改：绑定前先记录原始状态，方便后续还原 ==========
+
+            string parentPath = $"Anchor/sg_pop_prompt/Animation/btn";
+            Transform num01 = _cloneDiamondAnimationObj.transform.Find(parentPath);
+            GObject gStartBtn = this.contentPane.GetChild("jackpotTriggerTipWindow").asCom
+                .GetChild("jackpotTriggerButton");
+            if (gStartBtn?.displayObject?.gameObject != null)
+            {
+                Transform t = gStartBtn.displayObject.gameObject.transform;
+
+                if (_jackpotTriggerButtonOriginalParent == null)
+                {
+                    _jackpotTriggerButtonOriginalParent = t.parent;
+                    _jackpotTriggerButtonOriginalPos = t.localPosition;
+                    _jackpotTriggerButtonOriginalScale = t.localScale;
+                }
+
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(-1.76f, 0.34f, 0);
+                t.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+            }
+        }
+
+        // ========== 新增：还原 FGUI UI 元素到原始父节点 ==========
+        private void RestoreUIElements()
+        {
+            if (contentPane == null) return;
+            var jackpotTriggerTipWindow = contentPane.GetChild("jackpotTriggerTipWindow")?.asCom;
+            if (jackpotTriggerTipWindow == null) return;
+
+            GObject gStartBtn = jackpotTriggerTipWindow.GetChild("jackpotTriggerButton");
+            if (gStartBtn?.displayObject?.gameObject != null && _jackpotTriggerButtonOriginalParent != null)
+            {
+                Transform t = gStartBtn.displayObject.gameObject.transform;
+                t.SetParent(_jackpotTriggerButtonOriginalParent, false);
+                t.localPosition = _jackpotTriggerButtonOriginalPos;
+                t.localScale = _jackpotTriggerButtonOriginalScale;
+            }
+        }
+        // ========== 新增结束 ==========
+
         private void ResetView()
         {
+            RestoreUIElements();
             _jackpotTriggerTipWindow.visible = true;
 
             GameCommon.FguiUtils.DeleteWrapper(_compareDiamondSpineGCom);
             GameCommon.FguiUtils.DeleteWrapper(_compareDiamondBgEffectGCom);
-            GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
+            // GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
             GameCommon.FguiUtils.DeleteWrapper(_compareDiamondAnimationGCom);
 
             _compareDiamondSpineGCom = null;
             _compareDiamondBgEffectGCom = null;
-            _compareLightEffectGCom = null;
+            // _compareLightEffectGCom = null;
             _compareDiamondAnimationGCom = null;
 
             Object.Destroy(_cloneDiamondSpineObj);
             Object.Destroy(_cloneDiamondBgEffectObj);
-            Object.Destroy(_cloneLightEffectObj);
+            // Object.Destroy(_cloneLightEffectObj);
             Object.Destroy(_cloneDiamondAnimationObj);
 
             _cloneDiamondSpineObj = null;
             _cloneDiamondBgEffectObj = null;
-            _cloneLightEffectObj = null;
+            // _cloneLightEffectObj = null;
             _cloneDiamondAnimationObj = null;
         }
     }

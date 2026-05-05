@@ -6,215 +6,295 @@ namespace CaiFuHuoChe_3996
 {
     public enum SoundKey
     {
+        //----------------------------------------- NormalGame--------------------------------
+        /// <summary> 滚轮1,2,3,4,5停止 </summary>
+        ReelStop1, ReelStop2, ReelStop3, ReelStop4, ReelStop5,
+        /// <summary> 低分值中奖 </summary>
+        win_lv1,
+        /// <summary> 中分值中奖 </summary>
+        win_lv2,
+        /// <summary> 高分值中奖 </summary>
+        win_lv3,
+        /// <summary> SCATTER图标停止 </summary>
+        ScatterDown,
+        /// <summary> SCATTER图标中奖 </summary>
+        ScatterWin,
+        /// <summary> BONUS图标停止1,2,3,4,5 </summary>
+        BonusDown1, BonusDown2, BonusDown3, BonusDown4, BonusDown5,
+        /// <summary>  BONUS图标中奖 </summary>
+        BonusWin,
+        /// <summary> 转轴1:普通滚轮开始转动 </summary>
+        NormalRolling,
+        /// <summary> 蓝色加速框使用:scatter加速框 </summary>
+        FreeRollingBox,
+        /// <summary> 金色加速框使用：bonus加速框 </summary>
+        BonusRollingBox,
+        /// <summary> 进入、退出免费游戏过场 </summary>
+        FadeFree,
+        /// <summary> 进入、退出彩金（Bonus）小游戏过场 </summary>
+        FadeBonus,
+        //----------------------------------------- FreePopup--------------------------------
+        /// <summary> 免费游戏提示框、结算框出现 </summary>
+        FreePopupAppear,
+        /// <summary> 免费奖出现框START </summary>
+        FreeStartBtn,
+        /// <summary> 免费游戏提示框、结算框消失 </summary>
+        FreePopupDisappear,
+        /// <summary> 免费奖结算框COLLECT </summary>
+        FreeCollectBtn,
+        //----------------------------------------- BonusPopup--------------------------------
+        /// <summary>  Bonus游戏提示框、结算框出现 </summary>
+        BonusPopupAppear,
+        /// <summary>  Bonus奖出现框START </summary>
+        BonusStartBtn,
+        /// <summary>  Bonus游戏提示框、结算框消失 </summary>
+        BonusPopupDisappear,
+        /// <summary>  Bonus奖结算框COLLECT </summary>
+        BonusCollectBtn,
+        //----------------------------------------- JackpotPopup--------------------------------
+        /// <summary>  JACKPOT提示框出现</summary>
+        JackpotPopupAppear,
+        /// <summary>  JACKPOT提示框关闭 </summary>
+        JackpotPopupDisappear,
+        //----------------------------------------- FreeGame--------------------------------
+        /// <summary> 免费奖期间wild图标发射光的声音 </summary>
+        WildTail,
+        /// <summary> 箭头1:这个箭头没有积满的声音 </summary>
+        arrow1,
+        /// <summary> 箭头2:这个箭头积累满的声音 </summary>
+        arrow2,
+        /// <summary> 齿轮:这个齿轮的声音 </summary>
+        Gear,
+        //-----------------------------------------BonusGame--------------------------------
+        /// <summary> Bonus 小游戏内出现 Bonus 图标相关特效时（停稳展示等）。 </summary>
+        BonusSymbolAppear,
+        /// <summary> 彩金金币结算：Bonus 小游戏内 Bonus 图标收集。 </summary>
+        BonusSymbolCollect,
+        /// <summary> 转轴2：Bonus 小游戏转轴滚动。 </summary>
+        BonusRolling,
+        //----------------------------------------- BGM--------------------------------
         /// <summary> 正常游戏背景音乐 </summary>
         RegularBG,
         /// <summary> 免费游戏背景音乐 </summary>
         FreeSpinBG,
-        /// <summary> 游戏空闲音乐 </summary>
-        SpinBGIdle,
-        /// <summary> 滚轮1停止 </summary>
-        ReelStop1,
-        /// <summary> 滚轮1停止 </summary>
-        ReelStop2,
-        /// <summary> 滚轮1停止 </summary>
-        ReelStop3,
-        /// <summary> 滚轮1停止 </summary>
-        ReelStop4,
-        /// <summary> 滚轮1停止 </summary>
-        ReelStop5,
-
-        /// <summary> 滚轮背景音乐 </summary>
-        SlowBG,
-
-        /// <summary> 主游戏连线动画音乐 </summary>
-        MainWinAnim,
-        /// <summary> 主游戏连线特效音乐 </summary>
-        MainWinEffect,
-        /// <summary> 总赢线 </summary>
-        TotalWinLine,
-
-        /// <summary> 1、2、3列，每当出现财神图标（滚轮缓动特效才有） </summary>
-        SlowMotionReal123MeetGod,
-        /// <summary> 1、2、3列都有财神图标（滚轮缓动特效才有） </summary>
-        SlowMotionReal123HasGod,
-        /// <summary>  1、2列出现财神图标，祝贺语 （滚轮缓动特效才有） </summary>
-        SlowMotionCongratulate,
-        /// <summary>  滚轮缓动 </summary>
-        SlowMotionEffect,
-
+        /// <summary> 大奖背景音乐 </summary>
+        BonusBG,
         /// <summary> 免费游戏触发界面，背景音乐 </summary>
         FreeSpinTriggerBG,
-
         /// <summary> 免费游戏结束界面，背景音乐 </summary>
         FreeSpinResultBG,
-        /// <summary> 免费游戏修改背景音乐 </summary>
-        FreeSpinChangeSymbol,
-        /// <summary> 增加免费游戏 </summary>
-        FreeSpinAdd,
-        /// <summary> 免费游戏npc音乐 </summary>
-        FreeGameNpc,
-        /// <summary> 免费游戏特效音乐 </summary>
-        FreeGameEffect,
-        /// <summary> 5连线 </summary>
-        FiveLine,
-
-        /// <summary> 主游戏赢钱，金币滚动 </summary>
-        WinRolling,
-
-        /// <summary> 大奖弹窗分数增加背景音乐 </summary>
-        PopupWinBgNumberAdd,
-        /// <summary> 大奖弹窗金币音效 </summary>
-        PopupWinCoin,
-        /// <summary> 大奖弹窗进入 </summary>
-        PopupWinOn,
-        /// <summary> 大奖弹窗特效 </summary>
-        PopupWinEffect,
-        /// <summary> 大奖弹窗特效 </summary>
-        PopupWinEnd,
-
-
-        /// <summary> 大奖弹窗关闭后,祝贺语 </summary>
-        PopupWinAfterCloseCongratulate01,
-        /// <summary> 大奖弹窗关闭后,祝贺语 </summary>
-        PopupWinAfterCloseCongratulate02,
-        /// <summary> 大奖 </summary>
-        BigWin,
-        /// <summary> 巨奖 </summary>
-        MegaWin,
-        /// <summary> 超级大奖 </summary>
-        SuperWin,
-
-
-        /// <summary> 彩金弹窗，金币滚落 </summary>
-        JackpotFlow,
-        /// <summary> 彩金弹窗，背景音乐 </summary>
-        JackpotBG,
-        /// <summary> 彩金弹窗结束音乐 </summary>
-        JackpotEnd,
+        /// <summary> 大奖触发弹窗显示 </summary>
+        BonusTriggerBG,
+        /// <summary> 大奖接受弹窗显示 </summary>
+        BonusResultBG,
     }
 
     public class SoundModel : MonoSingleton<SoundModel>
     {
-
-
         public Dictionary<SoundKey, GSHandler> gsHandlers = new Dictionary<SoundKey, GSHandler>
         {
-
-
+            //----------------------------------------- NormalGame--------------------------------
+            [SoundKey.ReelStop1] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/RollDown.mp3",
+            },
+            [SoundKey.ReelStop2] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/RollDown.mp3",
+            },
+            [SoundKey.ReelStop3] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/RollDown.mp3",
+            },
+            [SoundKey.ReelStop4] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/RollDown.mp3",
+            },
+            [SoundKey.ReelStop5] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/RollDown.mp3",
+            },
+            [SoundKey.win_lv1] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/win1.mp3",
+            },
+            [SoundKey.win_lv2] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/win2.mp3",
+            },
+            [SoundKey.win_lv3] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/win3.mp3",
+            },
+            [SoundKey.ScatterDown] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/ScatterDown.mp3",
+            },
+            [SoundKey.ScatterWin] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/ScatterWin.mp3",
+            },
+            [SoundKey.BonusDown1] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/BonusDown/BonusDown1.mp3",
+            },
+            [SoundKey.BonusDown2] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/BonusDown/BonusDown2.mp3",
+            },
+            [SoundKey.BonusDown3] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/BonusDown/BonusDown3.mp3",
+            },
+            [SoundKey.BonusDown4] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/BonusDown/BonusDown4.mp3",
+            },
+            [SoundKey.BonusDown5] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/BonusDown/BonusDown5.mp3",
+            },
+            [SoundKey.BonusWin] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/BonusWin.mp3",
+            },
+            [SoundKey.NormalRolling] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/NormalRolling.mp3",
+            },
+            [SoundKey.FreeRollingBox] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/FreeRollingBox.mp3",
+            },
+            [SoundKey.BonusRollingBox] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/BonusRollingBox.mp3",
+            },
+            [SoundKey.FadeFree] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/FadeFree.mp3",
+            },
+            [SoundKey.FadeBonus] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/NormalGame/FadeBonus.mp3",
+            },
+            //----------------------------------------- FreePopup--------------------------------
+            [SoundKey.FreePopupAppear] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/FreePopup/FreePopupAppear.mp3",
+            },
+            [SoundKey.FreeStartBtn] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/FreePopup/FreeStartBtn.mp3",
+            },
+            [SoundKey.FreePopupDisappear] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/FreePopup/FreePopupDisappear.mp3",
+            },
+            [SoundKey.FreeCollectBtn] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/FreePopup/FreeCollectBtn.mp3",
+            },
+            //----------------------------------------- BonusPopup--------------------------------
+            [SoundKey.BonusPopupAppear] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/BonusPopup/BonusPopupAppear.mp3",
+            },
+            [SoundKey.BonusStartBtn] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/BonusPopup/BonusStartBtn.mp3",
+            },
+            [SoundKey.BonusPopupDisappear] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/BonusPopup/BonusPopupDisappear.mp3",
+            },
+            [SoundKey.BonusCollectBtn] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/BonusPopup/BonusCollectBtn.mp3",
+            },
+            //----------------------------------------- JackpotPopup--------------------------------
+            [SoundKey.JackpotPopupAppear] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/JackpotPopup/JackpotPopupAppear.mp3",
+            },
+            [SoundKey.JackpotPopupDisappear] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/JackpotPopup/JackpotPopupDisappear.mp3",
+            },
+            //----------------------------------------- FreeGame--------------------------------
+            [SoundKey.WildTail] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/FreeGame/WildTail.mp3",
+            },
+            [SoundKey.arrow1] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/FreeGame/arrow1.mp3",
+            },
+            [SoundKey.arrow2] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/FreeGame/arrow2.mp3",
+            },
+            [SoundKey.Gear] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/FreeGame/Gear.mp3",
+            },
+            //----------------------------------------- BonusGame--------------------------------
+            [SoundKey.BonusSymbolAppear] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/BonusGame/BonusSymbolAppear.mp3",
+            },
+            [SoundKey.BonusSymbolCollect] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/BonusGame/BonusSymbolCollect.mp3",
+            },
+            [SoundKey.BonusRolling] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Effect/BonusGame/BonusRolling.mp3",
+            },
+            //----------------------------------------- BGM--------------------------------
             [SoundKey.RegularBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Music/Music_Normal.mp3",
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Music/NormalBGM.mp3",
                 outputType = GSOutType.Music,
                 loop = true,
             },
             [SoundKey.FreeSpinBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Music/Music_Free.mp3",
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Music/FreeBGM.mp3",
                 outputType = GSOutType.Music,
                 loop = true,
             },
-            [SoundKey.SpinBGIdle] = new GSHandler()
+            [SoundKey.BonusTriggerBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Effect/NormalGameEnvironment.mp3",
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Music/BonusTriggerBGM.mp3",
+                outputType = GSOutType.Music,
                 loop = true,
-            },
-            [SoundKey.ReelStop1] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_Down_1.mp3",
-            },
-            [SoundKey.ReelStop2] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_Down_2.mp3",
-            },
-            [SoundKey.ReelStop3] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_Down_3.mp3",
-            },
-            [SoundKey.ReelStop4] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_Down_4.mp3",
-            },
-            [SoundKey.ReelStop5] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_Down_5.mp3",
-            },
-            [SoundKey.SlowBG] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_BGM.mp3",
-                //outputType = GSOutType.Music,
-                loop = true,
-            },
-            [SoundKey.MainWinAnim] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Effect/Flag.mp3",
-            },
-            [SoundKey.MainWinEffect] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Effect/Effect_Win.mp3",
-            },
-            [SoundKey.TotalWinLine] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_Win_1234.mp3",
             },
             [SoundKey.FreeSpinTriggerBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Effect/FreeNumberTipAppear.mp3",
-            },
-            [SoundKey.SlowMotionEffect] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_Focus_On.mp3",
-            },
-            [SoundKey.FreeGameNpc] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Effect/FreeGameNPC.mp3",
-            },
-            [SoundKey.FreeGameEffect] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Effect/FreeGameSmallOddSymbolWin.mp3",
-            },
-            [SoundKey.PopupWinBgNumberAdd] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/BigWin/BigWin_Number_On.mp3",
-                //outputType = GSOutType.Music,
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Music/FreeTriggerBGM.mp3",
+                outputType = GSOutType.Music,
                 loop = true,
             },
-            [SoundKey.PopupWinOn] = new GSHandler()
+            [SoundKey.FreeSpinResultBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/BigWin/BigWin_On.mp3",
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Music/FreeResultBGM.mp3",
+                outputType = GSOutType.Music,
+                loop = true,
             },
-            [SoundKey.PopupWinCoin] = new GSHandler()
+            [SoundKey.BonusResultBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/BigWin/BigWin_coin.mp3",
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Music/FreeResultBGM.mp3",
+                outputType = GSOutType.Music,
+                loop = true,
             },
-            [SoundKey.PopupWinEffect] = new GSHandler()
+            [SoundKey.BonusBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/BigWin/BigWin_chajian.mp3",
-            },
-            [SoundKey.PopupWinEnd] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/BigWin/BigWin_end.mp3",
+                assetPath = "Assets/GameRes/Games/Cai Fu Huo Che 3996/Sounds/Music/BonusBGM.mp3",
+                outputType = GSOutType.Music,
+                loop = true,
             },
         };
-
-        /*
-        [Button]
-        void TestPalySound()
-        {
-            GlobalSoundHelper.Instance.PlaySoundEff(GameMaker.SoundKey.BetMax);
-        }
-        
-        [Button]
-        void TestPalyMuiseBGM()
-        {
-            GlobalSoundHelper.Instance.PlayMusicSingle(GameMaker.SoundKey.TestBGM);
-        }
-        
-        [Button]
-        void TestStopMuiseBGM()
-        {
-            GlobalSoundHelper.Instance.StopMusic();
-        }*/
     }
-
 }
 

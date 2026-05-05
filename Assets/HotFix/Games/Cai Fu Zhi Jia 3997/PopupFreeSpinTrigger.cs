@@ -31,27 +31,37 @@ namespace CaiFuZhiJia_3997
         private GComponent _compareDollarSpineGCom = null;
 
         // Effect
-        private GameObject _blueBoomEffectObj = null, _goldPurpleEffectObj = null, _lightEffectObj = null;
+        private GameObject /*_blueBoomEffectObj = null, */
+            _goldPurpleEffectObj = null /*, _lightEffectObj = null*/;
 
-        private GameObject _cloneBlueBoomEffectObj = null,
-            _cloneGoldPurpleEffectObj = null,
-            _cloneLightEffectObj = null;
+        private GameObject /*_cloneBlueBoomEffectObj = null,*/
+            _cloneGoldPurpleEffectObj = null
+            /*_cloneLightEffectObj = null*/;
 
-        private GComponent _compareBlueBoomEffectGCom = null,
-            _compareGoldPurpleEffectGCom = null,
-            _compareLightEffectGCom = null;
+        private GComponent /*_compareBlueBoomEffectGCom = null,*/
+            _compareGoldPurpleEffectGCom = null
+            /*_compareLightEffectGCom = null*/;
 
         // Animation
         private GameObject _freeGetAnimationObj = null;
         private GameObject _cloneFreeGetAnimationObj = null;
         private GComponent _compareFreeGetAnimationGCom = null;
 
+        // ========== 新增：记录原始父节点，用于还原 ==========
+        private Transform _freeRoundOriginalParent = null;
+        private Vector3 _freeRoundOriginalPos;
+        private Vector3 _freeRoundOriginalScale;
+        private Transform _freeStartBtnOriginalParent = null;
+        private Vector3 _freeStartBtnOriginalPos;
+        private Vector3 _freeStartBtnOriginalScale;
+        // ========== 新增结束 ==========
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            _totalCount = 5;
+            _totalCount = 3;
             LoadAsyncRes();
         }
 
@@ -63,6 +73,7 @@ namespace CaiFuZhiJia_3997
 
             ResetView();
             BindPrefabsToUI();
+            BindUIToAnimator();
             ShowEffectAndSpine();
         }
 
@@ -104,13 +115,13 @@ namespace CaiFuZhiJia_3997
                 });
 
             // 加载Effect
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                EffectPrefabPath + "blueBoomEffect.prefab",
-                (clone) =>
-                {
-                    _blueBoomEffectObj = clone;
-                    ResLoadedCallback();
-                });
+            // ResourceManager02.Instance.LoadAsset<GameObject>(
+            //     EffectPrefabPath + "blueBoomEffect.prefab",
+            //     (clone) =>
+            //     {
+            //         _blueBoomEffectObj = clone;
+            //         ResLoadedCallback();
+            //     });
 
             ResourceManager02.Instance.LoadAsset<GameObject>(
                 EffectPrefabPath + "goldPurpleEffect.prefab",
@@ -120,13 +131,13 @@ namespace CaiFuZhiJia_3997
                     ResLoadedCallback();
                 });
 
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                EffectPrefabPath + "lightEffect.prefab",
-                (clone) =>
-                {
-                    _lightEffectObj = clone;
-                    ResLoadedCallback();
-                });
+            // ResourceManager02.Instance.LoadAsset<GameObject>(
+            //     EffectPrefabPath + "lightEffect.prefab",
+            //     (clone) =>
+            //     {
+            //         _lightEffectObj = clone;
+            //         ResLoadedCallback();
+            //     });
 
             // 加载Animation
             ResourceManager02.Instance.LoadAsset<GameObject>(
@@ -152,24 +163,24 @@ namespace CaiFuZhiJia_3997
             }
 
             // Effect
-            currentGCom = contentPane.GetChild("blueBoomEffect").asCom;
-            if (currentGCom != _compareBlueBoomEffectGCom)
-            {
-                GameCommon.FguiUtils.DeleteWrapper(_compareBlueBoomEffectGCom);
-                _compareBlueBoomEffectGCom = currentGCom;
-                _cloneBlueBoomEffectObj = Object.Instantiate(_blueBoomEffectObj);
-                GameCommon.FguiUtils.AddWrapper(_compareBlueBoomEffectGCom, _cloneBlueBoomEffectObj);
-            }
+            // currentGCom = contentPane.GetChild("blueBoomEffect").asCom;
+            // if (currentGCom != _compareBlueBoomEffectGCom)
+            // {
+            //     GameCommon.FguiUtils.DeleteWrapper(_compareBlueBoomEffectGCom);
+            //     _compareBlueBoomEffectGCom = currentGCom;
+            //     _cloneBlueBoomEffectObj = Object.Instantiate(_blueBoomEffectObj);
+            //     GameCommon.FguiUtils.AddWrapper(_compareBlueBoomEffectGCom, _cloneBlueBoomEffectObj);
+            // }
 
-            currentGCom = contentPane.GetChild("lightEffect").asCom;
-            if (currentGCom != _compareLightEffectGCom)
-            {
-                GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
-                _compareLightEffectGCom = currentGCom;
-                _cloneLightEffectObj = Object.Instantiate(_lightEffectObj);
-                _cloneLightEffectObj.SetActive(false);
-                GameCommon.FguiUtils.AddWrapper(_compareLightEffectGCom, _cloneLightEffectObj);
-            }
+            // currentGCom = contentPane.GetChild("lightEffect").asCom;
+            // if (currentGCom != _compareLightEffectGCom)
+            // {
+            //     GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
+            //     _compareLightEffectGCom = currentGCom;
+            //     _cloneLightEffectObj = Object.Instantiate(_lightEffectObj);
+            //     _cloneLightEffectObj.SetActive(false);
+            //     GameCommon.FguiUtils.AddWrapper(_compareLightEffectGCom, _cloneLightEffectObj);
+            // }
 
             currentGCom = contentPane.GetChild("goldPurpleEffect").asCom;
             if (currentGCom != _compareGoldPurpleEffectGCom)
@@ -192,17 +203,114 @@ namespace CaiFuZhiJia_3997
             }
         }
 
+        private void BindUIToAnimator()
+        {
+            // ========== 修改：绑定前先记录原始状态，方便后续还原 ==========
+
+            // freeRound 文本
+            string candidatePaths = $"Anchor/fg_pop_prompt/Animation/all1/all3/num02";
+            Transform num01 = _cloneFreeGetAnimationObj.transform.Find(candidatePaths);
+            GObject _gfreetxt = this.contentPane.GetChild("freeTipWindow").asCom.GetChild("freeRound");
+            if (_gfreetxt?.displayObject?.gameObject != null)
+            {
+                Transform t = _gfreetxt.displayObject.gameObject.transform;
+
+                // 记录原始父节点和变换（只在第一次绑定时记录）
+                if (_freeRoundOriginalParent == null)
+                {
+                    _freeRoundOriginalParent = t.parent;
+                    _freeRoundOriginalPos = t.localPosition;
+                    _freeRoundOriginalScale = t.localScale;
+                }
+
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(-2.6f, 2.33f, 0);
+                t.localScale = new Vector3(0.008f, 0.008f, 0.01f);
+            }
+
+            // freeStartBtn 按钮
+            string startButtonPath = $"Anchor/fg_pop_prompt/Animation/all1/all/btn01";
+            num01 = _cloneFreeGetAnimationObj.transform.Find(startButtonPath);
+            GObject gStartBtn = this.contentPane.GetChild("freeTipWindow").asCom.GetChild("freeStartBtn");
+            if (gStartBtn?.displayObject?.gameObject != null)
+            {
+                Transform t = gStartBtn.displayObject.gameObject.transform;
+
+                // 记录原始父节点和变换
+                if (_freeStartBtnOriginalParent == null)
+                {
+                    _freeStartBtnOriginalParent = t.parent;
+                    _freeStartBtnOriginalPos = t.localPosition;
+                    _freeStartBtnOriginalScale = t.localScale;
+                }
+
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(-1.34f, -0.33f, 0);
+                t.localScale = new Vector3(0.008f, 0.008f, 0.01f);
+            }
+        }
+
+        // private void BindUIToAnimator()
+        // {
+        //     //fgui放入ugui
+        //     string candidatePaths = $"Anchor/fg_pop_prompt/Animation/all1/all3/num02";
+        //     Transform num01 = _cloneFreeGetAnimationObj.transform.Find(candidatePaths);
+        //     GObject _gfreetxt = this.contentPane.GetChild("freeTipWindow").asCom.GetChild("freeRound");
+        //     if (_gfreetxt?.displayObject?.gameObject != null)
+        //     {
+        //         Transform t = _gfreetxt.displayObject.gameObject.transform;
+        //         t.SetParent(num01, false);
+        //         t.localPosition = new Vector3(-2.6f, 2.33f, 0);
+        //         //t.localRotation = Quaternion.identity;
+        //         t.localScale = new Vector3(0.008f, 0.008f, 0.01f);
+        //     }
+        //
+        //     string startButtonPath = $"Anchor/fg_pop_prompt/Animation/all1/all/btn01";
+        //     num01 = _cloneFreeGetAnimationObj.transform.Find(startButtonPath);
+        //     GObject gStartBtn = this.contentPane.GetChild("freeTipWindow").asCom.GetChild("freeStartBtn");
+        //     if (gStartBtn?.displayObject?.gameObject != null)
+        //     {
+        //         Transform t = gStartBtn.displayObject.gameObject.transform;
+        //         t.SetParent(num01, false);
+        //         t.localPosition = new Vector3(-1.34f, -0.33f, 0);
+        //         //t.localRotation = Quaternion.identity;
+        //         t.localScale = new Vector3(0.008f, 0.008f, 0.01f);
+        //     }
+        // }
+
+        // ========== 新增：还原 FGUI UI 元素到原始父节点 ==========
+        private void RestoreUIElements()
+        {
+            GObject _gfreetxt = this.contentPane?.GetChild("freeTipWindow")?.asCom?.GetChild("freeRound");
+            if (_gfreetxt?.displayObject?.gameObject != null && _freeRoundOriginalParent != null)
+            {
+                Transform t = _gfreetxt.displayObject.gameObject.transform;
+                t.SetParent(_freeRoundOriginalParent, false);
+                t.localPosition = _freeRoundOriginalPos;
+                t.localScale = _freeRoundOriginalScale;
+            }
+
+            GObject gStartBtn = this.contentPane?.GetChild("freeTipWindow")?.asCom?.GetChild("freeStartBtn");
+            if (gStartBtn?.displayObject?.gameObject != null && _freeStartBtnOriginalParent != null)
+            {
+                Transform t = gStartBtn.displayObject.gameObject.transform;
+                t.SetParent(_freeStartBtnOriginalParent, false);
+                t.localPosition = _freeStartBtnOriginalPos;
+                t.localScale = _freeStartBtnOriginalScale;
+            }
+        }
+        // ========== 新增结束 ==========
 
         private void ShowEffectAndSpine()
         {
-            Timers.inst.Add(1f, 1, (obj) =>
-            {
-                _cloneBlueBoomEffectObj.SetActive(false);
-                _freeTipWindow.visible = true;
-                _cloneLightEffectObj.SetActive(true);
-            });
+            // Timers.inst.Add(1f, 1, (obj) =>
+            // {
+            //     // _cloneBlueBoomEffectObj.SetActive(false);
+            //     // _cloneLightEffectObj.SetActive(true);
+            // });
             // _freeTipWindow.visible = true;
             // _cloneLightEffectObj.SetActive(true);
+            _freeTipWindow.visible = true;
 
             _freeStartBtn.onClick.Add((() =>
             {
@@ -210,10 +318,14 @@ namespace CaiFuZhiJia_3997
                 _cloneDollarSpineObj.SetActive(true);
                 _cloneGoldPurpleEffectObj.SetActive(true);
 
-                Timers.inst.Add(3, 1, (obj) => _cloneDollarSpineObj.SetActive(false));
-                Timers.inst.Add(7, 1, (obj) =>
+                // Timers.inst.Add(3, 1, (obj) => _cloneDollarSpineObj.SetActive(false));
+                Timers.inst.Add(3.033f, 1, (obj) =>
                 {
+                    _cloneDollarSpineObj.SetActive(false);
                     CloseSelf(null);
+                    
+                    // 新增测试
+                    // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupFreeSpinResult);
                 });
             }));
 
@@ -231,25 +343,30 @@ namespace CaiFuZhiJia_3997
 
         private void ResetView()
         {
+            RestoreUIElements();
             GameCommon.FguiUtils.DeleteWrapper(_compareDollarSpineGCom);
-            GameCommon.FguiUtils.DeleteWrapper(_compareBlueBoomEffectGCom);
+            // GameCommon.FguiUtils.DeleteWrapper(_compareBlueBoomEffectGCom);
             GameCommon.FguiUtils.DeleteWrapper(_compareGoldPurpleEffectGCom);
-            GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
+            // GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
+            GameCommon.FguiUtils.DeleteWrapper(_compareFreeGetAnimationGCom);
 
             _compareDollarSpineGCom = null;
-            _compareBlueBoomEffectGCom = null;
+            // _compareBlueBoomEffectGCom = null;
             _compareGoldPurpleEffectGCom = null;
-            _compareLightEffectGCom = null;
+            // _compareLightEffectGCom = null;
+            _compareFreeGetAnimationGCom = null;
 
             Object.Destroy(_cloneDollarSpineObj);
-            Object.Destroy(_cloneBlueBoomEffectObj);
+            // Object.Destroy(_cloneBlueBoomEffectObj);
             Object.Destroy(_cloneGoldPurpleEffectObj);
-            Object.Destroy(_cloneLightEffectObj);
+            // Object.Destroy(_cloneLightEffectObj);
+            Object.Destroy(_cloneFreeGetAnimationObj);
 
             _cloneDollarSpineObj = null;
-            _cloneBlueBoomEffectObj = null;
+            // _cloneBlueBoomEffectObj = null;
             _cloneGoldPurpleEffectObj = null;
-            _cloneLightEffectObj = null;
+            _cloneFreeGetAnimationObj = null;
+            // _cloneLightEffectObj = null;
         }
     }
 }

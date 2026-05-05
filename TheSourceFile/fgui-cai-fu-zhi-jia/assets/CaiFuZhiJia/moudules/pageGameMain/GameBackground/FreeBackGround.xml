@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920" overflow="hidden" designImage="ui://k5oi8hwrprjjiw">
   <displayList>
-    <image id="n1_k7bh" name="n1" src="k7bhk7" fileName="images/pageGameMain/GameBackground/freeBg/ng_img_bg.png" xy="0,0"/>
     <image id="n5_k7bh" name="n5" src="k7bhk9" fileName="images/pageGameMain/GameBackground/freeBg/ng_img_frame06.png" xy="0,936"/>
-    <image id="n7_k7bh" name="n7" src="k7bhk8" fileName="images/pageGameMain/GameBackground/freeBg/ng_img_frame05.png" xy="31,603"/>
-    <image id="n2_k7bh" name="n2" src="k7bhk6" fileName="images/pageGameMain/GameBackground/freeBg/fg_txt_win_MULTIPLE.png" xy="202,796" pivot="0.5,0.5" anchor="true"/>
+    <component id="n9_f93l" name="anchorVideo" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="207,842"/>
     <image id="n3_k7bh" name="n3" src="k7bhkc" fileName="images/pageGameMain/GameBackground/freeBg/ng_img_frame09.png" xy="848,964"/>
     <image id="n4_k7bh" name="n4" src="k7bhka" fileName="images/pageGameMain/GameBackground/freeBg/ng_img_frame07.png" xy="345,953"/>
     <image id="n6_k7bh" name="n6" src="k7bhkb" fileName="images/pageGameMain/GameBackground/freeBg/ng_img_frame08.png" xy="663,953"/>
+    <component id="n12_hmyf" name="anchorFire" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="212,861"/>
+    <image id="n2_k7bh" name="n2" src="k7bhk6" fileName="images/pageGameMain/GameBackground/freeBg/fg_txt_win_MULTIPLE.png" xy="202,796" pivot="0.5,0.5" anchor="true"/>
     <text id="n8_t2pa" name="multipleNumber" xy="110,809" size="200,102" font="ui://k5oi8hwrh8erd9" fontSize="10" align="center" vAlign="middle" autoSize="none" text="x2"/>
+    <component id="n11_hmyf" name="anchorMask" src="ig1b2j" fileName="moudules/pageGameMain/Common/AnchorFrame.xml" xy="204,840"/>
   </displayList>
 </component>

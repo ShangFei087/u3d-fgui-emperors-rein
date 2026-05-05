@@ -1,6 +1,7 @@
 using FairyGUI;
 using GameMaker;
 using PusherEmperorsRein;
+using SlotMaker;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -79,6 +80,10 @@ namespace CaiFuHuoChe_3996
             //GameSoundHelper.Instance.PlayMusicSingle(SoundKey.FreeSpinTriggerBG);
 
             base.OnOpen(name, data);
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(SlotMachineEvent.FreeSpinPopupAppear));
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(Game3996AudioEvent.BgmFreeSpinResult));
             InitParam(data);
         }
 
@@ -142,6 +147,8 @@ namespace CaiFuHuoChe_3996
             {
                 btnStrat.visible = true;
                 btnStrat.touchable = true;
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                    new EventData(Game3996AudioEvent.FreeSpinCollectButtonShown));
             });
 
             if (ContentModel.Instance.isAuto)
@@ -158,6 +165,8 @@ namespace CaiFuHuoChe_3996
             if (isClose) return;
             isClose = true;
 
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(SlotMachineEvent.FreeSpinPopupDisappear));
             PlayAnim("fg_pop_settlement_end");
 
             AddTimer(0.1f, (object obj) =>

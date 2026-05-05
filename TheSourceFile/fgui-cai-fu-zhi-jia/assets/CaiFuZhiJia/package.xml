@@ -222,6 +222,15 @@
     <component id="lyrxpf" name="PopupOverWin.xml" path="/" exported="true"/>
     <component id="lyrxpg" name="anchorPlayer.xml" path="/moudules/popupOverWin/" exported="true"/>
     <component id="lyrxph" name="anchorOverWin.xml" path="/moudules/popupOverWin/" exported="true"/>
+    <component id="rhifpn" name="ng_null.xml" path="/images/popupJackpotGame/Symbol/" exported="true"/>
+    <image id="p94ipq" name="jsk5 1.png" path="/images/popupJackpotTrigger/" scale="9grid" scale9grid="53,18,157,131"/>
+    <image id="f93lpr" name="k.png" path="/images/popupJackpotGame/GameBackground/"/>
+    <font id="hmyfps" name="1060-方正汉真广标简体.ttf" path="/fonts/" renderMode="" samplePointSize="16"/>
+    <font id="hmyfpt" name="Brighton vintage.ttf" path="/fonts/" renderMode="" samplePointSize="16"/>
+    <font id="hmyfpu" name="BrothersCircus-Regular.ttf" path="/fonts/" renderMode="" samplePointSize="16"/>
+    <font id="hmyfpv" name="Hunger Games.ttf" path="/fonts/" renderMode="" samplePointSize="16"/>
+    <font id="hmyfpw" name="San Antonio Charros_personal_use_only.ttf" path="/fonts/" renderMode="" samplePointSize="16"/>
+    <font id="hmyfpx" name="方正粗圆_GBK.ttf" path="/fonts/" renderMode="" samplePointSize="16"/>
   </resources>
   <publish name="" path="../../Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>

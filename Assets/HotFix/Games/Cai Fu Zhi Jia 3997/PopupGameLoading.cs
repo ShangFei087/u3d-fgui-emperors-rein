@@ -17,7 +17,7 @@ namespace CaiFuZhiJia_3997
         private int _totalResCount = -1;
         private bool _isInitialized = false;
         private bool _isFirstOpen = true;
-        private const float Duration = 10f;
+        private const float Duration = 8f;
         private GTweener _loadingGTween;
 
         private GSlider _loadingBar;
@@ -25,6 +25,7 @@ namespace CaiFuZhiJia_3997
         private GameObject _cloneTraderObj, _cloneGameTitleObj;
         private GComponent _compareTrader, _compareGameTitle;
 
+        // private MonoHelper _monoHelper;
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -97,13 +98,14 @@ namespace CaiFuZhiJia_3997
             if (_isFirstOpen)
             {
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPageGameMain, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotGame, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupOverWin, null);
+                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotWin, null);
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupFreeSpinTrigger, null);
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupFreeSpinResult, null);
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotTrigger, null);
-                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotGame, null);
                 PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotResult, null);
-                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotWin, null);
-                PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupOverWin, null);
+                
                 _isFirstOpen = false;
 
                 Debug.LogError("CaiFuZhiJia is Preloaded!");

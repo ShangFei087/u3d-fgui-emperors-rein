@@ -50,13 +50,19 @@ namespace CaiFuZhiJia_3997
 
         #region 本局游戏数据
         
-        
+        /// <summary> 基础游戏赢分（单局普通游戏 或 免费游戏） </summary>
+        public long baseGameWinCredit;
         
         /// <summary> 免费游戏加速框 </summary>
         public bool isFreeSlotTip;
 
         /// <summary>是否开启自动</summary>
         public bool isAuto { get; set; }
+
+        /// <summary>
+        /// 关闭bigwin界面的标识
+        /// </summary>
+        public bool isCloseOverWinPanel;
 
         /// <summary>是否是免费旋转</summary>
         public bool isFreeSpin { get; set; }
@@ -165,6 +171,8 @@ namespace CaiFuZhiJia_3997
 
         public bool isHitJackpotGame;
 
+        public bool isHaveWildSymbol;
+
         /// <summary>彩金游戏触发</summary>
         public bool IsBonusTrigger { get; set; }
 
@@ -174,6 +182,11 @@ namespace CaiFuZhiJia_3997
         /// 玩家没中奖计数
         /// </summary>
         public int noWinCount = 0;
+        
+        /// <summary>
+        /// 一局游戏中wild图标的行列索引信息
+        /// </summary>
+        public List<Cell> currentWildList = new List<Cell>();
 
         /// <summary>
         /// 彩金游戏总得分

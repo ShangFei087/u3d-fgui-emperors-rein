@@ -1,6 +1,7 @@
 using FairyGUI;
 using GameMaker;
 using PusherEmperorsRein;
+using SlotMaker;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -62,6 +63,10 @@ namespace CaiFuHuoChe_3996
         public override void OnOpen(PageName name, EventData data)
         {
             base.OnOpen(name, data);
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(SlotMachineEvent.JackpotPopupAppear));
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(Game3996AudioEvent.BgmBonusResult));
             InitParam(data);
         }
 
@@ -139,6 +144,8 @@ namespace CaiFuHuoChe_3996
             if (isClose) return;
             isClose = true;
 
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(SlotMachineEvent.JackpotPopupDisappear));
 
             PlayAnim("end");
 

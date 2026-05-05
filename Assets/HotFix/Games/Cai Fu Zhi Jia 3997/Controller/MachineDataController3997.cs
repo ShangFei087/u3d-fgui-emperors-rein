@@ -17,7 +17,8 @@ namespace CaiFuZhiJia_3997
         Normal,
         FreeSpin,
         Bonus, // cwy 新增
-        Jackpot // cwy 新增
+        Jackpot, // cwy 新增
+        BigWin // cwy 新增
     };
 
     public class MachineDataController3997 : MonoSingleton<MachineDataController3997>
@@ -51,6 +52,14 @@ namespace CaiFuZhiJia_3997
                         new string[]
                         {
                             "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bonus_0.json"
+                        },
+                    },
+                [SpinDataType.BigWin] =
+                    new List<string[]>()
+                    {
+                        new string[]
+                        {
+                            "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bigwin.json"
                         },
                     },
                 [SpinDataType.Jackpot] =
@@ -141,6 +150,8 @@ namespace CaiFuZhiJia_3997
             List<SymbolWin> winList = new List<SymbolWin>();
             JackpotRes jpGameRes = new JackpotRes();
 
+            ContentModel.Instance.baseGameWinCredit = totalwin;// 主要用作BigWin计算
+
             //判断普通奖
             for (int row = 0; row < rows; row++)
             {
@@ -169,7 +180,10 @@ namespace CaiFuZhiJia_3997
                 // 免费游戏积分倍数增加
                 int currentWildCount = strDeckRowCol.Count(c => c == '9');
                 if (currentWildCount > 0)
+                {
+                    ContentModel.Instance.isHaveWildSymbol = true;
                     ContentModel.Instance.freeGameScoreMultiply += currentWildCount;
+                }
             }
 
             //IDVec 
@@ -341,6 +355,20 @@ namespace CaiFuZhiJia_3997
                 ContentModel.Instance.curReelStripsIndex = "FS";
                 ContentModel.Instance.FreeSpinPlayTimes += 1;
                 ContentModel.Instance.freeSpinTotalWinCoins += totalLineWin;
+                
+                List<List<int>> currentStrDeck = SlotTool.GetDeckColRow03(strDeckRowCol); // 获取一局免费游戏图标
+                ContentModel.Instance.currentWildList.Clear();
+                
+                for (int i = 0; i < currentStrDeck.Count; i++)
+                {
+                    for (int j = 0; j < currentStrDeck[i].Count; j++)
+                    {
+                        if (currentStrDeck[i][j] == 9)
+                        {
+                            ContentModel.Instance.currentWildList.Add(new Cell(i, j));
+                        }
+                    }
+                }
 
                 // 更新剩余次数显示
                 ContentModel.Instance.ShowFreeSpinRemainTime = ContentModel.Instance.FreeSpinTotalTimes -
@@ -463,6 +491,9 @@ namespace CaiFuZhiJia_3997
                     break;
                 case GlobalEvent.GMJp1:
                     _nextSpin = SpinDataType.Jackpot;
+                    break;
+                case GlobalEvent.GMBigWin:
+                    _nextSpin = SpinDataType.BigWin;
                     break;
             }
         }

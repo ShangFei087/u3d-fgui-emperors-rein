@@ -388,10 +388,9 @@ namespace CaiFuZhiJia_3997
 
         public List<WinMultiple> winLevelMultiple { get; set; } = new List<WinMultiple>()
         {
-            new WinMultiple("BIG", 15),
-            new WinMultiple("HUGE", 30),
-            new WinMultiple("MASSIVE", 50),
-            new WinMultiple("LEGENDARY", 100)
+            new WinMultiple("BIG", 5),
+            new WinMultiple("HUGE", 10),
+            new WinMultiple("MASSIVE", 20),
         };
 
         public FreeGameConfig FreeGameConfig { get; } = new FreeGameConfig()
@@ -417,11 +416,17 @@ namespace CaiFuZhiJia_3997
         /// </summary>
         public List<string> JackpotBgPath { get; } = new List<string>()
         {
-            "",
-            "",
+            "ui://CaiFuZhiJia/ng_null",
+            "ui://CaiFuZhiJia/ng_null",
             "ui://CaiFuZhiJia/ng_sym_diamonds2",
-            "",
-            "",
+            "ui://CaiFuZhiJia/ng_null",
+            "ui://CaiFuZhiJia/ng_null",
+            "ui://CaiFuZhiJia/ng_null",
+            "ui://CaiFuZhiJia/ng_null",
+            "ui://CaiFuZhiJia/ng_null",
+            "ui://CaiFuZhiJia/ng_null",
+            "ui://CaiFuZhiJia/ng_null",
+            "ui://CaiFuZhiJia/ng_null",
             "ui://CaiFuZhiJia/ng_sym_diamonds",
             "ui://CaiFuZhiJia/ng_sym_diamonds2",
             "ui://CaiFuZhiJia/ng_sym_diamonds2",

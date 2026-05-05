@@ -42,6 +42,15 @@ namespace CaiFuZhiJia_3997
         private GameObject _cloneDiamondAnimationObj = null;
         private GComponent _compareDiamondAnimationGCom = null;
 
+        // ========== 新增：记录原始父节点，用于还原 ==========
+        private Transform _jackpotResultButtonOriginalParent = null;
+        private Vector3 _jackpotResultButtonOriginalPos;
+        private Vector3 _jackpotResultButtonOriginalScale;
+        private Transform _jackpotResultScoreOriginalParent = null;
+        private Vector3 _jackpotResultScoreOriginalPos;
+        private Vector3 _jackpotResultScoreOriginalScale;
+        // ========== 新增结束 ==========
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -58,6 +67,7 @@ namespace CaiFuZhiJia_3997
             if (!isOpen) return;
 
             BindPrefabsToUI();
+            BindUIToAnimator();
             ShowEffectAndSpine();
         }
 
@@ -181,10 +191,14 @@ namespace CaiFuZhiJia_3997
                 _cloneDiamondSpineObj.SetActive(true);
                 _cloneDiamondBgEffectObj.SetActive(true);
                 Timers.inst.Add(3, 1, (obj) => _cloneDiamondSpineObj.SetActive(false));
+                Timers.inst.Add(5, 1, (obj) =>
+                {
+                    PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPopupJackpotGame);
+                    PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPageGameMain); 
+                });
                 Timers.inst.Add(7, 1, (obj) =>
                 {
                     CloseSelf(null);
-                    PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPopupJackpotGame);
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
                     ContentModel.Instance.totalBonusReward = 0;
                 });
@@ -203,8 +217,109 @@ namespace CaiFuZhiJia_3997
             }
         }
 
+        // private void BindUIToAnimator()
+        // {
+        //     //fgui放入ugui
+        //     string parentPath = $"Anchor/sg_pop_settlement/Animation/btn";
+        //     Transform num01 = _cloneDiamondAnimationObj.transform.Find(parentPath);
+        //     GObject gObject = contentPane.GetChild("jackpotResultTipWindow").asCom.GetChild("jackpotResultButton");
+        //     if (gObject?.displayObject?.gameObject != null)
+        //     {
+        //         Transform t = gObject.displayObject.gameObject.transform;
+        //         t.SetParent(num01, false);
+        //         t.localPosition = new Vector3(-1.76f, 0.34f, 0);
+        //         //t.localRotation = Quaternion.identity;
+        //         t.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+        //     }
+        //
+        //     parentPath = $"Anchor/sg_pop_settlement/Animation/numdi";
+        //     gObject = contentPane.GetChild("jackpotResultTipWindow").asCom.GetChild("jackpotResultScore").asCom;
+        //     num01 = _cloneDiamondAnimationObj.transform.Find(parentPath);
+        //     if (gObject?.displayObject?.gameObject != null)
+        //     {
+        //         Transform t = gObject.displayObject.gameObject.transform;
+        //         t.SetParent(num01, false);
+        //         t.localPosition = new Vector3(-2.83f, 0.01f, 0);
+        //         //t.localRotation = Quaternion.identity;
+        //         t.localScale = new Vector3(0.005f, 0.005f, 0.01f);
+        //     }
+        // }
+
+        private void BindUIToAnimator()
+        {
+            // ========== 修改：绑定前先记录原始状态，方便后续还原 ==========
+
+            // jackpotResultButton 按钮
+            string parentPath = $"Anchor/sg_pop_settlement/Animation/btn";
+            Transform num01 = _cloneDiamondAnimationObj.transform.Find(parentPath);
+            GObject gObject = contentPane.GetChild("jackpotResultTipWindow").asCom.GetChild("jackpotResultButton");
+            if (gObject?.displayObject?.gameObject != null)
+            {
+                Transform t = gObject.displayObject.gameObject.transform;
+
+                if (_jackpotResultButtonOriginalParent == null)
+                {
+                    _jackpotResultButtonOriginalParent = t.parent;
+                    _jackpotResultButtonOriginalPos = t.localPosition;
+                    _jackpotResultButtonOriginalScale = t.localScale;
+                }
+
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(-1.76f, 0.34f, 0);
+                t.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+            }
+
+            // jackpotResultScore 分数
+            parentPath = $"Anchor/sg_pop_settlement/Animation/numdi";
+            num01 = _cloneDiamondAnimationObj.transform.Find(parentPath);
+            gObject = contentPane.GetChild("jackpotResultTipWindow").asCom.GetChild("jackpotResultScore").asCom;
+            if (gObject?.displayObject?.gameObject != null)
+            {
+                Transform t = gObject.displayObject.gameObject.transform;
+
+                if (_jackpotResultScoreOriginalParent == null)
+                {
+                    _jackpotResultScoreOriginalParent = t.parent;
+                    _jackpotResultScoreOriginalPos = t.localPosition;
+                    _jackpotResultScoreOriginalScale = t.localScale;
+                }
+
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(-2.83f, 0.01f, 0);
+                t.localScale = new Vector3(0.005f, 0.005f, 0.01f);
+            }
+        }
+
+        // ========== 新增：还原 FGUI UI 元素到原始父节点 ==========
+        private void RestoreUIElements()
+        {
+            if (contentPane == null) return;
+            var jackpotResultTipWindow = contentPane.GetChild("jackpotResultTipWindow")?.asCom;
+            if (jackpotResultTipWindow == null) return;
+
+            GObject gObject = jackpotResultTipWindow.GetChild("jackpotResultButton");
+            if (gObject?.displayObject?.gameObject != null && _jackpotResultButtonOriginalParent != null)
+            {
+                Transform t = gObject.displayObject.gameObject.transform;
+                t.SetParent(_jackpotResultButtonOriginalParent, false);
+                t.localPosition = _jackpotResultButtonOriginalPos;
+                t.localScale = _jackpotResultButtonOriginalScale;
+            }
+
+            gObject = jackpotResultTipWindow.GetChild("jackpotResultScore")?.asCom;
+            if (gObject?.displayObject?.gameObject != null && _jackpotResultScoreOriginalParent != null)
+            {
+                Transform t = gObject.displayObject.gameObject.transform;
+                t.SetParent(_jackpotResultScoreOriginalParent, false);
+                t.localPosition = _jackpotResultScoreOriginalPos;
+                t.localScale = _jackpotResultScoreOriginalScale;
+            }
+        }
+        // ========== 新增结束 ==========
+
         private void ResetView()
         {
+            RestoreUIElements();
             _jackpotResultTipWindow.visible = true;
 
             GameCommon.FguiUtils.DeleteWrapper(_compareDiamondSpineGCom);

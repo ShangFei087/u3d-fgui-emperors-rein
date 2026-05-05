@@ -24,6 +24,10 @@ namespace SlotMaker
         public const string ReelOneStep = "ReelOneStep";  //ReelOneStep  value = 0
         /// <summary> 已经停止某个滚轮的转动 - value : int </summary>
         public const string PrepareStoppedReel = "PrepareStoppedReel";  //PrepareStoppedReel  value = 0
+        /// <summary> 单列停稳播滚轮停止音（与 PrepareStoppedReel 分离，避免与缓动 UI 耦合）- value : int 0-based 列 </summary>
+        public const string ReelColumnStopSound = "ReelColumnStopSound";
+        /// <summary> 单列停稳后播 Scatter/Bonus 列停音效，value：<see cref="ScatterBonusColumnStopPayload"/>（仅标量，勿携带 Reel，避免 EventCenter 调试序列化 Unity 对象）。 </summary>
+        public const string ScatterBonusColumnStopSound = "ScatterBonusColumnStopSound";
         /// <summary> 开启某列的特效 - value : int </summary>
         public const string BeginExpectation = "BeginExpectation"; // name = BeginExpectation  value = 3
         /// <summary> 关闭某列的特效 - </summary>
@@ -78,9 +82,45 @@ namespace SlotMaker
         public const string Win = "Win";
         #endregion
 
+        #region 音效总线（ON_AUDIO_EVENT，EventData.name 为下列子常量）
+
+        /// <summary> 仅音效 / 音乐子事件（与 <see cref="ON_SLOT_EVENT"/>、<see cref="ON_WIN_EVENT"/> 等协议总线分离）。 </summary>
+        public const string ON_AUDIO_EVENT = "ON_AUDIO_EVENT";
+
+        /// <summary> 进入或退出免费游戏过场 </summary>
+        public const string FreeGameFadeTransition = "FreeGameFadeTransition";
+        /// <summary> 进入或退出彩金 / Bonus 小游戏过场 </summary>
+        public const string BonusGameFadeTransition = "BonusGameFadeTransition";
+        /// <summary> 免费触发或结算弹窗出现 </summary>
+        public const string FreeSpinPopupAppear = "FreeSpinPopupAppear";
+        /// <summary> 免费触发或结算弹窗关闭过程 </summary>
+        public const string FreeSpinPopupDisappear = "FreeSpinPopupDisappear";
+        /// <summary> 免费触发弹窗 START 按钮就绪 </summary>
+        public const string FreeSpinStartButtonShown = "FreeSpinStartButtonShown";
+
+        /// <summary> JACKPOT 提示框出现 </summary>
+        public const string JackpotPopupAppear = "JackpotPopupAppear";
+        /// <summary> JACKPOT 提示框关闭 </summary>
+        public const string JackpotPopupDisappear = "JackpotPopupDisappear";
+        /// <summary> Bonus 游戏提示框、结算框出现 </summary>
+        public const string BonusPopupAppear = "BonusPopupAppear";
+        /// <summary> Bonus 奖出现框 START </summary>
+        public const string BonusStartBtn = "BonusStartBtn";
+        /// <summary> Bonus 游戏提示框、结算框消失 </summary>
+        public const string BonusPopupDisappear = "BonusPopupDisappear";
+        /// <summary> Bonus 奖结算框 COLLECT </summary>
+        public const string BonusCollectBtn = "BonusCollectBtn";
+
+        /// <summary> Scatter 期望加速框（蓝色） </summary>
+        public const string FreeRollingBox = "FreeRollingBox";
+        /// <summary> Bonus 期望加速框（金色） </summary>
+        public const string BonusRollingBox = "BonusRollingBox";
+
+        #endregion
 
         #region 拉霸机数据状态
 
+        /// <summary> 内容层事件（FSM、小游戏衔接如 BeginBonus 等）。 </summary>
         public const string ON_CONTENT_EVENT = "ON_CONTENT_EVENT";
 
         /// <summary> 开始新的一局游戏 </summary>
@@ -108,6 +148,14 @@ namespace SlotMaker
         */
         #endregion
 
+    }
+
+    /// <summary> <see cref="SlotMachineEvent.ScatterBonusColumnStopSound"/> 携带列号与可视区检测结果（勿含 ReelBase 等 Unity 引用，否则 EventCenter 调试序列化会遍历材质）。 </summary>
+    public struct ScatterBonusColumnStopPayload
+    {
+        public int column0Based;
+        public bool hasScatter;
+        public bool hasBonus;
     }
 
     public class MetaUIEvent

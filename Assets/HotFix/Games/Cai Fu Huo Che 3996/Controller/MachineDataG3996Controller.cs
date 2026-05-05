@@ -393,7 +393,7 @@ namespace CaiFuHuoChe_3996
 
                 ContentModel.Instance.curReelStripsIndex = "FS";
                 ContentModel.Instance.freeSpinPlayTimes += 1;
-
+               
                 if (ContentModel.Instance.freeSpinTotalTimes == ContentModel.Instance.freeSpinPlayTimes)
                 {
                     ContentModel.Instance.nextReelStripsIndex = "BS";

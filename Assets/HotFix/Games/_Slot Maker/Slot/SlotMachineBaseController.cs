@@ -571,8 +571,8 @@ namespace SlotMaker
         }
 
 
-        public void BeginBonusFreeSpin() => BeginBonus("FreeSpin");
-        public void EndBonusFreeSpin() => EndBonus("FreeSpin");
+        public void BeginBonusFreeSpin() => BeginBonus("BeginBonusFreeSpin");
+        public void EndBonusFreeSpin() => EndBonus("EndBonusFreeSpin");
 
 
         public void BeginBonusFreeSpinAdd() => BeginBonus("FreeSpinAdd");
