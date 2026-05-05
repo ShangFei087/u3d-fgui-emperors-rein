@@ -17,7 +17,8 @@ namespace CaiFuZhiJia_3997
         Normal,
         FreeSpin,
         Bonus, // cwy 新增
-        Jackpot // cwy 新增
+        Jackpot, // cwy 新增
+        BigWin // cwy 新增
     };
 
     public class MachineDataController3997 : MonoSingleton<MachineDataController3997>
@@ -51,6 +52,14 @@ namespace CaiFuZhiJia_3997
                         new string[]
                         {
                             "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bonus_0.json"
+                        },
+                    },
+                [SpinDataType.BigWin] =
+                    new List<string[]>()
+                    {
+                        new string[]
+                        {
+                            "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bigwin.json"
                         },
                     },
                 [SpinDataType.Jackpot] =
@@ -140,6 +149,8 @@ namespace CaiFuZhiJia_3997
             int lineWin = 0;
             List<SymbolWin> winList = new List<SymbolWin>();
             JackpotRes jpGameRes = new JackpotRes();
+
+            ContentModel.Instance.baseGameWinCredit = totalwin;// 主要用作BigWin计算
 
             //判断普通奖
             for (int row = 0; row < rows; row++)
@@ -480,6 +491,9 @@ namespace CaiFuZhiJia_3997
                     break;
                 case GlobalEvent.GMJp1:
                     _nextSpin = SpinDataType.Jackpot;
+                    break;
+                case GlobalEvent.GMBigWin:
+                    _nextSpin = SpinDataType.BigWin;
                     break;
             }
         }
