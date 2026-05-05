@@ -59,6 +59,11 @@ namespace CaiFuZhiJia_3997
         /// <summary>是否开启自动</summary>
         public bool isAuto { get; set; }
 
+        /// <summary>
+        /// 关闭bigwin界面的标识
+        /// </summary>
+        public bool isCloseOverWinPanel;
+
         /// <summary>是否是免费旋转</summary>
         public bool isFreeSpin { get; set; }
 
