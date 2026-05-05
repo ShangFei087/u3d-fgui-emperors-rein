@@ -763,15 +763,19 @@ namespace CaiFuZhiJia_3997
 
             if (isInFreeSpin)
             {
-                calcTotalWin = calcTotalWin * MainModel.Instance.contentMD.betmultiple *
-                               ContentModel.Instance.freeGameScoreMultiply;
+                // calcTotalWin = calcTotalWin * MainModel.Instance.contentMD.betmultiple *
+                //                ContentModel.Instance.freeGameScoreMultiply;
+                
+                calcTotalWin = calcTotalWin * ContentModel.Instance.freeGameScoreMultiply;
             }
 
             int diff = Math.Abs(calcTotalWin - TotalWin); // 计算本地校验值与算法差值
             if (diff != 0)
             {
+                // DebugUtils.LogError(
+                //     $"[G3997][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}，正常倍率是={MainModel.Instance.contentMD.betmultiple}，免费额外倍率是={ContentModel.Instance.freeGameScoreMultiply}");
                 DebugUtils.LogError(
-                    $"[G3997][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}，正常倍率是={MainModel.Instance.contentMD.betmultiple}，免费额外倍率是={ContentModel.Instance.freeGameScoreMultiply}");
+                    $"[G3997][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}，免费额外倍率是={ContentModel.Instance.freeGameScoreMultiply}");
             }
             else
             {
