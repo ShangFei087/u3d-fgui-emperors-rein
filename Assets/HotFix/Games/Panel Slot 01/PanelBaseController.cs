@@ -1,16 +1,11 @@
 using FairyGUI;
 using GameMaker;
-using Newtonsoft.Json;
 using PusherEmperorsRein;
 using SBoxApi;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using TestHall;
 using UnityEngine;
-using static NetButtonManager;
 using SoundKey = GameMaker.SoundKey;
-
 
 enum PopState
 {
@@ -774,18 +769,19 @@ namespace SlotMaker
         public virtual void OnContentChang(EventData res = null)
         {
             if (res == null) return;
-
-            string name = res.name;
-            switch (name)
+            if (res.value == null) return;
+           string value = res.value.ToString();
+           
+            switch (value)
             {
-                case "BeginBonus":
+                case "BeginBonusFreeSpin":
                     {
                         SetExhibitionUIState(false);
                         SetBetUIState(false);
                     }
                     break;
 
-                case "EndBonus":
+                case "EndBonusFreeSpin":
                     {
                         SetExhibitionUIState(true);
                         SetBetUIState(true);
