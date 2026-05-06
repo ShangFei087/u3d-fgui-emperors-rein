@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using SlotMaker;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,6 +56,8 @@ namespace CaiFuZhiJia_3997
         private Vector3 _freeStartBtnOriginalPos;
         private Vector3 _freeStartBtnOriginalScale;
         // ========== 新增结束 ==========
+        
+        private GameSoundController3997 _gameSoundController;
 
         protected override void OnInit()
         {
@@ -84,13 +87,19 @@ namespace CaiFuZhiJia_3997
             _freeTipWindow = contentPane.GetChild("freeTipWindow").asCom;
             _freeTipWindow.visible = false;
             _freeStartBtn = _freeTipWindow.GetChild("freeStartBtn").asButton;
-
+            _gameSoundController = new GameSoundController3997();
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(Game3997AudioEvent.BgmFreeSpinTrigger));
             InitParam();
         }
 
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
+            // EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+            //     new EventData(Game3997AudioEvent.BgmRegularGame));
+            _gameSoundController?.Dispose();
+            _gameSoundController = null;
             ResetView();
         }
 
@@ -327,6 +336,8 @@ namespace CaiFuZhiJia_3997
                     // 新增测试
                     // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupFreeSpinResult);
                 });
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                    new EventData(SlotMachineEvent.FreeGameFadeTransition));
             }));
 
             if (TestManager.Instance.IsAutoModeRunning)

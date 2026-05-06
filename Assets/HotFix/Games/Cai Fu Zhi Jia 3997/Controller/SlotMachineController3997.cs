@@ -348,6 +348,17 @@ namespace CaiFuZhiJia_3997
                     reelIdx * _reelSetMD.Instance.GetNumReelTurnGap(reelIdx) + extraReelTimes * extraReelTimesReel,
                     () =>
                     {
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+                            new EventData<int>(SlotMachineEvent.ReelColumnStopSound, _reelIdx));
+                        ComputeScatterBonusColumnStopFlags(reels[_reelIdx], _reelIdx, out bool scatterCol, out bool bonusCol);
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+                            new EventData<ScatterBonusColumnStopPayload>(SlotMachineEvent.ScatterBonusColumnStopSound,
+                                new ScatterBonusColumnStopPayload
+                                {
+                                    column0Based = _reelIdx,
+                                    hasScatter = scatterCol,
+                                    hasBonus = bonusCol,
+                                }));
                         if (isTrriger)
                         {
                             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
@@ -372,6 +383,110 @@ namespace CaiFuZhiJia_3997
 
             EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_SLOT_EVENT,
                 new EventData(SlotMachineEvent.StoppedSlotMachine));
+        }
+        
+          /// <summary>
+        /// 已滚动的滚轮立马停止、未滚动的滚轮滚动一次
+        /// </summary>
+        /// <param name="finishCallback"></param>
+        /// <returns></returns>
+        public new IEnumerator ReelsToStopOrTurnOnce(Action finishCallback)
+        {
+
+            // EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_EVENT,
+            //    new EventData(SlotMachineEvent.SpinSlotMachine));
+
+            int reelsCount = this.column;
+
+            bool isNext = false;
+
+            for (int reelIdx = 0; reelIdx < this.column; reelIdx++)
+            {
+                if (reels[reelIdx].state == ReelState.EndStop)
+                {
+                    reelsCount--;
+                    continue;
+                }
+
+                if (reels[reelIdx].state == ReelState.Idle)
+                {
+                    if (_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx) > 0)
+                    {
+                        yield return new WaitForSeconds(_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx));
+                    }
+                }
+
+                int _reelIdx = reelIdx;
+
+                reels[reelIdx].ReelToStopOrTurnOnce(
+                    () =>
+                    {
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+                            new EventData<int>(SlotMachineEvent.ReelColumnStopSound, _reelIdx));
+                        ComputeScatterBonusColumnStopFlags(reels[_reelIdx], _reelIdx, out bool scatterCol2, out bool bonusCol2);
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+                            new EventData<ScatterBonusColumnStopPayload>(SlotMachineEvent.ScatterBonusColumnStopSound,
+                                new ScatterBonusColumnStopPayload
+                                {
+                                    column0Based = _reelIdx,
+                                    hasScatter = scatterCol2,
+                                    hasBonus = bonusCol2,
+                                }));
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+                            new EventData<int>(SlotMachineEvent.PrepareStoppedReel, _reelIdx));
+
+                        if (isSymbolAppearEffectWhenReelStop)
+                            ShowReelSymbolAppearEffect(_reelIdx);
+
+                        if (--reelsCount <= 0)
+                        {
+                            isNext = true;
+                        }
+
+                    }
+                );
+            }
+
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+
+
+            foreach (ReelBase reel in reels)
+            {
+                reel.SetReelState(ReelState.Idle);
+            }
+
+
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_EVENT,
+                new EventData(SlotMachineEvent.StoppedSlotMachine));
+
+            finishCallback?.Invoke();
+        }
+        
+        /// <summary> 扫描单列可视区是否含 Scatter/Bonus（symbolNumber[10]/[11]），供 ScatterBonusColumnStopSound 载荷。 </summary>
+        private void ComputeScatterBonusColumnStopFlags(ReelBase reel, int column0Based, out bool hasScatter, out bool hasBonus)
+        {
+            hasScatter = false;
+            hasBonus = false;
+            if (reel?.symbolList == null)
+                return;
+
+            int row = CustomModel.Instance.row;
+            if (column0Based < 0 || column0Based >= CustomModel.Instance.column)
+                return;
+
+            int scatterId = CustomModel.Instance.symbolNumber[10];
+            int bonusId = CustomModel.Instance.symbolNumber[11];
+            for (int i = 2; i < 2 + row; i++)
+            {
+                if (i >= reel.symbolList.Count)
+                    break;
+                int n = reel.symbolList[i].number;
+                if (n == scatterId)
+                    hasScatter = true;
+                if (n == bonusId)
+                    hasBonus = true;
+            }
         }
 
         #endregion

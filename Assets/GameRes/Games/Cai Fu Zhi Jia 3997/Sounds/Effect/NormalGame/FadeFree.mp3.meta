@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8eee9a40731edd74f8f22858edb76e53
+guid: 27ee1be13ea7e6d4184f3cb1d96a1b2f
 AudioImporter:
   externalObjects: {}
   serializedVersion: 6
@@ -18,5 +18,5 @@ AudioImporter:
   ambisonic: 0
   3D: 1
   userData: 
-  assetBundleName: "games/cai fu zhi jia 3997/artres/sounds/music/bonus\u6E38\u620F\u63D0\u793A\u3001\u7ED3\u7B97bgm.unity3d"
+  assetBundleName: games/cai fu zhi jia 3997/sounds/effect/normalgame/fadefree.unity3d
   assetBundleVariant: 

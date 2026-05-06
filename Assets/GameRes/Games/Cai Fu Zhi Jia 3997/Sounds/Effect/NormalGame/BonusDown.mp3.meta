@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6d607c4b6a6436145b18b4205c0e762f
+guid: c5e6464f462908f40816c9c49a4963fa
 AudioImporter:
   externalObjects: {}
   serializedVersion: 6
@@ -18,5 +18,5 @@ AudioImporter:
   ambisonic: 0
   3D: 1
   userData: 
-  assetBundleName: games/cai fu zhi jia 3997/artres/sounds/music/normalbgm.unity3d
+  assetBundleName: games/cai fu zhi jia 3997/sounds/effect/normalgame/bonusdown.unity3d
   assetBundleVariant: 
