@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using GameMaker;
 using System;
 
-namespace SlotZhuZaiJinBi1700
+namespace XingYunZhiLun_3998
 {
     public class GameSoundHelper : SoundHelper
     {

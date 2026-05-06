@@ -67,6 +67,7 @@
     <image id="xiz6akh" name="ng_btn_sub_02.png" path="/images/panel/" exported="true"/>
     <image id="echiaki" name="ng_btn_sub_02.png" path="/images/panel/bet/"/>
     <component id="echiakj" name="UntouchBetButton.xml" path="/moudules/panel/" exported="true"/>
+    <component id="ibv7akm" name="UntouchBetBtn24.xml" path="/moudules/panel/"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Panel\Panel3998\FGUIs" packageCount="2"/>
 </packageDescription>

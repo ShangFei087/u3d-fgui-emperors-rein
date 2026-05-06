@@ -268,7 +268,7 @@ namespace XingYunZhiLun_3998
             yield return new WaitForSeconds(0.5f);
 
             //PlayEffectAnim(effectRaward);
-            yield return new WaitForSeconds(2f);
+            //yield return new WaitForSeconds(2f);
 
             if (successCallback != null)
                 successCallback.Invoke();

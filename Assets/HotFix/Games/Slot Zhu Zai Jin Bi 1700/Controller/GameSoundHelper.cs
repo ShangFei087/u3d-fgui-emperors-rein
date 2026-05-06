@@ -4,7 +4,7 @@ using UnityEngine;
 using GameMaker;
 using System;
 
-namespace XingYunZhiLun_3998
+namespace SlotZhuZaiJinBi1700
 {
     public class GameSoundHelper : SoundHelper
     {
