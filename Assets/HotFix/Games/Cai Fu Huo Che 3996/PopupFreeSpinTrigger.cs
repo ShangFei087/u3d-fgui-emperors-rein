@@ -1,6 +1,5 @@
 using FairyGUI;
 using GameMaker;
-using PusherEmperorsRein;
 using SlotMaker;
 using System;
 using System.Collections;
@@ -60,7 +59,7 @@ namespace CaiFuHuoChe_3996
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
-                        if (PanelController02.isOpenIntroduce == true)
+                        if (PanelBaseController.ShouldBlockPhysicalSpinInput)
                         {
                             return;
                         }

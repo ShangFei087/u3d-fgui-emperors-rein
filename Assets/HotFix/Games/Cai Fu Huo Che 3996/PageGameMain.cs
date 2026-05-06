@@ -96,7 +96,7 @@ namespace CaiFuHuoChe_3996
         private Transform idleEffect1, idleEffect2, idleEffect3, idleEffect4, idleEffect5;
 
         /// <summary>暂时关闭免费火车 idleEffect1~5 粒子；需恢复时改为 false。</summary>
-        private const bool TempDisableFreeTrainIdleParticles = true;
+        private const bool TempDisableFreeTrainIdleParticles = false;
 
         //游戏中的女生
         private GameObject girlPref, girlObj;
@@ -271,7 +271,7 @@ namespace CaiFuHuoChe_3996
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
-                        if (PanelController02.isOpenIntroduce == true)
+                        if (PanelBaseController.ShouldBlockPhysicalSpinInput)
                         {
                             return;
                         }
@@ -286,6 +286,11 @@ namespace CaiFuHuoChe_3996
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
+                        if (PanelBaseController.ShouldBlockPhysicalSpinInput)
+                        {
+                            return;
+                        }
+
                         DebugUtils.LogError("游戏接受到机台长按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, true); // isLongClick
                         CommonPopupHandler.Instance.ClosePopup();
@@ -1585,7 +1590,7 @@ namespace CaiFuHuoChe_3996
             yield return GameFreeSpin(null, errorCallback);
 
             OnGameReset();
-
+            StopAllFreeTrainIdleEffects();
             PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupFreeSpinResult,
                 new EventData<Dictionary<string, object>>("",
                     new Dictionary<string, object>()
@@ -1787,8 +1792,9 @@ namespace CaiFuHuoChe_3996
                 {
                     slotMachineCtrl.CloseSlotCover();
                     slotMachineCtrl.SkipWinLine(true);
+                    StopAllFreeTrainIdleEffects();
                     yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
-
+                    SetFreeTrainState();
                     slotMachineCtrl.ShowSymbolWinDeck(slotMachineCtrl.GetTotalSymbolWin(winList), true);
                 }
             }
@@ -1955,7 +1961,7 @@ namespace CaiFuHuoChe_3996
         IEnumerator BigWinPopup(WinLevelType winLevelType, long winCredit)
         {
             bool isNext = false;
-            PageManager.Instance.OpenPage(PageName.CaiFuHuoChePopupBigWin,
+            PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupBigWin,
                 new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
                 {
                     ["baseGameWinCredit"] = winCredit, //ContentModel.Instance.baseGameWinCredit,
@@ -2412,7 +2418,7 @@ namespace CaiFuHuoChe_3996
         {
             ParticleSystem particle = effect.GetComponent<ParticleSystem>();
             particle.Stop(true);
-
+            particle.Clear();
             // 递归播放所有子物体的粒子系统
             foreach (Transform child in effect)
             {
@@ -2429,7 +2435,6 @@ namespace CaiFuHuoChe_3996
                 StopEffectAnim(child);
             }
         }
-
 
 
         IEnumerator JackpotRequestSlotSpinFromMock(Action successCallback = null, Action<string> errorCallback = null)
