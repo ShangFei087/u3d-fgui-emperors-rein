@@ -55,6 +55,7 @@ namespace CaiFuZhiJia_3997
         private GComponent _compareFrameLoss;
         private GameObject _frameLossObj, _cloneFrameLossObj;
 
+        // private PanelController3997 _panelController3997;
 
         // Fairy GUI
         private readonly List<GComponent> _rollReels = new List<GComponent>();
@@ -79,6 +80,8 @@ namespace CaiFuZhiJia_3997
             _singleReelControllers = new List<SingleReelController>(); // 所有滚轮控制器
 
         private readonly List<Transform> _effects = new List<Transform>(); // 钻石在彩金游戏结束之后的结算特效
+
+        private GameSoundController3997 _gameSoundController;
 
         /// <summary>
         /// 每个滚轴的旋转速度
@@ -124,19 +127,31 @@ namespace CaiFuZhiJia_3997
         public override void InitParam()
         {
             if (!_isInitialized) return;
-
-
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
+
+
+            // // 加载Panel面板
+            // _gOwnerPanel = contentPane.GetChild("panel").asCom;
+            // // _gOwnerPanel.GetChild("icon").asCom.GetChild("ExhibitionPanel").asCom.visible = false;
+            // MainModel.Instance.contentMD = ContentModel.Instance;
+            // MainModel.Instance.cutomMD = CustomModel.Instance;
+            // ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
+            // MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
+            // EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
+            //     new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
+
+            // _slotMachineController.BeginBonusFreeSpin();
 
             // if (_isReady) return;
             // _isReady = true;
             // 加载Panel面板
             ContentModel.Instance.isSpin = false;
             ContentModel.Instance.remainPlaySpins = 1;
-            
+
             // 加载Panel面板
             _gOwnerPanel = contentPane.GetChild("panel").asCom;
+            // _gOwnerPanel.GetChild("icon").asCom.GetChild("ExhibitionPanel").asCom.visible = false;
             MainModel.Instance.contentMD = ContentModel.Instance;
             MainModel.Instance.cutomMD = CustomModel.Instance;
             ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
@@ -149,7 +164,7 @@ namespace CaiFuZhiJia_3997
                 SingleReelController testReelController = new SingleReelController(_rollReels[i], i);
                 _singleReelControllers.Add(testReelController);
             }
-
+            
             GetRewardBet();
             _bonusIsNotZeroList = _rollRewardList
                 .Select((value, index) => new { value, index })
@@ -159,41 +174,96 @@ namespace CaiFuZhiJia_3997
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             BindPrefabsToUI();
             Timers.inst.Add(2, 1, (obj) => _cloneFrameLossObj.SetActive(false));
-
-
+            
+            
             //彩金
             uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("jpMajor").asCom.GetChild("n1").asList, "N0");
             uiJPMinorCtrl.Init("Minor", this.contentPane.GetChild("jpMinor").asCom.GetChild("n1").asList, "N0");
             uiJPMiniCtrl.Init("Mini", this.contentPane.GetChild("jpMini").asCom.GetChild("n1").asList, "N0");
-
+            
             uiJPMajorCtrl.SetReelWidth(30);
             uiJPMinorCtrl.SetReelWidth(30);
             uiJPMiniCtrl.SetReelWidth(30);
-
+            
             uiJPMajorCtrl.SetData(ContentModel.Instance.uiMajorJP.nowCredit);
             uiJPMinorCtrl.SetData(ContentModel.Instance.uiMinorJP.nowCredit);
             uiJPMiniCtrl.SetData(ContentModel.Instance.uiMiniJP.nowCredit);
+
+            // preLoadedCallback?.Invoke();
+            // if (!isOpen) return;
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
-
             if (_monoHelper == null)
                 _monoHelper = GameObject.Find("Slot Game Main Controller 3997").GetComponent<MonoHelper>();
             if (_slotMachineController == null)
-                _slotMachineController =
-                    GameObject.Find("Slot Game Main Controller 3997")
-                        .GetComponentInChildren<SlotMachineController3997>();
-            GameSoundHelper3997.Instance.PlayMusicSingle(SoundKey.JackpotBG);
+            {
+                _slotMachineController = GameObject.Find("Slot Game Main Controller 3997")
+                    .GetComponentInChildren<SlotMachineController3997>();
+            }
+
+            // if (_panelController3997 == null)
+            // {
+            //     _panelController3997 = GameObject.Find("Slot Game Main Controller 3997")
+            //         .GetComponentInChildren<PanelController3997>();
+            // }
+
+
+            // GameSoundHelper3997.Instance.PlayMusicSingle(SoundKey.JackpotBG);
+            _gameSoundController = new GameSoundController3997();
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(Game3997AudioEvent.BgmBonusGame));
             InitParam();
+            // _panelController3997.SetExhibitionUIState(false);
+
+            // _gOwnerPanel.GetChild("icon").asCom.GetChild("ExhibitionPanel").asCom.visible = false;
+
+            #region 原InitParam
+
+            // for (int i = 0; i < _canSpinReelIndexList.Count; i++)
+            // {
+            //     SingleReelController testReelController = new SingleReelController(_rollReels[i], i);
+            //     _singleReelControllers.Add(testReelController);
+            // }
+            //
+            // GetRewardBet();
+            // _bonusIsNotZeroList = _rollRewardList
+            //     .Select((value, index) => new { value, index })
+            //     .Where(item => item.value != "0")
+            //     .Select(item => item.index)
+            //     .ToList();
+            // ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            // BindPrefabsToUI();
+            // Timers.inst.Add(2, 1, (obj) => _cloneFrameLossObj.SetActive(false));
+            //
+            //
+            // //彩金
+            // uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("jpMajor").asCom.GetChild("n1").asList, "N0");
+            // uiJPMinorCtrl.Init("Minor", this.contentPane.GetChild("jpMinor").asCom.GetChild("n1").asList, "N0");
+            // uiJPMiniCtrl.Init("Mini", this.contentPane.GetChild("jpMini").asCom.GetChild("n1").asList, "N0");
+            //
+            // uiJPMajorCtrl.SetReelWidth(30);
+            // uiJPMinorCtrl.SetReelWidth(30);
+            // uiJPMiniCtrl.SetReelWidth(30);
+            //
+            // uiJPMajorCtrl.SetData(ContentModel.Instance.uiMajorJP.nowCredit);
+            // uiJPMinorCtrl.SetData(ContentModel.Instance.uiMinorJP.nowCredit);
+            // uiJPMiniCtrl.SetData(ContentModel.Instance.uiMiniJP.nowCredit);
+
+            #endregion
+            _slotMachineController.BeginBonusFreeSpin();
+
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
         }
 
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
-            GameSoundHelper3997.Instance.StopSound(SoundKey.JackpotBG);
+            // GameSoundHelper3997.Instance.StopSound(SoundKey.JackpotBG);
+            _gameSoundController?.Dispose();
+            _gameSoundController = null;
             ResetView();
             // _isReady = false;
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
@@ -347,7 +417,7 @@ namespace CaiFuZhiJia_3997
         {
             if (_isStart) return;
             _isStart = true;
-            ContentModel.Instance.btnSpinState = SpinButtonState.Hui;
+            ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
             _monoHelper.StartCoroutine(PlayMultipleRounds());
         }
 
@@ -488,7 +558,7 @@ namespace CaiFuZhiJia_3997
                 yield return _monoHelper.StartCoroutine(ProcessSingleResult(index));
             }
 
-            PlayAnimationByName(_npcAnimator,"Wealth_sg_npc_settlement3");
+            PlayAnimationByName(_npcAnimator, "Wealth_sg_npc_settlement3");
             yield return new WaitForSeconds(2f);
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotResult);
@@ -556,7 +626,7 @@ namespace CaiFuZhiJia_3997
                 if (_rollRewardList != null)
                 {
                     ContentModel.Instance.totalBonusReward += long.Parse(_rollRewardList[index]);
-                    _slotMachineController.SendTotalWinCreditEvent(ContentModel.Instance.totalBonusReward);
+                    _slotMachineController.SendTotalWinCreditEvent(ContentModel.Instance.totalBonusReward); // 显示在UI上面
                 }
             }
         }
@@ -786,6 +856,7 @@ namespace CaiFuZhiJia_3997
 
             _monoHelper = null;
             _slotMachineController = null;
+            // _panelController3997 = null;
 
             _gOwnerPanel = null;
 

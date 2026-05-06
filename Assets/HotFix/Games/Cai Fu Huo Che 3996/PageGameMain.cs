@@ -71,7 +71,7 @@ namespace CaiFuHuoChe_3996
 
         //免费游戏以及彩金游戏中特殊奖时特效
         private GameObject goRewardEffect;
-        private GComponent anchorFreeAdd, anchorJackpotAdd,anchorFill1, anchorFill2, anchorFill3, anchorFill4, ComRewardEffect1, ComRewardEffect2, ComRewardEffect3;
+        private GComponent anchorFreeAdd, anchorJackpotAdd, anchorFill1, anchorFill2, anchorFill3, anchorFill4, ComRewardEffect1, ComRewardEffect2, ComRewardEffect3;
 
         //正常游戏和彩金游戏和免费游戏之间转场火车开门时特效
         private GameObject goOpenEffect;
@@ -91,12 +91,12 @@ namespace CaiFuHuoChe_3996
 
         //免费游戏火车
         private GameObject freeTrainPref, freeTrainObj;
-        private GComponent freeAnchor; 
+        private GComponent freeAnchor;
         private Animator freeTrainAnim;
         private Transform idleEffect1, idleEffect2, idleEffect3, idleEffect4, idleEffect5;
 
         /// <summary>暂时关闭免费火车 idleEffect1~5 粒子；需恢复时改为 false。</summary>
-        private const bool TempDisableFreeTrainIdleParticles = true;
+        private const bool TempDisableFreeTrainIdleParticles = false;
 
         //游戏中的女生
         private GameObject girlPref, girlObj;
@@ -129,7 +129,7 @@ namespace CaiFuHuoChe_3996
         /// <summary>
         /// 彩金游戏当中判断是否前面已经出现过彩金图标判断是否需要播放鼓掌动画
         /// </summary>
-        private bool showClawAnim = false;  
+        private bool showClawAnim = false;
 
         private bool isConnectFreeSpin = false;
 
@@ -172,6 +172,8 @@ namespace CaiFuHuoChe_3996
             {
                 if (goGameCtrl != null) //防止重复加载
                 {
+                    // 仍须计入 callback，否则异步重复回调会导致 count 无法归零、InitParam 永不执行
+                    callback();
                     return;
                 }
                 goGameCtrl = GameObject.Instantiate(clone);
@@ -190,8 +192,8 @@ namespace CaiFuHuoChe_3996
             "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PageGameMain/Train.prefab",
             (GameObject clone) =>
             {
-                 goTrain = clone;
-                 callback();
+                goTrain = clone;
+                callback();
             });
 
             ResourceManager02.Instance.LoadAsset<GameObject>(
@@ -271,7 +273,7 @@ namespace CaiFuHuoChe_3996
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
-                        if (PanelController02.isOpenIntroduce == true)
+                        if (PanelBaseController.ShouldBlockPhysicalSpinInput)
                         {
                             return;
                         }
@@ -286,6 +288,11 @@ namespace CaiFuHuoChe_3996
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
+                        if (PanelBaseController.ShouldBlockPhysicalSpinInput)
+                        {
+                            return;
+                        }
+
                         DebugUtils.LogError("游戏接受到机台长按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, true); // isLongClick
                         CommonPopupHandler.Instance.ClosePopup();
@@ -443,6 +450,7 @@ namespace CaiFuHuoChe_3996
             if (isReady) return;
             isReady = true;
 
+
             //对象池初始化
             if (fguiPoolHelper != null && isInitPool == false)
             {
@@ -473,7 +481,7 @@ namespace CaiFuHuoChe_3996
                 ComReelEffect2.Dispose();
             }
 
-            if(ComReelEffect3 != null)
+            if (ComReelEffect3 != null)
             {
                 ComReelEffect3.Dispose();
             }
@@ -505,7 +513,7 @@ namespace CaiFuHuoChe_3996
             GameCommon.FguiUtils.AddWrapper(ComRewardEffect1, GameObject.Instantiate(goRewardEffect));
             GameCommon.FguiUtils.AddWrapper(ComRewardEffect2, GameObject.Instantiate(goRewardEffect));
             GameCommon.FguiUtils.AddWrapper(ComRewardEffect3, GameObject.Instantiate(goRewardEffect));
-            ComRewardEffect1.visible = false; 
+            ComRewardEffect1.visible = false;
             ComRewardEffect2.visible = false;
             ComRewardEffect3.visible = false;
             anchorFreeAdd = contentPane.GetChild("freeAddPoint").asCom;
@@ -520,7 +528,7 @@ namespace CaiFuHuoChe_3996
             anchorFreeAdd.visible = true;
 
             GComponent loadTrain = contentPane.GetChild("anchorTrain").asCom;
-            if(gTrain != loadTrain)
+            if (gTrain != loadTrain)
             {
                 GameCommon.FguiUtils.DeleteWrapper(gTrain);
                 gTrain = loadTrain;
@@ -530,7 +538,7 @@ namespace CaiFuHuoChe_3996
             }
 
             GComponent loadFreeTrain = contentPane.GetChild("anchorFreeTrain").asCom;
-            if(freeAnchor != loadFreeTrain)
+            if (freeAnchor != loadFreeTrain)
             {
                 GameCommon.FguiUtils.DeleteWrapper(freeAnchor);
                 freeAnchor = loadFreeTrain;
@@ -545,7 +553,7 @@ namespace CaiFuHuoChe_3996
             }
 
             GComponent loadGirl = contentPane.GetChild("anchorGirl").asCom;
-            if(anchorGirl != loadGirl)
+            if (anchorGirl != loadGirl)
             {
                 GameCommon.FguiUtils.DeleteWrapper(anchorGirl);
                 anchorGirl = loadGirl;
@@ -611,7 +619,7 @@ namespace CaiFuHuoChe_3996
             ReadJsonBet();
 
             // 玩家积分初始化
-           
+
             foreach (SBoxPlayerScoreInfo item in SBoxIdea.SBoxInfo.PlayerScoreInfoList)
             {
                 if (item.PlayerId == 0)
@@ -708,6 +716,7 @@ namespace CaiFuHuoChe_3996
                 });
             }
 
+            preLoadedCallback?.Invoke();
         }
 
 
@@ -796,32 +805,32 @@ namespace CaiFuHuoChe_3996
             //    SkipAddMult(tempResult[col].Count * 0.25f);
             //    return;
             //}
-            
+
             switch (res.name)
             {
                 case "FreeRewardEffect":
-                    foreach(int row in tempResult[col])
+                    foreach (int row in tempResult[col])
                     {
                         mono.StartCoroutine(ShowRewardEffect(col, row, anchorFreeAdd, () =>
                         {
                             #region 免费游戏中，添加额外免费游戏
 
-                                slotMachineCtrl.BeginBonusFreeSpinAdd();
+                            slotMachineCtrl.BeginBonusFreeSpinAdd();
 
-                                // 【待修改】重置剩余的局数 
-                                ContentModel.Instance.showFreeSpinRemainTime =
-                                    ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes;
+                            // 【待修改】重置剩余的局数 
+                            ContentModel.Instance.showFreeSpinRemainTime =
+                                ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes;
 
-                                ContentModel.Instance.freeSpinTotalTimes ++;
-                                if (ContentModel.Instance.nextReelStripsIndex == "BS")
-                                {
-                                    ContentModel.Instance.nextReelStripsIndex = "FS";
-                                    ContentModel.Instance.isFreeSpinResult = false;
-                                }
+                            ContentModel.Instance.freeSpinTotalTimes++;
+                            if (ContentModel.Instance.nextReelStripsIndex == "BS")
+                            {
+                                ContentModel.Instance.nextReelStripsIndex = "FS";
+                                ContentModel.Instance.isFreeSpinResult = false;
+                            }
 
-                                freeTotalTimes.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
+                            freeTotalTimes.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
 
-                                slotMachineCtrl.EndBonusFreeSpinAdd();
+                            slotMachineCtrl.EndBonusFreeSpinAdd();
 
                             #endregion
                         }));
@@ -830,19 +839,19 @@ namespace CaiFuHuoChe_3996
                 case "MultRewardEffect":
                     foreach (int row in tempResult[col])
                     {
-                        if(fill1.fillAmount != 1)
+                        if (fill1.fillAmount != 1)
                         {
                             mono.StartCoroutine(ShowRewardEffect(col, row, anchorFill1));
                         }
-                        else if(fill2.fillAmount != 1)
+                        else if (fill2.fillAmount != 1)
                         {
                             mono.StartCoroutine(ShowRewardEffect(col, row, anchorFill2));
                         }
-                        else if(fill3.fillAmount != 1)
+                        else if (fill3.fillAmount != 1)
                         {
                             mono.StartCoroutine(ShowRewardEffect(col, row, anchorFill3));
                         }
-                        else if(fill4.fillAmount != 1)
+                        else if (fill4.fillAmount != 1)
                         {
                             mono.StartCoroutine(ShowRewardEffect(col, row, anchorFill4));
                         }
@@ -865,7 +874,7 @@ namespace CaiFuHuoChe_3996
             float temp = 0;
             if (fill1.fillAmount != 1)
             {
-                if(fill1.fillAmount + value <= 0.95f)
+                if (fill1.fillAmount + value <= 0.95f)
                 {
                     fill1.fillAmount += value;
                     EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
@@ -878,7 +887,7 @@ namespace CaiFuHuoChe_3996
                     EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                         new EventData<int>(Game3996AudioEvent.FreeSpinMeterSound, 1));
                     SetFreeTrainState();
-                    if(value + temp - 1 > 0) SkipAddMult(value + temp - 1);
+                    if (value + temp - 1 > 0) SkipAddMult(value + temp - 1);
                 }
             }
             else if (fill2.fillAmount != 1)
@@ -1209,7 +1218,7 @@ namespace CaiFuHuoChe_3996
                 slotMachineCtrl.SkipWinLine(true);
                 PlayAnim(girlAnim, "ng_trigger fg");
                 yield return new WaitForSeconds(5.5f);
-                
+
                 isNext = false;
                 slotMachineCtrl.SkipWinLine(true);
                 yield return FreeSpinTrigger(() => isNext = true, errorCallback);
@@ -1254,7 +1263,7 @@ namespace CaiFuHuoChe_3996
             if (!isWin)
             {
                 noWinTimes++;
-                if(noWinTimes >= 5)
+                if (noWinTimes >= 5)
                 {
                     noWinTimes = 0;
                     PlayAnim(girlAnim, "ng_not win");
@@ -1276,7 +1285,7 @@ namespace CaiFuHuoChe_3996
                 if (corGameIdel != null) mono.StopCoroutine(corGameIdel);
                 corGameIdel = mono.StartCoroutine(GameIdle(winList));
             }
-            
+
             slotMachineCtrl.isStopImmediately = false;
 
             if (successCallback != null)
@@ -1330,7 +1339,7 @@ namespace CaiFuHuoChe_3996
         {
             ContentModel.Instance.jackpotSpinWinCredit = 0;
             allWinCredit = 0;
-
+            slotMachineCtrl.BeginBonusFreeSpin();
             bool isNext = false;
             PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupJackpotGameTrigger,
                 new EventData<Dictionary<string, object>>("", new Dictionary<string, object>()
@@ -1398,7 +1407,7 @@ namespace CaiFuHuoChe_3996
 
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
-
+            slotMachineCtrl.EndBonusFreeSpin();
             //加钱动画
             MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
 
@@ -1585,7 +1594,7 @@ namespace CaiFuHuoChe_3996
             yield return GameFreeSpin(null, errorCallback);
 
             OnGameReset();
-
+            StopAllFreeTrainIdleEffects();
             PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupFreeSpinResult,
                 new EventData<Dictionary<string, object>>("",
                     new Dictionary<string, object>()
@@ -1618,19 +1627,19 @@ namespace CaiFuHuoChe_3996
             OutputStackContextFreeSpin(
                 (context) =>
                 {
-                SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.Default);
+                    SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.Default);
 
-                slotMachineCtrl.SetReelsDeck((string)context["./strDeckRowCol"]);
+                    slotMachineCtrl.SetReelsDeck((string)context["./strDeckRowCol"]);
 
-                _spinWEMD.Instance.SelectData(_spinWEMD.SPIN_WIN_EFFECT_FREE_SPIN_TRIGGER);
+                    _spinWEMD.Instance.SelectData(_spinWEMD.SPIN_WIN_EFFECT_FREE_SPIN_TRIGGER);
 
 
-                SymbolWin sw = (SymbolWin)context["./winFreeSpinTriggerOrAddCopy"];
-                if (sw != null && sw.cells.Count > 0)
-                {
-                    slotMachineCtrl.ShowSymbolWinDeck(sw, true);
-                }
-            });
+                    SymbolWin sw = (SymbolWin)context["./winFreeSpinTriggerOrAddCopy"];
+                    if (sw != null && sw.cells.Count > 0)
+                    {
+                        slotMachineCtrl.ShowSymbolWinDeck(sw, true);
+                    }
+                });
 
             slotMachineCtrl.EndBonusFreeSpin();
 
@@ -1677,10 +1686,10 @@ namespace CaiFuHuoChe_3996
             //获取结果
             if (ApplicationSettings.Instance.isMock)
             {
-                yield return RequestSlotSpinFromMock(() => 
+                yield return RequestSlotSpinFromMock(() =>
                 {
                     isNext = true;
-                },(err) =>
+                }, (err) =>
                 {
                     errMsg = err;
                     isNext = true;
@@ -1709,7 +1718,7 @@ namespace CaiFuHuoChe_3996
                     errorCallback.Invoke(errMsg);
                 yield break;
             }
-            
+
             //开始转动
             slotMachineCtrl.BeginSpin();
 
@@ -1766,10 +1775,10 @@ namespace CaiFuHuoChe_3996
             List<SymbolWin> winList = ContentModel.Instance.winList;
             #region Win
 
-            if (winList.Count > 0 )
+            if (winList.Count > 0)
             {
                 long totalWinLineCredit = slotMachineCtrl.GetTotalWinCredit(winList);
-                if(ContentModel.Instance.newFreeOnceCredit.Count > ContentModel.Instance.freeSpinPlayTimes - 1)
+                if (ContentModel.Instance.newFreeOnceCredit.Count > ContentModel.Instance.freeSpinPlayTimes - 1)
                 {
                     totalWinLineCredit = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
                     freeAllWin += (int)totalWinLineCredit;
@@ -1787,8 +1796,9 @@ namespace CaiFuHuoChe_3996
                 {
                     slotMachineCtrl.CloseSlotCover();
                     slotMachineCtrl.SkipWinLine(true);
+                    StopAllFreeTrainIdleEffects();
                     yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
-
+                    SetFreeTrainState();
                     slotMachineCtrl.ShowSymbolWinDeck(slotMachineCtrl.GetTotalSymbolWin(winList), true);
                 }
             }
@@ -1886,7 +1896,7 @@ namespace CaiFuHuoChe_3996
         void OnGameReset()
         {
             if (corGameIdel != null) mono.StopCoroutine(corGameIdel);
-            if(corEffectSlowMotion != null) mono.StopCoroutine(corEffectSlowMotion);
+            if (corEffectSlowMotion != null) mono.StopCoroutine(corEffectSlowMotion);
 
             slotMachineCtrl.isStopImmediately = false;
             slotMachineCtrl.CloseSlotCover();
@@ -1955,7 +1965,7 @@ namespace CaiFuHuoChe_3996
         IEnumerator BigWinPopup(WinLevelType winLevelType, long winCredit)
         {
             bool isNext = false;
-            PageManager.Instance.OpenPage(PageName.CaiFuHuoChePopupBigWin,
+            PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupBigWin,
                 new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
                 {
                     ["baseGameWinCredit"] = winCredit, //ContentModel.Instance.baseGameWinCredit,
@@ -2044,7 +2054,7 @@ namespace CaiFuHuoChe_3996
                 });
                 ContentModel.Instance.isUsedRes = false;
             }
-            
+
 
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
@@ -2340,7 +2350,7 @@ namespace CaiFuHuoChe_3996
             }
 
             //记录并显示累计分数
-            if(!(ContentModel.Instance.curReelStripsIndex == "FS"))
+            if (!(ContentModel.Instance.curReelStripsIndex == "FS"))
             {
                 allWinCredit += ContentModel.Instance.jackpotSpinWinCredit;
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
@@ -2355,7 +2365,7 @@ namespace CaiFuHuoChe_3996
             e.Result = MachineDataG3996Controller.ParseCoinPushSpinPayload(e.Data, e.StartPos);
         }
 
-        IEnumerator MoveToZeroOverTime(GComponent effect ,Vector2 startPosition, float duration = 1f, Action successCallback = null)
+        IEnumerator MoveToZeroOverTime(GComponent effect, Vector2 startPosition, float duration = 1f, Action successCallback = null)
         {
             Vector2 endPos = Vector2.zero; // (0,0)
             float elapsed = 0f;
@@ -2412,7 +2422,7 @@ namespace CaiFuHuoChe_3996
         {
             ParticleSystem particle = effect.GetComponent<ParticleSystem>();
             particle.Stop(true);
-
+            particle.Clear();
             // 递归播放所有子物体的粒子系统
             foreach (Transform child in effect)
             {
@@ -2429,7 +2439,6 @@ namespace CaiFuHuoChe_3996
                 StopEffectAnim(child);
             }
         }
-
 
 
         IEnumerator JackpotRequestSlotSpinFromMock(Action successCallback = null, Action<string> errorCallback = null)
@@ -2568,7 +2577,7 @@ namespace CaiFuHuoChe_3996
                     if (ContentModel.Instance.wildNums >= 12)
                     {
                         fill3.fillAmount = 1;
-                        if(ContentModel.Instance.wildNums >= 16)
+                        if (ContentModel.Instance.wildNums >= 16)
                         {
                             fill4.fillAmount = 1;
                         }

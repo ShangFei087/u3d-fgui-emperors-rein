@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: db289cb015e43de44a8496c69cb76faf
+guid: bf5444c62a5cc9f43a52aa2de7d22f0b
 AudioImporter:
   externalObjects: {}
   serializedVersion: 6
@@ -18,5 +18,5 @@ AudioImporter:
   ambisonic: 0
   3D: 1
   userData: 
-  assetBundleName: games/cai fu zhi jia 3997/artres/sounds/music/jackpot bgm.unity3d
+  assetBundleName: games/cai fu zhi jia 3997/sounds/music/freebgm.unity3d
   assetBundleVariant: 

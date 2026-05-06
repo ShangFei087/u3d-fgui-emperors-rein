@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using SlotMaker;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -71,6 +72,7 @@ namespace CaiFuZhiJia_3997
             ShowEffectAndSpine();
         }
 
+        private GameSoundController3997 _gameSoundController;
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
@@ -79,13 +81,20 @@ namespace CaiFuZhiJia_3997
             _jackpotResultButton = _jackpotResultTipWindow.GetChild("jackpotResultButton").asButton;
             _jackpotResultTipWindow.GetChild("jackpotResultScore").asCom.GetChild("number").asTextField.text =
                 ContentModel.Instance.totalBonusReward.ToString();
-
+            _gameSoundController = new GameSoundController3997();
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(Game3997AudioEvent.BgmBonusTrigger));
             InitParam();
         }
 
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
+            ContentModel.Instance.IsBonusTrigger = false;
+            ContentModel.Instance.IsJackpotTrigger = false;
+            _gameSoundController?.Dispose();
+            _gameSoundController = null;
+            ContentModel.Instance.isBonusGameResult = true;
             ResetView();
         }
 
@@ -184,6 +193,8 @@ namespace CaiFuZhiJia_3997
         {
             _jackpotResultButton.onClick.Add((() =>
             {
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                    new EventData(SlotMachineEvent.BonusGameFadeTransition));
                 _jackpotResultTipWindow.visible = false;
                 _cloneLightEffectObj.SetActive(false);
                 _cloneDiamondAnimationObj.SetActive(false);

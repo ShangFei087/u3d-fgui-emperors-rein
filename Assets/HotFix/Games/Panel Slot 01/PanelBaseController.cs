@@ -22,6 +22,14 @@ namespace SlotMaker
     {
         private static PanelBaseController _activeInstance;
 
+        /// <summary>
+        /// 设置菜单或说明书（赔付表）可见时，机台物理 Spin 应与屏幕 Spin 一致被忽略。
+        /// </summary>
+        public static bool ShouldBlockPhysicalSpinInput =>
+            _activeInstance != null &&
+            ((_activeInstance.setPanel != null && _activeInstance.setPanel.visible) ||
+             (_activeInstance.gIntroducePanel != null && _activeInstance.gIntroducePanel.visible));
+
         // 当前弹窗状态（设置、帮助、赔付表等）
         PopState popState = PopState.None;
 

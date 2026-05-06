@@ -1318,6 +1318,10 @@ namespace CaiFuHuoChe_3996
             {
                 ContentModel.Instance.curReelStripsIndex = "JS";
                 ContentModel.Instance.nextReelStripsIndex = "BS";
+                if (winCount > 0)
+                {
+                    ContentModel.Instance.curReelStripsIndex = "JS";
+                }
             }
             else
             {

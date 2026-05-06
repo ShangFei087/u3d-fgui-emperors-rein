@@ -1,6 +1,5 @@
 using FairyGUI;
 using GameMaker;
-using PusherEmperorsRein;
 using SlotMaker;
 using System;
 using System.Collections;
@@ -26,6 +25,7 @@ namespace CaiFuHuoChe_3996
         private EventData _data;
         private bool isInit = false;
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
+        private TimerCallback _autoModeSimulatedClick;
 
         protected override void OnInit()
         {
@@ -47,7 +47,7 @@ namespace CaiFuHuoChe_3996
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
-                        if (PanelController02.isOpenIntroduce == true)
+                        if (PanelBaseController.ShouldBlockPhysicalSpinInput)
                         {
                             return;
                         }
@@ -81,6 +81,8 @@ namespace CaiFuHuoChe_3996
             if (data != null) _data = data;
 
             if (!isInit) return;
+
+            CancelAutoModeSimulatedClick();
 
             GComponent loadSpine = contentPane.GetChild("anchorSpine").asCom;
            if(anchorSpine != loadSpine)
@@ -119,12 +121,11 @@ namespace CaiFuHuoChe_3996
             AddTimer(0.96f, (object obj) =>
             {
                 idleTransition.Play(-1, 0, null);
+
+                ScheduleAutoModeSimulatedClick(closeBtn, () => isClose);
             });
 
-            if (ContentModel.Instance.IsAutoPlayMode)
-            {
-                AddTimer(2f, (object obj) => { OnCloseBtn(); });
-            }
+            preLoadedCallback?.Invoke();
         }
 
 
@@ -169,6 +170,7 @@ namespace CaiFuHuoChe_3996
         // 终止所有后续步骤（条件不满足时调用）
         private void StopAll()
         {
+            CancelAutoModeSimulatedClick();
             // 移除所有未执行的定时器
             foreach (var timer in _activeTimers)
             {
@@ -176,6 +178,46 @@ namespace CaiFuHuoChe_3996
             }
 
             _activeTimers.Clear();
+        }
+
+        private const float AutoModeSimulateClickDelaySeconds = 3f;
+
+        private void CancelAutoModeSimulatedClick()
+        {
+            if (_autoModeSimulatedClick == null) return;
+            Timers.inst.Remove(_autoModeSimulatedClick);
+            _activeTimers.Remove(_autoModeSimulatedClick);
+            _autoModeSimulatedClick = null;
+        }
+
+        private void ScheduleAutoModeSimulatedClick(GButton target, Func<bool> skipWhenTrue)
+        {
+            CancelAutoModeSimulatedClick();
+            if (!TestManager.Instance.IsAutoModeRunning || target == null)
+                return;
+
+            _autoModeSimulatedClick = (obj) =>
+            {
+                try
+                {
+                    if (skipWhenTrue != null && skipWhenTrue())
+                        return;
+                    if (target != null && contentPane != null && contentPane.visible)
+                        target.onClick.Call();
+                }
+                finally
+                {
+                    var cb = _autoModeSimulatedClick;
+                    if (cb != null)
+                    {
+                        Timers.inst.Remove(cb);
+                        _activeTimers.Remove(cb);
+                        _autoModeSimulatedClick = null;
+                    }
+                }
+            };
+            _activeTimers.Add(_autoModeSimulatedClick);
+            Timers.inst.Add(AutoModeSimulateClickDelaySeconds, 1, _autoModeSimulatedClick);
         }
     }
 }
