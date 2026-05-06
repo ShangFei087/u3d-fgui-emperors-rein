@@ -276,9 +276,9 @@ namespace XingYunZhiLun_3998
 
         List<WinMultiple> _winMultipleList = new List<WinMultiple>()
         {
-            new WinMultiple("BIG", 15),
-            new WinMultiple("HUGE", 30),
-            new WinMultiple("MASSIVE", 50),
+            new WinMultiple("BIG", 5),
+            new WinMultiple("HUGE", 10),
+            new WinMultiple("MASSIVE", 20),
             new WinMultiple("LEGENDARY", 100),
         };
         public List<WinMultiple> winLevelMultiple

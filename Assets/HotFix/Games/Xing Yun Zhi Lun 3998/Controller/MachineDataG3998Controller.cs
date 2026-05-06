@@ -468,8 +468,10 @@ namespace XingYunZhiLun_3998
                 ContentModel.Instance.curReelStripsIndex = "FS";
                 ContentModel.Instance.freeSpinPlayTimes += 1;
                 ContentModel.Instance.curFreeCredit += ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1] * MainModel.Instance.contentMD.betmultiple;
-                ContentModel.Instance.baseGameWinCredit = ContentModel.Instance.curFreeCredit;
                 ContentModel.Instance.freeSpinTotalWinCredit += totalLineWin;
+
+
+                ContentModel.Instance.baseGameWinCredit = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1] * MainModel.Instance.contentMD.betmultiple;
 
                 if (ContentModel.Instance.freeSpinTotalTimes == ContentModel.Instance.freeSpinPlayTimes)
                 {
@@ -533,6 +535,7 @@ namespace XingYunZhiLun_3998
                     ContentModel.Instance.isMult = true;
                     ContentModel.Instance.multiple = (int)res["BonusMultiply"];
                     bonusWin = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
+                    ContentModel.Instance.baseGameWinCredit = ContentModel.Instance.bonusWinCredit;
                 }
                 else if (resultType == 3 && (int)res["BonusType"] == 3)
                 {

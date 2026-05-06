@@ -99,23 +99,21 @@ namespace XingYunZhiLun_3998
 
         public Dictionary<SoundKey, GSHandler> gsHandlers = new Dictionary<SoundKey, GSHandler>
         {
-
-
             [SoundKey.RegularBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Sounds/Music/Music_Normal.mp3",
+                assetPath = "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Sounds/Music/Normal/Music_Normal.mp3",
                 outputType = GSOutType.Music,
                 loop = true,
             },
             [SoundKey.FreeSpinBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Sounds/Music/Music_Free.mp3",
+                assetPath = "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Sounds/Music/FreeGame/Music_Free.mp3",
                 outputType = GSOutType.Music,
                 loop = true,
             },
             [SoundKey.JackpotBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Sounds/Music/Music_Jackpot.mp3",
+                assetPath = "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Sounds/Music/Jackpot/Music_Jackpot.mp3",
                 outputType = GSOutType.Music,
                 loop = true,
             },
