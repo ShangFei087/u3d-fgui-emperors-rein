@@ -353,6 +353,7 @@
     <component id="ugp6ak9" name="LowWheel.xml" path="/moudules/PageMainWheel/" exported="true"/>
     <component id="lamnaka" name="MidWheel.xml" path="/moudules/PageMainWheel/" exported="true"/>
     <component id="ibv7akb" name="AnchorBigWin.xml" path="/components/PopupBigWIn/" exported="true"/>
+    <component id="ibv7akc" name="WheelPanel.xml" path="/moudules/slotMachine/"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Xing Yun Zhi Lun 3998\FGUIs" packageCount="2"/>
 </packageDescription>

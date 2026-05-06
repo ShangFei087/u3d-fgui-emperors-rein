@@ -1,3 +1,4 @@
+using CaiFuHuoChe_3996;
 using FairyGUI;
 using GameMaker;
 using Newtonsoft.Json;
@@ -107,6 +108,8 @@ namespace XingYunZhiLun_3998
         const string CACHE_TOTAL_JP_GRAND_CONTRIBUTION = "CACHE_TOTAL_JP_GRAND_CONTRIBUTION";
 
         bool isConnectFreeSpin = false;
+
+        private GameSoundController3998 _gameSoundController;
 
         protected override void OnInit()
         {
@@ -282,6 +285,8 @@ namespace XingYunZhiLun_3998
             if (isOpen) return;
 
             base.OnOpen(name, data);
+
+            _gameSoundController = new GameSoundController3998();
             EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
@@ -294,14 +299,7 @@ namespace XingYunZhiLun_3998
 
             PlayWheelAnim("01_start");
 
-            if (isReserve)
-            {
-                GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
-            }
-            else
-            {
-                isReserve = true;
-            }
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmRegularGame));
         }
 
         public override void OnClose(EventData data = null)
@@ -317,6 +315,9 @@ namespace XingYunZhiLun_3998
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
             EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             mono.updateHandle.RemoveAllListeners();
+
+            _gameSoundController?.Dispose();
+            _gameSoundController = null;
 
             base.OnClose(data);
         }
@@ -541,7 +542,7 @@ namespace XingYunZhiLun_3998
             }
 
             ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
-            GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmRegularGame));
 
         }
 
@@ -971,6 +972,20 @@ namespace XingYunZhiLun_3998
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
 
                 yield return slotMachineCtrl.IsWildShowSymbolEffect(TagPoolObject.SymbolHit, slotMachineCtrl.GetTotalSymbolWin(winList), true, SpinWinEvent.TotalWinLine);
+                
+                ////检查bigwin类型
+                WinLevelType winLevelType = GetBigWinType();
+                ////bigwin弹窗
+                if (winLevelType != WinLevelType.None)
+                {
+                    //显示全部中奖图标和中奖线
+                    slotMachineCtrl.ShowSymbolWinDeck(slotMachineCtrl.GetTotalSymbolWin(winList), true);
+                    //bigwin弹窗
+                    yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
+
+                    slotMachineCtrl.CloseSlotCover();
+                    slotMachineCtrl.SkipWinLine(false);
+                }
 
                 //加钱动画
                 //MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true, isAddCreditAnim);
@@ -1055,6 +1070,20 @@ namespace XingYunZhiLun_3998
 
                 //加钱动画
                 MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
+
+                ////检查bigwin类型
+                WinLevelType winLevelType = GetBigWinType();
+                ////bigwin弹窗
+                if (winLevelType != WinLevelType.None)
+                {
+                    //显示全部中奖图标和中奖线
+                    slotMachineCtrl.ShowSymbolWinDeck(slotMachineCtrl.GetTotalSymbolWin(winList), true);
+                    //bigwin弹窗
+                    yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
+
+                    slotMachineCtrl.CloseSlotCover();
+                    slotMachineCtrl.SkipWinLine(false);
+                }
             }
             else if (ContentModel.Instance.isMult)
             {
@@ -1114,6 +1143,20 @@ namespace XingYunZhiLun_3998
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
                 //加钱动画
                 MainBlackboardController.Instance.AddMyTempCredit(allWinCredit);
+
+                ////检查bigwin类型
+                WinLevelType winLevelType = GetBigWinType();
+                ////bigwin弹窗
+                if (winLevelType != WinLevelType.None)
+                {
+                    //显示全部中奖图标和中奖线
+                    slotMachineCtrl.ShowSymbolWinDeck(slotMachineCtrl.GetTotalSymbolWin(winList), true);
+                    //bigwin弹窗
+                    yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
+
+                    slotMachineCtrl.CloseSlotCover();
+                    slotMachineCtrl.SkipWinLine(false);
+                }
             }
 
             //普通赢
@@ -1196,8 +1239,7 @@ namespace XingYunZhiLun_3998
                     }),
                     (res) =>
                     {
-                        GameSoundHelper.Instance.StopMusic();
-                        GameSoundHelper.Instance.PlayMusicSingle(SoundKey.JackpotBG);
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmBonusGame));
                         isNext = true;
                     });
 
@@ -1258,8 +1300,7 @@ namespace XingYunZhiLun_3998
                     }),
                     (res) =>
                     {
-                        GameSoundHelper.Instance.StopMusic();
-                        GameSoundHelper.Instance.PlayMusicSingle(SoundKey.FreeSpinBG);
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmFreeSpinGame));
                         isMain = true;
                         isNext = true;
                     });
@@ -1469,6 +1510,7 @@ namespace XingYunZhiLun_3998
         //免费游戏触发
         IEnumerator FreeSpinTrigger(Action successCallback, Action<string> errorCallback)
         {
+            slotMachineCtrl.BeginBonusFreeSpin();
             bool isNext = false;
             isMain = false;
             freeTimes.text = (ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes).ToString();
@@ -1540,7 +1582,6 @@ namespace XingYunZhiLun_3998
             {
             });
 
-            slotMachineCtrl.BeginBonusFreeSpin();
             yield return GameFreeSpin(null, errorCallback);
 
             slotMachineCtrl.CloseSlotCover();
@@ -1626,8 +1667,7 @@ namespace XingYunZhiLun_3998
 
             yield return slotMachineCtrl.SlotWaitForSeconds(0.5f);
 
-            GameSoundHelper.Instance.StopMusic();
-            GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmRegularGame));
 
             successCallback?.Invoke();
         }
@@ -1833,11 +1873,12 @@ namespace XingYunZhiLun_3998
                 ////bigwin弹窗
                 if (winLevelType != WinLevelType.None)
                 {
-                    //显示全部中奖图标和中奖线
-                    slotMachineCtrl.ShowSymbolWinDeck(slotMachineCtrl.GetTotalSymbolWin(winList), true);
-                    //bigwin弹窗
-                    yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
+                    bool isBigWinFinish = false;
 
+                    //bigwin弹窗
+                    yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit, () => isBigWinFinish = true);
+
+                    yield return new WaitUntil(() => isBigWinFinish == true);
                     slotMachineCtrl.CloseSlotCover();
                     slotMachineCtrl.SkipWinLine(false);
                 }
@@ -1878,7 +1919,6 @@ namespace XingYunZhiLun_3998
 
             ComReelEffect2.xy = slotMachineCtrl.SymbolCenterToNodeLocalPos(colIdx, 1, anchorExpectation);
             ComReelEffect2.visible = true;
-            GameSoundHelper.Instance.PlaySoundEff(SoundKey.SlowMotionEffect);
 
             yield return new WaitUntil(() => isStoppedSlotMachine == true);
             // 关闭Expectation
@@ -2647,6 +2687,8 @@ namespace XingYunZhiLun_3998
             JackpotFinish = false;
             isJackpot = true;
 
+            slotMachineCtrl.BeginBonusFreeSpin();
+
             if (ContentModel.Instance.isAuto)
             {
                 yield return new WaitForSeconds(1 / Time.timeScale);
@@ -2657,22 +2699,25 @@ namespace XingYunZhiLun_3998
 
             isMain = false;
 
-            PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameResult,
-                new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
-                {
-                    ["jackpotType"] = ContentModel.Instance.jackpotType,
-                    ["totalEarnCredit"] = winCredit,
-                }),
-                (res) =>
-                {
-                    isNext = true;
+            if (ContentModel.Instance.isJackpotWin)
+            {
+                PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameResult,
+                                new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
+                                {
+                                    ["jackpotType"] = ContentModel.Instance.jackpotType,
+                                    ["totalEarnCredit"] = winCredit,
+                                }),
+                                (res) =>
+                                {
+                                    isNext = true;
 
-                    //积分同步和退币处理
-                    slotMachineCtrl.SendTotalWinCreditEvent((long)winCredit);
-                });
-            yield return new WaitUntil(() => isNext == true);
-            isNext = false;
-
+                                    //积分同步和退币处理
+                                    slotMachineCtrl.SendTotalWinCreditEvent((long)winCredit);
+                                });
+                yield return new WaitUntil(() => isNext == true);
+                isNext = false;
+            }
+            
             PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameExit,
                 new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
                 {
@@ -2722,9 +2767,9 @@ namespace XingYunZhiLun_3998
 
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
+            slotMachineCtrl.EndBonusFreeSpin();
 
-            GameSoundHelper.Instance.StopMusic();
-            GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmRegularGame));
 
             if (successCallback != null)
             {
@@ -3295,7 +3340,7 @@ namespace XingYunZhiLun_3998
 
         private int GetJackpotId()
         {
-            if (ContentModel.Instance.isJackpotWin) return UnityEngine.Random.Range(0, 3);
+            if (ContentModel.Instance.isJackpotWin) return ContentModel.Instance.jackpotType - 1;
             return UnityEngine.Random.Range(3, 8);
         }
 
@@ -3508,10 +3553,10 @@ namespace XingYunZhiLun_3998
 
         #region bigWin相关
         //bigwin弹窗
-        IEnumerator BigWinPopup(WinLevelType winLevelType, long winCredit)
+        IEnumerator BigWinPopup(WinLevelType winLevelType, long winCredit, Action callback = null)
         {
             bool isNext = false;
-            PageManager.Instance.OpenPage(PageName.XingYunZhiLunPopupBigWin,
+            PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupBigWin,
                 new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
                 {
                     ["baseGameWinCredit"] = winCredit, //ContentModel.Instance.baseGameWinCredit,
@@ -3524,6 +3569,8 @@ namespace XingYunZhiLun_3998
 
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
+
+            callback?.Invoke();
         }
 
         #endregion
