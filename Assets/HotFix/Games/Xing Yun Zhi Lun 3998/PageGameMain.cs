@@ -245,6 +245,8 @@ namespace XingYunZhiLun_3998
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
+                        if (PanelBaseController.ShouldBlockPhysicalSpinInput) return;
+
                         Debug.LogError("游戏接受到机台短按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false); // isLongClick
                         OnClickSpinButton(res);
@@ -255,6 +257,8 @@ namespace XingYunZhiLun_3998
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
+                        if (PanelBaseController.ShouldBlockPhysicalSpinInput) return;
+
                         DebugUtils.LogError("游戏接受到机台长按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, true); // isLongClick
                         CommonPopupHandler.Instance.ClosePopup();
