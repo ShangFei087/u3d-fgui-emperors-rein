@@ -1,6 +1,14 @@
 {
-  "updated_at": 1777519662417,
+  "updated_at": 1778074824808,
   "data": [
+    {
+      "agent_name": "Treasury",
+      "app": "--",
+      "app_key": "Treasury_release_machine_20260506214024",
+      "app_version": "1.3.0",
+      "version_suggest": null,
+      "hotfix_url": "./release/android/1_3_0"
+    },
     {
       "agent_name": "Treasury",
       "app": "--",

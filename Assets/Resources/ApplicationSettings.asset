@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff66f75f9c0ad434daa9b0c4338e1541, type: 3}
   m_Name: ApplicationSettings
   m_EditorClassIdentifier: 
-  isMachine: 0
-  isRelease: 0
-  isMock: 1
+  isMachine: 1
+  isRelease: 1
+  isMock: 0
   isExpoMode: 1
   isUseProtectApplication: 0
   platformName: Treasury
