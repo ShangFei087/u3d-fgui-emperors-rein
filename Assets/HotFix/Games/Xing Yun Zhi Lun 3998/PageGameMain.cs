@@ -245,11 +245,6 @@ namespace XingYunZhiLun_3998
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
-                        if (PanelController02.isOpenIntroduce == true)
-                        {
-                            return;
-                        }
-
                         Debug.LogError("游戏接受到机台短按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false); // isLongClick
                         OnClickSpinButton(res);
@@ -1239,7 +1234,6 @@ namespace XingYunZhiLun_3998
                     }),
                     (res) =>
                     {
-                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmBonusGame));
                         isNext = true;
                     });
 
@@ -2674,6 +2668,8 @@ namespace XingYunZhiLun_3998
                             ContentModel.Instance.isSpin = false;
                             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                             ContentModel.Instance.gameState = GameState.Idle;
+
+                            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmBonusGame));
                         }
 
                         isNext = true;
@@ -2726,6 +2722,7 @@ namespace XingYunZhiLun_3998
                 (res) =>
                 {
                     isNext = true;
+                    EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmRegularGame));
                 });
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
@@ -2769,7 +2766,6 @@ namespace XingYunZhiLun_3998
             isNext = false;
             slotMachineCtrl.EndBonusFreeSpin();
 
-            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmRegularGame));
 
             if (successCallback != null)
             {
@@ -3509,6 +3505,9 @@ namespace XingYunZhiLun_3998
                 case 1: 
                     gWheelLoad.url = CustomModel.Instance.wheelState["mid"];
                     break;
+                case 2:
+                    gWheelLoad.url = CustomModel.Instance.wheelState["high"];
+                    break;
 
             }
 
@@ -3526,8 +3525,8 @@ namespace XingYunZhiLun_3998
                     yield return new WaitForSeconds(1);
                     break;
                 case 5:
-                    PlayAnim(wheelAnim, "03_start");
-                    ChangeWheelURL(1);
+                    PlayAnim(wheelAnim, "01_03");
+                    ChangeWheelURL(2);
                     yield return new WaitForSeconds(1);
                     break;
             }
@@ -3543,7 +3542,7 @@ namespace XingYunZhiLun_3998
                     yield return new WaitForSeconds(1);
                     break;
                 case 5:
-                    PlayAnim(wheelAnim, "01_start");
+                    PlayAnim(wheelAnim, "03_01");
                     ChangeWheelURL(0);
                     yield return new WaitForSeconds(1);
                     break;

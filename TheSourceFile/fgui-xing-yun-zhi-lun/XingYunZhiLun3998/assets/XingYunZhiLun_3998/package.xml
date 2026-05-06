@@ -217,9 +217,6 @@
     <component id="iihrabs" name="AnchorTransEffect.xml" path="/components/" exported="true"/>
     <image id="a6ypabu" name="fg_txt_freespins.png" path="/images/PopupGameFreeGame/" exported="true"/>
     <image id="a6ypabv" name="jp_txt_grand.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
-    <image id="a6ypabw" name="jp_txt_major.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
-    <image id="a6ypabx" name="jp_txt_mini.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
-    <image id="a6ypaby" name="jp_txt_minor.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
     <font id="a6ypacb" name="GrandTipNumFont.fnt" path="/fonts/fontsCom/GrandTipNumFonts/" exported="true"/>
     <image id="a6ypacc" name="jp_num_00.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
     <image id="a6ypacd" name="jp_num_01.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
@@ -341,11 +338,7 @@
     <image id="i9hyajb" name="3.png" path="/images/payTable/" exported="true"/>
     <image id="i9hyajc" name="4.png" path="/images/payTable/" exported="true"/>
     <image id="i9hyajd" name="5.png" path="/images/payTable/" exported="true"/>
-    <image id="i9hyaje" name="6.png" path="/images/payTable/" exported="true"/>
     <image id="xiz6aj3" name="7.png" path="/images/payTable/" exported="true"/>
-    <image id="powcajx" name="ng_frame_mini.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <image id="powcajy" name="ng_frame_minor.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <image id="powcajz" name="ng_frame_major.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
     <component id="ugp6ak4" name="Wheel.xml" path="/moudules/PageMainWheel/" exported="true"/>
     <component id="ugp6ak5" name="AnchorZhuanPan.xml" path="/components/PageMainZhuanPan/" exported="true"/>
     <image id="ugp6ak6" name="img_lowspin_01.png" path="/images/PopupZhuanPan/"/>
@@ -354,6 +347,17 @@
     <component id="lamnaka" name="MidWheel.xml" path="/moudules/PageMainWheel/" exported="true"/>
     <component id="ibv7akb" name="AnchorBigWin.xml" path="/components/PopupBigWIn/" exported="true"/>
     <component id="ibv7akc" name="WheelPanel.xml" path="/moudules/slotMachine/"/>
+    <component id="wrw6akd" name="HighWheel.xml" path="/moudules/PageMainWheel/" exported="true"/>
+    <image id="wrw6ake" name="fg_frame_mid.png" path="/images/PopupGameFreeGame/" exported="true"/>
+    <image id="wrw6akf" name="ng_frame_mid(1).png" path="/images/PopupGameNormalGame/slotNormal/"/>
+    <image id="wrw6akg" name="ng_frame_major.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <image id="wrw6akh" name="ng_frame_mini.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <image id="wrw6aki" name="ng_frame_minor.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <image id="wrw6akj" name="jp_txt_mini.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="wrw6akk" name="jp_txt_major.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="wrw6akl" name="jp_txt_minor.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="wrw6akq" name="6.png" path="/images/payTable/" exported="true"/>
+    <image id="wrw6akr" name="fg_num_freespin_div.png" path="/fonts/fontsImage/PopupGameFreeTimesImage/" exported="true"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Xing Yun Zhi Lun 3998\FGUIs" packageCount="2"/>
 </packageDescription>

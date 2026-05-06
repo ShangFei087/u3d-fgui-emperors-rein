@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="284,37">
   <displayList>
-    <text id="n46_pmk5" name="freeTimes" xy="171,-6" size="112,49" font="ui://5hielhj5x7l388" fontSize="11" align="center" vAlign="middle" autoSize="none" text="6">
+    <text id="n46_pmk5" name="freeTimes" xy="178,-6" size="112,49" font="ui://5hielhj5x7l388" fontSize="11" align="center" vAlign="middle" autoSize="none" text="6">
       <relation target="" sidePair="right-right"/>
     </text>
     <image id="n48_gkby" name="n48" src="xiz6ais" fileName="images/PopupGameFreeGame/fg_num_freespin.png" xy="88,18" pivot="0.5,0.5" anchor="true">
