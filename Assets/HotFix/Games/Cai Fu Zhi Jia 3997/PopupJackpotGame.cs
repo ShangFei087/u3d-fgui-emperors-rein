@@ -652,6 +652,7 @@ namespace CaiFuZhiJia_3997
                 {
                     PlayAnimationByName(_npcAnimator, "Wealth_sg_npc_appear");
                     Timers.inst.Add(4.833f, 1, (obj) => isWinJackpot = false);
+                    PlayAnimationByName(_npcAnimator, "Wealth_sg_npc_idle1");
                     yield return new WaitUntil(() => isWinJackpot == false);
                 }
 
@@ -662,6 +663,7 @@ namespace CaiFuZhiJia_3997
                 {
                     PlayAnimationByName(_warnAnimator, "idle3");
                     _cloneFrameLossObj.SetActive(false);
+                    PlayAnimationByName(_npcAnimator, "Wealth_sg_npc_idle1");
                 });
                 _freeCountText.text = "3";
                 _totalPlayRounds = 3;
