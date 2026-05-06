@@ -93,7 +93,10 @@ namespace CaiFuHuoChe_3996
         private GameObject freeTrainPref, freeTrainObj;
         private GComponent freeAnchor; 
         private Animator freeTrainAnim;
-        private Transform idleEffect1, idleEffect2, idleEffect3, idleEffect4, idleEffect5, curIdleEffect;
+        private Transform idleEffect1, idleEffect2, idleEffect3, idleEffect4, idleEffect5;
+
+        /// <summary>暂时关闭免费火车 idleEffect1~5 粒子；需恢复时改为 false。</summary>
+        private const bool TempDisableFreeTrainIdleParticles = true;
 
         //游戏中的女生
         private GameObject girlPref, girlObj;
@@ -1161,13 +1164,12 @@ namespace CaiFuHuoChe_3996
                 ////bigwin弹窗
                 if (winLevelType != WinLevelType.None)
                 {
-                    //显示全部中奖图标和中奖线
-                     slotMachineCtrl.ShowSymbolWinDeck(slotMachineCtrl.GetTotalSymbolWin(winList), true);
-                    //bigwin弹窗
+                    // BigWin 播放期间停掉滚轴上的中奖图标/线，结束后再恢复
+                    slotMachineCtrl.CloseSlotCover();
+                    slotMachineCtrl.SkipWinLine(true);
                     yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
 
-                    slotMachineCtrl.CloseSlotCover();
-                    slotMachineCtrl.SkipWinLine(false);
+                    slotMachineCtrl.ShowSymbolWinDeck(slotMachineCtrl.GetTotalSymbolWin(winList), true);
                 }
                 else
                 {
@@ -1604,8 +1606,7 @@ namespace CaiFuHuoChe_3996
             PlayEffectAnim(fgToNor);
             yield return new WaitForSeconds(0.7f);
 
-            StopChildEffectAnim(idleEffect5);
-            StopChildEffectAnim(curIdleEffect);
+            StopAllFreeTrainIdleEffects();
             gTrain.visible = true;
             FsToBsTrans.Play();
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
@@ -1784,14 +1785,11 @@ namespace CaiFuHuoChe_3996
                 WinLevelType winLevelType = GetBigWinType();
                 if (winLevelType != WinLevelType.None)
                 {
-                    slotMachineCtrl.ShowSymbolWinDeck(slotMachineCtrl.GetTotalSymbolWin(winList), true);
-
-                    // 大奖弹窗
+                    slotMachineCtrl.CloseSlotCover();
+                    slotMachineCtrl.SkipWinLine(true);
                     yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
 
-                    slotMachineCtrl.CloseSlotCover();
-
-                    slotMachineCtrl.SkipWinLine(false);
+                    slotMachineCtrl.ShowSymbolWinDeck(slotMachineCtrl.GetTotalSymbolWin(winList), true);
                 }
             }
             // 总线赢分事件
@@ -2600,6 +2598,15 @@ namespace CaiFuHuoChe_3996
             }
         }
 
+        private void StopAllFreeTrainIdleEffects()
+        {
+            if (idleEffect1 != null) StopChildEffectAnim(idleEffect1);
+            if (idleEffect2 != null) StopChildEffectAnim(idleEffect2);
+            if (idleEffect3 != null) StopChildEffectAnim(idleEffect3);
+            if (idleEffect4 != null) StopChildEffectAnim(idleEffect4);
+            if (idleEffect5 != null) StopChildEffectAnim(idleEffect5);
+        }
+
         private void SetFreeTrainState()
         {
             if (fill3.fillAmount == 1)
@@ -2607,18 +2614,20 @@ namespace CaiFuHuoChe_3996
                 EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                     new EventData<int>(Game3996AudioEvent.FreeSpinMeterSound, 2));
                 PlayAnim(freeTrainAnim, "idle4");
-                StopChildEffectAnim(idleEffect3);
-                PlayChildEffectAnim(idleEffect4);
-                PlayChildEffectAnim(idleEffect5);
-                curIdleEffect = idleEffect4;
+                StopAllFreeTrainIdleEffects();
+                if (!TempDisableFreeTrainIdleParticles)
+                {
+                    PlayChildEffectAnim(idleEffect4);
+                    PlayChildEffectAnim(idleEffect5);
+                }
             }
             else if (fill2.fillAmount == 1)
             {
                 EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                     new EventData<int>(Game3996AudioEvent.FreeSpinMeterSound, 2));
-                StopChildEffectAnim(idleEffect2);
-                PlayChildEffectAnim(idleEffect3);
-                curIdleEffect = idleEffect3;
+                StopAllFreeTrainIdleEffects();
+                if (!TempDisableFreeTrainIdleParticles)
+                    PlayChildEffectAnim(idleEffect3);
                 PlayAnim(freeTrainAnim, "idle3");
             }
             else if (fill1.fillAmount == 1)
@@ -2626,15 +2635,16 @@ namespace CaiFuHuoChe_3996
                 EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                     new EventData<int>(Game3996AudioEvent.FreeSpinMeterSound, 2));
                 PlayAnim(freeTrainAnim, "idle2");
-                StopChildEffectAnim(idleEffect1);
-                PlayChildEffectAnim(idleEffect2);
-                curIdleEffect = idleEffect2;
+                StopAllFreeTrainIdleEffects();
+                if (!TempDisableFreeTrainIdleParticles)
+                    PlayChildEffectAnim(idleEffect2);
             }
             else
             {
                 PlayAnim(freeTrainAnim, "idle1");
-                PlayChildEffectAnim(idleEffect1);
-                curIdleEffect = idleEffect1;
+                StopAllFreeTrainIdleEffects();
+                if (!TempDisableFreeTrainIdleParticles)
+                    PlayChildEffectAnim(idleEffect1);
             }
         }
 

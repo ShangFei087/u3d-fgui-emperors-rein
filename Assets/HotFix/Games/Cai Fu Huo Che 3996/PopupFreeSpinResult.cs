@@ -151,12 +151,9 @@ namespace CaiFuHuoChe_3996
                     new EventData(Game3996AudioEvent.FreeSpinCollectButtonShown));
             });
 
-            if (ContentModel.Instance.isAuto)
+            if (ContentModel.Instance.IsAutoPlayMode)
             {
-                Timers.inst.Add(1, 1, (object obj) =>
-                {
-                    OnBtnStartClick();
-                });
+                AddTimer(1.2f, (object obj) => { OnBtnStartClick(); });
             }
         }
 

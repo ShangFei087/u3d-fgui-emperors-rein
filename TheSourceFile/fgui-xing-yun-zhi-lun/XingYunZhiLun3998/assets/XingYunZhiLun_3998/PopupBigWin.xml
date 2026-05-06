@@ -2,5 +2,7 @@
 <component size="1080,1920">
   <displayList>
     <component id="n0_i9hy" name="exit" src="i9hyaik" fileName="moudules/PopupBigWin/ExitButton.xml" xy="0,0"/>
+    <component id="n1_ibv7" name="anchorBg" src="ibv7akb" fileName="components/PopupBigWIn/AnchorBigWin.xml" xy="540,960"/>
+    <text id="n2_ibv7" name="score" xy="554,1117" pivot="0.5,0.5" anchor="true" size="661,122" font="ui://5hielhj5a6ypacb" fontSize="20" align="center" vAlign="middle" autoSize="none" text="114514"/>
   </displayList>
 </component>

@@ -459,6 +459,10 @@ public class UIConst
             {
                 "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupZhuanPan"
             },
+            [PageName.XingYunZhiLunPopupBigWin] = new object[]
+            {
+                "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/FGUIs", "XingYunZhiLun_3998.PopupBigWin"
+            },
 
             //财富火车
             [PageName.CaiFuHuoChePopupGameLoading] =
@@ -660,6 +664,7 @@ public enum PageName
     XingYunZhiLunPopupJackpotGameEnter,
     XingYunZhiLunPopupJackpotGameQuit,
     XingYunZhiLunPopupZhuanPan,
+    XingYunZhiLunPopupBigWin,
 
     //财富火车
     CaiFuHuoChePopupGameLoading,

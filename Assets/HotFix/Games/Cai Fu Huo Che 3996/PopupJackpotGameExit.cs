@@ -121,12 +121,9 @@ namespace CaiFuHuoChe_3996
                 idleTransition.Play(-1, 0, null);
             });
 
-            if (ContentModel.Instance.isAuto)
+            if (ContentModel.Instance.IsAutoPlayMode)
             {
-                AddTimer(2f, (object obj) =>
-                {
-                    OnCloseBtn();
-                });
+                AddTimer(2f, (object obj) => { OnCloseBtn(); });
             }
         }
 

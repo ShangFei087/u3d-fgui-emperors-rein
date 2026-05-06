@@ -351,6 +351,8 @@ namespace XingYunZhiLun_3998
                 totalLineWin += lineWin;
             }
             ContentModel.Instance.winList = winList;
+            ContentModel.Instance.baseGameWinCredit = totalLineWin;
+
             //检查算法结果
             CheckGameResult(strDeckRowCol, totalwin);
 
@@ -421,8 +423,10 @@ namespace XingYunZhiLun_3998
                     {
                         scatterCount += 1;
                     }
-
                 }
+
+                ContentModel.Instance.scatterCount = scatterCount;
+
                 for (int i = 0; i < CustomModel.Instance.freeGameConfig.Make2FreeGameCount.Length; ++i)
                 {
                     if (scatterCount == CustomModel.Instance.freeGameConfig.Make2FreeGameCount[i])
@@ -464,6 +468,7 @@ namespace XingYunZhiLun_3998
                 ContentModel.Instance.curReelStripsIndex = "FS";
                 ContentModel.Instance.freeSpinPlayTimes += 1;
                 ContentModel.Instance.curFreeCredit += ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1] * MainModel.Instance.contentMD.betmultiple;
+                ContentModel.Instance.baseGameWinCredit = ContentModel.Instance.curFreeCredit;
                 ContentModel.Instance.freeSpinTotalWinCredit += totalLineWin;
 
                 if (ContentModel.Instance.freeSpinTotalTimes == ContentModel.Instance.freeSpinPlayTimes)
@@ -491,6 +496,7 @@ namespace XingYunZhiLun_3998
                     }
                 }
 
+                ContentModel.Instance.scatterCount = bonusCount;
                 ContentModel.Instance.bonusWinCredit = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
 
                 if (resultType == 3 && (int)res["BonusType"] == 0)

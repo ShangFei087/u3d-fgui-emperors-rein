@@ -79,6 +79,8 @@ namespace CaiFuHuoChe_3996
         }
         public bool _isAuto;
 
+        /// <summary> 自动转：长按等设置的 <see cref="isAuto"/>，或 Spin 按钮为 Auto 态（与机台/面板一致，供弹窗自动点继续）。 </summary>
+        public bool IsAutoPlayMode => _isAuto || m_BtnSpinState == SpinButtonState.Auto;
 
         public bool isSpin
         {

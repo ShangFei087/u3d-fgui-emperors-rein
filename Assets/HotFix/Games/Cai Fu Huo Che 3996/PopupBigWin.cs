@@ -39,6 +39,9 @@ namespace CaiFuHuoChe_3996
 
         private List<List<Transform>> EffectLists = new List<List<Transform>>();
 
+        /// <summary>暂时关闭 BigWin 中 EffectLists 档位粒子；需恢复时改为 false。</summary>
+        private const bool TempDisableBigWinEffectLists = true;
+
         protected override void OnInit()
         {
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -114,11 +117,8 @@ namespace CaiFuHuoChe_3996
             GComponent anchorLoad = contentPane.GetChild("anchorBg").asCom;
             if(anchorBinWin != anchorLoad)
             {
-                for(int i = 0; i < EffectLists.Count; i++)
-                {
-                    EffectLists[i].Clear();
-                }
-                for(int i = 0; i < 3; i++)
+                EffectLists.Clear();
+                for (int i = 0; i < 3; i++)
                 {
                     EffectLists.Add(new List<Transform>());
                 }
@@ -153,9 +153,12 @@ namespace CaiFuHuoChe_3996
 
             StopAllEffect();
             bigWinAnim.Play(WinOpenString[0]);
-            for (int i = 0; i < EffectLists[0].Count; i++)
+            if (!TempDisableBigWinEffectLists)
             {
-                PlayChildEffectAnim(EffectLists[0][i]);
+                for (int i = 0; i < EffectLists[0].Count; i++)
+                {
+                    PlayChildEffectAnim(EffectLists[0][i]);
+                }
             }
             ShowAni();
         }
@@ -185,25 +188,43 @@ namespace CaiFuHuoChe_3996
                     playCount++;
                     //animatorBigWin.Rebind();
                     bigWinAnim.Play(WinOpenString[playCount]);
-                    for(int i = 0; i < EffectLists[playCount].Count; i++)
+                    if (!TempDisableBigWinEffectLists)
                     {
-                        PlayChildEffectAnim(EffectLists[playCount][i]);
+                        for (int i = 0; i < EffectLists[playCount].Count; i++)
+                        {
+                            PlayChildEffectAnim(EffectLists[playCount][i]);
+                        }
                     }
                     //animatorBigWin.Update(0f);
-                    TimerCallback innerCallback = innerObj =>
+                    // 仅最后一档再计时结束，避免 WinIndex>=2 时重复注册 inner 导致多次 AniEnd / 最后一档展示时间过短
+                    if (playCount == WinIndex)
                     {
-                        if (playCount == WinIndex)
+                        TimerCallback innerCallback = innerObj =>
                         {
                             NumberAnimation.Instance.StopAllAnimations();
                             anchorScore.text = score.ToString();
                             AniEnd();
-                        }
+                        };
+                        Timers.inst.Add(3.5f, 1, innerCallback);
+                        _timerCallbacks.Add(innerCallback);
+                    }
+                };
+                if(WinIndex == 0)
+                {
+                    TimerCallback innerCallback = innerObj =>
+                    {
+                        NumberAnimation.Instance.StopAllAnimations();
+                        anchorScore.text = score.ToString();
+                        AniEnd();
                     };
                     Timers.inst.Add(3.5f, 1, innerCallback);
                     _timerCallbacks.Add(innerCallback);
-                };
-              
-                Timers.inst.Add(3.0f, WinIndex, sequenceCallback);
+                }
+                else
+                {
+                    Timers.inst.Add(3.0f, WinIndex, sequenceCallback);
+                }
+
 
             }
             catch (Exception e)
@@ -312,6 +333,18 @@ namespace CaiFuHuoChe_3996
 
         private void StopAllEffect()
         {
+            if (bigWinObj == null) return;
+            // 与 PlayChildEffectAnim 对称：先按 EffectLists / endEffect 走 StopChildEffectAnim → StopEffectAnim
+            for (int i = 0; i < EffectLists.Count; i++)
+            {
+                for (int j = 0; j < EffectLists[i].Count; j++)
+                {
+                    var t = EffectLists[i][j];
+                    if (t != null)StopChildEffectAnim(t);
+                }
+            }
+            if (endEffect != null)StopChildEffectAnim(endEffect);
+            // 兜底：预制体上若有未挂在上述节点下的粒子，仍一并停掉
             var allPs = bigWinObj.transform.GetChild(1).GetComponentsInChildren<ParticleSystem>(true);
             foreach (var ps in allPs)
             {

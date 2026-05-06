@@ -12,7 +12,8 @@
     <component id="n48_bysw" name="HostAndGuest" src="byswa3" fileName="components/PopupJackpotGame/JackpotHostAndGuest.xml" xy="0,1"/>
     <component id="n0_lsvw" name="anchorBG" src="qr2d1w" fileName="components/AnchorBG.xml" xy="540,960"/>
     <component id="n31_fcra" name="anchorGrandBg" src="fcra20" fileName="components/AnchorGrandBg.xml" xy="540,960"/>
-    <component id="n16_lsvw" name="ZhuanPan" src="lsvw1k" fileName="moudules/slotMachine/ZhuanPan.xml" xy="541,739" pivot="0.5,0.5" anchor="true" size="894,894" rotation="-90"/>
+    <component id="n16_lsvw" name="ZhuanPan" src="lsvw1k" fileName="moudules/slotMachine/ZhuanPan.xml" xy="547,762" pivot="0.5,0.5" anchor="true" size="552,552" rotation="-90"/>
+    <component id="n56_ugp6" name="anchorZhuanPan" src="ugp6ak5" fileName="components/PageMainZhuanPan/AnchorZhuanPan.xml" xy="540,835"/>
     <component id="n32_fcra" name="anchorFreeBg" src="fcra21" fileName="components/AnchorFreeBg.xml" xy="540,960"/>
     <component id="n5_lsvw" name="slotMachiineBg" src="lsvw1q" fileName="moudules/slotMachine/SlotMachineBg.xml" xy="556,1428" size="1080,721" group="n38_n45k"/>
     <component id="n10_lsvw" name="slotMachine" src="lsvw1d" fileName="moudules/slotMachine/SlotMachine.xml" xy="87,1088" size="915,543" group="n38_n45k"/>
@@ -38,7 +39,10 @@
     <item time="0" type="Alpha" target="n39_x7l3" value="0"/>
     <item time="0" type="Alpha" target="n45_i6s3" value="0"/>
     <item time="0" type="Alpha" target="n48_bysw" value="0"/>
+    <item time="0" type="Alpha" target="n56_ugp6" value="1"/>
     <item time="0" type="Alpha" target="n5_lsvw" value="1"/>
+    <item time="0" type="Visible" target="n16_lsvw" value="true"/>
+    <item time="0" type="Visible" target="n56_ugp6" value="true"/>
   </transition>
   <transition name="FS">
     <item time="0" type="Alpha" target="n0_lsvw" value="0"/>
@@ -51,29 +55,40 @@
     <item time="0" type="Alpha" target="n39_x7l3" value="1"/>
     <item time="0" type="Alpha" target="n45_i6s3" value="0"/>
     <item time="0" type="Alpha" target="n48_bysw" value="0"/>
+    <item time="0" type="Alpha" target="n56_ugp6" value="0"/>
     <item time="0" type="Alpha" target="n5_lsvw" value="1"/>
+    <item time="0" type="Visible" target="n16_lsvw" value="false"/>
+    <item time="0" type="Visible" target="n56_ugp6" value="false"/>
   </transition>
   <transition name="JS">
     <item time="0" type="Alpha" target="n0_lsvw" value="0"/>
     <item time="0" type="Alpha" target="n10_lsvw" value="0"/>
     <item time="0" type="Alpha" target="n16_lsvw" value="0"/>
+    <item time="0" type="Alpha" target="n31_fcra" value="0"/>
     <item time="0" type="Alpha" target="n32_fcra" value="0"/>
     <item time="0" type="Alpha" target="n39_x7l3" value="0"/>
     <item time="0" type="Alpha" target="n45_i6s3" value="1"/>
     <item time="0" type="Alpha" target="n48_bysw" value="1"/>
     <item time="0" type="Alpha" target="n52_12dua" value="1"/>
+    <item time="0" type="Alpha" target="n56_ugp6" value="0"/>
     <item time="0" type="Alpha" target="n5_lsvw" value="0"/>
+    <item time="0" type="Visible" target="n16_lsvw" value="false"/>
+    <item time="0" type="Visible" target="n56_ugp6" value="false"/>
   </transition>
   <transition name="BSToFS">
     <item time="0" type="Alpha" target="n10_lsvw" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
-    <item time="0" type="Alpha" target="n16_lsvw" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
+    <item time="0" type="Alpha" target="n16_lsvw" tween="true" startValue="0" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n34_n45k" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n35_n45k" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n36_n45k" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n39_x7l3" value="0"/>
     <item time="0" type="Alpha" target="n48_bysw" value="0"/>
     <item time="0" type="Alpha" target="n52_12dua" value="0"/>
+    <item time="0" type="Alpha" target="n56_ugp6" value="0"/>
+    <item time="0" type="Alpha" target="n56_ugp6" tween="true" startValue="0" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n5_lsvw" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
+    <item time="0" type="Visible" target="n16_lsvw" value="false"/>
+    <item time="0" type="Visible" target="n56_ugp6" value="false"/>
     <item time="6" type="Alpha" target="n0_lsvw" tween="true" startValue="1" endValue="0" duration="24" ease="Linear"/>
     <item time="6" type="Alpha" target="n32_fcra" tween="true" startValue="0" endValue="1" duration="24" ease="Linear"/>
     <item time="18" type="Alpha" target="n53_iihr" label="PlayEffect" value="1"/>
@@ -81,14 +96,18 @@
   </transition>
   <transition name="FSToBS">
     <item time="0" type="Alpha" target="n10_lsvw" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
-    <item time="0" type="Alpha" target="n16_lsvw" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
+    <item time="0" type="Alpha" target="n16_lsvw" tween="true" startValue="0" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n34_n45k" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n35_n45k" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n36_n45k" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n39_x7l3" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n48_bysw" value="0"/>
     <item time="0" type="Alpha" target="n52_12dua" value="0"/>
+    <item time="0" type="Alpha" target="n56_ugp6" value="0"/>
+    <item time="0" type="Alpha" target="n56_ugp6" tween="true" startValue="0" endValue="0" duration="6" ease="Linear"/>
     <item time="0" type="Alpha" target="n5_lsvw" tween="true" startValue="1" endValue="0" duration="6" ease="Linear"/>
+    <item time="0" type="Visible" target="n16_lsvw" value="false"/>
+    <item time="0" type="Visible" target="n56_ugp6" value="false"/>
     <item time="6" type="Alpha" target="n0_lsvw" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
     <item time="6" type="Alpha" target="n32_fcra" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
     <item time="23" type="Alpha" target="n53_iihr" label="End" value="1"/>

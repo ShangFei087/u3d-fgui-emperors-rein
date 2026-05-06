@@ -33,7 +33,6 @@
     <component id="lsvw1j" name="AnchorEffect.xml" path="/components/PopupZhuanPan/" exported="true"/>
     <component id="lsvw1k" name="ZhuanPan.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="lsvw1l" name="ZhuanPanSpinPoint.xml" path="/moudules/slotMachine/" exported="true"/>
-    <component id="lsvw1m" name="WheelPanel.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="lsvw1n" name="WheelSymbol.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="lsvw1p" name="WheelSymbolAnimator.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="lsvw1q" name="SlotMachineBg.xml" path="/moudules/slotMachine/" exported="true"/>
@@ -347,6 +346,13 @@
     <image id="powcajx" name="ng_frame_mini.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
     <image id="powcajy" name="ng_frame_minor.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
     <image id="powcajz" name="ng_frame_major.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="ugp6ak4" name="Wheel.xml" path="/moudules/PageMainWheel/" exported="true"/>
+    <component id="ugp6ak5" name="AnchorZhuanPan.xml" path="/components/PageMainZhuanPan/" exported="true"/>
+    <image id="ugp6ak6" name="img_lowspin_01.png" path="/images/PopupZhuanPan/"/>
+    <image id="ugp6ak7" name="img_midspin_02.png" path="/images/PopupZhuanPan/"/>
+    <component id="ugp6ak9" name="LowWheel.xml" path="/moudules/PageMainWheel/" exported="true"/>
+    <component id="lamnaka" name="MidWheel.xml" path="/moudules/PageMainWheel/" exported="true"/>
+    <component id="ibv7akb" name="AnchorBigWin.xml" path="/components/PopupBigWIn/" exported="true"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Xing Yun Zhi Lun 3998\FGUIs" packageCount="2"/>
 </packageDescription>
