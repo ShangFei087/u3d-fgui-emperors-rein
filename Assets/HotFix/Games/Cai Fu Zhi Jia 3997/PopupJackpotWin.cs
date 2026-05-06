@@ -65,10 +65,7 @@ namespace CaiFuZhiJia_3997
         
         private void OnClickSpinButton(EventData res)
         {
-            _collectBtn.onClick.Add((() =>
-            {
-                CloseSelf(null);
-            }));
+            CloseSelf(null);
         }
 
         public override void InitParam()

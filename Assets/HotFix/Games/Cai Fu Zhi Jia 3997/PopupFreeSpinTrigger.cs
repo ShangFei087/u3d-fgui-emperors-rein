@@ -123,24 +123,21 @@ namespace CaiFuZhiJia_3997
 
         private void OnClickSpinButton(EventData res)
         {
-            _freeStartBtn.onClick.Add((() =>
-            {
-                _freeTipWindow.visible = false;
-                _cloneDollarSpineObj.SetActive(true);
-                _cloneGoldPurpleEffectObj.SetActive(true);
+            _freeTipWindow.visible = false;
+            _cloneDollarSpineObj.SetActive(true);
+            _cloneGoldPurpleEffectObj.SetActive(true);
 
-                // Timers.inst.Add(3, 1, (obj) => _cloneDollarSpineObj.SetActive(false));
-                Timers.inst.Add(3.033f, 1, (obj) =>
-                {
-                    _cloneDollarSpineObj.SetActive(false);
-                    CloseSelf(null);
+            // Timers.inst.Add(3, 1, (obj) => _cloneDollarSpineObj.SetActive(false));
+            Timers.inst.Add(3.033f, 1, (obj) =>
+            {
+                _cloneDollarSpineObj.SetActive(false);
+                CloseSelf(null);
                     
-                    // 新增测试
-                    // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupFreeSpinResult);
-                });
-                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
-                    new EventData(SlotMachineEvent.FreeGameFadeTransition));
-            }));
+                // 新增测试
+                // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupFreeSpinResult);
+            });
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(SlotMachineEvent.FreeGameFadeTransition));
         }
 
         private void ResLoadedCallback()
