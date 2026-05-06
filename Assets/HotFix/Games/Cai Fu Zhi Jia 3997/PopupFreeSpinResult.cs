@@ -1,9 +1,11 @@
 using FairyGUI;
 using GameMaker;
 using SlotMaker;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CaiFuZhiJia_3997
 {
@@ -59,6 +61,45 @@ namespace CaiFuZhiJia_3997
 
             _totalCount = 4;
             LoadAsyncRes();
+            
+            machineBtnClickHelper = new MachineButtonClickHelper()
+            {
+                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+                {
+                    [MachineButtonKey.BtnSpin] = (info) =>
+                    {
+                        // if (PanelBaseController.ShouldBlockPhysicalSpinInput)
+                        //     return;
+
+                        Debug.LogError("游戏接受到机台短按的数据：Spin");
+                        EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false);
+                        OnClickSpinButton(res);
+                    },
+                }
+            };
+        }
+        
+        private void OnClickSpinButton(EventData res)
+        {
+            _freeStartBtn.onClick.Add((() =>
+            {
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                    new EventData(SlotMachineEvent.FreeGameFadeTransition));
+                _freeResultTipWindow.visible = false;
+                _freeGameResultScore.visible = false;
+                _cloneFreeGetAnimationObj.SetActive(false);
+                _cloneDollarSpineObj.SetActive(true);
+                _cloneGoldPurpleEffectObj.SetActive(true);
+
+                Timers.inst.Add(3.03f, 1, (obj) =>
+                {
+                    _cloneDollarSpineObj.SetActive(false);
+                    CloseSelf(null);
+
+                    // 新增测试
+                    // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupFreeSpinTrigger);
+                });
+            }));
         }
 
         public override void InitParam()

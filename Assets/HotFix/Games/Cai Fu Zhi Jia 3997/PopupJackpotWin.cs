@@ -1,8 +1,10 @@
 using FairyGUI;
 using GameMaker;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CaiFuZhiJia_3997
 {
@@ -43,6 +45,30 @@ namespace CaiFuZhiJia_3997
 
             _totalCount = 1;
             LoadAsyncRes();
+            
+            machineBtnClickHelper = new MachineButtonClickHelper()
+            {
+                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+                {
+                    [MachineButtonKey.BtnSpin] = (info) =>
+                    {
+                        // if (PanelBaseController.ShouldBlockPhysicalSpinInput)
+                        //     return;
+
+                        Debug.LogError("游戏接受到机台短按的数据：Spin");
+                        EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false);
+                        OnClickSpinButton(res);
+                    },
+                }
+            };
+        }
+        
+        private void OnClickSpinButton(EventData res)
+        {
+            _collectBtn.onClick.Add((() =>
+            {
+                CloseSelf(null);
+            }));
         }
 
         public override void InitParam()

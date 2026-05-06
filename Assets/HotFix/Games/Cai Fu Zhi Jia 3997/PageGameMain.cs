@@ -160,9 +160,10 @@ namespace CaiFuZhiJia_3997
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
-                        if (PanelController02.isOpenIntroduce == true)
-                            return;
+                        // if (PanelBaseController.ShouldBlockPhysicalSpinInput)
+                        //     return;
 
+                        Debug.LogError("游戏接受到机台短按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false);
                         OnClickSpinButton(res);
                     },
@@ -171,6 +172,7 @@ namespace CaiFuZhiJia_3997
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
+                        DebugUtils.LogError("游戏接受到机台长按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, true);
                         OnClickSpinButton(res);
                     }
