@@ -2135,8 +2135,8 @@ namespace CaiFuZhiJia_3997
                 // yield return new WaitUntil(() => isNext == true);
                 // isNext = false;
                 yield return new WaitUntil(() => ContentModel.Instance.isBonusGameResult == true);
-
             }
+            // ContentModel.Instance.isBonusGameResult = false;
 
 
             if (_isTriggerFrame && !_isWinFreeOrBonus && !_isCurrentWin)
@@ -2179,7 +2179,6 @@ namespace CaiFuZhiJia_3997
 
             _isCurrentWin = false;
             _slotMachineCtrl.isStopImmediately = false;
-            ContentModel.Instance.isBonusGameResult = false;
 
             successCallback?.Invoke();
         }
@@ -2497,8 +2496,7 @@ namespace CaiFuZhiJia_3997
         {
             if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
             if (_corEffectSlowMotion != null) _monoHelper.StopCoroutine(_corEffectSlowMotion);
-
-
+            ContentModel.Instance.isBonusGameResult = false;
             _slotMachineCtrl.CloseSlotCover();
             _isStoppedSlotMachine = false;
             _anchorFreeExpectation.visible = false;
