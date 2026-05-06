@@ -129,6 +129,8 @@ namespace CaiFuHuoChe_3996
             ExecuteNextStep();
 
             isend = false;
+
+            preLoadedCallback?.Invoke();
         }
 
         public void SpinDown()

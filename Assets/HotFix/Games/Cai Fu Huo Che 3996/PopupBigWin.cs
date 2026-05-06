@@ -149,6 +149,8 @@ namespace CaiFuHuoChe_3996
 
             anchorScore = contentPane.GetChild("score").asTextField;
 
+            preLoadedCallback?.Invoke();
+
             if (!isOpen) return;
 
             StopAllEffect();

@@ -154,6 +154,8 @@ namespace CaiFuHuoChe_3996
 
                 ScheduleAutoModeSimulatedClick(btnStrat, () => isClose);
             });
+
+            preLoadedCallback?.Invoke();
         }
 
         private void OnBtnStartClick()
