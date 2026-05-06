@@ -109,6 +109,7 @@ namespace CaiFuZhiJia_3997
             ContentModel.Instance.response = res.ToString();
             ContentModel.Instance.curReelStripsIndex = "BS";
             ContentModel.Instance.nextReelStripsIndex = "BS";
+            ContentModel.Instance.baseGameWinCredit = 0;
 
             // 判断是否处于免费游戏状态 修改代码
             bool isInFreeSpin = ContentModel.Instance.FreeSpinPlayTimes < ContentModel.Instance.FreeSpinTotalTimes;
@@ -150,7 +151,7 @@ namespace CaiFuZhiJia_3997
             List<SymbolWin> winList = new List<SymbolWin>();
             JackpotRes jpGameRes = new JackpotRes();
 
-            ContentModel.Instance.baseGameWinCredit = totalwin;// 主要用作BigWin计算
+            // ContentModel.Instance.baseGameWinCredit = totalwin;// 主要用作BigWin计算
 
             //判断普通奖
             for (int row = 0; row < rows; row++)
@@ -228,6 +229,7 @@ namespace CaiFuZhiJia_3997
             }
 
             ContentModel.Instance.winList = winList;
+            ContentModel.Instance.baseGameWinCredit = totalLineWin;
             //检查算法结果
             CheckGameResult(strDeckRowCol, totalwin, isInFreeSpin);
 
@@ -355,10 +357,10 @@ namespace CaiFuZhiJia_3997
                 ContentModel.Instance.curReelStripsIndex = "FS";
                 ContentModel.Instance.FreeSpinPlayTimes += 1;
                 ContentModel.Instance.freeSpinTotalWinCoins += totalLineWin;
-                
+
                 List<List<int>> currentStrDeck = SlotTool.GetDeckColRow03(strDeckRowCol); // 获取一局免费游戏图标
                 ContentModel.Instance.currentWildList.Clear();
-                
+
                 for (int i = 0; i < currentStrDeck.Count; i++)
                 {
                     for (int j = 0; j < currentStrDeck[i].Count; j++)
@@ -380,6 +382,8 @@ namespace CaiFuZhiJia_3997
 
                 ContentModel.Instance.isFreeSpinResult = ContentModel.Instance.curReelStripsIndex == "FS" &&
                                                          ContentModel.Instance.nextReelStripsIndex == "BS";
+
+                // ContentModel.Instance.baseGameWinCredit = totalLineWin;
             }
 
 
@@ -434,7 +438,7 @@ namespace CaiFuZhiJia_3997
             long creditAfter = 0, creditBefore = MainBlackboardController.Instance.myRealCredit;
             if (ContentModel.Instance.IsBonusTrigger)
                 creditAfter = creditBefore + bonusBet - totalBet + totalJackpotBet;
-            else if (ContentModel.Instance.isFreeSpinTrigger)
+            else if (ContentModel.Instance.isFreeSpinTrigger || ContentModel.Instance.isFreeSpin)
             {
                 // 免费游戏只有第一次需要扣积分
                 if (ContentModel.Instance.FreeSpinPlayTimes == 0)
@@ -446,7 +450,7 @@ namespace CaiFuZhiJia_3997
                 if (ContentModel.Instance.isPowerTrigger)
                     creditAfter = creditAfter + ContentModel.Instance.freeSpinTotalWinCoins - totalLineWin;
             }
-            else if (!ContentModel.Instance.IsBonusTrigger && !ContentModel.Instance.isFreeSpinTrigger)
+            else if (!ContentModel.Instance.IsBonusTrigger && !ContentModel.Instance.isFreeSpin)
                 creditAfter = creditBefore - totalBet + totalLineWin;
 
             ContentModel.Instance.isReelsSlowMotion = true;
@@ -765,7 +769,7 @@ namespace CaiFuZhiJia_3997
             {
                 // calcTotalWin = calcTotalWin * MainModel.Instance.contentMD.betmultiple *
                 //                ContentModel.Instance.freeGameScoreMultiply;
-                
+
                 calcTotalWin = calcTotalWin * ContentModel.Instance.freeGameScoreMultiply;
             }
 

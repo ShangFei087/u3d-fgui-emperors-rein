@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3c97132cd2932584db528a8a558f0baf
+guid: cab39c2d693db6c458dee8c4c4e83629
 AudioImporter:
   externalObjects: {}
   serializedVersion: 6
@@ -18,5 +18,5 @@ AudioImporter:
   ambisonic: 0
   3D: 1
   userData: 
-  assetBundleName: "games/cai fu zhi jia 3997/artres/sounds/music/\u514D\u8D39\u6E38\u620F\u63D0\u793A\u3001\u7ED3\u7B97bgm.unity3d"
+  assetBundleName: games/cai fu zhi jia 3997/sounds/effect/normalgame/scatterwin.unity3d
   assetBundleVariant: 
