@@ -122,6 +122,22 @@ namespace CaiFuZhiJia_3997
 
             _totalCount = 4;
             LoadAsyncRes();
+            
+            machineBtnClickHelper = new MachineButtonClickHelper()
+            {
+                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+                {
+                    [MachineButtonKey.BtnSpin] = (info) =>
+                    {
+                        if (PanelBaseController.ShouldBlockPhysicalSpinInput)
+                            return;
+
+                        Debug.LogError("游戏接受到机台短按的数据：Spin");
+                        EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false);
+                        OnPanelInputEvent(res);
+                    },
+                }
+            };
         }
 
         public override void InitParam()
@@ -164,7 +180,7 @@ namespace CaiFuZhiJia_3997
                 SingleReelController testReelController = new SingleReelController(_rollReels[i], i);
                 _singleReelControllers.Add(testReelController);
             }
-            
+
             GetRewardBet();
             _bonusIsNotZeroList = _rollRewardList
                 .Select((value, index) => new { value, index })
@@ -174,17 +190,17 @@ namespace CaiFuZhiJia_3997
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             BindPrefabsToUI();
             Timers.inst.Add(2, 1, (obj) => _cloneFrameLossObj.SetActive(false));
-            
-            
+
+
             //彩金
             uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("jpMajor").asCom.GetChild("n1").asList, "N0");
             uiJPMinorCtrl.Init("Minor", this.contentPane.GetChild("jpMinor").asCom.GetChild("n1").asList, "N0");
             uiJPMiniCtrl.Init("Mini", this.contentPane.GetChild("jpMini").asCom.GetChild("n1").asList, "N0");
-            
+
             uiJPMajorCtrl.SetReelWidth(30);
             uiJPMinorCtrl.SetReelWidth(30);
             uiJPMiniCtrl.SetReelWidth(30);
-            
+
             uiJPMajorCtrl.SetData(ContentModel.Instance.uiMajorJP.nowCredit);
             uiJPMinorCtrl.SetData(ContentModel.Instance.uiMinorJP.nowCredit);
             uiJPMiniCtrl.SetData(ContentModel.Instance.uiMiniJP.nowCredit);
@@ -253,8 +269,11 @@ namespace CaiFuZhiJia_3997
             // uiJPMiniCtrl.SetData(ContentModel.Instance.uiMiniJP.nowCredit);
 
             #endregion
-            _slotMachineController.BeginBonusFreeSpin();
 
+            // _slotMachineController.BeginBonusFreeSpin();
+
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_CONTENT_EVENT,
+                new EventData<string>(SlotMachineEvent.BeginBonus, "BeginBonusFreeSpin"));
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
         }
 

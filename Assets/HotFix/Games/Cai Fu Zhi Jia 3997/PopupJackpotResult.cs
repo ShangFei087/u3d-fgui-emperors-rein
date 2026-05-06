@@ -1,9 +1,11 @@
 using FairyGUI;
 using GameMaker;
 using SlotMaker;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CaiFuZhiJia_3997
 {
@@ -59,6 +61,49 @@ namespace CaiFuZhiJia_3997
 
             _totalCount = 4;
             LoadAsyncRes();
+            
+            machineBtnClickHelper = new MachineButtonClickHelper()
+            {
+                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+                {
+                    [MachineButtonKey.BtnSpin] = (info) =>
+                    {
+                        if (PanelBaseController.ShouldBlockPhysicalSpinInput)
+                            return;
+
+                        Debug.LogError("游戏接受到机台短按的数据：Spin");
+                        EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false);
+                        OnClickSpinButton(res);
+                    },
+                }
+            };
+        }
+        
+        private void OnClickSpinButton(EventData res)
+        {
+            _jackpotResultButton.onClick.Add((() =>
+            {
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                    new EventData(SlotMachineEvent.BonusGameFadeTransition));
+                _jackpotResultTipWindow.visible = false;
+                _cloneLightEffectObj.SetActive(false);
+                _cloneDiamondAnimationObj.SetActive(false);
+
+                _cloneDiamondSpineObj.SetActive(true);
+                _cloneDiamondBgEffectObj.SetActive(true);
+                Timers.inst.Add(3, 1, (obj) => _cloneDiamondSpineObj.SetActive(false));
+                Timers.inst.Add(5, 1, (obj) =>
+                {
+                    PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPopupJackpotGame);
+                    PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPageGameMain); 
+                });
+                Timers.inst.Add(7, 1, (obj) =>
+                {
+                    CloseSelf(null);
+                    MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+                    ContentModel.Instance.totalBonusReward = 0;
+                });
+            }));
         }
 
         public override void InitParam()
