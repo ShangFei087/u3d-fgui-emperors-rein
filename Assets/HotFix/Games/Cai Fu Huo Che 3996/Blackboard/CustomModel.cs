@@ -28,13 +28,15 @@ namespace CaiFuHuoChe_3996
         }
 
         /// <summary> 说明页 </summary>
-        public string[] payTable => new string[5]
+        public string[] payTable => new string[7]
         {
             "ui://CaiFuHuoChe_3996/Paytable1",
             "ui://CaiFuHuoChe_3996/Paytable2",
             "ui://CaiFuHuoChe_3996/Paytable3",
             "ui://CaiFuHuoChe_3996/Paytable4",
             "ui://CaiFuHuoChe_3996/Paytable5",
+            "ui://CaiFuHuoChe_3996/Paytable6",
+            "ui://CaiFuHuoChe_3996/Paytable7",
         };
 
 

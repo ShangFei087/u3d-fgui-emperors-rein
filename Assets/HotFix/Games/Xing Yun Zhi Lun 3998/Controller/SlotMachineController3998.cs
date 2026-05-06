@@ -602,9 +602,9 @@ namespace XingYunZhiLun_3998
         }
 
 
-        public void ShowMultipleHit(List<int> symbolNumbers, bool isAmin, int symbolNumber, bool isUseMySelfSymbolNumber)
-    => ShowMultipleHit(GetSymbol(symbolNumbers), isAmin, symbolNumber, isUseMySelfSymbolNumber);
-        public void ShowMultipleHit(List<SymbolBase> symbols, bool isAmin, int symbolNumber, bool isUseMySelfSymbolNumber)
+        public void ShowMultipleHit(List<int> symbolNumbers, bool isAmin, int symbolNumber, bool isUseMySelfSymbolNumber, Action finishCallback = null)
+    => ShowMultipleHit(GetSymbol(symbolNumbers), isAmin, symbolNumber, isUseMySelfSymbolNumber, finishCallback);
+        public void ShowMultipleHit(List<SymbolBase> symbols, bool isAmin, int symbolNumber, bool isUseMySelfSymbolNumber, Action finishCallback = null)
         {
             foreach (SymbolBase symbol in symbols)
             {
@@ -626,6 +626,8 @@ namespace XingYunZhiLun_3998
                 GComponent goBorderEffect = fguiPoolHelper.GetObject(TagPoolObject.SymbolHit, multipleEffect).asCom;
                 symbol.AddBorderEffect(goBorderEffect);
             }
+
+            finishCallback?.Invoke();
         }
 
 

@@ -252,11 +252,6 @@
     <component id="efdebl" name="Mini.xml" path="/moudules/JackpotIcon/" exported="true"/>
     <component id="efdebm" name="Minor.xml" path="/moudules/JackpotIcon/" exported="true"/>
     <component id="efdebn" name="Major.xml" path="/moudules/JackpotIcon/" exported="true"/>
-    <image id="v2k7c6" name="1.png" path="/images/Panel/payTable/" exported="true"/>
-    <image id="v2k7c7" name="2.png" path="/images/Panel/payTable/" exported="true"/>
-    <image id="v2k7c8" name="3.png" path="/images/Panel/payTable/" exported="true"/>
-    <image id="v2k7c9" name="4.png" path="/images/Panel/payTable/" exported="true"/>
-    <image id="v2k7ca" name="5.png" path="/images/Panel/payTable/" exported="true"/>
     <component id="v2k7by" name="Paytable1.xml" path="/moudules/payTable/" exported="true"/>
     <component id="v2k7cb" name="Paytable2.xml" path="/moudules/payTable/" exported="true"/>
     <component id="v2k7cc" name="Paytable3.xml" path="/moudules/payTable/" exported="true"/>
@@ -290,6 +285,15 @@
     <image id="ke3pdb" name="ng_num_sym3_7.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-93,-55"/>
     <image id="ke3pdc" name="ng_num_sym3_trillion.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-97,-55"/>
     <font id="ke3pdd" name="bigWinFont.fnt" path="/fonts/font/bigWinFonts/" exported="true"/>
+    <image id="nnazde" name="1.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="nnazdf" name="2.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="nnazdg" name="3.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="nnazdh" name="4.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="nnazdi" name="5.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="nnazdj" name="6.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="nnazdk" name="7.png" path="/images/Panel/payTable/" exported="true"/>
+    <component id="nnazdm" name="Paytable6.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="nnazdn" name="Paytable7.xml" path="/moudules/payTable/" exported="true"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Cai Fu Huo Che 3996\FGUIs" packageCount="2"/>
 </packageDescription>

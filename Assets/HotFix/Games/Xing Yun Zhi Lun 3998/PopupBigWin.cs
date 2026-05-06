@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using SlotMaker;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -67,6 +68,8 @@ namespace XingYunZhiLun_3998
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
+                        if (PanelBaseController.ShouldBlockPhysicalSpinInput) return;
+
                         Debug.LogError("游戏接受到机台短按的数据：Spin");
                         SpinDown();
                     }
