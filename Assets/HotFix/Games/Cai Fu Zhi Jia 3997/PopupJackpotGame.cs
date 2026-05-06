@@ -122,7 +122,7 @@ namespace CaiFuZhiJia_3997
 
             _totalCount = 4;
             LoadAsyncRes();
-            
+
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
                 shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
@@ -209,6 +209,8 @@ namespace CaiFuZhiJia_3997
             // if (!isOpen) return;
         }
 
+        // private Coroutine _corWait;
+
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
@@ -272,14 +274,23 @@ namespace CaiFuZhiJia_3997
 
             // _slotMachineController.BeginBonusFreeSpin();
 
-            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_CONTENT_EVENT,
-                new EventData<string>(SlotMachineEvent.BeginBonus, "BeginBonusFreeSpin"));
+            // EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_CONTENT_EVENT,
+            //     new EventData<string>(SlotMachineEvent.BeginBonus, "BeginBonusFreeSpin"));
+
+            // if (_corWait != null) _monoHelper.StopCoroutine(_corWait);
+            // _corWait = _monoHelper.StartCoroutine(WaitForPanel());
+            // if (_isStart) return;
+            // _isStart = true;
+            // ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
+            // _monoHelper.StartCoroutine(PlayMultipleRounds());
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
         }
 
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
+
+            // _corWait = null;
             // GameSoundHelper3997.Instance.StopSound(SoundKey.JackpotBG);
             _gameSoundController?.Dispose();
             _gameSoundController = null;
@@ -305,6 +316,11 @@ namespace CaiFuZhiJia_3997
                 _isInitialized = true;
                 InitParam();
             }
+        }
+
+        IEnumerator WaitForPanel()
+        {
+            yield return new WaitForSeconds(5);
         }
 
         private void InitUI()
