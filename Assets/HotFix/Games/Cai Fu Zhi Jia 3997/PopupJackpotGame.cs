@@ -129,8 +129,8 @@ namespace CaiFuZhiJia_3997
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
-                        // if (PanelBaseController.ShouldBlockPhysicalSpinInput)
-                        //     return;
+                        if (PanelBaseController.ShouldBlockPhysicalSpinInput)
+                            return;
 
                         Debug.LogError("游戏接受到机台短按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false);
@@ -272,8 +272,8 @@ namespace CaiFuZhiJia_3997
 
             // _slotMachineController.BeginBonusFreeSpin();
 
-            // EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_CONTENT_EVENT,
-            //     new EventData<string>(SlotMachineEvent.BeginBonus, "BeginBonusFreeSpin"));
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_CONTENT_EVENT,
+                new EventData<string>(SlotMachineEvent.BeginBonus, "BeginBonusFreeSpin"));
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnPanelInputEvent);
         }
 

@@ -52,8 +52,8 @@ namespace CaiFuZhiJia_3997
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
-                        // if (PanelBaseController.ShouldBlockPhysicalSpinInput)
-                        //     return;
+                        if (SlotMaker.PanelBaseController.ShouldBlockPhysicalSpinInput)
+                            return;
 
                         Debug.LogError("游戏接受到机台短按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false);
