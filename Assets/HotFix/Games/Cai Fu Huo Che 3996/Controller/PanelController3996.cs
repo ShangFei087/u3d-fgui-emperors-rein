@@ -23,9 +23,6 @@ public class PanelController3996 : SlotMaker.PanelBaseController
     protected override void InitParam()
     {
         base.InitParam();
-
-        btnSound.GetController("button").selectedIndex = 1;
-        bet.text = SBoxModel.Instance.betList[MainModel.Instance.contentMD.betIndex].ToString();
     }
 
     protected override void OnPropertyChangeBtnSpinState(EventData res = null)

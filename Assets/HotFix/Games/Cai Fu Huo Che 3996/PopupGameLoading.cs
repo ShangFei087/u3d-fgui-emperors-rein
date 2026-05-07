@@ -1,10 +1,6 @@
 using FairyGUI;
 using GameMaker;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using UnityEditor;
 using UnityEngine;
 
 namespace CaiFuHuoChe_3996
@@ -16,7 +12,6 @@ namespace CaiFuHuoChe_3996
 
         GTextField Load, version;
         GSlider ProgressBar;
-        private float duration = 5f;
         private string[] dots = new string[]
         {
             "",
@@ -38,7 +33,7 @@ namespace CaiFuHuoChe_3996
             int count = 2;
             Action callback = () =>
             {
-                if(--count <= 0)
+                if (--count <= 0)
                 {
                     isInit = true;
                     InitParam();
@@ -66,8 +61,6 @@ namespace CaiFuHuoChe_3996
 
         public override void OnOpen(PageName name, EventData data)
         {
-            DebugUtils.LogError($"启动游戏");
-
             base.OnOpen(name, data);
             InitParam();
         }
@@ -104,88 +97,78 @@ namespace CaiFuHuoChe_3996
 
             if (PageManager.Instance.IndexOf(PageName.CaiFuHuoChePopupGameLoading) == 0)
             {
-                StartLoadingAnimation();
-                StartLoadingAnimation2();
-
-                PlayAnim("start");
+                StartPreloadGamePagesThenLoadingAnimation();
             }
         }
 
+        private int _preloadTotal;
+        private int _preloadCompleted;
 
-
-        GTweener tweener = null;
-        GTweener tweener2 = null;
-
-        private void StartLoadingAnimation()
+        /// <summary>
+        /// 并行预加载各子界面；进度条按完成个数增长，全部完成后进入主界面。
+        /// </summary>
+        private void StartPreloadGamePagesThenLoadingAnimation()
         {
-            // 预加载界面：
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePageGameMain, null);
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupFreeSpinTrigger, null);
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupJackpotGameTrigger, null);
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupJackpotGameExit, null);
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupFreeSpinResult, null);
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupJackpotResult, null);
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupBigWin, null);
+            PageName[] pages =
+            {
+                PageName.CaiFuHuoChePageGameMain,
+                PageName.CaiFuHuoChePopupBigWin,
+                PageName.CaiFuHuoChePopupFreeSpinTrigger,
+                PageName.CaiFuHuoChePopupFreeSpinResult,
+                PageName.CaiFuHuoChePopupJackpotGameTrigger,
+                PageName.CaiFuHuoChePopupJackpotResult,
+                PageName.CaiFuHuoChePopupJackpotGameExit,
+            };
 
+            _preloadTotal = pages.Length;
+            _preloadCompleted = 0;
+            SetSliderByPreloadNormalized(0f);
+            Load.text = $"加载中{dots[0]}";
+            PlayAnim("start");
 
+            for (int i = 0; i < pages.Length; i++)
+            {
+                PageManager.Instance.PreloadPage(pages[i], OnOnePreloadPageDone);
 
-            // 使用GTween实现0到100的平滑过渡，时长2秒
-            //if (tweener != null)
-            //{
-            //    tweener.Kill();
-            //}
-            //tweener = GTween.To(0, 100, duration)
-            //    .SetEase(EaseType.Linear) // 线性过渡，匀速增长
-            //    .OnUpdate((tween) =>
-            //    {
-            //        // 获取当前进度值（四舍五入为整数）
-            //        int progress = Mathf.RoundToInt(tween.value.x);
-
-            //    })
-            //    .OnComplete(() =>
-            //    {
-            //        Load.text = $"加载完成";
-
-
-            //    });
+            }
         }
 
-        private void StartLoadingAnimation2()
+        private void OnOnePreloadPageDone()
         {
-            if (tweener2 != null) tweener2.Kill();
-            tweener2 = GTween.To(0, 1, duration)
-                .SetEase(EaseType.Linear) // 线性过渡，匀速增长
-                .OnUpdate((tween) =>
-                {
-                    // 获取当前进度值（四舍五入为整数）
-                    double progress = tween.value.x;
-                    ProgressBar.value = progress;
+            _preloadCompleted++;
+            float progress = _preloadTotal > 0 ? (float)_preloadCompleted / _preloadTotal : 1f;
+            SetSliderByPreloadNormalized(progress);
+            int dotIndex = ((int)(progress * 100) / 4) % 4;
+            Load.text = $"加载中{dots[dotIndex]}";
 
-                    // 更新文本显示
-                    Load.text = $"加载中{dots[((int)(progress * 100) / 4) % 4]}";
-                })
-                .OnComplete(() =>
-                {
-                    Load.text = $"加载完成";
-                    CloseSelf(null);
+            if (_preloadCompleted < _preloadTotal)
+                return;
 
+            Load.text = "加载完成";
+            CloseSelf(null);
 
-                    Action onJPPoolSubCredit = () =>
-                    {
-                        DebugUtils.Log("i am here123");
-                    };
+            if (PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce)
+            {
+                PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce = false;
+            }
+            else
+            {
+                PageManager.Instance.OpenPage(PageName.CaiFuHuoChePageGameMain);
+            }
+        }
 
-
-
-                    if (PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce)
-                    {
-                        PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce = false;
-                    }
-                    else
-                    {
-                        PageManager.Instance.OpenPage(PageName.CaiFuHuoChePageGameMain);
-                    }
-                });
+        /// <summary>
+        /// 将 0~1 的预加载比例映射到 GSlider 的 min~max（FGUI 默认 max=100，直接写 0~1 会显示成约 1% 而非 71%）。
+        /// </summary>
+        private void SetSliderByPreloadNormalized(float normalized01)
+        {
+            if (ProgressBar == null)
+                return;
+            normalized01 = Mathf.Clamp01(normalized01);
+            double span = ProgressBar.max - ProgressBar.min;
+            if (span <= 0)
+                span = 1;
+            ProgressBar.value = ProgressBar.min + span * normalized01;
         }
 
         //播放指定动画
