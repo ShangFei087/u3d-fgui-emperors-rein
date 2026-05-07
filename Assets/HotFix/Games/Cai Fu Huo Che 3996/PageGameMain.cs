@@ -137,6 +137,25 @@ namespace CaiFuHuoChe_3996
         bool isAddCreditAnim => !(slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
         private EventData _data = null;
 
+        /// <summary>3996：底部 Panel 异步就绪后触发 PageManager 的 preLoadedCallback。</summary>
+        private void OnBottomPanelReadyForPreload(EventData res)
+        {
+            if (res == null || res.name != PanelEvent.BottomPanelReady)
+            {
+                return;
+            }
+
+            int gameId = Convert.ToInt32(res.value);
+            if (gameId != 3996)
+            {
+                return;
+            }
+
+            Debug.LogError("BottomPanelReadyForPreload:"+ gameId);
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
+            preLoadedCallback?.Invoke();
+        }
+
         const string CACHE_TOTAL_JP_MAJOR_CONTRIBUTION = "CACHE_TOTAL_JP_MAJOR_CONTRIBUTION";
         const string CACHE_TOTAL_JP_GRAND_CONTRIBUTION = "CACHE_TOTAL_JP_GRAND_CONTRIBUTION";
 
@@ -314,9 +333,8 @@ namespace CaiFuHuoChe_3996
             EventCenter.Instance.AddEventListener<EventData>("RewardAddEffect", OnRewardEffectEvent);
             EventCenter.Instance.AddEventListener<EventData>("JackpotWinCredit", OnJackpotWinEvent);
             EventCenter.Instance.AddEventListener<EventData>("PlayGirlClaw", OnPlayGirlClaw);
-            _gameSoundController = new GameSoundController3996();
-            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
-                new EventData(Game3996AudioEvent.BgmRegularGame));
+
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,new EventData(Game3996AudioEvent.BgmRegularGame));
             InitParam(null);
 
             PlayAnim(trainAnim, "fg_ng");
@@ -334,6 +352,7 @@ namespace CaiFuHuoChe_3996
             EventCenter.Instance.RemoveEventListener<EventData>("RewardAddEffect", OnRewardEffectEvent);
             EventCenter.Instance.RemoveEventListener<EventData>("JackpotWinCredit", OnJackpotWinEvent);
             EventCenter.Instance.RemoveEventListener<EventData>("PlayGirlClaw", OnPlayGirlClaw);
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
 
             _gameSoundController?.Dispose();
             _gameSoundController = null;
@@ -485,10 +504,13 @@ namespace CaiFuHuoChe_3996
             gOwnerPanel = this.contentPane.GetChild("panel").asCom;
             ContentModel.Instance.goAnthorPanel = gOwnerPanel;
             MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
+            EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
             EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT, new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
-
-            preLoadedCallback?.Invoke();
+           
             if (!isOpen) return;
+
+            _gameSoundController = new GameSoundController3996();
             // ---------- 4.预制体挂到 FGUI 锚点 ----------
             if (ComReelEffect2 != null) ComReelEffect2.Dispose();
             if (ComReelEffect3 != null) ComReelEffect3.Dispose();

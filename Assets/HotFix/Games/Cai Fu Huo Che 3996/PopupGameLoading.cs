@@ -141,8 +141,7 @@ namespace CaiFuHuoChe_3996
             int dotIndex = ((int)(progress * 100) / 4) % 4;
             Load.text = $"加载中{dots[dotIndex]}";
 
-            if (_preloadCompleted < _preloadTotal)
-                return;
+            if (_preloadCompleted < _preloadTotal) return;
 
             Load.text = "加载完成";
             CloseSelf(null);

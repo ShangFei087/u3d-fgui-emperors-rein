@@ -267,8 +267,6 @@ namespace XingYunZhiLun_3998
                 }
             };
         }
-
-
         protected override void OnLanguageChange(I18nLang lang)
         {
             FguiI18nTextAssistant.Instance.DisposeAllTranslate(this.contentPane);
