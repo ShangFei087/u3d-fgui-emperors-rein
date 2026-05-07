@@ -319,8 +319,8 @@ namespace CaiFuZhiJia_3997
                     int minorBet = (int)data["minor"];
                     int miniBet = (int)data["mini"];
 
-                    uiJPMajorCtrl.SetData(minorBet);
-                    uiJPMinorCtrl.SetData(majorBet);
+                    uiJPMajorCtrl.SetData(majorBet);
+                    uiJPMinorCtrl.SetData(minorBet);
                     uiJPMiniCtrl.SetData(miniBet);
                 });
             }
@@ -354,6 +354,7 @@ namespace CaiFuZhiJia_3997
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
+            // Debug.LogError("财富之家_3997 当前中奖线数量是： " + MainModel.Instance.lineNum);
             // GameSoundHelper3997.Instance.PlayMusicSingle(SoundKey.RegularBG);
             base.OnOpen(currentPageName, eventData);
             _isMain = true;

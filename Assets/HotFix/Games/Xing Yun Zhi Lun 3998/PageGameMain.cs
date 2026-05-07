@@ -284,6 +284,7 @@ namespace XingYunZhiLun_3998
         {
             if (isOpen) return;
 
+            // Debug.LogError("幸运之轮_3998 当前中奖线数量是： " + MainModel.Instance.lineNum);
             base.OnOpen(name, data);
 
             _gameSoundController = new GameSoundController3998();

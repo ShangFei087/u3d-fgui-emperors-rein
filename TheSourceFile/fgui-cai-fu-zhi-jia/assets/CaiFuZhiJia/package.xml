@@ -231,6 +231,108 @@
     <font id="hmyfpv" name="Hunger Games.ttf" path="/fonts/" renderMode="" samplePointSize="16"/>
     <font id="hmyfpw" name="San Antonio Charros_personal_use_only.ttf" path="/fonts/" renderMode="" samplePointSize="16"/>
     <font id="hmyfpx" name="方正粗圆_GBK.ttf" path="/fonts/" renderMode="" samplePointSize="16"/>
+    <component id="j5q1py" name="jackpotPanel.xml" path="/components/popupJackpotGame/" exported="true"/>
+    <component id="j5q1pz" name="jackpotSpinBg.xml" path="/components/popupJackpotGame/" exported="true"/>
+    <component id="j5q1q0" name="jackpotSpinGrey.xml" path="/components/popupJackpotGame/" exported="true"/>
+    <component id="j5q1q1" name="jackpotSpinBtn.xml" path="/components/popupJackpotGame/" exported="true"/>
+    <image id="j5q1q2" name="pb_txt_stop.png" path="/images/spin按钮/" exported="true"/>
+    <image id="j5q1q3" name="pb_txt_spin.png" path="/images/spin按钮/" exported="true"/>
+    <image id="j5q1q4" name="pb_txt_hold.png" path="/images/spin按钮/" exported="true"/>
+    <image id="j5q1q5" name="pb_img_button01.png" path="/images/spin按钮/" exported="true"/>
+    <image id="j5q1q6" name="pb_img_button.png" path="/images/spin按钮/" exported="true"/>
+    <image id="j5q1q7" name="pb_img_button02.png" path="/images/spin按钮/" exported="true"/>
+    <image id="j5q1q8" name="pb_img_button_grey.png" path="/images/spin按钮/" exported="true"/>
+    <image id="j5q1q9" name="pb_img_button01_grey.png" path="/images/spin按钮/" exported="true"/>
+    <image id="j5q1qa" name="pb_img_button02_grey.png" path="/images/spin按钮/" exported="true"/>
+    <image id="j5q1qb" name="pb_txt_spin HoldToAuto.png" path="/images/spin按钮/" exported="true"/>
+    <image id="j5q1qc" name="pb_txt_spin HoldToAuto_grey.png" path="/images/spin按钮/" exported="true"/>
+    <image id="j5q1qd" name="pb_txt_auto.png" path="/images/spin按钮/" exported="true"/>
+    <image id="j5q1qe" name="pb_img_red.png" path="/images/多功能按钮/" exported="true"/>
+    <image id="j5q1qf" name="pb_img_music06.png" path="/images/多功能按钮/" exported="true" scale="9grid" scale9grid="9,12,20,29"/>
+    <image id="j5q1qg" name="pb_img_music05.png" path="/images/多功能按钮/" exported="true"/>
+    <image id="j5q1qh" name="pb_img_music04.png" path="/images/多功能按钮/" exported="true" scale="tile"/>
+    <image id="j5q1qi" name="pb_img_music03.png" path="/images/多功能按钮/" exported="true" scale="9grid" scale9grid="9,5,15,11"/>
+    <image id="j5q1qj" name="pb_img_music01.png" path="/images/多功能按钮/" exported="true"/>
+    <image id="j5q1qk" name="pb_img_music.png" path="/images/多功能按钮/" exported="true"/>
+    <image id="j5q1ql" name="pb_img_help.png" path="/images/多功能按钮/" exported="true"/>
+    <image id="j5q1qm" name="pb_img_expand.png" path="/images/多功能按钮/" exported="true"/>
+    <image id="j5q1qn" name="pb_img_dgn.png" path="/images/多功能按钮/" exported="true"/>
+    <image id="j5q1qo" name="pb_img_music02.png" path="/images/多功能按钮/" exported="true"/>
+    <font id="j5q1qp" name="BetAndCreditesFront.fnt" path="/fonts/" exported="true"/>
+    <image id="j5q1qq" name="pb_num_0.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-17,0"/>
+    <image id="j5q1qr" name="pb_num_1.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-30,-1"/>
+    <image id="j5q1qs" name="pb_num_2.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-19,0"/>
+    <image id="j5q1qt" name="pb_num_3.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-18,0"/>
+    <image id="j5q1qu" name="pb_num_4.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-15,0"/>
+    <image id="j5q1qv" name="pb_num_5.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-19,0"/>
+    <image id="j5q1qw" name="pb_num_6.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-18,0"/>
+    <image id="j5q1qx" name="pb_num_7.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-17,-1"/>
+    <image id="j5q1qy" name="pb_num_8.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-18,0"/>
+    <image id="j5q1qz" name="pb_num_9.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-18,0"/>
+    <image id="j5q1r0" name="pb_num_bill.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-17,-1"/>
+    <image id="j5q1r1" name="pb_num_kilo.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-14,0"/>
+    <image id="j5q1r2" name="pb_num_million.png" path="/fonts/ui_number/" exported="true"/>
+    <image id="j5q1r3" name="pb_num_trillion.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-18,-1"/>
+    <font id="j5q1r4" name="WinFont.fnt" path="/fonts/" exported="true"/>
+    <image id="j5q1r5" name="pb_num_bet_0.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-16,0"/>
+    <image id="j5q1r6" name="pb_num_bet_1.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-29,-1"/>
+    <image id="j5q1r7" name="pb_num_bet_2.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-18,-1"/>
+    <image id="j5q1r8" name="pb_num_bet_3.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-17,0"/>
+    <image id="j5q1r9" name="pb_num_bet_4.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-14,-1"/>
+    <image id="j5q1ra" name="pb_num_bet_5.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-18,-1"/>
+    <image id="j5q1rb" name="pb_num_bet_6.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-17,0"/>
+    <image id="j5q1rc" name="pb_num_bet_7.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-16,-1"/>
+    <image id="j5q1rd" name="pb_num_bet_8.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-17,0"/>
+    <image id="j5q1re" name="pb_num_bet_9.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-17,0"/>
+    <image id="j5q1rf" name="pb_num_bet_bill.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-16,-1"/>
+    <image id="j5q1rg" name="pb_num_bet_com.png" path="/fonts/ui_number/" exported="true"/>
+    <image id="j5q1rh" name="pb_num_bet_dot.png" path="/fonts/ui_number/" exported="true"/>
+    <image id="j5q1ri" name="pb_num_bet_kilo.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-13,0"/>
+    <image id="j5q1rj" name="pb_num_bet_million.png" path="/fonts/ui_number/" exported="true"/>
+    <image id="j5q1rk" name="pb_num_bet_trillion.png" path="/fonts/ui_number/" exported="true" scale9grid="0,0,-17,-1"/>
+    <image id="j5q1rl" name="pb_num_0.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-17,0"/>
+    <image id="j5q1rm" name="pb_num_kilo.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-14,0"/>
+    <image id="j5q1rn" name="pb_num_bill.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-17,-1"/>
+    <image id="j5q1ro" name="pb_num_bet_trillion.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-17,-1"/>
+    <image id="j5q1rp" name="pb_num_bet_million.png" path="/images/ui_number/" exported="true"/>
+    <image id="j5q1rq" name="pb_num_bet_kilo.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-13,0"/>
+    <image id="j5q1rr" name="pb_num_bet_dot.png" path="/images/ui_number/" exported="true"/>
+    <image id="j5q1rs" name="pb_num_bet_com.png" path="/images/ui_number/" exported="true"/>
+    <image id="j5q1rt" name="pb_num_bet_bill.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-16,-1"/>
+    <image id="j5q1ru" name="pb_num_bet_9.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-17,0"/>
+    <image id="j5q1rv" name="pb_num_bet_8.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-17,0"/>
+    <image id="j5q1rw" name="pb_num_bet_7.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-16,-1"/>
+    <image id="j5q1rx" name="pb_num_bet_6.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-17,0"/>
+    <image id="j5q1ry" name="pb_num_bet_5.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-18,-1"/>
+    <image id="j5q1rz" name="pb_num_bet_4.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-14,-1"/>
+    <image id="j5q1s0" name="pb_num_bet_3.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-17,0"/>
+    <image id="j5q1s1" name="pb_num_bet_2.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-18,-1"/>
+    <image id="j5q1s2" name="pb_num_bet_1.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-29,-1"/>
+    <image id="j5q1s3" name="pb_num_bet_0.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-16,0"/>
+    <image id="j5q1s4" name="pb_num_9.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-18,0"/>
+    <image id="j5q1s5" name="pb_num_8.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-18,0"/>
+    <image id="j5q1s6" name="pb_num_7.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-17,-1"/>
+    <image id="j5q1s7" name="pb_num_6.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-18,0"/>
+    <image id="j5q1s8" name="pb_num_5.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-19,0"/>
+    <image id="j5q1s9" name="pb_num_4.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-15,0"/>
+    <image id="j5q1sa" name="pb_num_3.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-18,0"/>
+    <image id="j5q1sb" name="pb_num_2.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-19,0"/>
+    <image id="j5q1sc" name="pb_num_1.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-30,-1"/>
+    <image id="j5q1sd" name="pb_num_million.png" path="/images/ui_number/" exported="true"/>
+    <image id="j5q1se" name="pb_num_trillion.png" path="/images/ui_number/" exported="true" scale9grid="0,0,-18,-1"/>
+    <image id="j5q1sf" name="pb_img_kuang.png" path="/images/鼓励值/" exported="true" scale="9grid" scale9grid="54,0,12,101"/>
+    <image id="j5q1sg" name="pb_txt_bet.png" path="/images/鼓励值/" exported="true"/>
+    <image id="j5q1sh" name="pb_img_kuang_01.png" path="/images/鼓励值/" exported="true"/>
+    <image id="j5q1si" name="pb_img_kuang_03.png" path="/images/鼓励值/" exported="true"/>
+    <image id="j5q1sj" name="pb_img_kuang_04.png" path="/images/鼓励值/" exported="true"/>
+    <image id="j5q1sk" name="pb_txt_credits.png" path="/images/投币数/" exported="true"/>
+    <image id="j5q1sl" name="pb_img_toubi.png" path="/images/投币数/" exported="true"/>
+    <image id="j5q1sm" name="pb_txt_zw.png" path="/images/赢分框/" exported="true"/>
+    <image id="j5q1sn" name="pb_txt_win.png" path="/images/赢分框/" exported="true"/>
+    <image id="j5q1so" name="pb_img_score.png" path="/images/赢分框/" exported="true" scale="9grid" scale9grid="37,10,46,116"/>
+    <image id="j5q1sp" name="pb_img_dik.png" path="/images/赢分框/" exported="true" scale="9grid" scale9grid="129,0,260,27"/>
+    <component id="j5q1sq" name="GameDiFrame.xml" path="/moudules/" exported="true"/>
+    <image id="j5q1sr" name="pb_img_bottom.png" path="/images/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>
