@@ -1969,6 +1969,8 @@ namespace CaiFuZhiJia_3997
             // 彩金游戏
             if (ContentModel.Instance.IsBonusTrigger)
             {
+                Debug.Log("彩金游戏");
+
                 // 计数没到五局中奖之后刷新计数
                 if (ContentModel.Instance.noWinCount < 5)
                     ContentModel.Instance.noWinCount = 0;
@@ -2046,6 +2048,8 @@ namespace CaiFuZhiJia_3997
             // 本剧同步玩家金钱
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             ContentModel.Instance.gameState = GameState.Idle;
+            ContentModel.Instance.IsBonusTrigger = false;
+            ContentModel.Instance.IsJackpotTrigger = false;
             if (winList.Count > 0 && !ContentModel.Instance.isAuto && !ContentModel.Instance.isFreeSpinTrigger)
             {
                 if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);

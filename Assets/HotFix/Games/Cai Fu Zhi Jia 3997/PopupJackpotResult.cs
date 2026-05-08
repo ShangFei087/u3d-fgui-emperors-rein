@@ -137,8 +137,8 @@ namespace CaiFuZhiJia_3997
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
-            ContentModel.Instance.IsBonusTrigger = false;
-            ContentModel.Instance.IsJackpotTrigger = false;
+            Debug.Log("PopupJackpotResult OnClose");
+
             _gameSoundController?.Dispose();
             _gameSoundController = null;
             // ContentModel.Instance.isBonusGameResult = true;
