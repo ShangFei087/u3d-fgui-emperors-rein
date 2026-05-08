@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="451,128">
   <displayList>
-    <image id="n7_a666" name="n7" src="powcajx" fileName="images/PopupGameNormalGame/wheelSymbols/ng_frame_mini.png" xy="464,48" size="462,102" scale="-1,1"/>
-    <image id="n5_wtp2" name="n5" src="a6ypabx" fileName="images/PopupJackpotGame/ListSymbolIcons/jp_txt_mini.png" xy="347,31" pivot="0.5,0.5" anchor="true" aspect="true" scale="1.5,1.5">
+    <image id="n7_a666" name="n7" src="wrw6akh" fileName="images/PopupGameNormalGame/wheelSymbols/ng_frame_mini.png" xy="464,48" size="462,102" scale="-1,1"/>
+    <image id="n5_wtp2" name="n5" src="wrw6akj" fileName="images/PopupJackpotGame/ListSymbolIcons/jp_txt_mini.png" xy="350,11" pivot="0.5,0.5" anchor="true" aspect="true" scale="0.3,0.3">
       <relation target="" sidePair="center-center,middle-middle"/>
     </image>
     <list id="n6_n5h9" name="reels" xy="37,70" size="395,65" layout="row" overflow="hidden" defaultItem="ui://5hielhj5n5h9ael" align="center" vAlign="middle">

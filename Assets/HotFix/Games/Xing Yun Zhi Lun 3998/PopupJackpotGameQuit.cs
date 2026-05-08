@@ -69,10 +69,15 @@ namespace XingYunZhiLun_3998
 
             ContentModel.Instance.btnSpinState = ContentModel.Instance.curBtnSpinState;
 
-            Timers.inst.Add(2.2f, 1, (object obj) =>
+            preLoadedCallback?.Invoke();
+
+            if (isOpen)
             {
-                CloseSelf(null);
-            });
+                Timers.inst.Add(2.2f, 1, (object obj) =>
+                {
+                    CloseSelf(null);
+                });
+            }
         }
     }
 }

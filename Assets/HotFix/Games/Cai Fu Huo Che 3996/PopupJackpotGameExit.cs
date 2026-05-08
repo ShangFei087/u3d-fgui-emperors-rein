@@ -32,13 +32,23 @@ namespace CaiFuHuoChe_3996
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
+            int count = 1;
+
+            Action callback = () =>
+            {
+                if (--count == 0)
+                {
+                    isInit = true;
+                    InitParam(null);
+                }
+            };
+
             ResourceManager02.Instance.LoadAsset<GameObject>(
                 "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PopupGameJackpot/JackpotGameExit.prefab",
                 (GameObject clone) =>
                 {
                     go = clone;
-                    isInit = true;
-                    InitParam();
+                    callback();
                 });
 
             machineBtnClickHelper = new MachineButtonClickHelper()
@@ -102,6 +112,9 @@ namespace CaiFuHuoChe_3996
             winCredit.visible = false;
             idleTransition = contentPane.GetTransition("idle");
 
+            preLoadedCallback?.Invoke();
+            if (!isOpen) return;
+
             if (_data != null)
             {
                 Dictionary<string, object> args = _data.value as Dictionary<string, object>;
@@ -125,7 +138,6 @@ namespace CaiFuHuoChe_3996
                 ScheduleAutoModeSimulatedClick(closeBtn, () => isClose);
             });
 
-            preLoadedCallback?.Invoke();
         }
 
 

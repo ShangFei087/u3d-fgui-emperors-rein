@@ -220,6 +220,7 @@ namespace XingYunZhiLun_3998
         {
             { "low", "ui://XingYunZhiLun_3998/LowWheel"},
             { "mid", "ui://XingYunZhiLun_3998/MidWheel"},
+            { "high","ui://XingYunZhiLun_3998/HighWheel"},
         };
 
         #region 赔付线与赔付表

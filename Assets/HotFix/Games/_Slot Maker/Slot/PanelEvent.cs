@@ -28,6 +28,8 @@ namespace GameMaker
         public const string ON_PANEL_EVENT = "ON_PANEL_EVENT";
         /// <summary> 面板锚点变化事件(多语言！) </summary>
         public const string AnchorPanelChange = "AnchorPanelChange";
+        /// <summary> 底部菜单 Panel 异步 InitParam 全部完成；value 为 MainModel.gameID。</summary>
+        public const string BottomPanelReady = "BottomPanelReady";
     }
 
 

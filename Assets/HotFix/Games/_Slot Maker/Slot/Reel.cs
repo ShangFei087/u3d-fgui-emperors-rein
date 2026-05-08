@@ -527,6 +527,11 @@ namespace SlotMaker
             if (targetIndex < 0)
                 targetIndex += count;
 
+            //测试代码
+            if (targetIndex >= 12)
+            {
+                targetIndex = 11;
+            }
             return customModel.symbolNumber[targetIndex];
         }
 

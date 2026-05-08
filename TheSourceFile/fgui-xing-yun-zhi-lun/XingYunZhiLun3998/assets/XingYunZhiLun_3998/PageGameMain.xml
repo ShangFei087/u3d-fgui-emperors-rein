@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920" overflow="hidden" designImage="ui://5hielhj5a666agl" designImageAlpha="99">
+<component size="1080,1920" overflow="hidden" designImage="ui://5hielhj5a666agl" designImageAlpha="0">
   <controller name="c1" pages="0,BS,1,FS,2,JS" selected="0">
     <action type="play_transition" fromPage="" toPage="0" transition="BS"/>
     <action type="play_transition" fromPage="" toPage="1" transition="FS"/>
@@ -18,10 +18,10 @@
     <component id="n5_lsvw" name="slotMachiineBg" src="lsvw1q" fileName="moudules/slotMachine/SlotMachineBg.xml" xy="556,1428" size="1080,721" group="n38_n45k"/>
     <component id="n10_lsvw" name="slotMachine" src="lsvw1d" fileName="moudules/slotMachine/SlotMachine.xml" xy="87,1088" size="915,543" group="n38_n45k"/>
     <group id="n38_n45k" name="slotMachineGroup" xy="16,1067" size="1080,721"/>
-    <component id="n34_n45k" name="jpMajor" src="n45k3p" fileName="moudules/slotMachine/gameJackpot/GameJackpotMajor.xml" xy="343,14" size="395,128" group="n37_n45k"/>
-    <component id="n35_n45k" name="jpMini" src="n45k3q" fileName="moudules/slotMachine/gameJackpot/GameJackpotMini.xml" xy="591,132" size="395,128" group="n37_n45k"/>
-    <component id="n36_n45k" name="jpMinor" src="n45k3r" fileName="moudules/slotMachine/gameJackpot/GameJackpotMinor.xml" xy="26,132" size="395,128" group="n37_n45k"/>
-    <group id="n37_n45k" name="jackpots" xy="26,14" size="960,246"/>
+    <component id="n34_n45k" name="jpMajor" src="n45k3p" fileName="moudules/slotMachine/gameJackpot/GameJackpotMajor.xml" xy="343,47" size="395,128" group="n37_n45k"/>
+    <component id="n35_n45k" name="jpMini" src="n45k3q" fileName="moudules/slotMachine/gameJackpot/GameJackpotMini.xml" xy="591,165" size="395,128" group="n37_n45k"/>
+    <component id="n36_n45k" name="jpMinor" src="n45k3r" fileName="moudules/slotMachine/gameJackpot/GameJackpotMinor.xml" xy="26,165" size="395,128" group="n37_n45k"/>
+    <group id="n37_n45k" name="jackpots" xy="26,47" size="960,246"/>
     <component id="n39_x7l3" name="FSFrame" src="x7l37w" fileName="freeGameFramePush.xml" xy="412,1000"/>
     <component id="n28_l9vr" name="anchorFrame" src="lsvw1j" fileName="components/PopupZhuanPan/AnchorEffect.xml" xy="524,1406"/>
     <component id="n53_iihr" name="anchorEffect" src="iihrabs" fileName="components/AnchorTransEffect.xml" xy="540,550" touchable="false"/>

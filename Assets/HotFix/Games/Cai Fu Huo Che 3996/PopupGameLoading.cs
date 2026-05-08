@@ -1,10 +1,6 @@
 using FairyGUI;
 using GameMaker;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using UnityEditor;
 using UnityEngine;
 
 namespace CaiFuHuoChe_3996
@@ -16,7 +12,6 @@ namespace CaiFuHuoChe_3996
 
         GTextField Load, version;
         GSlider ProgressBar;
-        private float duration = 5f;
         private string[] dots = new string[]
         {
             "",
@@ -38,7 +33,7 @@ namespace CaiFuHuoChe_3996
             int count = 2;
             Action callback = () =>
             {
-                if(--count <= 0)
+                if (--count <= 0)
                 {
                     isInit = true;
                     InitParam();
@@ -66,8 +61,6 @@ namespace CaiFuHuoChe_3996
 
         public override void OnOpen(PageName name, EventData data)
         {
-            DebugUtils.LogError($"启动游戏");
-
             base.OnOpen(name, data);
             InitParam();
         }
@@ -104,88 +97,166 @@ namespace CaiFuHuoChe_3996
 
             if (PageManager.Instance.IndexOf(PageName.CaiFuHuoChePopupGameLoading) == 0)
             {
-                StartLoadingAnimation();
-                StartLoadingAnimation2();
-
-                PlayAnim("start");
+                StartPreloadGamePagesThenLoadingAnimation();
             }
         }
 
+        private int _preloadTotal;
+        private int _preloadCompleted;
 
+        /// <summary>从进入并行预加载起算，界面至少展示此时长（秒）；预加载更久则按实际结束。</summary>
+        private const float MinLoadingDisplaySeconds = 5f;
 
-        GTweener tweener = null;
-        GTweener tweener2 = null;
+        private float _preloadStartRealtime;
+        private TimerCallback _pendingMinDisplayCallback;
 
-        private void StartLoadingAnimation()
+        /// <summary>
+        /// 并行预加载各子界面；进度条按完成个数增长，全部完成后进入主界面。
+        /// </summary>
+        private void StartPreloadGamePagesThenLoadingAnimation()
         {
-            // 预加载界面：
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePageGameMain, null);
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupFreeSpinTrigger, null);
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupJackpotGameTrigger, null);
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupJackpotGameExit, null);
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupFreeSpinResult, null);
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupJackpotResult, null);
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupBigWin, null);
+            if (_pendingMinDisplayCallback != null)
+            {
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+            }
 
+            _preloadStartRealtime = Time.realtimeSinceStartup;
 
+            PageName[] pages =
+            {
+                PageName.CaiFuHuoChePageGameMain,
+                PageName.CaiFuHuoChePopupBigWin,
+                PageName.CaiFuHuoChePopupFreeSpinTrigger,
+                PageName.CaiFuHuoChePopupFreeSpinResult,
+                PageName.CaiFuHuoChePopupJackpotGameTrigger,
+                PageName.CaiFuHuoChePopupJackpotResult,
+                PageName.CaiFuHuoChePopupJackpotGameExit,
+            };
 
-            // 使用GTween实现0到100的平滑过渡，时长2秒
-            //if (tweener != null)
-            //{
-            //    tweener.Kill();
-            //}
-            //tweener = GTween.To(0, 100, duration)
-            //    .SetEase(EaseType.Linear) // 线性过渡，匀速增长
-            //    .OnUpdate((tween) =>
-            //    {
-            //        // 获取当前进度值（四舍五入为整数）
-            //        int progress = Mathf.RoundToInt(tween.value.x);
+            _preloadTotal = pages.Length;
+            _preloadCompleted = 0;
+            RefreshLoadingProgressVisual();
+            PlayAnim("start");
 
-            //    })
-            //    .OnComplete(() =>
-            //    {
-            //        Load.text = $"加载完成";
+            for (int i = 0; i < pages.Length; i++)
+            {
+                PageManager.Instance.PreloadPage(pages[i], OnOnePreloadPageDone);
 
-
-            //    });
+            }
         }
 
-        private void StartLoadingAnimation2()
+        private void OnOnePreloadPageDone()
         {
-            if (tweener2 != null) tweener2.Kill();
-            tweener2 = GTween.To(0, 1, duration)
-                .SetEase(EaseType.Linear) // 线性过渡，匀速增长
-                .OnUpdate((tween) =>
-                {
-                    // 获取当前进度值（四舍五入为整数）
-                    double progress = tween.value.x;
-                    ProgressBar.value = progress;
+            _preloadCompleted++;
+            RefreshLoadingProgressVisual();
 
-                    // 更新文本显示
-                    Load.text = $"加载中{dots[((int)(progress * 100) / 4) % 4]}";
-                })
-                .OnComplete(() =>
-                {
-                    Load.text = $"加载完成";
-                    CloseSelf(null);
+            if (_preloadCompleted < _preloadTotal) return;
 
+            TryFinishLoadingAfterPreloads();
+        }
 
-                    Action onJPPoolSubCredit = () =>
-                    {
-                        DebugUtils.Log("i am here123");
-                    };
+        public override void OnClose(EventData data = null)
+        {
+            if (_pendingMinDisplayCallback != null)
+            {
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+            }
 
+            base.OnClose(data);
+        }
 
+        private float GetPreloadRatio()
+        {
+            return _preloadTotal > 0 ? (float)_preloadCompleted / _preloadTotal : 1f;
+        }
 
-                    if (PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce)
-                    {
-                        PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce = false;
-                    }
-                    else
-                    {
-                        PageManager.Instance.OpenPage(PageName.CaiFuHuoChePageGameMain);
-                    }
-                });
+        private float GetTimeCapRatio()
+        {
+            return Mathf.Clamp01((Time.realtimeSinceStartup - _preloadStartRealtime) / MinLoadingDisplaySeconds);
+        }
+
+        /// <summary>
+        /// 进度条取「预加载完成度」与「最短展示时间」的较小值，避免未满最短时间条已 100%。
+        /// </summary>
+        private float GetDisplayNormalizedProgress()
+        {
+            return Mathf.Min(GetPreloadRatio(), GetTimeCapRatio());
+        }
+
+        private void RefreshLoadingProgressVisual()
+        {
+            float display = GetDisplayNormalizedProgress();
+            SetSliderByPreloadNormalized(display);
+            int dotIndex = ((int)(display * 100) / 4) % 4;
+            Load.text = $"加载中{dots[dotIndex]}";
+        }
+
+        private void TryFinishLoadingAfterPreloads()
+        {
+            float elapsed = Time.realtimeSinceStartup - _preloadStartRealtime;
+            if (elapsed >= MinLoadingDisplaySeconds)
+            {
+                RefreshLoadingProgressVisual();
+                CompleteLoadingTransition();
+                return;
+            }
+
+            if (_pendingMinDisplayCallback != null)
+                return;
+
+            RefreshLoadingProgressVisual();
+            _pendingMinDisplayCallback = OnLoadingProgressPadTick;
+            Timers.inst.Add(0.05f, 0, _pendingMinDisplayCallback);
+        }
+
+        private void OnLoadingProgressPadTick(object param)
+        {
+            RefreshLoadingProgressVisual();
+            float elapsed = Time.realtimeSinceStartup - _preloadStartRealtime;
+            if (_preloadCompleted >= _preloadTotal && elapsed >= MinLoadingDisplaySeconds)
+            {
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+                CompleteLoadingTransition();
+            }
+        }
+
+        private void CompleteLoadingTransition()
+        {
+            if (_pendingMinDisplayCallback != null)
+            {
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+            }
+
+            SetSliderByPreloadNormalized(1f);
+            Load.text = "加载完成";
+            CloseSelf(null);
+
+            if (PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce)
+            {
+                PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce = false;
+            }
+            else
+            {
+                PageManager.Instance.OpenPage(PageName.CaiFuHuoChePageGameMain);
+            }
+        }
+
+        /// <summary>
+        /// 将 0~1 的预加载比例映射到 GSlider 的 min~max（FGUI 默认 max=100，直接写 0~1 会显示成约 1% 而非 71%）。
+        /// </summary>
+        private void SetSliderByPreloadNormalized(float normalized01)
+        {
+            if (ProgressBar == null)
+                return;
+            normalized01 = Mathf.Clamp01(normalized01);
+            double span = ProgressBar.max - ProgressBar.min;
+            if (span <= 0)
+                span = 1;
+            ProgressBar.value = ProgressBar.min + span * normalized01;
         }
 
         //播放指定动画

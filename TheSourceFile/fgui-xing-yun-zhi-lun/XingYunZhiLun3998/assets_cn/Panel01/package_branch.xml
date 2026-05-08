@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <branchDescription>
   <resources>
-    <image id="a666agq" name="pb_txt_tips.png" path="/images/panel/" exported="true"/>
     <image id="a666agx" name="pb_txt_bet.png" path="/images/panel/bet/" exported="true"/>
     <image id="a666agw" name="pb_txt_credits.png" path="/images/panel/credit/" exported="true"/>
     <image id="i9hyajl" name="txt_exit.png" path="/images/panel/payTable/Text/" exported="true"/>
@@ -19,5 +18,6 @@
     <image id="xiz6akg" name="pb_txt_win.png" path="/images/panel/" exported="true"/>
     <image id="echiakk" name="pb_btn_auto.png" path="/images/panel/spin/"/>
     <image id="echiakl" name="pb_txt_holdToAuto.png" path="/images/panel/spin/"/>
+    <image id="wrw6ako" name="pb_txt_tips.png" path="/images/panel/"/>
   </resources>
 </branchDescription>

@@ -191,10 +191,14 @@ namespace SlotMaker
                 return;
             }
 
-            // 同一锚点且已初始化完成时不重复执行，避免重复触发 InitParam
+            // 同一锚点且已初始化完成时不重复执行，避免重复触发 InitParam。
+            // 机台侧仍会等 BottomPanelReady（如 PageGameMain preLoadedCallback），此处须补发，否则会永远等不到。
             if (isInit && ReferenceEquals(_cachedAnchorPanel, _goAnchorPanel))
             {
                 Debug.Log("Skip Init: same anchor panel and already initialized.");
+                int readyGameId = MainModel.Instance != null ? MainModel.Instance.gameID : 0;
+                EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
+                    new EventData<int>(PanelEvent.BottomPanelReady, readyGameId));
                 return;
             }
 
@@ -454,6 +458,7 @@ namespace SlotMaker
             SyncSoundUIFromCurrentState();
 
             Debug.Log("初始化菜单Ui完成");
+            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,new EventData<int>(PanelEvent.BottomPanelReady, MainModel.Instance.gameID));
         }
 
         /// <summary>

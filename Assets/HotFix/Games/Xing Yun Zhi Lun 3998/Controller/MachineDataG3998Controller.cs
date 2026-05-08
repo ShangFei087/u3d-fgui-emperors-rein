@@ -551,6 +551,8 @@ namespace XingYunZhiLun_3998
                 ContentModel.Instance.isJackpotWin = true;
                 ContentModel.Instance.jackpotWinCredit = res["TotalJackpotBet"];
                 ContentModel.Instance.jackpotType = res["JPTypeArray"][0];
+
+                bonusWin = ContentModel.Instance.jackpotWinCredit;
             }
 
             //赢分

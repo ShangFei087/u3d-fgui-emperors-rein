@@ -38,6 +38,8 @@ public class PageBase : Window
 
     protected bool isInit = false;
 
+    protected bool isReady = false;
+
     /// <summary> 创建时，调用一次 </summary>
     protected override void OnInit()
     {
@@ -48,7 +50,7 @@ public class PageBase : Window
 
         this.Center();
         this.modal = true;
-
+        this.isReady = false;
         //#this.SetHideOnClose(true);
 
         EventCenter.Instance.AddEventListener<I18nLang>(I18nMgr.I18N, OnChangeLanguageBase);
@@ -102,7 +104,7 @@ public class PageBase : Window
     /// <remarks>
     /// *创建界面，打开界面，多语言，等功能重复调用此接口。
     /// </remarks>
-    public virtual void InitParam(){ }
+    public virtual void InitParam(){ this.isReady = false; }
 
     /// <summary> 多语言改变时调用 </summary>
 
@@ -118,6 +120,7 @@ public class PageBase : Window
     /// </summary>
     protected void CloseSelf(EventData data)
     {
+        isReady = false;
         PageManager.Instance.ClosePage(this, data);
     }
 
@@ -172,6 +175,7 @@ public class PageBase : Window
         inParams = null;
         returnParams = data;
         isOpen = false;
+        isReady = false;
     }
     public virtual void OnTop() { DebugUtils.Log($"i am top  {this.name}"); }
     

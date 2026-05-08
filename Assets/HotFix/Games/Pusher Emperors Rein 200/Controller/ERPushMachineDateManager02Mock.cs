@@ -86,8 +86,9 @@ namespace PusherEmperorsRein
         {
             JSONNode res = new JSONObject();
             res["code"] = 0;
-            res["major"] = 1;
-            res["grand"] = 2;
+            res["major"] = 3000;
+            res["minor"] = 1500;
+            res["mini"] = 500;
             EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_GET_JP_CONTRIBUTION, res.ToString());
         }
 

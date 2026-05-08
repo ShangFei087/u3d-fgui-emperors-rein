@@ -91,6 +91,8 @@ namespace XingYunZhiLun_3998
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
+                        if (PanelBaseController.ShouldBlockPhysicalSpinInput) return;
+
                         DebugUtils.LogError("游戏接受到机台短按的数据：Spin");
                         SpinDown();
                     }
@@ -182,6 +184,8 @@ namespace XingYunZhiLun_3998
                     SpinDown();
                 });
             }
+
+            preLoadedCallback?.Invoke();
         }
 
 

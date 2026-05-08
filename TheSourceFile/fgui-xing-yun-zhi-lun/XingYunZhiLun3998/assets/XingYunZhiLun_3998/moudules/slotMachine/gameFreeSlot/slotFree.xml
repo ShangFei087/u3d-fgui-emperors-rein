@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1044,664">
   <displayList>
-    <image id="n0_xiz6" name="n0" src="a666agi" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_base.png" xy="-13,557" size="543,104" group="n2_xiz6"/>
-    <image id="n1_xiz6" name="n1" src="a666agi" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_base.png" xy="1072,557" size="543,104" group="n2_xiz6" scale="-1,1"/>
+    <image id="n0_xiz6" name="n0" src="a666agi" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_base.png" xy="-13,557" size="543,104" group="n2_xiz6" visible="false"/>
+    <image id="n1_xiz6" name="n1" src="a666agi" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_base.png" xy="1072,557" size="543,104" group="n2_xiz6" scale="-1,1" visible="false"/>
     <group id="n2_xiz6" name="n2" xy="-13,557" size="1628,104"/>
     <image id="n3_xiz6" name="n3" src="a666agg" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_back.png" xy="2,39" group="n7_xiz6"/>
-    <image id="n4_xiz6" name="n4" src="a666agh" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid.png" xy="-11,37" size="89,521" group="n7_xiz6"/>
+    <image id="n4_xiz6" name="n4" src="a666agh" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid.png" xy="-11,37" size="89,521" group="n7_xiz6" visible="false"/>
     <image id="n5_xiz6" name="n5" src="a666agg" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_back.png" xy="1057,43" group="n7_xiz6" scale="-1,1"/>
-    <image id="n6_xiz6" name="n6" src="a666agh" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid.png" xy="1070,37" size="89,521" group="n7_xiz6" scale="-1,1"/>
+    <image id="n6_xiz6" name="n6" src="a666agh" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid.png" xy="1070,37" size="89,521" group="n7_xiz6" scale="-1,1" visible="false"/>
     <group id="n7_xiz6" name="n7" xy="-11,37" size="1170,521"/>
-    <image id="n8_xiz6" name="n8" src="xiz6air" fileName="images/PopupGameFreeGame/fg_frame_up.png" xy="3,-96" size="527,133" group="n10_xiz6"/>
-    <image id="n9_xiz6" name="n9" src="xiz6air" fileName="images/PopupGameFreeGame/fg_frame_up.png" xy="1056,-96" group="n10_xiz6" scale="-1,1"/>
-    <group id="n10_xiz6" name="n10" xy="3,-96" size="1582,133"/>
+    <image id="n8_xiz6" name="n8" src="wrw6ake" fileName="images/PopupGameFreeGame/fg_frame_mid.png" xy="-15,-96" size="545,761" group="n10_xiz6"/>
+    <image id="n9_xiz6" name="n9" src="wrw6ake" fileName="images/PopupGameFreeGame/fg_frame_mid.png" xy="1075,-96" size="548,761" group="n10_xiz6" scale="-1,1"/>
+    <group id="n10_xiz6" name="n10" xy="-15,-96" size="1638,761"/>
     <image id="n11_xiz6" name="n11" src="a666agj" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_line.png" xy="246,0"/>
     <image id="n12_xiz6" name="n12" src="a666agj" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_line.png" xy="430,0"/>
     <image id="n13_xiz6" name="n13" src="a666agj" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_line.png" xy="616,0"/>

@@ -4,12 +4,14 @@
     <image id="ldad3q" name="fg_txt_freeSpines.png" path="/images/jackpotGame/" exported="true"/>
     <image id="sqmz9" name="logo_bg_zw.png" path="/images/gameLoading/"/>
     <image id="efdebo" name="fg_txt_01_free spins.png" path="/images/freeGame/"/>
-    <image id="znm9cg" name="1.png" path="/images/Panel/payTable/" exported="true"/>
-    <image id="znm9ch" name="2.png" path="/images/Panel/payTable/" exported="true"/>
-    <image id="znm9ci" name="3.png" path="/images/Panel/payTable/" exported="true"/>
-    <image id="znm9cj" name="4.png" path="/images/Panel/payTable/" exported="true"/>
-    <image id="znm9ck" name="5.png" path="/images/Panel/payTable/" exported="true"/>
     <image id="iilzcn" name="fg_txt_start_collect.png" path="/images/freeGame/"/>
     <image id="iilzcp" name="fg_txt_start.png" path="/images/freeGame/"/>
+    <image id="nnazdv" name="1.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="nnazdw" name="2.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="nnazdx" name="3.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="nnazdy" name="4.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="nnazdz" name="5.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="nnaze0" name="6.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="nnaze1" name="7.png" path="/images/Panel/payTable/" exported="true"/>
   </resources>
 </branchDescription>
