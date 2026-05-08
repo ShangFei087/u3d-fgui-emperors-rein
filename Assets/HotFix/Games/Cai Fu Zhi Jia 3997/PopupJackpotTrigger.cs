@@ -89,7 +89,7 @@ namespace CaiFuZhiJia_3997
             Timers.inst.Add(5, 1, (obj) =>
             {
                 PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPageGameMain);
-                PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotGame);
+                PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotGame,creditEventData);
             });
             Timers.inst.Add(7, 1, (obj) =>
             {
@@ -111,7 +111,7 @@ namespace CaiFuZhiJia_3997
         }
 
         private GameSoundController3997 _gameSoundController;
-
+        private EventData creditEventData;
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
@@ -120,7 +120,7 @@ namespace CaiFuZhiJia_3997
                 new EventData(Game3997AudioEvent.BgmBonusTrigger));
             
             // PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotGame, null);
-
+            creditEventData= eventData;
             InitParam();
         }
 
@@ -239,7 +239,7 @@ namespace CaiFuZhiJia_3997
                 Timers.inst.Add(5, 1, (obj) =>
                 {
                     PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPageGameMain);
-                    PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotGame);
+                    PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotGame,creditEventData);
                 });
                 Timers.inst.Add(7, 1, (obj) =>
                 {

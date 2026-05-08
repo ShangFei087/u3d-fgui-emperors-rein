@@ -136,7 +136,7 @@ namespace CaiFuZhiJia_3997
             ContentModel.Instance.IsJackpotTrigger = false;
             _gameSoundController?.Dispose();
             _gameSoundController = null;
-            ContentModel.Instance.isBonusGameResult = true;
+            // ContentModel.Instance.isBonusGameResult = true;
             ResetView();
         }
 

@@ -139,7 +139,7 @@ namespace CaiFuZhiJia_3997
                 }
             };
         }
-
+        private long JackpotCredit;
         public override void InitParam()
         {
             if (!_isInitialized) return;
@@ -159,7 +159,7 @@ namespace CaiFuZhiJia_3997
 
             _win.text = "0";
             _bet.text = MainModel.Instance.contentMD.totalBet.ToString();
-            _credits.text = MainModel.Instance.myCredit.ToString();
+            _credits.text =JackpotCredit.ToString();
 
             _spinBtn.onClick.Add(() =>
             {
@@ -210,6 +210,7 @@ namespace CaiFuZhiJia_3997
             isReady = true;
         }
 
+       
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
@@ -219,6 +220,8 @@ namespace CaiFuZhiJia_3997
             _gameSoundController = new GameSoundController3997();
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(Game3997AudioEvent.BgmBonusGame));
+
+            JackpotCredit = (long)eventData.value;
             InitParam();
         }
 

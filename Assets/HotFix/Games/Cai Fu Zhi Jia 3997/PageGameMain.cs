@@ -1990,7 +1990,7 @@ namespace CaiFuZhiJia_3997
                 _slotMachineCtrl.SkipWinLine(false);
                 // 切换状态
                 PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupJackpotTrigger,
-                    new EventData<Dictionary<string, object>>("", new Dictionary<string, object> { }),
+                    new EventData<long>("Credit",MainModel.Instance.myCredit),
                     (res) =>
                     {
                         // Todo:移动到彩金游戏结束界面
@@ -2002,7 +2002,7 @@ namespace CaiFuZhiJia_3997
                 // 重置按钮状态
                 ContentModel.Instance.isSpin = false;
                 ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-                yield return new WaitUntil(() => ContentModel.Instance.isBonusGameResult == true);
+                // yield return new WaitUntil(() => ContentModel.Instance.isBonusGameResult == true);
             }
 
             if (_isTriggerFrame && !_isWinFreeOrBonus && !_isCurrentWin)
@@ -2354,7 +2354,7 @@ namespace CaiFuZhiJia_3997
         {
             if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
             if (_corEffectSlowMotion != null) _monoHelper.StopCoroutine(_corEffectSlowMotion);
-            ContentModel.Instance.isBonusGameResult = false;
+            // ContentModel.Instance.isBonusGameResult = false;
             _slotMachineCtrl.CloseSlotCover();
             _isStoppedSlotMachine = false;
             _anchorFreeExpectation.visible = false;
