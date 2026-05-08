@@ -2406,6 +2406,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4747027830779765048, guid: 0e25289c461318d4ab6527960913b4e1,
         type: 3}
+      propertyPath: startDelay.scalar
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4747027830779765048, guid: 0e25289c461318d4ab6527960913b4e1,
+        type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
       value: 1
       objectReference: {fileID: 0}
