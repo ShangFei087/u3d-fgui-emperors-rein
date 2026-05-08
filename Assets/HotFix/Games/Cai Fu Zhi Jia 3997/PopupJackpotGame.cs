@@ -179,7 +179,7 @@ namespace CaiFuZhiJia_3997
                 .Where(item => item.value != "0")
                 .Select(item => item.index)
                 .ToList();
-            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            // ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             BindPrefabsToUI();
             Timers.inst.Add(2, 1, (obj) => _cloneFrameLossObj.SetActive(false));
 
@@ -510,7 +510,7 @@ namespace CaiFuZhiJia_3997
 
             PlayAnimationByName(_npcAnimator, "Wealth_sg_npc_settlement3");
             yield return new WaitForSeconds(2f);
-            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            // ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotResult);
         }
 

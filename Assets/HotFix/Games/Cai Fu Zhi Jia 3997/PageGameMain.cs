@@ -1998,9 +1998,10 @@ namespace CaiFuZhiJia_3997
                     });
 
                 yield return new WaitUntil(() => isNext == true);
-                ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                 _slotMachineCtrl.CloseSlotCover();
-                yield return new WaitUntil(() => ContentModel.Instance.isBonusGameResult == true);
+                // yield return new WaitUntil(() => ContentModel.Instance.isBonusGameResult == true);
+                ContentModel.Instance.isSpin = false;
+                ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             }
 
             if (_isTriggerFrame && !_isWinFreeOrBonus && !_isCurrentWin)
@@ -2066,25 +2067,8 @@ namespace CaiFuZhiJia_3997
                 (res) =>
                 {
                     isNext = true;
-                    // Debug.LogError("1111");
                     _compareNpc.visible = true;
                 });
-
-            // if (winLevelType == WinLevelType.BIG)
-            // {
-            //     yield return new WaitForSeconds(4.0f);
-            //     _compareNpc.visible = true;
-            // }
-            // else if (winLevelType == WinLevelType.HUGE)
-            // {
-            //     yield return new WaitForSeconds(7.0f);
-            //     _compareNpc.visible = true;
-            // }
-            // else if (winLevelType == WinLevelType.MASSIVE)
-            // {
-            //     yield return new WaitForSeconds(10.0f);
-            //     _compareNpc.visible = true;
-            // }
 
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
@@ -2369,7 +2353,7 @@ namespace CaiFuZhiJia_3997
         {
             if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
             if (_corEffectSlowMotion != null) _monoHelper.StopCoroutine(_corEffectSlowMotion);
-            ContentModel.Instance.isBonusGameResult = false;
+            // ContentModel.Instance.isBonusGameResult = false;
             _slotMachineCtrl.CloseSlotCover();
             _isStoppedSlotMachine = false;
             _anchorFreeExpectation.visible = false;
