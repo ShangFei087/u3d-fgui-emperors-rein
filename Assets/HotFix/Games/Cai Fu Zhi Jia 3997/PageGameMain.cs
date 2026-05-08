@@ -1999,10 +1999,10 @@ namespace CaiFuZhiJia_3997
 
                 yield return new WaitUntil(() => isNext == true);
                 _slotMachineCtrl.CloseSlotCover();
-                yield return new WaitUntil(() => ContentModel.Instance.isBonusGameResult == true);
                 // 重置按钮状态
                 ContentModel.Instance.isSpin = false;
                 ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+                yield return new WaitUntil(() => ContentModel.Instance.isBonusGameResult == true);
             }
 
             if (_isTriggerFrame && !_isWinFreeOrBonus && !_isCurrentWin)
