@@ -1725,26 +1725,6 @@ namespace CaiFuZhiJia_3997
                         : "<size=15>Balance is insufficient, please recharge first</size>");
                 yield break;
             }
-
-            // 检查算法积分
-            MachineDataManager02.Instance.RequestGetPlayerInfo((res) =>
-            {
-                SBoxAccount data = (SBoxAccount)res;
-                int pid = SBoxModel.Instance.pid;
-                List<SBoxPlayerAccount> playerAccountList = data.PlayerAccountList;
-                for (int i = 0; i < playerAccountList.Count; i++)
-                {
-                    if (playerAccountList[i].PlayerId != pid)
-                        continue;
-
-                    DebugUtils.Log("前一局算法卡CoinIn==" + playerAccountList[i].CoinIn);
-                    DebugUtils.Log("前一局算法卡Bet==" + playerAccountList[i].Bets);
-                    DebugUtils.Log("前一局算法卡Credit==" + playerAccountList[i].Credit);
-                    break;
-                }
-            }, (err) => DebugUtils.Log(err.msg));
-
-
             // 重置游戏状态，开始旋转准备
             OnGameReset();
             ContentModel.Instance.gameState = GameState.Spin;
@@ -1922,7 +1902,10 @@ namespace CaiFuZhiJia_3997
 
                 _slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
                 MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true);
-                MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+                if (!ContentModel.Instance.IsBonusTrigger)
+                {
+                    MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+                }
             }
             else
                 ContentModel.Instance.noWinCount++;
