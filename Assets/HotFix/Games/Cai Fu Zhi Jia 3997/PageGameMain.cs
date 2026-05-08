@@ -2021,30 +2021,30 @@ namespace CaiFuZhiJia_3997
                 ContentModel.Instance.noWinCount = 0;
             }
 
-            //核对前后端积分
-            ERPushMachineDataManager02.Instance.RequestCoinPushSpinEnd(res1 =>
-            {
-                JSONNode data = JSONObject.Parse((string)res1);
-
-                int code = (int)data["code"];
-                int credit = (int)data["credit"];
-
-                if (code != 0)
-                {
-                    DebugUtils.LogError($" CoinPushSpinEnd(20102) : [0]= {code}");
-                }
-                else
-                {
-                    if (credit != SBoxModel.Instance.myCredit)
-                    {
-                    }
-
-                    isNext = true;
-                }
-            });
+            // //核对前后端积分
+            // ERPushMachineDataManager02.Instance.RequestCoinPushSpinEnd(res1 =>
+            // {
+            //     JSONNode data = JSONObject.Parse((string)res1);
+            //
+            //     int code = (int)data["code"];
+            //     int credit = (int)data["credit"];
+            //
+            //     if (code != 0)
+            //     {
+            //         DebugUtils.LogError($" CoinPushSpinEnd(20102) : [0]= {code}");
+            //     }
+            //     else
+            //     {
+            //         if (credit != SBoxModel.Instance.myCredit)
+            //         {
+            //         }
+            //
+            //         isNext = true;
+            //     }
+            // });
+            DebugUtils.Log("进入空闲模式！！！");
             // 本剧同步玩家金钱
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
-            DebugUtils.Log("进入空闲模式！！！");
             ContentModel.Instance.gameState = GameState.Idle;
             if (winList.Count > 0 && !ContentModel.Instance.isAuto && !ContentModel.Instance.isFreeSpinTrigger)
             {

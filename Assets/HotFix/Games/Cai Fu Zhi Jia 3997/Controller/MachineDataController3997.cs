@@ -395,9 +395,15 @@ namespace CaiFuZhiJia_3997
                 bool isBonus = false;
 
                 for (int i = 0; i < wheelChessNum; ++i)
+                {
                     if (deckRowCol[i] == bonus)
+                    {
                         bonusCount += 1;
+                    }
+                      Debug.Log(deckRowCol[i]);
+                }
 
+              
                 if (bonusCount >= CustomModel.Instance.BonusGameConfig.Make2BonusGameCount)
                     isBonus = true;
 
@@ -428,10 +434,14 @@ namespace CaiFuZhiJia_3997
                             ContentModel.Instance.JpBetDic.Add(ContentModel.Instance.jpTypeArray[i],
                                 ContentModel.Instance.jpBetArray[i]);
                     }
+                    
                 }
-                // else
-                //     DebugUtils.LogError(
-                //         $"[G3997][CheckBonus] 校验不一致，算法回ResultType={resultType} ，本地计算isBonus={isBonus}");
+
+                if ((resultType == (int)ResultType.RT_BonusWin || resultType == (int)ResultType.RT_Jackpot) && !isBonus)
+                {
+                    DebugUtils.LogError(
+                        $"[G3997][CheckBonus] 校验不一致，算法回ResultType={resultType} ，本地计算isBonus={isBonus}");
+                }
             }
 
             //赢分
@@ -834,8 +844,8 @@ namespace CaiFuZhiJia_3997
             gameSenceData.baseGameWinCredit = totalEarnCredit;
 
             // 获取游戏前后的分数
-            long creditBefore = MainBlackboardController.Instance.myTempCredit + totalBet; // 修改数据库中记录的是扣分之后的值
-            long creditAfter = MainBlackboardController.Instance.myRealCredit;
+            long creditBefore = MainBlackboardController.Instance.myTempCredit; // 修改数据库中记录的是扣分之后的值
+            long creditAfter = MainBlackboardController.Instance.myRealCredit - totalBet + totalEarnCredit;
 
             gameSenceData.creditBefore = creditBefore;
             gameSenceData.creditAfter = creditAfter;
