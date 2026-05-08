@@ -97,7 +97,6 @@ namespace TreasuryHall
                         OnClickBtnTicketOut();
                     },
                 },
-
             };
         }
 
@@ -123,13 +122,26 @@ namespace TreasuryHall
         }
 
         /// <summary>
-        /// 进入宝库后预载 3996 / 3997 / 3998 的 Loading 页：创建隐藏实例并触发各自资源加载，与后续 OpenPage 共用缓存实例。
+        /// 并行预载三张卡牌对应子游戏的 PopupGameLoading，全部就绪后再打开宝库大厅（启动、从子游戏返回等入口应调用本方法而非直接 OpenPage）。
         /// </summary>
-        private static void PreloadTreasuryCardGameLoadingPages()
+        public static void OpenTreasuryHallMainAfterCardGameLoadingPreloads()
         {
-            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupGameLoading, null);
-            PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupGameLoading, null);
-            PageManager.Instance.PreloadPage(PageName.XingYunZhiLunPopupGameLoading, null);
+            const int total = 3;
+            int completed = 0;
+            void OnOnePreloadDone()
+            {
+                completed++;
+                if (completed < total)
+                {
+                    return;
+                }
+                PageLaunch.Instance.Close(2f);
+                PageManager.Instance.OpenPage(PageName.TreasuryHallMain);
+            }
+
+            PageManager.Instance.PreloadPage(PageName.CaiFuHuoChePopupGameLoading, OnOnePreloadDone);
+            PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupGameLoading, OnOnePreloadDone);
+            PageManager.Instance.PreloadPage(PageName.XingYunZhiLunPopupGameLoading, OnOnePreloadDone);
         }
 
         public override void OnClose(EventData data = null)
@@ -145,7 +157,6 @@ namespace TreasuryHall
         {
             IsClickCard = true;
             if (!isInit) return;
-
             if (!isOpen) return;
 
             GComponent LocalCard3998 = this.contentPane.GetChild("card3998").asCom;
@@ -282,8 +293,7 @@ namespace TreasuryHall
             RefreshCardSkinByLanguage();
             InitJackpot();
             InitHallCredit();
-            // 后台预热三张卡牌对应子游戏的 PopupGameLoading（含各自包内预制体异步加载），缩短首次点击后的等待
-            PreloadTreasuryCardGameLoadingPages();
+    
         }
 
         /// <summary>

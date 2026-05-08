@@ -4303,6 +4303,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: eff_pop_border_bigwin1
       objectReference: {fileID: 0}
+    - target: {fileID: 6252203306692144568, guid: e91fc90b72ba4dc4393ace40d768e6dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8587057159271686149, guid: e91fc90b72ba4dc4393ace40d768e6dc,
         type: 3}
       propertyPath: m_Pivot.x
@@ -4553,15 +4558,50 @@ PrefabInstance:
       propertyPath: m_Name
       value: eff_pop_border_bigwin2
       objectReference: {fileID: 0}
+    - target: {fileID: 577075597589985143, guid: b1712e70bbf34614aaf64dcc79364508,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393280152785471720, guid: b1712e70bbf34614aaf64dcc79364508,
+        type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393280152785471720, guid: b1712e70bbf34614aaf64dcc79364508,
+        type: 3}
+      propertyPath: InitialModule.gravityModifier.minScalar
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5375454374350184180, guid: b1712e70bbf34614aaf64dcc79364508,
         type: 3}
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5631991386072131532, guid: b1712e70bbf34614aaf64dcc79364508,
+        type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5631991386072131532, guid: b1712e70bbf34614aaf64dcc79364508,
+        type: 3}
+      propertyPath: InitialModule.gravityModifier.minScalar
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7394265131441335753, guid: b1712e70bbf34614aaf64dcc79364508,
         type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8483175765628968970, guid: b1712e70bbf34614aaf64dcc79364508,
+        type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8483175765628968970, guid: b1712e70bbf34614aaf64dcc79364508,
+        type: 3}
+      propertyPath: InitialModule.gravityModifier.minScalar
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8712068272789177671, guid: b1712e70bbf34614aaf64dcc79364508,
         type: 3}
@@ -5791,22 +5831,22 @@ PrefabInstance:
     - target: {fileID: 30540057731321291, guid: af09ed97812e07143bbb010d68c98940,
         type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
-      value: 1000
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 30540057731321291, guid: af09ed97812e07143bbb010d68c98940,
         type: 3}
       propertyPath: InitialModule.gravityModifier.minScalar
-      value: 500
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1889545662028166127, guid: af09ed97812e07143bbb010d68c98940,
         type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
-      value: 1000
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1889545662028166127, guid: af09ed97812e07143bbb010d68c98940,
         type: 3}
       propertyPath: InitialModule.gravityModifier.minScalar
-      value: 500
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4428826990812369978, guid: af09ed97812e07143bbb010d68c98940,
         type: 3}
@@ -5826,22 +5866,22 @@ PrefabInstance:
     - target: {fileID: 5878757101669262442, guid: af09ed97812e07143bbb010d68c98940,
         type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
-      value: 1000
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5878757101669262442, guid: af09ed97812e07143bbb010d68c98940,
         type: 3}
       propertyPath: InitialModule.gravityModifier.minScalar
-      value: 500
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6714070416242397799, guid: af09ed97812e07143bbb010d68c98940,
         type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
-      value: 1000
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6714070416242397799, guid: af09ed97812e07143bbb010d68c98940,
         type: 3}
       propertyPath: InitialModule.gravityModifier.minScalar
-      value: 500
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8059859017301831289, guid: af09ed97812e07143bbb010d68c98940,
         type: 3}

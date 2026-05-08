@@ -1,10 +1,10 @@
 {
-  "updated_at": 1778157970269,
+  "updated_at": 1778211757777,
   "hotfix_key": "hf_debug_android_20260507201907",
-  "hotfix_version": "1.2.1",
+  "hotfix_version": "1.2.4",
   "asset_bundle": {
     "manifest": {
-      "hash": "ad1f9908dfe04557870ad90a4ab8d80e",
+      "hash": "6ae3d6b509c9327e8ab9096db7ae3abe",
       "size_bytes": 27335
     },
     "bundle_hash": {
@@ -105,7 +105,7 @@
       "games/cai fu huo che 3996/prefabs/effects/jackpotreeleffect.unity3d": "f10124033b16dffdad8e23a27373287c",
       "games/cai fu huo che 3996/prefabs/effects/rewardeffect.unity3d": "a45a679fb10b5fad89ad641bac6d91f1",
       "games/cai fu huo che 3996/prefabs/game controller/slot game main controllerclone.unity3d": "37f25dc8981ab817beca5e3e0559c898",
-      "games/cai fu huo che 3996/prefabs/pagegamemain/bigwin.unity3d": "050abf6a68eddf5d9182fab2f21d56b1",
+      "games/cai fu huo che 3996/prefabs/pagegamemain/bigwin.unity3d": "45965f00078672fb20dc6095530d8d85",
       "games/cai fu huo che 3996/prefabs/pagegamemain/girl.unity3d": "5341754280cdcdeb7fb5a0c48253cee6",
       "games/cai fu huo che 3996/prefabs/pagegamemain/idletrain.unity3d": "5d0a84535860a4d586770c2307adcdbc",
       "games/cai fu huo che 3996/prefabs/pagegamemain/train.unity3d": "458d2d97ae98444b498e62dccf983ba6",

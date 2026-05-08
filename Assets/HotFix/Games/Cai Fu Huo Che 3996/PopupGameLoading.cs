@@ -99,6 +99,8 @@ namespace CaiFuHuoChe_3996
             {
                 StartPreloadGamePagesThenLoadingAnimation();
             }
+
+            preLoadedCallback?.Invoke();
         }
 
         private int _preloadTotal;

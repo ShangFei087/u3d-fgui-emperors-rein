@@ -40,7 +40,7 @@ namespace CaiFuHuoChe_3996
         private List<List<Transform>> EffectLists = new List<List<Transform>>();
 
         /// <summary>暂时关闭 BigWin 中 EffectLists 档位粒子；需恢复时改为 false。</summary>
-        private const bool TempDisableBigWinEffectLists = true;
+        private const bool TempDisableBigWinEffectLists = false;
 
         protected override void OnInit()
         {
@@ -131,6 +131,7 @@ namespace CaiFuHuoChe_3996
                 EffectLists[0].Add(bigWinObj.transform.GetChild(1).GetChild(0).GetChild(1));
                 EffectLists[0].Add(bigWinObj.transform.GetChild(1).GetChild(0).GetChild(2));
                 EffectLists[0].Add(bigWinObj.transform.GetChild(1).GetChild(0).GetChild(3));
+                EffectLists[0].Add(bigWinObj.transform.GetChild(1).GetChild(0).GetChild(4));
 
                 EffectLists[1].Add(bigWinObj.transform.GetChild(1).GetChild(1).GetChild(0));
                 EffectLists[1].Add(bigWinObj.transform.GetChild(1).GetChild(1).GetChild(1));
@@ -141,6 +142,7 @@ namespace CaiFuHuoChe_3996
                 EffectLists[2].Add(bigWinObj.transform.GetChild(1).GetChild(2).GetChild(1));
                 EffectLists[2].Add(bigWinObj.transform.GetChild(1).GetChild(2).GetChild(2));
                 EffectLists[2].Add(bigWinObj.transform.GetChild(1).GetChild(2).GetChild(3));
+                EffectLists[2].Add(bigWinObj.transform.GetChild(1).GetChild(2).GetChild(4));
 
                 endEffect = bigWinObj.transform.GetChild(1).GetChild(3);
 
@@ -157,11 +159,15 @@ namespace CaiFuHuoChe_3996
             bigWinAnim.Play(WinOpenString[0]);
             if (!TempDisableBigWinEffectLists)
             {
-                for (int i = 0; i < EffectLists[0].Count; i++)
-                {
-                    PlayChildEffectAnim(EffectLists[0][i]);
-                }
+                //for (int i = 0; i < EffectLists[0].Count; i++)
+                //{
+                //    PlayChildEffectAnim(EffectLists[0][i]);
+                //}
+                //特效优化:减少粒子特效
+                PlayChildEffectAnim(EffectLists[0][1]);
+                PlayChildEffectAnim(EffectLists[0][2]);
             }
+
             ShowAni();
         }
 
@@ -192,10 +198,13 @@ namespace CaiFuHuoChe_3996
                     bigWinAnim.Play(WinOpenString[playCount]);
                     if (!TempDisableBigWinEffectLists)
                     {
-                        for (int i = 0; i < EffectLists[playCount].Count; i++)
-                        {
-                            PlayChildEffectAnim(EffectLists[playCount][i]);
-                        }
+                        //for (int i = 0; i < EffectLists[playCount].Count; i++)
+                        //{
+                        //    PlayChildEffectAnim(EffectLists[playCount][i]);
+                        //}
+                        //减少粒子特效
+                        PlayChildEffectAnim(EffectLists[playCount][1]);
+                        PlayChildEffectAnim(EffectLists[playCount][2]);
                     }
                     //animatorBigWin.Update(0f);
                     // 仅最后一档再计时结束，避免 WinIndex>=2 时重复注册 inner 导致多次 AniEnd / 最后一档展示时间过短
