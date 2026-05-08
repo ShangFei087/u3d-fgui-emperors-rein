@@ -126,6 +126,9 @@ namespace XingYunZhiLun_3998
             isClose = false;
             btnStrat.onClick.Add(OnBtnStartClick);
 
+            preLoadedCallback?.Invoke();
+            if (!isOpen) return;
+
             //打开时设置免费游戏的免费次数
             textContent = contentPane.GetChild("times").asTextField;
             contentPane.GetChild("n7").asImage.alpha = 0;
@@ -158,8 +161,6 @@ namespace XingYunZhiLun_3998
                     OnBtnStartClick();
                 });
             }
-
-            preLoadedCallback?.Invoke();
         }
 
         private void OnBtnStartClick()

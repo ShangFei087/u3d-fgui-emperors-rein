@@ -149,6 +149,9 @@ namespace XingYunZhiLun_3998
             isClose = false;
             gbutton.onClick.Add(SpinDown);
 
+            preLoadedCallback?.Invoke();
+            if (!isOpen) return;
+
             Dictionary<string, object> argDic = null;
             jpCredit.Clear();
             if (_data != null)
@@ -184,8 +187,6 @@ namespace XingYunZhiLun_3998
                     SpinDown();
                 });
             }
-
-            preLoadedCallback?.Invoke();
         }
 
 

@@ -5,6 +5,7 @@ using GameMaker;
 using System.Timers;
 using System.Collections;
 using System;
+using TreasuryHall;
 
 public class Main
 {
@@ -328,15 +329,15 @@ public class Main
         PageLaunch.Instance.RemoveProgress(LoadingProgress.ENTER_GAME);
         PageLaunch.Instance.Finish("enter game");
         // 预加载 login 页 ？？
-        PageLaunch.Instance.Close(2f);
+       
         if (!ApplicationSettings.Instance.isMock)
         {
             //PageManager.Instance.OpenPage(PageName.Hall01);
-            PageManager.Instance.OpenPage(PageName.TreasuryHallMain);
+            TreasuryHallMain.OpenTreasuryHallMainAfterCardGameLoadingPreloads();
         }
         else
         {
-            PageManager.Instance.OpenPage(PageName.TreasuryHallMain);
+            TreasuryHallMain.OpenTreasuryHallMainAfterCardGameLoadingPreloads();
             //PageManager.Instance.OpenPage(PageName.Hall01);
             //PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupGameLoading);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeSpinTrigger);

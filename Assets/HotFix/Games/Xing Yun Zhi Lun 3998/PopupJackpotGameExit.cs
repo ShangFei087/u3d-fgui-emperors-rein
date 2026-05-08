@@ -104,6 +104,9 @@ namespace XingYunZhiLun_3998
             closeBtn.scale = new Vector2(1, 1);
             closeBtn.onClick.Clear();
             closeBtn.onClick.Add(OnCloseBtn);
+
+            preLoadedCallback?.Invoke();
+            if (!isOpen) return;
             isClose = false;
 
             contentPane.GetChild("reels").asList.scale = new Vector2(1, 1);
@@ -131,8 +134,6 @@ namespace XingYunZhiLun_3998
                     OnCloseBtn();
                 });
             }
-
-            preLoadedCallback?.Invoke();
         }
 
         private void OnCloseBtn()

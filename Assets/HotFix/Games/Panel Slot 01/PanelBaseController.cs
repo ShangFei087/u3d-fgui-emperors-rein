@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using SoundKey = GameMaker.SoundKey;
+using TreasuryHall;
 
 enum PopState
 {
@@ -727,9 +728,7 @@ namespace SlotMaker
         /// </summary>
         protected virtual void BackHall()
         {
-            Debug.Log("返回大厅:");
-            Debug.Log(MainModel.Instance.gameID);
-
+            Debug.Log("返回大厅:"+MainModel.Instance.gameID);
             switch (MainModel.Instance.gameID)
             {
                 case 1700:
@@ -749,7 +748,7 @@ namespace SlotMaker
                     break;
             }
 
-            PageManager.Instance.OpenPage(PageName.TreasuryHallMain);
+            TreasuryHallMain.OpenTreasuryHallMainAfterCardGameLoadingPreloads();
         }
 
         protected virtual void OnPropertyChange(EventData res = null)

@@ -139,7 +139,8 @@ namespace XingYunZhiLun_3998
             isClose = false;
             closeBtn.onClick.Add(OnBtnExit);
 
-
+            preLoadedCallback?.Invoke();
+            if (!isOpen) return;
             effectTransform.gameObject.SetActive(true);
             PlayAnim("start");
 
@@ -161,7 +162,7 @@ namespace XingYunZhiLun_3998
                 });
             }
 
-            preLoadedCallback?.Invoke();
+
         }
 
         private void OnBtnExit()
