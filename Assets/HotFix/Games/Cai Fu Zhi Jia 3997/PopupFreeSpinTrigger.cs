@@ -60,6 +60,7 @@ namespace CaiFuZhiJia_3997
         // ========== 新增结束 ==========
         
         private GameSoundController3997 _gameSoundController;
+        private bool _isClicked = false;
 
         protected override void OnInit()
         {
@@ -91,7 +92,7 @@ namespace CaiFuZhiJia_3997
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-
+            _isClicked = false;
             ResetView();
             BindPrefabsToUI();
             BindUIToAnimator();
@@ -121,6 +122,8 @@ namespace CaiFuZhiJia_3997
 
         private void OnClickSpinButton(EventData res)
         {
+            if(_isClicked)return;
+            _isClicked = true;
             _freeTipWindow.visible = false;
             _cloneDollarSpineObj.SetActive(true);
             _cloneGoldPurpleEffectObj.SetActive(true);
@@ -318,21 +321,22 @@ namespace CaiFuZhiJia_3997
 
             _freeStartBtn.onClick.Add((() =>
             {
-                _freeTipWindow.visible = false;
-                _cloneDollarSpineObj.SetActive(true);
-                _cloneGoldPurpleEffectObj.SetActive(true);
-
-                // Timers.inst.Add(3, 1, (obj) => _cloneDollarSpineObj.SetActive(false));
-                Timers.inst.Add(3.033f, 1, (obj) =>
-                {
-                    _cloneDollarSpineObj.SetActive(false);
-                    CloseSelf(null);
-                    
-                    // 新增测试
-                    // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupFreeSpinResult);
-                });
-                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
-                    new EventData(SlotMachineEvent.FreeGameFadeTransition));
+                OnClickSpinButton(null);
+                // _freeTipWindow.visible = false;
+                // _cloneDollarSpineObj.SetActive(true);
+                // _cloneGoldPurpleEffectObj.SetActive(true);
+                //
+                // // Timers.inst.Add(3, 1, (obj) => _cloneDollarSpineObj.SetActive(false));
+                // Timers.inst.Add(3.033f, 1, (obj) =>
+                // {
+                //     _cloneDollarSpineObj.SetActive(false);
+                //     CloseSelf(null);
+                //     
+                //     // 新增测试
+                //     // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupFreeSpinResult);
+                // });
+                // EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                //     new EventData(SlotMachineEvent.FreeGameFadeTransition));
             }));
 
             if (TestManager.Instance.IsAutoModeRunning)

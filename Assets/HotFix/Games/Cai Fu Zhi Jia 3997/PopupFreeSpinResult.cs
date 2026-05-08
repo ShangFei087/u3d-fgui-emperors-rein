@@ -53,6 +53,8 @@ namespace CaiFuZhiJia_3997
         private Vector3 _freeStartBtnOriginalPos;
         private Vector3 _freeStartBtnOriginalScale;
         // ========== 新增结束 ==========
+        
+        private bool _isClicked = false;
 
         protected override void OnInit()
         {
@@ -81,6 +83,8 @@ namespace CaiFuZhiJia_3997
         
         private void OnClickSpinButton(EventData res)
         {
+            if(_isClicked)return;
+            _isClicked = true;
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.FreeGameFadeTransition));
             _freeResultTipWindow.visible = false;
@@ -101,7 +105,7 @@ namespace CaiFuZhiJia_3997
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-
+            _isClicked = false;
             BindPrefabsToUI();
             BindUIToAnimator();
             ShowEffectAndSpine();
@@ -226,22 +230,23 @@ namespace CaiFuZhiJia_3997
         {
             _freeStartBtn.onClick.Add((() =>
             {
-                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
-                    new EventData(SlotMachineEvent.FreeGameFadeTransition));
-                _freeResultTipWindow.visible = false;
-                _freeGameResultScore.visible = false;
-                _cloneFreeGetAnimationObj.SetActive(false);
-                _cloneDollarSpineObj.SetActive(true);
-                _cloneGoldPurpleEffectObj.SetActive(true);
-
-                Timers.inst.Add(3.03f, 1, (obj) =>
-                {
-                    _cloneDollarSpineObj.SetActive(false);
-                    CloseSelf(null);
-
-                    // 新增测试
-                    // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupFreeSpinTrigger);
-                });
+                OnClickSpinButton(null);
+                // EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                //     new EventData(SlotMachineEvent.FreeGameFadeTransition));
+                // _freeResultTipWindow.visible = false;
+                // _freeGameResultScore.visible = false;
+                // _cloneFreeGetAnimationObj.SetActive(false);
+                // _cloneDollarSpineObj.SetActive(true);
+                // _cloneGoldPurpleEffectObj.SetActive(true);
+                //
+                // Timers.inst.Add(3.03f, 1, (obj) =>
+                // {
+                //     _cloneDollarSpineObj.SetActive(false);
+                //     CloseSelf(null);
+                //
+                //     // 新增测试
+                //     // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupFreeSpinTrigger);
+                // });
             }));
 
             if (TestManager.Instance.IsAutoModeRunning)

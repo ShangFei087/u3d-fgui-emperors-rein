@@ -53,6 +53,8 @@ namespace CaiFuZhiJia_3997
         private Vector3 _jackpotResultScoreOriginalPos;
         private Vector3 _jackpotResultScoreOriginalScale;
         // ========== 新增结束 ==========
+        
+        private bool _isClicked = false;
 
         protected override void OnInit()
         {
@@ -70,7 +72,7 @@ namespace CaiFuZhiJia_3997
                     {
                         if (PanelBaseController.ShouldBlockPhysicalSpinInput)
                             return;
-
+                        if (!isReady) return;
                         Debug.LogError("游戏接受到机台短按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false);
                         OnClickSpinButton(res);
@@ -81,6 +83,8 @@ namespace CaiFuZhiJia_3997
         
         private void OnClickSpinButton(EventData res)
         {
+            if(_isClicked)return;
+            _isClicked = true;
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.BonusGameFadeTransition));
             _jackpotResultTipWindow.visible = false;
@@ -108,10 +112,11 @@ namespace CaiFuZhiJia_3997
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-
+            _isClicked = false;
             BindPrefabsToUI();
             BindUIToAnimator();
             ShowEffectAndSpine();
+            isReady = true;
         }
 
         private GameSoundController3997 _gameSoundController;
@@ -235,26 +240,27 @@ namespace CaiFuZhiJia_3997
         {
             _jackpotResultButton.onClick.Add((() =>
             {
-                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
-                    new EventData(SlotMachineEvent.BonusGameFadeTransition));
-                _jackpotResultTipWindow.visible = false;
-                _cloneLightEffectObj.SetActive(false);
-                _cloneDiamondAnimationObj.SetActive(false);
-
-                _cloneDiamondSpineObj.SetActive(true);
-                _cloneDiamondBgEffectObj.SetActive(true);
-                Timers.inst.Add(3, 1, (obj) => _cloneDiamondSpineObj.SetActive(false));
-                Timers.inst.Add(5, 1, (obj) =>
-                {
-                    PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPopupJackpotGame);
-                    PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPageGameMain); 
-                });
-                Timers.inst.Add(7, 1, (obj) =>
-                {
-                    CloseSelf(null);
-                    MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
-                    ContentModel.Instance.totalBonusReward = 0;
-                });
+                OnClickSpinButton(null);
+                // EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                //     new EventData(SlotMachineEvent.BonusGameFadeTransition));
+                // _jackpotResultTipWindow.visible = false;
+                // _cloneLightEffectObj.SetActive(false);
+                // _cloneDiamondAnimationObj.SetActive(false);
+                //
+                // _cloneDiamondSpineObj.SetActive(true);
+                // _cloneDiamondBgEffectObj.SetActive(true);
+                // Timers.inst.Add(3, 1, (obj) => _cloneDiamondSpineObj.SetActive(false));
+                // Timers.inst.Add(5, 1, (obj) =>
+                // {
+                //     PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPopupJackpotGame);
+                //     PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPageGameMain); 
+                // });
+                // Timers.inst.Add(7, 1, (obj) =>
+                // {
+                //     CloseSelf(null);
+                //     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+                //     ContentModel.Instance.totalBonusReward = 0;
+                // });
             }));
 
             if (TestManager.Instance.IsAutoModeRunning)

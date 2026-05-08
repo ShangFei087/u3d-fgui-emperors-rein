@@ -33,6 +33,8 @@ namespace CaiFuZhiJia_3997
         private Vector3 _jackpotWinBetOriginalPos;
         private Vector3 _jackpotWinBetOriginalScale;
         // ========== 新增结束 ==========
+        
+        private bool _isClicked = false;
 
         protected override void OnInit()
         {
@@ -65,6 +67,8 @@ namespace CaiFuZhiJia_3997
         
         private void OnClickSpinButton(EventData res)
         {
+            if(_isClicked)return;
+            _isClicked = true;
             CloseSelf(null);
         }
 
@@ -73,7 +77,7 @@ namespace CaiFuZhiJia_3997
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-
+            _isClicked = false;
             BindPrefabsToUI();
             BindAnimatorToUI();
             ShowWinBet();
@@ -242,7 +246,7 @@ namespace CaiFuZhiJia_3997
 
             _collectBtn.onClick.Add((() =>
             {
-                CloseSelf(null);
+                OnClickSpinButton(null);
             }));
         }
 

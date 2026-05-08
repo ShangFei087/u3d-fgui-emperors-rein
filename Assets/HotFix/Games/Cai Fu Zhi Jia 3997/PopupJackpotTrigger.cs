@@ -50,6 +50,8 @@ namespace CaiFuZhiJia_3997
         private Vector3 _jackpotTriggerButtonOriginalScale;
         // ========== 新增结束 ==========
 
+        private bool _isClicked = false;
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -57,7 +59,7 @@ namespace CaiFuZhiJia_3997
 
             _totalCount = 3; //4
             LoadAsyncRes();
-            
+
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
                 shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
@@ -66,7 +68,7 @@ namespace CaiFuZhiJia_3997
                     {
                         if (PanelBaseController.ShouldBlockPhysicalSpinInput)
                             return;
-
+                        if (!isReady) return;
                         Debug.LogError("游戏接受到机台短按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false);
                         OnClickSpinButton(res);
@@ -74,13 +76,14 @@ namespace CaiFuZhiJia_3997
                 }
             };
         }
-        
+
         private void OnClickSpinButton(EventData res)
         {
+            if(_isClicked)return;
+            _isClicked = true;
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.BonusGameFadeTransition));
             _jackpotTriggerTipWindow.visible = false;
-            // _cloneLightEffectObj.SetActive(false);
             _cloneDiamondAnimationObj.SetActive(false);
 
             _cloneDiamondSpineObj.SetActive(true);
@@ -89,7 +92,7 @@ namespace CaiFuZhiJia_3997
             Timers.inst.Add(5, 1, (obj) =>
             {
                 PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPageGameMain);
-                PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotGame,creditEventData);
+                PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotGame, creditEventData);
             });
             Timers.inst.Add(7, 1, (obj) =>
             {
@@ -102,25 +105,27 @@ namespace CaiFuZhiJia_3997
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-
+            _isClicked = false;
             _jackpotTriggerTipWindow = contentPane.GetChild("jackpotTriggerTipWindow").asCom;
             _jackpotTriggerButton = _jackpotTriggerTipWindow.GetChild("jackpotTriggerButton").asButton;
             BindPrefabsToUI();
             BindUIToAnimator();
             ShowEffectAndSpine();
+            isReady = true;
         }
 
         private GameSoundController3997 _gameSoundController;
         private EventData creditEventData;
+
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
             _gameSoundController = new GameSoundController3997();
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(Game3997AudioEvent.BgmBonusTrigger));
-            
+
             // PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotGame, null);
-            creditEventData= eventData;
+            creditEventData = eventData;
             InitParam();
         }
 
@@ -225,28 +230,10 @@ namespace CaiFuZhiJia_3997
 
         private void ShowEffectAndSpine()
         {
+            
             _jackpotTriggerButton.onClick.Add((() =>
             {
-                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
-                    new EventData(SlotMachineEvent.BonusGameFadeTransition));
-                _jackpotTriggerTipWindow.visible = false;
-                // _cloneLightEffectObj.SetActive(false);
-                _cloneDiamondAnimationObj.SetActive(false);
-
-                _cloneDiamondSpineObj.SetActive(true);
-                _cloneDiamondBgEffectObj.SetActive(true);
-                Timers.inst.Add(3, 1, (obj) => _cloneDiamondSpineObj.SetActive(false));
-                Timers.inst.Add(5, 1, (obj) =>
-                {
-                    PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPageGameMain);
-                    PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotGame,creditEventData);
-                });
-                Timers.inst.Add(7, 1, (obj) =>
-                {
-                    CloseSelf(null);
-                    // PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPageGameMain);
-                    // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotResult);
-                });
+                OnClickSpinButton(null);
             }));
 
             if (TestManager.Instance.IsAutoModeRunning)
@@ -261,23 +248,7 @@ namespace CaiFuZhiJia_3997
                 });
             }
         }
-
-        // private void BindUIToAnimator()
-        // {
-        //     //fgui放入ugui
-        //     string parentPath = $"Anchor/sg_pop_prompt/Animation/btn";
-        //     Transform num01 = _cloneDiamondAnimationObj.transform.Find(parentPath);
-        //     GObject gStartBtn = this.contentPane.GetChild("jackpotTriggerTipWindow").asCom.GetChild("jackpotTriggerButton");
-        //     if (gStartBtn?.displayObject?.gameObject != null)
-        //     {
-        //         Transform t = gStartBtn.displayObject.gameObject.transform;
-        //         t.SetParent(num01, false);
-        //         t.localPosition = new Vector3(-1.76f, 0.34f, 0);
-        //         //t.localRotation = Quaternion.identity;
-        //         t.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-        //     }
-        // }
-
+        
         private void BindUIToAnimator()
         {
             // ========== 修改：绑定前先记录原始状态，方便后续还原 ==========
