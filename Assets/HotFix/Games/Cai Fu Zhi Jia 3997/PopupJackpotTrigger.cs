@@ -94,19 +94,17 @@ namespace CaiFuZhiJia_3997
             Timers.inst.Add(7, 1, (obj) =>
             {
                 CloseSelf(null);
-                // PageManager.Instance.ClosePage(PageName.CaiFuZhiJiaPageGameMain);
-                // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupJackpotResult);
             });
         }
 
         public override void InitParam()
         {
-            _jackpotTriggerTipWindow = contentPane.GetChild("jackpotTriggerTipWindow").asCom;
-            _jackpotTriggerButton = _jackpotTriggerTipWindow.GetChild("jackpotTriggerButton").asButton;
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
 
+            _jackpotTriggerTipWindow = contentPane.GetChild("jackpotTriggerTipWindow").asCom;
+            _jackpotTriggerButton = _jackpotTriggerTipWindow.GetChild("jackpotTriggerButton").asButton;
             BindPrefabsToUI();
             BindUIToAnimator();
             ShowEffectAndSpine();

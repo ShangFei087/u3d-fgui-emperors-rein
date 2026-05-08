@@ -93,9 +93,6 @@ namespace CaiFuZhiJia_3997
             {
                 _cloneDollarSpineObj.SetActive(false);
                 CloseSelf(null);
-
-                // 新增测试
-                // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupFreeSpinTrigger);
             });
         }
 

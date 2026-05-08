@@ -146,6 +146,22 @@ namespace CaiFuZhiJia_3997
         private bool IsAddCreditAnim =>
             !(_slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
 
+
+        /// <summary>3997：底部 Panel 异步就绪后触发 PageManager 的 preLoadedCallback。</summary>
+        private void OnBottomPanelReadyForPreload(EventData res)
+        {
+            if (res == null || res.name != PanelEvent.BottomPanelReady)
+                return;
+
+            int gameId = Convert.ToInt32(res.value);
+            if (gameId != 3997)
+                return;
+
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT,
+                OnBottomPanelReadyForPreload);
+            preLoadedCallback?.Invoke();
+        }
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -161,6 +177,7 @@ namespace CaiFuZhiJia_3997
                     {
                         if (PanelBaseController.ShouldBlockPhysicalSpinInput)
                             return;
+                        if (!isReady) return;
 
                         Debug.LogError("游戏接受到机台短按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false);
@@ -171,6 +188,10 @@ namespace CaiFuZhiJia_3997
                 {
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
+                        if (PanelBaseController.ShouldBlockPhysicalSpinInput)
+                            return;
+                        if (!isReady) return;
+
                         DebugUtils.LogError("游戏接受到机台长按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, true);
                         OnClickSpinButton(res);
@@ -184,45 +205,100 @@ namespace CaiFuZhiJia_3997
         {
             if (!isInit) return;
 
+            // ---------- 1. MainModel、Paytable、本地 JSON ----------
+            MainModel.Instance.lineNum = 20;
+            MainModel.Instance.gameID = 3997;
+            MainModel.Instance.gameName = "CaiFuZhiJia3997";
+            MainModel.Instance.displayName = "CaiFuZhiJia_3997";
             MainModel.Instance.contentMD = ContentModel.Instance;
             MainModel.Instance.cutomMD = CustomModel.Instance;
-            // ReadJsonBet();
+            MainModel.Instance.contentMD.betIndex = 0;
+            ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
 
-            // 初始化对象池，通过配置文件读取出中奖特效等
+            _lstPayTable = new List<GComponent>();
+            foreach (string url in CustomModel.Instance.payTable)
+            {
+                GComponent payTable = UIPackage.CreateObjectFromURL(url).asCom;
+                payTable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().InitParam(payTable);
+
+                _lstPayTable.Add(payTable);
+                payTable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().referenceCount++;
+            }
+
+            ContentModel.Instance.goPayTableLst = _lstPayTable.ToArray();
+            _payTableController.Init(_lstPayTable);
+
+            // ---------- 2. FGUI 对象池（须先于滚轮 Init） ----------
             if (_fGuiPoolHelper != null && _isInitPool == false)
             {
                 _isInitPool = true;
 
+                // 中奖动画
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolHit,
                     CustomModel.Instance.symbolHitEffect.Values.ToList(), "symbol_hit#", 5);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolHit);
 
+                // 边框
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder,
                     CustomModel.Instance.borderEffect, "border#", 5);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolBorder);
 
+                // 落下后图标静止动画
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear,
                     CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 10);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear);
             }
 
-            ShowPayTable();
-            // 加载Panel面板
-            _gOwnerPanel = contentPane.GetChild("panel").asCom;
-            MainModel.Instance.contentMD = ContentModel.Instance;
-            MainModel.Instance.cutomMD = CustomModel.Instance;
-            ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
-            MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
-            TryTriggerAnchorPanelChange();
-
-            InitFreeSpinUIAndController();
-            // 初始化滚轴界面
+            // ---------- 3.滚轮控制器 ----------
             GComponent gSlotMachine = contentPane.GetChild("slotMachine").asCom;
             GComponent gReels = gSlotMachine.GetChild("reels").asCom;
             GComponent gSlotCover = gSlotMachine.asCom.GetChild("slotCover").asCom;
             GComponent gPlayLines = gSlotMachine.asCom.GetChild("playLines").asCom;
             GComponent gFrame = contentPane.GetChild("anchorFrame").asCom;
             _slotMachineCtrl.Init(gSlotCover, gPlayLines, gReels, gFrame, _fGuiPoolHelper, _fGuiGObjectPoolHelper);
+
+            // ---------- 4. 底部菜单 Panel ----------
+            _gOwnerPanel = contentPane.GetChild("panel").asCom;
+            ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
+            MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT,
+                OnBottomPanelReadyForPreload);
+            EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
+            TryTriggerAnchorPanelChange();
+            if (!isOpen) return;
+
+            // ---------- 5.音乐控制 ----------
+            _gameSoundController = new GameSoundController3997();
+
+            // ---------- 6.初始化FGUI组件 ----------
+            InitFreeSpinUIAndController();
+
+            //彩金
+            uiJPMajorCtrl.Init("Major", contentPane.GetChild("jpMajor").asCom.GetChild("n1").asList, "N0");
+            uiJPMinorCtrl.Init("Minor", contentPane.GetChild("jpMinor").asCom.GetChild("n1").asList, "N0");
+            uiJPMiniCtrl.Init("Mini", contentPane.GetChild("jpMini").asCom.GetChild("n1").asList, "N0");
+
+            uiJPMajorCtrl.SetReelWidth(30);
+            uiJPMinorCtrl.SetReelWidth(30);
+            uiJPMiniCtrl.SetReelWidth(30);
+
+            ERPushMachineDataManager02.Instance.RequestGetJpContribution((res) =>
+            {
+                JSONNode data = JSONNode.Parse((string)res);
+                Debug.Log(data);
+                int code = (int)data["code"];
+                if (0 != code)
+                {
+                    DebugUtils.LogError($"请求贡献值报错。 code: {code}");
+                    return;
+                }
+
+                uiJPMajorCtrl.SetData((int)data["major"]);
+                uiJPMinorCtrl.SetData((int)data["minor"]);
+                uiJPMiniCtrl.SetData((int)data["mini"]);
+            });
+
+            // ---------- 7.预制体挂到 FGUI 锚点 ----------
 
             if (_wildBoomCom != null)
                 _wildBoomCom.Dispose();
@@ -264,14 +340,11 @@ namespace CaiFuZhiJia_3997
 
             BindSpinesToUI();
 
-            preLoadedCallback?.Invoke();
-            if (!isOpen) return;
-
+            // 加速框
             if (_anchorFreeExpectation != null)
                 _anchorFreeExpectation.Dispose();
             if (_anchorBonusExpectation != null)
                 _anchorBonusExpectation.Dispose();
-            // 加速框
             _anchorExpectation = contentPane.GetChild("anchorReelEffect").asCom;
             _anchorFreeExpectation = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
             _anchorBonusExpectation = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
@@ -285,70 +358,10 @@ namespace CaiFuZhiJia_3997
             _anchorExpectation.AddChild(_anchorBonusExpectation);
             _anchorExpectation.visible = true;
 
-            //彩金
-            uiJPMajorCtrl.Init("Major", contentPane.GetChild("jpMajor").asCom.GetChild("n1").asList, "N0");
-            uiJPMinorCtrl.Init("Minor", contentPane.GetChild("jpMinor").asCom.GetChild("n1").asList, "N0");
-            uiJPMiniCtrl.Init("Mini", contentPane.GetChild("jpMini").asCom.GetChild("n1").asList, "N0");
-
-            uiJPMajorCtrl.SetReelWidth(30);
-            uiJPMinorCtrl.SetReelWidth(30);
-            uiJPMiniCtrl.SetReelWidth(30);
-
-            if (ApplicationSettings.Instance.isMock)
-            {
-                uiJPMajorCtrl.SetData(30000);
-                uiJPMinorCtrl.SetData(1000);
-                uiJPMiniCtrl.SetData(500);
-            }
-            else
-            {
-                //获取彩金贡献值
-                ERPushMachineDataManager02.Instance.RequestGetJpContribution((res) =>
-                {
-                    JSONNode data = JSONNode.Parse((string)res);
-                    Debug.Log(data);
-                    int code = (int)data["code"];
-                    if (0 != code)
-                    {
-                        DebugUtils.LogError($"请求贡献值报错。 code: {code}");
-                        return;
-                    }
-
-                    int majorBet = (int)data["major"];
-                    int minorBet = (int)data["minor"];
-                    int miniBet = (int)data["mini"];
-
-                    uiJPMajorCtrl.SetData(majorBet);
-                    uiJPMinorCtrl.SetData(minorBet);
-                    uiJPMiniCtrl.SetData(miniBet);
-                });
-            }
-
-
-            //同步积分和押注
-            MachineDataManager02.Instance.RequestGetPlayerInfo((res) =>
-            {
-                SBoxAccount data = (SBoxAccount)res;
-                int pid = SBoxModel.Instance.pid;
-                List<SBoxPlayerAccount> playerAccountList = data.PlayerAccountList;
-                for (int i = 0; i < playerAccountList.Count; i++)
-                {
-                    if (playerAccountList[i].PlayerId == pid)
-                    {
-                        MainBlackboardController.Instance.SetMyRealCredit(playerAccountList[i].Credit);
-                        break;
-                    }
-                }
-            }, (err) =>
-            {
-                DebugUtils.Log(err.msg);
-            });
-            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
-
-            // 总押注初始化
-            ContentModel.Instance.betIndex = 0;
-            ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
             TryRestoreFreeSpinSession();
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(Game3997AudioEvent.BgmRegularGame));
+            isReady = true;
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
@@ -362,7 +375,6 @@ namespace CaiFuZhiJia_3997
             EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE,
                 OnCoinPushSpinResultParse);
             EventCenter.Instance.AddEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
-            _gameSoundController = new GameSoundController3997();
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(Game3997AudioEvent.BgmRegularGame));
             InitParam();
@@ -381,6 +393,9 @@ namespace CaiFuZhiJia_3997
                 OnSlotDetailEvent);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT,
+                OnBottomPanelReadyForPreload);
+            _monoHelper.updateHandle.RemoveAllListeners();
             base.OnClose(eventData);
             _freeSpinTimeController.Dispose();
             _gameSoundController?.Dispose();
@@ -560,10 +575,10 @@ namespace CaiFuZhiJia_3997
 
         private void ReadJsonBet()
         {
-            MainModel.Instance.lineNum = 20;
-            MainModel.Instance.gameID = 3997;
-            MainModel.Instance.gameName = "CaiFuZhiJia3997";
-            MainModel.Instance.displayName = "CaiFuZhiJia_3997";
+            // MainModel.Instance.lineNum = 20;
+            // MainModel.Instance.gameID = 3997;
+            // MainModel.Instance.gameName = "CaiFuZhiJia3997";
+            // MainModel.Instance.displayName = "CaiFuZhiJia_3997";
         }
 
         private void BindSpinesToUI()
@@ -636,18 +651,6 @@ namespace CaiFuZhiJia_3997
 
         private void ShowPayTable()
         {
-            _lstPayTable = new List<GComponent>();
-            foreach (string url in CustomModel.Instance.payTable)
-            {
-                GComponent payTable = UIPackage.CreateObjectFromURL(url).asCom;
-                payTable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().InitParam(payTable);
-
-                _lstPayTable.Add(payTable);
-                payTable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().referenceCount++;
-            }
-
-            ContentModel.Instance.goPayTableLst = _lstPayTable.ToArray();
-            _payTableController.Init(_lstPayTable);
         }
 
         #endregion
@@ -1436,6 +1439,7 @@ namespace CaiFuZhiJia_3997
         {
             ContentModel.Instance.totalPlaySpins = 1;
             ContentModel.Instance.remainPlaySpins = 1;
+            if (_corGameOnce != null) _monoHelper.StopCoroutine(_corGameOnce);
             _corGameOnce = _monoHelper.StartCoroutine(GameOnce(successCallback, errorCallback));
         }
 

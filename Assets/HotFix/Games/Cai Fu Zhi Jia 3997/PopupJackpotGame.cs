@@ -129,6 +129,7 @@ namespace CaiFuZhiJia_3997
                     {
                         if (PanelBaseController.ShouldBlockPhysicalSpinInput)
                             return;
+                        if (!isReady) return;
 
                         Debug.LogError("游戏接受到机台短按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false);
@@ -144,8 +145,9 @@ namespace CaiFuZhiJia_3997
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
 
-            ContentModel.Instance.isSpin = false;
-            ContentModel.Instance.remainPlaySpins = 1;
+            // Todo:暂时删除没用的部分
+            // ContentModel.Instance.isSpin = false;
+            // ContentModel.Instance.remainPlaySpins = 1;
 
             // 加载Panel面板
             _gOwnerPanel = contentPane.GetChild("panel").asCom;
@@ -186,40 +188,25 @@ namespace CaiFuZhiJia_3997
             uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("jpMajor").asCom.GetChild("n1").asList, "N0");
             uiJPMinorCtrl.Init("Minor", this.contentPane.GetChild("jpMinor").asCom.GetChild("n1").asList, "N0");
             uiJPMiniCtrl.Init("Mini", this.contentPane.GetChild("jpMini").asCom.GetChild("n1").asList, "N0");
-
             uiJPMajorCtrl.SetReelWidth(30);
             uiJPMinorCtrl.SetReelWidth(30);
             uiJPMiniCtrl.SetReelWidth(30);
-
-            if (ApplicationSettings.Instance.isMock)
+            ERPushMachineDataManager02.Instance.RequestGetJpContribution((res) =>
             {
-                uiJPMajorCtrl.SetData(30000);
-                uiJPMinorCtrl.SetData(1000);
-                uiJPMiniCtrl.SetData(500);
-            }
-            else
-            {
-                //获取彩金贡献值
-                ERPushMachineDataManager02.Instance.RequestGetJpContribution((res) =>
+                JSONNode data = JSONNode.Parse((string)res);
+                Debug.Log(data);
+                int code = (int)data["code"];
+                if (0 != code)
                 {
-                    JSONNode data = JSONNode.Parse((string)res);
-                    Debug.Log(data);
-                    int code = (int)data["code"];
-                    if (0 != code)
-                    {
-                        DebugUtils.LogError($"请求贡献值报错。 code: {code}");
-                        return;
-                    }
+                    DebugUtils.LogError($"请求贡献值报错。 code: {code}");
+                    return;
+                }
 
-                    int majorBet = (int)data["major"];
-                    int minorBet = (int)data["minor"];
-                    int miniBet = (int)data["mini"];
-
-                    uiJPMajorCtrl.SetData(majorBet);
-                    uiJPMinorCtrl.SetData(minorBet);
-                    uiJPMiniCtrl.SetData(miniBet);
-                });
-            }
+                uiJPMajorCtrl.SetData((int)data["major"]);
+                uiJPMinorCtrl.SetData((int)data["minor"]);
+                uiJPMiniCtrl.SetData((int)data["mini"]);
+            });
+            isReady = true;
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)

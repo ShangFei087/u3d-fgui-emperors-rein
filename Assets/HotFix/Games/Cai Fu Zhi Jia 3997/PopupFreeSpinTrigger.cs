@@ -114,8 +114,6 @@ namespace CaiFuZhiJia_3997
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
-            // EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
-            //     new EventData(Game3997AudioEvent.BgmRegularGame));
             _gameSoundController?.Dispose();
             _gameSoundController = null;
             ResetView();
@@ -127,14 +125,10 @@ namespace CaiFuZhiJia_3997
             _cloneDollarSpineObj.SetActive(true);
             _cloneGoldPurpleEffectObj.SetActive(true);
 
-            // Timers.inst.Add(3, 1, (obj) => _cloneDollarSpineObj.SetActive(false));
             Timers.inst.Add(3.033f, 1, (obj) =>
             {
                 _cloneDollarSpineObj.SetActive(false);
                 CloseSelf(null);
-                    
-                // 新增测试
-                // PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupFreeSpinResult);
             });
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.FreeGameFadeTransition));
@@ -161,14 +155,6 @@ namespace CaiFuZhiJia_3997
                 });
 
             // 加载Effect
-            // ResourceManager02.Instance.LoadAsset<GameObject>(
-            //     EffectPrefabPath + "blueBoomEffect.prefab",
-            //     (clone) =>
-            //     {
-            //         _blueBoomEffectObj = clone;
-            //         ResLoadedCallback();
-            //     });
-
             ResourceManager02.Instance.LoadAsset<GameObject>(
                 EffectPrefabPath + "goldPurpleEffect.prefab",
                 (clone) =>
@@ -176,14 +162,6 @@ namespace CaiFuZhiJia_3997
                     _goldPurpleEffectObj = clone;
                     ResLoadedCallback();
                 });
-
-            // ResourceManager02.Instance.LoadAsset<GameObject>(
-            //     EffectPrefabPath + "lightEffect.prefab",
-            //     (clone) =>
-            //     {
-            //         _lightEffectObj = clone;
-            //         ResLoadedCallback();
-            //     });
 
             // 加载Animation
             ResourceManager02.Instance.LoadAsset<GameObject>(
@@ -207,26 +185,6 @@ namespace CaiFuZhiJia_3997
                 _cloneDollarSpineObj.SetActive(false);
                 GameCommon.FguiUtils.AddWrapper(_compareDollarSpineGCom, _cloneDollarSpineObj);
             }
-
-            // Effect
-            // currentGCom = contentPane.GetChild("blueBoomEffect").asCom;
-            // if (currentGCom != _compareBlueBoomEffectGCom)
-            // {
-            //     GameCommon.FguiUtils.DeleteWrapper(_compareBlueBoomEffectGCom);
-            //     _compareBlueBoomEffectGCom = currentGCom;
-            //     _cloneBlueBoomEffectObj = Object.Instantiate(_blueBoomEffectObj);
-            //     GameCommon.FguiUtils.AddWrapper(_compareBlueBoomEffectGCom, _cloneBlueBoomEffectObj);
-            // }
-
-            // currentGCom = contentPane.GetChild("lightEffect").asCom;
-            // if (currentGCom != _compareLightEffectGCom)
-            // {
-            //     GameCommon.FguiUtils.DeleteWrapper(_compareLightEffectGCom);
-            //     _compareLightEffectGCom = currentGCom;
-            //     _cloneLightEffectObj = Object.Instantiate(_lightEffectObj);
-            //     _cloneLightEffectObj.SetActive(false);
-            //     GameCommon.FguiUtils.AddWrapper(_compareLightEffectGCom, _cloneLightEffectObj);
-            // }
 
             currentGCom = contentPane.GetChild("goldPurpleEffect").asCom;
             if (currentGCom != _compareGoldPurpleEffectGCom)

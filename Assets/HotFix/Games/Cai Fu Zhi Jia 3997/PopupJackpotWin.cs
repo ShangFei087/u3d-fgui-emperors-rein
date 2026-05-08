@@ -74,7 +74,6 @@ namespace CaiFuZhiJia_3997
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
 
-            // ContentModel.Instance.currentJpSpineIndex = 1;// 临时测试
             BindPrefabsToUI();
             BindAnimatorToUI();
             ShowWinBet();
