@@ -184,6 +184,8 @@ namespace XingYunZhiLun_3998
                     SpinDown();
                 });
             }
+
+            preLoadedCallback?.Invoke();
         }
 
 

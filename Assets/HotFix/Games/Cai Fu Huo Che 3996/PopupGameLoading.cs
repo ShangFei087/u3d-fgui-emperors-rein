@@ -104,11 +104,25 @@ namespace CaiFuHuoChe_3996
         private int _preloadTotal;
         private int _preloadCompleted;
 
+        /// <summary>从进入并行预加载起算，界面至少展示此时长（秒）；预加载更久则按实际结束。</summary>
+        private const float MinLoadingDisplaySeconds = 5f;
+
+        private float _preloadStartRealtime;
+        private TimerCallback _pendingMinDisplayCallback;
+
         /// <summary>
         /// 并行预加载各子界面；进度条按完成个数增长，全部完成后进入主界面。
         /// </summary>
         private void StartPreloadGamePagesThenLoadingAnimation()
         {
+            if (_pendingMinDisplayCallback != null)
+            {
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+            }
+
+            _preloadStartRealtime = Time.realtimeSinceStartup;
+
             PageName[] pages =
             {
                 PageName.CaiFuHuoChePageGameMain,
@@ -122,8 +136,7 @@ namespace CaiFuHuoChe_3996
 
             _preloadTotal = pages.Length;
             _preloadCompleted = 0;
-            SetSliderByPreloadNormalized(0f);
-            Load.text = $"加载中{dots[0]}";
+            RefreshLoadingProgressVisual();
             PlayAnim("start");
 
             for (int i = 0; i < pages.Length; i++)
@@ -136,13 +149,89 @@ namespace CaiFuHuoChe_3996
         private void OnOnePreloadPageDone()
         {
             _preloadCompleted++;
-            float progress = _preloadTotal > 0 ? (float)_preloadCompleted / _preloadTotal : 1f;
-            SetSliderByPreloadNormalized(progress);
-            int dotIndex = ((int)(progress * 100) / 4) % 4;
-            Load.text = $"加载中{dots[dotIndex]}";
+            RefreshLoadingProgressVisual();
 
             if (_preloadCompleted < _preloadTotal) return;
 
+            TryFinishLoadingAfterPreloads();
+        }
+
+        public override void OnClose(EventData data = null)
+        {
+            if (_pendingMinDisplayCallback != null)
+            {
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+            }
+
+            base.OnClose(data);
+        }
+
+        private float GetPreloadRatio()
+        {
+            return _preloadTotal > 0 ? (float)_preloadCompleted / _preloadTotal : 1f;
+        }
+
+        private float GetTimeCapRatio()
+        {
+            return Mathf.Clamp01((Time.realtimeSinceStartup - _preloadStartRealtime) / MinLoadingDisplaySeconds);
+        }
+
+        /// <summary>
+        /// 进度条取「预加载完成度」与「最短展示时间」的较小值，避免未满最短时间条已 100%。
+        /// </summary>
+        private float GetDisplayNormalizedProgress()
+        {
+            return Mathf.Min(GetPreloadRatio(), GetTimeCapRatio());
+        }
+
+        private void RefreshLoadingProgressVisual()
+        {
+            float display = GetDisplayNormalizedProgress();
+            SetSliderByPreloadNormalized(display);
+            int dotIndex = ((int)(display * 100) / 4) % 4;
+            Load.text = $"加载中{dots[dotIndex]}";
+        }
+
+        private void TryFinishLoadingAfterPreloads()
+        {
+            float elapsed = Time.realtimeSinceStartup - _preloadStartRealtime;
+            if (elapsed >= MinLoadingDisplaySeconds)
+            {
+                RefreshLoadingProgressVisual();
+                CompleteLoadingTransition();
+                return;
+            }
+
+            if (_pendingMinDisplayCallback != null)
+                return;
+
+            RefreshLoadingProgressVisual();
+            _pendingMinDisplayCallback = OnLoadingProgressPadTick;
+            Timers.inst.Add(0.05f, 0, _pendingMinDisplayCallback);
+        }
+
+        private void OnLoadingProgressPadTick(object param)
+        {
+            RefreshLoadingProgressVisual();
+            float elapsed = Time.realtimeSinceStartup - _preloadStartRealtime;
+            if (_preloadCompleted >= _preloadTotal && elapsed >= MinLoadingDisplaySeconds)
+            {
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+                CompleteLoadingTransition();
+            }
+        }
+
+        private void CompleteLoadingTransition()
+        {
+            if (_pendingMinDisplayCallback != null)
+            {
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+            }
+
+            SetSliderByPreloadNormalized(1f);
             Load.text = "加载完成";
             CloseSelf(null);
 

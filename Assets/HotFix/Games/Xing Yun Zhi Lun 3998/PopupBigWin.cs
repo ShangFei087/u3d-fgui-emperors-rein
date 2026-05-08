@@ -124,6 +124,8 @@ namespace XingYunZhiLun_3998
 
             anchorScore = contentPane.GetChild("score").asTextField;
 
+            preLoadedCallback?.Invoke();
+
             if (!isOpen) return;
 
             bigWinAnim.Play(WinOpenString[0]);

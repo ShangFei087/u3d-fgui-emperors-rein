@@ -296,6 +296,11 @@ namespace CaiFuHuoChe_3996
                             return;
                         }
 
+                        if (!isReady)
+                        {
+                            return;
+                        }
+
                         Debug.LogError("游戏接受到机台短按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false); // isLongClick
                         OnClickSpinButton(res);
@@ -307,6 +312,11 @@ namespace CaiFuHuoChe_3996
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
                         if (PanelBaseController.ShouldBlockPhysicalSpinInput)
+                        {
+                            return;
+                        }
+
+                        if (!isReady)
                         {
                             return;
                         }
@@ -458,8 +468,7 @@ namespace CaiFuHuoChe_3996
             if (data != null) _data = data;
             if (!isInit) return;
             
-            // ---------- 6. MainModel、Paytable、本地 JSON ----------
-            //说明书
+            // ---------- 1. MainModel、Paytable、本地 JSON ----------
             MainModel.Instance.contentMD = ContentModel.Instance;
             MainModel.Instance.cutomMD = CustomModel.Instance;
             MainModel.Instance.lineNum = 30;
@@ -479,7 +488,7 @@ namespace CaiFuHuoChe_3996
             ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
             payTableController.Init(lstPayTable);
 
-            // ---------- 1. FGUI 对象池（须先于滚轮 Init） ----------
+            // ---------- 2. FGUI 对象池（须先于滚轮 Init） ----------
             if (fguiPoolHelper != null && isInitPool == false)
             {
                 isInitPool = true;
@@ -491,7 +500,7 @@ namespace CaiFuHuoChe_3996
                 fguiPoolHelper.PreLoad(TagPoolObject.SymbolAppear);
             }
 
-            // ---------- 2.滚轮控制器 ----------
+            // ---------- 3.滚轮控制器 ----------
             GComponent gSlotMachine = contentPane.GetChild("slotMachine").asCom;
             GComponent gReels = gSlotMachine.GetChild("reels").asCom;
             slotCover = gSlotMachine.asCom.GetChild("slotCover").asCom;
@@ -499,7 +508,7 @@ namespace CaiFuHuoChe_3996
             gFrame = contentPane.GetChild("anchorFrame").asCom;
             slotMachineCtrl.Init(slotCover, gPlayLines, gReels, gFrame, fguiPoolHelper, gObjectPoolHelper);
 
-            // ---------- 3. 底部菜单 Panel ----------
+            // ---------- 4. 底部菜单 Panel ----------
             //初始化菜单ui
             gOwnerPanel = this.contentPane.GetChild("panel").asCom;
             ContentModel.Instance.goAnthorPanel = gOwnerPanel;
@@ -510,8 +519,38 @@ namespace CaiFuHuoChe_3996
            
             if (!isOpen) return;
 
+            // ---------- 5.音乐控制 ----------
             _gameSoundController = new GameSoundController3996();
-            // ---------- 4.预制体挂到 FGUI 锚点 ----------
+
+            // ---------- 6.初始化FGUI组件 ----------
+            BsToFsTrans = contentPane.GetTransition("BSToFSTransform");
+            FsToBsTrans = contentPane.GetTransition("FSToBSTransform");
+            JsToBsTrans = contentPane.GetTransition("JSToBSTransform");
+            fill1 = contentPane.GetChild("fill1").asImage;
+            fill2 = contentPane.GetChild("fill2").asImage;
+            fill3 = contentPane.GetChild("fill3").asImage;
+            fill4 = contentPane.GetChild("fill4").asImage;
+            freeTimes = contentPane.GetChild("freeRemainTimes").asTextField;
+            freeTotalTimes = contentPane.GetChild("freeTotalTimes").asTextField;
+
+            uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("major").asCom.GetChild("reels").asList, "N0");
+            uiJPMinorCtrl.Init("Minor", this.contentPane.GetChild("minor").asCom.GetChild("reels").asList, "N0");
+            uiJPMiniCtrl.Init("Mini", this.contentPane.GetChild("mini").asCom.GetChild("reels").asList, "N0");
+            ERPushMachineDataManager02.Instance.RequestGetJpContribution((res) =>
+            {
+                JSONNode data = JSONNode.Parse((string)res);
+                int code = (int)data["code"];
+                if (0 != code)
+                {
+                    DebugUtils.LogError($"请求贡献值报错。 code: {code}");
+                    return;
+                }
+                uiJPMajorCtrl.SetData((int)data["major"]);
+                uiJPMinorCtrl.SetData((int)data["minor"]);
+                uiJPMiniCtrl.SetData((int)data["mini"]);
+            });
+
+            // ---------- 7.预制体挂到 FGUI 锚点 ----------
             if (ComReelEffect2 != null) ComReelEffect2.Dispose();
             if (ComReelEffect3 != null) ComReelEffect3.Dispose();
 
@@ -552,6 +591,7 @@ namespace CaiFuHuoChe_3996
             anchorFreeAdd.AddChild(ComRewardEffect2);
             anchorFreeAdd.AddChild(ComRewardEffect3);
             anchorFreeAdd.visible = true;
+
 
             GComponent loadTrain = contentPane.GetChild("anchorTrain").asCom;
             if (gTrain != loadTrain)
@@ -623,38 +663,11 @@ namespace CaiFuHuoChe_3996
                 GameCommon.FguiUtils.AddWrapper(anchorBox, moneyBoxObj);
             }
 
-            // ---------- 4.初始化FGUI组件 ----------
-            BsToFsTrans = contentPane.GetTransition("BSToFSTransform");
-            FsToBsTrans = contentPane.GetTransition("FSToBSTransform");
-            JsToBsTrans = contentPane.GetTransition("JSToBSTransform");
-            fill1 = contentPane.GetChild("fill1").asImage;
-            fill2 = contentPane.GetChild("fill2").asImage;
-            fill3 = contentPane.GetChild("fill3").asImage;
-            fill4 = contentPane.GetChild("fill4").asImage;
-            freeTimes = contentPane.GetChild("freeRemainTimes").asTextField;
-            freeTotalTimes = contentPane.GetChild("freeTotalTimes").asTextField;
 
-            uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("major").asCom.GetChild("reels").asList, "N0");
-            uiJPMinorCtrl.Init("Minor", this.contentPane.GetChild("minor").asCom.GetChild("reels").asList, "N0");
-            uiJPMiniCtrl.Init("Mini", this.contentPane.GetChild("mini").asCom.GetChild("reels").asList, "N0");
-            ERPushMachineDataManager02.Instance.RequestGetJpContribution((res) =>
-            {
-                JSONNode data = JSONNode.Parse((string)res);
-                int code = (int)data["code"];
-                if (0 != code)
-                {
-                    DebugUtils.LogError($"请求贡献值报错。 code: {code}");
-                    return;
-                }
-                uiJPMajorCtrl.SetData((int)data["major"]);
-                uiJPMinorCtrl.SetData((int)data["minor"]);
-                uiJPMiniCtrl.SetData((int)data["mini"]);
-            });
 
-            // ---------- 5.断电数据恢复 ----------
+            // ---------- 8.断电数据恢复 ----------
             TryRestoreFreeSpinSession();
-
-          
+            isReady = true;
         }
 
         void StartGameOnce(Action successCallback = null, Action<string> errorCallback = null)

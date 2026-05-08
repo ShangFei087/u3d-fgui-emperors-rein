@@ -223,6 +223,8 @@ namespace XingYunZhiLun_3998
                     StartGameOnce(successCallback, StopGameWhenError); //开始玩
                 });
             }
+
+            preLoadedCallback?.Invoke();
         }
 
 

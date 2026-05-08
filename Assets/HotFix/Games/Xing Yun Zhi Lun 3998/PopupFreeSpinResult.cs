@@ -160,6 +160,8 @@ namespace XingYunZhiLun_3998
                     OnBtnExit();
                 });
             }
+
+            preLoadedCallback?.Invoke();
         }
 
         private void OnBtnExit()

@@ -98,6 +98,8 @@ namespace XingYunZhiLun_3998
             isClose = false;
             closeBtn.onClick.Add(OnCloseBtn);
 
+            preLoadedCallback?.Invoke();
+
             if (!isOpen) return;
 
             /*
