@@ -102,7 +102,7 @@ namespace CaiFuZhiJia_3997
             }
 
             WinIndex = Array.IndexOf(WinString, WinType);
-            Debug.LogError("WinIndex:" + WinIndex);
+            // Debug.LogError("WinIndex:" + WinIndex);
             if (WinIndex < 0) WinIndex = 0;
             if (WinIndex > 2) WinIndex = 2;
 
