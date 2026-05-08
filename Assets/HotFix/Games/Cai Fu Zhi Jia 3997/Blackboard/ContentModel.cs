@@ -67,8 +67,8 @@ namespace CaiFuZhiJia_3997
         /// <summary>是否是免费旋转</summary>
         public bool isFreeSpin => curReelStripsIndex == "FS";
 
-        // /// <summary>大奖游戏结束</summary>
-        // public bool isBonusGameResult;
+        /// <summary>大奖游戏结束</summary>
+        public bool isBonusGameResult;
 
         /// <summary>是否开启旋转</summary>
         public bool isSpin { get; set; }

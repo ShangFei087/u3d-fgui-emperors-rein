@@ -1975,7 +1975,7 @@ namespace CaiFuZhiJia_3997
                 _isWinFreeOrBonus = true;
                 PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_trigger sg");
                 _npcEffectParent.Find("npc_ng_trigger_sg").gameObject.SetActive(true);
-                Timers.inst.Add(5.3f, 1, (obj) =>
+                Timers.inst.Add(2f, 1, (obj) =>
                 {
                     PlayAnimationByName(_traderAnimator, "Wealth_ng_npc_idle01");
                     _npcEffectParent.Find("npc_ng_trigger_sg").gameObject.SetActive(false);
@@ -1984,7 +1984,7 @@ namespace CaiFuZhiJia_3997
                 if (_corShowBonusSymbol != null) _monoHelper.StopCoroutine(_corShowBonusSymbol);
                 _corShowBonusSymbol = _monoHelper.StartCoroutine(ShowWinSymbol(11));
 
-                yield return new WaitForSeconds(4f);
+                yield return new WaitForSeconds(2f);
 
                 _isMain = false;
                 _slotMachineCtrl.SkipWinLine(false);
@@ -1999,7 +1999,7 @@ namespace CaiFuZhiJia_3997
 
                 yield return new WaitUntil(() => isNext == true);
                 _slotMachineCtrl.CloseSlotCover();
-                // yield return new WaitUntil(() => ContentModel.Instance.isBonusGameResult == true);
+                yield return new WaitUntil(() => ContentModel.Instance.isBonusGameResult == true);
                 // 重置按钮状态
                 ContentModel.Instance.isSpin = false;
                 ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
@@ -2354,7 +2354,7 @@ namespace CaiFuZhiJia_3997
         {
             if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
             if (_corEffectSlowMotion != null) _monoHelper.StopCoroutine(_corEffectSlowMotion);
-            // ContentModel.Instance.isBonusGameResult = false;
+            ContentModel.Instance.isBonusGameResult = false;
             _slotMachineCtrl.CloseSlotCover();
             _isStoppedSlotMachine = false;
             _anchorFreeExpectation.visible = false;

@@ -133,6 +133,7 @@ namespace CaiFuZhiJia_3997
 
                         Debug.LogError("游戏接受到机台短按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false);
+                        _spinBtn.selected = true;
                         OnPanelInputEvent(res);
                     },
                 }
