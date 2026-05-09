@@ -882,8 +882,6 @@ namespace SlotMaker
                 btnBetUp.touchable = false;
                 btnBetDown.GetChild("untouch").visible = true;
                 btnBetDown.touchable = false;
-
-         
             }
         }
 
@@ -1109,8 +1107,10 @@ namespace SlotMaker
                     btnColDowns[i].visible = false;
                 }
             }
-
-            btnExhibition.GetChild("closeGroup").asGroup.visible = false;
+            if (!MainModel.Instance.isExhibitionModeMode)
+            {
+                btnExhibition.GetChild("closeGroup").asGroup.visible = false;
+            }
         }
 
         //滚轴上移一格

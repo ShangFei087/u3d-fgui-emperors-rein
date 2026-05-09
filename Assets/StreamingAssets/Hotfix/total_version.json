@@ -4,6 +4,14 @@
     {
       "agent_name": "Treasury",
       "app": "--",
+      "app_key": "Treasury_release_machine_20260506214024",
+      "app_version": "1.3.0",
+      "version_suggest": null,
+      "hotfix_url": "./release/android/1_3_0"
+    },
+    {
+      "agent_name": "Treasury",
+      "app": "--",
       "app_key": "Treasury_debug_android_20260429094516",
       "app_version": "1.2.0",
       "version_suggest": null,

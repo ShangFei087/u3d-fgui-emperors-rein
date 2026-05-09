@@ -298,8 +298,6 @@ namespace XingYunZhiLun_3998
 
             // Debug.LogError("幸运之轮_3998 当前中奖线数量是： " + MainModel.Instance.lineNum);
             base.OnOpen(name, data);
-
-           
             EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
@@ -491,7 +489,6 @@ namespace XingYunZhiLun_3998
             }
 
             TryRestoreFreeSpinSession();
-            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmRegularGame));
             isReady = true;
         }
 

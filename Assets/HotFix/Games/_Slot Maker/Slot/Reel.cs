@@ -530,7 +530,7 @@ namespace SlotMaker
             //测试代码
             if (targetIndex >= 12)
             {
-                targetIndex = 11;
+                targetIndex=Random.Range(0, 11);
             }
             return customModel.symbolNumber[targetIndex];
         }
