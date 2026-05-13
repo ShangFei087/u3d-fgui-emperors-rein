@@ -1,4 +1,3 @@
-using ConsoleCoinPusher01;
 using FairyGUI;
 using GameMaker;
 using Newtonsoft.Json;
@@ -98,7 +97,7 @@ namespace PusherEmperorsRein
             
             base.OnInit();
 
-            PageConsoleCheckHardware02.InitHardwaveTest();
+            PusherHardwareTestInit.InitHardwaveTest();
 
             int count = 14;
 

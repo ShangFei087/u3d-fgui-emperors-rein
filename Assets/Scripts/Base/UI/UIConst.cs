@@ -86,97 +86,6 @@ public class UIConst
                 new object[] { "Assets/GameRes/Halls/TreasuryHall/FGUIs", "TreasuryHall.TreasuryHallMain" },
 
 
-            // 推币机新后台
-            [PageName.ConsolePusher01PageConsoleAdmin] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Console Coin Pusher 01/FGUIs", "ConsoleCoinPusher01.PageConsoleAdmin"
-                },
-            [PageName.ConsolePusher01PageConsoleMain] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Console Coin Pusher 01/FGUIs", "ConsoleCoinPusher01.PageConsoleMain"
-                },
-            [PageName.ConsolePusher01PageConsoleCheckHardware] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Console Coin Pusher 01/FGUIs",
-                    "ConsoleCoinPusher01.PageConsoleCheckHardware"
-                },
-            [PageName.ConsolePusher01PageConsoleCoder] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Console Coin Pusher 01/FGUIs", "ConsoleCoinPusher01.PageConsoleCoder"
-                },
-            [PageName.ConsolePusher01PageConsoleSettings] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Console Coin Pusher 01/FGUIs", "ConsoleCoinPusher01.PageConsoleSettings"
-                },
-            [PageName.ConsolePusher01PageConsoleTestCoinPush] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Console Coin Pusher 01/FGUIs",
-                    "ConsoleCoinPusher01.PageConsoleTestCoinPush"
-                },
-            [PageName.ConsolePusher01PageConsoleSetParameter002] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Console Coin Pusher 01/FGUIs",
-                    "ConsoleCoinPusher01.PageConsoleSetParameter002"
-                },
-            [PageName.ConsolePusher01PageConsoleSetParameter001] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Console Coin Pusher 01/FGUIs",
-                    "ConsoleCoinPusher01.PageConsoleSetParameter001"
-                },
-            [PageName.ConsolePusher01PageConsoleBusinessRecord] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Console Coin Pusher 01/FGUIs",
-                    "ConsoleCoinPusher01.PageConsoleBusinessRecord"
-                },
-            [PageName.ConsolePusher01PageConsoleCheckHardware02] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Console Coin Pusher 01/FGUIs",
-                    "ConsoleCoinPusher01.PageConsoleCheckHardware02"
-                },
-            [PageName.ConsolePusher01PageConsoleRecordChoose] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Console Coin Pusher 01/FGUIs",
-                    "ConsoleCoinPusher01.PageConsoleRecordChoose"
-                },
-            [PageName.ConsolePusher01PageConsoleEventRecord] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Console Coin Pusher 01/FGUIs",
-                    "ConsoleCoinPusher01.PageConsoleEventRecord"
-                },
-            [PageName.ConsolePusher01PageConsoleErrorRecord] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Console Coin Pusher 01/FGUIs",
-                    "ConsoleCoinPusher01.PageConsoleErrorRecord"
-                },
-            [PageName.ConsolePusher01PopupConsoleRecord] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Console Coin Pusher 01/FGUIs", "ConsoleCoinPusher01.PopupConsoleRecord"
-                },
-            [PageName.ConsolePusher01PageConsoleJpRecord] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Console Coin Pusher 01/FGUIs", "ConsoleCoinPusher01.PageConsoleJpRecord"
-                },
-            [PageName.ConsolePusher01PageConsoleCoinRecord] = new object[]
-            {
-                "Assets/GameRes/Games/Console Coin Pusher 01/FGUIs", "ConsoleCoinPusher01.PageConsoleCoinRecord"
-            },
-
-
             // 推币机帝国之辉
             [PageName.PusherEmperorsReinPopupERGameLoading] =
                 new object[] { "Assets/GameRes/Games/Emperors Rein 200/FGUIs", "PusherEmperorsRein.PopupGameLoading" },
@@ -554,25 +463,6 @@ public enum PageName
 
     //财富大厅
     TreasuryHallMain,
-
-    // 推币机新后台
-    ConsolePusher01PageConsoleMain,
-    ConsolePusher01PageConsoleCheckHardware,
-    ConsolePusher01PageConsoleCoder,
-    ConsolePusher01PageConsoleSettings,
-    ConsolePusher01PageConsoleTestCoinPush,
-    ConsolePusher01PageConsoleSetParameter001,
-    ConsolePusher01PageConsoleSetParameter002,
-    ConsolePusher01PageConsoleBusinessRecord,
-    ConsolePusher01PageConsoleAdmin,
-    ConsolePusher01PageConsoleCheckHardware02,
-    ConsolePusher01PageConsoleRecordChoose,
-    ConsolePusher01PageConsoleEventRecord,
-    ConsolePusher01PageConsoleErrorRecord,
-    ConsolePusher01PopupConsoleRecord,
-    ConsolePusher01PageConsoleJpRecord,
-    ConsolePusher01PageConsoleCoinRecord,
-
 
     // 推币机-帝国之辉
     PusherEmperorsReinPageERGameMain,

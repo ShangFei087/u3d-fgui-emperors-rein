@@ -120,8 +120,7 @@ public class DeviceCoder : MonoSingleton<DeviceCoder>
             if (!(bool)isActive)
             {
                 //控台没有打开
-                if (PageManager.Instance.IndexOf(PageName.ConsolePageConsoleMain) == -1  
-                 && PageManager.Instance.IndexOf(PageName.ConsolePusher01PageConsoleMain) == -1)
+                if (PageManager.Instance.IndexOf(PageName.ConsolePageConsoleMain) == -1)
                 {
 
                     if (!CommonPopupHandler.Instance.isOpen(MARK_IS_POPUP_CHECK_ACTIVE))
@@ -168,9 +167,6 @@ public class DeviceCoder : MonoSingleton<DeviceCoder>
         if (pageName == PageName.ConsolePopupConsoleCoder)//(pageName == "ConsolePopupConsoleCoder")
         {
             res = await PageManager.Instance.OpenPageAsync(PageName.ConsolePopupConsoleCoder,  new EventData<Dictionary<string, object>>("", req));
-        }else if (pageName == PageName.ConsolePusher01PageConsoleCoder)//(pageName == "ConsolePusher01PageConsoleCoder")
-        {
-            res = await PageManager.Instance.OpenPageAsync(PageName.ConsolePusher01PageConsoleCoder, new EventData<Dictionary<string, object>>("", req));
         }
         else
         {
