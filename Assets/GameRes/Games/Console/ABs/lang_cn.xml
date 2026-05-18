@@ -358,6 +358,9 @@
   <string name="xp0b9yqdh0z3ao-n7_h0z3-cp-key" mz="total_bet">总投注</string>
   <string name="xp0b9yqdh0z3ao-n8_h0z3-cp-key" mz="base_game_win_credit">基础游戏赢分</string>
   <string name="xp0b9yqdh0z3ao-n10_h0z3-cp-key" mz="jackpot_win_credit">彩金赢分</string>
+    <string name="xp0b9yqdh0z3ao-n18_impw-cp-key" mz="bonus_win_credit">大奖游戏赢分:</string>
+  <string name="xp0b9yqdh0z3ao-n19_impw-cp-key" mz="free_win_credit">免费游戏赢分:</string>
+    <string name="xp0b9yqdh0z3ao-n20_impw-cp-key" mz="Total_win_credit">总赢分:</string>
   <string name="xp0b9yqdh0z3ao-n11_h0z3-cp-key" mz="open_type">本局是否赠送局:</string>
   <string name="xp0b9yqdh0z3ao-n11_h0z3-cp-value" mz="open_type">false</string>
   <string name="xp0b9yqdh0z3ao-n12_h0z3-cp-key" mz="result_type">本局游戏类型:</string>

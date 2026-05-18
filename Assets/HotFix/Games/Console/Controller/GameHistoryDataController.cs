@@ -171,6 +171,10 @@ public class GameHistoryDataController : MonoBehaviour
                         credit_before = sdr.GetInt64(sdr.GetOrdinal("credit_before")),
                         credit_after = sdr.GetInt64(sdr.GetOrdinal("credit_after")),
                         base_game_win_credit = sdr.GetInt64(sdr.GetOrdinal("base_game_win_credit")),
+                        jackpot_win_credit= sdr.GetInt64(sdr.GetOrdinal("jackpot_win_credit")),
+                        bonus_game_win_credit = sdr.GetInt64(sdr.GetOrdinal("bonus_game_win_credit")),
+                        free_spin_win_credit = sdr.GetInt64(sdr.GetOrdinal("free_spin_win_credit")),
+                        total_win_credit = sdr.GetInt64(sdr.GetOrdinal("total_win_credit")),
                         strDeckRowCol = sdr.GetString(sdr.GetOrdinal("strDeckRowCol"))
                     };
 

@@ -6,6 +6,8 @@
 	<string name="xp0b9yqdg3lh53-n34_es9v" mz="navJpOnline">在线彩金</string>
   <string name="xp0b9yqdg3lh53-n29_os7y-cp-title" mz="navBottom">营收记录</string>
   <!-- Console/PageConsoleGameHistory.xml -->
+	<string name="xp0b9yqdexvp7x-n10_knk6" mz="btnGame">游戏历史记录</string>
+	<string name="xp0b9yqdexvp7x-n11_knk6" mz="btnJpOnline">彩金历史记录</string>
   <string name="xp0b9yqdexvp7x-n7_h0z3-cp-key" mz="gameId">游戏编号</string>
   <string name="xp0b9yqdexvp7x-n2_exvp-cp-key" mz="date">日期</string>
   <string name="xp0b9yqdexvp7x-n1_exvp-cp-title" mz="navBottom">游戏历史</string>
@@ -356,9 +358,13 @@
   <string name="xp0b9yqdh0z3ao-n7_h0z3-cp-key" mz="total_bet">总投注</string>
   <string name="xp0b9yqdh0z3ao-n8_h0z3-cp-key" mz="base_game_win_credit">基础游戏赢分</string>
   <string name="xp0b9yqdh0z3ao-n10_h0z3-cp-key" mz="jackpot_win_credit">彩金赢分</string>
+    <string name="xp0b9yqdh0z3ao-n18_impw-cp-key" mz="bonus_win_credit">大奖游戏赢分:</string>
+  <string name="xp0b9yqdh0z3ao-n19_impw-cp-key" mz="free_win_credit">免费游戏赢分:</string>
   <string name="xp0b9yqdh0z3ao-n11_h0z3-cp-key" mz="open_type">本局是否赠送局:</string>
   <string name="xp0b9yqdh0z3ao-n11_h0z3-cp-value" mz="open_type">false</string>
   <string name="xp0b9yqdh0z3ao-n12_h0z3-cp-key" mz="result_type">本局游戏类型:</string>
+	<string name="xp0b9yqdh0z3ao-n16_pi0n-cp-key" mz="free_playtime">本局免费次数:</string>
+	<string name="xp0b9yqdh0z3ao-n17_pi0n-cp-key" mz="free_totaltime">总免费次数:</string>
   <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-key" mz="game_page">"Slot1700"游戏记录</string>
   <string name="xp0b9yqdh0z3ao-n15_h0z3-cp-value" mz="game_page">第999/999条</string>
   <!-- Console/tabs/PCBTabJackpotOnlineWins.xml -->

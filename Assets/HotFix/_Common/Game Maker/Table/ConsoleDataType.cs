@@ -408,7 +408,7 @@ public class TableSlotGameRecordItem
     /// <summary> 游戏结果 </summary>
     public string game_result = "";
     /// <summary> 总赢 </summary>
-    //public long total_win_credit = -1;
+    public long total_win_credit = 0;
     /// <summary> 基础游戏赢分 </summary>
     public long base_game_win_credit = 0;
     /// <summary> 免费游戏赢分 </summary>

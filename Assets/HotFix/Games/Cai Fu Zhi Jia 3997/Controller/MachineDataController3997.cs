@@ -465,8 +465,8 @@ namespace CaiFuZhiJia_3997
 
             ContentModel.Instance.isReelsSlowMotion = true;
 
-            // 记录游戏数据到数据库
-            Record(totalBet, res);
+            // 记录游戏数据到数据库（与上方分支结算的 creditBefore/creditAfter 一致）
+            Record(totalBet, res, creditBefore, creditAfter);
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
 
             DebugUtils.Log(
@@ -800,7 +800,7 @@ namespace CaiFuZhiJia_3997
         /// <summary>
         /// 记录游戏数据到数据库
         /// </summary>
-        private void Record(long totalBet, JSONNode res)
+        private void Record(long totalBet, JSONNode res, long creditBefore, long creditAfter)
         {
             // 游戏场景记录
             GameSenceData gameSenceData = new GameSenceData();
@@ -825,12 +825,15 @@ namespace CaiFuZhiJia_3997
 
             gameSenceData.winFreeSpinTrigger = null;
             gameSenceData.winList = ContentModel.Instance.winList;
-            // gameSenceData.freeSpinPlayTimes = ContentModel.Instance.FreeSpinPlayTimes;
-            // gameSenceData.freeSpinTotalTimes = ContentModel.Instance.FreeSpinTotalTimes;
-            // gameSenceData.freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCoins;// freeSpinTotalWinCredit
             gameSenceData.totalBet = totalBet;
 
-            // 计算赢分
+            // 游戏类型
+            int ResultType = res != null ? (int)res["ResultType"] : 0;
+            int OpenType = res != null ? (int)res["OpenType"] : 0;
+            // 真实钱包本局扣费前 / 本局结算后（写入 SetMyRealCredit 的值）
+            gameSenceData.creditBefore = creditBefore;
+            gameSenceData.creditAfter = creditAfter;
+            // 基础游戏赢分
             long totalEarnCredit = 0;
             if (ContentModel.Instance.winList != null)
             {
@@ -839,38 +842,25 @@ namespace CaiFuZhiJia_3997
                     totalEarnCredit += win.earnCredit;
                 }
             }
-            // totalEarnCredit = (long)res["TotalBet"];// 新增代码
-
             gameSenceData.baseGameWinCredit = totalEarnCredit;
-
-            // 获取游戏前后的分数
-            long creditBefore = MainBlackboardController.Instance.myTempCredit; // 修改数据库中记录的是扣分之后的值
-            long creditAfter = MainBlackboardController.Instance.myRealCredit - totalBet + totalEarnCredit;
-
-            gameSenceData.creditBefore = creditBefore;
-            gameSenceData.creditAfter = creditAfter;
-
-            // 彩金数据
-            JackpotRes info = ContentModel.Instance.jpGameRes;
-
-            gameSenceData.jpGrand = info.curJackpotGrand;
-            gameSenceData.jpMajor = info.curJackpotMajor;
-            gameSenceData.jpMinor = info.curJackpotMinior;
-            gameSenceData.jpMini = info.curJackpotMini;
-
-            long jackpotWinCredit = 0;
-            if (info.jpWinLst != null && info.jpWinLst.Count > 0)
-            {
-                JackpotWinInfo item = info.jpWinLst[0];
-                gameSenceData.jpWinInfo = item;
-                jackpotWinCredit = (long)item.winCredit;
-                gameSenceData.jackpotWinCredit = jackpotWinCredit;
-            }
-
-            // 确定游戏类型
-            int ResultType = res != null ? (int)res["ResultType"] : 0;
-            int OpenType = res != null ? (int)res["OpenType"] : 0;
-
+            // 彩金赢分
+            long jackpotWinCredit = res != null ? (int)res["TotalJackpotBet"] : 0;
+            //JackpotRes info = ContentModel.Instance.jpGameRes;
+            //gameSenceData.jpGrand = info.curJackpotGrand;
+            //gameSenceData.jpMajor = info.curJackpotMajor;
+            //gameSenceData.jpMinor = info.curJackpotMinior;
+            //gameSenceData.jpMini = info.curJackpotMini;
+            //if (info.jpWinLst != null && info.jpWinLst.Count > 0)
+            //{
+            //    JackpotWinInfo item = info.jpWinLst[0];
+            //    gameSenceData.jpWinInfo = item;
+            //    jackpotWinCredit = (long)item.winCredit;
+            //    gameSenceData.jackpotWinCredit = jackpotWinCredit;
+            //}
+            //免费游戏赢分
+            long freeGameWinCredit = res != null ? (int)res["TotalFreeBet"] : 0;
+            long bonuGameWinCredit = res != null ? (int)res["BonusBet"] : 0;
+            long totalWinCredit = totalEarnCredit + jackpotWinCredit + freeGameWinCredit + bonuGameWinCredit;
             // 构建记录对象
             TableSlotGameRecordItem slotGameRecordItem = new TableSlotGameRecordItem()
             {
@@ -886,6 +876,9 @@ namespace CaiFuZhiJia_3997
                 credit_after = creditAfter,
                 base_game_win_credit = totalEarnCredit,
                 jackpot_win_credit = jackpotWinCredit,
+                free_spin_win_credit= freeGameWinCredit,
+                bonus_game_win_credit = bonuGameWinCredit,
+                total_win_credit = totalWinCredit,
                 strDeckRowCol = ContentModel.Instance.strDeckRowCol,
                 symbol_icon_mapping = JsonConvert.SerializeObject(CustomModel.Instance.symbolIcon)
             };
@@ -893,12 +886,12 @@ namespace CaiFuZhiJia_3997
             // 场景数据存入数据库
             slotGameRecordItem.scene = JsonConvert.SerializeObject(gameSenceData);
 
-            // // 删除旧表
-            // string dropSql = $"DROP TABLE IF EXISTS {ConsoleTableName.TABLE_SLOT_GAME_RECORD}";
-            // SQLiteHelper.Instance.ExecuteNonQuery(dropSql);
-            // // 重建表
-            // string createSql = SQLiteHelper.SQLCreateTable<TableSlotGameRecordItem>(ConsoleTableName.TABLE_SLOT_GAME_RECORD);
-            // SQLiteHelper.Instance.ExecuteNonQuery(createSql); 
+            //// 删除旧表
+            //string dropSql = $"DROP TABLE IF EXISTS {ConsoleTableName.TABLE_SLOT_GAME_RECORD}";
+            //SQLiteHelper.Instance.ExecuteNonQuery(dropSql);
+            //// 重建表
+            //string createSql = SQLiteHelper.SQLCreateTable<TableSlotGameRecordItem>(ConsoleTableName.TABLE_SLOT_GAME_RECORD);
+            //SQLiteHelper.Instance.ExecuteNonQuery(createSql);
 
             // 插入数据
             string sql = SQLiteAsyncHelper.SQLInsertTableData<TableSlotGameRecordItem>(

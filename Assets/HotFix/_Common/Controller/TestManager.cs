@@ -552,11 +552,11 @@ public class TestManager : Singleton<TestManager>
 
     #endregion
 
+    #region Analysis
     // 分析模式开关状态
     bool isAnalysis = false;
     AutoModeState autoModeState = AutoModeState.Idle;
-    const float AUTO_SPIN_INTERVAL_SECONDS = 3f;
-
+    const float AUTO_SPIN_INTERVAL_SECONDS = 1.0f;
     // 分析按钮点击：切换分析模式并广播事件
     private void OnClickAnalysis()
     {
@@ -564,6 +564,7 @@ public class TestManager : Singleton<TestManager>
         EventCenter.Instance.EventTrigger<EventData>(GlobalEvent.ON_TOOL_EVENT,
             new EventData<bool>(GlobalEvent.AnalysisTest, isAnalysis));
     }
+    #endregion
 
     #region DebugMode
 
@@ -877,6 +878,7 @@ public class TestManager : Singleton<TestManager>
 
     #endregion
 
+    #region AutoMod
     public void OnClickAutoMode()
     {
         if (autoModeState == AutoModeState.Running)
@@ -921,4 +923,5 @@ public class TestManager : Singleton<TestManager>
         EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT,
             new EventData<bool>(PanelEvent.SpinButtonClick, false));
     }
+    #endregion
 }

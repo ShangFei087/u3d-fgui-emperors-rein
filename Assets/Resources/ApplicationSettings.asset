@@ -20,10 +20,10 @@ MonoBehaviour:
   platformName: Treasury
   gameTheme: Treasury
   agentName: Treasury
-  appKey: Treasury_debug_android_20260429094516
+  appKey: Treasury_debug_machine_20260514172604
   appVersion: 1.2.0
   resourceServer: http://47.112.14.190/StandSlot
-  machineDebugUrl: 192.168.0.51
+  machineDebugUrl: 192.168.0.28
   reportUrl: http://192.168.3.152/api/game_log/send
   posterUrl: 
   logoUrl: ui://Native/eyeryparty

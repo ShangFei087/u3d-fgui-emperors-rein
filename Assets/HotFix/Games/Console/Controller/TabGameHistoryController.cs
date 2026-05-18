@@ -19,6 +19,9 @@ public class TabGameHistoryController
         _rtxttotal_bet,
         _rtxtbase_game_win_credit,
         _rtxtjackpot_win_credit,
+        _rtxtbonus_win_credit,
+        _rtxtfree_win_credit,
+        _rtxttotal_win_credit,
         _rtxtopen_type,
         _rtxtresult_type,
         _rtxtgame_name,
@@ -67,6 +70,9 @@ public class TabGameHistoryController
         _rtxttotal_bet = go.GetChild("total_bet").asCom.GetChild("value").asRichTextField;
         _rtxtbase_game_win_credit = go.GetChild("base_game_win_credit").asCom.GetChild("value").asRichTextField;
         _rtxtjackpot_win_credit = go.GetChild("jackpot_win_credit").asCom.GetChild("value").asRichTextField;
+        _rtxtbonus_win_credit = go.GetChild("bonus_win_credit").asCom.GetChild("value").asRichTextField;
+        _rtxtfree_win_credit = go.GetChild("free_win_credit").asCom.GetChild("value").asRichTextField;
+        _rtxttotal_win_credit = go.GetChild("total_win_credit").asCom.GetChild("value").asRichTextField;
         _rtxtopen_type = go.GetChild("open_type").asCom.GetChild("value").asRichTextField;
         _rtxtresult_type = go.GetChild("result_type").asCom.GetChild("value").asRichTextField;
         _rtxtfree_playtime = go.GetChild("free_playtime").asCom.GetChild("value").asRichTextField;
@@ -122,6 +128,9 @@ public class TabGameHistoryController
             _rtxttotal_bet.text = $"{pageInfo.currentRecord.total_bet}";
             _rtxtbase_game_win_credit.text = $"{pageInfo.currentRecord.base_game_win_credit}";
             _rtxtjackpot_win_credit.text = $"{pageInfo.currentRecord.jackpot_win_credit}";
+            _rtxtbonus_win_credit.text = $"{pageInfo.currentRecord.bonus_game_win_credit}";
+            _rtxtfree_win_credit.text = $"{pageInfo.currentRecord.free_spin_win_credit}";
+            _rtxttotal_win_credit.text = $"{pageInfo.currentRecord.total_win_credit}";
             _rtxtopen_type.text = GetOpenTypeText(pageInfo.currentRecord.open_type);
             _rtxtresult_type.text = GetResultTypeText(pageInfo.currentRecord.result_type);
             _rtxtfree_playtime.text= $"{pageInfo.currentRecord.free_curtime}";

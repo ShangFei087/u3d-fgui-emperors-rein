@@ -117,11 +117,11 @@ static public class DefaultSettingsUtils
     [Title("数据记录设置")]
 
     [Tooltip("最大游戏次数记录")]
-    static public int maxMaxGameRecord = 50000;
+    static public int maxMaxGameRecord = 300000;
     [Tooltip("最小游戏次数记录")]
     static public int minMaxGameRecord = 100;
     [Tooltip("默认游戏次数记录")]
-    static public int defMaxGameRecord = 1000;
+    static public int defMaxGameRecord = 20000;
 
     [Tooltip("最大投退币次数记录")]
     static public int maxMaxCoinInOutRecord = 50000;

@@ -19,6 +19,8 @@ namespace GameMaker
         ///<summary> 点击“页面按钮”</summary>
         public const string PageButton = "PageButton";
 
+        ///<summary> 点击“游戏记录打印”</summary>
+        public const string SlotGameRecord = "SlotGameRecord";
         ///<summary> 点击“打印机按钮”</summary>
         public const string CustomButtonDivicePrenter = "CustomButtonDivicePrenter";
         ///<summary> 点击“清掉激活码”</summary>

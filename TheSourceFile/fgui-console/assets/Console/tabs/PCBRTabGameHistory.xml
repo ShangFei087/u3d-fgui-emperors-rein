@@ -30,19 +30,31 @@
       <property target="key" propertyId="0" value="Jackpot_Win_Credit :"/>
       <property target="value" propertyId="0" value="0"/>
     </component>
-    <component id="n11_h0z3" name="open_type" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="539,484">
+    <component id="n18_impw" name="bonus_win_credit" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="539,485">
+      <property target="key" propertyId="0" value="BonusGames_Win_Credit:"/>
+      <property target="value" propertyId="0" value="0"/>
+    </component>
+    <component id="n19_impw" name="free_win_credit" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="539,561">
+      <property target="key" propertyId="0" value="FreeGame_Win_Credit:"/>
+      <property target="value" propertyId="0" value="0"/>
+    </component>
+    <component id="n20_impw" name="total_win_credit" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="539,637">
+      <property target="key" propertyId="0" value="Total_Win_Credit:"/>
+      <property target="value" propertyId="0" value="0"/>
+    </component>
+    <component id="n11_h0z3" name="open_type" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="539,713">
       <property target="key" propertyId="0" value="Open_Type :"/>
       <property target="value" propertyId="0" value="false"/>
     </component>
-    <component id="n12_h0z3" name="result_type" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="539,561">
+    <component id="n12_h0z3" name="result_type" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="539,789">
       <property target="key" propertyId="0" value="Result_Type:"/>
       <property target="value" propertyId="0" value="0"/>
     </component>
-    <component id="n16_pi0n" name="free_playtime" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="539,637">
+    <component id="n16_pi0n" name="free_playtime" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="539,865">
       <property target="key" propertyId="0" value="Free_PlayTime:"/>
       <property target="value" propertyId="0" value="0"/>
     </component>
-    <component id="n17_pi0n" name="free_totaltime" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="539,713">
+    <component id="n17_pi0n" name="free_totaltime" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="539,941">
       <property target="key" propertyId="0" value="Free_TotalTime:"/>
       <property target="value" propertyId="0" value="0"/>
     </component>

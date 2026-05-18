@@ -365,6 +365,9 @@
   <string name="xp0b9yqdh0z3ao-n7_h0z3-cp-key" mz="total_bet">Total_Bet :</string>
   <string name="xp0b9yqdh0z3ao-n8_h0z3-cp-key" mz="base_game_win_credit">Base_Game_Win_Credit :</string>
   <string name="xp0b9yqdh0z3ao-n10_h0z3-cp-key" mz="jackpot_win_credit">Jackpot_Win_Credit :</string>
+  <string name="xp0b9yqdh0z3ao-n18_impw-cp-key" mz="bonus_win_credit">BonusGames_Win_Credit:</string>
+  <string name="xp0b9yqdh0z3ao-n19_impw-cp-key" mz="free_win_credit">FreeGame_Win_Credit:</string>
+  <string name="xp0b9yqdh0z3ao-n20_impw-cp-key" mz="Total_win_credit">Total_Win_Credit:</string>
   <string name="xp0b9yqdh0z3ao-n11_h0z3-cp-key" mz="open_type">Open_Type :</string>
   <string name="xp0b9yqdh0z3ao-n11_h0z3-cp-value" mz="open_type">false</string>
   <string name="xp0b9yqdh0z3ao-n12_h0z3-cp-key" mz="result_type">Result_Type:</string>
