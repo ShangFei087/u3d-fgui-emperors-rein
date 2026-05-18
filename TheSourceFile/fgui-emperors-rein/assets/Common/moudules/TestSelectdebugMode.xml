@@ -36,7 +36,7 @@
     <text id="n20_n7rv" name="BonusType" xy="160,214" size="100,57" group="n25_hzgc" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="0" input="true"/>
     <text id="n23_n7rv" name="JpType" xy="430,217" size="100,52" group="n25_hzgc" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="0" input="true"/>
     <group id="n25_hzgc" name="ResulitMode" xy="160,214" size="370,57"/>
-    <component id="n22_n7rv" name="apply" src="rl7yk" fileName="moudules/TestSelectItem.xml" xy="538,280">
+    <component id="n22_n7rv" name="apply" src="rl7yk" fileName="components/TestSelectItem.xml" xy="538,280">
       <Button title="确认"/>
     </component>
     <component id="n28_nxbl" name="TotalPlayTime" src="t3gynr" fileName="components/ItemTitleName.xml" xy="-1,378" size="357,50" group="n49_nxbl">

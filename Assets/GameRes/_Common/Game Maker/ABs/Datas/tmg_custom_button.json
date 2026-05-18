@@ -1,33 +1,4 @@
 {
-	"slot_game_record_print": {
-		"event_type": "ON_TOOL_EVENT",
-		"event_name": "SlotGameRecord",
-		"event_data": "{\"game_id\":-1,\"credit_divisor\":1,\"col_a\":\"label\",\"merge_free_give\":true,\"big_win_multiple\":15,\"include_raw_tsv\":true}",
-		"nick_name": "导出游戏记录",
-		"des": ""
-	},
-	"device_printer": {
-		"event_type": "ON_TOOL_EVENT",
-		"event_name": "CustomButtonDivicePrenter",
-		"event_data": "{\"title\":\"XXX\"}",
-		"nick_name": "设备-打印下分",
-		"des": ""
-	},
-	"clear_code": {
-		"event_type": "ON_TOOL_EVENT",
-		"event_name": "CustomButtonClearCode",
-		"event_data": "{\"title\":\"XXX\"}",
-		"nick_name": "清除激活码",
-		"des": ""
-	},
-
-	"show_code": {
-		"event_type": "ON_TOOL_EVENT",
-		"event_name": "ShowCode",
-		"event_data": "{\"msg\":\"null\"}",
-		"nick_name": "显示Code",
-		"des": ""
-	},
 	"device_credit_up": {
 		"event_type": "ON_TOOL_EVENT",
 		"event_name": "CustomButtonCreditUp",
@@ -54,6 +25,43 @@
 		"event_name": "CustomButtonTicketOut",
 		"event_data": "{\"title\":\"XXX\"}",
 		"nick_name": "退票",
+		"des": ""
+	},
+	"slot_game_record_print": {
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "SlotGameRecord",
+		"event_data": "{\"game_id\":-1,\"credit_divisor\":1,\"col_a\":\"label\",\"merge_free_give\":true,\"big_win_multiple\":15,\"include_raw_tsv\":true}",
+		"nick_name": "导出游戏记录",
+		"des": ""
+	},
+	"ClearTableData": {
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "ClearSlotGameRecordTableData",
+		"event_data": "{\"title\":\"XXX\"}",
+		"nick_name": "清空游戏记录表数据",
+		"des": ""
+	},
+
+	"device_printer": {
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "CustomButtonDivicePrenter",
+		"event_data": "{\"title\":\"XXX\"}",
+		"nick_name": "设备-打印下分",
+		"des": ""
+	},
+	"clear_code": {
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "CustomButtonClearCode",
+		"event_data": "{\"title\":\"XXX\"}",
+		"nick_name": "清除激活码",
+		"des": ""
+	},
+
+	"show_code": {
+		"event_type": "ON_TOOL_EVENT",
+		"event_name": "ShowCode",
+		"event_data": "{\"msg\":\"null\"}",
+		"nick_name": "显示Code",
 		"des": ""
 	},
 	"tip": {

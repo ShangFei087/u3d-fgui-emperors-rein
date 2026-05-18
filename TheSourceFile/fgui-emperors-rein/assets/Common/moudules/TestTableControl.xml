@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,1920">
+  <displayList>
+    <graph id="n0_ek7s" name="bg" xy="0,0" size="800,1920" type="rect" fillColor="#ff000000"/>
+    <text id="n5_ek7s" name="titleDebugInfo" xy="1,2" size="236,42" group="n8_ek7s" fontSize="30" color="#ffffff" autoSize="none" text="汇总测试信息"/>
+    <text id="n6_ek7s" name="titleProb" xy="10,494" size="236,42" group="n8_ek7s" fontSize="30" color="#ffffff" autoSize="none" text="输赢概率"/>
+    <text id="n7_ek7s" name="titleRTP" xy="9,739" size="236,42" group="n8_ek7s" fontSize="30" color="#ffffff" autoSize="none" text="返还率"/>
+    <text id="n52_ek7s" name="controlInfo" xy="10,1040" size="236,42" group="n8_ek7s" fontSize="30" color="#ffffff" autoSize="none" text="调控信息"/>
+    <group id="n8_ek7s" name="Title" xy="1,2" size="245,1080"/>
+    <component id="n22_ek7s" name="TotalPlayTime" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,51" size="357,50" group="n40_ek7s">
+      <property target="key" propertyId="0" value="总局数 :"/>
+      <property target="value" propertyId="0" value="466848525"/>
+    </component>
+    <component id="n23_ek7s" name="WinScore" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,101" size="357,50" group="n40_ek7s">
+      <property target="key" propertyId="0" value="总赢分:"/>
+      <property target="value" propertyId="0" value="466848525"/>
+    </component>
+    <component id="n24_ek7s" name="PlayScore" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,151" size="357,50" group="n40_ek7s">
+      <property target="key" propertyId="0" value="总玩分:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n46_ek7s" name="paidBase" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,201" size="357,50" group="n40_ek7s">
+      <property target="key" propertyId="0" value="基础奖赢分:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n47_ek7s" name="paidFree" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,251" size="357,50" group="n40_ek7s">
+      <property target="key" propertyId="0" value="免费奖赢分:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n48_ek7s" name="paidBonus" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,301" size="357,50" group="n40_ek7s">
+      <property target="key" propertyId="0" value="大奖赢分:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n49_ek7s" name="paidJackpotBonus" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,351" size="357,50" group="n40_ek7s">
+      <property target="key" propertyId="0" value="彩金中的大奖赢分:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n50_ek7s" name="paidJackpot" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,401" size="357,50" group="n40_ek7s">
+      <property target="key" propertyId="0" value="本地彩金赢分:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n51_ek7s" name="paidNetJackpot" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,451" size="357,50" group="n40_ek7s">
+      <property target="key" propertyId="0" value="联网彩金赢分:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <group id="n40_ek7s" name="TaotalPlay" xy="10,51" size="357,450" group="n38_ek7s"/>
+    <component id="n25_ek7s" name="TotalProb" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,539" size="357,50" group="n41_ek7s">
+      <property target="key" propertyId="0" value="合计概率:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n26_ek7s" name="LoseProb" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,590" size="357,50" group="n41_ek7s" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="输概率:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n39_ek7s" name="WinProb" src="t3gynr" fileName="components/ItemTitleName.xml" xy="450,590" size="357,50" group="n41_ek7s" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="赢概率 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n27_ek7s" name="FreeGameProb" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,640" size="357,50" group="n41_ek7s" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="免费概率:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n28_ek7s" name="BonusGamesProb" src="t3gynr" fileName="components/ItemTitleName.xml" xy="450,640" size="357,50" group="n41_ek7s" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="大奖概率:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n29_ek7s" name="JackpotProb" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,684" size="357,50" group="n41_ek7s" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="本地彩金概率 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n30_ek7s" name="JackpotOnlineProb" src="t3gynr" fileName="components/ItemTitleName.xml" xy="450,684" size="357,50" group="n41_ek7s" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="联网彩金概率:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <group id="n41_ek7s" name="Prob" xy="10,539" size="797,195" group="n38_ek7s"/>
+    <component id="n31_ek7s" name="TotalRTP" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,787" size="357,50" group="n42_ek7s">
+      <property target="key" propertyId="0" value="总RTP :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n32_ek7s" name="TotalRTPByParts" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,836" size="357,50" group="n42_ek7s">
+      <property target="key" propertyId="0" value="合计RTP :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n33_ek7s" name="BaseRTP" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,893" size="357,50" group="n42_ek7s" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="赢RTP :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n34_ek7s" name="FreeRTP" src="t3gynr" fileName="components/ItemTitleName.xml" xy="450,892" size="357,50" group="n42_ek7s" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="免费RTP :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n35_ek7s" name="BounsRTP" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,943" size="357,50" group="n42_ek7s" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="大奖RTP :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n36_ek7s" name="JackpotRTP" src="t3gynr" fileName="components/ItemTitleName.xml" xy="450,942" size="357,50" group="n42_ek7s" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="本地彩金RTP :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n37_ek7s" name="JackpotOnlineRTP" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,993" size="357,50" group="n42_ek7s" scale="0.8,0.8">
+      <property target="key" propertyId="0" value="联网彩金RTP :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <group id="n42_ek7s" name="RTP" xy="10,787" size="797,256" group="n38_ek7s"/>
+    <component id="n53_ek7s" name="totalPass" src="t3gynr" fileName="components/ItemTitleName.xml" xy="-1,1091" size="389,50" group="n54_ek7s">
+      <property target="key" propertyId="0" value="总放行次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n69_ek7s" name="totalReject" src="t3gynr" fileName="components/ItemTitleName.xml" xy="418,1089" size="389,50" group="n54_ek7s">
+      <property target="key" propertyId="0" value="总拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n70_ek7s" name="winRejectByTargetPool" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,1139" size="389,50" group="n54_ek7s">
+      <property target="key" propertyId="0" value="Base 因目标池不足被拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n71_ek7s" name="freeRejectByTargetPool" src="t3gynr" fileName="components/ItemTitleName.xml" xy="418,1141" size="389,50" group="n54_ek7s">
+      <property target="key" propertyId="0" value="Free 因目标池不足被拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n72_ek7s" name="bonusRejectByTargetPool" src="t3gynr" fileName="components/ItemTitleName.xml" xy="418,1191" size="389,50" group="n54_ek7s">
+      <property target="key" propertyId="0" value="Bonus 因目标池不足被拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n73_ek7s" name="jackpotRejectByTargetPool" src="t3gynr" fileName="components/ItemTitleName.xml" xy="-1,1191" size="389,50" group="n54_ek7s">
+      <property target="key" propertyId="0" value="Jackpot 因目标池不足被拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n74_ek7s" name="freeRejectByRange" src="t3gynr" fileName="components/ItemTitleName.xml" xy="418,1241" size="389,50" group="n54_ek7s">
+      <property target="key" propertyId="0" value="Free 因倍数区间不合法被拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n75_ek7s" name="bonusRejectByRange" src="t3gynr" fileName="components/ItemTitleName.xml" xy="-1,1241" size="389,50" group="n54_ek7s">
+      <property target="key" propertyId="0" value="Bonus 因倍数区间不合法被拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n76_ek7s" name="jackpotRejectByRange" src="t3gynr" fileName="components/ItemTitleName.xml" xy="418,1290" size="389,50" group="n54_ek7s">
+      <property target="key" propertyId="0" value="Jackpot 因金额区间不合法被拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n77_ek7s" name="freeRejectByPassRate" src="t3gynr" fileName="components/ItemTitleName.xml" xy="-1,1291" size="389,50" group="n54_ek7s">
+      <property target="key" propertyId="0" value=" Free 因概率门拒绝次数:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n78_ek7s" name="bonusRejectByPassRate" src="t3gynr" fileName="components/ItemTitleName.xml" xy="418,1341" size="389,50" group="n54_ek7s">
+      <property target="key" propertyId="0" value=" Bonus 因概率门拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n79_ek7s" name="jackpotRejectByPassRate" src="t3gynr" fileName="components/ItemTitleName.xml" xy="-1,1341" size="389,50" group="n54_ek7s">
+      <property target="key" propertyId="0" value=" Jackpot 因概率门拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <group id="n54_ek7s" name="Control" xy="-1,1089" size="808,302" group="n38_ek7s"/>
+    <group id="n38_ek7s" name="DebugInfo" xy="-1,51" size="808,1340"/>
+  </displayList>
+</component>

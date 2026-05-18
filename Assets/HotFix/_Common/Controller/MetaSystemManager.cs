@@ -90,6 +90,9 @@ public class MetaSystemManager : MonoSingleton<MetaSystemManager>
             case GlobalEvent.SlotGameRecord:
                 OnSlotGameRecordPrint(res);
                 break;
+            case GlobalEvent.ClearSlotGameRecordTableData:
+                ClearSlotGameRecordTableData(res);
+                break;
             case GlobalEvent.ShowTableLastData:
                 OnShowTableLastData(res);
                 break;
@@ -288,6 +291,35 @@ ORDER BY id ASC";
             var gid = Convert.ToInt32(pick.Rows[0]["game_id"], CultureInfo.InvariantCulture);
             DebugUtils.Log($"[SlotGameRecord] 当前未进机台，使用库内最新一条记录的 game_id={gid}");
             DoExport(gid);
+        });
+    }
+
+    /// <summary>
+    /// 清空 <see cref="ConsoleTableName.TABLE_SLOT_GAME_RECORD"/> 表全部数据（保留表结构）。
+    /// 测试菜单「清空游戏记录表数据」；亦可通过 <see cref="GlobalEvent.ClearSlotGameRecordTableData"/> 触发。
+    /// </summary>
+    public void ClearSlotGameRecordTableData(EventData res = null)
+    {
+        if (SQLiteAsyncHelper.Instance == null || !SQLiteAsyncHelper.Instance.isConnect)
+        {
+            DebugUtils.LogWarning("[ClearSlotGameRecord] SQLite 未就绪");
+            TipPopupHandler.Instance?.OpenPopupOnce("清空游戏记录失败：数据库未就绪");
+            return;
+        }
+
+        string table = ConsoleTableName.TABLE_SLOT_GAME_RECORD;
+        SQLiteAsyncHelper.Instance.ExecuteDeleteAsync(table, (object[] deleteRes) =>
+        {
+            if (deleteRes != null && deleteRes.Length > 0 && Convert.ToInt32(deleteRes[0], CultureInfo.InvariantCulture) != 0)
+            {
+                string msg = deleteRes.Length > 1 ? deleteRes[1]?.ToString() : "未知错误";
+                DebugUtils.LogError($"[ClearSlotGameRecord] 失败: {msg}");
+                TipPopupHandler.Instance?.OpenPopupOnce($"清空游戏记录失败：{msg}");
+                return;
+            }
+
+            DebugUtils.LogWarning($"[ClearSlotGameRecord] 已清空表 {table}");
+            TipPopupHandler.Instance?.OpenPopupOnce($"已清空游戏记录表（{table}）");
         });
     }
 

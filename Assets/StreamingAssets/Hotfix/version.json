@@ -1,15 +1,15 @@
 {
-  "updated_at": 1778837576375,
+  "updated_at": 1779093042365,
   "hotfix_key": "hf_debug_android_20260507201907",
-  "hotfix_version": "1.2.32",
+  "hotfix_version": "1.2.37",
   "asset_bundle": {
     "manifest": {
-      "hash": "b9964d15e645e32861c048971684b06e",
+      "hash": "428f66245e5d18beb7e72f7c13a9c432",
       "size_bytes": 27278
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
-      "_common/game maker/abs/datas/tmg_custom_button.unity3d": "c7c570c843d7bc57fb1d9a9ea3c7697f",
+      "_common/game maker/abs/datas/tmg_custom_button.unity3d": "7149f88e708e43ec9879608f1d0f2959",
       "_common/game maker/abs/datas/tmg_page.unity3d": "f0ee8658cde2e8ed4687aa67bfecbaa8",
       "_common/game maker/abs/g152/datas/game_info_g152.unity3d": "1d0dcb35e5e6031e18c9e03e2fd81931",
       "_common/game maker/abs/g152/datas/game_info_gxxx.unity3d": "6eba0a2fa8b2210df665af0dfc04ee50",
@@ -458,7 +458,7 @@
       "games/cai fu zhi men 3999/prefabs/symbols/symbolappear/scoreten_0.unity3d": "da6002985f4cd80fa9ec78c0e5dade80",
       "games/cai fu zhi men 3999/prefabs/symbols/symbolappear/wild_9.unity3d": "f7f5dc8061471804bd650593cc493093",
       "games/cai fu zhi men 3999/prefabs/symbols/symbolappear/yellowbox_5.unity3d": "f590ce706c854cf351dee82a7a9568e1",
-      "games/common/fguis.unity3d": "04bed8975f946c4d407efd6720d8514d",
+      "games/common/fguis.unity3d": "4c10e116eb9f8ddda13dff570ffebe65",
       "games/common/prefabs/gs/gs manager.unity3d": "77326e125f6c9ddc9e54c6075ebba530",
       "games/common/prefabs/gs/gssource.unity3d": "7d076b5c6bb0da738ba1294619c690c7",
       "games/console/abs/lang_cn.unity3d": "6d42faabe75a47649192c09826aa8e55",

@@ -20,7 +20,7 @@ public class TestManager : Singleton<TestManager>
     }
 
     // TestManager 根节点与功能入口组件
-    GComponent goOwnerTestMgr, goGM, goPages, goCustomButtons, goKV, goAnalysis, goDebugMode, goSelectProject,goAutoMode;
+    GComponent goOwnerTestMgr, goGM, goPages, goCustomButtons, goKV, goAnalysis, goDebugMode, goSelectProject,goAutoMode,goTableControl;
     // 菜单展开按钮
     GButton btnMenu;
     // 菜单容器、菜单列表与提示文本
@@ -33,6 +33,7 @@ public class TestManager : Singleton<TestManager>
     public const string POP_BUTTONS = "POP_BUTTONS";
     public const string POP_DEBUGMODE = "POP_DEBUGMODE";
     public const string POP_SELECTPROJECT = "POP_SELECTPROJECT";
+    public const string POP_TABLECONTROL = "POP_TABLECONTROL";
     // 当前软件版本显示文本
     string softwareVersion;
     // 调试模式状态与控件
@@ -43,9 +44,12 @@ public class TestManager : Singleton<TestManager>
     int DebugBonusType, DebugJpType;
     GTextInput TInputBonusType, TInputJpType;
     GButton btnApply;
-    GRichTextField rtxtTotalPlayTime, rtxtWinScore, rtxtPlayScore,
-     rtxtTotalProb, rtxtLoseProb, rtxtFreeGameProb, rtxtBonusGamesProb, rtxtJackpotProb, rtxtJackpotOnlineProb,
-     rtxtTotalRTP, rtxtTotalRTPByParts, rtxtBaseRTP, rtxtFreeRTP, rtxtBounsRTP, rtxtJackpotRTP, rtxtJackpotOnlineRTP;
+    GRichTextField rtxtTotalPlayTime, rtxtWinScore, rtxtPlayScore, rtxtWinBase, rtxtWinFree, rtxtWinBonus, rtxtWinJackpotBonus, rtxtWinJackpot, rtxtWinNetJackpot,
+     rtxtTotalProb, rtxtLoseProb, rtxtWinProb, rtxtFreeGameProb, rtxtBonusGamesProb, rtxtJackpotProb, rtxtJackpotOnlineProb,
+     rtxtTotalRTP, rtxtTotalRTPByParts, rtxtBaseRTP, rtxtFreeRTP, rtxtBounsRTP, rtxtJackpotRTP, rtxtJackpotOnlineRTP,
+     rtxttotalPass, rtxttotalReject, rtxtwinRejectByTargetPool, rtxtfreeRejectByTargetPool, rtxtbonusRejectByTargetPool, rtxtjackpotRejectByTargetPool, rtxtfreeRejectByRange,
+        rtxtbonusRejectByRange, rtxtjackpotRejectByRange, rtxtfreeRejectByPassRate, rtxtbonusRejectByPassRate, rtxtjackpotRejectByPassRate;
+
 
 
     //bool isEnableTestTool = true;
@@ -95,6 +99,7 @@ public class TestManager : Singleton<TestManager>
         pops.Add(POP_BUTTONS, goOwnerTestMgr.GetChild("popupButtons").asCom);
         pops.Add(POP_DEBUGMODE, goOwnerTestMgr.GetChild("popupDebugMode").asCom);
         pops.Add(POP_SELECTPROJECT, goOwnerTestMgr.GetChild("selectProject").asCom); // CWY新增
+        pops.Add(POP_TABLECONTROL, goOwnerTestMgr.GetChild("popupTableControl").asCom); // CWY新增
         ChosePop();
 
         goMenu = goOwnerTestMgr.GetChild("menu").asCom;
@@ -301,43 +306,93 @@ public class TestManager : Singleton<TestManager>
         goAutoMode.onClick.Clear();
         goAutoMode.onClick.Add(OnClickAutoMode);
 
-        rtxtTotalPlayTime = popupDebugMode.GetChild("TotalPlayTime").asCom.GetChild("value").asRichTextField;
-        rtxtWinScore = popupDebugMode.GetChild("WinScore").asCom.GetChild("value").asRichTextField;
-        rtxtPlayScore = popupDebugMode.GetChild("PlayScore").asCom.GetChild("value").asRichTextField;
-        rtxtTotalProb = popupDebugMode.GetChild("TotalProb").asCom.GetChild("value").asRichTextField;
-        rtxtLoseProb = popupDebugMode.GetChild("LoseProb").asCom.GetChild("value").asRichTextField;
-        rtxtFreeGameProb = popupDebugMode.GetChild("FreeGameProb").asCom.GetChild("value").asRichTextField;
-        rtxtBonusGamesProb = popupDebugMode.GetChild("BonusGamesProb").asCom.GetChild("value").asRichTextField;
-        rtxtJackpotProb = popupDebugMode.GetChild("JackpotProb").asCom.GetChild("value").asRichTextField;
-        rtxtJackpotOnlineProb = popupDebugMode.GetChild("JackpotOnlineProb").asCom.GetChild("value").asRichTextField;
-        rtxtTotalRTP = popupDebugMode.GetChild("TotalRTP").asCom.GetChild("value").asRichTextField;
-        rtxtTotalRTPByParts = popupDebugMode.GetChild("TotalRTPByParts").asCom.GetChild("value").asRichTextField;
-        rtxtBaseRTP = popupDebugMode.GetChild("BaseRTP").asCom.GetChild("value").asRichTextField;
-        rtxtFreeRTP = popupDebugMode.GetChild("FreeRTP").asCom.GetChild("value").asRichTextField;
-        rtxtBounsRTP = popupDebugMode.GetChild("BounsRTP").asCom.GetChild("value").asRichTextField;
-        rtxtJackpotRTP = popupDebugMode.GetChild("JackpotRTP").asCom.GetChild("value").asRichTextField;
-        rtxtJackpotOnlineRTP = popupDebugMode.GetChild("JackpotOnlineRTP").asCom.GetChild("value").asRichTextField;
+        //调控窗口
+        goTableControl = glstMenu.GetChild("tablecontrol").asCom;
+        goTableControl.onClick.Clear();
+        goTableControl.onClick.Add(OnClickTableControl);
+        GComponent popupTableControl = goOwnerTestMgr.GetChild("popupTableControl").asCom;
+        //汇总测试信息
+        rtxtTotalPlayTime = popupTableControl.GetChild("TotalPlayTime").asCom.GetChild("value").asRichTextField;
+        rtxtWinScore = popupTableControl.GetChild("WinScore").asCom.GetChild("value").asRichTextField;
+        rtxtPlayScore = popupTableControl.GetChild("PlayScore").asCom.GetChild("value").asRichTextField;
+        rtxtWinBase = popupTableControl.GetChild("paidBase").asCom.GetChild("value").asRichTextField;
+        rtxtWinFree = popupTableControl.GetChild("paidFree").asCom.GetChild("value").asRichTextField;
+        rtxtWinBonus = popupTableControl.GetChild("paidBonus").asCom.GetChild("value").asRichTextField;
+        rtxtWinJackpotBonus = popupTableControl.GetChild("paidJackpotBonus").asCom.GetChild("value").asRichTextField;
+        rtxtWinJackpot = popupTableControl.GetChild("paidJackpot").asCom.GetChild("value").asRichTextField;
+        rtxtWinNetJackpot = popupTableControl.GetChild("paidNetJackpot").asCom.GetChild("value").asRichTextField;
+        rtxtTotalPlayTime.text = "0";
+        rtxtWinScore.text = "0";
+        rtxtPlayScore.text = "0";
+        rtxtWinBase.text = "0";
+        rtxtWinFree.text = "0";
+        rtxtWinBonus.text = "0";
+        rtxtWinJackpotBonus.text = "0";
+        rtxtWinJackpot.text = "0";
+        rtxtWinNetJackpot.text = "0";
+        //输赢概率
+        rtxtTotalProb = popupTableControl.GetChild("TotalProb").asCom.GetChild("value").asRichTextField;
+        rtxtLoseProb = popupTableControl.GetChild("LoseProb").asCom.GetChild("value").asRichTextField;
+        rtxtWinProb= popupTableControl.GetChild("WinProb").asCom.GetChild("value").asRichTextField;
+        rtxtFreeGameProb = popupTableControl.GetChild("FreeGameProb").asCom.GetChild("value").asRichTextField;
+        rtxtBonusGamesProb = popupTableControl.GetChild("BonusGamesProb").asCom.GetChild("value").asRichTextField;
+        rtxtJackpotProb = popupTableControl.GetChild("JackpotProb").asCom.GetChild("value").asRichTextField;
+        rtxtJackpotOnlineProb = popupTableControl.GetChild("JackpotOnlineProb").asCom.GetChild("value").asRichTextField;
+        rtxtTotalProb.text = "0";
+        rtxtLoseProb.text = "0";
+        rtxtWinProb.text = "0";
+        rtxtFreeGameProb.text = "0";
+        rtxtBonusGamesProb.text = "0";
+        rtxtJackpotProb.text = "0";
+        rtxtJackpotOnlineProb.text = "0";
+        //返还率
+        rtxtTotalRTP = popupTableControl.GetChild("TotalRTP").asCom.GetChild("value").asRichTextField;
+        rtxtTotalRTPByParts = popupTableControl.GetChild("TotalRTPByParts").asCom.GetChild("value").asRichTextField;
+        rtxtBaseRTP = popupTableControl.GetChild("BaseRTP").asCom.GetChild("value").asRichTextField;
+        rtxtFreeRTP = popupTableControl.GetChild("FreeRTP").asCom.GetChild("value").asRichTextField;
+        rtxtBounsRTP = popupTableControl.GetChild("BounsRTP").asCom.GetChild("value").asRichTextField;
+        rtxtJackpotRTP = popupTableControl.GetChild("JackpotRTP").asCom.GetChild("value").asRichTextField;
+        rtxtJackpotOnlineRTP = popupTableControl.GetChild("JackpotOnlineRTP").asCom.GetChild("value").asRichTextField;
+        rtxtTotalRTP.text = "0";
+        rtxtTotalRTPByParts.text = "0";
+        rtxtBaseRTP.text = "0";
+        rtxtFreeRTP.text = "0";
+        rtxtBounsRTP.text = "0";
+        rtxtJackpotRTP.text = "0";
+        rtxtJackpotOnlineRTP.text = "0";
+        //调控信息
+        rtxttotalPass = popupTableControl.GetChild("totalPass").asCom.GetChild("value").asRichTextField;
+        rtxttotalReject = popupTableControl.GetChild("totalReject").asCom.GetChild("value").asRichTextField;
+        rtxtwinRejectByTargetPool = popupTableControl.GetChild("winRejectByTargetPool").asCom.GetChild("value").asRichTextField;
+        rtxtfreeRejectByTargetPool = popupTableControl.GetChild("freeRejectByTargetPool").asCom.GetChild("value").asRichTextField;
+        rtxtbonusRejectByTargetPool = popupTableControl.GetChild("bonusRejectByTargetPool").asCom.GetChild("value").asRichTextField;
+        rtxtjackpotRejectByTargetPool = popupTableControl.GetChild("jackpotRejectByTargetPool").asCom.GetChild("value").asRichTextField;
+        rtxtfreeRejectByRange = popupTableControl.GetChild("freeRejectByRange").asCom.GetChild("value").asRichTextField;
+        rtxtbonusRejectByRange = popupTableControl.GetChild("bonusRejectByRange").asCom.GetChild("value").asRichTextField;
+        rtxtjackpotRejectByRange = popupTableControl.GetChild("jackpotRejectByRange").asCom.GetChild("value").asRichTextField;
+        rtxtfreeRejectByPassRate = popupTableControl.GetChild("freeRejectByPassRate").asCom.GetChild("value").asRichTextField;
+        rtxtbonusRejectByPassRate = popupTableControl.GetChild("bonusRejectByPassRate").asCom.GetChild("value").asRichTextField;
+        rtxtjackpotRejectByPassRate = popupTableControl.GetChild("jackpotRejectByPassRate").asCom.GetChild("value").asRichTextField;
+        rtxttotalPass.text = "0";
+        rtxttotalReject.text = "0";
+        rtxtwinRejectByTargetPool.text = "0";
+        rtxtfreeRejectByTargetPool.text = "0";
+        rtxtbonusRejectByTargetPool.text="0";
+        rtxtjackpotRejectByTargetPool.text = "0";
+        rtxtfreeRejectByRange.text = "0";
+        rtxtbonusRejectByRange.text = "0";
+        rtxtjackpotRejectByRange.text = "0";
+        rtxtfreeRejectByPassRate.text = "0";
+        rtxtbonusRejectByPassRate.text = "0";
+        rtxtjackpotRejectByPassRate.text = "0";
 
-        rtxtTotalPlayTime.text = "";
-        rtxtWinScore.text = "";
-        rtxtPlayScore.text = "";
-        rtxtTotalProb.text = "";
-        rtxtLoseProb.text = "";
-        rtxtFreeGameProb.text = "";
-        rtxtBonusGamesProb.text = "";
-        rtxtJackpotProb.text = "";
-        rtxtJackpotOnlineProb.text = "";
-        rtxtTotalRTP.text = "";
-        rtxtTotalRTPByParts.text = "";
-        rtxtBaseRTP.text = "";
-        rtxtFreeRTP.text = "";
-        rtxtBounsRTP.text = "";
-        rtxtJackpotRTP.text = "";
-        rtxtJackpotOnlineRTP.text = "";
 
         // 监听算法卡调试信息回包（由 SBoxIdea.GetDebugInfoR 触发）
         EventCenter.Instance.RemoveEventListener<SBoxDebugInfo>(SBoxEventHandle.SBOX_DEBUG_INFO, OnSBoxDebugInfoChanged);
         EventCenter.Instance.AddEventListener<SBoxDebugInfo>(SBoxEventHandle.SBOX_DEBUG_INFO, OnSBoxDebugInfoChanged);
+        // 监听算法卡调控信息回包（由 SBoxIdea.GetTableControlR 触发）
+        EventCenter.Instance.RemoveEventListener<TableControlStats>(SBoxEventHandle.SBOX_TABLECONTROL_INFO, OnSBoxTableControlChanged);
+        EventCenter.Instance.AddEventListener<TableControlStats>(SBoxEventHandle.SBOX_TABLECONTROL_INFO, OnSBoxTableControlChanged);
 
         //goOwnerTestMgr.visible = isEnableTestTool;
         //goOwnerTestMgr.visible = false;
@@ -669,6 +724,24 @@ public class TestManager : Singleton<TestManager>
         SBoxIdea.DebugControlMode(sBoxDCM);
     }
 
+    //调控弹窗打开
+    public void OnClickTableControl ()
+    {
+        if (ApplicationSettings.Instance.isMock || goDebugMode == null)
+        {
+            return;
+        }
+
+        GComponent goPop = ChangePop(POP_TABLECONTROL);
+
+        if (goPop != null && goPop.visible)
+        {
+            // 打开面板时请求一次算法调试统计
+            SBoxIdea.GetDebugInfo();
+            SBoxIdea.GetTableControlInfo();
+        }
+    }
+
     // 接收算法调试统计信息并刷新 Debug 面板
     private void OnSBoxDebugInfoChanged(SBoxDebugInfo debugInfo)
     {
@@ -685,8 +758,9 @@ public class TestManager : Singleton<TestManager>
         rtxtWinScore.text = winScore.ToString();
         rtxtPlayScore.text = playScore.ToString();
 
-        rtxtTotalProb.text = FormatPercent(CalcRatio(totalPlayTime - debugInfo.dwLooseTime, totalPlayTime));
+        rtxtTotalProb.text = FormatPercent(CalcRatio(totalPlayTime, totalPlayTime));
         rtxtLoseProb.text = FormatPercent(CalcRatio(debugInfo.dwLooseTime, totalPlayTime));
+        rtxtWinProb.text = FormatPercent(CalcRatio(debugInfo.dwNormalWinTime, totalPlayTime));
         rtxtFreeGameProb.text = FormatPercent(CalcRatio(debugInfo.dwFreeGameTime, totalPlayTime));
         rtxtBonusGamesProb.text = FormatPercent(CalcRatio(debugInfo.dwBonusTime, totalPlayTime));
         rtxtJackpotProb.text = FormatPercent(CalcRatio(debugInfo.dwJackpotTime, totalPlayTime));
@@ -705,6 +779,35 @@ public class TestManager : Singleton<TestManager>
         rtxtBounsRTP.text = FormatPercent(bonusRtp);
         rtxtJackpotRTP.text = FormatPercent(jackpotRtp);
         rtxtJackpotOnlineRTP.text = FormatPercent(jackpotOnlineRtp);
+    }
+
+    // 接收算法调控统计信息并刷新 Debug 面板
+    private void OnSBoxTableControlChanged(TableControlStats tablecontrolInfo)
+    {
+        if (tablecontrolInfo == null)
+        {
+            return;
+        }
+        rtxtWinBase.text = tablecontrolInfo.paidBase.ToString();
+        rtxtWinFree.text = tablecontrolInfo.paidFree.ToString();
+        rtxtWinBonus.text = tablecontrolInfo.paidBonus.ToString();
+        rtxtWinJackpotBonus.text = tablecontrolInfo.paidJackpotBonus.ToString();
+        rtxtWinJackpot.text = tablecontrolInfo.paidJackpot.ToString();
+        rtxtWinNetJackpot.text = tablecontrolInfo.paidNetJackpot.ToString();
+
+        rtxttotalPass.text = tablecontrolInfo.totalPass.ToString();
+        rtxttotalReject.text = tablecontrolInfo.totalReject.ToString();
+        rtxtwinRejectByTargetPool.text = tablecontrolInfo.winRejectByTargetPool.ToString();
+        rtxtfreeRejectByTargetPool.text = tablecontrolInfo.freeRejectByTargetPool.ToString();
+        rtxtbonusRejectByTargetPool.text= tablecontrolInfo.bonusRejectByTargetPool.ToString();
+        rtxtjackpotRejectByTargetPool.text = tablecontrolInfo.jackpotRejectByTargetPool.ToString();
+
+        rtxtfreeRejectByRange.text = tablecontrolInfo.freeRejectByRange.ToString();
+        rtxtbonusRejectByRange.text = tablecontrolInfo.bonusRejectByRange.ToString();
+        rtxtjackpotRejectByRange.text = tablecontrolInfo.jackpotRejectByRange.ToString();
+        rtxtfreeRejectByPassRate.text = tablecontrolInfo.freeRejectByPassRate.ToString();
+        rtxtbonusRejectByPassRate.text = tablecontrolInfo.bonusRejectByPassRate.ToString();
+        rtxtjackpotRejectByPassRate.text = tablecontrolInfo.jackpotRejectByPassRate.ToString();
     }
 
     private double CalcRatio(long numerator, long denominator)

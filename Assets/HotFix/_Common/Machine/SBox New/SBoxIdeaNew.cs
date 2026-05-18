@@ -92,6 +92,32 @@ namespace SBoxApi
         public long dwJackpotOnlineWinScore; // 联网Jackpot 赢钱总额（金额口径）
         public long dwFreeGameBetError; // 免费游戏剩余倍数误差
     }
+    // 调控结构
+    public class TableControlStats
+    {
+        public long totalBet;                // 累计下注额（金额口径）
+        public long totalFishValue;          // 累计候选理论支付值
+        public long paidBase;                // Base 实际派彩累计（金额口径）
+        public long paidFree;                // Free 实际派彩累计（金额口径）
+        public long paidBonus;               // Bonus 实际派彩累计（金额口径）
+        public long paidJackpotBonus;        // Jackpot 局内 Bonus 实际派彩累计（金额口径）
+        public long paidJackpot;             // Jackpot 实际派彩累计（金额口径）
+        public long paidNetJackpot;          // 联网 Jackpot 实际派彩累计（金额口径）
+        public long netJackpotHitCount;      // 联网 Jackpot 命中次数
+        public long netJackpotOverBudgetCount; // 联网 Jackpot 超预算次数（命中时预算池不足）
+        public long totalPass;               // 放行次数
+        public long totalReject;             // 拒绝次数
+        public long winRejectByTargetPool;   // Base 因目标池不足被拒绝次数
+        public long freeRejectByTargetPool;  // Free 因目标池不足被拒绝次数
+        public long bonusRejectByTargetPool; // Bonus 因目标池不足被拒绝次数
+        public long jackpotRejectByTargetPool; // Jackpot 因目标池不足被拒绝次数
+        public long freeRejectByRange;       // Free 因倍数区间不合法被拒绝次数
+        public long bonusRejectByRange;      // Bonus 因倍数区间不合法被拒绝次数
+        public long jackpotRejectByRange;    // Jackpot 因金额区间不合法被拒绝次数
+        public long freeRejectByPassRate;    // Free 因概率门拒绝次数
+        public long bonusRejectByPassRate;   // Bonus 因概率门拒绝次数
+        public long jackpotRejectByPassRate; // Jackpot 因概率门拒绝次数
+    }
 
     public partial class SBoxIdea
     {
@@ -682,7 +708,7 @@ namespace SBoxApi
 
 
         /**
-        *  @brief    设置展会模式结果
+        *  @brief    设置展会模式结果20204
         *  @param
         *  @return
         *  @details
@@ -706,6 +732,79 @@ namespace SBoxApi
         {
             Debug.Log("SetExhibitionDataR:=" + sBoxPacket.data[0]);
             EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_EXHIBITION_MODE, sBoxPacket.data[0]);
+        }
+
+        /**
+        *  @brief    获取调控信息20205
+        *  @param
+        *  @return
+        *  @details
+        */
+        public static void GetTableControlInfo()
+        {
+            Debug.Log("SBoxIdea 20205");
+
+            SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20205, source: 1, target: 2, size: 1);
+
+            sBoxPacket.data[0] = 1;
+
+            SBoxIOEvent.AddListener(sBoxPacket.cmd, GetTableControlR);
+            SBoxIOStream.Write(sBoxPacket);
+        }
+
+        private static void GetTableControlR(SBoxPacket sBoxPacket)
+        {
+            TableControlStats tablecontrolInfo = new TableControlStats();
+
+            try
+            {
+                if (sBoxPacket == null || sBoxPacket.data == null || sBoxPacket.data.Length < 2)
+                {
+                    Debug.LogError("GetTableControlR: invalid packet data.");
+                    EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_TABLECONTROL_INFO, tablecontrolInfo);
+                    return;
+                }
+
+                // data[0] : 成功标识(1=成功)
+                // data[1..17] : SBoxDebugInfo 字段依次映射
+                if (sBoxPacket.data[0] == 1)
+                {
+                    long ToLong(int index)
+                    {
+                        if (index < 0 || sBoxPacket.data == null || index >= sBoxPacket.data.Length) return 0;
+                        return (long)sBoxPacket.data[index];
+                    }
+
+                    tablecontrolInfo.totalBet = ToLong(1);                // 累计下注额（金额口径）
+                    tablecontrolInfo.totalFishValue = ToLong(2);          // 累计候选理论支付值
+                    tablecontrolInfo.paidBase = ToLong(3);                // Base 实际派彩累计（金额口径）
+                    tablecontrolInfo.paidFree = ToLong(4);                // Free 实际派彩累计（金额口径）
+                    tablecontrolInfo.paidBonus = ToLong(5);               // Bonus 实际派彩累计（金额口径）
+                    tablecontrolInfo.paidJackpotBonus = ToLong(6);        // Jackpot 局内 Bonus 实际派彩累计（金额口径）
+                    tablecontrolInfo.paidJackpot = ToLong(7);             // Jackpot 实际派彩累计（金额口径）
+                    tablecontrolInfo.paidNetJackpot = ToLong(8);          // 联网 Jackpot 实际派彩累计（金额口径）
+                    tablecontrolInfo.netJackpotHitCount = ToLong(9);      // 联网 Jackpot 命中次数
+                    tablecontrolInfo.netJackpotOverBudgetCount = ToLong(10); // 联网 Jackpot 超预算次数（命中时预算池不足）
+                    tablecontrolInfo.totalPass = ToLong(11);               // 放行次数
+                    tablecontrolInfo.totalReject = ToLong(12);             // 拒绝次数
+                    tablecontrolInfo.winRejectByTargetPool = ToLong(13);   // Base 因目标池不足被拒绝次数
+                    tablecontrolInfo.freeRejectByTargetPool = ToLong(14);  // Free 因目标池不足被拒绝次数
+                    tablecontrolInfo.bonusRejectByTargetPool = ToLong(15); // Bonus 因目标池不足被拒绝次数
+                    tablecontrolInfo.jackpotRejectByTargetPool = ToLong(16); // Jackpot 因目标池不足被拒绝次数
+                    tablecontrolInfo.freeRejectByRange = ToLong(17);       // Free 因倍数区间不合法被拒绝次数
+                    tablecontrolInfo.bonusRejectByRange = ToLong(18);      // Bonus 因倍数区间不合法被拒绝次数
+                    tablecontrolInfo.jackpotRejectByRange = ToLong(19);    // Jackpot 因金额区间不合法被拒绝次数
+                    tablecontrolInfo.freeRejectByPassRate = ToLong(20);    // Free 因概率门拒绝次数
+                    tablecontrolInfo.bonusRejectByPassRate = ToLong(21);   // Bonus 因概率门拒绝次数
+                    tablecontrolInfo.jackpotRejectByPassRate = ToLong(22); // Jackpot 因概率门拒绝次数
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"GetDebugInfoR exception: {e}");
+            }
+
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_TABLECONTROL_INFO, tablecontrolInfo);
         }
     }
 }
