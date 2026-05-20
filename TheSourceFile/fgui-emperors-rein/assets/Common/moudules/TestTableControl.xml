@@ -6,7 +6,8 @@
     <text id="n6_ek7s" name="titleProb" xy="10,494" size="236,42" group="n8_ek7s" fontSize="30" color="#ffffff" autoSize="none" text="输赢概率"/>
     <text id="n7_ek7s" name="titleRTP" xy="9,739" size="236,42" group="n8_ek7s" fontSize="30" color="#ffffff" autoSize="none" text="返还率"/>
     <text id="n52_ek7s" name="controlInfo" xy="10,1040" size="236,42" group="n8_ek7s" fontSize="30" color="#ffffff" autoSize="none" text="调控信息"/>
-    <group id="n8_ek7s" name="Title" xy="1,2" size="245,1080"/>
+    <text id="n80_v92b" name="PoolInfo" xy="10,1382" size="236,42" group="n8_ek7s" fontSize="30" color="#ffffff" autoSize="none" text="五池信息"/>
+    <group id="n8_ek7s" name="Title" xy="1,2" size="245,1422"/>
     <component id="n22_ek7s" name="TotalPlayTime" src="t3gynr" fileName="components/ItemTitleName.xml" xy="10,51" size="357,50" group="n40_ek7s">
       <property target="key" propertyId="0" value="总局数 :"/>
       <property target="value" propertyId="0" value="466848525"/>
@@ -151,6 +152,27 @@
       <property target="value" propertyId="0" value="3000000"/>
     </component>
     <group id="n54_ek7s" name="Control" xy="-1,1089" size="808,302" group="n38_ek7s"/>
-    <group id="n38_ek7s" name="DebugInfo" xy="-1,51" size="808,1340"/>
+    <component id="n81_v92b" name="gBasePool" src="t3gynr" fileName="components/ItemTitleName.xml" xy="-9,1436" size="389,50" group="n86_v92b">
+      <property target="key" propertyId="0" value="Base 目标池:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n82_v92b" name="gFreePool" src="t3gynr" fileName="components/ItemTitleName.xml" xy="395,1436" size="389,50" group="n86_v92b">
+      <property target="key" propertyId="0" value="免费目标池:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n83_v92b" name="gBonusPool" src="t3gynr" fileName="components/ItemTitleName.xml" xy="-9,1486" size="389,50" group="n86_v92b">
+      <property target="key" propertyId="0" value="大奖目标池:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n84_v92b" name="gJackpotPool" src="t3gynr" fileName="components/ItemTitleName.xml" xy="395,1486" size="389,50" group="n86_v92b">
+      <property target="key" propertyId="0" value="本地彩金目标池:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n85_v92b" name="gNetJackpotPool" src="t3gynr" fileName="components/ItemTitleName.xml" xy="-9,1536" size="389,50" group="n86_v92b">
+      <property target="key" propertyId="0" value="联网彩金目标池:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <group id="n86_v92b" name="Pool" xy="-9,1436" size="793,150" group="n38_ek7s"/>
+    <group id="n38_ek7s" name="DebugInfo" xy="-9,51" size="816,1535"/>
   </displayList>
 </component>

@@ -48,8 +48,8 @@ public class TestManager : Singleton<TestManager>
      rtxtTotalProb, rtxtLoseProb, rtxtWinProb, rtxtFreeGameProb, rtxtBonusGamesProb, rtxtJackpotProb, rtxtJackpotOnlineProb,
      rtxtTotalRTP, rtxtTotalRTPByParts, rtxtBaseRTP, rtxtFreeRTP, rtxtBounsRTP, rtxtJackpotRTP, rtxtJackpotOnlineRTP,
      rtxttotalPass, rtxttotalReject, rtxtwinRejectByTargetPool, rtxtfreeRejectByTargetPool, rtxtbonusRejectByTargetPool, rtxtjackpotRejectByTargetPool, rtxtfreeRejectByRange,
-        rtxtbonusRejectByRange, rtxtjackpotRejectByRange, rtxtfreeRejectByPassRate, rtxtbonusRejectByPassRate, rtxtjackpotRejectByPassRate;
-
+        rtxtbonusRejectByRange, rtxtjackpotRejectByRange, rtxtfreeRejectByPassRate, rtxtbonusRejectByPassRate, rtxtjackpotRejectByPassRate,
+        rtxtBasePool, rtxtFreePool, rtxtBonusPool, rtxtJackpotPool, rtxtNetJackpotPool;
 
 
     //bool isEnableTestTool = true;
@@ -385,7 +385,17 @@ public class TestManager : Singleton<TestManager>
         rtxtfreeRejectByPassRate.text = "0";
         rtxtbonusRejectByPassRate.text = "0";
         rtxtjackpotRejectByPassRate.text = "0";
-
+        //算法调控五池信息
+        rtxtBasePool = popupTableControl.GetChild("gBasePool").asCom.GetChild("value").asRichTextField;
+        rtxtFreePool = popupTableControl.GetChild("gFreePool").asCom.GetChild("value").asRichTextField;
+        rtxtBonusPool = popupTableControl.GetChild("gBonusPool").asCom.GetChild("value").asRichTextField;
+        rtxtJackpotPool = popupTableControl.GetChild("gJackpotPool").asCom.GetChild("value").asRichTextField; 
+        rtxtNetJackpotPool = popupTableControl.GetChild("gNetJackpotPool").asCom.GetChild("value").asRichTextField;
+        rtxtBasePool.text = "0";
+        rtxtFreePool.text = "0";
+        rtxtBonusPool.text = "0";
+        rtxtJackpotPool.text = "0";
+        rtxtNetJackpotPool.text = "0";
 
         // 监听算法卡调试信息回包（由 SBoxIdea.GetDebugInfoR 触发）
         EventCenter.Instance.RemoveEventListener<SBoxDebugInfo>(SBoxEventHandle.SBOX_DEBUG_INFO, OnSBoxDebugInfoChanged);
@@ -393,6 +403,9 @@ public class TestManager : Singleton<TestManager>
         // 监听算法卡调控信息回包（由 SBoxIdea.GetTableControlR 触发）
         EventCenter.Instance.RemoveEventListener<TableControlStats>(SBoxEventHandle.SBOX_TABLECONTROL_INFO, OnSBoxTableControlChanged);
         EventCenter.Instance.AddEventListener<TableControlStats>(SBoxEventHandle.SBOX_TABLECONTROL_INFO, OnSBoxTableControlChanged);
+        // 监听算法卡调控五池信息回包（由 SBoxIdea.GetTableControlR 触发）
+        EventCenter.Instance.RemoveEventListener<TableControlPool>(SBoxEventHandle.SBOX_TABLECONTROLPOOL_INFO, OnSBoxTableControlPool);
+        EventCenter.Instance.AddEventListener<TableControlPool>(SBoxEventHandle.SBOX_TABLECONTROLPOOL_INFO, OnSBoxTableControlPool);
 
         //goOwnerTestMgr.visible = isEnableTestTool;
         //goOwnerTestMgr.visible = false;
@@ -739,6 +752,7 @@ public class TestManager : Singleton<TestManager>
             // 打开面板时请求一次算法调试统计
             SBoxIdea.GetDebugInfo();
             SBoxIdea.GetTableControlInfo();
+            SBoxIdea.GetTableControlPoolInfo();
         }
     }
 
@@ -808,6 +822,22 @@ public class TestManager : Singleton<TestManager>
         rtxtfreeRejectByPassRate.text = tablecontrolInfo.freeRejectByPassRate.ToString();
         rtxtbonusRejectByPassRate.text = tablecontrolInfo.bonusRejectByPassRate.ToString();
         rtxtjackpotRejectByPassRate.text = tablecontrolInfo.jackpotRejectByPassRate.ToString();
+    }
+
+    // 接收算法调控统计信息并刷新 Debug 面板
+    private void OnSBoxTableControlPool(TableControlPool tablecontrolpoolInfo)
+    {
+        if (tablecontrolpoolInfo == null)
+        {
+            return;
+        }
+     
+        rtxtBasePool.text = tablecontrolpoolInfo.BasePool.ToString();
+        rtxtFreePool.text = tablecontrolpoolInfo.FreePool.ToString();
+        rtxtBonusPool.text = tablecontrolpoolInfo.BonusPool.ToString();
+        rtxtJackpotPool.text = tablecontrolpoolInfo.JackpotPool.ToString();
+        rtxtNetJackpotPool.text = tablecontrolpoolInfo.NetJackpotPool.ToString();
+;
     }
 
     private double CalcRatio(long numerator, long denominator)
@@ -981,7 +1011,7 @@ public class TestManager : Singleton<TestManager>
 
     #endregion
 
-    #region AutoMod
+    #region AutoMode
     public void OnClickAutoMode()
     {
         if (autoModeState == AutoModeState.Running)

@@ -425,7 +425,7 @@ ORDER BY id ASC";
             new CoinInData()
             {
                 id = 0,
-                coinNum = 1,
+                coinNum = 100000,
             });
     }
     public void OnClickCustomButtonTicketOut(EventData data)

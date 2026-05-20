@@ -119,7 +119,16 @@ namespace SBoxApi
         public long jackpotRejectByPassRate; // Jackpot 因概率门拒绝次数
     }
 
-    public partial class SBoxIdea
+    public class TableControlPool
+    {
+        public long BasePool;                // Base 
+        public long FreePool;                // Free 
+        public long BonusPool;               // Bonus 
+        public long JackpotPool;             // Jackpot 
+        public long NetJackpotPool;          // Jackpot 
+    }
+
+        public partial class SBoxIdea
     {
         static string version = "1.0.0";
         public static SBoxIdeaInfo SBoxInfo => sBoxInfo;
@@ -806,5 +815,60 @@ namespace SBoxApi
 
             EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_TABLECONTROL_INFO, tablecontrolInfo);
         }
+
+        /**
+        *  @brief    获取调控五池信息20206
+        *  @param
+        *  @return
+        *  @details
+        */
+        public static void GetTableControlPoolInfo()
+        {
+            Debug.Log("SBoxIdea 20206");
+
+            SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20206, source: 1, target: 2, size: 1);
+
+            sBoxPacket.data[0] = 1;
+
+            SBoxIOEvent.AddListener(sBoxPacket.cmd, GetTableControlPoolR);
+            SBoxIOStream.Write(sBoxPacket);
+        }
+
+        private static void GetTableControlPoolR(SBoxPacket sBoxPacket)
+        {
+            TableControlPool tablecontrolpoolInfo = new TableControlPool();
+
+            try
+            {
+                if (sBoxPacket == null || sBoxPacket.data == null || sBoxPacket.data.Length < 2)
+                {
+                    Debug.LogError("GetTableControlR: invalid packet data.");
+                    EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_TABLECONTROLPOOL_INFO, tablecontrolpoolInfo);
+                    return;
+                }
+
+                if (sBoxPacket.data[0] == 1)
+                {
+                    long ToLong(int index)
+                    {
+                        if (index < 0 || sBoxPacket.data == null || index >= sBoxPacket.data.Length) return 0;
+                        return (long)sBoxPacket.data[index];
+                    }
+
+                    tablecontrolpoolInfo.BasePool = ToLong(1);
+                    tablecontrolpoolInfo.FreePool = ToLong(2);
+                    tablecontrolpoolInfo.BonusPool = ToLong(3);
+                    tablecontrolpoolInfo.JackpotPool = ToLong(4);
+                    tablecontrolpoolInfo.NetJackpotPool = ToLong(5);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"GetDebugInfoR exception: {e}");
+            }
+
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_TABLECONTROLPOOL_INFO, tablecontrolpoolInfo);
+        }
+
     }
 }

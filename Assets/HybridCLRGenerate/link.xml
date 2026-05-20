@@ -68,9 +68,11 @@
     <type fullname="Newtonsoft.Json.JsonConvert" preserve="all" />
     <type fullname="Newtonsoft.Json.JsonObjectAttribute" preserve="all" />
     <type fullname="Newtonsoft.Json.JsonPropertyAttribute" preserve="all" />
+    <type fullname="Newtonsoft.Json.Linq.Extensions" preserve="all" />
     <type fullname="Newtonsoft.Json.Linq.JArray" preserve="all" />
     <type fullname="Newtonsoft.Json.Linq.JObject" preserve="all" />
     <type fullname="Newtonsoft.Json.Linq.JToken" preserve="all" />
+    <type fullname="Newtonsoft.Json.Linq.JTokenType" preserve="all" />
   </assembly>
   <assembly fullname="SelfAOT">
     <type fullname="AesManager" preserve="all" />
@@ -312,6 +314,7 @@
     <type fullname="System.Action`2" preserve="all" />
     <type fullname="System.Activator" preserve="all" />
     <type fullname="System.ArgumentException" preserve="all" />
+    <type fullname="System.ArgumentNullException" preserve="all" />
     <type fullname="System.Array" preserve="all" />
     <type fullname="System.AsyncCallback" preserve="all" />
     <type fullname="System.BitConverter" preserve="all" />
@@ -341,6 +344,7 @@
     <type fullname="System.Collections.Queue" preserve="all" />
     <type fullname="System.Comparison`1" preserve="all" />
     <type fullname="System.Convert" preserve="all" />
+    <type fullname="System.Converter`2" preserve="all" />
     <type fullname="System.DBNull" preserve="all" />
     <type fullname="System.DateTime" preserve="all" />
     <type fullname="System.DateTimeKind" preserve="all" />
@@ -364,12 +368,14 @@
     <type fullname="System.Func`2" preserve="all" />
     <type fullname="System.Func`3" preserve="all" />
     <type fullname="System.GC" preserve="all" />
+    <type fullname="System.Globalization.CultureInfo" preserve="all" />
     <type fullname="System.Globalization.DateTimeStyles" preserve="all" />
     <type fullname="System.Globalization.NumberStyles" preserve="all" />
     <type fullname="System.Guid" preserve="all" />
     <type fullname="System.IAsyncResult" preserve="all" />
     <type fullname="System.IDisposable" preserve="all" />
     <type fullname="System.IFormatProvider" preserve="all" />
+    <type fullname="System.IFormattable" preserve="all" />
     <type fullname="System.IO.Directory" preserve="all" />
     <type fullname="System.IO.DirectoryInfo" preserve="all" />
     <type fullname="System.IO.File" preserve="all" />
@@ -419,6 +425,7 @@
     <type fullname="System.Runtime.CompilerServices.CompilerGeneratedAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.ExtensionAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.IAsyncStateMachine" preserve="all" />
+    <type fullname="System.Runtime.CompilerServices.IsReadOnlyAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.IsVolatile" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.IteratorStateMachineAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" preserve="all" />

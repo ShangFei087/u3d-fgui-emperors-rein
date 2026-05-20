@@ -8,6 +8,7 @@ using UnityEngine.Events;
 using SBoxApi;
 using ConsoleSlot01;
 using static ConsoleSlot01.ChangePasswordController;
+using System.Globalization;
 
 public class TabSettingsMachineController
 {
@@ -59,7 +60,7 @@ public class TabSettingsMachineController
         btnMaxGameRecord = _comp.GetChild("maxGameRecord").asCom.GetChild("value").asButton;
         btnMaxGameRecord.onClick.Clear();
         btnMaxGameRecord.onClick.Add(OnClickMaxGameRecord);
-        btnMaxGameRecord.title = SBoxModel.Instance.gameRecordMax.ToString();
+        RefreshMaxGameRecordCapacityDisplay();
 
         btnMaxEventRecord = _comp.GetChild("maxEventRecord").asCom.GetChild("value").asButton;
         btnMaxEventRecord.onClick.Clear();
@@ -195,6 +196,9 @@ public class TabSettingsMachineController
         {
             RefreshUIBetLst();
         }
+
+        if (res.name == "SBoxModel/tableSysSetting")
+            RefreshMaxGameRecordCapacityDisplay();
     }
 
     public void OnClose()
@@ -455,9 +459,140 @@ public class TabSettingsMachineController
     }
 
     /// <summary>
-    /// 设置“游戏记录上限”（Max Game Record）。
+    /// 游戏记录扩容：选择手动输入 / 扩至默认 / 翻倍 / 立即整理。
     /// </summary>
-    async void OnClickMaxGameRecord()
+    void OnClickMaxGameRecord()
+    {
+        SlotGameRecordCapacityUtils.QuerySlotGameRecordCount((count) =>
+        {
+            OpenMaxGameRecordExpandMenu(count);
+        });
+    }
+
+    void RefreshMaxGameRecordCapacityDisplay()
+    {
+        if (btnMaxGameRecord == null)
+            return;
+
+        long max = SBoxModel.Instance.gameRecordMax;
+        SlotGameRecordCapacityUtils.QuerySlotGameRecordCount((count) =>
+        {
+            if (btnMaxGameRecord == null)
+                return;
+
+            if (count >= 0)
+                btnMaxGameRecord.title = $"{count}/{max}";
+            else
+                btnMaxGameRecord.title = max.ToString(CultureInfo.InvariantCulture);
+        });
+    }
+
+    async void OpenMaxGameRecordExpandMenu(int currentCount)
+    {
+        long curMax = SBoxModel.Instance.gameRecordMax;
+        int expandDefault = SlotGameRecordCapacityUtils.CalcExpandToDefault();
+        int expandDouble = SlotGameRecordCapacityUtils.CalcExpandDouble();
+
+        string countTip = currentCount >= 0
+            ? string.Format(CultureInfo.InvariantCulture, "当前 {0} 条 / 上限 {1}", currentCount, curMax)
+            : string.Format(CultureInfo.InvariantCulture, "当前上限 {0}", curMax);
+
+        var selectLst = new Dictionary<string, string>
+        {
+            [SlotGameRecordCapacityUtils.ExpandMenuManual] = "手动输入上限",
+            [SlotGameRecordCapacityUtils.ExpandMenuToDefault] =
+                string.Format(CultureInfo.InvariantCulture, "扩容至默认 ({0})", expandDefault),
+            [SlotGameRecordCapacityUtils.ExpandMenuDouble] =
+                string.Format(CultureInfo.InvariantCulture, "扩容为 2 倍 ({0})", expandDouble),
+            [SlotGameRecordCapacityUtils.ExpandMenuTrimNow] = "立即整理溢出记录",
+        };
+
+        Func<string, string> getSelectDes = (key) =>
+        {
+            switch (key)
+            {
+                case SlotGameRecordCapacityUtils.ExpandMenuManual:
+                    return countTip + "\n输入 " + DefaultSettingsUtils.minMaxGameRecord + " ~ " +
+                           DefaultSettingsUtils.maxMaxGameRecord + " 之间的整数";
+                case SlotGameRecordCapacityUtils.ExpandMenuToDefault:
+                    return countTip + "\n将上限设为 " + expandDefault + "，并删除超出部分";
+                case SlotGameRecordCapacityUtils.ExpandMenuDouble:
+                    return countTip + "\n将上限由 " + curMax + " 调整为 " + expandDouble + "，并删除超出部分";
+                case SlotGameRecordCapacityUtils.ExpandMenuTrimNow:
+                    return countTip + "\n不修改上限，仅按当前上限 " + curMax + " 删除最旧记录";
+                default:
+                    return countTip;
+            }
+        };
+
+        EventData res = await PageManager.Instance.OpenPageAsync(PageName.ConsolePopupConsoleChoose001,
+            new EventData<Dictionary<string, object>>("",
+                new Dictionary<string, object>()
+                {
+                    ["title"] = I18nMgr.T("Max Game Record") + " · 扩容",
+                    ["selectLst"] = selectLst,
+                    ["selectNumber"] = SlotGameRecordCapacityUtils.ExpandMenuToDefault,
+                    ["getSelectedDes"] = getSelectDes,
+                }));
+
+        if (res?.value == null)
+            return;
+
+        string choice = res.value as string;
+        switch (choice)
+        {
+            case SlotGameRecordCapacityUtils.ExpandMenuManual:
+                await OnClickMaxGameRecordManualInputAsync();
+                break;
+            case SlotGameRecordCapacityUtils.ExpandMenuToDefault:
+                ApplyMaxGameRecordExpand(expandDefault, trimOverflow: true);
+                break;
+            case SlotGameRecordCapacityUtils.ExpandMenuDouble:
+                if (expandDouble <= curMax)
+                {
+                    TipPopupHandler.Instance.OpenPopup(
+                        string.Format(CultureInfo.InvariantCulture,
+                            "当前上限已为 {0}，已达可翻倍上限（最大 {1}）", curMax, DefaultSettingsUtils.maxMaxGameRecord));
+                    return;
+                }
+
+                ApplyMaxGameRecordExpand(expandDouble, trimOverflow: true);
+                break;
+            case SlotGameRecordCapacityUtils.ExpandMenuTrimNow:
+                SlotGameRecordCapacityUtils.TrimSlotGameRecordOverflowNow(
+                    (ok, err) => OnExpandCapacityFinished(ok, err, false));
+                break;
+        }
+    }
+
+    void ApplyMaxGameRecordExpand(int newMax, bool trimOverflow)
+    {
+        SlotGameRecordCapacityUtils.ApplyMaxGameRecord(newMax, trimOverflow,
+            (ok, err) => OnExpandCapacityFinished(ok, err, true));
+    }
+
+    void OnExpandCapacityFinished(bool ok, string errMsg, bool capacityChanged)
+    {
+        if (!ok)
+        {
+            TipPopupHandler.Instance.OpenPopup(string.IsNullOrEmpty(errMsg)
+                ? "游戏记录扩容失败"
+                : "游戏记录扩容失败：" + errMsg);
+            return;
+        }
+
+        RefreshMaxGameRecordCapacityDisplay();
+        string tip = capacityChanged
+            ? string.Format(CultureInfo.InvariantCulture,
+                "游戏记录上限已设为 {0}", SBoxModel.Instance.gameRecordMax)
+            : "已按当前上限整理游戏记录";
+        TipPopupHandler.Instance.OpenPopup(tip);
+    }
+
+    /// <summary>
+    /// 手动设置“游戏记录上限”（Max Game Record）。
+    /// </summary>
+    async System.Threading.Tasks.Task OnClickMaxGameRecordManualInputAsync()
     {
         EventData res = await PageManager.Instance.OpenPageAsync(PageName.ConsolePopupConsoleKeyboard002,
             new EventData<Dictionary<string, object>>("",
@@ -467,32 +602,29 @@ public class TabSettingsMachineController
                     ["isPlaintext"] = true,
                 }));
 
-        if (res.value != null)
+        if (res.value == null)
+            return;
+
+        bool isErr = true;
+        int minMaxGameRecord = DefaultSettingsUtils.minMaxGameRecord;
+        int maxMaxGameRecord = DefaultSettingsUtils.maxMaxGameRecord;
+        try
         {
-            bool isErr = true;
+            int val = int.Parse((string)res.value, CultureInfo.InvariantCulture);
 
-            int minMaxGameRecord = DefaultSettingsUtils.minMaxGameRecord;
-            int maxMaxGameRecord = DefaultSettingsUtils.maxMaxGameRecord;
-            try
+            if (val >= minMaxGameRecord && val <= maxMaxGameRecord)
             {
-                int val = int.Parse((string)res.value);  // (long)res.value;
-
-                if (val >= minMaxGameRecord
-                    && val <= maxMaxGameRecord
-                    )
-                {
-                    isErr = false;
-                    SBoxModel.Instance.gameRecordMax = val;
-                    btnMaxGameRecord.title = val.ToString();
-                }
+                isErr = false;
+                bool trim = val < SBoxModel.Instance.gameRecordMax;
+                ApplyMaxGameRecordExpand(val, trimOverflow: trim);
             }
-            catch { }
-
-            if (isErr)
-                TipPopupHandler.Instance.OpenPopup(string.Format(I18nMgr.T("The {0} must be between {1} and {2}"),
-                    I18nMgr.T("Max Game Record"),
-                    minMaxGameRecord, maxMaxGameRecord));
         }
+        catch { }
+
+        if (isErr)
+            TipPopupHandler.Instance.OpenPopup(string.Format(I18nMgr.T("The {0} must be between {1} and {2}"),
+                I18nMgr.T("Max Game Record"),
+                minMaxGameRecord, maxMaxGameRecord));
     }
 
     /// <summary>

@@ -22,6 +22,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 
 	// {{ AOT generic types
 	// ScriptableObjectSingleton<object>
+	// System.Action<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Action<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Action<Loom.DelayedQueueItem>
 	// System.Action<Loom.NoDelayedQueueItem>
 	// System.Action<SlotMaker.ReelSettingModel.STReelSetting>
@@ -30,6 +32,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Action<System.ValueTuple<object,int>>
 	// System.Action<UnityEngine.Color32>
 	// System.Action<UnityEngine.Vector2>
+	// System.Action<byte,object>
 	// System.Action<byte>
 	// System.Action<float>
 	// System.Action<int,int>
@@ -43,6 +46,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Concurrent.ConcurrentDictionary.Node<System.Guid,object>
 	// System.Collections.Concurrent.ConcurrentDictionary.Tables<System.Guid,object>
 	// System.Collections.Concurrent.ConcurrentDictionary<System.Guid,object>
+	// System.Collections.Generic.ArraySortHelper<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Collections.Generic.ArraySortHelper<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.Generic.ArraySortHelper<Loom.DelayedQueueItem>
 	// System.Collections.Generic.ArraySortHelper<Loom.NoDelayedQueueItem>
 	// System.Collections.Generic.ArraySortHelper<SlotMaker.ReelSettingModel.STReelSetting>
@@ -57,6 +62,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ArraySortHelper<long>
 	// System.Collections.Generic.ArraySortHelper<object>
 	// System.Collections.Generic.ArraySortHelper<ushort>
+	// System.Collections.Generic.Comparer<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Collections.Generic.Comparer<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.Generic.Comparer<Loom.DelayedQueueItem>
 	// System.Collections.Generic.Comparer<Loom.NoDelayedQueueItem>
 	// System.Collections.Generic.Comparer<SlotMaker.ReelSettingModel.STReelSetting>
@@ -149,6 +156,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary<ulong,float>
 	// System.Collections.Generic.Dictionary<ulong,int>
 	// System.Collections.Generic.Dictionary<ulong,object>
+	// System.Collections.Generic.EqualityComparer<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Collections.Generic.EqualityComparer<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.Generic.EqualityComparer<Loom.DelayedQueueItem>
 	// System.Collections.Generic.EqualityComparer<Loom.NoDelayedQueueItem>
 	// System.Collections.Generic.EqualityComparer<SlotMaker.ReelSettingModel.STReelSetting>
@@ -166,10 +175,15 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.EqualityComparer<ushort>
 	// System.Collections.Generic.HashSet.Enumerator<int>
 	// System.Collections.Generic.HashSet.Enumerator<long>
+	// System.Collections.Generic.HashSet.Enumerator<object>
 	// System.Collections.Generic.HashSet<int>
 	// System.Collections.Generic.HashSet<long>
+	// System.Collections.Generic.HashSet<object>
 	// System.Collections.Generic.HashSetEqualityComparer<int>
 	// System.Collections.Generic.HashSetEqualityComparer<long>
+	// System.Collections.Generic.HashSetEqualityComparer<object>
+	// System.Collections.Generic.ICollection<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Collections.Generic.ICollection<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.Generic.ICollection<Loom.DelayedQueueItem>
 	// System.Collections.Generic.ICollection<Loom.NoDelayedQueueItem>
 	// System.Collections.Generic.ICollection<SlotMaker.ReelSettingModel.STReelSetting>
@@ -197,6 +211,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ICollection<long>
 	// System.Collections.Generic.ICollection<object>
 	// System.Collections.Generic.ICollection<ushort>
+	// System.Collections.Generic.IComparer<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Collections.Generic.IComparer<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.Generic.IComparer<Loom.DelayedQueueItem>
 	// System.Collections.Generic.IComparer<Loom.NoDelayedQueueItem>
 	// System.Collections.Generic.IComparer<SlotMaker.ReelSettingModel.STReelSetting>
@@ -212,6 +228,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IComparer<object>
 	// System.Collections.Generic.IComparer<ushort>
 	// System.Collections.Generic.IDictionary<System.Guid,object>
+	// System.Collections.Generic.IEnumerable<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Collections.Generic.IEnumerable<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.Generic.IEnumerable<Loom.DelayedQueueItem>
 	// System.Collections.Generic.IEnumerable<Loom.NoDelayedQueueItem>
 	// System.Collections.Generic.IEnumerable<SlotMaker.ReelSettingModel.STReelSetting>
@@ -240,6 +258,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<long>
 	// System.Collections.Generic.IEnumerable<object>
 	// System.Collections.Generic.IEnumerable<ushort>
+	// System.Collections.Generic.IEnumerator<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Collections.Generic.IEnumerator<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.Generic.IEnumerator<Loom.DelayedQueueItem>
 	// System.Collections.Generic.IEnumerator<Loom.NoDelayedQueueItem>
 	// System.Collections.Generic.IEnumerator<SlotMaker.ReelSettingModel.STReelSetting>
@@ -273,6 +293,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEqualityComparer<long>
 	// System.Collections.Generic.IEqualityComparer<object>
 	// System.Collections.Generic.IEqualityComparer<ulong>
+	// System.Collections.Generic.IList<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Collections.Generic.IList<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.Generic.IList<Loom.DelayedQueueItem>
 	// System.Collections.Generic.IList<Loom.NoDelayedQueueItem>
 	// System.Collections.Generic.IList<SlotMaker.ReelSettingModel.STReelSetting>
@@ -307,6 +329,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.LinkedList.Enumerator<object>
 	// System.Collections.Generic.LinkedList<object>
 	// System.Collections.Generic.LinkedListNode<object>
+	// System.Collections.Generic.List.Enumerator<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Collections.Generic.List.Enumerator<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.Generic.List.Enumerator<Loom.DelayedQueueItem>
 	// System.Collections.Generic.List.Enumerator<Loom.NoDelayedQueueItem>
 	// System.Collections.Generic.List.Enumerator<SlotMaker.ReelSettingModel.STReelSetting>
@@ -321,6 +345,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List.Enumerator<long>
 	// System.Collections.Generic.List.Enumerator<object>
 	// System.Collections.Generic.List.Enumerator<ushort>
+	// System.Collections.Generic.List.SynchronizedList<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Collections.Generic.List.SynchronizedList<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.Generic.List.SynchronizedList<Loom.DelayedQueueItem>
 	// System.Collections.Generic.List.SynchronizedList<Loom.NoDelayedQueueItem>
 	// System.Collections.Generic.List.SynchronizedList<SlotMaker.ReelSettingModel.STReelSetting>
@@ -335,6 +361,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List.SynchronizedList<long>
 	// System.Collections.Generic.List.SynchronizedList<object>
 	// System.Collections.Generic.List.SynchronizedList<ushort>
+	// System.Collections.Generic.List<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Collections.Generic.List<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.Generic.List<Loom.DelayedQueueItem>
 	// System.Collections.Generic.List<Loom.NoDelayedQueueItem>
 	// System.Collections.Generic.List<SlotMaker.ReelSettingModel.STReelSetting>
@@ -349,6 +377,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List<long>
 	// System.Collections.Generic.List<object>
 	// System.Collections.Generic.List<ushort>
+	// System.Collections.Generic.ObjectComparer<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Collections.Generic.ObjectComparer<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.Generic.ObjectComparer<Loom.DelayedQueueItem>
 	// System.Collections.Generic.ObjectComparer<Loom.NoDelayedQueueItem>
 	// System.Collections.Generic.ObjectComparer<SlotMaker.ReelSettingModel.STReelSetting>
@@ -363,6 +393,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectComparer<long>
 	// System.Collections.Generic.ObjectComparer<object>
 	// System.Collections.Generic.ObjectComparer<ushort>
+	// System.Collections.Generic.ObjectEqualityComparer<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Collections.Generic.ObjectEqualityComparer<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.Generic.ObjectEqualityComparer<Loom.DelayedQueueItem>
 	// System.Collections.Generic.ObjectEqualityComparer<Loom.NoDelayedQueueItem>
 	// System.Collections.Generic.ObjectEqualityComparer<SlotMaker.ReelSettingModel.STReelSetting>
@@ -380,6 +412,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectEqualityComparer<ushort>
 	// System.Collections.Generic.Queue.Enumerator<object>
 	// System.Collections.Generic.Queue<object>
+	// System.Collections.ObjectModel.ReadOnlyCollection<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Collections.ObjectModel.ReadOnlyCollection<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.ObjectModel.ReadOnlyCollection<Loom.DelayedQueueItem>
 	// System.Collections.ObjectModel.ReadOnlyCollection<Loom.NoDelayedQueueItem>
 	// System.Collections.ObjectModel.ReadOnlyCollection<SlotMaker.ReelSettingModel.STReelSetting>
@@ -394,6 +428,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.ObjectModel.ReadOnlyCollection<long>
 	// System.Collections.ObjectModel.ReadOnlyCollection<object>
 	// System.Collections.ObjectModel.ReadOnlyCollection<ushort>
+	// System.Comparison<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Comparison<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Comparison<Loom.DelayedQueueItem>
 	// System.Comparison<Loom.NoDelayedQueueItem>
 	// System.Comparison<SlotMaker.ReelSettingModel.STReelSetting>
@@ -408,6 +444,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Comparison<long>
 	// System.Comparison<object>
 	// System.Comparison<ushort>
+	// System.Converter<object,object>
 	// System.EventHandler<object>
 	// System.Func<Loom.DelayedQueueItem,byte>
 	// System.Func<System.Guid,object,object>
@@ -448,6 +485,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Nullable<float>
 	// System.Nullable<int>
 	// System.Nullable<long>
+	// System.Predicate<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
+	// System.Predicate<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Predicate<Loom.DelayedQueueItem>
 	// System.Predicate<Loom.NoDelayedQueueItem>
 	// System.Predicate<SlotMaker.ReelSettingModel.STReelSetting>
@@ -499,11 +538,22 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	{
 		// object Newtonsoft.Json.JsonConvert.DeserializeObject<object>(string)
 		// object Newtonsoft.Json.JsonConvert.DeserializeObject<object>(string,Newtonsoft.Json.JsonSerializerSettings)
+		// byte Newtonsoft.Json.Linq.Extensions.Convert<object,byte>(object)
+		// double Newtonsoft.Json.Linq.Extensions.Convert<object,double>(object)
+		// object Newtonsoft.Json.Linq.Extensions.Convert<object,object>(object)
+		// byte Newtonsoft.Json.Linq.Extensions.Value<byte>(System.Collections.Generic.IEnumerable<Newtonsoft.Json.Linq.JToken>)
+		// byte Newtonsoft.Json.Linq.Extensions.Value<object,byte>(System.Collections.Generic.IEnumerable<object>)
+		// double Newtonsoft.Json.Linq.Extensions.Value<double>(System.Collections.Generic.IEnumerable<Newtonsoft.Json.Linq.JToken>)
+		// double Newtonsoft.Json.Linq.Extensions.Value<object,double>(System.Collections.Generic.IEnumerable<object>)
+		// object Newtonsoft.Json.Linq.Extensions.Value<object,object>(System.Collections.Generic.IEnumerable<object>)
+		// object Newtonsoft.Json.Linq.Extensions.Value<object>(System.Collections.Generic.IEnumerable<Newtonsoft.Json.Linq.JToken>)
 		// int Newtonsoft.Json.Linq.JToken.ToObject<int>()
 		// object Newtonsoft.Json.Linq.JToken.ToObject<object>()
 		// object System.Activator.CreateInstance<object>()
+		// object[] System.Array.ConvertAll<object,object>(object[],System.Converter<object,object>)
 		// UnityEngine.AnimatorClipInfo[] System.Array.Empty<UnityEngine.AnimatorClipInfo>()
 		// object[] System.Array.Empty<object>()
+		// ushort[] System.Array.Empty<ushort>()
 		// int System.Array.IndexOf<object>(object[],object)
 		// int System.Array.IndexOfImpl<object>(object[],object,int,int)
 		// bool System.Enum.TryParse<int>(string,bool,int&)
@@ -533,10 +583,12 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,PageBase.<WaitUntil>d__29>(System.Runtime.CompilerServices.TaskAwaiter&,PageBase.<WaitUntil>d__29&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,PageManager.<WaitUntil>d__15>(System.Runtime.CompilerServices.TaskAwaiter&,PageManager.<WaitUntil>d__15&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,ConsoleTableUtils.<CheckOrCreatTableBet>d__4>(System.Runtime.CompilerServices.TaskAwaiter<object>&,ConsoleTableUtils.<CheckOrCreatTableBet>d__4&)
+		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxGameRecordManualInputAsync>d__32>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxGameRecordManualInputAsync>d__32&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.Threading.Tasks.VoidTaskResult>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,InOutRecordController.<WaitUntil>d__27>(System.Runtime.CompilerServices.TaskAwaiter&,InOutRecordController.<WaitUntil>d__27&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.Threading.Tasks.VoidTaskResult>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,PageBase.<WaitUntil>d__29>(System.Runtime.CompilerServices.TaskAwaiter&,PageBase.<WaitUntil>d__29&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.Threading.Tasks.VoidTaskResult>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,PageManager.<WaitUntil>d__15>(System.Runtime.CompilerServices.TaskAwaiter&,PageManager.<WaitUntil>d__15&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.Threading.Tasks.VoidTaskResult>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,ConsoleTableUtils.<CheckOrCreatTableBet>d__4>(System.Runtime.CompilerServices.TaskAwaiter<object>&,ConsoleTableUtils.<CheckOrCreatTableBet>d__4&)
+		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.Threading.Tasks.VoidTaskResult>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxGameRecordManualInputAsync>d__32>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxGameRecordManualInputAsync>d__32&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,PageBase.<OnOpenAsync>d__25>(System.Runtime.CompilerServices.TaskAwaiter&,PageBase.<OnOpenAsync>d__25&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,PageManager.<OpenPageAsync>d__11>(System.Runtime.CompilerServices.TaskAwaiter&,PageManager.<OpenPageAsync>d__11&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,PageManager.<OpenPageAsync>d__11>(System.Runtime.CompilerServices.TaskAwaiter<object>&,PageManager.<OpenPageAsync>d__11&)
@@ -550,6 +602,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.Start<InOutRecordController.<WaitUntil>d__27>(InOutRecordController.<WaitUntil>d__27&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.Start<PageBase.<WaitUntil>d__29>(PageBase.<WaitUntil>d__29&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.Start<PageManager.<WaitUntil>d__15>(PageManager.<WaitUntil>d__15&)
+		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxGameRecordManualInputAsync>d__32>(TabSettingsMachineController.<OnClickMaxGameRecordManualInputAsync>d__32&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.Start<PageBase.<OnOpenAsync>d__25>(PageBase.<OnOpenAsync>d__25&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.Start<PageManager.<OpenPageAsync>d__11>(PageManager.<OpenPageAsync>d__11&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.Start<ResourceManager02.<LoadAssetAsync>d__15<object>>(ResourceManager02.<LoadAssetAsync>d__15<object>&)
@@ -559,6 +612,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.Start<StreamingAssetsBundleLoader.<LoadAssetBundleAsync>d__13>(StreamingAssetsBundleLoader.<LoadAssetBundleAsync>d__13&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.Start<TableBetItem.<DefaultTable>d__10>(TableBetItem.<DefaultTable>d__10&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,InOutRecordController.<SetInOutTotal>d__26>(System.Runtime.CompilerServices.TaskAwaiter&,InOutRecordController.<SetInOutTotal>d__26&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,TabSettingsMachineController.<OpenMaxGameRecordExpandMenu>d__29>(System.Runtime.CompilerServices.TaskAwaiter&,TabSettingsMachineController.<OpenMaxGameRecordExpandMenu>d__29&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,ConsoleSlot01.ChangePasswordController.<<OnClickSetPassword>b__12_0>d>(System.Runtime.CompilerServices.TaskAwaiter<object>&,ConsoleSlot01.ChangePasswordController.<<OnClickSetPassword>b__12_0>d&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,ConsoleSlot01.ChangePasswordController.<OnClickSetPassword>d__12>(System.Runtime.CompilerServices.TaskAwaiter<object>&,ConsoleSlot01.ChangePasswordController.<OnClickSetPassword>d__12&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,ConsoleSlot01.PageConsoleMain.<OnChenkUser>d__24>(System.Runtime.CompilerServices.TaskAwaiter<object>&,ConsoleSlot01.PageConsoleMain.<OnChenkUser>d__24&)
@@ -574,11 +628,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsInOutController.<OnClickPrinterModel>d__18>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsInOutController.<OnClickPrinterModel>d__18&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsInOutController.<OnClickScoreScale>d__15>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsInOutController.<OnClickScoreScale>d__15&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickAgentIDMachineID>d__24>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickAgentIDMachineID>d__24&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxBusinessDayRecord>d__30>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxBusinessDayRecord>d__30&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxBusinessDayRecord>d__35>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxBusinessDayRecord>d__35&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxCoinInOutRecord>d__26>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxCoinInOutRecord>d__26&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxErrorRecord>d__29>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxErrorRecord>d__29&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxEventRecord>d__28>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxEventRecord>d__28&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxGameRecord>d__27>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxGameRecord>d__27&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxErrorRecord>d__34>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxErrorRecord>d__34&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OnClickMaxEventRecord>d__33>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OnClickMaxEventRecord>d__33&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TabSettingsMachineController.<OpenMaxGameRecordExpandMenu>d__29>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TabSettingsMachineController.<OpenMaxGameRecordExpandMenu>d__29&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,Test02.<OpenABConsoleMainPage>d__5>(System.Runtime.CompilerServices.TaskAwaiter<object>&,Test02.<OpenABConsoleMainPage>d__5&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,Test02.<ShowJson>d__9>(System.Runtime.CompilerServices.TaskAwaiter<object>&,Test02.<ShowJson>d__9&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<ConsoleSlot01.ChangePasswordController.<<OnClickSetPassword>b__12_0>d>(ConsoleSlot01.ChangePasswordController.<<OnClickSetPassword>b__12_0>d&)
@@ -597,11 +651,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsInOutController.<OnClickPrinterModel>d__18>(TabSettingsInOutController.<OnClickPrinterModel>d__18&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsInOutController.<OnClickScoreScale>d__15>(TabSettingsInOutController.<OnClickScoreScale>d__15&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickAgentIDMachineID>d__24>(TabSettingsMachineController.<OnClickAgentIDMachineID>d__24&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxBusinessDayRecord>d__30>(TabSettingsMachineController.<OnClickMaxBusinessDayRecord>d__30&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxBusinessDayRecord>d__35>(TabSettingsMachineController.<OnClickMaxBusinessDayRecord>d__35&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxCoinInOutRecord>d__26>(TabSettingsMachineController.<OnClickMaxCoinInOutRecord>d__26&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxErrorRecord>d__29>(TabSettingsMachineController.<OnClickMaxErrorRecord>d__29&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxEventRecord>d__28>(TabSettingsMachineController.<OnClickMaxEventRecord>d__28&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxGameRecord>d__27>(TabSettingsMachineController.<OnClickMaxGameRecord>d__27&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxErrorRecord>d__34>(TabSettingsMachineController.<OnClickMaxErrorRecord>d__34&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OnClickMaxEventRecord>d__33>(TabSettingsMachineController.<OnClickMaxEventRecord>d__33&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<TabSettingsMachineController.<OpenMaxGameRecordExpandMenu>d__29>(TabSettingsMachineController.<OpenMaxGameRecordExpandMenu>d__29&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Test02.<OpenABConsoleMainPage>d__5>(Test02.<OpenABConsoleMainPage>d__5&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Test02.<ShowJson>d__9>(Test02.<ShowJson>d__9&)
 		// byte UnityEngine.AndroidJNIHelper.ConvertFromJNIArray<byte>(System.IntPtr)
