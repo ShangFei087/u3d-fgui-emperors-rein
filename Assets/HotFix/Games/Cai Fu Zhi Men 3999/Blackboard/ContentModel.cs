@@ -43,7 +43,7 @@ namespace CaiFuZhiMen_3999
 
         #endregion
 
-        public PageName pageName => PageName.CaiFuZhiJiaPageGameMain;
+        public PageName pageName => PageName.CaiFuZhiMenPageGameMain;
 
         /// <summary>当游戏结束时自动计算游戏资金和现实资金的开关</summary>
         public bool isRequestToRealCreditWhenStop { set => throw new System.NotImplementedException(); }

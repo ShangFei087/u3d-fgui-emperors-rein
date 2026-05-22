@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="u8to2p" name="ng_txt_off.png" path="/images/exhibitionMode/" exported="true"/>
+    <image id="u8to2q" name="ng_txt_on.png" path="/images/exhibitionMode/" exported="true"/>
+    <image id="u8to2r" name="Back to game.png" path="/images/instructions/" exported="true"/>
+    <image id="u8to2s" name="pb_img_help.png" path="/images/setPanel/" exported="true"/>
+    <image id="u8to2t" name="pb_txt_auto.png" path="/images/spin/" exported="true"/>
+    <image id="u8to2u" name="pb_txt_spin HoldToAuto.png" path="/images/spin/" exported="true"/>
+    <image id="u8to2v" name="pb_txt_stop.png" path="/images/spin/" exported="true"/>
+    <image id="u8to2w" name="pb_txt_bet.png" path="/images/gameDiFrame/" exported="true"/>
+    <image id="u8to2x" name="pb_txt_credits.png" path="/images/gameDiFrame/" exported="true"/>
+  </resources>
+</branchDescription>

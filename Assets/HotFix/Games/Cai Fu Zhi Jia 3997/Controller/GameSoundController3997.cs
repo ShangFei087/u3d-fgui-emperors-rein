@@ -1,4 +1,3 @@
-using CaiFuZhiJia_3997;
 using GameMaker;
 using SlotMaker;
 using System.Collections.Generic;
@@ -30,9 +29,8 @@ namespace CaiFuZhiJia_3997
         /// <summary> 彩金结算弹窗 BGM </summary>
         public const string BgmBonusResult = "3997_BgmBonusResult";
     }
-}
-
-public class GameSoundController3997
+    
+    public class GameSoundController3997
 {
     /// <summary> Scatter 图标 ID（与 MachineData 一致，symbolNumber[10]）。 </summary>
     private static int ScatterSymbolId => CustomModel.Instance.symbolNumber[10];
@@ -289,3 +287,5 @@ public class GameSoundController3997
         GameSoundHelper3997.Instance.PlaySoundEff(SoundKey.BonusWin);
     }
 }
+}
+

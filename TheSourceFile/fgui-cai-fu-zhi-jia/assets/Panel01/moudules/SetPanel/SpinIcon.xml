@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="128,87">
-  <displayList>
-    <image id="n2_lyrx" name="n2" src="lyrxst" fileName="images/spin按钮/pb_txt_spin HoldToAuto.png" xy="64,40" pivot="0.5,0.5" anchor="true"/>
-  </displayList>
-</component>

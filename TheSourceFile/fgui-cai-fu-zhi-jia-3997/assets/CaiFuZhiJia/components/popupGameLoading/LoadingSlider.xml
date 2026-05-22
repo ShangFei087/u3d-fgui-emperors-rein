@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="960,58" extention="Slider">
+  <displayList>
+    <component id="n0_u8to" name="n0" src="u8tod" fileName="moudules/popupGameLoading/LoadingSliderBg.xml" xy="0,0" size="960,58">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n1_u8to" name="bar" src="u8to1" fileName="images/popupGameLoading/laod_img_progress.png" xy="6,6" size="941,48"/>
+    <component id="n2_u8to" name="grip" src="u8tof" fileName="moudules/popupGameLoading/LoadingSlider_grip.xml" xy="919,9">
+      <relation target="n1_u8to" sidePair="right-right"/>
+    </component>
+  </displayList>
+  <Slider/>
+</component>

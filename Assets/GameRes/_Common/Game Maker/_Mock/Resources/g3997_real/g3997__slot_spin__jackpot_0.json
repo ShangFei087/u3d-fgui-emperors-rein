@@ -3,15 +3,17 @@
 
 	"ResultType": 4,
 
+	"JPTypeArray":[0,0,3],
+
 	"TotalJackpotBet":750,
 
-	"BonusBet": 40,
+	"BonusBet": 400,
 
-	"JPBetArray":[750],
+	"JPBetArray":[0,0,750],
 
 	"JPCount":1,
 
-	"BonusData":[0,0,4002,0,0,
+	"BonusData":[0,0,4003,0,0,
 		1400,0,0,0,0,
 		0,0,0,0,0],
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_u8to" name="loadingBg" src="u8to9" fileName="moudules/popupGameLoading/LoadingBg.xml" xy="0,0"/>
+    <component id="n1_u8to" name="loadingSlider" src="u8tog" fileName="components/popupGameLoading/LoadingSlider.xml" xy="67,1770" touchable="false">
+      <Slider value="50" max="100"/>
+    </component>
+    <component id="n2_u8to" name="anchorLoadingNpc" src="u8tob" fileName="moudules/popupGameLoading/anchorLoadingNpc.xml" xy="540,960"/>
+    <component id="n3_u8to" name="anchorLoadingTitle" src="u8toc" fileName="moudules/popupGameLoading/anchorLoadingTitle.xml" xy="540,960"/>
+  </displayList>
+</component>

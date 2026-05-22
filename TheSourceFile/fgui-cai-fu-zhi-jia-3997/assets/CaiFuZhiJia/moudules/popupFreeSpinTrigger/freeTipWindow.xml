@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_gg7g" name="freeGetAnimation" src="gg7g5l" fileName="moudules/popupFreeSpinTrigger/freeGetAnimation.xml" xy="540,960"/>
+    <component id="n2_gg7g" name="freeStartBtn" src="gg7g5p" fileName="components/common/startBtn.xml" xy="369,1438"/>
+    <text id="n1_gg7g" name="freeRound" xy="188,659" size="624,473" font="ui://92trhum6u8to1o" fontSize="10" align="center" vAlign="middle" autoSize="shrink" text="10"/>
+  </displayList>
+</component>

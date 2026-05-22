@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_u8to" name="mask" xy="0,0" size="1080,1920" type="rect" fillColor="#99000000"/>
+    <image id="n1_u8to" name="n1" src="u8to2h" fileName="images/instructions/Border.png" xy="113,310"/>
+    <component id="n5_u8to" name="introduce" src="u8to2o" fileName="moudules/instructions/payTable.xml" xy="540,816" pivot="0.5,0.5" anchor="true"/>
+    <component id="n3_u8to" name="btnNect" src="u8to2m" fileName="components/Instructions/ButtonL.xml" xy="742,1336"/>
+    <component id="n4_u8to" name="btnPrev" src="u8to2m" fileName="components/Instructions/ButtonL.xml" xy="271,1337" rotation="180"/>
+    <component id="n2_u8to" name="btnBackGame" src="u8to2l" fileName="components/Instructions/BackButton.xml" xy="371,1329"/>
+  </displayList>
+</component>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,150">
+  <displayList>
+    <image id="n0_gg7g" name="n0" src="gg7g5x" fileName="images/popupFreeResult/jsk5 1.png" xy="0,0" size="1083,160"/>
+    <text id="n1_gg7g" name="number" xy="0,26" size="1080,117" font="ui://92trhum6u8to1o" fontSize="2" align="center" vAlign="middle" autoSize="shrink" text="1234567890000000"/>
+  </displayList>
+</component>

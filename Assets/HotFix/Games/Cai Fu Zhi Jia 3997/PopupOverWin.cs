@@ -21,26 +21,26 @@ namespace CaiFuZhiJia_3997
         private int _totalCount = -1;
         private bool _isInitialized = false;
 
-        private Animator _traderAnimator, _overWinAnimator;
-        private GComponent _compareOverWin, _compareTrader;
-        private GameObject _overWinObj, _cloneOverWinObj, _traderObj, _cloneTraderObj;
+        private Animator _npcAnimator, _overWinAnimator;
+        private GComponent _compareOverWin, _compareNpc;
+        private GameObject _overWinObj, _cloneOverWinObj, _npcObj, _cloneNpcObj;
 
         private Transform _bgEffectParent;
 
-        private readonly string[] WinString = { "BIG", "HUGE", "MASSIVE" };
-        private readonly string[] WinOpenString = { "bigwin_start", "bigwin_superwin", "superwin_megawin" };
-        private readonly string[] WinCloseString = { "bigwin_end", "superwin_end", "megawin_end" };
+        private readonly string[] winString = { "BIG", "HUGE", "MASSIVE" };
+        private readonly string[] winOpenString = { "bigwin_start", "bigwin_superwin", "superwin_megawin" };
+        private readonly string[] winCloseString = { "bigwin_end", "superwin_end", "megawin_end" };
 
-        private readonly string[] NpcStartString =
+        private readonly string[] npcStartString =
         {
             "ng_pop_border_bigwin", "ng_pop_border_supwin", "ng_pop_border_megawin"
         };
 
         private long score;
-        private string WinType;
+        private string winType;
         private int playCount;
-        private int WinIndex;
-        private bool isok = false;
+        private int winIndex;
+        private bool isOk = false;
 
         private GTextField _overWinText;
 
@@ -49,13 +49,13 @@ namespace CaiFuZhiJia_3997
         private TimerCallback _exitCallback;
 
         // 每级动画持续时间
-        private const float LEVEL_DURATION = 3.0f;
+        private const float LevelDuration = 3.0f;
 
         // 结束动画等待时间
-        private const float EXIT_DELAY = 1.0f;
+        private const float ExitDelay = 1.0f;
 
         // 结束动画跳转时间点
-        private const float CLOSE_TIME = 14.5f;
+        private const float CloseTime = 14.5f;
 
         // 状态标记
         private bool _isExiting = false;
@@ -79,7 +79,7 @@ namespace CaiFuZhiJia_3997
             };
         }
 
-        public override void InitParam()
+        private void InitParam(EventData eventData = null)
         {
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
@@ -98,15 +98,15 @@ namespace CaiFuZhiJia_3997
                 if (dic.TryGetValue("baseGameWinCredit", out var scoreVal) && scoreVal is long longScore)
                     score = longScore;
 
-                WinType = dic.TryGetValue("WinType", out var wt) ? wt.ToString() : "";
+                winType = dic.TryGetValue("WinType", out var wt) ? wt.ToString() : "";
             }
 
-            WinIndex = Array.IndexOf(WinString, WinType);
+            winIndex = Array.IndexOf(winString, winType);
             // Debug.LogError("WinIndex:" + WinIndex);
-            if (WinIndex < 0) WinIndex = 0;
-            if (WinIndex > 2) WinIndex = 2;
+            if (winIndex < 0) winIndex = 0;
+            if (winIndex > 2) winIndex = 2;
 
-            isok = false;
+            isOk = false;
             _isExiting = false;
             InitParam();
         }
@@ -114,7 +114,7 @@ namespace CaiFuZhiJia_3997
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
-            ResetView();
+            Reset();
         }
 
         private void ResLoadedCallback()
@@ -142,7 +142,7 @@ namespace CaiFuZhiJia_3997
                 ModelPrefabPath + "ng_pop_border.prefab",
                 (clone) =>
                 {
-                    _traderObj = clone;
+                    _npcObj = clone;
                     ResLoadedCallback();
                 });
         }
@@ -159,23 +159,23 @@ namespace CaiFuZhiJia_3997
                 GameCommon.FguiUtils.AddWrapper(_compareOverWin, _cloneOverWinObj);
             }
 
-            currentGCom = contentPane.GetChild("anchorPlayer").asCom;
-            if (currentGCom != _compareTrader)
+            currentGCom = contentPane.GetChild("anchorTipNpc").asCom;
+            if (currentGCom != _compareNpc)
             {
-                GameCommon.FguiUtils.DeleteWrapper(_compareTrader);
-                _compareTrader = currentGCom;
-                _cloneTraderObj = Object.Instantiate(_traderObj);
-                _traderAnimator = _cloneTraderObj.GetComponentInChildren<Animator>();
-                _bgEffectParent = _cloneTraderObj.transform.Find("BgEffect");
-                GameCommon.FguiUtils.AddWrapper(_compareTrader, _cloneTraderObj);
+                GameCommon.FguiUtils.DeleteWrapper(_compareNpc);
+                _compareNpc = currentGCom;
+                _cloneNpcObj = Object.Instantiate(_npcObj);
+                _npcAnimator = _cloneNpcObj.GetComponentInChildren<Animator>();
+                _bgEffectParent = _cloneNpcObj.transform.Find("BgEffect");
+                GameCommon.FguiUtils.AddWrapper(_compareNpc, _cloneNpcObj);
             }
         }
 
-        public void SpinDown()
+        private void SpinDown()
         {
             if (_isExiting) return;
 
-            if (!isok)
+            if (!isOk)
             {
                 // 强制完成数字滚动
                 NumberAnimation.Instance.StopAllAnimations();
@@ -194,7 +194,7 @@ namespace CaiFuZhiJia_3997
         {
             try
             {
-                if (WinString.Length < 3)
+                if (winString.Length < 3)
                 {
                     Debug.LogError("WinImageString must have at least 3 elements");
                     return;
@@ -204,7 +204,7 @@ namespace CaiFuZhiJia_3997
                 playCount = 0;
 
                 // 启动数字滚动
-                int showtime = 4 * (WinIndex + 1);
+                int showtime = 4 * (winIndex + 1);
                 NumberAnimation.Instance.AnimateNumber(_overWinText, 0, score, showtime, EaseType.Linear, null);
 
                 // 初始化委托
@@ -225,18 +225,18 @@ namespace CaiFuZhiJia_3997
         /// </summary>
         private void PlayCurrentLevel()
         {
-            if (playCount < 0 || playCount >= NpcStartString.Length)
+            if (playCount < 0 || playCount >= npcStartString.Length)
             {
                 Debug.LogError($"playCount 越界: {playCount}");
                 return;
             }
 
-            _traderAnimator.Play(NpcStartString[playCount]);
-            _overWinAnimator.Play(WinOpenString[playCount]);
+            _npcAnimator.Play(npcStartString[playCount]);
+            _overWinAnimator.Play(winOpenString[playCount]);
             ShowEffect(playCount);
 
             // 3秒后进入下一步
-            Timers.inst.Add(LEVEL_DURATION, 1, _sequenceCallback);
+            Timers.inst.Add(LevelDuration, 1, _sequenceCallback);
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace CaiFuZhiJia_3997
             playCount++;
 
             // 如果还有更多层级，继续播放
-            if (playCount <= WinIndex)
+            if (playCount <= winIndex)
             {
                 PlayCurrentLevel();
             }
@@ -269,13 +269,13 @@ namespace CaiFuZhiJia_3997
         {
             if (_isExiting) return;
             _isExiting = true;
-            isok = true;
+            isOk = true;
 
             // 播放结束动画
-            int closeIndex = Mathf.Clamp(WinIndex, 0, WinCloseString.Length - 1);
-            _overWinAnimator.Play(WinCloseString[closeIndex]);
+            int closeIndex = Mathf.Clamp(winIndex, 0, winCloseString.Length - 1);
+            _overWinAnimator.Play(winCloseString[closeIndex]);
 
-            float closetime = CLOSE_TIME;
+            float closetime = CloseTime;
             AnimatorStateInfo stateInfo = _overWinAnimator.GetCurrentAnimatorStateInfo(0);
             float normalizedTime = closetime / stateInfo.length;
             _overWinAnimator.Play(stateInfo.fullPathHash, 0, normalizedTime);
@@ -287,7 +287,7 @@ namespace CaiFuZhiJia_3997
             // 等待1秒后退出
             if (!Timers.inst.Exists(_exitCallback))
             {
-                Timers.inst.Add(EXIT_DELAY, 1, _exitCallback);
+                Timers.inst.Add(ExitDelay, 1, _exitCallback);
             }
         }
 
@@ -296,7 +296,7 @@ namespace CaiFuZhiJia_3997
             Exit();
         }
 
-        public void Exit()
+        private void Exit()
         {
             ClearAllTimers();
             CloseSelf(null);
@@ -321,23 +321,23 @@ namespace CaiFuZhiJia_3997
             }
         }
 
-        private void ResetView()
+        private void Reset()
         {
             ClearAllTimers();
 
-            GameCommon.FguiUtils.DeleteWrapper(_compareTrader);
-            GameCommon.FguiUtils.DeleteWrapper(_compareOverWin);
-
-            Object.Destroy(_cloneTraderObj);
-            Object.Destroy(_cloneOverWinObj);
-
-            _compareTrader = null;
-            _compareOverWin = null;
-            _cloneTraderObj = null;
-            _cloneOverWinObj = null;
-
-            _traderAnimator = null;
-            _bgEffectParent = null;
+            // GameCommon.FguiUtils.DeleteWrapper(_compareNpc);
+            // GameCommon.FguiUtils.DeleteWrapper(_compareOverWin);
+            //
+            // Object.Destroy(_cloneNpcObj);
+            // Object.Destroy(_cloneOverWinObj);
+            //
+            // _compareNpc = null;
+            // _compareOverWin = null;
+            // _cloneNpcObj = null;
+            // _cloneOverWinObj = null;
+            //
+            // _npcAnimator = null;
+            // _bgEffectParent = null;
         }
     }
 }

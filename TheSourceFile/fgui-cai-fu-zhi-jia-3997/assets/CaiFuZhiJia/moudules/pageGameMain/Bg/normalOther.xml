@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1006" overflow="hidden">
+  <displayList>
+    <image id="n0_u8to" name="n0" src="u8to20" fileName="images/pageGameMain/normalBg/ng_img_frame00.png" xy="-9,268"/>
+    <image id="n2_u8to" name="n2" src="u8to21" fileName="images/pageGameMain/normalBg/ng_img_frame010.png" xy="175,233"/>
+    <image id="n4_u8to" name="n4" src="u8to23" fileName="images/pageGameMain/normalBg/ng_img_frame012.png" xy="35,40"/>
+    <image id="n3_u8to" name="n3" src="u8to27" fileName="images/pageGameMain/normalBg/ng_img_frame09.png" xy="106,0"/>
+    <image id="n1_u8to" name="n1" src="u8to22" fileName="images/pageGameMain/normalBg/ng_img_frame011.png" xy="156,170"/>
+    <image id="n5_u8to" name="n5" src="u8to25" fileName="images/pageGameMain/normalBg/ng_img_frame07.png" xy="543,287"/>
+    <image id="n6_u8to" name="n6" src="u8to26" fileName="images/pageGameMain/normalBg/ng_img_frame08.png" xy="361,273"/>
+    <image id="n7_u8to" name="n7" src="u8to24" fileName="images/pageGameMain/normalBg/ng_img_frame06.png" xy="842,241"/>
+  </displayList>
+</component>

@@ -1,7 +1,6 @@
 using FairyGUI;
 using GameMaker;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace CaiFuZhiJia_3997
 {
@@ -13,21 +12,17 @@ namespace CaiFuZhiJia_3997
         private const string SpinePrefabsPath =
             "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupGameLoading/SpinePrefabs/";
 
-        // 初始化
         private int _totalResCount = -1;
         private bool _isInitialized = false;
-        // private bool _isFirstOpen = true;
-        // private const float Duration = 8f;
-        // private GTweener _loadingGTween;
 
-        private GSlider _loadingBar;
-        private GameObject _traderObj, _gameTitleObj;
-        private GameObject _cloneTraderObj, _cloneGameTitleObj;
-        private GComponent _compareTrader, _compareGameTitle;
-        
-        
+        private GSlider _loadingSlider;
+        private GameObject _npcObj, _titleObj;
+        private GameObject _cloneNpcObj, _cloneTitleObj;
+        private GComponent _compareNpc, _compareTitle;
+
         private int _preloadTotal;
         private int _preloadCompleted;
+
         /// <summary>从进入并行预加载起算，界面至少展示此时长（秒）；预加载更久则按实际结束。</summary>
         private const float MinLoadingDisplaySeconds = 5f;
 
@@ -39,51 +34,57 @@ namespace CaiFuZhiJia_3997
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            LoadResAsync();
+            _totalResCount = 2;
+
+            // 加载Spine动画
+            ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "Trader.prefab", (cloneObj) =>
+            {
+                _npcObj = cloneObj;
+                ResLoadedCallback();
+            });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "GameTitle.prefab", (cloneObj) =>
+            {
+                _titleObj = cloneObj;
+                ResLoadedCallback();
+            });
         }
 
         public override void InitParam()
         {
             if (!_isInitialized) return;
-            
             // 初始化进度条Slider
-            _loadingBar = contentPane.GetChild("sliderLoading").asSlider;
-            
+            _loadingSlider = contentPane.GetChild("loadingSlider").asSlider;
+
             // 绑定预制体到UI锚点
-            GComponent currentCom = contentPane.GetChild("anchorTrader").asCom;
-            if (_compareTrader != currentCom)
+            GComponent currentCom = contentPane.GetChild("anchorLoadingNpc").asCom;
+            if (_compareNpc != currentCom)
             {
-                _cloneTraderObj = Object.Instantiate(_traderObj);
-                GameCommon.FguiUtils.DeleteWrapper(_compareTrader);
-                _compareTrader = currentCom;
-                GameCommon.FguiUtils.AddWrapper(_compareTrader, _cloneTraderObj);
+                _cloneNpcObj = Object.Instantiate(_npcObj);
+                GameCommon.FguiUtils.DeleteWrapper(_compareNpc);
+                _compareNpc = currentCom;
+                GameCommon.FguiUtils.AddWrapper(_compareNpc, _cloneNpcObj);
             }
 
-            currentCom = contentPane.GetChild("anchorGameTitle").asCom;
-            if (currentCom != _compareGameTitle)
+            currentCom = contentPane.GetChild("anchorLoadingTitle").asCom;
+            if (currentCom != _compareTitle)
             {
-                _cloneGameTitleObj = Object.Instantiate(_gameTitleObj);
-                GameCommon.FguiUtils.DeleteWrapper(_compareGameTitle);
-                _compareGameTitle = currentCom;
-                GameCommon.FguiUtils.AddWrapper(_compareGameTitle, _cloneGameTitleObj);
+                _cloneTitleObj = Object.Instantiate(_titleObj);
+                GameCommon.FguiUtils.DeleteWrapper(_compareTitle);
+                _compareTitle = currentCom;
+                GameCommon.FguiUtils.AddWrapper(_compareTitle, _cloneTitleObj);
             }
-            
+
             preLoadedCallback?.Invoke();
             
             if (PageManager.Instance.IndexOf(PageName.CaiFuZhiJiaPopupGameLoading) == 0)
-            {
                 StartPreloadGamePagesThenOpenMain();
-            }
-            // if (!isOpen) return;
-
         }
-
+        
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
-
             InitParam();
-            // StartLoading();
         }
 
         public override void OnClose(EventData eventData = null)
@@ -95,14 +96,12 @@ namespace CaiFuZhiJia_3997
             }
             base.OnClose(eventData);
         }
-
+        
         private void ResLoadedCallback()
         {
-            if (--_totalResCount == 0)
-            {
-                _isInitialized = true;
-                InitParam();
-            }
+            if (--_totalResCount != 0) return;
+            _isInitialized = true;
+            InitParam();
         }
         
         /// <summary>
@@ -121,13 +120,12 @@ namespace CaiFuZhiJia_3997
             PageName[] pages =
             {
                 PageName.CaiFuZhiJiaPageGameMain,
-                PageName.CaiFuZhiJiaPopupJackpotGame,
                 PageName.CaiFuZhiJiaPopupOverWin,
                 PageName.CaiFuZhiJiaPopupJackpotWin,
                 PageName.CaiFuZhiJiaPopupFreeSpinTrigger,
                 PageName.CaiFuZhiJiaPopupFreeSpinResult,
-                PageName.CaiFuZhiJiaPopupJackpotTrigger,
-                PageName.CaiFuZhiJiaPopupJackpotResult,
+                PageName.CaiFuZhiJiaPopupSmallGameTrigger,
+                PageName.CaiFuZhiJiaPopupSmallGameResult,
             };
 
             _preloadTotal = pages.Length;
@@ -212,14 +210,15 @@ namespace CaiFuZhiJia_3997
         /// </summary>
         private void SetSliderByPreloadNormalized(float normalized01)
         {
-            if (_loadingBar == null)
+            if (_loadingSlider == null)
                 return;
             normalized01 = Mathf.Clamp01(normalized01);
-            double span = _loadingBar.max - _loadingBar.min;
+            double span = _loadingSlider.max - _loadingSlider.min;
             if (span <= 0)
                 span = 1;
-            _loadingBar.value = _loadingBar.min + span * normalized01;
+            _loadingSlider.value = _loadingSlider.min + span * normalized01;
         }
+
         
         /// <summary>
         /// 进度条取「预加载完成度」与「最短展示时间」的较小值，避免未满最短时间条已 100%。
@@ -238,67 +237,5 @@ namespace CaiFuZhiJia_3997
         {
             return Mathf.Clamp01((Time.realtimeSinceStartup - _preloadStartRealtime) / MinLoadingDisplaySeconds);
         }
-        
-        private void LoadResAsync()
-        {
-            _totalResCount = 2;
-
-            // 加载Spine动画
-            ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "Trader.prefab", (cloneObj) =>
-            {
-                _traderObj = cloneObj;
-                ResLoadedCallback();
-            });
-
-            ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "GameTitle.prefab", (cloneObj) =>
-            {
-                _gameTitleObj = cloneObj;
-                ResLoadedCallback();
-            });
-        }
-
-        // private void StartLoading()
-        // {
-        //     if (_isFirstOpen)
-        //     {
-        //         PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPageGameMain, null);
-        //         PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotGame, null);
-        //         PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupOverWin, null);
-        //         PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotWin, null);
-        //         PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupFreeSpinTrigger, null);
-        //         PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupFreeSpinResult, null);
-        //         PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotTrigger, null);
-        //         PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupJackpotResult, null);
-        //         
-        //         _isFirstOpen = false;
-        //
-        //         Debug.LogError("CaiFuZhiJia is Preloaded!");
-        //     }
-        //
-        //     if (_loadingGTween != null) _loadingGTween.Kill();
-        //     _loadingGTween = GTween.To(0, 100, Duration).SetEase(EaseType.Linear).OnUpdate((tween) =>
-        //     {
-        //         _loadingBar.value = tween.value.x;
-        //     }).OnComplete(() =>
-        //     {
-        //         CloseSelf(null);
-        //         PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPageGameMain);
-        //     });
-        // }
-
-        
-
-        // private void ResetPage()
-        // {
-        //     Object.Destroy(_cloneTraderObj);
-        //     Object.Destroy(_cloneGameTitleObj);
-        //     GameCommon.FguiUtils.DeleteWrapper(_compareTrader);
-        //     GameCommon.FguiUtils.DeleteWrapper(_compareGameTitle);
-        //
-        //     _cloneTraderObj = null;
-        //     _cloneGameTitleObj = null;
-        //     _compareTrader = null;
-        //     _compareGameTitle = null;
-        // }
     }
 }

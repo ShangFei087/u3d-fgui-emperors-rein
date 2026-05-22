@@ -336,38 +336,25 @@ public class UIConst
             {
                 "Assets/GameRes/Games/Cai Fu Zhi Men 3999/FGUIs", "CaiFuZhiMen_3999.PopupOnlineJackpot"
             },
-
-            // 财富之家
+            
+            // 财富之家 3997
             [PageName.CaiFuZhiJiaPopupGameLoading] =
                 new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupGameLoading" },
             [PageName.CaiFuZhiJiaPageGameMain] =
                 new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PageGameMain" },
-            [PageName.CaiFuZhiJiaPopupFreeSpinTrigger] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupFreeSpinTrigger"
-                },
-            [PageName.CaiFuZhiJiaPopupFreeSpinResult] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupFreeSpinResult"
-                },
-            [PageName.CaiFuZhiJiaPopupJackpotTrigger] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupJackpotTrigger"
-                },
-            [PageName.CaiFuZhiJiaPopupJackpotResult] =
-                new object[]
-                {
-                    "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupJackpotResult"
-                },
-            [PageName.CaiFuZhiJiaPopupJackpotGame] =
-                new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupJackpotGame" },
-            [PageName.CaiFuZhiJiaPopupJackpotWin] =
-                new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupJackpotWin" },
             [PageName.CaiFuZhiJiaPopupOverWin] =
                 new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupOverWin" },
+            [PageName.CaiFuZhiJiaPopupFreeSpinTrigger] =
+                new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupFreeSpinTrigger" },
+            [PageName.CaiFuZhiJiaPopupFreeSpinResult] =
+                new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupFreeSpinResult" },
+            [PageName.CaiFuZhiJiaPopupSmallGameTrigger] =
+                new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupSmallGameTrigger" },
+            [PageName.CaiFuZhiJiaPopupSmallGameResult] =
+                new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupSmallGameResult" },
+            [PageName.CaiFuZhiJiaPopupJackpotWin] =
+                new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupJackpotWin" },
+
             // 美洲黑豹
             [PageName.MeiZhouHeiBaoPopupGameLoading] =
                 new object[]
@@ -630,18 +617,17 @@ public enum PageName
     CaiFuZhiMenPopupJackpotTrigger,
     CaiFuZhiMenPopupJackpotLoad,
     CaiFuZhiMenPopupOnlineJackpot,
-
-    // 财富之家
+    
+    // 财富之家3997
     CaiFuZhiJiaPopupGameLoading,
     CaiFuZhiJiaPageGameMain,
+    CaiFuZhiJiaPopupOverWin,
     CaiFuZhiJiaPopupFreeSpinTrigger,
     CaiFuZhiJiaPopupFreeSpinResult,
-    CaiFuZhiJiaPopupJackpotTrigger,
-    CaiFuZhiJiaPopupJackpotResult,
-    CaiFuZhiJiaPopupJackpotGame,
+    CaiFuZhiJiaPopupSmallGameResult,
+    CaiFuZhiJiaPopupSmallGameTrigger,
     CaiFuZhiJiaPopupJackpotWin,
-    CaiFuZhiJiaPopupOverWin,
-
+    
     // 美洲黑豹
     MeiZhouHeiBaoPopupGameLoading,
     MeiZhouHeiBaoPageGameMain,

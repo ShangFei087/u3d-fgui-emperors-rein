@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="855,507">
+  <displayList>
+    <component id="n16_u7pz" name="elementBox_0" src="xpjv68" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbols.xml" xy="0,0"/>
+    <component id="n1_xpjv" name="elementBox_1" src="xpjv68" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbols.xml" xy="171,0"/>
+    <component id="n2_xpjv" name="elementBox_2" src="xpjv68" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbols.xml" xy="342,0"/>
+    <component id="n3_xpjv" name="elementBox_3" src="xpjv68" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbols.xml" xy="513,0"/>
+    <component id="n4_xpjv" name="elementBox_4" src="xpjv68" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbols.xml" xy="684,0"/>
+    <component id="n5_xpjv" name="elementBox_5" src="xpjv68" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbols.xml" xy="0,169"/>
+    <component id="n6_xpjv" name="elementBox_6" src="xpjv68" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbols.xml" xy="171,169"/>
+    <component id="n7_xpjv" name="elementBox_7" src="xpjv68" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbols.xml" xy="342,169"/>
+    <component id="n8_xpjv" name="elementBox_8" src="xpjv68" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbols.xml" xy="513,169"/>
+    <component id="n9_xpjv" name="elementBox_9" src="xpjv68" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbols.xml" xy="684,169"/>
+    <component id="n10_xpjv" name="elementBox_10" src="xpjv68" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbols.xml" xy="0,338"/>
+    <component id="n11_xpjv" name="elementBox_11" src="xpjv68" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbols.xml" xy="171,338"/>
+    <component id="n12_xpjv" name="elementBox_12" src="xpjv68" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbols.xml" xy="342,338"/>
+    <component id="n13_xpjv" name="elementBox_13" src="xpjv68" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbols.xml" xy="513,338"/>
+    <component id="n14_xpjv" name="elementBox_14" src="xpjv68" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbols.xml" xy="684,338"/>
+  </displayList>
+</component>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="1080,150">
-  <displayList>
-    <image id="n4_p94i" name="n4" src="p94ipq" fileName="images/popupJackpotTrigger/jsk5 1.png" xy="-2,-8" size="1086,160"/>
-    <text id="n0_hhky" name="number" xy="0,0" size="1080,150" font="ui://k5oi8hwrqirhh8" fontSize="2" color="#fefb42" align="center" vAlign="middle" autoSize="none" text="123.456.789.000.000"/>
-  </displayList>
-</component>

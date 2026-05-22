@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="960,56">
+  <displayList>
+    <image id="n1_u8to" name="n1" src="u8to4" fileName="images/popupGameLoading/laod_img_progress03.png" xy="6,2" size="946,47"/>
+    <image id="n0_u8to" name="n0" src="u8to2" fileName="images/popupGameLoading/laod_img_progress01.png" xy="0,0"/>
+  </displayList>
+</component>
