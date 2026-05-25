@@ -414,3 +414,4 @@ namespace CaiFuZhiJia_3997
         public List<WinJackpotInfo> jpOnlineWin = new List<WinJackpotInfo>();
     }
 }
+

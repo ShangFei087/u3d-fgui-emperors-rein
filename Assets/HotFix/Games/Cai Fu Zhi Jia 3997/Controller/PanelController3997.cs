@@ -5,7 +5,7 @@ namespace CaiFuZhiJia_3997
 {
     public class PanelController3997 : PanelBaseController
     {
-        protected override string PanelPackagePath => "Assets/GameRes/Panel/Cai Fu Zhi Jia 3997/FGUIs";
+        protected override string PanelPackagePath => "Assets/GameRes/Panel/Panel3997/FGUIs";
         public override void Init(EventData res = null)
         {
             base.Init(res);

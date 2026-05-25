@@ -6,14 +6,10 @@ namespace CaiFuZhiJia_3997
 {
     public class CustomModel : MonoSingleton<CustomModel>, ICustomModel
     {
-        // 卷轴上图标的宽高
-        public float symbolWidth => 170;
-        public float symbolHeight => 170;
-
-        // 卷轴行列
+        public float symbolWidth => 171;
+        public float symbolHeight => 169;
         public int column => 5;
         public int row => 3;
-
         public float reelMaxOffsetY => symbolHeight * row;
 
         /// <summary>
@@ -21,8 +17,8 @@ namespace CaiFuZhiJia_3997
         /// </summary>
         public string[] payTable => new[]
         {
-            "ui://CaiFuZhiJia/Paytable1", "ui://CaiFuZhiJia/Paytable2", "ui://CaiFuZhiJia/Paytable3",
-            "ui://CaiFuZhiJia/Paytable4", "ui://CaiFuZhiJia/Paytable5", "ui://CaiFuZhiJia/Paytable6"
+            "ui://CaiFuZhiJia/PayTable1", "ui://CaiFuZhiJia/PayTable2", "ui://CaiFuZhiJia/PayTable3",
+            "ui://CaiFuZhiJia/PayTable4", "ui://CaiFuZhiJia/PayTable5", "ui://CaiFuZhiJia/PayTable6"
         };
 
         /// <summary>
@@ -44,14 +40,8 @@ namespace CaiFuZhiJia_3997
             11
         };
 
-        /// <summary>
-        /// 所有图标的个数
-        /// </summary>
         public int symbolCount => symbolNumber.Count;
 
-        /// <summary>
-        /// 图标中奖Spine动画字典 key是图标索引 value是预制体路径
-        /// </summary>
         public Dictionary<string, string> symbolHitEffect => new Dictionary<string, string>()
         {
             { "0", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Gold_01.prefab" }, // 15 30 90
@@ -82,44 +72,29 @@ namespace CaiFuZhiJia_3997
             { "11", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Bonus_12.prefab" },
         };
 
-        /// <summary>
-        /// 中线时，播放动画效果和普通牌不一样的图标索引集合
-        /// </summary>
         public List<int> specialHitSymbols => new List<int>() { };
 
-        /// <summary>
-        /// 滚轮停止时需要播放动画的图标
-        /// </summary>
         public Dictionary<string, string> symbolAppearEffect => new Dictionary<string, string>() { };
 
-        /// <summary>
-        /// 图标中奖时，播放的粒子特效字典
-        /// </summary>
         public Dictionary<string, string> symbolExpectationEffect => new Dictionary<string, string>() { };
 
-        /// <summary>
-        /// 边框的路径
-        /// </summary>
         public string borderEffect =>
             "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/Border/JackpotFrame.prefab";
 
-        /// <summary>
-        /// 滚轴上默认图标路径
-        /// </summary>
         public Dictionary<string, string> symbolIcon => new Dictionary<string, string>()
         {
-            { "0", "ui://CaiFuZhiJia/ng_sym01_gold_com" }, // 金砖
-            { "1", "ui://CaiFuZhiJia/ng_sym02_silver_com" }, // 银砖
-            { "2", "ui://CaiFuZhiJia/ng_sym03_bar_com" }, // 一堆金砖
-            { "3", "ui://CaiFuZhiJia/ng_sym04_watch_com" }, // 怀表
-            { "4", "ui://CaiFuZhiJia/ng_sym05_dollar_com" }, // 纸币
-            { "5", "ui://CaiFuZhiJia/ng_sym06_ring_com" }, // 钻戒
-            { "6", "ui://CaiFuZhiJia/ng_sym07_car_com" }, // 跑车
-            { "7", "ui://CaiFuZhiJia/ng_sym08_ships_com" }, // 游艇
-            { "8", "ui://CaiFuZhiJia/ng_sym09_planes_com" }, // 飞机
-            { "9", "ui://CaiFuZhiJia/ng_sym10_wild_com" }, // WILD
-            { "10", "ui://CaiFuZhiJia/ng_sym11_scatter_com" }, // Scatter
-            { "11", "ui://CaiFuZhiJia/ng_sym_bonus_com" }, // Bonus
+            { "0", "ui://CaiFuZhiJia/ng_sym01_gold" }, // 金砖
+            { "1", "ui://CaiFuZhiJia/ng_sym02_silver" }, // 银砖
+            { "2", "ui://CaiFuZhiJia/ng_sym03_bar" }, // 一堆金砖
+            { "3", "ui://CaiFuZhiJia/ng_sym04_watch" }, // 怀表
+            { "4", "ui://CaiFuZhiJia/ng_sym05_dollar" }, // 纸币
+            { "5", "ui://CaiFuZhiJia/ng_sym06_ring" }, // 钻戒
+            { "6", "ui://CaiFuZhiJia/ng_sym07_car" }, // 跑车
+            { "7", "ui://CaiFuZhiJia/ng_sym08_ships" }, // 游艇
+            { "8", "ui://CaiFuZhiJia/ng_sym09_planes" }, // 飞机
+            { "9", "ui://CaiFuZhiJia/ng_sym10_wild" }, // WILD
+            { "10", "ui://CaiFuZhiJia/ng_sym11_scatter" }, // Scatter
+            { "11", "ui://CaiFuZhiJia/ng_sym_bonus" }, // Bonus
         };
 
         public List<PayTableSymbolInfo> payTableSymbolWin { get; set; } = new List<PayTableSymbolInfo>()
@@ -388,9 +363,7 @@ namespace CaiFuZhiJia_3997
 
         public List<WinMultiple> winLevelMultiple { get; set; } = new List<WinMultiple>()
         {
-            new WinMultiple("BIG", 5),
-            new WinMultiple("HUGE", 10),
-            new WinMultiple("MASSIVE", 20),
+            new WinMultiple("BIG", 5), new WinMultiple("HUGE", 10), new WinMultiple("MASSIVE", 20),
         };
 
         public FreeGameConfig FreeGameConfig { get; } = new FreeGameConfig()
@@ -409,44 +382,6 @@ namespace CaiFuZhiJia_3997
             BonusGameType = MakeBonusGameType.OnBonus, // 触发大奖方式
             IsBonusInLine = false, //Bonus图标是否依赖中奖线
             Make2BonusGameCount = 6, //触发大奖所需数量(Bonus图标)
-        };
-
-        /// <summary>
-        /// 彩金和大奖游戏的滚动钻石背景路径
-        /// </summary>
-        public List<string> JackpotBgPath { get; } = new List<string>()
-        {
-            "ui://CaiFuZhiJia/ng_null",
-            "ui://CaiFuZhiJia/ng_null",
-            "ui://CaiFuZhiJia/ng_sym_diamonds2",
-            "ui://CaiFuZhiJia/ng_null",
-            "ui://CaiFuZhiJia/ng_null",
-            "ui://CaiFuZhiJia/ng_null",
-            "ui://CaiFuZhiJia/ng_null",
-            "ui://CaiFuZhiJia/ng_null",
-            "ui://CaiFuZhiJia/ng_null",
-            "ui://CaiFuZhiJia/ng_null",
-            "ui://CaiFuZhiJia/ng_null",
-            "ui://CaiFuZhiJia/ng_sym_diamonds",
-            "ui://CaiFuZhiJia/ng_sym_diamonds2",
-            "ui://CaiFuZhiJia/ng_sym_diamonds2",
-            "ui://CaiFuZhiJia/ng_sym_diamonds2",
-            "ui://CaiFuZhiJia/ng_sym_diamonds2",
-            "ui://CaiFuZhiJia/ng_sym_diamonds2",
-            "ui://CaiFuZhiJia/ng_sym_diamonds2",
-            "ui://CaiFuZhiJia/ng_sym_diamonds2",
-            "ui://CaiFuZhiJia/ng_sym_diamonds2",
-            "ui://CaiFuZhiJia/ng_sym_diamonds4",
-            "ui://CaiFuZhiJia/ng_sym_diamonds3",
-            "ui://CaiFuZhiJia/ng_sym_diamonds6",
-        };
-
-        public List<string> JackpotTypePath { get; } = new List<string>()
-        {
-            "ui://CaiFuZhiJia/ng_sym_diamonds",
-            "ui://CaiFuZhiJia/ng_sym_diamonds4",
-            "ui://CaiFuZhiJia/ng_sym_diamonds3",
-            "ui://CaiFuZhiJia/ng_sym_diamonds6",
         };
     }
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="187,152" extention="Button">
+  <controller name="button" pages="0,spin,1,stop,2,auto,3,hui" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="stop"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="spin"/>
+    <action type="play_transition" fromPage="" toPage="2" transition="auto"/>
+    <action type="play_transition" fromPage="" toPage="3" transition="hui"/>
+  </controller>
+  <displayList>
+    <image id="n0_u8to" name="n4" src="u8tow" fileName="images/spin/pb_img_button.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <loader id="n1_u8to" name="n0" xy="0,0" size="187,152" visible="false" url="ui://9igt9u8mu8tow"/>
+    <component id="n2_u8to" name="anchorSpin" src="u8to12" fileName="moudules/panel/anchorSpin.xml" xy="94,76"/>
+    <loader id="n4_u8to" name="n1" xy="30,21" size="128,81" url="ui://9igt9u8mu8toz" autoSize="true"/>
+    <image id="n5_u8to" name="untouch" src="u8tox" fileName="images/spin/pb_img_button_grey.png" xy="0,0" visible="false" alpha="0.6" color="#000000"/>
+  </displayList>
+  <Button/>
+  <transition name="spin">
+    <item time="0" type="Icon" target="n1_u8to" value="ui://9igt9u8mu8tow"/>
+    <item time="0" type="Icon" target="n4_u8to" value="ui://9igt9u8mu8toz"/>
+    <item time="0" type="Visible" target="n5_u8to" value="false"/>
+    <item time="0" type="XY" target="n4_u8to" value="30,21"/>
+  </transition>
+  <transition name="stop">
+    <item time="0" type="Icon" target="n1_u8to" value="ui://9igt9u8mu8tow"/>
+    <item time="0" type="Icon" target="n4_u8to" value="ui://9igt9u8mu8to10"/>
+    <item time="0" type="XY" target="n4_u8to" value="30,30"/>
+  </transition>
+  <transition name="auto">
+    <item time="0" type="Icon" target="n1_u8to" value="ui://9igt9u8mu8tow"/>
+    <item time="0" type="Icon" target="n4_u8to" value="ui://9igt9u8mu8toy"/>
+    <item time="0" type="Visible" target="n5_u8to" value="false"/>
+    <item time="0" type="XY" target="n4_u8to" value="12,22"/>
+  </transition>
+  <transition name="hui">
+    <item time="0" type="Visible" target="n5_u8to" value="true"/>
+  </transition>
+</component>

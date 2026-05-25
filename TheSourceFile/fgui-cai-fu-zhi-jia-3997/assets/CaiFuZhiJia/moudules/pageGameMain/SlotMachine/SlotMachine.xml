@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="855,507">
+  <displayList>
+    <component id="n0_u8to" name="reels" src="u8to2v" fileName="moudules/pageGameMain/SlotMachine/Reels.xml" xy="0,0"/>
+    <component id="n1_u8to" name="slotCover" src="u8to2w" fileName="moudules/pageGameMain/SlotMachine/SlotCover.xml" xy="0,0"/>
+    <component id="n2_u8to" name="playLines" src="u8to2x" fileName="moudules/pageGameMain/SlotMachine/AnchorPlayLines.xml" xy="0,0"/>
+  </displayList>
+</component>

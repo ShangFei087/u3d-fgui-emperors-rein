@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_gg7g" name="goldPurpleEffect" src="gg7g5t" fileName="moudules/popupFreeSpinTrigger/goldPurpleEffect.xml" xy="540,960"/>
+    <component id="n2_gg7g" name="dollarSpine" src="gg7g5s" fileName="moudules/popupFreeSpinTrigger/dollarSpine.xml" xy="540,960"/>
+    <component id="n0_gg7g" name="freeTipWindow" src="gg7g5k" fileName="moudules/popupFreeSpinTrigger/freeTipWindow.xml" xy="0,0"/>
+  </displayList>
+</component>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="362,117">
+  <displayList>
+    <image id="n1_u8to" name="n2" src="u8to32" fileName="images/common/gameJackpots/ng_frame_mini.png" xy="0,48" size="362,68"/>
+    <list id="n2_u8to" name="n1" xy="36,57" size="297,41" layout="row" overflow="scroll" defaultItem="ui://92trhum6u8to3a" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <image id="n0_u8to" name="n0" src="u8to35" fileName="images/common/gameJackpots/ng_txt_mini_1(1).png" xy="184,26" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>

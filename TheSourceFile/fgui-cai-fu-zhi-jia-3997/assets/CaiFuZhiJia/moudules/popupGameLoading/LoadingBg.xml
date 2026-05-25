@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" overflow="hidden" designImage="ui://92trhum6u8toa">
+  <displayList>
+    <image id="n0_u8to" name="n0" src="u8to7" fileName="images/popupGameLoading/load_img_bg02.png" xy="0,0"/>
+    <image id="n1_u8to" name="n1" src="u8to6" fileName="images/popupGameLoading/load_img_bg01.png" xy="-56,657"/>
+    <image id="n2_u8to" name="n2" src="u8to5" fileName="images/popupGameLoading/load_img_bg.png" xy="-1,1168"/>
+  </displayList>
+</component>

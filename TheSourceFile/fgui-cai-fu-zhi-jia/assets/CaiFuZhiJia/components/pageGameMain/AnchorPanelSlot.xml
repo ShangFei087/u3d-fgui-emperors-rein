@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="1,1">
-  <displayList>
-    <loader id="n0_n3ln" name="icon" xy="0,0" pivot="0.5,0.5" anchor="true" size="1080,235" url="ui://Panel01/Panel" autoSize="true" clearOnPublish="true"/>
-  </displayList>
-</component>

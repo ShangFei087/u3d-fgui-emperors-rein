@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="187,152">
-  <displayList>
-    <image id="n3_j5q1" name="n3" src="j5q1q6" fileName="images/spin按钮/pb_img_button.png" xy="0,0"/>
-    <image id="n4_j5q1" name="n4" src="j5q1q2" fileName="images/spin按钮/pb_txt_stop.png" xy="93,57" pivot="0.5,0.5" anchor="true"/>
-    <image id="n5_j5q1" name="n5" src="j5q1q8" fileName="images/spin按钮/pb_img_button_grey.png" xy="0,0" alpha="0.6" color="#000000"/>
-  </displayList>
-</component>

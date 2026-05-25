@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="374,142">
+  <displayList>
+    <image id="n1_u8to" name="n1" src="u8to2e" fileName="images/pageGameMain/smallGameBg/k.png" xy="0,0"/>
+    <component id="n5_xpjv" name="anchorWarn" src="xpjv6b" fileName="moudules/pageGameMain/SmallGame/anchorSmallGameWarn.xml" xy="185,56"/>
+    <image id="n2_u8to" name="n2" src="u8to2g" fileName="images/pageGameMain/smallGameBg/sg_txt_spins left.png" xy="101,50"/>
+    <text id="n3_u8to" name="smallGameCount" xy="28,32" size="67,66" font="ui://92trhum6u8to1q" fontSize="15" align="center" vAlign="middle" autoSize="none" text="3"/>
+    <component id="n4_xpjv" name="anchorFrameLoss" src="xpjv6c" fileName="moudules/pageGameMain/SmallGame/anchorSmallGameLoss.xml" xy="186,55"/>
+  </displayList>
+</component>

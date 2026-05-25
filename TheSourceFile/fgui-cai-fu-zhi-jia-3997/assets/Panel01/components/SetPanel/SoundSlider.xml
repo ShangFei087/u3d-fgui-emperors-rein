@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="215,51" extention="Slider">
+  <displayList>
+    <component id="n0_u8to" name="n0" src="u8to22" fileName="moudules/setPanel/SoundSliderBg.xml" xy="0,0" size="215,51">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n1_u8to" name="bar" src="u8to1v" fileName="images/setPanel/pb_img_music04.png" xy="5,18" size="198,16"/>
+    <component id="n2_u8to" name="grip" src="u8to23" fileName="components/SetPanel/SoundSlider_grip.xml" xy="190,12">
+      <relation target="n1_u8to" sidePair="right-right"/>
+    </component>
+  </displayList>
+  <Slider/>
+</component>

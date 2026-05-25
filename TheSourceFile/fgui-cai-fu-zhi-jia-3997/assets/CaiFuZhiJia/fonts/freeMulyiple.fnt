@@ -1,0 +1,12 @@
+info size=12 resizable=true colored=false
+char id=48 img=u8tot xoffset=0 yoffset=0 xadvance=0
+char id=49 img=u8tou xoffset=0 yoffset=0 xadvance=0
+char id=50 img=u8tov xoffset=0 yoffset=0 xadvance=0
+char id=51 img=u8tow xoffset=0 yoffset=0 xadvance=0
+char id=52 img=u8tox xoffset=0 yoffset=0 xadvance=0
+char id=53 img=u8toy xoffset=0 yoffset=0 xadvance=0
+char id=54 img=u8toz xoffset=0 yoffset=0 xadvance=0
+char id=55 img=u8to10 xoffset=0 yoffset=0 xadvance=0
+char id=56 img=u8to11 xoffset=0 yoffset=0 xadvance=0
+char id=57 img=u8to12 xoffset=0 yoffset=0 xadvance=0
+char id=120 img=u8to13 xoffset=0 yoffset=0 xadvance=0

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,995" overflow="hidden">
+  <displayList>
+    <image id="n0_u8to" name="n0" src="u8to1v" fileName="images/pageGameMain/freeBg/ng_img_frame06.png" xy="-18,147"/>
+    <component id="n7_gg7g" name="anchorVideo" src="gg7g5e" fileName="moudules/pageGameMain/free/anchorVideo.xml" xy="188,77"/>
+    <image id="n1_u8to" name="n1" src="u8to1y" fileName="images/pageGameMain/freeBg/ng_img_frame09.png" xy="844,166"/>
+    <image id="n2_u8to" name="n2" src="u8to1x" fileName="images/pageGameMain/freeBg/ng_img_frame08.png" xy="664,160"/>
+    <image id="n3_u8to" name="n3" src="u8to1w" fileName="images/pageGameMain/freeBg/ng_img_frame07.png" xy="350,156"/>
+    <component id="n11_gg7g" name="anchorFire" src="gg7g5g" fileName="moudules/pageGameMain/free/anchorFire.xml" xy="186,84"/>
+    <image id="n5_gg7g" name="n5" src="u8to1s" fileName="images/pageGameMain/freeBg/fg_txt_win_MULTIPLE.png" xy="103,0"/>
+    <text id="n6_gg7g" name="multipleNumber" xy="105,42" size="160,93" font="ui://92trhum6u8to1p" fontSize="10" align="center" vAlign="middle" autoSize="shrink" text="x2"/>
+    <component id="n8_gg7g" name="anchorMask" src="gg7g5f" fileName="moudules/pageGameMain/free/anchorMask.xml" xy="187,77"/>
+  </displayList>
+</component>

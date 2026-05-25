@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="215,51">
+  <displayList>
+    <image id="n0_u8to" name="n0" src="u8to1x" fileName="images/setPanel/pb_img_music06.png" xy="0,0" size="215,51"/>
+    <image id="n1_u8to" name="n1" src="u8to1u" fileName="images/setPanel/pb_img_music03.png" xy="3,16" size="210,20"/>
+  </displayList>
+</component>

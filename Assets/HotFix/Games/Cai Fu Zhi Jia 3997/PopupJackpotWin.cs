@@ -1,7 +1,6 @@
 using FairyGUI;
 using GameMaker;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -24,7 +23,7 @@ namespace CaiFuZhiJia_3997
 
         private GButton _collectBtn;
         private GTextField _winBetText;
-        
+
         // ========== 新增：记录原始父节点，用于还原 ==========
         private Transform _winCollectBtnOriginalParent = null;
         private Vector3 _winCollectBtnOriginalPos;
@@ -33,21 +32,27 @@ namespace CaiFuZhiJia_3997
         private Vector3 _jackpotWinBetOriginalPos;
         private Vector3 _jackpotWinBetOriginalScale;
         // ========== 新增结束 ==========
-        
+
         private bool _isClicked = false;
+
+        private EventData _jackpotData;
+        private TimerCallback _delayVisibleCallback;
 
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            _collectBtn = contentPane.GetChild("winCollectBtn").asButton;
-            _winBetText = contentPane.GetChild("jackpotWinBet").asTextField;
-
-
             _totalCount = 1;
-            LoadAsyncRes();
-            
+            // 加载Spine
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                SpinePrefabPath + "JackpotWin.prefab",
+                (clone) =>
+                {
+                    _jackpotWinObj = clone;
+                    ResLoadedCallback();
+                });
+
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
                 shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
@@ -64,60 +69,20 @@ namespace CaiFuZhiJia_3997
                 }
             };
         }
-        
-        private void OnClickSpinButton(EventData res)
-        {
-            if(_isClicked)return;
-            _isClicked = true;
-            CloseSelf(null);
-        }
 
-        public override void InitParam()
+        public void InitParam(EventData eventData)
         {
+            if (eventData != null) _jackpotData = eventData;
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
             _isClicked = false;
-            BindPrefabsToUI();
-            BindAnimatorToUI();
-            ShowWinBet();
-        }
 
-        public override void OnOpen(PageName currentPageName, EventData eventData)
-        {
-            base.OnOpen(currentPageName, eventData);
-            InitParam();
-        }
-
-        public override void OnClose(EventData eventData = null)
-        {
-            base.OnClose(eventData);
-            ResetView();
-        }
-
-        private void ResLoadedCallback()
-        {
-            if (--_totalCount == 0)
-            {
-                _isInitialized = true;
-                InitParam();
-            }
-        }
-
-        private void LoadAsyncRes()
-        {
-            // 加载Spine
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                SpinePrefabPath + "JackpotWin.prefab",
-                (clone) =>
-                {
-                    _jackpotWinObj = clone;
-                    ResLoadedCallback();
-                });
-        }
-
-        private void BindPrefabsToUI()
-        {
+            _collectBtn = contentPane.GetChild("winCollectBtn").asButton;
+            _winBetText = contentPane.GetChild("jackpotWinBet").asTextField;
+            _collectBtn.visible = false;
+            _winBetText.visible = false;
+            
             // Spine
             GComponent currentGCom = contentPane.GetChild("anchor_JackpotWin").asCom;
             if (currentGCom != _compareJackpotWinGCom)
@@ -125,45 +90,43 @@ namespace CaiFuZhiJia_3997
                 GameCommon.FguiUtils.DeleteWrapper(_compareJackpotWinGCom);
                 _compareJackpotWinGCom = currentGCom;
                 _cloneJackpotWinObj = Object.Instantiate(_jackpotWinObj);
-                _cloneJackpotWinObj.transform.GetChild(0).GetChild(ContentModel.Instance.currentJpSpineIndex).gameObject
-                    .SetActive(true);
-
-                // _cloneJackpotWinObj.transform.GetChild(0).GetChild(3).gameObject.SetActive(true);
                 GameCommon.FguiUtils.AddWrapper(_compareJackpotWinGCom, _cloneJackpotWinObj);
             }
-        }
 
-        // private void BindAnimatorToUI()
-        // {
-        //     GameObject parentObj = _cloneJackpotWinObj.transform.GetChild(0).GetChild(ContentModel.Instance.currentJpSpineIndex).gameObject;
-        //     string parentPath = $"anim/01/btn";
-        //     Transform animatorParent = parentObj.transform.Find(parentPath);
-        //     GObject gObject = contentPane.GetChild("winCollectBtn");
-        //     if (gObject?.displayObject?.gameObject != null)
-        //     {
-        //         Transform t = gObject.displayObject.gameObject.transform;
-        //         t.SetParent(animatorParent, false);
-        //         t.localPosition = new Vector3(-1.61f, 0.34f, 0);
-        //         t.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-        //     }
-        //
-        //     parentPath = $"anim/01/num";
-        //     animatorParent = parentObj.transform.Find(parentPath);
-        //     gObject = contentPane.GetChild("jackpotWinBet");
-        //     if (gObject?.displayObject?.gameObject != null)
-        //     {
-        //         Transform t = gObject.displayObject.gameObject.transform;
-        //         t.SetParent(animatorParent, false);
-        //         t.localPosition = new Vector3(-1.76f, 0.85f, 0);
-        //         t.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-        //     }
-        // }
-        
-        private void BindAnimatorToUI()
-        {
+            int type = -1;
+            if (_jackpotData is { value: Dictionary<string, object> args })
+            {
+                for (int i = 0; i < _cloneJackpotWinObj.transform.GetChild(0).childCount; i++)
+                {
+                    _cloneJackpotWinObj.transform.GetChild(0).GetChild(i).gameObject
+                        .SetActive(i == int.Parse(args["jackpotWinType"].ToString()));
+                }
+
+                type = int.Parse(args["jackpotWinType"].ToString());
+                _winBetText.text = args["jackpotWinBet"].ToString();
+            }
+
+            RemoveTimer(ref _delayVisibleCallback);
+
+            _delayVisibleCallback = (obj) =>
+            {
+                _winBetText.visible = true;
+                _collectBtn.visible = true;
+                if (TestManager.Instance.IsAutoModeRunning && _collectBtn != null && _collectBtn.visible)
+                {
+                    _collectBtn.onClick.Call();
+                }
+
+                _delayVisibleCallback = null;
+            };
+            Timers.inst.Add(0.5f, 1, _delayVisibleCallback);
+            _collectBtn.onClick.Clear();
+            _collectBtn.onClick.Add(() => OnClickSpinButton(eventData));
+
+            
+
             // ========== 修改：绑定前先记录原始状态，方便后续还原 ==========
-
-            GameObject parentObj = _cloneJackpotWinObj.transform.GetChild(0).GetChild(ContentModel.Instance.currentJpSpineIndex).gameObject;
+            GameObject parentObj = _cloneJackpotWinObj.transform.GetChild(0).GetChild(type).gameObject;
             string parentPath = $"anim/01/btn";
             Transform animatorParent = parentObj.transform.Find(parentPath);
             GObject gObject = contentPane.GetChild("winCollectBtn");
@@ -203,11 +166,18 @@ namespace CaiFuZhiJia_3997
             }
         }
 
-        // ========== 新增：还原 FGUI UI 元素到原始父节点 ==========
-        private void RestoreUIElements()
+        public override void OnOpen(PageName currentPageName, EventData eventData)
         {
-            if (contentPane == null) return;
+            base.OnOpen(currentPageName, eventData);
+            InitParam(eventData);
+        }
 
+        public override void OnClose(EventData eventData = null)
+        {
+            base.OnClose(eventData);
+            RemoveTimer(ref _delayVisibleCallback);
+
+            if (contentPane == null) return;
             GObject gObject = contentPane.GetChild("winCollectBtn");
             if (gObject?.displayObject?.gameObject != null && _winCollectBtnOriginalParent != null)
             {
@@ -225,38 +195,33 @@ namespace CaiFuZhiJia_3997
                 t.localPosition = _jackpotWinBetOriginalPos;
                 t.localScale = _jackpotWinBetOriginalScale;
             }
-        }
-        // ========== 新增结束 ==========
 
-        private void ShowWinBet()
-        {
-            _collectBtn.visible = false;
-            _winBetText.visible = false;
-            Timers.inst.Add(0.5f, 1, (obj) =>
-            {
-                _winBetText.visible = true;
-                _collectBtn.visible = true;
-                _winBetText.text = ContentModel.Instance.currentShowJpBet.ToString();
-
-                if (TestManager.Instance.IsAutoModeRunning && _collectBtn != null && _collectBtn.visible)
-                {
-                    _collectBtn.onClick.Call();
-                }
-            });
-
-            _collectBtn.onClick.Add((() =>
-            {
-                OnClickSpinButton(null);
-            }));
+            _winCollectBtnOriginalParent = null;
+            _jackpotWinBetOriginalParent = null;
         }
 
-        private void ResetView()
+        private void OnClickSpinButton(EventData res)
         {
-            RestoreUIElements();
-            GameCommon.FguiUtils.DeleteWrapper(_compareJackpotWinGCom);
-            _compareJackpotWinGCom = null;
-            Object.Destroy(_cloneJackpotWinObj);
-            _cloneJackpotWinObj = null;
+            if (_isClicked) return;
+            _isClicked = true;
+            CloseSelf(null);
+        }
+
+        private void ResLoadedCallback()
+        {
+            if (--_totalCount == 0)
+            {
+                _isInitialized = true;
+                InitParam(null);
+            }
+        }
+
+        private void RemoveTimer(ref TimerCallback timerCallback)
+        {
+            if (timerCallback == null) return;
+
+            Timers.inst.Remove(timerCallback);
+            timerCallback = null;
         }
     }
 }

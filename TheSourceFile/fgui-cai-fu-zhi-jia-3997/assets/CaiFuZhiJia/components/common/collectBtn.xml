@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="334,76" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_gg7g" name="n0" src="gg7g5m" fileName="images/common/gameButton/fg_bth_button.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_gg7g" name="n1" src="gg7g5o" fileName="images/common/gameButton/sg_txt_collect.png" xy="169,39" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.8"/>
+</component>

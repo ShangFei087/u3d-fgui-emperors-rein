@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5986993969715332128}
-  - component: {fileID: 860108513105683225}
+  - component: {fileID: 3686049112098755092}
   m_Layer: 0
   m_Name: Slot Machine
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 9121253667507602002}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &860108513105683225
+--- !u!114 &3686049112098755092
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,13 +41,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 59560507061943644}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 571b9f3a6544a6644a60cdce34da1fa5, type: 3}
+  m_Script: {fileID: 11500000, guid: 70af90fb5122d0940aacbfdca5db2e99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fguiPoolHelper: {fileID: 0}
   fguiGObjectPoolHelper: {fileID: 0}
   reels: []
   isStopImmediately: 0
+  isIdleEffect: 0
   bufferTop: 1
   bufferButton: 4
   column: 0
@@ -150,7 +151,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7783678246163579635}
-  - component: {fileID: 4984354438372429254}
+  - component: {fileID: 8758916340312528962}
   m_Layer: 0
   m_Name: Custom Model
   m_TagString: Untagged
@@ -172,7 +173,7 @@ Transform:
   m_Father: {fileID: 3389903912609912426}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4984354438372429254
+--- !u!114 &8758916340312528962
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,7 +182,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2680199517803738599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7931ce42f8ee8a4cb201360f604deb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fea4c9e1b76bf349810f925d0cdd02a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2770122929947129062
@@ -193,7 +194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4580940290949575955}
-  - component: {fileID: 2954215596695829409}
+  - component: {fileID: 4190681895072422943}
   m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
@@ -215,7 +216,7 @@ Transform:
   m_Father: {fileID: 9121253667507602002}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2954215596695829409
+--- !u!114 &4190681895072422943
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -224,7 +225,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2770122929947129062}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97da992ba2342f545bc7a7e50bd4b4b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 28d5dda7c1b8024459dc9f852ac3ccb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IntroduceIndex: 0
@@ -475,7 +476,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 420627883405407275}
-  - component: {fileID: 4301112352808738559}
+  - component: {fileID: 985229877510107987}
   m_Layer: 0
   m_Name: Sound Model
   m_TagString: Untagged
@@ -497,7 +498,7 @@ Transform:
   m_Father: {fileID: 3389903912609912426}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4301112352808738559
+--- !u!114 &985229877510107987
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -506,7 +507,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5005064476924377802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a95a618524fea664cba14ee1f6f1c01f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f2f07e82aaf50844a9ac673152de45b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5432206287340211944
@@ -748,7 +749,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8051518703811744306}
-  - component: {fileID: 2998034804096610082}
+  - component: {fileID: 5849018963265201958}
   m_Layer: 0
   m_Name: Content Model
   m_TagString: Untagged
@@ -770,7 +771,7 @@ Transform:
   m_Father: {fileID: 3389903912609912426}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2998034804096610082
+--- !u!114 &5849018963265201958
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -779,20 +780,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 7008128455909642495}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5c3ee514bd6ba244bb9426c38d39119, type: 3}
+  m_Script: {fileID: 11500000, guid: 86b8daf43e4d88e4888add788bf0f80a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseGameWinCredit: 0
+  isFreeSlotTip: 0
+  isCloseOverWinPanel: 0
   response: 
   strDeckRowCol: 
   winList: []
   isFreeSpinTrigger: 0
   isFreeSpinResult: 0
   isFreeSpinAdd: 0
+  currentWinBet: 0
   freeSpinAddNum: 0
   isBonus1: 0
   hitBallCount: 0
   isHitJackpotGame: 0
+  isHaveWildSymbol: 0
+  noWinCount: 0
+  currentWildList: []
   totalBonusReward: 0
+  jpBetArray: []
+  jpTypeArray: []
+  currentShowJpBet: 0
+  currentJpSpineIndex: -1
+  currentJpIndexList: 
+  currentBonusDataList: []
+  normalWinBet: 0
   curReelStripsIndex: BS
   nextReelStripsIndex: BS
   totalEarnCoins: 0
@@ -803,6 +818,7 @@ MonoBehaviour:
   curGameNumber: 0
   gameNumberFreeSpinTrigger: 0
   freeSpinTotalWinCoins: 0
+  isPowerTrigger: 0
   isReelsSlowMotion: 0
   winFreeSpinTriggerOrAddCopy:
     earnCredit: 0
@@ -819,6 +835,7 @@ MonoBehaviour:
   - 2600
   isWinning: 0
   mTotalBet: 0
+  m_BetMultiple: 0
   mBtnSpinState: Stop
   mUIGrandJp:
     name: JPGrand
@@ -985,7 +1002,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7086997029639361276}
-  - component: {fileID: 8311793142211322870}
+  - component: {fileID: 732345798406635632}
   m_Layer: 0
   m_Name: DataController
   m_TagString: Untagged
@@ -1007,7 +1024,7 @@ Transform:
   m_Father: {fileID: 9121253667507602002}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8311793142211322870
+--- !u!114 &732345798406635632
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1016,7 +1033,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7760977251049587530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f73b8ea39b24fe4294489541ba62851, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e68d7244c47e2545a69856fa6e9142e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7803942158328705364

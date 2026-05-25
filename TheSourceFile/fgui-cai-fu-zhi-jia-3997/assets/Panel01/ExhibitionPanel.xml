@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1200">
+  <displayList>
+    <component id="n1_u8to" name="reel1" src="u8to2e" fileName="moudules/exhibitionMode/ReelBtn.xml" xy="160,542"/>
+    <component id="n2_u8to" name="reel2" src="u8to2e" fileName="moudules/exhibitionMode/ReelBtn.xml" xy="330,542"/>
+    <component id="n3_u8to" name="reel3" src="u8to2e" fileName="moudules/exhibitionMode/ReelBtn.xml" xy="500,542"/>
+    <component id="n4_u8to" name="reel4" src="u8to2e" fileName="moudules/exhibitionMode/ReelBtn.xml" xy="670,542"/>
+    <component id="n5_u8to" name="reel5" src="u8to2e" fileName="moudules/exhibitionMode/ReelBtn.xml" xy="850,542"/>
+    <component id="n0_u8to" name="btnExhibition" src="u8to2c" fileName="components/Panel/ButtonExhibition.xml" xy="35,-200"/>
+  </displayList>
+</component>
