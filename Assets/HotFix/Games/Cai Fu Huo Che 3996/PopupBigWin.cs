@@ -159,13 +159,13 @@ namespace CaiFuHuoChe_3996
             bigWinAnim.Play(WinOpenString[0]);
             if (!TempDisableBigWinEffectLists)
             {
-                //for (int i = 0; i < EffectLists[0].Count; i++)
-                //{
-                //    PlayChildEffectAnim(EffectLists[0][i]);
-                //}
+                for (int i = 0; i < EffectLists[0].Count; i++)
+                {
+                    PlayChildEffectAnim(EffectLists[0][i]);
+                }
                 //特效优化:减少粒子特效
-                PlayChildEffectAnim(EffectLists[0][1]);
-                PlayChildEffectAnim(EffectLists[0][2]);
+                //PlayChildEffectAnim(EffectLists[0][1]);
+                //PlayChildEffectAnim(EffectLists[0][2]);
             }
 
             ShowAni();
@@ -198,13 +198,13 @@ namespace CaiFuHuoChe_3996
                     bigWinAnim.Play(WinOpenString[playCount]);
                     if (!TempDisableBigWinEffectLists)
                     {
-                        //for (int i = 0; i < EffectLists[playCount].Count; i++)
+                        //for (int i = 0; i < effectlists[playcount].count; i++)
                         //{
-                        //    PlayChildEffectAnim(EffectLists[playCount][i]);
+                        //    playchildeffectanim(effectlists[playcount][i]);
                         //}
                         //减少粒子特效
-                        PlayChildEffectAnim(EffectLists[playCount][1]);
-                        PlayChildEffectAnim(EffectLists[playCount][2]);
+                        //PlayChildEffectAnim(EffectLists[playCount][1]);
+                        //PlayChildEffectAnim(EffectLists[playCount][2]);
                     }
                     //animatorBigWin.Update(0f);
                     // 仅最后一档再计时结束，避免 WinIndex>=2 时重复注册 inner 导致多次 AniEnd / 最后一档展示时间过短
