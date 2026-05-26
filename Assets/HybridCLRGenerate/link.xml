@@ -106,6 +106,7 @@
     <type fullname="System.Diagnostics.PerformanceCounter" preserve="all" />
     <type fullname="System.Diagnostics.Process" preserve="all" />
     <type fullname="System.Diagnostics.Stopwatch" preserve="all" />
+    <type fullname="System.IO.Compression.CompressionLevel" preserve="all" />
     <type fullname="System.Net.Dns" preserve="all" />
     <type fullname="System.Net.EndPoint" preserve="all" />
     <type fullname="System.Net.HttpWebRequest" preserve="all" />
@@ -160,6 +161,11 @@
     <type fullname="System.Data.IDbCommand" preserve="all" />
     <type fullname="System.Data.IDbConnection" preserve="all" />
     <type fullname="System.Data.InternalDataCollectionBase" preserve="all" />
+  </assembly>
+  <assembly fullname="System.IO.Compression">
+    <type fullname="System.IO.Compression.ZipArchive" preserve="all" />
+    <type fullname="System.IO.Compression.ZipArchiveEntry" preserve="all" />
+    <type fullname="System.IO.Compression.ZipArchiveMode" preserve="all" />
   </assembly>
   <assembly fullname="System.Xml">
     <type fullname="System.Xml.Serialization.XmlTypeAttribute" preserve="all" />

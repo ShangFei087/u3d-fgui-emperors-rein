@@ -54,6 +54,7 @@ namespace CaiFuZhiJia_3997
         private bool _isClicked = false;
         private GameSoundController3997 _gameSoundController;
         private TimerCallback _delayCloseCallback;
+        private TimerCallback _autoClickCallback;
 
 
         protected override void OnInit()
@@ -113,6 +114,7 @@ namespace CaiFuZhiJia_3997
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
             _isClicked = false;
+            RemoveTimer(ref _autoClickCallback);
             
             // --------------------- 获取UI组件 ------------------------
             _jackpotResultTipWindow = contentPane.GetChild("jackpotResultTipWindow").asCom;
@@ -201,6 +203,20 @@ namespace CaiFuZhiJia_3997
             // ----------------------- 按钮点击事件 -------------------------
             _jackpotResultButton.onClick.Clear();
             _jackpotResultButton.onClick.Add(() => OnClickSpinButton(null));
+
+            if (TestManager.Instance.IsAutoModeRunning)
+            {
+                _autoClickCallback = (obj) =>
+                {
+                    if (_jackpotResultButton != null && _jackpotResultTipWindow != null &&
+                        _jackpotResultTipWindow.visible && isOpen)
+                    {
+                        _jackpotResultButton.onClick.Call();
+                    }
+                    _autoClickCallback = null;
+                };
+                Timers.inst.Add(3.0f, 1, _autoClickCallback);
+            }
         }
 
 
@@ -244,6 +260,7 @@ namespace CaiFuZhiJia_3997
             _gameSoundController?.Dispose();
             _gameSoundController = null;
             
+            RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _delayCloseCallback);
             
             _jackpotResultTipWindow.visible = true;

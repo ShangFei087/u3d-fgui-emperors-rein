@@ -1,15 +1,15 @@
 {
-  "updated_at": 1779182618180,
+  "updated_at": 1779764422516,
   "hotfix_key": "hf_debug_android_20260507201907",
-  "hotfix_version": "1.2.41",
+  "hotfix_version": "1.2.45",
   "asset_bundle": {
     "manifest": {
-      "hash": "c9659b48b35ee41a7bf4224f3fbfea6e",
-      "size_bytes": 27278
+      "hash": "a44e71eb1a2b06a10004478ae21204fd",
+      "size_bytes": 27383
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
-      "_common/game maker/abs/datas/tmg_custom_button.unity3d": "7149f88e708e43ec9879608f1d0f2959",
+      "_common/game maker/abs/datas/tmg_custom_button.unity3d": "67ddb66074e726c78eec18ccc44f677f",
       "_common/game maker/abs/datas/tmg_page.unity3d": "f0ee8658cde2e8ed4687aa67bfecbaa8",
       "_common/game maker/abs/g152/datas/game_info_g152.unity3d": "1d0dcb35e5e6031e18c9e03e2fd81931",
       "_common/game maker/abs/g152/datas/game_info_gxxx.unity3d": "6eba0a2fa8b2210df665af0dfc04ee50",
@@ -112,7 +112,7 @@
       "games/cai fu huo che 3996/prefabs/pagegamemain/transeffect.unity3d": "835eb9a71f8de40f9a219d0c03c3ff65",
       "games/cai fu huo che 3996/prefabs/popupgamefree/freegamecloude.unity3d": "7f6e66aa2452ef287554bdc9b33f85cc",
       "games/cai fu huo che 3996/prefabs/popupgamefree/freegameresult.unity3d": "8a1a865f1f7ce72b7ff582e80de3a6aa",
-      "games/cai fu huo che 3996/prefabs/popupgamefree/freegametrain.unity3d": "bde8a64f4d4f1c316f86f10c402289f4",
+      "games/cai fu huo che 3996/prefabs/popupgamefree/freegametrain.unity3d": "8a2216a348949778aa3e1eb14f467d19",
       "games/cai fu huo che 3996/prefabs/popupgamefree/freegametrigger.unity3d": "7d531f243be2bd593bf050f87ada4b69",
       "games/cai fu huo che 3996/prefabs/popupgamejackpot/jackpotgameexit.unity3d": "d09649fdfdef39f8b8e33ccc0a2697ee",
       "games/cai fu huo che 3996/prefabs/popupgamejackpot/jackpotgametrigger.unity3d": "a30ece046ef7aca2dcd23cf7409d2fa7",
@@ -301,21 +301,25 @@
       "games/cai fu zhi jia 3997/artres/game effect/prefabs/npc_ng_trigger_sg.unity3d": "8d190e7573d429ff3cbf73e979d98eaf",
       "games/cai fu zhi jia 3997/artres/game effect/prefabs/smallgame/eff_sg_popdstartcfzj.unity3d": "f6b923464382fe57076537e2c8b2e0b7",
       "games/cai fu zhi jia 3997/artres/game effect/prefabs/wealth_ng_wineglass.unity3d": "b40ebc7f7f7553dca24b923cae57653a",
-      "games/cai fu zhi jia 3997/fguis.unity3d": "b3872d75fd46f13d214a16f227a84df7",
-      "games/cai fu zhi jia 3997/prefabs/game controller/slot game main controller.unity3d": "07913fc11374da01c0b4aa83670d5da3",
+      "games/cai fu zhi jia 3997/fguis.unity3d": "bee517a7e6384a99001cd3c9537b6d23",
+      "games/cai fu zhi jia 3997/prefabs/game controller/slot game main controller.unity3d": "7ee9b661c76aafef7b053289b91358ac",
       "games/cai fu zhi jia 3997/prefabs/npc/ng_pop_border.unity3d": "535f7aa8f417eea5004a691539240a13",
       "games/cai fu zhi jia 3997/prefabs/npc/wealth_ng_npc.unity3d": "5139abc47dfc023c9f656ed20806cb49",
-      "games/cai fu zhi jia 3997/prefabs/npc/wealth_sg_npc.unity3d": "a92c9acc374df98cf2bfd0b75282141b",
-      "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/betclickeffect.unity3d": "e373fc5e55c501e1ec32bf73e2a9b87c",
+      "games/cai fu zhi jia 3997/prefabs/npc/wealth_sg_npc.unity3d": "e5a8a8a4cfd49a6d42f948c4eadbc13d",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/bonusaccelerateborder.unity3d": "98f8ca4dc4e2956f30867ab794d54a19",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/fireeffect.unity3d": "60fc9cc9c20aa4de3205be6fc862dd91",
+      "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/frameloss.unity3d": "8f5d8c98364fb577fa25594c267ac3ef",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/freeaccelerateborder.unity3d": "47de3c607cdc7807e9b5d30abb5bb3ac",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/lightning.unity3d": "146ad398ab8004c1b36711daab62e846",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/maskeffect.unity3d": "a7186c25951d2b20dd7660885bbbc4c7",
+      "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/npcbag.unity3d": "1826a4f19433cb631ad8cb9f4d6f0c8a",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/rewardeffect.unity3d": "4eaf04dcf942345a7fef223e33f2ef0d",
-      "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/robotobj.unity3d": "a632ad04df1f3d7a551b0f71bf8ae2bb",
+      "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/robotobj.unity3d": "8e93a12e5e98724cd80faae773e1960c",
+      "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/settlementeffect.unity3d": "c64187fa1493d00e45f17370d7e9b162",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/effectprefabs/wildboomeffect.unity3d": "331be79539bcac9bf216939f7e79aa1f",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/spineprefabs/freetreespine.unity3d": "28079df8a033894d17df698c8e0352bb",
+      "games/cai fu zhi jia 3997/prefabs/pagegamemain/spineprefabs/gameborder.unity3d": "99776069538df3e78ea52fda9b3c071d",
+      "games/cai fu zhi jia 3997/prefabs/pagegamemain/spineprefabs/jackpotspine.unity3d": "e360ed461bd2c466da1b20315759aeb1",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/spineprefabs/radar.unity3d": "7e8ad52374e056205fe3ce1c5db1aa8c",
       "games/cai fu zhi jia 3997/prefabs/pagegamemain/spineprefabs/reelbgspine.unity3d": "b8b06b5544eb1f1b3f072b63ffc2d62b",
       "games/cai fu zhi jia 3997/prefabs/popupfreespinresult/animationprefabs/freegetanimation.unity3d": "0107defdbab72d15b9a621b36c2a97a5",
@@ -329,7 +333,7 @@
       "games/cai fu zhi jia 3997/prefabs/popupjackpotgame/effectprefabs/frameloss.unity3d": "5ea3245c82718bdadafa15a515035840",
       "games/cai fu zhi jia 3997/prefabs/popupjackpotgame/effectprefabs/rayeffect.unity3d": "be8bfd5de83c78f1ca54b4249ebfe214",
       "games/cai fu zhi jia 3997/prefabs/popupjackpotgame/spineprefabs/gameborder.unity3d": "eec3df8a6dad2efedb5cf1cf01e3bcd1",
-      "games/cai fu zhi jia 3997/prefabs/popupjackpotgame/spineprefabs/jackpotspine.unity3d": "f7a1771689029da6aa5fc02dd89a69f3",
+      "games/cai fu zhi jia 3997/prefabs/popupjackpotgame/spineprefabs/jackpotspine.unity3d": "e1f6d8f72f2a17d25561792159ea791f",
       "games/cai fu zhi jia 3997/prefabs/popupjackpotgame/spineprefabs/jackpottreespine.unity3d": "5c4d15036c97518b7879a9cac32817dc",
       "games/cai fu zhi jia 3997/prefabs/popupjackpotgame/spineprefabs/reelbgspine.unity3d": "fec35b8f3e2a22aa87c71c667cf265eb",
       "games/cai fu zhi jia 3997/prefabs/popupjackpotresult/animationprefabs/diamondanimation.unity3d": "5e2ec7a2d5545998da9dd0fb39e89cdb",
@@ -342,7 +346,7 @@
       "games/cai fu zhi jia 3997/prefabs/popupoverwin/spineprefabs/player.unity3d": "437080de64d7d19995241171105885ef",
       "games/cai fu zhi jia 3997/prefabs/symbols/border/jackpotframe.unity3d": "80b83b00d7211aa1fafa28ea2d2e5bed",
       "games/cai fu zhi jia 3997/prefabs/symbols/symbolappear/bar_03.unity3d": "dea6ecbb3467eec73395a5158e73dcf8",
-      "games/cai fu zhi jia 3997/prefabs/symbols/symbolappear/bonus_12.unity3d": "b27bdad32d0847f366e2406b2e30efb2",
+      "games/cai fu zhi jia 3997/prefabs/symbols/symbolappear/bonus_12.unity3d": "54db4b7fcaefa8a3edeb04b88e5fc03d",
       "games/cai fu zhi jia 3997/prefabs/symbols/symbolappear/car_07.unity3d": "2b6ef79e599c1cf21a36e66ff7f29a9c",
       "games/cai fu zhi jia 3997/prefabs/symbols/symbolappear/dollar_05.unity3d": "f23ca84f599ab4022ace2d98c84681cf",
       "games/cai fu zhi jia 3997/prefabs/symbols/symbolappear/gold_01.unity3d": "d7487bf72dcb082c1d782fb8d8b9d2ee",
@@ -462,7 +466,7 @@
       "games/common/prefabs/gs/gs manager.unity3d": "77326e125f6c9ddc9e54c6075ebba530",
       "games/common/prefabs/gs/gssource.unity3d": "7d076b5c6bb0da738ba1294619c690c7",
       "games/console/abs/lang_cn.unity3d": "6d42faabe75a47649192c09826aa8e55",
-      "games/console/abs/lang_en.unity3d": "dc5cdbfb91243ee9ac961c2f2b4657cd",
+      "games/console/abs/lang_en.unity3d": "12084f16feb1bd9b5f0d78468a3753b1",
       "games/console/abs/lang_tw.unity3d": "3f8adcf116e6d625f843d9a3fa65d852",
       "games/console/fguis.unity3d": "1e7d30d46f0ec1f5084abd1b0c48d143",
       "games/emperors rein 200/abs/datas/slot_machine_config_bouns1.unity3d": "b7bdf4772671474e955d5a7883d9e43d",
@@ -920,22 +924,22 @@
       "luban/generatedatas/bytes/i18n_old_hotfix_info_notice.unity3d": "9f17ccc4f672ff2b2dbfeb90ddd6e228",
       "luban/generatedatas/bytes/i18n_po152.unity3d": "f7f958bfb0eb1e05b38e5026169cdf2a",
       "luban/generatedatas/bytes/lan_language.unity3d": "2c95d31638c19fb0f994a743793daf12",
-      "panel/cai fu zhi jia 3997/fguis.unity3d": "9609919fe4fcd1ea1e7c9ffc0a24db75",
       "panel/panel01/fguis.unity3d": "1a22afc368531c8e1aafe138c41f2e0d",
       "panel/panel01/prefabs/slot_btn_spin.unity3d": "d9fea5a891e73653bf8c2931f1ec4df2",
       "panel/panel02/fguis.unity3d": "745e3e08447ba94730eb76e69b5d83d3",
       "panel/panel3996/fguis.unity3d": "f9d1b33a539f6322223003f2f3c82d30",
+      "panel/panel3997/fguis.unity3d": "d6e6ae8a82461cea0fc7db51338bad39",
       "panel/panel3998/fguis.unity3d": "19ace14dd986af4d9503d6802e2ea3f5"
     }
   },
   "hotfix_dll": {
     "Base": {
-      "hash": "8e236ee1427ba32234bb50f8430c30e9",
+      "hash": "5f5e7be2e0af6e6174f0d3899d07ad48",
       "size_bytes": 168448
     },
     "HotFix": {
-      "hash": "91da05862956a3a822f51ed01f2c7c3c",
-      "size_bytes": 1818624
+      "hash": "4e6c48546fadabbce710d664c201f72c",
+      "size_bytes": 1837056
     }
   },
   "hotfix_dll_load_order": [

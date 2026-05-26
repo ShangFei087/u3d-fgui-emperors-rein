@@ -69,10 +69,12 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Comparer<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.Comparer<System.DateTime>
 	// System.Collections.Generic.Comparer<System.Guid>
+	// System.Collections.Generic.Comparer<System.Nullable<double>>
 	// System.Collections.Generic.Comparer<System.ValueTuple<object,int>>
 	// System.Collections.Generic.Comparer<UnityEngine.Color32>
 	// System.Collections.Generic.Comparer<UnityEngine.Vector2>
 	// System.Collections.Generic.Comparer<byte>
+	// System.Collections.Generic.Comparer<double>
 	// System.Collections.Generic.Comparer<float>
 	// System.Collections.Generic.Comparer<int>
 	// System.Collections.Generic.Comparer<long>
@@ -163,10 +165,12 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.EqualityComparer<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.EqualityComparer<System.DateTime>
 	// System.Collections.Generic.EqualityComparer<System.Guid>
+	// System.Collections.Generic.EqualityComparer<System.Nullable<double>>
 	// System.Collections.Generic.EqualityComparer<System.ValueTuple<object,int>>
 	// System.Collections.Generic.EqualityComparer<UnityEngine.Color32>
 	// System.Collections.Generic.EqualityComparer<UnityEngine.Vector2>
 	// System.Collections.Generic.EqualityComparer<byte>
+	// System.Collections.Generic.EqualityComparer<double>
 	// System.Collections.Generic.EqualityComparer<float>
 	// System.Collections.Generic.EqualityComparer<int>
 	// System.Collections.Generic.EqualityComparer<long>
@@ -384,10 +388,12 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectComparer<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.ObjectComparer<System.DateTime>
 	// System.Collections.Generic.ObjectComparer<System.Guid>
+	// System.Collections.Generic.ObjectComparer<System.Nullable<double>>
 	// System.Collections.Generic.ObjectComparer<System.ValueTuple<object,int>>
 	// System.Collections.Generic.ObjectComparer<UnityEngine.Color32>
 	// System.Collections.Generic.ObjectComparer<UnityEngine.Vector2>
 	// System.Collections.Generic.ObjectComparer<byte>
+	// System.Collections.Generic.ObjectComparer<double>
 	// System.Collections.Generic.ObjectComparer<float>
 	// System.Collections.Generic.ObjectComparer<int>
 	// System.Collections.Generic.ObjectComparer<long>
@@ -400,10 +406,12 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectEqualityComparer<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.ObjectEqualityComparer<System.DateTime>
 	// System.Collections.Generic.ObjectEqualityComparer<System.Guid>
+	// System.Collections.Generic.ObjectEqualityComparer<System.Nullable<double>>
 	// System.Collections.Generic.ObjectEqualityComparer<System.ValueTuple<object,int>>
 	// System.Collections.Generic.ObjectEqualityComparer<UnityEngine.Color32>
 	// System.Collections.Generic.ObjectEqualityComparer<UnityEngine.Vector2>
 	// System.Collections.Generic.ObjectEqualityComparer<byte>
+	// System.Collections.Generic.ObjectEqualityComparer<double>
 	// System.Collections.Generic.ObjectEqualityComparer<float>
 	// System.Collections.Generic.ObjectEqualityComparer<int>
 	// System.Collections.Generic.ObjectEqualityComparer<long>
@@ -498,6 +506,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Linq.OrderedEnumerable<object>
 	// System.Nullable<UnityEngine.Color>
 	// System.Nullable<byte>
+	// System.Nullable<double>
 	// System.Nullable<float>
 	// System.Nullable<int>
 	// System.Nullable<long>
@@ -538,8 +547,10 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_1<object>
 	// System.Threading.Tasks.TaskFactory<System.Threading.Tasks.VoidTaskResult>
 	// System.Threading.Tasks.TaskFactory<object>
+	// System.ValueTuple<double,System.Nullable<double>>
 	// System.ValueTuple<int,int>
 	// System.ValueTuple<object,int>
+	// System.ValueTuple<object,object>
 	// UnityEngine.Events.InvokableCall<byte>
 	// UnityEngine.Events.InvokableCall<object>
 	// UnityEngine.Events.UnityAction<System.DateTime>
