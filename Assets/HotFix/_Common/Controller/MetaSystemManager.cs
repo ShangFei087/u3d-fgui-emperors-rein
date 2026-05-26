@@ -202,9 +202,9 @@ public class MetaSystemManager : MonoSingleton<MetaSystemManager>
             {
                 var n = maxExportRows.Value;
                 sql = $@"
-SELECT id, game_id, total_bet, credit_before, credit_after, base_game_win_credit, free_spin_win_credit, bonus_game_win_credit, jackpot_win_credit, total_win_credit, open_type, result_type, free_curtime, free_totaltime, created_at
+SELECT id, game_id, total_bet, credit_before, credit_after, base_game_win_credit, free_spin_win_credit, bonus_game_win_credit, jackpot_win_credit, total_win_credit, jackpot_type, open_type, result_type, free_curtime, free_totaltime, created_at
 FROM (
-  SELECT id, game_id, total_bet, credit_before, credit_after, base_game_win_credit, free_spin_win_credit, bonus_game_win_credit, jackpot_win_credit, total_win_credit, open_type, result_type, free_curtime, free_totaltime, created_at
+  SELECT id, game_id, total_bet, credit_before, credit_after, base_game_win_credit, free_spin_win_credit, bonus_game_win_credit, jackpot_win_credit, total_win_credit, jackpot_type, open_type, result_type, free_curtime, free_totaltime, created_at
   FROM {table}
   WHERE game_id = {gid}
   ORDER BY id DESC
@@ -215,7 +215,7 @@ ORDER BY id ASC";
             else
             {
                 sql = $@"
-SELECT id, game_id, total_bet, credit_before, credit_after, base_game_win_credit, free_spin_win_credit, bonus_game_win_credit, jackpot_win_credit, total_win_credit, open_type, result_type, free_curtime, free_totaltime, created_at
+SELECT id, game_id, total_bet, credit_before, credit_after, base_game_win_credit, free_spin_win_credit, bonus_game_win_credit, jackpot_win_credit, total_win_credit, jackpot_type, open_type, result_type, free_curtime, free_totaltime, created_at
 FROM {table}
 WHERE game_id = {gid}
 ORDER BY id ASC";

@@ -70,6 +70,7 @@ def fetch_rows(
             bonus_game_win_credit,
             jackpot_win_credit,
             total_win_credit,
+            jackpot_type,
             open_type,
             result_type,
             free_curtime,

@@ -1881,6 +1881,7 @@ namespace CaiFuZhiJia_3997
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
                     _allWinCredit = 0;
                     ContentModel.Instance.FreeSpinTotalTimes = 0; // 免费游戏结束之后，把免费游戏局数重置
+                    ContentModel.Instance.FreeSpinPlayTimes = 0;
                     _cloneRadarObj.transform.Find("Effect").transform.Find("eff_fg_img_multiple11").gameObject
                         .SetActive(false);
 

@@ -79,6 +79,8 @@ namespace GameMaker
             public readonly double TotalWin;
             public readonly double Delta;
             public readonly double CreditAfter;
+            /// <summary>库表 jackpot_type（1=Major，2=Minor，3=Mini）；非彩金局为空。</summary>
+            public readonly string JackpotType;
 
             public SlotGameRecordCsvRow(
                 string colA,
@@ -90,7 +92,8 @@ namespace GameMaker
                 double jackpotWin,
                 double totalWin,
                 double delta,
-                double creditAfter)
+                double creditAfter,
+                string jackpotType = "")
             {
                 ColA = colA ?? "";
                 CreditBefore = creditBefore;
@@ -102,6 +105,19 @@ namespace GameMaker
                 TotalWin = totalWin;
                 Delta = delta;
                 CreditAfter = creditAfter;
+                JackpotType = jackpotType ?? "";
+            }
+        }
+
+        /// <summary>jackpot_type 1/2/3 对应 Major / Minor / Mini（与机台入库字符串一致）。</summary>
+        public static string GetJackpotTypeDisplayLabel(string jackpotTypeCode)
+        {
+            switch ((jackpotTypeCode ?? "").Trim())
+            {
+                case "1": return "Major";
+                case "2": return "Minor";
+                case "3": return "Mini";
+                default: return "";
             }
         }
 
@@ -178,8 +194,9 @@ namespace GameMaker
                 }
 
                 metrics.Add(new SlotGameRecordSummaryMetric(awardLabel, totalBet, lineWinNoJp, jp));
+                var jpType = GetSegmentJackpotType(seg);
                 gameRows.Add(new SlotGameRecordCsvRow(colA, cb, totalBet, baseGame, freeSpin, bonusGame, jp, totalWin,
-                    delta, ca));
+                    delta, ca, jpType));
             }
 
             return new SlotGameRecordExportData(gameRows, metrics);
@@ -495,6 +512,39 @@ namespace GameMaker
             if (v == null || v == DBNull.Value)
                 return 0;
             return Convert.ToInt32(v, CultureInfo.InvariantCulture);
+        }
+
+        static string GetSegmentJackpotType(List<DataRow> seg)
+        {
+            for (var i = seg.Count - 1; i >= 0; i--)
+            {
+                var r = seg[i];
+                if (GetLong(r, "jackpot_win_credit") > 0)
+                {
+                    var t = GetString(r, "jackpot_type");
+                    if (!string.IsNullOrWhiteSpace(t))
+                        return t.Trim();
+                }
+            }
+
+            foreach (var r in seg)
+            {
+                var t = GetString(r, "jackpot_type");
+                if (!string.IsNullOrWhiteSpace(t))
+                    return t.Trim();
+            }
+
+            return "";
+        }
+
+        static string GetString(DataRow row, string columnName)
+        {
+            if (row == null || row.Table == null || !row.Table.Columns.Contains(columnName))
+                return "";
+            var v = row[columnName];
+            if (v == null || v == DBNull.Value)
+                return "";
+            return Convert.ToString(v, CultureInfo.InvariantCulture) ?? "";
         }
 
         static long GetLong(DataRow row, string columnName)

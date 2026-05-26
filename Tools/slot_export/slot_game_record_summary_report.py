@@ -82,11 +82,19 @@ def _bucket(mult: float) -> str:
     return _bucket_for(mult, MULT_BUCKETS_NORMAL)
 
 
+# jackpot_type 1/2/3 → Major / Minor / Mini
+JACKPOT_TYPE_ROWS: Sequence[Tuple[str, str]] = (
+    ("1", "Major"),
+    ("2", "Minor"),
+    ("3", "Mini"),
+)
+
 @dataclass
 class Row:
     col_a: str
     bet: float
     payout: float  # 「总得分」列；旧版 CSV 无该列时用 WIN+彩金得分
+    jackpot_type: str = ""  # 1=Major，2=Minor，3=Mini
 
     @property
     def total_win(self) -> float:
@@ -126,6 +134,7 @@ def _read_rows(path: Path) -> Tuple[List[str], List[Row]]:
 
     i_a = col("大奖统计")
     i_bet = col("下注")
+    i_jp_type = idx.get("彩金类型", -1)
     try:
         i_payout = col("总得分")
     except KeyError:
@@ -155,6 +164,7 @@ def _read_rows(path: Path) -> Tuple[List[str], List[Row]]:
                 col_a=a,
                 bet=_f(get(i_bet)),
                 payout=payout,
+                jackpot_type=(get(i_jp_type).strip() if i_jp_type >= 0 else ""),
             )
         )
     return header, rows
@@ -218,8 +228,8 @@ def _agg_bucketed(
     sw_all = sum(x.total_win for x in subset)
     sb_all = sum(x.bet for x in subset)
     avg_all = sw_all / sb_all if sb_all else 0.0
-    prob_all = sum(float(d["出现概率"]) for d in out)
-    rtp_all = sum(float(d["RTP"]) for d in out)
+    prob_all = n_all / total_rounds if total_rounds else 0.0
+    rtp_all = sw_all / total_bet if total_bet > 0 else 0.0
     out.append(
         {
             "类型": "小计",
@@ -291,6 +301,34 @@ def _section_block(
     n = len(subset)
     sw = sum(x.total_win for x in subset)
     sb = sum(x.bet for x in subset)
+    avg = sw / sb if sb else 0.0
+    prob = n / total_rounds if total_rounds else 0.0
+    rtp = sw / total_bet if total_bet > 0 else 0.0
+    sub = {"局": n, "赢分": sw, "总玩": sb, "押分": sb, "平均倍": avg, "出现概率": prob, "RTP": rtp}
+    lines.append(_detail_row("小计", sb, n, sw, avg, prob, rtp))
+    return lines, sub
+
+
+def _jackpot_type_section(
+    jp_rows: List[Row],
+    total_rounds: int,
+    total_bet: float,
+) -> Tuple[List[List[object]], Dict[str, float]]:
+    """彩金块：Major/Minor/Mini + 小计。"""
+    lines: List[List[object]] = [["彩金", "", "", "", "", "", ""]]
+    for code, label in JACKPOT_TYPE_ROWS:
+        typed = [r for r in jp_rows if (r.jackpot_type or "").strip() == code]
+        n = len(typed)
+        sw = sum(x.total_win for x in typed)
+        sb = sum(x.bet for x in typed)
+        avg = sw / sb if sb else 0.0
+        prob = n / total_rounds if total_rounds else 0.0
+        rtp = sw / total_bet if total_bet > 0 else 0.0
+        lines.append(_detail_row(label, sb, n, sw, avg, prob, rtp))
+
+    n = len(jp_rows)
+    sw = sum(x.total_win for x in jp_rows)
+    sb = sum(x.bet for x in jp_rows)
     avg = sw / sb if sb else 0.0
     prob = n / total_rounds if total_rounds else 0.0
     rtp = sw / total_bet if total_bet > 0 else 0.0
@@ -384,7 +422,9 @@ def build_report(
     grid.append([])
     _append_section(block2_name, block2, total_rounds, total_bet, True, MULT_BUCKETS_BIGWIN)
     grid.append([])
-    _append_section("彩金", jp_rows, total_rounds, total_bet, jp_section_use_buckets)
+    jp_block, jp_sub = _jackpot_type_section(jp_rows, total_rounds, total_bet)
+    grid.extend(jp_block)
+    section_subtotals.append(jp_sub)
     grid.append([])
     _append_section("免费", free_rows, total_rounds, total_bet, True, MULT_BUCKETS_FREE)
 

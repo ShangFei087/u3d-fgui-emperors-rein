@@ -9,7 +9,7 @@ namespace GameMaker
 {
     /// <summary>
     /// 将游戏记录导出为 Office Open XML（.xlsx），供 WPS / Excel 打开。
-    /// 左侧 A～K 为局数据（部分列为公式）；右侧 L 列起为着色汇总区，数值全部由表格公式计算。
+    /// 左侧 A～L 为局数据（部分列为公式）；右侧 M 列起为着色汇总区，数值全部由表格公式计算。
     /// </summary>
     public static class SlotGameRecordSpreadsheetXlsx
     {
@@ -25,28 +25,29 @@ namespace GameMaker
         const int ColDelta = 9;          // I 输赢（公式：结束-下注前）
         const int ColCreditAfter = 10;   // J 结束
         const int ColMult = 11;          // K 倍数（公式：总得分/下注，供分档汇总引用）
+        const int ColJackpotType = 12;   // L 彩金类型（1=Major，2=Minor，3=Mini；非彩金为空）
 
-        // —— 顶部汇总（L～T：横排指标；「输」明细见下方 AppendTypeSubtotalSection）——
-        const int SummaryColStart = 12;      // L 统计项 / 类型
-        const int SummaryColRounds = 13;     // M 总局及各类汇总数值列
-        const int SummaryColSumBet = 14;     // N 总玩分
-        const int SummaryColSumWin = 15;     // O 总得分
-        const int SummaryColRtpTotal = 16;   // P 合计 RTP
-        const int SummaryColRtpBig = 17;     // Q 大奖 RTP
-        const int SummaryColRtpNormal = 18;  // R 普通游戏 RTP
-        const int SummaryColRtpFree = 19;    // S 免费 RTP
-        const int SummaryColRtpJackpot = 20; // T 彩金游戏 RTP
+        // —— 顶部汇总（M～U：横排指标）——
+        const int SummaryColStart = 13;      // M 统计项 / 类型
+        const int SummaryColRounds = 14;     // N 总局及各类汇总数值列
+        const int SummaryColSumBet = 15;     // O 总玩分
+        const int SummaryColSumWin = 16;     // P 总得分
+        const int SummaryColRtpTotal = 17;   // Q 合计 RTP
+        const int SummaryColRtpBig = 18;     // R 大奖 RTP
+        const int SummaryColRtpNormal = 19;  // S 普通游戏 RTP
+        const int SummaryColRtpFree = 20;    // T 免费 RTP
+        const int SummaryColRtpJackpot = 21; // U 彩金游戏 RTP
 
-        // —— 分档明细列（L～R，与 SummaryColStart 同列区不同行）——
-        const int DetailColType = 12;   // L 类型 / 分档名
-        const int DetailColBet = 13;    // M 总玩（本段 C 列押注之和）
-        const int DetailColCount = 14;  // N 局
-        const int DetailColWin = 15;    // O 赢分
-        const int DetailColAvg = 16;    // P 平均（倍）= 赢分 ÷ 总玩
-        const int DetailColProb = 17;   // Q 出现概率
-        const int DetailColRtp = 18;    // R RTP 返还率（赢分 ÷ 全局总玩分）
+        // —— 分档明细列（M～S，与 SummaryColStart 同列区不同行）——
+        const int DetailColType = 13;   // M 类型 / 分档名
+        const int DetailColBet = 14;    // N 总玩（本段 C 列押注之和）
+        const int DetailColCount = 15;  // O 局
+        const int DetailColWin = 16;    // P 赢分
+        const int DetailColAvg = 17;    // Q 平均（倍）= 赢分 ÷ 总玩
+        const int DetailColProb = 18;   // R 出现概率
+        const int DetailColRtp = 19;    // S RTP 返还率（赢分 ÷ 全局总玩分）
 
-        /// <summary>汇总区起始列号（L），供外部引用。</summary>
+        /// <summary>汇总区起始列号（M），供外部引用。</summary>
         public const int SummaryStartColumn = SummaryColStart;
 
         static readonly CultureInfo Inv = CultureInfo.InvariantCulture;
@@ -54,7 +55,15 @@ namespace GameMaker
         static readonly string[] _GameHeader =
         {
             "大奖统计", "下注前", "下注", "基础游戏得分", "免费游戏得分", "大奖游戏得分",
-            "彩金得分", "总得分", "输赢", "结束", "倍数",
+            "彩金得分", "总得分", "输赢", "结束", "倍数", "彩金类型",
+        };
+
+        /// <summary>jackpot_type 1/2/3 → Major / Minor / Mini。</summary>
+        static readonly (string Code, string Label)[] _JackpotTypeRows =
+        {
+            ("1", "Major"),
+            ("2", "Minor"),
+            ("3", "Mini"),
         };
 
         /// <summary>普通（仅「赢」局）倍数分档：左闭右开，最后一档无上界。</summary>
@@ -229,11 +238,16 @@ namespace GameMaker
             sheet.Num(ColCreditAfter, stData, g.CreditAfter);
 
             // K 倍数 = 总得分 ÷ 下注；下注为 0 时置 0，避免除零。汇总区分档用 COUNTIFS 引用 K 列。
-            // 示例：IF(C2=0,0,H2/C2)。倍数定义与 slot_game_record_summary_report.py 一致：(Win+Jp)/Bet ≈ H/C。
             sheet.Fml(ColMult, stData, $"IF({c}=0,0,{h}/{c})");
+
+            // L 彩金类型：库表 jackpot_type（1/2/3），供彩金块 Major/Minor/Mini 公式 COUNTIFS 引用。
+            if (string.IsNullOrEmpty(g.JackpotType))
+                sheet.Str(ColJackpotType, stData, "");
+            else
+                sheet.Str(ColJackpotType, stData, g.JackpotType);
         }
 
-        /// <summary>顶部横排表头（L～T）；「输」的局数/概率等在明细块「输」小计行中统计。</summary>
+        /// <summary>顶部横排表头（M～U）；「输」与彩金类型明细见 <see cref="AppendFormulaSummary"/>。</summary>
         static string[] GetTopSummaryLabels() => new[]
         {
             "统计项", "总局", "总玩分", "总得分",
@@ -278,6 +292,7 @@ namespace GameMaker
             var rngC = AbsRange(ColBet, firstDataRow, lastDataRow);         // C：下注
             var rngH = AbsRange(ColTotalWin, firstDataRow, lastDataRow);    // H：总得分（每行 SUM(D:G)）
             var rngMult = AbsRange(ColMult, firstDataRow, lastDataRow);     // K：倍数 H/C，分档用
+            var rngJpType = AbsRange(ColJackpotType, firstDataRow, lastDataRow); // L：彩金类型 1/2/3
 
             // 顶部横排「数值」行单元格（总局、总玩分等；分档表出现概率/RTP 仍引用本行）
             var cellRounds = Cell(SummaryColRounds, summaryValuesRow);      // M 总局
@@ -356,8 +371,9 @@ namespace GameMaker
             sheet.EndRow();
             row++;
 
-            // —— 第 8 段：彩金（不分倍数档，仅一行小计；A=「彩金」）——
-            AppendTypeSubtotalSection(sheet, ref row, "彩金", rngA, rngC, rngH, summaryValuesRow, stSec, stSt, subtotalRows);
+            // —— 第 8 段：彩金（Major/Minor/Mini + 小计）——
+            AppendJackpotSection(sheet, ref row, rngA, rngC, rngH, rngJpType, summaryValuesRow, stSec, stSd, stSdZ,
+                stSt, subtotalRows);
             sheet.BeginRow(row);
             sheet.EndRow();
             row++;
@@ -446,6 +462,7 @@ namespace GameMaker
 
             var lastBucketRow = row - 1;
             var subRow = row;
+            var roundsRef = Cell(SummaryColRounds, summaryValuesRow);
             sheet.BeginRow(row);
             sheet.Str(DetailColType, stSt, "小计");
             sheet.Fml(DetailColBet, stSt,
@@ -455,18 +472,83 @@ namespace GameMaker
             sheet.Fml(DetailColWin, stSt,
                 $"SUM({Cell(DetailColWin, firstBucketRow)}:{Cell(DetailColWin, lastBucketRow)})");
             sheet.Fml(DetailColAvg, stSt, AvgMultFormula(Cell(DetailColWin, subRow), Cell(DetailColBet, subRow)));
-            // 出现概率 / RTP = 各倍数档同列之和（与「合计」行规则一致）
-            sheet.Fml(DetailColProb, stSt,
-                $"SUM({Cell(DetailColProb, firstBucketRow)}:{Cell(DetailColProb, lastBucketRow)})");
+            sheet.Fml(DetailColProb, stSt, $"IF({roundsRef}=0,0,{Cell(DetailColCount, subRow)}/{roundsRef})");
             sheet.Fml(DetailColRtp, stSt,
-                $"SUM({Cell(DetailColRtp, firstBucketRow)}:{Cell(DetailColRtp, lastBucketRow)})");
+                $"IF({Cell(SummaryColSumBet, summaryValuesRow)}=0,0,{Cell(DetailColWin, subRow)}/{Cell(SummaryColSumBet, summaryValuesRow)})");
             sheet.EndRow();
             subtotalRows.Add(subRow);
             row++;
         }
 
         /// <summary>
-        /// 单类型汇总块（输 / 彩金等）：块标题行 + 一行「小计」，列与分档表一致（局、赢分、平均倍、出现概率、RTP）。
+        /// 彩金块：按 L 列 jackpot_type（1=Major，2=Minor，3=Mini）分行统计，末行「小计」统计全部 A=彩金。
+        /// </summary>
+        static void AppendJackpotSection(SheetBuilder sheet, ref int row, string rngA, string rngC, string rngH,
+            string rngJpType, int summaryValuesRow, int stSec, int stSd, int stSdZ, int stSt, List<int> subtotalRows)
+        {
+            sheet.BeginRow(row);
+            sheet.Str(DetailColType, stSec, "彩金");
+            sheet.EndRow();
+            row++;
+
+            for (var i = 0; i < _JackpotTypeRows.Length; i++)
+            {
+                var (code, label) = _JackpotTypeRows[i];
+                var st = (i & 1) == 0 ? stSd : stSdZ;
+                AppendJackpotTypeDetailRow(sheet, ref row, label, rngA, rngC, rngH, rngJpType, code, summaryValuesRow,
+                    st);
+            }
+
+            var dataRow = row;
+            var roundsRef = Cell(SummaryColRounds, summaryValuesRow);
+            var typeBetF = TypeBetSumFormula(rngA, "彩金", rngC);
+            sheet.BeginRow(row);
+            sheet.Str(DetailColType, stSt, "小计");
+            sheet.Fml(DetailColBet, stSt, typeBetF);
+            sheet.Fml(DetailColCount, stSt, $"COUNTIF({rngA},\"彩金\")");
+            sheet.Fml(DetailColWin, stSt, $"SUMIF({rngA},\"彩金\",{rngH})");
+            sheet.Fml(DetailColAvg, stSt, AvgMultFormula(Cell(DetailColWin, dataRow), Cell(DetailColBet, dataRow)));
+            sheet.Fml(DetailColProb, stSt,
+                $"IF({roundsRef}=0,0,{Cell(DetailColCount, dataRow)}/{roundsRef})");
+            sheet.Fml(DetailColRtp, stSt,
+                $"IF({Cell(SummaryColSumBet, summaryValuesRow)}=0,0,{Cell(DetailColWin, dataRow)}/{Cell(SummaryColSumBet, summaryValuesRow)})");
+            sheet.EndRow();
+            subtotalRows.Add(dataRow);
+            row++;
+        }
+
+        /// <summary>彩金块内单行：A=彩金 且 L=typeCode（1/2/3）。</summary>
+        static void AppendJackpotTypeDetailRow(SheetBuilder sheet, ref int row, string label, string rngA, string rngC,
+            string rngH, string rngJpType, string typeCode, int summaryValuesRow, int st)
+        {
+            var dataRow = row;
+            var roundsRef = Cell(SummaryColRounds, summaryValuesRow);
+            var betF = JackpotTypeBetFormula(rngA, rngC, rngJpType, typeCode);
+            sheet.BeginRow(row);
+            sheet.Str(DetailColType, st, label);
+            sheet.Fml(DetailColBet, st, betF);
+            sheet.Fml(DetailColCount, st, JackpotTypeCountFormula(rngA, rngJpType, typeCode));
+            sheet.Fml(DetailColWin, st, JackpotTypeWinFormula(rngA, rngH, rngJpType, typeCode));
+            sheet.Fml(DetailColAvg, st, AvgMultFormula(Cell(DetailColWin, dataRow), Cell(DetailColBet, dataRow)));
+            sheet.Fml(DetailColProb, st,
+                $"IF({roundsRef}=0,0,{Cell(DetailColCount, dataRow)}/{roundsRef})");
+            sheet.Fml(DetailColRtp, st,
+                $"IF({Cell(SummaryColSumBet, summaryValuesRow)}=0,0,{Cell(DetailColWin, dataRow)}/{Cell(SummaryColSumBet, summaryValuesRow)})");
+            sheet.EndRow();
+            row++;
+        }
+
+        static string JackpotTypeCountFormula(string rngA, string rngJpType, string typeCode) =>
+            $"COUNTIFS({rngA},\"彩金\",{rngJpType},\"{FmlEsc(typeCode)}\")";
+
+        static string JackpotTypeWinFormula(string rngA, string rngH, string rngJpType, string typeCode) =>
+            $"SUMIFS({rngH},{rngA},\"彩金\",{rngJpType},\"{FmlEsc(typeCode)}\")";
+
+        static string JackpotTypeBetFormula(string rngA, string rngC, string rngJpType, string typeCode) =>
+            $"SUMIFS({rngC},{rngA},\"彩金\",{rngJpType},\"{FmlEsc(typeCode)}\")";
+
+        /// <summary>
+        /// 单类型汇总块（输等）：块标题行 + 一行「小计」，列与分档表一致（局、赢分、平均倍、出现概率、RTP）。
         /// </summary>
         /// <param name="title">块标题，须与 A 列局类型文案一致（如 输、彩金）。</param>
         static void AppendTypeSubtotalSection(SheetBuilder sheet, ref int row, string title, string rngA, string rngC,
