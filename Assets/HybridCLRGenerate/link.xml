@@ -143,6 +143,7 @@
   <assembly fullname="System.Core">
     <type fullname="System.Collections.Generic.HashSet`1" preserve="all" />
     <type fullname="System.Linq.Enumerable" preserve="all" />
+    <type fullname="System.Linq.IOrderedEnumerable`1" preserve="all" />
   </assembly>
   <assembly fullname="System.Data">
     <type fullname="System.Data.Common.DbCommand" preserve="all" />

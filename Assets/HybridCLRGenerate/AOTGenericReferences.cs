@@ -452,18 +452,24 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Func<System.Threading.Tasks.VoidTaskResult>
 	// System.Func<byte>
 	// System.Func<int,byte>
+	// System.Func<int,float>
 	// System.Func<int,object>
 	// System.Func<object,System.Nullable<byte>>
 	// System.Func<object,System.Threading.Tasks.VoidTaskResult>
 	// System.Func<object,byte>
+	// System.Func<object,float>
 	// System.Func<object,int,object>
 	// System.Func<object,int>
 	// System.Func<object,object,object>
 	// System.Func<object,object>
 	// System.Func<object>
 	// System.Func<ushort,byte>
+	// System.Linq.Buffer<int>
 	// System.Linq.Buffer<object>
 	// System.Linq.Enumerable.<SelectIterator>d__5<object,object>
+	// System.Linq.Enumerable.<SkipIterator>d__31<object>
+	// System.Linq.Enumerable.<TakeIterator>d__25<int>
+	// System.Linq.Enumerable.<TakeIterator>d__25<object>
 	// System.Linq.Enumerable.Iterator<Loom.DelayedQueueItem>
 	// System.Linq.Enumerable.Iterator<int>
 	// System.Linq.Enumerable.Iterator<object>
@@ -480,6 +486,16 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Linq.Enumerable.WhereSelectEnumerableIterator<object,object>
 	// System.Linq.Enumerable.WhereSelectListIterator<object,int>
 	// System.Linq.Enumerable.WhereSelectListIterator<object,object>
+	// System.Linq.EnumerableSorter<int,float>
+	// System.Linq.EnumerableSorter<int>
+	// System.Linq.EnumerableSorter<object,float>
+	// System.Linq.EnumerableSorter<object>
+	// System.Linq.OrderedEnumerable.<GetEnumerator>d__1<int>
+	// System.Linq.OrderedEnumerable.<GetEnumerator>d__1<object>
+	// System.Linq.OrderedEnumerable<int,float>
+	// System.Linq.OrderedEnumerable<int>
+	// System.Linq.OrderedEnumerable<object,float>
+	// System.Linq.OrderedEnumerable<object>
 	// System.Nullable<UnityEngine.Color>
 	// System.Nullable<byte>
 	// System.Nullable<float>
@@ -567,11 +583,20 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Collections.Generic.KeyValuePair<ulong,float> System.Linq.Enumerable.ElementAt<System.Collections.Generic.KeyValuePair<ulong,float>>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<ulong,float>>,int)
 		// object System.Linq.Enumerable.ElementAt<object>(System.Collections.Generic.IEnumerable<object>,int)
 		// int System.Linq.Enumerable.First<int>(System.Collections.Generic.IEnumerable<int>)
+		// object System.Linq.Enumerable.First<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
 		// object System.Linq.Enumerable.FirstOrDefault<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
+		// System.Linq.IOrderedEnumerable<int> System.Linq.Enumerable.OrderBy<int,float>(System.Collections.Generic.IEnumerable<int>,System.Func<int,float>)
+		// System.Linq.IOrderedEnumerable<object> System.Linq.Enumerable.OrderBy<object,float>(System.Collections.Generic.IEnumerable<object>,System.Func<object,float>)
 		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Select<object,int>(System.Collections.Generic.IEnumerable<object>,System.Func<object,int>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,int,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.SelectIterator<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,int,object>)
+		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Skip<object>(System.Collections.Generic.IEnumerable<object>,int)
+		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.SkipIterator<object>(System.Collections.Generic.IEnumerable<object>,int)
+		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Take<int>(System.Collections.Generic.IEnumerable<int>,int)
+		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Take<object>(System.Collections.Generic.IEnumerable<object>,int)
+		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.TakeIterator<int>(System.Collections.Generic.IEnumerable<int>,int)
+		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.TakeIterator<object>(System.Collections.Generic.IEnumerable<object>,int)
 		// object[] System.Linq.Enumerable.ToArray<object>(System.Collections.Generic.IEnumerable<object>)
 		// System.Collections.Generic.List<int> System.Linq.Enumerable.ToList<int>(System.Collections.Generic.IEnumerable<int>)
 		// System.Collections.Generic.List<object> System.Linq.Enumerable.ToList<object>(System.Collections.Generic.IEnumerable<object>)
@@ -694,6 +719,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// bool UnityEngine.GameObject.TryGetComponent<object>(object&)
 		// object UnityEngine.JsonUtility.FromJson<object>(string)
 		// object UnityEngine.Object.FindObjectOfType<object>()
+		// object[] UnityEngine.Object.FindObjectsOfType<object>(bool)
 		// object UnityEngine.Object.Instantiate<object>(object)
 		// object UnityEngine.Object.Instantiate<object>(object,UnityEngine.Transform)
 		// object UnityEngine.Object.Instantiate<object>(object,UnityEngine.Transform,bool)
