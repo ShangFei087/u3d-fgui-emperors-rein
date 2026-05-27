@@ -79,7 +79,7 @@ namespace GameMaker
             public readonly double TotalWin;
             public readonly double Delta;
             public readonly double CreditAfter;
-            /// <summary>库表 jackpot_type（1=Major，2=Minor，3=Mini）；非彩金局为空。</summary>
+            /// <summary>库表 jackpot_type（0=Major，1=Minor，2=Mini）；仅 A 列「彩金」局写入，其余为空。</summary>
             public readonly string JackpotType;
 
             public SlotGameRecordCsvRow(
@@ -109,14 +109,14 @@ namespace GameMaker
             }
         }
 
-        /// <summary>jackpot_type 1/2/3 对应 Major / Minor / Mini（与机台入库字符串一致）。</summary>
+        /// <summary>jackpot_type 0/1/2 对应 Major / Minor / Mini（与机台入库字符串一致）。</summary>
         public static string GetJackpotTypeDisplayLabel(string jackpotTypeCode)
         {
             switch ((jackpotTypeCode ?? "").Trim())
             {
-                case "1": return "Major";
-                case "2": return "Minor";
-                case "3": return "Mini";
+                case "0": return "Major";
+                case "1": return "Minor";
+                case "2": return "Mini";
                 default: return "";
             }
         }
@@ -194,7 +194,9 @@ namespace GameMaker
                 }
 
                 metrics.Add(new SlotGameRecordSummaryMetric(awardLabel, totalBet, lineWinNoJp, jp));
-                var jpType = GetSegmentJackpotType(seg);
+                var jpType = string.Equals(awardLabel, "彩金", StringComparison.Ordinal)
+                    ? GetSegmentJackpotType(seg)
+                    : "";
                 gameRows.Add(new SlotGameRecordCsvRow(colA, cb, totalBet, baseGame, freeSpin, bonusGame, jp, totalWin,
                     delta, ca, jpType));
             }
@@ -519,16 +521,8 @@ namespace GameMaker
             for (var i = seg.Count - 1; i >= 0; i--)
             {
                 var r = seg[i];
-                if (GetLong(r, "jackpot_win_credit") > 0)
-                {
-                    var t = GetString(r, "jackpot_type");
-                    if (!string.IsNullOrWhiteSpace(t))
-                        return t.Trim();
-                }
-            }
-
-            foreach (var r in seg)
-            {
+                if (!IsJackpotPrizeRow(r))
+                    continue;
                 var t = GetString(r, "jackpot_type");
                 if (!string.IsNullOrWhiteSpace(t))
                     return t.Trim();

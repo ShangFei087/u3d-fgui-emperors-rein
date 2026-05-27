@@ -25,7 +25,7 @@ namespace GameMaker
         const int ColDelta = 9;          // I 输赢（公式：结束-下注前）
         const int ColCreditAfter = 10;   // J 结束
         const int ColMult = 11;          // K 倍数（公式：总得分/下注，供分档汇总引用）
-        const int ColJackpotType = 12;   // L 彩金类型（1=Major，2=Minor，3=Mini；非彩金为空）
+        const int ColJackpotType = 12;   // L 彩金类型（0=Major，1=Minor，2=Mini；非彩金为空）
 
         // —— 顶部汇总（M～U：横排指标）——
         const int SummaryColStart = 13;      // M 统计项 / 类型
@@ -40,8 +40,8 @@ namespace GameMaker
 
         // —— 分档明细列（M～S，与 SummaryColStart 同列区不同行）——
         const int DetailColType = 13;   // M 类型 / 分档名
-        const int DetailColBet = 14;    // N 总玩（本段 C 列押注之和）
-        const int DetailColCount = 15;  // O 局
+        const int DetailColCount = 14;  // N 局
+        const int DetailColBet = 15;    // O 总玩（本段 C 列押注之和）
         const int DetailColWin = 16;    // P 赢分
         const int DetailColAvg = 17;    // Q 平均（倍）= 赢分 ÷ 总玩
         const int DetailColProb = 18;   // R 出现概率
@@ -58,12 +58,12 @@ namespace GameMaker
             "彩金得分", "总得分", "输赢", "结束", "倍数", "彩金类型",
         };
 
-        /// <summary>jackpot_type 1/2/3 → Major / Minor / Mini。</summary>
+        /// <summary>jackpot_type 0/1/2 → Major / Minor / Mini。</summary>
         static readonly (string Code, string Label)[] _JackpotTypeRows =
         {
-            ("1", "Major"),
-            ("2", "Minor"),
-            ("3", "Mini"),
+            ("0", "Major"),
+            ("1", "Minor"),
+            ("2", "Mini"),
         };
 
         /// <summary>普通（仅「赢」局）倍数分档：左闭右开，最后一档无上界。</summary>
@@ -240,7 +240,7 @@ namespace GameMaker
             // K 倍数 = 总得分 ÷ 下注；下注为 0 时置 0，避免除零。汇总区分档用 COUNTIFS 引用 K 列。
             sheet.Fml(ColMult, stData, $"IF({c}=0,0,{h}/{c})");
 
-            // L 彩金类型：库表 jackpot_type（1/2/3），供彩金块 Major/Minor/Mini 公式 COUNTIFS 引用。
+            // L 彩金类型：仅彩金局写入（BuildExportData 已过滤），其余留空。
             if (string.IsNullOrEmpty(g.JackpotType))
                 sheet.Str(ColJackpotType, stData, "");
             else
@@ -292,7 +292,7 @@ namespace GameMaker
             var rngC = AbsRange(ColBet, firstDataRow, lastDataRow);         // C：下注
             var rngH = AbsRange(ColTotalWin, firstDataRow, lastDataRow);    // H：总得分（每行 SUM(D:G)）
             var rngMult = AbsRange(ColMult, firstDataRow, lastDataRow);     // K：倍数 H/C，分档用
-            var rngJpType = AbsRange(ColJackpotType, firstDataRow, lastDataRow); // L：彩金类型 1/2/3
+            var rngJpType = AbsRange(ColJackpotType, firstDataRow, lastDataRow); // L：彩金类型 0/1/2
 
             // 顶部横排「数值」行单元格（总局、总玩分等；分档表出现概率/RTP 仍引用本行）
             var cellRounds = Cell(SummaryColRounds, summaryValuesRow);      // M 总局
@@ -310,18 +310,18 @@ namespace GameMaker
             // O 总得分 = 全部 H 列之和
             sheet.Fml(SummaryColSumWin, stSxV, $"SUM({rngH})");
             // P 合计 RTP = 总得分 / 总玩分
-            sheet.Fml(SummaryColRtpTotal, stSxV, $"IF({cellSumBet}=0,0,{cellSumWin}/{cellSumBet})");
+            sheet.Fml(SummaryColRtpTotal, PctStyle(stSxV), $"IF({cellSumBet}=0,0,{cellSumWin}/{cellSumBet})");
             // Q 大奖 RTP：A 列等于 block2Title（BonusWin 局，标题可配置为 FIREBIRD 等）
-            sheet.Fml(SummaryColRtpBig, stSxV,
+            sheet.Fml(SummaryColRtpBig, PctStyle(stSxV),
                 $"IF({cellSumBet}=0,0,SUMIF({rngA},\"{FmlEsc(block2Title)}\",{rngH})/{cellSumBet})");
             // R 普通游戏 RTP：仅 A 列为「赢」的 H 之和 / 总玩分（不含「输」局）
-            sheet.Fml(SummaryColRtpNormal, stSxV,
+            sheet.Fml(SummaryColRtpNormal, PctStyle(stSxV),
                 $"IF({cellSumBet}=0,0,SUMIF({rngA},\"赢\",{rngH})/{cellSumBet})");
             // S 免费 RTP：A 列为「免费」的 H 之和 / 总玩分
-            sheet.Fml(SummaryColRtpFree, stSxV,
+            sheet.Fml(SummaryColRtpFree, PctStyle(stSxV),
                 $"IF({cellSumBet}=0,0,SUMIF({rngA},\"免费\",{rngH})/{cellSumBet})");
             // T 彩金游戏 RTP：A 列为「彩金」的 H 之和 / 总玩分
-            sheet.Fml(SummaryColRtpJackpot, stSxV,
+            sheet.Fml(SummaryColRtpJackpot, PctStyle(stSxV),
                 $"IF({cellSumBet}=0,0,SUMIF({rngA},\"彩金\",{rngH})/{cellSumBet})");
             sheet.EndRow();
             row++;
@@ -335,8 +335,8 @@ namespace GameMaker
             // —— 第 3 段：分档明细表头（L～R）——
             sheet.BeginRow(row);
             sheet.Str(DetailColType, stDh, "类型");
-            sheet.Str(DetailColBet, stDh, "总玩");
             sheet.Str(DetailColCount, stDh, "局");
+            sheet.Str(DetailColBet, stDh, "总玩");
             sheet.Str(DetailColWin, stDh, "赢分");
             sheet.Str(DetailColAvg, stDh, "平均（倍）");
             sheet.Str(DetailColProb, stDh, "出现概率");
@@ -399,8 +399,8 @@ namespace GameMaker
             sheet.Fml(DetailColCount, stTot, sumCountF);
             sheet.Fml(DetailColWin, stTot, sumWinF);
             sheet.Fml(DetailColAvg, stTot, AvgMultFormula(Cell(DetailColWin, totRow), Cell(DetailColBet, totRow)));
-            sheet.Fml(DetailColProb, stTot, sumProbF);
-            sheet.Fml(DetailColRtp, stTot, sumRtpF);
+            sheet.Fml(DetailColProb, PctStyle(stTot), sumProbF);
+            sheet.Fml(DetailColRtp, PctStyle(stTot), sumRtpF);
             sheet.EndRow();
             row++;
         }
@@ -452,9 +452,9 @@ namespace GameMaker
                 sheet.Fml(DetailColCount, st, countF);
                 sheet.Fml(DetailColWin, st, winF);
                 sheet.Fml(DetailColAvg, st, AvgMultFormula(Cell(DetailColWin, br), Cell(DetailColBet, br)));
-                sheet.Fml(DetailColProb, st,
+                sheet.Fml(DetailColProb, PctStyle(st),
                     $"IF({Cell(SummaryColRounds, summaryValuesRow)}=0,0,{Cell(DetailColCount, br)}/{Cell(SummaryColRounds, summaryValuesRow)})");
-                sheet.Fml(DetailColRtp, st,
+                sheet.Fml(DetailColRtp, PctStyle(st),
                     $"IF({Cell(SummaryColSumBet, summaryValuesRow)}=0,0,{Cell(DetailColWin, br)}/{Cell(SummaryColSumBet, summaryValuesRow)})");
                 sheet.EndRow();
                 row++;
@@ -462,7 +462,6 @@ namespace GameMaker
 
             var lastBucketRow = row - 1;
             var subRow = row;
-            var roundsRef = Cell(SummaryColRounds, summaryValuesRow);
             sheet.BeginRow(row);
             sheet.Str(DetailColType, stSt, "小计");
             sheet.Fml(DetailColBet, stSt,
@@ -472,16 +471,17 @@ namespace GameMaker
             sheet.Fml(DetailColWin, stSt,
                 $"SUM({Cell(DetailColWin, firstBucketRow)}:{Cell(DetailColWin, lastBucketRow)})");
             sheet.Fml(DetailColAvg, stSt, AvgMultFormula(Cell(DetailColWin, subRow), Cell(DetailColBet, subRow)));
-            sheet.Fml(DetailColProb, stSt, $"IF({roundsRef}=0,0,{Cell(DetailColCount, subRow)}/{roundsRef})");
-            sheet.Fml(DetailColRtp, stSt,
-                $"IF({Cell(SummaryColSumBet, summaryValuesRow)}=0,0,{Cell(DetailColWin, subRow)}/{Cell(SummaryColSumBet, summaryValuesRow)})");
+            sheet.Fml(DetailColProb, PctStyle(stSt),
+                $"SUM({Cell(DetailColProb, firstBucketRow)}:{Cell(DetailColProb, lastBucketRow)})");
+            sheet.Fml(DetailColRtp, PctStyle(stSt),
+                $"SUM({Cell(DetailColRtp, firstBucketRow)}:{Cell(DetailColRtp, lastBucketRow)})");
             sheet.EndRow();
             subtotalRows.Add(subRow);
             row++;
         }
 
         /// <summary>
-        /// 彩金块：按 L 列 jackpot_type（1=Major，2=Minor，3=Mini）分行统计，末行「小计」统计全部 A=彩金。
+        /// 彩金块：按 L 列 jackpot_type（0=Major，1=Minor，2=Mini）分行统计，末行「小计」统计全部 A=彩金。
         /// </summary>
         static void AppendJackpotSection(SheetBuilder sheet, ref int row, string rngA, string rngC, string rngH,
             string rngJpType, int summaryValuesRow, int stSec, int stSd, int stSdZ, int stSt, List<int> subtotalRows)
@@ -491,6 +491,7 @@ namespace GameMaker
             sheet.EndRow();
             row++;
 
+            var firstTypeRow = row;
             for (var i = 0; i < _JackpotTypeRows.Length; i++)
             {
                 var (code, label) = _JackpotTypeRows[i];
@@ -499,25 +500,27 @@ namespace GameMaker
                     st);
             }
 
+            var lastTypeRow = row - 1;
             var dataRow = row;
-            var roundsRef = Cell(SummaryColRounds, summaryValuesRow);
-            var typeBetF = TypeBetSumFormula(rngA, "彩金", rngC);
             sheet.BeginRow(row);
             sheet.Str(DetailColType, stSt, "小计");
-            sheet.Fml(DetailColBet, stSt, typeBetF);
-            sheet.Fml(DetailColCount, stSt, $"COUNTIF({rngA},\"彩金\")");
-            sheet.Fml(DetailColWin, stSt, $"SUMIF({rngA},\"彩金\",{rngH})");
+            sheet.Fml(DetailColBet, stSt,
+                $"SUM({Cell(DetailColBet, firstTypeRow)}:{Cell(DetailColBet, lastTypeRow)})");
+            sheet.Fml(DetailColCount, stSt,
+                $"SUM({Cell(DetailColCount, firstTypeRow)}:{Cell(DetailColCount, lastTypeRow)})");
+            sheet.Fml(DetailColWin, stSt,
+                $"SUM({Cell(DetailColWin, firstTypeRow)}:{Cell(DetailColWin, lastTypeRow)})");
             sheet.Fml(DetailColAvg, stSt, AvgMultFormula(Cell(DetailColWin, dataRow), Cell(DetailColBet, dataRow)));
-            sheet.Fml(DetailColProb, stSt,
-                $"IF({roundsRef}=0,0,{Cell(DetailColCount, dataRow)}/{roundsRef})");
-            sheet.Fml(DetailColRtp, stSt,
-                $"IF({Cell(SummaryColSumBet, summaryValuesRow)}=0,0,{Cell(DetailColWin, dataRow)}/{Cell(SummaryColSumBet, summaryValuesRow)})");
+            sheet.Fml(DetailColProb, PctStyle(stSt),
+                $"SUM({Cell(DetailColProb, firstTypeRow)}:{Cell(DetailColProb, lastTypeRow)})");
+            sheet.Fml(DetailColRtp, PctStyle(stSt),
+                $"SUM({Cell(DetailColRtp, firstTypeRow)}:{Cell(DetailColRtp, lastTypeRow)})");
             sheet.EndRow();
             subtotalRows.Add(dataRow);
             row++;
         }
 
-        /// <summary>彩金块内单行：A=彩金 且 L=typeCode（1/2/3）。</summary>
+        /// <summary>彩金块内单行：A=彩金 且 L=typeCode（0/1/2）。</summary>
         static void AppendJackpotTypeDetailRow(SheetBuilder sheet, ref int row, string label, string rngA, string rngC,
             string rngH, string rngJpType, string typeCode, int summaryValuesRow, int st)
         {
@@ -530,9 +533,9 @@ namespace GameMaker
             sheet.Fml(DetailColCount, st, JackpotTypeCountFormula(rngA, rngJpType, typeCode));
             sheet.Fml(DetailColWin, st, JackpotTypeWinFormula(rngA, rngH, rngJpType, typeCode));
             sheet.Fml(DetailColAvg, st, AvgMultFormula(Cell(DetailColWin, dataRow), Cell(DetailColBet, dataRow)));
-            sheet.Fml(DetailColProb, st,
+            sheet.Fml(DetailColProb, PctStyle(st),
                 $"IF({roundsRef}=0,0,{Cell(DetailColCount, dataRow)}/{roundsRef})");
-            sheet.Fml(DetailColRtp, st,
+            sheet.Fml(DetailColRtp, PctStyle(st),
                 $"IF({Cell(SummaryColSumBet, summaryValuesRow)}=0,0,{Cell(DetailColWin, dataRow)}/{Cell(SummaryColSumBet, summaryValuesRow)})");
             sheet.EndRow();
             row++;
@@ -569,9 +572,9 @@ namespace GameMaker
             sheet.Fml(DetailColCount, stSt, $"COUNTIF({rngA},\"{typeEsc}\")");
             sheet.Fml(DetailColWin, stSt, $"SUMIF({rngA},\"{typeEsc}\",{rngH})");
             sheet.Fml(DetailColAvg, stSt, AvgMultFormula(Cell(DetailColWin, dataRow), Cell(DetailColBet, dataRow)));
-            sheet.Fml(DetailColProb, stSt,
+            sheet.Fml(DetailColProb, PctStyle(stSt),
                 $"IF({roundsRef}=0,0,{Cell(DetailColCount, dataRow)}/{roundsRef})");
-            sheet.Fml(DetailColRtp, stSt,
+            sheet.Fml(DetailColRtp, PctStyle(stSt),
                 $"IF({Cell(SummaryColSumBet, summaryValuesRow)}=0,0,{Cell(DetailColWin, dataRow)}/{Cell(SummaryColSumBet, summaryValuesRow)})");
             sheet.EndRow();
             subtotalRows.Add(dataRow);
@@ -680,7 +683,29 @@ namespace GameMaker
             "<Relationship Id=\"rId3\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings\" Target=\"sharedStrings.xml\"/>" +
             "</Relationships>";
 
-        /// <summary>样式索引 0=默认 1=表头蓝 2/3=数据行 4~11=汇总区配色（与旧 SpreadsheetML 一致）。</summary>
+        const int StSxV = 5;
+        const int StSd = 8;
+        const int StSdZ = 9;
+        const int StSt = 10;
+        const int StTot = 11;
+        // 12～16：与 5/8/9/10/11 同配色，numFmtId=10（0.00%）
+        const int StPctSxV = 12;
+        const int StPctSd = 13;
+        const int StPctSdZ = 14;
+        const int StPctSt = 15;
+        const int StPctTot = 16;
+
+        /// <summary>出现概率 / RTP 列使用百分比样式（公式值仍为 0～1 小数）。</summary>
+        static int PctStyle(int style) => style switch
+        {
+            StSxV => StPctSxV,
+            StSd => StPctSd,
+            StSdZ => StPctSdZ,
+            StSt => StPctSt,
+            StTot => StPctTot,
+            _ => style
+        };
+
         static string StylesXml() =>
             "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
             "<styleSheet xmlns=\"" + NsMain + "\">" +
@@ -707,7 +732,7 @@ namespace GameMaker
             "<border><bottom style=\"thin\"><color rgb=\"FFD0D7E5\"/></bottom></border>" +
             "</borders>" +
             "<cellStyleXfs count=\"1\"><xf numFmtId=\"0\" fontId=\"0\" fillId=\"0\" borderId=\"0\"/></cellStyleXfs>" +
-            "<cellXfs count=\"12\">" +
+            "<cellXfs count=\"17\">" +
             "<xf numFmtId=\"0\" fontId=\"0\" fillId=\"0\" borderId=\"0\" xfId=\"0\"/>" +
             "<xf numFmtId=\"0\" fontId=\"1\" fillId=\"2\" borderId=\"0\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\"/></xf>" +
             "<xf numFmtId=\"0\" fontId=\"0\" fillId=\"3\" borderId=\"1\" xfId=\"0\" applyBorder=\"1\" applyFill=\"1\"/>" +
@@ -720,6 +745,11 @@ namespace GameMaker
             "<xf numFmtId=\"0\" fontId=\"0\" fillId=\"8\" borderId=\"0\" xfId=\"0\" applyFill=\"1\"/>" +
             "<xf numFmtId=\"0\" fontId=\"2\" fillId=\"9\" borderId=\"0\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\"/>" +
             "<xf numFmtId=\"0\" fontId=\"2\" fillId=\"10\" borderId=\"0\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\"/>" +
+            "<xf numFmtId=\"10\" fontId=\"0\" fillId=\"3\" borderId=\"1\" xfId=\"0\" applyNumberFormat=\"1\" applyBorder=\"1\" applyFill=\"1\"/>" +
+            "<xf numFmtId=\"10\" fontId=\"2\" fillId=\"7\" borderId=\"0\" xfId=\"0\" applyNumberFormat=\"1\" applyFont=\"1\" applyFill=\"1\"/>" +
+            "<xf numFmtId=\"10\" fontId=\"0\" fillId=\"3\" borderId=\"0\" xfId=\"0\" applyNumberFormat=\"1\" applyFill=\"1\"/>" +
+            "<xf numFmtId=\"10\" fontId=\"2\" fillId=\"9\" borderId=\"0\" xfId=\"0\" applyNumberFormat=\"1\" applyFont=\"1\" applyFill=\"1\"/>" +
+            "<xf numFmtId=\"10\" fontId=\"2\" fillId=\"10\" borderId=\"0\" xfId=\"0\" applyNumberFormat=\"1\" applyFont=\"1\" applyFill=\"1\"/>" +
             "</cellXfs>" +
             "</styleSheet>";
 
