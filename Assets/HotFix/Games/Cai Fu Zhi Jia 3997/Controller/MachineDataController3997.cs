@@ -825,18 +825,17 @@ namespace CaiFuZhiJia_3997
             gameSenceData.baseGameWinCredit = totalEarnCredit;
             // 彩金赢分
             long jackpotWinCredit = res != null ? (int)res["TotalJackpotBet"] : 0;
-            //JackpotRes info = ContentModel.Instance.jpGameRes;
-            //gameSenceData.jpGrand = info.curJackpotGrand;
-            //gameSenceData.jpMajor = info.curJackpotMajor;
-            //gameSenceData.jpMinor = info.curJackpotMinior;
-            //gameSenceData.jpMini = info.curJackpotMini;
-            //if (info.jpWinLst != null && info.jpWinLst.Count > 0)
-            //{
-            //    JackpotWinInfo item = info.jpWinLst[0];
-            //    gameSenceData.jpWinInfo = item;
-            //    jackpotWinCredit = (long)item.winCredit;
-            //    gameSenceData.jackpotWinCredit = jackpotWinCredit;
-            //}
+            string jackpot_type = "";
+            for (int i = 0; i < ContentModel.Instance.jpTypeArray.Count; i++)
+            {
+                if (ContentModel.Instance.jpTypeArray[i] != "0")
+                {
+                    jackpot_type = ContentModel.Instance.jpTypeArray[i].ToString();
+                    break;
+                }
+                   
+            }
+
             //免费游戏赢分
             long freeGameWinCredit = res != null ? (int)res["TotalFreeBet"] : 0;
             long bonuGameWinCredit = res != null ? (int)res["BonusBet"] : 0;
@@ -846,6 +845,7 @@ namespace CaiFuZhiJia_3997
             {
                 open_type = OpenType,
                 result_type = ResultType,
+                jackpot_type= jackpot_type,
                 free_curtime = ContentModel.Instance.FreeSpinPlayTimes,
                 free_totaltime = ContentModel.Instance.FreeSpinTotalTimes,
                 game_id = 3997,

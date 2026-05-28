@@ -54,6 +54,7 @@ namespace CaiFuZhiJia_3997
 
         // 计时器回调
         private TimerCallback _delayCloseCallback;
+        private TimerCallback _autoClickCallback;
 
         private bool _isClicked = false;
 
@@ -119,6 +120,7 @@ namespace CaiFuZhiJia_3997
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
             _isClicked = false;
+            RemoveTimer(ref _autoClickCallback);
 
             // -------------------------- 获取UI组件 -----------------------
             _freeResultTipWindow = contentPane.GetChild("freeResultTipWindow").asCom;
@@ -207,6 +209,20 @@ namespace CaiFuZhiJia_3997
 
             _freeStartBtn.onClick.Clear();
             _freeStartBtn.onClick.Add(() => OnClickSpinButton(null));
+
+            if (TestManager.Instance.IsAutoModeRunning)
+            {
+                _autoClickCallback = (obj) =>
+                {
+                    if (_freeStartBtn != null && _freeResultTipWindow != null &&
+                        _freeResultTipWindow.visible && isOpen)
+                    {
+                        _freeStartBtn.onClick.Call();
+                    }
+                    _autoClickCallback = null;
+                };
+                Timers.inst.Add(3.0f, 1, _autoClickCallback);
+            }
         }
 
         private void OnClickSpinButton(EventData eventData)
@@ -249,6 +265,7 @@ namespace CaiFuZhiJia_3997
                 new EventData(Game3997AudioEvent.BgmRegularGame));
             _gameSoundController?.Dispose();
             _gameSoundController = null;
+            RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _delayCloseCallback);
 
             // ------------------------ 复原UI显隐状态 ----------------------

@@ -70,6 +70,7 @@ def fetch_rows(
             bonus_game_win_credit,
             jackpot_win_credit,
             total_win_credit,
+            jackpot_type,
             open_type,
             result_type,
             free_curtime,
@@ -127,10 +128,9 @@ def classify_merged_segment(seg: Sequence[sqlite3.Row]) -> str:
 
 
 def classify_win_lose(r: sqlite3.Row, divisor: float) -> str:
-    cb = scale(r["credit_before"], divisor)
-    ca = scale(r["credit_after"], divisor)
-    d = ca - cb
-    return "赢" if d > 0 else "输"
+    """主游戏：基础游戏得分为 0 为输，否则为赢。"""
+    _ = divisor
+    return "赢" if (_lget(r, "base_game_win_credit") or 0) > 0 else "输"
 
 
 def classify_single_row(r: sqlite3.Row, divisor: float, big_mul: float) -> str:

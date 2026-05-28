@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace GameMaker
 {
+    /// <summary>
+    /// 从 slot_game_record 表导出行数据：合并免费段、局类型分类、CSV 与 xlsx 共用同一套构建逻辑。
+    /// 字段含义与 <see cref="TableSlotGameRecordItem"/> 写入库时一致。
+    /// </summary>
     public enum SlotGameRecordColAExportMode
     {
         /// <summary>赢/输/免费/大奖/彩金 五种局类型文案（默认）。</summary>
@@ -19,6 +23,7 @@ namespace GameMaker
 
     public static class SlotGameRecordExport
     {
+        /// <summary>CSV / 着色表游戏区表头（10 列；xlsx 另增 K 列「倍数」公式列）。</summary>
         public static readonly string[] _Header =
         {
             "大奖统计",
@@ -61,7 +66,7 @@ namespace GameMaker
             return FormatSlotGameRecordCsv(d);
         }
 
-        /// <summary>一行游戏数据（已缩放）。</summary>
+        /// <summary>导出一行游戏记录（金额已按 creditDivisor 缩放，与库内整数分可能不同比例）。</summary>
         public readonly struct SlotGameRecordCsvRow
         {
             public readonly string ColA;
@@ -74,6 +79,8 @@ namespace GameMaker
             public readonly double TotalWin;
             public readonly double Delta;
             public readonly double CreditAfter;
+            /// <summary>库表 jackpot_type（0=Major，1=Minor，2=Mini）；仅 A 列「彩金」局写入，其余为空。</summary>
+            public readonly string JackpotType;
 
             public SlotGameRecordCsvRow(
                 string colA,
@@ -85,7 +92,8 @@ namespace GameMaker
                 double jackpotWin,
                 double totalWin,
                 double delta,
-                double creditAfter)
+                double creditAfter,
+                string jackpotType = "")
             {
                 ColA = colA ?? "";
                 CreditBefore = creditBefore;
@@ -97,6 +105,19 @@ namespace GameMaker
                 TotalWin = totalWin;
                 Delta = delta;
                 CreditAfter = creditAfter;
+                JackpotType = jackpotType ?? "";
+            }
+        }
+
+        /// <summary>jackpot_type 0/1/2 对应 Major / Minor / Mini（与机台入库字符串一致）。</summary>
+        public static string GetJackpotTypeDisplayLabel(string jackpotTypeCode)
+        {
+            switch ((jackpotTypeCode ?? "").Trim())
+            {
+                case "0": return "Major";
+                case "1": return "Minor";
+                case "2": return "Mini";
+                default: return "";
             }
         }
 
@@ -121,9 +142,12 @@ namespace GameMaker
             public double Mult => Bet > 0 ? WinJp / Bet : 0;
         }
 
+        /// <summary>一次导出的完整数据集。Metrics 供历史逻辑兼容；xlsx 汇总已改为公式，不再读取 Metrics 数值。</summary>
         public sealed class SlotGameRecordExportData
         {
+            /// <summary>合并后的游戏行（每元素对应 CSV/xlsx 一行）。</summary>
             public readonly List<SlotGameRecordCsvRow> GameRows;
+            /// <summary>与 GameRows 同序的汇总指标（Win=基础+免费+大奖，Jp=彩金）。</summary>
             public readonly List<SlotGameRecordSummaryMetric> Metrics;
 
             public SlotGameRecordExportData(List<SlotGameRecordCsvRow> gameRows, List<SlotGameRecordSummaryMetric> metrics)
@@ -133,6 +157,9 @@ namespace GameMaker
             }
         }
 
+        /// <summary>
+        /// 将库表行转为导出行：可选合并免费赠送段；免费段总得分按钱包关系校正，避免库内累计字段重复相加。
+        /// </summary>
         public static SlotGameRecordExportData BuildExportData(
             IList<DataRow> rows,
             double creditDivisor,
@@ -167,8 +194,11 @@ namespace GameMaker
                 }
 
                 metrics.Add(new SlotGameRecordSummaryMetric(awardLabel, totalBet, lineWinNoJp, jp));
+                var jpType = string.Equals(awardLabel, "彩金", StringComparison.Ordinal)
+                    ? GetSegmentJackpotType(seg)
+                    : "";
                 gameRows.Add(new SlotGameRecordCsvRow(colA, cb, totalBet, baseGame, freeSpin, bonusGame, jp, totalWin,
-                    delta, ca));
+                    delta, ca, jpType));
             }
 
             return new SlotGameRecordExportData(gameRows, metrics);
@@ -183,7 +213,7 @@ namespace GameMaker
             return sb.ToString();
         }
 
-        /// <summary>游戏记录汇总「普通 / 大奖 / 免费」分档方案（与 slot_game_record_summary_report.py 一致）。</summary>
+        /// <summary>汇总表分档方案（与 Python 脚本 slot_game_record_summary_report.py 一致，xlsx 中由公式实现）。</summary>
         public enum SlotGameRecordSummaryBucketScheme
         {
             /// <summary>普通：1 倍以下～20 倍以上。</summary>
@@ -282,10 +312,6 @@ namespace GameMaker
         /// 合并段内各得分汇总（已缩放）。多行合并为「免费」时，库内 free_spin/total_win 常为整段累计，逐行相加会重复；
         /// 此时用 末 credit_after - 首 credit_before + 本段下注 作为本段总得分，免费得分 = 总得分 - 基础 - 大奖 - 彩金。
         /// </summary>
-        /// <summary>
-        /// 合并段内各得分汇总（已缩放）。多行合并为「免费」时，库内 free_spin/total_win 常为整段累计，逐行相加会重复；
-        /// 此时用 末 credit_after - 首 credit_before + 本段下注 作为本段总得分，免费得分 = 总得分 - 基础 - 大奖 - 彩金。
-        /// </summary>
         static void TryGetSegmentScaledTotals(
             List<DataRow> seg,
             string awardLabel,
@@ -375,8 +401,8 @@ namespace GameMaker
         }
 
         /// <summary>
-        /// 合并规则：①「主游戏 + RT_FreeWin + free_totaltime&gt;0」为免费段起点，其后连续 open_type=赠送局 并入同一段；
-        /// ②导出窗口开头若仅有连续赠送局（无触发行），也合并为一段「免费」。
+        /// 合并规则：① 主游戏且 result_type=FreeWin 且 free_totaltime&gt;0 为免费段起点，其后连续 open_type=赠送局 并入同一段；
+        /// ② 导出窗口开头若仅有连续赠送局（无触发行），也合并为一段「免费」。
         /// </summary>
         public static List<List<DataRow>> BuildMergedSegments(IList<DataRow> ordered)
         {
@@ -473,13 +499,11 @@ namespace GameMaker
             return rt == ResultTypeJackpot || rt == ResultTypeJackpotOnline;
         }
 
-        /// <summary>主游戏非彩金、非免费、非大奖时仅「赢」「输」（净变化≤0 为输）。</summary>
+        /// <summary>主游戏局：base_game_win_credit 为 0 判「输」，大于 0 判「赢」（与钱包 delta 无关）。</summary>
         static string ClassifyWinLose(DataRow r, double creditDivisor)
         {
-            var cb = Scale(GetLong(r, "credit_before"), creditDivisor);
-            var ca = Scale(GetLong(r, "credit_after"), creditDivisor);
-            var d = ca - cb;
-            return d > 0 ? "赢" : "输";
+            _ = creditDivisor;
+            return GetLong(r, "base_game_win_credit") > 0 ? "赢" : "输";
         }
 
         static int GetInt(DataRow row, string columnName)
@@ -490,6 +514,31 @@ namespace GameMaker
             if (v == null || v == DBNull.Value)
                 return 0;
             return Convert.ToInt32(v, CultureInfo.InvariantCulture);
+        }
+
+        static string GetSegmentJackpotType(List<DataRow> seg)
+        {
+            for (var i = seg.Count - 1; i >= 0; i--)
+            {
+                var r = seg[i];
+                if (!IsJackpotPrizeRow(r))
+                    continue;
+                var t = GetString(r, "jackpot_type");
+                if (!string.IsNullOrWhiteSpace(t))
+                    return t.Trim();
+            }
+
+            return "";
+        }
+
+        static string GetString(DataRow row, string columnName)
+        {
+            if (row == null || row.Table == null || !row.Table.Columns.Contains(columnName))
+                return "";
+            var v = row[columnName];
+            if (v == null || v == DBNull.Value)
+                return "";
+            return Convert.ToString(v, CultureInfo.InvariantCulture) ?? "";
         }
 
         static long GetLong(DataRow row, string columnName)
