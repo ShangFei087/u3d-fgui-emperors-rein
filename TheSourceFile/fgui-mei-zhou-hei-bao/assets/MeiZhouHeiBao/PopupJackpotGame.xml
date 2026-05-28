@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920">
-  <displayList>
-    <component id="n0_rjnl" name="jackpotBg" src="rjnl69" fileName="moudules/popupJackpotGame/JackpotBg.xml" xy="0,0"/>
-    <component id="n3_v1f2" name="jackpotContent" src="v1f26e" fileName="moudules/popupJackpotGame/ReelContent/JackpotContent.xml" xy="175,943"/>
-    <component id="n2_rjnl" name="normalReelBackground" src="qkv054" fileName="moudules/common/SlotMachine/ReelBackground/NormalReelBackground.xml" xy="30,807" scale="0.9,0.9"/>
-    <component id="n1_rjnl" name="panel" src="qkv05f" fileName="components/pageGameMain/AnchorPanelSlot.xml" xy="540,1845"/>
-  </displayList>
-</component>

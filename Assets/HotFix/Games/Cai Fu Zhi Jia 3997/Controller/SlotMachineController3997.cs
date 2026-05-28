@@ -175,7 +175,7 @@ namespace CaiFuZhiJia_3997
 
         #region 新增滚轮加速方法
 
-        public new IEnumerator TurnReelsNormal( /*int symbolIndex*/ List<int> specialSymbols,
+        public new IEnumerator TurnReelsNormal( List<int> specialSymbols,
             string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3",
             Action finishCallback = null)
         {
@@ -201,18 +201,14 @@ namespace CaiFuZhiJia_3997
             finishCallback?.Invoke();
         }
 
-        // List<int> slowCols = new List<int>();
-
         List<int> freeIconCols = new List<int>();
         List<int> jackpotIconCols = new List<int>();
         Dictionary<int, List<int>> freeAddIcon = new Dictionary<int, List<int>>();
         Dictionary<int, List<int>> multAddIcon = new Dictionary<int, List<int>>();
 
-        public List<List<int>> GetDeckColRow(int[] deckColRow, int colCount, int rowCount, /*int symbolIndex*/
+        public List<List<int>> GetDeckColRow(int[] deckColRow, int colCount, int rowCount,
             List<int> specialSymbols) // 修改参数，传入特殊图标数组
         {
-            // if (ContentModel.Instance.isReelsSlowMotion) slowCols.Clear();
-
             if (freeIconCols.Count > 0) freeIconCols.Clear();
             if (jackpotIconCols.Count > 0) jackpotIconCols.Clear();
 

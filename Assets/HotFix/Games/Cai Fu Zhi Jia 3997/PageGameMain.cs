@@ -28,8 +28,7 @@ namespace CaiFuZhiJia_3997
 
         [JsonProperty("win_level_multiple")] public Dictionary<string, long> WinLevelMultiple { get; set; } //赢钱倍数
 
-        [JsonProperty("symbol_paytable")]
-        public Dictionary<string, PayTableSymbolInfo> SymbolPaytable { get; set; } //符号赔率表
+        [JsonProperty("symbol_paytable")] public Dictionary<string, PayTableSymbolInfo> SymbolPaytable { get; set; } //符号赔率表
 
         [JsonProperty("pay_lines")] public List<List<int>> pay_lines { get; set; } //支付钱
     }
@@ -167,12 +166,8 @@ namespace CaiFuZhiJia_3997
         private GComponent _compareFrameLoss;
         private GameObject _frameLossObj, _cloneFrameLossObj;
 
-        private int _totalPlayRounds = 3;
-        private readonly Random _random = new Random();
-        private bool _isHit;
-
         private GameObject _jackpotHitObj;
-        private GComponent _smallGameReels;
+        private GameObject _redDiamondObj;
 
         private PanelController3997 _panelCtrl;
 
@@ -183,43 +178,18 @@ namespace CaiFuZhiJia_3997
 
         private GTextField rollCountText;
         private GComponent smallGameReels;
-        private GComponent smallGameSettlement, smallGameSettlementParent, smallEffectTest; // 彩金结算部分
+        private GComponent smallGameSettlement, smallGameSettlementParent; // 彩金结算部分
         private GameObject settlementEffect; // 结算特效
         private Coroutine _corSettlement;
 
         private readonly int _initialRollCount = 3;
-
-        private readonly List<float> _rollSpeedList = new List<float>()
-        {
-            2f,
-            2f,
-            2f,
-            2f,
-            2f,
-            2f,
-            2f,
-            2f,
-            2,
-            2f,
-            2f,
-            2f,
-            2,
-            2f,
-            2f,
-        };
 
         /// <summary>滚轴错开延迟</summary>
         private readonly float _reelStaggerDelay = 0.05f;
 
         private readonly string _redDiamondUrl = "ui://CaiFuZhiJia/ng_sym_diamonds2";
 
-        private readonly List<string> _jackpotUrls = new List<string>()
-        {
-            "",
-            "ui://CaiFuZhiJia/ng_sym_diamonds4",
-            "ui://CaiFuZhiJia/ng_sym_diamonds3",
-            "ui://CaiFuZhiJia/ng_sym_diamonds6",
-        };
+        private readonly List<string> _jackpotUrls = new List<string>() { "ui://CaiFuZhiJia/ng_sym_diamonds4", "ui://CaiFuZhiJia/ng_sym_diamonds3", "ui://CaiFuZhiJia/ng_sym_diamonds6", };
 
         /// <summary>15个格子控制器</summary>
         private readonly List<SmallGameReelController> _elementBoxes = new List<SmallGameReelController>();
@@ -257,7 +227,7 @@ namespace CaiFuZhiJia_3997
             base.OnInit();
 
             // ---------- 1. 加载common,普通游戏,免费游戏,彩金游戏预制体到内存 ----------
-            _totalCount = 16;
+            _totalCount = 17;
             if (UIPackage.GetByName("Common") == null)
             {
                 ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/Common/FGUIs", (bundle) =>
@@ -383,6 +353,13 @@ namespace CaiFuZhiJia_3997
                     ResLoadedCallback();
                 });
             ResourceManager02.Instance.LoadAsset<GameObject>(
+                SpinePrefabPath + "redDiamondSpine.prefab",
+                (clone) =>
+                {
+                    _redDiamondObj = clone;
+                    ResLoadedCallback();
+                });
+            ResourceManager02.Instance.LoadAsset<GameObject>(
                 EffectPrefabPath + "settlementEffect.prefab",
                 (clone) =>
                 {
@@ -423,11 +400,14 @@ namespace CaiFuZhiJia_3997
             };
         }
 
+        private EventData _openData;
+
         private void InitParam(EventData currentEventData)
         {
+            if (currentEventData != null) _openData = currentEventData;
             if (!isInit) return;
 
-            // ---------- 1. MainModel、Paytable、本地 JSON ----------
+            // ---------- 1. MainModel、PayTable、本地 JSON ----------
             MainModel.Instance.lineNum = 20;
             MainModel.Instance.gameID = 3997;
             MainModel.Instance.gameName = "CaiFuZhiJia3997";
@@ -1073,10 +1053,7 @@ namespace CaiFuZhiJia_3997
                 //通知算法卡赢得联网彩金
                 SBoxWinNetJackpotInfo sBoxWinNetJackpotInfo = new SBoxWinNetJackpotInfo()
                 {
-                    MachineId = int.Parse(SBoxModel.Instance.MachineId),
-                    PlayerId = SBoxModel.Instance.SboxPlayerAccount.PlayerId,
-                    JackpotType = jpLevel,
-                    JackpotWins = winCredit,
+                    MachineId = int.Parse(SBoxModel.Instance.MachineId), PlayerId = SBoxModel.Instance.SboxPlayerAccount.PlayerId, JackpotType = jpLevel, JackpotWins = winCredit,
                 };
                 MachineDataManager02.Instance.RequestJackpotOnline(sBoxWinNetJackpotInfo, (res) =>
                 {
@@ -1343,10 +1320,7 @@ namespace CaiFuZhiJia_3997
                     try
                     {
                         int[] deckData = SlotTool.GetDeckRowCol(currentDeck).ToArray();
-                        SBoxExhibitionData sBoxExhibitionData = new SBoxExhibitionData
-                        {
-                            wheelChessNum = deckData.Length, data = deckData
-                        };
+                        SBoxExhibitionData sBoxExhibitionData = new SBoxExhibitionData { wheelChessNum = deckData.Length, data = deckData };
                         SBoxIdea.SetExhibitionData(sBoxExhibitionData);
                     }
                     catch (Exception e)
@@ -1860,10 +1834,7 @@ namespace CaiFuZhiJia_3997
 
             PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupFreeSpinResult,
                 new EventData<Dictionary<string, object>>("",
-                    new Dictionary<string, object>()
-                    {
-                        ["baseGameWinCredit"] = ContentModel.Instance.freeSpinTotalWinCoins
-                    }),
+                    new Dictionary<string, object>() { ["baseGameWinCredit"] = ContentModel.Instance.freeSpinTotalWinCoins }),
                 (ed) =>
                 {
                     _pageController.selectedPage = "normal";
@@ -1920,10 +1891,7 @@ namespace CaiFuZhiJia_3997
 
             PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupFreeSpinResult,
                 new EventData<Dictionary<string, object>>("",
-                    new Dictionary<string, object>()
-                    {
-                        ["baseGameWinCredit"] = ContentModel.Instance.freeSpinTotalWinCoins
-                    }),
+                    new Dictionary<string, object>() { ["baseGameWinCredit"] = ContentModel.Instance.freeSpinTotalWinCoins }),
                 (ed) =>
                 {
                     _allWinCredit = 0;
@@ -2525,7 +2493,6 @@ namespace CaiFuZhiJia_3997
             }
         }
 
-
         private IEnumerator SmallGameResult(Action onCompleted)
         {
             // Debug.LogError("Game Over");
@@ -2562,7 +2529,7 @@ namespace CaiFuZhiJia_3997
                 {
                     _allHitResults.Add(info);
                     _unrevealedHits.Add(info);
-                    GameObject obj = Object.Instantiate(_jackpotHitObj);
+                    GameObject obj = Object.Instantiate(info.type == SmallResultType.Jackpot ? _jackpotHitObj : _redDiamondObj);
                     box.SetResultData(info, obj);
                 }
             }
@@ -2697,7 +2664,6 @@ namespace CaiFuZhiJia_3997
                 _unrevealedHits.Remove(revealInfo);
 
                 float delay = captureIdx * _reelStaggerDelay;
-                float rollSpeed = _rollSpeedList[captureIdx];
 
                 monoHelper.StartCoroutine(DelayedAction(delay, () =>
                 {
@@ -2715,7 +2681,6 @@ namespace CaiFuZhiJia_3997
             {
                 int captureIdx = idx;
                 float delay = captureIdx * _reelStaggerDelay;
-                // float speed = _rollSpeedList[captureIdx];
                 float speed = 1;
 
                 monoHelper.StartCoroutine(DelayedAction(delay, () =>
@@ -2762,10 +2727,7 @@ namespace CaiFuZhiJia_3997
                     bool isNext = false;
                     PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupJackpotWin,
                         new EventData<Dictionary<string, object>>("",
-                            new Dictionary<string, object>()
-                            {
-                                ["jackpotWinBet"] = t.rewardValue, ["jackpotWinType"] = t.jackpotType
-                            }), (res) =>
+                            new Dictionary<string, object>() { ["jackpotWinBet"] = t.rewardValue, ["jackpotWinType"] = t.jackpotType }), (res) =>
                         {
                             isNext = true;
                         });

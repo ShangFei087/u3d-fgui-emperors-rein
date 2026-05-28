@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="145,133" overflow="hidden">
-  <displayList>
-    <component id="n3_v1f2" name="jackpotSymbol_0" src="v1f26a" fileName="moudules/popupJackpotGame/ReelContent/JackpotSymbol.xml" xy="0,-399"/>
-    <component id="n2_v1f2" name="jackpotSymbol_1" src="v1f26a" fileName="moudules/popupJackpotGame/ReelContent/JackpotSymbol.xml" xy="0,-266"/>
-    <component id="n1_v1f2" name="jackpotSymbol_2" src="v1f26a" fileName="moudules/popupJackpotGame/ReelContent/JackpotSymbol.xml" xy="0,-133"/>
-    <component id="n0_v1f2" name="jackpotSymbol_3" src="v1f26a" fileName="moudules/popupJackpotGame/ReelContent/JackpotSymbol.xml" xy="0,0"/>
-  </displayList>
-</component>

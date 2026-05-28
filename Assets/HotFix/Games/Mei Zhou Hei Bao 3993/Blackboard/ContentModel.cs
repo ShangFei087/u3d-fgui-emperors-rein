@@ -1,30 +1,26 @@
 using FairyGUI;
 using GameMaker;
-using SimpleJSON;
 using SlotMaker;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace MeiZhouHeiBao_3993
 {
     public class ContentModel : MonoSingleton<ContentModel>, IContentModel
     {
-        #region 初始化观察者实例
+        #region 观察者实例
 
         private Observer _observer;
 
-        public Observer Observable
+        private Observer Observer
         {
             get
             {
-                if (_observer == null)
-                {
-                    string[] classNamePath = this.GetType().ToString().Split('.'); // 这里通过以.为分隔符分割开命名空间和类名
-                    _observer = new Observer(classNamePath[classNamePath.Length - 1]); // 创建观察者，名字是ContentModel
-                }
+                if (_observer != null) return _observer;
+
+                string[] classNamePath = this.GetType().ToString().Split('.');
+                _observer = new Observer(classNamePath[classNamePath.Length - 1]);
 
                 return _observer;
             }
@@ -32,304 +28,93 @@ namespace MeiZhouHeiBao_3993
 
         #endregion
 
-        #region 游戏对象节点
+        #region Panel 参数
 
-        private GComponent _goPanel;
+        private GComponent _goAnchorPanel;
+        [SerializeField] private long mTotalBet = 0;
+        [SerializeField] private int mBetMultiple = 0;
+        [SerializeField] private string mBtnSpinState = "Stop";
 
-        public GComponent goAnthorPanel
-        {
-            get => _goPanel;
-            set => _goPanel = value;
-        }
+        public int betIndex { get; set; } = 0;
+        /// <summary> 赢线 </summary>
+        public List<SymbolWin> winList;
+        public GComponent[] goPayTableLst { get; set; } = Array.Empty<GComponent>();
+        public GComponent goAnthorPanel { get => _goAnchorPanel; set => _goAnchorPanel = value; }
+        public long totalBet { get => mTotalBet; set => Observer.SetProperty(ref mTotalBet, value); }
+        public int betmultiple { get => mBetMultiple; set => Observer.SetProperty(ref mBetMultiple, value); }
+        public string btnSpinState { get => mBtnSpinState; set => Observer.SetProperty(ref mBtnSpinState, value); }
 
         #endregion
 
-        public PageName pageName => PageName.MeiZhouHeiBaoPageGameMain;
-
-        /// <summary>当游戏结束时自动计算游戏资金和现实资金的开关</summary>
-        public bool isRequestToRealCreditWhenStop { set => throw new System.NotImplementedException(); }
-
         #region 本局游戏数据
 
-        /// <summary>
-        /// 免费游戏中黑豹的数量
-        /// </summary>
-        public int currentBootCount;
-        
-        /// <summary>
-        /// 一局游戏中黑豹图标的行列索引信息
-        /// </summary>
-        public List<Cell> currentBootList = new List<Cell>();
-
-        /// <summary>
-        /// 克隆的SmallWild列表
-        /// </summary>
-        [FormerlySerializedAs("SmallWildList")]
-        public List<GameObject> smallWildList = new List<GameObject>();
-
-        /// <summary>
-        /// 克隆的BigWild列表
-        /// </summary>
-        [FormerlySerializedAs("BigWildList")] public List<GameObject> bigWildList = new List<GameObject>();
-
-        /// <summary>
-        /// smallWild的遮罩
-        /// </summary>
-        public List<GGraph> maskList = new List<GGraph>();
-
-        /// <summary>
-        /// 免费游戏总得分
-        /// </summary>
-        public long freeTotalBet = 0;
-
-        /// <summary>
-        /// 大奖总得分
-        /// </summary>
-        public long bonusTotalBet = 0;
-
-        /// <summary>
-        /// 彩金游戏中奖框索引
-        /// </summary>
-        public int bonusIndex = -1;
-
-        /// <summary>是否开启自动</summary>
-        public bool isAuto { get; set; }
-
-        /// <summary>是否是免费旋转</summary>
-        public bool isFreeSpin { get; set; }
-
-        /// <summary>是否开启旋转</summary>
-        public bool isSpin { get; set; }
-
-        /// <summary>目标特效</summary>
-        public SlotGameEffect targetSlotGameEffect { get; set; }
-
-        /// <summary>请求停止游戏</summary>
-        public bool isRequestToStop { get; set; }
-
-        /// <summary>游戏状态</summary>
-        public string gameState
-        {
-            get => _gameState;
-            set => Observable.SetProperty(ref _gameState, value);
-        }
-
+        // ------------------------ Normal Game -----------------------
         private string _gameState = GameState.Idle;
-
-        /// <summary>免费游戏总局数</summary>
-        public int totalPlaySpins
-        {
-            get => _totalPlaySpins;
-            set => Observable.SetProperty(ref _totalPlaySpins, value);
-        }
-
-        private int _totalPlaySpins = 1;
-
-        /// <summary>免费游戏剩余局数</summary>
-        public int remainPlaySpins
-        {
-            get => _remainPlaySpins;
-            set => Observable.SetProperty(ref _remainPlaySpins, value);
-        }
-
-        private int _remainPlaySpins = 1;
-
-        // public bool isMain = true;
+        public bool isSpin { get; set; }
+        public bool isAuto { get; set; }
+        public bool isRequestToStop { get; set; }
+        public SlotGameEffect targetSlotGameEffect { get; set; }
+        public PageName pageName => PageName.MeiZhouHeiBaoPageGameMain;
+        public bool isRequestToRealCreditWhenStop { set => throw new System.NotImplementedException(); }
+        public string gameState { get => _gameState; set => Observer.SetProperty(ref _gameState, value); }
 
         /// <summary> 算法卡数据 </summary>
         public string response;
 
+        /// <summary> 基础游戏赢分（单局普通游戏 或 免费游戏） </summary>
+        public long baseGameWinCredit;
+
         /// <summary> 单局结果界面 </summary>
         public string strDeckRowCol;
+        
+        /// <summary> 免费游戏加速框 </summary>
+        public bool isFreeSlotTip;
 
-        /// <summary> 赢线 </summary>
-        public List<SymbolWin> winList;
 
-        /// <summary> 免费游戏开始 </summary>
+        // ------------------------ Free Game ------------------------
+        private int _totalPlaySpins = 1;
+        private int _remainPlaySpins = 1;
+        public bool isFreeSpin => curReelStripsIndex == "FS";
+        public int totalPlaySpins { get => _totalPlaySpins; set => Observer.SetProperty(ref _totalPlaySpins, value); }
+        public int remainPlaySpins { get => _remainPlaySpins; set => Observer.SetProperty(ref _remainPlaySpins, value); }
+
+        private int mFreeSpinPlayTimes = 0;
+        private int mFreeSpinTotalTimes = 0;
+        private int mShowFreeSpinRemainTime = 0;
+        public string curReelStripsIndex = "BS";
+        public string nextReelStripsIndex = "BS";
+
+        /// <summary> 免费游戏触发  </summary>
         public bool isFreeSpinTrigger;
 
-        /// <summary> 免费游戏结束 </summary>
-        public bool isFreeSpinResult;
+        /// <summary> 免费游戏加局 替换isFreeSpinAdd  </summary>
+        public bool isFreeGameAdd;
 
-        /// <summary> 额外添加免费游戏 </summary>
-        public bool isFreeSpinAdd;
+        /// <summary> 免费游戏结束标识 替换isFreeSpinResult  </summary>
+        public bool isFreeSpinFinish;
 
         /// <summary> 当前局，免费增加局数 </summary>
         public int freeSpinAddNum;
 
-        /// <summary> 免费游戏总次数  </summary>
-        public int FreeSpinTotalTimes
-        {
-            get => _mFreeSpinTotalTimes;
-            set => Observable.SetProperty(ref _mFreeSpinTotalTimes, value);
-        }
-
-        private int _mFreeSpinTotalTimes = 0;
-
-        public int BonusSymbolCount { get; set; }
-
-
-        /// <summary>
-        /// 免费游戏显示剩余多少次
-        /// </summary>
-        public int ShowFreeSpinRemainTime
-        {
-            get => _mShowFreeSpinRemainTime;
-            set => Observable.SetProperty(ref _mShowFreeSpinRemainTime, value);
-        }
-
-        private int _mShowFreeSpinRemainTime = 0;
-
-        /// <summary> 当前免费游戏轮数  </summary>
-        public int FreeSpinPlayTimes
-        {
-            get => _mFreeSpinPlayTimes;
-            set => Observable.SetProperty(ref _mFreeSpinPlayTimes, value);
-        }
-
-        private int _mFreeSpinPlayTimes = 0;
-
-        /// <summary> 本局彩金结果 </summary>
-        public JackpotRes JpGameRes;
-
-
-        /// <summary> 额外奖 - 掉球 </summary>
-        public bool isBonus1 = false;
-
-        /// <summary> 掉球个数 </summary>
-        public int hitBallCount = 0;
-
-        public bool isHitJackpotGame;
-
-        /// <summary>彩金游戏触发</summary>
-        public bool IsBonusTrigger { get; set; }
-
-        /// <summary>
-        /// 彩金游戏总得分
-        /// </summary>
-        [FormerlySerializedAs("TotalBonusReward")]
-        public long totalBonusReward = 0;
-
-        public string curReelStripsIndex = "BS";
-
-        public string nextReelStripsIndex = "BS";
-
-        /// <summary>  这个已经改为：基本游戏+彩金了  </summary>
-        public long totalEarnCoins; //totalEarnCredit;
-
-        /// <summary> 基础游戏赢分（单局普通游戏 或 免费游戏） </summary>
-        public long baseGameWinCoins; //baseGameWinCredit;
-
-        /// <summary> 当前本轮游戏开始时间 </summary>
-        public long curGameCreatTimeMS;
-
-        /// <summary> 当前本轮游戏guid </summary>
-        public string curGameGuid;
-
-        /// <summary> 当前本轮游戏guid </summary>
-        public string freeSpinTriggerGuid;
-
-        /// <summary> 当前本轮游戏编号 </summary>
-        public long curGameNumber;
+        /// <summary> 免费游戏总赢分  </summary>
+        public long freeSpinTotalWinCredit;
 
         /// <summary>  触发免费游戏的编号 </summary>
         public int gameNumberFreeSpinTrigger;
 
-        /// <summary> 免费游戏总赢分  </summary>
-        public long freeSpinTotalWinCoins; // freeSpinTotalWinCredit;
+        /// <summary> 是否等待下一局 Parse 校验（本地免费快照恢复后首局 Spin） </summary>
+        public bool PendingFreeSpinReconnectValidation { get; set; }
 
-        /// <summary> 是否长滚动 </summary>
-        public bool isReelsSlowMotion;
+        public int FreeSpinPlayTimes { get => mFreeSpinPlayTimes; set => Observer.SetProperty(ref mFreeSpinPlayTimes, value); }
+        public int FreeSpinTotalTimes { get => mFreeSpinTotalTimes; set => Observer.SetProperty(ref mFreeSpinTotalTimes, value); }
+        public int ShowFreeSpinRemainTime { get => mShowFreeSpinRemainTime; set => Observer.SetProperty(ref mShowFreeSpinRemainTime, value); }
 
-        /// <summary> bonus数据 </summary>
-        public Dictionary<int, JSONNode> bonusResults = new Dictionary<int, JSONNode>();
+        // ------------------------ Small Game -----------------------
+        public bool isSmallGameTrigger;
+        public bool isSmallGameSpin;
+        public bool isSmallGameFinish;
 
-        /// <summary> 触发免费游戏的线-（备份 winList 的数据） </summary>
-        public SymbolWin winFreeSpinTriggerOrAddCopy;
-
-        /// <summary> 本局彩金结果 </summary>
-        public JackpotRes jpGameRes;
-
-        /// <summary> 游戏彩金中奖数据 </summary>
-        public List<JackpotWinInfo> JpGameWinLst => jpGameRes.jpWinLst;
-
-        /// <summary> 中奖前的彩金值 </summary>
-        public List<float> JpGameWhenCreditLst
-        {
-            get
-            {
-                List<float> jps = new List<float>()
-                {
-                    jpGameRes.curJackpotGrand,
-                    jpGameRes.curJackpotMajor,
-                    jpGameRes.curJackpotMinior,
-                    jpGameRes.curJackpotMini,
-                };
-                foreach (JackpotWinInfo item in jpGameRes.jpWinLst)
-                {
-                    jps[item.id] = item.whenCredit;
-                }
-
-                return jps;
-            }
-        }
-
-        public float FreeOnceCredit
-        {
-            get => mFreeOnceCredit;
-            set => Observable.SetProperty(ref mFreeOnceCredit, value);
-        }
-
-        [FormerlySerializedAs("m_freeOnceCredit")]
-        public float mFreeOnceCredit = 0;
-
-        /// <summary>免费游戏分数倍率</summary>
-        [FormerlySerializedAs("FreeGameScoreMultiply")]
-        public int freeGameScoreMultiply = 2;
-
-        /// <summary>彩金游戏钻石得分模拟</summary>
-        [FormerlySerializedAs("BonusGameRewardList")]
-        public List<string> bonusGameRewardList = new List<string>() { "200", "1400", "2600", };
-
-        /// <summary>彩金游戏是否中奖</summary>
-        public bool isWinning = false;
-
-        /// <summary> 大厅彩金中奖数据  </summary>
-        public List<WinJackpotInfo> jpOnlineWin = new List<WinJackpotInfo>();
-
-        #endregion
-
-        #region Panel 参数
-
-        /// <summary>总押注</summary>
-        public long totalBet { get => mTotalBet; set => Observable.SetProperty(ref mTotalBet, value); }
-
-        [SerializeField] private long mTotalBet = 0;
-
-        /// <summary>押注分数索引</summary>
-        public int betIndex { get; set; } = 0;
-
-        /// <summary> 下注倍数 </summary>
-        public int betmultiple
-        {
-            get => m_BetMultiple;
-            set => Observable.SetProperty(ref m_BetMultiple, value);
-        }
-
-        [SerializeField] private int m_BetMultiple = 0;
-
-        /// <summary>Spin按钮状态</summary>
-        public string btnSpinState { get => mBtnSpinState; set => Observable.SetProperty(ref mBtnSpinState, value); }
-
-        [SerializeField] private string mBtnSpinState = "Stop";
-
-        #endregion
-
-        #region Jackpot 参数
-
-        /// <summary>巨奖</summary>
-        public JackpotInfo uiGrandJP { get => mUIGrandJp; set => mUIGrandJp = value; }
-
+        // ------------------------ Jackpot Data -----------------------
         [SerializeField] private JackpotInfo mUIGrandJp = new JackpotInfo()
         {
             name = "JPGrand",
@@ -339,9 +124,6 @@ namespace MeiZhouHeiBao_3993
             maxCredit = 11100000,
             minCredit = 0,
         };
-
-        /// <summary>大奖</summary>
-        public JackpotInfo uiMajorJP { get => mUIMajorJp; set => mUIMajorJp = value; }
 
         [SerializeField] private JackpotInfo mUIMajorJp = new JackpotInfo()
         {
@@ -353,9 +135,6 @@ namespace MeiZhouHeiBao_3993
             minCredit = 0,
         };
 
-        /// <summary>中奖</summary>
-        public JackpotInfo uiMinorJP { get => mUIMinorJp; set => mUIMinorJp = value; }
-
         [SerializeField] private JackpotInfo mUIMinorJp = new JackpotInfo()
         {
             name = "JPMinor",
@@ -365,9 +144,6 @@ namespace MeiZhouHeiBao_3993
             maxCredit = 300000,
             minCredit = 0,
         };
-
-        /// <summary>小奖</summary>
-        public JackpotInfo uiMiniJP { get => mUIMiniJp; set => mUIMiniJp = value; }
 
         [SerializeField] private JackpotInfo mUIMiniJp = new JackpotInfo()
         {
@@ -379,77 +155,10 @@ namespace MeiZhouHeiBao_3993
             minCredit = 0,
         };
 
-        #endregion
-
-        #region 读取配置表
-
-        // /// <summary>赔付表</summary>
-        // public List<PayTableSymbolInfo> payTableSymbolWin
-        // {
-        //     get => _mPayTableSymbolWin;
-        //     set => Observable.SetProperty(ref _mPayTableSymbolWin, value);
-        // }
-
-        // private List<PayTableSymbolInfo> _mPayTableSymbolWin = new List<PayTableSymbolInfo>()
-        // {
-        //     new PayTableSymbolInfo()
-        //     {
-        //         symbol = 0, x5 = 0, x4 = 0, x3 = 0,
-        //     },
-        //     new PayTableSymbolInfo()
-        //     {
-        //         symbol = 1, x5 = 0, x4 = 0, x3 = 2,
-        //     },
-        //     new PayTableSymbolInfo()
-        //     {
-        //         symbol = 2, x5 = 10, x4 = 4, x3 = 1,
-        //     },
-        //     new PayTableSymbolInfo()
-        //     {
-        //         symbol = 3, x5 = 6, x4 = 2, x3 = 0.6,
-        //     },
-        //     new PayTableSymbolInfo()
-        //     {
-        //         symbol = 4, x5 = 2, x4 = 1, x3 = 0.5,
-        //     },
-        //     new PayTableSymbolInfo()
-        //     {
-        //         symbol = 5, x5 = 1.6, x4 = 0.6, x3 = 0.3,
-        //     },
-        //     new PayTableSymbolInfo()
-        //     {
-        //         symbol = 6, x5 = 1, x4 = 0.3, x3 = 0.2,
-        //     },
-        //     new PayTableSymbolInfo()
-        //     {
-        //         symbol = 7, x5 = 0.6, x4 = 0.2, x3 = 0.16,
-        //     },
-        //     new PayTableSymbolInfo()
-        //     {
-        //         symbol = 8, x5 = 0.6, x4 = 0.2, x3 = 0.16,
-        //     },
-        //     new PayTableSymbolInfo()
-        //     {
-        //         symbol = 9, x5 = 0.4, x4 = 0.2, x3 = 0.1,
-        //     },
-        //     new PayTableSymbolInfo()
-        //     {
-        //         symbol = 10, x5 = 0.4, x4 = 0.2, x3 = 0.1,
-        //     },
-        //     new PayTableSymbolInfo()
-        //     {
-        //         symbol = 11, x5 = 0.4, x4 = 0.2, x3 = 0.1,
-        //     },
-        // };
-
-        /// <summary>赔付表说明UI集合</summary>
-        public GComponent[] goPayTableLst { get; set; } = Array.Empty<GComponent>();
-
-        // /// <summary>赔付线</summary>
-        // public List<List<int>> payLines { get; set; } = new List<List<int>>();
-        //
-        // /// <summary>所有获奖类型及倍率的集合</summary>
-        // public List<WinMultiple> winLevelMultiple { get; set; } = new List<WinMultiple>();
+        public JackpotInfo uiGrandJP { get => mUIGrandJp; set => mUIGrandJp = value; }
+        public JackpotInfo uiMajorJP { get => mUIMajorJp; set => mUIMajorJp = value; }
+        public JackpotInfo uiMinorJP { get => mUIMinorJp; set => mUIMinorJp = value; }
+        public JackpotInfo uiMiniJP { get => mUIMiniJp; set => mUIMiniJp = value; }
 
         #endregion
     }
