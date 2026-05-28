@@ -415,6 +415,7 @@ public class TableSlotGameRecordItem
     public long free_spin_win_credit = 0;
     /// <summary> 彩金赢分 </summary>
     public long jackpot_win_credit = 0;
+    /// <summary> 彩金类型 </summary>
     public string jackpot_type = "";
     /// <summary> 小游戏赢分 </summary>
     public long bonus_game_win_credit = 0;

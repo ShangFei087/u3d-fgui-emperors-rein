@@ -112,8 +112,8 @@ public class MetaSystemManager : MonoSingleton<MetaSystemManager>
     /// col_a：label（默认：仅 赢/输/免费/大奖/彩金 五种）/ id / row_index、
     /// merge_free_give（默认 true：免费触发+连续赠送局合并一行，A 列为「免费」）、
     /// big_win_multiple（默认 15，已保留兼容；「大奖」由 result_type=BonusWin 判定）、include_raw_tsv（默认 true）、
-    /// summary_block2_title（可选：着色表 .xml 中第二块分档标题，如 FIREBIRD；缺省「大奖」）。
-    /// 导出除 _record.csv 外会生成 _record.xml（Excel 打开，含单元格颜色；汇总锚定在最后一条游戏记录右侧）。
+    /// summary_block2_title（可选：着色表 .xlsx 中第二块分档标题，如 FIREBIRD；缺省「大奖」）。
+    /// 导出除 _record.csv 外会生成 _record.xlsx（WPS/Excel 打开，含单元格颜色与公式汇总；汇总锚定在最后一条游戏记录右侧）。
     /// </summary>
     void OnSlotGameRecordPrint(EventData res)
     {
@@ -202,9 +202,9 @@ public class MetaSystemManager : MonoSingleton<MetaSystemManager>
             {
                 var n = maxExportRows.Value;
                 sql = $@"
-SELECT id, game_id, total_bet, credit_before, credit_after, base_game_win_credit, free_spin_win_credit, bonus_game_win_credit, jackpot_win_credit, total_win_credit, open_type, result_type, free_curtime, free_totaltime, created_at
+SELECT id, game_id, total_bet, credit_before, credit_after, base_game_win_credit, free_spin_win_credit, bonus_game_win_credit, jackpot_win_credit, total_win_credit, jackpot_type, open_type, result_type, free_curtime, free_totaltime, created_at
 FROM (
-  SELECT id, game_id, total_bet, credit_before, credit_after, base_game_win_credit, free_spin_win_credit, bonus_game_win_credit, jackpot_win_credit, total_win_credit, open_type, result_type, free_curtime, free_totaltime, created_at
+  SELECT id, game_id, total_bet, credit_before, credit_after, base_game_win_credit, free_spin_win_credit, bonus_game_win_credit, jackpot_win_credit, total_win_credit, jackpot_type, open_type, result_type, free_curtime, free_totaltime, created_at
   FROM {table}
   WHERE game_id = {gid}
   ORDER BY id DESC
@@ -215,7 +215,7 @@ ORDER BY id ASC";
             else
             {
                 sql = $@"
-SELECT id, game_id, total_bet, credit_before, credit_after, base_game_win_credit, free_spin_win_credit, bonus_game_win_credit, jackpot_win_credit, total_win_credit, open_type, result_type, free_curtime, free_totaltime, created_at
+SELECT id, game_id, total_bet, credit_before, credit_after, base_game_win_credit, free_spin_win_credit, bonus_game_win_credit, jackpot_win_credit, total_win_credit, jackpot_type, open_type, result_type, free_curtime, free_totaltime, created_at
 FROM {table}
 WHERE game_id = {gid}
 ORDER BY id ASC";
@@ -236,15 +236,15 @@ ORDER BY id ASC";
                     var recordCsv = SlotGameRecordExport.FormatSlotGameRecordCsv(exportData);
                     var recordCsvPath = Path.Combine(dir, $"{baseName}_record.csv");
                     File.WriteAllText(recordCsvPath, recordCsv, Encoding.UTF8);
-                    var recordXmlPath = Path.Combine(dir, $"{baseName}_record.xml");
-                    SlotGameRecordSpreadsheetXml.WriteStyledWorkbook(recordXmlPath, exportData,
+                    var recordXlsxPath = Path.Combine(dir, $"{baseName}_record.xlsx");
+                    SlotGameRecordSpreadsheetXlsx.WriteStyledWorkbook(recordXlsxPath, exportData,
                         summaryBlock2Title);
                     var csvLines = exportData.GameRows.Count;
                     DebugUtils.Log(
-                        $"[SlotGameRecord] game_id={gid} 库记录 {dt.Rows.Count} 条 -> CSV {csvLines} 行 + 着色表 {recordXmlPath}");
+                        $"[SlotGameRecord] game_id={gid} 库记录 {dt.Rows.Count} 条 -> CSV {csvLines} 行 + 着色表 {recordXlsxPath}");
                     tip.AppendLine($"game_id={gid}，库 {dt.Rows.Count} 条，导出 {csvLines} 行（含免费合并）");
                     tip.AppendLine($"CSV:\n{recordCsvPath}");
-                    tip.AppendLine($"着色汇总（Excel 打开）:\n{recordXmlPath}");
+                    tip.AppendLine($"着色汇总（WPS/Excel 打开）:\n{recordXlsxPath}");
 
                     if (includeRawTsv)
                     {
