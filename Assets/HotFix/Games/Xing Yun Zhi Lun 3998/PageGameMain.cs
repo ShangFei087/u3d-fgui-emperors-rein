@@ -1,4 +1,3 @@
-using CaiFuHuoChe_3996;
 using FairyGUI;
 using GameMaker;
 using Newtonsoft.Json;
@@ -2526,9 +2525,10 @@ namespace XingYunZhiLun_3998
 
 
         //轮盘初始化图片
-        private void WheelInitParam(List<int> wheelSymbolsIndex)
+        private void WheelInitParam(int[] wheelSymbolsIndex)
         {
             GComponent symbols = gWheelLoad.component.GetChild("Symbols").asCom;
+            int multIndex = 0;
             for (int i = 0; i < symbols.numChildren; i++)
             {
                 // 使用 GetChildAt 按索引获取，不需要知道具体名称
@@ -2539,7 +2539,7 @@ namespace XingYunZhiLun_3998
                     GComponent symbol = child.asCom;
                     // 在这里处理每个 symbol
                     GLoader gLoader = symbol.GetChild("animator").asCom.GetChild("icon").asLoader;
-                    gLoader.url = CustomModel.Instance.wheelSymbolIcon[wheelSymbolsIndex[UnityEngine.Random.Range(0, wheelSymbolsIndex.Count)].ToString()];
+                    gLoader.url = CustomModel.Instance.wheelSymbolIcon[wheelSymbolsIndex[i % 8].ToString()];
                 }
             }
         }
@@ -3423,9 +3423,20 @@ namespace XingYunZhiLun_3998
             PlayAnim(wheelAnim, state);
         }
 
-        private void WheelInit()
+        private void WheelInit(int state)
         {
-            WheelInitParam(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 });
+            switch (state)
+            {
+                case 0:
+                    WheelInitParam(CustomModel.Instance.lowWheelIndex);
+                    break;
+                case 1:
+                    WheelInitParam(CustomModel.Instance.midWheelIndex);
+                    break;
+                case 2:
+                    WheelInitParam(CustomModel.Instance.highWheelIndex);
+                    break;
+            }
         }
 
         private void ChangeWheelURL(int state)
@@ -3444,7 +3455,7 @@ namespace XingYunZhiLun_3998
 
             }
 
-            WheelInit();
+            WheelInit(state);
         }
 
 
