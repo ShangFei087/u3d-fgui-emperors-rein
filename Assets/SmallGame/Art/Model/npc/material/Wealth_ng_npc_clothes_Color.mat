@@ -78,7 +78,7 @@ Material:
     m_Floats:
     - _Ambient: 1.13
     - _BumpScale: 1
-    - _ColorIntensity1: 0
+    - _ColorIntensity1: 0.21
     - _Cutoff: 0.5
     - _Desaturate: 0.12
     - _DetailNormalMapScale: 1
