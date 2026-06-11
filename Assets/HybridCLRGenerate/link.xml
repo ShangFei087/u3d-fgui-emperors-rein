@@ -143,6 +143,7 @@
   </assembly>
   <assembly fullname="System.Core">
     <type fullname="System.Collections.Generic.HashSet`1" preserve="all" />
+    <type fullname="System.Collections.Generic.HashSet`1/Enumerator" preserve="all" />
     <type fullname="System.Linq.Enumerable" preserve="all" />
     <type fullname="System.Linq.IOrderedEnumerable`1" preserve="all" />
   </assembly>
@@ -213,6 +214,7 @@
     <type fullname="UnityEngine.Events.UnityEvent`1" preserve="all" />
     <type fullname="UnityEngine.ExecuteInEditMode" preserve="all" />
     <type fullname="UnityEngine.FilterMode" preserve="all" />
+    <type fullname="UnityEngine.GL" preserve="all" />
     <type fullname="UnityEngine.GameObject" preserve="all" />
     <type fullname="UnityEngine.GraphicsBuffer" preserve="all" />
     <type fullname="UnityEngine.HeaderAttribute" preserve="all" />
@@ -237,6 +239,7 @@
     <type fullname="UnityEngine.SceneManagement.Scene" preserve="all" />
     <type fullname="UnityEngine.SceneManagement.SceneManager" preserve="all" />
     <type fullname="UnityEngine.Screen" preserve="all" />
+    <type fullname="UnityEngine.ScriptableObject" preserve="all" />
     <type fullname="UnityEngine.Scripting.GarbageCollector" preserve="all" />
     <type fullname="UnityEngine.Serialization.FormerlySerializedAsAttribute" preserve="all" />
     <type fullname="UnityEngine.SerializeField" preserve="all" />
@@ -341,6 +344,8 @@
     <type fullname="System.Collections.Generic.IEnumerable`1" preserve="all" />
     <type fullname="System.Collections.Generic.IEnumerator`1" preserve="all" />
     <type fullname="System.Collections.Generic.IList`1" preserve="all" />
+    <type fullname="System.Collections.Generic.IReadOnlyCollection`1" preserve="all" />
+    <type fullname="System.Collections.Generic.IReadOnlyList`1" preserve="all" />
     <type fullname="System.Collections.Generic.KeyValuePair`2" preserve="all" />
     <type fullname="System.Collections.Generic.List`1" preserve="all" />
     <type fullname="System.Collections.Generic.List`1/Enumerator" preserve="all" />
@@ -387,6 +392,7 @@
     <type fullname="System.IO.DirectoryInfo" preserve="all" />
     <type fullname="System.IO.File" preserve="all" />
     <type fullname="System.IO.FileAccess" preserve="all" />
+    <type fullname="System.IO.FileInfo" preserve="all" />
     <type fullname="System.IO.FileMode" preserve="all" />
     <type fullname="System.IO.FileStream" preserve="all" />
     <type fullname="System.IO.IOException" preserve="all" />
@@ -398,6 +404,7 @@
     <type fullname="System.IO.TextWriter" preserve="all" />
     <type fullname="System.Int32" preserve="all" />
     <type fullname="System.Int64" preserve="all" />
+    <type fullname="System.IntPtr" preserve="all" />
     <type fullname="System.InvalidOperationException" preserve="all" />
     <type fullname="System.Math" preserve="all" />
     <type fullname="System.MulticastDelegate" preserve="all" />
@@ -442,6 +449,7 @@
     <type fullname="System.Runtime.CompilerServices.TupleElementNamesAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.YieldAwaitable" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.YieldAwaitable/YieldAwaiter" preserve="all" />
+    <type fullname="System.Runtime.InteropServices.Marshal" preserve="all" />
     <type fullname="System.RuntimeFieldHandle" preserve="all" />
     <type fullname="System.RuntimeTypeHandle" preserve="all" />
     <type fullname="System.Security.Cryptography.HMACSHA256" preserve="all" />
@@ -452,6 +460,7 @@
     <type fullname="System.Single" preserve="all" />
     <type fullname="System.String" preserve="all" />
     <type fullname="System.StringComparison" preserve="all" />
+    <type fullname="System.StringSplitOptions" preserve="all" />
     <type fullname="System.Text.Encoding" preserve="all" />
     <type fullname="System.Text.StringBuilder" preserve="all" />
     <type fullname="System.Text.UTF8Encoding" preserve="all" />
@@ -475,6 +484,7 @@
     <type fullname="System.UInt16" preserve="all" />
     <type fullname="System.UInt64" preserve="all" />
     <type fullname="System.ValueTuple`2" preserve="all" />
+    <type fullname="System.ValueTuple`3" preserve="all" />
     <type fullname="System.ValueType" preserve="all" />
     <type fullname="System.Version" preserve="all" />
   </assembly>

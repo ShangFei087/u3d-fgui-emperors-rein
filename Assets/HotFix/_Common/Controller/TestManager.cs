@@ -296,7 +296,8 @@ public class TestManager : Singleton<TestManager>
                 }
 
                 selectProjectMenu.visible = false;
-                SBoxIdea.GameSwitch(openPageId[index]);
+                if (!ApplicationSettings.Instance.isMock)
+                    SBoxIdea.GameSwitch(openPageId[index]);
                 PageManager.Instance.OpenPage(openPageNames[index]);
             }));
 

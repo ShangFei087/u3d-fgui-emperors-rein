@@ -103,6 +103,33 @@ public class GCMonitorPro : MonoBehaviour
     private float[] memoryHistory = new float[maxGraphPoints];
     private int historyIndex = 0;
 
+    // CPU 监控
+    private float processCpuPercent;
+    private float systemCpuPercent;
+    private float frameTimeMs;
+    private float frameLoadPercent;
+    private int processorCount = 1;
+    private TimeSpan lastProcessCpuTime;
+    private DateTime lastCpuSampleUtc;
+    private bool cpuSampleInitialized;
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+    private PerformanceCounter systemCpuCounter;
+#endif
+    private float[] cpuHistory = new float[maxGraphPoints];
+    private int cpuHistoryIndex = 0;
+
+    // Android /proc/stat 采样
+    private long androidLastIdleJiffies;
+    private long androidLastTotalJiffies;
+    private long androidLastProcessJiffies;
+    private bool androidSystemCpuInitialized;
+    private bool androidProcessCpuInitialized;
+
+    public float ProcessCpuPercent => processCpuPercent;
+    public float SystemCpuPercent => systemCpuPercent;
+    public float FrameTimeMs => frameTimeMs;
+    public float FrameLoadPercent => frameLoadPercent;
+
     private void Awake()
     {
         if (instance != null && instance != this) { Destroy(gameObject); return; }
@@ -114,6 +141,9 @@ public class GCMonitorPro : MonoBehaviour
 
         // 初始化物理内存监控
         InitializePhysicalMemoryMonitoring();
+
+        processorCount = Mathf.Max(1, SystemInfo.processorCount);
+        InitializeCpuMonitoring();
     }
 
     private void Update()
@@ -143,7 +173,7 @@ public class GCMonitorPro : MonoBehaviour
             UpdateMemoryStatus();
             UpdatePhysicalMemoryStatus();
             UpdateYooAssetStatus();
-
+            UpdateCpuStatus();
         }
     }
 
@@ -1257,7 +1287,228 @@ public class GCMonitorPro : MonoBehaviour
             //  UnityEngine.Debug.LogError($"<color=red>[GCMonitorPro]</color> YooAsset状态更新失败: {e.Message}");
         }
     }
-    
+
+    private void InitializeCpuMonitoring()
+    {
+        lastCpuSampleUtc = DateTime.UtcNow;
+        cpuSampleInitialized = false;
+        androidSystemCpuInitialized = false;
+        androidProcessCpuInitialized = false;
+
+        try
+        {
+            if (currentProcess == null)
+            {
+                currentProcess = Process.GetCurrentProcess();
+            }
+            if (currentProcess != null)
+            {
+                currentProcess.Refresh();
+                lastProcessCpuTime = currentProcess.TotalProcessorTime;
+            }
+        }
+        catch
+        {
+            // 部分平台 Process API 不可用
+        }
+
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+        try
+        {
+            systemCpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+            systemCpuCounter.NextValue();
+        }
+        catch
+        {
+            systemCpuCounter = null;
+        }
+#endif
+    }
+
+    private void UpdateCpuStatus()
+    {
+        frameTimeMs = deltaTime * 1000f;
+        float frameBudgetMs = Application.targetFrameRate > 0
+            ? 1000f / Application.targetFrameRate
+            : 1000f / 60f;
+        frameLoadPercent = frameBudgetMs > 0f
+            ? Mathf.Clamp(frameTimeMs / frameBudgetMs * 100f, 0f, 999f)
+            : 0f;
+
+        UpdateProcessCpuPercent();
+
+        if (isAndroidPlatform)
+        {
+            systemCpuPercent = GetAndroidSystemCpuUsage();
+        }
+        else if (isPCPlatform)
+        {
+            systemCpuPercent = GetPCSystemCpuUsage();
+        }
+        else
+        {
+            systemCpuPercent = 0f;
+        }
+
+        float cpuSample = processCpuPercent > 0f ? processCpuPercent : frameLoadPercent;
+        cpuHistory[cpuHistoryIndex] = cpuSample;
+        cpuHistoryIndex = (cpuHistoryIndex + 1) % maxGraphPoints;
+        lastCpuSampleUtc = DateTime.UtcNow;
+    }
+
+    private void UpdateProcessCpuPercent()
+    {
+        try
+        {
+            if (isAndroidPlatform)
+            {
+                processCpuPercent = GetAndroidProcessCpuUsage();
+                return;
+            }
+
+            if (currentProcess == null)
+            {
+                try { currentProcess = Process.GetCurrentProcess(); }
+                catch { processCpuPercent = 0f; return; }
+            }
+
+            currentProcess.Refresh();
+            TimeSpan cpuTime = currentProcess.TotalProcessorTime;
+            double elapsedSec = (DateTime.UtcNow - lastCpuSampleUtc).TotalSeconds;
+
+            if (cpuSampleInitialized && elapsedSec >= 0.1)
+            {
+                double deltaCpuMs = (cpuTime - lastProcessCpuTime).TotalMilliseconds;
+                processCpuPercent = (float)(deltaCpuMs / (elapsedSec * 1000.0 * processorCount) * 100.0);
+                processCpuPercent = Mathf.Clamp(processCpuPercent, 0f, 100f);
+            }
+
+            lastProcessCpuTime = cpuTime;
+            lastCpuSampleUtc = DateTime.UtcNow;
+            cpuSampleInitialized = true;
+        }
+        catch
+        {
+            processCpuPercent = 0f;
+        }
+    }
+
+    private float GetPCSystemCpuUsage()
+    {
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+        if (systemCpuCounter == null) return 0f;
+        try
+        {
+            return Mathf.Clamp(systemCpuCounter.NextValue(), 0f, 100f);
+        }
+        catch
+        {
+            return 0f;
+        }
+#else
+        return 0f;
+#endif
+    }
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+    private static bool TryParseAndroidCpuLine(string line, out long user, out long nice, out long system, out long idle, out long iowait)
+    {
+        user = nice = system = idle = iowait = 0;
+        if (string.IsNullOrEmpty(line) || !line.StartsWith("cpu ")) return false;
+
+        string[] parts = line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length < 5) return false;
+
+        long.TryParse(parts[1], out user);
+        long.TryParse(parts[2], out nice);
+        long.TryParse(parts[3], out system);
+        long.TryParse(parts[4], out idle);
+        if (parts.Length > 5) long.TryParse(parts[5], out iowait);
+        return true;
+    }
+
+    private float GetAndroidSystemCpuUsage()
+    {
+        try
+        {
+            string stat = System.IO.File.ReadAllText("/proc/stat");
+            int lineEnd = stat.IndexOf('\n');
+            if (lineEnd <= 0) return systemCpuPercent;
+
+            string cpuLine = stat.Substring(0, lineEnd);
+            if (!TryParseAndroidCpuLine(cpuLine, out long user, out long nice, out long sys, out long idle, out long iowait))
+                return systemCpuPercent;
+
+            long total = user + nice + sys + idle + iowait;
+            if (!androidSystemCpuInitialized)
+            {
+                androidLastIdleJiffies = idle + iowait;
+                androidLastTotalJiffies = total;
+                androidSystemCpuInitialized = true;
+                return 0f;
+            }
+
+            long totalDelta = total - androidLastTotalJiffies;
+            long idleDelta = (idle + iowait) - androidLastIdleJiffies;
+            androidLastIdleJiffies = idle + iowait;
+            androidLastTotalJiffies = total;
+
+            if (totalDelta <= 0) return systemCpuPercent;
+            return Mathf.Clamp((totalDelta - idleDelta) * 100f / totalDelta, 0f, 100f);
+        }
+        catch
+        {
+            return systemCpuPercent;
+        }
+    }
+
+    private float GetAndroidProcessCpuUsage()
+    {
+        try
+        {
+            string stat = System.IO.File.ReadAllText("/proc/self/stat");
+            int closeParen = stat.LastIndexOf(')');
+            if (closeParen < 0 || closeParen + 2 >= stat.Length) return processCpuPercent;
+
+            string[] parts = stat.Substring(closeParen + 2).Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length < 15) return processCpuPercent;
+
+            long utime = long.Parse(parts[11]);
+            long stime = long.Parse(parts[12]);
+            long processJiffies = utime + stime;
+
+            if (!androidProcessCpuInitialized)
+            {
+                androidLastProcessJiffies = processJiffies;
+                androidProcessCpuInitialized = true;
+                return 0f;
+            }
+
+            long processDelta = processJiffies - androidLastProcessJiffies;
+            androidLastProcessJiffies = processJiffies;
+
+            double elapsedSec = updateInterval;
+            const int userHz = 100;
+
+            double processCpuMs = processDelta * 1000.0 / userHz;
+            return Mathf.Clamp((float)(processCpuMs / (elapsedSec * 1000.0 * processorCount) * 100.0), 0f, 100f);
+        }
+        catch
+        {
+            return processCpuPercent;
+        }
+    }
+#else
+    private float GetAndroidSystemCpuUsage() => 0f;
+    private float GetAndroidProcessCpuUsage() => 0f;
+#endif
+
+    private static string GetCpuColorTag(float percent)
+    {
+        if (percent < 50f) return "#00FF00";
+        if (percent < 80f) return "#FFFF00";
+        return "#FF0000";
+    }
 
     private void OnGUI()
     {
@@ -1292,7 +1543,7 @@ public class GCMonitorPro : MonoBehaviour
 
         // 始终显示完整UI，移除收起功能
         float expandedWidth = 360 * scaleFactor;
-        float expandedHeight = 1000 * scaleFactor; // 进一步增加高度确保缩放按钮显示
+        float expandedHeight = 1120 * scaleFactor;
 
         //// 调试信息：在控制台显示UI尺寸
         //if (Time.frameCount % 300 == 0) // 每5秒输出一次
@@ -1310,11 +1561,28 @@ public class GCMonitorPro : MonoBehaviour
 
         // 基础性能信息
         GUILayout.Label($"<b><color=#87CEEB>📊 基础性能</color></b>", labelStyle);
-        //string fpsLimitText = targetFPS > 0 ? $"{targetFPS} FPS" : "无限制";
-        //GUILayout.Label($"FPS: <color={(fps >= 55 ? "#00FF00" : fps >= 40 ? "#FFFF00" : "#FF0000")}>{fps:F1}</color> / <color=cyan>{fpsLimitText}</color>", labelStyle);
-        //GUILayout.Label($"FPS限制: <color=cyan>{fpsLimitText}</color>", labelStyle);
+        string fpsLimitText = Application.targetFrameRate > 0 ? $"{Application.targetFrameRate}" : "无限制";
+        GUILayout.Label($"FPS: <color={(fps >= 55 ? "#00FF00" : fps >= 40 ? "#FFFF00" : "#FF0000")}>{fps:F1}</color> <color=#888888>(限制 {fpsLimitText})</color>", labelStyle);
         GUILayout.Label($"GC次数: <color=orange>{gcCount}</color>", labelStyle);
         GUILayout.Label($"增量GC: {(incrementalGC ? "<color=#00FF00>开启</color>" : "<color=#FF0000>关闭</color>")}", labelStyle);
+        GUILayout.Space(8 * scaleFactor);
+
+        // CPU 分析
+        GUILayout.Label($"<b><color=#FFA07A>⚡ CPU 分析</color></b>", labelStyle);
+        GUILayout.Label($"逻辑核心: <color=white>{processorCount}</color> | <color=#888888>{SystemInfo.processorType}</color>", labelStyle);
+        GUILayout.Label($"帧耗时: <color={GetCpuColorTag(frameLoadPercent)}>{frameTimeMs:F2} ms</color> | 帧负载: <color={GetCpuColorTag(frameLoadPercent)}>{frameLoadPercent:F0}%</color>", labelStyle);
+        if (processCpuPercent > 0f)
+        {
+            GUILayout.Label($"进程 CPU: <color={GetCpuColorTag(processCpuPercent)}>{processCpuPercent:F1}%</color>", labelStyle);
+        }
+        if (systemCpuPercent > 0f)
+        {
+            GUILayout.Label($"系统 CPU: <color={GetCpuColorTag(systemCpuPercent)}>{systemCpuPercent:F1}%</color>", labelStyle);
+        }
+        else if (!isPCPlatform && !isAndroidPlatform)
+        {
+            GUILayout.Label($"系统 CPU: <color=#888888>当前平台不支持</color>", labelStyle);
+        }
         GUILayout.Space(8 * scaleFactor);
 
         // 托管内存信息
@@ -1448,10 +1716,34 @@ public class GCMonitorPro : MonoBehaviour
 
         GUILayout.EndArea();
 
-        // 🔹绘制内存曲线
+        // 🔹绘制内存 / CPU 曲线
         float graphWidth = 360 * scaleFactor;
         float graphHeight = 120 * scaleFactor;
-        DrawMemoryGraph(new Rect(uiX, 10 + expandedHeight + 10, graphWidth, graphHeight));
+        float graphGap = 10 * scaleFactor;
+        float baseGraphY = 10 + expandedHeight + graphGap;
+        DrawMemoryGraph(new Rect(uiX, baseGraphY, graphWidth, graphHeight));
+        DrawCpuGraph(new Rect(uiX, baseGraphY + graphHeight + graphGap, graphWidth, graphHeight * 0.75f));
+    }
+
+    private void DrawCpuGraph(Rect rect)
+    {
+        GUI.Box(rect, "CPU / 帧负载趋势 (%)");
+        float maxCpu = 100f;
+        float stepX = rect.width / (float)maxGraphPoints;
+        float scaleY = rect.height / maxCpu;
+        Vector2 prev = Vector2.zero;
+        for (int i = 0; i < maxGraphPoints; i++)
+        {
+            int index = (cpuHistoryIndex + i) % maxGraphPoints;
+            float value = cpuHistory[index];
+            float x = rect.x + i * stepX;
+            float y = rect.yMax - value * scaleY;
+            if (i > 0)
+            {
+                DrawLine(prev, new Vector2(x, y), Color.cyan, 2f);
+            }
+            prev = new Vector2(x, y);
+        }
     }
 
     /// <summary>    /// 绘制内存趋势曲线    /// </summary> 

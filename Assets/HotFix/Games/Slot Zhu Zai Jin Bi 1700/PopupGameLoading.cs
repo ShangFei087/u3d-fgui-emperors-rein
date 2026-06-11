@@ -9,8 +9,8 @@ namespace SlotZhuZaiJinBi1700
 {
     public class PopupGameLoading : MachinePageBase
     {
-        public new const string pkgName = "SlotZhuZaiJinBi1700";
-        public new const string resName = "PopupGameLoading";
+        public  const string pkgName = "SlotZhuZaiJinBi1700";
+        public  const string resName = "PopupGameLoading";
 
         //预制体
         private GameObject goLoading_bg, goLoading_Title;

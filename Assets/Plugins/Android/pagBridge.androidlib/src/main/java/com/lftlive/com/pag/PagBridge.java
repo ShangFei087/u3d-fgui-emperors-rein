@@ -1,0 +1,611 @@
+package com.lftlive.com.pag;
+
+import android.app.Activity;
+import android.util.Log;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+/**
+ * Unity 与 libpag 之间的 JNI 桥接层，对应 pagDemo 中的各项能力。
+ * 支持按 instanceKey（Unity GameObject 名）多实例并行播放。
+ */
+public final class PagBridge {
+    private static final String TAG = "PagBridge";
+    private static final String DEFAULT_INSTANCE = "_default";
+    private static final long UI_SYNC_TIMEOUT_MS = 3000L;
+
+    private static Activity sActivity;
+    private static final Map<String, PagOverlayManager> sManagers = new HashMap<>();
+    private static final Map<String, InstanceConfig> sConfigs = new HashMap<>();
+
+    private static final class InstanceConfig {
+        int renderMode = PagOverlayManager.RENDER_MODE_OVERLAY;
+        int fguiMaxDisplaySide = 0;
+        int fguiFps = 60;
+        String gpuFrameGo;
+        String gpuFrameMethod;
+        String gpuTextureRequestGo;
+        String gpuTextureRequestMethod;
+        String gpuRenderGo;
+        String gpuRenderMethod;
+        String playbackFinishedGo;
+        String playbackFinishedMethod;
+    }
+
+    private PagBridge() {
+    }
+
+    private static String normalizeKey(String instanceKey) {
+        return (instanceKey == null || instanceKey.isEmpty()) ? DEFAULT_INSTANCE : instanceKey;
+    }
+
+    private static InstanceConfig getOrCreateConfig(String instanceKey) {
+        instanceKey = normalizeKey(instanceKey);
+        InstanceConfig config = sConfigs.get(instanceKey);
+        if (config == null) {
+            config = new InstanceConfig();
+            sConfigs.put(instanceKey, config);
+        }
+        return config;
+    }
+
+    private static void applyConfig(String instanceKey, PagOverlayManager manager) {
+        if (manager == null) {
+            return;
+        }
+        InstanceConfig config = getOrCreateConfig(instanceKey);
+        manager.setUnityInstanceKey(instanceKey);
+        manager.setRenderTarget(config.renderMode);
+        manager.setFguiFrameConfig(config.fguiMaxDisplaySide, config.fguiFps);
+        if (config.gpuFrameGo != null && config.gpuFrameMethod != null) {
+            manager.setGpuFrameCallback(config.gpuFrameGo, config.gpuFrameMethod);
+        }
+        if (config.gpuTextureRequestGo != null && config.gpuTextureRequestMethod != null) {
+            manager.setGpuTextureRequestCallback(config.gpuTextureRequestGo, config.gpuTextureRequestMethod);
+        }
+        if (config.gpuRenderGo != null && config.gpuRenderMethod != null) {
+            manager.setGpuRenderCallback(config.gpuRenderGo, config.gpuRenderMethod);
+        }
+        if (config.playbackFinishedGo != null && config.playbackFinishedMethod != null) {
+            manager.setPlaybackFinishedCallback(config.playbackFinishedGo, config.playbackFinishedMethod);
+        }
+    }
+
+    private static PagOverlayManager getManager(String instanceKey) {
+        return sManagers.get(normalizeKey(instanceKey));
+    }
+
+    private static boolean ensureManager(String instanceKey) {
+        if (sActivity == null) {
+            Log.e(TAG, "ensureManager: activity is null");
+            return false;
+        }
+        instanceKey = normalizeKey(instanceKey);
+        PagOverlayManager manager = sManagers.get(instanceKey);
+        if (manager == null) {
+            manager = new PagOverlayManager(sActivity);
+            sManagers.put(instanceKey, manager);
+            applyConfig(instanceKey, manager);
+            Log.i(TAG, "PagOverlayManager created for " + instanceKey);
+        }
+        return true;
+    }
+
+    public static void Init(Activity activity) {
+        if (activity == null) {
+            Log.e(TAG, "Init: activity is null");
+            return;
+        }
+        sActivity = activity;
+        activity.runOnUiThread(() -> {
+            ensureManager(DEFAULT_INSTANCE);
+            Log.i(TAG, "Init done, managers=" + sManagers.size());
+        });
+    }
+
+    public static void Play(String path, String positionType, String extra) {
+        Play(path, positionType, extra, null, null);
+    }
+
+    public static void Play(String path, String positionType, String extra,
+                           String callbackGameObject, String callbackMethod) {
+        Play(path, positionType, extra, callbackGameObject, callbackGameObject, callbackMethod);
+    }
+
+    public static void Play(String path, String positionType, String extra,
+                           String instanceKey, String callbackGameObject, String callbackMethod) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            if (!ensureManager(key)) {
+                return;
+            }
+            PagOverlayManager manager = getManager(key);
+            Log.i(TAG, "Play: instance=" + key + ", path=" + path
+                    + ", position=" + positionType + ", extra=" + extra
+                    + ", callback=" + callbackGameObject + "." + callbackMethod);
+            manager.play(path, positionType, extra, callbackGameObject, callbackMethod);
+        });
+    }
+
+    public static void Stop() {
+        Stop(DEFAULT_INSTANCE);
+    }
+
+    public static void Stop(String instanceKey) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            PagOverlayManager manager = getManager(key);
+            if (manager != null) {
+                Log.i(TAG, "Stop: instance=" + key);
+                manager.stop();
+            }
+        });
+    }
+
+    public static void Pause() {
+        Pause(DEFAULT_INSTANCE);
+    }
+
+    public static void Pause(String instanceKey) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            PagOverlayManager manager = getManager(key);
+            if (manager != null) {
+                manager.pause();
+            }
+        });
+    }
+
+    public static void Resume() {
+        Resume(DEFAULT_INSTANCE);
+    }
+
+    public static void Resume(String instanceKey) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            PagOverlayManager manager = getManager(key);
+            if (manager != null) {
+                manager.resume();
+            }
+        });
+    }
+
+    public static void SetRightAdaptive(float w, float h) {
+        SetRightAdaptive(DEFAULT_INSTANCE, w, h);
+    }
+
+    public static void SetRightAdaptive(String instanceKey, float w, float h) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            if (ensureManager(key)) {
+                getManager(key).setRightAdaptive(w, h);
+            }
+        });
+    }
+
+    public static void LayoutPagAuto(String place) {
+        LayoutPagAuto(DEFAULT_INSTANCE, place);
+    }
+
+    public static void LayoutPagAuto(String instanceKey, String place) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            if (ensureManager(key)) {
+                Log.i(TAG, "LayoutPagAuto: instance=" + key + ", place=" + place);
+                getManager(key).layoutPagAuto(place);
+            }
+        });
+    }
+
+    public static void SetRepeatCount(int count) {
+        SetRepeatCount(DEFAULT_INSTANCE, count);
+    }
+
+    public static void SetRepeatCount(String instanceKey, int count) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            if (ensureManager(key)) {
+                Log.i(TAG, "SetRepeatCount: instance=" + key + ", count=" + count);
+                getManager(key).setRepeatCount(count);
+            }
+        });
+    }
+
+    public static void SetGpuPlayerRecycleEveryLoop(String instanceKey, int everyLoop) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            if (ensureManager(key)) {
+                Log.i(TAG, "SetGpuPlayerRecycleEveryLoop: instance=" + key + ", everyLoop=" + everyLoop);
+                getManager(key).setGpuPlayerRecycleEveryLoop(everyLoop);
+            }
+        });
+    }
+
+    /** Phase4D：true 时 play 立即走 ImageView 软件出帧，不等待 TextureView Surface。 */
+    public static void SetForceBitmapOverlayFallback(boolean force) {
+        PagOverlayManager.setForceBitmapOverlayFallback(force);
+        Log.i(TAG, "SetForceBitmapOverlayFallback: " + force);
+    }
+
+    /** 0=Overlay WM 浮层；1=FGUI GPU 纹理（Spine 可盖在上层）。 */
+    public static void SetRenderTarget(int mode) {
+        SetRenderTarget(DEFAULT_INSTANCE, mode);
+    }
+
+    public static void SetRenderTarget(String instanceKey, int mode) {
+        instanceKey = normalizeKey(instanceKey);
+        InstanceConfig config = getOrCreateConfig(instanceKey);
+        config.renderMode = mode == PagOverlayManager.RENDER_MODE_FGUI_TEXTURE
+                ? PagOverlayManager.RENDER_MODE_FGUI_TEXTURE
+                : PagOverlayManager.RENDER_MODE_OVERLAY;
+        PagOverlayManager manager = getManager(instanceKey);
+        if (manager != null) {
+            manager.setRenderTarget(config.renderMode);
+        }
+        Log.i(TAG, "SetRenderTarget: instance=" + instanceKey + ", mode=" + config.renderMode);
+    }
+
+    public static void SetFguiFrameConfig(int maxDisplaySide, int fps) {
+        SetFguiFrameConfig(DEFAULT_INSTANCE, maxDisplaySide, fps);
+    }
+
+    public static void SetFguiFrameConfig(String instanceKey, int maxDisplaySide, int fps) {
+        instanceKey = normalizeKey(instanceKey);
+        InstanceConfig config = getOrCreateConfig(instanceKey);
+        config.fguiMaxDisplaySide = Math.max(0, maxDisplaySide);
+        if (fps > 0) {
+            config.fguiFps = fps;
+        }
+        PagOverlayManager manager = getManager(instanceKey);
+        if (manager != null) {
+            manager.setFguiFrameConfig(config.fguiMaxDisplaySide, config.fguiFps);
+        }
+        Log.i(TAG, "SetFguiFrameConfig: instance=" + instanceKey
+                + ", maxSide=" + config.fguiMaxDisplaySide + ", fps=" + config.fguiFps);
+    }
+
+    public static void SetGpuFrameCallback(String callbackGameObject, String callbackMethod) {
+        SetGpuFrameCallback(DEFAULT_INSTANCE, callbackGameObject, callbackMethod);
+    }
+
+    public static void SetGpuFrameCallback(String instanceKey, String callbackGameObject, String callbackMethod) {
+        instanceKey = normalizeKey(instanceKey);
+        InstanceConfig config = getOrCreateConfig(instanceKey);
+        config.gpuFrameGo = callbackGameObject;
+        config.gpuFrameMethod = callbackMethod;
+        PagOverlayManager manager = getManager(instanceKey);
+        if (manager != null) {
+            manager.setGpuFrameCallback(callbackGameObject, callbackMethod);
+        }
+        Log.i(TAG, "SetGpuFrameCallback: instance=" + instanceKey + ", " + callbackGameObject + "." + callbackMethod);
+    }
+
+    public static void SetGpuTextureRequestCallback(String callbackGameObject, String callbackMethod) {
+        SetGpuTextureRequestCallback(DEFAULT_INSTANCE, callbackGameObject, callbackMethod);
+    }
+
+    public static void SetGpuTextureRequestCallback(String instanceKey, String callbackGameObject, String callbackMethod) {
+        instanceKey = normalizeKey(instanceKey);
+        InstanceConfig config = getOrCreateConfig(instanceKey);
+        config.gpuTextureRequestGo = callbackGameObject;
+        config.gpuTextureRequestMethod = callbackMethod;
+        PagOverlayManager manager = getManager(instanceKey);
+        if (manager != null) {
+            manager.setGpuTextureRequestCallback(callbackGameObject, callbackMethod);
+        }
+        Log.i(TAG, "SetGpuTextureRequestCallback: instance=" + instanceKey
+                + ", " + callbackGameObject + "." + callbackMethod);
+    }
+
+    public static void SetGpuRenderCallback(String callbackGameObject, String callbackMethod) {
+        SetGpuRenderCallback(DEFAULT_INSTANCE, callbackGameObject, callbackMethod);
+    }
+
+    public static void SetGpuRenderCallback(String instanceKey, String callbackGameObject, String callbackMethod) {
+        instanceKey = normalizeKey(instanceKey);
+        InstanceConfig config = getOrCreateConfig(instanceKey);
+        config.gpuRenderGo = callbackGameObject;
+        config.gpuRenderMethod = callbackMethod;
+        PagOverlayManager manager = getManager(instanceKey);
+        if (manager != null) {
+            manager.setGpuRenderCallback(callbackGameObject, callbackMethod);
+        }
+        Log.i(TAG, "SetGpuRenderCallback: instance=" + instanceKey + ", " + callbackGameObject + "." + callbackMethod);
+    }
+
+    public static void SetPlaybackFinishedCallback(String callbackGameObject, String callbackMethod) {
+        SetPlaybackFinishedCallback(DEFAULT_INSTANCE, callbackGameObject, callbackMethod);
+    }
+
+    public static void SetPlaybackFinishedCallback(String instanceKey, String callbackGameObject, String callbackMethod) {
+        instanceKey = normalizeKey(instanceKey);
+        InstanceConfig config = getOrCreateConfig(instanceKey);
+        config.playbackFinishedGo = callbackGameObject;
+        config.playbackFinishedMethod = callbackMethod;
+        PagOverlayManager manager = getManager(instanceKey);
+        if (manager != null) {
+            manager.setPlaybackFinishedCallback(callbackGameObject, callbackMethod);
+        }
+        Log.i(TAG, "SetPlaybackFinishedCallback: instance=" + instanceKey
+                + ", " + callbackGameObject + "." + callbackMethod);
+    }
+
+    public static void BindGpuTexture(int textureId, int width, int height) {
+        BindGpuTexture(DEFAULT_INSTANCE, textureId, width, height);
+    }
+
+    public static void BindGpuTexture(String instanceKey, int textureId, int width, int height) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            if (ensureManager(key)) {
+                getManager(key).bindGpuTexture(textureId, width, height);
+            }
+        });
+    }
+
+    /** 同步组：阻塞直到 UI 线程完成 bindGpuTexture。 */
+    public static boolean BindGpuTextureSync(String instanceKey, int textureId, int width, int height) {
+        final String key = normalizeKey(instanceKey);
+        final AtomicBoolean ok = new AtomicBoolean(false);
+        boolean completed = runOnUiSync("BindGpuTextureSync instance=" + key, () -> {
+            if (ensureManager(key)) {
+                PagOverlayManager manager = getManager(key);
+                manager.bindGpuTexture(textureId, width, height);
+                ok.set(manager.getGpuTextureWidth() > 0 && manager.getGpuTextureHeight() > 0);
+            }
+        });
+        if (!completed || !ok.get()) {
+            Log.e(TAG, "BindGpuTextureSync failed: instance=" + key
+                    + " completed=" + completed + " ok=" + ok.get());
+        }
+        return completed && ok.get();
+    }
+
+    public static void StartFguiGpuPlayback() {
+        StartFguiGpuPlayback(DEFAULT_INSTANCE);
+    }
+
+    public static void StartFguiGpuPlayback(String instanceKey) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            PagOverlayManager manager = getManager(key);
+            if (manager != null) {
+                manager.startFguiGpuPlaybackFromUnity();
+            }
+        });
+    }
+
+    /** 同步组：阻塞直到 UI 线程完成 startFguiGpuPlayback 且 player 就绪。 */
+    public static boolean StartFguiGpuPlaybackSync(String instanceKey) {
+        final String key = normalizeKey(instanceKey);
+        final AtomicBoolean ok = new AtomicBoolean(false);
+        boolean completed = runOnUiSync("StartFguiGpuPlaybackSync instance=" + key, () -> {
+            PagOverlayManager manager = getManager(key);
+            if (manager != null) {
+                manager.startFguiGpuPlaybackFromUnity();
+                ok.set(manager.isFguiGpuPlayerReady());
+            }
+        });
+        if (!completed || !ok.get()) {
+            Log.e(TAG, "StartFguiGpuPlaybackSync failed: instance=" + key
+                    + " completed=" + completed + " ok=" + ok.get());
+        }
+        return completed && ok.get();
+    }
+
+    public static int GetGpuTextureWidth() {
+        return GetGpuTextureWidth(DEFAULT_INSTANCE);
+    }
+
+    public static int GetGpuTextureWidth(String instanceKey) {
+        PagOverlayManager manager = getManager(instanceKey);
+        return manager != null ? manager.getGpuTextureWidth() : 0;
+    }
+
+    public static int GetGpuTextureHeight() {
+        return GetGpuTextureHeight(DEFAULT_INSTANCE);
+    }
+
+    public static int GetGpuTextureHeight(String instanceKey) {
+        PagOverlayManager manager = getManager(instanceKey);
+        return manager != null ? manager.getGpuTextureHeight() : 0;
+    }
+
+    public static int GetCompositionWidth() {
+        return GetCompositionWidth(DEFAULT_INSTANCE);
+    }
+
+    public static int GetCompositionWidth(String instanceKey) {
+        PagOverlayManager manager = getManager(instanceKey);
+        return manager != null ? manager.getCompositionWidth() : 0;
+    }
+
+    public static int GetCompositionHeight() {
+        return GetCompositionHeight(DEFAULT_INSTANCE);
+    }
+
+    public static int GetCompositionHeight(String instanceKey) {
+        PagOverlayManager manager = getManager(instanceKey);
+        return manager != null ? manager.getCompositionHeight() : 0;
+    }
+
+    public static long GetCompositionDurationUs() {
+        return GetCompositionDurationUs(DEFAULT_INSTANCE);
+    }
+
+    public static long GetCompositionDurationUs(String instanceKey) {
+        PagOverlayManager manager = getManager(instanceKey);
+        return manager != null ? manager.getCompositionDurationUs() : 0L;
+    }
+
+    /** 由 Unity 渲染线程（PagUnityGlBridge JNI）调用，勿改名。 */
+    public static boolean nativeSetupGpuSurfaceOnRenderThread(int textureId, int width, int height) {
+        return nativeSetupGpuSurfaceOnRenderThread(textureId, width, height, DEFAULT_INSTANCE);
+    }
+
+    public static boolean nativeSetupGpuSurfaceOnRenderThread(int textureId, int width, int height, String instanceKey) {
+        PagOverlayManager manager = getManager(instanceKey);
+        if (manager == null) {
+            Log.e(TAG, "nativeSetupGpuSurfaceOnRenderThread: manager null, instance=" + instanceKey);
+            return false;
+        }
+        return manager.setupGpuSurfaceOnRenderThread(textureId, width, height);
+    }
+
+    /** 由 Unity 渲染线程（PagUnityGlBridge JNI）调用，勿改名。 */
+    public static boolean nativeFlushGpuFrameOnRenderThread(double progress) {
+        return nativeFlushGpuFrameOnRenderThread(progress, DEFAULT_INSTANCE);
+    }
+
+    public static boolean nativeFlushGpuFrameOnRenderThread(double progress, String instanceKey) {
+        PagOverlayManager manager = getManager(instanceKey);
+        if (manager == null) {
+            Log.e(TAG, "nativeFlushGpuFrameOnRenderThread: manager null, instance=" + instanceKey);
+            return false;
+        }
+        return manager.flushGpuFrameOnRenderThread(progress);
+    }
+
+    /** 由 Unity 渲染线程 flush+glFinish 后 JNI 调用，勿改名。 */
+    public static void nativeNotifyGpuFramePresentedOnMainThread() {
+        nativeNotifyGpuFramePresentedOnMainThread(DEFAULT_INSTANCE);
+    }
+
+    public static void nativeNotifyGpuFramePresentedOnMainThread(String instanceKey) {
+        PagOverlayManager manager = getManager(instanceKey);
+        if (manager == null) {
+            Log.e(TAG, "nativeNotifyGpuFramePresentedOnMainThread: manager null, instance=" + instanceKey);
+            return;
+        }
+        manager.onGpuFramePresentedOnMainThread();
+    }
+
+    /** Unity 主线程在 WaitForEndOfFrame 后请求下一帧 PAG flush。 */
+    public static void RequestNextGpuFrame() {
+        RequestNextGpuFrame(DEFAULT_INSTANCE);
+    }
+
+    public static void RequestNextGpuFrame(String instanceKey) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            PagOverlayManager manager = getManager(key);
+            if (manager != null) {
+                manager.requestNextGpuFrame();
+            }
+        });
+    }
+
+    public static void ReplaceText(int index, String text) {
+        ReplaceText(DEFAULT_INSTANCE, index, text);
+    }
+
+    public static void ReplaceText(String instanceKey, int index, String text) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            if (ensureManager(key)) {
+                getManager(key).replaceText(index, text);
+            }
+        });
+    }
+
+    public static void ReplaceImage(int index, String imagePath) {
+        ReplaceImage(DEFAULT_INSTANCE, index, imagePath);
+    }
+
+    public static void ReplaceImage(String instanceKey, int index, String imagePath) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            if (ensureManager(key)) {
+                getManager(key).replaceImage(index, imagePath);
+            }
+        });
+    }
+
+    public static void PlayInterval(String path, long startTimeUs, long durationUs,
+                                     String positionType, String extra) {
+        PlayInterval(DEFAULT_INSTANCE, path, startTimeUs, durationUs, positionType, extra);
+    }
+
+    public static void PlayInterval(String instanceKey, String path, long startTimeUs, long durationUs,
+                                     String positionType, String extra) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            if (!ensureManager(key)) {
+                return;
+            }
+            getManager(key).playInterval(path, startTimeUs, durationUs, positionType, extra);
+        });
+    }
+
+    public static void PlayMultiPag(String basePath, int count, int colNum,
+                                    String positionType, String extra) {
+        PlayMultiPag(DEFAULT_INSTANCE, basePath, count, colNum, positionType, extra);
+    }
+
+    public static void PlayMultiPag(String instanceKey, String basePath, int count, int colNum,
+                                    String positionType, String extra) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            if (!ensureManager(key)) {
+                return;
+            }
+            getManager(key).playMultiPag(basePath, count, colNum, positionType, extra);
+        });
+    }
+
+    public static void ExportVideo(String pagPath, String outputName,
+                                   String callbackGameObject, String callbackMethod) {
+        ExportVideo(DEFAULT_INSTANCE, pagPath, outputName, callbackGameObject, callbackMethod);
+    }
+
+    public static void ExportVideo(String instanceKey, String pagPath, String outputName,
+                                   String callbackGameObject, String callbackMethod) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            if (!ensureManager(key)) {
+                return;
+            }
+            getManager(key).exportVideo(pagPath, outputName, callbackGameObject, callbackMethod);
+        });
+    }
+
+    private static void runOnUi(Runnable action) {
+        if (sActivity == null) {
+            Log.e(TAG, "runOnUi: activity is null, call Init first");
+            return;
+        }
+        sActivity.runOnUiThread(action);
+    }
+
+    private static boolean runOnUiSync(String tag, Runnable action) {
+        if (sActivity == null) {
+            Log.e(TAG, tag + ": activity is null, call Init first");
+            return false;
+        }
+        final CountDownLatch latch = new CountDownLatch(1);
+        sActivity.runOnUiThread(() -> {
+            try {
+                action.run();
+            } catch (Exception e) {
+                Log.e(TAG, tag + " exception: " + e.getMessage());
+            } finally {
+                latch.countDown();
+            }
+        });
+        try {
+            if (!latch.await(UI_SYNC_TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
+                Log.e(TAG, tag + " timeout after " + UI_SYNC_TIMEOUT_MS + "ms");
+                return false;
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            Log.e(TAG, tag + " interrupted");
+            return false;
+        }
+        return true;
+    }
+}

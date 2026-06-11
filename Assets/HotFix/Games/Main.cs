@@ -300,6 +300,7 @@ public class Main
         */
 
 
+        // 所有包关闭 MQTT 远程控制，避免外网 broker TCP 超时导致周期卡死
         MachineDeviceCommonBiz.Instance.CheckMqttRemoteButtonController();
 
         NetMessageController.Instance.Init();

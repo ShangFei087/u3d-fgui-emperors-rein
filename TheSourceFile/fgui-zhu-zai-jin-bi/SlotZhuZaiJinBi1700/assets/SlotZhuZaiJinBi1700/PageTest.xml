@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_ugpc" name="BG" xy="0,2" size="1080,1920" type="rect" fillColor="#ff000000"/>
+    <component id="n5_ugpc" name="Pag1" src="tvr88o" fileName="components/gameMain/AnchorTurnTable.xml" xy="185,771" pivot="0.5,0.5" anchor="true" size="0,0"/>
+    <component id="n6_oifz" name="Pag2" src="tvr88o" fileName="components/gameMain/AnchorTurnTable.xml" xy="540,771" pivot="0.5,0.5" anchor="true" size="0,0"/>
+    <component id="n7_oifz" name="Pag3" src="tvr88o" fileName="components/gameMain/AnchorTurnTable.xml" xy="834,771" pivot="0.5,0.5" anchor="true" size="0,0"/>
+    <component id="n3_ugpc" name="1" src="ugpc8r" fileName="components/ButtonTest.xml" xy="168,1495" size="258,80">
+      <Button title="1 Dragon" titleFontSize="50"/>
+    </component>
+    <component id="n4_ugpc" name="2" src="ugpc8r" fileName="components/ButtonTest.xml" xy="611,1495" size="300,80">
+      <Button title="1 SpaceShip" titleFontSize="50"/>
+    </component>
+    <component id="n11_oifz" name="3" src="ugpc8r" fileName="components/ButtonTest.xml" xy="168,1617" size="258,80">
+      <Button title="2 Dragon" titleFontSize="50"/>
+    </component>
+    <component id="n12_oifz" name="4" src="ugpc8r" fileName="components/ButtonTest.xml" xy="611,1617" size="300,80">
+      <Button title="2 SpaceShip" titleFontSize="50"/>
+    </component>
+    <component id="n13_oifz" name="5" src="ugpc8r" fileName="components/ButtonTest.xml" xy="168,1739" size="258,80">
+      <Button title="3 Dragon" titleFontSize="50"/>
+    </component>
+    <component id="n14_oifz" name="6" src="ugpc8r" fileName="components/ButtonTest.xml" xy="611,1739" size="300,80">
+      <Button title="3SpaceShip" titleFontSize="50"/>
+    </component>
+  </displayList>
+</component>

@@ -29,12 +29,16 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Action<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Action<System.DateTime>
 	// System.Action<System.Guid>
+	// System.Action<System.IntPtr>
+	// System.Action<System.ValueTuple<int,object,double>>
+	// System.Action<System.ValueTuple<int,object>>
 	// System.Action<System.ValueTuple<object,int>>
 	// System.Action<UnityEngine.Color32>
 	// System.Action<UnityEngine.Vector2>
 	// System.Action<byte,object>
 	// System.Action<byte>
 	// System.Action<float>
+	// System.Action<int,System.IntPtr>
 	// System.Action<int,int>
 	// System.Action<int>
 	// System.Action<long>
@@ -53,6 +57,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ArraySortHelper<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.ArraySortHelper<System.DateTime>
 	// System.Collections.Generic.ArraySortHelper<System.Guid>
+	// System.Collections.Generic.ArraySortHelper<System.ValueTuple<int,object,double>>
+	// System.Collections.Generic.ArraySortHelper<System.ValueTuple<int,object>>
 	// System.Collections.Generic.ArraySortHelper<System.ValueTuple<object,int>>
 	// System.Collections.Generic.ArraySortHelper<UnityEngine.Color32>
 	// System.Collections.Generic.ArraySortHelper<UnityEngine.Vector2>
@@ -70,6 +76,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Comparer<System.DateTime>
 	// System.Collections.Generic.Comparer<System.Guid>
 	// System.Collections.Generic.Comparer<System.Nullable<double>>
+	// System.Collections.Generic.Comparer<System.ValueTuple<int,object,double>>
+	// System.Collections.Generic.Comparer<System.ValueTuple<int,object>>
 	// System.Collections.Generic.Comparer<System.ValueTuple<object,int>>
 	// System.Collections.Generic.Comparer<UnityEngine.Color32>
 	// System.Collections.Generic.Comparer<UnityEngine.Vector2>
@@ -86,6 +94,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.Enumerator<int,object>
 	// System.Collections.Generic.Dictionary.Enumerator<int,ulong>
 	// System.Collections.Generic.Dictionary.Enumerator<long,object>
+	// System.Collections.Generic.Dictionary.Enumerator<object,double>
 	// System.Collections.Generic.Dictionary.Enumerator<object,float>
 	// System.Collections.Generic.Dictionary.Enumerator<object,int>
 	// System.Collections.Generic.Dictionary.Enumerator<object,long>
@@ -99,6 +108,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<int,object>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<int,ulong>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<long,object>
+	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,double>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,float>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,int>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,long>
@@ -112,6 +122,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.KeyCollection<int,object>
 	// System.Collections.Generic.Dictionary.KeyCollection<int,ulong>
 	// System.Collections.Generic.Dictionary.KeyCollection<long,object>
+	// System.Collections.Generic.Dictionary.KeyCollection<object,double>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,float>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,int>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,long>
@@ -125,6 +136,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<int,object>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<int,ulong>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<long,object>
+	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,double>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,float>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,int>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,long>
@@ -138,6 +150,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.ValueCollection<int,object>
 	// System.Collections.Generic.Dictionary.ValueCollection<int,ulong>
 	// System.Collections.Generic.Dictionary.ValueCollection<long,object>
+	// System.Collections.Generic.Dictionary.ValueCollection<object,double>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,float>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,int>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,long>
@@ -151,6 +164,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary<int,object>
 	// System.Collections.Generic.Dictionary<int,ulong>
 	// System.Collections.Generic.Dictionary<long,object>
+	// System.Collections.Generic.Dictionary<object,double>
 	// System.Collections.Generic.Dictionary<object,float>
 	// System.Collections.Generic.Dictionary<object,int>
 	// System.Collections.Generic.Dictionary<object,long>
@@ -166,6 +180,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.EqualityComparer<System.DateTime>
 	// System.Collections.Generic.EqualityComparer<System.Guid>
 	// System.Collections.Generic.EqualityComparer<System.Nullable<double>>
+	// System.Collections.Generic.EqualityComparer<System.ValueTuple<int,object,double>>
+	// System.Collections.Generic.EqualityComparer<System.ValueTuple<int,object>>
 	// System.Collections.Generic.EqualityComparer<System.ValueTuple<object,int>>
 	// System.Collections.Generic.EqualityComparer<UnityEngine.Color32>
 	// System.Collections.Generic.EqualityComparer<UnityEngine.Vector2>
@@ -197,6 +213,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,ulong>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,double>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,float>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,long>>
@@ -206,6 +223,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<ulong,object>>
 	// System.Collections.Generic.ICollection<System.DateTime>
 	// System.Collections.Generic.ICollection<System.Guid>
+	// System.Collections.Generic.ICollection<System.ValueTuple<int,object,double>>
+	// System.Collections.Generic.ICollection<System.ValueTuple<int,object>>
 	// System.Collections.Generic.ICollection<System.ValueTuple<object,int>>
 	// System.Collections.Generic.ICollection<UnityEngine.Color32>
 	// System.Collections.Generic.ICollection<UnityEngine.Vector2>
@@ -222,6 +241,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IComparer<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.IComparer<System.DateTime>
 	// System.Collections.Generic.IComparer<System.Guid>
+	// System.Collections.Generic.IComparer<System.ValueTuple<int,object,double>>
+	// System.Collections.Generic.IComparer<System.ValueTuple<int,object>>
 	// System.Collections.Generic.IComparer<System.ValueTuple<object,int>>
 	// System.Collections.Generic.IComparer<UnityEngine.Color32>
 	// System.Collections.Generic.IComparer<UnityEngine.Vector2>
@@ -244,6 +265,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,ulong>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,double>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,float>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,long>>
@@ -253,6 +275,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<ulong,object>>
 	// System.Collections.Generic.IEnumerable<System.DateTime>
 	// System.Collections.Generic.IEnumerable<System.Guid>
+	// System.Collections.Generic.IEnumerable<System.ValueTuple<int,object,double>>
+	// System.Collections.Generic.IEnumerable<System.ValueTuple<int,object>>
 	// System.Collections.Generic.IEnumerable<System.ValueTuple<object,int>>
 	// System.Collections.Generic.IEnumerable<UnityEngine.Color32>
 	// System.Collections.Generic.IEnumerable<UnityEngine.Vector2>
@@ -274,6 +298,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,ulong>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,double>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,float>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,long>>
@@ -283,6 +308,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<ulong,object>>
 	// System.Collections.Generic.IEnumerator<System.DateTime>
 	// System.Collections.Generic.IEnumerator<System.Guid>
+	// System.Collections.Generic.IEnumerator<System.ValueTuple<int,object,double>>
+	// System.Collections.Generic.IEnumerator<System.ValueTuple<int,object>>
 	// System.Collections.Generic.IEnumerator<System.ValueTuple<object,int>>
 	// System.Collections.Generic.IEnumerator<UnityEngine.Color32>
 	// System.Collections.Generic.IEnumerator<UnityEngine.Vector2>
@@ -307,6 +334,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<ulong,float>>
 	// System.Collections.Generic.IList<System.DateTime>
 	// System.Collections.Generic.IList<System.Guid>
+	// System.Collections.Generic.IList<System.ValueTuple<int,object,double>>
+	// System.Collections.Generic.IList<System.ValueTuple<int,object>>
 	// System.Collections.Generic.IList<System.ValueTuple<object,int>>
 	// System.Collections.Generic.IList<UnityEngine.Color32>
 	// System.Collections.Generic.IList<UnityEngine.Vector2>
@@ -316,6 +345,12 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IList<long>
 	// System.Collections.Generic.IList<object>
 	// System.Collections.Generic.IList<ushort>
+	// System.Collections.Generic.IReadOnlyCollection<System.ValueTuple<int,object,double>>
+	// System.Collections.Generic.IReadOnlyCollection<System.ValueTuple<int,object>>
+	// System.Collections.Generic.IReadOnlyCollection<object>
+	// System.Collections.Generic.IReadOnlyList<System.ValueTuple<int,object,double>>
+	// System.Collections.Generic.IReadOnlyList<System.ValueTuple<int,object>>
+	// System.Collections.Generic.IReadOnlyList<object>
 	// System.Collections.Generic.KeyValuePair<System.Guid,object>
 	// System.Collections.Generic.KeyValuePair<int,byte>
 	// System.Collections.Generic.KeyValuePair<int,float>
@@ -323,6 +358,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.KeyValuePair<int,object>
 	// System.Collections.Generic.KeyValuePair<int,ulong>
 	// System.Collections.Generic.KeyValuePair<long,object>
+	// System.Collections.Generic.KeyValuePair<object,double>
 	// System.Collections.Generic.KeyValuePair<object,float>
 	// System.Collections.Generic.KeyValuePair<object,int>
 	// System.Collections.Generic.KeyValuePair<object,long>
@@ -340,6 +376,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List.Enumerator<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.List.Enumerator<System.DateTime>
 	// System.Collections.Generic.List.Enumerator<System.Guid>
+	// System.Collections.Generic.List.Enumerator<System.ValueTuple<int,object,double>>
+	// System.Collections.Generic.List.Enumerator<System.ValueTuple<int,object>>
 	// System.Collections.Generic.List.Enumerator<System.ValueTuple<object,int>>
 	// System.Collections.Generic.List.Enumerator<UnityEngine.Color32>
 	// System.Collections.Generic.List.Enumerator<UnityEngine.Vector2>
@@ -356,6 +394,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List.SynchronizedList<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.List.SynchronizedList<System.DateTime>
 	// System.Collections.Generic.List.SynchronizedList<System.Guid>
+	// System.Collections.Generic.List.SynchronizedList<System.ValueTuple<int,object,double>>
+	// System.Collections.Generic.List.SynchronizedList<System.ValueTuple<int,object>>
 	// System.Collections.Generic.List.SynchronizedList<System.ValueTuple<object,int>>
 	// System.Collections.Generic.List.SynchronizedList<UnityEngine.Color32>
 	// System.Collections.Generic.List.SynchronizedList<UnityEngine.Vector2>
@@ -372,6 +412,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.List<System.DateTime>
 	// System.Collections.Generic.List<System.Guid>
+	// System.Collections.Generic.List<System.ValueTuple<int,object,double>>
+	// System.Collections.Generic.List<System.ValueTuple<int,object>>
 	// System.Collections.Generic.List<System.ValueTuple<object,int>>
 	// System.Collections.Generic.List<UnityEngine.Color32>
 	// System.Collections.Generic.List<UnityEngine.Vector2>
@@ -389,6 +431,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectComparer<System.DateTime>
 	// System.Collections.Generic.ObjectComparer<System.Guid>
 	// System.Collections.Generic.ObjectComparer<System.Nullable<double>>
+	// System.Collections.Generic.ObjectComparer<System.ValueTuple<int,object,double>>
+	// System.Collections.Generic.ObjectComparer<System.ValueTuple<int,object>>
 	// System.Collections.Generic.ObjectComparer<System.ValueTuple<object,int>>
 	// System.Collections.Generic.ObjectComparer<UnityEngine.Color32>
 	// System.Collections.Generic.ObjectComparer<UnityEngine.Vector2>
@@ -407,6 +451,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectEqualityComparer<System.DateTime>
 	// System.Collections.Generic.ObjectEqualityComparer<System.Guid>
 	// System.Collections.Generic.ObjectEqualityComparer<System.Nullable<double>>
+	// System.Collections.Generic.ObjectEqualityComparer<System.ValueTuple<int,object,double>>
+	// System.Collections.Generic.ObjectEqualityComparer<System.ValueTuple<int,object>>
 	// System.Collections.Generic.ObjectEqualityComparer<System.ValueTuple<object,int>>
 	// System.Collections.Generic.ObjectEqualityComparer<UnityEngine.Color32>
 	// System.Collections.Generic.ObjectEqualityComparer<UnityEngine.Vector2>
@@ -427,6 +473,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.ObjectModel.ReadOnlyCollection<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.DateTime>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.Guid>
+	// System.Collections.ObjectModel.ReadOnlyCollection<System.ValueTuple<int,object,double>>
+	// System.Collections.ObjectModel.ReadOnlyCollection<System.ValueTuple<int,object>>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.ValueTuple<object,int>>
 	// System.Collections.ObjectModel.ReadOnlyCollection<UnityEngine.Color32>
 	// System.Collections.ObjectModel.ReadOnlyCollection<UnityEngine.Vector2>
@@ -443,6 +491,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Comparison<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Comparison<System.DateTime>
 	// System.Comparison<System.Guid>
+	// System.Comparison<System.ValueTuple<int,object,double>>
+	// System.Comparison<System.ValueTuple<int,object>>
 	// System.Comparison<System.ValueTuple<object,int>>
 	// System.Comparison<UnityEngine.Color32>
 	// System.Comparison<UnityEngine.Vector2>
@@ -517,6 +567,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Predicate<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Predicate<System.DateTime>
 	// System.Predicate<System.Guid>
+	// System.Predicate<System.ValueTuple<int,object,double>>
+	// System.Predicate<System.ValueTuple<int,object>>
 	// System.Predicate<System.ValueTuple<object,int>>
 	// System.Predicate<UnityEngine.Color32>
 	// System.Predicate<UnityEngine.Vector2>
@@ -549,6 +601,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Threading.Tasks.TaskFactory<object>
 	// System.ValueTuple<double,System.Nullable<double>>
 	// System.ValueTuple<int,int>
+	// System.ValueTuple<int,object,double>
+	// System.ValueTuple<int,object>
 	// System.ValueTuple<object,int>
 	// System.ValueTuple<object,object>
 	// UnityEngine.Events.InvokableCall<byte>
@@ -707,12 +761,16 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// byte UnityEngine.AndroidJavaObject.Call<byte>(string,object[])
 		// int UnityEngine.AndroidJavaObject.Call<int>(string,object[])
 		// object UnityEngine.AndroidJavaObject.Call<object>(string,object[])
+		// byte UnityEngine.AndroidJavaObject.CallStatic<byte>(string,object[])
+		// int UnityEngine.AndroidJavaObject.CallStatic<int>(string,object[])
 		// long UnityEngine.AndroidJavaObject.CallStatic<long>(string,object[])
 		// long UnityEngine.AndroidJavaObject.Get<long>(string)
 		// object UnityEngine.AndroidJavaObject.GetStatic<object>(string)
 		// byte UnityEngine.AndroidJavaObject._Call<byte>(string,object[])
 		// int UnityEngine.AndroidJavaObject._Call<int>(string,object[])
 		// object UnityEngine.AndroidJavaObject._Call<object>(string,object[])
+		// byte UnityEngine.AndroidJavaObject._CallStatic<byte>(string,object[])
+		// int UnityEngine.AndroidJavaObject._CallStatic<int>(string,object[])
 		// long UnityEngine.AndroidJavaObject._CallStatic<long>(string,object[])
 		// long UnityEngine.AndroidJavaObject._Get<long>(string)
 		// object UnityEngine.AndroidJavaObject._GetStatic<object>(string)

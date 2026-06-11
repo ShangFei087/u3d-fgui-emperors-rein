@@ -36,6 +36,8 @@ public partial class AssetBundleBuilder04 : EditorWindow
 
         MarkResoueceABs_002();
 
+        MarkResourcePag_002();
+
         MarkResourceSounds_002();
 
         MarkResoueceFGUIs_002();
@@ -128,6 +130,26 @@ public partial class AssetBundleBuilder04 : EditorWindow
         foreach (string pth in targetPathLst)
         {
             //Debug.Log($"@ ABs =={pth}");
+            SetBundleName(pth);
+        }
+    }
+
+    /// <summary>
+    /// Pag 文件夹下的 .pag 文件各自打成独立 AB。
+    /// </summary>
+    static void MarkResourcePag_002()
+    {
+        string rootFolderPth = PathHelper.gameResDirPROJPTH;
+        List<string> folderPthLst = GetAllFolderPath(rootFolderPth, "\\Pag");
+
+        List<string> targetPathLst = new List<string>();
+        foreach (var pth in folderPthLst)
+        {
+            targetPathLst.AddRange(GetTargetFilePath(pth, ".pag"));
+        }
+
+        foreach (string pth in targetPathLst)
+        {
             SetBundleName(pth);
         }
     }

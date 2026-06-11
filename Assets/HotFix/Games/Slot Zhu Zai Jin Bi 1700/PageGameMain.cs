@@ -40,7 +40,7 @@ namespace SlotZhuZaiJinBi1700
         private bool isInitPool = false; //资源池是否初始化
         private bool tipCoinIn = false; //提示硬币输入
         bool isAddCreditAnim => !(slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
-        Coroutine corReelsTurn,corGameIdel, corGameOnce, corEffectSlowMotion, coGameAuto;
+        Coroutine corReelsTurn,corGameIdel, corGameOnce, corEffectSlowMotion, coGameAuto, corTurnTablePag;
         //加速框
         bool isEffectSlowMotion2 = false;
         bool isEffectSlowMotion3 = false;
@@ -70,6 +70,28 @@ namespace SlotZhuZaiJinBi1700
         private GameObject goNpc;
         private GameObject CLonegoNpc;
         private Transform _npcAttachBone;
+        private PagSlotBinding _turnTablePagSlot;
+        private PagController TurnTablePag => _turnTablePagSlot?.Controller;
+        private const string TurnTableBigWinPag = "BigWin.pag";
+        private const string TurnTableTransitionPag = "XingYunZhiLun_1080.pag";
+        private const string TurnTableNezaPag = "neza.pag";
+        private static readonly string[] TurnTablePagLoopSequence = { TurnTableTransitionPag, TurnTableNezaPag };
+        private const float TurnTablePagDuration = 8f;
+        private const float TurnTableNezaPagDuration = 8f;
+        private const float TurnTablePagPlayStartedTimeoutSec = 45f;
+        private const string PagLogPrefix = "[1700 PAG]";
+        /// <summary>Phase0 A/B：true 时全屏播 PAG；Phase1 通过后保持 false，走 FGUI extra 对齐。</summary>
+        private const bool TurnTablePagDebugFullScreen = false;
+        /// <summary>true 时交替循环播 XingYunZhiLun_1080 与 neza，进局不自动 Stop。</summary>
+        private const bool TurnTablePagLoop = true;
+        /// <summary>true：PAG 在 FGUI pagEffect（层级由 FGUI 配置）；false：Activity WM 浮层。</summary>
+        private const bool TurnTablePagUseFguiTexture = true;
+        /// <summary>FguiTexture 离屏最大边；0=合成原尺寸，512=降压缩屏（FGUI 仍按合成原尺寸显示）。</summary>
+        /// <summary>0 = 不限制，使用 PAG 合成原尺寸渲染。</summary>
+        private const int TurnTablePagFguiMaxDisplaySide = 0;
+        private const int TurnTablePagFguiFps = 60;
+        /// <summary>Overlay 模式：true 时 native 立即 ImageView 软件出帧。</summary>
+        private const bool TurnTablePagOverlayFallback = false;
         //免费组件
         private GComponent gFreeTimeBox, gFreeWinBox;
         private GComponent gFreeSlotMachine;
@@ -208,6 +230,7 @@ namespace SlotZhuZaiJinBi1700
             EventCenter.Instance.AddEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
             InitParam(data);
+            TryPlayTurnTablePagOnEnter();
         }
         public override void OnClose(EventData data = null)
         {
@@ -216,6 +239,15 @@ namespace SlotZhuZaiJinBi1700
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             GameSoundHelper.Instance.StopMusic();
+            if (corTurnTablePag != null && mono != null)
+            {
+                Debug.Log($"{PagLogPrefix} sequence aborted reason=OnClose");
+                mono.StopCoroutine(corTurnTablePag);
+                corTurnTablePag = null;
+            }
+            StopTurnTablePag();
+            _turnTablePagSlot?.Dispose();
+            _turnTablePagSlot = null;
             if (goGameCtrl != null && goGameCtrl.activeSelf)
             {
                 goGameCtrl.SetActive(false);
@@ -334,6 +366,8 @@ namespace SlotZhuZaiJinBi1700
                 anchorNpc = LocalNpc;
                 GameCommon.FguiUtils.AddWrapper(anchorNpc, CLonegoNpc);
                 _npcAttachBone = null;
+                _turnTablePagSlot?.Dispose();
+                _turnTablePagSlot = null;
             }
 
             if (_npcAttachBone == null)
@@ -341,7 +375,8 @@ namespace SlotZhuZaiJinBi1700
                 _npcAttachBone = FindNpcAttachBone(CLonegoNpc, "c_circle");
                 AttachNormalFrameToNpcBone();
             }
-         
+
+            EnsureTurnTablePagSlot();
 
             //对象池初始化
             if (fguiPoolHelper != null && isInitPool == false)
@@ -384,6 +419,285 @@ namespace SlotZhuZaiJinBi1700
             string candidatePaths = $"Anchor/Spine Mecanim GameObject (ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/{boneName}";
             Transform pathTransform = npcObject.transform.Find(candidatePaths);
             return pathTransform;
+        }
+
+        private void EnsureTurnTablePagSlot()
+        {
+            GComponent anchor = GetTurnTableAnchor();
+            if (anchor == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} EnsureTurnTablePagSlot skipped: anchor null");
+                return;
+            }
+
+            if (_turnTablePagSlot == null)
+            {
+                _turnTablePagSlot = new PagSlotBinding("TurnTableNpc");
+                Debug.Log($"{PagLogPrefix} PagSlotBinding created for TurnTable");
+            }
+
+            _turnTablePagSlot.Attach(anchor);
+        }
+
+        private GComponent GetTurnTableAnchor()
+        {
+            if (anchorNpc != null)
+            {
+                return anchorNpc;
+            }
+
+            return contentPane?.GetChild("anchorTurnTable")?.asCom;
+        }
+
+        /// <summary>
+        /// 将 anchorTurnTable 区域换算为 Native overlay 的 extra（x,y,w,h 为相对屏幕 0~1）。
+        /// </summary>
+        private bool TryBuildTurnTablePagLayoutExtra(out string extra, out string debugReason)
+        {
+            extra = null;
+            debugReason = "unknown";
+
+            GComponent anchor = GetTurnTableAnchor();
+            if (anchor == null)
+            {
+                debugReason = "anchorTurnTable is null";
+                return false;
+            }
+
+            GGraph holder = anchor.GetChild("holder")?.asGraph;
+            GLoader example = anchor.GetChild("example")?.asLoader;
+
+            float localW = holder != null && holder.width > 0f ? holder.width : (example != null ? example.width : 200f);
+            float localH = holder != null && holder.height > 0f ? holder.height : (example != null ? example.height : 200f);
+            if (localW <= 0f || localH <= 0f)
+            {
+                debugReason = $"invalid size holder={holder?.width}x{holder?.height} example={example?.width}x{example?.height}";
+                return false;
+            }
+
+            float rootW = GRoot.inst.width;
+            float rootH = GRoot.inst.height;
+            if (rootW <= 0f || rootH <= 0f)
+            {
+                debugReason = $"invalid GRoot size {rootW}x{rootH}";
+                return false;
+            }
+
+            float normW = Screen.width > 0f ? Screen.width : rootW;
+            float normH = Screen.height > 0f ? Screen.height : rootH;
+
+            GObject layoutTarget = holder != null && holder.width > 0f ? (GObject)holder : anchor;
+            Rect globalRect = layoutTarget.LocalToGlobal(new Rect(0f, 0f, localW, localH));
+            float x = Mathf.Clamp01(globalRect.xMin / normW);
+            float y = Mathf.Clamp01(globalRect.yMin / normH);
+            float w = Mathf.Clamp(globalRect.width / normW, 0.01f, 1f - x);
+            float h = Mathf.Clamp(globalRect.height / normH, 0.01f, 1f - y);
+
+            if (w * h < 0.01f)
+            {
+                debugReason = $"rect too small w={w:F4} h={h:F4}, use turntable fallback";
+                return false;
+            }
+
+            extra = string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                "{0:F4},{1:F4},{2:F4},{3:F4}", x, y, w, h);
+            debugReason = $"ok target={layoutTarget.name} global={globalRect} Screen={normW}x{normH} GRoot={rootW}x{rootH}";
+            return true;
+        }
+
+        private float GetTurnTablePagDurationFallback(string pagFileName)
+        {
+            return pagFileName == TurnTableNezaPag ? TurnTableNezaPagDuration : TurnTablePagDuration;
+        }
+
+        private void PlayTurnTablePag(string pagFileName, int repeatCount = 1)
+        {
+            Debug.Log($"{PagLogPrefix} PlayTurnTablePag start: {pagFileName}, repeat={repeatCount}");
+            EnsureTurnTablePagSlot();
+            if (TurnTablePag == null)
+            {
+                Debug.LogError($"{PagLogPrefix} PlayTurnTablePag failed: PagController is null");
+                return;
+            }
+
+            string resolvedPath = TurnTablePag.ResolvePagPath(pagFileName);
+            if (string.IsNullOrEmpty(resolvedPath))
+            {
+                Debug.LogError($"{PagLogPrefix} PlayTurnTablePag failed: resolve path null, file={pagFileName}");
+                return;
+            }
+
+            Debug.Log($"{PagLogPrefix} resolved path: {resolvedPath}, exists={System.IO.File.Exists(resolvedPath)}");
+
+            string positionType = "center";
+            string layoutExtra = "";
+            if (TurnTablePagDebugFullScreen)
+            {
+                positionType = "full";
+                layoutExtra = "";
+                Debug.Log($"{PagLogPrefix} debug fullscreen mode, skip layout extra");
+            }
+            else if (TryBuildTurnTablePagLayoutExtra(out layoutExtra, out string layoutDebug))
+            {
+                Debug.Log($"{PagLogPrefix} layout extra: {layoutExtra} ({layoutDebug})");
+            }
+            else
+            {
+                Debug.LogWarning($"{PagLogPrefix} layout extra unavailable ({layoutDebug}), fallback LayoutPagAuto(turntable)");
+                TurnTablePag.LayoutPagAuto("turntable");
+            }
+
+            if (TurnTablePagUseFguiTexture)
+            {
+                if (!_turnTablePagSlot.PreparePlay(true, TurnTablePagFguiMaxDisplaySide, TurnTablePagFguiFps))
+                {
+                    Debug.LogError($"{PagLogPrefix} PlayTurnTablePag failed: FGUI slot not ready, pag={pagFileName}");
+                    return;
+                }
+
+                Debug.Log($"{PagLogPrefix} FGUI frame config: maxSide={TurnTablePagFguiMaxDisplaySide} fps={TurnTablePagFguiFps} pag={pagFileName}");
+            }
+            else
+            {
+                _turnTablePagSlot.PreparePlay(false, 0, 0);
+                TurnTablePag.SetForceBitmapOverlayFallback(TurnTablePagOverlayFallback);
+            }
+
+            TurnTablePag.SetRepeatCount(repeatCount);
+            bool playOk = TurnTablePag.PlayPag(pagFileName, positionType, layoutExtra);
+            if (playOk)
+            {
+                Debug.Log($"{PagLogPrefix} PlayTurnTablePag success: {pagFileName}");
+            }
+            else
+            {
+                Debug.LogError($"{PagLogPrefix} PlayTurnTablePag failed: {pagFileName}");
+            }
+        }
+
+        private void StopTurnTablePag()
+        {
+            if (TurnTablePag == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} StopTurnTablePag skipped: PagController is null");
+                return;
+            }
+
+            _turnTablePagSlot.Stop(TurnTablePagUseFguiTexture);
+
+            Debug.Log($"{PagLogPrefix} StopTurnTablePag");
+        }
+
+        private void TryPlayTurnTablePagOnEnter()
+        {
+            if (!isInit || mono == null || slotMachineCtrl == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} TryPlayTurnTablePagOnEnter skipped: isInit={isInit}, mono={mono != null}, slotMachineCtrl={slotMachineCtrl != null}");
+                return;
+            }
+
+            Debug.Log($"{PagLogPrefix} TryPlayTurnTablePagOnEnter: loop={TurnTablePagLoop}, sequence=[{string.Join(", ", TurnTablePagLoopSequence)}]");
+
+            if (corTurnTablePag != null)
+            {
+                Debug.Log($"{PagLogPrefix} sequence aborted reason=restart");
+                mono.StopCoroutine(corTurnTablePag);
+            }
+
+            corTurnTablePag = mono.StartCoroutine(PlayTurnTableEnterSequence());
+        }
+
+        private IEnumerator PlayTurnTableEnterSequence()
+        {
+            Debug.Log($"{PagLogPrefix} PlayTurnTableEnterSequence start");
+            // 等待一帧，确保 FGUI 完成布局后再取 anchor 屏幕矩形
+            yield return null;
+
+            for (int i = 0; i < TurnTablePagLoopSequence.Length; i++)
+            {
+                yield return PagPathHelper.WarmupPagCacheCoroutine(TurnTablePagLoopSequence[i]);
+            }
+
+            if (TurnTablePagLoop)
+            {
+                int loopIndex = 0;
+                while (true)
+                {
+                    string pagFileName = TurnTablePagLoopSequence[0];
+                    PlayTurnTablePag(pagFileName);
+                    yield return WaitTurnTablePagPlayStarted(TurnTablePagPlayStartedTimeoutSec);
+                    if (TurnTablePag == null || !TurnTablePag.PlayStarted)
+                    {
+                        Debug.LogError($"{PagLogPrefix} {pagFileName} play did not start within {TurnTablePagPlayStartedTimeoutSec}s");
+                        Debug.Log($"{PagLogPrefix} sequence aborted reason=pag_play_started_timeout pag={pagFileName}");
+                        corTurnTablePag = null;
+                        yield break;
+                    }
+
+                    if (TurnTablePagUseFguiTexture)
+                    {
+                        float durationFallback = GetTurnTablePagDurationFallback(pagFileName);
+                        float pagTimeout = TurnTablePag.GetCompositionDurationSecWithFallback(durationFallback) + 3f;
+                        yield return TurnTablePag.WaitForPlaybackFinished(pagTimeout);
+                    }
+                    else
+                    {
+                        yield return slotMachineCtrl.SlotWaitForSeconds(GetTurnTablePagDurationFallback(pagFileName));
+                    }
+
+                    loopIndex = (loopIndex + 1) % TurnTablePagLoopSequence.Length;
+                    Debug.Log($"{PagLogPrefix} loop next: {TurnTablePagLoopSequence[loopIndex]}");
+                }
+            }
+
+            PlayTurnTablePag(TurnTableTransitionPag);
+            yield return WaitTurnTablePagPlayStarted(TurnTablePagPlayStartedTimeoutSec);
+            if (TurnTablePag == null || !TurnTablePag.PlayStarted)
+            {
+                Debug.LogError($"{PagLogPrefix} {TurnTableTransitionPag} play did not start within {TurnTablePagPlayStartedTimeoutSec}s");
+                Debug.Log($"{PagLogPrefix} sequence aborted reason=pag_play_started_timeout");
+                corTurnTablePag = null;
+                yield break;
+            }
+
+            if (TurnTablePagUseFguiTexture)
+            {
+                float pagTimeout = TurnTablePag.GetCompositionDurationSecWithFallback(TurnTablePagDuration) + 3f;
+                yield return TurnTablePag.WaitForPlaybackFinished(pagTimeout);
+            }
+            else
+            {
+                yield return slotMachineCtrl.SlotWaitForSeconds(TurnTablePagDuration);
+            }
+
+            StopTurnTablePag();
+            yield return PagPathHelper.DeferredUnloadUnusedAssets();
+            corTurnTablePag = null;
+            Debug.Log($"{PagLogPrefix} PlayTurnTableEnterSequence finished");
+        }
+
+        private IEnumerator WaitTurnTablePagPlayStarted(float timeoutSec)
+        {
+            EnsureTurnTablePagSlot();
+            if (TurnTablePag == null)
+            {
+                yield break;
+            }
+
+            float deadline = Time.unscaledTime + timeoutSec;
+            while (!TurnTablePag.PlayStarted && Time.unscaledTime < deadline)
+            {
+                yield return null;
+            }
+
+            if (TurnTablePag.PlayStarted)
+            {
+                Debug.Log($"{PagLogPrefix} Pag play started (within {timeoutSec}s)");
+            }
+            else
+            {
+                Debug.LogWarning($"{PagLogPrefix} Pag play started timeout ({timeoutSec}s)");
+            }
         }
 
         private void AttachNormalFrameToNpcBone()
