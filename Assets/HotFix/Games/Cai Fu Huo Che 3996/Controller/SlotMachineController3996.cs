@@ -393,7 +393,7 @@ namespace CaiFuHuoChe_3996
                         {
                             // 0-based 列索引；仅缓动相关列触发，供加速框 UI 使用
                             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
-                            new EventData<int>(SlotMachineEvent.PrepareStoppedReel, _reelIdx));
+                            new EventData<int>(SlotMachineEvent.PrepareStoppedReel, _reelIdx + 1));
                         }
 
                         if (ContentModel.Instance.isFreeSpin)
