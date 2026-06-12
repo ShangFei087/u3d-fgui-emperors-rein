@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ng_img_turntable_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: 19db8b81f1c053841901b69254f1c4ae, type: 2}
+  - {fileID: 11400000, guid: 28bff35e69dae4649af5187dc8590eee, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: 955153e4000360440a0d2e19458a191d, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: cdfd3c4c6a5dd214db95665e4794744d, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0

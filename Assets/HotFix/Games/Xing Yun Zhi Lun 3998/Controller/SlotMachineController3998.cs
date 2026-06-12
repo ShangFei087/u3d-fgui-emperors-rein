@@ -712,7 +712,7 @@ namespace XingYunZhiLun_3998
                 }
 
                 reels[reelIdx].StartTurn(
-                    _reelSetMD.Instance.GetNumReelTurn(reelIdx) + reelIdx * _reelSetMD.Instance.GetNumReelTurnGap(reelIdx) + extraReelTimes * (reelIdx - ( slowCols.Count < 2? reelIdx : slowCols[1] )),
+                    _reelSetMD.Instance.GetNumReelTurn(reelIdx) + reelIdx * _reelSetMD.Instance.GetNumReelTurnGap(reelIdx) + extraReelTimes * reelIdx,
                     () =>
                     {
                         if (isTrriger)

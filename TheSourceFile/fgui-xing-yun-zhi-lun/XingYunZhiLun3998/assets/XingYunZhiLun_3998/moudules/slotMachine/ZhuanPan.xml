@@ -2,6 +2,7 @@
 <component size="552,552">
   <displayList>
     <component id="n17_lsvw" name="Wheel" src="ugp6ak4" fileName="moudules/PageMainWheel/Wheel.xml" xy="276,276" pivot="0.5,0.5" anchor="true" touchable="false"/>
+    <component id="n18_8f5e" name="WheelEffect" src="lsvw1j" fileName="components/PopupZhuanPan/AnchorEffect.xml" xy="276,276"/>
   </displayList>
   <transition name="ChangeSpinPoint"/>
 </component>

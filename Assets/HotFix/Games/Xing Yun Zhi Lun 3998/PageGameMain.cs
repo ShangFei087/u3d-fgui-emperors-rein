@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 using _spinWEMD = SlotMaker.SpinWinEffectSettingModel;
@@ -82,6 +83,11 @@ namespace XingYunZhiLun_3998
         private GameObject norBgPref, freeBgPref, norBgObj, freeBgObj;
         private GComponent anchorNor, anchorFree;
         private GLoader slotLoad;
+
+
+        //测试用例特效
+        private Transform Effect1, Effect2, Effect3, UpgradeEffect;
+        private Transform[] testEffect = new Transform[4];
 
 
         private bool isReserve;
@@ -482,6 +488,16 @@ namespace XingYunZhiLun_3998
                 wheelObj = GameObject.Instantiate(wheelPref);
                 gWheelFrame = loadWheelFrame;
                 wheelAnim = wheelObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+
+                Effect1 = wheelObj.transform.GetChild(1).GetChild(0);
+                Effect2 = wheelObj.transform.GetChild(1).GetChild(1);
+                Effect3 = wheelObj.transform.GetChild(1).GetChild(2);
+                UpgradeEffect = wheelObj.transform.GetChild(1).GetChild(3);
+
+                testEffect[0] = Effect1;
+                testEffect[1] = Effect2;
+                testEffect[2] = Effect3;
+                testEffect[3] = UpgradeEffect;
                 GameCommon.FguiUtils.AddWrapper(gWheelFrame, wheelObj);
 
                 ChangeParent(gWheel, wheelObj, "Anchor/Spine Mecanim GameObject (ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/c_circle");
@@ -489,6 +505,9 @@ namespace XingYunZhiLun_3998
 
             TryRestoreFreeSpinSession();
             isReady = true;
+
+            if (!isReady) return;
+            mono.StartCoroutine(TestEffect());
         }
 
         private void OnClickSpinButton(EventData res)
@@ -3517,6 +3536,47 @@ namespace XingYunZhiLun_3998
         }
 
         #endregion
+
+
+        int index = 0;
+        private IEnumerator TestEffect()
+        {
+            while (true)
+            {
+                PlayChildEffectAnim(testEffect[index]);
+                yield return new WaitForSeconds(3); // 播放3秒后切换
+                StopChildEffectAnim(testEffect[index]);
+                yield return new WaitForSeconds(1); // 播放3秒后切换
+                index++;
+                index %= 4;
+            }
+        }
+
+
+        //根据传入的节点依次播放粒子特效
+        private void PlayChildEffectAnim(Transform effect)
+        {
+            // 递归播放所有子物体的粒子系统
+            Transform[] allChildren = effect.GetComponentsInChildren<Transform>();
+            for (int i = 1; i < allChildren.Length; i++)
+            {
+                ParticleSystem particle = allChildren[i].GetComponent<ParticleSystem>();
+                particle.Play(true);
+            }
+        }
+
+        //根据传入的节点依次停止粒子特效
+        private void StopChildEffectAnim(Transform effect)
+        {
+            // 递归播放所有子物体的粒子系统
+            Transform[] allChildren = effect.GetComponentsInChildren<Transform>();
+            for (int i = 1; i < allChildren.Length; i++)
+            {
+                Debug.LogError(allChildren[i].name);
+                ParticleSystem particle = allChildren[i].GetComponent<ParticleSystem>();
+                particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            }
+        }
     }
 
 }
