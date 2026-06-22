@@ -1,127 +1,246 @@
 using FairyGUI;
 using GameMaker;
 using System;
-
 using UnityEngine;
-
 
 namespace SlotZhuZaiJinBi1700
 {
     public class PopupGameLoading : MachinePageBase
     {
-        public  const string pkgName = "SlotZhuZaiJinBi1700";
-        public  const string resName = "PopupGameLoading";
+        public const string pkgName = "SlotZhuZaiJinBi1700";
+        public const string resName = "PopupGameLoading";
 
-        //预制体
-        private GameObject goLoading_bg, goLoading_Title;
-        private GameObject CloneLoading_bg, CloneLoading_Title;
-        //UI组件
-        private GComponent anchorBG, anchorTitle;
-        private GProgressBar ProgressBar;
-        private float duration = 5f;
-        //数据
-         bool isInit = false;
-        EventData _data = null;
-        GTweener tweener = null;
-        private Animator animtorLoading_Title;
+        private GameObject _goLoadingBg, _goLoadingTitle;
+        private GameObject _cloneLoadingBg, _cloneLoadingTitle;
+        private GComponent _anchorBg, _anchorTitle;
+        private GProgressBar _progressBar;
+        private Animator _animatorLoadingTitle;
+
+        private bool _isInit;
+        private int _preloadTotal;
+        private int _preloadCompleted;
+
+        /// <summary>从进入并行预加载起算，界面至少展示此时长（秒）；预加载更久则按实际结束。</summary>
+        private const float MinLoadingDisplaySeconds = 5f;
+
+        private float _preloadStartRealtime;
+        private TimerCallback _pendingMinDisplayCallback;
+
         protected override void OnInit()
         {
-            this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
+            contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
             int count = 2;
-
             Action loadComplete = () =>
             {
                 if (--count == 0)
                 {
-                    isInit = true;
-                    InitParam(null);
+                    _isInit = true;
+                    InitParam();
                 }
             };
 
-            //加载预制体
             ResourceManager02.Instance.LoadAsset<GameObject>(
-            "Assets/GameRes/Games/Slot Zhu Zai Jin Bi 1700/Prefabs/PopupGameLoading/Loading_bg",
-            (GameObject clone) =>
-            {
-                goLoading_bg = clone;
-                loadComplete();
-            });
+                "Assets/GameRes/Games/Slot Zhu Zai Jin Bi 1700/Prefabs/PopupGameLoading/Loading_bg",
+                clone =>
+                {
+                    _goLoadingBg = clone;
+                    loadComplete();
+                });
 
             ResourceManager02.Instance.LoadAsset<GameObject>(
                 "Assets/GameRes/Games/Slot Zhu Zai Jin Bi 1700/Prefabs/PopupGameLoading/Loading_Title",
-                (GameObject clone) =>
+                clone =>
                 {
-                    goLoading_Title = clone;
+                    _goLoadingTitle = clone;
                     loadComplete();
                 });
         }
+
         protected override void OnLanguageChange(I18nLang lang)
         {
-            FguiI18nTextAssistant.Instance.DisposeAllTranslate(this.contentPane);
-            this.contentPane.Dispose(); // 释放当前UI
-            this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
-            InitParam(null);
-            //FguiI18nTextAssistant.Instance.TranslateComponent(this.contentPane);
+            FguiI18nTextAssistant.Instance.DisposeAllTranslate(contentPane);
+            contentPane.Dispose();
+            contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
+            InitParam();
         }
+
         public override void OnOpen(PageName name, EventData data)
         {
             base.OnOpen(name, data);
-            InitParam(data);
+            InitParam();
         }
-        // public override void OnTop() { Debug.Log($"i am top {this.name}"); }
-        public void InitParam(EventData data)
+
+        public override void OnClose(EventData data = null)
         {
-
-            if (data != null) _data = data;
-
-            if (!isInit) return;
-            //加载组件
-          
-            // 初始化UI锚点
-            GComponent LocalAnchorLoadingBG = contentPane.GetChild("anchorLoadingBG").asCom;
-            if (anchorBG != LocalAnchorLoadingBG)
+            if (_pendingMinDisplayCallback != null)
             {
-                GameCommon.FguiUtils.DeleteWrapper(anchorBG);
-                CloneLoading_bg = GameObject.Instantiate(goLoading_bg);
-                anchorBG = LocalAnchorLoadingBG;
-                GameCommon.FguiUtils.AddWrapper(anchorBG, CloneLoading_bg);
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
             }
 
-            GComponent LocalAnchorLoadingTitle = contentPane.GetChild("anchorLoadingTitle").asCom;
-            if (anchorTitle != LocalAnchorLoadingTitle)
+            base.OnClose(data);
+        }
+
+        public override void InitParam()
+        {
+            if (!_isInit) return;
+
+            GComponent localAnchorLoadingBg = contentPane.GetChild("anchorLoadingBG").asCom;
+            if (_anchorBg != localAnchorLoadingBg)
             {
-                GameCommon.FguiUtils.DeleteWrapper(anchorTitle);
-                CloneLoading_Title = GameObject.Instantiate(goLoading_Title);
-                animtorLoading_Title= CloneLoading_Title.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-                animtorLoading_Title.enabled = false;
-                anchorTitle = LocalAnchorLoadingTitle;
-                GameCommon.FguiUtils.AddWrapper(anchorTitle, CloneLoading_Title);
+                GameCommon.FguiUtils.DeleteWrapper(_anchorBg);
+                _cloneLoadingBg = GameObject.Instantiate(_goLoadingBg);
+                _anchorBg = localAnchorLoadingBg;
+                GameCommon.FguiUtils.AddWrapper(_anchorBg, _cloneLoadingBg);
             }
 
-            ProgressBar = contentPane.GetChild("Slider").asProgress;
-            StartLoadingAnimation();
+            GComponent localAnchorLoadingTitle = contentPane.GetChild("anchorLoadingTitle").asCom;
+            if (_anchorTitle != localAnchorLoadingTitle)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_anchorTitle);
+                _cloneLoadingTitle = GameObject.Instantiate(_goLoadingTitle);
+                _animatorLoadingTitle = _cloneLoadingTitle.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                _animatorLoadingTitle.enabled = false;
+                _anchorTitle = localAnchorLoadingTitle;
+                GameCommon.FguiUtils.AddWrapper(_anchorTitle, _cloneLoadingTitle);
+            }
+
+            _progressBar = contentPane.GetChild("Slider").asProgress;
+            _progressBar.value = _progressBar.min;
+
+            preLoadedCallback?.Invoke();
+
+            if (PageManager.Instance.IndexOf(PageName.SlotZhuZaiJinBiPopupGameLoading) == 0)
+                StartPreloadGamePagesThenOpenMain();
         }
-        public void StartLoadingAnimation()
+
+        /// <summary>
+        /// 并行预加载各子界面；进度条按完成个数增长，全部完成后进入主界面。
+        /// </summary>
+        private void StartPreloadGamePagesThenOpenMain()
         {
-            //预加载
-            PageManager.Instance.PreloadPage(PageName.SlotZhuZaiJinBiPageGameMain, null);
-            animtorLoading_Title.enabled = true;
-            if (tweener != null) tweener.Kill();
-            tweener = GTween.To(0, 100, duration)
-            .SetEase(EaseType.Linear) // 线性过渡，匀速增长
-            .OnUpdate((tween) =>
+            if (_pendingMinDisplayCallback != null)
             {
-                double progress = tween.value.x;
-                ProgressBar.value = progress;
-            })
-            .OnComplete(() =>
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+            }
+
+            _preloadStartRealtime = Time.realtimeSinceStartup;
+
+            PageName[] pages =
             {
-                CloseSelf(null);
-                PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinBiPageGameMain, null);
-            });
+                PageName.SlotZhuZaiJinBiPageGameMain,
+            };
+
+            _preloadTotal = pages.Length;
+            _preloadCompleted = 0;
+            RefreshLoadingProgressVisual();
+
+            if (_animatorLoadingTitle != null)
+                _animatorLoadingTitle.enabled = true;
+
+            for (int i = 0; i < pages.Length; i++)
+                PageManager.Instance.PreloadPage(pages[i], OnOnePreloadPageDone);
+        }
+
+        private void OnOnePreloadPageDone()
+        {
+            _preloadCompleted++;
+            RefreshLoadingProgressVisual();
+
+            if (_preloadCompleted < _preloadTotal) return;
+
+            TryFinishLoadingAfterPreloads();
+        }
+
+        private void RefreshLoadingProgressVisual()
+        {
+            SetProgressByPreloadNormalized(GetDisplayNormalizedProgress());
+        }
+
+        private void TryFinishLoadingAfterPreloads()
+        {
+            float elapsed = Time.realtimeSinceStartup - _preloadStartRealtime;
+            if (elapsed >= MinLoadingDisplaySeconds)
+            {
+                RefreshLoadingProgressVisual();
+                CompleteLoadingTransition();
+                return;
+            }
+
+            if (_pendingMinDisplayCallback != null)
+                return;
+
+            RefreshLoadingProgressVisual();
+            _pendingMinDisplayCallback = OnLoadingProgressPadTick;
+            Timers.inst.Add(0.05f, 0, _pendingMinDisplayCallback);
+        }
+
+        private void OnLoadingProgressPadTick(object param)
+        {
+            RefreshLoadingProgressVisual();
+            float elapsed = Time.realtimeSinceStartup - _preloadStartRealtime;
+            if (_preloadCompleted >= _preloadTotal && elapsed >= MinLoadingDisplaySeconds)
+            {
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+                CompleteLoadingTransition();
+            }
+        }
+
+        private void CompleteLoadingTransition()
+        {
+            if (_pendingMinDisplayCallback != null)
+            {
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+            }
+
+            SetProgressByPreloadNormalized(1f);
+            CloseSelf(null);
+
+            if (PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce)
+            {
+                PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce = false;
+            }
+            else
+            {
+                PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinPageTest);
+            }
+        }
+
+        /// <summary>
+        /// 将 0~1 的预加载比例映射到 GProgressBar 的 min~max。
+        /// </summary>
+        private void SetProgressByPreloadNormalized(float normalized01)
+        {
+            if (_progressBar == null)
+                return;
+            normalized01 = Mathf.Clamp01(normalized01);
+            double span = _progressBar.max - _progressBar.min;
+            if (span <= 0)
+                span = 1;
+            _progressBar.value = _progressBar.min + span * normalized01;
+        }
+
+        /// <summary>
+        /// 进度条取「预加载完成度」与「最短展示时间」的较小值，避免未满最短时间条已 100%。
+        /// </summary>
+        private float GetDisplayNormalizedProgress()
+        {
+            return Mathf.Min(GetPreloadRatio(), GetTimeCapRatio());
+        }
+
+        private float GetPreloadRatio()
+        {
+            return _preloadTotal > 0 ? (float)_preloadCompleted / _preloadTotal : 1f;
+        }
+
+        private float GetTimeCapRatio()
+        {
+            return Mathf.Clamp01((Time.realtimeSinceStartup - _preloadStartRealtime) / MinLoadingDisplaySeconds);
         }
     }
 }
-

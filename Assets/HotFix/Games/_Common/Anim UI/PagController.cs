@@ -48,6 +48,7 @@ public class PagController : IDisposable
     private Coroutine _gpuBindCoroutine;
     private Coroutine _gpuNextFrameCoroutine;
     private float _fguiTargetFrameInterval = 1f / 30f;
+    private float _fguiDisplayScale = 1f;
     private float _lastGpuFramePresentTime;
     private int _boundGpuTexId;
     private int _boundGpuTexW;
@@ -57,6 +58,7 @@ public class PagController : IDisposable
     private Coroutine _maintenanceCoroutine;
 
     private GComponent _fguiAnchor;
+    private string _fguiLoaderName = PagFguiGpuPresenter.DefaultLoaderName;
 
     public string InstanceKey { get; private set; }
 
@@ -91,7 +93,7 @@ public class PagController : IDisposable
         InstanceKey = key;
     }
 
-    public void Attach(GComponent fguiAnchor)
+    public void Attach(GComponent fguiAnchor, string loaderName = null)
     {
         if (_disposed)
         {
@@ -103,6 +105,11 @@ public class PagController : IDisposable
         {
             Debug.LogWarning($"[PAG] Attach skipped: fguiAnchor is null, instance={InstanceKey}");
             return;
+        }
+
+        if (!string.IsNullOrEmpty(loaderName))
+        {
+            _fguiLoaderName = loaderName;
         }
 
         if (_attached && _fguiAnchor == fguiAnchor)
@@ -118,7 +125,12 @@ public class PagController : IDisposable
         PagControllerRegistry.Register(InstanceKey, this);
         _attached = true;
         EnsureFguiBinding();
-        Debug.Log($"[PAG] Attached instance={InstanceKey}, fgui={_fguiAnchor.name}");
+        Debug.Log($"[PAG] Attached instance={InstanceKey}, fgui={_fguiAnchor.name}, loader={_fguiLoaderName}");
+    }
+
+    public void Attach(GComponent fguiAnchor)
+    {
+        Attach(fguiAnchor, null);
     }
 
     private void EnsureFguiBinding()
@@ -128,10 +140,16 @@ public class PagController : IDisposable
             return;
         }
 
-        GLoader pagEffect = PagFguiGpuPresenter.TryGetPagEffectLoader(_fguiAnchor);
+        GLoader pagEffect = PagFguiGpuPresenter.TryGetPagEffectLoader(_fguiAnchor, _fguiLoaderName);
         if (pagEffect == null)
         {
             Debug.LogError($"[PAG] FGUI 绑定失败: instance={InstanceKey}, anchor={_fguiAnchor.name}");
+            return;
+        }
+
+        if (_fguiPresenter.Loader == pagEffect)
+        {
+            _fguiPresenter.ConfigureAnchor(_fguiAnchor, _fguiLoaderName);
             return;
         }
 
@@ -405,8 +423,20 @@ public class PagController : IDisposable
 #endif
     }
 
+    /// <summary>FGUI pagEffect 相对 PAG 合成尺寸的显示倍率（1=原尺寸，2=1024 合成显示为 2048）。</summary>
+    public void SetFguiDisplayScale(float scale)
+    {
+        _fguiDisplayScale = scale > 0f ? scale : 1f;
+    }
+
+    public void SetFguiClampDisplayToHolder(bool clamp)
+    {
+        _fguiPresenter.ClampDisplayToHolder = clamp;
+    }
+
     public void BindFguiLoader(GLoader loader)
     {
+        _fguiPresenter.ConfigureAnchor(_fguiAnchor, _fguiLoaderName);
         _fguiPresenter.Bind(loader);
     }
 
@@ -530,7 +560,9 @@ public class PagController : IDisposable
         {
             boundTexId = _boundGpuTexId;
             boundTexPtr = _boundGpuTexPtr;
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
             Debug.Log($"[PAG GPU] reuse texture instance={InstanceKey} slot={_textureSlotId} size={texW}x{texH}");
+#endif
         }
         else
         {
@@ -605,7 +637,7 @@ public class PagController : IDisposable
 #if UNITY_ANDROID && !UNITY_EDITOR
         if (_gpuNextFrameCoroutine != null)
         {
-            PagCallbackHub.Instance.StopRunCoroutine(_gpuNextFrameCoroutine);
+            return;
         }
 
         _gpuNextFrameCoroutine = PagCallbackHub.Instance.RunCoroutine(RequestNextGpuFrameAfterPresent());
@@ -648,8 +680,13 @@ public class PagController : IDisposable
             int ch = _pagBridge.CallStatic<int>("GetCompositionHeight", InstanceKey);
             if (cw > 0 && ch > 0)
             {
-                _fguiPresenter.SetDisplaySize(cw, ch);
-                Debug.Log($"[PAG FGUI GPU] composition display size {cw}x{ch} instance={InstanceKey}");
+                int displayW = Mathf.Max(1, Mathf.RoundToInt(cw * _fguiDisplayScale));
+                int displayH = Mathf.Max(1, Mathf.RoundToInt(ch * _fguiDisplayScale));
+                _fguiPresenter.SetDisplaySize(displayW, displayH);
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+                Debug.Log($"[PAG FGUI GPU] composition display size {displayW}x{displayH} "
+                    + $"(composition {cw}x{ch} scale={_fguiDisplayScale:F2}) instance={InstanceKey}");
+#endif
             }
         }
         catch (Exception ex)
@@ -957,6 +994,7 @@ public class PagController : IDisposable
 
     private static void LogJni(string message)
     {
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
         Debug.Log($"[PAG JNI] {message}");
         try
         {
@@ -969,6 +1007,7 @@ public class PagController : IDisposable
         {
             Debug.LogWarning($"[PAG JNI] android.util.Log failed: {ex.Message}");
         }
+#endif
     }
 #endif
 }

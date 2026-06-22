@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
+using FairyGUI;
 using UnityEditor;
 using UnityEngine;
 
@@ -26,16 +29,82 @@ public class GCMonitorPro : MonoBehaviour
         }
     }
 
-    public bool showOnScreen = true;
+    public bool showOnScreen = false;
+    public bool showGraphs = false;
 
     // 移除收起功能，UI始終展開
     public bool isUIScaled = false; // 控制UI是否放大2倍
 
+    const int displayGraphPoints = 60;
+    const float graphRedrawInterval = 0.3f;
+    const float panelBaseWidth = 440f;
+    const float panelBaseHeight = 1400f;
+    const float panelBaseHeightWithGraphs = 1680f;
+    const float panelGraphHeight = 140f;
+
+    GUIStyle _labelStyle;
+    GUIStyle _buttonStyle;
+    bool _guiStylesReady;
+    bool _guiStylesScaled;
+
+    float _nextGraphDrawTime;
+    int _displayGcCount;
+    float _displayMemoryMB;
+    long _displayTotalMem;
+    bool _displayIncrementalGc;
+    string _safetyLevelText;
+    string _safetyColorTag;
+    string _textTitle;
+    string _textBasicPerf;
+    string _textCpu;
+    string _textManagedMemory;
+    string _textPhysicalMemory;
+    string _textAndroidDevice;
+    string _textPcDetail;
+    string _textRenderContext;
+    string _textJank;
+    string _textPagFgui;
+    string _textParticles;
+    string _textSpine;
+    string _textGcDetail;
+    string _textGcEvents;
+    string _textSafety;
+    string _textLeakWarning;
+
+    const int maxGcEventLines = 5;
+    const float jankWindowSeconds = 10f;
+    readonly string[] _gcEventLines = new string[maxGcEventLines];
+    int _gcEventWriteIndex;
+    int _mildJankCount;
+    int _severeJankCount;
+    float _jankWindowTimer;
+    int _displayMildJank;
+    int _displaySevereJank;
+    long _lastSampleAlloc;
+    float _displayGcAllocKB;
+    float _displayGpuMemoryMB;
+
+    const int particleWarningThreshold = 5000;
+    const int particleCriticalThreshold = 15000;
+    const int spineVertexWarningThreshold = 20000;
+    const int spineVertexCriticalThreshold = 50000;
+    int _displayTotalParticles;
+    int _displayPlayingSystems;
+    int _displayLiveSystems;
+    int _displaySpineInstances;
+    int _displaySpineVertices;
+    int _displaySpineBones;
+    int _displaySpineMeshUpdates;
+    float _nextEffectSampleTime;
+    const float effectSampleInterval = 0.2f;
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+    AndroidJavaObject _cachedActivity;
+    AndroidJavaObject _cachedActivityManager;
+    bool _androidJniCached;
+#endif
+
     private Vector2 scrollPosition = Vector2.zero; // 滚动视图位置
-    private float deltaTime;
-    private float fps;
-    private float fpsTimer;
-    private float fpsUpdateInterval = 0.5f;
     private int lastGCCount;
     private float lastGCTime;
     private Stopwatch stopwatch = new Stopwatch();
@@ -144,6 +213,35 @@ public class GCMonitorPro : MonoBehaviour
 
         processorCount = Mathf.Max(1, SystemInfo.processorCount);
         InitializeCpuMonitoring();
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+        updateInterval = 1.0f;
+#endif
+        RefreshDisplayTexts();
+    }
+
+    private void OnDestroy()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        if (_cachedActivityManager != null)
+        {
+            _cachedActivityManager.Dispose();
+            _cachedActivityManager = null;
+        }
+        if (_cachedActivity != null)
+        {
+            _cachedActivity.Dispose();
+            _cachedActivity = null;
+        }
+        _androidJniCached = false;
+#endif
+        if (showOnScreen)
+        {
+            EffectStatsCounter.ClearCache();
+            SpineStatsCounter.ClearCache();
+        }
+        if (instance == this)
+            instance = null;
     }
 
     private void Update()
@@ -151,6 +249,20 @@ public class GCMonitorPro : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F12))
         {
             showOnScreen = !showOnScreen;
+            if (showOnScreen)
+            {
+                ParticleSystemCounter.SetAutoRefreshInterval(updateInterval);
+                ParticleSystemCounter.ForceRefresh();
+                SpineStatsCounter.EnableHooks();
+                _nextEffectSampleTime = 0f;
+                UpdateEffectStatus();
+                RefreshDisplayTexts();
+            }
+            else
+            {
+                EffectStatsCounter.ClearCache();
+                SpineStatsCounter.ClearCache();
+            }
         }
 
         if (!showOnScreen)
@@ -158,13 +270,16 @@ public class GCMonitorPro : MonoBehaviour
             return;
         }
 
-        // FPS计算 - 使用Time.smoothDeltaTime来平滑计算，它受Application.targetFrameRate影响
-        deltaTime += (Time.smoothDeltaTime - deltaTime) * 0.1f;
-        fpsTimer += Time.smoothDeltaTime;
-        if (fpsTimer >= fpsUpdateInterval)
+        if (!SpineStatsCounter.HooksEnabled)
+            SpineStatsCounter.EnableHooks();
+
+        UpdateJankStats();
+
+        if (Time.unscaledTime >= _nextEffectSampleTime)
         {
-            fps = 1.0f / deltaTime;
-            fpsTimer = 0f;
+            _nextEffectSampleTime = Time.unscaledTime + effectSampleInterval;
+            UpdateEffectStatus();
+            RefreshDisplayTexts();
         }
 
         if (Time.time >= nextUpdateTime)
@@ -172,24 +287,38 @@ public class GCMonitorPro : MonoBehaviour
             nextUpdateTime = Time.time + updateInterval;
             UpdateMemoryStatus();
             UpdatePhysicalMemoryStatus();
-            UpdateYooAssetStatus();
             UpdateCpuStatus();
+            RefreshDisplayTexts();
         }
+    }
+
+    private void UpdateEffectStatus()
+    {
+        LiveParticleStats particleStats = EffectStatsCounter.GetTotalLiveParticles();
+        _displayTotalParticles = particleStats.totalParticles;
+        _displayPlayingSystems = particleStats.playingSystemCount;
+        _displayLiveSystems = particleStats.liveSystemCount;
+
+        LiveSpineStats spineStats = SpineStatsCounter.GetLiveSpineStats();
+        _displaySpineInstances = spineStats.displayedInstanceCount;
+        _displaySpineVertices = spineStats.totalVertices;
+        _displaySpineBones = spineStats.totalBones;
+        _displaySpineMeshUpdates = spineStats.meshUpdatesInWindow;
     }
 
     private void UpdateMemoryStatus()
     {
         long currentMemory = GC.GetTotalMemory(false); int currentGCCount = GC.CollectionCount(0);
-        // GC触发检测     
+        float memoryMB = currentMemory / (1024f * 1024f);
+        // GC触发检测
         if (currentGCCount > lastGCCount)
         {
             float gcInterval = stopwatch.ElapsedMilliseconds / 1000f - lastGCTime;
             lastGCTime = stopwatch.ElapsedMilliseconds / 1000f;
-            //  UnityEngine.Debug.Log($"<color=orange>[GC]</color> GC触发 | 间隔: {gcInterval:F2}s | 总次数: {currentGCCount}");
+            RecordGcEvent(currentGCCount, gcInterval, memoryMB);
             lastGCCount = currentGCCount;
         }
-        // 泄漏趋势检测 
-        float memoryMB = currentMemory / (1024f * 1024f);
+        // 泄漏趋势检测
         memorySamples[sampleIndex] = memoryMB;
         sampleIndex = (sampleIndex + 1) % trendSampleCount;
         if (sampleIndex == 0)
@@ -202,6 +331,17 @@ public class GCMonitorPro : MonoBehaviour
         memoryHistory[historyIndex] = memoryMB;
         historyIndex = (historyIndex + 1) % maxGraphPoints;
         lastMemory = currentMemory;
+
+        long currentAlloc = UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong();
+        if (_lastSampleAlloc > 0L)
+            _displayGcAllocKB = (currentAlloc - _lastSampleAlloc) / 1024f;
+        _lastSampleAlloc = currentAlloc;
+
+        _displayGcCount = currentGCCount;
+        _displayMemoryMB = memoryMB;
+        _displayTotalMem = currentAlloc;
+        _displayIncrementalGc = UnityEngine.Scripting.GarbageCollector.isIncremental;
+        _displayGpuMemoryMB = UnityEngine.Profiling.Profiler.GetAllocatedMemoryForGraphicsDriver() / (1024f * 1024f);
     }
 
     private bool CheckLeakTrend()
@@ -370,11 +510,8 @@ public class GCMonitorPro : MonoBehaviour
             systemTotalMemoryMB = EstimateAndroidMemory();
         }
 
-        // 使用JNI调用获取真实的物理内存占用
-        physicalMemoryMB = GetAndroidProcessMemory();
-
-        // 获取Android Runtime内存信息（总内存、可用内存、最大可用内存）
-        GetAndroidRuntimeMemoryInfo();
+        CacheAndroidJniObjects();
+        RefreshAndroidMemoryOnce();
 
         // 计算物理内存使用率
         if (systemTotalMemoryMB > 0)
@@ -918,72 +1055,42 @@ public class GCMonitorPro : MonoBehaviour
 #if UNITY_ANDROID && !UNITY_EDITOR
         try
         {
-            // 必须通过 UnityPlayer 获取 Activity，因为：
-            // 1. ActivityManager 需要 Context，而 Context 需要通过 Activity 获取
-            // 2. Runtime 无法提供系统级别的内存信息，只能提供应用进程的内存信息
-            using (AndroidJavaClass unityPlayerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            CacheAndroidJniObjects();
+            if (_cachedActivityManager != null)
             {
-                AndroidJavaObject currentActivity = unityPlayerClass.GetStatic<AndroidJavaObject>("currentActivity");
-                if (currentActivity != null)
+                using (AndroidJavaObject memoryInfo = new AndroidJavaObject("android.app.ActivityManager$MemoryInfo"))
                 {
-                    // 获取ActivityManager（需要通过 Context.getSystemService() 获取）
-                    using (AndroidJavaClass contextClass = new AndroidJavaClass("android.content.Context"))
+                    _cachedActivityManager.Call("getMemoryInfo", memoryInfo);
+
+                    long availMem = memoryInfo.Get<long>("availMem");
+                    long totalMem = 0;
+                    try
                     {
-                        string activityService = contextClass.GetStatic<string>("ACTIVITY_SERVICE");
-                        using (AndroidJavaObject activityManager = currentActivity.Call<AndroidJavaObject>("getSystemService", activityService))
-                        {
-                            if (activityManager != null)
-                            {
-                                // 创建MemoryInfo对象
-                                using (AndroidJavaObject memoryInfo = new AndroidJavaObject("android.app.ActivityManager$MemoryInfo"))
-                                {
-                                    // 获取系统内存信息
-                                    activityManager.Call("getMemoryInfo", memoryInfo);
+                        totalMem = memoryInfo.Get<long>("totalMem");
+                    }
+                    catch
+                    {
+                        totalMem = (long)(systemTotalMemoryMB * 1024 * 1024);
+                    }
 
-                                    // 获取系统可用内存（单位：字节）
-                                    long availMem = memoryInfo.Get<long>("availMem");
+                    if (totalMem <= 0 && systemTotalMemoryMB > 0)
+                        totalMem = (long)(systemTotalMemoryMB * 1024 * 1024);
 
-                                    // 尝试获取系统总内存（API 16+）
-                                    long totalMem = 0;
-                                    try
-                                    {
-                                        totalMem = memoryInfo.Get<long>("totalMem");
-                                    }
-                                    catch
-                                    {
-                                        // 如果API不支持totalMem，使用systemTotalMemoryMB
-                                        totalMem = (long)(systemTotalMemoryMB * 1024 * 1024);
-                                    }
-
-                                    // 如果totalMem为0，使用systemTotalMemoryMB
-                                    if (totalMem <= 0 && systemTotalMemoryMB > 0)
-                                    {
-                                        totalMem = (long)(systemTotalMemoryMB * 1024 * 1024);
-                                    }
-
-                                    // 计算系统已用内存 = 系统总内存 - 系统可用内存
-                                    if (totalMem > 0 && availMem >= 0 && availMem <= totalMem)
-                                    {
-                                        long usedMem = totalMem - availMem;
-                                        float usedMB = usedMem / (1024f * 1024f);
-                                        if (usedMB > 0 && usedMB <= systemTotalMemoryMB * 1.1f) // 允许10%的误差
-                                        {
-                                            return usedMB;
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    if (totalMem > 0 && availMem >= 0 && availMem <= totalMem)
+                    {
+                        long usedMem = totalMem - availMem;
+                        float usedMB = usedMem / (1024f * 1024f);
+                        if (usedMB > 0 && usedMB <= systemTotalMemoryMB * 1.1f)
+                            return usedMB;
                     }
                 }
             }
         }
         catch (Exception e)
         {
-            UnityEngine.Debug.LogWarning($"<color=orange>[GCMonitorPro]</color> 获取Android系统已用内存失败: {e.Message}");
+            UnityEngine.Debug.LogWarning($"<color=orange>[GCMonitorPro]</color> \u83b7\u53d6Android\u7cfb\u7edf\u5df2\u7528\u5185\u5b58\u5931\u8d25: {e.Message}");
         }
 #endif
-        // 如果获取失败，返回0
         return 0f;
     }
 
@@ -1193,11 +1300,7 @@ public class GCMonitorPro : MonoBehaviour
     {
         try
         {
-            // 使用JNI调用获取真实的物理内存占用
-            physicalMemoryMB = GetAndroidProcessMemory();
-
-            // 获取Android Runtime内存信息（总内存、可用内存、最大可用内存）
-            GetAndroidRuntimeMemoryInfo();
+            RefreshAndroidMemoryOnce();
 
             // 确保系统总内存有效
             if (systemTotalMemoryMB <= 0)
@@ -1325,12 +1428,45 @@ public class GCMonitorPro : MonoBehaviour
 #endif
     }
 
+    private void UpdateJankStats()
+    {
+        float frameMs = Time.unscaledDeltaTime * 1000f;
+        float budgetMs = Application.targetFrameRate > 0
+            ? 1000f / Application.targetFrameRate
+            : 1000f / 30f;
+        float mildThreshold = budgetMs;
+        float severeThreshold = budgetMs * 2f;
+
+        _jankWindowTimer += Time.unscaledDeltaTime;
+        if (frameMs > mildThreshold)
+            ++_mildJankCount;
+        if (frameMs > severeThreshold)
+            ++_severeJankCount;
+
+        if (_jankWindowTimer < jankWindowSeconds)
+            return;
+
+        _displayMildJank = _mildJankCount;
+        _displaySevereJank = _severeJankCount;
+        _mildJankCount = 0;
+        _severeJankCount = 0;
+        _jankWindowTimer = 0f;
+    }
+
+    private void RecordGcEvent(int gcCount, float gcInterval, float managedMemoryMB)
+    {
+        string line =
+            $"GC#{gcCount} 间隔{gcInterval:F1}s 帧{frameTimeMs:F0}ms 托管{managedMemoryMB:F1}MB Alloc+{_displayGcAllocKB:F0}KB";
+        _gcEventLines[_gcEventWriteIndex % maxGcEventLines] = line;
+        ++_gcEventWriteIndex;
+    }
+
     private void UpdateCpuStatus()
     {
-        frameTimeMs = deltaTime * 1000f;
+        frameTimeMs = Time.unscaledDeltaTime * 1000f;
         float frameBudgetMs = Application.targetFrameRate > 0
             ? 1000f / Application.targetFrameRate
-            : 1000f / 60f;
+            : 1000f / 30f;
         frameLoadPercent = frameBudgetMs > 0f
             ? Mathf.Clamp(frameTimeMs / frameBudgetMs * 100f, 0f, 999f)
             : 0f;
@@ -1510,238 +1646,388 @@ public class GCMonitorPro : MonoBehaviour
         return "#FF0000";
     }
 
-    private void OnGUI()
+    private void EnsureGuiStyles()
     {
-        if (!showOnScreen) return;
+        if (Event.current == null)
+            return;
 
-        float memoryMB = GC.GetTotalMemory(false) / (1024f * 1024f);
-        int gcCount = GC.CollectionCount(0);
-        long totalMem = UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong();
-        bool incrementalGC = UnityEngine.Scripting.GarbageCollector.isIncremental;
+        if (_guiStylesReady && _guiStylesScaled == isUIScaled)
+            return;
 
-        // 🔸计算内存安全等级
-        string safetyLevel = GetMemorySafetyLevel(memoryMB, out string colorTag);
-
-        // 根据缩放状态调整字体大小和UI尺寸
         float scaleFactor = isUIScaled ? 2f : 1f;
         int fontSize = Mathf.RoundToInt(28 * scaleFactor);
-        GUIStyle labelStyle = new GUIStyle(GUI.skin.label) { richText = true, fontSize = fontSize };
-        GUIStyle buttonStyle = new GUIStyle(GUI.skin.button) { fontSize = fontSize };
+        _labelStyle = new GUIStyle(GUI.skin.label) { richText = true, fontSize = fontSize };
+        _buttonStyle = new GUIStyle(GUI.skin.button) { fontSize = fontSize };
+        _guiStylesReady = true;
+        _guiStylesScaled = isUIScaled;
+    }
 
-#if false //#seaweed#
-        // 只能设配 2160 x 3840
-        // 计算UI位置：放大时向左移动保持居中
-        float baseX = 1800f; // 原始X位置
-        float uiWidth = 360f * scaleFactor;
-        float uiX = baseX - (uiWidth - 360f) / 2f; // 向左移动一半的宽度差
-#else
-        // 设配所有屏幕宽度
-        float baseX = Screen.width - 360f; // 原始X位置
-        float uiWidth = 360f * scaleFactor;
-        float uiX = baseX - (uiWidth - 360f) / 2f; // 向左移动一半的宽度差
-#endif
+    private void RefreshDisplayTexts()
+    {
+        if (!showOnScreen)
+            return;
 
-        // 始终显示完整UI，移除收起功能
-        float expandedWidth = 360 * scaleFactor;
-        float expandedHeight = 1120 * scaleFactor;
+        _safetyLevelText = GetMemorySafetyLevel(_displayMemoryMB, out _safetyColorTag);
 
-        //// 调试信息：在控制台显示UI尺寸
-        //if (Time.frameCount % 300 == 0) // 每5秒输出一次
-        //{
-        //    UnityEngine.Debug.Log($"<color=yellow>[GCMonitorPro]</color> UI尺寸: {expandedWidth}x{expandedHeight}, 缩放: {scaleFactor}x");
-        //}
+        _textTitle = "<b><color=#00FFFF>\ud83e\udde0 GCMonitor Pro</color></b>";
 
-        GUILayout.BeginArea(new Rect(uiX, 10, expandedWidth, expandedHeight), GUI.skin.box);
-        // 使用滚动视图确保所有内容都能显示
-        scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Height(expandedHeight - 20 * scaleFactor));
-
-        // 标题
-        GUILayout.Label("<b><color=#00FFFF>🧠 GCMonitor Pro</color></b>", labelStyle);
-        GUILayout.Space(8 * scaleFactor);
-
-        // 基础性能信息
-        GUILayout.Label($"<b><color=#87CEEB>📊 基础性能</color></b>", labelStyle);
-        string fpsLimitText = Application.targetFrameRate > 0 ? $"{Application.targetFrameRate}" : "无限制";
-        GUILayout.Label($"FPS: <color={(fps >= 55 ? "#00FF00" : fps >= 40 ? "#FFFF00" : "#FF0000")}>{fps:F1}</color> <color=#888888>(限制 {fpsLimitText})</color>", labelStyle);
-        GUILayout.Label($"GC次数: <color=orange>{gcCount}</color>", labelStyle);
-        GUILayout.Label($"增量GC: {(incrementalGC ? "<color=#00FF00>开启</color>" : "<color=#FF0000>关闭</color>")}", labelStyle);
-        GUILayout.Space(8 * scaleFactor);
-
-        // CPU 分析
-        GUILayout.Label($"<b><color=#FFA07A>⚡ CPU 分析</color></b>", labelStyle);
-        GUILayout.Label($"逻辑核心: <color=white>{processorCount}</color> | <color=#888888>{SystemInfo.processorType}</color>", labelStyle);
-        GUILayout.Label($"帧耗时: <color={GetCpuColorTag(frameLoadPercent)}>{frameTimeMs:F2} ms</color> | 帧负载: <color={GetCpuColorTag(frameLoadPercent)}>{frameLoadPercent:F0}%</color>", labelStyle);
-        if (processCpuPercent > 0f)
+        string fpsLimitText = Application.targetFrameRate > 0 ? $"{Application.targetFrameRate}" : "\u65e0\u9650\u5236";
+        FPS fpsSource = FPS.Instance;
+        string fpsLine;
+        if (fpsSource != null && fpsSource.DisplayFps >= 0)
         {
-            GUILayout.Label($"进程 CPU: <color={GetCpuColorTag(processCpuPercent)}>{processCpuPercent:F1}%</color>", labelStyle);
-        }
-        if (systemCpuPercent > 0f)
-        {
-            GUILayout.Label($"系统 CPU: <color={GetCpuColorTag(systemCpuPercent)}>{systemCpuPercent:F1}%</color>", labelStyle);
-        }
-        else if (!isPCPlatform && !isAndroidPlatform)
-        {
-            GUILayout.Label($"系统 CPU: <color=#888888>当前平台不支持</color>", labelStyle);
-        }
-        GUILayout.Space(8 * scaleFactor);
-
-        // 托管内存信息
-        GUILayout.Label($"<b><color=#98FB98>💾 托管内存</color></b>", labelStyle);
-        GUILayout.Label($"当前内存: <color=white>{memoryMB:F1} MB</color>", labelStyle);
-        GUILayout.Label($"总分配: <color=white>{(totalMem / (1024f * 1024f)):F1} MB</color>", labelStyle);
-        GUILayout.Space(8 * scaleFactor);
-
-        // 物理内存信息 - 平台优化显示
-        string platformIcon = isPCPlatform ? "🖥️" : isAndroidPlatform ? "📱" : "💻";
-        GUILayout.Label($"<b><color=#FFD700>{platformIcon} 物理内存 ({Application.platform})</color></b>", labelStyle);
-        GUILayout.Label($"进程内存: <color=cyan>{physicalMemoryMB:F1} MB</color>", labelStyle);
-        if (systemUsedMemoryMB > 0)
-        {
-            GUILayout.Label($"系统已用: <color=cyan>{systemUsedMemoryMB:F1} MB</color>", labelStyle);
+            float targetFps = Application.targetFrameRate > 0 ? Application.targetFrameRate : 30f;
+            float fpsValue = fpsSource.DisplayFps;
+            string fpsColor = fpsValue >= targetFps * 0.9f
+                ? "#00FF00"
+                : fpsValue >= targetFps * 0.7f ? "#FFFF00" : "#FF0000";
+            fpsLine = fpsSource.DisplayRenderAvailable
+                ? $"<color={fpsColor}>{fpsSource.DisplayFormat}</color>"
+                : $"<color={fpsColor}>{fpsSource.DisplayFps}FPS | \u903b\u8f91 {fpsSource.DisplayLogicMs}ms | \u6e32\u67d3 --</color>";
         }
         else
         {
-            // 如果无法获取系统整体内存使用，显示提示信息
-            GUILayout.Label($"系统已用: <color=orange>无法获取</color>", labelStyle);
+            fpsLine = "<color=#888888>--</color>";
         }
-        GUILayout.Label($"系统总内存: <color=white>{systemTotalMemoryMB} MB</color>", labelStyle);
-        // 显示系统整体内存使用率（所有进程的总和），如果无法获取则显示进程使用率作为参考
-        if (systemMemoryUsagePercent > 0)
-        {
-            GUILayout.Label($"系统使用率: <color={(systemMemoryUsagePercent < 50 ? "#00FF00" : systemMemoryUsagePercent < 80 ? "#FFFF00" : "#FF0000")}>{systemMemoryUsagePercent:F1}%</color>", labelStyle);
-        }
-        GUILayout.Label($"进程使用率: <color={(physicalMemoryUsagePercent < 50 ? "#00FF00" : physicalMemoryUsagePercent < 80 ? "#FFFF00" : "#FF0000")}>{physicalMemoryUsagePercent:F1}%</color>", labelStyle);
 
-        // PC平台显示详细内存统计
+        _textBasicPerf =
+            $"<b><color=#87CEEB>\ud83d\udcca \u57fa\u7840\u6027\u80fd</color></b>\n" +
+            $"{fpsLine} <color=#888888>(\u9650\u5236 {fpsLimitText})</color>\n" +
+            $"GC\u6b21\u6570: <color=orange>{_displayGcCount}</color>\n" +
+            $"\u589e\u91cfGC: {(_displayIncrementalGc ? "<color=#00FF00>\u5f00\u542f</color>" : "<color=#FF0000>\u5173\u95ed</color>")}";
+
+        float budgetMs = Application.targetFrameRate > 0
+            ? 1000f / Application.targetFrameRate
+            : 1000f / 30f;
+        _textJank =
+            $"<b><color=#FFB6C1>\u23f1 \u5361\u987f Jank ({jankWindowSeconds:F0}s)</color></b>\n" +
+            $">\u6389\u5e27({budgetMs:F0}ms): <color=yellow>{_displayMildJank}</color> | " +
+            $">\u4e25\u91cd({budgetMs * 2f:F0}ms): <color=orange>{_displaySevereJank}</color>";
+
+        string qualityName = QualitySettings.names.Length > 0
+            ? QualitySettings.names[QualitySettings.GetQualityLevel()]
+            : "Unknown";
+        _textRenderContext =
+            $"<b><color=#B0C4DE>\ud83c\udfa8 \u6e32\u67d3\u4e0a\u4e0b\u6587</color></b>\n" +
+            $"Quality: <color=white>{qualityName}({QualitySettings.GetQualityLevel()})</color> | " +
+            $"vSync: <color=white>{QualitySettings.vSyncCount}</color>\n" +
+            $"GPU\u5185\u5b58: <color=white>{_displayGpuMemoryMB:F1} MB</color>";
+
+        int pagCount = PagControllerRegistry.ActiveCount;
+        int pagQueue = PagUnityGlBridge.GetPendingOpCount();
+        string pagQueueColor = pagQueue >= 32 ? "#FF5555" : "white";
+        _textPagFgui =
+            $"<b><color=#DDA0DD>\ud83c\udfae PAG / FGUI</color></b>\n" +
+            $"PAG\u5b9e\u4f8b: <color=white>{pagCount}</color> | GL\u961f\u5217: <color={pagQueueColor}>{pagQueue}</color>\n" +
+            $"FGUI\u5bf9\u8c61: <color=white>{Stats.ObjectCount}</color> | \u56fe\u5143: <color=white>{Stats.GraphicsCount}</color>";
+
+        string particleCountColor = _displayTotalParticles >= particleCriticalThreshold
+            ? "#FF5555"
+            : _displayTotalParticles >= particleWarningThreshold ? "#FFFF00" : "white";
+        _textParticles =
+            $"<b><color=#87CEFA>\u2728 \u7279\u6548\u76d1\u63a7</color></b>\n" +
+            $"\u5408\u8ba1\u7c92\u5b50: <color={particleCountColor}>{_displayTotalParticles}</color>\n" +
+            $"<color=#888888>\u64ad\u653e\u7cfb\u7edf: {_displayPlayingSystems} | live\u7cfb\u7edf: {_displayLiveSystems}</color>";
+
+        string spineVertexColor = _displaySpineVertices >= spineVertexCriticalThreshold
+            ? "#FF5555"
+            : _displaySpineVertices >= spineVertexWarningThreshold ? "#FFFF00" : "white";
+        _textSpine =
+            $"<b><color=#DDA0DD>\ud83e\uddb4 Spine \u76d1\u63a7</color></b>\n" +
+            $"\u5b9e\u4f8b: <color=white>{_displaySpineInstances}</color>\n" +
+            $"\u9876\u70b9: <color={spineVertexColor}>{_displaySpineVertices}</color> | \u9aa8\u9abc: <color=white>{_displaySpineBones}</color>\n" +
+            $"<color=#888888>Mesh\u66f4\u65b0(0.2s): {_displaySpineMeshUpdates}</color>";
+
+        _textGcDetail =
+            $"<b><color=#F0E68C>\ud83d\udcc8 GC \u91c7\u6837</color></b>\n" +
+            $"\u5468\u671f Alloc: <color=white>{_displayGcAllocKB:F1} KB</color>";
+
+        var gcEventsBuilder = new StringBuilder();
+        gcEventsBuilder.Append("<b><color=#F0E68C>\ud83d\udccb \u6700\u8fd1 GC \u4e8b\u4ef6</color></b>");
+        bool hasGcEvent = false;
+        int start = Mathf.Max(0, _gcEventWriteIndex - maxGcEventLines);
+        for (int i = start; i < _gcEventWriteIndex; ++i)
+        {
+            string line = _gcEventLines[i % maxGcEventLines];
+            if (string.IsNullOrEmpty(line))
+                continue;
+            hasGcEvent = true;
+            gcEventsBuilder.Append('\n').Append(line);
+        }
+        _textGcEvents = hasGcEvent ? gcEventsBuilder.ToString() : string.Empty;
+
+        string cpuFrameTag = GetCpuColorTag(frameLoadPercent);
+        _textCpu =
+            $"<b><color=#FFA07A>\u26a1 CPU \u5206\u6790</color></b>\n" +
+            $"\u903b\u8f91\u6838\u5fc3: <color=white>{processorCount}</color> | <color=#888888>{SystemInfo.processorType}</color>\n" +
+            $"\u5e27\u8017\u65f6: <color={cpuFrameTag}>{frameTimeMs:F2} ms</color> | \u5e27\u8d1f\u8f7d: <color={cpuFrameTag}>{frameLoadPercent:F0}%</color>";
+        if (processCpuPercent > 0f)
+            _textCpu += $"\n\u8fdb\u7a0b CPU: <color={GetCpuColorTag(processCpuPercent)}>{processCpuPercent:F1}%</color>";
+        if (systemCpuPercent > 0f)
+            _textCpu += $"\n\u7cfb\u7edf CPU: <color={GetCpuColorTag(systemCpuPercent)}>{systemCpuPercent:F1}%</color>";
+        else if (!isPCPlatform && !isAndroidPlatform)
+            _textCpu += "\n\u7cfb\u7edf CPU: <color=#888888>\u5f53\u524d\u5e73\u53f0\u4e0d\u652f\u6301</color>";
+
+        _textManagedMemory =
+            $"<b><color=#98FB98>\ud83d\udcbe \u6258\u7ba1\u5185\u5b58</color></b>\n" +
+            $"\u5f53\u524d\u5185\u5b58: <color=white>{_displayMemoryMB:F1} MB</color>\n" +
+            $"\u603b\u5206\u914d: <color=white>{(_displayTotalMem / (1024f * 1024f)):F1} MB</color>";
+
+        string platformIcon = isPCPlatform ? "\ud83d\udda5\ufe0f" : isAndroidPlatform ? "\ud83d\udcf1" : "\ud83d\udcbb";
+        string systemUsedText = systemUsedMemoryMB > 0f
+            ? $"\u7cfb\u7edf\u5df2\u7528: <color=cyan>{systemUsedMemoryMB:F1} MB</color>"
+            : "\u7cfb\u7edf\u5df2\u7528: <color=orange>\u65e0\u6cd5\u83b7\u53d6</color>";
+        string systemUsageText = systemMemoryUsagePercent > 0f
+            ? $"\u7cfb\u7edf\u4f7f\u7528\u7387: <color={GetUsageColorTag(systemMemoryUsagePercent)}>{systemMemoryUsagePercent:F1}%</color>\n"
+            : string.Empty;
+        _textPhysicalMemory =
+            $"<b><color=#FFD700>{platformIcon} \u7269\u7406\u5185\u5b58 ({Application.platform})</color></b>\n" +
+            $"\u8fdb\u7a0b\u5185\u5b58: <color=cyan>{physicalMemoryMB:F1} MB</color>\n" +
+            $"{systemUsedText}\n" +
+            $"\u7cfb\u7edf\u603b\u5185\u5b58: <color=white>{systemTotalMemoryMB} MB</color>\n" +
+            systemUsageText +
+            $"\u8fdb\u7a0b\u4f7f\u7528\u7387: <color={GetUsageColorTag(physicalMemoryUsagePercent)}>{physicalMemoryUsagePercent:F1}%</color>";
+
+        _textPcDetail = string.Empty;
         if (isPCPlatform && currentProcess != null)
         {
-            GUILayout.Space(5 * scaleFactor);
-            GUILayout.Label($"<b><color=#87CEEB>📊 PC详细统计</color></b>", labelStyle);
-            GUILayout.Label($"私有内存: <color=white>{privateMemoryMB:F1} MB</color>", labelStyle);
-            GUILayout.Label($"虚拟内存: <color=white>{virtualMemoryMB:F1} MB</color>", labelStyle);
-            GUILayout.Label($"峰值工作集: <color=white>{peakWorkingSetMB:F1} MB</color>", labelStyle);
-            GUILayout.Label($"峰值虚拟: <color=white>{peakVirtualMemoryMB:F1} MB</color>", labelStyle);
+            _textPcDetail =
+                $"<b><color=#87CEEB>\ud83d\udcca PC\u8be6\u7ec6\u7edf\u8ba1</color></b>\n" +
+                $"\u79c1\u6709\u5185\u5b58: <color=white>{privateMemoryMB:F1} MB</color>\n" +
+                $"\u865a\u62df\u5185\u5b58: <color=white>{virtualMemoryMB:F1} MB</color>\n" +
+                $"\u5cf0\u503c\u5de5\u4f5c\u96c6: <color=white>{peakWorkingSetMB:F1} MB</color>\n" +
+                $"\u5cf0\u503c\u865a\u62df: <color=white>{peakVirtualMemoryMB:F1} MB</color>";
         }
 
-        // Android平台显示设备信息
+        _textAndroidDevice = string.Empty;
         if (isAndroidPlatform)
         {
-            GUILayout.Space(5 * scaleFactor);
-            GUILayout.Label($"<b><color=#87CEEB>📱 Android设备信息</color></b>", labelStyle);
-            GUILayout.Label($"设备型号: <color=white>{SystemInfo.deviceModel}</color>", labelStyle);
-            GUILayout.Label($"设备名称: <color=white>{SystemInfo.deviceName}</color>", labelStyle);
-            GUILayout.Label($"处理器: <color=white>{SystemInfo.processorType}</color>", labelStyle);
-
-            // 显示进程内存信息
-            if (androidRuntimeTotalMemoryMB > 0)
+            _textAndroidDevice =
+                $"<b><color=#87CEEB>\ud83d\udcf1 Android\u8bbe\u5907\u4fe1\u606f</color></b>\n" +
+                $"\u8bbe\u5907\u578b\u53f7: <color=white>{SystemInfo.deviceModel}</color>\n" +
+                $"\u8bbe\u5907\u540d\u79f0: <color=white>{SystemInfo.deviceName}</color>\n" +
+                $"\u5904\u7406\u5668: <color=white>{SystemInfo.processorType}</color>";
+            if (androidRuntimeTotalMemoryMB > 0f)
             {
-                GUILayout.Space(3 * scaleFactor);
-                GUILayout.Label($"<b><color=#87CEEB>💾 进程内存</color></b>", labelStyle);
-                GUILayout.Label($"物理内存占用: <color=white>{androidRuntimeTotalMemoryMB:F1} MB</color>", labelStyle);
-                GUILayout.Label($"<color=#888888><size=10>注：进程实际占用的物理RAM（totalPss）</size></color>", labelStyle);
+                _textAndroidDevice +=
+                    $"\n<b><color=#87CEEB>\ud83d\udcbe \u8fdb\u7a0b\u5185\u5b58</color></b>\n" +
+                    $"\u7269\u7406\u5185\u5b58\u5360\u7528: <color=white>{androidRuntimeTotalMemoryMB:F1} MB</color>\n" +
+                    "<color=#888888><size=10>\u6ce8\uff1a\u8fdb\u7a0b\u5b9e\u9645\u5360\u7528\u7684\u7269\u7406RAM\uff08totalPss\uff09</size></color>";
             }
         }
 
-        // YooAsset 资源信息
-        GUILayout.Space(8 * scaleFactor);
-        GUILayout.Label($"<b><color=#FF69B4>📦 YooAsset资源</color></b>", labelStyle);
-        GUILayout.Label($"已加载资源: <color=yellow>{yooAssetLoadedCount}</color>", labelStyle);
-        GUILayout.Label($"资源内存: <color=white>{yooAssetMemoryUsage:F1} MB</color>", labelStyle);
-        GUILayout.Space(8 * scaleFactor);
+        _textSafety =
+            $"<b><color=#FFA500>\ud83d\udee1\ufe0f \u5185\u5b58\u5b89\u5168\u7b49\u7ea7</color></b>\n" +
+            $"\u72b6\u6001: <b><color={_safetyColorTag}>{_safetyLevelText}</color></b>";
+        _textLeakWarning = leakSuspected ? "<b><color=#FF5555>\u26a0 \u7591\u4f3c\u5185\u5b58\u6cc4\u6f0f\u8d8b\u52bf\uff01</color></b>" : string.Empty;
+    }
 
-        // 内存安全等级
-        GUILayout.Label($"<b><color=#FFA500>🛡️ 内存安全等级</color></b>", labelStyle);
-        GUILayout.Label($"状态: <b><color={colorTag}>{safetyLevel}</color></b>", labelStyle);
-        if (leakSuspected) GUILayout.Label("<b><color=#FF5555>⚠ 疑似内存泄漏趋势！</color></b>", labelStyle);
-        GUILayout.Space(8 * scaleFactor);
+    private static string GetUsageColorTag(float percent)
+    {
+        if (percent < 50f) return "#00FF00";
+        if (percent < 80f) return "#FFFF00";
+        return "#FF0000";
+    }
 
-        // 操作按钮区域
-        GUILayout.Label($"<b><color=#DDA0DD>🔧 操作工具</color></b>", labelStyle);
+#if UNITY_ANDROID && !UNITY_EDITOR
+    private void CacheAndroidJniObjects()
+    {
+        if (_androidJniCached)
+            return;
 
-        //// 🔘 FPS限制调整按钮
-        //GUI.backgroundColor = Color.Lerp(Color.white, Color.yellow, 0.3f);
-        //string buttonText = targetFPS > 0 ? $"🎯 FPS限制: {targetFPS}" : "🎯 FPS限制: 无限制";
-        //if (GUILayout.Button(buttonText, buttonStyle, GUILayout.Height(32 * scaleFactor)))
-        //{
-        //    // 循环切换FPS限制：30 -> 60 -> 120 -> 无限制 -> 30
-        //    if (targetFPS == 30f)
-        //    {
-        //        targetFPS = 60f;
-        //        Application.targetFrameRate = 60;
-        //        // UnityEngine.Debug.Log($"<color=yellow>[GCMonitorPro]</color> FPS限制设置为60");
-        //    }
-        //    else if (targetFPS == 60f)
-        //    {
-        //        targetFPS = 120f;
-        //        Application.targetFrameRate = 120;
-        //        //  UnityEngine.Debug.Log($"<color=yellow>[GCMonitorPro]</color> FPS限制设置为120");
-        //    }
-        //    else if (targetFPS == 120f)
-        //    {
-        //        targetFPS = 0f; // 0表示无限制
-        //        Application.targetFrameRate = -1;
-        //        // UnityEngine.Debug.Log($"<color=yellow>[GCMonitorPro]</color> FPS限制已移除");
-        //    }
-        //    else
-        //    {
-        //        targetFPS = 30f;
-        //        Application.targetFrameRate = 30;
-        //        //  UnityEngine.Debug.Log($"<color=yellow>[GCMonitorPro]</color> FPS限制设置为30");
-        //    }
-        //}
+        try
+        {
+            using (AndroidJavaClass unityPlayerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            {
+                _cachedActivity = unityPlayerClass.GetStatic<AndroidJavaObject>("currentActivity");
+            }
 
-        // 🔘 缩放切换按钮
+            if (_cachedActivity != null)
+            {
+                using (AndroidJavaClass contextClass = new AndroidJavaClass("android.content.Context"))
+                {
+                    string activityService = contextClass.GetStatic<string>("ACTIVITY_SERVICE");
+                    _cachedActivityManager = _cachedActivity.Call<AndroidJavaObject>("getSystemService", activityService);
+                }
+            }
+
+            _androidJniCached = _cachedActivity != null && _cachedActivityManager != null;
+        }
+        catch (Exception e)
+        {
+            UnityEngine.Debug.LogWarning($"<color=orange>[GCMonitorPro]</color> Android JNI \u7f13\u5b58\u5931\u8d25: {e.Message}");
+            _androidJniCached = false;
+        }
+    }
+
+    private void RefreshAndroidMemoryOnce()
+    {
+        CacheAndroidJniObjects();
+
+        if (_cachedActivityManager != null)
+        {
+            try
+            {
+                int pid = Process.GetCurrentProcess().Id;
+                AndroidJavaObject[] memoryInfos = _cachedActivityManager.Call<AndroidJavaObject[]>(
+                    "getProcessMemoryInfo", new int[] { pid });
+                if (memoryInfos != null && memoryInfos.Length > 0)
+                {
+                    int totalPss = memoryInfos[0].Call<int>("getTotalPss");
+                    if (totalPss > 0)
+                    {
+                        float memoryMB = totalPss / 1024f;
+                        physicalMemoryMB = memoryMB;
+                        androidRuntimeTotalMemoryMB = memoryMB;
+                        return;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.LogWarning($"<color=orange>[GCMonitorPro]</color> Android PSS \u8bfb\u53d6\u5931\u8d25: {e.Message}");
+            }
+        }
+
+        physicalMemoryMB = GetAndroidProcessMemoryFallback();
+        androidRuntimeTotalMemoryMB = 0f;
+    }
+#else
+    private void CacheAndroidJniObjects() { }
+    private void RefreshAndroidMemoryOnce() { }
+#endif
+
+    private void OnGUI()
+    {
+        if (!showOnScreen)
+            return;
+
+        if (string.IsNullOrEmpty(_textTitle))
+            RefreshDisplayTexts();
+
+        EnsureGuiStyles();
+
+        float scaleFactor = isUIScaled ? 2f : 1f;
+        float baseX = Screen.width - panelBaseWidth;
+        float uiWidth = panelBaseWidth * scaleFactor;
+        float uiX = baseX - (uiWidth - panelBaseWidth) / 2f;
+        float expandedWidth = panelBaseWidth * scaleFactor;
+        float expandedHeight = (showGraphs ? panelBaseHeightWithGraphs : panelBaseHeight) * scaleFactor;
+
+        GUILayout.BeginArea(new Rect(uiX, 10f, expandedWidth, expandedHeight), GUI.skin.box);
+        scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Height(expandedHeight - 20f * scaleFactor));
+
+        GUILayout.Label(_textTitle, _labelStyle);
+        GUILayout.Space(8f * scaleFactor);
+        GUILayout.Label(_textBasicPerf, _labelStyle);
+        GUILayout.Space(8f * scaleFactor);
+        GUILayout.Label(_textJank, _labelStyle);
+        GUILayout.Space(8f * scaleFactor);
+        GUILayout.Label(_textRenderContext, _labelStyle);
+        GUILayout.Space(8f * scaleFactor);
+        GUILayout.Label(_textPagFgui, _labelStyle);
+        GUILayout.Space(8f * scaleFactor);
+        GUILayout.Label(_textParticles, _labelStyle);
+        GUILayout.Space(8f * scaleFactor);
+        GUILayout.Label(_textSpine, _labelStyle);
+        GUILayout.Space(8f * scaleFactor);
+        GUILayout.Label(_textGcDetail, _labelStyle);
+        if (!string.IsNullOrEmpty(_textGcEvents))
+        {
+            GUILayout.Space(5f * scaleFactor);
+            GUILayout.Label(_textGcEvents, _labelStyle);
+        }
+        GUILayout.Space(8f * scaleFactor);
+        GUILayout.Label(_textCpu, _labelStyle);
+        GUILayout.Space(8f * scaleFactor);
+        GUILayout.Label(_textManagedMemory, _labelStyle);
+        GUILayout.Space(8f * scaleFactor);
+        GUILayout.Label(_textPhysicalMemory, _labelStyle);
+
+        if (!string.IsNullOrEmpty(_textPcDetail))
+        {
+            GUILayout.Space(5f * scaleFactor);
+            GUILayout.Label(_textPcDetail, _labelStyle);
+        }
+
+        if (!string.IsNullOrEmpty(_textAndroidDevice))
+        {
+            GUILayout.Space(5f * scaleFactor);
+            GUILayout.Label(_textAndroidDevice, _labelStyle);
+        }
+
+        GUILayout.Space(8f * scaleFactor);
+        GUILayout.Label(_textSafety, _labelStyle);
+        if (!string.IsNullOrEmpty(_textLeakWarning))
+            GUILayout.Label(_textLeakWarning, _labelStyle);
+        GUILayout.Space(8f * scaleFactor);
+
+        GUILayout.Label("<b><color=#DDA0DD>\ud83d\udd27 \u64cd\u4f5c\u5de5\u5177</color></b>", _labelStyle);
+
+        GUI.backgroundColor = Color.Lerp(Color.white, showGraphs ? Color.green : Color.gray, 0.3f);
+        if (GUILayout.Button(showGraphs ? "\ud83d\udcc9 \u9690\u85cf\u66f2\u7ebf" : "\ud83d\udcc8 \u663e\u793a\u66f2\u7ebf",
+                _buttonStyle, GUILayout.Height(32f * scaleFactor)))
+        {
+            showGraphs = !showGraphs;
+            if (showGraphs)
+                _nextGraphDrawTime = 0f;
+        }
+
         if (isUIScaled)
         {
-            // 当前是放大状态，显示缩小按钮
             GUI.backgroundColor = Color.Lerp(Color.white, Color.magenta, 0.3f);
-            if (GUILayout.Button("🔍 缩小UI (1x)", buttonStyle, GUILayout.Height(32 * scaleFactor)))
+            if (GUILayout.Button("\ud83d\udd0d \u7f29\u5c0fUI (1x)", _buttonStyle, GUILayout.Height(32f * scaleFactor)))
             {
                 isUIScaled = false;
-                //  UnityEngine.Debug.Log($"<color=magenta>[GCMonitorPro]</color> UI缩小到1倍");
+                _guiStylesReady = false;
             }
         }
         else
         {
-            // 当前是缩小状态，显示放大按钮
             GUI.backgroundColor = Color.Lerp(Color.white, Color.cyan, 0.3f);
-            if (GUILayout.Button("🔍 放大UI (2x)", buttonStyle, GUILayout.Height(32 * scaleFactor)))
+            if (GUILayout.Button("\ud83d\udd0d \u653e\u5927UI (2x)", _buttonStyle, GUILayout.Height(32f * scaleFactor)))
             {
                 isUIScaled = true;
-                // UnityEngine.Debug.Log($"<color=cyan>[GCMonitorPro]</color> UI放大到2倍");
+                _guiStylesReady = false;
             }
         }
 
         GUILayout.EndScrollView();
-
         GUILayout.EndArea();
 
-        // 🔹绘制内存 / CPU 曲线
-        float graphWidth = 360 * scaleFactor;
-        float graphHeight = 120 * scaleFactor;
-        float graphGap = 10 * scaleFactor;
-        float baseGraphY = 10 + expandedHeight + graphGap;
+        if (!showGraphs)
+            return;
+
+        if (Time.unscaledTime < _nextGraphDrawTime)
+            return;
+
+        _nextGraphDrawTime = Time.unscaledTime + graphRedrawInterval;
+
+        float graphWidth = panelBaseWidth * scaleFactor;
+        float graphHeight = panelGraphHeight * scaleFactor;
+        float graphGap = 10f * scaleFactor;
+        float baseGraphY = 10f + expandedHeight + graphGap;
         DrawMemoryGraph(new Rect(uiX, baseGraphY, graphWidth, graphHeight));
         DrawCpuGraph(new Rect(uiX, baseGraphY + graphHeight + graphGap, graphWidth, graphHeight * 0.75f));
     }
 
     private void DrawCpuGraph(Rect rect)
     {
-        GUI.Box(rect, "CPU / 帧负载趋势 (%)");
+        GUI.Box(rect, "CPU / \u5e27\u8d1f\u8f7d\u8d8b\u52bf (%)");
         float maxCpu = 100f;
-        float stepX = rect.width / (float)maxGraphPoints;
+        int pointCount = displayGraphPoints;
+        int historyStep = maxGraphPoints / pointCount;
+        float stepX = rect.width / (pointCount - 1);
         float scaleY = rect.height / maxCpu;
         Vector2 prev = Vector2.zero;
-        for (int i = 0; i < maxGraphPoints; i++)
+        for (int i = 0; i < pointCount; i++)
         {
-            int index = (cpuHistoryIndex + i) % maxGraphPoints;
+            int index = (cpuHistoryIndex + i * historyStep) % maxGraphPoints;
             float value = cpuHistory[index];
             float x = rect.x + i * stepX;
             float y = rect.yMax - value * scaleY;
             if (i > 0)
-            {
                 DrawLine(prev, new Vector2(x, y), Color.cyan, 2f);
-            }
             prev = new Vector2(x, y);
         }
     }
@@ -1749,14 +2035,19 @@ public class GCMonitorPro : MonoBehaviour
     /// <summary>    /// 绘制内存趋势曲线    /// </summary> 
     private void DrawMemoryGraph(Rect rect)
     {
-        GUI.Box(rect, "内存趋势 (MB)");
-        float maxMemory = 1200f; // 设定曲线图上限   
-        float stepX = rect.width / (float)maxGraphPoints;
+        GUI.Box(rect, "\u5185\u5b58\u8d8b\u52bf (MB)");
+        float maxMemory = 1200f;
+        int pointCount = displayGraphPoints;
+        int historyStep = maxGraphPoints / pointCount;
+        float stepX = rect.width / (pointCount - 1);
         float scaleY = rect.height / maxMemory;
         Vector2 prev = Vector2.zero;
-        for (int i = 0; i < maxGraphPoints; i++)
+        for (int i = 0; i < pointCount; i++)
         {
-            int index = (historyIndex + i) % maxGraphPoints; float mem = memoryHistory[index]; float x = rect.x + i * stepX; float y = rect.yMax - mem * scaleY;
+            int index = (historyIndex + i * historyStep) % maxGraphPoints;
+            float mem = memoryHistory[index];
+            float x = rect.x + i * stepX;
+            float y = rect.yMax - mem * scaleY;
             if (i > 0)
                 DrawLine(prev, new Vector2(x, y), Color.green, 2f);
             prev = new Vector2(x, y);

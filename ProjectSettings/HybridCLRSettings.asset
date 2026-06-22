@@ -24,7 +24,17 @@ MonoBehaviour:
   hotUpdateDllCompileOutputRootDir: HybridCLRData/HotUpdateDlls
   externalHotUpdateAssembliyDirs: []
   strippedAOTDllOutputRootDir: HybridCLRData/AssembliesPostIl2CppStrip
-  patchAOTAssemblies: []
+  patchAOTAssemblies:
+  - Newtonsoft.Json.dll
+  - SelfAOT.dll
+  - System.Core.dll
+  - System.dll
+  - UnityEngine.AndroidJNIModule.dll
+  - UnityEngine.AssetBundleModule.dll
+  - UnityEngine.CoreModule.dll
+  - UnityEngine.JSONSerializeModule.dll
+  - mscorlib.dll
+  - spine-csharp.dll
   outputLinkFile: HybridCLRGenerate/link.xml
   outputAOTGenericReferenceFile: HybridCLRGenerate/AOTGenericReferences.cs
   maxGenericReferenceIteration: 10

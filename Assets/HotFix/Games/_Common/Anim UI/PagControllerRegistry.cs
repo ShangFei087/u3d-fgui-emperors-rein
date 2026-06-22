@@ -28,6 +28,8 @@ public static class PagControllerRegistry
         s_controllers.Remove(instanceKey);
     }
 
+    public static int ActiveCount => s_controllers.Count;
+
     public static PagController Resolve(string instanceKey)
     {
         if (string.IsNullOrEmpty(instanceKey))

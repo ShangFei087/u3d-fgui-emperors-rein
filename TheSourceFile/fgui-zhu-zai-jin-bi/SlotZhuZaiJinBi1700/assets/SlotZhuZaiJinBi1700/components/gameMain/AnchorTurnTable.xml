@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="1,1">
-  <displayList>
-    <loader id="n1_tvr8" name="example" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" align="center" vAlign="middle" autoSize="true"/>
-    <loader id="n2_pag0" name="pagEffect" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
-    <graph id="n0_tvr8" name="holder" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
-  </displayList>
-</component>

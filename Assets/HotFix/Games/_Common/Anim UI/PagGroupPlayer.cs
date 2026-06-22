@@ -19,10 +19,11 @@ public static class PagGroupPlayer
         int maxDisplaySide,
         int fps,
         string logPrefix = "[PAG Group]",
+        int repeatCount = 1,
         Action<string, string> onPlayFailed = null)
     {
         return PagCallbackHub.Instance.RunCoroutine(PlayCoroutine(
-            pagFile, slots, layoutBuilder, useFguiTexture, maxDisplaySide, fps, logPrefix, onPlayFailed));
+            pagFile, slots, layoutBuilder, useFguiTexture, maxDisplaySide, fps, repeatCount, logPrefix, onPlayFailed));
     }
 
     private static IEnumerator PlayCoroutine(
@@ -32,6 +33,7 @@ public static class PagGroupPlayer
         bool useFguiTexture,
         int maxDisplaySide,
         int fps,
+        int repeatCount,
         string logPrefix,
         Action<string, string> onPlayFailed)
     {
@@ -97,7 +99,7 @@ public static class PagGroupPlayer
                 slot.Controller.LayoutPagAuto("turntable");
             }
 
-            if (!slot.Play(pagFile, positionType, layoutExtra))
+            if (!slot.Play(pagFile, positionType, layoutExtra, repeatCount))
             {
                 string msg = $"Play failed: {pagFile} on {slot.InstanceKey}";
                 Debug.LogError($"{logPrefix} {msg}");

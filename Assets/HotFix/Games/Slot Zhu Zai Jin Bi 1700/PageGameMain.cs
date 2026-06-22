@@ -40,7 +40,7 @@ namespace SlotZhuZaiJinBi1700
         private bool isInitPool = false; //资源池是否初始化
         private bool tipCoinIn = false; //提示硬币输入
         bool isAddCreditAnim => !(slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
-        Coroutine corReelsTurn,corGameIdel, corGameOnce, corEffectSlowMotion, coGameAuto, corTurnTablePag;
+        Coroutine corReelsTurn,corGameIdel, corGameOnce, corEffectSlowMotion, coGameAuto, _corPagTest1, _corPagTest2, _corPagTest3, _corPagTest4;
         //加速框
         bool isEffectSlowMotion2 = false;
         bool isEffectSlowMotion3 = false;
@@ -65,33 +65,71 @@ namespace SlotZhuZaiJinBi1700
         private GameObject CLonegoNormalFrame, ClonegoFreeFrame;
         private Animator animatorNormalFrame;
         private SkeletonMecanim SMNormalFrame;
-        //Npc
-        private GComponent anchorNpc;
-        private GameObject goNpc;
-        private GameObject CLonegoNpc;
-        private Transform _npcAttachBone;
-        private PagSlotBinding _turnTablePagSlot;
-        private PagController TurnTablePag => _turnTablePagSlot?.Controller;
-        private const string TurnTableBigWinPag = "BigWin.pag";
-        private const string TurnTableTransitionPag = "XingYunZhiLun_1080.pag";
-        private const string TurnTableNezaPag = "neza.pag";
-        private static readonly string[] TurnTablePagLoopSequence = { TurnTableTransitionPag, TurnTableNezaPag };
-        private const float TurnTablePagDuration = 8f;
-        private const float TurnTableNezaPagDuration = 8f;
-        private const float TurnTablePagPlayStartedTimeoutSec = 45f;
-        private const string PagLogPrefix = "[1700 PAG]";
+        // PagTest
+        private GComponent _anchorPagTest;
+        private GameObject _goPagTestPrefab;
+        private GameObject _clonePagTest;
+        private bool _pagTestButtonsBound;
+        private const string PagTestLoader1 = "pagEffect1";
+        private const string PagTestLoader2 = "pagEffect2";
+        private const string PagTestLoader3 = "pagEffect3";
+        private const string PagTestLoader4 = "pagEffect4";
+        private const string PagTestLoader5 = "pagEffect5";
+        private const string PagTestLoader6 = "pagEffect6";
+        private const string PagTestSpine1Node = "Spine Mecanim GameObject (jp_pup_grand)";
+        private const string PagTestSpine2Node = "Spine Mecanim GameObject (ng_pop_bigWin)";
+        private const string PagTestSpine1PlayAnim = "GRAND_in";
+        private const string PagTestSpine2PlayAnim = "bigwin_start";
+        private PagSlotBinding _pagTestSlot1;
+        private PagSlotBinding _pagTestSlot2;
+        private PagSlotBinding _pagTestSlot3;
+        private PagSlotBinding _pagTestSlot4;
+        private PagSlotBinding _pagTestSlot5;
+        private PagSlotBinding _pagTestSlot6;
+        private bool _pagTest1Showing;
+        private bool _pagTest2Showing;
+        private bool _pagTest3Showing;
+        private bool _pagTest4Showing;
+        private bool _pagTest1CacheWarmed;
+        private bool _pagTest2CacheWarmed;
+        private bool _pagTest3CacheWarmed;
+        private bool _pagTest4CacheWarmed;
+        private Animator _pagTestSpine1Animator;
+        private SkeletonMecanim _pagTestSpine1Mecanim;
+        private Animator _pagTestSpine2Animator;
+        private SkeletonMecanim _pagTestSpine2Mecanim;
+        private bool _spineTest1Showing;
+        private bool _spineTest2Showing;
+        private const string PagTestTransitionPag = "BigWin_1024.pag";
+        private const string PagTestNezaPag = "Fire.pag";
+        private const string PagTestFeiZhouPag = "FeiZhou.pag";
+        private const string PagTestCaiHongFeiDiePag = "CaiHongFeiDie.pag";
+        private static readonly string[] PagTestLoopSequence = { PagTestNezaPag, PagTestTransitionPag };
+        /// <summary>BigWin_1024 为 1024 合成，2x 显示等同 2048 占位。</summary>
+        private const float PagTestBigWin1024DisplayScale = 1f;
+        /// <summary>FeiZhou 合成尺寸较大，1x 显示并裁剪到 holder3。</summary>
+        private const float PagTestFeiZhouDisplayScale = 1f;
+        /// <summary>false：按合成尺寸×displayScale 显示；true：裁剪到 holder（测试槽位较小时会偏小）。</summary>
+        private const bool PagTestClampDisplayToHolder = false;
+        private const bool PagTestFeiZhouClampDisplayToHolder = false;
+        private const float PagTestCaiHongFeiDieDisplayScale = 1f;
+        private const bool PagTestCaiHongFeiDieClampDisplayToHolder = false;
+        private const float PagTestDuration = 8f;
+        private const float PagTestNezaPagDuration = 8f;
+        private const float PagTestPlayStartedTimeoutSec = 45f;
+        private const string PagLogPrefix = "[1700 PagTest]";
         /// <summary>Phase0 A/B：true 时全屏播 PAG；Phase1 通过后保持 false，走 FGUI extra 对齐。</summary>
-        private const bool TurnTablePagDebugFullScreen = false;
-        /// <summary>true 时交替循环播 XingYunZhiLun_1080 与 neza，进局不自动 Stop。</summary>
-        private const bool TurnTablePagLoop = true;
+        private const bool PagTestDebugFullScreen = false;
+        /// <summary>true 时交替循环播 XingYunZhiLun_1080 与 neza；仅按钮触发时保持 false。</summary>
+        private const bool PagTestLoop = false;
         /// <summary>true：PAG 在 FGUI pagEffect（层级由 FGUI 配置）；false：Activity WM 浮层。</summary>
-        private const bool TurnTablePagUseFguiTexture = true;
+        private const bool PagTestUseFguiTexture = true;
         /// <summary>FguiTexture 离屏最大边；0=合成原尺寸，512=降压缩屏（FGUI 仍按合成原尺寸显示）。</summary>
         /// <summary>0 = 不限制，使用 PAG 合成原尺寸渲染。</summary>
-        private const int TurnTablePagFguiMaxDisplaySide = 0;
-        private const int TurnTablePagFguiFps = 60;
+        private const int PagTestFguiMaxDisplaySide = 0;
+        private const int PagTestFguiFps = 30;
         /// <summary>Overlay 模式：true 时 native 立即 ImageView 软件出帧。</summary>
-        private const bool TurnTablePagOverlayFallback = false;
+        private const bool PagTestOverlayFallback = false;
         //免费组件
         private GComponent gFreeTimeBox, gFreeWinBox;
         private GComponent gFreeSlotMachine;
@@ -101,6 +139,20 @@ namespace SlotZhuZaiJinBi1700
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMiniCtrl = new MiniReelGroup();
         long TotalBet => (long)MainModel.Instance.contentMD.totalBet;
+
+        /// <summary>1700：底部 Panel 异步就绪后触发 PageManager 的 preLoadedCallback。</summary>
+        private void OnBottomPanelReadyForPreload(EventData res)
+        {
+            if (res == null || res.name != PanelEvent.BottomPanelReady)
+                return;
+
+            int gameId = Convert.ToInt32(res.value);
+            if (gameId != 1700)
+                return;
+
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
+            preLoadedCallback?.Invoke();
+        }
 
         protected override void OnInit()
         {
@@ -167,10 +219,10 @@ namespace SlotZhuZaiJinBi1700
             });
             //5
             ResourceManager02.Instance.LoadAsset<GameObject>(
-          "Assets/GameRes/Games/Slot Zhu Zai Jin Bi 1700/Prefabs/TurnTable/TurnTable.prefab",
+          "Assets/GameRes/Games/Slot Zhu Zai Jin Bi 1700/Prefabs/TurnTable/TestBigWin.prefab",
           (GameObject clone) =>
           {
-              goNpc = clone;
+              _goPagTestPrefab = clone;
               callback();
           });
 
@@ -210,6 +262,7 @@ namespace SlotZhuZaiJinBi1700
         }
         protected override void OnLanguageChange(I18nLang lang)
         {
+            ClearPagTestButtons();
             FguiI18nTextAssistant.Instance.DisposeAllTranslate(this.contentPane);
             this.contentPane.Dispose(); // 释放当前UI
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -218,6 +271,8 @@ namespace SlotZhuZaiJinBi1700
         }
         public override void OnOpen(PageName name, EventData data)
         {
+            if (isOpen) return;
+
             if (goGameCtrl != null && !goGameCtrl.activeSelf)
             {
                 goGameCtrl.SetActive(true);
@@ -230,7 +285,6 @@ namespace SlotZhuZaiJinBi1700
             EventCenter.Instance.AddEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
             InitParam(data);
-            TryPlayTurnTablePagOnEnter();
         }
         public override void OnClose(EventData data = null)
         {
@@ -238,16 +292,11 @@ namespace SlotZhuZaiJinBi1700
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
             GameSoundHelper.Instance.StopMusic();
-            if (corTurnTablePag != null && mono != null)
-            {
-                Debug.Log($"{PagLogPrefix} sequence aborted reason=OnClose");
-                mono.StopCoroutine(corTurnTablePag);
-                corTurnTablePag = null;
-            }
-            StopTurnTablePag();
-            _turnTablePagSlot?.Dispose();
-            _turnTablePagSlot = null;
+            StopAllPagTest();
+            ClearPagTestButtons();
+            DisposePagTestResources();
             if (goGameCtrl != null && goGameCtrl.activeSelf)
             {
                 goGameCtrl.SetActive(false);
@@ -265,35 +314,13 @@ namespace SlotZhuZaiJinBi1700
             if (data != null) _data = data;
             if (!isInit) return;
 
-            //同步积分和押注
-            MachineDataManager02.Instance.RequestGetPlayerInfo((res) =>
-            {
-                SBoxAccount data = (SBoxAccount)res;
-                int pid = SBoxModel.Instance.pid;
-                List<SBoxPlayerAccount> playerAccountList = data.PlayerAccountList;
-                for (int i = 0; i < playerAccountList.Count; i++)
-                {
-                    if (playerAccountList[i].PlayerId == pid)
-                    {
-
-                        MainBlackboardController.Instance.SetMyRealCredit(playerAccountList[i].Credit);
-                        //DebugUtils.Log("前一局算法卡CoinIn==" + playerAccountList[i].CoinIn);
-                       // DebugUtils.Log("前一局算法卡Bet==" + playerAccountList[i].Bets);
-                       // DebugUtils.Log("前一局算法卡Credit==" + );
-                        break;
-                    }
-                }
-
-            }, (BagelCodeError err) =>
-            {
-
-                DebugUtils.Log(err.msg);
-            });
-            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
-
-            //说明书
+            MainModel.Instance.gameID = 1700;
+            MainModel.Instance.gameName = "ZhuZaiJinBi1700";
+            MainModel.Instance.displayName = "ZhuZaiJinBi1700";
+            MainModel.Instance.lineNum = 15;
             MainModel.Instance.contentMD = ContentModel.Instance;
             MainModel.Instance.cutomMD = CustomModel.Instance;
+
             List<GComponent> lstPayTable = new List<GComponent>();
             foreach (string url in CustomModel.Instance.payTable)
             {
@@ -302,108 +329,137 @@ namespace SlotZhuZaiJinBi1700
             }
             ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
             payTableController.Init(lstPayTable);
-            //读取Json配置
-            ReadJsonBet();
-            // UI 组件获取和老虎机初始化
+
             GComponent gSlotMachine = contentPane.GetChild("slotMachine").asCom;
             GComponent gReels = gSlotMachine.GetChild("reels").asCom;
             gSlotCover = gSlotMachine.GetChild("slotCover").asCom;
             gPlayLines = gSlotMachine.asCom.GetChild("playLines").asCom;
             gFrame = contentPane.GetChild("anchorFrame").asCom;
             slotMachineCtrl.Init(gSlotCover, gPlayLines, gReels, gFrame, fguiPoolHelper, gObjectPoolHelper);
-            //背景
+
+            if (fguiPoolHelper != null && isInitPool == false)
+            {
+                isInitPool = true;
+                fguiPoolHelper.Add(TagPoolObject.SymbolHit, CustomModel.Instance.symbolHitEffect.Values.ToList(), "symbol_hit#", 5);
+                fguiPoolHelper.PreLoad(TagPoolObject.SymbolHit);
+                fguiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.borderEffect, "border#", 5);
+                fguiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 5);
+                fguiPoolHelper.PreLoad(TagPoolObject.SymbolAppear);
+            }
+
+            gOwnerPanel = contentPane.GetChild("panel").asCom;
+            ContentModel.Instance.goAnthorPanel = gOwnerPanel;
+            MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
+            EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
+            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
+                new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
+
+            if (!isOpen) return;
+
+            MachineDataManager02.Instance.RequestGetPlayerInfo((res) =>
+            {
+                SBoxAccount account = (SBoxAccount)res;
+                int pid = SBoxModel.Instance.pid;
+                List<SBoxPlayerAccount> playerAccountList = account.PlayerAccountList;
+                for (int i = 0; i < playerAccountList.Count; i++)
+                {
+                    if (playerAccountList[i].PlayerId == pid)
+                    {
+                        MainBlackboardController.Instance.SetMyRealCredit(playerAccountList[i].Credit);
+                        break;
+                    }
+                }
+            }, (BagelCodeError err) =>
+            {
+                DebugUtils.Log(err.msg);
+            });
+            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+
             gNormalBg = contentPane.GetChild("normalBG").asCom;
             gFreeBg = contentPane.GetChild("freeBG").asCom;
-            //外框
             gNormalGameFrame = contentPane.GetChild("normalGameframe").asCom;
             gFreeGameFrame = contentPane.GetChild("freeGameFrame").asCom;
-            //内框
             gNormalInnerFrame = contentPane.GetChild("normalInnerFrame").asCom;
             gFreeInnerFrame = contentPane.GetChild("freeInnerFrame").asCom;
 
             gFreeBg.visible = false;
             gFreeGameFrame.visible = false;
             gFreeInnerFrame.visible = false;
-            //内外框过渡
-            GComponent LocalNormalFrame = this.contentPane.GetChild("anchorNormalFrame").asCom;
-            if (anchorNormalFrame != LocalNormalFrame)
-            { 
+
+            GComponent localNormalFrame = contentPane.GetChild("anchorNormalFrame").asCom;
+            if (anchorNormalFrame != localNormalFrame)
+            {
                 GameCommon.FguiUtils.DeleteWrapper(anchorNormalFrame);
                 CLonegoNormalFrame = GameObject.Instantiate(goNormalFrame);
-                animatorNormalFrame= CLonegoNormalFrame.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                animatorNormalFrame = CLonegoNormalFrame.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
                 SMNormalFrame = CLonegoNormalFrame.transform.GetChild(0).GetChild(0).GetComponent<SkeletonMecanim>();
-                anchorNormalFrame = LocalNormalFrame;
+                anchorNormalFrame = localNormalFrame;
                 GameCommon.FguiUtils.AddWrapper(anchorNormalFrame, CLonegoNormalFrame);
-             
             }
 
-            GComponent LocalFreeFrame = this.contentPane.GetChild("anchorFreeFrame").asCom;
-            if (anchorFreeFrame != LocalFreeFrame)
+            GComponent localFreeFrame = contentPane.GetChild("anchorFreeFrame").asCom;
+            if (anchorFreeFrame != localFreeFrame)
             {
                 GameCommon.FguiUtils.DeleteWrapper(anchorFreeFrame);
                 ClonegoFreeFrame = GameObject.Instantiate(goFreeFrame);
-                anchorFreeFrame = LocalFreeFrame;
+                anchorFreeFrame = localFreeFrame;
                 GameCommon.FguiUtils.AddWrapper(anchorFreeFrame, ClonegoFreeFrame);
-               
             }
             anchorNormalFrame.visible = false;
             anchorFreeFrame.visible = false;
             SMNormalFrame.Skeleton.SetColor(new Color(1, 1, 1, 0));
 
-            //免费场景
             gFreeTimeBox = contentPane.GetChild("freeTimeBox").asCom;
             gFreeWinBox = contentPane.GetChild("freeWinBox").asCom;
-            gFreeSlotMachine= contentPane.GetChild("freeSlotMachine").asCom;
+            gFreeSlotMachine = contentPane.GetChild("freeSlotMachine").asCom;
             gFreeTimeBox.visible = false;
             gFreeWinBox.visible = false;
             gFreeSlotMachine.visible = false;
 
-            GComponent LocalNpc = this.contentPane.GetChild("anchorTurnTable").asCom;
-            if (anchorNpc != LocalNpc)
+            GComponent localPagTestAnchor = contentPane.GetChild("anchorPagTest").asCom;
+            if (_anchorPagTest != localPagTestAnchor)
             {
-                GameCommon.FguiUtils.DeleteWrapper(anchorNpc);
-                CLonegoNpc = GameObject.Instantiate(goNpc);
-                anchorNpc = LocalNpc;
-                GameCommon.FguiUtils.AddWrapper(anchorNpc, CLonegoNpc);
-                _npcAttachBone = null;
-                _turnTablePagSlot?.Dispose();
-                _turnTablePagSlot = null;
+                GameCommon.FguiUtils.DeleteWrapper(_anchorPagTest);
+                _clonePagTest = GameObject.Instantiate(_goPagTestPrefab);
+                _anchorPagTest = localPagTestAnchor;
+                GameCommon.FguiUtils.AddWrapper(_anchorPagTest, _clonePagTest);
+                // _pagTestAttachBone = null;
+                _pagTestSlot1?.Dispose();
+                _pagTestSlot1 = null;
+                _pagTestSlot2?.Dispose();
+                _pagTestSlot2 = null;
+                _pagTestSlot3?.Dispose();
+                _pagTestSlot3 = null;
+                _pagTestSlot4?.Dispose();
+                _pagTestSlot4 = null;
+                _pagTestSlot5?.Dispose();
+                _pagTestSlot5 = null;
+                _pagTestSlot6?.Dispose();
+                _pagTestSlot6 = null;
+                _pagTestSpine1Animator = null;
+                _pagTestSpine1Mecanim = null;
+                _pagTestSpine2Animator = null;
+                _pagTestSpine2Mecanim = null;
+                _spineTest1Showing = false;
+                _spineTest2Showing = false;
+                _pagTest3Showing = false;
+                EnsurePagTestSpines();
             }
 
-            if (_npcAttachBone == null)
-            {
-                _npcAttachBone = FindNpcAttachBone(CLonegoNpc, "c_circle");
-                AttachNormalFrameToNpcBone();
-            }
+            // if (_pagTestAttachBone == null)
+            // {
+            //     _pagTestAttachBone = FindPagTestAttachBone(_clonePagTest, "c_circle");
+            //     AttachJpMajorToPagTestBone();
+            // }
 
-            EnsureTurnTablePagSlot();
+            EnsurePagTestSlots();
+            EnsurePagTestSpines();
+            BindPagTestButtons();
 
-            //对象池初始化
-            if (fguiPoolHelper != null && isInitPool == false)
-            {
-                isInitPool = true;
-                //中奖动画
-                fguiPoolHelper.Add(TagPoolObject.SymbolHit,CustomModel.Instance.symbolHitEffect.Values.ToList(), "symbol_hit#", 5);
-                fguiPoolHelper.PreLoad(TagPoolObject.SymbolHit);
-                //边框
-                fguiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.borderEffect,"border#", 5);
-                //落下图标动画
-                fguiPoolHelper.Add(TagPoolObject.SymbolAppear,CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 5);
-                fguiPoolHelper.PreLoad(TagPoolObject.SymbolAppear);
-
-                //fguiPoolHelper.Init(CustomModel.Instance.symbolHitEffect,CustomModel.Instance.symbolAppearEffect, null,CustomModel.Instance.borderEffect);
-            }
-
-            //初始化菜单ui
-            gOwnerPanel = this.contentPane.GetChild("panel").asCom;
-            ContentModel.Instance.goAnthorPanel = gOwnerPanel;
-            MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
-            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
-
-            //彩金
-            uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("jpMajor").asCom.GetChild("reels").asList, "N0");
-            uiJPMinorCtrl.Init("Minor", this.contentPane.GetChild("jpMinor").asCom.GetChild("reels").asList, "N0");
-            uiJPMiniCtrl.Init("Mini", this.contentPane.GetChild("jpMini").asCom.GetChild("reels").asList, "N0");
+            uiJPMajorCtrl.Init("Major", contentPane.GetChild("jpMajor").asCom.GetChild("reels").asList, "N0");
+            uiJPMinorCtrl.Init("Minor", contentPane.GetChild("jpMinor").asCom.GetChild("reels").asList, "N0");
+            uiJPMiniCtrl.Init("Mini", contentPane.GetChild("jpMini").asCom.GetChild("reels").asList, "N0");
 
             uiJPMajorCtrl.SetData(0);
             uiJPMinorCtrl.SetData(0);
@@ -414,53 +470,295 @@ namespace SlotZhuZaiJinBi1700
             TryRestoreFreeSpinSession();
         }
 
-        private Transform FindNpcAttachBone(GameObject npcObject, string boneName)
-        {
-            string candidatePaths = $"Anchor/Spine Mecanim GameObject (ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/{boneName}";
-            Transform pathTransform = npcObject.transform.Find(candidatePaths);
-            return pathTransform;
-        }
+        // private Transform FindPagTestAttachBone(GameObject pagTestObject, string boneName)
+        // {
+        //     string candidatePaths = $"Anchor/Spine Mecanim GameObject (ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/{boneName}";
+        //     Transform pathTransform = pagTestObject.transform.Find(candidatePaths);
+        //     return pathTransform;
+        // }
 
-        private void EnsureTurnTablePagSlot()
+        private void EnsurePagTestSlots()
         {
-            GComponent anchor = GetTurnTableAnchor();
+            GComponent anchor = GetPagTestAnchor();
             if (anchor == null)
             {
-                Debug.LogWarning($"{PagLogPrefix} EnsureTurnTablePagSlot skipped: anchor null");
+                Debug.LogWarning($"{PagLogPrefix} EnsurePagTestSlots skipped: anchor null");
                 return;
             }
 
-            if (_turnTablePagSlot == null)
+            if (_pagTestSlot1 == null)
             {
-                _turnTablePagSlot = new PagSlotBinding("TurnTableNpc");
-                Debug.Log($"{PagLogPrefix} PagSlotBinding created for TurnTable");
+                _pagTestSlot1 = new PagSlotBinding("PagTest1");
+                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest1");
             }
 
-            _turnTablePagSlot.Attach(anchor);
+            if (_pagTestSlot2 == null)
+            {
+                _pagTestSlot2 = new PagSlotBinding("PagTest2");
+                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest2");
+            }
+
+            if (_pagTestSlot3 == null)
+            {
+                _pagTestSlot3 = new PagSlotBinding("PagTest3");
+                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest3");
+            }
+
+            EnsurePagTestSlot(_pagTestSlot1, PagTestLoader1, "PagTest1");
+            EnsurePagTestSlot(_pagTestSlot2, PagTestLoader2, "PagTest2");
+            EnsurePagTestSlot(_pagTestSlot3, PagTestLoader3, "PagTest3");
+
+            if (_pagTestSlot4 == null)
+            {
+                _pagTestSlot4 = new PagSlotBinding("PagTest4");
+                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest4");
+            }
+
+            if (_pagTestSlot5 == null)
+            {
+                _pagTestSlot5 = new PagSlotBinding("PagTest5");
+                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest5");
+            }
+
+            if (_pagTestSlot6 == null)
+            {
+                _pagTestSlot6 = new PagSlotBinding("PagTest6");
+                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest6");
+            }
+
+            EnsurePagTestSlot(_pagTestSlot4, PagTestLoader4, "PagTest4");
+            EnsurePagTestSlot(_pagTestSlot5, PagTestLoader5, "PagTest5");
+            EnsurePagTestSlot(_pagTestSlot6, PagTestLoader6, "PagTest6");
         }
 
-        private GComponent GetTurnTableAnchor()
+        private void EnsurePagTestSlotForPlay(PagSlotBinding slot)
         {
-            if (anchorNpc != null)
+            if (slot == null)
             {
-                return anchorNpc;
+                return;
             }
 
-            return contentPane?.GetChild("anchorTurnTable")?.asCom;
+            if (slot == _pagTestSlot1 && _pagTestSlot1 == null)
+            {
+                _pagTestSlot1 = new PagSlotBinding("PagTest1");
+                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest1");
+            }
+
+            if (slot == _pagTestSlot2 && _pagTestSlot2 == null)
+            {
+                _pagTestSlot2 = new PagSlotBinding("PagTest2");
+                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest2");
+            }
+
+            if (slot == _pagTestSlot3 && _pagTestSlot3 == null)
+            {
+                _pagTestSlot3 = new PagSlotBinding("PagTest3");
+                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest3");
+            }
+
+            if (slot == _pagTestSlot4 && _pagTestSlot4 == null)
+            {
+                _pagTestSlot4 = new PagSlotBinding("PagTest4");
+                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest4");
+            }
+
+            if (slot == _pagTestSlot5 && _pagTestSlot5 == null)
+            {
+                _pagTestSlot5 = new PagSlotBinding("PagTest5");
+                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest5");
+            }
+
+            if (slot == _pagTestSlot6 && _pagTestSlot6 == null)
+            {
+                _pagTestSlot6 = new PagSlotBinding("PagTest6");
+                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest6");
+            }
+
+            EnsurePagTestSlot(slot, ResolvePagTestLoaderName(slot), slot.InstanceKey);
+        }
+
+        private void EnsurePagTestSlot(PagSlotBinding slot, string loaderName, string instanceLabel)
+        {
+            GComponent anchor = GetPagTestAnchor();
+            if (anchor == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} EnsurePagTestSlot skipped: anchor null, instance={instanceLabel}");
+                return;
+            }
+
+            if (slot == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} EnsurePagTestSlot skipped: slot null, instance={instanceLabel}");
+                return;
+            }
+
+            slot.Attach(anchor, loaderName);
+        }
+
+        private string ResolvePagTestLoaderName(PagSlotBinding slot)
+        {
+            if (slot == _pagTestSlot1)
+            {
+                return PagTestLoader1;
+            }
+
+            if (slot == _pagTestSlot2)
+            {
+                return PagTestLoader2;
+            }
+
+            if (slot == _pagTestSlot3)
+            {
+                return PagTestLoader3;
+            }
+
+            if (slot == _pagTestSlot4)
+            {
+                return PagTestLoader4;
+            }
+
+            if (slot == _pagTestSlot5)
+            {
+                return PagTestLoader5;
+            }
+
+            if (slot == _pagTestSlot6)
+            {
+                return PagTestLoader6;
+            }
+
+            return PagFguiGpuPresenter.DefaultLoaderName;
+        }
+
+        private void DisposePagTestResources()
+        {
+            _pagTestSlot1?.Dispose();
+            _pagTestSlot1 = null;
+            _pagTestSlot2?.Dispose();
+            _pagTestSlot2 = null;
+            _pagTestSlot3?.Dispose();
+            _pagTestSlot3 = null;
+            _pagTestSlot4?.Dispose();
+            _pagTestSlot4 = null;
+            _pagTestSlot5?.Dispose();
+            _pagTestSlot5 = null;
+            _pagTestSlot6?.Dispose();
+            _pagTestSlot6 = null;
+            _pagTestSpine1Animator = null;
+            _pagTestSpine1Mecanim = null;
+            _pagTestSpine2Animator = null;
+            _pagTestSpine2Mecanim = null;
+            _pagTest1Showing = false;
+            _pagTest2Showing = false;
+            _pagTest3Showing = false;
+            _pagTest4Showing = false;
+            _spineTest1Showing = false;
+            _spineTest2Showing = false;
+            _pagTest1CacheWarmed = false;
+            _pagTest2CacheWarmed = false;
+            _pagTest3CacheWarmed = false;
+            _pagTest4CacheWarmed = false;
+        }
+
+        private void StopPagTestGroupPlayback()
+        {
+            if (_corPagTest4 != null)
+            {
+                Debug.Log($"{PagLogPrefix} group playback aborted");
+                PagCallbackHub.Instance.StopRunCoroutine(_corPagTest4);
+                _corPagTest4 = null;
+            }
+
+            PagGpuSyncGroup.EndGroup();
+            StopPagTestGroupSlots();
+            _pagTest4Showing = false;
+        }
+
+        private void StopPagTestGroupSlots()
+        {
+            _pagTestSlot4?.Stop(PagTestUseFguiTexture);
+            _pagTestSlot5?.Stop(PagTestUseFguiTexture);
+            _pagTestSlot6?.Stop(PagTestUseFguiTexture);
+        }
+
+        private void ConfigurePagTestGroupSlot(PagSlotBinding slot, float displayScale, bool clampToHolder)
+        {
+            if (slot == null)
+            {
+                return;
+            }
+
+            slot.SetFguiDisplayScale(displayScale);
+            slot.SetFguiClampDisplayToHolder(clampToHolder);
+        }
+
+        private static readonly PagSlotBinding[] PagTestGroupTripleSlots = new PagSlotBinding[3];
+
+        private PagSlotBinding[] GetPagTestGroupSlots()
+        {
+            PagTestGroupTripleSlots[0] = _pagTestSlot4;
+            PagTestGroupTripleSlots[1] = _pagTestSlot5;
+            PagTestGroupTripleSlots[2] = _pagTestSlot6;
+            return PagTestGroupTripleSlots;
+        }
+
+        private bool TryBuildPagTestLayoutExtraForAnchor(GComponent anchor, out string extra, out string debugReason)
+        {
+            return TryBuildPagTestLayoutExtra(out extra, out debugReason);
+        }
+
+        private void StopAllPagTest()
+        {
+            if (_corPagTest1 != null && mono != null)
+            {
+                Debug.Log($"{PagLogPrefix} sequence aborted reason=OnClose slot=1");
+                mono.StopCoroutine(_corPagTest1);
+                _corPagTest1 = null;
+            }
+
+            if (_corPagTest2 != null && mono != null)
+            {
+                Debug.Log($"{PagLogPrefix} sequence aborted reason=OnClose slot=2");
+                mono.StopCoroutine(_corPagTest2);
+                _corPagTest2 = null;
+            }
+
+            if (_corPagTest3 != null && mono != null)
+            {
+                Debug.Log($"{PagLogPrefix} sequence aborted reason=OnClose slot=3");
+                mono.StopCoroutine(_corPagTest3);
+                _corPagTest3 = null;
+            }
+
+            StopPagTestGroupPlayback();
+
+            StopPagTest(_pagTestSlot1, ref _pagTest1Showing);
+            StopPagTest(_pagTestSlot2, ref _pagTest2Showing);
+            StopPagTest(_pagTestSlot3, ref _pagTest3Showing);
+        }
+
+        private GComponent GetPagTestAnchor()
+        {
+            if (_anchorPagTest != null)
+            {
+                return _anchorPagTest;
+            }
+
+            return contentPane?.GetChild("anchorPagTest")?.asCom;
         }
 
         /// <summary>
-        /// 将 anchorTurnTable 区域换算为 Native overlay 的 extra（x,y,w,h 为相对屏幕 0~1）。
+        /// 将 anchorPagTest 区域换算为 Native overlay 的 extra（x,y,w,h 为相对屏幕 0~1）。
         /// </summary>
-        private bool TryBuildTurnTablePagLayoutExtra(out string extra, out string debugReason)
+        private bool TryBuildPagTestLayoutExtra(out string extra, out string debugReason)
         {
             extra = null;
             debugReason = "unknown";
 
-            GComponent anchor = GetTurnTableAnchor();
+            GComponent anchor = GetPagTestAnchor();
             if (anchor == null)
             {
-                debugReason = "anchorTurnTable is null";
+                debugReason = "anchorPagTest is null";
                 return false;
             }
 
@@ -505,213 +803,678 @@ namespace SlotZhuZaiJinBi1700
             return true;
         }
 
-        private float GetTurnTablePagDurationFallback(string pagFileName)
+        private float GetPagTestDurationFallback(string pagFileName)
         {
-            return pagFileName == TurnTableNezaPag ? TurnTableNezaPagDuration : TurnTablePagDuration;
+            return pagFileName == PagTestNezaPag ? PagTestNezaPagDuration : PagTestDuration;
         }
 
-        private void PlayTurnTablePag(string pagFileName, int repeatCount = 1)
+        private void PlayPagTest(PagSlotBinding slot, string pagFileName, int repeatCount = 1, float displayScale = 2f,
+            bool? clampDisplayToHolder = null)
         {
-            Debug.Log($"{PagLogPrefix} PlayTurnTablePag start: {pagFileName}, repeat={repeatCount}");
-            EnsureTurnTablePagSlot();
-            if (TurnTablePag == null)
+            Debug.Log($"{PagLogPrefix} PlayPagTest start: instance={slot?.InstanceKey}, {pagFileName}, repeat={repeatCount}");
+            EnsurePagTestSlotForPlay(slot);
+            PagController controller = slot?.Controller;
+            if (controller == null)
             {
-                Debug.LogError($"{PagLogPrefix} PlayTurnTablePag failed: PagController is null");
+                Debug.LogError($"{PagLogPrefix} PlayPagTest failed: PagController is null, instance={slot?.InstanceKey}");
                 return;
             }
 
-            string resolvedPath = TurnTablePag.ResolvePagPath(pagFileName);
+            string resolvedPath = controller.ResolvePagPath(pagFileName);
             if (string.IsNullOrEmpty(resolvedPath))
             {
-                Debug.LogError($"{PagLogPrefix} PlayTurnTablePag failed: resolve path null, file={pagFileName}");
+                Debug.LogError($"{PagLogPrefix} PlayPagTest failed: resolve path null, file={pagFileName}, instance={slot.InstanceKey}");
                 return;
             }
 
-            Debug.Log($"{PagLogPrefix} resolved path: {resolvedPath}, exists={System.IO.File.Exists(resolvedPath)}");
+            Debug.Log($"{PagLogPrefix} resolved path: {resolvedPath}, exists={System.IO.File.Exists(resolvedPath)}, instance={slot.InstanceKey}");
 
             string positionType = "center";
             string layoutExtra = "";
-            if (TurnTablePagDebugFullScreen)
+            if (PagTestDebugFullScreen)
             {
                 positionType = "full";
                 layoutExtra = "";
                 Debug.Log($"{PagLogPrefix} debug fullscreen mode, skip layout extra");
             }
-            else if (TryBuildTurnTablePagLayoutExtra(out layoutExtra, out string layoutDebug))
+            else if (TryBuildPagTestLayoutExtra(out layoutExtra, out string layoutDebug))
             {
                 Debug.Log($"{PagLogPrefix} layout extra: {layoutExtra} ({layoutDebug})");
             }
             else
             {
                 Debug.LogWarning($"{PagLogPrefix} layout extra unavailable ({layoutDebug}), fallback LayoutPagAuto(turntable)");
-                TurnTablePag.LayoutPagAuto("turntable");
+                controller.LayoutPagAuto("turntable");
             }
 
-            if (TurnTablePagUseFguiTexture)
+            if (PagTestUseFguiTexture)
             {
-                if (!_turnTablePagSlot.PreparePlay(true, TurnTablePagFguiMaxDisplaySide, TurnTablePagFguiFps))
+                slot.SetFguiDisplayScale(displayScale);
+                slot.SetFguiClampDisplayToHolder(clampDisplayToHolder ?? PagTestClampDisplayToHolder);
+
+                if (!slot.PreparePlay(true, PagTestFguiMaxDisplaySide, PagTestFguiFps))
                 {
-                    Debug.LogError($"{PagLogPrefix} PlayTurnTablePag failed: FGUI slot not ready, pag={pagFileName}");
+                    Debug.LogError($"{PagLogPrefix} PlayPagTest failed: FGUI slot not ready, pag={pagFileName}, instance={slot.InstanceKey}");
                     return;
                 }
 
-                Debug.Log($"{PagLogPrefix} FGUI frame config: maxSide={TurnTablePagFguiMaxDisplaySide} fps={TurnTablePagFguiFps} pag={pagFileName}");
+                Debug.Log($"{PagLogPrefix} FGUI frame config: maxSide={PagTestFguiMaxDisplaySide} fps={PagTestFguiFps} "
+                    + $"displayScale={displayScale} pag={pagFileName} instance={slot.InstanceKey}");
             }
             else
             {
-                _turnTablePagSlot.PreparePlay(false, 0, 0);
-                TurnTablePag.SetForceBitmapOverlayFallback(TurnTablePagOverlayFallback);
+                slot.PreparePlay(false, 0, 0);
+                controller.SetForceBitmapOverlayFallback(PagTestOverlayFallback);
             }
 
-            TurnTablePag.SetRepeatCount(repeatCount);
-            bool playOk = TurnTablePag.PlayPag(pagFileName, positionType, layoutExtra);
+            controller.SetRepeatCount(repeatCount);
+            bool playOk = controller.PlayPag(pagFileName, positionType, layoutExtra);
             if (playOk)
             {
-                Debug.Log($"{PagLogPrefix} PlayTurnTablePag success: {pagFileName}");
+                Debug.Log($"{PagLogPrefix} PlayPagTest success: {pagFileName}, instance={slot.InstanceKey}");
             }
             else
             {
-                Debug.LogError($"{PagLogPrefix} PlayTurnTablePag failed: {pagFileName}");
+                Debug.LogError($"{PagLogPrefix} PlayPagTest failed: {pagFileName}, instance={slot.InstanceKey}");
             }
         }
 
-        private void StopTurnTablePag()
+        private void StopPagTest(PagSlotBinding slot, ref bool showingFlag)
         {
-            if (TurnTablePag == null)
+            if (slot?.Controller == null)
             {
-                Debug.LogWarning($"{PagLogPrefix} StopTurnTablePag skipped: PagController is null");
+                Debug.LogWarning($"{PagLogPrefix} StopPagTest skipped: PagController is null, instance={slot?.InstanceKey}");
+                showingFlag = false;
                 return;
             }
 
-            _turnTablePagSlot.Stop(TurnTablePagUseFguiTexture);
+            slot.Stop(PagTestUseFguiTexture);
+            showingFlag = false;
 
-            Debug.Log($"{PagLogPrefix} StopTurnTablePag");
+            Debug.Log($"{PagLogPrefix} StopPagTest instance={slot.InstanceKey}");
         }
 
-        private void TryPlayTurnTablePagOnEnter()
+        private void TryPlayPagTestOnEnter()
         {
             if (!isInit || mono == null || slotMachineCtrl == null)
             {
-                Debug.LogWarning($"{PagLogPrefix} TryPlayTurnTablePagOnEnter skipped: isInit={isInit}, mono={mono != null}, slotMachineCtrl={slotMachineCtrl != null}");
+                Debug.LogWarning($"{PagLogPrefix} TryPlayPagTestOnEnter skipped: isInit={isInit}, mono={mono != null}, slotMachineCtrl={slotMachineCtrl != null}");
                 return;
             }
 
-            Debug.Log($"{PagLogPrefix} TryPlayTurnTablePagOnEnter: loop={TurnTablePagLoop}, sequence=[{string.Join(", ", TurnTablePagLoopSequence)}]");
+            Debug.Log($"{PagLogPrefix} TryPlayPagTestOnEnter: loop={PagTestLoop}, sequence=[{string.Join(", ", PagTestLoopSequence)}]");
 
-            if (corTurnTablePag != null)
+            if (_corPagTest1 != null)
             {
                 Debug.Log($"{PagLogPrefix} sequence aborted reason=restart");
-                mono.StopCoroutine(corTurnTablePag);
+                mono.StopCoroutine(_corPagTest1);
             }
 
-            corTurnTablePag = mono.StartCoroutine(PlayTurnTableEnterSequence());
+            _corPagTest1 = mono.StartCoroutine(PlayPagTestEnterSequence());
         }
 
-        private IEnumerator PlayTurnTableEnterSequence()
+        private IEnumerator PlayPagTestEnterSequence()
         {
-            Debug.Log($"{PagLogPrefix} PlayTurnTableEnterSequence start");
-            // 等待一帧，确保 FGUI 完成布局后再取 anchor 屏幕矩形
-            yield return null;
+            Debug.Log($"{PagLogPrefix} PlayPagTestEnterSequence start");
 
-            for (int i = 0; i < TurnTablePagLoopSequence.Length; i++)
+            for (int i = 0; i < PagTestLoopSequence.Length; i++)
             {
-                yield return PagPathHelper.WarmupPagCacheCoroutine(TurnTablePagLoopSequence[i]);
+                yield return PagPathHelper.WarmupPagCacheCoroutine(PagTestLoopSequence[i]);
             }
 
-            if (TurnTablePagLoop)
+            if (PagTestLoop)
             {
                 int loopIndex = 0;
                 while (true)
                 {
-                    string pagFileName = TurnTablePagLoopSequence[0];
-                    PlayTurnTablePag(pagFileName);
-                    yield return WaitTurnTablePagPlayStarted(TurnTablePagPlayStartedTimeoutSec);
-                    if (TurnTablePag == null || !TurnTablePag.PlayStarted)
+                    string pagFileName = PagTestLoopSequence[0];
+                    PlayPagTest(_pagTestSlot1, pagFileName, -1, PagTestBigWin1024DisplayScale);
+                    yield return WaitPagTestPlayStarted(_pagTestSlot1, PagTestPlayStartedTimeoutSec);
+                    PagController controller = _pagTestSlot1?.Controller;
+                    if (controller == null || !controller.PlayStarted)
                     {
-                        Debug.LogError($"{PagLogPrefix} {pagFileName} play did not start within {TurnTablePagPlayStartedTimeoutSec}s");
+                        Debug.LogError($"{PagLogPrefix} {pagFileName} play did not start within {PagTestPlayStartedTimeoutSec}s");
                         Debug.Log($"{PagLogPrefix} sequence aborted reason=pag_play_started_timeout pag={pagFileName}");
-                        corTurnTablePag = null;
+                        _corPagTest1 = null;
                         yield break;
                     }
 
-                    if (TurnTablePagUseFguiTexture)
+                    if (PagTestUseFguiTexture)
                     {
-                        float durationFallback = GetTurnTablePagDurationFallback(pagFileName);
-                        float pagTimeout = TurnTablePag.GetCompositionDurationSecWithFallback(durationFallback) + 3f;
-                        yield return TurnTablePag.WaitForPlaybackFinished(pagTimeout);
+                        float durationFallback = GetPagTestDurationFallback(pagFileName);
+                        float pagTimeout = controller.GetCompositionDurationSecWithFallback(durationFallback) + 3f;
+                        yield return controller.WaitForPlaybackFinished(pagTimeout);
                     }
                     else
                     {
-                        yield return slotMachineCtrl.SlotWaitForSeconds(GetTurnTablePagDurationFallback(pagFileName));
+                        yield return slotMachineCtrl.SlotWaitForSeconds(GetPagTestDurationFallback(pagFileName));
                     }
 
-                    loopIndex = (loopIndex + 1) % TurnTablePagLoopSequence.Length;
-                    Debug.Log($"{PagLogPrefix} loop next: {TurnTablePagLoopSequence[loopIndex]}");
+                    loopIndex = (loopIndex + 1) % PagTestLoopSequence.Length;
+                    Debug.Log($"{PagLogPrefix} loop next: {PagTestLoopSequence[loopIndex]}");
                 }
             }
 
-            PlayTurnTablePag(TurnTableTransitionPag);
-            yield return WaitTurnTablePagPlayStarted(TurnTablePagPlayStartedTimeoutSec);
-            if (TurnTablePag == null || !TurnTablePag.PlayStarted)
+            PlayPagTest(_pagTestSlot1, PagTestTransitionPag);
+            yield return WaitPagTestPlayStarted(_pagTestSlot1, PagTestPlayStartedTimeoutSec);
+            PagController transitionController = _pagTestSlot1?.Controller;
+            if (transitionController == null || !transitionController.PlayStarted)
             {
-                Debug.LogError($"{PagLogPrefix} {TurnTableTransitionPag} play did not start within {TurnTablePagPlayStartedTimeoutSec}s");
+                Debug.LogError($"{PagLogPrefix} {PagTestTransitionPag} play did not start within {PagTestPlayStartedTimeoutSec}s");
                 Debug.Log($"{PagLogPrefix} sequence aborted reason=pag_play_started_timeout");
-                corTurnTablePag = null;
+                _corPagTest1 = null;
                 yield break;
             }
 
-            if (TurnTablePagUseFguiTexture)
+            if (PagTestUseFguiTexture)
             {
-                float pagTimeout = TurnTablePag.GetCompositionDurationSecWithFallback(TurnTablePagDuration) + 3f;
-                yield return TurnTablePag.WaitForPlaybackFinished(pagTimeout);
+                float pagTimeout = transitionController.GetCompositionDurationSecWithFallback(PagTestDuration) + 3f;
+                yield return transitionController.WaitForPlaybackFinished(pagTimeout);
             }
             else
             {
-                yield return slotMachineCtrl.SlotWaitForSeconds(TurnTablePagDuration);
+                yield return slotMachineCtrl.SlotWaitForSeconds(PagTestDuration);
             }
 
-            StopTurnTablePag();
+            StopPagTest(_pagTestSlot1, ref _pagTest1Showing);
             yield return PagPathHelper.DeferredUnloadUnusedAssets();
-            corTurnTablePag = null;
-            Debug.Log($"{PagLogPrefix} PlayTurnTableEnterSequence finished");
+            _corPagTest1 = null;
+            Debug.Log($"{PagLogPrefix} PlayPagTestEnterSequence finished");
         }
 
-        private IEnumerator WaitTurnTablePagPlayStarted(float timeoutSec)
+        private IEnumerator WaitPagTestPlayStarted(PagSlotBinding slot, float timeoutSec)
         {
-            EnsureTurnTablePagSlot();
-            if (TurnTablePag == null)
+            EnsurePagTestSlots();
+            PagController controller = slot?.Controller;
+            if (controller == null)
             {
                 yield break;
             }
 
             float deadline = Time.unscaledTime + timeoutSec;
-            while (!TurnTablePag.PlayStarted && Time.unscaledTime < deadline)
+            while (!controller.PlayStarted && Time.unscaledTime < deadline)
             {
                 yield return null;
             }
 
-            if (TurnTablePag.PlayStarted)
+            if (controller.PlayStarted)
             {
-                Debug.Log($"{PagLogPrefix} Pag play started (within {timeoutSec}s)");
+                Debug.Log($"{PagLogPrefix} Pag play started (within {timeoutSec}s), instance={slot.InstanceKey}");
             }
             else
             {
-                Debug.LogWarning($"{PagLogPrefix} Pag play started timeout ({timeoutSec}s)");
+                Debug.LogWarning($"{PagLogPrefix} Pag play started timeout ({timeoutSec}s), instance={slot.InstanceKey}");
             }
         }
 
-        private void AttachNormalFrameToNpcBone()
-        {
+        // private void AttachJpMajorToPagTestBone()
+        // {
+        //     GObject jpMajor = this.contentPane.GetChild("jpMajor");
+        //     if (jpMajor?.displayObject?.gameObject != null && _pagTestAttachBone != null)
+        //     {
+        //         Transform t = jpMajor.displayObject.gameObject.transform;
+        //         t.SetParent(_pagTestAttachBone, false);
+        //         t.localPosition = Vector3.zero;
+        //     }
+        // }
 
-            GObject jpMajor = this.contentPane.GetChild("jpMajor");
-            if (jpMajor?.displayObject?.gameObject != null && _npcAttachBone != null)
+        private void BindPagTestButtons()
+        {
+            if (_pagTestButtonsBound || contentPane == null)
             {
-                Transform t = jpMajor.displayObject.gameObject.transform;
-                t.SetParent(_npcAttachBone, false);
-                t.localPosition = Vector3.zero;
-                //t.localRotation = Quaternion.identity;
-                //t.localScale = Vector3.one;
+                return;
             }
+
+            GButton btnPag1 = contentPane.GetChild("PAG1")?.asButton;
+            if (btnPag1 != null)
+            {
+                btnPag1.onClick.Clear();
+                btnPag1.onClick.Add(OnClickPagTest1Button);
+            }
+            else
+            {
+                Debug.LogWarning($"{PagLogPrefix} button missing: PAG1");
+            }
+
+            GButton btnPag2 = contentPane.GetChild("PAG2")?.asButton;
+            if (btnPag2 != null)
+            {
+                btnPag2.onClick.Clear();
+                btnPag2.onClick.Add(OnClickPagTest2Button);
+            }
+            else
+            {
+                Debug.LogWarning($"{PagLogPrefix} button missing: PAG2");
+            }
+
+            GButton btnPag3 = contentPane.GetChild("PAG3")?.asButton;
+            if (btnPag3 != null)
+            {
+                btnPag3.onClick.Clear();
+                btnPag3.onClick.Add(OnClickPagTest3Button);
+            }
+            else
+            {
+                Debug.LogWarning($"{PagLogPrefix} button missing: PAG3");
+            }
+
+            GButton btnPag4 = contentPane.GetChild("PAG4")?.asButton;
+            if (btnPag4 != null)
+            {
+                btnPag4.onClick.Clear();
+                btnPag4.onClick.Add(OnClickPagTest4Button);
+            }
+            else
+            {
+                Debug.LogWarning($"{PagLogPrefix} button missing: PAG4");
+            }
+
+            GButton btnSpine1 = contentPane.GetChild("Spine1")?.asButton;
+            if (btnSpine1 != null)
+            {
+                btnSpine1.onClick.Clear();
+                btnSpine1.onClick.Add(OnClickSpineTest1Button);
+            }
+            else
+            {
+                Debug.LogWarning($"{PagLogPrefix} button missing: Spine1");
+            }
+
+            GButton btnSpine2 = contentPane.GetChild("Spine2")?.asButton;
+            if (btnSpine2 != null)
+            {
+                btnSpine2.onClick.Clear();
+                btnSpine2.onClick.Add(OnClickSpineTest2Button);
+            }
+            else
+            {
+                Debug.LogWarning($"{PagLogPrefix} button missing: Spine2");
+            }
+
+            _pagTestButtonsBound = true;
+        }
+
+        private void ClearPagTestButtons()
+        {
+            if (!_pagTestButtonsBound || contentPane == null)
+            {
+                return;
+            }
+
+            contentPane.GetChild("PAG1")?.asButton?.onClick.Clear();
+            contentPane.GetChild("PAG2")?.asButton?.onClick.Clear();
+            contentPane.GetChild("PAG3")?.asButton?.onClick.Clear();
+            contentPane.GetChild("PAG4")?.asButton?.onClick.Clear();
+            contentPane.GetChild("Spine1")?.asButton?.onClick.Clear();
+            contentPane.GetChild("Spine2")?.asButton?.onClick.Clear();
+            _pagTestButtonsBound = false;
+        }
+
+        private void EnsurePagTestSpines()
+        {
+            if (_clonePagTest == null)
+            {
+                return;
+            }
+
+            EnsurePagTestSpine(ref _pagTestSpine1Animator, ref _pagTestSpine1Mecanim, PagTestSpine1Node, 1);
+            EnsurePagTestSpine(ref _pagTestSpine2Animator, ref _pagTestSpine2Mecanim, PagTestSpine2Node, 2);
+        }
+
+        private void EnsurePagTestSpine(ref Animator animator, ref SkeletonMecanim mecanim, string nodeName, int spineIndex)
+        {
+            if (animator != null)
+            {
+                return;
+            }
+
+            Transform spineTransform = _clonePagTest.transform.Find($"Anchor/{nodeName}");
+            if (spineTransform == null)
+            {
+                spineTransform = FindChildRecursiveByName(_clonePagTest.transform, nodeName);
+            }
+
+            if (spineTransform == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} spine not found on _clonePagTest: {nodeName}");
+                return;
+            }
+
+            animator = spineTransform.GetComponent<Animator>();
+            mecanim = spineTransform.GetComponent<SkeletonMecanim>();
+            if (animator == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} Animator missing on spine: {nodeName}");
+                return;
+            }
+
+            HidePagTestSpine(spineIndex);
+        }
+
+        private void HidePagTestSpine(int spineIndex)
+        {
+            if (spineIndex == 1)
+            {
+                if (_pagTestSpine1Animator == null)
+                {
+                    return;
+                }
+
+                _pagTestSpine1Animator.enabled = false;
+                if (_pagTestSpine1Mecanim != null)
+                {
+                    _pagTestSpine1Mecanim.Skeleton.SetColor(new Color(1f, 1f, 1f, 0f));
+                }
+
+                _spineTest1Showing = false;
+                return;
+            }
+
+            if (_pagTestSpine2Animator == null)
+            {
+                return;
+            }
+
+            _pagTestSpine2Animator.enabled = false;
+            if (_pagTestSpine2Mecanim != null)
+            {
+                _pagTestSpine2Mecanim.Skeleton.SetColor(new Color(1f, 1f, 1f, 0f));
+            }
+
+            _spineTest2Showing = false;
+        }
+
+        private void ShowPagTestSpine(int spineIndex, string animName)
+        {
+            EnsurePagTestSpines();
+
+            Animator animator;
+            SkeletonMecanim mecanim;
+
+            if (spineIndex == 1)
+            {
+                animator = _pagTestSpine1Animator;
+                mecanim = _pagTestSpine1Mecanim;
+            }
+            else
+            {
+                animator = _pagTestSpine2Animator;
+                mecanim = _pagTestSpine2Mecanim;
+            }
+
+            if (animator == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} Spine{spineIndex} show failed: animator is null");
+                return;
+            }
+
+            if (mecanim != null)
+            {
+                mecanim.Skeleton.SetColor(new Color(1f, 1f, 1f, 1f));
+            }
+
+            animator.enabled = true;
+            animator.speed = 1f;
+            animator.Rebind();
+            animator.Update(0f);
+            animator.Play(animName, 0, 0f);
+
+            if (spineIndex == 1)
+            {
+                _spineTest1Showing = true;
+            }
+            else
+            {
+                _spineTest2Showing = true;
+            }
+
+            Debug.Log($"{PagLogPrefix} Spine{spineIndex} show {animName}");
+        }
+
+        private void OnClickPagTest1Button()
+        {
+            StopPagTestGroupPlayback();
+
+            if (_pagTest1Showing)
+            {
+                Debug.Log($"{PagLogPrefix} PAG1 clicked, stop {PagTestNezaPag}");
+                _pagTest1Showing = false;
+                if (_corPagTest1 != null && mono != null)
+                {
+                    mono.StopCoroutine(_corPagTest1);
+                    _corPagTest1 = null;
+                }
+
+                StopPagTest(_pagTestSlot1, ref _pagTest1Showing);
+                return;
+            }
+
+            Debug.Log($"{PagLogPrefix} PAG1 clicked, play {PagTestNezaPag}");
+            if (_corPagTest1 != null && mono != null)
+            {
+                mono.StopCoroutine(_corPagTest1);
+                _corPagTest1 = null;
+            }
+
+            StopPagTest(_pagTestSlot1, ref _pagTest1Showing);
+            if (mono == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} PAG1 play skipped: mono is null");
+                return;
+            }
+
+            _pagTest1Showing = true;
+            _corPagTest1 = mono.StartCoroutine(StartPagTest1ButtonPlayback());
+        }
+
+        private void OnClickPagTest2Button()
+        {
+            StopPagTestGroupPlayback();
+
+            if (_pagTest2Showing)
+            {
+                Debug.Log($"{PagLogPrefix} PAG2 clicked, stop {PagTestTransitionPag}");
+                _pagTest2Showing = false;
+                if (_corPagTest2 != null && mono != null)
+                {
+                    mono.StopCoroutine(_corPagTest2);
+                    _corPagTest2 = null;
+                }
+
+                StopPagTest(_pagTestSlot2, ref _pagTest2Showing);
+                return;
+            }
+
+            Debug.Log($"{PagLogPrefix} PAG2 clicked, play {PagTestTransitionPag}");
+            if (_corPagTest2 != null && mono != null)
+            {
+                mono.StopCoroutine(_corPagTest2);
+                _corPagTest2 = null;
+            }
+
+            StopPagTest(_pagTestSlot2, ref _pagTest2Showing);
+            if (mono == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} PAG2 play skipped: mono is null");
+                return;
+            }
+
+            _pagTest2Showing = true;
+            _corPagTest2 = mono.StartCoroutine(StartPagTest2ButtonPlayback());
+        }
+
+        private void OnClickPagTest3Button()
+        {
+            StopPagTestGroupPlayback();
+
+            if (_pagTest3Showing)
+            {
+                Debug.Log($"{PagLogPrefix} PAG3 clicked, stop {PagTestFeiZhouPag}");
+                _pagTest3Showing = false;
+                if (_corPagTest3 != null && mono != null)
+                {
+                    mono.StopCoroutine(_corPagTest3);
+                    _corPagTest3 = null;
+                }
+
+                StopPagTest(_pagTestSlot3, ref _pagTest3Showing);
+                return;
+            }
+
+            Debug.Log($"{PagLogPrefix} PAG3 clicked, play {PagTestFeiZhouPag}");
+            if (_corPagTest3 != null && mono != null)
+            {
+                mono.StopCoroutine(_corPagTest3);
+                _corPagTest3 = null;
+            }
+
+            StopPagTest(_pagTestSlot3, ref _pagTest3Showing);
+            if (mono == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} PAG3 play skipped: mono is null");
+                return;
+            }
+
+            _pagTest3Showing = true;
+            _corPagTest3 = mono.StartCoroutine(StartPagTest3ButtonPlayback());
+        }
+
+        private void OnClickPagTest4Button()
+        {
+            if (_pagTest4Showing)
+            {
+                Debug.Log($"{PagLogPrefix} PAG4 clicked, stop triple {PagTestCaiHongFeiDiePag}");
+                StopPagTestGroupPlayback();
+                return;
+            }
+
+            Debug.Log($"{PagLogPrefix} PAG4 clicked, play triple {PagTestCaiHongFeiDiePag}");
+            StopPagTestGroupPlayback();
+            if (mono == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} PAG4 play skipped: mono is null");
+                return;
+            }
+
+            _pagTest4Showing = true;
+            _corPagTest4 = PagCallbackHub.Instance.RunCoroutine(StartPagTest4ButtonPlayback());
+        }
+
+        /// <summary>预热缓存后单次 Play + repeat=-1，由 Native GPU 路径无缝循环，避免圈间重开 Play 空窗。</summary>
+        private IEnumerator StartPagTest1ButtonPlayback()
+        {
+            if (!_pagTest1CacheWarmed)
+            {
+                yield return PagPathHelper.WarmupPagCacheCoroutine(PagTestNezaPag);
+                _pagTest1CacheWarmed = true;
+            }
+
+            if (!_pagTest1Showing)
+            {
+                _corPagTest1 = null;
+                yield break;
+            }
+
+            PlayPagTest(_pagTestSlot1, PagTestNezaPag, -1, PagTestBigWin1024DisplayScale);
+            _corPagTest1 = null;
+            Debug.Log($"{PagLogPrefix} StartPagTest1ButtonPlayback: native loop repeat=-1");
+        }
+
+        private IEnumerator StartPagTest2ButtonPlayback()
+        {
+            if (!_pagTest2CacheWarmed)
+            {
+                yield return PagPathHelper.WarmupPagCacheCoroutine(PagTestTransitionPag);
+                _pagTest2CacheWarmed = true;
+            }
+
+            if (!_pagTest2Showing)
+            {
+                _corPagTest2 = null;
+                yield break;
+            }
+
+            PlayPagTest(_pagTestSlot2, PagTestTransitionPag, -1, PagTestBigWin1024DisplayScale);
+            _corPagTest2 = null;
+            Debug.Log($"{PagLogPrefix} StartPagTest2ButtonPlayback: native loop repeat=-1");
+        }
+
+        private IEnumerator StartPagTest3ButtonPlayback()
+        {
+            if (!_pagTest3CacheWarmed)
+            {
+                yield return PagPathHelper.WarmupPagCacheCoroutine(PagTestFeiZhouPag);
+                _pagTest3CacheWarmed = true;
+            }
+
+            if (!_pagTest3Showing)
+            {
+                _corPagTest3 = null;
+                yield break;
+            }
+
+            PlayPagTest(_pagTestSlot3, PagTestFeiZhouPag, -1, PagTestFeiZhouDisplayScale,
+                PagTestFeiZhouClampDisplayToHolder);
+            _corPagTest3 = null;
+            Debug.Log($"{PagLogPrefix} StartPagTest3ButtonPlayback: native loop repeat=-1");
+        }
+
+        private IEnumerator StartPagTest4ButtonPlayback()
+        {
+            if (!_pagTest4CacheWarmed)
+            {
+                yield return PagPathHelper.WarmupPagCacheCoroutine(PagTestCaiHongFeiDiePag);
+                _pagTest4CacheWarmed = true;
+            }
+
+            if (!_pagTest4Showing)
+            {
+                _corPagTest4 = null;
+                yield break;
+            }
+
+            EnsurePagTestSlots();
+            ConfigurePagTestGroupSlot(_pagTestSlot4, PagTestCaiHongFeiDieDisplayScale,
+                PagTestCaiHongFeiDieClampDisplayToHolder);
+            ConfigurePagTestGroupSlot(_pagTestSlot5, PagTestCaiHongFeiDieDisplayScale,
+                PagTestCaiHongFeiDieClampDisplayToHolder);
+            ConfigurePagTestGroupSlot(_pagTestSlot6, PagTestCaiHongFeiDieDisplayScale,
+                PagTestCaiHongFeiDieClampDisplayToHolder);
+
+            _corPagTest4 = PagGroupPlayer.PlayOnSlots(
+                PagTestCaiHongFeiDiePag,
+                GetPagTestGroupSlots(),
+                TryBuildPagTestLayoutExtraForAnchor,
+                PagTestUseFguiTexture,
+                PagTestFguiMaxDisplaySide,
+                PagTestFguiFps,
+                PagLogPrefix,
+                repeatCount: -1);
+
+            Debug.Log($"{PagLogPrefix} StartPagTest4ButtonPlayback: triple sync repeat=-1");
+        }
+
+        private void OnClickSpineTest1Button()
+        {
+            TogglePagTestSpine(1, PagTestSpine1PlayAnim);
+        }
+
+        private void OnClickSpineTest2Button()
+        {
+            TogglePagTestSpine(2, PagTestSpine2PlayAnim);
+        }
+
+        private void TogglePagTestSpine(int spineIndex, string animName)
+        {
+            bool showing = spineIndex == 1 ? _spineTest1Showing : _spineTest2Showing;
+            if (showing)
+            {
+                Debug.Log($"{PagLogPrefix} Spine{spineIndex} clicked, hide");
+                HidePagTestSpine(spineIndex);
+                return;
+            }
+
+            ShowPagTestSpine(spineIndex, animName);
         }
 
         private Transform FindChildRecursiveByName(Transform parent, string targetName)

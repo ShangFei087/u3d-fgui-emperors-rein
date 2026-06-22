@@ -34,13 +34,23 @@ public sealed class PagSlotBinding : IDisposable
 
 
 
-    public void Attach(GComponent fguiAnchor)
+    public void Attach(GComponent fguiAnchor, string loaderName = PagFguiGpuPresenter.DefaultLoaderName)
 
     {
 
         FguiAnchor = fguiAnchor;
 
-        Controller.Attach(fguiAnchor);
+        Controller.Attach(fguiAnchor, loaderName);
+
+    }
+
+
+
+    public void Attach(GComponent fguiAnchor)
+
+    {
+
+        Attach(fguiAnchor, PagFguiGpuPresenter.DefaultLoaderName);
 
     }
 
@@ -53,6 +63,26 @@ public sealed class PagSlotBinding : IDisposable
         Controller.SetRenderTarget(PagController.PagRenderTarget.FguiTexture);
 
         Controller.ConfigureFguiFrame(maxDisplaySide, fps);
+
+    }
+
+
+
+    public void SetFguiDisplayScale(float scale)
+
+    {
+
+        Controller.SetFguiDisplayScale(scale);
+
+    }
+
+
+
+    public void SetFguiClampDisplayToHolder(bool clamp)
+
+    {
+
+        Controller.SetFguiClampDisplayToHolder(clamp);
 
     }
 

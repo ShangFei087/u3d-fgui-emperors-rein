@@ -112,7 +112,7 @@ public class TestManager : Singleton<TestManager>
         btnMenu.onClick.Add(OnClickBase);
 
         glstMenu.GetChildAt(0).asLabel.title =softwareVersion; // $"Ver {ApplicationSettings.Instance.appVersion}/{"--"}";
-        glstMenu.GetChildAt(1).asLabel.title = $"FPS {"--"}";
+        glstMenu.GetChildAt(1).asLabel.title = "FPS -- | 逻辑 -- | 渲染 --";
 
         goKV = glstMenu.GetChildAt(2).asCom;
 

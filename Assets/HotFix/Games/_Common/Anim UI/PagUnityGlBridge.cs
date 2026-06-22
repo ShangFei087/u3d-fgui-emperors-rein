@@ -53,6 +53,7 @@ public static class PagUnityGlBridge
     private static extern int PagGl_GetPendingOpCount();
 
     private static readonly Queue<IEnumerator> s_glQueue = new Queue<IEnumerator>();
+    private static readonly Dictionary<string, IntPtr> s_instanceKeyNativeCache = new Dictionary<string, IntPtr>();
     private static bool s_queueRunning;
 
     public static bool IsSupported => true;
@@ -62,18 +63,21 @@ public static class PagUnityGlBridge
         return s_glQueue.Count + PagGl_GetPendingOpCount();
     }
 
-    private static void WithInstanceKeyNative(string instanceKey, Action<IntPtr> action)
+    private static IntPtr GetOrCreateInstanceKeyNativePtr(string instanceKey)
     {
         string key = string.IsNullOrEmpty(instanceKey) ? "_default" : instanceKey;
-        IntPtr ptr = Marshal.StringToHGlobalAnsi(key);
-        try
+        if (!s_instanceKeyNativeCache.TryGetValue(key, out IntPtr ptr))
         {
-            action(ptr);
+            ptr = Marshal.StringToHGlobalAnsi(key);
+            s_instanceKeyNativeCache[key] = ptr;
         }
-        finally
-        {
-            Marshal.FreeHGlobal(ptr);
-        }
+
+        return ptr;
+    }
+
+    private static void WithInstanceKeyNative(string instanceKey, Action<IntPtr> action)
+    {
+        action(GetOrCreateInstanceKeyNativePtr(instanceKey));
     }
 
     private static void EnqueueGlOperation(IEnumerator operation)

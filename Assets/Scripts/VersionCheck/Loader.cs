@@ -119,11 +119,15 @@ public class Loader : MonoBehaviour
 
                 // 加载assembly对应的dll，会自动为它hook。一旦aot泛型函数的native函数不存在，用解释器版本代码
                 LoadImageErrorCode err = RuntimeApi.LoadMetadataForAOTAssembly(aotMetaBytes, mode);
-                //Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}. mode:{mode} ret:{err}");
+                if (err != LoadImageErrorCode.OK)
+                {
+                    Debug.LogError($"LoadMetadataForAOTAssembly 失败: {aotDllName}, mode:{mode}, ret:{err}");
+                    throw new Exception($"加载AOT元数据失败 {aotDllName}, ret:{err}");
+                }
             }
             else
             {
-                throw new Exception($"加载AOT元数据报错 {aotDllName}");
+                throw new Exception($"加载AOT元数据报错 {aotDllName}: {req.error}");
             }
         }
         PageLaunch.Instance.RemoveProgress(LoadingProgress.LOAD_AOT_META_DATA);

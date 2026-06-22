@@ -42,6 +42,7 @@
     <type fullname="FairyGUI.ScrollPane" preserve="all" />
     <type fullname="FairyGUI.Shape" preserve="all" />
     <type fullname="FairyGUI.Stage" preserve="all" />
+    <type fullname="FairyGUI.Stats" preserve="all" />
     <type fullname="FairyGUI.TimerCallback" preserve="all" />
     <type fullname="FairyGUI.Timers" preserve="all" />
     <type fullname="FairyGUI.Transition" preserve="all" />
@@ -214,6 +215,8 @@
     <type fullname="UnityEngine.Events.UnityEvent`1" preserve="all" />
     <type fullname="UnityEngine.ExecuteInEditMode" preserve="all" />
     <type fullname="UnityEngine.FilterMode" preserve="all" />
+    <type fullname="UnityEngine.FrameTiming" preserve="all" />
+    <type fullname="UnityEngine.FrameTimingManager" preserve="all" />
     <type fullname="UnityEngine.GL" preserve="all" />
     <type fullname="UnityEngine.GameObject" preserve="all" />
     <type fullname="UnityEngine.GraphicsBuffer" preserve="all" />
@@ -225,10 +228,14 @@
     <type fullname="UnityEngine.LogType" preserve="all" />
     <type fullname="UnityEngine.Mathf" preserve="all" />
     <type fullname="UnityEngine.Matrix4x4" preserve="all" />
+    <type fullname="UnityEngine.Mesh" preserve="all" />
+    <type fullname="UnityEngine.MeshFilter" preserve="all" />
+    <type fullname="UnityEngine.MeshRenderer" preserve="all" />
     <type fullname="UnityEngine.MonoBehaviour" preserve="all" />
     <type fullname="UnityEngine.Object" preserve="all" />
     <type fullname="UnityEngine.PlayerPrefs" preserve="all" />
     <type fullname="UnityEngine.Profiling.Profiler" preserve="all" />
+    <type fullname="UnityEngine.QualitySettings" preserve="all" />
     <type fullname="UnityEngine.Random" preserve="all" />
     <type fullname="UnityEngine.Rect" preserve="all" />
     <type fullname="UnityEngine.Renderer" preserve="all" />
@@ -262,6 +269,7 @@
     <type fullname="UnityEngine.WaitUntil" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.IMGUIModule">
+    <type fullname="UnityEngine.Event" preserve="all" />
     <type fullname="UnityEngine.GUI" preserve="all" />
     <type fullname="UnityEngine.GUILayout" preserve="all" />
     <type fullname="UnityEngine.GUILayoutOption" preserve="all" />
@@ -280,6 +288,7 @@
   </assembly>
   <assembly fullname="UnityEngine.ParticleSystemModule">
     <type fullname="UnityEngine.ParticleSystem" preserve="all" />
+    <type fullname="UnityEngine.ParticleSystemStopBehavior" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.TextRenderingModule">
     <type fullname="UnityEngine.TextMesh" preserve="all" />
@@ -290,10 +299,12 @@
     <type fullname="UnityEngine.EventSystems.PointerEventData/InputButton" preserve="all" />
     <type fullname="UnityEngine.UI.Button" preserve="all" />
     <type fullname="UnityEngine.UI.Button/ButtonClickedEvent" preserve="all" />
+    <type fullname="UnityEngine.UI.Graphic" preserve="all" />
     <type fullname="UnityEngine.UI.GridLayoutGroup" preserve="all" />
     <type fullname="UnityEngine.UI.Selectable" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.UIModule">
+    <type fullname="UnityEngine.CanvasRenderer" preserve="all" />
     <type fullname="UnityEngine.RenderMode" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.UnityWebRequestAssetBundleModule">
@@ -490,6 +501,8 @@
   </assembly>
   <assembly fullname="spine-csharp">
     <type fullname="Spine.AnimationState" preserve="all" />
+    <type fullname="Spine.Bone" preserve="all" />
+    <type fullname="Spine.ExposedList`1" preserve="all" />
     <type fullname="Spine.Skeleton" preserve="all" />
     <type fullname="Spine.TrackEntry" preserve="all" />
   </assembly>
@@ -497,8 +510,10 @@
     <type fullname="Spine.Unity.SkeletonAnimation" preserve="all" />
     <type fullname="Spine.Unity.SkeletonExtensions" preserve="all" />
     <type fullname="Spine.Unity.SkeletonGraphic" preserve="all" />
+    <type fullname="Spine.Unity.SkeletonGraphic/SkeletonRendererDelegate" preserve="all" />
     <type fullname="Spine.Unity.SkeletonMecanim" preserve="all" />
     <type fullname="Spine.Unity.SkeletonRenderer" preserve="all" />
+    <type fullname="Spine.Unity.SkeletonRenderer/SkeletonRendererDelegate" preserve="all" />
   </assembly>
   <assembly fullname="zxing.unity">
     <type fullname="ZXing.BarcodeFormat" preserve="all" />
