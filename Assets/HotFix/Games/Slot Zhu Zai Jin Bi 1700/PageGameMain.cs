@@ -130,11 +130,34 @@ namespace SlotZhuZaiJinBi1700
         private const int PagTestFguiFps = 30;
         /// <summary>Overlay 模式：true 时 native 立即 ImageView 软件出帧。</summary>
         private const bool PagTestOverlayFallback = false;
+        private const string BorderMegaWinPrefabRoot =
+            "Assets/GameRes/Games/Cai Fu Huo Che 3996/newProject/Effect/SmallGame/Art/Effects/Prefabs/";
+        private static readonly string[] BorderMegaWinPrefabNames =
+        {
+            "eff_pop_border_megawin1",
+            "eff_pop_border_megawin2",
+            "eff_pop_border_megawin3",
+            "eff_pop_border_megawin4",
+            "eff_pop_border_megawin5",
+        };
+        private static readonly string[] BorderMegaWinHolderNames =
+        {
+            "holder1",
+            "holder2",
+            "holder3",
+            "holder4",
+            "holder5",
+        };
+        private const string BorderMegaWinLogPrefix = "[1700 BorderMegaWin]";
+        private GameObject[] _goBorderMegaWinPrefabs = new GameObject[5];
+        private GameObject[] _cloneBorderMegaWinEffects = new GameObject[5];
+        private Transform[] _borderMegaWinEffectRoots = new Transform[5];
+        private bool[] _borderMegaWinShowing = new bool[5];
+        private bool _borderMegaWinButtonsBound;
         //免费组件
         private GComponent gFreeTimeBox, gFreeWinBox;
         private GComponent gFreeSlotMachine;
         //彩金
-        //MiniReelGroup uiJPGrandCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMajorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMiniCtrl = new MiniReelGroup();
@@ -160,7 +183,7 @@ namespace SlotZhuZaiJinBi1700
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 5;
+            int count = 10;
 
             Action callback = () =>
             {
@@ -226,6 +249,18 @@ namespace SlotZhuZaiJinBi1700
               callback();
           });
 
+            for (int i = 0; i < BorderMegaWinPrefabNames.Length; i++)
+            {
+                int capturedIndex = i;
+                ResourceManager02.Instance.LoadAsset<GameObject>(
+                    BorderMegaWinPrefabRoot + BorderMegaWinPrefabNames[capturedIndex] + ".prefab",
+                    (GameObject clone) =>
+                    {
+                        _goBorderMegaWinPrefabs[capturedIndex] = clone;
+                        callback();
+                    });
+            }
+
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
                 shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
@@ -262,6 +297,7 @@ namespace SlotZhuZaiJinBi1700
         }
         protected override void OnLanguageChange(I18nLang lang)
         {
+            ClearBorderMegaWinButtons();
             ClearPagTestButtons();
             FguiI18nTextAssistant.Instance.DisposeAllTranslate(this.contentPane);
             this.contentPane.Dispose(); // 释放当前UI
@@ -295,7 +331,10 @@ namespace SlotZhuZaiJinBi1700
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
             GameSoundHelper.Instance.StopMusic();
             StopAllPagTest();
+            StopAllBorderMegaWinEffects();
+            ClearBorderMegaWinButtons();
             ClearPagTestButtons();
+            DisposeBorderMegaWinEffects();
             DisposePagTestResources();
             if (goGameCtrl != null && goGameCtrl.activeSelf)
             {
@@ -443,6 +482,7 @@ namespace SlotZhuZaiJinBi1700
                 _spineTest1Showing = false;
                 _spineTest2Showing = false;
                 _pagTest3Showing = false;
+                DisposeBorderMegaWinEffects();
                 EnsurePagTestSpines();
             }
 
@@ -455,6 +495,8 @@ namespace SlotZhuZaiJinBi1700
             EnsurePagTestSlots();
             EnsurePagTestSpines();
             BindPagTestButtons();
+            EnsureBorderMegaWinEffects();
+            BindBorderMegaWinButtons();
 
             uiJPMajorCtrl.Init("Major", contentPane.GetChild("jpMajor").asCom.GetChild("reels").asList, "N0");
             uiJPMinorCtrl.Init("Minor", contentPane.GetChild("jpMinor").asCom.GetChild("reels").asList, "N0");
@@ -1062,17 +1104,6 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
-        // private void AttachJpMajorToPagTestBone()
-        // {
-        //     GObject jpMajor = this.contentPane.GetChild("jpMajor");
-        //     if (jpMajor?.displayObject?.gameObject != null && _pagTestAttachBone != null)
-        //     {
-        //         Transform t = jpMajor.displayObject.gameObject.transform;
-        //         t.SetParent(_pagTestAttachBone, false);
-        //         t.localPosition = Vector3.zero;
-        //     }
-        // }
-
         private void BindPagTestButtons()
         {
             if (_pagTestButtonsBound || contentPane == null)
@@ -1523,6 +1554,250 @@ namespace SlotZhuZaiJinBi1700
             }
 
             ShowPagTestSpine(spineIndex, animName);
+        }
+
+        private void EnsureBorderMegaWinEffects()
+        {
+            if (_anchorPagTest == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < BorderMegaWinPrefabNames.Length; i++)
+            {
+                if (_goBorderMegaWinPrefabs[i] == null)
+                {
+                    Debug.LogWarning($"{BorderMegaWinLogPrefix} prefab missing: {BorderMegaWinPrefabNames[i]}");
+                    continue;
+                }
+
+                if (_cloneBorderMegaWinEffects[i] != null)
+                {
+                    continue;
+                }
+
+                _cloneBorderMegaWinEffects[i] = GameObject.Instantiate(_goBorderMegaWinPrefabs[i]);
+                _borderMegaWinEffectRoots[i] = _cloneBorderMegaWinEffects[i].transform;
+
+                GGraph holder = _anchorPagTest.GetChild(BorderMegaWinHolderNames[i])?.asGraph;
+                if (holder == null)
+                {
+                    Debug.LogWarning($"{BorderMegaWinLogPrefix} holder missing: {BorderMegaWinHolderNames[i]}");
+                    continue;
+                }
+
+                _cloneBorderMegaWinEffects[i].transform.localPosition = Vector3.zero;
+                _cloneBorderMegaWinEffects[i].transform.localScale = Vector3.one;
+                GoWrapper wrapper = new GoWrapper(_cloneBorderMegaWinEffects[i]);
+                holder.SetNativeObject(wrapper);
+                holder.SetPivot(0.5f, 0.5f, true);
+                holder.visible = false;
+                StopBorderMegaWinChildEffectAnim(_borderMegaWinEffectRoots[i]);
+            }
+        }
+
+        private void BindBorderMegaWinButtons()
+        {
+            if (_borderMegaWinButtonsBound || contentPane == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < BorderMegaWinPrefabNames.Length; i++)
+            {
+                string buttonName = $"Effect{i + 1}";
+                int capturedIndex = i;
+                GButton btn = contentPane.GetChild(buttonName)?.asButton;
+                if (btn != null)
+                {
+                    btn.onClick.Clear();
+                    btn.onClick.Add(() => OnClickBorderMegaWinButton(capturedIndex));
+                }
+                else
+                {
+                    Debug.LogWarning($"{BorderMegaWinLogPrefix} button missing: {buttonName}");
+                }
+            }
+
+            _borderMegaWinButtonsBound = true;
+        }
+
+        private void ClearBorderMegaWinButtons()
+        {
+            if (!_borderMegaWinButtonsBound || contentPane == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < BorderMegaWinPrefabNames.Length; i++)
+            {
+                contentPane.GetChild($"Effect{i + 1}")?.asButton?.onClick.Clear();
+            }
+
+            _borderMegaWinButtonsBound = false;
+        }
+
+        private void OnClickBorderMegaWinButton(int index)
+        {
+            if (index < 0 || index >= BorderMegaWinPrefabNames.Length)
+            {
+                return;
+            }
+
+            EnsureBorderMegaWinEffects();
+
+            Transform effectRoot = _borderMegaWinEffectRoots[index];
+            if (effectRoot == null)
+            {
+                Debug.LogWarning($"{BorderMegaWinLogPrefix} Effect{index + 1} root is null");
+                return;
+            }
+
+            GGraph holder = _anchorPagTest?.GetChild(BorderMegaWinHolderNames[index])?.asGraph;
+            if (holder == null)
+            {
+                return;
+            }
+
+            if (_borderMegaWinShowing[index])
+            {
+                Debug.Log($"{BorderMegaWinLogPrefix} Effect{index + 1} clicked, stop {BorderMegaWinPrefabNames[index]}");
+                StopBorderMegaWinChildEffectAnim(effectRoot);
+                holder.visible = false;
+                _borderMegaWinShowing[index] = false;
+                return;
+            }
+
+            Debug.Log($"{BorderMegaWinLogPrefix} Effect{index + 1} clicked, play {BorderMegaWinPrefabNames[index]}");
+            holder.visible = true;
+            PlayBorderMegaWinChildEffectAnim(effectRoot);
+            _borderMegaWinShowing[index] = true;
+        }
+
+        private void PlayBorderMegaWinChildEffectAnim(Transform effect)
+        {
+            if (effect == null)
+            {
+                return;
+            }
+
+            foreach (Transform child in effect)
+            {
+                PlayBorderMegaWinEffectAnim(child);
+            }
+        }
+
+        private void PlayBorderMegaWinEffectAnim(Transform effect)
+        {
+            if (effect == null)
+            {
+                return;
+            }
+
+            ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+            if (particle != null)
+            {
+                particle.Play();
+            }
+
+            foreach (Transform child in effect)
+            {
+                PlayBorderMegaWinEffectAnim(child);
+            }
+        }
+
+        private void StopBorderMegaWinChildEffectAnim(Transform effect)
+        {
+            if (effect == null)
+            {
+                return;
+            }
+
+            foreach (Transform child in effect)
+            {
+                StopBorderMegaWinEffectAnim(child);
+            }
+        }
+
+        private void StopBorderMegaWinEffectAnim(Transform effect)
+        {
+            if (effect == null)
+            {
+                return;
+            }
+
+            ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+            if (particle != null)
+            {
+                particle.Stop(true);
+                particle.Clear(true);
+            }
+
+            foreach (Transform child in effect)
+            {
+                StopBorderMegaWinEffectAnim(child);
+            }
+        }
+
+        private void StopAllBorderMegaWinEffects()
+        {
+            for (int i = 0; i < BorderMegaWinPrefabNames.Length; i++)
+            {
+                if (_borderMegaWinEffectRoots[i] != null)
+                {
+                    StopBorderMegaWinChildEffectAnim(_borderMegaWinEffectRoots[i]);
+                }
+
+                if (_anchorPagTest != null)
+                {
+                    GGraph holder = _anchorPagTest.GetChild(BorderMegaWinHolderNames[i])?.asGraph;
+                    if (holder != null)
+                    {
+                        holder.visible = false;
+                    }
+                }
+
+                _borderMegaWinShowing[i] = false;
+            }
+        }
+
+        private void DisposeBorderMegaWinEffects()
+        {
+            if (_anchorPagTest != null)
+            {
+                for (int i = 0; i < BorderMegaWinHolderNames.Length; i++)
+                {
+                    GGraph holder = _anchorPagTest.GetChild(BorderMegaWinHolderNames[i])?.asGraph;
+                    if (holder == null)
+                    {
+                        continue;
+                    }
+
+                    GoWrapper wrapper = holder.displayObject as GoWrapper;
+                    if (wrapper != null)
+                    {
+                        wrapper.Dispose();
+                    }
+                    else
+                    {
+                        holder.SetNativeObject(null);
+                    }
+
+                    holder.visible = false;
+                }
+            }
+
+            for (int i = 0; i < _cloneBorderMegaWinEffects.Length; i++)
+            {
+                if (_cloneBorderMegaWinEffects[i] != null)
+                {
+                    GameObject.Destroy(_cloneBorderMegaWinEffects[i]);
+                    _cloneBorderMegaWinEffects[i] = null;
+                }
+
+                _borderMegaWinEffectRoots[i] = null;
+                _borderMegaWinShowing[i] = false;
+            }
         }
 
         private Transform FindChildRecursiveByName(Transform parent, string targetName)

@@ -25,26 +25,38 @@
     <component id="n20_t0u4" name="anchorNormalFrame" src="t0u45w" fileName="components/gameMain/AnchorNormalFrame.xml" xy="539,959" pivot="0.5,0.5" anchor="true" scale="1.5,1.5"/>
     <component id="n36_tvr8" name="anchorPagTest" src="tvr88o" fileName="components/gameMain/AnchorPagTest.xml" xy="540,959" pivot="0.5,0.5" anchor="true" size="0,1"/>
     <component id="n16_jkwq" name="panel" src="jkwq57" fileName="components/gameMain/AnchorPanelSlot.xml" xy="539,1839"/>
-    <component id="n37_pkif" name="PAG1" src="ugpc8r" fileName="components/ButtonTest.xml" xy="60,1527" size="113,63">
+    <component id="n37_pkif" name="PAG1" src="ugpc8r" fileName="components/ButtonTest.xml" xy="9,1500" size="113,63">
       <Button title="PAG1" titleFontSize="30"/>
     </component>
-    <component id="n41_pkif" name="PAG2" src="ugpc8r" fileName="components/ButtonTest.xml" xy="60,1614" size="113,63">
+    <component id="n41_pkif" name="PAG2" src="ugpc8r" fileName="components/ButtonTest.xml" xy="9,1587" size="113,63">
       <Button title="PAG2" titleFontSize="30"/>
     </component>
-    <component id="n42_feiz" name="PAG3" src="ugpc8r" fileName="components/ButtonTest.xml" xy="60,1701" size="113,63">
+    <component id="n42_feiz" name="PAG3" src="ugpc8r" fileName="components/ButtonTest.xml" xy="9,1674" size="113,63">
       <Button title="PAG3" titleFontSize="30"/>
     </component>
-    <component id="n43_chfd" name="PAG4" src="ugpc8r" fileName="components/ButtonTest.xml" xy="60,1788" size="113,63">
+    <component id="n43_chfd" name="PAG4" src="ugpc8r" fileName="components/ButtonTest.xml" xy="9,1761" size="113,63">
       <Button title="PAG4" titleFontSize="30"/>
     </component>
-    <component id="n38_pkif" name="Spine1" src="ugpc8r" fileName="components/ButtonTest.xml" xy="225,1529" size="119,63">
+    <component id="n38_pkif" name="Spine1" src="ugpc8r" fileName="components/ButtonTest.xml" xy="174,1502" size="119,63">
       <Button title="Spine1" titleFontSize="30"/>
     </component>
-    <component id="n40_pkif" name="Spine2" src="ugpc8r" fileName="components/ButtonTest.xml" xy="228,1614" size="119,63">
+    <component id="n40_pkif" name="Spine2" src="ugpc8r" fileName="components/ButtonTest.xml" xy="177,1587" size="119,63">
       <Button title="Spine2" titleFontSize="30"/>
     </component>
-    <component id="n39_pkif" name="Effect1" src="ugpc8r" fileName="components/ButtonTest.xml" xy="417,1529" size="119,63">
+    <component id="n39_pkif" name="Effect1" src="ugpc8r" fileName="components/ButtonTest.xml" xy="366,1502" size="119,63">
       <Button title="Effect1" titleFontSize="30"/>
+    </component>
+    <component id="n44_mgwn" name="Effect2" src="ugpc8r" fileName="components/ButtonTest.xml" xy="366,1587" size="119,63">
+      <Button title="Effect2" titleFontSize="30"/>
+    </component>
+    <component id="n45_mgwn" name="Effect3" src="ugpc8r" fileName="components/ButtonTest.xml" xy="366,1674" size="119,63">
+      <Button title="Effect3" titleFontSize="30"/>
+    </component>
+    <component id="n46_mgwn" name="Effect4" src="ugpc8r" fileName="components/ButtonTest.xml" xy="366,1761" size="119,63">
+      <Button title="Effect4" titleFontSize="30"/>
+    </component>
+    <component id="n47_mgwn" name="Effect5" src="ugpc8r" fileName="components/ButtonTest.xml" xy="366,1848" size="119,63">
+      <Button title="Effect5" titleFontSize="30"/>
     </component>
   </displayList>
 </component>
