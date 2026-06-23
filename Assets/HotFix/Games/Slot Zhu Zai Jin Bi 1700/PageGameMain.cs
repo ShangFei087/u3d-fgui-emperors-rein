@@ -101,9 +101,9 @@ namespace SlotZhuZaiJinBi1700
         private bool _spineTest1Showing;
         private bool _spineTest2Showing;
         private const string PagTestTransitionPag = "BigWin_1024.pag";
-        private const string PagTestNezaPag = "Fire.pag";
-        private const string PagTestFeiZhouPag = "FeiZhou.pag";
-        private const string PagTestCaiHongFeiDiePag = "CaiHongFeiDie.pag";
+        private const string PagTestNezaPag = "XingXing1.pag";
+        private const string PagTestFeiZhouPag = "XingXing2.pag";
+        private const string PagTestCaiHongFeiDiePag = "BigWin_1024.pag";
         private static readonly string[] PagTestLoopSequence = { PagTestNezaPag, PagTestTransitionPag };
         /// <summary>BigWin_1024 为 1024 合成，2x 显示等同 2048 占位。</summary>
         private const float PagTestBigWin1024DisplayScale = 1f;
@@ -303,7 +303,6 @@ namespace SlotZhuZaiJinBi1700
             }
             base.OnClose(data);
         }
-
         private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
         {
             e.Result = MachineDataG1700Controller.ParseCoinPushSpinPayload(e.Data, e.StartPos);
@@ -808,6 +807,62 @@ namespace SlotZhuZaiJinBi1700
             return pagFileName == PagTestNezaPag ? PagTestNezaPagDuration : PagTestDuration;
         }
 
+        /// <summary>Play 开始后读取 Native composition frameRate，与 Unity 出帧节流对齐。</summary>
+        private IEnumerator TryAlignPagTestFpsAfterPlayStarted(PagSlotBinding slot)
+        {
+            PagController controller = slot?.Controller;
+            if (controller == null)
+            {
+                yield break;
+            }
+
+            yield return controller.WaitForPlayStarted(PagTestPlayStartedTimeoutSec);
+            int nativeFps = controller.GetCompositionFrameRate();
+            if (nativeFps <= 0)
+            {
+                yield break;
+            }
+
+            if (nativeFps == PagTestFguiFps)
+            {
+                Debug.Log($"{PagLogPrefix} FGUI fps aligned with composition: {nativeFps}, instance={slot.InstanceKey}");
+                yield break;
+            }
+
+            slot.ConfigureFgui(PagTestFguiMaxDisplaySide, nativeFps);
+            Debug.Log($"{PagLogPrefix} aligned FGUI fps {PagTestFguiFps}->{nativeFps}, instance={slot.InstanceKey}");
+        }
+
+        private static bool IsPagCompositionReady(string pagFileName)
+        {
+            if (!PagPathHelper.IsCached(pagFileName))
+            {
+                return false;
+            }
+
+            string absPath = PagController.ResolvePagPath(pagFileName, PagPathHelper.DefaultGamePagFolder);
+            return PagController.IsCompositionCached(absPath);
+        }
+
+        /// <summary>Loading 已预热则秒过；否则磁盘 + Java composition 兜底预加载。</summary>
+        private IEnumerator EnsurePagTestCompositionReady(string pagFileName, bool alreadyWarmed, Action<bool> onDone)
+        {
+            if (alreadyWarmed && IsPagCompositionReady(pagFileName))
+            {
+                onDone?.Invoke(true);
+                yield break;
+            }
+
+            if (IsPagCompositionReady(pagFileName))
+            {
+                onDone?.Invoke(true);
+                yield break;
+            }
+
+            yield return PagController.PreloadCompositionCoroutine(pagFileName);
+            onDone?.Invoke(IsPagCompositionReady(pagFileName));
+        }
+
         private void PlayPagTest(PagSlotBinding slot, string pagFileName, int repeatCount = 1, float displayScale = 2f,
             bool? clampDisplayToHolder = null)
         {
@@ -919,7 +974,7 @@ namespace SlotZhuZaiJinBi1700
 
             for (int i = 0; i < PagTestLoopSequence.Length; i++)
             {
-                yield return PagPathHelper.WarmupPagCacheCoroutine(PagTestLoopSequence[i]);
+                yield return PagController.PreloadCompositionCoroutine(PagTestLoopSequence[i]);
             }
 
             if (PagTestLoop)
@@ -1363,11 +1418,8 @@ namespace SlotZhuZaiJinBi1700
         /// <summary>预热缓存后单次 Play + repeat=-1，由 Native GPU 路径无缝循环，避免圈间重开 Play 空窗。</summary>
         private IEnumerator StartPagTest1ButtonPlayback()
         {
-            if (!_pagTest1CacheWarmed)
-            {
-                yield return PagPathHelper.WarmupPagCacheCoroutine(PagTestNezaPag);
-                _pagTest1CacheWarmed = true;
-            }
+            yield return EnsurePagTestCompositionReady(PagTestNezaPag, _pagTest1CacheWarmed,
+                ok => _pagTest1CacheWarmed = ok);
 
             if (!_pagTest1Showing)
             {
@@ -1376,17 +1428,15 @@ namespace SlotZhuZaiJinBi1700
             }
 
             PlayPagTest(_pagTestSlot1, PagTestNezaPag, -1, PagTestBigWin1024DisplayScale);
+            yield return TryAlignPagTestFpsAfterPlayStarted(_pagTestSlot1);
             _corPagTest1 = null;
             Debug.Log($"{PagLogPrefix} StartPagTest1ButtonPlayback: native loop repeat=-1");
         }
 
         private IEnumerator StartPagTest2ButtonPlayback()
         {
-            if (!_pagTest2CacheWarmed)
-            {
-                yield return PagPathHelper.WarmupPagCacheCoroutine(PagTestTransitionPag);
-                _pagTest2CacheWarmed = true;
-            }
+            yield return EnsurePagTestCompositionReady(PagTestTransitionPag, _pagTest2CacheWarmed,
+                ok => _pagTest2CacheWarmed = ok);
 
             if (!_pagTest2Showing)
             {
@@ -1395,17 +1445,15 @@ namespace SlotZhuZaiJinBi1700
             }
 
             PlayPagTest(_pagTestSlot2, PagTestTransitionPag, -1, PagTestBigWin1024DisplayScale);
+            yield return TryAlignPagTestFpsAfterPlayStarted(_pagTestSlot2);
             _corPagTest2 = null;
             Debug.Log($"{PagLogPrefix} StartPagTest2ButtonPlayback: native loop repeat=-1");
         }
 
         private IEnumerator StartPagTest3ButtonPlayback()
         {
-            if (!_pagTest3CacheWarmed)
-            {
-                yield return PagPathHelper.WarmupPagCacheCoroutine(PagTestFeiZhouPag);
-                _pagTest3CacheWarmed = true;
-            }
+            yield return EnsurePagTestCompositionReady(PagTestFeiZhouPag, _pagTest3CacheWarmed,
+                ok => _pagTest3CacheWarmed = ok);
 
             if (!_pagTest3Showing)
             {
@@ -1415,17 +1463,15 @@ namespace SlotZhuZaiJinBi1700
 
             PlayPagTest(_pagTestSlot3, PagTestFeiZhouPag, -1, PagTestFeiZhouDisplayScale,
                 PagTestFeiZhouClampDisplayToHolder);
+            yield return TryAlignPagTestFpsAfterPlayStarted(_pagTestSlot3);
             _corPagTest3 = null;
             Debug.Log($"{PagLogPrefix} StartPagTest3ButtonPlayback: native loop repeat=-1");
         }
 
         private IEnumerator StartPagTest4ButtonPlayback()
         {
-            if (!_pagTest4CacheWarmed)
-            {
-                yield return PagPathHelper.WarmupPagCacheCoroutine(PagTestCaiHongFeiDiePag);
-                _pagTest4CacheWarmed = true;
-            }
+            yield return EnsurePagTestCompositionReady(PagTestCaiHongFeiDiePag, _pagTest4CacheWarmed,
+                ok => _pagTest4CacheWarmed = ok);
 
             if (!_pagTest4Showing)
             {
@@ -1441,7 +1487,7 @@ namespace SlotZhuZaiJinBi1700
             ConfigurePagTestGroupSlot(_pagTestSlot6, PagTestCaiHongFeiDieDisplayScale,
                 PagTestCaiHongFeiDieClampDisplayToHolder);
 
-            _corPagTest4 = PagGroupPlayer.PlayOnSlots(
+            yield return PagGroupPlayer.PlayOnSlots(
                 PagTestCaiHongFeiDiePag,
                 GetPagTestGroupSlots(),
                 TryBuildPagTestLayoutExtraForAnchor,
@@ -1450,7 +1496,9 @@ namespace SlotZhuZaiJinBi1700
                 PagTestFguiFps,
                 PagLogPrefix,
                 repeatCount: -1);
+            yield return TryAlignPagTestFpsAfterPlayStarted(_pagTestSlot4);
 
+            _corPagTest4 = null;
             Debug.Log($"{PagLogPrefix} StartPagTest4ButtonPlayback: triple sync repeat=-1");
         }
 

@@ -1674,6 +1674,7 @@ public class GCMonitorPro : MonoBehaviour
         string fpsLimitText = Application.targetFrameRate > 0 ? $"{Application.targetFrameRate}" : "\u65e0\u9650\u5236";
         FPS fpsSource = FPS.Instance;
         string fpsLine;
+        string cpuGpuLine;
         if (fpsSource != null && fpsSource.DisplayFps >= 0)
         {
             float targetFps = Application.targetFrameRate > 0 ? Application.targetFrameRate : 30f;
@@ -1681,18 +1682,39 @@ public class GCMonitorPro : MonoBehaviour
             string fpsColor = fpsValue >= targetFps * 0.9f
                 ? "#00FF00"
                 : fpsValue >= targetFps * 0.7f ? "#FFFF00" : "#FF0000";
-            fpsLine = fpsSource.DisplayRenderAvailable
-                ? $"<color={fpsColor}>{fpsSource.DisplayFormat}</color>"
-                : $"<color={fpsColor}>{fpsSource.DisplayFps}FPS | \u903b\u8f91 {fpsSource.DisplayLogicMs}ms | \u6e32\u67d3 --</color>";
+            float displayFrameMs = fpsSource.DisplayFrameMs >= 0f ? fpsSource.DisplayFrameMs : frameTimeMs;
+            fpsLine =
+                $"<color={fpsColor}>{fpsSource.DisplayFps}FPS | \u5e27 {displayFrameMs:F2}ms</color> " +
+                $"<color=#888888>(\u9650\u5236 {fpsLimitText})</color>";
+
+            if (fpsSource.DisplayGpuTimingReliable && fpsSource.DisplayGpuMs >= 0)
+            {
+                cpuGpuLine =
+                    $"CPU {fpsSource.DisplayCpuMs:F1}ms | GPU {fpsSource.DisplayGpuMs:F1}ms";
+            }
+            else if (fpsSource.DisplayGpuMs >= 0)
+            {
+                cpuGpuLine =
+                    $"CPU {fpsSource.DisplayCpuMs:F1}ms | GPU* -- " +
+                    $"<color=#888888>GPU \u5206\u9879\u4e0d\u53ef\u7528\uff0c\u4ee5\u5e27\u8017\u65f6\u4e3a\u51c6</color>";
+            }
+            else
+            {
+                cpuGpuLine =
+                    $"CPU {fpsSource.DisplayCpuMs:F1}ms | GPU -- " +
+                    $"<color=#888888>GPU \u5206\u9879\u4e0d\u53ef\u7528\uff0c\u4ee5\u5e27\u8017\u65f6\u4e3a\u51c6</color>";
+            }
         }
         else
         {
-            fpsLine = "<color=#888888>--</color>";
+            fpsLine = $"<color=#888888>--</color> <color=#888888>(\u9650\u5236 {fpsLimitText})</color>";
+            cpuGpuLine = $"<color=#888888>CPU -- | GPU --</color>";
         }
 
         _textBasicPerf =
             $"<b><color=#87CEEB>\ud83d\udcca \u57fa\u7840\u6027\u80fd</color></b>\n" +
-            $"{fpsLine} <color=#888888>(\u9650\u5236 {fpsLimitText})</color>\n" +
+            $"{fpsLine}\n" +
+            $"{cpuGpuLine}\n" +
             $"GC\u6b21\u6570: <color=orange>{_displayGcCount}</color>\n" +
             $"\u589e\u91cfGC: {(_displayIncrementalGc ? "<color=#00FF00>\u5f00\u542f</color>" : "<color=#FF0000>\u5173\u95ed</color>")}";
 

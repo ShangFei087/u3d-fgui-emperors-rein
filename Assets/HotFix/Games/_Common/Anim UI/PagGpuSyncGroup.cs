@@ -206,8 +206,6 @@ public static class PagGpuSyncGroup
 
     private static IEnumerator AdvanceGroupFrame()
     {
-        yield return new WaitForEndOfFrame();
-
         if (s_lastGroupFrameTime > 0f)
         {
             float elapsed = Time.unscaledTime - s_lastGroupFrameTime;

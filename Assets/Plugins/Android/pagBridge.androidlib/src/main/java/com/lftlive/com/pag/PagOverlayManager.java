@@ -145,7 +145,17 @@ final class PagOverlayManager {
     private double fguiGpuPendingProgress;
     private boolean fguiGpuPlayStartedNotified;
     private int fguiGpuInfiniteLoopCount;
+    private long fguiGpuLastCompletedLoops;
     private int gpuPlayerRecycleEveryLoop;
+
+    private static final float DEFAULT_COMPOSITION_FRAME_RATE = 30f;
+
+    private static final class FguiGpuProgressSnapshot {
+        double progress;
+        long frameInLoop;
+        long totalFrames;
+        long completedLoops;
+    }
 
     private static final String UNITY_CALLBACK_HUB = "PagCallbackHub";
     private static final char UNITY_PAYLOAD_SEP = '\u001f';
@@ -254,6 +264,14 @@ final class PagOverlayManager {
         return pagFile != null ? pagFile.duration() : 0L;
     }
 
+    float getCompositionFrameRate() {
+        if (pagFile == null) {
+            return 0f;
+        }
+        float frameRate = pagFile.frameRate();
+        return frameRate > 0f ? frameRate : 0f;
+    }
+
     /** PAG 合成原尺寸（未应用 maxDisplaySide 缩放）。 */
     int getCompositionWidth() {
         return pagFile != null ? pagFile.width() : 0;
@@ -322,6 +340,7 @@ final class PagOverlayManager {
         }
         releaseCurrentPagFile();
         fguiGpuInfiniteLoopCount = 0;
+        fguiGpuLastCompletedLoops = 0L;
         isPlaying = false;
         pendingPlaybackCaller = null;
     }
@@ -364,10 +383,22 @@ final class PagOverlayManager {
         });
         ensureExportThread();
         exportHandler.post(() -> {
-            Log.i(TAG, "play: loading on worker, path=" + pathFinal);
-            PAGFile loaded = loadPagFile(pathFinal);
+            long t0 = System.currentTimeMillis();
+            boolean cacheHit = PagCompositionCache.contains(pathFinal);
+            PAGFile loaded = PagCompositionCache.loadOrGetCached(pathFinal, this::loadPagFile);
+            long elapsedMs = System.currentTimeMillis() - t0;
+            Log.i(TAG, "play: load cache " + (cacheHit ? "HIT" : "MISS")
+                    + " path=" + pathFinal + " elapsedMs=" + elapsedMs);
             mainHandler.post(() -> finishPlayAfterLoad(loadGen, pathFinal, loaded));
         });
+    }
+
+    void preloadComposition(String path) {
+        if (path == null || path.isEmpty()) {
+            Log.w(TAG, "preloadComposition: empty path");
+            return;
+        }
+        PagCompositionCache.preloadAsync(path, this::loadPagFile);
     }
 
     private void finishPlayAfterLoad(int loadGen, String path, PAGFile loaded) {
@@ -482,6 +513,7 @@ final class PagOverlayManager {
     void setRepeatCount(int count) {
         repeatCount = count;
         fguiGpuInfiniteLoopCount = 0;
+        fguiGpuLastCompletedLoops = 0L;
         mainHandler.post(() -> {
             if (pagView != null) {
                 pagView.setRepeatCount(count);
@@ -492,6 +524,7 @@ final class PagOverlayManager {
     void setGpuPlayerRecycleEveryLoop(int everyLoop) {
         gpuPlayerRecycleEveryLoop = Math.max(0, everyLoop);
         fguiGpuInfiniteLoopCount = 0;
+        fguiGpuLastCompletedLoops = 0L;
     }
 
     void replaceText(int index, String text) {
@@ -1066,6 +1099,7 @@ final class PagOverlayManager {
         fguiGpuPlaybackStartMs = System.currentTimeMillis();
         fguiGpuPendingProgress = 0.0;
         fguiGpuPlayStartedNotified = false;
+        fguiGpuLastCompletedLoops = 0L;
         long durationUs = resolveCompositionDurationUs();
         long nativeFrames = Math.max(1L, (long) (durationUs * pagFile.frameRate() / 1_000_000L));
         Log.i(TAG, "startFguiGpuPlayback: tex=" + texId + " " + texW + "x" + texH
@@ -1124,17 +1158,21 @@ final class PagOverlayManager {
         }
     }
 
-    /** C++ 渲染线程 flush+glFinish 后回调；切到主线程再通知 Unity 与推进帧序。 */
+    /** C++ 渲染线程 flush+glFinish 后回调；切到主线程再推进帧序（legacy，新路径走 OnGpuFlushCompleted）。 */
     void onGpuFramePresentedOnMainThread() {
         mainHandler.post(this::deliverGpuFramePresented);
     }
 
-    private void deliverGpuFramePresented() {
+    /** Unity HandleGpuFrameReady 在 GL 同步后调用，保证 onGpuFrameFlushed 先于 RequestNextGpuFrame。 */
+    void onGpuFrameFlushedAfterPresent() {
         if (!fguiGpuActive || fguiGpuPlayer == null || pagFile == null) {
             return;
         }
-        notifyGpuFrameReady();
         onGpuFrameFlushed();
+    }
+
+    private void deliverGpuFramePresented() {
+        onGpuFrameFlushedAfterPresent();
     }
 
     void requestNextGpuFrame() {
@@ -1175,21 +1213,37 @@ final class PagOverlayManager {
             Log.e(TAG, "requestGpuRenderFrame: no Unity render callback");
             return;
         }
-        double progress = computeFguiGpuProgress();
-        if (repeatCount < 0 && progress >= 1.0) {
-            fguiGpuInfiniteLoopCount++;
+        FguiGpuProgressSnapshot snap = snapshotFguiGpuProgress();
+        if (repeatCount < 0) {
+            handleInfiniteLoopProgressSnapshot(snap);
+            return;
+        }
+        fguiGpuPendingProgress = snap.progress;
+        Log.d(TAG, "requestGpuRenderFrame: progress=" + snap.progress
+                + " frameInLoop=" + snap.frameInLoop + "/" + snap.totalFrames);
+        sendToUnityHub(gpuRenderCallbackMethod, Double.toString(snap.progress));
+    }
+
+    private void handleInfiniteLoopProgressSnapshot(FguiGpuProgressSnapshot snap) {
+        if (snap.completedLoops > fguiGpuLastCompletedLoops) {
+            long newLoops = snap.completedLoops - fguiGpuLastCompletedLoops;
+            fguiGpuLastCompletedLoops = snap.completedLoops;
+            fguiGpuInfiniteLoopCount += (int) Math.min(newLoops, Integer.MAX_VALUE);
+            Log.i(TAG, "requestGpuRenderFrame: loopBoundary completedLoops=" + snap.completedLoops
+                    + " progress=" + snap.progress + " frameInLoop=" + snap.frameInLoop
+                    + "/" + snap.totalFrames);
             if (gpuPlayerRecycleEveryLoop > 0 && fguiGpuInfiniteLoopCount >= gpuPlayerRecycleEveryLoop) {
                 fguiGpuInfiniteLoopCount = 0;
+                fguiGpuLastCompletedLoops = 0L;
                 Log.i(TAG, "recycleFguiGpuPlayerKeepingSurface everyLoop=" + gpuPlayerRecycleEveryLoop);
                 recycleFguiGpuPlayerKeepingSurface();
                 return;
             }
-            fguiGpuPlaybackStartMs = System.currentTimeMillis();
-            progress = 0.0;
         }
-        fguiGpuPendingProgress = progress;
-        Log.d(TAG, "requestGpuRenderFrame: progress=" + progress);
-        sendToUnityHub(gpuRenderCallbackMethod, Double.toString(progress));
+        fguiGpuPendingProgress = snap.progress;
+        Log.d(TAG, "requestGpuRenderFrame: progress=" + snap.progress
+                + " frameInLoop=" + snap.frameInLoop + "/" + snap.totalFrames);
+        sendToUnityHub(gpuRenderCallbackMethod, Double.toString(snap.progress));
     }
 
     private void notifyGpuFrameReady() {
@@ -1224,6 +1278,7 @@ final class PagOverlayManager {
         releaseFguiGpuResources();
         fguiGpuPlaybackStartMs = 0L;
         fguiGpuPendingProgress = 0.0;
+        fguiGpuLastCompletedLoops = 0L;
         fguiGpuPlayStartedNotified = false;
         fguiGpuSurfaceReady = false;
     }
@@ -1255,6 +1310,7 @@ final class PagOverlayManager {
         fguiGpuActive = true;
         fguiGpuPlaybackStartMs = System.currentTimeMillis();
         fguiGpuPendingProgress = 0.0;
+        fguiGpuLastCompletedLoops = 0L;
         scheduleFguiGpuTick();
     }
 
@@ -1266,10 +1322,58 @@ final class PagOverlayManager {
         return durationUs > 0 ? durationUs : 3_000_000L;
     }
 
-    private double computeFguiGpuProgress() {
+    private float resolveCompositionFrameRate() {
+        if (pagFile == null) {
+            return DEFAULT_COMPOSITION_FRAME_RATE;
+        }
+        float frameRate = pagFile.frameRate();
+        return frameRate > 0f ? frameRate : DEFAULT_COMPOSITION_FRAME_RATE;
+    }
+
+    private long resolveCompositionTotalFrames() {
         long durationUs = resolveCompositionDurationUs();
-        long elapsedMs = System.currentTimeMillis() - fguiGpuPlaybackStartMs;
-        return Math.min(1.0, (elapsedMs * 1000.0) / durationUs);
+        float frameRate = resolveCompositionFrameRate();
+        return Math.max(1L, (long) (durationUs * frameRate / 1_000_000L));
+    }
+
+    /** 帧对齐 progress；repeat=-1 时用 modulo 避免墙钟 >=1.0 硬跳 0。 */
+    private FguiGpuProgressSnapshot snapshotFguiGpuProgress() {
+        FguiGpuProgressSnapshot snap = new FguiGpuProgressSnapshot();
+        long durationUs = resolveCompositionDurationUs();
+        long elapsedMs = Math.max(0L, System.currentTimeMillis() - fguiGpuPlaybackStartMs);
+        float frameRate = resolveCompositionFrameRate();
+        long totalFrames = resolveCompositionTotalFrames();
+        snap.totalFrames = totalFrames;
+
+        if (pagFile == null || frameRate <= 0f) {
+            double raw = (elapsedMs * 1000.0) / durationUs;
+            if (repeatCount < 0) {
+                snap.progress = raw % 1.0;
+                if (snap.progress < 0.0) {
+                    snap.progress += 1.0;
+                }
+                snap.completedLoops = (long) Math.floor(raw);
+            } else {
+                snap.progress = Math.min(1.0, raw);
+                snap.completedLoops = 0L;
+            }
+            snap.frameInLoop = 0L;
+            return snap;
+        }
+
+        long elapsedFrame = (long) (elapsedMs * frameRate / 1000.0);
+        snap.completedLoops = elapsedFrame / totalFrames;
+        if (repeatCount < 0) {
+            snap.frameInLoop = elapsedFrame % totalFrames;
+            snap.progress = (double) snap.frameInLoop / totalFrames;
+        } else if (elapsedFrame >= totalFrames) {
+            snap.frameInLoop = totalFrames - 1;
+            snap.progress = 1.0;
+        } else {
+            snap.frameInLoop = elapsedFrame;
+            snap.progress = (double) elapsedFrame / totalFrames;
+        }
+        return snap;
     }
 
     private void stopFguiGpuPlayback() {

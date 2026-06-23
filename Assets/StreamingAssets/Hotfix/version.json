@@ -1,11 +1,11 @@
 {
-  "updated_at": 1782119505383,
+  "updated_at": 1782202649961,
   "hotfix_key": "hf_debug_android_20260622160520",
-  "hotfix_version": "1.4.6",
+  "hotfix_version": "1.4.17",
   "asset_bundle": {
     "manifest": {
-      "hash": "9d9ef844c9f9b4309e63a3453226a8b0",
-      "size_bytes": 25865
+      "hash": "66ff4c0c0eeffe9d5cb77476b1494330",
+      "size_bytes": 25944
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
@@ -706,6 +706,9 @@
       "games/slot zhu zai jin bi 1700/pag/dragon.unity3d": "70f4bba5e827bd3ca698d6520d7124f5",
       "games/slot zhu zai jin bi 1700/pag/feizhou.unity3d": "2132ad29aab6a86e1b57d23eddabc2c3",
       "games/slot zhu zai jin bi 1700/pag/fire.unity3d": "90793752ac1eff79afb997d6406cc636",
+      "games/slot zhu zai jin bi 1700/pag/xingxing1.unity3d": "ba25a2c18ef8236d41a5a024d612c141",
+      "games/slot zhu zai jin bi 1700/pag/xingxing2.unity3d": "ac868d9cadb54961380dd6226860f37c",
+      "games/slot zhu zai jin bi 1700/pag/xingxing3.unity3d": "fe3ddba8ed09a8383fc11f2ae4638af0",
       "games/slot zhu zai jin bi 1700/prefabs/game controller/slot game main controllerclone.unity3d": "4f59bd42ab52f205216e326135b1c349",
       "games/slot zhu zai jin bi 1700/prefabs/gamemain/freeframe.unity3d": "42728f0c9ce9769f205268e30dbc566e",
       "games/slot zhu zai jin bi 1700/prefabs/gamemain/jp_tips_border.unity3d": "5564913e90621198bfa6131b809badfe",
@@ -892,8 +895,8 @@
       "size_bytes": 168448
     },
     "HotFix": {
-      "hash": "3001f3ce8426cda710665dbe53a7e3e4",
-      "size_bytes": 1906688
+      "hash": "f86270eafeb03bdc8d059d3c0872abbf",
+      "size_bytes": 1917440
     }
   },
   "hotfix_dll_load_order": [

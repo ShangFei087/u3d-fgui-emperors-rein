@@ -1,8 +1,13 @@
 package com.lftlive.com.pag;
 
 import android.app.Activity;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
+import org.libpag.PAGFile;
+
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
@@ -19,6 +24,7 @@ public final class PagBridge {
     private static final long UI_SYNC_TIMEOUT_MS = 3000L;
 
     private static Activity sActivity;
+    private static final Handler sMainHandler = new Handler(Looper.getMainLooper());
     private static final Map<String, PagOverlayManager> sManagers = new HashMap<>();
     private static final Map<String, InstanceConfig> sConfigs = new HashMap<>();
 
@@ -442,6 +448,15 @@ public final class PagBridge {
         return manager != null ? manager.getCompositionDurationUs() : 0L;
     }
 
+    public static float GetCompositionFrameRate() {
+        return GetCompositionFrameRate(DEFAULT_INSTANCE);
+    }
+
+    public static float GetCompositionFrameRate(String instanceKey) {
+        PagOverlayManager manager = getManager(instanceKey);
+        return manager != null ? manager.getCompositionFrameRate() : 0f;
+    }
+
     /** 由 Unity 渲染线程（PagUnityGlBridge JNI）调用，勿改名。 */
     public static boolean nativeSetupGpuSurfaceOnRenderThread(int textureId, int width, int height) {
         return nativeSetupGpuSurfaceOnRenderThread(textureId, width, height, DEFAULT_INSTANCE);
@@ -484,19 +499,39 @@ public final class PagBridge {
         manager.onGpuFramePresentedOnMainThread();
     }
 
-    /** Unity 主线程在 WaitForEndOfFrame 后请求下一帧 PAG flush。 */
+    /** Unity GL flush 完成后回写 native 播放状态（替代渲染线程 JNI present 回调）。 */
+    public static void OnGpuFlushCompleted() {
+        OnGpuFlushCompleted(DEFAULT_INSTANCE);
+    }
+
+    public static void OnGpuFlushCompleted(String instanceKey) {
+        final String key = normalizeKey(instanceKey);
+        runOnUiSync("OnGpuFlushCompleted instance=" + key, () -> {
+            PagOverlayManager manager = getManager(key);
+            if (manager != null) {
+                manager.onGpuFrameFlushedAfterPresent();
+            }
+        });
+    }
+
+    /** Unity 主线程在 present 后请求下一帧 PAG flush；已在主 Looper 则直调，否则 post 到主 Looper（避免 runOnUiThread 额外排队）。 */
     public static void RequestNextGpuFrame() {
         RequestNextGpuFrame(DEFAULT_INSTANCE);
     }
 
     public static void RequestNextGpuFrame(String instanceKey) {
         final String key = normalizeKey(instanceKey);
-        runOnUi(() -> {
+        Runnable action = () -> {
             PagOverlayManager manager = getManager(key);
             if (manager != null) {
                 manager.requestNextGpuFrame();
             }
-        });
+        };
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            action.run();
+        } else {
+            sMainHandler.post(action);
+        }
     }
 
     public static void ReplaceText(int index, String text) {
@@ -563,7 +598,7 @@ public final class PagBridge {
     }
 
     public static void ExportVideo(String instanceKey, String pagPath, String outputName,
-                                   String callbackGameObject, String callbackMethod) {
+                                  String callbackGameObject, String callbackMethod) {
         final String key = normalizeKey(instanceKey);
         runOnUi(() -> {
             if (!ensureManager(key)) {
@@ -571,6 +606,40 @@ public final class PagBridge {
             }
             getManager(key).exportVideo(pagPath, outputName, callbackGameObject, callbackMethod);
         });
+    }
+
+    /** 全局预加载 PAG composition 到 LRU 缓存（任意 instanceKey 共享）。 */
+    public static void PreloadComposition(String path) {
+        if (path == null || path.isEmpty()) {
+            Log.w(TAG, "PreloadComposition: empty path");
+            return;
+        }
+        Log.i(TAG, "PreloadComposition: " + path);
+        PagCompositionCache.preloadAsync(path, PagBridge::loadPagFileStatic);
+    }
+
+    public static boolean IsCompositionCached(String path) {
+        return path != null && !path.isEmpty() && PagCompositionCache.contains(path);
+    }
+
+    private static PAGFile loadPagFileStatic(String path) {
+        if (path == null || path.isEmpty()) {
+            return null;
+        }
+        if (path.startsWith("assets://")) {
+            if (sActivity == null) {
+                Log.e(TAG, "loadPagFileStatic: activity null for assets path");
+                return null;
+            }
+            String assetPath = path.substring("assets://".length());
+            return PAGFile.Load(sActivity.getAssets(), assetPath);
+        }
+        File file = new File(path);
+        if (!file.exists()) {
+            Log.e(TAG, "loadPagFileStatic: file missing " + path);
+            return null;
+        }
+        return PAGFile.Load(path);
     }
 
     private static void runOnUi(Runnable action) {

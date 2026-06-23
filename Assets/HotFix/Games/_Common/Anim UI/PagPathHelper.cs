@@ -15,6 +15,14 @@ public static class PagPathHelper
     /// <summary>相对 GameRes 的 PAG 目录，可按游戏修改。</summary>
     public const string DefaultGamePagFolder = "Games/Slot Zhu Zai Jin Bi 1700/Pag";
 
+    /// <summary>Loading 阶段预热的常用 PAG（LRU 上限 3，勿一次列过多）。</summary>
+    public static readonly string[] DefaultGamePagPreloadFiles =
+    {
+        "XingXing1.pag",
+        "BigWin_1024.pag",
+        "XingXing3.pag",
+    };
+
     private const string CacheFolderName = "PagCache";
     private const string AbCacheFolderName = "_ab";
 
@@ -251,6 +259,27 @@ public static class PagPathHelper
         }
 
         onDone?.Invoke(ready);
+    }
+
+    /// <summary>批量磁盘预热 + Java composition 预解码（Loading 阶段使用）。</summary>
+    public static IEnumerator PreloadCompositionsCoroutine(
+        string[] fileNames,
+        string gamePagFolder = DefaultGamePagFolder,
+        Action<int, int> onProgress = null)
+    {
+        if (fileNames == null || fileNames.Length == 0)
+        {
+            onProgress?.Invoke(0, 0);
+            yield break;
+        }
+
+        int total = fileNames.Length;
+        for (int i = 0; i < total; i++)
+        {
+            bool ready = false;
+            yield return PagController.PreloadCompositionCoroutine(fileNames[i], gamePagFolder, ok => ready = ok);
+            onProgress?.Invoke(i + 1, total);
+        }
     }
 
     private static string NormalizePagLeaf(string fileName)

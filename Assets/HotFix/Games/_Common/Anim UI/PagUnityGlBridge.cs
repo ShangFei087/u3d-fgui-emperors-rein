@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 /// <summary>
 /// Unity GL 渲染线程创建 RGBA 纹理，供 FGUI CreateExternalTexture 与 libpag FromTexture 共享。
@@ -124,12 +125,36 @@ public static class PagUnityGlBridge
         onComplete?.Invoke();
     }
 
-    private static IEnumerator WaitForRenderThreadIdle()
+    /// <summary>
+    /// 等待渲染线程 GL 操作完成。Flush 路径已在 native ProcessFlushOp 内 glFinish，无需再发 FinishFrame。
+    /// </summary>
+    private static IEnumerator WaitForRenderThreadIdle(bool issueFinishFrame = true)
     {
+#if DEVELOPMENT_BUILD
+        Profiler.BeginSample("PAG.WaitRenderIdle");
+#endif
         yield return new WaitForEndOfFrame();
-        PagGl_SetActiveSlot(0);
-        GL.IssuePluginEvent(PagGl_GetRenderEventFunc(), PagGl_GetFinishFrameEventId());
-        yield return new WaitForEndOfFrame();
+        if (issueFinishFrame)
+        {
+            PagGl_SetActiveSlot(0);
+            GL.IssuePluginEvent(PagGl_GetRenderEventFunc(), PagGl_GetFinishFrameEventId());
+        }
+#if DEVELOPMENT_BUILD
+        Profiler.EndSample();
+#endif
+    }
+
+    private static void NotifyFlushPresented(IReadOnlyList<(int slotId, string instanceKey, double progress)> items)
+    {
+        if (items == null || items.Count == 0)
+        {
+            return;
+        }
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            PagCallbackHub.NotifyGpuFrameReadyAfterFlush(items[i].instanceKey);
+        }
     }
 
     public static IEnumerator EnsureTextureCoroutine(int slotId, int width, int height, Action<int, IntPtr> onReady)
@@ -189,6 +214,9 @@ public static class PagUnityGlBridge
 
     private static IEnumerator InternalIssueSetupBatch(IReadOnlyList<(int slotId, string instanceKey)> items)
     {
+#if DEVELOPMENT_BUILD
+        Profiler.BeginSample("PAG.GlSetupBatch");
+#endif
         for (int i = 0; i < items.Count; i++)
         {
             (int slotId, string instanceKey) item = items[i];
@@ -197,6 +225,9 @@ public static class PagUnityGlBridge
 
         GL.IssuePluginEvent(PagGl_GetRenderEventFunc(), PagGl_GetSetupPagGpuEventId());
         yield return WaitForRenderThreadIdle();
+#if DEVELOPMENT_BUILD
+        Profiler.EndSample();
+#endif
     }
 
     public static void IssueFlushPagGpuEvent(int slotId, string instanceKey, double progress)
@@ -216,6 +247,9 @@ public static class PagUnityGlBridge
 
     private static IEnumerator InternalIssueFlushBatch(IReadOnlyList<(int slotId, string instanceKey, double progress)> items)
     {
+#if DEVELOPMENT_BUILD
+        Profiler.BeginSample("PAG.GlFlushBatch");
+#endif
         for (int i = 0; i < items.Count; i++)
         {
             (int slotId, string instanceKey, double progress) item = items[i];
@@ -223,7 +257,11 @@ public static class PagUnityGlBridge
         }
 
         GL.IssuePluginEvent(PagGl_GetRenderEventFunc(), PagGl_GetFlushPagGpuEventId());
-        yield return WaitForRenderThreadIdle();
+        yield return WaitForRenderThreadIdle(issueFinishFrame: false);
+        NotifyFlushPresented(items);
+#if DEVELOPMENT_BUILD
+        Profiler.EndSample();
+#endif
     }
 
     public static void IssueFinishFrameEvent(int slotId)
@@ -234,7 +272,6 @@ public static class PagUnityGlBridge
     private static IEnumerator InternalIssueFinishFrame(int slotId)
     {
         PagGl_SetActiveSlot(slotId);
-        GL.IssuePluginEvent(PagGl_GetRenderEventFunc(), PagGl_GetFinishFrameEventId());
         yield return WaitForRenderThreadIdle();
     }
 

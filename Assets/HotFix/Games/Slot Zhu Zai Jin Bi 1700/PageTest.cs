@@ -32,19 +32,19 @@ namespace SlotZhuZaiJinBi1700
 
             };
             callback();
-
         }
 
         public override void OnOpen(PageName name, EventData data)
         {
             base.OnOpen(name, data);
+            //TestManager.Instance.SetToolActive(false);
             InitParam();
         }
 
         public override void OnClose(EventData data = null)
         {
+            TestUtils.CheckTestManager();
             base.OnClose(data);
-
         }
 
         public override void OnTop()

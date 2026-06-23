@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 /// <summary>
 /// 全局 UnitySendMessage 回调 Hub；payload 格式：instanceKey + '\x1f' + data。
@@ -103,7 +104,22 @@ public sealed class PagCallbackHub : MonoBehaviour
 
     public void OnPagGpuFrameReady(string message)
     {
+        // Legacy JNI 回调；Flush 完成后改由 NotifyGpuFrameReadyAfterFlush 在 GL 队列侧触发。
         PagController controller = Resolve(message, out _);
+        controller?.HandleGpuFrameReady(string.Empty);
+    }
+
+    /// <summary>
+    /// Flush GL 批处理完成后由 PagUnityGlBridge 调用，替代 native notifyGpuFrameReady JNI。
+    /// </summary>
+    public static void NotifyGpuFrameReadyAfterFlush(string instanceKey)
+    {
+        if (string.IsNullOrEmpty(instanceKey))
+        {
+            return;
+        }
+
+        PagController controller = PagControllerRegistry.Resolve(instanceKey);
         controller?.HandleGpuFrameReady(string.Empty);
     }
 

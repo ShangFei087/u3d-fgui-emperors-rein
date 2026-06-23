@@ -269,8 +269,8 @@ static void ProcessFlushOp(const PendingGlOp& op) {
     }
     const bool flushOk = CallFlushGpuFrameOnRenderThread(progress, op.slotId, op.instanceKey);
     if (flushOk) {
+        // Flush 路径唯一 glFinish；native 播放状态由 Unity HandleGpuFrameReady → OnGpuFlushCompleted 回写。
         glFinish();
-        CallNotifyGpuFramePresentedOnMainThread(op.slotId, op.instanceKey);
     }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

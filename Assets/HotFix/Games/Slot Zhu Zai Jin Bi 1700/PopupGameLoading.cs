@@ -1,6 +1,7 @@
 using FairyGUI;
 using GameMaker;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace SlotZhuZaiJinBi1700
@@ -25,6 +26,7 @@ namespace SlotZhuZaiJinBi1700
 
         private float _preloadStartRealtime;
         private TimerCallback _pendingMinDisplayCallback;
+        private Coroutine _pagPreloadCoroutine;
 
         protected override void OnInit()
         {
@@ -80,7 +82,29 @@ namespace SlotZhuZaiJinBi1700
                 _pendingMinDisplayCallback = null;
             }
 
+            StopPagPreloadCoroutine();
+            DisposeLoadingWrappers();
             base.OnClose(data);
+        }
+
+        /// <summary>
+        /// 关闭时释放 Loading Spine GoWrapper，避免 clone 仍 active 被 SpineStatsCounter 计为在屏渲染。
+        /// </summary>
+        private void DisposeLoadingWrappers()
+        {
+            if (_animatorLoadingTitle != null)
+            {
+                _animatorLoadingTitle.enabled = false;
+                _animatorLoadingTitle = null;
+            }
+
+            GameCommon.FguiUtils.DeleteWrapper(_anchorBg);
+            GameCommon.FguiUtils.DeleteWrapper(_anchorTitle);
+
+            _cloneLoadingBg = null;
+            _cloneLoadingTitle = null;
+            _anchorBg = null;
+            _anchorTitle = null;
         }
 
         public override void InitParam()
@@ -141,8 +165,41 @@ namespace SlotZhuZaiJinBi1700
             if (_animatorLoadingTitle != null)
                 _animatorLoadingTitle.enabled = true;
 
+            StartPagPreloadInBackground();
+
             for (int i = 0; i < pages.Length; i++)
                 PageManager.Instance.PreloadPage(pages[i], OnOnePreloadPageDone);
+        }
+
+        /// <summary>利用 Loading 最短展示窗口并行预热 PAG 磁盘缓存 + Java composition 解码。</summary>
+        private void StartPagPreloadInBackground()
+        {
+            StopPagPreloadCoroutine();
+            PagCallbackHub.EnsureInstance();
+            PagController.EnsureInit();
+            _pagPreloadCoroutine = PagCallbackHub.Instance.RunCoroutine(PagPreloadCoroutine());
+        }
+
+        private void StopPagPreloadCoroutine()
+        {
+            if (_pagPreloadCoroutine == null)
+            {
+                return;
+            }
+
+            PagCallbackHub.Instance.StopRunCoroutine(_pagPreloadCoroutine);
+            _pagPreloadCoroutine = null;
+        }
+
+        private IEnumerator PagPreloadCoroutine()
+        {
+            Debug.Log("[1700 Loading] PAG preload start");
+            yield return PagPathHelper.PreloadCompositionsCoroutine(
+                PagPathHelper.DefaultGamePagPreloadFiles,
+                PagPathHelper.DefaultGamePagFolder,
+                (done, total) => Debug.Log($"[1700 Loading] PAG preload progress {done}/{total}"));
+            Debug.Log("[1700 Loading] PAG preload finished");
+            _pagPreloadCoroutine = null;
         }
 
         private void OnOnePreloadPageDone()
@@ -207,7 +264,8 @@ namespace SlotZhuZaiJinBi1700
             }
             else
             {
-                PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinPageTest);
+                PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinBiPageGameMain);
+                //PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinPageTest);
             }
         }
 

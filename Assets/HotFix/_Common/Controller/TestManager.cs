@@ -294,6 +294,7 @@ public class TestManager : Singleton<TestManager>
                         PageManager.Instance.pageCacheDict[resetPageNames[j]].IsOpen())
                         PageManager.Instance.ClosePage(resetPageNames[j]);
                 }
+                PageManager.Instance.ClosePage(PageName.TreasuryHallMain);
 
                 selectProjectMenu.visible = false;
                 if (!ApplicationSettings.Instance.isMock)

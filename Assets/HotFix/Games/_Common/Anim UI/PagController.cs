@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using FairyGUI;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 /// <summary>
 /// PAG 播放控制器（纯 C# 类）。通过 Attach 绑定 FGUI 锚点（内部查找 pagEffect）；
@@ -213,6 +214,116 @@ public class PagController : IDisposable
         return unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
     }
 
+    private const float PreloadCompositionPollIntervalSec = 0.05f;
+    private const float PreloadCompositionTimeoutSec = 30f;
+
+    public static void PreloadComposition(string pagName, string gamePagFolder = PagPathHelper.DefaultGamePagFolder)
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        string absPath = ResolvePagPath(pagName, gamePagFolder);
+        if (string.IsNullOrEmpty(absPath) || !PagPathHelper.IsValidPagFile(absPath))
+        {
+            Debug.LogWarning($"[PAG] PreloadComposition skipped: invalid path for {pagName}");
+            return;
+        }
+
+        EnsureInit();
+        if (_pagBridge == null)
+        {
+            Debug.LogWarning("[PAG] PreloadComposition skipped: PagBridge not initialized");
+            return;
+        }
+
+        if (IsCompositionCached(absPath))
+        {
+            Debug.Log($"[PAG] PreloadComposition already cached: {absPath}");
+            return;
+        }
+
+        _pagBridge.CallStatic("PreloadComposition", absPath);
+        Debug.Log($"[PAG] PreloadComposition dispatched: {absPath}");
+#else
+        Debug.LogWarning($"[PAG] PreloadComposition skipped (non-Android/Editor): {pagName}");
+#endif
+    }
+
+    public static bool IsCompositionCached(string absPath)
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        if (string.IsNullOrEmpty(absPath) || _pagBridge == null)
+        {
+            return false;
+        }
+
+        try
+        {
+            return _pagBridge.CallStatic<bool>("IsCompositionCached", absPath);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning($"[PAG] IsCompositionCached: {ex.Message}");
+            return false;
+        }
+#else
+        return false;
+#endif
+    }
+
+    public static IEnumerator PreloadCompositionCoroutine(
+        string pagName,
+        string gamePagFolder = PagPathHelper.DefaultGamePagFolder,
+        Action<bool> onDone = null)
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        string absPath = ResolvePagPath(pagName, gamePagFolder);
+        if (string.IsNullOrEmpty(absPath) || !PagPathHelper.IsValidPagFile(absPath))
+        {
+            Debug.LogWarning($"[PAG] PreloadCompositionCoroutine failed: invalid path for {pagName}");
+            onDone?.Invoke(false);
+            yield break;
+        }
+
+        if (IsCompositionCached(absPath))
+        {
+            Debug.Log($"[PAG] PreloadCompositionCoroutine already cached: {absPath}");
+            onDone?.Invoke(true);
+            yield break;
+        }
+
+        yield return PagPathHelper.WarmupPagCacheCoroutine(pagName, gamePagFolder);
+
+        absPath = ResolvePagPath(pagName, gamePagFolder);
+        if (string.IsNullOrEmpty(absPath) || !PagPathHelper.IsValidPagFile(absPath))
+        {
+            onDone?.Invoke(false);
+            yield break;
+        }
+
+        PreloadComposition(pagName, gamePagFolder);
+
+        float deadline = Time.unscaledTime + PreloadCompositionTimeoutSec;
+        while (!IsCompositionCached(absPath) && Time.unscaledTime < deadline)
+        {
+            yield return new WaitForSecondsRealtime(PreloadCompositionPollIntervalSec);
+        }
+
+        bool ready = IsCompositionCached(absPath);
+        if (!ready)
+        {
+            Debug.LogWarning($"[PAG] PreloadCompositionCoroutine timeout: {pagName}, path={absPath}");
+        }
+        else
+        {
+            Debug.Log($"[PAG] PreloadCompositionCoroutine ready: {absPath}");
+        }
+
+        onDone?.Invoke(ready);
+#else
+        onDone?.Invoke(false);
+        yield break;
+#endif
+    }
+
     public void ResetPlayStartedSignal()
     {
         _playStartedSignal = false;
@@ -256,8 +367,14 @@ public class PagController : IDisposable
     internal void HandleGpuRenderFrame(string message)
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
+#if DEVELOPMENT_BUILD
+        Profiler.BeginSample("PAG.GpuRenderFrame");
+#endif
         if (_renderTarget != PagRenderTarget.FguiTexture)
         {
+#if DEVELOPMENT_BUILD
+            Profiler.EndSample();
+#endif
             return;
         }
 
@@ -271,29 +388,49 @@ public class PagController : IDisposable
         if (PagGpuSyncGroup.Contains(InstanceKey))
         {
             PagGpuSyncGroup.OnGpuRenderRequested(InstanceKey, progress);
+#if DEVELOPMENT_BUILD
+            Profiler.EndSample();
+#endif
             return;
         }
 
         PagUnityGlBridge.IssueFlushPagGpuEvent(_textureSlotId, InstanceKey, progress);
+#if DEVELOPMENT_BUILD
+        Profiler.EndSample();
+#endif
 #endif
     }
 
     internal void HandleGpuFrameReady(string message)
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
+#if DEVELOPMENT_BUILD
+        Profiler.BeginSample("PAG.GpuFrameReady");
+#endif
         if (_renderTarget != PagRenderTarget.FguiTexture)
         {
+#if DEVELOPMENT_BUILD
+            Profiler.EndSample();
+#endif
             return;
         }
 
         if (PagGpuSyncGroup.Contains(InstanceKey))
         {
+            SafeCall("OnGpuFlushCompleted", () => _pagBridge.CallStatic("OnGpuFlushCompleted", InstanceKey));
             PagGpuSyncGroup.OnGpuFramePresented(InstanceKey);
+#if DEVELOPMENT_BUILD
+            Profiler.EndSample();
+#endif
             return;
         }
 
+        SafeCall("OnGpuFlushCompleted", () => _pagBridge.CallStatic("OnGpuFlushCompleted", InstanceKey));
         _fguiPresenter.OnGpuFrameReady();
         ScheduleNextGpuFrameAfterPresent();
+#if DEVELOPMENT_BUILD
+        Profiler.EndSample();
+#endif
 #endif
     }
 
@@ -512,6 +649,30 @@ public class PagController : IDisposable
         return fallbackSec;
     }
 
+    public int GetCompositionFrameRate()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        if (_pagBridge == null)
+        {
+            return 0;
+        }
+
+        try
+        {
+            float frameRate = _pagBridge.CallStatic<float>("GetCompositionFrameRate", InstanceKey);
+            if (frameRate > 0f)
+            {
+                return Mathf.RoundToInt(frameRate);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning($"[PAG] GetCompositionFrameRate: {ex.Message}");
+        }
+#endif
+        return 0;
+    }
+
     private void SetupGpuCallbacksBeforePlay()
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -647,8 +808,9 @@ public class PagController : IDisposable
     private IEnumerator RequestNextGpuFrameAfterPresent()
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
-        yield return new WaitForEndOfFrame();
-
+#if DEVELOPMENT_BUILD
+        Profiler.BeginSample("PAG.RequestNextFrame");
+#endif
         if (_lastGpuFramePresentTime > 0f)
         {
             float elapsed = Time.unscaledTime - _lastGpuFramePresentTime;
@@ -661,6 +823,9 @@ public class PagController : IDisposable
         _lastGpuFramePresentTime = Time.unscaledTime;
         SafeCall("RequestNextGpuFrame", () => _pagBridge.CallStatic("RequestNextGpuFrame", InstanceKey));
         _gpuNextFrameCoroutine = null;
+#if DEVELOPMENT_BUILD
+        Profiler.EndSample();
+#endif
 #else
         yield break;
 #endif

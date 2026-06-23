@@ -282,6 +282,7 @@ public class Main
 
         TestManager.Instance.Init($"Ver {ApplicationSettings.Instance.appVersion}/{GlobalData.hotfixVersion}");
         TestUtils.CheckTestManager();
+        TestUtils.CheckGCMonitorPro();
         TestUtils.CheckReporter();
 
 
