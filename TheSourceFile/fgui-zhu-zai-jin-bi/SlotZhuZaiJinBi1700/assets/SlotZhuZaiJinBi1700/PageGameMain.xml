@@ -58,5 +58,20 @@
     <component id="n47_mgwn" name="Effect5" src="ugpc8r" fileName="components/ButtonTest.xml" xy="366,1848" size="119,63">
       <Button title="Effect5" titleFontSize="30"/>
     </component>
+    <component id="n48_combo" name="P2S1" src="ugpc8r" fileName="components/ButtonTest.xml" xy="548,1500" size="130,63">
+      <Button title="P2S1" titleFontSize="30"/>
+    </component>
+    <component id="n49_combo" name="P2S2" src="ugpc8r" fileName="components/ButtonTest.xml" xy="548,1587" size="130,63">
+      <Button title="P2S2" titleFontSize="30"/>
+    </component>
+    <component id="n50_combo" name="P3S2" src="ugpc8r" fileName="components/ButtonTest.xml" xy="548,1674" size="130,63">
+      <Button title="P3S2" titleFontSize="30"/>
+    </component>
+    <component id="n51_combo" name="S2E1E2" src="ugpc8r" fileName="components/ButtonTest.xml" xy="548,1761" size="130,63">
+      <Button title="S2E1E2" titleFontSize="26"/>
+    </component>
+    <component id="n52_combo" name="S1E1E2" src="ugpc8r" fileName="components/ButtonTest.xml" xy="548,1848" size="130,63">
+      <Button title="S1E1E2" titleFontSize="26"/>
+    </component>
   </displayList>
 </component>

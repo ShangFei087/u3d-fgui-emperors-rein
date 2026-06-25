@@ -26,6 +26,7 @@ namespace SlotZhuZaiJinBi1700
 
         private float _preloadStartRealtime;
         private TimerCallback _pendingMinDisplayCallback;
+        /// <summary>Loading 阶段 PAG 预热协程；与 Page 预加载并行，OnClose 必须 Stop 避免泄漏。</summary>
         private Coroutine _pagPreloadCoroutine;
 
         protected override void OnInit()
@@ -165,6 +166,7 @@ namespace SlotZhuZaiJinBi1700
             if (_animatorLoadingTitle != null)
                 _animatorLoadingTitle.enabled = true;
 
+            // 与 PageManager.PreloadPage 并行：利用 Loading 窗口预热 PAG 磁盘缓存与 composition
             StartPagPreloadInBackground();
 
             for (int i = 0; i < pages.Length; i++)
@@ -180,6 +182,7 @@ namespace SlotZhuZaiJinBi1700
             _pagPreloadCoroutine = PagCallbackHub.Instance.RunCoroutine(PagPreloadCoroutine());
         }
 
+        /// <summary>关闭 Loading 时中断 PAG 预热协程，避免 PagCallbackHub 上残留 RunCoroutine。</summary>
         private void StopPagPreloadCoroutine()
         {
             if (_pagPreloadCoroutine == null)
@@ -191,6 +194,10 @@ namespace SlotZhuZaiJinBi1700
             _pagPreloadCoroutine = null;
         }
 
+        /// <summary>
+        /// 预热 PagPathHelper.DefaultGamePagPreloadFiles（LRU 上限 10）：
+        /// AB 解压到 PagCache + Java composition 解码，缩短进局后首次 Play 耗时。
+        /// </summary>
         private IEnumerator PagPreloadCoroutine()
         {
             Debug.Log("[1700 Loading] PAG preload start");

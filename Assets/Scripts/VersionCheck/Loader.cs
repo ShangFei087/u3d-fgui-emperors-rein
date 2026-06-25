@@ -85,6 +85,9 @@ public class Loader : MonoBehaviour
     /// <summary> 加载前 </summary>
     void OnLoadingBefore()
     {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 30;
+
         GameObject goReporter = GOFind.FindObjectIncludeInactive("Reporter");
         if (goReporter != null)
         {

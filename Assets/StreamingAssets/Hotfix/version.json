@@ -1,11 +1,11 @@
 {
-  "updated_at": 1782206213537,
+  "updated_at": 1782285883244,
   "hotfix_key": "hf_debug_android_20260622160520",
-  "hotfix_version": "1.4.18",
+  "hotfix_version": "1.4.24",
   "asset_bundle": {
     "manifest": {
-      "hash": "c59f4151bca5561477a4a825e4cbfee7",
-      "size_bytes": 25944
+      "hash": "1038bf01398d1c3782ee3bdc85c31d89",
+      "size_bytes": 25957
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
@@ -700,10 +700,11 @@
       "games/huo yan gong niu 3995/smallgame/art/effect/prefabs/ng_eff_zhuanpanzhongjiang03.unity3d": "64ddce83544c9d84168f69cc60e7b041",
       "games/panel/panel01/fguis.unity3d": "bc228e55b570f7326a49040c1e992562",
       "games/panel01/fguis.unity3d": "300996783f51d3089fe9ff4b89c33960",
-      "games/slot zhu zai jin bi 1700/fguis.unity3d": "5e73cbcaaef3886388652bc676b177ed",
+      "games/slot zhu zai jin bi 1700/fguis.unity3d": "f28499070bbc1bcb3d6dccea9ec8e023",
       "games/slot zhu zai jin bi 1700/pag/bigwin_1024.unity3d": "4aa9302b0ef333abc6cd90ffa1fa935a",
       "games/slot zhu zai jin bi 1700/pag/caihongfeidie.unity3d": "23ddbd2708b00b5faefdee0a013cc1df",
       "games/slot zhu zai jin bi 1700/pag/dragon.unity3d": "70f4bba5e827bd3ca698d6520d7124f5",
+      "games/slot zhu zai jin bi 1700/pag/fade.unity3d": "e3f8a0b0ac38a2efed3d5e7e0254a9d9",
       "games/slot zhu zai jin bi 1700/pag/feizhou.unity3d": "2132ad29aab6a86e1b57d23eddabc2c3",
       "games/slot zhu zai jin bi 1700/pag/fire.unity3d": "90793752ac1eff79afb997d6406cc636",
       "games/slot zhu zai jin bi 1700/pag/xingxing1.unity3d": "ba25a2c18ef8236d41a5a024d612c141",
@@ -895,8 +896,8 @@
       "size_bytes": 168448
     },
     "HotFix": {
-      "hash": "bdaab889e7a57e7a85fdd0ed9abdbe4a",
-      "size_bytes": 1922048
+      "hash": "666071e4fcd51357f145b0f02d432da5",
+      "size_bytes": 1924608
     }
   },
   "hotfix_dll_load_order": [

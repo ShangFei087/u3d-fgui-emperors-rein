@@ -20,6 +20,7 @@ public partial class AssetBundleBuilder05 : EditorWindow
     [MenuItem("NewBuild/拷贝DLL到StreamingAssets目录GameDll 下并更改后缀名")]
     public static void CopyDllAndReName002()
     {
+        ApplicationSettingsPlayerSync.TrySync();
 
         CopyDll();
 
@@ -146,6 +147,8 @@ public partial class AssetBundleBuilder05 : EditorWindow
     [MenuItem("NewBuild/打包1001")]
     public static void BuildPigSlotGameResource002()
     {
+        ApplicationSettingsPlayerSync.TrySync();
+
         CopyAotMeta();
         CopyDll();
         CopyAssetBackup();

@@ -456,6 +456,23 @@ public class ApplicationSettingsEditor : Editor
 
         // ===============================================================
 
+        // 开始一个垂直布局组
+        EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+        originalColor = GUI.contentColor;
+        GUI.contentColor = Color.green;
+        GUILayout.Label("同步 Player Settings", EditorStyles.boldLabel);
+        GUI.contentColor = originalColor;
+
+        if (GUILayout.Button("确定"))
+        {
+            ApplicationSettingsPlayerSync.TrySync(logAlways: true);
+        }
+
+        EditorGUILayout.EndVertical();
+
+
+        // ===============================================================
 
         // 开始一个垂直布局组
         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
@@ -595,6 +612,7 @@ public class ApplicationSettingsEditor : Editor
         File.WriteAllText(PathHelper.totalVersionSAPTH, content);
         #endregion
 
+        ApplicationSettingsPlayerSync.TrySync();
         AssetDatabase.Refresh();
     }
 

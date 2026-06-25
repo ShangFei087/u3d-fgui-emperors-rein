@@ -22,12 +22,35 @@ public static class PagGroupPlayer
         int repeatCount = 1,
         Action<string, string> onPlayFailed = null)
     {
+        return PlayOnSlots(
+            new[] { pagFile },
+            slots,
+            layoutBuilder,
+            useFguiTexture,
+            maxDisplaySide,
+            fps,
+            logPrefix,
+            repeatCount,
+            onPlayFailed);
+    }
+
+    public static Coroutine PlayOnSlots(
+        IReadOnlyList<string> pagFilesPerSlot,
+        IReadOnlyList<PagSlotBinding> slots,
+        LayoutExtraBuilder layoutBuilder,
+        bool useFguiTexture,
+        int maxDisplaySide,
+        int fps,
+        string logPrefix = "[PAG Group]",
+        int repeatCount = 1,
+        Action<string, string> onPlayFailed = null)
+    {
         return PagCallbackHub.Instance.RunCoroutine(PlayCoroutine(
-            pagFile, slots, layoutBuilder, useFguiTexture, maxDisplaySide, fps, repeatCount, logPrefix, onPlayFailed));
+            pagFilesPerSlot, slots, layoutBuilder, useFguiTexture, maxDisplaySide, fps, repeatCount, logPrefix, onPlayFailed));
     }
 
     private static IEnumerator PlayCoroutine(
-        string pagFile,
+        IReadOnlyList<string> pagFilesPerSlot,
         IReadOnlyList<PagSlotBinding> slots,
         LayoutExtraBuilder layoutBuilder,
         bool useFguiTexture,
@@ -37,12 +60,18 @@ public static class PagGroupPlayer
         string logPrefix,
         Action<string, string> onPlayFailed)
     {
-        if (slots == null || slots.Count == 0)
+        if (pagFilesPerSlot == null || pagFilesPerSlot.Count == 0 || slots == null || slots.Count == 0)
         {
             yield break;
         }
 
-        Debug.Log($"{logPrefix} Play: {pagFile} on {slots.Count} slot(s)");
+        if (pagFilesPerSlot.Count != 1 && pagFilesPerSlot.Count != slots.Count)
+        {
+            Debug.LogError($"{logPrefix} pagFilesPerSlot count ({pagFilesPerSlot.Count}) must be 1 or match slots ({slots.Count})");
+            yield break;
+        }
+
+        Debug.Log($"{logPrefix} Play on {slots.Count} slot(s), files={string.Join(", ", pagFilesPerSlot)}");
 
         PagGpuSyncGroup.EndGroup();
 
@@ -78,6 +107,8 @@ public static class PagGroupPlayer
                 continue;
             }
 
+            string pagFile = pagFilesPerSlot.Count == 1 ? pagFilesPerSlot[0] : pagFilesPerSlot[i];
+
             if (!slot.PreparePlay(useFguiTexture, maxDisplaySide, fps))
             {
                 string msg = $"PreparePlay failed on {slot.InstanceKey}";
@@ -104,6 +135,10 @@ public static class PagGroupPlayer
                 string msg = $"Play failed: {pagFile} on {slot.InstanceKey}";
                 Debug.LogError($"{logPrefix} {msg}");
                 onPlayFailed?.Invoke(slot.InstanceKey, msg);
+            }
+            else
+            {
+                Debug.Log($"{logPrefix} Play: {pagFile} on {slot.InstanceKey}");
             }
         }
 

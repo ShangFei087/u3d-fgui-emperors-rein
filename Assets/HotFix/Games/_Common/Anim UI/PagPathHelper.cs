@@ -15,12 +15,13 @@ public static class PagPathHelper
     /// <summary>相对 GameRes 的 PAG 目录，可按游戏修改。</summary>
     public const string DefaultGamePagFolder = "Games/Slot Zhu Zai Jin Bi 1700/Pag";
 
-    /// <summary>Loading 阶段预热的常用 PAG（LRU 上限 3，勿一次列过多）。</summary>
+    /// <summary>Loading 阶段预热的常用 PAG（LRU 上限 10）。</summary>
     public static readonly string[] DefaultGamePagPreloadFiles =
     {
-        "XingXing1.pag",
         "BigWin_1024.pag",
-        "XingXing3.pag",
+        "Fade.pag",
+        "XingXing2.pag",
+        "Fire.pag",
     };
 
     private const string CacheFolderName = "PagCache";

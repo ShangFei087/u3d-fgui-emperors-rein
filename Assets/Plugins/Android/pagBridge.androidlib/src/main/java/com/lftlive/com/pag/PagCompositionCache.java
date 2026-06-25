@@ -14,7 +14,7 @@ import java.util.Map;
  */
 final class PagCompositionCache {
     private static final String TAG = "PagCompositionCache";
-    private static final int MAX_CACHE_SIZE = 3;
+    private static final int MAX_CACHE_SIZE = 10;
 
     private static final Map<String, PAGFile> sCache = new LinkedHashMap<String, PAGFile>(MAX_CACHE_SIZE, 0.75f, true) {
         @Override
