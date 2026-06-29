@@ -42,6 +42,7 @@ import org.libpag.PAGView;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 /**
  * 在 Unity Activity 上层管理 PAGView overlay，实现 pagDemo 中的核心能力。
@@ -124,8 +125,6 @@ final class PagOverlayManager {
 
     private int renderMode = RENDER_MODE_OVERLAY;
     private int fguiMaxDisplaySide = DEFAULT_FGUI_MAX_DISPLAY_SIDE;
-    private String gpuFrameCallbackGo;
-    private String gpuFrameCallbackMethod;
     private String gpuTextureRequestGo;
     private String gpuTextureRequestMethod;
     private String gpuRenderCallbackGo;
@@ -141,14 +140,35 @@ final class PagOverlayManager {
     private Runnable fguiGpuTickRunnable;
     private boolean fguiGpuActive;
     private boolean fguiGpuSurfaceReady;
-    private long fguiGpuPlaybackStartMs;
-    private double fguiGpuPendingProgress;
+    private volatile long fguiGpuPlaybackStartMs;
+    private volatile double fguiGpuPendingProgress;
     private boolean fguiGpuPlayStartedNotified;
     private int fguiGpuInfiniteLoopCount;
     private long fguiGpuLastCompletedLoops;
     private int gpuPlayerRecycleEveryLoop;
+    /** Phase4B：PagGpuSyncGroup 由 C# 统一节流要帧，Java 不自动 schedule tick。 */
+    private volatile boolean fguiGpuExternalPump;
+    /** Phase3e：UI 线程在 request progress=1.0 时 arm，GL chain 消费快照避免跨线程读 pending 为 null。 */
+    private volatile GlChainSnapshot glChainSnapshotArmed;
+    /** Phase3f：arm/take 快照与 GL chain 段末投递同步。 */
+    private final Object _glChainLock = new Object();
+    /** Phase4C：GPU tick 状态机。 */
+    private enum FguiGpuTickPhase {
+        STOPPED,
+        PLAYING,
+        /** progress=1.0 已发出且 playlist 仍有下一段；等 GL tryChain */
+        SEGMENT_END_FLUSHING,
+        /** GL tryChain 完成，deliver 待主线程投递 */
+        CHAIN_DELIVER_PENDING
+    }
+
+    private volatile FguiGpuTickPhase fguiGpuTickPhase = FguiGpuTickPhase.STOPPED;
+    /** Phase3k：composition 切换后下一次 flush 前先 clearAll，避免旧段残留 alpha 叠加。 */
+    private volatile boolean fguiGpuClearBeforeNextFlush;
 
     private static final float DEFAULT_COMPOSITION_FRAME_RATE = 30f;
+    /** Phase3j：段末 armed 刷新阈值，覆盖 0.984 等末帧采样。 */
+    private static final double GL_CHAIN_ARM_PROGRESS_THRESHOLD = 0.98;
 
     private static final class FguiGpuProgressSnapshot {
         double progress;
@@ -156,6 +176,25 @@ final class PagOverlayManager {
         long totalFrames;
         long completedLoops;
     }
+
+    /** UI 线程段末 flush 前拷贝的 pending 段，供 GL tryChainRenderThread 消费。 */
+    private static final class GlChainSnapshot {
+        String path;
+        int repeat;
+        PAGFile pagFile;
+    }
+
+    /** Phase4E：Native 播放列表条目（path/repeat/preload）。 */
+    private static final class FguiGpuPlaylistEntry {
+        String path;
+        int repeat;
+        PAGFile pagFile;
+    }
+
+    /** Phase4E：单槽内多段无缝连播；段切换由 Native tryChain 完成，C# 仅等整链结束。 */
+    private final ArrayList<FguiGpuPlaylistEntry> fguiGpuPlaylist = new ArrayList<>();
+    private int fguiGpuPlaylistIndex = -1;
+    private volatile boolean fguiGpuPlaylistActive;
 
     private static final String UNITY_CALLBACK_HUB = "PagCallbackHub";
     private static final char UNITY_PAYLOAD_SEP = '\u001f';
@@ -214,12 +253,6 @@ final class PagOverlayManager {
         }
         Log.i(TAG, "setFguiFrameConfig: maxSide=" + fguiMaxDisplaySide + " fps="
                 + (bitmapFallbackFrameMs > 0 ? (1000L / bitmapFallbackFrameMs) : BITMAP_FALLBACK_FPS));
-    }
-
-    void setGpuFrameCallback(String callbackGo, String callbackMethod) {
-        gpuFrameCallbackGo = callbackGo;
-        gpuFrameCallbackMethod = callbackMethod;
-        Log.i(TAG, "setGpuFrameCallback: " + callbackGo + "." + callbackMethod);
     }
 
     void setGpuTextureRequestCallback(String callbackGo, String callbackMethod) {
@@ -343,6 +376,7 @@ final class PagOverlayManager {
         fguiGpuLastCompletedLoops = 0L;
         isPlaying = false;
         pendingPlaybackCaller = null;
+        resetFguiGpuChainState();
     }
 
     void play(String path, String position, String extra) {
@@ -454,8 +488,15 @@ final class PagOverlayManager {
 
     void stop() {
         loadGeneration++;
-        mainHandler.post(() -> {
-            stopFguiGpuPlayback();
+        final boolean deferGpuSurfaceTeardown = renderMode == RENDER_MODE_FGUI_GPU
+                && (fguiGpuPlayer != null || fguiGpuSurface != null);
+        Runnable body = () -> {
+            if (deferGpuSurfaceTeardown) {
+                stopFguiGpuTickScheduling();
+                resetFguiGpuChainState();
+            } else {
+                stopFguiGpuPlayback();
+            }
             gpuTextureId = 0;
             gpuTexW = 0;
             gpuTexH = 0;
@@ -470,8 +511,14 @@ final class PagOverlayManager {
             isPlaying = false;
             pendingPlaybackCaller = null;
             currentPlayPath = null;
+            clearFguiGpuPlaylist();
             clearPlayStartedCallback();
-        });
+        };
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            body.run();
+        } else {
+            mainHandler.post(body);
+        }
     }
 
     private void clearPlayStartedCallback() {
@@ -1007,14 +1054,14 @@ final class PagOverlayManager {
         bitmapFallbackImageView.invalidate();
     }
 
-    private int[] resolveFguiTextureDimensions() {
-        if (pagFile == null) {
-            return new int[] {200, 200};
+    private int[] resolveFguiTextureDimensionsForFile(PAGFile file) {
+        if (file == null) {
+            return new int[] {0, 0};
         }
-        int w = pagFile.width();
-        int h = pagFile.height();
+        int w = file.width();
+        int h = file.height();
         if (w <= 0 || h <= 0) {
-            return new int[] {200, 200};
+            return new int[] {0, 0};
         }
         int maxSide = Math.max(w, h);
         if (fguiMaxDisplaySide > 0 && maxSide > fguiMaxDisplaySide) {
@@ -1022,10 +1069,18 @@ final class PagOverlayManager {
             w = Math.max(1, Math.round(w * scale));
             h = Math.max(1, Math.round(h * scale));
         }
-        Log.i(TAG, "resolveFguiTextureDimensions: composition=" + pagFile.width() + "x"
-                + pagFile.height() + " render=" + w + "x" + h
-                + " maxSideCap=" + fguiMaxDisplaySide);
         return new int[] {w, h};
+    }
+
+    private int[] resolveFguiTextureDimensions() {
+        int[] size = resolveFguiTextureDimensionsForFile(pagFile);
+        if (size[0] <= 0 || size[1] <= 0) {
+            return new int[] {200, 200};
+        }
+        Log.i(TAG, "resolveFguiTextureDimensions: composition=" + pagFile.width() + "x"
+                + pagFile.height() + " render=" + size[0] + "x" + size[1]
+                + " maxSideCap=" + fguiMaxDisplaySide);
+        return size;
     }
 
     private int[] resolveBitmapFallbackDimensions(int layoutW, int layoutH) {
@@ -1096,6 +1151,7 @@ final class PagOverlayManager {
         }
         fguiGpuActive = true;
         isPlaying = true;
+        setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
         fguiGpuPlaybackStartMs = System.currentTimeMillis();
         fguiGpuPendingProgress = 0.0;
         fguiGpuPlayStartedNotified = false;
@@ -1106,6 +1162,10 @@ final class PagOverlayManager {
                 + " durationUs=" + durationUs + " nativeFrames=" + nativeFrames
                 + " frameRate=" + pagFile.frameRate() + " caller=" + caller
                 + " (surface setup deferred to render thread)");
+        if (fguiGpuPlaylistActive) {
+            syncFguiGpuPlaylistIndexToCurrentPath();
+            armGlChainSnapshotFromPlaylistNext();
+        }
     }
 
     boolean setupGpuSurfaceOnRenderThread(int texId, int texW, int texH) {
@@ -1134,7 +1194,9 @@ final class PagOverlayManager {
             fguiGpuPlayer.setSurface(fguiGpuSurface);
             fguiGpuSurfaceReady = true;
             Log.i(TAG, "setupGpuSurfaceOnRenderThread: tex=" + texId + " " + texW + "x" + texH);
-            mainHandler.post(this::scheduleFguiGpuTick);
+            if (!fguiGpuExternalPump) {
+                mainHandler.post(this::scheduleFguiGpuTick);
+            }
             return true;
         } catch (Exception e) {
             Log.e(TAG, "setupGpuSurfaceOnRenderThread failed: " + e.getMessage());
@@ -1149,6 +1211,10 @@ final class PagOverlayManager {
             return false;
         }
         try {
+            if (fguiGpuClearBeforeNextFlush) {
+                fguiGpuClearBeforeNextFlush = false;
+                clearFguiGpuSurfaceOnRenderThread();
+            }
             fguiGpuPlayer.setProgress(progress);
             fguiGpuPlayer.flush();
             return true;
@@ -1158,12 +1224,46 @@ final class PagOverlayManager {
         }
     }
 
-    /** C++ 渲染线程 flush+glFinish 后回调；切到主线程再推进帧序（legacy，新路径走 OnGpuFlushCompleted）。 */
-    void onGpuFramePresentedOnMainThread() {
-        mainHandler.post(this::deliverGpuFramePresented);
+    /** Phase3k：渲染线程清空 FBO，避免段切换时旧帧 alpha 残留。 */
+    private boolean clearFguiGpuSurfaceOnRenderThread() {
+        if (!fguiGpuSurfaceReady || fguiGpuSurface == null) {
+            return false;
+        }
+        try {
+            fguiGpuSurface.clearAll();
+            Log.i(TAG, "clearFguiGpuSurfaceOnRenderThread: ok path=" + currentPlayPath);
+            return true;
+        } catch (Exception e) {
+            Log.w(TAG, "clearFguiGpuSurfaceOnRenderThread failed: " + e.getMessage());
+            return false;
+        }
     }
 
-    /** Unity HandleGpuFrameReady 在 GL 同步后调用，保证 onGpuFrameFlushed 先于 RequestNextGpuFrame。 */
+    /** Stop/DestroyTexture 前在渲染线程 detach Surface 并释放 PAGPlayer，避免 EGL_BAD_ACCESS。 */
+    boolean teardownGpuSurfaceOnRenderThread() {
+        try {
+            if (fguiGpuPlayer != null) {
+                fguiGpuPlayer.setSurface(null);
+            }
+            if (fguiGpuSurface != null) {
+                fguiGpuSurface.release();
+                fguiGpuSurface = null;
+            }
+            fguiGpuSurfaceReady = false;
+            if (fguiGpuPlayer != null) {
+                fguiGpuPlayer.release();
+                fguiGpuPlayer = null;
+            }
+            fguiGpuActive = false;
+            Log.i(TAG, "teardownGpuSurfaceOnRenderThread: ok path=" + currentPlayPath);
+            return true;
+        } catch (Exception e) {
+            Log.w(TAG, "teardownGpuSurfaceOnRenderThread failed: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /** Unity HandleGpuFrameReady 在 GL 同步后回调；Java schedule 下一 tick。 */
     void onGpuFrameFlushedAfterPresent() {
         if (!fguiGpuActive || fguiGpuPlayer == null || pagFile == null) {
             return;
@@ -1171,15 +1271,60 @@ final class PagOverlayManager {
         onGpuFrameFlushed();
     }
 
-    private void deliverGpuFramePresented() {
-        onGpuFrameFlushedAfterPresent();
+    void setFguiGpuExternalPump(boolean externalPump) {
+        fguiGpuExternalPump = externalPump;
+        Log.i(TAG, "setFguiGpuExternalPump: " + externalPump + " path=" + currentPlayPath);
     }
 
+    /** SyncGroup 外部泵：C# 节流后调用，等价于立即 tick 一次。 */
     void requestNextGpuFrame() {
         if (!fguiGpuActive || !fguiGpuSurfaceReady || fguiGpuPlayer == null || pagFile == null) {
             return;
         }
+        if (isChainPhaseBlockingTick()) {
+            return;
+        }
         requestGpuRenderFrame();
+    }
+
+    private boolean hasChainedSegmentPending() {
+        if (fguiGpuPlaylistActive && hasNextInFguiGpuPlaylist()) {
+            return true;
+        }
+        synchronized (_glChainLock) {
+            return glChainSnapshotArmed != null;
+        }
+    }
+
+    private boolean isChainPhaseBlockingTick() {
+        return fguiGpuTickPhase == FguiGpuTickPhase.SEGMENT_END_FLUSHING
+                || fguiGpuTickPhase == FguiGpuTickPhase.CHAIN_DELIVER_PENDING;
+    }
+
+    private void setFguiGpuTickPhase(FguiGpuTickPhase phase) {
+        if (fguiGpuTickPhase != phase) {
+            Log.d(TAG, "fguiGpuTickPhase: " + fguiGpuTickPhase + " -> " + phase
+                    + " path=" + currentPlayPath);
+        }
+        fguiGpuTickPhase = phase;
+    }
+
+    private void finishFinalSegment() {
+        if (fguiGpuPlaylistActive) {
+            finishFguiGpuSequence();
+            return;
+        }
+        Log.i(TAG, "finalSegmentPlaybackFinished path=" + currentPlayPath);
+        notifyPlaybackFinished();
+        stopFguiGpuTickScheduling();
+    }
+
+    private void finishFguiGpuSequence() {
+        Log.i(TAG, "fguiGpuSequenceFinished path=" + currentPlayPath
+                + " segments=" + fguiGpuPlaylist.size());
+        clearFguiGpuPlaylist();
+        notifyPlaybackFinished();
+        stopFguiGpuTickScheduling();
     }
 
     private void onGpuFrameFlushed() {
@@ -1190,18 +1335,440 @@ final class PagOverlayManager {
             fguiGpuPlayStartedNotified = true;
             notifyPlayStarted();
         }
-        boolean isLast = fguiGpuPendingProgress >= 0.999;
-        if (repeatCount < 0 && isLast) {
+        if (isChainPhaseBlockingTick()) {
             return;
         }
-        if (isLast) {
-            notifyPlaybackFinished();
-            stopFguiGpuTickScheduling();
+        boolean isSegmentEndProgress = fguiGpuPendingProgress >= 0.999;
+        if (repeatCount < 0 && isSegmentEndProgress) {
+            scheduleFguiGpuTickAfterDelay(resolveFrameIntervalMs());
+            return;
+        }
+        if (isSegmentEndProgress) {
+            if (hasChainedSegmentPending()) {
+                return;
+            }
+            finishFinalSegment();
+            return;
+        }
+        scheduleFguiGpuTickAfterDelay(resolveFrameIntervalMs());
+    }
+
+    /** GL tryChain 失败时 UI 线程 fallback */
+    private void onGpuFrameFlushedAfterGlSegmentTryChain() {
+        if (!fguiGpuActive || fguiGpuPlayer == null || pagFile == null) {
+            return;
+        }
+        if (fguiGpuTickPhase != FguiGpuTickPhase.SEGMENT_END_FLUSHING) {
+            return;
+        }
+        if (fguiGpuPendingProgress < 0.999) {
+            return;
+        }
+        if (repeatCount < 0) {
+            setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
+            return;
+        }
+        boolean chained = tryChainPendingFguiGpuCompositionSwitch();
+        if (chained) {
+            if (!fguiGpuPlaylistActive) {
+                notifyPlaybackFinished();
+            } else {
+                syncFguiGpuPlaylistIndexToCurrentPath();
+                armGlChainSnapshotFromPlaylistNext();
+            }
+            setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
+            fguiGpuActive = true;
+            scheduleFguiGpuTickImmediate();
+        } else {
+            Log.w(TAG, "onGpuFrameFlushedAfterGlTryChain: chain failed path=" + currentPlayPath
+                    + " progress=" + fguiGpuPendingProgress);
+            finishFinalSegment();
         }
     }
 
+    private void resetFguiGpuChainState() {
+        synchronized (_glChainLock) {
+            glChainSnapshotArmed = null;
+        }
+        if (fguiGpuActive && fguiGpuTickPhase != FguiGpuTickPhase.STOPPED) {
+            setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
+        }
+        fguiGpuClearBeforeNextFlush = false;
+    }
+
+    /** GL tryChain 成功后在主线程投递段末并续 tick（Phase4E-B：直接 PLAYING，无 CHAIN_SKIP）。 */
+    private void deliverGpuSegmentEndAfterRenderChain() {
+        if (!fguiGpuActive || fguiGpuPlayer == null || pagFile == null) {
+            setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
+            return;
+        }
+        if (fguiGpuTickPhase != FguiGpuTickPhase.CHAIN_DELIVER_PENDING) {
+            return;
+        }
+        setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
+        Log.i(TAG, "deliverGpuSegmentEndAfterRenderChain: path=" + currentPlayPath);
+        if (!fguiGpuPlaylistActive) {
+            notifyPlaybackFinished();
+        } else {
+            syncFguiGpuPlaylistIndexToCurrentPath();
+            armGlChainSnapshotFromPlaylistNext();
+            Log.i(TAG, "deliverGpuSegmentEndAfterRenderChain: playlist internal chain index="
+                    + fguiGpuPlaylistIndex);
+        }
+        FguiGpuProgressSnapshot snap = snapshotFguiGpuProgress();
+        fguiGpuPendingProgress = snap.progress;
+        Log.i(TAG, "deliverGpuSegmentEndAfterRenderChain: resume tick"
+                + " nextProgress=" + snap.progress + " frameInLoop=" + snap.frameInLoop
+                + "/" + snap.totalFrames);
+        fguiGpuActive = true;
+        scheduleFguiGpuTickAfterDelay(resolveFrameIntervalMs());
+    }
+
+    /** Phase4E：登记 Native 播放列表（须同尺寸）；Play 首段前调用。 */
+    void setFguiGpuPlaylist(String[] paths, int[] repeats) {
+        clearFguiGpuPlaylist();
+        if (paths == null || repeats == null || paths.length == 0 || paths.length != repeats.length) {
+            Log.e(TAG, "setFguiGpuPlaylist: invalid args paths="
+                    + (paths == null ? "null" : paths.length)
+                    + " repeats=" + (repeats == null ? "null" : repeats.length));
+            return;
+        }
+        int refW = 0;
+        int refH = 0;
+        for (int i = 0; i < paths.length; i++) {
+            String path = paths[i];
+            if (path == null || path.isEmpty()) {
+                Log.e(TAG, "setFguiGpuPlaylist: empty path at index=" + i);
+                clearFguiGpuPlaylist();
+                return;
+            }
+            PAGFile file = PagCompositionCache.loadOrGetCached(path, this::loadPagFile);
+            if (file == null) {
+                Log.e(TAG, "setFguiGpuPlaylist: preload failed path=" + path);
+                clearFguiGpuPlaylist();
+                return;
+            }
+            int[] size = resolveFguiTextureDimensionsForFile(file);
+            if (size[0] <= 0 || size[1] <= 0) {
+                Log.e(TAG, "setFguiGpuPlaylist: invalid size path=" + path);
+                clearFguiGpuPlaylist();
+                return;
+            }
+            if (i == 0) {
+                refW = size[0];
+                refH = size[1];
+            } else if (size[0] != refW || size[1] != refH) {
+                Log.e(TAG, "setFguiGpuPlaylist: size mismatch path=" + path
+                        + " render=" + size[0] + "x" + size[1]
+                        + " expected=" + refW + "x" + refH);
+                clearFguiGpuPlaylist();
+                return;
+            }
+            FguiGpuPlaylistEntry entry = new FguiGpuPlaylistEntry();
+            entry.path = path;
+            entry.repeat = repeats[i];
+            entry.pagFile = file;
+            fguiGpuPlaylist.add(entry);
+        }
+        fguiGpuPlaylistActive = true;
+        fguiGpuPlaylistIndex = 0;
+        armGlChainSnapshotFromPlaylistNext();
+        Log.i(TAG, "setFguiGpuPlaylist: count=" + paths.length + " first=" + paths[0]);
+    }
+
+    void clearFguiGpuPlaylist() {
+        fguiGpuPlaylist.clear();
+        fguiGpuPlaylistIndex = -1;
+        fguiGpuPlaylistActive = false;
+    }
+
+    /** Phase4E：打断当前循环段并无缝切到下一段（用法 3）。 */
+    void advanceFguiGpuPlaylist() {
+        if (!fguiGpuPlaylistActive) {
+            Log.w(TAG, "advanceFguiGpuPlaylist: playlist inactive");
+            return;
+        }
+        if (!hasNextInFguiGpuPlaylist()) {
+            Log.w(TAG, "advanceFguiGpuPlaylist: no next segment index=" + fguiGpuPlaylistIndex);
+            return;
+        }
+        int nextIdx = fguiGpuPlaylistIndex + 1;
+        FguiGpuPlaylistEntry next = fguiGpuPlaylist.get(nextIdx);
+        GlChainSnapshot snap = new GlChainSnapshot();
+        snap.path = next.path;
+        snap.repeat = next.repeat;
+        snap.pagFile = next.pagFile;
+        if (!applyPendingChainCompositionFromSnapshot(snap, false)) {
+            Log.e(TAG, "advanceFguiGpuPlaylist: apply failed path=" + next.path);
+            return;
+        }
+        fguiGpuPlaylistIndex = nextIdx;
+        fguiGpuClearBeforeNextFlush = true;
+        armFguiGpuPlaybackFrameIndex(1);
+        armGlChainSnapshotFromPlaylistNext();
+        setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
+        fguiGpuActive = true;
+        isPlaying = true;
+        scheduleFguiGpuTickImmediate();
+        Log.i(TAG, "advanceFguiGpuPlaylist: index=" + nextIdx + " path=" + next.path);
+    }
+
+    boolean isFguiGpuPlaylistActive() {
+        return fguiGpuPlaylistActive;
+    }
+
+    private boolean hasNextInFguiGpuPlaylist() {
+        return fguiGpuPlaylistActive
+                && fguiGpuPlaylistIndex >= 0
+                && fguiGpuPlaylistIndex + 1 < fguiGpuPlaylist.size();
+    }
+
+    private void armGlChainSnapshotFromPlaylistNext() {
+        if (!hasNextInFguiGpuPlaylist()) {
+            synchronized (_glChainLock) {
+                glChainSnapshotArmed = null;
+            }
+            return;
+        }
+        armGlChainSnapshotFromPlaylistEntry(fguiGpuPlaylistIndex + 1);
+    }
+
+    private void armGlChainSnapshotFromPlaylistEntry(int index) {
+        synchronized (_glChainLock) {
+            if (!fguiGpuPlaylistActive || index < 0 || index >= fguiGpuPlaylist.size()) {
+                glChainSnapshotArmed = null;
+                return;
+            }
+            FguiGpuPlaylistEntry entry = fguiGpuPlaylist.get(index);
+            GlChainSnapshot snap = new GlChainSnapshot();
+            snap.path = entry.path;
+            snap.repeat = entry.repeat;
+            snap.pagFile = entry.pagFile;
+            glChainSnapshotArmed = snap;
+        }
+    }
+
+    private void syncFguiGpuPlaylistIndexToCurrentPath() {
+        if (!fguiGpuPlaylistActive || currentPlayPath == null) {
+            return;
+        }
+        for (int i = 0; i < fguiGpuPlaylist.size(); i++) {
+            if (currentPlayPath.equals(fguiGpuPlaylist.get(i).path)) {
+                fguiGpuPlaylistIndex = i;
+                return;
+            }
+        }
+    }
+
+    /** UI 线程段末 request flush 前 arm，供 GL tryChain 消费。 */
+    private void armGlChainSnapshotIfSegmentEnd(double progress) {
+        synchronized (_glChainLock) {
+            if (progress < GL_CHAIN_ARM_PROGRESS_THRESHOLD) {
+                return;
+            }
+            if (fguiGpuPlaylistActive) {
+                armGlChainSnapshotFromPlaylistEntry(fguiGpuPlaylistIndex + 1);
+                return;
+            }
+            glChainSnapshotArmed = null;
+        }
+    }
+
+    private GlChainSnapshot takeGlChainSnapshotArmed() {
+        synchronized (_glChainLock) {
+            GlChainSnapshot snap = glChainSnapshotArmed;
+            glChainSnapshotArmed = null;
+            return snap;
+        }
+    }
+
+    boolean isFguiGpuPlaybackActive() {
+        return fguiGpuActive;
+    }
+
+    /**
+     * Phase3c：段末 GL 线程在同一次 flush 内 chain 并立即写入 frame0，避免主线程二次往返黑帧。
+     */
+    boolean tryChainPendingAndFlushFrame0OnRenderThread(double finishedProgress) {
+        if (finishedProgress < 0.999) {
+            return false;
+        }
+        boolean chainDeliverPosted = false;
+        long t0 = System.currentTimeMillis();
+        try {
+            GlChainSnapshot armed = takeGlChainSnapshotArmed();
+            if (armed == null || armed.path == null || armed.path.isEmpty()) {
+                Log.w(TAG, "tryChainRenderThread: skip no armed snapshot");
+                return false;
+            }
+            if (armed.pagFile == null) {
+                Log.w(TAG, "tryChainRenderThread: skip not preloaded path=" + armed.path);
+                return false;
+            }
+            int[] newSize = resolveFguiTextureDimensionsForFile(armed.pagFile);
+            if (newSize[0] != gpuTexW || newSize[1] != gpuTexH) {
+                Log.w(TAG, "tryChainRenderThread: skip size mismatch render=" + newSize[0] + "x" + newSize[1]
+                        + " bound=" + gpuTexW + "x" + gpuTexH + " path=" + armed.path);
+                return false;
+            }
+            if (!applyPendingChainCompositionFromSnapshot(armed, false)) {
+                Log.w(TAG, "tryChainRenderThread: apply failed path=" + armed.path
+                        + " elapsedMs=" + (System.currentTimeMillis() - t0));
+                return false;
+            }
+            fguiGpuClearBeforeNextFlush = false;
+            clearFguiGpuSurfaceOnRenderThread();
+            if (!flushGpuFrameOnRenderThread(0.0)) {
+                Log.e(TAG, "tryChainRenderThread: flush frame0 failed path=" + currentPlayPath
+                        + " elapsedMs=" + (System.currentTimeMillis() - t0));
+                return false;
+            }
+            armFguiGpuPlaybackFrameIndex(1);
+            FguiGpuProgressSnapshot snap = snapshotFguiGpuProgress();
+            fguiGpuPendingProgress = snap.progress;
+            fguiGpuActive = true;
+            isPlaying = true;
+            if (fguiGpuPlaylistActive) {
+                syncFguiGpuPlaylistIndexToCurrentPath();
+                armGlChainSnapshotFromPlaylistNext();
+            }
+            setFguiGpuTickPhase(FguiGpuTickPhase.CHAIN_DELIVER_PENDING);
+            Log.i(TAG, "tryChainRenderThread: armed snapshot chained + flushed frame0 path=" + currentPlayPath
+                    + " repeat=" + repeatCount
+                    + " nextProgress=" + snap.progress + " frameInLoop=" + snap.frameInLoop
+                    + "/" + snap.totalFrames
+                    + " elapsedMs=" + (System.currentTimeMillis() - t0));
+            mainHandler.post(this::deliverGpuSegmentEndAfterRenderChain);
+            chainDeliverPosted = true;
+            return true;
+        } finally {
+            if (!chainDeliverPosted) {
+                mainHandler.post(this::onGpuFrameFlushedAfterGlSegmentTryChain);
+            }
+        }
+    }
+
+    /** 段末 flush 同线程链式切下一段；UI fallback 用 apply(false)+requestGpuRenderFrame 代替 scheduleTick。 */
+    private boolean tryChainPendingFguiGpuCompositionSwitch() {
+        GlChainSnapshot armed = takeGlChainSnapshotArmed();
+        if (armed != null && applyPendingChainCompositionFromSnapshot(armed, false)) {
+            Log.i(TAG, "tryChainPending: armed snapshot chained path=" + currentPlayPath
+                    + " repeat=" + repeatCount);
+            return true;
+        }
+        return false;
+    }
+
+    /** 从 armed 快照链式切换 playlist 下一段。 */
+    private boolean applyPendingChainCompositionFromSnapshot(GlChainSnapshot snap,
+                                                             boolean scheduleTickAfterSwitch) {
+        if (snap == null || snap.path == null || snap.path.isEmpty()) {
+            return false;
+        }
+        if (renderMode != RENDER_MODE_FGUI_GPU || gpuTextureId <= 0
+                || fguiGpuSurface == null || !fguiGpuSurfaceReady) {
+            Log.w(TAG, "tryChainPending: gpu not ready, skip chain");
+            resetFguiGpuChainState();
+            return false;
+        }
+
+        PAGFile loaded = snap.pagFile;
+        if (loaded == null) {
+            loaded = PagCompositionCache.loadOrGetCached(snap.path, this::loadPagFile);
+        }
+        if (loaded == null) {
+            Log.e(TAG, "tryChainPending: load failed path=" + snap.path);
+            return false;
+        }
+
+        int[] newSize = resolveFguiTextureDimensionsForFile(loaded);
+        if (newSize[0] != gpuTexW || newSize[1] != gpuTexH) {
+            Log.w(TAG, "tryChainPending: size mismatch render=" + newSize[0] + "x" + newSize[1]
+                    + " bound=" + gpuTexW + "x" + gpuTexH + " path=" + snap.path);
+            return false;
+        }
+
+        resetFguiGpuChainState();
+        repeatCount = snap.repeat;
+        fguiGpuInfiniteLoopCount = 0;
+        fguiGpuLastCompletedLoops = 0L;
+        pagFile = loaded;
+        currentPlayPath = snap.path;
+
+        applyFguiGpuCompositionSwitchInPlace(scheduleTickAfterSwitch);
+        if (!scheduleTickAfterSwitch) {
+            fguiGpuClearBeforeNextFlush = true;
+        }
+        isPlaying = true;
+        return true;
+    }
+
+    /** tryChain 已 flush frame0 后，将播放时钟对齐到指定帧索引。 */
+    private void armFguiGpuPlaybackFrameIndex(int frameIndex) {
+        if (frameIndex <= 0) {
+            return;
+        }
+        float frameRate = resolveCompositionFrameRate();
+        if (frameRate > 0f) {
+            long frameMs = Math.max(1L, (long) Math.ceil(1000.0 / frameRate));
+            fguiGpuPlaybackStartMs = System.currentTimeMillis() - frameMs * frameIndex;
+        }
+    }
+
+    /** frame0 已在 GL 线程 flush 后，将播放时钟推进若干帧以便下次 request 跳过重复 frame0。 */
+    private void advanceFguiGpuPlaybackFrames(int frameCount) {
+        if (frameCount <= 0) {
+            return;
+        }
+        float frameRate = resolveCompositionFrameRate();
+        if (frameRate > 0f) {
+            long frameMs = Math.max(1L, (long) (1000.0f / frameRate));
+            fguiGpuPlaybackStartMs = System.currentTimeMillis() - frameMs * frameCount;
+        }
+    }
+
+    private void advanceFguiGpuPlaybackOneFrame() {
+        advanceFguiGpuPlaybackFrames(1);
+    }
+
+    private long resolveFrameIntervalMs() {
+        return Math.max(1L, (long) (1000.0f / resolveCompositionFrameRate()));
+    }
+
+    private void cancelFguiGpuTick() {
+        if (fguiGpuTickRunnable != null) {
+            mainHandler.removeCallbacks(fguiGpuTickRunnable);
+            fguiGpuTickRunnable = null;
+        }
+    }
+
+    private void scheduleFguiGpuTickAfterDelay(long delayMs) {
+        if (fguiGpuExternalPump) {
+            return;
+        }
+        if (!fguiGpuActive || !fguiGpuSurfaceReady || fguiGpuPlayer == null || pagFile == null) {
+            return;
+        }
+        cancelFguiGpuTick();
+        fguiGpuTickRunnable = () -> {
+            fguiGpuTickRunnable = null;
+            if (!fguiGpuActive || !fguiGpuSurfaceReady || fguiGpuPlayer == null || pagFile == null) {
+                return;
+            }
+            if (isChainPhaseBlockingTick()) {
+                return;
+            }
+            requestGpuRenderFrame();
+        };
+        mainHandler.postDelayed(fguiGpuTickRunnable, delayMs);
+    }
+
+    private void scheduleFguiGpuTickImmediate() {
+        scheduleFguiGpuTickAfterDelay(0L);
+    }
+
     private void scheduleFguiGpuTick() {
-        requestGpuRenderFrame();
+        scheduleFguiGpuTickImmediate();
     }
 
     private void requestGpuRenderFrame() {
@@ -1219,8 +1786,13 @@ final class PagOverlayManager {
             return;
         }
         fguiGpuPendingProgress = snap.progress;
+        armGlChainSnapshotIfSegmentEnd(snap.progress);
+        if (snap.progress >= 0.999 && hasChainedSegmentPending()) {
+            setFguiGpuTickPhase(FguiGpuTickPhase.SEGMENT_END_FLUSHING);
+        }
         Log.d(TAG, "requestGpuRenderFrame: progress=" + snap.progress
-                + " frameInLoop=" + snap.frameInLoop + "/" + snap.totalFrames);
+                + " frameInLoop=" + snap.frameInLoop + "/" + snap.totalFrames
+                + " phase=" + fguiGpuTickPhase);
         sendToUnityHub(gpuRenderCallbackMethod, Double.toString(snap.progress));
     }
 
@@ -1246,14 +1818,6 @@ final class PagOverlayManager {
         sendToUnityHub(gpuRenderCallbackMethod, Double.toString(snap.progress));
     }
 
-    private void notifyGpuFrameReady() {
-        if (gpuFrameCallbackGo == null || gpuFrameCallbackGo.isEmpty()
-                || gpuFrameCallbackMethod == null || gpuFrameCallbackMethod.isEmpty()) {
-            return;
-        }
-        sendToUnityHub(gpuFrameCallbackMethod, "");
-    }
-
     private void notifyPlaybackFinished() {
         if (playbackFinishedCallbackGo == null || playbackFinishedCallbackGo.isEmpty()
                 || playbackFinishedCallbackMethod == null
@@ -1265,11 +1829,9 @@ final class PagOverlayManager {
     }
 
     private void stopFguiGpuTickScheduling() {
-        if (fguiGpuTickRunnable != null) {
-            mainHandler.removeCallbacks(fguiGpuTickRunnable);
-            fguiGpuTickRunnable = null;
-        }
+        cancelFguiGpuTick();
         fguiGpuActive = false;
+        setFguiGpuTickPhase(FguiGpuTickPhase.STOPPED);
     }
 
     /** 仅释放 PAGPlayer/Surface 与 tick；保留 Unity 侧 gpuTextureId 绑定。 */
@@ -1281,6 +1843,34 @@ final class PagOverlayManager {
         fguiGpuLastCompletedLoops = 0L;
         fguiGpuPlayStartedNotified = false;
         fguiGpuSurfaceReady = false;
+        resetFguiGpuChainState();
+    }
+
+    /** 同尺寸段切换：优先原地 setComposition，避免 detach Surface 清空共享纹理。 */
+    private void applyFguiGpuCompositionSwitchInPlace(boolean scheduleTick) {
+        if (pagFile == null) {
+            return;
+        }
+        if (fguiGpuPlayer != null && fguiGpuSurfaceReady && fguiGpuSurface != null) {
+            try {
+                fguiGpuPlayer.setComposition(pagFile);
+                fguiGpuPlayer.setProgress(0);
+                fguiGpuActive = true;
+                setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
+                fguiGpuPlaybackStartMs = System.currentTimeMillis();
+                fguiGpuPendingProgress = 0.0;
+                fguiGpuLastCompletedLoops = 0L;
+                if (scheduleTick) {
+                    scheduleFguiGpuTick();
+                }
+                Log.i(TAG, "applyFguiGpuCompositionSwitchInPlace: in-place swap");
+                return;
+            } catch (Exception e) {
+                Log.w(TAG, "applyFguiGpuCompositionSwitchInPlace failed, fallback recycle: "
+                        + e.getMessage());
+            }
+        }
+        recycleFguiGpuPlayerKeepingSurface();
     }
 
     /** repeat=-1 长播：重建 PAGPlayer，保留 Surface/纹理绑定，无需 Unity 重新 Setup。 */
@@ -1308,6 +1898,7 @@ final class PagOverlayManager {
             return;
         }
         fguiGpuActive = true;
+        setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
         fguiGpuPlaybackStartMs = System.currentTimeMillis();
         fguiGpuPendingProgress = 0.0;
         fguiGpuLastCompletedLoops = 0L;

@@ -49,6 +49,8 @@ public static class PagGpuSyncGroup
             }
         }
 
+        SetGroupExternalPump(true);
+
 #if DEVELOPMENT_BUILD
         Debug.Log($"[PAG Sync] BeginGroup members={s_members.Count} fps={fps}");
 #endif
@@ -61,6 +63,8 @@ public static class PagGpuSyncGroup
             PagCallbackHub.Instance.StopRunCoroutine(s_advanceCoroutine);
             s_advanceCoroutine = null;
         }
+
+        SetGroupExternalPump(false);
 
         s_members.Clear();
         s_boundMembers.Clear();
@@ -135,7 +139,24 @@ public static class PagGpuSyncGroup
         yield return new WaitForEndOfFrame();
         Debug.Log($"[PAG Sync] setupBatch begin count={setupItems.Count}");
         yield return PagUnityGlBridge.SetupBatchCoroutine(setupItems);
+        foreach (string key in s_members)
+        {
+            PagController controller = PagControllerRegistry.Resolve(key);
+            controller?.RequestNextGpuFrameFromSyncGroup();
+        }
+
         Debug.Log($"[PAG Sync] TryStartAllPlayback done members={s_members.Count}");
+    }
+
+    private static void SetGroupExternalPump(bool externalPump)
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        foreach (string key in s_members)
+        {
+            PagController controller = PagControllerRegistry.Resolve(key);
+            controller?.SetFguiGpuExternalPump(externalPump);
+        }
+#endif
     }
 
     public static void OnGpuRenderRequested(string instanceKey, double progress)

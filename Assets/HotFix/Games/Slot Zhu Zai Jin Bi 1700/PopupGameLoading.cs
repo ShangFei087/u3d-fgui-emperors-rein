@@ -20,13 +20,16 @@ namespace SlotZhuZaiJinBi1700
         private bool _isInit;
         private int _preloadTotal;
         private int _preloadCompleted;
+        private int _pagPreloadTotal;
+        private int _pagPreloadCompleted;
+        private bool _pagPreloadFinished;
 
         /// <summary>从进入并行预加载起算，界面至少展示此时长（秒）；预加载更久则按实际结束。</summary>
         private const float MinLoadingDisplaySeconds = 5f;
 
         private float _preloadStartRealtime;
         private TimerCallback _pendingMinDisplayCallback;
-        /// <summary>Loading 阶段 PAG 预热协程；与 Page 预加载并行，OnClose 必须 Stop 避免泄漏。</summary>
+        /// <summary>Loading 阶段 PAG 预热协程；关页前须全部完成，异常关页时 Stop 清理。</summary>
         private Coroutine _pagPreloadCoroutine;
 
         protected override void OnInit()
@@ -161,6 +164,9 @@ namespace SlotZhuZaiJinBi1700
 
             _preloadTotal = pages.Length;
             _preloadCompleted = 0;
+            _pagPreloadTotal = PagPathHelper.DefaultGamePagPreloadFiles.Length;
+            _pagPreloadCompleted = 0;
+            _pagPreloadFinished = false;
             RefreshLoadingProgressVisual();
 
             if (_animatorLoadingTitle != null)
@@ -173,9 +179,14 @@ namespace SlotZhuZaiJinBi1700
                 PageManager.Instance.PreloadPage(pages[i], OnOnePreloadPageDone);
         }
 
-        /// <summary>利用 Loading 最短展示窗口并行预热 PAG 磁盘缓存 + Java composition 解码。</summary>
+        /// <summary>利用 Loading 窗口并行预热 PAG 磁盘缓存 + Java composition 解码。</summary>
         private void StartPagPreloadInBackground()
         {
+            if (_pagPreloadCoroutine != null && !_pagPreloadFinished)
+            {
+                return;
+            }
+
             StopPagPreloadCoroutine();
             PagCallbackHub.EnsureInstance();
             PagController.EnsureInit();
@@ -195,7 +206,7 @@ namespace SlotZhuZaiJinBi1700
         }
 
         /// <summary>
-        /// 预热 PagPathHelper.DefaultGamePagPreloadFiles（LRU 上限 10）：
+        /// 预热 1700 Pag 目录全部 .pag（共 20，LRU 上限 20）：
         /// AB 解压到 PagCache + Java composition 解码，缩短进局后首次 Play 耗时。
         /// </summary>
         private IEnumerator PagPreloadCoroutine()
@@ -204,8 +215,18 @@ namespace SlotZhuZaiJinBi1700
             yield return PagPathHelper.PreloadCompositionsCoroutine(
                 PagPathHelper.DefaultGamePagPreloadFiles,
                 PagPathHelper.DefaultGamePagFolder,
-                (done, total) => Debug.Log($"[1700 Loading] PAG preload progress {done}/{total}"));
+                (done, total) =>
+                {
+                    _pagPreloadCompleted = done;
+                    _pagPreloadTotal = total;
+                    RefreshLoadingProgressVisual();
+                    Debug.Log($"[1700 Loading] PAG preload progress {done}/{total}");
+                });
+            _pagPreloadFinished = true;
+            _pagPreloadCompleted = _pagPreloadTotal;
+            RefreshLoadingProgressVisual();
             Debug.Log("[1700 Loading] PAG preload finished");
+            TryFinishLoadingAfterPreloads();
             _pagPreloadCoroutine = null;
         }
 
@@ -224,10 +245,16 @@ namespace SlotZhuZaiJinBi1700
             SetProgressByPreloadNormalized(GetDisplayNormalizedProgress());
         }
 
+        private bool CanCompleteLoadingTransition()
+        {
+            return _preloadCompleted >= _preloadTotal
+                && _pagPreloadFinished
+                && Time.realtimeSinceStartup - _preloadStartRealtime >= MinLoadingDisplaySeconds;
+        }
+
         private void TryFinishLoadingAfterPreloads()
         {
-            float elapsed = Time.realtimeSinceStartup - _preloadStartRealtime;
-            if (elapsed >= MinLoadingDisplaySeconds)
+            if (CanCompleteLoadingTransition())
             {
                 RefreshLoadingProgressVisual();
                 CompleteLoadingTransition();
@@ -245,8 +272,7 @@ namespace SlotZhuZaiJinBi1700
         private void OnLoadingProgressPadTick(object param)
         {
             RefreshLoadingProgressVisual();
-            float elapsed = Time.realtimeSinceStartup - _preloadStartRealtime;
-            if (_preloadCompleted >= _preloadTotal && elapsed >= MinLoadingDisplaySeconds)
+            if (CanCompleteLoadingTransition())
             {
                 Timers.inst.Remove(_pendingMinDisplayCallback);
                 _pendingMinDisplayCallback = null;
@@ -300,7 +326,11 @@ namespace SlotZhuZaiJinBi1700
 
         private float GetPreloadRatio()
         {
-            return _preloadTotal > 0 ? (float)_preloadCompleted / _preloadTotal : 1f;
+            int pageTotal = Mathf.Max(1, _preloadTotal);
+            int pagTotal = Mathf.Max(1, _pagPreloadTotal);
+            float pageRatio = (float)_preloadCompleted / pageTotal;
+            float pagRatio = (float)_pagPreloadCompleted / pagTotal;
+            return (pageRatio + pagRatio) * 0.5f;
         }
 
         private float GetTimeCapRatio()

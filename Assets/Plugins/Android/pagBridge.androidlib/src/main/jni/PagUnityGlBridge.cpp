@@ -46,7 +46,8 @@ static JavaVM* g_JavaVM = nullptr;
 static jclass g_PagBridgeClass = nullptr;
 static jmethodID g_SetupGpuMethod = nullptr;
 static jmethodID g_FlushGpuMethod = nullptr;
-static jmethodID g_NotifyPresentedMethod = nullptr;
+static jmethodID g_TryChainFlushFrame0Method = nullptr;
+static jmethodID g_TeardownGpuMethod = nullptr;
 
 static std::unordered_map<int, GlTextureSlot> g_Slots;
 static int g_ActiveSlotId = 0;
@@ -227,15 +228,20 @@ static bool CallFlushGpuFrameOnRenderThread(double progress, int slotId, const s
     return ok == JNI_TRUE;
 }
 
-static void CallNotifyGpuFramePresentedOnMainThread(int slotId, const std::string& instanceKey) {
+static bool CallTryChainAndFlushFrame0OnRenderThread(double finishedProgress, int slotId,
+                                                      const std::string& instanceKey) {
     JNIEnv* env = GetJniEnv();
-    if (env == nullptr || g_PagBridgeClass == nullptr || g_NotifyPresentedMethod == nullptr) {
-        LOGE("CallNotifyGpuFramePresented JNI not ready");
-        return;
+    if (env == nullptr || g_PagBridgeClass == nullptr || g_TryChainFlushFrame0Method == nullptr) {
+        LOGE("CallTryChainAndFlushFrame0 JNI not ready");
+        return false;
     }
 
     jstring jInstanceKey = env->NewStringUTF(instanceKey.c_str());
-    env->CallStaticVoidMethod(g_PagBridgeClass, g_NotifyPresentedMethod, jInstanceKey);
+    const jboolean ok = env->CallStaticBooleanMethod(
+        g_PagBridgeClass,
+        g_TryChainFlushFrame0Method,
+        static_cast<jdouble>(finishedProgress),
+        jInstanceKey);
 
     if (jInstanceKey != nullptr) {
         env->DeleteLocalRef(jInstanceKey);
@@ -244,8 +250,40 @@ static void CallNotifyGpuFramePresentedOnMainThread(int slotId, const std::strin
     if (env->ExceptionCheck()) {
         env->ExceptionDescribe();
         env->ExceptionClear();
-        LOGE("CallNotifyGpuFramePresented JNI exception slot=%d", slotId);
+        LOGE("CallTryChainAndFlushFrame0 JNI exception progress=%f slot=%d", finishedProgress, slotId);
+        return false;
     }
+
+    return ok == JNI_TRUE;
+}
+
+static bool CallTeardownGpuSurfaceOnRenderThread(int slotId, const std::string& instanceKey) {
+    JNIEnv* env = GetJniEnv();
+    if (env == nullptr || g_PagBridgeClass == nullptr || g_TeardownGpuMethod == nullptr) {
+        LOGE("CallTeardownGpuSurface JNI not ready");
+        return false;
+    }
+
+    jstring jInstanceKey = env->NewStringUTF(instanceKey.c_str());
+    const jboolean ok = env->CallStaticBooleanMethod(
+        g_PagBridgeClass,
+        g_TeardownGpuMethod,
+        jInstanceKey);
+
+    if (jInstanceKey != nullptr) {
+        env->DeleteLocalRef(jInstanceKey);
+    }
+
+    if (env->ExceptionCheck()) {
+        env->ExceptionDescribe();
+        env->ExceptionClear();
+        LOGE("CallTeardownGpuSurface JNI exception slot=%d", slotId);
+        return false;
+    }
+
+    LOGI("CallTeardownGpuSurfaceOnRenderThread ok=%d slot=%d instance=%s",
+         ok == JNI_TRUE, slotId, instanceKey.c_str());
+    return ok == JNI_TRUE;
 }
 
 static void ProcessSetupOp(const PendingGlOp& op) {
@@ -267,11 +305,33 @@ static void ProcessFlushOp(const PendingGlOp& op) {
     if (slot.fbo != 0) {
         glBindFramebuffer(GL_FRAMEBUFFER, slot.fbo);
     }
-    const bool flushOk = CallFlushGpuFrameOnRenderThread(progress, op.slotId, op.instanceKey);
+    bool flushOk = false;
+    if (progress >= 0.999) {
+        const bool chained = CallTryChainAndFlushFrame0OnRenderThread(progress, op.slotId, op.instanceKey);
+        if (!chained) {
+            flushOk = CallFlushGpuFrameOnRenderThread(progress, op.slotId, op.instanceKey);
+        } else {
+            flushOk = true;
+        }
+    } else {
+        flushOk = CallFlushGpuFrameOnRenderThread(progress, op.slotId, op.instanceKey);
+    }
     if (flushOk) {
         // Flush 路径唯一 glFinish；native 播放状态由 Unity HandleGpuFrameReady → OnGpuFlushCompleted 回写。
         glFinish();
     }
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+static void ProcessTeardownOp(const PendingGlOp& op) {
+    g_ActiveSlotId = op.slotId;
+    g_PendingInstanceKey = op.instanceKey;
+    GlTextureSlot& slot = GetSlot(op.slotId);
+    if (slot.fbo != 0) {
+        glBindFramebuffer(GL_FRAMEBUFFER, slot.fbo);
+    }
+    CallTeardownGpuSurfaceOnRenderThread(op.slotId, op.instanceKey);
+    glFinish();
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
@@ -280,6 +340,7 @@ enum RenderEventId {
     kEventFinishFrame = 2,
     kEventSetupPagGpu = 3,
     kEventFlushPagGpu = 4,
+    kEventTeardownPagGpu = 5,
 };
 
 static void UNITY_INTERFACE_API OnRenderEvent(int eventId) {
@@ -316,6 +377,24 @@ static void UNITY_INTERFACE_API OnRenderEvent(int eventId) {
         LOGI("OnRenderEvent: flush batch count=%zu", batch.size());
         for (const PendingGlOp& flushOp : batch) {
             ProcessFlushOp(flushOp);
+        }
+        return;
+    }
+
+    if (eventId == kEventTeardownPagGpu) {
+        std::vector<PendingGlOp> batch;
+        PopAllOpsForEvent(kEventTeardownPagGpu, batch);
+        if (batch.empty()) {
+            PendingGlOp fallback;
+            fallback.slotId = g_ActiveSlotId;
+            fallback.instanceKey = g_PendingInstanceKey;
+            LOGE("OnRenderEvent: missing queued teardown op, fallback slot=%d", fallback.slotId);
+            ProcessTeardownOp(fallback);
+            return;
+        }
+        LOGI("OnRenderEvent: teardown batch count=%zu", batch.size());
+        for (const PendingGlOp& teardownOp : batch) {
+            ProcessTeardownOp(teardownOp);
         }
         return;
     }
@@ -375,13 +454,17 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* /*reserved*/) {
         g_PagBridgeClass,
         "nativeFlushGpuFrameOnRenderThread",
         "(DLjava/lang/String;)Z");
-    g_NotifyPresentedMethod = env->GetStaticMethodID(
+    g_TryChainFlushFrame0Method = env->GetStaticMethodID(
         g_PagBridgeClass,
-        "nativeNotifyGpuFramePresentedOnMainThread",
-        "(Ljava/lang/String;)V");
+        "nativeTryChainAndFlushFrame0OnRenderThread",
+        "(DLjava/lang/String;)Z");
+    g_TeardownGpuMethod = env->GetStaticMethodID(
+        g_PagBridgeClass,
+        "nativeTeardownGpuSurfaceOnRenderThread",
+        "(Ljava/lang/String;)Z");
 
     if (g_SetupGpuMethod == nullptr || g_FlushGpuMethod == nullptr
-        || g_NotifyPresentedMethod == nullptr) {
+        || g_TryChainFlushFrame0Method == nullptr || g_TeardownGpuMethod == nullptr) {
         LOGE("JNI_OnLoad GetStaticMethodID failed");
         return JNI_ERR;
     }
@@ -408,6 +491,10 @@ int UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API PagGl_GetSetupPagGpuEventId() {
 
 int UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API PagGl_GetFlushPagGpuEventId() {
     return kEventFlushPagGpu;
+}
+
+int UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API PagGl_GetTeardownPagGpuEventId() {
+    return kEventTeardownPagGpu;
 }
 
 void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API PagGl_SetActiveSlot(int slotId) {
@@ -446,6 +533,16 @@ void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API PagGl_EnqueueFlush(int slotId, c
     op.slotId = slotId;
     op.eventId = kEventFlushPagGpu;
     op.progress = progress;
+    if (instanceKey != nullptr && instanceKey[0] != '\0') {
+        op.instanceKey = instanceKey;
+    }
+    EnqueueOp(op);
+}
+
+void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API PagGl_EnqueueTeardown(int slotId, const char* instanceKey) {
+    PendingGlOp op;
+    op.slotId = slotId;
+    op.eventId = kEventTeardownPagGpu;
     if (instanceKey != nullptr && instanceKey[0] != '\0') {
         op.instanceKey = instanceKey;
     }

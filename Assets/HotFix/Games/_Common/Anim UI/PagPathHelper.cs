@@ -15,13 +15,29 @@ public static class PagPathHelper
     /// <summary>相对 GameRes 的 PAG 目录，可按游戏修改。</summary>
     public const string DefaultGamePagFolder = "Games/Slot Zhu Zai Jin Bi 1700/Pag";
 
-    /// <summary>Loading 阶段预热的常用 PAG（LRU 上限 10）。</summary>
+    /// <summary>1700 Loading 预热：Pag 目录下全部 .pag（共 20，与 LRU 上限一致）。</summary>
     public static readonly string[] DefaultGamePagPreloadFiles =
     {
         "BigWin_1024.pag",
         "Fade.pag",
-        "XingXing2.pag",
         "Fire.pag",
+        "FeiZhou.pag",
+        "Dragon.pag",
+        "CaiHongFeiDie.pag",
+        "XingXing1.pag",
+        "XingXing2.pag",
+        "XingXing3.pag",
+        "BigWin/bigwin_start.pag",
+        "BigWin/bigwin_idle.pag",
+        "BigWin/supwin_start.pag",
+        "BigWin/supwin_idle.pag",
+        "BigWin/megawin_start.pag",
+        "BigWin/megawin_idle.pag",
+        "Lopp/glow_loop_720.pag",
+        "Lopp/glow_loop_half_1920.pag",
+        "Lopp/glow_loop_full_1920.pag",
+        "Lopp/glow_in_half_1920.pag",
+        "Lopp/glow_in_full_1920.pag",
     };
 
     private const string CacheFolderName = "PagCache";
@@ -83,14 +99,8 @@ public static class PagPathHelper
             return fileName;
         }
 
-        if (!fileName.EndsWith(".pag", StringComparison.OrdinalIgnoreCase))
-        {
-            fileName += ".pag";
-        }
-
-        string leaf = Path.GetFileName(fileName);
-        string cachePath = Path.Combine(CacheRoot, gamePagFolder.Replace("\\", "/"), leaf);
-        cachePath = cachePath.Replace("\\", "/");
+        string relativePath = NormalizePagRelativePath(fileName);
+        string cachePath = BuildCachePath(relativePath, gamePagFolder);
         if (File.Exists(cachePath))
         {
             long cacheSize = new FileInfo(cachePath).Length;
@@ -111,11 +121,11 @@ public static class PagPathHelper
             }
         }
 
-        string assetPath = $"Assets/GameRes/{gamePagFolder}/{leaf}";
+        string assetPath = BuildAssetPath(relativePath, gamePagFolder);
 #if UNITY_EDITOR
         if (!ApplicationSettings.Instance.IsUseStreamingAssetsBundle())
         {
-            string editorPath = Path.Combine(Application.dataPath, "GameRes", gamePagFolder, leaf);
+            string editorPath = BuildEditorPath(relativePath, gamePagFolder);
             if (File.Exists(editorPath))
             {
                 Debug.Log($"{LogPrefix} hit Editor GameRes: {editorPath}");
@@ -129,7 +139,7 @@ public static class PagPathHelper
             return cachePath;
         }
 
-        Debug.LogError($"{LogPrefix} Resolve failed: {leaf}, assetPath={assetPath}");
+        Debug.LogError($"{LogPrefix} Resolve failed: {relativePath}, assetPath={assetPath}");
         return null;
     }
 
@@ -223,8 +233,8 @@ public static class PagPathHelper
 
         yield return null;
 
-        string leaf = Path.GetFileName(NormalizePagLeaf(fileName));
-        string assetPath = $"Assets/GameRes/{gamePagFolder}/{leaf}";
+        string relativePath = NormalizePagRelativePath(fileName);
+        string assetPath = BuildAssetPath(relativePath, gamePagFolder);
         bool ok = false;
         try
         {
@@ -256,7 +266,7 @@ public static class PagPathHelper
         bool ready = IsValidPagFile(cachePath);
         if (!ready)
         {
-            Debug.LogWarning($"{LogPrefix} warmup failed: {leaf}");
+            Debug.LogWarning($"{LogPrefix} warmup failed: {relativePath}");
         }
 
         onDone?.Invoke(ready);
@@ -283,26 +293,54 @@ public static class PagPathHelper
         }
     }
 
-    private static string NormalizePagLeaf(string fileName)
+    /// <summary>归一化 PAG 相对路径：含子目录时保留（如 Lopp/xxx.pag），否则仅文件名。</summary>
+    private static string NormalizePagRelativePath(string fileName)
     {
         if (string.IsNullOrEmpty(fileName))
         {
             return fileName;
         }
 
+        fileName = fileName.Replace("\\", "/").TrimStart('/');
         if (!fileName.EndsWith(".pag", StringComparison.OrdinalIgnoreCase))
         {
             fileName += ".pag";
         }
 
-        return Path.GetFileName(fileName);
+        return fileName.Contains("/") ? fileName : Path.GetFileName(fileName);
+    }
+
+    private static string BuildAssetPath(string relativePath, string gamePagFolder)
+    {
+        return $"Assets/GameRes/{gamePagFolder.Replace("\\", "/")}/{relativePath.Replace("\\", "/")}";
+    }
+
+    private static string BuildEditorPath(string relativePath, string gamePagFolder)
+    {
+        string[] parts = gamePagFolder.Replace("\\", "/").Split('/');
+        string[] relParts = relativePath.Replace("\\", "/").Split('/');
+        string[] allParts = new string[parts.Length + relParts.Length + 2];
+        allParts[0] = Application.dataPath;
+        allParts[1] = "GameRes";
+        Array.Copy(parts, 0, allParts, 2, parts.Length);
+        Array.Copy(relParts, 0, allParts, 2 + parts.Length, relParts.Length);
+        return Path.Combine(allParts);
+    }
+
+    private static string BuildCachePath(string relativePath, string gamePagFolder)
+    {
+        string[] parts = gamePagFolder.Replace("\\", "/").Split('/');
+        string[] relParts = relativePath.Replace("\\", "/").Split('/');
+        string[] allParts = new string[parts.Length + relParts.Length + 1];
+        allParts[0] = CacheRoot;
+        Array.Copy(parts, 0, allParts, 1, parts.Length);
+        Array.Copy(relParts, 0, allParts, 1 + parts.Length, relParts.Length);
+        return Path.Combine(allParts).Replace("\\", "/");
     }
 
     private static string GetCachePathForLeaf(string fileName, string gamePagFolder)
     {
-        string leaf = NormalizePagLeaf(fileName);
-        string cachePath = Path.Combine(CacheRoot, gamePagFolder.Replace("\\", "/"), leaf);
-        return cachePath.Replace("\\", "/");
+        return BuildCachePath(NormalizePagRelativePath(fileName), gamePagFolder);
     }
 
     private static bool TryExtractPagToCache(string assetPath, string cachePath)

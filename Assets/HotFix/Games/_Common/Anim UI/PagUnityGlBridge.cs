@@ -30,6 +30,9 @@ public static class PagUnityGlBridge
     private static extern int PagGl_GetFlushPagGpuEventId();
 
     [DllImport(LibName)]
+    private static extern int PagGl_GetTeardownPagGpuEventId();
+
+    [DllImport(LibName)]
     private static extern void PagGl_SetActiveSlot(int slotId);
 
     [DllImport(LibName)]
@@ -40,6 +43,9 @@ public static class PagUnityGlBridge
 
     [DllImport(LibName)]
     private static extern void PagGl_EnqueueFlush(int slotId, IntPtr instanceKeyUtf8, double progress);
+
+    [DllImport(LibName)]
+    private static extern void PagGl_EnqueueTeardown(int slotId, IntPtr instanceKeyUtf8);
 
     [DllImport(LibName)]
     private static extern void PagGl_DestroyTexture();
@@ -55,6 +61,7 @@ public static class PagUnityGlBridge
 
     private static readonly Queue<IEnumerator> s_glQueue = new Queue<IEnumerator>();
     private static readonly Dictionary<string, IntPtr> s_instanceKeyNativeCache = new Dictionary<string, IntPtr>();
+    private static readonly HashSet<int> s_slotsPendingDestroy = new HashSet<int>();
     private static bool s_queueRunning;
 
     public static bool IsSupported => true;
@@ -62,6 +69,14 @@ public static class PagUnityGlBridge
     public static int GetPendingOpCount()
     {
         return s_glQueue.Count + PagGl_GetPendingOpCount();
+    }
+
+    public static IEnumerator WaitForSlotDestroyComplete(int slotId)
+    {
+        while (s_slotsPendingDestroy.Contains(slotId))
+        {
+            yield return null;
+        }
     }
 
     private static IntPtr GetOrCreateInstanceKeyNativePtr(string instanceKey)
@@ -164,6 +179,8 @@ public static class PagUnityGlBridge
             onReady?.Invoke(0, IntPtr.Zero);
             yield break;
         }
+
+        yield return WaitForSlotDestroyComplete(slotId);
 
         int texId = 0;
         IntPtr texPtr = IntPtr.Zero;
@@ -275,16 +292,33 @@ public static class PagUnityGlBridge
         yield return WaitForRenderThreadIdle();
     }
 
-    public static void DestroyTexture(int slotId)
+    public static void DestroyTexture(int slotId, string instanceKey = null)
     {
-        EnqueueGlOperation(InternalDestroyTexture(slotId));
+        EnqueueGlOperation(InternalDestroyTexture(slotId, instanceKey));
     }
 
-    private static IEnumerator InternalDestroyTexture(int slotId)
+    public static IEnumerator DestroyTextureCoroutine(int slotId, string instanceKey = null)
     {
-        PagGl_SetActiveSlot(slotId);
-        PagGl_DestroyTexture();
-        yield return WaitForRenderThreadIdle();
+        yield return RunExclusiveGlOperation(InternalDestroyTexture(slotId, instanceKey));
+    }
+
+    private static IEnumerator InternalDestroyTexture(int slotId, string instanceKey)
+    {
+        s_slotsPendingDestroy.Add(slotId);
+        try
+        {
+            WithInstanceKeyNative(instanceKey, ptr => PagGl_EnqueueTeardown(slotId, ptr));
+            GL.IssuePluginEvent(PagGl_GetRenderEventFunc(), PagGl_GetTeardownPagGpuEventId());
+            yield return WaitForRenderThreadIdle(issueFinishFrame: false);
+
+            PagGl_SetActiveSlot(slotId);
+            PagGl_DestroyTexture();
+            yield return WaitForRenderThreadIdle();
+        }
+        finally
+        {
+            s_slotsPendingDestroy.Remove(slotId);
+        }
     }
 #else
     public static bool IsSupported => false;
@@ -320,10 +354,20 @@ public static class PagUnityGlBridge
     {
     }
 
-    public static void DestroyTexture(int slotId)
+    public static void DestroyTexture(int slotId, string instanceKey = null)
     {
     }
 
+    public static IEnumerator DestroyTextureCoroutine(int slotId, string instanceKey = null)
+    {
+        yield break;
+    }
+
     public static int GetPendingOpCount() => 0;
+
+    public static IEnumerator WaitForSlotDestroyComplete(int slotId)
+    {
+        yield break;
+    }
 #endif
 }

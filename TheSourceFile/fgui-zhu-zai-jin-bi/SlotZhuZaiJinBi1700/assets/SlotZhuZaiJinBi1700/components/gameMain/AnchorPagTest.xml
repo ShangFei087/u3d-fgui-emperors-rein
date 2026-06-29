@@ -10,9 +10,11 @@
     <graph id="n4_pkif" name="holder1" xy="1,1" pivot="0.5,0.5" anchor="true" size="500,500" visible="false" type="rect"/>
     <graph id="n5_pkif" name="holder2" xy="1,1" pivot="0.5,0.5" anchor="true" size="500,500" visible="false" type="rect"/>
     <graph id="n6_feiz" name="holder3" xy="1,1" pivot="0.5,0.5" anchor="true" size="500,500" visible="false" type="rect"/>
-    <graph id="n11_chfd" name="holder4" xy="-360,1" pivot="0.5,0.5" anchor="true" size="500,500" visible="false" type="rect"/>
+    <graph id="n11_chfd" name="holder4" xy="1,1" pivot="0.5,0.5" anchor="true" size="500,500" visible="false" type="rect"/>
     <graph id="n12_chfd" name="holder5" xy="1,1" pivot="0.5,0.5" anchor="true" size="500,500" visible="false" type="rect"/>
-    <graph id="n13_chfd" name="holder6" xy="360,1" pivot="0.5,0.5" anchor="true" size="500,500" visible="false" type="rect"/>
+    <graph id="n13_chfd" name="holder6" xy="1,1" pivot="0.5,0.5" anchor="true" size="500,500" visible="false" type="rect"/>
+    <loader id="n14_glow" name="pagEffect7" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
+    <graph id="n15_glow" name="holder7" xy="1,1" pivot="0.5,0.5" anchor="true" size="1080,1920" visible="false" type="rect"/>
     <loader id="n1_tvr8" name="example" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" align="center" vAlign="middle" autoSize="true"/>
     <graph id="n0_tvr8" name="holder" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
   </displayList>

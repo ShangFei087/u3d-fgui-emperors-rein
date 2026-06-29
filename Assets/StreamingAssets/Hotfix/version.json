@@ -1,11 +1,11 @@
 {
-  "updated_at": 1782285883244,
+  "updated_at": 1782703695426,
   "hotfix_key": "hf_debug_android_20260622160520",
-  "hotfix_version": "1.4.24",
+  "hotfix_version": "1.4.59",
   "asset_bundle": {
     "manifest": {
-      "hash": "1038bf01398d1c3782ee3bdc85c31d89",
-      "size_bytes": 25957
+      "hash": "848edb1a2c0090632c36220d7cd47878",
+      "size_bytes": 26207
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
@@ -700,13 +700,23 @@
       "games/huo yan gong niu 3995/smallgame/art/effect/prefabs/ng_eff_zhuanpanzhongjiang03.unity3d": "64ddce83544c9d84168f69cc60e7b041",
       "games/panel/panel01/fguis.unity3d": "bc228e55b570f7326a49040c1e992562",
       "games/panel01/fguis.unity3d": "300996783f51d3089fe9ff4b89c33960",
-      "games/slot zhu zai jin bi 1700/fguis.unity3d": "f28499070bbc1bcb3d6dccea9ec8e023",
+      "games/slot zhu zai jin bi 1700/fguis.unity3d": "f96d9d36dbd0621610f96f59e6407106",
+      "games/slot zhu zai jin bi 1700/pag/bigwin/bigwin_idle.unity3d": "ed710be7202474d8d7dfb8c93a82a51f",
+      "games/slot zhu zai jin bi 1700/pag/bigwin/bigwin_start.unity3d": "6e4594b612262e726bf9f2564f6aceb6",
+      "games/slot zhu zai jin bi 1700/pag/bigwin/megawin_idle.unity3d": "93826a55a1009077ed754036159dff34",
+      "games/slot zhu zai jin bi 1700/pag/bigwin/megawin_start.unity3d": "e05a323372d9783b8fc0f7aef8c0eca5",
+      "games/slot zhu zai jin bi 1700/pag/bigwin/supwin_idle.unity3d": "ee47c71f46d6f33de73a871bf95fb4ce",
+      "games/slot zhu zai jin bi 1700/pag/bigwin/supwin_start.unity3d": "e117003f213e3b1b39d4f47412a5aea5",
       "games/slot zhu zai jin bi 1700/pag/bigwin_1024.unity3d": "4aa9302b0ef333abc6cd90ffa1fa935a",
       "games/slot zhu zai jin bi 1700/pag/caihongfeidie.unity3d": "23ddbd2708b00b5faefdee0a013cc1df",
       "games/slot zhu zai jin bi 1700/pag/dragon.unity3d": "70f4bba5e827bd3ca698d6520d7124f5",
       "games/slot zhu zai jin bi 1700/pag/fade.unity3d": "e3f8a0b0ac38a2efed3d5e7e0254a9d9",
       "games/slot zhu zai jin bi 1700/pag/feizhou.unity3d": "2132ad29aab6a86e1b57d23eddabc2c3",
       "games/slot zhu zai jin bi 1700/pag/fire.unity3d": "90793752ac1eff79afb997d6406cc636",
+      "games/slot zhu zai jin bi 1700/pag/lopp/glow_in_full_1920.unity3d": "021873089a383a4b5a3746df7acb2b4e",
+      "games/slot zhu zai jin bi 1700/pag/lopp/glow_loop_720.unity3d": "258cc4e328ae498d22f2b68aace89356",
+      "games/slot zhu zai jin bi 1700/pag/lopp/glow_loop_full_1920.unity3d": "2cde6beec3a08fb31032b1505178164f",
+      "games/slot zhu zai jin bi 1700/pag/lopp/glow_loop_half_1920.unity3d": "277ea0ba39f3de03d31de1c236cc2f85",
       "games/slot zhu zai jin bi 1700/pag/xingxing1.unity3d": "ba25a2c18ef8236d41a5a024d612c141",
       "games/slot zhu zai jin bi 1700/pag/xingxing2.unity3d": "ac868d9cadb54961380dd6226860f37c",
       "games/slot zhu zai jin bi 1700/pag/xingxing3.unity3d": "fe3ddba8ed09a8383fc11f2ae4638af0",
@@ -736,7 +746,7 @@
       "games/slot zhu zai jin bi 1700/prefabs/turntable/pag1.unity3d": "eb84b5587008155e99b4c90ca7cbac0a",
       "games/slot zhu zai jin bi 1700/prefabs/turntable/pag2.unity3d": "fd0422bbdbcba84199cc09f3e8e50ea2",
       "games/slot zhu zai jin bi 1700/prefabs/turntable/pag3.unity3d": "95fb42f15948d9742066b4f14e76a1c5",
-      "games/slot zhu zai jin bi 1700/prefabs/turntable/testbigwin.unity3d": "2cd82f2af81a86fe916a19d1de858da0",
+      "games/slot zhu zai jin bi 1700/prefabs/turntable/testbigwin.unity3d": "f04ee2acfef416560bd5dd5f120fba29",
       "games/slot zhu zai jin bi 1700/sounds/music/freemusic.unity3d": "eb6a6978c5eccb57ba0212534607d716",
       "games/slot zhu zai jin bi 1700/sounds/music/normalmusic.unity3d": "b5518bef30558a43036542384d7ffaff",
       "games/xing yun zhi lun 3998/fguis.unity3d": "cb178b7d3f219f5b586a101fb3ff815c",
@@ -896,8 +906,8 @@
       "size_bytes": 168448
     },
     "HotFix": {
-      "hash": "666071e4fcd51357f145b0f02d432da5",
-      "size_bytes": 1924608
+      "hash": "4244fc61a03ee32cbf8f57bf4548c086",
+      "size_bytes": 1949696
     }
   },
   "hotfix_dll_load_order": [

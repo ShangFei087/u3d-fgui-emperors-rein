@@ -175,6 +175,13 @@ public sealed class PagFguiGpuPresenter
         {
             _nTexture.lastActive = Time.time;
         }
+
+        if (_externalTexture != null && _boundNativePtr != IntPtr.Zero)
+        {
+            _externalTexture.UpdateExternalTexture(_boundNativePtr);
+        }
+
+        InvalidateLoaderBatching();
     }
 
     /// <summary>holder 布局就绪后强制按合成/holder 尺寸重算 pagEffect（避免初始 100x100）。</summary>
@@ -411,6 +418,11 @@ public sealed class PagFguiGpuPresenter
         if (loaderName == "pagEffect6")
         {
             return "holder6";
+        }
+
+        if (loaderName == "pagEffect7")
+        {
+            return "holder7";
         }
 
         return "holder";
