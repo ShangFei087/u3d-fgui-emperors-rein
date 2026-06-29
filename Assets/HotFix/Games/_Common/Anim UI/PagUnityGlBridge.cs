@@ -229,6 +229,21 @@ public static class PagUnityGlBridge
         yield return RunExclusiveGlOperation(InternalIssueSetupBatch(items));
     }
 
+    public static IEnumerator FlushBatchCoroutine(IReadOnlyList<(int slotId, string instanceKey, double progress)> items)
+    {
+        if (items == null || items.Count == 0)
+        {
+            yield break;
+        }
+
+        yield return RunExclusiveGlOperation(InternalIssueFlushBatch(items));
+    }
+
+    public static IEnumerator FlushCoroutine(int slotId, string instanceKey, double progress)
+    {
+        yield return FlushBatchCoroutine(new[] { (slotId, instanceKey, progress) });
+    }
+
     private static IEnumerator InternalIssueSetupBatch(IReadOnlyList<(int slotId, string instanceKey)> items)
     {
 #if DEVELOPMENT_BUILD
@@ -338,6 +353,16 @@ public static class PagUnityGlBridge
     }
 
     public static IEnumerator SetupBatchCoroutine(IReadOnlyList<(int slotId, string instanceKey)> items)
+    {
+        yield break;
+    }
+
+    public static IEnumerator FlushBatchCoroutine(IReadOnlyList<(int slotId, string instanceKey, double progress)> items)
+    {
+        yield break;
+    }
+
+    public static IEnumerator FlushCoroutine(int slotId, string instanceKey, double progress)
     {
         yield break;
     }

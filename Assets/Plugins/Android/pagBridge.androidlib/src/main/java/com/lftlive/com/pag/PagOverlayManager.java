@@ -141,6 +141,8 @@ final class PagOverlayManager {
     private boolean fguiGpuActive;
     private boolean fguiGpuSurfaceReady;
     private volatile long fguiGpuPlaybackStartMs;
+    /** P0：Surface/预热完成前不计播放墙钟，避免首帧 progress 超前跳帧。 */
+    private volatile boolean fguiGpuPlaybackClockArmed;
     private volatile double fguiGpuPendingProgress;
     private boolean fguiGpuPlayStartedNotified;
     private int fguiGpuInfiniteLoopCount;
@@ -1152,7 +1154,8 @@ final class PagOverlayManager {
         fguiGpuActive = true;
         isPlaying = true;
         setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
-        fguiGpuPlaybackStartMs = System.currentTimeMillis();
+        fguiGpuPlaybackStartMs = 0L;
+        fguiGpuPlaybackClockArmed = false;
         fguiGpuPendingProgress = 0.0;
         fguiGpuPlayStartedNotified = false;
         fguiGpuLastCompletedLoops = 0L;
@@ -1193,10 +1196,8 @@ final class PagOverlayManager {
             }
             fguiGpuPlayer.setSurface(fguiGpuSurface);
             fguiGpuSurfaceReady = true;
-            Log.i(TAG, "setupGpuSurfaceOnRenderThread: tex=" + texId + " " + texW + "x" + texH);
-            if (!fguiGpuExternalPump) {
-                mainHandler.post(this::scheduleFguiGpuTick);
-            }
+            Log.i(TAG, "setupGpuSurfaceOnRenderThread: tex=" + texId + " " + texW + "x" + texH
+                    + " (tick deferred to Unity warmup/arm)");
             return true;
         } catch (Exception e) {
             Log.e(TAG, "setupGpuSurfaceOnRenderThread failed: " + e.getMessage());
@@ -1327,8 +1328,18 @@ final class PagOverlayManager {
         stopFguiGpuTickScheduling();
     }
 
+    /** P0：Unity GPU 预热完成后调用，开始墙钟并允许 tick 调度。 */
+    void armFguiGpuPlaybackClock() {
+        fguiGpuPlaybackStartMs = System.currentTimeMillis();
+        fguiGpuPlaybackClockArmed = true;
+        Log.i(TAG, "armFguiGpuPlaybackClock: path=" + currentPlayPath);
+    }
+
     private void onGpuFrameFlushed() {
         if (!fguiGpuActive || fguiGpuPlayer == null || pagFile == null) {
+            return;
+        }
+        if (!fguiGpuPlaybackClockArmed) {
             return;
         }
         if (!fguiGpuPlayStartedNotified) {
@@ -1712,6 +1723,7 @@ final class PagOverlayManager {
         if (frameRate > 0f) {
             long frameMs = Math.max(1L, (long) Math.ceil(1000.0 / frameRate));
             fguiGpuPlaybackStartMs = System.currentTimeMillis() - frameMs * frameIndex;
+            fguiGpuPlaybackClockArmed = true;
         }
     }
 
@@ -1724,6 +1736,7 @@ final class PagOverlayManager {
         if (frameRate > 0f) {
             long frameMs = Math.max(1L, (long) (1000.0f / frameRate));
             fguiGpuPlaybackStartMs = System.currentTimeMillis() - frameMs * frameCount;
+            fguiGpuPlaybackClockArmed = true;
         }
     }
 
@@ -1839,6 +1852,7 @@ final class PagOverlayManager {
         stopFguiGpuTickScheduling();
         releaseFguiGpuResources();
         fguiGpuPlaybackStartMs = 0L;
+        fguiGpuPlaybackClockArmed = false;
         fguiGpuPendingProgress = 0.0;
         fguiGpuLastCompletedLoops = 0L;
         fguiGpuPlayStartedNotified = false;
@@ -1857,7 +1871,7 @@ final class PagOverlayManager {
                 fguiGpuPlayer.setProgress(0);
                 fguiGpuActive = true;
                 setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
-                fguiGpuPlaybackStartMs = System.currentTimeMillis();
+                armFguiGpuPlaybackClock();
                 fguiGpuPendingProgress = 0.0;
                 fguiGpuLastCompletedLoops = 0L;
                 if (scheduleTick) {
@@ -1899,7 +1913,7 @@ final class PagOverlayManager {
         }
         fguiGpuActive = true;
         setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
-        fguiGpuPlaybackStartMs = System.currentTimeMillis();
+        armFguiGpuPlaybackClock();
         fguiGpuPendingProgress = 0.0;
         fguiGpuLastCompletedLoops = 0L;
         scheduleFguiGpuTick();
@@ -1930,6 +1944,13 @@ final class PagOverlayManager {
     /** 帧对齐 progress；repeat=-1 时用 modulo 避免墙钟 >=1.0 硬跳 0。 */
     private FguiGpuProgressSnapshot snapshotFguiGpuProgress() {
         FguiGpuProgressSnapshot snap = new FguiGpuProgressSnapshot();
+        if (!fguiGpuPlaybackClockArmed) {
+            snap.progress = 0.0;
+            snap.frameInLoop = 0L;
+            snap.totalFrames = resolveCompositionTotalFrames();
+            snap.completedLoops = 0L;
+            return snap;
+        }
         long durationUs = resolveCompositionDurationUs();
         long elapsedMs = Math.max(0L, System.currentTimeMillis() - fguiGpuPlaybackStartMs);
         float frameRate = resolveCompositionFrameRate();

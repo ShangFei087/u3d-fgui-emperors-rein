@@ -364,6 +364,21 @@ public final class PagBridge {
         });
     }
 
+    /** P0：Unity GPU 预热完成后开始播放墙钟。 */
+    public static void ArmFguiGpuPlaybackClock() {
+        ArmFguiGpuPlaybackClock(DEFAULT_INSTANCE);
+    }
+
+    public static void ArmFguiGpuPlaybackClock(String instanceKey) {
+        final String key = normalizeKey(instanceKey);
+        runOnUi(() -> {
+            PagOverlayManager manager = getManager(key);
+            if (manager != null) {
+                manager.armFguiGpuPlaybackClock();
+            }
+        });
+    }
+
     /** 同步组：阻塞直到 UI 线程完成 startFguiGpuPlayback 且 player 就绪。 */
     public static boolean StartFguiGpuPlaybackSync(String instanceKey) {
         final String key = normalizeKey(instanceKey);

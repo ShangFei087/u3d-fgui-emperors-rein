@@ -267,6 +267,8 @@ namespace SlotZhuZaiJinBi1700
         private bool _comboP4S3Showing;
         private bool _comboP4S4Showing;
         private bool _comboP4S5Showing;
+        private Coroutine _corComboPag2Spine;
+        private Coroutine _corComboPag3Spine;
         private static readonly string[] ComboTestButtonNames =
         {
             "P2S1", "P2S2", "P2S3", "P2S4", "P2S5",
@@ -1648,6 +1650,7 @@ namespace SlotZhuZaiJinBi1700
             if (slotIndex == 2)
             {
                 _pagTest2Showing = false;
+                CancelComboPag2SpineCoroutine();
                 if (_corPagTest2 != null && mono != null)
                 {
                     mono.StopCoroutine(_corPagTest2);
@@ -1661,6 +1664,7 @@ namespace SlotZhuZaiJinBi1700
             if (slotIndex == 3)
             {
                 _pagTest3Showing = false;
+                CancelComboPag3SpineCoroutine();
                 if (_corPagTest3 != null && mono != null)
                 {
                     mono.StopCoroutine(_corPagTest3);
@@ -2315,6 +2319,8 @@ namespace SlotZhuZaiJinBi1700
 
         private void ResetComboTestShowingFlags()
         {
+            CancelComboPag2SpineCoroutine();
+            CancelComboPag3SpineCoroutine();
             _comboP2S1Showing = false;
             _comboP2S2Showing = false;
             _comboP2S3Showing = false;
@@ -2473,38 +2479,152 @@ namespace SlotZhuZaiJinBi1700
             ResetComboTestShowingFlags();
         }
 
-        private void OnClickComboP2S1()
+        private void CancelComboPag2SpineCoroutine()
         {
-            if (_comboP2S1Showing)
+            if (_corComboPag2Spine != null && mono != null)
             {
-                Debug.Log($"{PagLogPrefix} P2S1 clicked, stop");
-                StopPagTestSlotPlayback(2);
-                HidePagTestSpine(1);
-                _comboP2S1Showing = false;
-                return;
+                mono.StopCoroutine(_corComboPag2Spine);
+                _corComboPag2Spine = null;
+            }
+        }
+
+        private void CancelComboPag3SpineCoroutine()
+        {
+            if (_corComboPag3Spine != null && mono != null)
+            {
+                mono.StopCoroutine(_corComboPag3Spine);
+                _corComboPag3Spine = null;
+            }
+        }
+
+        private void StopComboPag2SpinePlayback(int spineIndex, ref bool showingFlag, string comboLabel)
+        {
+            Debug.Log($"{PagLogPrefix} {comboLabel} clicked, stop");
+            showingFlag = false;
+            CancelComboPag2SpineCoroutine();
+            StopPagTestSlotPlayback(2);
+            HidePagTestSpine(spineIndex);
+        }
+
+        private void StopComboPag3SpinePlayback(int spineIndex, ref bool showingFlag, string comboLabel)
+        {
+            Debug.Log($"{PagLogPrefix} {comboLabel} clicked, stop");
+            showingFlag = false;
+            CancelComboPag3SpineCoroutine();
+            StopPagTestSlotPlayback(3);
+            HidePagTestSpine(spineIndex);
+        }
+
+        private bool IsComboPag2SpineShowing(int spineIndex)
+        {
+            switch (spineIndex)
+            {
+                case 1: return _comboP2S1Showing;
+                case 2: return _comboP2S2Showing;
+                case 3: return _comboP2S3Showing;
+                case 4: return _comboP2S4Showing;
+                case 5: return _comboP2S5Showing;
+                default: return false;
+            }
+        }
+
+        private void ClearComboPag2SpineShowing(int spineIndex)
+        {
+            switch (spineIndex)
+            {
+                case 1: _comboP2S1Showing = false; break;
+                case 2: _comboP2S2Showing = false; break;
+                case 3: _comboP2S3Showing = false; break;
+                case 4: _comboP2S4Showing = false; break;
+                case 5: _comboP2S5Showing = false; break;
+            }
+        }
+
+        private bool IsComboPag3SpineShowing(int spineIndex)
+        {
+            switch (spineIndex)
+            {
+                case 1: return _comboP3S1Showing;
+                case 2: return _comboP3S2Showing;
+                case 3: return _comboP3S3Showing;
+                case 4: return _comboP3S4Showing;
+                case 5: return _comboP3S5Showing;
+                default: return false;
+            }
+        }
+
+        private void ClearComboPag3SpineShowing(int spineIndex)
+        {
+            switch (spineIndex)
+            {
+                case 1: _comboP3S1Showing = false; break;
+                case 2: _comboP3S2Showing = false; break;
+                case 3: _comboP3S3Showing = false; break;
+                case 4: _comboP3S4Showing = false; break;
+                case 5: _comboP3S5Showing = false; break;
+            }
+        }
+
+        private IEnumerator PlayComboPag2SpineCoroutine(int spineIndex, string comboLabel)
+        {
+            if (!StartPagTestSlotPlayback(2))
+            {
+                ClearComboPag2SpineShowing(spineIndex);
+                _corComboPag2Spine = null;
+                yield break;
             }
 
-            Debug.Log($"{PagLogPrefix} P2S1 clicked, play");
-            StartPagTestSlotPlayback(2);
-            ShowPagTestSpine(1, PagTestSpine1PlayAnim);
-            _comboP2S1Showing = true;
+            PagController pagController = _pagTestSlot2?.Controller;
+            if (pagController != null)
+            {
+                yield return pagController.WaitForGpuDisplayReady(PagTestPlayStartedTimeoutSec);
+            }
+
+            if (!IsComboPag2SpineShowing(spineIndex))
+            {
+                _corComboPag2Spine = null;
+                yield break;
+            }
+
+            ShowPagTestSpine(spineIndex, GetPagTestSpinePlayAnim(spineIndex));
+            Debug.Log($"{PagLogPrefix} {comboLabel} spine synced at GPU display ready");
+            _corComboPag2Spine = null;
+        }
+
+        private IEnumerator PlayComboPag3SpineCoroutine(int spineIndex, string comboLabel)
+        {
+            if (!StartPagTestSlotPlayback(3))
+            {
+                ClearComboPag3SpineShowing(spineIndex);
+                _corComboPag3Spine = null;
+                yield break;
+            }
+
+            PagController pagController = _pagTestSlot3?.Controller;
+            if (pagController != null)
+            {
+                yield return pagController.WaitForGpuDisplayReady(PagTestPlayStartedTimeoutSec);
+            }
+
+            if (!IsComboPag3SpineShowing(spineIndex))
+            {
+                _corComboPag3Spine = null;
+                yield break;
+            }
+
+            ShowPagTestSpine(spineIndex, GetPagTestSpinePlayAnim(spineIndex));
+            Debug.Log($"{PagLogPrefix} {comboLabel} spine synced at GPU display ready");
+            _corComboPag3Spine = null;
+        }
+
+        private void OnClickComboP2S1()
+        {
+            OnClickComboPag2Spine(1, ref _comboP2S1Showing, "P2S1");
         }
 
         private void OnClickComboP2S2()
         {
-            if (_comboP2S2Showing)
-            {
-                Debug.Log($"{PagLogPrefix} P2S2 clicked, stop");
-                StopPagTestSlotPlayback(2);
-                HidePagTestSpine(2);
-                _comboP2S2Showing = false;
-                return;
-            }
-
-            Debug.Log($"{PagLogPrefix} P2S2 clicked, play");
-            StartPagTestSlotPlayback(2);
-            ShowPagTestSpine(2, PagTestSpine2PlayAnim);
-            _comboP2S2Showing = true;
+            OnClickComboPag2Spine(2, ref _comboP2S2Showing, "P2S2");
         }
 
         private void OnClickComboP2S3()
@@ -2526,17 +2646,21 @@ namespace SlotZhuZaiJinBi1700
         {
             if (showingFlag)
             {
-                Debug.Log($"{PagLogPrefix} {comboLabel} clicked, stop");
-                StopPagTestSlotPlayback(2);
-                HidePagTestSpine(spineIndex);
-                showingFlag = false;
+                StopComboPag2SpinePlayback(spineIndex, ref showingFlag, comboLabel);
                 return;
             }
 
             Debug.Log($"{PagLogPrefix} {comboLabel} clicked, play");
-            StartPagTestSlotPlayback(2);
-            ShowPagTestSpine(spineIndex, GetPagTestSpinePlayAnim(spineIndex));
             showingFlag = true;
+            if (mono == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} {comboLabel} play skipped: mono is null");
+                showingFlag = false;
+                return;
+            }
+
+            CancelComboPag2SpineCoroutine();
+            _corComboPag2Spine = mono.StartCoroutine(PlayComboPag2SpineCoroutine(spineIndex, comboLabel));
         }
 
         private void OnClickComboP3S1()
@@ -2568,17 +2692,21 @@ namespace SlotZhuZaiJinBi1700
         {
             if (showingFlag)
             {
-                Debug.Log($"{PagLogPrefix} {comboLabel} clicked, stop");
-                StopPagTestSlotPlayback(3);
-                HidePagTestSpine(spineIndex);
-                showingFlag = false;
+                StopComboPag3SpinePlayback(spineIndex, ref showingFlag, comboLabel);
                 return;
             }
 
             Debug.Log($"{PagLogPrefix} {comboLabel} clicked, play");
-            StartPagTestSlotPlayback(3);
-            ShowPagTestSpine(spineIndex, GetPagTestSpinePlayAnim(spineIndex));
             showingFlag = true;
+            if (mono == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} {comboLabel} play skipped: mono is null");
+                showingFlag = false;
+                return;
+            }
+
+            CancelComboPag3SpineCoroutine();
+            _corComboPag3Spine = mono.StartCoroutine(PlayComboPag3SpineCoroutine(spineIndex, comboLabel));
         }
 
         private void OnClickComboS2E1E2()

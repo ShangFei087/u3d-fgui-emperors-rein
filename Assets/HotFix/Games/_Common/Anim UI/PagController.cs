@@ -33,6 +33,8 @@ public class PagController : IDisposable
 
     private const string BridgeClass = "com.lftlive.com.pag.PagBridge";
     private const string JniLogTag = "PagBridgeUnity";
+    /// <summary>P1：绑纹理后静默 flush 次数，预热 GPU 后再开播放墙钟。</summary>
+    internal const int GpuWarmupFlushCount = 2;
 
     private static AndroidJavaClass _pagBridge;
     private static bool _initialized;
@@ -57,6 +59,7 @@ public class PagController : IDisposable
     private bool _disposed;
     private bool _attached;
     private bool _playStartedSignal;
+    private bool _gpuDisplayReadySignal;
     private bool _playbackFinished;
     private string _lastPlayPagLeaf;
     private PagRenderTarget _renderTarget = PagRenderTarget.Overlay;
@@ -81,6 +84,8 @@ public class PagController : IDisposable
     internal int TextureSlotId => _textureSlotId;
 
     public bool PlayStarted => _playStartedSignal;
+
+    public bool GpuDisplayReady => _gpuDisplayReadySignal;
 
     public bool PlaybackFinished => _playbackFinished;
 
@@ -342,6 +347,11 @@ public class PagController : IDisposable
         _playStartedSignal = false;
     }
 
+    public void ResetGpuDisplayReadySignal()
+    {
+        _gpuDisplayReadySignal = false;
+    }
+
     public void ResetPlaybackFinished()
     {
         _playbackFinished = false;
@@ -467,6 +477,37 @@ public class PagController : IDisposable
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
         SafeCall("RequestNextGpuFrame", () => _pagBridge.CallStatic("RequestNextGpuFrame", InstanceKey));
+#endif
+    }
+
+    internal void ArmFguiGpuPlaybackClock()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        SafeCall("ArmFguiGpuPlaybackClock", () => _pagBridge.CallStatic("ArmFguiGpuPlaybackClock", InstanceKey));
+#endif
+    }
+
+    /// <summary>P1：静默 flush progress=0，再 arm 墙钟并显示。</summary>
+    internal IEnumerator RunGpuWarmupAndArmPlaybackCoroutine()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        for (int i = 0; i < GpuWarmupFlushCount; i++)
+        {
+            yield return PagUnityGlBridge.FlushCoroutine(_textureSlotId, InstanceKey, 0.0);
+        }
+
+        ArmFguiGpuPlaybackClock();
+        SetFguiVisible(true);
+        MarkGpuDisplayReady();
+#endif
+        yield break;
+    }
+
+    internal void MarkGpuDisplayReady()
+    {
+        _gpuDisplayReadySignal = true;
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+        Debug.Log($"[PAG] GPU display ready instance={InstanceKey}");
 #endif
     }
 
@@ -665,6 +706,21 @@ public class PagController : IDisposable
         }
     }
 
+    /// <summary>P1 预热完成且 pagEffect 已 SetVisible 后可与 Spine 同步起跑（早于 PlayStarted）。</summary>
+    public IEnumerator WaitForGpuDisplayReady(float timeoutSec)
+    {
+        float deadline = Time.unscaledTime + timeoutSec;
+        while (!_gpuDisplayReadySignal && Time.unscaledTime < deadline)
+        {
+            yield return null;
+        }
+
+        if (!_gpuDisplayReadySignal)
+        {
+            Debug.LogWarning($"[PAG] WaitForGpuDisplayReady timeout after {timeoutSec}s instance={InstanceKey}");
+        }
+    }
+
     public float GetCompositionDurationSecWithFallback(float fallbackSec)
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -787,7 +843,7 @@ public class PagController : IDisposable
         TrySyncFguiDisplaySizeFromNative();
         _fguiPresenter.BindExternalTexture(boundTexPtr, texW, texH);
         _fguiPresenter.RefreshDisplayLayout();
-        _fguiPresenter.SetVisible(true);
+        _fguiPresenter.SetVisible(false);
 
         if (PagGpuSyncGroup.Contains(InstanceKey))
         {
@@ -809,8 +865,9 @@ public class PagController : IDisposable
         SafeCall("StartFguiGpuPlayback", () => _pagBridge.CallStatic("StartFguiGpuPlayback", InstanceKey));
         yield return null;
         yield return null;
-        PagUnityGlBridge.IssueSetupPagGpuEvent(_textureSlotId, InstanceKey);
-        yield return new WaitForEndOfFrame();
+        yield return PagUnityGlBridge.SetupBatchCoroutine(new[] { (_textureSlotId, InstanceKey) });
+        yield return RunGpuWarmupAndArmPlaybackCoroutine();
+        RequestNextGpuFrameFromSyncGroup();
         LogJni($"GPU texture bound instance={InstanceKey} id={boundTexId} slot={_textureSlotId} size={texW}x{texH} reuse={reuseGpuTexture}");
         _gpuBindCoroutine = null;
 #else
@@ -872,6 +929,7 @@ public class PagController : IDisposable
 
         PrepareBetweenPlaybackCycles();
         ResetPlayStartedSignal();
+        ResetGpuDisplayReadySignal();
         ResetPlaybackFinished();
         _lastPlayPagLeaf = pagName;
         string pagPath = ResolvePagPath(pagName);
@@ -949,6 +1007,8 @@ public class PagController : IDisposable
         }
 
         StopGpuFrameCoroutines();
+        ResetPlayStartedSignal();
+        ResetGpuDisplayReadySignal();
         if (_maintenanceCoroutine != null)
         {
             PagCallbackHub.Instance.StopRunCoroutine(_maintenanceCoroutine);

@@ -139,6 +139,32 @@ public static class PagGpuSyncGroup
         yield return new WaitForEndOfFrame();
         Debug.Log($"[PAG Sync] setupBatch begin count={setupItems.Count}");
         yield return PagUnityGlBridge.SetupBatchCoroutine(setupItems);
+
+        var warmupFlushItems = new List<(int slotId, string instanceKey, double progress)>(setupItems.Count);
+        for (int i = 0; i < setupItems.Count; i++)
+        {
+            (int slotId, string instanceKey) item = setupItems[i];
+            warmupFlushItems.Add((item.slotId, item.instanceKey, 0.0));
+        }
+
+        for (int warmup = 0; warmup < PagController.GpuWarmupFlushCount; warmup++)
+        {
+            yield return PagUnityGlBridge.FlushBatchCoroutine(warmupFlushItems);
+        }
+
+        foreach (string key in s_members)
+        {
+            PagController controller = PagControllerRegistry.Resolve(key);
+            if (controller == null)
+            {
+                continue;
+            }
+
+            controller.ArmFguiGpuPlaybackClock();
+            controller.SetFguiVisible(true);
+            controller.MarkGpuDisplayReady();
+        }
+
         foreach (string key in s_members)
         {
             PagController controller = PagControllerRegistry.Resolve(key);
