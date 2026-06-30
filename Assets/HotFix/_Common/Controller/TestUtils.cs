@@ -84,4 +84,15 @@ public static class TestUtils
 
         TestManager.Instance.SetToolActive(SBoxModel.Instance.isUseTestTool);
     }
+
+    /// <summary>
+    /// 确保 GCMonitorPro 已创建，F12 与 TestManager「分析」按钮才能切换性能面板。
+    /// </summary>
+    public static void CheckGCMonitorPro()
+    {
+        if (ApplicationSettings.Instance.isRelease)
+            return;
+
+        GCMonitorPro.Instance.showOnScreen = false;
+    }
 }

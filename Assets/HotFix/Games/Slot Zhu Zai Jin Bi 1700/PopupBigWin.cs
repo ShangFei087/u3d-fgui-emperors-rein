@@ -136,6 +136,11 @@ namespace SlotZhuZaiJinBi1700
 
             button=contentPane.GetChild("button").asButton;
             number = contentPane.GetChild("number").asTextField;
+
+            preLoadedCallback?.Invoke();
+
+            if (!isOpen) return;
+
             ShowAni();
         }
         public void SpinDown()

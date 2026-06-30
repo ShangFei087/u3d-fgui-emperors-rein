@@ -395,6 +395,33 @@ namespace HuoYanGongNiu_3995
             if (data != null) _data = data;
             if (!isInit) return;
 
+            // ---------- 1. MainModel、Paytable、本地 JSON ----------
+            MainModel.Instance.lineNum = 300;
+            MainModel.Instance.gameID = 3995;
+            MainModel.Instance.gameName = "HuoYanGongNiu_3995";
+            MainModel.Instance.displayName = "HuoYanGongNiu_3995";
+            MainModel.Instance.contentMD = ContentModel.Instance;
+            MainModel.Instance.cutomMD = CustomModel.Instance;
+            MainModel.Instance.contentMD.betIndex = 0;
+            ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
+
+            //说明书
+            List<GComponent> lstPayTable = new List<GComponent>();
+
+            foreach (string url in CustomModel.Instance.payTable)
+            {
+                GComponent paytable = UIPackage.CreateObjectFromURL(url).asCom;
+                paytable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().InitParam(paytable);
+
+                lstPayTable.Add(paytable);
+                paytable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().referenceCount++;
+            }
+
+            ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
+            payTableController.Init(lstPayTable);
+
+
+            // ---------- 2. FGUI 对象池（须先于滚轮 Init） ----------
             //对象池初始化
             if (fguiPoolHelper != null && isInitPool == false)
             {
@@ -412,6 +439,9 @@ namespace HuoYanGongNiu_3995
                 //fguiPoolHelper.Init(CustomModel.Instance.symbolHitEffect,CustomModel.Instance.symbolAppearEffect, null,CustomModel.Instance.borderEffect);
             }
 
+
+
+            // ---------- 3.滚轮控制器 ----------
             //初始化UI组件
             GComponent gSlotMachine = contentPane.GetChild("slotMachine").asCom;
             GComponent gReels = gSlotMachine.GetChild("reels").asCom;
@@ -420,29 +450,9 @@ namespace HuoYanGongNiu_3995
             gFrame = contentPane.GetChild("anchorFrame").asCom;
             slotMachineCtrl.Init(slotCover, gPlayLines, gReels, gFrame, fguiPoolHelper, gObjectPoolHelper);
 
-            //说明书
-            MainModel.Instance.contentMD = ContentModel.Instance;
-
-            List<GComponent> lstPayTable = new List<GComponent>();
-
-            foreach (string url in CustomModel.Instance.payTable)
-            {
-                GComponent paytable = UIPackage.CreateObjectFromURL(url).asCom;
-                paytable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().InitParam(paytable);
-
-                lstPayTable.Add(paytable);
-                paytable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().referenceCount++;
-            }
-
-            ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
-            payTableController.Init(lstPayTable);
-            ContentModel.Instance.payLines = new List<List<int>>();
-
-            //读取json配置
-            ReadJsonBet();
 
 
-
+            // ---------- 4. 底部菜单 Panel ----------
             //初始化轮盘元素
             ResetWheel();
             gWheel = contentPane.GetChild("wheelContent").asCom;
@@ -450,19 +460,66 @@ namespace HuoYanGongNiu_3995
             wheelSpinBtn.onClick.Clear();
             wheelSpinBtn.onClick.Add(OnClickWheelSpinBtn);
 
+            //初始化菜单ui
+            gOwnerPanel = this.contentPane.GetChild("panel").asCom;
+            ContentModel.Instance.goAnthorPanel = gOwnerPanel;
+            MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
+            // 事件放出
+            //goGameCtrl.transform.Find("Panel").GetComponent<PanelController01>().Init();
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
+            EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
+            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
+                new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
 
-            // 玩家积分初始化
-            SBoxModel.Instance.myCredit = 9900;
-            foreach (SBoxPlayerScoreInfo item in SBoxIdea.SBoxInfo.PlayerScoreInfoList)
-            {
-                if (item.PlayerId == 1)
-                {
-                    SBoxModel.Instance.myCredit = item.Score;
-                }
-            }
+            if (!isOpen) return;
 
-            #region 预制体和GComponent绑定
+
+
+            // ---------- 5.音乐控制 ----------
+
+
+
+
+            // ---------- 6.初始化FGUI组件 ----------
             GComponent loadNorTree = contentPane.GetChild("anchorNormalTree").asCom;
+            GComponent loadNorWater = contentPane.GetChild("anchorNormalWater").asCom;
+            GComponent loadOthWater = contentPane.GetChild("anchorOtherWater").asCom;
+            GComponent loadWheelTip = contentPane.GetChild("wheelTip").asCom;
+            GComponent loadWheelTip2 = contentPane.GetChild("wheelTip2").asCom;
+            GComponent loadWheelTip3 = contentPane.GetChild("wheelTip3").asCom;
+            GComponent loadWheelEffect = contentPane.GetChild("wheelEffect").asCom;
+            GComponent loadChangeIconAnim = contentPane.GetChild("anchorChangeIconAnim").asCom;
+
+            wheelWinCredit = contentPane.GetChild("wheelWinCredit").asTextField;
+            collectedNums = contentPane.GetChild("CollectedNums").asTextField;
+            wheelSpinTimesTxt = contentPane.GetChild("spinTimes").asTextField;
+
+            freeTipLeft = contentPane.GetChild("freeLeft").asGroup;
+            freeTipLeftNum = contentPane.GetChildInGroup(freeTipLeft, "goldBullNums").asTextField;
+
+            freeTipRight = contentPane.GetChild("freeRight").asGroup;
+            freeTipRightNum = contentPane.GetChildInGroup(freeTipRight, "collectNum").asTextField;
+            deerIcon = contentPane.GetChildInGroup(freeTipRight, "anchorDeer").asCom;
+            wolfIcon = contentPane.GetChildInGroup(freeTipRight, "anchorWolf").asCom;
+            leopardIcon = contentPane.GetChildInGroup(freeTipRight, "anchorLeopard").asCom;
+            eagleIcon = contentPane.GetChildInGroup(freeTipRight, "anchorEagle").asCom;
+            targetIcon = contentPane.GetChild("targetIcon").asCom;
+
+            enterFreeGame = contentPane.GetTransition("EnterFreeGame");
+
+            freeRemainTimes = contentPane.GetChild("freeSpinTimes").asTextField;
+            freeTotalTimes = contentPane.GetChild("freeTotalTimes").asTextField;
+            freeTiggerInWheel = contentPane.GetTransition("FreeTigger");
+
+            testBtn = contentPane.GetChild("test").asButton;
+            testBtn.onClick.Clear();
+            testBtn.onClick.Add(OnTestBtn);
+
+
+
+            // ---------- 7.预制体挂到 FGUI 锚点 ----------
+            #region 预制体和GComponent绑定
+
             if (anchorNorTree != loadNorTree)
             {
                 GameCommon.FguiUtils.DeleteWrapper(anchorNorTree);
@@ -471,7 +528,6 @@ namespace HuoYanGongNiu_3995
                 GameCommon.FguiUtils.AddWrapper(anchorNorTree, norTree);
             }
 
-            GComponent loadNorWater = contentPane.GetChild("anchorNormalWater").asCom;
             if (anchorNorWater != loadNorWater)
             {
                 GameCommon.FguiUtils.DeleteWrapper(anchorNorWater);
@@ -480,7 +536,6 @@ namespace HuoYanGongNiu_3995
                 GameCommon.FguiUtils.AddWrapper(anchorNorWater, norWater);
             }
 
-            GComponent loadOthWater = contentPane.GetChild("anchorOtherWater").asCom;
             if (anchorOthWater != loadOthWater)
             {
                 GameCommon.FguiUtils.DeleteWrapper(anchorOthWater);
@@ -489,7 +544,6 @@ namespace HuoYanGongNiu_3995
                 GameCommon.FguiUtils.AddWrapper(anchorOthWater, othWater);
             }
 
-            GComponent loadWheelTip = contentPane.GetChild("wheelTip").asCom;
             if (gWheelTip != loadWheelTip)
             {
                 GameCommon.FguiUtils.DeleteWrapper(gWheelTip);
@@ -500,7 +554,6 @@ namespace HuoYanGongNiu_3995
                 wheelTipObj.SetActive(false);
             }
 
-            GComponent loadWheelTip2 = contentPane.GetChild("wheelTip2").asCom;
             if (gWheelTip2 != loadWheelTip2)
             {
                 GameCommon.FguiUtils.DeleteWrapper(gWheelTip2);
@@ -511,7 +564,6 @@ namespace HuoYanGongNiu_3995
                 wheelTip2Obj.SetActive(false);
             }
 
-            GComponent loadWheelTip3 = contentPane.GetChild("wheelTip3").asCom;
             if (gWheelTip3 != loadWheelTip3)
             {
                 GameCommon.FguiUtils.DeleteWrapper(gWheelTip3);
@@ -522,7 +574,6 @@ namespace HuoYanGongNiu_3995
                 wheelTip3Obj.SetActive(false);
             }
 
-            GComponent loadWheelEffect = contentPane.GetChild("wheelEffect").asCom;
             if (gWheelEffect != loadWheelEffect)
             {
                 GameCommon.FguiUtils.DeleteWrapper(gWheelEffect);
@@ -534,7 +585,6 @@ namespace HuoYanGongNiu_3995
                 GameCommon.FguiUtils.AddWrapper(gWheelEffect, wheelEffObj);
             }
 
-            GComponent loadChangeIconAnim = contentPane.GetChild("anchorChangeIconAnim").asCom;
             if(anchorChangeIconAnim != loadChangeIconAnim)
             {
                 GameCommon.FguiUtils.DeleteWrapper(anchorChangeIconAnim);
@@ -567,72 +617,11 @@ namespace HuoYanGongNiu_3995
                 collectedTarget = contentPane.GetChild("anchorCollectedTarget").asCom;
             }
 
-
-            wheelWinCredit = contentPane.GetChild("wheelWinCredit").asTextField;
-            collectedNums = contentPane.GetChild("CollectedNums").asTextField;
-            wheelSpinTimesTxt = contentPane.GetChild("spinTimes").asTextField;
-
-            freeTipLeft = contentPane.GetChild("freeLeft").asGroup;
-            freeTipLeftNum = contentPane.GetChildInGroup(freeTipLeft, "goldBullNums").asTextField;
-
-            freeTipRight = contentPane.GetChild("freeRight").asGroup;
-            freeTipRightNum = contentPane.GetChildInGroup(freeTipRight, "collectNum").asTextField;
-            deerIcon = contentPane.GetChildInGroup(freeTipRight, "anchorDeer").asCom;
-            wolfIcon = contentPane.GetChildInGroup(freeTipRight, "anchorWolf").asCom;
-            leopardIcon = contentPane.GetChildInGroup(freeTipRight, "anchorLeopard").asCom;
-            eagleIcon = contentPane.GetChildInGroup(freeTipRight, "anchorEagle").asCom;
-            targetIcon = contentPane.GetChild("targetIcon").asCom;
-
-            enterFreeGame = contentPane.GetTransition("EnterFreeGame");
-
-            freeRemainTimes = contentPane.GetChild("freeSpinTimes").asTextField;
-            freeTotalTimes = contentPane.GetChild("freeTotalTimes").asTextField;
-
-            testBtn = contentPane.GetChild("test").asButton;
-            testBtn.onClick.Clear();
-            testBtn.onClick.Add(OnTestBtn);
-
             #endregion
 
-            ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
-            freeTiggerInWheel = contentPane.GetTransition("FreeTigger");
 
-            //初始化菜单ui
-            gOwnerPanel = this.contentPane.GetChild("panel").asCom;
-            ContentModel.Instance.goAnthorPanel = gOwnerPanel;
-            MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
-            // 事件放出
-            //goGameCtrl.transform.Find("Panel").GetComponent<PanelController01>().Init();
-            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
-
-            //同步积分和押注
-            MachineDataManager02.Instance.RequestGetPlayerInfo((res) =>
-            {
-                SBoxAccount data = (SBoxAccount)res;
-                int pid = SBoxModel.Instance.pid;
-                List<SBoxPlayerAccount> playerAccountList = data.PlayerAccountList;
-                for (int i = 0; i < playerAccountList.Count; i++)
-                {
-                    if (playerAccountList[i].PlayerId == pid)
-                    {
-
-                        MainBlackboardController.Instance.SetMyRealCredit(playerAccountList[i].Credit);
-                        //DebugUtils.Log("前一局算法卡CoinIn==" + playerAccountList[i].CoinIn);
-                        // DebugUtils.Log("前一局算法卡Bet==" + playerAccountList[i].Bets);
-                        // DebugUtils.Log("前一局算法卡Credit==" + );
-                        break;
-                    }
-                }
-
-            }, (BagelCodeError err) =>
-            {
-                DebugUtils.Log(err.msg);
-            });
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
 
-
-            ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
         }
 
 
@@ -797,6 +786,29 @@ namespace HuoYanGongNiu_3995
                 errorCallback?.Invoke("<size=15>Balance is insufficient, please recharge first</size>");
                 yield break;
             }
+
+
+            //同步积分和押注
+            MachineDataManager02.Instance.RequestGetPlayerInfo((res) =>
+            {
+                SBoxAccount data = (SBoxAccount)res;
+                int pid = SBoxModel.Instance.pid;
+                List<SBoxPlayerAccount> playerAccountList = data.PlayerAccountList;
+                for (int i = 0; i < playerAccountList.Count; i++)
+                {
+                    if (playerAccountList[i].PlayerId == pid)
+                    {
+                        DebugUtils.Log("前一局算法卡CoinIn==" + playerAccountList[i].CoinIn);
+                        DebugUtils.Log("前一局算法卡Bet==" + playerAccountList[i].Bets);
+                        DebugUtils.Log("前一局算法卡Credit==" + playerAccountList[i].Credit);
+                        break;
+                    }
+                }
+
+            }, (BagelCodeError err) =>
+            {
+                DebugUtils.Log(err.msg);
+            });
 
             // 游戏状态重置和旋转请求
             OnGameReset();
@@ -2389,6 +2401,21 @@ namespace HuoYanGongNiu_3995
                 }
             }
 
+        }
+
+
+        /// <summary>3998：底部 Panel 异步就绪后触发 PageManager 的 preLoadedCallback。</summary>
+        private void OnBottomPanelReadyForPreload(EventData res)
+        {
+            if (res == null || res.name != PanelEvent.BottomPanelReady)
+                return;
+
+            int gameId = Convert.ToInt32(res.value);
+            if (gameId != 3998)
+                return;
+
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
+            preLoadedCallback?.Invoke();
         }
 
 

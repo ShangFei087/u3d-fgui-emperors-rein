@@ -168,7 +168,7 @@ namespace XingYunZhiLun_3998
 
 
             gWheel = this.contentPane.GetChild("zhuanPan").asCom;
-            WheelInit(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 });
+            WheelInit(CustomModel.Instance.lowWheelIndex);
 
             GComponent loadAnchorZhuanPanBg = contentPane.GetChild("anchorBg").asCom;
             if(gWheelBg != loadAnchorZhuanPanBg)
@@ -254,7 +254,7 @@ namespace XingYunZhiLun_3998
             //播放转动特效
             //PlayEffectAnim(effectSpin);
 
-            mono.StartCoroutine(SpinWheelToTarget(targetIndex, () =>
+            mono.StartCoroutine(SpinWheelToTarget(targetIndex + 5, () =>
             {
                 isNext = true;
             }, errorCallback));
@@ -314,31 +314,48 @@ namespace XingYunZhiLun_3998
             switch (index)
             {
                 case "FreeGame":
-                    targetIndex = UnityEngine.Random.Range(0, 1) > 0.5f ? 1 : 7;
+                    targetIndex = UnityEngine.Random.Range(0, 2) * 8 + 5;
+                    Debug.LogError("abcdeefghi");
                     break;
                 case "mini":
-                    targetIndex = targetIndex = UnityEngine.Random.Range(0, 1) > 0.5f ? 5 : 19 ;
+                    targetIndex = UnityEngine.Random.Range(0, 3) * 8 + 1;
                     break;
                 case "minor":
-                    targetIndex = 19;
+                    targetIndex = UnityEngine.Random.Range(0, 2) * 8 + 1;
                     break;
                 case "major":
-                    targetIndex = 5;
+                    targetIndex = UnityEngine.Random.Range(0, 3) * 8 + 1;
                     break;
                 case "Lihe":
-                    targetIndex = UnityEngine.Random.Range(0, 1) > 0.5f ? 0 : 6;
+                    targetIndex = UnityEngine.Random.Range(0, 2) * 8 + 3;
                     break;
                 case "Wild":
-                    targetIndex = UnityEngine.Random.Range(0, 1) > 0.5f ? 2 : 8;
+                    targetIndex = UnityEngine.Random.Range(0, 2) * 8 + 7;
                     break;
                 case "Multiple":
                     if(ContentModel.Instance.multiple <= 11)
                     {
-                        targetIndex = ContentModel.Instance.multiple + 6;
+                        switch(ContentModel.Instance.multiple % 3)
+                        {
+                            case 0:
+                                targetIndex = UnityEngine.Random.Range(0, 3) * 8;
+                                break;
+                            case 1:
+                                targetIndex = UnityEngine.Random.Range(0, 3) * 8 + 2;
+                                break;
+                            case 2:
+                                targetIndex = UnityEngine.Random.Range(0, 2) * 8 + 4;
+                                break;
+                        }
+
+                        if((ContentModel.Instance.scatterCount == 3 && ContentModel.Instance.multiple == 7) || (ContentModel.Instance.scatterCount == 4 && ContentModel.Instance.multiple == 10))
+                        {
+                            targetIndex = UnityEngine.Random.Range(0, 2) * 8 + 6;
+                        }
                     }
                     else
                     {
-                        targetIndex = 18;
+                        targetIndex = UnityEngine.Random.Range(0, 2) * 8 + 6;
                     }
                     break;
             }
@@ -426,7 +443,7 @@ namespace XingYunZhiLun_3998
 
 
         //轮盘初始化图片
-        private void WheelInit(List<int> wheelSymbolsIndex)
+        private void WheelInit(int[] wheelSymbolsIndex)
         {
             GComponent symbols = gWheel.GetChild("Wheel").asCom.GetChild("wheelBg").asLoader.component.GetChild("Symbols").asCom;
             for (int i = 0; i < symbols.numChildren; i++)
@@ -439,7 +456,7 @@ namespace XingYunZhiLun_3998
                     GComponent symbol = child.asCom;
                     // 在这里处理每个 symbol
                     GLoader gLoader = symbol.GetChild("animator").asCom.GetChild("icon").asLoader;
-                    gLoader.url = CustomModel.Instance.wheelSymbolIcon[(i % 14).ToString()];
+                    gLoader.url = CustomModel.Instance.wheelSymbolIcon[wheelSymbolsIndex[i % 8].ToString()];
                 }
             }
         }
@@ -624,7 +641,18 @@ namespace XingYunZhiLun_3998
             gWheel.GetChild("Wheel").asCom.GetChild("wheelBg").asLoader.url = CustomModel.Instance.wheelState[wheelIndex];
             PlayAnim(animNames[wheelBgIndex]);
 
-            WheelInit(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 });
+            switch (wheelBgIndex)
+            {
+                case 0:
+                    WheelInit(CustomModel.Instance.lowWheelIndex);
+                    break;
+                case 1:
+                    WheelInit(CustomModel.Instance.midWheelIndex);
+                    break;
+                case 2:
+                    WheelInit(CustomModel.Instance.highWheelIndex);
+                    break;
+            }
         }
     }
 

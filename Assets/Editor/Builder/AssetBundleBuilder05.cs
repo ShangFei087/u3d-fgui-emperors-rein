@@ -20,6 +20,7 @@ public partial class AssetBundleBuilder05 : EditorWindow
     [MenuItem("NewBuild/拷贝DLL到StreamingAssets目录GameDll 下并更改后缀名")]
     public static void CopyDllAndReName002()
     {
+        ApplicationSettingsPlayerSync.TrySync();
 
         CopyDll();
 
@@ -30,6 +31,75 @@ public partial class AssetBundleBuilder05 : EditorWindow
     }
 
 
+
+    [MenuItem("NewBuild/拷贝AOT元数据到StreamingAssets/AOTMeta")]
+    public static void CopyAotMetaAndRefresh()
+    {
+        CopyAotMeta();
+        AssetDatabase.Refresh();
+    }
+
+    static void CopyAotMeta()
+    {
+        string toDirPath = Path.Combine(Application.streamingAssetsPath, "AOTMeta");
+        if (Directory.Exists(toDirPath) == false)
+        {
+            Directory.CreateDirectory(toDirPath);
+        }
+
+        string dataPath = Application.dataPath;
+        string projectRootPath = Directory.GetParent(dataPath).FullName;
+        string sourceRootPath = Path.Combine(
+            projectRootPath,
+            "HybridCLRData/AssembliesPostIl2CppStrip/" + EditorUserBuildSettings.activeBuildTarget);
+
+        if (Directory.Exists(sourceRootPath) == false)
+        {
+            Debug.LogError($"AOT 元数据源目录不存在: {sourceRootPath}，请先执行 HybridCLR Generate。");
+            return;
+        }
+
+        var expectedNames = new HashSet<string>();
+        int copiedCount = 0;
+        int missingCount = 0;
+
+        foreach (string dllName in AOTGenericReferences.PatchedAOTAssemblyList)
+        {
+            expectedNames.Add(dllName + ".bytes");
+
+            string sourcePath = Path.Combine(sourceRootPath, dllName);
+            string destinationPath = Path.Combine(toDirPath, dllName + ".bytes");
+            if (File.Exists(sourcePath))
+            {
+                try
+                {
+                    File.Copy(sourcePath, destinationPath, overwrite: true);
+                    copiedCount++;
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"拷贝 AOT 元数据失败 {sourcePath} -> {destinationPath}: {e}");
+                }
+            }
+            else
+            {
+                missingCount++;
+                Debug.LogError($"AOT 元数据源文件不存在: {sourcePath}，请先执行 HybridCLR Generate。");
+            }
+        }
+
+        foreach (string existingFile in Directory.GetFiles(toDirPath, "*.dll.bytes"))
+        {
+            string fileName = Path.GetFileName(existingFile);
+            if (expectedNames.Contains(fileName) == false)
+            {
+                File.Delete(existingFile);
+                Debug.Log($"删除已废弃的 AOT 元数据: {fileName}");
+            }
+        }
+
+        Debug.Log($"AOT 元数据同步完成: 成功 {copiedCount}，缺失 {missingCount}，目标目录 {toDirPath}");
+    }
 
     static void CopyDll()
     {
@@ -77,6 +147,9 @@ public partial class AssetBundleBuilder05 : EditorWindow
     [MenuItem("NewBuild/打包1001")]
     public static void BuildPigSlotGameResource002()
     {
+        ApplicationSettingsPlayerSync.TrySync();
+
+        CopyAotMeta();
         CopyDll();
         CopyAssetBackup();
 
@@ -99,6 +172,8 @@ public partial class AssetBundleBuilder05 : EditorWindow
         //MarkLuBanJson_002();
 
         MarkResoueceABs_002();
+
+        MarkResourcePag_002();
 
         MarkResourceSounds_002();
 
@@ -269,6 +344,27 @@ public partial class AssetBundleBuilder05 : EditorWindow
             SetBundleName(pth);
         }
     }
+
+    /// <summary>
+    /// Pag 文件夹下的 .pag 文件各自打成独立 AB。
+    /// </summary>
+    static void MarkResourcePag_002()
+    {
+        string rootFolderPth = PathHelper.gameResDirPROJPTH;
+        List<string> folderPthLst = GetAllFolderPath(rootFolderPth, "\\Pag");
+
+        List<string> targetPathLst = new List<string>();
+        foreach (var pth in folderPthLst)
+        {
+            targetPathLst.AddRange(GetTargetFilePath(pth, ".pag"));
+        }
+
+        foreach (string pth in targetPathLst)
+        {
+            SetBundleName(pth);
+        }
+    }
+
 
     /// <summary>
     /// 删除路劲下的所有ab包名

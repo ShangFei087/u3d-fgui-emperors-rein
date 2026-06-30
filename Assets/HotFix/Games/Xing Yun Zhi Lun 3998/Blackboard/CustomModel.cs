@@ -152,6 +152,10 @@ namespace XingYunZhiLun_3998
                 {"10", "ui://XingYunZhiLun_3998/symbol_11" }
         };
 
+        public int[] lowWheelIndex = new int[] { 4, 0, 5, 1, 6, 2, 8, 3};
+        public int[] midWheelIndex = new int[] { 7, 0, 8, 1, 9, 2, 11, 3};
+        public int[] highWheelIndex = new int[] { 10, 0, 11, 1, 12, 2, 13, 3};
+
         public Dictionary<string, string> wheelSymbolIcon => new Dictionary<string, string>
         {
             {"0", "ui://XingYunZhiLun_3998/symbol_bouns"},

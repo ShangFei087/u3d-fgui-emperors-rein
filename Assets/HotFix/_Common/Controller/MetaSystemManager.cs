@@ -446,14 +446,11 @@ ORDER BY id ASC";
 
     public void AnalysisTest(EventData res = null)
     {
-        GCMonitorPro comp = GetComponentInChildren<GCMonitorPro>();
-        if(comp != null)
-        {
-            if(res == null)
-                comp.enabled = false;
-            else 
-                comp.enabled = (bool)res.value;
-        }
+        GCMonitorPro comp = GCMonitorPro.Instance;
+        if (res == null)
+            comp.showOnScreen = false;
+        else
+            comp.showOnScreen = (bool)res.value;
     }
 
 

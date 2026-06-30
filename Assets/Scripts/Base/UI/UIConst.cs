@@ -153,8 +153,8 @@ public class UIConst
             [PageName.SlotZhuZaiJinBiPopupBigWin] =
                 new object[] { "Assets/GameRes/Games/Slot Zhu Zai Jin Bi 1700/FGUIs", "SlotZhuZaiJinBi1700.PopupBigWin" },
             [PageName.SlotZhuZaiJinBiPopupFreeSpinTrigger] = new object[] { "Assets/GameRes/Games/Slot Zhu Zai Jin Bi 1700/FGUIs", "SlotZhuZaiJinBi1700.PopupFreeSpinTrigger" },
-
-
+            [PageName.SlotZhuZaiJinPageTest] = new object[] { "Assets/GameRes/Games/Slot Zhu Zai Jin Bi 1700/FGUIs", "SlotZhuZaiJinBi1700.PageTest" },
+            
             // 财富之门
             [PageName.CaiFuZhiMenPopupGameLoading] =
                 new object[] { "Assets/GameRes/Games/Cai Fu Zhi Men 3999/FGUIs", "CaiFuZhiMen_3999.PopupGameLoading" },
@@ -348,6 +348,7 @@ public enum PageName
     SlotZhuZaiJinBiPageGameMain,
     SlotZhuZaiJinBiPopupBigWin,
     SlotZhuZaiJinBiPopupFreeSpinTrigger,
+    SlotZhuZaiJinPageTest,
 
     // 财富之门
     CaiFuZhiMenPopupGameLoading,
