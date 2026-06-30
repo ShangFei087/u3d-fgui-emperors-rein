@@ -25,6 +25,7 @@ namespace HuoYanGongNiu_3995
 
         protected override void OnInit()
         {
+            this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
             int count = 1;
@@ -68,9 +69,6 @@ namespace HuoYanGongNiu_3995
         {
             if (!isInit) return;
 
-            //Load = this.contentPane.GetChild("load").asTextField;
-            //version = this.contentPane.GetChild("version").asTextField;
-            //version.text = GlobalData.hotfixVersion;
             ProgressBar = this.contentPane.GetChild("Slider").asSlider;
             ProgressBar.value = 0;
 
@@ -85,93 +83,165 @@ namespace HuoYanGongNiu_3995
                 GameCommon.FguiUtils.AddWrapper(anchorLoadText, loadTitleGameObject);
             }
 
-            //GComponent localAnchorEffect = contentPane.GetChild("Slider").asSlider.GetChild("anchorEffect").asCom;
-            //if (anchorEffect != localAnchorEffect)
-            //{
-            //    GameCommon.FguiUtils.DeleteWrapper(anchorEffect);
-            //    anchorEffect = localAnchorEffect;
-            //    loadBarEffect = GameObject.Instantiate(go_loadBar);
-            //    GameCommon.FguiUtils.AddWrapper(anchorEffect, loadBarEffect);
-            //}
-
-
             if (PageManager.Instance.IndexOf(PageName.HuoYanGongNiuPopupGameLoading) == 0)
             {
-                StartLoadingAnimation();
-                StartLoadingAnimation2();
+                StartPreloadGamePagesThenLoadingAnimation();
+            }
 
-                //PlayAnim("start");
+            preLoadedCallback?.Invoke();
+        }
+
+
+        private int _preloadTotal;
+        private int _preloadCompleted;
+
+        /// <summary>从进入并行预加载起算，界面至少展示此时长（秒）；预加载更久则按实际结束。</summary>
+        private const float MinLoadingDisplaySeconds = 5f;
+
+        private float _preloadStartRealtime;
+        private TimerCallback _pendingMinDisplayCallback;
+
+        /// <summary>
+        /// 并行预加载各子界面；进度条按完成个数增长，全部完成后进入主界面。
+        /// </summary>
+        private void StartPreloadGamePagesThenLoadingAnimation()
+        {
+            if (_pendingMinDisplayCallback != null)
+            {
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+            }
+
+            _preloadStartRealtime = Time.realtimeSinceStartup;
+
+            PageName[] pages =
+            {
+                PageName.HuoYanGongNiuPageGameMain,
+                PageName.HuoYanGongNiuPopupFreeSpinTrigger,
+                PageName.HuoYanGongNiuPopupFreeSpinExit,
+            };
+
+            _preloadTotal = pages.Length;
+            _preloadCompleted = 0;
+            RefreshLoadingProgressVisual();
+            PlayAnim("start");
+
+            for (int i = 0; i < pages.Length; i++)
+            {
+                PageManager.Instance.PreloadPage(pages[i], OnOnePreloadPageDone);
+
             }
         }
 
-
-
-        GTweener tweener = null;
-        GTweener tweener2 = null;
-
-        private void StartLoadingAnimation()
+        private void OnOnePreloadPageDone()
         {
-            // 预加载界面：
-            PageManager.Instance.PreloadPage(PageName.HuoYanGongNiuPageGameMain, null);
-            PageManager.Instance.PreloadPage(PageName.HuoYanGongNiuPopupFreeSpinTrigger, null);
-            PageManager.Instance.PreloadPage(PageName.HuoYanGongNiuPopupFreeSpinExit, null);
+            _preloadCompleted++;
+            RefreshLoadingProgressVisual();
 
+            if (_preloadCompleted < _preloadTotal) return;
 
-            // 使用GTween实现0到100的平滑过渡，时长2秒
-            //if (tweener != null)
-            //{
-            //    tweener.Kill();
-            //}
-            //tweener = GTween.To(0, 100, duration)
-            //    .SetEase(EaseType.Linear) // 线性过渡，匀速增长
-            //    .OnUpdate((tween) =>
-            //    {
-            //        // 获取当前进度值（四舍五入为整数）
-            //        int progress = Mathf.RoundToInt(tween.value.x);
-
-            //    })
-            //    .OnComplete(() =>
-            //    {
-            //        Load.text = $"加载完成";
-
-
-            //    });
+            TryFinishLoadingAfterPreloads();
         }
 
-        private void StartLoadingAnimation2()
+        public override void OnClose(EventData data = null)
         {
-            if (tweener2 != null) tweener2.Kill();
-            tweener2 = GTween.To(0, 1, duration)
-                .SetEase(EaseType.Linear) // 线性过渡，匀速增长
-                .OnUpdate((tween) =>
-                {
-                    // 获取当前进度值（四舍五入为整数）
-                    double progress = tween.value.x;
-                    ProgressBar.value = progress;
+            if (_pendingMinDisplayCallback != null)
+            {
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+            }
 
-                })
-                .OnComplete(() =>
-                {
-                    CloseSelf(null);
+            base.OnClose(data);
+        }
 
+        private float GetPreloadRatio()
+        {
+            return _preloadTotal > 0 ? (float)_preloadCompleted / _preloadTotal : 1f;
+        }
 
-                    Action onJPPoolSubCredit = () =>
-                    {
-                        DebugUtils.Log("i am here123");
-                    };
+        private float GetTimeCapRatio()
+        {
+            return Mathf.Clamp01((Time.realtimeSinceStartup - _preloadStartRealtime) / MinLoadingDisplaySeconds);
+        }
 
+        /// <summary>
+        /// 进度条取「预加载完成度」与「最短展示时间」的较小值，避免未满最短时间条已 100%。
+        /// </summary>
+        private float GetDisplayNormalizedProgress()
+        {
+            return Mathf.Min(GetPreloadRatio(), GetTimeCapRatio());
+        }
 
+        private void RefreshLoadingProgressVisual()
+        {
+            float display = GetDisplayNormalizedProgress();
+            SetSliderByPreloadNormalized(display);
+            int dotIndex = ((int)(display * 100) / 4) % 4;
+        }
 
-                    if (PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce)
-                    {
-                        PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce = false;
-                    }
-                    else
-                    {
-                        PageManager.Instance.OpenPage(PageName.HuoYanGongNiuPageGameMain);
-                        Debug.LogError("加载完成");
-                    }
-                });
+        private void TryFinishLoadingAfterPreloads()
+        {
+            float elapsed = Time.realtimeSinceStartup - _preloadStartRealtime;
+            if (elapsed >= MinLoadingDisplaySeconds)
+            {
+                RefreshLoadingProgressVisual();
+                CompleteLoadingTransition();
+                return;
+            }
+
+            if (_pendingMinDisplayCallback != null)
+                return;
+
+            RefreshLoadingProgressVisual();
+            _pendingMinDisplayCallback = OnLoadingProgressPadTick;
+            Timers.inst.Add(0.05f, 0, _pendingMinDisplayCallback);
+        }
+
+        private void OnLoadingProgressPadTick(object param)
+        {
+            RefreshLoadingProgressVisual();
+            float elapsed = Time.realtimeSinceStartup - _preloadStartRealtime;
+            if (_preloadCompleted >= _preloadTotal && elapsed >= MinLoadingDisplaySeconds)
+            {
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+                CompleteLoadingTransition();
+            }
+        }
+
+        private void CompleteLoadingTransition()
+        {
+            if (_pendingMinDisplayCallback != null)
+            {
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+            }
+
+            SetSliderByPreloadNormalized(1f);
+            CloseSelf(null);
+
+            if (PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce)
+            {
+                PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce = false;
+            }
+            else
+            {
+                PageManager.Instance.OpenPage(PageName.HuoYanGongNiuPageGameMain);
+            }
+        }
+
+        /// <summary>
+        /// 将 0~1 的预加载比例映射到 GSlider 的 min~max（FGUI 默认 max=100，直接写 0~1 会显示成约 1% 而非 71%）。
+        /// </summary>
+        private void SetSliderByPreloadNormalized(float normalized01)
+        {
+            if (ProgressBar == null)
+                return;
+            normalized01 = Mathf.Clamp01(normalized01);
+            double span = ProgressBar.max - ProgressBar.min;
+            if (span <= 0)
+                span = 1;
+            ProgressBar.value = ProgressBar.min + span * normalized01;
         }
 
         //播放指定动画

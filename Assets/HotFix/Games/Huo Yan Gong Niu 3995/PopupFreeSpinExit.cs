@@ -92,12 +92,18 @@ namespace HuoYanGongNiu_3995
             }
 
             exitBtn = this.contentPane.GetChild("exitBtn").asButton;
+            sorceTxt = contentPane.GetChild("score").asTextField;
+
+            preLoadedCallback?.Invoke();
+
+            if (!isOpen) return;
+
+
             exitBtn.touchable = false;
             exitBtn.onClick.Clear();
             isClose = false;
             exitBtn.onClick.Add(OnBtnStartClick);
 
-            sorceTxt = contentPane.GetChild("score").asTextField;
             sorceTxt.text = "114,514,114,514";
 
             AddTimer(1.2f, (object obj) =>

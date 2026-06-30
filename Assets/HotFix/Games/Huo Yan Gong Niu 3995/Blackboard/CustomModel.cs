@@ -242,12 +242,62 @@ namespace HuoYanGongNiu_3995
             },
         };
         public List<List<int>> payLines => new List<List<int>> 
-        { 
-
+        {
+            new List<int>{0,0,0,0,0},
+            new List<int>{0,0,1,0,0},
+            new List<int>{0,1,1,1,0},
+            new List<int>{0,1,2,1,0},
+            new List<int>{0,1,0,1,0},
+            new List<int>{0,0,0,1,0},
+            new List<int>{0,1,0,0,0},
+            new List<int>{0,0,1,1,0},
+            new List<int>{0,1,1,0,0},
+            new List<int>{0,0,2,0,0},
+            new List<int>{0,0,2,1,0},
+            new List<int>{0,1,2,0,0},
+            new List<int>{1,1,1,1,1},
+            new List<int>{1,1,2,1,1},
+            new List<int>{1,1,0,1,1},
+            new List<int>{1,2,2,2,1},
+            new List<int>{1,0,0,0,1},
+            new List<int>{1,2,1,2,1},
+            new List<int>{1,0,1,0,1},
+            new List<int>{1,1,1,2,1},
+            new List<int>{1,1,1,0,1},
+            new List<int>{1,2,1,1,1},
+            new List<int>{1,0,1,1,1},
+            new List<int>{1,2,0,2,1},
+            new List<int>{2,2,2,2,2},
+            new List<int>{2,2,3,2,2},
+            new List<int>{2,2,1,2,2},
+            new List<int>{2,3,3,3,2},
+            new List<int>{2,1,1,1,2},
+            new List<int>{2,3,2,3,2},
+            new List<int>{2,1,2,1,2},
+            new List<int>{2,2,2,3,2},
+            new List<int>{2,2,2,1,2},
+            new List<int>{2,3,2,2,2},
+            new List<int>{2,1,2,2,2},
+            new List<int>{2,3,1,3,2},
+            new List<int>{2,1,3,1,2},
+            new List<int>{3,3,3,3,3},
+            new List<int>{3,3,2,3,3},
+            new List<int>{3,2,2,2,3},
+            new List<int>{3,2,1,2,3},
+            new List<int>{3,2,3,2,3},
+            new List<int>{3,3,3,2,3},
+            new List<int>{3,2,3,3,3},
+            new List<int>{3,3,2,2,3},
+            new List<int>{3,2,2,3,3},
+            new List<int>{3,3,1,3,3},
+            new List<int>{3,3,1,2,3},
+            new List<int>{3,2,1,3,3}
         };
         public List<WinMultiple> winLevelMultiple => new List<WinMultiple> 
         {
-            
+             new WinMultiple("BIG", 5),
+             new WinMultiple("HUGE", 10),
+             new WinMultiple("MASSIVE", 20),
         };
 
         List<PayTableSymbolInfo> ICustomModel.payTableSymbolWin { get => payTableSymbolWin; set => throw new System.NotImplementedException(); }

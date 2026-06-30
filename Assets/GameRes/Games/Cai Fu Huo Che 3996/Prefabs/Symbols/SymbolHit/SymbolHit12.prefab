@@ -480,6 +480,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: eff_sg_sym13_shouJiWin
       objectReference: {fileID: 0}
+    - target: {fileID: 3966738395451712241, guid: 15d61bdf3c9bf9a4a9c087d1003f07b6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15d61bdf3c9bf9a4a9c087d1003f07b6, type: 3}
 --- !u!224 &6127206885473523160 stripped

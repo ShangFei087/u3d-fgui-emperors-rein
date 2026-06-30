@@ -294,6 +294,13 @@
     <image id="nnazdk" name="7.png" path="/images/Panel/payTable/" exported="true"/>
     <component id="nnazdm" name="Paytable6.xml" path="/moudules/payTable/" exported="true"/>
     <component id="nnazdn" name="Paytable7.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="q30qe2" name="smallGameReels.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="q30qe3" name="ElementBox.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="q30qe4" name="RollElement.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="q30qe5" name="anchorSmallGame.xml" path="/moudules/slotMachine/" exported="true"/>
+    <image id="q30qe7" name="symbol_15.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="q30qe8" name="symbol_13.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="q30qe9" name="symbol_14.png" path="/images/normalGame/symbols/" exported="true"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Cai Fu Huo Che 3996\FGUIs" packageCount="2"/>
 </packageDescription>

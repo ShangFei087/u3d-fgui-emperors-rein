@@ -92,12 +92,17 @@ namespace HuoYanGongNiu_3995
             }
 
             btnStart = this.contentPane.GetChild("startBtn").asButton;
+            timeImage = contentPane.GetChild("times").asLoader;
+
+            preLoadedCallback?.Invoke();
+
+            if (!isOpen) return;
+
             btnStart.touchable = false;
             btnStart.onClick.Clear();
             isClose = false;
             btnStart.onClick.Add(OnBtnStartClick);
 
-            timeImage = contentPane.GetChild("times").asLoader;
             timeImage.alpha = 1;
 
             AddTimer(1.2f, (object obj) =>

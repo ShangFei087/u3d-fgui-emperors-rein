@@ -158,13 +158,13 @@ namespace CaiFuHuoChe_3996
         {
             switch (jackpotType)
             {
-                case 1:
+                case 0:
                     AddWrapperEffect(majorPref);
                     break;
-                case 2:
+                case 1:
                     AddWrapperEffect(minorPref);
                     break;
-                case 3:
+                case 2:
                     AddWrapperEffect(miniPref);
                     break;
             }

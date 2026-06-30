@@ -84,7 +84,7 @@
     <component id="n73_k1q0" name="major" src="k1q07r" fileName="component/gameJackpotTip/Major.xml" xy="321,928" group="n78_k1q0"/>
     <group id="n78_k1q0" name="JackpotTip" xy="0,796" size="1080,287"/>
     <component id="n104_z9k8" name="anchorChangeIconAnim" src="z9k899" fileName="component/gameFreeGame/AnchorChangeIconAnim.xml" xy="716,618" scale="2,2"/>
-    <component id="n23_j7ma" name="panel" src="j7ma2u" fileName="component/AnchorPanelPush.xml" xy="540,1854" pivot="0.5,0.5" anchor="true"/>
+    <component id="n23_j7ma" name="panel" src="j7ma2u" fileName="component/AnchorPanelPush.xml" xy="540,960" pivot="0.5,0.5" anchor="true"/>
     <component id="n59_xrp2" name="test" src="xrp243" fileName="Button1.xml" xy="374,918" size="308,77"/>
     <component id="n99_md44" name="anchorCreditStart" src="md4498" fileName="component/gameFreeGame/AnchorCreditEffect.xml" xy="248,1261"/>
     <component id="n101_md44" name="anchorCreditTarget" src="md4498" fileName="component/gameFreeGame/AnchorCreditEffect.xml" xy="540,1844" pivot="0.5,0.5" anchor="true"/>
