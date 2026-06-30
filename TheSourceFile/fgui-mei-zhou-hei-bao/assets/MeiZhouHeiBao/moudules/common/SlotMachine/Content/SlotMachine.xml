@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="725,399">
-  <displayList>
-    <image id="n3_vcbb" name="n3" src="qkv051" fileName="images/common/SlotMachine/ReelBackground/ng_img_base.png" xy="0,0" scale="0.9,0.9"/>
-    <component id="n2_qkv0" name="reels" src="qkv05n" fileName="moudules/common/SlotMachine/Content/Reels.xml" xy="0,0"/>
-    <component id="n0_qkv0" name="slotCover" src="qkv05h" fileName="moudules/common/SlotMachine/Content/SlotCover.xml" xy="0,0"/>
-    <component id="n1_qkv0" name="playLines" src="qkv05i" fileName="moudules/common/SlotMachine/Content/AnchorPlayLines.xml" xy="0,0"/>
-  </displayList>
-</component>

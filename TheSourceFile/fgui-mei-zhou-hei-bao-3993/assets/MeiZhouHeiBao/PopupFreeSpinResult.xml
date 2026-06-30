@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <text id="n0_z2gw" name="scoreText" xy="363,596" size="352,193" fontSize="12" autoSize="none" text=""/>
+  </displayList>
+</component>

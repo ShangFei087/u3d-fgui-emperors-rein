@@ -150,7 +150,49 @@ namespace TreasuryHall
             AbortCardEnterTransitionIfAny();
             EventCenter.Instance.RemoveEventListener<EventData>(MetaUIEvent.ON_CREDIT_EVENT, OnUpdateNaviCredit);
             GameSoundHelper.Instance.StopMusic();
+            DisposeCardWrappers();
             base.OnClose(data);
+        }
+
+        /// <summary>
+        /// 关闭时释放卡牌 Spine GoWrapper，避免 clone 仍 active 被 SpineStatsCounter 计为在屏渲染。
+        /// </summary>
+        private void DisposeCardWrappers()
+        {
+            StopAndClearParticle(goplat_card_cfzj);
+            StopAndClearParticle(goplat_card_cfhc1);
+            StopAndClearParticle(goplat_card_cfhc2);
+            StopAndClearParticle(goplat_card_cfhc3);
+
+            GameCommon.FguiUtils.DeleteWrapper(anchorCard3996);
+            GameCommon.FguiUtils.DeleteWrapper(anchorCard3997);
+            GameCommon.FguiUtils.DeleteWrapper(anchorCard3998);
+
+            ClonegoCard3996 = null;
+            ClonegoCard3997 = null;
+            ClonegoCard3998 = null;
+            animator3996 = null;
+            animator3997 = null;
+            animator3998 = null;
+            _skeletonMecanim3996 = null;
+            _skeletonMecanim3997 = null;
+            _skeletonMecanim3998 = null;
+            anchorCard3996 = null;
+            anchorCard3997 = null;
+            anchorCard3998 = null;
+            goplat_card_cfzj = null;
+            goplat_card_cfhc1 = null;
+            goplat_card_cfhc2 = null;
+            goplat_card_cfhc3 = null;
+        }
+
+        static void StopAndClearParticle(ParticleSystem particle)
+        {
+            if (particle == null)
+                return;
+
+            particle.Stop();
+            particle.Clear();
         }
 
         public override void InitParam()

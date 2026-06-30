@@ -1,0 +1,28 @@
+apply plugin: 'com.android.library'
+
+dependencies {
+    compileOnly files('../libs/unity-classes.jar')
+    implementation fileTree(dir: 'libs', include: ['libpag-*.aar'])
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion '30.0.2'
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 30
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}

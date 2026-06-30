@@ -12,7 +12,6 @@ using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using _spinWEMD = SlotMaker.SpinWinEffectSettingModel;
-using Random = System.Random;
 
 namespace CaiFuZhiJia_3997
 {
@@ -28,8 +27,7 @@ namespace CaiFuZhiJia_3997
 
         [JsonProperty("win_level_multiple")] public Dictionary<string, long> WinLevelMultiple { get; set; } //赢钱倍数
 
-        [JsonProperty("symbol_paytable")]
-        public Dictionary<string, PayTableSymbolInfo> SymbolPaytable { get; set; } //符号赔率表
+        [JsonProperty("symbol_paytable")] public Dictionary<string, PayTableSymbolInfo> SymbolPaytable { get; set; } //符号赔率表
 
         [JsonProperty("pay_lines")] public List<List<int>> pay_lines { get; set; } //支付钱
     }
@@ -51,7 +49,7 @@ namespace CaiFuZhiJia_3997
 
         // ------------------游戏中通用变量--------------------
         // 界面初始化
-        private bool _isInitPool = false;
+        private bool _isInitPool;
         private int _totalCount = -1;
         private GComponent _gOwnerPanel;
 
@@ -64,7 +62,6 @@ namespace CaiFuZhiJia_3997
         private SlotMachineController3997 _slotMachineCtrl;
         private FguiGObjectPoolHelper _fGuiGObjectPoolHelper;
         private Controller _pageController; // FairyGUI的控制器
-
         private GameSoundController3997 _gameSoundController; // 游戏声音控制器
 
         // 彩金
@@ -87,8 +84,7 @@ namespace CaiFuZhiJia_3997
         private bool _isStopButtonLocked, _tipCoinIn, _isStoppedSlotMachine;
 
         // 加钱结算
-        private bool IsAddCreditAnim =>
-            !(_slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
+        private bool IsAddCreditAnim => !(_slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
 
         // 免费游戏和彩金游戏触发加速框
         private GameObject _freeBorderObj, _bonusBorderObj;
@@ -96,22 +92,13 @@ namespace CaiFuZhiJia_3997
         private GComponent _anchorAccelerateParent, _anchorFreeAccelerate, _anchorBonusAccelerate;
 
         // 游戏中的协程
-        private Coroutine _corGameOnce,
-            _corReelsTurn,
-            _corGameIdle,
-            _corEffectSlowMotion,
-            _corGameAuto,
-            _corLightningEffect,
-            _corRewardEffect,
-            _corShowFreeSymbol,
-            _corShowBonusSymbol;
+        private Coroutine _corGameOnce, _corReelsTurn, _corGameIdle, _corEffectSlowMotion, _corGameAuto, _corLightningEffect, _corRewardEffect, _corShowFreeSymbol, _corShowBonusSymbol;
 
         // 记录未中奖局数
         private int _currentNotWinCount = 0;
 
         //当前游戏触发加速框后是否中奖
-        private bool _isTriggerFrame = false;
-        private bool _isWinFreeOrBonus = false;
+        private bool _isTriggerFrame, _isWinFreeOrBonus;
 
         // -------------------------------- 免费游戏 -------------------------------------
         private FreeSpinTimeController _freeSpinTimeController; // 免费游戏次数管理器
@@ -142,37 +129,30 @@ namespace CaiFuZhiJia_3997
         private readonly List<GComponent> _lightningEffectList = new List<GComponent>();
 
         // 机器人Spine动画
-        private GameObject _robotObj = null; // 物体模板
-        private GameObject _cloneRobotObj = null; // 克隆的物体
-        private GComponent _compareRobot = null; // 多分支对照的UI组件
+        private GameObject _robotObj; // 物体模板
+        private GameObject _cloneRobotObj; // 克隆的物体
+        private GComponent _compareRobot; // 多分支对照的UI组件
 
         private long _allWinCredit = 0;
-
         private readonly List<Dictionary<string, object>> _stackContext = new List<Dictionary<string, object>>();
 
         // -------------------------------- Small Game -------------------------------------
         // 3D人物模型
         private Animator _smallGameNpcAnimator;
         private GComponent _compareSmallGameNpc;
-
         private GameObject _smallGameNpc, _cloneSmallGameNpc;
 
         // 提示灯物体
         private GComponent _compareWarn;
         private GameObject _warnObj, _cloneWarnObj;
-
         private Animator _warnAnimator;
 
         // 失帧特效
         private GComponent _compareFrameLoss;
         private GameObject _frameLossObj, _cloneFrameLossObj;
 
-        private int _totalPlayRounds = 3;
-        private readonly Random _random = new Random();
-        private bool _isHit;
-
         private GameObject _jackpotHitObj;
-        private GComponent _smallGameReels;
+        private GameObject _redDiamondObj;
 
         private PanelController3997 _panelCtrl;
 
@@ -183,43 +163,18 @@ namespace CaiFuZhiJia_3997
 
         private GTextField rollCountText;
         private GComponent smallGameReels;
-        private GComponent smallGameSettlement, smallGameSettlementParent, smallEffectTest; // 彩金结算部分
+        private GComponent smallGameSettlement, smallGameSettlementParent; // 彩金结算部分
         private GameObject settlementEffect; // 结算特效
         private Coroutine _corSettlement;
 
         private readonly int _initialRollCount = 3;
-
-        private readonly List<float> _rollSpeedList = new List<float>()
-        {
-            2f,
-            2f,
-            2f,
-            2f,
-            2f,
-            2f,
-            2f,
-            2f,
-            2,
-            2f,
-            2f,
-            2f,
-            2,
-            2f,
-            2f,
-        };
 
         /// <summary>滚轴错开延迟</summary>
         private readonly float _reelStaggerDelay = 0.05f;
 
         private readonly string _redDiamondUrl = "ui://CaiFuZhiJia/ng_sym_diamonds2";
 
-        private readonly List<string> _jackpotUrls = new List<string>()
-        {
-            "",
-            "ui://CaiFuZhiJia/ng_sym_diamonds4",
-            "ui://CaiFuZhiJia/ng_sym_diamonds3",
-            "ui://CaiFuZhiJia/ng_sym_diamonds6",
-        };
+        private readonly List<string> _jackpotUrls = new List<string>() { "ui://CaiFuZhiJia/ng_sym_diamonds4", "ui://CaiFuZhiJia/ng_sym_diamonds3", "ui://CaiFuZhiJia/ng_sym_diamonds6", };
 
         /// <summary>15个格子控制器</summary>
         private readonly List<SmallGameReelController> _elementBoxes = new List<SmallGameReelController>();
@@ -257,7 +212,7 @@ namespace CaiFuZhiJia_3997
             base.OnInit();
 
             // ---------- 1. 加载common,普通游戏,免费游戏,彩金游戏预制体到内存 ----------
-            _totalCount = 16;
+            _totalCount = 17;
             if (UIPackage.GetByName("Common") == null)
             {
                 ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/Common/FGUIs", (bundle) =>
@@ -383,6 +338,13 @@ namespace CaiFuZhiJia_3997
                     ResLoadedCallback();
                 });
             ResourceManager02.Instance.LoadAsset<GameObject>(
+                SpinePrefabPath + "redDiamondSpine.prefab",
+                (clone) =>
+                {
+                    _redDiamondObj = clone;
+                    ResLoadedCallback();
+                });
+            ResourceManager02.Instance.LoadAsset<GameObject>(
                 EffectPrefabPath + "settlementEffect.prefab",
                 (clone) =>
                 {
@@ -423,11 +385,14 @@ namespace CaiFuZhiJia_3997
             };
         }
 
+        private EventData _openData;
+
         private void InitParam(EventData currentEventData)
         {
+            if (currentEventData != null) _openData = currentEventData;
             if (!isInit) return;
 
-            // ---------- 1. MainModel、Paytable、本地 JSON ----------
+            // ---------- 1. MainModel、PayTable、本地 JSON ----------
             MainModel.Instance.lineNum = 20;
             MainModel.Instance.gameID = 3997;
             MainModel.Instance.gameName = "CaiFuZhiJia3997";
@@ -636,10 +601,9 @@ namespace CaiFuZhiJia_3997
             _freeParticleEffectParent.visible = true;
 
             // 闪电特效制作
-            for (int i = 0; i < _lightningEffectList.Count; i++)
+            foreach (var t in _lightningEffectList)
             {
-                if (_lightningEffectList[i] != null)
-                    _lightningEffectList[i].Dispose();
+                if (t != null) t.Dispose();
             }
 
             _lightningEffectList.Clear();
@@ -901,11 +865,7 @@ namespace CaiFuZhiJia_3997
 
         private void UnlockStopButton()
         {
-            if (!_isStopButtonLocked)
-            {
-                return;
-            }
-
+            if (!_isStopButtonLocked) return;
             _isStopButtonLocked = false;
             if (MainModel.Instance.panel is PanelBaseController panelBaseController)
             {
@@ -1073,10 +1033,7 @@ namespace CaiFuZhiJia_3997
                 //通知算法卡赢得联网彩金
                 SBoxWinNetJackpotInfo sBoxWinNetJackpotInfo = new SBoxWinNetJackpotInfo()
                 {
-                    MachineId = int.Parse(SBoxModel.Instance.MachineId),
-                    PlayerId = SBoxModel.Instance.SboxPlayerAccount.PlayerId,
-                    JackpotType = jpLevel,
-                    JackpotWins = winCredit,
+                    MachineId = int.Parse(SBoxModel.Instance.MachineId), PlayerId = SBoxModel.Instance.SboxPlayerAccount.PlayerId, JackpotType = jpLevel, JackpotWins = winCredit,
                 };
                 MachineDataManager02.Instance.RequestJackpotOnline(sBoxWinNetJackpotInfo, (res) =>
                 {
@@ -1088,10 +1045,7 @@ namespace CaiFuZhiJia_3997
                     long creditAfter = creditBefore + JackpotWin;
 
                     MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
-                }, (BagelCodeError err) =>
-                {
-                    DebugUtils.Log(err.msg);
-                });
+                }, (err) => { DebugUtils.Log(err.msg); });
             }
             catch (Exception ex)
             {
@@ -1343,10 +1297,7 @@ namespace CaiFuZhiJia_3997
                     try
                     {
                         int[] deckData = SlotTool.GetDeckRowCol(currentDeck).ToArray();
-                        SBoxExhibitionData sBoxExhibitionData = new SBoxExhibitionData
-                        {
-                            wheelChessNum = deckData.Length, data = deckData
-                        };
+                        SBoxExhibitionData sBoxExhibitionData = new SBoxExhibitionData { wheelChessNum = deckData.Length, data = deckData };
                         SBoxIdea.SetExhibitionData(sBoxExhibitionData);
                     }
                     catch (Exception e)
@@ -1860,10 +1811,7 @@ namespace CaiFuZhiJia_3997
 
             PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupFreeSpinResult,
                 new EventData<Dictionary<string, object>>("",
-                    new Dictionary<string, object>()
-                    {
-                        ["baseGameWinCredit"] = ContentModel.Instance.freeSpinTotalWinCoins
-                    }),
+                    new Dictionary<string, object>() { ["baseGameWinCredit"] = ContentModel.Instance.freeSpinTotalWinCoins }),
                 (ed) =>
                 {
                     _pageController.selectedPage = "normal";
@@ -1921,10 +1869,7 @@ namespace CaiFuZhiJia_3997
 
             PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupFreeSpinResult,
                 new EventData<Dictionary<string, object>>("",
-                    new Dictionary<string, object>()
-                    {
-                        ["baseGameWinCredit"] = ContentModel.Instance.freeSpinTotalWinCoins
-                    }),
+                    new Dictionary<string, object>() { ["baseGameWinCredit"] = ContentModel.Instance.freeSpinTotalWinCoins }),
                 (ed) =>
                 {
                     _allWinCredit = 0;
@@ -2364,71 +2309,6 @@ namespace CaiFuZhiJia_3997
             _isSmallGameFinished = true;
         }
 
-        #region 原来的Loop
-
-        // private IEnumerator SmallGameLoop()
-        // {
-        //     _remainingRolls = _initialRollCount;
-        //     UpdateRollCountUI(_remainingRolls);
-        //     while (_remainingRolls > 0)
-        //     {
-        //         // 每轮开始前：重置未揭示的格子的滚动元素
-        //         foreach (var box in _elementBoxes)
-        //         {
-        //             if (box.State != SmallReelState.Revealed)
-        //                 box.PlayRollReset();
-        //         }
-        //
-        //         // === 先确定本轮中奖 ===
-        //         List<SmallReelResultInfo> reveals = DrawReveals();
-        //         HashSet<int> hitIndices = new HashSet<int>(reveals.Select(r => r.reelIndex));
-        //
-        //         // 1. 分类reel：中奖的 vs 普通的
-        //         List<int> hitReelIndices = new List<int>();
-        //         List<int> normalReelIndices = new List<int>();
-        //
-        //         for (int i = 0; i < _elementBoxes.Count; i++)
-        //         {
-        //             if (_elementBoxes[i].State == SmallReelState.Idle)
-        //             {
-        //                 if (hitIndices.Contains(i))
-        //                     hitReelIndices.Add(i);
-        //                 else
-        //                     normalReelIndices.Add(i);
-        //             }
-        //         }
-        //
-        //         // 2. 设置滚动视觉
-        //         foreach (int idx in hitReelIndices)
-        //             _elementBoxes[idx].SetRollingVisual();
-        //         foreach (int idx in normalReelIndices)
-        //             _elementBoxes[idx].SetRollingVisual();
-        //
-        //         // 3. 所有reel一起开始滚动（中奖reel第一圈roll第二圈result，普通reel两圈roll）
-        //         yield return _monoHelper.StartCoroutine(
-        //             PlayMixedRollSequence(hitReelIndices, normalReelIndices, reveals,
-        //                 _monoHelper));
-        //
-        //         // 4. 处理结果（滚动已包含揭示，只需处理次数）
-        //         if (reveals.Count > 0)
-        //         {
-        //             _remainingRolls = _initialRollCount;
-        //             UpdateRollCountUI(_remainingRolls);
-        //             _monoHelper.StartCoroutine(PlayWarnAndNpcAni(_remainingRolls));
-        //         }
-        //         else
-        //         {
-        //             _remainingRolls--;
-        //             UpdateRollCountUI(_remainingRolls);
-        //             _monoHelper.StartCoroutine(PlayWarnAndNpcAni(_remainingRolls));
-        //         }
-        //
-        //         yield return new WaitForSeconds(0.3f);
-        //     }
-        // }
-
-        #endregion
-
         private IEnumerator SmallGameLoop()
         {
             _remainingRolls = _initialRollCount;
@@ -2526,7 +2406,6 @@ namespace CaiFuZhiJia_3997
             }
         }
 
-
         private IEnumerator SmallGameResult(Action onCompleted)
         {
             // Debug.LogError("Game Over");
@@ -2563,7 +2442,7 @@ namespace CaiFuZhiJia_3997
                 {
                     _allHitResults.Add(info);
                     _unrevealedHits.Add(info);
-                    GameObject obj = Object.Instantiate(_jackpotHitObj);
+                    GameObject obj = Object.Instantiate(info.type == SmallResultType.Jackpot ? _jackpotHitObj : _redDiamondObj);
                     box.SetResultData(info, obj);
                 }
             }
@@ -2698,7 +2577,6 @@ namespace CaiFuZhiJia_3997
                 _unrevealedHits.Remove(revealInfo);
 
                 float delay = captureIdx * _reelStaggerDelay;
-                float rollSpeed = _rollSpeedList[captureIdx];
 
                 monoHelper.StartCoroutine(DelayedAction(delay, () =>
                 {
@@ -2716,7 +2594,6 @@ namespace CaiFuZhiJia_3997
             {
                 int captureIdx = idx;
                 float delay = captureIdx * _reelStaggerDelay;
-                // float speed = _rollSpeedList[captureIdx];
                 float speed = 1;
 
                 monoHelper.StartCoroutine(DelayedAction(delay, () =>
@@ -2763,10 +2640,7 @@ namespace CaiFuZhiJia_3997
                     bool isNext = false;
                     PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupJackpotWin,
                         new EventData<Dictionary<string, object>>("",
-                            new Dictionary<string, object>()
-                            {
-                                ["jackpotWinBet"] = t.rewardValue, ["jackpotWinType"] = t.jackpotType
-                            }), (res) =>
+                            new Dictionary<string, object>() { ["jackpotWinBet"] = t.rewardValue, ["jackpotWinType"] = t.jackpotType }), (res) =>
                         {
                             isNext = true;
                         });

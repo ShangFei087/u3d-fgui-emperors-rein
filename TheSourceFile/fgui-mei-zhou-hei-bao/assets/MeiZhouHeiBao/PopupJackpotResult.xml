@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920">
-  <displayList>
-    <component id="n0_rjnl" name="anchor_JpPupTipFrame" src="rjnl62" fileName="moudules/popupJackpotResult/Anchor_JpPupTipFrame.xml" xy="540,960"/>
-    <text id="n1_rjnl" name="jackpotResultText" xy="368,980" size="346,59" font="ui://wnvfq681qkv04n" fontSize="8" align="center" vAlign="middle" autoSize="none" text="1111111"/>
-    <component id="n2_rjnl" name="jackpotResultBtn" src="rjnl63" fileName="components/popupJackpotResult/jackpotResultBtn.xml" xy="407,1143" size="272,75" alpha="0"/>
-  </displayList>
-</component>

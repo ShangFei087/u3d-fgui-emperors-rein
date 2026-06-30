@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="tdk27mae">
+  <resources>
+    <component id="s9re0" name="PageGameMain.xml" path="/"/>
+    <component id="s9re1" name="PopupFreeSpinResult.xml" path="/"/>
+    <component id="s9re2" name="PopupFreeSpinTrigger.xml" path="/"/>
+    <component id="s9re3" name="PopupGameLoading.xml" path="/"/>
+    <component id="s9re4" name="PopupSmallGameResult.xml" path="/"/>
+    <component id="s9re5" name="PopupSmallGameTrigger.xml" path="/"/>
+    <component id="s9re6" name="PopupSmallGameJackpotWin.xml" path="/"/>
+    <component id="s9re7" name="PopupBigWin.xml" path="/"/>
+  </resources>
+  <publish name="" path="../../Assets\GameRes\Games\Mei Zhou Hei Bao 3993\FGUIs" packageCount="2"/>
+</packageDescription>

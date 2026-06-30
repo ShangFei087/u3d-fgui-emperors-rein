@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920">
-  <displayList>
-    <image id="n0_qkv0" name="n0" src="qkv04q" fileName="images/gameLoading/Load_bg.png" xy="0,0" size="1080,1920"/>
-  </displayList>
-</component>

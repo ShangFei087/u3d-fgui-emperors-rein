@@ -33,43 +33,17 @@ namespace CaiFuZhiJia_3997
                 {
                     new string[]
                     {
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_0.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_1.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_2.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_3.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_4.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_5.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_6.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_7.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_8.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_9.json",
+                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_0.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_1.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_2.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_3.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_4.json",
+                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_5.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_6.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_7.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_8.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_9.json",
                         "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_10.json",
                     },
                 },
                 [SpinDataType.Bonus] =
-                    new List<string[]>()
-                    {
-                        new string[]
-                        {
-                            "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bonus_0.json"
-                        },
-                    },
+                    new List<string[]>() { new string[] { "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bonus_0.json" }, },
                 [SpinDataType.BigWin] =
-                    new List<string[]>()
-                    {
-                        new string[]
-                        {
-                            "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bigwin.json"
-                        },
-                    },
+                    new List<string[]>() { new string[] { "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bigwin.json" }, },
                 [SpinDataType.Jackpot] =
-                    new List<string[]>()
-                    {
-                        new string[]
-                        {
-                            "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__jackpot_0.json"
-                        },
-                    },
+                    new List<string[]>() { new string[] { "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__jackpot_0.json" }, },
                 [SpinDataType.Normal] = new List<string[]>()
                 {
                     new string[] { "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__null_0.json" },
@@ -342,9 +316,6 @@ namespace CaiFuZhiJia_3997
                     // 立即更新剩余次数显示 修改代码
                     ContentModel.Instance.ShowFreeSpinRemainTime = totalFreeTime;
                 }
-                // else if (!isInFreeSpin)
-                //     DebugUtils.LogError(
-                //         $"[G3997][CheckFree] 校验不一致，算法回ResultType={resultType} ，本地计算isFree={isFree},算法FreeTime={(int)res["TotalFreeTime"]},本地计算freeTime={freeTime}");
             }
 
             // 判断赠送局
@@ -400,10 +371,11 @@ namespace CaiFuZhiJia_3997
                     {
                         bonusCount += 1;
                     }
-                      Debug.Log(deckRowCol[i]);
+
+                    Debug.Log(deckRowCol[i]);
                 }
 
-              
+
                 if (bonusCount >= CustomModel.Instance.BonusGameConfig.Make2BonusGameCount)
                     isBonus = true;
 
@@ -434,7 +406,6 @@ namespace CaiFuZhiJia_3997
                             ContentModel.Instance.JpBetDic.Add(ContentModel.Instance.jpTypeArray[i],
                                 ContentModel.Instance.jpBetArray[i]);
                     }
-                    
                 }
 
                 if ((resultType == (int)ResultType.RT_BonusWin || resultType == (int)ResultType.RT_Jackpot) && !isBonus)
@@ -711,10 +682,6 @@ namespace CaiFuZhiJia_3997
                 return;
             }
 
-            // // 新增中奖线输出
-            // List<int> currentLines = new List<int>();
-            // currentLines.Clear();
-
             //判断中奖线,遍历每一条支付线
             for (int i = 0; i < MainModel.Instance.lineNum; ++i)
             {
@@ -770,31 +737,18 @@ namespace CaiFuZhiJia_3997
                         Debug.Log("当前中奖线：" + i + "   中奖图标：" + firstSymbolType + "   中奖个数：" + hitCount + "  中奖得分：" +
                                   lineOdds);
                     }
-
-                    // currentLines.Add(i);
                 }
             }
 
             if (isInFreeSpin)
-            {
-                // calcTotalWin = calcTotalWin * MainModel.Instance.contentMD.betmultiple *
-                //                ContentModel.Instance.freeGameScoreMultiply;
-
-                calcTotalWin = calcTotalWin * ContentModel.Instance.freeGameScoreMultiply;
-            }
+                calcTotalWin *= ContentModel.Instance.freeGameScoreMultiply;
 
             int diff = Math.Abs(calcTotalWin - TotalWin); // 计算本地校验值与算法差值
             if (diff != 0)
-            {
-                // DebugUtils.LogError(
-                //     $"[G3997][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}，正常倍率是={MainModel.Instance.contentMD.betmultiple}，免费额外倍率是={ContentModel.Instance.freeGameScoreMultiply}");
                 DebugUtils.LogError(
                     $"[G3997][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}，免费额外倍率是={ContentModel.Instance.freeGameScoreMultiply}");
-            }
             else
-            {
                 DebugUtils.Log($"[G3997][CheckGameResult] 校验通过，TotalWin={TotalWin}");
-            }
         }
 
         /// <summary>
@@ -842,6 +796,7 @@ namespace CaiFuZhiJia_3997
                     totalEarnCredit += win.earnCredit;
                 }
             }
+
             gameSenceData.baseGameWinCredit = totalEarnCredit;
             // 彩金赢分
             long jackpotWinCredit = res != null ? (int)res["TotalJackpotBet"] : 0;
@@ -853,7 +808,6 @@ namespace CaiFuZhiJia_3997
                     jackpot_type = ContentModel.Instance.jpTypeArray[i].ToString();
                     break;
                 }
-                   
             }
 
             //免费游戏赢分
@@ -865,7 +819,7 @@ namespace CaiFuZhiJia_3997
             {
                 open_type = OpenType,
                 result_type = ResultType,
-                jackpot_type= jackpot_type,
+                jackpot_type = jackpot_type,
                 free_curtime = ContentModel.Instance.FreeSpinPlayTimes,
                 free_totaltime = ContentModel.Instance.FreeSpinTotalTimes,
                 game_id = 3997,
@@ -876,7 +830,7 @@ namespace CaiFuZhiJia_3997
                 credit_after = creditAfter,
                 base_game_win_credit = totalEarnCredit,
                 jackpot_win_credit = jackpotWinCredit,
-                free_spin_win_credit= freeGameWinCredit,
+                free_spin_win_credit = freeGameWinCredit,
                 bonus_game_win_credit = bonuGameWinCredit,
                 total_win_credit = totalWinCredit,
                 strDeckRowCol = ContentModel.Instance.strDeckRowCol,

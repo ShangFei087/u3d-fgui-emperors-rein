@@ -1,7 +1,5 @@
 using FairyGUI;
 using GameMaker;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MeiZhouHeiBao_3993
@@ -11,142 +9,182 @@ namespace MeiZhouHeiBao_3993
         public new const string pkgName = "MeiZhouHeiBao";
         public new const string resName = "PopupGameLoading";
 
-        private const string SpinePrefabsPath =
-            "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupGameLoading/SpinePrefabs/";
+        private const string PrefabPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupGameLoading/";
 
-        private const string EffectPrefabsPath =
-            "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupGameLoading/EffectPrefabs/";
+        private int _totalResCount = -1;
+        private GSlider _loadingSlider;
 
-        private int _resCount = -1;
-        private bool _isInitialized = false;
-        private bool _isFirstOpened = true;
-        private const float Duration = 8f;
-        private GTweener _loadingGTween;
-        private GComponent _compareBootCom, _compareBarEffectCom;
-        private GProgressBar _loadingBar;
-        private GameObject _bootObj, _cloneBootObj, _barEffectObj, _cloneBarEffectObj;
+        private int _preloadTotal;
+        private int _preloadCompleted;
+
+        /// <summary>从进入并行预加载起算，界面至少展示此时长（秒）；预加载更久则按实际结束。</summary>
+        private const float MinLoadingDisplaySeconds = 5f;
+
+        private float _preloadStartRealtime;
+        private TimerCallback _pendingMinDisplayCallback;
 
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
-
-            LoadResAsync();
         }
 
-        public override void InitParam()
+        private void InitParam(EventData eventData)
         {
-            if (!_isInitialized) return;
-            preLoadedCallback?.Invoke();
-            if (!isOpen) return;
+            if (!isInit) return;
 
-            BindPrefabsToUI();
+
+            preLoadedCallback?.Invoke();
+            if (PageManager.Instance.IndexOf(PageName.MeiZhouHeiBaoPopupGameLoading) == 0) return;
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
-
-            InitUICom();
-            InitParam();
-            StartLoading();
+            InitParam(eventData);
         }
 
         public override void OnClose(EventData eventData = null)
         {
+            if (_pendingMinDisplayCallback != null)
+            {
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+            }
+
             base.OnClose(eventData);
-            ResetPage();
         }
 
-        private void ResLoadedCallback()
+        private void ResLoadedCallBack(EventData eventData = null)
         {
-            if (--_resCount == 0)
+            if (--_totalResCount == 0) return;
+            isInit = true;
+            InitParam(eventData);
+        }
+
+        /// <summary>
+        /// 并行预加载各子界面；进度条按完成个数增长，全部完成后进入主界面。
+        /// </summary>
+        private void StartPreloadGamePagesThenOpenMain()
+        {
+            if (_pendingMinDisplayCallback != null)
             {
-                _isInitialized = true;
-                InitParam();
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+            }
+
+            _preloadStartRealtime = Time.realtimeSinceStartup;
+
+            PageName[] pages = { PageName.MeiZhouHeiBaoPageGameMain, PageName.MeiZhouHeiBaoPopupBigWin, PageName.MeiZhouHeiBaoPopupSmallGameJackpotWin, PageName.MeiZhouHeiBaoPopupFreeSpinTrigger, PageName.MeiZhouHeiBaoPopupFreeSpinResult, PageName.MeiZhouHeiBaoPopupSmallGameTrigger, PageName.MeiZhouHeiBaoPopupSmallGameResult, };
+
+            _preloadTotal = pages.Length;
+            _preloadCompleted = 0;
+            RefreshLoadingProgressVisual();
+
+            for (int i = 0; i < pages.Length; i++)
+            {
+                PageManager.Instance.PreloadPage(pages[i], OnOnePreloadPageDone);
             }
         }
 
-        private void LoadResAsync()
+        private void OnOnePreloadPageDone()
         {
-            _resCount = 2;
-            // 加载动画
-            ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "Boot.prefab", (cloneObj) =>
-            {
-                _bootObj = cloneObj;
-                ResLoadedCallback();
-            });
-            // 加载特效
-            ResourceManager02.Instance.LoadAsset<GameObject>(EffectPrefabsPath + "BarEffect.prefab", (cloneObj) =>
-            {
-                _barEffectObj = cloneObj;
-                ResLoadedCallback();
-            });
+            _preloadCompleted++;
+            RefreshLoadingProgressVisual();
+
+            if (_preloadCompleted < _preloadTotal) return;
+
+            TryFinishLoadingAfterPreloads();
         }
 
-        private void BindPrefabsToUI()
+        private void RefreshLoadingProgressVisual()
         {
-            GComponent currentCom = contentPane.GetChild("anchor_Boot").asCom;
-            if (_compareBootCom != currentCom)
+            float display = GetDisplayNormalizedProgress();
+            SetSliderByPreloadNormalized(display);
+        }
+
+        private void TryFinishLoadingAfterPreloads()
+        {
+            float elapsed = Time.realtimeSinceStartup - _preloadStartRealtime;
+            if (elapsed >= MinLoadingDisplaySeconds)
             {
-                _cloneBootObj = Object.Instantiate(_bootObj);
-                GameCommon.FguiUtils.DeleteWrapper(_compareBootCom);
-                _compareBootCom = currentCom;
-                GameCommon.FguiUtils.AddWrapper(_compareBootCom, _cloneBootObj);
+                RefreshLoadingProgressVisual();
+                CompleteLoadingTransition();
+                return;
             }
 
-            currentCom = _loadingBar.GetChild("anchor_BarEffect").asCom;
-            if (_compareBarEffectCom != currentCom)
+            if (_pendingMinDisplayCallback != null)
+                return;
+
+            RefreshLoadingProgressVisual();
+            _pendingMinDisplayCallback = OnLoadingProgressPadTick;
+            Timers.inst.Add(0.05f, 0, _pendingMinDisplayCallback);
+        }
+
+        private void OnLoadingProgressPadTick(object param)
+        {
+            RefreshLoadingProgressVisual();
+            float elapsed = Time.realtimeSinceStartup - _preloadStartRealtime;
+            if (_preloadCompleted >= _preloadTotal && elapsed >= MinLoadingDisplaySeconds)
             {
-                _cloneBarEffectObj = Object.Instantiate(_barEffectObj);
-                GameCommon.FguiUtils.DeleteWrapper(_compareBarEffectCom);
-                _compareBarEffectCom = currentCom;
-                GameCommon.FguiUtils.AddWrapper(_compareBarEffectCom, _cloneBarEffectObj);
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
+                CompleteLoadingTransition();
             }
         }
 
-        private void InitUICom()
+        private void CompleteLoadingTransition()
         {
-            _loadingBar = contentPane.GetChild("loadingBar").asProgress;
-        }
-
-        private void StartLoading()
-        {
-            if (_isFirstOpened)
+            if (_pendingMinDisplayCallback != null)
             {
-                PageManager.Instance.PreloadPage(PageName.MeiZhouHeiBaoPageGameMain, null);
-                PageManager.Instance.PreloadPage(PageName.MeiZhouHeiBaoPopupFreeGameLoading, null);
-                PageManager.Instance.PreloadPage(PageName.MeiZhouHeiBaoPopupFreeSpinTrigger, null);
-                PageManager.Instance.PreloadPage(PageName.MeiZhouHeiBaoPopupJackpotGame, null);
-                PageManager.Instance.PreloadPage(PageName.MeiZhouHeiBaoPopupJackpotLoading, null);
-                PageManager.Instance.PreloadPage(PageName.MeiZhouHeiBaoPopupJackpotTrigger, null);
-                PageManager.Instance.PreloadPage(PageName.MeiZhouHeiBaoPopupJackpotResult, null);
-                _isFirstOpened = false;
+                Timers.inst.Remove(_pendingMinDisplayCallback);
+                _pendingMinDisplayCallback = null;
             }
 
-            if (_loadingGTween != null) _loadingGTween.Kill();
-            _loadingGTween = GTween.To(0, 100, Duration).SetEase(EaseType.Linear).OnUpdate((tween) =>
+            SetSliderByPreloadNormalized(1f);
+            CloseSelf(null);
+
+            if (PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce)
             {
-                _loadingBar.value = tween.value.x;
-            }).OnComplete(() =>
+                PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce = false;
+            }
+            else
             {
-                CloseSelf(null);
                 PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPageGameMain);
-            });
+            }
+        }
+
+        /// <summary>
+        /// 将 0~1 的预加载比例映射到 GSlider 的 min~max（FGUI 默认 max=100，直接写 0~1 会显示成约 1% 而非 71%）。
+        /// </summary>
+        private void SetSliderByPreloadNormalized(float normalized01)
+        {
+            if (_loadingSlider == null)
+                return;
+            normalized01 = Mathf.Clamp01(normalized01);
+            double span = _loadingSlider.max - _loadingSlider.min;
+            if (span <= 0)
+                span = 1;
+            _loadingSlider.value = _loadingSlider.min + span * normalized01;
         }
 
 
-        private void ResetPage()
+        /// <summary>
+        /// 进度条取「预加载完成度」与「最短展示时间」的较小值，避免未满最短时间条已 100%。
+        /// </summary>
+        private float GetDisplayNormalizedProgress()
         {
-            Object.Destroy(_cloneBootObj);
-            Object.Destroy(_cloneBarEffectObj);
-            GameCommon.FguiUtils.DeleteWrapper(_compareBootCom);
-            GameCommon.FguiUtils.DeleteWrapper(_compareBarEffectCom);
+            return Mathf.Min(GetPreloadRatio(), GetTimeCapRatio());
+        }
 
-            _compareBootCom = null;
-            _compareBarEffectCom = null;
-            _cloneBootObj = null;
-            _cloneBarEffectObj = null;
+        private float GetPreloadRatio()
+        {
+            return _preloadTotal > 0 ? (float)_preloadCompleted / _preloadTotal : 1f;
+        }
+
+        private float GetTimeCapRatio()
+        {
+            return Mathf.Clamp01((Time.realtimeSinceStartup - _preloadStartRealtime) / MinLoadingDisplaySeconds);
         }
     }
 }

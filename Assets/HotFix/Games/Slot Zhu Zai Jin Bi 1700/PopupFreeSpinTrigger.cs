@@ -105,6 +105,10 @@ namespace SlotZhuZaiJinBi1700
             }
 
 
+            preLoadedCallback?.Invoke();
+
+            if (!isOpen) return;
+
             ShowAni();
         }
 

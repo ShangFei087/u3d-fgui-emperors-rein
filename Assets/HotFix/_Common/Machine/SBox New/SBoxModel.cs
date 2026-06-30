@@ -987,20 +987,9 @@ public partial class SBoxModel: MonoSingleton<SBoxModel>
 
     public bool isUseRemoteControl
     {
-        get
-        {
-            if (_isUseRemoteControl == null)
-                _isUseRemoteControl = 1 == SQLitePlayerPrefs03.Instance.GetInt(PARAM_IS_USE_REMOTE_CONTROL_01, 1);
-            return (bool)_isUseRemoteControl;
-        }
-        set
-        {
-            _isUseRemoteControl = value;
-            SQLitePlayerPrefs03.Instance.SetInt(PARAM_IS_USE_REMOTE_CONTROL_01, value ? 1 : 0);
-        }
+        get => false;
+        set { }
     }
-    const string PARAM_IS_USE_REMOTE_CONTROL_01 = "PARAM_IS_USE_REMOTE_CONTROL_01";
-    bool? _isUseRemoteControl;
 
     public string remoteControlSetting
     {
@@ -1067,7 +1056,7 @@ public partial class SBoxModel: MonoSingleton<SBoxModel>
 
         get
         {
-            if (_isUseRemoteControl == false)
+            if (!isUseRemoteControl)
             {
                 return false;
             }
