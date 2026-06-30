@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <text id="n0_llq9" name="spinCountText" xy="343,620" size="416,143" fontSize="12" align="center" vAlign="middle" autoSize="none" text=""/>
+  </displayList>
+</component>

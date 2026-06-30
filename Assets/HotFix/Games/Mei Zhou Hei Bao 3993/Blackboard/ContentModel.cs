@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using SimpleJSON;
 using SlotMaker;
 using System;
 using System.Collections.Generic;
@@ -36,8 +37,10 @@ namespace MeiZhouHeiBao_3993
         [SerializeField] private string mBtnSpinState = "Stop";
 
         public int betIndex { get; set; } = 0;
+
         /// <summary> 赢线 </summary>
         public List<SymbolWin> winList;
+
         public GComponent[] goPayTableLst { get; set; } = Array.Empty<GComponent>();
         public GComponent goAnthorPanel { get => _goAnchorPanel; set => _goAnchorPanel = value; }
         public long totalBet { get => mTotalBet; set => Observer.SetProperty(ref mTotalBet, value); }
@@ -66,9 +69,12 @@ namespace MeiZhouHeiBao_3993
 
         /// <summary> 单局结果界面 </summary>
         public string strDeckRowCol;
-        
+
         /// <summary> 免费游戏加速框 </summary>
         public bool isFreeSlotTip;
+
+        /// <summary> 是否长滚动 </summary>
+        public bool isReelsSlowMotion;
 
 
         // ------------------------ Free Game ------------------------
@@ -105,6 +111,21 @@ namespace MeiZhouHeiBao_3993
         /// <summary> 是否等待下一局 Parse 校验（本地免费快照恢复后首局 Spin） </summary>
         public bool PendingFreeSpinReconnectValidation { get; set; }
 
+        /// <summary> 触发免费游戏的线-（备份 winList 的数据） </summary>
+        public SymbolWin winFreeSpinTriggerOrAddCopy;
+
+        /// <summary>  这个已经改为：基本游戏+彩金了  </summary>
+        public long totalEarnCoins; //totalEarnCredit;
+
+        /// <summary> 当前本轮游戏编号 </summary>
+        public long curGameNumber;
+
+        /// <summary> 当前本轮游戏开始时间 </summary>
+        public long curGameCreatTimeMS;
+
+        /// <summary> 当前本轮游戏guid </summary>
+        public string curGameGuid;
+
         public int FreeSpinPlayTimes { get => mFreeSpinPlayTimes; set => Observer.SetProperty(ref mFreeSpinPlayTimes, value); }
         public int FreeSpinTotalTimes { get => mFreeSpinTotalTimes; set => Observer.SetProperty(ref mFreeSpinTotalTimes, value); }
         public int ShowFreeSpinRemainTime { get => mShowFreeSpinRemainTime; set => Observer.SetProperty(ref mShowFreeSpinRemainTime, value); }
@@ -115,6 +136,14 @@ namespace MeiZhouHeiBao_3993
         public bool isSmallGameFinish;
 
         // ------------------------ Jackpot Data -----------------------
+
+        /// <summary> 本局彩金结果 </summary>
+        public JackpotRes jpGameRes;
+
+        /// <summary> bonus数据 </summary>
+        public Dictionary<int, JSONNode> bonusResult = new Dictionary<int, JSONNode>();
+
+
         [SerializeField] private JackpotInfo mUIGrandJp = new JackpotInfo()
         {
             name = "JPGrand",

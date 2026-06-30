@@ -12,7 +12,6 @@ using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using _spinWEMD = SlotMaker.SpinWinEffectSettingModel;
-using Random = System.Random;
 
 namespace CaiFuZhiJia_3997
 {
@@ -50,7 +49,7 @@ namespace CaiFuZhiJia_3997
 
         // ------------------游戏中通用变量--------------------
         // 界面初始化
-        private bool _isInitPool = false;
+        private bool _isInitPool;
         private int _totalCount = -1;
         private GComponent _gOwnerPanel;
 
@@ -63,7 +62,6 @@ namespace CaiFuZhiJia_3997
         private SlotMachineController3997 _slotMachineCtrl;
         private FguiGObjectPoolHelper _fGuiGObjectPoolHelper;
         private Controller _pageController; // FairyGUI的控制器
-
         private GameSoundController3997 _gameSoundController; // 游戏声音控制器
 
         // 彩金
@@ -86,8 +84,7 @@ namespace CaiFuZhiJia_3997
         private bool _isStopButtonLocked, _tipCoinIn, _isStoppedSlotMachine;
 
         // 加钱结算
-        private bool IsAddCreditAnim =>
-            !(_slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
+        private bool IsAddCreditAnim => !(_slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
 
         // 免费游戏和彩金游戏触发加速框
         private GameObject _freeBorderObj, _bonusBorderObj;
@@ -95,22 +92,13 @@ namespace CaiFuZhiJia_3997
         private GComponent _anchorAccelerateParent, _anchorFreeAccelerate, _anchorBonusAccelerate;
 
         // 游戏中的协程
-        private Coroutine _corGameOnce,
-            _corReelsTurn,
-            _corGameIdle,
-            _corEffectSlowMotion,
-            _corGameAuto,
-            _corLightningEffect,
-            _corRewardEffect,
-            _corShowFreeSymbol,
-            _corShowBonusSymbol;
+        private Coroutine _corGameOnce, _corReelsTurn, _corGameIdle, _corEffectSlowMotion, _corGameAuto, _corLightningEffect, _corRewardEffect, _corShowFreeSymbol, _corShowBonusSymbol;
 
         // 记录未中奖局数
         private int _currentNotWinCount = 0;
 
         //当前游戏触发加速框后是否中奖
-        private bool _isTriggerFrame = false;
-        private bool _isWinFreeOrBonus = false;
+        private bool _isTriggerFrame, _isWinFreeOrBonus;
 
         // -------------------------------- 免费游戏 -------------------------------------
         private FreeSpinTimeController _freeSpinTimeController; // 免费游戏次数管理器
@@ -141,25 +129,22 @@ namespace CaiFuZhiJia_3997
         private readonly List<GComponent> _lightningEffectList = new List<GComponent>();
 
         // 机器人Spine动画
-        private GameObject _robotObj = null; // 物体模板
-        private GameObject _cloneRobotObj = null; // 克隆的物体
-        private GComponent _compareRobot = null; // 多分支对照的UI组件
+        private GameObject _robotObj; // 物体模板
+        private GameObject _cloneRobotObj; // 克隆的物体
+        private GComponent _compareRobot; // 多分支对照的UI组件
 
         private long _allWinCredit = 0;
-
         private readonly List<Dictionary<string, object>> _stackContext = new List<Dictionary<string, object>>();
 
         // -------------------------------- Small Game -------------------------------------
         // 3D人物模型
         private Animator _smallGameNpcAnimator;
         private GComponent _compareSmallGameNpc;
-
         private GameObject _smallGameNpc, _cloneSmallGameNpc;
 
         // 提示灯物体
         private GComponent _compareWarn;
         private GameObject _warnObj, _cloneWarnObj;
-
         private Animator _warnAnimator;
 
         // 失帧特效
@@ -616,10 +601,9 @@ namespace CaiFuZhiJia_3997
             _freeParticleEffectParent.visible = true;
 
             // 闪电特效制作
-            for (int i = 0; i < _lightningEffectList.Count; i++)
+            foreach (var t in _lightningEffectList)
             {
-                if (_lightningEffectList[i] != null)
-                    _lightningEffectList[i].Dispose();
+                if (t != null) t.Dispose();
             }
 
             _lightningEffectList.Clear();
@@ -881,11 +865,7 @@ namespace CaiFuZhiJia_3997
 
         private void UnlockStopButton()
         {
-            if (!_isStopButtonLocked)
-            {
-                return;
-            }
-
+            if (!_isStopButtonLocked) return;
             _isStopButtonLocked = false;
             if (MainModel.Instance.panel is PanelBaseController panelBaseController)
             {
@@ -1065,10 +1045,7 @@ namespace CaiFuZhiJia_3997
                     long creditAfter = creditBefore + JackpotWin;
 
                     MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
-                }, (BagelCodeError err) =>
-                {
-                    DebugUtils.Log(err.msg);
-                });
+                }, (err) => { DebugUtils.Log(err.msg); });
             }
             catch (Exception ex)
             {
@@ -2331,71 +2308,6 @@ namespace CaiFuZhiJia_3997
             yield return new WaitUntil(() => isNext == true);
             _isSmallGameFinished = true;
         }
-
-        #region 原来的Loop
-
-        // private IEnumerator SmallGameLoop()
-        // {
-        //     _remainingRolls = _initialRollCount;
-        //     UpdateRollCountUI(_remainingRolls);
-        //     while (_remainingRolls > 0)
-        //     {
-        //         // 每轮开始前：重置未揭示的格子的滚动元素
-        //         foreach (var box in _elementBoxes)
-        //         {
-        //             if (box.State != SmallReelState.Revealed)
-        //                 box.PlayRollReset();
-        //         }
-        //
-        //         // === 先确定本轮中奖 ===
-        //         List<SmallReelResultInfo> reveals = DrawReveals();
-        //         HashSet<int> hitIndices = new HashSet<int>(reveals.Select(r => r.reelIndex));
-        //
-        //         // 1. 分类reel：中奖的 vs 普通的
-        //         List<int> hitReelIndices = new List<int>();
-        //         List<int> normalReelIndices = new List<int>();
-        //
-        //         for (int i = 0; i < _elementBoxes.Count; i++)
-        //         {
-        //             if (_elementBoxes[i].State == SmallReelState.Idle)
-        //             {
-        //                 if (hitIndices.Contains(i))
-        //                     hitReelIndices.Add(i);
-        //                 else
-        //                     normalReelIndices.Add(i);
-        //             }
-        //         }
-        //
-        //         // 2. 设置滚动视觉
-        //         foreach (int idx in hitReelIndices)
-        //             _elementBoxes[idx].SetRollingVisual();
-        //         foreach (int idx in normalReelIndices)
-        //             _elementBoxes[idx].SetRollingVisual();
-        //
-        //         // 3. 所有reel一起开始滚动（中奖reel第一圈roll第二圈result，普通reel两圈roll）
-        //         yield return _monoHelper.StartCoroutine(
-        //             PlayMixedRollSequence(hitReelIndices, normalReelIndices, reveals,
-        //                 _monoHelper));
-        //
-        //         // 4. 处理结果（滚动已包含揭示，只需处理次数）
-        //         if (reveals.Count > 0)
-        //         {
-        //             _remainingRolls = _initialRollCount;
-        //             UpdateRollCountUI(_remainingRolls);
-        //             _monoHelper.StartCoroutine(PlayWarnAndNpcAni(_remainingRolls));
-        //         }
-        //         else
-        //         {
-        //             _remainingRolls--;
-        //             UpdateRollCountUI(_remainingRolls);
-        //             _monoHelper.StartCoroutine(PlayWarnAndNpcAni(_remainingRolls));
-        //         }
-        //
-        //         yield return new WaitForSeconds(0.3f);
-        //     }
-        // }
-
-        #endregion
 
         private IEnumerator SmallGameLoop()
         {

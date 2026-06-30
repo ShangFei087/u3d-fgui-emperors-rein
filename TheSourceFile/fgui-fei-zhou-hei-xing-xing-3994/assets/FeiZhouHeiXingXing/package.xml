@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="ytoswqrp">
+  <resources>
+    <component id="llq90" name="PageGameMain.xml" path="/"/>
+    <component id="llq91" name="PopupBigWin.xml" path="/"/>
+    <component id="llq92" name="PopupFreeSpinResult.xml" path="/"/>
+    <component id="llq93" name="PopupFreeSpinTrigger.xml" path="/"/>
+    <component id="llq94" name="PopupGameLoading.xml" path="/"/>
+    <component id="llq95" name="PopupSmallGameJackpotWin.xml" path="/"/>
+    <component id="llq96" name="PopupSmallGameResult.xml" path="/"/>
+    <component id="llq97" name="PopupSmallGameTrigger.xml" path="/"/>
+  </resources>
+  <publish name="" path="../../Assets\GameRes\Games\Fei Zhou Hei Xing Xing 3994\FGUIs" packageCount="2"/>
+</packageDescription>

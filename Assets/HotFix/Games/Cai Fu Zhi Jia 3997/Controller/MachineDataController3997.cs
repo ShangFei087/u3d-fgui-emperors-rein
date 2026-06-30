@@ -33,43 +33,17 @@ namespace CaiFuZhiJia_3997
                 {
                     new string[]
                     {
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_0.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_1.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_2.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_3.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_4.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_5.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_6.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_7.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_8.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_9.json",
+                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_0.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_1.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_2.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_3.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_4.json",
+                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_5.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_6.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_7.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_8.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_9.json",
                         "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_10.json",
                     },
                 },
                 [SpinDataType.Bonus] =
-                    new List<string[]>()
-                    {
-                        new string[]
-                        {
-                            "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bonus_0.json"
-                        },
-                    },
+                    new List<string[]>() { new string[] { "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bonus_0.json" }, },
                 [SpinDataType.BigWin] =
-                    new List<string[]>()
-                    {
-                        new string[]
-                        {
-                            "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bigwin.json"
-                        },
-                    },
+                    new List<string[]>() { new string[] { "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bigwin.json" }, },
                 [SpinDataType.Jackpot] =
-                    new List<string[]>()
-                    {
-                        new string[]
-                        {
-                            "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__jackpot_0.json"
-                        },
-                    },
+                    new List<string[]>() { new string[] { "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__jackpot_0.json" }, },
                 [SpinDataType.Normal] = new List<string[]>()
                 {
                     new string[] { "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__null_0.json" },
@@ -397,10 +371,11 @@ namespace CaiFuZhiJia_3997
                     {
                         bonusCount += 1;
                     }
-                      Debug.Log(deckRowCol[i]);
+
+                    Debug.Log(deckRowCol[i]);
                 }
 
-              
+
                 if (bonusCount >= CustomModel.Instance.BonusGameConfig.Make2BonusGameCount)
                     isBonus = true;
 
@@ -431,7 +406,6 @@ namespace CaiFuZhiJia_3997
                             ContentModel.Instance.JpBetDic.Add(ContentModel.Instance.jpTypeArray[i],
                                 ContentModel.Instance.jpBetArray[i]);
                     }
-                    
                 }
 
                 if ((resultType == (int)ResultType.RT_BonusWin || resultType == (int)ResultType.RT_Jackpot) && !isBonus)
@@ -822,6 +796,7 @@ namespace CaiFuZhiJia_3997
                     totalEarnCredit += win.earnCredit;
                 }
             }
+
             gameSenceData.baseGameWinCredit = totalEarnCredit;
             // 彩金赢分
             long jackpotWinCredit = res != null ? (int)res["TotalJackpotBet"] : 0;
@@ -833,7 +808,6 @@ namespace CaiFuZhiJia_3997
                     jackpot_type = ContentModel.Instance.jpTypeArray[i].ToString();
                     break;
                 }
-                   
             }
 
             //免费游戏赢分
@@ -845,7 +819,7 @@ namespace CaiFuZhiJia_3997
             {
                 open_type = OpenType,
                 result_type = ResultType,
-                jackpot_type= jackpot_type,
+                jackpot_type = jackpot_type,
                 free_curtime = ContentModel.Instance.FreeSpinPlayTimes,
                 free_totaltime = ContentModel.Instance.FreeSpinTotalTimes,
                 game_id = 3997,
@@ -856,7 +830,7 @@ namespace CaiFuZhiJia_3997
                 credit_after = creditAfter,
                 base_game_win_credit = totalEarnCredit,
                 jackpot_win_credit = jackpotWinCredit,
-                free_spin_win_credit= freeGameWinCredit,
+                free_spin_win_credit = freeGameWinCredit,
                 bonus_game_win_credit = bonuGameWinCredit,
                 total_win_credit = totalWinCredit,
                 strDeckRowCol = ContentModel.Instance.strDeckRowCol,

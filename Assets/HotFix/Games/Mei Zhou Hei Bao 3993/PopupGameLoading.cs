@@ -27,7 +27,6 @@ namespace MeiZhouHeiBao_3993
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
-
         }
 
         private void InitParam(EventData eventData)
@@ -62,8 +61,8 @@ namespace MeiZhouHeiBao_3993
             isInit = true;
             InitParam(eventData);
         }
-        
-          /// <summary>
+
+        /// <summary>
         /// 并行预加载各子界面；进度条按完成个数增长，全部完成后进入主界面。
         /// </summary>
         private void StartPreloadGamePagesThenOpenMain()
@@ -76,16 +75,7 @@ namespace MeiZhouHeiBao_3993
 
             _preloadStartRealtime = Time.realtimeSinceStartup;
 
-            PageName[] pages =
-            {
-                PageName.MeiZhouHeiBaoPageGameMain,
-                PageName.MeiZhouHeiBaoPopupBigWin,
-                PageName.MeiZhouHeiBaoPopupSmallGameJackpotWin,
-                PageName.MeiZhouHeiBaoPopupFreeSpinTrigger,
-                PageName.MeiZhouHeiBaoPopupFreeSpinResult,
-                PageName.MeiZhouHeiBaoPopupSmallGameTrigger,
-                PageName.MeiZhouHeiBaoPopupSmallGameResult,
-            };
+            PageName[] pages = { PageName.MeiZhouHeiBaoPageGameMain, PageName.MeiZhouHeiBaoPopupBigWin, PageName.MeiZhouHeiBaoPopupSmallGameJackpotWin, PageName.MeiZhouHeiBaoPopupFreeSpinTrigger, PageName.MeiZhouHeiBaoPopupFreeSpinResult, PageName.MeiZhouHeiBaoPopupSmallGameTrigger, PageName.MeiZhouHeiBaoPopupSmallGameResult, };
 
             _preloadTotal = pages.Length;
             _preloadCompleted = 0;
@@ -96,7 +86,7 @@ namespace MeiZhouHeiBao_3993
                 PageManager.Instance.PreloadPage(pages[i], OnOnePreloadPageDone);
             }
         }
-        
+
         private void OnOnePreloadPageDone()
         {
             _preloadCompleted++;
@@ -106,13 +96,13 @@ namespace MeiZhouHeiBao_3993
 
             TryFinishLoadingAfterPreloads();
         }
-        
+
         private void RefreshLoadingProgressVisual()
         {
             float display = GetDisplayNormalizedProgress();
             SetSliderByPreloadNormalized(display);
         }
-        
+
         private void TryFinishLoadingAfterPreloads()
         {
             float elapsed = Time.realtimeSinceStartup - _preloadStartRealtime;
@@ -130,7 +120,7 @@ namespace MeiZhouHeiBao_3993
             _pendingMinDisplayCallback = OnLoadingProgressPadTick;
             Timers.inst.Add(0.05f, 0, _pendingMinDisplayCallback);
         }
-        
+
         private void OnLoadingProgressPadTick(object param)
         {
             RefreshLoadingProgressVisual();
@@ -142,7 +132,7 @@ namespace MeiZhouHeiBao_3993
                 CompleteLoadingTransition();
             }
         }
-        
+
         private void CompleteLoadingTransition()
         {
             if (_pendingMinDisplayCallback != null)
@@ -163,7 +153,7 @@ namespace MeiZhouHeiBao_3993
                 PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPageGameMain);
             }
         }
-        
+
         /// <summary>
         /// 将 0~1 的预加载比例映射到 GSlider 的 min~max（FGUI 默认 max=100，直接写 0~1 会显示成约 1% 而非 71%）。
         /// </summary>
@@ -178,7 +168,7 @@ namespace MeiZhouHeiBao_3993
             _loadingSlider.value = _loadingSlider.min + span * normalized01;
         }
 
-        
+
         /// <summary>
         /// 进度条取「预加载完成度」与「最短展示时间」的较小值，避免未满最短时间条已 100%。
         /// </summary>
@@ -186,7 +176,7 @@ namespace MeiZhouHeiBao_3993
         {
             return Mathf.Min(GetPreloadRatio(), GetTimeCapRatio());
         }
-        
+
         private float GetPreloadRatio()
         {
             return _preloadTotal > 0 ? (float)_preloadCompleted / _preloadTotal : 1f;

@@ -125,209 +125,60 @@ namespace MeiZhouHeiBao_3993
 
     public class SoundModel : MonoSingleton<SoundModel>
     {
-         public Dictionary<SoundKey, GSHandler> gsHandlers = new Dictionary<SoundKey, GSHandler>
+        public Dictionary<SoundKey, GSHandler> gsHandlers = new Dictionary<SoundKey, GSHandler>
         {
             //----------------------------------------- NormalGame--------------------------------
-            [SoundKey.ReelStop1] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/RollDown.mp3",
-            },
-            [SoundKey.ReelStop2] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/RollDown.mp3",
-            },
-            [SoundKey.ReelStop3] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/RollDown.mp3",
-            },
-            [SoundKey.ReelStop4] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/RollDown.mp3",
-            },
-            [SoundKey.ReelStop5] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/RollDown.mp3",
-            },
-            [SoundKey.win_lv1] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/win1.mp3",
-            },
-            [SoundKey.win_lv2] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/win2.mp3",
-            },
-            [SoundKey.win_lv3] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/win3.mp3",
-            },
-            [SoundKey.ScatterDown] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/ScatterDown.mp3",
-            },
-            [SoundKey.ScatterWin] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/ScatterWin.mp3",
-            },
-            [SoundKey.BonusDown1] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/BonusDown/BonusDown1.mp3",
-            },
-            [SoundKey.BonusDown2] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/BonusDown/BonusDown2.mp3",
-            },
-            [SoundKey.BonusDown3] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/BonusDown/BonusDown3.mp3",
-            },
-            [SoundKey.BonusDown4] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/BonusDown/BonusDown4.mp3",
-            },
-            [SoundKey.BonusDown5] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/BonusDown/BonusDown5.mp3",
-            },
-            [SoundKey.BonusWin] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/BonusWin.mp3",
-            },
-            [SoundKey.NormalRolling] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/NormalRolling.mp3",
-            },
-            [SoundKey.FreeRollingBox] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/FreeRollingBox.mp3",
-            },
-            [SoundKey.BonusRollingBox] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/BonusRollingBox.mp3",
-            },
-            [SoundKey.FadeFree] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/FadeFree.mp3",
-            },
-            [SoundKey.FadeBonus] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/FadeBonus.mp3",
-            },
+            [SoundKey.ReelStop1] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/RollDown.mp3", },
+            [SoundKey.ReelStop2] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/RollDown.mp3", },
+            [SoundKey.ReelStop3] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/RollDown.mp3", },
+            [SoundKey.ReelStop4] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/RollDown.mp3", },
+            [SoundKey.ReelStop5] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/RollDown.mp3", },
+            [SoundKey.win_lv1] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/win1.mp3", },
+            [SoundKey.win_lv2] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/win2.mp3", },
+            [SoundKey.win_lv3] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/win3.mp3", },
+            [SoundKey.ScatterDown] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/ScatterDown.mp3", },
+            [SoundKey.ScatterWin] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/ScatterWin.mp3", },
+            [SoundKey.BonusDown1] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/BonusDown/BonusDown1.mp3", },
+            [SoundKey.BonusDown2] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/BonusDown/BonusDown2.mp3", },
+            [SoundKey.BonusDown3] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/BonusDown/BonusDown3.mp3", },
+            [SoundKey.BonusDown4] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/BonusDown/BonusDown4.mp3", },
+            [SoundKey.BonusDown5] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/BonusDown/BonusDown5.mp3", },
+            [SoundKey.BonusWin] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/BonusWin.mp3", },
+            [SoundKey.NormalRolling] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/NormalRolling.mp3", },
+            [SoundKey.FreeRollingBox] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/FreeRollingBox.mp3", },
+            [SoundKey.BonusRollingBox] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/BonusRollingBox.mp3", },
+            [SoundKey.FadeFree] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/FadeFree.mp3", },
+            [SoundKey.FadeBonus] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/NormalGame/FadeBonus.mp3", },
             //----------------------------------------- FreePopup--------------------------------
-            [SoundKey.FreePopupAppear] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/FreePopup/FreePopupAppear.mp3",
-            },
-            [SoundKey.FreeStartBtn] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/FreePopup/FreeStartBtn.mp3",
-            },
-            [SoundKey.FreePopupDisappear] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/FreePopup/FreePopupDisappear.mp3",
-            },
-            [SoundKey.FreeCollectBtn] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/FreePopup/FreeCollectBtn.mp3",
-            },
+            [SoundKey.FreePopupAppear] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/FreePopup/FreePopupAppear.mp3", },
+            [SoundKey.FreeStartBtn] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/FreePopup/FreeStartBtn.mp3", },
+            [SoundKey.FreePopupDisappear] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/FreePopup/FreePopupDisappear.mp3", },
+            [SoundKey.FreeCollectBtn] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/FreePopup/FreeCollectBtn.mp3", },
             //----------------------------------------- BonusPopup--------------------------------
-            [SoundKey.BonusPopupAppear] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/BonusPopup/BonusPopupAppear.mp3",
-            },
-            [SoundKey.BonusStartBtn] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/BonusPopup/BonusStartBtn.mp3",
-            },
-            [SoundKey.BonusPopupDisappear] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/BonusPopup/BonusPopupDisappear.mp3",
-            },
-            [SoundKey.BonusCollectBtn] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/BonusPopup/BonusCollectBtn.mp3",
-            },
+            [SoundKey.BonusPopupAppear] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/BonusPopup/BonusPopupAppear.mp3", },
+            [SoundKey.BonusStartBtn] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/BonusPopup/BonusStartBtn.mp3", },
+            [SoundKey.BonusPopupDisappear] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/BonusPopup/BonusPopupDisappear.mp3", },
+            [SoundKey.BonusCollectBtn] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/BonusPopup/BonusCollectBtn.mp3", },
             //----------------------------------------- JackpotPopup--------------------------------
-            [SoundKey.JackpotPopupAppear] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/JackpotPopup/JackpotPopupAppear.mp3",
-            },
-            [SoundKey.JackpotPopupDisappear] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/JackpotPopup/JackpotPopupDisappear.mp3",
-            },
+            [SoundKey.JackpotPopupAppear] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/JackpotPopup/JackpotPopupAppear.mp3", },
+            [SoundKey.JackpotPopupDisappear] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/JackpotPopup/JackpotPopupDisappear.mp3", },
             //----------------------------------------- FreeGame--------------------------------
-            [SoundKey.WildTail] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/FreeGame/WildTail.mp3",
-            },
-            [SoundKey.arrow1] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/FreeGame/arrow1.mp3",
-            },
-            [SoundKey.arrow2] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/FreeGame/arrow2.mp3",
-            },
-            [SoundKey.Gear] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/FreeGame/Gear.mp3",
-            },
+            [SoundKey.WildTail] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/FreeGame/WildTail.mp3", },
+            [SoundKey.arrow1] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/FreeGame/arrow1.mp3", },
+            [SoundKey.arrow2] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/FreeGame/arrow2.mp3", },
+            [SoundKey.Gear] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/FreeGame/Gear.mp3", },
             //----------------------------------------- BonusGame--------------------------------
-            [SoundKey.BonusSymbolAppear] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/BonusGame/BonusSymbolAppear.mp3",
-            },
-            [SoundKey.BonusSymbolCollect] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/BonusGame/BonusSymbolCollect.mp3",
-            },
-            [SoundKey.BonusRolling] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/BonusGame/BonusRolling.mp3",
-            },
+            [SoundKey.BonusSymbolAppear] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/BonusGame/BonusSymbolAppear.mp3", },
+            [SoundKey.BonusSymbolCollect] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/BonusGame/BonusSymbolCollect.mp3", },
+            [SoundKey.BonusRolling] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/BonusGame/BonusRolling.mp3", },
             //----------------------------------------- BGM--------------------------------
-            [SoundKey.RegularBG] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/NormalBGM.mp3",
-                outputType = GSOutType.Music,
-                loop = true,
-            },
-            [SoundKey.FreeSpinBG] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/FreeBGM.mp3",
-                outputType = GSOutType.Music,
-                loop = true,
-            },
-            [SoundKey.BonusTriggerBG] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/BonusTriggerBGM.mp3",
-                outputType = GSOutType.Music,
-                loop = true,
-            },
-            [SoundKey.FreeSpinTriggerBG] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/FreeTriggerBGM.mp3",
-                outputType = GSOutType.Music,
-                loop = true,
-            },
-            [SoundKey.FreeSpinResultBG] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/FreeResultBGM.mp3",
-                outputType = GSOutType.Music,
-                loop = true,
-            },
-            [SoundKey.BonusResultBG] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/FreeResultBGM.mp3",
-                outputType = GSOutType.Music,
-                loop = true,
-            },
-            [SoundKey.BonusBG] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/BonusBGM.mp3",
-                outputType = GSOutType.Music,
-                loop = true,
-            },
+            [SoundKey.RegularBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/NormalBGM.mp3", outputType = GSOutType.Music, loop = true, },
+            [SoundKey.FreeSpinBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/FreeBGM.mp3", outputType = GSOutType.Music, loop = true, },
+            [SoundKey.BonusTriggerBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/BonusTriggerBGM.mp3", outputType = GSOutType.Music, loop = true, },
+            [SoundKey.FreeSpinTriggerBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/FreeTriggerBGM.mp3", outputType = GSOutType.Music, loop = true, },
+            [SoundKey.FreeSpinResultBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/FreeResultBGM.mp3", outputType = GSOutType.Music, loop = true, },
+            [SoundKey.BonusResultBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/FreeResultBGM.mp3", outputType = GSOutType.Music, loop = true, },
+            [SoundKey.BonusBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/BonusBGM.mp3", outputType = GSOutType.Music, loop = true, },
         };
     }
 }
