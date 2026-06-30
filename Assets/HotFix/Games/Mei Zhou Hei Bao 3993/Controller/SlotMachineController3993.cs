@@ -91,7 +91,7 @@ namespace MeiZhouHeiBao_3993
             SkipWinLine(false);
         }
 
-        public IEnumerator ShowSymbolWinBySetting(SymbolWin symbolWin, bool isUseMySelfSymbolNumber,
+        private IEnumerator ShowSymbolWinBySetting(SymbolWin symbolWin, bool isUseMySelfSymbolNumber,
             SpinWinEvent eventType)
         {
             //停止特效显示
@@ -175,17 +175,13 @@ namespace MeiZhouHeiBao_3993
 
         #region 新增滚轮加速方法
 
-        public new IEnumerator TurnReelsNormal(List<int> specialSymbols,
-            string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3",
-            Action finishCallback = null)
+        public new IEnumerator TurnReelsNormal(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3", Action finishCallback = null)
         {
             //停止特效显示
             SkipWinLine(false);
 
             int[] deckColRow = SlotTool.GetDeckColRow(strDeckRowCol).ToArray();
-            List<List<int>> colrowLsts = GetDeckColRow(deckColRow,
-                this.column,
-                this.row, specialSymbols);
+            List<List<int>> colrowLsts = GetDeckColRow(deckColRow, column, row);
 
             List<int>[] colrow = colrowLsts.ToArray();
 
@@ -201,29 +197,13 @@ namespace MeiZhouHeiBao_3993
             finishCallback?.Invoke();
         }
 
-        List<int> freeIconCols = new List<int>();
-        List<int> jackpotIconCols = new List<int>();
-        Dictionary<int, List<int>> freeAddIcon = new Dictionary<int, List<int>>();
-        Dictionary<int, List<int>> multAddIcon = new Dictionary<int, List<int>>();
+        private readonly List<int> freeIconCols = new List<int>();
+        private readonly List<int> jackpotIconCols = new List<int>();
 
-        public List<List<int>> GetDeckColRow(int[] deckColRow, int colCount, int rowCount,
-            List<int> specialSymbols) // 修改参数，传入特殊图标数组
+        private List<List<int>> GetDeckColRow(int[] deckColRow, int colCount, int rowCount) // 修改参数，传入特殊图标数组
         {
             if (freeIconCols.Count > 0) freeIconCols.Clear();
             if (jackpotIconCols.Count > 0) jackpotIconCols.Clear();
-
-            if (ContentModel.Instance.isFreeSpin)
-            {
-                foreach (int key in freeAddIcon.Keys)
-                {
-                    freeAddIcon[key].Clear();
-                }
-
-                foreach (int key in multAddIcon.Keys)
-                {
-                    multAddIcon[key].Clear();
-                }
-            }
 
             List<List<int>> colrowLsts = new List<List<int>>();
             for (int col = 0; col < colCount; col++)
@@ -249,31 +229,26 @@ namespace MeiZhouHeiBao_3993
 
             return colrowLsts;
         }
-
-
+        
         //滚轮滚动接口
-        protected new IEnumerator StartTurnReels()
+        private new IEnumerator StartTurnReels()
         {
             int reelsCount = this.column;
-
             bool isNext = false;
-
             bool haveSlotTip = false;
             ContentModel.Instance.isFreeSlotTip = false;
 
             for (int reelIdx = 0; reelIdx < this.column; reelIdx++)
             {
-                int _reelIdx = reelIdx;
+                int index = reelIdx;
                 int extraReelTimes = 0;
-                bool isTrriger = false;
+                bool isTrigger = false;
                 int extraReelTimesReel = 0;
 
-                if ((freeIconCols.Count > 1 && reelIdx >= freeIconCols[1]) ||
-                    (jackpotIconCols.Count > 1 &&
-                     reelIdx >= jackpotIconCols[1])) //ContentModel.Instance.isReelsSlowMotion && 
+                if ((freeIconCols.Count > 1 && reelIdx >= freeIconCols[1]) || (jackpotIconCols.Count > 1 && reelIdx >= jackpotIconCols[1])) //ContentModel.Instance.isReelsSlowMotion && 
                 {
                     extraReelTimes = 15;
-                    isTrriger = true;
+                    isTrigger = true;
                     if (!haveSlotTip && freeIconCols.Count > 1 && reelIdx >= freeIconCols[1])
                     {
                         ContentModel.Instance.isFreeSlotTip = true;
@@ -297,15 +272,15 @@ namespace MeiZhouHeiBao_3993
                     () =>
                     {
                         EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
-                            new EventData<int>(SlotMachineEvent.ReelColumnStopSound, _reelIdx));
-                        ComputeScatterBonusColumnStopFlags(reels[_reelIdx], _reelIdx, out bool scatterCol, out bool bonusCol);
+                            new EventData<int>(SlotMachineEvent.ReelColumnStopSound, index));
+                        ComputeScatterBonusColumnStopFlags(reels[index], index, out bool scatterCol, out bool bonusCol);
                         EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
                             new EventData<ScatterBonusColumnStopPayload>(SlotMachineEvent.ScatterBonusColumnStopSound,
-                                new ScatterBonusColumnStopPayload { column0Based = _reelIdx, hasScatter = scatterCol, hasBonus = bonusCol, }));
-                        if (isTrriger)
+                                new ScatterBonusColumnStopPayload { column0Based = index, hasScatter = scatterCol, hasBonus = bonusCol, }));
+                        if (isTrigger)
                         {
                             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
-                                new EventData<int>(SlotMachineEvent.PrepareStoppedReel, _reelIdx + 1));
+                                new EventData<int>(SlotMachineEvent.PrepareStoppedReel, index + 1));
                         }
 
                         if (--reelsCount <= 0)

@@ -18,6 +18,7 @@ namespace MeiZhouHeiBao_3993
                 return _instance;
             }
         }
-        public GameSoundHelper3993(Func<object, GSHandler> getGSHandler) : base(getGSHandler) { }
+
+        private GameSoundHelper3993(Func<object, GSHandler> getGsHandler) : base(getGsHandler) { }
     }
 }

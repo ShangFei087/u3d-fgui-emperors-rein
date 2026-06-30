@@ -54,7 +54,7 @@ namespace CaiFuZhiJia_3997
         public new IEnumerator ShowWinListAwayDuringIdle(List<SymbolWin> winList)
         {
             isIdleEffect = true;
-            while (winList.Count > 0&& isIdleEffect) //while (idx < winList.Count)
+            while (winList.Count > 0 && isIdleEffect) //while (idx < winList.Count)
             {
                 yield return ShowWinListBySetting(winList);
             }
@@ -76,7 +76,7 @@ namespace CaiFuZhiJia_3997
                 while (idx < winList.Count)
                 {
                     if (!isIdleEffect) break;
-                   
+
                     yield return ShowSymbolWinBySetting(winList[idx], true, SpinWinEvent.SingleWinLine);
 
                     ++idx;
@@ -175,7 +175,7 @@ namespace CaiFuZhiJia_3997
 
         #region 新增滚轮加速方法
 
-        public new IEnumerator TurnReelsNormal( List<int> specialSymbols,
+        public new IEnumerator TurnReelsNormal(List<int> specialSymbols,
             string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3",
             Action finishCallback = null)
         {
@@ -346,14 +346,13 @@ namespace CaiFuZhiJia_3997
                     {
                         EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
                             new EventData<int>(SlotMachineEvent.ReelColumnStopSound, _reelIdx));
-                        ComputeScatterBonusColumnStopFlags(reels[_reelIdx], _reelIdx, out bool scatterCol, out bool bonusCol);
+                        ComputeScatterBonusColumnStopFlags(reels[_reelIdx], _reelIdx, out bool scatterCol,
+                            out bool bonusCol);
                         EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
                             new EventData<ScatterBonusColumnStopPayload>(SlotMachineEvent.ScatterBonusColumnStopSound,
                                 new ScatterBonusColumnStopPayload
                                 {
-                                    column0Based = _reelIdx,
-                                    hasScatter = scatterCol,
-                                    hasBonus = bonusCol,
+                                    column0Based = _reelIdx, hasScatter = scatterCol, hasBonus = bonusCol,
                                 }));
                         if (isTrriger)
                         {
@@ -380,15 +379,14 @@ namespace CaiFuZhiJia_3997
             EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_SLOT_EVENT,
                 new EventData(SlotMachineEvent.StoppedSlotMachine));
         }
-        
-          /// <summary>
+
+        /// <summary>
         /// 已滚动的滚轮立马停止、未滚动的滚轮滚动一次
         /// </summary>
         /// <param name="finishCallback"></param>
         /// <returns></returns>
         public new IEnumerator ReelsToStopOrTurnOnce(Action finishCallback)
         {
-
             // EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_EVENT,
             //    new EventData(SlotMachineEvent.SpinSlotMachine));
 
@@ -419,14 +417,13 @@ namespace CaiFuZhiJia_3997
                     {
                         EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
                             new EventData<int>(SlotMachineEvent.ReelColumnStopSound, _reelIdx));
-                        ComputeScatterBonusColumnStopFlags(reels[_reelIdx], _reelIdx, out bool scatterCol2, out bool bonusCol2);
+                        ComputeScatterBonusColumnStopFlags(reels[_reelIdx], _reelIdx, out bool scatterCol2,
+                            out bool bonusCol2);
                         EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
                             new EventData<ScatterBonusColumnStopPayload>(SlotMachineEvent.ScatterBonusColumnStopSound,
                                 new ScatterBonusColumnStopPayload
                                 {
-                                    column0Based = _reelIdx,
-                                    hasScatter = scatterCol2,
-                                    hasBonus = bonusCol2,
+                                    column0Based = _reelIdx, hasScatter = scatterCol2, hasBonus = bonusCol2,
                                 }));
                         EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
                             new EventData<int>(SlotMachineEvent.PrepareStoppedReel, _reelIdx));
@@ -438,7 +435,6 @@ namespace CaiFuZhiJia_3997
                         {
                             isNext = true;
                         }
-
                     }
                 );
             }
@@ -458,9 +454,10 @@ namespace CaiFuZhiJia_3997
 
             finishCallback?.Invoke();
         }
-        
+
         /// <summary> 扫描单列可视区是否含 Scatter/Bonus（symbolNumber[10]/[11]），供 ScatterBonusColumnStopSound 载荷。 </summary>
-        private void ComputeScatterBonusColumnStopFlags(ReelBase reel, int column0Based, out bool hasScatter, out bool hasBonus)
+        private void ComputeScatterBonusColumnStopFlags(ReelBase reel, int column0Based, out bool hasScatter,
+            out bool hasBonus)
         {
             hasScatter = false;
             hasBonus = false;

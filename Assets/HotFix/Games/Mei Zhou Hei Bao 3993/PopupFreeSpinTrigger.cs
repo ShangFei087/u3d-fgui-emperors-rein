@@ -16,6 +16,7 @@ namespace MeiZhouHeiBao_3993
 
         private int _totalCount;
         private GButton _closeBtn;
+        private GTextField _spinCountText;
         private bool _isClicked;
         private GameSoundController3993 _gameSoundController;
 
@@ -49,6 +50,7 @@ namespace MeiZhouHeiBao_3993
             _isClicked = false;
 
             _closeBtn = contentPane.GetChild("closeBtn").asButton;
+            _spinCountText = contentPane.GetChild("spinCountText").asTextField;
             _closeBtn.onClick.Clear();
             _closeBtn.onClick.Add(() => OnCloseBtn());
         }
@@ -56,7 +58,7 @@ namespace MeiZhouHeiBao_3993
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
-            
+
             _gameSoundController = new GameSoundController3993();
             EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3993AudioEvent.BgmFreeSpinTrigger));
             InitParam(eventData);
@@ -65,7 +67,7 @@ namespace MeiZhouHeiBao_3993
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
-            
+
             _gameSoundController?.Dispose();
             _gameSoundController = null;
         }
@@ -82,6 +84,8 @@ namespace MeiZhouHeiBao_3993
         {
             if (_isClicked) return;
             _isClicked = true;
+
+            CloseSelf(eventData);
         }
     }
 }

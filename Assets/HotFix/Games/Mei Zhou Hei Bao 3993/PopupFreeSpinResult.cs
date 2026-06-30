@@ -15,9 +15,10 @@ namespace MeiZhouHeiBao_3993
         private const string PrefabPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupFreeSpinResult/";
 
         private int _totalCount = -1;
-
         private GButton _closeBtn;
+        private GTextField _scoreText;
         private bool _isClicked;
+        private GameSoundController3993 _gameSoundController;
 
         protected override void OnInit()
         {
@@ -48,16 +49,26 @@ namespace MeiZhouHeiBao_3993
             if (!isOpen) return;
 
             _closeBtn = contentPane.GetChild("closeBtn").asButton;
+            _scoreText = contentPane.GetChild("scoreText").asTextField;
             _closeBtn.onClick.Clear();
             _closeBtn.onClick.Add(() => OnCloseBtn());
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
+            base.OnOpen(currentPageName, eventData);
+
+            _gameSoundController = new GameSoundController3993();
+            EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3993AudioEvent.BgmFreeSpinTrigger));
+            InitParam(eventData);
         }
 
         public override void OnClose(EventData eventData = null)
         {
+            base.OnClose(eventData);
+
+            _gameSoundController?.Dispose();
+            _gameSoundController = null;
         }
 
         private void ResLoadedCallback()
@@ -72,6 +83,8 @@ namespace MeiZhouHeiBao_3993
         {
             if (_isClicked) return;
             _isClicked = true;
+
+            CloseSelf(eventData);
         }
     }
 }

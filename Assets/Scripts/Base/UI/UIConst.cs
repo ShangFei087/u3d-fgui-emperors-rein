@@ -202,6 +202,15 @@ public class UIConst
             [PageName.MeiZhouHeiBaoPopupSmallGameJackpotWin] = new object[] { "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/FGUIs", "MeiZhouHeiBao_3993.PopupSmallGameJackpotWin" },
             [PageName.MeiZhouHeiBaoPopupBigWin] = new object[] { "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/FGUIs", "MeiZhouHeiBao_3993.PopupBigWin" },
 
+            // 非洲黑猩猩
+            [PageName.FeiZhouHeiXingXingPopupGameLoading] = new object[] { "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/FGUIs", "FeiZhouHeiXingXing_3994.PopupGameLoading" },
+            [PageName.FeiZhouHeiXingXingPageGameMain] = new object[] { "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/FGUIs", "FeiZhouHeiXingXing_3994.PageGameMain" },
+            [PageName.FeiZhouHeiXingXingPopupFreeSpinTrigger] = new object[] { "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/FGUIs", "FeiZhouHeiXingXing_3994.PopupFreeSpinTrigger" },
+            [PageName.FeiZhouHeiXingXingPopupFreeSpinResult] = new object[] { "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/FGUIs", "FeiZhouHeiXingXing_3994.PopupFreeSpinResult" },
+            [PageName.FeiZhouHeiXingXingPopupSmallGameTrigger] = new object[] { "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/FGUIs", "FeiZhouHeiXingXing_3994.PopupSmallGameTrigger" },
+            [PageName.FeiZhouHeiXingXingPopupSmallGameResult] = new object[] { "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/FGUIs", "FeiZhouHeiXingXing_3994.PopupSmallGameResult" },
+            [PageName.FeiZhouHeiXingXingPopupSmallGameJackpotWin] = new object[] { "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/FGUIs", "FeiZhouHeiXingXing_3994.PopupSmallGameJackpotWin" },
+            [PageName.FeiZhouHeiXingXingPopupBigWin] = new object[] { "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/FGUIs", "FeiZhouHeiXingXing_3994.PopupBigWin" },
 
             //幸运之轮
             [PageName.XingYunZhiLunPopupGameLoading] =
@@ -362,7 +371,7 @@ public enum PageName
     CaiFuZhiJiaPopupSmallGameTrigger,
     CaiFuZhiJiaPopupJackpotWin,
 
-    // 美洲黑豹
+    // 美洲黑豹_3993
     MeiZhouHeiBaoPopupGameLoading,
     MeiZhouHeiBaoPageGameMain,
     MeiZhouHeiBaoPopupFreeSpinTrigger,
@@ -371,7 +380,16 @@ public enum PageName
     MeiZhouHeiBaoPopupSmallGameResult,
     MeiZhouHeiBaoPopupSmallGameJackpotWin,
     MeiZhouHeiBaoPopupBigWin,
-
+    
+    // 非洲黑猩猩_3994
+    FeiZhouHeiXingXingPopupGameLoading,
+    FeiZhouHeiXingXingPageGameMain,
+    FeiZhouHeiXingXingPopupFreeSpinTrigger,
+    FeiZhouHeiXingXingPopupFreeSpinResult,
+    FeiZhouHeiXingXingPopupSmallGameTrigger,
+    FeiZhouHeiXingXingPopupSmallGameResult,
+    FeiZhouHeiXingXingPopupSmallGameJackpotWin,
+    FeiZhouHeiXingXingPopupBigWin,
 
     //幸运之轮
     XingYunZhiLunPopupGameLoading,
