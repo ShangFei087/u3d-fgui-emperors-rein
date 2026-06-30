@@ -425,6 +425,26 @@ public sealed class PagFguiGpuPresenter
             return "holder7";
         }
 
+        if (loaderName == "pagEffect8")
+        {
+            return "holder8";
+        }
+
+        if (loaderName == "pagEffect9")
+        {
+            return "holder9";
+        }
+
+        if (loaderName == "pagEffect10")
+        {
+            return "holder10";
+        }
+
+        if (loaderName == "pagEffect11")
+        {
+            return "holder11";
+        }
+
         return "holder";
     }
 

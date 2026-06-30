@@ -297,7 +297,7 @@ static void ProcessSetupOp(const PendingGlOp& op) {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-static void ProcessFlushOp(const PendingGlOp& op) {
+static bool ProcessFlushOpInternal(const PendingGlOp& op) {
     g_ActiveSlotId = op.slotId;
     g_PendingInstanceKey = op.instanceKey;
     GlTextureSlot& slot = GetSlot(op.slotId);
@@ -316,11 +316,15 @@ static void ProcessFlushOp(const PendingGlOp& op) {
     } else {
         flushOk = CallFlushGpuFrameOnRenderThread(progress, op.slotId, op.instanceKey);
     }
-    if (flushOk) {
-        // Flush 路径唯一 glFinish；native 播放状态由 Unity HandleGpuFrameReady → OnGpuFlushCompleted 回写。
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    return flushOk;
+}
+
+static void ProcessFlushOp(const PendingGlOp& op) {
+    if (ProcessFlushOpInternal(op)) {
+        // 单 op fallback：仍立即 glFinish。
         glFinish();
     }
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 static void ProcessTeardownOp(const PendingGlOp& op) {
@@ -375,8 +379,15 @@ static void UNITY_INTERFACE_API OnRenderEvent(int eventId) {
             return;
         }
         LOGI("OnRenderEvent: flush batch count=%zu", batch.size());
+        bool anyFlushOk = false;
         for (const PendingGlOp& flushOp : batch) {
-            ProcessFlushOp(flushOp);
+            if (ProcessFlushOpInternal(flushOp)) {
+                anyFlushOk = true;
+            }
+        }
+        if (anyFlushOk) {
+            // 多路同屏：整批 flush 后只 glFinish 一次，降低渲染线程阻塞。
+            glFinish();
         }
         return;
     }

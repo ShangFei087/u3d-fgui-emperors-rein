@@ -43,8 +43,15 @@ public class PagController : IDisposable
     /// <summary>每完成多少次播放触发 UnloadUnusedAssets；0=关闭。</summary>
     public static int UnloadAssetsEveryPlayCount = 40;
 
-    /// <summary>repeat=-1 无限循环时每 N 圈软重启 GPU Player；0=关闭。</summary>
-    public static int GpuPlayerRecycleEveryLoop = 100;
+    /// <summary>repeat=-1 无限循环时每 N 圈软重启 GPU Player；0=关闭（默认，长播依赖 libpag 自然 loop）。</summary>
+    public static int GpuPlayerRecycleEveryLoop = 0;
+
+    /// <summary>FGUI GPU 多实例同屏时自动纳入 PagGpuSyncGroup；默认开启。</summary>
+    public static bool AutoConcurrentGpuSync
+    {
+        get => PagGpuSyncGroup.AutoConcurrentEnabled;
+        set => PagGpuSyncGroup.AutoConcurrentEnabled = value;
+    }
 
     private const int GlQueueBacklogWarnThreshold = 32;
 
@@ -65,6 +72,7 @@ public class PagController : IDisposable
     private PagRenderTarget _renderTarget = PagRenderTarget.Overlay;
     private Coroutine _gpuBindCoroutine;
     private float _fguiDisplayScale = 1f;
+    private int _fguiTargetFps = 30;
     private int _gpuFlushPresentCount;
     private int _boundGpuTexId;
     private int _boundGpuTexW;
@@ -630,6 +638,7 @@ public class PagController : IDisposable
 
     public void ConfigureFguiFrame(int maxDisplaySide, int fps)
     {
+        _fguiTargetFps = fps > 0 ? fps : 30;
 #if UNITY_ANDROID && !UNITY_EDITOR
         SafeCall("ConfigureFguiFrame", () => _pagBridge.CallStatic("SetFguiFrameConfig", InstanceKey, maxDisplaySide, fps));
 #endif
@@ -977,6 +986,10 @@ public class PagController : IDisposable
             if (_renderTarget == PagRenderTarget.FguiTexture)
             {
                 _fguiPresenter.ResetDisplaySizeForNewComposition();
+                if (AutoConcurrentGpuSync)
+                {
+                    PagGpuSyncGroup.TryJoin(InstanceKey, _fguiTargetFps);
+                }
             }
 
             SetupGpuCallbacksBeforePlay();
@@ -1003,7 +1016,7 @@ public class PagController : IDisposable
 #if UNITY_ANDROID && !UNITY_EDITOR
         if (PagGpuSyncGroup.Contains(InstanceKey))
         {
-            PagGpuSyncGroup.EndGroup();
+            PagGpuSyncGroup.TryLeave(InstanceKey);
         }
 
         StopGpuFrameCoroutines();
@@ -1072,11 +1085,6 @@ public class PagController : IDisposable
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
         SafeCall("SetRepeatCount", () => _pagBridge.CallStatic("SetRepeatCount", InstanceKey, count));
-        if (count < 0 && GpuPlayerRecycleEveryLoop > 0)
-        {
-            SafeCall("SetGpuPlayerRecycleEveryLoop", () =>
-                _pagBridge.CallStatic("SetGpuPlayerRecycleEveryLoop", InstanceKey, GpuPlayerRecycleEveryLoop));
-        }
 #endif
     }
 

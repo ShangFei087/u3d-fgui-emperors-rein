@@ -89,8 +89,16 @@ namespace SlotZhuZaiJinBi1700
         private const string PagTestLoader5 = "pagEffect5";
         /// <summary>FGUI GLoader 名，对应 PAG4 三槽组播右槽 / pagEffect6。</summary>
         private const string PagTestLoader6 = "pagEffect6";
-        /// <summary>FGUI GLoader 名，对应 PAG5~9 全屏 glow 槽 / pagEffect7。</summary>
-        private const string PagTestLoader7 = "pagEffect7";
+        /// <summary>FGUI GLoader 名，PAG5 glow / pagEffect7。</summary>
+        private const string PagTestLoaderGlow5 = "pagEffect7";
+        /// <summary>FGUI GLoader 名，PAG6 glow / pagEffect8。</summary>
+        private const string PagTestLoaderGlow6 = "pagEffect8";
+        /// <summary>FGUI GLoader 名，PAG7 glow / pagEffect9。</summary>
+        private const string PagTestLoaderGlow7 = "pagEffect9";
+        /// <summary>FGUI GLoader 名，PAG8 glow / pagEffect10。</summary>
+        private const string PagTestLoaderGlow8 = "pagEffect10";
+        /// <summary>FGUI GLoader 名，PAG9 glow / pagEffect11。</summary>
+        private const string PagTestLoaderGlow9 = "pagEffect11";
         /// <summary>预制体内 Spine 节点名，与 PAG 同场景对照（jp_pup_grand）。</summary>
         private const string PagTestSpine1Node = "Spine Mecanim GameObject (jp_pup_grand)";
         /// <summary>预制体内 Spine 节点名，与 PAG 同场景对照（ng_pop_bigWin）。</summary>
@@ -123,8 +131,16 @@ namespace SlotZhuZaiJinBi1700
         private PagSlotBinding _pagTestSlot5;
         /// <summary>PAG4 组播右槽，pagEffect6。</summary>
         private PagSlotBinding _pagTestSlot6;
-        /// <summary>PAG5~9 全屏 glow 槽，pagEffect7。</summary>
-        private PagSlotBinding _pagTestSlot7;
+        /// <summary>PAG5 glow 槽，pagEffect7。</summary>
+        private PagSlotBinding _pagTestGlowSlot5;
+        /// <summary>PAG6 glow 槽，pagEffect8。</summary>
+        private PagSlotBinding _pagTestGlowSlot6;
+        /// <summary>PAG7 glow 槽，pagEffect9。</summary>
+        private PagSlotBinding _pagTestGlowSlot7;
+        /// <summary>PAG8 glow 槽，pagEffect10。</summary>
+        private PagSlotBinding _pagTestGlowSlot8;
+        /// <summary>PAG9 glow 槽，pagEffect11。</summary>
+        private PagSlotBinding _pagTestGlowSlot9;
         /// <summary>PAG1 是否正在播放（按钮二次点击为停止）。</summary>
         private bool _pagTest1Showing;
         /// <summary>PAG2 是否正在播放。</summary>
@@ -652,6 +668,8 @@ namespace SlotZhuZaiJinBi1700
         /// <summary>InitParam 时创建 6 个 PagSlotBinding 并 Attach 到 anchorPagTest 下 pagEffect1~6。</summary>
         private void EnsurePagTestSlots()
         {
+            PagConcurrentPlayback.Enabled = PagTestUseFguiTexture;
+
             GComponent anchor = GetPagTestAnchor();
             if (anchor == null)
             {
@@ -703,13 +721,36 @@ namespace SlotZhuZaiJinBi1700
             EnsurePagTestSlot(_pagTestSlot5, PagTestLoader5, "PagTest5");
             EnsurePagTestSlot(_pagTestSlot6, PagTestLoader6, "PagTest6");
 
-            if (_pagTestSlot7 == null)
+            EnsurePagTestGlowSlot(5, ref _pagTestGlowSlot5, PagTestLoaderGlow5, "PagTestGlow5");
+            EnsurePagTestGlowSlot(6, ref _pagTestGlowSlot6, PagTestLoaderGlow6, "PagTestGlow6");
+            EnsurePagTestGlowSlot(7, ref _pagTestGlowSlot7, PagTestLoaderGlow7, "PagTestGlow7");
+            EnsurePagTestGlowSlot(8, ref _pagTestGlowSlot8, PagTestLoaderGlow8, "PagTestGlow8");
+            EnsurePagTestGlowSlot(9, ref _pagTestGlowSlot9, PagTestLoaderGlow9, "PagTestGlow9");
+        }
+
+        private void EnsurePagTestGlowSlot(int glowIndex, ref PagSlotBinding slot, string loaderName, string instanceLabel)
+        {
+            if (slot == null)
             {
-                _pagTestSlot7 = new PagSlotBinding("PagTest7");
-                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest7 (glow)");
+                slot = new PagSlotBinding(instanceLabel);
+                Debug.Log($"{PagLogPrefix} PagSlotBinding created for {instanceLabel} (PAG{glowIndex} glow)");
             }
 
-            EnsurePagTestSlot(_pagTestSlot7, PagTestLoader7, "PagTest7Glow");
+            EnsurePagTestSlot(slot, loaderName, instanceLabel);
+        }
+
+        /// <summary>PAG5~9 glowIndex 返回对应 PagSlotBinding；无效 index 返回 null。</summary>
+        private PagSlotBinding GetPagTestGlowSlot(int glowIndex)
+        {
+            switch (glowIndex)
+            {
+                case 5: return _pagTestGlowSlot5;
+                case 6: return _pagTestGlowSlot6;
+                case 7: return _pagTestGlowSlot7;
+                case 8: return _pagTestGlowSlot8;
+                case 9: return _pagTestGlowSlot9;
+                default: return null;
+            }
         }
 
         /// <summary>将 PagSlotBinding 挂到 anchor 上指定 loaderName 的 GLoader。</summary>
@@ -746,8 +787,16 @@ namespace SlotZhuZaiJinBi1700
             _pagTestSlot5 = null;
             _pagTestSlot6?.Dispose();
             _pagTestSlot6 = null;
-            _pagTestSlot7?.Dispose();
-            _pagTestSlot7 = null;
+            _pagTestGlowSlot5?.Dispose();
+            _pagTestGlowSlot5 = null;
+            _pagTestGlowSlot6?.Dispose();
+            _pagTestGlowSlot6 = null;
+            _pagTestGlowSlot7?.Dispose();
+            _pagTestGlowSlot7 = null;
+            _pagTestGlowSlot8?.Dispose();
+            _pagTestGlowSlot8 = null;
+            _pagTestGlowSlot9?.Dispose();
+            _pagTestGlowSlot9 = null;
             _pagTestSpine1Animator = null;
             _pagTestSpine1Mecanim = null;
             _pagTestSpine2Animator = null;
@@ -797,12 +846,12 @@ namespace SlotZhuZaiJinBi1700
             StopPagTest(_pagTestSlot4, ref _pagTest4Showing);
         }
 
-        /// <summary>中断 PAG4 组播遗留状态（PagGpuSyncGroup）并停止 slot5~6。</summary>
+        /// <summary>中断 PAG4 静态组播遗留并停止 slot5~6；不 EndGroup 动态合组（PAG1~3 同屏）。</summary>
         private void StopPagTestGroupPlayback()
         {
             StopPagTest4Playback();
 
-            PagGpuSyncGroup.EndGroup();
+            PagGpuSyncGroup.EndStaticGroupIfActive("StopPagTestGroupPlayback");
             _pagTestSlot5?.Stop(PagTestUseFguiTexture);
             _pagTestSlot6?.Stop(PagTestUseFguiTexture);
         }
@@ -814,15 +863,40 @@ namespace SlotZhuZaiJinBi1700
             _pagTestSlot6?.Stop(PagTestUseFguiTexture);
         }
 
-        /// <summary>停止 PAG5~9 glow 协程与 pagEffect7 播放。</summary>
+        /// <summary>停止单路 PAG5~9 glow 协程与对应 pagEffect 播放。</summary>
+        private void StopPagTestGlow(int glowIndex)
+        {
+            switch (glowIndex)
+            {
+                case 5:
+                    StopPagTestGlowCoroutine(ref _corPagTest5, ref _pagTest5Showing);
+                    break;
+                case 6:
+                    StopPagTestGlowCoroutine(ref _corPagTest6, ref _pagTest6Showing);
+                    break;
+                case 7:
+                    StopPagTestGlowCoroutine(ref _corPagTest7, ref _pagTest7Showing);
+                    break;
+                case 8:
+                    StopPagTestGlowCoroutine(ref _corPagTest8, ref _pagTest8Showing);
+                    break;
+                case 9:
+                    StopPagTestGlowCoroutine(ref _corPagTest9, ref _pagTest9Showing);
+                    break;
+                default:
+                    return;
+            }
+
+            GetPagTestGlowSlot(glowIndex)?.Stop(PagTestUseFguiTexture);
+        }
+
+        /// <summary>停止 PAG5~9 全部 glow 协程与 pagEffect7~11 播放。</summary>
         private void StopPagTestGlowPlayback()
         {
-            StopPagTestGlowCoroutine(ref _corPagTest5, ref _pagTest5Showing);
-            StopPagTestGlowCoroutine(ref _corPagTest6, ref _pagTest6Showing);
-            StopPagTestGlowCoroutine(ref _corPagTest7, ref _pagTest7Showing);
-            StopPagTestGlowCoroutine(ref _corPagTest8, ref _pagTest8Showing);
-            StopPagTestGlowCoroutine(ref _corPagTest9, ref _pagTest9Showing);
-            _pagTestSlot7?.Stop(PagTestUseFguiTexture);
+            for (int glowIndex = 5; glowIndex <= 9; glowIndex++)
+            {
+                StopPagTestGlow(glowIndex);
+            }
         }
 
         private void StopPagTestGlowCoroutine(ref Coroutine coroutine, ref bool showingFlag)
@@ -1688,7 +1762,7 @@ namespace SlotZhuZaiJinBi1700
             string pag4Files = string.Join(" -> ", PagTestBigWinSequence);
             Debug.Log($"{PagLogPrefix} PAG4 clicked, play BigWin sequence [{pag4Files}]");
 
-            PagGpuSyncGroup.EndGroup();
+            PagGpuSyncGroup.EndStaticGroupIfActive("PagTest4Button");
             _pagTestSlot5?.Stop(PagTestUseFguiTexture);
             _pagTestSlot6?.Stop(PagTestUseFguiTexture);
 
@@ -1877,19 +1951,18 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
-        private void OnClickPagTestGlowButton(ref bool showingFlag, ref Coroutine coroutine, Func<IEnumerator> playbackFactory, string pagLabel)
+        private void OnClickPagTestGlowButton(int glowIndex, ref bool showingFlag, ref Coroutine coroutine, Func<IEnumerator> playbackFactory, string pagLabel)
         {
             StopPagTestGroupPlayback();
 
             if (showingFlag)
             {
                 Debug.Log($"{PagLogPrefix} {pagLabel} clicked, stop glow");
-                StopPagTestGlowPlayback();
+                StopPagTestGlow(glowIndex);
                 return;
             }
 
             Debug.Log($"{PagLogPrefix} {pagLabel} clicked, play glow");
-            StopPagTestGlowPlayback();
             if (mono == null)
             {
                 Debug.LogWarning($"{PagLogPrefix} {pagLabel} play skipped: mono is null");
@@ -1902,27 +1975,27 @@ namespace SlotZhuZaiJinBi1700
 
         private void OnClickPagTest5Button()
         {
-            OnClickPagTestGlowButton(ref _pagTest5Showing, ref _corPagTest5, StartPagTest5ButtonPlayback, "PAG5");
+            OnClickPagTestGlowButton(5, ref _pagTest5Showing, ref _corPagTest5, StartPagTest5ButtonPlayback, "PAG5");
         }
 
         private void OnClickPagTest6Button()
         {
-            OnClickPagTestGlowButton(ref _pagTest6Showing, ref _corPagTest6, StartPagTest6ButtonPlayback, "PAG6");
+            OnClickPagTestGlowButton(6, ref _pagTest6Showing, ref _corPagTest6, StartPagTest6ButtonPlayback, "PAG6");
         }
 
         private void OnClickPagTest7Button()
         {
-            OnClickPagTestGlowButton(ref _pagTest7Showing, ref _corPagTest7, StartPagTest7ButtonPlayback, "PAG7");
+            OnClickPagTestGlowButton(7, ref _pagTest7Showing, ref _corPagTest7, StartPagTest7ButtonPlayback, "PAG7");
         }
 
         private void OnClickPagTest8Button()
         {
-            OnClickPagTestGlowButton(ref _pagTest8Showing, ref _corPagTest8, StartPagTest8ButtonPlayback, "PAG8");
+            OnClickPagTestGlowButton(8, ref _pagTest8Showing, ref _corPagTest8, StartPagTest8ButtonPlayback, "PAG8");
         }
 
         private void OnClickPagTest9Button()
         {
-            OnClickPagTestGlowButton(ref _pagTest9Showing, ref _corPagTest9, StartPagTest9ButtonPlayback, "PAG9");
+            OnClickPagTestGlowButton(9, ref _pagTest9Showing, ref _corPagTest9, StartPagTest9ButtonPlayback, "PAG9");
         }
 
         private IEnumerator StartPagTest5ButtonPlayback()
@@ -1963,11 +2036,12 @@ namespace SlotZhuZaiJinBi1700
             }
 
             EnsurePagTestSlots();
-            PlayPagTest(_pagTestSlot7, pagFileName, -1, displayScale);
-            yield return TryAlignPagTestFpsAfterPlayStarted(_pagTestSlot7);
+            PagSlotBinding glowSlot = GetPagTestGlowSlot(glowIndex);
+            PlayPagTest(glowSlot, pagFileName, -1, displayScale);
+            yield return TryAlignPagTestFpsAfterPlayStarted(glowSlot);
             if (!Mathf.Approximately(displayScale, PagTestDisplayScale))
             {
-                _pagTestSlot7?.Controller?.SyncFguiDisplayLayoutFromComposition();
+                glowSlot?.Controller?.SyncFguiDisplayLayoutFromComposition();
             }
 
             ClearPagTestGlowCoroutine(glowIndex);
@@ -2001,11 +2075,12 @@ namespace SlotZhuZaiJinBi1700
             }
 
             EnsurePagTestSlots();
-            PagController controller = _pagTestSlot7?.Controller;
+            PagSlotBinding glowSlot = GetPagTestGlowSlot(glowIndex);
+            PagController controller = glowSlot?.Controller;
             if (controller == null)
             {
                 Debug.LogError($"{PagLogPrefix} PAG{glowIndex}: controller missing");
-                StopPagTestGlowPlayback();
+                StopPagTestGlow(glowIndex);
                 ClearPagTestGlowCoroutine(glowIndex);
                 yield break;
             }
@@ -2026,12 +2101,12 @@ namespace SlotZhuZaiJinBi1700
                 controller.LayoutPagAuto("turntable");
             }
 
-            _pagTestSlot7.SetFguiDisplayScale(displayScale);
-            _pagTestSlot7.SetFguiClampDisplayToHolder(PagTestClampDisplayToHolder);
-            if (!_pagTestSlot7.PreparePlay(true, PagTestFguiMaxDisplaySide, PagTestFguiFps))
+            glowSlot.SetFguiDisplayScale(displayScale);
+            glowSlot.SetFguiClampDisplayToHolder(PagTestClampDisplayToHolder);
+            if (!glowSlot.PreparePlay(true, PagTestFguiMaxDisplaySide, PagTestFguiFps))
             {
                 Debug.LogError($"{PagLogPrefix} PAG{glowIndex} PreparePlay failed");
-                StopPagTestGlowPlayback();
+                StopPagTestGlow(glowIndex);
                 ClearPagTestGlowCoroutine(glowIndex);
                 yield break;
             }
@@ -2044,22 +2119,22 @@ namespace SlotZhuZaiJinBi1700
             if (!controller.PlayFguiGpuSequence(segments, positionType, layoutExtra))
             {
                 Debug.LogError($"{PagLogPrefix} PAG{glowIndex} PlayFguiGpuSequence failed");
-                StopPagTestGlowPlayback();
+                StopPagTestGlow(glowIndex);
                 ClearPagTestGlowCoroutine(glowIndex);
                 yield break;
             }
 
-            yield return WaitPagTestPlayStarted(_pagTestSlot7, PagTestPlayStartedTimeoutSec);
-            controller = _pagTestSlot7?.Controller;
+            yield return WaitPagTestPlayStarted(glowSlot, PagTestPlayStartedTimeoutSec);
+            controller = glowSlot?.Controller;
             if (controller == null || !controller.PlayStarted)
             {
                 Debug.LogError($"{PagLogPrefix} PAG{glowIndex} sequence did not start within {PagTestPlayStartedTimeoutSec}s");
-                StopPagTestGlowPlayback();
+                StopPagTestGlow(glowIndex);
                 ClearPagTestGlowCoroutine(glowIndex);
                 yield break;
             }
 
-            yield return TryAlignPagTestFpsAfterPlayStarted(_pagTestSlot7);
+            yield return TryAlignPagTestFpsAfterPlayStarted(glowSlot);
             ClearPagTestGlowCoroutine(glowIndex);
             Debug.Log($"{PagLogPrefix} PAG{glowIndex}: intro->loop sequence started (4E playlist), scale={displayScale}");
         }
@@ -2363,7 +2438,7 @@ namespace SlotZhuZaiJinBi1700
         private void StartPagTest9PlaybackForCombo()
         {
             StopPagTestGroupPlayback();
-            StopPagTestGlowPlayback();
+            StopPagTestGlow(9);
             if (mono == null)
             {
                 Debug.LogWarning($"{PagLogPrefix} PAG9 combo play skipped: mono is null");
@@ -2773,7 +2848,7 @@ namespace SlotZhuZaiJinBi1700
             if (showingFlag)
             {
                 Debug.Log($"{PagLogPrefix} {comboLabel} clicked, stop");
-                StopPagTestGlowPlayback();
+                StopPagTestGlow(9);
                 HidePagTestSpine(spineIndex);
                 showingFlag = false;
                 return;

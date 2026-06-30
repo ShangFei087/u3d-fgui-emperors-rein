@@ -1811,19 +1811,10 @@ final class PagOverlayManager {
 
     private void handleInfiniteLoopProgressSnapshot(FguiGpuProgressSnapshot snap) {
         if (snap.completedLoops > fguiGpuLastCompletedLoops) {
-            long newLoops = snap.completedLoops - fguiGpuLastCompletedLoops;
             fguiGpuLastCompletedLoops = snap.completedLoops;
-            fguiGpuInfiniteLoopCount += (int) Math.min(newLoops, Integer.MAX_VALUE);
             Log.i(TAG, "requestGpuRenderFrame: loopBoundary completedLoops=" + snap.completedLoops
                     + " progress=" + snap.progress + " frameInLoop=" + snap.frameInLoop
                     + "/" + snap.totalFrames);
-            if (gpuPlayerRecycleEveryLoop > 0 && fguiGpuInfiniteLoopCount >= gpuPlayerRecycleEveryLoop) {
-                fguiGpuInfiniteLoopCount = 0;
-                fguiGpuLastCompletedLoops = 0L;
-                Log.i(TAG, "recycleFguiGpuPlayerKeepingSurface everyLoop=" + gpuPlayerRecycleEveryLoop);
-                recycleFguiGpuPlayerKeepingSurface();
-                return;
-            }
         }
         fguiGpuPendingProgress = snap.progress;
         Log.d(TAG, "requestGpuRenderFrame: progress=" + snap.progress

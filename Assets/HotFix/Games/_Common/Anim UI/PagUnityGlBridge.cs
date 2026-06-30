@@ -141,7 +141,7 @@ public static class PagUnityGlBridge
     }
 
     /// <summary>
-    /// 等待渲染线程 GL 操作完成。Flush 路径已在 native ProcessFlushOp 内 glFinish，无需再发 FinishFrame。
+    /// 等待渲染线程 GL 操作完成。Flush batch 在 native 侧整批 glFinish 一次；单 op fallback 仍 per-op finish。
     /// </summary>
     private static IEnumerator WaitForRenderThreadIdle(bool issueFinishFrame = true)
     {
@@ -149,11 +149,17 @@ public static class PagUnityGlBridge
         Profiler.BeginSample("PAG.WaitRenderIdle");
 #endif
         yield return new WaitForEndOfFrame();
-        if (issueFinishFrame)
+        if (issueFinishFrame && !PagGpuSyncGroup.ShouldDeferUnityFinishFrame)
         {
             PagGl_SetActiveSlot(0);
             GL.IssuePluginEvent(PagGl_GetRenderEventFunc(), PagGl_GetFinishFrameEventId());
         }
+#if DEVELOPMENT_BUILD
+        else if (issueFinishFrame && PagGpuSyncGroup.ShouldDeferUnityFinishFrame)
+        {
+            Debug.Log("[PAG GL] finishFrame suppressed defer=true");
+        }
+#endif
 #if DEVELOPMENT_BUILD
         Profiler.EndSample();
 #endif

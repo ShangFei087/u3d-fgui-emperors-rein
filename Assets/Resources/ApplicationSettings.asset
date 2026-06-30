@@ -20,8 +20,8 @@ MonoBehaviour:
   platformName: Treasury
   gameTheme: Treasury
   agentName: Treasury
-  appKey: Treasury_debug_machine_20260622151545
-  appVersion: 1.4.0
+  appKey: EmperorsRein200_debug_android_20250815170450
+  appVersion: 1.0.0
   resourceServer: http://47.112.14.190/StandSlot
   machineDebugUrl: 192.168.0.113
   reportUrl: http://192.168.3.152/api/game_log/send
