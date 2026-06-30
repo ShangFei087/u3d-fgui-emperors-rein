@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="277,311">
-  <displayList>
-    <image id="n0_dtum" name="n0" src="dtum6l" fileName="images/pageGameMain/jp_img_Times reminder_UI.png" xy="0,0"/>
-    <image id="n1_dtum" name="n1" src="dtum6n" fileName="images/pageGameMain/fg_img_Times reminder_FREE.png" xy="103,202"/>
-    <image id="n2_dtum" name="n2" src="dtum6o" fileName="images/pageGameMain/fg_img_Times reminder_GAMES.png" xy="103,230"/>
-    <text id="n3_dtum" name="freeRoundText" xy="103,150" size="83,53" font="ui://wnvfq681qkv033" fontSize="9" align="center" vAlign="middle" autoSize="none" text="33"/>
-  </displayList>
-</component>

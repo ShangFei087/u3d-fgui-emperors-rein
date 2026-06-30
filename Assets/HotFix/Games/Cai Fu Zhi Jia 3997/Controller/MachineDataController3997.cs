@@ -342,9 +342,6 @@ namespace CaiFuZhiJia_3997
                     // 立即更新剩余次数显示 修改代码
                     ContentModel.Instance.ShowFreeSpinRemainTime = totalFreeTime;
                 }
-                // else if (!isInFreeSpin)
-                //     DebugUtils.LogError(
-                //         $"[G3997][CheckFree] 校验不一致，算法回ResultType={resultType} ，本地计算isFree={isFree},算法FreeTime={(int)res["TotalFreeTime"]},本地计算freeTime={freeTime}");
             }
 
             // 判断赠送局
@@ -711,10 +708,6 @@ namespace CaiFuZhiJia_3997
                 return;
             }
 
-            // // 新增中奖线输出
-            // List<int> currentLines = new List<int>();
-            // currentLines.Clear();
-
             //判断中奖线,遍历每一条支付线
             for (int i = 0; i < MainModel.Instance.lineNum; ++i)
             {
@@ -770,31 +763,18 @@ namespace CaiFuZhiJia_3997
                         Debug.Log("当前中奖线：" + i + "   中奖图标：" + firstSymbolType + "   中奖个数：" + hitCount + "  中奖得分：" +
                                   lineOdds);
                     }
-
-                    // currentLines.Add(i);
                 }
             }
 
             if (isInFreeSpin)
-            {
-                // calcTotalWin = calcTotalWin * MainModel.Instance.contentMD.betmultiple *
-                //                ContentModel.Instance.freeGameScoreMultiply;
-
-                calcTotalWin = calcTotalWin * ContentModel.Instance.freeGameScoreMultiply;
-            }
+                calcTotalWin *= ContentModel.Instance.freeGameScoreMultiply;
 
             int diff = Math.Abs(calcTotalWin - TotalWin); // 计算本地校验值与算法差值
             if (diff != 0)
-            {
-                // DebugUtils.LogError(
-                //     $"[G3997][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}，正常倍率是={MainModel.Instance.contentMD.betmultiple}，免费额外倍率是={ContentModel.Instance.freeGameScoreMultiply}");
                 DebugUtils.LogError(
                     $"[G3997][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}，免费额外倍率是={ContentModel.Instance.freeGameScoreMultiply}");
-            }
             else
-            {
                 DebugUtils.Log($"[G3997][CheckGameResult] 校验通过，TotalWin={TotalWin}");
-            }
         }
 
         /// <summary>

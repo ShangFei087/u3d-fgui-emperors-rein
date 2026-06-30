@@ -375,22 +375,100 @@ debug 0 2  release 1 3 5
 
 # 打包
 
-
-
+Unity Export 进度条不动：见 [`Tools/AndroidBuild/docs/EXPORT_ANDROID.md`](../Tools/AndroidBuild/docs/EXPORT_ANDROID.md)  
+打包说明：[`Tools/AndroidBuild/README.md`](../Tools/AndroidBuild/README.md)  
+导出诊断：`Tools\watch_unity_editor_log.bat`、`Tools\check_export_progress.bat watch`
 
 * 导出工程到当下目录
 E:\work4\u3d-fgui-emperors-rein\TheOutput\ExportProject
 
 
-* 拷贝4个文件夹
-E:\work4\u3d-fgui-emperors-rein\TheOutput\ExportProject\unityLibrary\src\main
---assets
---Il2CppOutputProject
---jniLibs
---jniStaticLibs
+* 拷贝到 TargetProject/unityLibrary（覆盖同名路径）
+  - `src/main` 下 4 个文件夹：assets、Il2CppOutputProject、jniLibs、jniStaticLibs
+  - `pagBridge.androidlib/` 整目录（**不要**拷贝其下的 `build/`）
+  - **不要**向 `unityLibrary/libs` 放入 libpag AAR（仅 pagBridge.androidlib/libs 保留一份）
 
-* 覆盖同名文件夹
-E:\work4\u3d-fgui-emperors-rein\TheOutput\TargetProject\unityLibrary\src\main
+* 覆盖示例（路径按本机工程根目录替换）：
+  - ExportProject/unityLibrary/src/main → TargetProject/unityLibrary/src/main
+  - ExportProject/unityLibrary/pagBridge.androidlib → TargetProject/unityLibrary/pagBridge.androidlib
+
+* Gradle 全量构建（Unity 导出拷贝后执行）：
+
+```bat
+cd TheOutput\TargetProject
+gradlew.bat --stop
+rmdir /s /q launcher\build
+rmdir /s /q unityLibrary\build
+rmdir /s /q unityLibrary\pagBridge.androidlib\build
+gradlew.bat clean :launcher:assembleDebug
+```
+
+构建期间勿与 Android Studio 同时构建同一 TargetProject。
+
+推荐脚本顺序（全量）：
+
+```bat
+Tools\copy_unity_export_to_target.bat nopause
+Tools\build_android_debug.bat nopause
+```
+
+仅热更（跳过 Unity Export）：
+
+```bat
+Tools\copy_hotfix_assets_to_target.bat nopause
+Tools\build_android_debug.bat nopause
+```
+
+仅 Native pagBridge：
+
+```bat
+Tools\sync_pagbridge_to_target.bat nopause
+Tools\build_android_debug.bat nopause
+```
+
+真机验证 PAG 日志：`Tools\watch_pag_logcat.bat`
+
+
+
+# PAG 真机日志
+
+`I/PagBridge`、`I/PagOverlayManager` 是 **Android 原生日志**，Unity Console 里通常只有 `[1700 PAG]`、`[PAG Path]`、`[PAG JNI]`，要用下面两种方式之一查看原生层。
+
+## Unity Android Logcat（编辑器内）
+
+1. **Window → Package Manager** 安装 **Android Logcat**（`com.unity.mobile.logcat`）
+2. **Window → Analysis → Android Logcat**
+3. 连接真机并运行 APK
+4. 过滤框输入：`PagBridge|PagOverlayManager|PagBridgeUnity|1700 PAG|PAG`
+
+## adb 命令行 / 批处理
+
+- 实时查看：双击或运行 `Tools\watch_pag_logcat.bat`
+- 导出快照：`Tools\dump_pag_logcat.bat` → `Tools\pag_logcat_dump.txt`
+
+等价命令：
+
+```bat
+adb logcat PagBridge:I PagOverlayManager:I PagBridgeUnity:I Unity:I *:S
+```
+
+## 日志对照（简表）
+
+| 来源 | 典型内容 |
+|------|----------|
+| Unity C# | `[1700 PAG]`、`[PAG Path]`、`[PAG JNI]` |
+| Java | `I/PagBridge:`、`I/PagOverlayManager:` |
+| C# → android.util.Log | `I/PagBridgeUnity:` |
+
+第一次进 1700 且播放成功时，Java 侧至少应有：
+
+```text
+Init done, manager=true
+play: loaded ok
+play: started, overlay visible
+```
+
+若只有 `[PAG] Play success` 而没有 `PagOverlayManager`，请确认已安装含最新 `pagBridge.androidlib` 的 APK（`copy_unity_export` + `build_android_debug`）。
 
 
 

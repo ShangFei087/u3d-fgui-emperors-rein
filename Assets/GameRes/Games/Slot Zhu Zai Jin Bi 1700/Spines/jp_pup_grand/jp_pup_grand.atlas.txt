@@ -1,0 +1,658 @@
+jp_pup_grand.png
+	size: 2048, 2048
+	filter: Linear, Linear
+	pma: true
+	scale: 0.5
+Eagle_eyelid
+	bounds: 1136, 1266, 19, 15
+Eagle_leg_2
+	bounds: 983, 18, 31, 44
+Eagle_paw_1
+	bounds: 881, 20, 49, 42
+Eagle_paw_2
+	bounds: 830, 6, 49, 56
+Mountain
+	bounds: 1080, 1061, 664, 191
+Purple
+	bounds: 2, 1368, 663, 678
+Purple_1
+	bounds: 1332, 1651, 465, 395
+Purple_frame
+	bounds: 1080, 913, 666, 146
+Wolf_eyelid_1
+	bounds: 1719, 639, 23, 18
+Wolf_eyelid_2
+	bounds: 2038, 1552, 8, 15
+Wolf_mouth
+	bounds: 667, 3, 100, 59
+blue
+	bounds: 2, 688, 663, 678
+blue_1
+	bounds: 667, 64, 465, 395
+blue_frame
+	bounds: 1051, 470, 665, 146
+bull_eyelid_1
+	bounds: 1312, 1296, 17, 15
+bull_eyelid_2
+	bounds: 881, 2, 17, 16
+bull_head
+	bounds: 1748, 814, 287, 355
+bull_leg_1
+	bounds: 1937, 308, 96, 260
+bull_leg_2
+	bounds: 1952, 570, 83, 242
+eff/eff_glow
+	bounds: 1799, 1803, 244, 243
+	offsets: 5, 5, 256, 256
+eff/eff_grand
+	bounds: 1080, 1283, 230, 83
+	offsets: 16, 3, 262, 90
+eff/eff_star_Y
+	bounds: 1799, 1569, 238, 232
+	offsets: 9, 12, 256, 256
+eff_grand/eff_03
+	bounds: 1923, 586, 13, 30
+	offsets: 106, 80, 628, 215
+eff_grand/eff_04
+	bounds: 1312, 1313, 18, 53
+	offsets: 104, 78, 628, 215
+eff_grand/eff_05
+	bounds: 1044, 6, 24, 56
+	offsets: 100, 81, 628, 215
+eff_grand/eff_06
+	bounds: 769, 2, 29, 60
+	offsets: 97, 84, 628, 215
+eff_grand/eff_07
+	bounds: 1227, 5, 32, 66
+	offsets: 96, 81, 628, 215
+eff_grand/eff_35
+	bounds: 1748, 618, 202, 194
+	offsets: 244, 12, 628, 215
+eff_grand/eff_60
+	bounds: 1016, 12, 26, 50
+	offsets: 481, 48, 628, 215
+eff_major/eff_major_03
+	bounds: 2035, 494, 6, 18
+	offsets: 111, 80, 628, 215
+eff_major/eff_major_04
+	bounds: 2035, 514, 11, 54
+	offsets: 107, 78, 628, 215
+eff_major/eff_major_05
+	bounds: 1261, 8, 26, 63
+	offsets: 102, 82, 628, 215
+eff_major/eff_major_06
+	bounds: 1190, 7, 35, 64
+	offsets: 97, 85, 628, 215
+eff_major/eff_major_11
+	bounds: 1937, 109, 102, 197
+	offsets: 73, 9, 628, 215
+eff_major/eff_major_42
+	bounds: 1799, 1171, 236, 197
+	offsets: 299, 9, 628, 215
+eff_major/eff_major_43
+	bounds: 1799, 1370, 237, 197
+	offsets: 303, 9, 628, 215
+eff_major/eff_major_60
+	bounds: 800, 2, 28, 60
+	offsets: 483, 36, 628, 215
+eff_minor/eff_minor_09
+	bounds: 1719, 659, 25, 105
+	offsets: 117, 40, 628, 215
+eff_minor/eff_minor_10
+	bounds: 1051, 800, 27, 110
+	offsets: 116, 38, 628, 215
+eff_minor/eff_minor_42
+	bounds: 1718, 470, 203, 146
+	offsets: 301, 43, 628, 215
+eff_minor/eff_minor_55
+	bounds: 1937, 8, 103, 99
+	offsets: 415, 39, 628, 215
+eff_minor/eff_minor_58
+	bounds: 1746, 1171, 48, 81
+	offsets: 456, 54, 628, 215
+eff_minor/eff_minor_59
+	bounds: 1070, 5, 20, 57
+	offsets: 478, 56, 628, 215
+eff_minor/eff_minor_60
+	bounds: 2037, 1329, 9, 39
+	offsets: 483, 57, 628, 215
+green
+	bounds: 667, 1368, 663, 678
+green_1
+	bounds: 1332, 1254, 465, 395
+green_frame
+	bounds: 1080, 766, 666, 145
+lang_1
+	bounds: 1601, 57, 334, 411
+	offsets: 1, 0, 335, 411
+lu_1
+	bounds: 667, 461, 382, 449
+lu_ear_2
+	bounds: 1134, 10, 54, 61
+lu_eyelash_1
+	bounds: 932, 2, 47, 25
+lu_eyelash_2
+	bounds: 1092, 50, 17, 12
+lu_eyelid_1
+	bounds: 932, 29, 49, 33
+lu_eyelid_2
+	bounds: 1051, 769, 16, 29
+lu_jaw_2
+	bounds: 1080, 1264, 54, 17
+niao_1
+	bounds: 667, 912, 411, 454
+	offsets: 0, 0, 411, 455
+yellow
+	bounds: 2, 8, 663, 678
+yellow_1
+	bounds: 1134, 73, 465, 395
+yellow_frame
+	bounds: 1051, 618, 666, 146
+
+jp_pup_grand_2.png
+	size: 2048, 2048
+	filter: Linear, Linear
+	pma: true
+	scale: 0.5
+CLOUD_02
+	bounds: 2, 766, 321, 196
+Eagle_wing_1
+	bounds: 494, 1573, 206, 216
+Eagle_wing_2
+	bounds: 290, 1517, 202, 224
+Leaves_1
+	bounds: 1844, 926, 200, 174
+Purple_buttom
+	bounds: 441, 1791, 267, 107
+Wolf_body
+	bounds: 2, 964, 309, 219
+Wolf_ear_2
+	bounds: 763, 1526, 69, 85
+Wolf_head
+	bounds: 2, 556, 278, 208
+blue_buttom
+	bounds: 494, 1464, 267, 107
+bull_body
+	bounds: 2, 1458, 286, 283
+buttom_dark
+	bounds: 494, 1355, 267, 107
+eff_grand/eff_08
+	bounds: 282, 576, 35, 70
+	offsets: 94, 80, 628, 215
+eff_grand/eff_12
+	bounds: 680, 2, 150, 157
+	offsets: 54, 26, 628, 215
+eff_grand/eff_15
+	bounds: 1650, 368, 177, 185
+	offsets: 54, 9, 628, 215
+eff_grand/eff_16
+	bounds: 1464, 362, 184, 186
+	offsets: 55, 9, 628, 215
+eff_grand/eff_17
+	bounds: 1270, 361, 192, 187
+	offsets: 59, 9, 628, 215
+eff_grand/eff_18
+	bounds: 235, 158, 199, 197
+	offsets: 64, 9, 628, 215
+eff_grand/eff_19
+	bounds: 672, 360, 186, 197
+	offsets: 83, 9, 628, 215
+eff_grand/eff_20
+	bounds: 238, 357, 207, 197
+	offsets: 90, 9, 628, 215
+eff_grand/eff_21
+	bounds: 1844, 731, 200, 193
+	offsets: 100, 13, 628, 215
+eff_grand/eff_23
+	bounds: 325, 811, 217, 197
+	offsets: 112, 9, 628, 215
+eff_grand/eff_24
+	bounds: 544, 1156, 224, 197
+	offsets: 113, 9, 628, 215
+eff_grand/eff_25
+	bounds: 769, 559, 207, 197
+	offsets: 135, 9, 628, 215
+eff_grand/eff_26
+	bounds: 1060, 360, 208, 188
+	offsets: 137, 18, 628, 215
+eff_grand/eff_27
+	bounds: 1203, 702, 213, 170
+	offsets: 142, 36, 628, 215
+eff_grand/eff_29
+	bounds: 1633, 1063, 209, 187
+	offsets: 179, 19, 628, 215
+eff_grand/eff_30
+	bounds: 1205, 1073, 211, 189
+	offsets: 181, 17, 628, 215
+eff_grand/eff_31
+	bounds: 325, 619, 217, 190
+	offsets: 198, 16, 628, 215
+eff_grand/eff_32
+	bounds: 1136, 1656, 218, 191
+	offsets: 200, 15, 628, 215
+eff_grand/eff_33
+	bounds: 1356, 1654, 217, 193
+	offsets: 204, 13, 628, 215
+eff_grand/eff_36
+	bounds: 860, 360, 198, 197
+	offsets: 256, 9, 628, 215
+eff_grand/eff_37
+	bounds: 436, 158, 217, 197
+	offsets: 261, 9, 628, 215
+eff_grand/eff_38
+	bounds: 544, 559, 223, 197
+	offsets: 267, 9, 628, 215
+eff_grand/eff_39
+	bounds: 876, 161, 216, 197
+	offsets: 281, 9, 628, 215
+eff_grand/eff_40
+	bounds: 770, 1165, 217, 197
+	offsets: 283, 9, 628, 215
+eff_grand/eff_41
+	bounds: 2, 158, 231, 197
+	offsets: 289, 9, 628, 215
+eff_grand/eff_42
+	bounds: 1275, 1463, 217, 189
+	offsets: 306, 17, 628, 215
+eff_grand/eff_43
+	bounds: 838, 1716, 220, 179
+	offsets: 309, 27, 628, 215
+eff_grand/eff_44
+	bounds: 1055, 1472, 218, 182
+	offsets: 317, 24, 628, 215
+eff_grand/eff_45
+	bounds: 1793, 1650, 215, 197
+	offsets: 332, 9, 628, 215
+eff_grand/eff_46
+	bounds: 655, 161, 219, 197
+	offsets: 336, 9, 628, 215
+eff_grand/eff_47
+	bounds: 1395, 1849, 229, 197
+	offsets: 342, 9, 628, 215
+eff_grand/eff_48
+	bounds: 1636, 1252, 212, 197
+	offsets: 361, 9, 628, 215
+eff_grand/eff_54
+	bounds: 1418, 702, 157, 160
+	offsets: 410, 13, 628, 215
+eff_grand/eff_59
+	bounds: 2010, 1750, 32, 97
+	offsets: 477, 47, 628, 215
+eff_major/eff_major_07
+	bounds: 1842, 2, 41, 71
+	offsets: 94, 81, 628, 215
+eff_major/eff_major_09
+	bounds: 1788, 732, 54, 130
+	offsets: 89, 33, 628, 215
+eff_major/eff_major_10
+	bounds: 1060, 1716, 74, 179
+	offsets: 85, 27, 628, 215
+eff_major/eff_major_15
+	bounds: 1480, 163, 173, 197
+	offsets: 62, 9, 628, 215
+eff_major/eff_major_16
+	bounds: 1094, 161, 178, 197
+	offsets: 61, 9, 628, 215
+eff_major/eff_major_17
+	bounds: 1655, 169, 186, 197
+	offsets: 62, 9, 628, 215
+eff_major/eff_major_18
+	bounds: 1850, 1252, 196, 197
+	offsets: 66, 9, 628, 215
+eff_major/eff_major_19
+	bounds: 1274, 162, 204, 197
+	offsets: 72, 9, 628, 215
+eff_major/eff_major_22
+	bounds: 1418, 864, 205, 197
+	offsets: 112, 9, 628, 215
+eff_major/eff_major_23
+	bounds: 1494, 1451, 215, 197
+	offsets: 112, 9, 628, 215
+eff_major/eff_major_24
+	bounds: 1626, 1849, 226, 197
+	offsets: 113, 9, 628, 215
+eff_major/eff_major_25
+	bounds: 991, 1076, 212, 195
+	offsets: 132, 11, 628, 215
+eff_major/eff_major_26
+	bounds: 1418, 1074, 213, 181
+	offsets: 141, 25, 628, 215
+eff_major/eff_major_27
+	bounds: 1421, 1257, 213, 192
+	offsets: 142, 14, 628, 215
+eff_major/eff_major_29
+	bounds: 290, 1318, 202, 197
+	offsets: 185, 9, 628, 215
+eff_major/eff_major_30
+	bounds: 991, 877, 211, 197
+	offsets: 181, 9, 628, 215
+eff_major/eff_major_31
+	bounds: 834, 1517, 219, 197
+	offsets: 194, 9, 628, 215
+eff_major/eff_major_32
+	bounds: 989, 1273, 214, 197
+	offsets: 203, 9, 628, 215
+eff_major/eff_major_33
+	bounds: 771, 966, 218, 197
+	offsets: 207, 9, 628, 215
+eff_major/eff_major_34
+	bounds: 1204, 874, 211, 197
+	offsets: 217, 9, 628, 215
+eff_major/eff_major_35
+	bounds: 1854, 1849, 192, 197
+	offsets: 253, 9, 628, 215
+eff_major/eff_major_37
+	bounds: 1575, 1650, 216, 197
+	offsets: 261, 9, 628, 215
+eff_major/eff_major_38
+	bounds: 447, 360, 223, 197
+	offsets: 267, 9, 628, 215
+eff_major/eff_major_39
+	bounds: 1205, 1264, 214, 197
+	offsets: 279, 9, 628, 215
+eff_major/eff_major_40
+	bounds: 771, 767, 218, 197
+	offsets: 284, 9, 628, 215
+eff_major/eff_major_41
+	bounds: 1163, 1849, 230, 197
+	offsets: 290, 9, 628, 215
+eff_major/eff_major_44
+	bounds: 544, 957, 225, 197
+	offsets: 319, 9, 628, 215
+eff_major/eff_major_45
+	bounds: 313, 1010, 226, 197
+	offsets: 331, 9, 628, 215
+eff_major/eff_major_46
+	bounds: 2, 357, 234, 197
+	offsets: 337, 9, 628, 215
+eff_major/eff_major_47
+	bounds: 544, 758, 225, 197
+	offsets: 348, 9, 628, 215
+eff_major/eff_major_48
+	bounds: 1711, 1451, 215, 197
+	offsets: 361, 9, 628, 215
+eff_major/eff_major_49
+	bounds: 1829, 378, 208, 197
+	offsets: 376, 9, 628, 215
+eff_major/eff_major_51
+	bounds: 1650, 864, 192, 197
+	offsets: 394, 9, 628, 215
+eff_minor/eff_minor_11
+	bounds: 282, 648, 41, 116
+	offsets: 116, 34, 628, 215
+eff_minor/eff_minor_15
+	bounds: 710, 1759, 126, 139
+	offsets: 104, 27, 628, 215
+eff_minor/eff_minor_19
+	bounds: 2, 2, 151, 154
+	offsets: 111, 31, 628, 215
+eff_minor/eff_minor_20
+	bounds: 1483, 6, 179, 155
+	offsets: 114, 33, 628, 215
+eff_minor/eff_minor_21
+	bounds: 305, 3, 176, 153
+	offsets: 118, 36, 628, 215
+eff_minor/eff_minor_22
+	bounds: 483, 3, 195, 153
+	offsets: 122, 36, 628, 215
+eff_minor/eff_minor_23
+	bounds: 1843, 75, 200, 152
+	offsets: 127, 37, 628, 215
+eff_minor/eff_minor_24
+	bounds: 1843, 577, 203, 152
+	offsets: 133, 37, 628, 215
+eff_minor/eff_minor_26
+	bounds: 763, 1364, 213, 151
+	offsets: 141, 41, 628, 215
+eff_minor/eff_minor_27
+	bounds: 1194, 550, 213, 150
+	offsets: 142, 42, 628, 215
+eff_minor/eff_minor_29
+	bounds: 1843, 229, 203, 147
+	offsets: 184, 46, 628, 215
+eff_minor/eff_minor_30
+	bounds: 1844, 1102, 202, 148
+	offsets: 186, 46, 628, 215
+eff_minor/eff_minor_31
+	bounds: 1274, 12, 207, 148
+	offsets: 206, 46, 628, 215
+eff_minor/eff_minor_32
+	bounds: 1409, 550, 206, 150
+	offsets: 207, 44, 628, 215
+eff_minor/eff_minor_33
+	bounds: 978, 575, 214, 150
+	offsets: 207, 44, 628, 215
+eff_minor/eff_minor_37
+	bounds: 1048, 6, 206, 153
+	offsets: 271, 41, 628, 215
+eff_minor/eff_minor_38
+	bounds: 832, 7, 214, 152
+	offsets: 276, 41, 628, 215
+eff_minor/eff_minor_39
+	bounds: 1577, 713, 209, 149
+	offsets: 283, 41, 628, 215
+eff_minor/eff_minor_41
+	bounds: 991, 727, 210, 148
+	offsets: 289, 41, 628, 215
+eff_minor/eff_minor_46
+	bounds: 1617, 555, 186, 156
+	offsets: 337, 25, 628, 215
+eff_minor/eff_minor_47
+	bounds: 1664, 12, 176, 155
+	offsets: 348, 24, 628, 215
+eff_minor/eff_minor_49
+	bounds: 155, 2, 148, 154
+	offsets: 376, 23, 628, 215
+eff_minor/eff_minor_50
+	bounds: 1928, 1500, 115, 148
+	offsets: 409, 23, 628, 215
+eff_minor/eff_minor_51
+	bounds: 702, 1613, 130, 144
+	offsets: 394, 23, 628, 215
+grand
+	bounds: 2, 1897, 437, 149
+green_buttom
+	bounds: 275, 1209, 267, 107
+lu_head
+	bounds: 2, 1185, 271, 271
+major
+	bounds: 2, 1743, 426, 152
+mini
+	bounds: 838, 1897, 323, 149
+minor
+	bounds: 441, 1900, 395, 146
+
+jp_pup_grand_3.png
+	size: 2048, 2048
+	filter: Linear, Linear
+	pma: true
+	scale: 0.5
+Eagle_Tail
+	bounds: 424, 33, 126, 97
+Eagle_body_1
+	bounds: 471, 276, 114, 117
+Eagle_body_2
+	bounds: 392, 1439, 110, 81
+Eagle_head
+	bounds: 155, 214, 139, 103
+Eagle_leg_1
+	bounds: 417, 1752, 48, 98
+Wolf_ear_1
+	bounds: 392, 1522, 87, 116
+Wolf_jaw_1
+	bounds: 289, 44, 133, 86
+Wolf_jaw_2
+	bounds: 323, 275, 146, 118
+bull_leg_3
+	bounds: 405, 1640, 52, 110
+eff_grand/eff_09
+	bounds: 426, 932, 52, 116
+	offsets: 92, 37, 628, 215
+eff_grand/eff_10
+	bounds: 434, 132, 108, 141
+	offsets: 60, 35, 628, 215
+eff_grand/eff_11
+	bounds: 1010, 1738, 119, 147
+	offsets: 57, 32, 628, 215
+eff_grand/eff_13
+	bounds: 309, 715, 156, 169
+	offsets: 54, 18, 628, 215
+eff_grand/eff_14
+	bounds: 158, 476, 174, 177
+	offsets: 54, 14, 628, 215
+eff_grand/eff_22
+	bounds: 2, 1841, 205, 196
+	offsets: 112, 10, 628, 215
+eff_grand/eff_28
+	bounds: 626, 1864, 195, 173
+	offsets: 174, 33, 628, 215
+eff_grand/eff_34
+	bounds: 2, 1646, 205, 193
+	offsets: 217, 13, 628, 215
+eff_grand/eff_49
+	bounds: 209, 1845, 206, 192
+	offsets: 368, 9, 628, 215
+eff_grand/eff_50
+	bounds: 417, 1852, 207, 185
+	offsets: 368, 9, 628, 215
+eff_grand/eff_51
+	bounds: 190, 1063, 181, 183
+	offsets: 394, 9, 628, 215
+eff_grand/eff_52
+	bounds: 190, 886, 181, 175
+	offsets: 393, 9, 628, 215
+eff_grand/eff_53
+	bounds: 334, 545, 178, 168
+	offsets: 393, 9, 628, 215
+eff_grand/eff_55
+	bounds: 1616, 1752, 127, 132
+	offsets: 414, 18, 628, 215
+eff_grand/eff_56
+	bounds: 382, 1328, 102, 109
+	offsets: 423, 36, 628, 215
+eff_grand/eff_57
+	bounds: 373, 1144, 87, 97
+	offsets: 429, 45, 628, 215
+eff_grand/eff_58
+	bounds: 546, 1141, 58, 97
+	offsets: 454, 46, 628, 215
+eff_major/eff_major_08
+	bounds: 373, 923, 51, 125
+	offsets: 91, 34, 628, 215
+eff_major/eff_major_12
+	bounds: 170, 655, 137, 197
+	offsets: 69, 9, 628, 215
+eff_major/eff_major_13
+	bounds: 2, 257, 151, 197
+	offsets: 65, 9, 628, 215
+eff_major/eff_major_14
+	bounds: 2, 655, 166, 197
+	offsets: 63, 9, 628, 215
+eff_major/eff_major_20
+	bounds: 209, 1646, 194, 197
+	offsets: 99, 9, 628, 215
+eff_major/eff_major_21
+	bounds: 197, 1248, 183, 197
+	offsets: 111, 9, 628, 215
+eff_major/eff_major_28
+	bounds: 2, 854, 183, 193
+	offsets: 180, 13, 628, 215
+eff_major/eff_major_36
+	bounds: 2, 1447, 195, 197
+	offsets: 257, 9, 628, 215
+eff_major/eff_major_50
+	bounds: 2, 1248, 193, 197
+	offsets: 394, 9, 628, 215
+eff_major/eff_major_52
+	bounds: 199, 1447, 191, 197
+	offsets: 393, 9, 628, 215
+eff_major/eff_major_53
+	bounds: 2, 1049, 186, 197
+	offsets: 392, 9, 628, 215
+eff_major/eff_major_54
+	bounds: 2, 456, 154, 197
+	offsets: 415, 9, 628, 215
+eff_major/eff_major_55
+	bounds: 2, 60, 144, 195
+	offsets: 415, 9, 628, 215
+eff_major/eff_major_56
+	bounds: 1372, 1744, 111, 139
+	offsets: 427, 9, 628, 215
+eff_major/eff_major_57
+	bounds: 1745, 1770, 91, 114
+	offsets: 429, 30, 628, 215
+eff_major/eff_major_58
+	bounds: 486, 1328, 62, 109
+	offsets: 456, 34, 628, 215
+eff_major/eff_major_59
+	bounds: 649, 34, 43, 112
+	offsets: 472, 35, 628, 215
+eff_minor/eff_minor_12
+	bounds: 1957, 1761, 80, 122
+	offsets: 116, 29, 628, 215
+eff_minor/eff_minor_13
+	bounds: 1131, 1760, 107, 127
+	offsets: 106, 27, 628, 215
+eff_minor/eff_minor_14
+	bounds: 1838, 1748, 117, 135
+	offsets: 104, 27, 628, 215
+eff_minor/eff_minor_16
+	bounds: 296, 132, 136, 141
+	offsets: 103, 27, 628, 215
+eff_minor/eff_minor_17
+	bounds: 148, 66, 139, 146
+	offsets: 103, 29, 628, 215
+eff_minor/eff_minor_18
+	bounds: 467, 1699, 157, 151
+	offsets: 105, 30, 628, 215
+eff_minor/eff_minor_25
+	bounds: 1240, 1885, 198, 152
+	offsets: 141, 39, 628, 215
+eff_minor/eff_minor_28
+	bounds: 334, 395, 182, 148
+	offsets: 174, 45, 628, 215
+eff_minor/eff_minor_34
+	bounds: 823, 1887, 206, 150
+	offsets: 217, 44, 628, 215
+eff_minor/eff_minor_35
+	bounds: 626, 1711, 180, 151
+	offsets: 265, 43, 628, 215
+eff_minor/eff_minor_36
+	bounds: 823, 1732, 185, 153
+	offsets: 267, 41, 628, 215
+eff_minor/eff_minor_40
+	bounds: 1031, 1889, 207, 148
+	offsets: 290, 41, 628, 215
+eff_minor/eff_minor_43
+	bounds: 1440, 1890, 199, 147
+	offsets: 309, 42, 628, 215
+eff_minor/eff_minor_44
+	bounds: 1641, 1886, 195, 151
+	offsets: 319, 34, 628, 215
+eff_minor/eff_minor_45
+	bounds: 1838, 1885, 187, 152
+	offsets: 334, 29, 628, 215
+eff_minor/eff_minor_48
+	bounds: 158, 319, 163, 155
+	offsets: 361, 23, 628, 215
+eff_minor/eff_minor_52
+	bounds: 1240, 1745, 130, 138
+	offsets: 393, 25, 628, 215
+eff_minor/eff_minor_53
+	bounds: 1485, 1757, 129, 131
+	offsets: 393, 31, 628, 215
+eff_minor/eff_minor_54
+	bounds: 544, 148, 106, 126
+	offsets: 415, 35, 628, 215
+eff_minor/eff_minor_56
+	bounds: 373, 1050, 86, 92
+	offsets: 423, 45, 628, 215
+eff_minor/eff_minor_57
+	bounds: 485, 1240, 76, 86
+	offsets: 429, 49, 628, 215
+lu_body
+	bounds: 552, 22, 95, 124
+lu_ear_1
+	bounds: 382, 1243, 101, 83
+lu_jaw_1
+	bounds: 462, 1149, 82, 89
