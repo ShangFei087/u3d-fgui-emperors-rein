@@ -4,9 +4,8 @@
     <image id="n0_xiz6" name="n0" src="a666agi" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_base.png" xy="-13,557" size="543,104" group="n2_xiz6" visible="false"/>
     <image id="n1_xiz6" name="n1" src="a666agi" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_base.png" xy="1072,557" size="543,104" group="n2_xiz6" scale="-1,1" visible="false"/>
     <group id="n2_xiz6" name="n2" xy="-13,557" size="1628,104"/>
-    <image id="n3_xiz6" name="n3" src="a666agg" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_back.png" xy="2,39" group="n7_xiz6"/>
+    <component id="n15_oebr" name="anchorBoard" src="oebral2" fileName="components/PopupGameNormalGame/AnchorBoard.xml" xy="553,-86" pivot="0.5,0.5" anchor="true"/>
     <image id="n4_xiz6" name="n4" src="a666agh" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid.png" xy="-11,37" size="89,521" group="n7_xiz6" visible="false"/>
-    <image id="n5_xiz6" name="n5" src="a666agg" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_back.png" xy="1057,43" group="n7_xiz6" scale="-1,1"/>
     <image id="n6_xiz6" name="n6" src="a666agh" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid.png" xy="1070,37" size="89,521" group="n7_xiz6" scale="-1,1" visible="false"/>
     <group id="n7_xiz6" name="n7" xy="-11,37" size="1170,521"/>
     <image id="n8_xiz6" name="n8" src="wrw6ake" fileName="images/PopupGameFreeGame/fg_frame_mid.png" xy="-15,-96" size="545,761" group="n10_xiz6"/>

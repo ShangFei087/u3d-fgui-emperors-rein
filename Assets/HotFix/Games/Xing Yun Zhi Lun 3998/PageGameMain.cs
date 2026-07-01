@@ -46,6 +46,7 @@ namespace XingYunZhiLun_3998
         private GTextField freeTimes;
         private Transition bsTofs, fsTobs;
         private Transform fireworkEffect, JackpotListEffect;
+        private GComponent anchorNorBoard, anchorFreeBoard;
 
         private GameObject goGameCtrl, goFirework;
         private GameObject goFireworkEffect;
@@ -70,7 +71,7 @@ namespace XingYunZhiLun_3998
         private bool isMain = true, isJackpot = false, JackpotFinish = false;
         private string JackpotType = "";
         private float winCredit = 0;
-        private GameObject wheelPref, wheelObj;
+        private GameObject wheelPref, wheelObj, boardEff;
         private Animator wheelAnim;
 
         //彩金
@@ -134,7 +135,7 @@ namespace XingYunZhiLun_3998
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 11;
+            int count = 12;
 
             Action callback = () =>
             {
@@ -254,6 +255,14 @@ namespace XingYunZhiLun_3998
                 (GameObject clone) =>
                 {
                     wheelPref = clone;
+                    callback();
+                });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/GameBgEffect/SlotBoard.prefab",
+                (GameObject clone) =>
+                {
+                    boardEff = clone;
                     callback();
                 });
 
@@ -405,8 +414,9 @@ namespace XingYunZhiLun_3998
             gWheel = gZhuanPan.GetChild("Wheel").asCom;
             gWheel.rotation = 0;
             gWheelLoad = gWheel.GetChild("wheelBg").asLoader;
-            ChangeWheelURL(0);
             slotLoad = contentPane.GetChild("slotMachiineBg").asCom.GetChild("slotBgLoad").asLoader;
+            ChangeWheelURL(0);
+
             ////列表滚动游戏测试列表
             gList = contentPane.GetChild("JackpotList").asCom.GetChild("Symbols").asList;
             gList.alpha = 1;
@@ -503,11 +513,18 @@ namespace XingYunZhiLun_3998
                 ChangeParent(gWheel, wheelObj, "Anchor/Spine Mecanim GameObject (ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/c_circle");
             }
 
+            GComponent loadAnchorBoard = slotLoad.component.GetChild("anchorBoard").asCom;
+            if(anchorNorBoard != loadAnchorBoard)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorNorBoard);
+                anchorNorBoard = loadAnchorBoard;
+                GameCommon.FguiUtils.AddWrapper(anchorNorBoard, GameObject.Instantiate(boardEff));
+            }
+
             TryRestoreFreeSpinSession();
             isReady = true;
 
             if (!isReady) return;
-            mono.StartCoroutine(TestEffect());
         }
 
         private void OnClickSpinButton(EventData res)
@@ -1508,6 +1525,8 @@ namespace XingYunZhiLun_3998
                 slotMachineCtrl.SkipWinLine(true);
                 norBgObj.SetActive(false);
                 bsTofs.Play();
+                GameCommon.FguiUtils.DeleteWrapper(anchorNorBoard);
+                anchorNorBoard = null;
 
                 bsTofs.SetHook("PlayEffect", () =>
                 {
@@ -1593,6 +1612,8 @@ namespace XingYunZhiLun_3998
             StopEffectAnim(fireworkEffect);
             freeBgObj.SetActive(false);
             fsTobs.Play();
+            GameCommon.FguiUtils.DeleteWrapper(anchorFreeBoard);
+            anchorFreeBoard = null;
 
             OutputStackContextFreeSpin(
                 (context) =>
@@ -1645,13 +1666,26 @@ namespace XingYunZhiLun_3998
                     freeBgObj.SetActive(false);
                     norBgObj.SetActive(true);
                     slotLoad.url = CustomModel.Instance.SlotBgURL["normalSlotBg"];
-
+                    GComponent loadNorAnchorBoard = slotLoad.component.GetChild("anchorBoard").asCom;
+                    if (anchorNorBoard != loadNorAnchorBoard)
+                    {
+                        GameCommon.FguiUtils.DeleteWrapper(anchorNorBoard);
+                        anchorNorBoard = loadNorAnchorBoard;
+                        GameCommon.FguiUtils.AddWrapper(anchorNorBoard, GameObject.Instantiate(boardEff));
+                    }
                     break;
                 case 1:
                     this.contentPane.GetController("c1").selectedPage = "FS";
                     norBgObj.SetActive(false);
                     freeBgObj.SetActive(true);
                     slotLoad.url = CustomModel.Instance.SlotBgURL["freeSlotBg"];
+                    GComponent loadAnchorBoard = slotLoad.component.GetChild("anchorBoard").asCom;
+                    if(anchorFreeBoard != loadAnchorBoard)
+                    {
+                        GameCommon.FguiUtils.DeleteWrapper(anchorFreeBoard);
+                        anchorFreeBoard = loadAnchorBoard;
+                        GameCommon.FguiUtils.AddWrapper(anchorFreeBoard, GameObject.Instantiate(boardEff));
+                    }
                     break;
                 case 2:
                     this.contentPane.GetController("c1").selectedPage = "JS";
@@ -3539,19 +3573,6 @@ namespace XingYunZhiLun_3998
 
 
         int index = 0;
-        private IEnumerator TestEffect()
-        {
-            while (true)
-            {
-                PlayChildEffectAnim(testEffect[index]);
-                yield return new WaitForSeconds(3); // 播放3秒后切换
-                StopChildEffectAnim(testEffect[index]);
-                yield return new WaitForSeconds(1); // 播放3秒后切换
-                index++;
-                index %= 4;
-            }
-        }
-
 
         //根据传入的节点依次播放粒子特效
         private void PlayChildEffectAnim(Transform effect)
@@ -3572,7 +3593,6 @@ namespace XingYunZhiLun_3998
             Transform[] allChildren = effect.GetComponentsInChildren<Transform>();
             for (int i = 1; i < allChildren.Length; i++)
             {
-                Debug.LogError(allChildren[i].name);
                 ParticleSystem particle = allChildren[i].GetComponent<ParticleSystem>();
                 particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             }
