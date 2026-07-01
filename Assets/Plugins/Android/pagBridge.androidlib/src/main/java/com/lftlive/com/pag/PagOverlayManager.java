@@ -71,7 +71,7 @@ final class PagOverlayManager {
     private static final int BITMAP_FALLBACK_FPS = 30;
     private static final long BITMAP_FALLBACK_FRAME_MS = 1000L / BITMAP_FALLBACK_FPS;
     static final int RENDER_MODE_OVERLAY = 0;
-    /** Unity 仍传 1；内部映射为 GPU 纹理模式。 */
+    /** Unity 仍传 1；内部映射为纹理模式。 */
     static final int RENDER_MODE_FGUI_TEXTURE = 1;
     static final int RENDER_MODE_FGUI_GPU = 2;
     /** 0 = 不缩放，使用 PAG 合成原始像素尺寸出帧。 */
@@ -1389,7 +1389,7 @@ final class PagOverlayManager {
             }
             setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
             fguiGpuActive = true;
-            scheduleFguiGpuTickImmediate();
+            requestGpuRenderFrameAtProgress(0.0);
         } else {
             Log.w(TAG, "onGpuFrameFlushedAfterGlTryChain: chain failed path=" + currentPlayPath
                     + " progress=" + fguiGpuPendingProgress);
@@ -1514,13 +1514,12 @@ final class PagOverlayManager {
             return;
         }
         fguiGpuPlaylistIndex = nextIdx;
-        fguiGpuClearBeforeNextFlush = true;
         armFguiGpuPlaybackFrameIndex(1);
         armGlChainSnapshotFromPlaylistNext();
         setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
         fguiGpuActive = true;
         isPlaying = true;
-        scheduleFguiGpuTickImmediate();
+        requestGpuRenderFrameAtProgress(0.0);
         Log.i(TAG, "advanceFguiGpuPlaylist: index=" + nextIdx + " path=" + next.path);
     }
 
@@ -1628,7 +1627,7 @@ final class PagOverlayManager {
                 return false;
             }
             fguiGpuClearBeforeNextFlush = false;
-            clearFguiGpuSurfaceOnRenderThread();
+            // 同尺寸 playlist：progress=0 flush 全量覆盖，勿 pre-clear（偶发空窗）
             if (!flushGpuFrameOnRenderThread(0.0)) {
                 Log.e(TAG, "tryChainRenderThread: flush frame0 failed path=" + currentPlayPath
                         + " elapsedMs=" + (System.currentTimeMillis() - t0));
@@ -1707,7 +1706,7 @@ final class PagOverlayManager {
         currentPlayPath = snap.path;
 
         applyFguiGpuCompositionSwitchInPlace(scheduleTickAfterSwitch);
-        if (!scheduleTickAfterSwitch) {
+        if (!scheduleTickAfterSwitch && !fguiGpuPlaylistActive) {
             fguiGpuClearBeforeNextFlush = true;
         }
         isPlaying = true;
@@ -1798,15 +1797,39 @@ final class PagOverlayManager {
             handleInfiniteLoopProgressSnapshot(snap);
             return;
         }
-        fguiGpuPendingProgress = snap.progress;
-        armGlChainSnapshotIfSegmentEnd(snap.progress);
-        if (snap.progress >= 0.999 && hasChainedSegmentPending()) {
-            setFguiGpuTickPhase(FguiGpuTickPhase.SEGMENT_END_FLUSHING);
+        dispatchGpuRenderFrameRequest(snap.progress, snap.frameInLoop, snap.totalFrames);
+    }
+
+    /** UI fallback / advance：指定 progress 立即要帧，playlist 段切勿 defer clear。 */
+    private void requestGpuRenderFrameAtProgress(double progress) {
+        if (!fguiGpuActive || !fguiGpuSurfaceReady || fguiGpuPlayer == null || pagFile == null) {
+            return;
         }
-        Log.d(TAG, "requestGpuRenderFrame: progress=" + snap.progress
-                + " frameInLoop=" + snap.frameInLoop + "/" + snap.totalFrames
+        if (gpuRenderCallbackGo == null || gpuRenderCallbackGo.isEmpty()
+                || gpuRenderCallbackMethod == null || gpuRenderCallbackMethod.isEmpty()) {
+            Log.e(TAG, "requestGpuRenderFrameAtProgress: no Unity render callback");
+            return;
+        }
+        if (repeatCount < 0) {
+            handleInfiniteLoopProgressSnapshot(snapshotFguiGpuProgress());
+            return;
+        }
+        dispatchGpuRenderFrameRequest(progress, 0L, resolveCompositionTotalFrames());
+    }
+
+    private void dispatchGpuRenderFrameRequest(double progress, long frameInLoop, long totalFrames) {
+        fguiGpuPendingProgress = progress;
+        armGlChainSnapshotIfSegmentEnd(progress);
+        if (progress >= 0.999 && hasChainedSegmentPending()) {
+            setFguiGpuTickPhase(FguiGpuTickPhase.SEGMENT_END_FLUSHING);
+        } else if (fguiGpuTickPhase == FguiGpuTickPhase.SEGMENT_END_FLUSHING
+                || fguiGpuTickPhase == FguiGpuTickPhase.CHAIN_DELIVER_PENDING) {
+            setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
+        }
+        Log.d(TAG, "dispatchGpuRenderFrameRequest: progress=" + progress
+                + " frameInLoop=" + frameInLoop + "/" + totalFrames
                 + " phase=" + fguiGpuTickPhase);
-        sendToUnityHub(gpuRenderCallbackMethod, Double.toString(snap.progress));
+        sendToUnityHub(gpuRenderCallbackMethod, Double.toString(progress));
     }
 
     private void handleInfiniteLoopProgressSnapshot(FguiGpuProgressSnapshot snap) {

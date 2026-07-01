@@ -1,10 +1,10 @@
-# PAG Dragon → UFO 复测清单（GPU 纹理模式）
+# PAG Dragon → UFO 复测清单（纹理模式）
 
-## FGUI GPU 模式（默认开启）
+## 纹理模式（默认开启）
 
-- `TurnTablePagUseFguiTexture = true`：PAG 经 **GPU ExternalTexture** 显示在 `anchorTurnTable/pagEffect`（须在 FGUI 预置，层级由编辑器兄弟顺序决定）
+- `TurnTablePagUseFguiTexture = true`：PAG 经 **ExternalTexture** 显示在 `anchorTurnTable/pagEffect`（须在 FGUI 预置，层级由编辑器兄弟顺序决定）
 - **已删除** CPU ARGB / `ConsumeFguiFrameArgb` / `LoadRawTextureData` 通路
-- 回退 Overlay WM：`TurnTablePagUseFguiTexture = false`（可选 `TurnTablePagOverlayFallback = true` 走 ImageView 软件出帧）
+- 回退浮层模式：`TurnTablePagUseFguiTexture = false`（可选 `TurnTablePagOverlayFallback = true` 走 ImageView 软件出帧）
 - 离屏：`TurnTablePagFguiMaxDisplaySide = 0`（0 = 原画质，不限制长边）
 - 显示：`pagEffect` 按 PAG **合成原尺寸**（如 720×1281）+ `ScaleFree` 铺满
 - 帧率：Unity 侧刷新节流 **60fps**（`TurnTablePagFguiFps`）；Native progress 按 **`elapsed / durationUs` 时间轴**计算（与 Bitmap 回退一致）
@@ -69,7 +69,7 @@ cd Tools\AndroidBuild
 | `resolveFguiTextureDimensions: composition=WxH render=WxH maxSideCap=0`（render 与 composition 一致） | 应有 |
 | 画面铺满 pagEffect，层级符合 FGUI 中 pagEffect 与 holder 顺序 | 目视 |
 | 删除 pagEffect 后播放 | `[PAG FGUI] 锚点 ... 缺少 GLoader「pagEffect」`，不崩溃 |
-| Overlay 回退 `UseFguiTexture=false` | WM 全屏仍可播 |
+| 浮层模式回退 `UseFguiTexture=false` | WM 全屏仍可播 |
 | 无 `FATAL EXCEPTION` | 不应出现 |
 | `[1700 PAG] PlayTurnTableEnterSequence finished` | 应有 |
 

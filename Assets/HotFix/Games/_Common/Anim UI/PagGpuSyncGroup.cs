@@ -33,7 +33,7 @@ public static class PagGpuSyncGroup
 
     private const float StallTimeoutMinSeconds = 0.25f;
 
-    /// <summary>FGUI GPU 多实例同屏时自动 TryJoin；PagGroupPlayer 静态组播不受影响。</summary>
+    /// <summary>纹理模式多实例同屏时自动 TryJoin；PagGroupPlayer 静态组播不受影响。</summary>
     public static bool AutoConcurrentEnabled { get; set; } = true;
 
     public static bool IsActive => s_active;
@@ -438,41 +438,41 @@ public static class PagGpuSyncGroup
         }
     }
 
+    /// <summary>
+    /// 构建本帧 flush 列表：凡 syncReady 且已有 pending 的成员均纳入（允许部分 batch）。
+    /// 旧逻辑要求全员同一帧 pending，两路 composition fps 略错位时会长期 stall + RecoverFromStall，CPU 渐升。
+    /// </summary>
     private static bool TryBuildFlushBatch(out List<(int slotId, string instanceKey, double progress)> flushItems)
     {
         flushItems = null;
-        if (s_syncReadyMembers.Count == 0)
+        if (s_syncReadyMembers.Count == 0 || s_pendingRenderRequests.Count == 0)
         {
             return false;
         }
 
-        foreach (string key in s_syncReadyMembers)
-        {
-            if (!s_pendingRenderRequests.ContainsKey(key))
-            {
-                return false;
-            }
-        }
-
-        flushItems = new List<(int slotId, string instanceKey, double progress)>(s_syncReadyMembers.Count);
+        var batch = new List<(int slotId, string instanceKey, double progress)>(s_syncReadyMembers.Count);
         foreach (string key in s_syncReadyMembers)
         {
             if (!s_pendingRenderRequests.TryGetValue(key, out double prog))
             {
-                flushItems = null;
-                return false;
+                continue;
             }
 
             PagController controller = PagControllerRegistry.Resolve(key);
             if (controller == null)
             {
-                flushItems = null;
-                return false;
+                continue;
             }
 
-            flushItems.Add((controller.TextureSlotId, key, prog));
+            batch.Add((controller.TextureSlotId, key, prog));
         }
 
+        if (batch.Count == 0)
+        {
+            return false;
+        }
+
+        flushItems = batch;
         return true;
     }
 
@@ -524,10 +524,24 @@ public static class PagGpuSyncGroup
             return;
         }
 
-        s_pendingRenderRequests.Clear();
+        for (int i = 0; i < flushItems.Count; i++)
+        {
+            s_pendingRenderRequests.Remove(flushItems[i].instanceKey);
+        }
+
         BeginFlushBatchTracking(flushItems);
         PagUnityGlBridge.IssueFlushPagGpuBatch(flushItems);
-        Debug.Log($"[PAG Sync] flushBatch count={flushItems.Count} members=[{string.Join(",", s_activeFlushMembers)}] syncReady={s_syncReadyMembers.Count}");
+#if DEVELOPMENT_BUILD
+        if (flushItems.Count < s_syncReadyMembers.Count)
+        {
+            Debug.Log($"[PAG Sync] flushBatch partial count={flushItems.Count}/{s_syncReadyMembers.Count} "
+                + $"members=[{string.Join(",", s_activeFlushMembers)}]");
+        }
+        else
+        {
+            Debug.Log($"[PAG Sync] flushBatch count={flushItems.Count} members=[{string.Join(",", s_activeFlushMembers)}] syncReady={s_syncReadyMembers.Count}");
+        }
+#endif
     }
 
     public static void OnGpuFramePresented(string instanceKey)
@@ -630,13 +644,6 @@ public static class PagGpuSyncGroup
         if (!s_active || !s_playbackStarted || s_syncReadyMembers.Count == 0)
         {
             return false;
-        }
-
-        if (s_pendingRenderRequests.Count > 0
-            && s_pendingRenderRequests.Count < s_syncReadyMembers.Count
-            && s_expectedPresentCount <= 0)
-        {
-            return true;
         }
 
         if (s_expectedPresentCount > 0 && s_presentedMembers.Count < s_expectedPresentCount)

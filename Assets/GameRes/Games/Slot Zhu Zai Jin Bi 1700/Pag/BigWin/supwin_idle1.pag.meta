@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 694599e1d70789d4c920b8ff8bfbde56
+guid: 063a3e5d8382a6d488d955e1ae2514f7
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 2
   userData: 
-  assetBundleName: games/slot zhu zai jin bi 1700/pag/bigwin/megawin_start.unity3d
+  assetBundleName: games/slot zhu zai jin bi 1700/pag/bigwin/supwin_idle1.unity3d
   assetBundleVariant: 
   script: {fileID: 11500000, guid: c806c33c02b7da44e86221c1c5045af0, type: 3}

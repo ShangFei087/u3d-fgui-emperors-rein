@@ -199,12 +199,12 @@ namespace SlotZhuZaiJinBi1700
         /// <summary>PAG4 BigWin 升级链顺序播放（各 repeat=1）。</summary>
         private static readonly string[] PagTestBigWinSequence =
         {
-            "BigWin/bigwin_start.pag",
-            "BigWin/bigwin_idle.pag",
-            "BigWin/supwin_start.pag",
-            "BigWin/supwin_idle.pag",
-            "BigWin/megawin_start.pag",
-            "BigWin/megawin_idle.pag",
+            "BigWin/bigwin_start1.pag",
+            "BigWin/bigwin_idle1.pag",
+            "BigWin/supwin_start1.pag",
+            "BigWin/supwin_idle1.pag",
+            "BigWin/megawin_start1.pag",
+            "BigWin/megawin_idle1.pag",
         };
         private const string PagGlowLoop720 = "Lopp/glow_loop_720.pag";
         private const string PagGlowLoopHalf = "Lopp/glow_loop_half_1920.pag";
@@ -231,7 +231,7 @@ namespace SlotZhuZaiJinBi1700
         private const bool PagTestUseFguiTexture = true;
         /// <summary>FguiTexture 离屏最大边；0=合成原尺寸不限制，512=降压缩屏（FGUI 仍按合成原尺寸显示）。</summary>
         private const int PagTestFguiMaxDisplaySide = 0;
-        /// <summary>FGUI GPU 出帧目标帧率，Play 开始后可能与 composition frameRate 对齐。</summary>
+        /// <summary>纹理模式出帧目标帧率，Play 开始后可能与 composition frameRate 对齐。</summary>
         private const int PagTestFguiFps = 30;
         /// <summary>Overlay 模式：true 时 native 立即 ImageView 软件出帧。</summary>
         private const bool PagTestOverlayFallback = false;
@@ -739,6 +739,40 @@ namespace SlotZhuZaiJinBi1700
             EnsurePagTestSlot(slot, loaderName, instanceLabel);
         }
 
+        /// <summary>Play 前只绑定当前 glow 槽，避免全量 EnsurePagTestSlots re-Attach 误伤同屏已播成员。</summary>
+        private void EnsurePagTestGlowSlotByIndex(int glowIndex)
+        {
+            PagConcurrentPlayback.Enabled = PagTestUseFguiTexture;
+
+            if (GetPagTestAnchor() == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} EnsurePagTestGlowSlotByIndex skipped: anchor null glowIndex={glowIndex}");
+                return;
+            }
+
+            switch (glowIndex)
+            {
+                case 5:
+                    EnsurePagTestGlowSlot(5, ref _pagTestGlowSlot5, PagTestLoaderGlow5, "PagTestGlow5");
+                    break;
+                case 6:
+                    EnsurePagTestGlowSlot(6, ref _pagTestGlowSlot6, PagTestLoaderGlow6, "PagTestGlow6");
+                    break;
+                case 7:
+                    EnsurePagTestGlowSlot(7, ref _pagTestGlowSlot7, PagTestLoaderGlow7, "PagTestGlow7");
+                    break;
+                case 8:
+                    EnsurePagTestGlowSlot(8, ref _pagTestGlowSlot8, PagTestLoaderGlow8, "PagTestGlow8");
+                    break;
+                case 9:
+                    EnsurePagTestGlowSlot(9, ref _pagTestGlowSlot9, PagTestLoaderGlow9, "PagTestGlow9");
+                    break;
+                default:
+                    Debug.LogWarning($"{PagLogPrefix} EnsurePagTestGlowSlotByIndex skipped: invalid glowIndex={glowIndex}");
+                    break;
+            }
+        }
+
         /// <summary>PAG5~9 glowIndex 返回对应 PagSlotBinding；无效 index 返回 null。</summary>
         private PagSlotBinding GetPagTestGlowSlot(int glowIndex)
         {
@@ -1057,6 +1091,12 @@ namespace SlotZhuZaiJinBi1700
         {
             PagController controller = slot?.Controller;
             if (controller == null)
+            {
+                yield break;
+            }
+
+            // 同屏多 PAG 时统一 PagTestFguiFps，避免各路 Java tick 与 SyncGroup 组节流错位导致 batch stall。
+            if (PagConcurrentPlayback.Enabled)
             {
                 yield break;
             }
@@ -1783,7 +1823,7 @@ namespace SlotZhuZaiJinBi1700
             _corPagTest4 = mono.StartCoroutine(StartPagTest4ButtonPlayback());
         }
 
-        /// <summary>预热缓存后单次 Play + repeat=-1，由 Native GPU 路径无缝循环，避免圈间重开 Play 空窗。</summary>
+        /// <summary>预热缓存后单次 Play + repeat=-1，由纹理模式 Native 路径无缝循环，避免圈间重开 Play 空窗。</summary>
         private IEnumerator StartPagTest1ButtonPlayback()
         {
             yield return EnsurePagTestCompositionReady(PagTestName2, _pagTest1CacheWarmed,
@@ -1897,6 +1937,9 @@ namespace SlotZhuZaiJinBi1700
             PagSegment[] segments = PagTestBigWinSequence
                 .Select(p => new PagSegment(p, 1))
                 .ToArray();
+
+            PagGpuSyncGroup.TryLeave(_pagTestSlot4.InstanceKey);
+            Debug.Log($"{PagLogPrefix} PAG4 playlist: left SyncGroup for single-path segment chain");
 
             if (!controller.PlayFguiGpuSequence(segments, positionType, layoutExtra))
             {
@@ -2035,7 +2078,7 @@ namespace SlotZhuZaiJinBi1700
                 yield break;
             }
 
-            EnsurePagTestSlots();
+            EnsurePagTestGlowSlotByIndex(glowIndex);
             PagSlotBinding glowSlot = GetPagTestGlowSlot(glowIndex);
             PlayPagTest(glowSlot, pagFileName, -1, displayScale);
             yield return TryAlignPagTestFpsAfterPlayStarted(glowSlot);
@@ -2074,7 +2117,7 @@ namespace SlotZhuZaiJinBi1700
                 yield break;
             }
 
-            EnsurePagTestSlots();
+            EnsurePagTestGlowSlotByIndex(glowIndex);
             PagSlotBinding glowSlot = GetPagTestGlowSlot(glowIndex);
             PagController controller = glowSlot?.Controller;
             if (controller == null)
@@ -2662,7 +2705,7 @@ namespace SlotZhuZaiJinBi1700
             }
 
             ShowPagTestSpine(spineIndex, GetPagTestSpinePlayAnim(spineIndex));
-            Debug.Log($"{PagLogPrefix} {comboLabel} spine synced at GPU display ready");
+            Debug.Log($"{PagLogPrefix} {comboLabel} spine synced at texture display ready");
             _corComboPag2Spine = null;
         }
 
@@ -2688,7 +2731,7 @@ namespace SlotZhuZaiJinBi1700
             }
 
             ShowPagTestSpine(spineIndex, GetPagTestSpinePlayAnim(spineIndex));
-            Debug.Log($"{PagLogPrefix} {comboLabel} spine synced at GPU display ready");
+            Debug.Log($"{PagLogPrefix} {comboLabel} spine synced at texture display ready");
             _corComboPag3Spine = null;
         }
 

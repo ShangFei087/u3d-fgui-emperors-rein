@@ -159,7 +159,7 @@ namespace SlotZhuZaiJinBi1700
 
             PageName[] pages =
             {
-                PageName.SlotZhuZaiJinBiPageGameMain,
+                PageName.SlotZhuZaiJinPageTest,
             };
 
             _preloadTotal = pages.Length;
@@ -298,7 +298,6 @@ namespace SlotZhuZaiJinBi1700
             else
             {
                 PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinBiPageGameMain);
-                //PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinPageTest);
             }
         }
 

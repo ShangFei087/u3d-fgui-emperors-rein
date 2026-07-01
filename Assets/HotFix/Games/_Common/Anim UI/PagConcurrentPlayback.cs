@@ -3,7 +3,7 @@
 /// </summary>
 public static class PagConcurrentPlayback
 {
-    /// <summary>开启后 FGUI GPU Play 自动 TryJoin、Stop 自动 TryLeave。</summary>
+    /// <summary>开启后纹理模式 Play 自动 TryJoin、Stop 自动 TryLeave。</summary>
     public static bool Enabled
     {
         get => PagController.AutoConcurrentGpuSync;

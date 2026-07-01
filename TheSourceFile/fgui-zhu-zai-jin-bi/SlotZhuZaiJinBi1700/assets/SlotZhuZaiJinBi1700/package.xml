@@ -220,6 +220,7 @@
     <component id="tvr88o" name="AnchorPagTest.xml" path="/components/gameMain/" exported="true"/>
     <component id="ugpc8p" name="PageTest.xml" path="/" exported="true"/>
     <component id="ugpc8r" name="ButtonTest.xml" path="/components/" exported="true"/>
+    <component id="ssmk8s" name="PageTest1.xml" path="/components/pageTest/"/>
   </resources>
   <publish name="" path="F:\StandAloneSlotFrame\u3d-fgui-emperors-rein\Assets\GameRes\Games\Slot Zhu Zai Jin Bi 1700\FGUIs" packageCount="2"/>
 </packageDescription>

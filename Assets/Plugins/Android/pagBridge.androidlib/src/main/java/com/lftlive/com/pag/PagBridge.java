@@ -232,7 +232,7 @@ public final class PagBridge {
         Log.i(TAG, "SetForceBitmapOverlayFallback: " + force);
     }
 
-    /** 0=Overlay WM 浮层；1=FGUI GPU 纹理（Spine 可盖在上层）。 */
+    /** 0=浮层模式（Overlay WM）；1=纹理模式（FGUI ExternalTexture，Spine 可盖在上层）。 */
     public static void SetRenderTarget(int mode) {
         SetRenderTarget(DEFAULT_INSTANCE, mode);
     }
@@ -397,7 +397,7 @@ public final class PagBridge {
         return completed && ok.get();
     }
 
-    /** Phase4E：登记 Native 播放列表（同尺寸 FGUI GPU）；Play 首段前调用。 */
+    /** Phase4E：登记 Native 播放列表（同尺寸纹理模式）；Play 首段前调用。 */
     public static void SetFguiGpuPlaylist(String instanceKey, String[] paths, int[] repeats) {
         final String key = normalizeKey(instanceKey);
         runOnUiSync("SetFguiGpuPlaylist instance=" + key, () -> {
