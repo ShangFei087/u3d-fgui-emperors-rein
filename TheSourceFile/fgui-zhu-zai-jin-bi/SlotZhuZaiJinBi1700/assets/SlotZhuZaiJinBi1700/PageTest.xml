@@ -34,8 +34,20 @@
     <component id="n39_ps10" name="btnPagGroup4" src="ugpc8r" fileName="components/ButtonTest.xml" xy="800,1750" size="260,55">
       <Button title="PagGroup4" titleFontSize="24"/>
     </component>
-    <component id="n40_ps11" name="btnDumpPagSlots" src="ugpc8r" fileName="components/ButtonTest.xml" xy="20,1820" size="300,55">
+    <component id="n40_ps11" name="btnDumpPagSlots" src="ugpc8r" fileName="components/ButtonTest.xml" xy="20,1865" size="300,55">
       <Button title="DumpPagSlots" titleFontSize="20"/>
+    </component>
+    <component id="n41_npc01" name="btnBigwinNpc" src="ugpc8r" fileName="components/ButtonTest.xml" xy="19,1556" size="250,55">
+      <Button title="bigwinNpc" titleFontSize="20"/>
+    </component>
+    <component id="n42_npc02" name="btnFreeNpc" src="ugpc8r" fileName="components/ButtonTest.xml" xy="279,1556" size="250,55">
+      <Button title="freeNpc" titleFontSize="20"/>
+    </component>
+    <component id="n43_npc03" name="btnNormalNpc" src="ugpc8r" fileName="components/ButtonTest.xml" xy="539,1556" size="250,55">
+      <Button title="normalNpc" titleFontSize="20"/>
+    </component>
+    <component id="n44_npc04" name="btnRewardNpc" src="ugpc8r" fileName="components/ButtonTest.xml" xy="799,1556" size="260,55">
+      <Button title="rewardNpc" titleFontSize="20"/>
     </component>
   </displayList>
 </component>

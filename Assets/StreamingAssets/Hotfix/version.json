@@ -1,7 +1,7 @@
 {
-  "updated_at": 1782914289856,
+  "updated_at": 1782958682509,
   "hotfix_key": "hf_debug_android_20260630161224",
-  "hotfix_version": "1.2.20",
+  "hotfix_version": "1.2.23",
   "asset_bundle": {
     "manifest": {
       "hash": "bcb13cd3da35013ef88748e87c3add87",
@@ -916,8 +916,8 @@
       "size_bytes": 169984
     },
     "HotFix": {
-      "hash": "8d56ee61fd2c49509e23db15ce20cf5d",
-      "size_bytes": 2098176
+      "hash": "e6579d2bfa09835106257c1a811dfbc7",
+      "size_bytes": 2099712
     }
   },
   "hotfix_dll_load_order": [

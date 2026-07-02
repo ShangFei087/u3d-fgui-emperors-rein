@@ -102,6 +102,19 @@ public sealed class PagCallbackHub : MonoBehaviour
         controller?.HandleGpuRenderFrame(data);
     }
 
+    public void OnPagGpuSyncFlushFrame0(string message)
+    {
+        PagController controller = Resolve(message, out _);
+        controller?.HandleGpuSyncFlushFrame0();
+    }
+
+    /** Phase3 P0：GL flush + glFinish 完成后由 Java 回调。 */
+    public void OnPagGpuFlushPresentReady(string message)
+    {
+        PagController controller = Resolve(message, out _);
+        controller?.HandleGpuFrameReady(string.Empty);
+    }
+
     /// <summary>
     /// Flush GL 批处理完成后由 PagUnityGlBridge 调用。
     /// </summary>

@@ -457,12 +457,41 @@ public class PagController : IDisposable
             return;
         }
 
-        _gpuFlushPresentCount++;
-        _fguiPresenter.OnGpuFrameReady();
+        bool deferPresent = TryCallBool("ShouldDeferFguiGpuPresent", () =>
+            _pagBridge.CallStatic<bool>("ShouldDeferFguiGpuPresent", InstanceKey));
+
+        if (!deferPresent)
+        {
+            _gpuFlushPresentCount++;
+            _fguiPresenter.OnGpuFrameReady();
+        }
+#if DEVELOPMENT_BUILD
+        else
+        {
+            Debug.Log($"[PAG] defer FGUI present instance={InstanceKey}");
+        }
+#endif
+
         SafeCall("OnGpuFlushCompleted", () => _pagBridge.CallStatic("OnGpuFlushCompleted", InstanceKey));
 #if DEVELOPMENT_BUILD
         Profiler.EndSample();
 #endif
+#endif
+    }
+
+    internal void HandleGpuSyncFlushFrame0()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        PagCallbackHub.Instance.RunCoroutine(SyncFlushFrame0Coroutine());
+#endif
+    }
+
+    private IEnumerator SyncFlushFrame0Coroutine()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        yield return PagUnityGlBridge.FlushChainFrame0Coroutine(_textureSlotId, InstanceKey);
+#else
+        yield break;
 #endif
     }
 
@@ -1377,6 +1406,26 @@ public class PagController : IDisposable
             }
 
             return ok;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"[PAG JNI] {name} exception: {ex}");
+            return false;
+        }
+    }
+
+    /** 查询型 JNI：false 为正常结果，不记 error。 */
+    private bool TryCallBool(string name, Func<bool> action)
+    {
+        try
+        {
+            EnsureInit();
+            if (_pagBridge == null)
+            {
+                return false;
+            }
+
+            return action();
         }
         catch (Exception ex)
         {

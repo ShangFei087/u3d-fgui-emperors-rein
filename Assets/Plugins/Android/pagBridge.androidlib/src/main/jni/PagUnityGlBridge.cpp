@@ -48,6 +48,13 @@ static jmethodID g_SetupGpuMethod = nullptr;
 static jmethodID g_FlushGpuMethod = nullptr;
 static jmethodID g_TryChainFlushFrame0Method = nullptr;
 static jmethodID g_TeardownGpuMethod = nullptr;
+static jmethodID g_NotifyFlushPresentReadyMethod = nullptr;
+
+struct FlushOpResult {
+    bool flushOk = false;
+    /** progress>=0.999 且 GL tryChain 成功切下一段并写入 frame0。 */
+    bool segmentChained = false;
+};
 
 static std::unordered_map<int, GlTextureSlot> g_Slots;
 static int g_ActiveSlotId = 0;
@@ -257,6 +264,42 @@ static bool CallTryChainAndFlushFrame0OnRenderThread(double finishedProgress, in
     return ok == JNI_TRUE;
 }
 
+static void CallNotifyGpuFlushPresentReady(const std::string& instanceKey, bool segmentChained) {
+    JNIEnv* env = GetJniEnv();
+    if (env == nullptr || g_PagBridgeClass == nullptr || g_NotifyFlushPresentReadyMethod == nullptr) {
+        LOGE("CallNotifyGpuFlushPresentReady JNI not ready");
+        return;
+    }
+
+    jstring jInstanceKey = env->NewStringUTF(instanceKey.c_str());
+    env->CallStaticVoidMethod(
+        g_PagBridgeClass,
+        g_NotifyFlushPresentReadyMethod,
+        jInstanceKey,
+        segmentChained ? JNI_TRUE : JNI_FALSE);
+
+    if (jInstanceKey != nullptr) {
+        env->DeleteLocalRef(jInstanceKey);
+    }
+
+    if (env->ExceptionCheck()) {
+        env->ExceptionDescribe();
+        env->ExceptionClear();
+        LOGE("CallNotifyGpuFlushPresentReady JNI exception instance=%s", instanceKey.c_str());
+    }
+}
+
+static void NotifyFlushPresentReadyAfterGlFinish(const std::vector<PendingGlOp>& batch,
+                                                 const std::vector<FlushOpResult>& results) {
+    const size_t count = batch.size() < results.size() ? batch.size() : results.size();
+    for (size_t i = 0; i < count; ++i) {
+        if (!results[i].flushOk) {
+            continue;
+        }
+        CallNotifyGpuFlushPresentReady(batch[i].instanceKey, results[i].segmentChained);
+    }
+}
+
 static bool CallTeardownGpuSurfaceOnRenderThread(int slotId, const std::string& instanceKey) {
     JNIEnv* env = GetJniEnv();
     if (env == nullptr || g_PagBridgeClass == nullptr || g_TeardownGpuMethod == nullptr) {
@@ -297,7 +340,8 @@ static void ProcessSetupOp(const PendingGlOp& op) {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-static bool ProcessFlushOpInternal(const PendingGlOp& op) {
+static FlushOpResult ProcessFlushOpInternal(const PendingGlOp& op) {
+    FlushOpResult result;
     g_ActiveSlotId = op.slotId;
     g_PendingInstanceKey = op.instanceKey;
     GlTextureSlot& slot = GetSlot(op.slotId);
@@ -305,25 +349,26 @@ static bool ProcessFlushOpInternal(const PendingGlOp& op) {
     if (slot.fbo != 0) {
         glBindFramebuffer(GL_FRAMEBUFFER, slot.fbo);
     }
-    bool flushOk = false;
     if (progress >= 0.999) {
         const bool chained = CallTryChainAndFlushFrame0OnRenderThread(progress, op.slotId, op.instanceKey);
         if (!chained) {
-            flushOk = CallFlushGpuFrameOnRenderThread(progress, op.slotId, op.instanceKey);
+            result.flushOk = CallFlushGpuFrameOnRenderThread(progress, op.slotId, op.instanceKey);
         } else {
-            flushOk = true;
+            result.flushOk = true;
+            result.segmentChained = true;
         }
     } else {
-        flushOk = CallFlushGpuFrameOnRenderThread(progress, op.slotId, op.instanceKey);
+        result.flushOk = CallFlushGpuFrameOnRenderThread(progress, op.slotId, op.instanceKey);
     }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    return flushOk;
+    return result;
 }
 
 static void ProcessFlushOp(const PendingGlOp& op) {
-    if (ProcessFlushOpInternal(op)) {
-        // 单 op fallback：仍立即 glFinish。
+    const FlushOpResult result = ProcessFlushOpInternal(op);
+    if (result.flushOk) {
         glFinish();
+        CallNotifyGpuFlushPresentReady(op.instanceKey, result.segmentChained);
     }
 }
 
@@ -379,15 +424,20 @@ static void UNITY_INTERFACE_API OnRenderEvent(int eventId) {
             return;
         }
         LOGI("OnRenderEvent: flush batch count=%zu", batch.size());
+        std::vector<FlushOpResult> results;
+        results.reserve(batch.size());
         bool anyFlushOk = false;
         for (const PendingGlOp& flushOp : batch) {
-            if (ProcessFlushOpInternal(flushOp)) {
+            const FlushOpResult result = ProcessFlushOpInternal(flushOp);
+            results.push_back(result);
+            if (result.flushOk) {
                 anyFlushOk = true;
             }
         }
         if (anyFlushOk) {
-            // 多路同屏：整批 flush 后只 glFinish 一次，降低渲染线程阻塞。
+            // Phase3 P0：整批 flush + tryChain 完成后 glFinish，再通知 Unity present。
             glFinish();
+            NotifyFlushPresentReadyAfterGlFinish(batch, results);
         }
         return;
     }
@@ -473,9 +523,14 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* /*reserved*/) {
         g_PagBridgeClass,
         "nativeTeardownGpuSurfaceOnRenderThread",
         "(Ljava/lang/String;)Z");
+    g_NotifyFlushPresentReadyMethod = env->GetStaticMethodID(
+        g_PagBridgeClass,
+        "nativeNotifyGpuFlushPresentReady",
+        "(Ljava/lang/String;Z)V");
 
     if (g_SetupGpuMethod == nullptr || g_FlushGpuMethod == nullptr
-        || g_TryChainFlushFrame0Method == nullptr || g_TeardownGpuMethod == nullptr) {
+        || g_TryChainFlushFrame0Method == nullptr || g_TeardownGpuMethod == nullptr
+        || g_NotifyFlushPresentReadyMethod == nullptr) {
         LOGE("JNI_OnLoad GetStaticMethodID failed");
         return JNI_ERR;
     }

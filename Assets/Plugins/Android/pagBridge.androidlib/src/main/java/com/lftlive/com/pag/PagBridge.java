@@ -439,6 +439,12 @@ public final class PagBridge {
         return manager != null && manager.isFguiGpuPlaybackActive();
     }
 
+    /** Phase2 A'：playlist 段切期间 Unity 侧是否应跳过 FGUI present。 */
+    public static boolean ShouldDeferFguiGpuPresent(String instanceKey) {
+        PagOverlayManager manager = getManager(normalizeKey(instanceKey));
+        return manager != null && manager.shouldDeferFguiGpuPresent();
+    }
+
     public static void SetFguiGpuExternalPump(String instanceKey, boolean externalPump) {
         final String key = normalizeKey(instanceKey);
         runOnUi(() -> {
@@ -543,6 +549,15 @@ public final class PagBridge {
             return false;
         }
         return manager.tryChainPendingAndFlushFrame0OnRenderThread(finishedProgress);
+    }
+
+    /** Phase3 P0：GL tryChain/flush + glFinish 完成后由渲染线程回调，触发 Unity present。 */
+    public static void nativeNotifyGpuFlushPresentReady(String instanceKey, boolean segmentChained) {
+        final String key = normalizeKey(instanceKey);
+        PagOverlayManager manager = getManager(key);
+        if (manager != null) {
+            manager.notifyGpuFlushPresentReady(segmentChained);
+        }
     }
 
     /** 由 Unity 渲染线程 DestroyTexture 前调用，勿改名。 */
