@@ -2,10 +2,14 @@
 <component size="1080,1920">
   <displayList>
     <loader id="n1_ssmk" name="BG" xy="0,0" size="1080,1920" url="ui://zcotsi26n4dd49" align="center" fill="scale" useResize="true"/>
-    <component id="n5_ssmk" name="PT1" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="140,900" pivot="0.5,0.5" anchor="true" size="500,500"/>
-    <component id="n7_st01" name="PT2" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="640,900" pivot="0.5,0.5" anchor="true" size="500,500"/>
-    <component id="n8_st02" name="PT3" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="140,1350" pivot="0.5,0.5" anchor="true" size="500,500"/>
-    <component id="n9_st03" name="PT4" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="640,1350" pivot="0.5,0.5" anchor="true" size="500,500"/>
+    <component id="n5_ssmk" name="PT1" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="253,400" pivot="0.5,0.5" anchor="true" size="500,500"/>
+    <component id="n7_st01" name="PT2" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="822,400" pivot="0.5,0.5" anchor="true" size="500,500"/>
+    <component id="n8_st02" name="PT3" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="235,1250" pivot="0.5,0.5" anchor="true" size="500,500"/>
+    <component id="n9_st03" name="PT4" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="833,1250" pivot="0.5,0.5" anchor="true" size="500,500"/>
+    <component id="n45_npcpt5" name="PT5" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="540,960" pivot="0.5,0.5" anchor="true" size="250,250"/>
+    <component id="n46_npcpt6" name="PT6" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="540,960" pivot="0.5,0.5" anchor="true" size="250,250"/>
+    <component id="n47_npcpt7" name="PT7" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="540,960" pivot="0.5,0.5" anchor="true" size="250,250"/>
+    <component id="n48_npcpt8" name="PT8" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="540,960" pivot="0.5,0.5" anchor="true" size="250,250"/>
     <text id="n30_ps01" name="txtPagStatus" xy="20,1620" size="1040,36" fontSize="26" color="#ffffff" vAlign="middle" autoSize="height" strokeColor="#000000" text="PAG=BigWin_1024 组=PagGroup1"/>
     <component id="n31_ps02" name="btnBigWin_1024" src="ugpc8r" fileName="components/ButtonTest.xml" xy="20,1680" size="200,55">
       <Button title="BigWin_1024" titleFontSize="20"/>

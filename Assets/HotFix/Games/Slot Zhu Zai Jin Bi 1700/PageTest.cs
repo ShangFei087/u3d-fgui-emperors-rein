@@ -26,10 +26,11 @@ namespace SlotZhuZaiJinBi1700
         private const bool PagUseFguiTexture = true;
         private const int PagFguiMaxDisplaySide = 0;
         private const int PagFguiFps = 30;
-        private const bool PagClampDisplayToHolder = true;
-        private const int MaxPlaySlots = 4;
-        private const int PagPresetCount = 5;
+        private const bool PagClampDisplayToHolder =false;
+        private const int MaxPlaySlots = 8;
         private const int MaxPagGroupCount = 4;
+        private const int NpcSlotIndexBase = 4;
+        private const int MaxNpcSequenceCount = 4;
 
         /// <summary>为 true 时多路播放每 slot 使用不同 .pag（判别「只显示一路」vs「同素材叠加」）。</summary>
         private const bool PagDebugDistinctFilesPerSlot = false;
@@ -46,12 +47,18 @@ namespace SlotZhuZaiJinBi1700
             new Color(0f, 1f, 1f, 1f),
             new Color(1f, 1f, 0f, 1f),
             new Color(1f, 0f, 1f, 1f),
+            new Color(1f, 0.5f, 0f, 1f),
+            new Color(0.5f, 0.8f, 1f, 1f),
+            new Color(1f, 0.4f, 0.4f, 1f),
+            new Color(0.6f, 1f, 0.4f, 1f),
         };
 
         private static readonly string[] SlotAnchorNames =
         {
-            "PT1", "PT2", "PT3", "PT4",
+            "PT1", "PT2", "PT3", "PT4", "PT5", "PT6", "PT7", "PT8",
         };
+
+        private const int PagPresetCount = 5;
 
         private static readonly PagPresetConfig[] PagPresets =
         {
@@ -125,8 +132,8 @@ namespace SlotZhuZaiJinBi1700
         {
             PagFile = string.Empty,
             DisplayScale = 1f,
-            HolderW = 500,
-            HolderH = 500,
+            HolderW = 250,
+            HolderH = 250,
             BlendMode = BlendMode.Normal,
             Label = "NPC",
         };
@@ -138,7 +145,7 @@ namespace SlotZhuZaiJinBi1700
             $"{NpcPagFolderPrefix}BigWinNPC/supwin_start1.pag",
             $"{NpcPagFolderPrefix}BigWinNPC/supwin_idle1.pag",
             $"{NpcPagFolderPrefix}BigWinNPC/megawin_start1.pag",
-            $"{NpcPagFolderPrefix}BigWinNPC/megawin_idle1.pag",
+            $"{NpcPagFolderPrefix}BigWinNPC/megawin_idle_gq.pag",
         };
 
         private static readonly string[] NpcFreeSequence =
@@ -150,23 +157,23 @@ namespace SlotZhuZaiJinBi1700
 
         private static readonly string[] NpcNormalSequence =
         {
-            $"{NpcPagFolderPrefix}NormalNPC/Wealth_ng_npc_atmosphere.pag",
             $"{NpcPagFolderPrefix}NormalNPC/Wealth_ng_npc_idle01.pag",
             $"{NpcPagFolderPrefix}NormalNPC/Wealth_ng_npc_idle02.pag",
-            $"{NpcPagFolderPrefix}NormalNPC/Wealth_ng_npc_not triggered.pag",
             $"{NpcPagFolderPrefix}NormalNPC/Wealth_ng_npc_not winning.pag",
+            $"{NpcPagFolderPrefix}NormalNPC/Wealth_ng_npc_atmosphere.pag",
+            $"{NpcPagFolderPrefix}NormalNPC/Wealth_ng_npc_not triggered.pag",
+            $"{NpcPagFolderPrefix}NormalNPC/Wealth_ng_npc_trigger sg.pag",
+            $"{NpcPagFolderPrefix}NormalNPC/Wealth_ng_npc_trigger fg.pag",
             $"{NpcPagFolderPrefix}NormalNPC/Wealth_ng_npc_win1.pag",
             $"{NpcPagFolderPrefix}NormalNPC/Wealth_ng_npc_win2.pag",
             $"{NpcPagFolderPrefix}NormalNPC/Wealth_ng_npc_win3.pag",
-            $"{NpcPagFolderPrefix}NormalNPC/Wealth_ng_npc_trigger fg.pag",
-            $"{NpcPagFolderPrefix}NormalNPC/Wealth_ng_npc_trigger sg.pag",
         };
 
         private static readonly string[] NpcRewardSequence =
         {
-            $"{NpcPagFolderPrefix}RewardNPC/Wealth_sg_npc_appear.pag",
             $"{NpcPagFolderPrefix}RewardNPC/Wealth_sg_npc_idle1.pag",
             $"{NpcPagFolderPrefix}RewardNPC/Wealth_sg_npc_idle2.pag",
+            $"{NpcPagFolderPrefix}RewardNPC/Wealth_sg_npc_appear.pag",
             $"{NpcPagFolderPrefix}RewardNPC/Wealth_sg_npc_reset.pag",
             $"{NpcPagFolderPrefix}RewardNPC/Wealth_sg_npc_settlement1.pag",
             $"{NpcPagFolderPrefix}RewardNPC/Wealth_sg_npc_settlement2.pag",
@@ -194,10 +201,11 @@ namespace SlotZhuZaiJinBi1700
         private GTextField _txtPagStatus;
         private Coroutine _corMultiPlay;
         private Coroutine _corDumpAfterPlay;
-        private Coroutine _corNpcSequence;
-        private bool _npcSequenceShowing;
-        private string _activeNpcSequenceLabel;
-        private int _npcSequenceSessionId;
+        private readonly Coroutine[] _corNpcSequence = new Coroutine[MaxNpcSequenceCount];
+        private readonly bool[] _npcSequenceShowing = new bool[MaxNpcSequenceCount];
+        private readonly int[] _npcSequenceSessionId = new int[MaxNpcSequenceCount];
+        private bool _pagGroupPlaying;
+        private int _activePagGroupCount;
 
         protected override void OnInit()
         {
@@ -354,10 +362,21 @@ namespace SlotZhuZaiJinBi1700
                 return;
             }
 
-            StopNpcSequencePlayback();
+            if (_pagGroupPlaying && _activePagGroupCount == groupCount)
+            {
+                StopPagGroupPlayback();
+                RefreshSelectionVisuals();
+                RefreshPagStatusText();
+                Debug.Log($"{PagLogPrefix} PagGroup{groupCount} toggle off");
+                return;
+            }
+
             _selectedPlayCount = groupCount;
+            _activePagGroupCount = groupCount;
+            _pagGroupPlaying = true;
             RefreshSelectionVisuals();
             RefreshPagStatusText();
+            Debug.Log($"{PagLogPrefix} PagGroup{groupCount} toggle on");
             StartMultiPlayback();
         }
 
@@ -369,43 +388,61 @@ namespace SlotZhuZaiJinBi1700
             }
 
             string label = NpcSequenceLabels[index];
-            if (_npcSequenceShowing && _activeNpcSequenceLabel == label)
+            int slotIndex = NpcSlotIndexBase + index;
+            if (_npcSequenceShowing[index])
             {
-                StopNpcSequencePlayback();
+                StopNpcSequencePlayback(index);
                 RefreshPagStatusText();
+                Debug.Log($"{PagLogPrefix} npc sequence stop: {label} on {SlotAnchorNames[slotIndex]}");
                 return;
             }
 
-            StopAllPlayback();
-            _activeNpcSequenceLabel = label;
-            _npcSequenceShowing = true;
-            int sessionId = ++_npcSequenceSessionId;
+            StopNpcSequencePlayback(index);
+            _npcSequenceShowing[index] = true;
+            int sessionId = ++_npcSequenceSessionId[index];
             RefreshPagStatusText();
-            Debug.Log($"{PagLogPrefix} npc sequence start: {label}");
-            _corNpcSequence = PagCallbackHub.Instance.RunCoroutine(
-                NpcSequencePlaybackCoroutine(NpcSequencePlaylists[index], label, sessionId));
+            Debug.Log($"{PagLogPrefix} npc sequence start: {label} on {SlotAnchorNames[slotIndex]}");
+            _corNpcSequence[index] = PagCallbackHub.Instance.RunCoroutine(
+                NpcSequencePlaybackCoroutine(NpcSequencePlaylists[index], label, slotIndex, index, sessionId));
         }
 
-        private void StopNpcSequencePlayback()
+        private void StopAllNpcSequencePlayback()
         {
-            _npcSequenceSessionId++;
-            _npcSequenceShowing = false;
-            _activeNpcSequenceLabel = null;
-
-            if (_corNpcSequence != null)
+            for (int i = 0; i < MaxNpcSequenceCount; i++)
             {
-                PagCallbackHub.Instance.StopRunCoroutine(_corNpcSequence);
-                _corNpcSequence = null;
+                StopNpcSequencePlayback(i);
+            }
+        }
+
+        private void StopNpcSequencePlayback(int npcIndex)
+        {
+            if (npcIndex < 0 || npcIndex >= MaxNpcSequenceCount)
+            {
+                return;
             }
 
-            StopSlot(0);
+            _npcSequenceSessionId[npcIndex]++;
+            _npcSequenceShowing[npcIndex] = false;
+
+            if (_corNpcSequence[npcIndex] != null)
+            {
+                PagCallbackHub.Instance.StopRunCoroutine(_corNpcSequence[npcIndex]);
+                _corNpcSequence[npcIndex] = null;
+            }
+
+            StopSlot(NpcSlotIndexBase + npcIndex);
         }
 
-        private IEnumerator NpcSequencePlaybackCoroutine(string[] sequence, string label, int sessionId)
+        private IEnumerator NpcSequencePlaybackCoroutine(
+            string[] sequence,
+            string label,
+            int slotIndex,
+            int npcIndex,
+            int sessionId)
         {
             if (sequence == null || sequence.Length == 0)
             {
-                StopNpcSequencePlayback();
+                StopNpcSequencePlayback(npcIndex);
                 yield break;
             }
 
@@ -413,31 +450,31 @@ namespace SlotZhuZaiJinBi1700
             {
                 yield return EnsurePagCompositionReady(sequence[i], false, _ => { });
 
-                if (sessionId != _npcSequenceSessionId)
+                if (sessionId != _npcSequenceSessionId[npcIndex])
                 {
                     yield break;
                 }
             }
 
-            if (!PrepareSlot(0, NpcSequenceSlotPreset))
+            if (!PrepareSlot(slotIndex, NpcSequenceSlotPreset))
             {
-                Debug.LogError($"{PagLogPrefix} npc sequence slot0 prepare failed: {label}");
-                StopNpcSequencePlayback();
+                Debug.LogError($"{PagLogPrefix} npc sequence {SlotAnchorNames[slotIndex]} prepare failed: {label}");
+                StopNpcSequencePlayback(npcIndex);
                 RefreshPagStatusText();
                 yield break;
             }
 
-            PagSlotBinding slot = _slots[0];
+            PagSlotBinding slot = _slots[slotIndex];
             PagController controller = slot?.Controller;
             if (controller == null)
             {
-                Debug.LogError($"{PagLogPrefix} npc sequence controller missing: {label}");
-                StopNpcSequencePlayback();
+                Debug.LogError($"{PagLogPrefix} npc sequence controller missing: {label} on {SlotAnchorNames[slotIndex]}");
+                StopNpcSequencePlayback(npcIndex);
                 RefreshPagStatusText();
                 yield break;
             }
 
-            _slotPlaying[0] = true;
+            _slotPlaying[slotIndex] = true;
             RefreshPagStatusText();
 
             string positionType = "center";
@@ -455,7 +492,7 @@ namespace SlotZhuZaiJinBi1700
             if (!slot.PreparePlay(PagUseFguiTexture, PagFguiMaxDisplaySide, PagFguiFps))
             {
                 Debug.LogError($"{PagLogPrefix} npc sequence PreparePlay failed: {label}");
-                StopNpcSequencePlayback();
+                StopNpcSequencePlayback(npcIndex);
                 RefreshPagStatusText();
                 yield break;
             }
@@ -466,7 +503,7 @@ namespace SlotZhuZaiJinBi1700
             if (!controller.PlayFguiGpuSequence(segments, positionType, layoutExtra))
             {
                 Debug.LogError($"{PagLogPrefix} npc sequence PlayFguiGpuSequence failed: {label}");
-                StopNpcSequencePlayback();
+                StopNpcSequencePlayback(npcIndex);
                 RefreshPagStatusText();
                 yield break;
             }
@@ -476,7 +513,7 @@ namespace SlotZhuZaiJinBi1700
             if (controller == null || !controller.PlayStarted)
             {
                 Debug.LogError($"{PagLogPrefix} npc sequence did not start within {NpcSequencePlayStartedTimeoutSec}s: {label}");
-                StopNpcSequencePlayback();
+                StopNpcSequencePlayback(npcIndex);
                 RefreshPagStatusText();
                 yield break;
             }
@@ -491,15 +528,15 @@ namespace SlotZhuZaiJinBi1700
             totalTimeout = Mathf.Max(totalTimeout, sequence.Length * NpcSequenceSegmentDurationFallbackSec + 5f);
             yield return controller.WaitForFguiGpuSequenceFinished(totalTimeout);
 
-            if (sessionId != _npcSequenceSessionId)
+            if (sessionId != _npcSequenceSessionId[npcIndex])
             {
                 yield break;
             }
 
-            StopNpcSequencePlayback();
+            StopNpcSequencePlayback(npcIndex);
             RefreshPagStatusText();
-            Debug.Log($"{PagLogPrefix} npc sequence finished: {label}");
-            _corNpcSequence = null;
+            Debug.Log($"{PagLogPrefix} npc sequence finished: {label} on {SlotAnchorNames[slotIndex]}");
+            _corNpcSequence[npcIndex] = null;
         }
 
         private static PagSegment[] BuildPagSegments(string[] sequence)
@@ -554,7 +591,7 @@ namespace SlotZhuZaiJinBi1700
                 GButton btn = contentPane.GetChild(PagGroupButtonNames[i])?.asButton;
                 if (btn != null)
                 {
-                    btn.selected = i + 1 == _selectedPlayCount;
+                    btn.selected = _pagGroupPlaying && i + 1 == _activePagGroupCount;
                 }
             }
         }
@@ -569,23 +606,30 @@ namespace SlotZhuZaiJinBi1700
             PagPresetConfig config = PagPresets[_selectedPagIndex];
             int playingCount = GetActiveSlotCount();
             string debugPart = PagDebugDistinctFilesPerSlot && _selectedPlayCount > 1 ? " 异文件=开" : string.Empty;
-            string npcPart = _npcSequenceShowing ? $" NPC连播={_activeNpcSequenceLabel}" : string.Empty;
+            string pagGroupPart = _pagGroupPlaying
+                ? $" PagGroup{_activePagGroupCount}=播放中"
+                : " PagGroup=关";
+            var activeNpcLabels = new List<string>();
+            for (int i = 0; i < MaxNpcSequenceCount; i++)
+            {
+                if (_npcSequenceShowing[i])
+                {
+                    activeNpcLabels.Add($"{NpcSequenceLabels[i]}@{SlotAnchorNames[NpcSlotIndexBase + i]}");
+                }
+            }
+
+            string npcPart = activeNpcLabels.Count > 0 ? $" NPC=[{string.Join(",", activeNpcLabels)}]" : string.Empty;
             string playingPart = playingCount > 0
                 ? $" 播放中={playingCount} SyncActive={PagGpuSyncGroup.IsActive} SyncMembers={PagConcurrentPlayback.ActiveMemberCount}{debugPart}{npcPart}"
                 : npcPart;
             _txtPagStatus.text =
-                $"PAG={config.Label} 组=PagGroup{_selectedPlayCount}{playingPart}";
+                $"PAG={config.Label}{pagGroupPart}{playingPart}";
         }
 
-        private static string GetPagLoaderName(int slotIndex)
-        {
-            return $"pagEffect{slotIndex + 1}";
-        }
+        /// <summary>每个 PT 实例仅含 pagEffect1；多路靠不同 PT 锚点区分。</summary>
+        private static string GetPagLoaderName(int slotIndex) => "pagEffect1";
 
-        private static string GetPagHolderName(int slotIndex)
-        {
-            return $"holder{slotIndex + 1}";
-        }
+        private static string GetPagHolderName(int slotIndex) => "holder1";
 
         private PagPresetConfig ResolveSlotPreset(int slotIndex, PagPresetConfig selectedPreset, int playCount)
         {
@@ -600,7 +644,7 @@ namespace SlotZhuZaiJinBi1700
 
         private void StartMultiPlayback()
         {
-            StopAllPlayback();
+            StopPagGroupPlaybackInternal(clearPlayingState: false);
             int sessionId = _playSessionId;
             PagPresetConfig config = PagPresets[_selectedPagIndex];
 
@@ -609,7 +653,7 @@ namespace SlotZhuZaiJinBi1700
                 _slotPlaying[i] = true;
             }
 
-            for (int i = _selectedPlayCount; i < MaxPlaySlots; i++)
+            for (int i = _selectedPlayCount; i < MaxPagGroupCount; i++)
             {
                 _slotPlaying[i] = false;
             }
@@ -854,10 +898,15 @@ namespace SlotZhuZaiJinBi1700
             _slotPlaying[slotIndex] = false;
         }
 
-        private void StopAllPlayback()
+        private void StopPagGroupPlaybackInternal(bool clearPlayingState)
         {
             _playSessionId++;
-            StopNpcSequencePlayback();
+
+            if (clearPlayingState)
+            {
+                _pagGroupPlaying = false;
+                _activePagGroupCount = 0;
+            }
 
             if (_corDumpAfterPlay != null)
             {
@@ -871,7 +920,24 @@ namespace SlotZhuZaiJinBi1700
                 _corMultiPlay = null;
             }
 
-            for (int i = 0; i < MaxPlaySlots; i++)
+            for (int i = 0; i < MaxPagGroupCount; i++)
+            {
+                StopSlot(i);
+            }
+        }
+
+        private void StopPagGroupPlayback()
+        {
+            StopPagGroupPlaybackInternal(clearPlayingState: true);
+            RefreshPagStatusText();
+        }
+
+        private void StopAllPlayback()
+        {
+            StopAllNpcSequencePlayback();
+            StopPagGroupPlaybackInternal(clearPlayingState: true);
+
+            for (int i = MaxPagGroupCount; i < MaxPlaySlots; i++)
             {
                 StopSlot(i);
             }

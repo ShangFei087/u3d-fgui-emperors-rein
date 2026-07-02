@@ -1,11 +1,11 @@
 {
-  "updated_at": 1782958682509,
+  "updated_at": 1782979586935,
   "hotfix_key": "hf_debug_android_20260630161224",
-  "hotfix_version": "1.2.23",
+  "hotfix_version": "1.2.28",
   "asset_bundle": {
     "manifest": {
-      "hash": "bcb13cd3da35013ef88748e87c3add87",
-      "size_bytes": 26475
+      "hash": "1d3bd3d39293d9f6682f1bd9ddd96d68",
+      "size_bytes": 26940
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
@@ -711,20 +711,38 @@
       "games/huo yan gong niu 3995/smallgame/art/effect/prefabs/ng_eff_zhuanpanzhongjiang03.unity3d": "64ddce83544c9d84168f69cc60e7b041",
       "games/panel/panel01/fguis.unity3d": "bc228e55b570f7326a49040c1e992562",
       "games/panel01/fguis.unity3d": "300996783f51d3089fe9ff4b89c33960",
-      "games/slot zhu zai jin bi 1700/fguis.unity3d": "072e78464a69ab7e478e5c0d2cb60642",
-      "games/slot zhu zai jin bi 1700/pag/bigwin/bigwin_idle1.unity3d": "d6056e17e23069310949134638c24aa7",
-      "games/slot zhu zai jin bi 1700/pag/bigwin/bigwin_start1.unity3d": "786916e7b0675818c760df0b01d05fa8",
-      "games/slot zhu zai jin bi 1700/pag/bigwin/megawin_idle1.unity3d": "bb2272d2f3c02005b80dfe5be48eac2f",
-      "games/slot zhu zai jin bi 1700/pag/bigwin/megawin_start1.unity3d": "7a80eb6af84fed93edfa19d5eb98a86a",
-      "games/slot zhu zai jin bi 1700/pag/bigwin/supwin_idle1.unity3d": "173fabf73b475b4be3f093d4257e7359",
-      "games/slot zhu zai jin bi 1700/pag/bigwin/supwin_start1.unity3d": "f1d2c2e33aafccf7fa2f01d70c1a0557",
+      "games/slot zhu zai jin bi 1700/fguis.unity3d": "97e7dbbd1f26afcb8948faa09ff5798d",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/bigwinnpc/bigwin_idle1.unity3d": "acd83a4433e9602008e1e4aa2b41bd39",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/bigwinnpc/bigwin_start1.unity3d": "a93789a8a2e1b6687cdb9ac143460328",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/bigwinnpc/megawin_idle1.unity3d": "138346e48bbd2e59181796d32aeac715",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/bigwinnpc/megawin_idle_gq.unity3d": "78a8743f390c7dc0f7f0d6114a74f6c9",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/bigwinnpc/megawin_start1.unity3d": "54395afd04ad4582686f96d29e521218",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/bigwinnpc/supwin_idle1.unity3d": "8ca4731fcbc81eed2eaca4f42f8330bd",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/bigwinnpc/supwin_start1.unity3d": "a891487ad1dcbaf20b5c6fc1f1fc698a",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/freenpc/wealth_fg_npc_settlement.unity3d": "d673fabfcd0add0f807d41f626189aaa",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/freenpc/wealth_fg_npc_upgrade1.unity3d": "dd91bba9ef7f5f493d45e590bfc35957",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/freenpc/wealth_fg_npc_upgrade2.unity3d": "37eb6a823d2bbdc06e07ac722aea6278",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/normalnpc/wealth_ng_npc_atmosphere.unity3d": "c57533911444346778906e7e430ae801",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/normalnpc/wealth_ng_npc_idle01.unity3d": "ad43faad68f9ac2ca9d5339b9695482d",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/normalnpc/wealth_ng_npc_idle02.unity3d": "cd8f8556a8747deafd00d3c4c682931e",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/normalnpc/wealth_ng_npc_not triggered.unity3d": "4dfdc7d53450422d88c1c21f9e7da7d7",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/normalnpc/wealth_ng_npc_not winning.unity3d": "ece14dd76444b6c611e5030736a4399d",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/normalnpc/wealth_ng_npc_trigger fg.unity3d": "54bd33ae4ec56f08076f8a9a75ffd5e6",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/normalnpc/wealth_ng_npc_trigger sg.unity3d": "afebe53a9bdfc2148cb172967c8d542f",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/normalnpc/wealth_ng_npc_win1.unity3d": "9530686f0fe71d8088788c6639dd5f2b",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/normalnpc/wealth_ng_npc_win2.unity3d": "ffc2d71793065058896834e5f8f76e10",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/normalnpc/wealth_ng_npc_win3.unity3d": "459b2a6c07a7d23ecaa891ba87f51353",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/rewardnpc/wealth_sg_npc_appear.unity3d": "d6d6e806252369986cfe119d4f1f4761",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/rewardnpc/wealth_sg_npc_idle1.unity3d": "fcf13ded079faf0867c5343317848fdd",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/rewardnpc/wealth_sg_npc_idle2.unity3d": "76272026462883b90577221094a378c4",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/rewardnpc/wealth_sg_npc_reset.unity3d": "d90a89496ac9d234b8df14775bbe1e50",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/rewardnpc/wealth_sg_npc_settlement1.unity3d": "7f41c8a1d86fa0d64a369b6d504f4c83",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/rewardnpc/wealth_sg_npc_settlement2.unity3d": "46c760a0591769d2444a75edc98875b5",
+      "games/slot zhu zai jin bi 1700/pag/3997npc/rewardnpc/wealth_sg_npc_settlement3.unity3d": "04634d458a1b4d3977f98e5e1e8ba056",
       "games/slot zhu zai jin bi 1700/pag/bigwin_1024.unity3d": "4aa9302b0ef333abc6cd90ffa1fa935a",
       "games/slot zhu zai jin bi 1700/pag/bigwin_1080.unity3d": "d0c440713c9b5deecf68bbbdd445ec68",
-      "games/slot zhu zai jin bi 1700/pag/caihongfeidie.unity3d": "23ddbd2708b00b5faefdee0a013cc1df",
-      "games/slot zhu zai jin bi 1700/pag/dragon.unity3d": "70f4bba5e827bd3ca698d6520d7124f5",
       "games/slot zhu zai jin bi 1700/pag/fade.unity3d": "e3f8a0b0ac38a2efed3d5e7e0254a9d9",
       "games/slot zhu zai jin bi 1700/pag/feizhou.unity3d": "2132ad29aab6a86e1b57d23eddabc2c3",
-      "games/slot zhu zai jin bi 1700/pag/fire.unity3d": "90793752ac1eff79afb997d6406cc636",
       "games/slot zhu zai jin bi 1700/pag/lopp/glow_in_full_1920.unity3d": "021873089a383a4b5a3746df7acb2b4e",
       "games/slot zhu zai jin bi 1700/pag/lopp/glow_loop_720.unity3d": "258cc4e328ae498d22f2b68aace89356",
       "games/slot zhu zai jin bi 1700/pag/lopp/glow_loop_full_1920.unity3d": "2cde6beec3a08fb31032b1505178164f",
@@ -916,8 +934,8 @@
       "size_bytes": 169984
     },
     "HotFix": {
-      "hash": "e6579d2bfa09835106257c1a811dfbc7",
-      "size_bytes": 2099712
+      "hash": "90486e1304a470671d3d1646c2c12298",
+      "size_bytes": 2108416
     }
   },
   "hotfix_dll_load_order": [
