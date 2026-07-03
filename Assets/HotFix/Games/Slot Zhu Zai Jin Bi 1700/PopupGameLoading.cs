@@ -297,8 +297,8 @@ namespace SlotZhuZaiJinBi1700
             }
             else
             {
-                //PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinBiPageGameMain);
-                PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinPageTest);
+                PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinBiPageGameMain);
+                //PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinPageTest);
             }
         }
 

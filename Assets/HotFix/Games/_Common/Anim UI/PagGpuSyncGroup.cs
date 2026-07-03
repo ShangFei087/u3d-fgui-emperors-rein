@@ -150,6 +150,9 @@ public static class PagGpuSyncGroup
             return;
         }
 
+        bool hadInFlightBatch = s_expectedPresentCount > 0
+            && (s_activeFlushMembers.Contains(instanceKey) || s_pendingRenderRequests.ContainsKey(instanceKey));
+
         SetExternalPumpFor(instanceKey, false);
         s_members.Remove(instanceKey);
         s_boundMembers.Remove(instanceKey);
@@ -164,6 +167,11 @@ public static class PagGpuSyncGroup
         {
             EndGroup();
             return;
+        }
+
+        if (hadInFlightBatch)
+        {
+            ReconcilePresentBarrierAfterLeave(instanceKey);
         }
 
         Debug.Log($"[PAG Sync] TryLeave {instanceKey} remaining={s_members.Count} syncReady={s_syncReadyMembers.Count}");
@@ -363,7 +371,7 @@ public static class PagGpuSyncGroup
         {
             (controller.TextureSlotId, instanceKey, 0.0)
         };
-        for (int warmup = 0; warmup < PagController.GpuWarmupFlushCount; warmup++)
+        for (int warmup = 0; warmup < PagController.LateJoinGpuWarmupFlushCount; warmup++)
         {
             yield return PagUnityGlBridge.FlushBatchCoroutine(warmupFlushItems);
         }
@@ -372,23 +380,34 @@ public static class PagGpuSyncGroup
         controller.MarkGpuDisplayReady();
         s_deferVisibleUntilPresent.Add(instanceKey);
 
-        yield return WaitUntilFlushPresentIdle();
+        yield return WaitUntilFlushPresentIdle(LateJoinFlushIdleTimeoutSec);
         s_syncReadyMembers.Add(instanceKey);
 
         Debug.Log($"[PAG Sync] IntegrateLateMember done {instanceKey} members={s_members.Count} syncReady={s_syncReadyMembers.Count} deferVisible=true");
         KickGroupFrameIfIdle();
     }
 
-    private static IEnumerator WaitUntilFlushPresentIdle()
+    private const float LateJoinFlushIdleTimeoutSec = 0.5f;
+
+    private static IEnumerator WaitUntilFlushPresentIdle(float timeoutSec)
     {
-        while (s_expectedPresentCount > 0 && s_presentedMembers.Count < s_expectedPresentCount)
+        float deadline = Time.unscaledTime + timeoutSec;
+        while (s_expectedPresentCount > 0 && s_presentedMembers.Count < s_expectedPresentCount
+               && Time.unscaledTime < deadline)
         {
             yield return null;
         }
 
-        while (s_pendingRenderRequests.Count > 0)
+        deadline = Time.unscaledTime + timeoutSec;
+        while (s_pendingRenderRequests.Count > 0 && Time.unscaledTime < deadline)
         {
             yield return null;
+        }
+
+        if (s_expectedPresentCount > 0 || s_pendingRenderRequests.Count > 0)
+        {
+            Debug.LogWarning($"[PAG Sync] WaitUntilFlushPresentIdle timeout "
+                + $"present={s_presentedMembers.Count}/{s_expectedPresentCount} pending={s_pendingRenderRequests.Count}");
         }
     }
 
@@ -431,10 +450,96 @@ public static class PagGpuSyncGroup
 
     private static void RequestNextFrameForSyncReadyMembers()
     {
-        foreach (string key in s_syncReadyMembers)
+        if (s_syncReadyMembers.Count == 0)
+        {
+            return;
+        }
+
+        PagController.RequestNextGpuFrameBatch(s_syncReadyMembers);
+    }
+
+    /// <summary>成员 TryLeave 后 reconcile 进行中的 present 屏障，避免 expectedPresentCount 卡死。</summary>
+    private static void ReconcilePresentBarrierAfterLeave(string leftInstanceKey)
+    {
+        if (s_expectedPresentCount <= 0)
+        {
+            return;
+        }
+
+        int remainingActive = s_activeFlushMembers.Count;
+        if (remainingActive == 0)
+        {
+            ClearInFlightBatchState();
+            CancelAdvanceCoroutine();
+            RequestNextFrameForSyncReadyMembers();
+            return;
+        }
+
+        s_expectedPresentCount = remainingActive;
+
+        var stalePresented = new List<string>();
+        foreach (string key in s_presentedMembers)
+        {
+            if (!s_activeFlushMembers.Contains(key))
+            {
+                stalePresented.Add(key);
+            }
+        }
+
+        for (int i = 0; i < stalePresented.Count; i++)
+        {
+            s_presentedMembers.Remove(stalePresented[i]);
+        }
+
+        if (AreAllActiveFlushMembersPresented())
+        {
+            Debug.Log($"[PAG Sync] TryLeave barrier advanced left={leftInstanceKey} syncReady={s_syncReadyMembers.Count}");
+            CompleteFlushBatchAndAdvanceFrame();
+            return;
+        }
+
+        Debug.Log($"[PAG Sync] TryLeave barrier reset left={leftInstanceKey} "
+            + $"present={s_presentedMembers.Count}/{s_expectedPresentCount}");
+        ClearInFlightBatchState();
+        CancelAdvanceCoroutine();
+        RequestNextFrameForSyncReadyMembers();
+    }
+
+    private static bool AreAllActiveFlushMembersPresented()
+    {
+        if (s_activeFlushMembers.Count == 0)
+        {
+            return false;
+        }
+
+        foreach (string key in s_activeFlushMembers)
+        {
+            if (!s_presentedMembers.Contains(key))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static void CompleteFlushBatchAndAdvanceFrame()
+    {
+        InvalidateFguiBatchingForActiveFlushMembers();
+        s_presentedMembers.Clear();
+        s_activeFlushMembers.Clear();
+        s_expectedPresentCount = 0;
+
+        CancelAdvanceCoroutine();
+        s_advanceCoroutine = PagCallbackHub.Instance.RunCoroutine(AdvanceGroupFrame());
+    }
+
+    private static void InvalidateFguiBatchingForActiveFlushMembers()
+    {
+        foreach (string key in s_activeFlushMembers)
         {
             PagController controller = PagControllerRegistry.Resolve(key);
-            controller?.RequestNextGpuFrameFromSyncGroup();
+            controller?.InvalidateFguiBatchingFromSyncGroup();
         }
     }
 
@@ -562,7 +667,7 @@ public static class PagGpuSyncGroup
         }
 
         PagController controller = PagControllerRegistry.Resolve(instanceKey);
-        controller?.OnGpuFramePresentedForFgui();
+        controller?.OnGpuFramePresentedForFgui(skipInvalidate: true);
         TryRevealDeferredVisible(instanceKey);
 
         s_presentedMembers.Add(instanceKey);
@@ -571,14 +676,8 @@ public static class PagGpuSyncGroup
             return;
         }
 
-        s_presentedMembers.Clear();
-        s_activeFlushMembers.Clear();
-        s_expectedPresentCount = 0;
-
         Debug.Log($"[PAG Sync] present tick syncReady={s_syncReadyMembers.Count}");
-
-        CancelAdvanceCoroutine();
-        s_advanceCoroutine = PagCallbackHub.Instance.RunCoroutine(AdvanceGroupFrame());
+        CompleteFlushBatchAndAdvanceFrame();
     }
 
     private static IEnumerator AdvanceGroupFrame()

@@ -87,10 +87,26 @@ Development Build + Autoconnect Profiler 便于对照 Timeline 中 `PAG.*` 标�
 |------|------|-----|--------|------|
 | 三单路并发（可选） | PAG1+PAG2+PAG3 同开 | _待填_ | _待填_ | ≥25，无 tearing |
 
+### PageTest NPC 双路 SyncGroup（2026-07 正式验收）
+
+与 PageGameMain PAG1+P3 **分开验收**。入口：[`PageTest.cs`](../../../Assets/HotFix/Games/Slot Zhu Zai Jin Bi 1700/PageTest.cs)，`NpcSequenceUseGpuSyncGroup=true`（冻结默认）。
+
+| 用例 | 操作 | FPS | 闪屏 | log |
+|------|------|-----|------|-----|
+| **NPC 双路（必过）** | 先 **btnBigwinNpc**（PT5）→ 预热 5s → 再 **btnNormalNpc**（PT7）→ 采样 30s | **≥28** | 无整屏闪 | `RecoverFromStall` ≈0 |
+| **Free+Normal 生命周期（B0）** | 先 **btnFreeNpc**（PT6）→ 再 **btnNormalNpc**（PT7），等 Free 播完 | Normal **继续播** | — | TryLeave 后无屏障卡死 |
+| NPC 三路（参考） | + btnFreeNpc | 记录 | 记录 | 有/无 stall |
+
 ```powershell
 cd Tools\AndroidBuild
+# PageGameMain 双路（自动化）
 .\capture_pag_dual_logcat.ps1 -Combo PAG1_PAG2 -DurationSec 30
+
+# PageTest NPC 双路（手动点按钮后按 Enter）
+.\capture_pag_dual_logcat.ps1 -Combo NPC_BIGWIN_NORMAL -DurationSec 30
 ```
+
+**通过线：** FPS ≥28、无整屏闪、30s 内 `RecoverFromStall` 计数 ≈0。填表见 [`PAG_PERF_RETEST_RESULTS.md`](PAG_PERF_RETEST_RESULTS.md)。
 
 ### C1+C2+C3 预期收益（框架层，与 .pag 内容无关）
 

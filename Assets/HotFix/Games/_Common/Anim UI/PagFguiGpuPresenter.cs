@@ -166,6 +166,13 @@ public sealed class PagFguiGpuPresenter
 
     public void OnGpuFrameReady()
     {
+        UpdateGpuFrameTexture();
+        InvalidateBatchingOnce();
+    }
+
+    /// <summary>SyncGroup batch present：仅更新纹理，Invalidate 由组级统一触发。</summary>
+    public void UpdateGpuFrameTexture()
+    {
         if (_loader == null)
         {
             return;
@@ -180,7 +187,10 @@ public sealed class PagFguiGpuPresenter
         {
             _externalTexture.UpdateExternalTexture(_boundNativePtr);
         }
+    }
 
+    public void InvalidateBatchingOnce()
+    {
         InvalidateLoaderBatching();
     }
 
@@ -443,6 +453,21 @@ public sealed class PagFguiGpuPresenter
         if (loaderName == "pagEffect11")
         {
             return "holder11";
+        }
+
+        if (loaderName == "pagEffect12")
+        {
+            return "holder12";
+        }
+
+        if (loaderName == "pagEffect13")
+        {
+            return "holder13";
+        }
+
+        if (loaderName == "pagEffect14")
+        {
+            return "holder14";
         }
 
         return "holder";

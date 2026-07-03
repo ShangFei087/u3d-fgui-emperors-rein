@@ -41,6 +41,29 @@ cd Tools\AndroidBuild
 .\capture_pag_dual_logcat.ps1 -Combo PAG1_PAG3 -DurationSec 30
 ```
 
+## NPC 双路 SyncGroup（PageTest — 待真机填）
+
+| 用例 | 操作 | FPS | RecoverFromStall 30s | 整屏闪 | Pass |
+|------|------|-----|----------------------|--------|------|
+| Bigwin+Normal | PT5 → 5s → PT7，采样 30s | _待填_ | _待填_ | _待填_ | ≥28，stall≈0 |
+| Free+Normal（B0） | PT6 → PT7，等 Free 播完 | Normal 继续 | _待填_ | — | Normal 不冻结 |
+| Normal+Free（B0 反向） | PT7 → PT6，等先结束者 | 后者继续 | _待填_ | — | 互不影响 |
+
+```powershell
+cd Tools\AndroidBuild
+.\capture_pag_dual_logcat.ps1 -Combo NPC_BIGWIN_NORMAL -DurationSec 30
+# 手动：PageTest 先 btnBigwinNpc，5s 后 btnNormalNpc，Enter 后开始抓 log
+```
+
+### SyncGroup 优化 hotfix（2026-07-03）
+
+| ID | 文件 | 改动 |
+|----|------|------|
+| B0 | `PagGpuSyncGroup.cs` | `TryLeave` present 屏障 reconcile |
+| S2 | `PagGpuSyncGroup.cs`, `PagFguiGpuPresenter.cs` | batch present 后统一 `InvalidateBatchingState` |
+| S3 | `PagGpuSyncGroup.cs`, `PagController.cs` | Late join warmup 2→1；`WaitUntilFlushPresentIdle` 超时 0.5s |
+| S4 | `PagGpuSyncGroup.cs`, `PagController.cs`, `PagBridge.java` | `RequestNextGpuFrameBatch` 单次 JNI |
+
 ## 决策
 
 | 项 | 状态 |

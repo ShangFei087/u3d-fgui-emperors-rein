@@ -1,11 +1,11 @@
 {
-  "updated_at": 1783043050841,
+  "updated_at": 1782979586935,
   "hotfix_key": "hf_debug_android_20260630161224",
-  "hotfix_version": "1.2.35",
+  "hotfix_version": "1.2.28",
   "asset_bundle": {
     "manifest": {
-      "hash": "e6e731b51a6876ac786d8798baaae8de",
-      "size_bytes": 26909
+      "hash": "1d3bd3d39293d9f6682f1bd9ddd96d68",
+      "size_bytes": 26940
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
@@ -711,7 +711,7 @@
       "games/huo yan gong niu 3995/smallgame/art/effect/prefabs/ng_eff_zhuanpanzhongjiang03.unity3d": "64ddce83544c9d84168f69cc60e7b041",
       "games/panel/panel01/fguis.unity3d": "bc228e55b570f7326a49040c1e992562",
       "games/panel01/fguis.unity3d": "300996783f51d3089fe9ff4b89c33960",
-      "games/slot zhu zai jin bi 1700/fguis.unity3d": "4de1e8a99abb4205c20446d20daa0e9b",
+      "games/slot zhu zai jin bi 1700/fguis.unity3d": "97e7dbbd1f26afcb8948faa09ff5798d",
       "games/slot zhu zai jin bi 1700/pag/3997npc/bigwinnpc/bigwin_idle1.unity3d": "acd83a4433e9602008e1e4aa2b41bd39",
       "games/slot zhu zai jin bi 1700/pag/3997npc/bigwinnpc/bigwin_start1.unity3d": "a93789a8a2e1b6687cdb9ac143460328",
       "games/slot zhu zai jin bi 1700/pag/3997npc/bigwinnpc/megawin_idle1.unity3d": "138346e48bbd2e59181796d32aeac715",
@@ -742,6 +742,7 @@
       "games/slot zhu zai jin bi 1700/pag/bigwin_1024.unity3d": "4aa9302b0ef333abc6cd90ffa1fa935a",
       "games/slot zhu zai jin bi 1700/pag/bigwin_1080.unity3d": "d0c440713c9b5deecf68bbbdd445ec68",
       "games/slot zhu zai jin bi 1700/pag/fade.unity3d": "e3f8a0b0ac38a2efed3d5e7e0254a9d9",
+      "games/slot zhu zai jin bi 1700/pag/feizhou.unity3d": "2132ad29aab6a86e1b57d23eddabc2c3",
       "games/slot zhu zai jin bi 1700/pag/lopp/glow_in_full_1920.unity3d": "021873089a383a4b5a3746df7acb2b4e",
       "games/slot zhu zai jin bi 1700/pag/lopp/glow_loop_720.unity3d": "258cc4e328ae498d22f2b68aace89356",
       "games/slot zhu zai jin bi 1700/pag/lopp/glow_loop_full_1920.unity3d": "2cde6beec3a08fb31032b1505178164f",
@@ -933,8 +934,8 @@
       "size_bytes": 169984
     },
     "HotFix": {
-      "hash": "5edcd0bf3c2be7a5649f2434d8d2c5f3",
-      "size_bytes": 2117120
+      "hash": "90486e1304a470671d3d1646c2c12298",
+      "size_bytes": 2108416
     }
   },
   "hotfix_dll_load_order": [

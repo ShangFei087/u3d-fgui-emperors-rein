@@ -1,5 +1,5 @@
 param(
-    [ValidateSet("PAG1_PAG2", "PAG1_PAG3", "PAG1_PAG5", "PAG5_PAG2", "PAG7_PAG2")]
+    [ValidateSet("PAG1_PAG2", "PAG1_PAG3", "PAG1_PAG5", "PAG5_PAG2", "PAG7_PAG2", "NPC_BIGWIN_NORMAL", "NPC_FREE_NORMAL")]
     [string]$Combo = "PAG1_PAG2",
     [int]$DurationSec = 30,
     [string]$Serial = ""
@@ -16,6 +16,8 @@ $help = @{
     PAG1_PAG5 = "1) Click PAG1, wait 5s. 2) Click PAG5 (glow 720). Capture 30s."
     PAG5_PAG2 = "1) Click PAG5, wait 5s. 2) Click PAG2. Capture 30s."
     PAG7_PAG2 = "1) Click PAG7, wait 5s. 2) Click PAG2. Capture 30s."
+    NPC_BIGWIN_NORMAL = "PageTest: 1) btnBigwinNpc (PT5), wait 5s. 2) btnNormalNpc (PT7). Capture 30s. Pass: FPS>=28, RecoverFromStall~0."
+    NPC_FREE_NORMAL = "PageTest B0: 1) btnFreeNpc (PT6). 2) btnNormalNpc (PT7). Wait Free finish; Normal must keep playing. Capture 30s."
 }
 
 Write-Host "Combo=$Combo Duration=${DurationSec}s"

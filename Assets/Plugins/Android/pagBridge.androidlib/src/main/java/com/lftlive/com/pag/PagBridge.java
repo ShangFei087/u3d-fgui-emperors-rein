@@ -614,6 +614,30 @@ public final class PagBridge {
         }
     }
 
+    /** SyncGroup 批量要帧：单次 JNI 调用，主 Looper 内顺序 requestNextGpuFrame。 */
+    public static void RequestNextGpuFrameBatch(String[] instanceKeys) {
+        if (instanceKeys == null || instanceKeys.length == 0) {
+            return;
+        }
+        Runnable action = () -> {
+            for (String instanceKey : instanceKeys) {
+                if (instanceKey == null) {
+                    continue;
+                }
+                String key = normalizeKey(instanceKey);
+                PagOverlayManager manager = getManager(key);
+                if (manager != null) {
+                    manager.requestNextGpuFrame();
+                }
+            }
+        };
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            action.run();
+        } else {
+            sMainHandler.post(action);
+        }
+    }
+
     public static void ReplaceText(int index, String text) {
         ReplaceText(DEFAULT_INSTANCE, index, text);
     }

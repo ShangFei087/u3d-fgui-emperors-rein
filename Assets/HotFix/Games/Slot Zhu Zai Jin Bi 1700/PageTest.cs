@@ -127,6 +127,8 @@ namespace SlotZhuZaiJinBi1700
         private const string NpcPagFolderPrefix = "3997Npc/";
         private const float NpcSequencePlayStartedTimeoutSec = 45f;
         private const float NpcSequenceSegmentDurationFallbackSec = 8f;
+        /// <summary>NPC 多路同屏正式默认：纳入 PagGpuSyncGroup（≥28 FPS / 防整屏闪）。勿改 false。</summary>
+        private const bool NpcSequenceUseGpuSyncGroup = true;
 
         private static readonly PagPresetConfig NpcSequenceSlotPreset = new PagPresetConfig
         {
@@ -401,7 +403,8 @@ namespace SlotZhuZaiJinBi1700
             _npcSequenceShowing[index] = true;
             int sessionId = ++_npcSequenceSessionId[index];
             RefreshPagStatusText();
-            Debug.Log($"{PagLogPrefix} npc sequence start: {label} on {SlotAnchorNames[slotIndex]}");
+            Debug.Log($"{PagLogPrefix} npc sequence start: {label} on {SlotAnchorNames[slotIndex]} "
+                + $"syncGroup={NpcSequenceUseGpuSyncGroup}");
             _corNpcSequence[index] = PagCallbackHub.Instance.RunCoroutine(
                 NpcSequencePlaybackCoroutine(NpcSequencePlaylists[index], label, slotIndex, index, sessionId));
         }
@@ -498,9 +501,8 @@ namespace SlotZhuZaiJinBi1700
             }
 
             PagSegment[] segments = BuildPagSegments(sequence);
-            PagGpuSyncGroup.TryLeave(slot.InstanceKey);
 
-            if (!controller.PlayFguiGpuSequence(segments, positionType, layoutExtra))
+            if (!controller.PlayFguiGpuSequence(segments, positionType, layoutExtra, NpcSequenceUseGpuSyncGroup))
             {
                 Debug.LogError($"{PagLogPrefix} npc sequence PlayFguiGpuSequence failed: {label}");
                 StopNpcSequencePlayback(npcIndex);

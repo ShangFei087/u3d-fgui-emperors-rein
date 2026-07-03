@@ -35,6 +35,8 @@ public class PagController : IDisposable
     private const string JniLogTag = "PagBridgeUnity";
     /// <summary>P1：绑纹理后静默 flush 次数，预热 GPU 后再开播放墙钟。</summary>
     internal const int GpuWarmupFlushCount = 2;
+    /// <summary>Late join 路径 warmup 次数（低于首组，减轻第 2 路点开卡顿）。</summary>
+    internal const int LateJoinGpuWarmupFlushCount = 1;
 
     private static AndroidJavaClass _pagBridge;
     private static bool _initialized;
@@ -495,9 +497,61 @@ public class PagController : IDisposable
 #endif
     }
 
-    internal void OnGpuFramePresentedForFgui()
+    internal void OnGpuFramePresentedForFgui(bool skipInvalidate = false)
     {
-        _fguiPresenter.OnGpuFrameReady();
+        if (skipInvalidate)
+        {
+            _fguiPresenter.UpdateGpuFrameTexture();
+        }
+        else
+        {
+            _fguiPresenter.OnGpuFrameReady();
+        }
+    }
+
+    internal void InvalidateFguiBatchingFromSyncGroup()
+    {
+        _fguiPresenter.InvalidateBatchingOnce();
+    }
+
+    internal void RequestNextGpuFrameFromSyncGroup()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        SafeCall("RequestNextGpuFrame", () => _pagBridge.CallStatic("RequestNextGpuFrame", InstanceKey));
+#endif
+    }
+
+    internal static void RequestNextGpuFrameBatch(IEnumerable<string> instanceKeys)
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        if (_pagBridge == null || instanceKeys == null)
+        {
+            return;
+        }
+
+        var keys = new List<string>();
+        foreach (string key in instanceKeys)
+        {
+            if (!string.IsNullOrEmpty(key))
+            {
+                keys.Add(key);
+            }
+        }
+
+        if (keys.Count == 0)
+        {
+            return;
+        }
+
+        if (keys.Count == 1)
+        {
+            PagControllerRegistry.Resolve(keys[0])?.RequestNextGpuFrameFromSyncGroup();
+            return;
+        }
+
+        SafeCall("RequestNextGpuFrameBatch", () =>
+            _pagBridge.CallStatic("RequestNextGpuFrameBatch", (object)keys.ToArray()));
+#endif
     }
 
     internal bool StartFguiGpuPlaybackFromSyncGroup()
@@ -508,13 +562,6 @@ public class PagController : IDisposable
         return ok;
 #else
         return false;
-#endif
-    }
-
-    internal void RequestNextGpuFrameFromSyncGroup()
-    {
-#if UNITY_ANDROID && !UNITY_EDITOR
-        SafeCall("RequestNextGpuFrame", () => _pagBridge.CallStatic("RequestNextGpuFrame", InstanceKey));
 #endif
     }
 
@@ -1219,7 +1266,11 @@ public class PagController : IDisposable
     /// <summary>
     /// Phase4E：Native 播放列表无缝连播；C# 仅 Play 首段并等待整链 PlaybackFinished。
     /// </summary>
-    public bool PlayFguiGpuSequence(IReadOnlyList<PagSegment> segments, string positionType, string extra = "")
+    /// <param name="useGpuSyncGroup">
+    /// true：Play 时 TryJoin 动态合组（多 NPC 同屏防整屏闪）；false：退组独立出帧（默认，PAG4 单槽链等）。
+    /// </param>
+    public bool PlayFguiGpuSequence(IReadOnlyList<PagSegment> segments, string positionType, string extra = "",
+        bool useGpuSyncGroup = false)
     {
         if (segments == null || segments.Count == 0)
         {
@@ -1234,9 +1285,17 @@ public class PagController : IDisposable
 
         SetRepeatCount(segments[0].RepeatCount);
 #if UNITY_ANDROID && !UNITY_EDITOR
-        PagGpuSyncGroup.TryLeave(InstanceKey);
-        _skipAutoSyncJoinForPlaylist = true;
-        LogJni($"PlayFguiGpuSequence: skip SyncGroup join instance={InstanceKey} segments={segments.Count}");
+        if (useGpuSyncGroup)
+        {
+            _skipAutoSyncJoinForPlaylist = false;
+            LogJni($"PlayFguiGpuSequence: SyncGroup join enabled instance={InstanceKey} segments={segments.Count}");
+        }
+        else
+        {
+            PagGpuSyncGroup.TryLeave(InstanceKey);
+            _skipAutoSyncJoinForPlaylist = true;
+            LogJni($"PlayFguiGpuSequence: skip SyncGroup join instance={InstanceKey} segments={segments.Count}");
+        }
 #endif
         return PlayPag(segments[0].PagFileName, positionType, extra);
     }
