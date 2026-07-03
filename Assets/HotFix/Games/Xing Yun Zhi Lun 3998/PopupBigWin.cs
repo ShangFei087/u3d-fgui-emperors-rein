@@ -154,20 +154,20 @@ namespace XingYunZhiLun_3998
                 {
                     //播放动画
                     playCount++;
-                    //animatorBigWin.Rebind();
-                    //animatorBigWin.Update(0f);
+                    //bigWinAnim.Rebind();
+                    //bigWinAnim.Update(0f);
                     bigWinAnim.Play(WinOpenString[playCount]);
-                    TimerCallback innerCallback = innerObj =>
+                    if (playCount == WinIndex)
                     {
-                        if (playCount == WinIndex)
+                        TimerCallback innerCallback = innerObj =>
                         {
                             NumberAnimation.Instance.StopAllAnimations();
                             anchorScore.text = score.ToString();
                             AniEnd();
-                        }
-                    };
-                    Timers.inst.Add(3.5f, 1, innerCallback);
-                    _timerCallbacks.Add(innerCallback);
+                        };
+                        Timers.inst.Add(3.5f, 1, innerCallback);
+                        _timerCallbacks.Add(innerCallback);
+                    }
                 };
                 if (WinIndex == 0)
                 {

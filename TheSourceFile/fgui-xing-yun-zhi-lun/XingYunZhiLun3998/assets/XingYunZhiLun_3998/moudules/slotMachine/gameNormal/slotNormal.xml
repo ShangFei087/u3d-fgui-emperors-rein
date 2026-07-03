@@ -4,11 +4,10 @@
     <image id="n1_a666" name="n1" src="a666agi" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_base.png" xy="-15,557" size="543,104" group="n3_a666" visible="false"/>
     <image id="n2_a666" name="n2" src="a666agi" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_base.png" xy="1070,557" size="543,104" group="n3_a666" scale="-1,1" visible="false"/>
     <group id="n3_a666" name="n3" xy="-15,557" size="1628,104"/>
-    <image id="n11_a666" name="n11" src="a666agg" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_back.png" xy="0,39" group="n6_a666"/>
-    <image id="n4_a666" name="n4" src="a666agh" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid.png" xy="-13,37" size="89,521" group="n6_a666" visible="false"/>
-    <image id="n12_a666" name="n12" src="a666agg" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_back.png" xy="1055,43" group="n6_a666" scale="-1,1"/>
-    <image id="n5_a666" name="n5" src="a666agh" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid.png" xy="1068,37" size="89,521" group="n6_a666" scale="-1,1" visible="false"/>
-    <group id="n6_a666" name="n6" xy="-13,37" size="1170,521"/>
+    <component id="n18_oebr" name="anchorBoard" src="oebral2" fileName="components/PopupGameNormalGame/AnchorBoard.xml" xy="550,-86" pivot="0.5,0.5" anchor="true"/>
+    <image id="n4_a666" name="n4" src="a666agh" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid.png" xy="-13,37" size="89,521" group="n17_oebr" visible="false"/>
+    <image id="n5_a666" name="n5" src="a666agh" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid.png" xy="1068,37" size="89,521" group="n17_oebr" scale="-1,1" visible="false"/>
+    <group id="n17_oebr" name="n17" xy="-13,37" size="1170,521"/>
     <image id="n7_a666" name="n7" src="wrw6akf" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid(1).png" xy="-18,-96" size="546,758" group="n10_a666"/>
     <image id="n8_a666" name="n8" src="wrw6akf" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid(1).png" xy="1072,-96" group="n10_a666" scale="-1,1"/>
     <group id="n10_a666" name="n10" xy="-18,-96" size="1634,758"/>
