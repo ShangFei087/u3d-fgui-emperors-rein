@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<component size="160,240">
+
+  <displayList>
+
+    <graph id="n0_combo" name="n0" xy="0,0" size="160,240" touchable="false" type="rect" lineSize="0" fillColor="#ffdddddd">
+
+      <relation target="" sidePair="width-width,height-height"/>
+
+    </graph>
+
+    <list id="n1_combo" name="list" xy="0,0" size="160,240" overflow="scroll" defaultItem="ui://zcotsi26/combo8a">
+
+      <relation target="" sidePair="width-width"/>
+
+    </list>
+
+  </displayList>
+
+  <relation target="n1_combo" sidePair="height-height"/>
+
+</component>
+

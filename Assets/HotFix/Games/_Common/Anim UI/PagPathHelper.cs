@@ -12,56 +12,8 @@ public static class PagPathHelper
 {
     private const string LogPrefix = "[PAG Path]";
 
-    /// <summary>相对 GameRes 的 PAG 目录，可按游戏修改。</summary>
-    public const string DefaultGamePagFolder = "Games/Slot Zhu Zai Jin Bi 1700/Pag";
-
-    /// <summary>Java PagCompositionCache LRU 上限，须与 DefaultGamePagPreloadFiles 条目数一致。</summary>
+    /// <summary>Java PagCompositionCache LRU 上限；各游戏 PagPreloadFiles 条目数不得超过此值。</summary>
     public const int MaxCompositionCacheSize = 40;
-
-    /// <summary>1700 Loading 预热：核心 Pag + 3997Npc（共 40，与 LRU 上限一致）。</summary>
-    public static readonly string[] DefaultGamePagPreloadFiles =
-    {
-        "BigWin_1024.pag",
-        "Fade.pag",
-        "Fire.pag",
-        "FeiZhou.pag",
-        "Dragon.pag",
-        "CaiHongFeiDie.pag",
-        "XingXing1.pag",
-        "XingXing2.pag",
-        "XingXing3.pag",
-        "BigWin/bigwin_start1.pag",
-        "BigWin/bigwin_idle1.pag",
-        "BigWin/supwin_start1.pag",
-        "BigWin/supwin_idle1.pag",
-        "BigWin/megawin_start1.pag",
-        "BigWin/megawin_idle1.pag",
-        "Lopp/glow_loop_720.pag",
-        "Lopp/glow_loop_half_1920.pag",
-        "Lopp/glow_loop_full_1920.pag",
-        "Lopp/glow_in_half_1920.pag",
-        "Lopp/glow_in_full_1920.pag",
-        "3997Npc/NormalNPC/Wealth_ng_npc_idle01.pag",
-        "3997Npc/NormalNPC/Wealth_ng_npc_idle02.pag",
-        "3997Npc/NormalNPC/Wealth_ng_npc_atmosphere.pag",
-        "3997Npc/NormalNPC/Wealth_ng_npc_not triggered.pag",
-        "3997Npc/NormalNPC/Wealth_ng_npc_not winning.pag",
-        "3997Npc/NormalNPC/Wealth_ng_npc_trigger fg.pag",
-        "3997Npc/NormalNPC/Wealth_ng_npc_trigger sg.pag",
-        "3997Npc/NormalNPC/Wealth_ng_npc_win1.pag",
-        "3997Npc/NormalNPC/Wealth_ng_npc_win2.pag",
-        "3997Npc/NormalNPC/Wealth_ng_npc_win3.pag",
-        "3997Npc/FreeNPC/Wealth_fg_npc_settlement.pag",
-        "3997Npc/FreeNPC/Wealth_fg_npc_upgrade1.pag",
-        "3997Npc/FreeNPC/Wealth_fg_npc_upgrade2.pag",
-        "3997Npc/RewardNPC/Wealth_sg_npc_appear.pag",
-        "3997Npc/RewardNPC/Wealth_sg_npc_idle1.pag",
-        "3997Npc/RewardNPC/Wealth_sg_npc_idle2.pag",
-        "3997Npc/RewardNPC/Wealth_sg_npc_reset.pag",
-        "3997Npc/RewardNPC/Wealth_sg_npc_settlement1.pag",
-        "3997Npc/RewardNPC/Wealth_sg_npc_settlement2.pag",
-        "3997Npc/RewardNPC/Wealth_sg_npc_settlement3.pag",
-    };
 
     private const string CacheFolderName = "PagCache";
     private const string AbCacheFolderName = "_ab";
@@ -108,7 +60,7 @@ public static class PagPathHelper
     /// <summary>
     /// 解析 PAG 本地绝对路径：优先 PagCache，否则从热更 AB 解压。
     /// </summary>
-    public static string Resolve(string fileName, string gamePagFolder = DefaultGamePagFolder)
+    public static string Resolve(string fileName, string gamePagFolder)
     {
         if (string.IsNullOrEmpty(fileName))
         {
@@ -213,7 +165,7 @@ public static class PagPathHelper
     }
 
     /// <summary>是否已在 PagCache 且体积合法（不触发 AB 解压）。</summary>
-    public static bool IsCached(string fileName, string gamePagFolder = DefaultGamePagFolder)
+    public static bool IsCached(string fileName, string gamePagFolder)
     {
         string cachePath = GetCachePathForLeaf(fileName, gamePagFolder);
         return IsValidPagFile(cachePath);
@@ -222,7 +174,7 @@ public static class PagPathHelper
     public static void WarmupPagCache(
         MonoBehaviour host,
         string fileName,
-        string gamePagFolder = DefaultGamePagFolder,
+        string gamePagFolder,
         Action<bool> onDone = null)
     {
         if (host == null)
@@ -237,7 +189,7 @@ public static class PagPathHelper
 
     public static IEnumerator WarmupPagCacheCoroutine(
         string fileName,
-        string gamePagFolder = DefaultGamePagFolder,
+        string gamePagFolder,
         Action<bool> onDone = null)
     {
         if (string.IsNullOrEmpty(fileName))
@@ -298,7 +250,7 @@ public static class PagPathHelper
     /// <summary>批量磁盘预热 + Java composition 预解码（Loading 阶段使用）。</summary>
     public static IEnumerator PreloadCompositionsCoroutine(
         string[] fileNames,
-        string gamePagFolder = DefaultGamePagFolder,
+        string gamePagFolder,
         Action<int, int> onProgress = null)
     {
         if (fileNames == null || fileNames.Length == 0)

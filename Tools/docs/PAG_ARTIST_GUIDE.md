@@ -293,7 +293,7 @@ GLoader 约定：
 
 ### 交付时须与程序确认（非美术独立完成）
 
-- [ ] 新文件名是否加入 Loading 预热列表（`PagPathHelper.DefaultGamePagPreloadFiles`）
+- [ ] 新文件名是否加入对应游戏 Loading 预热列表（`PopupGameLoading.PagPreloadFiles`）
 - [ ] 分段动画是否注册到业务播放序列（如 BigWin 数组）
 - [ ] 同屏路数是否在程序侧有对应槽位绑定
 

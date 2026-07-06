@@ -23,6 +23,8 @@ namespace SlotZhuZaiJinBi1700
         }
 
         private const string PagLogPrefix = "[1700 PageTest]";
+        /// <summary>相对 GameRes 的本游戏 PAG 目录（与 PopupGameLoading.GamePagFolder 保持一致）。</summary>
+        private const string GamePagFolder = "Games/Slot Zhu Zai Jin Bi 1700/Pag";
         private const bool PagUseFguiTexture = true;
         private const int PagFguiMaxDisplaySide = 0;
         private const int PagFguiFps = 30;
@@ -1029,7 +1031,7 @@ namespace SlotZhuZaiJinBi1700
         {
             if (_slots[slotIndex] == null)
             {
-                _slots[slotIndex] = new PagSlotBinding($"PageTestSlot{slotIndex}");
+                _slots[slotIndex] = new PagSlotBinding($"PageTestSlot{slotIndex}", GamePagFolder);
             }
 
             _slots[slotIndex].Attach(anchor, GetPagLoaderName(slotIndex));
@@ -1037,12 +1039,12 @@ namespace SlotZhuZaiJinBi1700
 
         private static bool IsPagCompositionReady(string pagFileName)
         {
-            if (!PagPathHelper.IsCached(pagFileName))
+            if (!PagPathHelper.IsCached(pagFileName, GamePagFolder))
             {
                 return false;
             }
 
-            string absPath = PagController.ResolvePagPath(pagFileName, PagPathHelper.DefaultGamePagFolder);
+            string absPath = PagController.ResolvePagPath(pagFileName, GamePagFolder);
             return PagController.IsCompositionCached(absPath);
         }
 
@@ -1060,7 +1062,7 @@ namespace SlotZhuZaiJinBi1700
                 yield break;
             }
 
-            yield return PagController.PreloadCompositionCoroutine(pagFileName);
+            yield return PagController.PreloadCompositionCoroutine(pagFileName, GamePagFolder);
             onDone?.Invoke(IsPagCompositionReady(pagFileName));
         }
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<component size="160,40" extention="Button">
+
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+
+  <displayList>
+
+    <graph id="n0_combo" name="n0" xy="0,0" size="160,40" touchable="false" type="rect" lineSize="0" fillColor="#ffe8e8e8">
+
+      <gearDisplay controller="button" pages="0"/>
+
+      <relation target="" sidePair="width-width,height-height"/>
+
+    </graph>
+
+    <graph id="n2_combo" name="n2" xy="0,0" size="160,40" touchable="false" type="rect" lineSize="0" fillColor="#ffd0d0d0">
+
+      <gearDisplay controller="button" pages="2,3"/>
+
+      <relation target="" sidePair="width-width,height-height"/>
+
+    </graph>
+
+    <graph id="n3_combo" name="n3" xy="0,0" size="160,40" touchable="false" type="rect" lineSize="0" fillColor="#ffc8c8c8">
+
+      <gearDisplay controller="button" pages="1"/>
+
+      <relation target="" sidePair="width-width,height-height"/>
+
+    </graph>
+
+    <text id="n1_combo" name="title" xy="4,0" size="152,40" touchable="false" fontSize="22" vAlign="middle" autoSize="none" singleLine="true" text="">
+
+      <relation target="" sidePair="width-width,height-height"/>
+
+    </text>
+
+  </displayList>
+
+  <Button mode="Radio"/>
+
+</component>
+

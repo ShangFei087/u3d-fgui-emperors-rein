@@ -32,6 +32,10 @@ namespace SlotZhuZaiJinBi1700
         [JsonProperty("pay_lines")] public List<List<int>> pay_lines { get; set; } //支付线
     }
 
+    /// <summary>
+    /// 1700 主游戏界面：老虎机逻辑、底部 Panel、PAG/Spine 测试区与彩金展示。
+    /// PreloadPage 阶段（isOpen=false）会完成 AB 与视觉初始化，供 Loading 关页前预热。
+    /// </summary>
     public class PageGameMain : MachinePageBase
     {
         public const string pkgName = "SlotZhuZaiJinBi1700";
@@ -41,10 +45,6 @@ namespace SlotZhuZaiJinBi1700
         private bool tipCoinIn = false; //提示硬币输入
         bool isAddCreditAnim => !(slotMachineCtrl.isStopImmediately == true || SBoxModel.Instance.isCoinOutImmediately);
         Coroutine corReelsTurn,corGameIdel, corGameOnce, corEffectSlowMotion, coGameAuto;
-        /// <summary>PAG1~PAG12 按钮各自持有的播放协程；OnClose 或再次点击时须 Stop。</summary>
-        Coroutine _corPagTest1, _corPagTest2, _corPagTest3, _corPagTest4;
-        Coroutine _corPagTest5, _corPagTest6, _corPagTest7, _corPagTest8, _corPagTest9;
-        Coroutine _corPagTest10, _corPagTest11, _corPagTest12;
         //加速框
         bool isEffectSlowMotion2 = false;
         bool isEffectSlowMotion3 = false;
@@ -78,153 +78,78 @@ namespace SlotZhuZaiJinBi1700
         private GameObject _clonePagTest;
         /// <summary>PAG1~PAG4、Spine1~Spine5 测试按钮是否已绑定 onClick。</summary>
         private bool _pagTestButtonsBound;
-        /// <summary>FGUI GLoader 名，对应 PAG1 / pagEffect1。</summary>
-        private const string PagTestLoader1 = "pagEffect1";
-        /// <summary>FGUI GLoader 名，对应 PAG2 / pagEffect2。</summary>
-        private const string PagTestLoader2 = "pagEffect2";
-        /// <summary>FGUI GLoader 名，对应 PAG3 / pagEffect3。</summary>
-        private const string PagTestLoader3 = "pagEffect3";
-        /// <summary>FGUI GLoader 名，对应 PAG4 三槽组播左槽 / pagEffect4。</summary>
-        private const string PagTestLoader4 = "pagEffect4";
-        /// <summary>FGUI GLoader 名，对应 PAG4 三槽组播中槽 / pagEffect5。</summary>
-        private const string PagTestLoader5 = "pagEffect5";
-        /// <summary>FGUI GLoader 名，对应 PAG4 三槽组播右槽 / pagEffect6。</summary>
-        private const string PagTestLoader6 = "pagEffect6";
-        /// <summary>FGUI GLoader 名，PAG5 glow / pagEffect7。</summary>
-        private const string PagTestLoaderGlow5 = "pagEffect7";
-        /// <summary>FGUI GLoader 名，PAG6 glow / pagEffect8。</summary>
-        private const string PagTestLoaderGlow6 = "pagEffect8";
-        /// <summary>FGUI GLoader 名，PAG7 glow / pagEffect9。</summary>
-        private const string PagTestLoaderGlow7 = "pagEffect9";
-        /// <summary>FGUI GLoader 名，PAG8 glow / pagEffect10。</summary>
-        private const string PagTestLoaderGlow8 = "pagEffect10";
-        /// <summary>FGUI GLoader 名，PAG9 glow / pagEffect11。</summary>
-        private const string PagTestLoaderGlow9 = "pagEffect11";
-        /// <summary>FGUI GLoader 名，PAG10 FreeNPC / pagEffect12。</summary>
-        private const string PagTestLoaderNpc10 = "pagEffect12";
-        /// <summary>FGUI GLoader 名，PAG11 NormalNPC / pagEffect13。</summary>
-        private const string PagTestLoaderNpc11 = "pagEffect13";
-        /// <summary>FGUI GLoader 名，PAG12 RewardNPC / pagEffect14。</summary>
-        private const string PagTestLoaderNpc12 = "pagEffect14";
-        private const int MaxPagTestNpcCount = 3;
-        /// <summary>预制体内 Spine 节点名，与 PAG 同场景对照（jp_pup_grand）。</summary>
-        private const string PagTestSpine1Node = "Spine Mecanim GameObject (jp_pup_grand)";
-        /// <summary>预制体内 Spine 节点名，与 PAG 同场景对照（ng_pop_bigWin）。</summary>
-        private const string PagTestSpine2Node = "Spine Mecanim GameObject (ng_pop_bigWin)";
-        /// <summary>Spine1 按钮播放的动画名。</summary>
-        private const string PagTestSpine1PlayAnim = "GRAND_in";
-        /// <summary>Spine2 按钮播放的动画名。</summary>
-        private const string PagTestSpine2PlayAnim = "bigwin_start";
-        /// <summary>预制体内 Spine 节点名（jp_pup_GRAND）。</summary>
-        private const string PagTestSpine3Node = "Spine Mecanim GameObject (jp_pup_GRAND)";
-        /// <summary>预制体内 Spine 节点名（ng_bor_boom1）。</summary>
-        private const string PagTestSpine4Node = "Spine Mecanim GameObject (ng_bor_boom1)";
-        /// <summary>预制体内 Spine 节点名（ng_ic_bigwin）。</summary>
-        private const string PagTestSpine5Node = "Spine Mecanim GameObject (ng_ic_bigwin)";
-        /// <summary>Spine3 按钮播放的动画名。</summary>
-        private const string PagTestSpine3PlayAnim = "in";
-        /// <summary>Spine4 按钮播放的动画名。</summary>
-        private const string PagTestSpine4PlayAnim = "start";
-        /// <summary>Spine5 按钮播放的动画名。</summary>
-        private const string PagTestSpine5PlayAnim = "bigwin_start";
-        /// <summary>PAG1 槽位绑定，pagEffect1。</summary>
-        private PagSlotBinding _pagTestSlot1;
-        /// <summary>PAG2 槽位绑定，pagEffect2。</summary>
-        private PagSlotBinding _pagTestSlot2;
-        /// <summary>PAG3 槽位绑定，pagEffect3。</summary>
-        private PagSlotBinding _pagTestSlot3;
-        /// <summary>PAG4 BigWin 顺序播放槽，pagEffect4。</summary>
-        private PagSlotBinding _pagTestSlot4;
-        /// <summary>PAG4 组播中槽，pagEffect5。</summary>
-        private PagSlotBinding _pagTestSlot5;
-        /// <summary>PAG4 组播右槽，pagEffect6。</summary>
-        private PagSlotBinding _pagTestSlot6;
-        /// <summary>PAG5 glow 槽，pagEffect7。</summary>
-        private PagSlotBinding _pagTestGlowSlot5;
-        /// <summary>PAG6 glow 槽，pagEffect8。</summary>
-        private PagSlotBinding _pagTestGlowSlot6;
-        /// <summary>PAG7 glow 槽，pagEffect9。</summary>
-        private PagSlotBinding _pagTestGlowSlot7;
-        /// <summary>PAG8 glow 槽，pagEffect10。</summary>
-        private PagSlotBinding _pagTestGlowSlot8;
-        /// <summary>PAG9 glow 槽，pagEffect11。</summary>
-        private PagSlotBinding _pagTestGlowSlot9;
-        /// <summary>PAG10 FreeNPC 槽，pagEffect12。</summary>
-        private PagSlotBinding _pagTestNpcSlot10;
-        /// <summary>PAG11 NormalNPC 槽，pagEffect13。</summary>
-        private PagSlotBinding _pagTestNpcSlot11;
-        /// <summary>PAG12 RewardNPC 槽，pagEffect14。</summary>
-        private PagSlotBinding _pagTestNpcSlot12;
-        /// <summary>PAG1 是否正在播放（按钮二次点击为停止）。</summary>
-        private bool _pagTest1Showing;
-        /// <summary>PAG2 是否正在播放。</summary>
-        private bool _pagTest2Showing;
-        /// <summary>PAG3 是否正在播放。</summary>
-        private bool _pagTest3Showing;
-        /// <summary>PAG4 BigWin 顺序播放是否进行中。</summary>
-        private bool _pagTest4Showing;
-        /// <summary>PAG5~9 glow 是否正在播放。</summary>
-        private bool _pagTest5Showing;
-        private bool _pagTest6Showing;
-        private bool _pagTest7Showing;
-        private bool _pagTest8Showing;
-        private bool _pagTest9Showing;
-        private bool _pagTest10Showing;
-        private bool _pagTest11Showing;
-        private bool _pagTest12Showing;
-        private readonly int[] _pagTestNpcSessionId = new int[MaxPagTestNpcCount];
-        /// <summary>PAG1 对应 composition 是否已预热，避免重复磁盘+解码。</summary>
-        private bool _pagTest1CacheWarmed;
-        /// <summary>PAG2 对应 composition 是否已预热。</summary>
-        private bool _pagTest2CacheWarmed;
-        /// <summary>PAG3 对应 composition 是否已预热。</summary>
-        private bool _pagTest3CacheWarmed;
-        /// <summary>PAG4 对应 composition 是否已预热。</summary>
-        private bool _pagTest4CacheWarmed;
-        private bool _pagTest5CacheWarmed;
-        private bool _pagTest6CacheWarmed;
-        private bool _pagTest7CacheWarmed;
-        private bool _pagTest8CacheWarmed;
-        private bool _pagTest9CacheWarmed;
-        private Animator _pagTestSpine1Animator;
-        private SkeletonMecanim _pagTestSpine1Mecanim;
-        private Animator _pagTestSpine2Animator;
-        private SkeletonMecanim _pagTestSpine2Mecanim;
-        private Animator _pagTestSpine3Animator;
-        private SkeletonMecanim _pagTestSpine3Mecanim;
-        private Animator _pagTestSpine4Animator;
-        private SkeletonMecanim _pagTestSpine4Mecanim;
-        private Animator _pagTestSpine5Animator;
-        private SkeletonMecanim _pagTestSpine5Mecanim;
-        /// <summary>Spine1 对照动画是否可见。</summary>
-        private bool _spineTest1Showing;
-        /// <summary>Spine2 对照动画是否可见。</summary>
-        private bool _spineTest2Showing;
-        /// <summary>Spine3 对照动画是否可见。</summary>
-        private bool _spineTest3Showing;
-        /// <summary>Spine4 对照动画是否可见。</summary>
-        private bool _spineTest4Showing;
-        /// <summary>Spine5 对照动画是否可见。</summary>
-        private bool _spineTest5Showing;
+        /// <summary>FGUI GLoader 名 pagEffect1~14：PAG1~4、旧组播槽、PAG5~12。</summary>
+        private static readonly string[] PagTestLoaderNames =
+        {
+            "pagEffect1",   // PAG1 Fade
+            "pagEffect2",   // PAG2
+            "pagEffect3",   // PAG3
+            "pagEffect4",   // PAG4 glow_loop_720
+            "pagEffect5",   // PAG5 glow_loop_half_1920
+            "pagEffect6",   // PAG6 glow_loop_half_1920 1.5x
+            "pagEffect7",   // PAG7 glow_loop_full_1920
+            "pagEffect8",  // PAG8 glow_in_full_1920->glow_loop_full_1920
+            "pagEffect9",  // PAG9 BigWinNPC
+            "pagEffect10",  // PAG10 FreeNPC
+            "pagEffect11",  // PAG11 NormalNPC
+            "pagEffect12",  // PAG12 RewardNPC
+        };
+        private const int PagTestLoaderCount = 12;
+        private const int PagTestPagButtonCount = 12;
+        private const int PagTestSpineCount = 5;
+        private const int MaxPagTestNpcCount = 4;
+
+        private struct PagTestSpineConfig
+        {
+            public string NodeName;
+            public string PlayAnim;
+        }
+
+        /// <summary>Spine1~5 对照节点名与按钮播放动画名。</summary>
+        private static readonly PagTestSpineConfig[] PagTestSpineConfigs =
+        {
+            new PagTestSpineConfig { NodeName = "Spine Mecanim GameObject (jp_pup_grand)", PlayAnim = "GRAND_in" },
+            new PagTestSpineConfig { NodeName = "Spine Mecanim GameObject (ng_pop_bigWin)", PlayAnim = "bigwin_start" },
+            new PagTestSpineConfig { NodeName = "Spine Mecanim GameObject (jp_pup_GRAND)", PlayAnim = "in" },
+            new PagTestSpineConfig { NodeName = "Spine Mecanim GameObject (ng_bor_boom1)", PlayAnim = "start" },
+            new PagTestSpineConfig { NodeName = "Spine Mecanim GameObject (ng_ic_bigwin)", PlayAnim = "bigwin_start" },
+        };
+
+        /// <summary>pagEffect1~14 对应 PagSlotBinding 实例标签。</summary>
+        private static readonly string[] PagTestSlotInstanceLabels =
+        {
+            "PagTest1", "PagTest2", "PagTest3", "PagTest4", "PagTest5", "PagTest6", "PagTest7", "PagTest8", "PagTest9","PagTest10", "PagTest11", "PagTest12",
+        };
+
+        /// <summary>pagEffect1~14 槽位绑定。</summary>
+        private readonly PagSlotBinding[] _pagTestSlotBindings = new PagSlotBinding[PagTestLoaderCount];
+        /// <summary>PAG1~12 是否正在播放。</summary>
+        private readonly bool[] _pagTestShowing = new bool[PagTestPagButtonCount];
+        /// <summary>PAG1~9 composition 是否已预热。</summary>
+        private readonly bool[] _pagTestCacheWarmed = new bool[PagTestPagButtonCount];
+        private readonly Animator[] _pagTestSpineAnimators = new Animator[PagTestSpineCount];
+        private readonly SkeletonMecanim[] _pagTestSpineMecanims = new SkeletonMecanim[PagTestSpineCount];
+        /// <summary>Spine1~5 对照动画是否可见。</summary>
+        private readonly bool[] _spineTestShowing = new bool[PagTestSpineCount];
+        /// <summary>PAG1~PAG12 按钮各自持有的播放协程；OnClose 或再次点击时须 Stop。</summary>
+        private readonly Coroutine[] _corPagTest = new Coroutine[PagTestPagButtonCount];
         /// <summary>PAG2 / 进局过渡用 PAG 文件名。</summary>
         private const string PagTestName1 = "BigWin_1080.pag";
         /// <summary>PAG1 按钮播放的 PAG 文件名。</summary>
         private const string PagTestName2 = "Fade.pag";
         /// <summary>PAG3 按钮播放的 PAG 文件名。</summary>
         private const string PagTestName3 = "XingXing2.pag";
-        /// <summary>进局自动序列（TryPlayPagTestOnEnter）的播放顺序。</summary>
-        private static readonly string[] PagTestLoopSequence = { PagTestName1, PagTestName2, PagTestName3 };
-        /// <summary>PAG4 BigWin 升级链顺序播放（各 repeat=1）。</summary>
-        private static readonly string[] PagTestBigWinSequence =
-        {
-            "BigWin/bigwin_start1.pag",
-            "BigWin/bigwin_idle1.pag",
-            "BigWin/supwin_start1.pag",
-            "BigWin/supwin_idle1.pag",
-            "BigWin/megawin_start1.pag",
-            "BigWin/megawin_idle1.pag",
-        };
+     
         private const string NpcPagFolderPrefix = "3997Npc/";
+        private static readonly string[] NpcBigWinSequence =
+     {
+             $"{NpcPagFolderPrefix}BigWinNPC/bigwin_start1.pag",
+             $"{NpcPagFolderPrefix}BigWinNPC/bigwin_idle1.pag",
+             $"{NpcPagFolderPrefix}BigWinNPC/supwin_start1.pag",
+             $"{NpcPagFolderPrefix}BigWinNPC/supwin_idle1.pag",
+             $"{NpcPagFolderPrefix}BigWinNPC/megawin_start1.pag",
+             $"{NpcPagFolderPrefix}BigWinNPC/megawin_idle1.pag",
+        };
         private static readonly string[] NpcFreeSequence =
         {
             $"{NpcPagFolderPrefix}FreeNPC/Wealth_fg_npc_upgrade1.pag",
@@ -256,18 +181,38 @@ namespace SlotZhuZaiJinBi1700
         };
         private static readonly string[][] PagTestNpcSequences =
         {
-            NpcFreeSequence, NpcNormalSequence, NpcRewardSequence,
+           NpcBigWinSequence, NpcFreeSequence, NpcNormalSequence, NpcRewardSequence,
         };
         private static readonly string[] PagTestNpcLabels =
         {
-            "freeNpc", "normalNpc", "rewardNpc",
+           "bigwinNpc", "freeNpc", "normalNpc", "rewardNpc",
         };
         private const string PagGlowLoop720 = "Lopp/glow_loop_720.pag";
         private const string PagGlowLoopHalf = "Lopp/glow_loop_half_1920.pag";
         private const string PagGlowLoopFull = "Lopp/glow_loop_full_1920.pag";
         private const string PagGlowInFull = "Lopp/glow_in_full_1920.pag";
         /// <summary>PAG5 glow_loop_720 FGUI 显示倍率（720 合成放大 1.5 倍至 1080 宽）。</summary>
-        private const float PagGlow720DisplayScale = 1.5f;
+        private const float PagGlow720DisplayScale = 1f;
+
+        private enum PagTestPlaybackKind
+        {
+            SingleLoop,
+            IntroLoop,
+            Sequence,
+        }
+
+        private struct PagTestPlaybackConfig
+        {
+            public PagTestPlaybackKind Kind;
+            public string PagFile;
+            public string IntroFile;
+            public string LoopFile;
+            public string[] Sequence;
+            public float DisplayScale;
+            public bool LazyBindSlot;
+            public string Label;
+        }
+
         /// <summary>FGUI 显示缩放；1=按合成尺寸×1 显示。</summary>
         private const float PagTestDisplayScale = 1f;
         /// <summary>false：按合成尺寸×displayScale；true：裁剪到 holder。</summary>
@@ -282,6 +227,8 @@ namespace SlotZhuZaiJinBi1700
         private const float PagTestNpcSegmentDurationFallbackSec = 8f;
         /// <summary>true：所有 PAG 路径 Play / PlayFguiGpuSequence 均纳入 PagGpuSyncGroup。</summary>
         private const bool PagTestUseGpuSyncGroup = true;
+        /// <summary>相对 GameRes 的本游戏 PAG 目录（与 PopupGameLoading.GamePagFolder 保持一致）。</summary>
+        private const string GamePagFolder = "Games/Slot Zhu Zai Jin Bi 1700/Pag";
         private const string PagLogPrefix = "[1700 PagTest]";
         /// <summary>Phase0 A/B：true 时全屏播 PAG；Phase1 通过后保持 false，走 FGUI extra 对齐。</summary>
         private const bool PagTestDebugFullScreen = false;
@@ -318,41 +265,26 @@ namespace SlotZhuZaiJinBi1700
         private Transform[] _borderMegaWinEffectRoots = new Transform[5];
         private bool[] _borderMegaWinShowing = new bool[5];
         private bool _borderMegaWinButtonsBound;
-        private bool _comboTestButtonsBound;
-        private bool _comboP2S1Showing;
-        private bool _comboP2S2Showing;
-        private bool _comboP2S3Showing;
-        private bool _comboP2S4Showing;
-        private bool _comboP2S5Showing;
-        private bool _comboP3S1Showing;
-        private bool _comboP3S2Showing;
-        private bool _comboP3S3Showing;
-        private bool _comboP3S4Showing;
-        private bool _comboP3S5Showing;
-        private bool _comboS2E1E2Showing;
-        private bool _comboS1E1E2Showing;
-        private bool _comboP9S1Showing;
-        private bool _comboP9S2Showing;
-        private bool _comboP9S3Showing;
-        private bool _comboP9S4Showing;
-        private bool _comboP9S5Showing;
-        private bool _comboEffectAllShowing;
-        private bool _comboSpineAllShowing;
-        private bool _comboP4S1Showing;
-        private bool _comboP4S2Showing;
-        private bool _comboP4S3Showing;
-        private bool _comboP4S4Showing;
-        private bool _comboP4S5Showing;
-        private Coroutine _corComboPag2Spine;
-        private Coroutine _corComboPag3Spine;
-        private static readonly string[] ComboTestButtonNames =
+        private bool _comboPlayControlsBound;
+        private GComboBox _comboPagBox;
+        private GComboBox _comboSpineBox;
+        private GComboBox _comboEffectBox;
+        private bool _comboPlayActive;
+        private Coroutine _comboPlayCoroutine;
+        private int _comboActivePagIndex;
+        private int _comboActiveSpineIndex;
+        private int _comboActiveEffectIndex;
+        private static readonly string[] ComboPagDropdownItems =
         {
-            "P2S1", "P2S2", "P2S3", "P2S4", "P2S5",
-            "P3S1", "P3S2", "P3S3", "P3S4", "P3S5",
-            "S2E1E2", "S1E1E2",
-            "P9S1", "P9S2", "P9S3", "P9S4", "P9S5",
-            "Effect1_5", "Spine1_5",
-            "P4S1", "P4S2", "P4S3", "P4S4", "P4S5",
+            "无", "PAG1", "PAG2", "PAG3", "PAG4", "PAG5", "PAG6", "PAG7", "PAG8", "PAG9", "PAG10", "PAG11", "PAG12",
+        };
+        private static readonly string[] ComboSpineDropdownItems =
+        {
+            "无", "Spine1", "Spine2", "Spine3", "Spine4", "Spine5",
+        };
+        private static readonly string[] ComboEffectDropdownItems =
+        {
+            "无", "Effect1", "Effect2", "Effect3", "Effect4", "Effect5",
         };
         //免费组件
         private GComponent gFreeTimeBox, gFreeWinBox;
@@ -363,7 +295,10 @@ namespace SlotZhuZaiJinBi1700
         MiniReelGroup uiJPMiniCtrl = new MiniReelGroup();
         long TotalBet => (long)MainModel.Instance.contentMD.totalBet;
 
-        /// <summary>1700：底部 Panel 异步就绪后触发 PageManager 的 preLoadedCallback。</summary>
+        /// <summary>
+        /// 1700：底部 Panel 异步就绪后触发 PageManager 的 preLoadedCallback
+        /// </summary>
+        /// <param name="res"> 事件数据</param>
         private void OnBottomPanelReadyForPreload(EventData res)
         {
             if (res == null || res.name != PanelEvent.BottomPanelReady)
@@ -377,6 +312,9 @@ namespace SlotZhuZaiJinBi1700
             preLoadedCallback?.Invoke();
         }
 
+        /// <summary>
+        /// 异步加载 GameController、FGUI 包、Frame/PAG Prefab 等；全部完成后 InitParam
+        /// </summary>
         protected override void OnInit()
         {
 
@@ -448,7 +386,7 @@ namespace SlotZhuZaiJinBi1700
               _goPagTestPrefab = clone;
               callback();
           });
-
+            //6-10 — 特效性能测试
             for (int i = 0; i < BorderMegaWinPrefabNames.Length; i++)
             {
                 int capturedIndex = i;
@@ -495,10 +433,14 @@ namespace SlotZhuZaiJinBi1700
 
  
         }
+        /// <summary>
+        /// 语言切换时解绑测试按钮、重建 contentPane 并重新 InitParam
+        /// </summary>
+        /// <param name="lang"> 目标语言</param>
         protected override void OnLanguageChange(I18nLang lang)
         {
             ClearBorderMegaWinButtons();
-            ClearComboTestButtons();
+            ClearComboPlayControls();
             ClearPagTestButtons(); // 语言切换重建 UI 前解绑 PAG 测试按钮
             FguiI18nTextAssistant.Instance.DisposeAllTranslate(this.contentPane);
             this.contentPane.Dispose(); // 释放当前UI
@@ -506,6 +448,11 @@ namespace SlotZhuZaiJinBi1700
             InitParam(null);
             //FguiI18nTextAssistant.Instance.TranslateComponent(this.contentPane);
         }
+        /// <summary>
+        /// 打开主界面：激活 GameController、注册事件、播放背景音乐并 InitParam
+        /// </summary>
+        /// <param name="name"> 页面名</param>
+        /// <param name="data"> 事件数据</param>
         public override void OnOpen(PageName name, EventData data)
         {
             if (isOpen) return;
@@ -523,6 +470,10 @@ namespace SlotZhuZaiJinBi1700
             GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
             InitParam(data);
         }
+        /// <summary>
+        /// 关闭主界面：注销事件、停音乐、停止并释放 PAG/Spine/边框特效资源
+        /// </summary>
+        /// <param name="null"> null</param>
         public override void OnClose(EventData data = null)
         {
             EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
@@ -535,7 +486,7 @@ namespace SlotZhuZaiJinBi1700
             StopAllPagTest();
             StopAllBorderMegaWinEffects();
             ClearBorderMegaWinButtons();
-            ClearComboTestButtons();
+            ClearComboPlayControls();
             ClearPagTestButtons();
             DisposeBorderMegaWinEffects();
             DisposePagTestResources();
@@ -545,11 +496,19 @@ namespace SlotZhuZaiJinBi1700
             }
             base.OnClose(data);
         }
+        /// <summary>
+        /// 解析 Spin 回包，委托 1700 专用 Payload 解析器
+        /// </summary>
+        /// <param name="e"> Spin 解析事件参数</param>
         private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
         {
             e.Result = MachineDataG1700Controller.ParseCoinPushSpinPayload(e.Data, e.StartPos);
         }
 
+        /// <summary>
+        /// /// 初始化主界面参数。isOpen=false（PreloadPage）时也会执行视觉层：对象池、Panel、Frame、PAG/Spine Attach； /// isOpen=true 时额外执行网络拉取、额度同步与 FreeSpin 恢复。 ///
+        /// </summary>
+        /// <param name="data"> 事件数据</param>
         public void InitParam(EventData data)
         {
             if (data != null) _data = data;
@@ -595,27 +554,6 @@ namespace SlotZhuZaiJinBi1700
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
             EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
                 new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
-
-            if (!isOpen) return;
-
-            MachineDataManager02.Instance.RequestGetPlayerInfo((res) =>
-            {
-                SBoxAccount account = (SBoxAccount)res;
-                int pid = SBoxModel.Instance.pid;
-                List<SBoxPlayerAccount> playerAccountList = account.PlayerAccountList;
-                for (int i = 0; i < playerAccountList.Count; i++)
-                {
-                    if (playerAccountList[i].PlayerId == pid)
-                    {
-                        MainBlackboardController.Instance.SetMyRealCredit(playerAccountList[i].Credit);
-                        break;
-                    }
-                }
-            }, (BagelCodeError err) =>
-            {
-                DebugUtils.Log(err.msg);
-            });
-            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
 
             gNormalBg = contentPane.GetChild("normalBG").asCom;
             gFreeBg = contentPane.GetChild("freeBG").asCom;
@@ -667,50 +605,8 @@ namespace SlotZhuZaiJinBi1700
                 _anchorPagTest = localPagTestAnchor;
                 GameCommon.FguiUtils.AddWrapper(_anchorPagTest, _clonePagTest);
                 // _pagTestAttachBone = null;
-                _pagTestSlot1?.Dispose();
-                _pagTestSlot1 = null;
-                _pagTestSlot2?.Dispose();
-                _pagTestSlot2 = null;
-                _pagTestSlot3?.Dispose();
-                _pagTestSlot3 = null;
-                _pagTestSlot4?.Dispose();
-                _pagTestSlot4 = null;
-                _pagTestSlot5?.Dispose();
-                _pagTestSlot5 = null;
-                _pagTestSlot6?.Dispose();
-                _pagTestSlot6 = null;
-                _pagTestGlowSlot5?.Dispose();
-                _pagTestGlowSlot5 = null;
-                _pagTestGlowSlot6?.Dispose();
-                _pagTestGlowSlot6 = null;
-                _pagTestGlowSlot7?.Dispose();
-                _pagTestGlowSlot7 = null;
-                _pagTestGlowSlot8?.Dispose();
-                _pagTestGlowSlot8 = null;
-                _pagTestGlowSlot9?.Dispose();
-                _pagTestGlowSlot9 = null;
-                _pagTestNpcSlot10?.Dispose();
-                _pagTestNpcSlot10 = null;
-                _pagTestNpcSlot11?.Dispose();
-                _pagTestNpcSlot11 = null;
-                _pagTestNpcSlot12?.Dispose();
-                _pagTestNpcSlot12 = null;
-                _pagTestSpine1Animator = null;
-                _pagTestSpine1Mecanim = null;
-                _pagTestSpine2Animator = null;
-                _pagTestSpine2Mecanim = null;
-                _pagTestSpine3Animator = null;
-                _pagTestSpine3Mecanim = null;
-                _pagTestSpine4Animator = null;
-                _pagTestSpine4Mecanim = null;
-                _pagTestSpine5Animator = null;
-                _pagTestSpine5Mecanim = null;
-                _spineTest1Showing = false;
-                _spineTest2Showing = false;
-                _spineTest3Showing = false;
-                _spineTest4Showing = false;
-                _spineTest5Showing = false;
-                _pagTest3Showing = false;
+                DisposeAllPagTestSlotBindings();
+                ResetPagTestSpineRefs();
                 DisposeBorderMegaWinEffects();
                 EnsurePagTestSpines();
             }
@@ -726,7 +622,7 @@ namespace SlotZhuZaiJinBi1700
             BindPagTestButtons();   // PAG1~12、Spine1~5 测试按钮
             EnsureBorderMegaWinEffects();
             BindBorderMegaWinButtons();
-            BindComboTestButtons();
+            BindComboPlayControls();
 
             uiJPMajorCtrl.Init("Major", contentPane.GetChild("jpMajor").asCom.GetChild("reels").asList, "N0");
             uiJPMinorCtrl.Init("Minor", contentPane.GetChild("jpMinor").asCom.GetChild("reels").asList, "N0");
@@ -738,429 +634,559 @@ namespace SlotZhuZaiJinBi1700
             ChangeBGPanel(0);
             ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
 
+            if (!isOpen) return;
+
+            MachineDataManager02.Instance.RequestGetPlayerInfo((res) =>
+            {
+                SBoxAccount account = (SBoxAccount)res;
+                int pid = SBoxModel.Instance.pid;
+                List<SBoxPlayerAccount> playerAccountList = account.PlayerAccountList;
+                for (int i = 0; i < playerAccountList.Count; i++)
+                {
+                    if (playerAccountList[i].PlayerId == pid)
+                    {
+                        MainBlackboardController.Instance.SetMyRealCredit(playerAccountList[i].Credit);
+                        break;
+                    }
+                }
+            }, (BagelCodeError err) =>
+            {
+                DebugUtils.Log(err.msg);
+            });
+            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+
             TryRestoreFreeSpinSession();
         }
 
-        /// <summary>InitParam 时创建 6 个 PagSlotBinding 并 Attach 到 anchorPagTest 下 pagEffect1~6。</summary>
+        /// <summary>
+        /// 绑定 PageGameMain 上 PAG1~12、Spine1~5 测试按钮（InitParam / 语言切换后）
+        /// </summary>
+        private void BindPagTestButtons()
+        {
+            if (_pagTestButtonsBound || contentPane == null)
+            {
+                return;
+            }
+
+            for (int pagIndex = 0; pagIndex < PagTestPagButtonCount; pagIndex++)
+            {
+                BindPagTestButton($"PAG{pagIndex + 1}", pagIndex);
+            }
+
+            GButton btnSpine1 = contentPane.GetChild("Spine1")?.asButton;
+            if (btnSpine1 != null)
+            {
+                btnSpine1.onClick.Clear();
+                btnSpine1.onClick.Add(OnClickSpineTest1Button);
+            }
+            else
+            {
+                Debug.LogWarning($"{PagLogPrefix} button missing: Spine1");
+            }
+
+            GButton btnSpine2 = contentPane.GetChild("Spine2")?.asButton;
+            if (btnSpine2 != null)
+            {
+                btnSpine2.onClick.Clear();
+                btnSpine2.onClick.Add(OnClickSpineTest2Button);
+            }
+            else
+            {
+                Debug.LogWarning($"{PagLogPrefix} button missing: Spine2");
+            }
+
+            BindPagTestSpineButton("Spine3", OnClickSpineTest3Button);
+            BindPagTestSpineButton("Spine4", OnClickSpineTest4Button);
+            BindPagTestSpineButton("Spine5", OnClickSpineTest5Button);
+
+            _pagTestButtonsBound = true;
+        }
+
+        /// <summary>
+        /// 校验 PAG 按钮下标是否有效
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        private bool IsValidPagTestButtonIndex(int pagIndex)
+        {
+            return pagIndex >= 1 && pagIndex <= PagTestPagButtonCount;
+        }
+
+        /// <summary>
+        /// 按 PAG 按钮下标获取播放配置
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        /// <param name="config"> 输出播放配置</param>
+        private bool TryGetPagTestPlaybackConfig(int pagIndex, out PagTestPlaybackConfig config)
+        {
+            config = default;
+            if (!IsValidPagTestButtonIndex(pagIndex))
+            {
+                return false;
+            }
+
+            switch (pagIndex)
+            {
+                case 1:
+                    config = new PagTestPlaybackConfig
+                    {
+                        Kind = PagTestPlaybackKind.SingleLoop,
+                        PagFile = PagTestName2,
+                        DisplayScale = PagTestDisplayScale,
+                        LazyBindSlot = false,
+                    };
+                    return true;
+                case 2:
+                    config = new PagTestPlaybackConfig
+                    {
+                        Kind = PagTestPlaybackKind.SingleLoop,
+                        PagFile = PagTestName1,
+                        DisplayScale = PagTestDisplayScale,
+                        LazyBindSlot = false,
+                    };
+                    return true;
+                case 3:
+                    config = new PagTestPlaybackConfig
+                    {
+                        Kind = PagTestPlaybackKind.SingleLoop,
+                        PagFile = PagTestName3,
+                        DisplayScale = PagTestDisplayScale,
+                        LazyBindSlot = false,
+                    };
+                    return true;
+                case 4:
+                    config = new PagTestPlaybackConfig
+                    {
+                        Kind = PagTestPlaybackKind.SingleLoop,
+                        PagFile = PagGlowLoop720,
+                        DisplayScale = PagTestDisplayScale,
+                        LazyBindSlot = true,
+                    };
+                    return true;
+                case 5:
+                    config = new PagTestPlaybackConfig
+                    {
+                        Kind = PagTestPlaybackKind.SingleLoop,
+                        PagFile = PagGlowLoop720,
+                        DisplayScale = PagGlow720DisplayScale,
+                        LazyBindSlot = true,
+                    };
+                    return true;
+                case 6:
+                    config = new PagTestPlaybackConfig
+                    {
+                        Kind = PagTestPlaybackKind.SingleLoop,
+                        PagFile = PagGlowLoopHalf,
+                        DisplayScale = PagTestDisplayScale,
+                        LazyBindSlot = true,
+                    };
+                    return true;
+                case 7:
+                    config = new PagTestPlaybackConfig
+                    {
+                        Kind = PagTestPlaybackKind.SingleLoop,
+                        PagFile = PagGlowLoopFull,
+                        DisplayScale = PagTestDisplayScale,
+                        LazyBindSlot = true,
+                    };
+                    return true;
+                case 8:
+                    config = new PagTestPlaybackConfig
+                    {
+                        Kind = PagTestPlaybackKind.IntroLoop,
+                        IntroFile = PagGlowInFull,
+                        LoopFile = PagGlowLoopFull,
+                        DisplayScale = PagTestDisplayScale,
+                        LazyBindSlot = true,
+                    };
+                    return true;
+                case 9:
+                    config = new PagTestPlaybackConfig
+                    {
+                        Kind = PagTestPlaybackKind.Sequence,
+                        Sequence = NpcBigWinSequence,
+                        DisplayScale = PagTestDisplayScale,
+                        Label = "BigWin",
+                    };
+                    return true;
+                case 10:
+                    config = new PagTestPlaybackConfig
+                    {
+                        Kind = PagTestPlaybackKind.Sequence,
+                        Sequence = NpcFreeSequence,
+                        DisplayScale = PagTestDisplayScale,
+                        LazyBindSlot = true,
+                        Label = PagTestNpcLabels[0],
+                    };
+                    return true;
+                case 11:
+                    config = new PagTestPlaybackConfig
+                    {
+                        Kind = PagTestPlaybackKind.Sequence,
+                        Sequence = NpcNormalSequence,
+                        DisplayScale = PagTestDisplayScale,
+                        LazyBindSlot = true,
+                        Label = PagTestNpcLabels[1],
+                    };
+                    return true;
+                case 12:
+                    config = new PagTestPlaybackConfig
+                    {
+                        Kind = PagTestPlaybackKind.Sequence,
+                        Sequence = NpcRewardSequence,
+                        DisplayScale = PagTestDisplayScale,
+                        LazyBindSlot = true,
+                        Label = PagTestNpcLabels[2],
+                    };
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// 按 loader 下标获取 PagSlotBinding
+        /// </summary>
+        /// <param name="loaderIndex"> pagEffect 数组下标（0~11）</param>
+        /// <returns> 槽位绑定；无效下标时返回 null</returns>
+        private PagSlotBinding GetPagTestSlotByPagIndex(int pagIndex)
+        {
+            return pagIndex >= 0 && pagIndex < PagTestLoaderCount ? _pagTestSlotBindings[pagIndex] : null;
+        }
+
+        /// <summary>
+        /// 查询 PAG 是否处于播放中状态
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        /// <returns> 正在播放时返回 true</returns>
+        private bool IsPagTestShowing(int pagIndex)
+        {
+            return pagIndex >= 0 && pagIndex < PagTestPagButtonCount && _pagTestShowing[pagIndex];
+        }
+
+        /// <summary>
+        /// 设置 PAG Showing 显示状态
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        /// <param name="showing"> 是否正在播放/显示</param>
+        private void SetPagTestShowing(int pagIndex, bool showing)
+        {
+            if (pagIndex >= 0 && pagIndex < PagTestPagButtonCount)
+            {
+                _pagTestShowing[pagIndex] = showing;
+            }
+        }
+
+        /// <summary>
+        /// 查询 PAG composition 是否已预热
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        /// <returns> 已预热时返回 true</returns>
+        private bool GetPagTestCacheWarmed(int pagIndex)
+        {
+            return pagIndex >= 0 && pagIndex < PagTestPagButtonCount && _pagTestCacheWarmed[pagIndex];
+        }
+
+        /// <summary>
+        /// 设置 PAG composition 预热状态
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        /// <param name="warmed"> 是否已预热</param>
+        private void SetPagTestCacheWarmed(int pagIndex, bool warmed)
+        {
+            if (pagIndex >= 0 && pagIndex < PagTestPagButtonCount)
+            {
+                _pagTestCacheWarmed[pagIndex] = warmed;
+            }
+        }
+
+        /// <summary>
+        /// 获取 PAG 按钮当前持有的播放协程
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        private Coroutine GetPagTestCoroutine(int pagIndex)
+        {
+            return pagIndex >= 0 && pagIndex < PagTestPagButtonCount ? _corPagTest[pagIndex] : null;
+        }
+
+        /// <summary>
+        /// 设置 PAG 按钮当前持有的播放协程
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        /// <param name="coroutine"> 协程引用</param>
+        private void SetPagTestCoroutine(int pagIndex, Coroutine coroutine)
+        {
+            if (pagIndex >= 0 && pagIndex < PagTestPagButtonCount)
+            {
+                _corPagTest[pagIndex] = coroutine;
+            }
+        }
+
+        /// <summary>
+        /// 释放全部 PagSlotBinding 并清空引用
+        /// </summary>
+        private void DisposeAllPagTestSlotBindings()
+        {
+            for (int i = 0; i < PagTestLoaderCount; i++)
+            {
+                _pagTestSlotBindings[i]?.Dispose();
+                _pagTestSlotBindings[i] = null;
+            }
+        }
+
+        /// <summary>
+        /// 重置 Spine 对照节点引用与显示状态
+        /// </summary>
+        private void ResetPagTestSpineRefs()
+        {
+            for (int i = 0; i < PagTestSpineCount; i++)
+            {
+                _pagTestSpineAnimators[i] = null;
+                _pagTestSpineMecanims[i] = null;
+                _spineTestShowing[i] = false;
+            }
+        }
+
+        /// <summary>
+        /// 重置 PAG 播放与预热状态数组
+        /// </summary>
+        private void ResetPagTestPlaybackState()
+        {
+            for (int i = 0; i < PagTestPagButtonCount; i++)
+            {
+                _pagTestShowing[i] = false;
+                _pagTestCacheWarmed[i] = false;
+            }
+        }
+
+        /// <summary>
+        /// 创建并 Attach 指定 loader 的 PagSlotBinding
+        /// </summary>
+        /// <param name="loaderIndex"> pagEffect 数组下标（0~11）</param>
+        private void EnsurePagTestSlotBinding(int loaderIndex)
+        {
+            if (loaderIndex < 0 || loaderIndex > PagTestLoaderCount)
+            {
+                return;
+            }
+
+            if (_pagTestSlotBindings[loaderIndex] == null)
+            {
+                _pagTestSlotBindings[loaderIndex] = new PagSlotBinding(PagTestSlotInstanceLabels[loaderIndex], GamePagFolder);
+                Debug.Log($"{PagLogPrefix} PagSlotBinding created for {PagTestSlotInstanceLabels[loaderIndex]}");
+            }
+
+            GComponent anchor = GetPagTestAnchor();
+            if (anchor == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} EnsurePagTestSlot skipped: anchor null, instance={PagTestSlotInstanceLabels[loaderIndex]}");
+                return;
+            }
+
+            if (_pagTestSlotBindings[loaderIndex] == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} EnsurePagTestSlot skipped: slot null, instance={PagTestSlotInstanceLabels[loaderIndex]}");
+                return;
+            }
+
+            _pagTestSlotBindings[loaderIndex].Attach(anchor, PagTestLoaderNames[loaderIndex]);
+        }
+
+        /// <summary>
+        /// PAG1~12 统一点击入口：正在播则停，否则开
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        private void TogglePagTestPlayback(int pagIndex)
+        {
+            if (!TryGetPagTestPlaybackConfig(pagIndex, out PagTestPlaybackConfig config))
+            {
+                return;
+            }
+
+            if (IsPagTestShowing(pagIndex))
+            {
+                Debug.Log($"{PagLogPrefix} PAG{pagIndex} clicked, stop {GetPagTestPlaybackLogLabel(config)}");
+                StopPagTestPlayback(pagIndex);
+                return;
+            }
+
+            Debug.Log($"{PagLogPrefix} PAG{pagIndex} clicked, play {GetPagTestPlaybackLogLabel(config)}");
+            StartPagTestPlayback(pagIndex);
+        }
+
+        /// <summary>
+        /// 启动 PAG1~12 播放（Combo 与按钮共用）
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        private bool StartPagTestPlayback(int pagIndex)
+        {
+            if (!TryGetPagTestPlaybackConfig(pagIndex, out PagTestPlaybackConfig config))
+            {
+                Debug.LogWarning($"{PagLogPrefix} StartPagTestPlayback unsupported pagIndex={pagIndex}");
+                return false;
+            }
+
+            if (mono == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} PAG{pagIndex} play skipped: mono is null");
+                return false;
+            }
+
+            StopPagTestPlaybackCoroutineOnly(pagIndex); //停协程
+            StopPagTest(pagIndex);//停pag
+
+            SetPagTestShowing(pagIndex, true);
+
+            SetPagTestCoroutine(pagIndex, mono.StartCoroutine(RunPagTestPlaybackCoroutine(pagIndex)));
+
+            return true;
+        }
+
+        /// <summary>
+        /// 停止 PAG1~12 播放（OnClose / Combo / 按钮二次点击）
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        /// <param name="stopComboIfActive"> true 时若该路在 Combo 中会整组停止</param>
+        private void StopPagTestPlayback(int pagIndex, bool stopComboIfActive = true)
+        {
+            if (!IsValidPagTestButtonIndex(pagIndex))
+            {
+                return;
+            }
+
+            if (stopComboIfActive && _comboPlayActive && _comboActivePagIndex == pagIndex)
+            {
+                StopComboPlayback();
+                return;
+            }
+
+            SetPagTestShowing(pagIndex, false);
+            StopPagTestPlaybackCoroutineOnly(pagIndex);
+            StopPagTest(pagIndex);
+        }
+
+        /// <summary>
+        /// 取消该 PAG 按钮对应的 Unity 协程并清空 _corPagTest 引用
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        private void StopPagTestPlaybackCoroutineOnly(int pagIndex)
+        {
+            Coroutine coroutine = GetPagTestCoroutine(pagIndex);
+            if (coroutine != null && mono != null)
+            {
+                mono.StopCoroutine(coroutine);
+                SetPagTestCoroutine(pagIndex, null);
+            }
+        }
+
+        /// <summary>
+        /// 按播放配置种类分发 PAG 播放协程
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（1~12）</param>
+        private IEnumerator RunPagTestPlaybackCoroutine(int pagIndex)
+        {
+            if (!TryGetPagTestPlaybackConfig(pagIndex, out PagTestPlaybackConfig config))
+            {
+                yield break;
+            }
+
+            switch (config.Kind)
+            {
+                case PagTestPlaybackKind.SingleLoop:
+                    yield return StartPagTestSingleLoopCoroutine(pagIndex, config);
+                    break;
+                case PagTestPlaybackKind.Sequence:
+                    yield return StartPagTestNpcSequencePlayback(pagIndex, config);
+                    break;
+                case PagTestPlaybackKind.IntroLoop:
+                    yield return StartPagTestIntroLoopCoroutine(pagIndex, config);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 生成 PAG 播放日志标签
+        /// </summary>
+        /// <param name="config"> 播放配置</param>
+        private string GetPagTestPlaybackLogLabel(PagTestPlaybackConfig config)
+        {
+            switch (config.Kind)
+            {
+                case PagTestPlaybackKind.SingleLoop:
+                    return config.PagFile;
+                case PagTestPlaybackKind.IntroLoop:
+                    return $"{config.IntroFile} -> {config.LoopFile}";
+                case PagTestPlaybackKind.Sequence:
+                    return config.Label ?? "npc";
+                default:
+                    return "unknown";
+            }
+        }
+
+        /// <summary>
+        /// 绑定 PAG 测试按钮点击事件
+        /// </summary>
+        /// <param name="buttonName"> FGUI 按钮名</param>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        private void BindPagTestButton(string buttonName, int pagIndex)
+        {
+            GButton btn = contentPane.GetChild(buttonName)?.asButton;
+            if (btn != null)
+            {
+                btn.onClick.Clear();
+                btn.onClick.Add(() => TogglePagTestPlayback(pagIndex));
+            }
+            else
+            {
+                Debug.LogWarning($"{PagLogPrefix} button missing: {buttonName}");
+            }
+        }
+
+        /// <summary>
+        /// InitParam 时创建全部 PagSlotBinding 并 Attach 到 anchorPagTest 下 pagEffect1~12
+        /// </summary>
         private void EnsurePagTestSlots()
         {
             PagConcurrentPlayback.Enabled = PagTestUseFguiTexture;
             PagController.AutoConcurrentGpuSync = PagTestUseGpuSyncGroup;
 
-            GComponent anchor = GetPagTestAnchor();
-            if (anchor == null)
+            if (GetPagTestAnchor() == null)
             {
                 Debug.LogWarning($"{PagLogPrefix} EnsurePagTestSlots skipped: anchor null");
                 return;
             }
 
-            if (_pagTestSlot1 == null)
+            for (int i = 0; i < PagTestLoaderCount; i++)
             {
-                _pagTestSlot1 = new PagSlotBinding("PagTest1");
-                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest1");
-            }
-
-            if (_pagTestSlot2 == null)
-            {
-                _pagTestSlot2 = new PagSlotBinding("PagTest2");
-                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest2");
-            }
-
-            if (_pagTestSlot3 == null)
-            {
-                _pagTestSlot3 = new PagSlotBinding("PagTest3");
-                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest3");
-            }
-
-            EnsurePagTestSlot(_pagTestSlot1, PagTestLoader1, "PagTest1");
-            EnsurePagTestSlot(_pagTestSlot2, PagTestLoader2, "PagTest2");
-            EnsurePagTestSlot(_pagTestSlot3, PagTestLoader3, "PagTest3");
-
-            if (_pagTestSlot4 == null)
-            {
-                _pagTestSlot4 = new PagSlotBinding("PagTest4");
-                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest4");
-            }
-
-            if (_pagTestSlot5 == null)
-            {
-                _pagTestSlot5 = new PagSlotBinding("PagTest5");
-                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest5");
-            }
-
-            if (_pagTestSlot6 == null)
-            {
-                _pagTestSlot6 = new PagSlotBinding("PagTest6");
-                Debug.Log($"{PagLogPrefix} PagSlotBinding created for PagTest6");
-            }
-
-            EnsurePagTestSlot(_pagTestSlot4, PagTestLoader4, "PagTest4");
-            EnsurePagTestSlot(_pagTestSlot5, PagTestLoader5, "PagTest5");
-            EnsurePagTestSlot(_pagTestSlot6, PagTestLoader6, "PagTest6");
-
-            EnsurePagTestGlowSlot(5, ref _pagTestGlowSlot5, PagTestLoaderGlow5, "PagTestGlow5");
-            EnsurePagTestGlowSlot(6, ref _pagTestGlowSlot6, PagTestLoaderGlow6, "PagTestGlow6");
-            EnsurePagTestGlowSlot(7, ref _pagTestGlowSlot7, PagTestLoaderGlow7, "PagTestGlow7");
-            EnsurePagTestGlowSlot(8, ref _pagTestGlowSlot8, PagTestLoaderGlow8, "PagTestGlow8");
-            EnsurePagTestGlowSlot(9, ref _pagTestGlowSlot9, PagTestLoaderGlow9, "PagTestGlow9");
-
-            EnsurePagTestNpcSlot(0, ref _pagTestNpcSlot10, PagTestLoaderNpc10, "PagTestNpc10");
-            EnsurePagTestNpcSlot(1, ref _pagTestNpcSlot11, PagTestLoaderNpc11, "PagTestNpc11");
-            EnsurePagTestNpcSlot(2, ref _pagTestNpcSlot12, PagTestLoaderNpc12, "PagTestNpc12");
-        }
-
-        private void EnsurePagTestNpcSlot(int npcIndex, ref PagSlotBinding slot, string loaderName, string instanceLabel)
-        {
-            if (slot == null)
-            {
-                slot = new PagSlotBinding(instanceLabel);
-                Debug.Log($"{PagLogPrefix} PagSlotBinding created for {instanceLabel} (PAG{npcIndex + 10} NPC)");
-            }
-
-            EnsurePagTestSlot(slot, loaderName, instanceLabel);
-        }
-
-        private void EnsurePagTestNpcSlotByIndex(int npcIndex)
-        {
-            PagConcurrentPlayback.Enabled = PagTestUseFguiTexture;
-            PagController.AutoConcurrentGpuSync = PagTestUseGpuSyncGroup;
-
-            if (GetPagTestAnchor() == null)
-            {
-                Debug.LogWarning($"{PagLogPrefix} EnsurePagTestNpcSlotByIndex skipped: anchor null npcIndex={npcIndex}");
-                return;
-            }
-
-            switch (npcIndex)
-            {
-                case 0:
-                    EnsurePagTestNpcSlot(0, ref _pagTestNpcSlot10, PagTestLoaderNpc10, "PagTestNpc10");
-                    break;
-                case 1:
-                    EnsurePagTestNpcSlot(1, ref _pagTestNpcSlot11, PagTestLoaderNpc11, "PagTestNpc11");
-                    break;
-                case 2:
-                    EnsurePagTestNpcSlot(2, ref _pagTestNpcSlot12, PagTestLoaderNpc12, "PagTestNpc12");
-                    break;
-                default:
-                    Debug.LogWarning($"{PagLogPrefix} EnsurePagTestNpcSlotByIndex skipped: invalid npcIndex={npcIndex}");
-                    break;
+                EnsurePagTestSlotBinding(i);
             }
         }
 
-        private PagSlotBinding GetPagTestNpcSlot(int npcIndex)
-        {
-            switch (npcIndex)
-            {
-                case 0: return _pagTestNpcSlot10;
-                case 1: return _pagTestNpcSlot11;
-                case 2: return _pagTestNpcSlot12;
-                default: return null;
-            }
-        }
-
-        private void EnsurePagTestGlowSlot(int glowIndex, ref PagSlotBinding slot, string loaderName, string instanceLabel)
-        {
-            if (slot == null)
-            {
-                slot = new PagSlotBinding(instanceLabel);
-                Debug.Log($"{PagLogPrefix} PagSlotBinding created for {instanceLabel} (PAG{glowIndex} glow)");
-            }
-
-            EnsurePagTestSlot(slot, loaderName, instanceLabel);
-        }
-
-        /// <summary>Play 前只绑定当前 glow 槽，避免全量 EnsurePagTestSlots re-Attach 误伤同屏已播成员。</summary>
-        private void EnsurePagTestGlowSlotByIndex(int glowIndex)
-        {
-            PagConcurrentPlayback.Enabled = PagTestUseFguiTexture;
-            PagController.AutoConcurrentGpuSync = PagTestUseGpuSyncGroup;
-
-            if (GetPagTestAnchor() == null)
-            {
-                Debug.LogWarning($"{PagLogPrefix} EnsurePagTestGlowSlotByIndex skipped: anchor null glowIndex={glowIndex}");
-                return;
-            }
-
-            switch (glowIndex)
-            {
-                case 5:
-                    EnsurePagTestGlowSlot(5, ref _pagTestGlowSlot5, PagTestLoaderGlow5, "PagTestGlow5");
-                    break;
-                case 6:
-                    EnsurePagTestGlowSlot(6, ref _pagTestGlowSlot6, PagTestLoaderGlow6, "PagTestGlow6");
-                    break;
-                case 7:
-                    EnsurePagTestGlowSlot(7, ref _pagTestGlowSlot7, PagTestLoaderGlow7, "PagTestGlow7");
-                    break;
-                case 8:
-                    EnsurePagTestGlowSlot(8, ref _pagTestGlowSlot8, PagTestLoaderGlow8, "PagTestGlow8");
-                    break;
-                case 9:
-                    EnsurePagTestGlowSlot(9, ref _pagTestGlowSlot9, PagTestLoaderGlow9, "PagTestGlow9");
-                    break;
-                default:
-                    Debug.LogWarning($"{PagLogPrefix} EnsurePagTestGlowSlotByIndex skipped: invalid glowIndex={glowIndex}");
-                    break;
-            }
-        }
-
-        /// <summary>PAG5~9 glowIndex 返回对应 PagSlotBinding；无效 index 返回 null。</summary>
-        private PagSlotBinding GetPagTestGlowSlot(int glowIndex)
-        {
-            switch (glowIndex)
-            {
-                case 5: return _pagTestGlowSlot5;
-                case 6: return _pagTestGlowSlot6;
-                case 7: return _pagTestGlowSlot7;
-                case 8: return _pagTestGlowSlot8;
-                case 9: return _pagTestGlowSlot9;
-                default: return null;
-            }
-        }
-
-        /// <summary>将 PagSlotBinding 挂到 anchor 上指定 loaderName 的 GLoader。</summary>
-        private void EnsurePagTestSlot(PagSlotBinding slot, string loaderName, string instanceLabel)
-        {
-            GComponent anchor = GetPagTestAnchor();
-            if (anchor == null)
-            {
-                Debug.LogWarning($"{PagLogPrefix} EnsurePagTestSlot skipped: anchor null, instance={instanceLabel}");
-                return;
-            }
-
-            if (slot == null)
-            {
-                Debug.LogWarning($"{PagLogPrefix} EnsurePagTestSlot skipped: slot null, instance={instanceLabel}");
-                return;
-            }
-
-            slot.Attach(anchor, loaderName);
-        }
-
-        /// <summary>OnClose 时释放 PagSlotBinding 与 Spine 引用，重置播放/预热状态。</summary>
+        /// <summary>
+        /// OnClose 时释放 PagSlotBinding 与 Spine 引用，重置播放/预热状态
+        /// </summary>
         private void DisposePagTestResources()
         {
-            _pagTestSlot1?.Dispose();
-            _pagTestSlot1 = null;
-            _pagTestSlot2?.Dispose();
-            _pagTestSlot2 = null;
-            _pagTestSlot3?.Dispose();
-            _pagTestSlot3 = null;
-            _pagTestSlot4?.Dispose();
-            _pagTestSlot4 = null;
-            _pagTestSlot5?.Dispose();
-            _pagTestSlot5 = null;
-            _pagTestSlot6?.Dispose();
-            _pagTestSlot6 = null;
-            _pagTestGlowSlot5?.Dispose();
-            _pagTestGlowSlot5 = null;
-            _pagTestGlowSlot6?.Dispose();
-            _pagTestGlowSlot6 = null;
-            _pagTestGlowSlot7?.Dispose();
-            _pagTestGlowSlot7 = null;
-            _pagTestGlowSlot8?.Dispose();
-            _pagTestGlowSlot8 = null;
-            _pagTestGlowSlot9?.Dispose();
-            _pagTestGlowSlot9 = null;
-            _pagTestNpcSlot10?.Dispose();
-            _pagTestNpcSlot10 = null;
-            _pagTestNpcSlot11?.Dispose();
-            _pagTestNpcSlot11 = null;
-            _pagTestNpcSlot12?.Dispose();
-            _pagTestNpcSlot12 = null;
-            _pagTestSpine1Animator = null;
-            _pagTestSpine1Mecanim = null;
-            _pagTestSpine2Animator = null;
-            _pagTestSpine2Mecanim = null;
-            _pagTestSpine3Animator = null;
-            _pagTestSpine3Mecanim = null;
-            _pagTestSpine4Animator = null;
-            _pagTestSpine4Mecanim = null;
-            _pagTestSpine5Animator = null;
-            _pagTestSpine5Mecanim = null;
-            _pagTest1Showing = false;
-            _pagTest2Showing = false;
-            _pagTest3Showing = false;
-            _pagTest4Showing = false;
-            _pagTest5Showing = false;
-            _pagTest6Showing = false;
-            _pagTest7Showing = false;
-            _pagTest8Showing = false;
-            _pagTest9Showing = false;
-            _pagTest10Showing = false;
-            _pagTest11Showing = false;
-            _pagTest12Showing = false;
-            for (int i = 0; i < MaxPagTestNpcCount; i++)
+            DisposeAllPagTestSlotBindings();
+            ResetPagTestSpineRefs();
+            ResetPagTestPlaybackState();
+            StopComboPlayback();
+        }
+
+        /// <summary>
+        /// OnClose 时停止全部 PAG1~12 播放
+        /// </summary>
+        private void StopAllPagTest()
+        {
+            for (int pagIndex = 1; pagIndex <= PagTestPagButtonCount; pagIndex++)
             {
-                _pagTestNpcSessionId[i] = 0;
+                StopPagTestPlayback(pagIndex, stopComboIfActive: false);
             }
-            _spineTest1Showing = false;
-            _spineTest2Showing = false;
-            _spineTest3Showing = false;
-            _spineTest4Showing = false;
-            _spineTest5Showing = false;
-            ResetComboTestShowingFlags();
-            _pagTest1CacheWarmed = false;
-            _pagTest2CacheWarmed = false;
-            _pagTest3CacheWarmed = false;
-            _pagTest4CacheWarmed = false;
-            _pagTest5CacheWarmed = false;
-            _pagTest6CacheWarmed = false;
-            _pagTest7CacheWarmed = false;
-            _pagTest8CacheWarmed = false;
-            _pagTest9CacheWarmed = false;
-        }
-
-        /// <summary>中断 PAG4 顺序播放协程并停止 pagEffect4。</summary>
-        private void StopPagTest4Playback()
-        {
-            if (_corPagTest4 != null && mono != null)
-            {
-                Debug.Log($"{PagLogPrefix} PAG4 sequence aborted");
-                mono.StopCoroutine(_corPagTest4);
-                _corPagTest4 = null;
-            }
-
-            StopPagTest(_pagTestSlot4, ref _pagTest4Showing);
-        }
-
-        /// <summary>中断 PAG4 静态组播遗留并停止 slot5~6；不 EndGroup 动态合组（PAG1~3 同屏）。</summary>
-        private void StopPagTestGroupPlayback()
-        {
-            StopPagTest4Playback();
-
-            PagGpuSyncGroup.EndStaticGroupIfActive("StopPagTestGroupPlayback");
-            _pagTestSlot5?.Stop(PagTestUseFguiTexture);
-            _pagTestSlot6?.Stop(PagTestUseFguiTexture);
-        }
-
-        /// <summary>停止 PAG4 组播三槽（pagEffect5~6）的 Native/FGUI 播放。</summary>
-        private void StopPagTestGroupSlots()
-        {
-            _pagTestSlot5?.Stop(PagTestUseFguiTexture);
-            _pagTestSlot6?.Stop(PagTestUseFguiTexture);
-        }
-
-        /// <summary>停止单路 PAG5~9 glow 协程与对应 pagEffect 播放。</summary>
-        private void StopPagTestGlow(int glowIndex)
-        {
-            switch (glowIndex)
-            {
-                case 5:
-                    StopPagTestGlowCoroutine(ref _corPagTest5, ref _pagTest5Showing);
-                    break;
-                case 6:
-                    StopPagTestGlowCoroutine(ref _corPagTest6, ref _pagTest6Showing);
-                    break;
-                case 7:
-                    StopPagTestGlowCoroutine(ref _corPagTest7, ref _pagTest7Showing);
-                    break;
-                case 8:
-                    StopPagTestGlowCoroutine(ref _corPagTest8, ref _pagTest8Showing);
-                    break;
-                case 9:
-                    StopPagTestGlowCoroutine(ref _corPagTest9, ref _pagTest9Showing);
-                    break;
-                default:
-                    return;
-            }
-
-            GetPagTestGlowSlot(glowIndex)?.Stop(PagTestUseFguiTexture);
-        }
-
-        /// <summary>停止 PAG5~9 全部 glow 协程与 pagEffect7~11 播放。</summary>
-        private void StopPagTestGlowPlayback()
-        {
-            for (int glowIndex = 5; glowIndex <= 9; glowIndex++)
-            {
-                StopPagTestGlow(glowIndex);
-            }
-        }
-
-        private void StopPagTestGlowCoroutine(ref Coroutine coroutine, ref bool showingFlag)
-        {
-            if (coroutine != null && mono != null)
-            {
-                mono.StopCoroutine(coroutine);
-                coroutine = null;
-            }
-
-            showingFlag = false;
-        }
-
-        /// <summary>组播前为单槽设置统一 displayScale 与 clampToHolder。</summary>
-        private void ConfigurePagTestGroupSlot(PagSlotBinding slot)
-        {
-            if (slot == null)
-            {
-                return;
-            }
-
-            slot.SetFguiDisplayScale(PagTestDisplayScale);
-            slot.SetFguiClampDisplayToHolder(PagTestClampDisplayToHolder);
         }
 
         private static readonly PagSlotBinding[] PagTestGroupTripleSlots = new PagSlotBinding[3];
-
-        /// <summary>返回 PAG4 三槽组播用的 slot4~6 数组（复用静态缓冲避免 GC）。</summary>
-        private PagSlotBinding[] GetPagTestGroupSlots()
-        {
-            PagTestGroupTripleSlots[0] = _pagTestSlot4;
-            PagTestGroupTripleSlots[1] = _pagTestSlot5;
-            PagTestGroupTripleSlots[2] = _pagTestSlot6;
-            return PagTestGroupTripleSlots;
-        }
-
-        /// <summary>PagGroupPlayer 布局回调包装，当前与全局 TryBuildPagTestLayoutExtra 一致。</summary>
-        private bool TryBuildPagTestLayoutExtraForAnchor(GComponent anchor, out string extra, out string debugReason)
-        {
-            return TryBuildPagTestLayoutExtra(out extra, out debugReason);
-        }
-
-        /// <summary>OnClose 时停止全部 PAG 协程、组播与 slot1~3 播放。</summary>
-        private void StopAllPagTest()
-        {
-            if (_corPagTest1 != null && mono != null)
-            {
-                Debug.Log($"{PagLogPrefix} sequence aborted reason=OnClose slot=1");
-                mono.StopCoroutine(_corPagTest1);
-                _corPagTest1 = null;
-            }
-
-            if (_corPagTest2 != null && mono != null)
-            {
-                Debug.Log($"{PagLogPrefix} sequence aborted reason=OnClose slot=2");
-                mono.StopCoroutine(_corPagTest2);
-                _corPagTest2 = null;
-            }
-
-            if (_corPagTest3 != null && mono != null)
-            {
-                Debug.Log($"{PagLogPrefix} sequence aborted reason=OnClose slot=3");
-                mono.StopCoroutine(_corPagTest3);
-                _corPagTest3 = null;
-            }
-
-            if (_corPagTest4 != null && mono != null)
-            {
-                Debug.Log($"{PagLogPrefix} sequence aborted reason=OnClose slot=4");
-                mono.StopCoroutine(_corPagTest4);
-                _corPagTest4 = null;
-            }
-
-            StopPagTestGroupPlayback();
-
-            StopPagTestGlowPlayback();
-
-            StopAllPagTestNpcPlayback();
-
-            StopPagTest(_pagTestSlot1, ref _pagTest1Showing);
-            StopPagTest(_pagTestSlot2, ref _pagTest2Showing);
-            StopPagTest(_pagTestSlot3, ref _pagTest3Showing);
-        }
-
-        /// <summary>获取 anchorPagTest；优先缓存的 _anchorPagTest，否则从 contentPane 查找。</summary>
+        /// <summary>
+        /// 获取 anchorPagTest FGUI 锚点
+        /// </summary>
         private GComponent GetPagTestAnchor()
         {
             if (_anchorPagTest != null)
@@ -1172,8 +1198,10 @@ namespace SlotZhuZaiJinBi1700
         }
 
         /// <summary>
-        /// 将 anchorPagTest 区域换算为 Native overlay 的 extra（x,y,w,h 为相对屏幕 0~1）。
+        /// /// 将 anchorPagTest 区域换算为 Native overlay 的 extra（x,y,w,h 为相对屏幕 0~1）。 ///
         /// </summary>
+        /// <param name="extra"> 输出 layout extra 字符串</param>
+        /// <param name="debugReason"> 输出调试原因</param>
         private bool TryBuildPagTestLayoutExtra(out string extra, out string debugReason)
         {
             extra = null;
@@ -1227,81 +1255,107 @@ namespace SlotZhuZaiJinBi1700
             return true;
         }
 
-        /// <summary>Overlay 模式下按 PAG 文件名返回等待时长兜底（秒）。</summary>
-        private float GetPagTestDurationFallback(string pagFileName)
+        /// <summary>
+        /// 检查 PagCache 磁盘文件与 Java composition 缓存是否均已就绪
+        /// </summary>
+        /// <param name="pagFileName"> PAG 文件名</param>
+        private static bool IsPagCompositionReady(string pagFileName)
         {
-            return pagFileName == PagTestName2 ? PagTestNezaPagDuration : PagTestDuration;
+            if (!PagPathHelper.IsCached(pagFileName, GamePagFolder))
+            {
+                return false;
+            }
+
+            string absPath = PagController.ResolvePagPath(pagFileName, GamePagFolder);
+            return PagController.IsCompositionCached(absPath);
         }
 
-        /// <summary>Play 开始后读取 Native composition frameRate，与 Unity 出帧节流对齐。</summary>
-        private IEnumerator TryAlignPagTestFpsAfterPlayStarted(PagSlotBinding slot)
+        /// <summary>
+        /// 停止单槽 PAG 播放并清除 showing 标志
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        private void StopPagTest(int pagIndex)
         {
+            PagSlotBinding slot = GetPagTestSlotByPagIndex(pagIndex);
+            if (slot?.Controller == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} StopPagTest skipped: PagController is null, pagIndex={pagIndex}, instance={slot?.InstanceKey}");
+                SetPagTestShowing(pagIndex, false);
+                return;
+            }
+
+            slot.Stop(PagTestUseFguiTexture);
+            SetPagTestShowing(pagIndex, false);
+
+            Debug.Log($"{PagLogPrefix} StopPagTest pagIndex={pagIndex} instance={slot.InstanceKey}");
+        }
+
+        /// <summary>
+        /// 轮询直到 PagController.PlayStarted 或超时
+        /// </summary>
+        /// <param name="slot"> PagSlotBinding 槽位</param>
+        /// <param name="timeoutSec"> 超时时间（秒）</param>
+        private IEnumerator WaitPagTestPlayStarted(PagSlotBinding slot, float timeoutSec)
+        {
+            EnsurePagTestSlots();
             PagController controller = slot?.Controller;
             if (controller == null)
             {
                 yield break;
             }
 
-            // 同屏多 PAG 时统一 PagTestFguiFps，避免各路 Java tick 与 SyncGroup 组节流错位导致 batch stall。
-            if (PagConcurrentPlayback.Enabled)
+            float deadline = Time.unscaledTime + timeoutSec;
+            while (!controller.PlayStarted && Time.unscaledTime < deadline)
             {
-                yield break;
+                yield return null;
             }
 
-            yield return controller.WaitForPlayStarted(PagTestPlayStartedTimeoutSec);
-            int nativeFps = controller.GetCompositionFrameRate();
-            if (nativeFps <= 0)
+            if (controller.PlayStarted)
             {
-                yield break;
+                Debug.Log($"{PagLogPrefix} Pag play started (within {timeoutSec}s), instance={slot.InstanceKey}");
             }
-
-            if (nativeFps == PagTestFguiFps)
+            else
             {
-                Debug.Log($"{PagLogPrefix} FGUI fps aligned with composition: {nativeFps}, instance={slot.InstanceKey}");
-                yield break;
+                Debug.LogWarning($"{PagLogPrefix} Pag play started timeout ({timeoutSec}s), instance={slot.InstanceKey}");
             }
-
-            slot.ConfigureFgui(PagTestFguiMaxDisplaySide, nativeFps);
-            Debug.Log($"{PagLogPrefix} aligned FGUI fps {PagTestFguiFps}->{nativeFps}, instance={slot.InstanceKey}");
-        }
-
-        /// <summary>检查 PagCache 磁盘文件与 Java composition 缓存是否均已就绪。</summary>
-        private static bool IsPagCompositionReady(string pagFileName)
-        {
-            if (!PagPathHelper.IsCached(pagFileName))
-            {
-                return false;
-            }
-
-            string absPath = PagController.ResolvePagPath(pagFileName, PagPathHelper.DefaultGamePagFolder);
-            return PagController.IsCompositionCached(absPath);
-        }
-
-        /// <summary>Loading 已预热则秒过；否则磁盘 + Java composition 兜底预加载。</summary>
-        private IEnumerator EnsurePagTestCompositionReady(string pagFileName, bool alreadyWarmed, Action<bool> onDone)
-        {
-            if (alreadyWarmed && IsPagCompositionReady(pagFileName))
-            {
-                onDone?.Invoke(true);
-                yield break;
-            }
-
-            if (IsPagCompositionReady(pagFileName))
-            {
-                onDone?.Invoke(true);
-                yield break;
-            }
-
-            yield return PagController.PreloadCompositionCoroutine(pagFileName);
-            onDone?.Invoke(IsPagCompositionReady(pagFileName));
         }
 
         /// <summary>
-        /// 单槽 PAG 播放入口（调用前须已通过 EnsurePagTestSlots 完成 Attach）：
-        /// 解析路径 → 计算 Overlay layoutExtra → FGUI 或 Overlay 分支 → PlayPag。
+        /// 预热缓存后单次 Play + repeat=-1，由纹理模式 Native 路径无缝循环
         /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        /// <param name="config"> 播放配置</param>
+        private IEnumerator StartPagTestSingleLoopCoroutine(int pagIndex, PagTestPlaybackConfig config)
+        {
+            bool cacheWarmed = GetPagTestCacheWarmed(pagIndex);
+
+            if (!IsPagTestShowing(pagIndex))
+            {
+                SetPagTestCoroutine(pagIndex, null);
+                yield break;
+            }
+
+            PagSlotBinding slot = GetPagTestSlotByPagIndex(pagIndex);
+            PlayPagTest(slot, config.PagFile, -1, config.DisplayScale);
+            if (!Mathf.Approximately(config.DisplayScale, PagTestDisplayScale))
+            {
+                slot?.Controller?.SyncFguiDisplayLayoutFromComposition();
+            }
+
+            SetPagTestCoroutine(pagIndex, null);
+            Debug.Log($"{PagLogPrefix} PAG{pagIndex}: native loop repeat=-1, {config.PagFile}, scale={config.DisplayScale}");
+        }
+
+        /// <summary>
+        /// /// 单槽 PAG 播放入口（调用前须已通过 EnsurePagTestSlots 完成 Attach）： /// 解析路径 → 计算 Overlay layoutExtra → FGUI 或 Overlay 分支 → PlayPag。 ///
+        /// </summary>
+        /// <param name="slot"> PagSlotBinding 槽位</param>
+        /// <param name="pagFileName"> PAG 文件名</param>
+        /// <param name="repeatCount"> 重复次数；-1 = Native 无限循环</param>
+        /// <param name="displayScale">FGUI 显示倍率（相对合成尺寸）</param>
         private void PlayPagTest(PagSlotBinding slot, string pagFileName, int repeatCount = 1, float displayScale = PagTestDisplayScale)
         {
+            //控制器校验
             Debug.Log($"{PagLogPrefix} PlayPagTest start: instance={slot?.InstanceKey}, {pagFileName}, repeat={repeatCount}, scale={displayScale}");
             PagController controller = slot?.Controller;
             if (controller == null)
@@ -1309,15 +1363,13 @@ namespace SlotZhuZaiJinBi1700
                 Debug.LogError($"{PagLogPrefix} PlayPagTest failed: PagController is null, instance={slot?.InstanceKey}");
                 return;
             }
-
+            //路径校验
             string resolvedPath = controller.ResolvePagPath(pagFileName);
             if (string.IsNullOrEmpty(resolvedPath))
             {
                 Debug.LogError($"{PagLogPrefix} PlayPagTest failed: resolve path null, file={pagFileName}, instance={slot.InstanceKey}");
                 return;
             }
-
-            Debug.Log($"{PagLogPrefix} resolved path: {resolvedPath}, exists={System.IO.File.Exists(resolvedPath)}, instance={slot.InstanceKey}");
 
             string positionType = "center";
             string layoutExtra = "";
@@ -1359,6 +1411,7 @@ namespace SlotZhuZaiJinBi1700
                 controller.SetForceBitmapOverlayFallback(PagTestOverlayFallback);
             }
 
+            //设置重复次数并播放
             controller.SetRepeatCount(repeatCount);
             bool playOk = controller.PlayPag(pagFileName, positionType, layoutExtra);
             if (playOk)
@@ -1371,228 +1424,209 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
-        /// <summary>停止单槽 PAG 播放并清除 showing 标志。</summary>
-        private void StopPagTest(PagSlotBinding slot, ref bool showingFlag)
+        /// <summary>
+        /// PAG9：intro + loop 两段链
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        /// <param name="config"> 播放配置</param>
+        private IEnumerator StartPagTestIntroLoopCoroutine(int pagIndex, PagTestPlaybackConfig config)
         {
-            if (slot?.Controller == null)
+            //预加载校验
+            bool cacheWarmed = GetPagTestCacheWarmed(pagIndex);
+            if (!cacheWarmed || !IsPagCompositionReady(config.IntroFile))
             {
-                Debug.LogWarning($"{PagLogPrefix} StopPagTest skipped: PagController is null, instance={slot?.InstanceKey}");
-                showingFlag = false;
-                return;
+                yield return PagController.PreloadCompositionCoroutine(config.IntroFile, GamePagFolder);
             }
 
-            slot.Stop(PagTestUseFguiTexture);
-            showingFlag = false;
-
-            Debug.Log($"{PagLogPrefix} StopPagTest instance={slot.InstanceKey}");
-        }
-
-        /// <summary>进局自动播 PAG 序列入口（当前未被调用）；PagTestLoop 控制是否无限交替循环。</summary>
-        private void TryPlayPagTestOnEnter()
-        {
-            if (!isInit || mono == null || slotMachineCtrl == null)
+            if (!cacheWarmed || !IsPagCompositionReady(config.LoopFile))
             {
-                Debug.LogWarning($"{PagLogPrefix} TryPlayPagTestOnEnter skipped: isInit={isInit}, mono={mono != null}, slotMachineCtrl={slotMachineCtrl != null}");
-                return;
+                yield return PagController.PreloadCompositionCoroutine(config.LoopFile, GamePagFolder);
             }
+            SetPagTestCacheWarmed(pagIndex,IsPagCompositionReady(config.IntroFile) && IsPagCompositionReady(config.LoopFile));
 
-            Debug.Log($"{PagLogPrefix} TryPlayPagTestOnEnter: loop={PagTestLoop}, sequence=[{string.Join(", ", PagTestLoopSequence)}]");
-
-            if (_corPagTest1 != null)
+            if (!IsPagTestShowing(pagIndex))
             {
-                Debug.Log($"{PagLogPrefix} sequence aborted reason=restart");
-                mono.StopCoroutine(_corPagTest1);
-            }
-
-            _corPagTest1 = mono.StartCoroutine(PlayPagTestEnterSequence());
-        }
-
-        /// <summary>进局协程：预加载序列 → 可选循环 / 单次 BigWin_1024 → 停止并卸资源。</summary>
-        private IEnumerator PlayPagTestEnterSequence()
-        {
-            Debug.Log($"{PagLogPrefix} PlayPagTestEnterSequence start");
-
-            for (int i = 0; i < PagTestLoopSequence.Length; i++)
-            {
-                yield return PagController.PreloadCompositionCoroutine(PagTestLoopSequence[i]);
-            }
-
-            if (PagTestLoop)
-            {
-                int loopIndex = 0;
-                while (true)
-                {
-                    string pagFileName = PagTestLoopSequence[0];
-                    PlayPagTest(_pagTestSlot1, pagFileName, -1);
-                    yield return WaitPagTestPlayStarted(_pagTestSlot1, PagTestPlayStartedTimeoutSec);
-                    PagController controller = _pagTestSlot1?.Controller;
-                    if (controller == null || !controller.PlayStarted)
-                    {
-                        Debug.LogError($"{PagLogPrefix} {pagFileName} play did not start within {PagTestPlayStartedTimeoutSec}s");
-                        Debug.Log($"{PagLogPrefix} sequence aborted reason=pag_play_started_timeout pag={pagFileName}");
-                        _corPagTest1 = null;
-                        yield break;
-                    }
-
-                    if (PagTestUseFguiTexture)
-                    {
-                        float durationFallback = GetPagTestDurationFallback(pagFileName);
-                        float pagTimeout = controller.GetCompositionDurationSecWithFallback(durationFallback) + 3f;
-                        yield return controller.WaitForPlaybackFinished(pagTimeout);
-                    }
-                    else
-                    {
-                        yield return slotMachineCtrl.SlotWaitForSeconds(GetPagTestDurationFallback(pagFileName));
-                    }
-
-                    loopIndex = (loopIndex + 1) % PagTestLoopSequence.Length;
-                    Debug.Log($"{PagLogPrefix} loop next: {PagTestLoopSequence[loopIndex]}");
-                }
-            }
-
-            PlayPagTest(_pagTestSlot1, PagTestName1);
-            yield return WaitPagTestPlayStarted(_pagTestSlot1, PagTestPlayStartedTimeoutSec);
-            PagController transitionController = _pagTestSlot1?.Controller;
-            if (transitionController == null || !transitionController.PlayStarted)
-            {
-                Debug.LogError($"{PagLogPrefix} {PagTestName1} play did not start within {PagTestPlayStartedTimeoutSec}s");
-                Debug.Log($"{PagLogPrefix} sequence aborted reason=pag_play_started_timeout");
-                _corPagTest1 = null;
+                SetPagTestCoroutine(pagIndex, null);
                 yield break;
             }
 
-            if (PagTestUseFguiTexture)
-            {
-                float pagTimeout = transitionController.GetCompositionDurationSecWithFallback(PagTestDuration) + 3f;
-                yield return transitionController.WaitForPlaybackFinished(pagTimeout);
-            }
-            else
-            {
-                yield return slotMachineCtrl.SlotWaitForSeconds(PagTestDuration);
-            }
-
-            StopPagTest(_pagTestSlot1, ref _pagTest1Showing);
-            yield return PagPathHelper.DeferredUnloadUnusedAssets();
-            _corPagTest1 = null;
-            Debug.Log($"{PagLogPrefix} PlayPagTestEnterSequence finished");
-        }
-
-        /// <summary>轮询直到 PagController.PlayStarted 或超时。</summary>
-        private IEnumerator WaitPagTestPlayStarted(PagSlotBinding slot, float timeoutSec)
-        {
-            EnsurePagTestSlots();
+            PagSlotBinding slot = GetPagTestSlotByPagIndex(pagIndex);
             PagController controller = slot?.Controller;
             if (controller == null)
             {
+                Debug.LogError($"{PagLogPrefix} PAG{pagIndex}: controller missing");
+                StopPagTestPlayback(pagIndex, stopComboIfActive: false);
                 yield break;
             }
 
-            float deadline = Time.unscaledTime + timeoutSec;
-            while (!controller.PlayStarted && Time.unscaledTime < deadline)
+            string positionType = "center";
+            string layoutExtra = string.Empty;
+            if (PagTestDebugFullScreen)
             {
-                yield return null;
+                positionType = "full";
             }
-
-            if (controller.PlayStarted)
+            else if (TryBuildPagTestLayoutExtra(out layoutExtra, out string layoutDebug))
             {
-                Debug.Log($"{PagLogPrefix} Pag play started (within {timeoutSec}s), instance={slot.InstanceKey}");
+                Debug.Log($"{PagLogPrefix} PAG{pagIndex} layout extra: {layoutExtra} ({layoutDebug})");
             }
             else
             {
-                Debug.LogWarning($"{PagLogPrefix} Pag play started timeout ({timeoutSec}s), instance={slot.InstanceKey}");
+                Debug.LogWarning($"{PagLogPrefix} PAG{pagIndex} layout fallback turntable");
+                controller.LayoutPagAuto("turntable");
             }
+
+            slot.SetFguiDisplayScale(config.DisplayScale);
+            slot.SetFguiClampDisplayToHolder(PagTestClampDisplayToHolder);
+            if (!slot.PreparePlay(true, PagTestFguiMaxDisplaySide, PagTestFguiFps))
+            {
+                Debug.LogError($"{PagLogPrefix} PAG{pagIndex} PreparePlay failed");
+                StopPagTestPlayback(pagIndex, stopComboIfActive: false);
+                yield break;
+            }
+
+            PagSegment[] segments =
+            {
+                new PagSegment(config.IntroFile, 1),
+                new PagSegment(config.LoopFile, -1),
+            };
+            if (!controller.PlayFguiGpuSequence(segments, positionType, layoutExtra, PagTestUseGpuSyncGroup))
+            {
+                Debug.LogError($"{PagLogPrefix} PAG{pagIndex} PlayFguiGpuSequence failed");
+                StopPagTestPlayback(pagIndex, stopComboIfActive: false);
+                yield break;
+            }
+
+            yield return WaitPagTestPlayStarted(slot, PagTestPlayStartedTimeoutSec);
+            controller = slot?.Controller;
+            if (controller == null || !controller.PlayStarted)
+            {
+                Debug.LogError($"{PagLogPrefix} PAG{pagIndex} sequence did not start within {PagTestPlayStartedTimeoutSec}s");
+                StopPagTestPlayback(pagIndex, stopComboIfActive: false);
+                yield break;
+            }
+
+            SetPagTestCoroutine(pagIndex, null);
+            Debug.Log($"{PagLogPrefix} PAG{pagIndex}: intro->loop sequence started, scale={config.DisplayScale}");
         }
 
-        /// <summary>绑定 PageGameMain 上 PAG1~12、Spine1~5 测试按钮（InitParam / 语言切换后）。</summary>
-        private void BindPagTestButtons()
+        /// <summary>
+        /// PAG9~12 NPC 序列播放协程
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        /// <param name="config"> 播放配置</param>
+        private IEnumerator StartPagTestNpcSequencePlayback(int pagIndex, PagTestPlaybackConfig config)
         {
-            if (_pagTestButtonsBound || contentPane == null)
+            string[] sequence = config.Sequence;
+            string label = config.Label;
+            if (sequence == null || sequence.Length == 0)
             {
-                return;
+                yield break;
             }
 
-            GButton btnPag1 = contentPane.GetChild("PAG1")?.asButton;
-            if (btnPag1 != null)
+            if (!GetPagTestCacheWarmed(pagIndex))
             {
-                btnPag1.onClick.Clear();
-                btnPag1.onClick.Add(OnClickPagTest1Button);
+                for (int i = 0; i < sequence.Length; i++)
+                {
+                    yield return PagController.PreloadCompositionCoroutine(sequence[i], GamePagFolder);
+                }
+
+                SetPagTestCacheWarmed(pagIndex, true);
+            }
+
+            if (!IsPagTestShowing(pagIndex))
+            {
+                SetPagTestCoroutine(pagIndex, null);
+                yield break;
+            }
+
+            PagSlotBinding slot = GetPagTestSlotByPagIndex(pagIndex);
+            PagController controller = slot?.Controller;
+            if (controller == null)
+            {
+                Debug.LogError($"{PagLogPrefix} PAG{pagIndex} controller missing: {label}");
+                StopPagTestPlayback(pagIndex, stopComboIfActive: false);
+                yield break;
+            }
+
+            string positionType = "center";
+            string layoutExtra = string.Empty;
+            if (PagTestDebugFullScreen)
+            {
+                positionType = "full";
+            }
+            else if (TryBuildPagTestLayoutExtra(out layoutExtra, out string layoutDebug))
+            {
+                Debug.Log($"{PagLogPrefix} PAG{pagIndex} layout extra: {layoutExtra} ({layoutDebug})");
             }
             else
             {
-                Debug.LogWarning($"{PagLogPrefix} button missing: PAG1");
+                Debug.LogWarning($"{PagLogPrefix} PAG{pagIndex} layout fallback turntable");
+                controller.LayoutPagAuto("turntable");
             }
 
-            GButton btnPag2 = contentPane.GetChild("PAG2")?.asButton;
-            if (btnPag2 != null)
+            slot.SetFguiDisplayScale(PagTestDisplayScale);
+            slot.SetFguiClampDisplayToHolder(PagTestClampDisplayToHolder);
+            if (!slot.PreparePlay(true, PagTestFguiMaxDisplaySide, PagTestFguiFps))
             {
-                btnPag2.onClick.Clear();
-                btnPag2.onClick.Add(OnClickPagTest2Button);
-            }
-            else
-            {
-                Debug.LogWarning($"{PagLogPrefix} button missing: PAG2");
+                Debug.LogError($"{PagLogPrefix} PAG{pagIndex} PreparePlay failed: {label}");
+                StopPagTestPlayback(pagIndex, stopComboIfActive: false);
+                yield break;
             }
 
-            GButton btnPag3 = contentPane.GetChild("PAG3")?.asButton;
-            if (btnPag3 != null)
+            PagSegment[] segments = BuildPagTestNpcSegments(sequence);
+            if (!controller.PlayFguiGpuSequence(segments, positionType, layoutExtra, PagTestUseGpuSyncGroup))
             {
-                btnPag3.onClick.Clear();
-                btnPag3.onClick.Add(OnClickPagTest3Button);
-            }
-            else
-            {
-                Debug.LogWarning($"{PagLogPrefix} button missing: PAG3");
+                Debug.LogError($"{PagLogPrefix} PAG{pagIndex} PlayFguiGpuSequence failed: {label}");
+                StopPagTestPlayback(pagIndex, stopComboIfActive: false);
+                yield break;
             }
 
-            GButton btnPag4 = contentPane.GetChild("PAG4")?.asButton;
-            if (btnPag4 != null)
+            yield return WaitPagTestPlayStarted(slot, PagTestPlayStartedTimeoutSec);
+            controller = slot?.Controller;
+            if (controller == null || !controller.PlayStarted)
             {
-                btnPag4.onClick.Clear();
-                btnPag4.onClick.Add(OnClickPagTest4Button);
-            }
-            else
-            {
-                Debug.LogWarning($"{PagLogPrefix} button missing: PAG4");
+                Debug.LogError($"{PagLogPrefix} PAG{pagIndex} sequence did not start within {PagTestPlayStartedTimeoutSec}s: {label}");
+                StopPagTestPlayback(pagIndex, stopComboIfActive: false);
+                yield break;
             }
 
-            BindPagTestGlowButton("PAG5", OnClickPagTest5Button);
-            BindPagTestGlowButton("PAG6", OnClickPagTest6Button);
-            BindPagTestGlowButton("PAG7", OnClickPagTest7Button);
-            BindPagTestGlowButton("PAG8", OnClickPagTest8Button);
-            BindPagTestGlowButton("PAG9", OnClickPagTest9Button);
-            BindPagTestGlowButton("PAG10", OnClickPagTest10Button);
-            BindPagTestGlowButton("PAG11", OnClickPagTest11Button);
-            BindPagTestGlowButton("PAG12", OnClickPagTest12Button);
-
-            GButton btnSpine1 = contentPane.GetChild("Spine1")?.asButton;
-            if (btnSpine1 != null)
+            float totalTimeout = 0f;
+            for (int i = 0; i < sequence.Length; i++)
             {
-                btnSpine1.onClick.Clear();
-                btnSpine1.onClick.Add(OnClickSpineTest1Button);
-            }
-            else
-            {
-                Debug.LogWarning($"{PagLogPrefix} button missing: Spine1");
+                totalTimeout += controller.GetCompositionDurationSecWithFallback(PagTestNpcSegmentDurationFallbackSec) + 1f;
             }
 
-            GButton btnSpine2 = contentPane.GetChild("Spine2")?.asButton;
-            if (btnSpine2 != null)
-            {
-                btnSpine2.onClick.Clear();
-                btnSpine2.onClick.Add(OnClickSpineTest2Button);
-            }
-            else
-            {
-                Debug.LogWarning($"{PagLogPrefix} button missing: Spine2");
-            }
+            totalTimeout += 3f;
+            totalTimeout = Mathf.Max(totalTimeout, sequence.Length * PagTestNpcSegmentDurationFallbackSec + 5f);
+            yield return controller.WaitForFguiGpuSequenceFinished(totalTimeout);
 
-            BindPagTestSpineButton("Spine3", OnClickSpineTest3Button);
-            BindPagTestSpineButton("Spine4", OnClickSpineTest4Button);
-            BindPagTestSpineButton("Spine5", OnClickSpineTest5Button);
-
-            _pagTestButtonsBound = true;
+            SetPagTestShowing(pagIndex, false);
+            slot?.Stop(PagTestUseFguiTexture);
+            SetPagTestCoroutine(pagIndex, null);
+            Debug.Log($"{PagLogPrefix} PAG{pagIndex} npc sequence finished: {label}");
         }
 
+        /// <summary>
+        /// 将 NPC PAG 文件名数组转为 PagSegment 列表
+        /// </summary>
+        /// <param name="sequence"> PAG 文件序列</param>
+        /// <returns> PAG 分段数组</returns>
+        private static PagSegment[] BuildPagTestNpcSegments(string[] sequence)
+        {
+            var segments = new PagSegment[sequence.Length];
+            for (int i = 0; i < sequence.Length; i++)
+            {
+                segments[i] = new PagSegment(sequence[i], 1);
+            }
+
+            return segments;
+        }
+
+        /// <summary>
+        /// 绑定单个 Spine 测试按钮的 onClick
+        /// </summary>
+        /// <param name="buttonName"> FGUI 按钮名</param>
+        /// <param name="handler"> 点击回调</param>
         private void BindPagTestSpineButton(string buttonName, EventCallback0 handler)
         {
             GButton btn = contentPane.GetChild(buttonName)?.asButton;
@@ -1607,7 +1641,9 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
-        /// <summary>OnClose / OnLanguageChange 前清除 PAG 与 Spine 测试按钮点击监听。</summary>
+        /// <summary>
+        /// OnClose / OnLanguageChange 前清除 PAG 与 Spine 测试按钮点击监听
+        /// </summary>
         private void ClearPagTestButtons()
         {
             if (!_pagTestButtonsBound || contentPane == null)
@@ -1635,7 +1671,9 @@ namespace SlotZhuZaiJinBi1700
             _pagTestButtonsBound = false;
         }
 
-        /// <summary>在 _clonePagTest 上查找并初始化 Spine1~5 对照节点。</summary>
+        /// <summary>
+        /// 在 _clonePagTest 上查找并初始化 Spine1~5 对照节点
+        /// </summary>
         private void EnsurePagTestSpines()
         {
             if (_clonePagTest == null)
@@ -1643,72 +1681,65 @@ namespace SlotZhuZaiJinBi1700
                 return;
             }
 
-            EnsurePagTestSpine(ref _pagTestSpine1Animator, ref _pagTestSpine1Mecanim, PagTestSpine1Node, 1);
-            EnsurePagTestSpine(ref _pagTestSpine2Animator, ref _pagTestSpine2Mecanim, PagTestSpine2Node, 2);
-            EnsurePagTestSpine(ref _pagTestSpine3Animator, ref _pagTestSpine3Mecanim, PagTestSpine3Node, 3);
-            EnsurePagTestSpine(ref _pagTestSpine4Animator, ref _pagTestSpine4Mecanim, PagTestSpine4Node, 4);
-            EnsurePagTestSpine(ref _pagTestSpine5Animator, ref _pagTestSpine5Mecanim, PagTestSpine5Node, 5);
+            for (int i = 0; i < PagTestSpineCount; i++)
+            {
+                int spineIndex = i + 1;
+                EnsurePagTestSpine(ref _pagTestSpineAnimators[i], ref _pagTestSpineMecanims[i], PagTestSpineConfigs[i].NodeName, spineIndex);
+            }
         }
 
+        /// <summary>
+        /// 按 spineIndex 返回 Spine 对照节点的 Animator 与 SkeletonMecanim
+        /// </summary>
+        /// <param name="spineIndex"> Spine 按钮下标（1~5）</param>
+        /// <param name="animator"> 输出Animator 引用</param>
+        /// <param name="mecanim"> 输出SkeletonMecanim 引用</param>
         private bool TryGetPagTestSpine(int spineIndex, out Animator animator, out SkeletonMecanim mecanim)
         {
             animator = null;
             mecanim = null;
-            switch (spineIndex)
+            int i = spineIndex - 1;
+            if (i < 0 || i >= PagTestSpineCount)
             {
-                case 1:
-                    animator = _pagTestSpine1Animator;
-                    mecanim = _pagTestSpine1Mecanim;
-                    break;
-                case 2:
-                    animator = _pagTestSpine2Animator;
-                    mecanim = _pagTestSpine2Mecanim;
-                    break;
-                case 3:
-                    animator = _pagTestSpine3Animator;
-                    mecanim = _pagTestSpine3Mecanim;
-                    break;
-                case 4:
-                    animator = _pagTestSpine4Animator;
-                    mecanim = _pagTestSpine4Mecanim;
-                    break;
-                case 5:
-                    animator = _pagTestSpine5Animator;
-                    mecanim = _pagTestSpine5Mecanim;
-                    break;
-                default:
-                    return false;
+                return false;
             }
 
+            animator = _pagTestSpineAnimators[i];
+            mecanim = _pagTestSpineMecanims[i];
             return true;
         }
 
+        /// <summary>
+        /// 查询 Spine 对照节点当前是否处于显示播放状态
+        /// </summary>
+        /// <param name="spineIndex"> Spine 按钮下标（1~5）</param>
         private bool GetSpineTestShowing(int spineIndex)
         {
-            switch (spineIndex)
-            {
-                case 1: return _spineTest1Showing;
-                case 2: return _spineTest2Showing;
-                case 3: return _spineTest3Showing;
-                case 4: return _spineTest4Showing;
-                case 5: return _spineTest5Showing;
-                default: return false;
-            }
+            int i = spineIndex - 1;
+            return i >= 0 && i < PagTestSpineCount && _spineTestShowing[i];
         }
 
+        /// <summary>
+        /// 设置 Spine 对照节点 showing 标志
+        /// </summary>
+        /// <param name="spineIndex"> Spine 按钮下标（1~5）</param>
+        /// <param name="showing"> 是否正在播放/显示</param>
         private void SetSpineTestShowing(int spineIndex, bool showing)
         {
-            switch (spineIndex)
+            int i = spineIndex - 1;
+            if (i >= 0 && i < PagTestSpineCount)
             {
-                case 1: _spineTest1Showing = showing; break;
-                case 2: _spineTest2Showing = showing; break;
-                case 3: _spineTest3Showing = showing; break;
-                case 4: _spineTest4Showing = showing; break;
-                case 5: _spineTest5Showing = showing; break;
+                _spineTestShowing[i] = showing;
             }
         }
 
-        /// <summary>懒加载单个 Spine 节点组件并默认隐藏。</summary>
+        /// <summary>
+        /// 懒加载单个 Spine 节点组件并默认隐藏
+        /// </summary>
+        /// <param name="animator"> Animator 引用</param>
+        /// <param name="mecanim"> SkeletonMecanim 引用</param>
+        /// <param name="nodeName"> Spine 节点名</param>
+        /// <param name="spineIndex"> Spine 按钮下标（1~5）</param>
         private void EnsurePagTestSpine(ref Animator animator, ref SkeletonMecanim mecanim, string nodeName, int spineIndex)
         {
             if (animator != null)
@@ -1739,7 +1770,10 @@ namespace SlotZhuZaiJinBi1700
             HidePagTestSpine(spineIndex);
         }
 
-        /// <summary>隐藏 Spine 对照动画（ClearState + SetActive false，清 mesh 并停止更新与渲染）。</summary>
+        /// <summary>
+        /// 隐藏 Spine 对照动画（ClearState + SetActive false，清 mesh 并停止更新与渲染）
+        /// </summary>
+        /// <param name="spineIndex"> Spine 按钮下标（1~5）</param>
         private void HidePagTestSpine(int spineIndex)
         {
             if (!TryGetPagTestSpine(spineIndex, out Animator animator, out SkeletonMecanim mecanim) || animator == null)
@@ -1756,7 +1790,11 @@ namespace SlotZhuZaiJinBi1700
             SetSpineTestShowing(spineIndex, false);
         }
 
-        /// <summary>显示并播放 Spine 对照动画。</summary>
+        /// <summary>
+        /// 显示并播放 Spine 对照动画
+        /// </summary>
+        /// <param name="spineIndex"> Spine 按钮下标（1~5）</param>
+        /// <param name="animName"> Spine 动画名</param>
         private void ShowPagTestSpine(int spineIndex, string animName)
         {
             EnsurePagTestSpines();
@@ -1793,849 +1831,51 @@ namespace SlotZhuZaiJinBi1700
             Debug.Log($"{PagLogPrefix} Spine{spineIndex} show {animName}");
         }
 
-        /// <summary>PAG1 切换：XingXing1.pag 单槽 repeat=-1（pagEffect1）。</summary>
-        private void OnClickPagTest1Button()
+        /// <summary>
+        /// Spine1 对照按钮：切换 jp_pup_grand / GRAND_in
+        /// </summary>
+        private void OnClickSpineTest1Button()
         {
-            StopPagTestGroupPlayback();
-
-            if (_pagTest1Showing)
-            {
-                Debug.Log($"{PagLogPrefix} PAG1 clicked, stop {PagTestName2}");
-                _pagTest1Showing = false;
-                if (_corPagTest1 != null && mono != null)
-                {
-                    mono.StopCoroutine(_corPagTest1);
-                    _corPagTest1 = null;
-                }
-
-                StopPagTest(_pagTestSlot1, ref _pagTest1Showing);
-                return;
-            }
-
-            Debug.Log($"{PagLogPrefix} PAG1 clicked, play {PagTestName2}");
-            if (_corPagTest1 != null && mono != null)
-            {
-                mono.StopCoroutine(_corPagTest1);
-                _corPagTest1 = null;
-            }
-
-            StopPagTest(_pagTestSlot1, ref _pagTest1Showing);
-            if (mono == null)
-            {
-                Debug.LogWarning($"{PagLogPrefix} PAG1 play skipped: mono is null");
-                return;
-            }
-
-            _pagTest1Showing = true;
-            _corPagTest1 = mono.StartCoroutine(StartPagTest1ButtonPlayback());
-        }
-
-        /// <summary>PAG2 切换：BigWin_1024.pag 单槽 repeat=-1（pagEffect2）。</summary>
-        private void OnClickPagTest2Button()
-        {
-            StopPagTestGroupPlayback();
-
-            if (_pagTest2Showing)
-            {
-                Debug.Log($"{PagLogPrefix} PAG2 clicked, stop {PagTestName1}");
-                StopPagTestSlotPlayback(2);
-                return;
-            }
-
-            Debug.Log($"{PagLogPrefix} PAG2 clicked, play {PagTestName1}");
-            StartPagTestSlotPlayback(2);
-        }
-
-        /// <summary>PAG3 切换：XingXing2.pag 单槽 repeat=-1（pagEffect3），独立 scale/clamp。</summary>
-        private void OnClickPagTest3Button()
-        {
-            StopPagTestGroupPlayback();
-
-            if (_pagTest3Showing)
-            {
-                Debug.Log($"{PagLogPrefix} PAG3 clicked, stop {PagTestName3}");
-                StopPagTestSlotPlayback(3);
-                return;
-            }
-
-            Debug.Log($"{PagLogPrefix} PAG3 clicked, play {PagTestName3}");
-            StartPagTestSlotPlayback(3);
-        }
-
-        /// <summary>启动 PAG2 或 PAG3 单槽循环播放（slotIndex 仅支持 2/3）。</summary>
-        private bool StartPagTestSlotPlayback(int slotIndex)
-        {
-            StopPagTestGroupPlayback();
-
-            if (slotIndex == 2)
-            {
-                if (_corPagTest2 != null && mono != null)
-                {
-                    mono.StopCoroutine(_corPagTest2);
-                    _corPagTest2 = null;
-                }
-
-                StopPagTest(_pagTestSlot2, ref _pagTest2Showing);
-                if (mono == null)
-                {
-                    Debug.LogWarning($"{PagLogPrefix} PAG2 play skipped: mono is null");
-                    return false;
-                }
-
-                _pagTest2Showing = true;
-                _corPagTest2 = mono.StartCoroutine(StartPagTest2ButtonPlayback());
-                return true;
-            }
-
-            if (slotIndex == 3)
-            {
-                if (_corPagTest3 != null && mono != null)
-                {
-                    mono.StopCoroutine(_corPagTest3);
-                    _corPagTest3 = null;
-                }
-
-                StopPagTest(_pagTestSlot3, ref _pagTest3Showing);
-                if (mono == null)
-                {
-                    Debug.LogWarning($"{PagLogPrefix} PAG3 play skipped: mono is null");
-                    return false;
-                }
-
-                _pagTest3Showing = true;
-                _corPagTest3 = mono.StartCoroutine(StartPagTest3ButtonPlayback());
-                return true;
-            }
-
-            Debug.LogWarning($"{PagLogPrefix} StartPagTestSlotPlayback unsupported slotIndex={slotIndex}");
-            return false;
-        }
-
-        /// <summary>停止 PAG2 或 PAG3 单槽播放（slotIndex 仅支持 2/3）。</summary>
-        private void StopPagTestSlotPlayback(int slotIndex)
-        {
-            if (slotIndex == 2)
-            {
-                _pagTest2Showing = false;
-                CancelComboPag2SpineCoroutine();
-                if (_corPagTest2 != null && mono != null)
-                {
-                    mono.StopCoroutine(_corPagTest2);
-                    _corPagTest2 = null;
-                }
-
-                StopPagTest(_pagTestSlot2, ref _pagTest2Showing);
-                return;
-            }
-
-            if (slotIndex == 3)
-            {
-                _pagTest3Showing = false;
-                CancelComboPag3SpineCoroutine();
-                if (_corPagTest3 != null && mono != null)
-                {
-                    mono.StopCoroutine(_corPagTest3);
-                    _corPagTest3 = null;
-                }
-
-                StopPagTest(_pagTestSlot3, ref _pagTest3Showing);
-            }
-        }
-
-        /// <summary>PAG4 切换：pagEffect4 顺序播 BigWin 六段 PAG（各 repeat=1）。</summary>
-        private void OnClickPagTest4Button()
-        {
-            if (_pagTest4Showing)
-            {
-                Debug.Log($"{PagLogPrefix} PAG4 clicked, stop BigWin sequence");
-                StopPagTest4Playback();
-                return;
-            }
-
-            string pag4Files = string.Join(" -> ", PagTestBigWinSequence);
-            Debug.Log($"{PagLogPrefix} PAG4 clicked, play BigWin sequence [{pag4Files}]");
-
-            PagGpuSyncGroup.EndStaticGroupIfActive("PagTest4Button");
-            _pagTestSlot5?.Stop(PagTestUseFguiTexture);
-            _pagTestSlot6?.Stop(PagTestUseFguiTexture);
-
-            if (_corPagTest4 != null && mono != null)
-            {
-                mono.StopCoroutine(_corPagTest4);
-                _corPagTest4 = null;
-            }
-
-            StopPagTest(_pagTestSlot4, ref _pagTest4Showing);
-            if (mono == null)
-            {
-                Debug.LogWarning($"{PagLogPrefix} PAG4 play skipped: mono is null");
-                return;
-            }
-
-            _pagTest4Showing = true;
-            _corPagTest4 = mono.StartCoroutine(StartPagTest4ButtonPlayback());
-        }
-
-        /// <summary>预热缓存后单次 Play + repeat=-1，由纹理模式 Native 路径无缝循环，避免圈间重开 Play 空窗。</summary>
-        private IEnumerator StartPagTest1ButtonPlayback()
-        {
-            yield return EnsurePagTestCompositionReady(PagTestName2, _pagTest1CacheWarmed,
-                ok => _pagTest1CacheWarmed = ok);
-
-            if (!_pagTest1Showing)
-            {
-                _corPagTest1 = null;
-                yield break;
-            }
-
-            PlayPagTest(_pagTestSlot1, PagTestName2, -1);
-            yield return TryAlignPagTestFpsAfterPlayStarted(_pagTestSlot1);
-            _corPagTest1 = null;
-            Debug.Log($"{PagLogPrefix} StartPagTest1ButtonPlayback: native loop repeat=-1");
-        }
-
-        /// <summary>PAG2 按钮协程：预热 BigWin_1024 → PlayPagTest slot2 repeat=-1 → 对齐帧率。</summary>
-        private IEnumerator StartPagTest2ButtonPlayback()
-        {
-            yield return EnsurePagTestCompositionReady(PagTestName1, _pagTest2CacheWarmed,
-                ok => _pagTest2CacheWarmed = ok);
-
-            if (!_pagTest2Showing)
-            {
-                _corPagTest2 = null;
-                yield break;
-            }
-
-            PlayPagTest(_pagTestSlot2, PagTestName1, -1);
-            yield return TryAlignPagTestFpsAfterPlayStarted(_pagTestSlot2);
-            _corPagTest2 = null;
-            Debug.Log($"{PagLogPrefix} StartPagTest2ButtonPlayback: native loop repeat=-1");
-        }
-
-        /// <summary>PAG3 按钮协程：预热 XingXing2 → PlayPagTest slot3 repeat=-1 → 对齐帧率。</summary>
-        private IEnumerator StartPagTest3ButtonPlayback()
-        {
-            yield return EnsurePagTestCompositionReady(PagTestName3, _pagTest3CacheWarmed,
-                ok => _pagTest3CacheWarmed = ok);
-
-            if (!_pagTest3Showing)
-            {
-                _corPagTest3 = null;
-                yield break;
-            }
-
-            PlayPagTest(_pagTestSlot3, PagTestName3, -1);
-            yield return TryAlignPagTestFpsAfterPlayStarted(_pagTestSlot3);
-            _corPagTest3 = null;
-            Debug.Log($"{PagLogPrefix} StartPagTest3ButtonPlayback: native loop repeat=-1");
+            TogglePagTestSpine(1, PagTestSpineConfigs[0].PlayAnim);
         }
 
         /// <summary>
-        /// PAG4 按钮协程：pagEffect4 Native 播放列表无缝播 BigWin 六段（Phase4E），播完自动结束。
+        /// Spine2 对照按钮：切换 ng_pop_bigWin / bigwin_start
         /// </summary>
-        private IEnumerator StartPagTest4ButtonPlayback()
-        {
-            if (!_pagTest4CacheWarmed)
-            {
-                for (int i = 0; i < PagTestBigWinSequence.Length; i++)
-                {
-                    yield return PagController.PreloadCompositionCoroutine(PagTestBigWinSequence[i]);
-                }
-
-                _pagTest4CacheWarmed = true;
-            }
-
-            if (!_pagTest4Showing)
-            {
-                _corPagTest4 = null;
-                yield break;
-            }
-
-            EnsurePagTestSlots();
-            PagController controller = _pagTestSlot4?.Controller;
-            if (controller == null)
-            {
-                Debug.LogError($"{PagLogPrefix} PAG4: controller missing");
-                StopPagTest4Playback();
-                _corPagTest4 = null;
-                yield break;
-            }
-
-            string positionType = "center";
-            string layoutExtra = string.Empty;
-            if (PagTestDebugFullScreen)
-            {
-                positionType = "full";
-            }
-            else if (TryBuildPagTestLayoutExtra(out layoutExtra, out string layoutDebug))
-            {
-                Debug.Log($"{PagLogPrefix} PAG4 layout extra: {layoutExtra} ({layoutDebug})");
-            }
-            else
-            {
-                Debug.LogWarning($"{PagLogPrefix} PAG4 layout fallback turntable");
-                controller.LayoutPagAuto("turntable");
-            }
-
-            _pagTestSlot4.SetFguiDisplayScale(PagTestDisplayScale);
-            _pagTestSlot4.SetFguiClampDisplayToHolder(PagTestClampDisplayToHolder);
-            if (!_pagTestSlot4.PreparePlay(true, PagTestFguiMaxDisplaySide, PagTestFguiFps))
-            {
-                Debug.LogError($"{PagLogPrefix} PAG4 PreparePlay failed");
-                StopPagTest4Playback();
-                _corPagTest4 = null;
-                yield break;
-            }
-
-            PagSegment[] segments = PagTestBigWinSequence
-                .Select(p => new PagSegment(p, 1))
-                .ToArray();
-
-            if (!controller.PlayFguiGpuSequence(segments, positionType, layoutExtra, PagTestUseGpuSyncGroup))
-            {
-                Debug.LogError($"{PagLogPrefix} PAG4 PlayFguiGpuSequence failed");
-                StopPagTest4Playback();
-                _corPagTest4 = null;
-                yield break;
-            }
-
-            yield return WaitPagTestPlayStarted(_pagTestSlot4, PagTestPlayStartedTimeoutSec);
-            controller = _pagTestSlot4?.Controller;
-            if (controller == null || !controller.PlayStarted)
-            {
-                Debug.LogError($"{PagLogPrefix} PAG4 sequence did not start within {PagTestPlayStartedTimeoutSec}s");
-                StopPagTest4Playback();
-                _corPagTest4 = null;
-                yield break;
-            }
-
-            float totalTimeout = 0f;
-            for (int i = 0; i < PagTestBigWinSequence.Length; i++)
-            {
-                totalTimeout += controller.GetCompositionDurationSecWithFallback(PagTestDuration) + 1f;
-            }
-
-            totalTimeout += 3f;
-            totalTimeout = Mathf.Max(totalTimeout, PagTestBigWinSequence.Length * PagTestDuration + 5f);
-            yield return controller.WaitForFguiGpuSequenceFinished(totalTimeout);
-
-            if (!_pagTest4Showing)
-            {
-                _corPagTest4 = null;
-                yield break;
-            }
-
-            StopPagTest(_pagTestSlot4, ref _pagTest4Showing);
-            _corPagTest4 = null;
-            Debug.Log($"{PagLogPrefix} StartPagTest4ButtonPlayback: BigWin sequence finished (4E playlist)");
-        }
-
-        private void BindPagTestGlowButton(string buttonName, EventCallback0 handler)
-        {
-            GButton btn = contentPane.GetChild(buttonName)?.asButton;
-            if (btn != null)
-            {
-                btn.onClick.Clear();
-                btn.onClick.Add(handler);
-            }
-            else
-            {
-                Debug.LogWarning($"{PagLogPrefix} button missing: {buttonName}");
-            }
-        }
-
-        private void OnClickPagTestGlowButton(int glowIndex, ref bool showingFlag, ref Coroutine coroutine, Func<IEnumerator> playbackFactory, string pagLabel)
-        {
-            StopPagTestGroupPlayback();
-
-            if (showingFlag)
-            {
-                Debug.Log($"{PagLogPrefix} {pagLabel} clicked, stop glow");
-                StopPagTestGlow(glowIndex);
-                return;
-            }
-
-            Debug.Log($"{PagLogPrefix} {pagLabel} clicked, play glow");
-            if (mono == null)
-            {
-                Debug.LogWarning($"{PagLogPrefix} {pagLabel} play skipped: mono is null");
-                return;
-            }
-
-            showingFlag = true;
-            coroutine = mono.StartCoroutine(playbackFactory());
-        }
-
-        private void OnClickPagTest5Button()
-        {
-            OnClickPagTestGlowButton(5, ref _pagTest5Showing, ref _corPagTest5, StartPagTest5ButtonPlayback, "PAG5");
-        }
-
-        private void OnClickPagTest6Button()
-        {
-            OnClickPagTestGlowButton(6, ref _pagTest6Showing, ref _corPagTest6, StartPagTest6ButtonPlayback, "PAG6");
-        }
-
-        private void OnClickPagTest7Button()
-        {
-            OnClickPagTestGlowButton(7, ref _pagTest7Showing, ref _corPagTest7, StartPagTest7ButtonPlayback, "PAG7");
-        }
-
-        private void OnClickPagTest8Button()
-        {
-            OnClickPagTestGlowButton(8, ref _pagTest8Showing, ref _corPagTest8, StartPagTest8ButtonPlayback, "PAG8");
-        }
-
-        private void OnClickPagTest9Button()
-        {
-            OnClickPagTestGlowButton(9, ref _pagTest9Showing, ref _corPagTest9, StartPagTest9ButtonPlayback, "PAG9");
-        }
-
-        private IEnumerator StartPagTest5ButtonPlayback()
-        {
-            yield return StartPagTestGlowLoopPlayback(5, PagGlowLoop720, PagTestDisplayScale);
-        }
-
-        private IEnumerator StartPagTest6ButtonPlayback()
-        {
-            yield return StartPagTestGlowLoopPlayback(6, PagGlowLoop720, PagGlow720DisplayScale);
-        }
-
-        private IEnumerator StartPagTest7ButtonPlayback()
-        {
-            yield return StartPagTestGlowLoopPlayback(7, PagGlowLoopHalf, PagTestDisplayScale);
-        }
-
-        private IEnumerator StartPagTest8ButtonPlayback()
-        {
-            yield return StartPagTestGlowLoopPlayback(8, PagGlowLoopFull, PagTestDisplayScale);
-        }
-
-        private IEnumerator StartPagTest9ButtonPlayback()
-        {
-            yield return StartPagTestGlowIntroLoopPlayback(9, PagGlowInFull, PagGlowLoopFull, PagTestDisplayScale);
-        }
-
-        private IEnumerator StartPagTestGlowLoopPlayback(int glowIndex, string pagFileName, float displayScale)
-        {
-            bool cacheWarmed = GetPagTestGlowCacheWarmed(glowIndex);
-            yield return EnsurePagTestCompositionReady(pagFileName, cacheWarmed,
-                ok => SetPagTestGlowCacheWarmed(glowIndex, ok));
-
-            if (!IsPagTestGlowShowing(glowIndex))
-            {
-                ClearPagTestGlowCoroutine(glowIndex);
-                yield break;
-            }
-
-            EnsurePagTestGlowSlotByIndex(glowIndex);
-            PagSlotBinding glowSlot = GetPagTestGlowSlot(glowIndex);
-            PlayPagTest(glowSlot, pagFileName, -1, displayScale);
-            yield return TryAlignPagTestFpsAfterPlayStarted(glowSlot);
-            if (!Mathf.Approximately(displayScale, PagTestDisplayScale))
-            {
-                glowSlot?.Controller?.SyncFguiDisplayLayoutFromComposition();
-            }
-
-            ClearPagTestGlowCoroutine(glowIndex);
-            Debug.Log($"{PagLogPrefix} PAG{glowIndex}: glow loop repeat=-1, scale={displayScale}");
-        }
-
-        private IEnumerator StartPagTestGlowIntroLoopPlayback(
-            int glowIndex,
-            string introFileName,
-            string loopFileName,
-            float displayScale)
-        {
-            bool cacheWarmed = GetPagTestGlowCacheWarmed(glowIndex);
-            if (!cacheWarmed || !IsPagCompositionReady(introFileName))
-            {
-                yield return PagController.PreloadCompositionCoroutine(introFileName);
-            }
-
-            if (!cacheWarmed || !IsPagCompositionReady(loopFileName))
-            {
-                yield return PagController.PreloadCompositionCoroutine(loopFileName);
-            }
-
-            SetPagTestGlowCacheWarmed(glowIndex,
-                IsPagCompositionReady(introFileName) && IsPagCompositionReady(loopFileName));
-
-            if (!IsPagTestGlowShowing(glowIndex))
-            {
-                ClearPagTestGlowCoroutine(glowIndex);
-                yield break;
-            }
-
-            EnsurePagTestGlowSlotByIndex(glowIndex);
-            PagSlotBinding glowSlot = GetPagTestGlowSlot(glowIndex);
-            PagController controller = glowSlot?.Controller;
-            if (controller == null)
-            {
-                Debug.LogError($"{PagLogPrefix} PAG{glowIndex}: controller missing");
-                StopPagTestGlow(glowIndex);
-                ClearPagTestGlowCoroutine(glowIndex);
-                yield break;
-            }
-
-            string positionType = "center";
-            string layoutExtra = string.Empty;
-            if (PagTestDebugFullScreen)
-            {
-                positionType = "full";
-            }
-            else if (TryBuildPagTestLayoutExtra(out layoutExtra, out string layoutDebug))
-            {
-                Debug.Log($"{PagLogPrefix} PAG{glowIndex} layout extra: {layoutExtra} ({layoutDebug})");
-            }
-            else
-            {
-                Debug.LogWarning($"{PagLogPrefix} PAG{glowIndex} layout fallback turntable");
-                controller.LayoutPagAuto("turntable");
-            }
-
-            glowSlot.SetFguiDisplayScale(displayScale);
-            glowSlot.SetFguiClampDisplayToHolder(PagTestClampDisplayToHolder);
-            if (!glowSlot.PreparePlay(true, PagTestFguiMaxDisplaySide, PagTestFguiFps))
-            {
-                Debug.LogError($"{PagLogPrefix} PAG{glowIndex} PreparePlay failed");
-                StopPagTestGlow(glowIndex);
-                ClearPagTestGlowCoroutine(glowIndex);
-                yield break;
-            }
-
-            PagSegment[] segments =
-            {
-                new PagSegment(introFileName, 1),
-                new PagSegment(loopFileName, -1),
-            };
-            if (!controller.PlayFguiGpuSequence(segments, positionType, layoutExtra, PagTestUseGpuSyncGroup))
-            {
-                Debug.LogError($"{PagLogPrefix} PAG{glowIndex} PlayFguiGpuSequence failed");
-                StopPagTestGlow(glowIndex);
-                ClearPagTestGlowCoroutine(glowIndex);
-                yield break;
-            }
-
-            yield return WaitPagTestPlayStarted(glowSlot, PagTestPlayStartedTimeoutSec);
-            controller = glowSlot?.Controller;
-            if (controller == null || !controller.PlayStarted)
-            {
-                Debug.LogError($"{PagLogPrefix} PAG{glowIndex} sequence did not start within {PagTestPlayStartedTimeoutSec}s");
-                StopPagTestGlow(glowIndex);
-                ClearPagTestGlowCoroutine(glowIndex);
-                yield break;
-            }
-
-            yield return TryAlignPagTestFpsAfterPlayStarted(glowSlot);
-            ClearPagTestGlowCoroutine(glowIndex);
-            Debug.Log($"{PagLogPrefix} PAG{glowIndex}: intro->loop sequence started (4E playlist), scale={displayScale}");
-        }
-
-        private bool IsPagTestGlowShowing(int glowIndex)
-        {
-            switch (glowIndex)
-            {
-                case 5: return _pagTest5Showing;
-                case 6: return _pagTest6Showing;
-                case 7: return _pagTest7Showing;
-                case 8: return _pagTest8Showing;
-                case 9: return _pagTest9Showing;
-                default: return false;
-            }
-        }
-
-        private bool GetPagTestGlowCacheWarmed(int glowIndex)
-        {
-            switch (glowIndex)
-            {
-                case 5: return _pagTest5CacheWarmed;
-                case 6: return _pagTest6CacheWarmed;
-                case 7: return _pagTest7CacheWarmed;
-                case 8: return _pagTest8CacheWarmed;
-                case 9: return _pagTest9CacheWarmed;
-                default: return false;
-            }
-        }
-
-        private void SetPagTestGlowCacheWarmed(int glowIndex, bool warmed)
-        {
-            switch (glowIndex)
-            {
-                case 5: _pagTest5CacheWarmed = warmed; break;
-                case 6: _pagTest6CacheWarmed = warmed; break;
-                case 7: _pagTest7CacheWarmed = warmed; break;
-                case 8: _pagTest8CacheWarmed = warmed; break;
-                case 9: _pagTest9CacheWarmed = warmed; break;
-            }
-        }
-
-        private void ClearPagTestGlowCoroutine(int glowIndex)
-        {
-            switch (glowIndex)
-            {
-                case 5: _corPagTest5 = null; break;
-                case 6: _corPagTest6 = null; break;
-                case 7: _corPagTest7 = null; break;
-                case 8: _corPagTest8 = null; break;
-                case 9: _corPagTest9 = null; break;
-            }
-        }
-
-        private void OnClickPagTest10Button()
-        {
-            OnClickPagTestNpcButton(0);
-        }
-
-        private void OnClickPagTest11Button()
-        {
-            OnClickPagTestNpcButton(1);
-        }
-
-        private void OnClickPagTest12Button()
-        {
-            OnClickPagTestNpcButton(2);
-        }
-
-        private void OnClickPagTestNpcButton(int npcIndex)
-        {
-            if (npcIndex < 0 || npcIndex >= MaxPagTestNpcCount)
-            {
-                return;
-            }
-
-            string label = PagTestNpcLabels[npcIndex];
-            if (IsPagTestNpcShowing(npcIndex))
-            {
-                Debug.Log($"{PagLogPrefix} PAG{npcIndex + 10} clicked, stop {label}");
-                StopPagTestNpcPlayback(npcIndex);
-                return;
-            }
-
-            string[] sequence = PagTestNpcSequences[npcIndex];
-            Debug.Log($"{PagLogPrefix} PAG{npcIndex + 10} clicked, play {label} syncGroup={PagTestUseGpuSyncGroup}");
-            StopPagTestNpcPlayback(npcIndex);
-            if (mono == null)
-            {
-                Debug.LogWarning($"{PagLogPrefix} PAG{npcIndex + 10} play skipped: mono is null");
-                return;
-            }
-
-            SetPagTestNpcShowing(npcIndex, true);
-            int sessionId = ++_pagTestNpcSessionId[npcIndex];
-            SetPagTestNpcCoroutine(npcIndex,
-                mono.StartCoroutine(StartPagTestNpcSequencePlayback(npcIndex, sequence, label, sessionId)));
-        }
-
-        private void StopAllPagTestNpcPlayback()
-        {
-            for (int i = 0; i < MaxPagTestNpcCount; i++)
-            {
-                StopPagTestNpcPlayback(i);
-            }
-        }
-
-        private void StopPagTestNpcPlayback(int npcIndex)
-        {
-            if (npcIndex < 0 || npcIndex >= MaxPagTestNpcCount)
-            {
-                return;
-            }
-
-            _pagTestNpcSessionId[npcIndex]++;
-            SetPagTestNpcShowing(npcIndex, false);
-
-            Coroutine coroutine = GetPagTestNpcCoroutine(npcIndex);
-            if (coroutine != null && mono != null)
-            {
-                mono.StopCoroutine(coroutine);
-            }
-
-            SetPagTestNpcCoroutine(npcIndex, null);
-            GetPagTestNpcSlot(npcIndex)?.Stop(PagTestUseFguiTexture);
-        }
-
-        private IEnumerator StartPagTestNpcSequencePlayback(int npcIndex, string[] sequence, string label, int sessionId)
-        {
-            if (sequence == null || sequence.Length == 0)
-            {
-                StopPagTestNpcPlayback(npcIndex);
-                yield break;
-            }
-
-            for (int i = 0; i < sequence.Length; i++)
-            {
-                yield return EnsurePagTestCompositionReady(sequence[i], false, _ => { });
-
-                if (sessionId != _pagTestNpcSessionId[npcIndex])
-                {
-                    yield break;
-                }
-            }
-
-            if (!IsPagTestNpcShowing(npcIndex))
-            {
-                SetPagTestNpcCoroutine(npcIndex, null);
-                yield break;
-            }
-
-            EnsurePagTestNpcSlotByIndex(npcIndex);
-            PagSlotBinding slot = GetPagTestNpcSlot(npcIndex);
-            PagController controller = slot?.Controller;
-            if (controller == null)
-            {
-                Debug.LogError($"{PagLogPrefix} PAG{npcIndex + 10} controller missing: {label}");
-                StopPagTestNpcPlayback(npcIndex);
-                yield break;
-            }
-
-            string positionType = "center";
-            string layoutExtra = string.Empty;
-            if (PagTestDebugFullScreen)
-            {
-                positionType = "full";
-            }
-            else if (TryBuildPagTestLayoutExtra(out layoutExtra, out string layoutDebug))
-            {
-                Debug.Log($"{PagLogPrefix} PAG{npcIndex + 10} layout extra: {layoutExtra} ({layoutDebug})");
-            }
-            else
-            {
-                Debug.LogWarning($"{PagLogPrefix} PAG{npcIndex + 10} layout fallback turntable");
-                controller.LayoutPagAuto("turntable");
-            }
-
-            slot.SetFguiDisplayScale(PagTestDisplayScale);
-            slot.SetFguiClampDisplayToHolder(PagTestClampDisplayToHolder);
-            if (!slot.PreparePlay(true, PagTestFguiMaxDisplaySide, PagTestFguiFps))
-            {
-                Debug.LogError($"{PagLogPrefix} PAG{npcIndex + 10} PreparePlay failed: {label}");
-                StopPagTestNpcPlayback(npcIndex);
-                yield break;
-            }
-
-            PagSegment[] segments = BuildPagTestNpcSegments(sequence);
-            if (!controller.PlayFguiGpuSequence(segments, positionType, layoutExtra, PagTestUseGpuSyncGroup))
-            {
-                Debug.LogError($"{PagLogPrefix} PAG{npcIndex + 10} PlayFguiGpuSequence failed: {label}");
-                StopPagTestNpcPlayback(npcIndex);
-                yield break;
-            }
-
-            yield return WaitPagTestPlayStarted(slot, PagTestPlayStartedTimeoutSec);
-            controller = slot?.Controller;
-            if (controller == null || !controller.PlayStarted)
-            {
-                Debug.LogError($"{PagLogPrefix} PAG{npcIndex + 10} sequence did not start within {PagTestPlayStartedTimeoutSec}s: {label}");
-                StopPagTestNpcPlayback(npcIndex);
-                yield break;
-            }
-
-            float totalTimeout = 0f;
-            for (int i = 0; i < sequence.Length; i++)
-            {
-                totalTimeout += controller.GetCompositionDurationSecWithFallback(PagTestNpcSegmentDurationFallbackSec) + 1f;
-            }
-
-            totalTimeout += 3f;
-            totalTimeout = Mathf.Max(totalTimeout, sequence.Length * PagTestNpcSegmentDurationFallbackSec + 5f);
-            yield return controller.WaitForFguiGpuSequenceFinished(totalTimeout);
-
-            if (sessionId != _pagTestNpcSessionId[npcIndex])
-            {
-                yield break;
-            }
-
-            SetPagTestNpcShowing(npcIndex, false);
-            slot?.Stop(PagTestUseFguiTexture);
-            SetPagTestNpcCoroutine(npcIndex, null);
-            Debug.Log($"{PagLogPrefix} PAG{npcIndex + 10} npc sequence finished: {label}");
-        }
-
-        private static PagSegment[] BuildPagTestNpcSegments(string[] sequence)
-        {
-            var segments = new PagSegment[sequence.Length];
-            for (int i = 0; i < sequence.Length; i++)
-            {
-                segments[i] = new PagSegment(sequence[i], 1);
-            }
-
-            return segments;
-        }
-
-        private bool IsPagTestNpcShowing(int npcIndex)
-        {
-            switch (npcIndex)
-            {
-                case 0: return _pagTest10Showing;
-                case 1: return _pagTest11Showing;
-                case 2: return _pagTest12Showing;
-                default: return false;
-            }
-        }
-
-        private void SetPagTestNpcShowing(int npcIndex, bool showing)
-        {
-            switch (npcIndex)
-            {
-                case 0: _pagTest10Showing = showing; break;
-                case 1: _pagTest11Showing = showing; break;
-                case 2: _pagTest12Showing = showing; break;
-            }
-        }
-
-        private Coroutine GetPagTestNpcCoroutine(int npcIndex)
-        {
-            switch (npcIndex)
-            {
-                case 0: return _corPagTest10;
-                case 1: return _corPagTest11;
-                case 2: return _corPagTest12;
-                default: return null;
-            }
-        }
-
-        private void SetPagTestNpcCoroutine(int npcIndex, Coroutine coroutine)
-        {
-            switch (npcIndex)
-            {
-                case 0: _corPagTest10 = coroutine; break;
-                case 1: _corPagTest11 = coroutine; break;
-                case 2: _corPagTest12 = coroutine; break;
-            }
-        }
-
-        /// <summary>Spine1 对照按钮：切换 jp_pup_grand / GRAND_in。</summary>
-        private void OnClickSpineTest1Button()
-        {
-            TogglePagTestSpine(1, PagTestSpine1PlayAnim);
-        }
-
-        /// <summary>Spine2 对照按钮：切换 ng_pop_bigWin / bigwin_start。</summary>
         private void OnClickSpineTest2Button()
         {
-            TogglePagTestSpine(2, PagTestSpine2PlayAnim);
+            TogglePagTestSpine(2, PagTestSpineConfigs[1].PlayAnim);
         }
 
-        /// <summary>Spine3 对照按钮：切换 jp_pup_GRAND / in。</summary>
+        /// <summary>
+        /// Spine3 对照按钮：切换 jp_pup_GRAND / in
+        /// </summary>
         private void OnClickSpineTest3Button()
         {
-            TogglePagTestSpine(3, PagTestSpine3PlayAnim);
+            TogglePagTestSpine(3, PagTestSpineConfigs[2].PlayAnim);
         }
 
-        /// <summary>Spine4 对照按钮：切换 ng_bor_boom1 / start。</summary>
+        /// <summary>
+        /// Spine4 对照按钮：切换 ng_bor_boom1 / start
+        /// </summary>
         private void OnClickSpineTest4Button()
         {
-            TogglePagTestSpine(4, PagTestSpine4PlayAnim);
+            TogglePagTestSpine(4, PagTestSpineConfigs[3].PlayAnim);
         }
 
-        /// <summary>Spine5 对照按钮：切换 ng_ic_bigwin / bigwin_start。</summary>
+        /// <summary>
+        /// Spine5 对照按钮：切换 ng_ic_bigwin / bigwin_start
+        /// </summary>
         private void OnClickSpineTest5Button()
         {
-            TogglePagTestSpine(5, PagTestSpine5PlayAnim);
+            TogglePagTestSpine(5, PagTestSpineConfigs[4].PlayAnim);
         }
 
-        /// <summary>Spine 对照显示/隐藏切换。</summary>
+        /// <summary>
+        /// Spine 对照显示/隐藏切换
+        /// </summary>
+        /// <param name="spineIndex"> Spine 按钮下标（1~5）</param>
+        /// <param name="animName"> Spine 动画名</param>
         private void TogglePagTestSpine(int spineIndex, string animName)
         {
             if (GetSpineTestShowing(spineIndex))
@@ -2648,6 +1888,9 @@ namespace SlotZhuZaiJinBi1700
             ShowPagTestSpine(spineIndex, animName);
         }
 
+        /// <summary>
+        /// 在 anchorPagTest 上实例化 BorderMegaWin 特效并挂到 holder GoWrapper
+        /// </summary>
         private void EnsureBorderMegaWinEffects()
         {
             if (_anchorPagTest == null)
@@ -2688,6 +1931,9 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
+        /// <summary>
+        /// 绑定 Effect1~5 边框 MegaWin 测试按钮
+        /// </summary>
         private void BindBorderMegaWinButtons()
         {
             if (_borderMegaWinButtonsBound || contentPane == null)
@@ -2714,6 +1960,9 @@ namespace SlotZhuZaiJinBi1700
             _borderMegaWinButtonsBound = true;
         }
 
+        /// <summary>
+        /// 清除 BorderMegaWin 测试按钮点击监听
+        /// </summary>
         private void ClearBorderMegaWinButtons()
         {
             if (!_borderMegaWinButtonsBound || contentPane == null)
@@ -2729,6 +1978,10 @@ namespace SlotZhuZaiJinBi1700
             _borderMegaWinButtonsBound = false;
         }
 
+        /// <summary>
+        /// Effect 按钮点击：切换对应 BorderMegaWin 特效播放/停止
+        /// </summary>
+        /// <param name="index"> 数组下标</param>
         private void OnClickBorderMegaWinButton(int index)
         {
             if (index < 0 || index >= BorderMegaWinPrefabNames.Length)
@@ -2747,6 +2000,10 @@ namespace SlotZhuZaiJinBi1700
             PlayBorderMegaWinEffect(index);
         }
 
+        /// <summary>
+        /// 显示并播放指定索引的 BorderMegaWin 粒子特效
+        /// </summary>
+        /// <param name="index"> 数组下标</param>
         private void PlayBorderMegaWinEffect(int index)
         {
             if (index < 0 || index >= BorderMegaWinPrefabNames.Length)
@@ -2774,6 +2031,10 @@ namespace SlotZhuZaiJinBi1700
             _borderMegaWinShowing[index] = true;
         }
 
+        /// <summary>
+        /// 停止并隐藏指定索引的 BorderMegaWin 特效
+        /// </summary>
+        /// <param name="index"> 数组下标</param>
         private void StopBorderMegaWinEffect(int index)
         {
             if (index < 0 || index >= BorderMegaWinPrefabNames.Length)
@@ -2796,558 +2057,430 @@ namespace SlotZhuZaiJinBi1700
             _borderMegaWinShowing[index] = false;
         }
 
-        private void PlayComboBorderMegaWinEffects12()
-        {
-            PlayBorderMegaWinEffect(0);
-            PlayBorderMegaWinEffect(1);
-        }
-
-        private void StopComboBorderMegaWinEffects12()
-        {
-            StopBorderMegaWinEffect(0);
-            StopBorderMegaWinEffect(1);
-        }
-
-        private void ResetComboTestShowingFlags()
-        {
-            CancelComboPag2SpineCoroutine();
-            CancelComboPag3SpineCoroutine();
-            _comboP2S1Showing = false;
-            _comboP2S2Showing = false;
-            _comboP2S3Showing = false;
-            _comboP2S4Showing = false;
-            _comboP2S5Showing = false;
-            _comboP3S1Showing = false;
-            _comboP3S2Showing = false;
-            _comboP3S3Showing = false;
-            _comboP3S4Showing = false;
-            _comboP3S5Showing = false;
-            _comboS2E1E2Showing = false;
-            _comboS1E1E2Showing = false;
-            _comboP9S1Showing = false;
-            _comboP9S2Showing = false;
-            _comboP9S3Showing = false;
-            _comboP9S4Showing = false;
-            _comboP9S5Showing = false;
-            _comboEffectAllShowing = false;
-            _comboSpineAllShowing = false;
-            _comboP4S1Showing = false;
-            _comboP4S2Showing = false;
-            _comboP4S3Showing = false;
-            _comboP4S4Showing = false;
-            _comboP4S5Showing = false;
-        }
-
+        /// <summary>
+        /// 按 spineIndex 返回组合测试用的 Spine 动画名
+        /// </summary>
+        /// <param name="spineIndex"> Spine 按钮下标（1~5）</param>
         private string GetPagTestSpinePlayAnim(int spineIndex)
         {
             switch (spineIndex)
             {
-                case 1: return PagTestSpine1PlayAnim;
-                case 2: return PagTestSpine2PlayAnim;
-                case 3: return PagTestSpine3PlayAnim;
-                case 4: return PagTestSpine4PlayAnim;
-                case 5: return PagTestSpine5PlayAnim;
+                case 1: return PagTestSpineConfigs[0].PlayAnim;
+                case 2: return PagTestSpineConfigs[1].PlayAnim;
+                case 3: return PagTestSpineConfigs[2].PlayAnim;
+                case 4: return PagTestSpineConfigs[3].PlayAnim;
+                case 5: return PagTestSpineConfigs[4].PlayAnim;
                 default: return string.Empty;
             }
         }
 
-        private void StartPagTest9PlaybackForCombo()
+        /// <summary>
+        /// 绑定 Combo 下拉与播放按钮
+        /// </summary>
+        private void BindComboPlayControls()
         {
-            StopPagTestGroupPlayback();
-            StopPagTestGlow(9);
-            if (mono == null)
-            {
-                Debug.LogWarning($"{PagLogPrefix} PAG9 combo play skipped: mono is null");
-                return;
-            }
-
-            _pagTest9Showing = true;
-            _corPagTest9 = mono.StartCoroutine(StartPagTest9ButtonPlayback());
-        }
-
-        private void StartPagTest4PlaybackForCombo()
-        {
-            StopPagTestGroupPlayback();
-            if (mono == null)
-            {
-                Debug.LogWarning($"{PagLogPrefix} PAG4 combo play skipped: mono is null");
-                return;
-            }
-
-            _pagTest4Showing = true;
-            _corPagTest4 = mono.StartCoroutine(StartPagTest4ButtonPlayback());
-        }
-
-        private void ShowAllPagTestSpines()
-        {
-            ShowPagTestSpine(1, PagTestSpine1PlayAnim);
-            ShowPagTestSpine(2, PagTestSpine2PlayAnim);
-            ShowPagTestSpine(3, PagTestSpine3PlayAnim);
-            ShowPagTestSpine(4, PagTestSpine4PlayAnim);
-            ShowPagTestSpine(5, PagTestSpine5PlayAnim);
-        }
-
-        private void HideAllPagTestSpines()
-        {
-            HidePagTestSpine(1);
-            HidePagTestSpine(2);
-            HidePagTestSpine(3);
-            HidePagTestSpine(4);
-            HidePagTestSpine(5);
-        }
-
-        private void PlayAllBorderMegaWinEffects()
-        {
-            for (int i = 0; i < BorderMegaWinPrefabNames.Length; i++)
-            {
-                PlayBorderMegaWinEffect(i);
-            }
-        }
-
-        /// <summary>绑定组合测试按钮（PAG+Spine / Effect / 批量）。</summary>
-        private void BindComboTestButtons()
-        {
-            if (_comboTestButtonsBound || contentPane == null)
+            if (_comboPlayControlsBound || contentPane == null)
             {
                 return;
             }
 
-            BindComboTestButton("P2S1", OnClickComboP2S1);
-            BindComboTestButton("P2S2", OnClickComboP2S2);
-            BindComboTestButton("P2S3", OnClickComboP2S3);
-            BindComboTestButton("P2S4", OnClickComboP2S4);
-            BindComboTestButton("P2S5", OnClickComboP2S5);
-            BindComboTestButton("P3S1", OnClickComboP3S1);
-            BindComboTestButton("P3S2", OnClickComboP3S2);
-            BindComboTestButton("P3S3", OnClickComboP3S3);
-            BindComboTestButton("P3S4", OnClickComboP3S4);
-            BindComboTestButton("P3S5", OnClickComboP3S5);
-            BindComboTestButton("S2E1E2", OnClickComboS2E1E2);
-            BindComboTestButton("S1E1E2", OnClickComboS1E1E2);
-            BindComboTestButton("P9S1", OnClickComboP9S1);
-            BindComboTestButton("P9S2", OnClickComboP9S2);
-            BindComboTestButton("P9S3", OnClickComboP9S3);
-            BindComboTestButton("P9S4", OnClickComboP9S4);
-            BindComboTestButton("P9S5", OnClickComboP9S5);
-            BindComboTestButton("Effect1_5", OnClickComboEffectAll);
-            BindComboTestButton("Spine1_5", OnClickComboSpineAll);
-            BindComboTestButton("P4S1", OnClickComboP4S1);
-            BindComboTestButton("P4S2", OnClickComboP4S2);
-            BindComboTestButton("P4S3", OnClickComboP4S3);
-            BindComboTestButton("P4S4", OnClickComboP4S4);
-            BindComboTestButton("P4S5", OnClickComboP4S5);
-            _comboTestButtonsBound = true;
-        }
-
-        private void BindComboTestButton(string buttonName, EventCallback0 handler)
-        {
-            GButton btn = contentPane.GetChild(buttonName)?.asButton;
-            if (btn != null)
+            _comboPagBox = contentPane.GetChild("comboPag")?.asComboBox;
+            _comboSpineBox = contentPane.GetChild("comboSpine")?.asComboBox;
+            _comboEffectBox = contentPane.GetChild("comboEffect")?.asComboBox;
+            if (_comboPagBox == null || _comboSpineBox == null || _comboEffectBox == null)
             {
-                btn.onClick.Clear();
-                btn.onClick.Add(handler);
+                Debug.LogWarning($"{PagLogPrefix} combo dropdown missing, publish FGUI first");
+                return;
+            }
+
+            _comboPagBox.items = ComboPagDropdownItems;
+            _comboSpineBox.items = ComboSpineDropdownItems;
+            _comboEffectBox.items = ComboEffectDropdownItems;
+            _comboPagBox.selectedIndex = 0;
+            _comboSpineBox.selectedIndex = 0;
+            _comboEffectBox.selectedIndex = 0;
+            _comboPagBox.title = ComboPagDropdownItems[0];
+            _comboSpineBox.title = ComboSpineDropdownItems[0];
+            _comboEffectBox.title = ComboEffectDropdownItems[0];
+            EnsureComboDropdownLabel("lblComboPag", _comboPagBox, "PAG");
+            EnsureComboDropdownLabel("lblComboSpine", _comboSpineBox, "Spine");
+            EnsureComboDropdownLabel("lblComboEffect", _comboEffectBox, "Effect");
+
+            GButton btnCombo = contentPane.GetChild("btnCombo")?.asButton;
+            if (btnCombo != null)
+            {
+                btnCombo.onClick.Clear();
+                btnCombo.onClick.Add(OnClickComboPlayButton);
             }
             else
             {
-                Debug.LogWarning($"{PagLogPrefix} button missing: {buttonName}");
+                Debug.LogWarning($"{PagLogPrefix} button missing: btnCombo");
             }
+
+            _comboPlayControlsBound = true;
         }
 
-        /// <summary>OnClose / OnLanguageChange 前清除组合测试按钮点击监听。</summary>
-        private void ClearComboTestButtons()
+        /// <summary>
+        /// 为 Combo 下拉补旁注（FGUI 未 Publish label 时由代码兜底）
+        /// </summary>
+        /// <param name="labelName"> 标签控件名</param>
+        /// <param name="comboBox"> 下拉框控件</param>
+        /// <param name="labelText"> 标签文本</param>
+        private void EnsureComboDropdownLabel(string labelName, GComboBox comboBox, string labelText)
         {
-            if (!_comboTestButtonsBound || contentPane == null)
+            if (comboBox == null || contentPane == null)
             {
                 return;
             }
 
-            for (int i = 0; i < ComboTestButtonNames.Length; i++)
+            GObject labelObject = contentPane.GetChild(labelName);
+            if (labelObject != null)
             {
-                contentPane.GetChild(ComboTestButtonNames[i])?.asButton?.onClick.Clear();
+                if (labelObject is GTextField existingLabel)
+                {
+                    existingLabel.text = labelText;
+                }
+
+                return;
             }
 
-            _comboTestButtonsBound = false;
-            ResetComboTestShowingFlags();
+            GTextField runtimeLabel = new GTextField();
+            runtimeLabel.name = labelName;
+            runtimeLabel.text = labelText;
+            runtimeLabel.touchable = false;
+            TextFormat textFormat = runtimeLabel.textFormat;
+            textFormat.size = 20;
+            textFormat.color = Color.black;
+            runtimeLabel.textFormat = textFormat;
+            runtimeLabel.SetSize(42, comboBox.height);
+            runtimeLabel.SetXY(comboBox.x - 42, comboBox.y);
+            runtimeLabel.verticalAlign = VertAlignType.Middle;
+            contentPane.AddChild(runtimeLabel);
         }
 
-        private void CancelComboPag2SpineCoroutine()
+        /// <summary>
+        /// OnClose / OnLanguageChange 前清除 Combo 控件监听并停止播放
+        /// </summary>
+        private void ClearComboPlayControls()
         {
-            if (_corComboPag2Spine != null && mono != null)
+            if (!_comboPlayControlsBound || contentPane == null)
             {
-                mono.StopCoroutine(_corComboPag2Spine);
-                _corComboPag2Spine = null;
+                return;
+            }
+
+            contentPane.GetChild("btnCombo")?.asButton?.onClick.Clear();
+            _comboPlayControlsBound = false;
+            StopComboPlayback();
+        }
+
+        /// <summary>
+        /// Combo 按钮：根据三项下拉选择播放或停止组合测试
+        /// </summary>
+        private void OnClickComboPlayButton()
+        {
+            if (_comboPlayActive)
+            {
+                StopComboPlayback();
+                return;
+            }
+
+            PlayComboFromSelection();
+        }
+
+        /// <summary>
+        /// 读取下拉选择并启动组合播放协程
+        /// </summary>
+        private void PlayComboFromSelection()
+        {
+            int pagIndex = _comboPagBox != null ? _comboPagBox.selectedIndex : 0;
+            int spineIndex = _comboSpineBox != null ? _comboSpineBox.selectedIndex : 0;
+            int effectIndex = _comboEffectBox != null ? _comboEffectBox.selectedIndex : 0;
+            if (pagIndex <= 0 && spineIndex <= 0 && effectIndex <= 0)
+            {
+                Debug.LogWarning($"{PagLogPrefix} Combo play skipped: select PAG, Spine or Effect first");
+                return;
+            }
+
+            if (mono == null)
+            {
+                Debug.LogWarning($"{PagLogPrefix} Combo play skipped: mono is null");
+                return;
+            }
+
+            string comboLabel = BuildComboSelectionLabel(pagIndex, spineIndex, effectIndex);
+            Debug.Log($"{PagLogPrefix} Combo clicked, play {comboLabel}");
+            _comboActivePagIndex = pagIndex;
+            _comboActiveSpineIndex = spineIndex;
+            _comboActiveEffectIndex = effectIndex;
+            _comboPlayActive = true;
+            CancelComboPlayCoroutine();
+            _comboPlayCoroutine = mono.StartCoroutine(PlayComboFromSelectionCoroutine(pagIndex, spineIndex, effectIndex, comboLabel));
+        }
+
+        /// <summary>
+        /// 停止当前 Combo 组合播放并清理 PAG / Spine / Effect 状态
+        /// </summary>
+        private void StopComboPlayback()
+        {
+            if (!_comboPlayActive)
+            {
+                CancelComboPlayCoroutine();
+                return;
+            }
+
+            int pagIndex = _comboActivePagIndex;
+            int spineIndex = _comboActiveSpineIndex;
+            int effectIndex = _comboActiveEffectIndex;
+            _comboPlayActive = false;
+            _comboActivePagIndex = 0;
+            _comboActiveSpineIndex = 0;
+            _comboActiveEffectIndex = 0;
+            CancelComboPlayCoroutine();
+
+            Debug.Log($"{PagLogPrefix} Combo clicked, stop");
+            StopComboPagPlayback(pagIndex);
+            if (spineIndex > 0)
+            {
+                HidePagTestSpine(spineIndex);
+            }
+
+            if (effectIndex > 0)
+            {
+                StopBorderMegaWinEffect(effectIndex - 1);
             }
         }
 
-        private void CancelComboPag3SpineCoroutine()
+        /// <summary>
+        /// 取消 Combo 主协程
+        /// </summary>
+        private void CancelComboPlayCoroutine()
         {
-            if (_corComboPag3Spine != null && mono != null)
+            if (_comboPlayCoroutine != null && mono != null)
             {
-                mono.StopCoroutine(_corComboPag3Spine);
-                _corComboPag3Spine = null;
+                mono.StopCoroutine(_comboPlayCoroutine);
+                _comboPlayCoroutine = null;
             }
         }
 
-        private void StopComboPag2SpinePlayback(int spineIndex, ref bool showingFlag, string comboLabel)
+        /// <summary>
+        /// 根据 Combo 下拉选项生成组合标签字符串
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（1~12）</param>
+        /// <param name="spineIndex"> Spine 按钮下标（1~5）</param>
+        /// <param name="effectIndex"> Effect 下标（0~4）</param>
+        private static string BuildComboSelectionLabel(int pagIndex, int spineIndex, int effectIndex)
         {
-            Debug.Log($"{PagLogPrefix} {comboLabel} clicked, stop");
-            showingFlag = false;
-            CancelComboPag2SpineCoroutine();
-            StopPagTestSlotPlayback(2);
-            HidePagTestSpine(spineIndex);
-        }
-
-        private void StopComboPag3SpinePlayback(int spineIndex, ref bool showingFlag, string comboLabel)
-        {
-            Debug.Log($"{PagLogPrefix} {comboLabel} clicked, stop");
-            showingFlag = false;
-            CancelComboPag3SpineCoroutine();
-            StopPagTestSlotPlayback(3);
-            HidePagTestSpine(spineIndex);
-        }
-
-        private bool IsComboPag2SpineShowing(int spineIndex)
-        {
-            switch (spineIndex)
+            var parts = new List<string>(3);
+            if (pagIndex > 0)
             {
-                case 1: return _comboP2S1Showing;
-                case 2: return _comboP2S2Showing;
-                case 3: return _comboP2S3Showing;
-                case 4: return _comboP2S4Showing;
-                case 5: return _comboP2S5Showing;
-                default: return false;
+                parts.Add($"PAG{pagIndex}");
             }
-        }
 
-        private void ClearComboPag2SpineShowing(int spineIndex)
-        {
-            switch (spineIndex)
+            if (spineIndex > 0)
             {
-                case 1: _comboP2S1Showing = false; break;
-                case 2: _comboP2S2Showing = false; break;
-                case 3: _comboP2S3Showing = false; break;
-                case 4: _comboP2S4Showing = false; break;
-                case 5: _comboP2S5Showing = false; break;
+                parts.Add($"Spine{spineIndex}");
             }
-        }
 
-        private bool IsComboPag3SpineShowing(int spineIndex)
-        {
-            switch (spineIndex)
+            if (effectIndex > 0)
             {
-                case 1: return _comboP3S1Showing;
-                case 2: return _comboP3S2Showing;
-                case 3: return _comboP3S3Showing;
-                case 4: return _comboP3S4Showing;
-                case 5: return _comboP3S5Showing;
-                default: return false;
+                parts.Add($"Effect{effectIndex}");
             }
+
+            return string.Join("+", parts);
         }
 
-        private void ClearComboPag3SpineShowing(int spineIndex)
+        /// <summary>
+        /// 按 pagIndex 停止 Combo 触发的 PAG 播放（不递归调用 StopComboPlayback）
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（1~12）</param>
+        private void StopComboPagPlayback(int pagIndex)
         {
-            switch (spineIndex)
-            {
-                case 1: _comboP3S1Showing = false; break;
-                case 2: _comboP3S2Showing = false; break;
-                case 3: _comboP3S3Showing = false; break;
-                case 4: _comboP3S4Showing = false; break;
-                case 5: _comboP3S5Showing = false; break;
-            }
+            StopPagTestPlayback(pagIndex, stopComboIfActive: false);
         }
 
+        /// <summary>
+        /// Combo 主分发协程：按 PAG / Spine / Effect 组合复用既有播放逻辑
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（1~12）</param>
+        /// <param name="spineIndex"> Spine 按钮下标（1~5）</param>
+        /// <param name="effectIndex"> Effect 下标（0~4）</param>
+        /// <param name="comboLabel"> Combo 组合标签</param>
+        private IEnumerator PlayComboFromSelectionCoroutine(int pagIndex, int spineIndex, int effectIndex, string comboLabel)
+        {
+            if (pagIndex > 0 && spineIndex > 0)
+            {
+                if (pagIndex == 2)
+                {
+                    yield return PlayComboPag2SpineCoroutine(spineIndex, comboLabel);
+                }
+                else if (pagIndex == 3)
+                {
+                    yield return PlayComboPag3SpineCoroutine(spineIndex, comboLabel);
+                }
+                else if (pagIndex == 4)
+                {
+                    StartPagTestPlayback(4);
+                    ShowPagTestSpine(spineIndex, GetPagTestSpinePlayAnim(spineIndex));
+                    Debug.Log($"{PagLogPrefix} {comboLabel} PAG4+Spine started");
+                }
+                else if (pagIndex >= 5 && pagIndex <= 9)
+                {
+                    if (!StartPagTestPlayback(pagIndex))
+                    {
+                        _comboPlayActive = false;
+                        yield break;
+                    }
+
+                    ShowPagTestSpine(spineIndex, GetPagTestSpinePlayAnim(spineIndex));
+                    Debug.Log($"{PagLogPrefix} {comboLabel} PAG{pagIndex}+Spine started");
+                }
+                else
+                {
+                    yield return PlayComboPagSpineCoroutine(pagIndex, spineIndex, comboLabel);
+                }
+            }
+            else if (pagIndex > 0)
+            {
+                yield return PlayComboPagOnlyCoroutine(pagIndex, comboLabel);
+            }
+            else if (spineIndex > 0)
+            {
+                ShowPagTestSpine(spineIndex, GetPagTestSpinePlayAnim(spineIndex));
+                Debug.Log($"{PagLogPrefix} {comboLabel} Spine only");
+            }
+
+            if (!_comboPlayActive)
+            {
+                _comboPlayCoroutine = null;
+                yield break;
+            }
+
+            if (effectIndex > 0)
+            {
+                PlayBorderMegaWinEffect(effectIndex - 1);
+                Debug.Log($"{BorderMegaWinLogPrefix} {comboLabel} Effect{effectIndex}");
+            }
+
+            _comboPlayCoroutine = null;
+        }
+
+        /// <summary>
+        /// Combo 仅 PAG：与单按钮播放路径一致
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（1~12）</param>
+        /// <param name="comboLabel"> Combo 组合标签</param>
+        private IEnumerator PlayComboPagOnlyCoroutine(int pagIndex, string comboLabel)
+        {
+            if (!StartPagTestPlayback(pagIndex))
+            {
+                _comboPlayActive = false;
+            }
+
+            Debug.Log($"{PagLogPrefix} {comboLabel} PAG{pagIndex} only");
+            yield break;
+        }
+
+        /// <summary>
+        /// PAG2+Spine 组合协程：等 PAG2 纹理就绪后同步显示 Spine
+        /// </summary>
+        /// <param name="spineIndex"> Spine 按钮下标（1~5）</param>
+        /// <param name="comboLabel"> Combo 组合标签</param>
         private IEnumerator PlayComboPag2SpineCoroutine(int spineIndex, string comboLabel)
         {
-            if (!StartPagTestSlotPlayback(2))
+            if (!StartPagTestPlayback(2))
             {
-                ClearComboPag2SpineShowing(spineIndex);
-                _corComboPag2Spine = null;
+                _comboPlayActive = false;
                 yield break;
             }
 
-            PagController pagController = _pagTestSlot2?.Controller;
+            PagController pagController = _pagTestSlotBindings[1]?.Controller;
             if (pagController != null)
             {
                 yield return pagController.WaitForGpuDisplayReady(PagTestPlayStartedTimeoutSec);
             }
 
-            if (!IsComboPag2SpineShowing(spineIndex))
+            if (!_comboPlayActive || _comboActivePagIndex != 2 || _comboActiveSpineIndex != spineIndex)
             {
-                _corComboPag2Spine = null;
                 yield break;
             }
 
             ShowPagTestSpine(spineIndex, GetPagTestSpinePlayAnim(spineIndex));
             Debug.Log($"{PagLogPrefix} {comboLabel} spine synced at texture display ready");
-            _corComboPag2Spine = null;
         }
 
+        /// <summary>
+        /// PAG3+Spine 组合协程：等 PAG3 纹理就绪后同步显示 Spine
+        /// </summary>
+        /// <param name="spineIndex"> Spine 按钮下标（1~5）</param>
+        /// <param name="comboLabel"> Combo 组合标签</param>
         private IEnumerator PlayComboPag3SpineCoroutine(int spineIndex, string comboLabel)
         {
-            if (!StartPagTestSlotPlayback(3))
+            if (!StartPagTestPlayback(3))
             {
-                ClearComboPag3SpineShowing(spineIndex);
-                _corComboPag3Spine = null;
+                _comboPlayActive = false;
                 yield break;
             }
 
-            PagController pagController = _pagTestSlot3?.Controller;
+            PagController pagController = _pagTestSlotBindings[2]?.Controller;
             if (pagController != null)
             {
                 yield return pagController.WaitForGpuDisplayReady(PagTestPlayStartedTimeoutSec);
             }
 
-            if (!IsComboPag3SpineShowing(spineIndex))
+            if (!_comboPlayActive || _comboActivePagIndex != 3 || _comboActiveSpineIndex != spineIndex)
             {
-                _corComboPag3Spine = null;
                 yield break;
             }
 
             ShowPagTestSpine(spineIndex, GetPagTestSpinePlayAnim(spineIndex));
             Debug.Log($"{PagLogPrefix} {comboLabel} spine synced at texture display ready");
-            _corComboPag3Spine = null;
         }
 
-        private void OnClickComboP2S1()
+        /// <summary>
+        /// PAG1 / PAG10~12 + Spine：单槽或 NPC 播放后等 GPU 就绪再显示 Spine
+        /// </summary>
+        /// <param name="pagIndex"> PAG 按钮下标（0~11）</param>
+        /// <param name="spineIndex"> Spine 按钮下标（1~5）</param>
+        /// <param name="comboLabel"> Combo 组合标签</param>
+        private IEnumerator PlayComboPagSpineCoroutine(int pagIndex, int spineIndex, string comboLabel)
         {
-            OnClickComboPag2Spine(1, ref _comboP2S1Showing, "P2S1");
-        }
-
-        private void OnClickComboP2S2()
-        {
-            OnClickComboPag2Spine(2, ref _comboP2S2Showing, "P2S2");
-        }
-
-        private void OnClickComboP2S3()
-        {
-            OnClickComboPag2Spine(3, ref _comboP2S3Showing, "P2S3");
-        }
-
-        private void OnClickComboP2S4()
-        {
-            OnClickComboPag2Spine(4, ref _comboP2S4Showing, "P2S4");
-        }
-
-        private void OnClickComboP2S5()
-        {
-            OnClickComboPag2Spine(5, ref _comboP2S5Showing, "P2S5");
-        }
-
-        private void OnClickComboPag2Spine(int spineIndex, ref bool showingFlag, string comboLabel)
-        {
-            if (showingFlag)
+            PagSlotBinding pagSlot = null;
+            if (pagIndex == 1 || (pagIndex >= 10 && pagIndex <= 12))
             {
-                StopComboPag2SpinePlayback(spineIndex, ref showingFlag, comboLabel);
-                return;
+                if (!StartPagTestPlayback(pagIndex))
+                {
+                    _comboPlayActive = false;
+                    yield break;
+                }
+
+                pagSlot = GetPagTestSlotByPagIndex(pagIndex);
+            }
+            else
+            {
+                Debug.LogWarning($"{PagLogPrefix} {comboLabel} unsupported PAG+Spine pagIndex={pagIndex}");
+                _comboPlayActive = false;
+                yield break;
             }
 
-            Debug.Log($"{PagLogPrefix} {comboLabel} clicked, play");
-            showingFlag = true;
-            if (mono == null)
+            PagController pagController = pagSlot?.Controller;
+            if (pagController != null)
             {
-                Debug.LogWarning($"{PagLogPrefix} {comboLabel} play skipped: mono is null");
-                showingFlag = false;
-                return;
+                yield return pagController.WaitForGpuDisplayReady(PagTestPlayStartedTimeoutSec);
             }
 
-            CancelComboPag2SpineCoroutine();
-            _corComboPag2Spine = mono.StartCoroutine(PlayComboPag2SpineCoroutine(spineIndex, comboLabel));
-        }
-
-        private void OnClickComboP3S1()
-        {
-            OnClickComboPag3Spine(1, ref _comboP3S1Showing, "P3S1");
-        }
-
-        private void OnClickComboP3S2()
-        {
-            OnClickComboPag3Spine(2, ref _comboP3S2Showing, "P3S2");
-        }
-
-        private void OnClickComboP3S3()
-        {
-            OnClickComboPag3Spine(3, ref _comboP3S3Showing, "P3S3");
-        }
-
-        private void OnClickComboP3S4()
-        {
-            OnClickComboPag3Spine(4, ref _comboP3S4Showing, "P3S4");
-        }
-
-        private void OnClickComboP3S5()
-        {
-            OnClickComboPag3Spine(5, ref _comboP3S5Showing, "P3S5");
-        }
-
-        private void OnClickComboPag3Spine(int spineIndex, ref bool showingFlag, string comboLabel)
-        {
-            if (showingFlag)
+            if (!_comboPlayActive || _comboActivePagIndex != pagIndex || _comboActiveSpineIndex != spineIndex)
             {
-                StopComboPag3SpinePlayback(spineIndex, ref showingFlag, comboLabel);
-                return;
+                yield break;
             }
 
-            Debug.Log($"{PagLogPrefix} {comboLabel} clicked, play");
-            showingFlag = true;
-            if (mono == null)
-            {
-                Debug.LogWarning($"{PagLogPrefix} {comboLabel} play skipped: mono is null");
-                showingFlag = false;
-                return;
-            }
-
-            CancelComboPag3SpineCoroutine();
-            _corComboPag3Spine = mono.StartCoroutine(PlayComboPag3SpineCoroutine(spineIndex, comboLabel));
-        }
-
-        private void OnClickComboS2E1E2()
-        {
-            if (_comboS2E1E2Showing)
-            {
-                Debug.Log($"{PagLogPrefix} S2E1E2 clicked, stop");
-                HidePagTestSpine(2);
-                StopComboBorderMegaWinEffects12();
-                _comboS2E1E2Showing = false;
-                return;
-            }
-
-            Debug.Log($"{PagLogPrefix} S2E1E2 clicked, play");
-            ShowPagTestSpine(2, PagTestSpine2PlayAnim);
-            PlayComboBorderMegaWinEffects12();
-            _comboS2E1E2Showing = true;
-        }
-
-        private void OnClickComboS1E1E2()
-        {
-            if (_comboS1E1E2Showing)
-            {
-                Debug.Log($"{PagLogPrefix} S1E1E2 clicked, stop");
-                HidePagTestSpine(1);
-                StopComboBorderMegaWinEffects12();
-                _comboS1E1E2Showing = false;
-                return;
-            }
-
-            Debug.Log($"{PagLogPrefix} S1E1E2 clicked, play");
-            ShowPagTestSpine(1, PagTestSpine1PlayAnim);
-            PlayComboBorderMegaWinEffects12();
-            _comboS1E1E2Showing = true;
-        }
-
-        private void OnClickComboP9S1()
-        {
-            OnClickComboPag9Spine(1, ref _comboP9S1Showing, "P9S1");
-        }
-
-        private void OnClickComboP9S2()
-        {
-            OnClickComboPag9Spine(2, ref _comboP9S2Showing, "P9S2");
-        }
-
-        private void OnClickComboP9S3()
-        {
-            OnClickComboPag9Spine(3, ref _comboP9S3Showing, "P9S3");
-        }
-
-        private void OnClickComboP9S4()
-        {
-            OnClickComboPag9Spine(4, ref _comboP9S4Showing, "P9S4");
-        }
-
-        private void OnClickComboP9S5()
-        {
-            OnClickComboPag9Spine(5, ref _comboP9S5Showing, "P9S5");
-        }
-
-        private void OnClickComboPag9Spine(int spineIndex, ref bool showingFlag, string comboLabel)
-        {
-            if (showingFlag)
-            {
-                Debug.Log($"{PagLogPrefix} {comboLabel} clicked, stop");
-                StopPagTestGlow(9);
-                HidePagTestSpine(spineIndex);
-                showingFlag = false;
-                return;
-            }
-
-            Debug.Log($"{PagLogPrefix} {comboLabel} clicked, play");
-            StartPagTest9PlaybackForCombo();
             ShowPagTestSpine(spineIndex, GetPagTestSpinePlayAnim(spineIndex));
-            showingFlag = true;
+            Debug.Log($"{PagLogPrefix} {comboLabel} spine synced at texture display ready");
         }
 
-        private void OnClickComboEffectAll()
-        {
-            if (_comboEffectAllShowing)
-            {
-                Debug.Log($"{BorderMegaWinLogPrefix} Effect1-5 clicked, stop all");
-                StopAllBorderMegaWinEffects();
-                _comboEffectAllShowing = false;
-                return;
-            }
-
-            Debug.Log($"{BorderMegaWinLogPrefix} Effect1-5 clicked, play all");
-            PlayAllBorderMegaWinEffects();
-            _comboEffectAllShowing = true;
-        }
-
-        private void OnClickComboSpineAll()
-        {
-            if (_comboSpineAllShowing)
-            {
-                Debug.Log($"{PagLogPrefix} Spine1-5 clicked, stop all");
-                HideAllPagTestSpines();
-                _comboSpineAllShowing = false;
-                return;
-            }
-
-            Debug.Log($"{PagLogPrefix} Spine1-5 clicked, play all");
-            ShowAllPagTestSpines();
-            _comboSpineAllShowing = true;
-        }
-
-        private void OnClickComboP4S1()
-        {
-            OnClickComboPag4Spine(1, ref _comboP4S1Showing, "P4S1");
-        }
-
-        private void OnClickComboP4S2()
-        {
-            OnClickComboPag4Spine(2, ref _comboP4S2Showing, "P4S2");
-        }
-
-        private void OnClickComboP4S3()
-        {
-            OnClickComboPag4Spine(3, ref _comboP4S3Showing, "P4S3");
-        }
-
-        private void OnClickComboP4S4()
-        {
-            OnClickComboPag4Spine(4, ref _comboP4S4Showing, "P4S4");
-        }
-
-        private void OnClickComboP4S5()
-        {
-            OnClickComboPag4Spine(5, ref _comboP4S5Showing, "P4S5");
-        }
-
-        private void OnClickComboPag4Spine(int spineIndex, ref bool showingFlag, string comboLabel)
-        {
-            if (showingFlag)
-            {
-                Debug.Log($"{PagLogPrefix} {comboLabel} clicked, stop");
-                StopPagTest4Playback();
-                HidePagTestSpine(spineIndex);
-                showingFlag = false;
-                return;
-            }
-
-            Debug.Log($"{PagLogPrefix} {comboLabel} clicked, play");
-            StartPagTest4PlaybackForCombo();
-            ShowPagTestSpine(spineIndex, GetPagTestSpinePlayAnim(spineIndex));
-            showingFlag = true;
-        }
-
+        /// <summary>
+        /// 递归播放 BorderMegaWin 子节点粒子
+        /// </summary>
+        /// <param name="effect"> Transform 节点</param>
         private void PlayBorderMegaWinChildEffectAnim(Transform effect)
         {
             if (effect == null)
@@ -3361,6 +2494,10 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
+        /// <summary>
+        /// 递归播放 Transform 树中的 ParticleSystem
+        /// </summary>
+        /// <param name="effect"> Transform 节点</param>
         private void PlayBorderMegaWinEffectAnim(Transform effect)
         {
             if (effect == null)
@@ -3380,6 +2517,10 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
+        /// <summary>
+        /// 递归停止 BorderMegaWin 子节点粒子
+        /// </summary>
+        /// <param name="effect"> Transform 节点</param>
         private void StopBorderMegaWinChildEffectAnim(Transform effect)
         {
             if (effect == null)
@@ -3393,6 +2534,10 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
+        /// <summary>
+        /// 递归停止 Transform 树中的 ParticleSystem
+        /// </summary>
+        /// <param name="effect"> Transform 节点</param>
         private void StopBorderMegaWinEffectAnim(Transform effect)
         {
             if (effect == null)
@@ -3413,6 +2558,9 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
+        /// <summary>
+        /// 停止全部 BorderMegaWin 特效并隐藏 holder
+        /// </summary>
         private void StopAllBorderMegaWinEffects()
         {
             for (int i = 0; i < BorderMegaWinPrefabNames.Length; i++)
@@ -3435,6 +2583,9 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
+        /// <summary>
+        /// OnClose 时销毁 BorderMegaWin clone 与 GoWrapper
+        /// </summary>
         private void DisposeBorderMegaWinEffects()
         {
             if (_anchorPagTest != null)
@@ -3474,6 +2625,11 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
+        /// <summary>
+        /// 在 Transform 子树中按名称递归查找节点
+        /// </summary>
+        /// <param name="parent"> 父 Transform 节点</param>
+        /// <param name="targetName"> 目标节点名</param>
         private Transform FindChildRecursiveByName(Transform parent, string targetName)
         {
             if (parent == null || string.IsNullOrEmpty(targetName))
@@ -3499,7 +2655,9 @@ namespace SlotZhuZaiJinBi1700
             return null;
         }
 
-        /// <summary> 从本地快照恢复未完成的免费局（不自动请求 Spin，由玩家点转）。 </summary>
+        /// <summary>
+        /// 从本地快照恢复未完成的免费局（不自动请求 Spin，由玩家点转）
+        /// </summary>
         void TryRestoreFreeSpinSession()
         {
             if (ApplicationSettings.Instance.isMock || slotMachineCtrl == null) return;
@@ -3565,6 +2723,11 @@ namespace SlotZhuZaiJinBi1700
         }
 
         //普通滚动一次
+        /// <summary>
+        /// 普通局单次 Spin 主流程协程
+        /// </summary>
+        /// <param name="successCallback"> 成功回调</param>
+        /// <param name="errorCallback"> 失败回调</param>
         IEnumerator GameOnce(Action successCallback, Action<string> errorCallback)
         {
             /*检查机器是否激活
@@ -3889,6 +3052,11 @@ namespace SlotZhuZaiJinBi1700
                 successCallback.Invoke();
         }
         //免费游戏滚动一次
+        /// <summary>
+        /// 免费局单次 Spin 主流程协程
+        /// </summary>
+        /// <param name="successCallback"> 成功回调</param>
+        /// <param name="errorCallback"> 失败回调</param>
         IEnumerator GameFreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
             OnGameReset();
@@ -4048,6 +3216,11 @@ namespace SlotZhuZaiJinBi1700
                 successCallback.Invoke();
         }
         //请求模拟结果
+        /// <summary>
+        /// Mock 模式请求 Spin 结果协程
+        /// </summary>
+        /// <param name="null"> null</param>
+        /// <param name="null"> null</param>
         IEnumerator RequestSlotSpinFromMock(Action successCallback = null, Action<string> errorCallback = null)
         {
             bool isNext = false;
@@ -4091,6 +3264,11 @@ namespace SlotZhuZaiJinBi1700
                 successCallback.Invoke();
         }
         //请求算法结果
+        /// <summary>
+        /// 真机模式请求 Spin 结果协程
+        /// </summary>
+        /// <param name="null"> null</param>
+        /// <param name="null"> null</param>
         IEnumerator RequestSlotSpinFromMachine(Action successCallback = null, Action<string> errorCallback = null)
         {
             bool isBreak = false;
@@ -4167,7 +3345,9 @@ namespace SlotZhuZaiJinBi1700
                 successCallback.Invoke();
         }
 
-        //下注时向大厅彩金主机发送当前下注
+        /// <summary>
+        /// 下注时向大厅彩金主机上报当前 TotalBet
+        /// </summary>
         void RequestOnlineJackpotBetByCurrentBet()
         {
             try
@@ -4195,6 +3375,10 @@ namespace SlotZhuZaiJinBi1700
         }
 
         private readonly HashSet<long> _handledOnlineJackpotOrderIds = new HashSet<long>();
+        /// <summary>
+        /// 将联网彩金 jackpotId 映射为显示名称
+        /// </summary>
+        /// <param name="jackpotId"> jackpotId</param>
         private static string GetOnlineJackpotName(int jackpotId)
         {
             switch (jackpotId)
@@ -4207,7 +3391,10 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
-        //大厅彩金主机赢分数据
+        /// <summary>
+        /// 处理大厅联网彩金中奖下发：去重、入库并通知算法卡加分
+        /// </summary>
+        /// <param name="winInfo"> winInfo</param>
         private void OnJackpotOnLine(WinJackpotInfo winInfo)
         {
             try
@@ -4264,7 +3451,10 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
-        //显示线和中奖图标
+        /// <summary>
+        /// 普通 Spin 结束后按配置展示总线或单线中奖特效
+        /// </summary>
+        /// <param name="winList"> 中奖线列表</param>
         IEnumerator ShowWinListOnceAtNormalSpin(List<SymbolWin> winList)
         {
             //总线
@@ -4290,7 +3480,9 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
-        //游戏状态重置
+        /// <summary>
+        /// 游戏状态重置：停止闲置协程并恢复转轮与遮罩默认状态
+        /// </summary>
         private void OnGameReset()
         {
             if (corGameIdel != null) mono.StopCoroutine(corGameIdel);
@@ -4300,7 +3492,10 @@ namespace SlotZhuZaiJinBi1700
             slotMachineCtrl.SkipWinLine(true);
         }
 
-        //游戏状态闲置
+        /// <summary>
+        /// 游戏闲置阶段循环展示中奖线特效
+        /// </summary>
+        /// <param name="winList"> 中奖线列表</param>
         private IEnumerator GameIdle(List<SymbolWin> winList)
         {
             if (winList.Count == 0)
@@ -4316,6 +3511,11 @@ namespace SlotZhuZaiJinBi1700
         }
 
         //bigwin弹窗
+        /// <summary>
+        /// 打开并等待 BigWin 弹窗关闭
+        /// </summary>
+        /// <param name="winLevelType"> BigWin 等级类型</param>
+        /// <param name="winCredit"> 赢分额度</param>
         IEnumerator BigWinPopup(WinLevelType winLevelType, long winCredit)
         {
             bool isNext = false;
@@ -4335,6 +3535,11 @@ namespace SlotZhuZaiJinBi1700
         }
 
         //免费弹窗
+        /// <summary>
+        /// 免费局触发流程协程
+        /// </summary>
+        /// <param name="successCallback"> 成功回调</param>
+        /// <param name="errorCallback"> 失败回调</param>
         IEnumerator FreeSpinTrigger(Action successCallback, Action<string> errorCallback)
         {
             bool isNext = false;
@@ -4364,6 +3569,11 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
+        /// <summary>
+        /// 免费局完整循环协程
+        /// </summary>
+        /// <param name="successCallback"> 成功回调</param>
+        /// <param name="errorCallback"> 失败回调</param>
         IEnumerator GameFreeSpin(Action successCallback, Action<string> errorCallback)
         {
             while (ContentModel.Instance.nextReelStripsIndex == "FS")
@@ -4378,8 +3588,10 @@ namespace SlotZhuZaiJinBi1700
         }
 
         /// <summary>
-        /// 断电重连恢复免费局：点击一次开始后自动跑完整段免费，并统一结算与切回普通游戏。
+        /// /// 断电重连恢复免费局：点击一次开始后自动跑完整段免费，并统一结算与切回普通游戏。 ///
         /// </summary>
+        /// <param name="successCallback"> 成功回调</param>
+        /// <param name="errorCallback"> 失败回调</param>
         IEnumerator GameFreeSpinFromReconnect(Action successCallback, Action<string> errorCallback)
         {
             yield return GameFreeSpin(null, errorCallback);
@@ -4398,6 +3610,9 @@ namespace SlotZhuZaiJinBi1700
         }
 
         //bigwin类型
+        /// <summary>
+        /// 根据赢分倍率判定 BigWin 等级
+        /// </summary>
         WinLevelType GetBigWinType()
         {
             long baseGameWinCredit = ContentModel.Instance.baseGameWinCredit;
@@ -4415,7 +3630,9 @@ namespace SlotZhuZaiJinBi1700
             return winLevelType;
         }
 
-        //读取游戏配置
+        /// <summary>
+        /// 异步加载 game_info_g1700.json 并写入 MainModel 基础配置
+        /// </summary>
         private void ReadJsonBet()
         {
             //资源加载
@@ -4437,12 +3654,19 @@ namespace SlotZhuZaiJinBi1700
                 });
         }
 
+        /// <summary>
+        /// 转轮停止事件回调（当前为空实现，预留扩展）
+        /// </summary>
+        /// <param name="res"> 事件数据</param>
         private void OnStopSlot(EventData res)
         {
 
         }
 
-        //机器按钮开始滚动
+        /// <summary>
+        /// 底部 Panel Spin 按钮点击：单次/自动/立即停止等状态机分发
+        /// </summary>
+        /// <param name="res"> 事件数据</param>
         private void OnClickSpinButton(EventData res)
         {
 
@@ -4506,7 +3730,11 @@ namespace SlotZhuZaiJinBi1700
 
         }
 
-        //开始游戏
+        /// <summary>
+        /// 启动单次 Spin 游戏协程
+        /// </summary>
+        /// <param name="null"> null</param>
+        /// <param name="null"> null</param>
         void StartGameOnce(Action successCallback = null, Action<string> errorCallback = null)
         {
             ContentModel.Instance.totalPlaySpins = 1;
@@ -4514,13 +3742,22 @@ namespace SlotZhuZaiJinBi1700
             corGameOnce = mono.StartCoroutine(GameOnce(successCallback, errorCallback));
         }
 
-        //开始自动玩
+        /// <summary>
+        /// 启动自动 Spin 游戏协程
+        /// </summary>
+        /// <param name="null"> null</param>
+        /// <param name="null"> null</param>
         void StartGameAuto(Action successCallback = null, Action<string> errorCallback = null)
         {
             if (coGameAuto != null) mono.StopCoroutine(coGameAuto);
             coGameAuto = mono.StartCoroutine(GameAuto(successCallback, errorCallback));
         }
 
+        /// <summary>
+        /// 自动 Spin 循环：重复执行 GameOnce 直至取消或出错
+        /// </summary>
+        /// <param name="successCallback"> 成功回调</param>
+        /// <param name="errorCallback"> 失败回调</param>
         IEnumerator GameAuto(Action successCallback, Action<string> errorCallback)
         {
             bool isErr = false;
@@ -4562,6 +3799,10 @@ namespace SlotZhuZaiJinBi1700
                 successCallback.Invoke();
         }
 
+        /// <summary>
+        /// 切换普通局/免费局背景与边框 FGUI 可见性（0=普通，非0=免费）
+        /// </summary>
+        /// <param name="type"> 背景类型（0 普通 / 1 免费）</param>
         private void ChangeBGPanel(int type )
         {
             if (type == 0)
@@ -4589,12 +3830,18 @@ namespace SlotZhuZaiJinBi1700
         }
 
         //显示加速框
+        /// <summary>
+        /// 滚轴慢动作特效协程
+        /// </summary>
         public IEnumerator ShowEffectReelsSlowMotion()
         {
             yield return new WaitUntil(() => isEffectSlowMotion2 == true);
         }
 
-        //错误提示
+        /// <summary>
+        /// 游戏异常时重置 Spin/Auto 状态并提示错误
+        /// </summary>
+        /// <param name="msg"> msg</param>
         private void StopGameWhenError(string msg)
         {
             ContentModel.Instance.isSpin = false;
@@ -4614,11 +3861,10 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
-        void GetMyCredit(Action<int> onSuccessCallback, Action<string> onErrorCallback)
-        {
 
-        }
-
+        /// <summary>
+        /// 将彩金滚轮数据同步到 UI 与 ContentModel
+        /// </summary>
         public void SetUIJackpotGameReel()
         {
             JackpotRes info = ContentModel.Instance.jpGameRes;
@@ -4647,6 +3893,11 @@ namespace SlotZhuZaiJinBi1700
             uiJPMiniCtrl.SetData(info.curJackpotMini);
         }
 
+        /// <summary>
+        /// 更新免费次数 UI 显示
+        /// </summary>
+        /// <param name="freeSpinPlayTimes"> freeSpinPlayTimes</param>
+        /// <param name="freeSpinTotalTimes"> freeSpinTotalTimes</param>
         protected void SetUIFreeTimeBox(int freeSpinPlayTimes, int freeSpinTotalTimes)
         {
             gFreeTimeBox.visible = true;
@@ -4655,6 +3906,9 @@ namespace SlotZhuZaiJinBi1700
         }
 
         //读取当前滚轴显示的图标
+        /// <summary>
+        /// 获取当前可见滚轴盘面字符串
+        /// </summary>
         private string GetCurrentVisibleDeckRowCol()
         {
             if (slotMachineCtrl == null)

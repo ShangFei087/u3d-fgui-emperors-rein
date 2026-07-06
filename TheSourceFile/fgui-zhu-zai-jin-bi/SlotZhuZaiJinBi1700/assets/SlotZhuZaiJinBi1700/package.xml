@@ -221,6 +221,9 @@
     <component id="ugpc8p" name="PageTest.xml" path="/" exported="true"/>
     <component id="ugpc8r" name="ButtonTest.xml" path="/components/" exported="true"/>
     <component id="ssmk8s" name="PageTest1.xml" path="/components/pageTest/"/>
+    <component id="combo8a" name="ComboTestDropdown_item.xml" path="/components/" exported="true"/>
+    <component id="combo8b" name="ComboTestDropdown_popup.xml" path="/components/" exported="true"/>
+    <component id="combo8c" name="ComboTestDropdown.xml" path="/components/" exported="true"/>
   </resources>
   <publish name="" path="F:\StandAloneSlotFrame\u3d-fgui-emperors-rein\Assets\GameRes\Games\Slot Zhu Zai Jin Bi 1700\FGUIs" packageCount="2"/>
 </packageDescription>

@@ -6,7 +6,7 @@ using FairyGUI;
 using UnityEngine;
 using UnityEngine.Profiling;
 
-/// <summary>Phase4E：Native 播放列表单段（path 为相对 Pag 文件名，repeat=-1 无限循环）。</summary>
+/// <summary>Native 播放列表单段（path 为相对 Pag 文件名，repeat=-1 无限循环）。</summary>
 public readonly struct PagSegment
 {
     public string PagFileName { get; }
@@ -105,9 +105,15 @@ public class PagController : IDisposable
         InstanceKey = string.IsNullOrEmpty(instanceKey)
             ? $"Pag_{Guid.NewGuid():N}"
             : instanceKey;
-        _gamePagFolder = string.IsNullOrEmpty(gamePagFolder)
-            ? PagPathHelper.DefaultGamePagFolder
-            : gamePagFolder;
+        if (string.IsNullOrEmpty(gamePagFolder))
+        {
+            Debug.LogError($"[PAG] PagController({InstanceKey}): gamePagFolder is required");
+            _gamePagFolder = string.Empty;
+        }
+        else
+        {
+            _gamePagFolder = gamePagFolder;
+        }
         _textureSlotId = System.Threading.Interlocked.Increment(ref _nextTextureSlotId);
         EnsureInit();
     }
@@ -246,7 +252,7 @@ public class PagController : IDisposable
     private const float PreloadCompositionPollIntervalSec = 0.05f;
     private const float PreloadCompositionTimeoutSec = 30f;
 
-    public static void PreloadComposition(string pagName, string gamePagFolder = PagPathHelper.DefaultGamePagFolder)
+    public static void PreloadComposition(string pagName, string gamePagFolder)
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
         string absPath = ResolvePagPath(pagName, gamePagFolder);
@@ -300,7 +306,7 @@ public class PagController : IDisposable
 
     public static IEnumerator PreloadCompositionCoroutine(
         string pagName,
-        string gamePagFolder = PagPathHelper.DefaultGamePagFolder,
+        string gamePagFolder,
         Action<bool> onDone = null)
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -1264,7 +1270,7 @@ public class PagController : IDisposable
     }
 
     /// <summary>
-    /// Phase4E：Native 播放列表无缝连播；C# 仅 Play 首段并等待整链 PlaybackFinished。
+    /// Native 播放列表无缝连播；C# 仅 Play 首段并等待整链 PlaybackFinished。
     /// </summary>
     /// <param name="useGpuSyncGroup">
     /// true：Play 时 TryJoin 动态合组（多 NPC 同屏防整屏闪）；false：退组独立出帧（默认，PAG4 单槽链等）。
