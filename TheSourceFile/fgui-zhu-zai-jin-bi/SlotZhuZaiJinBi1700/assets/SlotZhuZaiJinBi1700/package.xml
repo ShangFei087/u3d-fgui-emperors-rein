@@ -128,7 +128,7 @@
     <component id="t0u460" name="AnchorFreeBG.xml" path="/components/gameMain/" exported="true"/>
     <component id="jfvg61" name="PopupFreeSpinTrigger.xml" path="/" exported="true"/>
     <image id="jfvg62" name="ng_Popup-idle_0.png" path="/images/exmple/"/>
-    <component id="jfvg63" name="AnchorPopup.xml" path="/components/popupFreeSpinTrigger/" exported="true"/>
+    <component id="jfvg63" name="AnchorPopup.xml" path="/components/pageTest/popupFreeSpinTrigger/" exported="true"/>
     <image id="jfvg64" name="_0012__0023_0.png" path="/images/pageGameMain/numbers/numberYellow/"/>
     <image id="jfvg65" name="_0013__0022_1.png" path="/images/pageGameMain/numbers/numberYellow/"/>
     <image id="jfvg66" name="_0014__0021_2.png" path="/images/pageGameMain/numbers/numberYellow/"/>
@@ -220,7 +220,10 @@
     <component id="tvr88o" name="AnchorPagTest.xml" path="/components/gameMain/" exported="true"/>
     <component id="ugpc8p" name="PageTest.xml" path="/" exported="true"/>
     <component id="ugpc8r" name="ButtonTest.xml" path="/components/" exported="true"/>
-    <component id="ssmk8s" name="PageTest1.xml" path="/components/pageTest/"/>
+    <component id="ssmk8s" name="PageTest.xml" path="/components/pageTest/"/>
+    <component id="combo8a" name="ComboTestDropdown_item.xml" path="/components/" exported="true"/>
+    <component id="combo8b" name="ComboTestDropdown_popup.xml" path="/components/" exported="true"/>
+    <component id="combo8c" name="ComboTestDropdown.xml" path="/components/" exported="true"/>
   </resources>
   <publish name="" path="F:\StandAloneSlotFrame\u3d-fgui-emperors-rein\Assets\GameRes\Games\Slot Zhu Zai Jin Bi 1700\FGUIs" packageCount="2"/>
 </packageDescription>

@@ -130,7 +130,8 @@ public static class PagGroupPlayer
                 slot.Controller.LayoutPagAuto("turntable");
             }
 
-            if (!slot.Play(pagFile, positionType, layoutExtra, repeatCount))
+            var playLayout = new PagPlayLayout(positionType, layoutExtra ?? string.Empty, useTurntableFallback: false);
+            if (!slot.Play(pagFile, repeatCount, playLayout))
             {
                 string msg = $"Play failed: {pagFile} on {slot.InstanceKey}";
                 Debug.LogError($"{logPrefix} {msg}");
