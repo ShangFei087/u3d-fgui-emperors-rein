@@ -516,6 +516,8 @@ namespace XingYunZhiLun_3998
                 //}
 
                 bool isLongClick = (bool)res.value;
+                ContentModel.Instance.isAuto = TestManager.Instance.IsAutoModeRunning;
+
                 switch (ContentModel.Instance.btnSpinState)
                 {
                     case SpinButtonState.Stop:
@@ -931,7 +933,7 @@ namespace XingYunZhiLun_3998
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
 
                 yield return slotMachineCtrl.IsWildShowSymbolEffect(TagPoolObject.SymbolHit, slotMachineCtrl.GetTotalSymbolWin(winList), true, SpinWinEvent.TotalWinLine);
-                
+
                 ////检查bigwin类型
                 WinLevelType winLevelType = GetBigWinType();
                 ////bigwin弹窗
@@ -1027,6 +1029,8 @@ namespace XingYunZhiLun_3998
                 //积分同步和退币处理
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
 
+                yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
+
                 //加钱动画
                 MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
 
@@ -1102,6 +1106,8 @@ namespace XingYunZhiLun_3998
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
                 //加钱动画
                 MainBlackboardController.Instance.AddMyTempCredit(allWinCredit);
+
+                yield return MultShowWinListIdleOnce();
 
                 ////检查bigwin类型
                 WinLevelType winLevelType = GetBigWinType();
@@ -1989,7 +1995,6 @@ namespace XingYunZhiLun_3998
                 }
 
                 yield return slotMachineCtrl.IsWildShowSymbolEffect(TagPoolObject.SymbolHit, slotMachineCtrl.GetTotalSymbolWin(winList), true, SpinWinEvent.TotalWinLine);
-                yield return new WaitForSeconds(1.6f);
             }
         }
 
@@ -2002,10 +2007,15 @@ namespace XingYunZhiLun_3998
         {
             while (ContentModel.Instance.isMult)
             {
-                slotMachineCtrl.SkipWinLine(true);
-                slotMachineCtrl.ShowMultipleHit(new List<int>() { 9 }, true, 9, true);
-                yield return new WaitForSeconds(2f);
+                yield return MultShowWinListIdleOnce();
             }
+        }
+
+        public IEnumerator MultShowWinListIdleOnce()
+        {
+            slotMachineCtrl.SkipWinLine(true);
+            slotMachineCtrl.ShowMultipleHit(new List<int>() { 9 }, true, 9, true);
+            yield return new WaitForSeconds(2f);
         }
 
         private void OnGameReset()

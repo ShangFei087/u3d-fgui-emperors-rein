@@ -185,8 +185,7 @@ namespace XingYunZhiLun_3998
             //确定获得奖励后再播放特效
             //StopEffectAnim(effectRaward);
 
-
-            if (ContentModel.Instance.isAuto)
+            if (isOpen && ContentModel.Instance.isAuto)
             {
                 Timers.inst.Add(1.5f, 1, (object obj) =>
                 {

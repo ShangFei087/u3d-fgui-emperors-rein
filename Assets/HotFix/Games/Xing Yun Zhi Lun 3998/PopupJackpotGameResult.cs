@@ -180,6 +180,8 @@ namespace XingYunZhiLun_3998
 
             uiCreditCtrl.SetData(sorce);
 
+            if (!isOpen) return;
+
             if (ContentModel.Instance.isAuto)
             {
                 AddTimer(1f, (object obj) =>

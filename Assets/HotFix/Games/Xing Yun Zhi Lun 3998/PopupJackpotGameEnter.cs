@@ -70,7 +70,6 @@ namespace XingYunZhiLun_3998
             ContentModel.Instance.btnSpinState = ContentModel.Instance.curBtnSpinState;
 
             preLoadedCallback?.Invoke();
-            if (!isOpen) return;
 
             if (isOpen)
             {

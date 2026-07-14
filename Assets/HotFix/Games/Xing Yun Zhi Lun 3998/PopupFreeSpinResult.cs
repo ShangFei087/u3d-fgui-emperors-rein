@@ -154,6 +154,7 @@ namespace XingYunZhiLun_3998
                 idleTransition.Play(-1, 0, null);
             });
 
+
             if (ContentModel.Instance.isAuto)
             {
                 AddTimer(2, (object obj) =>

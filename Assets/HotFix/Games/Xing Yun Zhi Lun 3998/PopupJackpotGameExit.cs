@@ -130,6 +130,8 @@ namespace XingYunZhiLun_3998
             PlayAnim("start");
             idleTransition.Play(-1, 1.3f, null);
 
+            if(!isOpen) return;
+
             if (ContentModel.Instance.isAuto)
             {
                 AddTimer(1.2f, (object obj) =>
