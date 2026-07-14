@@ -60,6 +60,7 @@ public class PagController : IDisposable
     public event Action<string> OnExportFinished;
     public event Action OnPlayStarted;
     public event Action OnPlaybackFinished;
+    public event Action OnGpuDisplayReady;
 
     private readonly string _gamePagFolder;
     private readonly int _textureSlotId;
@@ -76,6 +77,7 @@ public class PagController : IDisposable
     private float _fguiDisplayScale = 1f;
     private int _fguiTargetFps = 30;
     private int _gpuFlushPresentCount;
+    private double _lastGpuRenderProgress = -1.0;
     private int _boundGpuTexId;
     private int _boundGpuTexW;
     private int _boundGpuTexH;
@@ -89,6 +91,8 @@ public class PagController : IDisposable
     private string _fguiLoaderName = PagFguiGpuPresenter.DefaultLoaderName;
 
     public string InstanceKey { get; private set; }
+
+    public string GamePagFolder => _gamePagFolder;
 
     public GLoader FguiLoader => _fguiPresenter.Loader;
 
@@ -425,6 +429,13 @@ public class PagController : IDisposable
                 System.Globalization.CultureInfo.InvariantCulture, out progress);
         }
 
+        // 真机排查 idle 回绕：progress 从高位跳回低位时打印（不每帧刷）
+        if (_lastGpuRenderProgress > 0.85 && progress < 0.15)
+        {
+            Debug.Log($"[PAG] LOOP WRAP instance={InstanceKey} last={_lastGpuRenderProgress:F4} -> {progress:F4} t={Time.realtimeSinceStartup:F3}");
+        }
+        _lastGpuRenderProgress = progress;
+
         if (PagGpuSyncGroup.Contains(InstanceKey))
         {
             PagGpuSyncGroup.OnGpuRenderRequested(InstanceKey, progress);
@@ -473,12 +484,12 @@ public class PagController : IDisposable
             _gpuFlushPresentCount++;
             _fguiPresenter.OnGpuFrameReady();
         }
-#if DEVELOPMENT_BUILD
         else
         {
-            Debug.Log($"[PAG] defer FGUI present instance={InstanceKey}");
+            // Release 真机也要能看到：贴图未 Invalidate 的直接线索
+            Debug.LogWarning(
+                $"[PAG] DEFER FGUI present instance={InstanceKey} progress={_lastGpuRenderProgress:F4} t={Time.realtimeSinceStartup:F3}");
         }
-#endif
 
         SafeCall("OnGpuFlushCompleted", () => _pagBridge.CallStatic("OnGpuFlushCompleted", InstanceKey));
 #if DEVELOPMENT_BUILD
@@ -600,6 +611,7 @@ public class PagController : IDisposable
 #if DEVELOPMENT_BUILD || UNITY_EDITOR
         Debug.Log($"[PAG] texture display ready instance={InstanceKey}");
 #endif
+        OnGpuDisplayReady?.Invoke();
     }
 
     internal void SetFguiGpuExternalPump(bool externalPump)
@@ -835,6 +847,29 @@ public class PagController : IDisposable
         }
 #endif
         return fallbackSec;
+    }
+
+    /// <summary>当前 GPU 段播放进度 0~1；-1 表示不可用（Editor / 未播放）。</summary>
+    public float GetFguiGpuPlaybackProgress()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        if (_pagBridge == null)
+        {
+            return -1f;
+        }
+
+        try
+        {
+            return _pagBridge.CallStatic<float>("GetFguiGpuPlaybackProgress", InstanceKey);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning($"[PAG] GetFguiGpuPlaybackProgress: {ex.Message}");
+            return -1f;
+        }
+#else
+        return -1f;
+#endif
     }
 
     public int GetCompositionFrameRate()
@@ -1097,6 +1132,7 @@ public class PagController : IDisposable
     public void StopPag()
     {
         _skipAutoSyncJoinForPlaylist = false;
+        _lastGpuRenderProgress = -1.0;
 #if UNITY_ANDROID && !UNITY_EDITOR
         if (PagGpuSyncGroup.Contains(InstanceKey))
         {

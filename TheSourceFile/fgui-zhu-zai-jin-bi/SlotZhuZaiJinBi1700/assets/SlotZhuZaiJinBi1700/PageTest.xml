@@ -2,56 +2,93 @@
 <component size="1080,1920">
   <displayList>
     <loader id="n1_ssmk" name="BG" xy="0,0" size="1080,1920" url="ui://zcotsi26n4dd49" align="center" fill="scale" useResize="true"/>
-    <component id="n5_ssmk" name="PT1" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="253,400" pivot="0.5,0.5" anchor="true" size="500,500"/>
-    <component id="n7_st01" name="PT2" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="822,400" pivot="0.5,0.5" anchor="true" size="500,500"/>
-    <component id="n8_st02" name="PT3" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="235,1250" pivot="0.5,0.5" anchor="true" size="500,500"/>
-    <component id="n9_st03" name="PT4" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="833,1250" pivot="0.5,0.5" anchor="true" size="500,500"/>
-    <component id="n45_npcpt5" name="PT5" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="540,960" pivot="0.5,0.5" anchor="true" size="250,250"/>
-    <component id="n46_npcpt6" name="PT6" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="540,960" pivot="0.5,0.5" anchor="true" size="250,250"/>
-    <component id="n47_npcpt7" name="PT7" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="540,960" pivot="0.5,0.5" anchor="true" size="250,250"/>
-    <component id="n48_npcpt8" name="PT8" src="ssmk8s" fileName="components/pageTest/PageTest1.xml" xy="540,960" pivot="0.5,0.5" anchor="true" size="250,250"/>
-    <text id="n30_ps01" name="txtPagStatus" xy="20,1620" size="1040,36" fontSize="26" color="#ffffff" vAlign="middle" autoSize="height" strokeColor="#000000" text="PAG=BigWin_1024 组=PagGroup1"/>
-    <component id="n31_ps02" name="btnBigWin_1024" src="ugpc8r" fileName="components/ButtonTest.xml" xy="20,1680" size="200,55">
-      <Button title="BigWin_1024" titleFontSize="20"/>
+    <component id="n99_back" name="btnBack" src="ugpc8r" fileName="components/ButtonTest.xml" xy="20,20" size="120,55">
+      <Button title="返回" titleFontSize="28"/>
     </component>
-    <component id="n32_ps03" name="btnBigWin_1080" src="ugpc8r" fileName="components/ButtonTest.xml" xy="230,1680" size="200,55">
-      <Button title="BigWin_1080" titleFontSize="20"/>
+    <component id="n36_tvr8" name="anchorPagTest" src="tvr88o" fileName="components/gameMain/AnchorPagTest.xml" xy="540,959" pivot="0.5,0.5" anchor="true" size="0,1"/>
+    <component id="n37_pkif" name="PAG1" src="ugpc8r" fileName="components/ButtonTest.xml" xy="3,1459" size="100,55">
+      <Button title="PAG1" titleFontSize="30"/>
     </component>
-    <component id="n33_ps04" name="btnXingXing2" src="ugpc8r" fileName="components/ButtonTest.xml" xy="440,1680" size="200,55">
-      <Button title="XingXing2" titleFontSize="20"/>
+    <component id="n41_pkif" name="PAG2" src="ugpc8r" fileName="components/ButtonTest.xml" xy="3,1534" size="100,55">
+      <Button title="PAG2" titleFontSize="30"/>
     </component>
-    <component id="n34_ps05" name="btnGlowLoopFull1920" src="ugpc8r" fileName="components/ButtonTest.xml" xy="650,1680" size="200,55">
-      <Button title="glow_loop_full_1920" titleFontSize="18"/>
+    <component id="n42_feiz" name="PAG3" src="ugpc8r" fileName="components/ButtonTest.xml" xy="3,1609" size="100,55">
+      <Button title="PAG3" titleFontSize="30"/>
     </component>
-    <component id="n35_ps06" name="btnGlowLoop720" src="ugpc8r" fileName="components/ButtonTest.xml" xy="860,1680" size="200,55">
-      <Button title="glow_loop_720" titleFontSize="18"/>
+    <component id="n43_chfd" name="PAG4" src="ugpc8r" fileName="components/ButtonTest.xml" xy="3,1684" size="100,55">
+      <Button title="PAG4" titleFontSize="30"/>
     </component>
-    <component id="n36_ps07" name="btnPagGroup1" src="ugpc8r" fileName="components/ButtonTest.xml" xy="20,1750" size="250,55">
-      <Button title="PagGroup1" titleFontSize="24"/>
+    <component id="n53_glow" name="PAG5" src="ugpc8r" fileName="components/ButtonTest.xml" xy="3,1759" size="100,55">
+      <Button title="PAG5" titleFontSize="30"/>
     </component>
-    <component id="n37_ps08" name="btnPagGroup2" src="ugpc8r" fileName="components/ButtonTest.xml" xy="280,1750" size="250,55">
-      <Button title="PagGroup2" titleFontSize="24"/>
+    <component id="n54_glow" name="PAG6" src="ugpc8r" fileName="components/ButtonTest.xml" xy="3,1834" size="100,55">
+      <Button title="PAG6" titleFontSize="30"/>
     </component>
-    <component id="n38_ps09" name="btnPagGroup3" src="ugpc8r" fileName="components/ButtonTest.xml" xy="540,1750" size="250,55">
-      <Button title="PagGroup3" titleFontSize="24"/>
+    <component id="n55_glow" name="PAG7" src="ugpc8r" fileName="components/ButtonTest.xml" xy="139,1459" size="100,55">
+      <Button title="PAG7" titleFontSize="30"/>
     </component>
-    <component id="n39_ps10" name="btnPagGroup4" src="ugpc8r" fileName="components/ButtonTest.xml" xy="800,1750" size="260,55">
-      <Button title="PagGroup4" titleFontSize="24"/>
+    <component id="n56_glow" name="PAG8" src="ugpc8r" fileName="components/ButtonTest.xml" xy="139,1534" size="100,55">
+      <Button title="PAG8" titleFontSize="30"/>
     </component>
-    <component id="n40_ps11" name="btnDumpPagSlots" src="ugpc8r" fileName="components/ButtonTest.xml" xy="20,1865" size="300,55">
-      <Button title="DumpPagSlots" titleFontSize="20"/>
+    <component id="n57_glow" name="PAG9" src="ugpc8r" fileName="components/ButtonTest.xml" xy="139,1684" size="100,55">
+      <Button title="PAG9" titleFontSize="30"/>
     </component>
-    <component id="n41_npc01" name="btnBigwinNpc" src="ugpc8r" fileName="components/ButtonTest.xml" xy="19,1556" size="250,55">
-      <Button title="bigwinNpc" titleFontSize="20"/>
+    <component id="n80_npc10" name="PAG10" src="ugpc8r" fileName="components/ButtonTest.xml" xy="139,1609" size="100,55">
+      <Button title="PAG10" titleFontSize="30"/>
     </component>
-    <component id="n42_npc02" name="btnFreeNpc" src="ugpc8r" fileName="components/ButtonTest.xml" xy="279,1556" size="250,55">
-      <Button title="freeNpc" titleFontSize="20"/>
+    <component id="n81_npc11" name="PAG11" src="ugpc8r" fileName="components/ButtonTest.xml" xy="139,1759" size="100,55">
+      <Button title="PAG11" titleFontSize="30"/>
     </component>
-    <component id="n43_npc03" name="btnNormalNpc" src="ugpc8r" fileName="components/ButtonTest.xml" xy="539,1556" size="250,55">
-      <Button title="normalNpc" titleFontSize="20"/>
+    <component id="n82_npc12" name="PAG12" src="ugpc8r" fileName="components/ButtonTest.xml" xy="142,1833" size="100,55">
+      <Button title="PAG12" titleFontSize="30"/>
     </component>
-    <component id="n44_npc04" name="btnRewardNpc" src="ugpc8r" fileName="components/ButtonTest.xml" xy="799,1556" size="260,55">
-      <Button title="rewardNpc" titleFontSize="20"/>
+    <component id="n100_gnyh" name="PAG13" src="ugpc8r" fileName="components/ButtonTest.xml" xy="252,1459" size="100,55">
+      <Button title="PAG13" titleFontSize="30"/>
+    </component>
+    <component id="n38_pkif" name="Spine1" src="ugpc8r" fileName="components/ButtonTest.xml" xy="366,1459" size="138,55">
+      <Button title="Spine1" titleFontSize="30"/>
+    </component>
+    <component id="n40_pkif" name="Spine2" src="ugpc8r" fileName="components/ButtonTest.xml" xy="366,1534" size="138,55">
+      <Button title="Spine2" titleFontSize="30"/>
+    </component>
+    <component id="n58_sp3" name="Spine3" src="ugpc8r" fileName="components/ButtonTest.xml" xy="366,1609" size="138,55">
+      <Button title="Spine3" titleFontSize="30"/>
+    </component>
+    <component id="n59_sp4" name="Spine4" src="ugpc8r" fileName="components/ButtonTest.xml" xy="366,1684" size="138,55">
+      <Button title="Spine4" titleFontSize="30"/>
+    </component>
+    <component id="n60_sp5" name="Spine5" src="ugpc8r" fileName="components/ButtonTest.xml" xy="366,1759" size="138,55">
+      <Button title="Spine5" titleFontSize="30"/>
+    </component>
+    <component id="n39_pkif" name="Effect1" src="ugpc8r" fileName="components/ButtonTest.xml" xy="519,1460" size="138,55">
+      <Button title="Effect1" titleFontSize="30"/>
+    </component>
+    <component id="n44_mgwn" name="Effect2" src="ugpc8r" fileName="components/ButtonTest.xml" xy="519,1535" size="138,55">
+      <Button title="Effect2" titleFontSize="30"/>
+    </component>
+    <component id="n45_mgwn" name="Effect3" src="ugpc8r" fileName="components/ButtonTest.xml" xy="519,1610" size="138,55">
+      <Button title="Effect3" titleFontSize="30"/>
+    </component>
+    <component id="n46_mgwn" name="Effect4" src="ugpc8r" fileName="components/ButtonTest.xml" xy="519,1685" size="138,55">
+      <Button title="Effect4" titleFontSize="30"/>
+    </component>
+    <component id="n47_mgwn" name="Effect5" src="ugpc8r" fileName="components/ButtonTest.xml" xy="519,1760" size="138,55">
+      <Button title="Effect5" titleFontSize="30"/>
+    </component>
+    <text id="n94_lbl" name="lblComboPag" xy="673,1460" size="126,55" fontSize="25" color="#ff0000" align="center" vAlign="middle" autoSize="none" singleLine="true" text="PAG"/>
+    <component id="n90_combo" name="comboPag" src="combo8c" fileName="components/ComboTestDropdown.xml" xy="809,1460" size="118,55">
+      <ComboBox visibleItemCount="10"/>
+    </component>
+    <text id="n95_lbl" name="lblComboSpine" xy="673,1540" size="126,55" fontSize="25" color="#ff0000" align="center" vAlign="middle" autoSize="none" singleLine="true" text="Spine"/>
+    <component id="n91_combo" name="comboSpine" src="combo8c" fileName="components/ComboTestDropdown.xml" xy="809,1540" size="118,55">
+      <ComboBox visibleItemCount="10"/>
+    </component>
+    <text id="n96_lbl" name="lblComboEffect" xy="673,1620" size="126,55" fontSize="25" color="#ff0000" align="center" vAlign="middle" autoSize="none" singleLine="true" text="Effect"/>
+    <component id="n92_combo" name="comboEffect" src="combo8c" fileName="components/ComboTestDropdown.xml" xy="809,1620" size="118,55">
+      <ComboBox visibleItemCount="10"/>
+    </component>
+    <component id="n93_combo" name="btnCombo" src="ugpc8r" fileName="components/ButtonTest.xml" xy="673,1700" size="160,55">
+      <Button title="Combo" titleFontSize="30"/>
     </component>
   </displayList>
 </component>

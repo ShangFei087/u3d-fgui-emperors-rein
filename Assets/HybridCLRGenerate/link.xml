@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <linker>
   <assembly fullname="FairyGUI">
-    <type fullname="FairyGUI.BlendMode" preserve="all" />
     <type fullname="FairyGUI.Container" preserve="all" />
     <type fullname="FairyGUI.Controller" preserve="all" />
     <type fullname="FairyGUI.DisplayObject" preserve="all" />

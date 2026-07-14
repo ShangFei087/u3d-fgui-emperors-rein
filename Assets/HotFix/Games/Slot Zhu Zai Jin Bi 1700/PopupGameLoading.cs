@@ -249,8 +249,7 @@ namespace SlotZhuZaiJinBi1700
             }
 
             StopPagPreloadCoroutine();
-            PagCallbackHub.EnsureInstance();
-            PagController.EnsureInit();
+            PagBootstrap.EnsureReady();
             _pagPreloadCoroutine = PagCallbackHub.Instance.RunCoroutine(PagPreloadCoroutine());
         }
 
@@ -287,6 +286,7 @@ namespace SlotZhuZaiJinBi1700
             _pagPreloadCompleted = _pagPreloadTotal;
             RefreshLoadingProgressVisual();
             Debug.Log("[1700 Loading] PAG preload finished");
+            Debug.Log($"[1700 Loading] preload state pages={_preloadCompleted}/{_preloadTotal} pagDone={_pagPreloadFinished}");
             TryFinishLoadingAfterPreloads();
             _pagPreloadCoroutine = null;
         }
@@ -296,6 +296,7 @@ namespace SlotZhuZaiJinBi1700
         {
             _preloadCompleted++;
             RefreshLoadingProgressVisual();
+            Debug.Log($"[1700 Loading] page preload done {_preloadCompleted}/{_preloadTotal}");
 
             if (_preloadCompleted < _preloadTotal) return;
 

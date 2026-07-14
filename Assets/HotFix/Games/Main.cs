@@ -46,6 +46,7 @@ public class Main
 
     public static void MainStart()
     {
+        PagBootstrap.EnsureReady();
         CoroutineAssistant.DoCo("COR_ON_BEFORE_PRELOAD", OnBeforePreLoadBundle());
     }
 

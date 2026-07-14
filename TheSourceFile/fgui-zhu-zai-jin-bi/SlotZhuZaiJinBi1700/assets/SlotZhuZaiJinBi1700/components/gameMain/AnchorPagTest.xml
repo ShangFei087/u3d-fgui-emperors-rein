@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1,1">
   <displayList>
-    <loader id="n2_pag0" name="pagEffect1" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
-    <loader id="n3_pkif" name="pagEffect2" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
-    <loader id="n7_feiz" name="pagEffect3" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
-    <loader id="n8_chfd" name="pagEffect4" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
-    <loader id="n9_chfd" name="pagEffect5" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
-    <loader id="n10_chfd" name="pagEffect6" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
-    <loader id="n14_glow" name="pagEffect7" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
-    <loader id="n16_glow" name="pagEffect8" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
-    <loader id="n18_glow" name="pagEffect9" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
-    <loader id="n20_glow" name="pagEffect10" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
-    <loader id="n22_glow" name="pagEffect11" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
-    <loader id="n24_npc" name="pagEffect12" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
     <loader id="n1_tvr8" name="example" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" align="center" vAlign="middle" autoSize="true"/>
-    <graph id="n4_pkif" name="holder1" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
-    <graph id="n5_pkif" name="holder2" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
-    <graph id="n6_feiz" name="holder3" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
-    <graph id="n11_chfd" name="holder4" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
-    <graph id="n12_chfd" name="holder5" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
-    <graph id="n13_chfd" name="holder6" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
-    <graph id="n15_glow" name="holder7" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
-    <graph id="n17_glow" name="holder8" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
-    <graph id="n19_glow" name="holder9" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
-    <graph id="n21_glow" name="holder10" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
-    <graph id="n23_glow" name="holder11" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
-    <graph id="n27_npc" name="holder12" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
     <graph id="n0_tvr8" name="holder" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <graph id="n4_pkif" name="holder1" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <loader id="n2_pag0" name="pagEffect1" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
+    <graph id="n5_pkif" name="holder2" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <loader id="n3_pkif" name="pagEffect2" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
+    <graph id="n6_feiz" name="holder3" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <loader id="n7_feiz" name="pagEffect3" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
+    <graph id="n11_chfd" name="holder4" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <loader id="n8_chfd" name="pagEffect4" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
+    <graph id="n12_chfd" name="holder5" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <loader id="n9_chfd" name="pagEffect5" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
+    <graph id="n13_chfd" name="holder6" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <loader id="n10_chfd" name="pagEffect6" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
+    <graph id="n15_glow" name="holder7" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <loader id="n14_glow" name="pagEffect7" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
+    <graph id="n17_glow" name="holder8" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <loader id="n16_glow" name="pagEffect8" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
+    <graph id="n19_glow" name="holder9" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <loader id="n18_glow" name="pagEffect9" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
+    <graph id="n21_glow" name="holder10" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <loader id="n20_glow" name="pagEffect10" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
+    <graph id="n23_glow" name="holder11" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <loader id="n22_glow" name="pagEffect11" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
+    <graph id="n27_npc" name="holder12" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <loader id="n24_npc" name="pagEffect12" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
+    <graph id="n29_gnyh" name="holder13" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <loader id="n28_gnyh" name="pagEffect13" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" align="center" fill="scaleFree"/>
   </displayList>
 </component>

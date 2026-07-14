@@ -1,10 +1,10 @@
 {
-  "updated_at": 1783923617306,
+  "updated_at": 1783649630228,
   "hotfix_key": "hf_debug_android_20260630161224",
-  "hotfix_version": "1.2.55",
+  "hotfix_version": "1.2.44",
   "asset_bundle": {
     "manifest": {
-      "hash": "54f43a227addd0653ea20de9a24560e8",
+      "hash": "a4ecfa43b9a930c6b63512959ed9ae94",
       "size_bytes": 26960
     },
     "bundle_hash": {
@@ -712,7 +712,7 @@
       "games/huo yan gong niu 3995/smallgame/art/effect/prefabs/ng_eff_zhuanpanzhongjiang03.unity3d": "64ddce83544c9d84168f69cc60e7b041",
       "games/panel/panel01/fguis.unity3d": "bc228e55b570f7326a49040c1e992562",
       "games/panel01/fguis.unity3d": "300996783f51d3089fe9ff4b89c33960",
-      "games/slot zhu zai jin bi 1700/fguis.unity3d": "87865374341ff59819ffe2442597eb19",
+      "games/slot zhu zai jin bi 1700/fguis.unity3d": "e07aa172c15d43070ce61c04906cf07a",
       "games/slot zhu zai jin bi 1700/pag/3997npc/bigwinnpc/bigwin_idle1.unity3d": "acd83a4433e9602008e1e4aa2b41bd39",
       "games/slot zhu zai jin bi 1700/pag/3997npc/bigwinnpc/bigwin_start1.unity3d": "a93789a8a2e1b6687cdb9ac143460328",
       "games/slot zhu zai jin bi 1700/pag/3997npc/bigwinnpc/megawin_idle1.unity3d": "138346e48bbd2e59181796d32aeac715",
@@ -935,8 +935,8 @@
       "size_bytes": 169984
     },
     "HotFix": {
-      "hash": "95e77b26ab11508cea09b9cd8756a794",
-      "size_bytes": 2078720
+      "hash": "128e800cc6aacd5451741a0b47c39e1c",
+      "size_bytes": 2073088
     }
   },
   "hotfix_dll_load_order": [

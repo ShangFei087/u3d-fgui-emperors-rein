@@ -439,6 +439,12 @@ public final class PagBridge {
         return manager != null && manager.isFguiGpuPlaybackActive();
     }
 
+    /** 当前 GPU 段播放进度 0~1；-1 表示不可用。 */
+    public static float GetFguiGpuPlaybackProgress(String instanceKey) {
+        PagOverlayManager manager = getManager(normalizeKey(instanceKey));
+        return manager != null ? manager.getFguiGpuPlaybackProgress() : -1f;
+    }
+
     /** Phase2 A'：playlist 段切期间 Unity 侧是否应跳过 FGUI present。 */
     public static boolean ShouldDeferFguiGpuPresent(String instanceKey) {
         PagOverlayManager manager = getManager(normalizeKey(instanceKey));

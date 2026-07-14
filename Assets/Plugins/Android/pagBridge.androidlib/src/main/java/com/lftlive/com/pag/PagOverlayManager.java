@@ -1565,6 +1565,14 @@ final class PagOverlayManager {
         return fguiGpuPlaylistActive;
     }
 
+    /** Unity 轮询：当前 GPU 段播放进度 0~1；-1 表示未播放。 */
+    float getFguiGpuPlaybackProgress() {
+        if (!fguiGpuActive || fguiGpuTickPhase == FguiGpuTickPhase.STOPPED) {
+            return -1f;
+        }
+        return (float) snapshotFguiGpuProgress().progress;
+    }
+
     private boolean hasNextInFguiGpuPlaylist() {
         return fguiGpuPlaylistActive
                 && fguiGpuPlaylistIndex >= 0
