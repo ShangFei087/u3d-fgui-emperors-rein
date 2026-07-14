@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1291017436284594361
+--- !u!1 &2966207610211827903
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39,25 +39,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4768606509203772526}
-  - component: {fileID: 1979178658965702326}
-  - component: {fileID: 4312536494368002470}
-  - component: {fileID: 7189194355070420501}
-  - component: {fileID: 8733812187022765768}
-  m_Layer: 5
-  m_Name: Spine Mecanim GameObject (ng_sym_Lscore)
+  - component: {fileID: 6587630605731565143}
+  - component: {fileID: 8069421671015617657}
+  - component: {fileID: 1688766071792499399}
+  - component: {fileID: 8385451730189042501}
+  - component: {fileID: 4684108677624446115}
+  m_Layer: 0
+  m_Name: Spine Mecanim GameObject (Lucky_ng_sym_JQKA)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4768606509203772526
+--- !u!4 &6587630605731565143
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291017436284594361}
+  m_GameObject: {fileID: 2966207610211827903}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -65,21 +65,21 @@ Transform:
   m_Father: {fileID: 6281517127858482031}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1979178658965702326
+--- !u!33 &8069421671015617657
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291017436284594361}
+  m_GameObject: {fileID: 2966207610211827903}
   m_Mesh: {fileID: 0}
---- !u!23 &4312536494368002470
+--- !u!23 &1688766071792499399
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291017436284594361}
+  m_GameObject: {fileID: 2966207610211827903}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -92,7 +92,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e4a0c926853c9004f8549c0296f117d8, type: 2}
+  - {fileID: 2100000, guid: 74a13beea15797943aa10b522cf002c0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -114,17 +114,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &7189194355070420501
+--- !u!95 &8385451730189042501
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291017436284594361}
+  m_GameObject: {fileID: 2966207610211827903}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 21ebee8c3ec356444b168e6f4220f717, type: 2}
+  m_Controller: {fileID: 9100000, guid: e15e10308f5b975489eddd0de8768048, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -133,20 +133,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8733812187022765768
+--- !u!114 &4684108677624446115
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291017436284594361}
+  m_GameObject: {fileID: 2966207610211827903}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9db98c60740638449864eb028fbe7ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 63bf822b970382c4c898b0724bd3ad79, type: 2}
-  initialSkinName: a
+  skeletonDataAsset: {fileID: 11400000, guid: 3683ffe80fa2f7940aea026a18a79dd9, type: 2}
+  initialSkinName: A
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0
   initialFlipY: 0
@@ -201,7 +201,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
-  - {fileID: 4768606509203772526}
+  - {fileID: 6587630605731565143}
   m_Father: {fileID: 8571691632533029654}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

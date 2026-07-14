@@ -18,7 +18,7 @@ namespace XingYunZhiLun_3998
         private GComponent goEffect;
 
         //结束时特效
-        private Transform caidai, drop, liPao1, liPao2;
+        //private Transform caidai, drop, liPao1, liPao2;
 
         private bool isInit = false;
         private bool isend;
@@ -75,7 +75,7 @@ namespace XingYunZhiLun_3998
                 {
                     goFgCloneMinor = clone;
                     callback();
-                });
+                    });
 
             ResourceManager02.Instance.LoadAsset<GameObject>(
                 "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/PopupGameJackpot/PushJackpotMini.prefab",
@@ -216,10 +216,10 @@ namespace XingYunZhiLun_3998
                 GameCommon.FguiUtils.DeleteWrapper(goEffect);
                 go = GameObject.Instantiate(goFgClone);
                 animator = go.transform.GetChild(1).GetChild(0).GetComponent<Animator>();
-                caidai = go.transform.GetChild(0).GetChild(1).GetChild(0).transform;
-                drop = go.transform.GetChild(0).GetChild(2).GetChild(0).transform;
-                liPao1 = go.transform.GetChild(0).GetChild(3).GetChild(0).transform;
-                liPao2 = go.transform.GetChild(0).GetChild(4).GetChild(0).transform;
+                //caidai = go.transform.GetChild(0).GetChild(1).GetChild(0).transform;
+                //drop = go.transform.GetChild(0).GetChild(2).GetChild(0).transform;
+                //liPao1 = go.transform.GetChild(0).GetChild(3).GetChild(0).transform;
+                //liPao2 = go.transform.GetChild(0).GetChild(4).GetChild(0).transform;
                 goEffect = lodAnchorBG;
                 GameCommon.FguiUtils.AddWrapper(goEffect, go);
             }
@@ -280,13 +280,13 @@ namespace XingYunZhiLun_3998
             StopAll();
 
             PlayAnim("end");
-            AddTimer(0.6f, (object obj) =>
-            {
-                PlayEffectAnim(caidai);
-                PlayEffectAnim(drop);
-                PlayEffectAnim(liPao1);
-                PlayEffectAnim(liPao2);
-            });
+            //AddTimer(0.6f, (object obj) =>
+            //{
+            //    PlayEffectAnim(caidai);
+            //    PlayEffectAnim(drop);
+            //    PlayEffectAnim(liPao1);
+            //    PlayEffectAnim(liPao2);
+            //});
             isend = true;
             DelayedExit();
         }

@@ -35,7 +35,7 @@ namespace XingYunZhiLun_3998
         private List<TimerCallback> _timerCallbacks = new List<TimerCallback>();
 
         private readonly string[] WinString = { "BIG", "HUGE", "MASSIVE" };
-        private readonly string[] WinOpenString = { "bigwin_start", "superwin_start", "mege_start" };
+        private readonly string[] WinOpenString = { "bigwin_start", "superwin_start", "mega_start" };
         private readonly string[] WinCloseString = { "bigwin_end", "superwin_end", "mega_end" };
 
         protected override void OnInit()
