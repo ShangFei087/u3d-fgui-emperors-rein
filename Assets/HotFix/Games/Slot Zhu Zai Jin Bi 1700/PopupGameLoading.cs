@@ -159,7 +159,7 @@ namespace SlotZhuZaiJinBi1700
 
             PageName[] pages =
             {
-                PageName.SlotZhuZaiJinBiPageGameMain,
+                PageName.SlotZhuZaiJinPageTest,
             };
 
             _preloadTotal = pages.Length;
@@ -206,7 +206,7 @@ namespace SlotZhuZaiJinBi1700
         }
 
         /// <summary>
-        /// 预热 1700 Pag 目录全部 .pag（共 20，LRU 上限 20）：
+        /// 预热 1700 核心 Pag + 3997Npc（共 40，LRU 上限 40）：
         /// AB 解压到 PagCache + Java composition 解码，缩短进局后首次 Play 耗时。
         /// </summary>
         private IEnumerator PagPreloadCoroutine()

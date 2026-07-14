@@ -15,7 +15,10 @@ public static class PagPathHelper
     /// <summary>相对 GameRes 的 PAG 目录，可按游戏修改。</summary>
     public const string DefaultGamePagFolder = "Games/Slot Zhu Zai Jin Bi 1700/Pag";
 
-    /// <summary>1700 Loading 预热：Pag 目录下全部 .pag（共 20，与 LRU 上限一致）。</summary>
+    /// <summary>Java PagCompositionCache LRU 上限，须与 DefaultGamePagPreloadFiles 条目数一致。</summary>
+    public const int MaxCompositionCacheSize = 40;
+
+    /// <summary>1700 Loading 预热：核心 Pag + 3997Npc（共 40，与 LRU 上限一致）。</summary>
     public static readonly string[] DefaultGamePagPreloadFiles =
     {
         "BigWin_1024.pag",
@@ -27,17 +30,37 @@ public static class PagPathHelper
         "XingXing1.pag",
         "XingXing2.pag",
         "XingXing3.pag",
-        "BigWin/bigwin_start.pag",
-        "BigWin/bigwin_idle.pag",
-        "BigWin/supwin_start.pag",
-        "BigWin/supwin_idle.pag",
-        "BigWin/megawin_start.pag",
-        "BigWin/megawin_idle.pag",
+        "BigWin/bigwin_start1.pag",
+        "BigWin/bigwin_idle1.pag",
+        "BigWin/supwin_start1.pag",
+        "BigWin/supwin_idle1.pag",
+        "BigWin/megawin_start1.pag",
+        "BigWin/megawin_idle1.pag",
         "Lopp/glow_loop_720.pag",
         "Lopp/glow_loop_half_1920.pag",
         "Lopp/glow_loop_full_1920.pag",
         "Lopp/glow_in_half_1920.pag",
         "Lopp/glow_in_full_1920.pag",
+        "3997Npc/NormalNPC/Wealth_ng_npc_idle01.pag",
+        "3997Npc/NormalNPC/Wealth_ng_npc_idle02.pag",
+        "3997Npc/NormalNPC/Wealth_ng_npc_atmosphere.pag",
+        "3997Npc/NormalNPC/Wealth_ng_npc_not triggered.pag",
+        "3997Npc/NormalNPC/Wealth_ng_npc_not winning.pag",
+        "3997Npc/NormalNPC/Wealth_ng_npc_trigger fg.pag",
+        "3997Npc/NormalNPC/Wealth_ng_npc_trigger sg.pag",
+        "3997Npc/NormalNPC/Wealth_ng_npc_win1.pag",
+        "3997Npc/NormalNPC/Wealth_ng_npc_win2.pag",
+        "3997Npc/NormalNPC/Wealth_ng_npc_win3.pag",
+        "3997Npc/FreeNPC/Wealth_fg_npc_settlement.pag",
+        "3997Npc/FreeNPC/Wealth_fg_npc_upgrade1.pag",
+        "3997Npc/FreeNPC/Wealth_fg_npc_upgrade2.pag",
+        "3997Npc/RewardNPC/Wealth_sg_npc_appear.pag",
+        "3997Npc/RewardNPC/Wealth_sg_npc_idle1.pag",
+        "3997Npc/RewardNPC/Wealth_sg_npc_idle2.pag",
+        "3997Npc/RewardNPC/Wealth_sg_npc_reset.pag",
+        "3997Npc/RewardNPC/Wealth_sg_npc_settlement1.pag",
+        "3997Npc/RewardNPC/Wealth_sg_npc_settlement2.pag",
+        "3997Npc/RewardNPC/Wealth_sg_npc_settlement3.pag",
     };
 
     private const string CacheFolderName = "PagCache";

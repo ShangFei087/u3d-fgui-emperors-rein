@@ -257,7 +257,7 @@ PagBridge.Play()                          // runOnUi
 
 ---
 
-### 阶段 2：初始化 GPU 纹理（每个 clip 一次）
+### 阶段 2：初始化共享纹理（每个 clip 一次）
 
 **线程：Android UI → Unity 主线程 → Unity 渲染线程 → Android UI**
 
@@ -486,7 +486,7 @@ adb logcat PagBridge:I PagOverlayManager:I PagBridgeUnity:I Unity:I *:S
 
 | 层级 | Tag / 前缀 |
 |------|------------|
-| Unity C# | `[1700 PAG]`、`[PAG Path]`、`[PAG JNI]`、`[PAG GPU]` |
+| Unity C# | `[1700 PAG]`、`[PAG Path]`、`[PAG JNI]`、`[PAG Texture]` |
 | Java | `I/PagBridge:`、`I/PagOverlayManager:` |
 | C# → android.util.Log | `I/PagBridgeUnity:` |
 
@@ -505,11 +505,11 @@ adb logcat PagBridge:I PagOverlayManager:I PagBridgeUnity:I Unity:I *:S
 
 ## 11. 两种显示模式对比
 
-| | GPU 纹理模式（当前） | Overlay WM 模式 |
-|--|---------------------|-----------------|
+| | 纹理模式（当前） | 浮层模式 |
+|--|-----------------|----------|
 | 配置 | `TurnTablePagUseFguiTexture = true` | `false` |
-| 显示位置 | FGUI `pagEffect`，Spine 可盖住 | 系统浮层 |
-| 数据路径 | GPU → ExternalTexture → FGUI | TextureView / ImageView |
+| 显示位置 | FGUI `pagEffect`，Spine 可盖住 | 系统浮层（PAGView / WM） |
+| 数据路径 | libpag flush → Unity GL 纹理 → FGUI ExternalTexture | TextureView / ImageView |
 | 适用 | 转盘嵌 UI、与 Spine 分层 | 实现简单、与 FGUI 层级分离 |
 
 ---
@@ -542,7 +542,7 @@ adb logcat PagBridge:I PagOverlayManager:I PagBridgeUnity:I Unity:I *:S
 
 | 现象 | 可能原因 | 查哪里 |
 |------|----------|--------|
-| 编辑器里播不了 | 仅 Android 真机支持 GPU 模式 | `PagController.PlayPag` 的 `#if UNITY_ANDROID` |
+| 编辑器里播不了 | 仅 Android 真机支持纹理模式 | `PagController.PlayPag` 的 `#if UNITY_ANDROID` |
 | 有 Play success 无 Java 日志 | APK 未打入 pagBridge | 完整 `build_android_debug.bat` + 重装 APK |
 | 黑屏 / 闪一下 | GL 线程时序错乱 | `PagUnityGlBridge.cpp` glFinish、主线程 UnitySendMessage |
 | 画面发糊 | `maxDisplaySide > 0` 缩小了渲染纹理 | `TurnTablePagFguiMaxDisplaySide` |
@@ -552,4 +552,4 @@ adb logcat PagBridge:I PagOverlayManager:I PagBridgeUnity:I Unity:I *:S
 
 ---
 
-*文档版本：与 1700 转盘 PAG GPU 纹理模式基线一致。维护策略见 `PAG_MAINTENANCE_PRIORITY.md`。*
+*文档版本：与 1700 转盘 PAG 纹理模式基线一致。维护策略见 `PAG_MAINTENANCE_PRIORITY.md`。*

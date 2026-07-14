@@ -3,7 +3,7 @@ using FairyGUI;
 using UnityEngine;
 
 /// <summary>
-/// 将 Native PAG GPU 离屏纹理（ExternalTexture）显示在 FGUI GLoader 上；层级由编辑器中 pagEffect 的兄弟顺序决定。
+/// 将 Native PAG 离屏纹理（ExternalTexture）显示在 FGUI GLoader 上；层级由编辑器中 pagEffect 的兄弟顺序决定。
 /// </summary>
 public sealed class PagFguiGpuPresenter
 {
@@ -166,6 +166,13 @@ public sealed class PagFguiGpuPresenter
 
     public void OnGpuFrameReady()
     {
+        UpdateGpuFrameTexture();
+        InvalidateBatchingOnce();
+    }
+
+    /// <summary>SyncGroup batch present：仅更新纹理，Invalidate 由组级统一触发。</summary>
+    public void UpdateGpuFrameTexture()
+    {
         if (_loader == null)
         {
             return;
@@ -180,7 +187,10 @@ public sealed class PagFguiGpuPresenter
         {
             _externalTexture.UpdateExternalTexture(_boundNativePtr);
         }
+    }
 
+    public void InvalidateBatchingOnce()
+    {
         InvalidateLoaderBatching();
     }
 
@@ -333,7 +343,7 @@ public sealed class PagFguiGpuPresenter
         TrySyncLoaderPosition();
 
 #if DEVELOPMENT_BUILD || UNITY_EDITOR
-        Debug.Log($"[PAG FGUI GPU] pagEffect display {displayW}x{displayH}, composition={_displayW}x{_displayH}, "
+        Debug.Log($"[PAG Texture] pagEffect display {displayW}x{displayH}, composition={_displayW}x{_displayH}, "
             + $"texture {_texW}x{_texH}, holderClamp={_clampDisplayToHolder}, anchor={ResolveAnchor()?.name}, loader={_loaderName}");
 #endif
     }
@@ -443,6 +453,21 @@ public sealed class PagFguiGpuPresenter
         if (loaderName == "pagEffect11")
         {
             return "holder11";
+        }
+
+        if (loaderName == "pagEffect12")
+        {
+            return "holder12";
+        }
+
+        if (loaderName == "pagEffect13")
+        {
+            return "holder13";
+        }
+
+        if (loaderName == "pagEffect14")
+        {
+            return "holder14";
         }
 
         return "holder";

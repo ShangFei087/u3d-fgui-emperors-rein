@@ -1,7 +1,18 @@
 # PAG 转盘（1700）后续维护优先级清单
 
 > 前提：单机已验收通过（能播、不闪、原画质），当前仅一款机型。  
-> 关联文档：[`RETEST_PAG_UFO.md`](RETEST_PAG_UFO.md)
+> 关联文档：[`RETEST_PAG_UFO.md`](RETEST_PAG_UFO.md)  
+> **美术向**：[`../../docs/PAG_ARTIST_GUIDE.md`](../../docs/PAG_ARTIST_GUIDE.md)（制作规范、体积预算、交付验收）  
+> **2026-07：** 1700 PagTest 区复测通过（30fps 配置，单路 + 六段连播），GL 链路已冻结 → 详见 [`PAG_PERF_RETEST.md`](PAG_PERF_RETEST.md)。
+
+## 术语（全项目统一）
+
+| 对外称谓 | 含义 | 代码开关（不改名） |
+|----------|------|-------------------|
+| **纹理模式** | libpag 绘制到 Unity 共享 GL 纹理 → FGUI `pagEffect` ExternalTexture；可与 Spine 分层 | `TurnTablePagUseFguiTexture = true` / `PagRenderTarget.FguiTexture` |
+| **浮层模式** | Android 系统 Overlay（PAGView / WM），与 FGUI 层级分离 | `TurnTablePagUseFguiTexture = false` / `PagRenderTarget.Overlay` |
+
+> 不再使用「GPU 模式」「FGUI GPU 模式」作模式名（Overlay 同样走 GPU 渲染）。实现细节中的 `GpuPlayer`、`PagGpuSyncGroup`、`glFinish` 等保留原称。
 
 ---
 
@@ -9,7 +20,7 @@
 
 | 项 | 配置 / 行为 |
 |----|-------------|
-| 显示模式 | FGUI GPU ExternalTexture（`TurnTablePagUseFguiTexture = true`） |
+| 显示模式 | **纹理模式**（FGUI ExternalTexture，`TurnTablePagUseFguiTexture = true`） |
 | 画质 | `TurnTablePagFguiMaxDisplaySide = 0`（合成原尺寸，1:1 渲染） |
 | 帧率节流 | `TurnTablePagFguiFps = 60` |
 | progress | `elapsed / durationUs` 时间轴（非固定帧序号） |
@@ -18,7 +29,7 @@
 
 ---
 
-## GPU 纹理模式渲染流程
+## 纹理模式渲染流程
 
 核心思路：**Unity 在 GL 渲染线程创建 RGBA 纹理，libpag GPU 绘制到该纹理，FGUI 通过 ExternalTexture 显示同一块纹理**。不走 CPU 读像素、不走 `LoadRawTextureData`。
 
@@ -159,12 +170,12 @@ sequenceDiagram
 | `glFinish` | flush 后、通知 FGUI 前 | 保证采样时纹理已写完 |
 | 下一帧请求 | `WaitForEndOfFrame` 之后 | 与 Unity 显示节奏对齐 |
 
-### 与 Overlay 模式对比
+### 与浮层模式对比
 
-| | GPU 纹理模式（当前） | Overlay WM 模式 |
-|--|---------------------|-----------------|
-| 显示位置 | FGUI `pagEffect`，Spine 可盖住 | 系统浮层 |
-| 数据路径 | GPU → ExternalTexture → FGUI | TextureView / ImageView |
+| | 纹理模式（当前） | 浮层模式 |
+|--|-----------------|----------|
+| 显示位置 | FGUI `pagEffect`，Spine 可盖住 | 系统浮层（PAGView / WM） |
+| 数据路径 | libpag flush → Unity GL 纹理 → FGUI ExternalTexture | TextureView / ImageView |
 | 适用 | 转盘嵌 UI、与 Spine 分层 | 实现简单、与 FGUI 层级分离 |
 
 ---
@@ -203,6 +214,7 @@ Tools\build_android_debug.bat hotfix nopause
 | 2 | **偶发播停** | logcat 出现 `flushGpuFrameOnRenderThread failed` 或 `EGL_BAD_ACCESS` 连续刷屏 | flush 失败重试 1～2 次；超时后强制 `notifyPlaybackFinished` | `PagOverlayManager.java`、`PagUnityGlBridge.cpp` |
 | 3 | **切 clip 闪一下** | Dragon → UFO 切换瞬间黑屏 / 闪一下 | 预分配最大尺寸纹理，减少切 clip 时 `DestroyTexture` 重建 | `PagUnityGlBridge.cpp`、`PagFguiGpuPresenter.cs` |
 | 4 | **发热 / 掉帧** | 长时间玩转盘后 FPS 明显下降 | 评估 `glFinish` → `glFenceSync`（非首选，需真机对比） | `PagUnityGlBridge.cpp` |
+| 5 | ~~**双路同屏 &lt;25 FPS**~~ | PAG1+P2 渐降、PAG1+P3≈3 FPS | **2026-07 已修**：`PagGpuSyncGroup` 部分 batch flush；同屏跳过 per-instance fps align → 见 [`PAG_PERF_RETEST.md`](PAG_PERF_RETEST.md) | `PagGpuSyncGroup.cs`、`PageGameMain.cs` |
 
 ---
 
@@ -266,3 +278,4 @@ Tools\build_android_debug.bat hotfix nopause
 | GL 纹理 | `Assets/Plugins/Android/pagBridge.androidlib/.../PagUnityGlBridge.cpp` |
 | 构建脚本 | `Tools/AndroidBuild/`（入口 `Tools/build_android_debug.bat`） |
 | 验收清单 | `Tools/AndroidBuild/docs/RETEST_PAG_UFO.md` |
+| 性能复测（PagTest 30fps） | `Tools/AndroidBuild/docs/PAG_PERF_RETEST.md` |
