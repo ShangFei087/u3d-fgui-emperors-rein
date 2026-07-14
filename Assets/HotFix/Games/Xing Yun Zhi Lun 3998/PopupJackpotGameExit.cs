@@ -26,6 +26,7 @@ namespace XingYunZhiLun_3998
 
         private EventData _data;
         private bool isInit = false, isClose = false;
+        private Action callBack;
 
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
         protected override void OnInit()
@@ -115,10 +116,12 @@ namespace XingYunZhiLun_3998
             {
                 Dictionary<string, object> argDic = (Dictionary<string, object>)_data.value;
                 uiJPReslutCtrl.SetData((float)argDic["totalEarnCredit"]);
+                callBack = (Action)argDic["callback"];
             }
             else
             {
                 uiJPReslutCtrl.SetData(0);
+                callBack = null;
             }
 
             idleTransition = contentPane.GetTransition("idle");
@@ -146,7 +149,15 @@ namespace XingYunZhiLun_3998
 
             PlayAnim("end");
 
-            AddTimer(1f, (obj) =>
+            if(callBack != null)
+            {
+                AddTimer(2f, (obj) =>
+                {
+                    callBack.Invoke();
+                });
+            }
+
+            AddTimer(2.8f, (obj) =>
             {
                 CloseSelf(null);
             });

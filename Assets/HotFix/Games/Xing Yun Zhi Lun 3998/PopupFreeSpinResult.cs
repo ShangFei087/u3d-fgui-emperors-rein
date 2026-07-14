@@ -175,7 +175,7 @@ namespace XingYunZhiLun_3998
             PlayAnim("end");
             endTransition.Play();
 
-            AddTimer(1.4f, (object obj) =>
+            AddTimer(0.5f, (object obj) =>
             {
                 CloseSelf(null);
                 StopAll();

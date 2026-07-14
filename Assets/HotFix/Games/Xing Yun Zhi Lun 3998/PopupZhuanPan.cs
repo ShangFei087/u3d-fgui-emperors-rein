@@ -5,6 +5,7 @@ using SlotMaker;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Xml.Linq;
 using UnityEngine;
 
@@ -41,14 +42,18 @@ namespace XingYunZhiLun_3998
         private float rotateSpeed = 15f;
         private float extralyAngle = 9f;  //因为转盘分区角度不同，可能需要额外补充一些角度
 
+        private int wheelIndex;
+
         private readonly string[] animNames = { "01_idle" , "02_idle", "03_idle" };
+
+        private Transform[] idels, wins, stages;
 
         protected override void OnInit()
         {
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 3;
+            int count = 1;
 
             Action callback = () =>
             {
@@ -59,21 +64,21 @@ namespace XingYunZhiLun_3998
                 }
             };
 
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/PopupZhuanPan/ZhuanPanPoint.prefab",
-                (GameObject clone) =>
-                {
-                    goSpinEffect = clone;
-                    callback();
-                });
+            //ResourceManager02.Instance.LoadAsset<GameObject>(
+            //    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/PopupZhuanPan/ZhuanPanPoint.prefab",
+            //    (GameObject clone) =>
+            //    {
+            //        goSpinEffect = clone;
+            //        callback();
+            //    });
 
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/PopupZhuanPan/ZhuanPanReward.prefab",
-                (GameObject clone) =>
-                {
-                    goRawardEffect = clone;
-                    callback();
-                });
+            //ResourceManager02.Instance.LoadAsset<GameObject>(
+            //    "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/PopupZhuanPan/ZhuanPanReward.prefab",
+            //    (GameObject clone) =>
+            //    {
+            //        goRawardEffect = clone;
+            //        callback();
+            //    });
 
             ResourceManager02.Instance.LoadAsset<GameObject>(
                 "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/PopupZhuanPan/ZhuanPanGame.prefab",
@@ -122,6 +127,8 @@ namespace XingYunZhiLun_3998
         public override void OnClose(EventData data = null)
         {
             base.OnClose(data);
+
+            wins[wheelIndex].gameObject.SetActive(false);
             //EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
         }
 
@@ -130,42 +137,6 @@ namespace XingYunZhiLun_3998
             if (data != null) _data = data;
 
             if (!isInit) return;
-
-            //gOwnerPanel = this.contentPane.GetChild("panel").asCom;
-            ////初始化菜单ui
-            //ContentModel.Instance.goAnthorPanel = gOwnerPanel;
-            //MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
-            //// 事件放出
-            ////goGameCtrl.transform.Find("Panel").GetComponent<PanelController01>().Init();
-            //EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-            //    new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
-
-            //GComponent gSpinEffectTip = contentPane.GetChild("zhuanPan").asCom.GetChild("SpinPoint").asCom.GetChild("ZhuanPanPoint").asCom.GetChild("anchorEffect").asCom;
-            //if(gSpinEffectBg != gSpinEffectTip)
-            //{
-            //    GameCommon.FguiUtils.DeleteWrapper(gSpinEffectBg);
-            //    gSpinEffectBg = gSpinEffectTip;
-            //    goSpin = GameObject.Instantiate(goSpinEffect);
-            //    effectSpin = goSpin.transform.GetChild(0).GetChild(0);
-
-            //    GameCommon.FguiUtils.AddWrapper(gSpinEffectBg, goSpin);
-            //}
-
-            //GComponent gRawardEffectTip = contentPane.GetChild("zhuanPan").asCom.GetChild("anchorEffect").asCom;
-            //if(gRawardEffectBg != gRawardEffectTip)
-            //{
-            //    GameCommon.FguiUtils.DeleteWrapper(gRawardEffectBg);
-            //    gRawardEffectBg = gRawardEffectTip;
-            //    goRaward = GameObject.Instantiate(goRawardEffect);
-            //    effectRaward = goRaward.transform.GetChild(0).GetChild(0).GetChild(0);
-            //    GameCommon.FguiUtils.AddWrapper(gRawardEffectBg, goRaward);
-            //}
-
-            //rewardEffect = contentPane.GetChild("zhuanPan").asCom.GetChild("anchorEffect").asCom;
-            //rewardEffect.position = new Vector3(713, 459, 0);
-
-            //goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.2f);
-
 
             gWheel = this.contentPane.GetChild("zhuanPan").asCom;
             WheelInit(CustomModel.Instance.lowWheelIndex);
@@ -179,7 +150,19 @@ namespace XingYunZhiLun_3998
                 animator = wheelBgObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
                 GameCommon.FguiUtils.AddWrapper(gWheelBg, wheelBgObj);
 
-                ChangeParent(gWheel, wheelBgObj, "Anchor/Spine Mecanim GameObject (ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/c_circle");
+                idels = new Transform[3];
+                wins = new Transform[3];
+                stages = new Transform[3];
+
+                for(int i = 0; i < 3; i++)
+                {
+                    idels[i] = wheelBgObj.transform.GetChild(1).GetChild(i).GetChild(0);
+                    stages[i] = wheelBgObj.transform.GetChild(1).GetChild(i).GetChild(1);
+                    wins[i] = wheelBgObj.transform.GetChild(1).GetChild(i).GetChild(2);
+                    wins[i].gameObject.SetActive(false);
+                }
+
+                ChangeParent(gWheel, wheelBgObj, "Anchor/Spine Mecanim GameObject (Lucky_ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/c_circle");
             }
 
             spinButton = contentPane.GetChild("spinBtn").asButton;
@@ -248,6 +231,8 @@ namespace XingYunZhiLun_3998
         IEnumerator GameOnce(Action successCallback, Action<string> errorCallback)
         {
             mono.updateHandle.RemoveListener(WheelTrun);
+            StopEffectAnim(idels[wheelIndex]);
+            StopEffectAnim(stages[wheelIndex]);
 
             bool isNext = false;
 
@@ -315,7 +300,6 @@ namespace XingYunZhiLun_3998
             {
                 case "FreeGame":
                     targetIndex = UnityEngine.Random.Range(0, 2) * 8 + 5;
-                    Debug.LogError("abcdeefghi");
                     break;
                 case "mini":
                     targetIndex = UnityEngine.Random.Range(0, 3) * 8 + 1;
@@ -359,73 +343,6 @@ namespace XingYunZhiLun_3998
                     }
                     break;
             }
-
-            //switch (targetIndex)
-            //{
-            //    case 0:
-            //        extralyAngle = -0.65f;
-            //        goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.3f);
-            //        break;
-            //    case 1:
-            //        extralyAngle = -1.55f;
-            //        rewardEffect.position = new Vector3(713, 458, 0);
-            //        break;
-            //    case 2:
-            //        extralyAngle = -0.4f;
-            //        break;
-            //    case 3:
-            //        extralyAngle = -1.3f;
-            //        rewardEffect.position = new Vector3(713, 452, 0);
-            //        break;
-            //    case 4:
-            //        extralyAngle = 0;
-            //        rewardEffect.position = new Vector3(713, 456, 0);
-            //        break;
-            //    case 5:
-            //        extralyAngle = -1.2f;
-            //        rewardEffect.position = new Vector3(713, 451, 0);
-            //        goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.3f);
-            //        break;
-            //    case 6:
-            //        extralyAngle = -1.4f;
-            //        rewardEffect.position = new Vector3(713, 451, 0);
-            //        goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.27f);
-            //        break;
-            //    case 7:
-            //        extralyAngle = -0.2f;
-            //        rewardEffect.position = new Vector3(719, 452, 0);
-            //        goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.1f);
-            //        break;
-            //    case 8:
-            //        extralyAngle = 0.8f;
-            //        rewardEffect.position = new Vector3(719, 450.5f, 0);
-            //        goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.25f);
-            //        break;
-            //    case 9:
-            //        extralyAngle = 0.5f;
-            //        rewardEffect.position = new Vector3(719, 447, 0);
-            //        break;
-            //    case 10:
-            //        extralyAngle = 0.1f;
-            //        rewardEffect.position = new Vector3(713, 449, 0);
-            //        goRaward.transform.GetChild(0).localScale = new Vector3(1.5f, 1.3f);
-            //        break;
-            //    case 11:
-            //        rewardEffect.position = new Vector3(713, 451, 0);
-            //        break;
-            //    case 12:
-            //        rewardEffect.position = new Vector3(713, 451, 0);
-            //        break;
-            //    case 13:
-            //        rewardEffect.position = new Vector3(713, 452, 0);
-            //        break;
-            //    case 14:
-            //        extralyAngle = 1.7f;
-            //        break;
-            //    default:
-            //        extralyAngle = 0;
-            //        break;
-            //}
         }
 
 
@@ -572,6 +489,11 @@ namespace XingYunZhiLun_3998
 
             gWheel.rotation = targetRot;
 
+            wins[wheelIndex].gameObject.SetActive(true);
+            PlayEffectAnim(wins[wheelIndex]);
+
+            yield return new WaitForSeconds(1f);
+
             successCallback?.Invoke();
         }
 
@@ -593,7 +515,7 @@ namespace XingYunZhiLun_3998
         private void PlayEffectAnim(Transform effect)
         {
             ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-            particle.Play();
+            if(particle != null) particle.Play();
 
             // 递归播放所有子物体的粒子系统
             foreach (Transform child in effect)
@@ -606,7 +528,7 @@ namespace XingYunZhiLun_3998
         private void StopEffectAnim(Transform effect)
         {
             ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-            particle.Stop();
+            particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
             // 递归播放所有子物体的粒子系统
             foreach (Transform child in effect)
@@ -636,10 +558,14 @@ namespace XingYunZhiLun_3998
 
         private void ChooseWheelSkin()
         {
-            string wheelIndex = ContentModel.Instance.scatterCount > 3 ? "mid" : "low";
+            string wheelIndexStr = ContentModel.Instance.scatterCount > 3 ? "mid" : "low";
             int wheelBgIndex = ContentModel.Instance.scatterCount - 3;
-            gWheel.GetChild("Wheel").asCom.GetChild("wheelBg").asLoader.url = CustomModel.Instance.wheelState[wheelIndex];
+            gWheel.GetChild("Wheel").asCom.GetChild("wheelBg").asLoader.url = CustomModel.Instance.wheelState[wheelIndexStr];
             PlayAnim(animNames[wheelBgIndex]);
+            wheelIndex = wheelBgIndex;
+
+            PlayEffectAnim(idels[wheelBgIndex]);
+            PlayEffectAnim(stages[wheelBgIndex]);
 
             switch (wheelBgIndex)
             {

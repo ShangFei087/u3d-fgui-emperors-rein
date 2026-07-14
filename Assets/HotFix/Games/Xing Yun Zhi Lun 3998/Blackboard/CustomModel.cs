@@ -101,16 +101,16 @@ namespace XingYunZhiLun_3998
 
         public Dictionary<string, string> jackpotHitEffect => new Dictionary<string, string>
         {
-            {"0", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit0.prefab" },
-            {"1", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit1.prefab" },
-            {"2", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit2.prefab" },
-            {"3", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit3.prefab" },
-            {"4", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit4.prefab" },
-            {"5", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit5.prefab" },
-            {"6", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit6.prefab" },
-            {"7", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit7.prefab" },
-            {"8", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit8.prefab" },
-            {"9", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit9.prefab" },
+            //{"0", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit0.prefab" },
+            //{"1", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit1.prefab" },
+            //{"2", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit2.prefab" },
+            //{"3", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit3.prefab" },
+            //{"4", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit4.prefab" },
+            //{"5", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit5.prefab" },
+            //{"6", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit6.prefab" },
+            //{"7", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit7.prefab" },
+            //{"8", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit8.prefab" },
+            //{"9", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit9.prefab" },
             {"10", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/JackpotHit/JackpotHit10.prefab" },
         };
 
@@ -191,7 +191,6 @@ namespace XingYunZhiLun_3998
             {"4", "ui://XingYunZhiLun_3998/ListSymbol4"},
             {"5", "ui://XingYunZhiLun_3998/ListSymbol5"},
             {"6", "ui://XingYunZhiLun_3998/ListSymbol6"},
-            {"7", "ui://XingYunZhiLun_3998/ListSymbol7"},
 
             //{"8", "ui://XingYunZhiLun_3998/ListSymbol8"},
             //{"9", "ui://XingYunZhiLun_3998/ListSymbol9"},

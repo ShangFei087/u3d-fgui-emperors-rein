@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="100,105" overflow="hidden">
+  <displayList>
+    <image id="n0_u2bk" name="n0" src="u2bkam0" fileName="images/PopupGameNormalGame/wheelSymbols/symbol_scatter_icon.png" xy="0,0" size="100,105">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
+  </displayList>
+</component>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="183,181">
   <displayList>
-    <component id="n1_lsvw" name="animator" src="lsvw1c" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="91,90" size="183,181" scale="1.1,1.1"/>
+    <component id="n1_lsvw" name="animator" src="lsvw1c" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="91,90" size="197,191" scale="1.1,1.1">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
   </displayList>
 </component>

@@ -13,7 +13,6 @@
     <image id="lsvwo" name="sg_img_zhuanpan5.png" path="/images/PopupGameNormalGame/" exported="true"/>
     <image id="lsvwp" name="sg_img_zhuanpan6.png" path="/images/PopupGameNormalGame/" exported="true"/>
     <component id="lsvwq" name="PageGameMain.xml" path="/" exported="true"/>
-    <image id="lsvwy" name="sg_icon_bg.png" path="/images/PopupJackpotGame/" exported="true"/>
     <image id="lsvwz" name="sg_img_bg.png" path="/images/PopupJackpotGame/" exported="true"/>
     <image id="lsvw10" name="sg_img_icon_default.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
     <image id="lsvw11" name="sg_img_icon_grand.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
@@ -27,15 +26,12 @@
     <component id="lsvw1c" name="SymbolAnimator.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="lsvw1d" name="SlotMachine.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="lsvw1e" name="SlotCover.xml" path="/moudules/slotMachine/" exported="true"/>
-    <image id="lsvw1g" name="fg_img_border.png" path="/images/PopupGameFreeGame/" exported="true"/>
-    <image id="lsvw1h" name="fg_img_free_bg.png" path="/images/PopupGameFreeGame/" exported="true"/>
     <component id="lsvw1i" name="ZhuanPanPoint.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="lsvw1j" name="AnchorEffect.xml" path="/components/PopupZhuanPan/" exported="true"/>
     <component id="lsvw1k" name="ZhuanPan.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="lsvw1l" name="ZhuanPanSpinPoint.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="lsvw1n" name="WheelSymbol.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="lsvw1p" name="WheelSymbolAnimator.xml" path="/moudules/slotMachine/" exported="true"/>
-    <component id="lsvw1q" name="SlotMachineBg.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="l9vr1r" name="AnchorPanelPush.xml" path="/components/" exported="true"/>
     <component id="l9vr1t" name="AnchorPlayLines.xml" path="/components/" exported="true"/>
     <component id="l9vr1u" name="Symbols.xml" path="/moudules/slotMachine/" exported="true"/>
@@ -46,16 +42,6 @@
     <component id="fcra21" name="AnchorFreeBg.xml" path="/components/" exported="true"/>
     <component id="fcra22" name="PopupFreeSpinTrigger.xml" path="/" exported="true"/>
     <component id="jji82a" name="GameJackMega.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
-    <image id="jji82b" name="symbol_1.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
-    <image id="jji82c" name="symbol_2.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
-    <image id="jji82d" name="symbol_3.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
-    <image id="jji82e" name="symbol_4.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
-    <image id="jji82f" name="symbol_5.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
-    <image id="jji82g" name="symbol_6.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
-    <image id="jji82h" name="symbol_7.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
-    <image id="jji82i" name="symbol_8.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
-    <image id="jji82j" name="symbol_diamond.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
-    <image id="jji82l" name="symbol_11.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
     <image id="jji82m" name="symbol_wild.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
     <image id="jji82n" name="0.png" path="/fonts/fontsImage/gameLoadingImage/" exported="true"/>
     <image id="jji82o" name="1.png" path="/fonts/fontsImage/gameLoadingImage/" exported="true"/>
@@ -70,14 +56,6 @@
     <image id="jji82x" name="percent.png" path="/fonts/fontsImage/gameLoadingImage/" exported="true"/>
     <font id="jji82y" name="GameLoadingFont.fnt" path="/fonts/fontsCom/gameLoading/" exported="true"/>
     <image id="jji82z" name="fortuneroulette_en.png" path="/images/PopupGameLoading/" exported="true"/>
-    <image id="n45k30" name="symbol_bouns.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <image id="n45k31" name="symbol_lipinghe.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <image id="n45k32" name="symbol_scatter.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <image id="n45k33" name="symbol_wild.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <image id="n45k34" name="ng_img_graod.png" path="/images/PopupGameNormalGame/gameFrame/" exported="true"/>
-    <image id="n45k35" name="ng_img_major.png" path="/images/PopupGameNormalGame/gameFrame/" exported="true"/>
-    <image id="n45k36" name="ng_img_mini.png" path="/images/PopupGameNormalGame/gameFrame/" exported="true"/>
-    <image id="n45k37" name="ng_img_minor.png" path="/images/PopupGameNormalGame/gameFrame/" exported="true"/>
     <component id="n45k3p" name="GameJackpotMajor.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
     <component id="n45k3q" name="GameJackpotMini.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
     <component id="n45k3r" name="GameJackpotMinor.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
@@ -124,7 +102,6 @@
     <font id="l3cn6p" name="sorceFont.fnt" path="/fonts/fontsCom/sorceFonts/" exported="true"/>
     <component id="x7l37v" name="PopupZhuanPan.xml" path="/" exported="true"/>
     <component id="x7l37w" name="freeGameFramePush.xml" path="/" exported="true"/>
-    <image id="x7l37x" name="fg_txt_FreeSpin2.png" path="/images/PopupGameFreeGame/" exported="true"/>
     <font id="x7l388" name="PopupGameFreeTimesFont.fnt" path="/fonts/fontsCom/PopupGameFreeTimes/" exported="true"/>
     <image id="x7l38a" name="miniWin.png" path="/images/PopupGameBigWin/" exported="true"/>
     <image id="x7l38b" name="minorWin.png" path="/images/PopupGameBigWin/" exported="true"/>
@@ -138,8 +115,8 @@
     <component id="yonm8j" name="TestButton.xml" path="/"/>
     <image id="yonm8l" name="fg_text_FREE SPINS!.png" path="/images/PopupGameFreeGame/" exported="true"/>
     <component id="yonm8n" name="AnchorSpine.xml" path="/components/PopupFreeGame/" exported="true"/>
-    <image id="yonm8p" name="屏幕截图 2025-11-27 155523.png" path="/images/PopupGameFreeGame/" exported="true"/>
-    <image id="c76t8q" name="屏幕截图 2025-11-28 112946.png" path="/images/PopupGameFreeGame/" exported="true"/>
+    <image id="yonm8p" name="startPop.png" path="/images/PopupGameFreeGame/" exported="true"/>
+    <image id="c76t8q" name="endPop.png" path="/images/PopupGameFreeGame/" exported="true"/>
     <component id="c76t8r" name="PopupFreeSpinResult.xml" path="/" exported="true"/>
     <component id="c76t8s" name="AnchorPopResult.xml" path="/components/PopupBigWIn/" exported="true"/>
     <component id="c76t8u" name="PopupJackpotGameTrigger.xml" path="/" exported="true"/>
@@ -206,17 +183,12 @@
     <component id="12duabh" name="ListSymbol0.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
     <component id="12duabi" name="ListSymbol1.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
     <component id="12duabj" name="ListSymbol2.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
-    <component id="12duabk" name="ListSymbol10.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
-    <component id="12duabl" name="ListSymbol11.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
     <component id="12duabm" name="ListSymbol3.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
     <component id="12duabn" name="ListSymbol4.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
     <component id="12duabo" name="ListSymbol5.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
     <component id="12duabp" name="ListSymbol6.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
-    <component id="12duabq" name="ListSymbol7.xml" path="/images/PopupJackpotGame/ListSymbols/" exported="true"/>
     <component id="vwy3abr" name="AnchorWild.xml" path="/components/PopupGameNormalGame/" exported="true"/>
     <component id="iihrabs" name="AnchorTransEffect.xml" path="/components/" exported="true"/>
-    <image id="a6ypabu" name="fg_txt_freespins.png" path="/images/PopupGameFreeGame/" exported="true"/>
-    <image id="a6ypabv" name="jp_txt_grand.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
     <font id="a6ypacb" name="GrandTipNumFont.fnt" path="/fonts/fontsCom/GrandTipNumFonts/" exported="true"/>
     <image id="a6ypacc" name="jp_num_00.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
     <image id="a6ypacd" name="jp_num_01.png" path="/fonts/fontsImage/JackpotImage/JackpotNum/" exported="true"/>
@@ -237,8 +209,6 @@
     <font id="a6ypacs" name="jackpotFont.fnt" path="/fonts/fontsCom/jackpot/" exported="true"/>
     <image id="gkbyadm" name="普通游戏(1).png" path="/images/Folder/" exported="true"/>
     <component id="gkbyaed" name="StartBtn.xml" path="/components/PopupBigWIn/" exported="true"/>
-    <image id="qb2jaeg" name="symbol_9.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
-    <image id="qb2jaeh" name="ng_img_border(1).png" path="/images/PopupGameNormalGame/" exported="true"/>
     <image id="mmiaaei" name="jp_fade_ng02.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
     <image id="mmiaaej" name="sg_fade_jp01.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
     <image id="wtp2aek" name="fg_txt_pop_start.png" path="/images/PopupGameBigWin/" exported="true"/>
@@ -267,12 +237,6 @@
     <image id="a666ag8" name="load_mega_en.png" path="/images/PopupGameLoading/" exported="true"/>
     <component id="a666agb" name="Slider1_grip.xml" path="/components/PopupGameLoading/" exported="true"/>
     <component id="a666agc" name="Slider1.xml" path="/components/PopupGameLoading/" exported="true"/>
-    <component id="a666agf" name="slotNormal.xml" path="/moudules/slotMachine/gameNormal/" exported="true"/>
-    <image id="a666agg" name="ng_frame_back.png" path="/images/PopupGameNormalGame/slotNormal/" exported="true"/>
-    <image id="a666agh" name="ng_frame_mid.png" path="/images/PopupGameNormalGame/slotNormal/" exported="true"/>
-    <image id="a666agi" name="ng_frame_base.png" path="/images/PopupGameNormalGame/slotNormal/" exported="true"/>
-    <image id="a666agj" name="ng_frame_line.png" path="/images/PopupGameNormalGame/slotNormal/" exported="true"/>
-    <image id="a666agl" name="ng_img_turntable01.png" path="/"/>
     <image id="a666ahn" name="pb_num_bet_0.png" path="/fonts/fontsImage/betImage/" exported="true" scale9grid="0,0,-2,-1"/>
     <image id="a666aho" name="pb_num_bet_01.png" path="/fonts/fontsImage/betImage/" exported="true" scale9grid="0,0,-10,-3"/>
     <image id="a666ahp" name="pb_num_bet_02.png" path="/fonts/fontsImage/betImage/" exported="true" scale9grid="0,0,-2,-2"/>
@@ -308,16 +272,11 @@
     <component id="x7l37s" name="Paytable06.xml" path="/moudules/PayTable/payTables/" exported="true"/>
     <component id="x7l37t" name="Paytable07.xml" path="/moudules/PayTable/payTables/" exported="true"/>
     <image id="i9hyaig" name="pb_num_bet_09.png" path="/fonts/fontsImage/betImage/" exported="true"/>
-    <image id="i9hyaih" name="ng_img_bg.png" path="/images/PopupGameNormalGame/" exported="true"/>
-    <image id="i9hyaii" name="fg_bg.png" path="/images/PopupGameFreeGame/" exported="true"/>
     <component id="i9hyaij" name="PopupBigWin.xml" path="/" exported="true"/>
     <component id="i9hyaik" name="ExitButton.xml" path="/moudules/PopupBigWin/" exported="true"/>
     <image id="czg2ail" name="ng_btn_start.png" path="/images/PopupGameNormalGame/" exported="true"/>
     <image id="czg2ain" name="ng_txt_start.png" path="/images/PopupGameNormalGame/" exported="true"/>
     <component id="czg2aio" name="SpinButton.xml" path="/components/PopupZhuanPan/" exported="true"/>
-    <image id="w05qaip" name="ng_frame_up.png" path="/images/PopupGameNormalGame/slotNormal/" exported="true"/>
-    <component id="xiz6aiq" name="slotFree.xml" path="/moudules/slotMachine/gameFreeSlot/" exported="true"/>
-    <image id="xiz6air" name="fg_frame_up.png" path="/images/PopupGameFreeGame/" exported="true"/>
     <image id="xiz6ais" name="fg_num_freespin.png" path="/images/PopupGameFreeGame/" exported="true"/>
     <image id="xiz6ait" name="fg_num_freespin_col.png" path="/images/PopupGameFreeGame/" exported="true"/>
     <image id="xiz6aiv" name="fg_num_freespin_0.png" path="/fonts/fontsImage/PopupGameFreeTimesImage/" exported="true"/>
@@ -341,28 +300,57 @@
     <image id="xiz6aj3" name="7.png" path="/images/payTable/" exported="true"/>
     <component id="ugp6ak4" name="Wheel.xml" path="/moudules/PageMainWheel/" exported="true"/>
     <component id="ugp6ak5" name="AnchorZhuanPan.xml" path="/components/PageMainZhuanPan/" exported="true"/>
-    <image id="ugp6ak6" name="img_lowspin_01.png" path="/images/PopupZhuanPan/"/>
-    <image id="ugp6ak7" name="img_midspin_02.png" path="/images/PopupZhuanPan/"/>
     <component id="ugp6ak9" name="LowWheel.xml" path="/moudules/PageMainWheel/" exported="true"/>
     <component id="lamnaka" name="MidWheel.xml" path="/moudules/PageMainWheel/" exported="true"/>
     <component id="ibv7akb" name="AnchorBigWin.xml" path="/components/PopupBigWIn/" exported="true"/>
     <component id="ibv7akc" name="WheelPanel.xml" path="/moudules/slotMachine/"/>
     <component id="wrw6akd" name="HighWheel.xml" path="/moudules/PageMainWheel/" exported="true"/>
-    <image id="wrw6ake" name="fg_frame_mid.png" path="/images/PopupGameFreeGame/" exported="true"/>
-    <image id="wrw6akf" name="ng_frame_mid(1).png" path="/images/PopupGameNormalGame/slotNormal/"/>
-    <image id="wrw6akg" name="ng_frame_major.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <image id="wrw6akh" name="ng_frame_mini.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <image id="wrw6aki" name="ng_frame_minor.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <image id="wrw6akj" name="jp_txt_mini.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
-    <image id="wrw6akk" name="jp_txt_major.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
-    <image id="wrw6akl" name="jp_txt_minor.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
     <image id="wrw6akq" name="6.png" path="/images/payTable/" exported="true"/>
     <image id="wrw6akr" name="fg_num_freespin_div.png" path="/fonts/fontsImage/PopupGameFreeTimesImage/" exported="true"/>
-    <image id="wrw6aky" name="jp_txt_minor.png" path="/images/PopupJackpotGame/" exported="true"/>
-    <image id="wrw6akz" name="jp_txt_major.png" path="/images/PopupJackpotGame/" exported="true"/>
-    <image id="wrw6al0" name="jp_txt_mini.png" path="/images/PopupJackpotGame/" exported="true"/>
     <component id="8f5eal1" name="AnchorTest.xml" path="/components/" exported="true"/>
     <component id="oebral2" name="AnchorBoard.xml" path="/components/PopupGameNormalGame/"/>
+    <image id="oebral3" name="ng_img_bg.png" path="/images/PopupGameNormalGame/"/>
+    <image id="oebral4" name="ng_txt_major.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="oebral5" name="ng_txt_mini.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="oebral6" name="ng_txt_minor.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="oebral7" name="ng_img_turntable01.png" path="/images/效果图/"/>
+    <image id="oebral8" name="ng_img_turntable02.png" path="/images/效果图/"/>
+    <image id="oebral9" name="ng_img_turntable03.png" path="/images/效果图/"/>
+    <image id="oebrala" name="ng_img_turntable04.png" path="/images/效果图/"/>
+    <image id="oebralb" name="ng_frame_major.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <image id="oebralc" name="ng_frame_mini.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true" scale="9grid" scale9grid="40,12,254,45"/>
+    <image id="oebrald" name="ng_frame_minor.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <image id="oebralk" name="ng_frame_baseplate.png" path="/images/PopupGameNormalGame/slotNormal/" exported="true"/>
+    <image id="oebrall" name="ng_frame_line.png" path="/images/PopupGameNormalGame/slotNormal/" exported="true"/>
+    <image id="oebralm" name="ng_frame_mid.png" path="/images/PopupGameNormalGame/slotNormal/" exported="true"/>
+    <component id="u2bkalo" name="SlotMachineBg.xml" path="/moudules/slotMachine/"/>
+    <image id="u2bkalp" name="fg_img_bg.png" path="/images/PopupGameFreeGame/" exported="true"/>
+    <image id="u2bkalq" name="fg_frame_frequency.png" path="/images/PopupGameFreeGame/"/>
+    <image id="u2bkals" name="Lucky_ng_sym11_painting01.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="u2bkalt" name="Lucky_ng_sym11_painting02.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="u2bkalu" name="Lucky_ng_sym11_painting03.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="u2bkalv" name="Lucky_ng_sym11_painting04.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
+    <image id="u2bkalw" name="symbol_4.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="u2bkalx" name="symbol_1.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="u2bkaly" name="symbol_3.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="u2bkalz" name="symbol_2.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="u2bkam0" name="symbol_scatter_icon.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="u2bkam1" name="symbol_scatter.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <image id="qxa7am2" name="img_lowspin_01.png" path="/images/PopupZhuanPan/" exported="true"/>
+    <image id="qxa7am3" name="img_midspin_02.png" path="/images/PopupZhuanPan/" exported="true"/>
+    <image id="t82pam4" name="symbol_11.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="t82pam5" name="symbol_6.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="t82pam6" name="symbol_5.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="t82pam7" name="symbol_9.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="t82pam8" name="symbol_7.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="t82pam9" name="symbol_8.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="t82pama" name="symbol_diamond.png" path="/images/PopupGameNormalGame/normalSymbols/" exported="true"/>
+    <image id="t82pamb" name="symbol_bouns.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <image id="t82pamc" name="symbol_lipinghe.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <image id="t82pamd" name="symbol_wild.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <image id="t82pame" name="ng_frame_base.png" path="/images/PopupGameNormalGame/slotNormal/" exported="true"/>
+    <image id="t82pamf" name="ng_frame_up.png" path="/images/PopupGameNormalGame/slotNormal/" exported="true"/>
+    <image id="t82pamg" name="jp_img_pictureframe.png" path="/images/PopupJackpotGame/"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Xing Yun Zhi Lun 3998\FGUIs" packageCount="2"/>
 </packageDescription>

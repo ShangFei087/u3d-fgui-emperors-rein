@@ -4,7 +4,7 @@
     <graph id="n0_c76t" name="mash" xy="0,0" size="1080,1920" type="rect" fillColor="#99000000"/>
     <component id="n2_c76t" name="anchorBg" src="c76t8w" fileName="components/PopupJackpotGame/JackpotGameTrigger.xml" xy="540,960"/>
     <component id="n3_c76t" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,1850" visible="false" touchable="false"/>
-    <component id="n4_c76t" name="Button" src="c76t90" fileName="components/PopupJackpotGame/JackpotTriggerBtn.xml" xy="409,1075" size="266,95" scale="0,0"/>
+    <component id="n4_c76t" name="Button" src="c76t90" fileName="components/PopupJackpotGame/JackpotTriggerBtn.xml" xy="540,1168" pivot="0.5,0.5" anchor="true" size="266,95" scale="0,0"/>
   </displayList>
   <transition name="idle">
     <item time="0" type="Scale" target="n4_c76t" tween="true" startValue="1,1" endValue="0.8,0.8" duration="22" ease="Linear"/>

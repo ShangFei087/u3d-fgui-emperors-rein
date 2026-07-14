@@ -2,16 +2,16 @@
 <component size="243,82" pivot="0.5,0.5" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n4_w05q" name="n4" src="w05qakc" fileName="images/Button/btn_exhibition_02.png" xy="0,0" group="n6_w05q">
+    <image id="n4_w05q" name="n4" src="u2bkakp" fileName="images/Button/btn_exhibition_02.png" xy="121,41" pivot="0.5,0.5" anchor="true" group="n6_w05q">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <image id="n5_w05q" name="n5" src="w05qaka" fileName="images/Button/txt_open.png" xy="125,40" pivot="0.5,0.5" anchor="true" group="n6_w05q">
+    <image id="n5_w05q" name="n5" src="u2bkaku" fileName="images/Button/txt_open_en.png" xy="125,40" pivot="0.5,0.5" anchor="true" group="n6_w05q">
       <relation target="" sidePair="center-center,middle-middle"/>
     </image>
-    <group id="n6_w05q" name="openGroup" xy="0,0" size="243,82" advanced="true"/>
-    <image id="n7_w05q" name="n7" src="w05qakb" fileName="images/Button/btn_exhibition_01.png" xy="0,0" group="n9_w05q"/>
-    <image id="n8_w05q" name="n8" src="w05qakf" fileName="images/Button/txt_close.png" xy="125,40" pivot="0.5,0.5" anchor="true" group="n9_w05q"/>
-    <group id="n9_w05q" name="closeGroup" xy="0,0" size="243,82" advanced="true"/>
+    <group id="n6_w05q" name="openGroup" xy="8,0" size="226,81" advanced="true"/>
+    <image id="n7_w05q" name="n7" src="u2bkakq" fileName="images/Button/btn_exhibition_01.png" xy="121,41" pivot="0.5,0.5" anchor="true" group="n9_w05q"/>
+    <image id="n8_w05q" name="n8" src="u2bkaks" fileName="images/Button/txt_close_en.png" xy="125,40" pivot="0.5,0.5" anchor="true" group="n9_w05q"/>
+    <group id="n9_w05q" name="closeGroup" xy="8,0" size="226,81" advanced="true"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.8"/>
 </component>

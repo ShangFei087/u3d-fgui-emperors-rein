@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="183,543">
+<component size="197,573">
   <displayList>
-    <component id="n4_lsvw" name="symbols" src="l9vr1u" fileName="moudules/slotMachine/Symbols.xml" xy="0,0" size="183,543"/>
-    <component id="n6_vwy3" name="anchorWild" src="vwy3abr" fileName="components/PopupGameNormalGame/AnchorWild.xml" xy="90,271"/>
+    <component id="n4_lsvw" name="symbols" src="l9vr1u" fileName="moudules/slotMachine/Symbols.xml" xy="0,0" size="197,573">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n6_vwy3" name="anchorWild" src="vwy3abr" fileName="components/PopupGameNormalGame/AnchorWild.xml" xy="98,286">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
   </displayList>
 </component>

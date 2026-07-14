@@ -46,5 +46,5 @@ Material:
     - _MainSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _MaskSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _NoiseSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _TintColor: {r: 0.85, g: 0.85, b: 0.85, a: 0.5}
   m_BuildTextureStacks: []
