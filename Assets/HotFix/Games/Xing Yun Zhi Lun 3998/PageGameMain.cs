@@ -42,7 +42,7 @@ namespace XingYunZhiLun_3998
         private GComponent slotCover, gOwnerPanel, gPlayLines, gFrame, gWheel, gZhuanPan, gJackpotBg, gFireWork, gWheelFrame;
         private GList gList;
         private GLoader gWheelLoad;
-        private GImage gMask;
+        private GImage gMask, gLight;
         private GTextField freeTimes;
         private Transition bsTofs, fsTobs;
         private Transform fireworkEffect, JackpotListEffect;
@@ -504,6 +504,19 @@ namespace XingYunZhiLun_3998
             isReady = true;
 
             if (!isReady) return;
+
+            GButton testBtn = contentPane.GetChild("Lucky_sg_pop_frame").asButton;
+            testBtn.onClick.Add(Test);
+        }
+
+        private void Test()
+        {
+            PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameResult,
+                    new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
+                    {
+                        ["jackpotType"] = "Wild",
+                    }),
+                    null);
         }
 
         private void OnClickSpinButton(EventData res)
@@ -2814,6 +2827,7 @@ namespace XingYunZhiLun_3998
             startTransition = gJackpotBg.GetTransition("Start");
             initTransition = gJackpotBg.GetTransition("Init");
             gMask = gJackpotBg.GetChild("mask").asCom.GetChild("mask").asImage;
+            gLight = gJackpotBg.GetChild("mask").asCom.GetChild("light").asImage;
 
             SetJackpotMask(false);
         }
@@ -2822,6 +2836,7 @@ namespace XingYunZhiLun_3998
         private void SetJackpotMask(bool isVistual)
         {
             gMask.visible = isVistual;
+            gLight.visible = isVistual;
         }
 
 
@@ -3179,7 +3194,7 @@ namespace XingYunZhiLun_3998
             if (sorceTextObj != null)
             {
                 GTextField textField = sorceTextObj.asTextField;
-                textField.text = UnityEngine.Random.Range(500, 5000).ToString();
+                textField.text = UnityEngine.Random.Range(2000, 10000).ToString();
             }
 
             if (toSetEffect)
