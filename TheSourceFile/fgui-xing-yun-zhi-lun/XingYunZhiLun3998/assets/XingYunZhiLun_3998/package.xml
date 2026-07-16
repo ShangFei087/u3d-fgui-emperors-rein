@@ -61,16 +61,16 @@
     <component id="n45k3r" name="GameJackpotMinor.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
     <component id="n45k3t" name="BtnSpin.xml" path="/components/panel/" exported="true"/>
     <font id="hbkv4b" name="normalWheelNumFont.fnt" path="/fonts/fontsCom/normalWheelNums/" exported="true"/>
-    <component id="hbkv4c" name="symbol_3x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <component id="hbkv4d" name="symbol_4x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <component id="hbkv4e" name="symbol_9x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <component id="hbkv4f" name="symbol_5x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <component id="hbkv4g" name="symbol_7x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <component id="hbkv4h" name="symbol_10x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <component id="hbkv4i" name="symbol_11x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <component id="hbkv4j" name="symbol_15x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <component id="hbkv4k" name="symbol_6x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <component id="hbkv4l" name="symbol_8x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4c" name="symbol_70x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4d" name="symbol_80x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4e" name="symbol_160x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4f" name="symbol_90x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4g" name="symbol_120x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4h" name="symbol_180x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4i" name="symbol_200x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4j" name="symbol_220x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4k" name="symbol_100x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
+    <component id="hbkv4l" name="symbol_140x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
     <image id="hbkv4m" name="wheelnum_0.png" path="/fonts/fontsImage/normalWheelNumsImage/" exported="true"/>
     <image id="hbkv4n" name="wheelnum_1.png" path="/fonts/fontsImage/normalWheelNumsImage/" exported="true"/>
     <image id="hbkv4o" name="wheelnum_2.png" path="/fonts/fontsImage/normalWheelNumsImage/" exported="true"/>
@@ -351,6 +351,8 @@
     <image id="t82pame" name="ng_frame_base.png" path="/images/PopupGameNormalGame/slotNormal/" exported="true"/>
     <image id="t82pamf" name="ng_frame_up.png" path="/images/PopupGameNormalGame/slotNormal/" exported="true"/>
     <image id="t82pamg" name="jp_img_pictureframe.png" path="/images/PopupJackpotGame/"/>
+    <image id="n4aaamh" name="jp_img_light.png" path="/images/PopupJackpotGame/"/>
+    <component id="n4aaami" name="symbol_240x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Xing Yun Zhi Lun 3998\FGUIs" packageCount="2"/>
 </packageDescription>

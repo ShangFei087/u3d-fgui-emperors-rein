@@ -153,6 +153,8 @@ namespace XingYunZhiLun_3998
                 });
             });
 
+            if (!isOpen) return;
+
             if (ContentModel.Instance.isAuto)
             {
                 Timers.inst.Add(1, 1, (object obj) =>

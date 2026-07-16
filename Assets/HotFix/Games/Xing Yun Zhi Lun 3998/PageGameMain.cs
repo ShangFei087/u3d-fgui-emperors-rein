@@ -42,7 +42,7 @@ namespace XingYunZhiLun_3998
         private GComponent slotCover, gOwnerPanel, gPlayLines, gFrame, gWheel, gZhuanPan, gJackpotBg, gFireWork, gWheelFrame;
         private GList gList;
         private GLoader gWheelLoad;
-        private GImage gMask;
+        private GImage gMask, gLight;
         private GTextField freeTimes;
         private Transition bsTofs, fsTobs;
         private Transform fireworkEffect, JackpotListEffect;
@@ -504,6 +504,19 @@ namespace XingYunZhiLun_3998
             isReady = true;
 
             if (!isReady) return;
+
+            GButton testBtn = contentPane.GetChild("Lucky_sg_pop_frame").asButton;
+            testBtn.onClick.Add(Test);
+        }
+
+        private void Test()
+        {
+            PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameResult,
+                    new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
+                    {
+                        ["jackpotType"] = "Wild",
+                    }),
+                    null);
         }
 
         private void OnClickSpinButton(EventData res)
@@ -516,6 +529,8 @@ namespace XingYunZhiLun_3998
                 //}
 
                 bool isLongClick = (bool)res.value;
+                ContentModel.Instance.isAuto = TestManager.Instance.IsAutoModeRunning;
+
                 switch (ContentModel.Instance.btnSpinState)
                 {
                     case SpinButtonState.Stop:
@@ -931,7 +946,7 @@ namespace XingYunZhiLun_3998
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
 
                 yield return slotMachineCtrl.IsWildShowSymbolEffect(TagPoolObject.SymbolHit, slotMachineCtrl.GetTotalSymbolWin(winList), true, SpinWinEvent.TotalWinLine);
-                
+
                 ////检查bigwin类型
                 WinLevelType winLevelType = GetBigWinType();
                 ////bigwin弹窗
@@ -1027,6 +1042,8 @@ namespace XingYunZhiLun_3998
                 //积分同步和退币处理
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
 
+                yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
+
                 //加钱动画
                 MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
 
@@ -1102,6 +1119,8 @@ namespace XingYunZhiLun_3998
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
                 //加钱动画
                 MainBlackboardController.Instance.AddMyTempCredit(allWinCredit);
+
+                yield return MultShowWinListIdleOnce();
 
                 ////检查bigwin类型
                 WinLevelType winLevelType = GetBigWinType();
@@ -1989,7 +2008,6 @@ namespace XingYunZhiLun_3998
                 }
 
                 yield return slotMachineCtrl.IsWildShowSymbolEffect(TagPoolObject.SymbolHit, slotMachineCtrl.GetTotalSymbolWin(winList), true, SpinWinEvent.TotalWinLine);
-                yield return new WaitForSeconds(1.6f);
             }
         }
 
@@ -2002,10 +2020,15 @@ namespace XingYunZhiLun_3998
         {
             while (ContentModel.Instance.isMult)
             {
-                slotMachineCtrl.SkipWinLine(true);
-                slotMachineCtrl.ShowMultipleHit(new List<int>() { 9 }, true, 9, true);
-                yield return new WaitForSeconds(2f);
+                yield return MultShowWinListIdleOnce();
             }
+        }
+
+        public IEnumerator MultShowWinListIdleOnce()
+        {
+            slotMachineCtrl.SkipWinLine(true);
+            slotMachineCtrl.ShowMultipleHit(new List<int>() { 9 }, true, 9, true);
+            yield return new WaitForSeconds(2f);
         }
 
         private void OnGameReset()
@@ -2804,6 +2827,7 @@ namespace XingYunZhiLun_3998
             startTransition = gJackpotBg.GetTransition("Start");
             initTransition = gJackpotBg.GetTransition("Init");
             gMask = gJackpotBg.GetChild("mask").asCom.GetChild("mask").asImage;
+            gLight = gJackpotBg.GetChild("mask").asCom.GetChild("light").asImage;
 
             SetJackpotMask(false);
         }
@@ -2812,6 +2836,7 @@ namespace XingYunZhiLun_3998
         private void SetJackpotMask(bool isVistual)
         {
             gMask.visible = isVistual;
+            gLight.visible = isVistual;
         }
 
 
@@ -3169,7 +3194,7 @@ namespace XingYunZhiLun_3998
             if (sorceTextObj != null)
             {
                 GTextField textField = sorceTextObj.asTextField;
-                textField.text = UnityEngine.Random.Range(500, 5000).ToString();
+                textField.text = UnityEngine.Random.Range(2000, 10000).ToString();
             }
 
             if (toSetEffect)

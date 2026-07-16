@@ -62,17 +62,18 @@ namespace XingYunZhiLun_3998
             {"8", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/SymbolHit/SymbolHit9.prefab" },
             {"10", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/SymbolHit/SymbolHit10.prefab" },
 
-            //中奖数字倍率时键值为"100 + 倍率大小"
-            {"103", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X3.prefab"},
-            {"104", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X4.prefab"},
-            {"105", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X5.prefab"},
-            {"106", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X6.prefab"},
-            {"107", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X7.prefab"},
-            {"108", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X8.prefab"},
-            {"109", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X9.prefab"},
-            {"1010", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X10.prefab"},
-            {"1011", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X11.prefab"},
-            {"1015", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X15.prefab"}
+
+            {"70", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X70.prefab"},
+            {"80", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X80.prefab"},
+            {"90", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X90.prefab"},
+            {"100", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X100.prefab"},
+            {"120", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X120.prefab"},
+            {"140", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X140.prefab"},
+            {"160", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X160.prefab"},
+            {"180", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X180.prefab"},
+            {"200", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X200.prefab"},
+            {"220", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X220.prefab"},
+            {"240", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X240.prefab"}
         };
 
         /// <summary>
@@ -152,9 +153,9 @@ namespace XingYunZhiLun_3998
                 {"10", "ui://XingYunZhiLun_3998/symbol_11" }
         };
 
-        public int[] lowWheelIndex = new int[] { 4, 0, 5, 1, 6, 2, 8, 3};
-        public int[] midWheelIndex = new int[] { 7, 0, 8, 1, 9, 2, 11, 3};
-        public int[] highWheelIndex = new int[] { 10, 0, 11, 1, 12, 2, 13, 3};
+        public readonly int[] lowWheelIndex = new int[] { 4, 0, 5, 1, 6, 2, 7, 3};
+        public readonly int[] midWheelIndex = new int[] { 7, 0, 8, 1, 9, 2, 10, 3};
+        public readonly int[] highWheelIndex = new int[] { 11, 0, 12, 1, 13, 2, 14, 3};
 
         public Dictionary<string, string> wheelSymbolIcon => new Dictionary<string, string>
         {
@@ -162,16 +163,17 @@ namespace XingYunZhiLun_3998
             {"1", "ui://XingYunZhiLun_3998/symbol_lipinghe"},
             {"2", "ui://XingYunZhiLun_3998/symbol_scatter"},
             {"3", "ui://XingYunZhiLun_3998/symbol_wild" },
-            {"4", "ui://XingYunZhiLun_3998/symbol_3x" },
-            {"5", "ui://XingYunZhiLun_3998/symbol_4x" },
-            {"6", "ui://XingYunZhiLun_3998/symbol_5x" },
-            {"7", "ui://XingYunZhiLun_3998/symbol_6x" },
-            {"8", "ui://XingYunZhiLun_3998/symbol_7x" },
-            {"9", "ui://XingYunZhiLun_3998/symbol_8x" },
-            {"10", "ui://XingYunZhiLun_3998/symbol_9x" },
-            {"11", "ui://XingYunZhiLun_3998/symbol_10x" },
-            {"12", "ui://XingYunZhiLun_3998/symbol_11x" },
-            {"13", "ui://XingYunZhiLun_3998/symbol_15x" },
+            {"4", "ui://XingYunZhiLun_3998/symbol_70x" },
+            {"5", "ui://XingYunZhiLun_3998/symbol_80x" },
+            {"6", "ui://XingYunZhiLun_3998/symbol_90x" },
+            {"7", "ui://XingYunZhiLun_3998/symbol_100x" },
+            {"8", "ui://XingYunZhiLun_3998/symbol_120x" },
+            {"9", "ui://XingYunZhiLun_3998/symbol_140x" },
+            {"10", "ui://XingYunZhiLun_3998/symbol_160x" },
+            {"11", "ui://XingYunZhiLun_3998/symbol_180x" },
+            {"12", "ui://XingYunZhiLun_3998/symbol_200x" },
+            {"13", "ui://XingYunZhiLun_3998/symbol_220x" },
+            {"14", "ui://XingYunZhiLun_3998/symbol_240x" },
         };
 
         public Dictionary<string, string> wheelSpinPointIcon => new Dictionary<string, string>
@@ -200,16 +202,17 @@ namespace XingYunZhiLun_3998
         /// <summary> 倍率中奖的预制体 </summary>
         public Dictionary<string, string> multipleSymbols => new Dictionary<string, string>
         {
-            {"3", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X3.prefab"},
-            {"4", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X4.prefab"},
-            {"5", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X5.prefab"},
-            {"6", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X6.prefab"},
-            {"7", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X7.prefab"},
-            {"8", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X8.prefab"},
-            {"9", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X9.prefab"},
-            {"10", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X10.prefab"},
-            {"11", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X11.prefab"},
-            {"15", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X15.prefab"}
+            {"70", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X70.prefab"},
+            {"80", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X80.prefab"},
+            {"90", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X90.prefab"},
+            {"100", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X100.prefab"},
+            {"120", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X120.prefab"},
+            {"140", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X140.prefab"},
+            {"160", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X160.prefab"},
+            {"180", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X180.prefab"},
+            {"200", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X200.prefab"},
+            {"220", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X220.prefab"},
+            {"240", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X240.prefab"}
         };
 
         public Dictionary<string, string> SlotBgURL => new Dictionary<string, string>
@@ -229,15 +232,15 @@ namespace XingYunZhiLun_3998
         #region 赔付线与赔付表
         private List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>()
         {
-            new PayTableSymbolInfo(){symbol = 0, x5 = 45, x4 = 15, x3 = 0, },
-            new PayTableSymbolInfo(){symbol = 1, x5 = 50, x4 = 15, x3 = 0, },
-            new PayTableSymbolInfo(){symbol = 2, x5 = 55, x4 = 50, x3 = 0, },
-            new PayTableSymbolInfo(){symbol = 3, x5 = 60, x4 = 20, x3 = 0, },
-            new PayTableSymbolInfo(){symbol = 4, x5 = 80, x4 = 30, x3 = 0, },
-            new PayTableSymbolInfo(){symbol = 5, x5 = 90, x4 = 30, x3 = 0, },
-            new PayTableSymbolInfo(){symbol = 6, x5 = 125, x4 = 45, x3 = 0, },
-            new PayTableSymbolInfo(){symbol = 7, x5 = 150, x4 = 50, x3 = 0, },
-            new PayTableSymbolInfo(){symbol = 8, x5 = 200, x4 = 60, x3 = 0, },
+            new PayTableSymbolInfo(){symbol = 0, x5 = 10, x4 = 4, x3 = 2, },
+            new PayTableSymbolInfo(){symbol = 1, x5 = 10, x4 = 4, x3 = 2, },
+            new PayTableSymbolInfo(){symbol = 2, x5 = 30, x4 = 10, x3 = 4, },
+            new PayTableSymbolInfo(){symbol = 3, x5 = 30, x4 = 10, x3 = 4, },
+            new PayTableSymbolInfo(){symbol = 4, x5 = 40, x4 = 15, x3 = 6, },
+            new PayTableSymbolInfo(){symbol = 5, x5 = 40, x4 = 15, x3 = 6, },
+            new PayTableSymbolInfo(){symbol = 6, x5 = 50, x4 = 20, x3 = 10, },
+            new PayTableSymbolInfo(){symbol = 7, x5 = 60, x4 = 25, x3 = 12, },
+            new PayTableSymbolInfo(){symbol = 8, x5 = 100, x4 = 30, x3 = 20, },
             new PayTableSymbolInfo(){symbol = 9, x5 = 0, x4 = 0, x3 = 0, },
             new PayTableSymbolInfo(){symbol = 10, x5 = 0, x4 = 0, x3 = 0, },
         };

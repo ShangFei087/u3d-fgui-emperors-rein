@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="72,86" pivot="0.5,0.5" anchor="true">
-  <displayList>
-    <text id="n0_hbkv" name="n0" xy="0,0" size="72,86" font="ui://5hielhj5hbkv4b" fontSize="12" align="center" leading="17" autoSize="none" text="15X">
-      <relation target="" sidePair="center-center,middle-middle"/>
-    </text>
-  </displayList>
-</component>
