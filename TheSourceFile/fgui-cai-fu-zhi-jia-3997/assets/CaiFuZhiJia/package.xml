@@ -16,18 +16,6 @@
     <component id="u8tod" name="LoadingSliderBg.xml" path="/moudules/popupGameLoading/" exported="true"/>
     <component id="u8tof" name="LoadingSlider_grip.xml" path="/components/popupGameLoading/" exported="true"/>
     <component id="u8tog" name="LoadingSlider.xml" path="/components/popupGameLoading/" exported="true"/>
-    <image id="u8toh" name="ng_sym01_gold.png" path="/images/common/gameSymbols/" exported="true" scale9grid="0,0,-67,-100"/>
-    <image id="u8toi" name="ng_sym02_silver.png" path="/images/common/gameSymbols/" exported="true" scale9grid="0,0,-48,-84"/>
-    <image id="u8toj" name="ng_sym03_bar.png" path="/images/common/gameSymbols/" exported="true" scale9grid="0,0,-29,-86"/>
-    <image id="u8tok" name="ng_sym04_watch.png" path="/images/common/gameSymbols/" exported="true" scale9grid="0,0,-72,-55"/>
-    <image id="u8tol" name="ng_sym05_dollar.png" path="/images/common/gameSymbols/" exported="true" scale9grid="0,0,-27,-44"/>
-    <image id="u8tom" name="ng_sym06_ring.png" path="/images/common/gameSymbols/" exported="true" scale9grid="0,0,-27,-46"/>
-    <image id="u8ton" name="ng_sym07_car.png" path="/images/common/gameSymbols/" exported="true" scale9grid="0,0,-18,-38"/>
-    <image id="u8too" name="ng_sym08_ships.png" path="/images/common/gameSymbols/" exported="true" scale9grid="0,0,-16,-28"/>
-    <image id="u8top" name="ng_sym09_planes.png" path="/images/common/gameSymbols/" exported="true" scale9grid="0,0,-30,-41"/>
-    <image id="u8toq" name="ng_sym10_wild.png" path="/images/common/gameSymbols/" exported="true" scale9grid="0,0,0,-27"/>
-    <image id="u8tor" name="ng_sym11_scatter.png" path="/images/common/gameSymbols/" exported="true" scale9grid="0,0,-27,-21"/>
-    <image id="u8tos" name="ng_sym_bonus.png" path="/images/common/gameSymbols/" exported="true" scale9grid="0,0,-14,-78"/>
     <image id="u8tot" name="fg_num2_0.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
     <image id="u8tou" name="fg_num2_1.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
     <image id="u8tov" name="fg_num2_2.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
@@ -39,30 +27,8 @@
     <image id="u8to11" name="fg_num2_8.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
     <image id="u8to12" name="fg_num2_9.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
     <image id="u8to13" name="fg_num2_x.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
-    <image id="u8to14" name="fg_num_frequency_00.png" path="/images/common/gameFonts/freeTrigger/" exported="true" atlas="8"/>
-    <image id="u8to15" name="fg_num_frequency_01.png" path="/images/common/gameFonts/freeTrigger/" exported="true" atlas="8"/>
-    <image id="u8to16" name="fg_num_frequency_02.png" path="/images/common/gameFonts/freeTrigger/" exported="true" atlas="8"/>
-    <image id="u8to17" name="fg_num_frequency_03.png" path="/images/common/gameFonts/freeTrigger/" exported="true" atlas="8"/>
-    <image id="u8to18" name="fg_num_frequency_04.png" path="/images/common/gameFonts/freeTrigger/" exported="true" atlas="8"/>
-    <image id="u8to19" name="fg_num_frequency_05.png" path="/images/common/gameFonts/freeTrigger/" exported="true" atlas="8"/>
-    <image id="u8to1a" name="fg_num_frequency_06.png" path="/images/common/gameFonts/freeTrigger/" exported="true" atlas="8"/>
-    <image id="u8to1b" name="fg_num_frequency_07.png" path="/images/common/gameFonts/freeTrigger/" exported="true" atlas="8"/>
-    <image id="u8to1c" name="fg_num_frequency_08.png" path="/images/common/gameFonts/freeTrigger/" exported="true" atlas="8"/>
-    <image id="u8to1d" name="fg_num_frequency_09.png" path="/images/common/gameFonts/freeTrigger/" exported="true" atlas="8"/>
-    <image id="u8to1e" name="fg_num_times_00.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
-    <image id="u8to1f" name="fg_num_times_01.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
-    <image id="u8to1g" name="fg_num_times_02.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
-    <image id="u8to1h" name="fg_num_times_03.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
-    <image id="u8to1i" name="fg_num_times_04.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
-    <image id="u8to1j" name="fg_num_times_05.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
-    <image id="u8to1k" name="fg_num_times_06.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
-    <image id="u8to1l" name="fg_num_times_07.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
-    <image id="u8to1m" name="fg_num_times_08.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
-    <image id="u8to1n" name="fg_num_times_09.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
     <font id="u8to1o" name="freeTrigger.fnt" path="/fonts/" exported="true"/>
     <font id="u8to1p" name="freeMulyiple.fnt" path="/fonts/" exported="true"/>
-    <font id="u8to1q" name="freeGame.fnt" path="/fonts/" exported="true"/>
-    <image id="u8to1r" name="fg_txt_times.png" path="/images/pageGameMain/freeBg/" exported="true"/>
     <image id="u8to1s" name="fg_txt_win_MULTIPLE.png" path="/images/pageGameMain/freeBg/" exported="true"/>
     <image id="u8to1t" name="ng_img_bg.png" path="/images/pageGameMain/freeBg/" exported="true"/>
     <image id="u8to1v" name="ng_img_frame06.png" path="/images/pageGameMain/freeBg/" exported="true"/>
@@ -104,17 +70,10 @@
     <component id="u8to2y" name="SlotMachine.xml" path="/moudules/pageGameMain/SlotMachine/" exported="true"/>
     <component id="u8to2z" name="ReelBackground.xml" path="/moudules/pageGameMain/ReelBg/" exported="true"/>
     <component id="u8to30" name="AnchorPanelSlot.xml" path="/moudules/pageGameMain/Anchor/" exported="true"/>
-    <image id="u8to31" name="ng_frame_major.png" path="/images/common/gameJackpots/" exported="true" scale="9grid" scale9grid="36,7,316,54"/>
-    <image id="u8to32" name="ng_frame_mini.png" path="/images/common/gameJackpots/" exported="true" scale="9grid" scale9grid="37,5,263,54"/>
-    <image id="u8to33" name="ng_frame_minor.png" path="/images/common/gameJackpots/" exported="true"/>
-    <image id="u8to34" name="ng_txt_major_1(1).png" path="/images/common/gameJackpots/" exported="true"/>
-    <image id="u8to35" name="ng_txt_mini_1(1).png" path="/images/common/gameJackpots/" exported="true"/>
-    <image id="u8to36" name="ng_txt_minor_1(1).png" path="/images/common/gameJackpots/" exported="true"/>
     <component id="u8to37" name="GameJackpotMajor.xml" path="/moudules/pageGameMain/gameJackpot/" exported="true"/>
     <component id="u8to38" name="GameJackpotMini.xml" path="/moudules/pageGameMain/gameJackpot/" exported="true"/>
     <component id="u8to39" name="GameJackpotMinor.xml" path="/moudules/pageGameMain/gameJackpot/" exported="true"/>
     <component id="u8to3a" name="GameJackpotReel.xml" path="/moudules/pageGameMain/gameJackpot/" exported="true"/>
-    <image id="u8to3b" name="sg_num_icon_00.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
     <image id="u8to3c" name="sg_num_K.png" path="/images/common/gameFonts/jackpotReward/" exported="true"/>
     <image id="u8to3d" name="sg_num_dot.png" path="/images/common/gameFonts/jackpotReward/" exported="true"/>
     <image id="u8to3e" name="sg_num_com.png" path="/images/common/gameFonts/jackpotReward/" exported="true"/>
@@ -129,21 +88,6 @@
     <image id="u8to3n" name="sg_num_02.png" path="/images/common/gameFonts/jackpotReward/" exported="true"/>
     <image id="u8to3o" name="sg_num_01.png" path="/images/common/gameFonts/jackpotReward/" exported="true"/>
     <image id="u8to3p" name="sg_num_00.png" path="/images/common/gameFonts/jackpotReward/" exported="true"/>
-    <image id="u8to3q" name="sg_num_icon_T.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
-    <image id="u8to3r" name="sg_num_icon_M.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
-    <image id="u8to3s" name="sg_num_icon_K.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
-    <image id="u8to3t" name="sg_num_icon_dot.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
-    <image id="u8to3u" name="sg_num_icon_com.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
-    <image id="u8to3v" name="sg_num_icon_B.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
-    <image id="u8to3w" name="sg_num_icon_09.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
-    <image id="u8to3x" name="sg_num_icon_08.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
-    <image id="u8to3y" name="sg_num_icon_07.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
-    <image id="u8to3z" name="sg_num_icon_06.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
-    <image id="u8to40" name="sg_num_icon_05.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
-    <image id="u8to41" name="sg_num_icon_04.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
-    <image id="u8to42" name="sg_num_icon_03.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
-    <image id="u8to43" name="sg_num_icon_02.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
-    <image id="u8to44" name="sg_num_icon_01.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
     <image id="u8to45" name="sg_num_M.png" path="/images/common/gameFonts/jackpotReward/" exported="true"/>
     <image id="u8to46" name="sg_num_T.png" path="/images/common/gameFonts/jackpotReward/" exported="true"/>
     <font id="u8to47" name="smallGame.fnt" path="/fonts/" exported="true"/>
@@ -154,12 +98,6 @@
     <component id="ujwn4c" name="anchorAccelerateParent.xml" path="/moudules/pageGameMain/Anchor/" exported="true"/>
     <component id="ujwn4d" name="anchorLightningParent.xml" path="/moudules/pageGameMain/free/" exported="true"/>
     <component id="ujwn4e" name="freeFrame.xml" path="/moudules/pageGameMain/free/" exported="true"/>
-    <image id="ujwn4j" name="1.png" path="/images/common/gamePayTable/" exported="true"/>
-    <image id="ujwn4k" name="2.png" path="/images/common/gamePayTable/" exported="true"/>
-    <image id="ujwn4l" name="3.png" path="/images/common/gamePayTable/" exported="true"/>
-    <image id="ujwn4m" name="4.png" path="/images/common/gamePayTable/" exported="true"/>
-    <image id="ujwn4n" name="5.png" path="/images/common/gamePayTable/" exported="true"/>
-    <image id="ujwn4o" name="6.png" path="/images/common/gamePayTable/" exported="true"/>
     <component id="ujwn4v" name="PayTable1.xml" path="/moudules/pageGameMain/PayTable/" exported="true"/>
     <component id="ujwn4w" name="PayTable2.xml" path="/moudules/pageGameMain/PayTable/" exported="true"/>
     <component id="ujwn4x" name="PayTable3.xml" path="/moudules/pageGameMain/PayTable/" exported="true"/>
@@ -213,6 +151,113 @@
     <component id="bibc6e" name="anchorSmallGameBag.xml" path="/moudules/pageGameMain/SmallGame/" exported="true"/>
     <component id="bibc6f" name="SmallGameSettlementEffect.xml" path="/moudules/pageGameMain/SmallGame/" exported="true"/>
     <component id="u7pz6h" name="mask.xml" path="/components/common/" exported="true"/>
+    <image id="hm6e6i" name="0开机界面.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6j" name="15彩金中奖MINOR.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6k" name="14彩金中奖MAJOR.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6l" name="13彩金游戏.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6m" name="12普转彩-彩转普.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6n" name="11彩金游戏提示框.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6o" name="10免费转普通.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6p" name="9免费结算框.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6q" name="8免费游戏.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6r" name="7普通转免费.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6s" name="6免费游戏提升框.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6t" name="5MEGA.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6u" name="4SUPERWIN.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6v" name="3BIGWIN.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6w" name="2展会模式.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6x" name="1普通游戏.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6y" name="16彩金中奖MINI.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e6z" name="17彩金结算.png" path="/images/效果图/英文版/"/>
+    <image id="hm6e70" name="0开机界面.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e71" name="15彩金中奖MINOR.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e72" name="14彩金中奖MAJOR.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e73" name="13彩金游戏.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e74" name="12普转彩-彩转普.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e75" name="11彩金游戏提示框.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e76" name="10免费转普通.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e77" name="9免费结算框.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e78" name="8免费游戏.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e79" name="7普通转免费.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e7a" name="6免费游戏提升框.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e7b" name="5MEGA.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e7c" name="4SUPERWIN.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e7d" name="3BIGWIN.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e7e" name="2展会模式.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e7f" name="1普通游戏.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e7g" name="16彩金中奖MINI.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e7h" name="17彩金结算.png" path="/images/效果图/中文版/"/>
+    <image id="hm6e7u" name="ng_sym01_bar.png" path="/images/common/gameSymbols/" exported="true"/>
+    <image id="hm6e7v" name="ng_sym01_gold.png" path="/images/common/gameSymbols/" exported="true"/>
+    <image id="hm6e7w" name="ng_sym02_silver.png" path="/images/common/gameSymbols/" exported="true"/>
+    <image id="hm6e7x" name="ng_sym04_watch.png" path="/images/common/gameSymbols/" exported="true"/>
+    <image id="hm6e7y" name="ng_sym05_mani.png" path="/images/common/gameSymbols/" exported="true"/>
+    <image id="hm6e7z" name="ng_sym06_jezhi.png" path="/images/common/gameSymbols/" exported="true"/>
+    <image id="hm6e80" name="ng_sym07_jiu.png" path="/images/common/gameSymbols/" exported="true"/>
+    <image id="hm6e81" name="ng_sym08_yaos.png" path="/images/common/gameSymbols/" exported="true"/>
+    <image id="hm6e82" name="ng_sym09_che.png" path="/images/common/gameSymbols/" exported="true"/>
+    <image id="hm6e83" name="ng_sym10_wild.png" path="/images/common/gameSymbols/" exported="true"/>
+    <image id="hm6e84" name="ng_sym11_scatter.png" path="/images/common/gameSymbols/" exported="true"/>
+    <image id="hm6e85" name="ng_sym12_bonus.png" path="/images/common/gameSymbols/" exported="true"/>
+    <image id="hm6e86" name="1.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="hm6e87" name="2.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="hm6e88" name="3.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="hm6e89" name="4.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="hm6e8a" name="5.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="hm6e8b" name="6.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="hm6e8j" name="sg_frame_major.png" path="/images/common/gameJackpots/" exported="true"/>
+    <image id="hm6e8k" name="sg_frame_mini.png" path="/images/common/gameJackpots/" exported="true"/>
+    <image id="hm6e8l" name="sg_frame_minor.png" path="/images/common/gameJackpots/" exported="true"/>
+    <image id="hm6e8m" name="sg_txt_major.png" path="/images/common/gameJackpots/" exported="true"/>
+    <image id="hm6e8n" name="sg_txt_mini.png" path="/images/common/gameJackpots/" exported="true"/>
+    <image id="hm6e8o" name="sg_txt_minor.png" path="/images/common/gameJackpots/" exported="true"/>
+    <image id="hm6e8w" name="fg_txt_free.png" path="/images/pageGameMain/freeBg/" exported="true"/>
+    <image id="hm6e8x" name="ng_img_frame.png" path="/images/pageGameMain/freeBg/" exported="true"/>
+    <font id="hm6e8y" name="freeGame.fnt" path="/fonts/" exported="true"/>
+    <image id="hm6e8z" name="fg_num_0.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
+    <image id="hm6e90" name="fg_num_1.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
+    <image id="hm6e91" name="fg_num_2.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
+    <image id="hm6e92" name="fg_num_3.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
+    <image id="hm6e93" name="fg_num_4.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
+    <image id="hm6e94" name="fg_num_5.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
+    <image id="hm6e95" name="fg_num_6.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
+    <image id="hm6e96" name="fg_num_7.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
+    <image id="hm6e97" name="fg_num_8.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
+    <image id="hm6e98" name="fg_num_9.png" path="/images/common/gameFonts/freeGame/" exported="true"/>
+    <image id="hm6e9a" name="fg_num_co_1.png" path="/images/common/gameFonts/freeTrigger/" exported="true"/>
+    <image id="hm6e9b" name="fg_num_co_2.png" path="/images/common/gameFonts/freeTrigger/" exported="true"/>
+    <image id="hm6e9c" name="fg_num_co_3.png" path="/images/common/gameFonts/freeTrigger/" exported="true"/>
+    <image id="hm6e9d" name="fg_num_co_4.png" path="/images/common/gameFonts/freeTrigger/" exported="true"/>
+    <image id="hm6e9e" name="fg_num_co_5.png" path="/images/common/gameFonts/freeTrigger/" exported="true"/>
+    <image id="hm6e9f" name="fg_num_co_6.png" path="/images/common/gameFonts/freeTrigger/" exported="true"/>
+    <image id="hm6e9g" name="fg_num_co_7.png" path="/images/common/gameFonts/freeTrigger/" exported="true"/>
+    <image id="hm6e9h" name="fg_num_co_8.png" path="/images/common/gameFonts/freeTrigger/" exported="true"/>
+    <image id="hm6e9i" name="fg_num_co_9.png" path="/images/common/gameFonts/freeTrigger/" exported="true"/>
+    <font id="hm6e9j" name="bonusGame.fnt" path="/fonts/" exported="true"/>
+    <image id="hm6e9k" name="sg_num_spins_0.png" path="/images/common/gameFonts/bonusGame/" exported="true"/>
+    <image id="hm6e9l" name="sg_num_spins_1.png" path="/images/common/gameFonts/bonusGame/" exported="true"/>
+    <image id="hm6e9m" name="sg_num_spins_2.png" path="/images/common/gameFonts/bonusGame/" exported="true"/>
+    <image id="hm6e9n" name="sg_num_spins_3.png" path="/images/common/gameFonts/bonusGame/" exported="true"/>
+    <image id="hm6e9o" name="sg_num_3.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
+    <image id="hm6e9p" name="sg_num_4.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
+    <image id="hm6e9q" name="sg_num_5.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
+    <image id="hm6e9r" name="sg_num_6.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
+    <image id="hm6e9s" name="sg_num_7.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
+    <image id="hm6e9t" name="sg_num_8.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
+    <image id="hm6e9u" name="sg_num_9.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
+    <image id="hm6e9v" name="sg_num_bil.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
+    <image id="hm6e9w" name="sg_num_com.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
+    <image id="hm6e9x" name="sg_num_dot.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
+    <image id="hm6e9y" name="sg_num_kil.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
+    <image id="hm6e9z" name="sg_num_mil.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
+    <image id="hm6ea0" name="sg_num_tril.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
+    <image id="hm6ea1" name="sg_num_0.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
+    <image id="hm6ea2" name="sg_num_1.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
+    <image id="hm6ea3" name="sg_num_2.png" path="/images/common/gameFonts/smallGame/" exported="true"/>
+    <component id="jcmoa4" name="ng_sym10_wild_com.xml" path="/images/common/gameSymbolComs/" exported="true"/>
+    <component id="jcmoa6" name="ng_sym11_scatter_com.xml" path="/images/common/gameSymbolComs/" exported="true"/>
+    <component id="jcmoa7" name="ng_sym12_bonus_com.xml" path="/images/common/gameSymbolComs/" exported="true"/>
+    <image id="t7uga8" name="fg_num_co_0.png" path="/images/common/gameFonts/freeTrigger/" exported="true"/>
   </resources>
   <publish name="CaiFuZhiJia" path="../../Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>

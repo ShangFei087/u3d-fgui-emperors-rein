@@ -101,7 +101,7 @@ namespace FeiZhouHeiXingXing_3994
         public int freeSpinAddNum;
 
         /// <summary> 免费游戏总赢分  </summary>
-        public long freeSpinTotalWinCredit;
+        public long freeSpinTotalWinCoins;// freeSpinTotalWinCredit
 
         /// <summary>  触发免费游戏的编号 </summary>
         public int gameNumberFreeSpinTrigger;

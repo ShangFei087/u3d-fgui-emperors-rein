@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,235">
+<component size="1080,251">
   <displayList>
-    <graph id="n1_u8to" name="mash" xy="0,-1685" size="1080,1920" visible="false" type="rect" fillColor="#99000000"/>
+    <graph id="n1_u8to" name="mash" xy="0,-1669" size="1080,1920" visible="false" type="rect" fillColor="#99000000"/>
     <component id="n0_u8to" name="frame" src="u8to1f" fileName="moudules/panel/gameDiFrame.xml" xy="0,0"/>
-    <component id="n2_u8to" name="btnHelp" src="u8to1n" fileName="components/Panel/ButtonHelp.xml" xy="73,124" pivot="0.5,0.5" anchor="true"/>
-    <text id="n5_u8to" name="bet" xy="749,52" size="108,73" font="ui://9igt9u8mu8tov" fontSize="10" align="center" vAlign="middle" letterSpacing="3" autoSize="shrink" text="100"/>
-    <text id="n6_u8to" name="win" xy="417,67" size="227,43" font="ui://9igt9u8mu8tou" fontSize="10" align="center" vAlign="middle" autoSize="none" text="99700"/>
-    <text id="n7_u8to" name="credit" xy="227,59" size="118,60" font="ui://9igt9u8mu8tov" fontSize="8" align="center" vAlign="middle" autoSize="none" text="99700"/>
-    <component id="n3_u8to" name="btnBetUp" src="u8to1j" fileName="components/Panel/ButtonBetUp.xml" xy="863,64"/>
-    <component id="n4_u8to" name="btnBetDown" src="u8to1k" fileName="components/Panel/ButtonBetDown.xml" xy="687,74"/>
-    <component id="n8_u8to" name="btnSpin" src="u8to11" fileName="components/Panel/ButtonSpin.xml" xy="914,17"/>
-    <text id="n9_u8to" name="singleLine" xy="0,182" size="388,51" fontSize="8" align="center" autoSize="none" text=""/>
-    <component id="n11_u8to" name="ExhibitionPanel" src="u8to25" fileName="ExhibitionPanel.xml" xy="0,-1203"/>
-    <component id="n12_u8to" name="instructions" src="u8to2n" fileName="moudules/instructions/InstructionPanel.xml" xy="0,-1685"/>
-    <component id="n10_u8to" name="setPanel" src="u8to1o" fileName="SetPanel.xml" xy="18,-195" visible="false"/>
+    <component id="n2_u8to" name="btnHelp" src="u8to1n" fileName="components/Panel/ButtonHelp.xml" xy="103,168" pivot="0.5,0.5" anchor="true"/>
+    <text id="n5_u8to" name="bet" xy="659,152" size="95,37" font="ui://9igt9u8mhm6e3s" fontSize="12" align="center" vAlign="middle" letterSpacing="-10" autoSize="shrink" text="100"/>
+    <text id="n6_u8to" name="win" xy="349,33" size="385,67" font="ui://9igt9u8mhm6e4a" fontSize="10" align="center" vAlign="middle" letterSpacing="-15" autoSize="shrink" text="997000000000"/>
+    <text id="n7_u8to" name="credit" xy="312,149" size="145,39" font="ui://9igt9u8mhm6e3s" fontSize="15" align="center" vAlign="middle" letterSpacing="-10" autoSize="shrink" text="99700000"/>
+    <component id="n3_u8to" name="btnBetUp" src="u8to1j" fileName="components/Panel/ButtonBetUp.xml" xy="788,152"/>
+    <component id="n4_u8to" name="btnBetDown" src="u8to1k" fileName="components/Panel/ButtonBetDown.xml" xy="572,151"/>
+    <component id="n8_u8to" name="btnSpin" src="u8to11" fileName="components/Panel/ButtonSpin.xml" xy="869,60"/>
+    <text id="n9_u8to" name="singleLine" xy="891,200" size="187,51" fontSize="8" align="center" autoSize="none" text=""/>
+    <component id="n11_u8to" name="ExhibitionPanel" src="u8to25" fileName="ExhibitionPanel.xml" xy="0,-1669"/>
+    <component id="n12_u8to" name="instructions" src="u8to2n" fileName="moudules/instructions/InstructionPanel.xml" xy="0,-1669"/>
+    <component id="n10_u8to" name="setPanel" src="u8to1o" fileName="SetPanel.xml" xy="45,-195" visible="false"/>
   </displayList>
 </component>

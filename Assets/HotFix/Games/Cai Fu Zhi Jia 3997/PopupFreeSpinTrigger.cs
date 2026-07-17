@@ -56,6 +56,7 @@ namespace CaiFuZhiJia_3997
 
         private GameSoundController3997 _gameSoundController;
         private bool _isClicked = false;
+        private EventData _openData;
 
         protected override void OnInit()
         {
@@ -104,6 +105,7 @@ namespace CaiFuZhiJia_3997
 
         private void InitParam(EventData eventData)
         {
+            if (eventData != null) _openData = eventData;
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
@@ -183,7 +185,7 @@ namespace CaiFuZhiJia_3997
 
             // --------------------- 按钮点击事件 ---------------------
             _freeStartBtn.onClick.Clear();
-            _freeStartBtn.onClick.Add(() => { OnClickSpinButton(eventData); });
+            _freeStartBtn.onClick.Add(() => { OnClickSpinButton(_openData); });
             // 自动模式定时器
             if (TestManager.Instance.IsAutoModeRunning)
             {
@@ -193,6 +195,7 @@ namespace CaiFuZhiJia_3997
                     {
                         _freeStartBtn.onClick.Call();
                     }
+
                     _autoClickCallback = null;
                 };
                 Timers.inst.Add(3.0f, 1, _autoClickCallback);
@@ -259,9 +262,9 @@ namespace CaiFuZhiJia_3997
         {
             if (_isClicked) return;
             _isClicked = true;
-            
+
             RemoveTimer(ref _delayCloseCallback);
-            
+
             _freeTipWindow.visible = false;
             if (_cloneDollarSpineObj != null)
                 _cloneDollarSpineObj.SetActive(true);
@@ -270,12 +273,17 @@ namespace CaiFuZhiJia_3997
 
             _delayCloseCallback = (obj) =>
             {
+                if (res is { value: Dictionary<string, object> args })
+                {
+                    Action changePage = args["changeFreePage"] as Action;
+                    changePage?.Invoke();
+                }
                 if (_cloneDollarSpineObj != null) _cloneDollarSpineObj.SetActive(false);
                 if (isOpen) CloseSelf(null);
                 _delayCloseCallback = null;
             };
             Timers.inst.Add(3.033f, 1, _delayCloseCallback);
-            
+
             EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.FreeGameFadeTransition));
         }

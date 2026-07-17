@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920"/>
+<component size="1080,1920">
+  <displayList>
+    <text id="n1_zvhl" name="scoreText" xy="243,497" size="616,290" fontSize="12" autoSize="none" text=""/>
+    <component id="n0_zvhl" name="closeBtn" src="zvhl5c" fileName="components/popupSmallGameResult/closeBtn.xml" xy="499,830"/>
+  </displayList>
+</component>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="89,710">
   <displayList>
-    <component id="n0_u8to" name="btnUp" src="u8to2d" fileName="components/ExhibitionMode/exhibitionBtn.xml" xy="-14,21" scale="0.8,0.8"/>
-    <component id="n1_u8to" name="BtnDown" src="u8to2d" fileName="components/ExhibitionMode/exhibitionBtn.xml" xy="-14,585" scale="0.8,0.8" rotation="180"/>
+    <component id="n0_u8to" name="btnUp" src="u8to2d" fileName="components/ExhibitionMode/exhibitionBtn.xml" xy="-14,21"/>
+    <component id="n1_u8to" name="BtnDown" src="u8to2d" fileName="components/ExhibitionMode/exhibitionBtn.xml" xy="-14,585" rotation="180"/>
   </displayList>
 </component>

@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,235">
+<component size="1080,251" overflow="hidden">
   <displayList>
-    <image id="n0_u8to" name="n0" src="u8to13" fileName="images/gameDiFrame/pb_img_bottom.png" xy="0,0" group="n15_u8to"/>
-    <image id="n2_u8to" name="n2" src="u8to14" fileName="images/gameDiFrame/pb_img_button01.png" xy="890,143" group="n15_u8to"/>
-    <image id="n3_u8to" name="n3" src="u8to15" fileName="images/gameDiFrame/pb_img_button02.png" xy="898,89" group="n15_u8to"/>
-    <image id="n13_u8to" name="n13" src="u8to19" fileName="images/gameDiFrame/pb_img_score.png" xy="371,36" size="316,147" group="n15_u8to"/>
-    <image id="n14_u8to" name="n14" src="u8to19" fileName="images/gameDiFrame/pb_img_score.png" xy="143,40" size="228,107" group="n15_u8to"/>
-    <image id="n4_u8to" name="n4" src="u8to1a" fileName="images/gameDiFrame/pb_img_toubi.png" xy="158,61" group="n15_u8to"/>
-    <image id="n5_u8to" name="n5" src="u8to1b" fileName="images/gameDiFrame/pb_txt_bet.png" xy="803,163" pivot="0.5,0.5" anchor="true" group="n15_u8to"/>
-    <image id="n6_u8to" name="n6" src="u8to1d" fileName="images/gameDiFrame/pb_txt_win.png" xy="530,136" pivot="0.5,0.5" anchor="true" group="n15_u8to"/>
-    <image id="n8_u8to" name="n8" src="u8to16" fileName="images/gameDiFrame/pb_img_dik.png" xy="163,191" size="749,28" group="n15_u8to"/>
-    <image id="n7_u8to" name="n7" src="u8to1e" fileName="images/gameDiFrame/pb_txt_zw.png" xy="366,193" group="n15_u8to"/>
-    <image id="n9_u8to" name="n9" src="u8to1c" fileName="images/gameDiFrame/pb_txt_credits.png" xy="257,164" pivot="0.5,0.5" anchor="true" group="n15_u8to"/>
-    <image id="n10_u8to" name="n10" src="u8to17" fileName="images/gameDiFrame/pb_img_kuang.png" xy="687,38" size="229,109" group="n15_u8to"/>
-    <image id="n11_u8to" name="n11" src="u8to18" fileName="images/gameDiFrame/pb_img_kuang_01.png" xy="863,38" group="n15_u8to"/>
-    <image id="n12_u8to" name="n12" src="u8to18" fileName="images/gameDiFrame/pb_img_kuang_01.png" xy="741,138" group="n15_u8to" rotation="180"/>
-    <group id="n15_u8to" name="n15" xy="0,0" size="1126,274"/>
+    <image id="n16_hm6e" name="n16" src="hm6e2z" fileName="images/gameDiFrame/pb_img_bottom.png" xy="0,0" group="n34_t7ug"/>
+    <image id="n22_hm6e" name="n22" src="hm6e35" fileName="images/gameDiFrame/pb_img_kuang.png" xy="248,141" size="276,95" group="n34_t7ug"/>
+    <image id="n17_hm6e" name="n17" src="hm6e32" fileName="images/gameDiFrame/pb_img_toubi.png" xy="222,138" group="n34_t7ug"/>
+    <image id="n18_hm6e" name="n18" src="hm6e33" fileName="images/gameDiFrame/pb_txt_credits.png" xy="386,202" pivot="0.5,0.5" anchor="true" group="n34_t7ug"/>
+    <image id="n19_hm6e" name="n19" src="hm6e30" fileName="images/gameDiFrame/pb_txt_win.png" xy="543,108" pivot="0.5,0.5" anchor="true" group="n34_t7ug"/>
+    <image id="n23_hm6e" name="n23" src="hm6e35" fileName="images/gameDiFrame/pb_img_kuang.png" xy="556,141" size="310,95" group="n34_t7ug"/>
+    <image id="n21_hm6e" name="n21" src="hm6e34" fileName="images/gameDiFrame/pb_txt_bet.png" xy="714,203" pivot="0.5,0.5" anchor="true" group="n34_t7ug"/>
+    <image id="n24_hm6e" name="n24" src="hm6e3a" fileName="images/gameDiFrame/pb_img_dik.png" xy="184,228" group="n34_t7ug"/>
+    <image id="n20_hm6e" name="n20" src="hm6e31" fileName="images/gameDiFrame/pb_txt_yw.png" xy="546,238" pivot="0.5,0.5" anchor="true" group="n34_t7ug"/>
+    <image id="n31_t7ug" name="n31" src="t7ug54" fileName="images/gameDiFrame/pb_img_button01_.png" xy="843,197" group="n34_t7ug"/>
+    <image id="n33_t7ug" name="n33" src="t7ug55" fileName="images/gameDiFrame/pb_img_button02(1).png" xy="845,140" group="n34_t7ug"/>
+    <group id="n34_t7ug" name="n34" xy="0,0" size="1111,345"/>
   </displayList>
 </component>

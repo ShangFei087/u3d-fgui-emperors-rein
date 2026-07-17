@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920">
+<component size="1080,1920" designImage="ui://9igt9u8mhm6e4s">
   <displayList>
     <graph id="n0_u8to" name="mask" xy="0,0" size="1080,1920" type="rect" fillColor="#99000000"/>
     <image id="n1_u8to" name="n1" src="u8to2h" fileName="images/instructions/Border.png" xy="113,310"/>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="112,266">
   <displayList>
-    <image id="n0_u8to" name="n0" src="u8to1p" fileName="images/setPanel/pb_img_expand.png" xy="0,0"/>
-    <component id="n4_u8to" name="btnPayTable" src="u8to21" fileName="components/Button/ButtonIntroduce.xml" xy="10,86"/>
-    <component id="n2_u8to" name="btnHome" src="u8to1z" fileName="components/Button/ButtonHome.xml" xy="10,154"/>
-    <component id="n3_u8to" name="btnSound" src="u8to20" fileName="components/Button/ButtonSound.xml" xy="10,15"/>
-    <component id="n5_u8to" name="silderSound" src="u8to24" fileName="components/SetPanel/SoundSlider.xml" xy="222,41" pivot="0.5,0.5" anchor="true">
+    <image id="n6_hm6e" name="n6" src="hm6e4t" fileName="images/setPanel/pb_img_expand.png" xy="0,-1"/>
+    <component id="n4_u8to" name="btnPayTable" src="u8to21" fileName="components/Panel/ButtonIntroduce.xml" xy="58,118"/>
+    <component id="n2_u8to" name="btnHome" src="u8to1z" fileName="components/Panel/ButtonHome.xml" xy="15,159"/>
+    <component id="n3_u8to" name="btnSound" src="u8to20" fileName="components/Panel/ButtonSound.xml" xy="55,47"/>
+    <component id="n5_u8to" name="silderSound" src="u8to24" fileName="components/SetPanel/SoundSlider.xml" xy="174,47" pivot="0.5,0.5" anchor="true">
       <Slider value="50" max="100"/>
     </component>
   </displayList>

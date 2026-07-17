@@ -75,7 +75,7 @@ namespace FeiZhouHeiXingXing_3994
                 PlayerId = pid,
                 FreeSpinTotalTimes = cm.FreeSpinTotalTimes,
                 FreeSpinPlayTimes = cm.FreeSpinPlayTimes,
-                FreeSpinTotalWinCredit = cm.freeSpinTotalWinCredit,
+                FreeSpinTotalWinCredit = cm.freeSpinTotalWinCoins,// freeSpinTotalWinCredit
                 CurReelStripsIndex = cm.curReelStripsIndex,
                 NextReelStripsIndex = cm.nextReelStripsIndex,
                 BetIndex = cm.betIndex,
@@ -140,7 +140,7 @@ namespace FeiZhouHeiXingXing_3994
             var cm = ContentModel.Instance;
             cm.FreeSpinTotalTimes = 0;
             cm.FreeSpinPlayTimes = 0;
-            cm.freeSpinTotalWinCredit = 0;
+            cm.freeSpinTotalWinCoins = 0;// freeSpinTotalWinCredit
             cm.curReelStripsIndex = "BS";
             cm.nextReelStripsIndex = "BS";
             cm.isFreeSpinTrigger = false;

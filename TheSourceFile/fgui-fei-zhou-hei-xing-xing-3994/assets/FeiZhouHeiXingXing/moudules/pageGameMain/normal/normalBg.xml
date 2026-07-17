@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <image id="n1_jzab" name="n1" src="jzab4r" fileName="images/pageGameMain/normal/ng_img_bg_01.png" xy="0,0"/>
+  </displayList>
+</component>

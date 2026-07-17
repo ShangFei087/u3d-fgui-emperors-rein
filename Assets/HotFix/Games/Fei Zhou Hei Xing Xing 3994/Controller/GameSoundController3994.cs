@@ -70,11 +70,11 @@ namespace FeiZhouHeiXingXing_3994
             if (column0Based < 0 || column0Based >= CustomModel.Instance.column)
                 return;
 
-            if (hasScatter)
-                GameSoundHelper3994.Instance.PlaySoundEff(SoundKey.ScatterDown);
-
-            if (hasBonus)
-                GameSoundHelper3994.Instance.PlaySoundEff(SoundKey.BonusDown1);
+            // if (hasScatter)
+            //     GameSoundHelper3994.Instance.PlaySoundEff(SoundKey.ScatterDown);
+            //
+            // if (hasBonus)
+            //     GameSoundHelper3994.Instance.PlaySoundEff(SoundKey.BonusDown1);
         }
 
         /// <summary> 滚轮开始/整列停稳：重置本局 Scatter·Bonus 线赢去重标记；开始转时播滚轮循环音（彩金局与普通局区分）。 </summary>
@@ -99,8 +99,8 @@ namespace FeiZhouHeiXingXing_3994
                     if (ContentModel.Instance.isSmallGameTrigger)
                         TryPlayBonusWinSound();
 
-                    if (GameSoundHelper3994.Instance.IsPlaySound(SoundKey.FreeRollingBox)) GameSoundHelper3994.Instance.StopSound(SoundKey.FreeRollingBox);
-                    if (GameSoundHelper3994.Instance.IsPlaySound(SoundKey.BonusRollingBox)) GameSoundHelper3994.Instance.StopSound(SoundKey.BonusRollingBox);
+                    // if (GameSoundHelper3994.Instance.IsPlaySound(SoundKey.FreeRollingBox)) GameSoundHelper3994.Instance.StopSound(SoundKey.FreeRollingBox);
+                    // if (GameSoundHelper3994.Instance.IsPlaySound(SoundKey.BonusRollingBox)) GameSoundHelper3994.Instance.StopSound(SoundKey.BonusRollingBox);
                     break;
             }
         }
@@ -170,9 +170,9 @@ namespace FeiZhouHeiXingXing_3994
                     break;
                 case SlotMachineEvent.FreeRollingBox:
                     // 同轨叠播前先停，避免拖音
-                    if (GameSoundHelper3994.Instance.IsPlaySound(SoundKey.FreeRollingBox))
-                        GameSoundHelper3994.Instance.StopSound(SoundKey.FreeRollingBox);
-                    GameSoundHelper3994.Instance.PlaySoundEff(SoundKey.FreeRollingBox);
+                    // if (GameSoundHelper3994.Instance.IsPlaySound(SoundKey.FreeRollingBox))
+                    //     GameSoundHelper3994.Instance.StopSound(SoundKey.FreeRollingBox);
+                    // GameSoundHelper3994.Instance.PlaySoundEff(SoundKey.FreeRollingBox);
                     break;
                 case SlotMachineEvent.BonusRollingBox:
                     if (GameSoundHelper3994.Instance.IsPlaySound(SoundKey.BonusRollingBox))

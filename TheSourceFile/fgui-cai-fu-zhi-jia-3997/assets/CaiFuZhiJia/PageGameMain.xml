@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920">
-  <controller name="gameController" pages="0,normal,1,free,2,smallGame" selected="2"/>
+<component size="1080,1920" designImage="ui://92trhum6hm6e6l">
+  <controller name="gameController" pages="0,normal,1,free,2,smallGame" selected="0"/>
   <displayList>
     <component id="n0_u8to" name="normalBg" src="u8to2h" fileName="moudules/pageGameMain/Bg/normalBg.xml" xy="0,0" touchable="false">
       <gearDisplay controller="gameController" pages="0"/>
@@ -23,18 +23,18 @@
     <component id="n1_u8to" name="normalOther" src="u8to2i" fileName="moudules/pageGameMain/Bg/normalOther.xml" xy="0,663" touchable="false">
       <gearDisplay controller="gameController" pages="0"/>
     </component>
-    <component id="n3_u8to" name="freeOther" src="u8to2m" fileName="moudules/pageGameMain/Bg/freeOther.xml" xy="0,710" touchable="false">
+    <component id="n3_u8to" name="freeOther" src="u8to2m" fileName="moudules/pageGameMain/Bg/freeOther.xml" xy="-2,772" touchable="false">
       <gearDisplay controller="gameController" pages="1"/>
     </component>
     <component id="n4_u8to" name="smallGameOther" src="u8to2p" fileName="moudules/pageGameMain/Bg/smallGameOther.xml" xy="107,470" touchable="false">
       <gearDisplay controller="gameController" pages="2"/>
     </component>
-    <component id="n9_ujwn" name="jpMajor" src="u8to37" fileName="moudules/pageGameMain/gameJackpot/GameJackpotMajor.xml" xy="286,-1" group="n12_ujwn"/>
-    <component id="n10_ujwn" name="jpMini" src="u8to38" fileName="moudules/pageGameMain/gameJackpot/GameJackpotMini.xml" xy="694,148" group="n12_ujwn"/>
-    <component id="n11_ujwn" name="jpMinor" src="u8to39" fileName="moudules/pageGameMain/gameJackpot/GameJackpotMinor.xml" xy="39,154" group="n12_ujwn"/>
-    <group id="n12_ujwn" name="jackpots" xy="39,-1" size="1016,273"/>
+    <component id="n9_ujwn" name="jpMajor" src="u8to37" fileName="moudules/pageGameMain/gameJackpot/GameJackpotMajor.xml" xy="277,11" group="n12_ujwn"/>
+    <component id="n10_ujwn" name="jpMini" src="u8to38" fileName="moudules/pageGameMain/gameJackpot/GameJackpotMini.xml" xy="687,156" group="n12_ujwn"/>
+    <component id="n11_ujwn" name="jpMinor" src="u8to39" fileName="moudules/pageGameMain/gameJackpot/GameJackpotMinor.xml" xy="34,163" group="n12_ujwn"/>
+    <group id="n12_ujwn" name="jackpots" xy="34,11" size="1032,269"/>
     <component id="n6_u8to" name="reelBg" src="u8to2z" fileName="moudules/pageGameMain/ReelBg/ReelBackground.xml" xy="0,1040"/>
-    <component id="n18_ujwn" name="freeFrame" src="ujwn4e" fileName="moudules/pageGameMain/free/freeFrame.xml" xy="699,1058" scale="0.8,0.8">
+    <component id="n18_ujwn" name="freeFrame" src="ujwn4e" fileName="moudules/pageGameMain/free/freeFrame.xml" xy="383,1047" scale="0.8,0.8">
       <gearDisplay controller="gameController" pages="1"/>
     </component>
     <component id="n20_xpjv" name="smallGameReels" src="jh0i54" fileName="moudules/pageGameMain/SmallGame/SmallGameReels.xml" xy="115,1135">

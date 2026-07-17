@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" opaque="false" designImage="ui://ytoswqrpjzab4t">
+  <displayList>
+    <component id="n19_pbvu" name="reel1" src="pbvu1u" fileName="moudules/exhibitionMode/ReelBtn.xml" xy="91,1062" size="105,706"/>
+    <component id="n20_pbvu" name="reel2" src="pbvu1u" fileName="moudules/exhibitionMode/ReelBtn.xml" xy="299,1062" size="105,706"/>
+    <component id="n21_pbvu" name="reel3" src="pbvu1u" fileName="moudules/exhibitionMode/ReelBtn.xml" xy="486,1062" size="105,706"/>
+    <component id="n22_pbvu" name="reel4" src="pbvu1u" fileName="moudules/exhibitionMode/ReelBtn.xml" xy="678,1062" size="105,706"/>
+    <component id="n23_pbvu" name="reel5" src="pbvu1u" fileName="moudules/exhibitionMode/ReelBtn.xml" xy="870,1062" size="105,706"/>
+    <component id="n0_pbvu" name="btnExhibition" src="pbvu1s" fileName="components/Panel/ButtonExhibition.xml" xy="7,509"/>
+  </displayList>
+</component>

@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<branchDescription/>
+<branchDescription>
+  <resources>
+    <image id="pbvu1q" name="txt_open.png" path="/images/bottom/exhibitionMode/" exported="true"/>
+    <image id="pbvu1r" name="txt_close.png" path="/images/bottom/exhibitionMode/" exported="true"/>
+    <image id="lyfo2y" name="ng_btn_help.png" path="/images/bottom/setPanel/" exported="true"/>
+    <image id="qrjm39" name="ng_txt_bet.png" path="/images/bottom/gameDiFrame/" exported="true"/>
+    <image id="qrjm3a" name="ng_txt_credits.png" path="/images/bottom/gameDiFrame/" exported="true"/>
+    <image id="qrjm3b" name="ng_txt_ts.png" path="/images/bottom/gameDiFrame/" exported="true"/>
+    <image id="qrjm3k" name="ng_btn_auto2.png" path="/images/bottom/spin/" exported="true"/>
+    <image id="qrjm3l" name="ng_btn_spin2.png" path="/images/bottom/spin/" exported="true"/>
+    <image id="qrjm3m" name="ng_btn_stop2.png" path="/images/bottom/spin/" exported="true"/>
+  </resources>
+</branchDescription>

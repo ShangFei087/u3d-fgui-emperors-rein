@@ -1,0 +1,14 @@
+{
+	"game_id":3994,
+	
+	"game_name": "FeiZhouHeiXingXing3994",
+	
+	"display_name": "FeiZhouHeiXingXing_3994",
+	
+	"//得分规则": "得分 = 总投注 / 50 * 赔率",
+	"//总投注列表": "",
+	"bet_lst":[25,50,75,100,125,150,175,200],
+	"freeTime":[8,9,11],
+
+	"line_num": 25
+}

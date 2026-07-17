@@ -194,17 +194,17 @@ namespace FeiZhouHeiXingXing_3994
                     assetPath =
                         "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/Sounds/Effect/NormalGame/NormalRolling.mp3",
                 },
-            [SoundKey.FreeRollingBox] =
-                new GSHandler()
-                {
-                    assetPath =
-                        "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/Sounds/Effect/NormalGame/FreeRollingBox.mp3",
-                },
-            [SoundKey.BonusRollingBox] = new GSHandler()
-            {
-                assetPath =
-                    "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/Sounds/Effect/NormalGame/FreeRollingBox.mp3",
-            },
+            // [SoundKey.FreeRollingBox] =
+            //     new GSHandler()
+            //     {
+            //         assetPath =
+            //             "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/Sounds/Effect/NormalGame/FreeRollingBox.mp3",
+            //     },
+            // [SoundKey.BonusRollingBox] = new GSHandler()
+            // {
+            //     assetPath =
+            //         "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/Sounds/Effect/NormalGame/FreeRollingBox.mp3",
+            // },
             //----------------------------------------- FreePopup --------------------------------
             [SoundKey.FreePopupAppear] =
                 new GSHandler()
