@@ -1,14 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="ytoswqrp">
   <resources>
-    <component id="llq90" name="PageGameMain.xml" path="/"/>
-    <component id="llq91" name="PopupBigWin.xml" path="/"/>
-    <component id="llq92" name="PopupFreeSpinResult.xml" path="/"/>
-    <component id="llq93" name="PopupFreeSpinTrigger.xml" path="/"/>
-    <component id="llq94" name="PopupGameLoading.xml" path="/"/>
-    <component id="llq95" name="PopupSmallGameJackpotWin.xml" path="/"/>
-    <component id="llq96" name="PopupSmallGameResult.xml" path="/"/>
-    <component id="llq97" name="PopupSmallGameTrigger.xml" path="/"/>
+    <component id="llq90" name="PageGameMain.xml" path="/" exported="true"/>
+    <component id="llq91" name="PopupBigWin.xml" path="/" exported="true"/>
+    <component id="llq92" name="PopupFreeSpinResult.xml" path="/" exported="true"/>
+    <component id="llq93" name="PopupFreeSpinTrigger.xml" path="/" exported="true"/>
+    <component id="llq94" name="PopupGameLoading.xml" path="/" exported="true"/>
+    <component id="llq95" name="PopupSmallGameJackpotWin.xml" path="/" exported="true"/>
+    <component id="llq96" name="PopupSmallGameResult.xml" path="/" exported="true"/>
+    <component id="llq97" name="PopupSmallGameTrigger.xml" path="/" exported="true"/>
+    <component id="sns5a" name="normalBg.xml" path="/moudules/pageGameMain/normal/" exported="true"/>
+    <image id="sns5i" name="ng_num_3.png" path="/images/common/gameFont/topJackpotFont/" exported="true" scale9grid="0,0,-28,-10"/>
+    <image id="sns5j" name="ng_num_0.png" path="/images/common/gameFont/topJackpotFont/" exported="true" scale9grid="0,0,-25,-10"/>
+    <image id="sns5k" name="ng_num_tril.png" path="/images/common/gameFont/topJackpotFont/" exported="true" scale9grid="0,0,-25,-12"/>
+    <image id="sns5l" name="ng_num_mil.png" path="/images/common/gameFont/topJackpotFont/" exported="true" scale9grid="0,0,-7,-12"/>
+    <image id="sns5m" name="ng_num_kil.png" path="/images/common/gameFont/topJackpotFont/" exported="true" scale9grid="0,0,-22,-6"/>
+    <image id="sns5n" name="ng_num_dot.png" path="/images/common/gameFont/topJackpotFont/" exported="true"/>
+    <image id="sns5o" name="ng_num_dollar.png" path="/images/common/gameFont/topJackpotFont/" exported="true"/>
+    <image id="sns5p" name="ng_num_1.png" path="/images/common/gameFont/topJackpotFont/" exported="true" scale9grid="0,0,-35,-11"/>
+    <image id="sns5q" name="ng_num_com.png" path="/images/common/gameFont/topJackpotFont/" exported="true"/>
+    <image id="sns5r" name="ng_num_9.png" path="/images/common/gameFont/topJackpotFont/" exported="true" scale9grid="0,0,-25,-12"/>
+    <image id="sns5s" name="ng_num_8.png" path="/images/common/gameFont/topJackpotFont/" exported="true" scale9grid="0,0,-28,-12"/>
+    <image id="sns5t" name="ng_num_7.png" path="/images/common/gameFont/topJackpotFont/" exported="true" scale9grid="0,0,-27,-12"/>
+    <image id="sns5u" name="ng_num_6.png" path="/images/common/gameFont/topJackpotFont/" exported="true" scale9grid="0,0,-27,-7"/>
+    <image id="sns5v" name="ng_num_5.png" path="/images/common/gameFont/topJackpotFont/" exported="true" scale9grid="0,0,-28,-10"/>
+    <image id="sns5w" name="ng_num_4.png" path="/images/common/gameFont/topJackpotFont/" exported="true" scale9grid="0,0,-22,-11"/>
+    <image id="sns5x" name="ng_num_bil.png" path="/images/common/gameFont/topJackpotFont/" exported="true" scale9grid="0,0,-24,-12"/>
+    <image id="sns5y" name="ng_num_2.png" path="/images/common/gameFont/topJackpotFont/" exported="true" scale9grid="0,0,-27,-11"/>
+    <font id="sns51h" name="topJackpotFont.fnt" path="/fonts/" exported="true"/>
+    <image id="sns51i" name="ng_sym01_j.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-326,-294"/>
+    <image id="sns51j" name="ng_sym16_minor.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-208,-273"/>
+    <image id="sns51k" name="ng_sym15_mini.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-234,-273"/>
+    <image id="sns51l" name="ng_sym14_caijin.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-235,-273"/>
+    <image id="sns51m" name="ng_sym13_xx.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-228,-247"/>
+    <image id="sns51n" name="ng_sym12_bonus.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-193,-189"/>
+    <image id="sns51o" name="ng_sym11_scatter.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-193,-190"/>
+    <image id="sns51p" name="ng_sym10_wild.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-185,-189"/>
+    <image id="sns51q" name="ng_sym09_elephant.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-215,-234"/>
+    <image id="sns51r" name="ng_sym08_leopard.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-215,-234"/>
+    <image id="sns51s" name="ng_sym07_parrot.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-215,-234"/>
+    <image id="sns51t" name="ng_sym06_snake.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-216,-234"/>
+    <image id="sns51u" name="ng_sym05_frog.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-215,-234"/>
+    <image id="sns51v" name="ng_sym04_a.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-311,-305"/>
+    <image id="sns51w" name="ng_sym03_k.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-310,-293"/>
+    <image id="sns51x" name="ng_sym02_q.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-296,-291"/>
+    <image id="sns51y" name="ng_sym17_major.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-191,-273"/>
+    <image id="sns51z" name="ng_sym18_grand.png" path="/images/common/gameSymbol/" exported="true" scale9grid="0,0,-201,-273"/>
+    <component id="sns521" name="normalOther.xml" path="/moudules/pageGameMain/normal/" exported="true"/>
+    <image id="sns522" name="ng_bor_mini.png" path="/images/common/gameJackpot/" exported="true"/>
+    <image id="sns523" name="ng_bor_minor.png" path="/images/common/gameJackpot/" exported="true"/>
+    <component id="pbvu28" name="anchorPanel.xml" path="/moudules/pageGameMain/anchor/" exported="true"/>
+    <component id="pbvu29" name="anchorNpc.xml" path="/moudules/pageGameMain/anchor/" exported="true"/>
+    <component id="pbvu2a" name="GameJackpotReel.xml" path="/moudules/pageGameMain/gameJackpot/" exported="true"/>
+    <component id="pbvu2b" name="GameJackpotMajor.xml" path="/moudules/pageGameMain/gameJackpot/" exported="true"/>
+    <component id="pbvu2c" name="GameJackpotMini.xml" path="/moudules/pageGameMain/gameJackpot/" exported="true"/>
+    <component id="pbvu2d" name="GameJackpotMinor.xml" path="/moudules/pageGameMain/gameJackpot/" exported="true"/>
+    <component id="pbvu2e" name="anchorFrame.xml" path="/moudules/pageGameMain/anchor/" exported="true"/>
+    <component id="pbvu2f" name="SymbolAnimator.xml" path="/moudules/pageGameMain/slotMachine/" exported="true"/>
+    <component id="pbvu2h" name="Symbol.xml" path="/moudules/pageGameMain/slotMachine/" exported="true"/>
+    <component id="pbvu2i" name="Symbols.xml" path="/moudules/pageGameMain/slotMachine/" exported="true"/>
+    <component id="pbvu2j" name="Reel.xml" path="/moudules/pageGameMain/slotMachine/" exported="true"/>
+    <component id="pbvu2k" name="Reels.xml" path="/moudules/pageGameMain/slotMachine/" exported="true"/>
+    <component id="pbvu2l" name="AnchorPlayLines.xml" path="/moudules/pageGameMain/slotMachine/" exported="true"/>
+    <component id="pbvu2m" name="SlotCover.xml" path="/moudules/pageGameMain/slotMachine/" exported="true"/>
+    <component id="pbvu2n" name="SlotMachine.xml" path="/moudules/pageGameMain/slotMachine/" exported="true"/>
+    <image id="pbvu33" name="ng_bor_major .png" path="/images/common/gameJackpot/" exported="true"/>
+    <image id="is8l3l" name="fg_img_bg_01.png" path="/images/pageGameMain/free/" exported="true"/>
+    <component id="is8l3m" name="freeBg.xml" path="/moudules/pageGameMain/free/" exported="true"/>
+    <image id="is8l3p" name="fg_num_0.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <image id="is8l3q" name="fg_num_kil.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <image id="is8l3r" name="fg_num_dot.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <image id="is8l3s" name="fg_num_dollar.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <image id="is8l3t" name="fg_num_com.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <image id="is8l3u" name="fg_num_bil.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <image id="is8l3v" name="fg_num_9.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <image id="is8l3w" name="fg_num_mil.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <image id="is8l3x" name="fg_num_8.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <image id="is8l3y" name="fg_num_6.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <image id="is8l3z" name="fg_num_5.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <image id="is8l40" name="fg_num_4.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <image id="is8l41" name="fg_num_3.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <image id="is8l42" name="fg_num_2.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <image id="is8l43" name="fg_num_1.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <image id="is8l44" name="fg_num_7.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <image id="is8l45" name="fg_num_tril.png" path="/images/common/gameFont/freeCountFont/" exported="true"/>
+    <font id="is8l46" name="freeCountFont.fnt" path="/fonts/" exported="true"/>
+    <image id="is8l47" name="fg_bor_down.png" path="/images/common/gameBorder/free/" exported="true"/>
+    <image id="is8l48" name="fg_bor_fgx.png" path="/images/common/gameBorder/free/" exported="true"/>
+    <image id="is8l49" name="fg_bor_left.png" path="/images/common/gameBorder/free/" exported="true"/>
+    <image id="is8l4a" name="fg_bor_nk.png" path="/images/common/gameBorder/free/" exported="true"/>
+    <image id="is8l4b" name="fg_bor_right.png" path="/images/common/gameBorder/free/" exported="true"/>
+    <image id="is8l4c" name="fg_bor_shadow.png" path="/images/common/gameBorder/free/" exported="true"/>
+    <image id="is8l4d" name="fg_bor_up.png" path="/images/common/gameBorder/free/" exported="true"/>
+    <image id="is8l4e" name="fg_bor-zz.png" path="/images/common/gameBorder/" exported="true"/>
+    <image id="is8l4f" name="fg_txt_free spin.png" path="/images/common/gameBorder/free/" exported="true"/>
+    <component id="9e0n4o" name="freeOther.xml" path="/moudules/pageGameMain/free/" exported="true"/>
+    <component id="9e0n4p" name="freeFrame.xml" path="/moudules/pageGameMain/free/" exported="true"/>
+    <component id="ba9f4q" name="anchorSpeedParent.xml" path="/moudules/pageGameMain/anchor/" exported="true"/>
+    <image id="jzab4r" name="ng_img_bg_01.png" path="/images/pageGameMain/normal/" exported="true"/>
+    <image id="jzab4s" name="普通游戏1.png" path="/images/common/rendering/"/>
+    <image id="jzab4t" name="普通游戏2.png" path="/images/common/rendering/"/>
+    <image id="jzab4u" name="普通游戏3.png" path="/images/common/rendering/"/>
+    <image id="jzab4v" name="普通游戏4.png" path="/images/common/rendering/"/>
+    <image id="qrjm4z" name="ng_txt_major.png" path="/images/common/gameJackpot/" exported="true"/>
+    <image id="qrjm50" name="ng_txt_mini.png" path="/images/common/gameJackpot/" exported="true"/>
+    <image id="qrjm51" name="ng_txt_minor.png" path="/images/common/gameJackpot/" exported="true"/>
+    <image id="qrjm52" name="ng_bor_fgx(1).png" path="/images/common/gameBorder/normal/" exported="true"/>
+    <image id="qrjm53" name="ng_bor_left(1).png" path="/images/common/gameBorder/normal/" exported="true"/>
+    <image id="qrjm54" name="ng_bor_right(1).png" path="/images/common/gameBorder/normal/" exported="true"/>
+    <image id="qrjm55" name="ng_bor_up(1).png" path="/images/common/gameBorder/normal/" exported="true"/>
+    <image id="qrjm56" name="ng_bor_down(1).png" path="/images/common/gameBorder/normal/" exported="true"/>
+    <image id="qrjm57" name="ng_bor_nk(1).png" path="/images/common/gameBorder/normal/" exported="true"/>
+    <image id="qrjm58" name="ng_txt_25.png" path="/images/common/gameBorder/" exported="true"/>
+    <component id="zvhl59" name="closeBtn.xml" path="/components/popupFreeSpinTrigger/" exported="true"/>
+    <component id="zvhl5a" name="closeBtn.xml" path="/components/popupFreeSpinResult/" exported="true"/>
+    <component id="zvhl5b" name="closeBtn.xml" path="/components/popupSmallGameTrigger/" exported="true"/>
+    <component id="zvhl5c" name="closeBtn.xml" path="/components/popupSmallGameResult/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Fei Zhou Hei Xing Xing 3994\FGUIs" packageCount="2"/>
 </packageDescription>

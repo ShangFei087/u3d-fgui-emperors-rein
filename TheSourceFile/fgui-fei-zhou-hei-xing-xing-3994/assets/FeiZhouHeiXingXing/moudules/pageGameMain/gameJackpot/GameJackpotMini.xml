@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="493,126">
+  <displayList>
+    <image id="n0_pbvu" name="n0" src="sns522" fileName="images/common/gameJackpot/ng_bor_mini.png" xy="0,22"/>
+    <list id="n3_pbvu" name="n1" xy="48,53" size="398,46" layout="row" overflow="scroll" defaultItem="ui://ytoswqrppbvu2a" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <image id="n4_lyfo" name="n4" src="qrjm50" fileName="images/common/gameJackpot/ng_txt_mini2.png" xy="246,10" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>

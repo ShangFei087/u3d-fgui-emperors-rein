@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" opaque="false">
+  <displayList>
+    <graph id="n0_lyfo" name="mask" xy="0,0" size="1080,1920" touchable="false" type="rect" fillColor="#99000000"/>
+    <component id="n1_lyfo" name="introduce" src="lyfo30" fileName="moudules/instructions/payTable.xml" xy="0,0" touchable="false"/>
+    <component id="n2_lyfo" name="btnNect" src="lyfo31" fileName="components/instructions/ButtonL.xml" xy="894,908"/>
+    <component id="n3_lyfo" name="btnPrev" src="lyfo31" fileName="components/instructions/ButtonL.xml" xy="148,908"/>
+    <component id="n4_lyfo" name="btnBackGame" src="lyfo32" fileName="components/instructions/BackButton.xml" xy="151,309"/>
+  </displayList>
+</component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="178,161" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_sns5" name="n0" src="qrjm3c" fileName="images/bottom/help/ng_btn_function(1).png" xy="0,0" size="178,161">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_pbvu" name="untouch" src="qrjm3c" fileName="images/bottom/help/ng_btn_function(1).png" xy="0,0" visible="false" color="#666666"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.8"/>
+  <transition name="Help"/>
+  <transition name="Back"/>
+</component>

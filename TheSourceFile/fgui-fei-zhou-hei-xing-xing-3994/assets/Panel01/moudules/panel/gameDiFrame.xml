@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,176">
+  <displayList>
+    <image id="n11_pbvu" name="n11" src="qrjm33" fileName="images/bottom/gameDiFrame/ng_img_bottom1.png" xy="0,0" size="1080,175" group="n13_pbvu"/>
+    <image id="n17_qrjm" name="n17" src="qrjm34" fileName="images/bottom/gameDiFrame/ng_icon_tb(1).png" xy="251,105" size="33,26" group="n13_pbvu"/>
+    <image id="n18_qrjm" name="n18" src="qrjm38" fileName="images/bottom/gameDiFrame/ng_txt_credits1.png" xy="367,137" pivot="0.5,0.5" anchor="true" size="70,19" group="n13_pbvu"/>
+    <image id="n19_qrjm" name="n19" src="qrjm35" fileName="images/bottom/gameDiFrame/ng_txt_ts2.png" xy="538,165" pivot="0.5,0.5" anchor="true" size="382,22" group="n13_pbvu"/>
+    <image id="n20_qrjm" name="n20" src="qrjm36" fileName="images/bottom/gameDiFrame/ng_txt_win(1).png" xy="536,75" pivot="0.5,0.5" anchor="true" size="46,15" group="n13_pbvu"/>
+    <image id="n21_qrjm" name="n21" src="qrjm37" fileName="images/bottom/gameDiFrame/ng_txt_bet1.png" xy="711,137" pivot="0.5,0.5" anchor="true" size="69,19" group="n13_pbvu"/>
+    <group id="n13_pbvu" name="n13" xy="0,0" size="1080,176"/>
+  </displayList>
+</component>

@@ -2,5 +2,6 @@
 <component size="1080,1920">
   <displayList>
     <text id="n0_llq9" name="spinCountText" xy="343,620" size="416,143" fontSize="12" align="center" vAlign="middle" autoSize="none" text=""/>
+    <component id="n1_zvhl" name="closeBtn" src="zvhl59" fileName="components/popupFreeSpinTrigger/closeBtn.xml" xy="503,882"/>
   </displayList>
 </component>

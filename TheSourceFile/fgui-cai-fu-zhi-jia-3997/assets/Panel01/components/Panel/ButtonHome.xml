@@ -2,7 +2,7 @@
 <component size="90,55" pivot="0.5,0.5" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n0_u8to" name="n0" src="u8to1y" fileName="images/setPanel/pb_img_red.png" xy="0,0">
+    <image id="n0_u8to" name="n0" src="hm6e4v" fileName="images/setPanel/pb_img_red.png" xy="0,0">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
   </displayList>

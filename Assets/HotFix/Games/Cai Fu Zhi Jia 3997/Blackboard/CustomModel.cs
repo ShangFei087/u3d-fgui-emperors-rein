@@ -65,93 +65,93 @@ namespace CaiFuZhiJia_3997
 
         public Dictionary<string, string> symbolIcon => new Dictionary<string, string>()
         {
-            { "0", "ui://CaiFuZhiJia/ng_sym01_gold" }, // 金砖
-            { "1", "ui://CaiFuZhiJia/ng_sym02_silver" }, // 银砖
-            { "2", "ui://CaiFuZhiJia/ng_sym03_bar" }, // 一堆金砖
-            { "3", "ui://CaiFuZhiJia/ng_sym04_watch" }, // 怀表
-            { "4", "ui://CaiFuZhiJia/ng_sym05_dollar" }, // 纸币
-            { "5", "ui://CaiFuZhiJia/ng_sym06_ring" }, // 钻戒
-            { "6", "ui://CaiFuZhiJia/ng_sym07_car" }, // 跑车
-            { "7", "ui://CaiFuZhiJia/ng_sym08_ships" }, // 游艇
-            { "8", "ui://CaiFuZhiJia/ng_sym09_planes" }, // 飞机
-            { "9", "ui://CaiFuZhiJia/ng_sym10_wild" }, // WILD
-            { "10", "ui://CaiFuZhiJia/ng_sym11_scatter" }, // Scatter
-            { "11", "ui://CaiFuZhiJia/ng_sym_bonus" }, // Bonus
+            { "0", "ui://CaiFuZhiJia/ng_sym01_gold" }, // 单条金砖
+            { "1", "ui://CaiFuZhiJia/ng_sym02_silver" }, // 堆叠银砖
+            { "2", "ui://CaiFuZhiJia/ng_sym01_bar" }, // 堆叠金砖
+            { "3", "ui://CaiFuZhiJia/ng_sym04_watch" }, // 金表
+            { "4", "ui://CaiFuZhiJia/ng_sym05_mani" }, // 美元
+            { "5", "ui://CaiFuZhiJia/ng_sym06_jezhi" }, // 传家宝戒
+            { "6", "ui://CaiFuZhiJia/ng_sym07_jiu" }, // 水晶酒瓶
+            { "7", "ui://CaiFuZhiJia/ng_sym08_yaos" }, // 豪宅钥匙
+            { "8", "ui://CaiFuZhiJia/ng_sym09_che" }, // 名贵跑车
+            { "9", "ui://CaiFuZhiJia/ng_sym10_wild_com" }, // WILD
+            { "10", "ui://CaiFuZhiJia/ng_sym11_scatter_com" }, // Scatter
+            { "11", "ui://CaiFuZhiJia/ng_sym12_bonus_com" }, // Bonus
         };
 
         public List<PayTableSymbolInfo> payTableSymbolWin { get; set; } = new List<PayTableSymbolInfo>()
         {
-            new PayTableSymbolInfo()
+            new PayTableSymbolInfo()// 单条金砖
             {
                 symbol = 0,
-                x5 = 30,
-                x4 = 10,
-                x3 = 4,
+                x5 = 90,
+                x4 = 30,
+                x3 = 15,
                 x2 = 0,
             },
-            new PayTableSymbolInfo()
+            new PayTableSymbolInfo()// 堆叠银砖
             {
                 symbol = 1,
-                x5 = 30,
-                x4 = 10,
-                x3 = 4,
+                x5 = 90,
+                x4 = 30,
+                x3 = 15,
                 x2 = 0,
             },
-            new PayTableSymbolInfo()
+            new PayTableSymbolInfo()// 堆叠金砖
             {
                 symbol = 2,
-                x5 = 30,
-                x4 = 10,
-                x3 = 4,
+                x5 = 90,
+                x4 = 30,
+                x3 = 15,
                 x2 = 0,
             },
-            new PayTableSymbolInfo()
+            new PayTableSymbolInfo()// 金表
             {
                 symbol = 3,
-                x5 = 50,
-                x4 = 20,
-                x3 = 6,
+                x5 = 150,
+                x4 = 60,
+                x3 = 20,
                 x2 = 0,
             },
-            new PayTableSymbolInfo()
+            new PayTableSymbolInfo()// 美元
             {
                 symbol = 4,
-                x5 = 50,
-                x4 = 20,
-                x3 = 6,
+                x5 = 175,
+                x4 = 70,
+                x3 = 25,
                 x2 = 0,
             },
-            new PayTableSymbolInfo()
+            new PayTableSymbolInfo()// 传家宝戒
             {
                 symbol = 5,
-                x5 = 200,
-                x4 = 40,
-                x3 = 10,
-                x2 = 4,
+                x5 = 600,
+                x4 = 150,
+                x3 = 30,
+                x2 = 15,
             },
-            new PayTableSymbolInfo()
+            new PayTableSymbolInfo()// 水晶酒瓶
             {
                 symbol = 6,
-                x5 = 200,
-                x4 = 40,
-                x3 = 10,
-                x2 = 4,
+                x5 = 600,
+                x4 = 150,
+                x3 = 30,
+                x2 = 15,
             },
-            new PayTableSymbolInfo()
+            new PayTableSymbolInfo()// 豪宅钥匙
             {
                 symbol = 7,
-                x5 = 500,
-                x4 = 400,
-                x3 = 20,
-                x2 = 6,
+                x5 = 1500,
+                x4 = 600,
+                x3 = 60,
+                x2 = 20,
             },
-            new PayTableSymbolInfo()
+            new PayTableSymbolInfo()// 名贵跑车
             {
                 symbol = 8,
-                x5 = 1000,
-                x4 = 800,
-                x3 = 40,
-                x2 = 8,
+                x5 = 3000,
+                x4 = 1500,
+                x3 = 300,
+                x2 = 30,
             },
             new PayTableSymbolInfo() // wild
             {

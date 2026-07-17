@@ -23,7 +23,7 @@ namespace FeiZhouHeiXingXing_3994
 
     public class MachineDataController3994 : MonoSingleton<MachineDataController3994>
     {
-         private enum OpenType
+        private enum OpenType
         {
             OT_Normal,
             OT_Give,
@@ -43,54 +43,72 @@ namespace FeiZhouHeiXingXing_3994
         private SpinDataType _nextSpinType = SpinDataType.None;
         private Queue<string> _currentDataQueue = new Queue<string>();
 
-        private readonly Dictionary<SpinDataType, List<string>> _spinDataDic = new Dictionary<SpinDataType, List<string>>()
-        {
-            [SpinDataType.AlwaysWin] = new List<string>()
+        private readonly Dictionary<SpinDataType, List<string>> _spinDataDic =
+            new Dictionary<SpinDataType, List<string>>()
             {
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Win_0.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Win_1.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Win_2.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Win_3.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Win_4.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Win_5.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Win_6.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Win_7.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Win_8.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Win_9.json",
-            },
-            [SpinDataType.Normal] = new List<string>()
-            {
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Normal_0.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Normal_1.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Normal_2.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Normal_3.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Normal_4.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Normal_5.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Normal_6.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Normal_7.json",
-            },
-            [SpinDataType.FreeSpin] = new List<string>()
-            {
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__freeTrigger.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_1.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_2.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_3.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_4.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_5.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_6.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_7.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_8.json",
-            },
-            [SpinDataType.BonusSpin] = new List<string>() { "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__bonusTrigger.json", "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__jackpotTrigger.json", },
-            [SpinDataType.BigWin] = new List<string>() { "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__bigWin.json", "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__supperWin.json", "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__megaWin.json", },
-        };
+                [SpinDataType.AlwaysWin] = new List<string>()
+                {
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_0.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_1.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_2.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_3.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_4.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_5.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_6.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_7.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_8.json",
+                },
+                [SpinDataType.Normal] = new List<string>()
+                {
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_0.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_1.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_2.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_3.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_4.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_5.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_6.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_7.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_8.json",
+                },
+                [SpinDataType.FreeSpin] = new List<string>()
+                {
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
+                    "__slot_spin__freeTrigger.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_0.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_1.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_2.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_3.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_4.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_5.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_6.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_7.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_8.json",
+                },
+                [SpinDataType.BonusSpin] =
+                    new List<string>()
+                    {
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
+                        "__slot_spin__bonusTrigger.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
+                        "__slot_spin__jackpotTrigger.json",
+                    },
+                [SpinDataType.BigWin] = new List<string>()
+                {
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
+                    "__slot_spin__bigWin.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
+                    "__slot_spin__supperWin.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
+                    "__slot_spin__megaWin.json",
+                },
+            };
 
         private void OnEnable()
         {
@@ -118,13 +136,16 @@ namespace FeiZhouHeiXingXing_3994
             };
         }
 
-        public void RequestSlotSpinFromMock(long totalBet, Action<JSONNode> successCallback, Action<BagelCodeError> errorCallback)
+        public void RequestSlotSpinFromMock(long totalBet, Action<JSONNode> successCallback,
+            Action<BagelCodeError> errorCallback)
         {
             Timer.DelayAction(0.2f, () =>
             {
                 if (_currentDataQueue.Count == 0)
                 {
-                    List<string> target = _nextSpinType != SpinDataType.None ? _spinDataDic[_nextSpinType] : _spinDataDic[SpinDataType.Normal];
+                    List<string> target = _nextSpinType != SpinDataType.None
+                        ? _spinDataDic[_nextSpinType]
+                        : _spinDataDic[SpinDataType.Normal];
                     _nextSpinType = SpinDataType.None;
                     _currentDataQueue = new Queue<string>(target);
                 }
@@ -173,14 +194,293 @@ namespace FeiZhouHeiXingXing_3994
             if (ContentModel.Instance.PendingFreeSpinReconnectValidation)
             {
                 ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
-                bool expectGiveSpin = ContentModel.Instance.FreeSpinTotalTimes > 0 && ContentModel.Instance.FreeSpinPlayTimes < ContentModel.Instance.FreeSpinTotalTimes;
+                bool expectGiveSpin = ContentModel.Instance.FreeSpinTotalTimes > 0 &&
+                                      ContentModel.Instance.FreeSpinPlayTimes <
+                                      ContentModel.Instance.FreeSpinTotalTimes;
                 if (expectGiveSpin && openType != (int)OpenType.OT_Give)
                 {
-                    DebugUtils.LogError($"[G3994] 免费局重连校验失败：预期赠送局 OpenType={(int)OpenType.OT_Give}，实际={openType}。已清除本地快照并回退主游戏。");
+                    DebugUtils.LogError(
+                        $"[G3994] 免费局重连校验失败：预期赠送局 OpenType={(int)OpenType.OT_Give}，实际={openType}。已清除本地快照并回退主游戏。");
                     FreeSpinSessionStoreG3994.Clear(SBoxModel.Instance.pid);
                     FreeSpinSessionStoreG3994.ResetContentModelFreeStateToBaseGame();
                 }
             }
+
+            int resultType = (int)res["ResultType"];
+            int lineNum = (int)res["lineNum"];
+            int totalwin = (int)res["TotalBet"];
+            string jpBetArray = res["JPBetArray"].ToString();
+            string jPTypeArray = res["JPTypeArray"].ToString();
+            int matrixLength = (int)res["MatrixLength"];
+            int bonusBet = (int)res["BonusBet"];
+            int totalJackpotBet = (int)res["TotalJackpotBet"];
+            string matrixArray = res["Matrix"].ToString();
+            string bonusData = res["BonusData"].ToString();
+            int rows = CustomModel.Instance.row; // 3行
+            int cols = CustomModel.Instance.column; // 5列
+            int wheelChessNum = rows * cols;
+            List<SymbolInclude> symbolInclude = new List<SymbolInclude>();
+            string strDeckRowCol = "";
+            int totalLineWin = 0;
+            int lineWin = 0;
+            List<SymbolWin> winList = new List<SymbolWin>();
+            JackpotRes jpGameRes = new JackpotRes();
+
+            //判断普通奖
+            for (int row = 0; row < rows; row++)
+            {
+                for (int col = 0; col < cols; col++)
+                {
+                    int index = row * cols + col;
+                    strDeckRowCol += res["Matrix"][index].Value;
+
+                    if (col < cols - 1)
+                    {
+                        strDeckRowCol += ","; // 列之间用逗号分隔
+                    }
+                }
+
+                if (row < rows - 1)
+                {
+                    strDeckRowCol += "#"; // 行之间用#号分隔
+                }
+            }
+
+            ContentModel.Instance.strDeckRowCol = strDeckRowCol;
+            Debug.LogError("strDeckRowCol: " + strDeckRowCol);
+
+            //IDVec 
+            for (int i = 0; i < lineNum; i++)
+            {
+                //-IDVec:万千位标识线， 百位标识消除多少个， 十个位标识ID。
+                int ID = (int)res["IDVec"][i];
+
+                int symbolNumber = ID % 100; // 十个位：Symbol ID
+                int hitCount = (ID / 100) % 10; // 百位：消除数量（WinCount）
+                int lineNumber = ID / 1000; // 万千位：线编号
+
+                int lineIndex = lineNumber;
+                int[] lineInfo = CustomModel.Instance.payLines[lineIndex].ToArray();
+                List<Cell> cells = new List<Cell>();
+
+                for (int c = 0; c < hitCount; c++)
+                {
+                    int rowIdx = lineInfo[c];
+                    int colIdx = c;
+                    cells.Add(new Cell(colIdx, rowIdx));
+                }
+
+                lineWin = GetLineOdds(symbolNumber, hitCount) * MainModel.Instance.contentMD.betmultiple;
+
+                SymbolWin sw = new SymbolWin()
+                {
+                    earnCredit = lineWin,
+                    multiplier = MainModel.Instance.contentMD.betmultiple,
+                    lineNumber = lineNumber,
+                    symbolNumber = symbolNumber,
+                    cells = cells,
+                };
+                winList.Add(sw);
+
+                totalLineWin += lineWin;
+            }
+
+            ContentModel.Instance.winList = winList;
+            ContentModel.Instance.baseGameWinCredit = totalLineWin;
+            //检查算法结果
+            CheckGameResult(strDeckRowCol, totalwin, isInFreeSpin);
+
+            //判断彩金
+            bool isJackpotMajor = sBoxJackpotData == null
+                ? false
+                : (sBoxJackpotData.Lottery != null && sBoxJackpotData.Lottery.Length > 0
+                    ? sBoxJackpotData.Lottery[0] == 1
+                    : false);
+            bool isJackpotMinor = sBoxJackpotData == null
+                ? false
+                : (sBoxJackpotData.Lottery != null && sBoxJackpotData.Lottery.Length > 1
+                    ? sBoxJackpotData.Lottery[1] == 1
+                    : false);
+            bool isJackpotMini = sBoxJackpotData == null
+                ? false
+                : (sBoxJackpotData.Lottery != null && sBoxJackpotData.Lottery.Length > 2
+                    ? sBoxJackpotData.Lottery[2] == 1
+                    : false);
+
+            jpGameRes.curJackpotMajor = sBoxJackpotData != null && sBoxJackpotData.JackpotOut.Length >= 0
+                ? sBoxJackpotData.JackpotOut[0]
+                : 0;
+            jpGameRes.curJackpotMinior = sBoxJackpotData != null && sBoxJackpotData.JackpotOut.Length >= 1
+                ? sBoxJackpotData.JackpotOut[1]
+                : 0;
+            jpGameRes.curJackpotMini = sBoxJackpotData != null && sBoxJackpotData.JackpotOut.Length >= 2
+                ? sBoxJackpotData.JackpotOut[2]
+                : 0;
+            ContentModel.Instance.jpGameRes = jpGameRes;
+
+            if (isJackpotMajor)
+            {
+                int winCredit = (int)res["num"];
+                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
+                {
+                    name = "major",
+                    id = 1,
+                    winCredit = sBoxJackpotData.Jackpotlottery[1],
+                    whenCredit = sBoxJackpotData.JackpotOld[1],
+                    curCredit = sBoxJackpotData.JackpotOut[1],
+                });
+            }
+
+            if (isJackpotMinor)
+            {
+                int winCredit = (int)res["num"];
+                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
+                {
+                    name = "minor",
+                    id = 1,
+                    winCredit = sBoxJackpotData.Jackpotlottery[1],
+                    whenCredit = sBoxJackpotData.JackpotOld[1],
+                    curCredit = sBoxJackpotData.JackpotOut[1],
+                });
+            }
+
+            if (isJackpotMini)
+            {
+                int winCredit = (int)res["num"];
+                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
+                {
+                    name = "mini",
+                    id = 1,
+                    winCredit = sBoxJackpotData.Jackpotlottery[2],
+                    whenCredit = sBoxJackpotData.JackpotOld[2],
+                    curCredit = sBoxJackpotData.JackpotOut[2],
+                });
+            }
+
+            List<int> deckRowCol = SlotTool.GetDeckRowCol(strDeckRowCol);
+            int wild = CustomModel.Instance.symbolNumber[9];
+            int scatter = CustomModel.Instance.symbolNumber[10];
+            const int bonus = 11;
+
+            //判断免费奖
+            if (CustomModel.Instance.FreeGameConfig.IsHasFreeGame &&
+                !CustomModel.Instance.FreeGameConfig.IsScatterInLine)
+            {
+                int scatterCount = 0;
+                bool isFree = false;
+                int freeTime = 0;
+                for (int i = 0; i < wheelChessNum; ++i)
+                {
+                    if (deckRowCol[i] == scatter)
+                    {
+                        scatterCount += 1;
+                    }
+                }
+
+                for (int i = 0; i < CustomModel.Instance.FreeGameConfig.Make2FreeGameCount.Length; ++i)
+                {
+                    if (scatterCount < CustomModel.Instance.FreeGameConfig.Make2FreeGameCount[i])
+                        continue;
+
+                    isFree = true;
+                    freeTime = CustomModel.Instance.FreeGameConfig.FreeGameTime[i];
+                }
+
+                if (resultType == (int)ResultType.RT_FreeWin && isFree && (freeTime == (int)res["TotalFreeTime"]))
+                {
+                    int totalFreeTime = (int)res["TotalFreeTime"];
+                    ContentModel.Instance.curReelStripsIndex = "BS";
+                    ContentModel.Instance.nextReelStripsIndex = "FS";
+                    ContentModel.Instance.isFreeSpinTrigger = true;
+                    ContentModel.Instance.FreeSpinTotalTimes = totalFreeTime;
+                    ContentModel.Instance.FreeSpinPlayTimes = 0;
+                    ContentModel.Instance.freeSpinTotalWinCoins = 0;
+
+                    // 立即更新剩余次数显示 修改代码
+                    ContentModel.Instance.ShowFreeSpinRemainTime = totalFreeTime;
+                }
+            }
+
+            // 判断赠送局
+            if (isInFreeSpin)
+            {
+                // 验证OpenType是否为赠送局
+                if (openType != (int)OpenType.OT_Give)
+                    DebugUtils.LogError($"[G3997][CheckOpenType] 校验不一致，当前处于免费游戏但OpenType={openType}");
+
+                ContentModel.Instance.curReelStripsIndex = "FS";
+                ContentModel.Instance.FreeSpinPlayTimes += 1;
+                ContentModel.Instance.freeSpinTotalWinCoins += totalLineWin;
+
+                // 更新剩余次数显示
+                ContentModel.Instance.ShowFreeSpinRemainTime = ContentModel.Instance.FreeSpinTotalTimes -
+                                                               ContentModel.Instance.FreeSpinPlayTimes;
+                // 判断是否是最后一局免费游戏
+                ContentModel.Instance.nextReelStripsIndex =
+                    ContentModel.Instance.FreeSpinPlayTimes == ContentModel.Instance.FreeSpinTotalTimes ? "BS" : "FS";
+                // 判断免费游戏结束
+                ContentModel.Instance.isFreeSpinFinish = ContentModel.Instance.curReelStripsIndex == "FS" &&
+                                                         ContentModel.Instance.nextReelStripsIndex == "BS";
+            }
+
+            // 判断大奖
+            if (CustomModel.Instance.BonusGameConfig.IsHasBonusGame &&
+                !CustomModel.Instance.BonusGameConfig.IsBonusInLine)
+            {
+                int bonusCount = 0;
+                bool isBonus = false;
+
+                for (int i = 0; i < wheelChessNum; ++i)
+                {
+                    if (deckRowCol[i] == bonus)
+                    {
+                        bonusCount += 1;
+                    }
+
+                    Debug.Log(deckRowCol[i]);
+                }
+
+                if (bonusCount >= CustomModel.Instance.BonusGameConfig.Make2BonusGameCount)
+                    isBonus = true;
+
+                if ((resultType == (int)ResultType.RT_BonusWin || resultType == (int)ResultType.RT_Jackpot) &&
+                    isBonus) // 中彩金奖
+                {
+                    ContentModel.Instance.isSmallGameTrigger = true;
+                }
+
+                if ((resultType == (int)ResultType.RT_BonusWin || resultType == (int)ResultType.RT_Jackpot) && !isBonus)
+                {
+                    DebugUtils.LogError(
+                        $"[G3994][CheckBonus] 校验不一致，算法回ResultType={resultType} ，本地计算isBonus={isBonus}");
+                }
+            }
+
+            //赢分
+            long creditAfter = 0, creditBefore = MainBlackboardController.Instance.myRealCredit;
+            if (ContentModel.Instance.isSmallGameTrigger)
+                creditAfter = creditBefore + bonusBet - totalBet + totalJackpotBet;
+            else if (ContentModel.Instance.isFreeSpinTrigger || ContentModel.Instance.isFreeSpin)
+            {
+                // 免费游戏只有第一次需要扣积分
+                if (ContentModel.Instance.FreeSpinPlayTimes == 0)
+                    creditAfter = creditBefore + totalLineWin - totalBet;
+                else
+                    creditAfter = creditBefore + totalLineWin;
+            }
+            else if (!ContentModel.Instance.isFreeSpinTrigger && !ContentModel.Instance.isFreeSpin)
+                creditAfter = creditBefore - totalBet + totalLineWin;
+
+            ContentModel.Instance.isReelsSlowMotion = true;
+
+            // 记录游戏数据到数据库（与上方分支结算的 creditBefore/creditAfter 一致）
+            Record(totalBet, res, creditBefore, creditAfter);
+            MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
+
+            DebugUtils.Log(
+                $"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple}    玩家真实金币={creditAfter}");
+
+            FreeSpinSessionStoreG3994.TryPersistOrClearSession();
         }
 
         private void CheckGameResult(string strDeckRowCol, int totalWin, bool isInFreeSpin)
@@ -254,14 +554,11 @@ namespace FeiZhouHeiXingXing_3994
                     if (lineOdds > 0)
                     {
                         calcTotalWin += lineOdds; // 累加本地计算总赢分
-                        Debug.Log("当前中奖线：" + i + "   中奖图标：" + firstSymbolType + "   中奖个数：" + hitCount + "  中奖得分：" +
-                                  lineOdds);
+                        Debug.LogError("当前中奖线：" + i + "   中奖图标：" + firstSymbolType + "   中奖个数：" + hitCount + "  中奖得分：" +
+                                       lineOdds);
                     }
                 }
             }
-
-            // if (isInFreeSpin)
-            //     calcTotalWin *= ContentModel.Instance.freeGameScoreMultiply;
 
             int diff = Math.Abs(calcTotalWin - totalWin); // 计算本地校验值与算法差值
             if (diff != 0)
@@ -306,7 +603,9 @@ namespace FeiZhouHeiXingXing_3994
             gameSceneData.reportId = MainModel.Instance.reportId;
             gameSceneData.timeS = ContentModel.Instance.curGameCreatTimeMS / 1000;
             gameSceneData.gameNumber = MainModel.Instance.gameNumber;
-            gameSceneData.gameNumberFreeSpinTrigger = ContentModel.Instance.isFreeSpin ? ContentModel.Instance.gameNumberFreeSpinTrigger : 0;
+            gameSceneData.gameNumberFreeSpinTrigger = ContentModel.Instance.isFreeSpin
+                ? ContentModel.Instance.gameNumberFreeSpinTrigger
+                : 0;
             gameSceneData.isFreeSpin = ContentModel.Instance.isFreeSpin;
             gameSceneData.freeSpinAddNum = ContentModel.Instance.freeSpinAddNum;
             gameSceneData.curStripsIndex = ContentModel.Instance.curReelStripsIndex;
@@ -374,15 +673,17 @@ namespace FeiZhouHeiXingXing_3994
             // 场景数据存入数据库
             slotGameRecordItem.scene = JsonConvert.SerializeObject(gameSceneData);
 
-            //// 删除旧表
-            //string dropSql = $"DROP TABLE IF EXISTS {ConsoleTableName.TABLE_SLOT_GAME_RECORD}";
-            //SQLiteHelper.Instance.ExecuteNonQuery(dropSql);
-            //// 重建表
-            //string createSql = SQLiteHelper.SQLCreateTable<TableSlotGameRecordItem>(ConsoleTableName.TABLE_SLOT_GAME_RECORD);
-            //SQLiteHelper.Instance.ExecuteNonQuery(createSql);
+            // 删除旧表
+            string dropSql = $"DROP TABLE IF EXISTS {ConsoleTableName.TABLE_SLOT_GAME_RECORD}";
+            SQLiteHelper.Instance.ExecuteNonQuery(dropSql);
+            // 重建表
+            string createSql =
+                SQLiteHelper.SQLCreateTable<TableSlotGameRecordItem>(ConsoleTableName.TABLE_SLOT_GAME_RECORD);
+            SQLiteHelper.Instance.ExecuteNonQuery(createSql);
 
             // 插入数据
-            string sql = SQLiteAsyncHelper.SQLInsertTableData(ConsoleTableName.TABLE_SLOT_GAME_RECORD, slotGameRecordItem);
+            string sql =
+                SQLiteAsyncHelper.SQLInsertTableData(ConsoleTableName.TABLE_SLOT_GAME_RECORD, slotGameRecordItem);
             SQLiteAsyncHelper.Instance.ExecuteNonQueryAsync(sql);
         }
     }

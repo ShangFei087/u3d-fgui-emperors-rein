@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="373,117">
+<component size="384,117">
   <displayList>
-    <image id="n0_u8to" name="n0" src="u8to33" fileName="images/common/gameJackpots/ng_frame_minor.png" xy="0,43"/>
-    <list id="n2_u8to" name="n1" xy="20,57" size="328,43" layout="row" overflow="scroll" defaultItem="ui://92trhum6u8to3a" align="center" vAlign="middle">
+    <image id="n0_u8to" name="n0" src="hm6e8l" fileName="images/common/gameJackpots/sg_frame_minor.png" xy="0,43"/>
+    <list id="n2_u8to" name="n1" xy="28,58" size="328,43" layout="row" overflow="scroll" defaultItem="ui://92trhum6u8to3a" align="center" vAlign="middle">
       <item/>
       <item/>
       <item/>
@@ -16,6 +16,6 @@
       <item/>
       <item/>
     </list>
-    <image id="n1_u8to" name="n2" src="u8to36" fileName="images/common/gameJackpots/ng_txt_minor_1(1).png" xy="188,16" pivot="0.5,0.5" anchor="true"/>
+    <image id="n1_u8to" name="n2" src="hm6e8o" fileName="images/common/gameJackpots/sg_txt_minor.png" xy="192,19" pivot="0.5,0.5" anchor="true"/>
   </displayList>
 </component>

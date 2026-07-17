@@ -57,6 +57,7 @@ namespace CaiFuZhiJia_3997
         private TimerCallback _autoClickCallback;
 
         private bool _isClicked = false;
+        private EventData _openData;
 
         protected override void OnInit()
         {
@@ -116,6 +117,7 @@ namespace CaiFuZhiJia_3997
 
         private void InitParam(EventData eventData)
         {
+            if (eventData != null) _openData = eventData;
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
@@ -208,7 +210,7 @@ namespace CaiFuZhiJia_3997
             } // freeStartBtn 按钮
 
             _freeStartBtn.onClick.Clear();
-            _freeStartBtn.onClick.Add(() => OnClickSpinButton(null));
+            _freeStartBtn.onClick.Add(() => OnClickSpinButton(_openData));
 
             if (TestManager.Instance.IsAutoModeRunning)
             {
@@ -240,6 +242,11 @@ namespace CaiFuZhiJia_3997
 
             _delayCloseCallback = (obj) =>
             {
+                if (eventData is { value: Dictionary<string, object> args })
+                {
+                    Action changePage = args["changeNormalPage"] as Action;
+                    changePage?.Invoke();
+                }
                 if (_cloneDollarSpineObj != null) _cloneDollarSpineObj.SetActive(false);
                 if (isOpen) CloseSelf(null);
                 _delayCloseCallback = null;

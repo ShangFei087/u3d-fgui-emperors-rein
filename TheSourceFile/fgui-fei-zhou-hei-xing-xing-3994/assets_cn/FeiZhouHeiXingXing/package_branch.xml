@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<branchDescription/>
+<branchDescription>
+  <resources>
+    <image id="is8l4g" name="fg_txt_free spin.png" path="/images/common/gameBorder/free/"/>
+    <image id="qrjm4w" name="ng_txt_major.png" path="/images/common/gameJackpot/" exported="true"/>
+    <image id="qrjm4x" name="ng_txt_mini.png" path="/images/common/gameJackpot/" exported="true"/>
+    <image id="qrjm4y" name="ng_txt_minor.png" path="/images/common/gameJackpot/" exported="true"/>
+  </resources>
+</branchDescription>

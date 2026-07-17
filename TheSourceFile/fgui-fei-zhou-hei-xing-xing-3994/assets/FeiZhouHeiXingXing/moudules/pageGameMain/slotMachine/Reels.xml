@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="975,543" overflow="hidden">
+  <displayList>
+    <component id="n0_pbvu" name="reel1" src="pbvu2j" fileName="moudules/pageGameMain/slotMachine/Reel.xml" xy="0,0"/>
+    <component id="n1_pbvu" name="reel2" src="pbvu2j" fileName="moudules/pageGameMain/slotMachine/Reel.xml" xy="195,0"/>
+    <component id="n2_pbvu" name="reel3" src="pbvu2j" fileName="moudules/pageGameMain/slotMachine/Reel.xml" xy="390,0"/>
+    <component id="n3_pbvu" name="reel4" src="pbvu2j" fileName="moudules/pageGameMain/slotMachine/Reel.xml" xy="585,0"/>
+    <component id="n4_pbvu" name="reel5" src="pbvu2j" fileName="moudules/pageGameMain/slotMachine/Reel.xml" xy="780,0"/>
+  </displayList>
+</component>
