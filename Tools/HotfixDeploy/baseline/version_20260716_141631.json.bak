@@ -1,7 +1,7 @@
 {
-  "updated_at": 1784182577023,
+  "updated_at": 1784166071492,
   "hotfix_key": "hf_debug_android_20260630161224",
-  "hotfix_version": "1.2.59",
+  "hotfix_version": "1.2.58",
   "asset_bundle": {
     "manifest": {
       "hash": "ea71049be49b350a33985208e8f52f19",
@@ -938,7 +938,7 @@
       "size_bytes": 169984
     },
     "HotFix": {
-      "hash": "ee6d9893444a4214cce5f5b41aa98787",
+      "hash": "e75882116c49f03af9ee16152f0188cf",
       "size_bytes": 2076672
     }
   },
