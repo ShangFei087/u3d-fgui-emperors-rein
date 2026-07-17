@@ -25,6 +25,7 @@
     <component id="n8_o8uc" name="slotMachine" src="o8uco" fileName="moudules/slotMachine/SlotMachine.xml" xy="59,1044" size="970,582" group="n9_o8uc">
       <relation target="n10_o8uc" sidePair="center-center,middle-middle"/>
     </component>
+    <component id="n68_q30q" name="smallGameReels" src="q30qe2" fileName="moudules/slotMachine/smallGameReels.xml" xy="59,1044" group="n9_o8uc"/>
     <component id="n3_pjjx" name="slotMachineBG" src="pjjxk" fileName="moudules/slotMachine/SlotMachineBG.xml" xy="-18,936" size="1118,770" group="n9_o8uc"/>
     <group id="n9_o8uc" name="slot" xy="-18,936" size="1118,770"/>
     <component id="n5_fkjs" name="anchorFrame" src="fkjsm" fileName="component/AnchorEffect.xml" xy="541,1319"/>
@@ -132,7 +133,6 @@
     <item time="0" type="Alpha" target="n59_baxv" value="1"/>
     <item time="0" type="Alpha" target="n5_fkjs" value="1"/>
     <item time="0" type="Alpha" target="n7_fkjs" value="0"/>
-    <item time="0" type="Alpha" target="n8_o8uc" value="1"/>
     <item time="0" type="Visible" target="n10_o8uc" value="true"/>
     <item time="0" type="Visible" target="n21_o8uc" value="true"/>
     <item time="0" type="Visible" target="n59_baxv" value="true"/>
@@ -141,6 +141,8 @@
     <item time="0" type="Visible" target="n65_znm9" value="false"/>
     <item time="0" type="Visible" target="n66_znm9" value="true"/>
     <item time="0" type="Visible" target="n67_iilz" value="false"/>
+    <item time="0" type="Visible" target="n68_q30q" value="false"/>
+    <item time="0" type="Visible" target="n8_o8uc" value="true"/>
     <item time="0" type="XY" target="n47_9mnq" value="1650,980"/>
   </transition>
   <transition name="FS">
@@ -183,6 +185,7 @@
     <item time="0" type="Visible" target="n65_znm9" value="true"/>
     <item time="0" type="Visible" target="n66_znm9" value="false"/>
     <item time="0" type="Visible" target="n67_iilz" value="false"/>
+    <item time="0" type="Visible" target="n68_q30q" value="false"/>
     <item time="0" type="XY" target="n47_9mnq" value="540,980"/>
   </transition>
   <transition name="BSToFSTransform">
@@ -323,6 +326,8 @@
     <item time="0" type="Visible" target="n61_baxv" value="false"/>
     <item time="0" type="Visible" target="n65_znm9" value="false"/>
     <item time="0" type="Visible" target="n67_iilz" value="true"/>
+    <item time="0" type="Visible" target="n68_q30q" value="true"/>
+    <item time="0" type="Visible" target="n8_o8uc" value="false"/>
   </transition>
   <transition name="JSToBSTransform">
     <item time="0" type="Visible" target="n21_o8uc" value="true"/>

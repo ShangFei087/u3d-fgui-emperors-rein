@@ -216,7 +216,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ICollection<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.Generic.ICollection<Loom.DelayedQueueItem>
 	// System.Collections.Generic.ICollection<Loom.NoDelayedQueueItem>
-	// System.Collections.Generic.ICollection<PagSegment>
 	// System.Collections.Generic.ICollection<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,byte>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,float>>
@@ -269,7 +268,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.Generic.IEnumerable<Loom.DelayedQueueItem>
 	// System.Collections.Generic.IEnumerable<Loom.NoDelayedQueueItem>
-	// System.Collections.Generic.IEnumerable<PagSegment>
 	// System.Collections.Generic.IEnumerable<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<System.Guid,object>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,byte>>
@@ -304,7 +302,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerator<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.Generic.IEnumerator<Loom.DelayedQueueItem>
 	// System.Collections.Generic.IEnumerator<Loom.NoDelayedQueueItem>
-	// System.Collections.Generic.IEnumerator<PagSegment>
 	// System.Collections.Generic.IEnumerator<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<System.Guid,object>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,byte>>
@@ -486,6 +483,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectEqualityComparer<ushort>
 	// System.Collections.Generic.Queue.Enumerator<object>
 	// System.Collections.Generic.Queue<object>
+	// System.Collections.Generic.Stack.Enumerator<object>
+	// System.Collections.Generic.Stack<object>
 	// System.Collections.ObjectModel.ReadOnlyCollection<GameMaker.SlotGameRecordExport.SlotGameRecordCsvRow>
 	// System.Collections.ObjectModel.ReadOnlyCollection<GameMaker.SlotGameRecordExport.SlotGameRecordSummaryMetric>
 	// System.Collections.ObjectModel.ReadOnlyCollection<Loom.DelayedQueueItem>
@@ -525,7 +524,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Converter<object,object>
 	// System.EventHandler<object>
 	// System.Func<Loom.DelayedQueueItem,byte>
-	// System.Func<PagSegment,byte>
 	// System.Func<System.Guid,object,object>
 	// System.Func<System.Guid,object>
 	// System.Func<System.Threading.Tasks.VoidTaskResult>
@@ -533,18 +531,18 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Func<int,byte>
 	// System.Func<int,float>
 	// System.Func<int,object>
-	// System.Func<object,PagSegment>
+	// System.Func<long,byte>
 	// System.Func<object,System.Nullable<byte>>
 	// System.Func<object,System.Threading.Tasks.VoidTaskResult>
 	// System.Func<object,byte>
 	// System.Func<object,float>
 	// System.Func<object,int,object>
 	// System.Func<object,int>
+	// System.Func<object,long>
 	// System.Func<object,object,object>
 	// System.Func<object,object>
 	// System.Func<object>
 	// System.Func<ushort,byte>
-	// System.Linq.Buffer<PagSegment>
 	// System.Linq.Buffer<int>
 	// System.Linq.Buffer<object>
 	// System.Linq.Enumerable.<SelectIterator>d__5<object,object>
@@ -552,25 +550,25 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Linq.Enumerable.<TakeIterator>d__25<int>
 	// System.Linq.Enumerable.<TakeIterator>d__25<object>
 	// System.Linq.Enumerable.Iterator<Loom.DelayedQueueItem>
-	// System.Linq.Enumerable.Iterator<PagSegment>
 	// System.Linq.Enumerable.Iterator<int>
+	// System.Linq.Enumerable.Iterator<long>
 	// System.Linq.Enumerable.Iterator<object>
 	// System.Linq.Enumerable.WhereArrayIterator<Loom.DelayedQueueItem>
 	// System.Linq.Enumerable.WhereArrayIterator<object>
 	// System.Linq.Enumerable.WhereEnumerableIterator<Loom.DelayedQueueItem>
-	// System.Linq.Enumerable.WhereEnumerableIterator<PagSegment>
 	// System.Linq.Enumerable.WhereEnumerableIterator<int>
+	// System.Linq.Enumerable.WhereEnumerableIterator<long>
 	// System.Linq.Enumerable.WhereEnumerableIterator<object>
 	// System.Linq.Enumerable.WhereListIterator<Loom.DelayedQueueItem>
 	// System.Linq.Enumerable.WhereListIterator<object>
-	// System.Linq.Enumerable.WhereSelectArrayIterator<object,PagSegment>
 	// System.Linq.Enumerable.WhereSelectArrayIterator<object,int>
+	// System.Linq.Enumerable.WhereSelectArrayIterator<object,long>
 	// System.Linq.Enumerable.WhereSelectArrayIterator<object,object>
-	// System.Linq.Enumerable.WhereSelectEnumerableIterator<object,PagSegment>
 	// System.Linq.Enumerable.WhereSelectEnumerableIterator<object,int>
+	// System.Linq.Enumerable.WhereSelectEnumerableIterator<object,long>
 	// System.Linq.Enumerable.WhereSelectEnumerableIterator<object,object>
-	// System.Linq.Enumerable.WhereSelectListIterator<object,PagSegment>
 	// System.Linq.Enumerable.WhereSelectListIterator<object,int>
+	// System.Linq.Enumerable.WhereSelectListIterator<object,long>
 	// System.Linq.Enumerable.WhereSelectListIterator<object,object>
 	// System.Linq.EnumerableSorter<int,float>
 	// System.Linq.EnumerableSorter<int>
@@ -660,6 +658,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object Newtonsoft.Json.Linq.JToken.ToObject<object>()
 		// object System.Activator.CreateInstance<object>()
 		// object[] System.Array.ConvertAll<object,object>(object[],System.Converter<object,object>)
+		// PagSegment[] System.Array.Empty<PagSegment>()
 		// UnityEngine.AnimatorClipInfo[] System.Array.Empty<UnityEngine.AnimatorClipInfo>()
 		// object[] System.Array.Empty<object>()
 		// ushort[] System.Array.Empty<ushort>()
@@ -680,25 +679,25 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object System.Linq.Enumerable.FirstOrDefault<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
 		// System.Linq.IOrderedEnumerable<int> System.Linq.Enumerable.OrderBy<int,float>(System.Collections.Generic.IEnumerable<int>,System.Func<int,float>)
 		// System.Linq.IOrderedEnumerable<object> System.Linq.Enumerable.OrderBy<object,float>(System.Collections.Generic.IEnumerable<object>,System.Func<object,float>)
-		// System.Collections.Generic.IEnumerable<PagSegment> System.Linq.Enumerable.Select<object,PagSegment>(System.Collections.Generic.IEnumerable<object>,System.Func<object,PagSegment>)
 		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Select<object,int>(System.Collections.Generic.IEnumerable<object>,System.Func<object,int>)
+		// System.Collections.Generic.IEnumerable<long> System.Linq.Enumerable.Select<object,long>(System.Collections.Generic.IEnumerable<object>,System.Func<object,long>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,int,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.SelectIterator<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,int,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Skip<object>(System.Collections.Generic.IEnumerable<object>,int)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.SkipIterator<object>(System.Collections.Generic.IEnumerable<object>,int)
+		// long System.Linq.Enumerable.Sum<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,long>)
 		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Take<int>(System.Collections.Generic.IEnumerable<int>,int)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Take<object>(System.Collections.Generic.IEnumerable<object>,int)
 		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.TakeIterator<int>(System.Collections.Generic.IEnumerable<int>,int)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.TakeIterator<object>(System.Collections.Generic.IEnumerable<object>,int)
-		// PagSegment[] System.Linq.Enumerable.ToArray<PagSegment>(System.Collections.Generic.IEnumerable<PagSegment>)
 		// object[] System.Linq.Enumerable.ToArray<object>(System.Collections.Generic.IEnumerable<object>)
 		// System.Collections.Generic.List<int> System.Linq.Enumerable.ToList<int>(System.Collections.Generic.IEnumerable<int>)
 		// System.Collections.Generic.List<object> System.Linq.Enumerable.ToList<object>(System.Collections.Generic.IEnumerable<object>)
 		// System.Collections.Generic.IEnumerable<Loom.DelayedQueueItem> System.Linq.Enumerable.Where<Loom.DelayedQueueItem>(System.Collections.Generic.IEnumerable<Loom.DelayedQueueItem>,System.Func<Loom.DelayedQueueItem,bool>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Where<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
-		// System.Collections.Generic.IEnumerable<PagSegment> System.Linq.Enumerable.Iterator<object>.Select<PagSegment>(System.Func<object,PagSegment>)
 		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Iterator<object>.Select<int>(System.Func<object,int>)
+		// System.Collections.Generic.IEnumerable<long> System.Linq.Enumerable.Iterator<object>.Select<long>(System.Func<object,long>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Iterator<object>.Select<object>(System.Func<object,object>)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,InOutRecordController.<WaitUntil>d__27>(System.Runtime.CompilerServices.TaskAwaiter&,InOutRecordController.<WaitUntil>d__27&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,PageBase.<WaitUntil>d__29>(System.Runtime.CompilerServices.TaskAwaiter&,PageBase.<WaitUntil>d__29&)

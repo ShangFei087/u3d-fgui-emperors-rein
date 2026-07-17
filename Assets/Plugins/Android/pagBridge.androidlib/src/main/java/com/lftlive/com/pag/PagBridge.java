@@ -232,7 +232,7 @@ public final class PagBridge {
         Log.i(TAG, "SetForceBitmapOverlayFallback: " + force);
     }
 
-    /** 0=Overlay WM 浮层；1=FGUI GPU 纹理（Spine 可盖在上层）。 */
+    /** 0=浮层模式（Overlay WM）；1=纹理模式（FGUI ExternalTexture，Spine 可盖在上层）。 */
     public static void SetRenderTarget(int mode) {
         SetRenderTarget(DEFAULT_INSTANCE, mode);
     }
@@ -397,7 +397,7 @@ public final class PagBridge {
         return completed && ok.get();
     }
 
-    /** Phase4E：登记 Native 播放列表（同尺寸 FGUI GPU）；Play 首段前调用。 */
+    /** Phase4E：登记 Native 播放列表（同尺寸纹理模式）；Play 首段前调用。 */
     public static void SetFguiGpuPlaylist(String instanceKey, String[] paths, int[] repeats) {
         final String key = normalizeKey(instanceKey);
         runOnUiSync("SetFguiGpuPlaylist instance=" + key, () -> {
@@ -437,6 +437,18 @@ public final class PagBridge {
     public static boolean IsFguiGpuPlaybackActive(String instanceKey) {
         PagOverlayManager manager = getManager(normalizeKey(instanceKey));
         return manager != null && manager.isFguiGpuPlaybackActive();
+    }
+
+    /** 当前 GPU 段播放进度 0~1；-1 表示不可用。 */
+    public static float GetFguiGpuPlaybackProgress(String instanceKey) {
+        PagOverlayManager manager = getManager(normalizeKey(instanceKey));
+        return manager != null ? manager.getFguiGpuPlaybackProgress() : -1f;
+    }
+
+    /** Phase2 A'：playlist 段切期间 Unity 侧是否应跳过 FGUI present。 */
+    public static boolean ShouldDeferFguiGpuPresent(String instanceKey) {
+        PagOverlayManager manager = getManager(normalizeKey(instanceKey));
+        return manager != null && manager.shouldDeferFguiGpuPresent();
     }
 
     public static void SetFguiGpuExternalPump(String instanceKey, boolean externalPump) {
@@ -545,6 +557,15 @@ public final class PagBridge {
         return manager.tryChainPendingAndFlushFrame0OnRenderThread(finishedProgress);
     }
 
+    /** Phase3 P0：GL tryChain/flush + glFinish 完成后由渲染线程回调，触发 Unity present。 */
+    public static void nativeNotifyGpuFlushPresentReady(String instanceKey, boolean segmentChained) {
+        final String key = normalizeKey(instanceKey);
+        PagOverlayManager manager = getManager(key);
+        if (manager != null) {
+            manager.notifyGpuFlushPresentReady(segmentChained);
+        }
+    }
+
     /** 由 Unity 渲染线程 DestroyTexture 前调用，勿改名。 */
     public static boolean nativeTeardownGpuSurfaceOnRenderThread() {
         return nativeTeardownGpuSurfaceOnRenderThread(DEFAULT_INSTANCE);
@@ -590,6 +611,30 @@ public final class PagBridge {
             PagOverlayManager manager = getManager(key);
             if (manager != null) {
                 manager.requestNextGpuFrame();
+            }
+        };
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            action.run();
+        } else {
+            sMainHandler.post(action);
+        }
+    }
+
+    /** SyncGroup 批量要帧：单次 JNI 调用，主 Looper 内顺序 requestNextGpuFrame。 */
+    public static void RequestNextGpuFrameBatch(String[] instanceKeys) {
+        if (instanceKeys == null || instanceKeys.length == 0) {
+            return;
+        }
+        Runnable action = () -> {
+            for (String instanceKey : instanceKeys) {
+                if (instanceKey == null) {
+                    continue;
+                }
+                String key = normalizeKey(instanceKey);
+                PagOverlayManager manager = getManager(key);
+                if (manager != null) {
+                    manager.requestNextGpuFrame();
+                }
             }
         };
         if (Looper.myLooper() == Looper.getMainLooper()) {

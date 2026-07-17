@@ -1,4 +1,5 @@
 
+using CaiFuZhiJia_3997;
 using FairyGUI;
 using GameMaker;
 using Newtonsoft.Json;
@@ -165,7 +166,7 @@ namespace CaiFuHuoChe_3996
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 11;
+            int count = 12;
 
             Action callback = () =>
             {
@@ -282,6 +283,14 @@ namespace CaiFuHuoChe_3996
            (GameObject clone) =>
            {
                moneyBoxPref = clone;
+               callback();
+           });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+           "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PopupGameJackpot/jackpotSpine.prefab",
+           (GameObject clone) =>
+           {
+               _jackpotHitObj = clone;
                callback();
            });
 
@@ -525,6 +534,7 @@ namespace CaiFuHuoChe_3996
             BsToFsTrans = contentPane.GetTransition("BSToFSTransform");
             FsToBsTrans = contentPane.GetTransition("FSToBSTransform");
             JsToBsTrans = contentPane.GetTransition("JSToBSTransform");
+            smallGameReels = contentPane.GetChild("smallGameReels").asCom;
             fill1 = contentPane.GetChild("fill1").asImage;
             fill2 = contentPane.GetChild("fill2").asImage;
             fill3 = contentPane.GetChild("fill3").asImage;
@@ -1172,7 +1182,8 @@ namespace CaiFuHuoChe_3996
                 PlayAnim(girlAnim, "ng_trigger sg");
                 yield return new WaitForSeconds(1.8f);
 
-                yield return jackpotSpinTrigger(() => isNext = true, errorCallback);
+                //yield return jackpotSpinTrigger(() => isNext = true, errorCallback);
+                yield return SmallGameTrigger(() => isNext = true);
 
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
@@ -2668,5 +2679,564 @@ namespace CaiFuHuoChe_3996
             return string.Join("#", rows);
         }
 
+
+
+
+        #region 彩金游戏单个元素转动相关
+
+
+        private GComponent smallGameReels;
+
+        private readonly string _moneyUrl = "ui://CaiFuHuoChe_3996/symbol_12";
+
+        /// <summary>15个格子控制器</summary>
+        private readonly List<SmallGameReelController> _elementBoxes = new List<SmallGameReelController>();
+
+        /// <summary>所有中奖结果</summary>
+        private readonly List<SmallReelResultInfo> _allHitResults = new List<SmallReelResultInfo>();
+
+        /// <summary>未揭示的中奖结果</summary>
+        private readonly List<SmallReelResultInfo> _unrevealedHits = new List<SmallReelResultInfo>();
+
+        private const int MAX_ROLLING_COUNT = 15;
+
+        /// <summary>剩余滚动次数</summary>
+        private int _remainingRolls;
+
+        /// <summary>滚轴错开延迟</summary>
+        private readonly float _reelStaggerDelay = 0.05f;
+
+        private GameObject _jackpotHitObj;
+        private GTextField rollCountText;
+
+        private readonly int _initialRollCount = 3;
+
+        private readonly List<string> _jackpotUrls = new List<string>()
+        {
+            "ui://CaiFuHuoChe_3996/symbol_15",
+            "ui://CaiFuHuoChe_3996/symbol_14",
+            "ui://CaiFuHuoChe_3996/symbol_13",
+        };
+
+        private void InitSmallGame()
+        {
+            foreach (var t in _elementBoxes)
+                t.Reset();
+            _elementBoxes.Clear();
+            _allHitResults.Clear();
+            _unrevealedHits.Clear();
+            List<int> strNum = SlotTool.GetDeckRowCol(ContentModel.Instance.strDeckRowCol);
+
+            for (int i = 0; i < 15; i++)
+            {
+                GComponent boxNode = smallGameReels.GetChild("elementBox_" + i).asCom;
+                GComponent element = boxNode.GetChild("rollElement_4").asCom;
+                int index = strNum[i];
+                element.GetChild("element").asLoader.url = CustomModel.Instance.symbolIcon[index.ToString()];
+                element.GetChild("rewardText").asTextField.visible = false;
+
+                SmallGameReelController box = new SmallGameReelController(boxNode, i);
+                _elementBoxes.Add(box);
+
+                if (!ContentModel.Instance.jackpotWin.ContainsKey(i)) continue;
+                int row = i / 5;
+                int col = i % 5;
+
+                var info = ParseSmallGameData(i, row, col, int.Parse(ContentModel.Instance.jackpotWin[i]), ContentModel.Instance.jackpotSocre);
+
+                if (info.type != SmallResultType.None)
+                {
+                    _allHitResults.Add(info);
+                    _unrevealedHits.Add(info);
+                    GameObject jackpotHitObj = GameObject.Instantiate(_jackpotHitObj);
+                    box.SetResultData(info, jackpotHitObj);
+                }
+            }
+
+            UpdateRollCountUI(_initialRollCount);
+        }
+
+
+
+        private SmallReelResultInfo ParseSmallGameData(int index, int row, int col, int currentBet, Dictionary<int, int> jackpotSocre)
+        {
+            var info = new SmallReelResultInfo { reelIndex = index, row = row, col = col, type = SmallResultType.None };
+
+            if (currentBet == 0) return info;
+
+            int type = currentBet / 1000;
+            int value = currentBet % 1000;
+
+            if (type < 4)
+            {
+                info.type = SmallResultType.Money;
+                info.rewardValue = value;
+                info.rewardText = value.ToString();
+                info.iconUrl = _moneyUrl;
+                info.anchorChildIndex = 0;
+            }
+            else
+            {
+                int jackpotType = value % 10;
+                int jackpotValue = GetJackpotValue(jackpotType, jackpotSocre);
+
+                info.type = SmallResultType.Jackpot;
+                info.jackpotType = jackpotType;
+                info.rewardValue = jackpotValue;
+                info.rewardText = jackpotValue.ToString();
+
+                info.iconUrl = _jackpotUrls[jackpotType];
+                info.anchorChildIndex = jackpotType + 1;
+            }
+
+            return info;
+        }
+
+
+        private void UpdateRollCountUI(int count)
+        {
+            if (freeTimes != null)
+                freeTimes.text = count.ToString();
+        }
+
+
+        private int GetJackpotValue(int jackpotType, Dictionary<int, int> jackpotSocre)
+        {
+            return jackpotSocre[jackpotType];
+        }
+
+
+
+        private IEnumerator SmallGameTrigger(Action successCallback = null)
+        {
+            ContentModel.Instance.jackpotSpinWinCredit = 0;
+            allWinCredit = 0;
+            slotMachineCtrl.BeginBonusFreeSpin();
+            InitSmallGame();
+            bool isNext = false;
+            PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupJackpotGameTrigger,
+                new EventData<Dictionary<string, object>>("", new Dictionary<string, object>()
+                {
+                    ["SpinTimes"] = 3,
+                }),
+            (ed) =>
+            {
+                Debug.Log("回调执行！isNext = true"); // 加日志
+                isNext = true;
+            });
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+
+            PlayAnim(trainAnim, "ng_sg");
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(SlotMachineEvent.BonusGameFadeTransition));
+            yield return new WaitForSeconds(0.9f);
+            PlayEffectAnim(norToJp);
+            yield return new WaitForSeconds(0.6f);
+
+            train.SetActive(false);
+            yield return new WaitForSeconds(0.3f);
+
+            ChangeBGPanel(2);
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(Game3996AudioEvent.BgmBonusGame));
+            PlayAnim(girlAnim, "sg_idle1");
+            freeTotalTimes.text = ContentModel.Instance.jackpotSpinTotalTimes.ToString();
+            freeTimes.text = ContentModel.Instance.jackpotSpinTotalTimes.ToString();
+            yield return new WaitForSeconds(0.4f);
+
+            PlayAnim(moneyBoxAnim, "sg_start");
+            yield return new WaitForSeconds(0.2f);
+            PlayEffectAnim(startEffect);
+
+            PlayEffectAnim(boxIdleEffect);
+
+            //------------------------  此处补充正式游戏 和 结算分数逻辑  ------------------------
+            yield return SmallGameSpin(() => isNext = true);
+
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+
+            slotMachineCtrl.SkipIdle(true);
+            slotMachineCtrl.SkipWinLine(true);
+
+            PlayAnim(girlAnim, "sg_settlement");
+            PlayAnim(moneyBoxAnim, "sg_settlement");
+            yield return new WaitForSeconds(2);
+
+            StopEffectAnim(boxIdleEffect);
+            yield return new WaitForSeconds(2.5f);
+
+            PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupJackpotGameExit,
+                new EventData<Dictionary<string, object>>("", new Dictionary<string, object>()
+                {
+                    ["winCredit"] = allWinCredit,
+                }),
+            (ed) =>
+            {
+                Debug.Log("回调执行！isNext = true"); // 加日志
+                isNext = true;
+            });
+
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+            slotMachineCtrl.EndBonusFreeSpin();
+            //加钱动画
+            MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
+
+            PlayEffectAnim(jpToNor);
+            yield return new WaitForSeconds(0.5f);
+
+            ChangeBGPanel(0);
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(Game3996AudioEvent.BgmRegularGame));
+            train.SetActive(true);
+            JsToBsTrans.Play();
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(SlotMachineEvent.BonusGameFadeTransition));
+            PlayAnim(trainAnim, "sg_ng");
+
+            successCallback?.Invoke();
+        }
+
+
+        private IEnumerator SmallGameSpin(Action successCallback = null)
+        {
+            yield return SmallGameLoop();
+            yield return new WaitForSeconds(0.5f);
+            yield return SmallGameResult();
+            successCallback?.Invoke();
+        }
+
+        private IEnumerator SmallGameResult(Action onCompleted = null)
+        {
+            yield return JackpotSettlementProcess(onCompleted);
+        }
+
+        private IEnumerator JackpotSettlementProcess(Action onCompleted)
+        {
+            foreach (var t in _allHitResults)
+            {
+                int index = t.reelIndex;
+                if (t.type == SmallResultType.Money)
+                {
+                    yield return ShowJackpotSettlement(SmallResultType.Money, index, t.iconUrl, t.rewardText, anchorJackpotAdd, t.col, t.row);
+                }
+                else if (t.type == SmallResultType.Jackpot)
+                {
+                    yield return ShowJackpotSettlement(SmallResultType.Jackpot, index, t.iconUrl, t.rewardText, anchorJackpotAdd, t.col, t.row);
+                    bool isNext = false;
+                    PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupJackpotResult,
+                        new EventData<Dictionary<string, object>>("",
+                            new Dictionary<string, object>()
+                            {
+                                ["jackpotType"] = t.jackpotType,
+                                ["totalEarnCredit"] = t.rewardValue,
+                            }), (res) =>
+                            {
+                                isNext = true;
+                            });
+                    yield return new WaitUntil(() => isNext == true);
+                }
+            }
+
+            onCompleted?.Invoke();
+        }
+
+        private IEnumerator ShowJackpotSettlement(SmallResultType resultType, int index, string iconUrl, string rewardText, GComponent toNode, int colIdx, int rowIdx)
+        {
+            GComponent rewardEffect = null;
+            rewardEffectIndex = (rewardEffectIndex + 1) % 3;
+            switch (rewardEffectIndex)
+            {
+                case 0:
+                    rewardEffect = ComRewardEffect1;
+                    break;
+                case 1:
+                    rewardEffect = ComRewardEffect2;
+                    break;
+                case 2:
+                    rewardEffect = ComRewardEffect3;
+                    break;
+            }
+
+            if (rewardEffect != null)
+            {
+                _elementBoxes[index].PlayAnim("collect");
+                yield return new WaitForSeconds(0.5f);
+                rewardEffect.parent.RemoveChild(rewardEffect);
+                toNode.AddChild(rewardEffect);
+                rewardEffect.visible = false;
+                rewardEffect.xy = slotMachineCtrl.SymbolCenterToNodeLocalPos(colIdx, rowIdx, toNode);
+                rewardEffect.visible = true;
+                _elementBoxes[index].mask.visible = false;
+                _elementBoxes[index].result.SetMask(true);
+                _elementBoxes[index].result.RemoveAnchor();
+
+
+                yield return MoveToZeroOverTime(rewardEffect, rewardEffect.xy);
+                rewardEffect.visible = false;
+                allWinCredit += long.Parse(rewardText);
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+            }
+        }
+
+
+        //private IEnumerator SmallGameLoop()
+        //{
+        //    _remainingRolls = _initialRollCount;
+        //    UpdateRollCountUI(_remainingRolls);
+
+        //    while (_remainingRolls > 0)
+        //    {
+        //        // 每轮开始前：重置未揭示的格子的滚动元素
+        //        foreach (var box in _elementBoxes)
+        //        {
+        //            if (box.State != SmallReelState.Revealed)
+        //                box.PlayRollReset();
+        //        }
+
+        //        // === 先确定本轮中奖 ===
+        //        List<SmallReelResultInfo> reveals = DrawReveals();
+
+        //        // ========== 新增：限制最多6个reel滚动 ==========
+        //        List<SmallReelResultInfo> selectedReveals = new List<SmallReelResultInfo>();
+        //        List<SmallReelResultInfo> delayedReveals = new List<SmallReelResultInfo>();
+
+        //        if (reveals.Count > MAX_ROLLING_COUNT)
+        //        {
+        //            // 中奖数超过6个：随机选6个本轮揭示，其余延后
+        //            var shuffled = reveals.OrderBy(_ => UnityEngine.Random.value).ToList();
+        //            selectedReveals = shuffled.Take(MAX_ROLLING_COUNT).ToList();
+        //            delayedReveals = shuffled.Skip(MAX_ROLLING_COUNT).ToList();
+
+        //            // 被延后的中奖结果保留在 _unrevealedHits 中（不要从 _unrevealedHits 移除它们）
+        //            // 这样它们会继续参与后续轮次的 DrawReveals()
+        //        }
+        //        else
+        //        {
+        //            selectedReveals = reveals;
+        //        }
+        //        // ================================================
+
+        //        HashSet<int> hitIndices = new HashSet<int>(selectedReveals.Select(r => r.reelIndex));
+
+        //        // 1. 分类reel：中奖的 vs 普通的
+        //        List<int> hitReelIndices = new List<int>();
+        //        List<int> normalReelIndices = new List<int>();
+
+        //        for (int i = 0; i < _elementBoxes.Count; i++)
+        //        {
+        //            if (_elementBoxes[i].State == SmallReelState.Idle)
+        //            {
+        //                if (hitIndices.Contains(i))
+        //                    hitReelIndices.Add(i);
+        //                else
+        //                    normalReelIndices.Add(i);
+        //            }
+        //        }
+
+        //        // 2. 如果中奖数不足6个，从普通reel中随机补足到6个
+        //        if (hitReelIndices.Count < MAX_ROLLING_COUNT && normalReelIndices.Count > 0)
+        //        {
+        //            int needCount = MAX_ROLLING_COUNT - hitReelIndices.Count;
+        //            var shuffledNormal = normalReelIndices.OrderBy(_ => UnityEngine.Random.value).ToList();
+        //            normalReelIndices = shuffledNormal.Take(Math.Min(needCount, shuffledNormal.Count)).ToList();
+        //        }
+        //        else if (hitReelIndices.Count >= MAX_ROLLING_COUNT)
+        //        {
+        //            // 中奖数已经达到或超过6个（理论上不会超过，因为上面已经截断了），普通reel不滚动
+        //            normalReelIndices.Clear();
+        //        }
+
+        //        // 3. 设置滚动视觉
+        //        foreach (int idx in hitReelIndices)
+        //            _elementBoxes[idx].SetRollingVisual();
+        //        foreach (int idx in normalReelIndices)
+        //            _elementBoxes[idx].SetRollingVisual();
+
+        //        // 4. 所有reel一起开始滚动（中奖reel第一圈roll第二圈result，普通reel两圈roll）
+        //        yield return PlayMixedRollSequence(hitReelIndices, normalReelIndices, selectedReveals);
+
+        //        // 5. 处理结果（滚动已包含揭示，只需处理次数）
+        //        if (selectedReveals.Count > 0)
+        //        {
+        //            _remainingRolls = _initialRollCount;
+        //            UpdateRollCountUI(_remainingRolls);
+        //        }
+        //        else
+        //        {
+        //            _remainingRolls--;
+        //            UpdateRollCountUI(_remainingRolls);
+        //        }
+
+        //        yield return new WaitForSeconds(0.3f);
+        //    }
+        //}
+
+
+        List<int> hitReelIndices = new List<int>();
+        List<int> normalReelIndices = new List<int>();
+
+        private IEnumerator SmallGameLoop()
+        {
+            _remainingRolls = _initialRollCount;
+            UpdateRollCountUI(_remainingRolls);
+            while (_remainingRolls > 0)
+            {
+                _remainingRolls--;
+                UpdateRollCountUI(_remainingRolls);
+                // 每轮开始前：重置未揭示的格子的滚动元素
+                foreach (var box in _elementBoxes)
+                {
+                    if (box.State != SmallReelState.Revealed)
+                        box.PlayRollReset();
+                }
+
+                // 1. 分类reel：中奖的 vs 普通的
+                hitReelIndices.Clear();
+                normalReelIndices.Clear();
+
+                // === 先确定本轮中奖 ===
+                List<SmallReelResultInfo> reveals = DrawReveals();
+                HashSet<int> hitIndices = new HashSet<int>(reveals.Select(r => r.reelIndex));
+
+
+                for (int i = 0; i < _elementBoxes.Count; i++)
+                {
+                    if (_elementBoxes[i].State == SmallReelState.Idle)
+                    {
+                        if (hitIndices.Contains(i))
+                            hitReelIndices.Add(i);
+                        else
+                            normalReelIndices.Add(i);
+                    }
+                }
+
+                // 2. 设置滚动视觉
+                foreach (int idx in hitReelIndices)
+                    _elementBoxes[idx].SetRollingVisual();
+                foreach (int idx in normalReelIndices)
+                    _elementBoxes[idx].SetRollingVisual();
+
+                // 3. 所有reel一起开始滚动（中奖reel第一圈roll第二圈result，普通reel两圈roll）
+                yield return PlayMixedRollSequence(hitReelIndices, normalReelIndices, reveals);
+
+                // 4. 处理结果（滚动已包含揭示，只需处理次数）
+                if (reveals.Count > 0)
+                {
+                    _remainingRolls = _initialRollCount;
+                    UpdateRollCountUI(_remainingRolls);
+                }
+
+                yield return new WaitForSeconds(0.3f);
+            }
+        }
+
+
+        List<SmallReelResultInfo> reveals = new List<SmallReelResultInfo>();
+        private List<SmallReelResultInfo> DrawReveals()
+        {
+            reveals.Clear();
+            if (_unrevealedHits.Count == 0) return reveals;
+
+            double revealRate = CalculateRevealRate();
+            bool shouldReveal = UnityEngine.Random.value < revealRate;
+
+            if (!shouldReveal) return reveals;
+
+            int max = Math.Min(3, _unrevealedHits.Count);
+            int count = UnityEngine.Random.Range(1, max + 1);
+
+            var shuffled = _unrevealedHits.OrderBy(x => UnityEngine.Random.value).ToList();
+            for (int i = 0; i < count; i++)
+                reveals.Add(shuffled[i]);
+
+            return reveals;
+        }
+
+
+        private IEnumerator PlayMixedRollSequence(List<int> hitIndices, List<int> normalIndices, List<SmallReelResultInfo> reveals)
+        {
+            int completedCount = 0;
+            int totalCount = hitIndices.Count + normalIndices.Count;
+            bool isFinish = false;
+
+            // 中奖reel：第一圈roll，第二圈result
+            foreach (int idx in hitIndices)
+            {
+                int captureIdx = idx;
+                var revealInfo = reveals.First(r => r.reelIndex == captureIdx);
+                _unrevealedHits.Remove(revealInfo);
+
+                //float delay = captureIdx * _reelStaggerDelay;
+                //float rollSpeed = 2;
+
+                _elementBoxes[captureIdx].PlayHitRoll(1, 1, () =>
+                {
+                    PlayAnim(girlAnim, "sg_appear");
+                    //if (!isFinish)
+                    //    isFinish = true;
+                });
+
+                //yield return DelayedAction(delay, () =>
+                //{
+                    
+                //});
+            }
+
+            // 普通reel：两圈roll
+            foreach (int idx in normalIndices)
+            {
+                int captureIdx = idx;
+                //float delay = captureIdx * _reelStaggerDelay;
+                // float speed = _rollSpeedList[captureIdx];
+                float speed = 1;
+
+                _elementBoxes[captureIdx].PlayNormalRoll(speed, () =>
+                {
+                    if (!isFinish)
+                        isFinish = true;
+                });
+
+                //yield return DelayedAction(delay, () =>
+                //{
+                //    if (captureIdx < _elementBoxes.Count && _elementBoxes[captureIdx] != null)
+                //    {
+                //        _elementBoxes[captureIdx].PlayNormalRoll(speed, () =>
+                //        {
+                //            completedCount++;
+                //            if (completedCount >= totalCount && !allComplete)
+                //                allComplete = true;
+                //        });
+                //    }
+                //});
+            }
+
+            yield return new WaitUntil(() => isFinish);
+            yield return new WaitForSeconds(0.5f);
+
+        }
+
+
+        private double CalculateRevealRate()
+        {
+            double rate = 0.7;
+            rate += (3 - _remainingRolls) * 0.1;
+
+            if (_unrevealedHits.Count <= 2)
+                rate += 0.2;
+
+            return Math.Min(1.0, rate);
+        }
+
+
+        private IEnumerator DelayedAction(float delay, Action action)
+        {
+            yield return new WaitForSeconds(delay);
+            action?.Invoke();
+        }
+
+        #endregion
     }
 }

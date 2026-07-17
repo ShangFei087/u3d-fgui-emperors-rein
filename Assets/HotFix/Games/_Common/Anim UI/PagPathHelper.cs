@@ -12,33 +12,8 @@ public static class PagPathHelper
 {
     private const string LogPrefix = "[PAG Path]";
 
-    /// <summary>相对 GameRes 的 PAG 目录，可按游戏修改。</summary>
-    public const string DefaultGamePagFolder = "Games/Slot Zhu Zai Jin Bi 1700/Pag";
-
-    /// <summary>1700 Loading 预热：Pag 目录下全部 .pag（共 20，与 LRU 上限一致）。</summary>
-    public static readonly string[] DefaultGamePagPreloadFiles =
-    {
-        "BigWin_1024.pag",
-        "Fade.pag",
-        "Fire.pag",
-        "FeiZhou.pag",
-        "Dragon.pag",
-        "CaiHongFeiDie.pag",
-        "XingXing1.pag",
-        "XingXing2.pag",
-        "XingXing3.pag",
-        "BigWin/bigwin_start.pag",
-        "BigWin/bigwin_idle.pag",
-        "BigWin/supwin_start.pag",
-        "BigWin/supwin_idle.pag",
-        "BigWin/megawin_start.pag",
-        "BigWin/megawin_idle.pag",
-        "Lopp/glow_loop_720.pag",
-        "Lopp/glow_loop_half_1920.pag",
-        "Lopp/glow_loop_full_1920.pag",
-        "Lopp/glow_in_half_1920.pag",
-        "Lopp/glow_in_full_1920.pag",
-    };
+    /// <summary>Java PagCompositionCache LRU 上限；各游戏 PagPreloadFiles 条目数不得超过此值。</summary>
+    public const int MaxCompositionCacheSize = 40;
 
     private const string CacheFolderName = "PagCache";
     private const string AbCacheFolderName = "_ab";
@@ -85,7 +60,7 @@ public static class PagPathHelper
     /// <summary>
     /// 解析 PAG 本地绝对路径：优先 PagCache，否则从热更 AB 解压。
     /// </summary>
-    public static string Resolve(string fileName, string gamePagFolder = DefaultGamePagFolder)
+    public static string Resolve(string fileName, string gamePagFolder)
     {
         if (string.IsNullOrEmpty(fileName))
         {
@@ -190,7 +165,7 @@ public static class PagPathHelper
     }
 
     /// <summary>是否已在 PagCache 且体积合法（不触发 AB 解压）。</summary>
-    public static bool IsCached(string fileName, string gamePagFolder = DefaultGamePagFolder)
+    public static bool IsCached(string fileName, string gamePagFolder)
     {
         string cachePath = GetCachePathForLeaf(fileName, gamePagFolder);
         return IsValidPagFile(cachePath);
@@ -199,7 +174,7 @@ public static class PagPathHelper
     public static void WarmupPagCache(
         MonoBehaviour host,
         string fileName,
-        string gamePagFolder = DefaultGamePagFolder,
+        string gamePagFolder,
         Action<bool> onDone = null)
     {
         if (host == null)
@@ -214,7 +189,7 @@ public static class PagPathHelper
 
     public static IEnumerator WarmupPagCacheCoroutine(
         string fileName,
-        string gamePagFolder = DefaultGamePagFolder,
+        string gamePagFolder,
         Action<bool> onDone = null)
     {
         if (string.IsNullOrEmpty(fileName))
@@ -275,7 +250,7 @@ public static class PagPathHelper
     /// <summary>批量磁盘预热 + Java composition 预解码（Loading 阶段使用）。</summary>
     public static IEnumerator PreloadCompositionsCoroutine(
         string[] fileNames,
-        string gamePagFolder = DefaultGamePagFolder,
+        string gamePagFolder,
         Action<int, int> onProgress = null)
     {
         if (fileNames == null || fileNames.Length == 0)

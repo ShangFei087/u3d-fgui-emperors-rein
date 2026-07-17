@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace SlotZhuZaiJinBi1700
 {
+    /// <summary>
+    /// 1700 进局 Loading 弹窗：并行预热 PAG、预加载 PageTest/PageGameMain，全部就绪后再关页进入主界面。
+    /// </summary>
     public class PopupGameLoading : MachinePageBase
     {
         public const string pkgName = "SlotZhuZaiJinBi1700";
@@ -24,14 +27,64 @@ namespace SlotZhuZaiJinBi1700
         private int _pagPreloadCompleted;
         private bool _pagPreloadFinished;
 
+        /// <summary>相对 GameRes 的本游戏 PAG 目录。</summary>
+        private const string GamePagFolder = "Games/Slot Zhu Zai Jin Bi 1700/Pag";
+
+        /// <summary>Loading 预热： Pag </summary>
+        private static readonly string[] PagPreloadFiles =
+        {
+            "BigWin_1080.pag",
+            "Fade.pag",
+            "Fire.pag",
+            "FeiZhou.pag",
+            "Dragon.pag",
+            "CaiHongFeiDie.pag",
+            "XingXing1.pag",
+            "XingXing2.pag",
+            "XingXing3.pag",
+            "Lopp/glow_loop_720.pag",
+            "Lopp/glow_loop_half_1920.pag",
+            "Lopp/glow_loop_full_1920.pag",
+            "Lopp/glow_in_half_1920.pag",
+            "Lopp/glow_in_full_1920.pag",
+            "3997Npc/BigWinNPC/bigwin_start1.pag",
+            "3997Npc/BigWinNPC/bigwin_idle1.pag",
+            "3997Npc/BigWinNPC/supwin_start1.pag",
+            "3997Npc/BigWinNPC/supwin_idle1.pag",
+            "3997Npc/BigWinNPC/megawin_start1.pag",
+            "3997Npc/BigWinNPC/megawin_idle1.pag",
+            "3997Npc/NormalNPC/Wealth_ng_npc_idle01.pag",
+            "3997Npc/NormalNPC/Wealth_ng_npc_idle02.pag",
+            "3997Npc/NormalNPC/Wealth_ng_npc_atmosphere.pag",
+            "3997Npc/NormalNPC/Wealth_ng_npc_not triggered.pag",
+            "3997Npc/NormalNPC/Wealth_ng_npc_not winning.pag",
+            "3997Npc/NormalNPC/Wealth_ng_npc_trigger fg.pag",
+            "3997Npc/NormalNPC/Wealth_ng_npc_trigger sg.pag",
+            "3997Npc/NormalNPC/Wealth_ng_npc_win1.pag",
+            "3997Npc/NormalNPC/Wealth_ng_npc_win2.pag",
+            "3997Npc/NormalNPC/Wealth_ng_npc_win3.pag",
+            "3997Npc/FreeNPC/Wealth_fg_npc_settlement.pag",
+            "3997Npc/FreeNPC/Wealth_fg_npc_upgrade1.pag",
+            "3997Npc/FreeNPC/Wealth_fg_npc_upgrade2.pag",
+            "3997Npc/RewardNPC/Wealth_sg_npc_appear.pag",
+            "3997Npc/RewardNPC/Wealth_sg_npc_idle1.pag",
+            "3997Npc/RewardNPC/Wealth_sg_npc_idle2.pag",
+            "3997Npc/RewardNPC/Wealth_sg_npc_reset.pag",
+            "3997Npc/RewardNPC/Wealth_sg_npc_settlement1.pag",
+            "3997Npc/RewardNPC/Wealth_sg_npc_settlement2.pag",
+            "3997Npc/RewardNPC/Wealth_sg_npc_settlement3.pag",
+        };
+
         /// <summary>从进入并行预加载起算，界面至少展示此时长（秒）；预加载更久则按实际结束。</summary>
         private const float MinLoadingDisplaySeconds = 5f;
-
+        /// <summary>开始并行预加载那一刻的时间戳。</summary>
         private float _preloadStartRealtime;
+        /// <summary>FairyGUI 定时器回调，用于最短展示时间内刷新进度条。</summary>
         private TimerCallback _pendingMinDisplayCallback;
         /// <summary>Loading 阶段 PAG 预热协程；关页前须全部完成，异常关页时 Stop 清理。</summary>
         private Coroutine _pagPreloadCoroutine;
 
+        /// <summary>创建 FGUI 界面并异步加载 Loading 背景/标题 Spine Prefab。</summary>
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -64,6 +117,7 @@ namespace SlotZhuZaiJinBi1700
                 });
         }
 
+        /// <summary>语言切换时重建 contentPane 并重新初始化。</summary>
         protected override void OnLanguageChange(I18nLang lang)
         {
             FguiI18nTextAssistant.Instance.DisposeAllTranslate(contentPane);
@@ -72,12 +126,14 @@ namespace SlotZhuZaiJinBi1700
             InitParam();
         }
 
+        /// <summary>打开 Loading 时绑定 UI 并启动并行预加载。</summary>
         public override void OnOpen(PageName name, EventData data)
         {
             base.OnOpen(name, data);
             InitParam();
         }
 
+        /// <summary>关闭时停止 PAG 预热协程、清理定时器与 GoWrapper。</summary>
         public override void OnClose(EventData data = null)
         {
             if (_pendingMinDisplayCallback != null)
@@ -111,6 +167,7 @@ namespace SlotZhuZaiJinBi1700
             _anchorTitle = null;
         }
 
+        /// <summary>绑定进度条与 Spine 锚点，通知上层后启动子页与 PAG 并行预加载。</summary>
         public override void InitParam()
         {
             if (!_isInit) return;
@@ -139,13 +196,11 @@ namespace SlotZhuZaiJinBi1700
             _progressBar.value = _progressBar.min;
 
             preLoadedCallback?.Invoke();
-
-            if (PageManager.Instance.IndexOf(PageName.SlotZhuZaiJinBiPopupGameLoading) == 0)
-                StartPreloadGamePagesThenOpenMain();
+            StartPreloadGamePagesThenOpenMain();
         }
 
         /// <summary>
-        /// 并行预加载各子界面；进度条按完成个数增长，全部完成后进入主界面。
+        /// 并行预加载 PageTest、PageGameMain 与 PAG composition；进度条按完成个数增长，全部完成后关页进主界面。
         /// </summary>
         private void StartPreloadGamePagesThenOpenMain()
         {
@@ -157,14 +212,20 @@ namespace SlotZhuZaiJinBi1700
 
             _preloadStartRealtime = Time.realtimeSinceStartup;
 
+#if UNITY_EDITOR
+            Debug.Assert(PagPreloadFiles.Length <= PagPathHelper.MaxCompositionCacheSize,
+                $"PagPreloadFiles count ({PagPreloadFiles.Length}) exceeds Java LRU limit ({PagPathHelper.MaxCompositionCacheSize})");
+#endif
+
             PageName[] pages =
             {
+                PageName.SlotZhuZaiJinPageTest,
                 PageName.SlotZhuZaiJinBiPageGameMain,
             };
 
             _preloadTotal = pages.Length;
             _preloadCompleted = 0;
-            _pagPreloadTotal = PagPathHelper.DefaultGamePagPreloadFiles.Length;
+            _pagPreloadTotal = PagPreloadFiles.Length;
             _pagPreloadCompleted = 0;
             _pagPreloadFinished = false;
             RefreshLoadingProgressVisual();
@@ -188,8 +249,7 @@ namespace SlotZhuZaiJinBi1700
             }
 
             StopPagPreloadCoroutine();
-            PagCallbackHub.EnsureInstance();
-            PagController.EnsureInit();
+            PagBootstrap.EnsureReady();
             _pagPreloadCoroutine = PagCallbackHub.Instance.RunCoroutine(PagPreloadCoroutine());
         }
 
@@ -206,15 +266,15 @@ namespace SlotZhuZaiJinBi1700
         }
 
         /// <summary>
-        /// 预热 1700 Pag 目录全部 .pag（共 20，LRU 上限 20）：
+        /// 预热 1700 核心 Pag + 3997Npc（共 40，LRU 上限 40）：
         /// AB 解压到 PagCache + Java composition 解码，缩短进局后首次 Play 耗时。
         /// </summary>
         private IEnumerator PagPreloadCoroutine()
         {
             Debug.Log("[1700 Loading] PAG preload start");
             yield return PagPathHelper.PreloadCompositionsCoroutine(
-                PagPathHelper.DefaultGamePagPreloadFiles,
-                PagPathHelper.DefaultGamePagFolder,
+                PagPreloadFiles,
+                GamePagFolder,
                 (done, total) =>
                 {
                     _pagPreloadCompleted = done;
@@ -226,25 +286,30 @@ namespace SlotZhuZaiJinBi1700
             _pagPreloadCompleted = _pagPreloadTotal;
             RefreshLoadingProgressVisual();
             Debug.Log("[1700 Loading] PAG preload finished");
+            Debug.Log($"[1700 Loading] preload state pages={_preloadCompleted}/{_preloadTotal} pagDone={_pagPreloadFinished}");
             TryFinishLoadingAfterPreloads();
             _pagPreloadCoroutine = null;
         }
 
+        /// <summary>单个子页 PreloadPage 完成时累加计数，全部完成后尝试关页。</summary>
         private void OnOnePreloadPageDone()
         {
             _preloadCompleted++;
             RefreshLoadingProgressVisual();
+            Debug.Log($"[1700 Loading] page preload done {_preloadCompleted}/{_preloadTotal}");
 
             if (_preloadCompleted < _preloadTotal) return;
 
             TryFinishLoadingAfterPreloads();
         }
 
+        /// <summary>根据当前预加载比例刷新进度条显示。</summary>
         private void RefreshLoadingProgressVisual()
         {
             SetProgressByPreloadNormalized(GetDisplayNormalizedProgress());
         }
 
+        /// <summary>是否满足关页条件：双页预加载完成、PAG 预热完成且已过最短展示时间。</summary>
         private bool CanCompleteLoadingTransition()
         {
             return _preloadCompleted >= _preloadTotal
@@ -252,6 +317,7 @@ namespace SlotZhuZaiJinBi1700
                 && Time.realtimeSinceStartup - _preloadStartRealtime >= MinLoadingDisplaySeconds;
         }
 
+        /// <summary>预加载进度更新后检查可否关页；未满最短展示时间则注册定时器继续等待。</summary>
         private void TryFinishLoadingAfterPreloads()
         {
             if (CanCompleteLoadingTransition())
@@ -269,6 +335,7 @@ namespace SlotZhuZaiJinBi1700
             Timers.inst.Add(0.05f, 0, _pendingMinDisplayCallback);
         }
 
+        /// <summary>最短展示时间内的定时 tick：刷新进度并在条件满足时执行关页过渡。</summary>
         private void OnLoadingProgressPadTick(object param)
         {
             RefreshLoadingProgressVisual();
@@ -280,6 +347,7 @@ namespace SlotZhuZaiJinBi1700
             }
         }
 
+        /// <summary>先 OpenPage 主界面再 CloseSelf，避免关 Loading 与进局之间的闪帧。</summary>
         private void CompleteLoadingTransition()
         {
             if (_pendingMinDisplayCallback != null)
@@ -289,7 +357,6 @@ namespace SlotZhuZaiJinBi1700
             }
 
             SetProgressByPreloadNormalized(1f);
-            CloseSelf(null);
 
             if (PlayerPrefsUtils.isPauseAtPopupGameLoadingOnce)
             {
@@ -298,8 +365,9 @@ namespace SlotZhuZaiJinBi1700
             else
             {
                 PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinBiPageGameMain);
-                //PageManager.Instance.OpenPage(PageName.SlotZhuZaiJinPageTest);
             }
+
+            CloseSelf(null);
         }
 
         /// <summary>
@@ -324,6 +392,7 @@ namespace SlotZhuZaiJinBi1700
             return Mathf.Min(GetPreloadRatio(), GetTimeCapRatio());
         }
 
+        /// <summary>页面预加载与 PAG 预热各占 50% 权重的综合完成比例。</summary>
         private float GetPreloadRatio()
         {
             int pageTotal = Mathf.Max(1, _preloadTotal);
@@ -333,6 +402,7 @@ namespace SlotZhuZaiJinBi1700
             return (pageRatio + pagRatio) * 0.5f;
         }
 
+        /// <summary>按最短展示时间折算的进度上限比例（0~1）。</summary>
         private float GetTimeCapRatio()
         {
             return Mathf.Clamp01((Time.realtimeSinceStartup - _preloadStartRealtime) / MinLoadingDisplaySeconds);

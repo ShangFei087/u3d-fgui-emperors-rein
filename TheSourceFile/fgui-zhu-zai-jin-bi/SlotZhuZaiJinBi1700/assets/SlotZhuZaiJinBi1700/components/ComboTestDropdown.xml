@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<component size="160,55" extention="ComboBox" opaque="true">
+
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+
+  <displayList>
+
+    <graph id="n0_combo" name="n0" xy="0,0" size="160,55" touchable="false" type="rect" lineSize="0" fillColor="#fff0f0f0">
+
+      <relation target="" sidePair="width-width,height-height"/>
+
+    </graph>
+
+    <text id="n1_combo" name="title" xy="6,0" size="120,55" touchable="false" fontSize="22" vAlign="middle" autoSize="shrink" singleLine="true" text="">
+
+      <relation target="" sidePair="width-width,height-height"/>
+
+    </text>
+
+    <text id="n2_combo" name="n2" xy="130,10" size="24,35" touchable="false" fontSize="20" vAlign="middle" text="▼"/>
+
+  </displayList>
+
+  <ComboBox dropdown="ui://zcotsi26/combo8b"/>
+
+</component>
+

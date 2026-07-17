@@ -165,18 +165,6 @@ public static class PagUnityGlBridge
 #endif
     }
 
-    private static void NotifyFlushPresented(IReadOnlyList<(int slotId, string instanceKey, double progress)> items)
-    {
-        if (items == null || items.Count == 0)
-        {
-            return;
-        }
-
-        for (int i = 0; i < items.Count; i++)
-        {
-            PagCallbackHub.NotifyGpuFrameReadyAfterFlush(items[i].instanceKey);
-        }
-    }
 
     public static IEnumerator EnsureTextureCoroutine(int slotId, int width, int height, Action<int, IntPtr> onReady)
     {
@@ -250,6 +238,12 @@ public static class PagUnityGlBridge
         yield return FlushBatchCoroutine(new[] { (slotId, instanceKey, progress) });
     }
 
+    /// <summary>Phase2：UI fallback 同步 flush 新段 frame0（progress=0，不走 tryChain）。</summary>
+    public static IEnumerator FlushChainFrame0Coroutine(int slotId, string instanceKey)
+    {
+        yield return FlushCoroutine(slotId, instanceKey, 0.0);
+    }
+
     private static IEnumerator InternalIssueSetupBatch(IReadOnlyList<(int slotId, string instanceKey)> items)
     {
 #if DEVELOPMENT_BUILD
@@ -296,7 +290,7 @@ public static class PagUnityGlBridge
 
         GL.IssuePluginEvent(PagGl_GetRenderEventFunc(), PagGl_GetFlushPagGpuEventId());
         yield return WaitForRenderThreadIdle(issueFinishFrame: false);
-        NotifyFlushPresented(items);
+        // Phase3 P0：present 由 native glFinish 后 JNI 回调触发，勿在此 Notify。
 #if DEVELOPMENT_BUILD
         Profiler.EndSample();
 #endif
@@ -369,6 +363,11 @@ public static class PagUnityGlBridge
     }
 
     public static IEnumerator FlushCoroutine(int slotId, string instanceKey, double progress)
+    {
+        yield break;
+    }
+
+    public static IEnumerator FlushChainFrame0Coroutine(int slotId, string instanceKey)
     {
         yield break;
     }

@@ -306,6 +306,7 @@ namespace HuoYanGongNiu_3995
 
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
             //EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
             //EventCenter.Instance.RemoveEventListener<EventData>("JackpotWinCredit", OnJackpotWinEvent);
             if (goGameCtrl != null && goGameCtrl.activeSelf)
@@ -396,9 +397,9 @@ namespace HuoYanGongNiu_3995
             if (!isInit) return;
 
             // ---------- 1. MainModel、Paytable、本地 JSON ----------
-            MainModel.Instance.lineNum = 300;
+            MainModel.Instance.lineNum = 30;
             MainModel.Instance.gameID = 3995;
-            MainModel.Instance.gameName = "HuoYanGongNiu_3995";
+            MainModel.Instance.gameName = "HuoYanGongNiu3995";
             MainModel.Instance.displayName = "HuoYanGongNiu_3995";
             MainModel.Instance.contentMD = ContentModel.Instance;
             MainModel.Instance.cutomMD = CustomModel.Instance;
@@ -468,8 +469,7 @@ namespace HuoYanGongNiu_3995
             //goGameCtrl.transform.Find("Panel").GetComponent<PanelController01>().Init();
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
-            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
+            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT, new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
 
             if (!isOpen) return;
 
@@ -2404,14 +2404,14 @@ namespace HuoYanGongNiu_3995
         }
 
 
-        /// <summary>3998：底部 Panel 异步就绪后触发 PageManager 的 preLoadedCallback。</summary>
+        /// <summary>3995：底部 Panel 异步就绪后触发 PageManager 的 preLoadedCallback。</summary>
         private void OnBottomPanelReadyForPreload(EventData res)
         {
             if (res == null || res.name != PanelEvent.BottomPanelReady)
                 return;
 
             int gameId = Convert.ToInt32(res.value);
-            if (gameId != 3998)
+            if (gameId != 3995)
                 return;
 
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);

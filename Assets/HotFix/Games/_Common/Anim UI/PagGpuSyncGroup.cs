@@ -33,7 +33,7 @@ public static class PagGpuSyncGroup
 
     private const float StallTimeoutMinSeconds = 0.25f;
 
-    /// <summary>FGUI GPU 多实例同屏时自动 TryJoin；PagGroupPlayer 静态组播不受影响。</summary>
+    /// <summary>纹理模式多实例同屏时自动 TryJoin；PagGroupPlayer 静态组播不受影响。</summary>
     public static bool AutoConcurrentEnabled { get; set; } = true;
 
     public static bool IsActive => s_active;
@@ -150,6 +150,9 @@ public static class PagGpuSyncGroup
             return;
         }
 
+        bool hadInFlightBatch = s_expectedPresentCount > 0
+            && (s_activeFlushMembers.Contains(instanceKey) || s_pendingRenderRequests.ContainsKey(instanceKey));
+
         SetExternalPumpFor(instanceKey, false);
         s_members.Remove(instanceKey);
         s_boundMembers.Remove(instanceKey);
@@ -164,6 +167,11 @@ public static class PagGpuSyncGroup
         {
             EndGroup();
             return;
+        }
+
+        if (hadInFlightBatch)
+        {
+            ReconcilePresentBarrierAfterLeave(instanceKey);
         }
 
         Debug.Log($"[PAG Sync] TryLeave {instanceKey} remaining={s_members.Count} syncReady={s_syncReadyMembers.Count}");
@@ -363,7 +371,7 @@ public static class PagGpuSyncGroup
         {
             (controller.TextureSlotId, instanceKey, 0.0)
         };
-        for (int warmup = 0; warmup < PagController.GpuWarmupFlushCount; warmup++)
+        for (int warmup = 0; warmup < PagController.LateJoinGpuWarmupFlushCount; warmup++)
         {
             yield return PagUnityGlBridge.FlushBatchCoroutine(warmupFlushItems);
         }
@@ -372,23 +380,34 @@ public static class PagGpuSyncGroup
         controller.MarkGpuDisplayReady();
         s_deferVisibleUntilPresent.Add(instanceKey);
 
-        yield return WaitUntilFlushPresentIdle();
+        yield return WaitUntilFlushPresentIdle(LateJoinFlushIdleTimeoutSec);
         s_syncReadyMembers.Add(instanceKey);
 
         Debug.Log($"[PAG Sync] IntegrateLateMember done {instanceKey} members={s_members.Count} syncReady={s_syncReadyMembers.Count} deferVisible=true");
         KickGroupFrameIfIdle();
     }
 
-    private static IEnumerator WaitUntilFlushPresentIdle()
+    private const float LateJoinFlushIdleTimeoutSec = 0.5f;
+
+    private static IEnumerator WaitUntilFlushPresentIdle(float timeoutSec)
     {
-        while (s_expectedPresentCount > 0 && s_presentedMembers.Count < s_expectedPresentCount)
+        float deadline = Time.unscaledTime + timeoutSec;
+        while (s_expectedPresentCount > 0 && s_presentedMembers.Count < s_expectedPresentCount
+               && Time.unscaledTime < deadline)
         {
             yield return null;
         }
 
-        while (s_pendingRenderRequests.Count > 0)
+        deadline = Time.unscaledTime + timeoutSec;
+        while (s_pendingRenderRequests.Count > 0 && Time.unscaledTime < deadline)
         {
             yield return null;
+        }
+
+        if (s_expectedPresentCount > 0 || s_pendingRenderRequests.Count > 0)
+        {
+            Debug.LogWarning($"[PAG Sync] WaitUntilFlushPresentIdle timeout "
+                + $"present={s_presentedMembers.Count}/{s_expectedPresentCount} pending={s_pendingRenderRequests.Count}");
         }
     }
 
@@ -431,48 +450,134 @@ public static class PagGpuSyncGroup
 
     private static void RequestNextFrameForSyncReadyMembers()
     {
-        foreach (string key in s_syncReadyMembers)
+        if (s_syncReadyMembers.Count == 0)
         {
-            PagController controller = PagControllerRegistry.Resolve(key);
-            controller?.RequestNextGpuFrameFromSyncGroup();
+            return;
         }
+
+        PagController.RequestNextGpuFrameBatch(s_syncReadyMembers);
     }
 
-    private static bool TryBuildFlushBatch(out List<(int slotId, string instanceKey, double progress)> flushItems)
+    /// <summary>成员 TryLeave 后 reconcile 进行中的 present 屏障，避免 expectedPresentCount 卡死。</summary>
+    private static void ReconcilePresentBarrierAfterLeave(string leftInstanceKey)
     {
-        flushItems = null;
-        if (s_syncReadyMembers.Count == 0)
+        if (s_expectedPresentCount <= 0)
+        {
+            return;
+        }
+
+        int remainingActive = s_activeFlushMembers.Count;
+        if (remainingActive == 0)
+        {
+            ClearInFlightBatchState();
+            CancelAdvanceCoroutine();
+            RequestNextFrameForSyncReadyMembers();
+            return;
+        }
+
+        s_expectedPresentCount = remainingActive;
+
+        var stalePresented = new List<string>();
+        foreach (string key in s_presentedMembers)
+        {
+            if (!s_activeFlushMembers.Contains(key))
+            {
+                stalePresented.Add(key);
+            }
+        }
+
+        for (int i = 0; i < stalePresented.Count; i++)
+        {
+            s_presentedMembers.Remove(stalePresented[i]);
+        }
+
+        if (AreAllActiveFlushMembersPresented())
+        {
+            Debug.Log($"[PAG Sync] TryLeave barrier advanced left={leftInstanceKey} syncReady={s_syncReadyMembers.Count}");
+            CompleteFlushBatchAndAdvanceFrame();
+            return;
+        }
+
+        Debug.Log($"[PAG Sync] TryLeave barrier reset left={leftInstanceKey} "
+            + $"present={s_presentedMembers.Count}/{s_expectedPresentCount}");
+        ClearInFlightBatchState();
+        CancelAdvanceCoroutine();
+        RequestNextFrameForSyncReadyMembers();
+    }
+
+    private static bool AreAllActiveFlushMembersPresented()
+    {
+        if (s_activeFlushMembers.Count == 0)
         {
             return false;
         }
 
-        foreach (string key in s_syncReadyMembers)
+        foreach (string key in s_activeFlushMembers)
         {
-            if (!s_pendingRenderRequests.ContainsKey(key))
+            if (!s_presentedMembers.Contains(key))
             {
                 return false;
             }
         }
 
-        flushItems = new List<(int slotId, string instanceKey, double progress)>(s_syncReadyMembers.Count);
+        return true;
+    }
+
+    private static void CompleteFlushBatchAndAdvanceFrame()
+    {
+        InvalidateFguiBatchingForActiveFlushMembers();
+        s_presentedMembers.Clear();
+        s_activeFlushMembers.Clear();
+        s_expectedPresentCount = 0;
+
+        CancelAdvanceCoroutine();
+        s_advanceCoroutine = PagCallbackHub.Instance.RunCoroutine(AdvanceGroupFrame());
+    }
+
+    private static void InvalidateFguiBatchingForActiveFlushMembers()
+    {
+        foreach (string key in s_activeFlushMembers)
+        {
+            PagController controller = PagControllerRegistry.Resolve(key);
+            controller?.InvalidateFguiBatchingFromSyncGroup();
+        }
+    }
+
+    /// <summary>
+    /// 构建本帧 flush 列表：凡 syncReady 且已有 pending 的成员均纳入（允许部分 batch）。
+    /// 旧逻辑要求全员同一帧 pending，两路 composition fps 略错位时会长期 stall + RecoverFromStall，CPU 渐升。
+    /// </summary>
+    private static bool TryBuildFlushBatch(out List<(int slotId, string instanceKey, double progress)> flushItems)
+    {
+        flushItems = null;
+        if (s_syncReadyMembers.Count == 0 || s_pendingRenderRequests.Count == 0)
+        {
+            return false;
+        }
+
+        var batch = new List<(int slotId, string instanceKey, double progress)>(s_syncReadyMembers.Count);
         foreach (string key in s_syncReadyMembers)
         {
             if (!s_pendingRenderRequests.TryGetValue(key, out double prog))
             {
-                flushItems = null;
-                return false;
+                continue;
             }
 
             PagController controller = PagControllerRegistry.Resolve(key);
             if (controller == null)
             {
-                flushItems = null;
-                return false;
+                continue;
             }
 
-            flushItems.Add((controller.TextureSlotId, key, prog));
+            batch.Add((controller.TextureSlotId, key, prog));
         }
 
+        if (batch.Count == 0)
+        {
+            return false;
+        }
+
+        flushItems = batch;
         return true;
     }
 
@@ -524,10 +629,24 @@ public static class PagGpuSyncGroup
             return;
         }
 
-        s_pendingRenderRequests.Clear();
+        for (int i = 0; i < flushItems.Count; i++)
+        {
+            s_pendingRenderRequests.Remove(flushItems[i].instanceKey);
+        }
+
         BeginFlushBatchTracking(flushItems);
         PagUnityGlBridge.IssueFlushPagGpuBatch(flushItems);
-        Debug.Log($"[PAG Sync] flushBatch count={flushItems.Count} members=[{string.Join(",", s_activeFlushMembers)}] syncReady={s_syncReadyMembers.Count}");
+#if DEVELOPMENT_BUILD
+        if (flushItems.Count < s_syncReadyMembers.Count)
+        {
+            Debug.Log($"[PAG Sync] flushBatch partial count={flushItems.Count}/{s_syncReadyMembers.Count} "
+                + $"members=[{string.Join(",", s_activeFlushMembers)}]");
+        }
+        else
+        {
+            Debug.Log($"[PAG Sync] flushBatch count={flushItems.Count} members=[{string.Join(",", s_activeFlushMembers)}] syncReady={s_syncReadyMembers.Count}");
+        }
+#endif
     }
 
     public static void OnGpuFramePresented(string instanceKey)
@@ -548,7 +667,7 @@ public static class PagGpuSyncGroup
         }
 
         PagController controller = PagControllerRegistry.Resolve(instanceKey);
-        controller?.OnGpuFramePresentedForFgui();
+        controller?.OnGpuFramePresentedForFgui(skipInvalidate: true);
         TryRevealDeferredVisible(instanceKey);
 
         s_presentedMembers.Add(instanceKey);
@@ -557,14 +676,8 @@ public static class PagGpuSyncGroup
             return;
         }
 
-        s_presentedMembers.Clear();
-        s_activeFlushMembers.Clear();
-        s_expectedPresentCount = 0;
-
         Debug.Log($"[PAG Sync] present tick syncReady={s_syncReadyMembers.Count}");
-
-        CancelAdvanceCoroutine();
-        s_advanceCoroutine = PagCallbackHub.Instance.RunCoroutine(AdvanceGroupFrame());
+        CompleteFlushBatchAndAdvanceFrame();
     }
 
     private static IEnumerator AdvanceGroupFrame()
@@ -630,13 +743,6 @@ public static class PagGpuSyncGroup
         if (!s_active || !s_playbackStarted || s_syncReadyMembers.Count == 0)
         {
             return false;
-        }
-
-        if (s_pendingRenderRequests.Count > 0
-            && s_pendingRenderRequests.Count < s_syncReadyMembers.Count
-            && s_expectedPresentCount <= 0)
-        {
-            return true;
         }
 
         if (s_expectedPresentCount > 0 && s_presentedMembers.Count < s_expectedPresentCount)

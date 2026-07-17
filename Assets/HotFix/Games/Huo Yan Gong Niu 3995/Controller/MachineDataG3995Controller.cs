@@ -492,7 +492,7 @@ namespace HuoYanGongNiu_3995
                 Debug.Log($"ID: {ID}, Line: {lineNumber}, HitCount: {hitCount}, Symbol: {symbolNumber}");
 
                 int lineIndex = lineNumber;
-                int[] lineInfo = ContentModel.Instance.payLines[lineIndex].ToArray();
+                int[] lineInfo = CustomModel.Instance.payLines[lineIndex].ToArray();
                 List<Cell> _cells = new List<Cell>();
 
                 for (int c = 0; c < hitCount; c++)

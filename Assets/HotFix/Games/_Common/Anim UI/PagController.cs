@@ -6,7 +6,7 @@ using FairyGUI;
 using UnityEngine;
 using UnityEngine.Profiling;
 
-/// <summary>Phase4E：Native 播放列表单段（path 为相对 Pag 文件名，repeat=-1 无限循环）。</summary>
+/// <summary>Native 播放列表单段（path 为相对 Pag 文件名，repeat=-1 无限循环）。</summary>
 public readonly struct PagSegment
 {
     public string PagFileName { get; }
@@ -35,6 +35,8 @@ public class PagController : IDisposable
     private const string JniLogTag = "PagBridgeUnity";
     /// <summary>P1：绑纹理后静默 flush 次数，预热 GPU 后再开播放墙钟。</summary>
     internal const int GpuWarmupFlushCount = 2;
+    /// <summary>Late join 路径 warmup 次数（低于首组，减轻第 2 路点开卡顿）。</summary>
+    internal const int LateJoinGpuWarmupFlushCount = 1;
 
     private static AndroidJavaClass _pagBridge;
     private static bool _initialized;
@@ -46,7 +48,7 @@ public class PagController : IDisposable
     /// <summary>repeat=-1 无限循环时每 N 圈软重启 GPU Player；0=关闭（默认，长播依赖 libpag 自然 loop）。</summary>
     public static int GpuPlayerRecycleEveryLoop = 0;
 
-    /// <summary>FGUI GPU 多实例同屏时自动纳入 PagGpuSyncGroup；默认开启。</summary>
+    /// <summary>纹理模式多实例同屏时自动纳入 PagGpuSyncGroup；默认开启。</summary>
     public static bool AutoConcurrentGpuSync
     {
         get => PagGpuSyncGroup.AutoConcurrentEnabled;
@@ -58,6 +60,7 @@ public class PagController : IDisposable
     public event Action<string> OnExportFinished;
     public event Action OnPlayStarted;
     public event Action OnPlaybackFinished;
+    public event Action OnGpuDisplayReady;
 
     private readonly string _gamePagFolder;
     private readonly int _textureSlotId;
@@ -74,6 +77,7 @@ public class PagController : IDisposable
     private float _fguiDisplayScale = 1f;
     private int _fguiTargetFps = 30;
     private int _gpuFlushPresentCount;
+    private double _lastGpuRenderProgress = -1.0;
     private int _boundGpuTexId;
     private int _boundGpuTexW;
     private int _boundGpuTexH;
@@ -81,11 +85,14 @@ public class PagController : IDisposable
     private int _completedPlayCount;
     private Coroutine _maintenanceCoroutine;
     private Coroutine _destroyGpuCoroutine;
+    private bool _skipAutoSyncJoinForPlaylist;
 
     private GComponent _fguiAnchor;
     private string _fguiLoaderName = PagFguiGpuPresenter.DefaultLoaderName;
 
     public string InstanceKey { get; private set; }
+
+    public string GamePagFolder => _gamePagFolder;
 
     public GLoader FguiLoader => _fguiPresenter.Loader;
 
@@ -102,9 +109,15 @@ public class PagController : IDisposable
         InstanceKey = string.IsNullOrEmpty(instanceKey)
             ? $"Pag_{Guid.NewGuid():N}"
             : instanceKey;
-        _gamePagFolder = string.IsNullOrEmpty(gamePagFolder)
-            ? PagPathHelper.DefaultGamePagFolder
-            : gamePagFolder;
+        if (string.IsNullOrEmpty(gamePagFolder))
+        {
+            Debug.LogError($"[PAG] PagController({InstanceKey}): gamePagFolder is required");
+            _gamePagFolder = string.Empty;
+        }
+        else
+        {
+            _gamePagFolder = gamePagFolder;
+        }
         _textureSlotId = System.Threading.Interlocked.Increment(ref _nextTextureSlotId);
         EnsureInit();
     }
@@ -243,7 +256,7 @@ public class PagController : IDisposable
     private const float PreloadCompositionPollIntervalSec = 0.05f;
     private const float PreloadCompositionTimeoutSec = 30f;
 
-    public static void PreloadComposition(string pagName, string gamePagFolder = PagPathHelper.DefaultGamePagFolder)
+    public static void PreloadComposition(string pagName, string gamePagFolder)
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
         string absPath = ResolvePagPath(pagName, gamePagFolder);
@@ -297,7 +310,7 @@ public class PagController : IDisposable
 
     public static IEnumerator PreloadCompositionCoroutine(
         string pagName,
-        string gamePagFolder = PagPathHelper.DefaultGamePagFolder,
+        string gamePagFolder,
         Action<bool> onDone = null)
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -416,6 +429,13 @@ public class PagController : IDisposable
                 System.Globalization.CultureInfo.InvariantCulture, out progress);
         }
 
+        // 真机排查 idle 回绕：progress 从高位跳回低位时打印（不每帧刷）
+        if (_lastGpuRenderProgress > 0.85 && progress < 0.15)
+        {
+            Debug.Log($"[PAG] LOOP WRAP instance={InstanceKey} last={_lastGpuRenderProgress:F4} -> {progress:F4} t={Time.realtimeSinceStartup:F3}");
+        }
+        _lastGpuRenderProgress = progress;
+
         if (PagGpuSyncGroup.Contains(InstanceKey))
         {
             PagGpuSyncGroup.OnGpuRenderRequested(InstanceKey, progress);
@@ -456,8 +476,21 @@ public class PagController : IDisposable
             return;
         }
 
-        _gpuFlushPresentCount++;
-        _fguiPresenter.OnGpuFrameReady();
+        bool deferPresent = TryCallBool("ShouldDeferFguiGpuPresent", () =>
+            _pagBridge.CallStatic<bool>("ShouldDeferFguiGpuPresent", InstanceKey));
+
+        if (!deferPresent)
+        {
+            _gpuFlushPresentCount++;
+            _fguiPresenter.OnGpuFrameReady();
+        }
+        else
+        {
+            // Release 真机也要能看到：贴图未 Invalidate 的直接线索
+            Debug.LogWarning(
+                $"[PAG] DEFER FGUI present instance={InstanceKey} progress={_lastGpuRenderProgress:F4} t={Time.realtimeSinceStartup:F3}");
+        }
+
         SafeCall("OnGpuFlushCompleted", () => _pagBridge.CallStatic("OnGpuFlushCompleted", InstanceKey));
 #if DEVELOPMENT_BUILD
         Profiler.EndSample();
@@ -465,9 +498,77 @@ public class PagController : IDisposable
 #endif
     }
 
-    internal void OnGpuFramePresentedForFgui()
+    internal void HandleGpuSyncFlushFrame0()
     {
-        _fguiPresenter.OnGpuFrameReady();
+#if UNITY_ANDROID && !UNITY_EDITOR
+        PagCallbackHub.Instance.RunCoroutine(SyncFlushFrame0Coroutine());
+#endif
+    }
+
+    private IEnumerator SyncFlushFrame0Coroutine()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        yield return PagUnityGlBridge.FlushChainFrame0Coroutine(_textureSlotId, InstanceKey);
+#else
+        yield break;
+#endif
+    }
+
+    internal void OnGpuFramePresentedForFgui(bool skipInvalidate = false)
+    {
+        if (skipInvalidate)
+        {
+            _fguiPresenter.UpdateGpuFrameTexture();
+        }
+        else
+        {
+            _fguiPresenter.OnGpuFrameReady();
+        }
+    }
+
+    internal void InvalidateFguiBatchingFromSyncGroup()
+    {
+        _fguiPresenter.InvalidateBatchingOnce();
+    }
+
+    internal void RequestNextGpuFrameFromSyncGroup()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        SafeCall("RequestNextGpuFrame", () => _pagBridge.CallStatic("RequestNextGpuFrame", InstanceKey));
+#endif
+    }
+
+    internal static void RequestNextGpuFrameBatch(IEnumerable<string> instanceKeys)
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        if (_pagBridge == null || instanceKeys == null)
+        {
+            return;
+        }
+
+        var keys = new List<string>();
+        foreach (string key in instanceKeys)
+        {
+            if (!string.IsNullOrEmpty(key))
+            {
+                keys.Add(key);
+            }
+        }
+
+        if (keys.Count == 0)
+        {
+            return;
+        }
+
+        if (keys.Count == 1)
+        {
+            PagControllerRegistry.Resolve(keys[0])?.RequestNextGpuFrameFromSyncGroup();
+            return;
+        }
+
+        SafeCall("RequestNextGpuFrameBatch", () =>
+            _pagBridge.CallStatic("RequestNextGpuFrameBatch", (object)keys.ToArray()));
+#endif
     }
 
     internal bool StartFguiGpuPlaybackFromSyncGroup()
@@ -478,13 +579,6 @@ public class PagController : IDisposable
         return ok;
 #else
         return false;
-#endif
-    }
-
-    internal void RequestNextGpuFrameFromSyncGroup()
-    {
-#if UNITY_ANDROID && !UNITY_EDITOR
-        SafeCall("RequestNextGpuFrame", () => _pagBridge.CallStatic("RequestNextGpuFrame", InstanceKey));
 #endif
     }
 
@@ -515,8 +609,9 @@ public class PagController : IDisposable
     {
         _gpuDisplayReadySignal = true;
 #if DEVELOPMENT_BUILD || UNITY_EDITOR
-        Debug.Log($"[PAG] GPU display ready instance={InstanceKey}");
+        Debug.Log($"[PAG] texture display ready instance={InstanceKey}");
 #endif
+        OnGpuDisplayReady?.Invoke();
     }
 
     internal void SetFguiGpuExternalPump(bool externalPump)
@@ -754,6 +849,29 @@ public class PagController : IDisposable
         return fallbackSec;
     }
 
+    /// <summary>当前 GPU 段播放进度 0~1；-1 表示不可用（Editor / 未播放）。</summary>
+    public float GetFguiGpuPlaybackProgress()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        if (_pagBridge == null)
+        {
+            return -1f;
+        }
+
+        try
+        {
+            return _pagBridge.CallStatic<float>("GetFguiGpuPlaybackProgress", InstanceKey);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning($"[PAG] GetFguiGpuPlaybackProgress: {ex.Message}");
+            return -1f;
+        }
+#else
+        return -1f;
+#endif
+    }
+
     public int GetCompositionFrameRate()
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -800,7 +918,7 @@ public class PagController : IDisposable
 #if UNITY_ANDROID && !UNITY_EDITOR
         if (_pagBridge == null || !PagUnityGlBridge.IsSupported)
         {
-            Debug.LogError($"[PAG GPU] BindGpuTexture failed: bridge unavailable instance={InstanceKey}");
+            Debug.LogError($"[PAG Texture] BindGpuTexture failed: bridge unavailable instance={InstanceKey}");
             yield break;
         }
 
@@ -827,7 +945,7 @@ public class PagController : IDisposable
             boundTexId = _boundGpuTexId;
             boundTexPtr = _boundGpuTexPtr;
 #if DEVELOPMENT_BUILD || UNITY_EDITOR
-            Debug.Log($"[PAG GPU] reuse texture instance={InstanceKey} slot={_textureSlotId} size={texW}x{texH}");
+            Debug.Log($"[PAG Texture] reuse texture instance={InstanceKey} slot={_textureSlotId} size={texW}x{texH}");
 #endif
         }
         else
@@ -845,7 +963,7 @@ public class PagController : IDisposable
 
         if (boundTexId <= 0 || boundTexPtr == IntPtr.Zero)
         {
-            Debug.LogError($"[PAG GPU] CreateExternalTexture failed instance={InstanceKey} slot={_textureSlotId} size={texW}x{texH}");
+            Debug.LogError($"[PAG Texture] CreateExternalTexture failed instance={InstanceKey} slot={_textureSlotId} size={texW}x{texH}");
             yield break;
         }
 
@@ -858,7 +976,7 @@ public class PagController : IDisposable
         {
             if (!BindGpuTextureSync(boundTexId, texW, texH))
             {
-                Debug.LogError($"[PAG GPU] BindGpuTextureSync failed instance={InstanceKey} id={boundTexId} slot={_textureSlotId} size={texW}x{texH}");
+                Debug.LogError($"[PAG Texture] BindGpuTextureSync failed instance={InstanceKey} id={boundTexId} slot={_textureSlotId} size={texW}x{texH}");
                 _gpuBindCoroutine = null;
                 yield break;
             }
@@ -916,14 +1034,14 @@ public class PagController : IDisposable
                 int displayH = Mathf.Max(1, Mathf.RoundToInt(ch * _fguiDisplayScale));
                 _fguiPresenter.SetDisplaySize(displayW, displayH);
 #if DEVELOPMENT_BUILD || UNITY_EDITOR
-                Debug.Log($"[PAG FGUI GPU] composition display size {displayW}x{displayH} "
+                Debug.Log($"[PAG Texture] composition display size {displayW}x{displayH} "
                     + $"(composition {cw}x{ch} scale={_fguiDisplayScale:F2}) instance={InstanceKey}");
 #endif
             }
         }
         catch (Exception ex)
         {
-            Debug.LogWarning($"[PAG FGUI GPU] TrySyncFguiDisplaySizeFromNative: {ex.Message}");
+            Debug.LogWarning($"[PAG Texture] TrySyncFguiDisplaySizeFromNative: {ex.Message}");
         }
 #endif
     }
@@ -986,7 +1104,7 @@ public class PagController : IDisposable
             if (_renderTarget == PagRenderTarget.FguiTexture)
             {
                 _fguiPresenter.ResetDisplaySizeForNewComposition();
-                if (AutoConcurrentGpuSync)
+                if (AutoConcurrentGpuSync && !_skipAutoSyncJoinForPlaylist)
                 {
                     PagGpuSyncGroup.TryJoin(InstanceKey, _fguiTargetFps);
                 }
@@ -1013,6 +1131,8 @@ public class PagController : IDisposable
 
     public void StopPag()
     {
+        _skipAutoSyncJoinForPlaylist = false;
+        _lastGpuRenderProgress = -1.0;
 #if UNITY_ANDROID && !UNITY_EDITOR
         if (PagGpuSyncGroup.Contains(InstanceKey))
         {
@@ -1144,6 +1264,7 @@ public class PagController : IDisposable
 
     public void ClearFguiGpuPlaylist()
     {
+        _skipAutoSyncJoinForPlaylist = false;
 #if UNITY_ANDROID && !UNITY_EDITOR
         try
         {
@@ -1185,9 +1306,13 @@ public class PagController : IDisposable
     }
 
     /// <summary>
-    /// Phase4E：Native 播放列表无缝连播；C# 仅 Play 首段并等待整链 PlaybackFinished。
+    /// Native 播放列表无缝连播；C# 仅 Play 首段并等待整链 PlaybackFinished。
     /// </summary>
-    public bool PlayFguiGpuSequence(IReadOnlyList<PagSegment> segments, string positionType, string extra = "")
+    /// <param name="useGpuSyncGroup">
+    /// true：Play 时 TryJoin 动态合组（多 NPC 同屏防整屏闪）；false：退组独立出帧（默认，PAG4 单槽链等）。
+    /// </param>
+    public bool PlayFguiGpuSequence(IReadOnlyList<PagSegment> segments, string positionType, string extra = "",
+        bool useGpuSyncGroup = false)
     {
         if (segments == null || segments.Count == 0)
         {
@@ -1201,6 +1326,19 @@ public class PagController : IDisposable
         }
 
         SetRepeatCount(segments[0].RepeatCount);
+#if UNITY_ANDROID && !UNITY_EDITOR
+        if (useGpuSyncGroup)
+        {
+            _skipAutoSyncJoinForPlaylist = false;
+            LogJni($"PlayFguiGpuSequence: SyncGroup join enabled instance={InstanceKey} segments={segments.Count}");
+        }
+        else
+        {
+            PagGpuSyncGroup.TryLeave(InstanceKey);
+            _skipAutoSyncJoinForPlaylist = true;
+            LogJni($"PlayFguiGpuSequence: skip SyncGroup join instance={InstanceKey} segments={segments.Count}");
+        }
+#endif
         return PlayPag(segments[0].PagFileName, positionType, extra);
     }
 
@@ -1219,7 +1357,7 @@ public class PagController : IDisposable
         }
     }
 
-    /// <summary>FGUI GPU 是否仍在出帧（段末 chain switch 成功后为 true）。</summary>
+    /// <summary>纹理模式是否仍在出帧（段末 chain switch 成功后为 true）。</summary>
     public bool IsFguiGpuPlaybackActive()
     {
         return IsFguiGpuPlaybackStillActive();
@@ -1369,6 +1507,26 @@ public class PagController : IDisposable
             }
 
             return ok;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"[PAG JNI] {name} exception: {ex}");
+            return false;
+        }
+    }
+
+    /** 查询型 JNI：false 为正常结果，不记 error。 */
+    private bool TryCallBool(string name, Func<bool> action)
+    {
+        try
+        {
+            EnsureInit();
+            if (_pagBridge == null)
+            {
+                return false;
+            }
+
+            return action();
         }
         catch (Exception ex)
         {

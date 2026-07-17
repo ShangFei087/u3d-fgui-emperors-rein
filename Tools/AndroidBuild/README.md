@@ -29,7 +29,7 @@ AndroidBuild/
 ├── capture_android_logcat.ps1         ← 多设备 logcat 导出（闪退复现）
 ├── docs/
 │   ├── EXPORT_ANDROID.md              ← Export 慢/卡住诊断、打包路径选择
-│   ├── RETEST_PAG_UFO.md              ← PAG 转盘 GPU 模式复测清单
+│   ├── RETEST_PAG_UFO.md              ← PAG 转盘纹理模式复测清单
 │   └── PAG_MAINTENANCE_PRIORITY.md    ← PAG 后续维护优先级
 └── logs/                              ← 脚本运行日志（自动生成）
 ```
@@ -107,8 +107,10 @@ Tools\build_android_debug.bat skipcopy nopause
 | 文件 | 作用 |
 |------|------|
 | **EXPORT_ANDROID.md** | 解释 Export 进度条长时间不动的原因、真卡住 vs 只是慢的判别、按改动类型选打包路径。 |
-| **RETEST_PAG_UFO.md** | PAG 转盘 Dragon→UFO GPU 纹理模式复测步骤、关注 log tag、通过标准。 |
+| **RETEST_PAG_UFO.md** | PAG 转盘 Dragon→UFO 纹理模式复测步骤、关注 log tag、通过标准。 |
 | **PAG_MAINTENANCE_PRIORITY.md** | PAG 已落地基线、渲染流程、后续维护优先级与风险点。 |
+
+**美术向**（`Tools/docs/`）：**[PAG_ARTIST_GUIDE.md](../docs/PAG_ARTIST_GUIDE.md)**（完整版）、**[PAG_ARTIST_GUIDE_ONE_PAGER.md](../docs/PAG_ARTIST_GUIDE_ONE_PAGER.md)**（一页纸摘要，适合飞书/Word）。
 
 ### 日志（logs/）
 

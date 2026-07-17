@@ -43,6 +43,7 @@
     <type fullname="FairyGUI.Shape" preserve="all" />
     <type fullname="FairyGUI.Stage" preserve="all" />
     <type fullname="FairyGUI.Stats" preserve="all" />
+    <type fullname="FairyGUI.TextFormat" preserve="all" />
     <type fullname="FairyGUI.TimerCallback" preserve="all" />
     <type fullname="FairyGUI.Timers" preserve="all" />
     <type fullname="FairyGUI.Transition" preserve="all" />
@@ -54,6 +55,7 @@
     <type fullname="FairyGUI.Utils.XML" preserve="all" />
     <type fullname="FairyGUI.Utils.XMLList" preserve="all" />
     <type fullname="FairyGUI.Utils.XMLList/Enumerator" preserve="all" />
+    <type fullname="FairyGUI.VertAlignType" preserve="all" />
     <type fullname="FairyGUI.Window" preserve="all" />
   </assembly>
   <assembly fullname="Mono.Data.Sqlite">
@@ -103,6 +105,7 @@
     <type fullname="System.Collections.Generic.LinkedList`1/Enumerator" preserve="all" />
     <type fullname="System.Collections.Generic.Queue`1" preserve="all" />
     <type fullname="System.Collections.Generic.Queue`1/Enumerator" preserve="all" />
+    <type fullname="System.Collections.Generic.Stack`1" preserve="all" />
     <type fullname="System.ComponentModel.Component" preserve="all" />
     <type fullname="System.Diagnostics.PerformanceCounter" preserve="all" />
     <type fullname="System.Diagnostics.Process" preserve="all" />

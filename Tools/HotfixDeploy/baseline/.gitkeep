@@ -1,0 +1,2 @@
+# 此目录存放「上次上传到资源服后」的 version.json 基线。
+# 执行 Tools\save_hotfix_baseline.bat 后会生成 version.json。
