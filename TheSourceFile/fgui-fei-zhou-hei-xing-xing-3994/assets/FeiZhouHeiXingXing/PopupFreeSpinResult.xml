@@ -2,5 +2,6 @@
 <component size="1080,1920">
   <displayList>
     <text id="n0_llq9" name="scoreText" xy="335,537" size="419,215" fontSize="12" align="center" vAlign="middle" autoSize="none" text=""/>
+    <component id="n1_zvhl" name="closeBtn" src="zvhl5a" fileName="components/popupFreeSpinResult/closeBtn.xml" xy="487,844"/>
   </displayList>
 </component>

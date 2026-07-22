@@ -108,8 +108,10 @@ namespace CaiFuZhiJia_3997
             };
         }
 
+        private EventData _openData;
         private void InitParam(EventData eventData)
         {
+            if (eventData != null) _openData = eventData;
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
@@ -202,7 +204,7 @@ namespace CaiFuZhiJia_3997
 
             // ----------------------- 按钮点击事件 -------------------------
             _jackpotResultButton.onClick.Clear();
-            _jackpotResultButton.onClick.Add(() => OnClickSpinButton(null));
+            _jackpotResultButton.onClick.Add(() => OnClickSpinButton(_openData));
 
             if (TestManager.Instance.IsAutoModeRunning)
             {
@@ -218,8 +220,7 @@ namespace CaiFuZhiJia_3997
                 Timers.inst.Add(3.0f, 1, _autoClickCallback);
             }
         }
-
-
+        
         private void OnClickSpinButton(EventData res)
         {
             if (_isClicked) return;
@@ -234,6 +235,11 @@ namespace CaiFuZhiJia_3997
             
             _delayCloseCallback = (obj) =>
             {
+                if (res is { value: Dictionary<string, object> args })
+                {
+                    Action changePage = args["changeNormalPage"] as Action;
+                    changePage?.Invoke();
+                }
                 if (isOpen) CloseSelf(null);
                 _delayCloseCallback = null;
             };

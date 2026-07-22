@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="243,82" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_pbvu" name="n0" src="pbvu1l" fileName="images/exhibitionMode/btn_exhibition_02.png" xy="0,0" group="n4_pbvu">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_pbvu" name="n1" src="pbvu1p" fileName="images/exhibitionMode/txt_open.png" xy="120,43" pivot="0.5,0.5" anchor="true" group="n4_pbvu"/>
+    <group id="n4_pbvu" name="openGroup" xy="0,0" size="243,82" advanced="true"/>
+    <image id="n2_pbvu" name="n2" src="pbvu1k" fileName="images/exhibitionMode/btn_exhibition_01.png" xy="0,0" group="n5_pbvu">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n3_pbvu" name="n3" src="pbvu1o" fileName="images/exhibitionMode/txt_close.png" xy="120,43" pivot="0.5,0.5" anchor="true" group="n5_pbvu"/>
+    <group id="n5_pbvu" name="closeGroup" xy="0,0" size="243,82" advanced="true"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.8"/>
+</component>

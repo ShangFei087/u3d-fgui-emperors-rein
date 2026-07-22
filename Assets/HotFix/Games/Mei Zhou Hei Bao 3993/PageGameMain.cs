@@ -83,6 +83,7 @@ namespace MeiZhouHeiBao_3993
         private GComponent _freeFrameCom;
         private GTextField _freeSpinsNumber;
         private FreeSpinTimeController _freeSpinTimeController;
+        private long _allWinCredit = 0;
 
         /// <summary> 免费游戏触发局数据记录 </summary>
         private readonly Stack<Dictionary<string, object>> _freeSaveStack = new Stack<Dictionary<string, object>>();
@@ -474,7 +475,7 @@ namespace MeiZhouHeiBao_3993
             _isStoppedSlotMachine = false;
             _slotMachineController.CloseSlotCover();
             _slotMachineController.SkipWinLine(true);
-            if(_corGameIdle!=null)_monoHelper.StopCoroutine(_corGameIdle);
+            if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
             // if (_corEffectSlowMotion != null) _monoHelper.StopCoroutine(_corEffectSlowMotion);
         }
 
@@ -662,13 +663,23 @@ namespace MeiZhouHeiBao_3993
             // ----------------- free win ---------------
             if (ContentModel.Instance.isFreeSpinTrigger)
             {
+                _slotMachineController.SkipWinLine(true);
+                _slotMachineController.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 10 }, true, 10,
+                    true);
+                yield return _slotMachineController.SlotWaitForSeconds(1.333f);
+                yield return FreeSpinTrigger(null, errorCallback);
             }
 
             // ----------------- small win ---------------
             if (ContentModel.Instance.isSmallGameTrigger)
             {
+                _slotMachineController.SkipWinLine(true);
+                _slotMachineController.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 11 }, true, 10,
+                    true);
+                yield return _slotMachineController.SlotWaitForSeconds(2.533f);
+                yield return SmallGameTrigger(null, null);
             }
-
+            
             DebugUtils.Log("进入空闲模式！！！");
             // 本剧同步玩家金钱
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
@@ -679,6 +690,7 @@ namespace MeiZhouHeiBao_3993
                 _corGameIdle = _monoHelper.StartCoroutine(GameIdle(winList));
             }
 
+            _slotMachineController.isStopImmediately = false;
             successCallback?.Invoke();
         }
 
@@ -915,9 +927,10 @@ namespace MeiZhouHeiBao_3993
                 SymbolWin sw = (SymbolWin)context["./winFreeSpinTriggerOrAddCopy"];
                 if (sw != null && sw.cells.Count > 0) _slotMachineController.ShowSymbolWinDeck(sw, true);
             });
-            PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupFreeSpinTrigger, null, (ed) =>
+            PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupFreeSpinResult, null, (ed) =>
             {
                 _pageController.selectedPage = "normal";
+                ContentModel.Instance.FreeSpinTotalTimes = 0;
                 isNext = true;
             });
 
@@ -998,14 +1011,17 @@ namespace MeiZhouHeiBao_3993
             List<SymbolWin> winList = ContentModel.Instance.winList;
             if (winList.Count > 0 || ContentModel.Instance.bonusResult != null)
             {
+                long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList);
+                _allWinCredit += totalWinLineCredit;
+                _slotMachineController.SendTotalWinCreditEvent(_allWinCredit); // 总线赢分事件
             }
 
             isNext = false;
 
-            // if (winList.Count > 0 || false)
-            // {
-            //     yield return ShowWinListCoinCountDown(winList, _allWinCredit, false);
-            // }
+            if (winList.Count > 0 || false)
+            {
+                yield return ShowWinListCoinCountDown(winList, _allWinCredit, false);
+            }
 
             // ----------------- big win ----------------
             WinLevelType winLevelType = GetBigWinType();
@@ -1031,6 +1047,16 @@ namespace MeiZhouHeiBao_3993
             }
 
             successCallback?.Invoke();
+        }
+
+        private IEnumerator ShowWinListCoinCountDown(List<SymbolWin> winList, long totalWinLineCredit,
+            bool isHitJackpot)
+        {
+            if (!isHitJackpot)
+                _slotMachineController.ShowSymbolWinDeck(_slotMachineController.GetTotalSymbolWin(winList), true);
+            yield return new WaitForSeconds(1.5f);
+            _slotMachineController.SkipWinLine(false);
+            _slotMachineController.CloseSlotCover();
         }
 
         #endregion

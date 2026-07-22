@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="105,706">
+  <displayList>
+    <component id="n2_pbvu" name="btnUp" src="pbvu2e" fileName="components/Panel/exhibitionBtn2.xml" xy="0,0" group="n4_qrjm"/>
+    <component id="n3_pbvu" name="BtnDown" src="pbvu2e" fileName="components/Panel/exhibitionBtn2.xml" xy="0,600" group="n4_qrjm" rotation="180"/>
+    <group id="n4_qrjm" name="n4" xy="0,0" size="105,706"/>
+  </displayList>
+</component>

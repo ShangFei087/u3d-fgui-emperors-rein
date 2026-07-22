@@ -1,76 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="9igt9u8m">
   <resources>
-    <image id="u8to0" name="pb_num_0.png" path="/images/common/fonts/betFont/" exported="true"/>
-    <image id="u8to1" name="pb_num_kilo.png" path="/images/common/fonts/betFont/" exported="true"/>
-    <image id="u8to2" name="pb_num_bill.png" path="/images/common/fonts/betFont/" exported="true"/>
-    <image id="u8to3" name="pb_num_bet_trillion.png" path="/images/common/fonts/winFont/" exported="true"/>
-    <image id="u8to4" name="pb_num_bet_million.png" path="/images/common/fonts/winFont/" exported="true"/>
-    <image id="u8to5" name="pb_num_bet_kilo.png" path="/images/common/fonts/winFont/" exported="true"/>
-    <image id="u8to6" name="pb_num_bet_dot.png" path="/images/common/fonts/winFont/" exported="true"/>
-    <image id="u8to7" name="pb_num_bet_com.png" path="/images/common/fonts/winFont/" exported="true"/>
-    <image id="u8to8" name="pb_num_bet_bill.png" path="/images/common/fonts/winFont/" exported="true"/>
-    <image id="u8to9" name="pb_num_bet_9.png" path="/images/common/fonts/winFont/" exported="true"/>
-    <image id="u8toa" name="pb_num_bet_8.png" path="/images/common/fonts/winFont/" exported="true"/>
-    <image id="u8tob" name="pb_num_bet_7.png" path="/images/common/fonts/winFont/" exported="true"/>
-    <image id="u8toc" name="pb_num_bet_6.png" path="/images/common/fonts/winFont/" exported="true"/>
-    <image id="u8tod" name="pb_num_bet_5.png" path="/images/common/fonts/winFont/" exported="true"/>
-    <image id="u8toe" name="pb_num_bet_4.png" path="/images/common/fonts/winFont/" exported="true"/>
-    <image id="u8tof" name="pb_num_bet_3.png" path="/images/common/fonts/winFont/" exported="true"/>
-    <image id="u8tog" name="pb_num_bet_2.png" path="/images/common/fonts/winFont/" exported="true"/>
-    <image id="u8toh" name="pb_num_bet_1.png" path="/images/common/fonts/winFont/" exported="true"/>
-    <image id="u8toi" name="pb_num_bet_0.png" path="/images/common/fonts/winFont/" exported="true"/>
-    <image id="u8toj" name="pb_num_9.png" path="/images/common/fonts/betFont/" exported="true"/>
-    <image id="u8tok" name="pb_num_8.png" path="/images/common/fonts/betFont/" exported="true"/>
-    <image id="u8tol" name="pb_num_7.png" path="/images/common/fonts/betFont/" exported="true"/>
-    <image id="u8tom" name="pb_num_6.png" path="/images/common/fonts/betFont/" exported="true"/>
-    <image id="u8ton" name="pb_num_5.png" path="/images/common/fonts/betFont/" exported="true"/>
-    <image id="u8too" name="pb_num_4.png" path="/images/common/fonts/betFont/" exported="true"/>
-    <image id="u8top" name="pb_num_3.png" path="/images/common/fonts/betFont/" exported="true"/>
-    <image id="u8toq" name="pb_num_2.png" path="/images/common/fonts/betFont/" exported="true"/>
-    <image id="u8tor" name="pb_num_1.png" path="/images/common/fonts/betFont/" exported="true"/>
-    <image id="u8tos" name="pb_num_million.png" path="/images/common/fonts/betFont/" exported="true"/>
-    <image id="u8tot" name="pb_num_trillion.png" path="/images/common/fonts/betFont/" exported="true"/>
-    <font id="u8tou" name="winFont.fnt" path="/fonts/" exported="true"/>
-    <font id="u8tov" name="betFont.fnt" path="/fonts/" exported="true"/>
-    <image id="u8tow" name="pb_img_button.png" path="/images/spin/" exported="true"/>
-    <image id="u8tox" name="pb_img_button_grey.png" path="/images/spin/" exported="true"/>
-    <image id="u8toy" name="pb_txt_auto.png" path="/images/spin/" exported="true"/>
-    <image id="u8toz" name="pb_txt_spin HoldToAuto.png" path="/images/spin/" exported="true"/>
-    <image id="u8to10" name="pb_txt_stop.png" path="/images/spin/" exported="true"/>
     <component id="u8to11" name="ButtonSpin.xml" path="/components/Panel/" exported="true"/>
     <component id="u8to12" name="anchorSpin.xml" path="/moudules/panel/" exported="true"/>
-    <image id="u8to13" name="pb_img_bottom.png" path="/images/gameDiFrame/" exported="true"/>
-    <image id="u8to14" name="pb_img_button01.png" path="/images/gameDiFrame/" exported="true"/>
-    <image id="u8to15" name="pb_img_button02.png" path="/images/gameDiFrame/" exported="true"/>
-    <image id="u8to16" name="pb_img_dik.png" path="/images/gameDiFrame/" exported="true" scale="9grid" scale9grid="129,6,260,14"/>
-    <image id="u8to17" name="pb_img_kuang.png" path="/images/gameDiFrame/" exported="true" scale="9grid" scale9grid="54,1,12,100"/>
-    <image id="u8to18" name="pb_img_kuang_01.png" path="/images/gameDiFrame/" exported="true"/>
-    <image id="u8to19" name="pb_img_score.png" path="/images/gameDiFrame/" exported="true" scale="9grid" scale9grid="42,11,41,114"/>
-    <image id="u8to1a" name="pb_img_toubi.png" path="/images/gameDiFrame/" exported="true"/>
-    <image id="u8to1b" name="pb_txt_bet.png" path="/images/gameDiFrame/" exported="true"/>
-    <image id="u8to1c" name="pb_txt_credits.png" path="/images/gameDiFrame/" exported="true"/>
-    <image id="u8to1d" name="pb_txt_win.png" path="/images/gameDiFrame/" exported="true"/>
-    <image id="u8to1e" name="pb_txt_zw.png" path="/images/gameDiFrame/" exported="true"/>
     <component id="u8to1f" name="gameDiFrame.xml" path="/moudules/panel/" exported="true"/>
-    <image id="u8to1h" name="pb_img_kuang_03.png" path="/images/bet/" exported="true"/>
-    <image id="u8to1i" name="pb_img_kuang_04.png" path="/images/bet/" exported="true"/>
     <component id="u8to1j" name="ButtonBetUp.xml" path="/components/Panel/" exported="true"/>
     <component id="u8to1k" name="ButtonBetDown.xml" path="/components/Panel/" exported="true"/>
     <component id="u8to1l" name="Panel.xml" path="/" exported="true"/>
-    <image id="u8to1m" name="pb_img_dgn.png" path="/images/help/" exported="true"/>
     <component id="u8to1n" name="ButtonHelp.xml" path="/components/Panel/" exported="true"/>
     <component id="u8to1o" name="SetPanel.xml" path="/" exported="true"/>
-    <image id="u8to1p" name="pb_img_expand.png" path="/images/setPanel/" exported="true"/>
-    <image id="u8to1q" name="pb_img_help.png" path="/images/setPanel/" exported="true"/>
-    <image id="u8to1r" name="pb_img_music.png" path="/images/setPanel/" exported="true"/>
-    <image id="u8to1s" name="pb_img_music01.png" path="/images/setPanel/" exported="true"/>
-    <image id="u8to1t" name="pb_img_music02.png" path="/images/setPanel/" exported="true"/>
-    <image id="u8to1u" name="pb_img_music03.png" path="/images/setPanel/" exported="true" scale="9grid" scale9grid="6,3,19,13"/>
-    <image id="u8to1v" name="pb_img_music04.png" path="/images/setPanel/" exported="true" scale="9grid" scale9grid="8,3,200,10"/>
-    <image id="u8to1w" name="pb_img_music05.png" path="/images/setPanel/" exported="true"/>
-    <image id="u8to1x" name="pb_img_music06.png" path="/images/setPanel/" exported="true" scale="9grid" scale9grid="9,7,21,36"/>
-    <image id="u8to1y" name="pb_img_red.png" path="/images/setPanel/" exported="true"/>
     <component id="u8to1z" name="ButtonHome.xml" path="/components/Panel/" exported="true"/>
     <component id="u8to20" name="ButtonSound.xml" path="/components/Panel/" exported="true"/>
     <component id="u8to21" name="ButtonIntroduce.xml" path="/components/Panel/" exported="true"/>
@@ -88,15 +26,80 @@
     <component id="u8to2d" name="exhibitionBtn.xml" path="/components/ExhibitionMode/" exported="true"/>
     <component id="u8to2e" name="ReelBtn.xml" path="/moudules/exhibitionMode/" exported="true"/>
     <image id="u8to2f" name="arrow.png" path="/images/instructions/" exported="true"/>
-    <image id="u8to2g" name="Back to game.png" path="/images/instructions/" exported="true"/>
     <image id="u8to2h" name="Border.png" path="/images/instructions/" exported="true"/>
-    <image id="u8to2i" name="button.png" path="/images/instructions/" exported="true"/>
     <image id="u8to2j" name="GAME.png" path="/images/instructions/" exported="true"/>
     <image id="u8to2k" name="GAME1.png" path="/images/instructions/" exported="true"/>
     <component id="u8to2l" name="BackButton.xml" path="/components/Instructions/" exported="true"/>
     <component id="u8to2m" name="ButtonL.xml" path="/components/Instructions/" exported="true"/>
     <component id="u8to2n" name="InstructionPanel.xml" path="/moudules/instructions/" exported="true"/>
     <component id="u8to2o" name="payTable.xml" path="/moudules/instructions/" exported="true"/>
+    <image id="hm6e2z" name="pb_img_bottom.png" path="/images/gameDiFrame/" exported="true"/>
+    <image id="hm6e30" name="pb_txt_win.png" path="/images/gameDiFrame/" exported="true"/>
+    <image id="hm6e31" name="pb_txt_yw.png" path="/images/gameDiFrame/" exported="true"/>
+    <image id="hm6e32" name="pb_img_toubi.png" path="/images/gameDiFrame/" exported="true"/>
+    <image id="hm6e33" name="pb_txt_credits.png" path="/images/gameDiFrame/" exported="true"/>
+    <image id="hm6e34" name="pb_txt_bet.png" path="/images/gameDiFrame/" exported="true"/>
+    <image id="hm6e35" name="pb_img_kuang.png" path="/images/gameDiFrame/" exported="true" scale="9grid" scale9grid="46,19,29,43"/>
+    <image id="hm6e3a" name="pb_img_dik.png" path="/images/gameDiFrame/" exported="true"/>
+    <image id="hm6e3b" name="pb_img_dgn(1).png" path="/images/help/"/>
+    <image id="hm6e3c" name="pb_num_c_0.png" path="/images/common/fonts/betFont/" exported="true"/>
+    <image id="hm6e3d" name="pb_num_c_1.png" path="/images/common/fonts/betFont/" exported="true"/>
+    <image id="hm6e3e" name="pb_num_c_2.png" path="/images/common/fonts/betFont/" exported="true"/>
+    <image id="hm6e3f" name="pb_num_c_3.png" path="/images/common/fonts/betFont/" exported="true"/>
+    <image id="hm6e3g" name="pb_num_c_4.png" path="/images/common/fonts/betFont/" exported="true"/>
+    <image id="hm6e3h" name="pb_num_c_6.png" path="/images/common/fonts/betFont/" exported="true"/>
+    <image id="hm6e3i" name="pb_num_c_6-1.png" path="/images/common/fonts/betFont/" exported="true"/>
+    <image id="hm6e3j" name="pb_num_c_7.png" path="/images/common/fonts/betFont/" exported="true"/>
+    <image id="hm6e3k" name="pb_num_c_8.png" path="/images/common/fonts/betFont/" exported="true"/>
+    <image id="hm6e3l" name="pb_num_c_9.png" path="/images/common/fonts/betFont/" exported="true"/>
+    <image id="hm6e3m" name="pb_num_c_bil.png" path="/images/common/fonts/betFont/" exported="true"/>
+    <image id="hm6e3n" name="pb_num_c_com.png" path="/images/common/fonts/betFont/" exported="true"/>
+    <image id="hm6e3o" name="pb_num_c_dot.png" path="/images/common/fonts/betFont/" exported="true"/>
+    <image id="hm6e3p" name="pb_num_c_kil.png" path="/images/common/fonts/betFont/" exported="true"/>
+    <image id="hm6e3q" name="pb_num_c_mil.png" path="/images/common/fonts/betFont/" exported="true"/>
+    <image id="hm6e3r" name="pb_num_c_tril.png" path="/images/common/fonts/betFont/" exported="true"/>
+    <font id="hm6e3s" name="betFont.fnt" path="/fonts/" exported="true"/>
+    <image id="hm6e3t" name="pb_num_0.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <image id="hm6e3u" name="pb_num_1.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <image id="hm6e3v" name="pb_num_2.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <image id="hm6e3w" name="pb_num_3.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <image id="hm6e3x" name="pb_num_4.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <image id="hm6e3y" name="pb_num_5.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <image id="hm6e3z" name="pb_num_6.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <image id="hm6e40" name="pb_num_7.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <image id="hm6e41" name="pb_num_8.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <image id="hm6e42" name="pb_num_9.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <image id="hm6e43" name="pb_num_bil.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <image id="hm6e44" name="pb_num_bil-1.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <image id="hm6e45" name="pb_num_com.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <image id="hm6e46" name="pb_num_dollar.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <image id="hm6e47" name="pb_num_dot.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <image id="hm6e48" name="pb_num_kil.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <image id="hm6e49" name="pb_num_tril.png" path="/images/common/fonts/winFont/" exported="true"/>
+    <font id="hm6e4a" name="winFont.fnt" path="/fonts/" exported="true"/>
+    <image id="hm6e4b" name="pb_img_-.png" path="/images/bet/"/>
+    <image id="hm6e4c" name="pb_img_+.png" path="/images/bet/"/>
+    <image id="hm6e4g" name="pb_img_button_grey(1).png" path="/images/spin/" exported="true"/>
+    <image id="hm6e4h" name="pb_txt_auto.png" path="/images/spin/" exported="true"/>
+    <image id="hm6e4i" name="pb_txt_hold.png" path="/images/spin/" exported="true"/>
+    <image id="hm6e4j" name="pb_txt_spin.png" path="/images/spin/" exported="true"/>
+    <image id="hm6e4k" name="pb_txt_stop.png" path="/images/spin/" exported="true"/>
+    <component id="hm6e4l" name="SpinBtnContent.xml" path="/moudules/panel/" exported="true"/>
+    <image id="hm6e4q" name="Back to game.png" path="/images/instructions/" exported="true"/>
+    <image id="hm6e4r" name="button.png" path="/images/instructions/" exported="true"/>
+    <image id="hm6e4s" name="5.png" path="/images/instructions/"/>
+    <image id="hm6e4t" name="pb_img_expand.png" path="/images/setPanel/" exported="true"/>
+    <image id="hm6e4u" name="pb_img_help.png" path="/images/setPanel/" exported="true"/>
+    <image id="hm6e4v" name="pb_img_red.png" path="/images/setPanel/" exported="true"/>
+    <image id="hm6e4w" name="pb_img_music.png" path="/images/setPanel/" exported="true"/>
+    <image id="hm6e4x" name="pb_img_music01.png" path="/images/setPanel/" exported="true"/>
+    <image id="hm6e4y" name="pb_img_music02.png" path="/images/setPanel/" exported="true"/>
+    <image id="hm6e4z" name="pb_img_music03.png" path="/images/setPanel/" exported="true"/>
+    <image id="hm6e50" name="pb_img_music04(1).png" path="/images/setPanel/" exported="true"/>
+    <image id="hm6e51" name="pb_img_music05(1).png" path="/images/setPanel/" exported="true"/>
+    <image id="t7ug53" name="pb_img_button.png" path="/images/spin/" exported="true"/>
+    <image id="t7ug54" name="pb_img_button01_.png" path="/images/gameDiFrame/" exported="true"/>
+    <image id="t7ug55" name="pb_img_button02(1).png" path="/images/gameDiFrame/" exported="true"/>
   </resources>
   <publish name="CaiFuZhiJia_Panel" path="../../Assets/GameRes/Panel/Panel3997/FGUIs" packageCount="2"/>
 </packageDescription>

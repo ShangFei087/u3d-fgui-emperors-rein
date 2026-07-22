@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="296,48">
+<component size="401,92">
   <displayList>
-    <image id="n0_ujwn" name="n0" src="u8to1r" fileName="images/pageGameMain/freeBg/fg_txt_times.png" xy="102,24" pivot="0.5,0.5" anchor="true"/>
-    <text id="n1_ujwn" name="FreeSpinsNumber" xy="209,2" size="76,44" font="ui://92trhum6u8to1q" fontSize="15" align="center" vAlign="middle" autoSize="none" text="10"/>
+    <image id="n4_hm6e" name="n4" src="hm6e8x" fileName="images/pageGameMain/freeBg/ng_img_frame.png" xy="0,0" group="n5_hm6e"/>
+    <image id="n0_ujwn" name="n0" src="hm6e8w" fileName="images/pageGameMain/freeBg/fg_txt_free.png" xy="173,44" pivot="0.5,0.5" anchor="true" group="n5_hm6e"/>
+    <text id="n1_ujwn" name="FreeSpinsNumber" xy="274,11" size="76,64" group="n5_hm6e" font="ui://92trhum6hm6e8y" fontSize="12" align="center" vAlign="middle" autoSize="shrink" text="10"/>
+    <group id="n5_hm6e" name="n5" xy="0,0" size="401,92"/>
   </displayList>
 </component>

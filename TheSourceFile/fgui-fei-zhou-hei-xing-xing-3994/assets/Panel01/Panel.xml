@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,176">
+  <displayList>
+    <graph id="n1_pbvu" name="mash" xy="0,-1744" size="1080,1920" visible="false" type="rect" fillColor="#99000000"/>
+    <component id="n0_pbvu" name="frame" src="sns5i" fileName="moudules/panel/gameDiFrame.xml" xy="0,0" size="1080,176"/>
+    <component id="n4_pbvu" name="btnHelp" src="sns5l" fileName="components/Panel/ButtonHelp.xml" xy="2,14"/>
+    <text id="n6_pbvu" name="bet" xy="605,86" size="211,59" font="ui://yaqbz2lrsns51g" fontSize="7" align="center" vAlign="middle" letterSpacing="-8" autoSize="shrink" text="25"/>
+    <text id="n7_pbvu" name="win" xy="401,20" size="277,49" font="ui://yaqbz2lrsns51g" fontSize="10" align="center" vAlign="middle" letterSpacing="-8" autoSize="shrink" text="20"/>
+    <text id="n5_pbvu" name="credit" xy="270,86" size="193,60" font="ui://yaqbz2lrsns51g" fontSize="7" align="center" vAlign="middle" letterSpacing="-8" autoSize="shrink" text="9900"/>
+    <component id="n2_pbvu" name="btnBetDown" src="sns5j" fileName="components/Panel/ButtonBetDown.xml" xy="561,102"/>
+    <component id="n3_pbvu" name="btnBetUp" src="sns5k" fileName="components/Panel/ButtonBetUp.xml" xy="822,102"/>
+    <component id="n13_pbvu" name="btnSpin" src="pbvu20" fileName="components/Panel/ButtonSpin.xml" xy="884,14"/>
+    <text id="n8_pbvu" name="singleLine" xy="0,7" size="194,19" fontSize="12" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" bold="true" text="Line : 12  symbolType : 2   Win :24"/>
+    <component id="n12_pbvu" name="ExhibitionPanel" src="pbvu1j" fileName="ExhibitionPanel.xml" xy="0,-1744"/>
+    <component id="n15_lyfo" name="instructions" src="lyfo2z" fileName="moudules/instructions/InstructionPanel.xml" xy="0,-1744"/>
+    <component id="n14_pbvu" name="setPanel" src="pbvu2f" fileName="SetPanel.xml" xy="36,-250" visible="false"/>
+  </displayList>
+</component>

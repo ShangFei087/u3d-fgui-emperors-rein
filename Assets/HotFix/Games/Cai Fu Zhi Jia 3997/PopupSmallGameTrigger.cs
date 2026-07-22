@@ -48,7 +48,7 @@ namespace CaiFuZhiJia_3997
         private Vector3 _jackpotTriggerButtonOriginalScale;
 
         private bool _isClicked = false;
-
+        private EventData _openData;
         private GameSoundController3997 _gameSoundController;
 
         private TimerCallback _delayCloseCallback;
@@ -98,38 +98,15 @@ namespace CaiFuZhiJia_3997
             };
         }
 
-        private void OnClickSpinButton(EventData res)
-        {
-            if (_isClicked) return;
-            _isClicked = true;
-            
-            RemoveTimer(ref _delayCloseCallback);
-            
-            _jackpotTriggerTipWindow.visible = false;
-            _cloneDiamondAnimationObj.SetActive(false);
-
-            _cloneDiamondSpineObj.SetActive(true);
-            _cloneDiamondBgEffectObj.SetActive(true);
-
-            _delayCloseCallback = (obj) =>
-            {
-                if (isOpen) CloseSelf(null);
-                _delayCloseCallback = null;
-            };
-            Timers.inst.Add(5, 1, _delayCloseCallback);
-            
-            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
-                new EventData(SlotMachineEvent.BonusGameFadeTransition));
-        }
-
         private void InitParam(EventData eventData)
         {
+            if (eventData != null) _openData = eventData;
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
             _isClicked = false;
             RemoveTimer(ref _autoClickCallback);
-            
+
             // ------------------ 获取UI组件 -----------------------
             _jackpotTriggerTipWindow = contentPane.GetChild("jackpotTriggerTipWindow").asCom;
             _jackpotTriggerButton = _jackpotTriggerTipWindow.GetChild("jackpotTriggerButton").asButton;
@@ -187,20 +164,52 @@ namespace CaiFuZhiJia_3997
 
             // -------------------------- 添加UI点击事件 --------------------------
             _jackpotTriggerButton.onClick.Clear();
-            _jackpotTriggerButton.onClick.Add(() => OnClickSpinButton(null));
+            _jackpotTriggerButton.onClick.Add(() => OnClickSpinButton(_openData));
 
             if (TestManager.Instance.IsAutoModeRunning)
             {
                 _autoClickCallback = (obj) =>
                 {
-                    if (_jackpotTriggerButton != null && _jackpotTriggerTipWindow != null && _jackpotTriggerTipWindow.visible && isOpen)
+                    if (_jackpotTriggerButton != null && _jackpotTriggerTipWindow != null &&
+                        _jackpotTriggerTipWindow.visible && isOpen)
                     {
                         _jackpotTriggerButton.onClick.Call();
                     }
+
                     _autoClickCallback = null;
                 };
                 Timers.inst.Add(3.0f, 1, _autoClickCallback);
             }
+        }
+
+        private void OnClickSpinButton(EventData res)
+        {
+            if (_isClicked) return;
+            _isClicked = true;
+
+            RemoveTimer(ref _delayCloseCallback);
+
+            _jackpotTriggerTipWindow.visible = false;
+            _cloneDiamondAnimationObj.SetActive(false);
+
+            _cloneDiamondSpineObj.SetActive(true);
+            _cloneDiamondBgEffectObj.SetActive(true);
+
+            _delayCloseCallback = (obj) =>
+            {
+                if (res is { value: Dictionary<string, object> args })
+                {
+                    Action changePage = args["changeSmallGamePage"] as Action;
+                    changePage?.Invoke();
+                }
+
+                if (isOpen) CloseSelf(null);
+                _delayCloseCallback = null;
+            };
+            Timers.inst.Add(5, 1, _delayCloseCallback);
+
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(SlotMachineEvent.BonusGameFadeTransition));
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
@@ -210,7 +219,7 @@ namespace CaiFuZhiJia_3997
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(Game3997AudioEvent.BgmBonusTrigger));
 
-            InitParam(null);
+            InitParam(eventData);
         }
 
         public override void OnClose(EventData eventData = null)
@@ -218,7 +227,7 @@ namespace CaiFuZhiJia_3997
             base.OnClose(eventData);
             _gameSoundController?.Dispose();
             _gameSoundController = null;
-            
+
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _delayCloseCallback);
 
@@ -239,15 +248,15 @@ namespace CaiFuZhiJia_3997
             _jackpotTriggerButtonOriginalParent = null;
         }
 
-        private void ResLoadedCallback()
+        private void ResLoadedCallback(EventData eventData = null)
         {
             if (--_totalCount == 0)
             {
                 _isInitialized = true;
-                InitParam(null);
+                InitParam(eventData);
             }
         }
-        
+
         private void RemoveTimer(ref TimerCallback timerCallback)
         {
             if (timerCallback == null) return;

@@ -146,7 +146,7 @@ namespace CaiFuHuoChe_3996
             new PayTableSymbolInfo(){symbol = 1, x5 = 20, x4 = 10, x3 = 5, },
             new PayTableSymbolInfo(){symbol = 2, x5 = 20, x4 = 10, x3 = 5, },
             new PayTableSymbolInfo(){symbol = 3, x5 = 20, x4 = 10, x3 = 5, },
-            new PayTableSymbolInfo(){symbol = 4, x5 = 20, x4 = 10, x3 = 5, },
+            new PayTableSymbolInfo(){symbol = 4, x5 = 30, x4 = 20, x3 = 10 },
             new PayTableSymbolInfo(){symbol = 5, x5 = 50, x4 = 20, x3 = 10, },
             new PayTableSymbolInfo(){symbol = 6, x5 = 50, x4 = 20, x3 = 10, },
             new PayTableSymbolInfo(){symbol = 7, x5 = 100, x4 = 60, x3 = 30, },

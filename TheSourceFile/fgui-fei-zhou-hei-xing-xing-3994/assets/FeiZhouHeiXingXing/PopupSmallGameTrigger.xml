@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920"/>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_zvhl" name="closeBtn" src="zvhl5b" fileName="components/popupSmallGameTrigger/closeBtn.xml" xy="489,1037"/>
+  </displayList>
+</component>

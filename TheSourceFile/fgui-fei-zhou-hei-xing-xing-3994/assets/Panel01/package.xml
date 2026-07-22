@@ -1,5 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="yaqbz2lr">
-  <resources/>
+  <resources>
+    <image id="sns5z" name="ng_num_0.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <image id="sns510" name="ng_num_kil.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <image id="sns511" name="ng_num_dot.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <image id="sns512" name="ng_num_dollar.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <image id="sns513" name="ng_num_com.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <image id="sns514" name="ng_num_bil.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <image id="sns515" name="ng_num_9.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <image id="sns516" name="ng_num_mil.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <image id="sns517" name="ng_num_8.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <image id="sns518" name="ng_num_6.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <image id="sns519" name="ng_num_5.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <image id="sns51a" name="ng_num_4.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <image id="sns51b" name="ng_num_3.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <image id="sns51c" name="ng_num_2.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <image id="sns51d" name="ng_num_1.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <image id="sns51e" name="ng_num_7.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <image id="sns51f" name="ng_num_tril.png" path="/images/common/bottomPanelFont/" exported="true"/>
+    <font id="sns51g" name="bottomPanelFont.fnt" path="/fonts/" exported="true"/>
+    <component id="sns5i" name="gameDiFrame.xml" path="/moudules/panel/" exported="true"/>
+    <component id="sns5j" name="ButtonBetDown.xml" path="/components/Panel/" exported="true"/>
+    <component id="sns5k" name="ButtonBetUp.xml" path="/components/Panel/" exported="true"/>
+    <component id="sns5l" name="ButtonHelp.xml" path="/components/Panel/" exported="true"/>
+    <component id="pbvu1h" name="Panel.xml" path="/" exported="true"/>
+    <component id="pbvu1j" name="ExhibitionPanel.xml" path="/" exported="true"/>
+    <image id="pbvu1k" name="btn_exhibition_01.png" path="/images/bottom/exhibitionMode/" exported="true"/>
+    <image id="pbvu1l" name="btn_exhibition_02.png" path="/images/bottom/exhibitionMode/" exported="true"/>
+    <image id="pbvu1m" name="btn_respin_01.png" path="/images/bottom/exhibitionMode/" exported="true"/>
+    <image id="pbvu1n" name="btn_respin_02.png" path="/images/bottom/exhibitionMode/" exported="true"/>
+    <image id="pbvu1o" name="txt_close.png" path="/images/bottom/exhibitionMode/" exported="true"/>
+    <image id="pbvu1p" name="txt_open.png" path="/images/bottom/exhibitionMode/" exported="true"/>
+    <component id="pbvu1s" name="ButtonExhibition.xml" path="/components/Panel/" exported="true"/>
+    <component id="pbvu1t" name="exhibitionBtn.xml" path="/components/Panel/" exported="true"/>
+    <component id="pbvu1u" name="ReelBtn.xml" path="/moudules/exhibitionMode/" exported="true"/>
+    <component id="pbvu20" name="ButtonSpin.xml" path="/components/Panel/" exported="true"/>
+    <component id="pbvu21" name="anchorSpin.xml" path="/components/anchor/" exported="true"/>
+    <image id="pbvu2c" name="ng_bor_ydan1.png" path="/images/bottom/exhibitionMode/" exported="true"/>
+    <image id="pbvu2d" name="ng_bor_ydan2.png" path="/images/bottom/exhibitionMode/" exported="true"/>
+    <component id="pbvu2e" name="exhibitionBtn2.xml" path="/components/Panel/" exported="true"/>
+    <component id="pbvu2f" name="SetPanel.xml" path="/" exported="true"/>
+    <image id="pbvu2h" name="ng_btn_back.png" path="/images/bottom/setPanel/" exported="true"/>
+    <image id="pbvu2i" name="ng_btn_hdan.png" path="/images/bottom/setPanel/" exported="true"/>
+    <image id="pbvu2j" name="ng_btn_help.png" path="/images/bottom/setPanel/" exported="true"/>
+    <image id="pbvu2k" name="ng_btn_jy.png" path="/images/bottom/setPanel/" exported="true"/>
+    <image id="pbvu2l" name="ng_btn_ylt.png" path="/images/bottom/setPanel/" exported="true"/>
+    <image id="pbvu2m" name="ng_btn_ys.png" path="/images/bottom/setPanel/" exported="true"/>
+    <component id="pbvu2n" name="btnPayTable.xml" path="/components/SetPanel/" exported="true"/>
+    <component id="pbvu2o" name="btnHome.xml" path="/components/SetPanel/" exported="true"/>
+    <component id="pbvu2p" name="btnSound.xml" path="/components/SetPanel/" exported="true"/>
+    <component id="pbvu2q" name="silderSound_grip.xml" path="/components/SetPanel/" exported="true"/>
+    <component id="pbvu2r" name="silderSound.xml" path="/components/SetPanel/" exported="true"/>
+    <component id="lyfo2z" name="InstructionPanel.xml" path="/moudules/instructions/" exported="true"/>
+    <component id="lyfo30" name="payTable.xml" path="/moudules/instructions/" exported="true"/>
+    <component id="lyfo31" name="ButtonL.xml" path="/components/instructions/" exported="true"/>
+    <component id="lyfo32" name="BackButton.xml" path="/components/instructions/" exported="true"/>
+    <image id="qrjm33" name="ng_img_bottom1.png" path="/images/bottom/gameDiFrame/" exported="true"/>
+    <image id="qrjm34" name="ng_icon_tb(1).png" path="/images/bottom/gameDiFrame/" exported="true"/>
+    <image id="qrjm35" name="ng_txt_ts.png" path="/images/bottom/gameDiFrame/" exported="true"/>
+    <image id="qrjm36" name="ng_txt_win(1).png" path="/images/bottom/gameDiFrame/" exported="true"/>
+    <image id="qrjm37" name="ng_txt_bet.png" path="/images/bottom/gameDiFrame/" exported="true"/>
+    <image id="qrjm38" name="ng_txt_credits.png" path="/images/bottom/gameDiFrame/" exported="true"/>
+    <image id="qrjm3c" name="ng_btn_function(1).png" path="/images/bottom/help/" exported="true"/>
+    <image id="qrjm3d" name="ng_btn_subtrac.png" path="/images/bottom/bet/" exported="true"/>
+    <image id="qrjm3e" name="ng_btn_add(1).png" path="/images/bottom/bet/" exported="true"/>
+    <image id="qrjm3f" name="ng_btn_auto2.png" path="/images/bottom/spin/" exported="true"/>
+    <image id="qrjm3g" name="ng_btn_spin2.png" path="/images/bottom/spin/" exported="true"/>
+    <image id="qrjm3h" name="ng_btn_stop2.png" path="/images/bottom/spin/" exported="true"/>
+    <image id="qrjm3j" name="ng_num_gnjm1(1).png" path="/images/bottom/setPanel/" exported="true" scale9grid="0,0,-10,-11"/>
+  </resources>
   <publish name="" path="../../Assets/GameRes/Panel/Panel3994/FGUIs" packageCount="2"/>
 </packageDescription>

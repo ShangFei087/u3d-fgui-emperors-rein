@@ -2,19 +2,21 @@
 <branchDescription>
   <resources>
     <image id="ujwn4f" name="ng_img_frame05.png" path="/images/common/gameBorder/" exported="true"/>
-    <image id="ujwn4g" name="ng_txt_major_1(1).png" path="/images/common/gameJackpots/" exported="true"/>
-    <image id="ujwn4h" name="ng_txt_mini_1(1).png" path="/images/common/gameJackpots/" exported="true"/>
-    <image id="ujwn4i" name="ng_txt_minor_1(1).png" path="/images/common/gameJackpots/" exported="true"/>
-    <image id="ujwn4p" name="1.png" path="/images/common/gamePayTable/" exported="true"/>
-    <image id="ujwn4q" name="2.png" path="/images/common/gamePayTable/" exported="true"/>
-    <image id="ujwn4r" name="3.png" path="/images/common/gamePayTable/" exported="true"/>
-    <image id="ujwn4s" name="4.png" path="/images/common/gamePayTable/" exported="true"/>
-    <image id="ujwn4t" name="5.png" path="/images/common/gamePayTable/" exported="true"/>
-    <image id="ujwn4u" name="6.png" path="/images/common/gamePayTable/" exported="true"/>
     <image id="jh0i5b" name="ng_sym_diamonds3.png" path="/images/common/smallGameSymbols/" exported="true"/>
     <image id="jh0i5c" name="ng_sym_diamonds4.png" path="/images/common/smallGameSymbols/" exported="true"/>
     <image id="jh0i5d" name="ng_sym_diamonds6.png" path="/images/common/smallGameSymbols/" exported="true"/>
     <image id="gg7g5q" name="fg_txt_button.png" path="/images/common/gameButton/"/>
     <image id="gg7g5r" name="sg_txt_collect.png" path="/images/common/gameButton/"/>
+    <image id="hm6e8c" name="4.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="hm6e8d" name="5.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="hm6e8e" name="6.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="hm6e8f" name="1.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="hm6e8g" name="2.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="hm6e8h" name="3.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="hm6e8q" name="sg_txt_major.png" path="/images/common/gameJackpots/" exported="true"/>
+    <image id="hm6e8r" name="sg_txt_mini.png" path="/images/common/gameJackpots/" exported="true"/>
+    <image id="hm6e8s" name="sg_txt_minor.png" path="/images/common/gameJackpots/" exported="true"/>
+    <image id="hm6e8t" name="fg_txt_win_MULTIPLE.png" path="/images/pageGameMain/freeBg/" exported="true"/>
+    <image id="hm6e99" name="fg_txt_free.png" path="/images/pageGameMain/freeBg/"/>
   </resources>
 </branchDescription>

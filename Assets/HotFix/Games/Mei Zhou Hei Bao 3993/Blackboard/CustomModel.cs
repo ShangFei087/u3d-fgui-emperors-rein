@@ -15,7 +15,12 @@ namespace MeiZhouHeiBao_3993
         public Dictionary<string, string> symbolAppearEffect => new Dictionary<string, string>() { };
         public Dictionary<string, string> symbolExpectationEffect => new Dictionary<string, string>() { };
         public float reelMaxOffsetY => symbolHeight * row;
-        public string[] payTable => new[] { "ui://MeiZhouHeiBao/PayTable1", "ui://MeiZhouHeiBao/PayTable1", "ui://MeiZhouHeiBao/PayTable1", "ui://MeiZhouHeiBao/PayTable1", "ui://MeiZhouHeiBao/PayTable1" };
+
+        public string[] payTable => new[]
+        {
+            "ui://MeiZhouHeiBao/PayTable1", "ui://MeiZhouHeiBao/PayTable2", "ui://MeiZhouHeiBao/PayTable3",
+            "ui://MeiZhouHeiBao/PayTable4", "ui://MeiZhouHeiBao/PayTable5"
+        };
 
         public List<int> symbolNumber => new List<int>()
         {
@@ -47,21 +52,22 @@ namespace MeiZhouHeiBao_3993
             { "10", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/_11.prefab" },
         };
 
-        public string borderEffect => "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/Border/borderEffect.prefab";
+        public string borderEffect =>
+            "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/Border/borderEffect.prefab";
 
         public Dictionary<string, string> symbolIcon => new Dictionary<string, string>()
         {
-            { "0", "ui://CaiFuZhiJia/ng_sym01_10" },
-            { "1", "ui://CaiFuZhiJia/ng_sym02_J" },
-            { "2", "ui://CaiFuZhiJia/ng_sym03_Q" },
-            { "3", "ui://CaiFuZhiJia/ng_sym04_K" },
-            { "4", "ui://CaiFuZhiJia/ng_sym05_A" },
-            { "5", "ui://CaiFuZhiJia/ng_sym06_SCATTER" },
-            { "6", "ui://CaiFuZhiJia/ng_sym07_WILD" },
-            { "7", "ui://CaiFuZhiJia/ng_sym08_Crocodile" },
-            { "8", "ui://CaiFuZhiJia/ng_sym09_BlackPanther" },
-            { "9", "ui://CaiFuZhiJia/ng_sym12_Bird" },
-            { "10", "ui://CaiFuZhiJia/ng_sym13_Snake" },
+            { "0", "ui://MeiZhouHeiBao/ng_sym01_10" },
+            { "1", "ui://MeiZhouHeiBao/ng_sym02_J" },
+            { "2", "ui://MeiZhouHeiBao/ng_sym03_Q" },
+            { "3", "ui://MeiZhouHeiBao/ng_sym04_K" },
+            { "4", "ui://MeiZhouHeiBao/ng_sym05_A" },
+            { "5", "ui://MeiZhouHeiBao/ng_sym06_SCATTER" },
+            { "6", "ui://MeiZhouHeiBao/ng_sym07_WILD" },
+            { "7", "ui://MeiZhouHeiBao/ng_sym08_Crocodile" },
+            { "8", "ui://MeiZhouHeiBao/ng_sym09_BlackPanther" },
+            { "9", "ui://MeiZhouHeiBao/ng_sym12_Bird" },
+            { "10", "ui://MeiZhouHeiBao/ng_sym13_Snake" },
         };
 
         public List<PayTableSymbolInfo> payTableSymbolWin { get; set; }
@@ -270,7 +276,10 @@ namespace MeiZhouHeiBao_3993
             },
         };
 
-        public List<WinMultiple> winLevelMultiple { get; set; } = new List<WinMultiple>() { new WinMultiple("BIG", 5), new WinMultiple("HUGE", 10), new WinMultiple("MASSIVE", 20), };
+        public List<WinMultiple> winLevelMultiple { get; set; } = new List<WinMultiple>()
+        {
+            new WinMultiple("BIG", 5), new WinMultiple("HUGE", 10), new WinMultiple("MASSIVE", 20),
+        };
 
         public FreeGameConfig FreeGameConfig { get; } = new FreeGameConfig()
         {
