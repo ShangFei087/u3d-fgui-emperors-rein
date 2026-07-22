@@ -55,6 +55,7 @@ namespace CaiFuZhiJia_3997
         private GameSoundController3997 _gameSoundController;
         private TimerCallback _delayCloseCallback;
         private TimerCallback _autoClickCallback;
+        private Action _changeNormalPage;
 
 
         protected override void OnInit()
@@ -91,7 +92,7 @@ namespace CaiFuZhiJia_3997
                     _diamondAnimationObj = clone;
                     ResLoadedCallback();
                 }); // 加载Animation
-            
+
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
                 shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
@@ -109,6 +110,7 @@ namespace CaiFuZhiJia_3997
         }
 
         private EventData _openData;
+
         private void InitParam(EventData eventData)
         {
             if (eventData != null) _openData = eventData;
@@ -117,7 +119,7 @@ namespace CaiFuZhiJia_3997
             if (!isOpen) return;
             _isClicked = false;
             RemoveTimer(ref _autoClickCallback);
-            
+
             // --------------------- 获取UI组件 ------------------------
             _jackpotResultTipWindow = contentPane.GetChild("jackpotResultTipWindow").asCom;
             _jackpotResultButton = _jackpotResultTipWindow.GetChild("jackpotResultButton").asButton;
@@ -203,8 +205,13 @@ namespace CaiFuZhiJia_3997
             } // jackpotResultScore 分数
 
             // ----------------------- 按钮点击事件 -------------------------
+            if (eventData is { value: Dictionary<string, object> args })
+            {
+                _changeNormalPage = args["changeNormalPage"] as Action;
+            }
+
             _jackpotResultButton.onClick.Clear();
-            _jackpotResultButton.onClick.Add(() => OnClickSpinButton(_openData));
+            _jackpotResultButton.onClick.Add(() => OnClickSpinButton(null));
 
             if (TestManager.Instance.IsAutoModeRunning)
             {
@@ -215,31 +222,28 @@ namespace CaiFuZhiJia_3997
                     {
                         _jackpotResultButton.onClick.Call();
                     }
+
                     _autoClickCallback = null;
                 };
                 Timers.inst.Add(3.0f, 1, _autoClickCallback);
             }
         }
-        
+
         private void OnClickSpinButton(EventData res)
         {
             if (_isClicked) return;
             _isClicked = true;
             RemoveTimer(ref _delayCloseCallback);
-            
+
             _jackpotResultTipWindow.visible = false;
             _cloneLightEffectObj.SetActive(false);
             _cloneDiamondAnimationObj.SetActive(false);
             _cloneDiamondSpineObj.SetActive(true);
             _cloneDiamondBgEffectObj.SetActive(true);
-            
+
             _delayCloseCallback = (obj) =>
             {
-                if (res is { value: Dictionary<string, object> args })
-                {
-                    Action changePage = args["changeNormalPage"] as Action;
-                    changePage?.Invoke();
-                }
+                _changeNormalPage?.Invoke();
                 if (isOpen) CloseSelf(null);
                 _delayCloseCallback = null;
             };
@@ -251,7 +255,7 @@ namespace CaiFuZhiJia_3997
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
-            
+
             _gameSoundController = new GameSoundController3997();
             EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(Game3997AudioEvent.BgmBonusTrigger));
@@ -265,10 +269,12 @@ namespace CaiFuZhiJia_3997
 
             _gameSoundController?.Dispose();
             _gameSoundController = null;
-            
+            _changeNormalPage = null;
+
+
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _delayCloseCallback);
-            
+
             _jackpotResultTipWindow.visible = true;
             _cloneLightEffectObj.SetActive(true);
             _cloneDiamondAnimationObj.SetActive(true);
@@ -306,7 +312,7 @@ namespace CaiFuZhiJia_3997
                 InitParam(null);
             }
         }
-        
+
         private void RemoveTimer(ref TimerCallback timerCallback)
         {
             if (timerCallback == null) return;

@@ -258,6 +258,9 @@
     <component id="jcmoa6" name="ng_sym11_scatter_com.xml" path="/images/common/gameSymbolComs/" exported="true"/>
     <component id="jcmoa7" name="ng_sym12_bonus_com.xml" path="/images/common/gameSymbolComs/" exported="true"/>
     <image id="t7uga8" name="fg_num_co_0.png" path="/images/common/gameFonts/freeTrigger/" exported="true"/>
+    <image id="m9w1a9" name="ng_sym_14_major.png" path="/images/common/smallGameSymbols/" exported="true"/>
+    <image id="m9w1aa" name="ng_sym_14_minor.png" path="/images/common/smallGameSymbols/" exported="true"/>
+    <image id="m9w1ab" name="ng_sym14_mini.png" path="/images/common/smallGameSymbols/" exported="true"/>
   </resources>
   <publish name="CaiFuZhiJia" path="../../Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>

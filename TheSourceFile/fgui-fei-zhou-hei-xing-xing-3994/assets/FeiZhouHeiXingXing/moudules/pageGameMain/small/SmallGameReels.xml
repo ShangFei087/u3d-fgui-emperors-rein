@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="975,543">
+  <displayList>
+    <component id="n0_qwup" name="elementBox_0" src="qwup5i" fileName="moudules/pageGameMain/small/SmallGameSymbols.xml" xy="0,0"/>
+    <component id="n1_qwup" name="elementBox_1" src="qwup5i" fileName="moudules/pageGameMain/small/SmallGameSymbols.xml" xy="195,0"/>
+    <component id="n2_qwup" name="elementBox_2" src="qwup5i" fileName="moudules/pageGameMain/small/SmallGameSymbols.xml" xy="390,0"/>
+    <component id="n3_qwup" name="elementBox_3" src="qwup5i" fileName="moudules/pageGameMain/small/SmallGameSymbols.xml" xy="585,0"/>
+    <component id="n4_qwup" name="elementBox_4" src="qwup5i" fileName="moudules/pageGameMain/small/SmallGameSymbols.xml" xy="780,0"/>
+    <component id="n5_qwup" name="elementBox_5" src="qwup5i" fileName="moudules/pageGameMain/small/SmallGameSymbols.xml" xy="0,181"/>
+    <component id="n6_qwup" name="elementBox_6" src="qwup5i" fileName="moudules/pageGameMain/small/SmallGameSymbols.xml" xy="195,181"/>
+    <component id="n7_qwup" name="elementBox_7" src="qwup5i" fileName="moudules/pageGameMain/small/SmallGameSymbols.xml" xy="390,181"/>
+    <component id="n8_qwup" name="elementBox_8" src="qwup5i" fileName="moudules/pageGameMain/small/SmallGameSymbols.xml" xy="585,181"/>
+    <component id="n9_qwup" name="elementBox_9" src="qwup5i" fileName="moudules/pageGameMain/small/SmallGameSymbols.xml" xy="780,181"/>
+    <component id="n10_qwup" name="elementBox_10" src="qwup5i" fileName="moudules/pageGameMain/small/SmallGameSymbols.xml" xy="0,362"/>
+    <component id="n11_qwup" name="elementBox_11" src="qwup5i" fileName="moudules/pageGameMain/small/SmallGameSymbols.xml" xy="195,362"/>
+    <component id="n12_qwup" name="elementBox_12" src="qwup5i" fileName="moudules/pageGameMain/small/SmallGameSymbols.xml" xy="390,362"/>
+    <component id="n13_qwup" name="elementBox_13" src="qwup5i" fileName="moudules/pageGameMain/small/SmallGameSymbols.xml" xy="585,362"/>
+    <component id="n14_qwup" name="elementBox_14" src="qwup5i" fileName="moudules/pageGameMain/small/SmallGameSymbols.xml" xy="780,362"/>
+  </displayList>
+</component>

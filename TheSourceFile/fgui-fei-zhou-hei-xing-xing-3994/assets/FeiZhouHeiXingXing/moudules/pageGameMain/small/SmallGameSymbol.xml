@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="195,181">
+  <displayList>
+    <component id="n2_qwup" name="anchorResult" src="qwup5k" fileName="moudules/pageGameMain/small/anchorResult.xml" xy="97,85"/>
+    <loader id="n0_qwup" name="element" xy="-11,-2" size="224,191" url="ui://ytoswqrpsns51l" autoSize="true"/>
+    <text id="n1_qwup" name="rewardText" xy="8,126" size="173,46" fontSize="12" align="center" vAlign="middle" autoSize="none" text=""/>
+  </displayList>
+</component>

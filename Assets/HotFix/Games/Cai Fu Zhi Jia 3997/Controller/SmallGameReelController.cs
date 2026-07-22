@@ -80,9 +80,9 @@ namespace CaiFuZhiJia_3997
             "ui://CaiFuZhiJia/ng_sym_null",
             "ui://CaiFuZhiJia/ng_sym_diamonds",
             "ui://CaiFuZhiJia/ng_sym_diamonds2",
-            "ui://CaiFuZhiJia/ng_sym_diamonds3",
-            "ui://CaiFuZhiJia/ng_sym_diamonds4",
-            "ui://CaiFuZhiJia/ng_sym_diamonds6",
+            "ui://CaiFuZhiJia/ng_sym_14_minor",
+            "ui://CaiFuZhiJia/ng_sym_14_major",
+            "ui://CaiFuZhiJia/ng_sym14_mini",
         };
 
         private const string DefaultUrl = "ui://CaiFuZhiJia/ng_sym_null";
@@ -152,10 +152,7 @@ namespace CaiFuZhiJia_3997
                 State = SmallReelState.Revealed;
 
                 result.element.url = ResultInfo.iconUrl;
-                if (ResultInfo.type == SmallResultType.RedDiamond)
-                    result.rewardText.text = ResultInfo.rewardText;
-                else
-                    result.rewardText.text = string.Empty;
+                result.rewardText.text = ResultInfo.type == SmallResultType.RedDiamond ? ResultInfo.rewardText : string.Empty;
 
                 if (_anchorPrefab != null)
                 {

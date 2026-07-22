@@ -57,6 +57,6 @@
     <component id="n17_ujwn" name="anchorLightningParent" src="ujwn4d" fileName="moudules/pageGameMain/free/anchorLightningParent.xml" xy="202,616">
       <gearDisplay controller="gameController" pages="1"/>
     </component>
-    <component id="n8_u8to" name="panel" src="u8to30" fileName="moudules/pageGameMain/Anchor/AnchorPanelSlot.xml" xy="540,1802"/>
+    <component id="n8_u8to" name="panel" src="u8to30" fileName="moudules/pageGameMain/Anchor/AnchorPanelSlot.xml" xy="540,1795"/>
   </displayList>
 </component>

@@ -58,6 +58,7 @@ namespace CaiFuZhiJia_3997
 
         private bool _isClicked = false;
         private EventData _openData;
+        private Action _changeNormalPage;
 
         protected override void OnInit()
         {
@@ -209,8 +210,13 @@ namespace CaiFuZhiJia_3997
                 t.localScale = new Vector3(0.008f, 0.008f, 0.01f);
             } // freeStartBtn 按钮
 
+            if (eventData is { value: Dictionary<string, object> args })
+            {
+                _changeNormalPage = args["changeNormalPage"] as Action;
+            }
+
             _freeStartBtn.onClick.Clear();
-            _freeStartBtn.onClick.Add(() => OnClickSpinButton(_openData));
+            _freeStartBtn.onClick.Add(() => OnClickSpinButton(null));
 
             if (TestManager.Instance.IsAutoModeRunning)
             {
@@ -221,6 +227,7 @@ namespace CaiFuZhiJia_3997
                     {
                         _freeStartBtn.onClick.Call();
                     }
+
                     _autoClickCallback = null;
                 };
                 Timers.inst.Add(3.0f, 1, _autoClickCallback);
@@ -236,17 +243,14 @@ namespace CaiFuZhiJia_3997
                 new EventData(SlotMachineEvent.FreeGameFadeTransition));
             _freeResultTipWindow.visible = false;
             _freeGameResultScore.visible = false;
+
             _cloneFreeGetAnimationObj.SetActive(false);
             _cloneDollarSpineObj.SetActive(true);
             _cloneGoldPurpleEffectObj.SetActive(true);
 
             _delayCloseCallback = (obj) =>
             {
-                if (eventData is { value: Dictionary<string, object> args })
-                {
-                    Action changePage = args["changeNormalPage"] as Action;
-                    changePage?.Invoke();
-                }
+                _changeNormalPage?.Invoke();
                 if (_cloneDollarSpineObj != null) _cloneDollarSpineObj.SetActive(false);
                 if (isOpen) CloseSelf(null);
                 _delayCloseCallback = null;
@@ -272,6 +276,7 @@ namespace CaiFuZhiJia_3997
                 new EventData(Game3997AudioEvent.BgmRegularGame));
             _gameSoundController?.Dispose();
             _gameSoundController = null;
+            _changeNormalPage = null;
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _delayCloseCallback);
 
@@ -286,10 +291,10 @@ namespace CaiFuZhiJia_3997
             if (contentPane == null) return;
             var freeResultTipWindow = contentPane.GetChild("freeResultTipWindow")?.asCom;
             if (freeResultTipWindow == null) return;
-            GObject _gfreetxt = freeResultTipWindow.GetChild("freeGameResultScore");
-            if (_gfreetxt?.displayObject?.gameObject != null && _freeGameResultScoreOriginalParent != null)
+            GObject gfreetxt = freeResultTipWindow.GetChild("freeGameResultScore");
+            if (gfreetxt?.displayObject?.gameObject != null && _freeGameResultScoreOriginalParent != null)
             {
-                Transform t = _gfreetxt.displayObject.gameObject.transform;
+                Transform t = gfreetxt.displayObject.gameObject.transform;
                 t.SetParent(_freeGameResultScoreOriginalParent, false);
                 t.localPosition = _freeGameResultScoreOriginalPos;
                 t.localScale = _freeGameResultScoreOriginalScale;
@@ -303,6 +308,7 @@ namespace CaiFuZhiJia_3997
                 t.localPosition = _freeStartBtnOriginalPos;
                 t.localScale = _freeStartBtnOriginalScale;
             }
+
             // 防御性编程，避免操作已销毁或被回收的transform
             _freeGameResultScoreOriginalParent = null;
             _freeStartBtnOriginalParent = null;

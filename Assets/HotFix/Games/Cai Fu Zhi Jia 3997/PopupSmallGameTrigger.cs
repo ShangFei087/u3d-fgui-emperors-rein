@@ -54,6 +54,8 @@ namespace CaiFuZhiJia_3997
         private TimerCallback _delayCloseCallback;
         private TimerCallback _autoClickCallback;
 
+        private Action _changeSmallGamePage;
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -163,8 +165,12 @@ namespace CaiFuZhiJia_3997
             }
 
             // -------------------------- 添加UI点击事件 --------------------------
+            if (eventData is { value: Dictionary<string, object> args })
+            {
+                _changeSmallGamePage = args["changeSmallGamePage"] as Action;
+            }
             _jackpotTriggerButton.onClick.Clear();
-            _jackpotTriggerButton.onClick.Add(() => OnClickSpinButton(_openData));
+            _jackpotTriggerButton.onClick.Add(() => OnClickSpinButton(null));
 
             if (TestManager.Instance.IsAutoModeRunning)
             {
@@ -197,12 +203,7 @@ namespace CaiFuZhiJia_3997
 
             _delayCloseCallback = (obj) =>
             {
-                if (res is { value: Dictionary<string, object> args })
-                {
-                    Action changePage = args["changeSmallGamePage"] as Action;
-                    changePage?.Invoke();
-                }
-
+                _changeSmallGamePage?.Invoke();
                 if (isOpen) CloseSelf(null);
                 _delayCloseCallback = null;
             };
@@ -227,6 +228,7 @@ namespace CaiFuZhiJia_3997
             base.OnClose(eventData);
             _gameSoundController?.Dispose();
             _gameSoundController = null;
+            _changeSmallGamePage = null;
 
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _delayCloseCallback);

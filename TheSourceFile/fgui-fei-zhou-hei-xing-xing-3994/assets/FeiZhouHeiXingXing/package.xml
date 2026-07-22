@@ -116,6 +116,14 @@
     <component id="zvhl5a" name="closeBtn.xml" path="/components/popupFreeSpinResult/" exported="true"/>
     <component id="zvhl5b" name="closeBtn.xml" path="/components/popupSmallGameTrigger/" exported="true"/>
     <component id="zvhl5c" name="closeBtn.xml" path="/components/popupSmallGameResult/" exported="true"/>
+    <component id="hbr95d" name="anchorFreeEffectParent.xml" path="/moudules/pageGameMain/anchor/" exported="true"/>
+    <component id="hbr95e" name="anchorSmallGameEffectParent.xml" path="/moudules/pageGameMain/anchor/" exported="true"/>
+    <component id="hbr95f" name="smallGameBg.xml" path="/moudules/pageGameMain/small/" exported="true"/>
+    <component id="hbr95g" name="smallGameOther.xml" path="/moudules/pageGameMain/small/" exported="true"/>
+    <component id="qwup5h" name="SmallGameReels.xml" path="/moudules/pageGameMain/small/" exported="true"/>
+    <component id="qwup5i" name="SmallGameSymbols.xml" path="/moudules/pageGameMain/small/" exported="true"/>
+    <component id="qwup5j" name="SmallGameSymbol.xml" path="/moudules/pageGameMain/small/" exported="true"/>
+    <component id="qwup5k" name="anchorResult.xml" path="/moudules/pageGameMain/small/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Fei Zhou Hei Xing Xing 3994\FGUIs" packageCount="2"/>
 </packageDescription>

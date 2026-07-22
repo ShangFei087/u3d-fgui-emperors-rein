@@ -122,7 +122,7 @@ namespace CaiFuZhiJia_3997
         private Animator _radarAnimator;
 
         // 免费游戏倍数增加特效制作
-        private int _freeMultiplier = 2; // 显示在免费游戏text上的倍率 不用ContentModel中的了
+        private int _freeMultiplier = 2; // 显示在免费游戏text上的倍率 不用ContentModel中的了 主要作用是实现倍数逐渐增加的效果
         private GameObject _goRewardEffect, _wildBoomEffect;
 
         private GComponent _rewardEffectCom, _wildBoomCom, _freeParticleEffectParent;
@@ -186,13 +186,17 @@ namespace CaiFuZhiJia_3997
 
         private readonly List<string> _jackpotUrls = new List<string>()
         {
-            "ui://CaiFuZhiJia/ng_sym_diamonds4",
-            "ui://CaiFuZhiJia/ng_sym_diamonds3",
-            "ui://CaiFuZhiJia/ng_sym_diamonds6",
+            "这是一个占位的位置",
+            // "ui://CaiFuZhiJia/ng_sym_diamonds4",
+            // "ui://CaiFuZhiJia/ng_sym_diamonds3",
+            // "ui://CaiFuZhiJia/ng_sym_diamonds6",
+            "ui://CaiFuZhiJia/ng_sym_14_major",
+            "ui://CaiFuZhiJia/ng_sym_14_minor",
+            "ui://CaiFuZhiJia/ng_sym14_mini"
         };
 
         /// <summary>15个格子控制器</summary>
-        private readonly List<SmallGameReelController> _elementBoxes = new List<SmallGameReelController>();
+        private List<SmallGameReelController> _elementBoxes; /* = new List<SmallGameReelController>();*/
 
         /// <summary>所有中奖结果</summary>
         private readonly List<SmallReelResultInfo> _allHitResults = new List<SmallReelResultInfo>();
@@ -225,7 +229,7 @@ namespace CaiFuZhiJia_3997
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
-
+            _elementBoxes = new List<SmallGameReelController>();
             // ---------- 1. 加载common,普通游戏,免费游戏,彩金游戏预制体到内存 ----------
             _totalCount = 17;
             if (UIPackage.GetByName("Common") == null)
@@ -679,6 +683,15 @@ namespace CaiFuZhiJia_3997
             _gameSoundController?.Dispose();
             _gameSoundController = null;
             _monoHelper.updateHandle.RemoveAllListeners();
+        }
+
+        protected override void OnLanguageChange(I18nLang lang)
+        {
+            FguiI18nTextAssistant.Instance.DisposeAllTranslate(contentPane);
+            contentPane.Dispose(); // 释放当前UI
+            contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
+            _elementBoxes = new List<SmallGameReelController>();
+            InitParam(null);
         }
 
         private void ResLoadedCallback()
@@ -1155,7 +1168,7 @@ namespace CaiFuZhiJia_3997
             {
                 // Todo：免费游戏触发逻辑
                 _pageController.selectedPage = "free";
-                _multipleNumber.text = "x" + _freeMultiplier; // 修改，不使用ContentModel中的免费倍数
+                _multipleNumber.text = "x" + cm.freeGameScoreMultiply; // 修改，不使用ContentModel中的免费倍数
                 _freeSpinsNumber.text =
                     (ContentModel.Instance.FreeSpinTotalTimes - ContentModel.Instance.FreeSpinPlayTimes).ToString();
             }
@@ -1855,7 +1868,7 @@ namespace CaiFuZhiJia_3997
                     // _pageController.selectedPage = "normal";
                     ContentModel.Instance.freeGameScoreMultiply = 2;
                     _freeMultiplier = 2;
-                    _multipleNumber.text = "x" + _freeMultiplier;
+                    _multipleNumber.text = "x2";
                     for (int i = 0; i < _lightningEffectList.Count; i++)
                         _lightningEffectList[i].visible = false;
                     _wildBoomCom.visible = false;
@@ -1895,6 +1908,7 @@ namespace CaiFuZhiJia_3997
         {
             ContentModel.Instance.isPowerTrigger = true;
             ContentModel.Instance.isFreeSpinTrigger = true;
+            _freeMultiplier = ContentModel.Instance.freeGameScoreMultiply;
             _multipleNumber.text = "x" + ContentModel.Instance.freeGameScoreMultiply;
 
             yield return GameFreeSpin(null, errorCallback);
@@ -1909,14 +1923,20 @@ namespace CaiFuZhiJia_3997
                 new EventData<Dictionary<string, object>>("",
                     new Dictionary<string, object>()
                     {
-                        ["baseGameWinCredit"] = ContentModel.Instance.freeSpinTotalWinCoins
+                        { "baseGameWinCredit", ContentModel.Instance.freeSpinTotalWinCoins },
+                        {
+                            "changeNormalPage", new Action(() =>
+                            {
+                                _pageController.selectedPage = "normal";
+                            })
+                        },
                     }),
                 (ed) =>
                 {
                     _allWinCredit = 0;
                     _pageController.selectedPage = "normal";
                     _freeMultiplier = 2;
-                    _multipleNumber.text = "x" + _freeMultiplier;
+                    _multipleNumber.text = "x2";
                     ContentModel.Instance.freeGameScoreMultiply = 2;
                     ContentModel.Instance.isFreeSpinTrigger = false;
                     ContentModel.Instance.freeSpinTotalWinCoins = 0;
@@ -2049,7 +2069,7 @@ namespace CaiFuZhiJia_3997
 
             if (ContentModel.Instance.isHaveWildSymbol)
             {
-                if (_freeMultiplier < 5)
+                if (ContentModel.Instance.freeGameScoreMultiply < 5)
                 {
                     PlayAnimationByName(_npcAnimator, "Wealth_fg_npc_upgrade1");
                     PlayAnimationByName(_radarAnimator, "upgrade");
@@ -2169,14 +2189,15 @@ namespace CaiFuZhiJia_3997
                 yield return new WaitForSeconds(0.5f); // 特效后延迟
                 _cloneMaskEffect.SetActive(false);
                 _multipleNumber.text = "x" + _freeMultiplier;
-                if (_freeMultiplier > 4)
+                // _multipleNumber.text = "x" + ContentModel.Instance.freeGameScoreMultiply;
+                if (ContentModel.Instance.freeGameScoreMultiply > 4)
                 {
                     _cloneFireEffect.SetActive(true);
                     _radarEffectParent.Find("effect1").gameObject.SetActive(true);
                     PlayAnimationByName(_radarAnimator, "idle2");
                 }
 
-                if (_freeMultiplier > 7)
+                if (ContentModel.Instance.freeGameScoreMultiply > 7)
                 {
                     _radarEffectParent.Find("effect2").gameObject.SetActive(true);
                 }
