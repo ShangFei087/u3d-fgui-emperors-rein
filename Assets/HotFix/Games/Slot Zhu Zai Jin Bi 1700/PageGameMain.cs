@@ -80,236 +80,80 @@ namespace SlotZhuZaiJinBi1700
         long TotalBet => (long)MainModel.Instance.contentMD.totalBet;
         //Pag播放
         private const string GamePagFolder = "Games/Slot Zhu Zai Jin Bi 1700/Pag";
-        private const string NpcPagFolderPrefix = "3997Npc/";
-        private static readonly string PagBigWinStart = NpcPagFolderPrefix + "BigWinNPC/bigwin_start1.pag";
-        private static readonly string PagBigWinIdle = NpcPagFolderPrefix + "BigWinNPC/bigwin_idle1.pag";
-        private static readonly string PagSupWinStart = NpcPagFolderPrefix + "BigWinNPC/supwin_start1.pag";
-        private static readonly string PagSupWinIdle = NpcPagFolderPrefix + "BigWinNPC/supwin_idle1.pag";
-        private const float PagBigWinStartDurationFallbackSec = 8f;
-        private const float PagBigWinIdleDurationFallbackSec = 8f;
-        private const float PagIdleLoopEndProgressThreshold = 0.98f;
-        private const float PagWaitLoopEndAdvanceTimeoutSec = 30f;
+        private static readonly string fg_pup_Collect_start_bmp =  "3995/fg_pup_Collect_start_bmp.pag";
+        private static readonly string fg_pup_Collect_idle_bmp =  "3995/fg_pup_Collect_idle_bmp.pag";
+        private static readonly string fg_pup_Collect_out_bmp = "3995/fg_pup_Collect_out_bmp.pag";
+        private static readonly string fg_Collect_tran = "3995/fg_Collect_tran.pag";
 
-        private enum MainPagStartPhase { Idle, BigWinLoop, SupWinLoop }
-        private MainPagStartPhase _pagStartPhase = MainPagStartPhase.Idle;
-        private bool _canAdvanceToSupwin;
-        private bool _pendingAdvanceToSupwin;
-        private float _idleLoopAnchorTime;
-        private Coroutine _corPagAdvanceGuard;
-        private Coroutine _corPagWaitLoopEndAdvance;
-        private Coroutine _corPagIdleLoopDebug;
-        private PagSlotBinding _pagTest;
-        private GButton btnPagStart;
+        private GComponent anchorCollect;
+        private GameObject goCollect;
+        private GameObject CLonegoCollect;
+        private Animator animatorCollect;
 
-        private static PagSegment[] BuildMainPagBigWinToSupWinChain()
-        {
-            return new[]
-            {
-                new PagSegment(PagBigWinStart, 1),
-                new PagSegment(PagBigWinIdle, -1),
-                //new PagSegment(PagSupWinStart, 1),
-                //new PagSegment(PagSupWinIdle, -1),
-            };
-        }
+        private PagSlotBinding pag_fg_pup_Collect, pag_fg_Collect_tran;
+        private GButton btnPagStart, btnCollect;
 
         /// <summary>注册并 Prepare PAG 槽位（InitParam 时调用一次即可）。</summary>
         private void EnsureMainPagSlot()
         {
             GComponent anchor = contentPane.GetChild("anchorPagTest")?.asCom;
             if (anchor == null) return;
-            if (_pagTest == null)
-                _pagTest = new PagSlotBinding("MainPagTest", GamePagFolder);
-            _pagTest.EnsureSlot(anchor, "pagEffect");
+   
+            pag_fg_pup_Collect = new PagSlotBinding("pag_fg_pup_Collect", GamePagFolder);
+            pag_fg_pup_Collect.EnsureSlot(anchor, "pagEffect");
 
-            btnPagStart = contentPane.GetChild("btnPagStart")?.asButton;
-            if (btnPagStart == null) return;
+            pag_fg_Collect_tran = new PagSlotBinding("pag_fg_Collect_tran", GamePagFolder);
+            pag_fg_Collect_tran.EnsureSlot(anchor, "pagEffect1");
+
+            btnPagStart = contentPane.GetChild("btnPagStart").asButton;
             btnPagStart.onClick.Clear();
-            btnPagStart.onClick.Add(OnBtnPagStartClick);
+            btnPagStart.onClick.Add(OnClick_btnPagStart);
+
+
+            btnCollect = contentPane.GetChild("btnCollect").asButton;
+            btnCollect.onClick.Clear();
+            btnCollect.onClick.Add(OnClick_btnCollect);
         }
 
-        private void OnBtnPagStartClick()
+        /// <summary>注册btnPagStart点击事件</summary>
+        private void OnClick_btnPagStart()
         {
-            if (_pagTest == null) return;
-
-            switch (_pagStartPhase)
+            //Animator：
+            if (animatorCollect != null)
             {
-                case MainPagStartPhase.Idle:
-                    _pagTest.StopWithDefaults();
-                    StopPagIdleLoopDebug();
-                    bool ok = _pagTest.Play(new PagSequencePlay(
-                        BuildMainPagBigWinToSupWinChain(),
-                        PagPlayLayout.Center,
-                        PagPresentationDefaults.DisplayScale,
-                        useGpuSyncGroup: false));
-                    if (!ok) return;
-                    _pagStartPhase = MainPagStartPhase.BigWinLoop;
-                    _canAdvanceToSupwin = false;
-                    StartPagIdleLoopDebug();
-                    //StartPagAdvanceGuard();
-                    break;
-                case MainPagStartPhase.BigWinLoop:
-                    if (!_canAdvanceToSupwin || _pendingAdvanceToSupwin) return;
-                    _pendingAdvanceToSupwin = true;
-                    //StartPagWaitLoopEndThenAdvance();
-                    break;
-                case MainPagStartPhase.SupWinLoop:
-                    ClearBtnPagStart();
-                    break;
-            }
-        }
-
-        private void StartPagAdvanceGuard()
-        {
-            StopPagAdvanceGuard();
-            if (mono == null) return;
-            _corPagAdvanceGuard = mono.StartCoroutine(EnablePagAdvanceAfterBigWinStart());
-        }
-
-        private IEnumerator EnablePagAdvanceAfterBigWinStart()
-        {
-            _canAdvanceToSupwin = false;
-            float delay = _pagTest?.Controller?.GetCompositionDurationSecWithFallback(PagBigWinStartDurationFallbackSec)
-                ?? PagBigWinStartDurationFallbackSec;
-            yield return new WaitForSeconds(delay);
-            _canAdvanceToSupwin = true;
-            _idleLoopAnchorTime = Time.time;
-            _corPagAdvanceGuard = null;
-        }
-
-        private void StartPagWaitLoopEndThenAdvance()
-        {
-            StopPagWaitLoopEndAdvance();
-            if (mono == null) return;
-            _corPagWaitLoopEndAdvance = mono.StartCoroutine(PagWaitLoopEndThenAdvance());
-        }
-
-        private IEnumerator PagWaitLoopEndThenAdvance()
-        {
-            float timeoutAt = Time.time + PagWaitLoopEndAdvanceTimeoutSec;
-            float lastProgress = -1f;
-            bool useWallClockFallback = false;
-            float idleDuration = PagBigWinIdleDurationFallbackSec;
-
-            while (Time.time < timeoutAt)
-            {
-                float progress = _pagTest?.Controller?.GetFguiGpuPlaybackProgress() ?? -1f;
-
-                if (progress < 0f)
-                {
-                    if (!useWallClockFallback)
-                    {
-                        useWallClockFallback = true;
-                        idleDuration = _pagTest?.Controller?.GetCompositionDurationSecWithFallback(PagBigWinIdleDurationFallbackSec)
-                            ?? PagBigWinIdleDurationFallbackSec;
-                        float elapsed = Mathf.Max(0f, Time.time - _idleLoopAnchorTime);
-                        float remaining = idleDuration - (elapsed % idleDuration);
-                        if (remaining <= 0.05f)
-                        {
-                            remaining = idleDuration;
-                        }
-
-                        yield return new WaitForSeconds(remaining);
-                        break;
-                    }
-
-                    yield return null;
-                    continue;
-                }
-
-                if (progress >= PagIdleLoopEndProgressThreshold
-                    || (lastProgress > 0.85f && progress < 0.15f))
-                {
-                    break;
-                }
-
-                lastProgress = progress;
-                yield return null;
+                animatorCollect.enabled = true;
+                animatorCollect.Play("in", 0, 0f);
             }
 
-            if (Time.time >= timeoutAt)
+            // Pag：start 播一次 → 无缝循环 idle
+            if (pag_fg_pup_Collect == null) return;
+            pag_fg_pup_Collect.StopWithDefaults();
+            pag_fg_pup_Collect.Play(new PagSequencePlay(
+                PagPlaySpecs.IntroLoop(fg_pup_Collect_start_bmp, fg_pup_Collect_idle_bmp),
+                PagPlayLayout.Center));
+        }
+
+        /// <summary>注册btnCollect点击事件</summary>
+        private void OnClick_btnCollect()
+        {
+            // Animator
+            if (animatorCollect != null)
             {
-                Debug.LogWarning("[1700 PageGameMain] PagWaitLoopEndThenAdvance timeout, forcing Advance");
+                animatorCollect.Play("out", 0, 0f);
             }
-
-            _pagTest?.Controller?.AdvanceFguiGpuSequence();
-            _pagStartPhase = MainPagStartPhase.SupWinLoop;
-            _pendingAdvanceToSupwin = false;
-            _corPagWaitLoopEndAdvance = null;
+            // Pag：打断 idle，播 out 一次
+            if (pag_fg_pup_Collect == null) return;
+            pag_fg_pup_Collect.StopWithDefaults();
+            pag_fg_pup_Collect.Play(
+                fg_pup_Collect_out_bmp,
+                1,
+                PagPlayLayout.Center,
+                PagPresentationDefaults.DisplayScale,
+                new PagPlayCallbacks(
+                    onFinished: () => pag_fg_pup_Collect?.StopWithDefaults(),
+                    stopAfterFinished: true));
         }
 
-        private void StopPagWaitLoopEndAdvance()
-        {
-            if (_corPagWaitLoopEndAdvance != null && mono != null)
-            {
-                mono.StopCoroutine(_corPagWaitLoopEndAdvance);
-                _corPagWaitLoopEndAdvance = null;
-            }
-
-            _pendingAdvanceToSupwin = false;
-        }
-
-        private void StopPagAdvanceGuard()
-        {
-            if (_corPagAdvanceGuard != null && mono != null)
-            {
-                mono.StopCoroutine(_corPagAdvanceGuard);
-                _corPagAdvanceGuard = null;
-            }
-        }
-
-        private void ClearBtnPagStart()
-        {
-            StopPagAdvanceGuard();
-            StopPagWaitLoopEndAdvance();
-            StopPagIdleLoopDebug();
-            _pagTest?.StopWithDefaults();
-            _pagStartPhase = MainPagStartPhase.Idle;
-            _canAdvanceToSupwin = false;
-            _pendingAdvanceToSupwin = false;
-            contentPane?.GetChild("btnPagStart")?.asButton?.onClick.Clear();
-        }
-
-        /// <summary>真机排查 idle 空闪：轮询 progress，回绕时打 Log（不依赖 adb Native log）。</summary>
-        private void StartPagIdleLoopDebug()
-        {
-            StopPagIdleLoopDebug();
-            if (mono == null) return;
-            _corPagIdleLoopDebug = mono.StartCoroutine(PagIdleLoopDebug());
-        }
-
-        private void StopPagIdleLoopDebug()
-        {
-            if (_corPagIdleLoopDebug != null && mono != null)
-            {
-                mono.StopCoroutine(_corPagIdleLoopDebug);
-                _corPagIdleLoopDebug = null;
-            }
-        }
-
-        private IEnumerator PagIdleLoopDebug()
-        {
-            float lastProgress = -1f;
-            int wrapCount = 0;
-            while (_pagStartPhase != MainPagStartPhase.Idle)
-            {
-                float progress = _pagTest?.Controller?.GetFguiGpuPlaybackProgress() ?? -1f;
-                if (progress >= 0f)
-                {
-                    if (lastProgress > 0.85f && progress < 0.15f)
-                    {
-                        wrapCount++;
-                        Debug.Log(
-                            $"[1700 PageGameMain] PAG idle LOOP WRAP #{wrapCount} last={lastProgress:F4} -> {progress:F4} t={Time.realtimeSinceStartup:F3}");
-                    }
-
-                    lastProgress = progress;
-                }
-
-                yield return null;
-            }
-
-            _corPagIdleLoopDebug = null;
-        }
         /// <summary>
         /// 1700：底部 Panel 异步就绪后触发 PageManager 的 preLoadedCallback
         /// </summary>
@@ -337,14 +181,13 @@ namespace SlotZhuZaiJinBi1700
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 4;
+            int count = 5;
 
             Action callback = () =>
             {
                 if (--count == 0)
                 {
                     isInit = true;
-                    Debug.Log("[1700 PageGameMain] OnInit assets ready -> InitParam");
                     InitParam(null);
                 }
             };
@@ -395,6 +238,14 @@ namespace SlotZhuZaiJinBi1700
                 goFreeFrame = clone;
                 callback();
             });
+            //5
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+            "Assets/GameRes/Games/Slot Zhu Zai Jin Bi 1700/Prefabs/TurnTable/Test3995.prefab",
+            (GameObject clone) =>
+            {
+                goCollect = clone;
+                callback();
+            });
 
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
@@ -436,7 +287,6 @@ namespace SlotZhuZaiJinBi1700
         /// <param name="lang"> 目标语言</param>
         protected override void OnLanguageChange(I18nLang lang)
         {
-            ClearBtnPagStart();
             ClearPageTestOpenButton();
             FguiI18nTextAssistant.Instance.DisposeAllTranslate(this.contentPane);
             this.contentPane.Dispose(); // 释放当前UI
@@ -478,7 +328,6 @@ namespace SlotZhuZaiJinBi1700
             EventCenter.Instance.RemoveEventListener<WinJackpotInfo>(GlobalEvent.JackpotOnlineWin, OnJackpotOnLine);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
             GameSoundHelper.Instance.StopMusic();
-            ClearBtnPagStart();
             ClearPageTestOpenButton();
             if (goGameCtrl != null && goGameCtrl.activeSelf)
             {
@@ -578,6 +427,17 @@ namespace SlotZhuZaiJinBi1700
             anchorNormalFrame.visible = false;
             anchorFreeFrame.visible = false;
             SMNormalFrame.Skeleton.SetColor(new Color(1, 1, 1, 0));
+
+            GComponent localCollect = contentPane.GetChild("anchorCollect").asCom;
+            if (anchorCollect != localCollect)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorCollect);
+                CLonegoCollect = GameObject.Instantiate(goCollect);
+                animatorCollect = CLonegoCollect.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                animatorCollect.enabled = false;
+                anchorCollect = localCollect;
+                GameCommon.FguiUtils.AddWrapper(anchorCollect, CLonegoCollect);
+            }
 
             gFreeTimeBox = contentPane.GetChild("freeTimeBox").asCom;
             gFreeWinBox = contentPane.GetChild("freeWinBox").asCom;

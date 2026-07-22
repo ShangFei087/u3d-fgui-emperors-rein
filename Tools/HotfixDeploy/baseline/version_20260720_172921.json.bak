@@ -1,10 +1,10 @@
 {
-  "updated_at": 1784540931706,
+  "updated_at": 1784539047837,
   "hotfix_key": "hf_debug_android_20260630161224",
-  "hotfix_version": "1.2.65",
+  "hotfix_version": "1.2.63",
   "asset_bundle": {
     "manifest": {
-      "hash": "b656ea6e76990720af58573fd0e9af90",
+      "hash": "5ac18a02af0312282717ab621bbb9fb3",
       "size_bytes": 27778
     },
     "bundle_hash": {
@@ -800,7 +800,7 @@
       "games/slot zhu zai jin bi 1700/prefabs/turntable/pag1.unity3d": "eb84b5587008155e99b4c90ca7cbac0a",
       "games/slot zhu zai jin bi 1700/prefabs/turntable/pag2.unity3d": "fd0422bbdbcba84199cc09f3e8e50ea2",
       "games/slot zhu zai jin bi 1700/prefabs/turntable/pag3.unity3d": "95fb42f15948d9742066b4f14e76a1c5",
-      "games/slot zhu zai jin bi 1700/prefabs/turntable/test3995.unity3d": "3f9fb4a6877c702527a9f59a58e74c41",
+      "games/slot zhu zai jin bi 1700/prefabs/turntable/test3995.unity3d": "82c5a8357028a3e73f919f9dccdf3031",
       "games/slot zhu zai jin bi 1700/prefabs/turntable/testbigwin.unity3d": "613e409016ec758d73e86ab1bcae7853",
       "games/slot zhu zai jin bi 1700/sounds/music/freemusic.unity3d": "eb6a6978c5eccb57ba0212534607d716",
       "games/slot zhu zai jin bi 1700/sounds/music/normalmusic.unity3d": "b5518bef30558a43036542384d7ffaff",
@@ -966,8 +966,8 @@
       "size_bytes": 169984
     },
     "HotFix": {
-      "hash": "4f0189897ee07bb5fbf031606dc7497e",
-      "size_bytes": 2092544
+      "hash": "9ecabdfa8f119f7c7c48b6075eff3049",
+      "size_bytes": 2092032
     }
   },
   "hotfix_dll_load_order": [
