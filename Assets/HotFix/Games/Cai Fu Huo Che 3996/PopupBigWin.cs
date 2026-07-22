@@ -66,17 +66,17 @@ namespace CaiFuHuoChe_3996
                     callback();
                 });
 
-            machineBtnClickHelper = new MachineButtonClickHelper()
-            {
-                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
-                {
-                    [MachineButtonKey.BtnSpin] = (info) =>
-                    {
-                        Debug.LogError("游戏接受到机台短按的数据：Spin");
-                        SpinDown();
-                    }
-                },
-            };
+            //machineBtnClickHelper = new MachineButtonClickHelper()
+            //{
+            //    shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+            //    {
+            //        [MachineButtonKey.BtnSpin] = (info) =>
+            //        {
+            //            Debug.LogError("游戏接受到机台短按的数据：Spin");
+            //            SpinDown();
+            //        }
+            //    },
+            //};
         }
 
 

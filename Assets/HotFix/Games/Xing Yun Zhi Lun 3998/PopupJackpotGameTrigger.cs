@@ -17,7 +17,7 @@ namespace XingYunZhiLun_3998
 
         private GameObject go, goAnchorSpineFg;
         private Animator animator;
-        private Transform effectTransform;
+        //private Transform effectTransform;
 
         private GComponent loadAnchor;
         private GButton closeBtn;
@@ -28,6 +28,8 @@ namespace XingYunZhiLun_3998
         private EventData _data;
         private bool isInit = false;
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
+
+        private Action callback;
 
         protected override void OnInit()
         {
@@ -71,7 +73,7 @@ namespace XingYunZhiLun_3998
             base.OnClose(data);
         }
 
-        public   void InitParam(EventData data)
+        public void InitParam(EventData data)
         {
             if (data != null) _data = data;
 
@@ -84,7 +86,7 @@ namespace XingYunZhiLun_3998
                 loadAnchor = loadlodAnchortip;
                 go = GameObject.Instantiate(goAnchorSpineFg);
                 animator = go.transform.GetChild(1).GetChild(0).GetComponent<Animator>();
-                effectTransform = go.transform.GetChild(0).GetChild(0).GetChild(0);
+                //effectTransform = go.transform.GetChild(0).GetChild(0).GetChild(0);
                 GameCommon.FguiUtils.AddWrapper(loadAnchor, go);
             }
 
@@ -116,7 +118,17 @@ namespace XingYunZhiLun_3998
 
             ContentModel.Instance.btnSpinState = ContentModel.Instance.curBtnSpinState;
         */
-            PlayAnim("start");
+            if(_data != null)
+            {
+                Dictionary<string, object> argDic = (Dictionary<string, object>)_data.value;
+                callback = (Action)argDic["callback"];
+            }
+            else
+            {
+                callback = null;
+            }
+
+                PlayAnim("start");
             idleTransition.Play(-1, 1.3f, null);
             AddTimer(1.3f, (object obj) =>
             {
@@ -153,12 +165,20 @@ namespace XingYunZhiLun_3998
             
             PlayAnim("end");
 
-            AddTimer(0.74f, (object obj) =>
+            AddTimer(0.75f, (object obj) =>
             {
                 closeBtn.alpha = 0;
             });
 
-            AddTimer(0.84f, (object obj) =>
+            if(callback != null)
+            {
+                AddTimer(0.9f, (object obj) =>
+                {
+                    callback.Invoke();
+                });
+            }
+
+            AddTimer(2.1f, (object obj) =>
             {
                 CloseSelf(null);
             });

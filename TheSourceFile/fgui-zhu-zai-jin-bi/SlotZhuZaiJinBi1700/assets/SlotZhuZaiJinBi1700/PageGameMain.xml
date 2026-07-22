@@ -23,7 +23,8 @@
     </component>
     <component id="n21_t0u4" name="anchorFreeFrame" src="t0u45x" fileName="components/gameMain/AnchorFreeFrame.xml" xy="512,959" pivot="0.5,0.5" anchor="true" scale="1.5,1.5"/>
     <component id="n20_t0u4" name="anchorNormalFrame" src="t0u45w" fileName="components/gameMain/AnchorNormalFrame.xml" xy="539,959" pivot="0.5,0.5" anchor="true" scale="1.5,1.5"/>
-    <component id="n101_gnyh" name="anchorPagTest" src="ssmk8s" fileName="components/pageTest/PageTest.xml" xy="290,710"/>
+    <component id="n101_gnyh" name="anchorPagTest" src="ssmk8s" fileName="components/pageTest/PageTest.xml" xy="490,910"/>
+    <component id="n104_lv0q" name="anchorCollect" src="lv0qo8e" fileName="components/test/AnchorCollect.xml" xy="539,959"/>
     <component id="n16_jkwq" name="panel" src="jkwq57" fileName="components/gameMain/AnchorPanelSlot.xml" xy="539,1839"/>
     <component id="n100_ptest" name="btnPageTest" src="ugpc8r" fileName="components/ButtonTest.xml" xy="900,20" size="160,55">
       <Button title="测试页" titleFontSize="28"/>
@@ -31,5 +32,6 @@
     <component id="n102_gnyh" name="btnPagStart" src="ugpc8r" fileName="components/ButtonTest.xml" xy="440,1578" size="200,60">
       <Button title="Start" titleFontSize="30"/>
     </component>
+    <component id="n105_lv0q" name="btnCollect" src="lv0qo8f" fileName="components/test/ButtonCollect.xml" xy="390,1454"/>
   </displayList>
 </component>

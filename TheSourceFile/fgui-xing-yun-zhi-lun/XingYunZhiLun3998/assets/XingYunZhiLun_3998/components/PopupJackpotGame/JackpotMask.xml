@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <component id="n8_bysw" name="anchorLight" src="byswa5" fileName="components/PopupJackpotGame/AnchorLight.xml" xy="540,0"/>
-    <image id="n7_bysw" name="mask" src="lsvw15" fileName="images/PopupJackpotGame/sg_img_jackpotMask.png" xy="540,960" pivot="0.5,0.5" anchor="true" size="2147,1920"/>
+    <component id="n8_bysw" name="anchorLight" src="byswa5" fileName="components/PopupJackpotGame/AnchorLight.xml" xy="540,960"/>
+    <image id="n9_n4aa" name="light" src="n4aaamh" fileName="images/PopupJackpotGame/jp_img_light.png" xy="540,960" pivot="0.5,0.5" anchor="true" size="1088,1920"/>
+    <image id="n7_bysw" name="mask" src="lsvw15" fileName="images/PopupJackpotGame/sg_img_jackpotMask.png" xy="535,960" pivot="0.5,0.5" anchor="true" size="2167,1920"/>
   </displayList>
 </component>

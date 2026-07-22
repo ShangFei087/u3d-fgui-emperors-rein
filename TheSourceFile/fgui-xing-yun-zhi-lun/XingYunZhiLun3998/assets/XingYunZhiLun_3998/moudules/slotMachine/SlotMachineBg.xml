@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1044,664" pivot="0.5,0.5" anchor="true">
+<component size="1080,760" overflow="hidden">
   <displayList>
-    <graph id="n9_efjz" name="n9" xy="44,3" size="970,575" type="rect" lineSize="0" fillColor="#b2330099"/>
-    <loader id="n8_a666" name="slotBgLoad" xy="521,332" pivot="0.5,0.5" anchor="true" size="1044,664" url="ui://5hielhj5a666agf" align="center" vAlign="middle" autoSize="true"/>
+    <image id="n63_u2bk" name="n63" src="oebralk" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_baseplate.png" xy="33,51" size="512,617"/>
+    <image id="n64_u2bk" name="n64" src="oebralk" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_baseplate.png" xy="1057,51" size="512,617" scale="-1,1"/>
+    <image id="n57_u2bk" name="n57" src="oebralm" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid.png" xy="1090,73" scale="-1,1"/>
+    <image id="n61_u2bk" name="n61" src="oebralm" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid.png" xy="0,73"/>
+    <image id="n62_u2bk" name="n62" src="t82pame" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_base.png" xy="56,646"/>
+    <image id="n65_u2bk" name="n65" src="oebrall" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_line.png" xy="236,75"/>
+    <image id="n66_u2bk" name="n66" src="oebrall" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_line.png" xy="431,75"/>
+    <image id="n67_u2bk" name="n67" src="oebrall" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_line.png" xy="629,75"/>
+    <image id="n68_u2bk" name="n68" src="oebrall" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_line.png" xy="825,75"/>
+    <image id="n69_t82p" name="n69" src="t82pamf" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_up.png" xy="0,0"/>
   </displayList>
 </component>

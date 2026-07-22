@@ -73,6 +73,10 @@ namespace SlotZhuZaiJinBi1700
             "3997Npc/RewardNPC/Wealth_sg_npc_settlement1.pag",
             "3997Npc/RewardNPC/Wealth_sg_npc_settlement2.pag",
             "3997Npc/RewardNPC/Wealth_sg_npc_settlement3.pag",
+            "3995/fg_Collect_tran",
+            "3995/fg_pup_Collect_idle_bmp",
+            "3995/fg_pup_Collect_out_bmp",
+            "3995/fg_pup_Collect_start_bmp",
         };
 
         /// <summary>从进入并行预加载起算，界面至少展示此时长（秒）；预加载更久则按实际结束。</summary>

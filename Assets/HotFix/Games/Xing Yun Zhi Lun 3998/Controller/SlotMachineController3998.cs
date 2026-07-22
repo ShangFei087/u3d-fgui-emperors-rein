@@ -480,8 +480,6 @@ namespace XingYunZhiLun_3998
 
             }
 
-
-
             // 是否显示线
             if (_spinWEMD.Instance.isShowLine)
             {
@@ -509,6 +507,8 @@ namespace XingYunZhiLun_3998
                     }
                 }
             }
+
+            yield return new WaitForSeconds(1.6f);
         }
 
 

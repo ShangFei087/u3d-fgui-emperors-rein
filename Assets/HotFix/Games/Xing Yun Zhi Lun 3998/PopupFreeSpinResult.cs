@@ -154,6 +154,7 @@ namespace XingYunZhiLun_3998
                 idleTransition.Play(-1, 0, null);
             });
 
+
             if (ContentModel.Instance.isAuto)
             {
                 AddTimer(2, (object obj) =>
@@ -175,7 +176,7 @@ namespace XingYunZhiLun_3998
             PlayAnim("end");
             endTransition.Play();
 
-            AddTimer(1.4f, (object obj) =>
+            AddTimer(0.5f, (object obj) =>
             {
                 CloseSelf(null);
                 StopAll();

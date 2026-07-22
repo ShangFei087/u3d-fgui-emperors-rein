@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="915,543" overflow="hidden">
+<component size="985,573" overflow="hidden">
   <displayList>
-    <component id="n0_lsvw" name="reel1" src="lsvw1a" fileName="moudules/slotMachine/Reel.xml" xy="0,0" size="181,543"/>
-    <component id="n4_lsvw" name="reel2" src="lsvw1a" fileName="moudules/slotMachine/Reel.xml" xy="183,0" size="181,543"/>
-    <component id="n8_lsvw" name="reel3" src="lsvw1a" fileName="moudules/slotMachine/Reel.xml" xy="366,0" size="181,543"/>
-    <component id="n9_lsvw" name="reel4" src="lsvw1a" fileName="moudules/slotMachine/Reel.xml" xy="549,0" size="181,543"/>
-    <component id="n7_lsvw" name="reel5" src="lsvw1a" fileName="moudules/slotMachine/Reel.xml" xy="732,0" size="181,543"/>
+    <component id="n0_lsvw" name="reel1" src="lsvw1a" fileName="moudules/slotMachine/Reel.xml" xy="0,0" size="197,573"/>
+    <component id="n4_lsvw" name="reel2" src="lsvw1a" fileName="moudules/slotMachine/Reel.xml" xy="197,0" size="197,573"/>
+    <component id="n8_lsvw" name="reel3" src="lsvw1a" fileName="moudules/slotMachine/Reel.xml" xy="394,0" size="197,573"/>
+    <component id="n9_lsvw" name="reel4" src="lsvw1a" fileName="moudules/slotMachine/Reel.xml" xy="591,0" size="197,573"/>
+    <component id="n7_lsvw" name="reel5" src="lsvw1a" fileName="moudules/slotMachine/Reel.xml" xy="788,0" size="197,573"/>
   </displayList>
 </component>

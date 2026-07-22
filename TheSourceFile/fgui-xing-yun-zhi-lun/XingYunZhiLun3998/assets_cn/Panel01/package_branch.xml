@@ -13,11 +13,11 @@
     <image id="i9hyak3" name="7.png" path="/images/panel/payTable/" exported="true"/>
     <image id="czg2ak6" name="pb_txt_stop.png" path="/images/panel/spin/" exported="true"/>
     <image id="czg2ak7" name="pb_txt_spin.png" path="/images/panel/spin/" exported="true"/>
-    <image id="w05qak8" name="txt_open.png" path="/images/Button/" exported="true"/>
-    <image id="w05qak9" name="txt_close.png" path="/images/Button/" exported="true"/>
     <image id="xiz6akg" name="pb_txt_win.png" path="/images/panel/" exported="true"/>
     <image id="echiakk" name="pb_btn_auto.png" path="/images/panel/spin/"/>
     <image id="echiakl" name="pb_txt_holdToAuto.png" path="/images/panel/spin/"/>
     <image id="wrw6ako" name="pb_txt_tips.png" path="/images/panel/"/>
+    <image id="u2bkakr" name="txt_close.png" path="/images/Button/" exported="true"/>
+    <image id="u2bkakt" name="txt_open.png" path="/images/Button/" exported="true"/>
   </resources>
 </branchDescription>

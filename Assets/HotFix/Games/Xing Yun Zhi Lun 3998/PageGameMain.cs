@@ -42,7 +42,7 @@ namespace XingYunZhiLun_3998
         private GComponent slotCover, gOwnerPanel, gPlayLines, gFrame, gWheel, gZhuanPan, gJackpotBg, gFireWork, gWheelFrame;
         private GList gList;
         private GLoader gWheelLoad;
-        private GImage gMask;
+        private GImage gMask, gLight;
         private GTextField freeTimes;
         private Transition bsTofs, fsTobs;
         private Transform fireworkEffect, JackpotListEffect;
@@ -83,12 +83,8 @@ namespace XingYunZhiLun_3998
         //新增背景效果
         private GameObject norBgPref, freeBgPref, norBgObj, freeBgObj;
         private GComponent anchorNor, anchorFree;
-        private GLoader slotLoad;
 
-
-        //测试用例特效
-        private Transform Effect1, Effect2, Effect3, UpgradeEffect;
-        private Transform[] testEffect = new Transform[4];
+        private Transform upEffect;
 
 
         private bool isReserve;
@@ -414,7 +410,6 @@ namespace XingYunZhiLun_3998
             gWheel = gZhuanPan.GetChild("Wheel").asCom;
             gWheel.rotation = 0;
             gWheelLoad = gWheel.GetChild("wheelBg").asLoader;
-            slotLoad = contentPane.GetChild("slotMachiineBg").asCom.GetChild("slotBgLoad").asLoader;
             ChangeWheelURL(0);
 
             ////列表滚动游戏测试列表
@@ -498,33 +493,30 @@ namespace XingYunZhiLun_3998
                 wheelObj = GameObject.Instantiate(wheelPref);
                 gWheelFrame = loadWheelFrame;
                 wheelAnim = wheelObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                upEffect = wheelObj.transform.GetChild(1).GetChild(0);
 
-                Effect1 = wheelObj.transform.GetChild(1).GetChild(0);
-                Effect2 = wheelObj.transform.GetChild(1).GetChild(1);
-                Effect3 = wheelObj.transform.GetChild(1).GetChild(2);
-                UpgradeEffect = wheelObj.transform.GetChild(1).GetChild(3);
-
-                testEffect[0] = Effect1;
-                testEffect[1] = Effect2;
-                testEffect[2] = Effect3;
-                testEffect[3] = UpgradeEffect;
                 GameCommon.FguiUtils.AddWrapper(gWheelFrame, wheelObj);
 
-                ChangeParent(gWheel, wheelObj, "Anchor/Spine Mecanim GameObject (ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/c_circle");
-            }
-
-            GComponent loadAnchorBoard = slotLoad.component.GetChild("anchorBoard").asCom;
-            if(anchorNorBoard != loadAnchorBoard)
-            {
-                GameCommon.FguiUtils.DeleteWrapper(anchorNorBoard);
-                anchorNorBoard = loadAnchorBoard;
-                GameCommon.FguiUtils.AddWrapper(anchorNorBoard, GameObject.Instantiate(boardEff));
+                ChangeParent(gWheel, wheelObj, "Anchor/Spine Mecanim GameObject (Lucky_ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/c_circle");
             }
 
             TryRestoreFreeSpinSession();
             isReady = true;
 
             if (!isReady) return;
+
+            GButton testBtn = contentPane.GetChild("Lucky_sg_pop_frame").asButton;
+            testBtn.onClick.Add(Test);
+        }
+
+        private void Test()
+        {
+            PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameResult,
+                    new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
+                    {
+                        ["jackpotType"] = "Wild",
+                    }),
+                    null);
         }
 
         private void OnClickSpinButton(EventData res)
@@ -537,6 +529,8 @@ namespace XingYunZhiLun_3998
                 //}
 
                 bool isLongClick = (bool)res.value;
+                ContentModel.Instance.isAuto = TestManager.Instance.IsAutoModeRunning;
+
                 switch (ContentModel.Instance.btnSpinState)
                 {
                     case SpinButtonState.Stop:
@@ -952,7 +946,7 @@ namespace XingYunZhiLun_3998
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
 
                 yield return slotMachineCtrl.IsWildShowSymbolEffect(TagPoolObject.SymbolHit, slotMachineCtrl.GetTotalSymbolWin(winList), true, SpinWinEvent.TotalWinLine);
-                
+
                 ////检查bigwin类型
                 WinLevelType winLevelType = GetBigWinType();
                 ////bigwin弹窗
@@ -1048,6 +1042,8 @@ namespace XingYunZhiLun_3998
                 //积分同步和退币处理
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
 
+                yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
+
                 //加钱动画
                 MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
 
@@ -1123,6 +1119,8 @@ namespace XingYunZhiLun_3998
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
                 //加钱动画
                 MainBlackboardController.Instance.AddMyTempCredit(allWinCredit);
+
+                yield return MultShowWinListIdleOnce();
 
                 ////检查bigwin类型
                 WinLevelType winLevelType = GetBigWinType();
@@ -1665,27 +1663,11 @@ namespace XingYunZhiLun_3998
                     this.contentPane.GetController("c1").selectedPage = "BS";
                     freeBgObj.SetActive(false);
                     norBgObj.SetActive(true);
-                    slotLoad.url = CustomModel.Instance.SlotBgURL["normalSlotBg"];
-                    GComponent loadNorAnchorBoard = slotLoad.component.GetChild("anchorBoard").asCom;
-                    if (anchorNorBoard != loadNorAnchorBoard)
-                    {
-                        GameCommon.FguiUtils.DeleteWrapper(anchorNorBoard);
-                        anchorNorBoard = loadNorAnchorBoard;
-                        GameCommon.FguiUtils.AddWrapper(anchorNorBoard, GameObject.Instantiate(boardEff));
-                    }
                     break;
                 case 1:
                     this.contentPane.GetController("c1").selectedPage = "FS";
                     norBgObj.SetActive(false);
                     freeBgObj.SetActive(true);
-                    slotLoad.url = CustomModel.Instance.SlotBgURL["freeSlotBg"];
-                    GComponent loadAnchorBoard = slotLoad.component.GetChild("anchorBoard").asCom;
-                    if(anchorFreeBoard != loadAnchorBoard)
-                    {
-                        GameCommon.FguiUtils.DeleteWrapper(anchorFreeBoard);
-                        anchorFreeBoard = loadAnchorBoard;
-                        GameCommon.FguiUtils.AddWrapper(anchorFreeBoard, GameObject.Instantiate(boardEff));
-                    }
                     break;
                 case 2:
                     this.contentPane.GetController("c1").selectedPage = "JS";
@@ -2026,7 +2008,6 @@ namespace XingYunZhiLun_3998
                 }
 
                 yield return slotMachineCtrl.IsWildShowSymbolEffect(TagPoolObject.SymbolHit, slotMachineCtrl.GetTotalSymbolWin(winList), true, SpinWinEvent.TotalWinLine);
-                yield return new WaitForSeconds(1.6f);
             }
         }
 
@@ -2039,10 +2020,15 @@ namespace XingYunZhiLun_3998
         {
             while (ContentModel.Instance.isMult)
             {
-                slotMachineCtrl.SkipWinLine(true);
-                slotMachineCtrl.ShowMultipleHit(new List<int>() { 9 }, true, 9, true);
-                yield return new WaitForSeconds(2f);
+                yield return MultShowWinListIdleOnce();
             }
+        }
+
+        public IEnumerator MultShowWinListIdleOnce()
+        {
+            slotMachineCtrl.SkipWinLine(true);
+            slotMachineCtrl.ShowMultipleHit(new List<int>() { 9 }, true, 9, true);
+            yield return new WaitForSeconds(2f);
         }
 
         private void OnGameReset()
@@ -2613,27 +2599,13 @@ namespace XingYunZhiLun_3998
             PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameTrigger,
                     new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
                     {
-                    }),
-                    (res) =>
-                    {
-                        isNext = true;
-                    });
-            yield return new WaitUntil(() => isNext == true);
-            isNext = false;
-
-
-            //初始化彩金界面
-            InitScroll();
-            ChangeBGPanel(2);
-            SetJackpotMask(false);
-            initTransition.Play();
-            gJackpotBg.visible = true;
-            slotMachineCtrl.isStopImmediately = false;
-
-            //进入彩金游戏动画
-            PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameEnter,
-                    new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
-                    {
+                        ["callback"] = new Action(() => {
+                            //初始化彩金界面
+                            InitScroll();
+                            ChangeBGPanel(2);
+                            SetJackpotMask(false);
+                            gJackpotBg.visible = true;
+                        }),
                     }),
                     (res) =>
                     {
@@ -2661,9 +2633,47 @@ namespace XingYunZhiLun_3998
                         isNext = true;
                         isMain = true;
                     });
-
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
+
+
+            initTransition.Play();
+            slotMachineCtrl.isStopImmediately = false;
+
+            ////进入彩金游戏动画
+            //PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameEnter,
+            //        new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
+            //        {
+            //        }),
+            //        (res) =>
+            //        {
+            //            //恢复主页面按钮
+            //            ContentModel.Instance.goAnthorPanel = gOwnerPanel;
+            //            MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
+            //            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
+            //                new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
+
+            //            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+
+            //            if (ContentModel.Instance.isAuto)
+            //            {
+            //                ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
+            //            }
+            //            else
+            //            {
+            //                ContentModel.Instance.isSpin = false;
+            //                ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            //                ContentModel.Instance.gameState = GameState.Idle;
+
+            //                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmBonusGame));
+            //            }
+
+            //            isNext = true;
+            //            isMain = true;
+            //        });
+
+            //yield return new WaitUntil(() => isNext == true);
+            //isNext = false;
 
             startTransition.Play();
             JackpotFinish = false;
@@ -2699,57 +2709,82 @@ namespace XingYunZhiLun_3998
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
             }
-            
+
+
             PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameExit,
                 new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
                 {
                     ["totalEarnCredit"] = winCredit,
+                    ["callback"] = new Action(() =>
+                    {
+                        //切换回普通场景
+                        ChangeWheelURL(0);
+                        ChangeBGPanel(0);
+                        gJackpotBg.visible = false;
+                    })
                 }),
                 (res) =>
                 {
+                    //恢复主页面按钮
+                    ContentModel.Instance.goAnthorPanel = gOwnerPanel;
+                    MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
+                    EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
+                        new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
+
+                    ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+
+                    if (ContentModel.Instance.isAuto)
+                    {
+                        ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
+                    }
+                    else
+                    {
+                        ContentModel.Instance.isSpin = true;
+                        ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
+                        ContentModel.Instance.gameState = GameState.Spin;
+                    }
+
                     isNext = true;
+                    isMain = true;
                     EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmRegularGame));
                 });
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
-            //切换回普通场景
-            ChangeWheelURL(0);
-            ChangeBGPanel(0);
-            gJackpotBg.visible = false;
+            ////退出彩金游戏动画
+            //PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameQuit,
+            //        new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
+            //        {
+            //        }),
+            //        (res) =>
+            //        {
+            //            //恢复主页面按钮
+            //            ContentModel.Instance.goAnthorPanel = gOwnerPanel;
+            //            MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
+            //            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
+            //                new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
 
-            //退出彩金游戏动画
-            PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameQuit,
-                    new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
-                    {
-                    }),
-                    (res) =>
-                    {
-                        //恢复主页面按钮
-                        ContentModel.Instance.goAnthorPanel = gOwnerPanel;
-                        MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
-                        EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                            new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
+            //            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
 
-                        ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            //            if (ContentModel.Instance.isAuto)
+            //            {
+            //                ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
+            //            }
+            //            else
+            //            {
+            //                ContentModel.Instance.isSpin = true;
+            //                ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
+            //                ContentModel.Instance.gameState = GameState.Spin;
+            //            }
 
-                        if (ContentModel.Instance.isAuto)
-                        {
-                            ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
-                        }
-                        else
-                        {
-                            ContentModel.Instance.isSpin = true;
-                            ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
-                            ContentModel.Instance.gameState = GameState.Spin;
-                        }
+            //            isNext = true;
+            //            isMain = true;
+            //        });
 
-                        isNext = true;
-                        isMain = true;
-                    });
+            //yield return new WaitUntil(() => isNext == true);
+            //isNext = false;
 
-            yield return new WaitUntil(() => isNext == true);
-            isNext = false;
+
             slotMachineCtrl.EndBonusFreeSpin();
 
 
@@ -2792,6 +2827,7 @@ namespace XingYunZhiLun_3998
             startTransition = gJackpotBg.GetTransition("Start");
             initTransition = gJackpotBg.GetTransition("Init");
             gMask = gJackpotBg.GetChild("mask").asCom.GetChild("mask").asImage;
+            gLight = gJackpotBg.GetChild("mask").asCom.GetChild("light").asImage;
 
             SetJackpotMask(false);
         }
@@ -2800,13 +2836,14 @@ namespace XingYunZhiLun_3998
         private void SetJackpotMask(bool isVistual)
         {
             gMask.visible = isVistual;
+            gLight.visible = isVistual;
         }
 
 
-        public float itemWidth = 460f;        // 单个Item宽度
+        public float itemWidth = 555f;        // 单个Item宽度
         public float itemSpacing = 110f;      // Item间距
-        public float itemTotalWidth = 570f;   // 总Item宽度（包括间距）
-        public float listWidth = 1590f;       // 列表总宽度
+        public float itemTotalWidth = 665f;   // 总Item宽度（包括间距）
+        public float listWidth = 1890f;       // 列表总宽度
 
         // 滚动状态
         private float currentPos = 0f;
@@ -3059,11 +3096,12 @@ namespace XingYunZhiLun_3998
             //yield return new WaitForSeconds(waitTime);
             // ========== 等待逻辑修改结束 ==========
 
-            if (listSymbolAnimator != null)
-            {
-                SetJackpotMask(true);
-                PlayAnim(listSymbolAnimator, "win");
-            }
+            //if (listSymbolAnimator != null)
+            //{
+            //    PlayAnim(listSymbolAnimator, "win");
+            //}
+
+            SetJackpotMask(true);
 
             yield return new WaitForSeconds(waitTime);
             successCallback?.Invoke();
@@ -3156,7 +3194,7 @@ namespace XingYunZhiLun_3998
             if (sorceTextObj != null)
             {
                 GTextField textField = sorceTextObj.asTextField;
-                textField.text = UnityEngine.Random.Range(500, 5000).ToString();
+                textField.text = UnityEngine.Random.Range(2000, 10000).ToString();
             }
 
             if (toSetEffect)
@@ -3179,8 +3217,8 @@ namespace XingYunZhiLun_3998
                 (GameObject clone) =>
                 {
                     goEffect = GameObject.Instantiate(clone);
-                    listSymbolAnimator = goEffect.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-                    JackpotListEffect = goEffect.transform.GetChild(1).GetChild(0).GetChild(0);
+                    //listSymbolAnimator = goEffect.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                    JackpotListEffect = goEffect.transform.GetChild(0).GetChild(0).GetChild(0);
                     GameCommon.FguiUtils.AddWrapper(gEffect, goEffect);
                     goEffect.SetActive(false);
                 });
@@ -3223,7 +3261,7 @@ namespace XingYunZhiLun_3998
             }
 
             // 其他索引随机
-            return Random.Range(0, 8).ToString();
+            return Random.Range(0, 7).ToString();
         }
 
         // 放大效果
@@ -3510,7 +3548,7 @@ namespace XingYunZhiLun_3998
 
             WheelInit(state);
         }
-
+        
 
         private IEnumerator ChangeWheel()
         {
@@ -3518,11 +3556,15 @@ namespace XingYunZhiLun_3998
             {
                 case 4:
                     PlayAnim(wheelAnim, "01_02");
+                    yield return new WaitForSeconds(0.3f);
+                    PlayEffectAnim(upEffect);
                     ChangeWheelURL(1);
                     yield return new WaitForSeconds(1);
                     break;
                 case 5:
                     PlayAnim(wheelAnim, "01_03");
+                    yield return new WaitForSeconds(0.3f);
+                    PlayEffectAnim(upEffect);
                     ChangeWheelURL(2);
                     yield return new WaitForSeconds(1);
                     break;

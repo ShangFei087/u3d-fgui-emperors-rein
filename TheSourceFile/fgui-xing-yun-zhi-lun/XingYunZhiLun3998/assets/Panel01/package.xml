@@ -33,7 +33,6 @@
     <image id="a666ah1" name="pb_frame_ui_bg.png" path="/images/panel/" exported="true"/>
     <image id="a666ahf" name="pb_txt_tips.png" path="/images/panel/" exported="true"/>
     <image id="a666ahg" name="pb_txt_win.png" path="/images/panel/" exported="true"/>
-    <image id="a666ahh" name="sg_img01.png" path="/"/>
     <component id="yl9o0" name="BtnBack.xml" path="/moudules/panel/SetPanel/" exported="true"/>
     <component id="yl9o1" name="ButtonSound.xml" path="/moudules/panel/" exported="true"/>
     <component id="yl9o2" name="SobudSlider_grip.xml" path="/moudules/panel/SetPanel/" exported="true"/>
@@ -58,17 +57,17 @@
     <image id="i9hyajm" name="txt_exit.png" path="/images/panel/payTable/Text/" exported="true"/>
     <image id="i9hyak4" name="pb_btn_auto.png" path="/images/panel/spin/" exported="true"/>
     <image id="i9hyak5" name="pb_txt_holdToAuto.png" path="/images/panel/spin/" exported="true"/>
-    <image id="w05qaka" name="txt_open.png" path="/images/Button/" exported="true"/>
-    <image id="w05qakb" name="btn_exhibition_01.png" path="/images/Button/" exported="true"/>
-    <image id="w05qakc" name="btn_exhibition_02.png" path="/images/Button/" exported="true"/>
     <image id="w05qakd" name="btn_respin_01.png" path="/images/Button/" exported="true"/>
     <image id="w05qake" name="btn_respin_02.png" path="/images/Button/" exported="true"/>
-    <image id="w05qakf" name="txt_close.png" path="/images/Button/" exported="true"/>
     <image id="xiz6akh" name="ng_btn_sub_02.png" path="/images/panel/" exported="true"/>
     <image id="echiaki" name="ng_btn_sub_02.png" path="/images/panel/bet/"/>
     <component id="echiakj" name="UntouchBetButton.xml" path="/moudules/panel/" exported="true"/>
     <component id="ibv7akm" name="UntouchBetBtn24.xml" path="/moudules/panel/"/>
     <image id="wrw6akn" name="pb_btn_spin_gray.png" path="/images/panel/spin/"/>
+    <image id="u2bkakp" name="btn_exhibition_02.png" path="/images/Button/" exported="true"/>
+    <image id="u2bkakq" name="btn_exhibition_01.png" path="/images/Button/" exported="true"/>
+    <image id="u2bkaks" name="txt_close.png" path="/images/Button/" exported="true"/>
+    <image id="u2bkaku" name="txt_open.png" path="/images/Button/" exported="true"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Panel\Panel3998\FGUIs" packageCount="2"/>
 </packageDescription>

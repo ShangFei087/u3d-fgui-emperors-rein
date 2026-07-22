@@ -131,7 +131,6 @@ namespace XingYunZhiLun_3998
 
             //打开时设置免费游戏的免费次数
             textContent = contentPane.GetChild("times").asTextField;
-            contentPane.GetChild("n7").asImage.alpha = 0;
             textContent.alpha = 0;
 
             if (_data != null)
@@ -153,6 +152,8 @@ namespace XingYunZhiLun_3998
                     idleTransition.Play(-1, 0, null);
                 });
             });
+
+            if (!isOpen) return;
 
             if (ContentModel.Instance.isAuto)
             {
@@ -176,7 +177,7 @@ namespace XingYunZhiLun_3998
                 endTransition.Play();
             });
 
-            AddTimer(1.4f, (object obj) =>
+            AddTimer(0.7f, (object obj) =>
             {
                 CloseSelf(new EventData<string>("Result", "i am here 1"));
             });
