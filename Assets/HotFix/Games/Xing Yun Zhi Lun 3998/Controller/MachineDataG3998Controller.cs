@@ -446,8 +446,8 @@ namespace XingYunZhiLun_3998
                     ContentModel.Instance.isFreeSpinTrigger = true;
                     ContentModel.Instance.freeSpinTotalTimes = freeTime;
                     ContentModel.Instance.freeSpinPlayTimes = 0;
-                    ContentModel.Instance.freeSpinTotalWinCredit = 0;
-                    ContentModel.Instance.curFreeCredit = 0;
+                    ContentModel.Instance.freeSpinTotalWinCredit = totalwin + (int)res["TotalFreeBet"];
+                    ContentModel.Instance.curFreeCredit = totalwin;
 
                     ContentModel.Instance.newFreeOnceCredit.Clear();
                     for (int i = 0; i < TotalFreeTime; i++)
@@ -468,7 +468,7 @@ namespace XingYunZhiLun_3998
                 ContentModel.Instance.curReelStripsIndex = "FS";
                 ContentModel.Instance.freeSpinPlayTimes += 1;
                 ContentModel.Instance.curFreeCredit += ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1] * MainModel.Instance.contentMD.betmultiple;
-                ContentModel.Instance.freeSpinTotalWinCredit += totalLineWin;
+                //ContentModel.Instance.freeSpinTotalWinCredit += totalLineWin;
 
 
                 ContentModel.Instance.baseGameWinCredit = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1] * MainModel.Instance.contentMD.betmultiple;

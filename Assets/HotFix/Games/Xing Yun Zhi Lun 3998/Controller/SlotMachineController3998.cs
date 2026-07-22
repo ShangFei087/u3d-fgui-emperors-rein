@@ -136,7 +136,7 @@ namespace XingYunZhiLun_3998
 
             yield return SlotWaitForSeconds(_spinWEMD.Instance.timeS);
 
-            yield return SlotWaitForSeconds(0.5f);
+            yield return SlotWaitForSeconds(1.7f);
         }
 
 
@@ -334,10 +334,11 @@ namespace XingYunZhiLun_3998
                 //goSlotCover?.SetActive(_spinWEBB.Instance.isShowCover);
 
                 int idx = 0;
+                int totalTimes = 1;         //单线轮播次数
                 while (idx < winList.Count)
                 {
                     int times = 0;
-                    while(times < 3)
+                    while(times < totalTimes)
                     {
                         times++; 
                         //ContentModel.Instance.creditText.text = $"线号：{winList[idx].lineNumber}\t得分：{winList[idx].earnCredit}";

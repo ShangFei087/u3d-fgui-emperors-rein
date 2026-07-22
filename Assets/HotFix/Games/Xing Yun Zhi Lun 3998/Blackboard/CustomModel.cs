@@ -221,6 +221,12 @@ namespace XingYunZhiLun_3998
             { "freeSlotBg", "ui://XingYunZhiLun_3998/slotFree" },
         };
 
+        public readonly string[] jackpotResultBtnUrl ={
+            "ui://XingYunZhiLun_3998/jp_btn_major",
+            "ui://XingYunZhiLun_3998/jp_btn_minor",
+            "ui://XingYunZhiLun_3998/jp_btn_mini"
+        };
+
         //<summary> 不同等级下的轮盘图标 </summary>
         public Dictionary<string, string> wheelState => new Dictionary<string, string>
         {
@@ -232,15 +238,15 @@ namespace XingYunZhiLun_3998
         #region 赔付线与赔付表
         private List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>()
         {
-            new PayTableSymbolInfo(){symbol = 0, x5 = 10, x4 = 4, x3 = 2, },
-            new PayTableSymbolInfo(){symbol = 1, x5 = 10, x4 = 4, x3 = 2, },
-            new PayTableSymbolInfo(){symbol = 2, x5 = 30, x4 = 10, x3 = 4, },
-            new PayTableSymbolInfo(){symbol = 3, x5 = 30, x4 = 10, x3 = 4, },
-            new PayTableSymbolInfo(){symbol = 4, x5 = 40, x4 = 15, x3 = 6, },
-            new PayTableSymbolInfo(){symbol = 5, x5 = 40, x4 = 15, x3 = 6, },
-            new PayTableSymbolInfo(){symbol = 6, x5 = 50, x4 = 20, x3 = 10, },
-            new PayTableSymbolInfo(){symbol = 7, x5 = 60, x4 = 25, x3 = 12, },
-            new PayTableSymbolInfo(){symbol = 8, x5 = 100, x4 = 30, x3 = 20, },
+            new PayTableSymbolInfo(){symbol = 0, x5 = 20, x4 = 10, x3 = 5, },
+            new PayTableSymbolInfo(){symbol = 1, x5 = 20, x4 = 10, x3 = 5, },
+            new PayTableSymbolInfo(){symbol = 2, x5 = 20, x4 = 10, x3 = 5, },
+            new PayTableSymbolInfo(){symbol = 3, x5 = 20, x4 = 10, x3 = 5, },
+            new PayTableSymbolInfo(){symbol = 4, x5 = 30, x4 = 20, x3 = 10, },
+            new PayTableSymbolInfo(){symbol = 5, x5 = 50, x4 = 30, x3 = 15, },
+            new PayTableSymbolInfo(){symbol = 6, x5 = 70, x4 = 40, x3 = 20, },
+            new PayTableSymbolInfo(){symbol = 7, x5 = 90, x4 = 50, x3 = 25, },
+            new PayTableSymbolInfo(){symbol = 8, x5 = 100, x4 = 60, x3 = 30, },
             new PayTableSymbolInfo(){symbol = 9, x5 = 0, x4 = 0, x3 = 0, },
             new PayTableSymbolInfo(){symbol = 10, x5 = 0, x4 = 0, x3 = 0, },
         };
@@ -286,7 +292,6 @@ namespace XingYunZhiLun_3998
             new WinMultiple("BIG", 5),
             new WinMultiple("HUGE", 10),
             new WinMultiple("MASSIVE", 20),
-            new WinMultiple("LEGENDARY", 100),
         };
         public List<WinMultiple> winLevelMultiple
         {

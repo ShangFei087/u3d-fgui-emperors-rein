@@ -115,7 +115,7 @@ namespace XingYunZhiLun_3998
             if(_data != null)
             {
                 Dictionary<string, object> argDic = (Dictionary<string, object>)_data.value;
-                uiJPReslutCtrl.SetData((float)argDic["totalEarnCredit"]);
+                uiJPReslutCtrl.SetData(Convert.ToInt32(argDic["totalEarnCredit"]));
                 callBack = (Action)argDic["callback"];
             }
             else
@@ -124,11 +124,18 @@ namespace XingYunZhiLun_3998
                 callBack = null;
             }
 
-            idleTransition = contentPane.GetTransition("idle");
-            endTransition = contentPane.GetTransition("end");
+            if(idleTransition == null)
+            {
+                idleTransition = contentPane.GetTransition("idle");
+                endTransition = contentPane.GetTransition("end");
+
+                idleTransition.ignoreEngineTimeScale = false;
+                endTransition.ignoreEngineTimeScale = false;
+            }
+            
 
             PlayAnim("start");
-            idleTransition.Play(-1, 1.3f, null);
+            idleTransition.Play(-1, 1.3f / Time.timeScale, null);
 
             if(!isOpen) return;
 
@@ -153,13 +160,13 @@ namespace XingYunZhiLun_3998
 
             if(callBack != null)
             {
-                AddTimer(2f, (obj) =>
+                AddTimer(2f / Time.timeScale, (obj) =>
                 {
                     callBack.Invoke();
                 });
             }
 
-            AddTimer(2.8f, (obj) =>
+            AddTimer(2.8f / Time.timeScale, (obj) =>
             {
                 CloseSelf(null);
             });

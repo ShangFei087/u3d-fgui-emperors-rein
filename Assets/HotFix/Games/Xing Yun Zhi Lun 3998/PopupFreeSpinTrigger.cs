@@ -23,7 +23,7 @@ namespace XingYunZhiLun_3998
         private GComponent lodAnchor;
         GTextField textContent;
         private GButton btnStrat;
-        private Transition endTransition, startTransition, idleTransition;
+        //private Transition endTransition, startTransition, idleTransition;
 
         private Animator animator;
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
@@ -43,8 +43,6 @@ namespace XingYunZhiLun_3998
             {
                 goAnchorSpineFg = clone;
 
-                //GameObject fguiContainer = lodAnchorBG.displayObject.gameObject;
-                //go.transform.SetParent(fguiContainer.transform, false);
 
                 isInit = true;
                 InitParam(null);
@@ -102,7 +100,12 @@ namespace XingYunZhiLun_3998
 
             //ContentModel.Instance.btnSpinState = SpinButtonState.Hui;
 
+            //打开时设置免费游戏的免费次数
+            textContent = contentPane.GetChild("times").asTextField;
+            btnStrat = this.contentPane.GetChild("ButtonStart").asButton;
+
             GComponent lodAnchortip = this.contentPane.GetChild("anchorSpine").asCom;
+
             if (lodAnchor != lodAnchortip)
             {
                 GameCommon.FguiUtils.DeleteWrapper(lodAnchor);
@@ -110,28 +113,22 @@ namespace XingYunZhiLun_3998
                 go = GameObject.Instantiate(goAnchorSpineFg);
                 animator = go.transform.GetChild(1).GetChild(0).GetComponent<Animator>();
                 effectFreeGameTriggerBaodian = go.transform.GetChild(0).GetChild(0).GetChild(0).transform;
-                GameCommon.FguiUtils.AddWrapper(lodAnchor, go);
 
+                GameCommon.FguiUtils.AddWrapper(lodAnchor, go);
                 lodAnchor.visible = true;
             }
 
-            ContentModel.Instance.btnSpinState = ContentModel.Instance.curBtnSpinState;
+            ChangeParent(textContent, go, "Anchor/Spine Mecanim GameObject (Lucky_fg_pop_prompt)/SkeletonUtility-SkeletonRoot/root/num01", -2.75f, 1.25f);
+            ChangeParent(btnStrat, go, "Anchor/Spine Mecanim GameObject (Lucky_fg_pop_prompt)/SkeletonUtility-SkeletonRoot/root/btn01", -2.45f, 0);
 
-            endTransition = contentPane.GetTransition("end");
-            startTransition = contentPane.GetTransition("start");
-            idleTransition = contentPane.GetTransition("idle");
+            //ContentModel.Instance.btnSpinState = ContentModel.Instance.curBtnSpinState;
 
-            btnStrat = this.contentPane.GetChild("ButtonStart").asButton;
             btnStrat.onClick.Clear();
             isClose = false;
             btnStrat.onClick.Add(OnBtnStartClick);
 
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-
-            //打开时设置免费游戏的免费次数
-            textContent = contentPane.GetChild("times").asTextField;
-            textContent.alpha = 0;
 
             if (_data != null)
             {
@@ -143,14 +140,9 @@ namespace XingYunZhiLun_3998
             }
 
             PlayAnim("start");
-            AddTimer(0.15f, (object obj) =>
+            AddTimer(0.15f / Time.timeScale, (object obj) =>
             {
                 PlayEffectAnim(effectFreeGameTriggerBaodian);
-                startTransition.Play();
-                AddTimer(1.33f, (obj) =>
-                {
-                    idleTransition.Play(-1, 0, null);
-                });
             });
 
             if (!isOpen) return;
@@ -171,13 +163,7 @@ namespace XingYunZhiLun_3998
 
             PlayAnim("end");
 
-            AddTimer(0.1f, (object obj) =>
-            {
-                idleTransition.Stop();
-                endTransition.Play();
-            });
-
-            AddTimer(0.7f, (object obj) =>
+            AddTimer(0.7f / Time.timeScale, (object obj) =>
             {
                 CloseSelf(new EventData<string>("Result", "i am here 1"));
             });
@@ -226,6 +212,18 @@ namespace XingYunZhiLun_3998
             }
 
             _activeTimers.Clear();
+        }
+
+        private void ChangeParent(GObject gComponent, GameObject go, string path, float xDistance, float yDistance)
+        {
+            Transform num01 = go.transform.Find(path);
+            if (gComponent.displayObject?.gameObject != null)
+            {
+                Transform t = gComponent.displayObject.gameObject.transform;
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(xDistance, yDistance, 0);
+                t.localScale = new Vector3(0.01f, 0.01f, 1);
+            }
         }
     }
 }

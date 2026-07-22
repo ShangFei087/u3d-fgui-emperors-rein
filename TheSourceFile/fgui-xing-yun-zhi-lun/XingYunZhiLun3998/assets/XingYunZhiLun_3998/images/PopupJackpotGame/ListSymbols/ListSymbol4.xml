@@ -2,6 +2,6 @@
 <component size="639,837">
   <displayList>
     <image id="n0_12dua" name="n0" src="u2bkalt" fileName="images/PopupJackpotGame/ListSymbolIcons/Lucky_ng_sym11_painting02.png" xy="0,0"/>
-    <text id="n1_12dua" name="Socre" xy="317,48" pivot="0.5,0.5" anchor="true" size="340,75" font="ui://5hielhj5a6ypacb" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="3" autoSize="shrink" text="123456789"/>
+    <text id="n1_12dua" name="Socre" xy="317,48" pivot="0.5,0.5" anchor="true" size="340,75" font="ui://5hielhj5a6ypacb" fontSize="6" align="center" vAlign="middle" leading="0" autoSize="shrink" text="123456789"/>
   </displayList>
 </component>

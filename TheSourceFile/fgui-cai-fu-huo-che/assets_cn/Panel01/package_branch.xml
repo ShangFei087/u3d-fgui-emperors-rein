@@ -4,14 +4,14 @@
     <image id="znm9c7" name="pb_txt_help.png" path="/images/Panel/spin按钮/" exported="true"/>
     <image id="znm9c8" name="pb_txt_stop.png" path="/images/Panel/spin按钮/" exported="true"/>
     <image id="znm9c9" name="pb_txt_spin.png" path="/images/Panel/spin按钮/" exported="true"/>
-    <image id="znm9ca" name="pb_txt_bet.png" path="/images/Panel/鼓励值/" exported="true"/>
-    <image id="znm9cb" name="pb_txt_credits.png" path="/images/Panel/投币数/" exported="true"/>
     <image id="znm9cd" name="Back to game.png" path="/images/Panel/说明书/" exported="true"/>
-    <image id="s21fck" name="ng_txt_on.png" path="/images/Button/" exported="true"/>
-    <image id="s21fcl" name="ng_txt_dff.png" path="/images/Button/" exported="true"/>
     <image id="s21fcm" name="pb_img_help.png" path="/images/Panel/多功能按钮/" exported="true"/>
     <image id="iilzcn" name="pb_txt_win.png" path="/images/Panel/赢分框/"/>
     <image id="iilzcp" name="pb_txt_hold.png" path="/images/Panel/spin按钮/"/>
     <image id="iilzcq" name="pb_txt_auto.png" path="/images/Panel/spin按钮/"/>
+    <image id="pcvkct" name="ng_txt_Exhibition  Mode Off.png" path="/images/Button/" exported="true"/>
+    <image id="pcvkcu" name="ng_txt_kaiqi.png" path="/images/Button/" exported="true"/>
+    <image id="pcvkd8" name="pb_txt_bet.png" path="/images/Panel/鼓励值/" exported="true"/>
+    <image id="pcvkda" name="pb_txt_credits.png" path="/images/Panel/投币数/"/>
   </resources>
 </branchDescription>

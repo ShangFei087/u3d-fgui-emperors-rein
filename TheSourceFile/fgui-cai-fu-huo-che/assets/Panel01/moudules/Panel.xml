@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920" designImage="ui://q8n13f0fpmaeac">
+<component size="1080,1920" designImage="ui://q8n13f0fpcvken">
   <displayList>
     <graph id="n21_vxx6" name="mash" xy="0,0" size="1080,1920" visible="false" type="rect" fillColor="#99333333"/>
     <component id="n2_pmae" name="frame" src="pmaeaa" fileName="moudules/panel/frame.xml" xy="540,1920" pivot="0.5,1" anchor="true" alpha="0.894"/>
-    <component id="n4_pmae" name="btnHelp" src="pmaead" fileName="moudules/panel/ButtonHelp.xml" xy="72,1806" pivot="0.5,0.5" anchor="true"/>
-    <component id="n8_pmae" name="btnBetUp" src="pmaeai" fileName="moudules/panel/ButtonBetUp.xml" xy="865,1725"/>
-    <component id="n9_pmae" name="btnBetDown" src="pmaeaj" fileName="moudules/panel/ButtonBetDown.xml" xy="743,1725" scale="-1,1"/>
-    <text id="n12_pmae" name="bet" xy="741,1746" size="127,54" font="ui://q8n13f0fpmaeay" fontSize="12" align="center" vAlign="middle" letterSpacing="2" autoSize="shrink" text="1000"/>
-    <text id="n10_pmae" name="credit" xy="220,1744" size="133,59" font="ui://q8n13f0fpmaeay" fontSize="8" align="center" vAlign="middle" autoSize="shrink" text="1000000"/>
-    <text id="n11_pmae" name="win" xy="387,1746" size="287,54" font="ui://q8n13f0fpmaebf" fontSize="12" align="center" vAlign="middle" letterSpacing="-2" autoSize="shrink" text="3000000"/>
+    <component id="n4_pmae" name="btnHelp" src="pmaead" fileName="moudules/panel/ButtonHelp.xml" xy="105,1837" pivot="0.5,0.5" anchor="true" scale="1.2,1.2"/>
+    <component id="n8_pmae" name="btnBetUp" src="pmaeai" fileName="moudules/panel/ButtonBetUp.xml" xy="790,1817"/>
+    <component id="n9_pmae" name="btnBetDown" src="pmaeaj" fileName="moudules/panel/ButtonBetDown.xml" xy="633,1819" scale="-1,1"/>
+    <text id="n12_pmae" name="bet" xy="620,1823" size="180,35" font="ui://q8n13f0fpmaeay" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-9" autoSize="shrink" text="30"/>
+    <text id="n10_pmae" name="credit" xy="316,1819" size="176,39" font="ui://q8n13f0fpmaeay" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-9" autoSize="shrink" text="123456789"/>
+    <text id="n11_pmae" name="win" xy="305,1690" size="479,78" font="ui://q8n13f0fpmaebf" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-28" autoSize="shrink" text="123456789"/>
     <component id="n13_jaxj" name="btnSpin" src="jaxjbj" fileName="moudules/panel/ButtonSpin.xml" xy="1003,1796" pivot="0.5,0.5" anchor="true" scale="0.7,0.7"/>
     <text id="n20_soe7" name="singleLine" xy="269,1638" size="541,42" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="Line to 5  Win 80"/>
-    <component id="n18_uz53" name="n18" src="uz53bq" fileName="moudules/panel/TipText.xml" xy="144,1876" size="791,28"/>
+    <component id="n18_uz53" name="n18" src="uz53bq" fileName="moudules/panel/TipText.xml" xy="172,1895" size="747,23"/>
     <component id="n22_tpfb" name="ExhibitionPanel" src="tpfbc6" fileName="moudules/ExhibitionPanel.xml" xy="0,506"/>
     <component id="n5_pmae" name="setPanel" src="pmaebg" fileName="moudules/panel/SetPanel.xml" xy="16,1469"/>
     <component id="n19_uz53" name="instructions" src="uz53br" fileName="moudules/panel/PayTable.xml" xy="-1,-1"/>

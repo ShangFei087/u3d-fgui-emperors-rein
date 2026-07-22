@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1526467150587230619
+--- !u!1 &5152475616759548082
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2138563409250765164}
-  - component: {fileID: 9153280050179081455}
-  - component: {fileID: 5829084978966979518}
-  - component: {fileID: 6410866665980441033}
-  - component: {fileID: 4664169017491064632}
+  - component: {fileID: 2621921843378033292}
+  - component: {fileID: 3063644375718807721}
+  - component: {fileID: 6883461712859887739}
+  - component: {fileID: 2633941060498077128}
+  - component: {fileID: 2169852847765536307}
   m_Layer: 0
-  m_Name: Spine Mecanim GameObject (load_bg_title)
+  m_Name: Spine Mecanim GameObject (load_bg_decorate)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2138563409250765164
+--- !u!4 &2621921843378033292
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526467150587230619}
+  m_GameObject: {fileID: 5152475616759548082}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,21 +34,21 @@ Transform:
   m_Father: {fileID: 4315717967717383630}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &9153280050179081455
+--- !u!33 &3063644375718807721
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526467150587230619}
+  m_GameObject: {fileID: 5152475616759548082}
   m_Mesh: {fileID: 0}
---- !u!23 &5829084978966979518
+--- !u!23 &6883461712859887739
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526467150587230619}
+  m_GameObject: {fileID: 5152475616759548082}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2fd5136dde6155b429fd681680e1aae0, type: 2}
+  - {fileID: 2100000, guid: 81c7c1fd9da53764c893ccf0624315db, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,17 +83,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &6410866665980441033
+--- !u!95 &2633941060498077128
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526467150587230619}
+  m_GameObject: {fileID: 5152475616759548082}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a08f710822e7ec4419ddbe4e7a2329bf, type: 2}
+  m_Controller: {fileID: 9100000, guid: cbe543ba801132941b13b833d48747b5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -102,19 +102,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4664169017491064632
+--- !u!114 &2169852847765536307
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526467150587230619}
+  m_GameObject: {fileID: 5152475616759548082}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9db98c60740638449864eb028fbe7ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 27f51f585a838ef479fce9ea37746766, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: ce6c1be6dc56218409b920be10978325, type: 2}
   initialSkinName: 
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0
@@ -170,7 +170,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
-  - {fileID: 2138563409250765164}
+  - {fileID: 2621921843378033292}
   m_Father: {fileID: 6179367741477623045}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

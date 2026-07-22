@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1118,770">
   <displayList>
-    <image id="n5_pjjx" name="n5" src="baxv6q" fileName="images/ng_img-frame_01.png" xy="1122,0" size="154,770" scale="-1,1"/>
-    <image id="n6_pjjx" name="n6" src="baxv6s" fileName="images/ng_img-frame_03.png" xy="976,11" size="416,127" scale="-1,1"/>
-    <image id="n7_pjjx" name="n7" src="baxv6s" fileName="images/ng_img-frame_03.png" xy="145,11" size="416,127"/>
-    <image id="n8_pjjx" name="n8" src="baxv6q" fileName="images/ng_img-frame_01.png" xy="0,0" size="154,770"/>
-    <image id="n9_pjjx" name="n9" src="baxv6r" fileName="images/ng_img-frame_02.png" xy="134,671" size="429,98"/>
-    <image id="n10_pjjx" name="n10" src="baxv6r" fileName="images/ng_img-frame_02.png" xy="991,671" size="431,98" scale="-1,1"/>
+    <image id="n11_pcvk" name="n11" src="pcvkid" fileName="images/ng_img-frame_01.png" xy="2,0"/>
+    <image id="n13_pcvk" name="n13" src="pcvkid" fileName="images/ng_img-frame_01.png" xy="1118,0" scale="-1,1"/>
+    <image id="n14_pcvk" name="n14" src="pcvkif" fileName="images/ng_img-frame_03.png" xy="17,197"/>
+    <image id="n15_pcvk" name="n15" src="pcvkif" fileName="images/ng_img-frame_03.png" xy="1103,197" scale="-1,1"/>
+    <image id="n16_pcvk" name="n16" src="pcvkie" fileName="images/ng_img-frame_02.png" xy="1,636"/>
+    <image id="n17_pcvk" name="n17" src="pcvkie" fileName="images/ng_img-frame_02.png" xy="1119,636" scale="-1,1"/>
   </displayList>
 </component>

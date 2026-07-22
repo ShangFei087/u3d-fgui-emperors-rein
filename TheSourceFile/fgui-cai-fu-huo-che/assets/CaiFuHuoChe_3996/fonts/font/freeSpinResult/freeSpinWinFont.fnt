@@ -1,17 +1,11 @@
 info size=12 resizable=true colored=false
-char id=49 img=baxv88 xoffset=0 yoffset=0 xadvance=0
-char id=50 img=baxv89 xoffset=0 yoffset=0 xadvance=0
-char id=51 img=baxv8a xoffset=0 yoffset=0 xadvance=0
-char id=52 img=baxv8b xoffset=0 yoffset=0 xadvance=0
-char id=53 img=baxv8c xoffset=0 yoffset=0 xadvance=0
-char id=54 img=baxv8d xoffset=0 yoffset=0 xadvance=0
-char id=55 img=baxv8e xoffset=0 yoffset=0 xadvance=0
-char id=56 img=baxv8f xoffset=0 yoffset=0 xadvance=0
-char id=57 img=baxv8g xoffset=0 yoffset=0 xadvance=0
-char id=46 img=baxv8h xoffset=0 yoffset=0 xadvance=0
-char id=44 img=baxv8i xoffset=0 yoffset=0 xadvance=0
-char id=66 img=baxv8j xoffset=0 yoffset=0 xadvance=0
-char id=75 img=baxv8k xoffset=0 yoffset=0 xadvance=0
-char id=77 img=baxv8l xoffset=0 yoffset=0 xadvance=0
-char id=65292 img=baxv8i xoffset=0 yoffset=0 xadvance=0
-char id=48 img=baxv8m xoffset=0 yoffset=0 xadvance=0
+char id=48 img=pcvkfk xoffset=0 yoffset=0 xadvance=0
+char id=49 img=pcvkfl xoffset=0 yoffset=0 xadvance=0
+char id=50 img=pcvkfm xoffset=0 yoffset=0 xadvance=0
+char id=51 img=pcvkfn xoffset=0 yoffset=0 xadvance=0
+char id=52 img=pcvkfo xoffset=0 yoffset=0 xadvance=0
+char id=53 img=pcvkfp xoffset=0 yoffset=0 xadvance=0
+char id=54 img=pcvkfq xoffset=0 yoffset=0 xadvance=0
+char id=55 img=pcvkfr xoffset=0 yoffset=0 xadvance=0
+char id=56 img=pcvkfs xoffset=0 yoffset=0 xadvance=0
+char id=57 img=pcvkft xoffset=0 yoffset=0 xadvance=0

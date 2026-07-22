@@ -43,7 +43,7 @@ namespace XingYunZhiLun_3998
         private GList gList;
         private GLoader gWheelLoad;
         private GImage gMask, gLight;
-        private GTextField freeTimes;
+        private GTextField freeTimes, freeTotalTimes;
         private Transition bsTofs, fsTobs;
         private Transform fireworkEffect, JackpotListEffect;
         private GComponent anchorNorBoard, anchorFreeBoard;
@@ -52,6 +52,7 @@ namespace XingYunZhiLun_3998
         private GameObject goFireworkEffect;
 
         private Transition startTransition, initTransition;
+        private Transition hideZhuanPan, showZhuanPan;
 
         private GameObject goHost, goGuest, goLight, goSpineHost, goSpineGuest, goSpineLight, wildObject;
         private GameObject[] goWild = new GameObject[5];
@@ -70,7 +71,7 @@ namespace XingYunZhiLun_3998
         private float rotateSpeed = 15;
         private bool isMain = true, isJackpot = false, JackpotFinish = false;
         private string JackpotType = "";
-        private float winCredit = 0;
+        private int winCredit = 0;
         private GameObject wheelPref, wheelObj, boardEff;
         private Animator wheelAnim;
 
@@ -372,6 +373,7 @@ namespace XingYunZhiLun_3998
             ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
             payTableController.Init(lstPayTable);
 
+
             // ---------- 2. FGUI 对象池（须先于滚轮 Init） ----------
             if (fguiPoolHelper != null && isInitPool == false)
             {
@@ -386,6 +388,8 @@ namespace XingYunZhiLun_3998
                 fguiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 5);
                 fguiPoolHelper.PreLoad(TagPoolObject.SymbolAppear);
             }
+
+
             // ---------- 3.滚轮控制器 ----------
             GComponent gSlotMachine = contentPane.GetChild("slotMachine").asCom;
             GComponent gReels = gSlotMachine.GetChild("reels").asCom;
@@ -393,6 +397,8 @@ namespace XingYunZhiLun_3998
             gPlayLines = gSlotMachine.asCom.GetChild("playLines").asCom;
             gFrame = contentPane.GetChild("anchorFrame").asCom;
             slotMachineCtrl.Init(slotCover, gPlayLines, gReels, gFrame, fguiPoolHelper, gObjectPoolHelper);
+
+
             // ---------- 4. 底部菜单 Panel ----------
             //初始化菜单ui
             gOwnerPanel = this.contentPane.GetChild("panel").asCom;
@@ -403,8 +409,12 @@ namespace XingYunZhiLun_3998
             EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT, new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
 
             if (!isOpen) return;
+
+
             // ---------- 5.音乐控制 ----------
             _gameSoundController = new GameSoundController3998();
+
+
             // ---------- 6.初始化FGUI组件 ----------
             gZhuanPan = contentPane.GetChild("ZhuanPan").asCom;
             gWheel = gZhuanPan.GetChild("Wheel").asCom;
@@ -417,6 +427,7 @@ namespace XingYunZhiLun_3998
             gList.alpha = 1;
             gJackpotBg = contentPane.GetChild("HostAndGuest").asCom;
             freeTimes = contentPane.GetChild("FSFrame").asCom.GetChild("freeTimes").asTextField;
+            freeTotalTimes = contentPane.GetChild("FSFrame").asCom.GetChild("totalTimes").asTextField;
             if (bsTofs == null || fsTobs == null)
             {
                 bsTofs = contentPane.GetTransition("BSToFS");
@@ -443,6 +454,19 @@ namespace XingYunZhiLun_3998
                 uiJPMiniCtrl.SetData((int)data["mini"]);
 
             });
+
+            if (hideZhuanPan == null)
+            {
+                hideZhuanPan = contentPane.GetTransition("HideZhuanPan");
+                hideZhuanPan.ignoreEngineTimeScale = false;
+            }
+
+            if(showZhuanPan == null)
+            {
+                showZhuanPan = contentPane.GetTransition("ShowZhuanPan");
+                showZhuanPan.ignoreEngineTimeScale = false; 
+            }
+
 
             // ---------- 7.预制体挂到 FGUI 锚点 ----------
             //进入彩金界面初始化
@@ -504,19 +528,6 @@ namespace XingYunZhiLun_3998
             isReady = true;
 
             if (!isReady) return;
-
-            GButton testBtn = contentPane.GetChild("Lucky_sg_pop_frame").asButton;
-            testBtn.onClick.Add(Test);
-        }
-
-        private void Test()
-        {
-            PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameResult,
-                    new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
-                    {
-                        ["jackpotType"] = "Wild",
-                    }),
-                    null);
         }
 
         private void OnClickSpinButton(EventData res)
@@ -871,10 +882,15 @@ namespace XingYunZhiLun_3998
                 //过度动画
                 isNext = false;
                 isMain = false;
+                hideZhuanPan.Play();
                 PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupZhuanPan,
                     new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
                     {
                         ["jackpotType"] = "Wild",
+                        ["callback"] = new Action(() =>
+                        {
+                            showZhuanPan.Play();
+                        }),
                     }),
                     (res) =>
                     {
@@ -983,10 +999,15 @@ namespace XingYunZhiLun_3998
                 //过度动画
                 isNext = false;
                 isMain = false;
+                hideZhuanPan.Play();
                 PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupZhuanPan,
                     new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
                     {
                         ["jackpotType"] = "Lihe",
+                        ["callback"] = new Action(() =>
+                        {
+                            showZhuanPan.Play();
+                        }),
                     }),
                     (res) =>
                     {
@@ -1077,10 +1098,15 @@ namespace XingYunZhiLun_3998
                 //过度动画
                 isNext = false;
                 isMain = false;
+                hideZhuanPan.Play();
                 PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupZhuanPan,
                     new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
                     {
                         ["jackpotType"] = "Multiple",
+                        ["callback"] = new Action(() =>
+                        {
+                            showZhuanPan.Play();
+                        }),
                     }),
                     (res) =>
                     {
@@ -1157,6 +1183,7 @@ namespace XingYunZhiLun_3998
                 {
                     //yield return ShowWinListOnceAtNormalSpin(winList);
                     yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
+                    yield return new WaitForSeconds(0.7f);
                 }
 
 
@@ -1177,8 +1204,8 @@ namespace XingYunZhiLun_3998
 
                 //积分同步和退币处理
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
-                //加钱动画
-                MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
+                ////加钱动画
+                //MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
             }
             #endregion
 
@@ -1208,12 +1235,15 @@ namespace XingYunZhiLun_3998
                 isMain = false;
                 winCredit = ContentModel.Instance.isDrawWins ? ContentModel.Instance.drawWinsCredits : ContentModel.Instance.jackpotWinCredit;
 
+                hideZhuanPan.Play();
                 PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupZhuanPan,
                     new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
                     {
                         ["jackpotType"] = "mini",
-                        //["totalEarnCredit"] = jpWin.winCredit,
-                        //["jpCredit"] = jpCredit,
+                        ["callback"] = new Action(() =>
+                        {
+                            showZhuanPan.Play();
+                        }),
                     }),
                     (res) =>
                     {
@@ -1252,9 +1282,9 @@ namespace XingYunZhiLun_3998
                 {
                     yield return new WaitForSeconds(0.7f);
 
-                    slotMachineCtrl.SendTotalWinCreditEvent(0);
+                    //slotMachineCtrl.SendTotalWinCreditEvent(0);
                     // 本剧同步玩家金钱
-                    MainBlackboardController.Instance.SyncMyTempCreditToReal(false);
+                    //MainBlackboardController.Instance.SyncMyTempCreditToReal(false);
                 }
 
                 //显示中奖动画
@@ -1270,10 +1300,15 @@ namespace XingYunZhiLun_3998
                 //过度动画
                 isNext = false;
                 isMain = false;
+                hideZhuanPan.Play();
                 PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupZhuanPan,
                     new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
                     {
                         ["jackpotType"] = "FreeGame",
+                        ["callback"] = new Action(() =>
+                        {
+                            showZhuanPan.Play();
+                        }),
                     }),
                     (res) =>
                     {
@@ -1303,7 +1338,7 @@ namespace XingYunZhiLun_3998
                 WinJackpotInfo data = ContentModel.Instance.jpOnlineWin[0];
                 ContentModel.Instance.jpOnlineWin.RemoveAt(0);
 
-                long winCredit = data.win;
+                int winCredit = data.win;
                 allWinCredit += winCredit;
 
                 PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameResult,
@@ -1483,7 +1518,7 @@ namespace XingYunZhiLun_3998
 
 
 
-        long allWinCredit = 0;
+        long allFreeWinCredit = 0;
         //免费游戏触发
         IEnumerator FreeSpinTrigger(Action successCallback, Action<string> errorCallback)
         {
@@ -1549,7 +1584,7 @@ namespace XingYunZhiLun_3998
 
                 slotMachineCtrl.ShowSymbolTransform(new List<int>() { 8 }, true, 8, true);
 
-                yield return new WaitForSecondsRealtime(1.5f);
+                yield return new WaitForSecondsRealtime(1.5f / Time.timeScale);
             }
             else
             {
@@ -1594,11 +1629,11 @@ namespace XingYunZhiLun_3998
                         ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
                     }
 
-                    //积分同步和退币处理
-                    slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit);
+                    ////积分同步和退币处理
+                    //slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit);
 
-                    //加钱动画
-                    MainBlackboardController.Instance.AddMyTempCredit(ContentModel.Instance.freeSpinTotalWinCredit, true, isAddCreditAnim);
+                    ////加钱动画
+                    //MainBlackboardController.Instance.AddMyTempCredit(ContentModel.Instance.freeSpinTotalWinCredit, true, isAddCreditAnim);
                 });
 
 
@@ -1718,9 +1753,10 @@ namespace XingYunZhiLun_3998
         //开始免费游戏
         IEnumerator GameFreeSpin(Action successCallback, Action<string> errorCallback)
         {
+            freeTotalTimes.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
             while (ContentModel.Instance.nextReelStripsIndex == "FS")
             {
-                allWinCredit = ContentModel.Instance.curFreeCredit;
+                allFreeWinCredit = ContentModel.Instance.curFreeCredit;
                 freeTimes.text = (ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes - 1).ToString();
                 yield return GameFreeSpinOnce(null, errorCallback);
                 yield return slotMachineCtrl.SlotWaitForSeconds(0.5f);
@@ -1735,7 +1771,7 @@ namespace XingYunZhiLun_3998
         IEnumerator GameFreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
             OnGameReset();
-            slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+            //slotMachineCtrl.SendTotalWinCreditEvent(allFreeWinCredit);
 
             ContentModel.Instance.gameState = GameState.FreeSpin;
 
@@ -1879,9 +1915,7 @@ namespace XingYunZhiLun_3998
             ContentModel.Instance.freeOnceCredit = totalWinLineCredit;
             #endregion
 
-
             slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.curFreeCredit);
-            Debug.LogError(ContentModel.Instance.curFreeCredit);
 
             ContentModel.Instance.gameState = GameState.Idle;
             // 先结算主游戏，再进入“免费游戏”或“小游戏”，则每局都可以同步玩家真实金钱金额
@@ -1957,7 +1991,8 @@ namespace XingYunZhiLun_3998
             else
             {
                 int i = 0;
-                while (winList.Count > 1 && i < 3)
+                int totalTimes = 2;             //总中奖线轮播次数
+                while (winList.Count > 1 && i < totalTimes)
                 {
                     // 立马停止时，不播放赢分环节？
                     if (slotMachineCtrl.isStopImmediately && _spinWEMD.Instance.isSkipAtStopImmediately)
@@ -2824,8 +2859,14 @@ namespace XingYunZhiLun_3998
                 GameCommon.FguiUtils.AddWrapper(loadAnchorLight, goLight);
             }
 
-            startTransition = gJackpotBg.GetTransition("Start");
-            initTransition = gJackpotBg.GetTransition("Init");
+            if(startTransition == null && initTransition == null)
+            {
+                startTransition = gJackpotBg.GetTransition("Start");
+                initTransition = gJackpotBg.GetTransition("Init");
+                startTransition.ignoreEngineTimeScale = false;
+                initTransition.ignoreEngineTimeScale = false;
+            }
+            
             gMask = gJackpotBg.GetChild("mask").asCom.GetChild("mask").asImage;
             gLight = gJackpotBg.GetChild("mask").asCom.GetChild("light").asImage;
 
@@ -2836,7 +2877,8 @@ namespace XingYunZhiLun_3998
         private void SetJackpotMask(bool isVistual)
         {
             gMask.visible = isVistual;
-            gLight.visible = isVistual;
+            //gLight.visible = isVistual;
+            loadAnchorLight.visible = isVistual;
         }
 
 
@@ -3194,7 +3236,7 @@ namespace XingYunZhiLun_3998
             if (sorceTextObj != null)
             {
                 GTextField textField = sorceTextObj.asTextField;
-                textField.text = UnityEngine.Random.Range(2000, 10000).ToString();
+                textField.text = (UnityEngine.Random.Range(40, 120) * 100).ToString();
             }
 
             if (toSetEffect)
@@ -3360,8 +3402,8 @@ namespace XingYunZhiLun_3998
 
         private int GetJackpotId()
         {
-            if (ContentModel.Instance.isJackpotWin) return ContentModel.Instance.jackpotType - 1;
-            return UnityEngine.Random.Range(3, 8);
+            if (ContentModel.Instance.isJackpotWin) return ContentModel.Instance.jackpotType;
+            return UnityEngine.Random.Range(3, 7);
         }
 
         //播放指定动画

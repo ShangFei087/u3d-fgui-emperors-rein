@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="134,137">
   <displayList>
-    <image id="n4_pmae" name="n4" src="pmaea1" fileName="images/Panel/多功能按钮/pb_img_dgn.png" xy="0,0"/>
+    <image id="n4_pmae" name="n4" src="pcvkde" fileName="images/Panel/多功能按钮/pb_img_dgn.png" xy="0,0"/>
     <component id="n7_pmae" name="untouch" src="pmaeaf" fileName="moudules/panel/UntouchCircle24.xml" xy="0,0" size="132,136" visible="false"/>
   </displayList>
 </component>

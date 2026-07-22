@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="36,36" extention="Button">
-  <Button/>
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n0_soe7" src="pmae9q" name="n0" xy="0,0"/>
+    <image id="n0_soe7" name="n0" src="pcvkd1" fileName="images/Panel/多功能按钮/pb_img_music05.png" xy="0,0" size="36,34"/>
   </displayList>
+  <Button/>
 </component>

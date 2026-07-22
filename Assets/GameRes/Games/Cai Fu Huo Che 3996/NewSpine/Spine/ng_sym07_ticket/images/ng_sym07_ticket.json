@@ -1,0 +1,24 @@
+{ "skeleton": { "images": "E:/项目4/2024.10.25财富火车/张欣儒/ng_sym07_ticket/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "yinying", "bone": "root", "attachment": "yinying" },
+	{ "name": "chepiao2", "bone": "root", "attachment": "chepiao2" },
+	{ "name": "chepiao1", "bone": "root", "attachment": "chepiao1" }
+],
+"skins": {
+	"default": {
+		"yinying": {
+			"yinying": { "x": 154, "y": -146.5, "width": 180, "height": 163 }
+		},
+		"chepiao2": {
+			"chepiao2": { "x": 167.5, "y": -145, "width": 143, "height": 138 }
+		},
+		"chepiao1": {
+			"chepiao1": { "x": 153, "y": -131.5, "width": 172, "height": 143 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

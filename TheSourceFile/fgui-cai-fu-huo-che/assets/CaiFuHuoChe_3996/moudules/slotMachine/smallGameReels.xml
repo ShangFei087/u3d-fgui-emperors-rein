@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="970,582">
+<component size="970,584">
   <displayList>
     <component id="n0_q30q" name="elementBox_0" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="97,97" pivot="0.5,0.5" anchor="true"/>
     <component id="n1_q30q" name="elementBox_1" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="291,97" pivot="0.5,0.5" anchor="true"/>

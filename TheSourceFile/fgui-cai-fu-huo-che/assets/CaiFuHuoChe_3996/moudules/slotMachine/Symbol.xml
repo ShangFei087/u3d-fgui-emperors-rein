@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="194,194">
   <displayList>
-    <component id="n0_o8uc" name="animator" src="o8ucv" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="97,97" pivot="0.5,0.5" anchor="true" scale="0.8,0.8" touchable="false"/>
-    <text id="n1_ldad" name="socre" xy="0,45" size="194,149" visible="false" font="ui://q8n13f0fldad5h" fontSize="12" align="center" vAlign="middle" autoSize="none" text="1.9M"/>
-    <loader id="n2_efde" name="jackpot" xy="97,124" pivot="0.5,0.5" anchor="true" size="192,44" visible="false" url="ui://CaiFuHuoChe_3996/Major" align="center" vAlign="middle" autoSize="true" clearOnPublish="true">
+    <component id="n0_o8uc" name="animator" src="o8ucv" fileName="moudules/slotMachine/SymbolAnimator.xml" xy="97,97" pivot="0.5,0.5" anchor="true" touchable="false"/>
+    <text id="n1_ldad" name="socre" xy="0,45" size="194,149" visible="false" font="ui://q8n13f0fldad5h" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-17" autoSize="none" text="1.9M"/>
+    <loader id="n2_efde" name="jackpot" xy="97,97" pivot="0.5,0.5" anchor="true" size="258,258" visible="false" url="ui://q8n13f0fpcvkhf" align="center" vAlign="middle" autoSize="true" clearOnPublish="true">
       <relation target="" sidePair="center-center,middle-middle"/>
     </loader>
   </displayList>

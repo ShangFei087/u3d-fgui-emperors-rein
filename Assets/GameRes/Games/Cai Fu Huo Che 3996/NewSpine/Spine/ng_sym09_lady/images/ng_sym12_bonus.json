@@ -1,0 +1,116 @@
+{ "skeleton": { "images": "E:/项目4/2024.9.25夏威夷草裙舞/ng_sym12_bonus/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "di", "bone": "root", "attachment": "di" },
+	{ "name": "kuang", "bone": "root", "attachment": "kuang" },
+	{ "name": "hua", "bone": "root", "attachment": "hua" },
+	{ "name": "fa", "bone": "root", "attachment": "fa" },
+	{ "name": "yan3", "bone": "root", "attachment": "yan3" },
+	{ "name": "yan2", "bone": "root", "attachment": "yan2" },
+	{ "name": "yan1", "bone": "root", "attachment": "yan1" },
+	{ "name": "yan", "bone": "root", "attachment": "yan" },
+	{ "name": "shoubi1", "bone": "root", "attachment": "shoubi1" },
+	{ "name": "shoubi", "bone": "root", "attachment": "shoubi" },
+	{ "name": "st", "bone": "root", "attachment": "st" },
+	{ "name": "shoubi4", "bone": "root", "attachment": "shoubi4" },
+	{ "name": "shou", "bone": "root", "attachment": "shou" },
+	{ "name": "zuoshou", "bone": "root", "attachment": "zuoshou" },
+	{ "name": "shouzhi", "bone": "root", "attachment": "shouzhi" },
+	{ "name": "shou1", "bone": "root", "attachment": "shou1" },
+	{ "name": "binfa", "bone": "root", "attachment": "binfa" },
+	{ "name": "fa1", "bone": "root", "attachment": "fa1" },
+	{ "name": "fas", "bone": "root", "attachment": "fas" },
+	{ "name": "erhuan1", "bone": "root", "attachment": "erhuan1" },
+	{ "name": "erhuan", "bone": "root", "attachment": "erhuan" },
+	{ "name": "touying1", "bone": "root", "attachment": "touying1" },
+	{ "name": "huah", "bone": "root", "attachment": "huah" },
+	{ "name": "zhuo1", "bone": "root", "attachment": "zhuo1" },
+	{ "name": "hudiejie", "bone": "root", "attachment": "hudiejie" },
+	{ "name": "bb", "bone": "root", "attachment": "bb" }
+],
+"skins": {
+	"default": {
+		"di": {
+			"di": { "x": 258, "y": -250, "width": 268, "height": 254 }
+		},
+		"kuang": {
+			"kuang": { "x": 255, "y": -244.5, "width": 234, "height": 227 }
+		},
+		"hua": {
+			"hua": { "x": 272.5, "y": -238, "width": 231, "height": 212 }
+		},
+		"fa": {
+			"fa": { "x": 258, "y": -312, "width": 422, "height": 378 }
+		},
+		"yan3": {
+			"yan3": { "x": 294.5, "y": -232.5, "width": 27, "height": 25 }
+		},
+		"yan2": {
+			"yan2": { "x": 238.5, "y": -237.5, "width": 31, "height": 25 }
+		},
+		"yan1": {
+			"yan1": { "x": 289.5, "y": -232.5, "width": 17, "height": 23 }
+		},
+		"yan": {
+			"yan": { "x": 237.5, "y": -237, "width": 21, "height": 22 }
+		},
+		"shoubi1": {
+			"shoubi1": { "x": 356, "y": -365.5, "width": 116, "height": 123 }
+		},
+		"shoubi": {
+			"shoubi": { "x": 396, "y": -353, "width": 52, "height": 124 }
+		},
+		"st": {
+			"st": { "x": 311.5, "y": -328.5, "width": 327, "height": 345 }
+		},
+		"shoubi4": {
+			"shoubi4": { "x": 292, "y": -408.5, "width": 166, "height": 185 }
+		},
+		"shou": {
+			"shou": { "x": 250, "y": -250, "width": 502, "height": 502 }
+		},
+		"zuoshou": {
+			"zuoshou": { "x": 250, "y": -250, "width": 502, "height": 502 }
+		},
+		"shouzhi": {
+			"shouzhi": { "x": 328, "y": -302, "width": 32, "height": 24 }
+		},
+		"shou1": {
+			"shou1": { "x": 362, "y": -297.5, "width": 72, "height": 47 }
+		},
+		"binfa": {
+			"binfa": { "x": 219.5, "y": -245.5, "width": 25, "height": 45 }
+		},
+		"fa1": {
+			"fa1": { "x": 202.5, "y": -297, "width": 153, "height": 304 }
+		},
+		"fas": {
+			"fas": { "x": 312, "y": -230.5, "width": 90, "height": 165 }
+		},
+		"erhuan1": {
+			"erhuan1": { "x": 314.5, "y": -274, "width": 15, "height": 38 }
+		},
+		"erhuan": {
+			"erhuan": { "x": 208, "y": -292.5, "width": 30, "height": 49 }
+		},
+		"touying1": {
+			"touying1": { "x": 179, "y": -200, "width": 80, "height": 114 }
+		},
+		"huah": {
+			"huah": { "x": 173.5, "y": -194.5, "width": 93, "height": 99 }
+		},
+		"zhuo1": {
+			"zhuo1": { "x": 390.5, "y": -326.5, "width": 45, "height": 51 }
+		},
+		"hudiejie": {
+			"hudiejie": { "x": 323, "y": -369.5, "width": 84, "height": 91 }
+		},
+		"bb": {
+			"bb": { "x": 253.5, "y": -333.5, "width": 237, "height": 69 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

@@ -4,19 +4,19 @@
 	
 	"ResultType":2,
 
-	"IDVec":[],
+	"IDVec":[500],
 
-	"lineNum":0,
+	"lineNum":1,
 
 	 "MatrixLength": 15,
 
 	"Matrix":[2,3,0,9,7,5,4,9,3,6,9,2,3,9,0],
 	
-	"TotalFreeBet":120,
+	"TotalFreeBet":860,
 		
 	"TotalFreeTime":5,
 	
-	"FreeBetArray":[60,600,0,30,30],
+	"FreeBetArray":[200,600,0,30,30],
 
-	"TotalBet":0
+	"TotalBet":50
 }

@@ -127,7 +127,7 @@ namespace CaiFuHuoChe_3996
                 {"9", "ui://CaiFuHuoChe_3996/symbol_10" },
                 {"10", "ui://CaiFuHuoChe_3996/symbol_11" },
                 {"11", "ui://CaiFuHuoChe_3996/symbol_12" },
-                {"12", "ui://CaiFuHuoChe_3996/symbol_12" },
+                {"12", "ui://CaiFuHuoChe_3996/symbol_13" },
         };
 
 

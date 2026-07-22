@@ -5,7 +5,7 @@
     <image id="n5_wtp2" name="n5" src="oebral4" fileName="images/PopupJackpotGame/ListSymbolIcons/ng_txt_major.png" xy="195,-10" pivot="0.5,0" anchor="true" aspect="true">
       <relation target="" sidePair="center-center,middle-middle"/>
     </image>
-    <list id="n6_n5h9" name="reels" xy="18,66" size="361,65" layout="row" overflow="hidden" defaultItem="ui://5hielhj5n5h9ael" align="center" vAlign="middle">
+    <list id="n6_n5h9" name="reels" xy="18,66" size="361,50" layout="row" overflow="hidden" defaultItem="ui://5hielhj5n5h9ael" align="center" vAlign="middle">
       <item/>
       <item/>
       <item/>

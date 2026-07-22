@@ -130,9 +130,16 @@ namespace XingYunZhiLun_3998
                 }
             }
 
-            startTransition = contentPane.GetTransition("start");
-            idleTransition = contentPane.GetTransition("idle");
-            endTransition = contentPane.GetTransition("end");
+            if(startTransition == null)
+            {
+                startTransition = contentPane.GetTransition("start");
+                idleTransition = contentPane.GetTransition("idle");
+                endTransition = contentPane.GetTransition("end");
+
+                startTransition.ignoreEngineTimeScale = false;
+                idleTransition.ignoreEngineTimeScale = false;
+                endTransition.ignoreEngineTimeScale = false;
+            }
 
             closeBtn = contentPane.GetChild("Button").asButton;
             closeBtn.onClick.Clear();
@@ -144,12 +151,12 @@ namespace XingYunZhiLun_3998
             effectTransform.gameObject.SetActive(true);
             PlayAnim("start");
 
-            AddTimer(0.6f, (object obj) =>
+            AddTimer(0.6f / Time.timeScale, (object obj) =>
             {
                 startTransition.Play();
             });
 
-            AddTimer(1.33f, (object obj) =>
+            AddTimer(1.33f / Time.timeScale, (object obj) =>
             {
                 idleTransition.Play(-1, 0, null);
             });
@@ -157,7 +164,7 @@ namespace XingYunZhiLun_3998
 
             if (ContentModel.Instance.isAuto)
             {
-                AddTimer(2, (object obj) =>
+                AddTimer(2 / Time.timeScale, (object obj) =>
                 {
                     OnBtnExit();
                 });
@@ -176,7 +183,7 @@ namespace XingYunZhiLun_3998
             PlayAnim("end");
             endTransition.Play();
 
-            AddTimer(0.5f, (object obj) =>
+            AddTimer(0.5f / Time.timeScale, (object obj) =>
             {
                 CloseSelf(null);
                 StopAll();

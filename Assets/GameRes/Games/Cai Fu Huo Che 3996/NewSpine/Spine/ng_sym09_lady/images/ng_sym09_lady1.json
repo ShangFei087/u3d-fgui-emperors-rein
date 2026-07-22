@@ -1,0 +1,124 @@
+{ "skeleton": { "images": "E:/项目4/2024.10.25财富火车/ng_sym09_lady/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "touying", "bone": "root", "attachment": "touying" },
+	{ "name": "beijing", "bone": "root", "attachment": "beijing" },
+	{ "name": "toufadi", "bone": "root", "attachment": "toufadi" },
+	{ "name": "st", "bone": "root", "attachment": "st" },
+	{ "name": "toufa9", "bone": "root", "attachment": "toufa9" },
+	{ "name": "fasi", "bone": "root", "attachment": "fasi" },
+	{ "name": "erhuan1", "bone": "root", "attachment": "erhuan1" },
+	{ "name": "yanbai1", "bone": "root", "attachment": "yanbai1" },
+	{ "name": "yanzhu1", "bone": "root", "attachment": "yanzhu1" },
+	{ "name": "lian", "bone": "root", "attachment": "lian" },
+	{ "name": "zuidi", "bone": "root" },
+	{ "name": "shangzuichun", "bone": "root", "attachment": "shangzuichun" },
+	{ "name": "meimao2", "bone": "root", "attachment": "meimao2" },
+	{ "name": "meimao1", "bone": "root", "attachment": "meimao1" },
+	{ "name": "toufa6", "bone": "root", "attachment": "toufa6" },
+	{ "name": "erhuan", "bone": "root", "attachment": "erhuan" },
+	{ "name": "toufa4", "bone": "root", "attachment": "toufa4" },
+	{ "name": "toufa3", "bone": "root", "attachment": "toufa3" },
+	{ "name": "toufa2", "bone": "root", "attachment": "toufa2" },
+	{ "name": "toubu", "bone": "root", "attachment": "toubu" },
+	{ "name": "toushi1", "bone": "root", "attachment": "toushi1" },
+	{ "name": "toufa1", "bone": "root", "attachment": "toufa1" },
+	{ "name": "fa1", "bone": "root", "attachment": "fa1" },
+	{ "name": "shouzhi", "bone": "root", "attachment": "shouzhi" },
+	{ "name": "kafei", "bone": "root", "attachment": "kafei" },
+	{ "name": "shoubi", "bone": "root", "attachment": "shoubi" },
+	{ "name": "reqi", "bone": "root", "attachment": "reqi" },
+	{ "name": "kuang", "bone": "root", "attachment": "kuang" }
+],
+"skins": {
+	"default": {
+		"touying": {
+			"touying": { "x": 154.5, "y": -142, "width": 195, "height": 188 }
+		},
+		"beijing": {
+			"beijing": { "x": 152.5, "y": -145.5, "width": 163, "height": 145 }
+		},
+		"toufadi": {
+			"toufadi": { "x": 126.5, "y": -132.5, "width": 39, "height": 35 }
+		},
+		"st": {
+			"st": { "x": 148, "y": -181.5, "width": 156, "height": 127 }
+		},
+		"toufa9": {
+			"toufa9": { "x": 192.5, "y": -91.5, "width": 33, "height": 37 }
+		},
+		"fasi": {
+			"fasi": { "x": 190, "y": -113.5, "width": 40, "height": 81 }
+		},
+		"erhuan1": {
+			"erhuan1": { "x": 174.5, "y": -139, "width": 11, "height": 24 }
+		},
+		"yanbai1": {
+			"yanbai1": { "x": 157.5, "y": -113, "width": 43, "height": 16 }
+		},
+		"yanzhu1": {
+			"yanzhu1": { "x": 157, "y": -112, "width": 38, "height": 12 }
+		},
+		"lian": {
+			"lian": { "x": 145, "y": -116, "width": 78, "height": 86 }
+		},
+		"zuidi": {
+			"zuidi": { "x": 158, "y": -141, "width": 12, "height": 6 }
+		},
+		"shangzuichun": {
+			"shangzuichun": { "x": 155.5, "y": -141.5, "width": 27, "height": 13 }
+		},
+		"meimao2": {
+			"meimao2": { "x": 176, "y": -105.5, "width": 14, "height": 9 }
+		},
+		"meimao1": {
+			"meimao1": { "x": 146, "y": -103.5, "width": 28, "height": 9 }
+		},
+		"toufa6": {
+			"toufa6": { "x": 100, "y": -134, "width": 42, "height": 32 }
+		},
+		"erhuan": {
+			"erhuan": { "x": 119.5, "y": -135.5, "width": 13, "height": 27 }
+		},
+		"toufa4": {
+			"toufa4": { "x": 99.5, "y": -120.5, "width": 47, "height": 31 }
+		},
+		"toufa3": {
+			"toufa3": { "x": 115.5, "y": -108.5, "width": 39, "height": 17 }
+		},
+		"toufa2": {
+			"toufa2": { "x": 92, "y": -101.5, "width": 32, "height": 29 }
+		},
+		"toubu": {
+			"toubu": { "x": 139.5, "y": -76.5, "width": 91, "height": 61 }
+		},
+		"toushi1": {
+			"toushi1": { "x": 130.5, "y": -71, "width": 107, "height": 48 }
+		},
+		"toufa1": {
+			"toufa1": { "x": 113, "y": -108.5, "width": 50, "height": 35 }
+		},
+		"fa1": {
+			"fa1": { "x": 147, "y": -88.5, "width": 72, "height": 41 }
+		},
+		"shouzhi": {
+			"shouzhi": { "x": 210, "y": -170, "width": 20, "height": 16 }
+		},
+		"kafei": {
+			"kafei": { "x": 189.5, "y": -171, "width": 45, "height": 28 }
+		},
+		"shoubi": {
+			"shoubi": { "x": 219.5, "y": -201.5, "width": 47, "height": 87 }
+		},
+		"reqi": {
+			"reqi": { "x": 183, "y": -147.5, "width": 28, "height": 29 }
+		},
+		"kuang": {
+			"kuang": { "x": 108.5, "y": -143.5, "width": 93, "height": 163 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

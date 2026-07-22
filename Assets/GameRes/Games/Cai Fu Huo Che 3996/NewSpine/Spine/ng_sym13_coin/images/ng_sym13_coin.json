@@ -1,0 +1,17 @@
+{"bones":[{"name":"root"}],"slots":[
+{"name":"touying","bone":"root","attachment":"touying"},
+{"name":"jinbi","bone":"root","attachment":"jinbi"},
+{"name":"GRAND","bone":"root","attachment":"GRAND"},
+{"name":"MAJOR","bone":"root","attachment":"MAJOR"},
+{"name":"MINOR","bone":"root","attachment":"MINOR"},
+{"name":"MINI","bone":"root","attachment":"MINI"},
+{"name":"9.9K","bone":"root","attachment":"9.9K"},
+],"skins":{"default":{
+"touying":{"touying":{"x":154,"y":134.5,"width":180,"height":181}},
+"jinbi":{"jinbi":{"x":154,"y":143.5,"width":170,"height":171}},
+"GRAND":{"GRAND":{"x":155.5,"y":94.5,"width":169,"height":41}},
+"MAJOR":{"MAJOR":{"x":155,"y":94.5,"width":178,"height":41}},
+"MINOR":{"MINOR":{"x":155,"y":94.5,"width":162,"height":41}},
+"MINI":{"MINI":{"x":154.5,"y":93.5,"width":115,"height":41}},
+"9.9K":{"9.9K":{"x":154.5,"y":91,"width":139,"height":48}},
+}}, "animations": { "animation": {} }}

@@ -1,0 +1,15 @@
+Multiple layers for the "default" skin have the same name:
+shou
+Rename or use the [path:name] or [ignore] tag for these layers.
+---
+Multiple layers for the "default" skin have the same name:
+fa
+Rename or use the [path:name] or [ignore] tag for these layers.
+---
+Multiple layers for the "default" skin have the same name:
+touying
+Rename or use the [path:name] or [ignore] tag for these layers.
+---
+Multiple layers for the "default" skin have the same name:
+hua
+Rename or use the [path:name] or [ignore] tag for these layers.

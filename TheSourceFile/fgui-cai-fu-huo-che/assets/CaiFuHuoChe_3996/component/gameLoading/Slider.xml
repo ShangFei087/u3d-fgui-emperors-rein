@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="678,72" extention="Slider">
   <displayList>
-    <image id="n4_sqmz" name="n4" src="baxv7u" fileName="images/gameLoading/load_img_progress_3(1).png" xy="42,0" size="595,69">
+    <image id="n4_sqmz" name="n4" src="pcvkic" fileName="images/gameLoading/load_img_progress_3.png" xy="42,0" size="595,69">
       <relation target="n0_sqmz" sidePair="width-width,height-height,center-center,middle-middle"/>
     </image>
-    <image id="n1_sqmz" name="bar" src="baxv7w" fileName="images/gameLoading/load_img_progress_2(1).png" xy="51,4" size="577,63">
+    <image id="n1_sqmz" name="bar" src="pcvkib" fileName="images/gameLoading/load_img_progress_2.png" xy="51,4" size="577,63">
       <relation target="n0_sqmz" sidePair="width-width,height-height"/>
     </image>
     <component id="n5_l8f4" name="anchorEffect" src="l8f45k" fileName="component/gameLoading/AnchorBarEffect.xml" xy="625,50">
       <relation target="n1_sqmz" sidePair="right-right"/>
     </component>
-    <image id="n0_sqmz" name="n0" src="baxv7v" fileName="images/gameLoading/load_img_progress_1(1).png" xy="0,0" size="678,72">
+    <image id="n0_sqmz" name="n0" src="pcvkia" fileName="images/gameLoading/load_img_progress_1.png" xy="0,0" size="678,72">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
     <text id="n2_sqmz" name="title" xy="0,0" size="678,72" fontSize="32" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="">

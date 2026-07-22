@@ -90,8 +90,14 @@ namespace XingYunZhiLun_3998
                 GameCommon.FguiUtils.AddWrapper(loadAnchor, go);
             }
 
-            idleTransition = contentPane.GetTransition("idle");
-            endTransition = contentPane.GetTransition("end");
+            if(idleTransition == null)
+            {
+                idleTransition = contentPane.GetTransition("idle");
+                endTransition = contentPane.GetTransition("end");
+
+                idleTransition.ignoreEngineTimeScale = false;
+                endTransition.ignoreEngineTimeScale = false;
+            }
 
             closeBtn = contentPane.GetChild("Button").asButton;
             closeBtn.alpha = 1;
@@ -128,9 +134,9 @@ namespace XingYunZhiLun_3998
                 callback = null;
             }
 
-                PlayAnim("start");
-            idleTransition.Play(-1, 1.3f, null);
-            AddTimer(1.3f, (object obj) =>
+             PlayAnim("start");
+            idleTransition.Play(-1, 1.3f / Time.timeScale, null);
+            AddTimer(1.3f / Time.timeScale, (object obj) =>
             {
                 closeBtn.alpha = 1;
                 closeBtn.scale = new Vector2(1, 1);
@@ -165,20 +171,20 @@ namespace XingYunZhiLun_3998
             
             PlayAnim("end");
 
-            AddTimer(0.75f, (object obj) =>
+            AddTimer(0.75f / Time.timeScale, (object obj) =>
             {
                 closeBtn.alpha = 0;
             });
 
             if(callback != null)
             {
-                AddTimer(0.9f, (object obj) =>
+                AddTimer(0.9f / Time.timeScale, (object obj) =>
                 {
                     callback.Invoke();
                 });
             }
 
-            AddTimer(2.1f, (object obj) =>
+            AddTimer(2.1f / Time.timeScale, (object obj) =>
             {
                 CloseSelf(null);
             });
