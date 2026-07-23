@@ -33,7 +33,7 @@ namespace FeiZhouHeiXingXing_3994
         {
             if (!isInit) return;
 
-
+            _loadingSlider = contentPane.GetChild("loadingSlider").asSlider;
             preLoadedCallback?.Invoke();
             if (PageManager.Instance.IndexOf(PageName.FeiZhouHeiXingXingPopupGameLoading) == 0) return;
         }

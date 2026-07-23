@@ -84,74 +84,74 @@ namespace CaiFuZhiJia_3997
             new PayTableSymbolInfo()// 单条金砖
             {
                 symbol = 0,
-                x5 = 90,
-                x4 = 30,
-                x3 = 15,
+                x5 = 20,
+                x4 = 10,
+                x3 = 4,
                 x2 = 0,
             },
             new PayTableSymbolInfo()// 堆叠银砖
             {
                 symbol = 1,
-                x5 = 90,
-                x4 = 30,
-                x3 = 15,
+                x5 = 20,
+                x4 = 10,
+                x3 = 4,
                 x2 = 0,
             },
             new PayTableSymbolInfo()// 堆叠金砖
             {
                 symbol = 2,
-                x5 = 90,
-                x4 = 30,
-                x3 = 15,
+                x5 = 20,
+                x4 = 10,
+                x3 = 4,
                 x2 = 0,
             },
             new PayTableSymbolInfo()// 金表
             {
                 symbol = 3,
-                x5 = 150,
-                x4 = 60,
-                x3 = 20,
+                x5 = 40,
+                x4 = 20,
+                x3 = 6,
                 x2 = 0,
             },
             new PayTableSymbolInfo()// 美元
             {
                 symbol = 4,
-                x5 = 175,
-                x4 = 70,
-                x3 = 25,
+                x5 = 40,
+                x4 = 20,
+                x3 = 6,
                 x2 = 0,
             },
             new PayTableSymbolInfo()// 传家宝戒
             {
                 symbol = 5,
-                x5 = 600,
-                x4 = 150,
-                x3 = 30,
-                x2 = 15,
+                x5 = 60,
+                x4 = 40,
+                x3 = 10,
+                x2 = 0,
             },
             new PayTableSymbolInfo()// 水晶酒瓶
             {
                 symbol = 6,
-                x5 = 600,
-                x4 = 150,
-                x3 = 30,
-                x2 = 15,
+                x5 = 80,
+                x4 = 40,
+                x3 = 10,
+                x2 = 0,
             },
             new PayTableSymbolInfo()// 豪宅钥匙
             {
                 symbol = 7,
-                x5 = 1500,
-                x4 = 600,
-                x3 = 60,
-                x2 = 20,
+                x5 = 100,
+                x4 = 60,
+                x3 = 20,
+                x2 = 0,
             },
             new PayTableSymbolInfo()// 名贵跑车
             {
                 symbol = 8,
-                x5 = 3000,
-                x4 = 1500,
-                x3 = 300,
-                x2 = 30,
+                x5 = 120,
+                x4 = 80,
+                x3 = 40,
+                x2 = 0,
             },
             new PayTableSymbolInfo() // wild
             {
