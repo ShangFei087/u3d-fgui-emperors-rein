@@ -2,7 +2,7 @@
 <component size="1080,1920">
   <displayList>
     <graph id="n0_ldad" name="mash" xy="0,0" size="1080,1920" type="rect" fillColor="#99000000"/>
-    <component id="n3_ldad" name="anchorSpine" src="ldad4v" fileName="component/popupJackpotGame/AnchorGameExit.xml" xy="540,825"/>
+    <component id="n3_ldad" name="anchorSpine" src="ldad4v" fileName="component/popupJackpotGame/AnchorGameExit.xml" xy="540,960"/>
     <component id="n4_ldad" name="closeBtn" src="ldad4z" fileName="component/popupJackpotGame/JackpotExitBtn.xml" xy="280,1248"/>
     <text id="n2_ldad" name="winCredit" xy="540,757" pivot="0.5,0.5" anchor="true" size="1080,147" font="ui://q8n13f0fpcvkh3" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-35" autoSize="none" text="123456789"/>
   </displayList>

@@ -106,10 +106,10 @@ namespace CaiFuHuoChe_3996
             "ui://CaiFuHuoChe_3996/symbol_7",
             "ui://CaiFuHuoChe_3996/symbol_8",
             "ui://CaiFuHuoChe_3996/symbol_9",
-            "ui://CaiFuHuoChe_3996/symbol_12",
             "ui://CaiFuHuoChe_3996/symbol_13",
             "ui://CaiFuHuoChe_3996/symbol_14",
             "ui://CaiFuHuoChe_3996/symbol_15",
+            "ui://CaiFuHuoChe_3996/symbol_16",
         };
 
         private readonly Transition _rollTrans, _rollResetTrans, _resultTrans, _resultResetTrans;
@@ -156,7 +156,7 @@ namespace CaiFuHuoChe_3996
                 string iconUrl = GetUrl(iconUrlList);
                 rollElement.element.url = iconUrl;
                 rollElement.rewardText.text =
-                    iconUrl.Contains("symbol_12") ? Random.Range(0, 1000).ToString() : string.Empty;
+                    iconUrl.Contains("symbol_13") ? Random.Range(0, 1000).ToString() : string.Empty;
             }
         }
 

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Lucky_ng_img_turntable_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: d98671999c192cf4fb8c84db5895b0ab, type: 2}
+  - {fileID: 11400000, guid: f2d1ac8bcb9b9234187b2870f1f33c6c, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: f5f241ca94617324e9b0bd8b6f29c25b, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: 8ee80d32583a2ae49a65e7dbb56144e2, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 9100000, guid: df5dfe591b7667040a53dc75e982a193, type: 2}
+  controller: {fileID: 9100000, guid: 6553de718302f3c4b9e91c69fffbb32a, type: 2}

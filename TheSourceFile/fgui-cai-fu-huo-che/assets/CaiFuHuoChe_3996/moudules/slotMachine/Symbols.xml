@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="194,582">
+<component size="194,600">
   <displayList>
-    <component id="n0_o8uc" name="symbol0" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,-388"/>
-    <component id="n1_o8uc" name="symbol1" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,-194"/>
-    <component id="n2_o8uc" name="symbol2" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,0"/>
-    <component id="n3_o8uc" name="symbol3" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,194"/>
-    <component id="n4_o8uc" name="symbol4" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,388"/>
-    <component id="n5_o8uc" name="symbol5" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,582"/>
-    <component id="n6_o8uc" name="symbol6" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,778"/>
-    <component id="n7_o8uc" name="symbol7" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,972"/>
+    <component id="n0_o8uc" name="symbol0" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,-400" size="194,200"/>
+    <component id="n1_o8uc" name="symbol1" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,-200" size="194,200"/>
+    <component id="n2_o8uc" name="symbol2" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,0" size="194,200"/>
+    <component id="n3_o8uc" name="symbol3" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,200" size="194,200"/>
+    <component id="n4_o8uc" name="symbol4" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,400" size="194,200"/>
+    <component id="n5_o8uc" name="symbol5" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,600" size="194,200"/>
+    <component id="n6_o8uc" name="symbol6" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,800" size="194,200"/>
+    <component id="n7_o8uc" name="symbol7" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,1000" size="194,200"/>
     <component id="n8_iykc" name="symbol8" src="o8ucu" fileName="moudules/slotMachine/Symbol.xml" xy="0,1166"/>
   </displayList>
 </component>

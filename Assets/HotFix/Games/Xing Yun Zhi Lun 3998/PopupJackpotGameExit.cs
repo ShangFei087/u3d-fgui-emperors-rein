@@ -79,15 +79,6 @@ namespace XingYunZhiLun_3998
 
             if (!isInit) return;
 
-            ////初始化菜单ui
-            //GComponent gOwnerPanel = this.contentPane.GetChild("panel").asCom;
-            //ContentModel.Instance.goAnthorPanel = gOwnerPanel;
-            //MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
-            //// 事件放出
-            ////goGameCtrl.transform.Find("Panel").GetComponent<PanelController01>().Init();
-            //EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-            //    new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
-            //ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
 
             GComponent loadAnchorTip = contentPane.GetChild("anchorBg").asCom;
             if(loadAnchor != loadAnchorTip)

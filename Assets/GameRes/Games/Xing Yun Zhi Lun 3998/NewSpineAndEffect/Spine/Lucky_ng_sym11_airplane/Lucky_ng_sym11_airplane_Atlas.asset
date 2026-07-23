@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: Lucky_ng_sym11_airplane_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: 7759627f7ef30b44f859181c8d1512dd, type: 3}
+  atlasFile: {fileID: 4900000, guid: 358ab0b94508bda46b05f1fac034416b, type: 3}
   materials:
-  - {fileID: 2100000, guid: f389c11619b5a3a43813719861e2231b, type: 2}
+  - {fileID: 2100000, guid: 2cb2ac3d53a16184898eaae6bb709c76, type: 2}

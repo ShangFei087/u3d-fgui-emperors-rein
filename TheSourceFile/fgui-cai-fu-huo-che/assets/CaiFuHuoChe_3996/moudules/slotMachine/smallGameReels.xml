@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="970,584">
+<component size="970,600">
   <displayList>
-    <component id="n0_q30q" name="elementBox_0" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="97,97" pivot="0.5,0.5" anchor="true"/>
-    <component id="n1_q30q" name="elementBox_1" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="291,97" pivot="0.5,0.5" anchor="true"/>
-    <component id="n2_q30q" name="elementBox_2" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="485,97" pivot="0.5,0.5" anchor="true"/>
-    <component id="n3_q30q" name="elementBox_3" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="679,97" pivot="0.5,0.5" anchor="true"/>
-    <component id="n4_q30q" name="elementBox_4" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="873,97" pivot="0.5,0.5" anchor="true"/>
-    <component id="n5_q30q" name="elementBox_5" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="97,291" pivot="0.5,0.5" anchor="true"/>
-    <component id="n6_q30q" name="elementBox_6" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="291,291" pivot="0.5,0.5" anchor="true"/>
-    <component id="n7_q30q" name="elementBox_7" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="485,291" pivot="0.5,0.5" anchor="true"/>
-    <component id="n8_q30q" name="elementBox_8" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="679,291" pivot="0.5,0.5" anchor="true"/>
-    <component id="n9_q30q" name="elementBox_9" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="873,291" pivot="0.5,0.5" anchor="true"/>
-    <component id="n10_q30q" name="elementBox_10" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="97,485" pivot="0.5,0.5" anchor="true"/>
-    <component id="n11_q30q" name="elementBox_11" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="291,485" pivot="0.5,0.5" anchor="true"/>
-    <component id="n12_q30q" name="elementBox_12" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="485,485" pivot="0.5,0.5" anchor="true"/>
-    <component id="n13_q30q" name="elementBox_13" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="679,485" pivot="0.5,0.5" anchor="true"/>
-    <component id="n14_q30q" name="elementBox_14" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="873,485" pivot="0.5,0.5" anchor="true"/>
+    <component id="n0_q30q" name="elementBox_0" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="97,100" pivot="0.5,0.5" anchor="true" size="194,200"/>
+    <component id="n1_q30q" name="elementBox_1" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="291,100" pivot="0.5,0.5" anchor="true" size="194,200"/>
+    <component id="n2_q30q" name="elementBox_2" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="485,100" pivot="0.5,0.5" anchor="true" size="194,200"/>
+    <component id="n3_q30q" name="elementBox_3" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="679,100" pivot="0.5,0.5" anchor="true" size="194,200"/>
+    <component id="n4_q30q" name="elementBox_4" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="873,100" pivot="0.5,0.5" anchor="true" size="194,200"/>
+    <component id="n5_q30q" name="elementBox_5" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="97,300" pivot="0.5,0.5" anchor="true" size="194,200"/>
+    <component id="n6_q30q" name="elementBox_6" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="291,300" pivot="0.5,0.5" anchor="true" size="194,200"/>
+    <component id="n7_q30q" name="elementBox_7" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="485,300" pivot="0.5,0.5" anchor="true" size="194,200"/>
+    <component id="n8_q30q" name="elementBox_8" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="679,300" pivot="0.5,0.5" anchor="true" size="194,200"/>
+    <component id="n9_q30q" name="elementBox_9" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="873,300" pivot="0.5,0.5" anchor="true" size="194,200"/>
+    <component id="n10_q30q" name="elementBox_10" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="97,500" pivot="0.5,0.5" anchor="true" size="194,200"/>
+    <component id="n11_q30q" name="elementBox_11" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="291,500" pivot="0.5,0.5" anchor="true" size="194,200"/>
+    <component id="n12_q30q" name="elementBox_12" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="485,500" pivot="0.5,0.5" anchor="true" size="194,200"/>
+    <component id="n13_q30q" name="elementBox_13" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="679,500" pivot="0.5,0.5" anchor="true" size="194,200"/>
+    <component id="n14_q30q" name="elementBox_14" src="q30qe3" fileName="moudules/slotMachine/ElementBox.xml" xy="873,500" pivot="0.5,0.5" anchor="true" size="194,200"/>
   </displayList>
 </component>

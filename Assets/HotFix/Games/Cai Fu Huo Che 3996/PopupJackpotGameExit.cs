@@ -18,7 +18,6 @@ namespace CaiFuHuoChe_3996
         private Animator animator;
         private GButton closeBtn;
         private GTextField winCredit;
-        private Transition idleTransition;
 
         private bool isClose = false;
 
@@ -94,6 +93,9 @@ namespace CaiFuHuoChe_3996
 
             CancelAutoModeSimulatedClick();
 
+            closeBtn = contentPane.GetChild("closeBtn").asButton;
+            winCredit = contentPane.GetChild("winCredit").asTextField;
+
             GComponent loadSpine = contentPane.GetChild("anchorSpine").asCom;
             if (anchorSpine != loadSpine)
             {
@@ -101,19 +103,20 @@ namespace CaiFuHuoChe_3996
                 anchorSpine = loadSpine;
                 goSpine = GameObject.Instantiate(go);
                 animator = goSpine.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+
+                ChangeParent(closeBtn, goSpine, "Anchor/Spine Mecanim GameObject (sp_pop_frame)/SkeletonUtility-SkeletonRoot/root/all/btn", - 2.56f, 0.75f);
+                ChangeParent(winCredit, goSpine, "Anchor/Spine Mecanim GameObject (sp_pop_frame)/SkeletonUtility-SkeletonRoot/root/all/changkuang/num02", -5.2f, 0.75f);
+
                 GameCommon.FguiUtils.AddWrapper(anchorSpine, goSpine);
             }
 
             isClose = false;
-            closeBtn = contentPane.GetChild("closeBtn").asButton;
-            closeBtn.onClick.Clear();
-            closeBtn.onClick.Add(OnCloseBtn);
-            winCredit = contentPane.GetChild("winCredit").asTextField;
-            winCredit.visible = false;
-            idleTransition = contentPane.GetTransition("idle");
 
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
+
+            closeBtn.onClick.Clear();
+            closeBtn.onClick.Add(OnCloseBtn);
 
             if (_data != null)
             {
@@ -133,8 +136,6 @@ namespace CaiFuHuoChe_3996
 
             AddTimer(0.96f, (object obj) =>
             {
-                idleTransition.Play(-1, 0, null);
-
                 ScheduleAutoModeSimulatedClick(closeBtn, () => isClose);
             });
 
@@ -230,6 +231,18 @@ namespace CaiFuHuoChe_3996
             };
             _activeTimers.Add(_autoModeSimulatedClick);
             Timers.inst.Add(AutoModeSimulateClickDelaySeconds, 1, _autoModeSimulatedClick);
+        }
+
+        private void ChangeParent(GObject gComponent, GameObject go, string path, float xDistance, float yDistance)
+        {
+            Transform num01 = go.transform.Find(path);
+            if (gComponent.displayObject?.gameObject != null)
+            {
+                Transform t = gComponent.displayObject.gameObject.transform;
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(xDistance, yDistance, 0);
+                t.localScale = new Vector3(0.01f, 0.01f, 1);
+            }
         }
     }
 }

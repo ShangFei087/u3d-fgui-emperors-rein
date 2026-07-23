@@ -297,6 +297,9 @@
     <image id="pcvkil" name="5.png" path="/images/Panel/payTable/" exported="true"/>
     <image id="pcvkim" name="6.png" path="/images/Panel/payTable/" exported="true"/>
     <image id="pcvkin" name="7.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="dcpxio" name="symbol_16.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="dcpxip" name="symbol_14.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="dcpxiq" name="symbol_15.png" path="/images/normalGame/symbols/" exported="true"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Cai Fu Huo Che 3996\FGUIs" packageCount="2"/>
 </packageDescription>

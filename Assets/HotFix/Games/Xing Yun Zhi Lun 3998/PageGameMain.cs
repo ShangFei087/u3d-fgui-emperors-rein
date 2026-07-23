@@ -894,11 +894,6 @@ namespace XingYunZhiLun_3998
                     }),
                     (res) =>
                     {
-                        //恢复主页面按钮
-                        ContentModel.Instance.goAnthorPanel = gOwnerPanel;
-                        MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
-                        EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                            new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
 
                         ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
 
@@ -1011,24 +1006,6 @@ namespace XingYunZhiLun_3998
                     }),
                     (res) =>
                     {
-                        //恢复主页面按钮
-                        ContentModel.Instance.goAnthorPanel = gOwnerPanel;
-                        MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
-                        EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                            new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
-
-                        ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-
-                        if (ContentModel.Instance.isAuto)
-                        {
-                            ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
-                        }
-                        else
-                        {
-                            ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
-                        }
-
-                        slotMachineCtrl.isStopImmediately = false;
                         isMain = true;
                         isNext = true;
                     });
@@ -1110,23 +1087,6 @@ namespace XingYunZhiLun_3998
                     }),
                     (res) =>
                     {
-                        //恢复主页面按钮
-                        ContentModel.Instance.goAnthorPanel = gOwnerPanel;
-                        MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
-                        EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                            new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
-
-                        ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-
-                        if (ContentModel.Instance.isAuto)
-                        {
-                            ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
-                        }
-                        else
-                        {
-                            ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
-                        }
-
                         isMain = true;
                         isNext = true;
                     });
@@ -1999,7 +1959,7 @@ namespace XingYunZhiLun_3998
                         yield break;
                     i++;
                     yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
-                    yield return new WaitForSeconds(0.7f);
+                    yield return new WaitForSeconds(0.5f);
                 }
                 yield return slotMachineCtrl.ShowWinListAwayDuringIdle(winList);
             }
@@ -2640,17 +2600,15 @@ namespace XingYunZhiLun_3998
                             ChangeBGPanel(2);
                             SetJackpotMask(false);
                             gJackpotBg.visible = true;
+                            initTransition.Play();
                         }),
                     }),
                     (res) =>
                     {
-                        //恢复主页面按钮
-                        ContentModel.Instance.goAnthorPanel = gOwnerPanel;
-                        MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
-                        EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                            new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
+                        startTransition.Play();
 
-                        ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+                        JackpotFinish = false;
+                        isJackpot = true;
 
                         if (ContentModel.Instance.isAuto)
                         {
@@ -2661,9 +2619,12 @@ namespace XingYunZhiLun_3998
                             ContentModel.Instance.isSpin = false;
                             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                             ContentModel.Instance.gameState = GameState.Idle;
-
-                            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmBonusGame));
                         }
+
+                        ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+                        ContentModel.Instance.isSpin = false;
+
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmBonusGame));
 
                         isNext = true;
                         isMain = true;
@@ -2672,7 +2633,6 @@ namespace XingYunZhiLun_3998
             isNext = false;
 
 
-            initTransition.Play();
             slotMachineCtrl.isStopImmediately = false;
 
             ////进入彩金游戏动画
@@ -2682,27 +2642,6 @@ namespace XingYunZhiLun_3998
             //        }),
             //        (res) =>
             //        {
-            //            //恢复主页面按钮
-            //            ContentModel.Instance.goAnthorPanel = gOwnerPanel;
-            //            MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
-            //            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-            //                new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
-
-            //            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-
-            //            if (ContentModel.Instance.isAuto)
-            //            {
-            //                ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
-            //            }
-            //            else
-            //            {
-            //                ContentModel.Instance.isSpin = false;
-            //                ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-            //                ContentModel.Instance.gameState = GameState.Idle;
-
-            //                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmBonusGame));
-            //            }
-
             //            isNext = true;
             //            isMain = true;
             //        });
@@ -2710,17 +2649,13 @@ namespace XingYunZhiLun_3998
             //yield return new WaitUntil(() => isNext == true);
             //isNext = false;
 
-            startTransition.Play();
-            JackpotFinish = false;
-            isJackpot = true;
-
             slotMachineCtrl.BeginBonusFreeSpin();
 
-            if (ContentModel.Instance.isAuto)
-            {
-                yield return new WaitForSeconds(1 / Time.timeScale);
-                StartRandomRoll(GetJackpotId()); //开始玩
-            }
+            //if (ContentModel.Instance.isAuto)
+            //{
+            //    yield return new WaitForSeconds(1 / Time.timeScale);
+            //    StartRandomRoll(GetJackpotId()); //开始玩
+            //}
 
             yield return new WaitUntil(() => JackpotFinish == true);
 
@@ -2760,25 +2695,6 @@ namespace XingYunZhiLun_3998
                 }),
                 (res) =>
                 {
-                    //恢复主页面按钮
-                    ContentModel.Instance.goAnthorPanel = gOwnerPanel;
-                    MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
-                    EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                        new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
-
-                    ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-
-                    if (ContentModel.Instance.isAuto)
-                    {
-                        ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
-                    }
-                    else
-                    {
-                        ContentModel.Instance.isSpin = true;
-                        ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
-                        ContentModel.Instance.gameState = GameState.Spin;
-                    }
-
                     isNext = true;
                     isMain = true;
                     EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmRegularGame));
