@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="791,200" extention="Slider">
+  <displayList>
+    <image id="n0_c8tt" name="n0" src="c8tt5n" fileName="images/popupGameLoading/load_bg_05.png" xy="0,0" size="791,200">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n4_c8tt" name="loadingPercent" xy="358,33" size="92,40" font="ui://ytoswqrpc8tt65" fontSize="2" align="center" vAlign="middle" autoSize="shrink" text="10%"/>
+    <image id="n1_c8tt" name="bar" src="c8tt5m" fileName="images/popupGameLoading/load_bg_04.png" xy="25,77" size="703,36"/>
+    <component id="n2_c8tt" name="grip" src="c8tt6a" fileName="components/popupGameLoading/LoadingSlider_grip.xml" xy="684,54">
+      <relation target="n1_c8tt" sidePair="right-right"/>
+    </component>
+    <image id="n5_uuid" name="n5" src="uuid6e" fileName="images/popupGameLoading/LOADING.png" xy="398,141" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+  <Slider/>
+</component>

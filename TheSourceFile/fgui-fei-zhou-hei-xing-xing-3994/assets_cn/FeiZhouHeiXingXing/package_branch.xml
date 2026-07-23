@@ -5,5 +5,7 @@
     <image id="qrjm4w" name="ng_txt_major.png" path="/images/common/gameJackpot/" exported="true"/>
     <image id="qrjm4x" name="ng_txt_mini.png" path="/images/common/gameJackpot/" exported="true"/>
     <image id="qrjm4y" name="ng_txt_minor.png" path="/images/common/gameJackpot/" exported="true"/>
+    <image id="c8tt5q" name="load_bg_03.png" path="/images/popupGameLoading/" exported="true"/>
+    <image id="uuid6f" name="LOADING.png" path="/images/popupGameLoading/" exported="true"/>
   </resources>
 </branchDescription>

@@ -77,8 +77,11 @@ namespace FeiZhouHeiXingXing_3994
         private readonly PayTableController3994 _payTableController = new PayTableController3994();
         private bool _isStopButtonLocked, _tipCoinIn, _isStoppedSlotMachine;
 
-        // 游戏中协程
+        // 游戏中通用协程
         private Coroutine _corGameIdle, _corGameAuto, _corGameOnce, _corReelsTurn, _corEffectSlowMotion;
+
+        // 游戏中定制协程
+        private Coroutine _corFreeWild, _corChangeIcon;
 
         // --------------------------------------------- 资源加载 -----------------------------------------------
         private GComponent _compareNpc;
@@ -87,6 +90,7 @@ namespace FeiZhouHeiXingXing_3994
 
         private GameObject _freeSpeedUpObj, _bonusSpeedUpObj;
         private GComponent _anchorSpeedUpParent, _freeSpeedUpCom, _bonusSpeedUpCom;
+        private GComponent _anchorFreeEffectParent;
 
         // --------------------------------------------- 免费游戏 -----------------------------------------------
         private GComponent _freeFrameCom;
@@ -99,6 +103,12 @@ namespace FeiZhouHeiXingXing_3994
 
         /// <summary> 免费游戏触发局数据记录 </summary>
         private readonly Stack<Dictionary<string, object>> _freeSaveStack = new Stack<Dictionary<string, object>>();
+
+        /// <summary> 免费游戏已经使用到的池子特效 </summary>
+        private readonly Dictionary<string, Stack<GComponent>> _isUsedPoolDic = new Dictionary<string, Stack<GComponent>>()
+        {
+            { FreeBigWildKey, new Stack<GComponent> { } }, { FreeChangeIconKey, new Stack<GComponent> { } },
+        };
 
         // --------------------------------------------- 彩金游戏 -----------------------------------------------
 
@@ -142,8 +152,7 @@ namespace FeiZhouHeiXingXing_3994
                     ResLoadedCallback();
                 });
             // 免费预制体 
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PageGameMain/EffectPrefabs/FreeAccelerateBorder.prefab",
+            ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath + "freeSpeedUp.prefab",
                 (clone) =>
                 {
                     _freeSpeedUpObj = clone;
@@ -155,12 +164,6 @@ namespace FeiZhouHeiXingXing_3994
                     _freeBigWildObj = clone;
                     ResLoadedCallback();
                 });
-            // ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath + "freeSpeedUp.prefab",
-            //     (clone) =>
-            //     {
-            //         _freeSpeedUpObj = clone;
-            //         ResLoadedCallback();
-            //     });
             ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath + "freeChangeIconObj.prefab",
                 (clone) =>
                 {
@@ -168,19 +171,12 @@ namespace FeiZhouHeiXingXing_3994
                     ResLoadedCallback();
                 });
             // 彩金预制体
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PageGameMain/EffectPrefabs/BonusAccelerateBorder.prefab",
+            ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath + "bonusSpeedUp.prefab",
                 (clone) =>
                 {
                     _bonusSpeedUpObj = clone;
                     ResLoadedCallback();
                 });
-            // ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath + "bonusSpeedUp.prefab",
-            //     (clone) =>
-            //     {
-            //         _bonusSpeedUpObj = clone;
-            //         ResLoadedCallback();
-            //     });
 
             // ------------------------- 2. 接收硬件按钮点击 ----------------------------
             machineBtnClickHelper = new MachineButtonClickHelper()
@@ -331,31 +327,13 @@ namespace FeiZhouHeiXingXing_3994
             _anchorSpeedUpParent.AddChild(_bonusSpeedUpCom);
             _anchorSpeedUpParent.visible = true;
 
-            // bigWild 工厂：创建 GComponent 并挂载 clone 的 GameObject
+            // 免费游戏使用缓存池特效
             CachePool.Instance.ClearPool();
-
-            GComponent BigWildFactory()
-            {
-                GComponent com = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-                GameCommon.FguiUtils.DeleteWrapper(com);
-                GameCommon.FguiUtils.AddWrapper(com, Object.Instantiate(_freeBigWildObj));
-                return com;
-            }
-
+            _anchorFreeEffectParent = contentPane.GetChild("anchorFreeEffectParent").asCom;
             for (int i = 0; i < 4; i++)
-                CachePool.Instance.PushCom(FreeBigWildKey, BigWildFactory());
-
-            // 免费游戏图标转换的特效池子
-            GComponent ChangeIconEffect()
-            {
-                GComponent com = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-                GameCommon.FguiUtils.DeleteWrapper(com);
-                GameCommon.FguiUtils.AddWrapper(com, Object.Instantiate(_freeChangeIconObj));
-                return com;
-            }
-
-            for (int i = 0; i < 15; i++)
-                CachePool.Instance.PushCom(FreeChangeIconKey, ChangeIconEffect());
+                CachePool.Instance.PushCom(FreeBigWildKey, CachePoolFactory(_freeBigWildObj));
+            for (int i = 0; i < 5; i++)
+                CachePool.Instance.PushCom(FreeChangeIconKey, CachePoolFactory(_freeChangeIconObj));
 
             isReady = true;
         }
@@ -1127,6 +1105,7 @@ namespace FeiZhouHeiXingXing_3994
         private IEnumerator FreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
             OnGameReset();
+            PushIsUsedComToPool();
             ContentModel.Instance.gameState = GameState.FreeSpin;
 
             bool isNext = false;
@@ -1192,6 +1171,18 @@ namespace FeiZhouHeiXingXing_3994
                 }
             }
 
+            // ----------------- show wild ----------------
+            if (_corFreeWild != null) _monoHelper.StopCoroutine(_corFreeWild);
+            _corFreeWild = _monoHelper.StartCoroutine(ShowWildSpine(GetFreeMiddleData(), () => isNext = true));
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+
+            // ----------------- icon change ----------------
+            if (_corChangeIcon != null) _monoHelper.StopCoroutine(_corChangeIcon);
+            _corChangeIcon = _monoHelper.StartCoroutine(IconConversion(() => isNext = true));
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+
             // ----------------- normal win ----------------
             List<SymbolWin> winList = ContentModel.Instance.winList;
             if (winList.Count > 0 || ContentModel.Instance.bonusResult != null)
@@ -1245,22 +1236,168 @@ namespace FeiZhouHeiXingXing_3994
         }
 
         /// <summary>
-        /// 第二列之后中间图标是wild的整列覆盖大Wild
+        /// 获取免费游戏中 中间位置图标的索引
         /// </summary>
-        /// <returns></returns>
-        private IEnumerator ShowWildSpine(int reelIndex)
+        private List<int> GetFreeMiddleData()
         {
-            yield break;
+            List<int> currentMiddleData = new List<int>();
+            List<int> currentFreeData = SlotTool.GetDeckRowCol(ContentModel.Instance.strDeckRowCol);
+            for (int i = 5; i < 10; i++)
+            {
+                currentMiddleData.Add(currentFreeData[i]);
+                // Debug.LogError($"currentFreeData[{i}]的值是：{currentFreeData[i]}");
+            }
+
+            return currentMiddleData;
         }
 
-
-        /// <summary>
-        /// 高分图标替换低分图标
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerator IconConversion()
+        ///<summary>缓存池创建工厂，根据传入的预制体不同创建对应的UI物体</summary>
+        private GComponent CachePoolFactory(GameObject cacheObj)
         {
-            yield break;
+            GComponent com = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
+            GameCommon.FguiUtils.DeleteWrapper(com);
+            GameCommon.FguiUtils.AddWrapper(com, Object.Instantiate(cacheObj));
+            return com;
+        }
+
+        ///<summary>第二列之后中间图标是wild的整列覆盖大Wild</summary>
+        private IEnumerator ShowWildSpine(List<int> middleData, Action callback)
+        {
+            for (int i = 1; i < middleData.Count; i++)
+            {
+                if (middleData[i] != 9) continue;
+                GComponent com = CachePool.Instance.PopCom(FreeBigWildKey, _anchorFreeEffectParent,
+                    () => CachePoolFactory(_freeBigWildObj));
+                _isUsedPoolDic[FreeBigWildKey].Push(com);
+                com.xy = _slotMachineController.SymbolCenterToNodeLocalPos(i, 1, _anchorFreeEffectParent);
+                com.visible = true;
+            }
+
+            yield return new WaitForSeconds(1f);
+            callback?.Invoke();
+        }
+
+        ///<summary>高分图标替换低分图标：先播特效再切换图标。从8开始向下逐级传播，8→7→6→5→4，4不转3</summary>
+        private IEnumerator IconConversion(Action callback)
+        {
+            string strDeck = ContentModel.Instance.strDeckRowCol;
+            if (string.IsNullOrEmpty(strDeck))
+            {
+                callback?.Invoke();
+                yield break;
+            }
+
+            // 1. 解析 strDeckRowCol 为 3行×5列 的二维数组
+            string[] rows = strDeck.Split('#');
+            int rowCount = rows.Length;
+            int colCount = rows[0].Split(',').Length;
+
+            int[,] grid = new int[rowCount, colCount];
+            for (int r = 0; r < rowCount; r++)
+            {
+                string[] cols = rows[r].Split(',');
+                for (int c = 0; c < colCount; c++)
+                {
+                    grid[r, c] = int.Parse(cols[c]);
+                }
+            }
+
+            // 2. 找出所有需要被转换的位置（暂不修改 grid），从8向下逐级传播
+            // 到4为止，4不将3转为4
+            List<(int r, int c)> allChangedPositions = new List<(int, int)>();
+
+            for (int sourceValue = 8; sourceValue >= 5; sourceValue--)
+            {
+                int targetValue = sourceValue - 1;
+                HashSet<(int, int)> toUpgrade = new HashSet<(int, int)>();
+
+                for (int r = 0; r < rowCount; r++)
+                {
+                    for (int c = 0; c < colCount; c++)
+                    {
+                        if (grid[r, c] != sourceValue) continue;
+
+                        // 上
+                        if (r > 0 && grid[r - 1, c] == targetValue)
+                            toUpgrade.Add((r - 1, c));
+                        // 下
+                        if (r < rowCount - 1 && grid[r + 1, c] == targetValue)
+                            toUpgrade.Add((r + 1, c));
+                        // 左
+                        if (c > 0 && grid[r, c - 1] == targetValue)
+                            toUpgrade.Add((r, c - 1));
+                        // 右
+                        if (c < colCount - 1 && grid[r, c + 1] == targetValue)
+                            toUpgrade.Add((r, c + 1));
+                    }
+                }
+
+                // 标记升级（此时仅记录位置，不立即修改 grid，以免影响同级传播）
+                foreach (var pos in toUpgrade)
+                {
+                    if (!allChangedPositions.Contains(pos))
+                        allChangedPositions.Add(pos);
+                    grid[pos.Item1, pos.Item2] = sourceValue;
+                }
+            }
+
+            // 3. 先在转换位置播放特效，再切换图标
+            if (allChangedPositions.Count > 0)
+            {
+                // 3a. 播放转换特效
+                foreach (var pos in allChangedPositions)
+                {
+                    GComponent com = CachePool.Instance.PopCom(FreeChangeIconKey, _anchorFreeEffectParent,
+                        () => CachePoolFactory(_freeChangeIconObj));
+                    _isUsedPoolDic[FreeChangeIconKey].Push(com);
+                    com.xy = _slotMachineController.SymbolCenterToNodeLocalPos(pos.Item2, pos.Item1,
+                        _anchorFreeEffectParent);
+                    com.visible = true;
+                }
+
+                yield return new WaitForSeconds(1f);
+
+                // 3b. 特效播放完毕后，切换图标：更新 ContentModel 并刷新滚轮显示
+                List<string> rowStrings = new List<string>();
+                for (int r = 0; r < rowCount; r++)
+                {
+                    List<string> colStrings = new List<string>();
+                    for (int c = 0; c < colCount; c++)
+                    {
+                        colStrings.Add(grid[r, c].ToString());
+                    }
+                    rowStrings.Add(string.Join(",", colStrings));
+                }
+                string newStrDeckRowCol = string.Join("#", rowStrings);
+
+                ContentModel.Instance.strDeckRowCol = newStrDeckRowCol;
+                _slotMachineController.SetReelsDeck(newStrDeckRowCol);
+
+                // 3c. 等待图标切换完成
+                yield return _slotMachineController.SlotWaitForSeconds(1f);
+            }
+
+            callback?.Invoke();
+        }
+
+        ///<summary>将每局使用的池子物体归还给池子</summary>
+        private void PushIsUsedComToPool()
+        {
+            PushUsedComToPoolForKey(FreeBigWildKey);
+            PushUsedComToPoolForKey(FreeChangeIconKey);
+        }
+
+        ///<summary>将指定 key 已使用的所有组件归还缓存池</summary>
+        private void PushUsedComToPoolForKey(string key)
+        {
+            if (!_isUsedPoolDic.TryGetValue(key, out Stack<GComponent> stack) || stack.Count == 0)
+                return;
+
+            while (stack.Count > 0)
+            {
+                GComponent com = stack.Pop();
+                CachePool.Instance.PushCom(key, com);
+            }
         }
 
         #endregion

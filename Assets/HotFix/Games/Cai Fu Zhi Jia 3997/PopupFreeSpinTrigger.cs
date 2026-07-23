@@ -57,6 +57,7 @@ namespace CaiFuZhiJia_3997
         private GameSoundController3997 _gameSoundController;
         private bool _isClicked = false;
         private EventData _openData;
+        private Action _changeFreePage;
 
         protected override void OnInit()
         {
@@ -184,8 +185,12 @@ namespace CaiFuZhiJia_3997
             } // freeStartBtn 按钮
 
             // --------------------- 按钮点击事件 ---------------------
+            if (_openData is { value: Dictionary<string, object> args })
+            {
+                _changeFreePage = args["changeFreePage"] as Action;
+            }
             _freeStartBtn.onClick.Clear();
-            _freeStartBtn.onClick.Add(() => { OnClickSpinButton(_openData); });
+            _freeStartBtn.onClick.Add(() => { OnClickSpinButton(null); });
             // 自动模式定时器
             if (TestManager.Instance.IsAutoModeRunning)
             {
@@ -217,6 +222,7 @@ namespace CaiFuZhiJia_3997
             base.OnClose(eventData);
             _gameSoundController?.Dispose();
             _gameSoundController = null;
+            _changeFreePage = null;
 
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _delayCloseCallback);
@@ -273,11 +279,7 @@ namespace CaiFuZhiJia_3997
 
             _delayCloseCallback = (obj) =>
             {
-                if (res is { value: Dictionary<string, object> args })
-                {
-                    Action changePage = args["changeFreePage"] as Action;
-                    changePage?.Invoke();
-                }
+                _changeFreePage?.Invoke();
                 if (_cloneDollarSpineObj != null) _cloneDollarSpineObj.SetActive(false);
                 if (isOpen) CloseSelf(null);
                 _delayCloseCallback = null;

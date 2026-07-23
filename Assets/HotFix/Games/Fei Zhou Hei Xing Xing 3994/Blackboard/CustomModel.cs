@@ -16,7 +16,7 @@ namespace FeiZhouHeiXingXing_3994
         public List<int> specialHitSymbols => new List<int>() { };
         public Dictionary<string, string> symbolAppearEffect => new Dictionary<string, string>() { };
         public Dictionary<string, string> symbolExpectationEffect => new Dictionary<string, string>() { };
-        public string borderEffect => "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/Border/JackpotFrame.prefab";
+        public string borderEffect => "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/Prefabs/Symbols/Border/JackpotFrame.prefab";
 
         public string[] payTable => new[]
         {

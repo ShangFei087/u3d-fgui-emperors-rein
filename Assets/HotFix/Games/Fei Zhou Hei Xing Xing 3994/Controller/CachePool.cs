@@ -13,6 +13,7 @@ namespace FeiZhouHeiXingXing_3994
     public class CachePool : MonoSingleton<CachePool>
     {
         private GameObject _poolRoot;
+        private readonly Dictionary<string, Transform> _keyParents = new Dictionary<string, Transform>();
         private readonly Dictionary<string, Stack<GComponent>> _poolDic = new Dictionary<string, Stack<GComponent>>();
 
         private GameObject PoolRoot
@@ -30,6 +31,19 @@ namespace FeiZhouHeiXingXing_3994
             }
         }
 
+        private Transform GetKeyParent(string key)
+        {
+            if (!_keyParents.TryGetValue(key, out Transform parent))
+            {
+                GameObject go = new GameObject($"[{key}]");
+                go.transform.SetParent(PoolRoot.transform);
+                _keyParents[key] = go.transform;
+                parent = go.transform;
+            }
+
+            return parent;
+        }
+
         /// <summary>回收 GComponent 到池中</summary>
         public void PushCom(string key, GComponent com)
         {
@@ -40,7 +54,7 @@ namespace FeiZhouHeiXingXing_3994
 
             if (com.displayObject?.gameObject != null)
             {
-                com.displayObject.gameObject.transform.SetParent(PoolRoot.transform);
+                com.displayObject.gameObject.transform.SetParent(GetKeyParent(key));
             }
 
             if (!_poolDic.TryGetValue(key, out Stack<GComponent> stack))
@@ -61,11 +75,16 @@ namespace FeiZhouHeiXingXing_3994
             return stack.Pop();
         }
 
-        /// <summary>获取或创建：池中有则取出，无则通过工厂新建</summary>
-        public GComponent PopCom(string key, Func<GComponent> factory)
+        /// <summary>获取或创建：池中有则取出，无则通过工厂新建。取出后自动添加到 popParentCom 下。</summary>
+        public GComponent PopCom(string key, GComponent popParentCom, Func<GComponent> factory)
         {
-            GComponent com = GetCom(key);
-            return com ?? factory?.Invoke();
+            GComponent com = GetCom(key) ?? factory?.Invoke();
+            if (com != null && popParentCom != null)
+            {
+                popParentCom.AddChild(com);
+            }
+
+            return com;
         }
 
         /// <summary>清空池，销毁所有已缓存 GComponent</summary>
@@ -81,6 +100,7 @@ namespace FeiZhouHeiXingXing_3994
             }
 
             _poolDic.Clear();
+            _keyParents.Clear();
 
             if (_poolRoot == null)
             {

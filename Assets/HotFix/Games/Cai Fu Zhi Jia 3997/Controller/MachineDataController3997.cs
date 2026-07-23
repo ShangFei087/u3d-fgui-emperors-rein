@@ -372,7 +372,7 @@ namespace CaiFuZhiJia_3997
                         bonusCount += 1;
                     }
 
-                    Debug.Log(deckRowCol[i]);
+                    // Debug.Log(deckRowCol[i]);
                 }
 
 

@@ -2,9 +2,6 @@
 <branchDescription>
   <resources>
     <image id="ujwn4f" name="ng_img_frame05.png" path="/images/common/gameBorder/" exported="true"/>
-    <image id="jh0i5b" name="ng_sym_diamonds3.png" path="/images/common/smallGameSymbols/" exported="true"/>
-    <image id="jh0i5c" name="ng_sym_diamonds4.png" path="/images/common/smallGameSymbols/" exported="true"/>
-    <image id="jh0i5d" name="ng_sym_diamonds6.png" path="/images/common/smallGameSymbols/" exported="true"/>
     <image id="gg7g5q" name="fg_txt_button.png" path="/images/common/gameButton/"/>
     <image id="gg7g5r" name="sg_txt_collect.png" path="/images/common/gameButton/"/>
     <image id="hm6e8c" name="4.png" path="/images/common/gamePayTable/" exported="true"/>
@@ -18,5 +15,8 @@
     <image id="hm6e8s" name="sg_txt_minor.png" path="/images/common/gameJackpots/" exported="true"/>
     <image id="hm6e8t" name="fg_txt_win_MULTIPLE.png" path="/images/pageGameMain/freeBg/" exported="true"/>
     <image id="hm6e99" name="fg_txt_free.png" path="/images/pageGameMain/freeBg/"/>
+    <image id="m9w1ac" name="ng_sym_14_minor.png" path="/images/common/smallGameSymbols/"/>
+    <image id="m9w1ad" name="ng_sym14_mini.png" path="/images/common/smallGameSymbols/"/>
+    <image id="m9w1ae" name="ng_sym_14_major.png" path="/images/common/smallGameSymbols/"/>
   </resources>
 </branchDescription>
