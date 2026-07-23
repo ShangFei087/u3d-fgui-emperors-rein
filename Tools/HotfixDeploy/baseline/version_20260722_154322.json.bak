@@ -1,7 +1,7 @@
 {
-  "updated_at": 1784706192178,
+  "updated_at": 1784700758179,
   "hotfix_key": "hf_debug_android_20260630161224",
-  "hotfix_version": "1.2.57",
+  "hotfix_version": "1.2.56",
   "asset_bundle": {
     "manifest": {
       "hash": "117d2bc8c9ff88585383cf45e709225f",

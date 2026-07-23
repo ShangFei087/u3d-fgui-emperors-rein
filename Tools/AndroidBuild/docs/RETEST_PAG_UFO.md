@@ -24,7 +24,7 @@
 ```text
 1. Unity: HybridCLR + NewBuild/打包1001
 2. Tools\build_android_debug.bat hotfix nopause
-APK: TheOutput\TargetProject\launcher\build\outputs\apk\debug\launcher-debug.apk
+APK: TheOutput\TargetProject\launcher\build\outputs\apk\debug\<由 applicationId 生成>.apk（例：treasury_debug_machine_v1_2_0.apk）
 ```
 
 Unity Export 进度条不动时：`Tools\watch_unity_editor_log.bat`、`Tools\check_export_progress.bat watch`

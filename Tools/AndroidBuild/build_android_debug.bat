@@ -6,6 +6,7 @@ rem Usage:
 rem   Tools\AndroidBuild\build_android_debug.bat [nopause]              full copy (ExportProject -> Target) + build
 rem   Tools\AndroidBuild\build_android_debug.bat hotfix [nopause]       hotfix assets only + build
 rem   Tools\AndroidBuild\build_android_debug.bat skipcopy [nopause]     skip copy (pagBridge-only changes) + build
+rem APK name follows applicationId: com.lftlive.treasury.debug.machine.v1_2_0 -> treasury_debug_machine_v1_2_0.apk
 
 cd /d "%~dp0"
 
@@ -13,7 +14,8 @@ if not exist "%~dp0logs" mkdir "%~dp0logs"
 for %%I in ("%~dp0..\..") do set "ROOT=%%~fI"
 
 set "TARGET=%ROOT%\TheOutput\TargetProject"
-set "APK=%TARGET%\launcher\build\outputs\apk\debug\launcher-debug.apk"
+set "APK_DIR=%TARGET%\launcher\build\outputs\apk\debug"
+set "APK="
 set "LOG=%~dp0logs\build_android_debug.log"
 set "NOPAUSE=0"
 set "COPY_MODE=full"
@@ -28,7 +30,7 @@ echo [%date% %time%] build debug start copy_mode=!COPY_MODE! > "%LOG%"
 echo.
 
 echo ========================================
-echo   build launcher-debug.apk
+echo   build debug APK
 echo ========================================
 echo.
 echo [INFO] Log: %LOG%
@@ -57,6 +59,11 @@ if /i "!COPY_MODE!"=="skipcopy" (
     )
     echo [OK] copy unity export >> "%LOG%"
 )
+
+call :ResolveApkPath
+if errorlevel 1 goto :Failed
+echo [INFO] Expected APK: !APK!
+echo [INFO] Expected APK: !APK! >> "%LOG%"
 
 echo.
 echo [INFO] Step 1/6: build libpag_unity_gl_bridge.so...
@@ -95,7 +102,11 @@ cd /d "%TARGET%"
 echo [INFO] Stopping Gradle Daemon (release file locks)...
 call gradlew.bat --stop >> "%LOG%" 2>&1
 timeout /t 2 /nobreak >nul
-if exist "launcher\build\outputs\apk\debug\launcher-debug.apk" del /f /q "launcher\build\outputs\apk\debug\launcher-debug.apk" 2>nul
+rem Re-resolve after copy/sync in case applicationId changed
+call :ResolveApkPath
+if errorlevel 1 goto :Failed
+if exist "!APK!" del /f /q "!APK!" 2>nul
+if exist "%APK_DIR%\launcher-debug.apk" del /f /q "%APK_DIR%\launcher-debug.apk" 2>nul
 call gradlew.bat :launcher:assembleDebug
 if errorlevel 1 (
     echo.
@@ -109,13 +120,15 @@ echo [OK] gradlew assembleDebug >> "%LOG%"
 echo.
 echo [INFO] Step 5/6: verify APK...
 echo [STEP 5] verify APK >> "%LOG%"
-if not exist "%APK%" (
-    echo [ERROR] APK not found: %APK%
-    echo [ERROR] APK not found: %APK% >> "%LOG%"
+call :ResolveApkPath
+if errorlevel 1 goto :Failed
+if not exist "!APK!" (
+    echo [ERROR] APK not found: !APK!
+    echo [ERROR] APK not found: !APK! >> "%LOG%"
     goto :Failed
 )
 
-for %%A in ("%APK%") do set "APK_SIZE=%%~zA"
+for %%A in ("!APK!") do set "APK_SIZE=%%~zA"
 if "!APK_SIZE!"=="0" (
     echo [ERROR] APK size is 0 bytes.
     echo [ERROR] APK size 0 >> "%LOG%"
@@ -126,13 +139,32 @@ echo.
 echo ========================================
 echo   [OK] Build successful
 echo ========================================
-echo      APK: %APK%
+echo      APK: !APK!
 echo      Size: !APK_SIZE! bytes
 echo      Log: %LOG%
 echo.
-echo [OK] APK: %APK% size=!APK_SIZE! >> "%LOG%"
+echo [OK] APK: !APK! size=!APK_SIZE! >> "%LOG%"
 echo [OK] build finished >> "%LOG%"
 if "!NOPAUSE!"=="0" pause
+exit /b 0
+
+:ResolveApkPath
+rem Derive APK name from launcher/build.gradle applicationId
+rem com.lftlive.treasury.debug.machine.v1_2_0 -> treasury_debug_machine_v1_2_0.apk
+set "APK="
+set "APP_ID="
+for /f "tokens=2 delims='" %%A in ('findstr /C:"applicationId" "%TARGET%\launcher\build.gradle"') do (
+    set "APP_ID=%%A"
+    goto :ResolveApkPath_HaveId
+)
+echo [ERROR] applicationId not found in launcher\build.gradle
+echo [ERROR] applicationId not found >> "%LOG%"
+exit /b 1
+:ResolveApkPath_HaveId
+set "APK_BASE=!APP_ID!"
+if /i "!APK_BASE:~0,12!"=="com.lftlive." set "APK_BASE=!APK_BASE:~12!"
+set "APK_NAME=!APK_BASE:.=_!.apk"
+set "APK=%APK_DIR%\!APK_NAME!"
 exit /b 0
 
 :Failed

@@ -10,9 +10,9 @@ public static class PathHelper
     // 【远程】
     // 资源服务器/游戏平台/total_version.json
 
-    // 游戏平台/debug/android/1/version.json
-    // 游戏平台/debug/android/1/GameRes/
-    // 游戏平台/debug/android/1/GameDll/
+    // 游戏平台/debug/android/1_2_0/version.json
+    // 游戏平台/debug/android/1_2_0/GameRes/
+    // 游戏平台/debug/android/1_2_0/GameDll/
     // 游戏平台/release/android/1_1_1/version.json
     // 游戏平台/release/android/1_1_1/GameRes/
     // 游戏平台/release/android/1_1_1/GameDll/

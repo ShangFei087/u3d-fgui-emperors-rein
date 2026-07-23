@@ -194,7 +194,7 @@ sequenceDiagram
 ```bat
 REM 改了 PagUnityGlBridge.cpp / .so（build_android_debug 已含编译 so + sync + 打 APK）
 Tools\build_android_debug.bat skipcopy nopause
-adb install -r TheOutput\TargetProject\launcher\build\outputs\apk\debug\launcher-debug.apk
+adb install -r TheOutput\TargetProject\launcher\build\outputs\apk\debug\treasury_debug_machine_v1_2_0.apk
 
 REM 仅改了 Java 或 Hotfix C#
 Tools\build_android_debug.bat hotfix nopause

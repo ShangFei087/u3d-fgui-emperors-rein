@@ -4,7 +4,9 @@ Unity Android 导出、Gradle 打 APK、PAG 原生桥接编译、Export 进度�
 
 `Tools\` 根目录保留了同名**快捷入口**（转发到本目录），双击 `Tools\build_android_debug.bat` 与双击本目录内脚本效果相同。
 
-**最终 APK：** `TheOutput\TargetProject\launcher\build\outputs\apk\debug\launcher-debug.apk`  
+**最终 APK：** `TheOutput\TargetProject\launcher\build\outputs\apk\debug\<由 applicationId 生成>.apk`  
+（例：`com.lftlive.treasury.debug.machine.v1_2_0` → `treasury_debug_machine_v1_2_0.apk`）  
+
 **运行日志：** `Tools\AndroidBuild\logs\`
 
 ---
@@ -17,6 +19,7 @@ AndroidBuild/
 ├── build_android_debug.bat            ← 一键打包（主入口）
 ├── build_pag_unity_gl_bridge.bat      ← 编译 PAG JNI .so
 ├── copy_unity_export_to_target.bat    ← ExportProject → TargetProject（全量拷贝）
+├── sync_launcher_identity.ps1         ← 同步 launcher 显示名/包名（被 copy 脚本调用）
 ├── copy_hotfix_assets_to_target.bat   ← 仅拷贝热更 StreamingAssets
 ├── sync_pagbridge_to_target.bat       ← 同步 pagBridge.androidlib
 ├── clean_android_target.bat           ← 清理 Gradle build 缓存
@@ -79,7 +82,8 @@ Tools\build_android_debug.bat skipcopy nopause
 | 文件 | 作用 |
 |------|------|
 | **build_android_debug.bat** | **主入口**。按模式拷贝 → 编译 PAG so → 同步 pagBridge → 清理 → Gradle 打 debug APK → 校验。 |
-| **copy_unity_export_to_target.bat** | Unity Export 后，将 `ExportProject\unityLibrary` 下的 `assets`、`Il2CppOutputProject`、`jniLibs`、`jniStaticLibs`、`pagBridge.androidlib` 镜像到 `TargetProject`。已被主入口 full 模式调用，也可单独运行。 |
+| **copy_unity_export_to_target.bat** | Unity Export 后，将 `ExportProject\unityLibrary` 下的 `assets`、`Il2CppOutputProject`、`jniLibs`、`jniStaticLibs`、`pagBridge.androidlib` 镜像到 `TargetProject`；并同步 launcher 显示名（`strings.xml`）与包名（`applicationId` / Manifest `package`）。已被主入口 full 模式调用，也可单独运行。 |
+| **sync_launcher_identity.ps1** | 被 `copy_unity_export_to_target.bat` 调用：从 ExportProject 同步 `app_name` 与 `applicationId` 到 TargetProject launcher（保留 Target 自定义权限等）。 |
 | **copy_hotfix_assets_to_target.bat** | 仅将热更 StreamingAssets 同步到 TargetProject（优先 ExportProject/assets，否则 `Assets/StreamingAssets`）。已被主入口 hotfix 模式调用。 |
 | **sync_pagbridge_to_target.bat** | 将 `Assets/Plugins/Android/pagBridge.androidlib` 整目录复制到 TargetProject。主入口 Step 2 会再次同步，确保 Assets 侧改动生效。 |
 | **clean_android_target.bat** | 停止 Gradle Daemon，删除 `launcher/build`、`unityLibrary/build`、`pagBridge/build`，执行 `gradlew clean`。防止 EOCD/损坏 APK。 |
