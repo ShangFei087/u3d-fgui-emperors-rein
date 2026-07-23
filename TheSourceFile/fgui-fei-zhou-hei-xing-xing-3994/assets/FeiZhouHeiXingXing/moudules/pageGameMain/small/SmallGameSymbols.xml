@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="195,181" overflow="hidden">
+  <displayList>
+    <component id="n0_qwup" name="rollElement_1" src="qwup5j" fileName="moudules/pageGameMain/small/SmallGameSymbol.xml" xy="0,-543"/>
+    <component id="n1_qwup" name="rollElement_2" src="qwup5j" fileName="moudules/pageGameMain/small/SmallGameSymbol.xml" xy="0,-362"/>
+    <component id="n2_qwup" name="rollElement_3" src="qwup5j" fileName="moudules/pageGameMain/small/SmallGameSymbol.xml" xy="0,-181"/>
+    <graph id="n3_qwup" name="mask" xy="0,0" size="195,181" type="rect" fillColor="#99000000"/>
+    <component id="n4_qwup" name="result" src="qwup5j" fileName="moudules/pageGameMain/small/SmallGameSymbol.xml" xy="0,-362"/>
+  </displayList>
+  <transition name="roll">
+    <item time="0" type="XY" target="n0_qwup" tween="true" startValue="0,-543" endValue="0,181" duration="12"/>
+    <item time="0" type="XY" target="n1_qwup" tween="true" startValue="0,-362" endValue="0,181" duration="9"/>
+    <item time="0" type="XY" target="n2_qwup" tween="true" startValue="0,-181" endValue="0,181" duration="6"/>
+  </transition>
+  <transition name="rollReset">
+    <item time="0" type="XY" target="n0_qwup" value="0,-543"/>
+    <item time="0" type="XY" target="n1_qwup" value="0,-362"/>
+    <item time="0" type="XY" target="n2_qwup" value="0,-181"/>
+  </transition>
+  <transition name="result">
+    <item time="0" type="XY" target="n4_qwup" tween="true" startValue="0,-362" endValue="0,181" duration="9"/>
+    <item time="9" type="XY" target="n4_qwup" tween="true" startValue="0,181" endValue="0,0" duration="3"/>
+  </transition>
+  <transition name="resultReset">
+    <item time="0" type="XY" target="n4_qwup" value="0,-362"/>
+  </transition>
+</component>

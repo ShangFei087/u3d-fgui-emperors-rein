@@ -404,18 +404,13 @@ public class ApplicationSettingsEditor : Editor
 
 
     string GetHotfixUrl()  {
-        string[] vers = ApplicationSettings.Instance.appVersion.Split('.');
-        string rootFolder = "";
-        if (ApplicationSettings.Instance.isRelease)
-        {
-            rootFolder = string.Join("_", vers);
-        }
-        else
-        {
-            rootFolder = vers[0];
-        }
         string appType = ApplicationSettings.Instance.isRelease ? "release" : "debug";
-        return $"./{appType}/{EditorUserBuildSettings.activeBuildTarget.ToString().ToLower()}/{rootFolder}";
+        string buildTarget = ApplicationSettings.Instance.isMachine
+            ? "machine"
+            : EditorUserBuildSettings.activeBuildTarget.ToString().ToLower();
+        string[] vers = ApplicationSettings.Instance.appVersion.Split('.');
+        string rootFolder = string.Join("_", vers); // 例：1.2.0 → 1_2_0
+        return $"./{appType}/{buildTarget}/{rootFolder}";
     }
 
 

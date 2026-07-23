@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1,1">
   <displayList>
-    <loader id="n2_ujwn" name="icon" xy="0,0" pivot="0.5,0.5" anchor="true" size="1080,235" autoSize="true" clearOnPublish="true"/>
+    <loader id="n2_ujwn" name="icon" xy="0,0" pivot="0.5,0.5" anchor="true" size="1080,251" url="ui://9igt9u8mu8to1l" autoSize="true" clearOnPublish="true"/>
   </displayList>
 </component>
