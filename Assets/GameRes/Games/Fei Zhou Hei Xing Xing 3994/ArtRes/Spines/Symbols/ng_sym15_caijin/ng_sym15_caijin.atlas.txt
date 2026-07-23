@@ -1,0 +1,7 @@
+ng_sym15_caijin.png
+size:512,256
+filter:Linear,Linear
+pma:true
+xj
+bounds:2,2,274,233
+offsets:2,3,279,237

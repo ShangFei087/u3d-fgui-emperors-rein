@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="57,69" pivot="0.5,0.5" extention="Button">
+<component size="351,156" pivot="0.5,0.5" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n0_lyfo" name="n0" src="pbvu2d" fileName="images/exhibitionMode/ng_bor_ydan2.png" xy="0,0">
+    <image id="n0_lyfo" name="n0" src="s1hw3o" fileName="images/bottom/exhibitionMode/ng_btn_back to game.png" xy="0,0" size="351,156">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
   </displayList>

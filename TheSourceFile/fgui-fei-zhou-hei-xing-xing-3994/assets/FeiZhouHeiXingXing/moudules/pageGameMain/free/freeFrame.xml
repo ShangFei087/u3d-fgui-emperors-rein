@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="252,49">
   <displayList>
-    <image id="n0_9e0n" name="n0" src="is8l4f" fileName="images/common/gameBorder/free/fg_txt_free spin.png" xy="93,24" pivot="0.5,0.5" anchor="true"/>
+    <image id="n2_s1hw" name="n2" src="s1hw77" fileName="images/common/gameBorder/free/fg_txt_mfcs2.png" xy="1,0"/>
     <text id="n1_9e0n" name="FreeSpinsNumber" xy="182,0" size="70,49" font="ui://ytoswqrpis8l46" fontSize="12" align="center" vAlign="middle" autoSize="shrink" text="5"/>
   </displayList>
 </component>

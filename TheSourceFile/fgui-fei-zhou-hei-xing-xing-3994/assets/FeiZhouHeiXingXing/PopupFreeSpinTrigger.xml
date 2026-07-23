@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920">
+<component size="1080,1920" designImage="ui://ytoswqrps1hw8x">
   <displayList>
-    <text id="n0_llq9" name="spinCountText" xy="343,620" size="416,143" fontSize="12" align="center" vAlign="middle" autoSize="none" text=""/>
-    <component id="n1_zvhl" name="closeBtn" src="zvhl59" fileName="components/popupFreeSpinTrigger/closeBtn.xml" xy="503,882"/>
+    <component id="n4_s1hw" name="anchorTrigger" src="s1hw92" fileName="moudules/popupFreeSpinTrigger/anchorTrigger.xml" xy="540,960"/>
+    <text id="n0_llq9" name="spinCountText" xy="335,674" size="416,433" font="ui://ytoswqrps1hw7n" fontSize="12" align="center" vAlign="middle" autoSize="shrink" text="8"/>
+    <component id="n2_s1hw" name="startBtn" src="s1hw8t" fileName="components/popupFreeSpinTrigger/startBtn.xml" xy="313,1376"/>
   </displayList>
 </component>

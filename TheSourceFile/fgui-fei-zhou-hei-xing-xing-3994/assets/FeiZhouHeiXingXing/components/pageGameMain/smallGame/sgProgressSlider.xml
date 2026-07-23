@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,87" extention="ProgressBar">
+  <displayList>
+    <image id="n2_s1hw" name="n2" src="s1hw9m" fileName="images/pageGameMain/smallGame/sg_bor_jdtnk.png" xy="37,18"/>
+    <image id="n1_s1hw" name="bar" src="s1hw9k" fileName="images/pageGameMain/smallGame/sg_bor_jd.png" xy="37,25" size="1004,45"/>
+    <image id="n0_s1hw" name="n0" src="s1hw9l" fileName="images/pageGameMain/smallGame/sg_bor_jdt.png" xy="0,0" size="1080,87">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+  </displayList>
+  <ProgressBar/>
+</component>

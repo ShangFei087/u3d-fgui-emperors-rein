@@ -225,17 +225,17 @@ namespace FeiZhouHeiXingXing_3994
             MainModel.Instance.contentMD.betIndex = 0;
             ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
 
-            // _lstPayTable = new List<GComponent>();
-            // foreach (string url in CustomModel.Instance.payTable)
-            // {
-            //     GComponent payTable = UIPackage.CreateObjectFromURL(url).asCom;
-            //     payTable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().InitParam(payTable);
-            //     _lstPayTable.Add(payTable);
-            //     payTable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().referenceCount++;
-            // }
+            _lstPayTable = new List<GComponent>();
+            foreach (string url in CustomModel.Instance.payTable)
+            {
+                GComponent payTable = UIPackage.CreateObjectFromURL(url).asCom;
+                payTable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().InitParam(payTable);
+                _lstPayTable.Add(payTable);
+                payTable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().referenceCount++;
+            }
 
-            // ContentModel.Instance.goPayTableLst = _lstPayTable.ToArray();
-            // _payTableController.Init(_lstPayTable);
+            ContentModel.Instance.goPayTableLst = _lstPayTable.ToArray();
+            _payTableController.Init(_lstPayTable);
 
             // ---------- 2. FairyGUI 对象池（须先于滚轮 Init） ----------
             if (_fGuiPoolHelper == null || _isInitPool) return;
@@ -616,7 +616,7 @@ namespace FeiZhouHeiXingXing_3994
         {
             // isTriggerFrame = true;
             GComponent comReelEffect = _freeSpeedUpCom;
-            if (ContentModel.Instance.isFreeSlotTip) comReelEffect = _bonusSpeedUpCom;
+            // if (ContentModel.Instance.isFreeSlotTip) comReelEffect = _bonusSpeedUpCom;
 
             comReelEffect.visible = false;
             comReelEffect.xy = _slotMachineController.SymbolCenterToNodeLocalPos(colIdx, 1, _anchorSpeedUpParent);

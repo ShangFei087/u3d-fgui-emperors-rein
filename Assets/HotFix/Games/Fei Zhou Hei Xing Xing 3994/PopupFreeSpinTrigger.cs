@@ -16,10 +16,13 @@ namespace FeiZhouHeiXingXing_3994
             "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/Prefabs/PopupFreeSpinTrigger/";
 
         private int _totalCount;
-        private GButton _closeBtn;
+        private GButton _startBtn;
         private GTextField _spinCountText;
         private bool _isClicked;
         private GameSoundController3994 _gameSoundController;
+
+        private GComponent _anchorTrigger;
+        private GameObject _triggerObj, _triggerCloneObj;
 
         private EventData _openData;
         private TimerCallback _delayCloseCallback;
@@ -28,9 +31,14 @@ namespace FeiZhouHeiXingXing_3994
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
-            
-            // 测试使用
-            isInit = true;
+
+            _totalCount = 1;
+            ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath + "anchorTrigger.prefab",
+                (clone) =>
+                {
+                    _triggerObj = clone;
+                    ResLoadCallback();
+                });
 
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
@@ -57,15 +65,15 @@ namespace FeiZhouHeiXingXing_3994
             if (!isOpen) return;
             _isClicked = false;
 
-            _closeBtn = contentPane.GetChild("closeBtn").asButton;
+            _startBtn = contentPane.GetChild("startBtn").asButton;
             _spinCountText = contentPane.GetChild("spinCountText").asTextField;
             if (_openData is { value: Dictionary<string, object> args })
             {
                 _spinCountText.text = args["freeSpinCount"].ToString();
             }
 
-            _closeBtn.onClick.Clear();
-            _closeBtn.onClick.Add(() => OnCloseBtn(_openData));
+            _startBtn.onClick.Clear();
+            _startBtn.onClick.Add(() => OnCloseBtn(_openData));
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)

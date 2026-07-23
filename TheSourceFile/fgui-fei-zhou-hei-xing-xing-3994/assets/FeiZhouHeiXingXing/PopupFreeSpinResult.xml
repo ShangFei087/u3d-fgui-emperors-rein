@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920">
+<component size="1080,1920" designImage="ui://ytoswqrps1hw8z">
   <displayList>
-    <text id="n0_llq9" name="scoreText" xy="335,537" size="419,215" fontSize="12" align="center" vAlign="middle" autoSize="none" text=""/>
-    <component id="n1_zvhl" name="closeBtn" src="zvhl5a" fileName="components/popupFreeSpinResult/closeBtn.xml" xy="487,844"/>
+    <component id="n2_s1hw" name="anchorResult" src="s1hwbh" fileName="moudules/popupFreeSpinResult/anchorResult.xml" xy="540,960"/>
+    <text id="n0_llq9" name="scoreText" xy="107,951" size="856,125" font="ui://ytoswqrps1hw86" fontSize="10" align="center" vAlign="middle" letterSpacing="-15" autoSize="shrink" text="999999999"/>
+    <component id="n1_s1hw" name="collectBtn" src="s1hw8u" fileName="components/popupFreeSpinResult/collectBtn.xml" xy="316,1376"/>
   </displayList>
 </component>
