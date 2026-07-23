@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="194,194">
+<component size="194,194" overflow="hidden">
   <displayList>
-    <loader id="n1_q30q" name="element" xy="97,105" pivot="0.5,0.5" anchor="true" size="218,229" scale="0.8,0.8" touchable="false" url="ui://q8n13f0fhrsa6d" align="center" vAlign="middle" autoSize="true"/>
+    <loader id="n1_q30q" name="element" xy="97,97" pivot="0.5,0.5" anchor="true" size="258,258" touchable="false" url="ui://q8n13f0fpcvkhr" align="center" vAlign="middle" autoSize="true"/>
     <component id="n0_q30q" name="anchorSmallGameDiamond" src="q30qe5" fileName="moudules/slotMachine/anchorSmallGame.xml" xy="97,97" size="1,1"/>
-    <text id="n2_q30q" name="rewardText" xy="100,150" pivot="0.5,0.5" anchor="true" size="148,52" font="ui://q8n13f0fldad5h" fontSize="12" text="1234"/>
+    <text id="n2_q30q" name="rewardText" xy="97,145" pivot="0.5,0.5" anchor="true" size="258,59" font="ui://q8n13f0fldad5h" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-20" autoSize="none" text="1234"/>
     <graph id="n3_hw5d" name="mask" xy="0,0" size="194,194" visible="false" type="rect" lineSize="0" fillColor="#99000000"/>
   </displayList>
 </component>

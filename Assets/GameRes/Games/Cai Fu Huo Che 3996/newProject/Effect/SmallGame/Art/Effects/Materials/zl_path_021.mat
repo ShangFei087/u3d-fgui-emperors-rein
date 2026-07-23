@@ -90,7 +90,7 @@ Material:
     - _Toggle: 0
     - _ToggleSwitch0: 0
     - _ToggleSwitch1: 0
-    - _ZTestMode: 0
+    - _ZTestMode: 4
     - _ZWrite: 1
     m_Colors:
     - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}

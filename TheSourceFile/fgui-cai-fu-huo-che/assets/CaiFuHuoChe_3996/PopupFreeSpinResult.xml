@@ -6,7 +6,7 @@
     </graph>
     <component id="n1_jhxn" name="anchorSpine" src="jhxn32" fileName="component/popupFreeGame/AnchorResult.xml" xy="540,880"/>
     <component id="n2_jhxn" name="ButtonStart" src="jhxn34" fileName="component/freeSpin/FreeResultBtn.xml" xy="171,1295"/>
-    <text id="n3_jhxn" name="win" xy="540,947" pivot="0.5,0.5" anchor="true" size="1080,137" font="ui://q8n13f0fjhxn3l" fontSize="13" align="center" vAlign="middle" leading="0" autoSize="none" text="38,700,000"/>
+    <text id="n3_jhxn" name="win" xy="540,947" pivot="0.5,0.5" anchor="true" size="1080,137" font="ui://q8n13f0fjhxn3l" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-5" autoSize="none" text="38,700,000"/>
   </displayList>
   <transition name="end">
     <item time="0" type="Alpha" target="n0_jhxn" tween="true" startValue="1" endValue="0" duration="17" ease="Linear"/>

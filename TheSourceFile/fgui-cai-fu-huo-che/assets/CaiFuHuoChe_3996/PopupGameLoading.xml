@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <image id="n0_sqmz" name="n0" src="sqmz0" fileName="images/gameLoading/load_img_bg.png" xy="0,0" size="1080,1920"/>
+    <image id="n0_sqmz" name="n0" src="pcvki9" fileName="images/gameLoading/load_img_bg.png" xy="0,0" size="1080,1920"/>
     <component id="n4_sqmz" name="Slider" src="sqmz6" fileName="component/gameLoading/Slider.xml" xy="66,1462" size="955,86">
       <Slider max="1"/>
     </component>

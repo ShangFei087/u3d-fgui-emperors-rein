@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="q8n13f0f">
   <resources>
-    <image id="sqmz0" name="load_img_bg.png" path="/images/gameLoading/" exported="true"/>
     <component id="sqmz4" name="PopupGameLoading.xml" path="/" exported="true"/>
     <component id="sqmz5" name="Slider_grip.xml" path="/component/gameLoading/" exported="true"/>
     <component id="sqmz6" name="Slider.xml" path="/component/gameLoading/" exported="true"/>
@@ -40,11 +39,9 @@
     <component id="9mnq1p" name="FreeTriggerBtn.xml" path="/component/freeSpin/" exported="true"/>
     <font id="9mnq20" name="freeSpinTriggerFont.fnt" path="/fonts/font/freeSpinTrigger/" exported="true"/>
     <component id="9mnq21" name="AnchorTriggerBg.xml" path="/component/popupFreeGame/" exported="true"/>
-    <image id="9mnq22" name="fg_bg_freeTimes.png" path="/images/freeGame/" exported="true"/>
-    <image id="9mnq23" name="fg_img_doubling_01.png" path="/images/freeGame/" exported="true"/>
     <image id="9mnq24" name="fg_img_doubling_02.png" path="/images/freeGame/" exported="true"/>
     <image id="9mnq26" name="fg_pop_border.png" path="/images/freeGame/" exported="true"/>
-    <image id="9mnq27" name="fg_txt_freeSpines.png" path="/images/jackpotGame/" exported="true"/>
+    <image id="9mnq27" name="1.png" path="/images/jackpotGame/" exported="true"/>
     <image id="9mnq28" name="symbolroll_13.png" path="/images/freeGame/" exported="true"/>
     <image id="9mnq29" name="6免费游戏.png" path="/images/cankao/" exported="true"/>
     <image id="9mnq2a" name="FreeSpinTime_0.png" path="/fonts/fontImage/freeSpinTime/" exported="true"/>
@@ -84,36 +81,9 @@
     <image id="ldad3x" name="10彩金游戏提示框_CN.png" path="/images/cankao/" exported="true"/>
     <image id="ldad3y" name="sg_btn_border.png" path="/images/jackpotGame/" exported="true"/>
     <component id="ldad3z" name="JackpotTriggerBtn.xml" path="/component/popupJackpotGame/" exported="true"/>
-    <image id="ldad40" name="sg_num_pop_0.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="ldad41" name="sg_num_pop_1.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="ldad42" name="sg_num_pop_2.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="ldad43" name="sg_num_pop_3.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="ldad44" name="sg_num_pop_4.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="ldad45" name="sg_num_pop_5.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="ldad46" name="sg_num_pop_6.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="ldad47" name="sg_num_pop_7.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="ldad48" name="sg_num_pop_8.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="ldad49" name="sg_num_pop_9.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
     <font id="ldad4a" name="jackpotTriggerFont.fnt" path="/fonts/font/jackpotSpinTrigger/" exported="true"/>
     <component id="ldad4b" name="PopupJackpotGameExit.xml" path="/" exported="true"/>
-    <image id="ldad4c" name="sg_num_plus_0.png" path="/fonts/fontImage/jackpotSpinExit/" exported="true" scale="9grid" scale9grid="0,0,48,75"/>
-    <image id="ldad4d" name="sg_num_plus_1.png" path="/fonts/fontImage/jackpotSpinExit/" exported="true" scale="9grid" scale9grid="0,0,35,75"/>
-    <image id="ldad4f" name="sg_num_plus_3.png" path="/fonts/fontImage/jackpotSpinExit/" exported="true" scale="9grid" scale9grid="0,0,47,75"/>
-    <image id="ldad4g" name="sg_num_plus_4.png" path="/fonts/fontImage/jackpotSpinExit/" exported="true" scale="9grid" scale9grid="0,0,49,75"/>
-    <image id="ldad4h" name="sg_num_plus_5.png" path="/fonts/fontImage/jackpotSpinExit/" exported="true" scale="9grid" scale9grid="0,0,47,75"/>
-    <image id="ldad4i" name="sg_num_plus_6.png" path="/fonts/fontImage/jackpotSpinExit/" exported="true" scale="9grid" scale9grid="0,0,47,75"/>
-    <image id="ldad4j" name="sg_num_plus_7.png" path="/fonts/fontImage/jackpotSpinExit/" exported="true" scale="9grid" scale9grid="0,0,45,75"/>
-    <image id="ldad4k" name="sg_num_plus_8.png" path="/fonts/fontImage/jackpotSpinExit/" exported="true" scale="9grid" scale9grid="0,0,47,75"/>
-    <image id="ldad4l" name="sg_num_plus_9.png" path="/fonts/fontImage/jackpotSpinExit/" exported="true" scale="9grid" scale9grid="0,0,47,75"/>
-    <image id="ldad4m" name="sg_num_plus_a.png" path="/fonts/fontImage/jackpotSpinExit/" exported="true" scale="9grid" scale9grid="0,0,18,25"/>
-    <image id="ldad4n" name="sg_num_plus_b.png" path="/fonts/fontImage/jackpotSpinExit/" exported="true" scale="9grid" scale9grid="0,0,21,38"/>
-    <image id="ldad4o" name="sg_num_plus_billion.png" path="/fonts/fontImage/jackpotSpinExit/" exported="true" scale="9grid" scale9grid="0,0,53,75"/>
-    <image id="ldad4p" name="sg_num_plus_kilo.png" path="/fonts/fontImage/jackpotSpinExit/" exported="true" scale="9grid" scale9grid="0,0,59,75"/>
-    <image id="ldad4q" name="sg_num_plus_million.png" path="/fonts/fontImage/jackpotSpinExit/" exported="true" scale="9grid" scale9grid="0,0,69,75"/>
-    <image id="ldad4r" name="sg_num_plus_trillion.png" path="/fonts/fontImage/jackpotSpinExit/" exported="true" scale="9grid" scale9grid="0,0,56,75"/>
-    <font id="ldad4s" name="jackpotSpinExitFont.fnt" path="/fonts/font/jackpotSpinExit/" exported="true"/>
     <image id="ldad4t" name="8免费游戏得分框_CN.png" path="/images/cankao/" exported="true"/>
-    <image id="ldad4u" name="sg_num_plus_2.png" path="/fonts/fontImage/jackpotSpinExit/" exported="true" scale="9grid" scale9grid="0,0,47,75"/>
     <component id="ldad4v" name="AnchorGameExit.xml" path="/component/popupJackpotGame/" exported="true"/>
     <image id="ldad4w" name="11彩金游戏结算框_CN.png" path="/images/cankao/" exported="true"/>
     <component id="ldad4z" name="JackpotExitBtn.xml" path="/component/popupJackpotGame/" exported="true"/>
@@ -126,28 +96,13 @@
     <component id="iii964" name="ThreeMult.xml" path="/component/popupFreeGame/"/>
     <component id="iii965" name="TwoMult.xml" path="/component/popupFreeGame/"/>
     <component id="iii966" name="OneMult.xml" path="/moudules/"/>
-    <image id="hrsa67" name="symbol_6.png" path="/images/normalGame/symbols/" exported="true"/>
-    <image id="hrsa68" name="symbol_7.png" path="/images/normalGame/symbols/" exported="true"/>
-    <image id="hrsa69" name="symbol_8.png" path="/images/normalGame/symbols/" exported="true"/>
-    <image id="hrsa6a" name="symbol_9.png" path="/images/normalGame/symbols/" exported="true"/>
-    <image id="hrsa6b" name="symbol_11.png" path="/images/normalGame/symbols/" exported="true"/>
-    <image id="hrsa6c" name="symbol_10.png" path="/images/normalGame/symbols/" exported="true"/>
-    <image id="hrsa6d" name="symbol_12.png" path="/images/normalGame/symbols/" exported="true"/>
-    <image id="hrsa6e" name="symbol_1.png" path="/images/normalGame/symbols/" exported="true"/>
-    <image id="hrsa6f" name="symbol_2.png" path="/images/normalGame/symbols/" exported="true"/>
-    <image id="hrsa6g" name="symbol_3.png" path="/images/normalGame/symbols/" exported="true"/>
-    <image id="hrsa6h" name="symbol_4.png" path="/images/normalGame/symbols/" exported="true"/>
-    <image id="hrsa6i" name="symbol_5.png" path="/images/normalGame/symbols/" exported="true"/>
     <image id="baxv6m" name="fg_img_bg_02.png" path="/images/freeGame/" exported="true"/>
     <component id="baxv6n" name="AnchorNorBG.xml" path="/component/popupNormalGame/" exported="true"/>
     <image id="baxv6o" name="ng_img_bg_01.png" path="/images/normalGame/" exported="true"/>
     <image id="baxv6p" name="ng_img_bg_02.png" path="/images/normalGame/" exported="true"/>
-    <image id="baxv6q" name="ng_img-frame_01.png" path="/images/" exported="true"/>
-    <image id="baxv6r" name="ng_img-frame_02.png" path="/images/" exported="true"/>
-    <image id="baxv6s" name="ng_img-frame_03.png" path="/images/" exported="true"/>
-    <image id="baxv6t" name="ng_img_purple.png" path="/images/normalGame/jackpotTip/"/>
-    <image id="baxv6u" name="ng_img_blue.png" path="/images/normalGame/jackpotTip/"/>
-    <image id="baxv6v" name="ng_img_green.png" path="/images/normalGame/jackpotTip/"/>
+    <image id="baxv6t" name="ng_img_purple.png" path="/images/normalGame/jackpotTip/" exported="true"/>
+    <image id="baxv6u" name="ng_img_blue.png" path="/images/normalGame/jackpotTip/" exported="true"/>
+    <image id="baxv6v" name="ng_img_green.png" path="/images/normalGame/jackpotTip/" exported="true"/>
     <image id="baxv6w" name="ng_num_0.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-21,-14"/>
     <image id="baxv6x" name="ng_num_1.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-29,-14"/>
     <image id="baxv6y" name="ng_num_2.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-21,-14"/>
@@ -162,48 +117,8 @@
     <image id="baxv78" name="ng_num_billion.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-20,-14"/>
     <image id="baxv79" name="ng_num_kilo.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-19,-14"/>
     <image id="baxv7a" name="ng_num_million.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-12,-14"/>
-    <image id="baxv7b" name="ng_num_sym1_0.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true" scale9grid="0,0,-24,-7"/>
-    <image id="baxv7c" name="ng_num_sym1_1.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true" scale9grid="0,0,-32,-7"/>
-    <image id="baxv7d" name="ng_num_sym1_2.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true" scale9grid="0,0,-23,-7"/>
-    <image id="baxv7e" name="ng_num_sym1_3.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true" scale9grid="0,0,-23,-7"/>
-    <image id="baxv7f" name="ng_num_sym1_4.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true" scale9grid="0,0,-22,-7"/>
-    <image id="baxv7g" name="ng_num_sym1_5.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true" scale9grid="0,0,-24,-7"/>
-    <image id="baxv7h" name="ng_num_sym1_6.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true" scale9grid="0,0,-24,-7"/>
-    <image id="baxv7i" name="ng_num_sym1_7.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true" scale9grid="0,0,-25,-7"/>
-    <image id="baxv7j" name="ng_num_sym1_8.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true" scale9grid="0,0,-24,-7"/>
-    <image id="baxv7k" name="ng_num_sym1_9.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true" scale9grid="0,0,-24,-7"/>
-    <image id="baxv7l" name="ng_num_sym1_a.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true" scale9grid="0,0,-15,-37"/>
-    <image id="baxv7m" name="ng_num_sym1_b.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true" scale9grid="0,0,-11,-30"/>
-    <image id="baxv7n" name="ng_num_sym1_billion.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true" scale9grid="0,0,-19,-7"/>
-    <image id="baxv7o" name="ng_num_sym1_kilo.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true" scale9grid="0,0,-15,-7"/>
-    <image id="baxv7p" name="ng_num_sym1_million.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true" scale9grid="0,0,-8,-7"/>
-    <image id="baxv7q" name="ng_num_sym1_trillion.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true" scale9grid="0,0,-17,-7"/>
     <image id="baxv7r" name="ng_num_trillion.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-21,-14"/>
-    <image id="baxv7s" name="ng_img_bottom.png" path="/images/"/>
-    <image id="baxv7u" name="load_img_progress_3(1).png" path="/images/gameLoading/"/>
-    <image id="baxv7v" name="load_img_progress_1(1).png" path="/images/gameLoading/"/>
-    <image id="baxv7w" name="load_img_progress_2(1).png" path="/images/gameLoading/"/>
-    <image id="baxv7y" name="sg_img_border.png" path="/images/"/>
     <component id="baxv7z" name="AnchorJackpotBG.xml" path="/component/popupNormalGame/"/>
-    <image id="baxv80" name="sg_img_bg(1).png" path="/images/jackpotGame/"/>
-    <image id="baxv81" name="fg_img_doubling_03(1).png" path="/images/freeGame/"/>
-    <image id="baxv82" name="fg_img_frame.png" path="/images/freeGame/"/>
-    <image id="baxv83" name="fg_txt_01_free spins.png" path="/images/freeGame/"/>
-    <image id="baxv88" name="fg_num_1.png" path="/fonts/fontImage/freeSpinResult/" exported="true" scale9grid="0,0,-51,-34"/>
-    <image id="baxv89" name="fg_num_2.png" path="/fonts/fontImage/freeSpinResult/" exported="true" scale9grid="0,0,-39,-34"/>
-    <image id="baxv8a" name="fg_num_3.png" path="/fonts/fontImage/freeSpinResult/" exported="true" scale9grid="0,0,-39,-34"/>
-    <image id="baxv8b" name="fg_num_4.png" path="/fonts/fontImage/freeSpinResult/" exported="true" scale9grid="0,0,-37,-34"/>
-    <image id="baxv8c" name="fg_num_5.png" path="/fonts/fontImage/freeSpinResult/" exported="true" scale9grid="0,0,-39,-34"/>
-    <image id="baxv8d" name="fg_num_6.png" path="/fonts/fontImage/freeSpinResult/" exported="true" scale9grid="0,0,-39,-34"/>
-    <image id="baxv8e" name="fg_num_7.png" path="/fonts/fontImage/freeSpinResult/" exported="true" scale9grid="0,0,-41,-34"/>
-    <image id="baxv8f" name="fg_num_8.png" path="/fonts/fontImage/freeSpinResult/" exported="true" scale9grid="0,0,-39,-34"/>
-    <image id="baxv8g" name="fg_num_9.png" path="/fonts/fontImage/freeSpinResult/" exported="true" scale9grid="0,0,-39,-34"/>
-    <image id="baxv8h" name="fg_num_a.png" path="/fonts/fontImage/freeSpinResult/" exported="true" scale9grid="0,0,-14,-86"/>
-    <image id="baxv8i" name="fg_num_b.png" path="/fonts/fontImage/freeSpinResult/" exported="true" scale9grid="0,0,-11,-74"/>
-    <image id="baxv8j" name="fg_num_billion.png" path="/fonts/fontImage/freeSpinResult/" exported="true" scale9grid="0,0,-33,-34"/>
-    <image id="baxv8k" name="fg_num_kilo.png" path="/fonts/fontImage/freeSpinResult/" exported="true"/>
-    <image id="baxv8l" name="fg_num_million.png" path="/fonts/fontImage/freeSpinResult/" exported="true" scale9grid="0,0,-17,-34"/>
-    <image id="baxv8m" name="fg_num_0.png" path="/fonts/fontImage/freeSpinResult/" exported="true" scale9grid="0,0,-38,-34"/>
     <image id="baxv8x" name="fg_num_pop_0.png" path="/fonts/fontImage/freeSpinTrigger/"/>
     <image id="baxv8y" name="fg_num_pop_1.png" path="/fonts/fontImage/freeSpinTrigger/"/>
     <image id="baxv8z" name="fg_num_pop_2.png" path="/fonts/fontImage/freeSpinTrigger/"/>
@@ -216,38 +131,7 @@
     <image id="baxv96" name="fg_num_pop_9.png" path="/fonts/fontImage/freeSpinTrigger/"/>
     <component id="pmae98" name="PopupFreeSpinEnter.xml" path="/" exported="true"/>
     <component id="pmae99" name="AnchorEnterAnim.xml" path="/component/popupFreeSpinEnter/" exported="true"/>
-    <image id="pmaeac" name="普通游戏.jpg" path="/"/>
-    <image id="pmaeak" name="pb_num_1.png" path="/fonts/fontImage/betImage/" exported="true" scale9grid="0,0,-35,-8"/>
-    <image id="pmaeal" name="pb_num_2.png" path="/fonts/fontImage/betImage/" exported="true" scale9grid="0,0,-24,-7"/>
-    <image id="pmaeam" name="pb_num_3.png" path="/fonts/fontImage/betImage/" exported="true" scale9grid="0,0,-23,-6"/>
-    <image id="pmaean" name="pb_num_4.png" path="/fonts/fontImage/betImage/" exported="true" scale9grid="0,0,-20,-7"/>
-    <image id="pmaeao" name="pb_num_5.png" path="/fonts/fontImage/betImage/" exported="true" scale9grid="0,0,-24,-7"/>
-    <image id="pmaeap" name="pb_num_6.png" path="/fonts/fontImage/betImage/" exported="true" scale9grid="0,0,-23,-6"/>
-    <image id="pmaeaq" name="pb_num_7.png" path="/fonts/fontImage/betImage/" exported="true" scale9grid="0,0,-22,-8"/>
-    <image id="pmaear" name="pb_num_8.png" path="/fonts/fontImage/betImage/" exported="true" scale9grid="0,0,-23,-6"/>
-    <image id="pmaeas" name="pb_num_9.png" path="/fonts/fontImage/betImage/" exported="true" scale9grid="0,0,-23,-6"/>
-    <image id="pmaeat" name="pb_num_bill.png" path="/fonts/fontImage/betImage/" exported="true" scale9grid="0,0,-22,-8"/>
-    <image id="pmaeau" name="pb_num_kilo.png" path="/fonts/fontImage/betImage/" exported="true" scale9grid="0,0,-19,-7"/>
-    <image id="pmaeav" name="pb_num_million.png" path="/fonts/fontImage/betImage/" exported="true" scale9grid="0,0,-5,-7"/>
-    <image id="pmaeaw" name="pb_num_trillion.png" path="/fonts/fontImage/betImage/" exported="true" scale9grid="0,0,-23,-8"/>
-    <image id="pmaeax" name="pb_num_0.png" path="/fonts/fontImage/betImage/" exported="true" scale9grid="0,0,-22,-6"/>
     <font id="pmaeay" name="betFont.fnt" path="/fonts/font/betFonts/" exported="true"/>
-    <image id="pmaeaz" name="pb_num_bet_0.png" path="/fonts/fontImage/winCreditImage/" exported="true" scale9grid="0,0,-15,0"/>
-    <image id="pmaeb0" name="pb_num_bet_1.png" path="/fonts/fontImage/winCreditImage/" exported="true" scale9grid="0,0,-28,-2"/>
-    <image id="pmaeb1" name="pb_num_bet_2.png" path="/fonts/fontImage/winCreditImage/" exported="true" scale9grid="0,0,-17,-1"/>
-    <image id="pmaeb2" name="pb_num_bet_3.png" path="/fonts/fontImage/winCreditImage/" exported="true" scale9grid="0,0,-16,0"/>
-    <image id="pmaeb3" name="pb_num_bet_4.png" path="/fonts/fontImage/winCreditImage/" exported="true" scale9grid="0,0,-13,-1"/>
-    <image id="pmaeb4" name="pb_num_bet_5.png" path="/fonts/fontImage/winCreditImage/" exported="true" scale9grid="0,0,-17,-1"/>
-    <image id="pmaeb5" name="pb_num_bet_6.png" path="/fonts/fontImage/winCreditImage/" exported="true" scale9grid="0,0,-16,0"/>
-    <image id="pmaeb6" name="pb_num_bet_7.png" path="/fonts/fontImage/winCreditImage/" exported="true" scale9grid="0,0,-15,-2"/>
-    <image id="pmaeb7" name="pb_num_bet_8.png" path="/fonts/fontImage/winCreditImage/" exported="true" scale9grid="0,0,-16,0"/>
-    <image id="pmaeb8" name="pb_num_bet_9.png" path="/fonts/fontImage/winCreditImage/" exported="true" scale9grid="0,0,-16,0"/>
-    <image id="pmaeb9" name="pb_num_bet_bill.png" path="/fonts/fontImage/winCreditImage/" exported="true" scale9grid="0,0,-15,-2"/>
-    <image id="pmaeba" name="pb_num_bet_com.png" path="/fonts/fontImage/winCreditImage/" exported="true" scale9grid="0,0,-1,-32"/>
-    <image id="pmaebb" name="pb_num_bet_dot.png" path="/fonts/fontImage/winCreditImage/" exported="true" scale9grid="0,0,-5,-36"/>
-    <image id="pmaebc" name="pb_num_bet_kilo.png" path="/fonts/fontImage/winCreditImage/" exported="true" scale9grid="0,0,-12,-1"/>
-    <image id="pmaebd" name="pb_num_bet_million.png" path="/fonts/fontImage/winCreditImage/" exported="true" scale9grid="0,0,0,-1"/>
-    <image id="pmaebe" name="pb_num_bet_trillion.png" path="/fonts/fontImage/winCreditImage/" exported="true" scale9grid="0,0,-16,-2"/>
     <font id="pmaebf" name="winCreditFont.fnt" path="/fonts/font/winCreditFonts/" exported="true"/>
     <component id="efdebl" name="Mini.xml" path="/moudules/JackpotIcon/" exported="true"/>
     <component id="efdebm" name="Minor.xml" path="/moudules/JackpotIcon/" exported="true"/>
@@ -259,48 +143,160 @@
     <component id="v2k7ce" name="Paytable5.xml" path="/moudules/payTable/" exported="true"/>
     <component id="znm9cf" name="AnchorGirl.xml" path="/component/popupNormalGame/"/>
     <component id="iilzcl" name="AnchorBox.xml" path="/component/popupNormalGame/"/>
-    <image id="iilzcm" name="fg_txt_start_collect.png" path="/images/freeGame/"/>
-    <image id="iilzco" name="fg_txt_start.png" path="/images/freeGame/"/>
     <component id="drzncq" name="GameJackpotNumReel.xml" path="/moudules/JackpotTip/" exported="true"/>
     <image id="drzncr" name="ng_num_b.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-8,-30"/>
     <component id="drzncs" name="PopupJackpotResult.xml" path="/" exported="true"/>
     <component id="drznct" name="AnchorJackpotResult.xml" path="/component/popupJackpotGame/" exported="true"/>
     <component id="drzncu" name="PopupBigWin.xml" path="/" exported="true"/>
     <component id="drzncv" name="AnchorBigWin.xml" path="/component/popupJackpotGame/" exported="true"/>
-    <image id="ke3pcw" name="ng_num_sym3_0.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-92,-55"/>
-    <image id="ke3pcx" name="ng_num_sym3_million.png" path="/fonts/fontImage/bigWinImage/"/>
-    <image id="ke3pcy" name="ng_num_sym3_m.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-96,-29"/>
-    <image id="ke3pcz" name="ng_num_sym3_kilo.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-85,-55"/>
-    <image id="ke3pd0" name="ng_num_sym3_billion.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-90,-55"/>
-    <image id="ke3pd1" name="ng_num_sym3_b.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-37,-124"/>
-    <image id="ke3pd2" name="ng_num_sym3_9.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-90,-55"/>
-    <image id="ke3pd3" name="ng_num_sym3_p.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-37,-154"/>
-    <image id="ke3pd4" name="ng_num_sym3_8.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-91,-55"/>
-    <image id="ke3pd5" name="ng_num_sym3_6.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-91,-55"/>
-    <image id="ke3pd6" name="ng_num_sym3_5.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-98,-55"/>
-    <image id="ke3pd7" name="ng_num_sym3_4.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-89,-55"/>
-    <image id="ke3pd8" name="ng_num_sym3_3.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-97,-55"/>
-    <image id="ke3pd9" name="ng_num_sym3_2.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-97,-55"/>
-    <image id="ke3pda" name="ng_num_sym3_1.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-147,-55"/>
-    <image id="ke3pdb" name="ng_num_sym3_7.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-93,-55"/>
-    <image id="ke3pdc" name="ng_num_sym3_trillion.png" path="/fonts/fontImage/bigWinImage/" scale9grid="0,0,-97,-55"/>
     <font id="ke3pdd" name="bigWinFont.fnt" path="/fonts/font/bigWinFonts/" exported="true"/>
-    <image id="nnazde" name="1.png" path="/images/Panel/payTable/" exported="true"/>
-    <image id="nnazdf" name="2.png" path="/images/Panel/payTable/" exported="true"/>
-    <image id="nnazdg" name="3.png" path="/images/Panel/payTable/" exported="true"/>
-    <image id="nnazdh" name="4.png" path="/images/Panel/payTable/" exported="true"/>
-    <image id="nnazdi" name="5.png" path="/images/Panel/payTable/" exported="true"/>
-    <image id="nnazdj" name="6.png" path="/images/Panel/payTable/" exported="true"/>
-    <image id="nnazdk" name="7.png" path="/images/Panel/payTable/" exported="true"/>
     <component id="nnazdm" name="Paytable6.xml" path="/moudules/payTable/" exported="true"/>
     <component id="nnazdn" name="Paytable7.xml" path="/moudules/payTable/" exported="true"/>
     <component id="q30qe2" name="smallGameReels.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="q30qe3" name="ElementBox.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="q30qe4" name="RollElement.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="q30qe5" name="anchorSmallGame.xml" path="/moudules/slotMachine/" exported="true"/>
-    <image id="q30qe7" name="symbol_15.png" path="/images/normalGame/symbols/" exported="true"/>
-    <image id="q30qe8" name="symbol_13.png" path="/images/normalGame/symbols/" exported="true"/>
-    <image id="q30qe9" name="symbol_14.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="pcvkeb" name="fg_img_doubling_01.png" path="/images/freeGame/" exported="true"/>
+    <image id="pcvkec" name="fg_img_frame.png" path="/images/freeGame/" exported="true"/>
+    <image id="pcvked" name="fg_txt_01_free spins.png" path="/images/freeGame/" exported="true"/>
+    <image id="pcvkeg" name="sg_img_bg.png" path="/images/jackpotGame/" exported="true"/>
+    <image id="pcvkei" name="fg_txt_start.png" path="/images/freeGame/" exported="true"/>
+    <image id="pcvkek" name="fg_txt_collect.png" path="/images/freeGame/" exported="true"/>
+    <image id="pcvkem" name="ng_img_jian.png" path="/images/freeGame/" exported="true"/>
+    <image id="pcvken" name="普通游戏.png" path="/"/>
+    <image id="pcvkeo" name="pb_num_bet_0.png" path="/fonts/fontImage/betImage/" exported="true"/>
+    <image id="pcvkep" name="pb_num_bet_1.png" path="/fonts/fontImage/betImage/" exported="true"/>
+    <image id="pcvkeq" name="pb_num_bet_2.png" path="/fonts/fontImage/betImage/" exported="true"/>
+    <image id="pcvker" name="pb_num_bet_3.png" path="/fonts/fontImage/betImage/" exported="true"/>
+    <image id="pcvkes" name="pb_num_bet_4.png" path="/fonts/fontImage/betImage/" exported="true"/>
+    <image id="pcvket" name="pb_num_bet_5.png" path="/fonts/fontImage/betImage/" exported="true"/>
+    <image id="pcvkeu" name="pb_num_bet_6.png" path="/fonts/fontImage/betImage/" exported="true"/>
+    <image id="pcvkev" name="pb_num_bet_7.png" path="/fonts/fontImage/betImage/" exported="true"/>
+    <image id="pcvkew" name="pb_num_bet_8.png" path="/fonts/fontImage/betImage/" exported="true"/>
+    <image id="pcvkex" name="pb_num_bet_9.png" path="/fonts/fontImage/betImage/" exported="true"/>
+    <image id="pcvkey" name="pb_num_bet_bil.png" path="/fonts/fontImage/betImage/" exported="true"/>
+    <image id="pcvkez" name="pb_num_bet_com.png" path="/fonts/fontImage/betImage/" exported="true"/>
+    <image id="pcvkf0" name="pb_num_bet_dot.png" path="/fonts/fontImage/betImage/" exported="true"/>
+    <image id="pcvkf1" name="pb_num_bet_kil.png" path="/fonts/fontImage/betImage/" exported="true"/>
+    <image id="pcvkf2" name="pb_num_bet_mil.png" path="/fonts/fontImage/betImage/" exported="true"/>
+    <image id="pcvkf3" name="pb_num_bet_tril.png" path="/fonts/fontImage/betImage/" exported="true"/>
+    <image id="pcvkf4" name="pb_num_0.png" path="/fonts/fontImage/winCreditImage/" exported="true"/>
+    <image id="pcvkf5" name="pb_num_1.png" path="/fonts/fontImage/winCreditImage/" exported="true"/>
+    <image id="pcvkf6" name="pb_num_2.png" path="/fonts/fontImage/winCreditImage/" exported="true"/>
+    <image id="pcvkf7" name="pb_num_3.png" path="/fonts/fontImage/winCreditImage/" exported="true"/>
+    <image id="pcvkf8" name="pb_num_4.png" path="/fonts/fontImage/winCreditImage/" exported="true"/>
+    <image id="pcvkf9" name="pb_num_5.png" path="/fonts/fontImage/winCreditImage/" exported="true"/>
+    <image id="pcvkfa" name="pb_num_6.png" path="/fonts/fontImage/winCreditImage/" exported="true"/>
+    <image id="pcvkfb" name="pb_num_7.png" path="/fonts/fontImage/winCreditImage/" exported="true"/>
+    <image id="pcvkfc" name="pb_num_8.png" path="/fonts/fontImage/winCreditImage/" exported="true"/>
+    <image id="pcvkfd" name="pb_num_9.png" path="/fonts/fontImage/winCreditImage/" exported="true"/>
+    <image id="pcvkfe" name="pb_num_bet_trillion.png" path="/fonts/fontImage/winCreditImage/" exported="true"/>
+    <image id="pcvkff" name="pb_num_bil.png" path="/fonts/fontImage/winCreditImage/" exported="true"/>
+    <image id="pcvkfg" name="pb_num_com.png" path="/fonts/fontImage/winCreditImage/" exported="true"/>
+    <image id="pcvkfh" name="pb_num_dot.png" path="/fonts/fontImage/winCreditImage/" exported="true"/>
+    <image id="pcvkfi" name="pb_num_kil.png" path="/fonts/fontImage/winCreditImage/" exported="true"/>
+    <image id="pcvkfj" name="pb_num_mil.png" path="/fonts/fontImage/winCreditImage/" exported="true"/>
+    <image id="pcvkfk" name="fg_num_0.png" path="/fonts/fontImage/freeSpinResult/" exported="true"/>
+    <image id="pcvkfl" name="fg_num_1.png" path="/fonts/fontImage/freeSpinResult/" exported="true"/>
+    <image id="pcvkfm" name="fg_num_2.png" path="/fonts/fontImage/freeSpinResult/" exported="true"/>
+    <image id="pcvkfn" name="fg_num_3.png" path="/fonts/fontImage/freeSpinResult/" exported="true"/>
+    <image id="pcvkfo" name="fg_num_4.png" path="/fonts/fontImage/freeSpinResult/" exported="true"/>
+    <image id="pcvkfp" name="fg_num_5.png" path="/fonts/fontImage/freeSpinResult/" exported="true"/>
+    <image id="pcvkfq" name="fg_num_6.png" path="/fonts/fontImage/freeSpinResult/" exported="true"/>
+    <image id="pcvkfr" name="fg_num_7.png" path="/fonts/fontImage/freeSpinResult/" exported="true"/>
+    <image id="pcvkfs" name="fg_num_8.png" path="/fonts/fontImage/freeSpinResult/" exported="true"/>
+    <image id="pcvkft" name="fg_num_9.png" path="/fonts/fontImage/freeSpinResult/" exported="true"/>
+    <image id="pcvkfu" name="fg_num_pop_0.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
+    <image id="pcvkfv" name="fg_num_pop_1.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
+    <image id="pcvkfw" name="fg_num_pop_2.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
+    <image id="pcvkfx" name="fg_num_pop_3.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
+    <image id="pcvkfy" name="fg_num_pop_4.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
+    <image id="pcvkfz" name="fg_num_pop_5.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
+    <image id="pcvkg0" name="fg_num_pop_6.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
+    <image id="pcvkg1" name="fg_num_pop_7.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
+    <image id="pcvkg2" name="fg_num_pop_8.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
+    <image id="pcvkg3" name="fg_num_pop_9.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
+    <image id="pcvkg4" name="fg_img_doubling_03.png" path="/images/freeGame/" exported="true"/>
+    <image id="pcvkg5" name="ng_num_sym3_0.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkg6" name="ng_num_sym3_kil.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkg7" name="ng_num_sym3_dot.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkg8" name="ng_num_sym3_dollar.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkg9" name="ng_num_sym3_com.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkga" name="ng_num_sym3_bil.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkgb" name="ng_num_sym3_9.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkgc" name="ng_num_sym3_mil.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkgd" name="ng_num_sym3_8.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkge" name="ng_num_sym3_6.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkgf" name="ng_num_sym3_5.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkgg" name="ng_num_sym3_4.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkgh" name="ng_num_sym3_3.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkgi" name="ng_num_sym3_2.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkgj" name="ng_num_sym3_1.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkgk" name="ng_num_sym3_7.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkgl" name="ng_num_sym3_tril.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
+    <image id="pcvkgm" name="sg_num_pop_0.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkgn" name="sg_num_pop_1.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkgo" name="sg_num_pop_2.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkgp" name="sg_num_pop_3.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkgq" name="sg_num_pop_4.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkgr" name="sg_num_pop_5.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkgs" name="sg_num_pop_6.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkgt" name="sg_num_pop_7.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkgu" name="sg_num_pop_8.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkgv" name="sg_num_pop_9.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkgw" name="sg_num_pop_bil.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkgx" name="sg_num_pop_com.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkgy" name="sg_num_pop_dollar.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkgz" name="sg_num_pop_dot.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkh0" name="sg_num_pop_kil.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkh1" name="sg_num_pop_mil.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkh2" name="sg_num_pop_tril.png" path="/fonts/fontImage/jackpotExitFonts/" exported="true"/>
+    <font id="pcvkh3" name="jackpotResultFont.fnt" path="/fonts/font/jackpotExitFonts/" exported="true"/>
+    <image id="pcvkhf" name="symbol_1.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="pcvkhg" name="symbol_2.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="pcvkhh" name="symbol_3.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="pcvkhi" name="symbol_4.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="pcvkhj" name="symbol_5.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="pcvkhk" name="symbol_6.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="pcvkhl" name="symbol_7.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="pcvkhm" name="symbol_8.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="pcvkhn" name="symbol_9.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="pcvkho" name="symbol_11.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="pcvkhp" name="symbol_10.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="pcvkhq" name="symbol_12.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="pcvkhr" name="symbol_13.png" path="/images/normalGame/symbols/" exported="true"/>
+    <image id="pcvkhs" name="sg_img_border.png" path="/images/" exported="true"/>
+    <image id="pcvkht" name="ng_num_sym1_0.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true"/>
+    <image id="pcvkhu" name="ng_num_sym1_1.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true"/>
+    <image id="pcvkhv" name="ng_num_sym1_2.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true"/>
+    <image id="pcvkhw" name="ng_num_sym1_3.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true"/>
+    <image id="pcvkhx" name="ng_num_sym1_4.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true"/>
+    <image id="pcvkhy" name="ng_num_sym1_5.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true"/>
+    <image id="pcvkhz" name="ng_num_sym1_6.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true"/>
+    <image id="pcvki0" name="ng_num_sym1_7.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true"/>
+    <image id="pcvki1" name="ng_num_sym1_8.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true"/>
+    <image id="pcvki2" name="ng_num_sym1_9.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true"/>
+    <image id="pcvki3" name="ng_num_sym1_bil.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true"/>
+    <image id="pcvki4" name="ng_num_sym1_com.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true"/>
+    <image id="pcvki5" name="ng_num_sym1_dot.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true"/>
+    <image id="pcvki6" name="ng_num_sym1_kil.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true"/>
+    <image id="pcvki7" name="ng_num_sym1_mil.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true"/>
+    <image id="pcvki8" name="ng_num_sym1_tril.png" path="/fonts/fontImage/jackpotWinCredit/" exported="true"/>
+    <image id="pcvki9" name="load_img_bg.png" path="/images/gameLoading/" exported="true"/>
+    <image id="pcvkia" name="load_img_progress_1.png" path="/images/gameLoading/" exported="true"/>
+    <image id="pcvkib" name="load_img_progress_2.png" path="/images/gameLoading/" exported="true"/>
+    <image id="pcvkic" name="load_img_progress_3.png" path="/images/gameLoading/" exported="true"/>
+    <image id="pcvkid" name="ng_img-frame_01.png" path="/images/" exported="true"/>
+    <image id="pcvkie" name="ng_img-frame_02.png" path="/images/" exported="true"/>
+    <image id="pcvkif" name="ng_img-frame_03.png" path="/images/" exported="true"/>
+    <image id="pcvkig" name="ng_img_bottom.png" path="/images/" exported="true"/>
+    <image id="pcvkih" name="1.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="pcvkii" name="2.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="pcvkij" name="3.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="pcvkik" name="4.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="pcvkil" name="5.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="pcvkim" name="6.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="pcvkin" name="7.png" path="/images/Panel/payTable/" exported="true"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Cai Fu Huo Che 3996\FGUIs" packageCount="2"/>
 </packageDescription>

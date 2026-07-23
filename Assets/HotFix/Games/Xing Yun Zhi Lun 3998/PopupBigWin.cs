@@ -169,7 +169,7 @@ namespace XingYunZhiLun_3998
                             anchorScore.text = score.ToString();
                             AniEnd();
                         };
-                        Timers.inst.Add(3.5f, 1, innerCallback);
+                        Timers.inst.Add(3.5f / Time.timeScale, 1, innerCallback);
                         _timerCallbacks.Add(innerCallback);
                     }
                 };
@@ -184,12 +184,12 @@ namespace XingYunZhiLun_3998
                             AniEnd();
                         }
                     };
-                    Timers.inst.Add(3.5f, 1, innerCallback);
+                    Timers.inst.Add(3.5f / Time.timeScale, 1, innerCallback);
                     _timerCallbacks.Add(innerCallback);
                 }
                 else
                 {
-                    Timers.inst.Add(3.0f, WinIndex, sequenceCallback);
+                    Timers.inst.Add(3.0f / Time.timeScale, WinIndex, sequenceCallback);
                 }
 
             }
@@ -222,7 +222,7 @@ namespace XingYunZhiLun_3998
 
             ClearAllTimers();
             isok = true;
-            Timers.inst.Add(1f, 1, exit);
+            Timers.inst.Add(1f / Time.timeScale, 1, exit);
             _timerCallbacks.Add(exit);
         }
 

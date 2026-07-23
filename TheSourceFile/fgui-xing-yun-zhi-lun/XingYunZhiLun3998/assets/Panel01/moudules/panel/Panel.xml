@@ -5,9 +5,9 @@
     <component id="n41_a666" name="frame" src="a666ahi" fileName="moudules/panel/ButtomFrame.xml" xy="0,1666"/>
     <component id="n43_a666" name="btnBetUp" src="a666ahl" fileName="moudules/panel/BtnBetUp.xml" xy="758,1792"/>
     <component id="n44_a666" name="btnBetDown" src="a666ahm" fileName="moudules/panel/BtnBetDown.xml" xy="543,1791"/>
-    <text id="n45_a666" name="credit" xy="327,1792" size="151,47" font="ui://5hielhj5a666ahw" fontSize="12" align="center" vAlign="middle" autoSize="shrink" text="876"/>
+    <text id="n45_a666" name="credit" xy="325,1792" size="187,47" font="ui://5hielhj5a666ahw" fontSize="12" align="center" vAlign="middle" autoSize="shrink" text="87600"/>
     <text id="n46_a666" name="bet" xy="614,1794" size="123,44" font="ui://5hielhj5a666ahw" fontSize="12" align="center" autoSize="shrink" text="100"/>
-    <text id="n47_a666" name="win" xy="267,1674" size="533,83" font="ui://5hielhj5l3cn6p" fontSize="12" align="center" vAlign="middle" leading="0" autoSize="shrink" text="0"/>
+    <text id="n47_a666" name="win" xy="267,1674" size="533,83" font="ui://5hielhj5l3cn6p" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-25" autoSize="shrink" text="1000"/>
     <component id="n52_yl9o" name="btnSpin" src="yl9o9" fileName="moudules/panel/ButtonSpin.xml" xy="820,1723"/>
     <text id="n51_yl9o" name="singleLine" xy="255,1620" size="541,42" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="Line to 5  Win 80"/>
     <component id="n55_q05j" name="ExhibitionPanel" src="q05jaj6" fileName="moudules/panel/ExhibitionPanel.xml" xy="0,323"/>

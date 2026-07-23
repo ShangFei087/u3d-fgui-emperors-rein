@@ -4,7 +4,7 @@
     <graph id="n0_ldad" name="mash" xy="0,0" size="1080,1920" type="rect" fillColor="#99000000"/>
     <component id="n1_ldad" name="anchorSpine" src="ldad3s" fileName="component/popupJackpotGame/AnchorGameTrigger.xml" xy="540,840"/>
     <component id="n8_ldad" name="StartBtn" src="ldad3z" fileName="component/popupJackpotGame/JackpotTriggerBtn.xml" xy="284,1242"/>
-    <text id="n10_ldad" name="SpinTimes" xy="528,760" pivot="0.5,0.5" anchor="true" size="176,223" font="ui://q8n13f0fldad4a" fontSize="12" align="center" vAlign="middle" autoSize="none" text="8"/>
+    <text id="n10_ldad" name="SpinTimes" xy="528,760" pivot="0.5,0.5" anchor="true" size="562,490" font="ui://q8n13f0fldad4a" fontSize="12" align="center" vAlign="middle" leading="0" autoSize="none" text="8"/>
   </displayList>
   <transition name="idle">
     <item time="0" type="Scale" target="n10_ldad" tween="true" startValue="1,1" endValue="1.2,1.2" duration="24" ease="Linear"/>

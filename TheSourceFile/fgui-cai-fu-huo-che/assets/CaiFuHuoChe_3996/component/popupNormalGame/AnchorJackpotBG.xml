@@ -2,6 +2,6 @@
 <component size="1,1">
   <displayList>
     <image id="n1_baxv" name="bg" src="baxv6m" fileName="images/freeGame/fg_img_bg_02.png" xy="0,0" size="1080,1920"/>
-    <image id="n0_baxv" name="n0" src="baxv80" fileName="images/jackpotGame/sg_img_bg(1).png" xy="0,0"/>
+    <image id="n0_baxv" name="n0" src="pcvkeg" fileName="images/jackpotGame/sg_img_bg.png" xy="0,0"/>
   </displayList>
 </component>

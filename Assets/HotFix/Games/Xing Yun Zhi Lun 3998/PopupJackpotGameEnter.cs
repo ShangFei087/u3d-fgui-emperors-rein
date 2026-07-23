@@ -73,7 +73,7 @@ namespace XingYunZhiLun_3998
 
             if (isOpen)
             {
-                Timers.inst.Add(2f, 1, (object obj) =>
+                Timers.inst.Add(2f / Time.timeScale, 1, (object obj) =>
                 {
                     CloseSelf(null);
                 });

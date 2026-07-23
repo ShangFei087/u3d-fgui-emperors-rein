@@ -8,6 +8,7 @@
       <relation target="" sidePair="left-left"/>
     </image>
     <image id="n49_xiz6" name="n49" src="xiz6ait" fileName="images/PopupGameFreeGame/fg_num_freespin_col.png" xy="182,2"/>
-    <text id="n50_u2bk" name="totalTimes" xy="237,-2" size="61,44" font="ui://5hielhj5x7l388" fontSize="12" autoSize="none" text="/5"/>
+    <text id="n50_u2bk" name="totalTimes" xy="262,-2" size="36,44" font="ui://5hielhj5x7l388" fontSize="12" autoSize="none" text="5"/>
+    <text id="n51_b4x4" name="/" xy="237,-1" size="28,45" font="ui://5hielhj5x7l388" fontSize="12" align="center" vAlign="middle" autoSize="none" text="/&#xA;"/>
   </displayList>
 </component>

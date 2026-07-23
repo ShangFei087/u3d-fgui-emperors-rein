@@ -24,6 +24,9 @@ namespace XingYunZhiLun_3998
         private bool isend;
         private EventData _data;
         private MiniReelGroup uiCreditCtrl = new MiniReelGroup();
+        private GComponent credit;
+        private GButton gbutton;
+        private GLoader btnLoader;
 
         //大奖动画预制体
         private GameObject goFgCloneGrand, goFgCloneMajor, goFgCloneMinor, goFgCloneMini, go;
@@ -144,13 +147,16 @@ namespace XingYunZhiLun_3998
 
             ContentModel.Instance.btnSpinState = ContentModel.Instance.curBtnSpinState;
 
-            GButton gbutton = this.contentPane.GetChild("Button").asButton;
+            gbutton = this.contentPane.GetChild("closeBtn").asButton;
+            btnLoader = gbutton.GetChild("button").asLoader;
+
             gbutton.onClick.Clear();
             isClose = false;
             gbutton.onClick.Add(SpinDown);
 
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
+            gbutton.visible = true;
 
             Dictionary<string, object> argDic = null;
             jpCredit.Clear();
@@ -164,7 +170,7 @@ namespace XingYunZhiLun_3998
 
                 if (argDic.ContainsKey("totalEarnCredit"))
                 {
-                    sorce = (float)argDic["totalEarnCredit"];
+                    sorce = Convert.ToInt32(argDic["totalEarnCredit"]);
                 }
 
                 if (argDic.ContainsKey("onJPPoolSubCredit"))
@@ -172,6 +178,10 @@ namespace XingYunZhiLun_3998
                     jackpotAction = (Action)argDic["onJPPoolSubCredit"];
                 }
             }
+
+            credit = contentPane.GetChild("reels").asCom;
+            credit.visible = true;
+
             StopAll();
             ExecuteNextStep();
             isend = false;
@@ -196,17 +206,18 @@ namespace XingYunZhiLun_3998
         {
             switch (jackpotType)
             {
-                case 1:
+                case 2:
                     AddWrapperEffect(goFgCloneMini);
                     break;
-                case 2:
+                case 1:
                     AddWrapperEffect(goFgCloneMinor);
                     break;
-                case 3:
+                case 0:
                     AddWrapperEffect(goFgCloneMajor);
                     break;
             }
 
+            btnLoader.url = CustomModel.Instance.jackpotResultBtnUrl[jackpotType];
             PlayAnim("start");
         }
 
@@ -223,6 +234,8 @@ namespace XingYunZhiLun_3998
                 //liPao1 = go.transform.GetChild(0).GetChild(3).GetChild(0).transform;
                 //liPao2 = go.transform.GetChild(0).GetChild(4).GetChild(0).transform;
                 goEffect = lodAnchorBG;
+                ChangeParent(gbutton, go, "Anchor/Spine Mecanim GameObject (Lucky_jp_pop_Jackpot)/SkeletonUtility-SkeletonRoot/root/btn01", -2.45f, 0);
+                ChangeParent(credit, go, "Anchor/Spine Mecanim GameObject (Lucky_jp_pop_Jackpot)/SkeletonUtility-SkeletonRoot/root/num01", -3.88f, 0.5f);
                 GameCommon.FguiUtils.AddWrapper(goEffect, go);
             }
         }
@@ -289,6 +302,9 @@ namespace XingYunZhiLun_3998
             //    PlayEffectAnim(liPao1);
             //    PlayEffectAnim(liPao2);
             //});
+
+            credit.visible = false;
+            gbutton.visible = false;
             isend = true;
             DelayedExit();
         }
@@ -296,7 +312,7 @@ namespace XingYunZhiLun_3998
         public void DelayedExit()
         {
             StopAll();
-            AddTimer(1.5f, (object obj) =>
+            AddTimer(0.8f / Time.timeScale, (object obj) =>
             {
                 Exit();
             });
@@ -331,6 +347,18 @@ namespace XingYunZhiLun_3998
             foreach (Transform child in effect)
             {
                 PlayEffectAnim(child);
+            }
+        }
+
+        private void ChangeParent(GObject gComponent, GameObject go, string path, float xDistance, float yDistance)
+        {
+            Transform num01 = go.transform.Find(path);
+            if (gComponent.displayObject?.gameObject != null)
+            {
+                Transform t = gComponent.displayObject.gameObject.transform;
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(xDistance, yDistance, 0);
+                t.localScale = new Vector3(0.01f, 0.01f, 1);
             }
         }
     }

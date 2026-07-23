@@ -4,8 +4,8 @@
     <graph id="n0_fcra" name="mask" xy="0,3" size="1080,1920" type="rect" lineSize="0" lineColor="#00000000" fillColor="#99000000"/>
     <component id="n9_yonm" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,1850" visible="false" touchable="false"/>
     <component id="n5_yonm" name="anchorSpine" src="yonm8n" fileName="components/PopupFreeGame/AnchorSpine.xml" xy="528,960"/>
-    <text id="n6_yonm" name="times" xy="530,900" pivot="0.5,0.5" anchor="true" size="567,217" alpha="0" font="ui://5hielhj5a6ypacb" fontSize="24" align="center" vAlign="middle" leading="0" letterSpacing="25" autoSize="none" text="10"/>
-    <component id="n8_yonm" name="ButtonStart" src="gkbyaed" fileName="components/PopupBigWIn/StartBtn.xml" xy="540,1279" pivot="0.5,0.5" anchor="true" size="381,104"/>
+    <text id="n6_yonm" name="times" xy="530,901" pivot="0.5,0.5" anchor="true" size="567,294" alpha="0.834" font="ui://5hielhj5b4x4an6" fontSize="8" align="center" vAlign="middle" leading="0" autoSize="shrink" text="5"/>
+    <component id="n8_yonm" name="ButtonStart" src="gkbyaed" fileName="components/PopupFreeGame/StartBtn.xml" xy="540,1279" pivot="0.5,0.5" anchor="true" size="482,144"/>
   </displayList>
   <transition name="end">
     <item time="0" type="Alpha" target="n6_yonm" value="0"/>

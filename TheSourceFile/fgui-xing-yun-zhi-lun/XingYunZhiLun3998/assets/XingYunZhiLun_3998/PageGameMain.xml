@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920" overflow="hidden" designImage="ui://5hielhj5oebral9" designImageAlpha="55">
+<component size="1080,1920" overflow="hidden" designImageAlpha="55">
   <controller name="c1" pages="0,BS,1,FS,2,JS" selected="0">
     <action type="play_transition" fromPage="" toPage="0" transition="BS"/>
     <action type="play_transition" fromPage="" toPage="1" transition="FS"/>
@@ -7,7 +7,7 @@
   </controller>
   <displayList>
     <component id="n45_i6s3" name="anchorJackpotBg" src="i6s39d" fileName="components/AnchorJackpotBg.xml" xy="0,0"/>
-    <component id="n52_12dua" name="JackpotList" src="12duabb" fileName="moudules/slotMachine/gameJackpot/jackpotList.xml" xy="0,597"/>
+    <component id="n52_12dua" name="JackpotList" src="12duabb" fileName="moudules/slotMachine/gameJackpot/jackpotList.xml" xy="-41,597"/>
     <component id="n55_f2sz" name="anchorJackpotEffect" src="iihrabs" fileName="components/AnchorTransEffect.xml" xy="554,1421" touchable="false"/>
     <component id="n48_bysw" name="HostAndGuest" src="byswa3" fileName="components/PopupJackpotGame/JackpotHostAndGuest.xml" xy="0,1"/>
     <component id="n0_lsvw" name="anchorBG" src="qr2d1w" fileName="components/AnchorBG.xml" xy="540,960"/>
@@ -43,6 +43,7 @@
     <item time="0" type="Alpha" target="n63_u2bk" value="1"/>
     <item time="0" type="Visible" target="n16_lsvw" value="true"/>
     <item time="0" type="Visible" target="n39_x7l3" value="false"/>
+    <item time="0" type="Visible" target="n45_i6s3" value="false"/>
     <item time="0" type="Visible" target="n48_bysw" value="false"/>
     <item time="0" type="Visible" target="n52_12dua" value="false"/>
     <item time="0" type="Visible" target="n55_f2sz" value="false"/>
@@ -65,6 +66,7 @@
     <item time="0" type="Alpha" target="n63_u2bk" value="1"/>
     <item time="0" type="Alpha" target="n64_u2bk" value="1"/>
     <item time="0" type="Visible" target="n16_lsvw" value="false"/>
+    <item time="0" type="Visible" target="n39_x7l3" value="true"/>
     <item time="0" type="Visible" target="n56_ugp6" value="false"/>
     <item time="0" type="Visible" target="n64_u2bk" value="true"/>
   </transition>
@@ -79,6 +81,7 @@
     <item time="0" type="Alpha" target="n52_12dua" value="1"/>
     <item time="0" type="Alpha" target="n56_ugp6" value="0"/>
     <item time="0" type="Visible" target="n16_lsvw" value="false"/>
+    <item time="0" type="Visible" target="n45_i6s3" value="true"/>
     <item time="0" type="Visible" target="n48_bysw" value="true"/>
     <item time="0" type="Visible" target="n52_12dua" value="true"/>
     <item time="0" type="Visible" target="n55_f2sz" value="true"/>
@@ -122,5 +125,13 @@
     <item time="6" type="Alpha" target="n0_lsvw" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
     <item time="6" type="Alpha" target="n32_fcra" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
     <item time="23" type="Alpha" target="n53_iihr" label="End" value="1"/>
+  </transition>
+  <transition name="HideZhuanPan">
+    <item time="0" type="Visible" target="n16_lsvw" value="false"/>
+    <item time="0" type="Visible" target="n56_ugp6" value="false"/>
+  </transition>
+  <transition name="ShowZhuanPan">
+    <item time="0" type="Visible" target="n16_lsvw" value="true"/>
+    <item time="0" type="Visible" target="n56_ugp6" value="true"/>
   </transition>
 </component>

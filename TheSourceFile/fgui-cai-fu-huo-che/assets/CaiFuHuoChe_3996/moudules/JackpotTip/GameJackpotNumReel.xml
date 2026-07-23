@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="38,50" overflow="hidden">
   <displayList>
-    <text id="n19_sb0x" name="step1_0" xy="0,0" size="38,53" font="ui://q8n13f0fsb0x60" fontSize="20" align="center" vAlign="bottom" leading="0" autoSize="none" text="，"/>
+    <text id="n19_sb0x" name="step1_0" xy="0,0" size="38,50" font="ui://q8n13f0fsb0x60" fontSize="20" align="center" vAlign="bottom" leading="0" autoSize="none" text="1"/>
     <text id="n20_drzn" name="step2_0" xy="0,-30" size="38,50" visible="false" font="ui://q8n13f0fsb0x60" fontSize="20" align="center" vAlign="middle" leading="0" autoSize="none" text="1"/>
     <text id="n21_drzn" name="step2_1" xy="0,60" size="38,50" visible="false" font="ui://q8n13f0fsb0x60" fontSize="20" align="center" vAlign="middle" leading="0" autoSize="none" text="2"/>
     <text id="n22_drzn" name="step3_0" xy="0,-60" size="38,50" visible="false" font="ui://q8n13f0fsb0x60" fontSize="20" align="center" vAlign="middle" leading="0" autoSize="none" text="1"/>

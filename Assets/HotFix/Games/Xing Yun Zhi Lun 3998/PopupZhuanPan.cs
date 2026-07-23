@@ -48,6 +48,8 @@ namespace XingYunZhiLun_3998
 
         private Transform[] idels, wins, stages;
 
+        private Action callback = null;
+
         protected override void OnInit()
         {
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -222,6 +224,11 @@ namespace XingYunZhiLun_3998
             {
                 Dictionary<string, object> a = _data.value as Dictionary<string, object>;
                 SetTargetIndex(a["jackpotType"]);
+
+                if (a.ContainsKey("callback"))
+                {
+                    callback = (Action)a["callback"];
+                }
             }
 
             corGameOnce = mono.StartCoroutine(GameOnce(successCallback, errorCallback));
@@ -247,6 +254,8 @@ namespace XingYunZhiLun_3998
             isNext = false;
 
             //StopEffectAnim(effectSpin);
+
+            callback?.Invoke();
 
             yield return new WaitForSeconds(0.5f);
 

@@ -221,6 +221,12 @@ namespace XingYunZhiLun_3998
             { "freeSlotBg", "ui://XingYunZhiLun_3998/slotFree" },
         };
 
+        public readonly string[] jackpotResultBtnUrl ={
+            "ui://XingYunZhiLun_3998/jp_btn_major",
+            "ui://XingYunZhiLun_3998/jp_btn_minor",
+            "ui://XingYunZhiLun_3998/jp_btn_mini"
+        };
+
         //<summary> 不同等级下的轮盘图标 </summary>
         public Dictionary<string, string> wheelState => new Dictionary<string, string>
         {
@@ -235,7 +241,7 @@ namespace XingYunZhiLun_3998
             new PayTableSymbolInfo(){symbol = 0, x5 = 20, x4 = 10, x3 = 5, },
             new PayTableSymbolInfo(){symbol = 1, x5 = 20, x4 = 10, x3 = 5, },
             new PayTableSymbolInfo(){symbol = 2, x5 = 20, x4 = 10, x3 = 5, },
-            new PayTableSymbolInfo(){symbol = 3, x5 = 20, x4 = 10, x3 = 5,},
+            new PayTableSymbolInfo(){symbol = 3, x5 = 20, x4 = 10, x3 = 5, },
             new PayTableSymbolInfo(){symbol = 4, x5 = 30, x4 = 20, x3 = 10, },
             new PayTableSymbolInfo(){symbol = 5, x5 = 50, x4 = 30, x3 = 15, },
             new PayTableSymbolInfo(){symbol = 6, x5 = 70, x4 = 40, x3 = 20, },
