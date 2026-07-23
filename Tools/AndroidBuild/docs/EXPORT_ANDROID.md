@@ -80,4 +80,4 @@ REM Unity：Export Project -> TheOutput\ExportProject
 Tools\build_android_debug.bat nopause
 ```
 
-APK：`TheOutput\TargetProject\launcher\build\outputs\apk\debug\launcher-debug.apk`
+APK：`TheOutput\TargetProject\launcher\build\outputs\apk\debug\<由 applicationId 生成>.apk`（例：`treasury_debug_machine_v1_2_0.apk`）

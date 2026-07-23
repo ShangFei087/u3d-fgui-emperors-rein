@@ -12,6 +12,8 @@ for %%I in ("%~dp0..\..") do set "ROOT=%%~fI"
 
 set "EXPORT=%ROOT%\TheOutput\ExportProject\unityLibrary"
 set "TARGET=%ROOT%\TheOutput\TargetProject\unityLibrary"
+set "EXPORT_LAUNCHER=%ROOT%\TheOutput\ExportProject\launcher"
+set "TARGET_LAUNCHER=%ROOT%\TheOutput\TargetProject\launcher"
 set "PAG_SRC=%EXPORT%\pagBridge.androidlib"
 set "PAG_DST=%TARGET%\pagBridge.androidlib"
 set "PAG_FALLBACK=%ROOT%\Assets\Plugins\Android\pagBridge.androidlib"
@@ -21,33 +23,33 @@ echo [%date% %time%] copy start > "%LOG%"
 echo.
 
 echo ========================================
-echo   Unity 导出拷贝�?TargetProject
+echo   Unity Export copy -^> TargetProject
 echo ========================================
 echo.
-echo 工程根目�? %ROOT%
+echo ROOT: %ROOT%
 echo.
 
 if not exist "%EXPORT%\src\main" (
-    echo [错误] 找不�?Unity 导出目录:
+    echo [ERROR] Export not found:
     echo        %EXPORT%\src\main
     echo.
-    echo 请先�?Unity �? File -^> Build Settings -^> Export Project
-    echo 导出�? %ROOT%\TheOutput\ExportProject
-    echo [错误] Export not found >> "%LOG%"
+    echo Please Export Project in Unity to:
+    echo   %ROOT%\TheOutput\ExportProject
+    echo [ERROR] Export not found >> "%LOG%"
     goto :Failed
 )
 
 if not exist "%TARGET%\src\main" (
-    echo [错误] 找不�?TargetProject:
+    echo [ERROR] TargetProject not found:
     echo        %TARGET%\src\main
     echo.
-    echo 请确�?TheOutput\TargetProject 工程存在�?
-    echo [错误] Target not found >> "%LOG%"
+    echo Please ensure TheOutput\TargetProject exists.
+    echo [ERROR] Target not found >> "%LOG%"
     goto :Failed
 )
 
-echo [信息] �? %EXPORT%
-echo [信息] 目标: %TARGET%
+echo [INFO] FROM: %EXPORT%
+echo [INFO] TO:   %TARGET%
 echo.
 
 call :DoRobocopy "%EXPORT%\src\main\assets" "%TARGET%\src\main\assets" "src\main\assets"
@@ -63,43 +65,46 @@ call :DoRobocopy "%EXPORT%\src\main\jniStaticLibs" "%TARGET%\src\main\jniStaticL
 if errorlevel 8 goto :Failed
 
 if not exist "!PAG_SRC!\build.gradle" (
-    echo [警告] 导出目录�?pagBridge，改�?Assets 中的版本...
+    echo [WARN] Export has no pagBridge, fallback to Assets...
     set "PAG_SRC=!PAG_FALLBACK!"
 )
 
 if not exist "!PAG_SRC!\build.gradle" (
-    echo [错误] 找不�?pagBridge.androidlib
+    echo [ERROR] pagBridge.androidlib not found
     echo        Export: %EXPORT%\pagBridge.androidlib
     echo        Assets: %PAG_FALLBACK%
     goto :Failed
 )
 
-echo [信息] 拷贝 pagBridge.androidlib（跳�?build 目录�?..
+echo [INFO] copy pagBridge.androidlib (skip build)...
 if not exist "%PAG_DST%" mkdir "%PAG_DST%"
 robocopy "!PAG_SRC!" "%PAG_DST%" /E /XD build .gradle /R:2 /W:5 /NFL /NDL /NJH /NJS
 set "RC=!ERRORLEVEL!"
 if !RC! geq 8 (
-    echo [错误] pagBridge 拷贝失败，错误码 !RC!
-    echo        请关�?Android Studio / Unity 后重试�?
+    echo [ERROR] pagBridge copy failed, code !RC!
+    echo        Close Android Studio / Unity and retry.
     goto :Failed
 )
-echo [完成] pagBridge.androidlib
+echo [OK] pagBridge.androidlib
 echo [OK] pagBridge >> "%LOG%"
+
+call :SyncLauncherIdentity
+if errorlevel 1 goto :Failed
 
 dir /b "%TARGET%\libs\libpag-*.aar" >nul 2>&1
 if not errorlevel 1 (
-    echo [警告] unityLibrary\libs 下有 libpag AAR，请删除，只保留 pagBridge.androidlib\libs 里的一�?
+    echo [WARN] libpag AAR under unityLibrary\libs - remove it, keep only pagBridge.androidlib\libs
 )
 
 echo.
 echo ========================================
-echo   [成功] 拷贝完成
+echo   [SUCCESS] copy finished
 echo ========================================
 echo.
-echo 下一�? 关闭 Android Studio，运�?
+echo Next: close Android Studio, run
 echo   Tools\AndroidBuild\build_android_debug.bat
 echo.
-echo 日志: %LOG%
+echo Log: %LOG%
 echo [OK] copy finished >> "%LOG%"
 if /i not "%~1"=="nopause" pause
 exit /b 0
@@ -110,31 +115,47 @@ set "DST=%~2"
 set "LABEL=%~3"
 
 if not exist "%SRC%" (
-    echo [错误] 导出目录缺少文件�? %SRC%
-    echo [错误] missing %LABEL% >> "%LOG%"
+    echo [ERROR] missing export folder: %SRC%
+    echo [ERROR] missing %LABEL% >> "%LOG%"
     exit /b 16
 )
 
-echo [信息] 拷贝 %LABEL% ...
+echo [INFO] copy %LABEL% ...
 if not exist "%DST%" mkdir "%DST%"
 robocopy "%SRC%" "%DST%" /MIR /R:2 /W:5 /NFL /NDL /NJH /NJS
 set "RC=!ERRORLEVEL!"
 if !RC! geq 8 (
-    echo [错误] %LABEL% 拷贝失败，错误码 !RC!
-    echo        文件可能被占用，请关�?Android Studio / Unity 后重试�?
-    echo [错误] robocopy %LABEL% code !RC! >> "%LOG%"
+    echo [ERROR] %LABEL% copy failed, code !RC!
+    echo        File may be locked. Close Android Studio / Unity and retry.
+    echo [ERROR] robocopy %LABEL% code !RC! >> "%LOG%"
     exit /b 16
 )
-echo [完成] %LABEL%
+echo [OK] %LABEL%
 echo [OK] %LABEL% >> "%LOG%"
+exit /b 0
+
+:SyncLauncherIdentity
+rem Sync display name (strings.xml) and package id (applicationId + manifest package)
+rem Keep Target launcher customizations (permissions / minSdk / version* etc.)
+
+echo [INFO] sync launcher app_name + applicationId ...
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0sync_launcher_identity.ps1" -ExportLauncher "%EXPORT_LAUNCHER%" -TargetLauncher "%TARGET_LAUNCHER%"
+if errorlevel 1 (
+    echo [ERROR] sync launcher identity failed
+    echo [ERROR] sync launcher identity failed >> "%LOG%"
+    exit /b 1
+)
+
+echo [OK] launcher strings.xml + applicationId + manifest package
+echo [OK] launcher identity >> "%LOG%"
 exit /b 0
 
 :Failed
 echo.
 echo ========================================
-echo   [失败] 拷贝未成�?
+echo   [FAILED] copy not completed
 echo ========================================
-echo 请查看上方错误信息，或打开日志: %LOG%
+echo Check errors above, or open log: %LOG%
 echo.
 if /i not "%~1"=="nopause" pause
 exit /b 1
