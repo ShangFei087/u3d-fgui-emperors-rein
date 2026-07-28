@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1178">
+  <displayList>
+    <component id="n0_ze4v" name="n0" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="23,140">
+      <property target="key" propertyId="0" value="主题名称 :"/>
+      <property target="value" propertyId="0" value="财富"/>
+    </component>
+    <component id="n1_ze4v" name="n1" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="23,42">
+      <property target="key" propertyId="0" value="软件版本:"/>
+      <property target="value" propertyId="0" value="财富"/>
+    </component>
+    <component id="n2_ze4v" name="n2" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="23,238">
+      <property target="key" propertyId="0" value="App  Key:"/>
+      <property target="value" propertyId="0" value="财富"/>
+    </component>
+    <component id="n3_ze4v" name="n3" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="23,336">
+      <property target="key" propertyId="0" value="算法版本:"/>
+      <property target="value" propertyId="0" value="财富"/>
+    </component>
+    <component id="n4_ze4v" name="n4" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="23,434">
+      <property target="key" propertyId="0" value="硬件版本:"/>
+      <property target="value" propertyId="0" value="财富"/>
+    </component>
+  </displayList>
+</component>

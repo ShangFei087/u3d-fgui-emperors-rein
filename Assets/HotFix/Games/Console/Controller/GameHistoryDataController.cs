@@ -128,7 +128,9 @@ public class GameHistoryDataController : MonoBehaviour
         long startTimestamp = (long)(startOfDay.Subtract(new DateTime(1970, 1, 1))).TotalSeconds * 1000;
         long endTimestamp = (long)(endOfDay.Subtract(new DateTime(1970, 1, 1))).TotalSeconds * 1000;
 
-        // 先查询总记录数
+        int viewMax = DefaultSettingsUtils.defMaxGameRecordView;
+
+        // 先查询总记录数（后台仅展示最近 viewMax 条）
         string countSql = $@"
             SELECT COUNT(*) FROM {ConsoleTableName.TABLE_SLOT_GAME_RECORD} 
             WHERE game_id = {gameId} 
@@ -139,18 +141,22 @@ public class GameHistoryDataController : MonoBehaviour
         {
             if (countReader.Read())
             {
-                totalRecordCount = countReader.GetInt32(0);
+                int dbCount = countReader.GetInt32(0);
+                totalRecordCount = Mathf.Min(dbCount, viewMax);
                 totalPageCount = totalRecordCount; // 每页一条，所以页数等于记录数
-                curPageIndex = Mathf.Clamp(pageIndex, 0, totalPageCount - 1);
+                curPageIndex = totalPageCount > 0
+                    ? Mathf.Clamp(pageIndex, 0, totalPageCount - 1)
+                    : 0;
             }
 
-            // 查询所有记录
+            // 仅加载后台可查看的最近记录
             string allSql = $@"
                 SELECT * FROM {ConsoleTableName.TABLE_SLOT_GAME_RECORD} 
                 WHERE game_id = {gameId} 
                 AND created_at >= {startTimestamp}
                 AND created_at <= {endTimestamp}
-                ORDER BY created_at DESC";
+                ORDER BY created_at DESC
+                LIMIT {viewMax}";
 
             SQLiteAsyncHelper.Instance.ExecuteQueryAsync(allSql, null, (SqliteDataReader sdr) =>
             {

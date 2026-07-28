@@ -106,7 +106,8 @@ public class MetaSystemManager : MonoSingleton<MetaSystemManager>
     /// <summary>
     /// 测试菜单「游戏记录打印」
     /// event_data JSON：
-    /// last_count：缺省、≤0 表示导出该 game_id 在库中的**全部**记录；指定正数时仅导出最近 N 条（按 id 从新到旧取 N 条后再按时间升序写出）。
+    /// last_count：缺省或 ≤0 时按 <see cref="DefaultSettingsUtils.defMaxGameRecordExport"/>（默认 150000）导出最近 N 条；
+    /// 指定正数时仅导出最近 N 条（按 id 从新到旧取 N 条后再按时间升序写出）。
     /// game_id：≥0 为指定机台；缺省或 -1 表示用「当前 MainModel.gameID」；若当前未进机台（gameID&lt;0）则自动用库中最新一条记录的 game_id；
     /// credit_divisor（默认 1）、
     /// col_a：label（默认：仅 赢/输/免费/大奖/彩金 五种）/ id / row_index、
@@ -129,7 +130,7 @@ public class MetaSystemManager : MonoSingleton<MetaSystemManager>
             return;
         }
 
-        int? maxExportRows = null;
+        int maxExportRows = DefaultSettingsUtils.defMaxGameRecordExport;
         if (jo["last_count"] != null && jo["last_count"].Type != JTokenType.Null)
         {
             var v = (int)jo["last_count"];
@@ -197,11 +198,8 @@ public class MetaSystemManager : MonoSingleton<MetaSystemManager>
 
         void DoExport(int gid)
         {
-            string sql;
-            if (maxExportRows.HasValue)
-            {
-                var n = maxExportRows.Value;
-                sql = $@"
+            var n = maxExportRows;
+            string sql = $@"
 SELECT id, game_id, total_bet, credit_before, credit_after, base_game_win_credit, free_spin_win_credit, bonus_game_win_credit, jackpot_win_credit, total_win_credit, jackpot_type, open_type, result_type, free_curtime, free_totaltime, created_at
 FROM (
   SELECT id, game_id, total_bet, credit_before, credit_after, base_game_win_credit, free_spin_win_credit, bonus_game_win_credit, jackpot_win_credit, total_win_credit, jackpot_type, open_type, result_type, free_curtime, free_totaltime, created_at
@@ -211,15 +209,6 @@ FROM (
   LIMIT {n}
 ) t
 ORDER BY id ASC";
-            }
-            else
-            {
-                sql = $@"
-SELECT id, game_id, total_bet, credit_before, credit_after, base_game_win_credit, free_spin_win_credit, bonus_game_win_credit, jackpot_win_credit, total_win_credit, jackpot_type, open_type, result_type, free_curtime, free_totaltime, created_at
-FROM {table}
-WHERE game_id = {gid}
-ORDER BY id ASC";
-            }
 
             SQLiteAsyncHelper.Instance.ExecuteQueryAsync(sql, (DataTable dt) =>
             {

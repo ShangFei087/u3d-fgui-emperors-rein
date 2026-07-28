@@ -40,6 +40,10 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         EventCenter.Instance.AddEventListener<string>(SBoxEventHandle.SBOX_IDEA_VERSION, OnResponseGetAlgorithmVersion);
         EventCenter.Instance.AddEventListener<string>(SBoxEventHandle.SBOX_SANDBOX_VERSION, OnResponseGetHardwareVersion);
 
+        //== 算法区域/难度（区域只读跟随算法）
+        EventCenter.Instance.AddEventListener<AlgoMetaInfo>(SBoxEventHandle.SBOX_ALGO_META_INFO, OnResponseGetAlgoMetaInfo);
+        EventCenter.Instance.AddEventListener<int>(SBoxEventHandle.SBOX_ALGO_SET_REGION_LEVEL, OnResponseSetAlgoRegionLevel);
+
         //== 用户密码
         EventCenter.Instance.AddEventListener<SBoxPermissionsData>(SBoxEventHandle.SBOX_CHECK_PASSWORD, OnResponseCheckPassword);
         EventCenter.Instance.AddEventListener<SBoxPermissionsData>(SBoxEventHandle.SBOX_CHANGE_PASSWORD, OnResponseChangePassword);
@@ -81,6 +85,10 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         // 版本
         EventCenter.Instance.RemoveEventListener<string>(SBoxEventHandle.SBOX_IDEA_VERSION, OnResponseGetAlgorithmVersion);
         EventCenter.Instance.RemoveEventListener<string>(SBoxEventHandle.SBOX_SANDBOX_VERSION, OnResponseGetHardwareVersion);
+
+        // 算法区域/难度
+        EventCenter.Instance.RemoveEventListener<AlgoMetaInfo>(SBoxEventHandle.SBOX_ALGO_META_INFO, OnResponseGetAlgoMetaInfo);
+        EventCenter.Instance.RemoveEventListener<int>(SBoxEventHandle.SBOX_ALGO_SET_REGION_LEVEL, OnResponseSetAlgoRegionLevel);
 
         // 用户密码
         EventCenter.Instance.RemoveEventListener<SBoxPermissionsData>(SBoxEventHandle.SBOX_CHECK_PASSWORD, OnResponseCheckPassword);
@@ -386,6 +394,44 @@ public partial class MachineDataManager02: ProxyHelper<MachineDataManager02>
         return seqId;
     }
     void OnResponseGetAlgorithmVersion(string res) => OnResponse(SBoxEventHandle.SBOX_IDEA_VERSION, res);
+
+    /// <summary>获取算法区域/难度元信息（20207）；区域仅由此刷新</summary>
+    public int RequestGetAlgoMetaInfo(Action<object> successCallback, Action<BagelCodeError> errorCallback, string mark = null)
+    {
+        int seqId = OnRequestBefore(SBoxEventHandle.SBOX_ALGO_META_INFO, null, successCallback, errorCallback, mark);
+
+        if (isMock)
+        {
+            OnMockGetAlgoMetaInfo(null);
+        }
+        else
+        {
+            SBoxIdea.GetAlgoMetaInfo();
+        }
+        return seqId;
+    }
+    void OnResponseGetAlgoMetaInfo(AlgoMetaInfo res) => OnResponse(SBoxEventHandle.SBOX_ALGO_META_INFO, res);
+
+    /// <summary>
+    /// 仅修改算法难度档位（20209）。区域固定使用当前 algoRegion，前端不可改区域。
+    /// </summary>
+    /// <param name="level">难度档位 1~5</param>
+    public int RequestSetAlgoLevel(int level, Action<object> successCallback, Action<BagelCodeError> errorCallback, string mark = null)
+    {
+        int region = SBoxModel.Instance.algoRegion;
+        int seqId = OnRequestBefore(SBoxEventHandle.SBOX_ALGO_SET_REGION_LEVEL, level, successCallback, errorCallback, mark);
+
+        if (isMock)
+        {
+            OnMockSetAlgoRegionLevel(region, level);
+        }
+        else
+        {
+            SBoxIdea.SetAlgoRegionLevel(region, level);
+        }
+        return seqId;
+    }
+    void OnResponseSetAlgoRegionLevel(int res) => OnResponse(SBoxEventHandle.SBOX_ALGO_SET_REGION_LEVEL, res);
 
     /// <summary> 请求配置 </summary>
     public int RequestReadConf(Action<object> successCallback, Action<BagelCodeError> errorCallback, string mark = null)

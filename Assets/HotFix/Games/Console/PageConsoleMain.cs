@@ -8,13 +8,19 @@ using System;
 
 namespace ConsoleSlot01
 {
+    /// <summary>
+    /// 后台控制台主菜单页。
+    /// 负责密码校验、按权限显示菜单项，并跳转到各功能子页面。
+    /// </summary>
     public class PageConsoleMain : PageBase
     {
         public const string pkgName = "Console";
         public const string resName = "PageConsoleMain";
         public override PageType pageType => PageType.Overlay;
 
-
+        /// <summary>
+        /// 页面初始化：等待资源就绪后执行 InitParam。
+        /// </summary>
         protected override void OnInit()
         {
             
@@ -35,12 +41,17 @@ namespace ConsoleSlot01
             callback();
         }
 
-
+        /// <summary>
+        /// 页面置顶时回调。
+        /// </summary>
         public override void OnTop()
         {
             DebugUtils.Log($"i am top ConsoleMainPage {this.name}");
         }
 
+        /// <summary>
+        /// 打开页面：关闭通用弹窗、初始化控件，并弹出密码校验。
+        /// </summary>
         public override void OnOpen(PageName name, EventData data)
         {
             base.OnOpen(name, data);
@@ -49,6 +60,10 @@ namespace ConsoleSlot01
             InitParam();
             OnChenkUser();
         }
+
+        /// <summary>
+        /// 语言切换时重建 UI，并重新绑定控件。
+        /// </summary>
         protected override void OnLanguageChange(I18nLang lang)
         {
             FguiI18nTextAssistant.Instance.DisposeAllTranslate(this.contentPane);
@@ -58,25 +73,23 @@ namespace ConsoleSlot01
             //FguiI18nTextAssistant.Instance.TranslateComponent(this.contentPane);
         }
 
+        /// <summary>左侧菜单列表</summary>
         GList glstMenu;
 
+        /// <summary>各功能入口按钮</summary>
         GButton btnGameInfo, btnBusinessRecord, btnGameHistory, btnLogRecord,
                 btnSettings, btnVolumeSetting, btnHardwareTest, btnTouchCallbrate,
                 btnTimeAndDate, btnLanguage, btnAdmin, btnExit;
 
+        /// <summary>密码校验期间的遮罩，防止误点菜单</summary>
         GObject goMaskDontClick;
 
-        int permissions = -1; //1：普通密码权限，2：管理员密码权限，3：超级管理员密码权限
-
-
-        //GButton btnSettingsCache, btnAdminCache;
-
-
-
-
-
-        
-
+        /// <summary>当前权限：-1 未校验；1 普通；2 管理员；3 超级管理员</summary>
+        int permissions = -1;
+        /// <summary>
+        /// 绑定菜单按钮事件。
+        /// Settings / Admin 先从列表移除，待权限通过后再按需加回。
+        /// </summary>
         public override void InitParam()
         {
 
@@ -90,6 +103,7 @@ namespace ConsoleSlot01
 
 
 
+            // Settings：从菜单取出缓存，权限校验通过后再显示
             GButton _btnSettings = glstMenu.GetChild("settings")?.asButton ?? null;
             if (_btnSettings != null)
             {
@@ -105,6 +119,7 @@ namespace ConsoleSlot01
             }
 
 
+            // Admin：从菜单取出缓存，仅超级管理员可见
             GButton _btnAdmin = glstMenu.GetChild("admin")?.asButton ?? null;
             if (_btnAdmin != null)
             {
@@ -169,6 +184,7 @@ namespace ConsoleSlot01
 
 
 
+
             btnExit = glstMenu.GetChild("exit").asButton;
             btnExit.onClick.Clear();
             btnExit.onClick.Add(OnClickExit);
@@ -176,7 +192,10 @@ namespace ConsoleSlot01
             NetMessageController.Instance.ResetConsoleJackpotDataRequestSession();
         }
 
-
+        /// <summary>
+        /// 弹出密码键盘并校验权限。
+        /// 校验成功后按权限显示 Settings / Admin；取消则退出控制台。
+        /// </summary>
         async void OnChenkUser()
         {
             goMaskDontClick.visible = true;
@@ -268,12 +287,14 @@ namespace ConsoleSlot01
             }
             else
             {
+                // 取消输入密码，直接退出控制台
                 OnClickExit();
             }
         }
 
-
-
+        /// <summary>
+        /// 根据当前语言设置语言按钮图标。
+        /// </summary>
         void SetLanguageIcon()
         {
             string url = "ui://Console/icon_lang_cn";
@@ -292,6 +313,10 @@ namespace ConsoleSlot01
             btnLanguage.GetChild("icon2").asLoader.url = url;
         }
 
+        /// <summary>
+        /// 按权限把 Settings / Admin 加回菜单（插在 Exit 之前）。
+        /// permissions &gt;= 2 显示 Settings；== 3 显示 Admin。
+        /// </summary>
         void CheckPermissions()
         {
             if (SBoxModel.Instance.curPermissions >= 2)
@@ -304,6 +329,9 @@ namespace ConsoleSlot01
             }
         }
 
+        /// <summary>
+        /// 密码错误：提示后重新弹出密码键盘。
+        /// </summary>
         void OnCheckUserError()
         {
             OnChenkUser();
@@ -328,19 +356,27 @@ namespace ConsoleSlot01
             });
         }
 
+        /// <summary>打开游戏信息页</summary>
         void OnClickGameInfo() => PageManager.Instance.OpenPage(PageName.ConsolePageConsoleGameInformation);
 
+        /// <summary>打开营业记录页</summary>
         void OnClickBusinessRecord() => PageManager.Instance.OpenPage(PageName.ConsolePageConsoleBusinessRecord);
 
+        /// <summary>打开机器设置页</summary>
         void OnClickSettings() => PageManager.Instance.OpenPage(PageName.ConsolePageConsoleMachineSettings);
-        //void OnClickSettings() => PageManager.Instance.OpenPage(PageName.ConsolePageConsoleSettingsMenu); 
 
-        void OnClickHardwareTest() => PageManager.Instance.OpenPage(PageName.ConsolePageConsoleHardware);
+        /// <summary>打开硬件测试页</summary>
+        void OnClickHardwareTest() => PageManager.Instance.OpenPage(PageName.ConsolePopupConsoleAdmin);
 
+        /// <summary>管理员入口</summary>
+        void OnClickAdmin() => PageManager.Instance.OpenPage(PageName.ConsolePageConsoleHardware);
 
-        void OnClickAdmin() { }
+        /// <summary>打开触屏校准页</summary>
         void OnClickTouchCallbrate() => PageManager.Instance.OpenPage(PageName.ConsolePageDrawLine);
 
+        /// <summary>
+        /// 退出控制台：清空权限并关闭本页。
+        /// </summary>
         void OnClickExit()
         {
             SBoxModel.Instance.curPermissions = -1;
@@ -348,6 +384,9 @@ namespace ConsoleSlot01
             PageManager.Instance.ClosePage(this);
         }
 
+        /// <summary>
+        /// 打开日历弹窗设置日期时间。
+        /// </summary>
         async void OnClickTimeDate()
         {
             EventData res = await PageManager.Instance.OpenPageAsync(PageName.ConsolePopupConsoleCalendar);
@@ -367,11 +406,18 @@ namespace ConsoleSlot01
             }
         }
 
+        /// <summary>打开音量设置弹窗</summary>
         void OnClickSound()=> PageManager.Instance.OpenPage(PageName.ConsolePopupConsoleSound);
 
+        /// <summary>打开日志记录页</summary>
         void OnClickLogRecord() => PageManager.Instance.OpenPage(PageName.ConsolePageConsoleLogRecord);
 
+        /// <summary>打开游戏历史页</summary>
         void OnClickGameHistory() => PageManager.Instance.OpenPage(PageName.ConsolePageConsoleGameHistory);
+
+        /// <summary>
+        /// 打开语言选择弹窗；切换语言后刷新权限菜单与语言图标。
+        /// </summary>
         async void OnClickLanguage()
         {
 
@@ -415,6 +461,7 @@ namespace ConsoleSlot01
                     SBoxModel.Instance.language = selectNumber; 
                     MachineDeviceCommonBiz.Instance.CheckLanguage();
 
+                    // 等待语言资源切换完成后再刷新 UI
                     MaskPopupHandler.Instance.OpenPopup();
                     Timers.inst.Add(2, 1, (data) =>
                     {

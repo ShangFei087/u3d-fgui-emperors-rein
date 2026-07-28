@@ -16,7 +16,7 @@ public class TabSettingsMachineController
 
     bool _isSubscribed;
 
-    GButton btnAgentID, btnMachineID,
+    GButton btnAgentID, btnMachineID, btnGameDifficulty,
         btnChangePwdShift, btnChangePwdManager, btnChangePwdAdmin,
         btnMaxCoinInOutRecord, btnMaxGameRecord, btnMaxEventRecord, btnMaxErrorRecord, btnMaxBusinessDayRecord,
         btnCoding;
@@ -24,7 +24,7 @@ public class TabSettingsMachineController
 
     GComponent cmpBetAllowed;
 
-    GRichTextField rtxtDifficulty;
+    //GRichTextField rtxtDifficulty;
 
     /// 修改用户密码
     ChangePasswordController adminChangePwdCtrl = new ChangePasswordController(UserType.Admin);
@@ -40,8 +40,8 @@ public class TabSettingsMachineController
         _comp = comp;
 
 
-        rtxtDifficulty = _comp.GetChild("difficulty").asCom.GetChild("value").asRichTextField;
-        rtxtDifficulty.text = SBoxModel.Instance.DifficultyName;
+        //rtxtDifficulty = _comp.GetChild("difficulty").asCom.GetChild("value").asRichTextField;
+        //rtxtDifficulty.text = SBoxModel.Instance.DifficultyName;
 
 
         btnAgentID = _comp.GetChild("agentID").asCom.GetChild("value").asButton;
@@ -51,6 +51,12 @@ public class TabSettingsMachineController
         btnMachineID = _comp.GetChild("machineID").asCom.GetChild("value").asButton;
         btnMachineID.onClick.Clear();
         btnMachineID.onClick.Add(OnClickAgentIDMachineID);
+
+        btnGameDifficulty = _comp.GetChild("gameDifficulty").asCom.GetChild("value").asButton;
+        btnGameDifficulty.onClick.Clear();
+        btnGameDifficulty.onClick.Add(OnClickGameDifficulty);
+        RefreshGameDifficultyDisplay();
+        RequestRefreshAlgoMeta();
 
         btnMaxCoinInOutRecord = _comp.GetChild("maxCoinInOutRecord").asCom.GetChild("value").asButton;
         btnMaxCoinInOutRecord.onClick.Clear();
@@ -374,11 +380,92 @@ public class TabSettingsMachineController
                 }
 
             }
-
-
         }
 
 
+    }
+
+    /// <summary>
+    /// 点击修改游戏难度。区域只跟随算法，前端不可改；仅可改 level(1~5)。
+    /// </summary>
+    async void OnClickGameDifficulty()
+    {
+        var names = SBoxModel.Instance.CurrentDifficultyNames;
+        var selectLst = new Dictionary<string, string>();
+        for (int i = 0; i < names.Count; i++)
+            selectLst.Add((i + 1).ToString(), names[i]); // key = level 1~5
+
+        string cur = SBoxModel.Instance.algoLevel.ToString();
+
+        Func<string, string> getSelectedDes = (number) =>
+        {
+            if (selectLst.ContainsKey(number))
+                return string.Format(I18nMgr.T("Selected: {0}"), selectLst[number]);
+            return number;
+        };
+
+        EventData res = await PageManager.Instance.OpenPageAsync(
+            PageName.ConsolePopupConsoleChoose001,
+            new EventData<Dictionary<string, object>>("",
+                new Dictionary<string, object>()
+                {
+                    ["title"] = I18nMgr.T("Game Difficulty"),
+                    ["selectLst"] = selectLst,
+                    ["selectNumber"] = cur,
+                    ["getSelectedDes"] = getSelectedDes,
+                }));
+
+        if (res?.value == null)
+            return;
+
+        if (!int.TryParse((string)res.value, out int level) || level < 1 || level > 5)
+            return;
+
+        if (level == SBoxModel.Instance.algoLevel)
+            return;
+
+        // 区域固定用当前 algoRegion，仅提交 level
+        MachineDataManager02.Instance.RequestSetAlgoLevel(level,
+            (retObj) =>
+            {
+                int ret = 0;
+                if (retObj is int)
+                    ret = (int)retObj;
+                if (ret == 1)
+                {
+                    SBoxModel.Instance.algoLevel = level;
+                    RefreshGameDifficultyDisplay();
+                    TipPopupHandler.Instance.OpenPopup(I18nMgr.T("Successfully saved"));
+                }
+                else
+                {
+                    TipPopupHandler.Instance.OpenPopup(I18nMgr.T("Save failed"));
+                }
+            },
+            (err) =>
+            {
+                TipPopupHandler.Instance.OpenPopup(I18nMgr.T(err?.msg ?? "Save failed"));
+            });
+    }
+
+    void RefreshGameDifficultyDisplay()
+    {
+        if (btnGameDifficulty != null)
+            btnGameDifficulty.title = SBoxModel.Instance.DifficultyName;
+    }
+
+    /// <summary>从算法刷新区域/难度展示；区域只读跟随算法</summary>
+    void RequestRefreshAlgoMeta()
+    {
+        MachineDataManager02.Instance.RequestGetAlgoMetaInfo((res) =>
+        {
+            SBoxModel.Instance.ApplyAlgoMetaInfo(res as AlgoMetaInfo);
+            RefreshGameDifficultyDisplay();
+        }, (err) =>
+        {
+            DebugUtils.LogError($"{SBoxEventHandle.SBOX_ALGO_META_INFO} : {err?.msg}");
+            RefreshGameDifficultyDisplay();
+        });
     }
 
     /// <summary>
