@@ -68,13 +68,16 @@ public partial class ApplicationSettings : ScriptableObjectSingleton<Application
     public bool isUseProtectApplication = false;
 
     [Tooltip("平台名称")]
-    public string platformName = "EmperorsRein200";
+    public string platformName = "Treasury";
 
-    [Tooltip("主题名称")]
-    public string gameTheme = "EMPERORS REIN";
+    [Tooltip("主题名称：仅 Treasury / Savage")]
+    public string gameTheme = "Treasury";
+
+    [Tooltip("启动页 FGUI 组件名（Native 包内，如 TreasuryPageLaunch / PageLaunch）；空则按 gameTheme 推断")]
+    public string launchFguiName = "TreasuryPageLaunch";
 
     [Tooltip("代理商名")]
-    public string agentName = "EmperorsRein200";
+    public string agentName = "Treasury";
 
     // 平台yyyddmmhhmmss + 6为随机码？？
     // 平台_yyyddmmhhmms

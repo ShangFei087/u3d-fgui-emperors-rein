@@ -18,13 +18,13 @@ public class Loader : MonoBehaviour
         PageLaunch.Instance.Open();
 
         OnLoadingBefore();
-
+        // 热更
         yield return VersionCheck002.Instance.DoHotfix(null);
 
         Debug.Log($"autoHotfixUrl = {GlobalData.autoHotfixUrl}");
         Debug.Log($"hofixKey = {GlobalData.hotfixKey}");
         Debug.Log($"hofixVersion = {GlobalData.hotfixVersion}");
-
+        //RemoveProgress清掉热更阶段mark
         PageLaunch.Instance.RemoveProgress(LoadingProgress.COPY_SA_HOTFIX_DLL);
         PageLaunch.Instance.RemoveProgress(LoadingProgress.COPY_SA_ASSET_BUNDLE);
         PageLaunch.Instance.RemoveProgress(LoadingProgress.CHECK_COPY_TEMP_HOTFIX_FILE);
@@ -82,7 +82,7 @@ public class Loader : MonoBehaviour
         OpenMain();
     }
 
-    /// <summary> 加载前 </summary>
+    /// <summary> 加载前 关垂直同步、30 FPS；Release 下关掉 Reporter</summary>
     void OnLoadingBefore()
     {
         QualitySettings.vSyncCount = 0;

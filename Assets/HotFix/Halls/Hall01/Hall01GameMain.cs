@@ -83,6 +83,29 @@ namespace Hall01
             };
         }
 
+        /// <summary>
+        /// 并行预载三张卡牌对应子游戏的 PopupGameLoading，全部就绪后再打开 Hall01（启动、从子游戏返回等入口应调用本方法而非直接 OpenPage）。
+        /// </summary>
+        public static void OpenHall01AfterCardGameLoadingPreloads()
+        {
+            const int total = 3;
+            int completed = 0;
+            void OnOnePreloadDone()
+            {
+                completed++;
+                if (completed < total)
+                {
+                    return;
+                }
+                PageLaunch.Instance.Close(2f);
+                PageManager.Instance.OpenPage(PageName.Hall01);
+            }
+
+            PageManager.Instance.PreloadPage(PageName.CaiFuZhiJiaPopupGameLoading, OnOnePreloadDone);
+            PageManager.Instance.PreloadPage(PageName.XingYunZhiLunPopupGameLoading, OnOnePreloadDone);
+            PageManager.Instance.PreloadPage(PageName.CaiFuZhiMenPopupGameLoading, OnOnePreloadDone);
+        }
+
         public override void OnOpen(PageName name, EventData data)
         {
             base.OnOpen(name, data);

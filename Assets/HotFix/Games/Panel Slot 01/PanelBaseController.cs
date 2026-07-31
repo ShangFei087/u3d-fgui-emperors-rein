@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using SoundKey = GameMaker.SoundKey;
-using TreasuryHall;
 
 enum PopState
 {
@@ -748,7 +747,10 @@ namespace SlotMaker
                     break;
             }
 
-            TreasuryHallMain.OpenTreasuryHallMainAfterCardGameLoadingPreloads();
+            if (ThemeRuntime.HasCurrent)
+                ThemeRuntime.Current.ReturnToHall();
+            else
+                Debug.LogError($"[PanelBaseController] ThemeRuntime 无当前 IThemeEntry: {ThemeRuntime.SelectedKind}，无法返回大厅");
         }
 
         protected virtual void OnPropertyChange(EventData res = null)

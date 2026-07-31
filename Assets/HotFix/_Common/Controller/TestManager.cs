@@ -196,33 +196,15 @@ public class TestManager : Singleton<TestManager>
         btnApply.onClick.Clear();
         btnApply.onClick.Add(OnClickApplyDebug);
 
-        // cwy 新增
+        // cwy 新增：项目列表来自当前 ThemeProfile.gameIds 与 Loading 映射
         GComponent selectProjectMenu = goOwnerTestMgr.GetChild("selectProject").asCom;
         GList lstProject = selectProjectMenu.GetChild("menu").asList;
-        List<int> projectNumber = new List<int>()
-        {
-            1700,
-            3996,
-            3997,
-            3998,
-            3999
-        };
-        List<PageName> openPageNames = new List<PageName>()
-        {
-            PageName.SlotZhuZaiJinBiPopupGameLoading,
-            PageName.CaiFuHuoChePopupGameLoading,
-            PageName.CaiFuZhiJiaPopupGameLoading,
-            PageName.XingYunZhiLunPopupGameLoading,
-            PageName.CaiFuZhiMenPopupGameLoading
-        };
-        List<int> openPageId = new List<int>()
-        {
-            1700,
-            3996,
-            3997,
-            3998,
-            3999
-        };
+        ThemeProfile themeProfile = ThemeRuntime.Profile;
+        List<int> projectNumber = new List<int>(themeProfile.GameIds);
+        List<int> openPageId = new List<int>(themeProfile.GameIds);
+        List<PageName> openPageNames = new List<PageName>(openPageId.Count);
+        for (int gi = 0; gi < openPageId.Count; gi++)
+            openPageNames.Add(themeProfile.GetLoadingPage(openPageId[gi]));
 
         List<PageName> resetPageNames = new List<PageName>()
         {
@@ -294,7 +276,10 @@ public class TestManager : Singleton<TestManager>
                         PageManager.Instance.pageCacheDict[resetPageNames[j]].IsOpen())
                         PageManager.Instance.ClosePage(resetPageNames[j]);
                 }
-                PageManager.Instance.ClosePage(PageName.TreasuryHallMain);
+                if (ThemeRuntime.HasCurrent)
+                    ThemeRuntime.Current.CloseHall();
+                else
+                    PageManager.Instance.ClosePage(ThemeRuntime.Profile.CloseHallPageName);
 
                 selectProjectMenu.visible = false;
                 if (!ApplicationSettings.Instance.isMock)

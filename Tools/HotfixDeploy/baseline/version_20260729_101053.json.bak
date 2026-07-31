@@ -1,10 +1,10 @@
 {
-  "updated_at": 1785403322120,
-  "hotfix_key": "hf_debug_android_20260729115024",
-  "hotfix_version": "1.4.3",
+  "updated_at": 1785145866922,
+  "hotfix_key": "hf_debug_android_20260723180116",
+  "hotfix_version": "1.2.4",
   "asset_bundle": {
     "manifest": {
-      "hash": "7cb12f827079fa4617a96be7734842c1",
+      "hash": "f28f70d29d31eafd2d2202624689f042",
       "size_bytes": 27605
     },
     "bundle_hash": {
@@ -474,7 +474,7 @@
       "games/console/abs/lang_cn.unity3d": "6d42faabe75a47649192c09826aa8e55",
       "games/console/abs/lang_en.unity3d": "12084f16feb1bd9b5f0d78468a3753b1",
       "games/console/abs/lang_tw.unity3d": "3f8adcf116e6d625f843d9a3fa65d852",
-      "games/console/fguis.unity3d": "90c3c01801b01fc6f87e4797ff295e93",
+      "games/console/fguis.unity3d": "78e60b398a5cf668d28c994f9fa64135",
       "games/emperors rein 200/abs/datas/slot_machine_config_bouns1.unity3d": "b7bdf4772671474e955d5a7883d9e43d",
       "games/emperors rein 200/abs/datas/slot_machine_config_temp.unity3d": "6b732135677815a2defb0eba50dcc545",
       "games/emperors rein 200/fguis.unity3d": "1b21c72cf6b098e70edc06f72543e63c",
@@ -820,7 +820,7 @@
       "games/xing yun zhi lun 3998/newspineandeffect/effect/smallgame/art/effects/prefabs/eff_zhuanpan_high.unity3d": "f54b81bfdf0476bc6a3a12d665db2dcd",
       "games/xing yun zhi lun 3998/prefabs/effects/firework.unity3d": "b2680736f8973caf9c5de750e634a00d",
       "games/xing yun zhi lun 3998/prefabs/effects/reeleffect.unity3d": "d3c2d005bb929604069959f59dc5b573",
-      "games/xing yun zhi lun 3998/prefabs/game controller/slot game main controllerclone.unity3d": "777394487aeca71134f8fc23967e0e7e",
+      "games/xing yun zhi lun 3998/prefabs/game controller/slot game main controllerclone.unity3d": "2f94ddfedac3b496e3c19d461d300b3d",
       "games/xing yun zhi lun 3998/prefabs/gamebgeffect/bigwin.unity3d": "8bdd6b73396c74343db3c6a9a02cd487",
       "games/xing yun zhi lun 3998/prefabs/gamebgeffect/freebg.unity3d": "eca492c027457d8a55211e65e1fcc3f6",
       "games/xing yun zhi lun 3998/prefabs/gamebgeffect/norbg.unity3d": "db6ab2f085684c9f1e60f3dc7617cbcf",
@@ -958,12 +958,12 @@
   },
   "hotfix_dll": {
     "Base": {
-      "hash": "e50a56631870c8a021f53943559a73f4",
+      "hash": "1c614d5907470413844222f9e6389198",
       "size_bytes": 169984
     },
     "HotFix": {
-      "hash": "1483f8687a95aaf782042aa4c9368cb1",
-      "size_bytes": 2110976
+      "hash": "ca3d67c8df2aecf534a2a061c1aec657",
+      "size_bytes": 2107904
     }
   },
   "hotfix_dll_load_order": [
