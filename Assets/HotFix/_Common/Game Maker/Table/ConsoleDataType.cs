@@ -86,7 +86,7 @@ public class TableBetItem
 
     public static async Task<TableBetItem[]> DefaultTable()
     {
-        DebugUtils.LogError($"@@ ConfigUtils.curGameInfoURL = {ConfigUtils.curGameInfoURL}");
+        DebugUtils.Log($"@@ ConfigUtils.curGameInfoURL = {ConfigUtils.curGameInfoURL}");
 
         TextAsset jsn = await ResourceManager02.Instance.LoadAssetAsync<TextAsset>(ConfigUtils.curGameInfoURL);
 

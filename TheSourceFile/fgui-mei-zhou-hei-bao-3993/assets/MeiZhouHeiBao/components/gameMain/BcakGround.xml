@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <loader id="n1_mxrk" name="normalBG" xy="0,0" size="1080,1920" url="ui://tdk27maez14g1b" align="center" vAlign="middle" autoSize="true"/>
+  </displayList>
+</component>

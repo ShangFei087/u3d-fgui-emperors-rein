@@ -128,7 +128,20 @@ namespace SBoxApi
         public long NetJackpotPool;          // Jackpot 
     }
 
-        public partial class SBoxIdea
+    /// <summary>20207 算法版本与机台调控元信息</summary>
+    public class AlgoMetaInfo
+    {
+        public int ret;           // 1 成功，0 读机台配置失败
+        public int region;        // 1=国内，2=海外
+        public int NetJackpot;    // 0/1
+        public int level;         // 1~5
+        public int AlgoVerMain;
+        public int AlgoVerSub;
+        public int AlgoVerFix;
+    }
+
+
+    public partial class SBoxIdea
     {
         static string version = "1.0.0";
         public static SBoxIdeaInfo SBoxInfo => sBoxInfo;
@@ -868,6 +881,125 @@ namespace SBoxApi
             }
 
             EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_TABLECONTROLPOOL_INFO, tablecontrolpoolInfo);
+        }
+
+        /**
+        *  @brief    获取算法版本号20207
+        *  @details  data=[ret, region, NetJackpot, level, AlgoVerMain, AlgoVerSub, AlgoVerFix]
+        */
+        public static void GetAlgoMetaInfo()
+        {
+            Debug.Log("SBoxIdea 20207");
+
+            SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20207, source: 1, target: 2, size: 1);
+            sBoxPacket.data[0] = 1;
+
+            SBoxIOEvent.AddListener(sBoxPacket.cmd, GetAlgoMetaInfoR);
+            SBoxIOStream.Write(sBoxPacket);
+        }
+
+        private static void GetAlgoMetaInfoR(SBoxPacket sBoxPacket)
+        {
+            AlgoMetaInfo info = new AlgoMetaInfo();
+
+            try
+            {
+                if (sBoxPacket == null || sBoxPacket.data == null || sBoxPacket.data.Length < 1)
+                {
+                    Debug.LogError("GetAlgoMetaInfoR: invalid packet data.");
+                    EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_ALGO_META_INFO, info);
+                    return;
+                }
+
+                info.ret = sBoxPacket.data[0];
+                if (info.ret == 1 && sBoxPacket.data.Length >= 7)
+                {
+                    info.region = sBoxPacket.data[1];
+                    info.NetJackpot = sBoxPacket.data[2];
+                    info.level = sBoxPacket.data[3];
+                    info.AlgoVerMain = sBoxPacket.data[4];
+                    info.AlgoVerSub = sBoxPacket.data[5];
+                    info.AlgoVerFix = sBoxPacket.data[6];
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"GetAlgoMetaInfoR exception: {e}");
+            }
+
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_ALGO_META_INFO, info);
+        }
+
+        /**
+        *  @brief    重置算法信息20208
+        *  @details  清五池/窗口/自适应/覆盖与 20205 统计，保留区域与难度并写回 Flash
+        */
+        public static void ResetAlgoRegulation()
+        {
+            Debug.Log("SBoxIdea 20208");
+
+            SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20208, source: 1, target: 2, size: 1);
+            sBoxPacket.data[0] = 1;
+
+            SBoxIOEvent.AddListener(sBoxPacket.cmd, ResetAlgoRegulationR);
+            SBoxIOStream.Write(sBoxPacket);
+        }
+
+        private static void ResetAlgoRegulationR(SBoxPacket sBoxPacket)
+        {
+            try
+            {
+                if (sBoxPacket == null || sBoxPacket.data == null || sBoxPacket.data.Length < 1)
+                {
+                    Debug.LogError("ResetAlgoRegulationR: invalid packet data.");
+                    EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_ALGO_RESET, sBoxPacket);
+                    return;
+                }
+
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"ResetAlgoRegulationR exception: {e}");
+            }
+
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_ALGO_RESET, sBoxPacket.data[0]);
+        }
+
+        /**
+        *  @brief    修改算法区域/难度20209
+        *  @param    region 1=国内，2=海外
+        *  @param    level  1~5
+        *  @details  与 C 侧一致：仅支持 data=[region, level]；成功后已落盘
+*/
+        public static void SetAlgoRegionLevel(int region, int level)
+        {
+            Debug.Log($"SBoxIdea 20209 region={region} level={level}");
+
+            SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20209, source: 1, target: 2, size: 2);
+            sBoxPacket.data[0] = region;
+            sBoxPacket.data[1] = level;
+
+            SBoxIOEvent.AddListener(sBoxPacket.cmd, SetAlgoRegionLevelR);
+            SBoxIOStream.Write(sBoxPacket);
+        }
+
+        private static void SetAlgoRegionLevelR(SBoxPacket sBoxPacket)
+        {
+            try
+            {
+                if (sBoxPacket == null || sBoxPacket.data == null || sBoxPacket.data.Length < 1)
+                {
+                    Debug.LogError("SetAlgoRegionLevelR: invalid packet data.");
+                    EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_ALGO_SET_REGION_LEVEL, sBoxPacket);
+                    return;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"SetAlgoRegionLevelR exception: {e}");
+            }
+
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_ALGO_SET_REGION_LEVEL, sBoxPacket.data[0]);
         }
 
     }

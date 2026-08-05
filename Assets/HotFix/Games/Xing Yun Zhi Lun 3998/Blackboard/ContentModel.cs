@@ -172,10 +172,8 @@ namespace XingYunZhiLun_3998
         /// <summary> 赢线 </summary>
         public List<SymbolWin> winList;
 
-
         /// <summary> 大奖变盘后赢线（BonusIDVec，Wild/礼盒） </summary>
         public List<SymbolWin> bonusWinList = new List<SymbolWin>();
-
 
         /// <summary> 触发特殊游戏时免费图标的个数 </summary>
         public int scatterCount = 0;
@@ -547,6 +545,7 @@ namespace XingYunZhiLun_3998
 
         ///<summary> 中奖之后最高的列数据 </summary>
         public int maxLink;
+
 
         ///<summary> 免费游戏中新出现的Wild元素的所有列信息 </summary>
         public List<int> tempRows = new List<int>();

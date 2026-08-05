@@ -1,14 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="tdk27mae">
   <resources>
-    <component id="s9re0" name="PageGameMain.xml" path="/"/>
-    <component id="s9re1" name="PopupFreeSpinResult.xml" path="/"/>
-    <component id="s9re2" name="PopupFreeSpinTrigger.xml" path="/"/>
-    <component id="s9re3" name="PopupGameLoading.xml" path="/"/>
-    <component id="s9re4" name="PopupSmallGameResult.xml" path="/"/>
-    <component id="s9re5" name="PopupSmallGameTrigger.xml" path="/"/>
-    <component id="s9re6" name="PopupSmallGameJackpotWin.xml" path="/"/>
-    <component id="s9re7" name="PopupBigWin.xml" path="/"/>
+    <component id="s9re0" name="PageGameMain.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="s9re1" name="PopupFreeSpinResult.xml" path="/" exported="true"/>
+    <component id="s9re2" name="PopupFreeSpinTrigger.xml" path="/" exported="true"/>
+    <component id="s9re3" name="PopupGameLoading.xml" path="/" exported="true"/>
+    <component id="s9re4" name="PopupSmallGameResult.xml" path="/" exported="true"/>
+    <component id="s9re5" name="PopupSmallGameTrigger.xml" path="/" exported="true"/>
+    <component id="s9re6" name="PopupSmallGameJackpotWin.xml" path="/" exported="true"/>
+    <component id="s9re7" name="PopupBigWin.xml" path="/" exported="true"/>
+    <image id="z14g8" name="big win.png" path="/images/Rendering/"/>
+    <image id="z14g9" name="普通游戏_05.png" path="/images/Rendering/"/>
+    <image id="z14ga" name="普通游戏_04.png" path="/images/Rendering/"/>
+    <image id="z14gb" name="普通游戏_03.png" path="/images/Rendering/"/>
+    <image id="z14gc" name="普通游戏_02.png" path="/images/Rendering/"/>
+    <image id="z14gd" name="普通游戏.png" path="/images/Rendering/"/>
+    <image id="z14ge" name="免费游戏结算框.png" path="/images/Rendering/"/>
+    <image id="z14gf" name="免费游戏次数提示框.png" path="/images/Rendering/"/>
+    <image id="z14gg" name="普通游戏→免费游戏.png" path="/images/Rendering/"/>
+    <image id="z14gh" name="免费游戏.png" path="/images/Rendering/"/>
+    <image id="z14gi" name="彩金游戏结算提示框.png" path="/images/Rendering/"/>
+    <image id="z14gj" name="彩金游戏.png" path="/images/Rendering/"/>
+    <image id="z14gk" name="super win.png" path="/images/Rendering/"/>
+    <image id="z14gl" name="MINOR.png" path="/images/Rendering/"/>
+    <image id="z14gm" name="MINI.png" path="/images/Rendering/"/>
+    <image id="z14gn" name="mega win.png" path="/images/Rendering/"/>
+    <image id="z14go" name="MAJOR.png" path="/images/Rendering/"/>
+    <image id="z14gp" name="获得彩金游戏提示框.png" path="/images/Rendering/"/>
+    <image id="z14gq" name="普通游戏转场.png" path="/images/Rendering/"/>
+    <image id="z14gs" name="ng_btn_Exhibition  Mode Off.png" path="/images/gameMain/normal/" exported="true"/>
+    <image id="z14gt" name="ng_btn_Exhibition  Mode On.png" path="/images/gameMain/normal/" exported="true"/>
+    <image id="z14gu" name="ng_btn_On the button.png" path="/images/gameMain/normal/" exported="true"/>
+    <image id="z14gv" name="ng_img_Base plate.png" path="/images/gameMain/normal/" exported="true"/>
+    <image id="z14gw" name="ng_img_Normal game interface.png" path="/images/gameMain/normal/" exported="true"/>
+    <image id="z14gx" name="ng_img_plant_01.png" path="/images/gameMain/normal/" exported="true"/>
+    <image id="z14gy" name="ng_img_plant_02.png" path="/images/gameMain/normal/" exported="true"/>
+    <image id="z14gz" name="ng_img_plant_03.png" path="/images/gameMain/normal/" exported="true"/>
+    <image id="z14g10" name="ng_img_Top roller frame_MAJOR.png" path="/images/gameJackpot/" exported="true"/>
+    <image id="z14g11" name="ng_img_Top roller frame_MINI.png" path="/images/gameJackpot/" exported="true"/>
+    <image id="z14g12" name="ng_img_Top roller frame_MINOR.png" path="/images/gameJackpot/" exported="true"/>
+    <image id="z14g13" name="ng_num_winning line_25.png" path="/images/gameMain/normal/" exported="true"/>
+    <image id="z14g14" name="ng_txt_Bonus Tips_MAJOR.png" path="/images/gameJackpot/" exported="true"/>
+    <image id="z14g15" name="ng_txt_Bonus Tips_MINI.png" path="/images/gameJackpot/" exported="true"/>
+    <image id="z14g16" name="ng_txt_Bonus Tips_MINOR.png" path="/images/gameJackpot/" exported="true"/>
+    <image id="z14g17" name="ng_num_dot.png" path="/images/gameJackpot/FontGameJackpot/" exported="true"/>
+    <image id="z14g18" name="ng_num_dollar.png" path="/images/gameJackpot/FontGameJackpot/" exported="true"/>
+    <image id="z14g19" name="ng_num_com.png" path="/images/gameJackpot/FontGameJackpot/" exported="true"/>
+    <image id="z14g1a" name="ng_num_9.png" path="/images/gameJackpot/FontGameJackpot/" exported="true"/>
+    <image id="z14g1b" name="ng_bg_Horizontal board background.png" path="/images/gameMain/normal/" exported="true"/>
+    <image id="z14g1o" name="ng_num_8.png" path="/images/gameJackpot/FontGameJackpot/" exported="true"/>
+    <image id="z14g21" name="ng_num_7.png" path="/images/gameJackpot/FontGameJackpot/" exported="true"/>
+    <image id="z14g22" name="ng_num_5.png" path="/images/gameJackpot/FontGameJackpot/" exported="true"/>
+    <image id="z14g2q" name="ng_num_4.png" path="/images/gameJackpot/FontGameJackpot/" exported="true"/>
+    <image id="z14g2r" name="ng_num_3.png" path="/images/gameJackpot/FontGameJackpot/" exported="true"/>
+    <image id="z14g2s" name="ng_num_2.png" path="/images/gameJackpot/FontGameJackpot/" exported="true"/>
+    <image id="z14g2t" name="ng_num_1.png" path="/images/gameJackpot/FontGameJackpot/" exported="true"/>
+    <image id="z14g2u" name="ng_num_0.png" path="/images/gameJackpot/FontGameJackpot/" exported="true"/>
+    <image id="z14g2z" name="ng_num_6.png" path="/images/gameJackpot/FontGameJackpot/" exported="true"/>
+    <image id="z14g3c" name="fg_num_00.png" path="/images/gameMain/free/1/" exported="true"/>
+    <image id="z14g3d" name="sg_num_UI text for times prompt_dollar.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
+    <image id="z14g3e" name="fg_num_Black Panther Icon Collection UI_10.png" path="/images/gameMain/free/右部分数字/" exported="true"/>
+    <image id="z14g3f" name="fg_num_Black Panther Icon Collection UI_18.png" path="/images/gameMain/free/右部分数字/" exported="true"/>
+    <image id="z14g3g" name="fg_num_Black Panther Icon Collection UI_28.png" path="/images/gameMain/free/右部分数字/" exported="true"/>
+    <image id="z14g3h" name="fg_num_Black Panther Icon Collection UI_4.png" path="/images/gameMain/free/右部分数字/" exported="true"/>
+    <image id="z14g3j" name="fg_num_Black Panther Icon Collection UI_1.png" path="/images/gameMain/free/FontFreeCollect/" exported="true"/>
+    <image id="z14g3k" name="fg_num_Black Panther Icon Collection UI_2.png" path="/images/gameMain/free/FontFreeCollect/" exported="true"/>
+    <image id="z14g3l" name="fg_num_Black Panther Icon Collection UI_3.png" path="/images/gameMain/free/FontFreeCollect/" exported="true"/>
+    <image id="z14g3m" name="fg_num_Black Panther Icon Collection UI_4.png" path="/images/gameMain/free/FontFreeCollect/" exported="true"/>
+    <image id="z14g3n" name="fg_num_Black Panther Icon Collection UI_5.png" path="/images/gameMain/free/FontFreeCollect/" exported="true"/>
+    <image id="z14g3o" name="fg_num_Black Panther Icon Collection UI_6.png" path="/images/gameMain/free/FontFreeCollect/" exported="true"/>
+    <image id="z14g3p" name="fg_num_Black Panther Icon Collection UI_7.png" path="/images/gameMain/free/FontFreeCollect/" exported="true"/>
+    <image id="z14g3q" name="fg_num_Black Panther Icon Collection UI_8.png" path="/images/gameMain/free/FontFreeCollect/" exported="true"/>
+    <image id="z14g3r" name="fg_num_Remaining game attempts_dot.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
+    <image id="z14g3s" name="fg_num_Black Panther Icon Collection UI_9.png" path="/images/gameMain/free/FontFreeCollect/" exported="true"/>
+    <image id="z14g3t" name="fg_num_Black Panther Icon Collection UI_dollar.png" path="/images/gameMain/free/FontFreeCollect/" exported="true"/>
+    <image id="z14g3u" name="fg_num_Black Panther Icon Collection UI_dot.png" path="/images/gameMain/free/FontFreeCollect/" exported="true"/>
+    <image id="z14g47" name="fg_num_Black Panther Icon Collection UI_com.png" path="/images/gameMain/free/FontFreeCollect/" exported="true"/>
+    <image id="z14g48" name="fg_num_Remaining game attempts_com.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
+    <image id="z14g49" name="fg_num_Black Panther Icon Collection UI_0.png" path="/images/gameMain/free/FontFreeCollect/" exported="true"/>
+    <image id="z14g4a" name="fg_num_Remaining game attempts_08.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
+    <image id="z14g4b" name="fg_num_01.png" path="/images/gameMain/free/1/" exported="true"/>
+    <image id="z14g4c" name="fg_num_02.png" path="/images/gameMain/free/1/" exported="true"/>
+    <image id="z14g4d" name="fg_num_03.png" path="/images/gameMain/free/1/" exported="true"/>
+    <image id="z14g4e" name="fg_num_04.png" path="/images/gameMain/free/1/" exported="true"/>
+    <image id="z14g4f" name="fg_num_05.png" path="/images/gameMain/free/1/" exported="true"/>
+    <image id="z14g4g" name="fg_num_06.png" path="/images/gameMain/free/1/" exported="true"/>
+    <image id="z14g4h" name="fg_num_07.png" path="/images/gameMain/free/1/" exported="true"/>
+    <image id="z14g4i" name="fg_num_08.png" path="/images/gameMain/free/1/" exported="true"/>
+    <image id="z14g4j" name="fg_num_09.png" path="/images/gameMain/free/1/" exported="true"/>
+    <image id="z14g4k" name="fg_num_Free game settlement prompt box_00.png" path="/images/gameMain/free/免费游戏结算框/" exported="true"/>
+    <image id="z14g4l" name="fg_num_Free game settlement prompt box_01.png" path="/images/gameMain/free/免费游戏结算框/" exported="true"/>
+    <image id="z14g4m" name="fg_num_Free game settlement prompt box_02.png" path="/images/gameMain/free/免费游戏结算框/" exported="true"/>
+    <image id="z14g4n" name="fg_num_Remaining game attempts_09.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
+    <image id="z14g4o" name="fg_num_Free game settlement prompt box_03.png" path="/images/gameMain/free/免费游戏结算框/" exported="true"/>
+    <image id="z14g4p" name="fg_num_Free game settlement prompt box_04.png" path="/images/gameMain/free/免费游戏结算框/" exported="true"/>
+    <image id="z14g4r" name="fg_num_Free game settlement prompt box_06.png" path="/images/gameMain/free/免费游戏结算框/" exported="true"/>
+    <image id="z14g4s" name="fg_num_Free game settlement prompt box_07.png" path="/images/gameMain/free/免费游戏结算框/" exported="true"/>
+    <image id="z14g4t" name="fg_num_Remaining game attempts_07.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
+    <image id="z14g4u" name="fg_num_Remaining game attempts_06.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
+    <image id="z14g4v" name="fg_num_Remaining game attempts_05.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
+    <image id="z14g4w" name="fg_num_Remaining game attempts_04.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
+    <image id="z14g4x" name="fg_num_Free game settlement prompt box_08.png" path="/images/gameMain/free/免费游戏结算框/" exported="true"/>
+    <image id="z14g4y" name="fg_num_Remaining game attempts_03.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
+    <image id="z14g4z" name="fg_num_Remaining game attempts_02.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
+    <image id="z14g50" name="fg_num_Remaining game attempts_01.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
+    <image id="z14g51" name="fg_num_Remaining game attempts_00.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
+    <image id="z14g52" name="ng_num_Free game settlement prompt box_dollar.png" path="/images/gameMain/free/免费游戏结算框/" exported="true"/>
+    <image id="z14g53" name="fg_num_Free game settlement prompt box_dot.png" path="/images/gameMain/free/免费游戏结算框/" exported="true"/>
+    <image id="z14g54" name="fg_num_Free game settlement prompt box_com.png" path="/images/gameMain/free/免费游戏结算框/" exported="true"/>
+    <image id="z14g55" name="fg_num_Free game settlement prompt box_05.png" path="/images/gameMain/free/免费游戏结算框/" exported="true"/>
+    <image id="z14g56" name="fg_num_Free game settlement prompt box_09.png" path="/images/gameMain/free/免费游戏结算框/" exported="true"/>
+    <image id="z14g5l" name="sg_num_UI text for times prompt_00.png" path="/images/gameMain/reward/剩余旋转次数提示框/" exported="true"/>
+    <image id="z14g5m" name="fg_num_settlement prompt box_dot.png" path="/images/gameMain/reward/彩金游戏结算提示框/" exported="true"/>
+    <image id="z14g5n" name="fg_num_settlement prompt box__dollar.png" path="/images/gameMain/reward/彩金游戏结算提示框/" exported="true"/>
+    <image id="z14g5o" name="fg_num_settlement prompt box_00.png" path="/images/gameMain/reward/彩金奖项中奖框/" exported="true"/>
+    <image id="z14g5p" name="fg_num_settlement prompt box_01.png" path="/images/gameMain/reward/彩金奖项中奖框/" exported="true"/>
+    <image id="z14g5q" name="fg_num_settlement prompt box_02.png" path="/images/gameMain/reward/彩金奖项中奖框/" exported="true"/>
+    <image id="z14g5r" name="fg_num_settlement prompt box_03.png" path="/images/gameMain/reward/彩金奖项中奖框/" exported="true"/>
+    <image id="z14g5s" name="fg_num_settlement prompt box_04.png" path="/images/gameMain/reward/彩金奖项中奖框/" exported="true"/>
+    <image id="z14g5t" name="fg_num_settlement prompt box_05.png" path="/images/gameMain/reward/彩金奖项中奖框/" exported="true"/>
+    <image id="z14g5u" name="fg_num_settlement prompt box_com.png" path="/images/gameMain/reward/彩金游戏结算提示框/" exported="true"/>
+    <image id="z14g5v" name="fg_num_settlement prompt box_06.png" path="/images/gameMain/reward/彩金奖项中奖框/" exported="true"/>
+    <image id="z14g5w" name="fg_num_settlement prompt box_08.png" path="/images/gameMain/reward/彩金奖项中奖框/" exported="true"/>
+    <image id="z14g5x" name="fg_num_settlement prompt box_09.png" path="/images/gameMain/reward/彩金奖项中奖框/" exported="true"/>
+    <image id="z14g5y" name="fg_num_settlement prompt box_com.png" path="/images/gameMain/reward/彩金奖项中奖框/" exported="true"/>
+    <image id="z14g5z" name="fg_num_settlement prompt box_dot.png" path="/images/gameMain/reward/彩金奖项中奖框/" exported="true"/>
+    <image id="z14g60" name="fg_num_settlement prompt box__dollar.png" path="/images/gameMain/reward/彩金奖项中奖框/" exported="true"/>
+    <image id="z14g61" name="sg_num_25.png" path="/images/gameMain/reward/" exported="true"/>
+    <image id="z14g62" name="sg_img_Times reminder_UI_SPINS LEFT.png" path="/images/gameMain/reward/" exported="true"/>
+    <image id="z14g63" name="sg_img_Normal game interface.png" path="/images/gameMain/reward/" exported="true"/>
+    <image id="z14g64" name="fg_num_settlement prompt box_07.png" path="/images/gameMain/reward/彩金奖项中奖框/" exported="true"/>
+    <image id="z14g65" name="fg_num_settlement prompt box_09.png" path="/images/gameMain/reward/彩金游戏结算提示框/" exported="true"/>
+    <image id="z14g66" name="fg_num_settlement prompt box_08.png" path="/images/gameMain/reward/彩金游戏结算提示框/" exported="true"/>
+    <image id="z14g67" name="fg_num_settlement prompt box_07.png" path="/images/gameMain/reward/彩金游戏结算提示框/" exported="true"/>
+    <image id="z14g68" name="sg_num_UI text for times prompt_01.png" path="/images/gameMain/reward/剩余旋转次数提示框/" exported="true"/>
+    <image id="z14g69" name="sg_num_UI text for times prompt_02.png" path="/images/gameMain/reward/剩余旋转次数提示框/" exported="true"/>
+    <image id="z14g6a" name="sg_num_UI text for times prompt_03.png" path="/images/gameMain/reward/剩余旋转次数提示框/" exported="true"/>
+    <image id="z14g6b" name="sg_num_UI text for times prompt_04.png" path="/images/gameMain/reward/剩余旋转次数提示框/" exported="true"/>
+    <image id="z14g6c" name="sg_num_UI text for times prompt_05.png" path="/images/gameMain/reward/剩余旋转次数提示框/" exported="true"/>
+    <image id="z14g6d" name="sg_num_UI text for times prompt_06.png" path="/images/gameMain/reward/剩余旋转次数提示框/" exported="true"/>
+    <image id="z14g6e" name="sg_num_UI text for times prompt_07.png" path="/images/gameMain/reward/剩余旋转次数提示框/" exported="true"/>
+    <image id="z14g6f" name="sg_num_UI text for times prompt_08.png" path="/images/gameMain/reward/剩余旋转次数提示框/" exported="true"/>
+    <image id="z14g6g" name="sg_num_UI text for times prompt_09.png" path="/images/gameMain/reward/剩余旋转次数提示框/" exported="true"/>
+    <image id="z14g6h" name="sg_num_UI text for times prompt_com.png" path="/images/gameMain/reward/剩余旋转次数提示框/" exported="true"/>
+    <image id="z14g6i" name="sg_num_UI text for times prompt_dollar.png" path="/images/gameMain/reward/剩余旋转次数提示框/" exported="true"/>
+    <image id="z14g6j" name="sg_num_UI text for times prompt_dot.png" path="/images/gameMain/reward/剩余旋转次数提示框/" exported="true"/>
+    <image id="z14g6k" name="fg_num_settlement prompt box_00.png" path="/images/gameMain/reward/彩金游戏结算提示框/" exported="true"/>
+    <image id="z14g6l" name="fg_num_settlement prompt box_01.png" path="/images/gameMain/reward/彩金游戏结算提示框/" exported="true"/>
+    <image id="z14g6m" name="fg_num_settlement prompt box_02.png" path="/images/gameMain/reward/彩金游戏结算提示框/" exported="true"/>
+    <image id="z14g6n" name="fg_num_settlement prompt box_03.png" path="/images/gameMain/reward/彩金游戏结算提示框/" exported="true"/>
+    <image id="z14g6o" name="fg_num_settlement prompt box_04.png" path="/images/gameMain/reward/彩金游戏结算提示框/" exported="true"/>
+    <image id="z14g6p" name="fg_num_settlement prompt box_05.png" path="/images/gameMain/reward/彩金游戏结算提示框/" exported="true"/>
+    <image id="z14g6q" name="fg_num_settlement prompt box_06.png" path="/images/gameMain/reward/彩金游戏结算提示框/" exported="true"/>
+    <image id="z14g6r" name="sg_img_Free Game Wheel Box.png" path="/images/gameMain/reward/" exported="true"/>
+    <image id="z14g6s" name="sg_img_Base plate.png" path="/images/gameMain/reward/" exported="true"/>
+    <component id="z14g6t" name="BcakGround.xml" path="/components/gameMain/" exported="true"/>
+    <component id="z14g6u" name="SlotMachine.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="z14g6v" name="OutFrame.xml" path="/components/gameMain/" exported="true"/>
+    <component id="z14g6w" name="SymbolAnimator.xml" path="/moudules/slotMachine/" exported="true"/>
+    <image id="z14g6x" name="fg_img_Base plate.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="z14g6y" name="fg_img_bird.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="z14g6z" name="fg_img_black panther.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="z14g70" name="fg_img_black panther_02.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="z14g71" name="fg_img_Crocodile.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="z14g72" name="fg_img_monkey.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="z14g73" name="fg_img_Normal game interface.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="z14g74" name="fg_img_Remaining Game Attempts Prompt_01.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="z14g75" name="fg_img_snake.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="z14g76" name="fg_num_25.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="z14g77" name="fg_txt_ALL TO.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="z14g78" name="fg_txt_FREE GAME.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="z14g79" name="fg_txt_OF.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="z14g7a" name="fg_txt_YOU GOT.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="z14g7b" name="ng_sym01_10.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="z14g7c" name="ng_sym02_J.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="z14g7d" name="ng_sym03_Q.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="z14g7e" name="ng_sym04_K.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="z14g7f" name="ng_sym05_A.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="z14g7g" name="ng_sym12_SCATTER.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="z14g7h" name="ng_sym11_WILD.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="z14g7i" name="ng_sym09_Crocodile.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="z14g7j" name="ng_sym10_BlackPanther.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="z14g7k" name="ng_sym08_Monkey.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="z14g7l" name="ng_sym15_GoldCoin_MAJOR.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="z14g7m" name="ng_sym14_GoldCoin_MINI.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="z14g7n" name="ng_sym16_GoldCoin_MINOR.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="z14g7o" name="ng_sym07_Bird.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="z14g7p" name="ng_sym06_Snake.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="z14g7q" name="ng_sym13_Bonus.png" path="/images/gameMain/symbol/" exported="true"/>
+    <component id="z14g7r" name="Symbol.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="z14g7s" name="Symbols.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="z14g7t" name="Reels.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="z14g7u" name="Reel.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="z14g7v" name="SlotCover.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="z14g7w" name="AnchorPlayLines.xml" path="/moudules/slotMachine/" exported="true"/>
+    <component id="z14g7x" name="AnchorPanelPush.xml" path="/components/gameMain/" exported="true"/>
+    <component id="e3wa7y" name="GameJackpotMajor.xml" path="/moudules/gameJackpot/" exported="true"/>
+    <font id="e3wa7z" name="FontGameJackpot.fnt" path="/Font/" exported="true"/>
+    <component id="e3wa80" name="GameJackpotNumReel.xml" path="/moudules/gameJackpot/" exported="true"/>
+    <component id="e3wa81" name="GameJackpotMinor.xml" path="/moudules/gameJackpot/" exported="true"/>
+    <component id="e3wa82" name="GameJackpotMini.xml" path="/moudules/gameJackpot/" exported="true"/>
+    <component id="e3wa83" name="Innerframe.xml" path="/components/gameMain/" exported="true"/>
+    <font id="e3wa84" name="1.fnt" path="/Font/" exported="true"/>
+    <font id="mxrk85" name="FontFreeCollect.fnt" path="/Font/" exported="true"/>
+    <font id="mxrk86" name="FontFreeSpinTime.fnt" path="/Font/" exported="true"/>
+    <image id="mxrk87" name="加载点.png" path="/images/popupGameLoading/testloading/" exported="true"/>
+    <image id="mxrk88" name="加载条.png" path="/images/popupGameLoading/testloading/" exported="true"/>
+    <image id="mxrk89" name="加载条01.png" path="/images/popupGameLoading/testloading/" exported="true"/>
+    <image id="mxrk8a" name="图层 1556.png" path="/images/popupGameLoading/testloading/" exported="true" scale="tile"/>
+    <image id="mxrk8b" name="gme_loading_mask.png" path="/images/popupGameLoading/testloading/" exported="true" scale="9grid" scale9grid="12,8,24,16"/>
+    <component id="mxrk8e" name="bar.xml" path="/components/popupGameLoading/" exported="true"/>
+    <component id="mxrk8f" name="Slider1_grip.xml" path="/components/popupGameLoading/"/>
+    <component id="mxrk8g" name="Slider1.xml" path="/components/popupGameLoading/"/>
+    <component id="mxrk8h" name="AnchorEffect.xml" path="/components/gameMain/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Mei Zhou Hei Bao 3993\FGUIs" packageCount="2"/>
 </packageDescription>

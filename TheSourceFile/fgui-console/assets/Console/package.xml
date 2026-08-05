@@ -213,6 +213,10 @@
     <component id="knk6az" name="PCBRTableJackpotOnlineHistory.xml" path="/tabs/" exported="true"/>
     <component id="knk6b0" name="ItemBonusTitle.xml" path="/moudules/" exported="true"/>
     <component id="knk6b1" name="ItemBonusData.xml" path="/moudules/" exported="true"/>
+    <component id="ze4vb3" name="PageConsoleAdmin.xml" path="/" exported="true"/>
+    <component id="ze4vb4" name="PCBRTabTableControl.xml" path="/tabs/Admin/" exported="true"/>
+    <component id="ze4vb5" name="PCBRTabInfoConrtol.xml" path="/tabs/Admin/" exported="true"/>
+    <component id="ze4vb6" name="PCBRTabDebugControl.xml" path="/tabs/Admin/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets/GameRes/Games/Console/FGUIs" packageCount="2" genCode="true">
     <atlas name="Default" index="0"/>

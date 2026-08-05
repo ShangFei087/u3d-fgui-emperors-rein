@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1000,625" overflow="hidden">
+  <displayList>
+    <component id="n1_z14g" name="reel1" src="z14g7u" fileName="moudules/slotMachine/Reel.xml" xy="-58,1"/>
+    <component id="n2_z14g" name="reel2" src="z14g7u" fileName="moudules/slotMachine/Reel.xml" xy="143,1"/>
+    <component id="n3_z14g" name="reel3" src="z14g7u" fileName="moudules/slotMachine/Reel.xml" xy="346,1"/>
+    <component id="n4_z14g" name="reel4" src="z14g7u" fileName="moudules/slotMachine/Reel.xml" xy="550,1"/>
+    <component id="n5_z14g" name="reel5" src="z14g7u" fileName="moudules/slotMachine/Reel.xml" xy="753,1"/>
+  </displayList>
+</component>

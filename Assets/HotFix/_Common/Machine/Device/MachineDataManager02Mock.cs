@@ -298,6 +298,29 @@ public partial class MachineDataManager02
         EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_IDEA_VERSION, "9.9.9");
     }
 
+    /// <summary>获取算法区域/难度；Mock 默认国内、level=3</summary>
+    void OnMockGetAlgoMetaInfo(object req)
+    {
+        var info = new AlgoMetaInfo()
+        {
+            ret = 1,
+            region = SBoxModel.RegionDomestic,
+            NetJackpot = 0,
+            level = SBoxModel.Instance.algoLevel > 0 ? SBoxModel.Instance.algoLevel : SBoxModel.DefaultAlgoLevel,
+            AlgoVerMain = 9,
+            AlgoVerSub = 9,
+            AlgoVerFix = 9,
+        };
+        EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_ALGO_META_INFO, info);
+    }
+
+    /// <summary>设置算法难度；区域沿用入参（由 RequestSetAlgoLevel 固定传当前 algoRegion）</summary>
+    void OnMockSetAlgoRegionLevel(int region, int level)
+    {
+        // Mock：直接成功；真实落盘由算法侧完成
+        EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_ALGO_SET_REGION_LEVEL, 1);
+    }
+
 
     /// <summary>获取硬件版本</summary>
     void OnMockSandboxVersion(object req)

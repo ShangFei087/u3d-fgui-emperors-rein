@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1178">
+  <displayList>
+    <text id="n4_ze4v" name="titleProb" xy="1,200" size="171,69" group="n6_ze4v" fontSize="30" color="#00ff33" align="center" vAlign="middle" leading="15" autoSize="none" text="输赢概率"/>
+    <text id="n3_ze4v" name="titleRTP" xy="1,378" size="168,69" group="n6_ze4v" fontSize="30" color="#00ff33" align="center" vAlign="middle" leading="15" autoSize="none" text="返还率"/>
+    <text id="n2_ze4v" name="titileControlInfo" xy="1,566" size="181,69" group="n6_ze4v" fontSize="30" color="#00ff33" align="center" vAlign="middle" leading="15" autoSize="none" text="调控信息"/>
+    <text id="n5_ze4v" name="titilePoolInfo" xy="3,925" size="177,69" group="n6_ze4v" fontSize="30" color="#00ff33" align="center" vAlign="middle" leading="15" autoSize="none" text="五池信息"/>
+    <group id="n6_ze4v" name="Title" xy="1,200" size="181,794"/>
+    <component id="n0_ze4v" name="TotalPlayTime" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="-1,0" group="n16_ze4v">
+      <property target="key" propertyId="0" value="总局数:"/>
+      <property target="value" propertyId="0" value="1000000"/>
+    </component>
+    <component id="n8_ze4v" name="WinScore" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="719,0" group="n16_ze4v">
+      <property target="key" propertyId="0" value="总赢分:"/>
+      <property target="value" propertyId="0" value="1000000"/>
+    </component>
+    <component id="n9_ze4v" name="PlayScore" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="359,0" group="n16_ze4v">
+      <property target="key" propertyId="0" value="总玩分:"/>
+      <property target="value" propertyId="0" value="1000000"/>
+    </component>
+    <component id="n10_ze4v" name="paidBase" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="-1,76" group="n16_ze4v">
+      <property target="key" propertyId="0" value="基础奖赢分:"/>
+      <property target="value" propertyId="0" value="1000000"/>
+    </component>
+    <component id="n11_ze4v" name="paidFree" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="359,76" group="n16_ze4v">
+      <property target="key" propertyId="0" value="免费奖赢分:"/>
+      <property target="value" propertyId="0" value="1000000"/>
+    </component>
+    <component id="n12_ze4v" name="paidBonus" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="-1,152" group="n16_ze4v">
+      <property target="key" propertyId="0" value="大奖赢分:"/>
+      <property target="value" propertyId="0" value="1000000"/>
+    </component>
+    <component id="n13_ze4v" name="paidJackpotBonus" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="719,76" group="n16_ze4v">
+      <property target="key" propertyId="0" value="彩金中的大奖赢分:"/>
+      <property target="value" propertyId="0" value="1000000"/>
+    </component>
+    <component id="n14_ze4v" name="paidJackpot" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="359,152" group="n16_ze4v">
+      <property target="key" propertyId="0" value="本地彩金赢分:"/>
+      <property target="value" propertyId="0" value="10000000000"/>
+    </component>
+    <component id="n15_ze4v" name="paidNetJackpot" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="719,152" group="n16_ze4v">
+      <property target="key" propertyId="0" value="联网彩金赢分:"/>
+      <property target="value" propertyId="0" value="1000000"/>
+    </component>
+    <group id="n16_ze4v" name="TaotalPlay" xy="-1,0" size="1080,228"/>
+    <component id="n17_ze4v" name="TotalProb" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="164,200" group="n24_ze4v">
+      <property target="key" propertyId="0" value="合计概率:"/>
+      <property target="value" propertyId="0" value="100.00%"/>
+    </component>
+    <component id="n18_ze4v" name="LoseProb" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="-1,249" group="n24_ze4v">
+      <property target="key" propertyId="0" value="输概率:"/>
+      <property target="value" propertyId="0" value="100.00%"/>
+    </component>
+    <component id="n19_ze4v" name="WinProb" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="359,249" group="n24_ze4v">
+      <property target="key" propertyId="0" value="赢概率 :"/>
+      <property target="value" propertyId="0" value="100.00%"/>
+    </component>
+    <component id="n20_ze4v" name="FreeGameProb" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="719,249" group="n24_ze4v">
+      <property target="key" propertyId="0" value="免费概率:"/>
+      <property target="value" propertyId="0" value="100.00%"/>
+    </component>
+    <component id="n21_ze4v" name="BonusGamesProb" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="-1,325" group="n24_ze4v">
+      <property target="key" propertyId="0" value="大奖概率:"/>
+      <property target="value" propertyId="0" value="100.00%"/>
+    </component>
+    <component id="n22_ze4v" name="JackpotProb" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="359,325" group="n24_ze4v">
+      <property target="key" propertyId="0" value="本地彩金概率 :"/>
+      <property target="value" propertyId="0" value="100.00%"/>
+    </component>
+    <component id="n23_ze4v" name="JackpotOnlineProb" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="719,325" group="n24_ze4v">
+      <property target="key" propertyId="0" value="联网彩金概率:"/>
+      <property target="value" propertyId="0" value="100.00%"/>
+    </component>
+    <group id="n24_ze4v" name="Prob" xy="-1,200" size="1080,201"/>
+    <component id="n25_ze4v" name="TotalRTP" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="161,378" group="n34_ze4v">
+      <property target="key" propertyId="0" value="总RTP :"/>
+      <property target="value" propertyId="0" value="99.20%"/>
+    </component>
+    <component id="n26_ze4v" name="TotalRTPByParts" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="521,378" group="n34_ze4v">
+      <property target="key" propertyId="0" value="合计RTP :"/>
+      <property target="value" propertyId="0" value="99.20%"/>
+    </component>
+    <component id="n27_ze4v" name="BaseRTP" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="2,431" group="n34_ze4v">
+      <property target="key" propertyId="0" value="赢RTP :"/>
+      <property target="value" propertyId="0" value="99.20%"/>
+    </component>
+    <component id="n28_ze4v" name="FreeRTP" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="362,431" group="n34_ze4v">
+      <property target="key" propertyId="0" value="免费RTP :"/>
+      <property target="value" propertyId="0" value="99.20%"/>
+    </component>
+    <component id="n29_ze4v" name="BounsRTP" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="722,431" group="n34_ze4v">
+      <property target="key" propertyId="0" value="大奖RTP :"/>
+      <property target="value" propertyId="0" value="99.20%"/>
+    </component>
+    <component id="n30_ze4v" name="JackpotRTP" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="2,507" group="n34_ze4v">
+      <property target="key" propertyId="0" value="本地彩金RTP :"/>
+      <property target="value" propertyId="0" value="99.20%"/>
+    </component>
+    <component id="n32_ze4v" name="JackpotOnlineRTP" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="362,507" group="n34_ze4v">
+      <property target="key" propertyId="0" value="联网彩金RTP :"/>
+      <property target="value" propertyId="0" value="99.20%"/>
+    </component>
+    <group id="n34_ze4v" name="RTP" xy="2,378" size="1080,205"/>
+    <component id="n33_ze4v" name="totalPass" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="184,564" group="n46_ze4v">
+      <property target="key" propertyId="0" value="总放行次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n35_ze4v" name="totalReject" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="544,564" group="n46_ze4v">
+      <property target="key" propertyId="0" value="总拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n36_ze4v" name="winRejectByTargetPool" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="-2,637" group="n46_ze4v">
+      <property target="key" propertyId="0" value="Base 因目标池不足被拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n37_ze4v" name="freeRejectByTargetPool" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="358,637" group="n46_ze4v">
+      <property target="key" propertyId="0" value="Free 因目标池不足被拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n38_ze4v" name="bonusRejectByTargetPool" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="718,637" group="n46_ze4v">
+      <property target="key" propertyId="0" value="Bonus 因目标池不足被拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n39_ze4v" name="jackpotRejectByTargetPool" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="-2,713" group="n46_ze4v">
+      <property target="key" propertyId="0" value="Jackpot 因目标池不足被拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n40_ze4v" name="freeRejectByRange" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="358,713" group="n46_ze4v">
+      <property target="key" propertyId="0" value="Free 因倍数区间不合法被拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n41_ze4v" name="bonusRejectByRange" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="718,713" group="n46_ze4v">
+      <property target="key" propertyId="0" value="Bonus 因倍数区间不合法被拒绝次数 ::"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n42_ze4v" name="jackpotRejectByRange" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="-2,789" group="n46_ze4v">
+      <property target="key" propertyId="0" value="Jackpot 因金额区间不合法被拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n43_ze4v" name="freeRejectByPassRate" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="358,789" group="n46_ze4v">
+      <property target="key" propertyId="0" value=" Free 因概率门拒绝次数:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n44_ze4v" name="bonusRejectByPassRate" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="718,789" group="n46_ze4v">
+      <property target="key" propertyId="0" value="Bonus 因概率门拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n45_ze4v" name="jackpotRejectByPassRate" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="-2,865" group="n46_ze4v">
+      <property target="key" propertyId="0" value="Jackpot 因概率门拒绝次数 :"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <group id="n46_ze4v" name="Control" xy="-2,564" size="1080,377"/>
+    <component id="n47_ze4v" name="gBasePool" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="-1,997" group="n52_ze4v">
+      <property target="key" propertyId="0" value="Base 目标池:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n48_ze4v" name="gFreePool" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="359,1073" group="n52_ze4v">
+      <property target="key" propertyId="0" value="免费目标池:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n49_ze4v" name="gBonusPool" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="719,997" group="n52_ze4v">
+      <property target="key" propertyId="0" value="大奖目标池:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n50_ze4v" name="gJackpotPool" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="-1,1073" group="n52_ze4v">
+      <property target="key" propertyId="0" value="本地彩金目标池:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <component id="n51_ze4v" name="gNetJackpotPool" src="g3lh56" fileName="moudules/ItemTitleName02.xml" xy="359,997" group="n52_ze4v">
+      <property target="key" propertyId="0" value="联网彩金目标池:"/>
+      <property target="value" propertyId="0" value="3000000"/>
+    </component>
+    <group id="n52_ze4v" name="Pool" xy="-1,997" size="1080,152"/>
+    <graph id="n53_ze4v" name="n53" xy="0,210" size="1080,2" group="n57_ze4v" type="rect" lineColor="#ffffffff"/>
+    <graph id="n54_ze4v" name="n54" xy="0,381" size="1080,2" group="n57_ze4v" type="rect" lineColor="#ffffffff"/>
+    <graph id="n55_ze4v" name="n55" xy="0,574" size="1080,2" group="n57_ze4v" type="rect" lineColor="#ffffffff"/>
+    <graph id="n56_ze4v" name="n56" xy="0,924" size="1080,2" group="n57_ze4v" type="rect" lineColor="#ffffffff"/>
+    <group id="n57_ze4v" name="n57" xy="0,210" size="1080,716"/>
+  </displayList>
+</component>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="300,625">
+  <displayList>
+    <component id="n0_z14g" name="symbols" src="z14g7s" fileName="moudules/slotMachine/Symbols.xml" xy="0,0"/>
+  </displayList>
+</component>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <text id="n0_title" name="title" xy="40,40" size="1000,60" fontSize="40" align="center" vAlign="middle" autoSize="none" text="Test Hall"/>
+    <list id="n1_list" name="listGames" xy="40,140" size="1000,1700" layout="flow_hz" overflow="scroll" lineGap="24" colGap="24" defaultItem="ui://acfuneo0p8j80" align="center" autoClearItems="true"/>
+  </displayList>
+</component>

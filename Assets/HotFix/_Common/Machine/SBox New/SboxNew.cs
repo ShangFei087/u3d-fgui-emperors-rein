@@ -40,5 +40,8 @@ namespace SBoxApi
         public const string SBOX_TABLECONTROLPOOL_INFO = "SBOX_TABLECONTROLPOOL_INFO";  //算法卡调控五池信息
         public const string SBOX_SWITCH_GAME = "SBOX_SWITCH_GAME";//切换游戏
         public const string SBOX_JACKPOT_ONLINE_GAME = "SBOX_JACKPOT_ONLINE_GAME";
+        public const string SBOX_ALGO_META_INFO = "SBOX_ALGO_META_INFO";          // 20207 获取算法版本/区域/难度
+        public const string SBOX_ALGO_RESET = "SBOX_ALGO_RESET";                    // 20208 重置算法信息
+        public const string SBOX_ALGO_SET_REGION_LEVEL = "SBOX_ALGO_SET_REGION_LEVEL"; // 20209 修改区域/难度
     }
 }

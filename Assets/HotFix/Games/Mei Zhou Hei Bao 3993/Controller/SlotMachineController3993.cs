@@ -28,8 +28,7 @@ namespace MeiZhouHeiBao_3993
         /// <param name="gExpectation"></param>
         /// <param name="fGuiPoolHelper"></param>
         /// <param name="gObjectPoolHelper"></param>
-        public void Init(GComponent gSlotCover, GComponent gPayLines, GComponent gReels, GComponent gExpectation,
-            FguiPoolHelper fGuiPoolHelper, FguiGObjectPoolHelper gObjectPoolHelper)
+        public void Init(GComponent gSlotCover, GComponent gPayLines, GComponent gReels, GComponent gExpectation,FguiPoolHelper fGuiPoolHelper, FguiGObjectPoolHelper gObjectPoolHelper)
         {
             base.Init(CustomModel.Instance, gSlotCover, gPayLines, gReels, fGuiPoolHelper, gObjectPoolHelper);
             goExpectation = gExpectation;

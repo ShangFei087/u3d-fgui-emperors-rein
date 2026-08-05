@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<branchDescription/>
+<branchDescription>
+  <resources>
+    <image id="z14gm" name="txt_close.png" path="/images/exhibition/" exported="true"/>
+    <image id="z14gn" name="txt_open.png" path="/images/exhibition/" exported="true"/>
+  </resources>
+</branchDescription>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_z14g" name="n0" xy="0,0" size="1080,1920" visible="false" alpha="0" type="rect" lineSize="0" lineColor="#80000000" fillColor="#80000000"/>
+    <component id="n1_z14g" name="introduce" src="z14gy" fileName="moudules/payTable1/Introduce.xml" xy="203,1194"/>
+    <component id="n2_z14g" name="btnPrev" src="z14gw" fileName="moudules/payTable1/BtnNext.xml" xy="155,1632"/>
+    <component id="n3_z14g" name="btnNect" src="z14gw" fileName="moudules/payTable1/BtnNext.xml" xy="633,1638"/>
+    <component id="n4_z14g" name="btnBackGame" src="z14gx" fileName="moudules/payTable1/BtnBackGame.xml" xy="511,1630"/>
+  </displayList>
+</component>

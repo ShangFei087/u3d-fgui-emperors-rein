@@ -68,7 +68,7 @@ namespace XingYunZhiLun_3998
         private FguiGObjectPoolHelper gObjectPoolHelper;
 
         //转盘转速控制
-        private float rotateSpeed = 8;
+        private float rotateSpeed = 15;
         private bool isMain = true, isJackpot = false, JackpotFinish = false;
         private string JackpotType = "";
         private int winCredit = 0;
@@ -428,10 +428,12 @@ namespace XingYunZhiLun_3998
             gJackpotBg = contentPane.GetChild("HostAndGuest").asCom;
             freeTimes = contentPane.GetChild("FSFrame").asCom.GetChild("freeTimes").asTextField;
             freeTotalTimes = contentPane.GetChild("FSFrame").asCom.GetChild("totalTimes").asTextField;
+            if (bsTofs == null || fsTobs == null)
+            {
+                bsTofs = contentPane.GetTransition("BSToFS");
+                fsTobs = contentPane.GetTransition("FSToBS");
+            }
 
-            bsTofs = contentPane.GetTransition("BSToFS");
-            fsTobs = contentPane.GetTransition("FSToBS");
-            
             //彩金
             uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("jpMajor").asCom.GetChild("reels").asList, "N0");
             uiJPMinorCtrl.Init("Minor", this.contentPane.GetChild("jpMinor").asCom.GetChild("reels").asList, "N0");
@@ -453,11 +455,17 @@ namespace XingYunZhiLun_3998
 
             });
 
-            hideZhuanPan = contentPane.GetTransition("HideZhuanPan");
-            hideZhuanPan.ignoreEngineTimeScale = false;
+            if (hideZhuanPan == null)
+            {
+                hideZhuanPan = contentPane.GetTransition("HideZhuanPan");
+                hideZhuanPan.ignoreEngineTimeScale = false;
+            }
 
-            showZhuanPan = contentPane.GetTransition("ShowZhuanPan");
-            showZhuanPan.ignoreEngineTimeScale = false;
+            if(showZhuanPan == null)
+            {
+                showZhuanPan = contentPane.GetTransition("ShowZhuanPan");
+                showZhuanPan.ignoreEngineTimeScale = false; 
+            }
 
 
             // ---------- 7.预制体挂到 FGUI 锚点 ----------
@@ -797,6 +805,12 @@ namespace XingYunZhiLun_3998
             }
 
             //开始滚动
+            if (TestManager.Instance.IsAutoModeRunning)
+            {
+                slotMachineCtrl.isStopImmediately = true;
+                TestManager.Instance.RecordAutoModeSpin();
+            }
+
             slotMachineCtrl.BeginSpin();
 
             //是否加速滚动
@@ -872,10 +886,6 @@ namespace XingYunZhiLun_3998
                 {
                     totalWinLineCredit = slotMachineCtrl.GetTotalWinCredit(winList);
                     allWinCredit += totalWinLineCredit;
-
-                    //积分同步和退币处理
-                    slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
-
                     //yield return ShowWinListOnceAtNormalSpin(winList);
                     yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
                     yield return new WaitForSeconds(0.7f);
@@ -900,6 +910,10 @@ namespace XingYunZhiLun_3998
                         slotMachineCtrl.SkipWinLine(false);
                     }
                 }
+
+
+                //积分同步和退币处理
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
                 ////加钱动画
                 //MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
             }
@@ -930,7 +944,6 @@ namespace XingYunZhiLun_3998
                         ["callback"] = new Action(() =>
                         {
                             showZhuanPan.Play();
-                            ChangeWheelURL(0);
                         }),
                     }),
                     (res) =>
@@ -1039,7 +1052,6 @@ namespace XingYunZhiLun_3998
                         ["callback"] = new Action(() =>
                         {
                             showZhuanPan.Play();
-                            ChangeWheelURL(0);
                         }),
                     }),
                     (res) =>
@@ -1114,7 +1126,6 @@ namespace XingYunZhiLun_3998
                         ["callback"] = new Action(() =>
                         {
                             showZhuanPan.Play();
-                            ChangeWheelURL(0);
                         }),
                     }),
                     (res) =>
@@ -1188,7 +1199,6 @@ namespace XingYunZhiLun_3998
                         ["callback"] = new Action(() =>
                         {
                             showZhuanPan.Play();
-                            ChangeWheelURL(0);
                         }),
                     }),
                     (res) =>
@@ -1245,7 +1255,6 @@ namespace XingYunZhiLun_3998
                         ["callback"] = new Action(() =>
                         {
                             showZhuanPan.Play();
-                            ChangeWheelURL(0);
                         }),
                     }),
                     (res) =>
@@ -1318,7 +1327,7 @@ namespace XingYunZhiLun_3998
                 if (credit != SBoxModel.Instance.myCredit)
                 {
                     DebugUtils.LogError($"[G3998] 前后端积分不一致，算法卡={credit}，前端={SBoxModel.Instance.myCredit}");
-                    //return;
+                    return; 
                 }
 
                 isNext = true;
@@ -1464,7 +1473,6 @@ namespace XingYunZhiLun_3998
             bool isNext = false;
             isMain = false;
             freeTimes.text = (ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes).ToString();
-            freeTotalTimes.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
 
             if (!isConnectFreeSpin)
             {
@@ -1692,6 +1700,7 @@ namespace XingYunZhiLun_3998
         //开始免费游戏
         IEnumerator GameFreeSpin(Action successCallback, Action<string> errorCallback)
         {
+            freeTotalTimes.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
             while (ContentModel.Instance.nextReelStripsIndex == "FS")
             {
                 allFreeWinCredit = ContentModel.Instance.curFreeCredit;
@@ -1753,6 +1762,9 @@ namespace XingYunZhiLun_3998
             }
 
             //开始转动
+            if (TestManager.Instance.IsAutoModeRunning) slotMachineCtrl.isStopImmediately = true;
+
+
             slotMachineCtrl.BeginSpin();
 
             slotMachineCtrl.SkipIdle(true);
@@ -1808,18 +1820,6 @@ namespace XingYunZhiLun_3998
                 yield return new WaitForSeconds(0.8f);
             }
 
-            long totalWinLineCredit = 0;
-            if (ContentModel.Instance.newFreeOnceCredit.Count > ContentModel.Instance.freeSpinPlayTimes - 1)
-            {
-                totalWinLineCredit = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1] * MainModel.Instance.contentMD.betmultiple;
-            }
-
-
-            ContentModel.Instance.freeOnceCredit = totalWinLineCredit;
-
-
-            slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.curFreeCredit);
-
             #region Win
             if (winList.Count > 0)
             {
@@ -1855,8 +1855,17 @@ namespace XingYunZhiLun_3998
                 slotMachineCtrl.ShowSymbolIdle(new List<int> { 8 }, true, 8, true);
             }
 
-            
+            long totalWinLineCredit = 0;
+            if (ContentModel.Instance.newFreeOnceCredit.Count > ContentModel.Instance.freeSpinPlayTimes - 1)
+            {
+                totalWinLineCredit = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1] * MainModel.Instance.contentMD.betmultiple;
+            }
+
+
+            ContentModel.Instance.freeOnceCredit = totalWinLineCredit;
             #endregion
+
+            slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.curFreeCredit);
 
             ContentModel.Instance.gameState = GameState.Idle;
             // 先结算主游戏，再进入“免费游戏”或“小游戏”，则每局都可以同步玩家真实金钱金额
@@ -1936,7 +1945,7 @@ namespace XingYunZhiLun_3998
             else
             {
                 int i = 0;
-                int totalTimes = 0;             //总中奖线轮播次数
+                int totalTimes = 2;             //总中奖线轮播次数
                 while (winList.Count > 1 && i < totalTimes)
                 {
                     // 立马停止时，不播放赢分环节？
@@ -2778,7 +2787,7 @@ namespace XingYunZhiLun_3998
         private void SetJackpotMask(bool isVistual)
         {
             gMask.visible = isVistual;
-            gLight.visible = isVistual;
+            //gLight.visible = isVistual;
             loadAnchorLight.visible = isVistual;
         }
 

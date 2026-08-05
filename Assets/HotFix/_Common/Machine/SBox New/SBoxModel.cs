@@ -40,15 +40,6 @@ public partial class SBoxModel: MonoSingleton<SBoxModel>
 
     //public bool isSboxReady;
 
-    /* #seaweed#
-    public int curCoinOutNum;
-    public int totalCoinOutNum;
-    public bool coinOuting;
-    public int macId;
-    
-    public List<int> switchList = new List<int> { 10, 50, 100 };
-    */
-
 
     /*
     private SBoxConfData _cfgData;
@@ -460,7 +451,6 @@ public partial class SBoxModel: MonoSingleton<SBoxModel>
     }
 
 
-
     /// <summary> 历史总投币个数 </summary>
     long HistoryTotalCoinInNums
     {
@@ -562,24 +552,56 @@ public partial class SBoxModel: MonoSingleton<SBoxModel>
 
 
 
+    /// <summary>算法区域：1=国内，2=海外。仅由算法回包更新，前端不可改。</summary>
+    public const int RegionDomestic = 1;
+    public const int RegionOverseas = 2;
+    /// <summary>算法难度档位默认值（国内 99.2 / 海外 920 → level=3）</summary>
+    public const int DefaultAlgoLevel = 3;
+
+    /// <summary>当前算法区域；默认国内。只跟随 GetAlgoMetaInfo，前端不可修改。</summary>
+    public int algoRegion = RegionDomestic;
+    /// <summary>当前算法难度档位 1~5；默认 3。</summary>
+    public int algoLevel = DefaultAlgoLevel;
+
+    public bool IsDomestic => algoRegion == RegionDomestic;
+
+    /// <summary>按当前算法区域取难度名称列表</summary>
+    public List<string> CurrentDifficultyNames =>
+        IsDomestic ? CNdifficultyNames : ENdifficultyNames;
+
     public string DifficultyName
     {
         get
         {
-
-            if (SboxConfData.difficulty < difficultyNames.Count)
-            {
-                return difficultyNames[SboxConfData.difficulty];
-            }
+            int idx = algoLevel - 1;
+            var names = CurrentDifficultyNames;
+            if (idx >= 0 && idx < names.Count)
+                return names[idx];
             return "--";
         }
-
     }
 
-    /// <summary> 游戏难度 最小值 </summary>
+    /// <summary>用算法元信息刷新区域/难度（区域只读跟随算法）</summary>
+    public void ApplyAlgoMetaInfo(AlgoMetaInfo info)
+    {
+        if (info == null || info.ret != 1)
+            return;
+
+        if (info.region == RegionDomestic || info.region == RegionOverseas)
+            algoRegion = info.region;
+
+        if (info.level >= 1 && info.level <= 5)
+            algoLevel = info.level;
+
+        AlgorithmVer = $"{info.AlgoVerMain}.{info.AlgoVerSub}.{info.AlgoVerFix}";
+    }
+
+    /// <summary> 游戏难度 最小值（旧） </summary>
     public readonly List<string> difficultyNames = new List<string>() { "980", "970", "960", "950", "930" };
-
-
+    /// <summary> 游戏难度 国内 </summary>
+    public readonly List<string> CNdifficultyNames = new List<string>() { "98.5", "98.8", "99.2", "99.5", "99.8" }; //默认99.2
+    /// <summary> 游戏难度 国外 </summary>
+    public readonly List<string> ENdifficultyNames = new List<string>() { "850", "880", "920", "950", "980" };//默认920
 
 
     /// <summary>

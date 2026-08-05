@@ -1,17 +1,27 @@
 {
-	"OpenType": 1,
-
-	"ResultType": 1,
-
-	"lineNum": 1,
-	
-	"TotalBet": 0,
-	
-	"MatrixLength": 15,
-
-	"IDVec": [1307],
-
-	"Matrix": [7,7,7,4,9,
-		7,3,7,11,9,
-		6,7,7,3,9]
+    "OpenType": 1,
+    "ResultType": 1,
+    "lineNum": 1,
+    "TotalBet": 20,
+    "MatrixLength": 15,
+    "IDVec": [
+        15306
+    ],
+    "Matrix": [
+        6,
+        4,
+        6,
+        2,
+        3,
+        3,
+        6,
+        5,
+        4,
+        2,
+        3,
+        2,
+        3,
+        4,
+        7
+    ]
 }

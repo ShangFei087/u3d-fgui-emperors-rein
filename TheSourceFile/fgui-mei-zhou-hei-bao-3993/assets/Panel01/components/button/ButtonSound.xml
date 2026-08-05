@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="131,106">
+  <controller name="button" pages="0,t0,1,t1" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="t0"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="t1"/>
+  </controller>
+  <displayList>
+    <loader id="n0_z14g" name="n0" xy="0,0" size="131,106" url="ui://tgen4q2pz14g1t" align="center" vAlign="middle" autoSize="true"/>
+  </displayList>
+  <transition name="t0">
+    <item time="0" type="Icon" target="n0_z14g" value="ui://tgen4q2pz14g1t"/>
+  </transition>
+  <transition name="t1">
+    <item time="0" type="Icon" target="n0_z14g" value="ui://tgen4q2pz14g1v"/>
+  </transition>
+</component>

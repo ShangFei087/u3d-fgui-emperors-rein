@@ -26,6 +26,10 @@ public sealed class PagFguiGpuPresenter
 
     public GLoader Loader => _loader;
 
+    /// <summary>loader 已有纹理且当前可见时为 true，换片时可保留末帧避免空闪。</summary>
+    public bool HasVisibleContent =>
+        _loader != null && _loader.texture != null && _loader.visible;
+
     /// <summary>为 true 时 GLoader 显示尺寸不超过 holder，离屏纹理仍用合成原尺寸。</summary>
     public bool ClampDisplayToHolder
     {

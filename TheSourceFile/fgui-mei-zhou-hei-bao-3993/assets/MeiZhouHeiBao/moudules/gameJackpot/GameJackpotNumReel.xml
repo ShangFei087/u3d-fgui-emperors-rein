@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="40,76" overflow="hidden">
+  <displayList>
+    <text id="n0_e3wa" name="step1_0" xy="0,0" size="40,76" font="ui://tdk27maee3wa7z" fontSize="12" autoSize="none" text="1"/>
+    <text id="n1_e3wa" name="step2_0" xy="0,50" size="40,76" visible="false" font="ui://tdk27maee3wa7z" fontSize="12" autoSize="none" text="2"/>
+    <text id="n2_e3wa" name="step2_1" xy="0,-27" size="40,76" visible="false" font="ui://tdk27maee3wa7z" fontSize="12" autoSize="none" text="1"/>
+    <text id="n3_e3wa" name="step3_0" xy="0,-47" size="40,76" visible="false" font="ui://tdk27maee3wa7z" fontSize="12" autoSize="none" text="1"/>
+    <text id="n4_e3wa" name="step3_1" xy="0,28" size="40,76" visible="false" font="ui://tdk27maee3wa7z" fontSize="12" autoSize="none" text="2"/>
+    <text id="n5_e3wa" name="step4_0" xy="0,0" size="40,76" visible="false" font="ui://tdk27maee3wa7z" fontSize="12" autoSize="none" text="1"/>
+  </displayList>
+  <transition name="animTurn">
+    <item time="0" type="Visible" target="n0_e3wa" value="true"/>
+    <item time="0" type="Visible" target="n1_e3wa" value="false"/>
+    <item time="0" type="Visible" target="n2_e3wa" value="false"/>
+    <item time="0" type="Visible" target="n3_e3wa" value="false"/>
+    <item time="0" type="Visible" target="n4_e3wa" value="false"/>
+    <item time="0" type="Visible" target="n5_e3wa" value="false"/>
+    <item time="3" type="Visible" target="n0_e3wa" value="false"/>
+    <item time="3" type="Visible" target="n1_e3wa" value="true"/>
+    <item time="3" type="Visible" target="n2_e3wa" value="true"/>
+    <item time="3" type="Visible" target="n3_e3wa" value="false"/>
+    <item time="3" type="Visible" target="n4_e3wa" value="false"/>
+    <item time="3" type="Visible" target="n5_e3wa" value="false"/>
+    <item time="6" type="Visible" target="n0_e3wa" value="false"/>
+    <item time="6" type="Visible" target="n1_e3wa" value="false"/>
+    <item time="6" type="Visible" target="n2_e3wa" value="false"/>
+    <item time="6" type="Visible" target="n3_e3wa" value="true"/>
+    <item time="6" type="Visible" target="n4_e3wa" value="true"/>
+    <item time="6" type="Visible" target="n5_e3wa" value="false"/>
+    <item time="9" type="Visible" target="n0_e3wa" value="false"/>
+    <item time="9" type="Visible" target="n1_e3wa" value="false"/>
+    <item time="9" type="Visible" target="n2_e3wa" value="false"/>
+    <item time="9" type="Visible" target="n3_e3wa" value="false"/>
+    <item time="9" type="Visible" target="n4_e3wa" value="false"/>
+    <item time="9" type="Visible" target="n5_e3wa" value="true"/>
+  </transition>
+</component>

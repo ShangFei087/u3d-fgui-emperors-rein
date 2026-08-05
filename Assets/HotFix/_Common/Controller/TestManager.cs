@@ -196,33 +196,15 @@ public class TestManager : Singleton<TestManager>
         btnApply.onClick.Clear();
         btnApply.onClick.Add(OnClickApplyDebug);
 
-        // cwy 新增
+        // cwy 新增：项目列表来自当前 ThemeProfile.gameIds 与 Loading 映射
         GComponent selectProjectMenu = goOwnerTestMgr.GetChild("selectProject").asCom;
         GList lstProject = selectProjectMenu.GetChild("menu").asList;
-        List<int> projectNumber = new List<int>()
-        {
-            1700,
-            3996,
-            3997,
-            3998,
-            3999
-        };
-        List<PageName> openPageNames = new List<PageName>()
-        {
-            PageName.SlotZhuZaiJinBiPopupGameLoading,
-            PageName.CaiFuHuoChePopupGameLoading,
-            PageName.CaiFuZhiJiaPopupGameLoading,
-            PageName.XingYunZhiLunPopupGameLoading,
-            PageName.CaiFuZhiMenPopupGameLoading
-        };
-        List<int> openPageId = new List<int>()
-        {
-            1700,
-            3996,
-            3997,
-            3998,
-            3999
-        };
+        ThemeProfile themeProfile = ThemeRuntime.Profile;
+        List<int> projectNumber = new List<int>(themeProfile.GameIds);
+        List<int> openPageId = new List<int>(themeProfile.GameIds);
+        List<PageName> openPageNames = new List<PageName>(openPageId.Count);
+        for (int gi = 0; gi < openPageId.Count; gi++)
+            openPageNames.Add(themeProfile.GetLoadingPage(openPageId[gi]));
 
         List<PageName> resetPageNames = new List<PageName>()
         {
@@ -294,7 +276,10 @@ public class TestManager : Singleton<TestManager>
                         PageManager.Instance.pageCacheDict[resetPageNames[j]].IsOpen())
                         PageManager.Instance.ClosePage(resetPageNames[j]);
                 }
-                PageManager.Instance.ClosePage(PageName.TreasuryHallMain);
+                if (ThemeRuntime.HasCurrent)
+                    ThemeRuntime.Current.CloseHall();
+                else
+                    PageManager.Instance.ClosePage(ThemeRuntime.Profile.CloseHallPageName);
 
                 selectProjectMenu.visible = false;
                 if (!ApplicationSettings.Instance.isMock)
@@ -1015,19 +1000,38 @@ public class TestManager : Singleton<TestManager>
     #endregion
 
     #region AutoMode
+    const int AUTO_MODE_MAX_SPINS = 100000;
+    int autoModeSpinCount = 0;
+
     public void OnClickAutoMode()
     {
         if (autoModeState == AutoModeState.Running)
         {
-            autoModeState = AutoModeState.Idle;
-            ShowTip("AutoMode: Stop");
-            StopAutoSpinTicker();
+            StopAutoMode($"AutoMode: Stop ({autoModeSpinCount}/{AUTO_MODE_MAX_SPINS})");
             return;
         }
-
+        autoModeSpinCount = 0;
         autoModeState = AutoModeState.Running;
-        ShowTip("AutoMode: Running");
+        ShowTip($"AutoMode: {autoModeSpinCount}/{AUTO_MODE_MAX_SPINS}");
         StartAutoSpinTicker();
+    }
+
+    /// <summary>每开一局付费局调用；达上限自动停跑。免费局不要调用。</summary>
+    public void RecordAutoModeSpin()
+    {
+        if (autoModeState != AutoModeState.Running)
+            return;
+        autoModeSpinCount++;
+        ShowTip($"AutoMode: {autoModeSpinCount}/{AUTO_MODE_MAX_SPINS}");
+        if (autoModeSpinCount >= AUTO_MODE_MAX_SPINS)
+            StopAutoMode($"AutoMode: Reached {AUTO_MODE_MAX_SPINS}, Stop");
+    }
+
+    void StopAutoMode(string tip)
+    {
+        autoModeState = AutoModeState.Idle;
+        StopAutoSpinTicker();
+        ShowTip(tip);
     }
 
     public bool IsAutoModeRunning
