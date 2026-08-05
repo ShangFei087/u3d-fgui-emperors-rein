@@ -7,6 +7,9 @@
 [Bb]uilds
 [Ll]ibrary/
 [Ll]ogs/
+MemoryCaptures/
+Recordings/
+UserSettings/
 
 # =============== #
 # IDE #
@@ -15,12 +18,16 @@
 .vs
 
 /*.vsconfig
+*.csproj.user
 
 # =============== #
 # File #
 # =============== #
 /*.csproj
 /*.sln*
+*.bak
+.DS_Store
+Thumbs.db
 
 
 # =============== #
@@ -55,6 +62,14 @@ Output/*
 # 热更 #
 # =============== #
 HybridCLRData/HotUpdateDlls/*
+
+# HotfixDeploy：保留脚本，忽略本地 baseline 产物
+Tools/HotfixDeploy/baseline/*
+!Tools/HotfixDeploy/baseline/.gitkeep
+
+# 打包生成的热更清单（每次构建都会变）
+Assets/StreamingAssets/Hotfix/version.json
+Assets/StreamingAssets/Hotfix/total_version.json
 
 
 # 忽略打包产生的热更资源
