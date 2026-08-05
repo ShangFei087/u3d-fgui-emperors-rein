@@ -191,6 +191,12 @@ namespace CaiFuZhiJia_3997
         private readonly string wealth_ng_npc_atmosphere = "normal_game/wealth_ng_npc_atmosphere.pag";
         private readonly string wealth_ng_npc_nottriggered = "normal_game/wealth_ng_npc_nottriggered.pag";
 
+        // // bigwin pag
+        // "bigwin/bigwin_idle.pag", "bigwin/bigwin_start.pag", "bigwin/megawin_idle.pag", "bigwin/megawin_start.pag",
+        // "bigwin/supwin_idle.pag", "bigwin/supwin_start.pag",
+        private readonly string bigwin_idle = "bigwin/bigwin_idle.pag";
+        private readonly string bigwin_start = "bigwin/bigwin_start.pag";
+
         // 免费游戏 pag
         private readonly string fg_img_bg_robot = "free_game/fg_img_bg_robot.pag";
         private readonly string wealth_fg_npc_upgrade1 = "free_game/wealth_fg_npc_upgrade1.pag";
@@ -210,6 +216,12 @@ namespace CaiFuZhiJia_3997
         private GComponent _npcCom, _robotCom;
 
         private PagSlotBinding _pagIdle, _pagRobot /*, _pagNotWin, _pagNotTrigger*/;
+
+        // 测试bigwin的
+        private PagSlotBinding _pagBigWin;
+        private GComponent _testCom;
+        private Animator _testAni;
+        private GameObject _bigWinObj, _cloneBigWinObj;
 
         /// <summary>3997：底部 Panel 异步就绪后触发 PageManager 的 preLoadedCallback。</summary>
         private void OnBottomPanelReadyForPreload(EventData res)
@@ -267,7 +279,7 @@ namespace CaiFuZhiJia_3997
             base.OnInit();
             _elementBoxes = new List<SmallGameReelController>();
             // ---------- 1. 加载common,普通游戏,免费游戏,彩金游戏预制体到内存 ----------
-            _totalCount = 13;
+            _totalCount = 14;
             if (UIPackage.GetByName("Common") == null)
             {
                 ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/Common/FGUIs", (bundle) =>
@@ -374,6 +386,14 @@ namespace CaiFuZhiJia_3997
                 (clone) =>
                 {
                     _normalSymbolObj = clone;
+                    ResLoadedCallback();
+                });
+
+            // 测试
+            ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath + "Spine_BigWin.prefab",
+                (clone) =>
+                {
+                    _bigWinObj = clone;
                     ResLoadedCallback();
                 });
 
@@ -620,6 +640,25 @@ namespace CaiFuZhiJia_3997
             GameCommon.FguiUtils.DeleteWrapper(anchorSmallGameSettlement);
             GameCommon.FguiUtils.AddWrapper(anchorSmallGameSettlement, Object.Instantiate(_settlementEffect));
             _smallGameSettlement.visible = false;
+
+            // bigwin测试
+            _testCom = contentPane.GetChild("pagTest").asCom.GetChild("anchorBigWin").asCom;
+            if (_testCom != null)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_testCom);
+                _cloneBigWinObj = Object.Instantiate(_bigWinObj);
+                _testAni = _cloneBigWinObj.GetComponentInChildren<Animator>();
+                GameCommon.FguiUtils.AddWrapper(_testCom, _cloneBigWinObj);
+            }
+
+            _pagBigWin = new PagSlotBinding("bigWin", GamePagFolder);
+            _pagBigWin.EnsureSlot(_testCom);
+            _pagBigWin.Play(new PagSequencePlay(
+                PagPlaySpecs.IntroLoop(bigwin_start, bigwin_idle),
+                PagPlayLayout.Center,
+                PagPresentationDefaults.DisplayScale,
+                useGpuSyncGroup: false));
+            PlayAnimationByName(_testAni, "bigwin_end");
 
             TryRestoreFreeSpinSession();
             isReady = true;
@@ -1356,7 +1395,8 @@ namespace CaiFuZhiJia_3997
             else
             {
                 if (_corReelsTurn != null) _monoHelper.StopCoroutine(_corReelsTurn);
-                _corReelsTurn = _monoHelper.StartCoroutine(_slotMachineCtrl.TurnReelsNormal(ContentModel.Instance.strDeckRowCol,
+                _corReelsTurn = _monoHelper.StartCoroutine(_slotMachineCtrl.TurnReelsNormal(
+                    ContentModel.Instance.strDeckRowCol,
                     () =>
                     {
                         isNext = true;
@@ -1940,7 +1980,8 @@ namespace CaiFuZhiJia_3997
             else
             {
                 if (_corReelsTurn != null) _monoHelper.StopCoroutine(_corReelsTurn);
-                _corReelsTurn = _monoHelper.StartCoroutine(_slotMachineCtrl.TurnReelsNormal(ContentModel.Instance.strDeckRowCol,
+                _corReelsTurn = _monoHelper.StartCoroutine(_slotMachineCtrl.TurnReelsNormal(
+                    ContentModel.Instance.strDeckRowCol,
                     () =>
                     {
                         isNext = true;

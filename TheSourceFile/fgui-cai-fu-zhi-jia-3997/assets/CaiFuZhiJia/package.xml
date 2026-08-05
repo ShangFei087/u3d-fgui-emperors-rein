@@ -263,6 +263,9 @@
     <component id="ny7oah" name="collectBtn.xml" path="/moudules/popupSmallGameResult/" exported="true"/>
     <component id="ny7oai" name="startBtn.xml" path="/moudules/popupSmallGameTrigger/" exported="true"/>
     <component id="qqppaj" name="EffectParentPanel.xml" path="/moudules/pageGameMain/Anchor/" exported="true"/>
+    <component id="hoceak" name="pagTest.xml" path="/moudules/pageGameMain/pagTest/" exported="true"/>
+    <component id="hoceal" name="anchorBigWin.xml" path="/moudules/pageGameMain/pagTest/" exported="true"/>
+    <component id="hoceam" name="anchorPagTest.xml" path="/moudules/pageGameMain/pagTest/" exported="true"/>
   </resources>
   <publish name="CaiFuZhiJia" path="../../Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>

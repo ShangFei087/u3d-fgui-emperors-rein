@@ -233,7 +233,6 @@ namespace CaiFuZhiJia_3997
 
             _npcAnimator.Play(npcStartString[playCount]);
             _overWinAnimator.Play(winOpenString[playCount]);
-            ShowEffect(playCount);
 
             // 3秒后进入下一步
             Timers.inst.Add(LevelDuration, 1, _sequenceCallback);
@@ -313,31 +312,9 @@ namespace CaiFuZhiJia_3997
             Debug.Log("所有定时器已清理");
         }
 
-        private void ShowEffect(int index)
-        {
-            for (int i = 0; i < _bgEffectParent.transform.childCount; i++)
-            {
-                _bgEffectParent.transform.GetChild(i).gameObject.SetActive(i == index);
-            }
-        }
-
         private void Reset()
         {
             ClearAllTimers();
-
-            // GameCommon.FguiUtils.DeleteWrapper(_compareNpc);
-            // GameCommon.FguiUtils.DeleteWrapper(_compareOverWin);
-            //
-            // Object.Destroy(_cloneNpcObj);
-            // Object.Destroy(_cloneOverWinObj);
-            //
-            // _compareNpc = null;
-            // _compareOverWin = null;
-            // _cloneNpcObj = null;
-            // _cloneOverWinObj = null;
-            //
-            // _npcAnimator = null;
-            // _bgEffectParent = null;
         }
     }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_hoce" name="anchorPagTest" src="hoceam" fileName="moudules/pageGameMain/pagTest/anchorPagTest.xml" xy="540,960"/>
+    <component id="n1_hoce" name="anchorBigWin" src="hoceal" fileName="moudules/pageGameMain/pagTest/anchorBigWin.xml" xy="540,960"/>
+  </displayList>
+</component>

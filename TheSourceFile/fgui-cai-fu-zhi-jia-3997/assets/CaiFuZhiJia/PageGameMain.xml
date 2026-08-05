@@ -41,5 +41,6 @@
     <component id="n14_ujwn" name="anchorFrame" src="ujwn4b" fileName="moudules/pageGameMain/Anchor/AnchorFrame.xml" xy="539,960"/>
     <component id="n25_qqpp" name="effectParentPanel" src="qqppaj" fileName="moudules/pageGameMain/Anchor/EffectParentPanel.xml" xy="0,0"/>
     <component id="n8_u8to" name="panel" src="u8to30" fileName="moudules/pageGameMain/Anchor/AnchorPanelSlot.xml" xy="540,1794"/>
+    <component id="n26_hoce" name="n26" src="hoceak" fileName="moudules/pageGameMain/Anchor/pagTest.xml" xy="0,0"/>
   </displayList>
 </component>
