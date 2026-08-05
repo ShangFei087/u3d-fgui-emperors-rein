@@ -44,7 +44,7 @@ namespace XingYunZhiLun_3998
 
         private int wheelIndex;
 
-        private readonly string[] animNames = { "01_idle" , "02_idle", "03_idle" };
+        private readonly string[] animNames = { "01_start", "02_start", "03_start" };
 
         private Transform[] idels, wins, stages;
 
@@ -104,7 +104,6 @@ namespace XingYunZhiLun_3998
                         {
                             ContentModel.Instance.wheelIsSpin = false;
                             ContentModel.Instance.wheelBtnSpinState = SpinButtonState.Stop;
-                            isClose = false;
 
                             //ContentModel.Instance.gameState = GameState.Idle;
                             CloseSelf(null);
@@ -119,7 +118,6 @@ namespace XingYunZhiLun_3998
         {
             base.OnOpen(name, data);
             InitParam(data);
-            //EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             mono = GameObject.Find("Slot Game Main Controller3998").GetComponent<MonoHelper>();
             mono.updateHandle.AddListener(WheelTrun);
 
@@ -130,6 +128,7 @@ namespace XingYunZhiLun_3998
         {
             base.OnClose(data);
 
+            isClose = false;
             wins[wheelIndex].gameObject.SetActive(false);
             //EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
         }
@@ -168,13 +167,11 @@ namespace XingYunZhiLun_3998
             }
 
             spinButton = contentPane.GetChild("spinBtn").asButton;
-            isClose = false;
             spinButton.onClick.Clear();
             spinButton.onClick.Add(() => StartGameOnce(() =>
             {
                 ContentModel.Instance.wheelIsSpin = false;
                 ContentModel.Instance.wheelBtnSpinState = SpinButtonState.Stop;
-                isClose = false;
 
                 //ContentModel.Instance.gameState = GameState.Idle;
                 CloseSelf(null);
@@ -266,40 +263,6 @@ namespace XingYunZhiLun_3998
                 successCallback.Invoke();
         }
 
-        private void OnClickSpinButton(EventData res)
-        {
-            switch (ContentModel.Instance.wheelBtnSpinState)
-            {
-                case SpinButtonState.Stop:
-                    if (ContentModel.Instance.wheelIsSpin) return; //已经开始玩直接退出？
-                    ContentModel.Instance.wheelIsSpin = true;
-
-                    Action successCallback = () =>
-                    {
-                        ContentModel.Instance.wheelIsSpin = false;
-                        ContentModel.Instance.wheelBtnSpinState = SpinButtonState.Stop;
-                        isClose = false;
-
-                        //ContentModel.Instance.gameState = GameState.Idle;
-                        CloseSelf(null);
-                        //DebugUtils.Log("游戏结束");
-                    };
-
-                    ContentModel.Instance.wheelBtnSpinState = SpinButtonState.Hui;
-                    StartGameOnce(successCallback, StopGameWhenError); //开始玩
-                    break;
-                case SpinButtonState.Hui:
-                    {
-                        // 已经在游戏时，去停止游戏
-                        if (!ContentModel.Instance.wheelIsSpin) return; // 已经停止直接退出
-
-                        //slotMachineCtrl.isStopImmediately = true; // 去停止游戏  
-
-                        //SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.StopImmediately);
-                    }
-                    break;
-            }
-        }
 
         private void SetTargetIndex(object str)
         {
@@ -459,7 +422,7 @@ namespace XingYunZhiLun_3998
             // ================================
             // 阶段3：匀减速 → 但最后自动对齐
             // ================================
-            float remainingRotation = totalRotation - rotated;
+            float remainingRotation = Math.Abs(totalRotation - rotated);
             float startSpeed = speed;
             float deceleration = (startSpeed * startSpeed) / (2 * remainingRotation);
 
@@ -572,9 +535,6 @@ namespace XingYunZhiLun_3998
             PlayAnim(animNames[wheelBgIndex]);
             wheelIndex = wheelBgIndex;
 
-            PlayEffectAnim(idels[wheelBgIndex]);
-            PlayEffectAnim(stages[wheelBgIndex]);
-
             switch (wheelBgIndex)
             {
                 case 0:
@@ -587,6 +547,12 @@ namespace XingYunZhiLun_3998
                     WheelInit(CustomModel.Instance.highWheelIndex);
                     break;
             }
+
+            Timers.inst.Add(2, 1, (object obj) =>
+            {
+                PlayEffectAnim(idels[wheelBgIndex]);
+                PlayEffectAnim(stages[wheelBgIndex]);
+            });
         }
     }
 

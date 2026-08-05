@@ -2,51 +2,50 @@
 <component size="1080,1178">
   <controller name="tab" pages="0,machine,1,in-out,2,progressive" selected="0"/>
   <displayList>
-    <component id="n37_jtgo" name="agentID" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,0" size="540,76" group="n11_cwuo">
+    <component id="n37_jtgo" name="agentID" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="1,1" size="540,76" group="n11_cwuo">
       <property target="key" propertyId="0" value="Agent ID:"/>
       <property target="value" propertyId="0" value="1110"/>
     </component>
-    <component id="n38_jtgo" name="machineID" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,76" size="540,76" group="n11_cwuo">
+    <component id="n38_jtgo" name="machineID" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="1,77" size="540,76" group="n11_cwuo">
       <property target="key" propertyId="0" value="Machine ID:"/>
       <property target="value" propertyId="0" value="11100001"/>
     </component>
-    <component id="n39_jtgo" name="maxCoinInOutRecord" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,152" size="540,76" group="n11_cwuo">
+    <component id="n49_ze4v" name="gameDifficulty" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="1,153" size="540,76" group="n11_cwuo">
+      <property target="key" propertyId="0" value="Game Difficulty:"/>
+      <property target="value" propertyId="0" value="11100001"/>
+    </component>
+    <component id="n39_jtgo" name="maxCoinInOutRecord" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="1,305" size="540,76" group="n11_cwuo">
       <property target="key" propertyId="0" value="Max Coin In Out Record:"/>
       <property target="value" propertyId="0" value="1000"/>
     </component>
-    <component id="n40_jtgo" name="maxGameRecord" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,228" size="540,76" group="n11_cwuo">
+    <component id="n40_jtgo" name="maxGameRecord" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="1,229" size="540,76" group="n11_cwuo">
       <property target="key" propertyId="0" value="Max Game Record:"/>
       <property target="value" propertyId="0" value="1000"/>
     </component>
-    <component id="n41_jtgo" name="maxEventRecord" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,304" size="540,76" group="n11_cwuo">
+    <component id="n41_jtgo" name="maxEventRecord" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="1,381" size="540,76" group="n11_cwuo">
       <property target="key" propertyId="0" value="Max Event Record:"/>
       <property target="value" propertyId="0" value="1000"/>
     </component>
-    <component id="n42_jtgo" name="maxErrorRecord" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,380" size="540,76" group="n11_cwuo">
+    <component id="n42_jtgo" name="maxErrorRecord" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="1,457" size="540,76" group="n11_cwuo">
       <property target="key" propertyId="0" value="Max Warning Record:"/>
       <property target="value" propertyId="0" value="1000"/>
     </component>
-    <component id="n43_jtgo" name="maxBusinessDayRecord" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="0,456" size="540,76" group="n11_cwuo">
+    <component id="n43_jtgo" name="maxBusinessDayRecord" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="1,533" size="540,76" group="n11_cwuo">
       <property target="key" propertyId="0" value="Max Business Day Record:"/>
       <property target="value" propertyId="0" value="1000"/>
     </component>
-    <group id="n11_cwuo" name="left" xy="0,0" size="540,532" advanced="true">
+    <group id="n11_cwuo" name="left" xy="1,1" size="540,608" advanced="true">
       <relation target="" sidePair="width-width"/>
     </group>
-    <component id="n32_cwuo" name="difficulty" src="glrj1n" fileName="moudules/ItemTitleName.xml" xy="540,0" group="n14_cwuo">
-      <relation target="" sidePair="left-left"/>
-      <property target="key" propertyId="0" value="&lt;i18n value=&quot;CON1x&quot;&gt;Difficulty:&lt;/i18n&gt;"/>
-      <property target="value" propertyId="0" value="980"/>
-    </component>
-    <component id="n33_cwuo" name="betAllowed" src="cwuo2j" fileName="moudules/ItemBetLst.xml" xy="540,76" group="n14_cwuo" scale="1.5,1.5">
+    <component id="n33_cwuo" name="betAllowed" src="cwuo2j" fileName="moudules/ItemBetLst.xml" xy="557,3" group="n14_cwuo" scale="1.5,1.5">
       <relation target="" sidePair="left-left"/>
     </component>
-    <component id="n34_cwuo" name="active" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="457,623" group="n14_cwuo">
+    <component id="n34_cwuo" name="active" src="cwuo21" fileName="moudules/ItemTitleButton03.xml" xy="474,550" group="n14_cwuo">
       <relation target="" sidePair="left-left"/>
       <property target="key" propertyId="0" value=""/>
       <property target="value" propertyId="0" value="Active"/>
     </component>
-    <group id="n14_cwuo" name="right" xy="457,0" size="623,699" advanced="true">
+    <group id="n14_cwuo" name="right" xy="474,3" size="540,623" advanced="true">
       <relation target="" sidePair="width-width"/>
     </group>
     <component id="n44_jtgo" name="changeShiftPassword" src="jtgo3d" fileName="moudules/ItemButton005.xml" xy="0,760" group="n48_msw2">

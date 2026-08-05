@@ -2,10 +2,10 @@
 <component size="1080,1920">
   <displayList>
     <image id="n0_sqmz" name="n0" src="pcvki9" fileName="images/gameLoading/load_img_bg.png" xy="0,0" size="1080,1920"/>
+    <component id="n7_o8uc" name="title" src="o8ucn" fileName="component/gameLoading/AnchorTitle.xml" xy="540,960"/>
     <component id="n4_sqmz" name="Slider" src="sqmz6" fileName="component/gameLoading/Slider.xml" xy="66,1462" size="955,86">
       <Slider max="1"/>
     </component>
     <text id="n6_o8uc" name="load" xy="540,1612" pivot="0.5,0.5" anchor="true" size="293,72" fontSize="25" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="加载中...."/>
-    <component id="n7_o8uc" name="title" src="o8ucn" fileName="component/gameLoading/AnchorTitle.xml" xy="540,1150"/>
   </displayList>
 </component>

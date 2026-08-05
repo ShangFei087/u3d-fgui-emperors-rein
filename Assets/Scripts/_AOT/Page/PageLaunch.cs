@@ -80,7 +80,8 @@ public class PageLaunch
                 if(UIPackage.GetByName("Native") == null)
                     UIPackage.AddPackage("Native/FGUIs/Native"); // Native/FGUIs/ == Resources/Native/FGUIs
                 _instance = new PageLaunch();
-                _instance.goOwnerPage = UIPackage.CreateObject("Native", "TreasuryPageLaunch").asCom;
+                // AOT 层只读 ApplicationSettings，不依赖热更 Theme 程序集
+                _instance.goOwnerPage = UIPackage.CreateObject("Native", ResolveLaunchFguiName()).asCom;
 
              //   ResourceManager02.Instance.LoadAsset<GameObject>("Resources/Native/Prefabs/plat_load_bg",
              //(GameObject clone) =>
@@ -96,6 +97,37 @@ public class PageLaunch
     }
 
     GComponent goOwnerPage;
+
+    /// <summary>
+    /// 从 ApplicationSettings.launchFguiName 读取；为空时按 gameTheme 推断，默认 TreasuryPageLaunch。
+    /// </summary>
+    static string ResolveLaunchFguiName()
+    {
+        var settings = ApplicationSettings.Instance;
+        if (settings == null)
+            return "TreasuryPageLaunch";
+
+        if (!string.IsNullOrWhiteSpace(settings.launchFguiName))
+            return settings.launchFguiName.Trim();
+
+        string theme = settings.gameTheme;
+        if (!string.IsNullOrWhiteSpace(theme))
+        {
+            theme = theme.Trim();
+            if (string.Equals(theme, "Savage", StringComparison.OrdinalIgnoreCase))
+            {
+                return "PageLaunch";
+            }
+
+            // Test 主题无独立启动页，复用 Treasury
+            if (string.Equals(theme, "Test", StringComparison.OrdinalIgnoreCase))
+            {
+                return "TreasuryPageLaunch";
+            }
+        }
+
+        return "TreasuryPageLaunch";
+    }
 
     GLoader lodBG, lodLogo;
 

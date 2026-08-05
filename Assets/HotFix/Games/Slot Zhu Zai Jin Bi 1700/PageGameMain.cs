@@ -84,13 +84,15 @@ namespace SlotZhuZaiJinBi1700
         private static readonly string fg_pup_Collect_idle_bmp =  "3995/fg_pup_Collect_idle_bmp.pag";
         private static readonly string fg_pup_Collect_out_bmp = "3995/fg_pup_Collect_out_bmp.pag";
         private static readonly string fg_Collect_tran = "3995/fg_Collect_tran.pag";
+        private static readonly string wealth_ng_npc_idle01 = "3997Npc/NormalNPC/wealth_ng_npc_idle01.pag";
+        private static readonly string wealth_ng_npc_notwinning = "3997Npc/NormalNPC/wealth_ng_npc_notwinning.pag";
 
         private GComponent anchorCollect;
         private GameObject goCollect;
         private GameObject CLonegoCollect;
         private Animator animatorCollect;
 
-        private PagSlotBinding pag_fg_pup_Collect, pag_fg_Collect_tran;
+        private PagSlotBinding pag_fg_pup_Collect, pag_fg_Collect_tran, pag_3997_npc;
         private GButton btnPagStart, btnCollect;
 
         /// <summary>注册并 Prepare PAG 槽位（InitParam 时调用一次即可）。</summary>
@@ -105,10 +107,13 @@ namespace SlotZhuZaiJinBi1700
             pag_fg_Collect_tran = new PagSlotBinding("pag_fg_Collect_tran", GamePagFolder);
             pag_fg_Collect_tran.EnsureSlot(anchor, "pagEffect1");
 
+            pag_3997_npc = new PagSlotBinding("pag_3997_npc", GamePagFolder);
+            pag_3997_npc.EnsureSlot(anchor, "pagEffect2");
+            pag_3997_npc.StopWithDefaults();
+
             btnPagStart = contentPane.GetChild("btnPagStart").asButton;
             btnPagStart.onClick.Clear();
             btnPagStart.onClick.Add(OnClick_btnPagStart);
-
 
             btnCollect = contentPane.GetChild("btnCollect").asButton;
             btnCollect.onClick.Clear();
@@ -121,37 +126,49 @@ namespace SlotZhuZaiJinBi1700
             //Animator：
             if (animatorCollect != null)
             {
-                animatorCollect.enabled = true;
-                animatorCollect.Play("in", 0, 0f);
+                //animatorCollect.enabled = true;
+                //animatorCollect.Play("in", 0, 0f);
             }
 
             // Pag：start 播一次 → 无缝循环 idle
             if (pag_fg_pup_Collect == null) return;
-            pag_fg_pup_Collect.StopWithDefaults();
-            pag_fg_pup_Collect.Play(new PagSequencePlay(
-                PagPlaySpecs.IntroLoop(fg_pup_Collect_start_bmp, fg_pup_Collect_idle_bmp),
-                PagPlayLayout.Center));
+             //pag_fg_pup_Collect.StopWithDefaults();
+             //pag_fg_pup_Collect.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(fg_pup_Collect_start_bmp, fg_pup_Collect_idle_bmp),PagPlayLayout.Center));
+
+            if (pag_3997_npc == null) return;
+            pag_3997_npc.Play(new PagSequencePlay(
+           new[] { new PagSegment(wealth_ng_npc_idle01, -1) },
+           PagPlayLayout.Center,
+           PagPresentationDefaults.DisplayScale,
+           useGpuSyncGroup: false));
         }
 
         /// <summary>注册btnCollect点击事件</summary>
         private void OnClick_btnCollect()
         {
             // Animator
-            if (animatorCollect != null)
-            {
-                animatorCollect.Play("out", 0, 0f);
-            }
+            //if (animatorCollect != null)
+            //{
+            //    animatorCollect.Play("out", 0, 0f);
+            //}
             // Pag：打断 idle，播 out 一次
             if (pag_fg_pup_Collect == null) return;
             pag_fg_pup_Collect.StopWithDefaults();
-            pag_fg_pup_Collect.Play(
-                fg_pup_Collect_out_bmp,
-                1,
+            //pag_fg_pup_Collect.Play(
+            //    fg_pup_Collect_out_bmp,
+            //    1,
+            //    PagPlayLayout.Center,
+            //    PagPresentationDefaults.DisplayScale,
+            //    new PagPlayCallbacks(
+            //        onFinished: () => pag_fg_pup_Collect?.StopWithDefaults(),
+            //        stopAfterFinished: true));
+
+            if (pag_3997_npc == null) return;
+            pag_3997_npc.Play(new PagSequencePlay(
+                PagPlaySpecs.IntroLoop(wealth_ng_npc_notwinning, wealth_ng_npc_idle01),
                 PagPlayLayout.Center,
                 PagPresentationDefaults.DisplayScale,
-                new PagPlayCallbacks(
-                    onFinished: () => pag_fg_pup_Collect?.StopWithDefaults(),
-                    stopAfterFinished: true));
+                useGpuSyncGroup: false));
         }
 
         /// <summary>

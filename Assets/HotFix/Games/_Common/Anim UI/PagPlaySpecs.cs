@@ -52,7 +52,7 @@ public readonly struct PagPlayCallbacks
         || StartedTimeoutSec > 0f || FinishedTimeoutSec > 0f;
 }
 
-/// <summary>Native playlist 序列播放（intro→loop / NPC 共用）。</summary>
+/// <summary>Native playlist 序列播放</summary>
 public readonly struct PagSequencePlay
 {
     public PagSegment[] Segments { get; }

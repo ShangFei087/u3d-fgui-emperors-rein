@@ -2687,7 +2687,7 @@ namespace CaiFuHuoChe_3996
 
         private GComponent smallGameReels;
 
-        private readonly string _moneyUrl = "ui://CaiFuHuoChe_3996/symbol_12";
+        private readonly string _moneyUrl = "ui://CaiFuHuoChe_3996/symbol_13";
 
         /// <summary>15个格子控制器</summary>
         private readonly List<SmallGameReelController> _elementBoxes = new List<SmallGameReelController>();
@@ -2713,9 +2713,9 @@ namespace CaiFuHuoChe_3996
 
         private readonly List<string> _jackpotUrls = new List<string>()
         {
-            "ui://CaiFuHuoChe_3996/symbol_15",
             "ui://CaiFuHuoChe_3996/symbol_14",
-            "ui://CaiFuHuoChe_3996/symbol_13",
+            "ui://CaiFuHuoChe_3996/symbol_15",
+            "ui://CaiFuHuoChe_3996/symbol_16",
         };
 
         private void InitSmallGame()

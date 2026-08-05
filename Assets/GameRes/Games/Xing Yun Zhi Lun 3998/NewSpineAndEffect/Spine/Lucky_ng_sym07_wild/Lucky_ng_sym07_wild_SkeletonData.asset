@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Lucky_ng_sym07_wild_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: ddc0434dd293a9c47ae8c2710f97b971, type: 2}
+  - {fileID: 11400000, guid: 88a35e9923462dd45a7209b95dd164cf, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: 84d61494e8d32d94f998b77be91f520e, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: e9a306d84d32e544591c1c3309bfdf36, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 9100000, guid: 826aa7690c708af41a11ee089c51a047, type: 2}
+  controller: {fileID: 9100000, guid: 150760002e97f2f44b9f9abd59a4c16d, type: 2}

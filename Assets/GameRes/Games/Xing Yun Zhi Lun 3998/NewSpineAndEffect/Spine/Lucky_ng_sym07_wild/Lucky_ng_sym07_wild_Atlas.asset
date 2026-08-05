@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: Lucky_ng_sym07_wild_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: 8bfa395d7218f08438e289a258d23510, type: 3}
+  atlasFile: {fileID: 4900000, guid: dcd4a5758bbc425479c5dd2d874e838a, type: 3}
   materials:
-  - {fileID: 2100000, guid: a6beb76dcf3452c4f8cb6f2a71c02e09, type: 2}
+  - {fileID: 2100000, guid: 74202289c78c5dd45b2301505caf329d, type: 2}

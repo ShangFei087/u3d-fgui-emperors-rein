@@ -1,5 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="tgen4q2p">
-  <resources/>
+  <resources>
+    <image id="z14gr" name="menu_btn_num_00.png" path="/images/spinBtn/number/FontWin/" exported="true"/>
+    <image id="z14g2a" name="menu_btn_num_dot.png" path="/images/spinBtn/number/FontWin/" exported="true"/>
+    <image id="z14g2b" name="menu_btn_num_dollar.png" path="/images/spinBtn/number/FontWin/" exported="true"/>
+    <image id="z14g2c" name="menu_btn_num_com.png" path="/images/spinBtn/number/FontWin/" exported="true"/>
+    <image id="z14g2d" name="menu_btn_num_09.png" path="/images/spinBtn/number/FontWin/" exported="true"/>
+    <image id="z14g2e" name="menu_btn_num_08.png" path="/images/spinBtn/number/FontWin/" exported="true"/>
+    <image id="z14g2f" name="menu_btn_num_07.png" path="/images/spinBtn/number/FontWin/" exported="true"/>
+    <image id="z14g2g" name="menu_btn_num_06.png" path="/images/spinBtn/number/FontWin/" exported="true"/>
+    <image id="z14g2h" name="menu_btn_num_05.png" path="/images/spinBtn/number/FontWin/" exported="true"/>
+    <image id="z14g2i" name="menu_btn_num_04.png" path="/images/spinBtn/number/FontWin/" exported="true"/>
+    <image id="z14g2j" name="menu_btn_num_03.png" path="/images/spinBtn/number/FontWin/" exported="true"/>
+    <image id="z14g2k" name="menu_btn_num_02.png" path="/images/spinBtn/number/FontWin/" exported="true"/>
+    <image id="z14g2l" name="menu_btn_num_01.png" path="/images/spinBtn/number/FontWin/" exported="true"/>
+    <image id="z14g23" name="menu_btn_num_06.png" path="/images/spinBtn/number/FontCredit/" exported="true"/>
+    <image id="z14g24" name="menu_btn_num_05.png" path="/images/spinBtn/number/FontCredit/" exported="true"/>
+    <image id="z14g25" name="menu_btn_num_04.png" path="/images/spinBtn/number/FontCredit/" exported="true"/>
+    <image id="z14g26" name="menu_btn_num_03.png" path="/images/spinBtn/number/FontCredit/" exported="true"/>
+    <image id="z14g27" name="menu_btn_num_02.png" path="/images/spinBtn/number/FontCredit/" exported="true"/>
+    <image id="z14g28" name="menu_btn_num_01.png" path="/images/spinBtn/number/FontCredit/" exported="true"/>
+    <image id="z14g29" name="menu_btn_num_00.png" path="/images/spinBtn/number/FontCredit/" exported="true"/>
+    <image id="z14g2m" name="menu_btn_num_07.png" path="/images/spinBtn/number/FontCredit/" exported="true"/>
+    <image id="z14g2n" name="menu_btn_num_08.png" path="/images/spinBtn/number/FontCredit/" exported="true"/>
+    <image id="z14g2o" name="menu_btn_num_09.png" path="/images/spinBtn/number/FontCredit/" exported="true"/>
+    <image id="z14g2p" name="menu_btn_num_com.png" path="/images/spinBtn/number/FontCredit/" exported="true"/>
+    <image id="z14g38" name="menu_btn_num_dot.png" path="/images/spinBtn/number/FontCredit/" exported="true"/>
+    <image id="z14g39" name="menu_btn_num_dollar.png" path="/images/spinBtn/number/FontCredit/" exported="true"/>
+    <image id="z14g2v" name="menu_btn_num_dot.png" path="/images/spinBtn/number/FontBet/" exported="true"/>
+    <image id="z14g2w" name="menu_btn_num_dollar.png" path="/images/spinBtn/number/FontBet/" exported="true"/>
+    <image id="z14g2x" name="menu_btn_num_com.png" path="/images/spinBtn/number/FontBet/" exported="true"/>
+    <image id="z14g2y" name="menu_btn_num_09.png" path="/images/spinBtn/number/FontBet/" exported="true"/>
+    <image id="z14g30" name="menu_btn_num_08.png" path="/images/spinBtn/number/FontBet/" exported="true"/>
+    <image id="z14g31" name="menu_btn_num_06.png" path="/images/spinBtn/number/FontBet/" exported="true"/>
+    <image id="z14g32" name="menu_btn_num_05.png" path="/images/spinBtn/number/FontBet/" exported="true"/>
+    <image id="z14g33" name="menu_btn_num_04.png" path="/images/spinBtn/number/FontBet/" exported="true"/>
+    <image id="z14g34" name="menu_btn_num_03.png" path="/images/spinBtn/number/FontBet/" exported="true"/>
+    <image id="z14g35" name="menu_btn_num_02.png" path="/images/spinBtn/number/FontBet/" exported="true"/>
+    <image id="z14g36" name="menu_btn_num_01.png" path="/images/spinBtn/number/FontBet/" exported="true"/>
+    <image id="z14g37" name="menu_btn_num_00.png" path="/images/spinBtn/number/FontBet/" exported="true"/>
+    <image id="z14g3a" name="menu_btn_num_07.png" path="/images/spinBtn/number/FontBet/" exported="true"/>
+    <image id="z14g3b" name="menu_btn_AUTO.png" path="/images/spinBtn/" exported="true"/>
+    <image id="z14g20" name="menu_btn_Base plate.png" path="/images/" exported="true"/>
+    <image id="z14g1g" name="menu_btn_HOLD SPIN FOR 3s TO ENABLE AUTO MODE.png" path="/images/" exported="true"/>
+    <image id="z14g1j" name="menu_btn_Insert coin.png" path="/images/" exported="true"/>
+    <image id="z14g1k" name="menu_btn_Lower the volume.png" path="/images/" exported="true"/>
+    <image id="z14g1n" name="menu_btn_SPIN.png" path="/images/spinBtn/" exported="true"/>
+    <image id="z14g1r" name="menu_btn_STOP.png" path="/images/spinBtn/" exported="true"/>
+    <image id="z14g1w" name="menu_btn_Volume.png" path="/images/" exported="true"/>
+    <image id="z14g1t" name="menu_btn_Volume Button (On).png" path="/images/" exported="true"/>
+    <image id="z14g1v" name="menu_btn_Volume Down Button.png" path="/images/" exported="true"/>
+    <image id="z14g1u" name="menu_btn_Volume button.png" path="/images/" exported="true"/>
+    <image id="z14g1f" name="menu_btn_bottom.png" path="/images/" exported="true"/>
+    <image id="z14g1h" name="menu_btn_illustrate.png" path="/images/" exported="true"/>
+    <image id="z14g1i" name="menu_btn_increase volume.png" path="/images/" exported="true"/>
+    <image id="z14g1l" name="menu_btn_menu.png" path="/images/" exported="true"/>
+    <image id="z14g1m" name="menu_btn_return.png" path="/images/" exported="true"/>
+    <image id="z14g1p" name="menu_btn_start.png" path="/images/spinBtn/" exported="true"/>
+    <image id="z14g1z" name="menu_btn_start_02.png" path="/images/spinBtn/" exported="true"/>
+    <image id="z14g1q" name="menu_btn_start_03.png" path="/images/spinBtn/" exported="true"/>
+    <image id="z14g1s" name="menu_btn_volume bottom.png" path="/images/" exported="true"/>
+    <image id="z14g1x" name="menu_txt_BET.png" path="/images/" exported="true"/>
+    <image id="z14g1y" name="menu_txt_CREDITS.png" path="/images/" exported="true"/>
+    <image id="z14g1e" name="menu_txt_HOLD TO AUTO.png" path="/images/" exported="true"/>
+    <image id="z14g1d" name="menu_txt_WIN.png" path="/images/" exported="true"/>
+    <image id="z14g1c" name="ng_Below the button.png" path="/images/exhibition/" exported="true"/>
+    <component id="z14g0" name="Panel.xml" path="/moudules/" exported="true"/>
+    <component id="z14g2" name="ButtonHelp.xml" path="/components/button/" exported="true"/>
+    <image id="z14g3" name="circle_24.png" path="/images/common/" exported="true"/>
+    <component id="z14g4" name="UntouchCircle24.xml" path="/components/mask/" exported="true"/>
+    <component id="z14g6" name="UntouchCircleBet.xml" path="/components/mask/" exported="true"/>
+    <font id="z14g8" name="FontBet.fnt" path="/Font/" exported="true"/>
+    <font id="z14g9" name="FontCredit.fnt" path="/Font/" exported="true"/>
+    <font id="z14ga" name="FontWin.fnt" path="/Font/" exported="true"/>
+    <component id="z14gb" name="ButtonSpin.xml" path="/components/button/" exported="true"/>
+    <component id="z14gc" name="UntouchCircle2SpinBtn.xml" path="/components/mask/" exported="true"/>
+    <component id="z14gd" name="ExhibitionPanel.xml" path="/moudules/Exhibition/" exported="true"/>
+    <component id="z14ge" name="ReelBtn.xml" path="/moudules/Exhibition/" exported="true"/>
+    <component id="z14gf" name="ButtonExhibition.xml" path="/moudules/Exhibition/" exported="true"/>
+    <component id="z14gg" name="ButtonColUp.xml" path="/moudules/Exhibition/" exported="true"/>
+    <component id="z14gh" name="ButtonColDown.xml" path="/moudules/Exhibition/" exported="true"/>
+    <image id="z14gi" name="btn_exhibition_01.png" path="/images/exhibition/" exported="true"/>
+    <image id="z14gj" name="btn_exhibition_02.png" path="/images/exhibition/" exported="true"/>
+    <image id="z14gk" name="txt_close.png" path="/images/exhibition/" exported="true"/>
+    <image id="z14gl" name="txt_open.png" path="/images/exhibition/" exported="true"/>
+    <component id="z14go" name="SetPanel.xml" path="/moudules/" exported="true"/>
+    <component id="z14gp" name="ButtonIntroduce.xml" path="/components/button/" exported="true"/>
+    <component id="z14gq" name="ButtonSound.xml" path="/components/button/" exported="true"/>
+    <component id="z14gs" name="ButtonBack.xml" path="/components/button/" exported="true"/>
+    <component id="z14gt" name="SobudSlider_grip.xml" path="/components/button/" exported="true"/>
+    <component id="z14gu" name="SobudSlider.xml" path="/components/button/" exported="true"/>
+    <component id="z14gv" name="Instructions.xml" path="/moudules/" exported="true"/>
+    <component id="z14gw" name="BtnNext.xml" path="/moudules/payTable1/" exported="true"/>
+    <component id="z14gx" name="BtnBackGame.xml" path="/moudules/payTable1/" exported="true"/>
+    <component id="z14gy" name="Introduce.xml" path="/moudules/payTable1/" exported="true"/>
+    <component id="mxrk3d" name="ButtonBetUp.xml" path="/components/button/" exported="true"/>
+    <component id="mxrk3e" name="ButtonBetDown.xml" path="/components/button/" exported="true"/>
+    <component id="mxrk3f" name="AnchorSpin.xml" path="/components/" exported="true"/>
+  </resources>
   <publish name="" path="../../Assets/GameRes/Panel/Panel3993/FGUIs" packageCount="2"/>
 </packageDescription>

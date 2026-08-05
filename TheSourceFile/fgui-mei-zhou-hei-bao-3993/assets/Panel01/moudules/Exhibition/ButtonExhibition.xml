@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="226,61" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n4_z14g" name="n4" src="z14gj" fileName="images/exhibition/btn_exhibition_02.png" xy="0,0" group="n8_z14g"/>
+    <image id="n6_z14g" name="n6" src="z14gl" fileName="images/exhibition/txt_open.png" xy="112,37" pivot="0.5,0.5" anchor="true" group="n8_z14g"/>
+    <group id="n8_z14g" name="openGroup" xy="0,0" size="226,81" advanced="true"/>
+    <image id="n3_z14g" name="n3" src="z14gi" fileName="images/exhibition/btn_exhibition_01.png" xy="0,0" group="n7_z14g"/>
+    <image id="n5_z14g" name="n5" src="z14gk" fileName="images/exhibition/txt_close.png" xy="44,13" group="n7_z14g"/>
+    <group id="n7_z14g" name="closeGroup" xy="0,0" size="226,81" advanced="true"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.8"/>
+</component>

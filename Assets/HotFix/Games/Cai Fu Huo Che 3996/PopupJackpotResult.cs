@@ -24,7 +24,7 @@ namespace CaiFuHuoChe_3996
         float sorce;
         int jackpotType;
 
-        private GameObject miniPref, minorPref, majorPref, go;
+        private GameObject jackpotPref, go;
         private Animator animator;
         private bool isClose;
 
@@ -32,12 +32,16 @@ namespace CaiFuHuoChe_3996
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
         private TimerCallback _autoModeSimulatedClick;
 
+        private string[] jackpotStartAnimName = { "mini_start", "minor_start", "major_start" };
+        private string[] jackpotEndAnimName = { "mini_end", "minor_end", "major_end" };
+        private int animIndex = 0;
+
         protected override void OnInit()
         {
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 3;
+            int count = 1;
 
             Action callback = () =>
             {
@@ -49,28 +53,13 @@ namespace CaiFuHuoChe_3996
             };
             // 加载预制体
             ResourceManager02.Instance.LoadAsset<GameObject>(
-                "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PopupGameJackpot/JackpotMini.prefab",
+                "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PopupGameJackpot/JackpotResult.prefab",
                 (GameObject clone) =>
                 {
-                    miniPref = clone;
+                    jackpotPref = clone;
                     callback();
                 });
 
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PopupGameJackpot/JackpotMinor.prefab",
-                (GameObject clone) =>
-                {
-                    minorPref = clone;
-                    callback();
-                });
-
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PopupGameJackpot/JackpotMajor.prefab",
-                (GameObject clone) =>
-                {
-                    majorPref = clone;
-                    callback();
-                });
 
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
@@ -103,8 +92,8 @@ namespace CaiFuHuoChe_3996
             {
                 GameCommon.FguiUtils.DeleteWrapper(goEffect);
                 goEffect = loadEffect;
-                go = GameObject.Instantiate(miniPref);
-                animator = go.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Animator>();
+                go = GameObject.Instantiate(jackpotPref);
+                animator = go.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
                 GameCommon.FguiUtils.AddWrapper(goEffect, go);
             }
 
@@ -156,34 +145,16 @@ namespace CaiFuHuoChe_3996
 
         private void ExecuteNextStep()
         {
-            switch (jackpotType)
-            {
-                case 0:
-                    AddWrapperEffect(majorPref);
-                    break;
-                case 1:
-                    AddWrapperEffect(minorPref);
-                    break;
-                case 2:
-                    AddWrapperEffect(miniPref);
-                    break;
-            }
+            animIndex = jackpotType;
+
+            ChangeParent();
 
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.JackpotPopupAppear));
 
-            PlayAnim("sg_pop_border_start");
+            PlayAnim(jackpotStartAnimName[animIndex]);
         }
 
-        private void AddWrapperEffect(GameObject goFgClone)
-        {
-            GameCommon.FguiUtils.DeleteWrapper(goEffect);
-            go = GameObject.Instantiate(goFgClone);
-            animator = go.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Animator>();
-            GameCommon.FguiUtils.AddWrapper(goEffect, go);
-
-            ChangeParent();
-        }
 
         // 终止所有后续步骤（条件不满足时调用）
         private void StopAll()
@@ -222,7 +193,7 @@ namespace CaiFuHuoChe_3996
         {
             StopAll();
 
-            PlayAnim("sg_pop_border_end");
+            PlayAnim(jackpotEndAnimName[animIndex]);
             isend = true;
             DelayedExit();
         }
@@ -247,29 +218,29 @@ namespace CaiFuHuoChe_3996
         {
             CancelAutoModeSimulatedClick();
 
-            string candidatePaths = $"Anchor/sg_pop_border/Animation/tiao/num";
+            string candidatePaths = $"Anchor/Spine Mecanim GameObject (sg_pop_border)/SkeletonUtility-SkeletonRoot/root/all/frame/num01";
             Transform num01 = go.transform.Find(candidatePaths);
             GTextField _gfreetxt = this.contentPane.GetChild("score").asTextField;
             if (_gfreetxt?.displayObject?.gameObject != null)
             {
                 Transform t = _gfreetxt.displayObject.gameObject.transform;
                 t.SetParent(num01, false);
-                t.localPosition = new Vector3(-368, 69, -10);
+                t.localPosition = new Vector3(-5.35f, 0.75f, 0);
                 //t.localRotation = Quaternion.identity;
-                t.localScale = new Vector3(0.7f, 0.7f, 1);
+                t.localScale = new Vector3(0.01f, 0.01f, 1);
             }
             NumberAnimation.Instance.AnimateNumber(_gfreetxt, 0, sorce, 1, EaseType.Linear, () => { });
 
-            string exitBtnPaths = $"Anchor/sg_pop_border/Animation/btn/num";
-            Transform btnPos = go.transform.Find(candidatePaths);
+            string exitBtnPaths = $"Anchor/Spine Mecanim GameObject (sg_pop_border)/SkeletonUtility-SkeletonRoot/root/all/btn";
+            Transform btnPos = go.transform.Find(exitBtnPaths);
             GButton exitBtn = this.contentPane.GetChild("exitBtn").asButton;
             if (exitBtn?.displayObject?.gameObject != null)
             {
                 Transform b = exitBtn.displayObject.gameObject.transform;
                 b.SetParent(btnPos, false);
-                b.localPosition = new Vector3(-255, -267, 0);
+                b.localPosition = new Vector3(-2.5f, 0.9f, 0);
                 //t.localRotation = Quaternion.identity;
-                b.localScale = new Vector3(1, 1, 1);
+                b.localScale = new Vector3(0.01f, 0.01f, 1);
             }
 
             exitBtn.onClick.Clear();

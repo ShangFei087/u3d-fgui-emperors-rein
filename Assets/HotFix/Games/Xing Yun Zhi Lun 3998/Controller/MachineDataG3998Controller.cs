@@ -148,6 +148,19 @@ namespace XingYunZhiLun_3998
                 }
                 result["BonusBet"] = bonusBet;
                 result["BonusType"] = bonusType;
+
+                if (bonusType == 0 || bonusType == 1)
+                {
+                    result["BonusIDVec"] = new JSONArray();
+                    int bonusIDVecSize= data[pos++];
+                    for (int i = 0; i < bonusIDVecSize; i++)
+                    {
+                        int id = data[pos++];
+                        result["BonusIDVec"].Add(id);
+                    }
+
+                    result["BonusIDVecSize"] = bonusIDVecSize;
+                }
             }
 
             if(resultType == (int)ResultType.RT_Jackpot)
@@ -189,8 +202,35 @@ namespace XingYunZhiLun_3998
             ContentModel.Instance.curReelStripsIndex = "BS";
             ContentModel.Instance.nextReelStripsIndex = "BS";
             ContentModel.Instance.isFreeSpinTrigger = false;
+            ContentModel.Instance.isWild = false;
+            ContentModel.Instance.isMult = false;
+            ContentModel.Instance.isLihe = false;
+            ContentModel.Instance.isDrawWins = false;
+            ContentModel.Instance.isJackpotWin = false;
+            ContentModel.Instance.bonusWinCredit = 0;
+            ContentModel.Instance.drawWinsCredits = 0;
+            ContentModel.Instance.jackpotWinCredit = 0;
+            ContentModel.Instance.jackpotType = 0;
+            ContentModel.Instance.bonusWinList = new List<SymbolWin>();
 
             int openType = (int)res["OpenType"];
+            int resultType = (int)res["ResultType"];
+            int lineNum = (int)res["lineNum"];
+            int totalwin = (int)res["TotalBet"];
+            int matrixLength = (int)res["MatrixLength"];
+            int rows = CustomModel.Instance.row; // 3行
+            int cols = CustomModel.Instance.column; // 5列
+            int wheelChessNum = rows * cols;
+            string strDeckRowCol = "";
+            int totalLineWin = 0;
+            int bonusWin = 0;
+            int jackpotWin = 0;
+            int maxLink = 0;
+            int betMul = MainModel.Instance.contentMD.betmultiple;
+            List<SymbolInclude> symbolInclude = new List<SymbolInclude>();
+            List<SymbolWin> winList = new List<SymbolWin>();
+            JackpotRes jpGameRes = new JackpotRes();
+
             if (ContentModel.Instance.PendingFreeSpinReconnectValidation)
             {
                 ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
@@ -203,30 +243,6 @@ namespace XingYunZhiLun_3998
                     FreeSpinSessionStoreG3998.ResetContentModelFreeStateToBaseGame();
                 }
             }
-
-            int resultType = (int)res["ResultType"];
-            int lineNum = (int)res["lineNum"];
-            int totalwin = (int)res["TotalBet"];
-            int matrixLength = (int)res["MatrixLength"];
-            int rows = CustomModel.Instance.row; // 3行
-            int cols = CustomModel.Instance.column; // 5列
-            int wheelChessNum = rows * cols;
-            List<SymbolInclude> symbolInclude = new List<SymbolInclude>();
-            string strDeckRowCol = "";
-            int totalLineWin = 0;
-            int lineWin = 0;
-            int bonusWin = 0;
-            List<SymbolWin> winList = new List<SymbolWin>();
-            JackpotRes jpGameRes = new JackpotRes();
-
-            int maxLink = 0;
-            ContentModel.Instance.isFreeSpinTrigger = false;
-            ContentModel.Instance.isWild = false;
-            ContentModel.Instance.isMult = false;
-            ContentModel.Instance.isLihe = false;
-            ContentModel.Instance.isDrawWins = false;
-            ContentModel.Instance.isJackpotWin = false;
-
             //免费游戏记录新出现的wild
             if (openType == 1)
             {
@@ -236,7 +252,6 @@ namespace XingYunZhiLun_3998
                 }
                 ContentModel.Instance.tempRows.Clear();
             }
-
 
             //记录当前免费游戏之前的wild数据
             if (resultType == 2)
@@ -313,103 +328,29 @@ namespace XingYunZhiLun_3998
             }
 
             ContentModel.Instance.strDeckRowCol = strDeckRowCol;
-            //IDVec 
-            for (int i = 0; i < lineNum; i++)
-            {
-                //-IDVec:万千位标识线， 百位标识消除多少个， 十个位标识ID。
-                int ID = (int)res["IDVec"][i];
 
-                int symbolNumber = ID % 100; // 十个位：Symbol ID
-                int hitCount = (ID / 100) % 10; // 百位：消除数量（WinCount）
-                int lineNumber = ID / 1000; // 万千位：线编号
-                // 输出调试信息（可选）
-                //Debug.Log($"ID: {ID}, Line: {lineNumber}, HitCount: {hitCount}, Symbol: {symbolNumber}");
-
-                int lineIndex = lineNumber;
-                maxLink = maxLink >= hitCount ? maxLink : hitCount;
-                int[] lineInfo = CustomModel.Instance.payLines[lineIndex].ToArray();
-                List<Cell> _cells = new List<Cell>();
-
-                for (int c = 0; c < hitCount; c++)
-                {
-                    int rowIdx = lineInfo[c];
-                    int colIdx = c;
-                    _cells.Add(new Cell(colIdx, rowIdx));
-                }
-
-                lineWin = GetLineOdds(symbolNumber, hitCount) * MainModel.Instance.contentMD.betmultiple;
-                SymbolWin sw = new SymbolWin()
-                {
-                    earnCredit = lineWin,
-                    multiplier = MainModel.Instance.contentMD.betmultiple,
-                    lineNumber = lineNumber,
-                    symbolNumber = symbolNumber,
-                    cells = _cells,
-                };
-                winList.Add(sw);
-
-                totalLineWin += lineWin;
-            }
+            // 普通奖线（IDVec）；入账以算法 TotalBet 为准
+            int normalMaxLink;
+            winList = ParseIdVecToWinList(res["IDVec"], lineNum, betMul, out normalMaxLink);
             ContentModel.Instance.winList = winList;
+            maxLink = normalMaxLink;
+            totalLineWin = totalwin * betMul;
+            int localLineSum = 0;
+            foreach (var w in winList)
+                localLineSum += (int)w.earnCredit;
+            if (lineNum > 0 && localLineSum != totalLineWin)
+            {
+                DebugUtils.LogError(
+                    $"[G3998] 普通线分不一致 TotalBet*mul={totalLineWin} local={localLineSum}");
+            }
             ContentModel.Instance.baseGameWinCredit = totalLineWin;
-
             //检查算法结果
             CheckGameResult(strDeckRowCol, totalwin);
-
-            //判断彩金
-            bool isJackpotMajor = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 0 ? sboxJackpotData.Lottery[0] == 1 : false);
-            bool isJackpotMinor = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 1 ? sboxJackpotData.Lottery[1] == 1 : false);
-            bool isJackpotMini = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 2 ? sboxJackpotData.Lottery[2] == 1 : false);
-
-            jpGameRes.curJackpotMajor = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 0 ? sboxJackpotData.JackpotOut[0] : 0;
-            jpGameRes.curJackpotMinior = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 1 ? sboxJackpotData.JackpotOut[1] : 0;
-            jpGameRes.curJackpotMini = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 2 ? sboxJackpotData.JackpotOut[2] : 0;
-            ContentModel.Instance.jpGameRes = jpGameRes;
-
-            if (isJackpotMajor)
-            {
-                int winCredit = (int)res["num"];
-                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
-                {
-                    name = "major",
-                    id = 1,
-                    winCredit = sboxJackpotData.Jackpotlottery[1],
-                    whenCredit = sboxJackpotData.JackpotOld[1],
-                    curCredit = sboxJackpotData.JackpotOut[1],
-                });
-            }
-
-            if (isJackpotMinor)
-            {
-                int winCredit = (int)res["num"];
-                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
-                {
-                    name = "minor",
-                    id = 1,
-                    winCredit = sboxJackpotData.Jackpotlottery[1],
-                    whenCredit = sboxJackpotData.JackpotOld[1],
-                    curCredit = sboxJackpotData.JackpotOut[1],
-                });
-            }
-
-            if (isJackpotMini)
-            {
-                int winCredit = (int)res["num"];
-                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
-                {
-                    name = "mini",
-                    id = 1,
-                    winCredit = sboxJackpotData.Jackpotlottery[2],
-                    whenCredit = sboxJackpotData.JackpotOld[2],
-                    curCredit = sboxJackpotData.JackpotOut[2],
-                });
-            }
 
             List<int> deckRowCol = SlotTool.GetDeckRowCol(strDeckRowCol);
             int wild = CustomModel.Instance.symbolNumber[8];
             int scatter = CustomModel.Instance.symbolNumber[9];
             const int bonus = 11;
-
 
             //判断免费奖
             if (CustomModel.Instance.freeGameConfig.IsHasFreeGame && !CustomModel.Instance.freeGameConfig.IsScatterInLine)
@@ -440,23 +381,23 @@ namespace XingYunZhiLun_3998
 
                 if (resultType == (int)ResultType.RT_FreeWin && isFree && (freeTime == (int)res["TotalFreeTime"]))
                 {
-                    int TotalFreeTime = (int)res["TotalFreeTime"];
+                    int totalFreeTime = (int)res["TotalFreeTime"];
+                    int totalFreeBet = (int)res["TotalFreeBet"];
                     ContentModel.Instance.curReelStripsIndex = "BS";
                     ContentModel.Instance.nextReelStripsIndex = "FS";
                     ContentModel.Instance.isFreeSpinTrigger = true;
                     ContentModel.Instance.freeSpinTotalTimes = freeTime;
                     ContentModel.Instance.freeSpinPlayTimes = 0;
-                    ContentModel.Instance.freeSpinTotalWinCredit = totalwin + (int)res["TotalFreeBet"];
-                    ContentModel.Instance.curFreeCredit = totalwin;
+                    ContentModel.Instance.freeSpinTotalWinCredit = totalLineWin + totalFreeBet * betMul;
+                    ContentModel.Instance.curFreeCredit = totalLineWin;
 
                     ContentModel.Instance.newFreeOnceCredit.Clear();
-                    for (int i = 0; i < TotalFreeTime; i++)
+                    for (int i = 0; i < totalFreeTime; i++)
                     {
                         ContentModel.Instance.newFreeOnceCredit.Add((int)res["FreeBetArray"][i]);
                     }
                 }
             }
-
             //判断赠送局
             if (openType == 1 && ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes)
             {
@@ -467,11 +408,8 @@ namespace XingYunZhiLun_3998
 
                 ContentModel.Instance.curReelStripsIndex = "FS";
                 ContentModel.Instance.freeSpinPlayTimes += 1;
-                ContentModel.Instance.curFreeCredit += ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1] * MainModel.Instance.contentMD.betmultiple;
-                //ContentModel.Instance.freeSpinTotalWinCredit += totalLineWin;
-
-
-                ContentModel.Instance.baseGameWinCredit = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1] * MainModel.Instance.contentMD.betmultiple;
+                ContentModel.Instance.curFreeCredit += totalLineWin;
+                ContentModel.Instance.baseGameWinCredit = totalLineWin;
 
                 if (ContentModel.Instance.freeSpinTotalTimes == ContentModel.Instance.freeSpinPlayTimes)
                 {
@@ -483,68 +421,80 @@ namespace XingYunZhiLun_3998
                 }
                 ContentModel.Instance.isFreeSpinResult = ContentModel.Instance.curReelStripsIndex == "FS" && ContentModel.Instance.nextReelStripsIndex == "BS";
             }
-
-            //判断大奖
-            if (CustomModel.Instance.bonusGameconfig.IsHasBonusGame && !CustomModel.Instance.bonusGameconfig.IsBonusInLine)
+            //判断大奖（仅 ResultType=大奖）
+            if (CustomModel.Instance.bonusGameconfig.IsHasBonusGame &&
+                !CustomModel.Instance.bonusGameconfig.IsBonusInLine &&
+                resultType == (int)ResultType.RT_BonusWin)
             {
-                int bonusCount = 0;
-                bool isBonus = false;
-
+                int scatterBonusCount = 0;
                 for (int i = 0; i < wheelChessNum; ++i)
                 {
                     if (deckRowCol[i] == scatter)
-                    {
-                        bonusCount += 1;
-                    }
+                        scatterBonusCount += 1;
+                }
+                ContentModel.Instance.scatterCount = scatterBonusCount;
+
+                if (res.HasKey("BonusBet"))
+                {
+                    bonusWin = (int)res["BonusBet"] * betMul;
+                    ContentModel.Instance.bonusWinCredit = bonusWin;
                 }
 
-                ContentModel.Instance.scatterCount = bonusCount;
-                ContentModel.Instance.bonusWinCredit = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
-
-                if (resultType == 3 && (int)res["BonusType"] == 0)
+                int bonusType = (int)res["BonusType"];
+                switch (bonusType)
                 {
-                    ContentModel.Instance.isWild = true;
-                    ContentModel.Instance.maxLink = maxLink;
-                    ContentModel.Instance.cols.Clear();
-
-                    for (int i = 0; i < bonusCount - 2; i++)
+                    case 0:
                     {
-                        if (ContentModel.Instance.cols.Contains(res["BonusData"][i])) continue;
-                        ContentModel.Instance.cols.Add(res["BonusData"][i]);
-                    }
-                }
-                else if (resultType == 3 && (int)res["BonusType"] == 1)
-                {
-                    ContentModel.Instance.isLihe = true;
-                    ContentModel.Instance.rewardIndex = (int)res["BlindSymbol"];
-
-                    //将BonusData转化到列表中确认转化的图标位置
-                    ContentModel.Instance.changeLiheIcon.Clear();
-                    for (int row = 0; row < rows; row++)
-                    {
-                        for (int col = 0; col < cols; col++)
+                        ContentModel.Instance.isWild = true;
+                        ContentModel.Instance.cols.Clear();
+                        for (int i = 0; i < scatterBonusCount - 2; i++)
                         {
-                            int index = row * cols + col;
-                            ContentModel.Instance.changeLiheIcon.Add(int.Parse(res["BonusData"][index].Value));
+                            if (ContentModel.Instance.cols.Contains(res["BonusData"][i])) continue;
+                            ContentModel.Instance.cols.Add(res["BonusData"][i]);
                         }
+
+                        int bonusIdCount = res.HasKey("BonusIDVecSize")
+                            ? (int)res["BonusIDVecSize"]
+                            : (res.HasKey("BonusIDVec") ? res["BonusIDVec"].Count : 0);
+                        int bonusMaxLink;
+                        ContentModel.Instance.bonusWinList =
+                            ParseIdVecToWinList(res["BonusIDVec"], bonusIdCount, betMul, out bonusMaxLink);
+                        maxLink = bonusMaxLink > 0 ? bonusMaxLink : maxLink;
+                        ContentModel.Instance.maxLink = maxLink;
+                        break;
                     }
-                    ContentModel.Instance.rewardIndex = (int)res["BlindSymbol"];
-                }
-                else if (resultType == 3 && (int)res["BonusType"] == 2)
-                {
-                    ContentModel.Instance.isMult = true;
-                    ContentModel.Instance.multiple = (int)res["BonusMultiply"];
-                    bonusWin = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
-                    ContentModel.Instance.baseGameWinCredit = ContentModel.Instance.bonusWinCredit;
-                }
-                else if (resultType == 3 && (int)res["BonusType"] == 3)
-                {
-                    ContentModel.Instance.drawWinsCredits = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
-                    bonusWin = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
-                    ContentModel.Instance.isDrawWins = true;
+                    case 1:
+                    {
+                        ContentModel.Instance.isLihe = true;
+                        ContentModel.Instance.rewardIndex = (int)res["BlindSymbol"];
+                        ContentModel.Instance.changeLiheIcon.Clear();
+                        for (int row = 0; row < rows; row++)
+                        {
+                            for (int col = 0; col < cols; col++)
+                            {
+                                int index = row * cols + col;
+                                ContentModel.Instance.changeLiheIcon.Add(int.Parse(res["BonusData"][index].Value));
+                            }
+                        }
+
+                        int bonusIdCount = res.HasKey("BonusIDVecSize")
+                            ? (int)res["BonusIDVecSize"]
+                            : (res.HasKey("BonusIDVec") ? res["BonusIDVec"].Count : 0);
+                        int bonusMaxLink;
+                        ContentModel.Instance.bonusWinList =
+                            ParseIdVecToWinList(res["BonusIDVec"], bonusIdCount, betMul, out bonusMaxLink);
+                        break;
+                    }
+                    case 2:
+                        ContentModel.Instance.isMult = true;
+                        ContentModel.Instance.multiple = (int)res["BonusMultiply"];
+                        break;
+                    case 3:
+                        ContentModel.Instance.drawWinsCredits = bonusWin;
+                        ContentModel.Instance.isDrawWins = true;
+                        break;
                 }
             }
-
             //判断彩金
             if(resultType == (int)ResultType.RT_Jackpot)
             {
@@ -552,39 +502,112 @@ namespace XingYunZhiLun_3998
                 ContentModel.Instance.jackpotWinCredit = res["TotalJackpotBet"];
                 ContentModel.Instance.jackpotType = res["JPTypeArray"][0];
 
-                bonusWin = ContentModel.Instance.jackpotWinCredit;
+                jackpotWin = ContentModel.Instance.jackpotWinCredit;
             }
 
-            //赢分
+            ContentModel.Instance.baseGameWinCredit = totalLineWin + bonusWin + jackpotWin;
+
+            bool isJackpotMajor = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 0 ? sboxJackpotData.Lottery[0] == 1 : false);
+            bool isJackpotMinor = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 1 ? sboxJackpotData.Lottery[1] == 1 : false);
+            bool isJackpotMini = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 2 ? sboxJackpotData.Lottery[2] == 1 : false);
+
+            jpGameRes.curJackpotMajor = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 0 ? sboxJackpotData.JackpotOut[0] : 0;
+            jpGameRes.curJackpotMinior = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 1 ? sboxJackpotData.JackpotOut[1] : 0;
+            jpGameRes.curJackpotMini = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 2 ? sboxJackpotData.JackpotOut[2] : 0;
+            ContentModel.Instance.jpGameRes = jpGameRes;
+
+            if (isJackpotMajor)
+            {
+                int winCredit = (int)res["num"];
+                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
+                {
+                    name = "major",
+                    id = 1,
+                    winCredit = sboxJackpotData.Jackpotlottery[0],
+                    whenCredit = sboxJackpotData.JackpotOld[0],
+                    curCredit = sboxJackpotData.JackpotOut[0],
+                });
+            }
+
+            if (isJackpotMinor)
+            {
+                int winCredit = (int)res["num"];
+                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
+                {
+                    name = "minor",
+                    id = 1,
+                    winCredit = sboxJackpotData.Jackpotlottery[1],
+                    whenCredit = sboxJackpotData.JackpotOld[1],
+                    curCredit = sboxJackpotData.JackpotOut[1],
+                });
+            }
+
+            if (isJackpotMini)
+            {
+                int winCredit = (int)res["num"];
+                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
+                {
+                    name = "mini",
+                    id = 1,
+                    winCredit = sboxJackpotData.Jackpotlottery[2],
+                    whenCredit = sboxJackpotData.JackpotOld[2],
+                    curCredit = sboxJackpotData.JackpotOut[2],
+                });
+            }
+            //计算赢分
             long creditBefore = MainBlackboardController.Instance.myRealCredit;
             if (ContentModel.Instance.isSysCredit)
             {
                 ContentModel.Instance.isSysCredit = false;
                 creditBefore = ContentModel.Instance.realCredit;
             }
-            long creditAfter = creditBefore - totalBet + totalLineWin + bonusWin;
+            long creditAfter = creditBefore - totalBet + totalLineWin + bonusWin + jackpotWin;
             if (ContentModel.Instance.gameState == GameState.FreeSpin) creditAfter += totalBet;
-
-            //List<List<int>> deckColRow = SlotTool.GetDeckColRow02(strDeckRowCol);
-            ////bool isReelsSlowMotion = (deckColRow[0].Contains(10) && deckColRow[1].Contains(10)) ? true : false;
-            //bool isReelsSlowMotion = false;
-            //ContentModel.Instance.isReelsSlowMotion = isReelsSlowMotion;
-            //// bonus数据
-            //var bonusResult = new Dictionary<int, JSONNode>();
-            //ContentModel.Instance.bonusResult = bonusResult;
-            //ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Default;
-            //SlotGameEffectManager.Instance.SetEffect(ContentModel.Instance.targetSlotGameEffect);
 
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
             ContentModel.Instance.realCredit = creditAfter;
-            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 当前押注倍率：{MainModel.Instance.contentMD.betmultiple} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin} ");
-
+            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 当前押注倍率：{betMul} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin} bonusWin={bonusWin} jackpotWin={jackpotWin}");
 
             // 记录游戏数据到数据库
             Record(totalBet, res);
             FreeSpinSessionStoreG3998.TryPersistOrClearSession();
         }
 
+        /// <summary>
+        /// 解析 IDVec / BonusIDVec：万千位线号，百位命中数，个十位图标。
+        /// </summary>
+        private List<SymbolWin> ParseIdVecToWinList(JSONNode idVec, int count, int betMul, out int maxHit)
+        {
+            maxHit = 0;
+            var list = new List<SymbolWin>();
+            if (idVec == null || count <= 0)
+                return list;
+
+            for (int i = 0; i < count; i++)
+            {
+                int ID = (int)idVec[i];
+                int symbolNumber = ID % 100;
+                int hitCount = (ID / 100) % 10;
+                int lineNumber = ID / 1000;
+                maxHit = maxHit >= hitCount ? maxHit : hitCount;
+
+                int[] lineInfo = CustomModel.Instance.payLines[lineNumber].ToArray();
+                var cells = new List<Cell>();
+                for (int c = 0; c < hitCount; c++)
+                    cells.Add(new Cell(c, lineInfo[c]));
+
+                int lineWinCredit = GetLineOdds(symbolNumber, hitCount) * betMul;
+                list.Add(new SymbolWin
+                {
+                    earnCredit = lineWinCredit,
+                    multiplier = betMul,
+                    lineNumber = lineNumber,
+                    symbolNumber = symbolNumber,
+                    cells = cells,
+                });
+            }
+            return list;
+        }
 
         private int GetLineOdds(int symbolType, int hitCount)
         {
@@ -609,47 +632,6 @@ namespace XingYunZhiLun_3998
                 case 4: return info.x4;
                 case 5: return info.x5;
                 default: return 0;
-            }
-        }
-
-
-        private int CalculateLineWinCredit(int symbolNumber, int hitCount)
-        {
-            try
-            {
-                if (hitCount < 3)
-                    return 0;
-
-                List<PayTableSymbolInfo> payTable = MainModel.Instance.cutomMD?.payTableSymbolWin;
-                if (payTable == null || symbolNumber < 0 || symbolNumber >= payTable.Count)
-                {
-                    DebugUtils.LogError($"[G3998] 计算单线赢分失败，paytable越界。symbol={symbolNumber}, hit={hitCount}");
-                    return 0;
-                }
-
-                PayTableSymbolInfo info = payTable[symbolNumber];
-                double odd = 0;
-                if (hitCount >= 5)
-                {
-                    odd = info.x5;
-                }
-                else if (hitCount == 4)
-                {
-                    odd = info.x4;
-                }
-                else
-                {
-                    odd = info.x3;
-                }
-
-                // ParseSlotSpin02 内保持与算法 TotalBet 相同的未乘 betmultiple 单位。
-                int lineWin = Mathf.Max(0, Mathf.RoundToInt((float)odd));
-                return lineWin;
-            }
-            catch (Exception ex)
-            {
-                DebugUtils.LogError($"[G3998] 计算单线赢分异常: {ex.Message}");
-                return 0;
             }
         }
 
@@ -737,400 +719,6 @@ namespace XingYunZhiLun_3998
             }
         }
 
-        public void ParseSlotSpin02(long totalBet, JSONNode res, SBoxJackpotData sboxJackpotData)
-        {
-            //IDVec
-            int lineNum = (int)res["lineNum"];
-            int totalEarnCredit = 0;
-            List<SymbolWin> winList = new List<SymbolWin>();
-
-            int maxLink = 0;
-
-            for (int i = 0; i < lineNum; i++)
-            {
-                //-IDVec:万千位标识线， 百位标识消除多少个， 十个位标识ID。
-                int ID = (int)res["IDVec"][i];
-
-                int symbolNumber = ID % 100;          // 十个位：Symbol ID
-                int hitCount = (ID / 100) % 10;       // 百位：消除数量（WinCount）
-                int lineNumber = ID / 1000;           // 万千位：线编号
-                
-
-                // 输出调试信息（可选）
-                Debug.Log($"ID: {ID}, Line: {lineNumber}, HitCount: {hitCount}, Symbol: {symbolNumber}");
-
-                int lineIndex = lineNumber;
-                int[] lineInfo = CustomModel.Instance.payLines[lineIndex].ToArray();
-                List<Cell> _cells = new List<Cell>();
-
-                maxLink = maxLink >= hitCount ? maxLink : hitCount;
-
-                for (int c = 0; c < hitCount; c++)
-                {
-                    int rowIdx = lineInfo[c];
-                    int colIdx = c;
-                    _cells.Add(new Cell(colIdx, rowIdx));
-                }
-
-
-                SymbolWin sw = new SymbolWin()
-                {
-                    earnCredit = CalculateLineWinCredit(symbolNumber, hitCount),
-                    multiplier = 1,
-                    lineNumber = lineNumber,
-                    symbolNumber = symbolNumber,
-                    cells = _cells,
-                };
-                winList.Add(sw);
-                totalEarnCredit +=(int) sw.earnCredit;
-            }
-
-            int serverTotalEarnCredit = (int)res["TotalBet"];
-            if (lineNum > 0 && totalEarnCredit != serverTotalEarnCredit)
-            {
-                // 保证所有线总和与算法总赢分一致，避免前后端口径偏差。
-                int fixDelta = serverTotalEarnCredit - totalEarnCredit;
-                winList[0].earnCredit += fixDelta;
-                totalEarnCredit = serverTotalEarnCredit;
-                DebugUtils.LogWarning($"[G3998] 线赢分校正: delta={fixDelta}, lineNum={lineNum}");
-            }
-
-            ContentModel.Instance.winList = winList;
-
-            //Matrix
-            int rows = 3;    // 3行
-            int cols = 5;    // 5列
-            string strDeckRowCol = "";
-            int MatrixLength = (int)res["MatrixLength"];
-            int wheelNum = 0;
-
-            //判断免费奖或大奖
-            int ResultType = (int)res["ResultType"];
-            int OpenType = (int)res["OpenType"];
-            int TotalFreeTime = (int)res["TotalFreeTime"];
-
-            if(OpenType == 1)
-            {
-                //免费游戏记录新出现的wild
-                foreach (int key in ContentModel.Instance.wildPos.Keys)
-                {
-                    ContentModel.Instance.wildPos[key].Clear();
-                }
-                ContentModel.Instance.tempRows.Clear();
-            }
-
-            if(ResultType == 2)
-            {
-                //记录当前免费游戏之前的wild数据
-                foreach (List<int> value in ContentModel.Instance.freeWildRecord.Values)
-                {
-                    value.Clear();
-                }
-            }
-            
-
-            for (int row = 0; row < rows; row++)
-            {
-                for (int col = 0; col < cols; col++)
-                {
-                    int index = row * cols + col;
-                    
-                    if(int.Parse(res["Matrix"][index].Value) == 9)
-                    {
-                        wheelNum ++;
-                    }
-                    
-                    if(ResultType == 2)
-                    {
-                        if(int.Parse(res["Matrix"][index].Value) == 9 || int.Parse(res["Matrix"][index].Value) == 8)
-                        {
-                            if (!ContentModel.Instance.freeWildRecord.ContainsKey(col))
-                            {
-                                ContentModel.Instance.freeWildRecord[col] = new List<int>();
-                            }
-                            ContentModel.Instance.freeWildRecord[col].Add(row);
-                        }
-                    }
-                    else if ((int)res["OpenType"] == 1)
-                    {
-                        if (int.Parse(res["Matrix"][index].Value) == 8)
-                        {
-                            bool haveNewWild = false;
-                            if (!ContentModel.Instance.freeWildRecord.ContainsKey(col))
-                            {
-                                ContentModel.Instance.freeWildRecord[col] = new List<int>();
-                                haveNewWild = true;
-                            }
-                            else if (!ContentModel.Instance.freeWildRecord[col].Contains(row))
-                            {
-                                haveNewWild = true;
-                            }
-                            ContentModel.Instance.freeWildRecord[col].Add(row);
-
-                            if (haveNewWild)
-                            {
-                                if (!ContentModel.Instance.wildPos.ContainsKey(col))
-                                {
-                                    ContentModel.Instance.wildPos[col] = new List<int>();
-                                }
-                                ContentModel.Instance.wildPos[col].Add(row);
-                                ContentModel.Instance.tempRows.Add(row);
-                            }
-                        }
-
-                        if(ContentModel.Instance.freeWildRecord.ContainsKey(col) && ContentModel.Instance.freeWildRecord[col].Contains(row))
-                        {
-                            res["Matrix"][index].Value = 8.ToString();
-                        }
-                    }
-
-                    strDeckRowCol += res["Matrix"][index].Value;
-                    if (col < cols - 1)
-                    {
-                        strDeckRowCol += ",";  // 列之间用逗号分隔
-                    }
-                }
-
-                if (row < rows - 1)
-                {
-                    strDeckRowCol += "#";  // 行之间用#号分隔
-                }
-            }
-            ContentModel.Instance.strDeckRowCol = strDeckRowCol;
-
-            List<SymbolInclude> symbolInclude = new List<SymbolInclude>();
-            ContentModel.Instance.jackpotWinCredit = 0;
-
-            //判断彩金
-            JackpotRes jpGameRes = new JackpotRes();
-            bool isJackpotMajor = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 0 ? sboxJackpotData.Lottery[0] == 1 : false);
-            bool isJackpotMinor = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 1 ? sboxJackpotData.Lottery[1] == 1 : false);
-            bool isJackpotMini = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 2 ? sboxJackpotData.Lottery[2] == 1 : false);
-
-            jpGameRes.curJackpotMajor = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 0 ? sboxJackpotData.JackpotOut[0] : 0;
-            jpGameRes.curJackpotMinior = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 1 ? sboxJackpotData.JackpotOut[1] : 0;
-            jpGameRes.curJackpotMini = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 2 ? sboxJackpotData.JackpotOut[2] : 0;
-            //Debug.Log("curJackpotMajor:" + jpGameRes.curJackpotMajor);
-            //Debug.Log("curJackpotMinior:" + jpGameRes.curJackpotMinior);
-            //Debug.Log("curJackpotMini:" + jpGameRes.curJackpotMini);
-            ContentModel.Instance.jpGameRes = jpGameRes;
-
-            if (isJackpotMajor)
-            {
-                int winCredit = (int)res["num"];
-                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
-                {
-                    name = "major",
-                    id = 1,
-                    winCredit = sboxJackpotData.Jackpotlottery[1],
-                    whenCredit = sboxJackpotData.JackpotOld[1],
-                    curCredit = sboxJackpotData.JackpotOut[1],
-                });
-            }
-
-            if (isJackpotMinor)
-            {
-                int winCredit = (int)res["num"];
-                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
-                {
-                    name = "minor",
-                    id = 1,
-                    winCredit = sboxJackpotData.Jackpotlottery[1],
-                    whenCredit = sboxJackpotData.JackpotOld[1],
-                    curCredit = sboxJackpotData.JackpotOut[1],
-                });
-            }
-
-            if (isJackpotMini)
-            {
-                int winCredit = (int)res["num"];
-                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
-                {
-                    name = "mini",
-                    id = 1,
-                    winCredit = sboxJackpotData.Jackpotlottery[2],
-                    whenCredit = sboxJackpotData.JackpotOld[2],
-                    curCredit = sboxJackpotData.JackpotOut[2],
-                });
-            }
-
-
-            if (++MainModel.Instance.gameNumber < 0)
-                MainModel.Instance.gameNumber = 1;
-            ContentModel.Instance.response = res.ToString();
-
-            ContentModel.Instance.curReelStripsIndex = "BS";
-            ContentModel.Instance.nextReelStripsIndex = "BS";
-
-            
-            //免费奖
-            ContentModel.Instance.isFreeSpinTrigger = false;
-            ContentModel.Instance.isWild = false;
-            ContentModel.Instance.isMult = false;
-            ContentModel.Instance.isLihe = false;
-            ContentModel.Instance.isDrawWins = false;
-
-            if (ResultType == 2)
-            {
-                Debug.Log("-------免费奖--------");
-                ContentModel.Instance.curReelStripsIndex = "BS";
-                ContentModel.Instance.nextReelStripsIndex = "FS";
-
-                ContentModel.Instance.isFreeSpinTrigger = true;
-                ContentModel.Instance.freeSpinTotalTimes = wheelNum + 1;
-                ContentModel.Instance.freeSpinPlayTimes = 0;
-
-                ContentModel.Instance.newFreeOnceCredit.Clear();
-                for (int i = 0; i < TotalFreeTime; i++)
-                {
-                    ContentModel.Instance.newFreeOnceCredit.Add((int)res["FreeBetArray"][i]);
-                }
-            }
-            else if(ResultType == 3 && (int)res["BonusType"] == 0)
-            {
-                ContentModel.Instance.isWild = true;
-                ContentModel.Instance.maxLink = maxLink;
-                ContentModel.Instance.cols.Clear();
-
-                for(int i = 0; i <= wheelNum - 3; i++)
-                {
-                    ContentModel.Instance.cols.Add(res["BonusData"][i]);
-                }
-            }
-            else if(ResultType == 3 && (int)res["BonusType"] == 1)
-            {
-                ContentModel.Instance.isLihe = true;
-                ContentModel.Instance.rewardIndex = (int)res["BlindSymbol"];
-
-                //将BonusData转化到列表中确认转化的图标位置
-                ContentModel.Instance.changeLiheIcon.Clear();
-                for (int row = 0; row < rows; row++)
-                {
-                    for (int col = 0; col < cols; col++)
-                    {
-                        int index = row * cols + col;
-                        ContentModel.Instance.changeLiheIcon.Add(int.Parse(res["BonusData"][index].Value));
-                    }
-                }
-                ContentModel.Instance.rewardIndex = (int)res["BlindSymbol"];
-            }
-            else if(ResultType == 3 && (int)res["BonusType"] == 2)
-            {
-                ContentModel.Instance.isMult = true;
-                ContentModel.Instance.multiple = (int)res["BlindSymbol"];
-            }
-            else if(ResultType == 3 && (int)res["BonusType"] == 3)
-            {
-                ContentModel.Instance.drawWinsCredits = (int)res["BonusBet"] * MainModel.Instance.contentMD.betmultiple;
-
-                ContentModel.Instance.isDrawWins = true;
-            }
-
-            //赠送局
-            if (OpenType == 1)
-            {
-                Debug.Log("-------赠送局--------");
-                ContentModel.Instance.curReelStripsIndex = "FS";
-                ContentModel.Instance.freeSpinPlayTimes += 1;
-                if (ContentModel.Instance.freeSpinTotalTimes == ContentModel.Instance.freeSpinPlayTimes)
-                {
-                    ContentModel.Instance.nextReelStripsIndex = "BS";
-                }
-                else
-                {
-                    ContentModel.Instance.nextReelStripsIndex = "FS";
-                }
-            }
-
-
-
-
-            ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            long creditBefore = MainBlackboardController.Instance.myRealCredit;
-            //赢分
-            long TotalBet = (int)res["TotalBet"];
-            if (ResultType == 3) TotalBet += (int)res["BonusBet"];
-            TotalBet = TotalBet * MainModel.Instance.contentMD.betmultiple;
-            DebugUtils.Log("本局赢分TotalBet==" + TotalBet);
-            long afterBetCredit = 0;
-            if (OpenType == 1)
-            {
-                afterBetCredit = creditBefore + TotalBet;
-            }
-            else
-            {
-                afterBetCredit = creditBefore + TotalBet - totalBet;
-
-            }
-
-            long creditAfter = afterBetCredit;
-
-            if (res.HasKey("creditAfter"))
-            {
-                creditAfter = res["creditAfter"];
-            }
-            MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
-
-            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {afterBetCredit}  totalEarnCredit={TotalBet} ");
-
-
-            // 免费游戏累计总赢
-            long freeSpinTotalWinCredit = 0;
-
-            //if (OpenType == 1)
-            //{
-            //    ContentModel.Instance.freeSpinTotalWinCredit = 0;
-            //}
-            //else
-            //{
-            //    ContentModel.Instance.freeSpinTotalWinCredit += totalEarnCredit;
-            //    freeSpinTotalWinCredit = ContentModel.Instance.freeSpinTotalWinCredit;
-            //}
-
-            if (ResultType == 2)
-            {
-                ContentModel.Instance.freeSpinTotalWinCredit = (int)res["TotalFreeBet"];
-            }
-
-
-            List<List<int>> deckColRow = SlotTool.GetDeckColRow02(strDeckRowCol);
-            //bool isReelsSlowMotion = (deckColRow[0].Contains(10) && deckColRow[1].Contains(10)) ? true : false;
-            bool isReelsSlowMotion = true;
-            ContentModel.Instance.isReelsSlowMotion = isReelsSlowMotion;
-
-
-            // bonus数据
-            var bonusResult = new Dictionary<int, JSONNode>();
-            /*
-            if (res["contents"]["bonus_result"] != null && res["contents"]["bonus_result"].Count > 0)
-            {
-               foreach (JSONNode item in res["contents"]["bonus_result"])
-               {
-                   bonusResult.Add((int)item["bonus_id"],item);
-               }
-            }*/
-            ContentModel.Instance.bonusResult = bonusResult;
-
-
-            /*
-            if (ContentModel.Instance.bonusResult.Count >0 )
-            {
-               ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Expectation02;
-            }
-            else
-            {
-               ContentModel.Instance.targetSlotGameEffect = isReelsSlowMotion ? SlotGameEffect.Expectation01 :
-                   isFreeSpin ? SlotGameEffect.FreeSpin : SlotGameEffect.Default;
-            }
-            */
-            ContentModel.Instance.targetSlotGameEffect = SlotGameEffect.Default;
-            SlotGameEffectManager.Instance.SetEffect(ContentModel.Instance.targetSlotGameEffect);
-
-            // 记录游戏数据到数据库
-            Record(totalBet, res);
-        }
-
-
         /// <summary>
         /// 记录游戏数据到数据库
         /// </summary>
@@ -1188,25 +776,76 @@ namespace XingYunZhiLun_3998
             gameSenceData.jpMinor = info.curJackpotMinior;
             gameSenceData.jpMini = info.curJackpotMini;
 
+            // 确定游戏类型（先取 resultType，再按本局类型取分，禁止用上局 ContentModel 残留）
+            int resultType = res != null ? (int)res["ResultType"] : 0;
+            int openType = res != null ? (int)res["OpenType"] : 0;
+            long betMul = Math.Max(1, ContentModel.Instance.betmultiple);
+
             long jackpotWinCredit = 0;
+            string jackpotType = "";
+            bool isJackpotResult = resultType == (int)ResultType.RT_Jackpot ||
+                                  resultType == (int)ResultType.RT_JackpotOnline;
+            // 本局机台 Lottery 实中：jpWinLst 有条目即可记彩金（不一定 ResultType=Jackpot）
             if (info.jpWinLst != null && info.jpWinLst.Count > 0)
             {
                 JackpotWinInfo item = info.jpWinLst[0];
                 gameSenceData.jpWinInfo = item;
                 jackpotWinCredit = (long)item.winCredit;
-                gameSenceData.jackpotWinCredit = jackpotWinCredit;
+                if (string.IsNullOrEmpty(jackpotType))
+                {
+                    if (item.name == "major") jackpotType = "0";
+                    else if (item.name == "minor") jackpotType = "1";
+                    else if (item.name == "mini") jackpotType = "2";
+                }
+            }
+            else if (isJackpotResult)
+            {
+                if (res != null && res.HasKey("TotalJackpotBet"))
+                    jackpotWinCredit = (long)(int)res["TotalJackpotBet"];
+                else if (ContentModel.Instance.jackpotWinCredit > 0)
+                    jackpotWinCredit = ContentModel.Instance.jackpotWinCredit;
+
+                if (ContentModel.Instance.isJackpotWin)
+                    jackpotType = ContentModel.Instance.jackpotType.ToString();
+                if (string.IsNullOrEmpty(jackpotType) && res != null && res.HasKey("JPTypeArray") &&
+                    res["JPTypeArray"].Count > 0)
+                    jackpotType = res["JPTypeArray"][0].Value;
+            }
+            gameSenceData.jackpotWinCredit = jackpotWinCredit;
+
+            // 大奖 / 免费：只认本局 ResultType + 回包字段
+            long bonusGameWinCredit = 0;
+            if (resultType == (int)ResultType.RT_BonusWin)
+            {
+                if (ContentModel.Instance.bonusWinCredit > 0)
+                    bonusGameWinCredit = ContentModel.Instance.bonusWinCredit;
+                else if (res != null && res.HasKey("BonusBet"))
+                    bonusGameWinCredit = (long)(int)res["BonusBet"] * betMul;
+                else if (ContentModel.Instance.drawWinsCredits > 0)
+                    bonusGameWinCredit = ContentModel.Instance.drawWinsCredits;
             }
 
-            // 确定游戏类型
-            int ResultType = res != null ? (int)res["ResultType"] : 0;
-            int OpenType = res != null ? (int)res["OpenType"] : 0;
+            long freeGameWinCredit = 0;
+            if (resultType == (int)ResultType.RT_FreeWin && res != null && res.HasKey("TotalFreeBet"))
+                freeGameWinCredit = (long)(int)res["TotalFreeBet"] * betMul;
 
+            // ParseSlotSpin02 线分未乘 betmultiple：若与算法 TotalBet 相等则补乘，与钱包/大奖分对齐
+            long baseGameWinCredit = totalEarnCredit;
+            if (res != null && res.HasKey("TotalBet"))
+            {
+                int serverLineWin = (int)res["TotalBet"];
+                if (serverLineWin > 0 && totalEarnCredit == serverLineWin)
+                    baseGameWinCredit = totalEarnCredit * betMul;
+            }
+
+            long totalWinCredit = baseGameWinCredit + freeGameWinCredit + bonusGameWinCredit + jackpotWinCredit;
 
             // 构建记录对象
             TableSlotGameRecordItem slotGameRecordItem = new TableSlotGameRecordItem()
             {
-                open_type = OpenType,
-                result_type = ResultType,
+                open_type = openType,
+                result_type = resultType,
+                jackpot_type = jackpotType,
                 free_curtime = ContentModel.Instance.freeSpinPlayTimes,
                 free_totaltime = ContentModel.Instance.freeSpinTotalTimes,
                 game_id = 3998,
@@ -1215,8 +854,11 @@ namespace XingYunZhiLun_3998
                 total_bet = totalBet,
                 credit_before = creditBefore,
                 credit_after = creditAfter,
-                base_game_win_credit = totalEarnCredit,
+                base_game_win_credit = baseGameWinCredit,
+                free_spin_win_credit = freeGameWinCredit,
+                bonus_game_win_credit = bonusGameWinCredit,
                 jackpot_win_credit = jackpotWinCredit,
+                total_win_credit = totalWinCredit,
                 strDeckRowCol = ContentModel.Instance.strDeckRowCol,
                 symbol_icon_mapping = JsonConvert.SerializeObject(CustomModel.Instance.symbolIcon) // 
             };

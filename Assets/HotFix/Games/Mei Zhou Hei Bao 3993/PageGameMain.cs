@@ -39,10 +39,6 @@ namespace MeiZhouHeiBao_3993
         public new const string resName = "PageGameMain";
 
         private const string PrefabPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PageGameMain/";
-
-        private const string GameControllerObjPath =
-            "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Game Controller/Slot Game Main Controller.prefab";
-
         // --------------------------------------------- 通用变量 -----------------------------------------------
         // 资源加载、UI、eventData
         private int _totalCount = -1;
@@ -50,6 +46,7 @@ namespace MeiZhouHeiBao_3993
         private EventData _openData;
         private bool _isInitPool;
 
+     
         // 游戏控制器
         private GameObject _goGameCtrl;
         private MonoHelper _monoHelper;
@@ -59,7 +56,7 @@ namespace MeiZhouHeiBao_3993
         private FguiGObjectPoolHelper _fGuiGObjectPoolHelper;
         private GameSoundController3993 _gameSoundController;
         private SlotMachineController3993 _slotMachineController;
-
+        private GComponent _lastAnchorPanelForDispatch;
         // 彩金
         private readonly MiniReelGroup uiJpMajorCtrl = new MiniReelGroup();
         private readonly MiniReelGroup uiJpMinorCtrl = new MiniReelGroup();
@@ -107,7 +104,7 @@ namespace MeiZhouHeiBao_3993
                 });
             }
 
-            ResourceManager02.Instance.LoadAsset<GameObject>(GameControllerObjPath, (clone) =>
+            ResourceManager02.Instance.LoadAsset<GameObject>("Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Game Controller/Slot Game Main Controller.prefab", (clone) =>
             {
                 _goGameCtrl = Object.Instantiate(clone, null);
                 _goGameCtrl.name = "Slot Game Main Controller 3993";
@@ -174,29 +171,29 @@ namespace MeiZhouHeiBao_3993
             MainModel.Instance.contentMD.betIndex = 0;
             ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
 
-            _lstPayTable = new List<GComponent>();
-            foreach (string url in CustomModel.Instance.payTable)
-            {
-                GComponent payTable = UIPackage.CreateObjectFromURL(url).asCom;
-                payTable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().InitParam(payTable);
-                _lstPayTable.Add(payTable);
-                payTable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().referenceCount++;
-            }
+            //_lstPayTable = new List<GComponent>();
+            //foreach (string url in CustomModel.Instance.payTable)
+            //{
+            //    GComponent payTable = UIPackage.CreateObjectFromURL(url).asCom;
+            //    //payTable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().InitParam(payTable);
+            //    _lstPayTable.Add(payTable);
+            //   // payTable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().referenceCount++;
+            //}
 
-            ContentModel.Instance.goPayTableLst = _lstPayTable.ToArray();
-            _payTableController.Init(_lstPayTable);
+            //ContentModel.Instance.goPayTableLst = _lstPayTable.ToArray();
+            //_payTableController.Init(_lstPayTable);
 
-            // ---------- 2. FairyGUI 对象池（须先于滚轮 Init） ----------
-            if (_fGuiPoolHelper == null || _isInitPool) return;
-            _isInitPool = true;
-            _fGuiPoolHelper.Add(TagPoolObject.SymbolHit, CustomModel.Instance.symbolHitEffect.Values.ToList(),
-                "symbol_hit#", 5);
-            _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolHit); // 中奖动画
-            _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.borderEffect, "border#", 5);
-            _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolBorder); // 边框
-            _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolAppearEffect.Values.ToList(),
-                "symbol_appear#", 10);
-            _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear); // 落下后图标静止动画 
+            //// ---------- 2. FairyGUI 对象池（须先于滚轮 Init） ----------
+            //if (_fGuiPoolHelper == null || _isInitPool) return;
+            //_isInitPool = true;
+            //_fGuiPoolHelper.Add(TagPoolObject.SymbolHit, CustomModel.Instance.symbolHitEffect.Values.ToList(),
+            //    "symbol_hit#", 5);
+            //_fGuiPoolHelper.PreLoad(TagPoolObject.SymbolHit); // 中奖动画
+            //_fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.borderEffect, "border#", 5);
+            //_fGuiPoolHelper.PreLoad(TagPoolObject.SymbolBorder); // 边框
+            //_fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolAppearEffect.Values.ToList(),
+            //    "symbol_appear#", 10);
+            //_fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear); // 落下后图标静止动画 
 
             // ---------- 3.滚轮控制器 ----------
             GComponent gSlotMachine = contentPane.GetChild("slotMachine").asCom;
@@ -214,7 +211,7 @@ namespace MeiZhouHeiBao_3993
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT,
                 OnBottomPanelReadyForPreload);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
-            // TryTriggerAnchorPanelChange();
+            TryTriggerAnchorPanelChange();
             if (!isOpen) return;
 
             // ---------- 5.音乐和界面控制 ----------
@@ -222,9 +219,9 @@ namespace MeiZhouHeiBao_3993
             _pageController = contentPane.GetController("gameController");
 
             // ---------- 6.初始化FairyGUI组件 --------
-            uiJpMajorCtrl.Init("Major", contentPane.GetChild("jpMajor").asCom.GetChild("n1").asList, "N0");
-            uiJpMinorCtrl.Init("Minor", contentPane.GetChild("jpMinor").asCom.GetChild("n1").asList, "N0");
-            uiJpMiniCtrl.Init("Mini", contentPane.GetChild("jpMini").asCom.GetChild("n1").asList, "N0");
+            uiJpMajorCtrl.Init("Major", contentPane.GetChild("jpMajor").asCom.GetChild("reels").asList, "N0");
+            uiJpMinorCtrl.Init("Minor", contentPane.GetChild("jpMinor").asCom.GetChild("reels").asList, "N0");
+            uiJpMiniCtrl.Init("Mini", contentPane.GetChild("jpMini").asCom.GetChild("reels").asList, "N0");
             uiJpMajorCtrl.SetReelWidth(30);
             uiJpMinorCtrl.SetReelWidth(30);
             uiJpMiniCtrl.SetReelWidth(30);
@@ -243,10 +240,10 @@ namespace MeiZhouHeiBao_3993
                 uiJpMinorCtrl.SetData((int)jsonNode["minor"]);
                 uiJpMiniCtrl.SetData((int)jsonNode["mini"]);
             });
-            _freeSpinTimeController = new FreeSpinTimeController();
-            _freeFrameCom = contentPane.GetChild("freeFrame").asCom;
-            _freeSpinsNumber = _freeFrameCom.GetChild("FreeSpinsNumber").asTextField;
-            _freeSpinTimeController.InitParam(_freeSpinsNumber);
+            //_freeSpinTimeController = new FreeSpinTimeController();
+            //_freeFrameCom = contentPane.GetChild("freeFrame").asCom;
+            //_freeSpinsNumber = _freeFrameCom.GetChild("FreeSpinsNumber").asTextField;
+            //_freeSpinTimeController.InitParam(_freeSpinsNumber);
 
             //---------- 7.Clone预制体到UI锚点上 --------
 
@@ -261,8 +258,7 @@ namespace MeiZhouHeiBao_3993
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
 
             InitParam(eventData);
-            EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
-                new EventData(Game3993AudioEvent.BgmRegularGame));
+           // EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3993AudioEvent.BgmRegularGame));
         }
 
         public override void OnClose(EventData eventData = null)
@@ -305,6 +301,16 @@ namespace MeiZhouHeiBao_3993
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT,
                 OnBottomPanelReadyForPreload);
             preLoadedCallback?.Invoke();
+        }
+
+        private void TryTriggerAnchorPanelChange()
+        {
+            if (_gOwnerPanel == null) return;
+            if (ReferenceEquals(_lastAnchorPanelForDispatch, _gOwnerPanel)) return;
+
+            _lastAnchorPanelForDispatch = _gOwnerPanel;
+            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
+                new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
         }
 
         #endregion
@@ -1038,8 +1044,7 @@ namespace MeiZhouHeiBao_3993
 
         private IEnumerator FreeGameSpin(Action successCallback, Action<string> errorCallback)
         {
-            EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
-                new EventData(Game3993AudioEvent.BgmFreeSpinGame));
+            //EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,new EventData(Game3993AudioEvent.BgmFreeSpinGame));
             while (ContentModel.Instance.nextReelStripsIndex == "FS")
             {
                 yield return FreeSpinOnce(null, errorCallback);
@@ -1075,8 +1080,7 @@ namespace MeiZhouHeiBao_3993
                 _pageController.selectedPage = "small";
                 _panelController.ChangButtonNo(true);
                 ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-                EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
-                    new EventData(Game3993AudioEvent.BgmBonusGame));
+                //EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3993AudioEvent.BgmBonusGame));
                 isNext = true;
             });
             yield return new WaitUntil(() => isNext == true);
@@ -1089,8 +1093,7 @@ namespace MeiZhouHeiBao_3993
                 _panelController.ChangButtonNo(false);
                 ContentModel.Instance.isSmallGameFinish = false;
                 ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-                EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
-                    new EventData(Game3993AudioEvent.BgmRegularGame));
+                //EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,new EventData(Game3993AudioEvent.BgmRegularGame));
             });
         }
 

@@ -298,7 +298,6 @@ namespace SlotZhuZaiJinBi1700
         {
             _preloadCompleted++;
             RefreshLoadingProgressVisual();
-            Debug.Log($"[1700 Loading] page preload done {_preloadCompleted}/{_preloadTotal}");
 
             if (_preloadCompleted < _preloadTotal) return;
 

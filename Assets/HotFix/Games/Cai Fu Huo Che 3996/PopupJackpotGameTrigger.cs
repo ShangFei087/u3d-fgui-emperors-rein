@@ -18,7 +18,7 @@ namespace CaiFuHuoChe_3996
         private Animator animator;
         private GButton closeBtn;
         private GTextField spinTime;
-        private Transition idleTransition;
+        //private Transition idleTransition;
 
         private bool isClose = false;
 
@@ -94,23 +94,24 @@ namespace CaiFuHuoChe_3996
 
             CancelAutoModeSimulatedClick();
 
+            spinTime = contentPane.GetChild("SpinTimes").asTextField;
+            closeBtn = contentPane.GetChild("StartBtn").asButton;
+
             GComponent loadSpine = contentPane.GetChild("anchorSpine").asCom;
-           if(anchorSpine != loadSpine)
-           {
+            if(anchorSpine != loadSpine)
+            {
                 GameCommon.FguiUtils.DeleteWrapper(anchorSpine);
                 anchorSpine = loadSpine;
                 goSpine = GameObject.Instantiate(go);
                 animator = goSpine.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                ChangeParent(spinTime, goSpine, "Anchor/Spine Mecanim GameObject (sp_pop_frame)/SkeletonUtility-SkeletonRoot/root/all/changkuang/num02", -5.2f, 0.75f);
+                ChangeParent(closeBtn, goSpine, "Anchor/Spine Mecanim GameObject (sp_pop_frame)/SkeletonUtility-SkeletonRoot/root/all/btn", -2.56f, 0.75f);
                 GameCommon.FguiUtils.AddWrapper(anchorSpine, goSpine);
-           }
+            }
 
             isClose = false;
-            closeBtn = contentPane.GetChild("StartBtn").asButton;
             closeBtn.onClick.Clear();
             closeBtn.onClick.Add(OnCloseBtn);
-            spinTime = contentPane.GetChild("SpinTimes").asTextField;
-            spinTime.visible = false;
-            idleTransition = contentPane.GetTransition("idle");
 
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
@@ -124,7 +125,7 @@ namespace CaiFuHuoChe_3996
                 }
             }
 
-            PlayAnim("start");
+            PlayAnim("prompt_start");
 
             AddTimer(0.3f, (object obj) =>
             {
@@ -133,11 +134,8 @@ namespace CaiFuHuoChe_3996
 
             AddTimer(0.96f, (object obj) =>
             {
-                idleTransition.Play(-1, 0, null);
-
                 ScheduleAutoModeSimulatedClick(closeBtn, () => isClose);
             });
-
 
         }
 
@@ -158,11 +156,11 @@ namespace CaiFuHuoChe_3996
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.JackpotPopupDisappear));
 
-            PlayAnim("end");
+            PlayAnim("prompt_end");
 
             spinTime.visible = false;
 
-            AddTimer(1f, (object obj) =>
+            AddTimer(0.8f, (object obj) =>
             {
                 CloseSelf(null);
             });
@@ -231,6 +229,18 @@ namespace CaiFuHuoChe_3996
             };
             _activeTimers.Add(_autoModeSimulatedClick);
             Timers.inst.Add(AutoModeSimulateClickDelaySeconds, 1, _autoModeSimulatedClick);
+        }
+
+        private void ChangeParent(GObject gComponent, GameObject go, string path, float xDistance, float yDistance)
+        {
+            Transform num01 = go.transform.Find(path);
+            if (gComponent.displayObject?.gameObject != null)
+            {
+                Transform t = gComponent.displayObject.gameObject.transform;
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(xDistance, yDistance, 0);
+                t.localScale = new Vector3(0.01f, 0.01f, 1);
+            }
         }
     }
 }

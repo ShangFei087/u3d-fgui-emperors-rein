@@ -1,60 +1,31 @@
 using FairyGUI;
 using UnityEngine;
-using System.Collections.Generic;
 using GameMaker;
 using System.Timers;
 using System.Collections;
 using System;
-using TreasuryHall;
 
 public class Main
 {
-    static PreloadAssetBundlesHelper preloadAB = new PreloadAssetBundlesHelper()
-    {
-        markBundle = "MARK_BUNDLE_MAIN",
-        preloadBundleNames = new List<object[]>()
-        {
-            // 游戏
-            //UIConst.Instance.pathDict[PageName.EmperorsReinPageERGameMain],
-        },
-        preloadAssetAtPath = new List<object[]>()
-        {
-            // 控台
-            //UIConst.Instance.pathDict[PageName.ConsolePageConsoleMain],
-            //UIConst.Instance.pathDict[PageName.ConsolePageConsoleMachineSettings],
-            //UIConst.Instance.pathDict[PageName.ConsolePopupI18nTest],
-            //UIConst.Instance.pathDict[PageName.ConsolePageConsoleBusinessRecord],
-            //UIConst.Instance.pathDict[PageName.ConsolePageConsoleGameInformation],
-            //UIConst.Instance.pathDict[PageName.ConsolePopupConsoleKeyboard001],
-            //UIConst.Instance.pathDict[PageName.ConsolePopupConsoleKeyboard002],
-            //UIConst.Instance.pathDict[PageName.ConsolePopupConsoleTip],
-            //UIConst.Instance.pathDict[PageName.ConsolePopupConsoleCommon],
-            //UIConst.Instance.pathDict[PageName.ConsolePopupConsoleSetParameter002],
-            //UIConst.Instance.pathDict[PageName.ConsolePopupConsoleSetParameter001],
-            //UIConst.Instance.pathDict[PageName.ConsolePopupConsoleCoder],
-            //UIConst.Instance.pathDict[PageName.ConsolePopupConsoleMask],
-            //UIConst.Instance.pathDict[PageName.ConsolePopupConsoleSlideSetting],
-        },
-    };
-
-    static PreloadAssetBundlesHelper preloadABBackground = new PreloadAssetBundlesHelper()
-    {
-        markBundle = "MARK_BUNDLE_MAIN",
-        preloadBundleNames = new List<object[]>() { },
-        preloadAssetAtPath = new List<object[]>() { },
-    };
-
     public static void MainStart()
     {
         PagBootstrap.EnsureReady();
-        CoroutineAssistant.DoCo("COR_ON_BEFORE_PRELOAD", OnBeforePreLoadBundle());
+        ThemeRuntime.SelectFromSettings();
+        CoroutineAssistant.DoCo("COR_ON_BEFORE_PRELOAD", OnBeforeConnectHardware());
     }
 
-    static IEnumerator OnBeforePreLoadBundle()
+    /// <summary>
+    /// 预载主题大厅页，等待 SQLite 就绪后连接机台/初始化。
+    /// AB 预载已由主题 Entry.OpenHall（Loading 预载）承担，不再走 preloadAB 空列表。
+    /// </summary>
+    static IEnumerator OnBeforeConnectHardware()
     {
-        // 预加载前:
-        PageLaunch.Instance.RefreshProgressUIMsg("on before preload bundle");
-        PageManager.Instance.PreloadPage(PageName.TreasuryHallMain, null);
+        PageLaunch.Instance.RefreshProgressUIMsg("on before connect hardware");
+        if (ThemeRuntime.HasCurrent)
+            ThemeRuntime.Current.PreloadHall();
+        else
+            PageManager.Instance.PreloadPage(ThemeRuntime.Profile.HallPageName, null);
+
         while (!SQLitePlayerPrefs03.Instance.isInit)
         {
             yield return null;
@@ -67,81 +38,7 @@ public class Main
 
         yield return null;
 
-        PreLoadBundle();
-    }
-
-    /// <summary>
-    /// 预加载
-    /// </summary>
-    private static void PreLoadBundle()
-    {
-        int preloadCount = preloadAB.preloadBundleNames.Count;
-        PageLaunch.Instance.AddProgressCount(LoadingProgress.PRELOAD_ASSET_BUNDLE, preloadCount);
-        DebugUtils.Log($"【内存预加载】ab包个数： {preloadCount}");
-
-        if (!Application.isEditor) // 【？】这里要换成 ApplicationSettings.Instance.IsUseHotfix()
-        {
-            preloadAB.LoadPreloadBundleAsync((msg) =>
-                {
-                    PageLaunch.Instance.Next(LoadingProgress.PRELOAD_ASSET_BUNDLE, msg);
-                },
-                () =>
-                {
-                    PreLoadAsset();
-                });
-        }
-        else
-        {
-            PreLoadAsset();
-        }
-    }
-
-    /// <summary>
-    /// 预加载资源，并等待完成
-    /// </summary>
-    private static void PreLoadAsset()
-    {
-        PageLaunch.Instance.RemoveProgress(LoadingProgress.PRELOAD_ASSET_BUNDLE);
-
-        int preloadCount = preloadAB.preloadAssetAtPath.Count;
-        PageLaunch.Instance.AddProgressCount(LoadingProgress.PRELOAD_ASSET, preloadCount);
-        DebugUtils.Log($"【内存预加载】资源个数： {preloadCount}");
-
-        if (!Application.isEditor) // 【？】这里要换成 ApplicationSettings.Instance.IsUseHotfix()
-        {
-            preloadAB.LoadPreloadAssetAsync((msg) =>
-                {
-                    PageLaunch.Instance.Next(LoadingProgress.PRELOAD_ASSET, msg);
-                },
-                () =>
-                {
-                    PreLoadBackboard();
-                    ConnectHardward();
-                });
-        }
-        else
-        {
-            ConnectHardward();
-        }
-    }
-
-    /// <summary>
-    /// 后台预加载
-    /// </summary>
-    private static void PreLoadBackboard()
-    {
-        if (!Application.isEditor) // 【？】这里要换成 ApplicationSettings.Instance.IsUseHotfix()
-        {
-            preloadABBackground.LoadPreloadBundleAsync(null,
-                () =>
-                {
-                    preloadABBackground.LoadPreloadAssetAsync(null,
-                        () =>
-                        {
-                            DebugUtils.Log("【PreLoad】： 后台加载ab包、资源，完成");
-                        });
-                });
-        }
+        ConnectHardward();
     }
 
     private static void ShowPlamtInfo()
@@ -152,11 +49,7 @@ public class Main
 
     private static void ConnectHardward()
     {
-        PageLaunch.Instance.RemoveProgress(LoadingProgress.PRELOAD_ASSET_BUNDLE);
-        PageLaunch.Instance.RemoveProgress(LoadingProgress.PRELOAD_ASSET);
-
         ShowPlamtInfo();
-        //DebugUtil.Log( "<color=red>" + "检查是否是机台..." +"</color>");
 
         if (ApplicationSettings.Instance.isMachine)
         {
@@ -164,29 +57,16 @@ public class Main
             PageLaunch.Instance.Next(LoadingProgress.CONNECT_MACHINE,
                 $"connect machine: {ApplicationSettings.Instance.machineDebugUrl} ...");
             DebugUtils.LogWarning($"链接机台({ApplicationSettings.Instance.machineDebugUrl}), 初始化硬件...");
-            /*
-            if (Application.isEditor) {
-                string IP = matchIp;
-                if (matchIp.Contains(":"))
-                {
-                    IP = matchIp.Split(':')[0];
-                    string Port = matchIp.Split(':')[1];
-                    MatchDebugManager.Instance.port = int.Parse(Port);
-                }
-                MatchDebugManager.Instance.InitUdpNet(IP);
-            }
-            */
-            //SBoxSandboxInit.Instance.Init(ApplicationSettings.Instance.machineDebugUrl, () =>
             SBoxInit.Instance.Init(ApplicationSettings.Instance.machineDebugUrl, () =>
             {
                 DebugUtils.LogWarning("机台 链接成功...");
 
-                InitSettings(); //OpenGame();
+                InitSettings();
             });
         }
         else
         {
-            InitSettings(); //OpenGame();
+            InitSettings();
         }
     }
 
@@ -227,8 +107,6 @@ public class Main
         PageLaunch.Instance.RemoveProgress(LoadingProgress.CONNECT_MACHINE);
 
         PageLaunch.Instance.AddProgressCount(LoadingProgress.INIT_SETTINGS, 0);
-        //PageLaunch.Instance.AddCountToProgress(LoadingProgress.INIT_SETTINGS,1);
-        //PageLaunch.Instance.Next(LoadingProgress.INIT_SETTINGS, "msg");
 
         totalInitCount = 0;
         EventCenter.Instance.RemoveEventListener<EventData>(GlobalEvent.ON_INIT_SETTINGS_EVENT, OnInitSettingsEvent);
@@ -242,7 +120,6 @@ public class Main
         DelayCheckSettings();
     }
 
-    //list - number - msg
     static void OnInitSettingsEvent(EventData res)
     {
         if (res.name == GlobalEvent.AddSettingsCount)
@@ -271,13 +148,11 @@ public class Main
     {
         if (totalInitCount > 0)
         {
-            //PageLaunch.Instance.Next(LoadingProgress.INIT_SETTINGS,"init settings error!");
             DebugUtils.LogError("参数初始化失败！！！");
             return;
         }
 
         DebugUtils.LogWarning("参数初始化成功！！！");
-        //DebugUtils.LogError("参数初始化成功！！！");
 
         #region 参数获取成功后
 
@@ -286,22 +161,6 @@ public class Main
         TestUtils.CheckGCMonitorPro();
         TestUtils.CheckReporter();
 
-
-        /*##
-        MachineDeviceCommonBiz.Instance.CheckSas();
-
-        MachineDeviceCommonBiz.Instance.CheckMoneyBox();
-
-        MachineDeviceCommonBiz.Instance.CheckIOT();
-
-        MachineDeviceCommonBiz.Instance.CheckMqttRemoteButtonController();
-
-        MachineDeviceCommonBiz.Instance.CheckBonusReport();
-
-        MachineDeviceCommonBiz.Instance.SetGameLevel();
-        */
-
-
         // 所有包关闭 MQTT 远程控制，避免外网 broker TCP 超时导致周期卡死
         MachineDeviceCommonBiz.Instance.CheckMqttRemoteButtonController();
 
@@ -309,12 +168,8 @@ public class Main
 
         NetMgr.Instance.SetNetAutoConnect(false);
 
-
         DebugUtils.SetOpenDebugLog(SBoxModel.Instance.isDebugLog);
 
-
-        // 打开FGUI鼠标功能
-        //if(!ApplicationSettings.Instance.isRelease)  Stage.touchScreen = false;
         Stage.touchScreen = false;
 
         #endregion
@@ -327,35 +182,16 @@ public class Main
     static void OpenGame()
     {
         PageLaunch.Instance.RemoveProgress(LoadingProgress.INIT_SETTINGS);
-        //PageLaunch.Instance.AddProgress(LoadingProgress.ENTER_GAME,0);
-        //PageLaunch.Instance.Next(LoadingProgress.ENTER_GAME,"enter game");
         PageLaunch.Instance.RemoveProgress(LoadingProgress.ENTER_GAME);
         PageLaunch.Instance.Finish("enter game");
-        // 预加载 login 页 ？？
 
-        if (!ApplicationSettings.Instance.isMock)
+        if (!ThemeRuntime.HasCurrent)
         {
-            //PageManager.Instance.OpenPage(PageName.Hall01);
-            TreasuryHallMain.OpenTreasuryHallMainAfterCardGameLoadingPreloads();
+            DebugUtils.LogError($"[Main] ThemeRuntime 无当前 IThemeEntry: {ThemeRuntime.SelectedKind}，无法打开大厅");
+            return;
         }
-        else
-        {
-            PageManager.Instance.OpenPage(PageName.FeiZhouHeiXingXingPopupGameLoading);
-            // PageManager.Instance.OpenPage(PageName.FeiZhouHeiXingXingPageGameMain);
-            PageLaunch.Instance.Close();
-            // TreasuryHallMain.OpenTreasuryHallMainAfterCardGameLoadingPreloads();
-            //PageManager.Instance.OpenPage(PageName.Hall01);
-            //PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupGameLoading);
-            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeSpinTrigger);
-            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeGameLoading);
-            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupJackpotTrigger);
-            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupJackpotResult);
-            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupJackpotLoading);
-            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPageGameMain);
-            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupJackpotGame);
-            // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeSpinResult);
-            //PageManager.Instance.OpenPage(PageName.CaiFuZhiJiaPopupGameLoading);
-        }
+
+        ThemeRuntime.Current.OpenHall();
     }
 
     #endregion

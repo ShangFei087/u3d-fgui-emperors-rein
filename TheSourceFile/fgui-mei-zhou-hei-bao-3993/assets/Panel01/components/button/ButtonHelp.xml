@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="160,160">
+  <displayList>
+    <image id="n0_z14g" name="n0" src="z14g1l" fileName="images/menu_btn_menu.png" xy="0,0"/>
+    <component id="n1_z14g" name="untouch" src="z14g4" fileName="components/mask/UntouchCircle24.xml" xy="0,0" visible="false"/>
+  </displayList>
+</component>

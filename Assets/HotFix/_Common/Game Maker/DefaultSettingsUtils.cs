@@ -91,7 +91,7 @@ static public class DefaultSettingsUtils
     [Title("用户设置")]
 
     [Title("用户密码Admin")]
-    static public string passwordAdmin = "187653214";
+    static public string passwordAdmin = "1472583690";
     [Title("用户密码Manager")]
     static public string passwordManager = "88888888";
     [Title("用户密码Shift")]
@@ -120,8 +120,12 @@ static public class DefaultSettingsUtils
     static public int maxMaxGameRecord = 300000;
     [Tooltip("最小游戏次数记录")]
     static public int minMaxGameRecord = 100;
-    [Tooltip("默认游戏次数记录")]
-    static public int defMaxGameRecord = 20000;
+    [Tooltip("默认游戏次数记录（库容量）")]
+    static public int defMaxGameRecord = 150000;
+    [Tooltip("后台 Game History 可查看条数")]
+    static public int defMaxGameRecordView = 100;
+    [Tooltip("游戏记录导出默认条数")]
+    static public int defMaxGameRecordExport = 150000;
 
     [Tooltip("最大投退币次数记录")]
     static public int maxMaxCoinInOutRecord = 50000;
@@ -256,7 +260,7 @@ static public class DefaultSettingsUtils
     static public int isUpdateInfo => ApplicationSettings.Instance.isRelease ? 0 : 1;
 
     /// <summary> 是否打开联网彩金 </summary>
-    static public int isJackpotOnline => 1;
+    static public int isJackpotOnline => 0;
 
     /// <summary> 使用调试页面 </summary>
     static public int enableReporterPage => ApplicationSettings.Instance.isRelease ? 0 : 1;

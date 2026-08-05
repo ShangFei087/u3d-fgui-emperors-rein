@@ -136,7 +136,7 @@ namespace XingYunZhiLun_3998
 
             yield return SlotWaitForSeconds(_spinWEMD.Instance.timeS);
 
-            yield return SlotWaitForSeconds(1.7f);
+            yield return SlotWaitForSeconds(0.7f);
         }
 
 

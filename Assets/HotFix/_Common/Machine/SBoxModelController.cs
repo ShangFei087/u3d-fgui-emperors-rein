@@ -235,6 +235,20 @@ public class SBoxModelController : MonoSingleton<SBoxModelController>
         yield return new WaitUntil(() => isNext == true);
         isNext = false;
 
+        // 算法区域/难度：区域只跟随算法，前端不可改；失败则保持默认国内
+        LoadingPageInitSeting("get algo meta info");
+        MachineDataManager02.Instance.RequestGetAlgoMetaInfo((res) =>
+        {
+            SBoxModel.Instance.ApplyAlgoMetaInfo(res as AlgoMetaInfo);
+            isNext = true;
+        }, (err) =>
+        {
+            DebugUtils.LogError($"{SBoxEventHandle.SBOX_ALGO_META_INFO} : {err.msg}");
+            isNext = true;
+        });
+        yield return new WaitUntil(() => isNext == true);
+        isNext = false;
+
 
         /*
         LoadingPageInitSeting("clear all sqllite");

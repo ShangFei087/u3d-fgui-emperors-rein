@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Lucky_ng_sym11_airplane_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: 699a4c647592f7b40b1c5f3c3d431dd2, type: 2}
+  - {fileID: 11400000, guid: 4e2e24490595df149aa8d10239925642, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: ca55056b8cd35724692d0ac71863bc78, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: b4772209b5bc9cb4e98b26d035b753ff, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 9100000, guid: 71d491e36185e9b4f91cbb159ee04585, type: 2}
+  controller: {fileID: 9100000, guid: ab8bcc70f7576dd49b796b3678431eab, type: 2}

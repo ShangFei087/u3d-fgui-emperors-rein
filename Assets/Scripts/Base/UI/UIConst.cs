@@ -75,12 +75,15 @@ public class UIConst
             [PageName.ConsolePageConsoleHardware] =
                 new object[] { "Assets/GameRes/Games/Console/FGUIs", "ConsoleSlot01.PageConsoleHardware" },
             [PageName.ConsolePopupConsoleScreenColor] = new object[] { "Assets/GameRes/Games/Console/FGUIs", "ConsoleSlot01.PopupConsoleScreenColor" },
-
+            [PageName.ConsolePopupConsoleAdmin] = new object[] { "Assets/GameRes/Games/Console/FGUIs", "ConsoleSlot01.PageConsoleAdmin" },
+            
 
             //大厅
             [PageName.Hall01] = new object[] { "Assets/GameRes/Halls/Hall01/FGUIs", "Hall01.Hall01GameMain" },
             [PageName.TreasuryHallMain] =
                 new object[] { "Assets/GameRes/Halls/TreasuryHall/FGUIs", "TreasuryHall.TreasuryHallMain" },
+            [PageName.TestHallMain] =
+                new object[] { "Assets/GameRes/Halls/TestHall/FGUIs", "TestHall.TestHallMain" },
 
 
             // 推币机帝国之辉
@@ -296,12 +299,15 @@ public enum PageName
     ConsolePageConsoleGameHistory,
     ConsolePageConsoleHardware,
     ConsolePopupConsoleScreenColor,
+    ConsolePopupConsoleAdmin,
 
     //大厅
     Hall01,
-
     //财富大厅
     TreasuryHallMain,
+    //测试大厅
+    TestHallMain,
+
 
     // 推币机-帝国之辉
     PusherEmperorsReinPageERGameMain,
