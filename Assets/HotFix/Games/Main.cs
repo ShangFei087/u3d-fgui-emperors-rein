@@ -332,7 +332,7 @@ public class Main
         PageLaunch.Instance.RemoveProgress(LoadingProgress.ENTER_GAME);
         PageLaunch.Instance.Finish("enter game");
         // 预加载 login 页 ？？
-       
+
         if (!ApplicationSettings.Instance.isMock)
         {
             //PageManager.Instance.OpenPage(PageName.Hall01);
@@ -340,7 +340,10 @@ public class Main
         }
         else
         {
-            TreasuryHallMain.OpenTreasuryHallMainAfterCardGameLoadingPreloads();
+            PageManager.Instance.OpenPage(PageName.FeiZhouHeiXingXingPopupGameLoading);
+            // PageManager.Instance.OpenPage(PageName.FeiZhouHeiXingXingPageGameMain);
+            PageLaunch.Instance.Close();
+            // TreasuryHallMain.OpenTreasuryHallMainAfterCardGameLoadingPreloads();
             //PageManager.Instance.OpenPage(PageName.Hall01);
             //PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupGameLoading);
             // PageManager.Instance.OpenPage(PageName.MeiZhouHeiBaoPopupFreeSpinTrigger);

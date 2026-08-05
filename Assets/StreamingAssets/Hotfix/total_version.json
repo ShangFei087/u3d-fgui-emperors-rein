@@ -1,6 +1,14 @@
 {
-  "updated_at": 1784799479559,
+  "updated_at": 1784857280509,
   "data": [
+    {
+      "agent_name": "cwy",
+      "app": "--",
+      "app_key": "cwy_debug_machine_20260724094120",
+      "app_version": "1.8.0",
+      "version_suggest": null,
+      "hotfix_url": "./debug/machine/1_8_0"
+    },
     {
       "agent_name": "Treasury",
       "app": "--",

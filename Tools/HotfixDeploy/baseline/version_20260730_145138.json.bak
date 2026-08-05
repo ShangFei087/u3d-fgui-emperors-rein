@@ -1,11 +1,11 @@
 {
-  "updated_at": 1785847664185,
+  "updated_at": 1785393698877,
   "hotfix_key": "hf_debug_android_20260724094731",
-  "hotfix_version": "1.8.136",
+  "hotfix_version": "1.8.100",
   "asset_bundle": {
     "manifest": {
-      "hash": "9ca1a5a9412ac13ec39b03cea5a544dd",
-      "size_bytes": 26803
+      "hash": "77a416dd620686bea87ea734522eebdc",
+      "size_bytes": 26392
     },
     "bundle_hash": {
       "_common/game maker/abs/datas/error_code.unity3d": "6a5d3b740d4c68455ca1f442538c9810",
@@ -253,7 +253,7 @@
       "games/cai fu zhi jia 3997/effects/prefabs/smallgame/eff_sg_img_diamond.unity3d": "9eaa1e183846e598ba2fe0b947716fa7",
       "games/cai fu zhi jia 3997/effects/prefabs/smallgame/eff_sg_img_settlement_tw.unity3d": "e0a2d4a187c5da3447275c79eb811f88",
       "games/cai fu zhi jia 3997/effects/prefabs/smallgame/eff_sg_img_settlement_tw_bao.unity3d": "5fef7436cf38ce597991cc1383c1c4bb",
-      "games/cai fu zhi jia 3997/fguis.unity3d": "883ac0b9d0928bdaa1a38b7979cb459b",
+      "games/cai fu zhi jia 3997/fguis.unity3d": "9fef509929d8694e648147c326336ea1",
       "games/cai fu zhi jia 3997/pag/bigwin/bigwin_idle.unity3d": "730c6fe168519771616a8d1b3020fe36",
       "games/cai fu zhi jia 3997/pag/bigwin/bigwin_start.unity3d": "ebfcf3d732240714525ea30d881364ea",
       "games/cai fu zhi jia 3997/pag/bigwin/megawin_idle.unity3d": "be45a05cf325788169a262416e78933f",
@@ -603,33 +603,18 @@
       "games/emperors rein 200/sounds/music/music_freenumbertip.unity3d": "261ff8c631b3e554e7ca6f0d73d6bb4f",
       "games/emperors rein 200/sounds/music/music_link.unity3d": "1307afd0cf8c43a8be3f0a150525da3f",
       "games/emperors rein 200/sounds/music/music_normal.unity3d": "1937df37cbabdbb1712a4d3691c81e1d",
-      "games/fei zhou hei xing xing 3994/fguis.unity3d": "524932116eb21dddc34063a28c2b3d80",
-      "games/fei zhou hei xing xing 3994/pag/popupbigwin/bigwin_1080.unity3d": "539a330a8decb334d3d1e9ece0342393",
-      "games/fei zhou hei xing xing 3994/pag/popupbigwin/bigwin_720.unity3d": "ae91cae40bdbd0e2081ebe289adc41cf",
-      "games/fei zhou hei xing xing 3994/pag/popupfreespintrigger/fade_1280.unity3d": "afde1a74ae57ec2240bd4de23d33803a",
-      "games/fei zhou hei xing xing 3994/pag/popupfreespintrigger/fade_1920.unity3d": "7d83333a6315c2657db2494fa3528c99",
-      "games/fei zhou hei xing xing 3994/pag/popupsmallgametrigger/fade_1280.unity3d": "01415c7bae0c4a63737ba189c803cb0c",
-      "games/fei zhou hei xing xing 3994/pag/popupsmallgametrigger/fade_1920.unity3d": "3828d5cf98cc399642900ec8b6ba119b",
+      "games/fei zhou hei xing xing 3994/fguis.unity3d": "6bb5c62d12ad3baa3213f32143268528",
       "games/fei zhou hei xing xing 3994/prefabs/game controller/slot game main controller.unity3d": "ddff184a0ae2ea78792d655e5f1fd619",
-      "games/fei zhou hei xing xing 3994/prefabs/pagegamemain/effect_bonusspeedup.unity3d": "e4309a4c7ca89cfd3215446e4d0c7ad5",
-      "games/fei zhou hei xing xing 3994/prefabs/pagegamemain/effect_freechangeicon.unity3d": "6c25b08a610d19172b887691ce30cae1",
-      "games/fei zhou hei xing xing 3994/prefabs/pagegamemain/effect_freespeedup.unity3d": "5e290006e19cd9ad3deb828f8b5d57f5",
-      "games/fei zhou hei xing xing 3994/prefabs/pagegamemain/spine_freebigwildobj.unity3d": "b7690721f44a37c306afca17cb962731",
-      "games/fei zhou hei xing xing 3994/prefabs/pagegamemain/spine_freenpc.unity3d": "d3d778ba08d24a0e1f1faf61385b06f5",
-      "games/fei zhou hei xing xing 3994/prefabs/pagegamemain/spine_normalnpc.unity3d": "eeead5afc75f37c218d535d149ee6a99",
-      "games/fei zhou hei xing xing 3994/prefabs/pagegamemain/spine_smallnpc.unity3d": "e8904339dd9623eb6f1d5ea7dc53a77d",
-      "games/fei zhou hei xing xing 3994/prefabs/popupfreespinresult/spine_backmain.unity3d": "ceecd891b3dd9d6cada337943b5c1b71",
-      "games/fei zhou hei xing xing 3994/prefabs/popupfreespinresult/spine_result.unity3d": "3dbefe24b6fa0cb83134d8d6a5f0520c",
-      "games/fei zhou hei xing xing 3994/prefabs/popupfreespintrigger/spine_trigger.unity3d": "d73cda287375605ec9c7d7c5a5dbe829",
-      "games/fei zhou hei xing xing 3994/prefabs/popupgameloading/effect_gametitle.unity3d": "3e0f9c50bd7a29a6e1234cb0e602ef0a",
-      "games/fei zhou hei xing xing 3994/prefabs/popupgameloading/effect_leaves.unity3d": "eb00e3c160d6d6d8d4fb8c8912fb3cf9",
-      "games/fei zhou hei xing xing 3994/prefabs/popupgameloading/effect_tail.unity3d": "7ee8ac125a35d03fa17844bade4fd43d",
-      "games/fei zhou hei xing xing 3994/prefabs/popupgameloading/spine_npc.unity3d": "31be3f2f625cb41e320daf3a232a3e9d",
-      "games/fei zhou hei xing xing 3994/prefabs/popupsmallgamejackpotwin/spine_jackpotwin.unity3d": "310db2e55bdfa90a84a241c50a27d58d",
-      "games/fei zhou hei xing xing 3994/prefabs/popupsmallgameresult/spine_backmain.unity3d": "a1c6f8a9b60a3af76aa4d73684b6770c",
-      "games/fei zhou hei xing xing 3994/prefabs/popupsmallgameresult/spine_result.unity3d": "74425b8a95ecc2021755ed423bf92d2c",
-      "games/fei zhou hei xing xing 3994/prefabs/popupsmallgametrigger/spine_trigger.unity3d": "a62085b0e3694cd2bf62ee532f0920a3",
-      "games/fei zhou hei xing xing 3994/prefabs/symbols/border/jackpotframe.unity3d": "1f8e2cddab5a40948a9c4ff5dd799e04",
+      "games/fei zhou hei xing xing 3994/prefabs/pagegamemain/anchornpc.unity3d": "20eed8569e1fee24bd4289e23c9626cd",
+      "games/fei zhou hei xing xing 3994/prefabs/pagegamemain/bonusspeedup.unity3d": "cb3546ada4026070df161999d6bc3aca",
+      "games/fei zhou hei xing xing 3994/prefabs/pagegamemain/freebigwildobj.unity3d": "e52a3664d8e64cb946be8dd205d1e23c",
+      "games/fei zhou hei xing xing 3994/prefabs/pagegamemain/freechangeiconobj.unity3d": "48fa6d5b6fa88140e0bde623c1311abb",
+      "games/fei zhou hei xing xing 3994/prefabs/pagegamemain/freespeedup.unity3d": "5ac6d4080e425b37aa18549ceb8f209b",
+      "games/fei zhou hei xing xing 3994/prefabs/popupfreespinresult/anchorresult.unity3d": "49e4f9fce0c5a030b43d226cc572d047",
+      "games/fei zhou hei xing xing 3994/prefabs/popupfreespintrigger/anchortrigger.unity3d": "9a7423c9699ea29a2e3c88ed792dbd60",
+      "games/fei zhou hei xing xing 3994/prefabs/popupsmallgameresult/anchorresult.unity3d": "46769450485f13aff5907a01d90ad662",
+      "games/fei zhou hei xing xing 3994/prefabs/popupsmallgametrigger/anchortrigger.unity3d": "6233d5b2adf7fcd72401876cd4dd0b39",
+      "games/fei zhou hei xing xing 3994/prefabs/symbols/border/jackpotframe.unity3d": "461c461e3c10623f235309a9058fd596",
       "games/fei zhou hei xing xing 3994/prefabs/symbols/symbolappear/10_wild.unity3d": "3f259ec539e1e7cb48b3c9da6e15d62d",
       "games/fei zhou hei xing xing 3994/prefabs/symbols/symbolappear/11_scatter.unity3d": "477905014ce2226c4ccd8783242c060b",
       "games/fei zhou hei xing xing 3994/prefabs/symbols/symbolappear/12_bonus.unity3d": "9bac69c93f50950ad1b0d2af24cbdd89",
@@ -936,8 +921,8 @@
       "size_bytes": 169984
     },
     "HotFix": {
-      "hash": "b562e212cb62205ca185e052ddc19903",
-      "size_bytes": 2105344
+      "hash": "d108eaf4c043f37ce2cc855ec3d83e0e",
+      "size_bytes": 2096128
     }
   },
   "hotfix_dll_load_order": [
