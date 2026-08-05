@@ -9,7 +9,7 @@
     <text id="n12_pmae" name="bet" xy="620,1823" size="180,35" font="ui://q8n13f0fpmaeay" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-9" autoSize="shrink" text="30"/>
     <text id="n10_pmae" name="credit" xy="316,1819" size="176,39" font="ui://q8n13f0fpmaeay" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-9" autoSize="shrink" text="123456789"/>
     <text id="n11_pmae" name="win" xy="305,1690" size="479,78" font="ui://q8n13f0fpmaebf" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-28" autoSize="shrink" text="123456789"/>
-    <component id="n13_jaxj" name="btnSpin" src="jaxjbj" fileName="moudules/panel/ButtonSpin.xml" xy="1003,1796" pivot="0.5,0.5" anchor="true" scale="0.7,0.7"/>
+    <component id="n13_jaxj" name="btnSpin" src="jaxjbj" fileName="moudules/panel/ButtonSpin.xml" xy="973,1829" pivot="0.5,0.5" anchor="true" aspect="true"/>
     <text id="n20_soe7" name="singleLine" xy="269,1638" size="541,42" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="Line to 5  Win 80"/>
     <component id="n18_uz53" name="n18" src="uz53bq" fileName="moudules/panel/TipText.xml" xy="172,1895" size="747,23"/>
     <component id="n22_tpfb" name="ExhibitionPanel" src="tpfbc6" fileName="moudules/ExhibitionPanel.xml" xy="0,506"/>

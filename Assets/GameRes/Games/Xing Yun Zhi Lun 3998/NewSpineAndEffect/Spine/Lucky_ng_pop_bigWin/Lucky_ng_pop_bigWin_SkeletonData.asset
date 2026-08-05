@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Lucky_ng_pop_bigWin_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: cd418ce4195abfc478fb42731302aef0, type: 2}
+  - {fileID: 11400000, guid: 66af5aa1c70acea4f9ac97997acbe768, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: 0c3ba461aa0261c4eab859fbd07b5064, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: b51f027fc1623794cbad656930f223ff, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 9100000, guid: fd8b04dc038e39148a24cfdd2ded260b, type: 2}
+  controller: {fileID: 9100000, guid: 1ff8bb70c58ea9d408c5ca6a2379c2aa, type: 2}

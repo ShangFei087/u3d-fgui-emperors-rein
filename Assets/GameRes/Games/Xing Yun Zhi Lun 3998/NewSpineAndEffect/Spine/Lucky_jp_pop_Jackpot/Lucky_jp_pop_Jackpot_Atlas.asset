@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: Lucky_jp_pop_Jackpot_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: 252d035b017c4824097f4183a7e41d13, type: 3}
+  atlasFile: {fileID: 4900000, guid: 542032f0c10d5804ead5c9fb4ff44e9a, type: 3}
   materials:
-  - {fileID: 2100000, guid: b10df062ce5ab424f8f8ebb22c599810, type: 2}
+  - {fileID: 2100000, guid: f95db4e3232a4b449b8b3fe6743a266f, type: 2}

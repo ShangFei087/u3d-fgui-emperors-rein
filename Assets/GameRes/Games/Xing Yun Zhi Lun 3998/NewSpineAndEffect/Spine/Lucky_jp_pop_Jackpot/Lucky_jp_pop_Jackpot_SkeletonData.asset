@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Lucky_jp_pop_Jackpot_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: a1954e80a26b7d34c89837f5e5c0f082, type: 2}
+  - {fileID: 11400000, guid: b9d2cf6f1ae351e42bf4ca4bc62701e9, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: c8e1178e83fd0ce42bc7d161e0877be9, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: eaad295221fe8874fa6c2e412292a333, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 9100000, guid: cb6a1a3c223a4b949b4b23cce674c490, type: 2}
+  controller: {fileID: 9100000, guid: d782d17a3a30bb442b6a8a31ca66d2a2, type: 2}

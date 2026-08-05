@@ -19,7 +19,7 @@ namespace XingYunZhiLun_3998
 
         private GameObject bigWinPref, bigWinObj;
         private GComponent anchorBinWin;
-        private Animator bigWinAnim, bigWinEffAnim;
+        private Animator bigWinAnim;
 
         private Transform endEffect;
 
@@ -37,7 +37,12 @@ namespace XingYunZhiLun_3998
         private readonly string[] WinString = { "BIG", "HUGE", "MASSIVE" };
         private readonly string[] WinOpenString = { "bigwin_start", "superwin_start", "mega_start" };
         private readonly string[] WinCloseString = { "bigwin_end", "superwin_end", "mega_end" };
-        private readonly string[] WinEffString = { "bigwin", "mega", "superwin"};
+        private readonly string[] WinEffString = { "bigwin_idle.pag", "megewin_idle.pag", "superwin_idle.pag" };
+
+
+        //Pag播放
+        private const string GamePagFolder = "Games/Xing Yun Zhi Lun 3998/Pag";
+        private PagSlotBinding effectPag;
 
         protected override void OnInit()
         {
@@ -118,8 +123,7 @@ namespace XingYunZhiLun_3998
                 GameCommon.FguiUtils.DeleteWrapper(anchorBinWin);
                 anchorBinWin = anchorLoad;
                 bigWinObj = GameObject.Instantiate(bigWinPref);
-                bigWinEffAnim = bigWinObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-                bigWinAnim = bigWinObj.transform.GetChild(0).GetChild(1).GetComponent<Animator>();
+                bigWinAnim = bigWinObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
 
                 GameCommon.FguiUtils.AddWrapper(anchorBinWin, bigWinObj);
             }
@@ -128,12 +132,26 @@ namespace XingYunZhiLun_3998
 
             preLoadedCallback?.Invoke();
 
+            EnsureMainPagSlot();
+
             if (!isOpen) return;
 
             bigWinAnim.Play(WinOpenString[0]);
-            bigWinEffAnim.Play(WinEffString[0]);
+            effectPag.StopWithDefaults();
+            effectPag.Play(new PagSequencePlay(
+                PagPlaySpecs.IntroLoop(WinEffString[0], WinEffString[0]),
+                PagPlayLayout.Center));
 
             ShowAni();
+        }
+
+        private void EnsureMainPagSlot()
+        {
+            GComponent anchor = contentPane.GetChild("anchorPag")?.asCom;
+            if (anchor == null) return;
+
+            effectPag = new PagSlotBinding("effectPag", GamePagFolder);
+            effectPag.EnsureSlot(anchor, "pagEffect");
         }
 
 
@@ -159,8 +177,13 @@ namespace XingYunZhiLun_3998
                     playCount++;
                     //bigWinAnim.Rebind();
                     //bigWinAnim.Update(0f);
-                    bigWinAnim.Play(WinOpenString[playCount]);
-                    bigWinEffAnim.Play(WinEffString[playCount]);
+                    bigWinAnim.Play(WinOpenString[playCount]); 
+
+                    effectPag.StopWithDefaults();
+                    effectPag.Play(new PagSequencePlay(
+                        PagPlaySpecs.IntroLoop(WinEffString[playCount], WinEffString[playCount]),
+                        PagPlayLayout.Center));
+
                     if (playCount == WinIndex)
                     {
                         TimerCallback innerCallback = innerObj =>
@@ -207,14 +230,15 @@ namespace XingYunZhiLun_3998
             bigWinAnim.Play(WinCloseString[playCount]);
             bigWinAnim.Update(0f);
 
-            bigWinEffAnim.Rebind();
+            //bigWinEffAnim.Rebind();
+            effectPag.StopWithDefaults();
+
             //bigWinEffAnim.Play(WinEffString[playCount]);
-            bigWinEffAnim.Update(0f);
+            //bigWinEffAnim.Update(0f);
 
             //bigwinPig动画播放到指定时间.
             float closetime = 20f;
             AnimatorStateInfo stateInfo = bigWinAnim.GetCurrentAnimatorStateInfo(0);
-            AnimatorStateInfo stateInfoEff = bigWinEffAnim.GetCurrentAnimatorStateInfo(0);
             float normalizedTime = stateInfo.length;
 
             bigWinAnim.Play(stateInfo.fullPathHash, 0, 0);

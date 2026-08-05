@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: Lucky_fg_pop_settlement_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: 6809a586aa3bbb64b8e513ace4e04a4d, type: 3}
+  atlasFile: {fileID: 4900000, guid: 9164cf41d7667bb41a2e5219abb8ce9b, type: 3}
   materials:
-  - {fileID: 2100000, guid: 3bbe2417ea0fa26419c69ffc82fa6571, type: 2}
+  - {fileID: 2100000, guid: 0585b98993fa70b428e2e855e63c2cb5, type: 2}

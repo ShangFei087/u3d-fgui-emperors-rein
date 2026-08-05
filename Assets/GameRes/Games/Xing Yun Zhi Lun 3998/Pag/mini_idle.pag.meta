@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 7a8512a48dd0c9f48ac34fa9e915ba62
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: games/xing yun zhi lun 3998/pag/mini_idle.unity3d
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: c806c33c02b7da44e86221c1c5045af0, type: 3}

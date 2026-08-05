@@ -155,16 +155,24 @@ namespace XingYunZhiLun_3998
                 wins = new Transform[3];
                 stages = new Transform[3];
 
-                for(int i = 0; i < 3; i++)
-                {
-                    idels[i] = wheelBgObj.transform.GetChild(1).GetChild(i).GetChild(0);
-                    stages[i] = wheelBgObj.transform.GetChild(1).GetChild(i).GetChild(1);
-                    wins[i] = wheelBgObj.transform.GetChild(1).GetChild(i).GetChild(2);
-                    wins[i].gameObject.SetActive(false);
-                }
+                idels[0] = wheelBgObj.transform.Find("Anchor/Spine Mecanim GameObject (Lucky_ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/01/1/1").GetChild(0);
+                stages[0] = wheelBgObj.transform.Find("Anchor/Spine Mecanim GameObject (Lucky_ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/01/1/1").GetChild(1);
+                wins[0] = wheelBgObj.transform.Find("Anchor/Spine Mecanim GameObject (Lucky_ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/01/1/1").GetChild(2);
+                wins[0].gameObject.SetActive(false);
+
+                idels[1] = wheelBgObj.transform.Find("Anchor/Spine Mecanim GameObject (Lucky_ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/02/2").GetChild(0);
+                stages[1] = wheelBgObj.transform.Find("Anchor/Spine Mecanim GameObject (Lucky_ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/02/2").GetChild(1);
+                wins[1] = wheelBgObj.transform.Find("Anchor/Spine Mecanim GameObject (Lucky_ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/02/2").GetChild(2);
+                wins[1].gameObject.SetActive(false);
+
+                idels[2] = wheelBgObj.transform.Find("Anchor/Spine Mecanim GameObject (Lucky_ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/03/3").GetChild(0);
+                stages[2] = wheelBgObj.transform.Find("Anchor/Spine Mecanim GameObject (Lucky_ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/03/3").GetChild(1);
+                wins[2] = wheelBgObj.transform.Find("Anchor/Spine Mecanim GameObject (Lucky_ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/03/3").GetChild(2);
+                wins[2].gameObject.SetActive(false);
 
                 ChangeParent(gWheel, wheelBgObj, "Anchor/Spine Mecanim GameObject (Lucky_ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/c_circle");
             }
+            
 
             spinButton = contentPane.GetChild("spinBtn").asButton;
             spinButton.onClick.Clear();
@@ -177,6 +185,7 @@ namespace XingYunZhiLun_3998
                 CloseSelf(null);
                 //DebugUtils.Log("游戏结束");
             }));
+            spinButton.visible = false;
 
             //转动时在播放
             //StopEffectAnim(effectSpin);
@@ -461,6 +470,7 @@ namespace XingYunZhiLun_3998
             gWheel.rotation = targetRot;
 
             wins[wheelIndex].gameObject.SetActive(true);
+            wins[wheelIndex].GetChild(wins[wheelIndex].childCount - 1).GetComponent<Canvas>().sortingOrder = wins[wheelIndex].GetChild(wins[wheelIndex].childCount - 2).GetComponent<ParticleSystem>().GetComponent<Renderer>().sortingOrder - 2;
             PlayEffectAnim(wins[wheelIndex]);
 
             yield return new WaitForSeconds(1f);
@@ -548,8 +558,9 @@ namespace XingYunZhiLun_3998
                     break;
             }
 
-            Timers.inst.Add(2, 1, (object obj) =>
+            Timers.inst.Add(1, 1, (object obj) =>
             {
+                spinButton.visible = true;
                 PlayEffectAnim(idels[wheelBgIndex]);
                 PlayEffectAnim(stages[wheelBgIndex]);
             });

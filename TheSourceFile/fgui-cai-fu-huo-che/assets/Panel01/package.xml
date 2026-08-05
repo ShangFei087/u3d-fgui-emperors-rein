@@ -15,9 +15,6 @@
     <component id="uz53br" name="PayTable.xml" path="/moudules/panel/" exported="true"/>
     <component id="v2k7bv" name="IntroduceBtn.xml" path="/moudules/panel/" exported="true"/>
     <component id="v2k7bx" name="PayYable.xml" path="/moudules/panel/" exported="true"/>
-    <image id="pmae9w" name="pb_txt_stop.png" path="/images/Panel/spin按钮/" exported="true"/>
-    <image id="pmae9x" name="pb_txt_spin.png" path="/images/Panel/spin按钮/" exported="true"/>
-    <image id="pmae9y" name="pb_txt_help.png" path="/images/Panel/spin按钮/" exported="true"/>
     <image id="v2k7bu" name="Back to game.png" path="/images/Panel/说明书/" exported="true"/>
     <component id="soe71" name="BtnBack.xml" path="/moudules/SetPanel/" exported="true"/>
     <component id="soe74" name="Bar.xml" path="/moudules/SetPanel/" exported="true"/>
@@ -47,7 +44,6 @@
     <image id="s21fcf" name="ng_img_jian.png" path="/images/Button/" exported="true"/>
     <image id="s21fcg" name="ng_img_der_02.png" path="/images/Button/" exported="true"/>
     <image id="s21fch" name="ng_img_der_01.png" path="/images/Button/" exported="true"/>
-    <image id="iilzco" name="pb_txt_auto.png" path="/images/Panel/spin按钮/" exported="true"/>
     <image id="pcvkcr" name="ng_txt_Exhibition  Mode Off.png" path="/images/Button/" exported="true"/>
     <image id="pcvkcs" name="ng_txt_Exhibition  Mode On.png" path="/images/Button/" exported="true"/>
     <image id="pcvkcv" name="pb_img_expand.png" path="/images/Panel/多功能按钮/" exported="true"/>
@@ -71,6 +67,9 @@
     <image id="pcvkdg" name="pb_img_kuang_02.png" path="/images/Panel/鼓励值/" exported="true"/>
     <image id="pcvkdh" name="pb_img_dik.png" path="/images/Panel/赢分框/" exported="true"/>
     <image id="pcvkdj" name="pb_txt_zw.png" path="/images/Panel/赢分框/"/>
+    <image id="rxo5dl" name="pb_txt_spin.png" path="/images/Panel/spin按钮/" exported="true"/>
+    <image id="rxo5dm" name="pb_txt_stop.png" path="/images/Panel/spin按钮/" exported="true"/>
+    <image id="rxo5dn" name="pb_txt_auto.png" path="/images/Panel/spin按钮/" exported="true"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Panel\Panel3996\FGUIs" packageCount="2"/>
 </packageDescription>

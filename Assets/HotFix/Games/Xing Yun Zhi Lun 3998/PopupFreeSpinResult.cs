@@ -19,11 +19,11 @@ namespace XingYunZhiLun_3998
         private bool isInit = false;
         private EventData _data;
 
-        private GameObject goAnchorSpineFg, go;
-        private Animator animator;
+        private GameObject goAnchorSpineFg, go, goAnchorSpineEff, goEff;
+        private Animator animator, effAnimator;
         private Transform effectTransform;
 
-        private GComponent lodAnchor;
+        private GComponent lodAnchor, lodEffect;
         private GButton closeBtn;
         private Transition startTransition, idleTransition, endTransition;
         private GTextField totalCredit;
@@ -37,7 +37,7 @@ namespace XingYunZhiLun_3998
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 1;
+            int count = 2;
             Action callback = () =>
             {
                 if (--count == 0)
@@ -52,6 +52,14 @@ namespace XingYunZhiLun_3998
             (GameObject clone) =>
             {
                 goAnchorSpineFg = clone;
+                callback();
+            });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+            "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/PopupFreeSpinResult/FreeSpinResultEff.prefab",
+            (GameObject clone) =>
+            {
+                goAnchorSpineEff = clone;
                 callback();
             });
 
@@ -116,6 +124,18 @@ namespace XingYunZhiLun_3998
                 GameCommon.FguiUtils.AddWrapper(lodAnchor,go);
             }
 
+            GComponent lodAnchorEffect = contentPane.GetChild("effect").asCom;
+            if (lodEffect != lodAnchorEffect)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(lodEffect);
+                lodEffect = lodAnchorEffect;
+                goEff = GameObject.Instantiate(goAnchorSpineEff);
+                effAnimator = goEff.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                GameCommon.FguiUtils.AddWrapper(lodEffect, goEff);
+            }
+
+
+            effAnimator.Play("mega");
             ContentModel.Instance.btnSpinState = ContentModel.Instance.curBtnSpinState;
 
             totalCredit = contentPane.GetChild("number").asTextField;
@@ -130,16 +150,13 @@ namespace XingYunZhiLun_3998
                 }
             }
 
-            if(startTransition == null)
-            {
-                startTransition = contentPane.GetTransition("start");
-                idleTransition = contentPane.GetTransition("idle");
-                endTransition = contentPane.GetTransition("end");
+            startTransition = contentPane.GetTransition("start");
+            idleTransition = contentPane.GetTransition("idle");
+            endTransition = contentPane.GetTransition("end");
 
-                startTransition.ignoreEngineTimeScale = false;
-                idleTransition.ignoreEngineTimeScale = false;
-                endTransition.ignoreEngineTimeScale = false;
-            }
+            startTransition.ignoreEngineTimeScale = false;
+            idleTransition.ignoreEngineTimeScale = false;
+            endTransition.ignoreEngineTimeScale = false;
 
             closeBtn = contentPane.GetChild("Button").asButton;
             closeBtn.onClick.Clear();
@@ -151,7 +168,7 @@ namespace XingYunZhiLun_3998
             effectTransform.gameObject.SetActive(true);
             PlayAnim("start");
 
-            AddTimer(0.6f / Time.timeScale, (object obj) =>
+            AddTimer(0.2f / Time.timeScale, (object obj) =>
             {
                 startTransition.Play();
             });

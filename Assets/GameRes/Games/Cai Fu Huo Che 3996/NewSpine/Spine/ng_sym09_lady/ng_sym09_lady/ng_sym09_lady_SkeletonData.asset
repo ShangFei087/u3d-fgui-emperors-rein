@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ng_sym09_lady_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: 3bb127fb42e853248be8adbe99dd94bb, type: 2}
+  - {fileID: 11400000, guid: 1c792acca082ab34b97a95a186417252, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: bc3299fd122299444aeec2dcea3c0586, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: 55cd3cdf79df0514db378db98e8cd4db, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 9100000, guid: 5fe705bce9963cc468813355498cfcf5, type: 2}
+  controller: {fileID: 9100000, guid: fddd76b135ce25b46b35a73452696ef5, type: 2}

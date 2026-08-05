@@ -10,7 +10,6 @@
     <component id="n47_9mnq" name="anchorFreeCloude" src="9mnq2y" fileName="component/popupFreeGame/AnchorCloude.xml" xy="1650,980"/>
     <image id="n57_l8f4" name="n57" src="sqmze" fileName="images/freeGame/ng_img_bg_01.png" xy="0,860" size="1080,1066"/>
     <component id="n53_ldad" name="jackpotBg" src="baxv7z" fileName="component/popupNormalGame/AnchorJackpotBG.xml" xy="0,0"/>
-    <component id="n67_iilz" name="anchorBox" src="iilzcl" fileName="component/popupNormalGame/AnchorBox.xml" xy="318,850"/>
     <component id="n59_baxv" name="anchorNorBg" src="baxv6n" fileName="component/popupNormalGame/AnchorNorBG.xml" xy="0,0"/>
     <component id="n21_o8uc" name="anchorTrain" src="o8uc1i" fileName="component/popupNormalGame/AnchorTrain.xml" xy="540,1066"/>
     <image id="n61_baxv" name="n61" src="baxv6p" fileName="images/normalGame/ng_img_bg_02.png" xy="125,0"/>
@@ -110,7 +109,6 @@
     <item time="0" type="Alpha" target="n21_o8uc" value="1"/>
     <item time="0" type="Alpha" target="n22_9mnq" value="1"/>
     <item time="0" type="Alpha" target="n24_9mnq" value="0"/>
-    <item time="0" type="Alpha" target="n25_9mnq" value="0"/>
     <item time="0" type="Alpha" target="n28_9mnq" value="0"/>
     <item time="0" type="Alpha" target="n29_9mnq" value="0"/>
     <item time="0" type="Alpha" target="n30_9mnq" value="0"/>
@@ -136,13 +134,40 @@
     <item time="0" type="Alpha" target="n7_fkjs" value="0"/>
     <item time="0" type="Visible" target="n10_o8uc" value="true"/>
     <item time="0" type="Visible" target="n21_o8uc" value="true"/>
+    <item time="0" type="Visible" target="n24_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n25_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n28_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n29_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n30_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n32_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n33_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n34_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n35_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n36_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n37_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n38_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n39_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n42_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n43_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n44_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n45_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n47_9mnq" value="false"/>
+    <item time="0" type="Visible" target="n48_iwtc" value="false"/>
+    <item time="0" type="Visible" target="n49_iwtc" value="false"/>
+    <item time="0" type="Visible" target="n50_iwtc" value="false"/>
+    <item time="0" type="Visible" target="n51_iwtc" value="false"/>
+    <item time="0" type="Visible" target="n52_iwtc" value="false"/>
+    <item time="0" type="Visible" target="n53_ldad" value="false"/>
+    <item time="0" type="Visible" target="n54_ldad" value="false"/>
+    <item time="0" type="Visible" target="n57_l8f4" value="false"/>
     <item time="0" type="Visible" target="n59_baxv" value="true"/>
     <item time="0" type="Visible" target="n60_baxv" value="false"/>
     <item time="0" type="Visible" target="n61_baxv" value="true"/>
+    <item time="0" type="Visible" target="n62_vxx6" value="false"/>
     <item time="0" type="Visible" target="n65_znm9" value="false"/>
     <item time="0" type="Visible" target="n66_znm9" value="true"/>
-    <item time="0" type="Visible" target="n67_iilz" value="false"/>
     <item time="0" type="Visible" target="n68_q30q" value="false"/>
+    <item time="0" type="Visible" target="n7_fkjs" value="false"/>
     <item time="0" type="Visible" target="n8_o8uc" value="true"/>
     <item time="0" type="XY" target="n47_9mnq" value="1650,980"/>
   </transition>
@@ -181,12 +206,17 @@
     <item time="0" type="Alpha" target="n8_o8uc" value="1"/>
     <item time="0" type="Visible" target="n10_o8uc" value="true"/>
     <item time="0" type="Visible" target="n21_o8uc" value="false"/>
+    <item time="0" type="Visible" target="n34_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n35_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n36_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n37_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n59_baxv" value="false"/>
     <item time="0" type="Visible" target="n60_baxv" value="false"/>
     <item time="0" type="Visible" target="n61_baxv" value="false"/>
     <item time="0" type="Visible" target="n65_znm9" value="true"/>
     <item time="0" type="Visible" target="n66_znm9" value="false"/>
-    <item time="0" type="Visible" target="n67_iilz" value="false"/>
     <item time="0" type="Visible" target="n68_q30q" value="false"/>
+    <item time="0" type="Visible" target="n7_fkjs" value="true"/>
     <item time="0" type="XY" target="n47_9mnq" value="540,980"/>
   </transition>
   <transition name="BSToFSTransform">
@@ -215,8 +245,23 @@
     <item time="0" type="Alpha" target="n47_9mnq" value="1"/>
     <item time="0" type="Alpha" target="n64_znm9" tween="true" startValue="0" endValue="1" duration="18"/>
     <item time="0" type="Alpha" target="n8_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Visible" target="n24_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n25_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n28_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n29_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n30_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n32_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n33_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n38_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n39_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n42_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n43_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n44_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n45_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n47_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n48_iwtc" value="true"/>
+    <item time="0" type="Visible" target="n57_l8f4" value="true"/>
     <item time="0" type="Visible" target="n64_znm9" value="true"/>
-    <item time="0" type="Visible" target="n67_iilz" value="false"/>
     <item time="0" type="XY" target="n47_9mnq" tween="true" startValue="1650,980" endValue="540,980" duration="36" ease="Linear"/>
     <item time="18" type="Alpha" target="n10_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n16_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
@@ -273,7 +318,6 @@
     <item time="0" type="Alpha" target="n8_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
     <item time="0" type="Visible" target="n21_o8uc" value="true"/>
     <item time="0" type="Visible" target="n65_znm9" value="false"/>
-    <item time="0" type="Visible" target="n67_iilz" value="false"/>
     <item time="0" type="XY" target="n47_9mnq" tween="true" startValue="540,980" endValue="-700,980" duration="36" ease="Linear"/>
     <item time="18" type="Alpha" target="n10_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n24_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
@@ -321,12 +365,17 @@
     <item time="0" type="Alpha" target="n7_fkjs" value="0"/>
     <item time="0" type="Visible" target="n10_o8uc" value="false"/>
     <item time="0" type="Visible" target="n21_o8uc" value="false"/>
-    <item time="0" type="Visible" target="n25_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n24_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n28_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n29_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n30_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n53_ldad" value="true"/>
+    <item time="0" type="Visible" target="n54_ldad" value="true"/>
     <item time="0" type="Visible" target="n59_baxv" value="false"/>
     <item time="0" type="Visible" target="n60_baxv" value="true"/>
     <item time="0" type="Visible" target="n61_baxv" value="false"/>
+    <item time="0" type="Visible" target="n62_vxx6" value="true"/>
     <item time="0" type="Visible" target="n65_znm9" value="false"/>
-    <item time="0" type="Visible" target="n67_iilz" value="true"/>
     <item time="0" type="Visible" target="n68_q30q" value="true"/>
     <item time="0" type="Visible" target="n8_o8uc" value="false"/>
   </transition>

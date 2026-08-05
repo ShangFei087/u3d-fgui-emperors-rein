@@ -126,7 +126,7 @@ Assets/StreamingAssets/Hotfix/GameBackup/*
 # =============== #
 # 屏蔽打包输出文件 #
 # =============== #
-TheOutput/*
+/TheOutput/
 TheOutput/**/*.apk
 /Assets/HotFix/Games/Machine/Device/DeviceIOTPayment.cs
 Plugins/*

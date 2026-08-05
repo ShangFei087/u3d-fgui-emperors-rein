@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="100,100">
+  <displayList>
+    <loader id="n0_ycmn" name="pagEffect" xy="50,50" pivot="0.5,0.5" anchor="true" size="100,100" align="center" vAlign="middle"/>
+    <graph id="n1_ycmn" name="holder" xy="50,50" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+  </displayList>
+</component>
