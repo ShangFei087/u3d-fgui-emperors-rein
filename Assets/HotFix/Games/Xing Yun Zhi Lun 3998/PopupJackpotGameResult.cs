@@ -41,6 +41,11 @@ namespace XingYunZhiLun_3998
 
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
 
+        //Pag播放
+        private const string GamePagFolder = "Games/Xing Yun Zhi Lun 3998/Pag";
+        private PagSlotBinding effectPag;
+        private readonly string[] effectName = { "mini_idle.pag", "minor_idle.pag", "major_idle.pag" };
+
         protected override void OnInit()
         {
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -201,6 +206,15 @@ namespace XingYunZhiLun_3998
             }
         }
 
+        private void EnsureMainPagSlot()
+        {
+            GComponent anchor = contentPane.GetChild("anchorPag")?.asCom;
+            if (anchor == null) return;
+
+            effectPag = new PagSlotBinding("effectPag", GamePagFolder);
+            effectPag.EnsureSlot(anchor, "pagEffect");
+        }
+
 
         private void ExecuteNextStep()
         {
@@ -219,6 +233,10 @@ namespace XingYunZhiLun_3998
 
             btnLoader.url = CustomModel.Instance.jackpotResultBtnUrl[jackpotType];
             PlayAnim("start");
+            effectPag.StopWithDefaults();
+            effectPag.Play(new PagSequencePlay(
+                        PagPlaySpecs.IntroLoop(effectName[jackpotType], effectName[jackpotType]),
+                        PagPlayLayout.Center));
         }
 
         private void AddWrapperEffect(GameObject goFgClone)
@@ -229,10 +247,6 @@ namespace XingYunZhiLun_3998
                 GameCommon.FguiUtils.DeleteWrapper(goEffect);
                 go = GameObject.Instantiate(goFgClone);
                 animator = go.transform.GetChild(1).GetChild(0).GetComponent<Animator>();
-                //caidai = go.transform.GetChild(0).GetChild(1).GetChild(0).transform;
-                //drop = go.transform.GetChild(0).GetChild(2).GetChild(0).transform;
-                //liPao1 = go.transform.GetChild(0).GetChild(3).GetChild(0).transform;
-                //liPao2 = go.transform.GetChild(0).GetChild(4).GetChild(0).transform;
                 goEffect = lodAnchorBG;
                 ChangeParent(gbutton, go, "Anchor/Spine Mecanim GameObject (Lucky_jp_pop_Jackpot)/SkeletonUtility-SkeletonRoot/root/btn01", -2.45f, 0);
                 ChangeParent(credit, go, "Anchor/Spine Mecanim GameObject (Lucky_jp_pop_Jackpot)/SkeletonUtility-SkeletonRoot/root/num01", -3.88f, 0.5f);

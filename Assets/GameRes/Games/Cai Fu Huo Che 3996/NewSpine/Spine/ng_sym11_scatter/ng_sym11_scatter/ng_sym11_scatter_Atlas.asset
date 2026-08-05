@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: ng_sym11_scatter_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: 63e71f5de8eb97f49905d80112b7ecb7, type: 3}
+  atlasFile: {fileID: 4900000, guid: 507834bd0907088438a250f1717f9c48, type: 3}
   materials:
-  - {fileID: 2100000, guid: 29a8aed06a5988441ab214581f57e2bd, type: 2}
+  - {fileID: 2100000, guid: 02646079c93c4b54a9fa50eb4e9c7d09, type: 2}

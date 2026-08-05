@@ -1,5 +1,3 @@
-
-using CaiFuZhiJia_3997;
 using FairyGUI;
 using GameMaker;
 using Newtonsoft.Json;
@@ -77,7 +75,7 @@ namespace CaiFuHuoChe_3996
         //正常游戏和彩金游戏和免费游戏之间转场火车开门时特效
         private GameObject goOpenEffect;
         private GComponent anchorOpenEffect;
-        private Transform norToJp, jpToNor, fgToNor, norToFg;
+        private Transform fgToNor, norToFg;
 
         //火车预制体、动画
         private GameObject train, goTrain, freeCloude, goFreeCloude;
@@ -112,12 +110,6 @@ namespace CaiFuHuoChe_3996
         //当前游戏触发加速框后是否中奖
         private bool isTriggerFrame = false;
         private bool isWinFreeOrJacpot = false;
-
-        //彩金游戏中钱箱相关信息
-        private GComponent anchorBox;
-        private GameObject moneyBoxPref, moneyBoxObj;
-        private Animator moneyBoxAnim;
-        private Transform startEffect, boxIdleEffect, boxRewardEffect;
 
         // 开始游戏
         private bool _tipCoinIn = false, _isStoppedSlotMachine = false;
@@ -166,7 +158,7 @@ namespace CaiFuHuoChe_3996
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 12;
+            int count = 11;
 
             Action callback = () =>
             {
@@ -275,14 +267,6 @@ namespace CaiFuHuoChe_3996
            (GameObject clone) =>
            {
                freeTrainPref = clone;
-               callback();
-           });
-
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-           "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PopupGameJackpot/MoneyBox.prefab",
-           (GameObject clone) =>
-           {
-               moneyBoxPref = clone;
                callback();
            });
 
@@ -644,9 +628,7 @@ namespace CaiFuHuoChe_3996
                 GameCommon.FguiUtils.DeleteWrapper(anchorOpenEffect);
                 anchorOpenEffect = loadOpenEffect;
                 GameObject temp = GameObject.Instantiate(goOpenEffect);
-                norToJp = temp.transform.GetChild(0).GetChild(0);
-                jpToNor = temp.transform.GetChild(1).GetChild(0);
-                fgToNor = temp.transform.GetChild(2).GetChild(0);
+                fgToNor = temp.transform.GetChild(0).GetChild(0);
                 GameCommon.FguiUtils.AddWrapper(anchorOpenEffect, temp);
             }
 
@@ -658,20 +640,6 @@ namespace CaiFuHuoChe_3996
                 freeCloude = GameObject.Instantiate(goFreeCloude);
                 GameCommon.FguiUtils.AddWrapper(gFreeCloude, freeCloude);
             }
-
-            GComponent loadMoneyBox = contentPane.GetChild("anchorBox").asCom;
-            if (anchorBox != loadMoneyBox)
-            {
-                GameCommon.FguiUtils.DeleteWrapper(anchorBox);
-                anchorBox = loadMoneyBox;
-                moneyBoxObj = GameObject.Instantiate(moneyBoxPref);
-                moneyBoxAnim = moneyBoxObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-                startEffect = moneyBoxObj.transform.GetChild(1).GetChild(0).GetChild(0);
-                boxIdleEffect = moneyBoxObj.transform.GetChild(1).GetChild(1).GetChild(0);
-                boxRewardEffect = moneyBoxObj.transform.GetChild(1).GetChild(2).GetChild(0);
-                GameCommon.FguiUtils.AddWrapper(anchorBox, moneyBoxObj);
-            }
-
 
 
             // ---------- 8.断电数据恢复 ----------
@@ -1149,7 +1117,7 @@ namespace CaiFuHuoChe_3996
                 yield return slotMachineCtrl.SlotWaitForSeconds(1f);
 
                 slotMachineCtrl.SkipWinLine(true);
-                PlayAnim(girlAnim, "ng_trigger fg");
+                PlayAnim(girlAnim, "ng_trigger_fg");
                 yield return new WaitForSeconds(5.5f);
 
                 isNext = false;
@@ -1179,7 +1147,7 @@ namespace CaiFuHuoChe_3996
 
                 //播放动画
                 slotMachineCtrl.SkipWinLine(true);
-                PlayAnim(girlAnim, "ng_trigger sg");
+                PlayAnim(girlAnim, "ng_trigger_sg");
                 yield return new WaitForSeconds(1.8f);
 
                 //yield return jackpotSpinTrigger(() => isNext = true, errorCallback);
@@ -1288,12 +1256,9 @@ namespace CaiFuHuoChe_3996
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
-            PlayAnim(trainAnim, "ng_sg");
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.BonusGameFadeTransition));
             yield return new WaitForSeconds(0.9f);
-            PlayEffectAnim(norToJp);
-            yield return new WaitForSeconds(0.6f);
 
             train.SetActive(false);
             yield return new WaitForSeconds(0.3f);
@@ -1306,9 +1271,8 @@ namespace CaiFuHuoChe_3996
             freeTimes.text = ContentModel.Instance.jackpotSpinTotalTimes.ToString();
             yield return new WaitForSeconds(0.4f);
 
-            PlayAnim(moneyBoxAnim, "sg_start");
             yield return new WaitForSeconds(0.2f);
-            PlayEffectAnim(startEffect);
+            //PlayEffectAnim(startEffect);
 
             yield return GameJackpotSpin(null, errorCallback);
 
@@ -1321,11 +1285,10 @@ namespace CaiFuHuoChe_3996
             slotMachineCtrl.SkipWinLine(true);
 
             PlayAnim(girlAnim, "sg_settlement");
-            PlayAnim(moneyBoxAnim, "sg_settlement");
             yield return new WaitForSeconds(2);
 
 
-            StopEffectAnim(boxIdleEffect);
+            //StopEffectAnim(boxIdleEffect);
             yield return new WaitForSeconds(2.5f);
 
             PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupJackpotGameExit,
@@ -1345,9 +1308,6 @@ namespace CaiFuHuoChe_3996
             //加钱动画
             MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
 
-            PlayEffectAnim(jpToNor);
-            yield return new WaitForSeconds(0.5f);
-
             ChangeBGPanel(0);
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(Game3996AudioEvent.BgmRegularGame));
@@ -1355,7 +1315,6 @@ namespace CaiFuHuoChe_3996
             JsToBsTrans.Play();
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.BonusGameFadeTransition));
-            PlayAnim(trainAnim, "sg_ng");
 
             successCallback?.Invoke();
         }
@@ -1363,7 +1322,6 @@ namespace CaiFuHuoChe_3996
         //开始彩金游戏
         IEnumerator GameJackpotSpin(Action successCallback, Action<string> errorCallback)
         {
-            PlayEffectAnim(boxIdleEffect);
             while (ContentModel.Instance.nextReelStripsIndex == "JS")
             {
                 yield return slotMachineCtrl.SlotWaitForSeconds(1);
@@ -2280,7 +2238,7 @@ namespace CaiFuHuoChe_3996
 
             if (isJackpot)
             {
-                PlayEffectAnim(boxRewardEffect);
+                //PlayEffectAnim(boxRewardEffect);
             }
 
             //记录并显示累计分数
@@ -2652,7 +2610,6 @@ namespace CaiFuHuoChe_3996
             if (!showClawAnim)
             {
                 showClawAnim = true;
-                PlayAnim(moneyBoxAnim, "sg_appear");
                 PlayAnim(girlAnim, "sg_appear");
             }
         }
@@ -2713,9 +2670,9 @@ namespace CaiFuHuoChe_3996
 
         private readonly List<string> _jackpotUrls = new List<string>()
         {
-            "ui://CaiFuHuoChe_3996/symbol_14",
-            "ui://CaiFuHuoChe_3996/symbol_15",
             "ui://CaiFuHuoChe_3996/symbol_16",
+            "ui://CaiFuHuoChe_3996/symbol_15",
+            "ui://CaiFuHuoChe_3996/symbol_14",
         };
 
         private void InitSmallGame()
@@ -2827,12 +2784,9 @@ namespace CaiFuHuoChe_3996
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
-            PlayAnim(trainAnim, "ng_sg");
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.BonusGameFadeTransition));
             yield return new WaitForSeconds(0.9f);
-            PlayEffectAnim(norToJp);
-            yield return new WaitForSeconds(0.6f);
 
             train.SetActive(false);
             yield return new WaitForSeconds(0.3f);
@@ -2845,11 +2799,10 @@ namespace CaiFuHuoChe_3996
             freeTimes.text = ContentModel.Instance.jackpotSpinTotalTimes.ToString();
             yield return new WaitForSeconds(0.4f);
 
-            PlayAnim(moneyBoxAnim, "sg_start");
             yield return new WaitForSeconds(0.2f);
-            PlayEffectAnim(startEffect);
+            //PlayEffectAnim(startEffect);
 
-            PlayEffectAnim(boxIdleEffect);
+            //PlayEffectAnim(boxIdleEffect);
 
             //------------------------  此处补充正式游戏 和 结算分数逻辑  ------------------------
             yield return SmallGameSpin(() => isNext = true);
@@ -2861,11 +2814,10 @@ namespace CaiFuHuoChe_3996
             slotMachineCtrl.SkipWinLine(true);
 
             PlayAnim(girlAnim, "sg_settlement");
-            PlayAnim(moneyBoxAnim, "sg_settlement");
             yield return new WaitForSeconds(2);
 
-            StopEffectAnim(boxIdleEffect);
-            yield return new WaitForSeconds(2.5f);
+            //StopEffectAnim(boxIdleEffect);
+            yield return new WaitForSeconds(3.2f);
 
             PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupJackpotGameExit,
                 new EventData<Dictionary<string, object>>("", new Dictionary<string, object>()
@@ -2884,9 +2836,6 @@ namespace CaiFuHuoChe_3996
             //加钱动画
             MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
 
-            PlayEffectAnim(jpToNor);
-            yield return new WaitForSeconds(0.5f);
-
             ChangeBGPanel(0);
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(Game3996AudioEvent.BgmRegularGame));
@@ -2894,7 +2843,6 @@ namespace CaiFuHuoChe_3996
             JsToBsTrans.Play();
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.BonusGameFadeTransition));
-            PlayAnim(trainAnim, "sg_ng");
 
             successCallback?.Invoke();
         }
@@ -3178,11 +3126,6 @@ namespace CaiFuHuoChe_3996
                     //if (!isFinish)
                     //    isFinish = true;
                 });
-
-                //yield return DelayedAction(delay, () =>
-                //{
-                    
-                //});
             }
 
             // 普通reel：两圈roll

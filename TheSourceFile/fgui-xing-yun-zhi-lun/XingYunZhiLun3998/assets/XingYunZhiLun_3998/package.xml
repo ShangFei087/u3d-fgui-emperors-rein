@@ -252,7 +252,6 @@
     <image id="oebrald" name="ng_frame_minor.png" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
     <image id="oebralk" name="ng_frame_baseplate.png" path="/images/PopupGameNormalGame/slotNormal/" exported="true"/>
     <image id="oebrall" name="ng_frame_line.png" path="/images/PopupGameNormalGame/slotNormal/" exported="true"/>
-    <image id="oebralm" name="ng_frame_mid.png" path="/images/PopupGameNormalGame/slotNormal/" exported="true"/>
     <component id="u2bkalo" name="SlotMachineBg.xml" path="/moudules/slotMachine/"/>
     <image id="u2bkalp" name="fg_img_bg.png" path="/images/PopupGameFreeGame/" exported="true"/>
     <image id="u2bkalq" name="fg_frame_frequency.png" path="/images/PopupGameFreeGame/"/>
@@ -358,6 +357,9 @@
     <image id="b4x4aoo" name="fg_num_pop_mil.png" path="/fonts/fontsImage/FreeResultFont/" exported="true"/>
     <image id="b4x4aop" name="fg_num_trillion.png" path="/fonts/fontsImage/FreeResultFont/" exported="true"/>
     <font id="b4x4aoq" name="FreeResultFont.fnt" path="/fonts/fontsCom/FreeResultFont/" exported="true"/>
+    <image id="we7vaor" name="ng_frame_mid.png" path="/images/PopupGameNormalGame/slotNormal/" exported="true"/>
+    <component id="gueiaos" name="AnchorPag.xml" path="/components/PopupBigWIn/" exported="true"/>
+    <component id="jvaxaot" name="AnchorPag.xml" path="/components/PopupJackpotGame/" exported="true"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Xing Yun Zhi Lun 3998\FGUIs" packageCount="2"/>
 </packageDescription>

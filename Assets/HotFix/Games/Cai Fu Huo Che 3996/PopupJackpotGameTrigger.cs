@@ -27,6 +27,11 @@ namespace CaiFuHuoChe_3996
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
         private TimerCallback _autoModeSimulatedClick;
 
+
+        //Pag播放
+        private const string GamePagFolder = "Games/Cai Fu Huo Che 3996/Pag";
+        private PagSlotBinding InJackpot_bmp;
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -104,10 +109,12 @@ namespace CaiFuHuoChe_3996
                 anchorSpine = loadSpine;
                 goSpine = GameObject.Instantiate(go);
                 animator = goSpine.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-                ChangeParent(spinTime, goSpine, "Anchor/Spine Mecanim GameObject (sp_pop_frame)/SkeletonUtility-SkeletonRoot/root/all/changkuang/num02", -5.2f, 0.75f);
+                ChangeParent(spinTime, goSpine, "Anchor/Spine Mecanim GameObject (sp_pop_frame)/SkeletonUtility-SkeletonRoot/root/all/changkuang/num02", -2.65f, 5.17f);
                 ChangeParent(closeBtn, goSpine, "Anchor/Spine Mecanim GameObject (sp_pop_frame)/SkeletonUtility-SkeletonRoot/root/all/btn", -2.56f, 0.75f);
                 GameCommon.FguiUtils.AddWrapper(anchorSpine, goSpine);
             }
+
+            EnsureMainPagSlot();
 
             isClose = false;
             closeBtn.onClick.Clear();
@@ -139,6 +146,19 @@ namespace CaiFuHuoChe_3996
 
         }
 
+        private void EnsureMainPagSlot()
+        {
+            GComponent anchor = contentPane.GetChild("anchorPag")?.asCom;
+            if (anchor == null)
+            {
+                Debug.LogError("anchor不存在！！！");
+                return;
+            }
+
+            InJackpot_bmp = new PagSlotBinding("InJackpot_bmp", GamePagFolder);
+            InJackpot_bmp.EnsureSlot(anchor, "pagEffect");
+        }
+
 
         private void PlayAnim(string animName, Action OnComplete = null)
         {
@@ -160,9 +180,23 @@ namespace CaiFuHuoChe_3996
 
             spinTime.visible = false;
 
-            AddTimer(0.8f, (object obj) =>
+            AddTimer(0.6f, (object obj) =>
             {
-                CloseSelf(null);
+                if (InJackpot_bmp != null)
+                {
+                    InJackpot_bmp.StopWithDefaults();
+                    InJackpot_bmp.Play("InJackpot_bmp.pag",
+                    1,
+                    PagPlayLayout.Center,
+                    PagPresentationDefaults.DisplayScale,
+                    new PagPlayCallbacks(
+                    onFinished: () => InJackpot_bmp?.StopWithDefaults(),
+                    stopAfterFinished: true));
+                    AddTimer(5.5f, (object obj) =>
+                    {
+                        CloseSelf(null);
+                    });
+                }
             });
         }
 

@@ -3,8 +3,8 @@
   <displayList>
     <image id="n63_u2bk" name="n63" src="oebralk" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_baseplate.png" xy="30,37" size="515,638"/>
     <image id="n64_u2bk" name="n64" src="oebralk" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_baseplate.png" xy="1064,36" size="519,638" scale="-1,1"/>
-    <image id="n57_u2bk" name="n57" src="oebralm" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid.png" xy="1090,73" scale="-1,1"/>
-    <image id="n61_u2bk" name="n61" src="oebralm" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid.png" xy="0,73"/>
+    <image id="n57_u2bk" name="n57" src="we7vaor" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid.png" xy="1090,73" scale="-1,1"/>
+    <image id="n61_u2bk" name="n61" src="we7vaor" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_mid.png" xy="0,73"/>
     <image id="n62_u2bk" name="n62" src="t82pame" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_base.png" xy="56,646"/>
     <image id="n65_u2bk" name="n65" src="oebrall" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_line.png" xy="236,75"/>
     <image id="n66_u2bk" name="n66" src="oebrall" fileName="images/PopupGameNormalGame/slotNormal/ng_frame_line.png" xy="431,75"/>

@@ -21,7 +21,6 @@ namespace CaiFuHuoChe_3996
         private GComponent lodAnchor;
         private GButton btnStrat;
         private GTextField timesText;
-        private Transition endTransition, idleTransition;
 
         private Animator animator;
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
@@ -102,9 +101,8 @@ namespace CaiFuHuoChe_3996
 
             CancelAutoModeSimulatedClick();
 
-            //获取动效贴合动画效果
-            endTransition = contentPane.GetTransition("end");
-            idleTransition = contentPane.GetTransition("idle");
+            btnStrat = this.contentPane.GetChild("ButtonStart").asButton;
+            timesText = contentPane.GetChild("times").asTextField;
 
             GComponent loadSpineBg = contentPane.GetChild("anchorSpine").asCom;
             if (lodAnchor != loadSpineBg)
@@ -113,20 +111,21 @@ namespace CaiFuHuoChe_3996
                 lodAnchor = loadSpineBg;
                 goAnchorSpineFg = GameObject.Instantiate(go);
                 animator = goAnchorSpineFg.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+
+                ChangeParent(btnStrat, goAnchorSpineFg, "Anchor/Spine Mecanim GameObject (fg_pop_prompt)/SkeletonUtility-SkeletonRoot/root/all/btn", -1.8f, 0.5f);
+                ChangeParent(timesText, goAnchorSpineFg, "Anchor/Spine Mecanim GameObject (fg_pop_prompt)/SkeletonUtility-SkeletonRoot/root/all/kuang_6/num01", -3.25f, 2.25f);
+
                 GameCommon.FguiUtils.AddWrapper(lodAnchor, goAnchorSpineFg);
             }
 
-            btnStrat = this.contentPane.GetChild("ButtonStart").asButton;
+
+            btnStrat.visible = true;
+            btnStrat.touchable = true;
             btnStrat.onClick.Clear();
             isClose = false;
             btnStrat.onClick.Add(OnBtnStartClick);
-            btnStrat.visible = false;
             btnStrat.touchable = false;
 
-            timesText = contentPane.GetChild("times").asTextField;
-            timesText.visible = false;
-            timesText.scale = new Vector2(1, 1);
-            timesText.alpha = 1;
 
             //打开时设置免费游戏的免费次数
             if (_data != null)
@@ -139,20 +138,14 @@ namespace CaiFuHuoChe_3996
                 }
             }
 
-            PlayAnim("fg_pop_prompt_start");
+            PlayAnim("start");
 
-            AddTimer(0.3f, (object obj) =>
-            {
-                timesText.visible = true;
-            });
 
             AddTimer(0.5f, (object obj) =>
             {
-                btnStrat.visible = true;
                 btnStrat.touchable = true;
                 EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                     new EventData(SlotMachineEvent.FreeSpinStartButtonShown));
-                idleTransition.Play(-1, 0, null);
 
                 ScheduleAutoModeSimulatedClick(btnStrat, () => isClose);
             });
@@ -170,13 +163,8 @@ namespace CaiFuHuoChe_3996
 
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.FreeSpinPopupDisappear));
-            PlayAnim("fg_pop_prompt_end");
+            PlayAnim("end");
 
-            AddTimer(0.1f, (object obj) =>
-            {
-                idleTransition.Stop();
-                endTransition.Play();
-            });
 
             AddTimer(0.7f, (object obj) =>
             {
@@ -267,6 +255,19 @@ namespace CaiFuHuoChe_3996
             };
             _activeTimers.Add(_autoModeSimulatedClick);
             Timers.inst.Add(AutoModeSimulateClickDelaySeconds, 1, _autoModeSimulatedClick);
+        }
+
+
+        private void ChangeParent(GObject gComponent, GameObject go, string path, float xDistance, float yDistance)
+        {
+            Transform num01 = go.transform.Find(path);
+            if (gComponent.displayObject?.gameObject != null)
+            {
+                Transform t = gComponent.displayObject.gameObject.transform;
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(xDistance, yDistance, 0);
+                t.localScale = new Vector3(0.01f, 0.01f, 1);
+            }
         }
     }
 }

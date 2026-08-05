@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: Lucky_ng_img_turntable_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: 6dabd84e771bca349a7a59eca8c0a995, type: 3}
+  atlasFile: {fileID: 4900000, guid: 0e4e7d124ab882c48ab32089366da653, type: 3}
   materials:
-  - {fileID: 2100000, guid: d8fcdc28f41b19c43ba314785a285531, type: 2}
+  - {fileID: 2100000, guid: 55dceddc7033a9749ba89baaf7a6addc, type: 2}
