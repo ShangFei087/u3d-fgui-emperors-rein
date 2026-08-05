@@ -1327,7 +1327,7 @@ namespace XingYunZhiLun_3998
                 if (credit != SBoxModel.Instance.myCredit)
                 {
                     DebugUtils.LogError($"[G3998] 前后端积分不一致，算法卡={credit}，前端={SBoxModel.Instance.myCredit}");
-                    return; 
+                    //return; 
                 }
 
                 isNext = true;

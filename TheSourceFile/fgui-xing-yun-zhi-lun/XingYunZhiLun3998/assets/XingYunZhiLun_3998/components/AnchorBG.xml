@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1,1">
   <displayList>
-    <image id="n5_a6yp" name="n5" src="oebral3" fileName="images/PopupGameNormalGame/ng_img_bg.png" xy="-540,-960" size="1080,1920"/>
+    <image id="n5_a6yp" name="n5" src="jvaxaou" fileName="images/PopupGameNormalGame/ng_img_bg.png" xy="-540,-960" size="1080,1920"/>
     <loader id="n1_qr2d" name="example" xy="0,0" pivot="0.5,0.5" anchor="true" size="1080,1920" align="center" vAlign="middle" autoSize="true">
       <relation target="" sidePair="center-center,middle-middle"/>
     </loader>

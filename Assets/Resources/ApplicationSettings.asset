@@ -17,11 +17,11 @@ MonoBehaviour:
   isMock: 0
   isExpoMode: 1
   isUseProtectApplication: 0
-  platformName: Treasury
-  gameTheme: Treasury
+  platformName: ljz
+  gameTheme: Test
   launchFguiName: TreasuryPageLaunch
   agentName: Treasury
-  appKey: Treasury_debug_machine_20260729114609
+  appKey: ljz_debug_machine_20260805163104
   appVersion: 1.4.0
   resourceServer: http://47.112.14.190/StandSlot
   machineDebugUrl: 192.168.0.23
