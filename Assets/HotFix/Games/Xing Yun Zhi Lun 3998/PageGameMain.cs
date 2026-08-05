@@ -805,6 +805,12 @@ namespace XingYunZhiLun_3998
             }
 
             //开始滚动
+            if (TestManager.Instance.IsAutoModeRunning)
+            {
+                slotMachineCtrl.isStopImmediately = true;
+                TestManager.Instance.RecordAutoModeSpin();
+            }
+
             slotMachineCtrl.BeginSpin();
 
             //是否加速滚动
@@ -1756,6 +1762,9 @@ namespace XingYunZhiLun_3998
             }
 
             //开始转动
+            if (TestManager.Instance.IsAutoModeRunning) slotMachineCtrl.isStopImmediately = true;
+
+
             slotMachineCtrl.BeginSpin();
 
             slotMachineCtrl.SkipIdle(true);

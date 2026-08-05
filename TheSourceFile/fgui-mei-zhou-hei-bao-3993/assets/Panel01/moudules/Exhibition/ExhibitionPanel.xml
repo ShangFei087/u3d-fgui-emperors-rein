@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_z14g" name="reel1" src="z14ge" fileName="moudules/Exhibition/ReelBtn.xml" xy="34,830"/>
+    <component id="n1_z14g" name="reel2" src="z14ge" fileName="moudules/Exhibition/ReelBtn.xml" xy="239,830"/>
+    <component id="n2_z14g" name="reel3" src="z14ge" fileName="moudules/Exhibition/ReelBtn.xml" xy="443,830"/>
+    <component id="n3_z14g" name="reel4" src="z14ge" fileName="moudules/Exhibition/ReelBtn.xml" xy="648,830"/>
+    <component id="n4_z14g" name="reel5" src="z14ge" fileName="moudules/Exhibition/ReelBtn.xml" xy="848,830"/>
+    <component id="n5_z14g" name="btnExhibition" src="z14gf" fileName="moudules/Exhibition/ButtonExhibition.xml" xy="5,305"/>
+  </displayList>
+</component>

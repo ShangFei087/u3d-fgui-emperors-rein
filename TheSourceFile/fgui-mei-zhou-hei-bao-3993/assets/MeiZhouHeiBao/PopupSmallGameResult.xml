@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920"/>
+<component size="1080,1920">
+  <displayList>
+    <image id="n0_z14g" name="n0" src="z14g1b" fileName="images/gameMain/bg/ng_bg_Horizontal board background.png" xy="0,0"/>
+  </displayList>
+</component>

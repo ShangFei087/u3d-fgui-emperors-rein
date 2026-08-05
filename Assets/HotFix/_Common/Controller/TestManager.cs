@@ -1000,19 +1000,38 @@ public class TestManager : Singleton<TestManager>
     #endregion
 
     #region AutoMode
+    const int AUTO_MODE_MAX_SPINS = 100000;
+    int autoModeSpinCount = 0;
+
     public void OnClickAutoMode()
     {
         if (autoModeState == AutoModeState.Running)
         {
-            autoModeState = AutoModeState.Idle;
-            ShowTip("AutoMode: Stop");
-            StopAutoSpinTicker();
+            StopAutoMode($"AutoMode: Stop ({autoModeSpinCount}/{AUTO_MODE_MAX_SPINS})");
             return;
         }
-
+        autoModeSpinCount = 0;
         autoModeState = AutoModeState.Running;
-        ShowTip("AutoMode: Running");
+        ShowTip($"AutoMode: {autoModeSpinCount}/{AUTO_MODE_MAX_SPINS}");
         StartAutoSpinTicker();
+    }
+
+    /// <summary>每开一局付费局调用；达上限自动停跑。免费局不要调用。</summary>
+    public void RecordAutoModeSpin()
+    {
+        if (autoModeState != AutoModeState.Running)
+            return;
+        autoModeSpinCount++;
+        ShowTip($"AutoMode: {autoModeSpinCount}/{AUTO_MODE_MAX_SPINS}");
+        if (autoModeSpinCount >= AUTO_MODE_MAX_SPINS)
+            StopAutoMode($"AutoMode: Reached {AUTO_MODE_MAX_SPINS}, Stop");
+    }
+
+    void StopAutoMode(string tip)
+    {
+        autoModeState = AutoModeState.Idle;
+        StopAutoSpinTicker();
+        ShowTip(tip);
     }
 
     public bool IsAutoModeRunning

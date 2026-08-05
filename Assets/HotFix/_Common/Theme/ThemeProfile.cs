@@ -52,6 +52,8 @@ public sealed class ThemeProfile
                 return Treasury;
             case ThemeKind.Savage:
                 return Savage;
+            case ThemeKind.Test:
+                return Test;
             default:
                 throw new ArgumentOutOfRangeException(nameof(kind), kind, "未知 ThemeKind");
         }
@@ -62,12 +64,13 @@ public sealed class ThemeProfile
         ThemeKind.Treasury,
         PageName.TreasuryHallMain,
         "TreasuryPageLaunch",
-        new[] { 3996, 3997, 3998 },
+        new[] { 3996, 3997, 3998 ,1700},
         new Dictionary<int, PageName>
         {
             [3996] = PageName.CaiFuHuoChePopupGameLoading,
             [3997] = PageName.CaiFuZhiJiaPopupGameLoading,
             [3998] = PageName.XingYunZhiLunPopupGameLoading,
+            [1700] = PageName.SlotZhuZaiJinBiPopupGameLoading,
         },
         PageName.TreasuryHallMain);
 
@@ -84,4 +87,23 @@ public sealed class ThemeProfile
             [3999] = PageName.CaiFuZhiMenPopupGameLoading,
         },
         PageName.Hall01);
+
+    /// <summary>测试大厅：可进全部已配置子游戏（调试用）。</summary>
+    public static ThemeProfile Test { get; } = new ThemeProfile(
+        ThemeKind.Test,
+        PageName.TestHallMain,
+        "TreasuryPageLaunch",
+        new[] { 3993, 3994, 3995, 3996, 3997, 3998, 3999, 1700 },
+        new Dictionary<int, PageName>
+        {
+            [3993] = PageName.MeiZhouHeiBaoPopupGameLoading,
+            [3994] = PageName.FeiZhouHeiXingXingPopupGameLoading,
+            [3995] = PageName.HuoYanGongNiuPopupGameLoading,
+            [3996] = PageName.CaiFuHuoChePopupGameLoading,
+            [3997] = PageName.CaiFuZhiJiaPopupGameLoading,
+            [3998] = PageName.XingYunZhiLunPopupGameLoading,
+            [3999] = PageName.CaiFuZhiMenPopupGameLoading,
+            [1700] = PageName.SlotZhuZaiJinBiPopupGameLoading,
+        },
+        PageName.TestHallMain);
 }

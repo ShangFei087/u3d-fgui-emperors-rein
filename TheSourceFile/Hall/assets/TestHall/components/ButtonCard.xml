@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="300,120" extention="Button" pivot="0.5,0.5">
+  <Button/>
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
+  <displayList>
+    <graph id="n0_p8j8" name="n0" xy="0,0" size="300,120" type="rect" lineSize="0" fillColor="#F0F0F0" touchable="false">
+      <gearDisplay controller="button" pages="0"/>
+      <relation target="" sidePair="width,height"/>
+    </graph>
+    <graph id="n1_p8j8" name="n1" xy="0,0" size="300,120" type="rect" lineSize="0" fillColor="#FAFAFA" touchable="false">
+      <gearDisplay controller="button" pages="2"/>
+      <relation target="" sidePair="width,height"/>
+    </graph>
+    <graph id="n2_p8j8" name="n2" xy="0,0" size="300,120" type="rect" lineSize="0" fillColor="#CCCCCC" touchable="false">
+      <gearDisplay controller="button" pages="1,3"/>
+      <relation target="" sidePair="width,height"/>
+    </graph>
+    <text id="n3_p8j8" name="title" xy="10,10" size="280,100" fontSize="28" autoSize="none" align="center" vAlign="middle" autoClearText="true">
+      <relation target="" sidePair="width,height"/>
+    </text>
+  </displayList>
+</component>

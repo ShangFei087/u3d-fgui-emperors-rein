@@ -8,4 +8,7 @@ public enum ThemeKind
 
     /// <summary>Savage 主题（Hall01，游戏 3997/3998/3999）</summary>
     Savage = 1,
+
+    /// <summary>测试大厅（TestHall，可进全部已配置子游戏；仅调试用）</summary>
+    Test = 2,
 }

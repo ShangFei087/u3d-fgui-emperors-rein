@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="198,900">
+  <displayList>
+    <component id="n1_z14g" name="btnUp" src="z14gg" fileName="moudules/Exhibition/ButtonColUp.xml" xy="31,2"/>
+    <component id="n0_z14g" name="btnDown" src="z14gh" fileName="moudules/Exhibition/ButtonColDown.xml" xy="31,741"/>
+  </displayList>
+</component>

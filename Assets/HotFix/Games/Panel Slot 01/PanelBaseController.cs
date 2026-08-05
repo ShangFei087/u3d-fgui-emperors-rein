@@ -733,6 +733,15 @@ namespace SlotMaker
                 case 1700:
                     PageManager.Instance.ClosePage(PageName.SlotZhuZaiJinBiPageGameMain);
                     break;
+                case 3993:
+                    PageManager.Instance.ClosePage(PageName.MeiZhouHeiBaoPageGameMain);
+                    break;
+                case 3994:
+                    PageManager.Instance.ClosePage(PageName.FeiZhouHeiXingXingPageGameMain);
+                    break;
+                case 3995:
+                    PageManager.Instance.ClosePage(PageName.HuoYanGongNiuPageGameMain);
+                    break;
                 case 3999:
                     PageManager.Instance.ClosePage(PageName.CaiFuZhiMenPageGameMain);
                     break;
@@ -744,6 +753,12 @@ namespace SlotMaker
                     break;
                 case 3996:
                     PageManager.Instance.ClosePage(PageName.CaiFuHuoChePageGameMain);
+                    break;
+                case 4000:
+                    PageManager.Instance.ClosePage(PageName.SlotFanBeiChaoRenPageGameMain);
+                    break;
+                case 4001:
+                    PageManager.Instance.ClosePage(PageName.SlotCkmTestPageGameMain);
                     break;
             }
 

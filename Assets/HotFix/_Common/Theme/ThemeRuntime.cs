@@ -16,6 +16,7 @@ public static class ThemeRuntime
     {
         "TreasuryHall.TreasuryThemeEntry",
         "Hall01.SavageThemeEntry",
+        "TestHall.TestThemeEntry",
     };
 
     static ThemeKind _selectedKind = ThemeKind.Treasury;
@@ -132,7 +133,7 @@ public static class ThemeRuntime
         return ThemeKind.Treasury;
     }
 
-    /// <summary>仅认 Treasury / Savage，无别名。</summary>
+    /// <summary>仅认 Treasury / Savage / Test，无别名。</summary>
     public static bool TryParseKind(string value, out ThemeKind kind)
     {
         kind = ThemeKind.Treasury;
@@ -150,6 +151,12 @@ public static class ThemeRuntime
         if (EqualsIgnoreCase(key, "Savage"))
         {
             kind = ThemeKind.Savage;
+            return true;
+        }
+
+        if (EqualsIgnoreCase(key, "Test"))
+        {
+            kind = ThemeKind.Test;
             return true;
         }
 

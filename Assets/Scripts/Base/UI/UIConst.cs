@@ -82,6 +82,8 @@ public class UIConst
             [PageName.Hall01] = new object[] { "Assets/GameRes/Halls/Hall01/FGUIs", "Hall01.Hall01GameMain" },
             [PageName.TreasuryHallMain] =
                 new object[] { "Assets/GameRes/Halls/TreasuryHall/FGUIs", "TreasuryHall.TreasuryHallMain" },
+            [PageName.TestHallMain] =
+                new object[] { "Assets/GameRes/Halls/TestHall/FGUIs", "TestHall.TestHallMain" },
 
 
             // 推币机帝国之辉
@@ -301,9 +303,11 @@ public enum PageName
 
     //大厅
     Hall01,
-
     //财富大厅
     TreasuryHallMain,
+    //测试大厅
+    TestHallMain,
+
 
     // 推币机-帝国之辉
     PusherEmperorsReinPageERGameMain,

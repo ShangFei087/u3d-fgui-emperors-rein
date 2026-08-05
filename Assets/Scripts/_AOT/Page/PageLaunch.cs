@@ -118,6 +118,12 @@ public class PageLaunch
             {
                 return "PageLaunch";
             }
+
+            // Test 主题无独立启动页，复用 Treasury
+            if (string.Equals(theme, "Test", StringComparison.OrdinalIgnoreCase))
+            {
+                return "TreasuryPageLaunch";
+            }
         }
 
         return "TreasuryPageLaunch";

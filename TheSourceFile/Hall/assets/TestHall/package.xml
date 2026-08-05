@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="acfuneo0">
+  <resources>
+    <component id="p8j80" name="ButtonCard.xml" path="/components/" exported="true"/>
+    <component id="p8j81" name="TestHallMain.xml" path="/" exported="true"/>
+  </resources>
+  <publish name="TestHall" path="../../Assets/GameRes/Halls/TestHall/FGUIs" packageCount="2"/>
+</packageDescription>

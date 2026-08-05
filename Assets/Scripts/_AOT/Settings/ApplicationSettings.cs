@@ -70,7 +70,7 @@ public partial class ApplicationSettings : ScriptableObjectSingleton<Application
     [Tooltip("平台名称")]
     public string platformName = "Treasury";
 
-    [Tooltip("主题名称：仅 Treasury / Savage")]
+    [Tooltip("主题名称：仅 Treasury / Savage / Test")]
     public string gameTheme = "Treasury";
 
     [Tooltip("启动页 FGUI 组件名（Native 包内，如 TreasuryPageLaunch / PageLaunch）；空则按 gameTheme 推断")]

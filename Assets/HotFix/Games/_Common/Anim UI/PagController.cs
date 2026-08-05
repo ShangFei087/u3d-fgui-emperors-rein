@@ -970,7 +970,12 @@ public class PagController : IDisposable
         TrySyncFguiDisplaySizeFromNative();
         _fguiPresenter.BindExternalTexture(boundTexPtr, texW, texH);
         _fguiPresenter.RefreshDisplayLayout();
-        _fguiPresenter.SetVisible(false);
+        // 已有可见内容时保留末帧，避免换片 SetVisible(false) 造成空闪；首次起播仍先藏再显。
+        bool keepLastFrame = _fguiPresenter.HasVisibleContent;
+        if (!keepLastFrame)
+        {
+            _fguiPresenter.SetVisible(false);
+        }
 
         if (PagGpuSyncGroup.Contains(InstanceKey))
         {
@@ -990,8 +995,12 @@ public class PagController : IDisposable
         SafeCall("BindGpuTexture", () => _pagBridge.CallStatic("BindGpuTexture", InstanceKey, boundTexId, texW, texH));
 
         SafeCall("StartFguiGpuPlayback", () => _pagBridge.CallStatic("StartFguiGpuPlayback", InstanceKey));
-        yield return null;
-        yield return null;
+        // 同尺寸复用且保留末帧时跳过双 yield，缩短旧帧停留；仍走 SetupBatch + warmup（末尾 SetFguiVisible(true)）。
+        if (!(reuseGpuTexture && keepLastFrame))
+        {
+            yield return null;
+            yield return null;
+        }
         yield return PagUnityGlBridge.SetupBatchCoroutine(new[] { (_textureSlotId, InstanceKey) });
         yield return RunGpuWarmupAndArmPlaybackCoroutine();
         RequestNextGpuFrameFromSyncGroup();
