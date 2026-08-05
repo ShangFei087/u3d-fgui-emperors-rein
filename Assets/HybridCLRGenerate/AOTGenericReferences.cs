@@ -33,6 +33,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Action<System.DateTime>
 	// System.Action<System.Guid>
 	// System.Action<System.IntPtr>
+	// System.Action<System.ValueTuple<int,int>>
 	// System.Action<System.ValueTuple<int,object,double>>
 	// System.Action<System.ValueTuple<int,object>>
 	// System.Action<System.ValueTuple<object,int>>
@@ -60,6 +61,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ArraySortHelper<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.ArraySortHelper<System.DateTime>
 	// System.Collections.Generic.ArraySortHelper<System.Guid>
+	// System.Collections.Generic.ArraySortHelper<System.ValueTuple<int,int>>
 	// System.Collections.Generic.ArraySortHelper<System.ValueTuple<int,object,double>>
 	// System.Collections.Generic.ArraySortHelper<System.ValueTuple<int,object>>
 	// System.Collections.Generic.ArraySortHelper<System.ValueTuple<object,int>>
@@ -79,6 +81,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Comparer<System.DateTime>
 	// System.Collections.Generic.Comparer<System.Guid>
 	// System.Collections.Generic.Comparer<System.Nullable<double>>
+	// System.Collections.Generic.Comparer<System.ValueTuple<int,int>>
 	// System.Collections.Generic.Comparer<System.ValueTuple<int,object,double>>
 	// System.Collections.Generic.Comparer<System.ValueTuple<int,object>>
 	// System.Collections.Generic.Comparer<System.ValueTuple<object,int>>
@@ -190,6 +193,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.EqualityComparer<System.Guid>
 	// System.Collections.Generic.EqualityComparer<System.IntPtr>
 	// System.Collections.Generic.EqualityComparer<System.Nullable<double>>
+	// System.Collections.Generic.EqualityComparer<System.ValueTuple<int,int>>
 	// System.Collections.Generic.EqualityComparer<System.ValueTuple<int,object,double>>
 	// System.Collections.Generic.EqualityComparer<System.ValueTuple<int,object>>
 	// System.Collections.Generic.EqualityComparer<System.ValueTuple<object,int>>
@@ -203,12 +207,15 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.EqualityComparer<object>
 	// System.Collections.Generic.EqualityComparer<ulong>
 	// System.Collections.Generic.EqualityComparer<ushort>
+	// System.Collections.Generic.HashSet.Enumerator<System.ValueTuple<int,int>>
 	// System.Collections.Generic.HashSet.Enumerator<int>
 	// System.Collections.Generic.HashSet.Enumerator<long>
 	// System.Collections.Generic.HashSet.Enumerator<object>
+	// System.Collections.Generic.HashSet<System.ValueTuple<int,int>>
 	// System.Collections.Generic.HashSet<int>
 	// System.Collections.Generic.HashSet<long>
 	// System.Collections.Generic.HashSet<object>
+	// System.Collections.Generic.HashSetEqualityComparer<System.ValueTuple<int,int>>
 	// System.Collections.Generic.HashSetEqualityComparer<int>
 	// System.Collections.Generic.HashSetEqualityComparer<long>
 	// System.Collections.Generic.HashSetEqualityComparer<object>
@@ -234,6 +241,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<ulong,object>>
 	// System.Collections.Generic.ICollection<System.DateTime>
 	// System.Collections.Generic.ICollection<System.Guid>
+	// System.Collections.Generic.ICollection<System.ValueTuple<int,int>>
 	// System.Collections.Generic.ICollection<System.ValueTuple<int,object,double>>
 	// System.Collections.Generic.ICollection<System.ValueTuple<int,object>>
 	// System.Collections.Generic.ICollection<System.ValueTuple<object,int>>
@@ -252,6 +260,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IComparer<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.IComparer<System.DateTime>
 	// System.Collections.Generic.IComparer<System.Guid>
+	// System.Collections.Generic.IComparer<System.ValueTuple<int,int>>
 	// System.Collections.Generic.IComparer<System.ValueTuple<int,object,double>>
 	// System.Collections.Generic.IComparer<System.ValueTuple<int,object>>
 	// System.Collections.Generic.IComparer<System.ValueTuple<object,int>>
@@ -287,6 +296,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<ulong,object>>
 	// System.Collections.Generic.IEnumerable<System.DateTime>
 	// System.Collections.Generic.IEnumerable<System.Guid>
+	// System.Collections.Generic.IEnumerable<System.ValueTuple<int,int>>
 	// System.Collections.Generic.IEnumerable<System.ValueTuple<int,object,double>>
 	// System.Collections.Generic.IEnumerable<System.ValueTuple<int,object>>
 	// System.Collections.Generic.IEnumerable<System.ValueTuple<object,int>>
@@ -321,6 +331,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<ulong,object>>
 	// System.Collections.Generic.IEnumerator<System.DateTime>
 	// System.Collections.Generic.IEnumerator<System.Guid>
+	// System.Collections.Generic.IEnumerator<System.ValueTuple<int,int>>
 	// System.Collections.Generic.IEnumerator<System.ValueTuple<int,object,double>>
 	// System.Collections.Generic.IEnumerator<System.ValueTuple<int,object>>
 	// System.Collections.Generic.IEnumerator<System.ValueTuple<object,int>>
@@ -333,6 +344,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerator<object>
 	// System.Collections.Generic.IEnumerator<ushort>
 	// System.Collections.Generic.IEqualityComparer<System.Guid>
+	// System.Collections.Generic.IEqualityComparer<System.ValueTuple<int,int>>
 	// System.Collections.Generic.IEqualityComparer<int>
 	// System.Collections.Generic.IEqualityComparer<long>
 	// System.Collections.Generic.IEqualityComparer<object>
@@ -347,6 +359,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<ulong,float>>
 	// System.Collections.Generic.IList<System.DateTime>
 	// System.Collections.Generic.IList<System.Guid>
+	// System.Collections.Generic.IList<System.ValueTuple<int,int>>
 	// System.Collections.Generic.IList<System.ValueTuple<int,object,double>>
 	// System.Collections.Generic.IList<System.ValueTuple<int,object>>
 	// System.Collections.Generic.IList<System.ValueTuple<object,int>>
@@ -392,6 +405,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List.Enumerator<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.List.Enumerator<System.DateTime>
 	// System.Collections.Generic.List.Enumerator<System.Guid>
+	// System.Collections.Generic.List.Enumerator<System.ValueTuple<int,int>>
 	// System.Collections.Generic.List.Enumerator<System.ValueTuple<int,object,double>>
 	// System.Collections.Generic.List.Enumerator<System.ValueTuple<int,object>>
 	// System.Collections.Generic.List.Enumerator<System.ValueTuple<object,int>>
@@ -410,6 +424,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List.SynchronizedList<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.List.SynchronizedList<System.DateTime>
 	// System.Collections.Generic.List.SynchronizedList<System.Guid>
+	// System.Collections.Generic.List.SynchronizedList<System.ValueTuple<int,int>>
 	// System.Collections.Generic.List.SynchronizedList<System.ValueTuple<int,object,double>>
 	// System.Collections.Generic.List.SynchronizedList<System.ValueTuple<int,object>>
 	// System.Collections.Generic.List.SynchronizedList<System.ValueTuple<object,int>>
@@ -428,6 +443,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.Generic.List<System.DateTime>
 	// System.Collections.Generic.List<System.Guid>
+	// System.Collections.Generic.List<System.ValueTuple<int,int>>
 	// System.Collections.Generic.List<System.ValueTuple<int,object,double>>
 	// System.Collections.Generic.List<System.ValueTuple<int,object>>
 	// System.Collections.Generic.List<System.ValueTuple<object,int>>
@@ -447,6 +463,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectComparer<System.DateTime>
 	// System.Collections.Generic.ObjectComparer<System.Guid>
 	// System.Collections.Generic.ObjectComparer<System.Nullable<double>>
+	// System.Collections.Generic.ObjectComparer<System.ValueTuple<int,int>>
 	// System.Collections.Generic.ObjectComparer<System.ValueTuple<int,object,double>>
 	// System.Collections.Generic.ObjectComparer<System.ValueTuple<int,object>>
 	// System.Collections.Generic.ObjectComparer<System.ValueTuple<object,int>>
@@ -468,6 +485,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectEqualityComparer<System.Guid>
 	// System.Collections.Generic.ObjectEqualityComparer<System.IntPtr>
 	// System.Collections.Generic.ObjectEqualityComparer<System.Nullable<double>>
+	// System.Collections.Generic.ObjectEqualityComparer<System.ValueTuple<int,int>>
 	// System.Collections.Generic.ObjectEqualityComparer<System.ValueTuple<int,object,double>>
 	// System.Collections.Generic.ObjectEqualityComparer<System.ValueTuple<int,object>>
 	// System.Collections.Generic.ObjectEqualityComparer<System.ValueTuple<object,int>>
@@ -492,6 +510,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.ObjectModel.ReadOnlyCollection<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.DateTime>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.Guid>
+	// System.Collections.ObjectModel.ReadOnlyCollection<System.ValueTuple<int,int>>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.ValueTuple<int,object,double>>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.ValueTuple<int,object>>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.ValueTuple<object,int>>
@@ -510,6 +529,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Comparison<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Comparison<System.DateTime>
 	// System.Comparison<System.Guid>
+	// System.Comparison<System.ValueTuple<int,int>>
 	// System.Comparison<System.ValueTuple<int,object,double>>
 	// System.Comparison<System.ValueTuple<int,object>>
 	// System.Comparison<System.ValueTuple<object,int>>
@@ -593,6 +613,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Predicate<SlotMaker.ReelSettingModel.STReelSetting>
 	// System.Predicate<System.DateTime>
 	// System.Predicate<System.Guid>
+	// System.Predicate<System.ValueTuple<int,int>>
 	// System.Predicate<System.ValueTuple<int,object,double>>
 	// System.Predicate<System.ValueTuple<int,object>>
 	// System.Predicate<System.ValueTuple<object,int>>

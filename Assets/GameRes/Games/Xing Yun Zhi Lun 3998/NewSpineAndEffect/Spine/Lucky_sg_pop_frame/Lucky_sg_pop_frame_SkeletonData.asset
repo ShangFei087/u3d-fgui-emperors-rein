@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Lucky_sg_pop_frame_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: 3d7608e990bf13a4cb4111ce71b888d3, type: 2}
+  - {fileID: 11400000, guid: a380856c524b2874b96278e4d9b5fc49, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: 34e205fcaa7a85d4eb00d019e4688f43, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: 9a053564c3bd2094ea7e8ade87b8cd13, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 0}
+  controller: {fileID: 9100000, guid: b873f3392e4120f4888570d2ab6d7234, type: 2}

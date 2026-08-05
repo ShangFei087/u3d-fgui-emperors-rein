@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 1017c927895af294b9bdf6a4fb4c27da
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: games/cai fu huo che 3996/pag/outjackpot_bmp.unity3d
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: c806c33c02b7da44e86221c1c5045af0, type: 3}

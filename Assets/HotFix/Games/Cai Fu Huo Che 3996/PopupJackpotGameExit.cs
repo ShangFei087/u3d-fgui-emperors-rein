@@ -26,6 +26,12 @@ namespace CaiFuHuoChe_3996
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
         private TimerCallback _autoModeSimulatedClick;
 
+
+        //Pag播放
+        private const string GamePagFolder = "Games/Cai Fu Huo Che 3996/Pag";
+        private PagSlotBinding OutJackpot_bmp;
+
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -110,6 +116,8 @@ namespace CaiFuHuoChe_3996
                 GameCommon.FguiUtils.AddWrapper(anchorSpine, goSpine);
             }
 
+            EnsureMainPagSlot();
+
             isClose = false;
 
             preLoadedCallback?.Invoke();
@@ -127,7 +135,7 @@ namespace CaiFuHuoChe_3996
                 }
             }
 
-            PlayAnim("start");
+            PlayAnim("settlement_start");
 
             AddTimer(0.3f, (object obj) =>
             {
@@ -139,6 +147,19 @@ namespace CaiFuHuoChe_3996
                 ScheduleAutoModeSimulatedClick(closeBtn, () => isClose);
             });
 
+        }
+
+        private void EnsureMainPagSlot()
+        {
+            GComponent anchor = contentPane.GetChild("anchorPag")?.asCom;
+            if (anchor == null)
+            {
+                Debug.LogError("anchor不存在！！！");
+                return;
+            }
+
+            OutJackpot_bmp = new PagSlotBinding("OutJackpot_bmp", GamePagFolder);
+            OutJackpot_bmp.EnsureSlot(anchor, "pagEffect");
         }
 
 
@@ -158,13 +179,27 @@ namespace CaiFuHuoChe_3996
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.JackpotPopupDisappear));
 
-            PlayAnim("end");
+            PlayAnim("settlement_end");
 
             winCredit.visible = false;
 
-            AddTimer(1f, (object obj) =>
+            AddTimer(0.7f, (object obj) =>
             {
-                CloseSelf(null);
+                if (OutJackpot_bmp != null)
+                {
+                    OutJackpot_bmp.StopWithDefaults();
+                    OutJackpot_bmp.Play("OutJackpot_bmp.pag",
+                    1,
+                    PagPlayLayout.Center,
+                    PagPresentationDefaults.DisplayScale,
+                    new PagPlayCallbacks(
+                    onFinished: () => OutJackpot_bmp?.StopWithDefaults(),
+                    stopAfterFinished: true));
+                    AddTimer(5.5f, (object obj) =>
+                    {
+                        CloseSelf(null);
+                    });
+                }
             });
         }
 

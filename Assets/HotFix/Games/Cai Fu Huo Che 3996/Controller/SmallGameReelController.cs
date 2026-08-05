@@ -107,9 +107,9 @@ namespace CaiFuHuoChe_3996
             "ui://CaiFuHuoChe_3996/symbol_8",
             "ui://CaiFuHuoChe_3996/symbol_9",
             "ui://CaiFuHuoChe_3996/symbol_13",
-            "ui://CaiFuHuoChe_3996/symbol_14",
-            "ui://CaiFuHuoChe_3996/symbol_15",
             "ui://CaiFuHuoChe_3996/symbol_16",
+            "ui://CaiFuHuoChe_3996/symbol_15",
+            "ui://CaiFuHuoChe_3996/symbol_14",
         };
 
         private readonly Transition _rollTrans, _rollResetTrans, _resultTrans, _resultResetTrans;

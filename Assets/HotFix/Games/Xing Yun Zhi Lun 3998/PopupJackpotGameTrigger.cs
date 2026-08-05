@@ -90,14 +90,11 @@ namespace XingYunZhiLun_3998
                 GameCommon.FguiUtils.AddWrapper(loadAnchor, go);
             }
 
-            if(idleTransition == null)
-            {
-                idleTransition = contentPane.GetTransition("idle");
-                endTransition = contentPane.GetTransition("end");
+            idleTransition = contentPane.GetTransition("idle");
+            endTransition = contentPane.GetTransition("end");
 
-                idleTransition.ignoreEngineTimeScale = false;
-                endTransition.ignoreEngineTimeScale = false;
-            }
+            idleTransition.ignoreEngineTimeScale = false;
+            endTransition.ignoreEngineTimeScale = false;
 
             closeBtn = contentPane.GetChild("Button").asButton;
             closeBtn.alpha = 1;

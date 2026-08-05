@@ -50,7 +50,7 @@ if not exist "E:\UnityNDK\ndk-build.cmd" (
 
     echo [INFO] Creating junction E:\UnityNDK ... >> "%LOG%"
 
-    mklink /J E:\UnityNDK "E:\Unity Hub\2020.3.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK" >> "%LOG%" 2>&1
+    mklink /J E:\UnityNDK "D:\Work\Unity\Editor\Data\PlaybackEngines\AndroidPlayer\NDK" >> "%LOG%" 2>&1
 
     if errorlevel 1 (
 

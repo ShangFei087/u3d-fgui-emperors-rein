@@ -20,7 +20,6 @@ namespace CaiFuHuoChe_3996
         private GComponent lodAnchor;
         private GButton btnStrat;
         private GTextField totalWin;
-        private Transition endTransition, startTransition;
 
         private Animator animator;
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
@@ -102,8 +101,11 @@ namespace CaiFuHuoChe_3996
             CancelAutoModeSimulatedClick();
 
             //获取动效贴合动画效果
-            endTransition = contentPane.GetTransition("end");
-            startTransition = contentPane.GetTransition("start");
+            //endTransition = contentPane.GetTransition("end");
+            //startTransition = contentPane.GetTransition("start");
+
+            totalWin = contentPane.GetChild("win").asTextField;
+            btnStrat = contentPane.GetChild("ButtonStart").asButton;
 
             GComponent loadSpineBg = contentPane.GetChild("anchorSpine").asCom;
             if (lodAnchor != loadSpineBg)
@@ -112,14 +114,14 @@ namespace CaiFuHuoChe_3996
                 lodAnchor = loadSpineBg;
                 goAnchorSpineFg = GameObject.Instantiate(go);
                 animator = goAnchorSpineFg.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                ChangeParent(btnStrat, goAnchorSpineFg, "Anchor/Spine Mecanim GameObject (fg_pop_settlement)/SkeletonUtility-SkeletonRoot/root/all/btn", -1.92f, 0.47f);
+                ChangeParent(totalWin, goAnchorSpineFg, "Anchor/Spine Mecanim GameObject (fg_pop_settlement)/SkeletonUtility-SkeletonRoot/root/all/kuang_6/FREE GAMES/num01", -5.35f, 0.8f);
                 GameCommon.FguiUtils.AddWrapper(lodAnchor, goAnchorSpineFg);
             }
 
-            totalWin = contentPane.GetChild("win").asTextField;
-            totalWin.scale = new Vector2(1, 1);
-            totalWin.visible = false;
+            //totalWin.scale = new Vector2(1, 1);
+            //totalWin.visible = false;
 
-            btnStrat = contentPane.GetChild("ButtonStart").asButton;
             btnStrat.onClick.Clear();
             isClose = false;
             btnStrat.onClick.Add(OnBtnStartClick);
@@ -136,8 +138,7 @@ namespace CaiFuHuoChe_3996
                 }
             }
 
-            PlayAnim("fg_pop_settlement_start");
-            startTransition.Play();
+            PlayAnim("start");
 
             AddTimer(0.3f, (object obj) =>
             {
@@ -165,11 +166,10 @@ namespace CaiFuHuoChe_3996
 
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.FreeSpinPopupDisappear));
-            PlayAnim("fg_pop_settlement_end");
+            PlayAnim("end");
 
             AddTimer(0.1f, (object obj) =>
             {
-                endTransition.Play();
                 btnStrat.visible = false;
                 btnStrat.touchable = false;
             });
@@ -263,6 +263,18 @@ namespace CaiFuHuoChe_3996
             };
             _activeTimers.Add(_autoModeSimulatedClick);
             Timers.inst.Add(AutoModeSimulateClickDelaySeconds, 1, _autoModeSimulatedClick);
+        }
+
+        private void ChangeParent(GObject gComponent, GameObject go, string path, float xDistance, float yDistance)
+        {
+            Transform num01 = go.transform.Find(path);
+            if (gComponent.displayObject?.gameObject != null)
+            {
+                Transform t = gComponent.displayObject.gameObject.transform;
+                t.SetParent(num01, false);
+                t.localPosition = new Vector3(xDistance, yDistance, 0);
+                t.localScale = new Vector3(0.01f, 0.01f, 1);
+            }
         }
     }
 }

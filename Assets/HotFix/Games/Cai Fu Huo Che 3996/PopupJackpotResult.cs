@@ -32,8 +32,8 @@ namespace CaiFuHuoChe_3996
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
         private TimerCallback _autoModeSimulatedClick;
 
-        private string[] jackpotStartAnimName = { "mini_start", "minor_start", "major_start" };
-        private string[] jackpotEndAnimName = { "mini_end", "minor_end", "major_end" };
+        private string[] jackpotStartAnimName = { "major_start", "minor_start", "mini_start" };
+        private string[] jackpotEndAnimName = { "major_end", "minor_end", "mini_end" };
         private int animIndex = 0;
 
         protected override void OnInit()

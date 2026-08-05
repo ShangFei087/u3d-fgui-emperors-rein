@@ -4,18 +4,18 @@
 	
 	"ResultType":3,
 
-	"BonusType":0,
+	"lineNum":3,
+
+	"TotalBet":0,
 	
-	"IDVec":[1502,],
+	"IDVec":[3405,12505,16405],
 
-	"lineNum":1,
+	"Matrix":[9,1,9,5,9,0,5,6,8,7,6,1,5,2,8],
 
-	"MatrixLength": 15,
+	"BonusData":[0,0,0,0,0,0,0,0,0,0,0],
+	
+	"BonusBet":300,
 
-	"Matrix":[9,0,7,2,8,2,2,2,0,2,7,9,0,0,9],
-
-	"BonusData":[4,0,0,0,0,0,0,0,0,0,0],
-
-	"TotalBet":30
+	"BonusType":0,
 
 }

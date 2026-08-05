@@ -41,7 +41,7 @@ namespace CaiFuHuoChe_3996
 
 
         /// <summary> 通过图标索引，获取图标真实编号 </summary>
-        public List<int> symbolNumber => new List<int>() {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+        public List<int> symbolNumber => new List<int>() {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 
         /// <summary> 所有图标个数 </summary>
         public int symbolCount => symbolNumber.Count;
@@ -134,9 +134,9 @@ namespace CaiFuHuoChe_3996
         /// <summary> 彩金游戏对应图标</summary>
         public Dictionary<int, string> jackpotIcon = new Dictionary<int, string>
         {
-            { 1, "ui://CaiFuHuoChe_3996/Major"},
-            { 2, "ui://CaiFuHuoChe_3996/Minor"},
-            { 3, "ui://CaiFuHuoChe_3996/Mini"},
+            { 0, "ui://CaiFuHuoChe_3996/Major"},
+            { 1, "ui://CaiFuHuoChe_3996/Minor"},
+            { 2, "ui://CaiFuHuoChe_3996/Mini"},
         };
 
         #region 赔付线与赔付表

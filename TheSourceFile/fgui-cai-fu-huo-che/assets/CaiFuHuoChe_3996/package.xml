@@ -300,6 +300,7 @@
     <image id="dcpxio" name="symbol_16.png" path="/images/normalGame/symbols/" exported="true"/>
     <image id="dcpxip" name="symbol_14.png" path="/images/normalGame/symbols/" exported="true"/>
     <image id="dcpxiq" name="symbol_15.png" path="/images/normalGame/symbols/" exported="true"/>
+    <component id="ycmnir" name="anchorPag.xml" path="/component/popupJackpotGame/" exported="true"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Cai Fu Huo Che 3996\FGUIs" packageCount="2"/>
 </packageDescription>

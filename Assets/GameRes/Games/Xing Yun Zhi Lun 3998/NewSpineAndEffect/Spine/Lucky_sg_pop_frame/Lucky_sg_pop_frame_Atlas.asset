@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: Lucky_sg_pop_frame_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: d965dc97137c3fb4a9a897c4d113ff32, type: 3}
+  atlasFile: {fileID: 4900000, guid: d37441b0518829240bfed87e1482a39b, type: 3}
   materials:
-  - {fileID: 2100000, guid: 222a182cff1c1f84ab1326fb09ca7626, type: 2}
+  - {fileID: 2100000, guid: a8c5c6ffe3bfee540bcad26a3dc50513, type: 2}

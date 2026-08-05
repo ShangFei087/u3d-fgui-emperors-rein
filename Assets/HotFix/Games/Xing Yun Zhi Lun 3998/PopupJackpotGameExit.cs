@@ -115,20 +115,15 @@ namespace XingYunZhiLun_3998
                 callBack = null;
             }
 
-            if(idleTransition == null)
-            {
-                idleTransition = contentPane.GetTransition("idle");
-                endTransition = contentPane.GetTransition("end");
+            idleTransition = contentPane.GetTransition("idle");
+            endTransition = contentPane.GetTransition("end");
 
-                idleTransition.ignoreEngineTimeScale = false;
-                endTransition.ignoreEngineTimeScale = false;
-            }
-            
+            idleTransition.ignoreEngineTimeScale = false;
+            endTransition.ignoreEngineTimeScale = false;
+
 
             PlayAnim("start");
             idleTransition.Play(-1, 1.3f / Time.timeScale, null);
-
-            if(!isOpen) return;
 
             if (ContentModel.Instance.isAuto)
             {
@@ -157,7 +152,7 @@ namespace XingYunZhiLun_3998
                 });
             }
 
-            AddTimer(2.8f / Time.timeScale, (obj) =>
+            AddTimer(2.1f / Time.timeScale, (obj) =>
             {
                 CloseSelf(null);
             });

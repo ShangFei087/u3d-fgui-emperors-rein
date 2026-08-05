@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Lucky_fg_pop_settlement_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: aadc72f9d9bd10942bff049a7b239ca3, type: 2}
+  - {fileID: 11400000, guid: 6bd175007c1d3d74cbd189ba5126a929, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: dcf4c60b389f2e54fbce3606ee41731d, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: 1cca5a8a67c4a11459de6ad483419177, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 9100000, guid: 4d1db60eda511f4469122c72eff159c9, type: 2}
+  controller: {fileID: 9100000, guid: 332ec403bcdf460429b4bb90f6e8a624, type: 2}
