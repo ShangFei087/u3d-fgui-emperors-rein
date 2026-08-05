@@ -125,7 +125,6 @@
     <image id="s1hw6j" name="ng_sym04_k.png" path="/images/common/gameSymbol/" exported="true"/>
     <image id="s1hw6k" name="ng_sym05_frog.png" path="/images/common/gameSymbol/" exported="true"/>
     <image id="s1hw6l" name="ng_sym06_snake.png" path="/images/common/gameSymbol/" exported="true"/>
-    <image id="s1hw6m" name="ng_sym07_parrot.png" path="/images/common/gameSymbol/" exported="true"/>
     <image id="s1hw6n" name="ng_sym08_leopard.png" path="/images/common/gameSymbol/" exported="true"/>
     <image id="s1hw6o" name="ng_sym09_chameleon.png" path="/images/common/gameSymbol/" exported="true"/>
     <image id="s1hw6p" name="ng_sym10_WILD.png" path="/images/common/gameSymbol/" exported="true"/>
@@ -298,6 +297,16 @@
     <image id="s1hwbr" name="ng_img_main game.png" path="/images/common/gamePayTable/" exported="true"/>
     <image id="s1hwbs" name="ng_img_prize table.png" path="/images/common/gamePayTable/" exported="true"/>
     <image id="s1hwbt" name="ng_img_winning line.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="sn0jbz" name="sg_sym_box1.png" path="/images/pageGameMain/smallGame/" exported="true"/>
+    <image id="sn0jc0" name="sg_sym_box2.png" path="/images/pageGameMain/smallGame/" exported="true"/>
+    <image id="sn0jc1" name="sg_sym_box3.png" path="/images/pageGameMain/smallGame/" exported="true"/>
+    <component id="kiric2" name="anchorTail.xml" path="/moudules/popupGameLoading/" exported="true"/>
+    <component id="kiric3" name="anchorLeaves.xml" path="/moudules/popupGameLoading/" exported="true"/>
+    <component id="kiric4" name="anchorParent.xml" path="/moudules/pageGameMain/anchor/" exported="true"/>
+    <component id="cnsic5" name="anchorFadePag.xml" path="/moudules/popupFreeSpinTrigger/" exported="true"/>
+    <component id="cnsic6" name="anchorFade.xml" path="/moudules/popupFreeSpinResult/" exported="true"/>
+    <component id="cnsic7" name="ng_sym12_scatter_com.xml" path="/images/common/gameSymbol/" exported="true"/>
+    <image id="cnsic8" name="ng_sym07_parrot.png" path="/images/common/gameSymbol/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Fei Zhou Hei Xing Xing 3994\FGUIs" packageCount="2"/>
 </packageDescription>

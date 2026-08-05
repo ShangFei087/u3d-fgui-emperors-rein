@@ -68,7 +68,7 @@ namespace FeiZhouHeiXingXing_3994
             { "7", "ui://FeiZhouHeiXingXing/ng_sym08_leopard" },
             { "8", "ui://FeiZhouHeiXingXing/ng_sym09_chameleon" },
             { "9", "ui://FeiZhouHeiXingXing/ng_sym10_WILD_com" },
-            { "10", "ui://FeiZhouHeiXingXing/ng_sym12_scatter" },
+            { "10", "ui://FeiZhouHeiXingXing/ng_sym12_scatter_com" },
             { "11", "ui://FeiZhouHeiXingXing/ng_sym13_bonus_com" },
         };
 
@@ -288,28 +288,28 @@ namespace FeiZhouHeiXingXing_3994
             new PayTableSymbolInfo()// a
             {
                 symbol = 0,
-                x5 = 40,
-                x4 = 20,
-                x3 = 8,
+                x5 = 20,
+                x4 = 10,
+                x3 = 5,
             },
             new PayTableSymbolInfo()// j
             {
                 symbol = 1,
-                x5 = 20,
-                x4 = 10,
+                x5 = 30,
+                x4 = 15,
                 x3 = 5,
             },
             new PayTableSymbolInfo()// q
             {
                 symbol = 2,
-                x5 = 30,
-                x4 = 15,
-                x3 = 5,
+                x5 = 35,
+                x4 = 20,
+                x3 = 8,
             },
             new PayTableSymbolInfo()// k
             {
                 symbol = 3,
-                x5 = 35,
+                x5 = 40,
                 x4 = 20,
                 x3 = 8,
             },
@@ -323,30 +323,30 @@ namespace FeiZhouHeiXingXing_3994
             new PayTableSymbolInfo()// snake
             {
                 symbol = 5,
-                x5 = 60,
+                x5 = 50,
                 x4 = 30,
                 x3 = 20,
             },
             new PayTableSymbolInfo()// parrot
             {
                 symbol = 6,
-                x5 = 70,
-                x4 = 40,
-                x3 = 30,
+                x5 = 60,
+                x4 = 30,
+                x3 = 20,
             },
             new PayTableSymbolInfo()// leopard
             {
                 symbol = 7,
-                x5 = 80,
-                x4 = 45,
-                x3 = 35,
+                x5 = 70,
+                x4 = 40,
+                x3 = 30,
             },
             new PayTableSymbolInfo()// chameleon
             {
                 symbol = 8,
-                x5 = 50,
-                x4 = 30,
-                x3 = 20,
+                x5 = 80,
+                x4 = 45,
+                x3 = 35,
             },
             new PayTableSymbolInfo() // wild
             {

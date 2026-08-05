@@ -243,8 +243,8 @@ public class TestManager : Singleton<TestManager>
             // 3997
             PageName.CaiFuZhiJiaPopupGameLoading,
             PageName.CaiFuZhiJiaPageGameMain,
-            PageName.CaiFuZhiJiaPopupOverWin,
-            PageName.CaiFuZhiJiaPopupJackpotWin,
+            PageName.CaiFuZhiJiaPopupBigWin,
+            PageName.CaiFuZhiJiaPopupSmallGameWin,
             PageName.CaiFuZhiJiaPopupFreeSpinTrigger,
             PageName.CaiFuZhiJiaPopupFreeSpinResult,
             PageName.CaiFuZhiJiaPopupSmallGameTrigger,

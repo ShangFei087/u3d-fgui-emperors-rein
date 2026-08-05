@@ -104,9 +104,9 @@
     <component id="ujwn4y" name="PayTable4.xml" path="/moudules/pageGameMain/PayTable/" exported="true"/>
     <component id="ujwn4z" name="PayTable5.xml" path="/moudules/pageGameMain/PayTable/" exported="true"/>
     <component id="ujwn50" name="PayTable6.xml" path="/moudules/pageGameMain/PayTable/" exported="true"/>
-    <component id="ujwn51" name="PopupOverWin.xml" path="/" exported="true"/>
-    <component id="ujwn52" name="anchorTipNpc.xml" path="/moudules/popupOverWin/" exported="true"/>
-    <component id="ujwn53" name="anchorOverWin.xml" path="/moudules/popupOverWin/" exported="true"/>
+    <component id="ujwn51" name="PopupBigWin.xml" path="/" exported="true"/>
+    <component id="ujwn52" name="anchorTipNpc.xml" path="/moudules/popupBigWin/" exported="true"/>
+    <component id="ujwn53" name="anchorOverWin.xml" path="/moudules/popupBigWin/" exported="true"/>
     <component id="jh0i54" name="SmallGameReels.xml" path="/moudules/pageGameMain/SmallGame/" exported="true"/>
     <component id="jh0i55" name="SmallGameSymbol.xml" path="/moudules/pageGameMain/SmallGame/" exported="true"/>
     <image id="jh0i56" name="ng_sym_diamonds.png" path="/images/common/smallGameSymbols/" exported="true"/>
@@ -121,27 +121,24 @@
     <component id="gg7g5i" name="PopupFreeSpinTrigger.xml" path="/" exported="true"/>
     <component id="gg7g5j" name="PopupFreeSpinResult.xml" path="/" exported="true"/>
     <component id="gg7g5k" name="freeTipWindow.xml" path="/moudules/popupFreeSpinTrigger/" exported="true"/>
-    <component id="gg7g5l" name="freeGetAnimation.xml" path="/moudules/popupFreeSpinTrigger/" exported="true"/>
+    <component id="gg7g5l" name="freeTrigger.xml" path="/moudules/popupFreeSpinTrigger/" exported="true"/>
     <image id="gg7g5m" name="fg_bth_button.png" path="/images/common/gameButton/" exported="true"/>
     <image id="gg7g5n" name="fg_txt_button.png" path="/images/common/gameButton/" exported="true"/>
     <image id="gg7g5o" name="sg_txt_collect.png" path="/images/common/gameButton/" exported="true"/>
     <component id="gg7g5p" name="startBtn.xml" path="/components/common/" exported="true"/>
-    <component id="gg7g5s" name="dollarSpine.xml" path="/moudules/popupFreeSpinTrigger/" exported="true"/>
-    <component id="gg7g5t" name="goldPurpleEffect.xml" path="/moudules/popupFreeSpinTrigger/" exported="true"/>
     <component id="gg7g5u" name="collectBtn.xml" path="/components/common/" exported="true"/>
     <component id="gg7g5v" name="freeResultWindow.xml" path="/moudules/popupFreeSpinResult/" exported="true"/>
     <component id="gg7g5w" name="freeResultScore.xml" path="/moudules/popupFreeSpinResult/" exported="true"/>
     <image id="gg7g5x" name="jsk5 1.png" path="/images/popupFreeResult/" exported="true" scale="9grid" scale9grid="59,13,158,136"/>
-    <component id="gg7g5y" name="lightEffect.xml" path="/moudules/popupFreeSpinResult/" exported="true"/>
+    <component id="gg7g5y" name="freeResult.xml" path="/moudules/popupFreeSpinResult/" exported="true"/>
     <component id="gg7g5z" name="PopupSmallGameTrigger.xml" path="/" exported="true"/>
     <component id="gg7g60" name="PopupSmallGameResult.xml" path="/" exported="true"/>
-    <component id="gg7g61" name="PopupJackpotWin.xml" path="/" exported="true"/>
+    <component id="gg7g61" name="PopupSmallGameWin.xml" path="/" exported="true"/>
     <component id="gg7g62" name="JackpotTrigerTipWindow.xml" path="/moudules/popupSmallGameTrigger/" exported="true"/>
-    <component id="gg7g63" name="anchorDiamondAnimation.xml" path="/moudules/popupSmallGameTrigger/" exported="true"/>
-    <component id="gg7g64" name="anchorDiamondSpine.xml" path="/moudules/popupSmallGameTrigger/" exported="true"/>
-    <component id="gg7g65" name="anchorDiamondBgEffect.xml" path="/moudules/popupSmallGameTrigger/" exported="true"/>
+    <component id="gg7g63" name="smallFade.xml" path="/moudules/popupSmallGameTrigger/" exported="true"/>
+    <component id="gg7g64" name="smallTrigger.xml" path="/moudules/popupSmallGameTrigger/" exported="true"/>
     <component id="gg7g66" name="JackpotResultTipWindow.xml" path="/moudules/popupSmallGameResult/" exported="true"/>
-    <component id="gg7g67" name="anchorJackpotWin.xml" path="/moudules/PopupJackpotWin/" exported="true"/>
+    <component id="gg7g67" name="BonusWin.xml" path="/moudules/popupSmallGameWin/" exported="true"/>
     <component id="xpjv68" name="SmallGameSymbols.xml" path="/moudules/pageGameMain/SmallGame/" exported="true"/>
     <component id="xpjv69" name="anchorSmallGameDiamond.xml" path="/moudules/pageGameMain/SmallGame/" exported="true"/>
     <component id="xpjv6a" name="ng_sym_null.xml" path="/images/common/smallGameSymbols/" exported="true"/>
@@ -261,6 +258,11 @@
     <image id="m9w1a9" name="ng_sym_14_major.png" path="/images/common/smallGameSymbols/" exported="true"/>
     <image id="m9w1aa" name="ng_sym_14_minor.png" path="/images/common/smallGameSymbols/" exported="true"/>
     <image id="m9w1ab" name="ng_sym14_mini.png" path="/images/common/smallGameSymbols/" exported="true"/>
+    <component id="ny7oaf" name="smallFade.xml" path="/moudules/popupSmallGameResult/" exported="true"/>
+    <component id="ny7oag" name="smallResult.xml" path="/moudules/popupSmallGameResult/" exported="true"/>
+    <component id="ny7oah" name="collectBtn.xml" path="/moudules/popupSmallGameResult/" exported="true"/>
+    <component id="ny7oai" name="startBtn.xml" path="/moudules/popupSmallGameTrigger/" exported="true"/>
+    <component id="qqppaj" name="EffectParentPanel.xml" path="/moudules/pageGameMain/Anchor/" exported="true"/>
   </resources>
   <publish name="CaiFuZhiJia" path="../../Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>

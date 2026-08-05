@@ -11,39 +11,26 @@
     <component id="n22_hbr9" name="smallGameBg" src="hbr95f" fileName="moudules/pageGameMain/small/smallGameBg.xml" xy="0,0">
       <gearDisplay controller="gameController" pages="2"/>
     </component>
-    <component id="n6_pbvu" name="anchorNpc" src="pbvu29" fileName="moudules/pageGameMain/anchor/anchorNpc.xml" xy="540,960"/>
-    <component id="n4_sns5" name="normalOther" src="sns521" fileName="moudules/pageGameMain/normal/normalOther.xml" xy="-12,1035">
-      <gearDisplay controller="gameController" pages="0"/>
-    </component>
-    <component id="n17_9e0n" name="freeOther" src="9e0n4o" fileName="moudules/pageGameMain/free/freeOther.xml" xy="-1,1071">
-      <gearDisplay controller="gameController" pages="1"/>
-    </component>
-    <component id="n18_9e0n" name="freeFrame" src="9e0n4p" fileName="moudules/pageGameMain/free/freeFrame.xml" xy="424,1086">
-      <gearDisplay controller="gameController" pages="1"/>
-    </component>
-    <component id="n24_s1hw" name="smallGameOther" src="hbr95g" fileName="moudules/pageGameMain/small/smallGameOther.xml" xy="0,996">
-      <gearDisplay controller="gameController" pages="2"/>
-    </component>
     <component id="n14_pbvu" name="jpMajor" src="pbvu2b" fileName="moudules/pageGameMain/gameJackpot/GameJackpotMajor.xml" xy="182,13" group="n15_pbvu"/>
     <component id="n7_pbvu" name="jpMinor" src="pbvu2d" fileName="moudules/pageGameMain/gameJackpot/GameJackpotMinor.xml" xy="2,189" group="n15_pbvu"/>
     <component id="n8_pbvu" name="jpMini" src="pbvu2c" fileName="moudules/pageGameMain/gameJackpot/GameJackpotMini.xml" xy="587,189" group="n15_pbvu"/>
     <group id="n15_pbvu" name="jackpots" xy="2,13" size="1078,302"/>
+    <component id="n4_sns5" name="normalOther" src="sns521" fileName="moudules/pageGameMain/normal/normalOther.xml" xy="0,0">
+      <gearDisplay controller="gameController" pages="0"/>
+    </component>
+    <component id="n17_9e0n" name="freeOther" src="9e0n4o" fileName="moudules/pageGameMain/free/freeOther.xml" xy="0,0">
+      <gearDisplay controller="gameController" pages="1"/>
+    </component>
+    <component id="n24_s1hw" name="smallGameOther" src="hbr95g" fileName="moudules/pageGameMain/small/smallGameOther.xml" xy="0,0">
+      <gearDisplay controller="gameController" pages="2"/>
+    </component>
     <component id="n13_pbvu" name="slotMachine" src="pbvu2n" fileName="moudules/pageGameMain/slotMachine/SlotMachine.xml" xy="52,1147" size="975,542">
       <gearDisplay controller="gameController" pages="0,1"/>
     </component>
     <component id="n23_qwup" name="smallGameReels" src="qwup5h" fileName="moudules/pageGameMain/small/SmallGameReels.xml" xy="57,1148">
       <gearDisplay controller="gameController" pages="2"/>
     </component>
-    <component id="n9_pbvu" name="anchorFrame" src="pbvu2e" fileName="moudules/pageGameMain/anchor/anchorFrame.xml" xy="540,960"/>
-    <component id="n19_ba9f" name="anchorSpeedParent" src="ba9f4q" fileName="moudules/pageGameMain/anchor/anchorSpeedParent.xml" xy="540,960">
-      <gearDisplay controller="gameController" pages="0,1"/>
-    </component>
-    <component id="n20_hbr9" name="anchorFreeEffectParent" src="hbr95d" fileName="moudules/pageGameMain/anchor/anchorFreeEffectParent.xml" xy="540,960">
-      <gearDisplay controller="gameController" pages="1"/>
-    </component>
-    <component id="n21_hbr9" name="anchorSmallGameEffectParent" src="hbr95e" fileName="moudules/pageGameMain/anchor/anchorSmallGameEffectParent.xml" xy="540,960">
-      <gearDisplay controller="gameController" pages="2"/>
-    </component>
+    <component id="n25_kiri" name="anchorParent" src="kiric4" fileName="moudules/pageGameMain/anchor/anchorParent.xml" xy="0,0"/>
     <component id="n5_pbvu" name="panel" src="pbvu28" fileName="moudules/pageGameMain/anchor/anchorPanel.xml" xy="540,1830"/>
   </displayList>
 </component>

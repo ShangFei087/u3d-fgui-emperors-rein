@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920" designImage="ui://ytoswqrps1hw8x">
   <displayList>
+    <component id="n5_cnsi" name="anchorFadePag" src="cnsic5" fileName="moudules/popupFreeSpinTrigger/anchorFadePag.xml" xy="540,960"/>
     <component id="n4_s1hw" name="anchorTrigger" src="s1hw92" fileName="moudules/popupFreeSpinTrigger/anchorTrigger.xml" xy="540,960"/>
-    <text id="n0_llq9" name="spinCountText" xy="335,674" size="416,433" font="ui://ytoswqrps1hw7n" fontSize="12" align="center" vAlign="middle" autoSize="shrink" text="8"/>
+    <text id="n0_llq9" name="spinCountText" xy="335,674" size="416,433" font="ui://ytoswqrps1hw7n" fontSize="12" align="center" vAlign="middle" autoSize="shrink" text=""/>
     <component id="n2_s1hw" name="startBtn" src="s1hw8t" fileName="components/popupFreeSpinTrigger/startBtn.xml" xy="313,1376"/>
   </displayList>
 </component>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <component id="n2_gg7g" name="diamondAnimation" src="gg7g5l" fileName="moudules/popupFreeSpinTrigger/freeGetAnimation.xml" xy="540,960"/>
+    <component id="n3_ny7o" name="smallFade" src="ny7oaf" fileName="moudules/popupSmallGameResult/smallFade.xml" xy="540,960"/>
+    <component id="n4_ny7o" name="smallResult" src="ny7oag" fileName="moudules/popupSmallGameResult/smallResult.xml" xy="540,960"/>
     <component id="n1_gg7g" name="jackpotResultScore" src="gg7g5w" fileName="moudules/popupFreeSpinResult/freeResultScore.xml" xy="0,750"/>
-    <component id="n0_gg7g" name="jackpotResultButton" src="gg7g5u" fileName="components/common/collectBtn.xml" xy="371,1151"/>
+    <component id="n5_ny7o" name="jackpotResultButton" src="ny7oah" fileName="moudules/popupSmallGameResult/collectBtn.xml" xy="371,1151"/>
   </displayList>
 </component>

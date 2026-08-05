@@ -1,0 +1,32 @@
+{ "skeleton": { "images": "E:/财富之家/PSD/sg_img_dl/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "l", "bone": "root", "attachment": "l" },
+	{ "name": "huang", "bone": "root", "attachment": "huang" },
+	{ "name": "h", "bone": "root", "attachment": "h" },
+	{ "name": "d_1", "bone": "root", "attachment": "d_1" },
+	{ "name": "k", "bone": "root", "attachment": "k" }
+],
+"skins": {
+	"default": {
+		"l": {
+			"l": { "x": 94.0000000000001, "y": -23, "width": 50, "height": 48 }
+		},
+		"huang": {
+			"huang": { "x": 188, "y": -23, "width": 50, "height": 48 }
+		},
+		"h": {
+			"h": { "x": 278.5, "y": -23.5, "width": 51, "height": 49 }
+		},
+		"d_1": {
+			"d_1": { "x": 278.5, "y": -23.5, "width": 51, "height": 49 }
+		},
+		"k": {
+			"k": { "x": 186, "y": -114, "width": 374, "height": 142 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

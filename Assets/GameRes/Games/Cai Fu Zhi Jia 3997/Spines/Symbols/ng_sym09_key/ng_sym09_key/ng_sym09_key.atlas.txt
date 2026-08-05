@@ -1,0 +1,15 @@
+ng_sym09_key.png
+size:502,167
+filter:Linear,Linear
+pma:true
+d
+bounds:164,10,156,152
+rotate:90
+k
+bounds:1,1,165,162
+rotate:90
+yt_0
+bounds:317,6,134,160
+yt_1
+bounds:452,115,51,49
+rotate:90

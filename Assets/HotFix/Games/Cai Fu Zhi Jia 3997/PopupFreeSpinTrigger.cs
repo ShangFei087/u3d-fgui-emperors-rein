@@ -13,46 +13,26 @@ namespace CaiFuZhiJia_3997
         public new const string pkgName = "CaiFuZhiJia";
         public new const string resName = "PopupFreeSpinTrigger";
 
-        private const string SpinePrefabPath =
-            "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupFreeSpinTrigger/SpinePrefabs/";
-
-        private const string EffectPrefabPath =
-            "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupFreeSpinTrigger/EffectPrefabs/";
-
-        private const string AnimationPrefabPath =
-            "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupFreeSpinTrigger/AnimationPrefabs/";
+        private const string PrefabPath =
+            "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupFreeSpinTrigger/";
 
         private int _totalCount = -1;
         private bool _isInitialized;
+        private GTextField _freeRoundTxt;
         private GButton _freeStartBtn;
+
         private GComponent _freeTipWindow;
 
+        // 记录挂点前数据
+        private Vector3 _startBtnLocalScale, _numTextLocalScale, _startBtnLocalPos, _numTextLocalPos;
+
         // Spine
-        private GameObject _dollarSpineObj;
-        private GameObject _cloneDollarSpineObj;
-        private GComponent _compareDollarSpineGCom;
-
-        // Effect
-        private GameObject _goldPurpleEffectObj;
-        private GameObject _cloneGoldPurpleEffectObj;
-        private GComponent _compareGoldPurpleEffectGCom;
-
-        // Animation
-        private GameObject _freeGetAnimationObj;
-        private GameObject _cloneFreeGetAnimationObj;
-        private GComponent _compareFreeGetAnimationGCom;
-
-        // 记录UI父物体，方便界面关闭的时候还原UI位置
-        private Transform _freeRoundOriginalParent = null;
-        private Vector3 _freeRoundOriginalPos;
-        private Vector3 _freeRoundOriginalScale;
-        private Transform _freeStartBtnOriginalParent = null;
-        private Vector3 _freeStartBtnOriginalPos;
-        private Vector3 _freeStartBtnOriginalScale;
+        private Animator _freeTriggerAni;
+        private GComponent _freeTriggerCom;
+        private GameObject _freeTriggerObj, _cloneFreeTriggerObj;
 
         // 定时器记录，方便使用后清除，避免内存泄漏
-        private TimerCallback _autoClickCallback;
-        private TimerCallback _delayCloseCallback;
+        private TimerCallback _autoClickCallback, _delayCloseCallback;
 
         private GameSoundController3997 _gameSoundController;
         private bool _isClicked = false;
@@ -64,28 +44,14 @@ namespace CaiFuZhiJia_3997
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            _totalCount = 3;
+            _totalCount = 1;
             ResourceManager02.Instance.LoadAsset<GameObject>(
-                SpinePrefabPath + "dollarSpine.prefab",
+                PrefabPath + "FreeTrigger.prefab",
                 (clone) =>
                 {
-                    _dollarSpineObj = clone;
+                    _freeTriggerObj = clone;
                     ResLoadedCallback();
                 }); // 加载Spine
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                EffectPrefabPath + "goldPurpleEffect.prefab",
-                (clone) =>
-                {
-                    _goldPurpleEffectObj = clone;
-                    ResLoadedCallback();
-                }); // 加载Effect
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                AnimationPrefabPath + "freeGetAnimation.prefab",
-                (clone) =>
-                {
-                    _freeGetAnimationObj = clone;
-                    ResLoadedCallback();
-                }); // 加载Animation
 
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
@@ -113,98 +79,61 @@ namespace CaiFuZhiJia_3997
             _isClicked = false;
             RemoveTimer(ref _autoClickCallback);
 
-            // --------------------- 获取UI组件 ------------------------
+            // --------------------- 获取UI组件 ---------------------
             _freeTipWindow = contentPane.GetChild("freeTipWindow").asCom;
             _freeStartBtn = _freeTipWindow.GetChild("freeStartBtn").asButton;
+            _freeRoundTxt = _freeTipWindow.GetChild("freeRound").asTextField;
+
+            // --------------------- 记录UI组件初始信息 ---------------------
+            Transform startBtnTran = _freeStartBtn.displayObject.gameObject.transform;
+            Transform roundTran = _freeRoundTxt.displayObject.gameObject.transform;
+            _startBtnLocalPos = startBtnTran.localPosition;
+            _startBtnLocalScale = startBtnTran.localScale;
+            _numTextLocalPos = roundTran.localPosition;
+            _numTextLocalScale = roundTran.localScale;
 
             // --------------------- 绑定预制体到UI ---------------------
-            GComponent currentGCom = contentPane.GetChild("dollarSpine").asCom;
-            if (currentGCom != _compareDollarSpineGCom)
+            GComponent currentGCom = _freeTipWindow.GetChild("freeTrigger").asCom;
+            if (currentGCom != _freeTriggerCom)
             {
-                GameCommon.FguiUtils.DeleteWrapper(_compareDollarSpineGCom);
-                _compareDollarSpineGCom = currentGCom;
-                _cloneDollarSpineObj = Object.Instantiate(_dollarSpineObj);
-                _cloneDollarSpineObj.SetActive(false);
-                GameCommon.FguiUtils.AddWrapper(_compareDollarSpineGCom, _cloneDollarSpineObj);
+                GameCommon.FguiUtils.DeleteWrapper(_freeTriggerCom);
+                _freeTriggerCom = currentGCom;
+                _cloneFreeTriggerObj = Object.Instantiate(_freeTriggerObj);
+                _freeTriggerAni = _cloneFreeTriggerObj.GetComponentInChildren<Animator>();
+                GameCommon.FguiUtils.AddWrapper(_freeTriggerCom, _cloneFreeTriggerObj);
             } // Spine
 
-            currentGCom = contentPane.GetChild("goldPurpleEffect").asCom;
-            if (currentGCom != _compareGoldPurpleEffectGCom)
-            {
-                GameCommon.FguiUtils.DeleteWrapper(_compareGoldPurpleEffectGCom);
-                _compareGoldPurpleEffectGCom = currentGCom;
-                _cloneGoldPurpleEffectObj = Object.Instantiate(_goldPurpleEffectObj);
-                _cloneGoldPurpleEffectObj.SetActive(false);
-                GameCommon.FguiUtils.AddWrapper(_compareGoldPurpleEffectGCom, _cloneGoldPurpleEffectObj);
-            } // Effect
-
-            currentGCom = _freeTipWindow.GetChild("freeGetAnimation").asCom;
-            if (currentGCom != _compareFreeGetAnimationGCom)
-            {
-                GameCommon.FguiUtils.DeleteWrapper(_compareFreeGetAnimationGCom);
-                _compareFreeGetAnimationGCom = currentGCom;
-                _cloneFreeGetAnimationObj = Object.Instantiate(_freeGetAnimationObj);
-                GameCommon.FguiUtils.AddWrapper(_compareFreeGetAnimationGCom, _cloneFreeGetAnimationObj);
-            } // Animation
-
-            // --------------------- 绑定UI到动画 ---------------------
-            string candidatePaths = $"Anchor/fg_pop_prompt/Animation/all1/all3/num02";
-            Transform num01 = _cloneFreeGetAnimationObj.transform.Find(candidatePaths);
-            GObject gFreeText = contentPane.GetChild("freeTipWindow").asCom.GetChild("freeRound");
-            if (gFreeText?.displayObject?.gameObject != null)
-            {
-                Transform t = gFreeText.displayObject.gameObject.transform;
-                if (_freeRoundOriginalParent == null)
-                {
-                    _freeRoundOriginalParent = t.parent;
-                    _freeRoundOriginalPos = t.localPosition;
-                    _freeRoundOriginalScale = t.localScale;
-                }
-
-                t.SetParent(num01, false);
-                t.localPosition = new Vector3(-2.6f, 2.33f, 0);
-                t.localScale = new Vector3(0.008f, 0.008f, 0.01f);
-            } // freeRound 文本
-
-            string startButtonPath = $"Anchor/fg_pop_prompt/Animation/all1/all/btn01";
-            num01 = _cloneFreeGetAnimationObj.transform.Find(startButtonPath);
-            GObject gStartBtn = contentPane.GetChild("freeTipWindow").asCom.GetChild("freeStartBtn");
-            if (gStartBtn?.displayObject?.gameObject != null)
-            {
-                Transform t = gStartBtn.displayObject.gameObject.transform;
-                if (_freeStartBtnOriginalParent == null)
-                {
-                    _freeStartBtnOriginalParent = t.parent;
-                    _freeStartBtnOriginalPos = t.localPosition;
-                    _freeStartBtnOriginalScale = t.localScale;
-                }
-
-                t.SetParent(num01, false);
-                t.localPosition = new Vector3(-1.34f, -0.33f, 0);
-                t.localScale = new Vector3(0.008f, 0.008f, 0.01f);
-            } // freeStartBtn 按钮
+            // --------------------- 将UI组件挂点到对应的Spine节点上 ---------------------
+            string rootPath = "Anchor/Spine Mecanim GameObject (fg_pop_prompt)/SkeletonUtility-SkeletonRoot/root/All/";
+            Transform btnTran = _cloneFreeTriggerObj.transform.Find(rootPath + "pop_all/btn");
+            startBtnTran.SetParent(btnTran, false);
+            startBtnTran.localPosition = new Vector3(-2f, 0.75f, 0);
+            startBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+            Transform numTran = _cloneFreeTriggerObj.transform.Find(rootPath + "pop_all/pop/num");
+            roundTran.SetParent(numTran, false);
+            roundTran.localPosition = new Vector3(-2.9f, 2.3f, 0);
+            roundTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
 
             // --------------------- 按钮点击事件 ---------------------
             if (_openData is { value: Dictionary<string, object> args })
             {
                 _changeFreePage = args["changeFreePage"] as Action;
             }
+
             _freeStartBtn.onClick.Clear();
             _freeStartBtn.onClick.Add(() => { OnClickSpinButton(null); });
             // 自动模式定时器
-            if (TestManager.Instance.IsAutoModeRunning)
+            if (!TestManager.Instance.IsAutoModeRunning) return;
+            _autoClickCallback = (obj) =>
             {
-                _autoClickCallback = (obj) =>
+                if (_freeStartBtn != null && _freeTipWindow is { visible: true } && isOpen)
                 {
-                    if (_freeStartBtn != null && _freeTipWindow != null && _freeTipWindow.visible && isOpen)
-                    {
-                        _freeStartBtn.onClick.Call();
-                    }
+                    _freeStartBtn.onClick.Call();
+                }
 
-                    _autoClickCallback = null;
-                };
-                Timers.inst.Add(3.0f, 1, _autoClickCallback);
-            }
+                _autoClickCallback = null;
+            };
+            Timers.inst.Add(3.0f, 1, _autoClickCallback);
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
@@ -227,41 +156,25 @@ namespace CaiFuZhiJia_3997
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _delayCloseCallback);
 
-            // ----------------------- 重置UI和clone物体显隐 ---------------------
-            if (_freeTipWindow != null) _freeTipWindow.visible = true;
-            if (_cloneDollarSpineObj != null) _cloneDollarSpineObj.SetActive(false);
-            if (_cloneGoldPurpleEffectObj != null) _cloneGoldPurpleEffectObj.SetActive(false);
+            // --------------------- 还原UI组件 ---------------------
+            Transform startBtnTran = _freeStartBtn.displayObject.gameObject.transform;
+            Transform roundTran = _freeRoundTxt.displayObject.gameObject.transform;
+            Transform parentTran = _freeTipWindow.displayObject.gameObject.transform;
+            startBtnTran.SetParent(parentTran, false);
+            startBtnTran.localPosition = _startBtnLocalPos;
+            startBtnTran.localScale = _startBtnLocalScale;
+            roundTran.SetParent(parentTran, false);
+            roundTran.localPosition = _numTextLocalPos;
+            roundTran.localScale = _numTextLocalScale;
 
-            // ----------------------- 重置UI父物体 -----------------------
-            GObject gFreeText = contentPane?.GetChild("freeTipWindow")?.asCom?.GetChild("freeRound");
-            if (gFreeText?.displayObject?.gameObject != null && _freeRoundOriginalParent != null)
-            {
-                Transform t = gFreeText.displayObject.gameObject.transform;
-                t.SetParent(_freeRoundOriginalParent, false);
-                t.localPosition = _freeRoundOriginalPos;
-                t.localScale = _freeRoundOriginalScale;
-            }
-
-            GObject gStartBtn = contentPane?.GetChild("freeTipWindow")?.asCom?.GetChild("freeStartBtn");
-            if (gStartBtn?.displayObject?.gameObject != null && _freeStartBtnOriginalParent != null)
-            {
-                Transform t = gStartBtn.displayObject.gameObject.transform;
-                t.SetParent(_freeStartBtnOriginalParent, false);
-                t.localPosition = _freeStartBtnOriginalPos;
-                t.localScale = _freeStartBtnOriginalScale;
-            }
-
-            _freeRoundOriginalParent = null;
-            _freeStartBtnOriginalParent = null;
+            _freeRoundTxt.visible = true;
         }
 
         private void ResLoadedCallback()
         {
-            if (--_totalCount == 0)
-            {
-                _isInitialized = true;
-                InitParam(null);
-            }
+            if (--_totalCount != 0) return;
+            _isInitialized = true;
+            InitParam(null);
         }
 
         private void OnClickSpinButton(EventData res)
@@ -269,23 +182,16 @@ namespace CaiFuZhiJia_3997
             if (_isClicked) return;
             _isClicked = true;
 
+            _freeRoundTxt.visible = false;
+            PlayAnimationByName(_freeTriggerAni, "ng_fade_fg");
             RemoveTimer(ref _delayCloseCallback);
-
-            _freeTipWindow.visible = false;
-            if (_cloneDollarSpineObj != null)
-                _cloneDollarSpineObj.SetActive(true);
-            if (_cloneGoldPurpleEffectObj != null)
-                _cloneGoldPurpleEffectObj.SetActive(true);
-
             _delayCloseCallback = (obj) =>
             {
                 _changeFreePage?.Invoke();
-                if (_cloneDollarSpineObj != null) _cloneDollarSpineObj.SetActive(false);
                 if (isOpen) CloseSelf(null);
                 _delayCloseCallback = null;
             };
-            Timers.inst.Add(3.033f, 1, _delayCloseCallback);
-
+            Timers.inst.Add(2.9f, 1, _delayCloseCallback);
             EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.FreeGameFadeTransition));
         }
@@ -293,9 +199,16 @@ namespace CaiFuZhiJia_3997
         private void RemoveTimer(ref TimerCallback timerCallback)
         {
             if (timerCallback == null) return;
-
             Timers.inst.Remove(timerCallback);
             timerCallback = null;
+        }
+
+        private void PlayAnimationByName(Animator animator, string aniName, Action callback = null)
+        {
+            animator.Rebind();
+            animator.Play(aniName);
+            animator.Update(0f);
+            callback?.Invoke();
         }
     }
 }

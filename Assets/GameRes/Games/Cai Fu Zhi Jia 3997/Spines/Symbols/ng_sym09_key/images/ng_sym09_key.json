@@ -1,0 +1,28 @@
+{ "skeleton": { "images": "E:/修改项目/财富之家新版本 - 副本/PSD切片文件/ng_sym09_planes/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "d", "bone": "root", "attachment": "d" },
+	{ "name": "k", "bone": "root", "attachment": "k" },
+	{ "name": "yt_1", "bone": "root", "attachment": "yt_1" },
+	{ "name": "yt_0", "bone": "root", "attachment": "yt_0" }
+],
+"skins": {
+	"default": {
+		"d": {
+			"d": { "x": 152, "y": -152, "width": 156, "height": 152 }
+		},
+		"k": {
+			"k": { "x": 151.5, "y": -152, "width": 165, "height": 162 }
+		},
+		"yt_1": {
+			"yt_1": { "x": 169.5, "y": -114.5, "width": 51, "height": 49 }
+		},
+		"yt_0": {
+			"yt_0": { "x": 156, "y": -150, "width": 134, "height": 160 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

@@ -1,0 +1,10 @@
+ng_sym01_gold.png
+size:140,183
+filter:Linear,Linear
+pma:true
+glow_02
+bounds:75,1,64,64
+xx_0
+bounds:1,66,135,116
+xx_1
+bounds:1,3,73,62

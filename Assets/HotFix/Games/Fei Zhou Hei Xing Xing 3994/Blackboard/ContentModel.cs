@@ -31,7 +31,6 @@ namespace FeiZhouHeiXingXing_3994
         
         #region Panel 参数
 
-        private GComponent _goAnchorPanel;
         [SerializeField] private long mTotalBet = 0;
         [SerializeField] private int mBetMultiple = 0;
         [SerializeField] private string mBtnSpinState = "Stop";
@@ -40,7 +39,8 @@ namespace FeiZhouHeiXingXing_3994
         /// <summary> 赢线 </summary>
         public List<SymbolWin> winList;
         public GComponent[] goPayTableLst { get; set; } = Array.Empty<GComponent>();
-        public GComponent goAnthorPanel { get => _goAnchorPanel; set => _goAnchorPanel = value; }
+        public GComponent goAnthorPanel { get; set; }
+
         public long totalBet { get => mTotalBet; set => Observer.SetProperty(ref mTotalBet, value); }
         public int betmultiple { get => mBetMultiple; set => Observer.SetProperty(ref mBetMultiple, value); }
         public string btnSpinState { get => mBtnSpinState; set => Observer.SetProperty(ref mBtnSpinState, value); }
@@ -82,9 +82,9 @@ namespace FeiZhouHeiXingXing_3994
         public int totalPlaySpins { get => _totalPlaySpins; set => Observer.SetProperty(ref _totalPlaySpins, value); }
         public int remainPlaySpins { get => _remainPlaySpins; set => Observer.SetProperty(ref _remainPlaySpins, value); }
 
-        private int mFreeSpinPlayTimes = 0;
-        private int mFreeSpinTotalTimes = 0;
-        private int mShowFreeSpinRemainTime = 0;
+        private int _mFreeSpinPlayTimes = 0;
+        private int _mFreeSpinTotalTimes = 0;
+        private int _mShowFreeSpinRemainTime = 0;
         public string curReelStripsIndex = "BS";
         public string nextReelStripsIndex = "BS";
 
@@ -124,9 +124,9 @@ namespace FeiZhouHeiXingXing_3994
         /// <summary> 当前本轮游戏guid </summary>
         public string curGameGuid;
 
-        public int FreeSpinPlayTimes { get => mFreeSpinPlayTimes; set => Observer.SetProperty(ref mFreeSpinPlayTimes, value); }
-        public int FreeSpinTotalTimes { get => mFreeSpinTotalTimes; set => Observer.SetProperty(ref mFreeSpinTotalTimes, value); }
-        public int ShowFreeSpinRemainTime { get => mShowFreeSpinRemainTime; set => Observer.SetProperty(ref mShowFreeSpinRemainTime, value); }
+        public int FreeSpinPlayTimes { get => _mFreeSpinPlayTimes; set => Observer.SetProperty(ref _mFreeSpinPlayTimes, value); }
+        public int FreeSpinTotalTimes { get => _mFreeSpinTotalTimes; set => Observer.SetProperty(ref _mFreeSpinTotalTimes, value); }
+        public int ShowFreeSpinRemainTime { get => _mShowFreeSpinRemainTime; set => Observer.SetProperty(ref _mShowFreeSpinRemainTime, value); }
 
         // ------------------------ Small Game -----------------------
         public bool isSmallGameTrigger;
@@ -135,10 +135,10 @@ namespace FeiZhouHeiXingXing_3994
 
         // ------------------------ Jackpot Data -----------------------
         /// <summary> 本局彩金结果 </summary>
-        public JackpotRes jpGameRes;
+        public JackpotRes JpGameRes;
 
         /// <summary> bonus数据 </summary>
-        public Dictionary<int, JSONNode> bonusResult = new Dictionary<int, JSONNode>();
+        public readonly Dictionary<int, JSONNode> BonusResult = new Dictionary<int, JSONNode>();
         [SerializeField] private JackpotInfo mUIGrandJp = new JackpotInfo()
         {
             name = "JPGrand",

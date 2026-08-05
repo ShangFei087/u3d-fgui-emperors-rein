@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1100,721">
+<component size="1080,1920" opaque="false" designImage="ui://ytoswqrpjzab4s">
   <displayList>
-    <image id="n5_sns5" name="n5" src="qrjm57" fileName="images/common/gameBorder/normal/ng_bor_nk(1).png" xy="52,87" group="n20_9e0n"/>
-    <image id="n9_pbvu" name="n9" src="qrjm52" fileName="images/common/gameBorder/normal/ng_bor_fgx(1).png" xy="253,98" size="12,566" group="n20_9e0n"/>
-    <image id="n11_pbvu" name="n11" src="qrjm52" fileName="images/common/gameBorder/normal/ng_bor_fgx(1).png" xy="449,98" size="12,566" group="n20_9e0n"/>
-    <image id="n12_pbvu" name="n12" src="qrjm52" fileName="images/common/gameBorder/normal/ng_bor_fgx(1).png" xy="638,98" size="12,566" group="n20_9e0n"/>
-    <image id="n13_pbvu" name="n13" src="qrjm52" fileName="images/common/gameBorder/normal/ng_bor_fgx(1).png" xy="831,98" size="12,566" group="n20_9e0n"/>
-    <image id="n14_9e0n" name="n14" src="qrjm54" fileName="images/common/gameBorder/normal/ng_bor_right(1).png" xy="931,0" group="n20_9e0n"/>
-    <image id="n15_9e0n" name="n15" src="qrjm53" fileName="images/common/gameBorder/normal/ng_bor_left(1).png" xy="0,0" group="n20_9e0n"/>
-    <image id="n16_9e0n" name="n16" src="qrjm55" fileName="images/common/gameBorder/normal/ng_bor_up(1).png" xy="208,53" group="n20_9e0n"/>
-    <image id="n17_9e0n" name="n17" src="qrjm56" fileName="images/common/gameBorder/normal/ng_bor_down(1).png" xy="208,656" size="742,52" group="n20_9e0n"/>
-    <image id="n7_sns5" name="n7" src="qrjm58" fileName="images/common/gameBorder/ng_txt_25.png" xy="1056,370" group="n20_9e0n"/>
-    <image id="n6_sns5" name="n6" src="qrjm58" fileName="images/common/gameBorder/ng_txt_25.png" xy="28,370" group="n20_9e0n"/>
-    <group id="n20_9e0n" name="n20" xy="0,0" size="1100,721"/>
+    <component id="n21_kiri" name="anchorNpc" src="pbvu29" fileName="moudules/pageGameMain/anchor/anchorNpc.xml" xy="540,952" group="n20_9e0n"/>
+    <image id="n5_sns5" name="n5" src="qrjm57" fileName="images/common/gameBorder/normal/ng_bor_nk(1).png" xy="41,1122" group="n20_9e0n"/>
+    <image id="n9_pbvu" name="n9" src="qrjm52" fileName="images/common/gameBorder/normal/ng_bor_fgx(1).png" xy="242,1133" size="12,566" group="n20_9e0n"/>
+    <image id="n11_pbvu" name="n11" src="qrjm52" fileName="images/common/gameBorder/normal/ng_bor_fgx(1).png" xy="438,1133" size="12,566" group="n20_9e0n"/>
+    <image id="n12_pbvu" name="n12" src="qrjm52" fileName="images/common/gameBorder/normal/ng_bor_fgx(1).png" xy="627,1133" size="12,566" group="n20_9e0n"/>
+    <image id="n13_pbvu" name="n13" src="qrjm52" fileName="images/common/gameBorder/normal/ng_bor_fgx(1).png" xy="820,1133" size="12,566" group="n20_9e0n"/>
+    <image id="n14_9e0n" name="n14" src="qrjm54" fileName="images/common/gameBorder/normal/ng_bor_right(1).png" xy="920,1035" group="n20_9e0n"/>
+    <image id="n15_9e0n" name="n15" src="qrjm53" fileName="images/common/gameBorder/normal/ng_bor_left(1).png" xy="-11,1035" group="n20_9e0n"/>
+    <image id="n16_9e0n" name="n16" src="qrjm55" fileName="images/common/gameBorder/normal/ng_bor_up(1).png" xy="197,1088" group="n20_9e0n"/>
+    <image id="n17_9e0n" name="n17" src="qrjm56" fileName="images/common/gameBorder/normal/ng_bor_down(1).png" xy="197,1691" size="742,52" group="n20_9e0n"/>
+    <image id="n7_sns5" name="n7" src="qrjm58" fileName="images/common/gameBorder/ng_txt_25.png" xy="1045,1405" group="n20_9e0n"/>
+    <image id="n6_sns5" name="n6" src="qrjm58" fileName="images/common/gameBorder/ng_txt_25.png" xy="17,1405" group="n20_9e0n"/>
+    <group id="n20_9e0n" name="n20" xy="-11,952" size="1100,804"/>
   </displayList>
 </component>

@@ -1,0 +1,28 @@
+{ "skeleton": { "images": "E:/修改项目/财富之家新版本 - 副本/PSD切片文件/ng_sym02_silver/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "tt2", "bone": "root", "attachment": "tt2" },
+	{ "name": "t2", "bone": "root", "attachment": "t2" },
+	{ "name": "tt", "bone": "root", "attachment": "tt" },
+	{ "name": "t1", "bone": "root", "attachment": "t1" }
+],
+"skins": {
+	"default": {
+		"tt2": {
+			"tt2": { "x": 133.5, "y": -156.5, "width": 115, "height": 111 }
+		},
+		"t2": {
+			"t2": { "x": 163, "y": -153.5, "width": 124, "height": 121 }
+		},
+		"tt": {
+			"tt": { "x": 133.5, "y": -152, "width": 111, "height": 108 }
+		},
+		"t1": {
+			"t1": { "x": 163, "y": -147.5, "width": 120, "height": 117 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

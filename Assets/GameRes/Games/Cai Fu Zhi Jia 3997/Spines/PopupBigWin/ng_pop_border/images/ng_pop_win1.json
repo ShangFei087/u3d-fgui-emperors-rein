@@ -1,0 +1,76 @@
+{ "skeleton": { "images": "E:/财富之家/PSD/ng_pop_win/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "BIG_B1", "bone": "root", "attachment": "BIG_B1" },
+	{ "name": "BIG_I1", "bone": "root", "attachment": "BIG_I1" },
+	{ "name": "BIG_G1", "bone": "root", "attachment": "BIG_G1" },
+	{ "name": "SUPER_S1", "bone": "root", "attachment": "SUPER_S1" },
+	{ "name": "SUPER_U1", "bone": "root", "attachment": "SUPER_U1" },
+	{ "name": "SUPER_R1", "bone": "root", "attachment": "SUPER_R1" },
+	{ "name": "SUPER_E1", "bone": "root", "attachment": "SUPER_E1" },
+	{ "name": "SUPER_P1", "bone": "root", "attachment": "SUPER_P1" },
+	{ "name": "MEGA_M1", "bone": "root", "attachment": "MEGA_M1" },
+	{ "name": "MEGA_E1", "bone": "root", "attachment": "MEGA_E1" },
+	{ "name": "MEGA_A1", "bone": "root", "attachment": "MEGA_A1" },
+	{ "name": "MEGA_G1", "bone": "root", "attachment": "MEGA_G1" },
+	{ "name": "shuzi", "bone": "root", "attachment": "shuzi" },
+	{ "name": "W1", "bone": "root", "attachment": "W1" },
+	{ "name": "I1", "bone": "root", "attachment": "I1" },
+	{ "name": "N1", "bone": "root", "attachment": "N1" }
+],
+"skins": {
+	"default": {
+		"BIG_B1": {
+			"BIG_B1": { "x": 349, "y": -1269.5, "width": 360, "height": 375 }
+		},
+		"BIG_I1": {
+			"BIG_I1": { "x": 544, "y": -1260, "width": 168, "height": 378 }
+		},
+		"BIG_G1": {
+			"BIG_G1": { "x": 749, "y": -1265, "width": 336, "height": 386 }
+		},
+		"SUPER_S1": {
+			"SUPER_S1": { "x": 170, "y": -1288.5, "width": 290, "height": 311 }
+		},
+		"SUPER_U1": {
+			"SUPER_U1": { "x": 353, "y": -1280, "width": 278, "height": 326 }
+		},
+		"SUPER_R1": {
+			"SUPER_R1": { "x": 920.5, "y": -1283.5, "width": 317, "height": 313 }
+		},
+		"SUPER_E1": {
+			"SUPER_E1": { "x": 736, "y": -1279, "width": 250, "height": 322 }
+		},
+		"SUPER_P1": {
+			"SUPER_P1": { "x": 554, "y": -1277.5, "width": 238, "height": 325 }
+		},
+		"MEGA_M1": {
+			"MEGA_M1": { "x": 215, "y": -1268, "width": 392, "height": 382 }
+		},
+		"MEGA_E1": {
+			"MEGA_E1": { "x": 460, "y": -1258.5, "width": 234, "height": 381 }
+		},
+		"MEGA_A1": {
+			"MEGA_A1": { "x": 907, "y": -1274, "width": 348, "height": 370 }
+		},
+		"MEGA_G1": {
+			"MEGA_G1": { "x": 675, "y": -1261.5, "width": 272, "height": 385 }
+		},
+		"shuzi": {
+			"shuzi": { "x": 552, "y": -1783, "width": 1058, "height": 170 }
+		},
+		"W1": {
+			"W1": { "x": 393.5, "y": -1522, "width": 307, "height": 252 }
+		},
+		"I1": {
+			"I1": { "x": 561, "y": -1520, "width": 98, "height": 250 }
+		},
+		"N1": {
+			"N1": { "x": 722.5, "y": -1522.5, "width": 229, "height": 253 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

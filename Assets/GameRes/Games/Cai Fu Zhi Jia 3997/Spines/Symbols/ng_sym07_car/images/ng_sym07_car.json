@@ -1,0 +1,40 @@
+{ "skeleton": { "images": "E:/修改项目/财富之家新版本 - 副本/PSD切片文件/ng_sym07_car/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "d", "bone": "root", "attachment": "d" },
+	{ "name": "k", "bone": "root", "attachment": "k" },
+	{ "name": "hh_4", "bone": "root", "attachment": "hh_4" },
+	{ "name": "hh_3", "bone": "root", "attachment": "hh_3" },
+	{ "name": "hh_2", "bone": "root", "attachment": "hh_2" },
+	{ "name": "hh_1", "bone": "root", "attachment": "hh_1" },
+	{ "name": "hh_0", "bone": "root", "attachment": "hh_0" }
+],
+"skins": {
+	"default": {
+		"d": {
+			"d": { "x": 127, "y": -151, "width": 156, "height": 152 }
+		},
+		"k": {
+			"k": { "x": 126.5, "y": -151, "width": 165, "height": 162 }
+		},
+		"hh_4": {
+			"hh_4": { "x": 151.5, "y": -164.5, "width": 221, "height": 115 }
+		},
+		"hh_3": {
+			"hh_3": { "x": 182.5, "y": -191.5, "width": 37, "height": 57 }
+		},
+		"hh_2": {
+			"hh_2": { "x": 216, "y": -192, "width": 54, "height": 56 }
+		},
+		"hh_1": {
+			"hh_1": { "x": 223, "y": -192, "width": 20, "height": 56 }
+		},
+		"hh_0": {
+			"hh_0": { "x": 121, "y": -179.5, "width": 160, "height": 85 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

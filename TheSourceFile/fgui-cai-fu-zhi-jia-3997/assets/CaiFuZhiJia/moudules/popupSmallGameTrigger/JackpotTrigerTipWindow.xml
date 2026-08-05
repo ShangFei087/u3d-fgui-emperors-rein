@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <component id="n1_gg7g" name="diamondAnimation" src="gg7g63" fileName="moudules/popupSmallGameTrigger/anchorDiamondAnimation.xml" xy="540,960"/>
-    <component id="n0_gg7g" name="jackpotTriggerButton" src="gg7g5p" fileName="components/common/startBtn.xml" xy="369,1245"/>
+    <component id="n1_gg7g" name="smallFade" src="gg7g63" fileName="moudules/popupSmallGameTrigger/smallFade.xml" xy="540,960"/>
+    <component id="n2_ny7o" name="smallTrigger" src="gg7g64" fileName="moudules/popupSmallGameTrigger/smallTrigger.xml" xy="540,960"/>
+    <component id="n3_ny7o" name="jackpotTriggerButton" src="ny7oai" fileName="moudules/popupSmallGameTrigger/startBtn.xml" xy="347,1244"/>
   </displayList>
 </component>
