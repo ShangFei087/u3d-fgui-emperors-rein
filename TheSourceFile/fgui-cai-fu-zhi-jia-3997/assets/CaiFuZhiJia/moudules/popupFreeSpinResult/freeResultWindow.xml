@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <component id="n2_gg7g" name="freeGetAnimation" src="gg7g5l" fileName="moudules/popupFreeSpinTrigger/freeGetAnimation.xml" xy="540,960"/>
-    <component id="n0_gg7g" name="freeGameResultScore" src="gg7g5w" fileName="moudules/popupFreeSpinResult/freeResultScore.xml" xy="0,745"/>
+    <component id="n3_cgt4" name="freeResult" src="gg7g5y" fileName="moudules/popupFreeSpinResult/freeResult.xml" xy="540,960"/>
+    <component id="n0_gg7g" name="freeGameResultScore" src="gg7g5w" fileName="moudules/popupFreeSpinResult/freeResultScore.xml" xy="0,616" size="1080,300"/>
     <component id="n1_gg7g" name="collectBtn" src="gg7g5u" fileName="components/common/collectBtn.xml" xy="374,1446"/>
   </displayList>
 </component>

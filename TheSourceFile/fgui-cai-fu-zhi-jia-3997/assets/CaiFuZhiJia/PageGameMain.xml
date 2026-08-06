@@ -11,15 +11,10 @@
     <component id="n5_u8to" name="smallGameBg" src="u8to2o" fileName="moudules/pageGameMain/Bg/smallGameBg.xml" xy="0,0" touchable="false">
       <gearDisplay controller="gameController" pages="2"/>
     </component>
-    <component id="n15_ujwn" name="anchorRobot" src="ujwn4a" fileName="moudules/pageGameMain/free/anchorRobot.xml" xy="539,960">
+    <component id="n15_ujwn" name="anchorRobot" src="ujwn4a" fileName="moudules/pageGameMain/free/anchorRobot.xml" xy="539,495">
       <gearDisplay controller="gameController" pages="1"/>
     </component>
-    <component id="n21_xpjv" name="anchorSmallGameNpc" src="xpjv6d" fileName="moudules/pageGameMain/SmallGame/anchorSmallGameNpc.xml" xy="540,960">
-      <gearDisplay controller="gameController" pages="2"/>
-    </component>
-    <component id="n13_ujwn" name="anchorNpc" src="ujwn49" fileName="moudules/pageGameMain/Anchor/anchorNpc.xml" xy="540,960">
-      <gearDisplay controller="gameController" pages="0,1"/>
-    </component>
+    <component id="n24_qqpp" name="anchorNpc" src="ujwn49" fileName="moudules/pageGameMain/Anchor/anchorNpc.xml" xy="540,650"/>
     <component id="n1_u8to" name="normalOther" src="u8to2i" fileName="moudules/pageGameMain/Bg/normalOther.xml" xy="0,663" touchable="false">
       <gearDisplay controller="gameController" pages="0"/>
     </component>
@@ -44,19 +39,8 @@
       <gearDisplay controller="gameController" pages="0,1"/>
     </component>
     <component id="n14_ujwn" name="anchorFrame" src="ujwn4b" fileName="moudules/pageGameMain/Anchor/AnchorFrame.xml" xy="539,960"/>
-    <component id="n16_ujwn" name="anchorAccelerateParent" src="ujwn4c" fileName="moudules/pageGameMain/Anchor/anchorAccelerateParent.xml" xy="540,960">
-      <gearDisplay controller="gameController" pages="0,1"/>
-    </component>
-    <component id="n19_gg7g" name="anchorWildParent" src="gg7g5h" fileName="moudules/pageGameMain/free/anchorWildParent.xml" xy="208,855"/>
-    <component id="n23_bibc" name="smallGameSettlementEffect" src="bibc6f" fileName="moudules/pageGameMain/SmallGame/SmallGameSettlementEffect.xml" xy="457,870" pivot="0.5,0.5">
-      <gearDisplay controller="gameController" pages="2"/>
-    </component>
-    <component id="n22_bibc" name="anchorSmallGameBag" src="bibc6e" fileName="moudules/pageGameMain/SmallGame/anchorSmallGameBag.xml" xy="755,444">
-      <gearDisplay controller="gameController" pages="2"/>
-    </component>
-    <component id="n17_ujwn" name="anchorLightningParent" src="ujwn4d" fileName="moudules/pageGameMain/free/anchorLightningParent.xml" xy="202,616">
-      <gearDisplay controller="gameController" pages="1"/>
-    </component>
-    <component id="n8_u8to" name="panel" src="u8to30" fileName="moudules/pageGameMain/Anchor/AnchorPanelSlot.xml" xy="540,1795"/>
+    <component id="n25_qqpp" name="effectParentPanel" src="qqppaj" fileName="moudules/pageGameMain/Anchor/EffectParentPanel.xml" xy="0,0"/>
+    <component id="n8_u8to" name="panel" src="u8to30" fileName="moudules/pageGameMain/Anchor/AnchorPanelSlot.xml" xy="540,1794"/>
+    <component id="n26_hoce" name="n26" src="hoceak" fileName="moudules/pageGameMain/Anchor/pagTest.xml" xy="0,0"/>
   </displayList>
 </component>

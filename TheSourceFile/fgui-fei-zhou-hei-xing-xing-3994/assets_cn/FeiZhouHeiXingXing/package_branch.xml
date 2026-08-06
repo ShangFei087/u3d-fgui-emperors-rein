@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <branchDescription>
   <resources>
-    <image id="is8l4g" name="fg_txt_free spin.png" path="/images/common/gameBorder/free/"/>
     <image id="qrjm4w" name="ng_txt_major.png" path="/images/common/gameJackpot/" exported="true"/>
     <image id="qrjm4x" name="ng_txt_mini.png" path="/images/common/gameJackpot/" exported="true"/>
     <image id="qrjm4y" name="ng_txt_minor.png" path="/images/common/gameJackpot/" exported="true"/>
     <image id="c8tt5q" name="load_bg_03.png" path="/images/popupGameLoading/" exported="true"/>
     <image id="uuid6f" name="LOADING.png" path="/images/popupGameLoading/" exported="true"/>
+    <image id="s1hw7c" name="fg_txt_mfcs2.png" path="/images/common/gameBorder/free/" exported="true"/>
+    <image id="s1hw8r" name="fg_btn_colletc.png" path="/images/popupFreeSpinResult/" exported="true"/>
+    <image id="s1hw8s" name="fg_btn_start.png" path="/images/popupFreeSpinTrigger/" exported="true"/>
+    <image id="s1hw9x" name="sg_txt_minor.png" path="/images/common/gameBorder/small/" exported="true"/>
+    <image id="s1hw9y" name="sg_txt_major.png" path="/images/common/gameBorder/small/" exported="true"/>
+    <image id="s1hw9z" name="sg_txt_mini.png" path="/images/common/gameBorder/small/" exported="true"/>
+    <image id="s1hwbc" name="sg_btn_start.png" path="/images/popupSmallGameTrigger/" exported="true"/>
+    <image id="s1hwbd" name="sg_btn_colletc.png" path="/images/popupSmallGameResult/" exported="true"/>
+    <image id="s1hwbu" name="ng_img_free game.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="s1hwbv" name="ng_img_jungle guardian.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="s1hwbw" name="ng_img_main game.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="s1hwbx" name="ng_img_prize table.png" path="/images/common/gamePayTable/" exported="true"/>
+    <image id="s1hwby" name="ng_img_winning line.png" path="/images/common/gamePayTable/" exported="true"/>
   </resources>
 </branchDescription>

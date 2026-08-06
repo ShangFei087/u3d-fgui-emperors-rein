@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <component id="n5_gg7g" name="lightEffect" src="gg7g5y" fileName="moudules/popupFreeSpinResult/lightEffect.xml" xy="540,960"/>
-    <component id="n4_gg7g" name="diamondBgEffect" src="gg7g65" fileName="moudules/popupSmallGameTrigger/anchorDiamondBgEffect.xml" xy="540,960"/>
-    <component id="n3_gg7g" name="diamondSpine" src="gg7g64" fileName="moudules/popupSmallGameTrigger/anchorDiamondSpine.xml" xy="540,960"/>
     <component id="n0_gg7g" name="jackpotResultTipWindow" src="gg7g66" fileName="moudules/popupSmallGameResult/JackpotResultTipWindow.xml" xy="0,0"/>
   </displayList>
 </component>

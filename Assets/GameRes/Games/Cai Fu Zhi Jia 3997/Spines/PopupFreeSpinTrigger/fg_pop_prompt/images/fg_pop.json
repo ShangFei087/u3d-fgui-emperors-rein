@@ -1,0 +1,19 @@
+{"bones":[{"name":"root"}],"slots":[
+{"name":"k_8a","bone":"root","attachment":"k_8a"},
+{"name":"k_8b","bone":"root","attachment":"k_8b"},
+{"name":"k_6","bone":"root","attachment":"k_6"},
+{"name":"k_5","bone":"root","attachment":"k_5"},
+{"name":"k_4","bone":"root","attachment":"k_4"},
+{"name":"k_3","bone":"root","attachment":"k_3"},
+{"name":"k_2","bone":"root","attachment":"k_2"},
+{"name":"k_1a","bone":"root","attachment":"k_1a"},
+],"skins":{"default":{
+"k_8a":{"k_8a":{"x":856,"y":1121,"width":606,"height":428}},
+"k_8b":{"k_8b":{"x":855.5,"y":1091,"width":815,"height":1092}},
+"k_6":{"k_6":{"x":1164,"y":1488,"width":162,"height":174}},
+"k_5":{"k_5":{"x":1162,"y":650.5,"width":166,"height":169}},
+"k_4":{"k_4":{"x":550.5,"y":649.5,"width":167,"height":169}},
+"k_3":{"k_3":{"x":549,"y":1488,"width":160,"height":174}},
+"k_2":{"k_2":{"x":856,"y":1517,"width":162,"height":162}},
+"k_1a":{"k_1a":{"x":855.5,"y":1515,"width":335,"height":230}},
+}}, "animations": { "animation": {} }}

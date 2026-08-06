@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920">
+<component size="1080,1920" opaque="false">
   <displayList>
-    <image id="n0_is8l" name="n0" src="is8l3l" fileName="images/pageGameMain/free/fg_img_bg_01.png" xy="0,0"/>
+    <image id="n1_s1hw" name="n1" src="s1hw93" fileName="images/pageGameMain/free/fg_img_bg_01.png" xy="0,0"/>
   </displayList>
 </component>

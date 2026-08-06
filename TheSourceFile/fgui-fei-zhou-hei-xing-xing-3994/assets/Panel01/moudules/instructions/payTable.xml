@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920" opaque="false">
+<component size="899,1420" opaque="false">
   <displayList>
-    <loader id="n0_lyfo" name="n0" xy="0,0" size="1080,1920"/>
+    <loader id="n0_lyfo" name="n0" xy="0,0" size="899,1420" url="ui://ytoswqrps1hwbk"/>
   </displayList>
 </component>

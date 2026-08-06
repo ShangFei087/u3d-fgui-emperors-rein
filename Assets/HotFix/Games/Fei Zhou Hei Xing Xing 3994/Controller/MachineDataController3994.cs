@@ -208,18 +208,12 @@ namespace FeiZhouHeiXingXing_3994
 
             int resultType = (int)res["ResultType"];
             int lineNum = (int)res["lineNum"];
-            int totalwin = (int)res["TotalBet"];
-            string jpBetArray = res["JPBetArray"].ToString();
-            string jPTypeArray = res["JPTypeArray"].ToString();
-            int matrixLength = (int)res["MatrixLength"];
+            int totalWin = (int)res["TotalBet"];
             int bonusBet = (int)res["BonusBet"];
             int totalJackpotBet = (int)res["TotalJackpotBet"];
-            string matrixArray = res["Matrix"].ToString();
-            string bonusData = res["BonusData"].ToString();
             int rows = CustomModel.Instance.row; // 3行
             int cols = CustomModel.Instance.column; // 5列
             int wheelChessNum = rows * cols;
-            List<SymbolInclude> symbolInclude = new List<SymbolInclude>();
             string strDeckRowCol = "";
             int totalLineWin = 0;
             int lineWin = 0;
@@ -281,14 +275,13 @@ namespace FeiZhouHeiXingXing_3994
                     cells = cells,
                 };
                 winList.Add(sw);
-
                 totalLineWin += lineWin;
             }
 
             ContentModel.Instance.winList = winList;
             ContentModel.Instance.baseGameWinCredit = totalLineWin;
             //检查算法结果
-            CheckGameResult(strDeckRowCol, totalwin, isInFreeSpin);
+            CheckGameResult(strDeckRowCol, totalWin, isInFreeSpin);
 
             //判断彩金
             bool isJackpotMajor = sBoxJackpotData == null
@@ -316,7 +309,7 @@ namespace FeiZhouHeiXingXing_3994
             jpGameRes.curJackpotMini = sBoxJackpotData != null && sBoxJackpotData.JackpotOut.Length >= 2
                 ? sBoxJackpotData.JackpotOut[2]
                 : 0;
-            ContentModel.Instance.jpGameRes = jpGameRes;
+            ContentModel.Instance.JpGameRes = jpGameRes;
 
             if (isJackpotMajor)
             {

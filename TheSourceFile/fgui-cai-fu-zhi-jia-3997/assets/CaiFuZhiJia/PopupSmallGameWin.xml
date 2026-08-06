@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n2_gg7g" name="BonusWin" src="gg7g67" fileName="moudules/popupSmallGameWin/BonusWin.xml" xy="540,960"/>
+    <component id="n0_gg7g" name="winCollectBtn" src="gg7g5u" fileName="components/common/collectBtn.xml" xy="373,1130"/>
+    <text id="n1_gg7g" name="jackpotWinBet" xy="0,868" size="1080,240" font="ui://92trhum6u8to48" fontSize="140" align="center" vAlign="middle" leading="138" autoSize="shrink" text="123456789"/>
+  </displayList>
+</component>

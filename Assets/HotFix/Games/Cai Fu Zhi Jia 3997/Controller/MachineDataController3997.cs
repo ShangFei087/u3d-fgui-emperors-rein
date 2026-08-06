@@ -125,8 +125,6 @@ namespace CaiFuZhiJia_3997
             List<SymbolWin> winList = new List<SymbolWin>();
             JackpotRes jpGameRes = new JackpotRes();
 
-            // ContentModel.Instance.baseGameWinCredit = totalwin;// 主要用作BigWin计算
-
             //判断普通奖
             for (int row = 0; row < rows; row++)
             {
@@ -353,8 +351,6 @@ namespace CaiFuZhiJia_3997
 
                 ContentModel.Instance.isFreeSpinResult = ContentModel.Instance.curReelStripsIndex == "FS" &&
                                                          ContentModel.Instance.nextReelStripsIndex == "BS";
-
-                // ContentModel.Instance.baseGameWinCredit = totalLineWin;
             }
 
 
@@ -371,8 +367,6 @@ namespace CaiFuZhiJia_3997
                     {
                         bonusCount += 1;
                     }
-
-                    // Debug.Log(deckRowCol[i]);
                 }
 
 

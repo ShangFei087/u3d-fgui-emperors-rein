@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920"/>
+<component size="1080,1920">
+  <displayList>
+    <image id="n0_s1hw" name="n0" src="s1hw8v" fileName="images/pageGameMain/smallGame/sg_img_bg_01.png" xy="0,0"/>
+  </displayList>
+</component>

@@ -2,10 +2,11 @@
 <component size="1080,1920" designImage="ui://ytoswqrpc8tt66">
   <displayList>
     <component id="n1_c8tt" name="loadingBg" src="c8tt68" fileName="moudules/popupGameLoading/LoadingBg.xml" xy="0,0"/>
-    <component id="n6_c8tt" name="anchorGameName" src="c8tt6d" fileName="moudules/popupGameLoading/anchorGameName.xml" xy="540,1278"/>
+    <component id="n5_c8tt" name="anchorLoadingNpc" src="c8tt6c" fileName="moudules/popupGameLoading/anchorNpc.xml" xy="540,960"/>
+    <component id="n6_c8tt" name="anchorLoadingTitle" src="c8tt6d" fileName="moudules/popupGameLoading/anchorGameName.xml" xy="540,1278"/>
     <component id="n4_c8tt" name="loadingSlider" src="c8tt6b" fileName="components/popupGameLoading/LoadingSlider.xml" xy="147,1541">
       <Slider value="50" max="100"/>
     </component>
-    <component id="n5_c8tt" name="anchorNpc" src="c8tt6c" fileName="moudules/popupGameLoading/anchorNpc.xml" xy="540,960"/>
+    <component id="n7_kiri" name="anchorLeaves" src="kiric3" fileName="moudules/popupGameLoading/anchorLeaves.xml" xy="540,960"/>
   </displayList>
 </component>

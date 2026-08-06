@@ -1,0 +1,24 @@
+{ "skeleton": { "images": "E:/财富之家/PSD/fg_img_bg/images/x2/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "d", "bone": "root", "attachment": "d" },
+	{ "name": "q", "bone": "root", "attachment": "q" },
+	{ "name": "g", "bone": "root", "attachment": "g" }
+],
+"skins": {
+	"default": {
+		"d": {
+			"d": { "x": 86, "y": -96, "width": 78, "height": 48 }
+		},
+		"q": {
+			"q": { "x": 72.5, "y": -54.5, "width": 147, "height": 99 }
+		},
+		"g": {
+			"g": { "x": 76, "y": -52, "width": 76, "height": 88 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

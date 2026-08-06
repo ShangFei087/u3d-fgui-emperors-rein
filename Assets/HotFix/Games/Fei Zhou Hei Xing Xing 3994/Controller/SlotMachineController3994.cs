@@ -175,7 +175,7 @@ namespace FeiZhouHeiXingXing_3994
 
         #region 新增滚轮加速方法
 
-        public new IEnumerator TurnReelsNormal(List<int> specialSymbols,
+        public new IEnumerator TurnReelsNormal(
             string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3",
             Action finishCallback = null)
         {
@@ -185,7 +185,7 @@ namespace FeiZhouHeiXingXing_3994
             int[] deckColRow = SlotTool.GetDeckColRow(strDeckRowCol).ToArray();
             List<List<int>> colrowLsts = GetDeckColRow(deckColRow,
                 this.column,
-                this.row, specialSymbols);
+                this.row);
 
             List<int>[] colrow = colrowLsts.ToArray();
 
@@ -206,8 +206,7 @@ namespace FeiZhouHeiXingXing_3994
         Dictionary<int, List<int>> freeAddIcon = new Dictionary<int, List<int>>();
         Dictionary<int, List<int>> multAddIcon = new Dictionary<int, List<int>>();
 
-        public List<List<int>> GetDeckColRow(int[] deckColRow, int colCount, int rowCount,
-            List<int> specialSymbols) // 修改参数，传入特殊图标数组
+        public List<List<int>> GetDeckColRow(int[] deckColRow, int colCount, int rowCount) // 修改参数，传入特殊图标数组
         {
             if (freeIconCols.Count > 0) freeIconCols.Clear();
             if (jackpotIconCols.Count > 0) jackpotIconCols.Clear();
