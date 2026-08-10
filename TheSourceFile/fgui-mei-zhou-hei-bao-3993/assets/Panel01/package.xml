@@ -41,29 +41,29 @@
     <image id="z14g37" name="menu_btn_num_00.png" path="/images/spinBtn/number/FontBet/" exported="true"/>
     <image id="z14g3a" name="menu_btn_num_07.png" path="/images/spinBtn/number/FontBet/" exported="true"/>
     <image id="z14g3b" name="menu_btn_AUTO.png" path="/images/spinBtn/" exported="true"/>
-    <image id="z14g20" name="menu_btn_Base plate.png" path="/images/" exported="true"/>
-    <image id="z14g1g" name="menu_btn_HOLD SPIN FOR 3s TO ENABLE AUTO MODE.png" path="/images/" exported="true"/>
-    <image id="z14g1j" name="menu_btn_Insert coin.png" path="/images/" exported="true"/>
-    <image id="z14g1k" name="menu_btn_Lower the volume.png" path="/images/" exported="true"/>
+    <image id="z14g20" name="menu_btn_Base plate.png" path="/images/btn/" exported="true"/>
+    <image id="z14g1g" name="menu_btn_HOLD SPIN FOR 3s TO ENABLE AUTO MODE.png" path="/images/btn/" exported="true"/>
+    <image id="z14g1j" name="menu_btn_Insert coin.png" path="/images/btn/" exported="true"/>
+    <image id="z14g1k" name="menu_btn_Lower the volume.png" path="/images/btn/" exported="true"/>
     <image id="z14g1n" name="menu_btn_SPIN.png" path="/images/spinBtn/" exported="true"/>
     <image id="z14g1r" name="menu_btn_STOP.png" path="/images/spinBtn/" exported="true"/>
-    <image id="z14g1w" name="menu_btn_Volume.png" path="/images/" exported="true"/>
-    <image id="z14g1t" name="menu_btn_Volume Button (On).png" path="/images/" exported="true"/>
-    <image id="z14g1v" name="menu_btn_Volume Down Button.png" path="/images/" exported="true"/>
-    <image id="z14g1u" name="menu_btn_Volume button.png" path="/images/" exported="true"/>
-    <image id="z14g1f" name="menu_btn_bottom.png" path="/images/" exported="true"/>
-    <image id="z14g1h" name="menu_btn_illustrate.png" path="/images/" exported="true"/>
-    <image id="z14g1i" name="menu_btn_increase volume.png" path="/images/" exported="true"/>
-    <image id="z14g1l" name="menu_btn_menu.png" path="/images/" exported="true"/>
-    <image id="z14g1m" name="menu_btn_return.png" path="/images/" exported="true"/>
+    <image id="z14g1w" name="menu_btn_Volume.png" path="/images/btn/" exported="true"/>
+    <image id="z14g1t" name="menu_btn_Volume Button (On).png" path="/images/btn/" exported="true"/>
+    <image id="z14g1v" name="menu_btn_Volume Down Button.png" path="/images/btn/" exported="true"/>
+    <image id="z14g1u" name="menu_btn_Volume button.png" path="/images/btn/" exported="true"/>
+    <image id="z14g1f" name="menu_btn_bottom.png" path="/images/btn/" exported="true"/>
+    <image id="z14g1h" name="menu_btn_illustrate.png" path="/images/btn/" exported="true"/>
+    <image id="z14g1i" name="menu_btn_increase volume.png" path="/images/btn/" exported="true"/>
+    <image id="z14g1l" name="menu_btn_menu.png" path="/images/btn/" exported="true"/>
+    <image id="z14g1m" name="menu_btn_return.png" path="/images/btn/" exported="true"/>
     <image id="z14g1p" name="menu_btn_start.png" path="/images/spinBtn/" exported="true"/>
     <image id="z14g1z" name="menu_btn_start_02.png" path="/images/spinBtn/" exported="true"/>
     <image id="z14g1q" name="menu_btn_start_03.png" path="/images/spinBtn/" exported="true"/>
-    <image id="z14g1s" name="menu_btn_volume bottom.png" path="/images/" exported="true"/>
-    <image id="z14g1x" name="menu_txt_BET.png" path="/images/" exported="true"/>
-    <image id="z14g1y" name="menu_txt_CREDITS.png" path="/images/" exported="true"/>
-    <image id="z14g1e" name="menu_txt_HOLD TO AUTO.png" path="/images/" exported="true"/>
-    <image id="z14g1d" name="menu_txt_WIN.png" path="/images/" exported="true"/>
+    <image id="z14g1s" name="menu_btn_volume bottom.png" path="/images/btn/" exported="true"/>
+    <image id="z14g1x" name="menu_txt_BET.png" path="/images/btn/" exported="true"/>
+    <image id="z14g1y" name="menu_txt_CREDITS.png" path="/images/btn/" exported="true"/>
+    <image id="z14g1e" name="menu_txt_HOLD TO AUTO.png" path="/images/btn/" exported="true"/>
+    <image id="z14g1d" name="menu_txt_WIN.png" path="/images/btn/" exported="true"/>
     <image id="z14g1c" name="ng_Below the button.png" path="/images/exhibition/" exported="true"/>
     <component id="z14g0" name="Panel.xml" path="/moudules/" exported="true"/>
     <component id="z14g2" name="ButtonHelp.xml" path="/components/button/" exported="true"/>
@@ -97,6 +97,21 @@
     <component id="mxrk3d" name="ButtonBetUp.xml" path="/components/button/" exported="true"/>
     <component id="mxrk3e" name="ButtonBetDown.xml" path="/components/button/" exported="true"/>
     <component id="mxrk3f" name="AnchorSpin.xml" path="/components/" exported="true"/>
+    <image id="mxrk3g" name="sm_bj.png" path="/images/Instructions/" exported="true"/>
+    <image id="mxrk3h" name="sm_blade_l_01.png" path="/images/Instructions/" exported="true"/>
+    <image id="mxrk3i" name="sm_blade_l_02.png" path="/images/Instructions/" exported="true"/>
+    <image id="mxrk3j" name="sm_blade_r_01.png" path="/images/Instructions/" exported="true"/>
+    <image id="mxrk3k" name="sm_blade_r_02.png" path="/images/Instructions/" exported="true"/>
+    <image id="mxrk3l" name="PayTable1.png" path="/images/Instructions/introduce/"/>
+    <image id="mxrk3q" name="sm_BACK TO GAME.png" path="/images/Instructions/" exported="true"/>
+    <image id="mxrk3r" name="sm_button.png" path="/images/Instructions/" exported="true"/>
+    <image id="mxrk3s" name="sm_button_l.png" path="/images/Instructions/" exported="true"/>
+    <image id="mxrk3t" name="sm_button_r.png" path="/images/Instructions/" exported="true"/>
+    <image id="mxrk3u" name="sm_Gray dot.png" path="/images/Instructions/" exported="true"/>
+    <image id="mxrk3v" name="sm_Highlights.png" path="/images/Instructions/" exported="true"/>
+    <image id="mxrk3w" name="sm_magnification_Ash.png" path="/images/Instructions/" exported="true"/>
+    <image id="mxrk3x" name="sm_magnification_Bright.png" path="/images/Instructions/" exported="true"/>
+    <image id="mxrk3y" name="sm_illustrate_01.png" path="/images/"/>
   </resources>
   <publish name="" path="../../Assets/GameRes/Panel/Panel3993/FGUIs" packageCount="2"/>
 </packageDescription>

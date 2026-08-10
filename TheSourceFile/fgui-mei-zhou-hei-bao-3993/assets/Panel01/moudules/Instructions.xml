@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <graph id="n0_z14g" name="n0" xy="0,0" size="1080,1920" visible="false" alpha="0" type="rect" lineSize="0" lineColor="#80000000" fillColor="#80000000"/>
-    <component id="n1_z14g" name="introduce" src="z14gy" fileName="moudules/payTable1/Introduce.xml" xy="203,1194"/>
-    <component id="n2_z14g" name="btnPrev" src="z14gw" fileName="moudules/payTable1/BtnNext.xml" xy="155,1632"/>
-    <component id="n3_z14g" name="btnNect" src="z14gw" fileName="moudules/payTable1/BtnNext.xml" xy="633,1638"/>
-    <component id="n4_z14g" name="btnBackGame" src="z14gx" fileName="moudules/payTable1/BtnBackGame.xml" xy="511,1630"/>
+    <graph id="n0_z14g" name="mask" xy="0,0" size="1080,1920" visible="false" alpha="0" type="rect" lineSize="0" lineColor="#80000000" fillColor="#80000000"/>
+    <image id="n7_mxrk" name="n7" src="mxrk3i" fileName="images/Instructions/sm_blade_l_02.png" xy="23,1239"/>
+    <image id="n10_mxrk" name="n10" src="mxrk3k" fileName="images/Instructions/sm_blade_r_02.png" xy="902,1226"/>
+    <image id="n5_mxrk" name="n5" src="mxrk3g" fileName="images/Instructions/sm_bj.png" xy="119,242"/>
+    <image id="n6_mxrk" name="n6" src="mxrk3h" fileName="images/Instructions/sm_blade_l_01.png" xy="0,1149"/>
+    <image id="n9_mxrk" name="n9" src="mxrk3j" fileName="images/Instructions/sm_blade_r_01.png" xy="783,1312"/>
+    <component id="n1_z14g" name="introduce" src="z14gy" fileName="moudules/payTable1/Introduce.xml" xy="194,322" size="699,1102"/>
+    <component id="n2_z14g" name="btnPrev" src="z14gw" fileName="moudules/payTable1/BtnNext.xml" xy="155,1552"/>
+    <component id="n3_z14g" name="btnNect" src="z14gw" fileName="moudules/payTable1/BtnNext.xml" xy="816,1552" scale="-1,1"/>
+    <component id="n4_z14g" name="btnBackGame" src="z14gx" fileName="moudules/payTable1/BtnBackGame.xml" xy="306,1534"/>
   </displayList>
 </component>
