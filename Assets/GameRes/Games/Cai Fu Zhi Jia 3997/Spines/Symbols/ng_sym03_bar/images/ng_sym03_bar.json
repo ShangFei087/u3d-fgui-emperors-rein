@@ -1,0 +1,56 @@
+{ "skeleton": { "images": "E:/修改项目/财富之家新版本 - 副本/PSD切片文件/ng_sym03_bar/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "yz", "bone": "root", "attachment": "yz" },
+	{ "name": "jz5", "bone": "root", "attachment": "jz5" },
+	{ "name": "jz4", "bone": "root", "attachment": "jz4" },
+	{ "name": "yz1", "bone": "root", "attachment": "yz1" },
+	{ "name": "jz3", "bone": "root", "attachment": "jz3" },
+	{ "name": "yz2", "bone": "root", "attachment": "yz2" },
+	{ "name": "jz2", "bone": "root", "attachment": "jz2" },
+	{ "name": "yz3", "bone": "root", "attachment": "yz3" },
+	{ "name": "jz1", "bone": "root", "attachment": "jz1" },
+	{ "name": "yz4", "bone": "root", "attachment": "yz4" },
+	{ "name": "jz", "bone": "root", "attachment": "jz" }
+],
+"skins": {
+	"default": {
+		"yz": {
+			"yz": { "x": 151.5, "y": -151, "width": 167, "height": 120 }
+		},
+		"jz5": {
+			"jz5": { "x": 117, "y": -161, "width": 88, "height": 50 }
+		},
+		"jz4": {
+			"jz4": { "x": 152, "y": -170, "width": 88, "height": 50 }
+		},
+		"yz1": {
+			"yz1": { "x": 157, "y": -170.5, "width": 88, "height": 59 }
+		},
+		"jz3": {
+			"jz3": { "x": 191, "y": -178, "width": 88, "height": 50 }
+		},
+		"yz2": {
+			"yz2": { "x": 185, "y": -162.5, "width": 60, "height": 23 }
+		},
+		"jz2": {
+			"jz2": { "x": 136, "y": -140, "width": 88, "height": 50 }
+		},
+		"yz3": {
+			"yz3": { "x": 148.5, "y": -141.5, "width": 73, "height": 57 }
+		},
+		"jz1": {
+			"jz1": { "x": 173, "y": -149, "width": 88, "height": 50 }
+		},
+		"yz4": {
+			"yz4": { "x": 155, "y": -132.5, "width": 90, "height": 35 }
+		},
+		"jz": {
+			"jz": { "x": 158, "y": -119, "width": 88, "height": 50 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

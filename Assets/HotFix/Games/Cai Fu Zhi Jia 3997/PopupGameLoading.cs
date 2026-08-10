@@ -12,13 +12,13 @@ namespace CaiFuZhiJia_3997
         public new const string resName = "PopupGameLoading";
 
         private const string SpinePrefabsPath =
-            "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupGameLoading/SpinePrefabs/";
+            "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupGameLoading/";
 
         /// <summary>相对 GameRes 的本游戏 PAG 目录。</summary>
-        private const string GamePagFolder = "Games/Cai Fu Zhi Jia 3997/pag";
+        private const string GamePagFolder = "Games/Cai Fu Zhi Jia 3997/Pag";
 
         private int _totalResCount = -1;
-        private bool _isInitialized = false;
+        private bool _isInitialized;
 
         private GSlider _loadingSlider;
         private GameObject _npcObj, _titleObj;
@@ -74,7 +74,7 @@ namespace CaiFuZhiJia_3997
             _totalResCount = 2;
 
             // 加载Spine动画
-            ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "Trader.prefab", (cloneObj) =>
+            ResourceManager02.Instance.LoadAsset<GameObject>(SpinePrefabsPath + "LoadingNpc.prefab", (cloneObj) =>
             {
                 _npcObj = cloneObj;
                 ResLoadedCallback();
@@ -100,10 +100,8 @@ namespace CaiFuZhiJia_3997
         public override void InitParam()
         {
             if (!_isInitialized) return;
-            // 初始化进度条Slider
             _loadingSlider = contentPane.GetChild("loadingSlider").asSlider;
 
-            // 绑定预制体到UI锚点
             GComponent currentCom = contentPane.GetChild("anchorLoadingNpc").asCom;
             if (_compareNpc != currentCom)
             {
@@ -123,7 +121,6 @@ namespace CaiFuZhiJia_3997
             }
 
             preLoadedCallback?.Invoke();
-            // StartPreloadGamePagesThenOpenMain();
             if (PageManager.Instance.IndexOf(PageName.CaiFuZhiJiaPopupGameLoading) == 0)
                 StartPreloadGamePagesThenOpenMain();
         }
@@ -190,8 +187,8 @@ namespace CaiFuZhiJia_3997
 
             PageName[] pages =
             {
-                PageName.CaiFuZhiJiaPageGameMain, PageName.CaiFuZhiJiaPopupOverWin,
-                PageName.CaiFuZhiJiaPopupJackpotWin, PageName.CaiFuZhiJiaPopupFreeSpinResult,
+                PageName.CaiFuZhiJiaPageGameMain, PageName.CaiFuZhiJiaPopupBigWin,
+                PageName.CaiFuZhiJiaPopupSmallGameWin, PageName.CaiFuZhiJiaPopupFreeSpinResult,
                 PageName.CaiFuZhiJiaPopupFreeSpinTrigger, PageName.CaiFuZhiJiaPopupSmallGameResult,
                 PageName.CaiFuZhiJiaPopupSmallGameTrigger,
             };

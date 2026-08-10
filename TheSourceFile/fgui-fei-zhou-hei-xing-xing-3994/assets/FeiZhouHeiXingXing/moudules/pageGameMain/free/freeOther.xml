@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,651">
+<component size="1080,1920" designImage="ui://ytoswqrps1hw6z">
   <displayList>
-    <image id="n9_9e0n" name="n9" src="is8l4a" fileName="images/common/gameBorder/free/fg_bor_nk.png" xy="53,67" group="n15_9e0n"/>
-    <image id="n8_9e0n" name="n8" src="is8l4c" fileName="images/common/gameBorder/free/fg_bor_shadow.png" xy="0,0" group="n15_9e0n"/>
-    <image id="n4_9e0n" name="n4" src="is8l48" fileName="images/common/gameBorder/free/fg_bor_fgx.png" xy="246,62" group="n15_9e0n"/>
-    <image id="n5_9e0n" name="n5" src="is8l48" fileName="images/common/gameBorder/free/fg_bor_fgx.png" xy="438,54" group="n15_9e0n"/>
-    <image id="n6_9e0n" name="n6" src="is8l48" fileName="images/common/gameBorder/free/fg_bor_fgx.png" xy="628,54" group="n15_9e0n"/>
-    <image id="n7_9e0n" name="n7" src="is8l48" fileName="images/common/gameBorder/free/fg_bor_fgx.png" xy="821,54" group="n15_9e0n"/>
-    <image id="n0_9e0n" name="n0" src="is8l47" fileName="images/common/gameBorder/free/fg_bor_down.png" xy="55,566" group="n15_9e0n"/>
-    <image id="n1_9e0n" name="n1" src="is8l49" fileName="images/common/gameBorder/free/fg_bor_left.png" xy="4,81" group="n15_9e0n"/>
-    <image id="n2_9e0n" name="n2" src="is8l4b" fileName="images/common/gameBorder/free/fg_bor_right.png" xy="1021,80" group="n15_9e0n"/>
-    <image id="n3_9e0n" name="n3" src="is8l4d" fileName="images/common/gameBorder/free/fg_bor_up.png" xy="0,28" group="n15_9e0n"/>
-    <image id="n16_qrjm" name="n16" src="qrjm58" fileName="images/common/gameBorder/ng_txt_25.png" xy="14,314" group="n15_9e0n"/>
-    <image id="n17_qrjm" name="n17" src="qrjm58" fileName="images/common/gameBorder/ng_txt_25.png" xy="1049,311" group="n15_9e0n"/>
-    <group id="n15_9e0n" name="n15" xy="0,0" size="1080,651"/>
+    <component id="n33_kiri" name="anchorNpc" src="pbvu29" fileName="moudules/pageGameMain/anchor/anchorNpc.xml" xy="540,960" group="n31_s1hw"/>
+    <image id="n19_s1hw" name="n19" src="s1hw7b" fileName="images/common/gameBorder/free/fg_bor_nk.png" xy="49,1149" group="n31_s1hw"/>
+    <image id="n26_s1hw" name="n26" src="s1hw79" fileName="images/common/gameBorder/free/fg_bor_fgx.png" xy="439,1104" group="n31_s1hw"/>
+    <image id="n25_s1hw" name="n25" src="s1hw79" fileName="images/common/gameBorder/free/fg_bor_fgx.png" xy="252,1104" group="n31_s1hw"/>
+    <image id="n27_s1hw" name="n27" src="s1hw79" fileName="images/common/gameBorder/free/fg_bor_fgx.png" xy="636,1104" group="n31_s1hw"/>
+    <image id="n28_s1hw" name="n28" src="s1hw79" fileName="images/common/gameBorder/free/fg_bor_fgx.png" xy="828,1104" group="n31_s1hw"/>
+    <image id="n23_s1hw" name="n23" src="s1hw75" fileName="images/common/gameBorder/free/fg_bor_shadow.png" xy="0,1082" group="n31_s1hw"/>
+    <image id="n18_s1hw" name="n18" src="s1hw74" fileName="images/common/gameBorder/free/fg_bor_right.png" xy="1019,1147" group="n31_s1hw"/>
+    <image id="n20_s1hw" name="n20" src="s1hw7a" fileName="images/common/gameBorder/free/fg_bor_left.png" xy="4,1146" group="n31_s1hw"/>
+    <image id="n21_s1hw" name="n21" src="s1hw78" fileName="images/common/gameBorder/free/fg_bor_down.png" xy="57,1684" group="n31_s1hw"/>
+    <image id="n22_s1hw" name="n22" src="s1hw76" fileName="images/common/gameBorder/free/fg_bor_up.png" xy="1,1084" group="n31_s1hw"/>
+    <image id="n29_s1hw" name="n29" src="qrjm58" fileName="images/common/gameBorder/ng_txt_25.png" xy="15,1410" group="n31_s1hw"/>
+    <image id="n30_s1hw" name="n30" src="qrjm58" fileName="images/common/gameBorder/ng_txt_25.png" xy="1047,1410" group="n31_s1hw"/>
+    <group id="n31_s1hw" name="n31" xy="0,960" size="1081,815"/>
+    <component id="n32_kiri" name="freeFrame" src="9e0n4p" fileName="moudules/pageGameMain/free/freeFrame.xml" xy="423,1098"/>
   </displayList>
 </component>

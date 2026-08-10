@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920" opaque="false">
-  <displayList/>
+<component size="1080,1920" overflow="hidden" opaque="false" designImage="ui://ytoswqrps1hw9a">
+  <displayList>
+    <component id="n21_kiri" name="anchorNpc" src="pbvu29" fileName="moudules/pageGameMain/anchor/anchorNpc.xml" xy="540,960" group="n20_s1hw"/>
+    <image id="n6_s1hw" name="n6" src="s1hw9o" fileName="images/common/gameBorder/small/sg_bor_nk.png" xy="58,1145" group="n20_s1hw"/>
+    <image id="n8_s1hw" name="n8" src="s1hw9q" fileName="images/common/gameBorder/small/sg_bor_shadow.png" xy="0,1060" group="n20_s1hw"/>
+    <image id="n5_s1hw" name="n5" src="s1hw9n" fileName="images/common/gameBorder/small/sg_bor_left.png" xy="7,1140" group="n20_s1hw"/>
+    <image id="n7_s1hw" name="n7" src="s1hw9p" fileName="images/common/gameBorder/small/sg_bor_right.png" xy="1021,1141" group="n20_s1hw"/>
+    <image id="n9_s1hw" name="n9" src="s1hw9r" fileName="images/common/gameBorder/small/sg_bor_up.png" xy="1,1078" size="1081,67" group="n20_s1hw"/>
+    <image id="n0_s1hw" name="n0" src="s1hw9i" fileName="images/common/gameBorder/small/sg_bor_down.png" xy="55,1697" group="n20_s1hw"/>
+    <image id="n10_s1hw" name="n10" src="qrjm58" fileName="images/common/gameBorder/ng_txt_25.png" xy="18,1403" group="n20_s1hw"/>
+    <image id="n11_s1hw" name="n11" src="qrjm58" fileName="images/common/gameBorder/ng_txt_25.png" xy="1049,1403" group="n20_s1hw"/>
+    <image id="n12_s1hw" name="n12" src="s1hw9t" fileName="images/common/gameBorder/small/sg_txt_SPIUNS LEFT.png" xy="369,1090" group="n20_s1hw"/>
+    <component id="n13_s1hw" name="sgSlider" src="s1hwa0" fileName="components/pageGameMain/smallGame/sgProgressSlider.xml" xy="2,998" group="n20_s1hw">
+      <ProgressBar value="50" max="100"/>
+    </component>
+    <component id="n17_s1hw" name="anchorMini" src="s1hwa1" fileName="moudules/pageGameMain/small/anchorMini.xml" xy="469,1025" group="n20_s1hw"/>
+    <component id="n19_s1hw" name="anchorMinor" src="s1hwa2" fileName="moudules/pageGameMain/small/anchorMinor.xml" xy="721,1020" group="n20_s1hw"/>
+    <component id="n18_s1hw" name="anchorMajor" src="s1hwa3" fileName="moudules/pageGameMain/small/anchorMajor.xml" xy="983,1025" group="n20_s1hw"/>
+    <image id="n14_s1hw" name="n14" src="s1hw9w" fileName="images/common/gameBorder/small/sg_txt_mini.png" xy="471,1060" pivot="0.5,0.5" anchor="true" group="n20_s1hw"/>
+    <image id="n15_s1hw" name="n15" src="s1hw9u" fileName="images/common/gameBorder/small/sg_txt_minor.png" xy="728,1062" pivot="0.5,0.5" anchor="true" group="n20_s1hw"/>
+    <image id="n16_s1hw" name="n16" src="s1hw9v" fileName="images/common/gameBorder/small/sg_txt_major.png" xy="985,1059" pivot="0.5,0.5" anchor="true" group="n20_s1hw"/>
+    <group id="n20_s1hw" name="n20" xy="0,960" size="1082,819"/>
+  </displayList>
 </component>

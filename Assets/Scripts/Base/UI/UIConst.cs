@@ -182,8 +182,8 @@ public class UIConst
                 new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupGameLoading" },
             [PageName.CaiFuZhiJiaPageGameMain] =
                 new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PageGameMain" },
-            [PageName.CaiFuZhiJiaPopupOverWin] =
-                new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupOverWin" },
+            [PageName.CaiFuZhiJiaPopupBigWin] =
+                new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupBigWin" },
             [PageName.CaiFuZhiJiaPopupFreeSpinTrigger] =
                 new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupFreeSpinTrigger" },
             [PageName.CaiFuZhiJiaPopupFreeSpinResult] =
@@ -192,8 +192,8 @@ public class UIConst
                 new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupSmallGameTrigger" },
             [PageName.CaiFuZhiJiaPopupSmallGameResult] =
                 new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupSmallGameResult" },
-            [PageName.CaiFuZhiJiaPopupJackpotWin] =
-                new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupJackpotWin" },
+            [PageName.CaiFuZhiJiaPopupSmallGameWin] =
+                new object[] { "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs", "CaiFuZhiJia_3997.PopupSmallGameWin" },
 
             // 美洲黑豹
             [PageName.MeiZhouHeiBaoPopupGameLoading] = new object[] { "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/FGUIs", "MeiZhouHeiBao_3993.PopupGameLoading" },
@@ -370,12 +370,12 @@ public enum PageName
     // 财富之家3997
     CaiFuZhiJiaPopupGameLoading,
     CaiFuZhiJiaPageGameMain,
-    CaiFuZhiJiaPopupOverWin,
+    CaiFuZhiJiaPopupBigWin,
     CaiFuZhiJiaPopupFreeSpinTrigger,
     CaiFuZhiJiaPopupFreeSpinResult,
     CaiFuZhiJiaPopupSmallGameResult,
     CaiFuZhiJiaPopupSmallGameTrigger,
-    CaiFuZhiJiaPopupJackpotWin,
+    CaiFuZhiJiaPopupSmallGameWin,
 
     // 美洲黑豹_3993
     MeiZhouHeiBaoPopupGameLoading,

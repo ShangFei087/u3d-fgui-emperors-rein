@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="600,200"/>
+<component size="699,1085">
+  <displayList>
+    <loader id="n0_mxrk" name="n0" xy="350,542" pivot="0.5,0.5" anchor="true" size="720,1121" url="ui://tgen4q2pmxrk3l" autoSize="true" clearOnPublish="true"/>
+  </displayList>
+</component>

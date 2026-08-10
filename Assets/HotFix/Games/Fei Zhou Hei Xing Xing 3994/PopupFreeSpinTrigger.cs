@@ -4,6 +4,7 @@ using SlotMaker;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace FeiZhouHeiXingXing_3994
 {
@@ -11,26 +12,63 @@ namespace FeiZhouHeiXingXing_3994
     {
         public new const string pkgName = "FeiZhouHeiXingXing";
         public new const string resName = "PopupFreeSpinTrigger";
+        private const string PagPath = "Games/Fei Zhou Hei Xing Xing 3994/Pag/";
 
         private const string PrefabPath =
             "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/Prefabs/PopupFreeSpinTrigger/";
 
-        private int _totalCount;
-        private GButton _closeBtn;
+        private int _totalCount = -1;
+        private GButton _startBtn;
         private GTextField _spinCountText;
         private bool _isClicked;
         private GameSoundController3994 _gameSoundController;
 
-        private EventData _openData;
-        private TimerCallback _delayCloseCallback;
+        // Spine
+        private GComponent _compareTrigger;
+        private Animator _triggerAnimator;
+        private GameObject _triggerObj, _cloneTriggerObj;
+
+        // 打开界面传入的数据
+        private int _gameCount;
+        private Action _changePage;
+
+        // 挂点记录初始数据，方便后续还原
+        private Quaternion _startBtnQuaternion, _numQuaternion;
+        private Vector3 _btnScale, _btnPos, _numScale, _numPos;
+        private Transform _startBtnTran, _spinTextTran, _parentTran;
+
+        // Pag
+        private GComponent _fadeCom;
+
+        private PagSlotBinding _fadePag;
+
+        // private readonly string _fade1280 = "PopupFreeSpinTrigger/fade_1280.pag";  // 备用选项
+        private readonly string _fade1920 = "PopupFreeSpinTrigger/fade_1920.pag";
+
+        private TimerCallback _delayCloseCallback, _delayPlayPagCallback; // 延时关闭回调   延时播放Pag回调
+
+        /// <summary>注册并 Prepare PAG 槽位（InitParam 时调用一次即可）。</summary>
+        private void BindPagSlot()
+        {
+            // 绑定npc pag并默认播放idle动画
+            _fadeCom = contentPane.GetChild("anchorFadePag").asCom;
+            if (_fadeCom == null) return;
+            _fadePag = new PagSlotBinding("fade", PagPath);
+            _fadePag.EnsureSlot(_fadeCom);
+        }
 
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
-            
-            // 测试使用
-            isInit = true;
+
+            _totalCount = 1;
+            ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath + "Spine_Trigger.prefab",
+                (clone) =>
+                {
+                    _triggerObj = clone;
+                    ResLoadCallback();
+                });
 
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
@@ -49,23 +87,59 @@ namespace FeiZhouHeiXingXing_3994
             };
         }
 
-        private void InitParam(EventData eventData)
+        private void InitParam(EventData eventData = null)
         {
-            if (eventData != null) _openData = eventData;
             if (!isInit) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
             _isClicked = false;
 
-            _closeBtn = contentPane.GetChild("closeBtn").asButton;
+            // 获取UI组件
+            _startBtn = contentPane.GetChild("startBtn").asButton;
             _spinCountText = contentPane.GetChild("spinCountText").asTextField;
-            if (_openData is { value: Dictionary<string, object> args })
+            _spinCountText.text = _gameCount.ToString();
+
+            // 保存初始信息
+            _parentTran = contentPane.displayObject.gameObject.transform;
+            _startBtnTran = _startBtn.displayObject.gameObject.transform;
+            _spinTextTran = _spinCountText.displayObject.gameObject.transform;
+            _btnScale = _startBtnTran.localScale;
+            _btnPos = _startBtnTran.localPosition;
+            _startBtnQuaternion = _startBtnTran.localRotation;
+            _numScale = _spinTextTran.localScale;
+            _numPos = _spinTextTran.localPosition;
+            _numQuaternion = _spinTextTran.localRotation;
+
+            // 绑定Spine
+            GComponent currentCom = contentPane.GetChild("anchorTrigger").asCom;
+            if (currentCom != _compareTrigger)
             {
-                _spinCountText.text = args["freeSpinCount"].ToString();
+                GameCommon.FguiUtils.DeleteWrapper(_compareTrigger);
+                _compareTrigger = currentCom;
+                _cloneTriggerObj = Object.Instantiate(_triggerObj);
+                _triggerAnimator = _cloneTriggerObj.GetComponentInChildren<Animator>();
+                GameCommon.FguiUtils.AddWrapper(currentCom, _cloneTriggerObj);
             }
 
-            _closeBtn.onClick.Clear();
-            _closeBtn.onClick.Add(() => OnCloseBtn(_openData));
+            BindPagSlot();
+
+            // 将UI挂载在Spine动画上
+            string path = "Spine Mecanim GameObject (fg_bor_congrats2)/SkeletonUtility-SkeletonRoot/root/sx/";
+            Transform father = _cloneTriggerObj.transform.Find(path + "start");
+            _startBtnTran.SetParent(father, false);
+            _startBtnTran.localPosition = new Vector3(0.98f, 2.03f, 0.01f);
+            _startBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+            _startBtnTran.localRotation = Quaternion.Euler(0, 0, -90);
+
+            father = _cloneTriggerObj.transform.Find(path + "number");
+            _spinTextTran.SetParent(father, false);
+            _spinTextTran.localPosition = new Vector3(2.05f, 1.93f, 0f);
+            _spinTextTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+            _spinTextTran.localRotation = Quaternion.Euler(0, 0, 270);
+
+            // 按钮点击事件
+            _startBtn.onClick.Clear();
+            _startBtn.onClick.Add(() => OnCloseBtn(null));
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
@@ -74,6 +148,14 @@ namespace FeiZhouHeiXingXing_3994
             _gameSoundController = new GameSoundController3994();
             EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(Game3994AudioEvent.BgmFreeSpinTrigger));
+
+            // 获取事件信息
+            if (eventData is { value: Dictionary<string, object> args })
+            {
+                _changePage = args["changeFreePage"] as Action;
+                _gameCount = (int)args["freeSpinCount"];
+            }
+
             InitParam(eventData);
         }
 
@@ -82,6 +164,16 @@ namespace FeiZhouHeiXingXing_3994
             base.OnClose(eventData);
             _gameSoundController?.Dispose();
             _gameSoundController = null;
+
+            // 解除UI绑定
+            _startBtnTran.SetParent(_parentTran);
+            _startBtnTran.localPosition = _btnPos;
+            _startBtnTran.localScale = _btnScale;
+            _startBtnTran.localRotation = _startBtnQuaternion;
+            _spinTextTran.SetParent(_parentTran);
+            _spinTextTran.localPosition = _numPos;
+            _spinTextTran.localScale = _numScale;
+            _spinTextTran.localRotation = _numQuaternion;
         }
 
         private void ResLoadCallback(EventData eventData = null)
@@ -95,24 +187,63 @@ namespace FeiZhouHeiXingXing_3994
         {
             if (_isClicked) return;
             _isClicked = true;
-            if (_delayCloseCallback != null)
-            {
-                Timers.inst.Remove(_delayCloseCallback);
-                _delayCloseCallback = null;
-            }
+            RemoveDesignCallBack(_delayCloseCallback);
+            RemoveDesignCallBack(_delayPlayPagCallback);
 
-            _delayCloseCallback = (obj) =>
+            // 播放关闭动画并显示切换pag
+            _spinCountText.text = string.Empty;
+            _startBtn.visible = false;
+            PlayAnimationByName(_triggerAnimator, "end");
+
+            // end动画播放结束之后接着播放Pag视频
+            DelayPlayCallBack(_delayPlayPagCallback, () =>
             {
-                if (eventData is { value: Dictionary<string, object> args })
-                {
-                    Action changePage = args["changeFreePage"] as Action;
-                    changePage?.Invoke();
-                }
+                PlayDesignPag(_fadePag, _fade1920);
+                _changePage?.Invoke();
+            }, 1.067f);
+            
+            // 播放Pag视频之后关闭界面
+            DelayPlayCallBack(_delayCloseCallback, () =>
+            {
                 if (isOpen) CloseSelf(null);
-                _delayCloseCallback = null;
+                _startBtn.visible = true;
+                _changePage = null;
+            }, 5.067f);
+        }
+
+        /// <summary>播放指定Pag文件</summary>
+        private void PlayDesignPag(PagSlotBinding pagSlot, string pagName, int loopCount = -1)
+        {
+            if (pagSlot == null) return;
+            pagSlot.StopWithDefaults();
+            pagSlot.Play(pagName, loopCount);
+        }
+
+        private void PlayAnimationByName(Animator animator, string aniName, Action callback = null)
+        {
+            animator.Rebind();
+            animator.Play(aniName);
+            animator.Update(0f);
+            callback?.Invoke();
+        }
+
+        /// <summary> 移除指定的回调 </summary>
+        private void RemoveDesignCallBack(TimerCallback designCallback)
+        {
+            if (designCallback == null) return;
+            Timers.inst.Remove(designCallback);
+            designCallback = null;
+        }
+
+        /// <summary> 播放延时函数 </summary>
+        private void DelayPlayCallBack(TimerCallback designCallback, Action callBack, float delayTime)
+        {
+            designCallback = (obj) =>
+            {
+                callBack?.Invoke();
+                designCallback = null;
             };
-            Timers.inst.Add(2f, 1, _delayCloseCallback);
-            CloseSelf(eventData);
+            Timers.inst.Add(delayTime, 1, designCallback);
         }
     }
 }

@@ -1,0 +1,32 @@
+{ "skeleton": { "images": "E:/修改项目/财富之家新版本 - 副本/PSD切片文件/ng_sym06_ring/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "d", "bone": "root", "attachment": "d" },
+	{ "name": "k", "bone": "root", "attachment": "k" },
+	{ "name": "xc_2", "bone": "root", "attachment": "xc_2" },
+	{ "name": "xc_1", "bone": "root", "attachment": "xc_1" },
+	{ "name": "xc_0", "bone": "root", "attachment": "xc_0" }
+],
+"skins": {
+	"default": {
+		"d": {
+			"d": { "x": 152, "y": -155, "width": 156, "height": 152 }
+		},
+		"k": {
+			"k": { "x": 151.5, "y": -155, "width": 165, "height": 162 }
+		},
+		"xc_2": {
+			"xc_2": { "x": 152.5, "y": -173, "width": 145, "height": 122 }
+		},
+		"xc_1": {
+			"xc_1": { "x": 160.5, "y": -107.5, "width": 87, "height": 73 }
+		},
+		"xc_0": {
+			"xc_0": { "x": 160.5, "y": -111, "width": 103, "height": 90 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

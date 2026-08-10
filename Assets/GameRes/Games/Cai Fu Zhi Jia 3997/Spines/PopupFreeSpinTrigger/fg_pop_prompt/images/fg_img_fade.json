@@ -1,0 +1,9 @@
+{"bones":[{"name":"root"}],"slots":[
+{"name":"k_9","bone":"root","attachment":"k_9"},
+{"name":"k_8","bone":"root","attachment":"k_8"},
+{"name":"sg_3","bone":"root","attachment":"sg_3"},
+],"skins":{"default":{
+"k_9":{"k_9":{"x":1194,"y":2225,"width":606,"height":428}},
+"k_8":{"k_8":{"x":1193.5,"y":2195,"width":815,"height":1092}},
+"sg_3":{"sg_3":{"x":1198.5,"y":1831,"width":2397,"height":1888}},
+}}, "animations": { "animation": {} }}

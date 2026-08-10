@@ -1,0 +1,20 @@
+{ "skeleton": { "images": "E:/修改项目/财富之家新版本 - 副本/PSD切片文件/ng_sym01_gold/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "xx_1", "bone": "root", "attachment": "xx_1" },
+	{ "name": "xx_0", "bone": "root", "attachment": "xx_0" }
+],
+"skins": {
+	"default": {
+		"xx_1": {
+			"xx_1": { "x": 151.5, "y": -151, "width": 145, "height": 124 }
+		},
+		"xx_0": {
+			"xx_0": { "x": 152.5, "y": -147, "width": 135, "height": 116 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

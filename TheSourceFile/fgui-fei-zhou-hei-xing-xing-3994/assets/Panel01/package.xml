@@ -27,8 +27,6 @@
     <component id="pbvu1j" name="ExhibitionPanel.xml" path="/" exported="true"/>
     <image id="pbvu1k" name="btn_exhibition_01.png" path="/images/bottom/exhibitionMode/" exported="true"/>
     <image id="pbvu1l" name="btn_exhibition_02.png" path="/images/bottom/exhibitionMode/" exported="true"/>
-    <image id="pbvu1m" name="btn_respin_01.png" path="/images/bottom/exhibitionMode/" exported="true"/>
-    <image id="pbvu1n" name="btn_respin_02.png" path="/images/bottom/exhibitionMode/" exported="true"/>
     <image id="pbvu1o" name="txt_close.png" path="/images/bottom/exhibitionMode/" exported="true"/>
     <image id="pbvu1p" name="txt_open.png" path="/images/bottom/exhibitionMode/" exported="true"/>
     <component id="pbvu1s" name="ButtonExhibition.xml" path="/components/Panel/" exported="true"/>
@@ -68,6 +66,9 @@
     <image id="qrjm3g" name="ng_btn_spin2.png" path="/images/bottom/spin/" exported="true"/>
     <image id="qrjm3h" name="ng_btn_stop2.png" path="/images/bottom/spin/" exported="true"/>
     <image id="qrjm3j" name="ng_num_gnjm1(1).png" path="/images/bottom/setPanel/" exported="true" scale9grid="0,0,-10,-11"/>
+    <image id="s1hw3n" name="ng_btn_left_right.png" path="/images/bottom/exhibitionMode/"/>
+    <image id="s1hw3o" name="ng_btn_back to game.png" path="/images/bottom/exhibitionMode/"/>
+    <image id="s1hw3q" name="ng_bor_smsk.png" path="/images/bottom/exhibitionMode/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets/GameRes/Panel/Panel3994/FGUIs" packageCount="2"/>
 </packageDescription>

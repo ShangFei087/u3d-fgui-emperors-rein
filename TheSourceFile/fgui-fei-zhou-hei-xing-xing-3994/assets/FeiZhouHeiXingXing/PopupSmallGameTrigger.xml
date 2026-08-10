@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920">
+<component size="1080,1920" designImage="ui://ytoswqrps1hw9g">
   <displayList>
-    <component id="n0_zvhl" name="closeBtn" src="zvhl5b" fileName="components/popupSmallGameTrigger/closeBtn.xml" xy="489,1037"/>
+    <component id="n2_s1hw" name="anchorTrigger" src="s1hwbi" fileName="moudules/popupSmallGameTrigger/anchorTrigger.xml" xy="540,960"/>
+    <component id="n1_s1hw" name="startBtn" src="s1hwbe" fileName="components/popupSmallGameTrigger/startBtn.xml" xy="309,1407"/>
   </displayList>
 </component>

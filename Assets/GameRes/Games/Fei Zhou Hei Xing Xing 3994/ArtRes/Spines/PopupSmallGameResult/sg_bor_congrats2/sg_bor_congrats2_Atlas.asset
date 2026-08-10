@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
+  m_Name: sg_bor_congrats2_Atlas
+  m_EditorClassIdentifier: 
+  atlasFile: {fileID: 4900000, guid: a85d6d67d593b344581a0e2898176a8f, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 97339da213a87284ead95fdf0ffd66a4, type: 2}
+  - {fileID: 2100000, guid: 3904a6332a280ed42a926f30c7b94f7c, type: 2}
+  - {fileID: 2100000, guid: 680a99e9a23eb5f428f5b5f63b19ed19, type: 2}

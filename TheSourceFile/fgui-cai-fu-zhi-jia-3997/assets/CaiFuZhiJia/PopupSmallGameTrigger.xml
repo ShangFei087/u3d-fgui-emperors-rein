@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <component id="n1_gg7g" name="diamondBgEffect" src="gg7g65" fileName="moudules/popupSmallGameTrigger/anchorDiamondBgEffect.xml" xy="540,960"/>
-    <component id="n2_gg7g" name="diamondSpine" src="gg7g64" fileName="moudules/popupSmallGameTrigger/anchorDiamondSpine.xml" xy="540,960"/>
     <component id="n0_gg7g" name="jackpotTriggerTipWindow" src="gg7g62" fileName="moudules/popupSmallGameTrigger/JackpotTrigerTipWindow.xml" xy="0,0"/>
   </displayList>
 </component>

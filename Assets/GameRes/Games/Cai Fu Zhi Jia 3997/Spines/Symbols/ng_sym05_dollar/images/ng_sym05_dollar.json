@@ -1,0 +1,48 @@
+{ "skeleton": { "images": "E:/修改项目/财富之家新版本 - 副本/PSD切片文件/ng_sym05_dollar/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "bj", "bone": "root", "attachment": "bj" },
+	{ "name": "kuang", "bone": "root", "attachment": "kuang" },
+	{ "name": "qw_7", "bone": "root", "attachment": "qw_7" },
+	{ "name": "qw_5", "bone": "root", "attachment": "qw_5" },
+	{ "name": "qw_4", "bone": "root", "attachment": "qw_4" },
+	{ "name": "qw_3", "bone": "root", "attachment": "qw_3" },
+	{ "name": "qw_2", "bone": "root", "attachment": "qw_2" },
+	{ "name": "qw_1", "bone": "root", "attachment": "qw_1" },
+	{ "name": "qw_0", "bone": "root", "attachment": "qw_0" }
+],
+"skins": {
+	"default": {
+		"bj": {
+			"bj": { "x": 151.5, "y": -151.5, "width": 159, "height": 155 }
+		},
+		"kuang": {
+			"kuang": { "x": 151.5, "y": -151, "width": 165, "height": 162 }
+		},
+		"qw_7": {
+			"qw_7": { "x": 126.5, "y": -146.5, "width": 113, "height": 93 }
+		},
+		"qw_5": {
+			"qw_5": { "x": 172, "y": -176, "width": 116, "height": 112 }
+		},
+		"qw_4": {
+			"qw_4": { "x": 155.5, "y": -144, "width": 119, "height": 94 }
+		},
+		"qw_3": {
+			"qw_3": { "x": 153, "y": -143, "width": 124, "height": 92 }
+		},
+		"qw_2": {
+			"qw_2": { "x": 156, "y": -125.5, "width": 124, "height": 89 }
+		},
+		"qw_1": {
+			"qw_1": { "x": 157, "y": -117.5, "width": 120, "height": 73 }
+		},
+		"qw_0": {
+			"qw_0": { "x": 154, "y": -153.5, "width": 116, "height": 73 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

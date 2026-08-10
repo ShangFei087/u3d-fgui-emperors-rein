@@ -213,6 +213,11 @@
     <component id="mxrk8f" name="Slider1_grip.xml" path="/components/popupGameLoading/"/>
     <component id="mxrk8g" name="Slider1.xml" path="/components/popupGameLoading/"/>
     <component id="mxrk8h" name="AnchorEffect.xml" path="/components/gameMain/" exported="true"/>
+    <image id="mxrk8i" name="PayTable1.png" path="/images/payTable/" exported="true"/>
+    <image id="mxrk8j" name="PayTable2.png" path="/images/payTable/" exported="true"/>
+    <image id="mxrk8k" name="PayTable3.png" path="/images/payTable/" exported="true"/>
+    <image id="mxrk8l" name="PayTable4.png" path="/images/payTable/" exported="true"/>
+    <image id="mxrk8m" name="PayTable5.png" path="/images/payTable/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Mei Zhou Hei Bao 3993\FGUIs" packageCount="2"/>
 </packageDescription>

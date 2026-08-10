@@ -40,18 +40,18 @@ namespace CaiFuZhiJia_3997
 
         public Dictionary<string, string> symbolHitEffect => new Dictionary<string, string>()
         {
-            { "0", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Gold_01.prefab" }, // 15 30 90
-            { "1", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Sliver_02.prefab" }, // 15 30 90
-            { "2", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Bar_03.prefab" }, // 15 30 90
-            { "3", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Watch_04.prefab" }, // 20 60 150 
-            { "4", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Dollar_05.prefab" }, // 20 60 150 
-            { "5", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Ring_06.prefab" }, // 30 150 600 
-            { "6", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Car_07.prefab" }, // 30 150 600 
-            { "7", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Ships_08.prefab" }, // 60 600 1500 
-            { "8", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Plane_09.prefab" }, // 300 1500 3000 
-            { "9", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Wild_10.prefab" },
-            { "10", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Scatter_11.prefab" },
-            { "11", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/Bonus_12.prefab" },
+            { "0", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/0_Gold.prefab" }, // 4, 10, 20
+            { "1", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/1_Sliver.prefab" }, // 4, 10, 20
+            { "2", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/2_Bar.prefab" }, // 4, 10, 20
+            { "3", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/3_Watch.prefab" }, // 6, 20, 40
+            { "4", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/4_Dollar.prefab" }, // 6, 20, 40
+            { "5", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/5_Ring.prefab" }, // 10, 40, 60
+            { "6", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/6_Bottle.prefab" }, // 10, 40, 80 
+            { "7", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/7_Key.prefab" }, // 20, 60, 100 
+            { "8", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/8_Car.prefab" }, // 40, 80, 120 
+            { "9", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/9_Wild.prefab" },
+            { "10", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/10_Scatter.prefab" },
+            { "11", "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/SymbolAppear/11_Bonus.prefab" },
         };
 
         public List<int> specialHitSymbols => new List<int>() { };
@@ -61,7 +61,7 @@ namespace CaiFuZhiJia_3997
         public Dictionary<string, string> symbolExpectationEffect => new Dictionary<string, string>() { };
 
         public string borderEffect =>
-            "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/Border/JackpotFrame.prefab";
+            "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Symbols/Border/normalFrame.prefab";
 
         public Dictionary<string, string> symbolIcon => new Dictionary<string, string>()
         {
@@ -343,7 +343,7 @@ namespace CaiFuZhiJia_3997
             },
         };
 
-        public List<WinMultiple> winLevelMultiple { get; set; } = new List<WinMultiple>() { new WinMultiple("BIG", 5), new WinMultiple("HUGE", 10), new WinMultiple("MASSIVE", 20), };
+        public List<WinMultiple> winLevelMultiple { get; set; } = new List<WinMultiple>() { new WinMultiple("BIG", 50), new WinMultiple("HUGE", 100), new WinMultiple("MASSIVE", 200), };
 
         public FreeGameConfig FreeGameConfig { get; } = new FreeGameConfig()
         {
