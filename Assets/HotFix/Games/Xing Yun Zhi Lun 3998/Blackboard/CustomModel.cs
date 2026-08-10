@@ -202,11 +202,6 @@ namespace XingYunZhiLun_3998
         /// <summary> 倍率中奖的预制体 </summary>
         public Dictionary<string, string> multipleSymbols => new Dictionary<string, string>
         {
-            {"70", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X70.prefab"},
-            {"80", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X80.prefab"},
-            {"90", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X90.prefab"},
-            {"100", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X100.prefab"},
-            {"120", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X120.prefab"},
             {"140", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X140.prefab"},
             {"160", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X160.prefab"},
             {"180", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X180.prefab"},
@@ -238,15 +233,15 @@ namespace XingYunZhiLun_3998
         #region 赔付线与赔付表
         private List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>()
         {
-            new PayTableSymbolInfo(){symbol = 0, x5 = 20, x4 = 10, x3 = 5, },
-            new PayTableSymbolInfo(){symbol = 1, x5 = 20, x4 = 10, x3 = 5, },
-            new PayTableSymbolInfo(){symbol = 2, x5 = 20, x4 = 10, x3 = 5, },
-            new PayTableSymbolInfo(){symbol = 3, x5 = 20, x4 = 10, x3 = 5, },
-            new PayTableSymbolInfo(){symbol = 4, x5 = 30, x4 = 20, x3 = 10, },
-            new PayTableSymbolInfo(){symbol = 5, x5 = 50, x4 = 30, x3 = 15, },
-            new PayTableSymbolInfo(){symbol = 6, x5 = 70, x4 = 40, x3 = 20, },
-            new PayTableSymbolInfo(){symbol = 7, x5 = 90, x4 = 50, x3 = 25, },
-            new PayTableSymbolInfo(){symbol = 8, x5 = 100, x4 = 60, x3 = 30, },
+            new PayTableSymbolInfo(){symbol = 0, x5 = 30, x4 = 15, x3 = 10, },
+            new PayTableSymbolInfo(){symbol = 1, x5 = 30, x4 = 15, x3 = 10, },
+            new PayTableSymbolInfo(){symbol = 2, x5 = 30, x4 = 15, x3 = 10, },
+            new PayTableSymbolInfo(){symbol = 3, x5 = 30, x4 = 15, x3 = 10, },
+            new PayTableSymbolInfo(){symbol = 4, x5 = 50, x4 = 30, x3 = 20, },
+            new PayTableSymbolInfo(){symbol = 5, x5 = 80, x4 = 40, x3 = 30, },
+            new PayTableSymbolInfo(){symbol = 6, x5 = 100, x4 = 50, x3 = 40, },
+            new PayTableSymbolInfo(){symbol = 7, x5 = 120, x4 = 60, x3 = 50, },
+            new PayTableSymbolInfo(){symbol = 8, x5 = 140, x4 = 70, x3 = 60, },
             new PayTableSymbolInfo(){symbol = 9, x5 = 0, x4 = 0, x3 = 0, },
             new PayTableSymbolInfo(){symbol = 10, x5 = 0, x4 = 0, x3 = 0, },
         };

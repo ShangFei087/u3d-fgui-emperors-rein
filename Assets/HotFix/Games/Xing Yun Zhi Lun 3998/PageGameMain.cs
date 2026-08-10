@@ -886,6 +886,10 @@ namespace XingYunZhiLun_3998
                 {
                     totalWinLineCredit = slotMachineCtrl.GetTotalWinCredit(winList);
                     allWinCredit += totalWinLineCredit;
+
+                    //积分同步和退币处理
+                    slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+
                     //yield return ShowWinListOnceAtNormalSpin(winList);
                     yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
                     yield return new WaitForSeconds(0.7f);
@@ -910,10 +914,6 @@ namespace XingYunZhiLun_3998
                         slotMachineCtrl.SkipWinLine(false);
                     }
                 }
-
-
-                //积分同步和退币处理
-                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
                 ////加钱动画
                 //MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
             }
@@ -944,6 +944,7 @@ namespace XingYunZhiLun_3998
                         ["callback"] = new Action(() =>
                         {
                             showZhuanPan.Play();
+                            ChangeWheelURL(0);
                         }),
                     }),
                     (res) =>
@@ -1052,6 +1053,7 @@ namespace XingYunZhiLun_3998
                         ["callback"] = new Action(() =>
                         {
                             showZhuanPan.Play();
+                            ChangeWheelURL(0);
                         }),
                     }),
                     (res) =>
@@ -1126,6 +1128,7 @@ namespace XingYunZhiLun_3998
                         ["callback"] = new Action(() =>
                         {
                             showZhuanPan.Play();
+                            ChangeWheelURL(0);
                         }),
                     }),
                     (res) =>
@@ -1199,6 +1202,7 @@ namespace XingYunZhiLun_3998
                         ["callback"] = new Action(() =>
                         {
                             showZhuanPan.Play();
+                            ChangeWheelURL(0);
                         }),
                     }),
                     (res) =>
@@ -1255,6 +1259,7 @@ namespace XingYunZhiLun_3998
                         ["callback"] = new Action(() =>
                         {
                             showZhuanPan.Play();
+                            ChangeWheelURL(0);
                         }),
                     }),
                     (res) =>
@@ -1271,7 +1276,7 @@ namespace XingYunZhiLun_3998
                 yield return new WaitUntil(() => isNext == true);
 
                 //积分同步和退币处理
-                slotMachineCtrl.SendTotalWinCreditEvent((int)winCredit);
+                slotMachineCtrl.SendTotalWinCreditEvent((int)winCredit + allWinCredit);
 
                 //加分动画
                 MainBlackboardController.Instance.AddMyTempCredit((int)winCredit, true, isAddCreditAnim);

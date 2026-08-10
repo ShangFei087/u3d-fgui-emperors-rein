@@ -8,10 +8,19 @@ namespace XingYunZhiLun_3998
     {
         /// <summary> 正常游戏背景音乐 </summary>
         RegularBG,
+
         /// <summary> 免费游戏背景音乐 </summary>
         FreeSpinBG,
         /// <summary> 免费游戏空闲音乐 </summary>
         FreeSpinBGIdle,
+        /// <summary> 免费游戏触发界面，背景音乐 </summary>
+        FreeSpinTriggerBG,
+        /// <summary> 免费游戏结束界面，背景音乐 </summary>
+        FreeSpinResultBG,
+
+        /// <summary> 转盘界面背景音乐 </summary>
+        WheelBg,
+
         /// <summary> 滚轮1停止 </summary>
         ReelStop1,
         /// <summary> 滚轮1停止 </summary>
@@ -42,11 +51,7 @@ namespace XingYunZhiLun_3998
         /// <summary>  滚轮缓动 </summary>
         SlowMotionEffect,
 
-        /// <summary> 免费游戏触发界面，背景音乐 </summary>
-        FreeSpinTriggerBG,
-
-        /// <summary> 免费游戏结束界面，背景音乐 </summary>
-        FreeSpinResultBG,
+        
         /// <summary> 免费游戏修改背景音乐 </summary>
         FreeSpinChangeSymbol,
         /// <summary> 增加免费游戏 </summary>
@@ -101,22 +106,48 @@ namespace XingYunZhiLun_3998
         {
             [SoundKey.RegularBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Sounds/Music/Normal/Music_Normal.mp3",
+                assetPath = "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Sounds/Music/Normal/NormalBGM.ogg",
                 outputType = GSOutType.Music,
                 loop = true,
             },
+
+
             [SoundKey.FreeSpinBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Sounds/Music/FreeGame/Music_Free.mp3",
+                assetPath = "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Sounds/Music/FreeGame/FgBGM.ogg",
                 outputType = GSOutType.Music,
                 loop = true,
             },
+            [SoundKey.FreeSpinTriggerBG] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Music/FreeGame/FgSetBoarderBGM.ogg",
+                outputType = GSOutType.Music,
+                loop = true,
+            },
+            [SoundKey.FreeSpinResultBG] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Music/FreeGame/FgSetBoarderBGMEnding.ogg",
+                outputType = GSOutType.Music,
+                loop = true,
+            },
+
+
             [SoundKey.JackpotBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Sounds/Music/Jackpot/Music_Jackpot.mp3",
+                assetPath = "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Sounds/Music/Jackpot/JpBGM.ogg",
                 outputType = GSOutType.Music,
                 loop = true,
             },
+
+
+            [SoundKey.WheelBg] = new GSHandler()
+            {
+                assetPath = "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Sounds/Music/Normal/WheelBGM.ogg",
+                outputType = GSOutType.Music,
+                loop = true,
+            },
+
+
             [SoundKey.FreeSpinBGIdle] = new GSHandler()
             {
                 assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Effect/NormalGameEnvironment.mp3",
@@ -158,10 +189,6 @@ namespace XingYunZhiLun_3998
             [SoundKey.TotalWinLine] = new GSHandler()
             {
                 assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_Win_1234.mp3",
-            },
-            [SoundKey.FreeSpinTriggerBG] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Effect/FreeNumberTipAppear.mp3",
             },
             [SoundKey.SlowMotionEffect] = new GSHandler()
             {

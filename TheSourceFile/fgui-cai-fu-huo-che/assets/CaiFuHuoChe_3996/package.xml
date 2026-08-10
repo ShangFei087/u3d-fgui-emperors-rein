@@ -41,7 +41,6 @@
     <component id="9mnq21" name="AnchorTriggerBg.xml" path="/component/popupFreeGame/" exported="true"/>
     <image id="9mnq24" name="fg_img_doubling_02.png" path="/images/freeGame/" exported="true"/>
     <image id="9mnq26" name="fg_pop_border.png" path="/images/freeGame/" exported="true"/>
-    <image id="9mnq27" name="1.png" path="/images/jackpotGame/" exported="true"/>
     <image id="9mnq28" name="symbolroll_13.png" path="/images/freeGame/" exported="true"/>
     <image id="9mnq29" name="6免费游戏.png" path="/images/cankao/" exported="true"/>
     <image id="9mnq2a" name="FreeSpinTime_0.png" path="/fonts/fontImage/freeSpinTime/" exported="true"/>
@@ -301,6 +300,7 @@
     <image id="dcpxip" name="symbol_14.png" path="/images/normalGame/symbols/" exported="true"/>
     <image id="dcpxiq" name="symbol_15.png" path="/images/normalGame/symbols/" exported="true"/>
     <component id="ycmnir" name="anchorPag.xml" path="/component/popupJackpotGame/" exported="true"/>
+    <image id="uqrcis" name="sg_fs_txt_respin.png" path="/images/jackpotGame/" exported="true"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Cai Fu Huo Che 3996\FGUIs" packageCount="2"/>
 </packageDescription>

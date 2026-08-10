@@ -44,7 +44,8 @@ namespace XingYunZhiLun_3998
 
         private int wheelIndex;
 
-        private readonly string[] animNames = { "01_start", "02_start", "03_start" };
+        private readonly string[] animStartNames = { "01_start", "02_start", "03_start" };
+        private readonly string[] animEndNames = { "01_end", "02_end", "03_end" };
 
         private Transform[] idels, wins, stages;
 
@@ -170,7 +171,7 @@ namespace XingYunZhiLun_3998
                 wins[2] = wheelBgObj.transform.Find("Anchor/Spine Mecanim GameObject (Lucky_ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/03/3").GetChild(2);
                 wins[2].gameObject.SetActive(false);
 
-                ChangeParent(gWheel, wheelBgObj, "Anchor/Spine Mecanim GameObject (Lucky_ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/c_circle");
+                ChangeParent(gWheel, wheelBgObj, "Anchor/Spine Mecanim GameObject (Lucky_ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/tx01");
             }
             
 
@@ -264,6 +265,12 @@ namespace XingYunZhiLun_3998
             callback?.Invoke();
 
             yield return new WaitForSeconds(0.5f);
+
+            StopEffectAnim(wins[wheelIndex]); 
+            wins[wheelIndex].gameObject.SetActive(false);
+            PlayAnim(animEndNames[ContentModel.Instance.scatterCount - 3]);
+
+            yield return new WaitForSeconds(1f);
 
             //PlayEffectAnim(effectRaward);
             //yield return new WaitForSeconds(2f);
@@ -509,7 +516,7 @@ namespace XingYunZhiLun_3998
         private void StopEffectAnim(Transform effect)
         {
             ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-            particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            if(particle != null) particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
             // 递归播放所有子物体的粒子系统
             foreach (Transform child in effect)
@@ -525,7 +532,7 @@ namespace XingYunZhiLun_3998
             {
                 Transform t = gComponent.displayObject.gameObject.transform;
                 t.SetParent(num01, false);
-                t.localPosition = new Vector3(-276f, -276.1f, 0);
+                t.localPosition = new Vector3(-275.98f, -274.33f, 0);
                 t.localScale = new Vector3(0.01f, 0.01f, 1);
             }
         }
@@ -542,7 +549,7 @@ namespace XingYunZhiLun_3998
             string wheelIndexStr = ContentModel.Instance.scatterCount > 3 ? "mid" : "low";
             int wheelBgIndex = ContentModel.Instance.scatterCount - 3;
             gWheel.GetChild("Wheel").asCom.GetChild("wheelBg").asLoader.url = CustomModel.Instance.wheelState[wheelIndexStr];
-            PlayAnim(animNames[wheelBgIndex]);
+            PlayAnim(animStartNames[wheelBgIndex]);
             wheelIndex = wheelBgIndex;
 
             switch (wheelBgIndex)

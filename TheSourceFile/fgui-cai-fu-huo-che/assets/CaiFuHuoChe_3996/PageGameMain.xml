@@ -86,7 +86,7 @@
       <relation target="n24_9mnq" sidePair="center-center,middle-middle"/>
     </text>
     <component id="n48_iwtc" name="freeAddPoint" src="fkjsm" fileName="component/AnchorEffect.xml" xy="540,989" size="1,1" group="n69_pcvk"/>
-    <image id="n54_ldad" name="n54" src="9mnq27" fileName="images/jackpotGame/1.png" xy="496,1015" pivot="0.5,0.5" anchor="true" size="164,36" group="n69_pcvk">
+    <image id="n54_ldad" name="n54" src="uqrcis" fileName="images/jackpotGame/sg_fs_txt_respin.png" xy="496,1015" pivot="0.5,0.5" anchor="true" size="164,36" group="n69_pcvk">
       <relation target="n24_9mnq" sidePair="center-center,middle-middle"/>
     </image>
     <group id="n69_pcvk" name="n69" xy="380,979" size="326,75" group="n46_9mnq"/>

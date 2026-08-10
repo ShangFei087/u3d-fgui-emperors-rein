@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<packageDescription id="5hielhj5">
+<packageDescription id="5hielhj5" hasFavorites="true">
   <resources>
     <component id="jjye0" name="PopupGameLoading.xml" path="/" exported="true"/>
     <image id="nzm02" name="load_img_diamond.png" path="/images/PopupGameLoading/" exported="true"/>
@@ -343,9 +343,9 @@
     <image id="b4x4aoh" name="fg_num_pop_05.png" path="/fonts/fontsImage/FreeResultFont/" exported="true"/>
     <image id="b4x4aoi" name="fg_num_pop_04.png" path="/fonts/fontsImage/FreeResultFont/" exported="true"/>
     <image id="b4x4aoj" name="fg_num_pop_03.png" path="/fonts/fontsImage/FreeResultFont/" exported="true"/>
-    <image id="b4x4aok" name="fg_num_pop_02.png" path="/fonts/fontsImage/FreeResultFont/" exported="true"/>
+    <image id="b4x4aok" name="fg_num_pop_02.png" path="/fonts/fontsImage/FreeResultFont/" exported="true" favorite="true"/>
     <image id="b4x4aol" name="fg_num_pop_01.png" path="/fonts/fontsImage/FreeResultFont/" exported="true"/>
-    <image id="b4x4aom" name="fg_num_pop_0.png" path="/fonts/fontsImage/FreeResultFont/" exported="true"/>
+    <image id="b4x4aom" name="fg_num_pop_00.png" path="/fonts/fontsImage/FreeResultFont/" exported="true"/>
     <image id="b4x4aoo" name="fg_num_pop_mil.png" path="/fonts/fontsImage/FreeResultFont/" exported="true"/>
     <image id="b4x4aop" name="fg_num_trillion.png" path="/fonts/fontsImage/FreeResultFont/" exported="true"/>
     <font id="b4x4aoq" name="FreeResultFont.fnt" path="/fonts/fontsCom/FreeResultFont/" exported="true"/>

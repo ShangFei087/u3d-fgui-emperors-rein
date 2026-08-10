@@ -31,6 +31,11 @@ namespace XingYunZhiLun_3998
 
         private Action callback;
 
+        //Pag播放
+        private const string GamePagFolder = "Games/Xing Yun Zhi Lun 3998/Pag";
+        private PagSlotBinding effectPag;
+        private readonly string effectName = "ng_fade_jp.pag";
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -96,6 +101,8 @@ namespace XingYunZhiLun_3998
             idleTransition.ignoreEngineTimeScale = false;
             endTransition.ignoreEngineTimeScale = false;
 
+            EnsureMainPagSlot();
+
             closeBtn = contentPane.GetChild("Button").asButton;
             closeBtn.alpha = 1;
             closeBtn.scale = new Vector2(1, 1);
@@ -106,6 +113,7 @@ namespace XingYunZhiLun_3998
             preLoadedCallback?.Invoke();
 
             if (!isOpen) return;
+
 
             /*
             //初始化菜单ui
@@ -121,7 +129,7 @@ namespace XingYunZhiLun_3998
 
             ContentModel.Instance.btnSpinState = ContentModel.Instance.curBtnSpinState;
         */
-            if(_data != null)
+            if (_data != null)
             {
                 Dictionary<string, object> argDic = (Dictionary<string, object>)_data.value;
                 callback = (Action)argDic["callback"];
@@ -148,6 +156,18 @@ namespace XingYunZhiLun_3998
             }
         }
 
+        private void EnsureMainPagSlot()
+        {
+            GComponent anchor = contentPane.GetChild("anchorPag")?.asCom;
+            if (anchor == null) return;
+
+            effectPag = new PagSlotBinding("effectPag", GamePagFolder);
+            effectPag.EnsureSlot(anchor, "pagEffect");
+            GLoader anchorPag = anchor.GetChild("pagEffect").asLoader;
+
+            anchorPag.SetScale(1.5f, 1.5f);
+        }
+
 
         private void PlayAnim(string animName, Action OnComplete = null)
         {
@@ -168,9 +188,18 @@ namespace XingYunZhiLun_3998
             
             PlayAnim("end");
 
-            AddTimer(0.75f / Time.timeScale, (object obj) =>
+            AddTimer(0.5f / Time.timeScale, (object obj) =>
             {
                 closeBtn.alpha = 0;
+
+                effectPag.StopWithDefaults();
+                effectPag.Play(effectName,
+                    1,
+                    PagPlayLayout.Center,
+                    PagPresentationDefaults.DisplayScale,
+                    new PagPlayCallbacks(
+                    onFinished: () => effectPag?.StopWithDefaults(),
+                    stopAfterFinished: true));
             });
 
             if(callback != null)
@@ -181,7 +210,7 @@ namespace XingYunZhiLun_3998
                 });
             }
 
-            AddTimer(2.1f / Time.timeScale, (object obj) =>
+            AddTimer(5f / Time.timeScale, (object obj) =>
             {
                 CloseSelf(null);
             });
