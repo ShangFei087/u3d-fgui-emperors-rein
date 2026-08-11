@@ -42,7 +42,6 @@
     <image id="q4s81l" name="ng_bg_Bonus_game.png" path="/images/"/>
     <component id="q4s81m" name="AnchorTree.xml" path="/component/gameNormal/" exported="true"/>
     <component id="q4s81n" name="AnchorWater.xml" path="/component/gameNormal/" exported="true"/>
-    <image id="q4s81o" name="1.png" path="/images/gameNormal/Slot/" exported="true"/>
     <image id="q4s81q" name="ng_img_line_horizontal.png" path="/images/gameNormal/Slot/" exported="true"/>
     <image id="q4s81r" name="ng_img_line_vertical.png" path="/images/gameNormal/Slot/" exported="true"/>
     <image id="q4s81u" name="ng_sym_9.png" path="/images/Symbols/" exported="true"/>

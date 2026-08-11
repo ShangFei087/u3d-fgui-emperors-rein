@@ -311,7 +311,7 @@ namespace XingYunZhiLun_3998
             FreeGameType = MakeFreeGameType.OnScatter,             //触发免费奖方式
             IsScatterInLine = false,                               //Scatter图标是否依赖中奖线
             Make2FreeGameCount = new int[] { 3, 4, 5 },            //触发免费奖所需数量(Scatter图标/充能)
-            FreeGameTime = new int[] { 4, 5, 6 },                  //免费次数
+            FreeGameTime = new int[] { 7, 8, 9 },                  //免费次数
         };
 
         public BonusGameConfig bonusGameconfig

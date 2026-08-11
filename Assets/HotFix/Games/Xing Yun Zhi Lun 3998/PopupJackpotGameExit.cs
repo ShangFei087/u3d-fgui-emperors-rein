@@ -188,6 +188,7 @@ namespace XingYunZhiLun_3998
 
             AddTimer(5f / Time.timeScale, (obj) =>
             {
+                effectPag.StopWithDefaults();
                 CloseSelf(null);
             });
         }
