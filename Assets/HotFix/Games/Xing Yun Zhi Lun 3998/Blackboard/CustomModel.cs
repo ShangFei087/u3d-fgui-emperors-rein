@@ -63,11 +63,11 @@ namespace XingYunZhiLun_3998
             {"10", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/SymbolHit/SymbolHit10.prefab" },
 
 
-            {"70", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X70.prefab"},
-            {"80", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X80.prefab"},
-            {"90", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X90.prefab"},
-            {"100", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X100.prefab"},
-            {"120", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X120.prefab"},
+            //{"70", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X70.prefab"},
+            //{"80", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X80.prefab"},
+            //{"90", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X90.prefab"},
+            //{"100", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X100.prefab"},
+            //{"120", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X120.prefab"},
             {"140", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X140.prefab"},
             {"160", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X160.prefab"},
             {"180", "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/Symbols/MultipleHit/X180.prefab"},
@@ -154,8 +154,8 @@ namespace XingYunZhiLun_3998
         };
 
         public readonly int[] lowWheelIndex = new int[] { 4, 0, 5, 1, 6, 2, 7, 3};
-        public readonly int[] midWheelIndex = new int[] { 7, 0, 8, 1, 9, 2, 10, 3};
-        public readonly int[] highWheelIndex = new int[] { 11, 0, 12, 1, 13, 2, 14, 3};
+        public readonly int[] midWheelIndex = new int[] { 5, 0, 6, 1, 7, 2, 8, 3};
+        public readonly int[] highWheelIndex = new int[] { 6, 0, 7, 1, 8, 2, 9, 3};
 
         public Dictionary<string, string> wheelSymbolIcon => new Dictionary<string, string>
         {
@@ -163,17 +163,18 @@ namespace XingYunZhiLun_3998
             {"1", "ui://XingYunZhiLun_3998/symbol_lipinghe"},
             {"2", "ui://XingYunZhiLun_3998/symbol_scatter"},
             {"3", "ui://XingYunZhiLun_3998/symbol_wild" },
-            {"4", "ui://XingYunZhiLun_3998/symbol_70x" },
-            {"5", "ui://XingYunZhiLun_3998/symbol_80x" },
-            {"6", "ui://XingYunZhiLun_3998/symbol_90x" },
-            {"7", "ui://XingYunZhiLun_3998/symbol_100x" },
-            {"8", "ui://XingYunZhiLun_3998/symbol_120x" },
-            {"9", "ui://XingYunZhiLun_3998/symbol_140x" },
-            {"10", "ui://XingYunZhiLun_3998/symbol_160x" },
-            {"11", "ui://XingYunZhiLun_3998/symbol_180x" },
-            {"12", "ui://XingYunZhiLun_3998/symbol_200x" },
-            {"13", "ui://XingYunZhiLun_3998/symbol_220x" },
-            {"14", "ui://XingYunZhiLun_3998/symbol_240x" },
+            //{"4", "ui://XingYunZhiLun_3998/symbol_70x" },
+            //{"5", "ui://XingYunZhiLun_3998/symbol_80x" },
+            //{"6", "ui://XingYunZhiLun_3998/symbol_90x" },
+            //{"7", "ui://XingYunZhiLun_3998/symbol_100x" },
+            //{"8", "ui://XingYunZhiLun_3998/symbol_120x" },
+
+            {"4", "ui://XingYunZhiLun_3998/symbol_140x" },
+            {"5", "ui://XingYunZhiLun_3998/symbol_160x" },
+            {"6", "ui://XingYunZhiLun_3998/symbol_180x" },
+            {"7", "ui://XingYunZhiLun_3998/symbol_200x" },
+            {"8", "ui://XingYunZhiLun_3998/symbol_220x" },
+            {"9", "ui://XingYunZhiLun_3998/symbol_240x" },
         };
 
         public Dictionary<string, string> wheelSpinPointIcon => new Dictionary<string, string>

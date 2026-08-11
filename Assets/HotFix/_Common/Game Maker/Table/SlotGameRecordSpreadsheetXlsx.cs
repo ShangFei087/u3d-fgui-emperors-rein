@@ -78,10 +78,10 @@ namespace GameMaker
             (0, 200), (200, 300), (300, 400), (400, 500), (500, 600), (600, null),
         };
 
-        /// <summary>免费玩法倍数分档（60～150 倍）。</summary>
+        /// <summary>免费玩法倍数分档（50～150 倍）。</summary>
         static readonly (double Lo, double? Hi)[] _BucketFree =
         {
-            (0, 60), (60, 80), (80, 100), (100, 120), (120, 150), (150, null),
+            (0, 50), (50, 80), (80, 100), (100, 120), (120, 150), (150, null),
         };
 
         const string NsMain =
@@ -378,7 +378,7 @@ namespace GameMaker
             sheet.EndRow();
             row++;
 
-            // —— 第 9 段：免费（A=「免费」，K 列 60～150 倍分档）——
+            // —— 第 9 段：免费（A=「免费」，K 列 50～150 倍分档）——
             AppendBucketSection(sheet, ref row, "免费", rngA, "免费", rngC, rngH, rngMult, _BucketFree,
                 SlotGameRecordExport.SlotGameRecordSummaryBucketScheme.FreeGameFeature, summaryValuesRow,
                 stSec, stSd, stSdZ, stSt, subtotalRows);
