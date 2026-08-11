@@ -222,7 +222,8 @@ namespace XingYunZhiLun_3998
         void StartGameOnce(Action successCallback = null, Action<string> errorCallback = null)
         {
             if (isClose) return;
-            isClose = true;
+            isClose = true; 
+            spinButton.visible = false;
 
             ContentModel.Instance.totalPlaySpins = 1;
             ContentModel.Instance.remainPlaySpins = 1;

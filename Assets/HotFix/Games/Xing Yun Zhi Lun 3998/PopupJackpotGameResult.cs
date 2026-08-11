@@ -339,6 +339,7 @@ namespace XingYunZhiLun_3998
 
         private void Exit()
         {
+            effectPag.StopWithDefaults();
             StopAll();
             jackpotAction?.Invoke();
             CloseSelf(null);

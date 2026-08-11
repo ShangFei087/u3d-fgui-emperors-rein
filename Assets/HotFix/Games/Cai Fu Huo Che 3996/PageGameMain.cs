@@ -1075,8 +1075,6 @@ namespace CaiFuHuoChe_3996
                 if (winLevelType != WinLevelType.None)
                 {
                     // BigWin 播放期间停掉滚轴上的中奖图标/线，结束后再恢复
-                    slotMachineCtrl.CloseSlotCover();
-                    slotMachineCtrl.SkipWinLine(true);
                     yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
 
                     slotMachineCtrl.ShowSymbolWinDeck(slotMachineCtrl.GetTotalSymbolWin(winList), true);
@@ -1856,6 +1854,8 @@ namespace CaiFuHuoChe_3996
         //bigwin弹窗
         IEnumerator BigWinPopup(WinLevelType winLevelType, long winCredit)
         {
+            slotMachineCtrl.CloseSlotCover();
+            slotMachineCtrl.SkipWinLine(true);
             bool isNext = false;
             PageManager.Instance.OpenPageAsync(PageName.CaiFuHuoChePopupBigWin,
                 new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
