@@ -1,26 +1,10 @@
 {
-  "updated_at": 1784857280509,
+  "updated_at": 1785918664298,
   "data": [
     {
-      "agent_name": "cwy",
-      "app": "--",
-      "app_key": "cwy_debug_machine_20260724094120",
-      "app_version": "1.8.0",
-      "version_suggest": null,
-      "hotfix_url": "./debug/machine/1_8_0"
-    },
-    {
       "agent_name": "Treasury",
       "app": "--",
-      "app_key": "Treasury_debug_machine_20260723173759",
-      "app_version": "1.6.0",
-      "version_suggest": null,
-      "hotfix_url": "./debug/machine/1_6_0"
-    },
-    {
-      "agent_name": "Treasury",
-      "app": "--",
-      "app_key": "Treasury_debug_machine_20260723173757",
+      "app_key": "ljz_debug_machine_20260805163104",
       "app_version": "1.4.0",
       "version_suggest": null,
       "hotfix_url": "./debug/machine/1_4_0"

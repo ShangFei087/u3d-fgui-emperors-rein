@@ -39,16 +39,12 @@
     <image id="q4s81e" name="ng_Turntable_9.png" path="/fonts/fontImages/wheelFonts/" exported="true" scale9grid="0,0,-21,-13"/>
     <image id="q4s81f" name="ng_Turntable_dot.png" path="/fonts/fontImages/wheelFonts/" exported="true" scale9grid="0,0,-35,-33"/>
     <image id="q4s81g" name="ng_Turntable_k.png" path="/fonts/fontImages/wheelFonts/" exported="true" scale9grid="0,0,-21,-15"/>
-    <image id="q4s81k" name="普通背景.png" path="/images/"/>
     <image id="q4s81l" name="ng_bg_Bonus_game.png" path="/images/"/>
     <component id="q4s81m" name="AnchorTree.xml" path="/component/gameNormal/" exported="true"/>
     <component id="q4s81n" name="AnchorWater.xml" path="/component/gameNormal/" exported="true"/>
-    <image id="q4s81o" name="ng_img_normal_game_frame.png" path="/images/gameNormal/Slot/" exported="true"/>
-    <image id="q4s81p" name="屏幕截图 2026-03-24 144643.png" path="/images/"/>
+    <image id="q4s81o" name="1.png" path="/images/gameNormal/Slot/" exported="true"/>
     <image id="q4s81q" name="ng_img_line_horizontal.png" path="/images/gameNormal/Slot/" exported="true"/>
     <image id="q4s81r" name="ng_img_line_vertical.png" path="/images/gameNormal/Slot/" exported="true"/>
-    <image id="q4s81s" name="ng_bg_bottom_down.png" path="/images/gameNormal/Slot/" exported="true"/>
-    <image id="q4s81t" name="ng_bg_bottom_up.png" path="/images/gameNormal/Slot/" exported="true"/>
     <image id="q4s81u" name="ng_sym_9.png" path="/images/Symbols/" exported="true"/>
     <image id="q4s81v" name="ng_sym_WILD_X2.png" path="/images/Symbols/" exported="true"/>
     <image id="q4s81w" name="ng_sym_WILD.png" path="/images/Symbols/" exported="true"/>
@@ -87,8 +83,7 @@
     <component id="j7ma2u" name="AnchorPanelPush.xml" path="/component/" exported="true"/>
     <component id="j7ma2v" name="AnchorWheelSpin.xml" path="/component/gameNormal/" exported="true"/>
     <component id="j7ma2w" name="WheelContent.xml" path="/"/>
-    <image id="j7ma2x" name="ng_frame.png" path="/images/gameNormal/Slot/" exported="true"/>
-    <image id="j7ma2y" name="ng_bottom.png" path="/images/gameNormal/Slot/" exported="true"/>
+    <image id="j7ma2x" name="ng_ic_Count_box.png" path="/images/gameNormal/Slot/" exported="true"/>
     <image id="j7ma2z" name="ng_wheel-spin.png" path="/images/gameNormal/Slot/" exported="true"/>
     <image id="j7ma3b" name="0.png" path="/fonts/fontImages/TipFrameNums/" exported="true"/>
     <image id="j7ma3c" name="1.png" path="/fonts/fontImages/TipFrameNums/" exported="true"/>
@@ -287,6 +282,10 @@
     <component id="md4497" name="AnchorTargetIcon.xml" path="/component/gameFreeGame/"/>
     <component id="md4498" name="AnchorCreditEffect.xml" path="/component/gameFreeGame/" exported="true"/>
     <component id="z9k899" name="AnchorChangeIconAnim.xml" path="/component/gameFreeGame/" exported="true"/>
+    <image id="gk699a" name="ng_bg.png" path="/images/gameNormal/" exported="true"/>
+    <image id="gk699b" name="ng_ic_Roller_frame.png" path="/images/gameNormal/Slot/" exported="true"/>
+    <image id="gk691" name="ng_bar.png" path="/images/gameNormal/Slot/"/>
+    <image id="gk699d" name="fg_bg .png" path="/images/gameFree/"/>
   </resources>
   <publish name=""/>
 </packageDescription>

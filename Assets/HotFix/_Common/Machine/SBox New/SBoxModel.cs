@@ -599,9 +599,9 @@ public partial class SBoxModel: MonoSingleton<SBoxModel>
     /// <summary> 游戏难度 最小值（旧） </summary>
     public readonly List<string> difficultyNames = new List<string>() { "980", "970", "960", "950", "930" };
     /// <summary> 游戏难度 国内 </summary>
-    public readonly List<string> CNdifficultyNames = new List<string>() { "98.5", "98.8", "99.2", "99.5", "99.8" }; //默认99.2
+    public readonly List<string> CNdifficultyNames = new List<string>() { "97.5", "98", "98.5", "99.0", "99.5" }; //默认98.5
     /// <summary> 游戏难度 国外 </summary>
-    public readonly List<string> ENdifficultyNames = new List<string>() { "850", "880", "920", "950", "980" };//默认920
+    public readonly List<string> ENdifficultyNames = new List<string>() { "83.0", "86.0", "89.0", "92.0", "95.0" };//默认89.0
 
 
     /// <summary>

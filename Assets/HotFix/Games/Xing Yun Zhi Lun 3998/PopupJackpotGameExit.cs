@@ -29,6 +29,14 @@ namespace XingYunZhiLun_3998
         private Action callBack;
 
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
+
+
+        //Pag播放
+        private const string GamePagFolder = "Games/Xing Yun Zhi Lun 3998/Pag";
+        private PagSlotBinding effectPag;
+        private readonly string effectName = "jp_fade_ng.pag";
+
+
         protected override void OnInit()
         {
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -73,12 +81,11 @@ namespace XingYunZhiLun_3998
         }
 
 
-        public   void InitParam(EventData data)
+        public void InitParam(EventData data)
         {
             if (data != null) _data = data;
 
             if (!isInit) return;
-
 
             GComponent loadAnchorTip = contentPane.GetChild("anchorBg").asCom;
             if(loadAnchor != loadAnchorTip)
@@ -124,6 +131,8 @@ namespace XingYunZhiLun_3998
 
             PlayAnim("start");
             idleTransition.Play(-1, 1.3f / Time.timeScale, null);
+            
+            EnsureMainPagSlot();
 
             if (ContentModel.Instance.isAuto)
             {
@@ -133,6 +142,19 @@ namespace XingYunZhiLun_3998
                 });
             }
         }
+
+        private void EnsureMainPagSlot()
+        {
+            GComponent anchor = contentPane.GetChild("anchorPag")?.asCom;
+            if (anchor == null) return;
+
+            effectPag = new PagSlotBinding("effectPag", GamePagFolder);
+            effectPag.EnsureSlot(anchor, "pagEffect");
+            GLoader anchorPag = anchor.GetChild("pagEffect").asLoader;
+
+            anchorPag.SetScale(1.5f, 1.5f);
+        }
+
 
         private void OnCloseBtn()
         {
@@ -152,7 +174,19 @@ namespace XingYunZhiLun_3998
                 });
             }
 
-            AddTimer(2.1f / Time.timeScale, (obj) =>
+            AddTimer(0.75f / Time.timeScale, (obj) =>
+            {
+                effectPag.StopWithDefaults();
+                effectPag.Play(effectName,
+                    1,
+                    PagPlayLayout.Center,
+                    PagPresentationDefaults.DisplayScale,
+                    new PagPlayCallbacks(
+                    onFinished: () => effectPag?.StopWithDefaults(),
+                    stopAfterFinished: true));
+            });
+
+            AddTimer(5f / Time.timeScale, (obj) =>
             {
                 CloseSelf(null);
             });

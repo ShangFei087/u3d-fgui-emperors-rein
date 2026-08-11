@@ -10,17 +10,17 @@
     <image id="i9hyajr" name="txt_prizetable.png" path="/images/payTable/Text/" exported="true"/>
     <image id="i9hyajt" name="txt_wheelgame.png" path="/images/payTable/Text/" exported="true"/>
     <image id="i9hyajv" name="txt_winningline.png" path="/images/payTable/Text/" exported="true"/>
-    <image id="xiz6aj4" name="1.png" path="/images/payTable/" exported="true"/>
-    <image id="xiz6aj5" name="2.png" path="/images/payTable/" exported="true"/>
-    <image id="xiz6aj6" name="3.png" path="/images/payTable/" exported="true"/>
-    <image id="xiz6aj7" name="4.png" path="/images/payTable/" exported="true"/>
-    <image id="xiz6aj8" name="5.png" path="/images/payTable/" exported="true"/>
     <image id="xiz6aja" name="7.png" path="/images/payTable/" exported="true"/>
-    <image id="wrw6akp" name="6.png" path="/images/payTable/" exported="true"/>
     <image id="oebralf" name="ng_txt_minor.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
     <image id="oebralg" name="ng_txt_major.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
     <image id="oebralh" name="ng_txt_mini.png" path="/images/PopupJackpotGame/ListSymbolIcons/" exported="true"/>
     <image id="b4x4ana" name="txt_pop_collect.png" path="/images/PopupGameBigWin/" exported="true"/>
     <image id="b4x4anb" name="txt_pop_start.png" path="/images/PopupGameBigWin/" exported="true"/>
+    <image id="jvaxap2" name="1.png" path="/images/payTable/" exported="true"/>
+    <image id="jvaxap3" name="2.png" path="/images/payTable/" exported="true"/>
+    <image id="jvaxap4" name="3.png" path="/images/payTable/" exported="true"/>
+    <image id="jvaxap5" name="4.png" path="/images/payTable/" exported="true"/>
+    <image id="jvaxap6" name="5.png" path="/images/payTable/" exported="true"/>
+    <image id="jvaxap7" name="6.png" path="/images/payTable/" exported="true"/>
   </resources>
 </branchDescription>

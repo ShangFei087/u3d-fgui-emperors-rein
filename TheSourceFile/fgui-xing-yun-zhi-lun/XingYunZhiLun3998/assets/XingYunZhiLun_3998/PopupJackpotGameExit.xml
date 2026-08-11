@@ -23,6 +23,7 @@
       <item/>
       <item/>
     </list>
+    <component id="n6_j4e3" name="anchorPag" src="jvaxaot" fileName="components/PopupJackpotGame/AnchorPag.xml" xy="540,960" pivot="0.5,0.5" anchor="true"/>
   </displayList>
   <transition name="end">
     <item time="0" type="Scale" target="n4_oicb" tween="true" startValue="1,1" endValue="1.2,1.2" duration="5"/>

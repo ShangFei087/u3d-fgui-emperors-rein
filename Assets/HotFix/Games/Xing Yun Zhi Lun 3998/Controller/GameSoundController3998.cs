@@ -22,6 +22,8 @@ namespace XingYunZhiLun_3998
         public const string BgmBonusTrigger = "3998_BgmBonusTrigger";
         /// <summary> 彩金结算弹窗 BGM </summary>
         public const string BgmBonusResult = "3998_BgmBonusResult";
+        /// <summary> 转盘弹窗 BGM </summary>
+        public const string WheelBgm = "3998_BgmWheelBgm";
     }
 
     public class GameSoundController3998
@@ -89,6 +91,15 @@ namespace XingYunZhiLun_3998
                     break;
                 case Game3998AudioEvent.BgmBonusGame:
                     GameSoundHelper.Instance.PlayMusicSingle(SoundKey.JackpotBG);
+                    break;
+                case Game3998AudioEvent.BgmFreeSpinTrigger:
+                    GameSoundHelper.Instance.PlayMusicSingle(SoundKey.FreeSpinTriggerBG);
+                    break;
+                case Game3998AudioEvent.BgmFreeSpinResult:
+                    GameSoundHelper.Instance.PlayMusicSingle(SoundKey.FreeSpinResultBG);
+                    break;
+                case Game3998AudioEvent.WheelBgm:
+                    GameSoundHelper.Instance.PlayMusicSingle(SoundKey.WheelBg);
                     break;
             }
         }

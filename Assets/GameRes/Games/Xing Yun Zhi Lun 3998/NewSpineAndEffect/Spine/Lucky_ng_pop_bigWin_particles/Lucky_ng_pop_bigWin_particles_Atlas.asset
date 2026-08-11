@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: Lucky_ng_pop_bigWin_particles_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: bc99fa8dcb0e8d14f80024d8e7f69fb2, type: 3}
+  atlasFile: {fileID: 4900000, guid: 5c45babc63439b44792efb7d4886e574, type: 3}
   materials:
-  - {fileID: 2100000, guid: 89b112a330911f5479fb3831fc1dbe01, type: 2}
+  - {fileID: 2100000, guid: 494e5fc53af233c44b78839cad211def, type: 2}
