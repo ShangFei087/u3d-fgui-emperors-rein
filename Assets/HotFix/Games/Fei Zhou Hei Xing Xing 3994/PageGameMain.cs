@@ -98,7 +98,7 @@ namespace FeiZhouHeiXingXing_3994
         private GComponent _anchorFreeEffectParent;
 
         // --------------------------------------------- 普通游戏 -----------------------------------------------
-        private int _notHitSpinCount = 0; // 记录没有中奖局数
+        private int _notHitSpinCount; // 记录没有中奖局数
 
         // --------------------------------------------- 免费游戏 -----------------------------------------------
         private GComponent _freeFrameCom;
@@ -856,13 +856,13 @@ namespace FeiZhouHeiXingXing_3994
                 _notHitSpinCount++;
 
             // ----------------- big win ---------------
-            // WinLevelType winLevelType = GetBigWinType();s
-            // if (winLevelType != WinLevelType.None)
-            // {
-            //     yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
-            //     _slotMachineController.CloseSlotCover();
-            //     _slotMachineController.SkipWinLine(false);
-            // }
+            WinLevelType winLevelType = GetBigWinType();
+            if (winLevelType != WinLevelType.None)
+            {
+                yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
+                _slotMachineController.CloseSlotCover();
+                _slotMachineController.SkipWinLine(false);
+            }
 
             // ----------------- free win ---------------
             if (ContentModel.Instance.isFreeSpinTrigger)
@@ -1243,6 +1243,7 @@ namespace FeiZhouHeiXingXing_3994
             List<SymbolWin> winList = ContentModel.Instance.winList;
             if (winList.Count > 0 || ContentModel.Instance.BonusResult != null)
             {
+                PlayAnimationByName(_freeNpcAnimator, "win");
                 long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList);
                 _allWinCredit += totalWinLineCredit;
                 _slotMachineController.SendTotalWinCreditEvent(_allWinCredit); // 总线赢分事件
@@ -1320,6 +1321,7 @@ namespace FeiZhouHeiXingXing_3994
             for (int i = 1; i < middleData.Count; i++)
             {
                 if (middleData[i] != 9) continue;
+                PlayAnimationByName(_freeNpcAnimator, "idle2");
                 GComponent com = CachePool.Instance.PopCom(FreeBigWildKey, _anchorFreeEffectParent,
                     () => CachePoolFactory(_freeBigWildObj));
                 _isUsedPoolDic[FreeBigWildKey].Push(com);
@@ -1398,6 +1400,7 @@ namespace FeiZhouHeiXingXing_3994
             // 3. 先在转换位置播放特效，再切换图标
             if (allChangedPositions.Count > 0)
             {
+                PlayAnimationByName(_freeNpcAnimator, "win2");
                 // 3a. 播放转换特效
                 foreach (var pos in allChangedPositions)
                 {

@@ -10,7 +10,7 @@
     <component id="n3_u8to" name="btnBetUp" src="u8to1j" fileName="components/Panel/ButtonBetUp.xml" xy="788,152"/>
     <component id="n4_u8to" name="btnBetDown" src="u8to1k" fileName="components/Panel/ButtonBetDown.xml" xy="572,151"/>
     <component id="n8_u8to" name="btnSpin" src="u8to11" fileName="components/Panel/ButtonSpin.xml" xy="869,60"/>
-    <text id="n9_u8to" name="singleLine" xy="891,200" size="187,51" fontSize="8" align="center" autoSize="none" text=""/>
+    <text id="n9_u8to" name="singleLine" xy="891,200" size="187,51" visible="false" fontSize="8" align="center" autoSize="none" text=""/>
     <component id="n11_u8to" name="ExhibitionPanel" src="u8to25" fileName="ExhibitionPanel.xml" xy="0,-1669"/>
     <component id="n12_u8to" name="instructions" src="u8to2n" fileName="moudules/instructions/InstructionPanel.xml" xy="0,-1669"/>
     <component id="n10_u8to" name="setPanel" src="u8to1o" fileName="SetPanel.xml" xy="45,-195" visible="false"/>

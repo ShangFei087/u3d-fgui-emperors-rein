@@ -53,7 +53,7 @@ namespace FeiZhouHeiXingXing_3994
         private static readonly string[] PagPreloadFiles =
         {
             // bigWin pag
-            "PopupBigWin/bigwin_720.pag",
+            "PopupBigWin/bigwin_720.pag","PopupBigWin/bigwin_1080.pag",
             // freeTrigger pag
             "PopupFreeSpinTrigger/fade_1280.pag", "PopupFreeSpinTrigger/fade_1920.pag",
             // smallTrigger pag

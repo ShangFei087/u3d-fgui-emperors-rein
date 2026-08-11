@@ -8,6 +8,6 @@
     <image id="n1_u8to" name="n1" src="u8to22" fileName="images/pageGameMain/normalBg/ng_img_frame011.png" xy="156,170"/>
     <image id="n5_u8to" name="n5" src="u8to25" fileName="images/pageGameMain/normalBg/ng_img_frame07.png" xy="543,287"/>
     <image id="n6_u8to" name="n6" src="u8to26" fileName="images/pageGameMain/normalBg/ng_img_frame08.png" xy="361,273"/>
-    <image id="n7_u8to" name="n7" src="u8to24" fileName="images/pageGameMain/normalBg/ng_img_frame06.png" xy="842,241"/>
+    <image id="n7_u8to" name="n7" src="u8to24" fileName="images/pageGameMain/normalBg/ng_img_frame06.png" xy="842,262"/>
   </displayList>
 </component>

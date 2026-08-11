@@ -343,7 +343,7 @@ namespace CaiFuZhiJia_3997
             },
         };
 
-        public List<WinMultiple> winLevelMultiple { get; set; } = new List<WinMultiple>() { new WinMultiple("BIG", 50), new WinMultiple("HUGE", 100), new WinMultiple("MASSIVE", 200), };
+        public List<WinMultiple> winLevelMultiple { get; set; } = new List<WinMultiple>() { new WinMultiple("BIG", 5), new WinMultiple("HUGE", 10), new WinMultiple("MASSIVE", 20), };
 
         public FreeGameConfig FreeGameConfig { get; } = new FreeGameConfig()
         {

@@ -12,29 +12,27 @@ namespace CaiFuZhiJia_3997
         public new const string pkgName = "CaiFuZhiJia";
         public new const string resName = "PopupBigWin";
 
-        private const string SpinePrefabPath =
-            "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupBigWin/SpinePrefabs/";
-
-        private const string ModelPrefabPath =
-            "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/Npc/";
+        private const string GamePagFolder = "Games/Cai Fu Zhi Jia 3997/Pag";
+        private const string PrefabPath = "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupBigWin/";
 
         private int _totalCount = -1;
         private bool _isInitialized = false;
 
-        private Animator _npcAnimator, _overWinAnimator;
-        private GComponent _compareOverWin, _compareNpc;
-        private GameObject _overWinObj, _cloneOverWinObj, _npcObj, _cloneNpcObj;
-
-        private Transform _bgEffectParent;
+        private Animator _overWinAnimator;
+        private GComponent _compareBigWin;
+        private GameObject _bigWinObj, _cloneBigWinObj;
 
         private readonly string[] winString = { "BIG", "HUGE", "MASSIVE" };
         private readonly string[] winOpenString = { "bigwin_start", "bigwin_superwin", "superwin_megawin" };
         private readonly string[] winCloseString = { "bigwin_end", "superwin_end", "megawin_end" };
 
-        private readonly string[] npcStartString =
-        {
-            "ng_pop_border_bigwin", "ng_pop_border_supwin", "ng_pop_border_megawin"
-        };
+        // bigwin pag
+        private const string bigwin_idle = "bigwin/bigwin_idle.pag";
+        private const string bigwin_start = "bigwin/bigwin_start.pag";
+        private const string megawin_idle = "bigwin/megawin_idle.pag";
+        private const string megawin_start = "bigwin/megawin_start.pag";
+        private const string supwin_idle = "bigwin/supwin_idle.pag";
+        private const string supwin_start = "bigwin/supwin_start.pag";
 
         private long score;
         private string winType;
@@ -42,7 +40,7 @@ namespace CaiFuZhiJia_3997
         private int winIndex;
         private bool isOk = false;
 
-        private GTextField _overWinText;
+        private GTextField _bigWinText;
 
         // 定时器回调委托
         private TimerCallback _sequenceCallback;
@@ -60,12 +58,23 @@ namespace CaiFuZhiJia_3997
         // 状态标记
         private bool _isExiting = false;
 
+        // Pag
+        private GComponent _bigWinCom;
+        private PagSlotBinding _bigWinPag;
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
-            _overWinText = contentPane.GetChild("overWinText").asTextField;
-            LoadAsyncRes();
+
+            _totalCount = 1;
+            ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath + "BigWin.prefab",
+                (clone) =>
+                {
+                    _bigWinObj = clone;
+                    ResLoadedCallback();
+                });
+
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
                 shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
@@ -85,7 +94,30 @@ namespace CaiFuZhiJia_3997
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
 
-            BindPrefabToUI();
+            // 获取UI组件
+            _bigWinCom = contentPane.GetChild("pag_BigWin").asCom;
+            _bigWinText = contentPane.GetChild("bigWinText").asTextField;
+            // 绑定Spine
+            GComponent currentGCom = contentPane.GetChild("anchorBigWin").asCom;
+            if (currentGCom != _compareBigWin)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_compareBigWin);
+                _compareBigWin = currentGCom;
+                _cloneBigWinObj = Object.Instantiate(_bigWinObj);
+                _overWinAnimator = _cloneBigWinObj.GetComponentInChildren<Animator>();
+                GameCommon.FguiUtils.AddWrapper(_compareBigWin, _cloneBigWinObj);
+            }
+
+            // 绑定Pag
+            if (_bigWinCom == null) return;
+            _bigWinPag = new PagSlotBinding("bigWin", GamePagFolder);
+            _bigWinPag.EnsureSlot(_bigWinCom);
+            if (_bigWinPag == null) return;
+            _bigWinPag.StopWithDefaults();
+            _bigWinPag.Play(new PagSequencePlay(
+                PagPlaySpecs.IntroLoop(bigwin_start, bigwin_idle), PagPlayLayout.Center,
+                useGpuSyncGroup: false));
+
             ShowAnimAndEffect();
         }
 
@@ -102,7 +134,6 @@ namespace CaiFuZhiJia_3997
             }
 
             winIndex = Array.IndexOf(winString, winType);
-            // Debug.LogError("WinIndex:" + WinIndex);
             if (winIndex < 0) winIndex = 0;
             if (winIndex > 2) winIndex = 2;
 
@@ -126,51 +157,6 @@ namespace CaiFuZhiJia_3997
             }
         }
 
-        private void LoadAsyncRes()
-        {
-            _totalCount = 2;
-
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                SpinePrefabPath + "overWin.prefab",
-                (clone) =>
-                {
-                    _overWinObj = clone;
-                    ResLoadedCallback();
-                });
-
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-                ModelPrefabPath + "ng_pop_border.prefab",
-                (clone) =>
-                {
-                    _npcObj = clone;
-                    ResLoadedCallback();
-                });
-        }
-
-        private void BindPrefabToUI()
-        {
-            GComponent currentGCom = contentPane.GetChild("anchorOverWin").asCom;
-            if (currentGCom != _compareOverWin)
-            {
-                GameCommon.FguiUtils.DeleteWrapper(_compareOverWin);
-                _compareOverWin = currentGCom;
-                _cloneOverWinObj = Object.Instantiate(_overWinObj);
-                _overWinAnimator = _cloneOverWinObj.GetComponentInChildren<Animator>();
-                GameCommon.FguiUtils.AddWrapper(_compareOverWin, _cloneOverWinObj);
-            }
-
-            currentGCom = contentPane.GetChild("anchorTipNpc").asCom;
-            if (currentGCom != _compareNpc)
-            {
-                GameCommon.FguiUtils.DeleteWrapper(_compareNpc);
-                _compareNpc = currentGCom;
-                _cloneNpcObj = Object.Instantiate(_npcObj);
-                _npcAnimator = _cloneNpcObj.GetComponentInChildren<Animator>();
-                _bgEffectParent = _cloneNpcObj.transform.Find("BgEffect");
-                GameCommon.FguiUtils.AddWrapper(_compareNpc, _cloneNpcObj);
-            }
-        }
-
         private void SpinDown()
         {
             if (_isExiting) return;
@@ -179,7 +165,7 @@ namespace CaiFuZhiJia_3997
             {
                 // 强制完成数字滚动
                 NumberAnimation.Instance.StopAllAnimations();
-                _overWinText.text = score.ToString();
+                _bigWinText.text = score.ToString();
 
                 // 直接跳到结束
                 PlayEndAnimation();
@@ -200,12 +186,12 @@ namespace CaiFuZhiJia_3997
                     return;
                 }
 
-                _overWinText.visible = true;
+                _bigWinText.visible = true;
                 playCount = 0;
 
                 // 启动数字滚动
                 int showtime = 4 * (winIndex + 1);
-                NumberAnimation.Instance.AnimateNumber(_overWinText, 0, score, showtime, EaseType.Linear, null);
+                NumberAnimation.Instance.AnimateNumber(_bigWinText, 0, score, showtime, EaseType.Linear, null);
 
                 // 初始化委托
                 _sequenceCallback = OnSequenceStep;
@@ -225,13 +211,12 @@ namespace CaiFuZhiJia_3997
         /// </summary>
         private void PlayCurrentLevel()
         {
-            if (playCount < 0 || playCount >= npcStartString.Length)
+            if (playCount < 0 || playCount >= winOpenString.Length)
             {
                 Debug.LogError($"playCount 越界: {playCount}");
                 return;
             }
 
-            _npcAnimator.Play(npcStartString[playCount]);
             _overWinAnimator.Play(winOpenString[playCount]);
 
             // 3秒后进入下一步
@@ -255,7 +240,7 @@ namespace CaiFuZhiJia_3997
                 // 所有层级播放完毕，进入结束流程
                 // 如果数字还在滚动，直接停止并赋最终值
                 NumberAnimation.Instance.StopAllAnimations();
-                _overWinText.text = score.ToString();
+                _bigWinText.text = score.ToString();
 
                 PlayEndAnimation();
             }
@@ -312,8 +297,16 @@ namespace CaiFuZhiJia_3997
             Debug.Log("所有定时器已清理");
         }
 
+        private void ClearPag()
+        {
+            _bigWinPag.Dispose();
+            _bigWinPag = null;
+            _bigWinCom = null;
+        }
+
         private void Reset()
         {
+            ClearPag();
             ClearAllTimers();
         }
     }

@@ -39,10 +39,7 @@ namespace FeiZhouHeiXingXing_3994
 
         // Pag
         private GComponent _fadeCom;
-
         private PagSlotBinding _fadePag;
-
-        // private readonly string _fade1280 = "PopupFreeSpinTrigger/fade_1280.pag";  // 备用选项
         private readonly string _fade1920 = "PopupFreeSpinTrigger/fade_1920.pag";
 
         private TimerCallback _delayCloseCallback, _delayPlayPagCallback; // 延时关闭回调   延时播放Pag回调
@@ -165,6 +162,9 @@ namespace FeiZhouHeiXingXing_3994
             _gameSoundController?.Dispose();
             _gameSoundController = null;
 
+            _fadePag.Dispose();
+            _fadeCom = null;
+
             // 解除UI绑定
             _startBtnTran.SetParent(_parentTran);
             _startBtnTran.localPosition = _btnPos;
@@ -186,9 +186,15 @@ namespace FeiZhouHeiXingXing_3994
         private void OnCloseBtn(EventData eventData = null)
         {
             if (_isClicked) return;
+            
+            // 只能点击一次
             _isClicked = true;
+            
+            // 清除回调
             RemoveDesignCallBack(_delayCloseCallback);
             RemoveDesignCallBack(_delayPlayPagCallback);
+            _delayCloseCallback = null;
+            _delayPlayPagCallback = null;
 
             // 播放关闭动画并显示切换pag
             _spinCountText.text = string.Empty;
@@ -196,14 +202,14 @@ namespace FeiZhouHeiXingXing_3994
             PlayAnimationByName(_triggerAnimator, "end");
 
             // end动画播放结束之后接着播放Pag视频
-            DelayPlayCallBack(_delayPlayPagCallback, () =>
+            _delayPlayPagCallback = CreateDelayCallback(() =>
             {
-                PlayDesignPag(_fadePag, _fade1920);
+                PlayDesignPag(_fadePag, _fade1920, 1);
                 _changePage?.Invoke();
-            }, 1.067f);
-            
+            }, 0.8f);
+
             // 播放Pag视频之后关闭界面
-            DelayPlayCallBack(_delayCloseCallback, () =>
+            _delayCloseCallback = CreateDelayCallback(() =>
             {
                 if (isOpen) CloseSelf(null);
                 _startBtn.visible = true;
@@ -232,18 +238,19 @@ namespace FeiZhouHeiXingXing_3994
         {
             if (designCallback == null) return;
             Timers.inst.Remove(designCallback);
-            designCallback = null;
         }
 
-        /// <summary> 播放延时函数 </summary>
-        private void DelayPlayCallBack(TimerCallback designCallback, Action callBack, float delayTime)
+        /// <summary> 创建延迟回调并注册到 Timers，返回 TimerCallback 供调用方存储以便后续 Remove </summary>
+        private TimerCallback CreateDelayCallback(Action callBack, float delayTime)
         {
-            designCallback = (obj) =>
+            TimerCallback callback = null;
+            callback = obj =>
             {
                 callBack?.Invoke();
-                designCallback = null;
+                callback = null;
             };
-            Timers.inst.Add(delayTime, 1, designCallback);
+            Timers.inst.Add(delayTime, 1, callback);
+            return callback;
         }
     }
 }

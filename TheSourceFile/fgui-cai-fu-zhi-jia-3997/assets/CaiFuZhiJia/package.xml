@@ -16,17 +16,17 @@
     <component id="u8tod" name="LoadingSliderBg.xml" path="/moudules/popupGameLoading/" exported="true"/>
     <component id="u8tof" name="LoadingSlider_grip.xml" path="/components/popupGameLoading/" exported="true"/>
     <component id="u8tog" name="LoadingSlider.xml" path="/components/popupGameLoading/" exported="true"/>
-    <image id="u8tot" name="fg_num2_0.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
-    <image id="u8tou" name="fg_num2_1.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
-    <image id="u8tov" name="fg_num2_2.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
-    <image id="u8tow" name="fg_num2_3.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
-    <image id="u8tox" name="fg_num2_4.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
-    <image id="u8toy" name="fg_num2_5.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
-    <image id="u8toz" name="fg_num2_6.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
-    <image id="u8to10" name="fg_num2_7.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
-    <image id="u8to11" name="fg_num2_8.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
-    <image id="u8to12" name="fg_num2_9.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
-    <image id="u8to13" name="fg_num2_x.png" path="/images/common/gameFonts/freeMulyiple/" exported="true"/>
+    <image id="u8tot" name="fg_num2_0.png" path="/images/common/gameFonts/freeMulyiple/" exported="true" atlas="4"/>
+    <image id="u8tou" name="fg_num2_1.png" path="/images/common/gameFonts/freeMulyiple/" exported="true" atlas="4"/>
+    <image id="u8tov" name="fg_num2_2.png" path="/images/common/gameFonts/freeMulyiple/" exported="true" atlas="4"/>
+    <image id="u8tow" name="fg_num2_3.png" path="/images/common/gameFonts/freeMulyiple/" exported="true" atlas="4"/>
+    <image id="u8tox" name="fg_num2_4.png" path="/images/common/gameFonts/freeMulyiple/" exported="true" atlas="4"/>
+    <image id="u8toy" name="fg_num2_5.png" path="/images/common/gameFonts/freeMulyiple/" exported="true" atlas="4"/>
+    <image id="u8toz" name="fg_num2_6.png" path="/images/common/gameFonts/freeMulyiple/" exported="true" atlas="4"/>
+    <image id="u8to10" name="fg_num2_7.png" path="/images/common/gameFonts/freeMulyiple/" exported="true" atlas="4"/>
+    <image id="u8to11" name="fg_num2_8.png" path="/images/common/gameFonts/freeMulyiple/" exported="true" atlas="4"/>
+    <image id="u8to12" name="fg_num2_9.png" path="/images/common/gameFonts/freeMulyiple/" exported="true" atlas="4"/>
+    <image id="u8to13" name="fg_num2_x.png" path="/images/common/gameFonts/freeMulyiple/" exported="true" atlas="4"/>
     <font id="u8to1o" name="freeTrigger.fnt" path="/fonts/" exported="true"/>
     <font id="u8to1p" name="freeMulyiple.fnt" path="/fonts/" exported="true"/>
     <image id="u8to1s" name="fg_txt_win_MULTIPLE.png" path="/images/pageGameMain/freeBg/" exported="true"/>
@@ -105,8 +105,8 @@
     <component id="ujwn4z" name="PayTable5.xml" path="/moudules/pageGameMain/PayTable/" exported="true"/>
     <component id="ujwn50" name="PayTable6.xml" path="/moudules/pageGameMain/PayTable/" exported="true"/>
     <component id="ujwn51" name="PopupBigWin.xml" path="/" exported="true"/>
-    <component id="ujwn52" name="anchorTipNpc.xml" path="/moudules/popupBigWin/" exported="true"/>
-    <component id="ujwn53" name="anchorOverWin.xml" path="/moudules/popupBigWin/" exported="true"/>
+    <component id="ujwn52" name="pag_BigWin.xml" path="/moudules/popupBigWin/" exported="true"/>
+    <component id="ujwn53" name="anchorBigWin.xml" path="/moudules/popupBigWin/" exported="true"/>
     <component id="jh0i54" name="SmallGameReels.xml" path="/moudules/pageGameMain/SmallGame/" exported="true"/>
     <component id="jh0i55" name="SmallGameSymbol.xml" path="/moudules/pageGameMain/SmallGame/" exported="true"/>
     <image id="jh0i56" name="ng_sym_diamonds.png" path="/images/common/smallGameSymbols/" exported="true"/>
@@ -263,9 +263,21 @@
     <component id="ny7oah" name="collectBtn.xml" path="/moudules/popupSmallGameResult/" exported="true"/>
     <component id="ny7oai" name="startBtn.xml" path="/moudules/popupSmallGameTrigger/" exported="true"/>
     <component id="qqppaj" name="EffectParentPanel.xml" path="/moudules/pageGameMain/Anchor/" exported="true"/>
-    <component id="hoceak" name="pagTest.xml" path="/moudules/pageGameMain/pagTest/" exported="true"/>
-    <component id="hoceal" name="anchorBigWin.xml" path="/moudules/pageGameMain/pagTest/" exported="true"/>
-    <component id="hoceam" name="anchorPagTest.xml" path="/moudules/pageGameMain/pagTest/" exported="true"/>
+    <component id="esbxak" name="anchorEffect.xml" path="/moudules/pageGameMain/Anchor/" exported="true"/>
+    <image id="jc99al" name="ng_num_0.png" path="/images/common/gameFonts/freeResult/" exported="true" atlas="5"/>
+    <image id="jc99am" name="ng_num_1.png" path="/images/common/gameFonts/freeResult/" exported="true" atlas="5"/>
+    <image id="jc99an" name="ng_num_2.png" path="/images/common/gameFonts/freeResult/" exported="true" atlas="5"/>
+    <image id="jc99ao" name="ng_num_3.png" path="/images/common/gameFonts/freeResult/" exported="true" atlas="5"/>
+    <image id="jc99ap" name="ng_num_4.png" path="/images/common/gameFonts/freeResult/" exported="true" atlas="5"/>
+    <image id="jc99aq" name="ng_num_5.png" path="/images/common/gameFonts/freeResult/" exported="true" atlas="5"/>
+    <image id="jc99ar" name="ng_num_6.png" path="/images/common/gameFonts/freeResult/" exported="true" atlas="5"/>
+    <image id="jc99as" name="ng_num_7.png" path="/images/common/gameFonts/freeResult/" exported="true" atlas="5"/>
+    <image id="jc99at" name="ng_num_8.png" path="/images/common/gameFonts/freeResult/" exported="true" atlas="5"/>
+    <image id="jc99au" name="ng_num_9.png" path="/images/common/gameFonts/freeResult/" exported="true" atlas="5"/>
+    <image id="jc99av" name="ng_num_com.png" path="/images/common/gameFonts/freeResult/" exported="true" atlas="5"/>
+    <image id="jc99aw" name="ng_num_dollar.png" path="/images/common/gameFonts/freeResult/" exported="true" atlas="5"/>
+    <image id="jc99ax" name="ng_num_dot.png" path="/images/common/gameFonts/freeResult/" exported="true" atlas="5"/>
+    <font id="jc99ay" name="freeResult.fnt" path="/fonts/" exported="true"/>
   </resources>
   <publish name="CaiFuZhiJia" path="../../Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>

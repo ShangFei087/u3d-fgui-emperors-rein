@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920"/>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_112t1" name="anchorBigWin" src="112t1c9" fileName="moudules/popupBigWin/anchorBigWin.xml" xy="540,960"/>
+  </displayList>
+</component>
