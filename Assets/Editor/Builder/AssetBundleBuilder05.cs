@@ -482,6 +482,7 @@ public partial class AssetBundleBuilder05 : EditorWindow
         {
             targetPathLst.AddRange(GetTargetFilePath(pth, ".mp3"));
             targetPathLst.AddRange(GetTargetFilePath(pth, ".wav"));
+            targetPathLst.AddRange(GetTargetFilePath(pth, ".ogg"));
         }
 
         foreach (string pth in targetPathLst)

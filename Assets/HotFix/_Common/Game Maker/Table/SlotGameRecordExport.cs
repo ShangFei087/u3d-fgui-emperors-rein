@@ -220,7 +220,7 @@ namespace GameMaker
             NormalMainGame = 0,
             /// <summary>大奖：200～600 倍档（200/300/400/500/600 分界）+ 上下限档。</summary>
             BigWinFeature = 1,
-            /// <summary>免费：60～150 倍档（60/80/100/120/150 分界）+ 上下限档。</summary>
+            /// <summary>免费：50～150 倍档（50/80/100/120/150 分界）+ 上下限档。</summary>
             FreeGameFeature = 2,
         }
 
@@ -245,7 +245,7 @@ namespace GameMaker
                     if (mult < 600) return 4;
                     return 5;
                 case SlotGameRecordSummaryBucketScheme.FreeGameFeature:
-                    if (mult < 60) return 0;
+                    if (mult < 50) return 0;
                     if (mult < 80) return 1;
                     if (mult < 100) return 2;
                     if (mult < 120) return 3;
@@ -290,8 +290,8 @@ namespace GameMaker
 
         static readonly string[] _FreeGameBucketLabels =
         {
-            "60倍以下",
-            "60-80倍",
+            "50倍以下",
+            "50-80倍",
             "80-100倍",
             "100-120倍",
             "120-150倍",
