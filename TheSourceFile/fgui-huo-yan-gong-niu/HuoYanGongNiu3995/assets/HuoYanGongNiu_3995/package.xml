@@ -85,7 +85,7 @@
     <component id="j7ma2w" name="WheelContent.xml" path="/"/>
     <image id="j7ma2x" name="ng_ic_Count_box.png" path="/images/gameNormal/Slot/" exported="true"/>
     <image id="j7ma2z" name="ng_wheel-spin.png" path="/images/gameNormal/Slot/" exported="true"/>
-    <image id="j7ma3b" name="0.png" path="/fonts/fontImages/TipFrameNums/" exported="true"/>
+    <image id="j7ma3b" name="0.png" path="/fonts/fontImages/TipFrameNums/" exported="true" scale="9grid" scale9grid="42,40,25,48"/>
     <image id="j7ma3c" name="1.png" path="/fonts/fontImages/TipFrameNums/" exported="true"/>
     <image id="j7ma3d" name="2.png" path="/fonts/fontImages/TipFrameNums/" exported="true"/>
     <image id="j7ma3e" name="3.png" path="/fonts/fontImages/TipFrameNums/" exported="true"/>
