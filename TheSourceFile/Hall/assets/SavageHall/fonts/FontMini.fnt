@@ -1,0 +1,17 @@
+info size=12 resizable=true colored=false
+char id=48 img=puke1a xoffset=0 yoffset=0 xadvance=0
+char id=49 img=puke1b xoffset=0 yoffset=0 xadvance=0
+char id=50 img=puke1c xoffset=0 yoffset=0 xadvance=0
+char id=51 img=puke1d xoffset=0 yoffset=0 xadvance=0
+char id=52 img=puke1e xoffset=0 yoffset=0 xadvance=0
+char id=53 img=puke1f xoffset=0 yoffset=0 xadvance=0
+char id=54 img=puke1g xoffset=0 yoffset=0 xadvance=0
+char id=55 img=puke1h xoffset=0 yoffset=0 xadvance=0
+char id=56 img=puke1i xoffset=0 yoffset=0 xadvance=0
+char id=57 img=puke1j xoffset=0 yoffset=0 xadvance=0
+char id=108 img=pukeu xoffset=0 yoffset=0 xadvance=0
+char id=109 img=puke1k xoffset=0 yoffset=0 xadvance=0
+char id=114 img=puket xoffset=0 yoffset=0 xadvance=0
+char id=116 img=puker xoffset=0 yoffset=0 xadvance=0
+char id=108 img=puke2 xoffset=0 yoffset=0 xadvance=0
+char id=108 img=puke3 xoffset=0 yoffset=0 xadvance=0

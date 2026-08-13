@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="655,155">
+  <displayList>
+    <image id="n0_puke" name="n0" src="pukeq" fileName="images/plat_img_minor.png" xy="-3,35"/>
+    <list id="n1_puke" name="reels" xy="54,53" size="555,84" layout="row" overflow="hidden" autoItemSize="false" align="center" vAlign="middle">
+      <item url="ui://vkidf8mppuke1s"/>
+      <item url="ui://vkidf8mppuke1s"/>
+      <item url="ui://vkidf8mppuke1s"/>
+      <item url="ui://vkidf8mppuke1s"/>
+      <item url="ui://vkidf8mppuke1s"/>
+      <item url="ui://vkidf8mppuke1s"/>
+      <item url="ui://vkidf8mppuke1s"/>
+    </list>
+  </displayList>
+</component>
