@@ -92,7 +92,7 @@
     <group id="n69_pcvk" name="n69" xy="318,690" size="388,364" group="n46_9mnq"/>
     <group id="n46_9mnq" name="freeGame" xy="-26,690" size="1137,364"/>
     <component id="n55_ucv0" name="JpEffect" src="ucv05j" fileName="component/popupNormalGame/OpenDoor.xml" xy="540,700"/>
-    <component id="n70_rz26" name="anchorMoneyBox" src="fkjsm" fileName="component/AnchorEffect.xml" xy="318,734"/>
+    <component id="n70_rz26" name="anchorMoneyBox" src="iilzcl" fileName="component/popupNormalGame/AnchorBox.xml" xy="318,734"/>
     <component id="n19_o8uc" name="mini" src="o8uc1h" fileName="moudules/JackpotMini.xml" xy="650,141" group="n13_o8uc"/>
     <component id="n18_o8uc" name="minor" src="o8uc1g" fileName="moudules/JackpotMinor.xml" xy="39,144" group="n13_o8uc"/>
     <component id="n16_o8uc" name="major" src="o8uc1f" fileName="moudules/JackpotMajor.xml" xy="340,15" group="n13_o8uc"/>

@@ -155,7 +155,7 @@ namespace CaiFuHuoChe_3996
                 return;
             }
 
-            InJackpot_bmp = new PagSlotBinding("InJackpot_bmp", GamePagFolder);
+            if(InJackpot_bmp == null) InJackpot_bmp = new PagSlotBinding("InJackpot_bmp", GamePagFolder);
             InJackpot_bmp.EnsureSlot(anchor, "pagEffect");
         }
 
