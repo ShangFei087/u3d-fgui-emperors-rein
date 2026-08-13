@@ -148,7 +148,8 @@ namespace XingYunZhiLun_3998
             GComponent anchor = contentPane.GetChild("anchorPag")?.asCom;
             if (anchor == null) return;
 
-            if(effectPag == null) effectPag = new PagSlotBinding("effectPag", GamePagFolder);
+            //if(effectPag == null) 
+                effectPag = new PagSlotBinding("JpToNg", GamePagFolder);
             effectPag.EnsureSlot(anchor, "pagEffect");
             GLoader anchorPag = anchor.GetChild("pagEffect").asLoader;
 

@@ -162,7 +162,8 @@ namespace XingYunZhiLun_3998
             GComponent anchor = contentPane.GetChild("anchorPag")?.asCom;
             if (anchor == null) return;
 
-            if(effectPag == null) effectPag = new PagSlotBinding("effectPag", GamePagFolder);
+            //if(effectPag == null)
+                effectPag = new PagSlotBinding("NgToJp", GamePagFolder);
             effectPag.EnsureSlot(anchor, "pagEffect");
             GLoader anchorPag = anchor.GetChild("pagEffect").asLoader;
 
@@ -201,6 +202,7 @@ namespace XingYunZhiLun_3998
                     new PagPlayCallbacks(
                     onFinished: () => effectPag?.StopWithDefaults(),
                     stopAfterFinished: true));
+                Debug.LogError("开始播放Pag");
             });
 
             if(callback != null)
@@ -208,12 +210,15 @@ namespace XingYunZhiLun_3998
                 AddTimer(0.9f / Time.timeScale, (object obj) =>
                 {
                     callback.Invoke();
+
+                    Debug.LogError("彩金进入回调完成");
                 });
             }
 
             AddTimer(3.8f / Time.timeScale, (object obj) =>
             {
                 effectPag.StopWithDefaults();
+                Debug.LogError("结束播放Pag");
                 CloseSelf(null);
             });
         }
