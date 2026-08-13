@@ -140,7 +140,7 @@ namespace XingYunZhiLun_3998
 
             bigWinAnim.Play(WinOpenString[0]);
             effectPag.StopWithDefaults();
-            effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(WinEffString[playCount], WinEffString[playCount]), PagPlayLayout.Center));
+            effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(WinEffString[0], WinEffString[0]), PagPlayLayout.Center));
             //bigWinEffAnim.Play(WinEffectAnimName[0]);
 
             ShowAni();
@@ -182,7 +182,8 @@ namespace XingYunZhiLun_3998
                     //bigWinAnim.Rebind();
                     //bigWinAnim.Update(0f);
                     bigWinAnim.Play(WinOpenString[playCount]);
-                    //bigWinEffAnim.Play(WinEffectAnimName[playCount]);
+                    effectPag.StopWithDefaults();
+                    effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(WinEffString[playCount], WinEffString[playCount]), PagPlayLayout.Center));
 
                     if (playCount == WinIndex)
                     {
@@ -257,6 +258,7 @@ namespace XingYunZhiLun_3998
 
         public void exit(object obj = null)
         {
+            effectPag.StopWithDefaults();
             ClearAllTimers();
             CloseSelf(null);
         }

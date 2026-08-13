@@ -156,6 +156,9 @@ public class Main
 
         #region 参数获取成功后
 
+        // 机台语言就绪后刷新 Savage 启动页 Logo 中/英粒子
+        //PageLaunch.Instance.RefreshSavageLogoByLanguage(SBoxModel.Instance.language);
+
         TestManager.Instance.Init($"Ver {ApplicationSettings.Instance.appVersion}/{GlobalData.hotfixVersion}");
         TestUtils.CheckTestManager();
         TestUtils.CheckGCMonitorPro();

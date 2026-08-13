@@ -15,7 +15,7 @@ public static class ThemeRuntime
     static readonly string[] EntryTypeNames =
     {
         "TreasuryHall.TreasuryThemeEntry",
-        "Hall01.SavageThemeEntry",
+        "SavageHall.SavageThemeEntry",
         "TestHall.TestThemeEntry",
     };
 

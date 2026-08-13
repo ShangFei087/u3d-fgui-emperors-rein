@@ -2,7 +2,7 @@
 <component size="1080,1920">
   <displayList>
     <graph id="n0_c76t" name="mash" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#99000000"/>
-    <component id="n5_qcb9" name="effect" src="c76t8s" fileName="components/PopupBigWIn/AnchorPopResult.xml" xy="562,605"/>
+    <component id="n5_qcb9" name="effect" src="c76t8s" fileName="components/PopupBigWIn/AnchorPopResult.xml" xy="562,895"/>
     <component id="n1_c76t" name="anchorResult" src="c76t8s" fileName="components/PopupBigWIn/AnchorPopResult.xml" xy="547,960"/>
     <component id="n4_c76t" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,1850" visible="false" touchable="false"/>
     <text id="n2_c76t" name="number" xy="550,980" pivot="0.5,0.5" anchor="true" size="924,129" font="ui://5hielhj5b4x4aoq" fontSize="8" align="center" vAlign="middle" leading="0" autoSize="shrink" text="123，456，789，000，000"/>

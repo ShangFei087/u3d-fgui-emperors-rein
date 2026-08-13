@@ -135,7 +135,7 @@ namespace XingYunZhiLun_3998
             }
 
 
-            effAnimator.Play("mega");
+            effAnimator.Play("bigwin");
             ContentModel.Instance.btnSpinState = ContentModel.Instance.curBtnSpinState;
 
             totalCredit = contentPane.GetChild("number").asTextField;

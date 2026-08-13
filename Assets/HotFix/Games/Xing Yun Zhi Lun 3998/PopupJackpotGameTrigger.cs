@@ -74,6 +74,7 @@ namespace XingYunZhiLun_3998
 
         public override void OnClose(EventData data = null)
         {
+            effectPag.StopWithDefaults();
             StopAll();
             base.OnClose(data);
         }

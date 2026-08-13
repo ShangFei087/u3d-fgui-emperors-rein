@@ -60,15 +60,10 @@
     <component id="n45k3r" name="GameJackpotMinor.xml" path="/moudules/slotMachine/gameJackpot/" exported="true"/>
     <component id="n45k3t" name="BtnSpin.xml" path="/components/panel/" exported="true"/>
     <font id="hbkv4b" name="normalWheelNumFont.fnt" path="/fonts/fontsCom/normalWheelNums/" exported="true"/>
-    <component id="hbkv4c" name="symbol_70x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <component id="hbkv4d" name="symbol_80x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
     <component id="hbkv4e" name="symbol_160x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <component id="hbkv4f" name="symbol_90x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <component id="hbkv4g" name="symbol_120x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
     <component id="hbkv4h" name="symbol_180x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
     <component id="hbkv4i" name="symbol_200x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
     <component id="hbkv4j" name="symbol_220x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
-    <component id="hbkv4k" name="symbol_100x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
     <component id="hbkv4l" name="symbol_140x.xml" path="/images/PopupGameNormalGame/wheelSymbols/" exported="true"/>
     <image id="l3cn56" name="currencyNum_0.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>
     <image id="l3cn57" name="currencyNum_1.png" path="/fonts/fontsImage/currecyNumImage/" exported="true"/>

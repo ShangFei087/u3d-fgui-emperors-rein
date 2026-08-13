@@ -17,9 +17,9 @@
     <image id="n44_j7ma" name="freeFrame" src="j7ma40" fileName="images/gameFree/fg_img_free_game_frame.png" xy="6,1062" size="1072,684" group="n42_j7ma"/>
     <group id="n42_j7ma" name="slotFrame" xy="0,1062" size="1080,684" group="n21_q4s8"/>
     <image id="n36_j7ma" name="n36" src="j7ma2x" fileName="images/gameNormal/Slot/ng_ic_Count_box.png" xy="0,960" group="n38_j7ma"/>
-    <image id="n40_j7ma" name="n40" src="j7ma2z" fileName="images/gameNormal/Slot/ng_wheel-spin.png" xy="339,1018" size="226,30" group="n38_j7ma" scale="1.2,1.4"/>
-    <text id="n41_j7ma" name="spinTimes" xy="647,1004" size="54,66" group="n38_j7ma" font="ui://x2aorbwjj7ma3l" fontSize="15" align="center" vAlign="middle" autoSize="none" text="1"/>
-    <group id="n38_j7ma" name="WheelSpinTimes" xy="0,960" size="1080,116" group="n21_q4s8"/>
+    <image id="n40_j7ma" name="n40" src="j7ma2z" fileName="images/gameNormal/Slot/ng_wheel-spin.png" xy="305,1007" size="378,46" group="n38_j7ma"/>
+    <text id="n41_j7ma" name="spinTimes" xy="712,986" size="87,92" group="n38_j7ma" font="ui://x2aorbwjj7ma3l" fontSize="21" align="center" vAlign="middle" leading="0" autoSize="none" text="0"/>
+    <group id="n38_j7ma" name="WheelSpinTimes" xy="0,960" size="1080,118" group="n21_q4s8"/>
     <image id="n47_j7ma" name="n47" src="j7ma3v" fileName="images/gameFree/TipFrame2/fg_bottom.png" xy="119,1008" size="859,63" group="n46_j7ma"/>
     <image id="n45_j7ma" name="n45" src="j7ma3w" fileName="images/gameFree/TipFrame2/fg_frame.png" xy="85,994" size="923,87" group="n46_j7ma"/>
     <image id="n48_j7ma" name="n48" src="j7ma3x" fileName="images/gameFree/TipFrame2/fg_free-game.png" xy="238,1018" group="n46_j7ma" scale="1.2,1.4"/>
@@ -65,11 +65,10 @@
     <image id="n97_md44" name="n97" src="bn1g8o" fileName="images/gameFree/gameFreeRight/fg_Measuring instrument_Right_T0.png" xy="499,718" size="158,106" group="n86_bn1g"/>
     <image id="n98_md44" name="n98" src="q4s825" fileName="images/Symbols/ng_sym_Bull.png" xy="668,703" size="185,139" group="n86_bn1g"/>
     <group id="n86_bn1g" name="freeRight" xy="414,210" size="660,683" advanced="true"/>
-    <component id="n69_k1q0" name="mini" src="k1q06o" fileName="component/gameJackpotTip/Mini.xml" xy="733,969" group="n78_k1q0"/>
-    <component id="n71_k1q0" name="minor" src="k1q07e" fileName="component/gameJackpotTip/Minor.xml" xy="0,946" group="n78_k1q0"/>
-    <component id="n75_k1q0" name="grand" src="k1q07s" fileName="Grand.xml" xy="259,796" group="n78_k1q0"/>
-    <component id="n73_k1q0" name="major" src="k1q07r" fileName="component/gameJackpotTip/Major.xml" xy="321,928" group="n78_k1q0"/>
-    <group id="n78_k1q0" name="JackpotTip" xy="0,796" size="1080,287"/>
+    <component id="n69_k1q0" name="mini" src="k1q06o" fileName="component/gameJackpotTip/Mini.xml" xy="733,178" group="n78_k1q0"/>
+    <component id="n71_k1q0" name="minor" src="k1q07e" fileName="component/gameJackpotTip/Minor.xml" xy="0,151" group="n78_k1q0"/>
+    <component id="n73_k1q0" name="major" src="k1q07r" fileName="component/gameJackpotTip/Major.xml" xy="221,40" group="n78_k1q0"/>
+    <group id="n78_k1q0" name="JackpotTip" xy="0,40" size="1080,248"/>
     <component id="n104_z9k8" name="anchorChangeIconAnim" src="z9k899" fileName="component/gameFreeGame/AnchorChangeIconAnim.xml" xy="716,618" scale="2,2"/>
     <component id="n23_j7ma" name="panel" src="j7ma2u" fileName="component/AnchorPanelPush.xml" xy="540,960" pivot="0.5,0.5" anchor="true"/>
     <component id="n59_xrp2" name="test" src="xrp243" fileName="Button1.xml" xy="374,918" size="308,77"/>
@@ -77,7 +76,7 @@
     <component id="n101_md44" name="anchorCreditTarget" src="md4498" fileName="component/gameFreeGame/AnchorCreditEffect.xml" xy="540,1844" pivot="0.5,0.5" anchor="true"/>
     <component id="n102_md44" name="anchorCollectedStart" src="md4498" fileName="component/gameFreeGame/AnchorCreditEffect.xml" xy="251,1402"/>
     <component id="n103_md44" name="anchorCollectedTarget" src="md4498" fileName="component/gameFreeGame/AnchorCreditEffect.xml" xy="222,689"/>
-    <image id="n107_gk69" name="n107" pkg="x2aorbwj" src="gk699e" fileName="主界面 底部ui 2.png" xy="0,0" size="1080,1920" alpha="0.334"/>
+    <image id="n109_pw06" name="n109" src="pw069f" fileName="images/gameNormal/主界面 转盘游戏.png" xy="0,0" size="1080,1920" alpha="0.419"/>
   </displayList>
   <transition name="BS">
     <item time="0" type="Alpha" target="n36_j7ma" value="0"/>
@@ -91,7 +90,6 @@
     <item time="0" type="Alpha" target="n69_k1q0" value="1"/>
     <item time="0" type="Alpha" target="n71_k1q0" value="1"/>
     <item time="0" type="Alpha" target="n73_k1q0" value="1"/>
-    <item time="0" type="Alpha" target="n75_k1q0" value="1"/>
     <item time="0" type="Visible" target="n1_q4s8" value="true"/>
     <item time="0" type="Visible" target="n25_j7ma" value="true"/>
     <item time="0" type="Visible" target="n26_j7ma" value="true"/>
@@ -119,7 +117,6 @@
     <item time="0" type="Visible" target="n69_k1q0" value="true"/>
     <item time="0" type="Visible" target="n71_k1q0" value="true"/>
     <item time="0" type="Visible" target="n73_k1q0" value="true"/>
-    <item time="0" type="Visible" target="n75_k1q0" value="true"/>
     <item time="0" type="Visible" target="n79_bn1g" value="false"/>
     <item time="0" type="Visible" target="n80_bn1g" value="false"/>
     <item time="0" type="Visible" target="n81_bn1g" value="false"/>
@@ -170,7 +167,6 @@
     <item time="0" type="Visible" target="n69_k1q0" value="false"/>
     <item time="0" type="Visible" target="n71_k1q0" value="false"/>
     <item time="0" type="Visible" target="n73_k1q0" value="false"/>
-    <item time="0" type="Visible" target="n75_k1q0" value="false"/>
     <item time="0" type="Visible" target="n79_bn1g" value="true"/>
     <item time="0" type="Visible" target="n80_bn1g" value="true"/>
     <item time="0" type="Visible" target="n81_bn1g" value="true"/>
@@ -194,7 +190,6 @@
     <item time="0" type="Alpha" target="n69_k1q0" tween="true" startValue="1" endValue="0" duration="12" ease="Linear"/>
     <item time="0" type="Alpha" target="n71_k1q0" tween="true" startValue="1" endValue="0" duration="12" ease="Linear"/>
     <item time="0" type="Alpha" target="n73_k1q0" tween="true" startValue="1" endValue="0" duration="12" ease="Linear"/>
-    <item time="0" type="Alpha" target="n75_k1q0" tween="true" startValue="1" endValue="0" duration="12" ease="Linear"/>
     <item time="12" type="Alpha" target="n36_j7ma" tween="true" startValue="0" endValue="1" duration="12" ease="Linear"/>
     <item time="12" type="Alpha" target="n40_j7ma" tween="true" startValue="0" endValue="1" duration="12" ease="Linear"/>
     <item time="12" type="Alpha" target="n41_j7ma" tween="true" startValue="0" endValue="1" duration="12" ease="Linear"/>

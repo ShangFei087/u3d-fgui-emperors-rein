@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff66f75f9c0ad434daa9b0c4338e1541, type: 3}
   m_Name: ApplicationSettings
   m_EditorClassIdentifier: 
-  isMachine: 0
+  isMachine: 1
   isRelease: 0
-  isMock: 1
+  isMock: 0
   isExpoMode: 1
   isUseProtectApplication: 0
-  platformName: Treasury
-  gameTheme: Treasury
-  launchFguiName: TreasuryPageLaunch
-  agentName: Treasury
-  appKey: Treasury_debug_machine_20260810192219
-  appVersion: 1.2.0
+  platformName: Savage
+  gameTheme: Savage
+  launchFguiName: SavagePageLaunch
+  agentName: Savage
+  appKey: Savage_debug_machine_20260813113857
+  appVersion: 1.4.0
   resourceServer: http://47.112.14.190/StandSlot
-  machineDebugUrl: 192.168.0.23
+  machineDebugUrl: 192.168.0.169
   reportUrl: http://192.168.3.152/api/game_log/send
   posterUrl: 
   logoUrl: ui://Native/eyeryparty

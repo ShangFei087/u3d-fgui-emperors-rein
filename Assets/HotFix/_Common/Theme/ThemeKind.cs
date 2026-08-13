@@ -6,7 +6,7 @@ public enum ThemeKind
     /// <summary>财富主题（TreasuryHall，游戏 3996/3997/3998）</summary>
     Treasury = 0,
 
-    /// <summary>Savage 主题（Hall01，游戏 3997/3998/3999）</summary>
+    /// <summary>Savage </summary>
     Savage = 1,
 
     /// <summary>测试大厅（TestHall，可进全部已配置子游戏；仅调试用）</summary>

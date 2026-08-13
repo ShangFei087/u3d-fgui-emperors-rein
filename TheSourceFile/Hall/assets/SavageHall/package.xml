@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="vkidf8mp">
+  <resources>
+    <component id="8e7t0" name="SavageHallMain.xml" path="/" exported="true"/>
+    <image id="puke1" name="plat_num_0.png" path="/images/majorUINumer/" exported="true"/>
+    <image id="puke2" name="plat_num_kil.png" path="/images/miniUINumer/" exported="true"/>
+    <image id="puke3" name="plat_num_mil.png" path="/images/miniUINumer/" exported="true"/>
+    <image id="puke4" name="plat_num_0.png" path="/images/minorUINumer/" exported="true"/>
+    <image id="puke5" name="plat_num_1.png" path="/images/minorUINumer/" exported="true"/>
+    <image id="puke6" name="plat_num_2.png" path="/images/minorUINumer/" exported="true"/>
+    <image id="puke7" name="plat_num_3.png" path="/images/minorUINumer/" exported="true"/>
+    <image id="puke8" name="plat_num_4.png" path="/images/minorUINumer/" exported="true"/>
+    <image id="puke9" name="plat_num_5.png" path="/images/minorUINumer/" exported="true"/>
+    <image id="pukea" name="plat_num_6.png" path="/images/minorUINumer/" exported="true"/>
+    <image id="pukeb" name="plat_num_7.png" path="/images/minorUINumer/" exported="true"/>
+    <image id="pukec" name="plat_num_8.png" path="/images/minorUINumer/" exported="true"/>
+    <image id="puked" name="plat_num_9.png" path="/images/minorUINumer/" exported="true"/>
+    <image id="pukee" name="plat_num_bil.png" path="/images/minorUINumer/" exported="true"/>
+    <image id="pukef" name="plat_num_com.png" path="/images/minorUINumer/" exported="true"/>
+    <image id="pukeg" name="plat_num_dollar.png" path="/images/minorUINumer/" exported="true"/>
+    <image id="pukeh" name="plat_num_dot.png" path="/images/minorUINumer/" exported="true"/>
+    <image id="pukei" name="plat_num_kil.png" path="/images/minorUINumer/" exported="true"/>
+    <image id="pukej" name="plat_num_mil.png" path="/images/minorUINumer/" exported="true"/>
+    <image id="pukek" name="plat_bg_bj.png" path="/images/" exported="true"/>
+    <image id="pukel" name="plat_btn_collect.png" path="/images/" exported="true"/>
+    <image id="pukem" name="plat_btn_collect2.png" path="/images/" exported="true"/>
+    <image id="puken" name="plat_img_dfk.png" path="/images/" exported="true"/>
+    <image id="pukeo" name="plat_img_major.png" path="/images/" exported="true"/>
+    <image id="pukep" name="plat_img_mini.png" path="/images/" exported="true"/>
+    <image id="pukeq" name="plat_img_minor.png" path="/images/" exported="true"/>
+    <image id="puker" name="plat_num_dot.png" path="/images/miniUINumer/" exported="true"/>
+    <image id="pukes" name="plat_txt_savage.png" path="/images/" exported="true"/>
+    <image id="puket" name="plat_num_dollar.png" path="/images/miniUINumer/" exported="true"/>
+    <image id="pukeu" name="plat_num_bil.png" path="/images/miniUINumer/" exported="true"/>
+    <image id="pukev" name="plat_num_1.png" path="/images/majorUINumer/" exported="true"/>
+    <image id="pukew" name="plat_num_2.png" path="/images/majorUINumer/" exported="true"/>
+    <image id="pukex" name="plat_num_3.png" path="/images/majorUINumer/" exported="true"/>
+    <image id="pukey" name="plat_num_4.png" path="/images/majorUINumer/" exported="true"/>
+    <image id="pukez" name="plat_num_5.png" path="/images/majorUINumer/" exported="true"/>
+    <image id="puke10" name="plat_num_6.png" path="/images/majorUINumer/" exported="true"/>
+    <image id="puke11" name="plat_num_7.png" path="/images/majorUINumer/" exported="true"/>
+    <image id="puke12" name="plat_num_8.png" path="/images/majorUINumer/" exported="true"/>
+    <image id="puke13" name="plat_num_9.png" path="/images/majorUINumer/" exported="true"/>
+    <image id="puke14" name="plat_num_bil.png" path="/images/majorUINumer/" exported="true"/>
+    <image id="puke15" name="plat_num_com.png" path="/images/majorUINumer/" exported="true"/>
+    <image id="puke16" name="plat_num_dollar.png" path="/images/majorUINumer/" exported="true"/>
+    <image id="puke17" name="plat_num_dot.png" path="/images/majorUINumer/" exported="true"/>
+    <image id="puke18" name="plat_num_kil.png" path="/images/majorUINumer/" exported="true"/>
+    <image id="puke19" name="plat_num_mil.png" path="/images/majorUINumer/" exported="true"/>
+    <image id="puke1a" name="plat_num_0.png" path="/images/miniUINumer/" exported="true"/>
+    <image id="puke1b" name="plat_num_1.png" path="/images/miniUINumer/" exported="true"/>
+    <image id="puke1c" name="plat_num_2.png" path="/images/miniUINumer/" exported="true"/>
+    <image id="puke1d" name="plat_num_3.png" path="/images/miniUINumer/" exported="true"/>
+    <image id="puke1e" name="plat_num_4.png" path="/images/miniUINumer/" exported="true"/>
+    <image id="puke1f" name="plat_num_5.png" path="/images/miniUINumer/" exported="true"/>
+    <image id="puke1g" name="plat_num_6.png" path="/images/miniUINumer/" exported="true"/>
+    <image id="puke1h" name="plat_num_7.png" path="/images/miniUINumer/" exported="true"/>
+    <image id="puke1i" name="plat_num_8.png" path="/images/miniUINumer/" exported="true"/>
+    <image id="puke1j" name="plat_num_9.png" path="/images/miniUINumer/" exported="true"/>
+    <image id="puke1k" name="plat_num_com.png" path="/images/miniUINumer/" exported="true"/>
+    <component id="puke1n" name="GameJackpotMajor.xml" path="/moudules/Jackpot/" exported="true"/>
+    <component id="puke1o" name="GameMajorReel.xml" path="/moudules/Jackpot/" exported="true"/>
+    <font id="puke1p" name="FontMajor.fnt" path="/fonts/" exported="true"/>
+    <font id="puke1q" name="FontMini.fnt" path="/fonts/" exported="true"/>
+    <font id="puke1r" name="FontMinor.fnt" path="/fonts/" exported="true"/>
+    <component id="puke1s" name="GameMinorReel.xml" path="/moudules/Jackpot/" exported="true"/>
+    <component id="puke1t" name="GameJackpotMinor.xml" path="/moudules/Jackpot/" exported="true"/>
+    <component id="puke1u" name="GameMiniReel.xml" path="/moudules/Jackpot/" exported="true"/>
+    <component id="puke1v" name="GameJackpotMini.xml" path="/moudules/Jackpot/" exported="true"/>
+    <component id="puke1w" name="AnchorCard.xml" path="/components/" exported="true"/>
+    <component id="puke1x" name="CardBtn.xml" path="/components/" exported="true"/>
+    <component id="puke1y" name="ButtonCollect.xml" path="/components/" exported="true"/>
+    <image id="puke1z" name="大厅效果图-英文.png" path="/images/"/>
+    <component id="puke20" name="AnchorLogo.xml" path="/components/"/>
+  </resources>
+  <publish name="SavageHall" path="../../Assets/GameRes/Halls/SavageHall/FGUIs" packageCount="2"/>
+</packageDescription>

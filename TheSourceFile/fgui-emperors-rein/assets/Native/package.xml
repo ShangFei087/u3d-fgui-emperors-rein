@@ -25,6 +25,29 @@
     <image id="kyxf11" name="plat_load_mega_en.png" path="/images/TreasuryLoading/" exported="true" qualityOption="source" atlas="1"/>
     <component id="kyxf13" name="ProgressBar2.xml" path="/components/"/>
     <component id="f8vp14" name="AnchorBG.xml" path="/components/" exported="true"/>
+    <image id="jif615" name="plat_num_%.png" path="/images/SavageLoading/num/" exported="true"/>
+    <image id="jif616" name="plat_load_img_LOGO2.png" path="/images/SavageLoading/" exported="true"/>
+    <image id="jif617" name="plat_load_img_LOGO.png" path="/images/SavageLoading/" exported="true"/>
+    <image id="jif618" name="plat_load_img_jdtwk.png" path="/images/SavageLoading/" exported="true"/>
+    <image id="jif619" name="plat_load_img_jdtnk.png" path="/images/SavageLoading/" exported="true"/>
+    <image id="jif61a" name="plat_load_img_jdt.png" path="/images/SavageLoading/" exported="true" scale="9grid" scale9grid="26,14,886,28"/>
+    <image id="jif61b" name="plat_load_bg.png" path="/images/SavageLoading/" exported="true"/>
+    <image id="jif61c" name="plat_num_9.png" path="/images/SavageLoading/num/" exported="true"/>
+    <image id="jif61d" name="plat_load_txt_loading.png" path="/images/SavageLoading/" exported="true"/>
+    <image id="jif61e" name="plat_num_8.png" path="/images/SavageLoading/num/" exported="true"/>
+    <image id="jif61f" name="plat_num_6.png" path="/images/SavageLoading/num/" exported="true"/>
+    <image id="jif61g" name="plat_num_5.png" path="/images/SavageLoading/num/" exported="true"/>
+    <image id="jif61h" name="plat_num_4.png" path="/images/SavageLoading/num/" exported="true"/>
+    <image id="jif61i" name="plat_num_3.png" path="/images/SavageLoading/num/" exported="true"/>
+    <image id="jif61j" name="plat_num_2.png" path="/images/SavageLoading/num/" exported="true"/>
+    <image id="jif61k" name="plat_num_1.png" path="/images/SavageLoading/num/" exported="true"/>
+    <image id="jif61l" name="plat_num_0.png" path="/images/SavageLoading/num/" exported="true"/>
+    <image id="jif61m" name="plat_num_7.png" path="/images/SavageLoading/num/" exported="true"/>
+    <image id="jif61n" name="plat_load_txt_loading2.png" path="/images/SavageLoading/" exported="true"/>
+    <component id="jif61o" name="SavagePageLaunch.xml" path="/" exported="true"/>
+    <image id="jif61p" name="plat_img_en.png" path="/images/"/>
+    <component id="jif61q" name="ProgressBar3.xml" path="/components/"/>
+    <font id="jif61r" name="FontSavageProgress.fnt" path="/Fonts/" exported="true"/>
   </resources>
   <publish name="" path="F:\StandAloneSlotFrame\u3d-fgui-emperors-rein\Assets\Resources\Native\FGUIs" packageCount="2"/>
 </packageDescription>

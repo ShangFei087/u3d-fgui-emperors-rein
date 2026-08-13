@@ -68,7 +68,7 @@ namespace XingYunZhiLun_3998
         private FguiGObjectPoolHelper gObjectPoolHelper;
 
         //转盘转速控制
-        private float rotateSpeed = 15;
+        private float rotateSpeed = 8;
         private bool isMain = true, isJackpot = false, JackpotFinish = false;
         private string JackpotType = "";
         private int winCredit = 0;
@@ -1950,7 +1950,7 @@ namespace XingYunZhiLun_3998
             else
             {
                 int i = 0;
-                int totalTimes = 2;             //总中奖线轮播次数
+                int totalTimes = 0;             //总中奖线轮播次数
                 while (winList.Count > 1 && i < totalTimes)
                 {
                     // 立马停止时，不播放赢分环节？
@@ -3550,6 +3550,8 @@ namespace XingYunZhiLun_3998
         //bigwin弹窗
         IEnumerator BigWinPopup(WinLevelType winLevelType, long winCredit, Action callback = null)
         {
+            slotMachineCtrl.CloseSlotCover();
+            slotMachineCtrl.SkipWinLine(true);
             bool isNext = false;
             PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupBigWin,
                 new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
