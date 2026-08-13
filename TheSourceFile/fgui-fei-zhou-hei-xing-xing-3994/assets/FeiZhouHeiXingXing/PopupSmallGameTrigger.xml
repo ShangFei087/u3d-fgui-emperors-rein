@@ -3,5 +3,6 @@
   <displayList>
     <component id="n2_s1hw" name="anchorTrigger" src="s1hwbi" fileName="moudules/popupSmallGameTrigger/anchorTrigger.xml" xy="540,960"/>
     <component id="n1_s1hw" name="startBtn" src="s1hwbe" fileName="components/popupSmallGameTrigger/startBtn.xml" xy="309,1407"/>
+    <component id="n3_tqzw" name="anchorFadePag" src="tqzw1ca" fileName="moudules/popupSmallGameTrigger/anchorFadePag.xml" xy="540,960"/>
   </displayList>
 </component>

@@ -2,8 +2,10 @@
 using FairyGUI;
 using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 
 public class LoadingProgress
@@ -71,6 +73,8 @@ public class LoadingProgress
 public class PageLaunch 
 {
     private static PageLaunch _instance;
+
+
     public static PageLaunch Instance
     {
         get
@@ -83,13 +87,8 @@ public class PageLaunch
                 // AOT 层只读 ApplicationSettings，不依赖热更 Theme 程序集
                 _instance.goOwnerPage = UIPackage.CreateObject("Native", ResolveLaunchFguiName()).asCom;
 
-             //   ResourceManager02.Instance.LoadAsset<GameObject>("Resources/Native/Prefabs/plat_load_bg",
-             //(GameObject clone) =>
-             //{
-             //    goLoadBG = clone;
-             //    callback();
-             //});
                 GRoot.inst.AddChild(_instance.goOwnerPage);
+              
                 _instance.goOwnerPage.sortingOrder = 99;
             }
             return _instance;
@@ -116,7 +115,7 @@ public class PageLaunch
             theme = theme.Trim();
             if (string.Equals(theme, "Savage", StringComparison.OrdinalIgnoreCase))
             {
-                return "PageLaunch";
+                return "SavagePageLaunch";
             }
 
             // Test 主题无独立启动页，复用 Treasury
@@ -136,16 +135,24 @@ public class PageLaunch
     GTextField txtMsg;
 
     GButton btnQuit;
+    //财富主题动效
+    GameObject goTLoadBG;
+    GComponent anchorTLoadBG;
+    GameObject cloneGoTLoadBG;
+    const string PlatLoadTBgResPath = "Native/Prefabs/Treasury/plat_load_bg";
 
-    //private GameObject goLoadBG;
-    //private GComponent anchorLoadBG;
-    //private GameObject ClonegoLoadBG;
-
+    //动物主题动效
+    GTextField titleProgress;
+    GameObject goSavageLogoTitle, goSavageLogoBG, goSavageProgressBar;
+    GComponent anchorSavageLogoTitle, anchorSavageLogoBG, anchorSavageProgressBar;
+    GameObject cloneGoSavageLogoTitle, cloneGoSavageLogoBG, cloneGoSavageProgressBar;
+    const string PlatLoadSavageLogoTitle = "Native/Prefabs/Savage/SavageLoadingLogoTitle";
+    const string PlatLoadSavageLogoBG = "Native/Prefabs/Savage/SavageLoadingLogoBG";
+    const string PlatLoadSavageProgressBar = "Native/Prefabs/Savage/SavageLoadingProgressbar";
+    private ParticleSystem PSSavageLogoTitleCn, PSSavageLogoTitleEn;
 
     Dictionary<string, int> allProgress = new Dictionary<string, int>();
-
     Dictionary<string, int> curProgress = new Dictionary<string, int>();
-
 
     public class ShowMsgInfo
     {
@@ -157,15 +164,6 @@ public class PageLaunch
 
     private void InitParam()
     {
-        //GComponent LocalAnchorBG = this.goOwnerPage.GetChild("card3996").asCom;
-        //if (anchorLoadBG != LocalAnchorBG)
-        //{
-        //    GameCommon.FguiUtils.DeleteWrapper(anchorLoadBG);
-        //    ClonegoLoadBG = GameObject.Instantiate(goLoadBG);
-        //    anchorLoadBG = LocalAnchorBG;
-        //    GameCommon.FguiUtils.AddWrapper(anchorLoadBG, ClonegoLoadBG);
-        //}
-
         btnQuit = goOwnerPage.GetChild("btnQuit").asButton;
         btnQuit.onClick.Clear();
         btnQuit.onClick.Add(DoAplicationQuit);
@@ -175,6 +173,7 @@ public class PageLaunch
         pbLoading = goOwnerPage.GetChild("progress").asProgress;
         txtMsg = goOwnerPage.GetChild("title").asTextField;
         lodLogo = goOwnerPage.GetChild("logo").asLoader;
+        titleProgress = goOwnerPage.GetChild("titleProgress")?.asTextField;
         //lodLogo.url = ApplicationSettings.Instance.logoUrl;
 
         msgLst.Clear();
@@ -183,6 +182,7 @@ public class PageLaunch
         curProgress.Clear();
         pbLoading.value = 0;
         txtMsg.text = "";
+        SyncTitleProgress(0f);
 
         Type t = typeof(LoadingProgress);
         var fields = t.GetFields();
@@ -192,11 +192,270 @@ public class PageLaunch
             curProgress.Add((string)fieldInfo.GetRawConstantValue(), 0);
         }
 
+        // 按主题加载/挂载启动页动效
+        string theme = ApplicationSettings.Instance?.gameTheme;
+        if (!string.IsNullOrWhiteSpace(theme)
+            && string.Equals(theme.Trim(), "Savage", StringComparison.OrdinalIgnoreCase))
+            LoadAndBindSavage();
+        else
+            LoadAndBindTreasury();
 
         Timers.inst.Remove(Update);
         Timers.inst.Add(0.1f, 0, Update);
     }
 
+    /// <summary>有锚点才加载 Resources Spine；无锚点直接跳过。</summary>
+    void LoadAndBindTreasury()
+    {
+        if (goOwnerPage.GetChild("anchorBG") == null)
+            return;
+
+        if (goTLoadBG != null)
+            BindTreasury();
+        else
+            LoadPlatTreasury(BindTreasury);
+    }
+
+    /// <summary>有 Savage 锚点才加载 Resources 预制体。</summary>
+    void LoadAndBindSavage()
+    {
+        if (goOwnerPage.GetChild("anchorLogoBG") == null
+            && goOwnerPage.GetChild("anchorLogoTitile") == null
+            && goOwnerPage.GetChild("anchorProgressBar") == null)
+            return;
+
+        bool allLoaded = goSavageLogoTitle != null
+            && goSavageLogoBG != null
+            && goSavageProgressBar != null;
+        if (allLoaded)
+            BindSavage();
+        else
+            LoadPlatSavage(BindSavage);
+    }
+
+    /// <summary>从 Resources 异步加载启动页预制体。</summary>
+    void LoadPlatTreasury(Action onDone)
+    {
+        var req = Resources.LoadAsync<GameObject>(PlatLoadTBgResPath);
+        req.completed += _ =>
+        {
+            goTLoadBG = req.asset as GameObject;
+            if (goTLoadBG == null)
+            {
+                Debug.LogError($"[PageLaunch] Resources 加载失败: {PlatLoadTBgResPath}");
+                return;
+            }
+            onDone?.Invoke();
+        };
+    }
+
+    /// <summary>从 Resources 异步加载 Savage 启动页预制体。</summary>
+    void LoadPlatSavage(Action onDone)
+    {
+        int remain = 3;
+        void OnOneDone()
+        {
+            if (--remain > 0)
+                return;
+            if (goSavageLogoTitle == null || goSavageLogoBG == null || goSavageProgressBar == null)
+                return;
+            onDone?.Invoke();
+        }
+
+        void LoadOne(string path, Action<GameObject> assign)
+        {
+            var req = Resources.LoadAsync<GameObject>(path);
+            req.completed += _ =>
+            {
+                var go = req.asset as GameObject;
+                if (go == null)
+                {
+                    Debug.LogError($"[PageLaunch] Resources 加载失败: {path}");
+                    OnOneDone();
+                    return;
+                }
+                assign(go);
+                OnOneDone();
+            };
+        }
+
+        LoadOne(PlatLoadSavageLogoTitle, go => goSavageLogoTitle = go);
+        LoadOne(PlatLoadSavageLogoBG, go => goSavageLogoBG = go);
+        LoadOne(PlatLoadSavageProgressBar, go => goSavageProgressBar = go);
+    }
+
+    /// <summary>财富主题挂到 FGUI 锚点（AOT 内联，不依赖 HotFix FguiUtils）。</summary>
+    void BindTreasury()
+    {
+        var localAnchor = goOwnerPage.GetChild("anchorBG")?.asCom;
+        if (localAnchor == null || goTLoadBG == null)
+            return;
+
+        if (anchorTLoadBG == localAnchor && cloneGoTLoadBG != null)
+            return;
+
+        DisposeTreasuryWrappers();
+
+        var holder = localAnchor.GetChild("holder")?.asGraph;
+        var example = localAnchor.GetChild("example")?.asLoader;
+        if (holder == null)
+        {
+            Debug.LogError("[PageLaunch] anchorBG 缺少 holder");
+            return;
+        }
+
+        cloneGoTLoadBG = UnityEngine.Object.Instantiate(goTLoadBG);
+        cloneGoTLoadBG.transform.localPosition = Vector3.zero;
+        cloneGoTLoadBG.transform.localScale = Vector3.one;
+
+        holder.SetNativeObject(new GoWrapper(cloneGoTLoadBG));
+        holder.SetPivot(0.5f, 0.5f, true);
+        if (example != null)
+        {
+            holder.size = example.size;
+            holder.scale = example.scale;
+        }
+        holder.xy = Vector2.zero;
+        holder.visible = true;
+        anchorTLoadBG = localAnchor;
+    }
+
+    /// <summary>动物主题挂到 FGUI 锚点（AOT 内联，不依赖 HotFix FguiUtils）。</summary>
+    void BindSavage()
+    {
+        // FGUI 节点名为 anchorLogoTitile（拼写如此）
+        var aTitle = goOwnerPage.GetChild("anchorLogoTitile")?.asCom;
+        var aBG = goOwnerPage.GetChild("anchorLogoBG")?.asCom;
+        var aBar = goOwnerPage.GetChild("anchorProgressBar")?.asCom;
+
+        if (aTitle == null || aBG == null || aBar == null)
+            return;
+        if (goSavageLogoTitle == null || goSavageLogoBG == null || goSavageProgressBar == null)
+            return;
+        // 同一套锚点且已绑定则跳过
+        if (anchorSavageLogoTitle == aTitle && cloneGoSavageLogoTitle != null
+            && anchorSavageLogoBG == aBG && cloneGoSavageLogoBG != null
+            && anchorSavageProgressBar == aBar && cloneGoSavageProgressBar != null)
+            return;
+        DisposeSavageWrappers();
+        cloneGoSavageLogoTitle = BindOne(aTitle, goSavageLogoTitle, "anchorLogoTitile");
+        cloneGoSavageLogoBG = BindOne(aBG, goSavageLogoBG, "anchorLogoBG");
+        cloneGoSavageProgressBar = BindOne(aBar, goSavageProgressBar, "anchorProgressBar");
+        if (cloneGoSavageLogoTitle == null || cloneGoSavageLogoBG == null || cloneGoSavageProgressBar == null)
+            return;
+
+        anchorSavageLogoTitle = aTitle;
+        anchorSavageLogoBG = aBG;
+        anchorSavageProgressBar = aBar;
+
+        PSSavageLogoTitleCn = cloneGoSavageLogoTitle.transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>();
+        PSSavageLogoTitleEn = cloneGoSavageLogoTitle.transform.GetChild(0).GetChild(1).GetComponent<ParticleSystem>();
+        RefreshSavageLogoByLanguage("en");
+        float progress01 = pbLoading != null ? (float)pbLoading.value : 0f;
+        SyncSavageProgressBarTip(progress01);
+        SyncTitleProgress(progress01);
+    }
+
+    /// <summary>
+    /// 按语言切换 Savage Logo 中/英粒子。AOT 无法引用 SBoxModel，由外部传入；空则默认 cn。
+    /// </summary>
+    public void RefreshSavageLogoByLanguage(string lang = null)
+    {
+        if (string.IsNullOrEmpty(lang))
+            lang = "cn";
+
+        bool isEn = string.Equals(lang, "en", StringComparison.OrdinalIgnoreCase);
+        if (PSSavageLogoTitleCn != null)
+            PSSavageLogoTitleCn.gameObject.SetActive(!isEn);
+        if (PSSavageLogoTitleEn != null)
+            PSSavageLogoTitleEn.gameObject.SetActive(isEn);
+    }
+
+    /// <summary>进度 tip 锚点 x 跟随进度条填充末端。</summary>
+    void SyncSavageProgressBarTip(float progress01)
+    {
+        if (anchorSavageProgressBar == null || pbLoading == null)
+            return;
+
+        float p = Mathf.Clamp01(progress01);
+        anchorSavageProgressBar.x = pbLoading.x + pbLoading.width * p;
+    }
+
+    /// <summary>titleProgress 显示整数百分比。</summary>
+    void SyncTitleProgress(float progress01)
+    {
+        if (titleProgress == null)
+            return;
+
+        int percent = Mathf.RoundToInt(Mathf.Clamp01(progress01) * 100f);
+        titleProgress.text = $"{percent}%";
+    }
+
+    GameObject BindOne(GComponent localAnchor, GameObject prefab, string anchorName)
+    {
+        var holder = localAnchor.GetChild("holder")?.asGraph;
+        var example = localAnchor.GetChild("example")?.asLoader;
+        if (holder == null)
+        {
+            Debug.LogError($"[PageLaunch] {anchorName} 缺少 holder");
+            return null;
+        }
+        var clone = UnityEngine.Object.Instantiate(prefab);
+        clone.transform.localPosition = Vector3.zero;
+        clone.transform.localScale = Vector3.one;
+        holder.SetNativeObject(new GoWrapper(clone));
+        holder.SetPivot(0.5f, 0.5f, true);
+        if (example != null)
+        {
+            holder.size = example.size;
+            holder.scale = example.scale;
+        }
+        holder.xy = Vector2.zero;
+        holder.visible = true;
+        return clone;
+    }
+
+    /// <summary>释放 GoWrapper 与 clone，避免隐藏后仍占用渲染。</summary>
+    void DisposeWrapper()
+    {
+        DisposeTreasuryWrappers();
+        DisposeSavageWrappers();
+    }
+
+    void DisposeTreasuryWrappers()
+    {
+        if (anchorTLoadBG != null)
+        {
+            var holder = anchorTLoadBG.GetChild("holder")?.asGraph;
+            // GoWrapper.Dispose 会 Destroy wrapTarget（即 cloneGoLoadBG）
+            if (holder?.displayObject is GoWrapper wrapper)
+                wrapper.Dispose();
+        }
+
+        cloneGoTLoadBG = null;
+        anchorTLoadBG = null;
+    }
+
+    void DisposeSavageWrappers()
+    {
+        DisposeOneWrapper(ref anchorSavageLogoTitle, ref cloneGoSavageLogoTitle);
+        DisposeOneWrapper(ref anchorSavageLogoBG, ref cloneGoSavageLogoBG);
+        DisposeOneWrapper(ref anchorSavageProgressBar, ref cloneGoSavageProgressBar);
+        PSSavageLogoTitleCn = null;
+        PSSavageLogoTitleEn = null;
+    }
+
+    void DisposeOneWrapper(ref GComponent anchor, ref GameObject clone)
+    {
+        if (anchor != null)
+        {
+            var holder = anchor.GetChild("holder")?.asGraph;
+            if (holder?.displayObject is GoWrapper wrapper)
+                wrapper.Dispose();
+        }
+        clone = null;
+        anchor = null;
+    }
 
     void DoAplicationQuit()
     {
@@ -262,8 +521,6 @@ public class PageLaunch
             curProgress.Remove(mark);
     }
 
-
-
     /// <summary>
     /// <p>显示加载进度和信息</p>
     /// </summary>
@@ -295,7 +552,6 @@ public class PageLaunch
 #endif
     }
 
-
     bool isError = false;
     public void Error(string str)
     {
@@ -316,7 +572,6 @@ public class PageLaunch
 
     }
 
-
     string CreatStr(string str, float pg)
     {
         string _pg = (pg * 100f).ToString("N1");
@@ -329,7 +584,6 @@ public class PageLaunch
         InitParam();
     }
 
-
     Coroutine corClose = null;
     public void Close(float delayS = -1)
     {
@@ -341,7 +595,6 @@ public class PageLaunch
         CloseSelf(null);
     }
 
-  
     void DelayToClose(float delayS)
     {
         Timers.inst.Remove(CloseSelf);
@@ -351,6 +604,7 @@ public class PageLaunch
     void CloseSelf(object data)
     {
         Timers.inst.Remove(Update);
+        DisposeWrapper();
         goOwnerPage.visible = false;
     }
 
@@ -388,6 +642,8 @@ public class PageLaunch
 
             pbLoading.value = curShowProgress;
             txtMsg.text = curShowMsg;
+            SyncSavageProgressBarTip(curShowProgress);
+            SyncTitleProgress(curShowProgress);
         }
     }
 
@@ -404,5 +660,7 @@ public class PageLaunch
 
         pbLoading.value = curShowProgress;
         txtMsg.text = curShowMsg;
+        SyncSavageProgressBarTip(curShowProgress);
+        SyncTitleProgress(curShowProgress);
     }
 }

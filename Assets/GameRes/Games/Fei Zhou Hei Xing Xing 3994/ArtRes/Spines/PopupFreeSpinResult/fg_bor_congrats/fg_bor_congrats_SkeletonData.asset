@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: fg_bor_congrats_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: 12eb0feace1a113479c82c2a1b3fab8e, type: 2}
+  - {fileID: 11400000, guid: 815924d7270443845acf42c111ff9efa, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: a24055698f9855444904348bef1e9a12, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: 55acc91c9b79f8342a302d84a7e46aef, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 9100000, guid: 63fc8b0a0352c25459121baafc980e17, type: 2}
+  controller: {fileID: 9100000, guid: 0f5da33625813664f97f7362b2db3231, type: 2}

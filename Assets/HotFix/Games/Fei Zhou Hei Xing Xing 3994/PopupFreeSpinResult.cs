@@ -58,6 +58,7 @@ namespace FeiZhouHeiXingXing_3994
                     _fadeObj = clone;
                     ResLoadCallback();
                 });
+
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
                 shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
@@ -191,6 +192,9 @@ namespace FeiZhouHeiXingXing_3994
             RemoveDesignCallBack(_delayCloseCallback);
             RemoveDesignCallBack(_delayChangePageCallback);
             RemoveDesignCallBack(_delayPlayFadeCallback);
+            _delayCloseCallback = null;
+            _delayChangePageCallback = null;
+            _delayPlayFadeCallback = null;
 
             // 播放关闭动画并显示切换pag
             _scoreText.text = string.Empty;
@@ -198,9 +202,9 @@ namespace FeiZhouHeiXingXing_3994
             PlayAnimationByName(_triggerAnimator, "end");
 
             // 延时播放
-            DelayPlayCallBack(_delayPlayFadeCallback, () => _cloneFadeObj.SetActive(true), 1.067f);
-            DelayPlayCallBack(_delayChangePageCallback, () => _changePage?.Invoke(), 1.767f);
-            DelayPlayCallBack(_delayCloseCallback, () =>
+            _delayPlayFadeCallback = CreateDelayCallback(() => _cloneFadeObj.SetActive(true), 1.067f);
+            _delayChangePageCallback = CreateDelayCallback(() => _changePage?.Invoke(), 1.767f);
+            _delayCloseCallback = CreateDelayCallback(() =>
             {
                 if (isOpen) CloseSelf(null);
                 _collectBtn.visible = true;
@@ -221,18 +225,19 @@ namespace FeiZhouHeiXingXing_3994
         {
             if (designCallback == null) return;
             Timers.inst.Remove(designCallback);
-            designCallback = null;
         }
 
-        /// <summary> 播放延时函数 </summary>
-        private void DelayPlayCallBack(TimerCallback designCallback, Action callBack, float delayTime)
+        /// <summary> 创建延迟回调并注册到 Timers，返回 TimerCallback 供调用方存储以便后续 Remove </summary>
+        private TimerCallback CreateDelayCallback(Action callBack, float delayTime)
         {
-            designCallback = (obj) =>
+            TimerCallback callback = null;
+            callback = obj =>
             {
                 callBack?.Invoke();
-                designCallback = null;
+                callback = null;
             };
-            Timers.inst.Add(delayTime, 1, designCallback);
+            Timers.inst.Add(delayTime, 1, callback);
+            return callback;
         }
     }
 }

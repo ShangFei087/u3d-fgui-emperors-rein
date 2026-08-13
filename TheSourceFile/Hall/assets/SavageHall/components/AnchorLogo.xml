@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <graph id="n1_puke" name="holder" xy="1,1" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" type="rect"/>
+    <loader id="n0_puke" name="example" xy="1,1" pivot="0.5,0.5" anchor="true" size="50,50"/>
+  </displayList>
+</component>

@@ -74,19 +74,19 @@ public sealed class ThemeProfile
         },
         PageName.TreasuryHallMain);
 
-    /// <summary>Savage 主题：大厅 Hall01，游戏按 Hall01 卡牌 3997/3998/3999。</summary>
+    /// <summary>Savage 主题。</summary>
     public static ThemeProfile Savage { get; } = new ThemeProfile(
         ThemeKind.Savage,
-        PageName.Hall01,
-        "PageLaunch",
-        new[] { 3997, 3998, 3999 },
+        PageName.SavageHallMain,
+        "SavagePageLaunch",
+        new[] { 3995, 3994, 3993 },
         new Dictionary<int, PageName>
         {
-            [3997] = PageName.CaiFuZhiJiaPopupGameLoading,
-            [3998] = PageName.XingYunZhiLunPopupGameLoading,
-            [3999] = PageName.CaiFuZhiMenPopupGameLoading,
+            [3995] = PageName.HuoYanGongNiuPopupGameLoading,
+            [3994] = PageName.FeiZhouHeiXingXingPopupGameLoading,
+            [3993] = PageName.MeiZhouHeiBaoPopupGameLoading,
         },
-        PageName.Hall01);
+        PageName.SavageHallMain);
 
     /// <summary>测试大厅：可进全部已配置子游戏（调试用）。</summary>
     public static ThemeProfile Test { get; } = new ThemeProfile(

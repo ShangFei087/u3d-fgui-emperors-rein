@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: fg_bor_congrats_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: 99bdb069d1d3262499ce2dd0f56599c2, type: 3}
+  atlasFile: {fileID: 4900000, guid: ddc7c28703fce0a40845d5cdddcf7ef9, type: 3}
   materials:
-  - {fileID: 2100000, guid: fe5f7ad6f0c20e046a154814cf28a160, type: 2}
-  - {fileID: 2100000, guid: 9b864de1622c82a4c8cb53dd1f32898c, type: 2}
-  - {fileID: 2100000, guid: 9f28677a52c3e2c459c34a7490bf7d35, type: 2}
+  - {fileID: 2100000, guid: ee511d7d06d965a49896903d8a429082, type: 2}
+  - {fileID: 2100000, guid: 24ac0543ce5083646a08f552e87e6216, type: 2}
+  - {fileID: 2100000, guid: a45b9603382ebec47ba93f8b3759c277, type: 2}

@@ -103,10 +103,10 @@ namespace FeiZhouHeiXingXing_3994
                 {
                     "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
                     "__slot_spin__bigWin.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
-                    "__slot_spin__supperWin.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
-                    "__slot_spin__megaWin.json",
+                    // "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
+                    // "__slot_spin__supperWin.json",
+                    // "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
+                    // "__slot_spin__megaWin.json",
                 },
             };
 

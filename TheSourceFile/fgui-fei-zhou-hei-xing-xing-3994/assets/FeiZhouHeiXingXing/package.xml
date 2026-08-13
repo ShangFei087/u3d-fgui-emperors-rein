@@ -98,18 +98,6 @@
     <image id="c8tt5n" name="load_bg_05.png" path="/images/popupGameLoading/" exported="true"/>
     <image id="c8tt5o" name="load_bg_06.png" path="/images/popupGameLoading/" exported="true"/>
     <image id="c8tt5p" name="load_bg_01.png" path="/images/popupGameLoading/" exported="true"/>
-    <image id="c8tt5t" name="load_bg_%.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
-    <image id="c8tt5u" name="load_bg_..png" path="/images/common/gameFont/loadingFont/" exported="true"/>
-    <image id="c8tt5v" name="load_bg_0.png" path="/images/common/gameFont/loadingFont/" exported="true" scale9grid="0,0,-48,-23"/>
-    <image id="c8tt5w" name="load_bg_1.png" path="/images/common/gameFont/loadingFont/" exported="true" scale9grid="0,0,-64,-26"/>
-    <image id="c8tt5x" name="load_bg_2.png" path="/images/common/gameFont/loadingFont/" exported="true" scale9grid="0,0,-57,-26"/>
-    <image id="c8tt5y" name="load_bg_3.png" path="/images/common/gameFont/loadingFont/" exported="true" scale9grid="0,0,-56,-26"/>
-    <image id="c8tt5z" name="load_bg_4.png" path="/images/common/gameFont/loadingFont/" exported="true" scale9grid="0,0,-43,-26"/>
-    <image id="c8tt60" name="load_bg_5.png" path="/images/common/gameFont/loadingFont/" exported="true" scale9grid="0,0,-54,-26"/>
-    <image id="c8tt61" name="load_bg_6.png" path="/images/common/gameFont/loadingFont/" exported="true" scale9grid="0,0,-51,-25"/>
-    <image id="c8tt62" name="load_bg_7.png" path="/images/common/gameFont/loadingFont/" exported="true" scale9grid="0,0,-58,-26"/>
-    <image id="c8tt63" name="load_bg_8.png" path="/images/common/gameFont/loadingFont/" exported="true" scale9grid="0,0,-50,-23"/>
-    <image id="c8tt64" name="load_bg_9.png" path="/images/common/gameFont/loadingFont/" exported="true" scale9grid="0,0,-51,-25"/>
     <font id="c8tt65" name="loadingFont.fnt" path="/fonts/" exported="true"/>
     <image id="c8tt66" name="load_bg1.png" path="/images/common/rendering/"/>
     <image id="c8tt67" name="load_bg2.png" path="/images/common/rendering/"/>
@@ -307,6 +295,20 @@
     <component id="cnsic6" name="anchorFade.xml" path="/moudules/popupFreeSpinResult/" exported="true"/>
     <component id="cnsic7" name="ng_sym12_scatter_com.xml" path="/images/common/gameSymbol/" exported="true"/>
     <image id="cnsic8" name="ng_sym07_parrot.png" path="/images/common/gameSymbol/" exported="true"/>
+    <component id="112t1c9" name="anchorBigWin.xml" path="/moudules/popupBigWin/" exported="true"/>
+    <component id="tqzw1ca" name="anchorFadePag.xml" path="/moudules/popupSmallGameTrigger/" exported="true"/>
+    <image id="skdk1cb" name="load_bg_%.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
+    <image id="skdk1cc" name="load_bg_..png" path="/images/common/gameFont/loadingFont/" exported="true"/>
+    <image id="skdk1cd" name="load_bg_0.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
+    <image id="skdk1ce" name="load_bg_1.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
+    <image id="skdk1cf" name="load_bg_2.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
+    <image id="skdk1cg" name="load_bg_3.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
+    <image id="skdk1ch" name="load_bg_4.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
+    <image id="skdk1ci" name="load_bg_5.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
+    <image id="skdk1cj" name="load_bg_6.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
+    <image id="skdk1ck" name="load_bg_7.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
+    <image id="skdk1cl" name="load_bg_8.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
+    <image id="skdk1cm" name="load_bg_9.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Fei Zhou Hei Xing Xing 3994\FGUIs" packageCount="2"/>
 </packageDescription>
