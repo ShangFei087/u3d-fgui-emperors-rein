@@ -848,6 +848,9 @@ namespace CaiFuHuoChe_3996
             }
         }
 
+        //记录当前已经获得的分数
+        long tempCredit = 0;
+
         private IEnumerator GameOnce(Action successCallback, Action<string> errorCallback)
         {
             if (!SBoxModel.Instance.isMachineActive)
@@ -1044,6 +1047,7 @@ namespace CaiFuHuoChe_3996
             //线赢的数据
             List<SymbolWin> winList = ContentModel.Instance.winList;
             long allWinCredit = 0;
+            tempCredit = 0;
 
             #region Win
             //普通赢
@@ -1089,8 +1093,10 @@ namespace CaiFuHuoChe_3996
 
                 //积分同步和退币处理
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+                tempCredit = allWinCredit;
+
                 //加钱动画
-                MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
+                //MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
             }
             #endregion
 
@@ -1105,8 +1111,8 @@ namespace CaiFuHuoChe_3996
                 if (winList.Count > 0)
                 {
                     // 本剧同步玩家金钱
-                    MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
-                    yield return new WaitForSeconds(1);
+                    //MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+                    //yield return new WaitForSeconds(1);
                 }
 
                 //显示中奖动画
@@ -2841,6 +2847,8 @@ namespace CaiFuHuoChe_3996
                 new EventData(Game3996AudioEvent.BgmRegularGame));
             train.SetActive(true);
             JsToBsTrans.Play();
+
+            PlayAnim(trainAnim, "idle");
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.BonusGameFadeTransition));
 

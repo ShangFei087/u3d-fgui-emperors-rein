@@ -646,6 +646,8 @@ namespace XingYunZhiLun_3998
 
 
         List<int> winNumber = new List<int>();
+        long tempWinCredit = 0;
+
         IEnumerator GameOnce(Action successCallback, Action<string> errorCallback)
         {
             /*检查机器是否激活
@@ -894,6 +896,9 @@ namespace XingYunZhiLun_3998
                     yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
                     yield return new WaitForSeconds(0.7f);
                 }
+
+                //临时存储免费游戏下得到的分数
+                tempWinCredit = allWinCredit;
 
 
                 ////检查bigwin类型（无大奖时留给大奖段用总分判断，避免提前弹）
@@ -1232,7 +1237,7 @@ namespace XingYunZhiLun_3998
                 {
                     yield return new WaitForSeconds(0.7f);
 
-                    slotMachineCtrl.SendTotalWinCreditEvent(0);
+                    //slotMachineCtrl.SendTotalWinCreditEvent(0);
                 }
 
                 slotMachineCtrl.SkipWinLine(true);
@@ -2673,7 +2678,7 @@ namespace XingYunZhiLun_3998
                                     isNext = true;
 
                                     //积分同步和退币处理
-                                    slotMachineCtrl.SendTotalWinCreditEvent((long)winCredit);
+                                    slotMachineCtrl.SendTotalWinCreditEvent((long)winCredit + tempWinCredit);
                                 });
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
@@ -3173,7 +3178,7 @@ namespace XingYunZhiLun_3998
                 symbolName,
                 (GameObject clone) =>
                 {
-                    goEffect = GameObject.Instantiate(clone);
+                    if(goEffect == null) goEffect = GameObject.Instantiate(clone);
                     //listSymbolAnimator = goEffect.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
                     JackpotListEffect = goEffect.transform.GetChild(0).GetChild(0).GetChild(0);
                     GameCommon.FguiUtils.AddWrapper(gEffect, goEffect);

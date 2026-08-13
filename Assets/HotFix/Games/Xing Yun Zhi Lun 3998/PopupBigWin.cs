@@ -38,7 +38,9 @@ namespace XingYunZhiLun_3998
         private readonly string[] WinOpenString = { "bigwin_start", "superwin_start", "mega_start" };
         private readonly string[] WinCloseString = { "bigwin_end", "superwin_end", "mega_end" };
         //private readonly string[] WinEffectAnimName = { "bigwin", "superwin", "mega" };
-        private readonly string[] WinEffString = { "bigwin_idle.pag", "megewin_idle.pag", "superwin_idle.pag" };
+        //private readonly string[] WinEffString = { "bigwin_idle.pag", "megewin_idle.pag", "superwin_idle.pag" };
+        //private readonly string[] WinEffString = { "bigwin_idle.pag", "megewin_idle.pag", "superwin_idle.pag" };
+        private readonly string[] WinEffString = { "megaWin_Test_idle.pag", "megaWin_Test_idle.pag", "megaWin_Test_idle.pag" };
 
 
         //Pag播放
@@ -140,7 +142,7 @@ namespace XingYunZhiLun_3998
 
             bigWinAnim.Play(WinOpenString[0]);
             effectPag.StopWithDefaults();
-            effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(WinEffString[0], WinEffString[0]), PagPlayLayout.Center));
+            effectPag.Play(new PagSequencePlay(new[] { new PagSegment(WinEffString[0], -1) }, PagPlayLayout.Center, useGpuSyncGroup: false));
             //bigWinEffAnim.Play(WinEffectAnimName[0]);
 
             ShowAni();
@@ -151,11 +153,11 @@ namespace XingYunZhiLun_3998
             GComponent anchor = contentPane.GetChild("anchorPag")?.asCom;
             if (anchor == null) return;
 
-            effectPag = new PagSlotBinding("effectPag", GamePagFolder);
+            if(effectPag == null) effectPag = new PagSlotBinding("effectPag", GamePagFolder);
             effectPag.EnsureSlot(anchor, "pagEffect");
 
             GLoader anchorPag = anchor.GetChild("pagEffect").asLoader;
-            anchorPag.SetScale(2f ,2f);
+            //anchorPag.SetScale(2f ,2f);
         }
 
 
@@ -183,7 +185,7 @@ namespace XingYunZhiLun_3998
                     //bigWinAnim.Update(0f);
                     bigWinAnim.Play(WinOpenString[playCount]);
                     effectPag.StopWithDefaults();
-                    effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(WinEffString[playCount], WinEffString[playCount]), PagPlayLayout.Center));
+                    effectPag.Play(new PagSequencePlay(new[] { new PagSegment(WinOpenString[playCount], -1) }, PagPlayLayout.Center, useGpuSyncGroup: false));
 
                     if (playCount == WinIndex)
                     {

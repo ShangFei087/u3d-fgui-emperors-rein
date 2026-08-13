@@ -553,6 +553,9 @@ namespace XingYunZhiLun_3998
         ///<summary> 免费游戏中新出现的Wild元素的所有位置信息 </summary>
         public Dictionary<int, List<int>> wildPos = new Dictionary<int, List<int>>();
 
+        ///<summary> 临时存储倍率游戏里面的Canvas，方便菜单界面打开时调整Canvas层级 </summary>
+        public List<Canvas> tempCanvas = new List<Canvas>();
+
         #endregion
 
         ///<summary> 彩金游戏获得的分数 </summary>

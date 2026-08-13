@@ -41,7 +41,7 @@ namespace XingYunZhiLun_3998
         }
 
 
-        public   void InitParam(EventData data)
+        public void InitParam(EventData data)
         {
             if (data != null) _data = data;
 

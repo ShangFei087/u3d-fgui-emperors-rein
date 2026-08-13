@@ -148,7 +148,7 @@ namespace XingYunZhiLun_3998
             GComponent anchor = contentPane.GetChild("anchorPag")?.asCom;
             if (anchor == null) return;
 
-            effectPag = new PagSlotBinding("effectPag", GamePagFolder);
+            if(effectPag == null) effectPag = new PagSlotBinding("effectPag", GamePagFolder);
             effectPag.EnsureSlot(anchor, "pagEffect");
             GLoader anchorPag = anchor.GetChild("pagEffect").asLoader;
 
@@ -174,7 +174,7 @@ namespace XingYunZhiLun_3998
                 });
             }
 
-            AddTimer(0.75f / Time.timeScale, (obj) =>
+            AddTimer(0.4f / Time.timeScale, (obj) =>
             {
                 effectPag.StopWithDefaults();
                 effectPag.Play(effectName,
@@ -186,7 +186,7 @@ namespace XingYunZhiLun_3998
                     stopAfterFinished: true));
             });
 
-            AddTimer(5f / Time.timeScale, (obj) =>
+            AddTimer(5.3f / Time.timeScale, (obj) =>
             {
                 effectPag.StopWithDefaults();
                 CloseSelf(null);
