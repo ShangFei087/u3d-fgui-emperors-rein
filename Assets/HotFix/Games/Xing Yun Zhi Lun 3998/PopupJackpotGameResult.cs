@@ -187,7 +187,7 @@ namespace XingYunZhiLun_3998
             credit = contentPane.GetChild("reels").asCom;
             credit.visible = true;
 
-            EnsureMainPagSlot();
+            //EnsureMainPagSlot();
 
             StopAll();
             isend = false;
@@ -213,7 +213,7 @@ namespace XingYunZhiLun_3998
             GComponent anchor = contentPane.GetChild("anchorPag")?.asCom;
             if (anchor == null) return;
 
-            effectPag = new PagSlotBinding("effectPag", GamePagFolder);
+            if(effectPag == null) effectPag = new PagSlotBinding("effectPag", GamePagFolder);
             effectPag.EnsureSlot(anchor, "pagEffect");
             GLoader anchorPag = anchor.GetChild("pagEffect").asLoader;
 
@@ -238,10 +238,10 @@ namespace XingYunZhiLun_3998
 
             btnLoader.url = CustomModel.Instance.jackpotResultBtnUrl[jackpotType];
             PlayAnim("start");
-            effectPag.StopWithDefaults();
-            effectPag.Play(new PagSequencePlay(
-                        PagPlaySpecs.IntroLoop(effectName[jackpotType], effectName[jackpotType]),
-                        PagPlayLayout.Center));
+            //effectPag.StopWithDefaults();
+            //effectPag.Play(new PagSequencePlay(
+            //            PagPlaySpecs.IntroLoop(effectName[jackpotType], effectName[jackpotType]),
+            //            PagPlayLayout.Center));
         }
 
         private void AddWrapperEffect(GameObject goFgClone)
@@ -339,7 +339,7 @@ namespace XingYunZhiLun_3998
 
         private void Exit()
         {
-            effectPag.StopWithDefaults();
+            //effectPag.StopWithDefaults();
             StopAll();
             jackpotAction?.Invoke();
             CloseSelf(null);

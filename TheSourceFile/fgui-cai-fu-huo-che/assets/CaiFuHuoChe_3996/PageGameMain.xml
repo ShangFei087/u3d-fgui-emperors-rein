@@ -11,10 +11,10 @@
     <image id="n57_l8f4" name="n57" src="sqmze" fileName="images/freeGame/ng_img_bg_01.png" xy="0,860" size="1080,1066"/>
     <component id="n53_ldad" name="jackpotBg" src="baxv7z" fileName="component/popupNormalGame/AnchorJackpotBG.xml" xy="0,0"/>
     <component id="n59_baxv" name="anchorNorBg" src="baxv6n" fileName="component/popupNormalGame/AnchorNorBG.xml" xy="0,0"/>
-    <component id="n21_o8uc" name="anchorTrain" src="o8uc1i" fileName="component/popupNormalGame/AnchorTrain.xml" xy="540,1066"/>
+    <component id="n21_o8uc" name="anchorTrain" src="o8uc1i" fileName="component/popupNormalGame/AnchorTrain.xml" xy="300,997"/>
     <image id="n61_baxv" name="n61" src="baxv6p" fileName="images/normalGame/ng_img_bg_02.png" xy="125,0"/>
     <component id="n66_znm9" name="anchorGirl" src="znm9cf" fileName="component/popupNormalGame/AnchorGirl.xml" xy="840,1940"/>
-    <component id="n65_znm9" name="anchorFreeTrain" src="o8uc1i" fileName="component/popupNormalGame/AnchorTrain.xml" xy="484,1040"/>
+    <component id="n65_znm9" name="anchorFreeTrain" src="o8uc1i" fileName="component/popupNormalGame/AnchorTrain.xml" xy="484,968"/>
     <image id="n10_o8uc" name="slotBottom" src="pcvkig" fileName="images/ng_img_bottom.png" xy="54,1034" size="975,600" group="n9_o8uc">
       <relation target="n3_pjjx" sidePair="center-center,middle-middle"/>
     </image>
@@ -69,7 +69,6 @@
     <component id="n50_iwtc" name="fill2Add" src="fkjsm" fileName="component/AnchorEffect.xml" xy="670,890" size="1,1" group="n46_9mnq"/>
     <component id="n51_iwtc" name="fill3Add" src="fkjsm" fileName="component/AnchorEffect.xml" xy="308,890" size="1,1" group="n46_9mnq"/>
     <component id="n52_iwtc" name="fill4Add" src="fkjsm" fileName="component/AnchorEffect.xml" xy="100,889" size="1,1" group="n46_9mnq"/>
-    <component id="n62_vxx6" name="jackpotAddPoint" src="fkjsm" fileName="component/AnchorEffect.xml" xy="318,690" group="n46_9mnq"/>
     <image id="n24_9mnq" name="n24" src="pcvkec" fileName="images/freeGame/fg_img_frame.png" xy="380,979" size="326,75" group="n69_pcvk">
       <relation target="n3_pjjx" sidePair="center-center,middle-middle"/>
     </image>
@@ -85,11 +84,12 @@
     <text id="n30_9mnq" name="freeTotalTimes" xy="636,989" size="48,52" group="n69_pcvk" font="ui://q8n13f0f9mnq2l" fontSize="18" vAlign="middle" leading="0" letterSpacing="-13" autoSize="none" text="12">
       <relation target="n24_9mnq" sidePair="center-center,middle-middle"/>
     </text>
-    <component id="n48_iwtc" name="freeAddPoint" src="fkjsm" fileName="component/AnchorEffect.xml" xy="540,989" size="1,1" group="n69_pcvk"/>
     <image id="n54_ldad" name="n54" src="uqrcis" fileName="images/jackpotGame/sg_fs_txt_respin.png" xy="496,1015" pivot="0.5,0.5" anchor="true" size="164,36" group="n69_pcvk">
       <relation target="n24_9mnq" sidePair="center-center,middle-middle"/>
     </image>
-    <group id="n69_pcvk" name="n69" xy="380,979" size="326,75" group="n46_9mnq"/>
+    <component id="n48_iwtc" name="freeAddPoint" src="fkjsm" fileName="component/AnchorEffect.xml" xy="540,989" size="1,1" group="n69_pcvk"/>
+    <component id="n62_vxx6" name="jackpotAddPoint" src="fkjsm" fileName="component/AnchorEffect.xml" xy="318,690" group="n69_pcvk"/>
+    <group id="n69_pcvk" name="n69" xy="318,690" size="388,364" group="n46_9mnq"/>
     <group id="n46_9mnq" name="freeGame" xy="-26,690" size="1137,364"/>
     <component id="n55_ucv0" name="JpEffect" src="ucv05j" fileName="component/popupNormalGame/OpenDoor.xml" xy="540,700"/>
     <component id="n19_o8uc" name="mini" src="o8uc1h" fileName="moudules/JackpotMini.xml" xy="650,141" group="n13_o8uc"/>
@@ -220,7 +220,7 @@
     <item time="0" type="XY" target="n47_9mnq" value="540,980"/>
   </transition>
   <transition name="BSToFSTransform">
-    <item time="0" type="Alpha" target="n10_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n10_o8uc" tween="true" startValue="1" endValue="1" duration="18" ease="Linear"/>
     <item time="0" type="Alpha" target="n16_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
     <item time="0" type="Alpha" target="n18_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
     <item time="0" type="Alpha" target="n19_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
@@ -237,14 +237,14 @@
     <item time="0" type="Alpha" target="n37_9mnq" value="0"/>
     <item time="0" type="Alpha" target="n38_9mnq" value="0"/>
     <item time="0" type="Alpha" target="n39_9mnq" value="0"/>
-    <item time="0" type="Alpha" target="n3_pjjx" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n3_pjjx" tween="true" startValue="1" endValue="1" duration="18" ease="Linear"/>
     <item time="0" type="Alpha" target="n42_9mnq" value="0"/>
     <item time="0" type="Alpha" target="n43_9mnq" value="0"/>
     <item time="0" type="Alpha" target="n44_9mnq" value="0"/>
     <item time="0" type="Alpha" target="n45_9mnq" value="0"/>
     <item time="0" type="Alpha" target="n47_9mnq" value="1"/>
     <item time="0" type="Alpha" target="n64_znm9" tween="true" startValue="0" endValue="1" duration="18"/>
-    <item time="0" type="Alpha" target="n8_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n8_o8uc" tween="true" startValue="1" endValue="1" duration="18" ease="Linear"/>
     <item time="0" type="Visible" target="n24_9mnq" value="true"/>
     <item time="0" type="Visible" target="n25_9mnq" value="true"/>
     <item time="0" type="Visible" target="n28_9mnq" value="true"/>
@@ -263,7 +263,7 @@
     <item time="0" type="Visible" target="n57_l8f4" value="true"/>
     <item time="0" type="Visible" target="n64_znm9" value="true"/>
     <item time="0" type="XY" target="n47_9mnq" tween="true" startValue="1650,980" endValue="540,980" duration="36" ease="Linear"/>
-    <item time="18" type="Alpha" target="n10_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n10_o8uc" tween="true" startValue="1" endValue="1" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n16_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n18_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n19_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
@@ -280,12 +280,12 @@
     <item time="18" type="Alpha" target="n37_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n38_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n39_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
-    <item time="18" type="Alpha" target="n3_pjjx" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n3_pjjx" tween="true" startValue="1" endValue="1" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n42_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n43_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n44_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n45_9mnq" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
-    <item time="18" type="Alpha" target="n8_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n8_o8uc" tween="true" startValue="1" endValue="1" duration="18" ease="Linear"/>
     <item time="22" type="Alpha" target="n21_o8uc" value="0"/>
     <item time="22" type="Visible" target="n21_o8uc" value="false"/>
     <item time="22" type="Visible" target="n65_znm9" value="true"/>
@@ -294,7 +294,7 @@
     <item time="36" type="Visible" target="n64_znm9" value="false"/>
   </transition>
   <transition name="FSToBSTransform">
-    <item time="0" type="Alpha" target="n10_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n10_o8uc" tween="true" startValue="1" endValue="1" duration="18" ease="Linear"/>
     <item time="0" type="Alpha" target="n21_o8uc" value="1"/>
     <item time="0" type="Alpha" target="n24_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
     <item time="0" type="Alpha" target="n25_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
@@ -309,17 +309,17 @@
     <item time="0" type="Alpha" target="n37_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
     <item time="0" type="Alpha" target="n38_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
     <item time="0" type="Alpha" target="n39_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
-    <item time="0" type="Alpha" target="n3_pjjx" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n3_pjjx" tween="true" startValue="1" endValue="1" duration="18" ease="Linear"/>
     <item time="0" type="Alpha" target="n42_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
     <item time="0" type="Alpha" target="n43_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
     <item time="0" type="Alpha" target="n44_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
     <item time="0" type="Alpha" target="n45_9mnq" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
     <item time="0" type="Alpha" target="n47_9mnq" value="1"/>
-    <item time="0" type="Alpha" target="n8_o8uc" tween="true" startValue="1" endValue="0" duration="18" ease="Linear"/>
+    <item time="0" type="Alpha" target="n8_o8uc" tween="true" startValue="1" endValue="1" duration="18" ease="Linear"/>
     <item time="0" type="Visible" target="n21_o8uc" value="true"/>
     <item time="0" type="Visible" target="n65_znm9" value="false"/>
     <item time="0" type="XY" target="n47_9mnq" tween="true" startValue="540,980" endValue="-700,980" duration="36" ease="Linear"/>
-    <item time="18" type="Alpha" target="n10_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n10_o8uc" tween="true" startValue="1" endValue="1" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n24_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n25_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n28_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
@@ -333,12 +333,12 @@
     <item time="18" type="Alpha" target="n37_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n38_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n39_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
-    <item time="18" type="Alpha" target="n3_pjjx" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n3_pjjx" tween="true" startValue="1" endValue="1" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n42_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n43_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n44_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
     <item time="18" type="Alpha" target="n45_9mnq" tween="true" startValue="0" endValue="0" duration="18" ease="Linear"/>
-    <item time="18" type="Alpha" target="n8_o8uc" tween="true" startValue="0" endValue="1" duration="18" ease="Linear"/>
+    <item time="18" type="Alpha" target="n8_o8uc" tween="true" startValue="1" endValue="1" duration="18" ease="Linear"/>
   </transition>
   <transition name="JS">
     <item time="0" type="Alpha" target="n21_o8uc" value="0"/>

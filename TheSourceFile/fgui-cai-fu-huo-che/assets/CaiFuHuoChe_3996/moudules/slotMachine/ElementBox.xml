@@ -9,17 +9,17 @@
     <component id="n6_q30q" name="result" src="q30qe4" fileName="moudules/slotMachine/RollElement.xml" xy="97,-100" pivot="0.5,0.5" anchor="true" size="194,200"/>
   </displayList>
   <transition name="roll">
-    <item time="0" type="XY" target="n2_q30q" tween="true" startValue="97,-500" endValue="97,-300" duration="6" ease="Linear"/>
-    <item time="0" type="XY" target="n3_q30q" tween="true" startValue="97,-300" endValue="97,-100" duration="6" ease="Linear"/>
-    <item time="0" type="XY" target="n4_q30q" tween="true" startValue="97,-100" endValue="97,100" duration="6" ease="Linear"/>
-    <item time="0" type="XY" target="n5_q30q" tween="true" startValue="97,100" endValue="97,300" duration="6" ease="Linear"/>
-    <item time="6" type="XY" target="n2_q30q" tween="true" startValue="97,-300" endValue="97,-100" duration="6" ease="Linear"/>
-    <item time="6" type="XY" target="n3_q30q" tween="true" startValue="97,-100" endValue="97,100" duration="6" ease="Linear"/>
-    <item time="6" type="XY" target="n4_q30q" tween="true" startValue="97,100" endValue="97,300" duration="6" ease="Linear"/>
-    <item time="12" type="XY" target="n2_q30q" tween="true" startValue="97,-100" endValue="97,100" duration="6" ease="Linear"/>
-    <item time="12" type="XY" target="n3_q30q" tween="true" startValue="97,100" endValue="97,300" duration="6" ease="Linear"/>
-    <item time="18" type="XY" target="n2_q30q" tween="true" startValue="97,100" endValue="97,300" duration="6" ease="Linear"/>
-    <item time="18" type="XY" target="n5_q30q" tween="true" startValue="97,-100" endValue="97,100" duration="6" ease="Linear"/>
+    <item time="0" type="XY" target="n2_q30q" tween="true" startValue="97,-500" endValue="97,-300" duration="4" ease="Linear"/>
+    <item time="0" type="XY" target="n3_q30q" tween="true" startValue="97,-300" endValue="97,-100" duration="4" ease="Linear"/>
+    <item time="0" type="XY" target="n4_q30q" tween="true" startValue="97,-100" endValue="97,100" duration="4" ease="Linear"/>
+    <item time="0" type="XY" target="n5_q30q" tween="true" startValue="97,100" endValue="97,300" duration="4" ease="Linear"/>
+    <item time="4" type="XY" target="n2_q30q" tween="true" startValue="97,-300" endValue="97,-100" duration="4" ease="Linear"/>
+    <item time="4" type="XY" target="n3_q30q" tween="true" startValue="97,-100" endValue="97,100" duration="4" ease="Linear"/>
+    <item time="4" type="XY" target="n4_q30q" tween="true" startValue="97,100" endValue="97,300" duration="4" ease="Linear"/>
+    <item time="8" type="XY" target="n2_q30q" tween="true" startValue="97,-100" endValue="97,100" duration="4" ease="Linear"/>
+    <item time="8" type="XY" target="n3_q30q" tween="true" startValue="97,100" endValue="97,300" duration="4" ease="Linear"/>
+    <item time="12" type="XY" target="n2_q30q" tween="true" startValue="97,100" endValue="97,300" duration="4" ease="Linear"/>
+    <item time="12" type="XY" target="n5_q30q" tween="true" startValue="97,-100" endValue="97,100" duration="4" ease="Linear"/>
   </transition>
   <transition name="rollReset">
     <item time="0" type="XY" target="n2_q30q" value="97,-500"/>
@@ -28,8 +28,8 @@
     <item time="0" type="XY" target="n5_q30q" value="97,100"/>
   </transition>
   <transition name="result">
-    <item time="0" type="XY" target="n6_q30q" tween="true" startValue="97,-100" endValue="97,170" duration="14" ease="Linear"/>
-    <item time="14" type="XY" target="n6_q30q" tween="true" startValue="97,170" endValue="97,100" duration="4" ease="Linear"/>
+    <item time="0" type="XY" target="n6_q30q" tween="true" startValue="97,-100" endValue="97,170" duration="12" ease="Linear"/>
+    <item time="12" type="XY" target="n6_q30q" tween="true" startValue="97,170" endValue="97,100" duration="4" ease="Linear"/>
   </transition>
   <transition name="resultReset">
     <item time="0" type="XY" target="n6_q30q" value="97,-100"/>
