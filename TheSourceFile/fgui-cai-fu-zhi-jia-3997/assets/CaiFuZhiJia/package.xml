@@ -278,6 +278,7 @@
     <image id="jc99aw" name="ng_num_dollar.png" path="/images/common/gameFonts/freeResult/" exported="true" atlas="5"/>
     <image id="jc99ax" name="ng_num_dot.png" path="/images/common/gameFonts/freeResult/" exported="true" atlas="5"/>
     <font id="jc99ay" name="freeResult.fnt" path="/fonts/" exported="true"/>
+    <image id="c3v0az" name="ng_sym13_jiaj.png" path="/images/common/gameSymbols/" exported="true"/>
   </resources>
   <publish name="CaiFuZhiJia" path="../../Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>

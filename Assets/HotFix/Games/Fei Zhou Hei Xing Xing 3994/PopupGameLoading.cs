@@ -53,11 +53,13 @@ namespace FeiZhouHeiXingXing_3994
         private static readonly string[] PagPreloadFiles =
         {
             // bigWin pag
-            "PopupBigWin/bigwin_720.pag","PopupBigWin/bigwin_1080.pag",
+            "PopupBigWin/bigWin.pag",
+            "PopupBigWin/superWin.pag",
+            "PopupBigWin/megaWin.pag",
             // freeTrigger pag
-            "PopupFreeSpinTrigger/fade_1280.pag", "PopupFreeSpinTrigger/fade_1920.pag",
+            "PopupFreeSpinTrigger/fade.pag",
             // smallTrigger pag
-            "PopupSmallGameTrigger/fade_1280.pag", "PopupSmallGameTrigger/fade_1920.pag",
+            "PopupSmallGameTrigger/fade.pag",
         };
 
         /// <summary>创建 FGUI 界面并异步加载 Loading 背景/标题 Spine Prefab。</summary>
