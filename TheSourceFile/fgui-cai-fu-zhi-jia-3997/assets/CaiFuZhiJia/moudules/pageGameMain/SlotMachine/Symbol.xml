@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="171,169">
+<component size="174,174">
   <displayList>
     <component id="n0_u8to" name="animator" src="u8to2r" fileName="moudules/pageGameMain/SlotMachine/SymbolAnimator.xml" xy="0,0"/>
   </displayList>

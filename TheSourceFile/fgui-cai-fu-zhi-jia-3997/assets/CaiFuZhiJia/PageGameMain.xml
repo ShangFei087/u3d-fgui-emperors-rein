@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920" designImage="ui://92trhum6hm6e6l">
-  <controller name="gameController" pages="0,normal,1,free,2,smallGame" selected="0"/>
+  <controller name="gameController" pages="0,normal,1,free,2,smallGame" selected="2"/>
   <displayList>
     <component id="n0_u8to" name="normalBg" src="u8to2h" fileName="moudules/pageGameMain/Bg/normalBg.xml" xy="0,0" touchable="false">
       <gearDisplay controller="gameController" pages="0"/>
@@ -21,7 +21,7 @@
     <component id="n3_u8to" name="freeOther" src="u8to2m" fileName="moudules/pageGameMain/Bg/freeOther.xml" xy="-2,772" touchable="false">
       <gearDisplay controller="gameController" pages="1"/>
     </component>
-    <component id="n4_u8to" name="smallGameOther" src="u8to2p" fileName="moudules/pageGameMain/Bg/smallGameOther.xml" xy="107,470" touchable="false">
+    <component id="n4_u8to" name="smallGameOther" src="u8to2p" fileName="moudules/pageGameMain/Bg/smallGameOther.xml" xy="107,500" touchable="false">
       <gearDisplay controller="gameController" pages="2"/>
     </component>
     <component id="n9_ujwn" name="jpMajor" src="u8to37" fileName="moudules/pageGameMain/gameJackpot/GameJackpotMajor.xml" xy="277,11" group="n12_ujwn"/>
@@ -32,14 +32,14 @@
     <component id="n18_ujwn" name="freeFrame" src="ujwn4e" fileName="moudules/pageGameMain/free/freeFrame.xml" xy="383,1047" scale="0.8,0.8">
       <gearDisplay controller="gameController" pages="1"/>
     </component>
-    <component id="n20_xpjv" name="smallGameReels" src="jh0i54" fileName="moudules/pageGameMain/SmallGame/SmallGameReels.xml" xy="115,1135">
+    <component id="n20_xpjv" name="smallGameReels" src="jh0i54" fileName="moudules/pageGameMain/SmallGame/SmallGameReels.xml" xy="106,1129">
       <gearDisplay controller="gameController" pages="2"/>
     </component>
-    <component id="n7_u8to" name="slotMachine" src="u8to2y" fileName="moudules/pageGameMain/SlotMachine/SlotMachine.xml" xy="115,1135">
+    <component id="n7_u8to" name="slotMachine" src="u8to2y" fileName="moudules/pageGameMain/SlotMachine/SlotMachine.xml" xy="106,1129" size="870,522">
       <gearDisplay controller="gameController" pages="0,1"/>
     </component>
     <component id="n14_ujwn" name="anchorFrame" src="ujwn4b" fileName="moudules/pageGameMain/Anchor/AnchorFrame.xml" xy="539,960"/>
-    <component id="n25_qqpp" name="effectParentPanel" src="qqppaj" fileName="moudules/pageGameMain/Anchor/EffectParentPanel.xml" xy="0,0"/>
+    <component id="n25_qqpp" name="effectParentPanel" src="qqppaj" fileName="moudules/pageGameMain/Anchor/EffectParentPanel.xml" xy="-2,0"/>
     <component id="n8_u8to" name="panel" src="u8to30" fileName="moudules/pageGameMain/Anchor/AnchorPanelSlot.xml" xy="540,1794"/>
   </displayList>
 </component>

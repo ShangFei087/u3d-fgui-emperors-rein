@@ -18,7 +18,7 @@ namespace CaiFuZhiJia_3997
         private int _totalCount = -1;
         private bool _isInitialized = false;
 
-        private Animator _overWinAnimator;
+        private Animator _bigWinAnimator;
         private GComponent _compareBigWin;
         private GameObject _bigWinObj, _cloneBigWinObj;
 
@@ -26,13 +26,15 @@ namespace CaiFuZhiJia_3997
         private readonly string[] winOpenString = { "bigwin_start", "bigwin_superwin", "superwin_megawin" };
         private readonly string[] winCloseString = { "bigwin_end", "superwin_end", "megawin_end" };
 
-        // bigwin pag
-        private const string bigwin_idle = "bigwin/bigwin_idle.pag";
-        private const string bigwin_start = "bigwin/bigwin_start.pag";
-        private const string megawin_idle = "bigwin/megawin_idle.pag";
-        private const string megawin_start = "bigwin/megawin_start.pag";
-        private const string supwin_idle = "bigwin/supwin_idle.pag";
-        private const string supwin_start = "bigwin/supwin_start.pag";
+        private readonly string[] WinOpenEffString =
+        {
+            "bigwin/bigwin_start.pag", "bigwin/supwin_start.pag", "bigwin/megawin_start.pag"
+        };
+
+        private readonly string[] WinIdleEffString =
+        {
+            "bigwin/bigwin_idle.pag", "bigwin/superwin_idle.pag", "bigwin/megewin_idle.pag"
+        };
 
         private long score;
         private string winType;
@@ -88,6 +90,14 @@ namespace CaiFuZhiJia_3997
             };
         }
 
+        protected override void OnLanguageChange(I18nLang lang)
+        {
+            FguiI18nTextAssistant.Instance.DisposeAllTranslate(this.contentPane);
+            contentPane.Dispose(); // 释放当前UI
+            contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
+            InitParam();
+        }
+
         private void InitParam(EventData eventData = null)
         {
             if (!_isInitialized) return;
@@ -104,7 +114,7 @@ namespace CaiFuZhiJia_3997
                 GameCommon.FguiUtils.DeleteWrapper(_compareBigWin);
                 _compareBigWin = currentGCom;
                 _cloneBigWinObj = Object.Instantiate(_bigWinObj);
-                _overWinAnimator = _cloneBigWinObj.GetComponentInChildren<Animator>();
+                _bigWinAnimator = _cloneBigWinObj.GetComponentInChildren<Animator>();
                 GameCommon.FguiUtils.AddWrapper(_compareBigWin, _cloneBigWinObj);
             }
 
@@ -112,11 +122,6 @@ namespace CaiFuZhiJia_3997
             if (_bigWinCom == null) return;
             _bigWinPag = new PagSlotBinding("bigWin", GamePagFolder);
             _bigWinPag.EnsureSlot(_bigWinCom);
-            if (_bigWinPag == null) return;
-            _bigWinPag.StopWithDefaults();
-            _bigWinPag.Play(new PagSequencePlay(
-                PagPlaySpecs.IntroLoop(bigwin_start, bigwin_idle), PagPlayLayout.Center,
-                useGpuSyncGroup: false));
 
             ShowAnimAndEffect();
         }
@@ -217,7 +222,10 @@ namespace CaiFuZhiJia_3997
                 return;
             }
 
-            _overWinAnimator.Play(winOpenString[playCount]);
+            _bigWinAnimator.Play(winOpenString[playCount]);
+            if (_bigWinPag == null) return;
+            _bigWinPag.StopWithDefaults();
+            _bigWinPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(WinOpenEffString[playCount], WinIdleEffString[playCount]), PagPlayLayout.Center));
 
             // 3秒后进入下一步
             Timers.inst.Add(LevelDuration, 1, _sequenceCallback);
@@ -257,12 +265,12 @@ namespace CaiFuZhiJia_3997
 
             // 播放结束动画
             int closeIndex = Mathf.Clamp(winIndex, 0, winCloseString.Length - 1);
-            _overWinAnimator.Play(winCloseString[closeIndex]);
+            _bigWinAnimator.Play(winCloseString[closeIndex]);
 
             float closetime = CloseTime;
-            AnimatorStateInfo stateInfo = _overWinAnimator.GetCurrentAnimatorStateInfo(0);
+            AnimatorStateInfo stateInfo = _bigWinAnimator.GetCurrentAnimatorStateInfo(0);
             float normalizedTime = closetime / stateInfo.length;
-            _overWinAnimator.Play(stateInfo.fullPathHash, 0, normalizedTime);
+            _bigWinAnimator.Play(stateInfo.fullPathHash, 0, normalizedTime);
 
             // 清理动画序列定时器
             if (_sequenceCallback != null && Timers.inst.Exists(_sequenceCallback))

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="171,169">
+<component size="174,174">
   <displayList>
-    <image id="n9_jcmo" name="n9" src="hm6e83" fileName="images/common/gameSymbols/ng_sym10_wild.png" xy="-22,-16" scale="0.8,0.763"/>
+    <image id="n9_jcmo" name="n9" src="hm6e83" fileName="images/common/gameSymbols/ng_sym10_wild.png" xy="-20,-16" scale="0.8,0.8"/>
   </displayList>
 </component>

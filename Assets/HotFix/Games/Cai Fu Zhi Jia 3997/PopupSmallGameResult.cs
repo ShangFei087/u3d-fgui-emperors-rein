@@ -24,6 +24,7 @@ namespace CaiFuZhiJia_3997
         // Spine动画
         private GComponent _smallGameFadeCom, _smallGameResultCom;
 
+        private Animator _tipAni;
         private GameObject _smallGameFadeObj, _cloneSmallGameFadeObj, _smallGameResultObj, _cloneSmallGameResultObj;
 
         // 记录UI初始位置
@@ -32,6 +33,7 @@ namespace CaiFuZhiJia_3997
         private bool _isClicked;
         private GameSoundController3997 _gameSoundController;
         private TimerCallback _delayCloseCallback;
+        private TimerCallback _delayPlayEndCallback;
         private TimerCallback _autoClickCallback;
         private Action _changeNormalPage;
 
@@ -99,6 +101,7 @@ namespace CaiFuZhiJia_3997
                 GameCommon.FguiUtils.DeleteWrapper(_smallGameResultCom);
                 _smallGameResultCom = currentGCom;
                 _cloneSmallGameResultObj = Object.Instantiate(_smallGameResultObj);
+                _tipAni = _cloneSmallGameResultObj.GetComponentInChildren<Animator>();
                 GameCommon.FguiUtils.AddWrapper(_smallGameResultCom, _cloneSmallGameResultObj);
             } // 结算弹窗
 
@@ -153,18 +156,28 @@ namespace CaiFuZhiJia_3997
         {
             if (_isClicked) return;
             _isClicked = true;
-
-            _cloneSmallGameFadeObj.SetActive(true);
-            _cloneSmallGameResultObj.SetActive(false);
+            RemoveTimer(ref _delayPlayEndCallback);
             RemoveTimer(ref _delayCloseCallback);
+            _collectBtn.visible = false;
+
+            PlayAnimationByName(_tipAni, "end");
+            _delayPlayEndCallback = (obj) =>
+            {
+                _cloneSmallGameFadeObj.SetActive(true);
+                _cloneSmallGameResultObj.SetActive(false);
+                _delayPlayEndCallback = null;
+            };
+            Timers.inst.Add(1.667f, 1, _delayPlayEndCallback);
+
 
             _delayCloseCallback = (obj) =>
             {
                 _changeNormalPage?.Invoke();
                 if (isOpen) CloseSelf(null);
                 _delayCloseCallback = null;
+                _collectBtn.visible = true;
             };
-            Timers.inst.Add(3f, 1, _delayCloseCallback);
+            Timers.inst.Add(4.667f, 1, _delayCloseCallback);
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.BonusGameFadeTransition));
         }
@@ -222,6 +235,14 @@ namespace CaiFuZhiJia_3997
 
             Timers.inst.Remove(timerCallback);
             timerCallback = null;
+        }
+
+        private void PlayAnimationByName(Animator animator, string aniName, Action callback = null)
+        {
+            animator.Rebind();
+            animator.Play(aniName);
+            animator.Update(0f);
+            callback?.Invoke();
         }
     }
 }

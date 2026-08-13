@@ -150,11 +150,10 @@ namespace CaiFuZhiJia_3997
         /// <summary>滚轴错开延迟</summary>
         private readonly float _reelStaggerDelay = 0.05f;
 
-        private readonly string _redDiamondUrl = "ui://CaiFuZhiJia/ng_sym_diamonds2";
+        private readonly string _redDiamondUrl = "ui://CaiFuZhiJia/ng_sym13_jiaj";
 
         private readonly List<string> _jackpotUrls = new List<string>()
         {
-            "这是一个占位的位置",
             "ui://CaiFuZhiJia/ng_sym_14_major",
             "ui://CaiFuZhiJia/ng_sym_14_minor",
             "ui://CaiFuZhiJia/ng_sym14_mini"
@@ -239,6 +238,7 @@ namespace CaiFuZhiJia_3997
             _pagRobot = new PagSlotBinding("robot", GamePagFolder);
             _pagRobot.EnsureSlot(_robotCom);
             if (_pagRobot == null) return;
+            Debug.LogError($"_pagRobot is not null");
             _pagRobot.StopWithDefaults();
             _pagRobot.Play(new PagSequencePlay(
                 new[] { new PagSegment(fg_img_bg_robot, -1) }, PagPlayLayout.Center, useGpuSyncGroup: false));
@@ -628,6 +628,11 @@ namespace CaiFuZhiJia_3997
             _gameSoundController?.Dispose();
             _gameSoundController = null;
             _monoHelper.updateHandle.RemoveAllListeners();
+
+            _pagNpc.Dispose();
+            _pagNpc = null;
+            _pagRobot.Dispose();
+            _pagRobot = null;
         }
 
         protected override void OnLanguageChange(I18nLang lang)
@@ -685,7 +690,7 @@ namespace CaiFuZhiJia_3997
                 if (_isStartSmallGame) return;
                 _isStartSmallGame = true;
                 ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
-                _monoHelper.StartCoroutine(SmallGameSpin(_monoHelper));
+                _monoHelper.StartCoroutine(SmallGameSpin());
             }
         }
 
@@ -1338,6 +1343,7 @@ namespace CaiFuZhiJia_3997
                     _pagNpc.Play(new PagSequencePlay(
                         PagPlaySpecs.IntroLoop(wealth_ng_npc_win3, wealth_ng_npc_idle01), PagPlayLayout.Center,
                         useGpuSyncGroup: false));
+                    yield return new WaitForSeconds(3.17f);
                 }
 
                 // 计数没到五局中奖之后刷新计数
@@ -1398,12 +1404,13 @@ namespace CaiFuZhiJia_3997
                 _isWinFreeOrBonus = true;
                 InitSmallGame();
                 _pagNpc.Play(new PagSequencePlay(
-                    PagPlaySpecs.IntroLoop(wealth_ng_npc_trigger_sg, wealth_ng_npc_idle01), PagPlayLayout.Center,
+                    PagPlaySpecs.IntroLoop(wealth_ng_npc_trigger_sg, wealth_sg_npc_idle1), PagPlayLayout.Center,
                     useGpuSyncGroup: false));
+                Debug.LogError("切换彩金");
                 _slotMachineCtrl.SkipWinLine(true);
                 _slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 11 }, true, 10,
                     true);
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(5.3f);
                 _slotMachineCtrl.SkipWinLine(false);
                 yield return SmallGameTrigger();
             }
@@ -1602,12 +1609,15 @@ namespace CaiFuZhiJia_3997
 
         private IEnumerator ShowEffectReelsSlowMotion(int colIdx)
         {
-            _isTriggerFrame = true;
-            // // 在触发加速的时候再出现人物带眼镜的动画，否则再最后一列出现第二个图标的时候，会出现卡顿
-            if (!_pagNpc.Play(wealth_ng_npc_atmosphere))
+            if (!_isTriggerFrame)
+            {
                 _pagNpc.Play(new PagSequencePlay(
-                    new[] { new PagSegment(wealth_ng_npc_atmosphere, 1) }, PagPlayLayout.Center,
+                    PagPlaySpecs.IntroLoop(wealth_ng_npc_atmosphere, wealth_ng_npc_idle01), PagPlayLayout.Center,
                     useGpuSyncGroup: false));
+            }
+
+            _isTriggerFrame = true;
+
 
             GComponent comReelEffect = _anchorBonusAccelerate;
             if (ContentModel.Instance.isFreeSlotTip)
@@ -2164,6 +2174,9 @@ namespace CaiFuZhiJia_3997
                     ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                     EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                         new EventData(Game3997AudioEvent.BgmBonusGame));
+                    _pagNpc.Play(new PagSequencePlay(
+                        new[] { new PagSegment(wealth_sg_npc_idle1, -1) }, PagPlayLayout.Center,
+                        useGpuSyncGroup: false));
                     _panelCtrl.ChangButtonNo(true);
                     isNext = true;
                 });
@@ -2185,6 +2198,9 @@ namespace CaiFuZhiJia_3997
                 {
                     EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                         new EventData(Game3997AudioEvent.BgmRegularGame));
+                    _pagNpc.Play(new PagSequencePlay(
+                        new[] { new PagSegment(wealth_ng_npc_idle01, -1) }, PagPlayLayout.Center,
+                        useGpuSyncGroup: false));
                     isNext = true;
                 });
             yield return new WaitUntil(() => isNext == true);
@@ -2199,7 +2215,7 @@ namespace CaiFuZhiJia_3997
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
         }
 
-        private IEnumerator SmallGameSpin(MonoHelper monoHelper)
+        private IEnumerator SmallGameSpin()
         {
             if (_gameLoopCoroutine != null) _monoHelper.StopCoroutine(_gameLoopCoroutine);
             _gameLoopCoroutine = _monoHelper.StartCoroutine(SmallGameLoop());
@@ -2312,9 +2328,9 @@ namespace CaiFuZhiJia_3997
         {
             Debug.LogError("Game Over");
             _pagNpc.Play(new PagSequencePlay(
-                new[] { new PagSegment(wealth_sg_npc_settlement1, 1) }, PagPlayLayout.Center,
+                PagPlaySpecs.IntroLoop(wealth_sg_npc_settlement1, wealth_sg_npc_settlement2), PagPlayLayout.Center,
                 useGpuSyncGroup: false));
-            yield return new WaitForSeconds(3.833f);
+            yield return new WaitForSeconds(3.83f);
             if (_corSettlement != null) _monoHelper.StopCoroutine(_corSettlement);
             _corSettlement = _monoHelper.StartCoroutine(JackpotSettlementProcess(onCompleted));
         }
@@ -2444,7 +2460,7 @@ namespace CaiFuZhiJia_3997
             {
                 case 3:
                     _pagNpc.Play(new PagSequencePlay(
-                        PagPlaySpecs.IntroLoop(wealth_sg_npc_reset, wealth_ng_npc_idle01), PagPlayLayout.Center,
+                        PagPlaySpecs.IntroLoop(wealth_sg_npc_reset, wealth_sg_npc_idle1), PagPlayLayout.Center,
                         useGpuSyncGroup: false));
                     PlayAnimationByName(_signageAnimator, "idle4");
                     yield return new WaitForSeconds(0.833f);
@@ -2452,10 +2468,16 @@ namespace CaiFuZhiJia_3997
                     break;
                 case 2:
                     PlayAnimationByName(_signageAnimator, "idle2");
+                    _pagNpc.Play(new PagSequencePlay(
+                        new[] { new PagSegment(wealth_sg_npc_idle1, -1) }, PagPlayLayout.Center,
+                        useGpuSyncGroup: false));
                     yield return new WaitForSeconds(0.5f);
                     break;
                 case 1:
                     PlayAnimationByName(_signageAnimator, "idle1");
+                    _pagNpc.Play(new PagSequencePlay(
+                        new[] { new PagSegment(wealth_sg_npc_idle1, -1) }, PagPlayLayout.Center,
+                        useGpuSyncGroup: false));
                     yield return new WaitForSeconds(0.5f);
                     break;
                 case 0:
@@ -2488,6 +2510,11 @@ namespace CaiFuZhiJia_3997
                         completedCount++;
                         if (completedCount >= totalCount && !allComplete)
                             allComplete = true;
+                    }, () =>
+                    {
+                        _pagNpc.Play(new PagSequencePlay(
+                            PagPlaySpecs.IntroLoop(wealth_sg_npc_appear, wealth_sg_npc_idle1), PagPlayLayout.Center,
+                            useGpuSyncGroup: false));
                     });
                 }));
             }
