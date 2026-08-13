@@ -16,8 +16,57 @@ $repoRoot = (Resolve-Path (Join-Path $scriptDir "..\..")).Path
 if ([string]::IsNullOrWhiteSpace($Source)) {
     $Source = Join-Path $repoRoot "Assets\StreamingAssets\Hotfix"
 }
+
+function Get-LedgerKeyFromApplicationSettings([string]$RepoRoot) {
+    $asset = Join-Path $RepoRoot "Assets\Resources\ApplicationSettings.asset"
+    if (-not (Test-Path -LiteralPath $asset)) { return $null }
+
+    $map = @{}
+    Get-Content -LiteralPath $asset | ForEach-Object {
+        if ($_ -match '^\s*(isMachine|isRelease|platformName|appVersion):\s*(.+)\s*$') {
+            $map[$Matches[1]] = $Matches[2].Trim()
+        }
+    }
+    if (-not $map.ContainsKey("platformName") -or -not $map.ContainsKey("appVersion")) { return $null }
+
+    $platform = ($map["platformName"] -replace "[^A-Za-z0-9._-]", "")
+    $appType = if ($map["isRelease"] -eq "1") { "release" } else { "debug" }
+    $buildTarget = if ($map["isMachine"] -eq "1") { "machine" } else { "android" }
+    $folder = ($map["appVersion"] -replace "\.", "_")
+    return "{0}_{1}_{2}_{3}" -f $platform, $appType, $buildTarget, $folder
+}
+
+function Resolve-LedgerBaselinePath([string]$ScriptDir, [string]$RepoRoot) {
+    $ledgerRoot = Join-Path $ScriptDir "ledger"
+    $currentPath = Join-Path $ledgerRoot "current.json"
+    if (Test-Path -LiteralPath $currentPath) {
+        try {
+            $cur = Get-Content -LiteralPath $currentPath -Raw -Encoding UTF8 | ConvertFrom-Json
+            if ($cur.key) {
+                $p = Join-Path $ledgerRoot (Join-Path $cur.key "version.json")
+                if (Test-Path -LiteralPath $p) { return $p }
+            }
+        }
+        catch { }
+    }
+
+    $settingsKey = Get-LedgerKeyFromApplicationSettings $RepoRoot
+    if ($settingsKey) {
+        $p = Join-Path $ledgerRoot (Join-Path $settingsKey "version.json")
+        if (Test-Path -LiteralPath $p) { return $p }
+    }
+
+    return $null
+}
+
 if ([string]::IsNullOrWhiteSpace($BaselineVersionPath)) {
-    $BaselineVersionPath = Join-Path $scriptDir "baseline\version.json"
+    $ledgerBaseline = Resolve-LedgerBaselinePath $scriptDir $repoRoot
+    if ($ledgerBaseline) {
+        $BaselineVersionPath = $ledgerBaseline
+    }
+    else {
+        $BaselineVersionPath = Join-Path $scriptDir "baseline\version.json"
+    }
 }
 
 $Source = (Resolve-Path -LiteralPath $Source).Path

@@ -42,8 +42,20 @@ Tools\HotfixDeploy\pack_hotfix_delta.ps1 -IncludeTotalVersion
 
 ## 基线文件
 
-- 路径：`Tools/HotfixDeploy/baseline/version.json`
-- 每次 `save_hotfix_baseline` 会把旧基线备份为 `version_yyyyMMdd_HHmmss.json.bak`
+按产品线分开存放（Treasury 1.2 与 Savage 1.4 互不影响）：
+
+- `Tools/HotfixDeploy/ledger/{platform}_{debug|release}_{machine|android}_{1_2_0}/version.json`（完整清单，含 hash）
+- `Tools/HotfixDeploy/ledger/current.json`（当前产品线指针，由 Unity 切版本/打包时写入）
+
+`pack_hotfix_delta` 会优先用当前产品线账本做对比；没有账本时回退到旧的 `baseline/version.json`。
+
+Unity 侧：
+
+- 切 `ApplicationSettings` 版本时自动把当前完整 `version.json` 存入对应账本，并只把该线的 `hotfix_version` / `hotfix_key` 写回包内（hash 仍由下次打包重算）
+- 打包热更时若账本有记录，会从上次的号继续 +1（例如 1.2.22 → 1.2.23），不会因为中间打过 1.4 而重置成 1.2.0
+- 也可菜单 `NewBuild/保存当前热更账本` 手动存一次
+
+`save_hotfix_baseline` 会写入当前产品线账本，并同步一份到 `baseline/version.json` 兼容旧流程。旧基线仍会备份为 `version_yyyyMMdd_HHmmss.json.bak`。
 
 ## 对比规则（与客户端热更一致）
 
