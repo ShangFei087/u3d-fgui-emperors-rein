@@ -1,5 +1,6 @@
 using FairyGUI;
 using Spine;
+using Spine.Unity;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -282,7 +283,8 @@ namespace CaiFuHuoChe_3996
             {
                 GameObject prefab = obj.transform.GetChild(0).GetChild(i).gameObject;
                 prefab.SetActive(i == targetIndex);
-                if(i == targetIndex)
+                prefab.GetComponent<SkeletonRenderer>().enabled = i == targetIndex;
+                if (i == targetIndex)
                 {
                     anchorAnim = prefab.GetComponent<Animator>();
                 }

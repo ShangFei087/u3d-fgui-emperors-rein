@@ -142,7 +142,7 @@ namespace XingYunZhiLun_3998
 
             bigWinAnim.Play(WinOpenString[0]);
             effectPag.StopWithDefaults();
-            effectPag.Play(new PagSequencePlay(new[] { new PagSegment(WinEffString[0], -1) }, PagPlayLayout.Center, useGpuSyncGroup: false));
+            effectPag.Play(new PagSequencePlay(new[] { new PagSegment(WinEffString[WinIndex], -1) }, PagPlayLayout.Center, useGpuSyncGroup: false));
             //bigWinEffAnim.Play(WinEffectAnimName[0]);
 
             ShowAni();
@@ -153,7 +153,7 @@ namespace XingYunZhiLun_3998
             GComponent anchor = contentPane.GetChild("anchorPag")?.asCom;
             if (anchor == null) return;
 
-            if(effectPag == null) effectPag = new PagSlotBinding("effectPag", GamePagFolder);
+            if(effectPag == null) effectPag = new PagSlotBinding("bigWin", GamePagFolder);
             effectPag.EnsureSlot(anchor, "pagEffect");
 
             GLoader anchorPag = anchor.GetChild("pagEffect").asLoader;
@@ -184,8 +184,6 @@ namespace XingYunZhiLun_3998
                     //bigWinAnim.Rebind();
                     //bigWinAnim.Update(0f);
                     bigWinAnim.Play(WinOpenString[playCount]);
-                    effectPag.StopWithDefaults();
-                    effectPag.Play(new PagSequencePlay(new[] { new PagSegment(WinOpenString[playCount], -1) }, PagPlayLayout.Center, useGpuSyncGroup: false));
 
                     if (playCount == WinIndex)
                     {

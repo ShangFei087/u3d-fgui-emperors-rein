@@ -13,7 +13,7 @@
     <component id="n59_baxv" name="anchorNorBg" src="baxv6n" fileName="component/popupNormalGame/AnchorNorBG.xml" xy="0,0"/>
     <component id="n21_o8uc" name="anchorTrain" src="o8uc1i" fileName="component/popupNormalGame/AnchorTrain.xml" xy="300,997"/>
     <image id="n61_baxv" name="n61" src="baxv6p" fileName="images/normalGame/ng_img_bg_02.png" xy="125,0"/>
-    <component id="n66_znm9" name="anchorGirl" src="znm9cf" fileName="component/popupNormalGame/AnchorGirl.xml" xy="840,1940"/>
+    <component id="n66_znm9" name="anchorGirl" src="znm9cf" fileName="component/popupNormalGame/AnchorGirl.xml" xy="840,1916"/>
     <component id="n65_znm9" name="anchorFreeTrain" src="o8uc1i" fileName="component/popupNormalGame/AnchorTrain.xml" xy="484,968"/>
     <image id="n10_o8uc" name="slotBottom" src="pcvkig" fileName="images/ng_img_bottom.png" xy="54,1034" size="975,600" group="n9_o8uc">
       <relation target="n3_pjjx" sidePair="center-center,middle-middle"/>
@@ -92,6 +92,7 @@
     <group id="n69_pcvk" name="n69" xy="318,690" size="388,364" group="n46_9mnq"/>
     <group id="n46_9mnq" name="freeGame" xy="-26,690" size="1137,364"/>
     <component id="n55_ucv0" name="JpEffect" src="ucv05j" fileName="component/popupNormalGame/OpenDoor.xml" xy="540,700"/>
+    <component id="n70_rz26" name="anchorMoneyBox" src="fkjsm" fileName="component/AnchorEffect.xml" xy="318,734"/>
     <component id="n19_o8uc" name="mini" src="o8uc1h" fileName="moudules/JackpotMini.xml" xy="650,141" group="n13_o8uc"/>
     <component id="n18_o8uc" name="minor" src="o8uc1g" fileName="moudules/JackpotMinor.xml" xy="39,144" group="n13_o8uc"/>
     <component id="n16_o8uc" name="major" src="o8uc1f" fileName="moudules/JackpotMajor.xml" xy="340,15" group="n13_o8uc"/>
