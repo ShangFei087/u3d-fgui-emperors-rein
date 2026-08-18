@@ -14,8 +14,14 @@
 			"des": ""
 		},
 		"normal": {
-			"nick_name": "普通游戏",
+			"nick_name": "普通赢",
 			"event_name": "GMMultipleWinLine",
+			"value": "",
+			"des": ""
+		}
+		"bigwin": {
+			"nick_name": "BigWin",
+			"event_name": "GMBigWin",
 			"value": "",
 			"des": ""
 		}

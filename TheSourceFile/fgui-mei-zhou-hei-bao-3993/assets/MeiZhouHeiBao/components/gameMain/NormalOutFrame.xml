@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,890">
+  <displayList>
+    <image id="n0_g9kd" name="normal_outFrame" src="z14gw" fileName="images/gameMain/normal/ng_img_Normal game interface.png" xy="0,44"/>
+    <image id="n1_g9kd" name="n1" src="z14g13" fileName="images/gameMain/normal/ng_num_winning line_25.png" xy="8,391"/>
+    <image id="n2_g9kd" name="n2" src="z14g13" fileName="images/gameMain/normal/ng_num_winning line_25.png" xy="1051,391"/>
+  </displayList>
+</component>

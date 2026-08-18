@@ -8,11 +8,16 @@ namespace MeiZhouHeiBao_3993
     {
         public int row => 3;
         public int column => 5;
-        public float symbolWidth => 150;
-        public float symbolHeight => 150;
+        public float symbolWidth => 200;
+        public float symbolHeight => 200;
         public int symbolCount => symbolNumber.Count;
         public List<int> specialHitSymbols => new List<int>() { };
-        public Dictionary<string, string> symbolAppearEffect => new Dictionary<string, string>() { };
+        public Dictionary<string, string> symbolAppearEffect => new Dictionary<string, string>() 
+        {
+            { "10", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/SymbolAppear10.prefab" },
+            { "11", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/SymbolAppear11.prefab" },
+            { "12", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/SymbolAppear12.prefab" },
+        };
         public Dictionary<string, string> symbolExpectationEffect => new Dictionary<string, string>() { };
         public float reelMaxOffsetY => symbolHeight * row;
 
@@ -42,23 +47,28 @@ namespace MeiZhouHeiBao_3993
             12
         };
 
+        //图标中奖特效
         public Dictionary<string, string> symbolHitEffect => new Dictionary<string, string>()
         {
-            { "0", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/_01.prefab" },
-            { "1", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/_02.prefab" },
-            { "2", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/_03.prefab" },
-            { "3", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/_04.prefab" },
-            { "4", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/_05.prefab" },
-            { "5", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/_06.prefab" },
-            { "6", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/_07.prefab" },
-            { "7", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/_08.prefab" },
-            { "8", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/_09.prefab" },
-            { "9", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/_10.prefab" },
-            { "10", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/_11.prefab" },
+            { "0", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolHit/SymbolHit0.prefab" },
+            { "1", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolHit/SymbolHit1.prefab" },
+            { "2", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolHit/SymbolHit2.prefab" },
+            { "3", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolHit/SymbolHit3.prefab" },
+            { "4", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolHit/SymbolHit4.prefab" },
+            { "5", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolHit/SymbolHit5.prefab" },
+            { "6", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolHit/SymbolHit6.prefab" },
+            { "7", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolHit/SymbolHit7.prefab" },
+            { "8", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolHit/SymbolHit8.prefab" },
+            { "9", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolHit/SymbolHit9.prefab" },
+            { "10", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolHit/SymbolHit10.prefab" },
+            { "11", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolHit/SymbolHit11.prefab" },
+            { "12", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolHit/SymbolHit12.prefab" },
         };
 
-        public string borderEffect =>"Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/Border/borderEffect.prefab";
+        //中奖框
+        public string borderEffect =>"Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/Border/NormalBorder1.prefab";
 
+        //图标UI
         public Dictionary<string, string> symbolIcon => new Dictionary<string, string>()
         {
             { "0", "ui://MeiZhouHeiBao/ng_sym01_10" },
@@ -79,6 +89,7 @@ namespace MeiZhouHeiBao_3993
             { "15", "ui://MeiZhouHeiBao/ng_sym16_GoldCoin_MINOR" },
         };
 
+        //中奖线
         public List<List<int>> payLines { get; set; } = new List<List<int>>()
         {
             new List<int>() // 0
@@ -183,86 +194,87 @@ namespace MeiZhouHeiBao_3993
             },
         };
 
+        //图标赔率
         public List<PayTableSymbolInfo> payTableSymbolWin { get; set; } = new List<PayTableSymbolInfo>()
         {
             new PayTableSymbolInfo()
             {
                 symbol = 0,
-                x5 = 80,
-                x4 = 20,
-                x3 = 10,
+                x5 = 25,
+                x4 = 10,
+                x3 = 3,
                 x2 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 1,
-                x5 = 90,
-                x4 = 25,
-                x3 = 10,
+                x5 = 30,
+                x4 = 15,
+                x3 = 4,
                 x2 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 2,
-                x5 = 100,
-                x4 = 30,
-                x3 = 15,
+                x5 = 40,
+                x4 = 15,
+                x3 = 5,
                 x2 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 3,
-                x5 = 120,
-                x4 = 35,
-                x3 = 15,
+                x5 = 50,
+                x4 = 15,
+                x3 = 5,
                 x2 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 4,
-                x5 = 150,
-                x4 = 40,
-                x3 = 20,
+                x5 = 70,
+                x4 = 20,
+                x3 = 5,
                 x2 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 5,
-                x5 = 180,
-                x4 = 45,
-                x3 = 20,
+                x5 = 100,
+                x4 = 25,
+                x3 = 7,
                 x2 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 6,
-                x5 = 220,
-                x4 = 50,
-                x3 = 25,
+                x5 = 100,
+                x4 = 25,
+                x3 = 7,
                 x2 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 7,
-                x5 = 260,
-                x4 = 60,
-                x3 = 25,
+                x5 = 150,
+                x4 = 30,
+                x3 = 7,
                 x2 = 0,
             },
             new PayTableSymbolInfo()
             {
                 symbol = 8,
-                x5 = 320,
-                x4 = 80,
-                x3 = 30,
+                x5 = 150,
+                x4 = 30,
+                x3 = 7,
                 x2 = 0,
             },
             new PayTableSymbolInfo() 
             {
                 symbol = 9,
-                x5 = 500,
-                x4 = 120,
-                x3 = 40,
+                x5 = 250,
+                x4 = 50,
+                x3 = 10,
                 x2 = 0,
             },
             new PayTableSymbolInfo()
@@ -291,6 +303,7 @@ namespace MeiZhouHeiBao_3993
             },
         };
 
+        //bigwin倍数
         public List<WinMultiple> winLevelMultiple { get; set; } = new List<WinMultiple>()
         {
             new WinMultiple("BIG", 5), new WinMultiple("HUGE", 10), new WinMultiple("MASSIVE", 20),
@@ -312,6 +325,14 @@ namespace MeiZhouHeiBao_3993
             BonusGameType = MakeBonusGameType.OnBonus, // 触发大奖方式
             IsBonusInLine = false, //Bonus图标是否依赖中奖线
             Make2BonusGameCount = 6, //触发大奖所需数量(Bonus图标)
+        };
+        //升级黑豹的图标数量
+        public Dictionary<int,int> _upPantherLv => new Dictionary<int, int>()
+        {
+            {  4,5},
+            { 10,6},
+            { 18,7},
+            { 28,8}
         };
     }
 }

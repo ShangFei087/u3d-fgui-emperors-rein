@@ -79,8 +79,31 @@ namespace MeiZhouHeiBao_3993
 
         // ------------------------ Free Game ------------------------
         private int _totalPlaySpins = 1;
+        /// <summary> 剩余可玩旋转次数 </summary>
         private int _remainPlaySpins = 1;
+        /// <summary> 收集黑豹图标 </summary>
+        private int _totalPantherSymbolCount = 0;
+        /// <summary> 与 Matrix 同序（行优先 3×5），WILD 携带的倍数：0 / 2 / 3 / 5。 </summary>
+        private int[] _wildData = Array.Empty<int>();
+        public int[] wildData { get => _wildData; set => _wildData = value ?? Array.Empty<int>(); }
+
+        public int GetWildMul(int col, int row)
+        {
+            if (_wildData == null || _wildData.Length == 0) return 0;
+            int index = row * CustomModel.Instance.column + col;
+            if (index < 0 || index >= _wildData.Length) return 0;
+            return _wildData[index];
+        }
+
+        public static string GetWildAnimName(int mul, bool isWin)
+        {
+            string suffix = isWin ? "win" : "roll";
+            if (mul == 2 || mul == 3 || mul == 5)
+                return $"X{mul}_{suffix}";
+            return isWin ? "WILD_win" : "WILD_roll";
+        }
         public bool isFreeSpin => curReelStripsIndex == "FS";
+        public int totalPantherSymbolCount { get => _totalPantherSymbolCount; set => Observer.SetProperty(ref _totalPantherSymbolCount, value); }
         public int totalPlaySpins { get => _totalPlaySpins; set => Observer.SetProperty(ref _totalPlaySpins, value); }
         public int remainPlaySpins { get => _remainPlaySpins; set => Observer.SetProperty(ref _remainPlaySpins, value); }
 
@@ -126,14 +149,21 @@ namespace MeiZhouHeiBao_3993
         /// <summary> 当前本轮游戏guid </summary>
         public string curGameGuid;
 
-        public int FreeSpinPlayTimes { get => mFreeSpinPlayTimes; set => Observer.SetProperty(ref mFreeSpinPlayTimes, value); }
-        public int FreeSpinTotalTimes { get => mFreeSpinTotalTimes; set => Observer.SetProperty(ref mFreeSpinTotalTimes, value); }
+        public int freeSpinPlayTimes { get => mFreeSpinPlayTimes; set => Observer.SetProperty(ref mFreeSpinPlayTimes, value); }
+        public int freeSpinTotalTimes { get => mFreeSpinTotalTimes; set => Observer.SetProperty(ref mFreeSpinTotalTimes, value); }
         public int ShowFreeSpinRemainTime { get => mShowFreeSpinRemainTime; set => Observer.SetProperty(ref mShowFreeSpinRemainTime, value); }
 
         // ------------------------ Small Game -----------------------
         public bool isSmallGameTrigger;
         public bool isSmallGameSpin;
         public bool isSmallGameFinish;
+        private int _bonusSpinTime;
+        public int bonusSpinTime { get => _bonusSpinTime; set => _bonusSpinTime = value; }
+
+        private int _bonusBet;
+        public int BonusBet { get => _bonusBet; set => _bonusBet = value;  }
+
+        public int[] BonusData = Array.Empty<int>();
 
         // ------------------------ Jackpot Data -----------------------
 

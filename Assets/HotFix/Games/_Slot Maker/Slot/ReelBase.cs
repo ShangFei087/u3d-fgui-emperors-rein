@@ -51,6 +51,9 @@ namespace SlotMaker
         /// <summary> the anchor for "symbol hit" or "symbol appear"</summary>
         public GComponent goExpectation;
 
+        /// <summary> Unity 预制体池（SymbolHit / SymbolAppear / Border）。由各游戏 SlotMachineController.Init 注入。 </summary>
+        public FguiPoolHelper fguiPoolHelper;
+
         public virtual void Init(ICustomModel customModel, GComponent gOwnerReel, GComponent gExpectation)
         {
             this.customModel = customModel;

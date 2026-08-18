@@ -604,6 +604,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Linq.OrderedEnumerable<object,float>
 	// System.Linq.OrderedEnumerable<object>
 	// System.Nullable<UnityEngine.Color>
+	// System.Nullable<UnityEngine.Quaternion>
+	// System.Nullable<UnityEngine.Vector3>
 	// System.Nullable<byte>
 	// System.Nullable<double>
 	// System.Nullable<float>

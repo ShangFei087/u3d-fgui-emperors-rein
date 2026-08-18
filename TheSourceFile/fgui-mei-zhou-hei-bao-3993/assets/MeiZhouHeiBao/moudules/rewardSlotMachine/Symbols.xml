@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="300,300">
+  <displayList>
+    <component id="n0_g9kd" name="rollElement1" src="g9kd9w" fileName="moudules/rewardSlotMachine/SymbolAnimator.xml" xy="0,0"/>
+    <component id="n1_g9kd" name="rollElement2" src="g9kd9w" fileName="moudules/rewardSlotMachine/SymbolAnimator.xml" xy="0,-300"/>
+    <component id="n2_g9kd" name="rollElement3" src="g9kd9w" fileName="moudules/rewardSlotMachine/SymbolAnimator.xml" xy="-4,-600"/>
+    <component id="n3_g9kd" name="rollElement4" src="g9kd9w" fileName="moudules/rewardSlotMachine/SymbolAnimator.xml" xy="-4,-900"/>
+  </displayList>
+</component>

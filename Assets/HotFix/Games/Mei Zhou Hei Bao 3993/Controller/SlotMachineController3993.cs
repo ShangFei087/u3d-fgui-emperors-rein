@@ -45,6 +45,7 @@ namespace MeiZhouHeiBao_3993
                 reels.Add(reel);
 
                 reel.Init(CustomModel.Instance, goReels.GetChildAt(i).asCom, gExpectation);
+                reel.fguiPoolHelper = this.fguiPoolHelper;
             }
 
             bufferTop = 2; // 滚轴上方有几个图标
@@ -90,8 +91,7 @@ namespace MeiZhouHeiBao_3993
             SkipWinLine(false);
         }
 
-        private IEnumerator ShowSymbolWinBySetting(SymbolWin symbolWin, bool isUseMySelfSymbolNumber,
-            SpinWinEvent eventType)
+        private IEnumerator ShowSymbolWinBySetting(SymbolWin symbolWin, bool isUseMySelfSymbolNumber,SpinWinEvent eventType)
         {
             //停止特效显示
             SkipWinLine(false);
@@ -282,6 +282,9 @@ namespace MeiZhouHeiBao_3993
                                 new EventData<int>(SlotMachineEvent.PrepareStoppedReel, index + 1));
                         }
 
+                        if (isSymbolAppearEffectWhenReelStop)
+                            ShowReelSymbolAppearEffect(index);
+
                         if (--reelsCount <= 0)
                         {
                             isNext = true;
@@ -343,8 +346,7 @@ namespace MeiZhouHeiBao_3993
                         EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
                             new EventData<int>(SlotMachineEvent.PrepareStoppedReel, _reelIdx));
 
-                        if (isSymbolAppearEffectWhenReelStop)
-                            ShowReelSymbolAppearEffect(_reelIdx);
+                        if (isSymbolAppearEffectWhenReelStop) ShowReelSymbolAppearEffect(_reelIdx);
 
                         if (--reelsCount <= 0)
                         {

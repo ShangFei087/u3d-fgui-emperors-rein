@@ -155,8 +155,6 @@ namespace SavageHall
                 PageManager.Instance.OpenPage(PageName.SavageHallMain);
             }
             PageLaunch.Instance.Close(2f);
-            PageManager.Instance.OpenPage(PageName.SavageHallMain);
-
             PageManager.Instance.PreloadPage(PageName.HuoYanGongNiuPopupGameLoading, OnOnePreloadDone);
             PageManager.Instance.PreloadPage(PageName.FeiZhouHeiXingXingPopupGameLoading, OnOnePreloadDone);
             PageManager.Instance.PreloadPage(PageName.MeiZhouHeiBaoPopupGameLoading, OnOnePreloadDone);
@@ -297,7 +295,7 @@ namespace SavageHall
 
                     PlayCardClickEffect(animatorChlick3995);
                     float clickAnimDuration = PlayCardClickAnimation(animator3995);
-                    StartCardGameEnter(animator3995, PageName.HuoYanGongNiuPopupGameLoading, 3996, clickAnimDuration);
+                    StartCardGameEnter(animator3995, PageName.HuoYanGongNiuPopupGameLoading, 3995, clickAnimDuration);
                 }
             });
 
@@ -312,7 +310,7 @@ namespace SavageHall
                     btnCollect.touchable = false;
                     PlayCardClickEffect(animatorChlick3994);
                     float clickAnimDuration = PlayCardClickAnimation(animator3994);
-                    StartCardGameEnter(animator3994, PageName.FeiZhouHeiXingXingPopupGameLoading, 3998, clickAnimDuration);
+                    StartCardGameEnter(animator3994, PageName.FeiZhouHeiXingXingPopupGameLoading, 3994, clickAnimDuration);
                 }
             });
 
@@ -327,7 +325,7 @@ namespace SavageHall
                     btnCollect.touchable = false;
                     PlayCardClickEffect(animatorChlick3993);
                     float clickAnimDuration = PlayCardClickAnimation(animator3993);
-                    StartCardGameEnter(animator3993, PageName.MeiZhouHeiBaoPopupGameLoading, 3997, clickAnimDuration);
+                    StartCardGameEnter(animator3993, PageName.MeiZhouHeiBaoPopupGameLoading, 3993, clickAnimDuration);
                 }
             });
 

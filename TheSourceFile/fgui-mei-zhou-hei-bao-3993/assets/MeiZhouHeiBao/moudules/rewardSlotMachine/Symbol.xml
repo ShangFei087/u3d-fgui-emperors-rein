@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="300,300">
+  <displayList>
+    <component id="n3_g9kd" name="animator" src="g9kd9w" fileName="moudules/rewardSlotMachine/SymbolAnimator.xml" xy="0,0"/>
+    <graph id="n1_g9kd" name="mask" xy="0,0" size="300,300" type="rect" lineSize="0" fillColor="#99000000"/>
+    <text id="n2_g9kd" name="txtNum" xy="54,172" size="212,88" fontSize="12" autoSize="none" text=""/>
+  </displayList>
+</component>

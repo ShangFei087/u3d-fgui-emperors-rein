@@ -42,20 +42,23 @@ Tools\HotfixDeploy\pack_hotfix_delta.ps1 -IncludeTotalVersion
 
 ## 基线文件
 
-按产品线分开存放（Treasury 1.2 与 Savage 1.4 互不影响）：
+分两份，不要混用：
 
-- `Tools/HotfixDeploy/ledger/{platform}_{debug|release}_{machine|android}_{1_2_0}/version.json`（完整清单，含 hash）
-- `Tools/HotfixDeploy/ledger/current.json`（当前产品线指针，由 Unity 切版本/打包时写入）
+| 文件 | 谁写入 | 用途 |
+|------|--------|------|
+| `ledger/{key}/version.json` | Unity NewBuild / 切版本 | 这条线上次**打包**的号，用来 1.2 / 1.4 续号 |
+| `ledger/{key}/uploaded.json` | `save_hotfix_baseline.bat` | 这条线上次**成功传到资源服**的清单，用来算增量 |
+| `baseline/version.json` | `save_hotfix_baseline.bat`（兼容副本） | 没有 `uploaded.json` 时的回退 |
 
-`pack_hotfix_delta` 会优先用当前产品线账本做对比；没有账本时回退到旧的 `baseline/version.json`。
+`key` 形如 `Treasury_debug_machine_1_2_0`。`current.json` 指向当前产品线。
+
+`pack_hotfix_delta` **只对比 uploaded.json**（没有则用 `baseline/version.json`），不会拿 Unity 刚写入的 `version.json` 当基线，否则 NewBuild 后增量永远是空的。
 
 Unity 侧：
 
 - 切 `ApplicationSettings` 版本时自动把当前完整 `version.json` 存入对应账本，并只把该线的 `hotfix_version` / `hotfix_key` 写回包内（hash 仍由下次打包重算）
-- 打包热更时若账本有记录，会从上次的号继续 +1（例如 1.2.22 → 1.2.23），不会因为中间打过 1.4 而重置成 1.2.0
-- 也可菜单 `NewBuild/保存当前热更账本` 手动存一次
-
-`save_hotfix_baseline` 会写入当前产品线账本，并同步一份到 `baseline/version.json` 兼容旧流程。旧基线仍会备份为 `version_yyyyMMdd_HHmmss.json.bak`。
+- 打包热更时若账本有记录，会从上次的号继续 +1（例如 1.2.22 → 1.2.23）
+- 也可菜单 `NewBuild/保存当前热更账本` 手动存一次（只更新打包账本，不代表已上传）
 
 ## 对比规则（与客户端热更一致）
 

@@ -36,33 +36,35 @@ function Get-LedgerKeyFromApplicationSettings([string]$RepoRoot) {
     return "{0}_{1}_{2}_{3}" -f $platform, $appType, $buildTarget, $folder
 }
 
-function Resolve-LedgerBaselinePath([string]$ScriptDir, [string]$RepoRoot) {
-    $ledgerRoot = Join-Path $ScriptDir "ledger"
-    $currentPath = Join-Path $ledgerRoot "current.json"
+function Get-LedgerKey([string]$ScriptDir, [string]$RepoRoot) {
+    $currentPath = Join-Path $ScriptDir "ledger\current.json"
     if (Test-Path -LiteralPath $currentPath) {
         try {
             $cur = Get-Content -LiteralPath $currentPath -Raw -Encoding UTF8 | ConvertFrom-Json
-            if ($cur.key) {
-                $p = Join-Path $ledgerRoot (Join-Path $cur.key "version.json")
-                if (Test-Path -LiteralPath $p) { return $p }
-            }
+            if ($cur.key) { return [string]$cur.key }
         }
         catch { }
     }
+    return Get-LedgerKeyFromApplicationSettings $RepoRoot
+}
 
-    $settingsKey = Get-LedgerKeyFromApplicationSettings $RepoRoot
-    if ($settingsKey) {
-        $p = Join-Path $ledgerRoot (Join-Path $settingsKey "version.json")
-        if (Test-Path -LiteralPath $p) { return $p }
+# 增量对比必须用「上次成功上传」，不能用 Unity 刚写入的 ledger/version.json
+function Resolve-UploadedBaselinePath([string]$ScriptDir, [string]$RepoRoot) {
+    $key = Get-LedgerKey $ScriptDir $RepoRoot
+    if ($key) {
+        $uploaded = Join-Path $ScriptDir (Join-Path "ledger" (Join-Path $key "uploaded.json"))
+        if (Test-Path -LiteralPath $uploaded) { return $uploaded }
     }
 
+    $legacy = Join-Path $ScriptDir "baseline\version.json"
+    if (Test-Path -LiteralPath $legacy) { return $legacy }
     return $null
 }
 
 if ([string]::IsNullOrWhiteSpace($BaselineVersionPath)) {
-    $ledgerBaseline = Resolve-LedgerBaselinePath $scriptDir $repoRoot
-    if ($ledgerBaseline) {
-        $BaselineVersionPath = $ledgerBaseline
+    $uploadedBaseline = Resolve-UploadedBaselinePath $scriptDir $repoRoot
+    if ($uploadedBaseline) {
+        $BaselineVersionPath = $uploadedBaseline
     }
     else {
         $BaselineVersionPath = Join-Path $scriptDir "baseline\version.json"
@@ -249,8 +251,18 @@ if ($Filter) { Write-Host "路径过滤:   *$Filter*" }
 Write-Host ""
 
 if (-not $hasBaseline) {
-    Write-Host "[提示] 未找到基线 version.json。本次将复制全部资源。" -ForegroundColor Yellow
+    Write-Host "[提示] 未找到上次上传基线（ledger/*/uploaded.json 或 baseline/version.json）。本次将复制全部资源。" -ForegroundColor Yellow
     Write-Host "       上传资源服后请执行: Tools\save_hotfix_baseline.bat" -ForegroundColor Yellow
+    Write-Host ""
+}
+elseif ($oldVer -eq $newVer -and $BaselineVersionPath -match '[\\/]ledger[\\/].+[\\/]version\.json$') {
+    Write-Host "[警告] 基线是 ledger/*/version.json（上次打包账本），不是 uploaded.json。" -ForegroundColor Yellow
+    Write-Host "       NewBuild 后立刻对比这份文件会得到空增量。请改用 uploaded.json 或 baseline\\version.json。" -ForegroundColor Yellow
+    Write-Host ""
+}
+elseif ($oldVer -eq $newVer) {
+    Write-Host "[提示] 源与基线热更号相同。若刚 NewBuild 完却无增量，说明基线已被写成刚打包的清单。" -ForegroundColor Yellow
+    Write-Host "       正确基线应是上次成功上传后 save_hotfix_baseline 保存的 uploaded.json。" -ForegroundColor Yellow
     Write-Host ""
 }
 

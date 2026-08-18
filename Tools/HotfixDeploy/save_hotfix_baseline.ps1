@@ -67,7 +67,7 @@ $legacyBaseline = Join-Path $scriptDir "baseline\version.json"
 if ([string]::IsNullOrWhiteSpace($BaselineVersionPath)) {
     $ledgerKey = Resolve-LedgerKey $scriptDir $repoRoot
     if ($ledgerKey) {
-        $BaselineVersionPath = Join-Path $scriptDir (Join-Path "ledger" (Join-Path $ledgerKey "version.json"))
+        $BaselineVersionPath = Join-Path $scriptDir (Join-Path "ledger" (Join-Path $ledgerKey "uploaded.json"))
         $currentObj = @{ key = $ledgerKey } | ConvertTo-Json
         $ledgerRoot = Join-Path $scriptDir "ledger"
         New-Item -ItemType Directory -Force -Path $ledgerRoot | Out-Null
@@ -87,11 +87,11 @@ if ($BaselineVersionPath -ne $legacyBaseline) {
 
 $versionObj = Get-Content -LiteralPath $BaselineVersionPath -Raw -Encoding UTF8 | ConvertFrom-Json
 Write-Host ""
-Write-Host "[完成] 基线已更新:" -ForegroundColor Green
+Write-Host "[完成] 已标记「上次成功上传」基线:" -ForegroundColor Green
 Write-Host "  $BaselineVersionPath"
 Write-Host ("  hotfix_version: {0}" -f $versionObj.hotfix_version)
 Write-Host ""
-Write-Host "下次执行 pack_hotfix_delta 将与此产品线的 version.json 对比，只打包变化文件。"
+Write-Host "下次 pack_hotfix_delta 将与此文件对比。不会覆盖 Unity 的 ledger/*/version.json（续号账本）。"
 Write-Host ""
 
 exit 0

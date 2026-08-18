@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920"/>
+<component size="1080,1920">
+  <displayList>
+    <component id="n4_g9kd" name="anchorPagBigWin" src="g9kd9o" fileName="components/popupBigWin/pagBIgWin.xml" xy="539,959"/>
+    <text id="n3_g9kd" name="txtWin" xy="20,1200" size="1040,156" font="ui://tdk27maeg9kd9n" fontSize="13" align="center" vAlign="middle" letterSpacing="-30" autoSize="shrink" text="r999,999,99"/>
+  </displayList>
+</component>

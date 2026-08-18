@@ -9,7 +9,9 @@ using UnityEngine;
 
 /// <summary>
 /// 按产品线保存完整 version.json，避免 1.2 / 1.4 共用一份清单时热更号和 hash 被覆盖。
-/// 账本目录：Tools/HotfixDeploy/ledger/{key}/version.json
+/// 账本目录：
+///   Tools/HotfixDeploy/ledger/{key}/version.json   上次打包（续号）
+///   Tools/HotfixDeploy/ledger/{key}/uploaded.json  上次成功上传（增量对比，由 save_hotfix_baseline 写入）
 /// </summary>
 public static class HotfixVersionLedger
 {

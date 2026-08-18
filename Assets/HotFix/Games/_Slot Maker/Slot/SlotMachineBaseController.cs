@@ -138,7 +138,7 @@ namespace SlotMaker
         /// 某列滚轮显示特殊图标﻿的动画
         /// </summary>
         /// <param name="colIndex"></param>
-        protected void ShowReelSymbolAppearEffect(int colIndex)
+        public virtual void ShowReelSymbolAppearEffect(int colIndex)
         {
             ReelBase reel = reels[colIndex];
             reel.SymbolAppearEffect();

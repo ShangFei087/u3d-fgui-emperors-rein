@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <image id="n2_mxrk" name="n2" src="z14g1b" fileName="images/gameMain/normal/ng_bg_Horizontal board background.png" xy="0,0"/>
-    <image id="n6_mxrk" name="n6" src="mxrk88" fileName="images/popupGameLoading/testloading/加载条.png" xy="115,1673" size="800,62"/>
-    <component id="n7_mxrk" name="Slider" src="mxrk8g" fileName="components/popupGameLoading/Slider1.xml" xy="115,1673">
-      <Slider value="50" max="100"/>
+    <loader id="n11_g9kd" name="BG" xy="0,0" size="1080,1920" url="ui://tdk27maeg9kd97" align="center" vAlign="middle" autoSize="true"/>
+    <image id="n12_g9kd" name="NPC" src="g9kd95" fileName="images/popupGameLoading/UI/kj_npc.png" xy="179,274"/>
+    <image id="n13_g9kd" name="Logo" src="g9kd94" fileName="images/popupGameLoading/UI/kj_Panther Wild.png" xy="36,53"/>
+    <component id="n18_g9kd" name="progress" src="g9kd9j" fileName="components/popupGameLoading/ProgressBar2.xml" xy="40,1665">
+      <ProgressBar value="1" max="1"/>
     </component>
-    <richtext id="n8_mxrk" name="version" xy="408,1732" size="218,66" fontSize="50" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="1.0.0"/>
-    <text id="n9_mxrk" name="load" xy="146,1394" size="758,270" fontSize="20" color="#ffffff" align="center" vAlign="bottom" autoSize="none" text="加载中：0/100"/>
+    <text id="n19_g9kd" name="textLoading" xy="406,1669" size="267,62" font="ui://tdk27maeg9kd9k" fontSize="12" align="center" vAlign="middle" autoSize="none" text="100%"/>
   </displayList>
 </component>

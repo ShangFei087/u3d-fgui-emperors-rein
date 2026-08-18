@@ -1,0 +1,11 @@
+ng_sym01_10.png
+size:419,212
+filter:Linear,Linear
+pma:true
+scale:0.5
+10
+bounds:249,65,168,145
+offsets:2,0,170,145
+eff/eff_zi_00
+bounds:2,2,245,208
+offsets:121,122,492,430

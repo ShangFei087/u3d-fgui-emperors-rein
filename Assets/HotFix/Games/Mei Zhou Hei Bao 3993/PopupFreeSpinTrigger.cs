@@ -12,18 +12,48 @@ namespace MeiZhouHeiBao_3993
         public new const string pkgName = "MeiZhouHeiBao";
         public new const string resName = "PopupFreeSpinTrigger";
 
-        private const string PrefabPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupFreeSpinTrigger/";
+        private const string PrefabPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupFreeSpinTrigger/PopupFreeSpinTrigger.prefab";
+        private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
+  
+        //弹窗
+        private GameObject goFreeTrigger;
+        private GComponent anchorFreeTrigger;
+        private GameObject clonegoFreeTrigger;
+        private AnimPlayer _animFreeTrigger;
+        private TimerCallback _delayCloseCallback;
+        //pag
+        private GComponent anchorPagFreeTrigger;
+        private PagSlotBinding pagFreeTrigger;
+      
+        private GButton btnStart;
+        private GTextField txtFreeTime;
 
-        private int _totalCount;
-        private GButton _closeBtn;
-        private GTextField _spinCountText;
         private bool _isClicked;
-        private GameSoundController3993 _gameSoundController;
+        //private GameSoundController3993 _gameSoundController;
 
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
+
+            int count = 1;
+            Action callback = () =>
+            {
+                if (--count == 0)
+                {
+                    isInit = true;
+                    InitParam();
+                }
+            };
+
+            //1
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+            PrefabPath,
+             (GameObject clone) =>
+             {
+                 goFreeTrigger = clone;
+                 callback();
+             });
 
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
@@ -42,50 +72,99 @@ namespace MeiZhouHeiBao_3993
             };
         }
 
-        private void InitParam(EventData eventData)
+        public override void InitParam()
         {
             if (!isInit) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
             _isClicked = false;
+           
+            RemoveTimer(ref _delayCloseCallback);
 
-            _closeBtn = contentPane.GetChild("closeBtn").asButton;
-            _spinCountText = contentPane.GetChild("spinCountText").asTextField;
-            _closeBtn.onClick.Clear();
-            _closeBtn.onClick.Add(() => OnCloseBtn());
+            anchorPagFreeTrigger= contentPane.GetChild("anchorFreeTriggerPag").asCom;
+            if (pagFreeTrigger == null) pagFreeTrigger = new PagSlotBinding("3993pagFreeTrigger", PagPath);
+            pagFreeTrigger.EnsureSlot(anchorPagFreeTrigger);
+
+            GComponent localFreeTrigger = contentPane.GetChild("anchorFreeTrigger").asCom;
+            if (anchorFreeTrigger != localFreeTrigger)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorFreeTrigger);
+                clonegoFreeTrigger = GameObject.Instantiate(goFreeTrigger);
+                anchorFreeTrigger = localFreeTrigger;
+                GameCommon.FguiUtils.AddWrapper(anchorFreeTrigger, clonegoFreeTrigger);
+                _animFreeTrigger = new AnimPlayer(clonegoFreeTrigger);
+            }
+            _animFreeTrigger.PlayThen("in", "idle", true);
+
+            btnStart = contentPane.GetChild("BtnStart").asButton;
+            txtFreeTime = contentPane.GetChild("FreeTimeText").asTextField;
+            txtFreeTime.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
+            btnStart.touchable = false;
+            Timers.inst.Add(0.5f, 1, obj =>
+            {
+                if (btnStart != null) btnStart.touchable = true;
+            });
+            btnStart.onClick.Clear();
+            btnStart.onClick.Add(() => OnCloseBtn());
+
+            const string rootFreeTriggerPath = "Anchor/Spine Mecanim GameObject (fg_pup_TipFrame)/SkeletonUtility-SkeletonRoot/root/all";
+            _animFreeTrigger.Attach(
+                btnStart,
+                rootFreeTriggerPath + "/fg_START_01",
+                localPos: new Vector3(),
+                localScale: new Vector3(0.01f, 0.01f, 0.01f),
+                localRot: Quaternion.identity);
+            _animFreeTrigger.Attach(
+                txtFreeTime,
+                rootFreeTriggerPath + "/Base plate/fg_img_FREE GAMES",
+                localPos: new Vector3(-4.19f, 4.0f, 0.0f),
+                localScale: new Vector3(0.01f, 0.01f, 0.01f),
+                localRot: Quaternion.identity);
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
 
-            _gameSoundController = new GameSoundController3993();
-            EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3993AudioEvent.BgmFreeSpinTrigger));
-            InitParam(eventData);
+            //_gameSoundController = new GameSoundController3993();
+            //EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3993AudioEvent.BgmFreeSpinTrigger));
+            InitParam();
         }
 
         public override void OnClose(EventData eventData = null)
         {
+            RemoveTimer(ref _delayCloseCallback);
+            _animFreeTrigger.DetachAll();
+
             base.OnClose(eventData);
 
-            _gameSoundController?.Dispose();
-            _gameSoundController = null;
+            //_gameSoundController?.Dispose();
+            //_gameSoundController = null;
         }
 
-        private void ResLoadCallback()
-        {
-            if (--_totalCount != 0) return;
-
-            isInit = true;
-            InitParam(null);
-        }
 
         private void OnCloseBtn(EventData eventData = null)
         {
             if (_isClicked) return;
             _isClicked = true;
 
-            CloseSelf(eventData);
+            btnStart.touchable = false;
+            _animFreeTrigger.Play("out");
+
+            RemoveTimer(ref _delayCloseCallback);
+            _delayCloseCallback = obj =>
+            {
+                if (isOpen) CloseSelf(eventData);
+                _delayCloseCallback = null;
+            };
+            Timers.inst.Add(1.0f, 1, _delayCloseCallback);
+        }
+
+        private void RemoveTimer(ref TimerCallback timerCallback)
+        {
+            if (timerCallback == null) return;
+            Timers.inst.Remove(timerCallback);
+            timerCallback = null;
         }
     }
 }

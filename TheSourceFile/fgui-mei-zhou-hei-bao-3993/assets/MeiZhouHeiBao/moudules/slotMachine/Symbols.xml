@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="300,625">
   <displayList>
-    <component id="n0_z14g" name="symbol0" src="z14g7r" fileName="moudules/slotMachine/Symbol.xml" xy="1,-539"/>
-    <component id="n1_z14g" name="symbol1" src="z14g7r" fileName="moudules/slotMachine/Symbol.xml" xy="1,-304"/>
-    <component id="n2_z14g" name="symbol2" src="z14g7r" fileName="moudules/slotMachine/Symbol.xml" xy="1,-69"/>
-    <component id="n3_z14g" name="symbol3" src="z14g7r" fileName="moudules/slotMachine/Symbol.xml" xy="1,165"/>
-    <component id="n4_z14g" name="symbol4" src="z14g7r" fileName="moudules/slotMachine/Symbol.xml" xy="1,400"/>
-    <component id="n5_z14g" name="symbol5" src="z14g7r" fileName="moudules/slotMachine/Symbol.xml" xy="1,635"/>
-    <component id="n6_z14g" name="symbol6" src="z14g7r" fileName="moudules/slotMachine/Symbol.xml" xy="1,870"/>
+    <component id="n0_z14g" name="symbol0" src="z14g7r" fileName="moudules/slotMachine/Symbol.xml" xy="0,-497"/>
+    <component id="n1_z14g" name="symbol1" src="z14g7r" fileName="moudules/slotMachine/Symbol.xml" xy="0,-277"/>
+    <component id="n2_z14g" name="symbol2" src="z14g7r" fileName="moudules/slotMachine/Symbol.xml" xy="0,-57"/>
+    <component id="n3_z14g" name="symbol3" src="z14g7r" fileName="moudules/slotMachine/Symbol.xml" xy="0,163"/>
+    <component id="n4_z14g" name="symbol4" src="z14g7r" fileName="moudules/slotMachine/Symbol.xml" xy="0,383"/>
+    <component id="n5_z14g" name="symbol5" src="z14g7r" fileName="moudules/slotMachine/Symbol.xml" xy="0,603"/>
+    <component id="n6_z14g" name="symbol6" src="z14g7r" fileName="moudules/slotMachine/Symbol.xml" xy="0,823"/>
   </displayList>
 </component>

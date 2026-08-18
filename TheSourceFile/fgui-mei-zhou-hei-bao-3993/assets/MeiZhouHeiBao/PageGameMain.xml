@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <controller name="pageControl" pages="0,normalGame,1,freeGame,2,bonusGame" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="normal"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="free"/>
+    <action type="play_transition" fromPage="" toPage="2" transition="bonus"/>
+  </controller>
+  <displayList>
+    <loader id="n82_g9kd" name="BG" xy="0,0" size="1080,1920" url="ui://tdk27maez14g1b" align="center" vAlign="middle" autoSize="true">
+      <gearDisplay controller="pageControl" pages="0,1,2"/>
+    </loader>
+    <component id="n8_e3wa" name="jpMajor" src="e3wa7y" fileName="moudules/gameJackpot/GameJackpotMajor.xml" xy="308,19" group="n12_e3wa"/>
+    <component id="n9_e3wa" name="jpMinor" src="e3wa82" fileName="moudules/gameJackpot/GameJackpotMini.xml" xy="-2,88" group="n12_e3wa"/>
+    <component id="n10_e3wa" name="jpMini" src="e3wa81" fileName="moudules/gameJackpot/GameJackpotMinor.xml" xy="745,82" group="n12_e3wa"/>
+    <group id="n12_e3wa" name="jackpots" xy="-2,19" size="1082,172"/>
+    <component id="n87_g9kd" name="anchorNpc" src="g9kd9m" fileName="components/gameMain/AnchorNpc.xml" xy="539,955"/>
+    <loader id="n94_g9kd" name="innerFrame" xy="15,943" size="1050,650" url="ui://tdk27maez14g6x" align="center" vAlign="middle" autoSize="true"/>
+    <component id="n6_z14g" name="slotMachine" src="z14g6u" fileName="moudules/slotMachine/SlotMachine.xml" xy="40,953" size="1000,625"/>
+    <component id="n92_g9kd" name="rewardSlotMachine" src="g9kda0" fileName="moudules/rewardSlotMachine/rewardSlotMachine.xml" xy="40,953"/>
+    <loader id="n95_g9kd" name="OutFrame" xy="0,840" size="1080,890" url="ui://tdk27maez14g6v" autoSize="true"/>
+    <component id="n88_g9kd" name="anchorScatterSpeedBorder" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,959"/>
+    <component id="n89_g9kd" name="anchorBonusSpeedBorder" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,959"/>
+    <component id="n83_g9kd" name="boxFreeCollet" src="g9kd8n" fileName="components/gameMain/BoxFreeCollect.xml" xy="502,493"/>
+    <component id="n81_mxrk" name="anchorFrame" src="mxrk8h" fileName="components/gameMain/AnchorEffect.xml" xy="539,959"/>
+    <component id="n7_e3wa" name="panel" src="z14g7x" fileName="components/gameMain/AnchorPanelPush.xml" xy="0,0"/>
+    <component id="n90_g9kd" name="anchorFadePag" src="g9kd9r" fileName="components/anchorPag.xml" xy="539,959"/>
+  </displayList>
+  <transition name="normal">
+    <item time="0" type="Icon" target="n82_g9kd" value="ui://tdk27maez14g1b"/>
+    <item time="0" type="Icon" target="n94_g9kd" value="ui://tdk27maez14g6x"/>
+    <item time="0" type="Icon" target="n95_g9kd" value="ui://tdk27maez14g6v"/>
+    <item time="0" type="Visible" target="n6_z14g" value="true"/>
+    <item time="0" type="Visible" target="n83_g9kd" value="false"/>
+    <item time="0" type="Visible" target="n92_g9kd" value="false"/>
+  </transition>
+  <transition name="free">
+    <item time="0" type="Icon" target="n82_g9kd" value="ui://tdk27maez14g1b"/>
+    <item time="0" type="Icon" target="n94_g9kd" value="ui://tdk27maez14g6x"/>
+    <item time="0" type="Icon" target="n95_g9kd" value="ui://tdk27maeg9kd9l"/>
+    <item time="0" type="Visible" target="n6_z14g" value="true"/>
+    <item time="0" type="Visible" target="n83_g9kd" value="true"/>
+    <item time="0" type="Visible" target="n87_g9kd" value="false"/>
+    <item time="0" type="Visible" target="n92_g9kd" value="false"/>
+  </transition>
+  <transition name="bonus">
+    <item time="0" type="Icon" target="n82_g9kd" value="ui://tdk27maez14g6r"/>
+    <item time="0" type="Icon" target="n94_g9kd" value="ui://tdk27maez14g6s"/>
+    <item time="0" type="Icon" target="n95_g9kd" value="ui://tdk27maeg9kda1"/>
+    <item time="0" type="Visible" target="n6_z14g" value="false"/>
+    <item time="0" type="Visible" target="n83_g9kd" value="false"/>
+    <item time="0" type="Visible" target="n87_g9kd" value="true"/>
+    <item time="0" type="Visible" target="n88_g9kd" value="true"/>
+    <item time="0" type="Visible" target="n89_g9kd" value="true"/>
+    <item time="0" type="Visible" target="n92_g9kd" value="true"/>
+  </transition>
+</component>
