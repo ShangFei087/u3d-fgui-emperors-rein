@@ -3,10 +3,16 @@
 	"gm_event": {
 		"normal": {
 			"nick_name": "普通赢",
+			"event_name": "GMSingleWinLine",
+			"value": "",
+			"des": ""
+		},
+		"panther": {
+			"nick_name": "普通特殊赢",
 			"event_name": "GMMultipleWinLine",
 			"value": "",
 			"des": ""
-		}
+		},
 		"bigwin": {
 			"nick_name": "BigWin",
 			"event_name": "GMBigWin",

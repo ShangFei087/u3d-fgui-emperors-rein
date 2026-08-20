@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 204125794232519519}
   m_Layer: 5
-  m_Name: NormalBorder2
+  m_Name: PantherNormalBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

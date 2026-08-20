@@ -68,6 +68,10 @@ namespace MeiZhouHeiBao_3993
         //中奖框
         public string borderEffect =>"Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/Border/NormalBorder1.prefab";
 
+        /// <summary> 普通局豹头收集：豹头 / Bonus 中奖框。 </summary>
+        public string pantherNormalBorderEffect =>
+            "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/Border/PantherNormalBorder.prefab";
+
         /// <summary> 大奖滚轮 Bonus Spine（FguiPool AnchorRoot + Wrapper） </summary>
         public string symbolRewardBonusEffect =>
             "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolSmallGame/SymbolBonus.prefab";

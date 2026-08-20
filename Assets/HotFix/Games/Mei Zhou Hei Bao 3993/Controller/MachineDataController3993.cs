@@ -17,6 +17,7 @@ namespace MeiZhouHeiBao_3993
     {
         None,
         NormalWin,
+        PantherNormalWin,
         BigWin,
         FreeSpin,
         BonusSpin,
@@ -61,6 +62,12 @@ namespace MeiZhouHeiBao_3993
                 "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Win_8.json",
                 "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__Win_9.json",
             },
+            [SpinDataType.PantherNormalWin] = new List<string>()
+            {
+                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__pantherwin_0.json",
+                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__pantherwin_1.json",
+                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__pantherwin_2.json",
+            },
             [SpinDataType.FreeSpin] = new List<string>()
             {
                 "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__freeTrigger.json",
@@ -88,7 +95,7 @@ namespace MeiZhouHeiBao_3993
             [SpinDataType.BigWin] = new List<string>() 
             { 
                 "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__bigWin.json", 
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__supperWin.json",
+                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__superWin.json",
                 "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__megaWin.json", 
             },
             [SpinDataType.JP1] = new List<string>()
@@ -133,12 +140,14 @@ namespace MeiZhouHeiBao_3993
             _nextSpinType = res.name switch
             {
                 GlobalEvent.GMSingleWinLine => SpinDataType.NormalWin,
+                GlobalEvent.GMMultipleWinLine => SpinDataType.PantherNormalWin,
                 GlobalEvent.GMFreeSpin => SpinDataType.FreeSpin,
                 GlobalEvent.GMBonus1 => SpinDataType.BonusSpin,
                 GlobalEvent.GMJp1 => SpinDataType.JP1,
                 GlobalEvent.GMJp2 => SpinDataType.JP2,
                 GlobalEvent.GMJp3 => SpinDataType.JP3,
-                GlobalEvent.GMBigWin => SpinDataType.BigWin,_ => _nextSpinType
+                GlobalEvent.GMBigWin => SpinDataType.BigWin,
+                _ => _nextSpinType
             };
 
             _currentDataQueue = new Queue<string>(_spinDataDic[_nextSpinType]);
@@ -148,12 +157,13 @@ namespace MeiZhouHeiBao_3993
         {
             Timer.DelayAction(0.2f, () =>
             {
-                if (_currentDataQueue.Count == 0&& _nextSpinType== SpinDataType.None)
+                if (_currentDataQueue.Count == 0)
                 {
-                    List<string> target = _nextSpinType != SpinDataType.None ? _spinDataDic[_nextSpinType] : _spinDataDic[SpinDataType.NormalWin];
-                    _nextSpinType = SpinDataType.None;
+                    List<string> target = _nextSpinType != SpinDataType.None? _spinDataDic[_nextSpinType] : _spinDataDic[SpinDataType.NormalWin];
+                    _nextSpinType = SpinDataType.None; // 播完当前序列后回落到普通赢
                     _currentDataQueue = new Queue<string>(target);
                 }
+
 
                 string path = _currentDataQueue.Dequeue();
                 int resourcesIndex = path.IndexOf("Resources/", StringComparison.Ordinal); //path.IndexOf("Resources/");
@@ -197,11 +207,13 @@ namespace MeiZhouHeiBao_3993
             int winlineNum = data[pos++];
             int totalBet = data[pos++];
             int matrixLength = data[pos++];
+            int panther = data[pos++];
             result["OpenType"] = openType;
             result["ResultType"] = resultType;
             result["lineNum"] = winlineNum;
             result["TotalBet"] = totalBet;
             result["MatrixLength"] = matrixLength;
+            result["Panther"] = panther;
             result["IDVec"] = new JSONArray();
             for (int i = 0; i < winlineNum; i++)
             {
@@ -214,6 +226,16 @@ namespace MeiZhouHeiBao_3993
             {
                 int id = data[pos++];
                 result["Matrix"].Add(id);
+            }
+
+            if (panther == 1)
+            {
+                result["BonusData"] = new JSONArray();
+                for (int i = 0; i < matrixLength; i++)
+                {
+                    int id = data[pos++];
+                    result["BonusData"].Add(id);
+                }
             }
 
             if (resultType == (int)ResultType.RT_FreeWin)
@@ -300,6 +322,8 @@ namespace MeiZhouHeiBao_3993
             ContentModel.Instance.isFreeSpinTrigger = false;
             ContentModel.Instance.isSmallGameTrigger = false;
             ContentModel.Instance.isJackpotGame = false;
+            ContentModel.Instance.isPantherWin = false;
+            ContentModel.Instance.pantherBonusWin = 0;
             ContentModel.Instance.TotalJackpotBet = 0;
             ContentModel.Instance.JPTypeArray = Array.Empty<int>();
             ContentModel.Instance.JPBetArray = Array.Empty<int>();
@@ -312,6 +336,7 @@ namespace MeiZhouHeiBao_3993
             int rows = CustomModel.Instance.row; // 3行
             int cols = CustomModel.Instance.column; // 5列
             int wheelChessNum = rows * cols;
+            ContentModel.Instance.BonusData = new int[wheelChessNum];
             int[] wildData = new int[wheelChessNum];
             if (res["WildData"] != null)
             {
@@ -399,7 +424,12 @@ namespace MeiZhouHeiBao_3993
                 totalLineWin += lineWin;
             }
             ContentModel.Instance.winList = winList;
-            ContentModel.Instance.baseGameWinCredit = totalLineWin;
+
+            List<int> deckRowCol = SlotTool.GetDeckRowCol(strDeckRowCol);
+            bool inFreeGive = ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes;
+            if (!inFreeGive) TryApplyPantherWin(res, deckRowCol, wheelChessNum);
+
+            ContentModel.Instance.baseGameWinCredit = totalLineWin + ContentModel.Instance.pantherBonusWin;
             //检查算法结果
             CheckGameResult(strDeckRowCol, totalwin);
 
@@ -453,7 +483,7 @@ namespace MeiZhouHeiBao_3993
             long creditBefore = 0;
             long creditAfter = 0;
             //判断赠送局(未完成免费序列的每一局，算法 OpenType 为赠送)
-            if (ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes)
+            if (inFreeGive)
             {
                 if (openType != (int)OpenType.OT_Give)
                 {
@@ -481,7 +511,6 @@ namespace MeiZhouHeiBao_3993
             }
             else
             {
-                List<int> deckRowCol = SlotTool.GetDeckRowCol(strDeckRowCol);
                 int wild = CustomModel.Instance.symbolNumber[10];
                 int scatter = CustomModel.Instance.symbolNumber[11];
                 int bonus = CustomModel.Instance.symbolNumber[12];
@@ -571,13 +600,7 @@ namespace MeiZhouHeiBao_3993
                         ContentModel.Instance.isSmallGameFinish = false;
                         ContentModel.Instance.bonusSpinTime = 3;
                         ContentModel.Instance.BonusBet = res["BonusBet"] != null ? (int)res["BonusBet"] : 0;
-                        ContentModel.Instance.BonusData = new int[wheelChessNum];
-                        if (res["BonusData"] != null)
-                        {
-                            int n = Math.Min(wheelChessNum, res["BonusData"].Count);
-                            for (int i = 0; i < n; i++)
-                                ContentModel.Instance.BonusData[i] = (int)res["BonusData"][i];
-                        }
+                        CopyBonusData(res, wheelChessNum);
 
                         if (isJackpotResult)
                             ApplyJackpotResult(res, jpGameRes);
@@ -595,7 +618,7 @@ namespace MeiZhouHeiBao_3993
                 if (ContentModel.Instance.isSmallGameTrigger)
                     creditAfter = creditBefore - totalBet + ContentModel.Instance.BonusBet + ContentModel.Instance.TotalJackpotBet;
                 else
-                    creditAfter = creditBefore - totalBet + totalLineWin;
+                    creditAfter = creditBefore - totalBet + totalLineWin + ContentModel.Instance.pantherBonusWin;
             }
 
             string machineId = string.IsNullOrEmpty(SBoxModel.Instance.MachineId) ? "00000000" : SBoxModel.Instance.MachineId;
@@ -677,6 +700,71 @@ namespace MeiZhouHeiBao_3993
 
             DebugUtils.Log(
                 $"[3993][Jackpot] types=[{string.Join(",", typeList)}] bets=[{string.Join(",", betList)}] total={totalJp}");
+        }
+
+        //判断是否为特殊普通奖
+        private void TryApplyPantherWin(JSONNode res, List<int> deckRowCol, int wheelChessNum)
+        {
+            if (deckRowCol == null || deckRowCol.Count == 0)
+                return;
+
+            int pantherId = CustomModel.Instance.symbolNumber[9];
+            int bonusId = CustomModel.Instance.symbolNumber[12];
+            int pantherCount = 0; //黑豹数量
+            int bonusCount = 0; //bonus数量
+            int n = Math.Min(wheelChessNum, deckRowCol.Count);
+            for (int i = 0; i < n; i++)
+            {
+                if (deckRowCol[i] == pantherId)
+                    pantherCount++;
+                else if (deckRowCol[i] == bonusId)
+                    bonusCount++;
+            }
+
+        
+            //前端判断
+            bool localPantherWin = pantherCount >= 1 && bonusCount >= 1 && bonusCount < 6;
+            //后端判断
+            bool serverPantherWin = res["Panther"] != null && (int)res["Panther"] == 1;
+            if (localPantherWin != serverPantherWin)
+            {
+                DebugUtils.LogError($"[3993][CheckPanther] 校验不一致，本地={localPantherWin}(panther={pantherCount},bonus={bonusCount}) 算法Panther={res["Panther"]}");
+                return;
+            }
+
+            if (!localPantherWin)
+                return;
+
+            CopyBonusData(res, wheelChessNum);
+            ContentModel.Instance.isPantherWin = true;
+            ContentModel.Instance.pantherBonusWin = SumBonusData();
+            DebugUtils.Log($"[3993][PantherWin] panther={pantherCount} bonus={bonusCount} win={ContentModel.Instance.pantherBonusWin}");
+        }
+
+        private static void CopyBonusData(JSONNode res, int wheelChessNum)
+        {
+            ContentModel.Instance.BonusData = new int[wheelChessNum];
+            if (res["BonusData"] == null)
+                return;
+
+            int n = Math.Min(wheelChessNum, res["BonusData"].Count);
+            for (int i = 0; i < n; i++)
+                ContentModel.Instance.BonusData[i] = (int)res["BonusData"][i];
+        }
+
+        private static int SumBonusData()
+        {
+            int[] data = ContentModel.Instance.BonusData;
+            if (data == null)
+                return 0;
+
+            int sum = 0;
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (data[i] > 0)
+                    sum += data[i];
+            }
+            return sum;
         }
 
         private static int[] ParseIntArray(JSONNode node)
@@ -785,6 +873,8 @@ namespace MeiZhouHeiBao_3993
                     }
                 }
             }
+
+            calcTotalWin += ContentModel.Instance.pantherBonusWin;
 
             int diff = Math.Abs(calcTotalWin - TotalWin); // 计算本地校验值与算法差值
             if (diff != 0)

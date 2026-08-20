@@ -120,6 +120,10 @@ namespace MeiZhouHeiBao_3993
         private RewardMgr3993 _rewardMgr;
         private GameObject _goEffSgGlow;
         private GameObject _goEffSgTrails;
+        private GameObject _goEffNgTrails;
+        private const float PantherWinHitHold = 0.4f;
+        private const float PantherWinTrailDuration = 0.4f;
+        private const float PantherWinTrailGap = 0.15f;
 
         protected override void OnInit()
         {
@@ -127,7 +131,7 @@ namespace MeiZhouHeiBao_3993
             base.OnInit();
 
             // ---------- 1. 加载common,普通游戏,免费游戏,彩金游戏预制体到内存 ----------
-            _totalCount = 10;
+            _totalCount = 11;
             if (UIPackage.GetByName("Common") == null)
             {
                 ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/Common/FGUIs", (bundle) =>
@@ -209,6 +213,12 @@ namespace MeiZhouHeiBao_3993
               (GameObject clone) =>
               {
                   _goEffSgTrails = clone;
+                  ResLoadedCallback();
+              });
+            ResourceManager02.Instance.LoadAsset<GameObject>("Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Effect/Effect_ng_trails.prefab",
+              (GameObject clone) =>
+              {
+                  _goEffNgTrails = clone;
                   ResLoadedCallback();
               });
 
@@ -300,6 +310,7 @@ namespace MeiZhouHeiBao_3993
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolHit, CustomModel.Instance.symbolHitEffect.Values.ToList(), "symbol_hit#", 13);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolHit); // 中奖动画
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.borderEffect, "border#", 1);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.pantherNormalBorderEffect, "border#", 15);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolBorder); // 边框
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 3);
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardBonusEffect, "symbol_reward_bonus#", 20);
@@ -886,20 +897,32 @@ namespace MeiZhouHeiBao_3993
             }
 
             List<SymbolWin> winList = ContentModel.Instance.winList;
+            long pantherWin = ContentModel.Instance.isPantherWin ? ContentModel.Instance.pantherBonusWin : 0;
             TryPlayNormalNpcAfterSpin(winList);
-            long allWinCredit = 0;
+
+            if (ContentModel.Instance.isPantherWin)
+            {
+                yield return PlayPantherWin();
+            } 
+
+            long allWinCredit = pantherWin;
             // ----------------- normal win ---------------
             if (winList.Count > 0 )
             {
                 // Todo:中奖特效
-                //if (_spinWEMD.Instance.isSingleWin){...}else{...}
-                long totalWinLineCredit = 0;
-                totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList);
-                allWinCredit = totalWinLineCredit;
+                long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList);
+                allWinCredit += totalWinLineCredit;
 
                 _slotMachineController.SendTotalWinCreditEvent(allWinCredit); // 积分同步和退币处理
-                MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true); // 加钱动画
+                MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true); // 加钱动画
+                yield return _slotMachineController.ShowSymbolWinBySetting(_slotMachineController.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
                 MainBlackboardController.Instance.SyncMyTempCreditToReal(true); // 同步玩家真实金币
+                yield return _slotMachineController.SlotWaitForSeconds(1.5f);
+            }
+            else if (pantherWin > 0)
+            {
+                _slotMachineController.SendTotalWinCreditEvent(allWinCredit);
+                MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             }
 
             // ----------------- big win ---------------
@@ -907,7 +930,7 @@ namespace MeiZhouHeiBao_3993
             if (winLevelType != WinLevelType.None)
             {
                 yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
-                _slotMachineController.ShowSymbolWinDeck(_slotMachineController.GetTotalSymbolWin(winList), true);
+                if (winList.Count > 0) _slotMachineController.ShowSymbolWinDeck(_slotMachineController.GetTotalSymbolWin(winList), true);
             }
 
             // ----------------- free win ---------------
@@ -932,10 +955,18 @@ namespace MeiZhouHeiBao_3993
             // 本剧同步玩家金钱
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             ContentModel.Instance.gameState = GameState.Idle;
-            if (winList.Count > 0 && !ContentModel.Instance.isAuto && !ContentModel.Instance.isFreeSpinTrigger)
+            if ( !ContentModel.Instance.isAuto && !ContentModel.Instance.isFreeSpinTrigger)
             {
-                if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
-                _corGameIdle = _monoHelper.StartCoroutine(GameIdle(winList));
+
+                if (ContentModel.Instance.isPantherWin)
+                {
+                    _slotMachineController.ShowPantherWinHit();
+                }
+                if (winList.Count > 0)
+                {
+                    if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
+                    _corGameIdle = _monoHelper.StartCoroutine(GameIdle(winList));
+                }
             }
 
             _slotMachineController.isStopImmediately = false;
@@ -1134,7 +1165,8 @@ namespace MeiZhouHeiBao_3993
         {
             bool isNext = false;
             _slotMachineController.CloseSlotCover();
-            _slotMachineController.SkipWinLine(false);
+            _slotMachineController.SkipWinLine(true);
+
             PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupBigWin,
                new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
                {
@@ -1148,6 +1180,54 @@ namespace MeiZhouHeiBao_3993
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
             callback?.Invoke();
+        }
+
+        /// <summary>
+        /// 普通局豹头收集：先亮豹头/Bonus + PantherNormalBorder，再逐个飞 Effect_ng_trails 到 anchorWinBorder 加分。
+        /// 结束后只清拖尾和 Panel 赢分框；豹头 Hit/框保留，已收集 Bonus 保持 idle。
+        /// </summary>
+        private IEnumerator PlayPantherWin()
+        {
+            _notHitSpinCount = 0;
+            // GameSoundHelper3993.Instance.PlaySoundEff(SoundKey.BonusWin);
+            //播放图标特效
+            _slotMachineController.ShowPantherWinHit();
+            yield return _slotMachineController.SlotWaitForSeconds(1.0f);
+
+            //创建并且移动拖尾
+            List<Cell> bonusCells = _slotMachineController.GetVisibleCellsBySymbol(NpcBonusSymbolId);
+            Vector2 to = GetWinBorderLocalPos();
+            for (int i = 0; i < bonusCells.Count; i++)
+            {
+                Cell cel = bonusCells[i];
+                int score = GetPantherBonusScore(cel.row, cel.column);
+                GComponent trail = CreateAnchorTrails();
+
+                _anchorEffectFrame.AddChild(trail);
+                trail.SetPivot(0.5f, 0.5f, true);
+                trail.xy = _slotMachineController.SymbolCenterToNodeLocalPos(cel.column, cel.row, _anchorEffectFrame);
+                if (_goEffNgTrails != null)
+                    GameCommon.FguiUtils.AddWrapper(trail, Object.Instantiate(_goEffNgTrails));
+
+                bool arrived = false;
+                GComponent captured = trail;
+                Cell capturedCell = cel;
+                int capturedScore = score;
+                trail.TweenMove(to, 0.5f).OnComplete(() =>
+                {
+                    GameCommon.FguiUtils.DeleteWrapper(captured);
+                    captured.Dispose();
+                    OnPantherBonusArrived(capturedScore, capturedCell);
+                    arrived = true;
+                });
+
+                yield return new WaitUntil(() => arrived);
+                yield return new WaitForSeconds(PantherWinTrailGap);
+            }
+
+            yield return _slotMachineController.SlotWaitForSeconds(PantherWinHitHold);
+            ClearPantherTrails();
+            _panelController.HideWinBorders();
         }
 
         #endregion
@@ -1269,7 +1349,6 @@ namespace MeiZhouHeiBao_3993
             ExitFreeSpin();
             yield return _slotMachineController.SlotWaitForSeconds(3.0f);
         }
-
 
         private IEnumerator FreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
@@ -1571,6 +1650,7 @@ namespace MeiZhouHeiBao_3993
                 _anchorEffFgStar.visible = false;
         }
 
+        //清除拖尾
         private void ClearPantherTrails()
         {
             if (_anchorEffectFrame == null)
@@ -1692,6 +1772,46 @@ namespace MeiZhouHeiBao_3993
             _animNormalNpc.Play(animName, loop);
         }
 
+
+
+        //拖尾到达panel后 动作
+        private void OnPantherBonusArrived(int score, Cell cel)
+        {
+            //win框特效
+            _panelController.ShowNormalWinBorder();
+            if (cel != null)
+                _slotMachineController.SetPantherBonusCollectedIdle(cel.row, cel.column);
+
+            if (score <= 0)
+                return;
+
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,
+                new EventData<long>(SlotMachineEvent.SingleWinBonus, score));
+            MainBlackboardController.Instance.AddMyTempCredit(score, true);
+        }
+
+        private Vector2 GetWinBorderLocalPos()
+        {
+            if (_anchorEffectFrame == null)
+                return Vector2.zero;
+
+            GComponent target = _panelController?.AnchorWinBorder;
+            if (target == null)
+                return Vector2.zero;
+
+            Vector2 global = target.LocalToGlobal(new Vector2(target.width * 0.5f, target.height * 0.5f));
+            return _anchorEffectFrame.GlobalToLocal(global);
+        }
+
+        private static int GetPantherBonusScore(int row, int col)
+        {
+            int index = row * CustomModel.Instance.column + col;
+            int[] data = ContentModel.Instance.BonusData;
+            if (data != null && index >= 0 && index < data.Length)
+                return data[index];
+            return 0;
+        }
+
         /// <summary>
         /// 普通局停轮后播 NPC。优先级：trig（免费/Bonus）&gt; win3（黑豹+Bonus同屏）&gt; win2（动物线赢）&gt; win1（扑克牌线赢）&gt; Idle2（连续 5 局未中奖）。
         /// Controller 播完会回到 Idle1。免费局由 FGUI 隐藏 NPC，不走这里。
@@ -1713,7 +1833,7 @@ namespace MeiZhouHeiBao_3993
                 return;
             }
 
-            if (DeckHasPantherAndBonus())
+            if (ContentModel.Instance.isPantherWin)
             {
                 PlayNormalNpc("win3");
                 return;
@@ -1736,25 +1856,6 @@ namespace MeiZhouHeiBao_3993
                 PlayNormalNpc("Idle2");
                 _notHitSpinCount = 0;
             }
-        }
-
-        /// <summary>
-        /// win3（黑豹+Bonus 同时出现触发）。
-        /// </summary>
-        private static bool DeckHasPantherAndBonus()
-        {
-            List<int> deck = SlotTool.GetDeckRowCol(ContentModel.Instance.strDeckRowCol);
-            if (deck == null || deck.Count == 0) return false;
-
-            bool hasPanther = false;
-            bool hasBonus = false;
-            for (int i = 0; i < deck.Count; i++)
-            {
-                if (deck[i] == NpcPantherSymbolId) hasPanther = true;
-                else if (deck[i] == NpcBonusSymbolId) hasBonus = true;
-                if (hasPanther && hasBonus) return true;
-            }
-            return false;
         }
 
         private static bool HasWinSymbolInRange(List<SymbolWin> winList, int minInclusive, int maxInclusive)

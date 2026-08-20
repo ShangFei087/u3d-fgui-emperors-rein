@@ -76,6 +76,12 @@ namespace MeiZhouHeiBao_3993
         /// <summary> 是否长滚动 </summary>
         public bool isReelsSlowMotion;
 
+        /// <summary> 普通局豹头收集奖金（盘面 ≥1 豹头且 1~5 个 Bonus，且算法 Panther==1）。 </summary>
+        public bool isPantherWin;
+
+        /// <summary> 本局豹头收集的奖金合计（Σ BonusData），不含线奖。 </summary>
+        public int pantherBonusWin;
+
 
         // ------------------------ Free Game ------------------------
         private int _totalPlaySpins = 1;

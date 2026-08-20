@@ -49,6 +49,7 @@ namespace MeiZhouHeiBao_3993
         public override IEnumerator ShowWinListAwayDuringIdle(List<SymbolWin> winList)
         {
             isIdleEffect = true;
+      
             while (winList.Count > 0 && isIdleEffect) //while (idx < winList.Count)
             {
                 yield return ShowWinListBySetting(winList);
@@ -392,8 +393,9 @@ namespace MeiZhouHeiBao_3993
 
         public  override void ShowSymbolWinDeck(SymbolWin symbolWin, bool isUseMySelfSymbolNumber)
         {
+            //停止特效显示
             SkipWinLine(false);
-           
+
             SetSlotCover(_spinWEMD.Instance.isShowCover);
 
             foreach (Cell cel in symbolWin.cells)
@@ -423,6 +425,7 @@ namespace MeiZhouHeiBao_3993
                 }
             }
         }
+
         public override void ShowReelSymbolAppearEffect(int colIndex)
         {
             base.ShowReelSymbolAppearEffect(colIndex);
@@ -470,6 +473,7 @@ namespace MeiZhouHeiBao_3993
 
         private const int ScatterSymbolId = 11;
         private const int BonusSymbolId = 12;
+        private const int PantherSymbolId = 9;
         /// <summary> Scatter 出现满该数量后，后续列进入免费加速听牌。 </summary>
         private const int ScatterExpectCount = 2;
         /// <summary> Bonus 出现满该数量后，后续列进入大奖加速听牌（大奖需 6 个）。 </summary>
@@ -492,6 +496,111 @@ namespace MeiZhouHeiBao_3993
 
             for (int row = 0; row < this.row; row++)
                 TryBindBonusScore(GetVisibleSymbolFromDeck(colIndex, row), row, colIndex);
+        }
+
+        public List<Cell> GetVisibleCellsBySymbol(int symbolId)
+        {
+            List<Cell> cells = new List<Cell>();
+            for (int row = 0; row < this.row; row++)
+            {
+                for (int col = 0; col < this.column; col++)
+                {
+                    SymbolBase symbol = GetVisibleSymbolFromDeck(col, row);
+                    if (symbol != null && symbol.number == symbolId)
+                        cells.Add(new Cell(col, row));
+                }
+            }
+            return cells;
+        }
+
+        /// <summary> 豹头收集：豹头与 Bonus 播 Hit，并套 PantherNormalBorder。 </summary>
+        public void ShowPantherWinHit()
+        {
+            List<Cell> cells = GetVisibleCellsBySymbol(PantherSymbolId);
+            cells.AddRange(GetVisibleCellsBySymbol(BonusSymbolId));
+            if (cells.Count == 0)
+                return;
+
+            string borderPath = CustomModel.Instance.pantherNormalBorderEffect;
+            for (int i = 0; i < cells.Count; i++)
+            {
+                Cell cel = cells[i];
+                SymbolBase symbol = GetVisibleSymbolFromDeck(cel.column, cel.row);
+                if (symbol == null)
+                    continue;
+
+                RecycleSymbolAppear(symbol);
+                string symbolName = CustomModel.Instance.symbolHitEffect[$"{symbol.number}"];
+                GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolHit, symbolName).asCom;
+                symbol.AddSymbolEffect(goSymbolHit, isSymbolAnim);
+                if (symbol.goOwnerSymbol != null && symbol.goOwnerSymbol.parent != goExpectation)
+                    FguiSortingOrderManager.Instance.ChangeSortingOrder(symbol.goOwnerSymbol, goExpectation);
+
+                if (symbol.number == BonusSymbolId) TryBindBonusScore(symbol, cel.row, cel.column);
+
+                GComponent goBorder = fguiPoolHelper.GetObject(TagPoolObject.SymbolBorder, borderPath)?.asCom;
+                if (goBorder != null)
+                {
+                    symbol.AddBorderEffect(goBorder);
+                    if (goBorder.parent != null) goBorder.parent.SetChildIndex(goBorder, goBorder.parent.numChildren - 1);
+                }
+            }
+        }
+
+        /// <summary> 单个 Bonus 收集完毕：切 idle。 </summary>
+        public void SetPantherBonusCollectedIdle(int row, int col)
+        {
+            SymbolBase symbol = GetVisibleSymbolFromDeck(col, row);
+            if (symbol == null || symbol.number != BonusSymbolId)
+                return;
+
+            GComponent hitCom = FindAnimatorChildByName(symbol, "SymbolHit");
+            if (hitCom != null)
+                PlayEffectAnim(hitCom, "idle", true);
+
+        }
+
+        public void RecyclePantherAndBonusEffects()
+        {
+            ClearBonusScoreBinds();
+            List<Cell> cells = GetVisibleCellsBySymbol(PantherSymbolId);
+            cells.AddRange(GetVisibleCellsBySymbol(BonusSymbolId));
+            for (int i = 0; i < cells.Count; i++)
+            {
+                Cell cel = cells[i];
+                SymbolBase symbol = GetVisibleSymbolFromDeck(cel.column, cel.row);
+                if (symbol?.goOwnerSymbol == null)
+                    continue;
+
+                symbol.HideBaseSymbolIcon(false);
+                if (fguiPoolHelper != null)
+                {
+                    fguiPoolHelper.ReturnToPool(TagPoolObject.SymbolHit, symbol.goOwnerSymbol);
+                    fguiPoolHelper.ReturnToPool(TagPoolObject.SymbolBorder, symbol.goOwnerSymbol);
+                }
+
+                if (symbol.goOwnerSymbol.parent == goExpectation
+                    && cel.column >= 0 && cel.column < reels.Count
+                    && reels[cel.column].goSymbols != null)
+                    reels[cel.column].goSymbols.AddChild(symbol.goOwnerSymbol);
+            }
+        }
+
+
+        private static GComponent FindAnimatorChildByName(SymbolBase symbol, string namePart)
+        {
+            GComponent animator = symbol?.goOwnerSymbol?.GetChild("animator")?.asCom;
+            if (animator == null || string.IsNullOrEmpty(namePart))
+                return null;
+
+            for (int i = 0; i < animator.numChildren; i++)
+            {
+                GObject child = animator.GetChildAt(i);
+                if (child != null && !string.IsNullOrEmpty(child.name) &&
+                    child.name.IndexOf(namePart, StringComparison.OrdinalIgnoreCase) >= 0)
+                    return child.asCom;
+            }
+            return null;
         }
 
         private void TryBindBonusScore(SymbolBase symbol, int row, int col)
@@ -617,7 +726,7 @@ namespace MeiZhouHeiBao_3993
             PlayEffectAnim(animator.GetChildAt(animator.numChildren - 1)?.asCom, animName);
         }
 
-        private void PlayEffectAnim(GComponent effectCom, string animName)
+        private void PlayEffectAnim(GComponent effectCom, string animName, bool loop = false)
         {
             if (effectCom == null || string.IsNullOrEmpty(animName))
                 return;
@@ -626,7 +735,7 @@ namespace MeiZhouHeiBao_3993
             if (goRoot == null)
                 return;
 
-            new AnimPlayer(goRoot).Play(animName);
+            new AnimPlayer(goRoot).Play(animName, loop);
         }
 
         #endregion
