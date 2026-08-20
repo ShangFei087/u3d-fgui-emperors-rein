@@ -2,20 +2,21 @@
 <component size="1080,1920">
   <displayList>
     <graph id="n0_z14g" name="mash" xy="0,0" pivot="0.5,1" size="1080,1920" visible="false" type="rect" lineColor="#80000000" fillColor="#80000000"/>
-    <image id="n2_z14g" name="frame" src="z14g20" fileName="images/menu_btn_Base plate.png" xy="0,1679"/>
+    <image id="n2_z14g" name="frame" src="z14g20" fileName="images/btn/menu_btn_Base plate.png" xy="0,1679"/>
     <component id="n19_mxrk" name="btnBetDown" src="mxrk3e" fileName="components/button/ButtonBetDown.xml" xy="554,1820"/>
     <component id="n20_mxrk" name="btnBetUp" src="mxrk3d" fileName="components/button/ButtonBetUp.xml" xy="780,1820"/>
     <component id="n3_z14g" name="btnHelp" src="z14g2" fileName="components/button/ButtonHelp.xml" xy="113,1806" pivot="0.5,0.5" anchor="true"/>
     <component id="n15_z14g" name="btnSpin" src="z14gb" fileName="components/button/ButtonSpin.xml" xy="969,1803" pivot="0.5,0.5" anchor="true"/>
     <text id="n6_z14g" name="bet" xy="601,1815" size="173,56" font="ui://tgen4q2pz14g8" fontSize="15" color="#ffffff" align="center" vAlign="middle" leading="0" letterSpacing="-5" autoSize="none" text="500"/>
     <text id="n8_z14g" name="win" xy="279,1676" size="518,120" font="ui://tgen4q2pz14ga" fontSize="12" color="#ffffff" align="center" vAlign="middle" leading="0" letterSpacing="-10" autoSize="none" text="12000"/>
+    <component id="n23_ni96" name="anchorWinBorder" src="mxrk3f" fileName="components/AnchorSpin.xml" xy="539,1742"/>
     <text id="n10_z14g" name="credit" xy="316,1815" size="195,54" font="ui://tgen4q2pz14g9" fontSize="12" color="#ffffff" align="center" leading="0" letterSpacing="-7" autoSize="shrink" text="123456789"/>
     <text id="n22_mxrk" name="singleLine" xy="309,1762" size="461,29" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="111111111111"/>
-    <image id="n7_z14g" name="n7" src="z14g1x" fileName="images/menu_txt_BET.png" xy="661,1852" group="n14_z14g"/>
-    <image id="n9_z14g" name="n9" src="z14g1d" fileName="images/menu_txt_WIN.png" xy="500,1768" group="n14_z14g"/>
-    <image id="n11_z14g" name="n11" src="z14g1j" fileName="images/menu_btn_Insert coin.png" xy="257,1824" group="n14_z14g"/>
-    <image id="n12_z14g" name="n12" src="z14g1y" fileName="images/menu_txt_CREDITS.png" xy="370,1851" group="n14_z14g"/>
-    <image id="n13_z14g" name="n13" src="z14g1g" fileName="images/menu_btn_HOLD SPIN FOR 3s TO ENABLE AUTO MODE.png" xy="270,1893" group="n14_z14g"/>
+    <image id="n7_z14g" name="n7" src="z14g1x" fileName="images/btn/menu_txt_BET.png" xy="661,1852" group="n14_z14g"/>
+    <image id="n9_z14g" name="n9" src="z14g1d" fileName="images/btn/menu_txt_WIN.png" xy="500,1768" group="n14_z14g"/>
+    <image id="n11_z14g" name="n11" src="z14g1j" fileName="images/btn/menu_btn_Insert coin.png" xy="257,1824" group="n14_z14g"/>
+    <image id="n12_z14g" name="n12" src="z14g1y" fileName="images/btn/menu_txt_CREDITS.png" xy="370,1851" group="n14_z14g"/>
+    <image id="n13_z14g" name="n13" src="z14g1g" fileName="images/btn/menu_btn_HOLD SPIN FOR 3s TO ENABLE AUTO MODE.png" xy="270,1893" group="n14_z14g"/>
     <group id="n14_z14g" name="txt" xy="257,1768" size="501,153"/>
     <component id="n16_z14g" name="ExhibitionPanel" src="z14gd" fileName="moudules/Exhibition/ExhibitionPanel.xml" xy="0,0" touchable="false"/>
     <component id="n18_z14g" name="instructions" src="z14gv" fileName="moudules/Instructions.xml" xy="0,0"/>

@@ -76,8 +76,10 @@ namespace SlotMaker
         private int? _pendingRequestBet;
         private Action<object> _pendingRequestSetBetCallback;
   
-        // Spin 预制体实例引用
+        // Spin 装饰预制体，以及可选的短按/长按特效预制体
         GameObject goSpin;
+        GameObject goShortSpin;
+        GameObject goLongSpin;
 
         // 是否已完成初始化
         bool isInit;
@@ -92,6 +94,10 @@ namespace SlotMaker
         protected virtual string PanelPackagePath => "Assets/GameRes/Panel/Panel01/FGUIs";
         protected virtual string PanelComponentName => "Panel";
         protected virtual string SpinPrefabPath => "Assets/GameRes/Panel/Panel01/Prefabs/Slot_btn_Spin.prefab";
+        /// <summary> 短按特效预制体。默认空字符串表示本机台不启用，子类覆盖路径即可接入。 </summary>
+        protected virtual string ShortSpinPrefabPath => string.Empty;
+        /// <summary> 长按特效预制体。默认空字符串表示本机台不启用，子类覆盖路径即可接入。 </summary>
+        protected virtual string LongSpinPrefabPath => string.Empty;
         // 记录当前已加载的面板包路径，切换不同游戏路径时用于强制重载
         private string _loadedPanelPackagePath;
         // 记录当前已加载的面板包名，切换时用于精准卸载
@@ -143,6 +149,8 @@ namespace SlotMaker
             _isInitializing = false;
             _pendingAnchorPanel = null;
             _initSequence++;
+            // 面板关闭时关掉短按/长按特效，避免循环粒子残留。
+            HideSpinPressEffects();
 
             if (gOwnerPanel != null)
             {
@@ -206,7 +214,13 @@ namespace SlotMaker
             _isInitializing = true;
             int currentInitSequence = ++_initSequence;
 
+            // 默认等待：FGUI 包 + 装饰 Spin 预制体。短按/长按路径非空时再计入加载数。
+            bool hasShortSpinPrefab = !string.IsNullOrEmpty(ShortSpinPrefabPath);
+            bool hasLongSpinPrefab = !string.IsNullOrEmpty(LongSpinPrefabPath);
             int count = 2;
+            if (hasShortSpinPrefab) count++;
+            if (hasLongSpinPrefab) count++;
+
             Action loadComplete = () =>
             {
                 if (currentInitSequence != _initSequence || _activeInstance != this || !isActiveAndEnabled)
@@ -214,7 +228,7 @@ namespace SlotMaker
                     return;
                 }
 
-                // 两个异步资源都完成后再进行参数初始化
+                // 面板包与 Spin 预制体（含可选短按/长按特效）都完成后再进行参数初始化
                 if (--count == 0)
                 {
                     isInit = true;
@@ -232,6 +246,21 @@ namespace SlotMaker
                     _pendingAnchorPanel = null;
                 }
             };
+
+            void LoadSpinPrefab(string path, Action<GameObject> onLoaded)
+            {
+                ResourceManager02.Instance.LoadAsset<GameObject>(path,
+                    (GameObject clone) =>
+                    {
+                        if (currentInitSequence != _initSequence || _activeInstance != this || !isActiveAndEnabled)
+                        {
+                            return;
+                        }
+
+                        onLoaded?.Invoke(clone);
+                        loadComplete();
+                    });
+            }
 
 
            
@@ -293,18 +322,11 @@ namespace SlotMaker
             }
             
 
-            // 异步加载 Spin 按钮预制体
-            ResourceManager02.Instance.LoadAsset<GameObject>(SpinPrefabPath,
-                (GameObject clone) =>
-                {
-                    if (currentInitSequence != _initSequence || _activeInstance != this || !isActiveAndEnabled)
-                    {
-                        return;
-                    }
-
-                    goSpin = clone;
-                    loadComplete();
-                });
+            LoadSpinPrefab(SpinPrefabPath, clone => goSpin = clone);
+            if (hasShortSpinPrefab)
+                LoadSpinPrefab(ShortSpinPrefabPath, clone => goShortSpin = clone);
+            if (hasLongSpinPrefab)
+                LoadSpinPrefab(LongSpinPrefabPath, clone => goLongSpin = clone);
         }
 
         /// <summary>
@@ -355,7 +377,8 @@ namespace SlotMaker
                 ChangeBetButtonInteractable(MainModel.Instance.contentMD.betIndex, SBoxModel.Instance.betList.Count);
             });
 
-            spinBtnCtrl.InitParam(gOwnerPanel.GetChild("btnSpin").asCom, "Stop", OnClickSpinButton, goSpin);
+            // 短按/长按预制体可为 null；控制器内部会挂到独立锚点，并在进游戏时先隐藏。
+            spinBtnCtrl.InitParam(gOwnerPanel.GetChild("btnSpin").asCom, "Stop", OnClickSpinButton, goSpin, goShortSpin, goLongSpin);
 
             gIntroducePanel = gOwnerPanel.GetChild("instructions").asCom;
             Introduce = gIntroducePanel.GetChild("introduce").asCom;
@@ -1095,6 +1118,19 @@ namespace SlotMaker
             EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT,new EventData<bool>(PanelEvent.SpinButtonClick, isLong));
         }
 
+        /// <summary> 播放屏幕/机台 Spin 短按特效。 </summary>
+        public void PlaySpinShortPressEffect() => spinBtnCtrl?.PlayShortPressEffect();
+        /// <summary> 播放屏幕/机台 Spin 长按循环特效。 </summary>
+        public void PlaySpinLongPressEffect() => spinBtnCtrl?.PlayLongPressEffect();
+        /// <summary> 停止 Spin 长按循环特效。 </summary>
+        public void StopSpinLongPressEffect() => spinBtnCtrl?.StopLongPressEffect();
+        /// <summary> 隐藏短按与长按特效，进入游戏或关面板时使用。 </summary>
+        public void HideSpinPressEffects() => spinBtnCtrl?.HideAllPressEffects();
+        /// <summary> 机台物理键按下，开始长按预览计时。 </summary>
+        public void NotifySpinPressBegin() => spinBtnCtrl?.OnPressBegin();
+        /// <summary> 机台物理键抬起，取消长按预览并关闭循环特效。 </summary>
+        public void NotifySpinPressEnd() => spinBtnCtrl?.OnPressEnd();
+
         //展会模式按钮
         private void BindColumnButtons()
         {
@@ -1378,25 +1414,34 @@ namespace SlotMaker
 
         public virtual void OnLongClickHandler(MachineButtonKey machineButtonKey) { }
 
-        public virtual void OnShortClickHandler(MachineButtonKey machineButtonKey) { }
+        /// <summary> 机台短按回调：有短按特效的机台在此播放。 </summary>
+        public virtual void OnShortClickHandler(MachineButtonKey machineButtonKey)
+        {
+            if (machineButtonKey == MachineButtonKey.BtnSpin)
+                PlaySpinShortPressEffect();
+        }
 
+        /// <summary> 机台按下回调：Stop 态下启动长按预览。 </summary>
         public virtual void OnDownClickHandler(MachineButtonKey machineButtonKey)
         {
             switch (machineButtonKey)
             {
                 case MachineButtonKey.BtnSpin:
                     {
+                        NotifySpinPressBegin();
                     }
                     break;
             }
         }
 
+        /// <summary> 机台抬起回调：关闭长按循环特效。 </summary>
         public virtual void OnUpClickHandler(MachineButtonKey machineButtonKey)
         {
             switch (machineButtonKey)
             {
                 case MachineButtonKey.BtnSpin:
                     {
+                        NotifySpinPressEnd();
                     }
                     break;
             }

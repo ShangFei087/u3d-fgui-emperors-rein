@@ -1,17 +1,22 @@
 {
+
 	"OpenType": 0,
 
 	"ResultType": 3,
 
-	"lineNum": 1,
+	"lineNum": 0,
 
-	"TotalBet": 8,
+	"TotalBet": 0,
 
 	"MatrixLength": 15,
 
-	"IDVec": [1402],
+	"IDVec": [],
 
-	"Matrix": [2,2,2,2,1,
-		4,3,2,0,1,
-		7,8,8,7,1]
+	"Matrix": [12, 9, 6, 12, 4, 3, 12, 1, 12, 7, 5, 12, 8, 0, 12],
+
+	"BonusData": [500, 0, 600, 750, 0, 0, 1000, 750, 650, 850, 0, 800, 550, 0, 1200],
+
+	"BonusBet": 7650
+
 }
+

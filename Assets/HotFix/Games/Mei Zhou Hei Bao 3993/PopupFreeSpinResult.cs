@@ -12,8 +12,11 @@ namespace MeiZhouHeiBao_3993
         public new const string pkgName = "MeiZhouHeiBao";
         public new const string resName = "PopupFreeSpinResult";
 
-        private const string PrefabPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupFreeSpinResult/PopupFreeSpinResult";
+        private const string PrefabPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupFreeSpinResult/PopupFreeSpinResult.prefab";
         private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
+        private const string PagFgPupIn = "fg_pup/fg_pup_in";
+        private const string PagFgPupIdle = "fg_pup/fg_pup_idle";
+        private const string PagFgPupOut = "fg_pup/fg_pup_out";
 
         //弹窗
         private GameObject goFreeResult;
@@ -82,6 +85,7 @@ namespace MeiZhouHeiBao_3993
             anchorPagFreeResult = contentPane.GetChild("anchorFreeResultPag").asCom;
             if (pagFreeResult == null) pagFreeResult = new PagSlotBinding("3993pagFreeResult", PagPath);
             pagFreeResult.EnsureSlot(anchorPagFreeResult);
+            PlayFgPupInIdle();
 
             GComponent localFreeResult = contentPane.GetChild("anchorFreeResult").asCom;
             if (anchorFreeResult != localFreeResult)
@@ -118,7 +122,7 @@ namespace MeiZhouHeiBao_3993
             _animFreeResult.Attach(
                 btnCollect,
                 rootFreeResultPath + "/button",
-                localPos: new Vector3(),
+                localPos: new Vector3(-2.428f, 0.62f),
                 localScale: new Vector3(0.01f, 0.01f, 0.01f),
                 localRot: Quaternion.identity);
 
@@ -152,6 +156,7 @@ namespace MeiZhouHeiBao_3993
             _isClicked = false;
             RemoveTimer(ref _delayCloseCallback);
             _animFreeResult.DetachAll();
+            pagFreeResult?.StopWithDefaults();
             //_gameSoundController?.Dispose();
             //_gameSoundController = null;
         }
@@ -163,6 +168,7 @@ namespace MeiZhouHeiBao_3993
 
             btnCollect.touchable = false;
             _animFreeResult.Play("out");
+            PlayFgPupOut();
 
             RemoveTimer(ref _delayCloseCallback);
             _delayCloseCallback = obj =>
@@ -171,6 +177,31 @@ namespace MeiZhouHeiBao_3993
                 _delayCloseCallback = null;
             };
             Timers.inst.Add(1.0f, 1, _delayCloseCallback);
+        }
+
+        private void PlayFgPupInIdle()
+        {
+            if (pagFreeResult == null) return;
+            pagFreeResult.StopWithDefaults();
+            pagFreeResult.Play(new PagSequencePlay(
+                PagPlaySpecs.IntroLoop(PagFgPupIn, PagFgPupIdle),
+                PagPlayLayout.Center,
+                PagPresentationDefaults.DisplayScale,
+                useGpuSyncGroup: false));
+        }
+
+        private void PlayFgPupOut()
+        {
+            if (pagFreeResult == null) return;
+            pagFreeResult.StopWithDefaults();
+            pagFreeResult.Play(new PagSequencePlay(
+                new[] { new PagSegment(PagFgPupOut, 1) },
+                PagPlayLayout.Center,
+                PagPresentationDefaults.DisplayScale,
+                useGpuSyncGroup: false,
+                callbacks: new PagPlayCallbacks(
+                    onFinished: () => pagFreeResult?.StopWithDefaults(),
+                    stopAfterFinished: true)));
         }
 
         private void RemoveTimer(ref TimerCallback timerCallback)

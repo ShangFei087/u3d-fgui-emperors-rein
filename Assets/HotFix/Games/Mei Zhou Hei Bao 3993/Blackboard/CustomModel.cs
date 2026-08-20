@@ -68,6 +68,25 @@ namespace MeiZhouHeiBao_3993
         //中奖框
         public string borderEffect =>"Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/Border/NormalBorder1.prefab";
 
+        /// <summary> 大奖滚轮 Bonus Spine（FguiPool AnchorRoot + Wrapper） </summary>
+        public string symbolRewardBonusEffect =>
+            "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolSmallGame/SymbolBonus.prefab";
+
+        /// <summary> 彩金滚轮 GoldCoin Spine（MAJOR / MINOR / MINI 分预制体） </summary>
+        public string symbolRewardJpMajorEffect =>
+            "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolSmallGame/SymbolMajor.prefab";
+        public string symbolRewardJpMinorEffect =>
+            "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolSmallGame/SymbolMinor.prefab";
+        public string symbolRewardJpMiniEffect =>
+            "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolSmallGame/SymbolMini.prefab";
+
+        public string GetJackpotPrefab(int jpType)
+        {
+            if (jpType == 1) return symbolRewardJpMinorEffect;
+            if (jpType == 2) return symbolRewardJpMiniEffect;
+            return symbolRewardJpMajorEffect;
+        }
+
         //图标UI
         public Dictionary<string, string> symbolIcon => new Dictionary<string, string>()
         {
@@ -329,7 +348,7 @@ namespace MeiZhouHeiBao_3993
         //升级黑豹的图标数量
         public Dictionary<int,int> _upPantherLv => new Dictionary<int, int>()
         {
-            {  4,5},
+            { 4 ,5},
             { 10,6},
             { 18,7},
             { 28,8}

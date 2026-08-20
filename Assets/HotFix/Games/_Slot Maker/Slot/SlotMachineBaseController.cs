@@ -185,7 +185,7 @@ namespace SlotMaker
 
 
 
-        protected IEnumerator StartTurnReels()
+        protected  virtual IEnumerator StartTurnReels()
         {
 
             int reelsCount = this.column;
@@ -241,7 +241,7 @@ namespace SlotMaker
         /// <param name="strDeckRowCol"></param>
         /// <param name="finishCallback"></param>
         /// <returns></returns>
-        public IEnumerator TurnReelsNormal(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3", Action finishCallback = null)
+        public virtual IEnumerator TurnReelsNormal(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3", Action finishCallback = null)
         {
             //停止特效显示
             SkipWinLine(false);
@@ -304,7 +304,7 @@ namespace SlotMaker
         /// </summary>
         /// <param name="finishCallback"></param>
         /// <returns></returns>
-        public IEnumerator ReelsToStopOrTurnOnce(Action finishCallback)
+        public virtual IEnumerator ReelsToStopOrTurnOnce(Action finishCallback)
         {
 
             // EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_EVENT,
@@ -542,7 +542,7 @@ namespace SlotMaker
         /// * Spin开始事件<br/>
         /// * 显示玩家金币（减去压注金额）<br/>
         /// </remarks>
-        public void BeginSpin()
+        public virtual void BeginSpin()
         {
 
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_EVENT,
@@ -972,7 +972,7 @@ namespace SlotMaker
         /// </summary>
         /// <param name="winList"></param>
         /// <returns></returns>
-        public IEnumerator ShowWinListAwayDuringIdle(List<SymbolWin> winList)
+        public virtual IEnumerator ShowWinListAwayDuringIdle(List<SymbolWin> winList)
         {
             while (winList.Count > 0) //while (idx < winList.Count)
             {
@@ -991,7 +991,6 @@ namespace SlotMaker
         /// <returns></returns>
         public virtual IEnumerator ShowSymbolWinBySetting(SymbolWin symbolWin, bool isUseMySelfSymbolNumber, SpinWinEvent eventType)
         {
-
             //停止特效显示
             SkipWinLine(false);
 
@@ -1079,7 +1078,6 @@ namespace SlotMaker
 
             yield return SlotWaitForSeconds(_spinWEMD.Instance.timeS);
         }
-
 
 
 

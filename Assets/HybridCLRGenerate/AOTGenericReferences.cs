@@ -686,6 +686,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object[] System.Array.ConvertAll<object,object>(object[],System.Converter<object,object>)
 		// PagSegment[] System.Array.Empty<PagSegment>()
 		// UnityEngine.AnimatorClipInfo[] System.Array.Empty<UnityEngine.AnimatorClipInfo>()
+		// int[] System.Array.Empty<int>()
 		// object[] System.Array.Empty<object>()
 		// ushort[] System.Array.Empty<ushort>()
 		// int System.Array.IndexOf<object>(object[],object)
@@ -874,5 +875,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// string UnityEngine._AndroidJNIHelper.GetSignature<int>(object[])
 		// string UnityEngine._AndroidJNIHelper.GetSignature<long>(object[])
 		// string UnityEngine._AndroidJNIHelper.GetSignature<object>(object[])
+		// string string.Join<int>(string,System.Collections.Generic.IEnumerable<int>)
 	}
 }

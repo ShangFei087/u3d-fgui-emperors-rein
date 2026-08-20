@@ -17,9 +17,10 @@ namespace MeiZhouHeiBao_3993
     {
         None,
         NormalWin,
+        BigWin,
         FreeSpin,
         BonusSpin,
-        BigWin
+        JP1, JP2, JP3,
     }
 
     public class MachineDataController3993 : MonoSingleton<MachineDataController3993>
@@ -63,6 +64,7 @@ namespace MeiZhouHeiBao_3993
             [SpinDataType.FreeSpin] = new List<string>()
             {
                 "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__freeTrigger.json",
+                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_0.json",
                 "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_1.json",
                 "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_2.json",
                 "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_3.json",
@@ -80,14 +82,27 @@ namespace MeiZhouHeiBao_3993
 
             },
             [SpinDataType.BonusSpin] = new List<string>() 
-            { "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__bonusTrigger.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__jackpotTrigger.json", 
+            { 
+                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__bonusTrigger.json",
             },
             [SpinDataType.BigWin] = new List<string>() 
             { 
                 "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__bigWin.json", 
                 "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__supperWin.json",
-                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__megaWin.json", },
+                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__megaWin.json", 
+            },
+            [SpinDataType.JP1] = new List<string>()
+            {
+                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__jackpotMini.json",
+            },
+            [SpinDataType.JP2] = new List<string>()
+            {
+                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__jackpotMinor.json",
+            },
+            [SpinDataType.JP3] = new List<string>()
+            {
+                "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__jackpotMajor.json",
+            }
         };
 
         private void OnEnable()
@@ -104,8 +119,8 @@ namespace MeiZhouHeiBao_3993
         {
             if (_currentDataQueue.Count == 0 && _nextSpinType == SpinDataType.None)
             {
-                List<string> target = _nextSpinType != SpinDataType.None ? _spinDataDic[_nextSpinType] : _spinDataDic[SpinDataType.FreeSpin];
-                _nextSpinType = SpinDataType.None;
+                List<string> target = _nextSpinType != SpinDataType.None ? _spinDataDic[_nextSpinType] : _spinDataDic[SpinDataType.BonusSpin];
+                _nextSpinType = SpinDataType.BonusSpin;
                 _currentDataQueue = new Queue<string>(target);
             }
         }
@@ -120,6 +135,9 @@ namespace MeiZhouHeiBao_3993
                 GlobalEvent.GMSingleWinLine => SpinDataType.NormalWin,
                 GlobalEvent.GMFreeSpin => SpinDataType.FreeSpin,
                 GlobalEvent.GMBonus1 => SpinDataType.BonusSpin,
+                GlobalEvent.GMJp1 => SpinDataType.JP1,
+                GlobalEvent.GMJp2 => SpinDataType.JP2,
+                GlobalEvent.GMJp3 => SpinDataType.JP3,
                 GlobalEvent.GMBigWin => SpinDataType.BigWin,_ => _nextSpinType
             };
 
@@ -235,7 +253,7 @@ namespace MeiZhouHeiBao_3993
                 }
             }
 
-            if (resultType == (int)ResultType.RT_BonusWin)
+            if (resultType == (int)ResultType.RT_Jackpot)
             {
                 int bonusBet = data[pos++];
                 result["BonusBet"] = bonusBet;
@@ -247,7 +265,8 @@ namespace MeiZhouHeiBao_3993
                     result["BonusData"].Add(id);
                 }
                 int JPCount = data[pos++];
-                result["nJPCount"] = bonusBet;
+                result["JPCount"] = JPCount;
+                result["nJPCount"] = JPCount;
 
                 result["JPTypeArray"] = new JSONArray();
                 for (int i = 0; i < 3; i++)
@@ -264,7 +283,8 @@ namespace MeiZhouHeiBao_3993
                 }
 
                 int TotalJackpotBet = data[pos++];
-                result["nTotalJackpotBet"] = bonusBet;
+                result["TotalJackpotBet"] = TotalJackpotBet;
+                result["nTotalJackpotBet"] = TotalJackpotBet;
             }
 
             return result;
@@ -278,6 +298,11 @@ namespace MeiZhouHeiBao_3993
             ContentModel.Instance.curReelStripsIndex = "BS";
             ContentModel.Instance.nextReelStripsIndex = "BS";
             ContentModel.Instance.isFreeSpinTrigger = false;
+            ContentModel.Instance.isSmallGameTrigger = false;
+            ContentModel.Instance.isJackpotGame = false;
+            ContentModel.Instance.TotalJackpotBet = 0;
+            ContentModel.Instance.JPTypeArray = Array.Empty<int>();
+            ContentModel.Instance.JPBetArray = Array.Empty<int>();
 
             int openType = (int)res["OpenType"];
             int resultType = (int)res["ResultType"];
@@ -291,9 +316,10 @@ namespace MeiZhouHeiBao_3993
             if (res["WildData"] != null)
             {
                 int n = Math.Min(wheelChessNum, res["WildData"].Count);
-                for (int i = 0; i < n; i++)
-                    wildData[i] = (int)res["WildData"][i];
+                for (int i = 0; i < n; i++) wildData[i] = (int)res["WildData"][i];
             }
+            ContentModel.Instance.wildData = wildData;
+
             List<SymbolInclude> symbolInclude = new List<SymbolInclude>();
             string strDeckRowCol = "";
             int totalLineWin = 0;
@@ -360,7 +386,7 @@ namespace MeiZhouHeiBao_3993
 
                 int wildMul = GetLineWildMul(_cells, wildData, cols);
                 int lineOdds = GetLineOdds(symbolNumber, hitCount) * wildMul;
-                lineWin = GetLineOdds(symbolNumber, hitCount) * MainModel.Instance.contentMD.betmultiple;
+                lineWin = lineOdds * MainModel.Instance.contentMD.betmultiple;
                 SymbolWin sw = new SymbolWin()
                 {
                     earnCredit = lineWin,
@@ -524,26 +550,52 @@ namespace MeiZhouHeiBao_3993
                         isBonus = true;
                     }
 
-                    if (isBonus)
+                    bool isJackpotResult = resultType == (int)ResultType.RT_Jackpot;
+                    bool isBonusWinResult = resultType == (int)ResultType.RT_BonusWin;
+                    if (isJackpotResult && !isBonus)
                     {
-                        ContentModel.Instance.isSmallGameTrigger=true;
+                        DebugUtils.LogError(
+                            $"[3993][CheckJackpot] 校验不一致，ResultType=RT_Jackpot 但 Bonus 数量={bonusCount}");
+                    }
+                    else if (isBonusWinResult && !isBonus)
+                    {
+                        DebugUtils.LogError(
+                            $"[3993][CheckBonus] 校验不一致，ResultType=RT_BonusWin 但 Bonus 数量={bonusCount}");
+                    }
+
+                    if (isBonus && (isJackpotResult || isBonusWinResult))
+                    {
+                        ContentModel.Instance.isSmallGameTrigger = true;
+                        ContentModel.Instance.isJackpotGame = isJackpotResult;
                         ContentModel.Instance.isSmallGameSpin = false;
                         ContentModel.Instance.isSmallGameFinish = false;
                         ContentModel.Instance.bonusSpinTime = 3;
-                        ContentModel.Instance.BonusBet =(int)res["BonusBet"];
-                        int[] bonusData = new int[wheelChessNum];
+                        ContentModel.Instance.BonusBet = res["BonusBet"] != null ? (int)res["BonusBet"] : 0;
+                        ContentModel.Instance.BonusData = new int[wheelChessNum];
                         if (res["BonusData"] != null)
                         {
                             int n = Math.Min(wheelChessNum, res["BonusData"].Count);
                             for (int i = 0; i < n; i++)
                                 ContentModel.Instance.BonusData[i] = (int)res["BonusData"][i];
                         }
+
+                        if (isJackpotResult)
+                            ApplyJackpotResult(res, jpGameRes);
+
+                        ApplyBonusRoundPlan(res, wheelChessNum);
+                    }
+                    else
+                    {
+                        ContentModel.Instance.BonusRound?.Clear();
                     }
 
                 }
                 //赢分
                 creditBefore = MainBlackboardController.Instance.myRealCredit;
-                creditAfter = creditBefore - totalBet + totalLineWin;
+                if (ContentModel.Instance.isSmallGameTrigger)
+                    creditAfter = creditBefore - totalBet + ContentModel.Instance.BonusBet + ContentModel.Instance.TotalJackpotBet;
+                else
+                    creditAfter = creditBefore - totalBet + totalLineWin;
             }
 
             string machineId = string.IsNullOrEmpty(SBoxModel.Instance.MachineId) ? "00000000" : SBoxModel.Instance.MachineId;
@@ -556,6 +608,86 @@ namespace MeiZhouHeiBao_3993
             DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple} ");
 
             FreeSpinSessionStoreG3993.TryPersistOrClearSession();
+        }
+
+        private void ApplyBonusRoundPlan(JSONNode res, int wheelChessNum)
+        {
+            ContentModel.Instance.BonusRound = BonusRoundHelper3993.ParseFromJson(res["BonusRound"]);
+
+            var matrix = new List<int>(wheelChessNum);
+            if (res["Matrix"] != null)
+            {
+                int n = Math.Min(wheelChessNum, res["Matrix"].Count);
+                for (int i = 0; i < n; i++)
+                    matrix.Add((int)res["Matrix"][i]);
+            }
+
+            if (ContentModel.Instance.BonusRound == null || ContentModel.Instance.BonusRound.Count == 0)
+            {
+                ContentModel.Instance.BonusRound = BonusRoundHelper3993.Build(matrix, ContentModel.Instance.BonusData);
+                DebugUtils.Log("[3993] BonusRound 协议缺失，已本地模拟生成");
+            }
+            else if (!BonusRoundHelper3993.Validate(matrix, ContentModel.Instance.BonusData, ContentModel.Instance.BonusRound))
+            {
+                ContentModel.Instance.BonusRound = BonusRoundHelper3993.Build(matrix, ContentModel.Instance.BonusData);
+                DebugUtils.LogWarning("[3993] BonusRound 校验失败，已回退本地模拟");
+            }
+        }
+
+        private static void ApplyJackpotResult(JSONNode res, JackpotRes jpGameRes)
+        {
+            int[] types = ParseIntArray(res["JPTypeArray"]);
+            int[] bets = ParseIntArray(res["JPBetArray"]);
+            var typeList = new List<int>();
+            var betList = new List<int>();
+            int n = Math.Min(types.Length, bets.Length);
+            for (int i = 0; i < n; i++)
+            {
+                if (bets[i] <= 0)
+                    continue;
+                typeList.Add(types[i]);
+                betList.Add(bets[i]);
+            }
+
+            ContentModel.Instance.JPTypeArray = typeList.ToArray();
+            ContentModel.Instance.JPBetArray = betList.ToArray();
+
+            int totalJp = 0;
+            if (res["TotalJackpotBet"] != null)
+                totalJp = (int)res["TotalJackpotBet"];
+            else if (res["nTotalJackpotBet"] != null)
+                totalJp = (int)res["nTotalJackpotBet"];
+            if (totalJp <= 0)
+            {
+                for (int i = 0; i < betList.Count; i++)
+                    totalJp += betList[i];
+            }
+
+            ContentModel.Instance.TotalJackpotBet = totalJp;
+            jpGameRes.jpWinLst.Clear();
+            for (int i = 0; i < typeList.Count; i++)
+            {
+                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
+                {
+                    name = ContentModel.GetJackpotTypeName(typeList[i]),
+                    id = typeList[i],
+                    winCredit = betList[i],
+                });
+            }
+
+            DebugUtils.Log(
+                $"[3993][Jackpot] types=[{string.Join(",", typeList)}] bets=[{string.Join(",", betList)}] total={totalJp}");
+        }
+
+        private static int[] ParseIntArray(JSONNode node)
+        {
+            if (node == null || !node.IsArray)
+                return Array.Empty<int>();
+
+            int[] arr = new int[node.Count];
+            for (int i = 0; i < node.Count; i++)
+                arr[i] = (int)node[i];
+            return arr;
         }
 
         private int GetLineWildMul(List<Cell> cells, int[] wildData, int cols)
@@ -649,7 +781,7 @@ namespace MeiZhouHeiBao_3993
                             wildSum += GetCellWildMul(n, currentLineRule[n]);
                         int wildMul = wildSum > 0 ? wildSum : 1;
 
-                        calcTotalWin += lineOdds; // 累加本地计算总赢分
+                        calcTotalWin += lineOdds * wildMul; // 累加本地计算总赢分
                     }
                 }
             }

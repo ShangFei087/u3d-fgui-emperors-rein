@@ -24,6 +24,9 @@ namespace MeiZhouHeiBao_3993
             "fg_pup/fg_pup_in.pag",
             "fg_pup/fg_pup_out.pag",
 
+            "small_pup/small_pup_idle.pag",
+            "small_pup/small_pup_in.pag",
+            "small_pup/small_pup_out.pag",
 
             "jp_pup/jp_pup_MAJOR_pag/jp_pup_MAJOR_idle.pag",
             "jp_pup/jp_pup_MAJOR_pag/jp_pup_MAJOR_in.pag",
@@ -36,14 +39,6 @@ namespace MeiZhouHeiBao_3993
             "jp_pup/jp_pup_MINOR_pag/jp_pup_MINOR_idle.pag",
             "jp_pup/jp_pup_MINOR_pag/jp_pup_MINOR_in.pag",
             "jp_pup/jp_pup_MINOR_pag/jp_pup_MINOR_out.pag",
-
-            "jp_pup_CollectFrame/jp_pup_CollectFrame_idle.pag",
-            "jp_pup_CollectFrame/jp_pup_CollectFrame_in.pag",
-            "jp_pup_CollectFrame/jp_pup_CollectFrame_out.pag",
-
-            "jp_pup_TipFrame/jp_pup_TipFrame_idle.pag",
-            "jp_pup_TipFrame/jp_pup_TipFrame_in.pag",
-            "jp_pup_TipFrame/jp_pup_TipFrame_out.pag",
 
             "jp_Transition2_NgToFg/jp_Transition2_NgToFg.pag",
 
@@ -63,6 +58,8 @@ namespace MeiZhouHeiBao_3993
             PageName.MeiZhouHeiBaoPopupFreeSpinTrigger,
             PageName.MeiZhouHeiBaoPopupFreeSpinResult,
             PageName.MeiZhouHeiBaoPopupSmallGameTrigger,
+            PageName.MeiZhouHeiBaoPopupSmallGameResult,
+            PageName.MeiZhouHeiBaoPopupSmallGameJackpotWin
         };
         // <summary> 加载条 </summary>
         private GProgressBar _progressBar;

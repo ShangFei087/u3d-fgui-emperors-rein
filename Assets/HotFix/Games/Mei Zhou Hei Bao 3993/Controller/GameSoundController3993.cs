@@ -30,11 +30,11 @@ namespace MeiZhouHeiBao_3993
 
     public class GameSoundController3993
     {
-        /// <summary> Scatter 图标 ID（与 MachineData 一致，symbolNumber[10]）。 </summary>
-        private static int ScatterSymbolId => CustomModel.Instance.symbolNumber[10];
+        /// <summary> Scatter 图标 ID（symbolNumber[11] = 11）。 </summary>
+        private static int ScatterSymbolId => CustomModel.Instance.symbolNumber[11];
 
-        /// <summary> Bonus 图标 ID（symbolNumber[11]）。 </summary>
-        private static int BonusSymbolId => CustomModel.Instance.symbolNumber[11];
+        /// <summary> Bonus 图标 ID（symbolNumber[12] = 12）。 </summary>
+        private static int BonusSymbolId => CustomModel.Instance.symbolNumber[12];
 
         /// <summary> 本局是否已播过 Scatter 线赢音效（防重复）。 </summary>
         private bool _scatterWinPlayedThisSpin;

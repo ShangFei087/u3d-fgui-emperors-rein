@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <text id="n0_ni96" name="txtScore" xy="-162,-149" size="325,300" font="ui://tdk27maeni96ai" fontSize="20" align="center" vAlign="middle" letterSpacing="-20" autoSize="shrink" text="9999"/>
+  </displayList>
+</component>

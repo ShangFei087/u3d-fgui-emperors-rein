@@ -2,7 +2,7 @@
 <component size="1080,1920">
   <displayList>
     <component id="n1_g9kd" name="anchorBonusTriggerPag" src="g9kd9r" fileName="components/anchorPag.xml" xy="539,959"/>
-    <component id="n0_g9kd" name="anchorBonusTrigger" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,959"/>
+    <component id="n0_g9kd" name="anchorBonusTrigger" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,1000"/>
     <component id="n2_g9kd" name="btnStart" src="g9kd9t" fileName="components/ButtonCom.xml" xy="313,1188" size="456,125"/>
   </displayList>
 </component>

@@ -22,8 +22,10 @@
     <component id="n89_g9kd" name="anchorBonusSpeedBorder" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,959"/>
     <component id="n83_g9kd" name="boxFreeCollet" src="g9kd8n" fileName="components/gameMain/BoxFreeCollect.xml" xy="502,493"/>
     <component id="n81_mxrk" name="anchorFrame" src="mxrk8h" fileName="components/gameMain/AnchorEffect.xml" xy="539,959"/>
+    <component id="n96_ni96" name="anchorSmallFrame" src="mxrk8h" fileName="components/gameMain/AnchorEffect.xml" xy="429,573"/>
+    <component id="n97_ni96" name="anchorEffectFrame" src="mxrk8h" fileName="components/gameMain/AnchorEffect.xml" xy="539,959"/>
     <component id="n7_e3wa" name="panel" src="z14g7x" fileName="components/gameMain/AnchorPanelPush.xml" xy="0,0"/>
-    <component id="n90_g9kd" name="anchorFadePag" src="g9kd9r" fileName="components/anchorPag.xml" xy="539,959"/>
+    <component id="n90_g9kd" name="anchorFadePag" src="g9kd9r" fileName="components/anchorPag.xml" xy="539,959" touchable="false"/>
   </displayList>
   <transition name="normal">
     <item time="0" type="Icon" target="n82_g9kd" value="ui://tdk27maez14g1b"/>
@@ -31,10 +33,11 @@
     <item time="0" type="Icon" target="n95_g9kd" value="ui://tdk27maez14g6v"/>
     <item time="0" type="Visible" target="n6_z14g" value="true"/>
     <item time="0" type="Visible" target="n83_g9kd" value="false"/>
+    <item time="0" type="Visible" target="n87_g9kd" value="true"/>
     <item time="0" type="Visible" target="n92_g9kd" value="false"/>
   </transition>
   <transition name="free">
-    <item time="0" type="Icon" target="n82_g9kd" value="ui://tdk27maez14g1b"/>
+    <item time="0" type="Icon" target="n82_g9kd" value="ui://tdk27maeni96aj"/>
     <item time="0" type="Icon" target="n94_g9kd" value="ui://tdk27maez14g6x"/>
     <item time="0" type="Icon" target="n95_g9kd" value="ui://tdk27maeg9kd9l"/>
     <item time="0" type="Visible" target="n6_z14g" value="true"/>
@@ -49,8 +52,6 @@
     <item time="0" type="Visible" target="n6_z14g" value="false"/>
     <item time="0" type="Visible" target="n83_g9kd" value="false"/>
     <item time="0" type="Visible" target="n87_g9kd" value="true"/>
-    <item time="0" type="Visible" target="n88_g9kd" value="true"/>
-    <item time="0" type="Visible" target="n89_g9kd" value="true"/>
     <item time="0" type="Visible" target="n92_g9kd" value="true"/>
   </transition>
 </component>

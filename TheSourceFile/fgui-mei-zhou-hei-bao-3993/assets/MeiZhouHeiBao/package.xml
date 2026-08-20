@@ -247,6 +247,26 @@
     <component id="g9kd9z" name="Reels.xml" path="/moudules/rewardSlotMachine/" exported="true"/>
     <component id="g9kda0" name="rewardSlotMachine.xml" path="/moudules/rewardSlotMachine/" exported="true"/>
     <component id="g9kda1" name="BonusOutFrame.xml" path="/components/gameMain/" exported="true"/>
+    <image id="ni96a2" name="sg_num_Colored_Gold_Coins_0.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
+    <image id="ni96a3" name="sg_num_Colored_Gold_Coins_01.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
+    <image id="ni96a4" name="sg_num_Colored_Gold_Coins_02.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
+    <image id="ni96a5" name="sg_num_Colored_Gold_Coins_03.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
+    <image id="ni96a6" name="sg_num_Colored_Gold_Coins_04.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
+    <image id="ni96a7" name="sg_num_Colored_Gold_Coins_05.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
+    <image id="ni96a8" name="sg_num_Colored_Gold_Coins_06.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
+    <image id="ni96a9" name="sg_num_Colored_Gold_Coins_07.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
+    <image id="ni96aa" name="sg_num_Colored_Gold_Coins_08.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
+    <image id="ni96ab" name="sg_num_Colored_Gold_Coins_09.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
+    <image id="ni96ac" name="sg_num_Colored_Gold_Coins_B.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
+    <image id="ni96ad" name="sg_num_Colored_Gold_Coins_com.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
+    <image id="ni96ae" name="sg_num_Colored_Gold_Coins_dot.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
+    <image id="ni96af" name="sg_num_Colored_Gold_Coins_K.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
+    <image id="ni96ag" name="sg_num_Colored_Gold_Coins_M.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
+    <image id="ni96ah" name="sg_num_Colored_Gold_Coins_T.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
+    <font id="ni96ai" name="FontBonusNum.fnt" path="/Font/" exported="true"/>
+    <image id="ni96aj" name="fg_img_Free Game Wheel Box.png" path="/images/gameMain/free/" exported="true"/>
+    <component id="ni96ak" name="SmallGameNum.xml" path="/components/gameMain/" exported="true"/>
+    <component id="ni96am" name="anchorTrails.xml" path="/components/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Mei Zhou Hei Bao 3993\FGUIs" packageCount="2"/>
 </packageDescription>

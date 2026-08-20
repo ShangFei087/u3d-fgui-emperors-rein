@@ -4,7 +4,8 @@
     <image id="n0_g9kd" name="freeRightBox" src="z14g74" fileName="images/gameMain/free/fg_img_Remaining Game Attempts Prompt_01.png" xy="-1150,-319" size="436,653" group="n6_g9kd"/>
     <image id="n3_g9kd" name="n3" src="z14g7a" fileName="images/gameMain/free/fg_txt_YOU GOT.png" xy="-1105,-238" size="144,133" group="n6_g9kd"/>
     <image id="n4_g9kd" name="n4" src="z14g70" fileName="images/gameMain/free/fg_img_black panther_02.png" xy="-931,-259" size="150,158" group="n6_g9kd"/>
-    <text id="n32_g9kd" name="txtFreeCollect" xy="-1132,-58" size="400,349" group="n6_g9kd" font="ui://tdk27maemxrk85" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-20" autoSize="none" text="0"/>
+    <text id="n32_g9kd" name="txtFreeCollect" xy="-1132,-58" size="400,349" group="n6_g9kd" font="ui://tdk27maemxrk85" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-20" autoSize="none" text="35"/>
+    <component id="n40_ni96" name="anchorEff_fg_star" src="g9kd9s" fileName="components/anchorCom.xml" xy="-931,106" group="n6_g9kd"/>
     <group id="n6_g9kd" name="left" xy="-1150,-319" size="436,653" advanced="true"/>
     <image id="n1_g9kd" name="freeLeftBox" src="z14g74" fileName="images/gameMain/free/fg_img_Remaining Game Attempts Prompt_01.png" xy="811,-320" group="n31_g9kd"/>
     <image id="n7_g9kd" name="n7" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="892,-254" group="n12_g9kd"/>
@@ -31,11 +32,11 @@
     <image id="n28_g9kd" name="n28" src="z14g3h" fileName="images/gameMain/free/FontRight/fg_num_Black Panther Icon Collection UI_4.png" xy="893,236" group="n30_g9kd"/>
     <image id="n29_g9kd" name="n29" src="z14g75" fileName="images/gameMain/free/fg_img_snake.png" xy="1116,154" group="n30_g9kd"/>
     <group id="n30_g9kd" name="snake" xy="890,154" size="289,139" group="n31_g9kd" advanced="true"/>
-    <component id="n34_g9kd" name="anchorFreeCollectBorder1" src="g9kd9s" fileName="components/anchorCom.xml" xy="1012,218" group="n39_g9kd"/>
-    <component id="n35_g9kd" name="anchorFreeCollectBorder2" src="g9kd9s" fileName="components/anchorCom.xml" xy="1039,92" group="n39_g9kd"/>
-    <component id="n36_g9kd" name="anchorFreeCollectBorder3" src="g9kd9s" fileName="components/anchorCom.xml" xy="1023,-60" group="n39_g9kd"/>
-    <component id="n37_g9kd" name="anchorFreeCollectBorder4" src="g9kd9s" fileName="components/anchorCom.xml" xy="1013,-185" group="n39_g9kd"/>
-    <group id="n39_g9kd" name="effBoder" xy="1012,-185" size="27,404" group="n31_g9kd"/>
+    <component id="n34_g9kd" name="anchorFreeCollectBorder1" src="g9kd9s" fileName="components/anchorCom.xml" xy="1025,213" group="n39_g9kd"/>
+    <component id="n35_g9kd" name="anchorFreeCollectBorder2" src="g9kd9s" fileName="components/anchorCom.xml" xy="1025,70" group="n39_g9kd"/>
+    <component id="n36_g9kd" name="anchorFreeCollectBorder3" src="g9kd9s" fileName="components/anchorCom.xml" xy="1025,-67" group="n39_g9kd"/>
+    <component id="n37_g9kd" name="anchorFreeCollectBorder4" src="g9kd9s" fileName="components/anchorCom.xml" xy="1025,-207" group="n39_g9kd"/>
+    <group id="n39_g9kd" name="effBoder" xy="1025,-207" size="1,421" group="n31_g9kd"/>
     <group id="n31_g9kd" name="right" xy="811,-320" size="436,653" advanced="true"/>
   </displayList>
   <transition name="enterFree">

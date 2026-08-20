@@ -11,8 +11,11 @@ namespace MeiZhouHeiBao_3993
     {
         public new const string pkgName = "MeiZhouHeiBao";
         public new const string resName = "PopupSmallGameTrigger";
-        private const string PrefabPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupSmallGameTrigger/PopupSmallGameTrigger/";
+        private const string PrefabPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupSmallGameTrigger/PopupSmallGameTrigger.prefab";
         private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
+        private const string PagSmallPupIn = "small_pup/small_pup_in";
+        private const string PagSmallPupIdle = "small_pup/small_pup_idle";
+        private const string PagSmallPupOut = "small_pup/small_pup_out";
         //弹窗
         private GameObject goBonusTrigger;
         private GComponent anchorBonusTrigger;
@@ -42,8 +45,7 @@ namespace MeiZhouHeiBao_3993
             };
 
             //1
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-            PrefabPath,
+            ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath,
              (GameObject clone) =>
              {
                  goBonusTrigger = clone;
@@ -78,6 +80,12 @@ namespace MeiZhouHeiBao_3993
             anchorPagBonusTrigger = contentPane.GetChild("anchorBonusTriggerPag").asCom;
             if (pagBonusTrigger == null) pagBonusTrigger = new PagSlotBinding("3993pagBonusTrigger", PagPath);
             pagBonusTrigger.EnsureSlot(anchorPagBonusTrigger);
+            pagBonusTrigger.StopWithDefaults();
+            pagBonusTrigger.Play(new PagSequencePlay(
+                PagPlaySpecs.IntroLoop(PagSmallPupIn, PagSmallPupIdle),
+                PagPlayLayout.Center,
+                PagPresentationDefaults.DisplayScale,
+                useGpuSyncGroup: false));
 
             GComponent localBonusTrigger = contentPane.GetChild("anchorBonusTrigger").asCom;
             if (anchorBonusTrigger != localBonusTrigger)
@@ -90,7 +98,7 @@ namespace MeiZhouHeiBao_3993
             }
             _animBonusTrigger.PlayThen("in", "idle", true);
 
-            btnStart = contentPane.GetChild("BtnStart").asButton;
+            btnStart = contentPane.GetChild("btnStart").asButton;
 
             btnStart.touchable = false;
             Timers.inst.Add(0.5f, 1, obj =>
@@ -104,7 +112,7 @@ namespace MeiZhouHeiBao_3993
             _animBonusTrigger.Attach(
                 btnStart,
                 rootBonusTriggerPath + "/fg_img_Button",
-                localPos: new Vector3(),
+                localPos: new Vector3(-2.36f, 0.73f,0.0f),
                 localScale: new Vector3(0.01f, 0.01f, 0.01f),
                 localRot: Quaternion.identity);
 
@@ -138,6 +146,16 @@ namespace MeiZhouHeiBao_3993
 
             btnStart.touchable = false;
             _animBonusTrigger.Play("out");
+
+            pagBonusTrigger.StopWithDefaults();
+            pagBonusTrigger.Play(new PagSequencePlay(
+                new[] { new PagSegment(PagSmallPupOut, 1) },
+                PagPlayLayout.Center,
+                PagPresentationDefaults.DisplayScale,
+                useGpuSyncGroup: false,
+                callbacks: new PagPlayCallbacks(
+                    onFinished: () => pagBonusTrigger?.StopWithDefaults(),
+                    stopAfterFinished: true)));
 
             RemoveTimer(ref _delayCloseCallback);
             _delayCloseCallback = obj =>

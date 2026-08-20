@@ -56,7 +56,7 @@ public class Reel01 : Reel
         if (fguiPoolHelper == null || customModel?.symbolAppearEffect == null)
             return;
 
-        for (int i = deckUpStartIndex; i <= deckUpEndIndex; i++)
+        for (int i = deckUpStartIndex; i < deckUpEndIndex; i++)
         {
             if (i < 0 || i >= symbolList.Count) continue;
 

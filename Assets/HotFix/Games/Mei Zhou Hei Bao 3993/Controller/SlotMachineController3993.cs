@@ -7,15 +7,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using _spinWEMD = SlotMaker.SpinWinEffectSettingModel;
 using _reelSetMD = SlotMaker.ReelSettingModel;
+using PusherEmperorsRein;
 
 namespace MeiZhouHeiBao_3993
 {
-    public enum SpinWinEvent
-    {
-        None,
-        TotalWinLine,
-        SingleWinLine,
-    }
 
     public class SlotMachineController3993 : SlotMachineBaseController
     {
@@ -51,7 +46,7 @@ namespace MeiZhouHeiBao_3993
             bufferTop = 2; // 滚轴上方有几个图标
         }
 
-        public new IEnumerator ShowWinListAwayDuringIdle(List<SymbolWin> winList)
+        public override IEnumerator ShowWinListAwayDuringIdle(List<SymbolWin> winList)
         {
             isIdleEffect = true;
             while (winList.Count > 0 && isIdleEffect) //while (idx < winList.Count)
@@ -91,7 +86,7 @@ namespace MeiZhouHeiBao_3993
             SkipWinLine(false);
         }
 
-        private IEnumerator ShowSymbolWinBySetting(SymbolWin symbolWin, bool isUseMySelfSymbolNumber,SpinWinEvent eventType)
+        public override IEnumerator ShowSymbolWinBySetting(SymbolWin symbolWin, bool isUseMySelfSymbolNumber,SpinWinEvent eventType)
         {
             //停止特效显示
             SkipWinLine(false);
@@ -111,9 +106,11 @@ namespace MeiZhouHeiBao_3993
 
                 string symbolName = CustomModel.Instance.symbolHitEffect[$"{symbolNumber}"];
 
-                // 图标动画  
+                RecycleSymbolAppear(symbol);
                 GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolHit, symbolName).asCom;
                 symbol.AddSymbolEffect(goSymbolHit, isSymbolAnim);
+                PlayEffectAnim(goSymbolHit, ResolveWildAnim(symbol, cel.row, cel.column, isWin: true));
+                TryBindBonusScore(symbol, cel.row, cel.column);
 
                 // 设置层级
                 FguiSortingOrderManager.Instance.ChangeSortingOrder(symbol.goOwnerSymbol, goExpectation);
@@ -122,10 +119,10 @@ namespace MeiZhouHeiBao_3993
                 if (_spinWEMD.Instance.isFrame)
                 {
                     string borderEffect = CustomModel.Instance.borderEffect;
-                    GComponent
-                        goBorderEffect =
-                            fguiPoolHelper.GetObject(TagPoolObject.SymbolBorder, borderEffect).asCom;
+                    GComponent goBorderEffect =fguiPoolHelper.GetObject(TagPoolObject.SymbolBorder, borderEffect).asCom;
                     symbol.AddBorderEffect(goBorderEffect);
+                    if (goBorderEffect.parent != null) goBorderEffect.parent.SetChildIndex(goBorderEffect, goBorderEffect.parent.numChildren - 1);
+
                 }
             }
 
@@ -172,11 +169,10 @@ namespace MeiZhouHeiBao_3993
             yield return SlotWaitForSeconds(_spinWEMD.Instance.timeS);
         }
 
-        #region 新增滚轮加速方法
-
-        public new IEnumerator TurnReelsNormal(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3", Action finishCallback = null)
+        public override IEnumerator TurnReelsNormal(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3", Action finishCallback = null)
         {
             //停止特效显示
+            ClearBonusScoreBinds();
             SkipWinLine(false);
 
             int[] deckColRow = SlotTool.GetDeckColRow(strDeckRowCol).ToArray();
@@ -211,11 +207,12 @@ namespace MeiZhouHeiBao_3993
                 for (int row = 0; row < rowCount; row++)
                 {
                     int syb = deckColRow[col * rowCount + row];
-                    if (syb == 10)
+                    if (syb == ScatterSymbolId)
                     {
-                        freeIconCols.Add(col);
+                        if (freeIconCols.Count == 0 || freeIconCols[freeIconCols.Count - 1] != col)
+                            freeIconCols.Add(col);
                     }
-                    else if (syb == 11)
+                    else if (syb == BonusSymbolId)
                     {
                         jackpotIconCols.Add(col);
                     }
@@ -230,11 +227,10 @@ namespace MeiZhouHeiBao_3993
         }
         
         //滚轮滚动接口
-        private new IEnumerator StartTurnReels()
+        protected override IEnumerator StartTurnReels()
         {
             int reelsCount = this.column;
             bool isNext = false;
-            bool haveSlotTip = false;
             ContentModel.Instance.isFreeSlotTip = false;
 
             for (int reelIdx = 0; reelIdx < this.column; reelIdx++)
@@ -244,25 +240,21 @@ namespace MeiZhouHeiBao_3993
                 bool isTrigger = false;
                 int extraReelTimesReel = 0;
 
-                if ((freeIconCols.Count > 1 && reelIdx >= freeIconCols[1]) || (jackpotIconCols.Count > 1 && reelIdx >= jackpotIconCols[1])) //ContentModel.Instance.isReelsSlowMotion && 
+                bool scatterExpect = freeIconCols.Count >= ScatterExpectCount
+                                     && reelIdx >= freeIconCols[ScatterExpectCount - 1];
+                bool bonusExpect = jackpotIconCols.Count >= BonusExpectCount
+                                   && reelIdx >= jackpotIconCols[BonusExpectCount - 1];
+
+                if (scatterExpect || bonusExpect)
                 {
                     extraReelTimes = 15;
                     isTrigger = true;
-                    if (!haveSlotTip && freeIconCols.Count > 1 && reelIdx >= freeIconCols[1])
-                    {
+                    if (scatterExpect)
                         ContentModel.Instance.isFreeSlotTip = true;
-                    }
 
-                    haveSlotTip = true;
-
-                    if (freeIconCols.Count > 1)
-                    {
-                        extraReelTimesReel = reelIdx - freeIconCols[1];
-                    }
-                    else
-                    {
-                        extraReelTimesReel = reelIdx - jackpotIconCols[1];
-                    }
+                    extraReelTimesReel = scatterExpect
+                        ? reelIdx - freeIconCols[ScatterExpectCount - 1]
+                        : reelIdx - jackpotIconCols[BonusExpectCount - 1];
                 }
 
                 reels[reelIdx].StartTurn(
@@ -270,12 +262,12 @@ namespace MeiZhouHeiBao_3993
                     reelIdx * _reelSetMD.Instance.GetNumReelTurnGap(reelIdx) + extraReelTimes * extraReelTimesReel,
                     () =>
                     {
-                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
-                            new EventData<int>(SlotMachineEvent.ReelColumnStopSound, index));
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,new EventData<int>(SlotMachineEvent.ReelColumnStopSound, index));
                         ComputeScatterBonusColumnStopFlags(reels[index], index, out bool scatterCol, out bool bonusCol);
-                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+                        EventCenter.Instance.EventTrigger<EventData>(
+                            SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
                             new EventData<ScatterBonusColumnStopPayload>(SlotMachineEvent.ScatterBonusColumnStopSound,
-                                new ScatterBonusColumnStopPayload { column0Based = index, hasScatter = scatterCol, hasBonus = bonusCol, }));
+                            new ScatterBonusColumnStopPayload { column0Based = index, hasScatter = scatterCol, hasBonus = bonusCol, }));
                         if (isTrigger)
                         {
                             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
@@ -310,7 +302,7 @@ namespace MeiZhouHeiBao_3993
         /// </summary>
         /// <param name="finishCallback"></param>
         /// <returns></returns>
-        public new IEnumerator ReelsToStopOrTurnOnce(Action finishCallback)
+        public override IEnumerator ReelsToStopOrTurnOnce(Action finishCallback)
         {
             int reelsCount = this.column;
 
@@ -372,7 +364,7 @@ namespace MeiZhouHeiBao_3993
             finishCallback?.Invoke();
         }
 
-        /// <summary> 扫描单列可视区是否含 Scatter/Bonus（symbolNumber[10]/[11]），供 ScatterBonusColumnStopSound 载荷。 </summary>
+        /// <summary> 扫描单列可视区是否含 Scatter/Bonus，供 ScatterBonusColumnStopSound 载荷。 </summary>
         private void ComputeScatterBonusColumnStopFlags(ReelBase reel, int column0Based, out bool hasScatter, out bool hasBonus)
         {
             hasScatter = false;
@@ -384,8 +376,8 @@ namespace MeiZhouHeiBao_3993
             if (column0Based < 0 || column0Based >= CustomModel.Instance.column)
                 return;
 
-            int scatterId = CustomModel.Instance.symbolNumber[10];
-            int bonusId = CustomModel.Instance.symbolNumber[11];
+            int scatterId = ScatterSymbolId;
+            int bonusId = BonusSymbolId;
             for (int i = 2; i < 2 + row; i++)
             {
                 if (i >= reel.symbolList.Count)
@@ -398,59 +390,243 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
-        #endregion
-
-        #region 解决Symbol播放变大特效问题
-
-        public new void ShowSymbolWinDeck(SymbolWin symbolWin, bool isUseMySelfSymbolNumber, Action callback = null)
+        public  override void ShowSymbolWinDeck(SymbolWin symbolWin, bool isUseMySelfSymbolNumber)
         {
             SkipWinLine(false);
-            callback?.Invoke();
+           
             SetSlotCover(_spinWEMD.Instance.isShowCover);
 
             foreach (Cell cel in symbolWin.cells)
             {
-                SymbolBase symble = GetVisibleSymbolFromDeck(cel.column, cel.row);
-
-                int symbolNumber = isUseMySelfSymbolNumber ? symble.number : symbolWin.symbolNumber;
+                SymbolBase symbol = GetVisibleSymbolFromDeck(cel.column, cel.row);
+                int symbolNumber = isUseMySelfSymbolNumber ? symbol.number : symbolWin.symbolNumber;
+                RecycleSymbolAppear(symbol);
                 string symbolName = CustomModel.Instance.symbolHitEffect[$"{symbolNumber}"];
                 GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolHit, symbolName).asCom;
-                symble.AddSymbolEffect(goSymbolHit, isSymbolAnim);
-                FguiSortingOrderManager.Instance.ChangeSortingOrder(symble.goOwnerSymbol, goExpectation);
+                FguiSortingOrderManager.Instance.ChangeSortingOrder(symbol.goOwnerSymbol, goExpectation);
+
+                symbol.AddSymbolEffect(goSymbolHit, isSymbolAnim);
+                if (symbolNumber == WildSymbolId)
+                {
+                    PlayEffectAnim(goSymbolHit, ResolveWildAnim(symbol, cel.row, cel.column, isWin: true));
+                }
+                if (symbolNumber == BonusSymbolId)
+                {
+                    TryBindBonusScore(symbol, cel.row, cel.column);
+                }
+
                 if (_spinWEMD.Instance.isFrame)
                 {
                     string borderEffect = CustomModel.Instance.borderEffect;
-                    GComponent
-                        goBorderEffect = fguiPoolHelper.GetObject(TagPoolObject.SymbolBorder, borderEffect).asCom;
-                    symble.AddBorderEffect(goBorderEffect);
+                    GComponent goBorderEffect = fguiPoolHelper.GetObject(TagPoolObject.SymbolBorder, borderEffect).asCom;
+                    symbol.AddBorderEffect(goBorderEffect);
                 }
             }
+        }
+        public override void ShowReelSymbolAppearEffect(int colIndex)
+        {
+            base.ShowReelSymbolAppearEffect(colIndex);
+            PlayWildAnimsOnColumn(colIndex, isWin: false);
+            BindBonusScoreOnColumn(colIndex);
+        }
 
-            if (_spinWEMD.Instance.isShowLine)
+        public override void ShowSymbolEffect(TagPoolObject tp, List<SymbolBase> symbols, bool isAmin, int symbolNumber, bool isUseMySelfSymbolNumber)
+        {
+            bool isHit = tp == TagPoolObject.SymbolHit;
+            if (isHit)
             {
-                if (symbolWin is TotalSymbolWin)
-                {
-                    TotalSymbolWin totalSymbolWin = symbolWin as TotalSymbolWin;
+                for (int i = 0; i < symbols.Count; i++)
+                    RecycleSymbolAppear(symbols[i]);
+            }
 
-                    foreach (int payLineNumber in totalSymbolWin.lineNumbers)
-                    {
-                        int lineIndex = GetPayLineIndex(payLineNumber);
-                        if (lineIndex >= 0 && lineIndex < goPayLines.numChildren)
-                        {
-                            goPayLines.GetChildAt(lineIndex).visible = true;
-                        }
-                    }
-                }
-                else
+            base.ShowSymbolEffect(tp, symbols, isAmin, symbolNumber, isUseMySelfSymbolNumber);
+
+            if (tp != TagPoolObject.SymbolHit && tp != TagPoolObject.SymbolAppear)
+                return;
+
+            for (int col = 0; col < this.column; col++)
+            {
+                for (int row = 0; row < this.row; row++)
                 {
-                    int lineIndex = GetPayLineIndex(symbolWin.lineNumber);
-                    if (lineIndex >= 0
-                        && lineIndex < goPayLines.numChildren)
-                    {
-                        goPayLines.GetChildAt(lineIndex).visible = true;
-                    }
+                    SymbolBase symbol = GetVisibleSymbolFromDeck(col, row);
+                    if (symbol == null || !symbols.Contains(symbol))
+                        continue;
+
+                    PlayAttachedSymbolAnim(symbol, ResolveWildAnim(symbol, row, col, isHit));
+                    if (isHit && symbol.number == BonusSymbolId)
+                        TryBindBonusScore(symbol, row, col);
                 }
             }
+        }
+
+        public override void BeginSpin()
+        {
+            ClearBonusScoreBinds();
+            base.BeginSpin();
+        }
+
+        #region Bonus图标
+        private const string Bonus12BonePath ="Anchor/Spine Mecanim GameObject (ng_sym14_Bonus)/SkeletonUtility-SkeletonRoot/root/All/coin/number";
+
+        private const int ScatterSymbolId = 11;
+        private const int BonusSymbolId = 12;
+        /// <summary> Scatter 出现满该数量后，后续列进入免费加速听牌。 </summary>
+        private const int ScatterExpectCount = 2;
+        /// <summary> Bonus 出现满该数量后，后续列进入大奖加速听牌（大奖需 6 个）。 </summary>
+        private const int BonusExpectCount = 3;
+
+        private sealed class BonusScoreBind
+        {
+            public AnimPlayer Anim;
+            public GComponent Num;
+            public int Row;
+            public int Col;
+        }
+
+        private readonly List<BonusScoreBind> _bonusScoreBinds = new List<BonusScoreBind>();
+
+        private void BindBonusScoreOnColumn(int colIndex)
+        {
+            if (colIndex < 0 || colIndex >= reels.Count)
+                return;
+
+            for (int row = 0; row < this.row; row++)
+                TryBindBonusScore(GetVisibleSymbolFromDeck(colIndex, row), row, colIndex);
+        }
+
+        private void TryBindBonusScore(SymbolBase symbol, int row, int col)
+        {
+            if (symbol == null || symbol.number != BonusSymbolId)
+                return;
+
+            GComponent animator = symbol.goOwnerSymbol.GetChild("animator")?.asCom;
+            if (animator == null || animator.numChildren <= 0)
+                return;
+
+            GComponent effectCom = animator.GetChildAt(animator.numChildren - 1)?.asCom;
+            if (effectCom == null)
+                return;
+
+            GameObject goRoot = GameCommon.FguiUtils.GetWrapperTarget(effectCom);
+            if (goRoot == null)
+                return;
+
+            int score = ResolveBonusScore(row, col);
+            if (score <= 0)
+                return;
+
+            RemoveBonusScoreBindAt(row, col);
+
+            GComponent numCom = UIPackage.CreateObject("MeiZhouHeiBao", "SmallGameNum")?.asCom;
+            if (numCom == null)
+                return;
+
+            effectCom.AddChild(numCom);
+            numCom.SetXY(0, 0);
+
+            GTextField txt = numCom.GetChild("txtScore")?.asTextField;
+            if (txt != null)
+                txt.text = score.ToString();
+
+            AnimPlayer anim = new AnimPlayer(goRoot);
+            bool ok = anim.Attach(
+                numCom,
+                Bonus12BonePath,
+                localPos: Vector3.zero,
+                localScale: new Vector3(0.01f, 0.01f, 0.01f),
+                localRot: Quaternion.identity);
+
+            if (ok)
+                _bonusScoreBinds.Add(new BonusScoreBind { Anim = anim, Num = numCom, Row = row, Col = col });
+            else
+                numCom.Dispose();
+        }
+
+        private void RemoveBonusScoreBindAt(int row, int col)
+        {
+            for (int i = _bonusScoreBinds.Count - 1; i >= 0; i--)
+            {
+                BonusScoreBind bind = _bonusScoreBinds[i];
+                if (bind.Row != row || bind.Col != col)
+                    continue;
+
+                bind.Anim?.DetachAll();
+                bind.Num?.Dispose();
+                _bonusScoreBinds.RemoveAt(i);
+            }
+        }
+
+        private int ResolveBonusScore(int row, int col)
+        {
+            int index = row * this.column + col; // row*5 + col
+            int[] data = ContentModel.Instance.BonusData;
+            if (data != null && index >= 0 && index < data.Length && data[index] > 0)
+                return data[index];
+
+            // 普通局没有 BonusData：随机 10~40 倍
+            int multiple = UnityEngine.Random.Range(10, 41);
+            return multiple * (int)ContentModel.Instance.totalBet;
+        }
+
+        public void ClearBonusScoreBinds()
+        {
+            for (int i = 0; i < _bonusScoreBinds.Count; i++)
+            {
+                _bonusScoreBinds[i].Anim?.DetachAll();
+                _bonusScoreBinds[i].Num?.Dispose();
+            }
+            _bonusScoreBinds.Clear();
+        }
+        #endregion
+
+        #region Wild图标
+        private const int WildSymbolId = 10;
+
+        private void RecycleSymbolAppear(SymbolBase symbol)
+        {
+            if (symbol?.goOwnerSymbol == null || fguiPoolHelper == null)
+                return;
+            fguiPoolHelper.ReturnToPool(TagPoolObject.SymbolAppear, symbol.goOwnerSymbol);
+        }
+
+        private void PlayWildAnimsOnColumn(int colIndex, bool isWin)
+        {
+            for (int row = 0; row < this.row; row++)
+            {
+                SymbolBase symbol = GetVisibleSymbolFromDeck(colIndex, row);
+                PlayAttachedSymbolAnim(symbol, ResolveWildAnim(symbol, row, colIndex, isWin));
+            }
+        }
+
+        private string ResolveWildAnim(SymbolBase symbol, int row, int col, bool isWin)
+        {
+            if (symbol == null || symbol.number != WildSymbolId)
+                return null;
+            return ContentModel.GetWildAnimName(ContentModel.Instance.GetWildMul(col, row), isWin);
+        }
+
+        private void PlayAttachedSymbolAnim(SymbolBase symbol, string animName)
+        {
+            if (symbol == null || string.IsNullOrEmpty(animName))
+                return;
+
+            GComponent animator = symbol.goOwnerSymbol.GetChild("animator")?.asCom;
+            if (animator == null || animator.numChildren <= 0)
+                return;
+
+            PlayEffectAnim(animator.GetChildAt(animator.numChildren - 1)?.asCom, animName);
+        }
+
+        private void PlayEffectAnim(GComponent effectCom, string animName)
+        {
+            if (effectCom == null || string.IsNullOrEmpty(animName))
+                return;
+
+            GameObject goRoot = GameCommon.FguiUtils.GetWrapperTarget(effectCom);
+            if (goRoot == null)
+                return;
+
+            new AnimPlayer(goRoot).Play(animName);
         }
 
         #endregion

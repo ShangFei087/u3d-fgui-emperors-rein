@@ -163,7 +163,44 @@ namespace MeiZhouHeiBao_3993
         private int _bonusBet;
         public int BonusBet { get => _bonusBet; set => _bonusBet = value;  }
 
-        public int[] BonusData = Array.Empty<int>();
+        public int[] BonusData = new int[15];
+        public List<List<int>> BonusRound = new List<List<int>>();
+
+        /// <summary> ResultType == RT_Jackpot。同一套 15 轴，但会停出彩金图标。 </summary>
+        public bool isJackpotGame;
+        public int[] JPTypeArray = Array.Empty<int>();
+        public int[] JPBetArray = Array.Empty<int>();
+        public int TotalJackpotBet;
+
+        public const int JackpotScoreBase = 4000;
+
+        public static bool IsJackpotScore(int score) =>
+            score >= JackpotScoreBase && score <= JackpotScoreBase + 2;
+
+        public static int GetJackpotType(int score) => score - JackpotScoreBase;
+
+        public static string GetJackpotTypeName(int jpType)
+        {
+            if (jpType == 1) return "minor";
+            if (jpType == 2) return "mini";
+            return "major";
+        }
+
+        public int GetJackpotBet(int jpType)
+        {
+            if (JPTypeArray == null || JPBetArray == null)
+                return 0;
+
+            for (int i = 0; i < JPTypeArray.Length && i < JPBetArray.Length; i++)
+            {
+                if (JPTypeArray[i] == jpType)
+                    return JPBetArray[i];
+            }
+
+            if (JPTypeArray.Length == 1 && JPBetArray.Length == 1)
+                return JPBetArray[0];
+            return 0;
+        }
 
         // ------------------------ Jackpot Data -----------------------
 

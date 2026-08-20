@@ -14,6 +14,9 @@ namespace MeiZhouHeiBao_3993
 
         private const string PrefabPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupFreeSpinTrigger/PopupFreeSpinTrigger.prefab";
         private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
+        private const string PagFgPupIn = "fg_pup/fg_pup_in";
+        private const string PagFgPupIdle = "fg_pup/fg_pup_idle";
+        private const string PagFgPupOut = "fg_pup/fg_pup_out";
   
         //弹窗
         private GameObject goFreeTrigger;
@@ -84,6 +87,7 @@ namespace MeiZhouHeiBao_3993
             anchorPagFreeTrigger= contentPane.GetChild("anchorFreeTriggerPag").asCom;
             if (pagFreeTrigger == null) pagFreeTrigger = new PagSlotBinding("3993pagFreeTrigger", PagPath);
             pagFreeTrigger.EnsureSlot(anchorPagFreeTrigger);
+            PlayFgPupInIdle();
 
             GComponent localFreeTrigger = contentPane.GetChild("anchorFreeTrigger").asCom;
             if (anchorFreeTrigger != localFreeTrigger)
@@ -111,7 +115,7 @@ namespace MeiZhouHeiBao_3993
             _animFreeTrigger.Attach(
                 btnStart,
                 rootFreeTriggerPath + "/fg_START_01",
-                localPos: new Vector3(),
+                localPos: new Vector3(-2.213f, 0.561f),
                 localScale: new Vector3(0.01f, 0.01f, 0.01f),
                 localRot: Quaternion.identity);
             _animFreeTrigger.Attach(
@@ -135,13 +139,13 @@ namespace MeiZhouHeiBao_3993
         {
             RemoveTimer(ref _delayCloseCallback);
             _animFreeTrigger.DetachAll();
+            pagFreeTrigger?.StopWithDefaults();
 
             base.OnClose(eventData);
 
             //_gameSoundController?.Dispose();
             //_gameSoundController = null;
         }
-
 
         private void OnCloseBtn(EventData eventData = null)
         {
@@ -150,6 +154,7 @@ namespace MeiZhouHeiBao_3993
 
             btnStart.touchable = false;
             _animFreeTrigger.Play("out");
+            PlayFgPupOut();
 
             RemoveTimer(ref _delayCloseCallback);
             _delayCloseCallback = obj =>
@@ -158,6 +163,31 @@ namespace MeiZhouHeiBao_3993
                 _delayCloseCallback = null;
             };
             Timers.inst.Add(1.0f, 1, _delayCloseCallback);
+        }
+
+        private void PlayFgPupInIdle()
+        {
+            if (pagFreeTrigger == null) return;
+            pagFreeTrigger.StopWithDefaults();
+            pagFreeTrigger.Play(new PagSequencePlay(
+                PagPlaySpecs.IntroLoop(PagFgPupIn, PagFgPupIdle),
+                PagPlayLayout.Center,
+                PagPresentationDefaults.DisplayScale,
+                useGpuSyncGroup: false));
+        }
+
+        private void PlayFgPupOut()
+        {
+            if (pagFreeTrigger == null) return;
+            pagFreeTrigger.StopWithDefaults();
+            pagFreeTrigger.Play(new PagSequencePlay(
+                new[] { new PagSegment(PagFgPupOut, 1) },
+                PagPlayLayout.Center,
+                PagPresentationDefaults.DisplayScale,
+                useGpuSyncGroup: false,
+                callbacks: new PagPlayCallbacks(
+                    onFinished: () => pagFreeTrigger?.StopWithDefaults(),
+                    stopAfterFinished: true)));
         }
 
         private void RemoveTimer(ref TimerCallback timerCallback)

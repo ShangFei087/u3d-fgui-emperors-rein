@@ -2,7 +2,7 @@
 <component size="1080,1920">
   <displayList>
     <component id="n4_g9kd" name="anchorFreeTriggerPag" src="g9kd9r" fileName="components/anchorPag.xml" xy="539,959"/>
-    <component id="n2_g9kd" name="anchorFreeTrigger" src="g9kd9p" fileName="components/popupFreeSpinResult/AnchorFreeTrigger.xml" xy="539,764"/>
+    <component id="n2_g9kd" name="anchorFreeTrigger" src="g9kd9p" fileName="components/popupFreeSpinResult/AnchorFreeTrigger.xml" xy="539,1000"/>
     <text id="n0_z2gw" name="FreeTimeText" xy="108,1064" size="863,427" font="ui://tdk27maemxrk85" fontSize="6" align="center" vAlign="middle" letterSpacing="-20" autoSize="none" text="15"/>
     <component id="n3_g9kd" name="BtnStart" src="g9kd9q" fileName="components/popupFreeSpinResult/ButtonFreeStart.xml" xy="317,1167" size="462,122"/>
   </displayList>

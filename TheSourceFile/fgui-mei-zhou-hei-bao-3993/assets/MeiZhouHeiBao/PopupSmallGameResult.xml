@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <image id="n0_z14g" name="n0" src="z14g1b" fileName="images/gameMain/bg/ng_bg_Horizontal board background.png" xy="0,0"/>
+    <component id="n4_ni96" name="anchorSmallResultPag" src="g9kd9r" fileName="components/anchorPag.xml" xy="545,813"/>
+    <component id="n5_ni96" name="anchorSmallResult" src="g9kd9s" fileName="components/anchorCom.xml" xy="545,1000"/>
+    <text id="n6_ni96" name="txtScoreWin" xy="-27,583" size="1150,193" font="ui://tdk27maeg9kd9n" fontSize="12" align="center" vAlign="middle" letterSpacing="-30" autoSize="none" text="r999,9999,99"/>
+    <component id="n8_ni96" name="btnCollect" src="g9kd9t" fileName="components/ButtonCom.xml" xy="322,1018" size="469,130"/>
   </displayList>
 </component>
