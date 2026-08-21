@@ -156,6 +156,8 @@ namespace MeiZhouHeiBao_3993
             RemoveTimer(ref _delayCloseCallback);
             RemoveTimer(ref _autoClickCallback);
             _animSmallResult.DetachAll();
+            pagSmallResult?.Dispose();
+            pagSmallResult = null;
             //_gameSoundController?.Dispose();
             //_gameSoundController = null;
         }

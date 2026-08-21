@@ -135,6 +135,8 @@ namespace MeiZhouHeiBao_3993
             RemoveTimer(ref _delayCloseCallback);
             RemoveTimer(ref _autoClickCallback);
             _animBonusTrigger.DetachAll();
+            pagBonusTrigger?.Dispose();
+            pagBonusTrigger = null;
 
             base.OnClose(eventData);
 

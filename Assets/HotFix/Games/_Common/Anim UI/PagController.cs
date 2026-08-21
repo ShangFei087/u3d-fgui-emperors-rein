@@ -106,9 +106,16 @@ public class PagController : IDisposable
 
     public PagController(string instanceKey, string gamePagFolder = null)
     {
-        InstanceKey = string.IsNullOrEmpty(instanceKey)
-            ? $"Pag_{Guid.NewGuid():N}"
-            : instanceKey;
+        _textureSlotId = System.Threading.Interlocked.Increment(ref _nextTextureSlotId);
+        if (string.IsNullOrEmpty(instanceKey))
+        {
+            InstanceKey = $"Pag_slot_{_textureSlotId}";
+            Debug.LogError($"[PAG] PagController: instanceKey is required, fallback={InstanceKey}");
+        }
+        else
+        {
+            InstanceKey = instanceKey;
+        }
         if (string.IsNullOrEmpty(gamePagFolder))
         {
             Debug.LogError($"[PAG] PagController({InstanceKey}): gamePagFolder is required");
@@ -118,7 +125,6 @@ public class PagController : IDisposable
         {
             _gamePagFolder = gamePagFolder;
         }
-        _textureSlotId = System.Threading.Interlocked.Increment(ref _nextTextureSlotId);
         EnsureInit();
     }
 
@@ -203,10 +209,15 @@ public class PagController : IDisposable
             return;
         }
 
+        _disposed = true;
         StopPag();
         DetachHostOnly();
         _fguiAnchor = null;
-        _disposed = true;
+        OnExportFinished = null;
+        OnPlayStarted = null;
+        OnPlaybackFinished = null;
+        OnGpuDisplayReady = null;
+        _fguiPresenter.DetachLoader();
     }
 
     private void DetachHostOnly()
@@ -501,7 +512,12 @@ public class PagController : IDisposable
     internal void HandleGpuSyncFlushFrame0()
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
-        PagCallbackHub.Instance.RunCoroutine(SyncFlushFrame0Coroutine());
+        if (_gpuBindCoroutine != null)
+        {
+            PagCallbackHub.Instance.StopRunCoroutine(_gpuBindCoroutine);
+        }
+
+        _gpuBindCoroutine = PagCallbackHub.Instance.RunCoroutine(SyncFlushFrame0Coroutine());
 #endif
     }
 
@@ -509,7 +525,9 @@ public class PagController : IDisposable
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
         yield return PagUnityGlBridge.FlushChainFrame0Coroutine(_textureSlotId, InstanceKey);
+        _gpuBindCoroutine = null;
 #else
+        _gpuBindCoroutine = null;
         yield break;
 #endif
     }
@@ -705,8 +723,13 @@ public class PagController : IDisposable
 
     private IEnumerator DestroyGpuTextureCoroutine()
     {
-        yield return PagUnityGlBridge.DestroyTextureCoroutine(_textureSlotId, InstanceKey);
+        string key = InstanceKey;
+        yield return PagUnityGlBridge.DestroyTextureCoroutine(_textureSlotId, key);
         _destroyGpuCoroutine = null;
+        if (_disposed)
+        {
+            PagUnityGlBridge.ReleaseInstanceKeyNativePtr(key);
+        }
     }
 
     private void ResetBoundGpuTexture()

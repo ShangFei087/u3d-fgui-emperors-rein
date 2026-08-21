@@ -144,7 +144,8 @@ namespace MeiZhouHeiBao_3993
             RemoveTimer(ref _delayCloseCallback);
             RemoveTimer(ref _autoClickCallback);
             _animFreeTrigger.DetachAll();
-            pagFreeTrigger?.StopWithDefaults();
+            pagFreeTrigger?.Dispose();
+            pagFreeTrigger = null;
 
             base.OnClose(eventData);
 

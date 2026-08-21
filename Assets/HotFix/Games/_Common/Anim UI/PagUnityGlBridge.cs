@@ -91,6 +91,22 @@ public static class PagUnityGlBridge
         return ptr;
     }
 
+    /// <summary>实例 Dispose 且 GPU teardown 完成后释放 UTF8 缓存；Stop 复用同一 key 时不要调用。</summary>
+    public static void ReleaseInstanceKeyNativePtr(string instanceKey)
+    {
+        string key = string.IsNullOrEmpty(instanceKey) ? "_default" : instanceKey;
+        if (!s_instanceKeyNativeCache.TryGetValue(key, out IntPtr ptr))
+        {
+            return;
+        }
+
+        s_instanceKeyNativeCache.Remove(key);
+        if (ptr != IntPtr.Zero)
+        {
+            Marshal.FreeHGlobal(ptr);
+        }
+    }
+
     private static void WithInstanceKeyNative(string instanceKey, Action<IntPtr> action)
     {
         action(GetOrCreateInstanceKeyNativePtr(instanceKey));
@@ -398,6 +414,10 @@ public static class PagUnityGlBridge
     public static IEnumerator WaitForSlotDestroyComplete(int slotId)
     {
         yield break;
+    }
+
+    public static void ReleaseInstanceKeyNativePtr(string instanceKey)
+    {
     }
 #endif
 }

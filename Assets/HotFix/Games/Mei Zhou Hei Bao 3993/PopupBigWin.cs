@@ -40,6 +40,7 @@ namespace MeiZhouHeiBao_3993
 
         protected override void OnLanguageChange(I18nLang lang)
         {
+            pagBigWin?.StopWithDefaults();
             FguiI18nTextAssistant.Instance.DisposeAllTranslate(this.contentPane);
             contentPane.Dispose(); // 释放当前UI
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -99,6 +100,7 @@ namespace MeiZhouHeiBao_3993
         {
             NumberAnimation.Instance.StopAllAnimations();
             ClearAllTimers();
+            ClearPag();
             base.OnClose(eventData);
         }
         public void exit(object obj = null)
@@ -112,7 +114,7 @@ namespace MeiZhouHeiBao_3993
 
         private void ClearPag()
         {
-            pagBigWin.Dispose();
+            pagBigWin?.Dispose();
             pagBigWin = null;
         }
 

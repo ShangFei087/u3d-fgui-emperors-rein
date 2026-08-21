@@ -20,7 +20,7 @@ public static class PagPresentationDefaults
 {
     public const float DisplayScale = 1f;//FGUI 显示缩放；1=按合成尺寸×1 显示
     public const bool ClampDisplayToHolder = false;//按合成尺寸×displayScale；true：裁剪到 holder。
-    public const bool UseGpuSyncGroup = true; //自动加入异步
+    public const bool UseGpuSyncGroup = false; // 单路独立出帧；多实例同屏时由调用方显式合组
     public const bool UseFguiTexture = true;//Fgui纹理模式
     public const int FguiMaxDisplaySide = 0;//FguiTexture 离屏最大边；0=合成原尺寸不限制，512=降压缩屏（FGUI 仍按合成原尺寸显示）。
     public const int FguiFps = 30;//纹理模式出帧目标帧率

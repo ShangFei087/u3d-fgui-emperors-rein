@@ -34,7 +34,7 @@ public static class PagGpuSyncGroup
     private const float StallTimeoutMinSeconds = 0.25f;
 
     /// <summary>纹理模式多实例同屏时自动 TryJoin；PagGroupPlayer 静态组播不受影响。</summary>
-    public static bool AutoConcurrentEnabled { get; set; } = true;
+    public static bool AutoConcurrentEnabled { get; set; }
 
     public static bool IsActive => s_active;
 

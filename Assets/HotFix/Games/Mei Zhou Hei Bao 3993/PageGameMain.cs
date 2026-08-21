@@ -426,10 +426,8 @@ namespace MeiZhouHeiBao_3993
             //免费游戏
             anchorNormalFadeFree = contentPane.GetChild("anchorFadePag").asCom;
             if (pagFade == null)
-            {
                 pagFade = new PagSlotBinding("3993PagFade", PagPath);
-                pagFade.EnsureSlot(anchorNormalFadeFree);
-            }
+            pagFade.EnsureSlot(anchorNormalFadeFree);
             _rewardMgr?.SetRoarPag(pagFade);
             cptBoxFreeCollet= localboxFreeCollect;
             cptBoxFreeCollet.GetTransition("exitFree").Play();
@@ -486,6 +484,8 @@ namespace MeiZhouHeiBao_3993
             ClearPantherTrails();
             HideCollectStar();
             _rewardMgr?.Dispose();
+            pagFade?.Dispose();
+            pagFade = null;
             _animNormalNpc?.DetachAll();
             _animNormalNpc = null;
             base.OnClose(eventData);
@@ -506,6 +506,7 @@ namespace MeiZhouHeiBao_3993
 
         protected override void OnLanguageChange(I18nLang lang)
         {
+            pagFade?.StopWithDefaults();
             FguiI18nTextAssistant.Instance.DisposeAllTranslate(contentPane);
             contentPane.Dispose(); // 释放当前UI
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;

@@ -151,7 +151,8 @@ namespace MeiZhouHeiBao_3993
             RemoveTimer(ref _delayCloseCallback);
             RemoveTimer(ref _autoClickCallback);
             _animJackpot?.DetachAll();
-            _pagJackpot?.StopWithDefaults();
+            _pagJackpot?.Dispose();
+            _pagJackpot = null;
             _isClicked = false;
             base.OnClose(eventData);
         }
