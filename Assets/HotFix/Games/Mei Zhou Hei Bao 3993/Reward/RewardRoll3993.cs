@@ -185,6 +185,7 @@ namespace MeiZhouHeiBao_3993
 
             _bonusRoundSpinIndex = 0;
             CalculationTimesAndCount();
+            SyncLockedIdles();
         }
 
         public void Update(float dt)
@@ -261,6 +262,7 @@ namespace MeiZhouHeiBao_3993
                 _elements[wheelIndex][0].SetBonus(data);
                 _elementBoxBonusData[wheelIndex] = data;
                 _rewardMgr.UpdateBonusTime(3);
+                SyncLockedIdles();
                 //GameSoundHelper3993.Instance.PlaySoundEff(SoundKey.BonusSymbolAppear);
                 //GameSoundHelper3993.Instance.PlaySoundEff(SoundKey.BonusDown1);
             }
@@ -305,6 +307,18 @@ namespace MeiZhouHeiBao_3993
             }
 
             _isAuto = true;
+        }
+
+        private void SyncLockedIdles()
+        {
+            for (int i = 0; i < ReelCount; i++)
+            {
+                if (!_elementBoxBonus[i] || _bonusScores[i] <= 0)
+                    continue;
+                if (_elements[i] == null || _elements[i].Count == 0)
+                    continue;
+                _elements[i][0].PlayIdleFromStart();
+            }
         }
 
         private int GetCanStopIndex()

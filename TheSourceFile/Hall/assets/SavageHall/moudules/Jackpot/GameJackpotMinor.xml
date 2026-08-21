@@ -11,5 +11,6 @@
       <item url="ui://vkidf8mppuke1s"/>
       <item url="ui://vkidf8mppuke1s"/>
     </list>
+    <image id="n2_d6bl" name="n2" src="d6bl25" fileName="images/plat_txt_minor.png" xy="212,-2"/>
   </displayList>
 </component>

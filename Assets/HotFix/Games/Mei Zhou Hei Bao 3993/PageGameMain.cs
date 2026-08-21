@@ -70,7 +70,7 @@ namespace MeiZhouHeiBao_3993
 
         // 说明书
         private List<GComponent> _lstPayTable;
-        private readonly PayTableController3993 _payTableController = new PayTableController3993();
+        private PayTableController3993 _payTableController = new PayTableController3993();
         private bool _isStopButtonLocked, _tipCoinIn, _isStoppedSlotMachine;
 
         // 游戏中协程
@@ -291,17 +291,13 @@ namespace MeiZhouHeiBao_3993
             MainModel.Instance.contentMD.betIndex = 0;
             ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
 
-            _lstPayTable = new List<GComponent>();
+            List<GComponent> lstPayTable = new List<GComponent>();
             foreach (string url in CustomModel.Instance.payTable)
             {
-                GComponent payTable = UIPackage.CreateObjectFromURL(url).asCom;
-                //payTable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().InitParam(payTable);
-                _lstPayTable.Add(payTable);
-                //payTable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().referenceCount++;
+                GComponent paytable = UIPackage.CreateObjectFromURL(url).asCom;
+                lstPayTable.Add(paytable);
             }
-
-            ContentModel.Instance.goPayTableLst = _lstPayTable.ToArray();
-            _payTableController.Init(_lstPayTable);
+            ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
 
             // ---------- 2. FairyGUI 对象池（须先于滚轮 Init） ----------
             if (_fGuiPoolHelper != null && !_isInitPool)
@@ -434,6 +430,7 @@ namespace MeiZhouHeiBao_3993
                 pagFade = new PagSlotBinding("3993PagFade", PagPath);
                 pagFade.EnsureSlot(anchorNormalFadeFree);
             }
+            _rewardMgr?.SetRoarPag(pagFade);
             cptBoxFreeCollet= localboxFreeCollect;
             cptBoxFreeCollet.GetTransition("exitFree").Play();
             //txtRemainFreeTime = contentPane.GetChild("freeOutFrame").asCom.GetChild("txtRemainFreeTime").asTextField;
@@ -554,32 +551,30 @@ namespace MeiZhouHeiBao_3993
             {
                 case PanelEvent.SpinButtonClick:
                     {
-
+                        if (IsSpinButtonLocked()) return;
 
                         bool isLongClick = (bool)eventData.value;
+                        ContentModel.Instance.isAuto = TestManager.Instance.IsAutoModeRunning;
                         switch (ContentModel.Instance.btnSpinState)
                         {
                             case SpinButtonState.Stop:
                                 {
                                     if (ContentModel.Instance.isSpin) return;
-                                    UnlockStopButton();
                                     ContentModel.Instance.isSpin = true;
                                     if (ContentModel.Instance.isSmallGameSpin)
                                     {
-                                        ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
                                         _rewardMgr.StartRoll();
                                         break;
                                     }
 
+                                    LockStopButton();
                                     if (isLongClick)
                                     {
                                         ContentModel.Instance.isAuto = true;
-                                        ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
                                         StartGameAuto(ContinueGameWhenCompleted, StopGameWhenError);
                                     }
                                     else
                                     {
-                                        ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
                                         StartGameOnce(ContinueGameWhenCompleted, StopGameWhenError);
                                     }
                                 }
@@ -602,6 +597,11 @@ namespace MeiZhouHeiBao_3993
                                 break;
                             case SpinButtonState.Auto:
                                 {
+                                    if (TestManager.Instance.IsAutoModeRunning)
+                                    {
+                                        _slotMachineController.isStopImmediately = true;
+                                        break;
+                                    }
                                     ContentModel.Instance.isSpin = true;
                                     ContentModel.Instance.isAuto = false;
                                     ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
@@ -628,10 +628,16 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
-        /// <summary> 点击两次Spin按钮，按钮置灰，上锁无法点击 </summary>
+        /// <summary> 屏幕或机台物理键在置灰期间都应忽略。 </summary>
+        private bool IsSpinButtonLocked()
+        {
+            if (_isStopButtonLocked) return true;
+            return MainModel.Instance.panel is PanelBaseController panel && panel.IsSpinStopButtonLocked;
+        }
+
+        /// <summary> 点击后 / 停轮后：置灰不可点。 </summary>
         private void LockStopButton()
         {
-            if (_isStopButtonLocked) return;
             _isStopButtonLocked = true;
             if (MainModel.Instance.panel is PanelBaseController panelBaseController)
                 panelBaseController.SetSpinButtonLocked(true);
@@ -640,29 +646,45 @@ namespace MeiZhouHeiBao_3993
         /// <summary> Spin按钮解锁 </summary>
         private void UnlockStopButton()
         {
-            if (!_isStopButtonLocked) return;
             _isStopButtonLocked = false;
             if (MainModel.Instance.panel is PanelBaseController panelBaseController)
                 panelBaseController.SetSpinButtonLocked(false);
+        }
+
+        /// <summary> 滚轮开始转：解锁并显示 Spin 或 Auto。 </summary>
+        private void SetSpinButtonRolling()
+        {
+            ContentModel.Instance.btnSpinState = ContentModel.Instance.isAuto
+                ? SpinButtonState.Auto
+                : SpinButtonState.Spin;
+            UnlockStopButton();
+        }
+
+        /// <summary> 滚轮停稳后到 Idle 前：保持 Spin 外观并置灰，押注保持锁定。 </summary>
+        private void SetSpinButtonSpinGray()
+        {
+            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            LockStopButton();
+            _panelController?.ChangButtonNo(true);
         }
 
         /// <summary> 旋转成功，重置状态 </summary>
         private void ContinueGameWhenCompleted()
         {
             DebugUtils.Log("游戏结束");
-            UnlockStopButton();
             ContentModel.Instance.isSpin = false;
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            UnlockStopButton();
             ContentModel.Instance.gameState = GameState.Idle;
         }
 
         /// <summary> 旋转失败，抛出错误 </summary>
         private void StopGameWhenError(string msg)
         {
-            UnlockStopButton();
             ContentModel.Instance.isSpin = false;
             ContentModel.Instance.isAuto = false;
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            UnlockStopButton();
             ContentModel.Instance.gameState = GameState.Idle;
 
 
@@ -800,6 +822,7 @@ namespace MeiZhouHeiBao_3993
             // --------------------- 重置游戏状态 --------------------------
             OnGameReset();
             ContentModel.Instance.gameState = GameState.Spin;
+            LockStopButton();
             _slotMachineController.BeginTurn();
             bool isNext = false;
             bool isBreak = false;
@@ -861,7 +884,14 @@ namespace MeiZhouHeiBao_3993
             }
 
             // ----------------- 卷轴滚动 ---------------
+            if (TestManager.Instance.IsAutoModeRunning)
+            {
+                _slotMachineController.isStopImmediately = true;
+                TestManager.Instance.RecordAutoModeSpin();
+            }
+
             _slotMachineController.BeginSpin();
+            SetSpinButtonRolling();
             if (ContentModel.Instance.isReelsSlowMotion)
                 _slotMachineController.ShowSymbolAppearEffectAfterReelStop(true);
             else
@@ -896,6 +926,9 @@ namespace MeiZhouHeiBao_3993
                 }
             }
 
+            UnlockStopButton();
+            SetSpinButtonSpinGray();
+
             List<SymbolWin> winList = ContentModel.Instance.winList;
             long pantherWin = ContentModel.Instance.isPantherWin ? ContentModel.Instance.pantherBonusWin : 0;
             TryPlayNormalNpcAfterSpin(winList);
@@ -917,7 +950,7 @@ namespace MeiZhouHeiBao_3993
                 MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true); // 加钱动画
                 yield return _slotMachineController.ShowSymbolWinBySetting(_slotMachineController.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
                 MainBlackboardController.Instance.SyncMyTempCreditToReal(true); // 同步玩家真实金币
-                yield return _slotMachineController.SlotWaitForSeconds(1.5f);
+                yield return _slotMachineController.SlotWaitForSeconds(0.5f);
             }
             else if (pantherWin > 0)
             {
@@ -953,6 +986,7 @@ namespace MeiZhouHeiBao_3993
             
             DebugUtils.Log("进入空闲模式！！！");
             // 本剧同步玩家金钱
+            _panelController.ChangButtonNo(false);
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             ContentModel.Instance.gameState = GameState.Idle;
             if ( !ContentModel.Instance.isAuto && !ContentModel.Instance.isFreeSpinTrigger)
@@ -1081,10 +1115,7 @@ namespace MeiZhouHeiBao_3993
         private void OnStopSlot(EventData res)
         {
             if (res.name == SlotMachineEvent.StoppedSlotMachine)
-            {
                 _isStoppedSlotMachine = true;
-                UnlockStopButton();
-            }
         }
 
         private void OnSlotDetailEvent(EventData res)
@@ -1353,10 +1384,8 @@ namespace MeiZhouHeiBao_3993
         private IEnumerator FreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
             OnGameReset();
-            UnlockStopButton();
             ContentModel.Instance.isSpin = true;
-            if (ContentModel.Instance.btnSpinState != SpinButtonState.Spin)
-                ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
+            LockStopButton();
             ContentModel.Instance.gameState = GameState.FreeSpin;
 
             bool isNext = false;
@@ -1387,12 +1416,17 @@ namespace MeiZhouHeiBao_3993
 
             if (isBreak)
             {
-                SetFreeSpinButtonStop();
+                UnlockStopButton();
+                ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                 errorCallback?.Invoke(errMsg);
                 yield break;
             }
 
+            if (TestManager.Instance.IsAutoModeRunning)
+                _slotMachineController.isStopImmediately = true;
+
             _slotMachineController.BeginSpin();
+            SetSpinButtonRolling();
             if (_slotMachineController.isStopImmediately)
             {
                 if (_corReelsTurn != null) _monoHelper.StopCoroutine(_corReelsTurn);
@@ -1423,7 +1457,7 @@ namespace MeiZhouHeiBao_3993
                 }
             }
 
-            SetFreeSpinButtonStop();
+            SetSpinButtonSpinGray();
 
             //转换黑豹
             yield return ConvertEligibleSymbolsToPanther();
@@ -1456,14 +1490,8 @@ namespace MeiZhouHeiBao_3993
             }
 
             ContentModel.Instance.gameState = GameState.Idle;
-            SetFreeSpinButtonStop();
+            SetSpinButtonSpinGray();
             successCallback?.Invoke();
-        }
-
-        private void SetFreeSpinButtonStop()
-        {
-            UnlockStopButton();
-            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
         }
 
         private IEnumerator FreeGameSpin(Action successCallback, Action<string> errorCallback)
@@ -1500,7 +1528,7 @@ namespace MeiZhouHeiBao_3993
             ClearPantherTrails();
             HideCollectStar();
             _allWinCredit = 0;
-            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            SetSpinButtonSpinGray();
         }
 
         private void EnterFreeSpit()
@@ -1901,9 +1929,9 @@ namespace MeiZhouHeiBao_3993
             SwitchNpc(true);
             _panelController.ChangButtonNo(true);
             _panelController.HideWinBorders();
-            UnlockStopButton();
             ContentModel.Instance.isSpin = false;
-            ContentModel.Instance.isAuto = false;
+            if (!TestManager.Instance.IsAutoModeRunning)
+                ContentModel.Instance.isAuto = false;
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             _panelController.ChangButtonNo(true);  // 放在 btnSpinState 之后，避免 Stop 分支里的 ChangButtonNo(false) 把押注按钮又打开
             _slotMachineController.SkipWinLine(true);
@@ -1911,10 +1939,14 @@ namespace MeiZhouHeiBao_3993
             yield return _slotMachineController.SlotWaitForSeconds(1.5f);
             //EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3993AudioEvent.BgmBonusGame));
             List<int> matrix = SlotTool.GetDeckRowCol(ContentModel.Instance.strDeckRowCol);
+            //大奖主逻辑
             _rewardMgr.Enter(matrix, ContentModel.Instance.BonusData);
+            UnlockStopButton();
+            if (TestManager.Instance.IsAutoModeRunning)
+                _rewardMgr.StartRoll();
    
             yield return new WaitUntil(() => ContentModel.Instance.isSmallGameFinish == true);
-            UnlockStopButton();
+            SetSpinButtonSpinGray();
             ContentModel.Instance.isSpin = false;
 
             PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupSmallGameResult, null, (ed) =>

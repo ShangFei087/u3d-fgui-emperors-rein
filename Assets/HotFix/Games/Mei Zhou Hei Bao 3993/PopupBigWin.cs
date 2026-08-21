@@ -17,7 +17,7 @@ namespace MeiZhouHeiBao_3993
             "ng_pop_bigwin/BigWin_bmp",
             "ng_pop_bigwin/SuperWin_bmp",
             "ng_pop_bigwin/MegaWin_bmp" };
-        private int[] CloseBigWinTime = { 5,9, 24, }; //关闭bigwin页面时间
+        private int[] CloseBigWinTime = { 5, 6, 9, }; //关闭bigwin页面时间
 
 
         private readonly string[] winString = { "BIG", "HUGE", "MASSIVE" };
@@ -52,6 +52,7 @@ namespace MeiZhouHeiBao_3993
             preLoadedCallback?.Invoke();
 
             textBigWin = contentPane.GetChild("txtWin").asTextField;
+            textBigWin.text = string.Empty;
             comBigWin = contentPane.GetChild("anchorPagBigWin").asCom;
             if (pagBigWin == null)
                 pagBigWin = new PagSlotBinding("bigWin", PagPath);
@@ -65,7 +66,13 @@ namespace MeiZhouHeiBao_3993
                 PagPresentationDefaults.DisplayScale,
                 useGpuSyncGroup: false));
 
-            NumberAnimation.Instance.AnimateNumber(textBigWin, 0, _score, CloseBigWinTime[_winIndex] - 1, EaseType.Linear, () => { });
+         
+            Timers.inst.Add
+            (
+                1, 
+                1, 
+                (object obj ) =>{ NumberAnimation.Instance.AnimateNumber(textBigWin, 0, _score, CloseBigWinTime[_winIndex] - 1, EaseType.Linear, () => { });}
+            );
             Timers.inst.Add(CloseBigWinTime[_winIndex], 1, exit);
             _timerCallbacks.Add(exit);
         }
@@ -97,6 +104,7 @@ namespace MeiZhouHeiBao_3993
         public void exit(object obj = null)
         {
             NumberAnimation.Instance.StopAllAnimations();
+            textBigWin.text = string.Empty;
             ClearPag();
             ClearAllTimers();
             CloseSelf(null);

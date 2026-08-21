@@ -6,5 +6,8 @@
     <image id="n5_g9kd" name="n5" src="z14g13" fileName="images/gameMain/normal/ng_num_winning line_25.png" xy="10,399"/>
     <image id="n6_g9kd" name="n6" src="z14g13" fileName="images/gameMain/normal/ng_num_winning line_25.png" xy="1053,399"/>
     <text id="n3_g9kd" name="txtRemainTime" xy="639,13" size="99,61" font="ui://tdk27maemxrk86" fontSize="12" align="center" autoSize="none" text="3"/>
+    <image id="n11_of0q" name="n11" src="z14gz" fileName="images/gameMain/normal/ng_img_plant_03.png" xy="0,768"/>
+    <image id="n12_of0q" name="n12" src="z14gx" fileName="images/gameMain/normal/ng_img_plant_01.png" xy="156,768"/>
+    <image id="n13_of0q" name="n13" src="z14gy" fileName="images/gameMain/normal/ng_img_plant_02.png" xy="916,768"/>
   </displayList>
 </component>

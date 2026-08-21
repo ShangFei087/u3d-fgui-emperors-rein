@@ -11,7 +11,7 @@
     <text id="n8_z14g" name="win" xy="279,1676" size="518,120" font="ui://tgen4q2pz14ga" fontSize="12" color="#ffffff" align="center" vAlign="middle" leading="0" letterSpacing="-10" autoSize="none" text="12000"/>
     <component id="n23_ni96" name="anchorWinBorder" src="mxrk3f" fileName="components/AnchorSpin.xml" xy="539,1742"/>
     <text id="n10_z14g" name="credit" xy="316,1815" size="195,54" font="ui://tgen4q2pz14g9" fontSize="12" color="#ffffff" align="center" leading="0" letterSpacing="-7" autoSize="shrink" text="123456789"/>
-    <text id="n22_mxrk" name="singleLine" xy="309,1762" size="461,29" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="111111111111"/>
+    <text id="n22_mxrk" name="singleLine" xy="309,1646" size="461,29" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="111111111111"/>
     <image id="n7_z14g" name="n7" src="z14g1x" fileName="images/btn/menu_txt_BET.png" xy="661,1852" group="n14_z14g"/>
     <image id="n9_z14g" name="n9" src="z14g1d" fileName="images/btn/menu_txt_WIN.png" xy="500,1768" group="n14_z14g"/>
     <image id="n11_z14g" name="n11" src="z14g1j" fileName="images/btn/menu_btn_Insert coin.png" xy="257,1824" group="n14_z14g"/>

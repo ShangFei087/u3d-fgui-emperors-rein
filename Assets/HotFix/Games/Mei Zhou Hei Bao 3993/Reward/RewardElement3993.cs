@@ -29,6 +29,7 @@ namespace MeiZhouHeiBao_3993
         private const string BonusBonePath =
             "Anchor/Spine Mecanim GameObject (ng_sym14_Bonus)/SkeletonUtility-SkeletonRoot/root/All/coin/number";
         private const string CollectAnimName = "collect";
+        private const string IdleAnimName = "idle";
 
         private static string RewardBonusPoolKey =>
             System.IO.Path.GetFileNameWithoutExtension(CustomModel.Instance.symbolRewardBonusEffect);
@@ -38,7 +39,7 @@ namespace MeiZhouHeiBao_3993
         private readonly GComponent _animator;
         private readonly GLoader _loader;
         private readonly GTextField _txtNum;
-        private readonly GObject _mask;
+        private readonly GLoader _mask;
         private readonly float[] _nodePosList = new float[5];
 
         private int _id;
@@ -68,7 +69,7 @@ namespace MeiZhouHeiBao_3993
             if (_txtNum != null)
                 _txtNum.visible = false;
 
-            _mask = root.GetChild("mask");
+            _mask = root.GetChild("mask") as GLoader;
             SetMaskVisible(false);
         }
 
@@ -186,6 +187,7 @@ namespace MeiZhouHeiBao_3993
                 SetJackpotWithLoader(score);
             else
                 SetBonusWithLoader(score);
+            SetMaskUrl(score);
             SetMaskVisible(true);
         }
 
@@ -193,6 +195,11 @@ namespace MeiZhouHeiBao_3993
         {
             _animPlayer?.Play(CollectAnimName);
             PlayGlow();
+        }
+
+        public void PlayIdleFromStart()
+        {
+            _animPlayer?.Play(IdleAnimName, true);
         }
 
         public Vector2 GetCenterGlobal()
@@ -254,6 +261,7 @@ namespace MeiZhouHeiBao_3993
             {
                 GameCommon.FguiUtils.RefreshWrapper(_effectCom);
                 _animPlayer = new AnimPlayer(goRoot);
+                PlayIdleFromStart();
                 _numCom = UIPackage.CreateObject("MeiZhouHeiBao", "SmallGameNum")?.asCom;
                 if (_numCom != null)
                 {
@@ -322,7 +330,7 @@ namespace MeiZhouHeiBao_3993
             {
                 GameCommon.FguiUtils.RefreshWrapper(_effectCom);
                 _animPlayer = new AnimPlayer(goRoot);
-                _animPlayer.Play("idle", true);
+                PlayIdleFromStart();
             }
 
             AttachGlow();
@@ -388,6 +396,7 @@ namespace MeiZhouHeiBao_3993
             _animator.AddChild(_glowCom);
             _glowCom.SetXY(_animator.width * 0.5f, _animator.height * 0.5f);
             GameCommon.FguiUtils.AddWrapper(_glowCom, UnityEngine.Object.Instantiate(prefab));
+            _glowCom.visible = false;
         }
 
         private void PlayGlow()
@@ -412,6 +421,14 @@ namespace MeiZhouHeiBao_3993
             if (_root == null)
                 return;
             FguiSortingOrderManager.Instance.ReturnSortingOrder(_root);
+        }
+
+        private void SetMaskUrl(int score)
+        {
+            if (_mask == null) return;
+            _mask.url = ContentModel.IsJackpotScore(score)
+                ? GetJpIconUrl(ContentModel.GetJackpotType(score))
+                : BonusIconUrl;
         }
 
         private void SetMaskVisible(bool visible)

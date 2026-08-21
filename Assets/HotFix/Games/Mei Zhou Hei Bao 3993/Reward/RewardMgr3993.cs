@@ -23,6 +23,7 @@ namespace MeiZhouHeiBao_3993
         private const float CollectAnimDuration = 1.0f;
         private const float CollectBetweenDelay = 0.15f;
         private const string PkgName = "MeiZhouHeiBao";
+        private const string NgRoarPag = "ng_Roar/ng_Roar";
 
         private GComponent _root;
         private GComponent _pageRoot;
@@ -39,6 +40,7 @@ namespace MeiZhouHeiBao_3993
         private GameObject _glowPrefab;
         private GameObject _trailsPrefab;
         private PanelController3993 _panelController;
+        private PagSlotBinding _pagRoar;
 
         private bool _isStartRoll;
         private bool _waitingAutoStop;
@@ -80,6 +82,11 @@ namespace MeiZhouHeiBao_3993
             _trailsPrefab = trailsPrefab;
             _panelController = panelController;
             _rewardRoll?.SetGlowPrefab(_glowPrefab);
+        }
+
+        public void SetRoarPag(PagSlotBinding pagRoar)
+        {
+            _pagRoar = pagRoar;
         }
 
         public void Enter(IList<int> matrix, IList<int> bonusData)
@@ -223,6 +230,8 @@ namespace MeiZhouHeiBao_3993
 
         private IEnumerator CollectBonusSymbols()
         {
+            yield return PlayNgRoar();
+
             _collectElements.Clear();
             _collectScores.Clear();
             _rewardRoll?.CollectLockedBonuses(_collectElements, _collectScores);
@@ -291,6 +300,33 @@ namespace MeiZhouHeiBao_3993
 
             yield return new WaitForSeconds(CollectTrailDuration);
             FinishGame();
+        }
+
+        private IEnumerator PlayNgRoar()
+        {
+            if (_pagRoar == null)
+                yield break;
+
+            bool finished = false;
+            _pagRoar.StopWithDefaults();
+            bool started = _pagRoar.Play(new PagSequencePlay(
+                new[] { new PagSegment(NgRoarPag, 1) },
+                PagPlayLayout.Center,
+                PagPresentationDefaults.DisplayScale,
+                useGpuSyncGroup: false,
+                callbacks: new PagPlayCallbacks(
+                    onFinished: () =>
+                    {
+                        _pagRoar?.StopWithDefaults();
+                        finished = true;
+                    },
+                    onFailed: () => finished = true,
+                    stopAfterFinished: true)));
+
+            if (!started)
+                yield break;
+
+            yield return new WaitUntil(() => finished);
         }
 
         private IEnumerator OpenJackpotWinPopup(int jpType, int jpBet)
@@ -368,15 +404,14 @@ namespace MeiZhouHeiBao_3993
         private void SetSpinButtonStop()
         {
             ContentModel.Instance.isSpin = false;
-            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
             _panelController?.ChangButtonNo(true);
-            _panelController?.SetSpinButtonLocked(false);
+            _panelController?.SetSpinButtonLocked(true);
         }
 
         private void FinishGame()
         {
             ClearBonusTrails();
-            UpdateBonusTime(3);
             ContentModel.Instance.isSmallGameFinish = true;
             ContentModel.Instance.isSmallGameSpin = false;
             SetSpinButtonStop();

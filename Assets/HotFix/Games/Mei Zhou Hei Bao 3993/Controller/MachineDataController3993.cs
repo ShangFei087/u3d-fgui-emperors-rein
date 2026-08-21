@@ -126,8 +126,8 @@ namespace MeiZhouHeiBao_3993
         {
             if (_currentDataQueue.Count == 0 && _nextSpinType == SpinDataType.None)
             {
-                List<string> target = _nextSpinType != SpinDataType.None ? _spinDataDic[_nextSpinType] : _spinDataDic[SpinDataType.BonusSpin];
-                _nextSpinType = SpinDataType.BonusSpin;
+                List<string> target = _nextSpinType != SpinDataType.None ? _spinDataDic[_nextSpinType] : _spinDataDic[SpinDataType.NormalWin];
+                _nextSpinType = SpinDataType.NormalWin;
                 _currentDataQueue = new Queue<string>(target);
             }
         }

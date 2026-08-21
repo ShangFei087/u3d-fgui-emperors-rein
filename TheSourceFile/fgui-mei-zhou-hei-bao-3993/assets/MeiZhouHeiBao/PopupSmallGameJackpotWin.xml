@@ -4,6 +4,6 @@
     <component id="n0_of0q" name="anchorPopupJackPotPag" src="g9kd9r" fileName="components/anchorPag.xml" xy="539,959"/>
     <component id="n2_of0q" name="anchorPopupJackPot" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,959"/>
     <component id="n1_of0q" name="btnCollect" src="g9kd9t" fileName="components/ButtonCom.xml" xy="312,897"/>
-    <text id="n3_of0q" name="txtWin" xy="28,586" size="1040,156" font="ui://tdk27maeg9kd9n" fontSize="13" align="center" vAlign="middle" letterSpacing="-25" autoSize="shrink" text="r999,999,99"/>
+    <text id="n3_of0q" name="txtWin" xy="28,586" size="1040,237" font="ui://tdk27maeg9kd9n" fontSize="20" align="center" vAlign="middle" letterSpacing="-15" autoSize="shrink" text="100"/>
   </displayList>
 </component>

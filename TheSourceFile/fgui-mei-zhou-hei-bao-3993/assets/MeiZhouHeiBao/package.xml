@@ -204,13 +204,18 @@
     <font id="mxrk85" name="FontFreeCollect.fnt" path="/Font/" exported="true"/>
     <font id="mxrk86" name="FontFreeSpinTime.fnt" path="/Font/" exported="true"/>
     <component id="mxrk8h" name="AnchorEffect.xml" path="/components/gameMain/" exported="true"/>
-    <image id="mxrk8i" name="PayTable1.png" path="/images/payTable/" exported="true"/>
-    <image id="mxrk8j" name="PayTable2.png" path="/images/payTable/" exported="true"/>
-    <image id="mxrk8k" name="PayTable3.png" path="/images/payTable/" exported="true"/>
-    <image id="mxrk8l" name="PayTable4.png" path="/images/payTable/" exported="true"/>
-    <image id="mxrk8m" name="PayTable5.png" path="/images/payTable/" exported="true"/>
+    <image id="mxrk8i" name="payTable1.png" path="/images/payTable/" exported="true"/>
+    <image id="mxrk8j" name="payTable2.png" path="/images/payTable/" exported="true"/>
+    <image id="mxrk8k" name="payTable3.png" path="/images/payTable/" exported="true"/>
+    <image id="mxrk8l" name="payTable4.png" path="/images/payTable/" exported="true"/>
+    <image id="mxrk8m" name="payTable5.png" path="/images/payTable/" exported="true"/>
+    <component id="of0qao" name="PayTable1.xml" path="/moudules/pageGameMain/payTable/" exported="true"/>
+    <component id="of0qap" name="PayTable2.xml" path="/moudules/pageGameMain/payTable/" exported="true"/>
+    <component id="of0qaq" name="PayTable3.xml" path="/moudules/pageGameMain/payTable/" exported="true"/>
+    <component id="of0qar" name="PayTable4.xml" path="/moudules/pageGameMain/payTable/" exported="true"/>
+    <component id="of0qas" name="PayTable5.xml" path="/moudules/pageGameMain/payTable/" exported="true"/>
     <component id="g9kd8n" name="BoxFreeCollect.xml" path="/components/gameMain/" exported="true"/>
-    <image id="g9kd8o" name="kj_Progress bar_03.png" path="/images/popupGameLoading/UI/" scale9grid="54,17,797,34"/>
+    <image id="g9kd8o" name="kj_Progress bar_03.png" path="/images/popupGameLoading/UI/" scale="9grid" scale9grid="29,0,884,71"/>
     <image id="g9kd8p" name="kj_num_per.png" path="/images/popupGameLoading/FontLoading/"/>
     <image id="g9kd8q" name="kj_num_9.png" path="/images/popupGameLoading/FontLoading/"/>
     <image id="g9kd8r" name="kj_num_8.png" path="/images/popupGameLoading/FontLoading/"/>
@@ -267,6 +272,7 @@
     <image id="ni96aj" name="fg_img_Free Game Wheel Box.png" path="/images/gameMain/free/" exported="true"/>
     <component id="ni96ak" name="SmallGameNum.xml" path="/components/gameMain/" exported="true"/>
     <component id="ni96am" name="anchorTrails.xml" path="/components/" exported="true"/>
+    <component id="of0qan" name="bar.xml" path="/components/popupGameLoading/"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Mei Zhou Hei Bao 3993\FGUIs" packageCount="2"/>
 </packageDescription>

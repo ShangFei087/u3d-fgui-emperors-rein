@@ -22,6 +22,7 @@ namespace MeiZhouHeiBao_3993
         private GameObject clonegoBonusTrigger;
         private AnimPlayer _animBonusTrigger;
         private TimerCallback _delayCloseCallback;
+        private TimerCallback _autoClickCallback;
         //pag
         private GComponent anchorPagBonusTrigger;
         private PagSlotBinding pagBonusTrigger;
@@ -77,6 +78,7 @@ namespace MeiZhouHeiBao_3993
             _isClicked = false;
 
             RemoveTimer(ref _delayCloseCallback);
+            RemoveTimer(ref _autoClickCallback);
             anchorPagBonusTrigger = contentPane.GetChild("anchorBonusTriggerPag").asCom;
             if (pagBonusTrigger == null) pagBonusTrigger = new PagSlotBinding("3993pagBonusTrigger", PagPath);
             pagBonusTrigger.EnsureSlot(anchorPagBonusTrigger);
@@ -116,6 +118,7 @@ namespace MeiZhouHeiBao_3993
                 localScale: new Vector3(0.01f, 0.01f, 0.01f),
                 localRot: Quaternion.identity);
 
+            ScheduleAutoModeClick(3.0f);
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
@@ -130,6 +133,7 @@ namespace MeiZhouHeiBao_3993
         public override void OnClose(EventData eventData = null)
         {
             RemoveTimer(ref _delayCloseCallback);
+            RemoveTimer(ref _autoClickCallback);
             _animBonusTrigger.DetachAll();
 
             base.OnClose(eventData);
@@ -164,6 +168,19 @@ namespace MeiZhouHeiBao_3993
                 _delayCloseCallback = null;
             };
             Timers.inst.Add(1.0f, 1, _delayCloseCallback);
+        }
+
+        private void ScheduleAutoModeClick(float delaySeconds)
+        {
+            RemoveTimer(ref _autoClickCallback);
+            if (!TestManager.Instance.IsAutoModeRunning) return;
+            _autoClickCallback = obj =>
+            {
+                if (isOpen && !_isClicked)
+                    OnCloseBtn();
+                _autoClickCallback = null;
+            };
+            Timers.inst.Add(delaySeconds, 1, _autoClickCallback);
         }
 
         private void RemoveTimer(ref TimerCallback timerCallback)

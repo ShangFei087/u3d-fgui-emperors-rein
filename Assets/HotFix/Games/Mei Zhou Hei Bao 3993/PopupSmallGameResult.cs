@@ -23,6 +23,7 @@ namespace MeiZhouHeiBao_3993
         private GameObject clonegoSmallResult;
         private AnimPlayer _animSmallResult;
         private TimerCallback _delayCloseCallback;
+        private TimerCallback _autoClickCallback;
         //pag
         private GComponent anchorPagSmallResult;
         private PagSlotBinding pagSmallResult;
@@ -135,6 +136,8 @@ namespace MeiZhouHeiBao_3993
                 localPos: new Vector3(-5.81f, 0.73f, 0.0f),
                 localScale: new Vector3(0.01f, 0.01f, 0.01f),
                 localRot: Quaternion.identity);
+
+            ScheduleAutoModeClick(4.0f);
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
@@ -151,6 +154,7 @@ namespace MeiZhouHeiBao_3993
             base.OnClose(eventData);
             _isClicked = false;
             RemoveTimer(ref _delayCloseCallback);
+            RemoveTimer(ref _autoClickCallback);
             _animSmallResult.DetachAll();
             //_gameSoundController?.Dispose();
             //_gameSoundController = null;
@@ -181,6 +185,19 @@ namespace MeiZhouHeiBao_3993
                 _delayCloseCallback = null;
             };
             Timers.inst.Add(1.0f, 1, _delayCloseCallback);
+        }
+
+        private void ScheduleAutoModeClick(float delaySeconds)
+        {
+            RemoveTimer(ref _autoClickCallback);
+            if (!TestManager.Instance.IsAutoModeRunning) return;
+            _autoClickCallback = obj =>
+            {
+                if (isOpen && !_isClicked)
+                    OnCloseBtn();
+                _autoClickCallback = null;
+            };
+            Timers.inst.Add(delaySeconds, 1, _autoClickCallback);
         }
 
         private void RemoveTimer(ref TimerCallback timerCallback)

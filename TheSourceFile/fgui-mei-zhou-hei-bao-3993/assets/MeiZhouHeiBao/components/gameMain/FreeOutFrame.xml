@@ -6,7 +6,10 @@
     <image id="n2_g9kd" name="n2" src="z14g79" fileName="images/gameMain/free/fg_txt_OF.png" xy="653,17"/>
     <image id="n5_g9kd" name="n5" src="z14g13" fileName="images/gameMain/normal/ng_num_winning line_25.png" xy="10,399"/>
     <image id="n6_g9kd" name="n6" src="z14g13" fileName="images/gameMain/normal/ng_num_winning line_25.png" xy="1053,399"/>
-    <text id="n3_g9kd" name="txtRemainFreeTime" xy="568,16" size="99,61" font="ui://tdk27maemxrk86" fontSize="12" autoSize="none" text="23"/>
-    <text id="n4_g9kd" name="txtTotalFreeTime" xy="732,13" size="78,61" font="ui://tdk27maemxrk86" fontSize="12" text="10"/>
+    <text id="n3_g9kd" name="txtRemainFreeTime" xy="561,13" size="99,61" font="ui://tdk27maemxrk86" fontSize="12" align="center" autoSize="none" text="4"/>
+    <text id="n4_g9kd" name="txtTotalFreeTime" xy="732,13" size="78,61" font="ui://tdk27maemxrk86" fontSize="12" align="center" vAlign="middle" autoSize="none" text="8"/>
+    <image id="n7_of0q" name="n7" src="z14gz" fileName="images/gameMain/normal/ng_img_plant_03.png" xy="0,769"/>
+    <image id="n8_of0q" name="n8" src="z14gx" fileName="images/gameMain/normal/ng_img_plant_01.png" xy="156,768"/>
+    <image id="n9_of0q" name="n9" src="z14gy" fileName="images/gameMain/normal/ng_img_plant_02.png" xy="916,769"/>
   </displayList>
 </component>

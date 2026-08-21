@@ -31,6 +31,7 @@ namespace MeiZhouHeiBao_3993
         private GComponent _anchorJackpot;
         private AnimPlayer _animJackpot;
         private TimerCallback _delayCloseCallback;
+        private TimerCallback _autoClickCallback;
 
         //pag
         private GComponent _anchorPagJackpot;
@@ -97,6 +98,7 @@ namespace MeiZhouHeiBao_3993
             if (!isOpen) return;
             _isClicked = false;
             RemoveTimer(ref _delayCloseCallback);
+            RemoveTimer(ref _autoClickCallback);
 
             string jpType = ResolveJackpotType();
             float winCredit = ResolveWinCredit();
@@ -134,6 +136,7 @@ namespace MeiZhouHeiBao_3993
             });
 
             AttachUi(jpType);
+            ScheduleAutoModeClick(4.0f);
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
@@ -146,6 +149,7 @@ namespace MeiZhouHeiBao_3993
         public override void OnClose(EventData eventData = null)
         {
             RemoveTimer(ref _delayCloseCallback);
+            RemoveTimer(ref _autoClickCallback);
             _animJackpot?.DetachAll();
             _pagJackpot?.StopWithDefaults();
             _isClicked = false;
@@ -222,7 +226,7 @@ namespace MeiZhouHeiBao_3993
                 _animJackpot.Attach(
                     _txtWin,
                     root + $"/{GetFrameParent(jpType)}/frame",
-                    localPos: new Vector3(-5.81f, 0.73f, 0.0f),
+                    localPos: new Vector3(-5.35f, 1.1f, 0.0f),
                     localScale: new Vector3(0.01f, 0.01f, 0.01f),
                     localRot: Quaternion.identity);
             }
@@ -336,6 +340,19 @@ namespace MeiZhouHeiBao_3993
             if (lower.Contains("minor")) return "minor";
             if (lower.Contains("mini")) return "mini";
             return "major";
+        }
+
+        private void ScheduleAutoModeClick(float delaySeconds)
+        {
+            RemoveTimer(ref _autoClickCallback);
+            if (!TestManager.Instance.IsAutoModeRunning) return;
+            _autoClickCallback = obj =>
+            {
+                if (isOpen && !_isClicked)
+                    OnCloseBtn();
+                _autoClickCallback = null;
+            };
+            Timers.inst.Add(delaySeconds, 1, _autoClickCallback);
         }
 
         private void RemoveTimer(ref TimerCallback timerCallback)

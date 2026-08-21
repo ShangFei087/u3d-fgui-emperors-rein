@@ -57,28 +57,38 @@ public class AnimPlayer
     /// <summary>
     /// 按名称播放动画。会取消尚未执行的 <see cref="PlayThen"/> 排队。
     /// Spine 的 <paramref name="loop"/> 生效；Mecanim 是否循环由 Controller 该状态决定。
+    /// <paramref name="normalizedTime"/> 为 0~1 相位，用于多实例对齐。
     /// </summary>
-    public void Play(string animName, bool loop = false)
+    public void Play(string animName, bool loop = false, float normalizedTime = 0f)
     {
         RemoveSequenceTimer();
         if (string.IsNullOrEmpty(animName)) return;
 
         if (_skelGrap != null)
         {
-            _skelGrap.AnimationState.SetAnimation(0, animName, loop);
+            ApplySpineNormalizedTime(_skelGrap.AnimationState.SetAnimation(0, animName, loop), normalizedTime);
             return;
         }
         if (_skelAnim != null)
         {
-            _skelAnim.AnimationState.SetAnimation(0, animName, loop);
+            ApplySpineNormalizedTime(_skelAnim.AnimationState.SetAnimation(0, animName, loop), normalizedTime);
             return;
         }
         if (_skelMec != null || _animator != null)
         {
             if (_animator == null) return;
             if (!_animator.HasState(0, Animator.StringToHash(animName))) return;
-            _animator.Play(animName, -1, 0f);
+            _animator.Play(animName, -1, normalizedTime);
+            if (normalizedTime > 0f)
+                _animator.Update(0f);
         }
+    }
+
+    static void ApplySpineNormalizedTime(Spine.TrackEntry entry, float normalizedTime)
+    {
+        if (entry?.Animation == null || entry.Animation.Duration <= 0f)
+            return;
+        entry.TrackTime = normalizedTime * entry.Animation.Duration;
     }
 
     /// <summary>
