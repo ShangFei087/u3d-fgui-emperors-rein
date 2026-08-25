@@ -40,6 +40,7 @@ namespace CaiFuZhiJia_3997
             "normal_game/wealth_ng_npc_idle02.pag", "normal_game/wealth_ng_npc_notwinning.pag",
             "normal_game/wealth_ng_npc_trigger_fg.pag", "normal_game/wealth_ng_npc_trigger_sg.pag",
             "normal_game/wealth_ng_npc_atmosphere.pag", "normal_game/wealth_ng_npc_nottriggered.pag",
+            "normal_game/wealth_ng_npc_atmosphere_idle.pag",
             // bigwin pag
             "bigwin/bigwin_idle.pag", "bigwin/bigwin_start.pag", "bigwin/megawin_idle.pag", "bigwin/megawin_start.pag",
             "bigwin/supwin_idle.pag", "bigwin/supwin_start.pag",

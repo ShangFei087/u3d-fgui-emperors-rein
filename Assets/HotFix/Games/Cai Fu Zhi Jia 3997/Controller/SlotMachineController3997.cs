@@ -328,7 +328,7 @@ namespace CaiFuZhiJia_3997
 
                     haveSlotTip = true;
 
-                    if (freeIconCols.Count > 1)
+                    if (ContentModel.Instance.isFreeSlotTip)
                     {
                         extraReelTimesReel = reelIdx - freeIconCols[1];
                     }

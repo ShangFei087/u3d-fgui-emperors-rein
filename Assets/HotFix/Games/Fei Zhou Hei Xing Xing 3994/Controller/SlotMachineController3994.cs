@@ -251,7 +251,7 @@ namespace FeiZhouHeiXingXing_3994
 
 
         //滚轮滚动接口
-        protected new IEnumerator StartTurnReels()
+        private new IEnumerator StartTurnReels()
         {
             int reelsCount = this.column;
 
@@ -269,7 +269,7 @@ namespace FeiZhouHeiXingXing_3994
 
                 if ((freeIconCols.Count > 1 && reelIdx >= freeIconCols[1]) ||
                     (jackpotIconCols.Count > 1 &&
-                     reelIdx >= jackpotIconCols[1])) //ContentModel.Instance.isReelsSlowMotion && 
+                     reelIdx >= jackpotIconCols[1]))
                 {
                     extraReelTimes = 15;
                     isTrriger = true;
@@ -280,7 +280,7 @@ namespace FeiZhouHeiXingXing_3994
 
                     haveSlotTip = true;
 
-                    if (freeIconCols.Count > 1)
+                    if (ContentModel.Instance.isFreeSlotTip)
                     {
                         extraReelTimesReel = reelIdx - freeIconCols[1];
                     }

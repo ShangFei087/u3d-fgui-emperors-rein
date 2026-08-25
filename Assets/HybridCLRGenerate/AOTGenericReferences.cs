@@ -553,6 +553,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Func<byte>
 	// System.Func<int,byte>
 	// System.Func<int,float>
+	// System.Func<int,int,object>
 	// System.Func<int,object>
 	// System.Func<long,byte>
 	// System.Func<object,System.Nullable<byte>>
@@ -568,7 +569,10 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Func<ushort,byte>
 	// System.Linq.Buffer<int>
 	// System.Linq.Buffer<object>
+	// System.Linq.Enumerable.<RepeatIterator>d__117<int>
+	// System.Linq.Enumerable.<SelectIterator>d__5<int,object>
 	// System.Linq.Enumerable.<SelectIterator>d__5<object,object>
+	// System.Linq.Enumerable.<SkipIterator>d__31<int>
 	// System.Linq.Enumerable.<SkipIterator>d__31<object>
 	// System.Linq.Enumerable.<TakeIterator>d__25<int>
 	// System.Linq.Enumerable.<TakeIterator>d__25<object>
@@ -693,6 +697,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// bool System.Linq.Enumerable.All<int>(System.Collections.Generic.IEnumerable<int>,System.Func<int,bool>)
 		// bool System.Linq.Enumerable.Contains<int>(System.Collections.Generic.IEnumerable<int>,int)
 		// bool System.Linq.Enumerable.Contains<int>(System.Collections.Generic.IEnumerable<int>,int,System.Collections.Generic.IEqualityComparer<int>)
+		// bool System.Linq.Enumerable.Contains<object>(System.Collections.Generic.IEnumerable<object>,object)
+		// bool System.Linq.Enumerable.Contains<object>(System.Collections.Generic.IEnumerable<object>,object,System.Collections.Generic.IEqualityComparer<object>)
 		// int System.Linq.Enumerable.Count<ushort>(System.Collections.Generic.IEnumerable<ushort>,System.Func<ushort,bool>)
 		// System.Collections.Generic.KeyValuePair<object,float> System.Linq.Enumerable.ElementAt<System.Collections.Generic.KeyValuePair<object,float>>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,float>>,int)
 		// System.Collections.Generic.KeyValuePair<object,object> System.Linq.Enumerable.ElementAt<System.Collections.Generic.KeyValuePair<object,object>>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>>,int)
@@ -703,12 +709,18 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object System.Linq.Enumerable.FirstOrDefault<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
 		// System.Linq.IOrderedEnumerable<int> System.Linq.Enumerable.OrderBy<int,float>(System.Collections.Generic.IEnumerable<int>,System.Func<int,float>)
 		// System.Linq.IOrderedEnumerable<object> System.Linq.Enumerable.OrderBy<object,float>(System.Collections.Generic.IEnumerable<object>,System.Func<object,float>)
+		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Repeat<int>(int,int)
+		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.RepeatIterator<int>(int,int)
 		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Select<object,int>(System.Collections.Generic.IEnumerable<object>,System.Func<object,int>)
 		// System.Collections.Generic.IEnumerable<long> System.Linq.Enumerable.Select<object,long>(System.Collections.Generic.IEnumerable<object>,System.Func<object,long>)
+		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<int,object>(System.Collections.Generic.IEnumerable<int>,System.Func<int,int,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,int,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,object>)
+		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.SelectIterator<int,object>(System.Collections.Generic.IEnumerable<int>,System.Func<int,int,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.SelectIterator<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,int,object>)
+		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Skip<int>(System.Collections.Generic.IEnumerable<int>,int)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Skip<object>(System.Collections.Generic.IEnumerable<object>,int)
+		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.SkipIterator<int>(System.Collections.Generic.IEnumerable<int>,int)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.SkipIterator<object>(System.Collections.Generic.IEnumerable<object>,int)
 		// long System.Linq.Enumerable.Sum<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,long>)
 		// System.Collections.Generic.IEnumerable<int> System.Linq.Enumerable.Take<int>(System.Collections.Generic.IEnumerable<int>,int)
@@ -872,5 +884,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// string UnityEngine._AndroidJNIHelper.GetSignature<int>(object[])
 		// string UnityEngine._AndroidJNIHelper.GetSignature<long>(object[])
 		// string UnityEngine._AndroidJNIHelper.GetSignature<object>(object[])
+		// string string.Join<int>(string,System.Collections.Generic.IEnumerable<int>)
 	}
 }

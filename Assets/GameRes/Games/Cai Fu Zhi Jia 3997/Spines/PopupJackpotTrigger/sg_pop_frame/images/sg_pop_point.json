@@ -1,0 +1,72 @@
+{ "skeleton": { "images": "E:/修改项目/财富之家新版本 - 副本/PSD切片文件/sg_pop_point/images/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "csy", "bone": "root", "attachment": "csy" },
+	{ "name": "cs", "bone": "root", "attachment": "cs" },
+	{ "name": "csx", "bone": "root", "attachment": "csx" },
+	{ "name": "tx", "bone": "root", "attachment": "tx" },
+	{ "name": "zuan", "bone": "root", "attachment": "zuan" },
+	{ "name": "btn", "bone": "root", "attachment": "btn" },
+	{ "name": "k", "bone": "root", "attachment": "k" },
+	{ "name": "x", "bone": "root", "attachment": "x" },
+	{ "name": "num", "bone": "root", "attachment": "num" },
+	{ "name": "y", "bone": "root", "attachment": "y" },
+	{ "name": "c", "bone": "root", "attachment": "c" },
+	{ "name": "bl", "bone": "root", "attachment": "bl" },
+	{ "name": "gx", "bone": "root", "attachment": "gx" },
+	{ "name": "n", "bone": "root", "attachment": "n" },
+	{ "name": "zw", "bone": "root", "attachment": "zw" }
+],
+"skins": {
+	"default": {
+		"csy": {
+			"csy": { "x": 1053, "y": -1360, "width": 1284, "height": 682 }
+		},
+		"cs": {
+			"cs": { "x": 1072.5, "y": -698.5, "width": 1267, "height": 723 }
+		},
+		"csx": {
+			"csx": { "x": 1079, "y": -999.5, "width": 1984, "height": 69 }
+		},
+		"tx": {
+			"tx": { "x": 1079, "y": -892.5, "width": 1612, "height": 1465 }
+		},
+		"zuan": {
+			"zuan": { "x": 1065, "y": -848.5, "width": 908, "height": 761 }
+		},
+		"btn": {
+			"btn": { "x": 1064, "y": -1474, "width": 392, "height": 168 }
+		},
+		"k": {
+			"k": { "x": 1061.5, "y": -822.5, "width": 1025, "height": 167 }
+		},
+		"x": {
+			"x": { "x": 1049.5, "y": -820, "width": 1061, "height": 192 }
+		},
+		"num": {
+			"num": { "x": 1064, "y": -824, "width": 750, "height": 134 }
+		},
+		"y": {
+			"y": { "x": 1062, "y": -558, "width": 572, "height": 154 }
+		},
+		"c": {
+			"c": { "x": 1058, "y": -381.5, "width": 872, "height": 213 }
+		},
+		"bl": {
+			"bl": { "x": 1066, "y": -781, "width": 1058, "height": 130 }
+		},
+		"gx": {
+			"gx": { "x": 1049.5, "y": -383, "width": 339, "height": 202 }
+		},
+		"n": {
+			"n": { "x": 1064, "y": -556, "width": 446, "height": 188 }
+		},
+		"zw": {
+			"zw": { "x": 1055, "y": -754.5, "width": 950, "height": 137 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

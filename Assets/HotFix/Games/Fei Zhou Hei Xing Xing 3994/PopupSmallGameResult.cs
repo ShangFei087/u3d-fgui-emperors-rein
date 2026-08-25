@@ -11,7 +11,7 @@ namespace FeiZhouHeiXingXing_3994
     public class PopupSmallGameResult : MachinePageBase
     {
         public new const string pkgName = "FeiZhouHeiXingXing";
-        public new const string resName = "PopupSmallGameTrigger";
+        public new const string resName = "PopupSmallGameResult";
 
         private const string PrefabPath =
             "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/Prefabs/PopupSmallGameResult/";
@@ -29,7 +29,7 @@ namespace FeiZhouHeiXingXing_3994
         private GameObject _triggerObj, _cloneTriggerObj, _fadeObj, _cloneFadeObj;
 
         // 打开界面传入的数据
-        private long _gameScore;
+        private int _gameScore;
         private Action _changePage;
 
         // 挂点记录初始数据，方便后续还原
@@ -84,7 +84,7 @@ namespace FeiZhouHeiXingXing_3994
             _isClicked = false;
             
             // 获取UI组件
-            _collectBtn = contentPane.GetChild("closeBtn").asButton;
+            _collectBtn = contentPane.GetChild("collectBtn").asButton;
             _scoreText = contentPane.GetChild("scoreText").asTextField;
             _scoreText.text = _gameScore.ToString();
             
@@ -124,15 +124,15 @@ namespace FeiZhouHeiXingXing_3994
             string path = "Spine Mecanim GameObject (sg_bor_congrats2)/SkeletonUtility-SkeletonRoot/root/a/";
             Transform father = _cloneTriggerObj.transform.Find(path + "collect");
             _collectBtnTran.SetParent(father, false);
-            _collectBtnTran.localPosition = new Vector3(0.98f, 2.03f, 0.01f);
+            _collectBtnTran.localPosition = new Vector3(-2.12f, 0.9f, 0.01f);
             _collectBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-            _collectBtnTran.localRotation = Quaternion.Euler(0, 0, -90);
+            _collectBtnTran.localRotation = Quaternion.Euler(0, 0, 0);
 
             father = _cloneTriggerObj.transform.Find(path + "k/sz");
             _scoreTran.SetParent(father, false);
-            _scoreTran.localPosition = new Vector3(0.58f, 4.17f, 0f);
+            _scoreTran.localPosition = new Vector3(-4.23f, 0.86f, 0f);
             _scoreTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-            _scoreTran.localRotation = Quaternion.Euler(0, 0, 270);
+            _scoreTran.localRotation = Quaternion.Euler(0, 0, 0);
             
             // 按钮点击事件
             _collectBtn.onClick.Clear();
@@ -151,7 +151,7 @@ namespace FeiZhouHeiXingXing_3994
             if (eventData is { value: Dictionary<string, object> args })
             {
                 _changePage = args["changeNormalPage"] as Action;
-                _gameScore = (long)args["smallTotalScore"];
+                _gameScore = (int)args["smallTotalScore"];
             }
             
             InitParam(eventData);

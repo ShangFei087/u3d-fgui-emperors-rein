@@ -162,8 +162,9 @@ namespace FeiZhouHeiXingXing_3994
             _gameSoundController?.Dispose();
             _gameSoundController = null;
 
-            _fadePag.Dispose();
+            // _fadePag?.Dispose();
             _fadeCom = null;
+            if (_fadePag != null) _fadePag.StopWithDefaults();
 
             // 解除UI绑定
             _startBtnTran.SetParent(_parentTran);
@@ -186,10 +187,10 @@ namespace FeiZhouHeiXingXing_3994
         private void OnCloseBtn(EventData eventData = null)
         {
             if (_isClicked) return;
-            
+
             // 只能点击一次
             _isClicked = true;
-            
+
             // 清除回调
             RemoveDesignCallBack(_delayCloseCallback);
             RemoveDesignCallBack(_delayPlayPagCallback);

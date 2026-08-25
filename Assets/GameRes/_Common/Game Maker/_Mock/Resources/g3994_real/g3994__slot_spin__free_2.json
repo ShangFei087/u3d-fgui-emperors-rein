@@ -2,26 +2,12 @@
     "OpenType": 1,
     "ResultType": 1,
     "lineNum": 1,
-    "TotalBet": 10,
+    "TotalBet": 20,
     "MatrixLength": 15,
-    "IDVec": [
-        11402
-    ],
+    "IDVec": [2402],
     "Matrix": [
-        2,
-        7,
-        4,
-        4,
-        7,
-        9,
-        2,
-        9,
-        2,
-        0,
-        6,
-        4,
-        2,
-        8,
-        4
+        1, 1, 4, 1, 6,
+        0, 3, 0, 6, 8,
+        2, 2, 2, 2, 4
     ]
 }

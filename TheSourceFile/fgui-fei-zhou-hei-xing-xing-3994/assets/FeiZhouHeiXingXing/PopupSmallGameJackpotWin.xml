@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920"/>
+<component size="1080,1920" designImage="ui://ytoswqrps1hw96">
+  <displayList>
+    <component id="n0_g6n5" name="anchorJackpot" src="g6n51dg" fileName="moudules/popupSmallGameJackpotWin/anchorJackpot.xml" xy="540,960"/>
+    <text id="n2_g6n5" name="scoreText" xy="97,1194" size="876,185" font="ui://ytoswqrps1hwb9" fontSize="15" align="center" vAlign="middle" letterSpacing="-60" autoSize="shrink" text="1234567890"/>
+    <component id="n1_g6n5" name="collectBtn" src="g6n51dh" fileName="components/popupSmallGameJackpotWin/collectBtn.xml" xy="310,1413"/>
+  </displayList>
+</component>

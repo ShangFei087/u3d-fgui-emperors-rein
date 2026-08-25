@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920" designImage="ui://ytoswqrps1hw9e">
   <displayList>
+    <component id="n4_lxlg" name="anchorFade" src="lxlg1di" fileName="moudules/popupSmallGameResult/anchorFade.xml" xy="540,960"/>
     <component id="n2_s1hw" name="anchorResult" src="s1hwbj" fileName="moudules/popupSmallGameResult/anchorResult.xml" xy="540,960"/>
-    <text id="n1_zvhl" name="scoreText" xy="125,1067" size="836,165" fontSize="12" autoSize="none" text=""/>
+    <text id="n1_zvhl" name="scoreText" xy="125,1067" size="836,165" font="ui://ytoswqrps1hwb9" fontSize="12" align="center" vAlign="middle" letterSpacing="-40" autoSize="none" text=""/>
     <component id="n3_s1hw" name="collectBtn" src="s1hwbf" fileName="components/popupSmallGameResult/collectBtn.xml" xy="313,1302"/>
   </displayList>
 </component>

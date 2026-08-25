@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920" overflow="hidden" designImage="ui://ytoswqrps1hw9a">
-  <controller name="gameController" pages="0,normal,1,free,2,small" selected="2"/>
+  <controller name="gameController" pages="0,normal,1,free,2,small" selected="0"/>
   <displayList>
     <component id="n0_sns5" name="normalBg" src="sns5a" fileName="moudules/pageGameMain/normal/normalBg.xml" xy="0,0">
       <gearDisplay controller="gameController" pages="0"/>
@@ -30,7 +30,7 @@
     <component id="n23_qwup" name="smallGameReels" src="qwup5h" fileName="moudules/pageGameMain/small/SmallGameReels.xml" xy="57,1148">
       <gearDisplay controller="gameController" pages="2"/>
     </component>
-    <component id="n25_kiri" name="anchorParent" src="kiric4" fileName="moudules/pageGameMain/anchor/anchorParent.xml" xy="0,0"/>
     <component id="n5_pbvu" name="panel" src="pbvu28" fileName="moudules/pageGameMain/anchor/anchorPanel.xml" xy="540,1830"/>
+    <component id="n25_kiri" name="anchorParent" src="kiric4" fileName="moudules/pageGameMain/anchor/anchorParent.xml" xy="0,-1"/>
   </displayList>
 </component>

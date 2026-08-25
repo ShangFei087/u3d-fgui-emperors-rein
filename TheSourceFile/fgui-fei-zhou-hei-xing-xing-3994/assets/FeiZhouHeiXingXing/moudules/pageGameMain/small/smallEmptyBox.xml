@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="150,150">
+  <displayList>
+    <image id="n0_10v7h" name="n0" src="sn0jc1" fileName="images/pageGameMain/smallGame/sg_sym_box3.png" xy="75,75" pivot="0.5,0.5" anchor="true" visible="false"/>
+  </displayList>
+</component>

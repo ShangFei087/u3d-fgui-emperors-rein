@@ -1,5 +1,6 @@
 using GameMaker;
 using GameUtil;
+using HotFix.Games.Fei_Zhou_Hei_Xing_Xing_3994.Custom;
 using Newtonsoft.Json;
 using SBoxApi;
 using SimpleJSON;
@@ -18,6 +19,7 @@ namespace FeiZhouHeiXingXing_3994
         Normal,
         FreeSpin,
         BonusSpin,
+        Jackpot,
         BigWin
     }
 
@@ -75,7 +77,6 @@ namespace FeiZhouHeiXingXing_3994
                     "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
                     "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_6.json",
                     "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_7.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_8.json",
                 },
                 [SpinDataType.FreeSpin] = new List<string>()
                 {
@@ -99,14 +100,20 @@ namespace FeiZhouHeiXingXing_3994
                         "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
                         "__slot_spin__jackpotTrigger.json",
                     },
+                [SpinDataType.Jackpot] =
+                    new List<string>()
+                    {
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
+                        "__slot_spin__jackpotTrigger.json",
+                    },
                 [SpinDataType.BigWin] = new List<string>()
                 {
                     "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
                     "__slot_spin__bigWin.json",
-                    // "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
-                    // "__slot_spin__supperWin.json",
-                    // "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
-                    // "__slot_spin__megaWin.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
+                    "__slot_spin__supperWin.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
+                    "__slot_spin__megaWin.json",
                 },
             };
 
@@ -131,6 +138,7 @@ namespace FeiZhouHeiXingXing_3994
                 GlobalEvent.GMMultipleWinLine => SpinDataType.Normal,
                 GlobalEvent.GMFreeSpin => SpinDataType.FreeSpin,
                 GlobalEvent.GMBonus1 => SpinDataType.BonusSpin,
+                GlobalEvent.GMJp1 => SpinDataType.Jackpot,
                 GlobalEvent.GMBigWin => SpinDataType.BigWin,
                 _ => _nextSpinType
             };
@@ -210,13 +218,14 @@ namespace FeiZhouHeiXingXing_3994
             int lineNum = (int)res["lineNum"];
             int totalWin = (int)res["TotalBet"];
             int bonusBet = (int)res["BonusBet"];
+            string bonusData = res["BonusData"].ToString();
+            string bonusPos = res["BonusPos"].ToString();
             int totalJackpotBet = (int)res["TotalJackpotBet"];
             int rows = CustomModel.Instance.row; // 3行
             int cols = CustomModel.Instance.column; // 5列
             int wheelChessNum = rows * cols;
             string strDeckRowCol = "";
             int totalLineWin = 0;
-            int lineWin = 0;
             List<SymbolWin> winList = new List<SymbolWin>();
             JackpotRes jpGameRes = new JackpotRes();
 
@@ -241,7 +250,7 @@ namespace FeiZhouHeiXingXing_3994
             }
 
             ContentModel.Instance.strDeckRowCol = strDeckRowCol;
-            Debug.LogError("strDeckRowCol: " + strDeckRowCol);
+
 
             //IDVec 
             for (int i = 0; i < lineNum; i++)
@@ -264,7 +273,7 @@ namespace FeiZhouHeiXingXing_3994
                     cells.Add(new Cell(colIdx, rowIdx));
                 }
 
-                lineWin = GetLineOdds(symbolNumber, hitCount) * MainModel.Instance.contentMD.betmultiple;
+                int lineWin = GetLineOdds(symbolNumber, hitCount) * MainModel.Instance.contentMD.betmultiple;
 
                 SymbolWin sw = new SymbolWin()
                 {
@@ -436,16 +445,35 @@ namespace FeiZhouHeiXingXing_3994
                 if (bonusCount >= CustomModel.Instance.BonusGameConfig.Make2BonusGameCount)
                     isBonus = true;
 
-                if ((resultType == (int)ResultType.RT_BonusWin || resultType == (int)ResultType.RT_Jackpot) &&
-                    isBonus) // 中彩金奖
+                if ((resultType == (int)ResultType.RT_BonusWin || resultType == (int)ResultType.RT_Jackpot)) // 中彩金奖
                 {
-                    ContentModel.Instance.isSmallGameTrigger = true;
-                }
+                    if (isBonus)
+                    {
+                        List<int> bonusDataList;
+                        List<int[]> bonusPosList;
+                        ContentModel.Instance.BonusDataQueue.Clear();
+                        if (ApplicationSettings.Instance.isMock)
+                        {
+                            bonusPosList = BonusParseController.ParseBonusPos(bonusPos);
+                            bonusDataList = BonusParseController.ParseBonusData(bonusData);
+                            ContentModel.Instance.BonusDataQueue =
+                                BonusParseController.ParseAllSpins(bonusPosList, bonusDataList);
+                        }
+                        else
+                        {
+                            bonusPosList = ParseFromString(bonusPos);
+                            bonusDataList = ParseBonusData(bonusData);
+                            ContentModel.Instance.BonusDataQueue = ValidateAndQueue(bonusDataList, bonusPosList);
+                        }
 
-                if ((resultType == (int)ResultType.RT_BonusWin || resultType == (int)ResultType.RT_Jackpot) && !isBonus)
-                {
-                    DebugUtils.LogError(
-                        $"[G3994][CheckBonus] 校验不一致，算法回ResultType={resultType} ，本地计算isBonus={isBonus}");
+                        ContentModel.Instance.isSmallGameTrigger = true;
+                        ContentModel.Instance.smallGameWinCredit = bonusBet + totalJackpotBet;
+                    }
+                    else
+                    {
+                        DebugUtils.LogError(
+                            $"[G3994][CheckBonus] 校验不一致，算法回ResultType={resultType} ，本地计算isBonus={isBonus}");
+                    }
                 }
             }
 
@@ -547,8 +575,6 @@ namespace FeiZhouHeiXingXing_3994
                     if (lineOdds > 0)
                     {
                         calcTotalWin += lineOdds; // 累加本地计算总赢分
-                        Debug.LogError("当前中奖线：" + i + "   中奖图标：" + firstSymbolType + "   中奖个数：" + hitCount + "  中奖得分：" +
-                                       lineOdds);
                     }
                 }
             }
@@ -679,5 +705,308 @@ namespace FeiZhouHeiXingXing_3994
                 SQLiteAsyncHelper.SQLInsertTableData(ConsoleTableName.TABLE_SLOT_GAME_RECORD, slotGameRecordItem);
             SQLiteAsyncHelper.Instance.ExecuteNonQueryAsync(sql);
         }
+
+
+        /// <summary>
+        /// 解析为本游戏 JSON，与 ParseSlotSpin 使用的字段一致。
+        /// 注意：C 端第一个字段是 gameId，若调用方传入的 startPos 未跳过 gameId，
+        ///       则需要在方法开头额外读一次 gameId。
+        /// </summary>
+        public static JSONNode ParseCoinPushSpinPayload(int[] data, int startPos)
+        {
+            JSONNode result = JSONNode.Parse("{}");
+            if (data == null || startPos >= data.Length) return result;
+
+            int pos = startPos;
+
+            // 如果 startPos 指向的是 gameId（即未跳过），需要取消下面这行的注释
+            // int gameId = data[pos++];
+
+            int openType = data[pos++];
+            int resultType = data[pos++];
+            int lineNum = data[pos++];
+            int totalBet = data[pos++];
+            int matrixLength = data[pos++];
+
+            result["OpenType"] = openType;
+            result["ResultType"] = resultType;
+            result["lineNum"] = lineNum;
+            result["TotalBet"] = totalBet;
+            result["MatrixLength"] = matrixLength;
+
+            result["IDVec"] = new JSONArray();
+            for (int i = 0; i < lineNum; i++)
+            {
+                result["IDVec"].Add(data[pos++]);
+            }
+
+            result["Matrix"] = new JSONArray();
+            for (int i = 0; i < matrixLength; i++)
+            {
+                result["Matrix"].Add(data[pos++]);
+            }
+
+            switch (resultType)
+            {
+                case (int)ResultType.RT_FreeWin:
+                    {
+                        int totalFreeTime = data[pos++];
+                        int totalFreeBet = data[pos++];
+                        result["FreeBetArray"] = new JSONArray();
+                        for (int i = 0; i < totalFreeTime; i++)
+                        {
+                            result["FreeBetArray"].Add(data[pos++]);
+                        }
+
+                        result["TotalFreeTime"] = totalFreeTime;
+                        result["TotalFreeBet"] = totalFreeBet;
+                        break;
+                    }
+
+                case (int)ResultType.RT_BonusWin:
+                    {
+                        // C 端写入顺序：BlindSymbol(旋转次数) -> nBonusBet
+                        int totalBonusSpinTime = data[pos++]; // = BlindSymbol
+                        int bonusBet = data[pos++]; // = nBonusBet
+
+                        result["BonusData"] = new JSONArray();
+                        for (int i = 0; i < matrixLength; i++)
+                        {
+                            result["BonusData"].Add(data[pos++]);
+                        }
+
+                        // ===== BonusPos 解析开始 =====
+                        result["BonusPos"] = ParseBonusPos(data, ref pos, matrixLength, totalBonusSpinTime);
+                        // ===== BonusPos 解析结束 =====
+
+                        result["BonusBet"] = bonusBet;
+                        result["TotalBonusSpinTime"] = totalBonusSpinTime;
+                        break;
+                    }
+
+                case (int)ResultType.RT_Jackpot:
+                    {
+                        // C 端写入顺序：BlindSymbol(旋转次数) -> nBonusBet
+                        int totalBonusSpinTime = data[pos++]; // = BlindSymbol
+                        int bonusBet = data[pos++]; // = nBonusBet
+
+                        result["BonusBet"] = bonusBet;
+                        result["TotalBonusSpinTime"] = totalBonusSpinTime;
+
+                        result["BonusData"] = new JSONArray();
+                        for (int i = 0; i < matrixLength; i++)
+                        {
+                            result["BonusData"].Add(data[pos++]);
+                        }
+
+                        int jpCount = data[pos++];
+                        result["JPCount"] = jpCount;
+
+                        result["JPTypeArray"] = new JSONArray();
+                        for (int i = 0; i < jpCount; i++) // 按实际写入个数读取
+                        {
+                            result["JPTypeArray"].Add(data[pos++]);
+                        }
+
+                        result["JPBetArray"] = new JSONArray();
+                        for (int i = 0; i < jpCount; i++) // 按实际写入个数读取
+                        {
+                            result["JPBetArray"].Add(data[pos++]);
+                        }
+
+                        // ===== BonusPos 解析开始 =====
+                        result["BonusPos"] = ParseBonusPos(data, ref pos, matrixLength, totalBonusSpinTime);
+                        // ===== BonusPos 解析结束 =====
+
+                        if (pos < data.Length)
+                        {
+                            result["TotalJackpotBet"] = data[pos];
+                        }
+
+                        break;
+                    }
+            }
+
+            return result;
+        }
+
+        #region 彩金数据解析
+
+        private const int GorillaValue = 20001;
+        private const int BananaBase = 30000;
+
+        /// <summary> 解析 BonusPos 多圈盘面数据。每圈：1 个 mask + nBanana 个金额值。</summary>
+        private static JSONArray ParseBonusPos(int[] data, ref int pos, int matrixLength, int spinCount)
+        {
+            var bonusPos = new JSONArray();
+
+            for (int s = 0; s < spinCount; s++)
+            {
+                if (pos >= data.Length)
+                    break;
+
+                uint mask = (uint)data[pos++];
+                uint bananaMap = mask & 65535u;
+                uint gorillaMap = mask >> 16;
+
+                // 统计本圈有多少个香蕉（决定后面要读几个金额值）
+                int nBanana = 0;
+                for (int c = 0; c < matrixLength; c++)
+                {
+                    if ((bananaMap & (1u << c)) != 0)
+                        nBanana++;
+                }
+
+                if (pos + nBanana > data.Length)
+                    break;
+
+                // 解码本圈 matrixLength 个格子
+                var spinBoard = new JSONArray();
+                int valuePos = pos; // 金额值起始位置
+
+                for (int c = 0; c < matrixLength; c++)
+                {
+                    if ((gorillaMap & (1u << c)) != 0)
+                    {
+                        spinBoard.Add(GorillaValue); // 20001
+                    }
+                    else if ((bananaMap & (1u << c)) != 0)
+                    {
+                        spinBoard.Add(BananaBase + data[valuePos++]); // 30000 + 金额
+                    }
+                    else
+                    {
+                        spinBoard.Add(0); // 空
+                    }
+                }
+
+                bonusPos.Add(spinBoard);
+                pos += nBanana; // 跳过本圈已消费的金额值
+            }
+
+            return bonusPos;
+        }
+
+        /// <summary>
+        /// 传入 BonusData JSON 字符串，返回 List&lt;int&gt;
+        /// </summary>
+        /// <param name="bonusDataJson">例如: "[750,825,0,425,1500,1000,1750,475,0,0,0,0,0,0,0]"</param>
+        /// <returns>List&lt;int&gt; — 每圈得分</returns>
+        private List<int> ParseBonusData(string bonusDataJson)
+        {
+            if (string.IsNullOrWhiteSpace(bonusDataJson))
+                return new List<int>();
+
+            // 去掉首尾空白和方括号
+            string trimmed = bonusDataJson.Trim().TrimStart('[').TrimEnd(']');
+            if (string.IsNullOrWhiteSpace(trimmed))
+                return new List<int>();
+
+            var result = new List<int>();
+            string[] parts = trimmed.Split(',');
+
+            foreach (string part in parts)
+            {
+                if (int.TryParse(part.Trim(), out int value))
+                {
+                    result.Add(value);
+                }
+            }
+
+            return result;
+        }
+
+        private List<int[]> ParseFromString(string json)
+        {
+            if (string.IsNullOrWhiteSpace(json))
+                return new List<int[]>();
+
+            int[][] arrays = JsonConvert.DeserializeObject<int[][]>(json);
+            return new List<int[]>(arrays);
+        }
+
+        /// <summary>
+        /// 验证对应索引的 int[] 得分之和与 int 对应索引的值是否一致。
+        /// 规则：数组中万位是3的数字，先对 10000 取余后再参与累加；其他数字直接累加。
+        /// 一致则将 int[] 转为 List&lt;int&gt; 入队；不一致则输出日志。
+        /// </summary>
+        /// <param name="intList">int 类型的 List</param>
+        /// <param name="intArrayList">int[] 类型的 List</param>
+        /// <returns>Queue&lt;List&lt;int&gt;&gt; 队列</returns>
+        public Queue<List<int>> ValidateAndQueue(List<int> intList, List<int[]> intArrayList)
+        {
+            var resultQueue = new Queue<List<int>>();
+
+            if (intList == null || intArrayList == null)
+            {
+                Debug.LogError("[警告] 输入参数不能为 null");
+                return resultQueue;
+            }
+
+            int minSize = Math.Min(intList.Count, intArrayList.Count);
+
+            if (intList.Count != intArrayList.Count)
+            {
+                Debug.LogError(
+                    $"[警告] 两个 List 长度不一致，intList.Count={intList.Count}, intArrayList.Count={intArrayList.Count}，将只处理前 {minSize} 个元素");
+            }
+
+            for (int i = 0; i < minSize; i++)
+            {
+                int expectedSum = intList[i];
+                int[] array = intArrayList[i];
+
+                // 计算实际得分之和
+                int actualSum = CalculateSum(array);
+
+                if (actualSum != expectedSum)
+                {
+                    Debug.LogError(
+                        $"[不一致] 索引 [{i}]：期望和={expectedSum}，实际和={actualSum}，原始数组=[{string.Join(", ", array)}]");
+                }
+                else
+                {
+                    // 一致：将 int[] 转换为 List<int> 并入队
+                    resultQueue.Enqueue(array.ToList());
+                }
+            }
+
+            return resultQueue;
+        }
+
+        /// <summary>
+        /// 计算数组的得分之和。
+        /// 万位是3的数字：先 % 10000 再累加。
+        /// 万位不是3的数字：直接累加。
+        /// 
+        /// 注：如果需求是"只有万位是3的数字才参与累加（其他跳过）"，
+        ///     请将 else 分支中的 sum += num; 删除即可。
+        /// </summary>
+        private int CalculateSum(int[] array)
+        {
+            int sum = 0;
+            foreach (int num in array)
+            {
+                if (GetWanWei(num) == 3)
+                {
+                    // 万位是3：对 10000 取余后累加
+                    sum += num % 10000;
+                }
+            }
+
+            return sum;
+        }
+
+        /// <summary>
+        /// 获取数字的万位（从右往左第5位）。支持负数。
+        /// 例如：30000→3, 35000→3, 130000→3, 9999→0, -30000→3
+        /// </summary>
+        private int GetWanWei(int num)
+        {
+            long absNum = Math.Abs((long)num);
+            return (int)((absNum / 10000) % 10);
+        }
+
+        #endregion
     }
 }

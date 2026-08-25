@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 0819b429d3dc94e45a4c06311bcd6631
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: games/cai fu zhi jia 3997/pag/normal_game/wealth_ng_npc_atmosphere_idle.unity3d
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: c806c33c02b7da44e86221c1c5045af0, type: 3}
