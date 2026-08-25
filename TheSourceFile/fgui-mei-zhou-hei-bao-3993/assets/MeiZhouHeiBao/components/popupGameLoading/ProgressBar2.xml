@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1000,74" extention="ProgressBar">
+  <displayList>
+    <component id="n0_g9kd" name="n0" src="g9kd9i" fileName="components/popupGameLoading/ProgressBG.xml" xy="0,0" size="1000,74">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n2_of0q" name="bar" src="of0qan" fileName="components/popupGameLoading/bar.xml" xy="10,0" size="976,71"/>
+  </displayList>
+  <ProgressBar/>
+</component>

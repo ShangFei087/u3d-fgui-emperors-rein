@@ -9,8 +9,10 @@
   <displayList>
     <loader id="n1_z14g" name="n1" xy="0,0" size="198,200" url="ui://tgen4q2pz14g1p" align="center" vAlign="middle" autoSize="true"/>
     <loader id="n2_z14g" name="n2" xy="17,64" size="165,68" url="ui://tgen4q2pz14g1n" align="center" vAlign="middle" autoSize="true"/>
-    <component id="n4_mxrk" name="anchorSpin" src="mxrk3f" fileName="components/AnchorSpin.xml" xy="107,103"/>
     <component id="n3_z14g" name="untouch" src="z14gc" fileName="components/mask/UntouchCircle2SpinBtn.xml" xy="0,0" visible="false"/>
+    <component id="n4_mxrk" name="anchorSpin" src="mxrk3f" fileName="components/AnchorSpin.xml" xy="107,103"/>
+    <component id="n5_ni96" name="anchorShortSpin" src="mxrk3f" fileName="components/AnchorSpin.xml" xy="98,99"/>
+    <component id="n6_ni96" name="anchorLongSpin" src="mxrk3f" fileName="components/AnchorSpin.xml" xy="98,99"/>
   </displayList>
   <transition name="spin">
     <item time="0" type="Icon" target="n1_z14g" value="ui://tgen4q2pz14g1p"/>

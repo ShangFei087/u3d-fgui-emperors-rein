@@ -14,7 +14,7 @@
     <component id="n13_puke" name="card3995" src="puke1w" fileName="components/AnchorCard.xml" xy="916,1290" size="0,0" group="n14_puke"/>
     <group id="n14_puke" name="Card" xy="188,1290" size="728,0"/>
     <image id="n8_puke" name="n8" src="puken" fileName="images/plat_img_dfk.png" xy="94,1735"/>
-    <text id="n9_puke" name="Credit" xy="500,1748" size="447,93" font="ui://vkidf8mppuke1r" fontSize="14" align="right" vAlign="middle" leading="0" letterSpacing="-15" autoSize="shrink" text="123467890"/>
+    <text id="n9_puke" name="Credit" xy="502,1747" size="447,87" font="ui://vkidf8mppuke1r" fontSize="14" align="center" vAlign="middle" leading="0" letterSpacing="-15" autoSize="shrink" text="123467890"/>
     <component id="n10_puke" name="btnCollect" src="puke1y" fileName="components/ButtonCollect.xml" xy="114,1748"/>
   </displayList>
 </component>

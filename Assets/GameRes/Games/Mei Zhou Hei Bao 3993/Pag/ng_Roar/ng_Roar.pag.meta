@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: fae62beb2dd779846b071772cc9e742e
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: games/mei zhou hei bao 3993/pag/ng_roar/ng_roar.unity3d
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: c806c33c02b7da44e86221c1c5045af0, type: 3}

@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 0e11d547ad2d6044481b30bf8ad8f58e
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: games/mei zhou hei bao 3993/pag/jp_pup/jp_pup_mini_pag/jp_pup_mini_idle.unity3d
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: c806c33c02b7da44e86221c1c5045af0, type: 3}

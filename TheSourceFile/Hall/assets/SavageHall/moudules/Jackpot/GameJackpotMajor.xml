@@ -10,5 +10,6 @@
       <item url="ui://vkidf8mppuke1o"/>
       <item url="ui://vkidf8mppuke1o"/>
     </list>
+    <image id="n3_d6bl" name="n3" src="d6bl21" fileName="images/plat_txt_major.png" xy="404,57" pivot="0.5,0.5" anchor="true"/>
   </displayList>
 </component>

@@ -159,7 +159,10 @@ public sealed class PagFguiGpuPresenter
             _boundNativePtr = nativePtr;
             _externalTexture = Texture2D.CreateExternalTexture(
                 texW, texH, TextureFormat.RGBA32, false, true, nativePtr);
-            _nTexture = new NTexture(_externalTexture);
+            _nTexture = new NTexture(_externalTexture)
+            {
+                destroyMethod = DestroyMethod.None
+            };
             _loader.texture = _nTexture;
             InvalidateLoaderBatching();
         }
@@ -233,6 +236,13 @@ public sealed class PagFguiGpuPresenter
         _texH = 0;
         _boundNativePtr = IntPtr.Zero;
         _loaderVisible = false;
+    }
+
+    /// <summary>Dispose 时断开 GLoader，避免 contentPane 销毁后仍持有已释放节点。</summary>
+    public void DetachLoader()
+    {
+        Clear();
+        _loader = null;
     }
 
     private void InvalidateLoaderBatching()

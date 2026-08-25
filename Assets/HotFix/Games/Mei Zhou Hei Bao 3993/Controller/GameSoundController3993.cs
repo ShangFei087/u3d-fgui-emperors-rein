@@ -30,11 +30,11 @@ namespace MeiZhouHeiBao_3993
 
     public class GameSoundController3993
     {
-        /// <summary> Scatter 图标 ID（与 MachineData 一致，symbolNumber[10]）。 </summary>
-        private static int ScatterSymbolId => CustomModel.Instance.symbolNumber[10];
+        /// <summary> Scatter 图标 ID（symbolNumber[11] = 11）。 </summary>
+        private static int ScatterSymbolId => CustomModel.Instance.symbolNumber[11];
 
-        /// <summary> Bonus 图标 ID（symbolNumber[11]）。 </summary>
-        private static int BonusSymbolId => CustomModel.Instance.symbolNumber[11];
+        /// <summary> Bonus 图标 ID（symbolNumber[12] = 12）。 </summary>
+        private static int BonusSymbolId => CustomModel.Instance.symbolNumber[12];
 
         /// <summary> 本局是否已播过 Scatter 线赢音效（防重复）。 </summary>
         private bool _scatterWinPlayedThisSpin;
@@ -49,19 +49,19 @@ namespace MeiZhouHeiBao_3993
 
         public void Init()
         {
-            EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnSlotEvent);
-            EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
-            EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnWinEvent);
-            EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, OnAudioEvent);
+            //EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnSlotEvent);
+            //EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
+            //EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnWinEvent);
+            //EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, OnAudioEvent);
         }
 
         /// <summary> 注销监听，避免泄漏与重复回调。 </summary>
         public void Dispose()
         {
-            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnSlotEvent);
-            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
-            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnWinEvent);
-            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, OnAudioEvent);
+            //EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnSlotEvent);
+            //EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
+            //EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnWinEvent);
+            //EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, OnAudioEvent);
         }
 
         /// <summary> 按已算好的标志播 ScatterDown；Bonus 列停统一播 BonusDown1（不按列区分）。 </summary>

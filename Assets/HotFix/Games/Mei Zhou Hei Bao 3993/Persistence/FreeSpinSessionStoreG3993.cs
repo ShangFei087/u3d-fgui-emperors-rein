@@ -25,13 +25,13 @@ namespace MeiZhouHeiBao_3993
         public static bool ShouldPersistSession()
         {
             var cm = ContentModel.Instance;
-            if (cm.FreeSpinTotalTimes <= 0)
+            if (cm.freeSpinTotalTimes <= 0)
                 return false;
 
-            if (cm.FreeSpinPlayTimes < cm.FreeSpinTotalTimes)
+            if (cm.freeSpinPlayTimes < cm.freeSpinTotalTimes)
                 return true;
 
-            if (cm.FreeSpinPlayTimes == 0 && cm.nextReelStripsIndex == "FS")
+            if (cm.freeSpinPlayTimes == 0 && cm.nextReelStripsIndex == "FS")
                 return true;
 
             return false;
@@ -46,7 +46,7 @@ namespace MeiZhouHeiBao_3993
         public static bool ShouldClearSession()
         {
             var cm = ContentModel.Instance;
-            return cm.FreeSpinTotalTimes > 0 && cm.FreeSpinPlayTimes >= cm.FreeSpinTotalTimes && cm.nextReelStripsIndex == "BS";
+            return cm.freeSpinTotalTimes > 0 && cm.freeSpinPlayTimes >= cm.freeSpinTotalTimes && cm.nextReelStripsIndex == "BS";
         }
         
         /// <summary>
@@ -73,8 +73,8 @@ namespace MeiZhouHeiBao_3993
             var snap = new FreeSpinSessionSnapshotG3993
             {
                 PlayerId = pid,
-                FreeSpinTotalTimes = cm.FreeSpinTotalTimes,
-                FreeSpinPlayTimes = cm.FreeSpinPlayTimes,
+                FreeSpinTotalTimes = cm.freeSpinTotalTimes,
+                FreeSpinPlayTimes = cm.freeSpinPlayTimes,
                 FreeSpinTotalWinCredit = cm.freeSpinTotalWinCredit,
                 CurReelStripsIndex = cm.curReelStripsIndex,
                 NextReelStripsIndex = cm.nextReelStripsIndex,
@@ -138,8 +138,8 @@ namespace MeiZhouHeiBao_3993
         public static void ResetContentModelFreeStateToBaseGame()
         {
             var cm = ContentModel.Instance;
-            cm.FreeSpinTotalTimes = 0;
-            cm.FreeSpinPlayTimes = 0;
+            cm.freeSpinTotalTimes = 0;
+            cm.freeSpinPlayTimes = 0;
             cm.freeSpinTotalWinCredit = 0;
             cm.curReelStripsIndex = "BS";
             cm.nextReelStripsIndex = "BS";

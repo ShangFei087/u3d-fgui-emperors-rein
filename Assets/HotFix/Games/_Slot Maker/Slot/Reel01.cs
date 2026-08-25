@@ -53,38 +53,25 @@ public class Reel01 : Reel
 
     public override void SymbolAppearEffect()
     {
-        for (int i = deckUpStartIndex; i <= deckUpEndIndex; i++)
+        if (fguiPoolHelper == null || customModel?.symbolAppearEffect == null)
+            return;
+
+        for (int i = deckUpStartIndex; i < deckUpEndIndex; i++)
         {
+            if (i < 0 || i >= symbolList.Count) continue;
 
             Symbol01 symble = (Symbol01)symbolList[i];
-
             string symbleNumber = $"{symble.number}";
+            if (!customModel.symbolAppearEffect.ContainsKey(symbleNumber))
+                continue;
 
-            bool isHashSymbolAppearNumber = false;
-            foreach (KeyValuePair<string, string> kv in customModel.symbolAppearEffect)
-            {
-                if (kv.Key == symbleNumber)
-                {
-                    isHashSymbolAppearNumber = true;
-                    break;
-                }
-            }
+            string symbolName = customModel.symbolAppearEffect[symbleNumber];
+            GComponent anchorSymbolEffect = fguiPoolHelper.GetObject(TagPoolObject.SymbolAppear, symbolName)?.asCom;
+            if (anchorSymbolEffect == null)
+                continue;
 
-            if (isHashSymbolAppearNumber)
-            {
-                string symbolName = customModel.symbolAppearEffect[symbleNumber];
-                GComponent anchorSymbolEffect = FguiGObjectPoolHelper.Instance.GetObject(symbolName).asCom;
-                symble.AddSymbolEffect(anchorSymbolEffect);
-
-                FguiSortingOrderManager.Instance.ChangeSortingOrder(symble.goOwnerSymbol, goExpectation);
-
-                /*
-                int rowIndex = i;
-                // 设置层级
-                FguiSortingOrderManager.Instance.ChangeSortingOrder(symble.goOwnerSymbol, goExpectation, null,null, 
-                    (self) => rowIndex + deckUpStartIndex); 
-                */
-            }
+            symble.AddSymbolEffect(anchorSymbolEffect);
+            FguiSortingOrderManager.Instance.ChangeSortingOrder(symble.goOwnerSymbol, goExpectation);
         }
     }
 }

@@ -403,6 +403,9 @@ public class ApplicationSettingsEditor : Editor
     private bool isAot;
     private bool isAutoHotfixUrl=true;
     private string hotfixUrl = "./";
+    private int selectedVersionIndex;
+    private bool versionIndexInited;
+    private bool applyThemeTogether = true;
 
 
 
@@ -516,6 +519,19 @@ public class ApplicationSettingsEditor : Editor
 
 
         // ===============================================================
+        EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+        originalColor = GUI.contentColor;
+        GUI.contentColor = Color.green;
+        GUILayout.Label("版本选择", EditorStyles.boldLabel);
+        GUI.contentColor = originalColor;
+
+        DrawVersionSelectGui();
+
+        EditorGUILayout.EndVertical();
+
+
+        // ===============================================================
         // 开始一个垂直布局组
         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
@@ -523,6 +539,8 @@ public class ApplicationSettingsEditor : Editor
         GUI.contentColor = Color.green;
         GUILayout.Label("同步app版本", EditorStyles.boldLabel);
         GUI.contentColor = originalColor;
+
+        EditorGUILayout.HelpBox("始终应用 total_version.json 的第一条（最新）。", MessageType.None);
 
         // 创建一个按钮
         if (GUILayout.Button("确定"))
@@ -534,11 +552,52 @@ public class ApplicationSettingsEditor : Editor
 
     }
 
+    void DrawVersionSelectGui()
+    {
+        if (!TryGetTotalVersionArray(out _, out JArray lst, showError: false))
+        {
+            EditorGUILayout.HelpBox($"无法读取 {PathHelper.totalVersionSAPTH}", MessageType.Warning);
+            if (GUILayout.Button("刷新"))
+                versionIndexInited = false;
+            return;
+        }
+
+        string[] labels = new string[lst.Count];
+        for (int i = 0; i < lst.Count; i++)
+            labels[i] = FormatVersionLabel(lst[i] as JObject, i);
+
+        if (!versionIndexInited)
+        {
+            selectedVersionIndex = FindVersionIndexByAppKey(lst, ApplicationSettings.Instance.appKey);
+            versionIndexInited = true;
+        }
+
+        selectedVersionIndex = Mathf.Clamp(selectedVersionIndex, 0, lst.Count - 1);
+        selectedVersionIndex = EditorGUILayout.Popup("选择版本", selectedVersionIndex, labels);
+        applyThemeTogether = EditorGUILayout.Toggle("同时切主题", applyThemeTogether);
+        EditorGUILayout.HelpBox(
+            applyThemeTogether
+                ? "应用后回填 appKey / appVersion / agentName，并按条目同步 platformName、gameTheme、launchFguiName。不修改 total_version.json。"
+                : "应用后只回填 appKey / appVersion / agentName / isMachine / isRelease。不修改 total_version.json。",
+            MessageType.None);
+
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("刷新列表"))
+            versionIndexInited = false;
+        if (GUILayout.Button("应用选中版本"))
+            ApplySelectedVersion();
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.HelpBox($"热更账本: {HotfixVersionLedger.DescribeCurrent()}", MessageType.None);
+    }
+
 
 
 
     public void CreatVersion(bool isChangeAot = false)
     {
+        HotfixVersionLedger.OnBeforeSwitchSettings();
+
         DateTime localDateTime = DateTimeOffset.UtcNow.LocalDateTime;
         string ms = localDateTime.ToString("yyyyMMddHHmmss");
 
@@ -611,6 +670,8 @@ public class ApplicationSettingsEditor : Editor
         #endregion
 
         ApplicationSettingsPlayerSync.TrySync();
+        HotfixVersionLedger.OnAfterSwitchSettings();
+        versionIndexInited = false;
         AssetDatabase.Refresh();
     }
 
@@ -618,28 +679,32 @@ public class ApplicationSettingsEditor : Editor
 
     public void GobackVersion()
     {
+        if (!EditorUtility.DisplayDialog(
+                "回滚app版本",
+                "将删除 total_version.json 中的最新一条，且不可从 Inspector 撤销。确定回滚？",
+                "确定",
+                "取消"))
+        {
+            return;
+        }
 
-        JObject totalVersionSAFile = JObject.Parse(File.ReadAllText(PathHelper.totalVersionSAPTH));
-        JArray lst = totalVersionSAFile["data"] as JArray;
+        if (!TryGetTotalVersionArray(out JObject totalVersionSAFile, out JArray lst, showError: true))
+            return;
+
+        if (lst.Count < 2)
+        {
+            EditorUtility.DisplayDialog("回滚app版本", "至少需要两条版本记录才能回滚。", "确定");
+            return;
+        }
 
         lst.RemoveAt(0);//回滚
 
-        JObject target = lst[0] as JObject;
-        string appVersion = target["app_version"].ToObject<string>();
-
-
-        string appKey = target["app_key"].ToObject<string>();
-        string[] appKeyInfos = appKey.Split('_');
-
-        ApplicationSettings.Instance.appKey = appKey;
-        ApplicationSettings.Instance.isMachine = appKeyInfos[2] == "machine";
-        ApplicationSettings.Instance.isRelease = appKeyInfos[1] == "release";
-        ApplicationSettings.Instance.agentName = target["agent_name"].ToObject<string>();
-        ApplicationSettings.Instance.appVersion = appVersion;
+        ApplyVersionItem(lst[0] as JObject, applyTheme: false);
 
         string content = totalVersionSAFile.ToString();
         File.WriteAllText(PathHelper.totalVersionSAPTH, content);
 
+        versionIndexInited = false;
         AssetDatabase.Refresh();
     }
 
@@ -647,23 +712,157 @@ public class ApplicationSettingsEditor : Editor
 
     public void GetVersion()
     {
+        if (!TryGetTotalVersionArray(out _, out JArray lst, showError: true))
+            return;
 
-        JObject totalVersionSAFile = JObject.Parse(File.ReadAllText(PathHelper.totalVersionSAPTH));
-        JArray lst = totalVersionSAFile["data"] as JArray;
+        ApplyVersionItem(lst[0] as JObject, applyTheme: false);
+        versionIndexInited = false;
+        AssetDatabase.Refresh();
+    }
 
-        JObject target = lst[0] as JObject;
-        string appVersion = target["app_version"].ToObject<string>();
+    void ApplySelectedVersion()
+    {
+        if (!TryGetTotalVersionArray(out _, out JArray lst, showError: true))
+            return;
 
-        string appKey = target["app_key"].ToObject<string>();
+        int index = Mathf.Clamp(selectedVersionIndex, 0, lst.Count - 1);
+        ApplyVersionItem(lst[index] as JObject, applyThemeTogether);
+        ApplicationSettingsPlayerSync.TrySync();
+        AssetDatabase.Refresh();
+        Debug.Log($"[ApplicationSettings] 已应用选中版本: {FormatVersionLabel(lst[index] as JObject, index)}");
+    }
+
+    static bool TryGetTotalVersionArray(out JObject file, out JArray lst, bool showError)
+    {
+        file = null;
+        lst = null;
+        string path = PathHelper.totalVersionSAPTH;
+        if (!File.Exists(path))
+        {
+            if (showError)
+                EditorUtility.DisplayDialog("版本选择", $"找不到 {path}", "确定");
+            return false;
+        }
+
+        try
+        {
+            file = JObject.Parse(File.ReadAllText(path));
+            lst = file["data"] as JArray;
+            if (lst == null || lst.Count == 0)
+            {
+                if (showError)
+                    EditorUtility.DisplayDialog("版本选择", "total_version.json 没有 data 条目", "确定");
+                return false;
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            if (showError)
+                EditorUtility.DisplayDialog("版本选择", $"读取 total_version.json 失败: {ex.Message}", "确定");
+            return false;
+        }
+    }
+
+    static int FindVersionIndexByAppKey(JArray lst, string appKey)
+    {
+        if (string.IsNullOrEmpty(appKey) || lst == null)
+            return 0;
+
+        for (int i = 0; i < lst.Count; i++)
+        {
+            JObject item = lst[i] as JObject;
+            if (item == null)
+                continue;
+            if (item["app_key"]?.ToObject<string>() == appKey)
+                return i;
+        }
+        return 0;
+    }
+
+    static string FormatVersionLabel(JObject item, int index)
+    {
+        if (item == null)
+            return $"[{index}] (invalid)";
+
+        string agent = item["agent_name"]?.ToObject<string>();
+        if (string.IsNullOrEmpty(agent))
+            agent = "-";
+        string ver = item["app_version"]?.ToObject<string>();
+        if (string.IsNullOrEmpty(ver))
+            ver = "-";
+        string key = item["app_key"]?.ToObject<string>() ?? "";
+        string[] parts = key.Split('_');
+        string type = parts.Length >= 3 ? $"{parts[1]}/{parts[2]}" : "-";
+        return $"[{index}] {agent}  {ver}  ({type})";
+    }
+
+    static void ApplyVersionItem(JObject target, bool applyTheme)
+    {
+        if (target == null)
+        {
+            EditorUtility.DisplayDialog("版本选择", "选中的版本条目无效", "确定");
+            return;
+        }
+
+        var settings = ApplicationSettings.Instance;
+        Undo.RecordObject(settings, "Apply App Version");
+
+        HotfixVersionLedger.OnBeforeSwitchSettings();
+
+        string appVersion = target["app_version"]?.ToObject<string>() ?? "";
+        string appKey = target["app_key"]?.ToObject<string>() ?? "";
+        string agentName = target["agent_name"]?.ToObject<string>() ?? "";
         string[] appKeyInfos = appKey.Split('_');
 
-        ApplicationSettings.Instance.appKey = appKey;
-        ApplicationSettings.Instance.isMachine = appKeyInfos[2] == "machine";
-        ApplicationSettings.Instance.isRelease = appKeyInfos[1] == "release";
-        ApplicationSettings.Instance.agentName = target["agent_name"].ToObject<string>();
-        ApplicationSettings.Instance.appVersion = appVersion;
+        settings.appKey = appKey;
+        if (appKeyInfos.Length >= 3)
+        {
+            settings.isMachine = appKeyInfos[2] == "machine";
+            settings.isRelease = appKeyInfos[1] == "release";
+        }
+        if (!string.IsNullOrEmpty(agentName))
+            settings.agentName = agentName;
+        settings.appVersion = appVersion;
 
-        AssetDatabase.Refresh();
+        if (applyTheme)
+            ApplyThemeFromVersion(settings, agentName, appKeyInfos);
+
+        EditorUtility.SetDirty(settings);
+        AssetDatabase.SaveAssets();
+        HotfixVersionLedger.OnAfterSwitchSettings();
+    }
+
+    static void ApplyThemeFromVersion(ApplicationSettings settings, string agentName, string[] appKeyInfos)
+    {
+        string theme = agentName;
+        if (string.IsNullOrWhiteSpace(theme) && appKeyInfos != null && appKeyInfos.Length > 0)
+            theme = appKeyInfos[0];
+        if (string.IsNullOrWhiteSpace(theme))
+            return;
+
+        theme = theme.Trim();
+        settings.platformName = theme;
+        settings.gameTheme = theme;
+        settings.agentName = theme;
+
+        string launch = ResolveLaunchFguiNameForTheme(theme);
+        if (!string.IsNullOrEmpty(launch))
+            settings.launchFguiName = launch;
+    }
+
+    /// <summary>
+    /// AOT 编辑器不能引用热更 ThemeProfile，映射与 PageLaunch.ResolveLaunchFguiName 保持一致。
+    /// </summary>
+    static string ResolveLaunchFguiNameForTheme(string theme)
+    {
+        if (string.Equals(theme, "Savage", StringComparison.OrdinalIgnoreCase))
+            return "SavagePageLaunch";
+        if (string.Equals(theme, "Test", StringComparison.OrdinalIgnoreCase))
+            return "TreasuryPageLaunch";
+        if (string.Equals(theme, "Treasury", StringComparison.OrdinalIgnoreCase))
+            return "TreasuryPageLaunch";
+        return null;
     }
 
 }

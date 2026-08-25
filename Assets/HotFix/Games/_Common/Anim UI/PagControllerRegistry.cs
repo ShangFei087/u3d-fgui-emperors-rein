@@ -40,4 +40,13 @@ public static class PagControllerRegistry
         s_controllers.TryGetValue(instanceKey, out PagController controller);
         return controller;
     }
+
+    public static void DisposeAll()
+    {
+        var snapshot = new List<PagController>(s_controllers.Values);
+        foreach (PagController controller in snapshot)
+        {
+            controller?.Dispose();
+        }
+    }
 }

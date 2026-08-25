@@ -4,7 +4,7 @@
     <graph id="n0_9mnq" name="mask" xy="0,0" size="1080,1920" alpha="0" touchable="false" type="rect" fillColor="#d9000000"/>
     <component id="n8_9mnq" name="anchorSpine" src="9mnq21" fileName="component/popupFreeGame/AnchorTriggerBg.xml" xy="540,880"/>
     <component id="n6_9mnq" name="ButtonStart" src="9mnq1p" fileName="component/freeSpin/FreeTriggerBtn.xml" xy="540,1497" pivot="0.5,0.5" anchor="true" size="375,105"/>
-    <text id="n7_9mnq" name="times" xy="540,960" pivot="0.5,0.5" anchor="true" size="651,490" scale="0.8,0.8" font="ui://q8n13f0fldad4a" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-123" autoSize="shrink" text="12"/>
+    <text id="n7_9mnq" name="times" xy="540,960" pivot="0.5,0.5" anchor="true" size="651,490" scale="0.8,0.8" font="ui://q8n13f0fldad4a" fontSize="10" align="center" vAlign="middle" leading="0" letterSpacing="-123" autoSize="shrink" text="12"/>
   </displayList>
   <transition name="idle">
     <item time="0" type="Scale" target="n7_9mnq" tween="true" startValue="1,1" endValue="0.8,0.8" duration="10" ease="Linear"/>

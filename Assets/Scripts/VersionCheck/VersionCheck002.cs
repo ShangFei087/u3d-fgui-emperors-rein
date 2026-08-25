@@ -146,11 +146,17 @@ public class VersionCheck002 : MonoBehaviour
         {
             try
             {
-                totalVersionText = File.ReadAllText(PathHelper.totalVersionLOCPTH);  //【存在bug】 这里total文件是个空！！
+                totalVersionText = File.ReadAllText(PathHelper.totalVersionLOCPTH);
+                if (string.IsNullOrWhiteSpace(totalVersionText))
+                    throw new Exception("local total version file is empty");
+
                 GlobalData.totalVersion = JObject.Parse(totalVersionText);
 
                 JObject targetTotalVersionItem = null;
                 JArray lst = GlobalData.totalVersion["data"] as JArray;
+                if (lst == null)
+                    throw new Exception("local total version missing data array");
+
                 for (int i = 0; i < lst.Count; i++)
                 {
                     string appKey = lst[i]["app_key"].ToObject<string>();
@@ -172,12 +178,26 @@ public class VersionCheck002 : MonoBehaviour
             catch (Exception ex)
             {
                 throwErrMsg = $"read local total version file  err: {ex.Message} ; path: {PathHelper.totalVersionLOCPTH} ; version text: {totalVersionText}";
-                PageLaunch.Instance.Error(throwErrMsg);
                 Debug.LogError(throwErrMsg);
-                throw ex;
+                TryDeleteCorruptTotalVersionFile();
+                GlobalData.totalVersion = null;
+                GlobalData.autoHotfixUrl = "";
             }
         }
 
+    }
+
+    void TryDeleteCorruptTotalVersionFile()
+    {
+        try
+        {
+            if (File.Exists(PathHelper.totalVersionLOCPTH))
+                File.Delete(PathHelper.totalVersionLOCPTH);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"delete corrupt total version file err: {ex.Message}");
+        }
     }
 
     #region 检查热更异常失败卡死
@@ -829,6 +849,7 @@ public class VersionCheck002 : MonoBehaviour
             PageLaunch.Instance.RefreshProgressUIMsg($"copy version file to cache: {PathHelper.versionName}");
             Debug.Log("copy version");
             yield return FileUtils.CopyStreamingAssetToLocal(PathHelper.versionSAPTH, PathHelper.versionLOCPTH);
+            yield return FileUtils.CopyStreamingAssetToLocal(PathHelper.totalVersionSAPTH, PathHelper.totalVersionLOCPTH);
         }
         else
         {
@@ -903,39 +924,53 @@ public class VersionCheck002 : MonoBehaviour
             if (reqTotalVersion.result == UnityWebRequest.Result.Success)
             {
                 string tvStr = reqTotalVersion.downloadHandler.text;
-
-                GlobalData.totalVersion = JObject.Parse(tvStr);
-
-                // 拷贝版本文件(写入文件时，可能断电重启，导致写入数据有问题)
-                FileUtils.WriteAllBytes(PathHelper.totalVersionLOCPTH, reqTotalVersion.downloadHandler.data);
-
-                JObject targetTotalVersionItem = null;
-                if (GlobalData.totalVersion != null)
+                if (string.IsNullOrWhiteSpace(tvStr))
                 {
-                    JArray lst = GlobalData.totalVersion["data"] as JArray;
-                    for (int i = 0; i < lst.Count; i++)
-                    {
-                        string appKey = lst[i]["app_key"].ToObject<string>();
-                        if (appKey == ApplicationSettings.Instance.appKey)
-                        {
-                            targetTotalVersionItem = lst[i] as JObject;
-                            break;
-                        }
-                    }
-                }
-
-                if (targetTotalVersionItem != null)
-                {
-                    GlobalData.autoHotfixUrl = FileUtils.GetDirWebUrl(PathHelper.totalVersionWEBURL, targetTotalVersionItem["hotfix_url"].ToObject<string>());
-
-                    PageLaunch.Instance.Next(LoadingProgress.CHECK_WEB_VERSION, $"get web version");
-
-                    yield return GetWebVersion(onSuccessCallback, onErrorCallback);
+                    Debug.LogError("web total version file is empty");
+                    onErrorCallback?.Invoke();
                 }
                 else
                 {
-                    Debug.LogError($"web total version file cant not find node at app_key: {ApplicationSettings.Instance.appKey}");
-                    onErrorCallback?.Invoke();
+                    GlobalData.totalVersion = JObject.Parse(tvStr);
+
+                    try
+                    {
+                        // 写入已解析成功的文本，避免 downloadHandler.data 在 IL2CPP/Android 上被读成空字节
+                        FileUtils.WriteAllText(PathHelper.totalVersionLOCPTH, tvStr);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError($"write local total version file err: {ex.Message}");
+                    }
+
+                    JObject targetTotalVersionItem = null;
+                    JArray lst = GlobalData.totalVersion["data"] as JArray;
+                    if (lst != null)
+                    {
+                        for (int i = 0; i < lst.Count; i++)
+                        {
+                            string appKey = lst[i]["app_key"].ToObject<string>();
+                            if (appKey == ApplicationSettings.Instance.appKey)
+                            {
+                                targetTotalVersionItem = lst[i] as JObject;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (targetTotalVersionItem != null)
+                    {
+                        GlobalData.autoHotfixUrl = FileUtils.GetDirWebUrl(PathHelper.totalVersionWEBURL, targetTotalVersionItem["hotfix_url"].ToObject<string>());
+
+                        PageLaunch.Instance.Next(LoadingProgress.CHECK_WEB_VERSION, $"get web version");
+
+                        yield return GetWebVersion(onSuccessCallback, onErrorCallback);
+                    }
+                    else
+                    {
+                        Debug.LogError($"web total version file cant not find node at app_key: {ApplicationSettings.Instance.appKey}");
+                        onErrorCallback?.Invoke();
+                    }
                 }
             }
             else//服务器版本文件加载失败

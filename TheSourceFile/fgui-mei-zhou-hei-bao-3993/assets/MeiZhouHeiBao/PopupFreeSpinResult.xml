@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <text id="n0_z2gw" name="scoreText" xy="363,596" size="352,193" fontSize="12" autoSize="none" text=""/>
+    <component id="n4_g9kd" name="anchorFreeResultPag" src="g9kd9r" fileName="components/anchorPag.xml" xy="539,959"/>
+    <component id="n3_g9kd" name="anchorFreeResult" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,1000"/>
+    <text id="n0_z2gw" name="txtScoreWin" xy="-33,729" size="1150,193" font="ui://tdk27maeg9kd9n" fontSize="12" align="center" vAlign="middle" letterSpacing="-30" autoSize="none" text="r999,9999,99"/>
+    <text id="n1_g9kd" name="txtTotalFreeTime" xy="313,968" size="151,106" font="ui://tdk27maeg9kd9n" fontSize="8" align="center" vAlign="middle" letterSpacing="-10" autoSize="none" text="20"/>
+    <component id="n2_g9kd" name="btnCollect" src="g9kd9t" fileName="components/ButtonCom.xml" xy="322,1166" size="456,125"/>
   </displayList>
 </component>

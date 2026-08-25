@@ -102,4 +102,20 @@ public class PanelController3998 : SlotMaker.PanelBaseController
             ClearSingleLineText();
         }
     }
+
+    protected override void Help()
+    {
+        base.Help();
+        if (ContentModel.Instance.isMult)
+        {
+            if (isSet)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+    }
 }

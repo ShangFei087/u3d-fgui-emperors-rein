@@ -305,29 +305,21 @@ namespace XingYunZhiLun_3998
                     targetIndex = UnityEngine.Random.Range(0, 2) * 8 + 7;
                     break;
                 case "Multiple":
-                    if(ContentModel.Instance.multiple <= 11)
+                    //根据免费游戏的图标来确定是什么轮盘判断倍率位置
+                    switch (ContentModel.Instance.multiple - (140 + (ContentModel.Instance.scatterCount - 3) * 20))
                     {
-                        switch(ContentModel.Instance.multiple % 3)
-                        {
-                            case 0:
-                                targetIndex = UnityEngine.Random.Range(0, 3) * 8;
-                                break;
-                            case 1:
-                                targetIndex = UnityEngine.Random.Range(0, 3) * 8 + 2;
-                                break;
-                            case 2:
-                                targetIndex = UnityEngine.Random.Range(0, 2) * 8 + 4;
-                                break;
-                        }
-
-                        if((ContentModel.Instance.scatterCount == 3 && ContentModel.Instance.multiple == 7) || (ContentModel.Instance.scatterCount == 4 && ContentModel.Instance.multiple == 10))
-                        {
+                        case 0:
+                            targetIndex = UnityEngine.Random.Range(0, 2) * 8 + 0;
+                            break;
+                        case 20:
+                            targetIndex = UnityEngine.Random.Range(0, 2) * 8 + 2;
+                            break;
+                        case 40:
+                            targetIndex = UnityEngine.Random.Range(0, 2) * 8 + 4;
+                            break;
+                        case 60:
                             targetIndex = UnityEngine.Random.Range(0, 2) * 8 + 6;
-                        }
-                    }
-                    else
-                    {
-                        targetIndex = UnityEngine.Random.Range(0, 2) * 8 + 6;
+                            break;
                     }
                     break;
             }

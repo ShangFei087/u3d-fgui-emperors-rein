@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="300,300" overflow="hidden">
+  <displayList>
+    <component id="n0_g9kd" name="symbols" src="g9kd9x" fileName="moudules/rewardSlotMachine/Symbols.xml" xy="0,0"/>
+  </displayList>
+</component>

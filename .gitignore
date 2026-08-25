@@ -63,9 +63,10 @@ Output/*
 # =============== #
 HybridCLRData/HotUpdateDlls/*
 
-# HotfixDeploy：保留脚本，忽略本地 baseline 产物
+# HotfixDeploy：保留脚本，忽略本地 baseline / 产品线账本
 Tools/HotfixDeploy/baseline/*
 !Tools/HotfixDeploy/baseline/.gitkeep
+Tools/HotfixDeploy/ledger/
 
 # 打包生成的热更清单（每次构建都会变）
 Assets/StreamingAssets/Hotfix/version.json

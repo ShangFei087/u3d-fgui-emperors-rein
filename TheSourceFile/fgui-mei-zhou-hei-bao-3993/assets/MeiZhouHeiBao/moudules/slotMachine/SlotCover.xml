@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1000,625">
+<component size="1000,630">
   <displayList>
-    <graph id="n0_z14g" name="slotCover" xy="0,-1" size="1000,625" type="rect" lineSize="0" fillColor="#99000000"/>
+    <graph id="n0_z14g" name="slotCover" xy="0,0" size="1000,630" type="rect" lineSize="0" fillColor="#99000000"/>
   </displayList>
 </component>

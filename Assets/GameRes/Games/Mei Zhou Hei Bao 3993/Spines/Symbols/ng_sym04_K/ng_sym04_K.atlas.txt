@@ -1,0 +1,11 @@
+ng_sym04_K.png
+size:280,179
+filter:Linear,Linear
+pma:true
+scale:0.4
+K
+bounds:168,59,110,118
+offsets:0,1,110,120
+eff/eff_K_00
+bounds:2,2,164,175
+offsets:115,90,394,344

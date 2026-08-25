@@ -93,7 +93,7 @@ namespace GameMaker
         ///<summary> 工具事件 </summary>
         public const string ON_GM_EVENT = "ON_GM_EVENT";
 
-        public const string GMSingleWinLine = "GMSingleWinLine";
+        public const string GMSingleWinLine = "GMSingleWinLine"; 
         public const string GMMultipleWinLine = "GMMultipleWinLine";
         public const string GMFreeSpin = "GMFreeSpin";
         public const string GMBigWin = "GMBigWin";
@@ -105,7 +105,6 @@ namespace GameMaker
         public const string GMBonus1 = "GMBonus1";     
         public const string GMBonus2 = "GMBonus2";   
         public const string GMBonus3 = "GMBonus3";
-        public const string XRay = "XRay";
         #endregion
 
 

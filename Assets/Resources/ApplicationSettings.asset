@@ -17,14 +17,14 @@ MonoBehaviour:
   isMock: 0
   isExpoMode: 1
   isUseProtectApplication: 0
-  platformName: Savage
-  gameTheme: Savage
-  launchFguiName: SavagePageLaunch
-  agentName: Savage
-  appKey: Savage_debug_machine_20260813113857
-  appVersion: 1.4.0
+  platformName: Treasury
+  gameTheme: Treasury
+  launchFguiName: TreasuryPageLaunch
+  agentName: Treasury
+  appKey: Treasury_debug_machine_20260810192219
+  appVersion: 1.2.0
   resourceServer: http://47.112.14.190/StandSlot
-  machineDebugUrl: 192.168.0.169
+  machineDebugUrl: 192.168.0.25
   reportUrl: http://192.168.3.152/api/game_log/send
   posterUrl: 
   logoUrl: ui://Native/eyeryparty

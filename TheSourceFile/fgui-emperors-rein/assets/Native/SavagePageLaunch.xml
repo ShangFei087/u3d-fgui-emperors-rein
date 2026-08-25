@@ -5,15 +5,16 @@
     <component id="n8_jif6" name="anchorLogoBG" src="f8vp14" fileName="components/AnchorBG.xml" xy="539,810"/>
     <loader id="n1_jif6" name="logo" xy="19,485" size="1060,682" url="ui://8grgqzwajif617" autoSize="true"/>
     <component id="n9_jif6" name="anchorLogoTitile" src="f8vp14" fileName="components/AnchorBG.xml" xy="573,850"/>
-    <image id="n4_jif6" name="n4" src="jif618" fileName="images/SavageLoading/plat_load_img_jdtwk.png" xy="68,1507"/>
-    <component id="n5_jif6" name="progress" src="jif61q" fileName="components/ProgressBar3.xml" xy="81,1517">
-      <ProgressBar max="1"/>
+    <image id="n12_ln0g" name="n12" src="jif619" fileName="images/SavageLoading/plat_load_img_jdtnk.png" xy="63,1512"/>
+    <image id="n4_jif6" name="n4" src="jif618" fileName="images/SavageLoading/plat_load_img_jdtwk.png" xy="539,1545" pivot="0.5,0.5" anchor="true" size="979,89"/>
+    <component id="n5_jif6" name="progress" src="jif61q" fileName="components/Savage/ProgressBar3.xml" xy="67,1515">
+      <ProgressBar value="1" max="1"/>
     </component>
     <component id="n10_jif6" name="anchorProgressBar" src="f8vp14" fileName="components/AnchorBG.xml" xy="527,1551"/>
     <text id="n7_jif6" name="title" xy="178,984" size="724,522" fontSize="25" color="#ffffff" align="center" vAlign="bottom" autoSize="shrink" text="loading...">
       <relation target="" sidePair="width-width,bottom-bottom"/>
     </text>
-    <text id="n11_jif6" name="titleProgress" xy="349,1501" size="381,109" font="ui://8grgqzwajif61r" fontSize="25" color="#ffffff" align="center" vAlign="middle" letterSpacing="-10" autoSize="shrink" text="99%">
+    <text id="n11_jif6" name="titleProgress" xy="349,1491" size="381,109" font="ui://8grgqzwajif61r" fontSize="25" color="#ffffff" align="center" vAlign="middle" letterSpacing="-10" autoSize="shrink" text="99%">
       <relation target="" sidePair="width-width,bottom-bottom"/>
     </text>
     <component id="n6_jif6" name="btnQuit" src="u59qh" fileName="components/ButtonApplicationQuit.xml" xy="4,5"/>

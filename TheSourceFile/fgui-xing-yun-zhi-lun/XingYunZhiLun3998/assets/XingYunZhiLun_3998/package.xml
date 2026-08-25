@@ -355,6 +355,16 @@
     <image id="jvaxaoz" name="4.png" path="/images/payTable/" exported="true"/>
     <image id="jvaxap0" name="5.png" path="/images/payTable/" exported="true"/>
     <image id="jvaxap1" name="6.png" path="/images/payTable/" exported="true"/>
+    <image id="o88tap8" name="txt_pop_freespins_03.png" path="/fonts/fontsImage/FreeTriggerFont/" exported="true"/>
+    <image id="o88tap9" name="txt_pop_freespins_00.png" path="/fonts/fontsImage/FreeTriggerFont/" exported="true"/>
+    <image id="o88tapa" name="txt_pop_freespins_01.png" path="/fonts/fontsImage/FreeTriggerFont/" exported="true"/>
+    <image id="o88tapb" name="txt_pop_freespins_02.png" path="/fonts/fontsImage/FreeTriggerFont/" exported="true"/>
+    <image id="o88tapc" name="txt_pop_freespins_07.png" path="/fonts/fontsImage/FreeTriggerFont/" exported="true"/>
+    <image id="o88tapd" name="txt_pop_freespins_08.png" path="/fonts/fontsImage/FreeTriggerFont/" exported="true"/>
+    <image id="o88tape" name="txt_pop_freespins_09.png" path="/fonts/fontsImage/FreeTriggerFont/" exported="true"/>
+    <image id="o88tapf" name="fg_num_freespin_07.png" path="/fonts/fontsImage/PopupGameFreeTimesImage/" exported="true"/>
+    <image id="o88tapg" name="fg_num_freespin_08.png" path="/fonts/fontsImage/PopupGameFreeTimesImage/" exported="true"/>
+    <image id="o88taph" name="fg_num_freespin_09.png" path="/fonts/fontsImage/PopupGameFreeTimesImage/" exported="true"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Xing Yun Zhi Lun 3998\FGUIs" packageCount="2"/>
 </packageDescription>

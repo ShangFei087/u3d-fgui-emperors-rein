@@ -619,6 +619,8 @@ public partial class AssetBundleBuilder04 : EditorWindow
     /// </summary>
     static void UpdateVersionData__002()
     {
+        HotfixVersionLedger.PrepareVersionJsonForPack();
+
         //string mainfestSAPTH = Application.streamingAssetsPath + "/GameRes/GameRes";
         //string hotfixDllDirSAPTH = Application.streamingAssetsPath + "/GameDll";
         // string versionSAPTH = Application.streamingAssetsPath + "/GameDll/version_0.json";
@@ -722,6 +724,7 @@ public partial class AssetBundleBuilder04 : EditorWindow
         Debug.Log($"最新版本号： {versionFileSA["hotfix_version"].Value<string>()}");
         string content = versionFileSA.ToString();
         File.WriteAllText(versionSAPTH, content);
+        HotfixVersionLedger.SavePackedVersionJson();
     }
 }
 

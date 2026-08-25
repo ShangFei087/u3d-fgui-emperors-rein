@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920">
+<component size="0,0">
   <displayList>
     <component id="n0_z14g" name="reel1" src="z14ge" fileName="moudules/Exhibition/ReelBtn.xml" xy="34,830"/>
     <component id="n1_z14g" name="reel2" src="z14ge" fileName="moudules/Exhibition/ReelBtn.xml" xy="239,830"/>

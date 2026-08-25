@@ -8,7 +8,7 @@ namespace SlotMaker
 {
     public class SymbolSpecificFgui : Symbol
     {
-        public override GComponent AddSymbolEffect(GComponent anchorSymbolEffect, bool isAmin = true)
+        public override GComponent AddSymbolEffect(GComponent anchorSymbolEffect, bool isAmin = true, string animName = null)
         {
             anchorSymbolEffect.visible = true;
             GComponent goAnimator = goOwnerSymbol.GetChild("animator").asCom;

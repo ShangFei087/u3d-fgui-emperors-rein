@@ -1,0 +1,10 @@
+ng_sym02_J.png
+size:617,434
+filter:Linear,Linear
+pma:true
+scale:0.5
+J
+bounds:496,275,119,157
+offsets:0,0,119,158
+eff/eff_zi_00
+bounds:2,2,492,430

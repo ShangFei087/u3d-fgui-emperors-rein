@@ -612,23 +612,50 @@ public static partial class FileUtils
 
     public static void WriteAllBytes(string path, byte[] bytes)
     {
-        string directory = Path.GetDirectoryName(path);
-        if (!Directory.Exists(directory))
+        if (bytes == null || bytes.Length == 0)
         {
-            Directory.CreateDirectory(directory);
+            Debug.LogError($"WriteAllBytes skip empty data: {path}");
+            return;
         }
+
+        EnsureParentDirectory(path);
         File.WriteAllBytes(path, bytes);
     }
 
 
     public static void WriteAllText(string path, string contents)
     {
+        if (string.IsNullOrEmpty(contents))
+        {
+            Debug.LogError($"WriteAllText skip empty data: {path}");
+            return;
+        }
+
+        EnsureParentDirectory(path);
+        string tmpPath = path + ".tmp";
+        byte[] bytes = Encoding.UTF8.GetBytes(contents);
+        using (var fs = new FileStream(tmpPath, FileMode.Create, FileAccess.Write, FileShare.None))
+        {
+            fs.Write(bytes, 0, bytes.Length);
+            fs.Flush(true);
+        }
+        ReplaceFile(tmpPath, path);
+    }
+
+    static void EnsureParentDirectory(string path)
+    {
         string directory = Path.GetDirectoryName(path);
-        if (!Directory.Exists(directory))
+        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
         {
             Directory.CreateDirectory(directory);
         }
-        File.WriteAllText(path, contents);
+    }
+
+    static void ReplaceFile(string tmpPath, string path)
+    {
+        if (File.Exists(path))
+            File.Delete(path);
+        File.Move(tmpPath, path);
     }
 
     /// <summary>

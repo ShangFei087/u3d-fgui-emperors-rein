@@ -109,7 +109,7 @@ namespace CaiFuHuoChe_3996
                 anchorSpine = loadSpine;
                 goSpine = GameObject.Instantiate(go);
                 animator = goSpine.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-                ChangeParent(spinTime, goSpine, "Anchor/Spine Mecanim GameObject (sp_pop_frame)/SkeletonUtility-SkeletonRoot/root/all/changkuang/num02", -2.65f, 5.17f);
+                ChangeParent(spinTime, goSpine, "Anchor/Spine Mecanim GameObject (sp_pop_frame)/SkeletonUtility-SkeletonRoot/root/all/changkuang/num02", -2.65f, 4.9f);
                 ChangeParent(closeBtn, goSpine, "Anchor/Spine Mecanim GameObject (sp_pop_frame)/SkeletonUtility-SkeletonRoot/root/all/btn", -2.56f, 0.75f);
                 GameCommon.FguiUtils.AddWrapper(anchorSpine, goSpine);
             }
@@ -155,7 +155,7 @@ namespace CaiFuHuoChe_3996
                 return;
             }
 
-            InJackpot_bmp = new PagSlotBinding("InJackpot_bmp", GamePagFolder);
+            if(InJackpot_bmp == null) InJackpot_bmp = new PagSlotBinding("InJackpot_bmp", GamePagFolder);
             InJackpot_bmp.EnsureSlot(anchor, "pagEffect");
         }
 

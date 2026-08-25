@@ -70,53 +70,34 @@ namespace SlotMaker
 
 
         /// <summary>
-        /// 添加图标特效( 图标击中 、 图标出现、 图标触发)
+        /// 添加图标特效( 图标击中 、 图标出现、 图标触发)。只负责挂节点，播哪一段由预制体 Animator 默认态决定。
         /// </summary>
-        /// <param name="anchorSymbolEffect"></param>
-        /// <param name="isAmin"></param>
-        /// <returns></returns>
-        public virtual GComponent AddSymbolEffect(GComponent anchorSymbolEffect, bool isAmin = true)
+        public virtual GComponent AddSymbolEffect(GComponent anchorSymbolEffect, bool isAmin = true, string animName = null)
         {
+            GComponent goAnimator = goOwnerSymbol.GetChild("animator").asCom;
+            goAnimator.AddChild(anchorSymbolEffect);
+            anchorSymbolEffect.xy = new Vector2(goAnimator.width / 2, goAnimator.height / 2);
 
+            if (_spinWEMD.Instance.isHideBaseIcon)
+                HideBaseSymbolIcon(true);
 
             GameObject goTarget = GameCommon.FguiUtils.GetWrapperTarget(anchorSymbolEffect);
             if (goTarget != null)
             {
-                AnimBaseUI animCtrl = goTarget.transform.GetComponent<AnimBaseUI>();
-                
-                if(animCtrl != null)
+                AnimBaseUI animCtrl = goTarget.GetComponent<AnimBaseUI>()
+                    ?? goTarget.GetComponentInChildren<AnimBaseUI>(true);
+
+                if (animCtrl != null)
                 {
                     if (isAmin)
                         animCtrl.Play();
                     else
-                        animCtrl.Pause();//PlayReverse();
+                        animCtrl.Pause();
                     GameCommon.FguiUtils.RefreshWrapper(anchorSymbolEffect);
-                }                
-            }
-
-            
-            /*
-            Animator animatorSpine = null;  //【待完成】  获取Spine的
-            if (animatorSpine != null)
-            {
-                if (isAmin)
-                    animatorSpine.speed = 1f;  // 播放
-                else
-                    animatorSpine.speed = 0f;  //暂停
-            }*/
-
-            GComponent goAnimator = goOwnerSymbol.GetChild("animator").asCom;
-            goAnimator.AddChild(anchorSymbolEffect); //边长为1的点
-            anchorSymbolEffect.xy = new Vector2(goAnimator.width / 2, goAnimator.height / 2);
-
-            // 是否隐藏原有图标
-            if (_spinWEMD.Instance.isHideBaseIcon)
-            {
-                HideBaseSymbolIcon(true);
+                }
             }
 
             return anchorSymbolEffect;
-            // 播放动画
         }
 
 

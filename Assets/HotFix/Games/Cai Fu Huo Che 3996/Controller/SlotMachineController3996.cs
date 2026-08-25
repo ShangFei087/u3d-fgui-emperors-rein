@@ -129,6 +129,8 @@ namespace CaiFuHuoChe_3996
             }
 
             yield return SlotWaitForSeconds(_spinWEMD.Instance.timeS);
+
+            yield return new WaitForSeconds(0.5f);
         }
 
 

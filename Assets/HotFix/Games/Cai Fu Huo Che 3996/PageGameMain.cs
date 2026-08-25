@@ -69,8 +69,10 @@ namespace CaiFuHuoChe_3996
         private GameObject goFreeReelEffcet, goJackpotReelEffect;
 
         //免费游戏以及彩金游戏中特殊奖时特效
-        private GameObject goRewardEffect;
-        private GComponent anchorFreeAdd, anchorJackpotAdd, anchorFill1, anchorFill2, anchorFill3, anchorFill4, ComRewardEffect1, ComRewardEffect2, ComRewardEffect3;
+        private GameObject goRewardEffect, goMoneyBoxEff;
+        private GameObject gMoneyBoxEff;
+        private GComponent anchorFreeAdd, anchorJackpotAdd, anchorFill1, anchorFill2, anchorFill3, anchorFill4, ComRewardEffect1, ComRewardEffect2, ComRewardEffect3, anchorMoneyBox;
+        private Transform moneyBoxEff;
 
         //正常游戏和彩金游戏和免费游戏之间转场火车开门时特效
         private GameObject goOpenEffect;
@@ -158,7 +160,7 @@ namespace CaiFuHuoChe_3996
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 11;
+            int count = 12;
 
             Action callback = () =>
             {
@@ -275,6 +277,14 @@ namespace CaiFuHuoChe_3996
            (GameObject clone) =>
            {
                _jackpotHitObj = clone;
+               callback();
+           });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+           "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PopupGameJackpot/MoneyBoxEff.prefab",
+           (GameObject clone) =>
+           {
+               goMoneyBoxEff = clone;
                callback();
            });
 
@@ -641,6 +651,16 @@ namespace CaiFuHuoChe_3996
                 GameCommon.FguiUtils.AddWrapper(gFreeCloude, freeCloude);
             }
 
+            GComponent loadMoneyBoxEff = contentPane.GetChild("anchorMoneyBox").asCom;
+            if(anchorMoneyBox != loadMoneyBoxEff)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorMoneyBox);
+                anchorMoneyBox = loadMoneyBoxEff;
+                gMoneyBoxEff = GameObject.Instantiate(goMoneyBoxEff);
+                moneyBoxEff = gMoneyBoxEff.transform.GetChild(0).GetChild(0);
+                GameCommon.FguiUtils.AddWrapper(anchorMoneyBox, gMoneyBoxEff);
+            }
+
 
             // ---------- 8.断电数据恢复 ----------
             TryRestoreFreeSpinSession();
@@ -848,6 +868,9 @@ namespace CaiFuHuoChe_3996
             }
         }
 
+        //记录当前已经获得的分数
+        long tempCredit = 0;
+
         private IEnumerator GameOnce(Action successCallback, Action<string> errorCallback)
         {
             if (!SBoxModel.Instance.isMachineActive)
@@ -1044,6 +1067,7 @@ namespace CaiFuHuoChe_3996
             //线赢的数据
             List<SymbolWin> winList = ContentModel.Instance.winList;
             long allWinCredit = 0;
+            tempCredit = 0;
 
             #region Win
             //普通赢
@@ -1089,8 +1113,10 @@ namespace CaiFuHuoChe_3996
 
                 //积分同步和退币处理
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+                tempCredit = allWinCredit;
+
                 //加钱动画
-                MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
+                //MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
             }
             #endregion
 
@@ -1105,8 +1131,8 @@ namespace CaiFuHuoChe_3996
                 if (winList.Count > 0)
                 {
                     // 本剧同步玩家金钱
-                    MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
-                    yield return new WaitForSeconds(1);
+                    //MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+                    //yield return new WaitForSeconds(1);
                 }
 
                 //显示中奖动画
@@ -1489,7 +1515,7 @@ namespace CaiFuHuoChe_3996
                 new EventData<Dictionary<string, object>>("",
                     new Dictionary<string, object>()
                     {
-                        ["baseGameWinCredit"] = ContentModel.Instance.freeSpinTotalWinCredit,
+                        ["baseGameWinCredit"] = ContentModel.Instance.freeSpinTotalWinCredit + tempCredit,
                     }),
                 (ed) =>
                 {
@@ -1550,6 +1576,7 @@ namespace CaiFuHuoChe_3996
         {
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(Game3996AudioEvent.BgmFreeSpinGame));
+
             while (ContentModel.Instance.nextReelStripsIndex == "FS")
             {
                 yield return GameFreeSpinOnce(null, errorCallback);
@@ -1693,7 +1720,7 @@ namespace CaiFuHuoChe_3996
                 }
             }
             // 总线赢分事件
-            slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.curFreeCredit);
+            slotMachineCtrl.SendTotalWinCreditEvent(freeAllWin + tempCredit);
 
             #endregion
 
@@ -2841,6 +2868,8 @@ namespace CaiFuHuoChe_3996
                 new EventData(Game3996AudioEvent.BgmRegularGame));
             train.SetActive(true);
             JsToBsTrans.Play();
+
+            PlayAnim(trainAnim, "idle");
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.BonusGameFadeTransition));
 
@@ -2912,6 +2941,7 @@ namespace CaiFuHuoChe_3996
             {
                 _elementBoxes[index].PlayAnim("collect");
                 yield return new WaitForSeconds(0.5f);
+                PlayEffectAnim(moneyBoxEff);
                 rewardEffect.parent.RemoveChild(rewardEffect);
                 toNode.AddChild(rewardEffect);
                 rewardEffect.visible = false;
@@ -2925,7 +2955,7 @@ namespace CaiFuHuoChe_3996
                 yield return MoveToZeroOverTime(rewardEffect, rewardEffect.xy);
                 rewardEffect.visible = false;
                 allWinCredit += long.Parse(rewardText);
-                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+                slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit + tempCredit);
             }
         }
 

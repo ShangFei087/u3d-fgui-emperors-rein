@@ -3,6 +3,7 @@
   <assembly fullname="FairyGUI">
     <type fullname="FairyGUI.Container" preserve="all" />
     <type fullname="FairyGUI.Controller" preserve="all" />
+    <type fullname="FairyGUI.DestroyMethod" preserve="all" />
     <type fullname="FairyGUI.DisplayObject" preserve="all" />
     <type fullname="FairyGUI.EaseType" preserve="all" />
     <type fullname="FairyGUI.EventCallback0" preserve="all" />
@@ -512,6 +513,7 @@
     <type fullname="System.Version" preserve="all" />
   </assembly>
   <assembly fullname="spine-csharp">
+    <type fullname="Spine.Animation" preserve="all" />
     <type fullname="Spine.AnimationState" preserve="all" />
     <type fullname="Spine.Bone" preserve="all" />
     <type fullname="Spine.ExposedList`1" preserve="all" />

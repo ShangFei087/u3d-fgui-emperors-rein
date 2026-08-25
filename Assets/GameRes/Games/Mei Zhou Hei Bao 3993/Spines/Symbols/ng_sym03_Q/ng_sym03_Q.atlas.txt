@@ -1,0 +1,10 @@
+ng_sym03_Q.png
+size:347,212
+filter:Linear,Linear
+pma:true
+scale:0.5
+eff/eff_q_00
+bounds:2,2,194,208
+offsets:148,119,492,430
+q
+bounds:198,43,147,167
