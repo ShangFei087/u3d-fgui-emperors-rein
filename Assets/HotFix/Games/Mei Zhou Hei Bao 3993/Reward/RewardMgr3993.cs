@@ -197,6 +197,7 @@ namespace MeiZhouHeiBao_3993
             RegisterUpdate(false);
             ClearBonusTrails();
             _rewardRoll?.Dispose();
+            _rewardRoll = null;
             _pagRoar = null;
             _isStartRoll = false;
             _waitingAutoStop = false;

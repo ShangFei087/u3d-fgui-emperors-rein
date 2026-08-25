@@ -3,6 +3,7 @@
   <assembly fullname="FairyGUI">
     <type fullname="FairyGUI.Container" preserve="all" />
     <type fullname="FairyGUI.Controller" preserve="all" />
+    <type fullname="FairyGUI.DestroyMethod" preserve="all" />
     <type fullname="FairyGUI.DisplayObject" preserve="all" />
     <type fullname="FairyGUI.EaseType" preserve="all" />
     <type fullname="FairyGUI.EventCallback0" preserve="all" />

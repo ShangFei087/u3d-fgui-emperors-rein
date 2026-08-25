@@ -350,6 +350,11 @@ public final class PagBridge {
         return completed && ok.get();
     }
 
+    public static boolean IsFguiGpuSurfaceReady(String instanceKey) {
+        PagOverlayManager manager = getManager(instanceKey);
+        return manager != null && manager.isFguiGpuSurfaceReadyForReuse();
+    }
+
     public static void StartFguiGpuPlayback() {
         StartFguiGpuPlayback(DEFAULT_INSTANCE);
     }
@@ -730,6 +735,31 @@ public final class PagBridge {
 
     public static boolean IsCompositionCached(String path) {
         return path != null && !path.isEmpty() && PagCompositionCache.contains(path);
+    }
+
+    /** 切游戏时清空全局 PAGFile LRU，把坑位留给下一局 Loading 预热。 */
+    public static void EvictCompositionCache() {
+        Log.i(TAG, "EvictCompositionCache");
+        PagCompositionCache.evictAll();
+    }
+
+    /**
+     * C# Dispose 且 GPU teardown 完成后调用：stop 并移除 instance 的 Manager/Config，
+     * 避免 sManagers 在 Unity 侧 Dispose 后仍残留。
+     */
+    public static void ReleaseInstance(String instanceKey) {
+        final String key = normalizeKey(instanceKey);
+        runOnUiSync("ReleaseInstance instance=" + key, () -> {
+            PagOverlayManager manager = sManagers.remove(key);
+            if (manager != null) {
+                Log.i(TAG, "ReleaseInstance: stop manager for " + key);
+                manager.stop();
+            } else {
+                Log.i(TAG, "ReleaseInstance: manager already absent for " + key);
+            }
+            sConfigs.remove(key);
+            Log.i(TAG, "ReleaseInstance done, managers=" + sManagers.size());
+        });
     }
 
     private static PAGFile loadPagFileStatic(String path) {

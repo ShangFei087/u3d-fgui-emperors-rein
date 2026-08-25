@@ -17,7 +17,7 @@ namespace MeiZhouHeiBao_3993
             "ng_pop_bigwin/BigWin_bmp",
             "ng_pop_bigwin/SuperWin_bmp",
             "ng_pop_bigwin/MegaWin_bmp" };
-        private int[] CloseBigWinTime = { 5, 6, 9, }; //关闭bigwin页面时间
+        private float [] CloseBigWinTime = { 5.0f, 6.0f, 9.0f, }; //关闭bigwin页面时间
 
 
         private readonly string[] winString = { "BIG", "HUGE", "MASSIVE" };
@@ -29,7 +29,8 @@ namespace MeiZhouHeiBao_3993
         private GTextField textBigWin;
         private GComponent comBigWin;
         private PagSlotBinding pagBigWin;
-        private List<TimerCallback> _timerCallbacks = new List<TimerCallback>();        //定时器
+        private TimerCallback _rollCallback;
+        private TimerCallback _exitCallback;
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -61,21 +62,20 @@ namespace MeiZhouHeiBao_3993
 
             if (!isOpen) return;
 
+            ClearAllTimers();
             pagBigWin.Play(new PagSequencePlay(
                 new[] { new PagSegment(PagPathBigWin[_winIndex], 1) },
                 PagPlayLayout.Center,
                 PagPresentationDefaults.DisplayScale,
                 useGpuSyncGroup: false));
 
-         
-            Timers.inst.Add
-            (
-                1, 
-                1, 
-                (object obj ) =>{ NumberAnimation.Instance.AnimateNumber(textBigWin, 0, _score, CloseBigWinTime[_winIndex] - 1, EaseType.Linear, () => { });}
-            );
-            Timers.inst.Add(CloseBigWinTime[_winIndex], 1, exit);
-            _timerCallbacks.Add(exit);
+            _rollCallback = obj =>
+            {
+                NumberAnimation.Instance.AnimateNumber(textBigWin, 0, _score, CloseBigWinTime[_winIndex] - 2.0f, EaseType.Linear, () => { });
+            };
+            Timers.inst.Add(1, 1, _rollCallback);
+            _exitCallback = exit;
+            Timers.inst.Add(CloseBigWinTime[_winIndex], 1, _exitCallback);
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
@@ -114,22 +114,21 @@ namespace MeiZhouHeiBao_3993
 
         private void ClearPag()
         {
-            pagBigWin?.Dispose();
-            pagBigWin = null;
+            pagBigWin?.StopWithDefaults();
         }
 
-        // 清理所有定时器的方法
         private void ClearAllTimers()
         {
-            // 遍历列表移除所有定时器
-            foreach (var callback in _timerCallbacks)
-            {
-                if (Timers.inst.Exists(callback)) // 检查定时器是否存在
-                    Timers.inst.Remove(callback);
-            }
+            RemoveTimer(ref _rollCallback);
+            RemoveTimer(ref _exitCallback);
+        }
 
-            _timerCallbacks.Clear(); // 清空列表
-            Debug.Log("所有定时器已清理");
+        private void RemoveTimer(ref TimerCallback timerCallback)
+        {
+            if (timerCallback == null) return;
+            if (Timers.inst.Exists(timerCallback))
+                Timers.inst.Remove(timerCallback);
+            timerCallback = null;
         }
     }
 }

@@ -32,6 +32,8 @@ namespace MeiZhouHeiBao_3993
         private AnimPlayer _animJackpot;
         private TimerCallback _delayCloseCallback;
         private TimerCallback _autoClickCallback;
+        private TimerCallback _rollCallback;
+        private TimerCallback _enableBtnCallback;
 
         //pag
         private GComponent _anchorPagJackpot;
@@ -99,6 +101,8 @@ namespace MeiZhouHeiBao_3993
             _isClicked = false;
             RemoveTimer(ref _delayCloseCallback);
             RemoveTimer(ref _autoClickCallback);
+            RemoveTimer(ref _rollCallback);
+            RemoveTimer(ref _enableBtnCallback);
 
             string jpType = ResolveJackpotType();
             float winCredit = ResolveWinCredit();
@@ -124,16 +128,17 @@ namespace MeiZhouHeiBao_3993
                 _btnCollect.onClick.Add(() => OnCloseBtn());
             }
 
-            // 进场后再滚分，滚完才允许点 Collect
-            Timers.inst.Add(0.5f, 1, obj =>
+            _rollCallback = obj =>
             {
                 if (_txtWin != null)
                     NumberAnimation.Instance.AnimateNumber(_txtWin, 0, winCredit, 3.0f, EaseType.Linear, () => { });
-            });
-            Timers.inst.Add(3.5f, 1, obj =>
+            };
+            Timers.inst.Add(0.5f, 1, _rollCallback);
+            _enableBtnCallback = obj =>
             {
                 if (_btnCollect != null) _btnCollect.touchable = true;
-            });
+            };
+            Timers.inst.Add(3.5f, 1, _enableBtnCallback);
 
             AttachUi(jpType);
             ScheduleAutoModeClick(4.0f);
@@ -148,11 +153,13 @@ namespace MeiZhouHeiBao_3993
 
         public override void OnClose(EventData eventData = null)
         {
+            NumberAnimation.Instance.StopAllAnimations();
             RemoveTimer(ref _delayCloseCallback);
             RemoveTimer(ref _autoClickCallback);
+            RemoveTimer(ref _rollCallback);
+            RemoveTimer(ref _enableBtnCallback);
             _animJackpot?.DetachAll();
-            _pagJackpot?.Dispose();
-            _pagJackpot = null;
+            _pagJackpot?.StopWithDefaults();
             _isClicked = false;
             base.OnClose(eventData);
         }
@@ -227,7 +234,7 @@ namespace MeiZhouHeiBao_3993
                 _animJackpot.Attach(
                     _txtWin,
                     root + $"/{GetFrameParent(jpType)}/frame",
-                    localPos: new Vector3(-5.35f, 1.1f, 0.0f),
+                    localPos: new Vector3(-5.36f, 1.75f, 0.0f),
                     localScale: new Vector3(0.01f, 0.01f, 0.01f),
                     localRot: Quaternion.identity);
             }

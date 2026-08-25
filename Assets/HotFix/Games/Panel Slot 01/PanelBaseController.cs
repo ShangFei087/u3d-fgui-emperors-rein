@@ -751,6 +751,7 @@ namespace SlotMaker
         protected virtual void BackHall()
         {
             Debug.Log("返回大厅:"+MainModel.Instance.gameID);
+            PagLifecycle.ReleaseCurrentGame();
             switch (MainModel.Instance.gameID)
             {
                 case 1700:

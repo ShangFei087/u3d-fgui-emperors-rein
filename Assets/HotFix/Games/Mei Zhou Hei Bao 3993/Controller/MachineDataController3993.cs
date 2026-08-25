@@ -254,6 +254,8 @@ namespace MeiZhouHeiBao_3993
 
             if (openType == (int)OpenType.OT_Give)
             {
+                int pantherCount = data[pos++];
+                result["Panther"] = pantherCount;
                 result["WildData"] = new JSONArray();
                 for (int i = 0; i < matrixLength; i++)
                 {
@@ -312,7 +314,7 @@ namespace MeiZhouHeiBao_3993
             return result;
         }
 
-        public void ParseSlotSpin(long totalBet, JSONNode res, SBoxJackpotData sboxJackpotData)
+        public bool ParseSlotSpin(long totalBet, JSONNode res, SBoxJackpotData sboxJackpotData)
         {
             ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             if (++MainModel.Instance.gameNumber < 0) MainModel.Instance.gameNumber = 1;
@@ -336,6 +338,7 @@ namespace MeiZhouHeiBao_3993
             int rows = CustomModel.Instance.row; // 3行
             int cols = CustomModel.Instance.column; // 5列
             int wheelChessNum = rows * cols;
+            bool isCheckGameResult;
             ContentModel.Instance.BonusData = new int[wheelChessNum];
             int[] wildData = new int[wheelChessNum];
             if (res["WildData"] != null)
@@ -354,15 +357,14 @@ namespace MeiZhouHeiBao_3993
 
             if (ContentModel.Instance.PendingFreeSpinReconnectValidation)
             {
-                ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
-                bool expectGiveSpin = ContentModel.Instance.freeSpinTotalTimes > 0 && ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes;
-                if (expectGiveSpin && openType != (int)OpenType.OT_Give)
-                {
-                    DebugUtils.LogError(
-                        $"[G1700] 免费局重连校验失败：预期赠送局 OpenType={(int)OpenType.OT_Give}，实际={openType}。已清除本地快照并回退主游戏。");
-                    FreeSpinSessionStoreG1700.Clear(SBoxModel.Instance.pid);
-                    FreeSpinSessionStoreG1700.ResetContentModelFreeStateToBaseGame();
-                }
+                //ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
+                //bool expectGiveSpin = ContentModel.Instance.freeSpinTotalTimes > 0 && ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes;
+                //if (expectGiveSpin && openType != (int)OpenType.OT_Give)
+                //{
+                //    DebugUtils.LogError($"[G1700] 免费局重连校验失败：预期赠送局 OpenType={(int)OpenType.OT_Give}，实际={openType}。已清除本地快照并回退主游戏。");
+                //    FreeSpinSessionStoreG1700.Clear(SBoxModel.Instance.pid);
+                //    FreeSpinSessionStoreG1700.ResetContentModelFreeStateToBaseGame();
+                //}
             }
 
             //判断普通奖
@@ -430,8 +432,8 @@ namespace MeiZhouHeiBao_3993
             if (!inFreeGive) TryApplyPantherWin(res, deckRowCol, wheelChessNum);
 
             ContentModel.Instance.baseGameWinCredit = totalLineWin + ContentModel.Instance.pantherBonusWin;
-            //检查算法结果
-            CheckGameResult(strDeckRowCol, totalwin);
+            //检查算法结果（免费局按变豹后盘面校验）
+            isCheckGameResult=CheckGameResult(strDeckRowCol, totalwin, inFreeGive);
 
             //判断彩金
             bool isJackpotMajor = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 0 ? sboxJackpotData.Lottery[0] == 1 : false);
@@ -629,8 +631,8 @@ namespace MeiZhouHeiBao_3993
             Record(totalBet, res);
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
             DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple} ");
-
             FreeSpinSessionStoreG3993.TryPersistOrClearSession();
+            return isCheckGameResult;
         }
 
         private void ApplyBonusRoundPlan(JSONNode res, int wheelChessNum)
@@ -796,7 +798,7 @@ namespace MeiZhouHeiBao_3993
         }
 
         //检查算法结果
-        private void CheckGameResult(string strDeckRowCol, int TotalWin)
+        private bool CheckGameResult(string strDeckRowCol, int TotalWin, bool inFreeGive)
         {
             List<List<int>> deckColRow = SlotTool.GetDeckColRow03(strDeckRowCol);
             int wild = CustomModel.Instance.symbolNumber[10];
@@ -810,8 +812,12 @@ namespace MeiZhouHeiBao_3993
             if (deckColRow == null || deckColRow.Count == 0 || winLinesRule == null || payTable == null)
             {
                 DebugUtils.LogError("[G1700][CheckGameResult] 数据为空，无法校验中奖结果。");
-                return;
+                return false;
             }
+
+            // 免费局 Matrix 是变豹前盘面，校验按升级后的黑豹算
+            if (inFreeGive)
+                CustomModel.Instance.ApplyFreePantherUpgrade(deckColRow, ContentModel.Instance.totalPantherSymbolCount);
 
             //判断中奖线,遍历每一条支付线
             for (int i = 0; i < MainModel.Instance.lineNum; ++i)
@@ -880,10 +886,12 @@ namespace MeiZhouHeiBao_3993
             if (diff != 0)
             {
                 DebugUtils.LogError($"[G1700][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}");
+                return false;
             }
             else
             {
                 DebugUtils.Log($"[G1700][CheckGameResult] 校验通过，TotalWin={TotalWin}");
+                return true;
             }
         }
 

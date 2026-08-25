@@ -357,5 +357,41 @@ namespace MeiZhouHeiBao_3993
             { 18,7},
             { 28,8}
         };
+
+        /// <summary>免费局已收集豹头达到阈值后，可将这些动物图标替换为黑豹。</summary>
+        public HashSet<int> GetFreePantherReplaceIds(int collectedCount)
+        {
+            var ids = new HashSet<int>();
+            foreach (var kv in _upPantherLv)
+            {
+                if (collectedCount >= kv.Key)
+                    ids.Add(kv.Value);
+            }
+            return ids;
+        }
+
+        /// <summary>列优先盘面：把已解锁的 5/6/7/8 原地换成黑豹（不改原始 Matrix 展示）。</summary>
+        public void ApplyFreePantherUpgrade(List<List<int>> deckColRow, int collectedCount)
+        {
+            if (deckColRow == null || deckColRow.Count == 0)
+                return;
+
+            HashSet<int> replaceIds = GetFreePantherReplaceIds(collectedCount);
+            if (replaceIds.Count == 0)
+                return;
+
+            int pantherId = symbolNumber[9];
+            for (int c = 0; c < deckColRow.Count; c++)
+            {
+                List<int> col = deckColRow[c];
+                if (col == null)
+                    continue;
+                for (int r = 0; r < col.Count; r++)
+                {
+                    if (replaceIds.Contains(col[r]))
+                        col[r] = pantherId;
+                }
+            }
+        }
     }
 }

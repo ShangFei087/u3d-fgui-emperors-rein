@@ -104,6 +104,8 @@ public class PagController : IDisposable
 
     public bool PlaybackFinished => _playbackFinished;
 
+    public bool IsDisposed => _disposed;
+
     public PagController(string instanceKey, string gamePagFolder = null)
     {
         _textureSlotId = System.Threading.Interlocked.Increment(ref _nextTextureSlotId);
@@ -218,6 +220,7 @@ public class PagController : IDisposable
         OnPlaybackFinished = null;
         OnGpuDisplayReady = null;
         _fguiPresenter.DetachLoader();
+        ReleaseGpuTexture();
     }
 
     private void DetachHostOnly()
@@ -316,6 +319,28 @@ public class PagController : IDisposable
         }
 #else
         return false;
+#endif
+    }
+
+    public static void EvictCompositionCache()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        EnsureInit();
+        if (_pagBridge == null)
+        {
+            Debug.LogWarning("[PAG] EvictCompositionCache skipped: PagBridge not initialized");
+            return;
+        }
+
+        try
+        {
+            _pagBridge.CallStatic("EvictCompositionCache");
+            LogJni("EvictCompositionCache dispatched");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning($"[PAG] EvictCompositionCache: {ex.Message}");
+        }
 #endif
     }
 
@@ -600,6 +625,16 @@ public class PagController : IDisposable
 #endif
     }
 
+    internal bool IsFguiGpuSurfaceReadyForReuse()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        return TryCallBool("IsFguiGpuSurfaceReady", () =>
+            _pagBridge.CallStatic<bool>("IsFguiGpuSurfaceReady", InstanceKey));
+#else
+        return false;
+#endif
+    }
+
     internal void ArmFguiGpuPlaybackClock()
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -729,6 +764,7 @@ public class PagController : IDisposable
         if (_disposed)
         {
             PagUnityGlBridge.ReleaseInstanceKeyNativePtr(key);
+            ReleaseNativeInstance();
         }
     }
 
@@ -1017,14 +1053,35 @@ public class PagController : IDisposable
 
         SafeCall("BindGpuTexture", () => _pagBridge.CallStatic("BindGpuTexture", InstanceKey, boundTexId, texW, texH));
 
-        SafeCall("StartFguiGpuPlayback", () => _pagBridge.CallStatic("StartFguiGpuPlayback", InstanceKey));
-        // 同尺寸复用且保留末帧时跳过双 yield，缩短旧帧停留；仍走 SetupBatch + warmup（末尾 SetFguiVisible(true)）。
+        bool skipGpuSurfaceSetup = false;
+        if (reuseGpuTexture)
+        {
+            bool started = SafeCallBool("StartFguiGpuPlaybackSync", () =>
+                _pagBridge.CallStatic<bool>("StartFguiGpuPlaybackSync", InstanceKey));
+            skipGpuSurfaceSetup = started && TryCallBool("IsFguiGpuSurfaceReady", () =>
+                _pagBridge.CallStatic<bool>("IsFguiGpuSurfaceReady", InstanceKey));
+        }
+        else
+        {
+            SafeCall("StartFguiGpuPlayback", () => _pagBridge.CallStatic("StartFguiGpuPlayback", InstanceKey));
+        }
+
+        // 同尺寸复用且保留末帧时跳过双 yield，缩短旧帧停留；仍走 warmup（末尾 SetFguiVisible(true)）。
         if (!(reuseGpuTexture && keepLastFrame))
         {
             yield return null;
             yield return null;
         }
-        yield return PagUnityGlBridge.SetupBatchCoroutine(new[] { (_textureSlotId, InstanceKey) });
+
+        if (skipGpuSurfaceSetup)
+        {
+            LogJni($"skip SetupBatch reuse surface instance={InstanceKey} id={boundTexId} slot={_textureSlotId}");
+        }
+        else
+        {
+            yield return PagUnityGlBridge.SetupBatchCoroutine(new[] { (_textureSlotId, InstanceKey) });
+        }
+
         yield return RunGpuWarmupAndArmPlaybackCoroutine();
         RequestNextGpuFrameFromSyncGroup();
         LogJni($"GPU texture bound instance={InstanceKey} id={boundTexId} slot={_textureSlotId} size={texW}x{texH} reuse={reuseGpuTexture}");
@@ -1161,6 +1218,10 @@ public class PagController : IDisposable
 #endif
     }
 
+    /// <summary>
+    /// 停止播放：JNI Stop、退同步组、清回调信号。不删除 GPU 纹理，供同尺寸下一轮 Play 复用。
+    /// 真正拆纹理走 <see cref="Dispose"/>。
+    /// </summary>
     public void StopPag()
     {
         _skipAutoSyncJoinForPlaylist = false;
@@ -1195,27 +1256,42 @@ public class PagController : IDisposable
             Debug.LogError($"[PAG JNI] Stop exception: {ex}");
         }
 
-        if (_renderTarget == PagRenderTarget.FguiTexture)
-        {
-            _fguiPresenter.Clear();
-            ResetBoundGpuTexture();
-            if (_destroyGpuCoroutine != null)
-            {
-                PagCallbackHub.Instance.StopRunCoroutine(_destroyGpuCoroutine);
-                _destroyGpuCoroutine = null;
-            }
+        Debug.Log($"[PAG] Stop instance={InstanceKey}");
+#endif
+    }
 
-            if (PagCallbackHub.Instance != null)
-            {
-                _destroyGpuCoroutine = PagCallbackHub.Instance.RunCoroutine(DestroyGpuTextureCoroutine());
-            }
-            else
-            {
-                PagUnityGlBridge.DestroyTexture(_textureSlotId, InstanceKey);
-            }
+    /// <summary>仅 Dispose 调用：拆 FGUI 包装并删除 GL 纹理。Stop 不得调用，否则下一轮无法复用。</summary>
+    private void ReleaseGpuTexture()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        if (_renderTarget != PagRenderTarget.FguiTexture)
+        {
+            ReleaseNativeInstance();
+            return;
         }
 
-        Debug.Log($"[PAG] Stop instance={InstanceKey}");
+        ResetBoundGpuTexture();
+        if (_destroyGpuCoroutine != null)
+        {
+            return;
+        }
+
+        if (PagCallbackHub.Instance != null)
+        {
+            _destroyGpuCoroutine = PagCallbackHub.Instance.RunCoroutine(DestroyGpuTextureCoroutine());
+        }
+        else
+        {
+            PagUnityGlBridge.DestroyTexture(_textureSlotId, InstanceKey);
+            ReleaseNativeInstance();
+        }
+#endif
+    }
+
+    private void ReleaseNativeInstance()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        SafeCall("ReleaseInstance", () => _pagBridge.CallStatic("ReleaseInstance", InstanceKey));
 #endif
     }
 

@@ -297,24 +297,39 @@ public static class PagGpuSyncGroup
 
             if (!controller.StartFguiGpuPlaybackFromSyncGroup())
             {
-                Debug.LogError($"[PAG Sync] StartFguiGpuPlaybackSync failed: {key}");
+                Debug.LogError($"[PAG Sync] TryStartAllPlayback: StartFguiGpuPlaybackSync failed: {key}");
                 EndGroup();
                 s_autoStartCoroutine = null;
                 yield break;
             }
 
-            setupItems.Add((controller.TextureSlotId, key));
+            if (!controller.IsFguiGpuSurfaceReadyForReuse())
+            {
+                setupItems.Add((controller.TextureSlotId, key));
+            }
         }
 
         yield return new WaitForEndOfFrame();
-        Debug.Log($"[PAG Sync] setupBatch begin count={setupItems.Count}");
-        yield return PagUnityGlBridge.SetupBatchCoroutine(setupItems);
-
-        var warmupFlushItems = new List<(int slotId, string instanceKey, double progress)>(setupItems.Count);
-        for (int i = 0; i < setupItems.Count; i++)
+        if (setupItems.Count > 0)
         {
-            (int slotId, string instanceKey) item = setupItems[i];
-            warmupFlushItems.Add((item.slotId, item.instanceKey, 0.0));
+            Debug.Log($"[PAG Sync] setupBatch begin count={setupItems.Count}");
+            yield return PagUnityGlBridge.SetupBatchCoroutine(setupItems);
+        }
+        else
+        {
+            Debug.Log("[PAG Sync] setupBatch skipped, all surfaces reused");
+        }
+
+        var warmupFlushItems = new List<(int slotId, string instanceKey, double progress)>(s_members.Count);
+        foreach (string key in s_members)
+        {
+            PagController warmupController = PagControllerRegistry.Resolve(key);
+            if (warmupController == null)
+            {
+                continue;
+            }
+
+            warmupFlushItems.Add((warmupController.TextureSlotId, key, 0.0));
         }
 
         for (int warmup = 0; warmup < PagController.GpuWarmupFlushCount; warmup++)
@@ -361,11 +376,14 @@ public static class PagGpuSyncGroup
         }
 
         yield return new WaitForEndOfFrame();
-        var setupItems = new List<(int slotId, string instanceKey)>
+        if (!controller.IsFguiGpuSurfaceReadyForReuse())
         {
-            (controller.TextureSlotId, instanceKey)
-        };
-        yield return PagUnityGlBridge.SetupBatchCoroutine(setupItems);
+            var setupItems = new List<(int slotId, string instanceKey)>
+            {
+                (controller.TextureSlotId, instanceKey)
+            };
+            yield return PagUnityGlBridge.SetupBatchCoroutine(setupItems);
+        }
 
         var warmupFlushItems = new List<(int slotId, string instanceKey, double progress)>
         {

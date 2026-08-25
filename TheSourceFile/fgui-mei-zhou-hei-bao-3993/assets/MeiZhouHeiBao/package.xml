@@ -57,7 +57,7 @@
     <image id="z14g2t" name="ng_num_1.png" path="/images/gameJackpot/FontGameJackpot/" exported="true"/>
     <image id="z14g2u" name="ng_num_0.png" path="/images/gameJackpot/FontGameJackpot/" exported="true"/>
     <image id="z14g2z" name="ng_num_6.png" path="/images/gameJackpot/FontGameJackpot/" exported="true"/>
-    <image id="z14g3c" name="fg_num_00.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true"/>
+    <image id="z14g3c" name="fg_num_FrontPopupTrigger_00.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true" atlas="1"/>
     <image id="z14g3d" name="sg_num_UI text for times prompt_dollar.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
     <image id="z14g3e" name="fg_num_Black Panther Icon Collection UI_10.png" path="/images/gameMain/free/FontRight/" exported="true"/>
     <image id="z14g3f" name="fg_num_Black Panther Icon Collection UI_18.png" path="/images/gameMain/free/FontRight/" exported="true"/>
@@ -79,15 +79,15 @@
     <image id="z14g48" name="fg_num_Remaining game attempts_com.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
     <image id="z14g49" name="fg_num_Black Panther Icon Collection UI_0.png" path="/images/gameMain/free/FontFreeCollect/" exported="true"/>
     <image id="z14g4a" name="fg_num_Remaining game attempts_08.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
-    <image id="z14g4b" name="fg_num_01.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true"/>
-    <image id="z14g4c" name="fg_num_02.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true"/>
-    <image id="z14g4d" name="fg_num_03.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true"/>
-    <image id="z14g4e" name="fg_num_04.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true"/>
-    <image id="z14g4f" name="fg_num_05.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true"/>
-    <image id="z14g4g" name="fg_num_06.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true"/>
-    <image id="z14g4h" name="fg_num_07.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true"/>
-    <image id="z14g4i" name="fg_num_08.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true"/>
-    <image id="z14g4j" name="fg_num_09.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true"/>
+    <image id="z14g4b" name="fg_num_FrontPopupTrigger_01.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true" atlas="1"/>
+    <image id="z14g4c" name="fg_num_FrontPopupTrigger_02.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true" atlas="1"/>
+    <image id="z14g4d" name="fg_num_FrontPopupTrigger_03.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true" atlas="1"/>
+    <image id="z14g4e" name="fg_num_FrontPopupTrigger_04.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true" atlas="1"/>
+    <image id="z14g4f" name="fg_num_FrontPopupTrigger_05.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true" atlas="1"/>
+    <image id="z14g4g" name="fg_num_FrontPopupTrigger_06.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true" atlas="1"/>
+    <image id="z14g4h" name="fg_num_FrontPopupTrigger_07.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true" atlas="1"/>
+    <image id="z14g4i" name="fg_num_FrontPopupTrigger_08.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true" atlas="1"/>
+    <image id="z14g4j" name="fg_num_FrontPopupTrigger_09.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true" atlas="1"/>
     <image id="z14g4k" name="fg_num_Free game settlement prompt box_00.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
     <image id="z14g4l" name="fg_num_Free game settlement prompt box_01.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
     <image id="z14g4m" name="fg_num_Free game settlement prompt box_02.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
@@ -200,15 +200,14 @@
     <component id="e3wa80" name="GameJackpotNumReel.xml" path="/moudules/gameJackpot/" exported="true"/>
     <component id="e3wa81" name="GameJackpotMinor.xml" path="/moudules/gameJackpot/" exported="true"/>
     <component id="e3wa82" name="GameJackpotMini.xml" path="/moudules/gameJackpot/" exported="true"/>
-    <font id="e3wa84" name="FrontPopupTrigger.fnt" path="/Font/" exported="true"/>
     <font id="mxrk85" name="FontFreeCollect.fnt" path="/Font/" exported="true"/>
     <font id="mxrk86" name="FontFreeSpinTime.fnt" path="/Font/" exported="true"/>
     <component id="mxrk8h" name="AnchorEffect.xml" path="/components/gameMain/" exported="true"/>
-    <image id="mxrk8i" name="payTable1.png" path="/images/payTable/" exported="true"/>
-    <image id="mxrk8j" name="payTable2.png" path="/images/payTable/" exported="true"/>
-    <image id="mxrk8k" name="payTable3.png" path="/images/payTable/" exported="true"/>
-    <image id="mxrk8l" name="payTable4.png" path="/images/payTable/" exported="true"/>
-    <image id="mxrk8m" name="payTable5.png" path="/images/payTable/" exported="true"/>
+    <image id="mxrk8i" name="payTable1.png" path="/images/payTable/" exported="true" atlas="0"/>
+    <image id="mxrk8j" name="payTable2.png" path="/images/payTable/" exported="true" atlas="0"/>
+    <image id="mxrk8k" name="payTable3.png" path="/images/payTable/" exported="true" atlas="0"/>
+    <image id="mxrk8l" name="payTable4.png" path="/images/payTable/" exported="true" atlas="0"/>
+    <image id="mxrk8m" name="payTable5.png" path="/images/payTable/" exported="true" atlas="0"/>
     <component id="of0qao" name="PayTable1.xml" path="/moudules/pageGameMain/payTable/" exported="true"/>
     <component id="of0qap" name="PayTable2.xml" path="/moudules/pageGameMain/payTable/" exported="true"/>
     <component id="of0qaq" name="PayTable3.xml" path="/moudules/pageGameMain/payTable/" exported="true"/>
@@ -273,6 +272,7 @@
     <component id="ni96ak" name="SmallGameNum.xml" path="/components/gameMain/" exported="true"/>
     <component id="ni96am" name="anchorTrails.xml" path="/components/" exported="true"/>
     <component id="of0qan" name="bar.xml" path="/components/popupGameLoading/"/>
+    <font id="el9lat" name="FrontPopupTrigger.fnt" path="/Font/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Mei Zhou Hei Bao 3993\FGUIs" packageCount="2"/>
 </packageDescription>

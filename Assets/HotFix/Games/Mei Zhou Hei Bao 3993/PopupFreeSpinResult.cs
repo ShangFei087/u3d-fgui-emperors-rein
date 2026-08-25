@@ -25,6 +25,8 @@ namespace MeiZhouHeiBao_3993
         private AnimPlayer _animFreeResult;
         private TimerCallback _delayCloseCallback;
         private TimerCallback _autoClickCallback;
+        private TimerCallback _rollCallback;
+        private TimerCallback _enableBtnCallback;
         //pag
         private GComponent anchorPagFreeResult;
         private PagSlotBinding pagFreeResult;
@@ -83,6 +85,11 @@ namespace MeiZhouHeiBao_3993
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
 
+            RemoveTimer(ref _delayCloseCallback);
+            RemoveTimer(ref _autoClickCallback);
+            RemoveTimer(ref _rollCallback);
+            RemoveTimer(ref _enableBtnCallback);
+
             anchorPagFreeResult = contentPane.GetChild("anchorFreeResultPag").asCom;
             if (pagFreeResult == null) pagFreeResult = new PagSlotBinding("3993pagFreeResult", PagPath);
             pagFreeResult.EnsureSlot(anchorPagFreeResult);
@@ -108,17 +115,18 @@ namespace MeiZhouHeiBao_3993
             txtTotalFreeTime.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
 
             txtScoreWin = contentPane.GetChild("txtScoreWin").asTextField;
-            txtScoreWin.text ="0";
+            txtScoreWin.text =string.Empty;
 
-
-            Timers.inst.Add(0.5f, 1, obj =>
+            _rollCallback = obj =>
             {
                 NumberAnimation.Instance.AnimateNumber(txtScoreWin, 0, ContentModel.Instance.freeSpinTotalWinCredit, 3.0f, EaseType.Linear, () => { });
-            });
-            Timers.inst.Add(3.5f, 1, obj =>
+            };
+            Timers.inst.Add(0.5f, 1, _rollCallback);
+            _enableBtnCallback = obj =>
             {
                 if (btnCollect != null) btnCollect.touchable = true;
-            });
+            };
+            Timers.inst.Add(3.5f, 1, _enableBtnCallback);
             const string rootFreeResultPath = "Anchor/Spine Mecanim GameObject (fg_pup_CollectFrame)/SkeletonUtility-SkeletonRoot/root/all";
             _animFreeResult.Attach(
                 btnCollect,
@@ -155,13 +163,15 @@ namespace MeiZhouHeiBao_3993
 
         public override void OnClose(EventData eventData = null)
         {
+            NumberAnimation.Instance.StopAllAnimations();
             base.OnClose(eventData);
             _isClicked = false;
             RemoveTimer(ref _delayCloseCallback);
             RemoveTimer(ref _autoClickCallback);
+            RemoveTimer(ref _rollCallback);
+            RemoveTimer(ref _enableBtnCallback);
             _animFreeResult.DetachAll();
-            pagFreeResult?.Dispose();
-            pagFreeResult = null;
+            pagFreeResult?.StopWithDefaults();
             //_gameSoundController?.Dispose();
             //_gameSoundController = null;
         }

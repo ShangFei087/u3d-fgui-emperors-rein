@@ -135,6 +135,10 @@ final class PagOverlayManager {
     private int gpuTextureId;
     private int gpuTexW;
     private int gpuTexH;
+    /** 最近一次 FromTexture 成功绑定的 GL 纹理，供 Stop/Play 复用时跳过重建。 */
+    private int fguiGpuBoundTexId;
+    private int fguiGpuBoundTexW;
+    private int fguiGpuBoundTexH;
     private PAGPlayer fguiGpuPlayer;
     private PAGSurface fguiGpuSurface;
     private Runnable fguiGpuTickRunnable;
@@ -291,6 +295,12 @@ final class PagOverlayManager {
         return fguiGpuPlayer != null && gpuTextureId > 0 && gpuTexW > 0 && gpuTexH > 0;
     }
 
+    /** Player+Surface 已绑定且可跳过 FromTexture。 */
+    boolean isFguiGpuSurfaceReadyForReuse() {
+        return fguiGpuPlayer != null && fguiGpuSurface != null && fguiGpuSurfaceReady
+                && gpuTextureId > 0 && gpuTexW > 0 && gpuTexH > 0;
+    }
+
     int getGpuTextureWidth() {
         return gpuTexW;
     }
@@ -368,9 +378,9 @@ final class PagOverlayManager {
         pagView.freeCache();
     }
 
-    /** 切换新 PAG 前释放上一份 composition/bitmap，避免 Dragon+UFO 双份 native 内存叠加。 */
+    /** 切换新 PAG 前停播；FGUI GPU 保留 Player/Surface，避免每局 FromTexture 泄漏 1–2MB。 */
     private void prepareForNewPlay() {
-        stopFguiGpuPlayback();
+        pauseFguiGpuKeepSurfaceOrStopFully();
         stopBitmapFallback();
         showPagViewAfterBitmapFallback();
         if (pagView != null) {
@@ -500,12 +510,16 @@ final class PagOverlayManager {
             if (deferGpuSurfaceTeardown) {
                 stopFguiGpuTickScheduling();
                 resetFguiGpuChainState();
+                fguiGpuPlaybackClockArmed = false;
+                fguiGpuPlaybackStartMs = 0L;
+                fguiGpuPendingProgress = 0.0;
+                fguiGpuPlayStartedNotified = false;
             } else {
                 stopFguiGpuPlayback();
+                gpuTextureId = 0;
+                gpuTexW = 0;
+                gpuTexH = 0;
             }
-            gpuTextureId = 0;
-            gpuTexW = 0;
-            gpuTexH = 0;
             stopBitmapFallback();
             showPagViewAfterBitmapFallback();
             if (pagView != null) {
@@ -1142,8 +1156,19 @@ final class PagOverlayManager {
             clearPlayStartedCallback();
             return;
         }
-        releaseFguiGpuPlayerOnly();
         stopBitmapFallback();
+        if (tryReuseFguiGpuPlayerForNewPlay(texId, texW, texH)) {
+            long durationUs = resolveCompositionDurationUs();
+            Log.i(TAG, "startFguiGpuPlayback: reuse player+surface tex=" + texId
+                    + " " + texW + "x" + texH + " durationUs=" + durationUs
+                    + " caller=" + caller);
+            if (fguiGpuPlaylistActive) {
+                syncFguiGpuPlaylistIndexToCurrentPath();
+                armGlChainSnapshotFromPlaylistNext();
+            }
+            return;
+        }
+        releaseFguiGpuPlayerOnly();
         fguiGpuSurfaceReady = false;
         try {
             fguiGpuPlayer = new PAGPlayer();
@@ -1185,6 +1210,11 @@ final class PagOverlayManager {
                     + " size=" + texW + "x" + texH);
             return false;
         }
+        if (canReuseFguiGpuSurface(texId, texW, texH)) {
+            Log.i(TAG, "setupGpuSurfaceOnRenderThread: skip FromTexture reuse tex=" + texId
+                    + " " + texW + "x" + texH);
+            return true;
+        }
         if (fguiGpuSurface != null) {
             fguiGpuPlayer.setSurface(null);
             fguiGpuSurface.release();
@@ -1200,6 +1230,7 @@ final class PagOverlayManager {
             }
             fguiGpuPlayer.setSurface(fguiGpuSurface);
             fguiGpuSurfaceReady = true;
+            rememberFguiGpuBoundTexture(texId, texW, texH);
             Log.i(TAG, "setupGpuSurfaceOnRenderThread: tex=" + texId + " " + texW + "x" + texH
                     + " (tick deferred to Unity warmup/arm)");
             return true;
@@ -1259,6 +1290,7 @@ final class PagOverlayManager {
                 fguiGpuPlayer.release();
                 fguiGpuPlayer = null;
             }
+            clearFguiGpuBoundTexture();
             fguiGpuActive = false;
             Log.i(TAG, "teardownGpuSurfaceOnRenderThread: ok path=" + currentPlayPath);
             return true;
@@ -1934,6 +1966,74 @@ final class PagOverlayManager {
         setFguiGpuTickPhase(FguiGpuTickPhase.STOPPED);
     }
 
+    /** FGUI GPU：只停 tick，保留 Player/Surface；其它模式完整释放。 */
+    private void pauseFguiGpuKeepSurfaceOrStopFully() {
+        if (renderMode == RENDER_MODE_FGUI_GPU
+                && (fguiGpuPlayer != null || fguiGpuSurface != null)) {
+            stopFguiGpuTickScheduling();
+            resetFguiGpuChainState();
+            fguiGpuPlaybackClockArmed = false;
+            fguiGpuPlaybackStartMs = 0L;
+            fguiGpuPendingProgress = 0.0;
+            fguiGpuPlayStartedNotified = false;
+            return;
+        }
+        stopFguiGpuPlayback();
+    }
+
+    private boolean canReuseFguiGpuSurface(int texId, int texW, int texH) {
+        if (fguiGpuPlayer == null || fguiGpuSurface == null || !fguiGpuSurfaceReady) {
+            return false;
+        }
+        if (texId <= 0 || texW <= 0 || texH <= 0) {
+            return false;
+        }
+        if (fguiGpuBoundTexId == 0) {
+            return texId == gpuTextureId && texW == gpuTexW && texH == gpuTexH;
+        }
+        return fguiGpuBoundTexId == texId && fguiGpuBoundTexW == texW && fguiGpuBoundTexH == texH;
+    }
+
+    private void rememberFguiGpuBoundTexture(int texId, int texW, int texH) {
+        fguiGpuBoundTexId = texId;
+        fguiGpuBoundTexW = texW;
+        fguiGpuBoundTexH = texH;
+    }
+
+    private void clearFguiGpuBoundTexture() {
+        fguiGpuBoundTexId = 0;
+        fguiGpuBoundTexW = 0;
+        fguiGpuBoundTexH = 0;
+    }
+
+    /**
+     * Stop 后再 Play：同尺寸复用 Player+Surface，只换 composition，不 FromTexture。
+     * 不 arm 墙钟，等 Unity warmup 后 ArmFguiGpuPlaybackClock。
+     */
+    private boolean tryReuseFguiGpuPlayerForNewPlay(int texId, int texW, int texH) {
+        if (pagFile == null || !canReuseFguiGpuSurface(texId, texW, texH)) {
+            return false;
+        }
+        try {
+            fguiGpuPlayer.setComposition(pagFile);
+            fguiGpuPlayer.setProgress(0);
+            fguiGpuClearBeforeNextFlush = true;
+            fguiGpuActive = true;
+            isPlaying = true;
+            setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
+            fguiGpuPlaybackStartMs = 0L;
+            fguiGpuPlaybackClockArmed = false;
+            fguiGpuPendingProgress = 0.0;
+            fguiGpuPlayStartedNotified = false;
+            fguiGpuLastCompletedLoops = 0L;
+            rememberFguiGpuBoundTexture(texId, texW, texH);
+            return true;
+        } catch (Exception e) {
+            Log.w(TAG, "tryReuseFguiGpuPlayerForNewPlay failed: " + e.getMessage());
+            return false;
+        }
+    }
+
     /** 仅释放 PAGPlayer/Surface 与 tick；保留 Unity 侧 gpuTextureId 绑定。 */
     private void releaseFguiGpuPlayerOnly() {
         stopFguiGpuTickScheduling();
@@ -1956,6 +2056,7 @@ final class PagOverlayManager {
             try {
                 fguiGpuPlayer.setComposition(pagFile);
                 fguiGpuPlayer.setProgress(0);
+                fguiGpuClearBeforeNextFlush = true;
                 fguiGpuActive = true;
                 setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
                 armFguiGpuPlaybackClock();
@@ -2090,6 +2191,7 @@ final class PagOverlayManager {
             fguiGpuSurface.release();
             fguiGpuSurface = null;
         }
+        clearFguiGpuBoundTexture();
     }
 
     private void startBitmapFallback(String caller) {

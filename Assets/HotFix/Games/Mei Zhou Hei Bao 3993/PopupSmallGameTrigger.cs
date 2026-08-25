@@ -23,6 +23,7 @@ namespace MeiZhouHeiBao_3993
         private AnimPlayer _animBonusTrigger;
         private TimerCallback _delayCloseCallback;
         private TimerCallback _autoClickCallback;
+        private TimerCallback _enableBtnCallback;
         //pag
         private GComponent anchorPagBonusTrigger;
         private PagSlotBinding pagBonusTrigger;
@@ -79,6 +80,7 @@ namespace MeiZhouHeiBao_3993
 
             RemoveTimer(ref _delayCloseCallback);
             RemoveTimer(ref _autoClickCallback);
+            RemoveTimer(ref _enableBtnCallback);
             anchorPagBonusTrigger = contentPane.GetChild("anchorBonusTriggerPag").asCom;
             if (pagBonusTrigger == null) pagBonusTrigger = new PagSlotBinding("3993pagBonusTrigger", PagPath);
             pagBonusTrigger.EnsureSlot(anchorPagBonusTrigger);
@@ -103,10 +105,11 @@ namespace MeiZhouHeiBao_3993
             btnStart = contentPane.GetChild("btnStart").asButton;
 
             btnStart.touchable = false;
-            Timers.inst.Add(0.5f, 1, obj =>
+            _enableBtnCallback = obj =>
             {
                 if (btnStart != null) btnStart.touchable = true;
-            });
+            };
+            Timers.inst.Add(0.5f, 1, _enableBtnCallback);
             btnStart.onClick.Clear();
             btnStart.onClick.Add(() => OnCloseBtn());
 
@@ -134,9 +137,9 @@ namespace MeiZhouHeiBao_3993
         {
             RemoveTimer(ref _delayCloseCallback);
             RemoveTimer(ref _autoClickCallback);
+            RemoveTimer(ref _enableBtnCallback);
             _animBonusTrigger.DetachAll();
-            pagBonusTrigger?.Dispose();
-            pagBonusTrigger = null;
+            pagBonusTrigger?.StopWithDefaults();
 
             base.OnClose(eventData);
 

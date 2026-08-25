@@ -25,6 +25,7 @@ namespace MeiZhouHeiBao_3993
         private AnimPlayer _animFreeTrigger;
         private TimerCallback _delayCloseCallback;
         private TimerCallback _autoClickCallback;
+        private TimerCallback _enableBtnCallback;
         //pag
         private GComponent anchorPagFreeTrigger;
         private PagSlotBinding pagFreeTrigger;
@@ -85,6 +86,7 @@ namespace MeiZhouHeiBao_3993
            
             RemoveTimer(ref _delayCloseCallback);
             RemoveTimer(ref _autoClickCallback);
+            RemoveTimer(ref _enableBtnCallback);
 
             anchorPagFreeTrigger= contentPane.GetChild("anchorFreeTriggerPag").asCom;
             if (pagFreeTrigger == null) pagFreeTrigger = new PagSlotBinding("3993pagFreeTrigger", PagPath);
@@ -106,10 +108,11 @@ namespace MeiZhouHeiBao_3993
             txtFreeTime = contentPane.GetChild("FreeTimeText").asTextField;
             txtFreeTime.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
             btnStart.touchable = false;
-            Timers.inst.Add(0.5f, 1, obj =>
+            _enableBtnCallback = obj =>
             {
                 if (btnStart != null) btnStart.touchable = true;
-            });
+            };
+            Timers.inst.Add(0.5f, 1, _enableBtnCallback);
             btnStart.onClick.Clear();
             btnStart.onClick.Add(() => OnCloseBtn());
 
@@ -143,9 +146,9 @@ namespace MeiZhouHeiBao_3993
         {
             RemoveTimer(ref _delayCloseCallback);
             RemoveTimer(ref _autoClickCallback);
+            RemoveTimer(ref _enableBtnCallback);
             _animFreeTrigger.DetachAll();
-            pagFreeTrigger?.Dispose();
-            pagFreeTrigger = null;
+            pagFreeTrigger?.StopWithDefaults();
 
             base.OnClose(eventData);
 
