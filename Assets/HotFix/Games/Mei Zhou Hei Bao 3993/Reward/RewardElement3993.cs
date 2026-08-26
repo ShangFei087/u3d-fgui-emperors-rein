@@ -5,11 +5,16 @@ using UnityEngine;
 
 namespace MeiZhouHeiBao_3993
 {
+    /// <summary>大奖盘单图标滚动状态。</summary>
     public enum RewardElementState
     {
+        /// <summary>静止。</summary>
         None,
+        /// <summary>循环滚动。</summary>
         Roll,
+        /// <summary>准备停止。</summary>
         Stop,
+        /// <summary>回滚。</summary>
         BackRoll,
     }
 
@@ -19,43 +24,74 @@ namespace MeiZhouHeiBao_3993
     /// </summary>
     public class RewardElement3993
     {
+        /// <summary>单格高度，循环滚动换图阈值。</summary>
         private const float NodeHeight = 300f;
+        /// <summary>滚动速度（像素/秒）。</summary>
         private const float MinSpeed = 2000f;
+        /// <summary>回滚时长。</summary>
         private const float BackRollTime = 0.1f;
+        /// <summary>普通 bonus 静态图。</summary>
         private const string BonusIconUrl = "ui://MeiZhouHeiBao/ng_sym13_Bonus";
+        /// <summary>MINI 彩金静态图。</summary>
         private const string JpMiniIconUrl = "ui://MeiZhouHeiBao/ng_sym14_GoldCoin_MINI";
+        /// <summary>MAJOR 彩金静态图。</summary>
         private const string JpMajorIconUrl = "ui://MeiZhouHeiBao/ng_sym15_GoldCoin_MAJOR";
+        /// <summary>MINOR 彩金静态图。</summary>
         private const string JpMinorIconUrl = "ui://MeiZhouHeiBao/ng_sym16_GoldCoin_MINOR";
+        /// <summary>Bonus Spine 上挂分数的骨骼路径。</summary>
         private const string BonusBonePath =
             "Anchor/Spine Mecanim GameObject (ng_sym14_Bonus)/SkeletonUtility-SkeletonRoot/root/All/coin/number";
+        /// <summary>收集动画状态名。</summary>
         private const string CollectAnimName = "collect";
+        /// <summary>锁定待机动画状态名。</summary>
         private const string IdleAnimName = "idle";
 
+        /// <summary>Bonus Spine 对象池 key。</summary>
         private static string RewardBonusPoolKey =>
             System.IO.Path.GetFileNameWithoutExtension(CustomModel.Instance.symbolRewardBonusEffect);
 
+        /// <summary>图标根节点。</summary>
         private readonly GComponent _root;
+        /// <summary>所属 15 轴。</summary>
         private readonly RewardRoll3993 _rewardRoll;
+        /// <summary>Spine/图挂点。</summary>
         private readonly GComponent _animator;
+        /// <summary>滚动中的静态图。</summary>
         private readonly GLoader _loader;
+        /// <summary>普通 bonus 分数文本。</summary>
         private readonly GTextField _txtNum;
+        /// <summary>收集后遮罩图。</summary>
         private readonly GLoader _mask;
+        /// <summary>循环滚动的 5 档 Y 坐标。</summary>
         private readonly float[] _nodePosList = new float[5];
 
+        /// <summary>节点槽位 id（iconIndex+1），对应 _nodePosList。</summary>
         private int _id;
+        /// <summary>轴内序号，0 为停稳可见格。</summary>
         private int _iconIndex;
+        /// <summary>所属轴下标 0~14。</summary>
         private int _rollIndex;
+        /// <summary>当前滚动速度。</summary>
         private float _rollSpeed;
+        /// <summary>当前滚动状态。</summary>
         private RewardElementState _state = RewardElementState.None;
+        /// <summary>回滚 Tweener。</summary>
         private GTweener _tweener;
 
+        /// <summary>池化取出的 Spine 特效节点。</summary>
         private GComponent _effectCom;
+        /// <summary>锁定格 Spine 播放器。</summary>
         private AnimPlayer _animPlayer;
+        /// <summary>挂在 Bonus 骨骼上的分数组件。</summary>
         private GComponent _numCom;
+        /// <summary>收集光效挂点。</summary>
         private GComponent _glowCom;
+        /// <summary>当前 Spine 对象池 key。</summary>
         private string _effectPoolKey;
+        /// <summary>彩金类型，-1 表示非彩金。</summary>
         private int _jpType = -1;
 
+        /// <summary>缓存 FGUI 子节点：animator、image、txtNum、mask。</summary>
         public RewardElement3993(GComponent root, RewardRoll3993 rewardRoll)
         {
             _root = root;
@@ -73,6 +109,7 @@ namespace MeiZhouHeiBao_3993
             SetMaskVisible(false);
         }
 
+        /// <summary>设置轴/槽位、循环 Y 坐标并清空显示。</summary>
         public void Init(int rollIndex, int iconIndex)
         {
             _rollIndex = rollIndex;
@@ -91,6 +128,7 @@ namespace MeiZhouHeiBao_3993
             SetBlank();
         }
 
+        /// <summary>开转前给非可见格随机图标。</summary>
         public void InitData()
         {
             if (_iconIndex == 0)
@@ -98,6 +136,7 @@ namespace MeiZhouHeiBao_3993
             SetRandomSprite();
         }
 
+        /// <summary>进入循环滚动，清 Spine 与遮罩。</summary>
         public void StartRoll()
         {
             KillTween();
@@ -107,6 +146,7 @@ namespace MeiZhouHeiBao_3993
             _rollSpeed = MinSpeed;
         }
 
+        /// <summary>开始回滚到目标 Y，并通知轴进入停轴流程。</summary>
         public void StartStopRoll()
         {
             KillTween();
@@ -119,6 +159,7 @@ namespace MeiZhouHeiBao_3993
             _tweener = TweenUtils.DOLocalMoveY(_root, targetY, BackRollTime, EaseType.Linear, OnBackRollArrived);
         }
 
+        /// <summary>滚动中下移，越过顶部则换图并绕回。</summary>
         public void Update(float dt)
         {
             if (_state != RewardElementState.Roll)
@@ -136,6 +177,7 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
+        /// <summary>显示 bonus 或彩金；可见格用 Spine，滚动中用静态图。</summary>
         public void SetBonus(int score)
         {
             if (score <= 0)
@@ -160,6 +202,7 @@ namespace MeiZhouHeiBao_3993
                 SetBonusWithLoader(score);
         }
 
+        /// <summary>清空图标、分数与 Spine。</summary>
         public void SetBlank()
         {
             _jpType = -1;
@@ -179,6 +222,7 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
+        /// <summary>收集完成后切静态图并显示遮罩。</summary>
         public void SetCollected(int score)
         {
             RestoreSortingOrder();
@@ -191,17 +235,20 @@ namespace MeiZhouHeiBao_3993
             SetMaskVisible(true);
         }
 
+        /// <summary>播 collect 并闪收集光效。</summary>
         public void PlayCollect()
         {
             _animPlayer?.Play(CollectAnimName);
             PlayGlow();
         }
 
+        /// <summary>锁定格循环播 idle。</summary>
         public void PlayIdleFromStart()
         {
             _animPlayer?.Play(IdleAnimName, true);
         }
 
+        /// <summary>图标中心的全局坐标，供拖尾起点使用。</summary>
         public Vector2 GetCenterGlobal()
         {
             if (_root == null)
@@ -209,6 +256,7 @@ namespace MeiZhouHeiBao_3993
             return _root.LocalToGlobal(new Vector2(_root.width * 0.5f, _root.height * 0.5f));
         }
 
+        /// <summary>停 Tween、还层级、清 Spine。</summary>
         public void Dispose()
         {
             KillTween();
@@ -218,6 +266,7 @@ namespace MeiZhouHeiBao_3993
             _state = RewardElementState.None;
         }
 
+        /// <summary>可见格：池化 Bonus Spine，分数挂 number 骨骼。</summary>
         private void SetBonusWithSpine(int score)
         {
             if (score <= 0)
@@ -267,7 +316,7 @@ namespace MeiZhouHeiBao_3993
                 {
                     GTextField txt = _numCom.GetChild("txtScore")?.asTextField;
                     if (txt != null)
-                        txt.text = score.ToString();
+                        txt.text = ContentModel.GetDisplayScore(score).ToString();
 
                     _effectCom.AddChild(_numCom);
                     _numCom.SetXY(0, 0);
@@ -291,6 +340,7 @@ namespace MeiZhouHeiBao_3993
                 FguiSortingOrderManager.Instance.ChangeSortingOrder(_root, _rewardRoll.GoExpectation);
         }
 
+        /// <summary>可见格：池化 Major/Minor/Mini Spine。</summary>
         private void SetJackpotWithSpine(int score)
         {
             int jpType = ContentModel.GetJackpotType(score);
@@ -339,6 +389,7 @@ namespace MeiZhouHeiBao_3993
                 FguiSortingOrderManager.Instance.ChangeSortingOrder(_root, _rewardRoll.GoExpectation);
         }
 
+        /// <summary>用静态图显示彩金图标。</summary>
         private void SetJackpotWithLoader(int score)
         {
             ClearSpineEffect();
@@ -357,6 +408,7 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
+        /// <summary>用静态图显示 bonus 与分数。</summary>
         private void SetBonusWithLoader(int score)
         {
             ClearSpineEffect();
@@ -370,9 +422,10 @@ namespace MeiZhouHeiBao_3993
             if (_txtNum == null)
                 return;
 
-            if (score > 0)
+            int display = ContentModel.GetDisplayScore(score);
+            if (display > 0)
             {
-                _txtNum.text = score.ToString();
+                _txtNum.text = display.ToString();
                 _txtNum.visible = true;
             }
             else
@@ -382,6 +435,7 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
+        /// <summary>在图标上挂收集光效（默认隐藏）。</summary>
         private void AttachGlow()
         {
             ClearGlow();
@@ -399,6 +453,7 @@ namespace MeiZhouHeiBao_3993
             _glowCom.visible = false;
         }
 
+        /// <summary>显示并重播收集光效粒子。</summary>
         private void PlayGlow()
         {
             if (_glowCom == null)
@@ -416,6 +471,7 @@ namespace MeiZhouHeiBao_3993
                 particles[i].Play(true);
         }
 
+        /// <summary>恢复图标默认 sortingOrder。</summary>
         private void RestoreSortingOrder()
         {
             if (_root == null)
@@ -423,6 +479,7 @@ namespace MeiZhouHeiBao_3993
             FguiSortingOrderManager.Instance.ReturnSortingOrder(_root);
         }
 
+        /// <summary>按分值设置收集后遮罩图。</summary>
         private void SetMaskUrl(int score)
         {
             if (_mask == null) return;
@@ -431,12 +488,14 @@ namespace MeiZhouHeiBao_3993
                 : BonusIconUrl;
         }
 
+        /// <summary>显示或隐藏收集遮罩。</summary>
         private void SetMaskVisible(bool visible)
         {
             if (_mask != null)
                 _mask.visible = visible;
         }
 
+        /// <summary>卸掉收集光效。</summary>
         private void ClearGlow()
         {
             if (_glowCom == null)
@@ -447,6 +506,7 @@ namespace MeiZhouHeiBao_3993
             _glowCom = null;
         }
 
+        /// <summary>Spine 还池并清分数挂点。</summary>
         private void ClearSpineEffect()
         {
             ClearGlow();
@@ -470,6 +530,7 @@ namespace MeiZhouHeiBao_3993
             _effectPoolKey = null;
         }
 
+        /// <summary>卸骨骼挂点并销毁分数组件。</summary>
         private void ClearNumBind()
         {
             _animPlayer?.DetachAll();
@@ -482,6 +543,7 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
+        /// <summary>回滚，通知轴 BackRollEnd。</summary>
         private void OnBackRollArrived()
         {
             _tweener = null;
@@ -493,6 +555,7 @@ namespace MeiZhouHeiBao_3993
             _rewardRoll.BackRollEnd(_rollIndex);
         }
 
+        /// <summary>滚动循环换图：空白 / 随机 bonus / 假彩金。</summary>
         private void SetRandomSprite()
         {
             int ran = Random.Range(0, 100);
@@ -509,6 +572,7 @@ namespace MeiZhouHeiBao_3993
                 SetBlank();
         }
 
+        /// <summary>彩金类型对应静态图 URL。</summary>
         private static string GetJpIconUrl(int jpType)
         {
             if (jpType == 1) return JpMinorIconUrl;
@@ -516,6 +580,7 @@ namespace MeiZhouHeiBao_3993
             return JpMajorIconUrl;
         }
 
+        /// <summary>杀掉当前回滚 Tween。</summary>
         private void KillTween()
         {
             if (_tweener == null)

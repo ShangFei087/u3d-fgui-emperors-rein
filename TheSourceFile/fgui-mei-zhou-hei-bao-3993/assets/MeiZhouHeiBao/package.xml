@@ -88,28 +88,15 @@
     <image id="z14g4h" name="fg_num_FrontPopupTrigger_07.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true" atlas="1"/>
     <image id="z14g4i" name="fg_num_FrontPopupTrigger_08.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true" atlas="1"/>
     <image id="z14g4j" name="fg_num_FrontPopupTrigger_09.png" path="/images/gameMain/free/FrontPopupTrigger/" exported="true" atlas="1"/>
-    <image id="z14g4k" name="fg_num_Free game settlement prompt box_00.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
-    <image id="z14g4l" name="fg_num_Free game settlement prompt box_01.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
-    <image id="z14g4m" name="fg_num_Free game settlement prompt box_02.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
     <image id="z14g4n" name="fg_num_Remaining game attempts_09.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
-    <image id="z14g4o" name="fg_num_Free game settlement prompt box_03.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
-    <image id="z14g4p" name="fg_num_Free game settlement prompt box_04.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
-    <image id="z14g4r" name="fg_num_Free game settlement prompt box_06.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
-    <image id="z14g4s" name="fg_num_Free game settlement prompt box_07.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
     <image id="z14g4t" name="fg_num_Remaining game attempts_07.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
     <image id="z14g4u" name="fg_num_Remaining game attempts_06.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
     <image id="z14g4v" name="fg_num_Remaining game attempts_05.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
     <image id="z14g4w" name="fg_num_Remaining game attempts_04.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
-    <image id="z14g4x" name="fg_num_Free game settlement prompt box_08.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
     <image id="z14g4y" name="fg_num_Remaining game attempts_03.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
     <image id="z14g4z" name="fg_num_Remaining game attempts_02.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
     <image id="z14g50" name="fg_num_Remaining game attempts_01.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
     <image id="z14g51" name="fg_num_Remaining game attempts_00.png" path="/images/gameMain/free/FontFreeSpinTime/" exported="true"/>
-    <image id="z14g52" name="ng_num_Free game settlement prompt box_dollar.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
-    <image id="z14g53" name="fg_num_Free game settlement prompt box_dot.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
-    <image id="z14g54" name="fg_num_Free game settlement prompt box_com.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
-    <image id="z14g55" name="fg_num_Free game settlement prompt box_05.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
-    <image id="z14g56" name="fg_num_Free game settlement prompt box_09.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
     <image id="z14g5l" name="sg_num_UI text for times prompt_00.png" path="/images/gameMain/reward/剩余旋转次数提示框/" exported="true"/>
     <image id="z14g5m" name="fg_num_settlement prompt box_dot.png" path="/images/gameMain/reward/彩金游戏结算提示框/" exported="true"/>
     <image id="z14g5n" name="fg_num_settlement prompt box__dollar.png" path="/images/gameMain/reward/彩金游戏结算提示框/" exported="true"/>
@@ -174,7 +161,6 @@
     <image id="z14g7a" name="fg_txt_YOU GOT.png" path="/images/gameMain/free/" exported="true"/>
     <image id="z14g7b" name="ng_sym01_10.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7c" name="ng_sym02_J.png" path="/images/gameMain/symbol/" exported="true"/>
-    <image id="z14g7d" name="ng_sym03_Q.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7e" name="ng_sym04_K.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7f" name="ng_sym05_A.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7g" name="ng_sym12_SCATTER.png" path="/images/gameMain/symbol/" exported="true"/>
@@ -203,11 +189,6 @@
     <font id="mxrk85" name="FontFreeCollect.fnt" path="/Font/" exported="true"/>
     <font id="mxrk86" name="FontFreeSpinTime.fnt" path="/Font/" exported="true"/>
     <component id="mxrk8h" name="AnchorEffect.xml" path="/components/gameMain/" exported="true"/>
-    <image id="mxrk8i" name="payTable1.png" path="/images/payTable/" exported="true" atlas="0"/>
-    <image id="mxrk8j" name="payTable2.png" path="/images/payTable/" exported="true" atlas="0"/>
-    <image id="mxrk8k" name="payTable3.png" path="/images/payTable/" exported="true" atlas="0"/>
-    <image id="mxrk8l" name="payTable4.png" path="/images/payTable/" exported="true" atlas="0"/>
-    <image id="mxrk8m" name="payTable5.png" path="/images/payTable/" exported="true" atlas="0"/>
     <component id="of0qao" name="PayTable1.xml" path="/moudules/pageGameMain/payTable/" exported="true"/>
     <component id="of0qap" name="PayTable2.xml" path="/moudules/pageGameMain/payTable/" exported="true"/>
     <component id="of0qaq" name="PayTable3.xml" path="/moudules/pageGameMain/payTable/" exported="true"/>
@@ -273,6 +254,47 @@
     <component id="ni96am" name="anchorTrails.xml" path="/components/" exported="true"/>
     <component id="of0qan" name="bar.xml" path="/components/popupGameLoading/"/>
     <font id="el9lat" name="FrontPopupTrigger.fnt" path="/Font/" exported="true"/>
+    <image id="rghsau" name="ng_sym03_Q.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="rghsav" name="ng_sym07_X2.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="rghsaw" name="ng_sym07_X3.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="rghsax" name="ng_sym07_X5.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="rghsay" name="fg_num_settlement_prompt_box__dollar.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
+    <image id="rghsaz" name="fg_num_settlement_prompt_box_00.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
+    <image id="rghsb0" name="fg_num_settlement_prompt_box_01.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
+    <image id="rghsb1" name="fg_num_settlement_prompt_box_02.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
+    <image id="rghsb2" name="fg_num_settlement_prompt_box_03.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
+    <image id="rghsb3" name="fg_num_settlement_prompt_box_04.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
+    <image id="rghsb4" name="fg_num_settlement_prompt_box_05.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
+    <image id="rghsb5" name="fg_num_settlement_prompt_box_06.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
+    <image id="rghsb6" name="fg_num_settlement_prompt_box_07.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
+    <image id="rghsb7" name="fg_num_settlement_prompt_box_08.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
+    <image id="rghsb8" name="fg_num_settlement_prompt_box_09.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
+    <image id="rghsb9" name="fg_num_settlement_prompt_box_com.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
+    <image id="rghsba" name="fg_num_settlement_prompt_box_dot.png" path="/images/gameMain/free/FontPopup/" exported="true"/>
+    <image id="rghsbb" name="payTable1.png" path="/images/payTable/"/>
+    <image id="rghsbc" name="payTable2.png" path="/images/payTable/"/>
+    <image id="rghsbd" name="payTable3.png" path="/images/payTable/"/>
+    <image id="rghsbe" name="payTable4.png" path="/images/payTable/"/>
+    <image id="rghsbf" name="payTable5.png" path="/images/payTable/"/>
+    <image id="rghsbg" name="payTable6.png" path="/images/payTable/"/>
+    <image id="rghsbh" name="payTable7.png" path="/images/payTable/"/>
+    <component id="rghsbi" name="PayTable6.xml" path="/moudules/pageGameMain/payTable/" exported="true"/>
+    <component id="rghsbj" name="PayTable7.xml" path="/moudules/pageGameMain/payTable/" exported="true"/>
+    <image id="rghsbk" name="fg_num_settlement_prompt_box_00.png" path="/images/gameMain/free/FrontResult/" exported="true"/>
+    <image id="rghsbl" name="fg_num_settlement_prompt_box_01.png" path="/images/gameMain/free/FrontResult/" exported="true"/>
+    <image id="rghsbm" name="fg_num_settlement_prompt_box_02.png" path="/images/gameMain/free/FrontResult/" exported="true"/>
+    <image id="rghsbn" name="fg_num_settlement_prompt_box_03.png" path="/images/gameMain/free/FrontResult/" exported="true"/>
+    <image id="rghsbo" name="fg_num_settlement_prompt_box_04.png" path="/images/gameMain/free/FrontResult/" exported="true"/>
+    <image id="rghsbp" name="fg_num_settlement_prompt_box_05.png" path="/images/gameMain/free/FrontResult/" exported="true"/>
+    <image id="rghsbq" name="fg_num_settlement_prompt_box_06.png" path="/images/gameMain/free/FrontResult/" exported="true"/>
+    <image id="rghsbr" name="fg_num_settlement_prompt_box_07.png" path="/images/gameMain/free/FrontResult/" exported="true"/>
+    <image id="rghsbs" name="fg_num_settlement_prompt_box_08.png" path="/images/gameMain/free/FrontResult/" exported="true"/>
+    <image id="rghsbt" name="fg_num_settlement_prompt_box_09.png" path="/images/gameMain/free/FrontResult/" exported="true"/>
+    <image id="rghsbu" name="fg_num_settlement_prompt_box_com.png" path="/images/gameMain/free/FrontResult/" exported="true"/>
+    <image id="rghsbv" name="fg_num_settlement_prompt_box_dollar.png" path="/images/gameMain/free/FrontResult/" exported="true"/>
+    <image id="rghsbw" name="fg_num_settlement_prompt_box_dot.png" path="/images/gameMain/free/FrontResult/" exported="true"/>
+    <image id="rghsbx" name="fg_num_settlement_prompt_box__dollar.png" path="/images/gameMain/free/FrontResult/" exported="true"/>
+    <font id="rghsby" name="FrontResult.fnt" path="/Font/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Mei Zhou Hei Bao 3993\FGUIs" packageCount="2"/>
 </packageDescription>

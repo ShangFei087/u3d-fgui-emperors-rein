@@ -18,6 +18,22 @@ namespace MeiZhouHeiBao_3993
             { "11", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/SymbolAppear11.prefab" },
             { "12", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolAppear/SymbolAppear12.prefab" },
         };
+
+        /// <summary>免费局动物转黑豹：5 蛇 / 6 鸟 / 7 猴 / 8 鳄。</summary>
+        public Dictionary<string, string> symbolFreeConvertEffect => new Dictionary<string, string>()
+        {
+            { "5", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolFree/SymbolFree5.prefab" },
+            { "6", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolFree/SymbolFree6.prefab" },
+            { "7", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolFree/SymbolFree7.prefab" },
+            { "8", "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolFree/SymbolFree8.prefab" },
+        };
+
+        public string GetFreeConvertPrefab(int symbolId)
+        {
+            if (symbolFreeConvertEffect.TryGetValue(symbolId.ToString(), out string path))
+                return path;
+            return null;
+        }
         public Dictionary<string, string> symbolExpectationEffect => new Dictionary<string, string>() { };
         public float reelMaxOffsetY => symbolHeight * row;
 
@@ -27,7 +43,9 @@ namespace MeiZhouHeiBao_3993
             "ui://MeiZhouHeiBao/PayTable2",
             "ui://MeiZhouHeiBao/PayTable3",
             "ui://MeiZhouHeiBao/PayTable4",
-            "ui://MeiZhouHeiBao/PayTable5"
+            "ui://MeiZhouHeiBao/PayTable5",
+            "ui://MeiZhouHeiBao/PayTable6",
+            "ui://MeiZhouHeiBao/PayTable7"
         };
 
         public List<int> symbolNumber => new List<int>()

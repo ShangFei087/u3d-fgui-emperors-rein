@@ -423,7 +423,6 @@ static void UNITY_INTERFACE_API OnRenderEvent(int eventId) {
             ProcessFlushOp(fallback);
             return;
         }
-        LOGI("OnRenderEvent: flush batch count=%zu", batch.size());
         std::vector<FlushOpResult> results;
         results.reserve(batch.size());
         bool anyFlushOk = false;

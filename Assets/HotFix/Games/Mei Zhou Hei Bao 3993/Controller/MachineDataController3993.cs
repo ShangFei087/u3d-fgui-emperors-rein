@@ -756,17 +756,7 @@ namespace MeiZhouHeiBao_3993
 
         private static int SumBonusData()
         {
-            int[] data = ContentModel.Instance.BonusData;
-            if (data == null)
-                return 0;
-
-            int sum = 0;
-            for (int i = 0; i < data.Length; i++)
-            {
-                if (data[i] > 0)
-                    sum += data[i];
-            }
-            return sum;
+            return ContentModel.SumBonusAmounts(ContentModel.Instance.BonusData);
         }
 
         private static int[] ParseIntArray(JSONNode node)

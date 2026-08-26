@@ -14,38 +14,61 @@ namespace MeiZhouHeiBao_3993
     /// </summary>
     public class PopupSmallGameJackpotWin : MachinePageBase
     {
+        /// <summary>FairyGUI 包名。</summary>
         public new const string pkgName = "MeiZhouHeiBao";
+        /// <summary>弹窗组件名。</summary>
         public new const string resName = "PopupSmallGameJackpotWin";
 
+        /// <summary>三种 JP Spine 预制体所在目录。</summary>
         private const string PrefabDir = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupSmallGameJackpotWin/";
+        /// <summary>Major 弹窗预制体。</summary>
         private const string PrefabMajor = PrefabDir + "Pup_MAJOR.prefab";
+        /// <summary>Minor 弹窗预制体。</summary>
         private const string PrefabMinor = PrefabDir + "Pop_Minor.prefab";
+        /// <summary>Mini 弹窗预制体。</summary>
         private const string PrefabMini = PrefabDir + "Pop_Mini.prefab";
+        /// <summary>PAG 资源目录。</summary>
         private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
 
-        //弹窗 Spine
+        /// <summary>Major Spine 预制体。</summary>
         private GameObject _prefabMajor;
+        /// <summary>Minor Spine 预制体。</summary>
         private GameObject _prefabMinor;
+        /// <summary>Mini Spine 预制体。</summary>
         private GameObject _prefabMini;
+        /// <summary>当前挂上的 Spine 实例。</summary>
         private GameObject _cloneJackpot;
+        /// <summary>Spine 挂点。</summary>
         private GComponent _anchorJackpot;
+        /// <summary>弹窗 Spine 播放器。</summary>
         private AnimPlayer _animJackpot;
+        /// <summary>播完 Out 后延迟关页。</summary>
         private TimerCallback _delayCloseCallback;
+        /// <summary>自动化测试自动点收集。</summary>
         private TimerCallback _autoClickCallback;
+        /// <summary>延迟开始滚分。</summary>
         private TimerCallback _rollCallback;
+        /// <summary>入场后延迟点亮收集按钮。</summary>
         private TimerCallback _enableBtnCallback;
 
-        //pag
+        /// <summary>PAG 挂点。</summary>
         private GComponent _anchorPagJackpot;
+        /// <summary>JP 弹窗 PAG 槽。</summary>
         private PagSlotBinding _pagJackpot;
 
+        /// <summary>收集按钮。</summary>
         private GButton _btnCollect;
+        /// <summary>赢分文本。</summary>
         private GTextField _txtWin;
 
-        private string _boundType;          // 当前挂上的 JP 类型，避免同类型重复实例化
-        private EventData _openEventData;   // OpenPage 传入，优先于 jpGameRes
+        /// <summary>当前挂上的 JP 类型，避免同类型重复实例化。</summary>
+        private string _boundType;
+        /// <summary>OpenPage 传入数据，优先于 jpGameRes。</summary>
+        private EventData _openEventData;
+        /// <summary>是否已点过关闭，防连点。</summary>
         private bool _isClicked;
 
+        /// <summary>加载 MAJOR/MINOR/MINI 三个预制体，注册机台短按 Spin 关页。</summary>
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -93,6 +116,7 @@ namespace MeiZhouHeiBao_3993
             };
         }
 
+        /// <summary>按 JP 类型挂 Spine、滚分、延迟可点，自动化则定时点击。</summary>
         public override void InitParam()
         {
             if (!isInit) return;
@@ -144,6 +168,7 @@ namespace MeiZhouHeiBao_3993
             ScheduleAutoModeClick(4.0f);
         }
 
+        /// <summary>记录开页数据并刷新界面。</summary>
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
@@ -151,6 +176,7 @@ namespace MeiZhouHeiBao_3993
             InitParam();
         }
 
+        /// <summary>关页：停滚分、清定时器、卸骨骼挂点、停 PAG。</summary>
         public override void OnClose(EventData eventData = null)
         {
             NumberAnimation.Instance.StopAllAnimations();
@@ -164,6 +190,7 @@ namespace MeiZhouHeiBao_3993
             base.OnClose(eventData);
         }
 
+        /// <summary>点击收集：播 Out，约 1 秒后关页。</summary>
         private void OnCloseBtn(EventData eventData = null)
         {
             if (_isClicked) return;
@@ -253,6 +280,7 @@ namespace MeiZhouHeiBao_3993
                 useGpuSyncGroup: false));
         }
 
+        /// <summary>PAG 离场：播一遍 out 后停止。</summary>
         private void PlayPagOut(string jpType)
         {
             if (_pagJackpot == null) return;
@@ -304,6 +332,7 @@ namespace MeiZhouHeiBao_3993
             return 0f;
         }
 
+        /// <summary>按类型取对应 Spine 预制体，默认 Major。</summary>
         private GameObject GetPrefab(string jpType)
         {
             if (jpType == "minor") return _prefabMinor;
@@ -311,6 +340,7 @@ namespace MeiZhouHeiBao_3993
             return _prefabMajor;
         }
 
+        /// <summary>Spine 物体名：jp_pup_MAJOR / MINOR / MINI。</summary>
         private static string GetSpineName(string jpType)
         {
             if (jpType == "minor") return "jp_pup_MINOR";
@@ -318,6 +348,7 @@ namespace MeiZhouHeiBao_3993
             return "jp_pup_MAJOR";
         }
 
+        /// <summary>身体骨骼名：Panther / crocodile / snake。</summary>
         private static string GetBodyBone(string jpType)
         {
             if (jpType == "minor") return "crocodile";
@@ -325,6 +356,7 @@ namespace MeiZhouHeiBao_3993
             return "Panther";
         }
 
+        /// <summary>分数框父骨骼：Panther2 / crocodile2 / snake2。</summary>
         private static string GetFrameParent(string jpType)
         {
             if (jpType == "minor") return "crocodile2";
@@ -332,6 +364,7 @@ namespace MeiZhouHeiBao_3993
             return "Panther2";
         }
 
+        /// <summary>PAG 路径前缀（不含 _in/_idle/_out）。</summary>
         private static string GetPagPrefix(string jpType)
         {
             if (jpType == "minor") return "jp_pup/jp_pup_MINOR_pag/jp_pup_MINOR";
@@ -350,6 +383,7 @@ namespace MeiZhouHeiBao_3993
             return "major";
         }
 
+        /// <summary>自动化测试开启时，延迟后自动点收集。</summary>
         private void ScheduleAutoModeClick(float delaySeconds)
         {
             RemoveTimer(ref _autoClickCallback);
@@ -363,6 +397,7 @@ namespace MeiZhouHeiBao_3993
             Timers.inst.Add(delaySeconds, 1, _autoClickCallback);
         }
 
+        /// <summary>移除 FairyGUI 定时器并置空引用。</summary>
         private void RemoveTimer(ref TimerCallback timerCallback)
         {
             if (timerCallback == null) return;

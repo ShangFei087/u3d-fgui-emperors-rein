@@ -8,10 +8,14 @@ using UnityEngine;
 
 namespace MeiZhouHeiBao_3993
 {
+    /// <summary>进局 Loading：并行预加载 Page 与 PAG，进度满且过最短展示时间后进主界面。</summary>
     public class PopupGameLoading : MachinePageBase
     {
+        /// <summary>FairyGUI 包名。</summary>
         public new const string pkgName = "MeiZhouHeiBao";
+        /// <summary>Loading 组件名。</summary>
         public new const string resName = "PopupGameLoading";
+        /// <summary>PAG 资源目录。</summary>
         private const string GamePagFolder = "Games/Mei Zhou Hei Bao 3993/Pag";
         /// <summary>Loading 预热： Pag </summary>
         private static readonly string[] PagPreloadFiles =
@@ -61,13 +65,13 @@ namespace MeiZhouHeiBao_3993
             PageName.MeiZhouHeiBaoPopupSmallGameResult,
             PageName.MeiZhouHeiBaoPopupSmallGameJackpotWin
         };
-        // <summary> 加载条 </summary>
+        /// <summary>加载条。</summary>
         private GProgressBar _progressBar;
-        // <summary> 加载条文本 </summary>
+        /// <summary>加载百分比文本。</summary>
         GTextField _txtloading;
-        // <summary>FairyGUI 定时器回调，用于最短展示时间内刷新进度条。</summary>
+        /// <summary>最短展示时间内刷新进度条的定时器。</summary>
         private TimerCallback _pendingMinDisplayCallback;
-        // <summary>开始并行预加载那一刻的时间戳。</summary>
+        /// <summary>开始并行预加载的时间戳。</summary>
         private float _preloadStartRealtime;
         /// <summary>从进入并行预加载起算，界面至少展示此时长（秒）；预加载更久则按实际结束。</summary>
         private const float MinLoadingDisplaySeconds = 10f;
@@ -86,6 +90,7 @@ namespace MeiZhouHeiBao_3993
         private bool _pagPreloadFinished;
         /// <summary>Loading 阶段 PAG 预热协程；关页前须全部完成，异常关页时 Stop 清理。</summary>
         private Coroutine _pagPreloadCoroutine;
+        /// <summary>创建 Loading UI 并立即 InitParam。</summary>
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -104,6 +109,7 @@ namespace MeiZhouHeiBao_3993
             loadComplete();
         }
 
+        /// <summary>切语言时重建 UI。</summary>
         protected override void OnLanguageChange(I18nLang lang)
         {
             FguiI18nTextAssistant.Instance.DisposeAllTranslate(contentPane);
@@ -112,12 +118,14 @@ namespace MeiZhouHeiBao_3993
             InitParam();
         }
 
+        /// <summary>开页后刷新并启动预加载。</summary>
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
             InitParam();
         }
 
+        /// <summary>关页：清最短展示定时器并停 PAG 预热协程。</summary>
         public override void OnClose(EventData eventData = null)
         {
             if (_pendingMinDisplayCallback != null)
@@ -129,6 +137,7 @@ namespace MeiZhouHeiBao_3993
             base.OnClose(eventData);
         }
 
+        /// <summary>绑定进度条；打开时启动 Page/PAG 并行预加载。</summary>
         public override void InitParam()
         {
             if (!isInit) return;
@@ -327,7 +336,7 @@ namespace MeiZhouHeiBao_3993
             return Mathf.Clamp01((Time.realtimeSinceStartup - _preloadStartRealtime) / MinLoadingDisplaySeconds);
         }
 
-        /// <summary>/// 将 0~1 的预加载比例映射到 GProgressBar 的 min~max。/// </summary>
+        /// <summary>将 0~1 的预加载比例映射到 GProgressBar 的 min~max。</summary>
         private void SetProgressByPreloadNormalized(float normalized01)
         {
             if (_progressBar == null)

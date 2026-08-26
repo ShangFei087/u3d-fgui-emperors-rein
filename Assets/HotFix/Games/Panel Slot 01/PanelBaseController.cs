@@ -121,6 +121,8 @@ namespace SlotMaker
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnPanelEventAnchorPanelChange);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_CONTENT_EVENT, OnContentChang);
             MainModel.Instance.panel = this;
+            // OnDisable 会把 Panel 藏掉；二次进局只 SetActive(true) 时须对称恢复，否则底部栏不可见。
+            RestoreOwnerPanelVisible();
         }
 
         /// <summary>
@@ -156,6 +158,15 @@ namespace SlotMaker
             {
                 gOwnerPanel.visible = false;
             }
+        }
+
+        /// <summary>
+        /// 二次进局时 OnDisable 可能已把 Panel 藏掉；复用同一锚点/包时须显式恢复。
+        /// </summary>
+        private void RestoreOwnerPanelVisible()
+        {
+            if (gOwnerPanel != null)
+                gOwnerPanel.visible = true;
         }
 
         protected virtual void OnDestroy()
@@ -204,6 +215,7 @@ namespace SlotMaker
             if (isInit && ReferenceEquals(_cachedAnchorPanel, _goAnchorPanel))
             {
                 Debug.Log("Skip Init: same anchor panel and already initialized.");
+                RestoreOwnerPanelVisible();
                 int readyGameId = MainModel.Instance != null ? MainModel.Instance.gameID : 0;
                 EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
                     new EventData<int>(PanelEvent.BottomPanelReady, readyGameId));
@@ -306,7 +318,7 @@ namespace SlotMaker
                         // 使用“实际包名 + 组件名”拼 URL，确保显示当前游戏对应的 Panel
                         anchorPanel.url = $"ui://{_loadedPanelPackageName}/{PanelComponentName}";
                         gOwnerPanel = _goAnchorPanel.GetChild("icon").asLoader.component;
-                        gOwnerPanel.visible = true;
+                        RestoreOwnerPanelVisible();
                         loadComplete();
                     });
                 }
@@ -317,6 +329,7 @@ namespace SlotMaker
                     GLoader anchorPanel = _goAnchorPanel.GetChild("icon").asLoader;
                     anchorPanel.url = $"ui://{_loadedPanelPackageName}/{PanelComponentName}";
                     gOwnerPanel = _goAnchorPanel.GetChild("icon").asLoader.component;
+                    RestoreOwnerPanelVisible();
                     loadComplete();
                 }
             }

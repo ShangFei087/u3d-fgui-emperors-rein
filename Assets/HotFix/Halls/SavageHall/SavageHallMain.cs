@@ -124,7 +124,6 @@ namespace SavageHall
             FguiI18nTextAssistant.Instance.DisposeAllTranslate(this.contentPane);
             this.contentPane.Dispose();
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
-            isInit = true;
             InitParam();
         }
 

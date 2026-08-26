@@ -1,1 +1,15 @@
-{"OpenType":0,"ResultType":4,"IDVec":[],"Matrix":[12,4,4,2,12,6,1,12,0,6,12,12,10,1,12],"JPCount":1,"JPTypeArray":[1,2],"JPBetArray":[1250,100],"TotalJackpotBet":1350,"BonusBet":3625,"BonusData":[1400,4002,0,1725,1400,0,0,1550,1550,0,1250,1500,0,4001,1250],"TotalBet":0,"lineNum": 0,"MatrixLength":15}
+{
+	"OpenType": 0,
+	"ResultType": 4,
+	"IDVec": [],
+	"Matrix": [ 12, 2, 0, 12, 12, 6, 4, 2, 8, 6, 12, 1, 8, 12, 12 ],
+	"JPCount": 2,
+	"JPTypeArray": [ 2 ],
+	"JPBetArray": [ 150 ],
+	"TotalJackpotBet": 150,
+	"BonusBet": 5300,
+	"BonusData": [ 10500, 10675, 0, 10675, 10400, 10325, 10550, 10550, 10350, 0, 10575, 40002, 0, 10275, 10425 ],
+	"TotalBet": 0,
+	"lineNum": 0,
+	"MatrixLength": 15
+}
