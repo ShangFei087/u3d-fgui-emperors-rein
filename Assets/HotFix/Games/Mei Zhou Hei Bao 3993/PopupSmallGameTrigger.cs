@@ -32,6 +32,8 @@ namespace MeiZhouHeiBao_3993
         private GameObject clonegoBonusTrigger;
         /// <summary>弹窗 Spine 播放器。</summary>
         private AnimPlayer _animBonusTrigger;
+        /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
+        private I18nLang _boundLang;
         /// <summary>播完 out 后延迟关页。</summary>
         private TimerCallback _delayCloseCallback;
         /// <summary>自动化测试自动点开始。</summary>
@@ -64,7 +66,6 @@ namespace MeiZhouHeiBao_3993
                 }
             };
 
-            //1
             ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath,
              (GameObject clone) =>
              {
@@ -111,11 +112,14 @@ namespace MeiZhouHeiBao_3993
                 useGpuSyncGroup: false));
 
             GComponent localBonusTrigger = contentPane.GetChild("anchorBonusTrigger").asCom;
-            if (anchorBonusTrigger != localBonusTrigger)
+            if (anchorBonusTrigger != localBonusTrigger || _boundLang != PopupSpineLang3993.CurrentLang)
             {
+                _animBonusTrigger?.DetachAll();
                 GameCommon.FguiUtils.DeleteWrapper(anchorBonusTrigger);
                 clonegoBonusTrigger = GameObject.Instantiate(goBonusTrigger);
+                PopupSpineLang3993.Apply(clonegoBonusTrigger);
                 anchorBonusTrigger = localBonusTrigger;
+                _boundLang = PopupSpineLang3993.CurrentLang;
                 GameCommon.FguiUtils.AddWrapper(anchorBonusTrigger, clonegoBonusTrigger);
                 _animBonusTrigger = new AnimPlayer(clonegoBonusTrigger);
             }
@@ -132,7 +136,8 @@ namespace MeiZhouHeiBao_3993
             btnStart.onClick.Clear();
             btnStart.onClick.Add(() => OnCloseBtn());
 
-            const string rootBonusTriggerPath = "Anchor/Spine Mecanim GameObject (jp_pup_TipFrame)/SkeletonUtility-SkeletonRoot/root/all";
+            const string rootSuffix = "/SkeletonUtility-SkeletonRoot/root/all";
+            string rootBonusTriggerPath = "Anchor/" + clonegoBonusTrigger.transform.GetChild(0).GetChild(0).name + rootSuffix;
             _animBonusTrigger.Attach(
                 btnStart,
                 rootBonusTriggerPath + "/fg_img_Button",

@@ -74,6 +74,14 @@
     <image id="d6bl21" name="plat_txt_major.png" path="/images/"/>
     <image id="d6bl23" name="plat_txt_mini.png" path="/images/"/>
     <image id="d6bl25" name="plat_txt_minor.png" path="/images/"/>
+    <component id="pr3e27" name="Reflection.xml" path="/components/" exported="true"/>
+    <image id="pr3e28" name="3993_big.png" path="/images/card_projection/" exported="true"/>
+    <image id="pr3e29" name="3993_small.png" path="/images/card_projection/" exported="true"/>
+    <image id="pr3e2a" name="3995_big.png" path="/images/card_projection/" exported="true"/>
+    <image id="pr3e2b" name="3995_small.png" path="/images/card_projection/" exported="true"/>
+    <image id="pr3e2c" name="3994_big.png" path="/images/card_projection/" exported="true"/>
+    <image id="pr3e2d" name="3994_small.png" path="/images/card_projection/" exported="true"/>
+    <image id="pr3e2k" name="plat_bg.png" path="/images/"/>
   </resources>
   <publish name="SavageHall" path="../../Assets/GameRes/Halls/SavageHall/FGUIs" packageCount="2"/>
 </packageDescription>

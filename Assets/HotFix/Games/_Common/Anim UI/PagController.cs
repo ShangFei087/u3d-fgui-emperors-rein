@@ -1014,15 +1014,24 @@ public class PagController : IDisposable
                 boundTexId = texId;
                 boundTexPtr = texPtr;
             });
-            _boundGpuTexId = boundTexId;
-            _boundGpuTexW = texW;
-            _boundGpuTexH = texH;
-            _boundGpuTexPtr = boundTexPtr;
+
+            if (boundTexId > 0 && boundTexPtr != IntPtr.Zero)
+            {
+                _boundGpuTexId = boundTexId;
+                _boundGpuTexW = texW;
+                _boundGpuTexH = texH;
+                _boundGpuTexPtr = boundTexPtr;
+            }
+            else
+            {
+                ResetBoundGpuTexture();
+            }
         }
 
         if (boundTexId <= 0 || boundTexPtr == IntPtr.Zero)
         {
             Debug.LogError($"[PAG Texture] CreateExternalTexture failed instance={InstanceKey} slot={_textureSlotId} size={texW}x{texH}");
+            _gpuBindCoroutine = null;
             yield break;
         }
 

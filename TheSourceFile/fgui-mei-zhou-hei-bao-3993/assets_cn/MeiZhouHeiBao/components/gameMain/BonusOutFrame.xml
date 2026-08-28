@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,890">
+  <displayList>
+    <image id="n0_g9kd" name="free_outFrame" src="z14g73" fileName="images/gameMain/free/fg_img_Normal game interface.png" xy="0,0"/>
+    <image id="n5_g9kd" name="n5" src="z14g13" fileName="images/gameMain/normal/ng_num_winning line_25.png" xy="10,399"/>
+    <image id="n6_g9kd" name="n6" src="z14g13" fileName="images/gameMain/normal/ng_num_winning line_25.png" xy="1053,399"/>
+    <image id="n15_rghs" name="n15" src="rghsc8" fileName=":cn/images/gameMain/reward/sg_img_Times_reminder_UI_SPINS_LEFT_01.png" xy="363,19"/>
+    <text id="n3_g9kd" name="txtRemainTime" xy="490,13" size="99,61" font="ui://tdk27maemxrk86" fontSize="12" align="center" autoSize="none" text="3"/>
+    <image id="n16_rghs" name="n16" src="rghsc9" fileName=":cn/images/gameMain/reward/sg_img_Times_reminder_UI_SPINS_LEFT_02.png" xy="599,19"/>
+    <image id="n11_of0q" name="n11" src="z14gz" fileName="images/gameMain/normal/ng_img_plant_03.png" xy="0,768"/>
+    <image id="n12_of0q" name="n12" src="z14gx" fileName="images/gameMain/normal/ng_img_plant_01.png" xy="156,768"/>
+    <image id="n13_of0q" name="n13" src="z14gy" fileName="images/gameMain/normal/ng_img_plant_02.png" xy="916,768"/>
+  </displayList>
+</component>

@@ -62,6 +62,12 @@ namespace MeiZhouHeiBao_3993
         private GComponent _gOwnerPanel;
         /// <summary>对象池是否已初始化，避免重复 Add/PreLoad。</summary>
         private bool _isInitPool = false;
+        /// <summary>底部 Panel 是否已就绪（BottomPanelReady）。</summary>
+        private bool _isBottomPanelReady;
+        /// <summary>对象池 DoTask 是否已全部完成。</summary>
+        private bool _isPoolPreloadDone;
+        /// <summary>是否已向 PageManager 派发过 preLoadedCallback。</summary>
+        private bool _hasNotifiedPagePreloaded;
 
         /// <summary>Slot Game Main Controller 根物体。</summary>
         private GameObject _goGameCtrl;
@@ -396,18 +402,27 @@ namespace MeiZhouHeiBao_3993
             if (_fGuiPoolHelper != null && !_isInitPool)
             {
                 _isInitPool = true;
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolHit, CustomModel.Instance.symbolHitEffect.Values.ToList(), "symbol_hit#", 13);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolHit, CustomModel.Instance.symbolHitEffect.Values.ToList(), "symbol_hit#", 5);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolHit); // 中奖动画
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.borderEffect, "border#", 1);
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.pantherNormalBorderEffect, "border#", 15);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.borderEffect, "border#", 5);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.pantherNormalBorderEffect, "border#", 5);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolBorder); // 边框
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 3);
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardBonusEffect, "symbol_reward_bonus#", 20);
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardJpMajorEffect, "symbol_reward_jp#", 8);
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardJpMinorEffect, "symbol_reward_jp#", 8);
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardJpMiniEffect, "symbol_reward_jp#", 8);
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolFreeConvertEffect.Values.ToList(), "symbol_free#", 5);
-                _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear); // 落下后图标静止动画 / 免费转豹 
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardBonusEffect, "symbol_reward_bonus#", 6);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardJpMajorEffect, "symbol_reward_jp#", 1);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardJpMinorEffect, "symbol_reward_jp#", 1);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardJpMiniEffect, "symbol_reward_jp#", 1);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolFreeConvertEffect.Values.ToList(), "symbol_free#", 3);
+                _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear); // 落下后图标静止动画 / 免费转豹
+                _fGuiPoolHelper.WhenIdle(() =>
+                {
+                    _isPoolPreloadDone = true;
+                    TryNotifyPagePreloaded();
+                });
+            }
+            else if (_fGuiPoolHelper == null)
+            {
+                _isPoolPreloadDone = true;
             }
 
 
@@ -594,9 +609,10 @@ namespace MeiZhouHeiBao_3993
         protected override void OnLanguageChange(I18nLang lang)
         {
             pagFade?.StopWithDefaults();
-            FguiI18nTextAssistant.Instance.DisposeAllTranslate(contentPane);
-            contentPane.Dispose(); // 释放当前UI
-            contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
+            // PageBase.OnChangeLanguageBase 已 Dispose 并重建 contentPane，这里不要再拆一次。
+            // 关着页时不 Init：底部 Panel 当时 inactive，绑不上新 gOwnerPanel。
+            if (!isOpen)
+                return;
             InitParam();
         }
 
@@ -630,7 +646,7 @@ namespace MeiZhouHeiBao_3993
             InitParam();
         }
 
-        /// <summary>3993：底部 Panel 异步就绪后触发 PageManager 的 preLoadedCallback。</summary>
+        /// <summary>3993：底部 Panel 异步就绪后，与对象池空闲一起触发 PageManager 的 preLoadedCallback。</summary>
         private void OnBottomPanelReadyForPreload(EventData res)
         {
             if (res == null || res.name != PanelEvent.BottomPanelReady) return;
@@ -638,6 +654,16 @@ namespace MeiZhouHeiBao_3993
             if (gameId != 3993) return;
 
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT,OnBottomPanelReadyForPreload);
+            _isBottomPanelReady = true;
+            TryNotifyPagePreloaded();
+        }
+
+        /// <summary>底部 Panel 与对象池均就绪后，才通知 Loading 本页预加载完成。</summary>
+        private void TryNotifyPagePreloaded()
+        {
+            if (!_isBottomPanelReady || !_isPoolPreloadDone) return;
+            if (_hasNotifiedPagePreloaded) return;
+            _hasNotifiedPagePreloaded = true;
             preLoadedCallback?.Invoke();
         }
 
@@ -1268,7 +1294,6 @@ namespace MeiZhouHeiBao_3993
                 if (0 != code)
                 {
                     DebugUtils.LogError($"请求贡献值报错。 code: {code}");
-                    isNext = true;
                     return;
                 }
 
@@ -1501,7 +1526,7 @@ namespace MeiZhouHeiBao_3993
                 {
                     pagFade.StopWithDefaults();
                     pagFade.Play(new PagSequencePlay(
-                        new[] { new PagSegment("jp_Transition2_NgToFg/jp_Transition2_NgToFg", 1) },
+                        new[] { new PagSegment("jp_Transition2_NgToFg/NgToFg", 1) },
                         PagPlayLayout.Center,
                         PagPresentationDefaults.DisplayScale,
                         useGpuSyncGroup: false));
@@ -1534,7 +1559,7 @@ namespace MeiZhouHeiBao_3993
                 {
                     pagFade.StopWithDefaults();
                     pagFade.Play(new PagSequencePlay(
-                        new[] { new PagSegment("jp_Transition2_NgToFg/jp_Transition2_NgToFg", 1) },
+                        new[] { new PagSegment("jp_Transition2_NgToFg/NgToFg", 1) },
                         PagPlayLayout.Center,
                         PagPresentationDefaults.DisplayScale,
                         useGpuSyncGroup: false));

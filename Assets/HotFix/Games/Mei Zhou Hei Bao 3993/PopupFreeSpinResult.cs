@@ -34,6 +34,8 @@ namespace MeiZhouHeiBao_3993
         private GameObject clonegoFreeResult;
         /// <summary>弹窗 Spine 播放器。</summary>
         private AnimPlayer _animFreeResult;
+        /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
+        private I18nLang _boundLang;
         /// <summary>播完 out 后延迟关页。</summary>
         private TimerCallback _delayCloseCallback;
         /// <summary>自动化测试自动点收集。</summary>
@@ -75,7 +77,6 @@ namespace MeiZhouHeiBao_3993
                 }
             };
 
-            //1
             ResourceManager02.Instance.LoadAsset<GameObject>(
             PrefabPath,
              (GameObject clone) =>
@@ -120,11 +121,14 @@ namespace MeiZhouHeiBao_3993
             PlayFgPupInIdle();
 
             GComponent localFreeResult = contentPane.GetChild("anchorFreeResult").asCom;
-            if (anchorFreeResult != localFreeResult)
+            if (anchorFreeResult != localFreeResult || _boundLang != PopupSpineLang3993.CurrentLang)
             {
+                _animFreeResult?.DetachAll();
                 GameCommon.FguiUtils.DeleteWrapper(anchorFreeResult);
                 clonegoFreeResult = GameObject.Instantiate(goFreeResult);
+                PopupSpineLang3993.Apply(clonegoFreeResult);
                 anchorFreeResult = localFreeResult;
+                _boundLang = PopupSpineLang3993.CurrentLang;
                 GameCommon.FguiUtils.AddWrapper(anchorFreeResult, clonegoFreeResult);
                 _animFreeResult = new AnimPlayer(clonegoFreeResult);
             }
@@ -151,7 +155,8 @@ namespace MeiZhouHeiBao_3993
                 if (btnCollect != null) btnCollect.touchable = true;
             };
             Timers.inst.Add(3.5f, 1, _enableBtnCallback);
-            const string rootFreeResultPath = "Anchor/Spine Mecanim GameObject (fg_pup_CollectFrame)/SkeletonUtility-SkeletonRoot/root/all";
+            const string rootSuffix = "/SkeletonUtility-SkeletonRoot/root/all";
+            string rootFreeResultPath = "Anchor/" + clonegoFreeResult.transform.GetChild(0).GetChild(0).name + rootSuffix;
             _animFreeResult.Attach(
                 btnCollect,
                 rootFreeResultPath + "/button",

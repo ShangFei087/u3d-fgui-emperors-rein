@@ -34,6 +34,8 @@ namespace MeiZhouHeiBao_3993
         private GameObject clonegoFreeTrigger;
         /// <summary>弹窗 Spine 播放器。</summary>
         private AnimPlayer _animFreeTrigger;
+        /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
+        private I18nLang _boundLang;
         /// <summary>播完 out 后延迟关页。</summary>
         private TimerCallback _delayCloseCallback;
         /// <summary>自动化测试自动点开始。</summary>
@@ -70,7 +72,6 @@ namespace MeiZhouHeiBao_3993
                 }
             };
 
-            //1
             ResourceManager02.Instance.LoadAsset<GameObject>(
             PrefabPath,
              (GameObject clone) =>
@@ -114,11 +115,14 @@ namespace MeiZhouHeiBao_3993
             PlayFgPupInIdle();
 
             GComponent localFreeTrigger = contentPane.GetChild("anchorFreeTrigger").asCom;
-            if (anchorFreeTrigger != localFreeTrigger)
+            if (anchorFreeTrigger != localFreeTrigger || _boundLang != PopupSpineLang3993.CurrentLang)
             {
+                _animFreeTrigger?.DetachAll();
                 GameCommon.FguiUtils.DeleteWrapper(anchorFreeTrigger);
                 clonegoFreeTrigger = GameObject.Instantiate(goFreeTrigger);
+                PopupSpineLang3993.Apply(clonegoFreeTrigger);
                 anchorFreeTrigger = localFreeTrigger;
+                _boundLang = PopupSpineLang3993.CurrentLang;
                 GameCommon.FguiUtils.AddWrapper(anchorFreeTrigger, clonegoFreeTrigger);
                 _animFreeTrigger = new AnimPlayer(clonegoFreeTrigger);
             }
@@ -136,7 +140,8 @@ namespace MeiZhouHeiBao_3993
             btnStart.onClick.Clear();
             btnStart.onClick.Add(() => OnCloseBtn());
 
-            const string rootFreeTriggerPath = "Anchor/Spine Mecanim GameObject (fg_pup_TipFrame)/SkeletonUtility-SkeletonRoot/root/all";
+            const string rootSuffix = "/SkeletonUtility-SkeletonRoot/root/all";
+            string rootFreeTriggerPath = "Anchor/" + clonegoFreeTrigger.transform.GetChild(0).GetChild(0).name + rootSuffix;
             _animFreeTrigger.Attach(
                 btnStart,
                 rootFreeTriggerPath + "/fg_START_01",

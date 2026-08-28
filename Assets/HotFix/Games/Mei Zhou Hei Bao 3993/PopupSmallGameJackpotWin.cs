@@ -63,6 +63,8 @@ namespace MeiZhouHeiBao_3993
 
         /// <summary>当前挂上的 JP 类型，避免同类型重复实例化。</summary>
         private string _boundType;
+        /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
+        private I18nLang _boundLang;
         /// <summary>OpenPage 传入数据，优先于 jpGameRes。</summary>
         private EventData _openEventData;
         /// <summary>是否已点过关闭，防连点。</summary>
@@ -74,7 +76,7 @@ namespace MeiZhouHeiBao_3993
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 3; // MAJOR / MINOR / MINI 三个预制体都到齐再 InitParam
+            int count = 3;
             Action callback = () =>
             {
                 if (--count == 0)
@@ -221,14 +223,17 @@ namespace MeiZhouHeiBao_3993
             if (prefab == null)
                 return;
 
-            if (_anchorJackpot == local && _boundType == jpType && _animJackpot != null)
+            if (_anchorJackpot == local && _boundType == jpType
+                && _boundLang == PopupSpineLang3993.CurrentLang && _animJackpot != null)
                 return;
 
             _animJackpot?.DetachAll();
             GameCommon.FguiUtils.DeleteWrapper(_anchorJackpot);
             _cloneJackpot = UnityEngine.Object.Instantiate(prefab);
+            PopupSpineLang3993.Apply(_cloneJackpot);
             _anchorJackpot = local;
             _boundType = jpType;
+            _boundLang = PopupSpineLang3993.CurrentLang;
             GameCommon.FguiUtils.AddWrapper(_anchorJackpot, _cloneJackpot);
             _animJackpot = new AnimPlayer(_cloneJackpot);
         }
@@ -242,9 +247,9 @@ namespace MeiZhouHeiBao_3993
             if (_animJackpot == null)
                 return;
 
-            string spine = GetSpineName(jpType);
+            string spineGoName = _cloneJackpot.transform.GetChild(0).GetChild(0).name;
             string body = GetBodyBone(jpType);
-            string root = $"Anchor/Spine Mecanim GameObject ({spine})/SkeletonUtility-SkeletonRoot/root/All/{body}";
+            string root = $"Anchor/{spineGoName}/SkeletonUtility-SkeletonRoot/root/All/{body}";
 
             if (_btnCollect != null)
             {
@@ -338,14 +343,6 @@ namespace MeiZhouHeiBao_3993
             if (jpType == "minor") return _prefabMinor;
             if (jpType == "mini") return _prefabMini;
             return _prefabMajor;
-        }
-
-        /// <summary>Spine 物体名：jp_pup_MAJOR / MINOR / MINI。</summary>
-        private static string GetSpineName(string jpType)
-        {
-            if (jpType == "minor") return "jp_pup_MINOR";
-            if (jpType == "mini") return "jp_pup_MINI";
-            return "jp_pup_MAJOR";
         }
 
         /// <summary>身体骨骼名：Panther / crocodile / snake。</summary>

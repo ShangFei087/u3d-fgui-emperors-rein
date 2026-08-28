@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1,1">
   <displayList>
-    <graph id="n0_z14g" name="mask" xy="0,0" size="1080,1920" visible="false" alpha="0" type="rect" lineSize="0" lineColor="#80000000" fillColor="#80000000"/>
+    <graph id="n0_z14g" name="mask" xy="0,0" size="1080,1920" type="rect" lineSize="0" lineColor="#80000000" fillColor="#80000000"/>
     <image id="n7_mxrk" name="n7" src="mxrk3i" fileName="images/Instructions/sm_blade_l_02.png" xy="23,1239"/>
     <image id="n10_mxrk" name="n10" src="mxrk3k" fileName="images/Instructions/sm_blade_r_02.png" xy="902,1226"/>
     <image id="n5_mxrk" name="n5" src="mxrk3g" fileName="images/Instructions/sm_bj.png" xy="119,242"/>

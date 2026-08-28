@@ -163,7 +163,6 @@
     <image id="z14g7c" name="ng_sym02_J.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7e" name="ng_sym04_K.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7f" name="ng_sym05_A.png" path="/images/gameMain/symbol/" exported="true"/>
-    <image id="z14g7g" name="ng_sym12_SCATTER.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7h" name="ng_sym11_WILD.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7i" name="ng_sym09_Crocodile.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7j" name="ng_sym10_BlackPanther.png" path="/images/gameMain/symbol/" exported="true"/>
@@ -173,7 +172,6 @@
     <image id="z14g7n" name="ng_sym16_GoldCoin_MINOR.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7o" name="ng_sym07_Bird.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7p" name="ng_sym06_Snake.png" path="/images/gameMain/symbol/" exported="true"/>
-    <image id="z14g7q" name="ng_sym13_Bonus.png" path="/images/gameMain/symbol/" exported="true"/>
     <component id="z14g7r" name="Symbol.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="z14g7s" name="Symbols.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="z14g7t" name="Reels.xml" path="/moudules/slotMachine/" exported="true"/>
@@ -231,7 +229,6 @@
     <component id="g9kd9y" name="Reel.xml" path="/moudules/rewardSlotMachine/" exported="true"/>
     <component id="g9kd9z" name="Reels.xml" path="/moudules/rewardSlotMachine/" exported="true"/>
     <component id="g9kda0" name="rewardSlotMachine.xml" path="/moudules/rewardSlotMachine/" exported="true"/>
-    <component id="g9kda1" name="BonusOutFrame.xml" path="/components/gameMain/" exported="true"/>
     <image id="ni96a2" name="sg_num_Colored_Gold_Coins_0.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
     <image id="ni96a3" name="sg_num_Colored_Gold_Coins_01.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
     <image id="ni96a4" name="sg_num_Colored_Gold_Coins_02.png" path="/images/gameMain/reward/sg_num_Colored_Gold_Coins/" exported="true"/>
@@ -295,6 +292,25 @@
     <image id="rghsbw" name="fg_num_settlement_prompt_box_dot.png" path="/images/gameMain/free/FrontResult/" exported="true"/>
     <image id="rghsbx" name="fg_num_settlement_prompt_box__dollar.png" path="/images/gameMain/free/FrontResult/" exported="true"/>
     <font id="rghsby" name="FrontResult.fnt" path="/Font/" exported="true"/>
+    <component id="rghscg" name="SmallGameSpinBox.xml" path="/components/gameMain/smallGame/" exported="true"/>
+    <component id="rghsci" name="fg_txt_ALL TO.xml" path="/components/gameMain/freeGame/" exported="true"/>
+    <image id="rghscl" name="MAJOR.png" path="/images/Rendering/en/"/>
+    <image id="rghscm" name="MINI.png" path="/images/Rendering/en/"/>
+    <image id="rghscn" name="MINOR.png" path="/images/Rendering/en/"/>
+    <image id="rghsco" name="彩金游戏.png" path="/images/Rendering/en/"/>
+    <image id="rghscp" name="彩金游戏结算提示框.png" path="/images/Rendering/en/"/>
+    <image id="rghscq" name="获得彩金游戏提示框.png" path="/images/Rendering/en/"/>
+    <image id="rghscr" name="免费游戏.png" path="/images/Rendering/en/"/>
+    <image id="rghscs" name="免费游戏次数提示框.png" path="/images/Rendering/en/"/>
+    <image id="rghsct" name="免费游戏结算框.png" path="/images/Rendering/en/"/>
+    <image id="rghscu" name="普通游戏 01.png" path="/images/Rendering/en/"/>
+    <image id="rghscv" name="普通游戏 02.png" path="/images/Rendering/en/"/>
+    <image id="rghscw" name="普通游戏 03.png" path="/images/Rendering/en/"/>
+    <image id="rghscx" name="普通游戏 04.png" path="/images/Rendering/en/"/>
+    <image id="rghscy" name="普通游戏 05.png" path="/images/Rendering/en/"/>
+    <component id="rghscz" name="BonusOutFrame.xml" path="/components/gameMain/" exported="true"/>
+    <image id="rghsd2" name="ng_sym12_SCATTER.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="rghsd3" name="ng_sym13_Bonus.png" path="/images/gameMain/symbol/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Mei Zhou Hei Bao 3993\FGUIs" packageCount="2"/>
 </packageDescription>

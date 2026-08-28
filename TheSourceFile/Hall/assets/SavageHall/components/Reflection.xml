@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" overflow="hidden">
+  <displayList>
+    <loader id="n0_pr3e" name="3994_reflection" xy="177,1651" pivot="0.5,0" anchor="true" size="319,652" url="ui://vkidf8mppr3e2d" autoSize="true"/>
+    <loader id="n1_pr3e" name="3993_reflection" xy="540,1649" pivot="0.5,0" anchor="true" size="323,656" url="ui://vkidf8mppr3e29" autoSize="true"/>
+    <loader id="n2_pr3e" name="3995_reflection" xy="911,1653" pivot="0.5,0" anchor="true" size="318,647" url="ui://vkidf8mppr3e2b" autoSize="true"/>
+  </displayList>
+</component>

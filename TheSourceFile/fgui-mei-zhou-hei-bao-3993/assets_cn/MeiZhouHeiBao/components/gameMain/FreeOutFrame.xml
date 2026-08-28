@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,890">
+  <displayList>
+    <image id="n0_g9kd" name="free_outFrame" src="z14g73" fileName="images/gameMain/free/fg_img_Normal game interface.png" xy="0,0"/>
+    <image id="n5_g9kd" name="n5" src="z14g13" fileName="images/gameMain/normal/ng_num_winning line_25.png" xy="10,399"/>
+    <image id="n6_g9kd" name="n6" src="z14g13" fileName="images/gameMain/normal/ng_num_winning line_25.png" xy="1053,399"/>
+    <image id="n10_rghs" name="n10" src="rghsc4" fileName=":cn/images/gameMain/free/fg_txt_OF.png" xy="338,15"/>
+    <text id="n3_g9kd" name="txtRemainFreeTime" xy="395,14" size="99,61" font="ui://tdk27maemxrk86" fontSize="12" align="center" vAlign="middle" autoSize="none" text="15"/>
+    <image id="n11_rghs" name="n11" src="rghsc5" fileName=":cn/images/gameMain/free/fg_txt_Separator_line.png" xy="486,19" size="22,48"/>
+    <text id="n4_g9kd" name="txtTotalFreeTime" xy="504,14" size="99,61" font="ui://tdk27maemxrk86" fontSize="12" align="center" vAlign="middle" autoSize="none" text="15"/>
+    <image id="n12_rghs" name="n12" src="rghsc3" fileName=":cn/images/gameMain/free/fg_txt_FREE GAME.png" xy="543,9"/>
+    <image id="n7_of0q" name="n7" src="z14gz" fileName="images/gameMain/normal/ng_img_plant_03.png" xy="0,769"/>
+    <image id="n8_of0q" name="n8" src="z14gx" fileName="images/gameMain/normal/ng_img_plant_01.png" xy="156,768"/>
+    <image id="n9_of0q" name="n9" src="z14gy" fileName="images/gameMain/normal/ng_img_plant_02.png" xy="916,769"/>
+  </displayList>
+</component>

@@ -1,5 +1,6 @@
 using FairyGUI;
 using UnityEngine;
+using UnityEngine.Events;
 using GameMaker;
 using SBoxApi;
 using SimpleJSON;
@@ -26,6 +27,11 @@ namespace SavageHall
         private GTextField hallCredit;
         private GButton btnCollect;
         private bool IsClickCard;
+
+        private GComponent _reflectionRoot;
+        private GLoader _loader3995, _loader3994, _loader3993;
+        private const float CardScaleIdle = 0.95f;
+        private const float CardScaleClick = 1.1f;
 
         private GameObject goHallLogoTitle, goHallLogoBG;
         private GComponent anchorHallLogoTitle, anchorHallLogoBG;
@@ -63,6 +69,7 @@ namespace SavageHall
                 if (--count == 0)
                 {
                     isInit = true;
+                    preLoadedCallback?.Invoke();
                     InitParam();
                 }
             };
@@ -137,26 +144,72 @@ namespace SavageHall
         }
 
         /// <summary>
-        /// 并行预载三张卡牌对应子游戏的 PopupGameLoading，全部就绪后再打开宝库大厅（启动、从子游戏返回等入口应调用本方法而非直接 OpenPage）。
+        /// 并行预载大厅自身资源（卡牌/Logo）与三张卡牌子游戏 PopupGameLoading，全部就绪后再打开动物大厅。
+        /// 启动、从子游戏返回等入口应调用本方法而非直接 OpenPage。
         /// </summary>
         public static void OpenTreasuryHallMainAfterCardGameLoadingPreloads()
         {
-            const int total = 3;
+            const int total = 4;
             int completed = 0;
-            void OnOnePreloadDone()
+            void OnOneReady()
             {
                 completed++;
                 if (completed < total)
                 {
                     return;
                 }
-                PageLaunch.Instance.Close(2f);
+
                 PageManager.Instance.OpenPage(PageName.SavageHallMain);
+                PageLaunch.Instance.Close();
             }
-            PageLaunch.Instance.Close(2f);
-            PageManager.Instance.PreloadPage(PageName.HuoYanGongNiuPopupGameLoading, OnOnePreloadDone);
-            PageManager.Instance.PreloadPage(PageName.FeiZhouHeiXingXingPopupGameLoading, OnOnePreloadDone);
-            PageManager.Instance.PreloadPage(PageName.MeiZhouHeiBaoPopupGameLoading, OnOnePreloadDone);
+
+            WhenHallAssetsReady(OnOneReady);
+            PageManager.Instance.PreloadPage(PageName.HuoYanGongNiuPopupGameLoading, OnOneReady);
+            PageManager.Instance.PreloadPage(PageName.FeiZhouHeiXingXingPopupGameLoading, OnOneReady);
+            PageManager.Instance.PreloadPage(PageName.MeiZhouHeiBaoPopupGameLoading, OnOneReady);
+        }
+
+        /// <summary>
+        /// PreloadPage 缓存命中会立刻回调，不代表卡牌预制体已加载完；再等 isInit。
+        /// </summary>
+        static void WhenHallAssetsReady(Action done)
+        {
+            PageManager.Instance.PreloadPage(PageName.SavageHallMain, () =>
+            {
+                if (PageManager.Instance.pageCacheDict.TryGetValue(PageName.SavageHallMain, out PageBase page)
+                    && page is SavageHallMain hall)
+                {
+                    hall.InvokeWhenInit(done);
+                    return;
+                }
+
+                done?.Invoke();
+            });
+        }
+
+        /// <summary>
+        /// isInit 已就绪则立刻执行；否则等五个预制体加载完成后的 preLoadedCallback。
+        /// </summary>
+        void InvokeWhenInit(Action done)
+        {
+            if (done == null)
+            {
+                return;
+            }
+
+            if (isInit)
+            {
+                done();
+                return;
+            }
+
+            UnityAction once = null;
+            once = () =>
+            {
+                preLoadedCallback.RemoveListener(once);
+                done();
+            };
+            preLoadedCallback.AddListener(once);
         }
 
         public override void OnClose(EventData data = null)
@@ -199,21 +252,18 @@ namespace SavageHall
             anchorCard3994 = null;
             anchorHallLogoTitle = null;
             anchorHallLogoBG = null;
+            _reflectionRoot = null;
+            _loader3995 = null;
+            _loader3994 = null;
+            _loader3993 = null;
         }
 
-        static void StopAndClearParticle(ParticleSystem particle)
-        {
-            if (particle == null)
-                return;
-
-            particle.Stop();
-            particle.Clear();
-        }
 
         public override void InitParam()
         {
             IsClickCard = true;
             if (!isInit) return;
+
             if (!isOpen) return;
 
             GComponent LocalLogoTitle= this.contentPane.GetChild("anchorLogoTitle").asCom;
@@ -280,8 +330,11 @@ namespace SavageHall
                 GameCommon.FguiUtils.AddWrapper(anchorCard3993, ClonegoCard3993);
             }
 
-
+     
             // 点击卡牌：先播 click；同时 StartCardGameEnter 内会 OpenPage(Loading)，与动画并行
+            BindReflectionLoaders();
+            ApplyCardIdleVisual();
+
             btn3995 = this.contentPane.GetChild("card3995").asCom.GetChild("btnCard").asButton;
             btn3995.onClick.Clear();
             btn3995.onClick.Add(() =>
@@ -292,6 +345,7 @@ namespace SavageHall
                     IsClickCard = !IsClickCard;
                     btnCollect.touchable = false;
 
+                    ApplyCardClickVisual(anchorCard3995, _loader3995, 3995);
                     PlayCardClickEffect(animatorChlick3995);
                     float clickAnimDuration = PlayCardClickAnimation(animator3995);
                     StartCardGameEnter(animator3995, PageName.HuoYanGongNiuPopupGameLoading, 3995, clickAnimDuration);
@@ -307,6 +361,7 @@ namespace SavageHall
                     //GameSoundHelper.Instance.PlaySoundEff(SoundKey.TLClickGame);
                     IsClickCard = !IsClickCard;
                     btnCollect.touchable = false;
+                    ApplyCardClickVisual(anchorCard3994, _loader3994, 3994);
                     PlayCardClickEffect(animatorChlick3994);
                     float clickAnimDuration = PlayCardClickAnimation(animator3994);
                     StartCardGameEnter(animator3994, PageName.FeiZhouHeiXingXingPopupGameLoading, 3994, clickAnimDuration);
@@ -322,6 +377,7 @@ namespace SavageHall
                     //GameSoundHelper.Instance.PlaySoundEff(SoundKey.TLClickGame);
                     IsClickCard = !IsClickCard;
                     btnCollect.touchable = false;
+                    ApplyCardClickVisual(anchorCard3993, _loader3993, 3993);
                     PlayCardClickEffect(animatorChlick3993);
                     float clickAnimDuration = PlayCardClickAnimation(animator3993);
                     StartCardGameEnter(animator3993, PageName.MeiZhouHeiBaoPopupGameLoading, 3993, clickAnimDuration);
@@ -512,11 +568,58 @@ namespace SavageHall
                 btnCollect.touchable = true;
             }
 
+            ApplyCardIdleVisual();
+
             // 若 Loading 已经显示，关掉以免挡住大厅（用户未完成进入游戏）
             if (loadingAlreadyVisible)
             {
                 PageManager.Instance.ClosePage(loadingPageToClose, null);
             }
+        }
+
+        /// <summary>
+        /// 缓存 Reflection 三个倒影装载器。
+        /// </summary>
+        private void BindReflectionLoaders()
+        {
+            _reflectionRoot = this.contentPane.GetChild("Reflection").asCom;
+            _loader3995 = _reflectionRoot.GetChild("3995_reflection").asLoader;
+            _loader3994 = _reflectionRoot.GetChild("3994_reflection").asLoader;
+            _loader3993 = _reflectionRoot.GetChild("3993_reflection").asLoader;
+        }
+
+        /// <summary>
+        /// 进大厅：卡牌 Anchor 缩放到 93，倒影全部使用 small 图。
+        /// </summary>
+        private void ApplyCardIdleVisual()
+        {
+            anchorCard3995?.SetScale(CardScaleIdle, CardScaleIdle);
+            anchorCard3994?.SetScale(CardScaleIdle, CardScaleIdle);
+            anchorCard3993?.SetScale(CardScaleIdle, CardScaleIdle);
+
+            SetReflectionUrl(_loader3995, 3995, false);
+            SetReflectionUrl(_loader3994, 3994, false);
+            SetReflectionUrl(_loader3993, 3993, false);
+        }
+
+        /// <summary>
+        /// 点击卡牌：该卡 Anchor 缩放到 100，倒影换成对应 big 图。
+        /// </summary>
+        private void ApplyCardClickVisual(GComponent cardAnchor, GLoader reflectionLoader, int gameId)
+        {
+            cardAnchor?.SetScale(CardScaleClick, CardScaleClick);
+            SetReflectionUrl(reflectionLoader, gameId, true);
+        }
+
+        private void SetReflectionUrl(GLoader loader, int gameId, bool useBig)
+        {
+            if (loader == null)
+            {
+                return;
+            }
+
+            string resName = useBig ? $"{gameId}_big" : $"{gameId}_small";
+            loader.url = UIPackage.GetItemURL(pkgName, resName);
         }
 
         /// <summary>

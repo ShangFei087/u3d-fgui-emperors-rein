@@ -64,6 +64,11 @@ public static class PagUnityGlBridge
     private static readonly HashSet<int> s_slotsPendingDestroy = new HashSet<int>();
     private static bool s_queueRunning;
 
+    /// <summary>Loading 预热用 slot，与 PagController 从 1001 起的业务 slot 错开。</summary>
+    private const int WarmupTextureSlotId = 1;
+    /// <summary>EOF 后再 poll 几拍，避免连续多个 WaitForEndOfFrame。</summary>
+    private const int EnsureTexturePollCount = 2;
+
     public static bool IsSupported => true;
 
     public static int GetPendingOpCount()
@@ -202,15 +207,57 @@ public static class PagUnityGlBridge
         onReady?.Invoke(texId, texPtr);
     }
 
+    /// <summary>进局前发一次 64x64 Create，消化首次 plugin event / .so 加载，避免第一个业务 PAG 卡顿。</summary>
+    public static IEnumerator WarmupCreateTextureCoroutine()
+    {
+        yield return EnsureTextureCoroutine(WarmupTextureSlotId, 64, 64, null);
+    }
+
+    private static bool TryReadSlotTexture(int slotId, out int texId, out IntPtr texPtr)
+    {
+        PagGl_SetActiveSlot(slotId);
+        texId = PagGl_GetTextureId();
+        texPtr = PagGl_GetTexturePointer();
+        return texId > 0 && texPtr != IntPtr.Zero;
+    }
+
     private static IEnumerator InternalEnsureTexture(int slotId, int width, int height, Action<int, IntPtr> onReady)
     {
+        int texId;
+        IntPtr texPtr;
         PagGl_EnqueueCreateTexture(slotId, width, height);
         GL.IssuePluginEvent(PagGl_GetRenderEventFunc(), PagGl_GetCreateTextureEventId());
-        yield return WaitForRenderThreadIdle();
 
-        PagGl_SetActiveSlot(slotId);
-        int texId = PagGl_GetTextureId();
-        IntPtr texPtr = PagGl_GetTexturePointer();
+        for (int submit = 0; submit < 2; submit++)
+        {
+            yield return new WaitForEndOfFrame();
+            if (TryReadSlotTexture(slotId, out texId, out texPtr))
+            {
+                onReady?.Invoke(texId, texPtr);
+                yield break;
+            }
+
+            for (int i = 0; i < EnsureTexturePollCount; i++)
+            {
+                yield return null;
+                if (TryReadSlotTexture(slotId, out texId, out texPtr))
+                {
+                    onReady?.Invoke(texId, texPtr);
+                    yield break;
+                }
+            }
+
+            if (submit > 0)
+            {
+                break;
+            }
+
+            // 只重发 event：队列里还有 op 时补一次即可。不要再 Enqueue，避免拆掉已成功的大图再铺一张。
+            Debug.LogWarning($"[PAG GL] EnsureTexture retry event slot={slotId} size={width}x{height} pending={PagGl_GetPendingOpCount()}");
+            GL.IssuePluginEvent(PagGl_GetRenderEventFunc(), PagGl_GetCreateTextureEventId());
+        }
+
+        TryReadSlotTexture(slotId, out texId, out texPtr);
         onReady?.Invoke(texId, texPtr);
     }
 
@@ -357,6 +404,11 @@ public static class PagUnityGlBridge
     public static IEnumerator EnsureTextureCoroutine(int slotId, int width, int height, Action<int, IntPtr> onReady)
     {
         onReady?.Invoke(0, IntPtr.Zero);
+        yield break;
+    }
+
+    public static IEnumerator WarmupCreateTextureCoroutine()
+    {
         yield break;
     }
 

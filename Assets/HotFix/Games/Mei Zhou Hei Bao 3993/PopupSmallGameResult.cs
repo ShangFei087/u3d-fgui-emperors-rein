@@ -33,6 +33,8 @@ namespace MeiZhouHeiBao_3993
         private GameObject clonegoSmallResult;
         /// <summary>弹窗 Spine 播放器。</summary>
         private AnimPlayer _animSmallResult;
+        /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
+        private I18nLang _boundLang;
         /// <summary>播完 out 后延迟关页。</summary>
         private TimerCallback _delayCloseCallback;
         /// <summary>自动化测试自动点收集。</summary>
@@ -72,7 +74,6 @@ namespace MeiZhouHeiBao_3993
                 }
             };
 
-            //1
             ResourceManager02.Instance.LoadAsset<GameObject>(
             PrefabPath,
              (GameObject clone) =>
@@ -123,11 +124,14 @@ namespace MeiZhouHeiBao_3993
 
             //spine
             GComponent localSmallResult = contentPane.GetChild("anchorSmallResult").asCom;
-            if (anchorSmallResult != localSmallResult)
+            if (anchorSmallResult != localSmallResult || _boundLang != PopupSpineLang3993.CurrentLang)
             {
+                _animSmallResult?.DetachAll();
                 GameCommon.FguiUtils.DeleteWrapper(anchorSmallResult);
                 clonegoSmallResult = GameObject.Instantiate(goSmallResult);
+                PopupSpineLang3993.Apply(clonegoSmallResult);
                 anchorSmallResult = localSmallResult;
+                _boundLang = PopupSpineLang3993.CurrentLang;
                 GameCommon.FguiUtils.AddWrapper(anchorSmallResult, clonegoSmallResult);
                 _animSmallResult = new AnimPlayer(clonegoSmallResult);
             }
@@ -152,7 +156,8 @@ namespace MeiZhouHeiBao_3993
                 if (btnCollect != null) btnCollect.touchable = true;
             };
             Timers.inst.Add(3.5f, 1, _enableBtnCallback);
-            const string rootSmallResultPath = "Anchor/Spine Mecanim GameObject (jp_pup_CollectFrame)/SkeletonUtility-SkeletonRoot/root/all";
+            const string rootSuffix = "/SkeletonUtility-SkeletonRoot/root/all";
+            string rootSmallResultPath = "Anchor/" + clonegoSmallResult.transform.GetChild(0).GetChild(0).name + rootSuffix;
             _animSmallResult.Attach(
                 btnCollect,
                 rootSmallResultPath + "/fg_img_Button",

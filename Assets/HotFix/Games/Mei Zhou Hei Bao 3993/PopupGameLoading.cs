@@ -44,7 +44,7 @@ namespace MeiZhouHeiBao_3993
             "jp_pup/jp_pup_MINOR_pag/jp_pup_MINOR_in.pag",
             "jp_pup/jp_pup_MINOR_pag/jp_pup_MINOR_out.pag",
 
-            "jp_Transition2_NgToFg/jp_Transition2_NgToFg.pag",
+            "jp_Transition2_NgToFg/NgToFg.pag",
 
             "ng_pop_bigwin/BigWin_bmp.pag",
             "ng_pop_bigwin/SuperWin_bmp.pag",

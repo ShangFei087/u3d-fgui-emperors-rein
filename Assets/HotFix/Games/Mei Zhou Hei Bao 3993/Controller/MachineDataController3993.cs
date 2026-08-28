@@ -435,52 +435,12 @@ namespace MeiZhouHeiBao_3993
             //检查算法结果（免费局按变豹后盘面校验）
             isCheckGameResult=CheckGameResult(strDeckRowCol, totalwin, inFreeGive);
 
-            //判断彩金
-            bool isJackpotMajor = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 0 ? sboxJackpotData.Lottery[0] == 1 : false);
-            bool isJackpotMinor = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 1 ? sboxJackpotData.Lottery[1] == 1 : false);
-            bool isJackpotMini = sboxJackpotData == null ? false : (sboxJackpotData.Lottery != null && sboxJackpotData.Lottery.Length > 2 ? sboxJackpotData.Lottery[2] == 1 : false);
-
+            //获取本地彩金彩金
             jpGameRes.curJackpotMajor = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 0 ? sboxJackpotData.JackpotOut[0] : 0;
             jpGameRes.curJackpotMinior = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 1 ? sboxJackpotData.JackpotOut[1] : 0;
             jpGameRes.curJackpotMini = sboxJackpotData != null && sboxJackpotData.JackpotOut.Length >= 2 ? sboxJackpotData.JackpotOut[2] : 0;
             ContentModel.Instance.jpGameRes = jpGameRes;
 
-            if (isJackpotMajor)
-            {
-                int winCredit = (int)res["num"];
-                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
-                {
-                    name = "major",
-                    id = 1,
-                    winCredit = sboxJackpotData.Jackpotlottery[1],
-                    whenCredit = sboxJackpotData.JackpotOld[1],
-                    curCredit = sboxJackpotData.JackpotOut[1],
-                });
-            }
-            if (isJackpotMinor)
-            {
-                int winCredit = (int)res["num"];
-                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
-                {
-                    name = "minor",
-                    id = 1,
-                    winCredit = sboxJackpotData.Jackpotlottery[1],
-                    whenCredit = sboxJackpotData.JackpotOld[1],
-                    curCredit = sboxJackpotData.JackpotOut[1],
-                });
-            }
-            if (isJackpotMini)
-            {
-                int winCredit = (int)res["num"];
-                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
-                {
-                    name = "mini",
-                    id = 1,
-                    winCredit = sboxJackpotData.Jackpotlottery[2],
-                    whenCredit = sboxJackpotData.JackpotOld[2],
-                    curCredit = sboxJackpotData.JackpotOut[2],
-                });
-            }
 
             long creditBefore = 0;
             long creditAfter = 0;

@@ -1,2 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<branchDescription/>
+<branchDescription>
+  <resources>
+    <component id="g9kda1" name="BonusOutFrame.xml" path="/components/gameMain/" exported="true"/>
+    <image id="rghsbz" name="ng_txt_Bonus Tips_MAJOR.png" path="/images/gameJackpot/" exported="true"/>
+    <image id="rghsc0" name="ng_txt_Bonus Tips_MINI.png" path="/images/gameJackpot/" exported="true"/>
+    <image id="rghsc1" name="ng_txt_Bonus Tips_MINOR.png" path="/images/gameJackpot/" exported="true"/>
+    <image id="rghsc2" name="fg_txt_ALL.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="rghsc3" name="fg_txt_FREE GAME.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="rghsc4" name="fg_txt_OF.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="rghsc5" name="fg_txt_Separator_line.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="rghsc6" name="fg_txt_TO.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="rghsc7" name="fg_txt_YOU GOT.png" path="/images/gameMain/free/" exported="true"/>
+    <image id="rghsc8" name="sg_img_Times_reminder_UI_SPINS_LEFT_01.png" path="/images/gameMain/reward/" exported="true"/>
+    <image id="rghsc9" name="sg_img_Times_reminder_UI_SPINS_LEFT_02.png" path="/images/gameMain/reward/" exported="true"/>
+    <image id="rghsca" name="payTable1.png" path="/images/payTable/" exported="true"/>
+    <image id="rghscb" name="payTable2.png" path="/images/payTable/" exported="true"/>
+    <image id="rghscc" name="payTable3.png" path="/images/payTable/" exported="true"/>
+    <image id="rghscd" name="payTable4.png" path="/images/payTable/" exported="true"/>
+    <image id="rghsce" name="payTable5.png" path="/images/payTable/" exported="true"/>
+    <component id="rghscj" name="fg_txt_ALL TO.xml" path="/components/gameMain/freeGame/"/>
+    <component id="rghsck" name="FreeOutFrame.xml" path="/components/gameMain/" exported="true"/>
+    <image id="rghsd0" name="payTable6.png" path="/images/payTable/" exported="true"/>
+    <image id="rghsd1" name="payTable7.png" path="/images/payTable/" exported="true"/>
+  </resources>
+</branchDescription>
