@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1000,625">
+  <displayList>
+    <component id="n0_g9kd" name="reels" src="g9kd9z" fileName="moudules/rewardSlotMachine/Reels.xml" xy="0,0"/>
+  </displayList>
+</component>

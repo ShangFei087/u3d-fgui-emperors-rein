@@ -36,7 +36,6 @@ namespace CaiFuZhiJia_3997
 
         private GameSoundController3997 _gameSoundController;
         private bool _isClicked = false;
-        private EventData _openData;
         private Action _changeFreePage;
 
         protected override void OnInit()
@@ -72,7 +71,6 @@ namespace CaiFuZhiJia_3997
 
         private void InitParam(EventData eventData)
         {
-            if (eventData != null) _openData = eventData;
             if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
@@ -115,10 +113,7 @@ namespace CaiFuZhiJia_3997
             roundTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
 
             // --------------------- 按钮点击事件 ---------------------
-            if (_openData is { value: Dictionary<string, object> args })
-            {
-                _changeFreePage = args["changeFreePage"] as Action;
-            }
+
 
             _freeStartBtn.onClick.Clear();
             _freeStartBtn.onClick.Add(() => { OnClickSpinButton(null); });
@@ -143,6 +138,12 @@ namespace CaiFuZhiJia_3997
             _gameSoundController = new GameSoundController3997();
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(Game3997AudioEvent.BgmFreeSpinTrigger));
+
+            if (eventData is { value: Dictionary<string, object> args })
+            {
+                _changeFreePage = args["changeFreePage"] as Action;
+            }
+
             InitParam(eventData);
         }
 

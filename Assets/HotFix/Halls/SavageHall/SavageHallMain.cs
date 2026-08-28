@@ -155,8 +155,6 @@ namespace SavageHall
                 PageManager.Instance.OpenPage(PageName.SavageHallMain);
             }
             PageLaunch.Instance.Close(2f);
-            PageManager.Instance.OpenPage(PageName.SavageHallMain);
-
             PageManager.Instance.PreloadPage(PageName.HuoYanGongNiuPopupGameLoading, OnOnePreloadDone);
             PageManager.Instance.PreloadPage(PageName.FeiZhouHeiXingXingPopupGameLoading, OnOnePreloadDone);
             PageManager.Instance.PreloadPage(PageName.MeiZhouHeiBaoPopupGameLoading, OnOnePreloadDone);
@@ -250,7 +248,7 @@ namespace SavageHall
                 animator3995 = ClonegoCard3995.transform.GetChild(0).GetChild(1).GetComponent<Animator>();
                 _skeletonMecanim3993 = ClonegoCard3995.transform.GetChild(0).GetChild(1).GetComponent<SkeletonMecanim>();
                 animatorChlick3995 = ClonegoCard3995.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-                HoldCardClickEffectIdle(animatorChlick3995);
+                HideCardClickEffect(animatorChlick3995);
                 anchorCard3995 = LocalCard3995;
                 GameCommon.FguiUtils.AddWrapper(anchorCard3995, ClonegoCard3995);
             }
@@ -263,7 +261,7 @@ namespace SavageHall
                 animator3994 = ClonegoCard3994.transform.GetChild(0).GetChild(1).GetComponent<Animator>();
                 _skeletonMecanim3995 = ClonegoCard3994.transform.GetChild(0).GetChild(1).GetComponent<SkeletonMecanim>();
                 animatorChlick3994 = ClonegoCard3994.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-                HoldCardClickEffectIdle(animatorChlick3994);
+                HideCardClickEffect(animatorChlick3994);
                 anchorCard3994 = LocalCard3994;
                 GameCommon.FguiUtils.AddWrapper(anchorCard3994, ClonegoCard3994);
 
@@ -277,7 +275,7 @@ namespace SavageHall
                 animator3993 = ClonegoCard3993.transform.GetChild(0).GetChild(1).GetComponent<Animator>();
                 _skeletonMecanim3993 = ClonegoCard3993.transform.GetChild(0).GetChild(1).GetComponent<SkeletonMecanim>();
                 animatorChlick3993 = ClonegoCard3993.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-                HoldCardClickEffectIdle(animatorChlick3993);
+                HideCardClickEffect(animatorChlick3993);
 
                 anchorCard3993 = LocalCard3993;
                 GameCommon.FguiUtils.AddWrapper(anchorCard3993, ClonegoCard3993);
@@ -297,7 +295,7 @@ namespace SavageHall
 
                     PlayCardClickEffect(animatorChlick3995);
                     float clickAnimDuration = PlayCardClickAnimation(animator3995);
-                    StartCardGameEnter(animator3995, PageName.HuoYanGongNiuPopupGameLoading, 3996, clickAnimDuration);
+                    StartCardGameEnter(animator3995, PageName.HuoYanGongNiuPopupGameLoading, 3995, clickAnimDuration);
                 }
             });
 
@@ -312,7 +310,7 @@ namespace SavageHall
                     btnCollect.touchable = false;
                     PlayCardClickEffect(animatorChlick3994);
                     float clickAnimDuration = PlayCardClickAnimation(animator3994);
-                    StartCardGameEnter(animator3994, PageName.FeiZhouHeiXingXingPopupGameLoading, 3998, clickAnimDuration);
+                    StartCardGameEnter(animator3994, PageName.FeiZhouHeiXingXingPopupGameLoading, 3994, clickAnimDuration);
                 }
             });
 
@@ -327,7 +325,7 @@ namespace SavageHall
                     btnCollect.touchable = false;
                     PlayCardClickEffect(animatorChlick3993);
                     float clickAnimDuration = PlayCardClickAnimation(animator3993);
-                    StartCardGameEnter(animator3993, PageName.MeiZhouHeiBaoPopupGameLoading, 3997, clickAnimDuration);
+                    StartCardGameEnter(animator3993, PageName.MeiZhouHeiBaoPopupGameLoading, 3993, clickAnimDuration);
                 }
             });
 
@@ -367,36 +365,28 @@ namespace SavageHall
         }
 
         /// <summary>
-        /// 根据当前语言刷新大厅卡牌动画的 initial skin。
+        /// 根据当前语言刷新大厅卡牌待机动画（en: idle，cn: idle_cn）。
         /// </summary>
         private void RefreshCardSkinByLanguage()
         {
-           // ApplySpineInitialSkinByLanguage(_skeletonMecanim3995);
-           //ApplySpineInitialSkinByLanguage(_skeletonMecanim3994);
-           // ApplySpineInitialSkinByLanguage(_skeletonMecanim3993);
+            PlayCardIdleAnimation(animator3995);
+            PlayCardIdleAnimation(animator3994);
+            PlayCardIdleAnimation(animator3993);
         }
 
-        /// <summary>
-        /// 按语言设置 Spine 动画 initial skin，并立即刷新到当前骨骼实例。
-        /// </summary>
-        private void ApplySpineInitialSkinByLanguage(SkeletonMecanim skeletonMecanim)
+        private bool IsEnglishLang()
         {
-            if (skeletonMecanim == null)
-            {
-                return;
-            }
+            return SBoxModel.Instance.language == "en";
+        }
 
-            string skinName = SBoxModel.Instance.language == "en" ? "en" : "cn";
-            skeletonMecanim.initialSkinName = skinName;
-            if (skeletonMecanim.Skeleton == null)
-            {
-                skeletonMecanim.Initialize(true);
-                return;
-            }
+        private string GetCardIdleStateName()
+        {
+            return IsEnglishLang() ? "idle" : "idle_cn";
+        }
 
-            skeletonMecanim.Skeleton.SetSkin(skinName);
-            skeletonMecanim.Skeleton.SetSlotsToSetupPose();
-            skeletonMecanim.LateUpdate();
+        private string GetCardClickStateName()
+        {
+            return IsEnglishLang() ? "click" : "click_cn";
         }
 
         /// <summary>
@@ -531,33 +521,20 @@ namespace SavageHall
         }
 
         /// <summary>
-        /// 进大厅时让点击特效停在 click 第 0 帧（无 click 则冻默认状态第 0 帧）。
+        /// 进大厅时隐藏点击特效（仅点击卡牌时再激活播放）。
         /// </summary>
-        private void HoldCardClickEffectIdle(Animator clickAnimator)
+        private void HideCardClickEffect(Animator clickAnimator)
         {
             if (clickAnimator == null)
             {
                 return;
             }
 
-            clickAnimator.gameObject.SetActive(true);
-            clickAnimator.enabled = true;
-            if (clickAnimator.HasState(0, Animator.StringToHash("click")))
-            {
-                clickAnimator.Play("click", 0, 0f);
-                clickAnimator.speed = 0f;
-                clickAnimator.Update(0f);
-            }
-            else
-            {
-                clickAnimator.Play(0, 0, 0f);
-                clickAnimator.speed = 0f;
-                clickAnimator.Update(0f);
-            }
+            clickAnimator.gameObject.SetActive(false);
         }
 
         /// <summary>
-        /// 恢复速度并播放卡牌点击特效 Animator。
+        /// 激活并播放卡牌点击特效 Animator（无中英文分支，固定 click）。
         /// </summary>
         private void PlayCardClickEffect(Animator clickAnimator)
         {
@@ -576,7 +553,7 @@ namespace SavageHall
         }
 
         /// <summary>
-        /// 播放卡牌 click 动画并返回动画时长（秒），用于延时执行跳转逻辑。
+        /// 按语言播放卡牌 click / click_cn，并返回动画时长（秒）。
         /// </summary>
         private float PlayCardClickAnimation(Animator animator)
         {
@@ -585,10 +562,12 @@ namespace SavageHall
                 return 0.15f;
             }
 
-            if (animator.HasState(0, Animator.StringToHash("click")))
+            string stateName = GetCardClickStateName();
+            if (animator.HasState(0, Animator.StringToHash(stateName)))
             {
-                animator.Play("click", 0, 0f);
-                float duration = GetAnimationClipLength(animator, "click");
+                animator.speed = 1f;
+                animator.Play(stateName, 0, 0f);
+                float duration = GetAnimationClipLength(animator, stateName);
                 return duration > 0f ? duration : 0.15f;
             }
 
@@ -596,8 +575,7 @@ namespace SavageHall
         }
 
         /// <summary>
-        /// 在 click 计时已结束但 PopupGameLoading 尚未打开时调用：切换到 idle 状态，直到 Loading 打开。
-        /// Animator 需存在名为 idle 的状态；若无则保持当前姿态不变。
+        /// 按语言播放卡牌 idle / idle_cn；Loading 等待衔接时也会调用。
         /// </summary>
         private void PlayCardIdleAnimation(Animator animator)
         {
@@ -606,9 +584,11 @@ namespace SavageHall
                 return;
             }
 
-            if (animator.HasState(0, Animator.StringToHash("idle")))
+            string stateName = GetCardIdleStateName();
+            if (animator.HasState(0, Animator.StringToHash(stateName)))
             {
-                animator.Play("idle", 0, 0f);
+                animator.speed = 1f;
+                animator.Play(stateName, 0, 0f);
             }
         }
 

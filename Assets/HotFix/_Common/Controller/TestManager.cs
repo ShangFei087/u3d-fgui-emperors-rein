@@ -214,6 +214,16 @@ public class TestManager : Singleton<TestManager>
             PageName.SlotZhuZaiJinBiPopupGameLoading,
             PageName.SlotZhuZaiJinBiPopupFreeSpinTrigger,
 
+            // 3993
+            PageName.MeiZhouHeiBaoPopupGameLoading,
+            PageName.MeiZhouHeiBaoPageGameMain,
+            PageName.MeiZhouHeiBaoPopupBigWin,
+            PageName.MeiZhouHeiBaoPopupFreeSpinTrigger,
+            PageName.MeiZhouHeiBaoPopupFreeSpinResult,
+            PageName.MeiZhouHeiBaoPopupSmallGameTrigger,
+            PageName.MeiZhouHeiBaoPopupSmallGameResult,
+            PageName.MeiZhouHeiBaoPopupSmallGameJackpotWin,
+
             // 3996
             PageName.CaiFuHuoChePopupGameLoading,
             PageName.CaiFuHuoChePopupFreeSpinTrigger,
@@ -270,6 +280,7 @@ public class TestManager : Singleton<TestManager>
             btn.GetChild("title").asTextField.text = projectNumber[i].ToString();
             btn.onClick.Add((() =>
             {
+                PagLifecycle.ReleaseCurrentGame();
                 for (int j = 0; j < resetPageNames.Count; j++)
                 {
                     if (PageManager.Instance.pageCacheDict.ContainsKey(resetPageNames[j]) &&

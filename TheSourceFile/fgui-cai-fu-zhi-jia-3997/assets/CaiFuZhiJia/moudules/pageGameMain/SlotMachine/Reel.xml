@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="171,507">
+<component size="174,522">
   <displayList>
-    <component id="n0_u8to" name="symbols" src="u8to2t" fileName="moudules/pageGameMain/SlotMachine/Symbols.xml" xy="0,0"/>
+    <component id="n0_u8to" name="symbols" src="u8to2t" fileName="moudules/pageGameMain/SlotMachine/Symbols.xml" xy="0,0" size="174,522"/>
   </displayList>
 </component>

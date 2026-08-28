@@ -1,6 +1,24 @@
 {
 	"game_id": 3993,
 	"gm_event": {
+		"normal": {
+			"nick_name": "普通赢",
+			"event_name": "GMSingleWinLine",
+			"value": "",
+			"des": ""
+		},
+		"panther": {
+			"nick_name": "普通特殊赢",
+			"event_name": "GMMultipleWinLine",
+			"value": "",
+			"des": ""
+		},
+		"bigwin": {
+			"nick_name": "BigWin",
+			"event_name": "GMBigWin",
+			"value": "",
+			"des": ""
+		},
 		"free_spin": {
 			"nick_name": "免费游戏",
 			"event_name": "GMFreeSpin",
@@ -8,16 +26,29 @@
 			"des": ""
 		},
 		"bonus": {
-			"nick_name": "彩金游戏",
+			"nick_name": "Bonus游戏",
 			"event_name": "GMBonus1",
 			"value": "",
 			"des": ""
 		},
-		"normal": {
-			"nick_name": "普通游戏",
-			"event_name": "GMMultipleWinLine",
+		"mini": {
+			"nick_name": "Mini彩金游戏",
+			"event_name": "GMJp1",
+			"value": "",
+			"des": ""
+		},
+		"minor": {
+			"nick_name": "Minor彩金游戏",
+			"event_name": "GMJp2",
+			"value": "",
+			"des": ""
+		},
+		"major": {
+			"nick_name": "Major彩金游戏",
+			"event_name": "GMJp3",
 			"value": "",
 			"des": ""
 		}
+		
 	}
 }

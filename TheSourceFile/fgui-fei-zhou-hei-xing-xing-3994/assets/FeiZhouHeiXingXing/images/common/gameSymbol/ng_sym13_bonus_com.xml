@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="195,181">
   <displayList>
-    <image id="n0_s1hw" name="n0" src="s1hw6s" fileName="images/common/gameSymbol/ng_sym13_bonus.png" xy="-19,-1" scale="0.95,0.95"/>
+    <image id="n0_s1hw" name="n0" src="s1hw6s" fileName="images/common/gameSymbol/ng_sym13_bonus.png" xy="-13,3" scale="0.9,0.9"/>
   </displayList>
 </component>

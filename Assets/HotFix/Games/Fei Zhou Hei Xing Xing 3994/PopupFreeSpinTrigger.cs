@@ -40,7 +40,7 @@ namespace FeiZhouHeiXingXing_3994
         // Pag
         private GComponent _fadeCom;
         private PagSlotBinding _fadePag;
-        private readonly string _fade1920 = "PopupFreeSpinTrigger/fade_1920.pag";
+        private readonly string _fade1920 = "PopupFreeSpinTrigger/fade.pag";
 
         private TimerCallback _delayCloseCallback, _delayPlayPagCallback; // 延时关闭回调   延时播放Pag回调
 

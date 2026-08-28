@@ -89,7 +89,7 @@ namespace CaiFuZhiJia_3997
             _collectBtnLocalScale = collectBtnTran.localScale;
             _numTextLocalPos = roundTran.localPosition;
             _numTextLocalScale = roundTran.localScale;
-            
+
 
             // -------------------------- 绑定Prefab到UI上 -----------------------
             GComponent currentGCom = _freeResultTipWindow.GetChild("freeResult").asCom;
@@ -101,9 +101,10 @@ namespace CaiFuZhiJia_3997
                 _freeResultAni = _cloneFreeResultObj.GetComponentInChildren<Animator>();
                 GameCommon.FguiUtils.AddWrapper(_freeResultCom, _cloneFreeResultObj);
             } // Spine
-            
+
             // --------------------- 将UI组件挂点到对应的Spine节点上 ---------------------
-            string rootPath = "Anchor/Spine Mecanim GameObject (fg_pop_settlement)/SkeletonUtility-SkeletonRoot/root/all/";
+            string rootPath =
+                "Anchor/Spine Mecanim GameObject (fg_pop_settlement)/SkeletonUtility-SkeletonRoot/root/all/";
             Transform btnTran = _cloneFreeResultObj.transform.Find(rootPath + "btn");
             collectBtnTran.SetParent(btnTran, false);
             collectBtnTran.localPosition = new Vector3(-2f, 0.75f, 0);
@@ -113,10 +114,6 @@ namespace CaiFuZhiJia_3997
             roundTran.localPosition = new Vector3(-5.31f, 1.53f, 0);
             roundTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
 
-            if (eventData is { value: Dictionary<string, object> args })
-            {
-                _changeNormalPage = args["changeNormalPage"] as Action;
-            }
 
             _freeCollectBtn.onClick.Clear();
             _freeCollectBtn.onClick.Add(() => OnClickSpinButton(null));
@@ -144,7 +141,7 @@ namespace CaiFuZhiJia_3997
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.FreeGameFadeTransition));
 
-            PlayAnimationByName(_freeResultAni,"fg_fade_ng");
+            PlayAnimationByName(_freeResultAni, "fg_fade_ng");
             _freeResultText.visible = false;
 
             _delayCloseCallback = (obj) =>
@@ -164,6 +161,12 @@ namespace CaiFuZhiJia_3997
             _gameSoundController = new GameSoundController3997();
             EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(Game3997AudioEvent.BgmFreeSpinResult));
+
+            if (eventData is { value: Dictionary<string, object> args })
+            {
+                _changeNormalPage = args["changeNormalPage"] as Action;
+            }
+
             InitParam(eventData);
         }
 
@@ -177,7 +180,7 @@ namespace CaiFuZhiJia_3997
             _changeNormalPage = null;
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _delayCloseCallback);
-            
+
             // ------------------------ 复原UI父物体 ----------------------
             Transform startBtnTran = _freeCollectBtn.displayObject.gameObject.transform;
             Transform roundTran = _freeResultText.displayObject.gameObject.transform;
@@ -188,7 +191,7 @@ namespace CaiFuZhiJia_3997
             roundTran.SetParent(parentTran, false);
             roundTran.localPosition = _numTextLocalPos;
             roundTran.localScale = _numTextLocalScale;
-            
+
             _freeResultText.visible = true;
         }
 

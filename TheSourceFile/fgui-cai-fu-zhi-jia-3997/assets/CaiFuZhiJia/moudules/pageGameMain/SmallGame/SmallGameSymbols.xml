@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="171,169" overflow="hidden">
+<component size="174,174" overflow="hidden">
   <displayList>
-    <component id="n0_xpjv" name="rollElement_1" src="jh0i55" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbol.xml" xy="0,-507"/>
-    <component id="n2_xpjv" name="rollElement_2" src="jh0i55" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbol.xml" xy="0,-338"/>
-    <component id="n3_xpjv" name="rollElement_3" src="jh0i55" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbol.xml" xy="0,-169"/>
-    <graph id="n1_xpjv" name="mask" xy="85,85" pivot="0.5,0.5" anchor="true" size="171,169" type="rect" fillColor="#99000000"/>
-    <component id="n5_xpjv" name="result" src="jh0i55" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbol.xml" xy="0,-338"/>
+    <component id="n0_xpjv" name="rollElement_1" src="jh0i55" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbol.xml" xy="0,-522"/>
+    <component id="n2_xpjv" name="rollElement_2" src="jh0i55" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbol.xml" xy="0,-348"/>
+    <component id="n3_xpjv" name="rollElement_3" src="jh0i55" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbol.xml" xy="0,-174"/>
+    <graph id="n1_xpjv" name="mask" xy="87,87" pivot="0.5,0.5" anchor="true" size="174,174" type="rect" fillColor="#99000000"/>
+    <component id="n5_xpjv" name="result" src="jh0i55" fileName="moudules/pageGameMain/SmallGame/SmallGameSymbol.xml" xy="0,-348"/>
   </displayList>
   <transition name="roll">
     <item time="0" type="XY" target="n0_xpjv" tween="true" startValue="0,-507" endValue="0,169" duration="12" ease="Linear"/>

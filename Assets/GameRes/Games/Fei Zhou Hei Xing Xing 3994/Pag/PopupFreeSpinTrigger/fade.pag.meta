@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: f63346e3466b97b4c83a4fe7303db8c3
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: games/fei zhou hei xing xing 3994/pag/popupfreespintrigger/fade.unity3d
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: c806c33c02b7da44e86221c1c5045af0, type: 3}

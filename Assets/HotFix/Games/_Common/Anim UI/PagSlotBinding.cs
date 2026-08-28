@@ -7,8 +7,12 @@ using UnityEngine;
 /// </summary>
 public sealed class PagSlotBinding : IDisposable
 {
-    public PagController Controller { get; }
-    public string InstanceKey => Controller.InstanceKey;
+    private readonly string _instanceKey;
+    private readonly string _gamePagFolder;
+    private PagController _controller;
+
+    public PagController Controller => _controller;
+    public string InstanceKey => _instanceKey;
     public GComponent FguiAnchor { get; private set; }
 
     private string _boundLoaderName = PagFguiGpuPresenter.DefaultLoaderName;
@@ -28,7 +32,24 @@ public sealed class PagSlotBinding : IDisposable
     /// <param name="gamePagFolder">游戏侧 PAG 资源目录；为空则走控制器默认路径。</param>
     public PagSlotBinding(string instanceKey, string gamePagFolder = null)
     {
-        Controller = new PagController(instanceKey, gamePagFolder);
+        _instanceKey = instanceKey;
+        _gamePagFolder = gamePagFolder;
+        _controller = new PagController(instanceKey, gamePagFolder);
+    }
+
+    private void EnsureControllerAlive()
+    {
+        if (_controller != null && !_controller.IsDisposed)
+        {
+            return;
+        }
+
+        _controller = new PagController(_instanceKey, _gamePagFolder);
+        InvalidatePrepared();
+        if (FguiAnchor != null)
+        {
+            _controller.Attach(FguiAnchor, _boundLoaderName);
+        }
     }
 
     /// <summary>
@@ -43,6 +64,7 @@ public sealed class PagSlotBinding : IDisposable
         string loaderName = PagFguiGpuPresenter.DefaultLoaderName,
         float displayScale = PagPresentationDefaults.DisplayScale)
     {
+        EnsureControllerAlive();
         if (fguiAnchor == null)
         {
             Debug.LogWarning($"[PAG] EnsureSlot skipped: fguiAnchor is null, instance={InstanceKey}");
@@ -65,6 +87,7 @@ public sealed class PagSlotBinding : IDisposable
     /// <returns>已就绪或 Prepare 成功返回 true。</returns>
     private bool EnsurePrepared(float displayScale = PagPresentationDefaults.DisplayScale)
     {
+        EnsureControllerAlive();
         if (FguiAnchor == null)
         {
             Debug.LogWarning($"[PAG] EnsurePrepared skipped: FguiAnchor is null, instance={InstanceKey}");
@@ -95,6 +118,7 @@ public sealed class PagSlotBinding : IDisposable
     /// <param name="loaderName">锚点下 GLoader 名称。</param>
     private void Attach(GComponent fguiAnchor, string loaderName = PagFguiGpuPresenter.DefaultLoaderName)
     {
+        EnsureControllerAlive();
         FguiAnchor = fguiAnchor;
         _boundLoaderName = loaderName;
         InvalidatePrepared();
@@ -314,10 +338,15 @@ public sealed class PagSlotBinding : IDisposable
     public void Stop(bool hideFgui = true)
     {
         ClearPlayCallbacks();
-        Controller.StopPag();
+        if (_controller == null || _controller.IsDisposed)
+        {
+            return;
+        }
+
+        _controller.StopPag();
         if (hideFgui)
         {
-            Controller.SetFguiVisible(false);
+            _controller.SetFguiVisible(false);
         }
     }
 
@@ -347,7 +376,8 @@ public sealed class PagSlotBinding : IDisposable
     public void Dispose()
     {
         ClearPlayCallbacks();
-        Controller.Dispose();
+        _controller?.Dispose();
+        _controller = null;
         FguiAnchor = null;
         InvalidatePrepared();
     }

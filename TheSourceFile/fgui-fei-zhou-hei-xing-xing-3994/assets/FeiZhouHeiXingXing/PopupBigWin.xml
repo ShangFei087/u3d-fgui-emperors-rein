@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1080,1920">
+<component size="1080,1920" designImage="ui://ytoswqrpt5ii1co">
   <displayList>
     <component id="n0_112t1" name="anchorBigWin" src="112t1c9" fileName="moudules/popupBigWin/anchorBigWin.xml" xy="540,960"/>
+    <text id="n1_t5ii" name="scoreText" xy="53,1231" size="974,150" font="ui://ytoswqrpt5ii1d7" fontSize="12" align="center" vAlign="middle" letterSpacing="-40" autoSize="shrink" text="$99999900"/>
   </displayList>
 </component>

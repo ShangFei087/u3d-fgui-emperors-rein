@@ -70,7 +70,6 @@
     <component id="9e0n4o" name="freeOther.xml" path="/moudules/pageGameMain/free/" exported="true"/>
     <component id="9e0n4p" name="freeFrame.xml" path="/moudules/pageGameMain/free/" exported="true"/>
     <component id="ba9f4q" name="anchorSpeedParent.xml" path="/moudules/pageGameMain/anchor/" exported="true"/>
-    <image id="jzab4r" name="ng_img_bg_01.png" path="/images/pageGameMain/normal/" exported="true"/>
     <image id="jzab4s" name="普通游戏1.png" path="/images/common/rendering/"/>
     <image id="jzab4t" name="普通游戏2.png" path="/images/common/rendering/"/>
     <image id="jzab4u" name="普通游戏3.png" path="/images/common/rendering/"/>
@@ -309,6 +308,27 @@
     <image id="skdk1ck" name="load_bg_7.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
     <image id="skdk1cl" name="load_bg_8.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
     <image id="skdk1cm" name="load_bg_9.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
+    <image id="t5ii1cn" name="ng_img_bg_01.png" path="/images/pageGameMain/normal/" exported="true"/>
+    <image id="t5ii1co" name="BIG WIN.png" path="/images/common/rendering/"/>
+    <image id="t5ii1cp" name="ng_num_0.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1cq" name="ng_num_mil.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1cr" name="ng_num_kil.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1cs" name="ng_num_dot.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1ct" name="ng_num_dollar.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1cu" name="ng_num_com.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1cv" name="ng_num_bil.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1cw" name="ng_num_9.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1cx" name="ng_num_8.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1cy" name="ng_num_7.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1cz" name="ng_num_6.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1d0" name="ng_num_5.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1d1" name="ng_num_4.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1d2" name="ng_num_3.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1d3" name="ng_num_2.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1d4" name="ng_num_1.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1d5" name="ng_num_s.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <image id="t5ii1d6" name="ng_num_tril.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
+    <font id="t5ii1d7" name="bigWinFont.fnt" path="/fonts/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Fei Zhou Hei Xing Xing 3994\FGUIs" packageCount="2"/>
 </packageDescription>

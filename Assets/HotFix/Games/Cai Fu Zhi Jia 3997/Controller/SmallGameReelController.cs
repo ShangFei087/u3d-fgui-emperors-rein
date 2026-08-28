@@ -78,8 +78,7 @@ namespace CaiFuZhiJia_3997
         private readonly List<string> iconUrlList = new List<string>()
         {
             "ui://CaiFuZhiJia/ng_sym_null",
-            "ui://CaiFuZhiJia/ng_sym_diamonds",
-            "ui://CaiFuZhiJia/ng_sym_diamonds2",
+            "ui://CaiFuZhiJia/ng_sym13_jiaj",
             "ui://CaiFuZhiJia/ng_sym_14_minor",
             "ui://CaiFuZhiJia/ng_sym_14_major",
             "ui://CaiFuZhiJia/ng_sym14_mini",
@@ -133,7 +132,7 @@ namespace CaiFuZhiJia_3997
         /// <summary>
         /// 播放中奖滚动动画（第一圈roll，第二圈result）
         /// </summary>
-        public void PlayHitRoll(float rollSpeed, float resultSpeed, Action onComplete)
+        public void PlayHitRoll(float rollSpeed, float resultSpeed, Action onComplete, Action hitJackpotComplete)
         {
             if (State == SmallReelState.Revealed || State == SmallReelState.Settled)
             {
@@ -152,7 +151,8 @@ namespace CaiFuZhiJia_3997
                 State = SmallReelState.Revealed;
 
                 result.element.url = ResultInfo.iconUrl;
-                result.rewardText.text = ResultInfo.type == SmallResultType.RedDiamond ? ResultInfo.rewardText : string.Empty;
+                result.rewardText.text =
+                    ResultInfo.type == SmallResultType.RedDiamond ? ResultInfo.rewardText : string.Empty;
 
                 if (_anchorPrefab != null)
                 {
@@ -163,9 +163,10 @@ namespace CaiFuZhiJia_3997
                 }
 
                 _resultTrans.Stop();
-                _resultTrans.timeScale = resultSpeed /*- 0.9f*/;
+                _resultTrans.timeScale = resultSpeed;
                 _resultTrans.Play(() =>
                 {
+                    if (result.rewardText.text == string.Empty) hitJackpotComplete?.Invoke();
                     result.element.url = DefaultUrl;
                     _anchorPrefab.SetActive(true);
                     onComplete?.Invoke();

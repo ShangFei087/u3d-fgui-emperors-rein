@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff66f75f9c0ad434daa9b0c4338e1541, type: 3}
   m_Name: ApplicationSettings
   m_EditorClassIdentifier: 
-  isMachine: 0
+  isMachine: 1
   isRelease: 0
-  isMock: 1
+  isMock: 0
   isExpoMode: 1
   isUseProtectApplication: 0
-  platformName: ljz
-  gameTheme: Test
+  platformName: Treasury
+  gameTheme: Treasury
   launchFguiName: TreasuryPageLaunch
-  agentName: EmperorsRein200
-  appKey: ljz_debug_android_20260825104157
+  agentName: Treasury
+  appKey: Treasury_debug_machine_20260810192219
   appVersion: 1.2.0
   resourceServer: http://47.112.14.190/StandSlot
-  machineDebugUrl: 192.168.0.113
+  machineDebugUrl: 192.168.0.25
   reportUrl: http://192.168.3.152/api/game_log/send
   posterUrl: 
   logoUrl: ui://Native/eyeryparty

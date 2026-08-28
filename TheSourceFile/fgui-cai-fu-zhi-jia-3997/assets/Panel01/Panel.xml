@@ -5,7 +5,7 @@
     <component id="n0_u8to" name="frame" src="u8to1f" fileName="moudules/panel/gameDiFrame.xml" xy="0,0"/>
     <component id="n2_u8to" name="btnHelp" src="u8to1n" fileName="components/Panel/ButtonHelp.xml" xy="103,168" pivot="0.5,0.5" anchor="true"/>
     <text id="n5_u8to" name="bet" xy="659,152" size="95,37" font="ui://9igt9u8mhm6e3s" fontSize="12" align="center" vAlign="middle" letterSpacing="-10" autoSize="shrink" text="100"/>
-    <text id="n6_u8to" name="win" xy="349,33" size="385,67" font="ui://9igt9u8mhm6e4a" fontSize="10" align="center" vAlign="middle" letterSpacing="-15" autoSize="shrink" text="997000000000"/>
+    <text id="n6_u8to" name="win" xy="349,26" size="385,67" font="ui://9igt9u8mhm6e4a" fontSize="10" align="center" vAlign="middle" letterSpacing="-15" autoSize="shrink" text="997000000000"/>
     <text id="n7_u8to" name="credit" xy="312,149" size="145,39" font="ui://9igt9u8mhm6e3s" fontSize="15" align="center" vAlign="middle" letterSpacing="-10" autoSize="shrink" text="99700000"/>
     <component id="n3_u8to" name="btnBetUp" src="u8to1j" fileName="components/Panel/ButtonBetUp.xml" xy="788,152"/>
     <component id="n4_u8to" name="btnBetDown" src="u8to1k" fileName="components/Panel/ButtonBetDown.xml" xy="572,151"/>

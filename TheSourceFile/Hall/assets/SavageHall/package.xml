@@ -70,8 +70,10 @@
     <component id="puke1w" name="AnchorCard.xml" path="/components/" exported="true"/>
     <component id="puke1x" name="CardBtn.xml" path="/components/" exported="true"/>
     <component id="puke1y" name="ButtonCollect.xml" path="/components/" exported="true"/>
-    <image id="puke1z" name="大厅效果图-英文.png" path="/images/"/>
     <component id="puke20" name="AnchorLogo.xml" path="/components/"/>
+    <image id="d6bl21" name="plat_txt_major.png" path="/images/"/>
+    <image id="d6bl23" name="plat_txt_mini.png" path="/images/"/>
+    <image id="d6bl25" name="plat_txt_minor.png" path="/images/"/>
   </resources>
   <publish name="SavageHall" path="../../Assets/GameRes/Halls/SavageHall/FGUIs" packageCount="2"/>
 </packageDescription>

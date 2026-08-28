@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,300">
   <displayList>
-    <text id="n1_gg7g" name="number" xy="0,0" size="1080,300" font="ui://92trhum6jc99ay" fontSize="14" align="center" vAlign="middle" letterSpacing="-25" autoSize="shrink" text="1234567890000"/>
+    <text id="n1_gg7g" name="number" xy="0,0" size="1080,300" font="ui://92trhum6jc99ay" fontSize="10" align="center" vAlign="middle" letterSpacing="-10" autoSize="shrink" text="1234567890000"/>
   </displayList>
 </component>

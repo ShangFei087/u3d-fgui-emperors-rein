@@ -10,30 +10,6 @@ namespace SlotZhuZaiJinBi1700
     public class ContentModel : MonoSingleton<ContentModel>, IContentModel
     {
       
-        //private static object _mutex = new object();
-        //static ContentModel _instance;
-        //public static ContentModel Instance
-        //{
-        //    get
-        //    {
-
-        //        lock (_mutex)
-        //        {
-        //            if (_instance == null)
-        //            {
-        //                _instance = FindObjectOfType<ContentModel>();
-        //                // FindObjectOfType(typeof(DevicePrinterOut)) as DevicePrinterOut;
-        //                if (_instance == null)
-        //                {
-        //                    // Debug.LogError();
-        //                }
-        //            }
-        //            return _instance;
-        //        }
-        //    }
-        //}
-
-
         Observer m_Observable;
         public Observer observable
         {
@@ -136,8 +112,6 @@ namespace SlotZhuZaiJinBi1700
 
         /// <summary>  这个已经改为：基本游戏+彩金了  </summary>
         public long totalEarnCredit;
-
-
 
         /// <summary> 基础游戏赢分（单局普通游戏 或 免费游戏） </summary>
         public long baseGameWinCredit;

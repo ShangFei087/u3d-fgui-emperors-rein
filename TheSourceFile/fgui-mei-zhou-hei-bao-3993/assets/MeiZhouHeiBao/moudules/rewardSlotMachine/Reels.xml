@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1000,625">
+  <displayList>
+    <component id="n0_g9kd" name="reel1" src="g9kd9y" fileName="moudules/rewardSlotMachine/Reel.xml" xy="-51,-42"/>
+    <component id="n1_g9kd" name="reel2" src="g9kd9y" fileName="moudules/rewardSlotMachine/Reel.xml" xy="149,-42"/>
+    <component id="n3_g9kd" name="reel3" src="g9kd9y" fileName="moudules/rewardSlotMachine/Reel.xml" xy="349,-42"/>
+    <component id="n4_g9kd" name="reel4" src="g9kd9y" fileName="moudules/rewardSlotMachine/Reel.xml" xy="549,-42"/>
+    <component id="n5_g9kd" name="reel5" src="g9kd9y" fileName="moudules/rewardSlotMachine/Reel.xml" xy="749,-42"/>
+    <component id="n6_g9kd" name="reel6" src="g9kd9y" fileName="moudules/rewardSlotMachine/Reel.xml" xy="-51,163"/>
+    <component id="n7_g9kd" name="reel7" src="g9kd9y" fileName="moudules/rewardSlotMachine/Reel.xml" xy="149,163"/>
+    <component id="n8_g9kd" name="reel8" src="g9kd9y" fileName="moudules/rewardSlotMachine/Reel.xml" xy="349,163"/>
+    <component id="n9_g9kd" name="reel9" src="g9kd9y" fileName="moudules/rewardSlotMachine/Reel.xml" xy="549,163"/>
+    <component id="n10_g9kd" name="reel10" src="g9kd9y" fileName="moudules/rewardSlotMachine/Reel.xml" xy="749,163"/>
+    <component id="n11_g9kd" name="reel11" src="g9kd9y" fileName="moudules/rewardSlotMachine/Reel.xml" xy="-51,368"/>
+    <component id="n12_g9kd" name="reel12" src="g9kd9y" fileName="moudules/rewardSlotMachine/Reel.xml" xy="149,368"/>
+    <component id="n13_g9kd" name="reel13" src="g9kd9y" fileName="moudules/rewardSlotMachine/Reel.xml" xy="349,368"/>
+    <component id="n14_g9kd" name="reel14" src="g9kd9y" fileName="moudules/rewardSlotMachine/Reel.xml" xy="549,368"/>
+    <component id="n2_g9kd" name="reel15" src="g9kd9y" fileName="moudules/rewardSlotMachine/Reel.xml" xy="749,368"/>
+  </displayList>
+</component>

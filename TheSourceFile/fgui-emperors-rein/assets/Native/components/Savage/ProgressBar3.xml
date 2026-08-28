@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="953,60" overflow="hidden" extention="ProgressBar">
+  <displayList>
+    <component id="n2_hsjj" name="bar" src="hsjj1s" fileName="components/Savage/Bar.xml" xy="0,0" size="949,60"/>
+  </displayList>
+  <ProgressBar/>
+</component>
