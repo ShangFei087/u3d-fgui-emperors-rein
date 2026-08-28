@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="600,30">
+<component size="964,68">
   <displayList>
-    <image id="n1_q4s8" name="bar" src="q4s83" fileName="images/gameLoading/bg_line_1.png" xy="0,0" size="600,30">
+    <image id="n1_q4s8" name="bar" src="q4s83" fileName="images/gameLoading/bg_line_1.png" xy="0,0" size="964,68">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
   </displayList>

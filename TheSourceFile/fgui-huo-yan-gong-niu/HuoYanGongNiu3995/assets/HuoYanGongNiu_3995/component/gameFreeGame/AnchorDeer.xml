@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1,1">
   <displayList>
-    <loader id="n0_bn1g" name="example" xy="0,0" pivot="0.5,0.5" anchor="true" size="170,130" touchable="false" url="ui://x2aorbwjq4s82d" align="center" vAlign="middle" autoSize="true"/>
+    <loader id="n0_bn1g" name="example" xy="0,0" pivot="0.5,0.5" anchor="true" size="260,260" touchable="false" align="center" vAlign="middle" autoSize="true"/>
     <graph id="n1_bn1g" name="holder" xy="0,0" pivot="0.5,0.5" anchor="true" size="100,100" visible="false" touchable="false" type="rect"/>
   </displayList>
 </component>

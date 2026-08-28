@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="202,197" overflow="hidden">
+  <displayList>
+    <loader id="n0_fuf5" name="element" xy="101,98" pivot="0.5,0.5" anchor="true" size="260,260" url="ui://x2aorbwjq4s829" align="center" vAlign="middle" autoSize="true"/>
+    <component id="n1_fuf5" name="anchorSmallGameDiamond" src="fuf5av" fileName="moudules/slotMachine/anchorSmallGame.xml" xy="101,98" pivot="0.5,0.5" anchor="true"/>
+    <text id="n2_fuf5" name="rewardText" xy="101,100" pivot="0.5,0.5" anchor="true" size="202,75" font="ui://x2aorbwjimf5b9" fontSize="12" align="center" vAlign="middle" letterSpacing="-25" autoSize="shrink" text="8888"/>
+    <graph id="n3_fuf5" name="mask" xy="0,0" size="202,197" visible="false" type="rect" lineSize="0" fillColor="#cc333333"/>
+  </displayList>
+</component>

@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: f06f32b6e8d171f47a2243f9204861c7
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: games/huo yan gong niu 3995/pag/fg_pup_collect_bmp/fg_pup_collect_idle_bmp.unity3d
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: c806c33c02b7da44e86221c1c5045af0, type: 3}

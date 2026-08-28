@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_s82q" name="mask" xy="0,0" size="1080,1920" alpha="0.6" type="rect" lineSize="0" lineColor="#ff333333" fillColor="#ff333333">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <image id="n2_s82q" name="n2" src="s82q1h" fileName="images/panel/Instructions/sm_ic_Outer_frame.png" xy="9,62"/>
+    <component id="n10_s82q" name="introduce" src="s82q1o" fileName="modules/panel/Instructions/Introduce.xml" xy="152,220"/>
+    <component id="n7_s82q" name="btnPrev" src="s82q1m" fileName="modules/panel/Instructions/BtnPrev.xml" xy="160,1606"/>
+    <component id="n6_s82q" name="btnNect" src="s82q1l" fileName="modules/panel/Instructions/BtnNext.xml" xy="745,1606"/>
+    <component id="n8_s82q" name="btnBackGame" src="s82q1n" fileName="modules/panel/Instructions/BtnBackGame.xml" xy="340,1606"/>
+  </displayList>
+</component>

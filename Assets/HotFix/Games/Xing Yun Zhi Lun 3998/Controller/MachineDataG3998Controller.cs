@@ -965,7 +965,8 @@ namespace XingYunZhiLun_3998
                     "Assets/HotFix/Games/Mock/Resources/g3998_real/g200__slot_spin__free_3.json",
                     "Assets/HotFix/Games/Mock/Resources/g3998_real/g200__slot_spin__free_4.json",
                     "Assets/HotFix/Games/Mock/Resources/g3998_real/g200__slot_spin__free_5.json",
-                    //"Assets/HotFix/Games/Mock/Resources/g3998_real/g200__slot_spin__free_6.json",
+                    "Assets/HotFix/Games/Mock/Resources/g3998_real/g200__slot_spin__free_6.json",
+                    "Assets/HotFix/Games/Mock/Resources/g3998_real/g200__slot_spin__free_7.json",
                 },
             },
             [SpinDataType.Normal] = new List<string[]>()

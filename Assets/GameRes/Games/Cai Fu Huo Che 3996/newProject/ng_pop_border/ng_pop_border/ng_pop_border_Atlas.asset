@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: ng_pop_border_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: e76e904d82fc8ea44adbb65b1f330231, type: 3}
+  atlasFile: {fileID: 4900000, guid: 5bf0e0744eb6d834da6e3b67d44ced82, type: 3}
   materials:
-  - {fileID: 2100000, guid: 1e756939ef01b8e4285ab5807440c10c, type: 2}
+  - {fileID: 2100000, guid: 361e7fc02798ccc46a9ecfa78a74f7bd, type: 2}

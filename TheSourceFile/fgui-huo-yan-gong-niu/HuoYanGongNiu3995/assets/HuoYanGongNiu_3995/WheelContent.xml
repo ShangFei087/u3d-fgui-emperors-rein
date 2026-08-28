@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="476,476" pivot="0.5,0.5" anchor="true">
   <displayList>
-    <image id="n25_j7ma" name="n25" src="q4s8w" fileName="images/gameNormal/Wheel/ng_Turntable_bottom.png" xy="238,238" pivot="0.5,0.5" anchor="true" scale="1.5,1.5"/>
-    <loader id="n27_qc7n" name="item0" xy="238,-35" pivot="0.5,0.5" anchor="true" size="138,157" touchable="false" url="ui://x2aorbwjk1q066" align="center" vAlign="middle" autoSize="true" clearOnPublish="true"/>
-    <text id="n28_qc7n" name="item11" xy="102,1" pivot="0.5,0.5" anchor="true" size="140,60" rotation="-30" font="ui://x2aorbwjqc7n64" fontSize="15" align="center" vAlign="middle" autoSize="none" text="2.08"/>
-    <loader id="n29_qc7n" name="item10" xy="2,102" pivot="0.5,0.5" anchor="true" size="112,68" scale="1.5,1.5" rotation="-60" touchable="false" url="ui://x2aorbwjq4s812" align="center" vAlign="middle" autoSize="true"/>
-    <text id="n30_qc7n" name="item9" xy="-35,238" pivot="0.5,0.5" anchor="true" size="140,60" rotation="-90" font="ui://x2aorbwjqc7n64" fontSize="12" align="center" autoSize="none" text=""/>
-    <loader id="n32_qc7n" name="item8" xy="2,375" pivot="0.5,0.5" anchor="true" size="50,50" rotation="-120" align="center" vAlign="middle" autoSize="true"/>
-    <text id="n33_qc7n" name="item7" xy="102,475" pivot="0.5,0.5" anchor="true" size="140,60" rotation="-150" font="ui://x2aorbwjqc7n64" fontSize="12" align="center" autoSize="none" text=""/>
-    <loader id="n34_qc7n" name="item6" xy="238,511" pivot="0.5,0.5" anchor="true" size="112,68" scale="1.5,1.5" rotation="-180" url="ui://x2aorbwjq4s812" align="center" vAlign="middle" autoSize="true"/>
-    <text id="n35_qc7n" name="item5" xy="375,475" pivot="0.5,0.5" anchor="true" size="140,60" rotation="-210" font="ui://x2aorbwjqc7n64" fontSize="12" align="center" autoSize="none" text=""/>
-    <loader id="n36_qc7n" name="item4" xy="475,375" pivot="0.5,0.5" anchor="true" size="50,50" rotation="-240" align="center" vAlign="middle" autoSize="true"/>
-    <text id="n37_qc7n" name="item3" xy="511,238" pivot="0.5,0.5" anchor="true" size="140,60" rotation="-270" font="ui://x2aorbwjqc7n64" fontSize="12" align="center" autoSize="none" text=""/>
-    <loader id="n38_qc7n" name="item2" xy="475,102" pivot="0.5,0.5" anchor="true" size="112,68" scale="1.5,1.5" rotation="-300" url="ui://x2aorbwjq4s812" align="center" vAlign="middle" autoSize="true"/>
-    <text id="n39_qc7n" name="item1" xy="375,2" pivot="0.5,0.5" anchor="true" size="140,60" rotation="-330" font="ui://x2aorbwjqc7n64" fontSize="12" align="center" autoSize="none" text=""/>
+    <image id="n25_j7ma" name="n25" src="q4s8w" fileName="images/gameNormal/Wheel/ng_Turntable_bottom.png" xy="238,238" pivot="0.5,0.512" anchor="true"/>
+    <loader id="n27_qc7n" name="item0" xy="238,-100" pivot="0.5,0.5" anchor="true" size="317,365" scale="0.5,0.5" url="ui://HuoYanGongNiu_3995/OneGoldBull" align="center" vAlign="middle" autoSize="true" clearOnPublish="true"/>
+    <text id="n28_qc7n" name="item11" xy="75,-48" pivot="0.5,0.5" anchor="true" size="260,80" rotation="60" font="ui://x2aorbwjxrp24h" fontSize="10" align="center" vAlign="middle" leading="0" letterSpacing="-15" autoSize="none" text="999999"/>
+    <loader id="n29_qc7n" name="item10" xy="-90,61" pivot="0.5,0.5" anchor="true" size="179,147" rotation="-60" touchable="false" url="ui://x2aorbwjq4s812" align="center" vAlign="middle" autoSize="true"/>
+    <text id="n30_qc7n" name="item9" xy="-86,257" pivot="0.5,0.5" anchor="true" size="260,80" font="ui://x2aorbwjxrp24h" fontSize="10" align="center" vAlign="middle" letterSpacing="-15" autoSize="none" text="999999"/>
+    <loader id="n32_qc7n" name="item8" xy="-77,424" pivot="0.5,0.5" anchor="true" size="317,365" scale="0.5,0.5" rotation="-120" url="ui://x2aorbwjk1q066" align="center" vAlign="middle" autoSize="true"/>
+    <text id="n33_qc7n" name="item7" xy="74,541" pivot="0.5,0.5" anchor="true" size="260,100" rotation="-60" font="ui://x2aorbwjxrp24h" fontSize="10" align="center" vAlign="middle" letterSpacing="-15" autoSize="none" text="999999"/>
+    <loader id="n34_qc7n" name="item6" xy="242,628" pivot="0.5,0.5" anchor="true" size="179,147" rotation="-180" url="ui://x2aorbwjq4s812" align="center" vAlign="middle" autoSize="true"/>
+    <text id="n35_qc7n" name="item5" xy="413,538" pivot="0.5,0.5" anchor="true" size="260,80" rotation="-120" font="ui://x2aorbwjxrp24h" fontSize="10" align="center" vAlign="middle" letterSpacing="-15" autoSize="none" text="999999"/>
+    <loader id="n36_qc7n" name="item4" xy="538,427" pivot="0.5,0.5" anchor="true" size="317,365" scale="0.5,0.5" rotation="-240" url="ui://x2aorbwjk1q066" align="center" vAlign="middle" autoSize="true"/>
+    <text id="n37_qc7n" name="item3" xy="571,239" pivot="0.5,0.5" anchor="true" size="260,80" rotation="-180" font="ui://x2aorbwjxrp24h" fontSize="10" align="center" vAlign="middle" letterSpacing="-15" autoSize="none" text="999999"/>
+    <loader id="n38_qc7n" name="item2" xy="563,63" pivot="0.5,0.5" anchor="true" size="179,147" rotation="-300" url="ui://x2aorbwjq4s812" align="center" vAlign="middle" autoSize="true"/>
+    <text id="n39_qc7n" name="item1" xy="406,-51" pivot="0.5,0.5" anchor="true" size="260,80" rotation="120" font="ui://x2aorbwjxrp24h" fontSize="10" align="center" vAlign="middle" letterSpacing="-15" autoSize="none" text="999999"/>
+    <image id="n40_ey3y" name="n40" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="203,30"/>
+    <image id="n41_ey3y" name="n41" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="318,42" rotation="30"/>
+    <image id="n42_ey3y" name="n42" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="409,107" rotation="60"/>
+    <image id="n43_ey3y" name="n43" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="446,205" rotation="90"/>
+    <image id="n44_ey3y" name="n44" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="433,307" rotation="120"/>
+    <image id="n45_ey3y" name="n45" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="375,395" rotation="149"/>
+    <image id="n46_ey3y" name="n46" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="283,446" rotation="180"/>
+    <image id="n47_ey3y" name="n47" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="165,435" rotation="210"/>
+    <image id="n48_ey3y" name="n48" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="78,374" rotation="240"/>
+    <image id="n49_ey3y" name="n49" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="31,280" rotation="270"/>
+    <image id="n50_ey3y" name="n50" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="33,173" rotation="300"/>
+    <image id="n51_ey3y" name="n51" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="94,77" rotation="330"/>
   </displayList>
 </component>

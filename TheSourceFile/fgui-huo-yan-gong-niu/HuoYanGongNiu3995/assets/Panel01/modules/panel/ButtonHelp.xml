@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="221,202">
+  <displayList>
+    <image id="n24_s82q" name="n24" src="s82qz" fileName="images/panel/SetPanel/db_ic_Multi-function_button.png" xy="110,101" pivot="0.5,0.5" anchor="true"/>
+    <component id="n25_s82q" name="untouch" src="s82qo" fileName="modules/panel/UntouchCircle24.xml" xy="11,13" size="194,181"/>
+  </displayList>
+</component>

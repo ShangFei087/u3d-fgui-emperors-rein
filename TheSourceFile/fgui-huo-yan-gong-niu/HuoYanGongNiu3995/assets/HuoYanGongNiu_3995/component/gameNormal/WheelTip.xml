@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="424,298">
+  <displayList>
+    <component id="n117_lkob" name="wheelTip" src="xrp242" fileName="component/gameNormal/AnchorWheelTip.xml" xy="423,172"/>
+    <component id="n118_lkob" name="wheelTip2" src="xrp242" fileName="component/gameNormal/AnchorWheelTip.xml" xy="423,172"/>
+    <component id="n119_lkob" name="wheelTip3" src="xrp242" fileName="component/gameNormal/AnchorWheelTip.xml" xy="423,172" group="n125_lkob"/>
+    <group id="n125_lkob" name="WheelTip3" xy="423,172" size="1,1"/>
+  </displayList>
+</component>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1010,591">
+  <displayList>
+    <component id="n0_fuf5" name="elementBox_0" src="fuf5at" fileName="moudules/slotMachine/ElementBox.xml" xy="0,0"/>
+    <component id="n1_fuf5" name="elementBox_1" src="fuf5at" fileName="moudules/slotMachine/ElementBox.xml" xy="202,0"/>
+    <component id="n2_fuf5" name="elementBox_2" src="fuf5at" fileName="moudules/slotMachine/ElementBox.xml" xy="404,0"/>
+    <component id="n3_fuf5" name="elementBox_3" src="fuf5at" fileName="moudules/slotMachine/ElementBox.xml" xy="606,0"/>
+    <component id="n4_fuf5" name="elementBox_4" src="fuf5at" fileName="moudules/slotMachine/ElementBox.xml" xy="808,0"/>
+    <component id="n5_fuf5" name="elementBox_5" src="fuf5at" fileName="moudules/slotMachine/ElementBox.xml" xy="0,197"/>
+    <component id="n6_fuf5" name="elementBox_6" src="fuf5at" fileName="moudules/slotMachine/ElementBox.xml" xy="202,197"/>
+    <component id="n7_fuf5" name="elementBox_7" src="fuf5at" fileName="moudules/slotMachine/ElementBox.xml" xy="404,197"/>
+    <component id="n8_fuf5" name="elementBox_8" src="fuf5at" fileName="moudules/slotMachine/ElementBox.xml" xy="606,197"/>
+    <component id="n9_fuf5" name="elementBox_9" src="fuf5at" fileName="moudules/slotMachine/ElementBox.xml" xy="808,197"/>
+    <component id="n10_fuf5" name="elementBox_10" src="fuf5at" fileName="moudules/slotMachine/ElementBox.xml" xy="0,394"/>
+    <component id="n11_fuf5" name="elementBox_11" src="fuf5at" fileName="moudules/slotMachine/ElementBox.xml" xy="202,394"/>
+    <component id="n12_fuf5" name="elementBox_12" src="fuf5at" fileName="moudules/slotMachine/ElementBox.xml" xy="404,394"/>
+    <component id="n13_fuf5" name="elementBox_13" src="fuf5at" fileName="moudules/slotMachine/ElementBox.xml" xy="606,394"/>
+    <component id="n14_fuf5" name="elementBox_14" src="fuf5at" fileName="moudules/slotMachine/ElementBox.xml" xy="808,394"/>
+  </displayList>
+</component>

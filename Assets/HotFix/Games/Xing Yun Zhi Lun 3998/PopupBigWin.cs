@@ -38,9 +38,11 @@ namespace XingYunZhiLun_3998
         private readonly string[] WinOpenString = { "bigwin_start", "superwin_start", "mega_start" };
         private readonly string[] WinCloseString = { "bigwin_end", "superwin_end", "mega_end" };
         //private readonly string[] WinEffectAnimName = { "bigwin", "superwin", "mega" };
-        //private readonly string[] WinEffString = { "bigwin_idle.pag", "megewin_idle.pag", "superwin_idle.pag" };
-        //private readonly string[] WinEffString = { "bigwin_idle.pag", "megewin_idle.pag", "superwin_idle.pag" };
-        private readonly string[] WinEffString = { "megaWin_Test_idle.pag", "megaWin_Test_idle.pag", "megaWin_Test_idle.pag" };
+
+        private readonly string[] WinStartEffString = { "bigWin_start.pag", "superWin_start.pag", "megaWin_start.pag" };
+        private readonly string[] WinIdleEffString = { "bigWin_idle.pag", "superwin_idle.pag", "megaWin_idle.pag" };
+        private readonly string[] WinEndEffString = { "bigWin_end.pag", "superWin_end.pag", "megaWin_end.pag" };
+        private readonly string[] WinEFX = { Game3998AudioEvent.BigWin, Game3998AudioEvent.SuperWin, Game3998AudioEvent.MegaWin };
 
 
         //Pag播放
@@ -141,9 +143,12 @@ namespace XingYunZhiLun_3998
             if (!isOpen) return;
 
             bigWinAnim.Play(WinOpenString[0]);
-            effectPag.StopWithDefaults();
-            effectPag.Play(new PagSequencePlay(new[] { new PagSegment(WinEffString[WinIndex], -1) }, PagPlayLayout.Center, useGpuSyncGroup: false));
             //bigWinEffAnim.Play(WinEffectAnimName[0]);
+
+
+            effectPag.StopWithDefaults();
+            effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(WinStartEffString[0], WinIdleEffString[0]), PagPlayLayout.Center,useGpuSyncGroup: false));
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(WinEFX[0]));
 
             ShowAni();
         }
@@ -185,6 +190,10 @@ namespace XingYunZhiLun_3998
                     //bigWinAnim.Update(0f);
                     bigWinAnim.Play(WinOpenString[playCount]);
 
+                    effectPag.StopWithDefaults();
+                    effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(WinStartEffString[playCount], WinIdleEffString[playCount]), PagPlayLayout.Center, useGpuSyncGroup: false));
+                    EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(WinEFX[playCount])); 
+
                     if (playCount == WinIndex)
                     {
                         TimerCallback innerCallback = innerObj =>
@@ -213,7 +222,10 @@ namespace XingYunZhiLun_3998
                 }
                 else
                 {
+                    // 泄漏：sequenceCallback 未加入 _timerCallbacks，ClearAllTimers 清不掉。
                     Timers.inst.Add(3.0f / Time.timeScale, WinIndex, sequenceCallback);
+
+                    _timerCallbacks.Add(sequenceCallback);
                 }
 
             }
@@ -233,10 +245,11 @@ namespace XingYunZhiLun_3998
 
             bigWinAnim.Update(0f);
             //bigWinEffAnim.Update(0f);
-
             //bigWinEffAnim.Rebind();
+
             effectPag.StopWithDefaults();
-            effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(WinEffString[playCount], WinEffString[playCount]), PagPlayLayout.Center));
+            effectPag.Play(new PagSequencePlay(new[] { new PagSegment(WinEndEffString[playCount], 1) }, PagPlayLayout.Center, useGpuSyncGroup: false));
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BigWinEnd));
 
             //bigWinEffAnim.Play(WinEffString[playCount]);
             //bigWinEffAnim.Update(0f);
@@ -259,6 +272,9 @@ namespace XingYunZhiLun_3998
         public void exit(object obj = null)
         {
             effectPag.StopWithDefaults();
+            effectPag?.Dispose();
+            effectPag = null;
+
             ClearAllTimers();
             CloseSelf(null);
         }

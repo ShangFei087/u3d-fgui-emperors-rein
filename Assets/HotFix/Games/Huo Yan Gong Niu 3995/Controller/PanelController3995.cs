@@ -11,7 +11,7 @@ using UnityEngine;
 public class PanelController3995 : SlotMaker.PanelBaseController
 {
     new SpinButtonController spinBtnCtrl = new SpinButtonController();
-    protected override string PanelPackagePath => "Assets/GameRes/Panel/Panel3996/FGUIs";
+    protected override string PanelPackagePath => "Assets/GameRes/Panel/Panel3995/FGUIs";
 
 
     public override void Init(EventData res = null)
@@ -28,59 +28,59 @@ public class PanelController3995 : SlotMaker.PanelBaseController
     protected override void OnPropertyChangeBtnSpinState(EventData res = null)
     {
         base.OnPropertyChangeBtnSpinState(res);
-        string changeSpinState = (string)res?.value;
+        //string changeSpinState = (string)res?.value;
 
-        if (changeSpinState == null)
-            changeSpinState = "Stop";
+        //if (changeSpinState == null)
+        //    changeSpinState = "Stop";
 
-        if (gOwnerPanel == null) return;
+        //if (gOwnerPanel == null) return;
 
 
-        switch (changeSpinState)
-        {
-            case SpinButtonState.Stop:
-                {
-                    spinBtnCtrl.State = "Stop";
-                    ChangButtonNo(false);
-                }
-                break;
-            case SpinButtonState.Spin:
-                {
-                    spinBtnCtrl.State = "Spin";
-                    if (gOwnerPanel != null)
-                    {
-                        //gOwnerPanel.GetChild("goodLuck").asLoader.visible = false;
-                        //gOwnerPanel.GetChild("win").asCom.visible = true;
-                        gOwnerPanel.GetChild("win").asTextField.visible = true;
-                    }
-                    ChangButtonNo(true);
-                }
-                break;
-            case SpinButtonState.Auto:
-                {
-                    spinBtnCtrl.State = "Auto";
-                    if (gOwnerPanel != null)
-                    {
-                        //gOwnerPanel.GetChild("goodLuck").asLoader.visible = false;
-                        //gOwnerPanel.GetChild("win").asCom.visible = true;
-                        gOwnerPanel.GetChild("win").asTextField.visible = true;
-                    }
-                    ChangButtonNo(true);
-                }
-                break;
-            case SpinButtonState.Hui:
-                {
-                    spinBtnCtrl.State = "Hui";
-                    if (gOwnerPanel != null)
-                    {
-                        //gOwnerPanel.GetChild("goodLuck").asLoader.visible = false;
-                        //gOwnerPanel.GetChild("win").asCom.visible = true;
-                        gOwnerPanel.GetChild("win").asTextField.visible = true;
-                    }
-                    ChangButtonNo(true);
-                }
-                break;
-        }
+        //switch (changeSpinState)
+        //{
+        //    case SpinButtonState.Stop:
+        //        {
+        //            spinBtnCtrl.State = "Stop";
+        //            ChangButtonNo(false);
+        //        }
+        //        break;
+        //    case SpinButtonState.Spin:
+        //        {
+        //            spinBtnCtrl.State = "Spin";
+        //            if (gOwnerPanel != null)
+        //            {
+        //                //gOwnerPanel.GetChild("goodLuck").asLoader.visible = false;
+        //                //gOwnerPanel.GetChild("win").asCom.visible = true;
+        //                gOwnerPanel.GetChild("win").asTextField.visible = true;
+        //            }
+        //            ChangButtonNo(true);
+        //        }
+        //        break;
+        //    case SpinButtonState.Auto:
+        //        {
+        //            spinBtnCtrl.State = "Auto";
+        //            if (gOwnerPanel != null)
+        //            {
+        //                //gOwnerPanel.GetChild("goodLuck").asLoader.visible = false;
+        //                //gOwnerPanel.GetChild("win").asCom.visible = true;
+        //                gOwnerPanel.GetChild("win").asTextField.visible = true;
+        //            }
+        //            ChangButtonNo(true);
+        //        }
+        //        break;
+        //    case SpinButtonState.Hui:
+        //        {
+        //            spinBtnCtrl.State = "Hui";
+        //            if (gOwnerPanel != null)
+        //            {
+        //                //gOwnerPanel.GetChild("goodLuck").asLoader.visible = false;
+        //                //gOwnerPanel.GetChild("win").asCom.visible = true;
+        //                gOwnerPanel.GetChild("win").asTextField.visible = true;
+        //            }
+        //            ChangButtonNo(true);
+        //        }
+        //        break;
+        //}
     }
 
     protected override void OnPropertyGameState(EventData res = null)

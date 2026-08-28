@@ -14,7 +14,7 @@
     <component id="n21_o8uc" name="anchorTrain" src="o8uc1i" fileName="component/popupNormalGame/AnchorTrain.xml" xy="300,997"/>
     <image id="n61_baxv" name="n61" src="baxv6p" fileName="images/normalGame/ng_img_bg_02.png" xy="125,0"/>
     <component id="n66_znm9" name="anchorGirl" src="znm9cf" fileName="component/popupNormalGame/AnchorGirl.xml" xy="840,1916"/>
-    <component id="n65_znm9" name="anchorFreeTrain" src="o8uc1i" fileName="component/popupNormalGame/AnchorTrain.xml" xy="484,968"/>
+    <component id="n65_znm9" name="anchorFreeTrain" src="o8uc1i" fileName="component/popupNormalGame/AnchorTrain.xml" xy="484,956"/>
     <image id="n10_o8uc" name="slotBottom" src="pcvkig" fileName="images/ng_img_bottom.png" xy="54,1034" size="975,600" group="n9_o8uc">
       <relation target="n3_pjjx" sidePair="center-center,middle-middle"/>
     </image>
@@ -65,10 +65,6 @@
     <component id="n45_9mnq" name="oneBet" src="iii966" fileName="moudules/OneMult.xml" xy="909,875" size="127,79" group="n46_9mnq">
       <relation target="n33_9mnq" sidePair="center-center,middle-middle"/>
     </component>
-    <component id="n49_iwtc" name="fill1Add" src="fkjsm" fileName="component/AnchorEffect.xml" xy="880,890" size="1,1" group="n46_9mnq"/>
-    <component id="n50_iwtc" name="fill2Add" src="fkjsm" fileName="component/AnchorEffect.xml" xy="670,890" size="1,1" group="n46_9mnq"/>
-    <component id="n51_iwtc" name="fill3Add" src="fkjsm" fileName="component/AnchorEffect.xml" xy="308,890" size="1,1" group="n46_9mnq"/>
-    <component id="n52_iwtc" name="fill4Add" src="fkjsm" fileName="component/AnchorEffect.xml" xy="100,889" size="1,1" group="n46_9mnq"/>
     <image id="n24_9mnq" name="n24" src="pcvkec" fileName="images/freeGame/fg_img_frame.png" xy="380,979" size="326,75" group="n69_pcvk">
       <relation target="n3_pjjx" sidePair="center-center,middle-middle"/>
     </image>
@@ -87,12 +83,16 @@
     <image id="n54_ldad" name="n54" src="uqrcis" fileName="images/jackpotGame/sg_fs_txt_respin.png" xy="496,1015" pivot="0.5,0.5" anchor="true" size="164,36" group="n69_pcvk">
       <relation target="n24_9mnq" sidePair="center-center,middle-middle"/>
     </image>
-    <component id="n48_iwtc" name="freeAddPoint" src="fkjsm" fileName="component/AnchorEffect.xml" xy="540,989" size="1,1" group="n69_pcvk"/>
-    <component id="n62_vxx6" name="jackpotAddPoint" src="fkjsm" fileName="component/AnchorEffect.xml" xy="318,690" group="n69_pcvk"/>
-    <group id="n69_pcvk" name="n69" xy="318,690" size="388,364" group="n46_9mnq"/>
-    <group id="n46_9mnq" name="freeGame" xy="-26,690" size="1137,364"/>
+    <component id="n48_iwtc" name="freeAddPoint" src="fkjsm" fileName="component/AnchorEffect.xml" xy="540,1015" size="1,1" group="n69_pcvk"/>
+    <component id="n49_iwtc" name="fill1Add" src="fkjsm" fileName="component/AnchorEffect.xml" xy="880,890" size="1,1" group="n69_pcvk"/>
+    <component id="n50_iwtc" name="fill2Add" src="fkjsm" fileName="component/AnchorEffect.xml" xy="670,890" size="1,1" group="n69_pcvk"/>
+    <component id="n51_iwtc" name="fill3Add" src="fkjsm" fileName="component/AnchorEffect.xml" xy="308,890" size="1,1" group="n69_pcvk"/>
+    <component id="n52_iwtc" name="fill4Add" src="fkjsm" fileName="component/AnchorEffect.xml" xy="100,889" size="1,1" group="n69_pcvk"/>
+    <component id="n62_vxx6" name="jackpotAddPoint" src="fkjsm" fileName="component/AnchorEffect.xml" xy="360,642" group="n69_pcvk"/>
+    <group id="n69_pcvk" name="n69" xy="100,642" size="781,412" group="n46_9mnq"/>
+    <group id="n46_9mnq" name="freeGame" xy="-26,642" size="1137,412"/>
     <component id="n55_ucv0" name="JpEffect" src="ucv05j" fileName="component/popupNormalGame/OpenDoor.xml" xy="540,700"/>
-    <component id="n70_rz26" name="anchorMoneyBox" src="iilzcl" fileName="component/popupNormalGame/AnchorBox.xml" xy="318,734"/>
+    <component id="n70_rz26" name="anchorMoneyBox" src="iilzcl" fileName="component/popupNormalGame/AnchorBox.xml" xy="360,642"/>
     <component id="n19_o8uc" name="mini" src="o8uc1h" fileName="moudules/JackpotMini.xml" xy="650,141" group="n13_o8uc"/>
     <component id="n18_o8uc" name="minor" src="o8uc1g" fileName="moudules/JackpotMinor.xml" xy="39,144" group="n13_o8uc"/>
     <component id="n16_o8uc" name="major" src="o8uc1f" fileName="moudules/JackpotMajor.xml" xy="340,15" group="n13_o8uc"/>
@@ -211,6 +211,10 @@
     <item time="0" type="Visible" target="n35_9mnq" value="true"/>
     <item time="0" type="Visible" target="n36_9mnq" value="true"/>
     <item time="0" type="Visible" target="n37_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n49_iwtc" value="true"/>
+    <item time="0" type="Visible" target="n50_iwtc" value="true"/>
+    <item time="0" type="Visible" target="n51_iwtc" value="true"/>
+    <item time="0" type="Visible" target="n52_iwtc" value="true"/>
     <item time="0" type="Visible" target="n59_baxv" value="false"/>
     <item time="0" type="Visible" target="n60_baxv" value="false"/>
     <item time="0" type="Visible" target="n61_baxv" value="false"/>

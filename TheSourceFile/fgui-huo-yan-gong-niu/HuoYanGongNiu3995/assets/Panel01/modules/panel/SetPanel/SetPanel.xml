@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="428,269">
+  <displayList>
+    <image id="n25_s82q" name="n25" src="s82q10" fileName="images/panel/SetPanel/db_Pop-up_window.png" xy="0,0"/>
+    <component id="n26_s82q" name="btnSound" src="s82q1a" fileName="modules/panel/SetPanel/ButtonSound.xml" xy="15,10"/>
+    <component id="n27_s82q" name="btnPayTable" src="s82q19" fileName="modules/panel/SetPanel/ButtonIntroduce.xml" xy="15,95" scale="1,0.95"/>
+    <component id="n28_s82q" name="btnHome" src="s82q1b" fileName="modules/panel/SetPanel/BtnBack.xml" xy="15,176"/>
+    <component id="n29_s82q" name="silderSound" src="s82q1d" fileName="modules/panel/SetPanel/SoundSlider.xml" xy="144,22">
+      <Slider value="50" max="100"/>
+    </component>
+  </displayList>
+</component>

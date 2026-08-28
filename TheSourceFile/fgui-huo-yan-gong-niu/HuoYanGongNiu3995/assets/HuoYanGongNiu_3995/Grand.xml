@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="565,194">
-  <displayList>
-    <image id="n78_k1q0" name="n78" src="k1q06e" fileName="images/gameJackpot/jpTip/jp_bottom_4.png" xy="31,69" size="511,100"/>
-    <image id="n75_k1q0" name="n75" src="k1q06i" fileName="images/gameJackpot/jpTip/jp_frame_4.png" xy="0,43" size="565,151"/>
-    <image id="n77_k1q0" name="n77" src="k1q06j" fileName="images/gameJackpot/jpTip/jp_grand.png" xy="163,0" size="241,93"/>
-    <text id="n79_k1q0" name="socre" xy="34,81" size="498,86" font="ui://x2aorbwjk1q084" fontSize="23" align="center" leading="0" letterSpacing="-35" autoSize="none" text="123456789"/>
-  </displayList>
-</component>

@@ -415,7 +415,7 @@ namespace CaiFuHuoChe_3996
 
                 if (openType == (int)OpenType.OT_Give)
                 {
-                    totalLineWin = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
+                    totalLineWin = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1] * ContentModel.Instance.betmultiple;
                     ContentModel.Instance.curFreeCredit += totalLineWin;
                     ContentModel.Instance.baseGameWinCredit = totalLineWin;
                 }

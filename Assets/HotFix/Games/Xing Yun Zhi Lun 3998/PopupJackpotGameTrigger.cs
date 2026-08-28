@@ -69,12 +69,16 @@ namespace XingYunZhiLun_3998
         public override void OnOpen(PageName name, EventData data)
         {
             base.OnOpen(name, data);
-            InitParam(data);    
+            InitParam(data);
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgBoarderIN));
         }
 
         public override void OnClose(EventData data = null)
         {
             effectPag.StopWithDefaults();
+            effectPag?.Dispose();
+            effectPag = null;
+
             StopAll();
             base.OnClose(data);
         }
@@ -140,7 +144,7 @@ namespace XingYunZhiLun_3998
                 callback = null;
             }
 
-             PlayAnim("start");
+            PlayAnim("start");
             idleTransition.Play(-1, 1.3f / Time.timeScale, null);
             AddTimer(1.3f / Time.timeScale, (object obj) =>
             {
@@ -184,6 +188,8 @@ namespace XingYunZhiLun_3998
             if (isClose) return;
             isClose = true;
 
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgBoarderOut));
+
             idleTransition.Stop();
             endTransition.Play();
 
@@ -202,7 +208,6 @@ namespace XingYunZhiLun_3998
                     new PagPlayCallbacks(
                     onFinished: () => effectPag?.StopWithDefaults(),
                     stopAfterFinished: true));
-                Debug.LogError("开始播放Pag");
             });
 
             if(callback != null)
@@ -218,21 +223,20 @@ namespace XingYunZhiLun_3998
             AddTimer(3.8f / Time.timeScale, (object obj) =>
             {
                 effectPag.StopWithDefaults();
-                Debug.LogError("结束播放Pag");
                 CloseSelf(null);
             });
         }
 
         private void AddTimer(float delaySeconds, TimerCallback onComplete)
         {
-            // 保存定时器回调引用
-            _activeTimers.Add(onComplete);
-            // 添加定时器，延迟后执行回调，并在执行后从列表中移除
-            Timers.inst.Add(delaySeconds, 1, (obj) =>
+            TimerCallback wrapper = null;
+            wrapper = (obj) =>
             {
                 onComplete?.Invoke(obj);
-                _activeTimers.Remove(onComplete);
-            });
+                _activeTimers.Remove(wrapper);
+            };
+            _activeTimers.Add(wrapper);
+            Timers.inst.Add(delaySeconds, 1, wrapper);
         }
 
         // 终止所有后续步骤（条件不满足时调用）

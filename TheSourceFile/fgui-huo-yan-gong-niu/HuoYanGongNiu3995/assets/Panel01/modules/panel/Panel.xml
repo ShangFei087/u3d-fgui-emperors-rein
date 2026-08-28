@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_xtfq" name="mash" xy="0,0" size="1080,1920" visible="false" type="rect" lineSize="0" fillColor="#99333333"/>
+    <component id="n1_s82q" name="frame" src="s82q9" fileName="modules/panel/ButtonFrame.xml" xy="0,1709"/>
+    <component id="n24_s82q" name="btnHelp" src="s82q18" fileName="modules/panel/ButtonHelp.xml" xy="110,1820" pivot="0.5,0.5" anchor="true"/>
+    <component id="n7_s82q" name="btnBetUp" src="s82qd" fileName="modules/panel/BtnBetUp.xml" xy="743,1839"/>
+    <component id="n8_s82q" name="btnBetDown" src="s82qe" fileName="modules/panel/BtnBetDown.xml" xy="532,1843"/>
+    <text id="n11_s82q" name="bet" xy="566,1842" size="190,36" font="ui://x2aorbwjs82q9r" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-6" autoSize="shrink" text="20"/>
+    <text id="n10_s82q" name="credit" xy="315,1841" size="192,36" font="ui://x2aorbwjs82q9r" fontSize="12" vAlign="middle" leading="0" letterSpacing="-6" autoSize="shrink" text="87000000"/>
+    <text id="n9_s82q" name="win" xy="274,1743" size="506,65" font="ui://x2aorbwjxrp24h" fontSize="9" align="center" vAlign="middle" leading="0" letterSpacing="-16" autoSize="shrink" text="99999999999"/>
+    <text id="n14_s82q" name="singleLine" xy="274,1691" size="512,34" fontSize="20" align="center" vAlign="middle" leading="0" autoSize="none" text="123213"/>
+    <component id="n13_s82q" name="btnSpin" src="s82qm" fileName="modules/panel/ButtonSpin.xml" xy="851,1712"/>
+    <component id="n18_s82q" name="ExhibitionPanel" src="s82qy" fileName="modules/panel/ExhibitionPanel.xml" xy="0,405" size="1080,1310"/>
+    <component id="n25_s82q" name="setPanel" src="s82q1e" fileName="modules/panel/SetPanel/SetPanel.xml" xy="24,1466"/>
+    <component id="n30_s82q" name="instructions" src="s82q1f" fileName="modules/panel/Instructions/Instructions.xml" xy="0,0" visible="false"/>
+  </displayList>
+</component>

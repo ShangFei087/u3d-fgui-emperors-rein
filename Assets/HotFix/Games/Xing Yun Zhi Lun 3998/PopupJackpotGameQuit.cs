@@ -19,6 +19,8 @@ namespace XingYunZhiLun_3998
         private EventData _data;
         private bool isInit = false;
 
+        private TimerCallback _closeTimer;
+
         protected override void OnInit()
         {
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -74,10 +76,14 @@ namespace XingYunZhiLun_3998
 
             if (isOpen)
             {
-                Timers.inst.Add(2.2f, 1, (object obj) =>
+                if (_closeTimer != null)
+                    Timers.inst.Remove(_closeTimer);
+                _closeTimer = (object obj) =>
                 {
+                    _closeTimer = null;
                     CloseSelf(null);
-                });
+                };
+                Timers.inst.Add(2.2f, 1, _closeTimer);
             }
         }
     }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <component id="n4_u9rq" name="anchor" src="xrp256" fileName="component/gameFreeGame/AnchorFreeTigger.xml" xy="540,1060"/>
-    <component id="n3_u9rq" name="exitBtn" src="u9rq60" fileName="component/gameFreeGame/FreeExitBtn.xml" xy="540,1387" pivot="0.5,0.5" anchor="true" scale="1.4,1.3" alpha="0.002"/>
-    <text id="n5_u9rq" name="score" xy="540,995" pivot="0.5,0.5" anchor="true" size="1080,157" font="ui://x2aorbwju9rq5n" fontSize="15" align="center" vAlign="middle" letterSpacing="-48" autoSize="none" text="114514.114514"/>
+    <graph id="n7_10wif" name="mask" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#cc333333"/>
+    <component id="n6_10wif" name="anchorPag" src="fqx4ar" fileName="component/gameFreeGame/AnchorPag.xml" xy="540,960" pivot="0.5,0.5" anchor="true"/>
+    <component id="n4_u9rq" name="anchor" src="xrp256" fileName="component/gameFreeGame/AnchorFreeTigger.xml" xy="540,960"/>
+    <component id="n3_u9rq" name="exitBtn" src="u9rq60" fileName="component/gameFreeGame/FreeExitBtn.xml" xy="540,1387" pivot="0.5,0.5" anchor="true" size="400,160" alpha="0.002"/>
+    <text id="n5_u9rq" name="score" xy="540,995" pivot="0.5,0.5" anchor="true" size="1080,157" font="ui://x2aorbwjxrp24h" fontSize="20" align="center" vAlign="middle" letterSpacing="-25" autoSize="none" text="6572"/>
   </displayList>
 </component>

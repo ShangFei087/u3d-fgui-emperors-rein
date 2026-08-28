@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="554,92">
+  <displayList>
+    <image id="n40_j7ma" name="n40" src="j7ma2z" fileName="images/gameNormal/Slot/ng_wheel-spin.png" xy="0,22" size="378,46"/>
+    <text id="n41_j7ma" name="spinTimes" xy="378,0" size="176,92" font="ui://x2aorbwjj7ma3l" fontSize="7" align="center" vAlign="middle" leading="0" autoSize="none" text="0"/>
+  </displayList>
+</component>

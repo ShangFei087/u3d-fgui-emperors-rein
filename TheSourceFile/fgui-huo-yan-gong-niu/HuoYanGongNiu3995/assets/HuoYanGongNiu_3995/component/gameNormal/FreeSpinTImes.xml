@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="672,101">
+  <displayList>
+    <image id="n109_ey3y" name="n109" src="j7ma3x" fileName="images/gameFree/FreeFrame/fg_free-game.png" xy="0,15"/>
+    <image id="n113_ey3y" name="n113" src="j7ma3y" fileName="images/gameFree/FreeFrame/fg_of.png" xy="459,14"/>
+    <text id="n132_xq47" name="freeSpinTimes" xy="334,0" size="133,101" font="ui://x2aorbwjj7ma3l" fontSize="7" align="center" vAlign="middle" leading="0" letterSpacing="-15" autoSize="none" text="10"/>
+    <text id="n133_xq47" name="freeTotalTimes" xy="540,6" size="132,95" font="ui://x2aorbwjj7ma3l" fontSize="7" align="center" leading="0" letterSpacing="-15" autoSize="none" text="20"/>
+  </displayList>
+</component>

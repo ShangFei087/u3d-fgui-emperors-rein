@@ -113,6 +113,8 @@ namespace XingYunZhiLun_3998
 
         private GameSoundController3998 _gameSoundController;
 
+        List<GComponent> lstPayTable;
+
         /// <summary>3998：底部 Panel 异步就绪后触发 PageManager 的 preLoadedCallback。</summary>
         private void OnBottomPanelReadyForPreload(EventData res)
         {
@@ -360,17 +362,35 @@ namespace XingYunZhiLun_3998
             MainModel.Instance.contentMD.betIndex = 0;
             ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
 
-            List<GComponent> lstPayTable = new List<GComponent>();
-            foreach (string url in CustomModel.Instance.payTable)
+            // 泄漏：每次 InitParam/OnOpen 都 CreateObjectFromURL，旧表未 Dispose。
+            // List<GComponent> lstPayTable = new List<GComponent>();
+            // foreach (string url in CustomModel.Instance.payTable)
+            // {
+            //     GComponent paytable = UIPackage.CreateObjectFromURL(url).asCom;
+            //     paytable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().InitParam(paytable);
+            //     lstPayTable.Add(paytable);
+            //     paytable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().referenceCount++;
+            // }
+            // ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
+
+
+            if (ContentModel.Instance.goPayTableLst != null && ContentModel.Instance.goPayTableLst.Length > 0)
             {
-                GComponent paytable = UIPackage.CreateObjectFromURL(url).asCom;
-                paytable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().InitParam(paytable);
-
-                lstPayTable.Add(paytable);
-                paytable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().referenceCount++;
+                lstPayTable = new List<GComponent>(ContentModel.Instance.goPayTableLst);
             }
+            else
+            {
+                lstPayTable = new List<GComponent>();
+                foreach (string url in CustomModel.Instance.payTable)
+                {
+                    GComponent paytable = UIPackage.CreateObjectFromURL(url).asCom;
+                    paytable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().InitParam(paytable);
 
-            ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
+                    lstPayTable.Add(paytable);
+                    paytable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().referenceCount++;
+                }
+                ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
+            }
             payTableController.Init(lstPayTable);
 
 
@@ -412,7 +432,11 @@ namespace XingYunZhiLun_3998
 
 
             // ---------- 5.音乐控制 ----------
-            _gameSoundController = new GameSoundController3998();
+            // 泄漏：每次 InitParam 都 new，切语言会叠 EventCenter 监听。
+            // _gameSoundController = new GameSoundController3998();
+
+            if (_gameSoundController == null)
+                _gameSoundController = new GameSoundController3998();
 
 
             // ---------- 6.初始化FGUI组件 ----------
@@ -472,9 +496,20 @@ namespace XingYunZhiLun_3998
             //进入彩金界面初始化
             JackpotBgOpen();
 
-            if (ComReelEffect2 != null) ComReelEffect2.Dispose();
+            // 泄漏：Dispose 旧组件前未 DeleteWrapper，wrapTarget 可能残留。
+            // if (ComReelEffect2 != null) ComReelEffect2.Dispose();
+            // ComReelEffect2 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
+            // GameCommon.FguiUtils.DeleteWrapper(ComReelEffect2);
+            // GameCommon.FguiUtils.AddWrapper(ComReelEffect2, GameObject.Instantiate(goReelEffcet));
+
+            if (ComReelEffect2 != null)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(ComReelEffect2);
+                ComReelEffect2.Dispose();
+                ComReelEffect2 = null;
+            }
+
             ComReelEffect2 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            GameCommon.FguiUtils.DeleteWrapper(ComReelEffect2);
             GameCommon.FguiUtils.AddWrapper(ComReelEffect2, GameObject.Instantiate(goReelEffcet));
             ComReelEffect2.visible = false;
             anchorExpectation = this.contentPane.GetChild("anchorReelEffect").asCom;
@@ -1212,7 +1247,6 @@ namespace XingYunZhiLun_3998
                     }),
                     (res) =>
                     {
-                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmFreeSpinGame));
                         isMain = true;
                         isNext = true;
                     });
@@ -1347,10 +1381,6 @@ namespace XingYunZhiLun_3998
 
             // 本剧同步玩家金钱
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
-
-            // 进入空闲模式
-            //播放游戏空闲音乐
-            //GameSoundHelper.Instance.PlaySoundEff(SoundKey.SpinBGIdle);
 
             if ((winList.Count > 0 || ContentModel.Instance.isMult || ContentModel.Instance.isWild) &&
                 !ContentModel.Instance.isAuto && !ContentModel.Instance.isFreeSpinTrigger)
@@ -1507,6 +1537,8 @@ namespace XingYunZhiLun_3998
                         ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
 
                         ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
+
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmFreeSpinGame));
                     });
 
                 yield return new WaitUntil(() => isNext == true);
@@ -1540,18 +1572,21 @@ namespace XingYunZhiLun_3998
                 slotMachineCtrl.SkipWinLine(true);
 
                 slotMachineCtrl.ShowSymbolTransform(new List<int>() { 8 }, true, 8, true);
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.WildShow));
 
                 yield return new WaitForSecondsRealtime(1.5f / Time.timeScale);
             }
             else
             {
                 isConnectFreeSpin = false;
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmFreeSpinGame));
             }
 
 
             InputStackContextFreeSpin((context) =>
             {
             });
+
 
             yield return GameFreeSpin(null, errorCallback);
 
@@ -2600,11 +2635,11 @@ namespace XingYunZhiLun_3998
                     {
                         ["callback"] = new Action(() => {
                             //初始化彩金界面
-                            InitScroll();
                             ChangeBGPanel(2);
                             SetJackpotMask(false);
                             gJackpotBg.visible = true;
                             initTransition.Play();
+                            InitScroll();
                         }),
                     }),
                     (res) =>
@@ -2857,11 +2892,13 @@ namespace XingYunZhiLun_3998
                 JackpotFinish = true;
                 GameCommon.FguiUtils.DeleteWrapper(gEffect);
 
-                GameObject.Destroy(goEffect);
+                GameObject.DestroyImmediate(goEffect);
                 goEffect = null;
                 gEffect = null;
                 listSymbolAnimator = null;
             };
+
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BonusSpin));
 
             rollCoroutine = mono.StartCoroutine(RandomPhysicsRoll(iconIndex, successCallback));
         }

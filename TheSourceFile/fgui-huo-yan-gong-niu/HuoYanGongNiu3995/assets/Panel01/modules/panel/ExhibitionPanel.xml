@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1311">
+  <displayList>
+    <component id="n17_s82q" name="reel1" src="s82qx" fileName="modules/panel/Exhibition/ReelBtn.xml" xy="65,597" size="130,654" group="n23_s82q"/>
+    <component id="n18_s82q" name="reel2" src="s82qx" fileName="modules/panel/Exhibition/ReelBtn.xml" xy="276,597" size="130,781" group="n23_s82q"/>
+    <component id="n21_s82q" name="reel3" src="s82qx" fileName="modules/panel/Exhibition/ReelBtn.xml" xy="472,597" size="130,781" group="n23_s82q"/>
+    <component id="n20_s82q" name="reel4" src="s82qx" fileName="modules/panel/Exhibition/ReelBtn.xml" xy="673,597" size="130,781" group="n23_s82q"/>
+    <component id="n22_s82q" name="reel5" src="s82qx" fileName="modules/panel/Exhibition/ReelBtn.xml" xy="881,597" size="130,781" group="n23_s82q"/>
+    <group id="n23_s82q" name="n23" xy="65,597" size="946,781"/>
+    <component id="n15_s82q" name="btnExhibition" src="s82qt" fileName="modules/panel/Exhibition/ButtonExhibition.xml" xy="0,0"/>
+  </displayList>
+</component>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_imf5" name="mask" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#cc333333"/>
+    <component id="n2_imf5" name="anchor" src="imf5ax" fileName="component/gameJackpotGame/AnchorSpine.xml" xy="540,960"/>
+    <component id="n1_imf5" name="closeBtn" src="imf5bg" fileName="component/gameJackpotGame/jackpotResultBtn.xml" xy="317,1222"/>
+    <text id="n3_imf5" name="socre" xy="540,960" pivot="0.5,0.5" anchor="true" size="487,143" font="ui://x2aorbwjxrp24h" fontSize="15" align="center" vAlign="middle" letterSpacing="-15" autoSize="none" text="99999"/>
+  </displayList>
+</component>
