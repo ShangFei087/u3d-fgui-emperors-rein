@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="634,100">
+  <displayList>
+    <image id="n138_imf5" name="n138" src="imf5ay" fileName="images/gameJackpot/jp_txt_SPINS_REMAINING.png" xy="124,3"/>
+    <text id="n139_imf5" name="jackpotTimes" xy="0,0" size="118,100" font="ui://x2aorbwjxrp24h" fontSize="15" align="center" vAlign="middle" autoSize="none" text="8"/>
+  </displayList>
+</component>

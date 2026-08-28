@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="232,208" overflow="hidden">
+  <controller name="button" pages="0,spin,1,stop,2,auto,3,hui" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="stop"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="spin"/>
+    <action type="play_transition" fromPage="" toPage="2" transition="auto"/>
+    <action type="play_transition" fromPage="" toPage="3" transition=""/>
+  </controller>
+  <displayList>
+    <image id="n13_s82q" name="n13" src="s82qg" fileName="images/panel/SpinBtn/db_ic_SPIN_button.png" xy="0,0"/>
+    <image id="n14_s82q" name="n14" src="s82qh" fileName="images/panel/SpinBtn/db_ic_SPIN_button2.png" xy="0,0"/>
+    <image id="n15_s82q" name="n15" src="s82qi" fileName="images/panel/SpinBtn/db_ic_SPIN_button3.png" xy="0,0"/>
+    <image id="n17_s82q" name="n17" src="s82ql" fileName="images/panel/SpinBtn/db_txt_SPIN .png" xy="122,108" pivot="0.5,0.5" anchor="true"/>
+    <image id="n18_s82q" name="n18" src="s82qj" fileName="images/panel/SpinBtn/db_txt_STOP.png" xy="122,108" pivot="0.5,0.5" anchor="true"/>
+    <image id="n16_s82q" name="n16" src="s82qk" fileName="images/panel/SpinBtn/db_txt_AUTO.png" xy="122,108" pivot="0.5,0.5" anchor="true"/>
+    <component id="n19_s82q" name="anchorSpin" src="s82q9s" fileName="modules/panel/AnchorSpin.xml" xy="121,107"/>
+    <component id="n20_s82q" name="untouch" src="s82qo" fileName="modules/panel/UntouchCircle24.xml" xy="7,2" size="221,205"/>
+  </displayList>
+  <transition name="spin">
+    <item time="0" type="Visible" target="n13_s82q" value="true"/>
+    <item time="0" type="Visible" target="n14_s82q" value="false"/>
+    <item time="0" type="Visible" target="n15_s82q" value="false"/>
+    <item time="0" type="Visible" target="n16_s82q" value="false"/>
+    <item time="0" type="Visible" target="n17_s82q" value="true"/>
+    <item time="0" type="Visible" target="n18_s82q" value="false"/>
+    <item time="0" type="Visible" target="n20_s82q" value="false"/>
+  </transition>
+  <transition name="stop">
+    <item time="0" type="Visible" target="n13_s82q" value="false"/>
+    <item time="0" type="Visible" target="n14_s82q" value="false"/>
+    <item time="0" type="Visible" target="n15_s82q" value="true"/>
+    <item time="0" type="Visible" target="n16_s82q" value="false"/>
+    <item time="0" type="Visible" target="n17_s82q" value="false"/>
+    <item time="0" type="Visible" target="n18_s82q" value="true"/>
+    <item time="0" type="Visible" target="n20_s82q" value="false"/>
+  </transition>
+  <transition name="auto">
+    <item time="0" type="Visible" target="n13_s82q" value="false"/>
+    <item time="0" type="Visible" target="n14_s82q" value="true"/>
+    <item time="0" type="Visible" target="n15_s82q" value="false"/>
+    <item time="0" type="Visible" target="n16_s82q" value="true"/>
+    <item time="0" type="Visible" target="n17_s82q" value="false"/>
+    <item time="0" type="Visible" target="n18_s82q" value="false"/>
+    <item time="0" type="Visible" target="n20_s82q" value="false"/>
+  </transition>
+  <transition name="hui">
+    <item time="0" type="Visible" target="n20_s82q" value="true"/>
+  </transition>
+</component>

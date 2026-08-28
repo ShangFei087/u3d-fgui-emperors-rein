@@ -69,7 +69,7 @@
     <font id="9mnq2x" name="freebetNumFont.fnt" path="/fonts/font/freebetNum/" exported="true"/>
     <component id="9mnq2y" name="AnchorCloude.xml" path="/component/popupFreeGame/" exported="true"/>
     <component id="urgv31" name="PopupFreeSpinResult.xml" path="/" exported="true"/>
-    <component id="jhxn32" name="AnchorResult.xml" path="/component/popupFreeGame/"/>
+    <component id="jhxn32" name="AnchorResult.xml" path="/component/popupFreeGame/" exported="true"/>
     <component id="jhxn34" name="FreeResultBtn.xml" path="/component/freeSpin/" exported="true"/>
     <font id="jhxn3l" name="freeSpinWinFont.fnt" path="/fonts/font/freeSpinResult/" exported="true"/>
     <component id="ldad3r" name="PopupJackpotGameTrigger.xml" path="/" exported="true"/>
@@ -91,9 +91,9 @@
     <component id="ucv05j" name="OpenDoor.xml" path="/component/popupNormalGame/" exported="true"/>
     <component id="l8f45k" name="AnchorBarEffect.xml" path="/component/gameLoading/"/>
     <font id="sb0x60" name="jackpotTipFont.fnt" path="/fonts/font/jackpotTip/" exported="true"/>
-    <component id="iii963" name="FourMult.xml" path="/component/popupFreeGame/"/>
-    <component id="iii964" name="ThreeMult.xml" path="/component/popupFreeGame/"/>
-    <component id="iii965" name="TwoMult.xml" path="/component/popupFreeGame/"/>
+    <component id="iii963" name="FourMult.xml" path="/component/popupFreeGame/" exported="true"/>
+    <component id="iii964" name="ThreeMult.xml" path="/component/popupFreeGame/" exported="true"/>
+    <component id="iii965" name="TwoMult.xml" path="/component/popupFreeGame/" exported="true"/>
     <component id="iii966" name="OneMult.xml" path="/moudules/"/>
     <image id="baxv6m" name="fg_img_bg_02.png" path="/images/freeGame/" exported="true"/>
     <component id="baxv6n" name="AnchorNorBG.xml" path="/component/popupNormalGame/" exported="true"/>
@@ -301,6 +301,7 @@
     <image id="dcpxiq" name="symbol_15.png" path="/images/normalGame/symbols/" exported="true"/>
     <component id="ycmnir" name="anchorPag.xml" path="/component/popupJackpotGame/" exported="true"/>
     <image id="uqrcis" name="sg_fs_txt_respin.png" path="/images/jackpotGame/" exported="true"/>
+    <component id="lhdziu" name="AnchorNum.xml" path="/component/popupFreeGame/" exported="true"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Cai Fu Huo Che 3996\FGUIs" packageCount="2"/>
 </packageDescription>

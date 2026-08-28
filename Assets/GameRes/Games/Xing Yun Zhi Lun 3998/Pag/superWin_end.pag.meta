@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 390556b6967b468469b42e74aba133c5
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: games/xing yun zhi lun 3998/pag/superwin_end.unity3d
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: c806c33c02b7da44e86221c1c5045af0, type: 3}

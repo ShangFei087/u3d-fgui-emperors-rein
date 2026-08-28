@@ -26,6 +26,7 @@ namespace CaiFuHuoChe_3996
         private bool isInit = false;
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
         private TimerCallback _autoModeSimulatedClick;
+        private Action callback = null;
 
 
         //Pag播放
@@ -98,6 +99,7 @@ namespace CaiFuHuoChe_3996
             if (!isInit) return;
 
             CancelAutoModeSimulatedClick();
+            callback = null;
 
             spinTime = contentPane.GetChild("SpinTimes").asTextField;
             closeBtn = contentPane.GetChild("StartBtn").asButton;
@@ -129,6 +131,7 @@ namespace CaiFuHuoChe_3996
                 if (args != null)
                 {
                     spinTime.text = args["SpinTimes"].ToString();
+                    callback = args["Callback"] as Action;
                 }
             }
 
@@ -180,7 +183,7 @@ namespace CaiFuHuoChe_3996
 
             spinTime.visible = false;
 
-            AddTimer(0.6f, (object obj) =>
+            AddTimer(0.1f, (object obj) =>
             {
                 if (InJackpot_bmp != null)
                 {
@@ -192,7 +195,13 @@ namespace CaiFuHuoChe_3996
                     new PagPlayCallbacks(
                     onFinished: () => InJackpot_bmp?.StopWithDefaults(),
                     stopAfterFinished: true));
-                    AddTimer(5.5f, (object obj) =>
+
+                    AddTimer(1f, (object obj) =>
+                    {
+                        callback?.Invoke();
+                    });
+
+                    AddTimer(5.3f, (object obj) =>
                     {
                         CloseSelf(null);
                     });

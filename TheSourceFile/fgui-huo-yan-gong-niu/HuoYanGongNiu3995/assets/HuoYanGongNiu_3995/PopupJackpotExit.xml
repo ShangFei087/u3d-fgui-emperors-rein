@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n0_imf5" name="mask" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#cc333333"/>
+    <component id="n6_imf5" name="anchorPag" src="imf5bc" fileName="component/gameJackpotGame/AnchorPag.xml" xy="540,960" pivot="0.5,0.5" anchor="true"/>
+    <component id="n3_imf5" name="anchorSpine" src="imf5ax" fileName="component/gameJackpotGame/AnchorSpine.xml" xy="540,893"/>
+    <text id="n5_imf5" name="win" xy="540,1083" pivot="0.5,0.5" anchor="true" size="794,150" font="ui://x2aorbwjxrp24h" fontSize="15" align="center" vAlign="middle" letterSpacing="-21" autoSize="none" text="9999999"/>
+    <component id="n2_imf5" name="startBtn" src="imf5bb" fileName="component/gameJackpotGame/jackpotBtn.xml" xy="540,1373" pivot="0.5,0.5" anchor="true"/>
+    <component id="n4_imf5" name="anchorPagExit" src="imf5bc" fileName="component/gameJackpotGame/AnchorPag.xml" xy="540,960" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>

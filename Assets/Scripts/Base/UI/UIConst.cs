@@ -263,6 +263,14 @@ public class UIConst
                 new object[] { "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PopupFreeSpinTrigger" },
             [PageName.HuoYanGongNiuPopupFreeSpinExit] =
                 new object[] { "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PopupFreeSpinExit" },
+            [PageName.HuoYanGongNiuPopupJackpotTrigger] =
+                new object[] { "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PopupJackpotTrigger" },
+            [PageName.HuoYanGongNiuPopupJackpotResult] =
+                new object[] { "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PopupJackpotResult" },
+            [PageName.HuoYanGongNiuPopupJackpotExit] =
+                new object[] { "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PopupJackpotExit" },
+            [PageName.HuoYanGongNiuPopupBigWin] =
+                new object[] { "Assets/GameRes/Games/Huo Yan Gong Niu 3995/FGUIs", "HuoYanGongNiu_3995.PopupBigWin" },
         };
     }
 }
@@ -422,4 +430,8 @@ public enum PageName
     HuoYanGongNiuPopupFreeSpinTrigger,
     HuoYanGongNiuPopupGameLoading,
     HuoYanGongNiuPageGameMain,
+    HuoYanGongNiuPopupJackpotTrigger,
+    HuoYanGongNiuPopupJackpotResult,
+    HuoYanGongNiuPopupJackpotExit,
+    HuoYanGongNiuPopupBigWin,
 }

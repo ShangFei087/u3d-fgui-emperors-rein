@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="284,67" extention="Slider">
+  <displayList>
+    <image id="n0_s82q" name="n0" src="s82q16" fileName="images/panel/SetPanel/db_ic_Progress_bar_frame.png" xy="0,0" size="284,67">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_s82q" name="bar" src="s82q15" fileName="images/panel/SetPanel/db_ic_Progress_bar.png" xy="18,22" size="246,21"/>
+    <component id="n2_s82q" name="grip" src="s82q1c" fileName="modules/panel/SetPanel/SoundSlider_grip.xml" xy="237,15">
+      <relation target="n1_s82q" sidePair="right-right"/>
+    </component>
+  </displayList>
+  <Slider/>
+</component>

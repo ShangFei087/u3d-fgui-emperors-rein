@@ -120,7 +120,7 @@ namespace XingYunZhiLun_3998
             {
                 GameSoundHelper.Instance.StopSound(SoundKey.FreeSpinBG);
             }
-            GameSoundHelper.Instance.PlaySoundEff(SoundKey.PopupWinOn);
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.JpBoarder));
         }
 
         public void InitParam(EventData data)
@@ -154,6 +154,7 @@ namespace XingYunZhiLun_3998
 
             gbutton = this.contentPane.GetChild("closeBtn").asButton;
             btnLoader = gbutton.GetChild("button").asLoader;
+            credit = contentPane.GetChild("reels").asCom;
 
             gbutton.onClick.Clear();
             isClose = false;
@@ -182,9 +183,10 @@ namespace XingYunZhiLun_3998
                 {
                     jackpotAction = (Action)argDic["onJPPoolSubCredit"];
                 }
+
+                ExecuteNextStep();
             }
 
-            credit = contentPane.GetChild("reels").asCom;
             credit.visible = true;
 
             //EnsureMainPagSlot();
@@ -197,7 +199,6 @@ namespace XingYunZhiLun_3998
             uiCreditCtrl.SetData(sorce);
 
             if (!isOpen) return;
-            ExecuteNextStep();
 
             if (ContentModel.Instance.isAuto)
             {
@@ -275,14 +276,14 @@ namespace XingYunZhiLun_3998
         // 添加定时器并记录引用（用于后续清理）
         private void AddTimer(float delaySeconds, TimerCallback onComplete)
         {
-            // 保存定时器回调引用
-            _activeTimers.Add(onComplete);
-            // 添加定时器，延迟后执行回调，并在执行后从列表中移除
-            Timers.inst.Add(delaySeconds, 1, (obj) =>
+            TimerCallback wrapper = null;
+            wrapper = (obj) =>
             {
                 onComplete?.Invoke(obj);
-                _activeTimers.Remove(onComplete);
-            });
+                _activeTimers.Remove(wrapper);
+            };
+            _activeTimers.Add(wrapper);
+            Timers.inst.Add(delaySeconds, 1, wrapper);
         }
 
         private void PlayAnim(string animName)
@@ -353,7 +354,7 @@ namespace XingYunZhiLun_3998
                 GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
             }
 
-            GameSoundHelper.Instance.StopSound(SoundKey.PopupWinOn);
+            //GameSoundHelper.Instance.StopSound(SoundKey.PopupWinOn);
         }
 
 

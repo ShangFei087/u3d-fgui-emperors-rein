@@ -2,6 +2,7 @@ using FairyGUI;
 using GameMaker;
 using PusherEmperorsRein;
 using SlotMaker;
+using Spine.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -48,7 +49,7 @@ namespace HuoYanGongNiu_3995
         public override IEnumerator ShowSymbolWinBySetting(SymbolWin symbolWin, bool isUseMySelfSymbolNumber, SpinWinEvent eventType)
         {
             //停止特效显示
-            SkipWinLine(false);
+            SkipWinLine(false); 
 
             // 立马停止时，不播放赢分环节？
             if (isStopImmediately && _spinWEMD.Instance.isSkipAtStopImmediately)
@@ -80,11 +81,8 @@ namespace HuoYanGongNiu_3995
                         fguiPoolHelper.GetObject(TagPoolObject.SymbolBorder, borderEffect).asCom;
                     symble.AddBorderEffect(goBorderEffect);
                 }
-
-                // 整体变大特效
-                if (_spinWEMD.Instance.isBigger)
-                    symble.ShowBiggerEffect();
             }
+
 
 
             // 是否显示线
@@ -129,6 +127,8 @@ namespace HuoYanGongNiu_3995
             }
 
             yield return SlotWaitForSeconds(_spinWEMD.Instance.timeS);
+
+            yield return new WaitForSeconds(1.5f);
         }
 
 
@@ -300,10 +300,256 @@ namespace HuoYanGongNiu_3995
 
         #region 滚轮滚动接口
 
+        /// <summary>
+        /// 滚轮正常滚动
+        /// </summary>
+        /// <param name="strDeckRowCol"></param>
+        /// <param name="finishCallback"></param>
+        /// <returns></returns>
+        public new IEnumerator TurnReelsNormal(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3", Action finishCallback = null)
+        {
+            //停止特效显示
+            SkipWinLine(false);
+
+            int[] deckColRow = SlotTool.GetDeckColRow(strDeckRowCol).ToArray();
+            List<List<int>> colrowLsts = GetDeckColRow(deckColRow,
+                this.column,
+                this.row);
+
+            List<int>[] colrow = colrowLsts.ToArray();
+
+            //这个还要判断特殊图标 如果有还需要改变滚轮滚的次数 还有特殊表现效果
+            //模拟图标
+            for (int i = 0; i < this.column; i++)
+            {
+                reels[i].SetResult(colrow[i]);
+            }
+
+            yield return StartTurnReels();
+
+            finishCallback?.Invoke();
+        }
 
 
+        List<int> freeIconCols = new List<int>();
+        List<int> jackpotIconCols = new List<int>();
+
+        public List<List<int>> GetDeckColRow(int[] deckColRow, int colCount, int rowCount)
+        {
+            //if (ContentModel.Instance.isReelsSlowMotion) freeIconCols.Clear();
+            if (freeIconCols.Count > 0) freeIconCols.Clear();
+            if (jackpotIconCols.Count > 0) jackpotIconCols.Clear();
+
+            List<List<int>> colrowLsts = new List<List<int>>();
+            for (int col = 0; col < colCount; col++)
+            {
+                List<int> colLst = new List<int>();
+                for (int row = 0; row < rowCount; row++)
+                {
+                    int syb = deckColRow[col * rowCount + row];
+
+                    if (syb == 12)
+                    {
+                        freeIconCols.Add(col);
+                    }
+                    else if (syb == 13)
+                    {
+                        jackpotIconCols.Add(col);
+                    }
+                    colLst.Add(syb);
+                }
+                colrowLsts.Add(colLst);
+            }
+            return colrowLsts;
+        }
+
+        protected new IEnumerator StartTurnReels()
+        {
+
+            int reelsCount = this.column;
+
+            bool isNext = false;
+
+            bool haveSlotTip = false;
+            bool isFreeSlotTip = false;
+
+            for (int reelIdx = 0; reelIdx < this.column; reelIdx++)
+            {
+                if (_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx) > 0)
+                {
+                    yield return new WaitForSeconds(_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx));
+                }
+
+                int _reelIdx = reelIdx;
+                int extraReelTimes = 0;
+                bool isTrriger = false;
+                int extraReelTimesReel = 0;
+
+                if ((freeIconCols.Count > 1 && reelIdx >= freeIconCols[1]) || (jackpotIconCols.Count > 1 && reelIdx >= jackpotIconCols[1]))  //ContentModel.Instance.isReelsSlowMotion && 
+                {
+                    extraReelTimes = 15;
+                    isTrriger = true;
+                    if (!haveSlotTip && freeIconCols.Count > 1 && reelIdx >= freeIconCols[1])
+                    {
+                        isFreeSlotTip = true;
+                    }
+                    haveSlotTip = true;
+
+                    if (isFreeSlotTip)
+                    {
+                        extraReelTimesReel = reelIdx - freeIconCols[1];
+                    }
+                    else
+                    {
+                        extraReelTimesReel = reelIdx - jackpotIconCols[1];
+                    }
+                }
+
+                reels[reelIdx].StartTurn(
+                    _reelSetMD.Instance.GetNumReelTurn(reelIdx) + reelIdx * _reelSetMD.Instance.GetNumReelTurnGap(reelIdx) + extraReelTimes * extraReelTimesReel,
+                    () =>
+                    {
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+                            new EventData<int>(SlotMachineEvent.ReelColumnStopSound, _reelIdx));
+                        ComputeScatterBonusColumnStopFlags(reels[_reelIdx], _reelIdx, out bool scatterCol, out bool bonusCol);
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+                            new EventData<ScatterBonusColumnStopPayload>(SlotMachineEvent.ScatterBonusColumnStopSound,
+                                new ScatterBonusColumnStopPayload
+                                {
+                                    column0Based = _reelIdx,
+                                    hasScatter = scatterCol,
+                                    hasBonus = bonusCol,
+                                }));
+
+
+                        if (isTrriger)
+                        {
+                            // 0-based 列索引；仅缓动相关列触发，供加速框 UI 使用
+                            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+                            new EventData<int>(SlotMachineEvent.PrepareStoppedReel, _reelIdx + 1));
+                        }
+
+                        if (--reelsCount <= 0)
+                        {
+                            isNext = true;
+                        }
+                        if (!ContentModel.Instance.isJackpotSpin)
+                        {
+                            for (int i = 2; i < 2 + CustomModel.Instance.row; i++)
+                            {
+
+                                SymbolBase symble = reels[_reelIdx].symbolList[i];
+
+                                string symbleNumber = $"{symble.number}";
+
+                                bool isHashSymbolAppearNumber = false;
+                                foreach (KeyValuePair<string, string> kv in CustomModel.Instance.symbolAppearEffect)
+                                {
+                                    if (kv.Key == symbleNumber)
+                                    {
+                                        isHashSymbolAppearNumber = true;
+                                        break;
+                                    }
+                                }
+
+                                if (isHashSymbolAppearNumber)
+                                {
+                                    string symbolName = CustomModel.Instance.symbolAppearEffect[symbleNumber];
+                                    GComponent anchorSymbolEffect = fguiPoolHelper.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
+                                    symble.AddSymbolEffect(anchorSymbolEffect);
+
+                                    FguiSortingOrderManager.Instance.ChangeSortingOrder(symble.goOwnerSymbol, goExpectation);
+                                }
+                            }
+                        }
+                    }
+                );
+            }
+
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+
+            foreach (ReelBase reel in reels)
+            {
+                reel.SetReelState(ReelState.Idle);
+            }
+
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_EVENT,
+                new EventData(SlotMachineEvent.StoppedSlotMachine));
+
+        }
+
+        /// <summary> 扫描单列可视区是否含 Scatter/Bonus（symbolNumber[10]/[11]），供 ScatterBonusColumnStopSound 载荷。 </summary>
+        private void ComputeScatterBonusColumnStopFlags(ReelBase reel, int column0Based, out bool hasScatter, out bool hasBonus)
+        {
+            hasScatter = false;
+            hasBonus = false;
+            if (reel?.symbolList == null)
+                return;
+
+            int row = CustomModel.Instance.row;
+            if (column0Based < 0 || column0Based >= CustomModel.Instance.column)
+                return;
+
+            int scatterId = CustomModel.Instance.symbolNumber[12];
+            int bonusId = CustomModel.Instance.symbolNumber[13];
+            for (int i = 2; i < 2 + row; i++)
+            {
+                if (i >= reel.symbolList.Count)
+                    break;
+                int n = reel.symbolList[i].number;
+                if (n == scatterId)
+                    hasScatter = true;
+                if (n == bonusId)
+                    hasBonus = true;
+            }
+        }
 
         #endregion
+
+        /// <summary>
+        /// 将特定索引图标变为指定索引图标
+        /// </summary>
+        /// <param name="symbolNumbers"> 要改变的图标索引 </param>
+        /// <param name="target"> 指定的图标索引 </param>
+        public void ChangeSymbolIcon(int symbolNumbers, int target)
+        {
+            for (int r = bufferTop; r < row + bufferTop; r++)
+            {
+                for (int c = 0; c < column; c++)
+                {
+                    ReelBase reel = reels[c];
+                    SymbolBase symbol = reel.symbolList[r];
+                    if (symbol.number == symbolNumbers)
+                    {
+                        symbol.number = target;
+                        symbol.SetSymbolImage(target);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 播放金牛消失的动画
+        /// </summary>
+        //public void ShowSymbolGoldBull(List<int> symbolNumbers, bool isAmin, int symbolNumber, bool isUseMySelfSymbolNumber)
+        //=> ShowSymbolGoldBull(TagPoolObject.SymbolHit, GetSymbol(symbolNumbers), isAmin, symbolNumber, isUseMySelfSymbolNumber);
+
+
+        //public void ShowSymbolGoldBull(TagPoolObject tp, List<SymbolBase> symbols, bool isAmin, int symbolNumber, bool isUseMySelfSymbolNumber)
+        //{
+        //    foreach (SymbolBase symbol in symbols)
+        //    {
+        //        string symbolName = CustomModel.Instance.symbolHitEffect["14"];
+
+        //        // 图标动画
+        //        GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
+        //        symbol.AddSymbolEffect(goSymbolHit, isAmin);
+
+        //        // 设置层级
+        //        FguiSortingOrderManager.Instance.ChangeSortingOrder(symbol.goOwnerSymbol, goExpectation);
+        //    }
+        //}
 
 
         //彩金游戏中可以被记为彩金奖的元素列表

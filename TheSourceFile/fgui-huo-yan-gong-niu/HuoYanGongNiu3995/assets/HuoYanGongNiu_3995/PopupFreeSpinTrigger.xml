@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <component id="n1_xrp2" name="anchor" src="xrp256" fileName="component/gameFreeGame/AnchorFreeTigger.xml" xy="540,1060"/>
-    <component id="n2_xrp2" name="startBtn" src="xrp257" fileName="component/gameFreeGame/FreeTriggerBtn.xml" xy="540,1387" pivot="0.5,0.5" anchor="true" scale="1.4,1.3" alpha="0"/>
-    <loader id="n4_xrp2" name="times" xy="540,888" pivot="0.5,0.5" anchor="true" size="222,278" url="ui://x2aorbwjxrp258" align="center" vAlign="middle" autoSize="true"/>
+    <graph id="n8_imf5" name="mask" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#cc333333"/>
+    <component id="n7_fqx4" name="anchorPag" src="fqx4ar" fileName="component/gameFreeGame/AnchorPag.xml" xy="540,893" pivot="0.5,0.5" anchor="true"/>
+    <component id="n1_xrp2" name="anchor" src="xrp256" fileName="component/gameFreeGame/AnchorFreeTigger.xml" xy="540,960"/>
+    <component id="n2_xrp2" name="startBtn" src="xrp257" fileName="component/gameFreeGame/FreeTriggerBtn.xml" xy="540,1387" pivot="0.5,0.5" anchor="true" size="400,160" alpha="0"/>
+    <text id="n6_fqx4" name="times" xy="540,888" pivot="0.5,0.5" anchor="true" size="322,402" font="ui://x2aorbwjxrp24s" fontSize="8" align="center" vAlign="middle" autoSize="none" text="8"/>
   </displayList>
 </component>

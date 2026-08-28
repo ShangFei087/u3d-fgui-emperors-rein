@@ -5,6 +5,7 @@ using SlotMaker;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Xml.Linq;
 using UnityEngine;
@@ -38,6 +39,8 @@ namespace XingYunZhiLun_3998
         private bool isInit = false;
 
         private int targetIndex = 2; // 免费游戏在转盘上的位置（0-19）
+        private string jackpotType = String.Empty; 
+
         private float segmentAngle = 18f; //     360 / 20 = 18°
         private float rotateSpeed = 15f;
         private float extralyAngle = 9f;  //因为转盘分区角度不同，可能需要额外补充一些角度
@@ -224,13 +227,16 @@ namespace XingYunZhiLun_3998
             if (isClose) return;
             isClose = true; 
             spinButton.visible = false;
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.WheelButton));
 
             ContentModel.Instance.totalPlaySpins = 1;
             ContentModel.Instance.remainPlaySpins = 1;
+            jackpotType = String.Empty;
 
-            if(_data != null)
+            if (_data != null)
             {
                 Dictionary<string, object> a = _data.value as Dictionary<string, object>;
+                jackpotType = a["jackpotType"] as String;
                 SetTargetIndex(a["jackpotType"]);
 
                 if (a.ContainsKey("callback"))
@@ -270,6 +276,7 @@ namespace XingYunZhiLun_3998
             StopEffectAnim(wins[wheelIndex]); 
             wins[wheelIndex].gameObject.SetActive(false);
             PlayAnim(animEndNames[ContentModel.Instance.scatterCount - 3]);
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.WheelBGMEnding));
 
             yield return new WaitForSeconds(1f);
 
@@ -472,6 +479,7 @@ namespace XingYunZhiLun_3998
             wins[wheelIndex].gameObject.SetActive(true);
             wins[wheelIndex].GetChild(wins[wheelIndex].childCount - 1).GetComponent<Canvas>().sortingOrder = wins[wheelIndex].GetChild(wins[wheelIndex].childCount - 2).GetComponent<ParticleSystem>().GetComponent<Renderer>().sortingOrder - 2;
             PlayEffectAnim(wins[wheelIndex]);
+            PlayEFX();
 
             yield return new WaitForSeconds(1f);
 
@@ -544,6 +552,7 @@ namespace XingYunZhiLun_3998
             gWheel.GetChild("Wheel").asCom.GetChild("wheelBg").asLoader.url = CustomModel.Instance.wheelState[wheelIndexStr];
             PlayAnim(animStartNames[wheelBgIndex]);
             wheelIndex = wheelBgIndex;
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.WheelRaiseUp));
 
             switch (wheelBgIndex)
             {
@@ -560,10 +569,31 @@ namespace XingYunZhiLun_3998
 
             Timers.inst.Add(1, 1, (object obj) =>
             {
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.WheelBgm));
                 spinButton.visible = true;
                 PlayEffectAnim(idels[wheelBgIndex]);
                 PlayEffectAnim(stages[wheelBgIndex]);
             });
+        }
+
+        private void PlayEFX()
+        {
+            if(jackpotType == "Wild")
+            {
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.WildExtend));
+            }
+            else if (jackpotType == "mini" || jackpotType == "minor" || jackpotType == "major")
+            {
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BonusWin));
+            }
+            else if(jackpotType == "FreeGame" )
+            {
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.ScatterWin));
+            }
+            else
+            {
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.WheellItWin));
+            }
         }
     }
 

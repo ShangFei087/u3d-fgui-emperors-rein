@@ -1,7 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="995wwglr">
   <resources>
-    <component id="xtfq0" name="Panel.xml" path="/"/>
+    <component id="xtfq0" name="Panel.xml" path="/modules/panel/" exported="true"/>
+    <image id="s82q1" name="db_ic_Bottom.png" path="/images/panel/" exported="true"/>
+    <image id="s82q2" name="db_ic_Insert_coin.png" path="/images/panel/" exported="true"/>
+    <image id="s82q3" name="db_txt_WIN.png" path="/images/panel/" exported="true"/>
+    <image id="s82q4" name="db_txt_BET.png" path="/images/panel/" exported="true"/>
+    <image id="s82q5" name="db_txt_CREDITS .png" path="/images/panel/" exported="true"/>
+    <image id="s82q7" name="db_txt_Start_automatic_mode..png" path="/images/panel/" exported="true"/>
+    <component id="s82q9" name="ButtonFrame.xml" path="/modules/panel/" exported="true"/>
+    <image id="s82qa" name="db_ic_Minus_key.png" path="/images/panel/BtnBet/" exported="true"/>
+    <image id="s82qb" name="db_ic_Plus_button.png" path="/images/panel/BtnBet/" exported="true"/>
+    <component id="s82qd" name="BtnBetUp.xml" path="/modules/panel/" exported="true"/>
+    <component id="s82qe" name="BtnBetDown.xml" path="/modules/panel/" exported="true"/>
+    <component id="s82qf" name="UntouchBetButton.xml" path="/modules/panel/" exported="true"/>
+    <image id="s82qg" name="db_ic_SPIN_button.png" path="/images/panel/SpinBtn/" exported="true"/>
+    <image id="s82qh" name="db_ic_SPIN_button2.png" path="/images/panel/SpinBtn/" exported="true"/>
+    <image id="s82qi" name="db_ic_SPIN_button3.png" path="/images/panel/SpinBtn/" exported="true"/>
+    <image id="s82qj" name="db_txt_STOP.png" path="/images/panel/SpinBtn/" exported="true"/>
+    <image id="s82qk" name="db_txt_AUTO.png" path="/images/panel/SpinBtn/" exported="true"/>
+    <image id="s82ql" name="db_txt_SPIN .png" path="/images/panel/SpinBtn/" exported="true"/>
+    <component id="s82qm" name="ButtonSpin.xml" path="/modules/panel/" exported="true"/>
+    <component id="s82q9s" name="AnchorSpin.xml" path="/modules/panel/" exported="true"/>
+    <image id="s82qn" name="circle_24.png" path="/images/panel/SpinBtn/" exported="true"/>
+    <component id="s82qo" name="UntouchCircle24.xml" path="/modules/panel/" exported="true"/>
+    <image id="s82qq" name="ng_btn_Down_arrow.png" path="/images/panel/ExhibitionPanel/" exported="true"/>
+    <image id="s82qr" name="ng_Exhibition _Mode_Off.png" path="/images/panel/ExhibitionPanel/" exported="true"/>
+    <image id="s82qs" name="ng_Exhibition_ Mode_On.png" path="/images/panel/ExhibitionPanel/" exported="true"/>
+    <component id="s82qt" name="ButtonExhibition.xml" path="/modules/panel/Exhibition/" exported="true"/>
+    <component id="s82qx" name="ReelBtn.xml" path="/modules/panel/Exhibition/" exported="true"/>
+    <component id="s82qy" name="ExhibitionPanel.xml" path="/modules/panel/" exported="true"/>
+    <image id="s82qz" name="db_ic_Multi-function_button.png" path="/images/panel/SetPanel/" exported="true"/>
+    <image id="s82q10" name="db_Pop-up_window.png" path="/images/panel/SetPanel/" exported="true"/>
+    <image id="s82q11" name="db_ic_Back_button.png" path="/images/panel/SetPanel/" exported="true"/>
+    <image id="s82q12" name="db_ic_Button_Functions.png" path="/images/panel/SetPanel/" exported="true"/>
+    <image id="s82q13" name="db_ic_Mute_button.png" path="/images/panel/SetPanel/" exported="true"/>
+    <image id="s82q14" name="db_ic_Polka_dot.png" path="/images/panel/SetPanel/" exported="true"/>
+    <image id="s82q15" name="db_ic_Progress_bar.png" path="/images/panel/SetPanel/" exported="true" scale="9grid" scale9grid="9,0,228,24" gridTile="16"/>
+    <image id="s82q16" name="db_ic_Progress_bar_frame.png" path="/images/panel/SetPanel/" exported="true"/>
+    <image id="s82q17" name="db_ic_Volume_button.png" path="/images/panel/SetPanel/" exported="true"/>
+    <component id="s82q18" name="ButtonHelp.xml" path="/modules/panel/" exported="true"/>
+    <component id="s82q19" name="ButtonIntroduce.xml" path="/modules/panel/SetPanel/" exported="true"/>
+    <component id="s82q1a" name="ButtonSound.xml" path="/modules/panel/SetPanel/" exported="true"/>
+    <component id="s82q1b" name="BtnBack.xml" path="/modules/panel/SetPanel/" exported="true"/>
+    <component id="s82q1c" name="SoundSlider_grip.xml" path="/modules/panel/SetPanel/" exported="true"/>
+    <component id="s82q1d" name="SoundSlider.xml" path="/modules/panel/SetPanel/" exported="true"/>
+    <component id="s82q1e" name="SetPanel.xml" path="/modules/panel/SetPanel/" exported="true"/>
+    <component id="s82q1f" name="Instructions.xml" path="/modules/panel/Instructions/" exported="true"/>
+    <image id="s82q1h" name="sm_ic_Outer_frame.png" path="/images/panel/Instructions/" exported="true"/>
+    <image id="s82q1i" name="sm_ic_button_r.png" path="/images/panel/Instructions/" exported="true"/>
+    <image id="s82q1j" name="sm_ic_BACK_TO_GAME.png" path="/images/panel/Instructions/" exported="true"/>
+    <image id="s82q1k" name="sm_ic_button_l.png" path="/images/panel/Instructions/" exported="true"/>
+    <component id="s82q1l" name="BtnNext.xml" path="/modules/panel/Instructions/" exported="true"/>
+    <component id="s82q1m" name="BtnPrev.xml" path="/modules/panel/Instructions/" exported="true"/>
+    <component id="s82q1n" name="BtnBackGame.xml" path="/modules/panel/Instructions/" exported="true"/>
+    <component id="s82q1o" name="Introduce.xml" path="/modules/panel/Instructions/" exported="true"/>
+    <component id="lkob9t" name="ButtonCol.xml" path="/modules/panel/Exhibition/" exported="true"/>
   </resources>
-  <publish name=""/>
+  <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Panel\Panel3995\FGUIs" packageCount="2"/>
 </packageDescription>

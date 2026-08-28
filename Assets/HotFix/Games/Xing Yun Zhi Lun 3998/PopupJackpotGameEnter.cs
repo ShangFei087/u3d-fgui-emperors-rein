@@ -20,6 +20,8 @@ namespace XingYunZhiLun_3998
         private EventData _data;
         private bool isInit = false;
 
+        private TimerCallback _closeTimer;
+
         protected override void OnInit()
         {
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -63,10 +65,20 @@ namespace XingYunZhiLun_3998
 
             if (isOpen)
             {
-                Timers.inst.Add(2f / Time.timeScale, 1, (object obj) =>
+                // 泄漏：匿名 lambda 关页清不掉。
+                // Timers.inst.Add(2f / Time.timeScale, 1, (object obj) =>
+                // {
+                //     CloseSelf(null);
+                // });
+
+                if (_closeTimer != null)
+                    Timers.inst.Remove(_closeTimer);
+                _closeTimer = (object obj) =>
                 {
+                    _closeTimer = null;
                     CloseSelf(null);
-                });
+                };
+                Timers.inst.Add(2f / Time.timeScale, 1, _closeTimer);
             }
         }
     }

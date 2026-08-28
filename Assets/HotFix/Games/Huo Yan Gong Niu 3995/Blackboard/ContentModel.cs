@@ -148,7 +148,8 @@ namespace HuoYanGongNiu_3995
         /// <summary>  这个已经改为：基本游戏+彩金了  </summary>
         public long totalEarnCredit;
 
-
+        /// <summary> 断线重连时同步分数 </summary>
+        public bool isSysCredit = false;
 
         /// <summary> 基础游戏赢分（单局普通游戏 或 免费游戏） </summary>
         public long baseGameWinCredit;
@@ -176,6 +177,8 @@ namespace HuoYanGongNiu_3995
         /// <summary> 是否长滚动 </summary>
         public bool isReelsSlowMotion;
 
+        ///<summary> 服务器额外记录当前的真实分数，否则前面的分数会丢失  </summary>
+        public long realCredit = 0;
 
         /// <summary> 免费游戏开始 </summary>
         public bool isFreeSpinTrigger;
@@ -206,6 +209,10 @@ namespace HuoYanGongNiu_3995
 
         /// <summary> 额外添加免费游戏 </summary>
         public bool isFreeSpinAdd;
+
+        public Dictionary<int, string> jackpotWin = new Dictionary<int, string>();    //第一个是中奖位置（row * 5 + col），第二个是中奖金额
+
+        public Dictionary<int, int> jackpotSocre = new Dictionary<int, int>();        //第一个类型是表示大奖类型，第二个类型表示这个类型对应的分数
 
         public bool isFreeSpin => curReelStripsIndex == "FS";
 
@@ -316,6 +323,20 @@ namespace HuoYanGongNiu_3995
         /// 免费游戏激活每个图标所需要的金牛数量
         /// </summary>
         public int[] goldBullNums = new int[4] { 4, 8, 12, 16 };
+
+
+        //免费游戏记录当前解锁图标应该在哪个阶段
+        public int stageIndex = 0;
+
+        /// <summary>
+        /// 免费游戏触发时转盘可以转动的次数
+        /// </summary>
+        public int wheelSpinTimes = 0;
+
+        /// <summary>
+        /// 免费游戏触发时转盘每次转动的奖励
+        /// </summary>
+        public List<int> wheelData = new List<int>();
 
         /// <summary> 游戏前 </summary>
         public long creditBefore;
@@ -576,41 +597,6 @@ namespace HuoYanGongNiu_3995
         /// <summary> bonus数据 </summary>
         public Dictionary<int, JSONNode> bonusResult = new Dictionary<int, JSONNode>();
 
-        ///<summary> 游戏轮盘获奖数据 </summary>
-        public List<int> wheelData = new List<int>();
-
-
-        #region  礼盒游戏和Wild游戏的部分数据
-
-        /// <summary> 礼盒游戏触发 </summary>
-        public bool isLihe;
-
-        /// <summary> 礼盒中奖数据 </summary>
-        public List<WinningLineInfo> winningLines = new List<WinningLineInfo>();
-
-        /// <summary> 礼盒中奖物品索引 </summary>
-        public int rewardIndex;
-
-        /// <summary> wild游戏触发 </summary>
-        public bool isWild;
-
-        /// <summary> 倍率游戏触发 </summary>
-        public bool isMult;
-
-        /// <summary> 倍率游戏的中奖倍率 </summary>
-        public int multiple;
-
-        ///<summary> 需要生成Wild物体的列数据 </summary>
-        public int[] cols;
-
-        ///<summary> 中奖之后最高的列数据 </summary>
-        public int maxLink;
-
-        ///<summary> 彩金游戏中出现免费图标的所有列信息 </summary>
-        public Dictionary<int, List<int>> itemPos = new Dictionary<int, List<int>>();
-
-        #endregion
-
 
         /// <summary> 当前按钮状态 </summary>
         public string curBtnSpinState
@@ -620,5 +606,10 @@ namespace HuoYanGongNiu_3995
         }
         [SerializeField]
         private string m_curBtnSpinState = "Stop";
+
+
+
+        /// <summary> 是否等待下一局 Parse 校验（本地免费快照恢复后首局 Spin） </summary>
+        public bool PendingFreeSpinReconnectValidation { get; set; }
     }
 }

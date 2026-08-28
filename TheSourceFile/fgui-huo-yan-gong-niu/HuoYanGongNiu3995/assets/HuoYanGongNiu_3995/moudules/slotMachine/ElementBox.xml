@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="202,197" overflow="hidden">
+  <displayList>
+    <component id="n0_fuf5" name="rollElement_1" src="fuf5au" fileName="moudules/slotMachine/RollElement.xml" xy="101,-496" pivot="0.5,0.5" anchor="true"/>
+    <component id="n1_fuf5" name="rollElement_2" src="fuf5au" fileName="moudules/slotMachine/RollElement.xml" xy="101,-297" pivot="0.5,0.5" anchor="true"/>
+    <component id="n3_fuf5" name="rollElement_3" src="fuf5au" fileName="moudules/slotMachine/RollElement.xml" xy="101,-99" pivot="0.5,0.5" anchor="true"/>
+    <graph id="n2_fuf5" name="mask" xy="0,0" size="202,197" type="rect" lineSize="0" fillColor="#cc333333"/>
+    <component id="n4_fuf5" name="result" src="fuf5au" fileName="moudules/slotMachine/RollElement.xml" xy="101,-99" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+  <transition name="roll">
+    <item time="0" type="XY" target="n0_fuf5" tween="true" startValue="101,-496" endValue="101,-297" duration="4" ease="Linear"/>
+    <item time="0" type="XY" target="n1_fuf5" tween="true" startValue="101,-297" endValue="101,-99" duration="4" ease="Linear"/>
+    <item time="0" type="XY" target="n3_fuf5" tween="true" startValue="101,-99" endValue="101,99" duration="4" ease="Linear"/>
+    <item time="4" type="XY" target="n0_fuf5" tween="true" startValue="101,-297" endValue="101,-99" duration="4" ease="Linear"/>
+    <item time="4" type="XY" target="n1_fuf5" tween="true" startValue="101,-99" endValue="101,99" duration="4" ease="Linear"/>
+    <item time="4" type="XY" target="n3_fuf5" tween="true" startValue="101,99" endValue="101,297" duration="4" ease="Linear"/>
+    <item time="8" type="XY" target="n0_fuf5" tween="true" startValue="101,-99" endValue="101,99" duration="4" ease="Linear"/>
+    <item time="8" type="XY" target="n1_fuf5" tween="true" startValue="101,99" endValue="101,297" duration="4" ease="Linear"/>
+    <item time="12" type="XY" target="n0_fuf5" tween="true" startValue="101,99" endValue="101,297" duration="4" ease="Linear"/>
+  </transition>
+  <transition name="rollReset">
+    <item time="0" type="XY" target="n0_fuf5" value="101,-496"/>
+    <item time="0" type="XY" target="n1_fuf5" value="101,-297"/>
+    <item time="0" type="XY" target="n3_fuf5" value="101,-99"/>
+  </transition>
+  <transition name="result">
+    <item time="0" type="XY" target="n4_fuf5" tween="true" startValue="101,-99" endValue="101,197" duration="12" ease="Linear"/>
+    <item time="12" type="XY" target="n4_fuf5" tween="true" startValue="101,197" endValue="101,99" duration="4" ease="Linear"/>
+  </transition>
+  <transition name="resultReset">
+    <item time="0" type="XY" target="n4_fuf5" value="101,-99"/>
+  </transition>
+</component>
