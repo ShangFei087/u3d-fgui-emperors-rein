@@ -2,6 +2,7 @@ using FairyGUI;
 using GameMaker;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -12,71 +13,34 @@ namespace CaiFuZhiJia_3997
         public new const string pkgName = "CaiFuZhiJia";
         public new const string resName = "PopupBigWin";
 
-        private const string GamePagFolder = "Games/Cai Fu Zhi Jia 3997/Pag";
-        private const string PrefabPath = "Assets/GameRes/Games/Cai Fu Zhi Jia 3997/Prefabs/PopupBigWin/";
-
-        private int _totalCount = -1;
-        private bool _isInitialized = false;
-
-        private Animator _bigWinAnimator;
-        private GComponent _compareBigWin;
-        private GameObject _bigWinObj, _cloneBigWinObj;
-
-        private readonly string[] winString = { "BIG", "HUGE", "MASSIVE" };
-        private readonly string[] winOpenString = { "bigwin_start", "bigwin_superwin", "superwin_megawin" };
-        private readonly string[] winCloseString = { "bigwin_end", "superwin_end", "megawin_end" };
-
-        private readonly string[] WinOpenEffString =
-        {
-            "bigwin/bigwin_start.pag", "bigwin/supwin_start.pag", "bigwin/megawin_start.pag"
-        };
-
-        private readonly string[] WinIdleEffString =
-        {
-            "bigwin/bigwin_idle.pag", "bigwin/superwin_idle.pag", "bigwin/megewin_idle.pag"
-        };
-
-        private long score;
-        private string winType;
-        private int playCount;
-        private int winIndex;
-        private bool isOk = false;
-
-        private GTextField _bigWinText;
-
-        // 定时器回调委托
-        private TimerCallback _sequenceCallback;
-        private TimerCallback _exitCallback;
-
-        // 每级动画持续时间
-        private const float LevelDuration = 3.0f;
-
-        // 结束动画等待时间
-        private const float ExitDelay = 1.0f;
-
-        // 结束动画跳转时间点
-        private const float CloseTime = 14.5f;
-
-        // 状态标记
-        private bool _isExiting = false;
+        private const string PagPath = "Games/Cai Fu Zhi Jia 3997/Pag/bigwin/";
 
         // Pag
         private GComponent _bigWinCom;
         private PagSlotBinding _bigWinPag;
+
+        /// <summary> BigWin中奖类型数组 </summary>
+        private readonly string[] _winTypeString = { "BIG", "HUGE", "MASSIVE" };
+        
+        /// <summary> 对应不同级别BigWin的Pag视频数组 </summary>
+        private readonly string[] _pagEffString = { "ng_pop_border-bigwin.pag", "ng_pop_border-supwin.pag", "ng_pop_border-megawin.pag" };
+
+        /// <summary> 每个级别Pag视频的时长 </summary>
+        private readonly float[] _pagTimes = { 5.23f, 10.03f, 14.63f};
+
+        private long _score; // BigWin中奖得分
+        private int _winIndex; // 当前中大奖索引
+        private bool _isExiting; // 当前动画是否已经播放完成
+        private GTextField _bigWinText; // 显示BigWin得分的组件
+        private const float ExitDelay = 1.0f; // 每一级Pag的结束等待时间
+        private TimerCallback _aniEndCallback, _exitCallback; // pag和数字滚动播放结束之后的回调函数 
 
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            _totalCount = 1;
-            ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath + "BigWin.prefab",
-                (clone) =>
-                {
-                    _bigWinObj = clone;
-                    ResLoadedCallback();
-                });
-
+            InitParam(null); // 因为BigWin不需要加载预制体，所以需要将InitParam在OnInit里直接调用，否则无法触发Loading中的回调，导致无法正常进入游戏
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
                 shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
@@ -84,7 +48,7 @@ namespace CaiFuZhiJia_3997
                     [MachineButtonKey.BtnSpin] = (info) =>
                     {
                         Debug.LogError("游戏接受到机台短按的数据：Spin");
-                        SpinDown();
+                        OnAniEnd(null);
                     }
                 },
             };
@@ -92,38 +56,27 @@ namespace CaiFuZhiJia_3997
 
         protected override void OnLanguageChange(I18nLang lang)
         {
-            FguiI18nTextAssistant.Instance.DisposeAllTranslate(this.contentPane);
+            FguiI18nTextAssistant.Instance.DisposeAllTranslate(contentPane);
             contentPane.Dispose(); // 释放当前UI
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
-            InitParam();
+            InitParam(null);
         }
 
         private void InitParam(EventData eventData = null)
         {
-            if (!_isInitialized) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
 
+            // 重置状态
+            _isExiting = false;
             // 获取UI组件
-            _bigWinCom = contentPane.GetChild("pag_BigWin").asCom;
             _bigWinText = contentPane.GetChild("bigWinText").asTextField;
-            // 绑定Spine
-            GComponent currentGCom = contentPane.GetChild("anchorBigWin").asCom;
-            if (currentGCom != _compareBigWin)
-            {
-                GameCommon.FguiUtils.DeleteWrapper(_compareBigWin);
-                _compareBigWin = currentGCom;
-                _cloneBigWinObj = Object.Instantiate(_bigWinObj);
-                _bigWinAnimator = _cloneBigWinObj.GetComponentInChildren<Animator>();
-                GameCommon.FguiUtils.AddWrapper(_compareBigWin, _cloneBigWinObj);
-            }
-
-            // 绑定Pag
-            if (_bigWinCom == null) return;
-            _bigWinPag = new PagSlotBinding("bigWin", GamePagFolder);
+            // 绑定Pag视频
+            _bigWinCom = contentPane.GetChild("pag_BigWin").asCom;
+            _bigWinPag = new PagSlotBinding("bigWin", PagPath);
             _bigWinPag.EnsureSlot(_bigWinCom);
 
-            ShowAnimAndEffect();
+            PlayNumAniAndPag();
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
@@ -132,78 +85,55 @@ namespace CaiFuZhiJia_3997
 
             if (eventData?.value is Dictionary<string, object> dic)
             {
+                // 获取BigWin得分
                 if (dic.TryGetValue("baseGameWinCredit", out var scoreVal) && scoreVal is long longScore)
-                    score = longScore;
+                    _score = longScore;
 
-                winType = dic.TryGetValue("WinType", out var wt) ? wt.ToString() : "";
+                // 获取BigWin中奖类型索引
+                string winType = dic.TryGetValue("WinType", out var wt) ? wt.ToString() : "";
+                if (_winTypeString.Contains(winType))
+                    _winIndex = Array.IndexOf(_winTypeString, winType);
+                if (_winIndex < 0) _winIndex = 0;
+                if (_winIndex > _winTypeString.Length) _winIndex = _winTypeString.Length - 1;
             }
 
-            winIndex = Array.IndexOf(winString, winType);
-            if (winIndex < 0) winIndex = 0;
-            if (winIndex > 2) winIndex = 2;
-
-            isOk = false;
-            _isExiting = false;
-            InitParam();
+            InitParam(eventData);
         }
 
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
-            Reset();
+            ClearPag();
+            ClearTimers();
         }
 
-        private void ResLoadedCallback()
-        {
-            if (--_totalCount == 0)
-            {
-                _isInitialized = true;
-                InitParam();
-            }
-        }
-
-        private void SpinDown()
-        {
-            if (_isExiting) return;
-
-            if (!isOk)
-            {
-                // 强制完成数字滚动
-                NumberAnimation.Instance.StopAllAnimations();
-                _bigWinText.text = score.ToString();
-
-                // 直接跳到结束
-                PlayEndAnimation();
-            }
-            else
-            {
-                Exit();
-            }
-        }
-
-        private void ShowAnimAndEffect()
+        /// <summary> 播放数字滚动动画以及对应的Pag视频 </summary>
+        private void PlayNumAniAndPag()
         {
             try
             {
-                if (winString.Length < 3)
+                if (_winTypeString.Length < 3)
                 {
-                    Debug.LogError("WinImageString must have at least 3 elements");
+                    Debug.LogError("最少有三种中将类型");
                     return;
                 }
 
+                // 播放数字滚动动画
                 _bigWinText.visible = true;
-                playCount = 0;
+                float showtime = _pagTimes[_winIndex];
+                NumberAnimation.Instance.AnimateNumber(_bigWinText, 0, _score, showtime);
 
-                // 启动数字滚动
-                int showtime = 4 * (winIndex + 1);
-                NumberAnimation.Instance.AnimateNumber(_bigWinText, 0, score, showtime, EaseType.Linear, null);
+                // 初始化动画结束之后的回调
+                _exitCallback = OnExit;
+                _aniEndCallback = OnAniEnd;
 
-                // 初始化委托
-                _sequenceCallback = OnSequenceStep;
-                _exitCallback = OnExitTimer;
-
-                // 立即播放第1级动画
-                PlayCurrentLevel();
+                // 播放对应中奖类型的Pag视频
+                if (_bigWinPag == null) return;
+                _bigWinPag.StopWithDefaults();
+                _bigWinPag.Play(new PagSequencePlay(
+                    new[] { new PagSegment(_pagEffString[_winIndex], 1) }, PagPlayLayout.Center,
+                    useGpuSyncGroup: false));
+                Timers.inst.Add(showtime, 1, _aniEndCallback);
             }
             catch (Exception e)
             {
@@ -211,111 +141,41 @@ namespace CaiFuZhiJia_3997
             }
         }
 
-        /// <summary>
-        /// 播放当前层级的动画
-        /// </summary>
-        private void PlayCurrentLevel()
+        private void OnAniEnd(object obj)
         {
-            if (playCount < 0 || playCount >= winOpenString.Length)
-            {
-                Debug.LogError($"playCount 越界: {playCount}");
-                return;
-            }
+            // 停止数字动画，直接显示最终中奖结果
+            NumberAnimation.Instance.StopAllAnimations();
+            _bigWinText.text = _score.ToString();
 
-            _bigWinAnimator.Play(winOpenString[playCount]);
-            if (_bigWinPag == null) return;
-            _bigWinPag.StopWithDefaults();
-            _bigWinPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(WinOpenEffString[playCount], WinIdleEffString[playCount]), PagPlayLayout.Center));
-
-            // 3秒后进入下一步
-            Timers.inst.Add(LevelDuration, 1, _sequenceCallback);
-        }
-
-        /// <summary>
-        /// 每级动画结束后的回调
-        /// </summary>
-        private void OnSequenceStep(object obj)
-        {
-            playCount++;
-
-            // 如果还有更多层级，继续播放
-            if (playCount <= winIndex)
-            {
-                PlayCurrentLevel();
-            }
-            else
-            {
-                // 所有层级播放完毕，进入结束流程
-                // 如果数字还在滚动，直接停止并赋最终值
-                NumberAnimation.Instance.StopAllAnimations();
-                _bigWinText.text = score.ToString();
-
-                PlayEndAnimation();
-            }
-        }
-
-        /// <summary>
-        /// 播放结束动画并等待关闭
-        /// </summary>
-        private void PlayEndAnimation()
-        {
+            // 延时播放退出动画
             if (_isExiting) return;
             _isExiting = true;
-            isOk = true;
-
-            // 播放结束动画
-            int closeIndex = Mathf.Clamp(winIndex, 0, winCloseString.Length - 1);
-            _bigWinAnimator.Play(winCloseString[closeIndex]);
-
-            float closetime = CloseTime;
-            AnimatorStateInfo stateInfo = _bigWinAnimator.GetCurrentAnimatorStateInfo(0);
-            float normalizedTime = closetime / stateInfo.length;
-            _bigWinAnimator.Play(stateInfo.fullPathHash, 0, normalizedTime);
-
-            // 清理动画序列定时器
-            if (_sequenceCallback != null && Timers.inst.Exists(_sequenceCallback))
-                Timers.inst.Remove(_sequenceCallback);
-
-            // 等待1秒后退出
             if (!Timers.inst.Exists(_exitCallback))
             {
                 Timers.inst.Add(ExitDelay, 1, _exitCallback);
             }
         }
 
-        private void OnExitTimer(object obj)
+        private void OnExit(object obj)
         {
-            Exit();
-        }
-
-        private void Exit()
-        {
-            ClearAllTimers();
             CloseSelf(null);
         }
 
-        private void ClearAllTimers()
-        {
-            if (_sequenceCallback != null && Timers.inst.Exists(_sequenceCallback))
-                Timers.inst.Remove(_sequenceCallback);
-
-            if (_exitCallback != null && Timers.inst.Exists(_exitCallback))
-                Timers.inst.Remove(_exitCallback);
-
-            Debug.Log("所有定时器已清理");
-        }
-
+        /// <summary> 清除Pag对象，避免造成多余的内存占用</summary>
         private void ClearPag()
         {
-            _bigWinPag?.Dispose();
+            // _bigWinPag?.Dispose();
             _bigWinPag = null;
-            _bigWinCom = null;
+            if (_bigWinPag != null) _bigWinPag.StopWithDefaults();
         }
 
-        private void Reset()
+        /// <summary> 清除对Timers的事件监听，避免造成多余的内存占用</summary>
+        private void ClearTimers()
         {
-            ClearPag();
-            ClearAllTimers();
+            if (_aniEndCallback != null && Timers.inst.Exists(_aniEndCallback))
+                Timers.inst.Remove(_aniEndCallback);
+            if (_exitCallback != null && Timers.inst.Exists(_exitCallback))
+                Timers.inst.Remove(_exitCallback);
         }
     }
 }

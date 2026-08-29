@@ -35,7 +35,7 @@ namespace CaiFuZhiJia_3997
         private TimerCallback _autoClickCallback;
 
         private bool _isClicked = false;
-        private Action _changeNormalPage;
+        private Action _changeNormalPage, _changeNpcAnimationClip;
 
         protected override void OnInit()
         {
@@ -98,16 +98,17 @@ namespace CaiFuZhiJia_3997
                 GameCommon.FguiUtils.DeleteWrapper(_freeResultCom);
                 _freeResultCom = currentGCom;
                 _cloneFreeResultObj = Object.Instantiate(_freeResultObj);
-                _freeResultAni = _cloneFreeResultObj.GetComponentInChildren<Animator>();
                 GameCommon.FguiUtils.AddWrapper(_freeResultCom, _cloneFreeResultObj);
             } // Spine
+            _freeResultAni = _cloneFreeResultObj.GetComponentInChildren<Animator>();
+
 
             // --------------------- 将UI组件挂点到对应的Spine节点上 ---------------------
             string rootPath =
                 "Anchor/Spine Mecanim GameObject (fg_pop_settlement)/SkeletonUtility-SkeletonRoot/root/all/";
             Transform btnTran = _cloneFreeResultObj.transform.Find(rootPath + "btn");
             collectBtnTran.SetParent(btnTran, false);
-            collectBtnTran.localPosition = new Vector3(-2f, 0.75f, 0);
+            collectBtnTran.localPosition = new Vector3(-1.92f, 0.84f, 0);
             collectBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             Transform numTran = _cloneFreeResultObj.transform.Find(rootPath + "sx_1/num");
             roundTran.SetParent(numTran, false);
@@ -137,6 +138,7 @@ namespace CaiFuZhiJia_3997
         {
             if (_isClicked) return;
             _isClicked = true;
+            _freeCollectBtn.visible = false;
             RemoveTimer(ref _delayCloseCallback);
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.FreeGameFadeTransition));
@@ -147,10 +149,12 @@ namespace CaiFuZhiJia_3997
             _delayCloseCallback = (obj) =>
             {
                 _changeNormalPage?.Invoke();
+                _changeNpcAnimationClip?.Invoke();
                 if (isOpen) CloseSelf(null);
                 _delayCloseCallback = null;
+                _freeCollectBtn.visible = true;
             };
-            Timers.inst.Add(2f, 1, _delayCloseCallback);
+            Timers.inst.Add(1.8f, 1, _delayCloseCallback);
         }
 
         private GameSoundController3997 _gameSoundController;
@@ -165,6 +169,7 @@ namespace CaiFuZhiJia_3997
             if (eventData is { value: Dictionary<string, object> args })
             {
                 _changeNormalPage = args["changeNormalPage"] as Action;
+                _changeNpcAnimationClip = args["changeNpcAnimationClip"] as Action;
             }
 
             InitParam(eventData);
@@ -178,6 +183,8 @@ namespace CaiFuZhiJia_3997
             _gameSoundController?.Dispose();
             _gameSoundController = null;
             _changeNormalPage = null;
+            _changeNpcAnimationClip = null;
+            _freeResultAni = null;
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _delayCloseCallback);
 

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="198,107">
-  <displayList>
-    <image id="n0_hm6e" name="n0" src="hm6e4j" fileName="images/spin/pb_txt_spin.png" xy="0,0" group="n2_hm6e"/>
-    <image id="n1_hm6e" name="n1" src="hm6e4i" fileName="images/spin/pb_txt_hold.png" xy="37,85" group="n2_hm6e" visible="false"/>
-    <group id="n2_hm6e" name="n2" xy="0,0" size="198,107"/>
-  </displayList>
-</component>

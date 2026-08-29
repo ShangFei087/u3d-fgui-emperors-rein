@@ -167,7 +167,7 @@ namespace FeiZhouHeiXingXing_3994
         private int _currentBonusScore; // 本局彩金得分
 
         private List<int> _currentBonusDataList; // 本局彩金数据
-        private int _monkeyCount = 0; // 记录本次彩金游戏的神像出现次数，判断是否会触发彩金弹窗
+        private int _monkeyCount; // 记录本次彩金游戏的神像出现次数，判断是否会触发彩金弹窗
 
         private bool _isStartSmallGame; // 避免多次点击触发彩金逻辑
 
@@ -452,7 +452,7 @@ namespace FeiZhouHeiXingXing_3994
 
             _jackpotScoreDic = new Dictionary<BonusResultType, int>()
             {
-                { BonusResultType.Mini, mini }, { BonusResultType.Minor, minor }, { BonusResultType.Major, major }
+                { BonusResultType.Mini, (int)_uiJpMiniCtrl.nowData }, { BonusResultType.Minor, (int)_uiJpMinorCtrl.nowData }, { BonusResultType.Major, (int)_uiJpMajorCtrl.nowData }
             };
             //---------- 7.Clone预制体到UI锚点上 --------
             GComponent currentCom = contentPane.GetChild("normalOther").asCom.GetChild("anchorNpc").asCom;
@@ -1362,6 +1362,7 @@ namespace FeiZhouHeiXingXing_3994
                     }),
                 (ed) =>
                 {
+                    PushIsUsedComToPool();
                     ContentModel.Instance.FreeSpinTotalTimes = 0;
                     isNext = true;
                 });

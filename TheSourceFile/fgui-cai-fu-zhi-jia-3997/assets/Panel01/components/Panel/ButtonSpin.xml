@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="214,173" opaque="false" extention="Button">
-  <controller name="button" pages="0,spin,1,stop,2,auto,3,hui" selected="0">
+  <controller name="button" pages="0,spin,1,stop,2,auto,3,hui" selected="1">
     <action type="play_transition" fromPage="" toPage="0" transition="stop"/>
     <action type="play_transition" fromPage="" toPage="1" transition="spin"/>
     <action type="play_transition" fromPage="" toPage="2" transition="auto"/>
@@ -12,10 +12,10 @@
     </image>
     <loader id="n1_u8to" name="n0" xy="0,0" size="214,173" visible="false" url="ui://9igt9u8mt7ug53"/>
     <component id="n2_u8to" name="anchorSpin" src="u8to12" fileName="moudules/panel/anchorSpin.xml" xy="107,87"/>
-    <loader id="n4_u8to" name="n1" xy="7,32" size="198,107" url="ui://9igt9u8mhm6e4l" autoSize="true"/>
+    <loader id="n4_u8to" name="n1" xy="10,33" size="198,96" url="ui://9igt9u8mhm6e4l" autoSize="true"/>
     <image id="n5_u8to" name="untouch" src="hm6e4g" fileName="images/spin/pb_img_button_grey(1).png" xy="0,0" visible="false" alpha="0.6" color="#000000"/>
-    <graph id="n6_eds2" name="n6" xy="101,174" size="101,102" visible="false" rotation="179" type="polygon" points="0,0,100,0,101,102,53,50"/>
-    <graph id="n7_eds2" name="n7" xy="215,74" size="101,102" visible="false" rotation="90" type="polygon" points="0,0,100,0,101,102,53,50"/>
+    <component id="n8_hfzc" name="anchorShortSpin" src="u8to12" fileName="moudules/panel/anchorSpin.xml" xy="106,87"/>
+    <component id="n9_hfzc" name="anchorLongSpin" src="u8to12" fileName="moudules/panel/anchorSpin.xml" xy="107,87"/>
   </displayList>
   <Button/>
   <transition name="spin">
@@ -25,14 +25,12 @@
   </transition>
   <transition name="stop">
     <item time="0" type="Icon" target="n1_u8to" value="ui://9igt9u8mhm6e4k"/>
-    <item time="0" type="Icon" target="n4_u8to" value="ui://9igt9u8mhm6e4k"/>
-    <item time="0" type="XY" target="n4_u8to" value="18,32"/>
+    <item time="0" type="Icon" target="n4_u8to" value="ui://9igt9u8mj05156"/>
   </transition>
   <transition name="auto">
     <item time="0" type="Icon" target="n1_u8to" value="ui://9igt9u8mhm6e4h"/>
-    <item time="0" type="Icon" target="n4_u8to" value="ui://9igt9u8mhm6e4h"/>
+    <item time="0" type="Icon" target="n4_u8to" value="ui://9igt9u8mj05157"/>
     <item time="0" type="Visible" target="n5_u8to" value="false"/>
-    <item time="0" type="XY" target="n4_u8to" value="10,26"/>
   </transition>
   <transition name="hui">
     <item time="0" type="Visible" target="n5_u8to" value="true"/>

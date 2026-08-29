@@ -30,10 +30,10 @@ namespace CaiFuZhiJia_3997
         private bool _isClicked = false;
         private GameSoundController3997 _gameSoundController;
 
-        private TimerCallback _delayCloseCallback;
+        private TimerCallback _delayCloseCallback, _delayPlayEndCallback;
         private TimerCallback _autoClickCallback;
 
-        private Action _changeSmallGamePage;
+        private Action _changeSmallGamePage, _changeNpcAnimationClip;
 
         protected override void OnInit()
         {
@@ -82,7 +82,7 @@ namespace CaiFuZhiJia_3997
             Transform startBtnTran = _startBtn.displayObject.gameObject.transform;
             _startBtnLocalPos = startBtnTran.localPosition;
             _startBtnLocalScale = startBtnTran.localScale;
-            
+
             // ------------------ 绑定prefab到UI上 -----------------------
             GComponent currentGCom = _jackpotTriggerTipWindow.GetChild("smallFade").asCom;
             if (currentGCom != _smallGameFadeCom)
@@ -92,7 +92,7 @@ namespace CaiFuZhiJia_3997
                 _cloneSmallGameFadeObj = Object.Instantiate(_smallGameFadeObj);
                 _cloneSmallGameFadeObj.SetActive(false);
                 GameCommon.FguiUtils.AddWrapper(_smallGameFadeCom, _cloneSmallGameFadeObj);
-            }// 过场动画
+            } // 过场动画
 
             currentGCom = _jackpotTriggerTipWindow.GetChild("smallTrigger").asCom;
             if (currentGCom != _smallGameTriggerCom)
@@ -100,17 +100,19 @@ namespace CaiFuZhiJia_3997
                 GameCommon.FguiUtils.DeleteWrapper(_smallGameTriggerCom);
                 _smallGameTriggerCom = currentGCom;
                 _cloneSmallGameTriggerObj = Object.Instantiate(_smallGameTriggerObj);
-                _smallGameTriggerAnimator = _cloneSmallGameTriggerObj.GetComponentInChildren<Animator>();
                 GameCommon.FguiUtils.AddWrapper(_smallGameTriggerCom, _cloneSmallGameTriggerObj);
-            }// 触发弹窗
-            
+            } // 触发弹窗
+            _smallGameTriggerAnimator = _cloneSmallGameTriggerObj.GetComponentInChildren<Animator>();
+
+
             // ------------------ 将UI组件挂点到对应的Spine节点上 -----------------------
-            string rootPath = "Anchor/Spine Mecanim GameObject (sg_pop_frame)/SkeletonUtility-SkeletonRoot/root/zong/zi/";
+            string rootPath =
+                "Anchor/Spine Mecanim GameObject (sg_pop_frame)/SkeletonUtility-SkeletonRoot/root/zong/zi/";
             Transform btnTran = _cloneSmallGameTriggerObj.transform.Find(rootPath + "btn01");
             startBtnTran.SetParent(btnTran, false);
-            startBtnTran.localPosition = new Vector3(-1.62f, 2.13f, 0);
+            startBtnTran.localPosition = new Vector3(-1.89f, 2.82f, 0);
             startBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-            
+
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
             _isClicked = false;
@@ -120,6 +122,7 @@ namespace CaiFuZhiJia_3997
             if (eventData is { value: Dictionary<string, object> args })
             {
                 _changeSmallGamePage = args["changeSmallGamePage"] as Action;
+                _changeNpcAnimationClip = args["changeNpcAnimationClip"] as Action;
             }
 
             _startBtn.onClick.Clear();
@@ -145,20 +148,29 @@ namespace CaiFuZhiJia_3997
         {
             if (_isClicked) return;
             _isClicked = true;
-
-            _cloneSmallGameFadeObj.SetActive(true);
-            _cloneSmallGameTriggerObj.SetActive(false);
+            RemoveTimer(ref _delayPlayEndCallback);
             RemoveTimer(ref _delayCloseCallback);
+            _startBtn.visible = false;
+
+            PlayAnimationByName(_smallGameTriggerAnimator, "end");
+            _delayPlayEndCallback = (obj) =>
+            {
+                _cloneSmallGameFadeObj.SetActive(true);
+                _cloneSmallGameTriggerObj.SetActive(false);
+                _delayPlayEndCallback = null;
+            };
+            Timers.inst.Add(1.667f, 1, _delayPlayEndCallback);
 
             _delayCloseCallback = (obj) =>
             {
                 _changeSmallGamePage?.Invoke();
+                _changeNpcAnimationClip?.Invoke();
                 if (isOpen) CloseSelf(null);
                 _delayCloseCallback = null;
+                _startBtn.visible = true;
             };
-            Timers.inst.Add(3f, 1, _delayCloseCallback);
-
-            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+            Timers.inst.Add(4.667f, 1, _delayCloseCallback);
+            EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.BonusGameFadeTransition));
         }
 
@@ -166,7 +178,7 @@ namespace CaiFuZhiJia_3997
         {
             base.OnOpen(currentPageName, eventData);
             _gameSoundController = new GameSoundController3997();
-            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+            EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(Game3997AudioEvent.BgmBonusTrigger));
 
             InitParam(eventData);
@@ -175,13 +187,16 @@ namespace CaiFuZhiJia_3997
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
-            
+
             // 清除音效
             _gameSoundController?.Dispose();
             _gameSoundController = null;
-            
+
             // 清除Main界面委托
             _changeSmallGamePage = null;
+            _changeNpcAnimationClip = null;
+
+            _smallGameTriggerAnimator = null;
 
             // 清除回调
             RemoveTimer(ref _autoClickCallback);
@@ -193,7 +208,7 @@ namespace CaiFuZhiJia_3997
             startBtnTran.SetParent(parentTran, false);
             startBtnTran.localPosition = _startBtnLocalPos;
             startBtnTran.localScale = _startBtnLocalScale;
-            
+
             // 还原预制体初始显隐状态
             _cloneSmallGameFadeObj.SetActive(false);
             _cloneSmallGameTriggerObj.SetActive(true);
@@ -214,6 +229,14 @@ namespace CaiFuZhiJia_3997
 
             Timers.inst.Remove(timerCallback);
             timerCallback = null;
+        }
+        
+        private void PlayAnimationByName(Animator animator, string aniName, Action callback = null)
+        {
+            animator.Rebind();
+            animator.Play(aniName);
+            animator.Update(0f);
+            callback?.Invoke();
         }
     }
 }

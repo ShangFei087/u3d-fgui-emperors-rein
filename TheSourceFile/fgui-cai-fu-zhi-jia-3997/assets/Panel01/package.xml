@@ -82,9 +82,9 @@
     <image id="hm6e4g" name="pb_img_button_grey(1).png" path="/images/spin/" exported="true"/>
     <image id="hm6e4h" name="pb_txt_auto.png" path="/images/spin/" exported="true"/>
     <image id="hm6e4i" name="pb_txt_hold.png" path="/images/spin/" exported="true"/>
-    <image id="hm6e4j" name="pb_txt_spin.png" path="/images/spin/" exported="true"/>
-    <image id="hm6e4k" name="pb_txt_stop.png" path="/images/spin/" exported="true"/>
-    <component id="hm6e4l" name="SpinBtnContent.xml" path="/moudules/panel/" exported="true"/>
+    <image id="hm6e4j" name="pb_txt_spin.png" path="/images/spin/" exported="true" scale9grid="0,0,-37,-16"/>
+    <image id="hm6e4k" name="pb_txt_stop.png" path="/images/spin/" exported="true" scale9grid="0,0,-15,-16"/>
+    <component id="hm6e4l" name="SpinBtnSpin.xml" path="/moudules/panel/" exported="true"/>
     <image id="hm6e4q" name="Back to game.png" path="/images/instructions/" exported="true"/>
     <image id="hm6e4r" name="button.png" path="/images/instructions/" exported="true"/>
     <image id="hm6e4s" name="5.png" path="/images/instructions/"/>
@@ -100,6 +100,8 @@
     <image id="t7ug53" name="pb_img_button.png" path="/images/spin/" exported="true"/>
     <image id="t7ug54" name="pb_img_button01_.png" path="/images/gameDiFrame/" exported="true"/>
     <image id="t7ug55" name="pb_img_button02(1).png" path="/images/gameDiFrame/" exported="true"/>
+    <component id="j05156" name="SpinBtnStop.xml" path="/moudules/panel/" exported="true"/>
+    <component id="j05157" name="SpinBtnAuto.xml" path="/moudules/panel/" exported="true"/>
   </resources>
   <publish name="CaiFuZhiJia_Panel" path="../../Assets/GameRes/Panel/Panel3997/FGUIs" packageCount="2"/>
 </packageDescription>

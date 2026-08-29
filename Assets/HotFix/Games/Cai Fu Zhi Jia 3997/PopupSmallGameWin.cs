@@ -114,7 +114,7 @@ namespace CaiFuZhiJia_3997
             collectBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             Transform numTran = parentObj.transform.Find(rootPath + "lankuang2/num");
             numTxt.SetParent(numTran, false);
-            numTxt.localPosition = new Vector3(-5.32f,1.12f, 0);
+            numTxt.localPosition = new Vector3(-5.32f,1.26f, 0);
             numTxt.localScale = new Vector3(0.01f, 0.01f, 0.01f);
 
             // ----------------------- 按钮点击事件 -------------------------

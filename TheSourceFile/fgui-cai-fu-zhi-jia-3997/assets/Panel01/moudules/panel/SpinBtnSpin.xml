@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="198,96">
+  <displayList>
+    <image id="n0_hm6e" name="n0" src="hm6e4j" fileName="images/spin/pb_txt_spin.png" xy="99,48" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>
