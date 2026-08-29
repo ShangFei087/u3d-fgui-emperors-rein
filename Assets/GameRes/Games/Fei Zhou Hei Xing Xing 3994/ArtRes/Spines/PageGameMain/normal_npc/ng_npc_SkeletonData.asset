@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ng_npc_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: 10428921ee569db4395bd1da14f0f53e, type: 2}
+  - {fileID: 11400000, guid: 8d6cf63082c2ce5449f4c9191208e9f1, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: 32862055f8a89ac4e84f52306a0fc0d3, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: 536df3466e2ec994bad0c0c4980cacf6, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0

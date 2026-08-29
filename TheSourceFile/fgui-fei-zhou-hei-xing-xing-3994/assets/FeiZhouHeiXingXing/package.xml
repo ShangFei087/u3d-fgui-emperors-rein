@@ -70,10 +70,6 @@
     <component id="9e0n4o" name="freeOther.xml" path="/moudules/pageGameMain/free/" exported="true"/>
     <component id="9e0n4p" name="freeFrame.xml" path="/moudules/pageGameMain/free/" exported="true"/>
     <component id="ba9f4q" name="anchorSpeedParent.xml" path="/moudules/pageGameMain/anchor/" exported="true"/>
-    <image id="jzab4s" name="普通游戏1.png" path="/images/common/rendering/"/>
-    <image id="jzab4t" name="普通游戏2.png" path="/images/common/rendering/"/>
-    <image id="jzab4u" name="普通游戏3.png" path="/images/common/rendering/"/>
-    <image id="jzab4v" name="普通游戏4.png" path="/images/common/rendering/"/>
     <image id="qrjm4z" name="ng_txt_major.png" path="/images/common/gameJackpot/" exported="true"/>
     <image id="qrjm50" name="ng_txt_mini.png" path="/images/common/gameJackpot/" exported="true"/>
     <image id="qrjm51" name="ng_txt_minor.png" path="/images/common/gameJackpot/" exported="true"/>
@@ -98,8 +94,6 @@
     <image id="c8tt5o" name="load_bg_06.png" path="/images/popupGameLoading/" exported="true"/>
     <image id="c8tt5p" name="load_bg_01.png" path="/images/popupGameLoading/" exported="true"/>
     <font id="c8tt65" name="loadingFont.fnt" path="/fonts/" exported="true"/>
-    <image id="c8tt66" name="load_bg1.png" path="/images/common/rendering/"/>
-    <image id="c8tt67" name="load_bg2.png" path="/images/common/rendering/"/>
     <component id="c8tt68" name="LoadingBg.xml" path="/moudules/popupGameLoading/" exported="true"/>
     <component id="c8tt6a" name="LoadingSlider_grip.xml" path="/components/popupGameLoading/" exported="true"/>
     <component id="c8tt6b" name="LoadingSlider.xml" path="/components/popupGameLoading/" exported="true"/>
@@ -121,11 +115,6 @@
     <image id="s1hw6u" name="ng_sym15_caijin.png" path="/images/common/gameSymbol/" exported="true"/>
     <component id="s1hw6v" name="ng_sym10_WILD_com.xml" path="/images/common/gameSymbol/" exported="true"/>
     <component id="s1hw6x" name="ng_sym13_bonus_com.xml" path="/images/common/gameSymbol/" exported="true"/>
-    <image id="s1hw6y" name="说明书.png" path="/images/common/rendering/"/>
-    <image id="s1hw6z" name="免费游戏.png" path="/images/common/rendering/"/>
-    <image id="s1hw70" name="免费游戏2.png" path="/images/common/rendering/"/>
-    <image id="s1hw71" name="免费游戏3.png" path="/images/common/rendering/"/>
-    <image id="s1hw72" name="免费游戏4.png" path="/images/common/rendering/"/>
     <image id="s1hw74" name="fg_bor_right.png" path="/images/common/gameBorder/free/" exported="true"/>
     <image id="s1hw75" name="fg_bor_shadow.png" path="/images/common/gameBorder/free/" exported="true"/>
     <image id="s1hw76" name="fg_bor_up.png" path="/images/common/gameBorder/free/" exported="true"/>
@@ -187,26 +176,8 @@
     <component id="s1hw8t" name="startBtn.xml" path="/components/popupFreeSpinTrigger/" exported="true"/>
     <component id="s1hw8u" name="collectBtn.xml" path="/components/popupFreeSpinResult/" exported="true"/>
     <image id="s1hw8v" name="sg_img_bg_01.png" path="/images/pageGameMain/smallGame/" exported="true"/>
-    <image id="s1hw8x" name="免费游戏结算提示框.png" path="/images/common/rendering/"/>
-    <image id="s1hw8y" name="免费游戏结算提示框2.png" path="/images/common/rendering/"/>
-    <image id="s1hw8z" name="获得免费游戏提示框.png" path="/images/common/rendering/"/>
-    <image id="s1hw90" name="获得免费游戏提示框2.png" path="/images/common/rendering/"/>
     <component id="s1hw92" name="anchorTrigger.xml" path="/moudules/popupFreeSpinTrigger/" exported="true"/>
     <image id="s1hw93" name="fg_img_bg_01.png" path="/images/pageGameMain/free/" exported="true"/>
-    <image id="s1hw94" name="MAJOR.png" path="/images/common/rendering/"/>
-    <image id="s1hw95" name="MAJOR2.png" path="/images/common/rendering/"/>
-    <image id="s1hw96" name="MINI.png" path="/images/common/rendering/"/>
-    <image id="s1hw97" name="MINI2.png" path="/images/common/rendering/"/>
-    <image id="s1hw98" name="MINOR.png" path="/images/common/rendering/"/>
-    <image id="s1hw99" name="MINOR2.png" path="/images/common/rendering/"/>
-    <image id="s1hw9a" name="彩金游戏1.png" path="/images/common/rendering/"/>
-    <image id="s1hw9b" name="彩金游戏2.png" path="/images/common/rendering/"/>
-    <image id="s1hw9c" name="彩金游戏3.png" path="/images/common/rendering/"/>
-    <image id="s1hw9d" name="彩金游戏4.png" path="/images/common/rendering/"/>
-    <image id="s1hw9e" name="彩金游戏结算框.png" path="/images/common/rendering/"/>
-    <image id="s1hw9f" name="彩金游戏结算框2.png" path="/images/common/rendering/"/>
-    <image id="s1hw9g" name="获得彩金游戏提示框.png" path="/images/common/rendering/"/>
-    <image id="s1hw9h" name="获得彩金游戏提示框2.png" path="/images/common/rendering/"/>
     <image id="s1hw9i" name="sg_bor_down.png" path="/images/common/gameBorder/small/" exported="true"/>
     <image id="s1hw9j" name="sg_bor_fgx.png" path="/images/common/gameBorder/small/" exported="true"/>
     <image id="s1hw9k" name="sg_bor_jd.png" path="/images/pageGameMain/smallGame/" exported="true" scale="9grid" scale9grid="0,6,1002,34"/>
@@ -309,7 +280,6 @@
     <image id="skdk1cl" name="load_bg_8.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
     <image id="skdk1cm" name="load_bg_9.png" path="/images/common/gameFont/loadingFont/" exported="true"/>
     <image id="t5ii1cn" name="ng_img_bg_01.png" path="/images/pageGameMain/normal/" exported="true"/>
-    <image id="t5ii1co" name="BIG WIN.png" path="/images/common/rendering/"/>
     <image id="t5ii1cp" name="ng_num_0.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
     <image id="t5ii1cq" name="ng_num_mil.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
     <image id="t5ii1cr" name="ng_num_kil.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
@@ -329,6 +299,16 @@
     <image id="t5ii1d5" name="ng_num_s.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
     <image id="t5ii1d6" name="ng_num_tril.png" path="/images/common/gameFont/bigWinFont/" exported="true"/>
     <font id="t5ii1d7" name="bigWinFont.fnt" path="/fonts/" exported="true"/>
+    <image id="vehs1dc" name="ng_bor_left.png" path="/images/common/gameBorder/normal/"/>
+    <image id="vehs1dd" name="ng_bor_right.png" path="/images/common/gameBorder/normal/"/>
+    <image id="vehs1de" name="ng_bor_up.png" path="/images/common/gameBorder/normal/"/>
+    <image id="vehs1df" name="ng_bor_down.png" path="/images/common/gameBorder/normal/"/>
+    <component id="g6n51dg" name="anchorJackpot.xml" path="/moudules/popupSmallGameJackpotWin/" exported="true"/>
+    <component id="g6n51dh" name="collectBtn.xml" path="/components/popupSmallGameJackpotWin/" exported="true"/>
+    <component id="lxlg1di" name="anchorFade.xml" path="/moudules/popupSmallGameResult/" exported="true"/>
+    <component id="10v7h1dj" name="smallEmptyBox.xml" path="/moudules/pageGameMain/small/" exported="true"/>
+    <component id="yp5yh1dk" name="anchorReset.xml" path="/moudules/pageGameMain/anchor/" exported="true"/>
+    <component id="phvoh1dl" name="anchorCollectEffectParent.xml" path="/moudules/pageGameMain/anchor/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Fei Zhou Hei Xing Xing 3994\FGUIs" packageCount="2"/>
 </packageDescription>

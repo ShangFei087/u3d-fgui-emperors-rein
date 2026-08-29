@@ -3,5 +3,15 @@
   <resources>
     <image id="z14gm" name="txt_close.png" path="/images/exhibition/" exported="true"/>
     <image id="z14gn" name="txt_open.png" path="/images/exhibition/" exported="true"/>
+    <image id="rghscf" name="sm_BACK TO GAME_cn.png" path="/images/Instructions/" exported="true"/>
+    <image id="rghs3z" name="menu_btn_AUTO.png" path="/images/spinBtn/" exported="true"/>
+    <image id="rghs40" name="menu_txt_BET.png" path="/images/btn/" exported="true"/>
+    <image id="rghs41" name="menu_txt_CREDITS.png" path="/images/btn/" exported="true"/>
+    <image id="rghs42" name="menu_btn_HOLD SPIN FOR 3s TO ENABLE AUTO MODE.png" path="/images/btn/" exported="true"/>
+    <image id="rghs43" name="menu_txt_HOLD TO AUTO.png" path="/images/btn/" exported="true"/>
+    <image id="rghs44" name="menu_btn_illustrate.png" path="/images/btn/" exported="true"/>
+    <image id="rghs45" name="menu_btn_SPIN.png" path="/images/spinBtn/" exported="true"/>
+    <image id="rghs46" name="menu_btn_STOP.png" path="/images/spinBtn/" exported="true"/>
+    <component id="rghs47" name="BtnBackGame.xml" path="/moudules/payTable1/" exported="true"/>
   </resources>
 </branchDescription>

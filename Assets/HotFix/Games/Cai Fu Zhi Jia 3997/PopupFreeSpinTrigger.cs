@@ -107,7 +107,7 @@ namespace CaiFuZhiJia_3997
             startBtnTran.SetParent(btnTran, false);
             startBtnTran.localPosition = new Vector3(-2f, 0.75f, 0);
             startBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-            Transform numTran = _cloneFreeTriggerObj.transform.Find(rootPath + "pop_all/pop/num");
+            Transform numTran = _cloneFreeTriggerObj.transform.Find(rootPath + "pop_all/pop/number");
             roundTran.SetParent(numTran, false);
             roundTran.localPosition = new Vector3(-2.9f, 2.3f, 0);
             roundTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);

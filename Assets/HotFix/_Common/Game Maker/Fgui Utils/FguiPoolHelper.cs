@@ -225,6 +225,30 @@ public class FguiPoolHelper : MonoBehaviour
     Queue<Action<Action>> taskQueue = new Queue<Action<Action>>();
     bool isDoTasking = false;
     int endlessLoop = 0;
+    Action _onIdle;
+
+    /// <summary>对象池异步任务是否已全部完成。</summary>
+    public bool IsIdle => !isDoTasking && taskQueue.Count == 0;
+
+    /// <summary>队列已空则立刻回调，否则等本次 DoTask 排空后再回调一次。</summary>
+    public void WhenIdle(Action callback)
+    {
+        if (callback == null) return;
+        if (IsIdle)
+        {
+            callback();
+            return;
+        }
+        _onIdle += callback;
+    }
+
+    void NotifyIdle()
+    {
+        Action cb = _onIdle;
+        _onIdle = null;
+        cb?.Invoke();
+    }
+
     void DoTask(Action<Action> taskFunc = null)
     {
         Action nextFunc = () =>
@@ -245,6 +269,7 @@ public class FguiPoolHelper : MonoBehaviour
             {
                 isDoTasking = false;
                 endlessLoop = 0;
+                NotifyIdle();
             }
         }
         else

@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1,1">
   <displayList>
-    <image id="n0_g9kd" name="freeRightBox" src="z14g74" fileName="images/gameMain/free/fg_img_Remaining Game Attempts Prompt_01.png" xy="-1150,-319" size="436,653" group="n6_g9kd"/>
-    <image id="n3_g9kd" name="n3" src="z14g7a" fileName="images/gameMain/free/fg_txt_YOU GOT.png" xy="-1105,-238" size="144,133" group="n6_g9kd"/>
-    <image id="n4_g9kd" name="n4" src="z14g70" fileName="images/gameMain/free/fg_img_black panther_02.png" xy="-931,-259" size="150,158" group="n6_g9kd"/>
-    <text id="n32_g9kd" name="txtFreeCollect" xy="-1132,-58" size="400,349" group="n6_g9kd" font="ui://tdk27maemxrk85" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-20" autoSize="none" text="35"/>
-    <component id="n40_ni96" name="anchorEff_fg_star" src="g9kd9s" fileName="components/anchorCom.xml" xy="-931,106" group="n6_g9kd"/>
-    <group id="n6_g9kd" name="left" xy="-1150,-319" size="436,653" advanced="true"/>
-    <image id="n1_g9kd" name="freeLeftBox" src="z14g74" fileName="images/gameMain/free/fg_img_Remaining Game Attempts Prompt_01.png" xy="811,-320" group="n31_g9kd"/>
-    <image id="n7_g9kd" name="n7" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="892,-254" group="n12_g9kd"/>
-    <image id="n8_g9kd" name="n8" src="z14g3g" fileName="images/gameMain/free/FontRight/fg_num_Black Panther Icon Collection UI_28.png" xy="884,-184" group="n12_g9kd"/>
-    <image id="n9_g9kd" name="n9" src="z14g77" fileName="images/gameMain/free/fg_txt_ALL TO.png" xy="1037,-234" group="n12_g9kd"/>
-    <image id="n10_g9kd" name="n10" src="z14g71" fileName="images/gameMain/free/fg_img_Crocodile.png" xy="1119,-258" group="n12_g9kd"/>
-    <image id="n11_g9kd" name="n11" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="1109,-201" group="n12_g9kd"/>
-    <group id="n12_g9kd" name="crocodile" xy="884,-258" size="297,140" group="n31_g9kd" advanced="true"/>
-    <image id="n13_g9kd" name="n13" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="892,-117" group="n18_g9kd"/>
-    <image id="n14_g9kd" name="n14" src="z14g3f" fileName="images/gameMain/free/FontRight/fg_num_Black Panther Icon Collection UI_18.png" xy="886,-46" group="n18_g9kd"/>
-    <image id="n15_g9kd" name="n15" src="z14g77" fileName="images/gameMain/free/fg_txt_ALL TO.png" xy="1037,-97" group="n18_g9kd"/>
-    <image id="n16_g9kd" name="n16" src="z14g72" fileName="images/gameMain/free/fg_img_monkey.png" xy="1118,-119" group="n18_g9kd"/>
-    <image id="n17_g9kd" name="n17" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="1109,-64" group="n18_g9kd"/>
-    <group id="n18_g9kd" name="monkey" xy="886,-119" size="295,135" group="n31_g9kd" advanced="true"/>
-    <image id="n19_g9kd" name="n19" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="891,17" group="n24_g9kd"/>
-    <image id="n20_g9kd" name="n20" src="z14g77" fileName="images/gameMain/free/fg_txt_ALL TO.png" xy="1036,37" group="n24_g9kd"/>
-    <image id="n21_g9kd" name="n21" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="1108,70" group="n24_g9kd"/>
-    <image id="n22_g9kd" name="n22" src="z14g3e" fileName="images/gameMain/free/FontRight/fg_num_Black Panther Icon Collection UI_10.png" xy="887,93" group="n24_g9kd"/>
-    <image id="n23_g9kd" name="n23" src="z14g6y" fileName="images/gameMain/free/fg_img_bird.png" xy="1120,16" group="n24_g9kd"/>
-    <group id="n24_g9kd" name="bird" xy="887,16" size="293,142" group="n31_g9kd" advanced="true"/>
-    <image id="n25_g9kd" name="n25" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="890,158" group="n30_g9kd"/>
-    <image id="n26_g9kd" name="n26" src="z14g77" fileName="images/gameMain/free/fg_txt_ALL TO.png" xy="1035,178" group="n30_g9kd"/>
-    <image id="n27_g9kd" name="n27" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="1107,211" group="n30_g9kd"/>
-    <image id="n28_g9kd" name="n28" src="z14g3h" fileName="images/gameMain/free/FontRight/fg_num_Black Panther Icon Collection UI_4.png" xy="893,236" group="n30_g9kd"/>
-    <image id="n29_g9kd" name="n29" src="z14g75" fileName="images/gameMain/free/fg_img_snake.png" xy="1116,154" group="n30_g9kd"/>
-    <group id="n30_g9kd" name="snake" xy="890,154" size="289,139" group="n31_g9kd" advanced="true"/>
-    <component id="n34_g9kd" name="anchorFreeCollectBorder1" src="g9kd9s" fileName="components/anchorCom.xml" xy="1025,213" group="n39_g9kd"/>
-    <component id="n35_g9kd" name="anchorFreeCollectBorder2" src="g9kd9s" fileName="components/anchorCom.xml" xy="1025,70" group="n39_g9kd"/>
-    <component id="n36_g9kd" name="anchorFreeCollectBorder3" src="g9kd9s" fileName="components/anchorCom.xml" xy="1025,-67" group="n39_g9kd"/>
-    <component id="n37_g9kd" name="anchorFreeCollectBorder4" src="g9kd9s" fileName="components/anchorCom.xml" xy="1025,-207" group="n39_g9kd"/>
-    <group id="n39_g9kd" name="effBoder" xy="1025,-207" size="1,421" group="n31_g9kd"/>
-    <group id="n31_g9kd" name="right" xy="811,-320" size="436,653" advanced="true"/>
+    <image id="n0_g9kd" name="freeRightBox" src="z14g74" fileName="images/gameMain/free/fg_img_Remaining Game Attempts Prompt_01.png" xy="-1150,-319" size="436,670" group="n6_g9kd"/>
+    <image id="n3_g9kd" name="n3" src="z14g7a" fileName="images/gameMain/free/fg_txt_YOU GOT.png" xy="-1026,-156" pivot="0.5,0.5" anchor="true" size="144,133" group="n6_g9kd" aspect="true"/>
+    <image id="n4_g9kd" name="n4" src="z14g70" fileName="images/gameMain/free/fg_img_black panther_02.png" xy="-931,-244" size="150,158" group="n6_g9kd"/>
+    <text id="n32_g9kd" name="txtFreeCollect" xy="-1132,-44" size="400,349" group="n6_g9kd" font="ui://tdk27maemxrk85" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-20" autoSize="none" text="35"/>
+    <component id="n40_ni96" name="anchorEff_fg_star" src="g9kd9s" fileName="components/anchorCom.xml" xy="-931,120" size="1,1" group="n6_g9kd"/>
+    <group id="n6_g9kd" name="left" xy="-1150,-319" size="436,670" advanced="true"/>
+    <image id="n1_g9kd" name="freeLeftBox" src="z14g74" fileName="images/gameMain/free/fg_img_Remaining Game Attempts Prompt_01.png" xy="11,-320" size="436,670" group="n31_g9kd"/>
+    <image id="n7_g9kd" name="n7" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="92,-264" size="72,76" group="n12_g9kd"/>
+    <image id="n8_g9kd" name="n8" src="z14g3g" fileName="images/gameMain/free/FontRight/fg_num_Black Panther Icon Collection UI_28.png" xy="84,-194" size="86,66" group="n12_g9kd"/>
+    <component id="n41_rghs" name="n41" src="rghsci" fileName="components/gameMain/freeGame/fg_txt_ALL TO.xml" xy="237,-244" size="80,91" group="n12_g9kd"/>
+    <image id="n10_g9kd" name="n10" src="z14g71" fileName="images/gameMain/free/fg_img_Crocodile.png" xy="319,-268" size="58,57" group="n12_g9kd"/>
+    <image id="n11_g9kd" name="n11" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="309,-211" size="72,76" group="n12_g9kd"/>
+    <group id="n12_g9kd" name="crocodile" xy="84,-268" size="297,140" group="n31_g9kd" advanced="true"/>
+    <image id="n13_g9kd" name="n13" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="92,-122" size="72,76" group="n18_g9kd"/>
+    <image id="n14_g9kd" name="n14" src="z14g3f" fileName="images/gameMain/free/FontRight/fg_num_Black Panther Icon Collection UI_18.png" xy="86,-51" size="85,62" group="n18_g9kd"/>
+    <component id="n42_rghs" name="n42" src="rghsci" fileName="components/gameMain/freeGame/fg_txt_ALL TO.xml" xy="237,-102" size="80,91" group="n18_g9kd"/>
+    <image id="n16_g9kd" name="n16" src="z14g72" fileName="images/gameMain/free/fg_img_monkey.png" xy="318,-124" size="58,58" group="n18_g9kd"/>
+    <image id="n17_g9kd" name="n17" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="309,-69" size="72,76" group="n18_g9kd"/>
+    <group id="n18_g9kd" name="monkey" xy="86,-124" size="295,135" group="n31_g9kd" advanced="true"/>
+    <image id="n19_g9kd" name="n19" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="91,19" size="72,76" group="n24_g9kd"/>
+    <component id="n43_rghs" name="n43" src="rghsci" fileName="components/gameMain/freeGame/fg_txt_ALL TO.xml" xy="237,37" size="80,91" group="n24_g9kd"/>
+    <image id="n21_g9kd" name="n21" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="308,72" size="72,76" group="n24_g9kd"/>
+    <image id="n22_g9kd" name="n22" src="z14g3e" fileName="images/gameMain/free/FontRight/fg_num_Black Panther Icon Collection UI_10.png" xy="87,95" size="79,65" group="n24_g9kd"/>
+    <image id="n23_g9kd" name="n23" src="z14g6y" fileName="images/gameMain/free/fg_img_bird.png" xy="320,18" size="58,58" group="n24_g9kd"/>
+    <group id="n24_g9kd" name="bird" xy="87,18" size="293,142" group="n31_g9kd" advanced="true"/>
+    <image id="n25_g9kd" name="n25" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="92,163" size="72,76" group="n30_g9kd"/>
+    <component id="n44_rghs" name="n44" src="rghsci" fileName="components/gameMain/freeGame/fg_txt_ALL TO.xml" xy="238,183" size="80,91" group="n30_g9kd"/>
+    <image id="n27_g9kd" name="n27" src="z14g6z" fileName="images/gameMain/free/fg_img_black panther.png" xy="309,216" size="72,76" group="n30_g9kd"/>
+    <image id="n28_g9kd" name="n28" src="z14g3h" fileName="images/gameMain/free/FontRight/fg_num_Black Panther Icon Collection UI_4.png" xy="95,241" size="65,57" group="n30_g9kd"/>
+    <image id="n29_g9kd" name="n29" src="z14g75" fileName="images/gameMain/free/fg_img_snake.png" xy="318,159" size="58,57" group="n30_g9kd"/>
+    <group id="n30_g9kd" name="snake" xy="92,159" size="289,139" group="n31_g9kd" advanced="true"/>
+    <component id="n34_g9kd" name="anchorFreeCollectBorder1" src="g9kd9s" fileName="components/anchorCom.xml" xy="225,221" size="1,1" group="n39_g9kd"/>
+    <component id="n35_g9kd" name="anchorFreeCollectBorder2" src="g9kd9s" fileName="components/anchorCom.xml" xy="225,77" size="1,1" group="n39_g9kd"/>
+    <component id="n36_g9kd" name="anchorFreeCollectBorder3" src="g9kd9s" fileName="components/anchorCom.xml" xy="225,-67" size="1,1" group="n39_g9kd"/>
+    <component id="n37_g9kd" name="anchorFreeCollectBorder4" src="g9kd9s" fileName="components/anchorCom.xml" xy="225,-210" size="1,1" group="n39_g9kd"/>
+    <group id="n39_g9kd" name="effBoder" xy="225,-210" size="1,432" group="n31_g9kd"/>
+    <group id="n31_g9kd" name="right" xy="11,-320" size="436,670" advanced="true"/>
   </displayList>
   <transition name="enterFree">
     <item time="0" type="XY" target="n31_g9kd" tween="true" startValue="811,-320" endValue="11,-320" duration="6" ease="Linear"/>

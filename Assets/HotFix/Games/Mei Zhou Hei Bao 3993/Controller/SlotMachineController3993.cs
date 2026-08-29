@@ -41,6 +41,7 @@ namespace MeiZhouHeiBao_3993
 
                 reel.Init(CustomModel.Instance, goReels.GetChildAt(i).asCom, gExpectation);
                 reel.fguiPoolHelper = this.fguiPoolHelper;
+                ReplaceSymbolsWith3993(reel);
             }
 
             bufferTop = 2; // 滚轴上方有几个图标
@@ -294,6 +295,8 @@ namespace MeiZhouHeiBao_3993
                 reel.SetReelState(ReelState.Idle);
             }
 
+            ApplyAllWildStaticIcons();
+
             EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_SLOT_EVENT,
                 new EventData(SlotMachineEvent.StoppedSlotMachine));
         }
@@ -361,6 +364,7 @@ namespace MeiZhouHeiBao_3993
 
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_EVENT,
                 new EventData(SlotMachineEvent.StoppedSlotMachine));
+            ApplyAllWildStaticIcons();
 
             finishCallback?.Invoke();
         }
@@ -395,6 +399,7 @@ namespace MeiZhouHeiBao_3993
         {
             //停止特效显示
             SkipWinLine(false);
+            ApplyAllWildStaticIcons();
 
             SetSlotCover(_spinWEMD.Instance.isShowCover);
 
@@ -428,6 +433,7 @@ namespace MeiZhouHeiBao_3993
 
         public override void ShowReelSymbolAppearEffect(int colIndex)
         {
+            ApplyWildStaticIconsOnColumn(colIndex);
             base.ShowReelSymbolAppearEffect(colIndex);
             PlayWildAnimsOnColumn(colIndex, isWin: false);
             BindBonusScoreOnColumn(colIndex);
@@ -670,7 +676,7 @@ namespace MeiZhouHeiBao_3993
             int index = row * this.column + col; // row*5 + col
             int[] data = ContentModel.Instance.BonusData;
             if (data != null && index >= 0 && index < data.Length && data[index] > 0)
-                return data[index];
+                return ContentModel.GetDisplayScore(data[index]);
 
             // 普通局没有 BonusData：随机 10~40 倍
             int multiple = UnityEngine.Random.Range(10, 41);
@@ -696,6 +702,46 @@ namespace MeiZhouHeiBao_3993
             if (symbol?.goOwnerSymbol == null || fguiPoolHelper == null)
                 return;
             fguiPoolHelper.ReturnToPool(TagPoolObject.SymbolAppear, symbol.goOwnerSymbol);
+        }
+
+        private static void ReplaceSymbolsWith3993(ReelBase reel)
+        {
+            if (reel?.symbolList == null)
+                return;
+
+            for (int i = 0; i < reel.symbolList.Count; i++)
+            {
+                SymbolBase old = reel.symbolList[i];
+                if (old?.goOwnerSymbol == null)
+                    continue;
+
+                Symbol3993 neu = new Symbol3993();
+                neu.Init(CustomModel.Instance, old.goOwnerSymbol);
+                neu.SetSymbolImage(old.number);
+                reel.symbolList[i] = neu;
+            }
+        }
+
+        public void ApplyAllWildStaticIcons()
+        {
+            for (int col = 0; col < this.column; col++)
+                ApplyWildStaticIconsOnColumn(col);
+        }
+
+        private void ApplyWildStaticIconsOnColumn(int colIndex)
+        {
+            for (int row = 0; row < this.row; row++)
+                ApplyWildStaticIcon(GetVisibleSymbolFromDeck(colIndex, row), colIndex, row);
+        }
+
+        private static void ApplyWildStaticIcon(SymbolBase symbol, int col, int row)
+        {
+            if (symbol == null || symbol.number != WildSymbolId || symbol.imgBase == null)
+                return;
+            int mul = ContentModel.Instance.GetWildMul(col, row);
+            if (mul != 2 && mul != 3 && mul != 5)
+                return;
+            symbol.imgBase.url = ContentModel.GetWildIconUrl(mul);
         }
 
         private void PlayWildAnimsOnColumn(int colIndex, bool isWin)

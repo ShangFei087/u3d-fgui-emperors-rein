@@ -154,9 +154,7 @@ namespace CaiFuZhiJia_3997
 
         private readonly List<string> _jackpotUrls = new List<string>()
         {
-            "ui://CaiFuZhiJia/ng_sym_14_major",
-            "ui://CaiFuZhiJia/ng_sym_14_minor",
-            "ui://CaiFuZhiJia/ng_sym14_mini"
+            "ui://CaiFuZhiJia/ng_sym_14_major", "ui://CaiFuZhiJia/ng_sym_14_minor", "ui://CaiFuZhiJia/ng_sym14_mini"
         };
 
         /// <summary>15个格子控制器</summary>
@@ -185,6 +183,7 @@ namespace CaiFuZhiJia_3997
         private readonly string wealth_ng_npc_trigger_sg = "normal_game/wealth_ng_npc_trigger_sg.pag";
         private readonly string wealth_ng_npc_atmosphere = "normal_game/wealth_ng_npc_atmosphere.pag";
         private readonly string wealth_ng_npc_nottriggered = "normal_game/wealth_ng_npc_nottriggered.pag";
+        private readonly string wealth_ng_npc_atmosphere_idle = "normal_game/wealth_ng_npc_atmosphere_idle.pag";
 
         // 免费游戏 pag
         private readonly string fg_img_bg_robot = "free_game/fg_img_bg_robot.pag";
@@ -237,11 +236,6 @@ namespace CaiFuZhiJia_3997
             if (_robotCom == null) return;
             _pagRobot = new PagSlotBinding("robot", GamePagFolder);
             _pagRobot.EnsureSlot(_robotCom);
-            if (_pagRobot == null) return;
-            Debug.LogError($"_pagRobot is not null");
-            _pagRobot.StopWithDefaults();
-            _pagRobot.Play(new PagSequencePlay(
-                new[] { new PagSegment(fg_img_bg_robot, -1) }, PagPlayLayout.Center, useGpuSyncGroup: false));
         }
 
         protected override void OnInit()
@@ -629,9 +623,9 @@ namespace CaiFuZhiJia_3997
             _gameSoundController = null;
             _monoHelper.updateHandle.RemoveAllListeners();
 
-            _pagNpc.Dispose();
+            _pagNpc?.Dispose();
             _pagNpc = null;
-            _pagRobot.Dispose();
+            _pagRobot?.Dispose();
             _pagRobot = null;
         }
 
@@ -1612,7 +1606,7 @@ namespace CaiFuZhiJia_3997
             if (!_isTriggerFrame)
             {
                 _pagNpc.Play(new PagSequencePlay(
-                    PagPlaySpecs.IntroLoop(wealth_ng_npc_atmosphere, wealth_ng_npc_idle01), PagPlayLayout.Center,
+                    PagPlaySpecs.IntroLoop(wealth_ng_npc_atmosphere, wealth_ng_npc_atmosphere_idle), PagPlayLayout.Center,
                     useGpuSyncGroup: false));
             }
 
@@ -1679,6 +1673,13 @@ namespace CaiFuZhiJia_3997
                 (ed) =>
                 {
                     _slotMachineCtrl.SendTotalWinCreditEvent(0);
+                    // 播放机器人特效
+                    if (_pagRobot == null) return;
+                    Debug.LogError($"_pagRobot is not null");
+                    _pagRobot.StopWithDefaults();
+                    // _pagRobot.Play(new PagSequencePlay(
+                    //     new[] { new PagSegment(fg_img_bg_robot, -1) }, PagPlayLayout.Center, useGpuSyncGroup: false));
+                    _pagRobot.Play(fg_img_bg_robot, -1);
                     _pagNpc.Play(new PagSequencePlay(
                         new[] { new PagSegment(wealth_ng_npc_idle01, -1) }, PagPlayLayout.Center,
                         useGpuSyncGroup: false));
@@ -2462,9 +2463,9 @@ namespace CaiFuZhiJia_3997
                     _pagNpc.Play(new PagSequencePlay(
                         PagPlaySpecs.IntroLoop(wealth_sg_npc_reset, wealth_sg_npc_idle1), PagPlayLayout.Center,
                         useGpuSyncGroup: false));
-                    PlayAnimationByName(_signageAnimator, "idle4");
-                    yield return new WaitForSeconds(0.833f);
                     PlayAnimationByName(_signageAnimator, "idle3");
+                    yield return new WaitForSeconds(0.833f);
+                    PlayAnimationByName(_signageAnimator, "idle4");
                     break;
                 case 2:
                     PlayAnimationByName(_signageAnimator, "idle2");
@@ -2481,7 +2482,7 @@ namespace CaiFuZhiJia_3997
                     yield return new WaitForSeconds(0.5f);
                     break;
                 case 0:
-                    PlayAnimationByName(_signageAnimator, "idle4");
+                    PlayAnimationByName(_signageAnimator, "idle5");
                     yield return new WaitForSeconds(0.5f);
                     break;
             }

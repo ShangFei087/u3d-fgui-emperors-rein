@@ -2,8 +2,6 @@
 <branchDescription>
   <resources>
     <image id="ujwn4f" name="ng_img_frame05.png" path="/images/common/gameBorder/" exported="true"/>
-    <image id="gg7g5q" name="fg_txt_button.png" path="/images/common/gameButton/"/>
-    <image id="gg7g5r" name="sg_txt_collect.png" path="/images/common/gameButton/"/>
     <image id="hm6e8c" name="4.png" path="/images/common/gamePayTable/" exported="true"/>
     <image id="hm6e8d" name="5.png" path="/images/common/gamePayTable/" exported="true"/>
     <image id="hm6e8e" name="6.png" path="/images/common/gamePayTable/" exported="true"/>
@@ -18,5 +16,7 @@
     <image id="m9w1ac" name="ng_sym_14_minor.png" path="/images/common/smallGameSymbols/"/>
     <image id="m9w1ad" name="ng_sym14_mini.png" path="/images/common/smallGameSymbols/"/>
     <image id="m9w1ae" name="ng_sym_14_major.png" path="/images/common/smallGameSymbols/"/>
+    <image id="k7p9b1" name="fg_txt_collect.png" path="/images/common/gameButton/" exported="true"/>
+    <image id="k7p9b2" name="fg_txt_start.png" path="/images/common/gameButton/" exported="true"/>
   </resources>
 </branchDescription>

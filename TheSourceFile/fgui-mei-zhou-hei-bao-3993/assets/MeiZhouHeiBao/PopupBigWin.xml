@@ -2,6 +2,6 @@
 <component size="1080,1920">
   <displayList>
     <component id="n4_g9kd" name="anchorPagBigWin" src="g9kd9o" fileName="components/popupBigWin/pagBIgWin.xml" xy="539,959"/>
-    <text id="n3_g9kd" name="txtWin" xy="20,1200" size="1040,156" font="ui://tdk27maeg9kd9n" fontSize="13" align="center" vAlign="middle" letterSpacing="-20" autoSize="shrink" text="r999,999,99"/>
+    <text id="n3_g9kd" name="txtWin" xy="20,1200" size="1040,160" font="ui://tdk27maerghsby" fontSize="13" align="center" vAlign="middle" letterSpacing="-10" autoSize="shrink" text="1234567890"/>
   </displayList>
 </component>

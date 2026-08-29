@@ -27,14 +27,15 @@ namespace SlotMaker
         /// </summary>
         public static bool ShouldBlockPhysicalSpinInput =>
             _activeInstance != null &&
-            ((_activeInstance.setPanel != null && _activeInstance.setPanel.visible) ||
-             (_activeInstance.gIntroducePanel != null && _activeInstance.gIntroducePanel.visible));
+            ((IsGObjectAlive(_activeInstance.setPanel) && _activeInstance.setPanel.visible) ||
+             (IsGObjectAlive(_activeInstance.gIntroducePanel) && _activeInstance.gIntroducePanel.visible));
 
         // 当前弹窗状态（设置、帮助、赔付表等）
         PopState popState = PopState.None;
 
         // 面板根节点与常用子面板引用
         protected GComponent gOwnerPanel, gIntroducePanel, setPanel, btnSound, btnHelp, Introduce;
+        protected GGraph mash;
         private GComponent _cachedAnchorPanel;
  
         // Spin 按钮控制器
@@ -121,6 +122,8 @@ namespace SlotMaker
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnPanelEventAnchorPanelChange);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_CONTENT_EVENT, OnContentChang);
             MainModel.Instance.panel = this;
+            // OnDisable 会把 Panel 藏掉；二次进局只 SetActive(true) 时须对称恢复，否则底部栏不可见。
+            RestoreOwnerPanelVisible();
         }
 
         /// <summary>
@@ -152,10 +155,33 @@ namespace SlotMaker
             // 面板关闭时关掉短按/长按特效，避免循环粒子残留。
             HideSpinPressEffects();
 
-            if (gOwnerPanel != null)
-            {
+            if (IsGObjectAlive(gOwnerPanel))
                 gOwnerPanel.visible = false;
+            else
+                gOwnerPanel = null;
+        }
+
+        /// <summary>
+        /// 二次进局时 OnDisable 可能已把 Panel 藏掉；复用同一锚点/包时须显式恢复。
+        /// 大厅切语言会 Dispose 旧 contentPane，gOwnerPanel 仍非 null 但 displayObject.gameObject 已空。
+        /// </summary>
+        private void RestoreOwnerPanelVisible()
+        {
+            if (!IsGObjectAlive(gOwnerPanel))
+            {
+                gOwnerPanel = null;
+                return;
             }
+            gOwnerPanel.visible = true;
+        }
+
+        /// <summary>GObject 已 Dispose 时 displayObject 仍可能非 null，不能直接设 visible。</summary>
+        private static bool IsGObjectAlive(GObject go)
+        {
+            if (go == null || go.isDisposed)
+                return false;
+            DisplayObject dobj = go.displayObject;
+            return dobj != null && !dobj.isDisposed;
         }
 
         protected virtual void OnDestroy()
@@ -204,6 +230,7 @@ namespace SlotMaker
             if (isInit && ReferenceEquals(_cachedAnchorPanel, _goAnchorPanel))
             {
                 Debug.Log("Skip Init: same anchor panel and already initialized.");
+                RestoreOwnerPanelVisible();
                 int readyGameId = MainModel.Instance != null ? MainModel.Instance.gameID : 0;
                 EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
                     new EventData<int>(PanelEvent.BottomPanelReady, readyGameId));
@@ -306,7 +333,7 @@ namespace SlotMaker
                         // 使用“实际包名 + 组件名”拼 URL，确保显示当前游戏对应的 Panel
                         anchorPanel.url = $"ui://{_loadedPanelPackageName}/{PanelComponentName}";
                         gOwnerPanel = _goAnchorPanel.GetChild("icon").asLoader.component;
-                        gOwnerPanel.visible = true;
+                        RestoreOwnerPanelVisible();
                         loadComplete();
                     });
                 }
@@ -317,6 +344,7 @@ namespace SlotMaker
                     GLoader anchorPanel = _goAnchorPanel.GetChild("icon").asLoader;
                     anchorPanel.url = $"ui://{_loadedPanelPackageName}/{PanelComponentName}";
                     gOwnerPanel = _goAnchorPanel.GetChild("icon").asLoader.component;
+                    RestoreOwnerPanelVisible();
                     loadComplete();
                 }
             }
@@ -352,6 +380,10 @@ namespace SlotMaker
             gOwnerPanel = anchorLoader.component;
             setPanel = gOwnerPanel.GetChild("setPanel").asCom;
             setPanel.visible = false;
+            mash = gOwnerPanel.GetChild("mash").asGraph;
+            mash.onClick.Clear();
+            mash.onClick.Add(OnClickMashCloseSetPanel);
+            mash.visible = false;
             gOwnerPanel.GetChild("credit").asTextField.text =
                 MainModel.Instance.myCredit.ToString(); //SBoxModel.Instance.myCredit.ToString();
             win = gOwnerPanel.GetChild("win").asTextField;
@@ -591,6 +623,19 @@ namespace SlotMaker
             {
                 btnSound.SetScale(1f, 1f);
             }
+        }
+
+        /// <summary>
+        /// SetPanel 弹出时点击蒙层关闭设置面板，不改变 mash 层级。
+        /// </summary>
+        protected virtual void OnClickMashCloseSetPanel()
+        {
+            if (setPanel == null || !setPanel.visible)
+            {
+                return;
+            }
+
+            Help();
         }
 
         /// <summary>
@@ -1207,6 +1252,12 @@ namespace SlotMaker
                 {
                     btnColDowns[i].visible = state;
                 }
+            }
+
+            // SetPanel 打开时关掉展会层热区，避免挡住 mash 点击
+            if (ExhibitionPanel != null)
+            {
+                ExhibitionPanel.touchable = state;
             }
          
             btnExhibition.visible = state;

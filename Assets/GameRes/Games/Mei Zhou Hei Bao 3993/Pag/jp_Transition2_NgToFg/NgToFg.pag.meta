@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 6ed5a26bfc30db046aad9a4048bc6cf6
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: games/mei zhou hei bao 3993/pag/jp_transition2_ngtofg/ngtofg.unity3d
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: c806c33c02b7da44e86221c1c5045af0, type: 3}

@@ -175,9 +175,9 @@ namespace FeiZhouHeiXingXing_3994
                     // GameSoundHelper3994.Instance.PlaySoundEff(SoundKey.FreeRollingBox);
                     break;
                 case SlotMachineEvent.BonusRollingBox:
-                    if (GameSoundHelper3994.Instance.IsPlaySound(SoundKey.BonusRollingBox))
-                        GameSoundHelper3994.Instance.StopSound(SoundKey.BonusRollingBox);
-                    GameSoundHelper3994.Instance.PlaySoundEff(SoundKey.BonusRollingBox);
+                    // if (GameSoundHelper3994.Instance.IsPlaySound(SoundKey.BonusRollingBox))
+                    //     GameSoundHelper3994.Instance.StopSound(SoundKey.BonusRollingBox);
+                    // GameSoundHelper3994.Instance.PlaySoundEff(SoundKey.BonusRollingBox);
                     break;
                 case Game3994AudioEvent.BgmRegularGame:
                     GameSoundHelper3994.Instance.PlayMusicSingle(SoundKey.RegularBG);

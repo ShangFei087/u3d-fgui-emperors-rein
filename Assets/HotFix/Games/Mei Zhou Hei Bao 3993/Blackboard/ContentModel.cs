@@ -79,7 +79,7 @@ namespace MeiZhouHeiBao_3993
         /// <summary> 普通局豹头收集奖金（盘面 ≥1 豹头且 1~5 个 Bonus，且算法 Panther==1）。 </summary>
         public bool isPantherWin;
 
-        /// <summary> 本局豹头收集的奖金合计（Σ BonusData），不含线奖。 </summary>
+        /// <summary> 本局豹头收集的奖金合计（Σ BonusData 解码后金额），不含线奖。 </summary>
         public int pantherBonusWin;
 
 
@@ -107,6 +107,14 @@ namespace MeiZhouHeiBao_3993
             if (mul == 2 || mul == 3 || mul == 5)
                 return $"X{mul}_{suffix}";
             return isWin ? "WILD_win" : "WILD_roll";
+        }
+
+        public static string GetWildIconUrl(int mul)
+        {
+            if (mul == 2) return "ui://MeiZhouHeiBao/ng_sym07_X2";
+            if (mul == 3) return "ui://MeiZhouHeiBao/ng_sym07_X3";
+            if (mul == 5) return "ui://MeiZhouHeiBao/ng_sym07_X5";
+            return CustomModel.Instance.symbolIcon["10"];
         }
         public bool isFreeSpin => curReelStripsIndex == "FS";
         public int totalPantherSymbolCount { get => _totalPantherSymbolCount; set => Observer.SetProperty(ref _totalPantherSymbolCount, value); }
@@ -178,12 +186,59 @@ namespace MeiZhouHeiBao_3993
         public int[] JPBetArray = Array.Empty<int>();
         public int TotalJackpotBet;
 
-        public const int JackpotScoreBase = 4000;
+        /// <summary> BonusData 万位种类：1=bonus，4=彩金。滚动假彩金用 40000+0/1/2。 </summary>
+        public const int BonusKindBonus = 1;
+        public const int BonusKindJackpot = 4;
+        public const int JackpotScoreBase = 40000;
 
-        public static bool IsJackpotScore(int score) =>
-            score >= JackpotScoreBase && score <= JackpotScoreBase + 2;
+        /// <summary>万位：1=bonus，4=彩金；0 表示空格或无万位旧数据。</summary>
+        public static int GetBonusKind(int encoded)
+        {
+            if (encoded <= 0)
+                return 0;
+            return (encoded / 10000) % 10;
+        }
 
-        public static int GetJackpotType(int score) => score - JackpotScoreBase;
+        /// <summary>低四位：bonus 金额，或彩金档 0=major / 1=minor / 2=mini。</summary>
+        public static int GetBonusValue(int encoded)
+        {
+            if (encoded <= 0)
+                return 0;
+            return encoded % 10000;
+        }
+
+        public static bool IsJackpotScore(int encoded) =>
+            GetBonusKind(encoded) == BonusKindJackpot;
+
+        public static int GetJackpotType(int encoded) =>
+            IsJackpotScore(encoded) ? GetBonusValue(encoded) : -1;
+
+        /// <summary>图标展示/飞分。1xxxx→低四位；4xxxx→0；无万位旧数据原样返回。</summary>
+        public static int GetDisplayScore(int encoded)
+        {
+            if (encoded <= 0)
+                return 0;
+            int kind = GetBonusKind(encoded);
+            if (kind == BonusKindJackpot)
+                return 0;
+            if (kind == BonusKindBonus)
+                return GetBonusValue(encoded);
+            return encoded;
+        }
+
+        public static int SumBonusAmounts(int[] data)
+        {
+            if (data == null)
+                return 0;
+            int sum = 0;
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (IsJackpotScore(data[i]))
+                    continue;
+                sum += GetDisplayScore(data[i]);
+            }
+            return sum;
+        }
 
         public static string GetJackpotTypeName(int jpType)
         {

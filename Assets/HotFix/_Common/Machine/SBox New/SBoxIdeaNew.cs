@@ -246,7 +246,6 @@ namespace SBoxApi
                 result["code"] = ret;
             }
 
-            Debug.Log(result);
             EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_COIN_PUSH_SPIN, result.ToString());
         }
 

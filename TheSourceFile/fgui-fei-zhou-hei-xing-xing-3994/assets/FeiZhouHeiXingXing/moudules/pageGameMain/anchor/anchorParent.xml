@@ -5,5 +5,6 @@
     <component id="n1_kiri" name="anchorSpeedParent" src="ba9f4q" fileName="moudules/pageGameMain/anchor/anchorSpeedParent.xml" xy="540,960"/>
     <component id="n3_kiri" name="anchorFreeEffectParent" src="hbr95d" fileName="moudules/pageGameMain/anchor/anchorFreeEffectParent.xml" xy="540,959"/>
     <component id="n2_kiri" name="anchorSmallGameEffectParent" src="hbr95e" fileName="moudules/pageGameMain/anchor/anchorSmallGameEffectParent.xml" xy="540,959"/>
+    <component id="n4_phvo" name="anchorCollectEffectParent" src="phvoh1dl" fileName="moudules/pageGameMain/anchor/anchorCollectEffectParent.xml" xy="540,1780"/>
   </displayList>
 </component>

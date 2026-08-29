@@ -307,7 +307,7 @@ namespace CaiFuZhiJia_3997
 
         private void ClearPag()
         {
-            _bigWinPag.Dispose();
+            _bigWinPag?.Dispose();
             _bigWinPag = null;
             _bigWinCom = null;
         }

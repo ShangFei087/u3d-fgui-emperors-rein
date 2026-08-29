@@ -22,6 +22,7 @@ public static class PagBootstrap
         PagPresentationDefaults.ApplyPipelineGlobals();
 
         _ready = true;
+        PagCallbackHub.Instance.RunCoroutine(PagUnityGlBridge.WarmupCreateTextureCoroutine());
         Debug.Log("[PAG] PagBootstrap.EnsureReady OK");
     }
 }

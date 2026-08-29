@@ -169,7 +169,8 @@ public class Main
 
         NetMessageController.Instance.Init();
 
-        NetMgr.Instance.SetNetAutoConnect(false);
+        if (SBoxModel.Instance.isJackpotOnLine)
+            NetMgr.Instance.SetNetAutoConnect(false);
 
         DebugUtils.SetOpenDebugLog(SBoxModel.Instance.isDebugLog);
 

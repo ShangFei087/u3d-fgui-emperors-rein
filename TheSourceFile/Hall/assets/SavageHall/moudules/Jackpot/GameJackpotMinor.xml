@@ -2,14 +2,14 @@
 <component size="655,155">
   <displayList>
     <image id="n0_puke" name="n0" src="pukeq" fileName="images/plat_img_minor.png" xy="-3,35"/>
-    <list id="n1_puke" name="reels" xy="54,53" size="555,84" layout="row" overflow="hidden" autoItemSize="false" align="center" vAlign="middle">
-      <item url="ui://vkidf8mppuke1s"/>
-      <item url="ui://vkidf8mppuke1s"/>
-      <item url="ui://vkidf8mppuke1s"/>
-      <item url="ui://vkidf8mppuke1s"/>
-      <item url="ui://vkidf8mppuke1s"/>
-      <item url="ui://vkidf8mppuke1s"/>
-      <item url="ui://vkidf8mppuke1s"/>
+    <list id="n1_puke" name="reels" xy="54,53" size="555,84" layout="row" overflow="hidden" defaultItem="ui://vkidf8mppuke1s" autoItemSize="false" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
     </list>
     <image id="n2_d6bl" name="n2" src="d6bl25" fileName="images/plat_txt_minor.png" xy="212,-2"/>
   </displayList>

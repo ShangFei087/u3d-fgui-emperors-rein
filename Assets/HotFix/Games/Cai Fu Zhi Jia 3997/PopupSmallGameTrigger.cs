@@ -73,10 +73,6 @@ namespace CaiFuZhiJia_3997
         private void InitParam(EventData eventData)
         {
             if (!_isInitialized) return;
-            preLoadedCallback?.Invoke();
-            if (!isOpen) return;
-            _isClicked = false;
-            RemoveTimer(ref _autoClickCallback);
 
             // ------------------ 获取UI组件 -----------------------
             _jackpotTriggerTipWindow = contentPane.GetChild("jackpotTriggerTipWindow").asCom;
@@ -110,11 +106,16 @@ namespace CaiFuZhiJia_3997
             
             // ------------------ 将UI组件挂点到对应的Spine节点上 -----------------------
             string rootPath = "Anchor/Spine Mecanim GameObject (sg_pop_frame)/SkeletonUtility-SkeletonRoot/root/zong/zi/";
-            Transform btnTran = _cloneSmallGameTriggerObj.transform.Find(rootPath + "btn");
+            Transform btnTran = _cloneSmallGameTriggerObj.transform.Find(rootPath + "btn01");
             startBtnTran.SetParent(btnTran, false);
             startBtnTran.localPosition = new Vector3(-1.62f, 2.13f, 0);
             startBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-     
+            
+            preLoadedCallback?.Invoke();
+            if (!isOpen) return;
+            _isClicked = false;
+            RemoveTimer(ref _autoClickCallback);
+
             // -------------------------- 添加UI点击事件 --------------------------
             if (eventData is { value: Dictionary<string, object> args })
             {

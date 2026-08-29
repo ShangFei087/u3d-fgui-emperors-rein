@@ -219,11 +219,12 @@ namespace FeiZhouHeiXingXing_3994
             PageName[] pages =
             {
                 PageName.FeiZhouHeiXingXingPageGameMain,
-                // PageName.FeiZhouHeiXingXingPopupBigWin,
-                // PageName.FeiZhouHeiXingXingPopupSmallGameJackpotWin, 
-                PageName.FeiZhouHeiXingXingPopupFreeSpinResult, PageName.FeiZhouHeiXingXingPopupFreeSpinTrigger,
-                // PageName.FeiZhouHeiXingXingPopupSmallGameResult,
-                // PageName.FeiZhouHeiXingXingPopupSmallGameTrigger,
+                PageName.FeiZhouHeiXingXingPopupBigWin,
+                PageName.FeiZhouHeiXingXingPopupSmallGameJackpotWin, 
+                PageName.FeiZhouHeiXingXingPopupFreeSpinResult,
+                PageName.FeiZhouHeiXingXingPopupFreeSpinTrigger,
+                PageName.FeiZhouHeiXingXingPopupSmallGameResult,
+                PageName.FeiZhouHeiXingXingPopupSmallGameTrigger,
             };
 
             _preloadTotal = pages.Length;

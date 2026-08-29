@@ -118,11 +118,11 @@ namespace CaiFuZhiJia_3997
             // ------------------ 将UI组件挂点到对应的Spine节点上 -----------------------
             string rootPath =
                 "Anchor/Spine Mecanim GameObject (sg_pop_frame)/SkeletonUtility-SkeletonRoot/root/zong/zi/";
-            Transform btnTran = _cloneSmallGameResultObj.transform.Find(rootPath + "btn");
+            Transform btnTran = _cloneSmallGameResultObj.transform.Find(rootPath + "btn01");
             collectBtnTran.SetParent(btnTran, false);
             collectBtnTran.localPosition = new Vector3(-1.62f, 2.13f, 0);
             collectBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-            Transform numTran = _cloneSmallGameResultObj.transform.Find(rootPath + "num");
+            Transform numTran = _cloneSmallGameResultObj.transform.Find(rootPath + "num01");
             numTxt.SetParent(numTran, false);
             numTxt.localPosition = new Vector3(-5.46f, 1.42f, 0);
             numTxt.localScale = new Vector3(0.01f, 0.01f, 0.01f);

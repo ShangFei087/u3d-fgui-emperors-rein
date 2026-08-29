@@ -39,6 +39,8 @@ namespace FeiZhouHeiXingXing_3994
 
         private TimerCallback _delayCloseCallback, _delayPlayPagCallback; // 延时关闭回调   延时播放Pag回调
 
+        private Action _changePage; // 切换游戏界面的回调
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -74,6 +76,7 @@ namespace FeiZhouHeiXingXing_3994
             if (!isInit) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
+
             _isClicked = false;
 
             // 获取UI组件
@@ -109,7 +112,7 @@ namespace FeiZhouHeiXingXing_3994
             _startBtnTran.SetParent(father, false);
             _startBtnTran.localPosition = new Vector3(0.98f, 2.03f, 0.01f);
             _startBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-            _startBtnTran.localRotation = Quaternion.Euler(0, 0, -90);
+            _startBtnTran.localRotation = Quaternion.Euler(0, 0, -92);
 
             // 按钮点击事件
             _startBtn.onClick.Clear();
@@ -123,6 +126,13 @@ namespace FeiZhouHeiXingXing_3994
             _gameSoundController = new GameSoundController3994();
             EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(Game3994AudioEvent.BgmBonusTrigger));
+
+            // 获取事件信息
+            if (eventData is { value: Dictionary<string, object> args })
+            {
+                _changePage = args["changeSmallGamePage"] as Action;
+            }
+
             InitParam();
         }
 
@@ -135,8 +145,9 @@ namespace FeiZhouHeiXingXing_3994
             _gameSoundController = null;
 
             // 清除Pag残留
-            _fadePag.Dispose();
+            // _fadePag?.Dispose();
             _fadeCom = null;
+            if (_fadePag != null) _fadePag.StopWithDefaults();
 
             // 解除UI绑定
             _startBtnTran.SetParent(_parentTran);
@@ -156,31 +167,33 @@ namespace FeiZhouHeiXingXing_3994
         private void OnCloseBtn(EventData eventData = null)
         {
             if (_isClicked) return;
-            
+
             // 只能点击一次
             _isClicked = true;
-            
+
             // 清除回调
             RemoveDesignCallBack(_delayCloseCallback);
             RemoveDesignCallBack(_delayPlayPagCallback);
             _delayCloseCallback = null;
             _delayPlayPagCallback = null;
-            
+
             // 播放动画
             _startBtn.visible = false;
             PlayAnimationByName(_triggerAnimator, "end");
-            
+
             // end动画播放结束之后接着播放Pag视频
             _delayPlayPagCallback = CreateDelayCallback(() =>
             {
                 PlayDesignPag(_fadePag, _fade1920, 1);
+                _changePage?.Invoke();
             }, 0.5f);
-            
+
             // 播放Pag视频之后关闭界面
             _delayCloseCallback = CreateDelayCallback(() =>
             {
                 if (isOpen) CloseSelf(null);
                 _startBtn.visible = true;
+                _changePage = null;
             }, 3.5f);
         }
 

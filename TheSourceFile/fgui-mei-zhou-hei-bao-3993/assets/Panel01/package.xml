@@ -111,7 +111,6 @@
     <image id="mxrk3v" name="sm_Highlights.png" path="/images/Instructions/" exported="true"/>
     <image id="mxrk3w" name="sm_magnification_Ash.png" path="/images/Instructions/" exported="true"/>
     <image id="mxrk3x" name="sm_magnification_Bright.png" path="/images/Instructions/" exported="true"/>
-    <image id="mxrk3y" name="sm_illustrate_01.png" path="/images/"/>
   </resources>
   <publish name="" path="../../Assets/GameRes/Panel/Panel3993/FGUIs" packageCount="2"/>
 </packageDescription>

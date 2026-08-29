@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using HotFix.Games.Fei_Zhou_Hei_Xing_Xing_3994.Custom;
 using SimpleJSON;
 using SlotMaker;
 using System;
@@ -28,7 +29,7 @@ namespace FeiZhouHeiXingXing_3994
         }
 
         #endregion
-        
+
         #region Panel 参数
 
         [SerializeField] private long mTotalBet = 0;
@@ -36,8 +37,10 @@ namespace FeiZhouHeiXingXing_3994
         [SerializeField] private string mBtnSpinState = "Stop";
 
         public int betIndex { get; set; } = 0;
+
         /// <summary> 赢线 </summary>
         public List<SymbolWin> winList;
+
         public GComponent[] goPayTableLst { get; set; } = Array.Empty<GComponent>();
         public GComponent goAnthorPanel { get; set; }
 
@@ -67,10 +70,10 @@ namespace FeiZhouHeiXingXing_3994
 
         /// <summary> 单局结果界面 </summary>
         public string strDeckRowCol;
-        
+
         /// <summary> 免费游戏加速框 </summary>
         public bool isFreeSlotTip;
-        
+
         /// <summary> 是否长滚动 </summary>
         public bool isReelsSlowMotion;
 
@@ -80,7 +83,12 @@ namespace FeiZhouHeiXingXing_3994
         private int _remainPlaySpins = 1;
         public bool isFreeSpin => curReelStripsIndex == "FS";
         public int totalPlaySpins { get => _totalPlaySpins; set => Observer.SetProperty(ref _totalPlaySpins, value); }
-        public int remainPlaySpins { get => _remainPlaySpins; set => Observer.SetProperty(ref _remainPlaySpins, value); }
+
+        public int remainPlaySpins
+        {
+            get => _remainPlaySpins;
+            set => Observer.SetProperty(ref _remainPlaySpins, value);
+        }
 
         private int _mFreeSpinPlayTimes = 0;
         private int _mFreeSpinTotalTimes = 0;
@@ -101,14 +109,14 @@ namespace FeiZhouHeiXingXing_3994
         public int freeSpinAddNum;
 
         /// <summary> 免费游戏总赢分  </summary>
-        public long freeSpinTotalWinCoins;// freeSpinTotalWinCredit
+        public long freeSpinTotalWinCoins; // freeSpinTotalWinCredit
 
         /// <summary>  触发免费游戏的编号 </summary>
         public int gameNumberFreeSpinTrigger;
 
         /// <summary> 是否等待下一局 Parse 校验（本地免费快照恢复后首局 Spin） </summary>
         public bool PendingFreeSpinReconnectValidation { get; set; }
-        
+
         /// <summary> 触发免费游戏的线-（备份 winList 的数据） </summary>
         public SymbolWin winFreeSpinTriggerOrAddCopy;
 
@@ -124,14 +132,37 @@ namespace FeiZhouHeiXingXing_3994
         /// <summary> 当前本轮游戏guid </summary>
         public string curGameGuid;
 
-        public int FreeSpinPlayTimes { get => _mFreeSpinPlayTimes; set => Observer.SetProperty(ref _mFreeSpinPlayTimes, value); }
-        public int FreeSpinTotalTimes { get => _mFreeSpinTotalTimes; set => Observer.SetProperty(ref _mFreeSpinTotalTimes, value); }
-        public int ShowFreeSpinRemainTime { get => _mShowFreeSpinRemainTime; set => Observer.SetProperty(ref _mShowFreeSpinRemainTime, value); }
+        public int FreeSpinPlayTimes
+        {
+            get => _mFreeSpinPlayTimes;
+            set => Observer.SetProperty(ref _mFreeSpinPlayTimes, value);
+        }
+
+        public int FreeSpinTotalTimes
+        {
+            get => _mFreeSpinTotalTimes;
+            set => Observer.SetProperty(ref _mFreeSpinTotalTimes, value);
+        }
+
+        public int ShowFreeSpinRemainTime
+        {
+            get => _mShowFreeSpinRemainTime;
+            set => Observer.SetProperty(ref _mShowFreeSpinRemainTime, value);
+        }
 
         // ------------------------ Small Game -----------------------
         public bool isSmallGameTrigger;
         public bool isSmallGameSpin;
-        public bool isSmallGameFinish;
+        public bool IsSmallGameFinish => smallGameSpinCount < 0;
+
+        /// <summary> SmallGame总赢分 </summary>
+        public long smallGameWinCredit;
+
+        /// <summary> SmallGame总局数 </summary>
+        public int smallGameSpinCount = 3;
+
+        /// <summary> 根据彩金触发局传入信息，解析好的彩金游戏数据队列 </summary>
+        public Queue<List<int>> BonusDataQueue = new Queue<List<int>>();
 
         // ------------------------ Jackpot Data -----------------------
         /// <summary> 本局彩金结果 </summary>
@@ -139,6 +170,7 @@ namespace FeiZhouHeiXingXing_3994
 
         /// <summary> bonus数据 </summary>
         public readonly Dictionary<int, JSONNode> BonusResult = new Dictionary<int, JSONNode>();
+
         [SerializeField] private JackpotInfo mUIGrandJp = new JackpotInfo()
         {
             name = "JPGrand",

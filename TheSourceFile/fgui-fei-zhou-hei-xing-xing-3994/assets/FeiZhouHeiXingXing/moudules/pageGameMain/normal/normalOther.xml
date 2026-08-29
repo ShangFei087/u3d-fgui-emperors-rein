@@ -7,12 +7,12 @@
     <image id="n11_pbvu" name="n11" src="qrjm52" fileName="images/common/gameBorder/normal/ng_bor_fgx(1).png" xy="438,1133" size="12,566" group="n20_9e0n"/>
     <image id="n12_pbvu" name="n12" src="qrjm52" fileName="images/common/gameBorder/normal/ng_bor_fgx(1).png" xy="627,1133" size="12,566" group="n20_9e0n"/>
     <image id="n13_pbvu" name="n13" src="qrjm52" fileName="images/common/gameBorder/normal/ng_bor_fgx(1).png" xy="820,1133" size="12,566" group="n20_9e0n"/>
-    <image id="n14_9e0n" name="n14" src="qrjm54" fileName="images/common/gameBorder/normal/ng_bor_right(1).png" xy="920,1035" group="n20_9e0n"/>
-    <image id="n15_9e0n" name="n15" src="qrjm53" fileName="images/common/gameBorder/normal/ng_bor_left(1).png" xy="-11,1035" group="n20_9e0n"/>
-    <image id="n16_9e0n" name="n16" src="qrjm55" fileName="images/common/gameBorder/normal/ng_bor_up(1).png" xy="197,1088" group="n20_9e0n"/>
-    <image id="n17_9e0n" name="n17" src="qrjm56" fileName="images/common/gameBorder/normal/ng_bor_down(1).png" xy="197,1691" size="742,52" group="n20_9e0n"/>
-    <image id="n7_sns5" name="n7" src="qrjm58" fileName="images/common/gameBorder/ng_txt_25.png" xy="1045,1405" group="n20_9e0n"/>
-    <image id="n6_sns5" name="n6" src="qrjm58" fileName="images/common/gameBorder/ng_txt_25.png" xy="17,1405" group="n20_9e0n"/>
-    <group id="n20_9e0n" name="n20" xy="-11,952" size="1100,804"/>
+    <image id="n26_vehs" name="n26" src="vehs1df" fileName="images/common/gameBorder/normal/ng_bor_down.png" xy="-51,1681" group="n20_9e0n"/>
+    <image id="n28_vehs" name="n28" src="vehs1dd" fileName="images/common/gameBorder/normal/ng_bor_right.png" xy="1008,1041" group="n20_9e0n"/>
+    <image id="n29_vehs" name="n29" src="vehs1de" fileName="images/common/gameBorder/normal/ng_bor_up.png" xy="-50,1040" group="n20_9e0n"/>
+    <image id="n31_vehs" name="n31" src="vehs1dc" fileName="images/common/gameBorder/normal/ng_bor_left.png" xy="-52,1040" group="n20_9e0n"/>
+    <image id="n7_sns5" name="n7" src="qrjm58" fileName="images/common/gameBorder/ng_txt_25.png" xy="1036,1412" group="n20_9e0n"/>
+    <image id="n6_sns5" name="n6" src="qrjm58" fileName="images/common/gameBorder/ng_txt_25.png" xy="25,1412" group="n20_9e0n"/>
+    <group id="n20_9e0n" name="n20" xy="-52,952" size="1178,810"/>
   </displayList>
 </component>
