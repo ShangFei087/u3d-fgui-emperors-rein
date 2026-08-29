@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1028,632">
+  <displayList>
+    <image id="n129_lkob" name="n129" src="lkobad" fileName="images/gameNormal/Slot/ng_Bottom.png" xy="0,0" size="1028,632"/>
+    <image id="n105_gk69" name="n105" src="gk691" fileName="images/gameNormal/Slot/ng_bar.png" xy="203,14" scale="1.01,1"/>
+  </displayList>
+</component>

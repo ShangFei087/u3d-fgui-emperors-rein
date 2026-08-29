@@ -9,9 +9,9 @@
     <loader id="n10_jaxj" name="n5" xy="64,30" pivot="0.5,0.5" anchor="true" size="30,29" url="ui://rkl59i4tpcvkd3" align="center" vAlign="middle" autoSize="true"/>
   </displayList>
   <transition name="t0">
-    <item time="0" type="Icon" target="n10_jaxj" value="ui://rkl59i4tpmaea5"/>
+    <item time="0" type="Icon" target="n10_jaxj" value="ui://rkl59i4tpcvkcy"/>
   </transition>
   <transition name="t1">
-    <item time="0" type="Icon" target="n10_jaxj" value="ui://rkl59i4tpmaea6"/>
+    <item time="0" type="Icon" target="n10_jaxj" value="ui://rkl59i4tpcvkd3"/>
   </transition>
 </component>

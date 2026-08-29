@@ -61,18 +61,6 @@ namespace CaiFuHuoChe_3996
                     bigWinPref = clone;
                     callback();
                 });
-
-            //machineBtnClickHelper = new MachineButtonClickHelper()
-            //{
-            //    shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
-            //    {
-            //        [MachineButtonKey.BtnSpin] = (info) =>
-            //        {
-            //            Debug.LogError("游戏接受到机台短按的数据：Spin");
-            //            SpinDown();
-            //        }
-            //    },
-            //};
         }
 
 
@@ -117,7 +105,6 @@ namespace CaiFuHuoChe_3996
                 anchorBinWin = anchorLoad;
                 bigWinObj = GameObject.Instantiate(bigWinPref);
                 bigWinAnim = bigWinObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-
 
                 GameCommon.FguiUtils.AddWrapper(anchorBinWin, bigWinObj);
             }

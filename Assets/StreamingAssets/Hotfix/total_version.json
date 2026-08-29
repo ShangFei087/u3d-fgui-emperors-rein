@@ -1,21 +1,13 @@
 {
-  "updated_at": 1786592337082,
+  "updated_at": 1787625717302,
   "data": [
     {
-      "agent_name": "Savage",
+      "agent_name": "EmperorsRein200",
       "app": "--",
-      "app_key": "Savage_debug_machine_20260813113857",
-      "app_version": "1.4.0",
-      "version_suggest": null,
-      "hotfix_url": "./debug/machine/1_4_0"
-    },
-    {
-      "agent_name": "Treasury",
-      "app": "--",
-      "app_key": "Treasury_debug_machine_20260810192219",
+      "app_key": "ljz_debug_android_20260825104157",
       "app_version": "1.2.0",
       "version_suggest": null,
-      "hotfix_url": "./debug/machine/1_2_0"
+      "hotfix_url": "./debug/android/1_2_0"
     },
     {
       "agent_name": "EmperorsRein200",

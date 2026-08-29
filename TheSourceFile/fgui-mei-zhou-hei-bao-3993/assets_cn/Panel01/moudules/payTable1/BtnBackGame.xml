@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="477,146" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n3_mxrk" name="n3" src="mxrk3r" fileName="images/Instructions/sm_button.png" xy="0,0"/>
+    <image id="n5_rghs" name="n5" src="rghscf" fileName=":cn/images/Instructions/sm_BACK TO GAME.png" xy="238,65" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.8"/>
+</component>

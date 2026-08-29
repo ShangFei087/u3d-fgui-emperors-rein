@@ -2,3 +2,10 @@ info size=12 resizable=true colored=false
 char id=52 img=b4x4an3 xoffset=0 yoffset=0 xadvance=0
 char id=53 img=b4x4an4 xoffset=0 yoffset=0 xadvance=0
 char id=54 img=b4x4an5 xoffset=0 yoffset=0 xadvance=0
+char id=48 img=o88tap9 xoffset=0 yoffset=0 xadvance=0
+char id=49 img=o88tapa xoffset=0 yoffset=0 xadvance=0
+char id=50 img=o88tapb xoffset=0 yoffset=0 xadvance=0
+char id=51 img=o88tap8 xoffset=0 yoffset=0 xadvance=0
+char id=55 img=o88tapc xoffset=0 yoffset=0 xadvance=0
+char id=56 img=o88tapd xoffset=0 yoffset=0 xadvance=0
+char id=57 img=o88tape xoffset=0 yoffset=0 xadvance=0

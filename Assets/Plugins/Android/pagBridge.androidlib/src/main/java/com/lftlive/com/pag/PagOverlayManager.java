@@ -145,6 +145,8 @@ final class PagOverlayManager {
     private boolean fguiGpuActive;
     private boolean fguiGpuSurfaceReady;
     private volatile long fguiGpuPlaybackStartMs;
+    /** 已 present 的 GPU 帧数，用于墙钟拍点 delay，避免 flush 后再死等一整帧。 */
+    private int fguiGpuPresentedFrameCount;
     /** P0：Surface/预热完成前不计播放墙钟，避免首帧 progress 超前跳帧。 */
     private volatile boolean fguiGpuPlaybackClockArmed;
     private volatile double fguiGpuPendingProgress;
@@ -239,12 +241,19 @@ final class PagOverlayManager {
         return unityInstanceKey + UNITY_PAYLOAD_SEP + body;
     }
 
+    private boolean isPerFrameGpuRenderCallback(String method) {
+        return UNITY_FLUSH_PRESENT_READY_METHOD.equals(method)
+                || (gpuRenderCallbackMethod != null && gpuRenderCallbackMethod.equals(method));
+    }
+
     private void sendToUnityHub(String method, String payload) {
         if (method == null || method.isEmpty()) {
             return;
         }
         String message = buildHubMessage(payload);
-        Log.i(TAG, "sendToUnityHub: " + method + " instance=" + unityInstanceKey + " payload=" + payload);
+        if (!isPerFrameGpuRenderCallback(method)) {
+            Log.i(TAG, "sendToUnityHub: " + method + " instance=" + unityInstanceKey + " payload=" + payload);
+        }
         UnityPlayer.UnitySendMessage(UNITY_CALLBACK_HUB, method, message);
     }
 
@@ -512,6 +521,7 @@ final class PagOverlayManager {
                 resetFguiGpuChainState();
                 fguiGpuPlaybackClockArmed = false;
                 fguiGpuPlaybackStartMs = 0L;
+                fguiGpuPresentedFrameCount = 0;
                 fguiGpuPendingProgress = 0.0;
                 fguiGpuPlayStartedNotified = false;
             } else {
@@ -1184,6 +1194,7 @@ final class PagOverlayManager {
         isPlaying = true;
         setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
         fguiGpuPlaybackStartMs = 0L;
+        fguiGpuPresentedFrameCount = 0;
         fguiGpuPlaybackClockArmed = false;
         fguiGpuPendingProgress = 0.0;
         fguiGpuPlayStartedNotified = false;
@@ -1367,6 +1378,7 @@ final class PagOverlayManager {
     /** P0：Unity GPU 预热完成后调用，开始墙钟并允许 tick 调度。 */
     void armFguiGpuPlaybackClock() {
         fguiGpuPlaybackStartMs = System.currentTimeMillis();
+        fguiGpuPresentedFrameCount = 0;
         fguiGpuPlaybackClockArmed = true;
         Log.i(TAG, "armFguiGpuPlaybackClock: path=" + currentPlayPath);
     }
@@ -1385,11 +1397,11 @@ final class PagOverlayManager {
         if (isChainPhaseBlockingTick()) {
             return;
         }
-        boolean isSegmentEndProgress = fguiGpuPendingProgress >= 0.999;
-        if (repeatCount < 0 && isSegmentEndProgress) {
-            scheduleFguiGpuTickAfterDelay(resolveFrameIntervalMs());
+        if (repeatCount < 0) {
+            scheduleFguiGpuTickOnWallClockBeat();
             return;
         }
+        boolean isSegmentEndProgress = fguiGpuPendingProgress >= 0.999;
         if (isSegmentEndProgress) {
             if (hasChainedSegmentPending()) {
                 return;
@@ -1397,7 +1409,7 @@ final class PagOverlayManager {
             finishFinalSegment();
             return;
         }
-        scheduleFguiGpuTickAfterDelay(resolveFrameIntervalMs());
+        scheduleFguiGpuTickOnWallClockBeat();
     }
 
     /** GL tryChain 失败时 UI 线程 fallback */
@@ -1501,7 +1513,7 @@ final class PagOverlayManager {
                 + " nextProgress=" + snap.progress + " frameInLoop=" + snap.frameInLoop
                 + "/" + snap.totalFrames);
         fguiGpuActive = true;
-        scheduleFguiGpuTickAfterDelay(resolveFrameIntervalMs());
+        scheduleFguiGpuTickImmediate();
     }
 
     /** Phase4E：登记 Native 播放列表（须同尺寸）；Play 首段前调用。 */
@@ -1651,6 +1663,10 @@ final class PagOverlayManager {
     /** UI 线程段末 request flush 前 arm，供 GL tryChain 消费。 */
     private void armGlChainSnapshotIfSegmentEnd(double progress) {
         synchronized (_glChainLock) {
+            if (repeatCount < 0) {
+                glChainSnapshotArmed = null;
+                return;
+            }
             if (progress < GL_CHAIN_ARM_PROGRESS_THRESHOLD) {
                 return;
             }
@@ -1698,7 +1714,7 @@ final class PagOverlayManager {
                 }
             }
             if (armed == null || armed.path == null || armed.path.isEmpty()) {
-                Log.w(TAG, "tryChainRenderThread: skip no armed snapshot");
+                Log.d(TAG, "tryChainRenderThread: skip no armed snapshot");
                 return false;
             }
             if (armed.pagFile == null) {
@@ -1811,6 +1827,7 @@ final class PagOverlayManager {
         if (frameRate > 0f) {
             long frameMs = Math.max(1L, (long) Math.ceil(1000.0 / frameRate));
             fguiGpuPlaybackStartMs = System.currentTimeMillis() - frameMs * frameIndex;
+            fguiGpuPresentedFrameCount = frameIndex;
             fguiGpuPlaybackClockArmed = true;
         }
     }
@@ -1824,6 +1841,7 @@ final class PagOverlayManager {
         if (frameRate > 0f) {
             long frameMs = Math.max(1L, (long) (1000.0f / frameRate));
             fguiGpuPlaybackStartMs = System.currentTimeMillis() - frameMs * frameCount;
+            fguiGpuPresentedFrameCount = frameCount;
             fguiGpuPlaybackClockArmed = true;
         }
     }
@@ -1834,6 +1852,33 @@ final class PagOverlayManager {
 
     private long resolveFrameIntervalMs() {
         return Math.max(1L, (long) (1000.0f / resolveCompositionFrameRate()));
+    }
+
+    /**
+     * 对齐墙钟拍点。countPresent=true 表示刚完成一次 present。
+     * flush 已超时则 delay=0，不再额外再等一整帧。
+     */
+    private long resolveWallClockBeatDelayMs(boolean countPresent) {
+        long intervalMs = resolveFrameIntervalMs();
+        if (!fguiGpuPlaybackClockArmed || fguiGpuPlaybackStartMs <= 0L) {
+            return intervalMs;
+        }
+        if (countPresent) {
+            fguiGpuPresentedFrameCount++;
+        }
+        int beatIndex = countPresent
+                ? fguiGpuPresentedFrameCount
+                : fguiGpuPresentedFrameCount + 1;
+        long elapsedMs = Math.max(0L, System.currentTimeMillis() - fguiGpuPlaybackStartMs);
+        return Math.max(0L, (long) beatIndex * intervalMs - elapsedMs);
+    }
+
+    private void scheduleFguiGpuTickOnWallClockBeat() {
+        scheduleFguiGpuTickAfterDelay(resolveWallClockBeatDelayMs(true));
+    }
+
+    private void scheduleFguiGpuTickUntilNextBeat() {
+        scheduleFguiGpuTickAfterDelay(resolveWallClockBeatDelayMs(false));
     }
 
     private void cancelFguiGpuTick() {
@@ -1915,7 +1960,7 @@ final class PagOverlayManager {
             Log.d(TAG, "dispatchGpuRenderFrameRequest: skip tail flush progress=" + progress
                     + " frameInLoop=" + frameInLoop + "/" + totalFrames
                     + " path=" + currentPlayPath);
-            scheduleFguiGpuTickAfterDelay(resolveFrameIntervalMs());
+            scheduleFguiGpuTickUntilNextBeat();
             return;
         }
         if (progress >= 0.999 && hasChainedSegmentPending()) {
@@ -1938,6 +1983,10 @@ final class PagOverlayManager {
     }
 
     private void handleInfiniteLoopProgressSnapshot(FguiGpuProgressSnapshot snap) {
+        if (snap.progress >= 0.999) {
+            snap.progress = 0.0;
+            snap.frameInLoop = 0;
+        }
         if (snap.completedLoops > fguiGpuLastCompletedLoops) {
             fguiGpuLastCompletedLoops = snap.completedLoops;
             Log.i(TAG, "requestGpuRenderFrame: loopBoundary completedLoops=" + snap.completedLoops
@@ -1974,6 +2023,7 @@ final class PagOverlayManager {
             resetFguiGpuChainState();
             fguiGpuPlaybackClockArmed = false;
             fguiGpuPlaybackStartMs = 0L;
+            fguiGpuPresentedFrameCount = 0;
             fguiGpuPendingProgress = 0.0;
             fguiGpuPlayStartedNotified = false;
             return;
@@ -2022,6 +2072,7 @@ final class PagOverlayManager {
             isPlaying = true;
             setFguiGpuTickPhase(FguiGpuTickPhase.PLAYING);
             fguiGpuPlaybackStartMs = 0L;
+            fguiGpuPresentedFrameCount = 0;
             fguiGpuPlaybackClockArmed = false;
             fguiGpuPendingProgress = 0.0;
             fguiGpuPlayStartedNotified = false;
@@ -2039,6 +2090,7 @@ final class PagOverlayManager {
         stopFguiGpuTickScheduling();
         releaseFguiGpuResources();
         fguiGpuPlaybackStartMs = 0L;
+        fguiGpuPresentedFrameCount = 0;
         fguiGpuPlaybackClockArmed = false;
         fguiGpuPendingProgress = 0.0;
         fguiGpuLastCompletedLoops = 0L;

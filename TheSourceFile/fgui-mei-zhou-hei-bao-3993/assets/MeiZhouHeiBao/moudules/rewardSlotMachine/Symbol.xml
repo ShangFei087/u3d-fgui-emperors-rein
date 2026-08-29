@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="300,300">
+<component size="208,208">
   <displayList>
     <component id="n3_g9kd" name="animator" src="g9kd9w" fileName="moudules/rewardSlotMachine/SymbolAnimator.xml" xy="0,0"/>
-    <text id="n2_g9kd" name="txtNum" xy="0,0" size="300,300" font="ui://tdk27maeni96ai" fontSize="13" align="center" vAlign="middle" letterSpacing="-20" autoSize="shrink" text="9999"/>
-    <loader id="n4_ni96" name="mask" xy="0,0" size="300,300" visible="false" alpha="0.6" url="ui://tdk27maez14g7q" align="center" vAlign="middle" autoSize="true" color="#000000"/>
+    <text id="n2_g9kd" name="txtNum" xy="-46,-46" size="300,300" font="ui://tdk27maeni96ai" fontSize="13" align="center" vAlign="middle" letterSpacing="-20" autoSize="shrink" text="9999"/>
+    <loader id="n4_ni96" name="mask" xy="-46,-46" size="300,300" visible="false" alpha="0.6" url="ui://tdk27maez14g7q" align="center" vAlign="middle" autoSize="true" color="#000000"/>
   </displayList>
 </component>

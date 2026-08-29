@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 209628def643dce438fce240ccf6f32a
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: games/xing yun zhi lun 3998/pag/megawin_start.unity3d
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: c806c33c02b7da44e86221c1c5045af0, type: 3}

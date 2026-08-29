@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="603,83">
+  <displayList>
+    <image id="n0_rghs" name="n0" src="z14g62" fileName="images/gameMain/reward/sg_img_Times reminder_UI_SPINS LEFT.png" xy="88,17"/>
+    <text id="n1_rghs" name="txtRemainTime" xy="417,13" size="41,61" font="ui://tdk27maemxrk86" fontSize="12" align="center" vAlign="middle" text="0"/>
+  </displayList>
+</component>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="80,91">
+  <displayList>
+    <image id="n0_rghs" name="n0" src="rghsc2" fileName=":cn/images/gameMain/free/fg_txt_ALL.png" xy="4,-1"/>
+    <image id="n1_rghs" name="n1" src="rghsc6" fileName=":cn/images/gameMain/free/fg_txt_TO.png" xy="5,50"/>
+  </displayList>
+</component>

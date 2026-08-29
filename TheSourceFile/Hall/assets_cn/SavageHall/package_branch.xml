@@ -2,8 +2,14 @@
 <branchDescription>
   <resources>
     <image id="puke1l" name="plat_txt_savage.png" path="/images/" exported="true"/>
-    <image id="d6bl22" name="plat_txt_major.png" path="/images/"/>
-    <image id="d6bl24" name="plat_txt_mini.png" path="/images/"/>
-    <image id="d6bl26" name="plat_txt_minor.png" path="/images/"/>
+    <image id="d6bl22" name="plat_txt_major.png" path="/images/" exported="true"/>
+    <image id="d6bl24" name="plat_txt_mini.png" path="/images/" exported="true"/>
+    <image id="d6bl26" name="plat_txt_minor.png" path="/images/" exported="true"/>
+    <image id="pr3e2e" name="3993_big.png" path="/images/card_projection/" exported="true"/>
+    <image id="pr3e2f" name="3993_small.png" path="/images/card_projection/" exported="true"/>
+    <image id="pr3e2g" name="3995_big.png" path="/images/card_projection/" exported="true"/>
+    <image id="pr3e2h" name="3995_small.png" path="/images/card_projection/" exported="true"/>
+    <image id="pr3e2i" name="3994_big.png" path="/images/card_projection/" exported="true"/>
+    <image id="pr3e2j" name="3994_small.png" path="/images/card_projection/" exported="true"/>
   </resources>
 </branchDescription>

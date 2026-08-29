@@ -87,6 +87,8 @@ namespace CaiFuHuoChe_3996
 
         public override void OnClose(EventData data = null)
         {
+            OutJackpot_bmp?.Dispose();
+            OutJackpot_bmp = null;
             StopAll();
             base.OnClose(data);
         }
@@ -183,7 +185,7 @@ namespace CaiFuHuoChe_3996
 
             winCredit.visible = false;
 
-            AddTimer(0.7f, (object obj) =>
+            AddTimer(0.1f, (object obj) =>
             {
                 if (OutJackpot_bmp != null)
                 {
@@ -195,7 +197,7 @@ namespace CaiFuHuoChe_3996
                     new PagPlayCallbacks(
                     onFinished: () => OutJackpot_bmp?.StopWithDefaults(),
                     stopAfterFinished: true));
-                    AddTimer(5.5f, (object obj) =>
+                    AddTimer(7.4f, (object obj) =>
                     {
                         CloseSelf(null);
                     });

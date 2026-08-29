@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="449,643">
+  <displayList>
+    <image id="n79_bn1g" name="n79" src="bn1g87" fileName="images/gameFree/gameFreeLeft/fg_Measuring instrument_The left_frame.png" xy="0,23" size="449,620"/>
+    <image id="n81_bn1g" name="n81" src="bn1g89" fileName="images/gameFree/gameFreeLeft/fg_sym_Taurus.png" xy="70,0"/>
+    <image id="n83_bn1g" name="n83" src="bn1g86" fileName="images/gameFree/gameFreeLeft/fg_Measuring instrument_The left_collect.png" xy="28,494"/>
+  </displayList>
+</component>

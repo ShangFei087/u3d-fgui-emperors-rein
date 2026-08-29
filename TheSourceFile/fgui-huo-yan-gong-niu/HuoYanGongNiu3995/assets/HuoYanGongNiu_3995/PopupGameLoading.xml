@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <image id="n1_q4s8" name="n1" src="q4s87" fileName="images/gameLoading/bottom.png" xy="-38,-8" size="1201,1941"/>
-    <image id="n2_q4s8" name="n2" src="q4s85" fileName="images/gameLoading/bg_Loading_.png" xy="540,906" pivot="0.5,0.5" anchor="true" size="319,102"/>
-    <component id="n7_q4s8" name="Slider" src="q4s8l" fileName="component/gameLoading/Slider1.xml" xy="536,993" pivot="0.5,0.5" anchor="true" size="802,94">
+    <image id="n1_q4s8" name="n1" src="ey3ya8" fileName="images/gameLoading/ng_bg.png" xy="0,0" size="1080,1920"/>
+    <image id="n11_lkob" name="n11" src="ey3yaa" fileName="images/gameLoading/npc.png" xy="-47,397"/>
+    <image id="n10_lkob" name="n10" src="lkobac" fileName="images/gameLoading/load_ic_Lava_Buffalo.png" xy="60,872" size="991,721"/>
+    <component id="n8_q4s8" name="title" src="q4s8m" fileName="component/gameLoading/AnchorTitle.xml" xy="540,606"/>
+    <component id="n7_q4s8" name="Slider" src="q4s8l" fileName="component/gameLoading/Slider1.xml" xy="554,1650" pivot="0.5,0.5" anchor="true" size="1061,155" touchable="false">
       <Slider max="1"/>
     </component>
-    <component id="n8_q4s8" name="title" src="q4s8m" fileName="component/gameLoading/AnchorTitle.xml" xy="540,606"/>
   </displayList>
 </component>

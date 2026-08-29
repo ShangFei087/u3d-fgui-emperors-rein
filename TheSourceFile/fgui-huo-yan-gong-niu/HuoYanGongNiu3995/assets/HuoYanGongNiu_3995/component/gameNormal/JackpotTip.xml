@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,248">
+  <displayList>
+    <component id="n69_k1q0" name="mini" src="k1q06o" fileName="component/gameJackpotTip/Mini.xml" xy="733,138"/>
+    <component id="n71_k1q0" name="minor" src="k1q07e" fileName="component/gameJackpotTip/Minor.xml" xy="0,111"/>
+    <component id="n73_k1q0" name="major" src="k1q07r" fileName="component/gameJackpotTip/Major.xml" xy="239,0"/>
+  </displayList>
+</component>

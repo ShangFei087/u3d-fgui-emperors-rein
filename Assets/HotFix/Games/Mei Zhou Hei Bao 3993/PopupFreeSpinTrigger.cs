@@ -7,35 +7,56 @@ using UnityEngine;
 
 namespace MeiZhouHeiBao_3993
 {
+    /// <summary>免费游戏触发弹窗：Spine in/idle/out，按钮与次数挂骨，确认后关页。</summary>
     public class PopupFreeSpinTrigger : MachinePageBase
     {
+        /// <summary>FairyGUI 包名。</summary>
         public new const string pkgName = "MeiZhouHeiBao";
+        /// <summary>弹窗组件名。</summary>
         public new const string resName = "PopupFreeSpinTrigger";
 
+        /// <summary>弹窗 Spine 预制体路径。</summary>
         private const string PrefabPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupFreeSpinTrigger/PopupFreeSpinTrigger.prefab";
+        /// <summary>PAG 资源目录。</summary>
         private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
+        /// <summary>免费弹窗 PAG 入场。</summary>
         private const string PagFgPupIn = "fg_pup/fg_pup_in";
+        /// <summary>免费弹窗 PAG 循环待机。</summary>
         private const string PagFgPupIdle = "fg_pup/fg_pup_idle";
+        /// <summary>免费弹窗 PAG 离场。</summary>
         private const string PagFgPupOut = "fg_pup/fg_pup_out";
-  
-        //弹窗
+
+        /// <summary>加载后的 Spine 预制体。</summary>
         private GameObject goFreeTrigger;
+        /// <summary>Spine 挂点。</summary>
         private GComponent anchorFreeTrigger;
+        /// <summary>场景中的 Spine 实例。</summary>
         private GameObject clonegoFreeTrigger;
+        /// <summary>弹窗 Spine 播放器。</summary>
         private AnimPlayer _animFreeTrigger;
+        /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
+        private I18nLang _boundLang;
+        /// <summary>播完 out 后延迟关页。</summary>
         private TimerCallback _delayCloseCallback;
+        /// <summary>自动化测试自动点开始。</summary>
         private TimerCallback _autoClickCallback;
+        /// <summary>入场后延迟点亮开始按钮。</summary>
         private TimerCallback _enableBtnCallback;
-        //pag
+        /// <summary>PAG 挂点。</summary>
         private GComponent anchorPagFreeTrigger;
+        /// <summary>免费弹窗 PAG 槽。</summary>
         private PagSlotBinding pagFreeTrigger;
-      
+
+        /// <summary>开始按钮（挂到 Spine 骨骼）。</summary>
         private GButton btnStart;
+        /// <summary>免费次数文本（挂到 Spine 骨骼）。</summary>
         private GTextField txtFreeTime;
 
+        /// <summary>是否已点过关闭，防连点。</summary>
         private bool _isClicked;
         //private GameSoundController3993 _gameSoundController;
 
+        /// <summary>创建 FGUI 并加载 Spine 预制体，注册机台短按 Spin 关页。</summary>
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -51,7 +72,6 @@ namespace MeiZhouHeiBao_3993
                 }
             };
 
-            //1
             ResourceManager02.Instance.LoadAsset<GameObject>(
             PrefabPath,
              (GameObject clone) =>
@@ -77,6 +97,7 @@ namespace MeiZhouHeiBao_3993
             };
         }
 
+        /// <summary>挂 Spine/PAG、绑定开始按钮与次数、延迟可点，自动化则定时点击。</summary>
         public override void InitParam()
         {
             if (!isInit) return;
@@ -94,11 +115,14 @@ namespace MeiZhouHeiBao_3993
             PlayFgPupInIdle();
 
             GComponent localFreeTrigger = contentPane.GetChild("anchorFreeTrigger").asCom;
-            if (anchorFreeTrigger != localFreeTrigger)
+            if (anchorFreeTrigger != localFreeTrigger || _boundLang != PopupSpineLang3993.CurrentLang)
             {
+                _animFreeTrigger?.DetachAll();
                 GameCommon.FguiUtils.DeleteWrapper(anchorFreeTrigger);
                 clonegoFreeTrigger = GameObject.Instantiate(goFreeTrigger);
+                PopupSpineLang3993.Apply(clonegoFreeTrigger);
                 anchorFreeTrigger = localFreeTrigger;
+                _boundLang = PopupSpineLang3993.CurrentLang;
                 GameCommon.FguiUtils.AddWrapper(anchorFreeTrigger, clonegoFreeTrigger);
                 _animFreeTrigger = new AnimPlayer(clonegoFreeTrigger);
             }
@@ -116,7 +140,8 @@ namespace MeiZhouHeiBao_3993
             btnStart.onClick.Clear();
             btnStart.onClick.Add(() => OnCloseBtn());
 
-            const string rootFreeTriggerPath = "Anchor/Spine Mecanim GameObject (fg_pup_TipFrame)/SkeletonUtility-SkeletonRoot/root/all";
+            const string rootSuffix = "/SkeletonUtility-SkeletonRoot/root/all";
+            string rootFreeTriggerPath = "Anchor/" + clonegoFreeTrigger.transform.GetChild(0).GetChild(0).name + rootSuffix;
             _animFreeTrigger.Attach(
                 btnStart,
                 rootFreeTriggerPath + "/fg_START_01",
@@ -133,6 +158,7 @@ namespace MeiZhouHeiBao_3993
             ScheduleAutoModeClick(3.0f);
         }
 
+        /// <summary>开页后刷新绑定。</summary>
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
             base.OnOpen(currentPageName, eventData);
@@ -142,6 +168,7 @@ namespace MeiZhouHeiBao_3993
             InitParam();
         }
 
+        /// <summary>关页：清定时器、卸骨骼挂点、停 PAG。</summary>
         public override void OnClose(EventData eventData = null)
         {
             RemoveTimer(ref _delayCloseCallback);
@@ -156,6 +183,7 @@ namespace MeiZhouHeiBao_3993
             //_gameSoundController = null;
         }
 
+        /// <summary>点击开始：播 out，约 1 秒后关页。</summary>
         private void OnCloseBtn(EventData eventData = null)
         {
             if (_isClicked) return;
@@ -174,6 +202,7 @@ namespace MeiZhouHeiBao_3993
             Timers.inst.Add(1.0f, 1, _delayCloseCallback);
         }
 
+        /// <summary>PAG：in 接 idle 循环。</summary>
         private void PlayFgPupInIdle()
         {
             if (pagFreeTrigger == null) return;
@@ -185,6 +214,7 @@ namespace MeiZhouHeiBao_3993
                 useGpuSyncGroup: false));
         }
 
+        /// <summary>PAG：播一遍 out 后停止。</summary>
         private void PlayFgPupOut()
         {
             if (pagFreeTrigger == null) return;
@@ -199,6 +229,7 @@ namespace MeiZhouHeiBao_3993
                     stopAfterFinished: true)));
         }
 
+        /// <summary>自动化测试开启时，延迟后自动点开始。</summary>
         private void ScheduleAutoModeClick(float delaySeconds)
         {
             RemoveTimer(ref _autoClickCallback);
@@ -212,6 +243,7 @@ namespace MeiZhouHeiBao_3993
             Timers.inst.Add(delaySeconds, 1, _autoClickCallback);
         }
 
+        /// <summary>移除 FairyGUI 定时器并置空引用。</summary>
         private void RemoveTimer(ref TimerCallback timerCallback)
         {
             if (timerCallback == null) return;

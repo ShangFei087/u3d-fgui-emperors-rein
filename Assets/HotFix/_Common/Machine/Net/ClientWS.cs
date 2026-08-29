@@ -192,7 +192,7 @@ public class ClientWS : MonoSingleton<ClientWS>
 
     void CheckHostServerInfo(int loopTimes)
     {
-        if (_curNetStatus == NET_STATUS.NET_STATUS_DISCONNECTED && serverinfo != null/*&&SBoxModel.Instance.isJackpotOnLine*/)
+        if (_curNetStatus == NET_STATUS.NET_STATUS_DISCONNECTED && serverinfo != null && SBoxModel.Instance.isJackpotOnLine)
         {
             InitSocket(serverinfo.IP, serverinfo.port);
             StopUdp();

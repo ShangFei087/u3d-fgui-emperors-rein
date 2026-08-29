@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="130,781">
+  <displayList>
+    <component id="n17_s82q" name="btnUp" src="lkob9t" fileName="modules/panel/Exhibition/ButtonCol.xml" xy="0,0" pivot="0,1" anchor="true" size="130,125" group="n18_s82q" scale="1,-1"/>
+    <component id="n16_s82q" name="BtnDown" src="lkob9t" fileName="modules/panel/Exhibition/ButtonCol.xml" xy="0,600" size="130,125" group="n18_s82q"/>
+    <group id="n18_s82q" name="n18" xy="0,-125" size="130,850"/>
+  </displayList>
+</component>

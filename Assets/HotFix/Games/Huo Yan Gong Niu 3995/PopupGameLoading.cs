@@ -28,7 +28,7 @@ namespace HuoYanGongNiu_3995
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 1;
+            int count = 0;
             Action callback = () =>
             {
                 if (--count <= 0)
@@ -38,13 +38,13 @@ namespace HuoYanGongNiu_3995
                 }
             };
 
-            ResourceManager02.Instance.LoadAsset<GameObject>(
-            "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PopupGameLoading/Loading_Title",
-            (GameObject clone) =>
-            {
-                go_clone = clone;
-                callback();
-            });
+            //ResourceManager02.Instance.LoadAsset<GameObject>(
+            //"Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PopupGameLoading/Loading_Title",
+            //(GameObject clone) =>
+            //{
+            //    go_clone = clone;
+            //    callback();
+            //});
 
             //ResourceManager02.Instance.LoadAsset<GameObject>(
             //    "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/PopupGameLoading/Loading_Bar.prefab",
@@ -53,6 +53,8 @@ namespace HuoYanGongNiu_3995
             //        go_loadBar = clone;
             //        callback();
             //    });
+
+            callback();
         }
 
 
@@ -73,15 +75,15 @@ namespace HuoYanGongNiu_3995
             ProgressBar.value = 0;
 
             //初始化UI锚点
-            GComponent LocalAnchorLoadingText = contentPane.GetChild("title").asCom;
-            if (anchorLoadText != LocalAnchorLoadingText)
-            {
-                GameCommon.FguiUtils.DeleteWrapper(anchorLoadText);
-                loadTitleGameObject = GameObject.Instantiate(go_clone);
-                animator = loadTitleGameObject.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-                anchorLoadText = LocalAnchorLoadingText;
-                GameCommon.FguiUtils.AddWrapper(anchorLoadText, loadTitleGameObject);
-            }
+            //GComponent LocalAnchorLoadingText = contentPane.GetChild("title").asCom;
+            //if (anchorLoadText != LocalAnchorLoadingText)
+            //{
+            //    GameCommon.FguiUtils.DeleteWrapper(anchorLoadText);
+            //    loadTitleGameObject = GameObject.Instantiate(go_clone);
+            //    animator = loadTitleGameObject.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+            //    anchorLoadText = LocalAnchorLoadingText;
+            //    GameCommon.FguiUtils.AddWrapper(anchorLoadText, loadTitleGameObject);
+            //}
 
             if (PageManager.Instance.IndexOf(PageName.HuoYanGongNiuPopupGameLoading) == 0)
             {
@@ -119,12 +121,16 @@ namespace HuoYanGongNiu_3995
                 PageName.HuoYanGongNiuPageGameMain,
                 PageName.HuoYanGongNiuPopupFreeSpinTrigger,
                 PageName.HuoYanGongNiuPopupFreeSpinExit,
+                PageName.HuoYanGongNiuPopupJackpotTrigger,
+                PageName.HuoYanGongNiuPopupJackpotResult,
+                PageName.HuoYanGongNiuPopupJackpotExit,
+                PageName.HuoYanGongNiuPopupBigWin,
             };
 
             _preloadTotal = pages.Length;
             _preloadCompleted = 0;
             RefreshLoadingProgressVisual();
-            PlayAnim("start");
+            //PlayAnim("start");
 
             for (int i = 0; i < pages.Length; i++)
             {

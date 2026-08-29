@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,817">
+  <displayList>
+    <image id="n4_q4s8" name="normalFrame" src="gk699b" fileName="images/gameNormal/Slot/ng_ic_Roller_frame.png" xy="0,138" size="1080,679"/>
+    <image id="n145_zyvh" name="n145" src="zyvhfbl" fileName="images/gameNormal/Slot/ng_ic_cactus.png" xy="0,0"/>
+    <image id="n146_zyvh" name="n146" src="10wifbj" fileName="images/gameNormal/Slot/ng_ic_Small_frame.png" xy="0,398"/>
+    <image id="n147_zyvh" name="n455" src="10wifbj" fileName="images/gameNormal/Slot/ng_ic_Small_frame.png" xy="1080,398" scale="-1,1"/>
+    <image id="n148_zyvh" name="n148" src="10wifbk" fileName="images/gameNormal/Slot/ng_txt_50.png" xy="1050,443"/>
+    <image id="n149_zyvh" name="n149" src="10wifbk" fileName="images/gameNormal/Slot/ng_txt_50.png" xy="0,443"/>
+  </displayList>
+</component>

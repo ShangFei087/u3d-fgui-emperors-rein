@@ -24,8 +24,8 @@
     "maxSize": 2048,
     "paging": true,
     "sizeOption": "pot",
-    "forceSquare": false,
-    "allowRotation": false,
+    "forceSquare": true,
+    "allowRotation": true,
     "trimImage": true
   },
   "include2x": false,

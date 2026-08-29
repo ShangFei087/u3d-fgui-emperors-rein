@@ -10,16 +10,16 @@ namespace HuoYanGongNiu_3995
     {
 
         /// <summary> 图标宽 </summary>
-        public float symbolWidth => 200;
+        public float symbolWidth => 202;
 
         /// <summary> 图标高 </summary>
-        public float symbolHeight => 151;
+        public float symbolHeight => 197;
 
         /// <summary> 列 </summary>
         public int column => 5;
 
         /// <summary> 行 </summary>
-        public int row => 4;
+        public int row => 3;
 
 
         public float reelMaxOffsetY
@@ -41,7 +41,7 @@ namespace HuoYanGongNiu_3995
 
 
         /// <summary> 通过图标索引，获取图标真实编号 </summary>
-        public List<int> symbolNumber => new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+        public List<int> symbolNumber => new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 
         /// <summary> 所有图标个数 </summary>
         public int symbolCount => symbolNumber.Count;
@@ -66,7 +66,7 @@ namespace HuoYanGongNiu_3995
             {"11", "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit11.prefab" },
             {"12", "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit12.prefab" },
             {"13", "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit13.prefab" },
-            {"15", "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit15.prefab" },
+            {"14", "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit14.prefab" },
             {"22", "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit22.prefab" },
             {"33", "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit33.prefab" },
             //{"12", "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Symbols/SymbolHit/SymbolHit12.prefab" },
@@ -134,10 +134,9 @@ namespace HuoYanGongNiu_3995
                 {"12", "ui://HuoYanGongNiu_3995/ng_sym_Scatter" },
 
                 {"13", "ui://HuoYanGongNiu_3995/ng_sym_Bonus" },
-                {"14", "ui://HuoYanGongNiu_3995/ng_sym_Bonus" },
+                {"14", "ui://HuoYanGongNiu_3995/ng_sym_Taurus" },
 
-                {"15", "ui://HuoYanGongNiu_3995/ng_sym_Taurus" },
-
+                {"15", "ui://HuoYanGongNiu_3995/ng_sym_Bonus" },
 
                 {"22", "ui://HuoYanGongNiu_3995/ng_sym_WILD_X2" },
                 {"33", "ui://HuoYanGongNiu_3995/ng_sym_WILD_X3" },
@@ -147,161 +146,284 @@ namespace HuoYanGongNiu_3995
         public Dictionary<int, string> wheelGoldBull => new Dictionary<int, string>
         {
             {0,  "ui://HuoYanGongNiu_3995/OneGoldBull"},
-            {1,  "ui://HuoYanGongNiu_3995/OneGoldBull"},
-            {2,  "ui://HuoYanGongNiu_3995/TwoGoldBull"},
-            {3,  "ui://HuoYanGongNiu_3995/ThreeGoldBull"},
-            {4,  "ui://HuoYanGongNiu_3995/FourGoldBull"},
-            {5,  "ui://HuoYanGongNiu_3995/FiveBull"},
+            {1,  "ui://HuoYanGongNiu_3995/TwoGoldBull"},
+            {2,  "ui://HuoYanGongNiu_3995/ThreeGoldBull"},
+            {3,  "ui://HuoYanGongNiu_3995/FourGoldBull"},
+            {4,  "ui://HuoYanGongNiu_3995/FiveBull"},
         };
 
-        public List<PayTableSymbolInfo> payTableSymbolWin => new List<PayTableSymbolInfo>
+
+        public readonly List<List<int>> wheelCredit = new List<List<int>>()
         {
-            new PayTableSymbolInfo()
-            {
-                symbol = 0,
-                x5 = 0,
-                x4 = 0,
-                x3 = 0,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 1,
-                x5 = 0,
-                x4 = 0,
-                x3 = 2,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 2,
-                x5 = 10,
-                x4 = 4,
-                x3 = 1,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 3,
-                x5 = 6,
-                x4 = 2,
-                x3 = 6,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 4,
-                x5 = 2,
-                x4 = 1,
-                x3 = 5,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 5,
-                x5 = 4,
-                x4 = 5,
-                x3 = 6,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 6,
-                x5 = 1,
-                x4 = 4,
-                x3 = 6,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 7,
-                x5 = 5,
-                x4 = 4,
-                x3 = 4,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 8,
-                x5 = 1,
-                x4 = 5,
-                x3 = 8,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 9,
-                x5 = 4,
-                x4 = 5,
-                x3 = 2,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 10,
-                x5 = 5,
-                x4 = 5,
-                x3 = 5,
-            },
-            new PayTableSymbolInfo()
-            {
-                symbol = 11,
-                x5 = 5,
-                x4 = 5,
-                x3 = 5,
-            },
-        };
-        public List<List<int>> payLines => new List<List<int>> 
-        {
-            new List<int>{0,0,0,0,0},
-            new List<int>{0,0,1,0,0},
-            new List<int>{0,1,1,1,0},
-            new List<int>{0,1,2,1,0},
-            new List<int>{0,1,0,1,0},
-            new List<int>{0,0,0,1,0},
-            new List<int>{0,1,0,0,0},
-            new List<int>{0,0,1,1,0},
-            new List<int>{0,1,1,0,0},
-            new List<int>{0,0,2,0,0},
-            new List<int>{0,0,2,1,0},
-            new List<int>{0,1,2,0,0},
-            new List<int>{1,1,1,1,1},
-            new List<int>{1,1,2,1,1},
-            new List<int>{1,1,0,1,1},
-            new List<int>{1,2,2,2,1},
-            new List<int>{1,0,0,0,1},
-            new List<int>{1,2,1,2,1},
-            new List<int>{1,0,1,0,1},
-            new List<int>{1,1,1,2,1},
-            new List<int>{1,1,1,0,1},
-            new List<int>{1,2,1,1,1},
-            new List<int>{1,0,1,1,1},
-            new List<int>{1,2,0,2,1},
-            new List<int>{2,2,2,2,2},
-            new List<int>{2,2,3,2,2},
-            new List<int>{2,2,1,2,2},
-            new List<int>{2,3,3,3,2},
-            new List<int>{2,1,1,1,2},
-            new List<int>{2,3,2,3,2},
-            new List<int>{2,1,2,1,2},
-            new List<int>{2,2,2,3,2},
-            new List<int>{2,2,2,1,2},
-            new List<int>{2,3,2,2,2},
-            new List<int>{2,1,2,2,2},
-            new List<int>{2,3,1,3,2},
-            new List<int>{2,1,3,1,2},
-            new List<int>{3,3,3,3,3},
-            new List<int>{3,3,2,3,3},
-            new List<int>{3,2,2,2,3},
-            new List<int>{3,2,1,2,3},
-            new List<int>{3,2,3,2,3},
-            new List<int>{3,3,3,2,3},
-            new List<int>{3,2,3,3,3},
-            new List<int>{3,3,2,2,3},
-            new List<int>{3,2,2,3,3},
-            new List<int>{3,3,1,3,3},
-            new List<int>{3,3,1,2,3},
-            new List<int>{3,2,1,3,3}
-        };
-        public List<WinMultiple> winLevelMultiple => new List<WinMultiple> 
-        {
-             new WinMultiple("BIG", 5),
-             new WinMultiple("HUGE", 10),
-             new WinMultiple("MASSIVE", 20),
+            new List<int> { 2, 3, 4, 5, 2, 3},
+            new List<int> { 3, 4, 5, 6, 3, 4},
+            new List<int> { 4, 5, 6, 7, 4, 5},
+            new List<int> { 5, 6, 7, 8, 5, 6},
+            new List<int> { 6, 7, 8, 9, 6, 7},
         };
 
-        List<PayTableSymbolInfo> ICustomModel.payTableSymbolWin { get => payTableSymbolWin; set => throw new System.NotImplementedException(); }
-        List<List<int>> ICustomModel.payLines { get => payLines; set => throw new System.NotImplementedException(); }
-        List<WinMultiple> ICustomModel.winLevelMultiple { get => winLevelMultiple; set => throw new System.NotImplementedException(); }
+
+        //List<PayTableSymbolInfo> ICustomModel.payTableSymbolWin { get => payTableSymbolWin; set => throw new System.NotImplementedException(); }
+        //List<List<int>> ICustomModel.payLines { get => payLines; set => throw new System.NotImplementedException(); }
+        //List<WinMultiple> ICustomModel.winLevelMultiple { get => winLevelMultiple; set => throw new System.NotImplementedException(); }
+
+        //public List<PayTableSymbolInfo> payTableSymbolWin => new List<PayTableSymbolInfo>
+        //{
+        //    new PayTableSymbolInfo()
+        //    {
+        //        symbol = 0,
+        //        x5 = 0,
+        //        x4 = 0,
+        //        x3 = 0,
+        //    },
+        //    new PayTableSymbolInfo()
+        //    {
+        //        symbol = 1,
+        //        x5 = 0,
+        //        x4 = 0,
+        //        x3 = 2,
+        //    },
+        //    new PayTableSymbolInfo()
+        //    {
+        //        symbol = 2,
+        //        x5 = 10,
+        //        x4 = 4,
+        //        x3 = 1,
+        //    },
+        //    new PayTableSymbolInfo()
+        //    {
+        //        symbol = 3,
+        //        x5 = 6,
+        //        x4 = 2,
+        //        x3 = 6,
+        //    },
+        //    new PayTableSymbolInfo()
+        //    {
+        //        symbol = 4,
+        //        x5 = 2,
+        //        x4 = 1,
+        //        x3 = 5,
+        //    },
+        //    new PayTableSymbolInfo()
+        //    {
+        //        symbol = 5,
+        //        x5 = 4,
+        //        x4 = 5,
+        //        x3 = 6,
+        //    },
+        //    new PayTableSymbolInfo()
+        //    {
+        //        symbol = 6,
+        //        x5 = 1,
+        //        x4 = 4,
+        //        x3 = 6,
+        //    },
+        //    new PayTableSymbolInfo()
+        //    {
+        //        symbol = 7,
+        //        x5 = 5,
+        //        x4 = 4,
+        //        x3 = 4,
+        //    },
+        //    new PayTableSymbolInfo()
+        //    {
+        //        symbol = 8,
+        //        x5 = 1,
+        //        x4 = 5,
+        //        x3 = 8,
+        //    },
+        //    new PayTableSymbolInfo()
+        //    {
+        //        symbol = 9,
+        //        x5 = 4,
+        //        x4 = 5,
+        //        x3 = 2,
+        //    },
+        //    new PayTableSymbolInfo()
+        //    {
+        //        symbol = 10,
+        //        x5 = 5,
+        //        x4 = 5,
+        //        x3 = 5,
+        //    },
+        //    new PayTableSymbolInfo()
+        //    {
+        //        symbol = 11,
+        //        x5 = 5,
+        //        x4 = 5,
+        //        x3 = 5,
+        //    },
+        //};
+        //public List<List<int>> payLines => new List<List<int>> 
+        //{
+        //    new List<int>{0,0,0,0,0},
+        //    new List<int>{0,0,1,0,0},
+        //    new List<int>{0,1,1,1,0},
+        //    new List<int>{0,1,2,1,0},
+        //    new List<int>{0,1,0,1,0},
+        //    new List<int>{0,0,0,1,0},
+        //    new List<int>{0,1,0,0,0},
+        //    new List<int>{0,0,1,1,0},
+        //    new List<int>{0,1,1,0,0},
+        //    new List<int>{0,0,2,0,0},
+        //    new List<int>{0,0,2,1,0},
+        //    new List<int>{0,1,2,0,0},
+        //    new List<int>{1,1,1,1,1},
+        //    new List<int>{1,1,2,1,1},
+        //    new List<int>{1,1,0,1,1},
+        //    new List<int>{1,2,2,2,1},
+        //    new List<int>{1,0,0,0,1},
+        //    new List<int>{1,2,1,2,1},
+        //    new List<int>{1,0,1,0,1},
+        //    new List<int>{1,1,1,2,1},
+        //    new List<int>{1,1,1,0,1},
+        //    new List<int>{1,2,1,1,1},
+        //    new List<int>{1,0,1,1,1},
+        //    new List<int>{1,2,0,2,1},
+        //    new List<int>{2,2,2,2,2},
+        //    new List<int>{2,2,3,2,2},
+        //    new List<int>{2,2,1,2,2},
+        //    new List<int>{2,3,3,3,2},
+        //    new List<int>{2,1,1,1,2},
+        //    new List<int>{2,3,2,3,2},
+        //    new List<int>{2,1,2,1,2},
+        //    new List<int>{2,2,2,3,2},
+        //    new List<int>{2,2,2,1,2},
+        //    new List<int>{2,3,2,2,2},
+        //    new List<int>{2,1,2,2,2},
+        //    new List<int>{2,3,1,3,2},
+        //    new List<int>{2,1,3,1,2},
+        //    new List<int>{3,3,3,3,3},
+        //    new List<int>{3,3,2,3,3},
+        //    new List<int>{3,2,2,2,3},
+        //    new List<int>{3,2,1,2,3},
+        //    new List<int>{3,2,3,2,3},
+        //    new List<int>{3,3,3,2,3},
+        //    new List<int>{3,2,3,3,3},
+        //    new List<int>{3,3,2,2,3},
+        //    new List<int>{3,2,2,3,3},
+        //    new List<int>{3,3,1,3,3},
+        //    new List<int>{3,3,1,2,3},
+        //    new List<int>{3,2,1,3,3}
+        //};
+        //public List<WinMultiple> winLevelMultiple => new List<WinMultiple> 
+        //{
+        //     new WinMultiple("BIG", 5),
+        //     new WinMultiple("HUGE", 10),
+        //     new WinMultiple("MASSIVE", 20),
+        //};.
+
+        #region 赔付线与赔付表
+
+        private List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>(){
+            new PayTableSymbolInfo(){symbol = 0, x5 = 20, x4 = 10, x3 = 5, },
+            new PayTableSymbolInfo(){symbol = 1, x5 = 20, x4 = 10, x3 = 5, },
+            new PayTableSymbolInfo(){symbol = 2, x5 = 20, x4 = 10, x3 = 5, },
+            new PayTableSymbolInfo(){symbol = 3, x5 = 20, x4 = 10, x3 = 5, },
+            new PayTableSymbolInfo(){symbol = 4, x5 = 30, x4 = 20, x3 = 10 },
+            new PayTableSymbolInfo(){symbol = 5, x5 = 50, x4 = 20, x3 = 10, },
+            new PayTableSymbolInfo(){symbol = 6, x5 = 50, x4 = 20, x3 = 10, },
+            new PayTableSymbolInfo(){symbol = 7, x5 = 100, x4 = 60, x3 = 30, },
+            new PayTableSymbolInfo(){symbol = 8, x5 = 100, x4 = 60, x3 = 30, },
+            new PayTableSymbolInfo(){symbol = 9, x5 = 0, x4 = 0, x3 = 0, },
+            new PayTableSymbolInfo(){symbol = 10, x5 = 0, x4 = 0, x3 = 0, },
+            new PayTableSymbolInfo(){symbol = 11, x5 = 0, x4 = 0, x3 = 0, },
+        };
+
+        public List<PayTableSymbolInfo> payTableSymbolWin
+        {
+            get => m_PayTableSymbolWin;
+            set => m_PayTableSymbolWin = value;
+        }
+
+        public List<List<int>> payLines
+        {
+            get => m_payLines;
+            set => m_payLines = value;
+        }
+        List<List<int>> m_payLines = new List<List<int>>()
+        {
+                new List<int> { 1,1,1,1,1 },
+                new List<int> { 0,0,0,0,0 },
+                new List<int> { 2,2,2,2,2 },
+                new List<int> { 0,1,2,1,0 },
+                new List<int> { 2,1,0,1,2 },
+                new List<int> { 1,0,0,0,1 },
+                new List<int> { 1,2,2,2,1 },
+                new List<int> { 0,0,1,2,2 },
+                new List<int> { 2,2,1,0,0 },
+                new List<int> { 1,2,1,0,1 },
+                new List<int> { 2,1,1,1,2 },
+                new List<int> { 1,0,1,2,1 },
+                new List<int> { 0,1,1,1,0 },
+                new List<int> { 2,1,1,1,2 },
+                new List<int> { 0,1,0,1,0 },
+                new List<int> { 2,1,2,1,2 },
+                new List<int> { 1,1,0,1,1 },
+                new List<int> { 1,1,2,1,1 },
+                new List<int> { 0,0,2,0,0 },
+                new List<int> { 2,2,0,2,2 },
+                new List<int> { 1,2,2,2,1 },
+                new List<int> { 2,0,0,0,2 },
+                new List<int> { 1,2,0,2,1 },
+                new List<int> { 0,2,0,2,0 },
+                new List<int> { 2,0,2,0,2 },
+        };
+
+        public List<WinMultiple> winLevelMultiple
+        {
+            get => _winMultipleList;
+            set => _winMultipleList = value;
+        }
+        List<WinMultiple> _winMultipleList = new List<WinMultiple>()
+        {
+                new WinMultiple("BIG", 5),
+                new WinMultiple("HUGE", 10),
+                new WinMultiple("MASSIVE", 20),
+        };
+
+        public FreeGameConfig freeGameConfig
+        {
+            get => _freeGameConfig;
+
+        }
+
+        public FreeGameConfig _freeGameConfig = new FreeGameConfig()
+        {
+            IsUseCommonFreeTimes = false,                          //是否使用公共的免费次数框
+            IsHasFreeGame = true,                                  //是否有免费奖
+            FreeGameType = MakeFreeGameType.OnScatter,             //触发免费奖方式
+            IsScatterInLine = false,                               //Scatter图标是否依赖中奖线
+            Make2FreeGameCount = new int[] { 3, 4, 5 },            //触发免费奖所需数量(Scatter图标/充能)
+            FreeGameTime = new int[] { 8, 15, 20 },                  //免费次数
+        };
+
+        public FreeGameConfig jackpotGameConfig
+        {
+            get => new FreeGameConfig()
+            {
+                IsUseCommonFreeTimes = false,                          //是否使用公共的免费次数框
+                IsHasFreeGame = true,                                  //是否有免费奖
+                FreeGameType = MakeFreeGameType.OnScatter,             //触发免费奖方式
+                IsScatterInLine = false,                               //Scatter图标是否依赖中奖线
+                Make2FreeGameCount = new int[] { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 },            //触发免费奖所需数量(Scatter图标/充能)
+                FreeGameTime = new int[] { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 },                  //免费次数
+            };
+
+        }
+
+        public BonusGameConfig bonusGameconfig
+        {
+            get => new BonusGameConfig()
+            {
+                IsHasBonusGame = true,                                 //是否有大奖
+                BonusGameType = MakeBonusGameType.OnBonus,            // 触发大奖方式
+                IsBonusInLine = false,                                  //Bonus图标是否依赖中奖线
+                Make2BonusGameCount = 3,                               //触发大奖所需数量(Bonus图标)
+            };
+
+        }
+
+        #endregion
     }
 }

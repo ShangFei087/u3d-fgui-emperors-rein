@@ -201,7 +201,7 @@ namespace CaiFuHuoChe_3996
         public void DelayedExit()
         {
             StopAll();
-            AddTimer(1.5f, (object obj) =>
+            AddTimer(1f, (object obj) =>
             {
                 Exit();
             });

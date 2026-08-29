@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="224,81" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_s82q" name="n0" src="s82qs" fileName="images/panel/ExhibitionPanel/ng_Exhibition_ Mode_On.png" xy="0,0" group="n1_s82q">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <group id="n1_s82q" name="openGroup" xy="0,0" size="224,81" advanced="true"/>
+    <image id="n2_s82q" name="n2" src="s82qr" fileName="images/panel/ExhibitionPanel/ng_Exhibition _Mode_Off.png" xy="0,0" group="n3_s82q"/>
+    <group id="n3_s82q" name="closeGroup" xy="0,0" size="225,82" advanced="true"/>
+  </displayList>
+  <Button/>
+</component>

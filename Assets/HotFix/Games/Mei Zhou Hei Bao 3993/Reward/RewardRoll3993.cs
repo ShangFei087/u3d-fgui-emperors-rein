@@ -11,32 +11,58 @@ namespace MeiZhouHeiBao_3993
     /// </summary>
     public class RewardRoll3993
     {
+        /// <summary>15 轴数量。</summary>
         public const int ReelCount = 15;
+        /// <summary>每轴图标节点数（可见 1 + 循环缓冲）。</summary>
         public const int ElementPerReel = 4;
 
+        /// <summary>大奖盘根节点。</summary>
         private readonly GComponent _root;
+        /// <summary>所属流程管理器。</summary>
         private readonly RewardMgr3993 _rewardMgr;
+        /// <summary>Bonus/彩金 Spine 对象池。</summary>
         private readonly FguiPoolHelper _fguiPoolHelper;
+        /// <summary>层级参照节点，锁定格抬高 sortingOrder。</summary>
         private readonly GComponent _goExpectation;
 
+        /// <summary>符号对象池，供 Element 取 Spine。</summary>
         internal FguiPoolHelper FguiPoolHelper => _fguiPoolHelper;
+        /// <summary>层级参照。</summary>
         internal GComponent GoExpectation => _goExpectation;
+        /// <summary>收集光效预制体。</summary>
         internal GameObject GlowPrefab { get; private set; }
+        /// <summary>每轴上的图标列表。</summary>
         private readonly List<RewardElement3993>[] _elements = new List<RewardElement3993>[ReelCount];
+        /// <summary>每轴外框节点。</summary>
         private readonly GComponent[] _reelBoxes = new GComponent[ReelCount];
 
+        /// <summary>该轴本把是否在滚。</summary>
         private readonly bool[] _elementBoxRoll = new bool[ReelCount];
+        /// <summary>该轴是否已锁定 bonus/彩金。</summary>
         private readonly bool[] _elementBoxBonus = new bool[ReelCount];
+        /// <summary>锁定格已写入的分值，0 表示刚停出尚未刷 Spine。</summary>
         private readonly int[] _elementBoxBonusData = new int[ReelCount];
+        /// <summary>BonusData 对应的最终分值（含彩金编码）。</summary>
         private readonly int[] _bonusScores = new int[ReelCount];
+        /// <summary>该轴已进入回滚的图标数。</summary>
         private readonly int[] _startBackRollCount = new int[ReelCount];
+        /// <summary>该轴回滚完成的图标数。</summary>
         private readonly int[] _finishBackRollCount = new int[ReelCount];
 
+        /// <summary>本把计划停出的轴下标。</summary>
         private readonly List<int> _singleBonus = new List<int>();
+        /// <summary>已停稳轴数（含预先锁定轴）。</summary>
         private int _rollEndCount;
+        /// <summary>true 为自动逐轴停，false 为手动全停。</summary>
         private bool _isAuto = true;
+        /// <summary>BonusRound 计划当前把下标。</summary>
         private int _bonusRoundSpinIndex;
+        /// <summary>本把新停出的 bonus/彩金数量。</summary>
+        private int _landedThisSpin;
+        /// <summary>本把是否有轴真正滚动（全锁则 false）。</summary>
+        private bool _didRollThisSpin;
 
+        /// <summary>绑定 15 轴 reel/symbols/rollElement 节点。</summary>
         public RewardRoll3993(GComponent root, RewardMgr3993 rewardMgr, FguiPoolHelper fguiPoolHelper, GComponent goExpectation)
         {
             _root = root;
@@ -85,6 +111,7 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
+        /// <summary>初始化各轴图标槽位。</summary>
         public void Init()
         {
             for (int i = 0; i < ReelCount; i++)
@@ -96,6 +123,7 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
+        /// <summary>清空锁定与分值，全部图标复位。</summary>
         public void ResetBoard()
         {
             for (int i = 0; i < ReelCount; i++)
@@ -118,11 +146,13 @@ namespace MeiZhouHeiBao_3993
             _isAuto = true;
         }
 
+        /// <summary>设置收集光效预制体，供锁定格使用。</summary>
         public void SetGlowPrefab(GameObject prefab)
         {
             GlowPrefab = prefab;
         }
 
+        /// <summary>收集已锁定且有分的可见格，供结算飞分。</summary>
         public void CollectLockedBonuses(List<RewardElement3993> elements, List<int> scores)
         {
             elements?.Clear();
@@ -142,10 +172,10 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
+        /// <summary>按触发盘面与 BonusData 铺初始锁定格，并生成第一把停出计划。</summary>
         public void InitRoll(IList<int> matrix, IList<int> bonusData)
         {
             int bonusId = CustomModel.Instance.symbolNumber[12];
-            int sum = 0;
             for (int i = 0; i < ReelCount; i++)
             {
                 int score = 0;
@@ -158,8 +188,6 @@ namespace MeiZhouHeiBao_3993
                 _elementBoxRoll[i] = false;
                 if (_reelBoxes[i] != null)
                     _reelBoxes[i].visible = true;
-                if (!ContentModel.IsJackpotScore(score))
-                    sum += score;
 
                 bool isTriggerBonus = matrix != null && i < matrix.Count && matrix[i] == bonusId && score > 0;
                 for (int j = 0; j < _elements[i].Count; j++)
@@ -178,6 +206,7 @@ namespace MeiZhouHeiBao_3993
                 }
             }
 
+            int sum = ContentModel.SumBonusAmounts(_bonusScores);
             if (ContentModel.Instance.BonusBet > 0 && sum != ContentModel.Instance.BonusBet)
                 DebugUtils.LogWarning($"[3993][RewardRoll] BonusBet 校验不一致，sum={sum} BonusBet={ContentModel.Instance.BonusBet}");
             else
@@ -188,6 +217,7 @@ namespace MeiZhouHeiBao_3993
             SyncLockedIdles();
         }
 
+        /// <summary>驱动未锁定轴循环滚动。</summary>
         public void Update(float dt)
         {
             for (int i = 0; i < ReelCount; i++)
@@ -197,6 +227,7 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
+        /// <summary>未锁定轴开转；若已全锁则直接 RollEnd。</summary>
         public void StartRoll()
         {
             InitData();
@@ -213,10 +244,12 @@ namespace MeiZhouHeiBao_3993
                 for (int j = 0; j < _elements[i].Count; j++) _elements[i][j].StartRoll();
             }
 
+            _didRollThisSpin = anyRolling;
             if (!anyRolling)
                 RollEnd();
         }
 
+        /// <summary>自动模式：延迟停下一根仍在滚的轴。</summary>
         public void StopRoll()
         {
             if (!_isAuto)
@@ -229,6 +262,7 @@ namespace MeiZhouHeiBao_3993
             _rewardMgr.Delay(0.2f, () => Stop(index));
         }
 
+        /// <summary>手动急停：所有滚动轴立即停。</summary>
         public void ManualStop()
         {
             _isAuto = false;
@@ -236,6 +270,7 @@ namespace MeiZhouHeiBao_3993
                 Stop(i);
         }
 
+        /// <summary>轴上一个图标进入回弹；四个都进入后触发停下一轴。</summary>
         public void StartBackRoll(int wheelIndex)
         {
             if (wheelIndex < 0 || wheelIndex >= ReelCount)
@@ -246,6 +281,7 @@ namespace MeiZhouHeiBao_3993
                 StopRoll();
         }
 
+        /// <summary>轴上回弹完成：新锁定则刷 Spine 并重置次数；全轴停稳则 RollEnd。</summary>
         public void BackRollEnd(int wheelIndex)
         {
             if (wheelIndex < 0 || wheelIndex >= ReelCount)
@@ -271,6 +307,7 @@ namespace MeiZhouHeiBao_3993
                 RollEnd();
         }
 
+        /// <summary>释放全部图标资源。</summary>
         public void Dispose()
         {
             for (int i = 0; i < ReelCount; i++)
@@ -282,6 +319,7 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
+        /// <summary>一把开转前清计数；已锁定轴计入 rollEndCount。</summary>
         private void InitData()
         {
             for (int i = 0; i < ReelCount; i++)
@@ -292,6 +330,8 @@ namespace MeiZhouHeiBao_3993
             }
 
             _rollEndCount = 0;
+            _landedThisSpin = 0;
+            _didRollThisSpin = false;
             for (int i = 0; i < ReelCount; i++)
             {
                 if (_elementBoxBonus[i])
@@ -309,6 +349,7 @@ namespace MeiZhouHeiBao_3993
             _isAuto = true;
         }
 
+        /// <summary>已锁定格从头播 idle。</summary>
         private void SyncLockedIdles()
         {
             for (int i = 0; i < ReelCount; i++)
@@ -321,6 +362,7 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
+        /// <summary>从左到右找第一根仍在滚的轴。</summary>
         private int GetCanStopIndex()
         {
             for (int i = 0; i < ReelCount; i++)
@@ -332,6 +374,7 @@ namespace MeiZhouHeiBao_3993
             return ReelCount;
         }
 
+        /// <summary>停指定轴：在计划内则锁定 bonus，否则空白，然后回弹。</summary>
         private void Stop(int wheelIndex)
         {
             if (wheelIndex < 0 || wheelIndex >= ReelCount)
@@ -345,6 +388,7 @@ namespace MeiZhouHeiBao_3993
             {
                 _elementBoxBonus[wheelIndex] = true;
                 _singleBonus.Remove(wheelIndex);
+                _landedThisSpin++;
             }
 
             for (int j = 0; j < _elements[wheelIndex].Count; j++)
@@ -362,9 +406,13 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
+        /// <summary>全轴停稳：驱动 NPC 反应，再判断结束或开下一把。</summary>
         private void RollEnd()
         {
             //if (GameSoundHelper3993.Instance.IsPlaySound(SoundKey.BonusRolling))GameSoundHelper3993.Instance.StopSound(SoundKey.BonusRolling);
+
+            if (_didRollThisSpin)
+                _rewardMgr.PlayNpcAfterRoll(_landedThisSpin > 0);
 
             if (CalculationTimesAndCount(checkGameEnd: true))
                 return;
@@ -373,6 +421,7 @@ namespace MeiZhouHeiBao_3993
                 _rewardMgr.Ready2Start();
         }
 
+        /// <summary>统计未出图标数；可结束则 GameEnd，否则套用下一把 BonusRound。</summary>
         private bool CalculationTimesAndCount(bool checkGameEnd = false)
         {
             _singleBonus.Clear();
@@ -407,6 +456,7 @@ namespace MeiZhouHeiBao_3993
             return false;
         }
 
+        /// <summary>从 BonusRound 取出本把应停出的轴下标写入 _singleBonus。</summary>
         private bool TryApplyBonusRoundPlan()
         {
             List<List<int>> plan = ContentModel.Instance.BonusRound;
@@ -438,6 +488,7 @@ namespace MeiZhouHeiBao_3993
             return true;
         }
 
+        /// <summary>线性查找列表是否含指定值。</summary>
         private static bool Contains(List<int> list, int value)
         {
             for (int i = 0; i < list.Count; i++)
