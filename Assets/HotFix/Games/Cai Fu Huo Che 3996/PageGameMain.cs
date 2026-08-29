@@ -65,10 +65,10 @@ namespace CaiFuHuoChe_3996
 
         //加速框
         private GComponent anchorExpectation, ComReelEffect2, ComReelEffect3;
-        private GameObject goFreeReelEffcet, goJackpotReelEffect;
+        private GameObject goFreeReelEffcetPre, goFreeReelEffcetObj, goJackpotReelEffectPre, goJackpotReelEffectObj;
 
         //免费游戏以及彩金游戏中特殊奖时特效
-        private GameObject goRewardEffect, goMoneyBoxEff;
+        private GameObject goRewardEffectPre, goRewardEffectObj, goMoneyBoxEff;
         private GameObject gMoneyBoxEff;
         private GComponent anchorFreeAdd, anchorJackpotAdd, anchorFill1, anchorFill2, anchorFill3, anchorFill4, ComRewardEffect1, ComRewardEffect2, ComRewardEffect3, anchorMoneyBox;
         private Transform moneyBoxEff;
@@ -227,7 +227,7 @@ namespace CaiFuHuoChe_3996
             "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/Effects/FreeReelEffect.prefab",
             (GameObject clone) =>
             {
-                goFreeReelEffcet = clone;
+                goFreeReelEffcetPre = clone;
                 callback();
             });
 
@@ -235,7 +235,7 @@ namespace CaiFuHuoChe_3996
             "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/Effects/JackpotReelEffect.prefab",
             (GameObject clone) =>
             {
-                goJackpotReelEffect = clone;
+                goJackpotReelEffectPre = clone;
                 callback();
             });
 
@@ -243,7 +243,7 @@ namespace CaiFuHuoChe_3996
             "Assets/GameRes/Games/Cai Fu Huo Che 3996/Prefabs/Effects/RewardEffect.prefab",
             (GameObject clone) =>
             {
-                goRewardEffect = clone;
+                goRewardEffectPre = clone;
                 callback();
             });
 
@@ -478,15 +478,24 @@ namespace CaiFuHuoChe_3996
             MainModel.Instance.displayName = "CaiFuHuoChe_3996";
             ContentModel.Instance.totalBet = SBoxModel.Instance.betList[ContentModel.Instance.betIndex];
             List<GComponent> lstPayTable = new List<GComponent>();
-            foreach (string url in CustomModel.Instance.payTable)
-            {
-                GComponent paytable = UIPackage.CreateObjectFromURL(url).asCom;
-                paytable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().InitParam(paytable);
 
-                lstPayTable.Add(paytable);
-                paytable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().referenceCount++;
+            if (ContentModel.Instance.goPayTableLst != null && ContentModel.Instance.goPayTableLst.Length > 0)
+            {
+                lstPayTable = new List<GComponent>(ContentModel.Instance.goPayTableLst);
             }
-            ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
+            else
+            {
+                lstPayTable = new List<GComponent>();
+                foreach (string url in CustomModel.Instance.payTable)
+                {
+                    GComponent paytable = UIPackage.CreateObjectFromURL(url).asCom;
+                    paytable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().InitParam(paytable);
+
+                    lstPayTable.Add(paytable);
+                    paytable.displayObject.gameObject.GetOrAddComponent<GOResidualMark>().referenceCount++;
+                }
+                ContentModel.Instance.goPayTableLst = lstPayTable.ToArray();
+            }
             payTableController.Init(lstPayTable);
 
             // ---------- 2. FGUI 对象池（须先于滚轮 Init） ----------
@@ -521,7 +530,8 @@ namespace CaiFuHuoChe_3996
             if (!isOpen) return;
 
             // ---------- 5.音乐控制 ----------
-            _gameSoundController = new GameSoundController3996();
+            if (_gameSoundController == null)
+                _gameSoundController = new GameSoundController3996();
 
             // ---------- 6.初始化FGUI组件 ----------
             BsToFsTrans = contentPane.GetTransition("BSToFSTransform");
@@ -553,17 +563,28 @@ namespace CaiFuHuoChe_3996
             });
 
             // ---------- 7.预制体挂到 FGUI 锚点 ----------
-            if (ComReelEffect2 != null) ComReelEffect2.Dispose();
-            if (ComReelEffect3 != null) ComReelEffect3.Dispose();
+            if (ComReelEffect2 != null)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(ComReelEffect2);
+                ComReelEffect2.Dispose();
+                ComReelEffect2 = null;
+            }
+
+            if (ComReelEffect3 != null)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(ComReelEffect3);
+                ComReelEffect3.Dispose();
+                ComReelEffect3 = null;
+            }
 
             ComReelEffect2 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            GameCommon.FguiUtils.DeleteWrapper(ComReelEffect2);
-            GameCommon.FguiUtils.AddWrapper(ComReelEffect2, GameObject.Instantiate(goFreeReelEffcet));
+            if (goFreeReelEffcetObj == null) goFreeReelEffcetObj = GameObject.Instantiate(goFreeReelEffcetPre);
+            GameCommon.FguiUtils.AddWrapper(ComReelEffect2, goFreeReelEffcetObj);
             ComReelEffect2.visible = false;
 
             ComReelEffect3 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            GameCommon.FguiUtils.DeleteWrapper(ComReelEffect3);
-            GameCommon.FguiUtils.AddWrapper(ComReelEffect3, GameObject.Instantiate(goJackpotReelEffect));
+            if (goJackpotReelEffectObj == null) goJackpotReelEffectObj = GameObject.Instantiate(goJackpotReelEffectPre);
+            GameCommon.FguiUtils.AddWrapper(ComReelEffect3, goJackpotReelEffectObj);
             ComReelEffect3.visible = false;
 
             anchorExpectation = this.contentPane.GetChild("anchorReelEffect").asCom;
@@ -571,15 +592,37 @@ namespace CaiFuHuoChe_3996
             anchorExpectation.AddChild(ComReelEffect3);
             anchorExpectation.visible = true;
 
+
+            if (ComRewardEffect1 != null)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect1);
+                ComRewardEffect1.Dispose();
+                ComRewardEffect1 = null;
+            }
+
+            if (ComRewardEffect2 != null)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect2);
+                ComRewardEffect2.Dispose();
+                ComRewardEffect2 = null;
+            }
+
+            if (ComRewardEffect3 != null)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect3);
+                ComRewardEffect3.Dispose();
+                ComRewardEffect3 = null;
+            }
+
             ComRewardEffect1 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
             ComRewardEffect2 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
             ComRewardEffect3 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect1);
-            GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect2);
-            GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect3);
-            GameCommon.FguiUtils.AddWrapper(ComRewardEffect1, GameObject.Instantiate(goRewardEffect));
-            GameCommon.FguiUtils.AddWrapper(ComRewardEffect2, GameObject.Instantiate(goRewardEffect));
-            GameCommon.FguiUtils.AddWrapper(ComRewardEffect3, GameObject.Instantiate(goRewardEffect));
+
+            if (goRewardEffectObj == null) goRewardEffectObj = GameObject.Instantiate(goRewardEffectPre);
+
+            GameCommon.FguiUtils.AddWrapper(ComRewardEffect1, goRewardEffectObj);
+            GameCommon.FguiUtils.AddWrapper(ComRewardEffect2, goRewardEffectObj);
+            GameCommon.FguiUtils.AddWrapper(ComRewardEffect3, goRewardEffectObj);
             ComRewardEffect1.visible = false;
             ComRewardEffect2.visible = false;
             ComRewardEffect3.visible = false;
