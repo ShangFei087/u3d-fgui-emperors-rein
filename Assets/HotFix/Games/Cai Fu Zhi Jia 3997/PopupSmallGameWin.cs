@@ -61,7 +61,7 @@ namespace CaiFuZhiJia_3997
             };
         }
 
-        public void InitParam(EventData eventData)
+        private void InitParam(EventData eventData)
         {
             if (eventData != null) _jackpotData = eventData;
             if (!_isInitialized) return;

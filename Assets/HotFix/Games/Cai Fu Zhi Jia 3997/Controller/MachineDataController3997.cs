@@ -33,17 +33,43 @@ namespace CaiFuZhiJia_3997
                 {
                     new string[]
                     {
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_0.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_1.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_2.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_3.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_4.json",
-                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_5.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_6.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_7.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_8.json", "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_9.json",
+                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_0.json",
+                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_1.json",
+                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_2.json",
+                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_3.json",
+                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_4.json",
+                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_5.json",
+                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_6.json",
+                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_7.json",
+                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_8.json",
+                        "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_9.json",
                         "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__free_10.json",
                     },
                 },
                 [SpinDataType.Bonus] =
-                    new List<string[]>() { new string[] { "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bonus_0.json" }, },
+                    new List<string[]>()
+                    {
+                        new string[]
+                        {
+                            "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bonus_0.json"
+                        },
+                    },
                 [SpinDataType.BigWin] =
-                    new List<string[]>() { new string[] { "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bigwin.json" }, },
+                    new List<string[]>()
+                    {
+                        new string[]
+                        {
+                            "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__bigwin.json"
+                        },
+                    },
                 [SpinDataType.Jackpot] =
-                    new List<string[]>() { new string[] { "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__jackpot_0.json" }, },
+                    new List<string[]>()
+                    {
+                        new string[]
+                        {
+                            "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__jackpot_0.json"
+                        },
+                    },
                 [SpinDataType.Normal] = new List<string[]>()
                 {
                     new string[] { "Assets/HotFix/Games/Mock/Resources/g3997_real/g3997__slot_spin__null_0.json" },
@@ -412,7 +438,8 @@ namespace CaiFuZhiJia_3997
             //赢分
             long creditAfter = 0, creditBefore = MainBlackboardController.Instance.myRealCredit;
             if (ContentModel.Instance.IsBonusTrigger)
-                creditAfter = creditBefore + bonusBet - totalBet + totalJackpotBet;
+                creditAfter = creditBefore - totalBet + bonusBet * MainModel.Instance.contentMD.betmultiple +
+                              totalJackpotBet;
             else if (ContentModel.Instance.isFreeSpinTrigger || ContentModel.Instance.isFreeSpin)
             {
                 // 免费游戏只有第一次需要扣积分

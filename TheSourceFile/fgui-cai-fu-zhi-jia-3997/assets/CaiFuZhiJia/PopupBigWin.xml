@@ -2,6 +2,6 @@
 <component size="1080,1920" designImage="ui://92trhum6hm6e6v">
   <displayList>
     <component id="n1_ujwn" name="pag_BigWin" src="ujwn52" fileName="moudules/popupBigWin/pag_BigWin.xml" xy="540,960"/>
-    <text id="n3_ujwn" name="bigWinText" xy="0,1153" size="1080,275" font="ui://92trhum6u8to1o" fontSize="8" align="center" vAlign="middle" autoSize="shrink" text="1234567890"/>
+    <text id="n3_ujwn" name="bigWinText" xy="0,1153" size="1080,275" font="ui://92trhum6u8to1o" fontSize="8" align="center" vAlign="middle" autoSize="shrink" text=""/>
   </displayList>
 </component>

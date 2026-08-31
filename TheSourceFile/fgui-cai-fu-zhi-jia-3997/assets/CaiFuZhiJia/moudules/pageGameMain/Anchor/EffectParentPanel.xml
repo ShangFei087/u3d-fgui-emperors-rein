@@ -3,8 +3,9 @@
   <displayList>
     <component id="n1_qqpp" name="anchorAccelerateParent" src="ujwn4c" fileName="moudules/pageGameMain/Anchor/anchorAccelerateParent.xml" xy="540,960"/>
     <component id="n0_qqpp" name="anchorWildParent" src="gg7g5h" fileName="moudules/pageGameMain/free/anchorWildParent.xml" xy="208,855"/>
-    <component id="n4_qqpp" name="anchorSmallGameBag" src="bibc6e" fileName="moudules/pageGameMain/SmallGame/anchorSmallGameBag.xml" xy="755,444"/>
+    <component id="n4_qqpp" name="anchorSmallGameResult" src="bibc6e" fileName="moudules/pageGameMain/SmallGame/anchorSmallGameResult.xml" xy="909,370"/>
     <component id="n2_qqpp" name="anchorLightningParent" src="ujwn4d" fileName="moudules/pageGameMain/free/anchorLightningParent.xml" xy="202,616"/>
     <component id="n3_qqpp" name="smallGameSettlementEffect" src="bibc6f" fileName="moudules/pageGameMain/SmallGame/SmallGameSettlementEffect.xml" xy="457,870"/>
+    <component id="n5_ht39" name="anchorSmallGameBagEffect" src="ht39b5" fileName="moudules/pageGameMain/SmallGame/anchorSmallGameBagEffect.xml" xy="909,370"/>
   </displayList>
 </component>

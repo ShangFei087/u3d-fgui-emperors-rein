@@ -2,6 +2,7 @@ using FairyGUI;
 using GameMaker;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -21,19 +22,22 @@ namespace CaiFuZhiJia_3997
 
         /// <summary> BigWin中奖类型数组 </summary>
         private readonly string[] _winTypeString = { "BIG", "HUGE", "MASSIVE" };
-        
+
         /// <summary> 对应不同级别BigWin的Pag视频数组 </summary>
-        private readonly string[] _pagEffString = { "ng_pop_border-bigwin.pag", "ng_pop_border-supwin.pag", "ng_pop_border-megawin.pag" };
+        private readonly string[] _pagEffString =
+        {
+            "ng_pop_border-bigwin.pag", "ng_pop_border-supwin.pag", "ng_pop_border-megawin.pag"
+        };
 
         /// <summary> 每个级别Pag视频的时长 </summary>
-        private readonly float[] _pagTimes = { 5.23f, 10.03f, 14.63f};
+        private readonly float[] _pagTimes = { 5.23f, 10.03f, 14.63f };
 
         private long _score; // BigWin中奖得分
         private int _winIndex; // 当前中大奖索引
         private bool _isExiting; // 当前动画是否已经播放完成
         private GTextField _bigWinText; // 显示BigWin得分的组件
         private const float ExitDelay = 1.0f; // 每一级Pag的结束等待时间
-        private TimerCallback _aniEndCallback, _exitCallback; // pag和数字滚动播放结束之后的回调函数 
+        private TimerCallback _aniEndCallback, _exitCallback, _numAniDelayCallback; // pag和数字滚动播放结束之后的回调函数 给数字播放新增延时
 
         protected override void OnInit()
         {
@@ -103,6 +107,7 @@ namespace CaiFuZhiJia_3997
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
+            _bigWinText.text = "";
             ClearPag();
             ClearTimers();
         }
@@ -121,7 +126,12 @@ namespace CaiFuZhiJia_3997
                 // 播放数字滚动动画
                 _bigWinText.visible = true;
                 float showtime = _pagTimes[_winIndex];
-                NumberAnimation.Instance.AnimateNumber(_bigWinText, 0, _score, showtime);
+                _numAniDelayCallback = (obj) =>
+                {
+                    NumberAnimation.Instance.AnimateNumber(_bigWinText, 0, _score, showtime);
+                    _numAniDelayCallback = null;
+                };
+                Timers.inst.Add(1f, 1, _numAniDelayCallback);
 
                 // 初始化动画结束之后的回调
                 _exitCallback = OnExit;
@@ -164,7 +174,6 @@ namespace CaiFuZhiJia_3997
         /// <summary> 清除Pag对象，避免造成多余的内存占用</summary>
         private void ClearPag()
         {
-            // _bigWinPag?.Dispose();
             _bigWinPag = null;
             if (_bigWinPag != null) _bigWinPag.StopWithDefaults();
         }

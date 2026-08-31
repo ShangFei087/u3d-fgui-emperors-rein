@@ -105,6 +105,13 @@ namespace FeiZhouHeiXingXing_3994
         private GameObject _freeSpeedUpObj, _bonusSpeedUpObj;
         private GComponent _anchorSpeedUpParent, _freeSpeedUpCom, _bonusSpeedUpCom;
         private GComponent _anchorFreeEffectParent, _anchorSmallGameEffectParent;
+        
+        /// <summary>底部 Panel 是否已就绪（BottomPanelReady）。</summary>
+        private bool _isBottomPanelReady;
+        /// <summary>对象池 DoTask 是否已全部完成。</summary>
+        private bool _isPoolPreloadDone;
+        /// <summary>是否已向 PageManager 派发过 preLoadedCallback。</summary>
+        private bool _hasNotifiedPagePreloaded;
 
         // --------------------------------------------- 普通游戏 -----------------------------------------------
         private int _notHitSpinCount; // 记录没有中奖局数
@@ -388,6 +395,14 @@ namespace FeiZhouHeiXingXing_3994
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear,
                     CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 10);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear); // 落下后图标静止动画
+                _fGuiPoolHelper.WhenIdle(() =>{
+                    _isPoolPreloadDone = true;
+                    TryNotifyPagePreloaded();
+                });
+            }
+            else if (_fGuiPoolHelper == null)
+            {
+                _isPoolPreloadDone = true;
             }
 
             // ---------- 3.滚轮控制器 ----------
@@ -620,6 +635,15 @@ namespace FeiZhouHeiXingXing_3994
         {
             e.Result = MachineDataController3994.ParseCoinPushSpinPayload(e.Data, e.StartPos);
         }
+        
+        /// <summary>底部 Panel 与对象池均就绪后，才通知 Loading 本页预加载完成。</summary>
+        private void TryNotifyPagePreloaded()
+        {
+            if (!_isBottomPanelReady || !_isPoolPreloadDone) return;
+            if (_hasNotifiedPagePreloaded) return;
+            _hasNotifiedPagePreloaded = true;
+            preLoadedCallback?.Invoke();
+        }
 
         #region 资源加载
 
@@ -639,7 +663,8 @@ namespace FeiZhouHeiXingXing_3994
 
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT,
                 OnBottomPanelReadyForPreload);
-            preLoadedCallback?.Invoke();
+             _isBottomPanelReady = true;
+             TryNotifyPagePreloaded();
         }
 
         /// <summary> 如果Panel进行切换，重新注册Panel </summary>

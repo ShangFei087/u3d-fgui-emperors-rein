@@ -138,7 +138,7 @@
     <component id="xpjv6b" name="anchorSmallGameWarn.xml" path="/moudules/pageGameMain/SmallGame/" exported="true"/>
     <component id="xpjv6c" name="anchorSmallGameLoss.xml" path="/moudules/pageGameMain/SmallGame/" exported="true"/>
     <component id="xpjv6d" name="anchorSmallGameNpc.xml" path="/moudules/pageGameMain/SmallGame/" exported="true"/>
-    <component id="bibc6e" name="anchorSmallGameBag.xml" path="/moudules/pageGameMain/SmallGame/" exported="true"/>
+    <component id="bibc6e" name="anchorSmallGameResult.xml" path="/moudules/pageGameMain/SmallGame/" exported="true"/>
     <component id="bibc6f" name="SmallGameSettlementEffect.xml" path="/moudules/pageGameMain/SmallGame/" exported="true"/>
     <component id="u7pz6h" name="mask.xml" path="/components/common/" exported="true"/>
     <image id="hm6e7u" name="ng_sym01_bar.png" path="/images/common/gameSymbols/" exported="true"/>
@@ -239,6 +239,7 @@
     <image id="k7p9b0" name="fg_txt_collect.png" path="/images/common/gameButton/" exported="true"/>
     <image id="k7p9b3" name="fg_txt_start.png" path="/images/common/gameButton/" exported="true"/>
     <image id="cuohb4" name="fg_img_aniu.png" path="/images/common/gameButton/" exported="true"/>
+    <component id="ht39b5" name="anchorSmallGameBagEffect.xml" path="/moudules/pageGameMain/SmallGame/" exported="true"/>
   </resources>
   <publish name="CaiFuZhiJia" path="../../Assets/GameRes/Games/Cai Fu Zhi Jia 3997/FGUIs" packageCount="2"/>
 </packageDescription>
