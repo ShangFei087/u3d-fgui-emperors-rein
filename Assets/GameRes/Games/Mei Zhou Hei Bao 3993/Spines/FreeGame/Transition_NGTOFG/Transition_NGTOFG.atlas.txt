@@ -1,0 +1,78 @@
+Transition_NGTOFG.png
+size:2017,1968
+filter:Linear,Linear
+pma:true
+Big arm_L
+bounds:1540,150,194,233
+Big arm_L1
+bounds:1736,171,168,212
+offsets:9,2,177,214
+Big arm_R
+bounds:1560,385,284,270
+offsets:0,0,293,280
+Big arm_R1
+bounds:1344,18,194,369
+offsets:0,10,194,379
+Body
+bounds:1337,657,537,296
+Eye
+bounds:1906,211,33,35
+offsets:4,2,39,39
+Medium shot
+bounds:2,955,1732,191
+offsets:0,0,1860,191
+Tail
+bounds:597,176,425,211
+Tongue
+bounds:1505,600,35,55
+arm_L
+bounds:1337,543,166,112
+offsets:2,0,168,123
+arm_L1
+bounds:597,21,266,153
+arm_R
+bounds:1846,545,169,110
+arm_R1
+bounds:1540,5,258,143
+offsets:0,0,258,148
+bj
+bounds:2,1582,1944,384
+cheek
+bounds:1948,1899,56,67
+offsets:4,2,65,69
+ear_L
+bounds:1871,1432,57,49
+ear_r
+bounds:1906,302,104,83
+face
+bounds:1800,8,203,161
+offsets:6,0,209,161
+foreground plants
+bounds:2,1148,1867,432
+offsets:0,0,1939,432
+jaw
+bounds:1871,1483,74,97
+offsets:0,0,74,99
+neck
+bounds:1024,88,318,299
+offsets:0,0,318,304
+plant_01
+bounds:742,543,593,410
+plant_02
+bounds:2,2,593,528
+plant_03
+bounds:2,532,738,421
+projection
+bounds:742,389,816,152
+offsets:16,12,848,176
+soles of feet_L
+bounds:597,393,111,137
+soles of feet_L1
+bounds:865,43,147,131
+soles of feet_L2
+bounds:1906,248,106,52
+soles of feet_R
+bounds:1736,982,161,164
+offsets:0,0,162,164
+soles of feet_R1
+bounds:1846,387,168,156

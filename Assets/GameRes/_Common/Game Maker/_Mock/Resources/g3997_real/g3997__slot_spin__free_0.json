@@ -7,13 +7,13 @@
 
 	"TotalBet": 10,
 
-	"TotalFreeBet":16,
+	"TotalFreeBet":416,
 
 	"TotalFreeTime":10,
 
 	"IDVec": [502],
 
-	"FreeBetArray":[8,8,0,0,0,0,0,0,0,0],
+	"FreeBetArray":[8,8,0,0,0,0,0,0,0,400],
 
 	"MatrixLength": 15,
 

@@ -386,6 +386,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IReadOnlyCollection<int>
 	// System.Collections.Generic.IReadOnlyCollection<object>
 	// System.Collections.Generic.IReadOnlyDictionary<int,int>
+	// System.Collections.Generic.IReadOnlyDictionary<int,object>
 	// System.Collections.Generic.IReadOnlyList<PagSegment>
 	// System.Collections.Generic.IReadOnlyList<System.ValueTuple<int,object,double>>
 	// System.Collections.Generic.IReadOnlyList<System.ValueTuple<int,object>>

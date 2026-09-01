@@ -10,7 +10,7 @@
     <component id="n2_pbvu" name="btnBetDown" src="sns5j" fileName="components/Panel/ButtonBetDown.xml" xy="561,102"/>
     <component id="n3_pbvu" name="btnBetUp" src="sns5k" fileName="components/Panel/ButtonBetUp.xml" xy="822,102"/>
     <component id="n13_pbvu" name="btnSpin" src="pbvu20" fileName="components/Panel/ButtonSpin.xml" xy="884,14"/>
-    <text id="n8_pbvu" name="singleLine" xy="0,7" size="194,19" fontSize="12" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" bold="true" text="Line : 12  symbolType : 2   Win :24"/>
+    <text id="n8_pbvu" name="singleLine" xy="0,7" size="194,19" visible="false" fontSize="12" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" bold="true" text="Line : 12  symbolType : 2   Win :24"/>
     <component id="n12_pbvu" name="ExhibitionPanel" src="pbvu1j" fileName="ExhibitionPanel.xml" xy="0,-1744"/>
     <component id="n15_lyfo" name="instructions" src="lyfo2z" fileName="moudules/instructions/InstructionPanel.xml" xy="0,-1744"/>
     <component id="n14_pbvu" name="setPanel" src="pbvu2f" fileName="SetPanel.xml" xy="36,-250" visible="false"/>

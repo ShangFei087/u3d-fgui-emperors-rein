@@ -35,7 +35,7 @@ namespace CaiFuZhiJia_3997
         private TimerCallback _delayCloseCallback;
         private TimerCallback _delayPlayEndCallback;
         private TimerCallback _autoClickCallback;
-        private Action _changeNormalPage;
+        private Action _changeNormalPage, _changeNpcAnimationClip;
 
         protected override void OnInit()
         {
@@ -101,9 +101,10 @@ namespace CaiFuZhiJia_3997
                 GameCommon.FguiUtils.DeleteWrapper(_smallGameResultCom);
                 _smallGameResultCom = currentGCom;
                 _cloneSmallGameResultObj = Object.Instantiate(_smallGameResultObj);
-                _tipAni = _cloneSmallGameResultObj.GetComponentInChildren<Animator>();
                 GameCommon.FguiUtils.AddWrapper(_smallGameResultCom, _cloneSmallGameResultObj);
             } // 结算弹窗
+            _tipAni = _cloneSmallGameResultObj.GetComponentInChildren<Animator>();
+
 
             currentGCom = _jackpotResultTipWindow.GetChild("smallFade").asCom;
             if (currentGCom != _smallGameFadeCom)
@@ -120,7 +121,7 @@ namespace CaiFuZhiJia_3997
                 "Anchor/Spine Mecanim GameObject (sg_pop_frame)/SkeletonUtility-SkeletonRoot/root/zong/zi/";
             Transform btnTran = _cloneSmallGameResultObj.transform.Find(rootPath + "btn01");
             collectBtnTran.SetParent(btnTran, false);
-            collectBtnTran.localPosition = new Vector3(-1.62f, 2.13f, 0);
+            collectBtnTran.localPosition = new Vector3(-1.87f, 2.69f, 0);
             collectBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             Transform numTran = _cloneSmallGameResultObj.transform.Find(rootPath + "num01");
             numTxt.SetParent(numTran, false);
@@ -131,6 +132,7 @@ namespace CaiFuZhiJia_3997
             if (eventData is { value: Dictionary<string, object> args })
             {
                 _changeNormalPage = args["changeNormalPage"] as Action;
+                _changeNpcAnimationClip = args["changeNpcAnimationClip"] as Action;
             }
 
             _collectBtn.onClick.Clear();
@@ -173,6 +175,7 @@ namespace CaiFuZhiJia_3997
             _delayCloseCallback = (obj) =>
             {
                 _changeNormalPage?.Invoke();
+                _changeNpcAnimationClip?.Invoke();
                 if (isOpen) CloseSelf(null);
                 _delayCloseCallback = null;
                 _collectBtn.visible = true;
@@ -201,6 +204,9 @@ namespace CaiFuZhiJia_3997
 
             // 清除Main界面委托
             _changeNormalPage = null;
+            _changeNpcAnimationClip = null;
+
+            _tipAni = null;
 
             // 清除回调
             RemoveTimer(ref _autoClickCallback);

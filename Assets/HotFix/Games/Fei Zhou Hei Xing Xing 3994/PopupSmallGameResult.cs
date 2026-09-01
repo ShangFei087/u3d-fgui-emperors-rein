@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using HotFix.Games.Fei_Zhou_Hei_Xing_Xing_3994.Custom;
 using SlotMaker;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,11 @@ namespace FeiZhouHeiXingXing_3994
 
         private TimerCallback
             _delayCloseCallback, _delayChangePageCallback, _delayPlayFadeCallback; // 延时关闭回调 延时切换界面 延时播放过渡动画回调
+
+        private TimerCallback _autoClickCallback;
+
+        /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
+        private I18nLang _boundLang;
 
         protected override void OnInit()
         {
@@ -82,12 +88,12 @@ namespace FeiZhouHeiXingXing_3994
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
             _isClicked = false;
-            
+
             // 获取UI组件
             _collectBtn = contentPane.GetChild("collectBtn").asButton;
             _scoreText = contentPane.GetChild("scoreText").asTextField;
             _scoreText.text = _gameScore.ToString();
-            
+
             // 保存初始信息
             _parentTran = contentPane.displayObject.gameObject.transform;
             _collectBtnTran = _collectBtn.displayObject.gameObject.transform;
@@ -98,14 +104,16 @@ namespace FeiZhouHeiXingXing_3994
             _scoreScale = _scoreTran.localScale;
             _scorePos = _scoreTran.localPosition;
             _scoreQuaternion = _scoreTran.localRotation;
-            
+
             // 绑定Spine
             GComponent currentCom = contentPane.GetChild("anchorResult").asCom;
-            if (currentCom != _compareTrigger)
+            if (currentCom != _compareTrigger || _boundLang != PopupLang3994.CurrentLang)
             {
                 GameCommon.FguiUtils.DeleteWrapper(_compareTrigger);
                 _compareTrigger = currentCom;
                 _cloneTriggerObj = Object.Instantiate(_triggerObj);
+                PopupLang3994.Apply(_cloneTriggerObj);
+                _boundLang = PopupLang3994.CurrentLang;
                 _triggerAnimator = _cloneTriggerObj.GetComponentInChildren<Animator>();
                 GameCommon.FguiUtils.AddWrapper(currentCom, _cloneTriggerObj);
             }
@@ -119,24 +127,39 @@ namespace FeiZhouHeiXingXing_3994
                 _cloneFadeObj.SetActive(false);
                 GameCommon.FguiUtils.AddWrapper(currentCom, _cloneFadeObj);
             }
-            
+
             // 将UI挂载在Spine动画上
+            GameObject fatherObj = _cloneTriggerObj.transform.GetChild(0).gameObject;
             string path = "Spine Mecanim GameObject (sg_bor_congrats2)/SkeletonUtility-SkeletonRoot/root/a/";
-            Transform father = _cloneTriggerObj.transform.Find(path + "collect");
+            Transform father = fatherObj.transform.Find(path + "collect");
             _collectBtnTran.SetParent(father, false);
             _collectBtnTran.localPosition = new Vector3(-2.12f, 0.9f, 0.01f);
             _collectBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             _collectBtnTran.localRotation = Quaternion.Euler(0, 0, 0);
 
-            father = _cloneTriggerObj.transform.Find(path + "k/sz");
+            father = fatherObj.transform.Find(path + "k/sz");
             _scoreTran.SetParent(father, false);
             _scoreTran.localPosition = new Vector3(-4.23f, 0.86f, 0f);
             _scoreTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             _scoreTran.localRotation = Quaternion.Euler(0, 0, 0);
-            
+
             // 按钮点击事件
             _collectBtn.onClick.Clear();
             _collectBtn.onClick.Add(() => OnCloseBtn());
+
+            if (TestManager.Instance.IsAutoModeRunning)
+            {
+                _autoClickCallback = (obj) =>
+                {
+                    if (_collectBtn != null && isOpen)
+                    {
+                        _collectBtn.onClick.Call();
+                    }
+
+                    _autoClickCallback = null;
+                };
+                Timers.inst.Add(3.0f, 1, _autoClickCallback);
+            }
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
@@ -146,14 +169,14 @@ namespace FeiZhouHeiXingXing_3994
             _gameSoundController = new GameSoundController3994();
             EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(Game3994AudioEvent.BgmBonusResult));
-            
+
             // 获取事件信息
             if (eventData is { value: Dictionary<string, object> args })
             {
                 _changePage = args["changeNormalPage"] as Action;
                 _gameScore = (int)args["smallTotalScore"];
             }
-            
+
             InitParam(eventData);
         }
 
@@ -163,7 +186,7 @@ namespace FeiZhouHeiXingXing_3994
 
             _gameSoundController?.Dispose();
             _gameSoundController = null;
-            
+
             // 解除UI绑定
             _collectBtnTran.SetParent(_parentTran);
             _collectBtnTran.localPosition = _btnPos;
@@ -189,14 +212,14 @@ namespace FeiZhouHeiXingXing_3994
         {
             if (_isClicked) return;
             _isClicked = true;
-            
+
             RemoveDesignCallBack(_delayCloseCallback);
             RemoveDesignCallBack(_delayChangePageCallback);
             RemoveDesignCallBack(_delayPlayFadeCallback);
             _delayCloseCallback = null;
             _delayChangePageCallback = null;
             _delayPlayFadeCallback = null;
-            
+
             // 播放关闭动画并显示切换pag
             _scoreText.text = string.Empty;
             _collectBtn.visible = false;
@@ -212,7 +235,7 @@ namespace FeiZhouHeiXingXing_3994
                 _changePage = null;
             }, 1.7f);
         }
-        
+
         private void PlayAnimationByName(Animator animator, string aniName, Action callback = null)
         {
             animator.Rebind();

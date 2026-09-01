@@ -37,13 +37,13 @@ namespace CaiFuZhiJia_3997
             // 普通游戏 pag
             "normal_game/wealth_ng_npc_win1.pag", "normal_game/wealth_ng_npc_win2.pag",
             "normal_game/wealth_ng_npc_win3.pag", "normal_game/wealth_ng_npc_idle01.pag",
-            "normal_game/wealth_ng_npc_idle02.pag", "normal_game/wealth_ng_npc_notwinning.pag",
-            "normal_game/wealth_ng_npc_trigger_fg.pag", "normal_game/wealth_ng_npc_trigger_sg.pag",
-            "normal_game/wealth_ng_npc_atmosphere.pag", "normal_game/wealth_ng_npc_nottriggered.pag",
+            "normal_game/wealth_ng_npc_idle02.pag", "normal_game/wealth_ng_npc_not winning.pag",
+            "normal_game/wealth_ng_npc_trigger fg.pag", "normal_game/wealth_ng_npc_trigger sg.pag",
+            "normal_game/wealth_ng_npc_atmosphere.pag", "normal_game/wealth_ng_npc_not triggered.pag",
             "normal_game/wealth_ng_npc_atmosphere_idle.pag",
             // bigwin pag
-            "bigwin/bigwin_idle.pag", "bigwin/bigwin_start.pag", "bigwin/megawin_idle.pag", "bigwin/megawin_start.pag",
-            "bigwin/supwin_idle.pag", "bigwin/supwin_start.pag",
+            "bigwin/ng_pop_border-bigwin.pag", "bigwin/ng_pop_border-megawin.pag",
+            "bigwin/ng_pop_border-supwin.pag",
             // 免费游戏 pag
             "free_game/fg_img_bg_robot.pag", "free_game/wealth_fg_npc_upgrade1.pag",
             "free_game/wealth_fg_npc_upgrade2.pag", "free_game/wealth_fg_npc_settlement.pag",

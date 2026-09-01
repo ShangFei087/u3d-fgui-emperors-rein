@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using HotFix.Games.Fei_Zhou_Hei_Xing_Xing_3994.Custom;
 using SlotMaker;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,14 @@ namespace FeiZhouHeiXingXing_3994
         private PagSlotBinding _fadePag;
         private readonly string _fade1920 = "PopupFreeSpinTrigger/fade.pag";
 
-        private TimerCallback _delayCloseCallback, _delayPlayPagCallback; // 延时关闭回调   延时播放Pag回调
+        private TimerCallback
+            _autoClickCallback,
+            _delayCloseCallback,
+            _delayPlayPagCallback,
+            _changePageCallback; // 延时关闭回调   延时播放Pag回调   切换界面回调
+
+        /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
+        private I18nLang _boundLang;
 
         /// <summary>注册并 Prepare PAG 槽位（InitParam 时调用一次即可）。</summary>
         private void BindPagSlot()
@@ -109,26 +117,29 @@ namespace FeiZhouHeiXingXing_3994
 
             // 绑定Spine
             GComponent currentCom = contentPane.GetChild("anchorTrigger").asCom;
-            if (currentCom != _compareTrigger)
+            if (currentCom != _compareTrigger || _boundLang != PopupLang3994.CurrentLang)
             {
                 GameCommon.FguiUtils.DeleteWrapper(_compareTrigger);
                 _compareTrigger = currentCom;
                 _cloneTriggerObj = Object.Instantiate(_triggerObj);
+                PopupLang3994.Apply(_cloneTriggerObj);
+                _boundLang = PopupLang3994.CurrentLang;
                 _triggerAnimator = _cloneTriggerObj.GetComponentInChildren<Animator>();
                 GameCommon.FguiUtils.AddWrapper(currentCom, _cloneTriggerObj);
             }
 
             BindPagSlot();
 
+            GameObject fatherObj = _cloneTriggerObj.transform.GetChild(0).gameObject;
             // 将UI挂载在Spine动画上
             string path = "Spine Mecanim GameObject (fg_bor_congrats2)/SkeletonUtility-SkeletonRoot/root/sx/";
-            Transform father = _cloneTriggerObj.transform.Find(path + "start");
+            Transform father = fatherObj.transform.Find(path + "start");
             _startBtnTran.SetParent(father, false);
             _startBtnTran.localPosition = new Vector3(0.98f, 2.03f, 0.01f);
             _startBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             _startBtnTran.localRotation = Quaternion.Euler(0, 0, -90);
 
-            father = _cloneTriggerObj.transform.Find(path + "number");
+            father = fatherObj.transform.Find(path + "number");
             _spinTextTran.SetParent(father, false);
             _spinTextTran.localPosition = new Vector3(2.05f, 1.93f, 0f);
             _spinTextTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
@@ -137,6 +148,19 @@ namespace FeiZhouHeiXingXing_3994
             // 按钮点击事件
             _startBtn.onClick.Clear();
             _startBtn.onClick.Add(() => OnCloseBtn(null));
+
+            // 自动模式定时器
+            if (!TestManager.Instance.IsAutoModeRunning) return;
+            _autoClickCallback = (obj) =>
+            {
+                if (_startBtn != null && isOpen)
+                {
+                    _startBtn.onClick.Call();
+                }
+
+                _autoClickCallback = null;
+            };
+            Timers.inst.Add(3.0f, 1, _autoClickCallback);
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
@@ -194,8 +218,10 @@ namespace FeiZhouHeiXingXing_3994
             // 清除回调
             RemoveDesignCallBack(_delayCloseCallback);
             RemoveDesignCallBack(_delayPlayPagCallback);
+            RemoveDesignCallBack(_changePageCallback);
             _delayCloseCallback = null;
             _delayPlayPagCallback = null;
+            _changePageCallback = null;
 
             // 播放关闭动画并显示切换pag
             _spinCountText.text = string.Empty;
@@ -206,8 +232,12 @@ namespace FeiZhouHeiXingXing_3994
             _delayPlayPagCallback = CreateDelayCallback(() =>
             {
                 PlayDesignPag(_fadePag, _fade1920, 1);
+            }, 0.5f);
+
+            _changePageCallback = CreateDelayCallback(() =>
+            {
                 _changePage?.Invoke();
-            }, 0.8f);
+            }, 2f);
 
             // 播放Pag视频之后关闭界面
             _delayCloseCallback = CreateDelayCallback(() =>

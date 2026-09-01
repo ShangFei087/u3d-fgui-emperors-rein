@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace FeiZhouHeiXingXing_3994
 {
@@ -33,7 +32,7 @@ namespace FeiZhouHeiXingXing_3994
         private bool _isExiting; // 当前动画是否已经播放完成
         private GTextField _bigWinText; // 显示BigWin得分的组件
         private const float ExitDelay = 1.0f; // 每一级Pag的结束等待时间
-        private TimerCallback _aniEndCallback, _exitCallback; // pag和数字滚动播放结束之后的回调函数 
+        private TimerCallback _aniEndCallback, _exitCallback,_numAniDelayCallback; // pag和数字滚动播放结束之后的回调函数 
 
         protected override void OnInit()
         {
@@ -121,7 +120,12 @@ namespace FeiZhouHeiXingXing_3994
                 // 播放数字滚动动画
                 _bigWinText.visible = true;
                 float showtime = _pagTimes[_winIndex];
-                NumberAnimation.Instance.AnimateNumber(_bigWinText, 0, _score, showtime);
+                _numAniDelayCallback = (obj) =>
+                {
+                    NumberAnimation.Instance.AnimateNumber(_bigWinText, 0, _score, showtime);
+                    _numAniDelayCallback = null;
+                };
+                Timers.inst.Add(1f, 1, _numAniDelayCallback);
 
                 // 初始化动画结束之后的回调
                 _exitCallback = OnExit;

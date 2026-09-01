@@ -36,7 +36,7 @@ namespace CaiFuZhiJia_3997
 
         private GameSoundController3997 _gameSoundController;
         private bool _isClicked = false;
-        private Action _changeFreePage;
+        private Action _changeFreePage, _changeNpcAnimationClip;
 
         protected override void OnInit()
         {
@@ -97,15 +97,16 @@ namespace CaiFuZhiJia_3997
                 GameCommon.FguiUtils.DeleteWrapper(_freeTriggerCom);
                 _freeTriggerCom = currentGCom;
                 _cloneFreeTriggerObj = Object.Instantiate(_freeTriggerObj);
-                _freeTriggerAni = _cloneFreeTriggerObj.GetComponentInChildren<Animator>();
                 GameCommon.FguiUtils.AddWrapper(_freeTriggerCom, _cloneFreeTriggerObj);
             } // Spine
+            _freeTriggerAni = _cloneFreeTriggerObj.GetComponentInChildren<Animator>();
+
 
             // --------------------- 将UI组件挂点到对应的Spine节点上 ---------------------
             string rootPath = "Anchor/Spine Mecanim GameObject (fg_pop_prompt)/SkeletonUtility-SkeletonRoot/root/All/";
             Transform btnTran = _cloneFreeTriggerObj.transform.Find(rootPath + "pop_all/btn");
             startBtnTran.SetParent(btnTran, false);
-            startBtnTran.localPosition = new Vector3(-2f, 0.75f, 0);
+            startBtnTran.localPosition = new Vector3(-1.97f, 0.88f, 0);
             startBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             Transform numTran = _cloneFreeTriggerObj.transform.Find(rootPath + "pop_all/pop/number");
             roundTran.SetParent(numTran, false);
@@ -142,6 +143,7 @@ namespace CaiFuZhiJia_3997
             if (eventData is { value: Dictionary<string, object> args })
             {
                 _changeFreePage = args["changeFreePage"] as Action;
+                _changeNpcAnimationClip = args["changeNpcAnimationClip"] as Action;
             }
 
             InitParam(eventData);
@@ -153,6 +155,9 @@ namespace CaiFuZhiJia_3997
             _gameSoundController?.Dispose();
             _gameSoundController = null;
             _changeFreePage = null;
+            _changeNpcAnimationClip = null;
+
+            _freeTriggerAni = null;
 
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _delayCloseCallback);
@@ -182,17 +187,19 @@ namespace CaiFuZhiJia_3997
         {
             if (_isClicked) return;
             _isClicked = true;
-
+            _freeStartBtn.visible = false;
             _freeRoundTxt.visible = false;
             PlayAnimationByName(_freeTriggerAni, "ng_fade_fg");
             RemoveTimer(ref _delayCloseCallback);
             _delayCloseCallback = (obj) =>
             {
                 _changeFreePage?.Invoke();
+                _changeNpcAnimationClip?.Invoke();
                 if (isOpen) CloseSelf(null);
                 _delayCloseCallback = null;
+                _freeStartBtn.visible = true;
             };
-            Timers.inst.Add(2.9f, 1, _delayCloseCallback);
+            Timers.inst.Add(2.7f, 1, _delayCloseCallback);
             EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(SlotMachineEvent.FreeGameFadeTransition));
         }
