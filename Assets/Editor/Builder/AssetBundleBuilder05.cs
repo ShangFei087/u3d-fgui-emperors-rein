@@ -185,6 +185,7 @@ public partial class AssetBundleBuilder05 : EditorWindow
         }
 
         GetNopkDir();
+        Debug.Log($"[ThemePack] 打包主题过滤完成，nopkDir={nopkDir.Count}");
 
         ResetABName_002();
 
@@ -1082,6 +1083,30 @@ public partial class AssetBundleBuilder05 : EditorWindow
                     //Debug.Log($" pth : {FileUtils.GetDirWebUrl(yamlFilePath, item).Replace("file:///", "").Replace("\\", "/")}");
                 }
             }
+        }
+
+        AppendThemePackIgnoreDirs();
+    }
+
+    static void AppendThemePackIgnoreDirs()
+    {
+        ThemePackResolver.PackPlan plan = ThemePackResolver.BuildPlanFromSettings();
+        Debug.Log(ThemePackResolver.FormatPlan(plan));
+
+        if (!string.IsNullOrEmpty(plan.Error))
+        {
+            Debug.LogError($"[ThemePack] {plan.Error}");
+            return;
+        }
+
+        if (plan.MissingResFolderGameIds.Count > 0)
+            Debug.LogError("[ThemePack] 存在未登记 GameResFolders 的 gameId，见打包计划日志");
+
+        List<string> absDirs = ThemePackResolver.ToAbsoluteIgnoreDirs(plan.IgnoreRelativeDirs);
+        for (int i = 0; i < absDirs.Count; i++)
+        {
+            if (!nopkDir.Contains(absDirs[i]))
+                nopkDir.Add(absDirs[i]);
         }
     }
 

@@ -3,10 +3,10 @@
 /// </summary>
 public enum ThemeKind
 {
-    /// <summary>财富主题（TreasuryHall，游戏 3996/3997/3998）</summary>
+    /// <summary>财富主题（TreasuryHall，游戏 3999/3998/3997/3996）</summary>
     Treasury = 0,
 
-    /// <summary>Savage </summary>
+    /// <summary>Savage 主题（SavageHall，游戏 3995/3994/3993）</summary>
     Savage = 1,
 
     /// <summary>测试大厅（TestHall，可进全部已配置子游戏；仅调试用）</summary>
