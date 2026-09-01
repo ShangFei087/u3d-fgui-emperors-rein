@@ -35,11 +35,15 @@ public partial class AssetBundleBuilder05 : EditorWindow
     [MenuItem("NewBuild/拷贝AOT元数据到StreamingAssets/AOTMeta")]
     public static void CopyAotMetaAndRefresh()
     {
-        CopyAotMeta();
+        CopyAotMeta(overwriteExisting: true);
         AssetDatabase.Refresh();
     }
 
-    static void CopyAotMeta()
+    /// <param name="overwriteExisting">
+    /// true：出整包时强制覆盖并删除废弃文件；
+    /// false：热更打包只补缺，已有文件不动。
+    /// </param>
+    static void CopyAotMeta(bool overwriteExisting)
     {
         string toDirPath = Path.Combine(Application.streamingAssetsPath, "AOTMeta");
         if (Directory.Exists(toDirPath) == false)
@@ -61,7 +65,9 @@ public partial class AssetBundleBuilder05 : EditorWindow
 
         var expectedNames = new HashSet<string>();
         int copiedCount = 0;
+        int skippedCount = 0;
         int missingCount = 0;
+        var missingDestNames = new List<string>();
 
         foreach (string dllName in AOTGenericReferences.PatchedAOTAssemblyList)
         {
@@ -69,36 +75,53 @@ public partial class AssetBundleBuilder05 : EditorWindow
 
             string sourcePath = Path.Combine(sourceRootPath, dllName);
             string destinationPath = Path.Combine(toDirPath, dllName + ".bytes");
-            if (File.Exists(sourcePath))
-            {
-                try
-                {
-                    File.Copy(sourcePath, destinationPath, overwrite: true);
-                    copiedCount++;
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"拷贝 AOT 元数据失败 {sourcePath} -> {destinationPath}: {e}");
-                }
-            }
-            else
+            if (File.Exists(sourcePath) == false)
             {
                 missingCount++;
+                if (File.Exists(destinationPath) == false)
+                {
+                    missingDestNames.Add(dllName + ".bytes");
+                }
                 Debug.LogError($"AOT 元数据源文件不存在: {sourcePath}，请先执行 HybridCLR Generate。");
+                continue;
             }
-        }
 
-        foreach (string existingFile in Directory.GetFiles(toDirPath, "*.dll.bytes"))
-        {
-            string fileName = Path.GetFileName(existingFile);
-            if (expectedNames.Contains(fileName) == false)
+            if (File.Exists(destinationPath) && overwriteExisting == false)
             {
-                File.Delete(existingFile);
-                Debug.Log($"删除已废弃的 AOT 元数据: {fileName}");
+                skippedCount++;
+                continue;
+            }
+
+            try
+            {
+                File.Copy(sourcePath, destinationPath, overwrite: true);
+                copiedCount++;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"拷贝 AOT 元数据失败 {sourcePath} -> {destinationPath}: {e}");
             }
         }
 
-        Debug.Log($"AOT 元数据同步完成: 成功 {copiedCount}，缺失 {missingCount}，目标目录 {toDirPath}");
+        if (overwriteExisting)
+        {
+            foreach (string existingFile in Directory.GetFiles(toDirPath, "*.dll.bytes"))
+            {
+                string fileName = Path.GetFileName(existingFile);
+                if (expectedNames.Contains(fileName) == false)
+                {
+                    File.Delete(existingFile);
+                    Debug.Log($"删除已废弃的 AOT 元数据: {fileName}");
+                }
+            }
+        }
+
+        string mode = overwriteExisting ? "强制覆盖" : "只补缺";
+        Debug.Log($"AOT 元数据同步完成({mode}): 拷贝 {copiedCount}，跳过 {skippedCount}，源缺失 {missingCount}，目标目录 {toDirPath}");
+        if (missingDestNames.Count > 0)
+        {
+            Debug.LogError($"StreamingAssets/AOTMeta 仍缺文件，真机启动会失败: {string.Join(", ", missingDestNames)}");
+        }
     }
 
     static void CopyDll()
@@ -149,7 +172,7 @@ public partial class AssetBundleBuilder05 : EditorWindow
     {
         ApplicationSettingsPlayerSync.TrySync();
 
-        CopyAotMeta();
+        CopyAotMeta(overwriteExisting: false);
         CopyDll();
         CopyAssetBackup();
 

@@ -179,6 +179,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: eff_fg_lizituowei
       objectReference: {fileID: 0}
+    - target: {fileID: 4237023664571623087, guid: 502cca3fb260c9a44b9b94474327a74e,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8772312844611018910, guid: 502cca3fb260c9a44b9b94474327a74e,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 502cca3fb260c9a44b9b94474327a74e, type: 3}
 --- !u!224 &2851124576760128640 stripped

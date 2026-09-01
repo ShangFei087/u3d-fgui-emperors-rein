@@ -159,7 +159,6 @@
     <image id="z14g78" name="fg_txt_FREE GAME.png" path="/images/gameMain/free/" exported="true"/>
     <image id="z14g79" name="fg_txt_OF.png" path="/images/gameMain/free/" exported="true"/>
     <image id="z14g7a" name="fg_txt_YOU GOT.png" path="/images/gameMain/free/" exported="true"/>
-    <image id="z14g7b" name="ng_sym01_10.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7c" name="ng_sym02_J.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7e" name="ng_sym04_K.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7f" name="ng_sym05_A.png" path="/images/gameMain/symbol/" exported="true"/>
@@ -170,7 +169,6 @@
     <image id="z14g7l" name="ng_sym15_GoldCoin_MAJOR.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7m" name="ng_sym14_GoldCoin_MINI.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7n" name="ng_sym16_GoldCoin_MINOR.png" path="/images/gameMain/symbol/" exported="true"/>
-    <image id="z14g7o" name="ng_sym07_Bird.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="z14g7p" name="ng_sym06_Snake.png" path="/images/gameMain/symbol/" exported="true"/>
     <component id="z14g7r" name="Symbol.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="z14g7s" name="Symbols.xml" path="/moudules/slotMachine/" exported="true"/>
@@ -310,7 +308,9 @@
     <image id="rghscy" name="普通游戏 05.png" path="/images/Rendering/en/"/>
     <component id="rghscz" name="BonusOutFrame.xml" path="/components/gameMain/" exported="true"/>
     <image id="rghsd2" name="ng_sym12_SCATTER.png" path="/images/gameMain/symbol/" exported="true"/>
-    <image id="rghsd3" name="ng_sym13_Bonus.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="rghsd4" name="ng_sym01_10.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="rghsd5" name="ng_sym07_Bird.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="rghsd7" name="ng_sym13_Bonus.png" path="/images/gameMain/symbol/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Mei Zhou Hei Bao 3993\FGUIs" packageCount="2"/>
 </packageDescription>

@@ -217,10 +217,6 @@ namespace MeiZhouHeiBao_3993
         private const float PantherWinTrailDuration = 0.4f;
         /// <summary>普通局豹头拖尾间隔。</summary>
         private const float PantherWinTrailGap = 0.15f;
-        /// <summary>右爪 PAG。</summary>
-        private const string PagZhuaziYou = "eff_zhuazi_bmp/eff_zhuazi_you";
-        /// <summary>左爪 PAG。</summary>
-        private const string PagZhuaziZuo = "eff_zhuazi_bmp/eff_zhuazi_zuo";
         /// <summary>中爪 PAG。</summary>
         private const string PagZhuaziZhong = "eff_zhuazi_bmp/eff_zhuazi_zhong";
 
@@ -1376,13 +1372,13 @@ namespace MeiZhouHeiBao_3993
 
         #region Panther游戏
         /// <summary>
-        /// 普通局豹头收集：等 NPC win3 结束 → 串播爪子 PAG → 亮豹头/Bonus + PantherNormalBorder，再逐个飞 Effect_ng_trails 到 anchorWinBorder 加分。
+        /// 普通局豹头收集：等 NPC win3 → 串播爪子 → 亮豹头/Bonus + PantherNormalBorder，再逐个飞 Effect_ng_trails 到 anchorWinBorder 加分。
         /// 结束后只清拖尾和 Panel 赢分框；豹头 Hit/框保留，已收集 Bonus 保持 idle。
         /// </summary>
         private IEnumerator PlayPantherWin()
         {
             _notHitSpinCount = 0;
-            yield return _slotMachineController.SlotWaitForSeconds(1.0f);
+            //npc,中奖图标,pag一起播
             yield return PlayPantherZhuaziPag();
             // GameSoundHelper3993.Instance.PlaySoundEff(SoundKey.BonusWin);
             //播放图标特效
@@ -1425,7 +1421,7 @@ namespace MeiZhouHeiBao_3993
             _panelController.HideWinBorders();
         }
 
-        /// <summary>爪子 PAG： 中 ，播完再继续收集。</summary>
+        /// <summary>爪子 PAG</summary>
         private IEnumerator PlayPantherZhuaziPag()
         {
             if (pagFade == null) yield break;
@@ -1441,14 +1437,13 @@ namespace MeiZhouHeiBao_3993
                 PagPresentationDefaults.DisplayScale,
                 useGpuSyncGroup: false,
                 callbacks: new PagPlayCallbacks(
-                    onFinished: () =>
-                    {
-                        pagFade?.StopWithDefaults();
-                        finished = true;
-                    },
-                    onFailed: () => finished = true,
-                    stopAfterFinished: true)));
-
+                onFinished: () =>
+                {
+                    pagFade?.StopWithDefaults();
+                },
+                onFailed: () => finished = true,
+                stopAfterFinished: true)));
+            finished = true;
             if (!started) yield break;
             yield return new WaitUntil(() => finished);
         }
@@ -2029,7 +2024,6 @@ namespace MeiZhouHeiBao_3993
             return dot > 0 ? file.Substring(0, dot) : file;
         }
         #endregion
-
 
         #region NPC
         /// <summary>在普通 NPC 与大奖 NPC 预制体之间切换并重新挂到 anchorNpc。</summary>
