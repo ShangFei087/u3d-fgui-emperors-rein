@@ -41,7 +41,7 @@ namespace HuoYanGongNiu_3995
 
 
         /// <summary> 通过图标索引，获取图标真实编号 </summary>
-        public List<int> symbolNumber => new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+        public List<int> symbolNumber => new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 22, 33};
 
         /// <summary> 所有图标个数 </summary>
         public int symbolCount => symbolNumber.Count;

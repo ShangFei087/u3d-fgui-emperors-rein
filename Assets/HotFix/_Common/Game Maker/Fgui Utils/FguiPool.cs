@@ -52,8 +52,12 @@ public class FguiPool : MonoBehaviour
         item.displayObject.gameObject.GetOrAddComponent<GOUseMark>().ToUse();
         //item.displayObject.gameObject.SetActive(true);
 
-        item.data += TagVal;  
-
+        string tag = TagVal;
+        string dataStr = item.data as string;
+        if (string.IsNullOrEmpty(dataStr))
+            item.data = tag;
+        else if (dataStr.IndexOf(tag, StringComparison.Ordinal) < 0)
+            item.data = dataStr + tag;
 
         return item;
     }

@@ -46,6 +46,7 @@ namespace XingYunZhiLun_3998
         private float extralyAngle = 9f;  //因为转盘分区角度不同，可能需要额外补充一些角度
 
         private int wheelIndex;
+        private TimerCallback _closeTimer;
 
         private readonly string[] animStartNames = { "01_start", "02_start", "03_start" };
         private readonly string[] animEndNames = { "01_end", "02_end", "03_end" };
@@ -567,13 +568,14 @@ namespace XingYunZhiLun_3998
                     break;
             }
 
-            Timers.inst.Add(1, 1, (object obj) =>
+            _closeTimer = (object obj) =>
             {
                 EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.WheelBgm));
                 spinButton.visible = true;
                 PlayEffectAnim(idels[wheelBgIndex]);
                 PlayEffectAnim(stages[wheelBgIndex]);
-            });
+            };
+            Timers.inst.Add(1, 1, _closeTimer);
         }
 
         private void PlayEFX()

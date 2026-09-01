@@ -205,16 +205,16 @@
     <image id="pcvkfr" name="fg_num_7.png" path="/fonts/fontImage/freeSpinResult/" exported="true"/>
     <image id="pcvkfs" name="fg_num_8.png" path="/fonts/fontImage/freeSpinResult/" exported="true"/>
     <image id="pcvkft" name="fg_num_9.png" path="/fonts/fontImage/freeSpinResult/" exported="true"/>
-    <image id="pcvkfu" name="fg_num_pop_0.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="pcvkfv" name="fg_num_pop_1.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="pcvkfw" name="fg_num_pop_2.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="pcvkfx" name="fg_num_pop_3.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="pcvkfy" name="fg_num_pop_4.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="pcvkfz" name="fg_num_pop_5.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="pcvkg0" name="fg_num_pop_6.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="pcvkg1" name="fg_num_pop_7.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="pcvkg2" name="fg_num_pop_8.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
-    <image id="pcvkg3" name="fg_num_pop_9.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true"/>
+    <image id="pcvkfu" name="fg_num_pop_0.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true" atlas="7"/>
+    <image id="pcvkfv" name="fg_num_pop_1.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true" atlas="7"/>
+    <image id="pcvkfw" name="fg_num_pop_2.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true" atlas="7"/>
+    <image id="pcvkfx" name="fg_num_pop_3.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true" atlas="7"/>
+    <image id="pcvkfy" name="fg_num_pop_4.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true" atlas="7"/>
+    <image id="pcvkfz" name="fg_num_pop_5.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true" atlas="7"/>
+    <image id="pcvkg0" name="fg_num_pop_6.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true" atlas="7"/>
+    <image id="pcvkg1" name="fg_num_pop_7.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true" atlas="7"/>
+    <image id="pcvkg2" name="fg_num_pop_8.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true" atlas="7"/>
+    <image id="pcvkg3" name="fg_num_pop_9.png" path="/fonts/fontImage/jackpotSpinTrigger/" exported="true" atlas="7"/>
     <image id="pcvkg4" name="fg_img_doubling_03.png" path="/images/freeGame/" exported="true"/>
     <image id="pcvkg5" name="ng_num_sym3_0.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>
     <image id="pcvkg6" name="ng_num_sym3_kil.png" path="/fonts/fontImage/bigWinImage/" exported="true"/>

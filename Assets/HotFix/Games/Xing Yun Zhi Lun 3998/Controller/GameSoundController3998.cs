@@ -14,10 +14,12 @@ namespace XingYunZhiLun_3998
         public const string BgmFreeSpinGame = "3998_BgmFreeSpinGame";
         /// <summary> 彩金小游戏局内循环 BGM </summary>
         public const string BgmBonusGame = "3998_BgmBonusGame";
-        /// <summary> 免费触发弹窗 BGM </summary>
+        /// <summary> 免费触发弹窗 </summary>
         public const string BgmFreeSpinTrigger = "3998_BgmFreeSpinTrigger";
-        /// <summary> 免费结算弹窗 BGM </summary>
-        public const string BgmFreeSpinResult = "3998_BgmFreeSpinResult";
+        /// <summary> 免费触发弹窗开始BGM </summary>
+        public const string BgmFreeSpinTriggerBGMStart = "3998_BgmFreeSpinTriggerBGMStart";
+        /// <summary> 免费触发弹窗结束BGM </summary>
+        public const string BgmFreeSpinTriggerBGMEnd = "3998_BgmFreeSpinTriggerBGMEnd";
         /// <summary> 彩金触发弹窗 BGM </summary>
         public const string BgmBonusTrigger = "3998_BgmBonusTrigger";
         /// <summary> 彩金结算弹窗 BGM </summary>
@@ -120,7 +122,7 @@ namespace XingYunZhiLun_3998
                     _scatterWinPlayedThisSpin = false;
                     _bonusWinPlayedThisSpin = false;
                     // 彩金小游戏（JS）用 BonusRolling，基础局用 NormalRolling
-                    if (ContentModel.Instance.isDrawWins || ContentModel.Instance.isJackpotWin)
+                    if (ContentModel.Instance.isInDrawGame)
                         GameSoundHelper.Instance.PlaySoundEff(SoundKey.JackpotSpin);
                     else
                         GameSoundHelper.Instance.PlaySoundEff(SoundKey.ReelRolling);
@@ -130,7 +132,7 @@ namespace XingYunZhiLun_3998
                     if (ContentModel.Instance.isFreeSpinTrigger)
                         TryPlayScatterWinSound();
                     // 触发彩金/Bonus 小游戏时 winList 往往不含 icon11 线奖（BonusBet 不进 IDVec），与 Scatter 同理在停轮后补播
-                    if (ContentModel.Instance.isDrawWins || ContentModel.Instance.isJackpotWin)
+                    if (!ContentModel.Instance.isInDrawGame && (ContentModel.Instance.isDrawWins || ContentModel.Instance.isJackpotWin))
                         TryPlayBonusWinSound();
 
                     //if (GameSoundHelper.Instance.IsPlaySound(SoundKey.FreeRollingBox)) GameSoundHelper.Instance.StopSound(SoundKey.FreeRollingBox);
@@ -181,8 +183,11 @@ namespace XingYunZhiLun_3998
                 case Game3998AudioEvent.BgmFreeSpinTrigger:
                     GameSoundHelper.Instance.PlayMusicSingle(SoundKey.FreeSpinTriggerBG);
                     break;
-                case Game3998AudioEvent.BgmFreeSpinResult:
-                    GameSoundHelper.Instance.PlayMusicSingle(SoundKey.FreeSpinResultBG);
+                case Game3998AudioEvent.BgmFreeSpinTriggerBGMStart:
+                    GameSoundHelper.Instance.PlayMusicSingle(SoundKey.FgBoarderInBGM);
+                    break;
+                case Game3998AudioEvent.BgmFreeSpinTriggerBGMEnd:
+                    GameSoundHelper.Instance.PlaySoundEff(SoundKey.FgBoarderInBGMEnding);
                     break;
                 case Game3998AudioEvent.WheelBgm:
                     GameSoundHelper.Instance.PlayMusicSingle(SoundKey.WheelBg);

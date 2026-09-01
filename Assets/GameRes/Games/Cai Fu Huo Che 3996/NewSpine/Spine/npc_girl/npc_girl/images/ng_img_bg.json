@@ -1,0 +1,11 @@
+{"bones":[{"name":"root"}],"slots":[
+{"name":"smile4","bone":"root","attachment":"smile4"},
+{"name":"smile3","bone":"root","attachment":"smile3"},
+{"name":"smile2","bone":"root","attachment":"smile2"},
+{"name":"smile1","bone":"root","attachment":"smile1"},
+],"skins":{"default":{
+"smile4":{"smile4":{"x":3170.5,"y":1669,"width":125,"height":88}},
+"smile3":{"smile3":{"x":3164.5,"y":1670,"width":51,"height":20}},
+"smile2":{"smile2":{"x":3163,"y":1666,"width":60,"height":30}},
+"smile1":{"smile1":{"x":3160.5,"y":1675.5,"width":61,"height":11}},
+}}, "animations": { "animation": {} }}

@@ -137,11 +137,6 @@ namespace CaiFuHuoChe_3996
                 result["JPTypeArray"] = new JSONArray();
                 for(int i = 0; i < 3; i++)
                 {
-                    if (data[pos] == 0)
-                    {
-                        pos++;
-                        continue;
-                    }
                     result["JPTypeArray"].Add(data[pos++]);
                 }
 
@@ -478,7 +473,7 @@ namespace CaiFuHuoChe_3996
                     if(resultType == (int)ResultType.RT_Jackpot)
                     {
                         ContentModel.Instance.jackpotSocre.Clear();
-                        for(int i = 0; i < res["JPTypeArray"].Count; i++)
+                        for(int i = 0; i < (int)res["JPCount"]; i++)
                         {
                             ContentModel.Instance.jackpotSocre[res["JPTypeArray"][i]] = res["JPBetArray"][i];
                         }

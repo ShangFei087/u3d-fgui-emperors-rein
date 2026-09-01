@@ -1,0 +1,14 @@
+fg_bg_decorate.png
+size:666,1059
+filter:Linear,Linear
+pma:true
+yun1_a
+bounds:1,1,371,286
+yun2_a
+bounds:1,288,770,350
+rotate:90
+yun3_a
+bounds:373,197,282,130
+yun4_a
+bounds:352,328,730,313
+rotate:90

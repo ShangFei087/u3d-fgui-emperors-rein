@@ -1,0 +1,19 @@
+{
+    "name": "ThemePack",
+    "rootNamespace": "",
+    "references": [
+        "GUID:58e7fe71f06a6454396855a838b1a4eb",
+        "GUID:163011d6f4741614bab65aeabc45b493"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

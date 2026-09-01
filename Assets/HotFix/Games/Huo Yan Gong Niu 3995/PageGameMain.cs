@@ -112,11 +112,11 @@ namespace HuoYanGongNiu_3995
 
         //加速框配置
         private GComponent anchorExpectation, ComReelEffect;
-        private GameObject goFreeReelEffcet;
+        private GameObject goFreeReelEffcetPre, goFreeReelEffcetObj;
 
         //免费游戏移动特效
         private GComponent anchorFreeStart, ComRewardEffect1, ComRewardEffect2, ComRewardEffect3;
-        private GameObject goRewardEffect, goCollection, goCollectionEff;
+        private GameObject goRewardEffectPre, goCollectionPre, goCollectionEff, goRewardEffectObj1, goRewardEffectObj2, goRewardEffectObj3, goCollectionObj, goCollectionEffObj;
         private Transform freeCollectEff;
 
 
@@ -145,6 +145,13 @@ namespace HuoYanGongNiu_3995
 
         //彩金游戏中的次数
         private GTextField jackpotTimes;
+
+        /// <summary>底部 Panel 是否已就绪（BottomPanelReady）。</summary>
+        private bool _isBottomPanelReady;
+        /// <summary>对象池 DoTask 是否已全部完成。</summary>
+        private bool _isPoolPreloadDone;
+        /// <summary>是否已向 PageManager 派发过 preLoadedCallback。</summary>
+        private bool _hasNotifiedPagePreloaded;
 
         //Pag播放
         private const string GamePagFolder = "Games/Huo Yan Gong Niu 3995/Pag/jp_huoshan_bmp";
@@ -300,7 +307,7 @@ namespace HuoYanGongNiu_3995
             "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Effect/FreeReelEffect.prefab",
             (GameObject clone) =>
             {
-                goFreeReelEffcet = clone;
+                goFreeReelEffcetPre = clone;
                 callback();
             });
 
@@ -308,7 +315,7 @@ namespace HuoYanGongNiu_3995
             "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/Effect/RewardEffect.prefab",
             (GameObject clone) =>
             {
-                goRewardEffect = clone;
+                goRewardEffectPre = clone;
                 callback();
             });
 
@@ -324,7 +331,7 @@ namespace HuoYanGongNiu_3995
                 "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PopupFreeGame/Collection.prefab",
                 (GameObject clone) =>
                 {
-                    goCollection = clone;
+                    goCollectionPre = clone;
                     callback();
                 });
 
@@ -508,8 +515,15 @@ namespace HuoYanGongNiu_3995
                 //落下后图标静止动画
                 fguiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 5);
                 fguiPoolHelper.PreLoad(TagPoolObject.SymbolAppear);
-
-                //fguiPoolHelper.Init(CustomModel.Instance.symbolHitEffect,CustomModel.Instance.symbolAppearEffect, null,CustomModel.Instance.borderEffect);
+                fguiPoolHelper.WhenIdle(() =>
+                {
+                    _isPoolPreloadDone = true;
+                    TryNotifyPagePreloaded();
+                });
+            }
+            else if (fguiPoolHelper == null)
+            {
+                _isPoolPreloadDone = true;
             }
 
 
@@ -587,25 +601,54 @@ namespace HuoYanGongNiu_3995
             // ---------- 7.预制体挂到 FGUI 锚点 ----------
 
             //加速框部分
-            if (ComReelEffect != null) ComReelEffect.Dispose();
+            if (ComReelEffect != null)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(ComReelEffect);
+                ComReelEffect.Dispose();
+                ComReelEffect = null;
+            }
             ComReelEffect = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            GameCommon.FguiUtils.DeleteWrapper(ComReelEffect);
-            GameCommon.FguiUtils.AddWrapper(ComReelEffect, GameObject.Instantiate(goFreeReelEffcet));
+            if(goFreeReelEffcetObj == null)
+            {
+                goFreeReelEffcetObj = GameObject.Instantiate(goFreeReelEffcetPre);
+            }
+            GameCommon.FguiUtils.AddWrapper(ComReelEffect, goFreeReelEffcetObj);
             ComReelEffect.visible = false;
             anchorExpectation = this.contentPane.GetChild("anchorReelEffect").asCom;
             anchorExpectation.AddChild(ComReelEffect);
             anchorExpectation.visible = true;
 
             //免费游戏中金牛时的移动特效部分
+            if(ComRewardEffect1 != null)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect1);
+                ComRewardEffect1.Dispose();
+                ComRewardEffect1 = null;
+            }
+            if(ComRewardEffect2 != null)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect2);
+                ComRewardEffect2.Dispose();
+                ComRewardEffect2 = null;
+            }
+            if(ComRewardEffect3 != null)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect3);
+                ComRewardEffect3.Dispose();
+                ComRewardEffect3 = null;
+            }
             ComRewardEffect1 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
             ComRewardEffect2 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
             ComRewardEffect3 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect1);
-            GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect2);
-            GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect3);
-            GameCommon.FguiUtils.AddWrapper(ComRewardEffect1, GameObject.Instantiate(goRewardEffect));
-            GameCommon.FguiUtils.AddWrapper(ComRewardEffect2, GameObject.Instantiate(goRewardEffect));
-            GameCommon.FguiUtils.AddWrapper(ComRewardEffect3, GameObject.Instantiate(goRewardEffect));
+            if(goRewardEffectObj1 == null && goRewardEffectObj2 == null && goRewardEffectObj3 == null)
+            {
+                goRewardEffectObj1 = GameObject.Instantiate(goRewardEffectPre);
+                goRewardEffectObj2 = GameObject.Instantiate(goRewardEffectPre);
+                goRewardEffectObj3 = GameObject.Instantiate(goRewardEffectPre);
+            }
+            GameCommon.FguiUtils.AddWrapper(ComRewardEffect1, goRewardEffectObj1);
+            GameCommon.FguiUtils.AddWrapper(ComRewardEffect2, goRewardEffectObj2);
+            GameCommon.FguiUtils.AddWrapper(ComRewardEffect3, goRewardEffectObj3);
             ComRewardEffect1.visible = false;
             ComRewardEffect2.visible = false;
             ComRewardEffect3.visible = false;
@@ -724,7 +767,7 @@ namespace HuoYanGongNiu_3995
             {
                 GameCommon.FguiUtils.DeleteWrapper(collectedTarget);
                 collectedTarget = loadCollectEff;
-                goCollectionEff = GameObject.Instantiate(goCollection);
+                goCollectionEff = GameObject.Instantiate(goCollectionPre);
                 freeCollectEff = goCollectionEff.transform.GetChild(0).GetChild(0);
                 GameCommon.FguiUtils.AddWrapper(collectedTarget, goCollectionEff);
             }
@@ -958,6 +1001,7 @@ namespace HuoYanGongNiu_3995
             // 游戏状态重置和旋转请求
             OnGameReset();
             ContentModel.Instance.gameState = GameState.Spin;
+            ContentModel.Instance.betNum = (int)MainModel.Instance.contentMD.totalBet;
             slotMachineCtrl.BeginTurn();
             playWin = false;
             bool isNext = false;
@@ -2468,7 +2512,7 @@ namespace HuoYanGongNiu_3995
 
                 if (targetIndex % 2 == 1)
                 {
-                    wheelOnceWin += CustomModel.Instance.wheelCredit[wheelSpinTimes - 1][targetIndex / 2];
+                    wheelOnceWin += CustomModel.Instance.wheelCredit[wheelSpinTimes - 1][targetIndex / 2] * ContentModel.Instance.betNum;
                     wheelWinCredit.text = wheelOnceWin.ToString();
                 }
                 if (targetIndex % 4 == 0)
@@ -2484,6 +2528,7 @@ namespace HuoYanGongNiu_3995
                 }
             };
 
+            InitWheelItem();
             wheelSpinTimes++;
             wheelSpinTimesTxt.text = wheelSpinTimes.ToString();
 
@@ -2501,7 +2546,7 @@ namespace HuoYanGongNiu_3995
 
             for(int i = 0; i < gTexts.Count; i++)
             {
-                gTexts[i].text = CustomModel.Instance.wheelCredit[(wheelSpinTimes)][i].ToString();
+                gTexts[i].text = (CustomModel.Instance.wheelCredit[(wheelSpinTimes)][i] * ContentModel.Instance.betNum).ToString();
             }
         }
 
@@ -2703,6 +2748,16 @@ namespace HuoYanGongNiu_3995
                 return;
 
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
+            _isBottomPanelReady = true;
+            TryNotifyPagePreloaded();
+        }
+
+        /// <summary>底部 Panel 与对象池均就绪后，才通知 Loading 本页预加载完成。</summary>
+        private void TryNotifyPagePreloaded()
+        {
+            if (!_isBottomPanelReady || !_isPoolPreloadDone) return;
+            if (_hasNotifiedPagePreloaded) return;
+            _hasNotifiedPagePreloaded = true;
             preLoadedCallback?.Invoke();
         }
 

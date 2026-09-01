@@ -130,9 +130,8 @@ public class MiniReelGroup
                 grm.InitParam(goReel);
                 grm.referenceCount--;
                 //DebugUtils.LogError($"{Time.unscaledTime}: MiniReel 动态删除: name ={name}-{guid}  {goReel.id}  -  {goReel.displayObject.id} - {goReel.displayObject.gameObject.name}");
-                //goReel.Dispose();
             }
-            glstOwnerReels.RemoveChildAt(glstOwnerReels.numChildren-1);
+            glstOwnerReels.RemoveChildAt(glstOwnerReels.numChildren - 1, true);
         }
 
         if (glstOwnerReels.numChildren < dataStr.Count)

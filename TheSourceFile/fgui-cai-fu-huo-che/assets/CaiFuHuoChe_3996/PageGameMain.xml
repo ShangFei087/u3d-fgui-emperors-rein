@@ -68,19 +68,19 @@
     <image id="n24_9mnq" name="n24" src="pcvkec" fileName="images/freeGame/fg_img_frame.png" xy="380,979" size="326,75" group="n69_pcvk">
       <relation target="n3_pjjx" sidePair="center-center,middle-middle"/>
     </image>
-    <image id="n25_9mnq" name="n25" src="pcvked" fileName="images/freeGame/fg_txt_01_free spins.png" xy="496,1015" pivot="0.5,0.5" anchor="true" size="164,36" group="n69_pcvk" aspect="true">
+    <image id="n25_9mnq" name="n25" src="pcvked" fileName="images/freeGame/fg_txt_01_free spins.png" xy="491,1015" pivot="0.5,0.5" anchor="true" size="172,42" group="n69_pcvk">
       <relation target="n24_9mnq" sidePair="center-center,middle-middle"/>
     </image>
-    <text id="n28_9mnq" name="freeRemainTimes" xy="580,989" size="49,52" group="n69_pcvk" font="ui://q8n13f0f9mnq2l" fontSize="18" align="right" vAlign="middle" leading="0" letterSpacing="-13" autoSize="none" text="12">
+    <text id="n28_9mnq" name="freeRemainTimes" xy="568,989" size="70,52" group="n69_pcvk" font="ui://q8n13f0f9mnq2l" fontSize="21" align="center" vAlign="middle" leading="0" letterSpacing="-16" autoSize="none" text="12">
       <relation target="n24_9mnq" sidePair="center-center,middle-middle"/>
     </text>
-    <text id="n29_9mnq" name="div" xy="618,995" size="32,46" group="n69_pcvk" font="ui://q8n13f0f9mnq2l" fontSize="18" align="center" vAlign="middle" leading="0" autoSize="none" text="/">
+    <text id="n29_9mnq" name="div" xy="617,993" size="34,45" group="n69_pcvk" font="ui://q8n13f0f9mnq2l" fontSize="18" align="center" vAlign="middle" leading="0" autoSize="none" text="/">
       <relation target="n24_9mnq" sidePair="center-center,middle-middle"/>
     </text>
-    <text id="n30_9mnq" name="freeTotalTimes" xy="636,989" size="48,52" group="n69_pcvk" font="ui://q8n13f0f9mnq2l" fontSize="18" vAlign="middle" leading="0" letterSpacing="-13" autoSize="none" text="12">
+    <text id="n30_9mnq" name="freeTotalTimes" xy="630,989" size="60,52" group="n69_pcvk" font="ui://q8n13f0f9mnq2l" fontSize="21" align="center" vAlign="middle" leading="0" letterSpacing="-16" autoSize="none" text="12">
       <relation target="n24_9mnq" sidePair="center-center,middle-middle"/>
     </text>
-    <image id="n54_ldad" name="n54" src="uqrcis" fileName="images/jackpotGame/sg_fs_txt_respin.png" xy="496,1015" pivot="0.5,0.5" anchor="true" size="164,36" group="n69_pcvk">
+    <image id="n54_ldad" name="n54" src="uqrcis" fileName="images/jackpotGame/sg_fs_txt_respin.png" xy="496,1015" pivot="0.5,0.5" anchor="true" size="168,43" group="n69_pcvk" aspect="true">
       <relation target="n24_9mnq" sidePair="center-center,middle-middle"/>
     </image>
     <component id="n48_iwtc" name="freeAddPoint" src="fkjsm" fileName="component/AnchorEffect.xml" xy="540,1015" size="1,1" group="n69_pcvk"/>
@@ -91,12 +91,12 @@
     <component id="n62_vxx6" name="jackpotAddPoint" src="fkjsm" fileName="component/AnchorEffect.xml" xy="360,642" group="n69_pcvk"/>
     <group id="n69_pcvk" name="n69" xy="100,642" size="781,412" group="n46_9mnq"/>
     <group id="n46_9mnq" name="freeGame" xy="-26,642" size="1137,412"/>
-    <component id="n55_ucv0" name="JpEffect" src="ucv05j" fileName="component/popupNormalGame/OpenDoor.xml" xy="540,700"/>
     <component id="n70_rz26" name="anchorMoneyBox" src="iilzcl" fileName="component/popupNormalGame/AnchorBox.xml" xy="360,642"/>
     <component id="n19_o8uc" name="mini" src="o8uc1h" fileName="moudules/JackpotMini.xml" xy="650,141" group="n13_o8uc"/>
     <component id="n18_o8uc" name="minor" src="o8uc1g" fileName="moudules/JackpotMinor.xml" xy="39,144" group="n13_o8uc"/>
     <component id="n16_o8uc" name="major" src="o8uc1f" fileName="moudules/JackpotMajor.xml" xy="340,15" group="n13_o8uc"/>
     <group id="n13_o8uc" name="jackpotTip" xy="39,15" size="1020,267"/>
+    <component id="n55_ucv0" name="JpEffect" src="ucv05j" fileName="component/popupNormalGame/OpenDoor.xml" xy="540,960"/>
     <component id="n63_vxx6" name="panel" src="fkjsl" fileName="component/popupNormalGame/AnchorPanelPush.xml" xy="540,960"/>
     <graph id="n64_znm9" name="mask" xy="0,0" size="1080,1920" visible="false" touchable="false" type="rect" lineSize="0" fillColor="#ff000000">
       <relation target="" sidePair="width-width,height-height"/>

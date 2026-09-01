@@ -18,11 +18,9 @@ MonoBehaviour:
   skeletonJSON: {fileID: 4900000, guid: 38917d8f0669ca448abecbee520288f8, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
-    requiresBlendModeMaterials: 1
-    applyAdditiveMaterial: 1
-    additiveMaterials:
-    - pageName: ng_sym11_GoldCoin.png
-      material: {fileID: 2100000, guid: 27df996831b59434d99de3cd00cb644d, type: 2}
+    requiresBlendModeMaterials: 0
+    applyAdditiveMaterial: 0
+    additiveMaterials: []
     multiplyMaterials: []
     screenMaterials: []
   skeletonDataModifiers: []
@@ -30,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 9100000, guid: c5c5b7d4a4905e94d8d779c770a8b140, type: 2}
+  controller: {fileID: 9100000, guid: 2eef49925773752438de3c3bebbb6980, type: 2}

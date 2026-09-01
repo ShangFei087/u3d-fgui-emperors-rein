@@ -819,8 +819,8 @@ namespace XingYunZhiLun_3998
         public new IEnumerator ReelsToStopOrTurnOnce(Action finishCallback)
         {
 
-            // EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_EVENT,
-            //    new EventData(SlotMachineEvent.SpinSlotMachine));
+             //EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_EVENT,
+             //   new EventData(SlotMachineEvent.SpinSlotMachine));
 
             int reelsCount = this.column;
 

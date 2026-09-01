@@ -14,17 +14,17 @@
     <text id="n37_qc7n" name="item3" xy="571,239" pivot="0.5,0.5" anchor="true" size="260,80" rotation="-180" font="ui://x2aorbwjxrp24h" fontSize="10" align="center" vAlign="middle" letterSpacing="-15" autoSize="none" text="999999"/>
     <loader id="n38_qc7n" name="item2" xy="563,63" pivot="0.5,0.5" anchor="true" size="179,147" rotation="-300" url="ui://x2aorbwjq4s812" align="center" vAlign="middle" autoSize="true"/>
     <text id="n39_qc7n" name="item1" xy="406,-51" pivot="0.5,0.5" anchor="true" size="260,80" rotation="120" font="ui://x2aorbwjxrp24h" fontSize="10" align="center" vAlign="middle" letterSpacing="-15" autoSize="none" text="999999"/>
-    <image id="n40_ey3y" name="n40" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="203,30"/>
-    <image id="n41_ey3y" name="n41" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="318,42" rotation="30"/>
-    <image id="n42_ey3y" name="n42" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="409,107" rotation="60"/>
-    <image id="n43_ey3y" name="n43" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="446,205" rotation="90"/>
-    <image id="n44_ey3y" name="n44" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="433,307" rotation="120"/>
-    <image id="n45_ey3y" name="n45" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="375,395" rotation="149"/>
-    <image id="n46_ey3y" name="n46" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="283,446" rotation="180"/>
-    <image id="n47_ey3y" name="n47" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="165,435" rotation="210"/>
-    <image id="n48_ey3y" name="n48" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="78,374" rotation="240"/>
-    <image id="n49_ey3y" name="n49" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="31,280" rotation="270"/>
-    <image id="n50_ey3y" name="n50" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="33,173" rotation="300"/>
-    <image id="n51_ey3y" name="n51" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="94,77" rotation="330"/>
+    <image id="n40_ey3y" name="n40" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="203,30" visible="false"/>
+    <image id="n41_ey3y" name="n41" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="318,42" visible="false" rotation="30"/>
+    <image id="n42_ey3y" name="n42" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="409,107" visible="false" rotation="60"/>
+    <image id="n43_ey3y" name="n43" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="446,205" visible="false" rotation="90"/>
+    <image id="n44_ey3y" name="n44" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="433,307" visible="false" rotation="120"/>
+    <image id="n45_ey3y" name="n45" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="375,395" visible="false" rotation="149"/>
+    <image id="n46_ey3y" name="n46" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="283,446" visible="false" rotation="180"/>
+    <image id="n47_ey3y" name="n47" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="165,435" visible="false" rotation="210"/>
+    <image id="n48_ey3y" name="n48" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="78,374" visible="false" rotation="240"/>
+    <image id="n49_ey3y" name="n49" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="31,280" visible="false" rotation="270"/>
+    <image id="n50_ey3y" name="n50" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="33,173" visible="false" rotation="300"/>
+    <image id="n51_ey3y" name="n51" src="ey3ya0" fileName="images/gameNormal/Wheel/ng_sym_Taurus.png" xy="94,77" visible="false" rotation="330"/>
   </displayList>
 </component>

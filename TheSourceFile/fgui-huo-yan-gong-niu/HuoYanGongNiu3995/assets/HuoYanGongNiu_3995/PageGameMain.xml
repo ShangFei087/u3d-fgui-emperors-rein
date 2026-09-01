@@ -25,14 +25,14 @@
     <text id="n152_zyvh" name="wheelWinCredit" xy="341,1242" pivot="0.5,0.5" anchor="true" size="372,94" font="ui://x2aorbwjxrp24h" fontSize="14" align="center" vAlign="middle" leading="0" letterSpacing="-14" autoSize="none" text="200"/>
     <text id="n153_zyvh" name="CollectedNums" xy="199,1374" pivot="0.5,0.5" anchor="true" size="162,230" font="ui://x2aorbwjxrp24h" fontSize="30" align="center" vAlign="middle" leading="0" letterSpacing="-14" autoSize="none" text="0"/>
     <component id="n79_bn1g" name="freeLedtBg" src="zyvhfby" fileName="component/gameNormal/freeLeftBg.xml" xy="0,277" group="n84_bn1g"/>
-    <text id="n82_bn1g" name="goldBullNums" xy="64,614" size="331,183" group="n84_bn1g" font="ui://x2aorbwjbn1g8k" fontSize="14" align="center" vAlign="middle" letterSpacing="-35" autoSize="none" text="10"/>
+    <text id="n82_bn1g" name="goldBullNums" xy="64,614" size="331,183" group="n84_bn1g" font="ui://x2aorbwjj7ma3l" fontSize="14" align="center" vAlign="middle" letterSpacing="-35" autoSize="none" text="10"/>
     <group id="n84_bn1g" name="freeLeft" xy="0,277" size="449,643" advanced="true"/>
     <component id="n85_bn1g" name="freeRightBg" src="zyvhfbv" fileName="component/gameNormal/FreeRightBg.xml" xy="432,307" group="n86_bn1g"/>
-    <text id="n89_bn1g" name="collectNum" xy="776,372" size="105,91" group="n86_bn1g" font="ui://x2aorbwjbn1g92" fontSize="14" align="center" vAlign="middle" autoSize="none" text="2"/>
+    <text id="n89_bn1g" name="collectNum" xy="776,372" size="105,104" group="n86_bn1g" font="ui://x2aorbwjj7ma3l" fontSize="7" align="center" vAlign="middle" leading="0" autoSize="none" text="2"/>
     <component id="n92_bn1g" name="anchorDeer" src="bn1g93" fileName="component/gameFreeGame/AnchorDeer.xml" xy="938,423" group="n86_bn1g" scale="0.75,0.75"/>
-    <component id="n93_bn1g" name="anchorWolf" src="bn1g94" fileName="component/gameFreeGame/AnchorWolf.xml" xy="940,558" group="n86_bn1g" scale="0.75,0.75"/>
-    <component id="n95_bn1g" name="anchorLeopard" src="bn1g96" fileName="component/gameFreeGame/AnchorLeopard.xml" xy="940,694" group="n86_bn1g" scale="0.75,0.75"/>
-    <component id="n94_bn1g" name="anchorEagle" src="bn1g95" fileName="component/gameFreeGame/AnchorEagle.xml" xy="940,818" group="n86_bn1g" scale="0.75,0.75"/>
+    <component id="n93_bn1g" name="anchorWolf" src="bn1g94" fileName="component/gameFreeGame/AnchorWolf.xml" xy="940,548" group="n86_bn1g" scale="0.75,0.75"/>
+    <component id="n95_bn1g" name="anchorLeopard" src="bn1g96" fileName="component/gameFreeGame/AnchorLeopard.xml" xy="940,675" group="n86_bn1g" scale="0.75,0.75"/>
+    <component id="n94_bn1g" name="anchorEagle" src="bn1g95" fileName="component/gameFreeGame/AnchorEagle.xml" xy="940,799" group="n86_bn1g" scale="0.75,0.75"/>
     <component id="n96_md44" name="targetIcon" src="md4497" fileName="component/gameFreeGame/AnchorTargetIcon.xml" xy="674,639" group="n86_bn1g" scale="0.95,0.95"/>
     <group id="n86_bn1g" name="freeRight" xy="432,307" size="657,679" advanced="true"/>
     <component id="n69_k1q0" name="jackpotTip" src="zyvhfbt" fileName="component/gameNormal/JackpotTip.xml" xy="0,40"/>

@@ -26,6 +26,8 @@ namespace CaiFuHuoChe_3996
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
         private TimerCallback _autoModeSimulatedClick;
 
+        private Action callback;
+
 
         //Pag播放
         private const string GamePagFolder = "Games/Cai Fu Huo Che 3996/Pag";
@@ -87,8 +89,6 @@ namespace CaiFuHuoChe_3996
 
         public override void OnClose(EventData data = null)
         {
-            OutJackpot_bmp?.Dispose();
-            OutJackpot_bmp = null;
             StopAll();
             base.OnClose(data);
         }
@@ -134,6 +134,14 @@ namespace CaiFuHuoChe_3996
                 if (args != null)
                 {
                     winCredit.text = args["winCredit"].ToString();
+                    if (args.ContainsKey("Callback"))
+                    {
+                        callback = args["Callback"] as Action;
+                    }
+                    else 
+                    {
+                        callback = null;
+                    }
                 }
             }
 
@@ -199,22 +207,28 @@ namespace CaiFuHuoChe_3996
                     stopAfterFinished: true));
                     AddTimer(7.4f, (object obj) =>
                     {
+                        OutJackpot_bmp.StopWithDefaults();
                         CloseSelf(null);
                     });
                 }
+            });
+
+            AddTimer(3f, (object obj) =>
+            {
+                callback?.Invoke();
             });
         }
 
         private void AddTimer(float delaySeconds, TimerCallback onComplete)
         {
-            // 保存定时器回调引用
-            _activeTimers.Add(onComplete);
-            // 添加定时器，延迟后执行回调，并在执行后从列表中移除
-            Timers.inst.Add(delaySeconds, 1, (obj) =>
+            TimerCallback wrapper = null;
+            wrapper = (obj) =>
             {
                 onComplete?.Invoke(obj);
-                _activeTimers.Remove(onComplete);
-            });
+                _activeTimers.Remove(wrapper);
+            };
+            _activeTimers.Add(wrapper);
+            Timers.inst.Add(delaySeconds, 1, wrapper);
         }
 
         // 终止所有后续步骤（条件不满足时调用）
