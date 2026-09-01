@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="195,543">
+<component size="192,546">
   <displayList>
-    <component id="n0_pbvu" name="symbol0" src="pbvu2h" fileName="moudules/pageGameMain/slotMachine/Symbol.xml" xy="0,-362"/>
-    <component id="n1_pbvu" name="symbol1" src="pbvu2h" fileName="moudules/pageGameMain/slotMachine/Symbol.xml" xy="0,-181"/>
+    <component id="n0_pbvu" name="symbol0" src="pbvu2h" fileName="moudules/pageGameMain/slotMachine/Symbol.xml" xy="0,-364"/>
+    <component id="n1_pbvu" name="symbol1" src="pbvu2h" fileName="moudules/pageGameMain/slotMachine/Symbol.xml" xy="0,-182"/>
     <component id="n2_pbvu" name="symbol2" src="pbvu2h" fileName="moudules/pageGameMain/slotMachine/Symbol.xml" xy="0,0"/>
-    <component id="n3_pbvu" name="symbol3" src="pbvu2h" fileName="moudules/pageGameMain/slotMachine/Symbol.xml" xy="0,181"/>
-    <component id="n4_pbvu" name="symbol4" src="pbvu2h" fileName="moudules/pageGameMain/slotMachine/Symbol.xml" xy="0,362"/>
-    <component id="n5_pbvu" name="symbol5" src="pbvu2h" fileName="moudules/pageGameMain/slotMachine/Symbol.xml" xy="0,543"/>
-    <component id="n6_pbvu" name="symbol6" src="pbvu2h" fileName="moudules/pageGameMain/slotMachine/Symbol.xml" xy="0,724"/>
-    <component id="n7_lyfo" name="symbol7" src="pbvu2h" fileName="moudules/pageGameMain/slotMachine/Symbol.xml" xy="0,905"/>
+    <component id="n3_pbvu" name="symbol3" src="pbvu2h" fileName="moudules/pageGameMain/slotMachine/Symbol.xml" xy="0,182"/>
+    <component id="n4_pbvu" name="symbol4" src="pbvu2h" fileName="moudules/pageGameMain/slotMachine/Symbol.xml" xy="0,364"/>
+    <component id="n5_pbvu" name="symbol5" src="pbvu2h" fileName="moudules/pageGameMain/slotMachine/Symbol.xml" xy="0,546"/>
+    <component id="n6_pbvu" name="symbol6" src="pbvu2h" fileName="moudules/pageGameMain/slotMachine/Symbol.xml" xy="0,728"/>
+    <component id="n7_lyfo" name="symbol7" src="pbvu2h" fileName="moudules/pageGameMain/slotMachine/Symbol.xml" xy="0,910"/>
   </displayList>
 </component>

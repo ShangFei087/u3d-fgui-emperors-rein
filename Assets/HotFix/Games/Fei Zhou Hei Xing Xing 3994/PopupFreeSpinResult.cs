@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using HotFix.Games.Fei_Zhou_Hei_Xing_Xing_3994.Custom;
 using SlotMaker;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,11 @@ namespace FeiZhouHeiXingXing_3994
 
         private TimerCallback
             _delayCloseCallback, _delayChangePageCallback, _delayPlayFadeCallback; // 延时关闭回调 延时切换界面 延时播放过渡动画回调
+
+        private TimerCallback _autoClickCallback;
+
+        /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
+        private I18nLang _boundLang;
 
         protected override void OnInit()
         {
@@ -101,11 +107,13 @@ namespace FeiZhouHeiXingXing_3994
 
             // 绑定Spine
             GComponent currentCom = contentPane.GetChild("anchorResult").asCom;
-            if (currentCom != _compareTrigger)
+            if (currentCom != _compareTrigger || _boundLang != PopupLang3994.CurrentLang)
             {
                 GameCommon.FguiUtils.DeleteWrapper(_compareTrigger);
                 _compareTrigger = currentCom;
                 _cloneTriggerObj = Object.Instantiate(_triggerObj);
+                PopupLang3994.Apply(_cloneTriggerObj);
+                _boundLang = PopupLang3994.CurrentLang;
                 _triggerAnimator = _cloneTriggerObj.GetComponentInChildren<Animator>();
                 GameCommon.FguiUtils.AddWrapper(currentCom, _cloneTriggerObj);
             }
@@ -121,14 +129,15 @@ namespace FeiZhouHeiXingXing_3994
             }
 
             // 将UI挂载在Spine动画上
+            GameObject fatherObj = _cloneTriggerObj.transform.GetChild(0).gameObject;
             string path = "Spine Mecanim GameObject (fg_bor_congrats)/SkeletonUtility-SkeletonRoot/root/sx/";
-            Transform father = _cloneTriggerObj.transform.Find(path + "start");
+            Transform father = fatherObj.transform.Find(path + "start");
             _collectBtnTran.SetParent(father, false);
             _collectBtnTran.localPosition = new Vector3(0.98f, 2.03f, 0.01f);
             _collectBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             _collectBtnTran.localRotation = Quaternion.Euler(0, 0, -90);
 
-            father = _cloneTriggerObj.transform.Find(path + "free/kuang/number");
+            father = fatherObj.transform.Find(path + "free/kuang/number");
             _scoreTran.SetParent(father, false);
             _scoreTran.localPosition = new Vector3(0.58f, 4.17f, 0f);
             _scoreTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
@@ -137,6 +146,21 @@ namespace FeiZhouHeiXingXing_3994
             // 按钮点击事件
             _collectBtn.onClick.Clear();
             _collectBtn.onClick.Add(() => OnCloseBtn());
+
+            // 自动模式
+            if (TestManager.Instance.IsAutoModeRunning)
+            {
+                _autoClickCallback = (obj) =>
+                {
+                    if (_collectBtn != null && isOpen)
+                    {
+                        _collectBtn.onClick.Call();
+                    }
+
+                    _autoClickCallback = null;
+                };
+                Timers.inst.Add(3.0f, 1, _autoClickCallback);
+            }
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)

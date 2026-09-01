@@ -89,7 +89,7 @@ namespace HotFix.Games.Fei_Zhou_Hei_Xing_Xing_3994.Custom
     public class BonusReelController
     {
         private BonusReelState _reelState;
-        public readonly BonusGameSymbol ResultSymbol;
+        public BonusGameSymbol ResultSymbol;
         private readonly Transition _roll, _rollReset, _result, _resultReset;
         private readonly BonusGameSymbol[] _rollSymbols = new BonusGameSymbol[4];
         public BonusReelResultInfo ResultInfo = new BonusReelResultInfo();
@@ -157,6 +157,7 @@ namespace HotFix.Games.Fei_Zhou_Hei_Xing_Xing_3994.Custom
 
         private void SetWinResult()
         {
+            // _rollSymbols[3].IconLoader.url = "";
             if (ResultInfo.WinObj == null) return;
             _reelState = BonusReelState.Win;
             ResultSymbol.IconLoader.url = ResultInfo.IconPath;

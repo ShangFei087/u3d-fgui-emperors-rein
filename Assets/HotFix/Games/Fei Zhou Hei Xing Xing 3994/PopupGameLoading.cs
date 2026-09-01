@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using HotFix.Games.Fei_Zhou_Hei_Xing_Xing_3994.Custom;
 using System.Collections;
 using UnityEngine;
 
@@ -53,9 +54,7 @@ namespace FeiZhouHeiXingXing_3994
         private static readonly string[] PagPreloadFiles =
         {
             // bigWin pag
-            "PopupBigWin/bigWin.pag",
-            "PopupBigWin/superWin.pag",
-            "PopupBigWin/megaWin.pag",
+            "PopupBigWin/bigWin.pag", "PopupBigWin/superWin.pag", "PopupBigWin/megaWin.pag",
             // freeTrigger pag
             "PopupFreeSpinTrigger/fade.pag",
             // smallTrigger pag
@@ -126,7 +125,10 @@ namespace FeiZhouHeiXingXing_3994
                 _compareTitle = currentCom;
                 GameCommon.FguiUtils.AddWrapper(_compareTitle, _cloneTitleObj);
             }
-            
+
+            PopupLang3994.Apply(_cloneTitleObj);
+
+
             currentCom = contentPane.GetChild("anchorLeaves").asCom;
             if (currentCom != _compareLeaves)
             {
@@ -135,7 +137,7 @@ namespace FeiZhouHeiXingXing_3994
                 _compareLeaves = currentCom;
                 GameCommon.FguiUtils.AddWrapper(_compareLeaves, _cloneLeavesObj);
             }
-            
+
             currentCom = _loadingSlider.GetChild("grip").asCom.GetChild("anchorTail").asCom;
             if (currentCom != _compareTail)
             {
@@ -218,12 +220,9 @@ namespace FeiZhouHeiXingXing_3994
 
             PageName[] pages =
             {
-                PageName.FeiZhouHeiXingXingPageGameMain,
-                PageName.FeiZhouHeiXingXingPopupBigWin,
-                PageName.FeiZhouHeiXingXingPopupSmallGameJackpotWin, 
-                PageName.FeiZhouHeiXingXingPopupFreeSpinResult,
-                PageName.FeiZhouHeiXingXingPopupFreeSpinTrigger,
-                PageName.FeiZhouHeiXingXingPopupSmallGameResult,
+                PageName.FeiZhouHeiXingXingPageGameMain, PageName.FeiZhouHeiXingXingPopupBigWin,
+                PageName.FeiZhouHeiXingXingPopupSmallGameJackpotWin, PageName.FeiZhouHeiXingXingPopupFreeSpinResult,
+                PageName.FeiZhouHeiXingXingPopupFreeSpinTrigger, PageName.FeiZhouHeiXingXingPopupSmallGameResult,
                 PageName.FeiZhouHeiXingXingPopupSmallGameTrigger,
             };
 

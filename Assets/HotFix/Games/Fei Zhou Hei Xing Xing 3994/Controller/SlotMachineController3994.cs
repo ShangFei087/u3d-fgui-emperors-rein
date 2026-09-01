@@ -51,6 +51,28 @@ namespace FeiZhouHeiXingXing_3994
             bufferTop = 2; // 滚轴上方有几个图标
         }
 
+        /// <summary>
+        /// 免费游戏中，是否跳过指定列的中奖动画播放
+        /// </summary>
+        /// <remarks>
+        /// 规则：免费游戏中，如果中奖，且行索引为1（中间行）、列索引大于0中的元素等于9（Wild），
+        /// 则该列中的所有中奖元素不进行中奖动画的播放。
+        /// </remarks>
+        /// <param name="column">列索引（0基）</param>
+        /// <returns>true：该列不播放中奖动画</returns>
+        private bool IsSkipWinAnimInFreeSpin(int column)
+        {
+            if (!ContentModel.Instance.isFreeSpin)
+                return false;
+
+            if (column <= 0)
+                return false;
+
+            // 行索引为1（中间行）的位置是否为 Wild(9)
+            SymbolBase middleSymbol = GetVisibleSymbolFromDeck(column, 1);
+            return middleSymbol != null && middleSymbol.number == 9;
+        }
+
         public new IEnumerator ShowWinListAwayDuringIdle(List<SymbolWin> winList)
         {
             isIdleEffect = true;
@@ -91,7 +113,7 @@ namespace FeiZhouHeiXingXing_3994
             SkipWinLine(false);
         }
 
-        public IEnumerator ShowSymbolWinBySetting(SymbolWin symbolWin, bool isUseMySelfSymbolNumber,
+        private IEnumerator ShowSymbolWinBySetting(SymbolWin symbolWin, bool isUseMySelfSymbolNumber,
             SpinWinEvent eventType)
         {
             //停止特效显示
@@ -106,6 +128,10 @@ namespace FeiZhouHeiXingXing_3994
 
             foreach (Cell cel in symbolWin.cells)
             {
+                // 免费游戏中，如果中奖，且行索引为1（中间行）、列索引大于0中的元素等于9（Wild），则该列中的所有中奖元素不进行中奖动画的播放
+                if (IsSkipWinAnimInFreeSpin(cel.column))
+                    continue;
+
                 SymbolBase symbol = GetVisibleSymbolFromDeck(cel.column, cel.row);
 
                 int symbolNumber = isUseMySelfSymbolNumber ? symbol.number : symbolWin.symbolNumber;
@@ -433,6 +459,10 @@ namespace FeiZhouHeiXingXing_3994
 
             foreach (Cell cel in symbolWin.cells)
             {
+                // 免费游戏中，如果中奖，且行索引为1（中间行）、列索引大于0中的元素等于9（Wild），则该列中的所有中奖元素不进行中奖动画的播放
+                if (IsSkipWinAnimInFreeSpin(cel.column))
+                    continue;
+
                 SymbolBase symble = GetVisibleSymbolFromDeck(cel.column, cel.row);
 
                 int symbolNumber = isUseMySelfSymbolNumber ? symble.number : symbolWin.symbolNumber;
@@ -477,5 +507,27 @@ namespace FeiZhouHeiXingXing_3994
         }
 
         #endregion
+        
+        /// <summary>
+        /// 免费游戏中，计算图标转换遮罩
+        /// </summary>
+        /// <param name="colIndex"></param>
+        /// <param name="rowIndex"></param>
+        /// <param name="toNode"></param>
+        /// <returns></returns>
+        public Vector2 FreeGameSymbolCenterToNodeLocalPos(int colIndex, int rowIndex, GComponent toNode)
+        {
+            // 左上角为0,0
+
+            float centerlocalPosX = colIndex * CustomModel.Instance.symbolWidth + CustomModel.Instance.symbolWidth / 2;  // + gapX * colIndex
+            
+            float centerlocalPosY =  rowIndex * CustomModel.Instance.symbolHeight + CustomModel.Instance.symbolHeight / 2;  // + gapY * rowIndex
+            
+            Vector2 worldPos = goReels.LocalToGlobal(new Vector2(centerlocalPosX, centerlocalPosY));
+            
+            Vector2  localPos = toNode.GlobalToLocal(worldPos);
+            
+            return new Vector2(localPos.x - goReels.pivotX * goReels.width, localPos.y - goReels.pivotY * goReels.height);
+        }
     }
 }

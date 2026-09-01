@@ -8,8 +8,8 @@ namespace FeiZhouHeiXingXing_3994
     {
         public int row => 3;
         public int column => 5;
-        public float symbolWidth => 195;
-        public float symbolHeight => 181;
+        public float symbolWidth => 192;
+        public float symbolHeight => 182;
         public int symbolCount => symbolNumber.Count;
         public float reelMaxOffsetY => symbolHeight * row;
         

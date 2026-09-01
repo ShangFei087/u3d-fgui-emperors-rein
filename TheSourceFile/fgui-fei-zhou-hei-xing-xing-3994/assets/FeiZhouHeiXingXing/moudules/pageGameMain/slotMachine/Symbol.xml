@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="195,181">
+<component size="192,182">
   <displayList>
-    <component id="n0_pbvu" name="animator" src="pbvu2f" fileName="moudules/pageGameMain/slotMachine/SymbolAnimator.xml" xy="0,0"/>
+    <component id="n0_pbvu" name="animator" src="pbvu2f" fileName="moudules/pageGameMain/slotMachine/SymbolAnimator.xml" xy="96,91" pivot="0.5,0.5" anchor="true"/>
   </displayList>
 </component>

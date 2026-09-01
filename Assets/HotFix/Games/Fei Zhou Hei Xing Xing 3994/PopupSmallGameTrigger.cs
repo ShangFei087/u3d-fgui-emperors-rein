@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using HotFix.Games.Fei_Zhou_Hei_Xing_Xing_3994.Custom;
 using SlotMaker;
 using System;
 using System.Collections.Generic;
@@ -37,9 +38,14 @@ namespace FeiZhouHeiXingXing_3994
         private PagSlotBinding _fadePag;
         private readonly string _fade1920 = "PopupSmallGameTrigger/fade.pag";
 
-        private TimerCallback _delayCloseCallback, _delayPlayPagCallback; // 延时关闭回调   延时播放Pag回调
+        private TimerCallback _delayCloseCallback, _delayPlayPagCallback, _changePageCallback; // 延时关闭回调   延时播放Pag回调
 
         private Action _changePage; // 切换游戏界面的回调
+
+        private TimerCallback _autoClickCallback;
+
+        /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
+        private I18nLang _boundLang;
 
         protected override void OnInit()
         {
@@ -92,11 +98,13 @@ namespace FeiZhouHeiXingXing_3994
 
             // 绑定Spine
             GComponent currentCom = contentPane.GetChild("anchorTrigger").asCom;
-            if (currentCom != _compareTrigger)
+            if (currentCom != _compareTrigger || _boundLang != PopupLang3994.CurrentLang)
             {
                 GameCommon.FguiUtils.DeleteWrapper(_compareTrigger);
                 _compareTrigger = currentCom;
                 _cloneTriggerObj = Object.Instantiate(_triggerObj);
+                PopupLang3994.Apply(_cloneTriggerObj);
+                _boundLang = PopupLang3994.CurrentLang;
                 _triggerAnimator = _cloneTriggerObj.GetComponentInChildren<Animator>();
                 GameCommon.FguiUtils.AddWrapper(currentCom, _cloneTriggerObj);
             }
@@ -107,8 +115,9 @@ namespace FeiZhouHeiXingXing_3994
             _fadePag.EnsureSlot(_fadeCom);
 
             // 将UI挂载在Spine动画上
+            GameObject fatherObj = _cloneTriggerObj.transform.GetChild(0).gameObject;
             string path = "Spine Mecanim GameObject (sg_bor_congrats)/SkeletonUtility-SkeletonRoot/root/st1/";
-            Transform father = _cloneTriggerObj.transform.Find(path + "start");
+            Transform father = fatherObj.transform.Find(path + "start");
             _startBtnTran.SetParent(father, false);
             _startBtnTran.localPosition = new Vector3(0.98f, 2.03f, 0.01f);
             _startBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
@@ -117,6 +126,20 @@ namespace FeiZhouHeiXingXing_3994
             // 按钮点击事件
             _startBtn.onClick.Clear();
             _startBtn.onClick.Add(() => OnCloseBtn());
+
+            if (TestManager.Instance.IsAutoModeRunning)
+            {
+                _autoClickCallback = (obj) =>
+                {
+                    if (_startBtn != null && isOpen)
+                    {
+                        _startBtn.onClick.Call();
+                    }
+
+                    _autoClickCallback = null;
+                };
+                Timers.inst.Add(3.0f, 1, _autoClickCallback);
+            }
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
@@ -174,8 +197,10 @@ namespace FeiZhouHeiXingXing_3994
             // 清除回调
             RemoveDesignCallBack(_delayCloseCallback);
             RemoveDesignCallBack(_delayPlayPagCallback);
+            RemoveDesignCallBack(_changePageCallback);
             _delayCloseCallback = null;
             _delayPlayPagCallback = null;
+            _changePageCallback = null;
 
             // 播放动画
             _startBtn.visible = false;
@@ -185,8 +210,12 @@ namespace FeiZhouHeiXingXing_3994
             _delayPlayPagCallback = CreateDelayCallback(() =>
             {
                 PlayDesignPag(_fadePag, _fade1920, 1);
-                _changePage?.Invoke();
             }, 0.5f);
+
+            _changePageCallback = CreateDelayCallback(() =>
+            {
+                _changePage?.Invoke();
+            }, 2f);
 
             // 播放Pag视频之后关闭界面
             _delayCloseCallback = CreateDelayCallback(() =>
@@ -194,7 +223,7 @@ namespace FeiZhouHeiXingXing_3994
                 if (isOpen) CloseSelf(null);
                 _startBtn.visible = true;
                 _changePage = null;
-            }, 3.5f);
+            }, 4.58f);
         }
 
         /// <summary>播放指定Pag文件</summary>
