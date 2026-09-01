@@ -3,7 +3,7 @@
   <displayList>
     <image id="n85_bn1g" name="n85" src="bn1g8n" fileName="images/gameFree/gameFreeRight/fg_Measuring instrument_Right_frame.png" xy="0,0"/>
     <image id="n88_bn1g" name="n88" src="bn1g8m" fileName="images/gameFree/gameFreeRight/fg_Measuring instrument_Right_collect.png" xy="64,68" scale="0.75,0.8"/>
-    <image id="n90_bn1g" name="n90" src="bn1g8r" fileName="images/gameFree/gameFreeRight/fg_sym_Taurus.png" xy="56,153" scale="0.32,0.32"/>
+    <image id="n90_bn1g" name="n90" src="bn1g8r" fileName="images/gameFree/gameFreeRight/fg_sym_Taurus.png" xy="64,143"/>
     <image id="n91_bn1g" name="n91" src="bn1g8p" fileName="images/gameFree/gameFreeRight/fg_Measuring instrument_Right_too-change-all.png" xy="153,185" size="288,52"/>
     <image id="n97_md44" name="n97" src="bn1g8o" fileName="images/gameFree/gameFreeRight/fg_Measuring instrument_Right_T0.png" xy="109,450"/>
     <image id="n98_md44" name="n98" src="q4s825" fileName="images/Symbols/ng_sym_Bull.png" xy="223,419" size="260,260" scale="0.6,0.6"/>

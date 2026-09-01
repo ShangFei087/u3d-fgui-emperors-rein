@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="780,1254">
+<component size="878,1345">
   <displayList>
-    <loader id="n10_s82q" name="n0" xy="0,0" size="780,1254" align="center" vAlign="middle"/>
+    <loader id="n10_s82q" name="n0" xy="0,0" size="878,1345" url="ui://x2aorbwjqhif9u" align="center" vAlign="middle" autoSize="true"/>
   </displayList>
 </component>

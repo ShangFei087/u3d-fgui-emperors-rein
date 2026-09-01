@@ -103,18 +103,8 @@
     <font id="xrp24h" name="CreditsWonFonts.fnt" path="/fonts/font/CreditsWonNums/" exported="true"/>
     <font id="xrp24s" name="FreeTimeNum.fnt" path="/fonts/font/FreeTimeNum/" exported="true"/>
     <component id="xrp24t" name="PopupFreeSpinTrigger.xml" path="/" exported="true"/>
-    <image id="xrp24u" name="fg_congratulations!.png" path="/images/gameFreeTrigger/"/>
-    <image id="xrp24v" name="fg_dark.png" path="/images/gameFreeTrigger/"/>
-    <image id="xrp24w" name="fg_FREE-GAMES.png" path="/images/gameFreeTrigger/"/>
-    <image id="xrp24x" name="fg_num_8.png" path="/images/gameFreeTrigger/"/>
-    <image id="xrp24y" name="fg_num_15.png" path="/images/gameFreeTrigger/"/>
-    <image id="xrp24z" name="fg_num_20.png" path="/images/gameFreeTrigger/"/>
-    <image id="xrp250" name="fg_sca0000.png" path="/images/gameFreeTrigger/"/>
-    <image id="xrp251" name="fg_shadow.png" path="/images/gameFreeTrigger/"/>
     <image id="xrp252" name="fg_start.png" path="/images/gameFreeTrigger/"/>
     <image id="xrp253" name="fg_start_dark.png" path="/images/gameFreeTrigger/"/>
-    <image id="xrp254" name="fg_sym_free_game_tips.png" path="/images/gameFreeTrigger/"/>
-    <image id="xrp255" name="fg_YOU---WON.png" path="/images/gameFreeTrigger/"/>
     <component id="xrp256" name="AnchorFreeTigger.xml" path="/component/gameFreeGame/" exported="true"/>
     <component id="xrp257" name="FreeTriggerBtn.xml" path="/component/gameFreeGame/" exported="true"/>
     <component id="xrp25b" name="PopupFreeSpinExit.xml" path="/" exported="true"/>
@@ -132,13 +122,6 @@
     <font id="u9rq5n" name="FreeExitNumsFont.fnt" path="/fonts/font/gameFreeExitNums/" exported="true"/>
     <image id="u9rq5p" name="fg_Settlement box_collect.png" path="/images/gameFreeExit/"/>
     <image id="u9rq5q" name="fg_Settlement box_collect_dark.png" path="/images/gameFreeExit/"/>
-    <image id="u9rq5r" name="fg_Settlement box_congratulations!.png" path="/images/gameFreeExit/"/>
-    <image id="u9rq5s" name="fg_Settlement box_dark.png" path="/images/gameFreeExit/"/>
-    <image id="u9rq5t" name="fg_Settlement box_frame.png" path="/images/gameFreeExit/"/>
-    <image id="u9rq5u" name="fg_Settlement box_sca0000.png" path="/images/gameFreeExit/"/>
-    <image id="u9rq5v" name="fg_Settlement box_shadow.png" path="/images/gameFreeExit/"/>
-    <image id="u9rq5y" name="fg_Settlement box_YOU---WON-!.png" path="/images/gameFreeExit/"/>
-    <image id="u9rq5z" name="参考.png" path="/images/gameFreeExit/"/>
     <component id="u9rq60" name="FreeExitBtn.xml" path="/component/gameFreeGame/" exported="true"/>
     <component id="qc7n61" name="OneGoldBull.xml" path="/moudules/wheelitem/" exported="true"/>
     <component id="qc7n62" name="TwoGoldBull.xml" path="/moudules/wheelitem/" exported="true"/>
@@ -229,7 +212,6 @@
     <image id="ey3ya3" name="ng_ic_SPIN.png" path="/images/gameNormal/Wheel/"/>
     <image id="ey3ya4" name="ng_ic_Turntable_base_frame.png" path="/images/gameNormal/Wheel/"/>
     <image id="ey3ya8" name="ng_bg.png" path="/images/gameLoading/"/>
-    <image id="ey3yaa" name="npc.png" path="/images/gameLoading/"/>
     <image id="ey3yab" name="ng_ic_Turntable_pointer.png" path="/images/gameNormal/Wheel/"/>
     <image id="lkobac" name="load_ic_Lava_Buffalo.png" path="/images/gameLoading/"/>
     <image id="lkobad" name="ng_Bottom.png" path="/images/gameNormal/Slot/" exported="true"/>
@@ -286,6 +268,18 @@
     <component id="zyvhfbv" name="FreeRightBg.xml" path="/component/gameNormal/" exported="true"/>
     <component id="zyvhfby" name="freeLeftBg.xml" path="/component/gameNormal/"/>
     <component id="zyvhfbz" name="Wheel.xml" path="/component/gameNormal/wheel/" exported="true"/>
+    <image id="qhiffc0" name="1.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="qhiffc1" name="2.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="qhiffc2" name="3.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="qhiffc3" name="4.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="qhiffc4" name="5.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="qhiffc5" name="6.png" path="/images/Panel/payTable/" exported="true"/>
+    <component id="qhif9u" name="Paytable6.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="qhiffc6" name="Paytable1.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="qhiffc7" name="Paytable2.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="qhiffc8" name="Paytable3.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="qhiffc9" name="Paytable4.xml" path="/moudules/payTable/" exported="true"/>
+    <component id="qhiffca" name="Paytable5.xml" path="/moudules/payTable/" exported="true"/>
   </resources>
   <publish name=""/>
 </packageDescription>
