@@ -386,6 +386,9 @@ namespace XingYunZhiLun_3998
         /// <summary> 游戏画廊中奖数据 </summary>
         public bool isDrawWins = false;
 
+        /// <summary> 游戏画廊中奖数据 </summary>
+        public bool isInDrawGame = false;
+
         /// <summary> 游戏画廊中奖金额 </summary>
         public int drawWinsCredits = 0;
 

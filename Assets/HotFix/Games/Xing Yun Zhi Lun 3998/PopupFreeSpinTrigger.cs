@@ -145,7 +145,8 @@ namespace XingYunZhiLun_3998
                 PlayEffectAnim(effectFreeGameTriggerBaodian);
             });
 
-            if (!isOpen) return;
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmFreeSpinTrigger));
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmFreeSpinTriggerBGMStart));
 
             if (ContentModel.Instance.isAuto)
             {
@@ -168,7 +169,7 @@ namespace XingYunZhiLun_3998
             isClose = true;
 
             PlayAnim("end");
-
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmFreeSpinTriggerBGMEnd));
             AddTimer(0.7f / Time.timeScale, (object obj) =>
             {
                 CloseSelf(new EventData<string>("Result", "i am here 1"));

@@ -1,7 +1,9 @@
 using FairyGUI;
 using GameMaker;
 using System;
+using System.Collections;
 using UnityEngine;
+using System.IO;
 
 namespace XingYunZhiLun_3998
 {
@@ -35,8 +37,29 @@ namespace XingYunZhiLun_3998
         /// <summary>从进入并行预加载起算，界面至少展示此时长（秒）；预加载更久则按实际结束。</summary>
         private const float MinLoadingDisplaySeconds = 5f;
 
+        /// <summary>开始并行预加载那一刻的时间戳。</summary>
         private float _preloadStartRealtime;
         private TimerCallback _pendingMinDisplayCallback;
+
+        /// <summary>Loading 阶段 PAG 预热协程；关页前须全部完成，异常关页时 Stop 清理。</summary>
+        private Coroutine _pagPreloadCoroutine;
+
+
+        /// <summary>Loading 预热： Pag </summary>
+        private int _pagPreloadTotal;
+        private int _pagPreloadCompleted;
+        private bool _pagPreloadFinished;
+        private const string GamePagFolder = "Games/Xing Yun Zhi Lun 3998/Pag";
+
+        private static readonly string[] PagPreloadFiles =
+        {
+            "grand_idle.pag",
+            "jp_fade_ng.pag",
+            "major_idle.pag",
+            "mini_idle.pag",
+            "minor_idle.pag",
+            "ng_fade_jp.pag",
+        };
 
         protected override void OnInit()
         {
@@ -139,10 +162,72 @@ namespace XingYunZhiLun_3998
             RefreshLoadingProgressVisual();
             PlayAnimSafe("start");
 
+            // 与 PageManager.PreloadPage 并行：利用 Loading 窗口预热 PAG 磁盘缓存与 composition
+            _pagPreloadTotal = PagPreloadFiles.Length;
+            _pagPreloadCompleted = 0;
+            _pagPreloadFinished = false;
+            StartPagPreloadInBackground();
+
             for (int i = 0; i < pages.Length; i++)
             {
                 PageManager.Instance.PreloadPage(pages[i], OnOnePreloadPageDone);
             }
+        }
+
+        // <summary>利用 Loading 窗口并行预热 PAG 磁盘缓存 + Java composition 解码。</summary>
+        private void StartPagPreloadInBackground()
+        {
+            if (_pagPreloadCoroutine != null && !_pagPreloadFinished)
+            {
+                return;
+            }
+
+            StopPagPreloadCoroutine();
+            PagBootstrap.EnsureReady();
+            _pagPreloadCoroutine = PagCallbackHub.Instance.RunCoroutine(PagPreloadCoroutine());
+        }
+
+        /// <summary>关闭 Loading 时中断 PAG 预热协程，避免 PagCallbackHub 上残留 RunCoroutine。</summary>
+        private void StopPagPreloadCoroutine()
+        {
+            if (_pagPreloadCoroutine == null)
+            {
+                return;
+            }
+
+            PagCallbackHub.Instance.StopRunCoroutine(_pagPreloadCoroutine);
+            _pagPreloadCoroutine = null;
+        }
+
+        /// <summary>
+        /// 预热 3997 核心 Pag + 3997Npc（共 40，LRU 上限 40）：
+        /// AB 解压到 PagCache + Java composition 解码，缩短进局后首次 Play 耗时。
+        /// </summary>
+        private IEnumerator PagPreloadCoroutine()
+        {
+            Debug.Log("[3998 Loading] PAG preload start");
+            yield return PagPathHelper.PreloadCompositionsCoroutine(
+                PagPreloadFiles,
+                GamePagFolder,
+                (done, total) =>
+                {
+                    _pagPreloadCompleted = done;
+                    _pagPreloadTotal = total;
+                    RefreshLoadingProgressVisual();
+                    string currentFile = done > 0 && done <= PagPreloadFiles.Length ? PagPreloadFiles[done - 1] : "?";
+                    string assetPath = $"Assets/GameRes/{GamePagFolder}/" + currentFile;
+                    bool isExist = File.Exists(assetPath);
+                    Debug.Log(
+                        $"[3998 Loading] PAG preload progress {done}/{total}, file={assetPath}, isExist={isExist}");
+                });
+            _pagPreloadFinished = true;
+            _pagPreloadCompleted = _pagPreloadTotal;
+            RefreshLoadingProgressVisual();
+            Debug.Log("[3998 Loading] PAG preload finished");
+            Debug.Log(
+                $"[3998 Loading] preload state pages={_preloadCompleted}/{_preloadTotal} pagDone={_pagPreloadFinished}");
+            TryFinishLoadingAfterPreloads();
+            _pagPreloadCoroutine = null;
         }
 
         private void OnOnePreloadPageDone()

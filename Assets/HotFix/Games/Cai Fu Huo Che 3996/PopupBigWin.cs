@@ -186,7 +186,10 @@ namespace CaiFuHuoChe_3996
                 }
                 else
                 {
-                    Timers.inst.Add(3.0f, WinIndex, sequenceCallback);
+                    // 泄漏：sequenceCallback 未加入 _timerCallbacks，ClearAllTimers 清不掉。
+                    Timers.inst.Add(3.0f / Time.timeScale, WinIndex, sequenceCallback);
+
+                    _timerCallbacks.Add(sequenceCallback);
                 }
 
 

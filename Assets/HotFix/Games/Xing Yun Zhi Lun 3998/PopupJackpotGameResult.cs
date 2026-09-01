@@ -24,13 +24,15 @@ namespace XingYunZhiLun_3998
         private bool isend;
         private EventData _data;
         private MiniReelGroup uiCreditCtrl = new MiniReelGroup();
-        private GComponent credit;
+        private GComponent credit, lodEffect;
         private GButton gbutton;
         private GLoader btnLoader;
 
+        private GameObject goEff, goAnchorSpineEff;
+
         //大奖动画预制体
         private GameObject goFgCloneGrand, goFgCloneMajor, goFgCloneMinor, goFgCloneMini, go;
-        private Animator animator;
+        private Animator spineAnimator, effAnimator;
         private bool isClose;
 
         Action jackpotAction;
@@ -51,7 +53,7 @@ namespace XingYunZhiLun_3998
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 4;
+            int count = 5;
             Action callback = () =>
             {
                 if (--count == 0)
@@ -92,6 +94,14 @@ namespace XingYunZhiLun_3998
                     goFgCloneMini = clone;
                     callback();
                 });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+            "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/PopupFreeSpinResult/FreeSpinResultEff.prefab",
+            (GameObject clone) =>
+            {
+                goAnchorSpineEff = clone;
+                callback();
+            });
 
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
@@ -140,14 +150,24 @@ namespace XingYunZhiLun_3998
 
             //ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
 
-            GComponent lodAnchorBG = this.contentPane.GetChild("effect").asCom;
+            GComponent lodAnchorBG = this.contentPane.GetChild("spine").asCom;
             if (goEffect != lodAnchorBG)
             {
                 GameCommon.FguiUtils.DeleteWrapper(goEffect);
                 go = GameObject.Instantiate(goFgCloneMini);
-                animator = go.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                spineAnimator = go.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
                 goEffect = lodAnchorBG;
                 GameCommon.FguiUtils.AddWrapper(goEffect, go);
+            }
+
+            GComponent lodAnchorEffect = contentPane.GetChild("effect").asCom;
+            if (lodEffect != lodAnchorEffect)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(lodEffect);
+                lodEffect = lodAnchorEffect;
+                goEff = GameObject.Instantiate(goAnchorSpineEff);
+                effAnimator = goEff.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                GameCommon.FguiUtils.AddWrapper(lodEffect, goEff);
             }
 
             ContentModel.Instance.btnSpinState = ContentModel.Instance.curBtnSpinState;
@@ -238,21 +258,18 @@ namespace XingYunZhiLun_3998
             }
 
             btnLoader.url = CustomModel.Instance.jackpotResultBtnUrl[jackpotType];
-            PlayAnim("start");
-            //effectPag.StopWithDefaults();
-            //effectPag.Play(new PagSequencePlay(
-            //            PagPlaySpecs.IntroLoop(effectName[jackpotType], effectName[jackpotType]),
-            //            PagPlayLayout.Center));
+            PlayAnim(spineAnimator, "start"); 
+            effAnimator.Play("bigwin");
         }
 
         private void AddWrapperEffect(GameObject goFgClone)
         {
-            GComponent lodAnchorBG = this.contentPane.GetChild("effect").asCom;
+            GComponent lodAnchorBG = this.contentPane.GetChild("spine").asCom;
             if (true)
             {
                 GameCommon.FguiUtils.DeleteWrapper(goEffect);
                 go = GameObject.Instantiate(goFgClone);
-                animator = go.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                spineAnimator = go.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
                 goEffect = lodAnchorBG;
                 ChangeParent(gbutton, go, "Anchor/Spine Mecanim GameObject (Lucky_jp_pop_Jackpot)/SkeletonUtility-SkeletonRoot/root/btn01", -2.45f, 0);
                 ChangeParent(credit, go, "Anchor/Spine Mecanim GameObject (Lucky_jp_pop_Jackpot)/SkeletonUtility-SkeletonRoot/root/num01", -3.88f, 0.5f);
@@ -286,7 +303,7 @@ namespace XingYunZhiLun_3998
             Timers.inst.Add(delaySeconds, 1, wrapper);
         }
 
-        private void PlayAnim(string animName)
+        private void PlayAnim(Animator animator ,string animName)
         {
             animator.Rebind();
             animator.Play(animName, -1, 0f);
@@ -314,7 +331,9 @@ namespace XingYunZhiLun_3998
         {
             StopAll();
 
-            PlayAnim("end");
+            PlayAnim(spineAnimator, "end");
+            effAnimator.Rebind();
+            effAnimator.Update(0f);
             //AddTimer(0.6f, (object obj) =>
             //{
             //    PlayEffectAnim(caidai);

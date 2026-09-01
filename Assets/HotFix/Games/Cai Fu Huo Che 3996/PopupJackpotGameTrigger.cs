@@ -203,6 +203,7 @@ namespace CaiFuHuoChe_3996
 
                     AddTimer(5.3f, (object obj) =>
                     {
+                        InJackpot_bmp.StopWithDefaults();
                         CloseSelf(null);
                     });
                 }
@@ -211,14 +212,14 @@ namespace CaiFuHuoChe_3996
 
         private void AddTimer(float delaySeconds, TimerCallback onComplete)
         {
-            // 保存定时器回调引用
-            _activeTimers.Add(onComplete);
-            // 添加定时器，延迟后执行回调，并在执行后从列表中移除
-            Timers.inst.Add(delaySeconds, 1, (obj) =>
+            TimerCallback wrapper = null;
+            wrapper = (obj) =>
             {
                 onComplete?.Invoke(obj);
-                _activeTimers.Remove(onComplete);
-            });
+                _activeTimers.Remove(wrapper);
+            };
+            _activeTimers.Add(wrapper);
+            Timers.inst.Add(delaySeconds, 1, wrapper);
         }
 
         // 终止所有后续步骤（条件不满足时调用）

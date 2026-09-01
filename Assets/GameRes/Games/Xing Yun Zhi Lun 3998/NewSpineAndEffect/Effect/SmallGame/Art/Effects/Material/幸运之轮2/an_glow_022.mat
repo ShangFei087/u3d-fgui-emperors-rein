@@ -1,0 +1,510 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: an_glow_022
+  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _14_R
+  - _DISSOLVERSELECT_ON
+  - _EXDISSR_ON
+  - _EXMASKR_ON
+  - _FLOAT103_ON
+  - _FLOAT24_ON
+  - _FLOAT57_ON
+  - _FLOAT58_ON
+  - _FLOAT59_ON
+  - _K25_OFF
+  - _K29_OFF
+  - _K31_MULTPLY
+  - _K32_OFF
+  - _K33_OFF
+  - _K36_OFF
+  - _K37_OFF
+  - _K38_OFF
+  - _K39_OFF
+  - _MAINALPHAS_A
+  - _NOISE1R_ON
+  - _NOISE2R_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - DepthTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - DirTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - FlowMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - MainTex:
+        m_Texture: {fileID: 2800000, guid: f3e0d00bd2b9a1e44a478fd3ab418178, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Mask1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Mask2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Noise1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Noise2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - RampTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - RefTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Versatile:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - VertexOffsetTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 2d4ef9bde5484a84f9873de22e634eff, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - dissolvetex2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _14: 3
+    - _2UV1: 0
+    - _2UV2: 0
+    - _2UV3: 0
+    - _2UV4: 0
+    - _B_OffsetX: 0.2
+    - _B_OffsetY: 0.15
+    - _Basic: 1
+    - _BasicSet: 1
+    - _BumpScale: 1
+    - _Custom10: 8
+    - _Custom11: 8
+    - _Custom12: 0
+    - _Custom13: 8
+    - _Custom14: 0
+    - _Custom15: 8
+    - _Custom16: 0
+    - _Custom17: 0
+    - _Custom18: 8
+    - _Custom19: 1
+    - _Custom20: 8
+    - _Custom21: 8
+    - _Custom22: 1
+    - _Custom23: 8
+    - _Custom24: 0
+    - _Custom25: 8
+    - _Custom26: 0
+    - _Custom27: 8
+    - _Custom28: 8
+    - _Custom29: 1
+    - _Custom2HDR: 0
+    - _Custom30: 8
+    - _Custom31: 8
+    - _Custom32: 0
+    - _Custom33: 8
+    - _Custom34: 8
+    - _Custom35: 0
+    - _Custom36: 8
+    - _Custom37: 8
+    - _Custom38: 0
+    - _Custom39: 8
+    - _Custom4: 8
+    - _Custom40: 0
+    - _Custom41: 8
+    - _Custom42: 0
+    - _Custom43: 8
+    - _Custom44: 8
+    - _Custom45: 8
+    - _Custom46: 8
+    - _Custom47: 0
+    - _Custom48: 8
+    - _Custom49: 8
+    - _Custom5: 8
+    - _Custom50: 0
+    - _Custom54: 8
+    - _Custom55: 0
+    - _Custom56: 8
+    - _Custom6: 0
+    - _Custom7: 8
+    - _Custom8: 8
+    - _Custom9: 0
+    - _Cutoff: 0.5
+    - _DepthCusSetControl: 1
+    - _DepthIntensity3: 0
+    - _DepthON: 0
+    - _DepthTexSet: 1
+    - _Desaturate: 0
+    - _DetailNormalMapScale: 1
+    - _DirDissolve: 1
+    - _DirDissolveON1: 0
+    - _DirTexOn: 0
+    - _DissEdgeOn: 0
+    - _Dissolve: 1
+    - _DissolveCustomControl: 1
+    - _DissolveEdgeSet: 1
+    - _DissolveRselect: 1
+    - _DissolveSet: 1
+    - _DissolveTog: 0
+    - _Disson: 0
+    - _DotDissON: 0
+    - _DotDissSet: 1
+    - _DotExp: 1
+    - _DotSize: 40
+    - _DotSmooth: 0
+    - _DotUVMode: 0
+    - _DstBlend: 0
+    - _EXDissR: 1
+    - _Enum1: 0
+    - _ExDissCustom1: 0
+    - _ExDissCustom2: 8
+    - _ExDissDirON: 0
+    - _ExDissHard: 0
+    - _ExDissInt: 0
+    - _ExDissON: 0
+    - _ExDissolveSet: 1
+    - _ExDissolveTex: 1
+    - _ExMaskCustomControl: 1
+    - _ExMaskR: 1
+    - _ExMaskSet: 1
+    - _ExMaskTex: 1
+    - _ExNoiseCustomControl: 1
+    - _ExNoiseSet: 1
+    - _ExNoiseTex: 1
+    - _Float100: 0
+    - _Float101: 0
+    - _Float102: 0
+    - _Float103: 1
+    - _Float104: 8
+    - _Float105: 8
+    - _Float106: 0
+    - _Float107: 0
+    - _Float108: 0
+    - _Float109: 0
+    - _Float11: 1
+    - _Float110: 0
+    - _Float111: 15
+    - _Float112: 0
+    - _Float114: 8
+    - _Float115: 8
+    - _Float117: 0
+    - _Float118: 0
+    - _Float119: 0
+    - _Float12: 1
+    - _Float13: 0
+    - _Float14: 1
+    - _Float15: 1
+    - _Float17: 100
+    - _Float18: 0
+    - _Float2: 0
+    - _Float20: 0
+    - _Float23: 0
+    - _Float24: 1
+    - _Float25: 0
+    - _Float26: 0
+    - _Float27: 0
+    - _Float28: 1
+    - _Float29: 1
+    - _Float3: 1
+    - _Float30: 5
+    - _Float31: 0
+    - _Float32: 0
+    - _Float33: 1
+    - _Float39: 0
+    - _Float4: 100
+    - _Float40: 1
+    - _Float41: 0
+    - _Float42: 0
+    - _Float43: 0
+    - _Float45: 0
+    - _Float47: 0
+    - _Float49: 0
+    - _Float5: 1
+    - _Float50: 0
+    - _Float51: 0
+    - _Float52: 0
+    - _Float53: 0
+    - _Float54: 0
+    - _Float55: 0
+    - _Float56: 0
+    - _Float57: 1
+    - _Float58: 1
+    - _Float59: 1
+    - _Float6: 4
+    - _Float60: 0
+    - _Float61: 0
+    - _Float62: 0
+    - _Float63: 0
+    - _Float64: 0
+    - _Float65: 0
+    - _Float66: 0
+    - _Float67: 0
+    - _Float68: 0
+    - _Float69: 0
+    - _Float7: 0
+    - _Float70: 0
+    - _Float71: 0
+    - _Float72: 0
+    - _Float73: 0
+    - _Float75: 0
+    - _Float76: 0
+    - _Float78: 0
+    - _Float79: 0
+    - _Float8: 1
+    - _Float80: 0
+    - _Float81: 0
+    - _Float82: 0
+    - _Float83: 0
+    - _Float84: 0
+    - _Float85: 0
+    - _Float86: 0
+    - _Float87: 0
+    - _Float88: 0
+    - _Float89: 0
+    - _Float90: 0
+    - _Float91: 0
+    - _Float92: 0
+    - _Float93: 0
+    - _Float94: 0
+    - _Float95: 0
+    - _Float96: 0
+    - _Float97: 0
+    - _Float98: 0
+    - _Float99: 0
+    - _FlowMapInt: 1
+    - _FlowMapTog: 0
+    - _Flowmap: 1
+    - _Foldout_Out2: 1
+    - _Foldout_Out3: 1
+    - _Fresnel: 1
+    - _FresnelTog: 0
+    - _G_OffsetX: -0.3
+    - _G_OffsetY: 0.1
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _HueIntensity: 0
+    - _HueOffsetSet: 1
+    - _HueShiftON: 0
+    - _HueTimeSpeed: 0.1
+    - _InvFade: 1
+    - _K25: 0
+    - _K29: 0
+    - _K31: 0
+    - _K32: 0
+    - _K33: 0
+    - _K36: 0
+    - _K37: 0
+    - _K38: 0
+    - _K39: 0
+    - _MainAlphaS: 3
+    - _MainSet: 1
+    - _MainTex: 1
+    - _MainTexCustomControl: 1
+    - _MainTexSplit: 0
+    - _MainTexTog: 0
+    - _Mask: 1
+    - _MaskExp: 1
+    - _MaskSet: 1
+    - _MaskTog: 0
+    - _MaxRandom: 0.1
+    - _Metallic: 0
+    - _MinRandom: -0.1
+    - _Mode: 0
+    - _Noise: 1
+    - _Noise1R: 1
+    - _Noise2R: 1
+    - _NoiseCustom: 0
+    - _NoiseCustomControl: 1
+    - _NoiseHue: 0
+    - _NoiseIntSet: 1
+    - _NoiseIntSet2: 1
+    - _NoiseIntensity: 1
+    - _NoiseSet: 1
+    - _NoiseTog: 0
+    - _OcclusionStrength: 1
+    - _Other: 1
+    - _ParaPolar: 0
+    - _Parallax: 0.02
+    - _ParallaxTog: 0
+    - _Pixel2: 0
+    - _Pixel3: 90
+    - _PixelON1: 1
+    - _PixelON2: 1
+    - _PixelON3: 1
+    - _PixelON4: 1
+    - _PixelON5: 1
+    - _PixelON6: 1
+    - _PixelON7: 1
+    - _PixelON8: 1
+    - _PixelSet: 1
+    - _R_OffsetX: 0.3
+    - _R_OffsetY: -0.1
+    - _RampCustom: 0
+    - _RampCustom1: 8
+    - _RampCustom2: 8
+    - _RampSet: 1
+    - _RampTex: 1
+    - _RampTexTog: 0
+    - _Re101: 1
+    - _Re102: 1
+    - _Re103: 1
+    - _Re104: 1
+    - _Re201: 1
+    - _Re202: 1
+    - _Re203: 1
+    - _Re204: 1
+    - _RefTexSet: 1
+    - _Refine1Set: 1
+    - _Refine2Set: 1
+    - _Refraction: 1
+    - _RefractionCustomControl: 1
+    - _RefractionTog: 0
+    - _ScreenON: 0
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _StencileSet: 1
+    - _UVSec: 0
+    - _VersInt: 1
+    - _Versatile: 1
+    - _VersatileCustomControl: 1
+    - _VersatileTexSet: 1
+    - _VersatileTog: 0
+    - _Versatileint: 1
+    - _VertexCustomControl: 1
+    - _VertexTexSet: 1
+    - _Vertoffset: 1
+    - _VertoffsetTog: 0
+    - _ZWrite: 1
+    - _Ztestmode2: 0
+    - _Ztestmode3: 0
+    - _default33: 1
+    - _depth: 0
+    - _dissolve: 0
+    - _dissolve1: 0
+    - _dissolveedge: 1
+    - _edge2: 0
+    - _hunhecd: 0
+    - _noiseexp: 1
+    - _noiseexp1: 1
+    - _noiseon1: 0
+    - _noiseon2: 0
+    - _parallaxblend: 0
+    - _polar1: 0
+    - _polar10: 0
+    - _polar11: 0
+    - _polar12: 0
+    - _polar2: 0
+    - _polar3: 0
+    - _polar4: 0
+    - _polar5: 0
+    - _polar6: 0
+    - _polar7: 0
+    - _polar8: 0
+    - _polar9: 0
+    - _refplane: 0
+    - _refractionon: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color0: {r: 1, g: 1, b: 1, a: 1}
+    - _Color1: {r: 1, g: 1, b: 1, a: 1}
+    - _Color2: {r: 1.0592737, g: 1.0592737, b: 1.0592737, a: 1}
+    - _Color3: {r: 1, g: 1, b: 1, a: 1}
+    - _Color4: {r: 1, g: 1, b: 1, a: 1}
+    - _DepthColor: {r: 1, g: 1, b: 1, a: 1}
+    - _DotUVTO: {r: 1, g: 1, b: 0, a: 0}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _HelpFromNingmeng: {r: 1, g: 1, b: 0, a: 0}
+    - _MainBColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MainGColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MainRColor: {r: 1, g: 1, b: 1, a: 1}
+    - _NoiseXYInt: {r: 1, g: 1, b: 1, a: 1}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Vector0: {r: 1, g: 1, b: 1, a: 0}
+    - _Vector12: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector13: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector14: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector15: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector16: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector17: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector18: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector19: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector20: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector21: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector22: {r: 0, g: 0.5, b: 0, a: 0}
+    - _Vector25: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector26: {r: 0, g: 0, b: 0, a: 0}
+    - _fresnelcolor: {r: 1, g: 1, b: 1, a: 1}
+    - _versatilecolor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

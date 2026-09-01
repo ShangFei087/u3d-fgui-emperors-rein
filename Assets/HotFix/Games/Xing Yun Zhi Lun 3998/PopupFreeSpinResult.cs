@@ -178,6 +178,8 @@ namespace XingYunZhiLun_3998
                 idleTransition.Play(-1, 0, null);
             });
 
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmFreeSpinTrigger));
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmFreeSpinTriggerBGMStart));
 
             if (ContentModel.Instance.isAuto)
             {
@@ -199,7 +201,7 @@ namespace XingYunZhiLun_3998
             effectTransform.gameObject.SetActive(false);
             PlayAnim("end");
             endTransition.Play();
-
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmFreeSpinTriggerBGMEnd));
             AddTimer(0.5f / Time.timeScale, (object obj) =>
             {
                 CloseSelf(null);

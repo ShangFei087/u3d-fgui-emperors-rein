@@ -11,10 +11,12 @@
     <loader id="n54_yl9o" name="n0" xy="131,82" pivot="0.5,0.5" anchor="true" size="130,53" align="center" vAlign="middle" autoSize="true">
       <relation target="" sidePair="center-center,middle-middle"/>
     </loader>
-    <component id="n55_yl9o" name="anchorSpin" src="yl9oa" fileName="moudules/panel/AnchorSpin.xml" xy="130,84"/>
     <component id="n58_echi" name="untouch" src="yl9o7" fileName="moudules/panel/UntouchRect24.xml" xy="7,4" size="246,153">
       <relation target="n52_yl9o" sidePair="width-width,height-height"/>
     </component>
+    <component id="n55_yl9o" name="anchorSpin" src="yl9oa" fileName="moudules/panel/AnchorSpin.xml" xy="130,84"/>
+    <component id="n61_9rkr" name="anchorShortSpin" src="yl9oa" fileName="moudules/panel/AnchorSpin.xml" xy="136,87"/>
+    <component id="n62_9rkr" name="anchorLongSpin" src="yl9oa" fileName="moudules/panel/AnchorSpin.xml" xy="136,87"/>
   </displayList>
   <transition name="spin">
     <item time="0" type="Icon" target="n54_yl9o" value="ui://re27c1j7a666agt"/>

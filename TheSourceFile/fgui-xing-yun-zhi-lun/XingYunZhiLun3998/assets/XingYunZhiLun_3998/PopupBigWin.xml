@@ -2,7 +2,7 @@
 <component size="1080,1920">
   <displayList>
     <component id="n0_i9hy" name="exit" src="i9hyaik" fileName="moudules/PopupBigWin/ExitButton.xml" xy="0,0"/>
-    <component id="n3_g2sq" name="anchorPag" src="gueiaos" fileName="components/PopupBigWIn/AnchorPag.xml" xy="540,960" pivot="0.5,0.5" anchor="true"/>
+    <component id="n4_bzju" name="anchorEff" src="ibv7akb" fileName="components/PopupBigWIn/AnchorBigWin.xml" xy="540,959"/>
     <component id="n1_ibv7" name="anchorBg" src="ibv7akb" fileName="components/PopupBigWIn/AnchorBigWin.xml" xy="540,960"/>
     <text id="n2_ibv7" name="score" xy="554,1112" pivot="0.5,0.5" anchor="true" size="709,231" font="ui://5hielhj5b4x4aoq" fontSize="12" align="center" vAlign="middle" leading="0" autoSize="shrink" text="114514"/>
   </displayList>

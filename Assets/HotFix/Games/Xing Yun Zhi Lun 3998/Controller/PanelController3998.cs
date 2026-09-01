@@ -15,6 +15,9 @@ public class PanelController3998 : SlotMaker.PanelBaseController
 
     protected override string PanelPackagePath => "Assets/GameRes/Panel/Panel3998/FGUIs";
 
+    protected override string ShortSpinPrefabPath => "Assets/GameRes/Panel/Panel3998/Prefabs/Eff_ShortSpin.prefab";
+    protected override string LongSpinPrefabPath => "Assets/GameRes/Panel/Panel3998/Prefabs/Eff_LongSpin.prefab";
+
     public override void Init(EventData res = null)
     {
         base.Init();

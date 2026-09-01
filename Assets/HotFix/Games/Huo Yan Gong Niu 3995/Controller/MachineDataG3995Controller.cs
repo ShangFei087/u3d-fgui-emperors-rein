@@ -804,12 +804,13 @@ namespace HuoYanGongNiu_3995
         }
 
         //检查算法结果
+        List<int> wild = new List<int>() { CustomModel.Instance.symbolNumber[11],CustomModel.Instance.symbolNumber[22],CustomModel.Instance.symbolNumber[33], };
         private void CheckGameResult(string strDeckRowCol, int TotalWin)
         {
             List<List<int>> deckColRow = SlotTool.GetDeckColRow03(strDeckRowCol);
-            int wild = CustomModel.Instance.symbolNumber[9];
-            int scatter = CustomModel.Instance.symbolNumber[10];
-            const int bonus = 11;
+            int mult = 1;
+            int scatter = CustomModel.Instance.symbolNumber[12];
+            const int bonus = 13;
             int colCount = CustomModel.Instance.column;
             int calcTotalWin = 0; // 本地累计的总赢分（用于和服务器回包对比）
             List<List<int>> winLinesRule = CustomModel.Instance.payLines; // 中奖线
@@ -847,13 +848,19 @@ namespace HuoYanGongNiu_3995
                         sameTypeCount += 1;
                     }
                     else if ((firstSymbolType != scatter && firstSymbolType != bonus) &&
-                             (currentSymbolType == firstSymbolType || currentSymbolType == wild))
+                             (currentSymbolType == firstSymbolType || wild.Contains(currentSymbolType)))
                     {
+                        if (wild.Contains(currentSymbolType))
+                        {
+                            mult = mult > currentSymbolType / 11 ? mult : currentSymbolType / 11;
+                        }
+                        
                         sameTypeCount += 1;
                     }
                     // 第一个图标是 Wild，遇到可替代图标后以该图标作为基准
-                    else if ((currentSymbolType != scatter && currentSymbolType != bonus) && firstSymbolType == wild)
+                    else if ((currentSymbolType != scatter && currentSymbolType != bonus) && wild.Contains(firstSymbolType))
                     {
+                        mult = mult > firstSymbolType / 11 ? mult : firstSymbolType / 11;
                         firstSymbolType = currentSymbolType; // 把当前普通图标设为新的基准图标
                         sameTypeCount += 1;
                     }
@@ -868,7 +875,7 @@ namespace HuoYanGongNiu_3995
                 // 普通奖不统计 Scatter/Bonus
                 if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 3)
                 {
-                    int lineOdds = GetLineOdds(firstSymbolType, hitCount);
+                    int lineOdds = GetLineOdds(firstSymbolType, hitCount) * mult;
                     if (lineOdds > 0)
                     {
                         calcTotalWin += lineOdds; // 累加本地计算总赢分
