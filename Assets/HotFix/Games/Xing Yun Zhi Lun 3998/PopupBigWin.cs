@@ -155,6 +155,7 @@ namespace XingYunZhiLun_3998
 
             bigWinAnim.Play(WinOpenString[0]);
             bigWinEffAnim.Play(WinEffectAnimName[0]);
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(WinEFX[playCount]));
 
 
             ShowAni();
@@ -250,7 +251,6 @@ namespace XingYunZhiLun_3998
             float normalizedTime = stateInfo.length;
 
             bigWinAnim.Play(stateInfo.fullPathHash, 0, 0);
-            bigWinEffAnim.Play(stateEffInfo.fullPathHash, 0, 0);
 
             ClearAllTimers();
             isok = true;

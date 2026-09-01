@@ -53,6 +53,11 @@ PrefabInstance:
       propertyPath: m_Parameters.widthMultiplier
       value: 0.15
       objectReference: {fileID: 0}
+    - target: {fileID: 3723417048210121896, guid: 17bdc762bc8d8c046b91c30947ece697,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4913713054319967954, guid: 17bdc762bc8d8c046b91c30947ece697,
         type: 3}
       propertyPath: m_Parameters.widthMultiplier

@@ -207,6 +207,9 @@ namespace HuoYanGongNiu_3995
         /// <summary> 当前大奖类型 </summary>
         public string bonusType;
 
+        /// <summary> 本局游戏押注 </summary>
+        public int betNum;
+
         /// <summary> 额外添加免费游戏 </summary>
         public bool isFreeSpinAdd;
 

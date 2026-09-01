@@ -3,8 +3,11 @@
   <displayList>
     <graph id="n1_x7l3" name="mash" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#99000000"/>
     <component id="n6_x7l3" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,1850" visible="false" touchable="false"/>
+    <component id="n12_gdto" name="effect" src="x7l38f" fileName="components/PopupBigWIn/AnchorPopBorder.xml" xy="545,898">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
     <component id="n11_jvax" name="anchorPag" src="jvaxaot" fileName="components/PopupJackpotGame/AnchorPag.xml" xy="540,898" pivot="0.5,0.5" anchor="true"/>
-    <component id="n0_x7l3" name="effect" src="x7l38f" fileName="components/PopupBigWIn/AnchorPopBorder.xml" xy="540,898">
+    <component id="n0_x7l3" name="spine" src="x7l38f" fileName="components/PopupBigWIn/AnchorPopBorder.xml" xy="540,898">
       <relation target="" sidePair="center-center,middle-middle"/>
     </component>
     <list id="n10_mg8x" name="reels" xy="141,900" size="795,103" touchable="false" layout="row" overflow="hidden" defaultItem="ui://5hielhj5mg8xar" align="center" vAlign="middle">

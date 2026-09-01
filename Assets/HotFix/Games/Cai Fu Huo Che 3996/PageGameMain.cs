@@ -68,7 +68,7 @@ namespace CaiFuHuoChe_3996
         private GameObject goFreeReelEffcetPre, goFreeReelEffcetObj, goJackpotReelEffectPre, goJackpotReelEffectObj;
 
         //免费游戏以及彩金游戏中特殊奖时特效
-        private GameObject goRewardEffectPre, goRewardEffectObj, goMoneyBoxEff;
+        private GameObject goRewardEffectPre, goRewardEffectObj1, goRewardEffectObj2, goRewardEffectObj3, goMoneyBoxEff;
         private GameObject gMoneyBoxEff;
         private GComponent anchorFreeAdd, anchorJackpotAdd, anchorFill1, anchorFill2, anchorFill3, anchorFill4, ComRewardEffect1, ComRewardEffect2, ComRewardEffect3, anchorMoneyBox;
         private Transform moneyBoxEff;
@@ -116,6 +116,13 @@ namespace CaiFuHuoChe_3996
         private bool _tipCoinIn = false, _isStoppedSlotMachine = false;
         private bool _isStopButtonLocked;
 
+        /// <summary>底部 Panel 是否已就绪（BottomPanelReady）。</summary>
+        private bool _isBottomPanelReady;
+        /// <summary>对象池 DoTask 是否已全部完成。</summary>
+        private bool _isPoolPreloadDone;
+        /// <summary>是否已向 PageManager 派发过 preLoadedCallback。</summary>
+        private bool _hasNotifiedPagePreloaded;
+
         MiniReelGroup uiJPMajorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
         MiniReelGroup uiJPMiniCtrl = new MiniReelGroup();
@@ -148,6 +155,16 @@ namespace CaiFuHuoChe_3996
 
             Debug.LogError("BottomPanelReadyForPreload:"+ gameId);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
+            _isBottomPanelReady = true;
+            TryNotifyPagePreloaded();
+        }
+
+        /// <summary>底部 Panel 与对象池均就绪后，才通知 Loading 本页预加载完成。</summary>
+        private void TryNotifyPagePreloaded()
+        {
+            if (!_isBottomPanelReady || !_isPoolPreloadDone) return;
+            if (_hasNotifiedPagePreloaded) return;
+            _hasNotifiedPagePreloaded = true;
             preLoadedCallback?.Invoke();
         }
 
@@ -499,15 +516,28 @@ namespace CaiFuHuoChe_3996
             payTableController.Init(lstPayTable);
 
             // ---------- 2. FGUI 对象池（须先于滚轮 Init） ----------
+            // ---------- 2. FGUI 对象池（须先于滚轮 Init） ----------
             if (fguiPoolHelper != null && isInitPool == false)
             {
                 isInitPool = true;
+                //中奖动画
                 fguiPoolHelper.Add(TagPoolObject.SymbolHit, CustomModel.Instance.symbolHitEffect.Values.ToList(), "symbol_hit#", 5);
                 fguiPoolHelper.PreLoad(TagPoolObject.SymbolHit);
+                //边框
                 fguiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.borderEffect, "border#", 5);
                 fguiPoolHelper.PreLoad(TagPoolObject.SymbolBorder);
+                //落下后图标静止动画
                 fguiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 5);
                 fguiPoolHelper.PreLoad(TagPoolObject.SymbolAppear);
+                fguiPoolHelper.WhenIdle(() =>
+                {
+                    _isPoolPreloadDone = true;
+                    TryNotifyPagePreloaded();
+                });
+            }
+            else if (fguiPoolHelper == null)
+            {
+                _isPoolPreloadDone = true;
             }
 
             // ---------- 3.滚轮控制器 ----------
@@ -618,11 +648,17 @@ namespace CaiFuHuoChe_3996
             ComRewardEffect2 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
             ComRewardEffect3 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
 
-            if (goRewardEffectObj == null) goRewardEffectObj = GameObject.Instantiate(goRewardEffectPre);
+            if (goRewardEffectObj1 == null)
+            {
+                goRewardEffectObj1 = GameObject.Instantiate(goRewardEffectPre);
+                goRewardEffectObj2 = GameObject.Instantiate(goRewardEffectPre);
+                goRewardEffectObj3 = GameObject.Instantiate(goRewardEffectPre);
+            }
 
-            GameCommon.FguiUtils.AddWrapper(ComRewardEffect1, goRewardEffectObj);
-            GameCommon.FguiUtils.AddWrapper(ComRewardEffect2, goRewardEffectObj);
-            GameCommon.FguiUtils.AddWrapper(ComRewardEffect3, goRewardEffectObj);
+
+            GameCommon.FguiUtils.AddWrapper(ComRewardEffect1, goRewardEffectObj1);
+            GameCommon.FguiUtils.AddWrapper(ComRewardEffect2, goRewardEffectObj2);
+            GameCommon.FguiUtils.AddWrapper(ComRewardEffect3, goRewardEffectObj3);
             ComRewardEffect1.visible = false;
             ComRewardEffect2.visible = false;
             ComRewardEffect3.visible = false;
@@ -2918,6 +2954,10 @@ namespace CaiFuHuoChe_3996
                 new EventData<Dictionary<string, object>>("", new Dictionary<string, object>()
                 {
                     ["winCredit"] = allWinCredit,
+                    ["Callback"] = new Action(() =>
+                    {
+                        ChangeBGPanel(0);
+                    }),
                 }),
             (ed) =>
             {
@@ -2931,7 +2971,6 @@ namespace CaiFuHuoChe_3996
             //加钱动画
             MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
 
-            ChangeBGPanel(0);
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                 new EventData(Game3996AudioEvent.BgmRegularGame));
             train.SetActive(true);

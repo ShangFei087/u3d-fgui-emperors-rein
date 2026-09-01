@@ -19,8 +19,10 @@
     <image id="n16_jaxj" name="n16" src="rxo5dm" fileName="images/Panel/spin按钮/pb_txt_stop.png" xy="111,105" pivot="0.5,0.5" anchor="true"/>
     <image id="n22_iilz" name="n22" src="rxo5dn" fileName="images/Panel/spin按钮/pb_txt_auto.png" xy="111,105" pivot="0.5,0.5" anchor="true"/>
     <image id="n17_jaxj" name="n17" src="pmae9v" fileName="images/Panel/spin按钮/pb_txt_hold.png" xy="114,158" pivot="0.5,0.5" anchor="true"/>
-    <component id="n21_soe7" name="anchorSpin" src="soe7a" fileName="moudules/panel/AnchorSpin.xml" xy="110,118"/>
     <component id="n18_jaxj" name="untouch" src="pmaeaf" fileName="moudules/panel/UntouchCircle24.xml" xy="0,0" size="223,227"/>
+    <component id="n21_soe7" name="anchorSpin" src="soe7a" fileName="moudules/panel/AnchorSpin.xml" xy="110,118"/>
+    <component id="n24_y1sy" name="anchorShortSpin" src="soe7a" fileName="moudules/panel/AnchorSpin.xml" xy="117,124"/>
+    <component id="n25_y1sy" name="anchorLongSpin" src="soe7a" fileName="moudules/panel/AnchorSpin.xml" xy="117,124"/>
   </displayList>
   <transition name="spin">
     <item time="0" type="Visible" target="n13_jaxj" value="false"/>

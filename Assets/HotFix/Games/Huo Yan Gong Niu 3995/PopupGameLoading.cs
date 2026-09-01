@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using System.IO;
 
 namespace HuoYanGongNiu_3995
 {
@@ -22,6 +23,37 @@ namespace HuoYanGongNiu_3995
         private GComponent anchorLoadText, anchorEffect;
         private new bool isInit = false;
         private Animator animator;
+
+        /// <summary>Loading 预热： Pag </summary>
+        private int _pagPreloadTotal;
+        private int _pagPreloadCompleted;
+        private bool _pagPreloadFinished;
+        private const string GamePagFolder = "Games/Huo Yan Gong Niu 3995/Pag";
+
+        /// <summary>Loading 阶段 PAG 预热协程；关页前须全部完成，异常关页时 Stop 清理。</summary>
+        private Coroutine _pagPreloadCoroutine;
+
+        private static readonly string[] PagPreloadFiles =
+        {
+            "fg_pup_Collect_bmp/fg_Collect_tran.pag",
+            "fg_pup_Collect_bmp/fg_pup_Collect_idle_bmp.pag",
+            "fg_pup_Collect_bmp/fg_pup_Collect_out_bmp.pag",
+            "fg_pup_Collect_bmp/fg_pup_Collect_start_bmp.pag",
+            "jp_huoshan_bmp/jp_huoshan_dabaofa_idle.pag",
+            "jp_huoshan_bmp/jp_huoshan_dabaofa_start.pag",
+            "jp_huoshan_bmp/jp_huoshan_idle.pag",
+            "jp_huoshan_bmp/jp_huoshan_xiaobaofa.pag",
+            "jp_pup_Collect_bmp/jp_pup_Collect_huoshan_idle_bmp.pag",
+            "jp_pup_Collect_bmp/jp_pup_Collect_huoshan_start_bmp.pag",
+            "jp_pup_Collect_bmp/jp_pup_Collect_idle_bmp.pag",
+            "jp_pup_Collect_bmp/jp_pup_Collect_out_bmp.pag",
+            "jp_pup_Collect_bmp/jp_pup_Collect_start_bmp.pag",
+            "jp_tran_huoqiu_bmp/jp_tran_huoqiuda.pag",
+            "jp_tran_huoqiu_bmp/jp_tran_huoqiuxiao.pag",
+            "ng_pup_BigWin_bmp/ng_pup_BigWin_da_bmp.pag",
+            "ng_pup_BigWin_bmp/ng_pup_BigWin_small_bmp.pag",
+            "ng_pup_BigWin_bmp/ng_pup_BigWin_zhong_bmp.pag",
+        };
 
         protected override void OnInit()
         {
@@ -85,12 +117,14 @@ namespace HuoYanGongNiu_3995
             //    GameCommon.FguiUtils.AddWrapper(anchorLoadText, loadTitleGameObject);
             //}
 
+            preLoadedCallback?.Invoke();
+            if (!isOpen) return;
+
             if (PageManager.Instance.IndexOf(PageName.HuoYanGongNiuPopupGameLoading) == 0)
             {
                 StartPreloadGamePagesThenLoadingAnimation();
             }
 
-            preLoadedCallback?.Invoke();
         }
 
 
@@ -132,6 +166,12 @@ namespace HuoYanGongNiu_3995
             RefreshLoadingProgressVisual();
             //PlayAnim("start");
 
+            // 与 PageManager.PreloadPage 并行：利用 Loading 窗口预热 PAG 磁盘缓存与 composition
+            _pagPreloadTotal = PagPreloadFiles.Length;
+            _pagPreloadCompleted = 0;
+            _pagPreloadFinished = false;
+            StartPagPreloadInBackground();
+
             for (int i = 0; i < pages.Length; i++)
             {
                 PageManager.Instance.PreloadPage(pages[i], OnOnePreloadPageDone);
@@ -147,6 +187,62 @@ namespace HuoYanGongNiu_3995
             if (_preloadCompleted < _preloadTotal) return;
 
             TryFinishLoadingAfterPreloads();
+        }
+
+        // <summary>利用 Loading 窗口并行预热 PAG 磁盘缓存 + Java composition 解码。</summary>
+        private void StartPagPreloadInBackground()
+        {
+            if (_pagPreloadCoroutine != null && !_pagPreloadFinished)
+            {
+                return;
+            }
+
+            StopPagPreloadCoroutine();
+            PagBootstrap.EnsureReady();
+            _pagPreloadCoroutine = PagCallbackHub.Instance.RunCoroutine(PagPreloadCoroutine());
+        }
+
+        /// <summary>关闭 Loading 时中断 PAG 预热协程，避免 PagCallbackHub 上残留 RunCoroutine。</summary>
+        private void StopPagPreloadCoroutine()
+        {
+            if (_pagPreloadCoroutine == null)
+            {
+                return;
+            }
+
+            PagCallbackHub.Instance.StopRunCoroutine(_pagPreloadCoroutine);
+            _pagPreloadCoroutine = null;
+        }
+
+        /// <summary>
+        /// 预热 3997 核心 Pag + 3997Npc（共 40，LRU 上限 40）：
+        /// AB 解压到 PagCache + Java composition 解码，缩短进局后首次 Play 耗时。
+        /// </summary>
+        private IEnumerator PagPreloadCoroutine()
+        {
+            Debug.Log("[3998 Loading] PAG preload start");
+            yield return PagPathHelper.PreloadCompositionsCoroutine(
+                PagPreloadFiles,
+                GamePagFolder,
+                (done, total) =>
+                {
+                    _pagPreloadCompleted = done;
+                    _pagPreloadTotal = total;
+                    RefreshLoadingProgressVisual();
+                    string currentFile = done > 0 && done <= PagPreloadFiles.Length ? PagPreloadFiles[done - 1] : "?";
+                    string assetPath = $"Assets/GameRes/{GamePagFolder}/" + currentFile;
+                    bool isExist = File.Exists(assetPath);
+                    Debug.Log(
+                        $"[3998 Loading] PAG preload progress {done}/{total}, file={assetPath}, isExist={isExist}");
+                });
+            _pagPreloadFinished = true;
+            _pagPreloadCompleted = _pagPreloadTotal;
+            RefreshLoadingProgressVisual();
+            Debug.Log("[3998 Loading] PAG preload finished");
+            Debug.Log(
+                $"[3998 Loading] preload state pages={_preloadCompleted}/{_preloadTotal} pagDone={_pagPreloadFinished}");
+            TryFinishLoadingAfterPreloads();
+            _pagPreloadCoroutine = null;
         }
 
         public override void OnClose(EventData data = null)

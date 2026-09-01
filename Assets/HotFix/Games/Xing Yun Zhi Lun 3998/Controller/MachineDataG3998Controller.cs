@@ -394,7 +394,7 @@ namespace XingYunZhiLun_3998
                     ContentModel.Instance.newFreeOnceCredit.Clear();
                     for (int i = 0; i < totalFreeTime; i++)
                     {
-                        ContentModel.Instance.newFreeOnceCredit.Add((int)res["FreeBetArray"][i]);
+                        ContentModel.Instance.newFreeOnceCredit.Add((int)res["FreeBetArray"][i] * betMul);
                     }
                 }
             }
@@ -408,7 +408,7 @@ namespace XingYunZhiLun_3998
 
                 ContentModel.Instance.curReelStripsIndex = "FS";
                 ContentModel.Instance.freeSpinPlayTimes += 1;
-                ContentModel.Instance.curFreeCredit += totalLineWin;
+                ContentModel.Instance.curFreeCredit += ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
                 ContentModel.Instance.baseGameWinCredit = totalLineWin;
 
                 if (ContentModel.Instance.freeSpinTotalTimes == ContentModel.Instance.freeSpinPlayTimes)
