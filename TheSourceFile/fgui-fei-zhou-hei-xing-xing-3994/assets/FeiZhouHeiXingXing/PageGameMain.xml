@@ -24,13 +24,14 @@
     <component id="n24_s1hw" name="smallGameOther" src="hbr95g" fileName="moudules/pageGameMain/small/smallGameOther.xml" xy="0,0">
       <gearDisplay controller="gameController" pages="2"/>
     </component>
-    <component id="n13_pbvu" name="slotMachine" src="pbvu2n" fileName="moudules/pageGameMain/slotMachine/SlotMachine.xml" xy="52,1147" size="975,542">
+    <component id="n13_pbvu" name="slotMachine" src="pbvu2n" fileName="moudules/pageGameMain/slotMachine/SlotMachine.xml" xy="60,1150" size="960,546">
       <gearDisplay controller="gameController" pages="0,1"/>
     </component>
-    <component id="n23_qwup" name="smallGameReels" src="qwup5h" fileName="moudules/pageGameMain/small/SmallGameReels.xml" xy="57,1148">
+    <component id="n23_qwup" name="smallGameReels" src="qwup5h" fileName="moudules/pageGameMain/small/SmallGameReels.xml" xy="60,1150" size="960,546">
       <gearDisplay controller="gameController" pages="2"/>
     </component>
-    <component id="n5_pbvu" name="panel" src="pbvu28" fileName="moudules/pageGameMain/anchor/anchorPanel.xml" xy="540,1830"/>
     <component id="n25_kiri" name="anchorParent" src="kiric4" fileName="moudules/pageGameMain/anchor/anchorParent.xml" xy="0,-1"/>
+    <component id="n5_pbvu" name="panel" src="pbvu28" fileName="moudules/pageGameMain/anchor/anchorPanel.xml" xy="540,1830"/>
+    <component id="n26_f3k7" name="anchorCollectEffectParent" src="phvoh1dl" fileName="moudules/pageGameMain/anchor/anchorCollectEffectParent.xml" xy="540,1780"/>
   </displayList>
 </component>

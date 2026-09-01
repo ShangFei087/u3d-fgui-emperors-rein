@@ -35,6 +35,9 @@ namespace FeiZhouHeiXingXing_3994
         BonusResultType _resultType;
         private int _winScore;
 
+        /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
+        private I18nLang _boundLang;
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -109,24 +112,27 @@ namespace FeiZhouHeiXingXing_3994
 
             // 绑定Spine
             GComponent currentCom = contentPane.GetChild("anchorJackpot").asCom;
-            if (currentCom != _compareJackpot)
+            if (currentCom != _compareJackpot || _boundLang != PopupLang3994.CurrentLang)
             {
                 GameCommon.FguiUtils.DeleteWrapper(_compareJackpot);
                 _compareJackpot = currentCom;
                 _cloneJackpotWinObj = Object.Instantiate(_jackpotResultDic[_resultType]);
+                PopupLang3994.Apply(_cloneJackpotWinObj);
+                _boundLang = PopupLang3994.CurrentLang;
                 _jackpotAni = _cloneJackpotWinObj.GetComponentInChildren<Animator>();
                 GameCommon.FguiUtils.AddWrapper(currentCom, _cloneJackpotWinObj);
             }
 
             // 将UI挂载在Spine动画上
+            GameObject fatherObj = _cloneJackpotWinObj.transform.GetChild(0).gameObject;
             string path = "Spine Mecanim GameObject (sg_bor_congrats3)/SkeletonUtility-SkeletonRoot/root/bone/";
-            Transform father = _cloneJackpotWinObj.transform.Find(path + "collect");
+            Transform father = fatherObj.transform.Find(path + "collect");
             _collectBtnTran.SetParent(father, false);
             _collectBtnTran.localPosition = new Vector3(-2.12f, 1.04f, 0.01f);
             _collectBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             _collectBtnTran.localRotation = Quaternion.Euler(0, 0, 0);
 
-            father = _cloneJackpotWinObj.transform.Find(path + "k/number");
+            father = fatherObj.transform.Find(path + "k/number");
             _scoreTran.SetParent(father, false);
             _scoreTran.localPosition = new Vector3(-4.39f, 1.02f, 0f);
             _scoreTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);

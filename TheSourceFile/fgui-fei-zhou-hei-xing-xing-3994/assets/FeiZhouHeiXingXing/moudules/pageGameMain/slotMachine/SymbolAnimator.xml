@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="195,181">
+<component size="192,182">
   <displayList>
-    <loader id="n5_pbvu" name="image" xy="97,90" pivot="0.5,0.5" anchor="true" size="140,140" url="ui://ytoswqrps1hw6h" autoSize="true" clearOnPublish="true"/>
+    <loader id="n5_pbvu" name="image" xy="96,91" pivot="0.5,0.5" anchor="true" size="140,140" url="ui://ytoswqrps1hw6h" autoSize="true" clearOnPublish="true"/>
   </displayList>
 </component>

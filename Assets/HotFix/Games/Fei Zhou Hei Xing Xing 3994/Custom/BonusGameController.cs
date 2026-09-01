@@ -127,6 +127,7 @@ namespace HotFix.Games.Fei_Zhou_Hei_Xing_Xing_3994.Custom
         /// <summary> 每局获取彩金数据之前，清空上一次的数据 </summary>
         public void ResetBonusData(List<BonusReelController> onceBonusReels)
         {
+            if (onceBonusReels == null || onceBonusReels.Count == 0) return;
             foreach (BonusReelController controller in onceBonusReels)
             {
                 controller.Reset();

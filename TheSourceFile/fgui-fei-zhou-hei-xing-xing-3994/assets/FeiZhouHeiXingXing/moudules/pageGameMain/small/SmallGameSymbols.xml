@@ -28,9 +28,15 @@
     <item time="0" type="XY" target="n5_yp5y" value="0,0"/>
   </transition>
   <transition name="result">
+    <item time="0" type="XY" target="n1_qwup" tween="true" startValue="0,-362" endValue="0,181" duration="18" ease="Linear"/>
+    <item time="0" type="XY" target="n2_qwup" tween="true" startValue="0,-181" endValue="0,181" duration="12" ease="Linear"/>
     <item time="0" type="XY" target="n4_qwup" tween="true" startValue="0,-543" endValue="0,0" duration="24" ease="Linear"/>
+    <item time="0" type="XY" target="n5_yp5y" tween="true" startValue="0,0" endValue="0,181" duration="6" ease="Linear"/>
   </transition>
   <transition name="resultReset">
+    <item time="0" type="XY" target="n1_qwup" value="0,-362"/>
+    <item time="0" type="XY" target="n2_qwup" value="0,-181"/>
     <item time="0" type="XY" target="n4_qwup" value="0,-543"/>
+    <item time="0" type="XY" target="n5_yp5y" value="0,0"/>
   </transition>
 </component>

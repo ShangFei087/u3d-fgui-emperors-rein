@@ -105,11 +105,13 @@ namespace FeiZhouHeiXingXing_3994
         private GameObject _freeSpeedUpObj, _bonusSpeedUpObj;
         private GComponent _anchorSpeedUpParent, _freeSpeedUpCom, _bonusSpeedUpCom;
         private GComponent _anchorFreeEffectParent, _anchorSmallGameEffectParent;
-        
+
         /// <summary>底部 Panel 是否已就绪（BottomPanelReady）。</summary>
         private bool _isBottomPanelReady;
+
         /// <summary>对象池 DoTask 是否已全部完成。</summary>
         private bool _isPoolPreloadDone;
+
         /// <summary>是否已向 PageManager 派发过 preLoadedCallback。</summary>
         private bool _hasNotifiedPagePreloaded;
 
@@ -395,7 +397,8 @@ namespace FeiZhouHeiXingXing_3994
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear,
                     CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 10);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear); // 落下后图标静止动画
-                _fGuiPoolHelper.WhenIdle(() =>{
+                _fGuiPoolHelper.WhenIdle(() =>
+                {
                     _isPoolPreloadDone = true;
                     TryNotifyPagePreloaded();
                 });
@@ -467,7 +470,9 @@ namespace FeiZhouHeiXingXing_3994
 
             _jackpotScoreDic = new Dictionary<BonusResultType, int>()
             {
-                { BonusResultType.Mini, (int)_uiJpMiniCtrl.nowData }, { BonusResultType.Minor, (int)_uiJpMinorCtrl.nowData }, { BonusResultType.Major, (int)_uiJpMajorCtrl.nowData }
+                { BonusResultType.Mini, (int)_uiJpMiniCtrl.nowData },
+                { BonusResultType.Minor, (int)_uiJpMinorCtrl.nowData },
+                { BonusResultType.Major, (int)_uiJpMajorCtrl.nowData }
             };
             //---------- 7.Clone预制体到UI锚点上 --------
             GComponent currentCom = contentPane.GetChild("normalOther").asCom.GetChild("anchorNpc").asCom;
@@ -584,7 +589,7 @@ namespace FeiZhouHeiXingXing_3994
 
             // 获取彩金滚轮框 并对彩金滚轮进行初始化
             _smallGameReelCom = contentPane.GetChild("smallGameReels").asCom;
-            _bonusResultCom = contentPane.GetChild("anchorParent").asCom.GetChild("anchorCollectEffectParent").asCom;
+            _bonusResultCom = contentPane.GetChild("anchorCollectEffectParent").asCom;
             _bonusCountText = contentPane.GetChild("smallGameOther").asCom.GetChild("smallCount").asTextField;
 
             TryRestoreFreeSpinSession();
@@ -621,6 +626,7 @@ namespace FeiZhouHeiXingXing_3994
             _gameSoundController = null;
             _monoHelper.updateHandle.RemoveAllListeners();
             _lastAnchorPanelForDispatch = null;
+            OnGameReset();
         }
 
         protected override void OnLanguageChange(I18nLang lang)
@@ -628,14 +634,15 @@ namespace FeiZhouHeiXingXing_3994
             FguiI18nTextAssistant.Instance.DisposeAllTranslate(contentPane);
             contentPane.Dispose(); // 释放当前UI
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
-            InitParam(null);
+            _currentBonusReelList = null;
+            InitParam();
         }
 
         private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
         {
             e.Result = MachineDataController3994.ParseCoinPushSpinPayload(e.Data, e.StartPos);
         }
-        
+
         /// <summary>底部 Panel 与对象池均就绪后，才通知 Loading 本页预加载完成。</summary>
         private void TryNotifyPagePreloaded()
         {
@@ -663,8 +670,8 @@ namespace FeiZhouHeiXingXing_3994
 
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT,
                 OnBottomPanelReadyForPreload);
-             _isBottomPanelReady = true;
-             TryNotifyPagePreloaded();
+            _isBottomPanelReady = true;
+            TryNotifyPagePreloaded();
         }
 
         /// <summary> 如果Panel进行切换，重新注册Panel </summary>
@@ -1369,6 +1376,7 @@ namespace FeiZhouHeiXingXing_3994
             isNext = false;
 
             yield return FreeGameSpin(successCallback, errorCallback);
+            PushIsUsedComToPool();
 
             OutputStackContextFreeSpin((context) =>
             {
@@ -1387,7 +1395,6 @@ namespace FeiZhouHeiXingXing_3994
                     }),
                 (ed) =>
                 {
-                    PushIsUsedComToPool();
                     ContentModel.Instance.FreeSpinTotalTimes = 0;
                     isNext = true;
                 });
@@ -1646,12 +1653,12 @@ namespace FeiZhouHeiXingXing_3994
                     GComponent com = CachePoolController.Instance.PopCom(FreeChangeIconKey, _anchorFreeEffectParent,
                         () => CachePoolFactory(_freeChangeIconObj));
                     _isUsedPoolDic[FreeChangeIconKey].Push(com);
-                    com.xy = _slotMachineController.SymbolCenterToNodeLocalPos(pos.Item2, pos.Item1,
+                    com.xy = _slotMachineController.FreeGameSymbolCenterToNodeLocalPos(pos.Item2, pos.Item1,
                         _anchorFreeEffectParent);
                     com.visible = true;
                 }
 
-                yield return new WaitForSeconds(2.533f);
+                yield return new WaitForSeconds(1.5f);
 
                 // 3b. 特效播放完毕后，切换图标：更新 ContentModel 并刷新滚轮显示
                 List<string> rowStrings = new List<string>();
@@ -1957,6 +1964,7 @@ namespace FeiZhouHeiXingXing_3994
                             PlayAnimationByName(ani, "win");
                             PlayAnimationByName(_smallNpcAnimator, "2win");
                             (int row, int col) = GetRowColByIndex(i);
+                            _currentBonusReelList[i].ResultSymbol.ScoreText.text = "";
                             yield return CollectScore(_currentBonusReelList[i].ResultInfo, col, row);
                         }
                         break;
