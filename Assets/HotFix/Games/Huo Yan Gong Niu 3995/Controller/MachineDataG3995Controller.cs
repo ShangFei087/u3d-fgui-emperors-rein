@@ -804,7 +804,7 @@ namespace HuoYanGongNiu_3995
         }
 
         //检查算法结果
-        List<int> wild = new List<int>() { CustomModel.Instance.symbolNumber[11],CustomModel.Instance.symbolNumber[22],CustomModel.Instance.symbolNumber[33], };
+        List<int> wild = new List<int>() { 11, 22, 33};
         private void CheckGameResult(string strDeckRowCol, int TotalWin)
         {
             List<List<int>> deckColRow = SlotTool.GetDeckColRow03(strDeckRowCol);

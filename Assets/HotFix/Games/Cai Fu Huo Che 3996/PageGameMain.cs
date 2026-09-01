@@ -176,7 +176,7 @@ namespace CaiFuHuoChe_3996
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 12;
+            int count = 11;
 
             Action callback = () =>
             {
@@ -231,12 +231,6 @@ namespace CaiFuHuoChe_3996
             (GameObject clone) =>
             {
                 goFreeCloude = clone;
-                callback();
-            });
-
-            ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/Emperors Rein 200/FGUIs", (ab) =>
-            {
-                UIPackage.AddPackage(ab);
                 callback();
             });
 

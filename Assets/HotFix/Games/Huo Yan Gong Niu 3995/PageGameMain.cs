@@ -167,7 +167,7 @@ namespace HuoYanGongNiu_3995
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 17;
+            int count = 16;
 
             Action callback = () =>
             {
@@ -208,11 +208,11 @@ namespace HuoYanGongNiu_3995
             });
 
 
-            ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/Emperors Rein 200/FGUIs", (ab) =>
-            {
-                UIPackage.AddPackage(ab);
-                callback();
-            });
+            //ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/Emperors Rein 200/FGUIs", (ab) =>
+            //{
+            //    UIPackage.AddPackage(ab);
+            //    callback();
+            //});
 
             ResourceManager02.Instance.LoadAsset<GameObject>(
                 "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PageGameMain/NPC",
