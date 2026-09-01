@@ -177,6 +177,7 @@ namespace XingYunZhiLun_3998
                     }
                     result["JPTypeArray"].Add(data[pos++]);
                 }
+                if(result["JPTypeArray"].Count == 0) result["JPTypeArray"].Add(0);
 
                 result["JPBetArray"] = new JSONArray();
                 for(int i = 0; i < 3; i++)
