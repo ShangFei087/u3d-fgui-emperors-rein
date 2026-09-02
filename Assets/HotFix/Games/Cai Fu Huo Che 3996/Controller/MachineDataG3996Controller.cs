@@ -364,6 +364,7 @@ namespace CaiFuHuoChe_3996
                     betIndex = 0;
                     ContentModel.Instance.wildNums = 0;
                     ContentModel.Instance.curFreeCredit = 0;
+                    ContentModel.Instance.curFreeCredit += totalLineWin;
 
                     ContentModel.Instance.newFreeOnceCredit.Clear();
                     for (int i = 0; i < TotalFreeTime; i++)

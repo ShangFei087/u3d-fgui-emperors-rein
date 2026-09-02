@@ -775,6 +775,7 @@ namespace XingYunZhiLun_3998
                 reel.SetReelState(ReelState.Idle);
             }
 
+            Debug.LogError("StartTurnReels");
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_EVENT,
                 new EventData(SlotMachineEvent.StoppedSlotMachine));
 
@@ -872,6 +873,7 @@ namespace XingYunZhiLun_3998
             }
 
 
+            Debug.LogError("ReelsToStopOrTurnOnce");
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_EVENT,
                 new EventData(SlotMachineEvent.StoppedSlotMachine));
 

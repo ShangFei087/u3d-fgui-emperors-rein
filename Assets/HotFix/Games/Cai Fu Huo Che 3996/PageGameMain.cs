@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using PusherEmperorsRein;
 using SBoxApi;
 using SimpleJSON;
+using SlotEmperorsRein;
 using SlotMaker;
 using System;
 using System.Collections;
@@ -760,7 +761,7 @@ namespace CaiFuHuoChe_3996
                 case SlotMachineEvent.StoppedSlotMachine:
                     {
                         isStoppedSlotMachine = true;
-                        UnlockStopButton();
+                        if(ContentModel.Instance.gameState != GameState.FreeSpin) UnlockStopButton();
                     }
                     break;
             }
@@ -1669,6 +1670,8 @@ namespace CaiFuHuoChe_3996
         IEnumerator GameFreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
             OnGameReset();
+            ContentModel.Instance.isSpin = true;
+            LockStopButton();
             ContentModel.Instance.haveFreeSpecialIcon = false;
             freeTimes.text = (ContentModel.Instance.freeSpinPlayTimes + 1).ToString();
             ContentModel.Instance.gameState = GameState.FreeSpin;
@@ -1705,9 +1708,11 @@ namespace CaiFuHuoChe_3996
 
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
+
             if (isBreak)
             {
-
+                UnlockStopButton();
+                ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                 if (errorCallback != null)
                     errorCallback.Invoke(errMsg);
                 yield break;
@@ -1715,14 +1720,13 @@ namespace CaiFuHuoChe_3996
 
             //开始转动
             slotMachineCtrl.BeginSpin();
-
+            SetSpinButtonRolling();
             //停止特效显示
             slotMachineCtrl.SkipWinLine(true);
             slotMachineCtrl.CloseSlotCover();
 
             if (slotMachineCtrl.isStopImmediately)
             {
-                //reelsTurnType = ReelsTurnType.Once;
 
                 if (corReelsTurn != null) mono.StopCoroutine(corReelsTurn);
                 corReelsTurn = mono.StartCoroutine(slotMachineCtrl.TurnReelsOnce(ContentModel.Instance.strDeckRowCol,
@@ -1766,6 +1770,8 @@ namespace CaiFuHuoChe_3996
                 yield return new WaitForSeconds(1f);
             }
 
+            SetSpinButtonSpinGray();
+
             List<SymbolWin> winList = ContentModel.Instance.winList;
             #region Win
 
@@ -1799,13 +1805,11 @@ namespace CaiFuHuoChe_3996
                 }
             }
             // 总线赢分事件
-            slotMachineCtrl.SendTotalWinCreditEvent(freeAllWin + tempCredit);
+            slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.curFreeCredit);
 
             #endregion
 
-
-
-            ContentModel.Instance.gameState = GameState.Idle;
+            //ContentModel.Instance.gameState = GameState.Idle;
             // 先结算主游戏，再进入“免费游戏”或“小游戏”，则每局都可以同步玩家真实金钱金额
 
             if (successCallback != null)
@@ -2145,6 +2149,15 @@ namespace CaiFuHuoChe_3996
                     ++idx;
                 }
             }
+        }
+
+        /// <summary> 滚轮开始转：解锁并显示 Spin 或 Auto。 </summary>
+        private void SetSpinButtonRolling()
+        {
+            ContentModel.Instance.btnSpinState = ContentModel.Instance.isAuto
+                ? SpinButtonState.Auto
+                : SpinButtonState.Spin;
+            UnlockStopButton();
         }
 
         private bool isGetCrediting = false;
@@ -2629,13 +2642,6 @@ namespace CaiFuHuoChe_3996
                 {
                     PlayAnim(freeTrainAnim, "idle4");
                 }
-
-                //StopAllFreeTrainIdleEffects();
-                //if (!TempDisableFreeTrainIdleParticles)
-                //{
-                //    PlayChildEffectAnim(idleEffect4);
-                //    PlayChildEffectAnim(idleEffect5);
-                //}
             }
             else if (fill2.fillAmount == 1)
             {
@@ -2728,6 +2734,13 @@ namespace CaiFuHuoChe_3996
             {
                 panelBaseController.SetSpinButtonLocked(false);
             }
+        }
+
+        /// <summary> 滚轮停稳后到 Idle 前：保持 Spin 外观并置灰，押注保持锁定。 </summary>
+        private void SetSpinButtonSpinGray()
+        {
+            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            LockStopButton();
         }
 
         private void OnPlayGirlClaw(EventData res)

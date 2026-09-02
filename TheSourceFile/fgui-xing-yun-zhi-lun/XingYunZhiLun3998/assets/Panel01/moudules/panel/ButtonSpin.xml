@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="260,164" overflow="hidden">
   <controller name="button" pages="0,spin,1,stop,2,auto,3,hui" selected="0">
-    <action type="play_transition" fromPage="" toPage="0" transition="stop"/>
-    <action type="play_transition" fromPage="" toPage="1" transition="spin"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="stop"/>
+    <action type="play_transition" fromPage="" toPage="0" transition="spin"/>
     <action type="play_transition" fromPage="" toPage="2" transition="auto"/>
     <action type="play_transition" fromPage="" toPage="3" transition="hui"/>
   </controller>
@@ -18,15 +18,17 @@
     <component id="n61_9rkr" name="anchorShortSpin" src="yl9oa" fileName="moudules/panel/AnchorSpin.xml" xy="136,87"/>
     <component id="n62_9rkr" name="anchorLongSpin" src="yl9oa" fileName="moudules/panel/AnchorSpin.xml" xy="136,87"/>
   </displayList>
-  <transition name="spin">
+  <transition name="stop">
     <item time="0" type="Icon" target="n54_yl9o" value="ui://re27c1j7a666agt"/>
     <item time="0" type="Visible" target="n58_echi" value="false"/>
   </transition>
-  <transition name="stop">
+  <transition name="spin">
     <item time="0" type="Icon" target="n54_yl9o" value="ui://re27c1j7a666agr"/>
+    <item time="0" type="Visible" target="n58_echi" value="false"/>
   </transition>
   <transition name="auto">
     <item time="0" type="Icon" target="n54_yl9o" value="ui://re27c1j7i9hyak4"/>
+    <item time="0" type="Visible" target="n58_echi" value="false"/>
   </transition>
   <transition name="hui">
     <item time="0" type="Visible" target="n58_echi" value="true"/>
