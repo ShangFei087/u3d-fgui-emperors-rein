@@ -311,7 +311,7 @@ namespace TreasuryHall
                     btnCollect.touchable = false;
                     // 播放粒子特效
                     goplat_card_cfhc1.Play();
-                    //goplat_card_cfhc2.Play();
+                    goplat_card_cfhc2.Play();
                     goplat_card_cfhc3.Play();
                     float clickAnimDuration = PlayCardClickAnimation(animator3996);
                     StartCardGameEnter(animator3996, PageName.CaiFuHuoChePopupGameLoading, 3996, clickAnimDuration);

@@ -159,7 +159,6 @@ namespace XingYunZhiLun_3998
                 {
                     isInit = true;
                     InitParam(null);
-                    Debug.LogError("MainInit");
                 }
             };
 
@@ -1340,8 +1339,7 @@ namespace XingYunZhiLun_3998
 
                 //积分同步和退币处理
                 //slotMachineCtrl.SendTotalWinCreditEvent((int)winCredit + allWinCredit);
-                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,
-               new EventData<long>(SlotMachineEvent.SingleWinBonus, (int)winCredit + allWinCredit));
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,new EventData<long>(SlotMachineEvent.SingleWinBonus, 0));
 
                 //加分动画
                 //MainBlackboardController.Instance.AddMyTempCredit((int)winCredit, true, isAddCreditAnim);
@@ -1375,8 +1373,7 @@ namespace XingYunZhiLun_3998
 
                 // 总线赢分（同步？？）
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
-
-                MainBlackboardController.Instance.AddMyTempCredit(winCredit, true, isAddCreditAnim);
+                MainBlackboardController.Instance.AddMyTempCredit(winCredit, false, isAddCreditAnim);
             }
             #endregion
             isNext = false;

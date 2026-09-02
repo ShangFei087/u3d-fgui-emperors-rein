@@ -13,8 +13,8 @@ public class PanelController3996 : SlotMaker.PanelBaseController
     new SpinButtonController spinBtnCtrl = new SpinButtonController();
     protected override string PanelPackagePath => "Assets/GameRes/Panel/Panel3996/FGUIs";
 
-    protected override string ShortSpinPrefabPath => "Assets/GameRes/Panel/Panel3993/Prefabs/Eff_ShortSpin.prefab";
-    protected override string LongSpinPrefabPath => "Assets/GameRes/Panel/Panel3993/Prefabs/Eff_LongSpin.prefab";
+    protected override string ShortSpinPrefabPath => "Assets/GameRes/Panel/Panel3996/Prefabs/Eff_ShortSpin.prefab";
+    protected override string LongSpinPrefabPath => "Assets/GameRes/Panel/Panel3996/Prefabs/Eff_LongSpin.prefab";
 
 
     public override void Init(EventData res = null)
