@@ -86,6 +86,7 @@
     <type fullname="GlobalData" preserve="all" />
     <type fullname="PageLaunch" preserve="all" />
     <type fullname="PathHelper" preserve="all" />
+    <type fullname="ScreenFlipUtils" preserve="all" />
     <type fullname="ScriptableObjectSingleton`1" preserve="all" />
   </assembly>
   <assembly fullname="SimpleJSON">
