@@ -71,5 +71,5 @@
     <image id="rxo5dm" name="pb_txt_stop.png" path="/images/Panel/spin按钮/" exported="true"/>
     <image id="rxo5dn" name="pb_txt_auto.png" path="/images/Panel/spin按钮/" exported="true"/>
   </resources>
-  <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Panel\Panel3996\FGUIs" packageCount="2"/>
+  <publish name="" path="../../Assets\GameRes\Panel\Panel3996\FGUIs" packageCount="2"/>
 </packageDescription>

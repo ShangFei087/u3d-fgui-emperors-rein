@@ -426,7 +426,7 @@ namespace SlotMaker
 
 
         /// <summary> 停止特效显示 </summary>
-        public void SkipWinLine(bool isIncludeTag)
+        public virtual void SkipWinLine(bool isIncludeTag)
         {
 
             List<SymbolBase> excludeSymbol = isIncludeTag? new List<SymbolBase>()

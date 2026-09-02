@@ -153,7 +153,6 @@ namespace CaiFuHuoChe_3996
                 return;
             }
 
-            Debug.LogError("BottomPanelReadyForPreload:"+ gameId);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
             _isBottomPanelReady = true;
             TryNotifyPagePreloaded();
@@ -1782,6 +1781,8 @@ namespace CaiFuHuoChe_3996
 
                 if (winList.Count > 0)
                 {
+                    slotMachineCtrl.SkipIdle(true);
+                    slotMachineCtrl.SkipWinLine(true);
                     yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
                 }
 
@@ -1901,6 +1902,7 @@ namespace CaiFuHuoChe_3996
             ComReelEffect3.visible = false;
             if (!ContentModel.Instance.isJackpotSpin)
             {
+                slotMachineCtrl.SkipIdle(true);
                 slotMachineCtrl.SkipWinLine(true);
             }
         }

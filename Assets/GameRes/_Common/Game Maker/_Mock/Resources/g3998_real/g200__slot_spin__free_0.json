@@ -10,11 +10,11 @@
 
 	 "MatrixLength": 15,
 
-	"Matrix":[2,3,0,9,7,5,9,7,3,9,9,2,3,9,0],
+	"Matrix":[9,3,0,9,7,5,4,9,3,6,9,2,3,9,0],
 	
 	"TotalFreeBet":860,
 		
-	"TotalFreeTime":9,
+	"TotalFreeTime":7,
 	
 	"FreeBetArray":[200,600,0,30,30,0,0,0],
 
