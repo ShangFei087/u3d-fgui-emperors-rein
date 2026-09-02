@@ -143,11 +143,6 @@ namespace CaiFuHuoChe_3996
                 result["JPBetArray"] = new JSONArray();
                 for(int i = 0; i < 3; i++)
                 {
-                    if (data[pos] == 0)
-                    {
-                        pos++;
-                        continue;
-                    }
                     result["JPBetArray"].Add(data[pos++]);
                 }
 
