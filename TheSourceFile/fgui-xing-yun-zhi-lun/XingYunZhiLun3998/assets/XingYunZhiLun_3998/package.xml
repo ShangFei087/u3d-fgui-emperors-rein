@@ -180,7 +180,7 @@
     <image id="a666ag1" name="load_bar_04.png" path="/images/PopupGameLoading/" exported="true"/>
     <image id="a666ag2" name="load_projection.png" path="/images/PopupGameLoading/" exported="true"/>
     <image id="a666ag3" name="load_bar_01.png" path="/images/PopupGameLoading/" exported="true"/>
-    <image id="a666ag4" name="load_bar_02.png" path="/images/PopupGameLoading/" exported="true" scale="9grid" scale9grid="16,7,885,32"/>
+    <image id="a666ag4" name="load_bar_02.png" path="/images/PopupGameLoading/" exported="true" scale="9grid" scale9grid="16,0,884,46" gridTile="16"/>
     <image id="a666ag5" name="load_bg.png" path="/images/PopupGameLoading/" exported="true"/>
     <image id="a666ag6" name="load_img_turntable.png" path="/images/PopupGameLoading/" exported="true"/>
     <image id="a666ag8" name="load_mega_en.png" path="/images/PopupGameLoading/" exported="true"/>

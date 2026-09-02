@@ -4,7 +4,7 @@
     <image id="n4_sqmz" name="n4" src="pcvkic" fileName="images/gameLoading/load_img_progress_3.png" xy="42,0" size="595,69">
       <relation target="n0_sqmz" sidePair="width-width,height-height,center-center,middle-middle"/>
     </image>
-    <image id="n1_sqmz" name="bar" src="pcvkib" fileName="images/gameLoading/load_img_progress_2.png" xy="51,4" size="577,63">
+    <image id="n1_sqmz" name="bar" src="pcvkib" fileName="images/gameLoading/load_img_progress_2.png" xy="51,8" size="577,54">
       <relation target="n0_sqmz" sidePair="width-width,height-height"/>
     </image>
     <component id="n5_l8f4" name="anchorEffect" src="l8f45k" fileName="component/gameLoading/AnchorBarEffect.xml" xy="625,50">

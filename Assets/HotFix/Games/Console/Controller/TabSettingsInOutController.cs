@@ -46,12 +46,9 @@ public class TabSettingsInOutController
         btnScoreScale.onClick.Add(OnClickScoreScale);
         btnScoreScale.title = $"1:{SBoxModel.Instance.ScoreUpDownScale}";
 
-        /*
-        btnFlipScreen = _comp.GetChild("flipScreen").asCom.GetChild("btn").asButton;
+        btnFlipScreen = owner.GetChild("flipScreen").asCom.GetChild("btn").asButton;
         btnFlipScreen.onClick.Clear();
-        btnFlipScreen.onClick.Add(null);
-*/
-
+        btnFlipScreen.onClick.Add(OnClickFlipScreen);
 
         btnBillValidatorModel = owner.GetChild("billValidatorModel").asCom.GetChild("value").asButton;
         btnBillValidatorModel.onClick.Clear();
@@ -110,6 +107,11 @@ public class TabSettingsInOutController
 
 
 
+
+    void OnClickFlipScreen()
+    {
+        ScreenFlipUtils.Toggle();
+    }
 
     async void OnClickCoinOutScale()
     {
