@@ -5,7 +5,7 @@
     <component id="n1_nzm0" name="title" src="nzm06" fileName="components/PopupGameLoading/AnchorTitle.xml" xy="540,960" pivot="0.5,0.5" anchor="true" touchable="false">
       <relation target="" sidePair="center-center,top-top"/>
     </component>
-    <component id="n19_a666" name="n11" src="a666agc" fileName="components/PopupGameLoading/Slider1.xml" xy="81,1532">
+    <component id="n19_a666" name="n11" src="a666agc" fileName="components/PopupGameLoading/Slider1.xml" xy="81,1532" touchable="false">
       <Slider max="1"/>
     </component>
   </displayList>

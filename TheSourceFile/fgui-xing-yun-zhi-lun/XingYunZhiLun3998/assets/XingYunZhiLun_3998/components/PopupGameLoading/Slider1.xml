@@ -4,8 +4,8 @@
     <image id="n0_a666" name="n0" src="a666ag3" fileName="images/PopupGameLoading/load_bar_01.png" xy="0,0" size="938,73">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <image id="n1_a666" name="bar" src="a666ag4" fileName="images/PopupGameLoading/load_bar_02.png" xy="7,6" size="909,58"/>
-    <component id="n2_a666" name="grip" src="a666agb" fileName="components/PopupGameLoading/Slider1_grip.xml" xy="861,-19" touchable="false">
+    <image id="n1_a666" name="bar" src="a666ag4" fileName="images/PopupGameLoading/load_bar_02.png" xy="8,12" size="920,46"/>
+    <component id="n2_a666" name="grip" src="a666agb" fileName="components/PopupGameLoading/Slider1_grip.xml" xy="873,-19">
       <relation target="n1_a666" sidePair="right-right"/>
     </component>
   </displayList>
