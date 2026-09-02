@@ -151,7 +151,7 @@ namespace XingYunZhiLun_3998
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 12;
+            int count = 11;
 
             Action callback = () =>
             {
@@ -159,7 +159,6 @@ namespace XingYunZhiLun_3998
                 {
                     isInit = true;
                     InitParam(null);
-                    Debug.LogError("MainInit");
                 }
             };
 
@@ -195,12 +194,6 @@ namespace XingYunZhiLun_3998
 
             //读取json配置
             ReadJsonBet();
-
-            ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/Emperors Rein 200/FGUIs", (ab) =>
-            {
-                UIPackage.AddPackage(ab);
-                callback();
-            });
 
             ResourceManager02.Instance.LoadAsset<GameObject>(
             "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/PopupGameJackpot/PushJackpotGuest.prefab",
@@ -1346,8 +1339,7 @@ namespace XingYunZhiLun_3998
 
                 //积分同步和退币处理
                 //slotMachineCtrl.SendTotalWinCreditEvent((int)winCredit + allWinCredit);
-                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,
-               new EventData<long>(SlotMachineEvent.SingleWinBonus, (int)winCredit + allWinCredit));
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,new EventData<long>(SlotMachineEvent.SingleWinBonus, 0));
 
                 //加分动画
                 //MainBlackboardController.Instance.AddMyTempCredit((int)winCredit, true, isAddCreditAnim);
@@ -1381,8 +1373,7 @@ namespace XingYunZhiLun_3998
 
                 // 总线赢分（同步？？）
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
-
-                MainBlackboardController.Instance.AddMyTempCredit(winCredit, true, isAddCreditAnim);
+                MainBlackboardController.Instance.AddMyTempCredit(winCredit, false, isAddCreditAnim);
             }
             #endregion
             isNext = false;

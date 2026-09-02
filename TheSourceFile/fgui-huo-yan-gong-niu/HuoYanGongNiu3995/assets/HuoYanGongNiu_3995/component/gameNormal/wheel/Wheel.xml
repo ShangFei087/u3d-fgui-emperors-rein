@@ -2,7 +2,7 @@
 <component size="1080,1273">
   <displayList>
     <component id="n106_ey3y" name="wheelBg" src="zyvhfbm" fileName="component/gameNormal/wheel/WheelBg.xml" xy="0,0"/>
-    <component id="n25_j7ma" name="wheelContent" src="j7ma2w" fileName="WheelContent.xml" xy="540,618" rotation="-749"/>
+    <component id="n25_j7ma" name="wheelContent" src="j7ma2w" fileName="WheelContent.xml" xy="540,615" rotation="-749"/>
     <component id="n135_gtbj" name="wheelEffect" src="k1q068" fileName="component/gameNormal/wheel/AnchorWheelEffect.xml" xy="545,455"/>
     <image id="n138_zyvh" name="n138" src="ey3yab" fileName="images/gameNormal/Wheel/ng_ic_Turntable_pointer.png" xy="455,53"/>
     <image id="n137_zyvh" name="n137" src="ey3ya3" fileName="images/gameNormal/Wheel/ng_ic_SPIN.png" xy="399,457"/>

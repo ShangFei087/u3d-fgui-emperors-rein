@@ -13,7 +13,7 @@
     <text id="n20_soe7" name="singleLine" xy="269,1638" size="541,42" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="Line to 5  Win 80"/>
     <component id="n18_uz53" name="n18" src="uz53bq" fileName="moudules/panel/TipText.xml" xy="172,1895" size="747,23"/>
     <component id="n22_tpfb" name="ExhibitionPanel" src="tpfbc6" fileName="moudules/ExhibitionPanel.xml" xy="0,506"/>
-    <component id="n5_pmae" name="setPanel" src="pmaebg" fileName="moudules/panel/SetPanel.xml" xy="16,1469"/>
+    <component id="n5_pmae" name="setPanel" src="pmaebg" fileName="moudules/panel/SetPanel.xml" xy="48,1469"/>
     <component id="n19_uz53" name="instructions" src="uz53br" fileName="moudules/panel/PayTable.xml" xy="-1,-1"/>
   </displayList>
 </component>

@@ -41,6 +41,37 @@ namespace CaiFuHuoChe_3996
 
         }
 
+        /// <summary>
+        /// 还池当前图标 animator 下已挂的对象池特效，避免 Appear/Hit 叠加。
+        /// </summary>
+        void ReturnSymbolPoolEffects(SymbolBase symbol)
+        {
+            if (symbol?.goOwnerSymbol == null || fguiPoolHelper == null)
+                return;
+
+            GComponent animator = symbol.goOwnerSymbol.GetChild("animator")?.asCom;
+            if (animator != null)
+                fguiPoolHelper.ReturnAllToPool(animator, Array.Empty<string>());
+        }
+
+        void AddSymbolEffectReplace(SymbolBase symbol, GComponent effect, bool isAnim = true)
+        {
+            ReturnSymbolPoolEffects(symbol);
+            symbol.AddSymbolEffect(effect, isAnim);
+        }
+
+        /// <summary>
+        /// 免费局图标会被提到 goExpectation，基类只扫 reel.goSymbols 会漏回收。
+        /// </summary>
+        public override void SkipWinLine(bool isIncludeTag)
+        {
+            string[] exclude = isIncludeTag ? Array.Empty<string>() : new[] { "symbol_appear#" };
+            if (goExpectation != null && fguiPoolHelper != null)
+                fguiPoolHelper.ReturnAllToPool(goExpectation, exclude);
+
+            base.SkipWinLine(isIncludeTag);
+        }
+
 
 
         #region 开奖动画
@@ -67,7 +98,7 @@ namespace CaiFuHuoChe_3996
 
                 // 图标动画  
                 GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolHit, symbolName).asCom;
-                symble.AddSymbolEffect(goSymbolHit, isSymbolAnim);
+                AddSymbolEffectReplace(symble, goSymbolHit, isSymbolAnim);
 
                 // 设置层级
                 FguiSortingOrderManager.Instance.ChangeSortingOrder(symble.goOwnerSymbol, goExpectation); //goPayLines
@@ -153,7 +184,7 @@ namespace CaiFuHuoChe_3996
 
                 // 图标动画
                 GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolHit, symbolName).asCom;
-                symble.AddSymbolEffect(goSymbolHit, isSymbolAnim);
+                AddSymbolEffectReplace(symble, goSymbolHit, isSymbolAnim);
                 // 设置层级
                 FguiSortingOrderManager.Instance.ChangeSortingOrder(symble.goOwnerSymbol, goExpectation); //goPayLines
 
@@ -218,7 +249,7 @@ namespace CaiFuHuoChe_3996
 
                     // 图标动画
                     GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolHit, symbolName).asCom;
-                    symbol.AddSymbolEffect(goSymbolHit, isAmin);
+                    AddSymbolEffectReplace(symbol, goSymbolHit, isAmin);
 
                     // 设置层级
                     FguiSortingOrderManager.Instance.ChangeSortingOrder(symbol.goOwnerSymbol, goExpectation);
@@ -239,7 +270,7 @@ namespace CaiFuHuoChe_3996
 
                     // 图标动画
                     GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
-                    symbol.AddSymbolEffect(goSymbolHit, isAmin);
+                    AddSymbolEffectReplace(symbol, goSymbolHit, isAmin);
 
                     // 设置层级
                     FguiSortingOrderManager.Instance.ChangeSortingOrder(symbol.goOwnerSymbol, goExpectation);
@@ -434,7 +465,7 @@ namespace CaiFuHuoChe_3996
 
                                     // 图标动画
                                     GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
-                                    reels[_reelIdx].symbolList[i].AddSymbolEffect(goSymbolHit, true);
+                                    AddSymbolEffectReplace(reels[_reelIdx].symbolList[i], goSymbolHit, true);
 
                                     if(int.Parse(ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx]) / 1000 == 4)
                                     {
@@ -486,7 +517,7 @@ namespace CaiFuHuoChe_3996
                                 {
                                     string symbolName = CustomModel.Instance.symbolAppearEffect[symbleNumber];
                                     GComponent anchorSymbolEffect = fguiPoolHelper.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
-                                    symble.AddSymbolEffect(anchorSymbolEffect);
+                                    AddSymbolEffectReplace(symble, anchorSymbolEffect);
 
                                     FguiSortingOrderManager.Instance.ChangeSortingOrder(symble.goOwnerSymbol, goExpectation);
                                 }
@@ -519,7 +550,7 @@ namespace CaiFuHuoChe_3996
         public new IEnumerator TurnReelsNormal(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3", Action finishCallback = null)
         {
             //停止特效显示
-            SkipWinLine(false);
+            SkipWinLine(ContentModel.Instance.isFreeSpin);
 
             int[] deckColRow = SlotTool.GetDeckColRow(strDeckRowCol).ToArray();
             List<List<int>> colrowLsts = GetDeckColRow(deckColRow,
@@ -611,7 +642,7 @@ namespace CaiFuHuoChe_3996
         public new IEnumerator TurnReelsOnce(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3", Action finishCallback = null)
         {
 
-            SkipWinLine(false);
+            SkipWinLine(ContentModel.Instance.isFreeSpin);
 
             int[] deckColRow = SlotTool.GetDeckColRow(strDeckRowCol).ToArray();
             List<List<int>> colrowLsts = GetDeckColRow(deckColRow,
@@ -722,7 +753,7 @@ namespace CaiFuHuoChe_3996
 
                                     // 图标动画
                                     GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
-                                    reels[_reelIdx].symbolList[i].AddSymbolEffect(goSymbolHit, true);
+                                    AddSymbolEffectReplace(reels[_reelIdx].symbolList[i], goSymbolHit, true);
 
 
                                     if (int.Parse(ContentModel.Instance.jackpotWin[(i - 2) * 5 + _reelIdx]) / 1000 == 4)
@@ -773,7 +804,7 @@ namespace CaiFuHuoChe_3996
                                 {
                                     string symbolName = CustomModel.Instance.symbolAppearEffect[symbleNumber];
                                     GComponent anchorSymbolEffect = fguiPoolHelper.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
-                                    symble.AddSymbolEffect(anchorSymbolEffect);
+                                    AddSymbolEffectReplace(symble, anchorSymbolEffect);
 
                                     FguiSortingOrderManager.Instance.ChangeSortingOrder(symble.goOwnerSymbol, goExpectation);
                                 }
@@ -828,7 +859,7 @@ namespace CaiFuHuoChe_3996
 
                         // 图标动画（与 BonusSymbolAppear 音效同步：特效挂上即播）
                         GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolHit, symbolName).asCom;
-                        symbol.AddSymbolEffect(goSymbolHit, true);
+                        AddSymbolEffectReplace(symbol, goSymbolHit, true);
                         EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
                             new EventData(Game3996AudioEvent.BonusSymbolAppear));
 
@@ -925,7 +956,7 @@ namespace CaiFuHuoChe_3996
 
                 // 图标动画
                 GComponent goSymbolHit = fguiPoolHelper.GetObject(TagPoolObject.SymbolAppear, symbolName).asCom;
-                symbol.AddSymbolEffect(goSymbolHit, isAmin);
+                AddSymbolEffectReplace(symbol, goSymbolHit, isAmin);
 
                 // 设置层级
                 TempSortOrder(symbol.goOwnerSymbol, goExpectation);

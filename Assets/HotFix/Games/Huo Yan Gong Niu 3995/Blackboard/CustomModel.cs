@@ -28,15 +28,14 @@ namespace HuoYanGongNiu_3995
         }
 
         /// <summary> 说明页 </summary>
-        public string[] payTable => new string[7]
+        public string[] payTable => new string[6]
         {
-            "ui://EmperorsRein/Paytable021",
-            "ui://EmperorsRein/Paytable022",
-            "ui://EmperorsRein/Paytable023",
-            "ui://EmperorsRein/Paytable024",
-            "ui://EmperorsRein/Paytable025",
-            "ui://EmperorsRein/Paytable026",
-            "ui://EmperorsRein/Paytable027",
+            "ui://HuoYanGongNiu_3995/Paytable1",
+            "ui://HuoYanGongNiu_3995/Paytable2",
+            "ui://HuoYanGongNiu_3995/Paytable3",
+            "ui://HuoYanGongNiu_3995/Paytable4",
+            "ui://HuoYanGongNiu_3995/Paytable5",
+            "ui://HuoYanGongNiu_3995/Paytable6",
         };
 
 
@@ -80,7 +79,7 @@ namespace HuoYanGongNiu_3995
         /// * 中线时，播放的动画效果和普通的牌不一样。
         /// </remarks>
         /// <returns></returns>
-        public List<int> specialHitSymbols => new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+        public List<int> specialHitSymbols => new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 22, 33};
 
 
         /// <summary> 特效图标 - 预制体名称</summary>

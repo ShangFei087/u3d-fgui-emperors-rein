@@ -303,5 +303,5 @@
     <image id="uqrcis" name="sg_fs_txt_respin.png" path="/images/jackpotGame/" exported="true"/>
     <component id="lhdziu" name="AnchorNum.xml" path="/component/popupFreeGame/" exported="true"/>
   </resources>
-  <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Games\Cai Fu Huo Che 3996\FGUIs" packageCount="2"/>
+  <publish name="" path="../../Assets\GameRes\Games\Cai Fu Huo Che 3996\FGUIs" packageCount="2"/>
 </packageDescription>
