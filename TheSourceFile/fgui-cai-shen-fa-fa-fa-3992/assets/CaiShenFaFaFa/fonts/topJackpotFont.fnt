@@ -1,0 +1,17 @@
+info size=12 resizable=true colored=false
+char id=48 img=n2khr xoffset=0 yoffset=0 xadvance=0
+char id=49 img=n2khs xoffset=0 yoffset=0 xadvance=0
+char id=50 img=n2kht xoffset=0 yoffset=0 xadvance=0
+char id=51 img=n2khu xoffset=0 yoffset=0 xadvance=0
+char id=52 img=n2khv xoffset=0 yoffset=0 xadvance=0
+char id=53 img=n2khw xoffset=0 yoffset=0 xadvance=0
+char id=54 img=n2khx xoffset=0 yoffset=0 xadvance=0
+char id=55 img=n2khy xoffset=0 yoffset=0 xadvance=0
+char id=56 img=n2khz xoffset=0 yoffset=0 xadvance=0
+char id=57 img=n2kh10 xoffset=0 yoffset=0 xadvance=0
+char id=66 img=n2kh11 xoffset=0 yoffset=0 xadvance=0
+char id=44 img=n2kh12 xoffset=0 yoffset=0 xadvance=0
+char id=36 img=n2kh13 xoffset=0 yoffset=0 xadvance=0
+char id=46 img=n2kh14 xoffset=0 yoffset=0 xadvance=0
+char id=75 img=n2kh15 xoffset=0 yoffset=0 xadvance=0
+char id=77 img=n2kh16 xoffset=0 yoffset=0 xadvance=0

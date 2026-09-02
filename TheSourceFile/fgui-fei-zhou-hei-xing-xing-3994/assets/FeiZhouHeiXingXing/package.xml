@@ -123,16 +123,16 @@
     <image id="s1hw79" name="fg_bor_fgx.png" path="/images/common/gameBorder/free/" exported="true"/>
     <image id="s1hw7a" name="fg_bor_left.png" path="/images/common/gameBorder/free/" exported="true"/>
     <image id="s1hw7b" name="fg_bor_nk.png" path="/images/common/gameBorder/free/" exported="true"/>
-    <image id="s1hw7d" name="fg_num_0.png" path="/images/common/gameFont/freeTriggerFont/" exported="true"/>
-    <image id="s1hw7e" name="fg_num_1.png" path="/images/common/gameFont/freeTriggerFont/" exported="true"/>
-    <image id="s1hw7f" name="fg_num_2.png" path="/images/common/gameFont/freeTriggerFont/" exported="true"/>
-    <image id="s1hw7g" name="fg_num_3.png" path="/images/common/gameFont/freeTriggerFont/" exported="true"/>
-    <image id="s1hw7h" name="fg_num_4.png" path="/images/common/gameFont/freeTriggerFont/" exported="true"/>
-    <image id="s1hw7i" name="fg_num_5.png" path="/images/common/gameFont/freeTriggerFont/" exported="true"/>
-    <image id="s1hw7j" name="fg_num_6.png" path="/images/common/gameFont/freeTriggerFont/" exported="true"/>
-    <image id="s1hw7k" name="fg_num_7.png" path="/images/common/gameFont/freeTriggerFont/" exported="true"/>
-    <image id="s1hw7l" name="fg_num_8.png" path="/images/common/gameFont/freeTriggerFont/" exported="true"/>
-    <image id="s1hw7m" name="fg_num_9.png" path="/images/common/gameFont/freeTriggerFont/" exported="true"/>
+    <image id="s1hw7d" name="fg_num_0.png" path="/images/common/gameFont/freeTriggerFont/" exported="true" atlas="5"/>
+    <image id="s1hw7e" name="fg_num_1.png" path="/images/common/gameFont/freeTriggerFont/" exported="true" atlas="5"/>
+    <image id="s1hw7f" name="fg_num_2.png" path="/images/common/gameFont/freeTriggerFont/" exported="true" atlas="5"/>
+    <image id="s1hw7g" name="fg_num_3.png" path="/images/common/gameFont/freeTriggerFont/" exported="true" atlas="5"/>
+    <image id="s1hw7h" name="fg_num_4.png" path="/images/common/gameFont/freeTriggerFont/" exported="true" atlas="5"/>
+    <image id="s1hw7i" name="fg_num_5.png" path="/images/common/gameFont/freeTriggerFont/" exported="true" atlas="5"/>
+    <image id="s1hw7j" name="fg_num_6.png" path="/images/common/gameFont/freeTriggerFont/" exported="true" atlas="5"/>
+    <image id="s1hw7k" name="fg_num_7.png" path="/images/common/gameFont/freeTriggerFont/" exported="true" atlas="5"/>
+    <image id="s1hw7l" name="fg_num_8.png" path="/images/common/gameFont/freeTriggerFont/" exported="true" atlas="5"/>
+    <image id="s1hw7m" name="fg_num_9.png" path="/images/common/gameFont/freeTriggerFont/" exported="true" atlas="5"/>
     <font id="s1hw7n" name="freeTriggerFont.fnt" path="/fonts/" exported="true"/>
     <image id="s1hw7o" name="fg_num_0.png" path="/images/common/gameFont/freeResultFont/" exported="true"/>
     <image id="s1hw7p" name="fg_num_mil.png" path="/images/common/gameFont/freeResultFont/" exported="true"/>

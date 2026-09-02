@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" designImage="ui://baedj8ikn2khg">
+  <controller name="gameController" pages="0,normal,1,free,5,bonus" selected="0"/>
+  <displayList>
+    <loader id="n0_n2kh" name="GameBgLoader" xy="0,0" size="1080,1920" url="ui://baedj8ikn2kh9"/>
+    <loader id="n1_n2kh" name="GameBorderLoader" xy="0,0" size="1080,1920" url="ui://baedj8ikn2khh" autoSize="true"/>
+  </displayList>
+</component>

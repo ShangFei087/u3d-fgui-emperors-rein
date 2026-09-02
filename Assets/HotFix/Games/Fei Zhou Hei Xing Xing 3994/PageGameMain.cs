@@ -438,7 +438,7 @@ namespace FeiZhouHeiXingXing_3994
             _uiJpMajorCtrl.SetReelWidth(30);
             _uiJpMinorCtrl.SetReelWidth(30);
             _uiJpMiniCtrl.SetReelWidth(30);
-            int mini = 0, minor = 0, major = 0;
+
             ERPushMachineDataManager02.Instance.RequestGetJpContribution((res) =>
             {
                 JSONNode jsonNode = JSONNode.Parse((string)res);
@@ -450,14 +450,16 @@ namespace FeiZhouHeiXingXing_3994
                     return;
                 }
 
-                mini = (int)jsonNode["mini"];
-                minor = (int)jsonNode["minor"];
-                major = (int)jsonNode["major"];
 
-                _uiJpMajorCtrl.SetData(major);
-                _uiJpMinorCtrl.SetData(minor);
-                _uiJpMiniCtrl.SetData(mini);
+                _uiJpMajorCtrl.SetData((int)jsonNode["major"]);
+                _uiJpMinorCtrl.SetData((int)jsonNode["minor"]);
+                _uiJpMiniCtrl.SetData((int)jsonNode["mini"]);
             });
+            // 测试数据
+            _uiJpMajorCtrl.SetData(1000);
+            _uiJpMinorCtrl.SetData(500);
+            _uiJpMiniCtrl.SetData(200);
+
             _freeSpinTimeController = new FreeSpinTimeController();
             _freeFrameCom = contentPane.GetChild("freeOther").asCom.GetChild("freeFrame").asCom;
             _freeSpinsNumber = _freeFrameCom.GetChild("FreeSpinsNumber").asTextField;
@@ -1376,7 +1378,6 @@ namespace FeiZhouHeiXingXing_3994
             isNext = false;
 
             yield return FreeGameSpin(successCallback, errorCallback);
-            PushIsUsedComToPool();
 
             OutputStackContextFreeSpin((context) =>
             {
@@ -1407,7 +1408,6 @@ namespace FeiZhouHeiXingXing_3994
         private IEnumerator FreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
             OnGameReset();
-            PushIsUsedComToPool();
             ContentModel.Instance.gameState = GameState.FreeSpin;
 
             bool isNext = false;
@@ -1473,15 +1473,15 @@ namespace FeiZhouHeiXingXing_3994
                 }
             }
 
-            // ----------------- show wild ----------------
-            if (_corFreeWild != null) _monoHelper.StopCoroutine(_corFreeWild);
-            _corFreeWild = _monoHelper.StartCoroutine(ShowWildSpine(GetFreeMiddleData(), () => isNext = true));
-            yield return new WaitUntil(() => isNext == true);
-            isNext = false;
-
             // ----------------- icon change ----------------
             if (_corChangeIcon != null) _monoHelper.StopCoroutine(_corChangeIcon);
             _corChangeIcon = _monoHelper.StartCoroutine(IconConversion(() => isNext = true));
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+
+            // ----------------- show wild ----------------
+            if (_corFreeWild != null) _monoHelper.StopCoroutine(_corFreeWild);
+            _corFreeWild = _monoHelper.StartCoroutine(ShowWildSpine(GetFreeMiddleData(), () => isNext = true));
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
@@ -1536,6 +1536,7 @@ namespace FeiZhouHeiXingXing_3994
             yield return new WaitForSeconds(1.5f);
             _slotMachineController.SkipWinLine(false);
             _slotMachineController.CloseSlotCover();
+            PushIsUsedComToPool();
         }
 
         /// <summary> 获取免费游戏中 中间位置图标的索引 </summary>
@@ -1888,7 +1889,11 @@ namespace FeiZhouHeiXingXing_3994
                 new EventData<Dictionary<string, object>>("",
                     new Dictionary<string, object>()
                     {
-                        { "changeSmallGamePage", new Action(() => _pageController.selectedPage = "small") },
+                        { "changeSmallGamePage", new Action(() =>
+                        {
+                            _pageController.selectedPage = "small";
+                           
+                        }) },
                     }), (ed) =>
                 {
                     ContentModel.Instance.btnSpinState = SpinButtonState.Stop; // 需要先重置按钮的状态，否则会置灰其他按钮失败

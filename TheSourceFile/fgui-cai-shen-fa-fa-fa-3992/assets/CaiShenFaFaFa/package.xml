@@ -1,5 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="baedj8ik">
-  <resources/>
+  <resources>
+    <component id="n2kh0" name="PageGameMain.xml" path="/"/>
+    <component id="n2kh1" name="PopupBigWin.xml" path="/"/>
+    <component id="n2kh2" name="PopupFreeSpinResult.xml" path="/"/>
+    <component id="n2kh3" name="PopupFreeSpinTrigger.xml" path="/"/>
+    <component id="n2kh4" name="PopupGameLoading.xml" path="/"/>
+    <component id="n2kh5" name="PopupSmallGameJackpotWin.xml" path="/"/>
+    <component id="n2kh6" name="PopupSmallGameResult.xml" path="/"/>
+    <component id="n2kh7" name="PopupSmallGameTrigger.xml" path="/"/>
+    <image id="n2kh8" name="ng_img_bg_01.png" path="/images/pageGameMain/Normal_Game/" exported="true"/>
+    <component id="n2kh9" name="NormalBg.xml" path="/moudules/pageGameMain/Normal_Game/GameBg/"/>
+    <image id="n2kha" name="ng_bor_fgx.png" path="/images/pageGameMain/Normal_Game/" exported="true"/>
+    <image id="n2khb" name="ng_bor_left、right.png" path="/images/pageGameMain/Normal_Game/" exported="true"/>
+    <image id="n2khc" name="ng_bor_nk.png" path="/images/pageGameMain/Normal_Game/" exported="true"/>
+    <image id="n2khd" name="ng_bor_up.png" path="/images/pageGameMain/Normal_Game/" exported="true"/>
+    <image id="n2khe" name="ng_bor_zs.png" path="/images/pageGameMain/Normal_Game/" exported="true"/>
+    <image id="n2khf" name="ng_bor_down.png" path="/images/pageGameMain/Normal_Game/" exported="true"/>
+    <image id="n2khg" name="财神普通游戏-英文.png" path="/images/效果图/"/>
+    <component id="n2khh" name="NormalOther.xml" path="/moudules/pageGameMain/Normal_Game/GameBg/"/>
+    <component id="n2khi" name="anchorNpc.xml" path="/moudules/pageGameMain/Normal_Game/GameAnchor/"/>
+    <image id="n2khj" name="ng_txt_9.png" path="/images/pageGameMain/Normal_Game/" exported="true"/>
+    <image id="n2khk" name="ng_bor_major .png" path="/images/common/Game_Jackpot/" exported="true"/>
+    <image id="n2khl" name="ng_bor_mini.png" path="/images/common/Game_Jackpot/" exported="true"/>
+    <image id="n2khm" name="ng_bor_minor.png" path="/images/common/Game_Jackpot/" exported="true"/>
+    <image id="n2khn" name="ng_txt_major.png" path="/images/common/Game_Jackpot/" exported="true"/>
+    <image id="n2kho" name="ng_txt_mini.png" path="/images/common/Game_Jackpot/" exported="true"/>
+    <image id="n2khp" name="ng_txt_minor.png" path="/images/common/Game_Jackpot/" exported="true"/>
+    <image id="n2khr" name="ng_num_0.png" path="/images/common/Game_Fonts/topJackpotFont/" exported="true"/>
+    <image id="n2khs" name="ng_num_1.png" path="/images/common/Game_Fonts/topJackpotFont/" exported="true"/>
+    <image id="n2kht" name="ng_num_2.png" path="/images/common/Game_Fonts/topJackpotFont/" exported="true"/>
+    <image id="n2khu" name="ng_num_3.png" path="/images/common/Game_Fonts/topJackpotFont/" exported="true"/>
+    <image id="n2khv" name="ng_num_4.png" path="/images/common/Game_Fonts/topJackpotFont/" exported="true"/>
+    <image id="n2khw" name="ng_num_5.png" path="/images/common/Game_Fonts/topJackpotFont/" exported="true"/>
+    <image id="n2khx" name="ng_num_6.png" path="/images/common/Game_Fonts/topJackpotFont/" exported="true"/>
+    <image id="n2khy" name="ng_num_7.png" path="/images/common/Game_Fonts/topJackpotFont/" exported="true"/>
+    <image id="n2khz" name="ng_num_8.png" path="/images/common/Game_Fonts/topJackpotFont/" exported="true"/>
+    <image id="n2kh10" name="ng_num_9.png" path="/images/common/Game_Fonts/topJackpotFont/" exported="true"/>
+    <image id="n2kh11" name="ng_num_bil.png" path="/images/common/Game_Fonts/topJackpotFont/" exported="true"/>
+    <image id="n2kh12" name="ng_num_com.png" path="/images/common/Game_Fonts/topJackpotFont/" exported="true"/>
+    <image id="n2kh13" name="ng_num_dollar.png" path="/images/common/Game_Fonts/topJackpotFont/" exported="true"/>
+    <image id="n2kh14" name="ng_num_dot.png" path="/images/common/Game_Fonts/topJackpotFont/" exported="true"/>
+    <image id="n2kh15" name="ng_num_kil.png" path="/images/common/Game_Fonts/topJackpotFont/" exported="true"/>
+    <image id="n2kh16" name="ng_num_mil.png" path="/images/common/Game_Fonts/topJackpotFont/" exported="true"/>
+    <font id="n2kh17" name="topJackpotFont.fnt" path="/fonts/" exported="true"/>
+    <image id="n2kh18" name="ng_num_0.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh19" name="ng_num_mil.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh1a" name="ng_num_kil.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh1b" name="ng_num_dot.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh1c" name="ng_num_dollar.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh1d" name="ng_num_com.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh1e" name="ng_num_bil.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh1f" name="ng_num_9.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh1g" name="ng_num_8.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh1h" name="ng_num_7.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh1i" name="ng_num_6.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh1j" name="ng_num_5.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh1k" name="ng_num_4.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh1l" name="ng_num_3.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh1m" name="ng_num_2.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh1n" name="ng_num_1.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh1o" name="ng_num_s.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <image id="n2kh1p" name="ng_num_tril.png" path="/images/common/Game_Fonts/bigWinFont/" exported="true"/>
+    <font id="n2kh1q" name="bigWinFont.fnt" path="/fonts/" exported="true"/>
+    <image id="n2kh1r" name="ng_num_0.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh1s" name="ng_num_mil.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh1t" name="ng_num_kil.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh1u" name="ng_num_dot.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh1v" name="ng_num_dollar.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh1w" name="ng_num_com.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh1x" name="ng_num_bil.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh1y" name="ng_num_8-2.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh1z" name="ng_num_8.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh20" name="ng_num_7.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh21" name="ng_num_6.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh22" name="ng_num_5.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh23" name="ng_num_4.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh24" name="ng_num_3.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh25" name="ng_num_2.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh26" name="ng_num_1.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh27" name="ng_num_s.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <image id="n2kh28" name="ng_num_tril.png" path="/images/common/Game_Fonts/panelBottomFont/" exported="true"/>
+    <font id="n2kh29" name="panelBottomFont.fnt" path="/fonts/" exported="true"/>
+    <image id="n2kh2a" name="ng_txt_mini.png" path="/components/common/Game_Jackpot/" exported="true"/>
+    <image id="n2kh2b" name="ng_txt_minor.png" path="/components/common/Game_Jackpot/" exported="true"/>
+    <image id="n2kh2c" name="ng_txt_major.png" path="/components/common/Game_Jackpot/" exported="true"/>
+    <component id="n2kh2d" name="GameJackpotReel.xml" path="/moudules/pageGameMain/Game_Jackpot/"/>
+  </resources>
   <publish name="" path="../../Assets\GameRes\Games\Cai Shen Fa Fa Fa 3992\FGUIs" packageCount="2"/>
 </packageDescription>

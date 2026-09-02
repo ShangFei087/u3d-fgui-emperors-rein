@@ -245,7 +245,7 @@ namespace FeiZhouHeiXingXing_3994
                 if (isOpen) CloseSelf(null);
                 _startBtn.visible = true;
                 _changePage = null;
-            }, 5.067f);
+            }, 3.5f);
         }
 
         /// <summary>播放指定Pag文件</summary>

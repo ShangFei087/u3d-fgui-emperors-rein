@@ -25,7 +25,7 @@ namespace FeiZhouHeiXingXing_3994
         private readonly string[] _winTypeString = { "BIG", "HUGE", "MASSIVE" };
 
         /// <summary> 每个级别Pag视频的时长 </summary>
-        private readonly float[] _pagTimes = { 3.93f, 7.6f, 11.97f };
+        private readonly float[] _pagTimes = { 3.53f, 7.1f, 11.47f };
 
         private long _score; // BigWin中奖得分
         private int _winIndex; // 当前中大奖索引
@@ -58,7 +58,7 @@ namespace FeiZhouHeiXingXing_3994
             FguiI18nTextAssistant.Instance.DisposeAllTranslate(contentPane);
             contentPane.Dispose(); // 释放当前UI
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
-            InitParam(null);
+            InitParam();
         }
 
         private void InitParam(EventData eventData = null)
@@ -74,6 +74,8 @@ namespace FeiZhouHeiXingXing_3994
             _bigWinCom = contentPane.GetChild("anchorBigWin").asCom;
             _bigWinPag = new PagSlotBinding("bigWin", PagPath);
             _bigWinPag.EnsureSlot(_bigWinCom);
+
+            _bigWinText.text = "";
 
             PlayNumAniAndPag();
         }
