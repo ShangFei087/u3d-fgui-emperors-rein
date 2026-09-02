@@ -449,16 +449,15 @@ namespace FeiZhouHeiXingXing_3994
                     DebugUtils.LogError($"请求贡献值报错。 code: {code}");
                     return;
                 }
-
-
+                
                 _uiJpMajorCtrl.SetData((int)jsonNode["major"]);
                 _uiJpMinorCtrl.SetData((int)jsonNode["minor"]);
                 _uiJpMiniCtrl.SetData((int)jsonNode["mini"]);
             });
-            // 测试数据
-            _uiJpMajorCtrl.SetData(1000);
-            _uiJpMinorCtrl.SetData(500);
-            _uiJpMiniCtrl.SetData(200);
+            // // 测试数据
+            // _uiJpMajorCtrl.SetData(1000);
+            // _uiJpMinorCtrl.SetData(500);
+            // _uiJpMiniCtrl.SetData(200);
 
             _freeSpinTimeController = new FreeSpinTimeController();
             _freeFrameCom = contentPane.GetChild("freeOther").asCom.GetChild("freeFrame").asCom;
