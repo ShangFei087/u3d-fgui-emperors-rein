@@ -1793,7 +1793,7 @@ namespace CaiFuHuoChe_3996
                     slotMachineCtrl.CloseSlotCover();
                     slotMachineCtrl.SkipWinLine(true);
                     StopAllFreeTrainIdleEffects();
-                    yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
+                    yield return BigWinPopup(winLevelType, totalWinLineCredit);
                     SetFreeTrainState();
                     slotMachineCtrl.ShowSymbolWinDeck(slotMachineCtrl.GetTotalSymbolWin(winList), true);
                 }
@@ -2852,6 +2852,7 @@ namespace CaiFuHuoChe_3996
             if (type < 4)
             {
                 info.type = SmallResultType.Money;
+                value *= ContentModel.Instance.betmultiple;
                 info.rewardValue = value;
                 info.rewardText = value.ToString();
                 info.iconUrl = _moneyUrl;
@@ -3168,12 +3169,26 @@ namespace CaiFuHuoChe_3996
             {
                 _remainingRolls--;
                 UpdateRollCountUI(_remainingRolls);
+
                 // 每轮开始前：重置未揭示的格子的滚动元素
+                bool isFull = true;
                 foreach (var box in _elementBoxes)
                 {
                     if (box.State != SmallReelState.Revealed)
                         box.PlayRollReset();
                 }
+
+                // 每轮开始前：检查是否已经全部中奖导致没有格子
+                foreach (var box in _elementBoxes)
+                {
+                    if (box.State == SmallReelState.Idle)
+                    {
+                        isFull = false;
+                        break;
+                    }
+                }
+
+                if (isFull) break;
 
                 // 1. 分类reel：中奖的 vs 普通的
                 hitReelIndices.Clear();

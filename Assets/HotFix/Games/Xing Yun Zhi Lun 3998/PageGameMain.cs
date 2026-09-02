@@ -2717,34 +2717,35 @@ namespace XingYunZhiLun_3998
                                 (res) =>
                                 {
                                     isNext = true;
-
-                                    //积分同步和退币处理
-                                    slotMachineCtrl.SendTotalWinCreditEvent((long)winCredit + tempWinCredit);
+                                    EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT, new EventData<long>(SlotMachineEvent.SingleWinBonus, (long)winCredit));
                                 });
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
             }
-
+            else
+            {
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT, new EventData<long>(SlotMachineEvent.SingleWinBonus, (long)winCredit));
+            }
 
             PageManager.Instance.OpenPageAsync(PageName.XingYunZhiLunPopupJackpotGameExit,
-                new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
-                {
-                    ["totalEarnCredit"] = winCredit,
-                    ["callback"] = new Action(() =>
+                    new EventData<Dictionary<string, object>>("", new Dictionary<string, object>
                     {
-                        //切换回普通场景
-                        ChangeWheelURL(0);
-                        ChangeBGPanel(0);
-                        gJackpotBg.visible = false;
-                    })
-                }),
-                (res) =>
-                {
-                    isNext = true;
-                    isMain = true;
-                    EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmRegularGame));
-                    ContentModel.Instance.isInDrawGame = false;
-                });
+                        ["totalEarnCredit"] = winCredit,
+                        ["callback"] = new Action(() =>
+                        {
+                            //切换回普通场景
+                            ChangeWheelURL(0);
+                            ChangeBGPanel(0);
+                            gJackpotBg.visible = false;
+                        })
+                    }),
+                    (res) =>
+                    {
+                        isNext = true;
+                        isMain = true;
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmRegularGame));
+                        ContentModel.Instance.isInDrawGame = false;
+                    });
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 

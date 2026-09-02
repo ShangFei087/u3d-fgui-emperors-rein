@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1061,155" extention="Slider">
   <displayList>
+    <image id="n3_jn9u" name="n3" src="jn9ufcb" fileName="images/gameLoading/load_ic_bottom_surface.png" xy="0,-1"/>
     <component id="n1_q4s8" name="bar" src="q4s8j" fileName="component/gameLoading/SliderFill.xml" xy="62,42" size="964,68"/>
-    <image id="n0_q4s8" name="n0" src="q4s8a" fileName="images/gameLoading/bg_line_2.png" xy="0,-2" size="1065,158">
+    <image id="n0_q4s8" name="n0" src="q4s8a" fileName="images/gameLoading/bg_line_2.png" xy="0,0" size="1065,158">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
     <component id="n2_q4s8" name="grip" src="q4s8k" fileName="component/gameLoading/Slider1_grip.xml" xy="1021,37" visible="false" touchable="false">

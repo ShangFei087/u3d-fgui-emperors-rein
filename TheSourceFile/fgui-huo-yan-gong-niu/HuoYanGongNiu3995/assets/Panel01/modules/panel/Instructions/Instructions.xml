@@ -9,6 +9,5 @@
     <component id="n7_s82q" name="btnPrev" src="s82q1m" fileName="modules/panel/Instructions/BtnPrev.xml" xy="160,1606"/>
     <component id="n6_s82q" name="btnNect" src="s82q1l" fileName="modules/panel/Instructions/BtnNext.xml" xy="745,1606"/>
     <component id="n8_s82q" name="btnBackGame" src="s82q1n" fileName="modules/panel/Instructions/BtnBackGame.xml" xy="340,1606"/>
-    <text id="n11_qhif" name="n11" xy="551,706" size="25,19" fontSize="12" text="108"/>
   </displayList>
 </component>
