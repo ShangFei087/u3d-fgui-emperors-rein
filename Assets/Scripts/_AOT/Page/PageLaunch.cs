@@ -88,6 +88,7 @@ public class PageLaunch
                 _instance.goOwnerPage = UIPackage.CreateObject("Native", ResolveLaunchFguiName()).asCom;
 
                 GRoot.inst.AddChild(_instance.goOwnerPage);
+                ScreenFlipUtils.Apply();
               
                 _instance.goOwnerPage.sortingOrder = 99;
             }
