@@ -3178,17 +3178,6 @@ namespace CaiFuHuoChe_3996
                         box.PlayRollReset();
                 }
 
-                // 每轮开始前：检查是否已经全部中奖导致没有格子
-                foreach (var box in _elementBoxes)
-                {
-                    if (box.State == SmallReelState.Idle)
-                    {
-                        isFull = false;
-                        break;
-                    }
-                }
-
-                if (isFull) break;
 
                 // 1. 分类reel：中奖的 vs 普通的
                 hitReelIndices.Clear();
@@ -3226,6 +3215,18 @@ namespace CaiFuHuoChe_3996
                     UpdateRollCountUI(_remainingRolls);
                 }
 
+                // 每轮结束后：检查是否已经全部中奖导致没有格子
+                foreach (var box in _elementBoxes)
+                {
+                    if (box.State == SmallReelState.Idle)
+                    {
+                        isFull = false;
+                        break;
+                    }
+                }
+
+                if (isFull) break;
+
                 yield return new WaitForSeconds(0.3f);
             }
         }
@@ -3257,9 +3258,11 @@ namespace CaiFuHuoChe_3996
         {
             int completedCount = 0;
             int totalCount = hitIndices.Count + normalIndices.Count;
-            bool isFinish = false;
+            bool isNorFinish = false;
+            bool ishitFinish = false;
 
             // 中奖reel：第一圈roll，第二圈result
+            if (hitIndices.Count == 0) ishitFinish = true;
             foreach (int idx in hitIndices)
             {
                 int captureIdx = idx;
@@ -3272,12 +3275,13 @@ namespace CaiFuHuoChe_3996
                 _elementBoxes[captureIdx].PlayHitRoll(1, 1, () =>
                 {
                     PlayAnim(girlAnim, "sg_appear");
-                    //if (!isFinish)
-                    //    isFinish = true;
+                    if (!ishitFinish)
+                        ishitFinish = true;
                 });
             }
 
             // 普通reel：两圈roll
+            if (normalIndices.Count == 0) isNorFinish = true;
             foreach (int idx in normalIndices)
             {
                 int captureIdx = idx;
@@ -3287,8 +3291,8 @@ namespace CaiFuHuoChe_3996
 
                 _elementBoxes[captureIdx].PlayNormalRoll(speed, () =>
                 {
-                    if (!isFinish)
-                        isFinish = true;
+                    if (!isNorFinish)
+                        isNorFinish = true;
                 });
 
                 //yield return DelayedAction(delay, () =>
@@ -3305,7 +3309,7 @@ namespace CaiFuHuoChe_3996
                 //});
             }
 
-            yield return new WaitUntil(() => isFinish);
+            yield return new WaitUntil(() => isNorFinish && ishitFinish);
             yield return new WaitForSeconds(0.5f);
 
         }
