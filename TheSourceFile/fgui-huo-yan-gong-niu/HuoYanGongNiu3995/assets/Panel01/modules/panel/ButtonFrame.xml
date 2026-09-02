@@ -5,7 +5,7 @@
     <image id="n2_s82q" name="n2" src="s82q2" fileName="images/panel/db_ic_Insert_coin.png" xy="266,143"/>
     <image id="n3_s82q" name="n3" src="s82q3" fileName="images/panel/db_txt_WIN.png" xy="497,88"/>
     <image id="n4_s82q" name="n4" src="s82q4" fileName="images/panel/db_txt_BET.png" xy="638,164"/>
-    <image id="n5_s82q" name="n5" src="s82q5" fileName="images/panel/db_txt_CREDITS .png" xy="341,167"/>
+    <image id="n5_s82q" name="n5" src="s82q5" fileName="images/panel/db_txt_CREDITS .png" xy="365,167"/>
     <image id="n7_s82q" name="n7" src="s82q7" fileName="images/panel/db_txt_Start_automatic_mode..png" xy="298,195"/>
   </displayList>
 </component>

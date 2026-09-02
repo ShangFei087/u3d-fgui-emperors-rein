@@ -56,7 +56,7 @@ namespace HuoYanGongNiu_3995
         private FguiPoolHelper fguiPoolHelper;
         private FguiGObjectPoolHelper gObjectPoolHelper;
 
-        long TotalBet => (long)SBoxModel.Instance.CoinInScale;
+        long TotalBet => (long)MainModel.Instance.contentMD.totalBet;
 
         private new bool isInit = false;        //是否初始化
         private bool isInitPool = false;
@@ -476,7 +476,7 @@ namespace HuoYanGongNiu_3995
             if (!isInit) return;
 
             // ---------- 1. MainModel、Paytable、本地 JSON ----------
-            MainModel.Instance.lineNum = 25;
+            MainModel.Instance.lineNum = 50;
             MainModel.Instance.gameID = 3995;
             MainModel.Instance.gameName = "HuoYanGongNiu3995";
             MainModel.Instance.displayName = "HuoYanGongNiu_3995";
@@ -1538,8 +1538,6 @@ namespace HuoYanGongNiu_3995
             freeTotalTimes.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
             freeRemainTimes.text = (ContentModel.Instance.freeSpinPlayTimes + 1).ToString();
 
-            ContentModel.Instance.gameState = GameState.FreeSpin;
-
             bool isNext = false;
             bool isBreak = false;
             string errMsg = "";
@@ -1694,10 +1692,6 @@ namespace HuoYanGongNiu_3995
             /* 先结算“免费游戏”或“小游戏”再回主游戏结算主游戏，则每局不能同步玩家真实金钱金额
            MainBlackboardController.Instance.SyncMyCreditToReal(false);*/
 
-
-            ContentModel.Instance.gameState = GameState.Idle;
-            // 先结算主游戏，再进入“免费游戏”或“小游戏”，则每局都可以同步玩家真实金钱金额
-
             if (successCallback != null)
                 successCallback.Invoke();
         }
@@ -1791,8 +1785,9 @@ namespace HuoYanGongNiu_3995
             bool isBreak = false;
             long totalBet = TotalBet;
             JSONNode resNode = null;
+
             //请求结果
-            MachineDataG3995Controller.Instance.RequestSlotSpinFromMock(TotalBet, (res) =>
+            MachineDataG3995Controller.Instance.RequestSlotSpinFromMock(totalBet, (res) =>
             {
                 resNode = res;
                 isNext = true;
@@ -1807,125 +1802,13 @@ namespace HuoYanGongNiu_3995
             isNext = false;
             if (isBreak) yield break;
 
-            SBoxJackpotData sboxJackpotData = null;
-            // 获取彩金贡献值
-            int cacheTotalJpMajor = SQLitePlayerPrefs03.Instance.GetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, 0);
-            int cacheTotalJpGrand = SQLitePlayerPrefs03.Instance.GetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, 0);
-
-            SlotG3995MachineDataManager.Instance.RequestGetJpMajorGrandContribution((res) =>
-            {
-                JSONNode data = JSONNode.Parse((string)res);
-                if (0 != (int)data["code"])
-                {
-                    errorCallback?.Invoke("请求贡献值报错");
-                    isNext = true;
-                    isBreak = true;
-                    return;
-                }
-
-                int majorBet = (int)data["major"];
-                int grandBet = (int)data["grand"];
-
-                // 【保存数据，等下行时，删除数据】。
-                cacheTotalJpMajor += majorBet;
-                cacheTotalJpGrand += grandBet;
-                SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, cacheTotalJpMajor);
-                SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, cacheTotalJpGrand);
-
-                // 没有联网彩金
-                //if (!ClientWS.Instance.IsConnected && !ApplicationSettings.Instance.isMock)
-                //{
-                //    isNext = true;
-                //    return;
-                //}
-
-                //NetClientManager.Instance.RequestJackMajorGrand(info, (res) =>
-                //{
-                //    // 【联网彩金，请求成功 ，删除数据】
-                //    cacheTotalJpMajor -= majorBet;
-                //    cacheTotalJpGrand -= grandBet;
-                //    SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, cacheTotalJpMajor);
-                //    SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, cacheTotalJpGrand);
-
-                //    sboxJackpotData = res as SBoxJackpotData;
-
-                //    for (int i = 0; i < sboxJackpotData.Jackpotlottery.Length; i++)
-                //        sboxJackpotData.Jackpotlottery[i] = sboxJackpotData.Jackpotlottery[i] / 100;
-
-                //    for (int i = 0; i < sboxJackpotData.JackpotOut.Length; i++)
-                //        sboxJackpotData.JackpotOut[i] = sboxJackpotData.JackpotOut[i] / 100;
-
-                //    for (int i = 0; i < sboxJackpotData.JackpotOld.Length; i++)
-                //        sboxJackpotData.JackpotOld[i] = sboxJackpotData.JackpotOld[i] / 100;
-
-                //    // 【如果获取到联网彩金-通知算法卡】
-                //    if (sboxJackpotData.Lottery[0] == 1)
-                //    {
-                //        ERPushMachineDataManager.Instance.RequestSetMajorGrandWin(sboxJackpotData.Jackpotlottery[0], (res) =>
-                //        {
-
-                //        });
-                //    }
-                //    if (sboxJackpotData.Lottery[1] == 1)
-                //    {
-                //        ERPushMachineDataManager.Instance.RequestSetMajorGrandWin(sboxJackpotData.Jackpotlottery[1], (res) =>
-                //        {
-
-                //        });
-                //    }
-                //    isNext = true;
-
-                //}, (err) => // 联网彩金，请求失败
-                //{
-                //    errorCallback?.Invoke(err.msg);
-                //    isNext = true;
-                //    isBreak = true;
-                //});
-
-                isNext = true;
-            });
-
-            isNext = true;
-            yield return new WaitUntil(() => isNext == true);
-            isNext = false;
-            if (isBreak) yield break;
-
-            // 【贡献返回给算法卡】
-            if (cacheTotalJpMajor > 10 || cacheTotalJpGrand > 10)
-            {
-                ERPushMachineDataManager.Instance.RequestReturnMajorGrandContribution(
-                    cacheTotalJpMajor > 10 ? cacheTotalJpMajor : 0,
-                    cacheTotalJpGrand > 10 ? cacheTotalJpGrand : 0,
-                    (res) =>
-                    {
-
-                        if ((int)res == 0)
-                        {
-                            if (cacheTotalJpMajor > 10)
-                            {
-                                cacheTotalJpMajor = 0;
-                                SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, 0);
-                            }
-
-                            if (cacheTotalJpGrand > 10)
-                            {
-                                cacheTotalJpGrand = 0;
-                                SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, 0);
-                            }
-                        }
-
-                        isNext = true;
-                    });
-
-                yield return new WaitUntil(() => isNext == true);
-                isNext = false;
-            }
-
-            //赠送局不用扣分
+            // 检查余额通过后，立即扣除积分（提前扣分）
             if (ContentModel.Instance.gameState != GameState.FreeSpin)
             {
-                MainBlackboardController.Instance.MinusMyTempCredit(totalBet, true, false);
+                MainBlackboardController.Instance.MinusMyTempCredit(TotalBet, true, false);
             }
+
+            SBoxJackpotData sboxJackpotData = null;
 
             // 解析数据
             MachineDataG3995Controller.Instance.ParseSlotSpin(totalBet, resNode, sboxJackpotData);
@@ -1952,177 +1835,71 @@ namespace HuoYanGongNiu_3995
             JSONNode resNode = null;
             int myCredit = -1;
 
-            ERPushMachineDataManager02.Instance.RequestCoinPushSpin((res) =>
+            if (!ContentModel.Instance.isUsedRes)
             {
-                resNode = JSONNode.Parse((string)res);
+                ERPushMachineDataManager02.Instance.RequestCoinPushSpin((res) =>
+                {
+                    Debug.Log("请求算法结果");
+                    resNode = JSONNode.Parse((string)res);
+                    isNext = true;
+                });
+                ContentModel.Instance.isUsedRes = false;
+            }
+
+
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+
+            SBoxJackpotData sboxJackpotData = new SBoxJackpotData();
+            // 初始化数组
+            sboxJackpotData.Lottery = new int[3];
+            sboxJackpotData.JackpotOut = new int[3];
+            sboxJackpotData.Jackpotlottery = new int[3];
+            sboxJackpotData.JackpotOld = new int[3];
+            //获取彩金贡献值
+            ERPushMachineDataManager02.Instance.RequestGetJpContribution((res) =>
+            {
+                Debug.Log("请求本地彩金贡献值");
+                JSONNode data = JSONNode.Parse((string)res);
+                Debug.Log(data);
+                int code = (int)data["code"];
+
+                if (0 != code)
+                {
+                    DebugUtils.LogError($"请求贡献值报错。 code: {code}");
+                    isNext = true;
+                    return;
+                }
+
+                int majorBet = (int)data["major"];
+                int minorBet = (int)data["minor"];
+                int miniBet = (int)data["mini"];
+
+                Debug.Log("majorBet:" + majorBet);
+                Debug.Log("minorBet:" + minorBet);
+                Debug.Log("miniBet:" + miniBet);
+
+                sboxJackpotData.Lottery[0] = 0;
+                sboxJackpotData.Lottery[1] = 0;
+                sboxJackpotData.Lottery[2] = 0;
+
+                sboxJackpotData.JackpotOut[0] = majorBet;
+                sboxJackpotData.JackpotOut[1] = minorBet;
+                sboxJackpotData.JackpotOut[2] = miniBet;
+
                 isNext = true;
-                Debug.Log("算法结果");
-                Debug.Log((string)res);
             });
 
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
-            //获取玩家金额
-            //Debug.Log("获取玩家金额");
-            //while (!isGetMyCredit)
-            //{
-            //    GetMyCredit((credit) =>
-            //    {
-            //        myCredit = credit;
-            //        isGetMyCredit = true;
-            //        isNext = true;
-            //    }, (errMsg) =>
-            //    {
-            //        isNext = true;
-            //    });
+            //赠送局不用扣分
+            if (ContentModel.Instance.gameState != GameState.FreeSpin)
+            {
+                MainBlackboardController.Instance.MinusMyTempCredit(totalBet, true, false);
+            }
 
-            //    yield return new WaitUntil(() => isNext == true);
-            //    isNext = false;
-            //}
-
-            SBoxJackpotData sboxJackpotData = null;
-
-            // 获取彩金贡献值
-            int cacheTotalJpMajor = SQLitePlayerPrefs03.Instance.GetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, 0);
-            int cacheTotalJpGrand = SQLitePlayerPrefs03.Instance.GetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, 0);
-
-
-            //Debug.Log("获取彩金贡献值");
-            //ERPushMachineDataManager02.Instance.RequestGetJpMajorGrandContribution((res) =>
-            //{
-            //    JSONNode data = JSONNode.Parse((string)res);
-
-            //    if (0 != (int)data["code"])
-            //    {
-            //        errorCallback?.Invoke("请求贡献值报错");
-            //        isNext = true;
-            //        isBreak = true;
-            //        return;
-            //    }
-
-            //    int majorBet = (int)data["major"];
-            //    int grandBet = (int)data["grand"];
-
-            //    // 【保存数据，等下行时，删除数据】。
-            //    cacheTotalJpMajor += majorBet;
-            //    cacheTotalJpGrand += grandBet;
-            //    SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, cacheTotalJpMajor);
-            //    SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, cacheTotalJpGrand);
-
-            //    JackBetInfoCoinPush info = new JackBetInfoCoinPush()
-            //    {
-            //        gameType = 1,
-            //        seat = SBoxModel.Instance.seatId,
-            //        betPercent = 1 * 100,
-            //        scoreRate = 1 * 1000,
-            //        JPPercent = 1 * 1000,
-            //        majorBet = majorBet * 100,
-            //        grandBet = grandBet * 100,
-            //    };
-
-            //    // 没有联网彩金
-            //    if (!ClientWS.Instance.IsConnected && !ApplicationSettings.Instance.isMock)
-            //    {
-            //        isNext = true;
-            //        return;
-            //    }
-
-            //    NetClientHelper02.Instance.RequestJackBetMajorGrand(info, (res) =>
-            //    {
-            //        // 【联网彩金，请求成功 ，删除数据】
-            //        cacheTotalJpMajor -= majorBet;
-            //        cacheTotalJpGrand -= grandBet;
-            //        SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, cacheTotalJpMajor);
-            //        SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, cacheTotalJpGrand);
-
-            //        sboxJackpotData = res as SBoxJackpotData;
-
-            //        for (int i = 0; i < sboxJackpotData.Jackpotlottery.Length; i++)
-            //            sboxJackpotData.Jackpotlottery[i] = sboxJackpotData.Jackpotlottery[i] / 100;
-
-            //        for (int i = 0; i < sboxJackpotData.JackpotOut.Length; i++)
-            //            sboxJackpotData.JackpotOut[i] = sboxJackpotData.JackpotOut[i] / 100;
-
-            //        for (int i = 0; i < sboxJackpotData.JackpotOld.Length; i++)
-            //            sboxJackpotData.JackpotOld[i] = sboxJackpotData.JackpotOld[i] / 100;
-
-            //        // 【如果获取到联网彩金-通知算法卡】
-            //        if (sboxJackpotData.Lottery[0] == 1)
-            //        {
-            //            ERPushMachineDataManager02.Instance.RequestSetMajorGrandWin(sboxJackpotData.Jackpotlottery[0], (res) =>
-            //            {
-
-            //            });
-            //        }
-            //        if (sboxJackpotData.Lottery[1] == 1)
-            //        {
-            //            ERPushMachineDataManager02.Instance.RequestSetMajorGrandWin(sboxJackpotData.Jackpotlottery[1], (res) =>
-            //            {
-
-            //            });
-            //        }
-            //        isNext = true;
-
-            //    }, (err) => // 联网彩金，请求失败
-            //    {
-            //        errorCallback?.Invoke(err.msg);
-            //        isNext = true;
-            //        isBreak = true;
-            //    });
-
-            //});
-
-            //isNext = true;
-            //yield return new WaitUntil(() => isNext == true);
-            //isNext = false;
-
-            //if (isBreak) yield break;
-
-            // 【贡献返回给算法卡】
-            //Debug.Log("贡献返回给算法卡");
-            //if (cacheTotalJpMajor > 10 || cacheTotalJpGrand > 10)
-            //{
-            //    ERPushMachineDataManager02.Instance.RequestReturnMajorGrandContribution(
-            //        cacheTotalJpMajor > 10 ? cacheTotalJpMajor : 0,
-            //        cacheTotalJpGrand > 10 ? cacheTotalJpGrand : 0,
-            //        (res) =>
-            //        {
-
-            //            if ((int)res == 0)
-            //            {
-            //                if (cacheTotalJpMajor > 10)
-            //                {
-            //                    cacheTotalJpMajor = 0;
-            //                    SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_MAJOR_CONTRIBUTION, 0);
-            //                }
-
-            //                if (cacheTotalJpGrand > 10)
-            //                {
-            //                    cacheTotalJpGrand = 0;
-            //                    SQLitePlayerPrefs03.Instance.SetInt(CACHE_TOTAL_JP_GRAND_CONTRIBUTION, 0);
-            //                }
-            //            }
-
-            //            isNext = true;
-            //        });
-
-            //    yield return new WaitUntil(() => isNext == true);
-            //    isNext = false;
-
-            //}
-
-            //int code = (int)resNode["code"]; //:0表示成功，-1表示传参失败
-            //int code = 0;
-            //if (code != 0)
-            //{
-            //    errorCallback?.Invoke($"Spin数据有误");
-            //    DebugUtils.LogError($"Spin数据有误： {resNode.ToString()}");
-            //    yield break;
-            //}
-
-            resNode["creditAfter"] = myCredit;
-            //Debug.Log("解析数据");
+            Debug.Log("解析数据");
             // 解析数据
             MachineDataG3995Controller.Instance.ParseSlotSpin(totalBet, resNode, sboxJackpotData);
 

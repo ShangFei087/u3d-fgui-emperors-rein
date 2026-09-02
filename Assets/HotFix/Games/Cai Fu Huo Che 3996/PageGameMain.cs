@@ -601,12 +601,12 @@ namespace CaiFuHuoChe_3996
             }
 
             ComReelEffect2 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            if (goFreeReelEffcetObj == null) goFreeReelEffcetObj = GameObject.Instantiate(goFreeReelEffcetPre);
+            goFreeReelEffcetObj = GameObject.Instantiate(goFreeReelEffcetPre);
             GameCommon.FguiUtils.AddWrapper(ComReelEffect2, goFreeReelEffcetObj);
             ComReelEffect2.visible = false;
 
             ComReelEffect3 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            if (goJackpotReelEffectObj == null) goJackpotReelEffectObj = GameObject.Instantiate(goJackpotReelEffectPre);
+            goJackpotReelEffectObj = GameObject.Instantiate(goJackpotReelEffectPre);
             GameCommon.FguiUtils.AddWrapper(ComReelEffect3, goJackpotReelEffectObj);
             ComReelEffect3.visible = false;
 

@@ -7,7 +7,7 @@
     <component id="n7_s82q" name="btnBetUp" src="s82qd" fileName="modules/panel/BtnBetUp.xml" xy="743,1839"/>
     <component id="n8_s82q" name="btnBetDown" src="s82qe" fileName="modules/panel/BtnBetDown.xml" xy="532,1843"/>
     <text id="n11_s82q" name="bet" xy="566,1842" size="190,36" font="ui://x2aorbwjs82q9r" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-6" autoSize="shrink" text="20"/>
-    <text id="n10_s82q" name="credit" xy="315,1841" size="192,36" font="ui://x2aorbwjs82q9r" fontSize="12" vAlign="middle" leading="0" letterSpacing="-6" autoSize="shrink" text="87000000"/>
+    <text id="n10_s82q" name="credit" xy="316,1841" size="185,39" font="ui://x2aorbwjs82q9r" fontSize="12" align="center" vAlign="middle" leading="0" letterSpacing="-6" autoSize="shrink" text="87000000"/>
     <text id="n9_s82q" name="win" xy="274,1743" size="506,65" font="ui://x2aorbwjxrp24h" fontSize="9" align="center" vAlign="middle" leading="0" letterSpacing="-16" autoSize="shrink" text="99999999999"/>
     <text id="n14_s82q" name="singleLine" xy="274,1691" size="512,34" fontSize="20" align="center" vAlign="middle" leading="0" autoSize="none" text="123213"/>
     <component id="n13_s82q" name="btnSpin" src="s82qm" fileName="modules/panel/ButtonSpin.xml" xy="851,1712"/>
