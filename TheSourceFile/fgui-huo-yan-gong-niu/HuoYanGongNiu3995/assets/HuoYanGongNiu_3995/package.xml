@@ -2,7 +2,7 @@
 <packageDescription id="x2aorbwj">
   <resources>
     <component id="q4s81" name="PopupGameLoading.xml" path="/" exported="true"/>
-    <image id="q4s83" name="bg_line_1.png" path="/images/gameLoading/" exported="true" scale="9grid" scale9grid="23,0,940,67" gridTile="16" smoothing="false"/>
+    <image id="q4s83" name="bg_line_1.png" path="/images/gameLoading/" exported="true" scale="9grid" scale9grid="23,0,941,67" gridTile="16" smoothing="false"/>
     <image id="q4s8a" name="bg_line_2.png" path="/images/gameLoading/" scale="9grid" scale9grid="84,45,895,62"/>
     <component id="q4s8j" name="SliderFill.xml" path="/component/gameLoading/" exported="true"/>
     <component id="q4s8k" name="Slider1_grip.xml" path="/component/gameLoading/" exported="true"/>
@@ -280,6 +280,7 @@
     <component id="qhiffc8" name="Paytable3.xml" path="/moudules/payTable/" exported="true"/>
     <component id="qhiffc9" name="Paytable4.xml" path="/moudules/payTable/" exported="true"/>
     <component id="qhiffca" name="Paytable5.xml" path="/moudules/payTable/" exported="true"/>
+    <image id="jn9ufcb" name="load_ic_bottom_surface.png" path="/images/gameLoading/"/>
   </resources>
   <publish name=""/>
 </packageDescription>

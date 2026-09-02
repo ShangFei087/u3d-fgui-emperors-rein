@@ -2952,13 +2952,13 @@ namespace HuoYanGongNiu_3995
 
             if (currentBet == 0) return info;
 
-            int type = currentBet / 1000;
-            int value = currentBet % 1000;
+            int type = currentBet / 10000;
+            int value = currentBet % 10000;
 
             if (type < 4)
             {
                 info.type = SmallResultType.Money;
-                info.rewardValue = value;
+                info.rewardValue = value * ContentModel.Instance.betmultiple;
                 info.rewardText = value.ToString();
                 info.iconUrl = _moneyUrl;
                 info.anchorChildIndex = 0;
