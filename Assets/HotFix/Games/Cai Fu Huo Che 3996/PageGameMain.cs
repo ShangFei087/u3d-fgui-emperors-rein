@@ -2846,8 +2846,8 @@ namespace CaiFuHuoChe_3996
 
             if (currentBet == 0) return info;
 
-            int type = currentBet / 1000;
-            int value = currentBet % 1000;
+            int type = currentBet / 10000;
+            int value = currentBet % 10000;
 
             if (type < 4)
             {
