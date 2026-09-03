@@ -18,11 +18,11 @@ namespace HuoYanGongNiu_3995
 
         private EventData _data;
 
-        private Animator animator;
-        private GameObject goAnchorSpineFg, go;
+        private Animator spineAnim, effAnim;
+        private GameObject goAnchorSpineObj, go, anchorEffPre, anchorEffObj;
 
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
-        private GComponent anchorBg;
+        private GComponent anchorBg, anchorEff;
         private GButton exitBtn;
         private GTextField sorceTxt;
         private Action callBack;
@@ -37,7 +37,7 @@ namespace HuoYanGongNiu_3995
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 1;
+            int count = 2;
 
             Action callback = () =>
             {
@@ -55,6 +55,14 @@ namespace HuoYanGongNiu_3995
                     go = clone;
                     callback();
                 });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PopupFreeGame/FreeGameEff.prefab",
+                (GameObject clone) =>
+                {
+                    anchorEffPre = clone;
+                    callback();
+                });
         }
 
 
@@ -69,9 +77,12 @@ namespace HuoYanGongNiu_3995
             base.OnOpen(name, data);
             InitParam(data);
 
-            PlayAnim("in"); 
-            effectPag.StopWithDefaults();
-            effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(stageName[0], stageName[1]), PagPlayLayout.Center, useGpuSyncGroup: false));
+            PlayAnim(spineAnim, "in");
+            PlayAnim(effAnim, "all_idle");
+
+
+            //effectPag.StopWithDefaults();
+            //effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(stageName[0], stageName[1]), PagPlayLayout.Center, useGpuSyncGroup: false));
         }
 
 
@@ -98,11 +109,22 @@ namespace HuoYanGongNiu_3995
             {
                 GameCommon.FguiUtils.DeleteWrapper(anchorBg);
                 anchorBg = loadAnchor;
-                goAnchorSpineFg = GameObject.Instantiate(go);
-                animator = goAnchorSpineFg.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-                ChangeParent(exitBtn, goAnchorSpineFg, "Anchor/Spine Mecanim GameObject (fg_pup_Collect)/SkeletonUtility-SkeletonRoot/root/all/COLLECT", -1.98f, 0.78f);
-                ChangeParent(sorceTxt, goAnchorSpineFg, "Anchor/Spine Mecanim GameObject (fg_pup_Collect)/SkeletonUtility-SkeletonRoot/root/all/FREE GAMNS", -5.56f, 0.7f);
-                GameCommon.FguiUtils.AddWrapper(anchorBg, goAnchorSpineFg);
+                goAnchorSpineObj = GameObject.Instantiate(go);
+                spineAnim = goAnchorSpineObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                ChangeParent(exitBtn, goAnchorSpineObj, "Anchor/Spine Mecanim GameObject (fg_pup_Collect)/SkeletonUtility-SkeletonRoot/root/all/COLLECT", -1.98f, 0.78f);
+                ChangeParent(sorceTxt, goAnchorSpineObj, "Anchor/Spine Mecanim GameObject (fg_pup_Collect)/SkeletonUtility-SkeletonRoot/root/all/FREE GAMNS", -5.56f, 0.9f);
+                GameCommon.FguiUtils.AddWrapper(anchorBg, goAnchorSpineObj);
+            }
+
+
+            GComponent loadAnchorEff = contentPane.GetChild("anchorEff").asCom;
+            if (anchorEff != loadAnchorEff)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorEff);
+                anchorEff = loadAnchorEff;
+                anchorEffObj = GameObject.Instantiate(anchorEffPre);
+                effAnim = anchorEffObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                GameCommon.FguiUtils.AddWrapper(anchorEff, anchorEffObj);
             }
 
             EnsureMainPagSlot();
@@ -156,10 +178,13 @@ namespace HuoYanGongNiu_3995
             if (isClose) return;
             isClose = true;
 
-            PlayAnim("out");
+            PlayAnim(spineAnim, "out");
 
-            effectPag.StopWithDefaults();
-            effectPag.Play(stageName[2], 1, PagPlayLayout.Center, PagPresentationDefaults.DisplayScale, new PagPlayCallbacks(stopAfterFinished: true));
+            effAnim.Rebind();
+            effAnim.Update(0f);
+
+            //effectPag.StopWithDefaults();
+            //effectPag.Play(stageName[2], 1, PagPlayLayout.Center, PagPresentationDefaults.DisplayScale, new PagPlayCallbacks(stopAfterFinished: true));
 
             AddTimer(1.8f, (object obj) =>
             {
@@ -175,7 +200,7 @@ namespace HuoYanGongNiu_3995
         }
 
 
-        private void PlayAnim(string animName)
+        private void PlayAnim(Animator animator, string animName)
         {
             animator.Rebind();
             animator.Play(animName, -1, 0);

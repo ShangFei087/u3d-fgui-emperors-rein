@@ -10,6 +10,7 @@
     <image id="n52_j7ma" name="otherBg" src="gk699d" fileName="images/gameFree/fg_bg .png" xy="0,0" size="1080,1920"/>
     <component id="n136_gtbj" name="anchorNpc" src="q4s81m" fileName="component/gameNormal/AnchorNpc.xml" xy="540,797"/>
     <component id="n106_ey3y" name="wheel" src="zyvhfbz" fileName="component/gameNormal/wheel/Wheel.xml" xy="0,207"/>
+    <component id="n154_cmaf" name="anchorJpEff" src="cmaffcc" fileName="component/gameNormal/AnchorEff.xml" xy="547,416"/>
     <component id="n140_10wif" name="anchorJpPag" src="10wifbi" fileName="component/gameNormal/AnchorPag.xml" xy="540,960" pivot="0.5,0.5" anchor="true"/>
     <component id="n129_lkob" name="slotBg" src="zyvhfbn" fileName="component/gameNormal/SlotBg.xml" xy="23,1071" group="n21_q4s8"/>
     <component id="n137_fuf5" name="smallGameReels" src="fuf5as" fileName="moudules/slotMachine/SmallGameReels.xml" xy="36,1083" group="n21_q4s8"/>
@@ -61,6 +62,7 @@
     <item time="0" type="Visible" target="n137_fuf5" value="false"/>
     <item time="0" type="Visible" target="n138_imf5" value="false"/>
     <item time="0" type="Visible" target="n140_10wif" value="false"/>
+    <item time="0" type="Visible" target="n154_cmaf" value="false"/>
     <item time="0" type="Visible" target="n19_q4s8" value="true"/>
     <item time="0" type="Visible" target="n1_q4s8" value="true"/>
     <item time="0" type="Visible" target="n36_j7ma" value="true"/>
@@ -84,6 +86,7 @@
     <item time="0" type="Visible" target="n117_lkob" value="true"/>
     <item time="0" type="Visible" target="n136_gtbj" value="false"/>
     <item time="0" type="Visible" target="n140_10wif" value="false"/>
+    <item time="0" type="Visible" target="n154_cmaf" value="false"/>
     <item time="0" type="Visible" target="n1_q4s8" value="false"/>
     <item time="0" type="Visible" target="n36_j7ma" value="true"/>
     <item time="0" type="Visible" target="n40_j7ma" value="false"/>
@@ -139,6 +142,7 @@
     <item time="0" type="Visible" target="n137_fuf5" value="true"/>
     <item time="0" type="Visible" target="n138_imf5" value="true"/>
     <item time="0" type="Visible" target="n140_10wif" value="true"/>
+    <item time="0" type="Visible" target="n154_cmaf" value="true"/>
     <item time="0" type="Visible" target="n19_q4s8" value="false"/>
     <item time="0" type="Visible" target="n1_q4s8" value="false"/>
     <item time="0" type="Visible" target="n40_j7ma" value="false"/>

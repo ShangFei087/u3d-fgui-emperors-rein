@@ -146,6 +146,11 @@ namespace HuoYanGongNiu_3995
         //彩金游戏中的次数
         private GTextField jackpotTimes;
 
+        //彩金游戏背景上的火山喷发的spine
+        private GComponent anchorJpBgEff;
+        private GameObject anchorJpBgEffPre, anchorJpBgEffObj;
+        private Animator anchorJpBgAnim;
+
         /// <summary>底部 Panel 是否已就绪（BottomPanelReady）。</summary>
         private bool _isBottomPanelReady;
         /// <summary>对象池 DoTask 是否已全部完成。</summary>
@@ -153,10 +158,10 @@ namespace HuoYanGongNiu_3995
         /// <summary>是否已向 PageManager 派发过 preLoadedCallback。</summary>
         private bool _hasNotifiedPagePreloaded;
 
-        //Pag播放
-        private const string GamePagFolder = "Games/Huo Yan Gong Niu 3995/Pag/jp_huoshan_bmp";
-        private PagSlotBinding effectPag;
-        private string[] stageName = { "jp_huoshan_dabaofa_start.pag", "jp_huoshan_dabaofa_idle.pag" };
+        ////Pag播放
+        //private const string GamePagFolder = "Games/Huo Yan Gong Niu 3995/Pag/jp_huoshan_bmp";
+        //private PagSlotBinding effectPag;
+        //private string[] stageName = { "jp_huoshan_dabaofa_start.pag", "jp_huoshan_dabaofa_idle.pag" };
 
 
         //测试按钮
@@ -167,7 +172,7 @@ namespace HuoYanGongNiu_3995
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 16;
+            int count = 17;
 
             Action callback = () =>
             {
@@ -334,6 +339,14 @@ namespace HuoYanGongNiu_3995
                     goCollectionPre = clone;
                     callback();
                 });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+               "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PopupGameJackpot/brushEff.prefab",
+               (GameObject clone) =>
+               {
+                   anchorJpBgEffPre = clone;
+                   callback();
+               });
 
 
             machineBtnClickHelper = new MachineButtonClickHelper()
@@ -546,7 +559,7 @@ namespace HuoYanGongNiu_3995
 
             ResetWheel();
             InitWheelItem();
-            EnsureMainPagSlot();
+            //EnsureMainPagSlot();
 
             //初始化菜单ui
             gOwnerPanel = this.contentPane.GetChild("panel").asCom;
@@ -595,6 +608,8 @@ namespace HuoYanGongNiu_3995
             showWheelTran = contentPane.GetTransition("ShowWheel");
 
             resetWheelTran.Play();
+
+            GComponent loadAnchorJpBgEff = contentPane.GetChild("anchorJpEff").asCom;
 
             if (!isOpen) return;
 
@@ -792,6 +807,15 @@ namespace HuoYanGongNiu_3995
                 
             }
 
+            if(anchorJpBgEff != loadAnchorJpBgEff)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorJpBgEff);
+                anchorJpBgEff = loadAnchorJpBgEff;
+                anchorJpBgEffObj = GameObject.Instantiate(anchorJpBgEffPre);
+                anchorJpBgAnim = anchorJpBgEffObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                GameCommon.FguiUtils.AddWrapper(anchorJpBgEff, anchorJpBgEffObj);
+            }
+
             #endregion
 
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
@@ -800,13 +824,13 @@ namespace HuoYanGongNiu_3995
 
         private void EnsureMainPagSlot()
         {
-            GComponent anchor = contentPane.GetChild("anchorJpPag")?.asCom;
-            if (anchor == null) return;
+            //GComponent anchor = contentPane.GetChild("anchorJpPag")?.asCom;
+            //if (anchor == null) return;
 
-            if (effectPag == null)
-                effectPag = new PagSlotBinding("JpBg", GamePagFolder);
-            effectPag.EnsureSlot(anchor, "pagEffect");
-            GLoader anchorPag = anchor.GetChild("pagEffect").asLoader;
+            //if (effectPag == null)
+            //    effectPag = new PagSlotBinding("JpBg", GamePagFolder);
+            //effectPag.EnsureSlot(anchor, "pagEffect");
+            //GLoader anchorPag = anchor.GetChild("pagEffect").asLoader;
         }
 
         private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
@@ -1001,7 +1025,7 @@ namespace HuoYanGongNiu_3995
             // 游戏状态重置和旋转请求
             OnGameReset();
             ContentModel.Instance.gameState = GameState.Spin;
-            ContentModel.Instance.betNum = (int)MainModel.Instance.contentMD.totalBet;
+            ContentModel.Instance.betNum = (int)ContentModel.Instance.totalBet;
             slotMachineCtrl.BeginTurn();
             playWin = false;
             bool isNext = false;
@@ -1189,13 +1213,12 @@ namespace HuoYanGongNiu_3995
 
                 //积分同步和退币处理
                 slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+
                 //加钱动画
-                MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true, isAddCreditAnim);
+                //MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true, isAddCreditAnim);
             }
             #endregion
 
-            // 本剧同步玩家金钱
-            MainBlackboardController.Instance.SyncMyTempCreditToReal(false);
             // 即中即退
             // yield return CoinOutImmediately(allWinCredit);
 
@@ -1241,6 +1264,9 @@ namespace HuoYanGongNiu_3995
                 isNext = false;
             }
 
+
+            // 本剧同步玩家金钱
+            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
 
 
             // 进入空闲模式
@@ -2214,6 +2240,7 @@ namespace HuoYanGongNiu_3995
             wheelWinGoldBull = 0;
             wheelOnceWin = 0;
             ContentModel.Instance.stageIndex = 0;
+            InitWheelItem();
 
             eagleIcon.GetChild("example").asLoader.url = "ui://x2aorbwjq4s82k";
             eagleAnim.SetActive(false);
@@ -2653,8 +2680,10 @@ namespace HuoYanGongNiu_3995
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
-            effectPag.StopWithDefaults();
-            effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(stageName[0], stageName[1]), PagPlayLayout.Center, useGpuSyncGroup: false));
+            //effectPag.StopWithDefaults();
+            //effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(stageName[0], stageName[1]), PagPlayLayout.Center, useGpuSyncGroup: false));
+
+            PlayAnim(anchorJpBgAnim, "in");
 
             yield return new WaitForSeconds(3f);
 
@@ -2667,7 +2696,10 @@ namespace HuoYanGongNiu_3995
             slotMachineCtrl.SkipIdle(true);
             slotMachineCtrl.SkipWinLine(true);
 
-            effectPag.StopWithDefaults();
+            //effectPag.StopWithDefaults();
+            anchorJpBgAnim.Rebind();
+            anchorJpBgAnim.Update(0f);
+
             PageManager.Instance.OpenPageAsync(PageName.HuoYanGongNiuPopupJackpotExit,
                 new EventData<Dictionary<string, object>>("", new Dictionary<string, object>()
                 {
@@ -2682,8 +2714,6 @@ namespace HuoYanGongNiu_3995
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
             slotMachineCtrl.EndBonusFreeSpin();
-            //加钱动画
-            MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
 
             ChangeBGPanel(0);
 
@@ -2938,6 +2968,7 @@ namespace HuoYanGongNiu_3995
                 yield return MoveToZeroOverTime(rewardEffect, rewardEffect.xy);
 
                 rewardEffect.visible = false;
+                allWinCredit += long.Parse(rewardText);
                 tempWin += long.Parse(rewardText);
                 slotMachineCtrl.SendTotalWinCreditEvent(tempWin);
             }

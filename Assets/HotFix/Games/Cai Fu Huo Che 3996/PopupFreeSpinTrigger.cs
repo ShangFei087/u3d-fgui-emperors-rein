@@ -17,7 +17,7 @@ namespace CaiFuHuoChe_3996
         private new bool isInit = false;
         private bool isClose = false;
 
-        private GameObject goAnchorSpineFg, go;
+        private GameObject goAnchorSpineObj, go;
         private GComponent lodAnchor;
         private GButton btnStrat;
         private GTextField timesText;
@@ -109,13 +109,13 @@ namespace CaiFuHuoChe_3996
             {
                 GameCommon.FguiUtils.DeleteWrapper(lodAnchor);
                 lodAnchor = loadSpineBg;
-                goAnchorSpineFg = GameObject.Instantiate(go);
-                animator = goAnchorSpineFg.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                goAnchorSpineObj = GameObject.Instantiate(go);
+                animator = goAnchorSpineObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
 
-                ChangeParent(btnStrat, goAnchorSpineFg, "Anchor/Spine Mecanim GameObject (fg_pop_prompt)/SkeletonUtility-SkeletonRoot/root/all/btn", -1.8f, 0.5f);
-                ChangeParent(timesText, goAnchorSpineFg, "Anchor/Spine Mecanim GameObject (fg_pop_prompt)/SkeletonUtility-SkeletonRoot/root/all/kuang_6/num01", -3.25f, 2.25f);
+                ChangeParent(btnStrat, goAnchorSpineObj, "Anchor/Spine Mecanim GameObject (fg_pop_prompt)/SkeletonUtility-SkeletonRoot/root/all/btn", -1.8f, 0.5f);
+                ChangeParent(timesText, goAnchorSpineObj, "Anchor/Spine Mecanim GameObject (fg_pop_prompt)/SkeletonUtility-SkeletonRoot/root/all/kuang_6/num01", -3.25f, 2.25f);
 
-                GameCommon.FguiUtils.AddWrapper(lodAnchor, goAnchorSpineFg);
+                GameCommon.FguiUtils.AddWrapper(lodAnchor, goAnchorSpineObj);
             }
 
 

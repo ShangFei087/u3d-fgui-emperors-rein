@@ -18,7 +18,7 @@ namespace XingYunZhiLun_3998
 
         private bool isInit = false;
 
-        private GameObject goAnchorSpineFg, go;
+        private GameObject goAnchorSpineObj, go;
         private Transform effectFreeGameTriggerBaodian;
         private GComponent lodAnchor;
         GTextField textContent;
@@ -41,7 +41,7 @@ namespace XingYunZhiLun_3998
             "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/PopupFreeSpinTrigger/FgFadeTips.prefab",
             (GameObject clone) =>
             {
-                goAnchorSpineFg = clone;
+                goAnchorSpineObj = clone;
 
 
                 isInit = true;
@@ -110,7 +110,7 @@ namespace XingYunZhiLun_3998
             {
                 GameCommon.FguiUtils.DeleteWrapper(lodAnchor);
                 lodAnchor = lodAnchortip;
-                go = GameObject.Instantiate(goAnchorSpineFg);
+                go = GameObject.Instantiate(goAnchorSpineObj);
                 animator = go.transform.GetChild(1).GetChild(0).GetComponent<Animator>();
                 effectFreeGameTriggerBaodian = go.transform.GetChild(0).GetChild(0).GetChild(0).transform;
 

@@ -761,7 +761,6 @@ namespace CaiFuHuoChe_3996
                 case SlotMachineEvent.StoppedSlotMachine:
                     {
                         isStoppedSlotMachine = true;
-                        if(ContentModel.Instance.gameState != GameState.FreeSpin) UnlockStopButton();
                     }
                     break;
             }
@@ -1159,7 +1158,8 @@ namespace CaiFuHuoChe_3996
                 }
 
                 long totalWinLineCredit = 0;
-                totalWinLineCredit = slotMachineCtrl.GetTotalWinCredit(winList);
+                //totalWinLineCredit = slotMachineCtrl.GetTotalWinCredit(winList);
+                totalWinLineCredit = ContentModel.Instance.baseGameWinCredit;
                 allWinCredit += totalWinLineCredit;
                 if (winList.Count > 0)
                 {
@@ -1770,7 +1770,7 @@ namespace CaiFuHuoChe_3996
                 yield return new WaitForSeconds(1f);
             }
 
-            SetSpinButtonSpinGray();
+            //SetSpinButtonSpinGray();
 
             List<SymbolWin> winList = ContentModel.Instance.winList;
             #region Win

@@ -377,6 +377,9 @@ namespace HuoYanGongNiu_3995
                     ContentModel.Instance.freeSpinTotalTimes = freeTime;
                     ContentModel.Instance.freeSpinPlayTimes = 0;
 
+                    ContentModel.Instance.curFreeCredit = 0;
+                    ContentModel.Instance.curFreeCredit += totalLineWin;
+
                     ContentModel.Instance.freeSpinTotalWinCredit = (int)res["TotalFreeBet"] * MainModel.Instance.contentMD.betmultiple;
 
                     ContentModel.Instance.wheelSpinTimes = (int)res["WheelTimes"];
@@ -499,10 +502,14 @@ namespace HuoYanGongNiu_3995
             long creditAfter = creditBefore - totalBet + totalLineWin;
             if (ContentModel.Instance.gameState == GameState.FreeSpin) creditAfter += totalBet;
 
+            MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
+            ContentModel.Instance.realCredit = creditAfter;
+            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 当前押注倍率：{betMul} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin} bonusWin={bonusWin} jackpotWin={jackpotWin}");
+
             // 记录游戏数据到数据库
             Record(totalBet, res);
 
-            //FreeSpinSessionStoreG3995.TryPersistOrClearSession();
+            FreeSpinSessionStoreG3995.TryPersistOrClearSession();
         }
 
 
@@ -794,6 +801,7 @@ namespace HuoYanGongNiu_3995
 
             switch (hitCount)
             {
+                case 2: return info.x2;
                 case 3: return info.x3;
                 case 4: return info.x4;
                 case 5: return info.x5;
@@ -968,7 +976,7 @@ namespace HuoYanGongNiu_3995
             {
                 open_type = OpenType,
                 result_type = ResultType,
-                game_id = 3998,
+                game_id = 3995,
                 game_uid = ContentModel.Instance.curGameGuid,
                 created_at = ContentModel.Instance.curGameCreatTimeMS,
                 total_bet = totalBet,
