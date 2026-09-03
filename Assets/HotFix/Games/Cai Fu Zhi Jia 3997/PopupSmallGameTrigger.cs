@@ -140,7 +140,7 @@ namespace CaiFuZhiJia_3997
             {
                 if (_startBtn != null) _startBtn.touchable = true;
             };
-            Timers.inst.Add(0.5f, 1, _enableBtnCallback);
+            Timers.inst.Add(1f, 1, _enableBtnCallback);
             _startBtn.onClick.Clear();
             _startBtn.onClick.Add(() => OnClickSpinButton(null));
 

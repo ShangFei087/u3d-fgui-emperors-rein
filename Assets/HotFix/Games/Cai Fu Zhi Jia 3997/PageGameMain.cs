@@ -2248,16 +2248,16 @@ namespace CaiFuZhiJia_3997
                 }),
                 (ed) =>
                 {
-                    _slotMachineCtrl.SendTotalWinCreditEvent(0);
-                    SetSpinButtonRolling();
-                    ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-                    EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
-                        new EventData(Game3997AudioEvent.BgmBonusGame));
-
-                    _panelCtrl.ChangButtonNo(true);
                     isNext = true;
                 });
             yield return new WaitUntil(() => isNext == true);
+            
+            _slotMachineCtrl.SendTotalWinCreditEvent(0);
+            SetSpinButtonRolling();
+            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(Game3997AudioEvent.BgmBonusGame));
+            _panelCtrl.ChangButtonNo(true);
             isNext = false;
 
             yield return new WaitUntil(() => _isSmallGameFinished == true);
