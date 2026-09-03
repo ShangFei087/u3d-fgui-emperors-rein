@@ -20,6 +20,7 @@ namespace XingYunZhiLun_3998
         private GComponent gOwnerPanel, gWheel, gSpinEffectBg, gRawardEffectBg, gWheelBg;
         private GameObject goSpinEffect, goSpin, goRawardEffect, goRaward, wheelBgPref, wheelBgObj;
         private Animator animator;
+        private GLoader gWheelLoad;
 
         //获取粒子系统
         //private Transform effectSpin, effectRaward;
@@ -151,7 +152,8 @@ namespace XingYunZhiLun_3998
             if(gWheelBg != loadAnchorZhuanPanBg)
             {
                 GameCommon.FguiUtils.DeleteWrapper(gWheelBg);
-                gWheelBg = loadAnchorZhuanPanBg;
+                gWheelBg = loadAnchorZhuanPanBg; 
+                gWheelLoad = gWheel.GetChild("Wheel").asCom.GetChild("wheelBg").asLoader;
                 wheelBgObj = GameObject.Instantiate(wheelBgPref);
                 animator = wheelBgObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
                 GameCommon.FguiUtils.AddWrapper(gWheelBg, wheelBgObj);
@@ -555,6 +557,8 @@ namespace XingYunZhiLun_3998
             wheelIndex = wheelBgIndex;
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.WheelRaiseUp));
 
+            ChangeWheelURL(wheelBgIndex);
+
             switch (wheelBgIndex)
             {
                 case 0:
@@ -595,6 +599,23 @@ namespace XingYunZhiLun_3998
             else
             {
                 EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.WheellItWin));
+            }
+        }
+
+        private void ChangeWheelURL(int state)
+        {
+            switch (state)
+            {
+                case 0:
+                    gWheelLoad.url = CustomModel.Instance.wheelState["low"];
+                    break;
+                case 1:
+                    gWheelLoad.url = CustomModel.Instance.wheelState["mid"];
+                    break;
+                case 2:
+                    gWheelLoad.url = CustomModel.Instance.wheelState["high"];
+                    break;
+
             }
         }
     }
