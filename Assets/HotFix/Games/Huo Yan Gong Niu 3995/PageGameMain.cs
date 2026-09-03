@@ -1653,7 +1653,9 @@ namespace HuoYanGongNiu_3995
 
                 if (winList.Count > 0)
                 {
-                    yield return ShowWinListOnceAtNormalSpin(winList);
+                    slotMachineCtrl.SkipIdle(true);
+                    slotMachineCtrl.SkipWinLine(true);
+                    yield return slotMachineCtrl.ShowSymbolWinBySetting(slotMachineCtrl.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
                 }
 
                 // 播大奖弹窗

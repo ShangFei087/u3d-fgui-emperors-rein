@@ -2925,6 +2925,7 @@ namespace CaiFuHuoChe_3996
 
                         freeTotalTimes.text = ContentModel.Instance.jackpotSpinTotalTimes.ToString();
                         freeTimes.text = ContentModel.Instance.jackpotSpinTotalTimes.ToString();
+
                     })
                 }),
             (ed) =>
