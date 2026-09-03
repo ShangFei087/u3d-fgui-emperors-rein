@@ -2718,6 +2718,7 @@ namespace XingYunZhiLun_3998
                         isNext = true;
                         isMain = true;
                         ContentModel.Instance.isInDrawGame = true;
+                        UnlockStopButton();
                     });
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
