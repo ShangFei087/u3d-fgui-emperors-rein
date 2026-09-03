@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" designImage="ui://baedj8ikp6cc2h">
+  <displayList>
+    <graph id="n0_p6cc" name="mask" xy="0,0" size="1080,1920" type="rect" fillColor="#99000000"/>
+    <image id="n1_p6cc" name="n1" src="p6cc1q" fileName="images/introduce/ng_bor_smsk.png" xy="71,169"/>
+    <component id="n2_p6cc" name="payTable" src="p6cc1x" fileName="components/GameIntroduce/payTable.xml" xy="89,189"/>
+    <component id="n3_p6cc" name="btnPrev" src="p6cc1y" fileName="components/GameIntroduce/ButtonL.xml" xy="190,1637"/>
+    <component id="n5_p6cc" name="btnNect" src="p6cc1y" fileName="components/GameIntroduce/ButtonL.xml" xy="806,1637" rotation="180"/>
+    <component id="n6_p6cc" name="btnBackGame" src="p6cc1z" fileName="components/GameIntroduce/btnBackGame.xml" xy="297,1618"/>
+  </displayList>
+</component>

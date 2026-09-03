@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="250,220" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="5,spin,6,stop,7,auto,8,hui" selected="3">
+    <action type="play_transition" fromPage="" toPage="5" transition="stop"/>
+    <action type="play_transition" fromPage="" toPage="6" transition="spin"/>
+    <action type="play_transition" fromPage="" toPage="7" transition="auto"/>
+    <action type="play_transition" fromPage="" toPage="8" transition="hui"/>
+  </controller>
+  <displayList>
+    <image id="n0_ud6t" name="n4" src="ud6t16" fileName="images/spin/ng_btn_spin.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <loader id="n1_ud6t" name="n0" xy="0,0" size="250,220" visible="false" url="ui://bce0n1qvud6t16" autoSize="true"/>
+    <component id="n2_ud6t" name="anchorSpin" src="ud6t1l" fileName="components/GameAnchor/anchorSpin.xml" xy="125,110"/>
+    <loader id="n3_ud6t" name="n1" xy="0,0" size="250,220" url="ui://bce0n1qvud6t16" autoSize="true"/>
+    <image id="n4_ud6t" name="untouch" src="ud6t16" fileName="images/spin/ng_btn_spin.png" xy="0,0" visible="false" color="#666666"/>
+    <component id="n5_p6cc" name="anchorShortSpin" src="ud6t1l" fileName="components/GameAnchor/anchorSpin.xml" xy="125,115"/>
+    <component id="n6_p6cc" name="anchorLongSpin" src="ud6t1l" fileName="components/GameAnchor/anchorSpin.xml" xy="125,115"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.8"/>
+  <transition name="stop">
+    <item time="0" type="Icon" target="n1_ud6t" value="ui://bce0n1qvud6t16"/>
+    <item time="0" type="Icon" target="n3_ud6t" value="ui://bce0n1qvud6t17"/>
+    <item time="0" type="Visible" target="n4_ud6t" value="false"/>
+  </transition>
+  <transition name="auto">
+    <item time="0" type="Icon" target="n1_ud6t" value="ui://bce0n1qvud6t16"/>
+    <item time="0" type="Icon" target="n3_ud6t" value="ui://bce0n1qvud6t15"/>
+    <item time="0" type="Visible" target="n4_ud6t" value="false"/>
+  </transition>
+  <transition name="spin">
+    <item time="0" type="Icon" target="n1_ud6t" value="ui://bce0n1qvud6t16"/>
+    <item time="0" type="Icon" target="n3_ud6t" value="ui://bce0n1qvud6t16"/>
+    <item time="0" type="Visible" target="n4_ud6t" value="false"/>
+  </transition>
+  <transition name="hui">
+    <item time="0" type="Visible" target="n4_ud6t" value="true"/>
+  </transition>
+</component>

@@ -761,7 +761,7 @@ namespace CaiFuZhiJia_3997
             {
                 case SlotMachineEvent.StoppedSlotMachine:
                     _isStoppedSlotMachine = true;
-                    UnlockStopButton();
+                    // UnlockStopButton();
                     break;
             }
         }
@@ -962,12 +962,30 @@ namespace CaiFuZhiJia_3997
         {
             _isTriggerFrame = false;
             _isStoppedSlotMachine = false;
+            _slotMachineCtrl.isStopImmediately = false;
             _slotMachineCtrl.CloseSlotCover();
             _anchorFreeAccelerate.visible = false;
             _anchorBonusAccelerate.visible = false;
             _slotMachineCtrl.SkipWinLine(true);
             if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
             if (_corEffectSlowMotion != null) _monoHelper.StopCoroutine(_corEffectSlowMotion);
+        }
+
+        /// <summary> 滚轮开始转：解锁并显示 Spin 或 Auto。 </summary>
+        private void SetSpinButtonRolling()
+        {
+            ContentModel.Instance.btnSpinState = ContentModel.Instance.isAuto
+                ? SpinButtonState.Auto
+                : SpinButtonState.Spin;
+            UnlockStopButton();
+        }
+
+        /// <summary> 滚轮停稳后到 Idle 前：保持 Spin 外观并置灰，押注保持锁定。 </summary>
+        private void SetSpinButtonSpinGray()
+        {
+            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            LockStopButton();
+            _panelCtrl?.ChangButtonNo(true);
         }
 
         //下注时向大厅彩金主机发送当前下注
@@ -1367,7 +1385,6 @@ namespace CaiFuZhiJia_3997
             bool isWinFreeOrBonus = ContentModel.Instance.isFreeSpinTrigger || ContentModel.Instance.IsBonusTrigger;
             if (isWinFreeOrBonus == false && _isTriggerFrame)
             {
-                Debug.LogError("出现加速框，但是没中");
                 _pagNpc.Play(new PagSequencePlay(
                     PagPlaySpecs.IntroLoop(wealth_ng_npc_nottriggered, wealth_ng_npc_idle01), PagPlayLayout.Center,
                     useGpuSyncGroup: false));
@@ -1382,7 +1399,6 @@ namespace CaiFuZhiJia_3997
                 _slotMachineCtrl.SkipWinLine(true);
                 _slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 10 }, true, 10,
                     true);
-                yield return new WaitForSeconds(2f);
                 _pagNpc.Play(new PagSequencePlay(
                     PagPlaySpecs.IntroLoop(wealth_ng_npc_trigger_fg, wealth_ng_npc_idle01), PagPlayLayout.Center,
                     useGpuSyncGroup: false));
@@ -1402,11 +1418,10 @@ namespace CaiFuZhiJia_3997
                 _pagNpc.Play(new PagSequencePlay(
                     PagPlaySpecs.IntroLoop(wealth_ng_npc_trigger_sg, wealth_ng_npc_idle01), PagPlayLayout.Center,
                     useGpuSyncGroup: false));
-                Debug.LogError("切换彩金");
                 _slotMachineCtrl.SkipWinLine(true);
                 _slotMachineCtrl.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 11 }, true, 10,
                     true);
-                yield return new WaitForSeconds(5.3f);
+                yield return new WaitForSeconds(5f);
                 _slotMachineCtrl.SkipWinLine(false);
                 yield return SmallGameTrigger();
             }
@@ -1432,7 +1447,7 @@ namespace CaiFuZhiJia_3997
                         PagPlaySpecs.IntroLoop(wealth_ng_npc_win2, wealth_ng_npc_idle01), PagPlayLayout.Center,
                         useGpuSyncGroup: false));
                 }
-                else if (totalWinLineCredit >= TotalBet * 3)
+                else if (totalWinLineCredit >= TotalBet * 3 && totalWinLineCredit <= TotalBet * 5)
                 {
                     _pagNpc.Play(new PagSequencePlay(
                         PagPlaySpecs.IntroLoop(wealth_ng_npc_win3, wealth_ng_npc_idle01), PagPlayLayout.Center,
@@ -1444,7 +1459,8 @@ namespace CaiFuZhiJia_3997
                 if (_currentNotWinCount < 5)
                     _currentNotWinCount = 0;
 
-                _slotMachineCtrl.SendTotalWinCreditEvent(allWinCredit);
+                long score = ContentModel.Instance.totalBonusReward + _allWinCredit;
+                _slotMachineCtrl.SendTotalWinCreditEvent(score + allWinCredit);
                 MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true);
                 if (!ContentModel.Instance.IsBonusTrigger)
                 {
@@ -1492,8 +1508,8 @@ namespace CaiFuZhiJia_3997
                 _corGameIdle = _monoHelper.StartCoroutine(GameIdle(winList));
             }
 
+            _allWinCredit = 0;
             ContentModel.Instance.totalBonusReward = 0;
-            _slotMachineCtrl.isStopImmediately = false;
             successCallback?.Invoke();
         }
 
@@ -1658,10 +1674,11 @@ namespace CaiFuZhiJia_3997
         {
             if (!_isTriggerFrame)
             {
-                _pagNpc.Play(new PagSequencePlay(
-                    PagPlaySpecs.IntroLoop(wealth_ng_npc_atmosphere, wealth_ng_npc_atmosphere_idle),
-                    PagPlayLayout.Center,
-                    useGpuSyncGroup: false));
+                if (!ContentModel.Instance.isFreeSpin) // 免费游戏中，出现加速框不需要播放该Pag
+                    _pagNpc.Play(new PagSequencePlay(
+                        PagPlaySpecs.IntroLoop(wealth_ng_npc_atmosphere, wealth_ng_npc_atmosphere_idle),
+                        PagPlayLayout.Center,
+                        useGpuSyncGroup: false));
             }
 
             _isTriggerFrame = true;
@@ -1800,7 +1817,7 @@ namespace CaiFuZhiJia_3997
                     _radioEffectParent.Find("effect2").gameObject.SetActive(false);
                     MainBlackboardController.Instance.AddMyTempCredit(_allWinCredit, true, IsAddCreditAnim); //加钱动画
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
-                    _allWinCredit = 0;
+                    // _allWinCredit = 0;
                     ContentModel.Instance.FreeSpinTotalTimes = 0; // 免费游戏结束之后，把免费游戏局数重置
                     ContentModel.Instance.FreeSpinPlayTimes = 0;
                     _cloneRadioObj.transform.Find("Effect").transform.Find("eff_fg_img_multiple11").gameObject
@@ -1812,7 +1829,7 @@ namespace CaiFuZhiJia_3997
                     TryTriggerAnchorPanelChange();
 
                     _slotMachineCtrl.EndBonusFreeSpin();
-                    EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT,
+                    EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                         new EventData(Game3997AudioEvent.BgmRegularGame));
 
                     isNext = true;
@@ -1865,7 +1882,7 @@ namespace CaiFuZhiJia_3997
                     }),
                 (ed) =>
                 {
-                    _allWinCredit = 0;
+                    // _allWinCredit = 0;
                     _pageController.selectedPage = "normal";
                     _freeMultiplier = 2;
                     _multipleNumber.text = "x2";
@@ -1903,15 +1920,15 @@ namespace CaiFuZhiJia_3997
                 yield return _slotMachineCtrl.SlotWaitForSeconds(1);
             }
 
-            if (successCallback != null)
-                successCallback.Invoke();
+            successCallback?.Invoke();
         }
 
         private IEnumerator GameFreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
             OnGameReset();
+            ContentModel.Instance.isSpin = true;
+            LockStopButton();
             ContentModel.Instance.gameState = GameState.FreeSpin;
-            _isTriggerFrame = false;
 
             bool isNext = false;
             bool isBreak = false;
@@ -1947,11 +1964,15 @@ namespace CaiFuZhiJia_3997
 
             if (isBreak)
             {
+                UnlockStopButton();
+                ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                 errorCallback?.Invoke(errMsg);
                 yield break;
             }
 
             _slotMachineCtrl.BeginSpin();
+            SetSpinButtonRolling();
+
             if (_slotMachineCtrl.isStopImmediately)
             {
                 if (_corReelsTurn != null) _monoHelper.StopCoroutine(_corReelsTurn);
@@ -1992,13 +2013,7 @@ namespace CaiFuZhiJia_3997
                 }
             }
 
-            if (_isTriggerFrame)
-            {
-                _pagNpc.Play(new PagSequencePlay(
-                    PagPlaySpecs.IntroLoop(wealth_ng_npc_nottriggered, wealth_ng_npc_idle01), PagPlayLayout.Center,
-                    useGpuSyncGroup: false));
-                yield return new WaitForSeconds(3.5f);
-            }
+            SetSpinButtonSpinGray();
 
             if (ContentModel.Instance.isHaveWildSymbol)
             {
@@ -2008,6 +2023,7 @@ namespace CaiFuZhiJia_3997
                     _pagNpc.Play(new PagSequencePlay(
                         PagPlaySpecs.IntroLoop(wealth_fg_npc_upgrade1, wealth_ng_npc_idle01), PagPlayLayout.Center,
                         useGpuSyncGroup: false));
+                    yield return new WaitForSeconds(3f);
                 }
                 else
                 {
@@ -2015,6 +2031,7 @@ namespace CaiFuZhiJia_3997
                     _pagNpc.Play(new PagSequencePlay(
                         PagPlaySpecs.IntroLoop(wealth_fg_npc_upgrade2, wealth_ng_npc_idle01), PagPlayLayout.Center,
                         useGpuSyncGroup: false));
+                    yield return new WaitForSeconds(4.3f);
                 }
 
                 isNext = false;
@@ -2058,7 +2075,7 @@ namespace CaiFuZhiJia_3997
                         PagPlaySpecs.IntroLoop(wealth_ng_npc_win2, wealth_ng_npc_idle01), PagPlayLayout.Center,
                         useGpuSyncGroup: false));
                 }
-                else if (totalWinLineCredit >= TotalBet * 3)
+                else if (totalWinLineCredit >= TotalBet * 3 && totalWinLineCredit <= TotalBet * 5)
                 {
                     _pagNpc.Play(new PagSequencePlay(
                         PagPlaySpecs.IntroLoop(wealth_ng_npc_win3, wealth_ng_npc_idle01), PagPlayLayout.Center,
@@ -2089,6 +2106,7 @@ namespace CaiFuZhiJia_3997
             }
 
             ContentModel.Instance.gameState = GameState.Idle;
+            // SetSpinButtonSpinGray();
             successCallback?.Invoke();
         }
 
@@ -2249,6 +2267,7 @@ namespace CaiFuZhiJia_3997
                 (ed) =>
                 {
                     _slotMachineCtrl.SendTotalWinCreditEvent(0);
+                    SetSpinButtonRolling();
                     ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                     EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                         new EventData(Game3997AudioEvent.BgmBonusGame));
@@ -2399,12 +2418,6 @@ namespace CaiFuZhiJia_3997
                     UpdateRollCountUI(_remainingRolls);
                     PlayAnimationByName(_signageAnimator, "idle4");
                 }
-                else
-                {
-                    // _remainingRolls--;
-                    // UpdateRollCountUI(_remainingRolls);
-                    // _monoHelper.StartCoroutine(PlayWarnAndNpcAni(_remainingRolls));
-                }
 
                 yield return new WaitForSeconds(0.3f);
             }
@@ -2412,7 +2425,6 @@ namespace CaiFuZhiJia_3997
 
         private IEnumerator SmallGameResult(Action onCompleted)
         {
-            Debug.LogError("Game Over");
             _pagNpc.Play(new PagSequencePlay(
                 PagPlaySpecs.IntroLoop(wealth_sg_npc_settlement1, wealth_sg_npc_settlement2), PagPlayLayout.Center,
                 useGpuSyncGroup: false));

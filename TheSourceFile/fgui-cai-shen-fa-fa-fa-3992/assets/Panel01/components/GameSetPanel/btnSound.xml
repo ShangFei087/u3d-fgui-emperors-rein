@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="91,87" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="9,t0,10,t1" selected="0">
+    <action type="play_transition" fromPage="" toPage="9" transition="t0"/>
+    <action type="play_transition" fromPage="" toPage="10" transition="t1"/>
+  </controller>
+  <displayList>
+    <image id="n0_p6cc" name="n0" src="ud6t12" fileName="images/setPanel/ng_btn_ys.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <loader id="n1_p6cc" name="n5" xy="0,0" size="91,87" url="ui://bce0n1qvud6t12" autoSize="true"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.8"/>
+  <transition name="t0">
+    <item time="0" type="Icon" target="n1_p6cc" value="ui://bce0n1qvud6t12"/>
+  </transition>
+  <transition name="t1">
+    <item time="0" type="Icon" target="n1_p6cc" value="ui://bce0n1qvud6ty"/>
+  </transition>
+</component>

@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<branchDescription/>
+<branchDescription>
+  <resources>
+    <image id="ud6tr" name="ng_txt_bet.png" path="/images/gameDiFrame/"/>
+    <image id="ud6ts" name="ng_txt_credits.png" path="/images/gameDiFrame/"/>
+    <image id="ud6tt" name="ng_txt_ts.png" path="/images/gameDiFrame/"/>
+    <image id="ud6tu" name="ng_txt_win.png" path="/images/gameDiFrame/"/>
+    <image id="ud6t14" name="ng_btn_help.png" path="/images/setPanel/"/>
+    <image id="ud6t18" name="ng_btn_auto.png" path="/images/spin/"/>
+    <image id="ud6t19" name="ng_btn_spin.png" path="/images/spin/"/>
+    <image id="ud6t1a" name="ng_btn_stop.png" path="/images/spin/"/>
+    <image id="p6cc1v" name="ng_btn_back to game.png" path="/images/introduce/"/>
+  </resources>
+</branchDescription>

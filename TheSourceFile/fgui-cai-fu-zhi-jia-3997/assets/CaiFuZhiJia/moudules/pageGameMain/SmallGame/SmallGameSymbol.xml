@@ -2,7 +2,7 @@
 <component size="174,174">
   <displayList>
     <component id="n2_xpjv" name="anchorSmallGameDiamond" src="xpjv69" fileName="moudules/pageGameMain/SmallGame/anchorSmallGameDiamond.xml" xy="87,87"/>
-    <loader id="n0_jh0i" name="element" xy="87,87" pivot="0.5,0.5" anchor="true" size="265,263" url="ui://92trhum6c3v0az" autoSize="true" clearOnPublish="true"/>
+    <loader id="n0_jh0i" name="element" xy="87,87" pivot="0.5,0.5" anchor="true" size="265,263" url="ui://92trhum6m9w1ab" autoSize="true" clearOnPublish="true"/>
     <text id="n1_jh0i" name="rewardText" xy="9,104" size="154,40" font="ui://92trhum6u8to47" fontSize="8" align="center" vAlign="middle" autoSize="shrink" text="1234"/>
   </displayList>
 </component>

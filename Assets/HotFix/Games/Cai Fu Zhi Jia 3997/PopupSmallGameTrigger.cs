@@ -35,6 +35,9 @@ namespace CaiFuZhiJia_3997
 
         private Action _changeSmallGamePage, _changeNpcAnimationClip;
 
+        /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
+        private I18nLang _boundLang;
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -95,20 +98,23 @@ namespace CaiFuZhiJia_3997
             } // 过场动画
 
             currentGCom = _jackpotTriggerTipWindow.GetChild("smallTrigger").asCom;
-            if (currentGCom != _smallGameTriggerCom)
+            if (currentGCom != _smallGameTriggerCom || _boundLang != PopupSpineLang3997.CurrentLang)
             {
                 GameCommon.FguiUtils.DeleteWrapper(_smallGameTriggerCom);
                 _smallGameTriggerCom = currentGCom;
                 _cloneSmallGameTriggerObj = Object.Instantiate(_smallGameTriggerObj);
+                PopupSpineLang3997.Apply(_cloneSmallGameTriggerObj);
+                _boundLang = PopupSpineLang3997.CurrentLang;
                 GameCommon.FguiUtils.AddWrapper(_smallGameTriggerCom, _cloneSmallGameTriggerObj);
             } // 触发弹窗
+
             _smallGameTriggerAnimator = _cloneSmallGameTriggerObj.GetComponentInChildren<Animator>();
 
 
             // ------------------ 将UI组件挂点到对应的Spine节点上 -----------------------
-            string rootPath =
-                "Anchor/Spine Mecanim GameObject (sg_pop_frame)/SkeletonUtility-SkeletonRoot/root/zong/zi/";
-            Transform btnTran = _cloneSmallGameTriggerObj.transform.Find(rootPath + "btn01");
+            GameObject fatherObj = _cloneSmallGameTriggerObj.transform.GetChild(0).GetChild(0).gameObject;
+            string rootPath = "Spine Mecanim GameObject (sg_pop_frame)/SkeletonUtility-SkeletonRoot/root/zong/zi/";
+            Transform btnTran = fatherObj.transform.Find(rootPath + "btn01");
             startBtnTran.SetParent(btnTran, false);
             startBtnTran.localPosition = new Vector3(-1.89f, 2.82f, 0);
             startBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
@@ -230,7 +236,7 @@ namespace CaiFuZhiJia_3997
             Timers.inst.Remove(timerCallback);
             timerCallback = null;
         }
-        
+
         private void PlayAnimationByName(Animator animator, string aniName, Action callback = null)
         {
             animator.Rebind();

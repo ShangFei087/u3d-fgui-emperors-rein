@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<branchDescription/>
+<branchDescription>
+  <resources>
+    <image id="n2kh2a" name="ng_txt_mini.png" path="/images/common/Game_Jackpot/" exported="true"/>
+    <image id="n2kh2b" name="ng_txt_minor.png" path="/images/common/Game_Jackpot/" exported="true"/>
+    <image id="n2kh2c" name="ng_txt_major.png" path="/images/common/Game_Jackpot/" exported="true"/>
+    <image id="p6cc2j" name="1.png" path="/images/common/Game_Introduce/" exported="true"/>
+    <image id="p6cc2k" name="2.png" path="/images/common/Game_Introduce/" exported="true"/>
+    <image id="p6cc2l" name="3.png" path="/images/common/Game_Introduce/" exported="true"/>
+    <image id="p6cc2m" name="4.png" path="/images/common/Game_Introduce/" exported="true"/>
+    <image id="p6cc2n" name="5.png" path="/images/common/Game_Introduce/" exported="true"/>
+    <image id="p6cc2u" name="fg_txt_free spins.png" path="/images/pageGameMain/Free_Game/" exported="true"/>
+    <image id="p6cc46" name="fg_btn_start.png" path="/images/common/Game_Button/"/>
+    <image id="p6cc47" name="fg_btn_collect.png" path="/images/common/Game_Button/"/>
+    <image id="p6cc4c" name="sg_txt_pick remaining.png" path="/images/pageGameMain/Bonus_Game/"/>
+  </resources>
+</branchDescription>

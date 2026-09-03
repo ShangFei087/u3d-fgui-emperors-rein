@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,209">
+  <displayList>
+    <graph id="n1_ud6t" name="mash" xy="0,-1711" size="1080,1920" visible="false" type="rect" fillColor="#99000000"/>
+    <component id="n0_ud6t" name="gameDiFrame" src="ud6t1c" fileName="moudules/gameDiFrame.xml" xy="0,0"/>
+    <component id="n10_p6cc" name="btnHelp" src="ud6t1h" fileName="components/GamePanel/ButtonHelp.xml" xy="1,12"/>
+    <text id="n2_ud6t" name="win" xy="381,29" size="315,63" font="ui://bce0n1qvud6ti" fontSize="10" align="center" vAlign="middle" letterSpacing="-20" autoSize="shrink" text="1234567890"/>
+    <text id="n3_ud6t" name="credit" xy="289,136" size="172,31" font="ui://bce0n1qvud6ti" fontSize="5" align="center" vAlign="middle" letterSpacing="-10" autoSize="shrink" text="1234567890"/>
+    <text id="n4_ud6t" name="bet" xy="621,135" size="152,31" font="ui://bce0n1qvud6ti" fontSize="5" align="center" vAlign="middle" letterSpacing="-10" autoSize="shrink" text="1234567890"/>
+    <component id="n7_p6cc" name="btnBetDown" src="ud6t1i" fileName="components/GamePanel/ButtonBetDown.xml" xy="547,131"/>
+    <component id="n8_p6cc" name="btnBetUp" src="ud6t1j" fileName="components/GamePanel/ButtonBetUp.xml" xy="787,131"/>
+    <component id="n9_p6cc" name="btnSpin" src="ud6t1k" fileName="components/GamePanel/ButtonSpin.xml" xy="844,-4"/>
+    <text id="n5_ud6t" name="singleLine" xy="12,168" size="181,37" visible="false" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="1234567890"/>
+    <component id="n6_p6cc" name="setPanel" src="ud6t1d" fileName="moudules/setPanel.xml" xy="31,-319" visible="false"/>
+    <component id="n12_p6cc" name="instructions" src="p6cc1w" fileName="moudules/introducePanel.xml" xy="0,-1711" visible="false"/>
+  </displayList>
+</component>
