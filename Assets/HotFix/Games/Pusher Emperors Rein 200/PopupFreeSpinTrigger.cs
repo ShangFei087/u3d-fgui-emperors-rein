@@ -26,7 +26,7 @@ namespace PusherEmperorsRein
                 (GameObject clone) =>
                 {
 
-                    goAnchorSpineFg = clone;
+                    goAnchorSpineObj = clone;
 
                     //GameObject fguiContainer = lodAnchorBG.displayObject.gameObject;
                     //go.transform.SetParent(fguiContainer.transform, false);
@@ -82,7 +82,7 @@ namespace PusherEmperorsRein
         string inputText = "";
 
 
-        private GameObject goAnchorSpineFg;
+        private GameObject goAnchorSpineObj;
 
         GComponent lodAnchorQi;
         GButton btnStrat;
@@ -99,7 +99,7 @@ namespace PusherEmperorsRein
             {
                 GameCommon.FguiUtils.DeleteWrapper(lodAnchorQi);
                 lodAnchorQi = lodAnchortip;
-                GameCommon.FguiUtils.AddWrapper(lodAnchorQi, GameObject.Instantiate(goAnchorSpineFg));
+                GameCommon.FguiUtils.AddWrapper(lodAnchorQi, GameObject.Instantiate(goAnchorSpineObj));
 
                 lodAnchorQi.visible = true;
             }

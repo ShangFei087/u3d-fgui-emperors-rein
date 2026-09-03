@@ -74,19 +74,19 @@ namespace XingYunZhiLun_3998
                     callback();
                 });
 
-            machineBtnClickHelper = new MachineButtonClickHelper()
-            {
-                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
-                {
-                    [MachineButtonKey.BtnSpin] = (info) =>
-                    {
-                        if (PanelBaseController.ShouldBlockPhysicalSpinInput) return;
+            //machineBtnClickHelper = new MachineButtonClickHelper()
+            //{
+            //    shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+            //    {
+            //        [MachineButtonKey.BtnSpin] = (info) =>
+            //        {
+            //            if (PanelBaseController.ShouldBlockPhysicalSpinInput) return;
 
-                        Debug.LogError("游戏接受到机台短按的数据：Spin");
-                        SpinDown();
-                    }
-                },
-            };
+            //            Debug.LogError("游戏接受到机台短按的数据：Spin");
+            //            SpinDown();
+            //        }
+            //    },
+            //};
         }
 
 

@@ -315,18 +315,21 @@ namespace HuoYanGongNiu_3995
         #region 赔付线与赔付表
 
         private List<PayTableSymbolInfo> m_PayTableSymbolWin = new List<PayTableSymbolInfo>(){
-            new PayTableSymbolInfo(){symbol = 0, x5 = 20, x4 = 10, x3 = 5, },
-            new PayTableSymbolInfo(){symbol = 1, x5 = 20, x4 = 10, x3 = 5, },
-            new PayTableSymbolInfo(){symbol = 2, x5 = 20, x4 = 10, x3 = 5, },
-            new PayTableSymbolInfo(){symbol = 3, x5 = 20, x4 = 10, x3 = 5, },
-            new PayTableSymbolInfo(){symbol = 4, x5 = 30, x4 = 20, x3 = 10 },
-            new PayTableSymbolInfo(){symbol = 5, x5 = 50, x4 = 20, x3 = 10, },
-            new PayTableSymbolInfo(){symbol = 6, x5 = 50, x4 = 20, x3 = 10, },
-            new PayTableSymbolInfo(){symbol = 7, x5 = 100, x4 = 60, x3 = 30, },
-            new PayTableSymbolInfo(){symbol = 8, x5 = 100, x4 = 60, x3 = 30, },
-            new PayTableSymbolInfo(){symbol = 9, x5 = 0, x4 = 0, x3 = 0, },
-            new PayTableSymbolInfo(){symbol = 10, x5 = 0, x4 = 0, x3 = 0, },
-            new PayTableSymbolInfo(){symbol = 11, x5 = 0, x4 = 0, x3 = 0, },
+            new PayTableSymbolInfo(){symbol = 0, x5 = 100, x4 = 20, x3 = 5, x2 = 2 },
+            new PayTableSymbolInfo(){symbol = 1, x5 = 100, x4 = 20, x3 = 5, x2 = 0 },
+            new PayTableSymbolInfo(){symbol = 2, x5 = 120, x4 = 40, x3 = 5, x2 = 0 },
+            new PayTableSymbolInfo(){symbol = 3, x5 = 120, x4 = 40, x3 = 5, x2 = 0 },
+            new PayTableSymbolInfo(){symbol = 4, x5 = 140, x4 = 60, x3 = 10, x2 = 0 },
+            new PayTableSymbolInfo(){symbol = 5, x5 = 140, x4 = 60, x3 = 10, x2 = 0 },
+            new PayTableSymbolInfo(){symbol = 6, x5 = 150, x4 = 100, x3 = 40, x2 = 10 },
+            new PayTableSymbolInfo(){symbol = 7, x5 = 150, x4 = 100, x3 = 40, x2 = 10 },
+            new PayTableSymbolInfo(){symbol = 8, x5 = 200, x4 = 150, x3 = 80, x2 = 20 },
+            new PayTableSymbolInfo(){symbol = 9, x5 = 2500, x4 = 200, x3 = 80, x2 = 20 },
+            new PayTableSymbolInfo(){symbol = 10, x5 = 2500, x4 = 200, x3 = 80, x2 = 20 },
+            new PayTableSymbolInfo(){symbol = 11, x5 = 0, x4 = 0, x3 = 0, x2 = 0 },
+            new PayTableSymbolInfo(){symbol = 12, x5 = 0, x4 = 0, x3 = 0, x2 = 0 },
+            new PayTableSymbolInfo(){symbol = 13, x5 = 0, x4 = 0, x3 = 0, x2 = 0 },
+            new PayTableSymbolInfo(){symbol = 14, x5 = 0, x4 = 0, x3 = 0, x2 = 0 },
         };
 
         public List<PayTableSymbolInfo> payTableSymbolWin

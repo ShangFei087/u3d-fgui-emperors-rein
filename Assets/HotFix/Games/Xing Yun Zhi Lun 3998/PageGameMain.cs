@@ -1532,7 +1532,6 @@ namespace XingYunZhiLun_3998
         //免费游戏触发
         IEnumerator FreeSpinTrigger(Action successCallback, Action<string> errorCallback)
         {
-            slotMachineCtrl.BeginBonusFreeSpin();
             bool isNext = false;
             isMain = false;
             freeTimes.text = (ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes).ToString();
@@ -1605,6 +1604,8 @@ namespace XingYunZhiLun_3998
                 isConnectFreeSpin = false;
                 EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmFreeSpinGame));
             }
+
+            slotMachineCtrl.BeginBonusFreeSpin();
 
 
             InputStackContextFreeSpin((context) =>
@@ -1790,7 +1791,6 @@ namespace XingYunZhiLun_3998
 
             ContentModel.Instance.gameState = GameState.FreeSpin;
 
-            
 
             bool isNext = false;
             bool isBreak = false;
@@ -1894,7 +1894,7 @@ namespace XingYunZhiLun_3998
                 yield return new WaitForSeconds(0.8f);
             }
 
-            SetSpinButtonSpinGray();
+            //SetSpinButtonSpinGray();
 
             #region Win
             long totalWinLineCredit = 0;
@@ -1944,10 +1944,7 @@ namespace XingYunZhiLun_3998
                 slotMachineCtrl.SkipWinLine(false);
             }
 
-            
-
-            //ContentModel.Instance.gameState = GameState.Idle;
-            // 先结算主游戏，再进入“免费游戏”或“小游戏”，则每局都可以同步玩家真实金钱金额
+            ContentModel.Instance.gameState = GameState.Idle;
 
             if (successCallback != null)
                 successCallback.Invoke();
@@ -2137,7 +2134,6 @@ namespace XingYunZhiLun_3998
                 case SlotMachineEvent.StoppedSlotMachine:
                     {
                         isStoppedSlotMachine = true;
-                        //UnlockStopButton();
                     }
                     break;
             }

@@ -18,15 +18,15 @@ namespace HuoYanGongNiu_3995
 
         private EventData _data;
 
-        private Animator animator;
-        private GameObject goAnchorSpineFg, go;
+        private Animator spineAnim, effAnim;
+        private GameObject goAnchorSpineObj, goAnchorSpine, anchorEffObj, anchorEffPre;
 
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
-        private GComponent anchorBg;
+        private GComponent anchorBg, anchorEff;
         private GButton btnStart;
         private GTextField timeImage;
 
-        //Pag播放
+        ////Pag播放
         private const string GamePagFolder = "Games/Huo Yan Gong Niu 3995/Pag/fg_pup_Collect_bmp";
         private PagSlotBinding effectPag;
         private string[] stageName = { "fg_pup_Collect_start_bmp.pag", "fg_pup_Collect_idle_bmp.pag", "fg_pup_Collect_out_bmp.pag", "fg_Collect_tran.pag" };
@@ -36,7 +36,7 @@ namespace HuoYanGongNiu_3995
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 1;
+            int count = 2;
 
             Action callback = () =>
             {
@@ -51,7 +51,15 @@ namespace HuoYanGongNiu_3995
                 "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PopupFreeGame/FreeGameTrigger.prefab",
                 (GameObject clone) =>
                 {
-                    go = clone;
+                    goAnchorSpine = clone;
+                    callback();
+                });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PopupFreeGame/FreeGameEff.prefab",
+                (GameObject clone) =>
+                {
+                    anchorEffPre = clone;
                     callback();
                 });
         }
@@ -59,12 +67,6 @@ namespace HuoYanGongNiu_3995
 
         public override void OnOpen(PageName name, EventData data)
         {
-            //if (GameSoundHelper.Instance.IsPlaySound(SoundKey.RegularBG))
-            //{
-            //    GameSoundHelper.Instance.StopSound(SoundKey.RegularBG);
-            //}
-            //GameSoundHelper.Instance.PlayMusicSingle(SoundKey.FreeSpinTriggerBG);
-
             base.OnOpen(name, data);
             InitParam(data);
         }
@@ -72,7 +74,7 @@ namespace HuoYanGongNiu_3995
 
         public override void OnClose(EventData data = null)
         {
-            effectPag.StopWithDefaults();
+            //effectPag.StopWithDefaults();
 
             StopAll();
             base.OnClose(data);
@@ -93,11 +95,21 @@ namespace HuoYanGongNiu_3995
             {
                 GameCommon.FguiUtils.DeleteWrapper(anchorBg);
                 anchorBg = loadAnchor;
-                goAnchorSpineFg = GameObject.Instantiate(go);
-                animator = goAnchorSpineFg.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-                ChangeParent(timeImage, goAnchorSpineFg, "Anchor/Spine Mecanim GameObject (fg_pup_Start)/SkeletonUtility-SkeletonRoot/root/all/number", -1.58f, 1.5f);
-                ChangeParent(btnStart, goAnchorSpineFg, "Anchor/Spine Mecanim GameObject (fg_pup_Start)/SkeletonUtility-SkeletonRoot/root/all/START", -1.96f, 0.8f);
-                GameCommon.FguiUtils.AddWrapper(anchorBg, goAnchorSpineFg);
+                goAnchorSpineObj = GameObject.Instantiate(goAnchorSpine);
+                spineAnim = goAnchorSpineObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                ChangeParent(timeImage, goAnchorSpineObj, "Anchor/Spine Mecanim GameObject (fg_pup_Start)/SkeletonUtility-SkeletonRoot/root/all/number", -3.8f, 1.5f);
+                ChangeParent(btnStart, goAnchorSpineObj, "Anchor/Spine Mecanim GameObject (fg_pup_Start)/SkeletonUtility-SkeletonRoot/root/all/START", -1.96f, 0.8f);
+                GameCommon.FguiUtils.AddWrapper(anchorBg, goAnchorSpineObj);
+            }
+
+            GComponent loadAnchorEff = contentPane.GetChild("anchorEff").asCom;
+            if (anchorEff != loadAnchorEff)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorEff);
+                anchorEff = loadAnchorEff;
+                anchorEffObj = GameObject.Instantiate(anchorEffPre);
+                effAnim = anchorEffObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                GameCommon.FguiUtils.AddWrapper(anchorEff, anchorEffObj);
             }
 
             EnsureMainPagSlot();
@@ -105,10 +117,11 @@ namespace HuoYanGongNiu_3995
             preLoadedCallback?.Invoke();
 
             if (!isOpen) return;
-            PlayAnim("in");
+            PlayAnim(spineAnim ,"in");
+            PlayAnim(effAnim, "all_idle");
 
-            effectPag.StopWithDefaults();
-            effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(stageName[0], stageName[1]), PagPlayLayout.Center,useGpuSyncGroup: false));
+            //effectPag.StopWithDefaults();
+            //effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(stageName[0], stageName[1]), PagPlayLayout.Center,useGpuSyncGroup: false));
 
             btnStart.touchable = false;
             btnStart.onClick.Clear();
@@ -140,11 +153,14 @@ namespace HuoYanGongNiu_3995
             if (isClose) return;
             isClose = true;
 
-            PlayAnim("out");
+            PlayAnim(spineAnim, "out");
             timeImage.alpha = 0;
 
-            effectPag.StopWithDefaults();
-            effectPag.Play(stageName[2], 1, PagPlayLayout.Center, PagPresentationDefaults.DisplayScale,new PagPlayCallbacks(stopAfterFinished: true));
+            effAnim.Rebind();
+            effAnim.Update(0f);
+
+            //effectPag.StopWithDefaults();
+            //effectPag.Play(stageName[2], 1, PagPlayLayout.Center, PagPresentationDefaults.DisplayScale,new PagPlayCallbacks(stopAfterFinished: true));
 
             AddTimer(1.8f, (object obj) =>
             {
@@ -159,7 +175,7 @@ namespace HuoYanGongNiu_3995
         }
 
 
-        private void PlayAnim(string animName)
+        private void PlayAnim(Animator animator, string animName)
         {
             animator.Rebind();
             animator.Play(animName, -1, 0);

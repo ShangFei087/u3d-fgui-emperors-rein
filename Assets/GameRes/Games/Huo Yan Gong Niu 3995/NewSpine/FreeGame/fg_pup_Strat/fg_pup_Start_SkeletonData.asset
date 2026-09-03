@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: fg_pup_Start_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: 9a4247be0f73ebf4ebe86e0b21671dcb, type: 2}
+  - {fileID: 11400000, guid: 257979e8b353a4640abf2e9da9b61510, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: c781a5649f755c641bc39c20e366ec3d, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: 367aede7155ee5443b19c6e4577f46d2, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 9100000, guid: 2d42fccf837eedf4dadd9a7f391cece7, type: 2}
+  controller: {fileID: 9100000, guid: 62a2720f02cbb8d4f80d1e859b015427, type: 2}

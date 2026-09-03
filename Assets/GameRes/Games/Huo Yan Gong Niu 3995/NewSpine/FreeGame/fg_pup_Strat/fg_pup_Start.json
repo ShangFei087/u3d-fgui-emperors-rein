@@ -1,11 +1,11 @@
 {
 "skeleton": {
-	"hash": "fWOOzMKKzTo",
+	"hash": "u8o7s7KQqmo",
 	"spine": "4.1.24",
-	"x": -695.95,
-	"y": -639.5,
-	"width": 1400,
-	"height": 1608.36,
+	"x": -833.07,
+	"y": -769.12,
+	"width": 1667.52,
+	"height": 1667.52,
 	"images": "./images/",
 	"audio": "E:/1、项目/2_单机/3995_火焰公牛/115 spine文件/弹窗/fg_pup_Tip"
 },
@@ -22,10 +22,17 @@
 	{ "name": "eff_ring_02", "parent": "all", "y": 80.43, "scaleX": 2.0695, "scaleY": 2.0695 },
 	{ "name": "eff_ring_03", "parent": "all", "y": 80.43, "scaleX": 2.0695, "scaleY": 2.0695 },
 	{ "name": "eff_ring_04", "parent": "all", "y": 80.43, "scaleX": 2.0695, "scaleY": 2.0695 },
-	{ "name": "eff_coin", "parent": "coin", "x": 19.29, "y": 1.35, "scaleX": 4, "scaleY": 4 }
+	{ "name": "eff_coin", "parent": "coin", "x": 19.29, "y": 1.35, "scaleX": 3.8168, "scaleY": 3.8168 },
+	{ "name": "eff", "parent": "all" },
+	{ "name": "eff_di_glow", "parent": "eff", "y": 64.65, "scaleX": 1.3896, "scaleY": 1.3896 },
+	{ "name": "eff_ring2", "parent": "eff", "y": 64.65, "scaleX": 7, "scaleY": 7 },
+	{ "name": "eff_ring3", "parent": "eff", "y": 64.65, "scaleX": 8, "scaleY": 8 }
 ],
 "slots": [
 	{ "name": "免费游戏次数提示框", "bone": "root", "color": "00000079" },
+	{ "name": "eff/eff_glow", "bone": "eff_di_glow", "attachment": "eff/eff_glow", "blend": "additive" },
+	{ "name": "eff/eff_ring3", "bone": "eff_ring3", "blend": "additive" },
+	{ "name": "eff/eff_ring2", "bone": "eff_ring2", "blend": "additive" },
 	{ "name": "eff/eff_ring_02_00", "bone": "eff_ring_02", "blend": "additive" },
 	{ "name": "eff/eff_ring_02_01", "bone": "eff_ring_03", "blend": "additive" },
 	{ "name": "eff/eff_ring_02_02", "bone": "eff_ring_04", "blend": "additive" },
@@ -52,14 +59,23 @@
 			"eff/eff_coin_00": {
 				"eff/eff_coin_00": { "x": 0.5, "width": 896, "height": 933 }
 			},
+			"eff/eff_glow": {
+				"eff/eff_glow": { "x": 0.5, "scaleX": 3, "scaleY": 3, "width": 400, "height": 400 }
+			},
+			"eff/eff_ring2": {
+				"eff/eff_ring2_00": { "width": 512, "height": 512 }
+			},
+			"eff/eff_ring3": {
+				"eff/eff_ring_00": { "width": 256, "height": 256 }
+			},
 			"eff/eff_ring_02_00": {
-				"eff/eff_ring_02_00": { "width": 625, "height": 625 }
+				"eff/eff_ring_12_00": { "width": 625, "height": 625 }
 			},
 			"eff/eff_ring_02_01": {
-				"eff/eff_ring_02_00": { "width": 625, "height": 625 }
+				"eff/eff_ring_12_00": { "width": 625, "height": 625 }
 			},
 			"eff/eff_ring_02_02": {
-				"eff/eff_ring_02_00": { "width": 625, "height": 625 }
+				"eff/eff_ring_12_00": { "width": 625, "height": 625 }
 			},
 			"eff/eff_zi/eff_zi_00": {
 				"eff/eff_zi/eff_zi_00": { "y": 0.5, "width": 700, "height": 353 },
@@ -339,6 +355,16 @@
 					},
 					{ "time": 4.6 }
 				]
+			},
+			"eff_di_glow": {
+				"rotate": [
+					{},
+					{ "time": 1.1333, "value": -180 },
+					{ "time": 2.3, "value": -359, "curve": "stepped" },
+					{ "time": 2.3333 },
+					{ "time": 3.4667, "value": -180 },
+					{ "time": 4.6, "value": -359 }
+				]
 			}
 		}
 	},
@@ -362,6 +388,55 @@
 						"curve": [ 0.233, 1, 0.3, 1, 0.233, 1, 0.3, 1, 0.233, 1, 0.3, 1, 0.197, 0.57, 0.22, 1 ]
 					},
 					{ "time": 0.3667, "color": "ffffffff" }
+				]
+			},
+			"eff/eff_glow": {
+				"rgba": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{
+						"time": 0.2,
+						"color": "ffffff00",
+						"curve": [ 0.225, 1, 0.275, 1, 0.225, 1, 0.275, 1, 0.225, 1, 0.275, 1, 0.225, 0, 0.275, 1 ]
+					},
+					{ "time": 0.3, "color": "ffffffff" }
+				]
+			},
+			"eff/eff_ring2": {
+				"rgba": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{
+						"time": 0.1667,
+						"color": "ffffff00",
+						"curve": [ 0.244, 1, 0.322, 1, 0.244, 1, 0.322, 1, 0.244, 1, 0.322, 1, 0.244, 0, 0.322, 1 ]
+					},
+					{
+						"time": 0.4,
+						"color": "ffffffff",
+						"curve": [ 0.536, 1, 0.53, 1, 0.536, 1, 0.53, 1, 0.536, 1, 0.53, 1, 0.536, 1, 0.53, 0 ]
+					},
+					{ "time": 0.6667, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "eff/eff_ring2_00" }
+				]
+			},
+			"eff/eff_ring3": {
+				"rgba": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{
+						"time": 0.0333,
+						"color": "ffffff00",
+						"curve": [ 0.122, 1, 0.211, 1, 0.122, 1, 0.211, 1, 0.122, 1, 0.211, 1, 0.122, 0, 0.211, 1 ]
+					},
+					{
+						"time": 0.3,
+						"color": "ffffffff",
+						"curve": [ 0.487, 1, 0.479, 1, 0.487, 1, 0.479, 1, 0.487, 1, 0.479, 1, 0.487, 1, 0.479, 0 ]
+					},
+					{ "time": 0.6667, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "eff/eff_ring_00" }
 				]
 			},
 			"FREE GAMNS": {
@@ -584,6 +659,55 @@
 					},
 					{ "time": 0.6667 }
 				]
+			},
+			"eff_ring3": {
+				"scale": [
+					{ "x": 0, "y": 0, "curve": "stepped" },
+					{
+						"time": 0.0333,
+						"x": 0,
+						"y": 0,
+						"curve": [ 0.059, 0, 0.179, 0.629, 0.059, 0, 0.179, 0.629 ]
+					},
+					{
+						"time": 0.3,
+						"x": 0.881,
+						"y": 0.881,
+						"curve": [ 0.443, 1.169, 0.586, 1.291, 0.443, 1.169, 0.586, 1.291 ]
+					},
+					{ "time": 0.6667, "x": 1.607, "y": 1.607, "curve": "stepped" },
+					{ "time": 0.7, "x": 0, "y": 0 }
+				]
+			},
+			"eff_ring2": {
+				"scale": [
+					{ "x": 0, "y": 0, "curve": "stepped" },
+					{
+						"time": 0.1667,
+						"x": 0,
+						"y": 0,
+						"curve": [ 0.189, 0, 0.294, 1.264, 0.189, 0, 0.294, 1.264 ]
+					},
+					{
+						"time": 0.4,
+						"x": 1.484,
+						"y": 1.484,
+						"curve": [ 0.504, 1.694, 0.608, 1.377, 0.504, 1.694, 0.608, 1.377 ]
+					},
+					{ "time": 0.6667, "x": 1.607, "y": 1.607, "curve": "stepped" },
+					{ "time": 0.7, "x": 0, "y": 0 }
+				]
+			},
+			"eff_di_glow": {
+				"rotate": [
+					{ "value": -260 },
+					{ "time": 0.8, "value": -360 }
+				],
+				"scale": [
+					{ "x": 0, "y": 0, "curve": "stepped" },
+					{ "time": 0.2, "x": 0, "y": 0 },
+					{ "time": 0.3667 }
+				]
 			}
 		}
 	},
@@ -610,6 +734,12 @@
 				],
 				"attachment": [
 					{ "time": 0.6667, "name": "eff/eff_coin_00" }
+				]
+			},
+			"eff/eff_glow": {
+				"rgba": [
+					{ "time": 1, "color": "ffffffff" },
+					{ "time": 1.3333, "color": "ffffff00" }
 				]
 			},
 			"eff/eff_ring_02_00": {
@@ -660,7 +790,7 @@
 					{ "time": 1.8, "color": "ffffff00" }
 				],
 				"attachment": [
-					{ "time": 0.3667, "name": "eff/eff_ring_02_00" }
+					{ "time": 0.3667, "name": "eff/eff_ring_12_00" }
 				]
 			},
 			"eff/eff_ring_02_01": {
@@ -700,7 +830,7 @@
 					{ "time": 1.6667, "color": "ffffff00" }
 				],
 				"attachment": [
-					{ "time": 0.5667, "name": "eff/eff_ring_02_00" }
+					{ "time": 0.5667, "name": "eff/eff_ring_12_00" }
 				]
 			},
 			"eff/eff_ring_02_02": {
@@ -740,7 +870,7 @@
 					{ "time": 1.9, "color": "ffffff00" }
 				],
 				"attachment": [
-					{ "time": 0.9667, "name": "eff/eff_ring_02_00" }
+					{ "time": 0.9667, "name": "eff/eff_ring_12_00" }
 				]
 			},
 			"FREE GAMNS": {
@@ -1120,6 +1250,12 @@
 				],
 				"scale": [
 					{ "time": 0.6667, "x": 1.011, "y": 1.011 }
+				]
+			},
+			"eff_di_glow": {
+				"rotate": [
+					{},
+					{ "time": 2.0333, "value": -180 }
 				]
 			}
 		}

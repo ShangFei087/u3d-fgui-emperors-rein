@@ -217,17 +217,17 @@
     <image id="lkobad" name="ng_Bottom.png" path="/images/gameNormal/Slot/" exported="true"/>
     <component id="xq47ae" name="AnchorFreeEffect.xml" path="/component/gameFreeGame/" exported="true"/>
     <component id="xq47ag" name="AnchorReelEffect.xml" path="/component/gameNormal/" exported="true"/>
-    <image id="fqx4ah" name="fg_num_Free_gam_plays_0.png" path="/fonts/fontImages/FreeTimeNum/" exported="true"/>
-    <image id="fqx4ai" name="fg_num_Free_gam_plays_1.png" path="/fonts/fontImages/FreeTimeNum/" exported="true"/>
-    <image id="fqx4aj" name="fg_num_Free_gam_plays_2.png" path="/fonts/fontImages/FreeTimeNum/" exported="true"/>
-    <image id="fqx4ak" name="fg_num_Free_gam_plays_3.png" path="/fonts/fontImages/FreeTimeNum/" exported="true"/>
-    <image id="fqx4al" name="fg_num_Free_gam_plays_4.png" path="/fonts/fontImages/FreeTimeNum/" exported="true"/>
-    <image id="fqx4am" name="fg_num_Free_gam_plays_5.png" path="/fonts/fontImages/FreeTimeNum/" exported="true"/>
-    <image id="fqx4an" name="fg_num_Free_gam_plays_6.png" path="/fonts/fontImages/FreeTimeNum/" exported="true"/>
-    <image id="fqx4ao" name="fg_num_Free_gam_plays_7.png" path="/fonts/fontImages/FreeTimeNum/" exported="true"/>
-    <image id="fqx4ap" name="fg_num_Free_gam_plays_8.png" path="/fonts/fontImages/FreeTimeNum/" exported="true"/>
-    <image id="fqx4aq" name="fg_num_Free_gam_plays_9.png" path="/fonts/fontImages/FreeTimeNum/" exported="true"/>
-    <component id="fqx4ar" name="AnchorPag.xml" path="/component/gameFreeGame/"/>
+    <image id="fqx4ah" name="fg_num_Free_gam_plays_0.png" path="/fonts/fontImages/FreeTimeNum/" exported="true" atlas="8"/>
+    <image id="fqx4ai" name="fg_num_Free_gam_plays_1.png" path="/fonts/fontImages/FreeTimeNum/" exported="true" atlas="8"/>
+    <image id="fqx4aj" name="fg_num_Free_gam_plays_2.png" path="/fonts/fontImages/FreeTimeNum/" exported="true" atlas="8"/>
+    <image id="fqx4ak" name="fg_num_Free_gam_plays_3.png" path="/fonts/fontImages/FreeTimeNum/" exported="true" atlas="8"/>
+    <image id="fqx4al" name="fg_num_Free_gam_plays_4.png" path="/fonts/fontImages/FreeTimeNum/" exported="true" atlas="8"/>
+    <image id="fqx4am" name="fg_num_Free_gam_plays_5.png" path="/fonts/fontImages/FreeTimeNum/" exported="true" atlas="8"/>
+    <image id="fqx4an" name="fg_num_Free_gam_plays_6.png" path="/fonts/fontImages/FreeTimeNum/" exported="true" atlas="8"/>
+    <image id="fqx4ao" name="fg_num_Free_gam_plays_7.png" path="/fonts/fontImages/FreeTimeNum/" exported="true" atlas="8"/>
+    <image id="fqx4ap" name="fg_num_Free_gam_plays_8.png" path="/fonts/fontImages/FreeTimeNum/" exported="true" atlas="8"/>
+    <image id="fqx4aq" name="fg_num_Free_gam_plays_9.png" path="/fonts/fontImages/FreeTimeNum/" exported="true" atlas="8"/>
+    <component id="fqx4ar" name="AnchorPag.xml" path="/component/gameFreeGame/" exported="true"/>
     <component id="fuf5as" name="SmallGameReels.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="fuf5at" name="ElementBox.xml" path="/moudules/slotMachine/" exported="true"/>
     <component id="fuf5au" name="RollElement.xml" path="/moudules/slotMachine/" exported="true"/>
@@ -281,6 +281,7 @@
     <component id="qhiffc9" name="Paytable4.xml" path="/moudules/payTable/" exported="true"/>
     <component id="qhiffca" name="Paytable5.xml" path="/moudules/payTable/" exported="true"/>
     <image id="jn9ufcb" name="load_ic_bottom_surface.png" path="/images/gameLoading/"/>
+    <component id="cmaffcc" name="AnchorEff.xml" path="/component/gameNormal/" exported="true"/>
   </resources>
   <publish name=""/>
 </packageDescription>

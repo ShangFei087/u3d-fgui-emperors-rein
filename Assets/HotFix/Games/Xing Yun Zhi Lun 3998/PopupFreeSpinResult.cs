@@ -19,7 +19,7 @@ namespace XingYunZhiLun_3998
         private bool isInit = false;
         private EventData _data;
 
-        private GameObject goAnchorSpineFg, go, goAnchorSpineEff, goEff;
+        private GameObject goAnchorSpineObj, go, goAnchorSpineEff, goEff;
         private Animator animator, effAnimator;
         private Transform effectTransform;
 
@@ -51,7 +51,7 @@ namespace XingYunZhiLun_3998
             "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/PopupFreeSpinResult/FreeSpinResult.prefab",
             (GameObject clone) =>
             {
-                goAnchorSpineFg = clone;
+                goAnchorSpineObj = clone;
                 callback();
             });
 
@@ -118,7 +118,7 @@ namespace XingYunZhiLun_3998
             {
                 GameCommon.FguiUtils.DeleteWrapper(lodAnchor);
                 lodAnchor = lodAnchortip;
-                go = GameObject.Instantiate(goAnchorSpineFg);
+                go = GameObject.Instantiate(goAnchorSpineObj);
                 effectTransform = go.transform.GetChild(0).GetChild(0).GetChild(0);
                 animator = go.transform.GetChild(1).GetChild(0).GetComponent<Animator>();
                 GameCommon.FguiUtils.AddWrapper(lodAnchor,go);

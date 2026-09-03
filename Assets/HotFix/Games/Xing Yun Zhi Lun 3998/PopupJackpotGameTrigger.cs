@@ -15,7 +15,7 @@ namespace XingYunZhiLun_3998
         public new const string pkgName = "XingYunZhiLun_3998";
         public new const string resName = "PopupJackpotGameTrigger";
 
-        private GameObject go, goAnchorSpineFg;
+        private GameObject go, goAnchorSpineObj;
         private Animator animator;
         //private Transform effectTransform;
 
@@ -45,7 +45,7 @@ namespace XingYunZhiLun_3998
             "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Prefabs/PopupGameJackpot/JackpotGameTrigger.prefab",
             (GameObject clone) =>
             {
-                goAnchorSpineFg = clone;
+                goAnchorSpineObj = clone;
                 isInit = true;
                 InitParam(null);
             });
@@ -92,7 +92,7 @@ namespace XingYunZhiLun_3998
             {
                 GameCommon.FguiUtils.DeleteWrapper(loadAnchor);
                 loadAnchor = loadlodAnchortip;
-                go = GameObject.Instantiate(goAnchorSpineFg);
+                go = GameObject.Instantiate(goAnchorSpineObj);
                 animator = go.transform.GetChild(1).GetChild(0).GetComponent<Animator>();
                 //effectTransform = go.transform.GetChild(0).GetChild(0).GetChild(0);
                 GameCommon.FguiUtils.AddWrapper(loadAnchor, go);

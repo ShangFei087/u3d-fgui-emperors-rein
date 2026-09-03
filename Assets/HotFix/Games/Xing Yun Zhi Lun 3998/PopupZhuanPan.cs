@@ -40,14 +40,14 @@ namespace XingYunZhiLun_3998
         private bool isInit = false;
 
         private int targetIndex = 2; // 免费游戏在转盘上的位置（0-19）
-        private string jackpotType = String.Empty; 
+        private string jackpotType = String.Empty;
 
         private float segmentAngle = 18f; //     360 / 20 = 18°
         private float rotateSpeed = 15f;
         private float extralyAngle = 9f;  //因为转盘分区角度不同，可能需要额外补充一些角度
 
         private int wheelIndex;
-        private TimerCallback _closeTimer;
+        private TimerCallback _closeTimer, _canSpinTimer;
 
         private readonly string[] animStartNames = { "01_start", "02_start", "03_start" };
         private readonly string[] animEndNames = { "01_end", "02_end", "03_end" };
@@ -55,6 +55,7 @@ namespace XingYunZhiLun_3998
         private Transform[] idels, wins, stages;
 
         private Action callback = null;
+        private bool canSpin = false;
 
         protected override void OnInit()
         {
@@ -65,7 +66,7 @@ namespace XingYunZhiLun_3998
 
             Action callback = () =>
             {
-                if(--count <= 0)
+                if (--count <= 0)
                 {
                     isInit = true;
                     InitParam(null);
@@ -111,9 +112,7 @@ namespace XingYunZhiLun_3998
                             ContentModel.Instance.wheelIsSpin = false;
                             ContentModel.Instance.wheelBtnSpinState = SpinButtonState.Stop;
 
-                            //ContentModel.Instance.gameState = GameState.Idle;
                             CloseSelf(null);
-                            //DebugUtils.Log("游戏结束");
                         });
                     },
                 },
@@ -128,6 +127,12 @@ namespace XingYunZhiLun_3998
             mono.updateHandle.AddListener(WheelTrun);
 
             ChooseWheelSkin();
+
+            _canSpinTimer = (object obj) =>
+            {
+                canSpin = true;
+            };
+            Timers.inst.Add(1, 1, _canSpinTimer);
         }
 
         public override void OnClose(EventData data = null)
@@ -144,15 +149,16 @@ namespace XingYunZhiLun_3998
             if (data != null) _data = data;
 
             if (!isInit) return;
+            canSpin = false;
 
             gWheel = this.contentPane.GetChild("zhuanPan").asCom;
             WheelInit(CustomModel.Instance.lowWheelIndex);
 
             GComponent loadAnchorZhuanPanBg = contentPane.GetChild("anchorBg").asCom;
-            if(gWheelBg != loadAnchorZhuanPanBg)
+            if (gWheelBg != loadAnchorZhuanPanBg)
             {
                 GameCommon.FguiUtils.DeleteWrapper(gWheelBg);
-                gWheelBg = loadAnchorZhuanPanBg; 
+                gWheelBg = loadAnchorZhuanPanBg;
                 gWheelLoad = gWheel.GetChild("Wheel").asCom.GetChild("wheelBg").asLoader;
                 wheelBgObj = GameObject.Instantiate(wheelBgPref);
                 animator = wheelBgObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
@@ -179,7 +185,7 @@ namespace XingYunZhiLun_3998
 
                 ChangeParent(gWheel, wheelBgObj, "Anchor/Spine Mecanim GameObject (Lucky_ng_img_turntable)/SkeletonUtility-SkeletonRoot/root/tx01");
             }
-            
+
 
             spinButton = contentPane.GetChild("spinBtn").asButton;
             spinButton.onClick.Clear();
@@ -227,7 +233,7 @@ namespace XingYunZhiLun_3998
 
         void StartGameOnce(Action successCallback = null, Action<string> errorCallback = null)
         {
-            if (isClose) return;
+            if (isClose || !canSpin) return;
             isClose = true; 
             spinButton.visible = false;
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.WheelButton));
