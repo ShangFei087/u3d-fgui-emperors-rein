@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <component id="n4_g9kd" name="anchorPagBigWin" src="g9kd9o" fileName="components/popupBigWin/pagBIgWin.xml" xy="539,959"/>
+    <component id="n6_ko7z" name="anchorBigWinEff" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,959"/>
+    <component id="n5_ko7z" name="anchorBigWin" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,959"/>
     <text id="n3_g9kd" name="txtWin" xy="20,1200" size="1040,160" font="ui://tdk27maerghsby" fontSize="13" align="center" vAlign="middle" letterSpacing="-10" autoSize="shrink" text="1234567890"/>
   </displayList>
 </component>

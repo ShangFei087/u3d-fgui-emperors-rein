@@ -16,14 +16,16 @@ namespace MeiZhouHeiBao_3993
         public new const string resName = "PopupSmallGameResult";
         /// <summary>弹窗 Spine 预制体路径。</summary>
         private const string PrefabPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupSmallGameResult/PopupSmallGameResult.prefab";
-        /// <summary>PAG 资源目录。</summary>
-        private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
-        /// <summary>大奖弹窗 PAG 入场。</summary>
-        private const string PagSmallPupIn = "small_pup/small_pup_in";
-        /// <summary>大奖弹窗 PAG 循环待机。</summary>
-        private const string PagSmallPupIdle = "small_pup/small_pup_idle";
-        /// <summary>大奖弹窗 PAG 离场。</summary>
-        private const string PagSmallPupOut = "small_pup/small_pup_out";
+        /// <summary>弹窗金币特效预制体路径。</summary>
+        private const string EffPrefabPath = PopupSpineWrap3993.EffPopPrefabPath;
+        // /// <summary>PAG 资源目录。</summary>
+        // private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
+        // /// <summary>大奖弹窗 PAG 入场。</summary>
+        // private const string PagSmallPupIn = "small_pup/small_pup_in";
+        // /// <summary>大奖弹窗 PAG 循环待机。</summary>
+        // private const string PagSmallPupIdle = "small_pup/small_pup_idle";
+        // /// <summary>大奖弹窗 PAG 离场。</summary>
+        // private const string PagSmallPupOut = "small_pup/small_pup_out";
 
         /// <summary>加载后的 Spine 预制体。</summary>
         private GameObject goSmallResult;
@@ -33,6 +35,14 @@ namespace MeiZhouHeiBao_3993
         private GameObject clonegoSmallResult;
         /// <summary>弹窗 Spine 播放器。</summary>
         private AnimPlayer _animSmallResult;
+        /// <summary>加载后的特效 Spine 预制体。</summary>
+        private GameObject goPopEff;
+        /// <summary>特效 Spine 挂点。</summary>
+        private GComponent anchorPopEff;
+        /// <summary>场景中的特效 Spine 实例。</summary>
+        private GameObject clonegoPopEff;
+        /// <summary>弹窗特效 Spine 播放器。</summary>
+        private AnimPlayer _animPopEff;
         /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
         private I18nLang _boundLang;
         /// <summary>播完 out 后延迟关页。</summary>
@@ -43,10 +53,10 @@ namespace MeiZhouHeiBao_3993
         private TimerCallback _rollCallback;
         /// <summary>入场后延迟点亮收集按钮。</summary>
         private TimerCallback _enableBtnCallback;
-        /// <summary>PAG 挂点。</summary>
-        private GComponent anchorPagSmallResult;
-        /// <summary>大奖结算 PAG 槽。</summary>
-        private PagSlotBinding pagSmallResult;
+        // /// <summary>PAG 挂点。</summary>
+        // private GComponent anchorPagSmallResult;
+        // /// <summary>大奖结算 PAG 槽。</summary>
+        // private PagSlotBinding pagSmallResult;
 
         /// <summary>收集按钮（挂到 Spine 骨骼）。</summary>
         private GButton btnCollect;
@@ -64,7 +74,7 @@ namespace MeiZhouHeiBao_3993
             base.OnInit();
 
 
-            int count = 1;
+            int count = 2;
             Action callback = () =>
             {
                 if (--count == 0)
@@ -79,6 +89,13 @@ namespace MeiZhouHeiBao_3993
              (GameObject clone) =>
              {
                  goSmallResult = clone;
+                 callback();
+             });
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+            EffPrefabPath,
+             (GameObject clone) =>
+             {
+                 goPopEff = clone;
                  callback();
              });
 
@@ -99,6 +116,12 @@ namespace MeiZhouHeiBao_3993
             };
         }
 
+        /// <summary>Dispose contentPane 前先摘特效 wrapTarget，避免 GoWrapper 把实例一起毁掉。</summary>
+        protected override void OnBeforetLanguageChange(I18nLang lang)
+        {
+            PopupSpineWrap3993.PrepareLanguageChange(ref _animPopEff, ref anchorPopEff, clonegoPopEff);
+        }
+
         /// <summary>挂 Spine、绑定收集按钮与赢分、滚分后可点，自动化则定时点击。</summary>
         public override void InitParam()
         {
@@ -112,15 +135,15 @@ namespace MeiZhouHeiBao_3993
             RemoveTimer(ref _enableBtnCallback);
 
             //pag
-            anchorPagSmallResult = contentPane.GetChild("anchorSmallResultPag").asCom;
-            if (pagSmallResult == null) pagSmallResult = new PagSlotBinding("3993pagSmallResult", PagPath);
-            pagSmallResult.EnsureSlot(anchorPagSmallResult);
-            pagSmallResult.StopWithDefaults();
-            pagSmallResult.Play(new PagSequencePlay(
-                PagPlaySpecs.IntroLoop(PagSmallPupIn, PagSmallPupIdle),
-                PagPlayLayout.Center,
-                PagPresentationDefaults.DisplayScale,
-                useGpuSyncGroup: false));
+            // anchorPagSmallResult = contentPane.GetChild("anchorSmallResultPag").asCom;
+            // if (pagSmallResult == null) pagSmallResult = new PagSlotBinding("3993pagSmallResult", PagPath);
+            // pagSmallResult.EnsureSlot(anchorPagSmallResult);
+            // pagSmallResult.StopWithDefaults();
+            // pagSmallResult.Play(new PagSequencePlay(
+            //     PagPlaySpecs.IntroLoop(PagSmallPupIn, PagSmallPupIdle),
+            //     PagPlayLayout.Center,
+            //     PagPresentationDefaults.DisplayScale,
+            //     useGpuSyncGroup: false));
 
             //spine
             GComponent localSmallResult = contentPane.GetChild("anchorSmallResult").asCom;
@@ -136,6 +159,8 @@ namespace MeiZhouHeiBao_3993
                 _animSmallResult = new AnimPlayer(clonegoSmallResult);
             }
             _animSmallResult.PlayThen("in", "idle", true);
+            PopupSpineWrap3993.BindAndPlay(contentPane, "anchorEff", goPopEff,
+                ref anchorPopEff, ref clonegoPopEff, ref _animPopEff, "MAJOR_idle");
 
             btnCollect = contentPane.GetChild("btnCollect").asButton;
             btnCollect.touchable = false;
@@ -196,7 +221,8 @@ namespace MeiZhouHeiBao_3993
             RemoveTimer(ref _rollCallback);
             RemoveTimer(ref _enableBtnCallback);
             _animSmallResult.DetachAll();
-            pagSmallResult?.StopWithDefaults();
+            PopupSpineWrap3993.SetVisible(anchorPopEff, false);
+            // pagSmallResult?.StopWithDefaults();
             //_gameSoundController?.Dispose();
             //_gameSoundController = null;
         }
@@ -210,15 +236,16 @@ namespace MeiZhouHeiBao_3993
 
             btnCollect.touchable = false;
             _animSmallResult.Play("out");
-            pagSmallResult.StopWithDefaults();
-            pagSmallResult.Play(new PagSequencePlay(
-                new[] { new PagSegment(PagSmallPupOut, 1) },
-                PagPlayLayout.Center,
-                PagPresentationDefaults.DisplayScale,
-                useGpuSyncGroup: false,
-                callbacks: new PagPlayCallbacks(
-                    onFinished: () => pagSmallResult?.StopWithDefaults(),
-                    stopAfterFinished: true)));
+            PopupSpineWrap3993.SetVisible(anchorPopEff, false);
+            // pagSmallResult.StopWithDefaults();
+            // pagSmallResult.Play(new PagSequencePlay(
+            //     new[] { new PagSegment(PagSmallPupOut, 1) },
+            //     PagPlayLayout.Center,
+            //     PagPresentationDefaults.DisplayScale,
+            //     useGpuSyncGroup: false,
+            //     callbacks: new PagPlayCallbacks(
+            //         onFinished: () => pagSmallResult?.StopWithDefaults(),
+            //         stopAfterFinished: true)));
 
             RemoveTimer(ref _delayCloseCallback);
             _delayCloseCallback = obj =>

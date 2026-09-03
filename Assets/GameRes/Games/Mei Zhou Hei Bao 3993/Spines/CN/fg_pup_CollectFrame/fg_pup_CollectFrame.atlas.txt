@@ -217,20 +217,26 @@ bounds:555,1967,257,67
 offsets:1,0,258,68
 
 fg_pup_CollectFrame_2.png
-size:1649,795
+size:1770,1046
 filter:Linear,Linear
 pma:true
 Base plate
-bounds:2,2,954,791
+bounds:2,253,954,791
+eff/eff_glow2_01
+bounds:958,587,486,457
+offsets:16,13,512,512
+eff/eff_glow2_02
+bounds:1299,116,469,469
+offsets:21,21,512,512
 eff/eff_sg/eff_sg_31
-bounds:958,48,355,248
+bounds:475,3,355,248
 offsets:716,616,1758,1484
 eff/eff_sg/eff_sg_32
-bounds:958,298,348,249
+bounds:832,2,348,249
 offsets:727,616,1758,1484
 eff/eff_sg/eff_sg_33
-bounds:1308,299,339,248
+bounds:958,337,339,248
 offsets:739,618,1758,1484
 fg_img_CONGRATS
-bounds:958,549,471,244
+bounds:2,7,471,244
 offsets:5,5,482,254

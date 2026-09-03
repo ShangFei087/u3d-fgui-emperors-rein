@@ -91,7 +91,7 @@ namespace MeiZhouHeiBao_3993
         public override IEnumerator ShowSymbolWinBySetting(SymbolWin symbolWin, bool isUseMySelfSymbolNumber,SpinWinEvent eventType)
         {
             //停止特效显示
-            SkipWinLine(false);
+            SkipWinLine(true);
 
             // 立马停止时，不播放赢分环节？
             if (isStopImmediately && _spinWEMD.Instance.isSkipAtStopImmediately)
@@ -437,6 +437,52 @@ namespace MeiZhouHeiBao_3993
             base.ShowReelSymbolAppearEffect(colIndex);
             PlayWildAnimsOnColumn(colIndex, isWin: false);
             BindBonusScoreOnColumn(colIndex);
+        }
+
+
+        public override void SkipWinLine(bool isIncludeTag)
+        {
+
+            List<SymbolBase> excludeSymbol = isIncludeTag ? new List<SymbolBase>()
+                : GetHasEffectSymbols(new string[] { "symbol_appear#" });
+
+            //DebugUtils.LogError($" SkipWinLine: {isIncludeTag} : {excludeSymbol.Count} ");
+
+            foreach (ReelBase reel in reels)
+            {
+                foreach (SymbolBase sb in reel.symbolList)
+                {
+                    if (excludeSymbol.Contains(sb))
+                        continue;
+
+                    sb.StopSymbolEffectBiggerTwinkle();
+                    sb.HideBaseSymbolIcon(false);
+                }
+            }
+
+            // 去除层级功能
+
+            FguiSortingOrderManager.Instance.ReturnAllSortingOrder();
+
+            foreach (ReelBase reel in reels)
+            {
+                string[] exclude = isIncludeTag ? new string[] { } : new string[] { "symbol_appear#" };// 
+
+                fguiPoolHelper.ReturnAllToPool(reel.goSymbols, exclude);
+            }
+
+            fguiGObjectPoolHelper.ReturnAllToPool(goReels, new string[] { });
+
+
+            GObject[] payLines = goPayLines.asCom.GetChildren();
+            // 关掉所有线
+            foreach (GObject line in payLines)
+            {
+                line.visible = false;
+            }
+
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,
+                new EventData(SlotMachineEvent.SkipWinLine));
         }
 
         public override void ShowSymbolEffect(TagPoolObject tp, List<SymbolBase> symbols, bool isAmin, int symbolNumber, bool isUseMySelfSymbolNumber)

@@ -27,8 +27,10 @@ namespace MeiZhouHeiBao_3993
         private const string PrefabMinor = PrefabDir + "Pop_Minor.prefab";
         /// <summary>Mini 弹窗预制体。</summary>
         private const string PrefabMini = PrefabDir + "Pop_Mini.prefab";
-        /// <summary>PAG 资源目录。</summary>
-        private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
+        /// <summary>弹窗金币特效预制体路径。</summary>
+        private const string EffPrefabPath = PopupSpineWrap3993.EffPopPrefabPath;
+        // /// <summary>PAG 资源目录。</summary>
+        // private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
 
         /// <summary>Major Spine 预制体。</summary>
         private GameObject _prefabMajor;
@@ -42,6 +44,14 @@ namespace MeiZhouHeiBao_3993
         private GComponent _anchorJackpot;
         /// <summary>弹窗 Spine 播放器。</summary>
         private AnimPlayer _animJackpot;
+        /// <summary>加载后的特效 Spine 预制体。</summary>
+        private GameObject _prefabPopEff;
+        /// <summary>特效 Spine 挂点。</summary>
+        private GComponent _anchorPopEff;
+        /// <summary>场景中的特效 Spine 实例。</summary>
+        private GameObject _clonePopEff;
+        /// <summary>弹窗特效 Spine 播放器。</summary>
+        private AnimPlayer _animPopEff;
         /// <summary>播完 Out 后延迟关页。</summary>
         private TimerCallback _delayCloseCallback;
         /// <summary>自动化测试自动点收集。</summary>
@@ -51,10 +61,10 @@ namespace MeiZhouHeiBao_3993
         /// <summary>入场后延迟点亮收集按钮。</summary>
         private TimerCallback _enableBtnCallback;
 
-        /// <summary>PAG 挂点。</summary>
-        private GComponent _anchorPagJackpot;
-        /// <summary>JP 弹窗 PAG 槽。</summary>
-        private PagSlotBinding _pagJackpot;
+        // /// <summary>PAG 挂点。</summary>
+        // private GComponent _anchorPagJackpot;
+        // /// <summary>JP 弹窗 PAG 槽。</summary>
+        // private PagSlotBinding _pagJackpot;
 
         /// <summary>收集按钮。</summary>
         private GButton _btnCollect;
@@ -70,13 +80,13 @@ namespace MeiZhouHeiBao_3993
         /// <summary>是否已点过关闭，防连点。</summary>
         private bool _isClicked;
 
-        /// <summary>加载 MAJOR/MINOR/MINI 三个预制体，注册机台短按 Spin 关页。</summary>
+        /// <summary>加载 MAJOR/MINOR/MINI 与 Eff_pop 预制体，注册机台短按 Spin 关页。</summary>
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 3;
+            int count = 4;
             Action callback = () =>
             {
                 if (--count == 0)
@@ -101,6 +111,11 @@ namespace MeiZhouHeiBao_3993
                 _prefabMini = clone;
                 callback();
             });
+            ResourceManager02.Instance.LoadAsset<GameObject>(EffPrefabPath, clone =>
+            {
+                _prefabPopEff = clone;
+                callback();
+            });
 
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
@@ -118,6 +133,12 @@ namespace MeiZhouHeiBao_3993
             };
         }
 
+        /// <summary>Dispose contentPane 前先摘特效 wrapTarget，避免 GoWrapper 把实例一起毁掉。</summary>
+        protected override void OnBeforetLanguageChange(I18nLang lang)
+        {
+            PopupSpineWrap3993.PrepareLanguageChange(ref _animPopEff, ref _anchorPopEff, _clonePopEff);
+        }
+
         /// <summary>按 JP 类型挂 Spine、滚分、延迟可点，自动化则定时点击。</summary>
         public override void InitParam()
         {
@@ -133,14 +154,16 @@ namespace MeiZhouHeiBao_3993
             string jpType = ResolveJackpotType();
             float winCredit = ResolveWinCredit();
 
-            _anchorPagJackpot = contentPane.GetChild("anchorPopupJackPotPag")?.asCom;
-            if (_pagJackpot == null) _pagJackpot = new PagSlotBinding("3993pagJackpotWin", PagPath);
-            if (_anchorPagJackpot != null)
-                _pagJackpot.EnsureSlot(_anchorPagJackpot);
-            PlayPagInIdle(jpType);
+            // _anchorPagJackpot = contentPane.GetChild("anchorPopupJackPotPag")?.asCom;
+            // if (_pagJackpot == null) _pagJackpot = new PagSlotBinding("3993pagJackpotWin", PagPath);
+            // if (_anchorPagJackpot != null)
+            //     _pagJackpot.EnsureSlot(_anchorPagJackpot);
+            // PlayPagInIdle(jpType);
 
             BindSpine(jpType);
             _animJackpot?.PlayThen("In", "idle", true); // Controller 状态名是 In，不是 in
+            PopupSpineWrap3993.BindAndPlay(contentPane, "anchorEff", _prefabPopEff,
+                ref _anchorPopEff, ref _clonePopEff, ref _animPopEff, GetEffAnim(jpType));
 
             _btnCollect = contentPane.GetChild("btnCollect")?.asButton;
             _txtWin = contentPane.GetChild("txtWin")?.asTextField;
@@ -187,7 +210,8 @@ namespace MeiZhouHeiBao_3993
             RemoveTimer(ref _rollCallback);
             RemoveTimer(ref _enableBtnCallback);
             _animJackpot?.DetachAll();
-            _pagJackpot?.StopWithDefaults();
+            PopupSpineWrap3993.SetVisible(_anchorPopEff, false);
+            // _pagJackpot?.StopWithDefaults();
             _isClicked = false;
             base.OnClose(eventData);
         }
@@ -201,7 +225,7 @@ namespace MeiZhouHeiBao_3993
             if (_btnCollect != null)
                 _btnCollect.touchable = false;
             _animJackpot?.Play("Out"); // Controller 状态名是 Out，不是 out
-            PlayPagOut(ResolveJackpotType());
+            // PlayPagOut(ResolveJackpotType());
 
             RemoveTimer(ref _delayCloseCallback);
             _delayCloseCallback = obj =>
@@ -272,34 +296,34 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
-        /// <summary>PAG 路径不要带 .pag，例如 jp_pup/jp_pup_MAJOR_pag/jp_pup_MAJOR_in。</summary>
-        private void PlayPagInIdle(string jpType)
-        {
-            if (_pagJackpot == null) return;
-            string prefix = GetPagPrefix(jpType);
-            _pagJackpot.StopWithDefaults();
-            _pagJackpot.Play(new PagSequencePlay(
-                PagPlaySpecs.IntroLoop(prefix + "_in", prefix + "_idle"),
-                PagPlayLayout.Center,
-                PagPresentationDefaults.DisplayScale,
-                useGpuSyncGroup: false));
-        }
+        // /// <summary>PAG 路径不要带 .pag，例如 jp_pup/jp_pup_MAJOR_pag/jp_pup_MAJOR_in。</summary>
+        // private void PlayPagInIdle(string jpType)
+        // {
+        //     if (_pagJackpot == null) return;
+        //     string prefix = GetPagPrefix(jpType);
+        //     _pagJackpot.StopWithDefaults();
+        //     _pagJackpot.Play(new PagSequencePlay(
+        //         PagPlaySpecs.IntroLoop(prefix + "_in", prefix + "_idle"),
+        //         PagPlayLayout.Center,
+        //         PagPresentationDefaults.DisplayScale,
+        //         useGpuSyncGroup: false));
+        // }
 
-        /// <summary>PAG 离场：播一遍 out 后停止。</summary>
-        private void PlayPagOut(string jpType)
-        {
-            if (_pagJackpot == null) return;
-            string prefix = GetPagPrefix(jpType);
-            _pagJackpot.StopWithDefaults();
-            _pagJackpot.Play(new PagSequencePlay(
-                new[] { new PagSegment(prefix + "_out", 1) },
-                PagPlayLayout.Center,
-                PagPresentationDefaults.DisplayScale,
-                useGpuSyncGroup: false,
-                callbacks: new PagPlayCallbacks(
-                    onFinished: () => _pagJackpot?.StopWithDefaults(),
-                    stopAfterFinished: true)));
-        }
+        // /// <summary>PAG 离场：播一遍 out 后停止。</summary>
+        // private void PlayPagOut(string jpType)
+        // {
+        //     if (_pagJackpot == null) return;
+        //     string prefix = GetPagPrefix(jpType);
+        //     _pagJackpot.StopWithDefaults();
+        //     _pagJackpot.Play(new PagSequencePlay(
+        //         new[] { new PagSegment(prefix + "_out", 1) },
+        //         PagPlayLayout.Center,
+        //         PagPresentationDefaults.DisplayScale,
+        //         useGpuSyncGroup: false,
+        //         callbacks: new PagPlayCallbacks(
+        //             onFinished: () => _pagJackpot?.StopWithDefaults(),
+        //             stopAfterFinished: true)));
+        // }
 
         /// <summary>优先 OpenPage 的 Dictionary / EventData&lt;string&gt;，否则读 jpGameRes.jpWinLst[0].name，默认 major。</summary>
         private string ResolveJackpotType()
@@ -337,6 +361,14 @@ namespace MeiZhouHeiBao_3993
             return 0f;
         }
 
+        /// <summary>特效按 JP 类型播 MAJOR/MINOR/MINI idle。</summary>
+        private static string GetEffAnim(string jpType)
+        {
+            if (jpType == "minor") return "MINOR_idle";
+            if (jpType == "mini") return "MINI_idle";
+            return "MAJOR_idle";
+        }
+
         /// <summary>按类型取对应 Spine 预制体，默认 Major。</summary>
         private GameObject GetPrefab(string jpType)
         {
@@ -361,13 +393,13 @@ namespace MeiZhouHeiBao_3993
             return "Panther2";
         }
 
-        /// <summary>PAG 路径前缀（不含 _in/_idle/_out）。</summary>
-        private static string GetPagPrefix(string jpType)
-        {
-            if (jpType == "minor") return "jp_pup/jp_pup_MINOR_pag/jp_pup_MINOR";
-            if (jpType == "mini") return "jp_pup/jp_pup_MINI_pag/jp_pup_MINI";
-            return "jp_pup/jp_pup_MAJOR_pag/jp_pup_MAJOR";
-        }
+        // /// <summary>PAG 路径前缀（不含 _in/_idle/_out）。</summary>
+        // private static string GetPagPrefix(string jpType)
+        // {
+        //     if (jpType == "minor") return "jp_pup/jp_pup_MINOR_pag/jp_pup_MINOR";
+        //     if (jpType == "mini") return "jp_pup/jp_pup_MINI_pag/jp_pup_MINI";
+        //     return "jp_pup/jp_pup_MAJOR_pag/jp_pup_MAJOR";
+        // }
 
         /// <summary>minor 必须先于 mini 判断，否则 "minor" 会被 Contains("mini") 误判。</summary>
         private static string NormalizeType(string name)

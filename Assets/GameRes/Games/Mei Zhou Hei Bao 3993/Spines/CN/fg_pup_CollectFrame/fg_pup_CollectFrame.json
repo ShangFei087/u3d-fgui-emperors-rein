@@ -1,10 +1,10 @@
 {
 "skeleton": {
-	"hash": "fGsu26TXGIs",
+	"hash": "2cg/rOFYFkQ",
 	"spine": "4.1.24",
-	"x": -540,
+	"x": -588,
 	"y": -352.51,
-	"width": 1080,
+	"width": 1180.5,
 	"height": 985.22,
 	"images": "./images/",
 	"audio": "E:/1、项目/2_单机/3993_美洲黑豹/115 spine文件/fg_pup_TipFrame"
@@ -87,10 +87,16 @@
 	{ "name": "blade_r_029", "parent": "blade_r_028", "length": 22.32, "rotation": 16.81, "x": 28.49 },
 	{ "name": "blade_r_030", "parent": "blade_r_029", "length": 28.28, "rotation": 24.46, "x": 22.32 },
 	{ "name": "button", "parent": "all", "x": 3.03, "y": -265.1 },
-	{ "name": "eff_glow", "parent": "fg_img_CONGRATS", "x": -13.36, "y": -28.96 }
+	{ "name": "eff_glow", "parent": "fg_img_CONGRATS", "x": -13.36, "y": -28.96 },
+	{ "name": "eff_all", "parent": "all", "y": 114.38 },
+	{ "name": "eff_glow_02", "parent": "eff_all", "scaleX": 4, "scaleY": 4 },
+	{ "name": "eff_glow_01", "parent": "eff_all", "x": -7.23, "scaleX": 4, "scaleY": 4 },
+	{ "name": "fg_img_FREE GAMES2", "parent": "fg_img_FREE GAMES", "x": -92.63, "y": 1.63 }
 ],
 "slots": [
-	{ "name": "root2", "bone": "root", "attachment": "root2" },
+	{ "name": "root2", "bone": "root" },
+	{ "name": "eff/eff_glow_01", "bone": "eff_glow_01" },
+	{ "name": "eff/eff_glow_02", "bone": "eff_glow_02", "blend": "additive" },
 	{ "name": "Base plate", "bone": "Base plate", "attachment": "Base plate" },
 	{ "name": "blade_r_09", "bone": "blade_r_025", "attachment": "blade_r_09" },
 	{ "name": "blade_l_07", "bone": "blade_l_015", "attachment": "blade_l_07" },
@@ -325,6 +331,12 @@
 					"height": 115
 				}
 			},
+			"eff/eff_glow_01": {
+				"eff/eff_glow2_01": { "width": 512, "height": 512 }
+			},
+			"eff/eff_glow_02": {
+				"eff/eff_glow2_02": { "width": 512, "height": 512 }
+			},
 			"eff/eff_sg/eff_sg_00": {
 				"eff/eff_sg/eff_sg_00": { "width": 1758, "height": 1484 },
 				"eff/eff_sg/eff_sg_01": { "width": 1758, "height": 1484 },
@@ -435,6 +447,11 @@
 "animations": {
 	"idle": {
 		"slots": {
+			"eff/eff_glow_01": {
+				"attachment": [
+					{ "name": "eff/eff_glow2_01" }
+				]
+			},
 			"eff/eff_sg/eff_sg_00": {
 				"attachment": [
 					{ "time": 1.3333, "name": "eff/eff_sg/eff_sg_00" },
@@ -9698,6 +9715,12 @@
 					},
 					{ "time": 5.3333 }
 				]
+			},
+			"eff_glow_01": {
+				"rotate": [
+					{},
+					{ "time": 5.3333, "value": 360 }
+				]
 			}
 		}
 	},
@@ -9803,6 +9826,27 @@
 				"rgba": [
 					{ "color": "ffffff00" },
 					{ "time": 0.2333, "color": "ffffffff" }
+				]
+			},
+			"eff/eff_glow_01": {
+				"rgba": [
+					{ "color": "ffffff00" },
+					{ "time": 0.6, "color": "ffffffff" }
+				],
+				"attachment": [
+					{ "name": "eff/eff_glow2_01" }
+				]
+			},
+			"eff/eff_glow_02": {
+				"rgba": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.0333, "color": "ffffff00" },
+					{ "time": 0.1333, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 0.3, "color": "ffffffff" },
+					{ "time": 0.4667, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "eff/eff_glow2_02" }
 				]
 			},
 			"fg_img_Button": {
@@ -13473,6 +13517,18 @@
 				"translate": [
 					{ "x": 0.49, "y": -0.56 }
 				]
+			},
+			"eff_glow_01": {
+				"rotate": [
+					{ "value": -100.07 },
+					{ "time": 0.9333 }
+				]
+			},
+			"eff_glow_02": {
+				"scale": [
+					{ "x": 0, "y": 0 },
+					{ "time": 0.3, "x": 0.875, "y": 0.875 }
+				]
 			}
 		}
 	},
@@ -13578,6 +13634,15 @@
 				"rgba": [
 					{ "time": 0.2667, "color": "ffffffff" },
 					{ "time": 0.4333, "color": "ffffff00" }
+				]
+			},
+			"eff/eff_glow_01": {
+				"rgba": [
+					{ "color": "ffffffff" },
+					{ "time": 0.5667, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "eff/eff_glow2_01" }
 				]
 			},
 			"fg_img_Button": {
@@ -15316,6 +15381,12 @@
 						"curve": [ 0.411, 1.1, 0.489, 0, 0.411, 1.1, 0.489, 0 ]
 					},
 					{ "time": 0.5, "x": 0, "y": 0 }
+				]
+			},
+			"eff_glow_01": {
+				"rotate": [
+					{ "value": 360 },
+					{ "time": 0.5667, "value": 395.07 }
 				]
 			}
 		}

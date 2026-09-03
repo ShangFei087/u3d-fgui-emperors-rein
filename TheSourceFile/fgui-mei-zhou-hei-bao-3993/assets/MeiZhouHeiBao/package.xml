@@ -310,7 +310,7 @@
     <image id="rghsd2" name="ng_sym12_SCATTER.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="rghsd4" name="ng_sym01_10.png" path="/images/gameMain/symbol/" exported="true"/>
     <image id="rghsd5" name="ng_sym07_Bird.png" path="/images/gameMain/symbol/" exported="true"/>
-    <image id="rghsd7" name="ng_sym13_Bonus.png" path="/images/gameMain/symbol/" exported="true"/>
+    <image id="ko7zd8" name="ng_sym13_Bonus.png" path="/images/gameMain/symbol/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Mei Zhou Hei Bao 3993\FGUIs" packageCount="2"/>
 </packageDescription>

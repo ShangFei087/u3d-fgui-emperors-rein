@@ -33,9 +33,9 @@ namespace MeiZhouHeiBao_3993
         /// <summary>收集开头咆哮 PAG。</summary>
         private const string NgRoarPag = "ng_Roar/ng_Roar";
         /// <summary>收集 bonus 时的右爪 PAG。</summary>
-        private const string PagZhuaziYou = "eff_zhuazi_bmp/eff_zhuazi_you";
+        // private const string PagZhuaziYou = "eff_zhuazi_bmp/eff_zhuazi_you";
         /// <summary>收集彩金时的左爪 PAG。</summary>
-        private const string PagZhuaziZuo = "eff_zhuazi_bmp/eff_zhuazi_zuo";
+        // private const string PagZhuaziZuo = "eff_zhuazi_bmp/eff_zhuazi_zuo";
         /// <summary>大奖 NPC 循环待机。</summary>
         private const string NpcIdle1 = "Idle1";
         /// <summary>本把未出图标时的 NPC 反应。</summary>
@@ -80,8 +80,26 @@ namespace MeiZhouHeiBao_3993
         private PanelController3993 _panelController;
         /// <summary>全屏 PAG 槽：咆哮与爪子共用。</summary>
         private PagSlotBinding _pagRoar;
+        /// <summary>正式播咆哮前通知（进局假播让路）。</summary>
+        private Action _onBeforePagPlay;
         /// <summary>大奖 NPC 播放器。</summary>
         private AnimPlayer _animNpc;
+        /// <summary>爪子 Spine 挂点。</summary>
+        private GComponent _anchorZhuazi;
+        /// <summary>爪子 Spine 实例。</summary>
+        private GameObject _cloneZhuazi;
+        /// <summary>左爪节点（bonus）。</summary>
+        private Transform _zhuaziLeft;
+        /// <summary>右爪节点（彩金）。</summary>
+        private Transform _zhuaziRight;
+        /// <summary>左爪 Animator。</summary>
+        private Animator _animZhuaziLeft;
+        /// <summary>右爪 Animator。</summary>
+        private Animator _animZhuaziRight;
+        /// <summary>爪子 Spine 状态名。</summary>
+        private const string AnimZhuazi = "eff_zhuazi";
+        /// <summary>爪子动画时长。</summary>
+        private const float ZhuaziDuration = 1.07f;
 
         /// <summary>当前是否正在滚动。</summary>
         private bool _isStartRoll;
@@ -135,10 +153,30 @@ namespace MeiZhouHeiBao_3993
             _rewardRoll?.SetGlowPrefab(_glowPrefab);
         }
 
-        /// <summary>注入全屏 PAG（咆哮/爪子）。</summary>
-        public void SetRoarPag(PagSlotBinding pagRoar)
+        /// <summary>注入全屏 PAG（咆哮）。</summary>
+        public void SetRoarPag(PagSlotBinding pagRoar, Action onBeforePlay = null)
         {
             _pagRoar = pagRoar;
+            _onBeforePagPlay = onBeforePlay;
+        }
+
+        /// <summary>注入爪子 Spine；left=彩金，right=bonus。</summary>
+        public void SetZhuaziSpine(GComponent anchor, GameObject clone)
+        {
+            _anchorZhuazi = anchor;
+            _cloneZhuazi = clone;
+            _zhuaziLeft = null;
+            _zhuaziRight = null;
+            _animZhuaziLeft = null;
+            _animZhuaziRight = null;
+            if (clone == null || clone.transform.childCount == 0)
+                return;
+
+            Transform spineAnchor = clone.transform.GetChild(0);
+            _zhuaziLeft = spineAnchor.Find("left");
+            _zhuaziRight = spineAnchor.Find("right");
+            _animZhuaziLeft = _zhuaziLeft != null ? _zhuaziLeft.GetComponent<Animator>() : null;
+            _animZhuaziRight = _zhuaziRight != null ? _zhuaziRight.GetComponent<Animator>() : null;
         }
 
         /// <summary>注入大奖 NPC；切回普通局时传 null。</summary>
@@ -272,7 +310,9 @@ namespace MeiZhouHeiBao_3993
             _rewardRoll?.Dispose();
             _rewardRoll = null;
             _pagRoar = null;
+            _onBeforePagPlay = null;
             _animNpc = null;
+            SetAnchorSpineVisible(_anchorZhuazi, false);
             _isStartRoll = false;
             _waitingAutoStop = false;
         }
@@ -310,7 +350,7 @@ namespace MeiZhouHeiBao_3993
         private IEnumerator CollectBonusSymbols()
         {
             yield return WaitCurrentNpcAnim();
-            yield return PlayPag(NgRoarPag);
+            //yield return PlayPag(NgRoarPag);
 
             _collectElements.Clear();
             _collectScores.Clear();
@@ -386,12 +426,68 @@ namespace MeiZhouHeiBao_3993
             FinishGame();
         }
 
-        /// <summary>收集一格：bonus 播 col2，彩金播 col3，再播对应爪子 PAG。</summary>
+        /// <summary>收集一格：bonus 播 col2+左爪，彩金播 col3+右爪。爪子 PAG 已注释。</summary>
         private IEnumerator PlayCollectNpcAndZhuazi(bool isJackpot)
         {
             PlayNpc(isJackpot ? NpcCol3 : NpcCol2);
             yield return new WaitForSeconds(0.5f);
-            yield return PlayPag(isJackpot ? PagZhuaziYou : PagZhuaziZuo);
+            yield return PlayZhuaziSpine(isJackpot);
+            // yield return PlayPag(isJackpot ? PagZhuaziYou : PagZhuaziZuo);
+        }
+
+        /// <summary>彩金播左爪，bonus 播右爪，播完隐藏。</summary>
+        private IEnumerator PlayZhuaziSpine(bool isJackpot)
+        {
+            if (_anchorZhuazi == null || _cloneZhuazi == null)
+                yield break;
+
+            SetAnchorSpineVisible(_anchorZhuazi, true);
+            SetZhuaziSide(isJackpot);
+            Animator anim = isJackpot ? _animZhuaziLeft : _animZhuaziRight;
+            if (anim != null)
+                anim.Play(AnimZhuazi, 0, 0f);
+            yield return new WaitForSeconds(ZhuaziDuration);
+            SetAnchorSpineVisible(_anchorZhuazi, false);
+        }
+
+        /// <summary>只显示当前这一侧爪子。</summary>
+        private void SetZhuaziSide(bool isJackpot)
+        {
+            SetSideActive(_zhuaziLeft, isJackpot);
+            SetSideActive(_zhuaziRight, !isJackpot);
+        }
+
+        /// <summary>开关一侧爪子节点与网格。</summary>
+        private static void SetSideActive(Transform side, bool active)
+        {
+            if (side == null) return;
+            side.gameObject.SetActive(active);
+            Renderer[] renderers = side.GetComponentsInChildren<Renderer>(true);
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                if (renderers[i] != null)
+                    renderers[i].enabled = active;
+            }
+        }
+
+        /// <summary>关 GoWrapper 根节点并关 MeshRenderer。</summary>
+        private static void SetAnchorSpineVisible(GComponent anchor, bool visible)
+        {
+            if (anchor == null) return;
+            anchor.visible = visible;
+            GGraph holder = anchor.GetChild("holder") as GGraph;
+            if (holder != null)
+                holder.visible = visible;
+
+            GameObject target = GameCommon.FguiUtils.GetWrapperTarget(anchor);
+            if (target == null) return;
+            target.SetActive(visible);
+            Renderer[] renderers = target.GetComponentsInChildren<Renderer>(true);
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                if (renderers[i] != null)
+                    renderers[i].enabled = visible;
+            }
         }
 
         /// <summary>按状态名播大奖 NPC；循环由 Controller 决定。</summary>
@@ -427,6 +523,7 @@ namespace MeiZhouHeiBao_3993
             if (_pagRoar == null || string.IsNullOrEmpty(pagName))
                 yield break;
 
+            _onBeforePagPlay?.Invoke();
             bool finished = false;
             _pagRoar.StopWithDefaults();
             bool started = _pagRoar.Play(new PagSequencePlay(
