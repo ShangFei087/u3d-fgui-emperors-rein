@@ -37,6 +37,9 @@ namespace CaiFuZhiJia_3997
         private GameSoundController3997 _gameSoundController;
         private bool _isClicked = false;
         private Action _changeFreePage, _changeNpcAnimationClip;
+        
+        /// <summary>入场后延迟点亮开始按钮。</summary>
+        private TimerCallback _enableBtnCallback;
 
         protected override void OnInit()
         {
@@ -76,6 +79,7 @@ namespace CaiFuZhiJia_3997
             if (!isOpen) return;
             _isClicked = false;
             RemoveTimer(ref _autoClickCallback);
+            RemoveTimer(ref _enableBtnCallback);
 
             // --------------------- 获取UI组件 ---------------------
             _freeTipWindow = contentPane.GetChild("freeTipWindow").asCom;
@@ -115,7 +119,12 @@ namespace CaiFuZhiJia_3997
 
             // --------------------- 按钮点击事件 ---------------------
 
-
+            _freeStartBtn.touchable = false;
+            _enableBtnCallback = obj =>
+            {
+                if (_freeStartBtn != null) _freeStartBtn.touchable = true;
+            };
+            Timers.inst.Add(0.5f, 1, _enableBtnCallback);
             _freeStartBtn.onClick.Clear();
             _freeStartBtn.onClick.Add(() => { OnClickSpinButton(null); });
             // 自动模式定时器

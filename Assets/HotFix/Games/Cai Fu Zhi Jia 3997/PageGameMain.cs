@@ -27,8 +27,7 @@ namespace CaiFuZhiJia_3997
 
         [JsonProperty("win_level_multiple")] public Dictionary<string, long> WinLevelMultiple { get; set; } //赢钱倍数
 
-        [JsonProperty("symbol_paytable")]
-        public Dictionary<string, PayTableSymbolInfo> SymbolPaytable { get; set; } //符号赔率表
+        [JsonProperty("symbol_paytable")] public Dictionary<string, PayTableSymbolInfo> SymbolPaytable { get; set; } //符号赔率表
 
         [JsonProperty("pay_lines")] public List<List<int>> pay_lines { get; set; } //支付钱
     }
@@ -165,10 +164,7 @@ namespace CaiFuZhiJia_3997
 
         private readonly string _redDiamondUrl = "ui://CaiFuZhiJia/ng_sym13_jiaj";
 
-        private readonly List<string> _jackpotUrls = new List<string>()
-        {
-            "ui://CaiFuZhiJia/ng_sym_14_major", "ui://CaiFuZhiJia/ng_sym_14_minor", "ui://CaiFuZhiJia/ng_sym14_mini"
-        };
+        private readonly List<string> _jackpotUrls = new List<string>() { "ui://CaiFuZhiJia/ng_sym_14_major", "ui://CaiFuZhiJia/ng_sym_14_minor", "ui://CaiFuZhiJia/ng_sym14_mini" };
 
         /// <summary>15个格子控制器</summary>
         private List<SmallGameReelController> _elementBoxes;
@@ -390,7 +386,7 @@ namespace CaiFuZhiJia_3997
 
                         Debug.LogError("游戏接受到机台短按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false);
-                        OnClickSpinButton(res);
+                        OnPanelInputEvent(res);
                     },
                 },
                 longClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
@@ -403,7 +399,7 @@ namespace CaiFuZhiJia_3997
 
                         DebugUtils.LogError("游戏接受到机台长按的数据：Spin");
                         EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, true);
-                        OnClickSpinButton(res);
+                        OnPanelInputEvent(res);
                     }
                 }
             };
@@ -995,15 +991,7 @@ namespace CaiFuZhiJia_3997
             {
                 List<JackBetInfo> jackBetInfoList = new List<JackBetInfo>();
 
-                JackBetInfo betInfo = new JackBetInfo()
-                {
-                    gameType = 300,
-                    seat = 1,
-                    bet = (int)TotalBet * 100,
-                    betPercent = 100,
-                    scoreRate = 1 * 1000,
-                    JPPercent = 1 * 1000,
-                };
+                JackBetInfo betInfo = new JackBetInfo() { gameType = 300, seat = 1, bet = (int)TotalBet * 100, betPercent = 100, scoreRate = 1 * 1000, JPPercent = 1 * 1000, };
                 jackBetInfoList.Add(betInfo);
                 NetMessageController.Instance.SendJackBet(jackBetInfoList);
             }
@@ -1058,13 +1046,7 @@ namespace CaiFuZhiJia_3997
                     creditAfter, gameUID, createdAt);
 
                 //通知算法卡赢得联网彩金
-                SBoxWinNetJackpotInfo sBoxWinNetJackpotInfo = new SBoxWinNetJackpotInfo()
-                {
-                    MachineId = int.Parse(SBoxModel.Instance.MachineId),
-                    PlayerId = SBoxModel.Instance.SboxPlayerAccount.PlayerId,
-                    JackpotType = jpLevel,
-                    JackpotWins = winCredit,
-                };
+                SBoxWinNetJackpotInfo sBoxWinNetJackpotInfo = new SBoxWinNetJackpotInfo() { MachineId = int.Parse(SBoxModel.Instance.MachineId), PlayerId = SBoxModel.Instance.SboxPlayerAccount.PlayerId, JackpotType = jpLevel, JackpotWins = winCredit, };
                 MachineDataManager02.Instance.RequestJackpotOnline(sBoxWinNetJackpotInfo, (res) =>
                 {
                     //算法卡加分后同步分数
@@ -1822,12 +1804,12 @@ namespace CaiFuZhiJia_3997
                     ContentModel.Instance.FreeSpinPlayTimes = 0;
                     _cloneRadioObj.transform.Find("Effect").transform.Find("eff_fg_img_multiple11").gameObject
                         .SetActive(false);
+                    _panelCtrl.ChangButtonNo(false);
 
                     // 重新注册
                     ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
                     MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
                     TryTriggerAnchorPanelChange();
-
                     _slotMachineCtrl.EndBonusFreeSpin();
                     EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                         new EventData(Game3997AudioEvent.BgmRegularGame));
@@ -2666,10 +2648,7 @@ namespace CaiFuZhiJia_3997
                     bool isNext = false;
                     PageManager.Instance.OpenPageAsync(PageName.CaiFuZhiJiaPopupSmallGameWin,
                         new EventData<Dictionary<string, object>>("",
-                            new Dictionary<string, object>()
-                            {
-                                ["jackpotWinBet"] = t.rewardValue, ["jackpotWinType"] = t.jackpotType
-                            }), (res) =>
+                            new Dictionary<string, object>() { ["jackpotWinBet"] = t.rewardValue, ["jackpotWinType"] = t.jackpotType }), (res) =>
                         {
                             isNext = true;
                         });

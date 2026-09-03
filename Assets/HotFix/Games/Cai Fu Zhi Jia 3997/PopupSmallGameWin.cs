@@ -29,6 +29,9 @@ namespace CaiFuZhiJia_3997
 
         // 记录UI初始位置
         private Vector3 _collectBtnLocalScale, _numTextLocalScale, _collectBtnLocalPos, _numTextLocalPos;
+        
+        /// <summary>入场后延迟点亮开始按钮。</summary>
+        private TimerCallback _enableBtnCallback;
 
         protected override void OnInit()
         {
@@ -69,6 +72,7 @@ namespace CaiFuZhiJia_3997
             if (!isOpen) return;
             _isClicked = false;
             RemoveTimer(ref _delayVisibleCallback);
+            RemoveTimer(ref _enableBtnCallback);
 
             // --------------------- 获取UI组件 ------------------------
             _collectBtn = contentPane.GetChild("winCollectBtn").asButton;
@@ -128,6 +132,12 @@ namespace CaiFuZhiJia_3997
                 _delayVisibleCallback = null;
             };
             Timers.inst.Add(0.5f, 1, _delayVisibleCallback);
+            _collectBtn.touchable = false;
+            _enableBtnCallback = obj =>
+            {
+                if (_collectBtn != null) _collectBtn.touchable = true;
+            };
+            Timers.inst.Add(0.5f, 1, _enableBtnCallback);
             _collectBtn.onClick.Clear();
             _collectBtn.onClick.Add(() => OnClickSpinButton(eventData));
         }
