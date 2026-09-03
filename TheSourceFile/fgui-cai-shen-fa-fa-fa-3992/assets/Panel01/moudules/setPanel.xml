@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="365,343">
+  <displayList>
+    <image id="n0_ud6t" name="n0" src="ud6t13" fileName="images/setPanel/ng_num_gnjm.png" xy="0,0"/>
+    <component id="n1_ud6t" name="silderSound" src="ud6t1g" fileName="components/GameSetPanel/silderSound.xml" xy="140,65">
+      <Slider value="50" max="100"/>
+    </component>
+    <component id="n2_p6cc" name="btnHome" src="p6cc1m" fileName="components/GameSetPanel/btnHome.xml" xy="35,232"/>
+    <component id="n3_p6cc" name="btnSound" src="p6cc1p" fileName="components/GameSetPanel/btnSound.xml" xy="34,30"/>
+    <component id="n4_p6cc" name="btnPayTable" src="p6cc1n" fileName="components/GameSetPanel/btnPayTable.xml" xy="35,131"/>
+  </displayList>
+</component>

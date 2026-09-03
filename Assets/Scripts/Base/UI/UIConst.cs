@@ -212,6 +212,16 @@ public class UIConst
             [PageName.FeiZhouHeiXingXingPopupSmallGameResult] = new object[] { "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/FGUIs", "FeiZhouHeiXingXing_3994.PopupSmallGameResult" },
             [PageName.FeiZhouHeiXingXingPopupSmallGameJackpotWin] = new object[] { "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/FGUIs", "FeiZhouHeiXingXing_3994.PopupSmallGameJackpotWin" },
             [PageName.FeiZhouHeiXingXingPopupBigWin] = new object[] { "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/FGUIs", "FeiZhouHeiXingXing_3994.PopupBigWin" },
+            
+            // 财神发发发
+            [PageName.CaiShenFaFaFaPopupGameLoading] = new object[] { "Assets/GameRes/Games/Cai Shen Fa Fa Fa 3992/FGUIs", "CaiShenFaFaFa_3992.PopupGameLoading" },
+            [PageName.CaiShenFaFaFaPageGameMain] = new object[] { "Assets/GameRes/Games/Cai Shen Fa Fa Fa 3992/FGUIs", "CaiShenFaFaFa_3992.PageGameMain" },
+            [PageName.CaiShenFaFaFaPopupFreeSpinTrigger] = new object[] { "Assets/GameRes/Games/Cai Shen Fa Fa Fa 3992/FGUIs", "CaiShenFaFaFa_3992.PopupFreeSpinTrigger" },
+            [PageName.CaiShenFaFaFaPopupFreeSpinResult] = new object[] { "Assets/GameRes/Games/Cai Shen Fa Fa Fa 3992/FGUIs", "CaiShenFaFaFa_3992.PopupFreeSpinResult" },
+            [PageName.CaiShenFaFaFaPopupSmallGameTrigger] = new object[] { "Assets/GameRes/Games/Cai Shen Fa Fa Fa 3992/FGUIs", "CaiShenFaFaFa_3992.PopupSmallGameTrigger" },
+            [PageName.CaiShenFaFaFaPopupSmallGameResult] = new object[] { "Assets/GameRes/Games/Cai Shen Fa Fa Fa 3992/FGUIs", "CaiShenFaFaFa_3992.PopupSmallGameResult" },
+            [PageName.CaiShenFaFaFaPopupSmallGameJackpotWin] = new object[] { "Assets/GameRes/Games/Cai Shen Fa Fa Fa 3992/FGUIs", "CaiShenFaFaFa_3992.PopupSmallGameJackpotWin" },
+            [PageName.CaiShenFaFaFaPopupBigWin] = new object[] { "Assets/GameRes/Games/Cai Shen Fa Fa Fa 3992/FGUIs", "CaiShenFaFaFa_3992.PopupBigWin" },
 
             //幸运之轮
             [PageName.XingYunZhiLunPopupGameLoading] =
@@ -401,6 +411,16 @@ public enum PageName
     FeiZhouHeiXingXingPopupSmallGameResult,
     FeiZhouHeiXingXingPopupSmallGameJackpotWin,
     FeiZhouHeiXingXingPopupBigWin,
+    
+    // 财神发发发_3992
+    CaiShenFaFaFaPopupGameLoading,
+    CaiShenFaFaFaPageGameMain,
+    CaiShenFaFaFaPopupFreeSpinTrigger,
+    CaiShenFaFaFaPopupFreeSpinResult,
+    CaiShenFaFaFaPopupSmallGameTrigger,
+    CaiShenFaFaFaPopupSmallGameResult,
+    CaiShenFaFaFaPopupSmallGameJackpotWin,
+    CaiShenFaFaFaPopupBigWin,
 
     //幸运之轮
     XingYunZhiLunPopupGameLoading,

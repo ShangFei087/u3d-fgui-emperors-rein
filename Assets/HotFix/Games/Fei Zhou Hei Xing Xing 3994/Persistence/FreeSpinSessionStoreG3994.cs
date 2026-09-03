@@ -4,8 +4,8 @@ using UnityEngine;
 namespace FeiZhouHeiXingXing_3994
 {
     public class FreeSpinSessionStoreG3994
-{
-   /// <summary>
+    {
+        /// <summary>
         /// 当前游戏 ID（非洲黑猩猩 3994）。
         /// </summary>
         const int GameId = 3994;
@@ -48,7 +48,7 @@ namespace FeiZhouHeiXingXing_3994
             var cm = ContentModel.Instance;
             return cm.FreeSpinTotalTimes > 0 && cm.FreeSpinPlayTimes >= cm.FreeSpinTotalTimes && cm.nextReelStripsIndex == "BS";
         }
-        
+
         /// <summary>
         /// 根据当前状态尝试保存或清除免费局会话。
         /// </summary>
@@ -75,7 +75,7 @@ namespace FeiZhouHeiXingXing_3994
                 PlayerId = pid,
                 FreeSpinTotalTimes = cm.FreeSpinTotalTimes,
                 FreeSpinPlayTimes = cm.FreeSpinPlayTimes,
-                FreeSpinTotalWinCredit = cm.freeSpinTotalWinCoins,// freeSpinTotalWinCredit
+                FreeSpinTotalWinCredit = cm.freeSpinTotalWinCoins, // freeSpinTotalWinCredit
                 CurReelStripsIndex = cm.curReelStripsIndex,
                 NextReelStripsIndex = cm.nextReelStripsIndex,
                 BetIndex = cm.betIndex,
@@ -89,7 +89,7 @@ namespace FeiZhouHeiXingXing_3994
             string json = JsonConvert.SerializeObject(snap);
             SQLitePlayerPrefs03.Instance.SetString(key, json);
         }
-        
+
         /// <summary>
         /// 尝试读取指定玩家的免费局快照。
         /// </summary>
@@ -140,7 +140,7 @@ namespace FeiZhouHeiXingXing_3994
             var cm = ContentModel.Instance;
             cm.FreeSpinTotalTimes = 0;
             cm.FreeSpinPlayTimes = 0;
-            cm.freeSpinTotalWinCoins = 0;// freeSpinTotalWinCredit
+            cm.freeSpinTotalWinCoins = 0; // freeSpinTotalWinCredit
             cm.curReelStripsIndex = "BS";
             cm.nextReelStripsIndex = "BS";
             cm.isFreeSpinTrigger = false;
@@ -151,6 +151,5 @@ namespace FeiZhouHeiXingXing_3994
             cm.gameNumberFreeSpinTrigger = 0;
             cm.PendingFreeSpinReconnectValidation = false;
         }
+    }
 }
-}
-

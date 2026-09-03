@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" opaque="false" designImage="ui://baedj8ikp6cc48">
+  <displayList>
+    <component id="n11_p6cc" name="anchorNpc" src="n2khi" fileName="moudules/pageGameMain/Normal_Game/GameAnchor/anchorNpc.xml" xy="540,960"/>
+    <image id="n9_p6cc" name="n9" src="p6cc4g" fileName="images/pageGameMain/Bonus_Game/sg_bor_nk.png" xy="12,1089"/>
+    <image id="n5_p6cc" name="n5" src="p6cc4e" fileName="images/pageGameMain/Bonus_Game/sg_bor_fgx.png" xy="223,1089"/>
+    <image id="n6_p6cc" name="n6" src="p6cc4e" fileName="images/pageGameMain/Bonus_Game/sg_bor_fgx.png" xy="429,1089"/>
+    <image id="n7_p6cc" name="n7" src="p6cc4e" fileName="images/pageGameMain/Bonus_Game/sg_bor_fgx.png" xy="629,1089"/>
+    <image id="n8_p6cc" name="n8" src="p6cc4e" fileName="images/pageGameMain/Bonus_Game/sg_bor_fgx.png" xy="832,1089"/>
+    <image id="n3_p6cc" name="n3" src="p6cc4f" fileName="images/pageGameMain/Bonus_Game/sg_bor_left.png" xy="-10,1056"/>
+    <image id="n2_p6cc" name="n2" src="p6cc4h" fileName="images/pageGameMain/Bonus_Game/sg_bor_right.png" xy="1049,1055"/>
+    <image id="n1_p6cc" name="n1" src="p6cc4i" fileName="images/pageGameMain/Bonus_Game/sg_bor_up.png" xy="-10,1003"/>
+    <image id="n0_p6cc" name="n0" src="p6cc4j" fileName="images/pageGameMain/Bonus_Game/sg_txt_pick remaining.png" xy="511,1057" pivot="0.5,0.5" anchor="true"/>
+    <image id="n4_p6cc" name="n4" src="p6cc4d" fileName="images/pageGameMain/Bonus_Game/sg_bor_down.png" xy="-1,1705"/>
+    <text id="n10_p6cc" name="bonusRemainCount" xy="737,1026" size="111,61" font="ui://baedj8ikp6cc4u" fontSize="10" align="center" vAlign="middle" letterSpacing="-5" autoSize="shrink" text="12"/>
+  </displayList>
+</component>

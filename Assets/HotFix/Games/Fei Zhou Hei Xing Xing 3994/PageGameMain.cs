@@ -28,8 +28,7 @@ namespace FeiZhouHeiXingXing_3994
 
         [JsonProperty("win_level_multiple")] public Dictionary<string, long> WinLevelMultiple { get; set; } //赢钱倍数
 
-        [JsonProperty("symbol_paytable")]
-        public Dictionary<string, PayTableSymbolInfo> SymbolPaytable { get; set; } //符号赔率表
+        [JsonProperty("symbol_paytable")] public Dictionary<string, PayTableSymbolInfo> SymbolPaytable { get; set; } //符号赔率表
 
         [JsonProperty("pay_lines")] public List<List<int>> pay_lines { get; set; } //支付钱
     }
@@ -51,6 +50,8 @@ namespace FeiZhouHeiXingXing_3994
 
         private const string GameControllerObjPath =
             "Assets/GameRes/Games/Fei Zhou Hei Xing Xing 3994/Prefabs/Game Controller/Slot Game Main Controller.prefab";
+
+        #region 变量定义
 
         // --------------------------------------------- 通用变量 -----------------------------------------------
         // 资源加载、UI、eventData
@@ -138,10 +139,7 @@ namespace FeiZhouHeiXingXing_3994
 
         /// <summary> 游戏中的缓存池字典 </summary>
         private readonly Dictionary<string, Stack<GComponent>> _isUsedPoolDic =
-            new Dictionary<string, Stack<GComponent>>()
-            {
-                { FreeBigWildKey, new Stack<GComponent> { } }, { FreeChangeIconKey, new Stack<GComponent> { } },
-            };
+            new Dictionary<string, Stack<GComponent>>() { { FreeBigWildKey, new Stack<GComponent> { } }, { FreeChangeIconKey, new Stack<GComponent> { } }, };
 
         // --------------------------------------------- 彩金游戏 -----------------------------------------------
         // 彩金游戏进度条内容
@@ -186,20 +184,14 @@ namespace FeiZhouHeiXingXing_3994
         /// <summary> 用作还原彩金游戏收集箱子的Url </summary>
         private readonly Dictionary<BonusUrlType, string> _bonusBoxUrlDic = new Dictionary<BonusUrlType, string>()
         {
-            { BonusUrlType.Empty, "ui://FeiZhouHeiXingXing/smallEmptyBox" },
-            { BonusUrlType.Mini, "ui://FeiZhouHeiXingXing/sg_sym_box1" },
-            { BonusUrlType.Minor, "ui://FeiZhouHeiXingXing/sg_sym_box2" },
-            { BonusUrlType.Major, "ui://FeiZhouHeiXingXing/sg_sym_box3" },
+            { BonusUrlType.Empty, "ui://FeiZhouHeiXingXing/smallEmptyBox" }, { BonusUrlType.Mini, "ui://FeiZhouHeiXingXing/sg_sym_box1" }, { BonusUrlType.Minor, "ui://FeiZhouHeiXingXing/sg_sym_box2" }, { BonusUrlType.Major, "ui://FeiZhouHeiXingXing/sg_sym_box3" },
         };
 
         private readonly List<GameObject> _bonusResultObjs = new List<GameObject>() { null, null };
 
-        private readonly List<string> _bonusResultIcons = new List<string>()
-        {
-            "ui://FeiZhouHeiXingXing/ng_sym15_caijin", "ui://FeiZhouHeiXingXing/ng_sym14_sx"
-        };
+        private readonly List<string> _bonusResultIcons = new List<string>() { "ui://FeiZhouHeiXingXing/ng_sym15_caijin", "ui://FeiZhouHeiXingXing/ng_sym14_sx" };
 
-        private Dictionary<BonusResultType, int> _jackpotScoreDic;
+        #endregion
 
         protected override void OnInit()
         {
@@ -449,15 +441,11 @@ namespace FeiZhouHeiXingXing_3994
                     DebugUtils.LogError($"请求贡献值报错。 code: {code}");
                     return;
                 }
-                
+
                 _uiJpMajorCtrl.SetData((int)jsonNode["major"]);
                 _uiJpMinorCtrl.SetData((int)jsonNode["minor"]);
                 _uiJpMiniCtrl.SetData((int)jsonNode["mini"]);
             });
-            // // 测试数据
-            // _uiJpMajorCtrl.SetData(1000);
-            // _uiJpMinorCtrl.SetData(500);
-            // _uiJpMiniCtrl.SetData(200);
 
             _freeSpinTimeController = new FreeSpinTimeController();
             _freeFrameCom = contentPane.GetChild("freeOther").asCom.GetChild("freeFrame").asCom;
@@ -469,12 +457,6 @@ namespace FeiZhouHeiXingXing_3994
             _bonusGameCountText = contentPane.GetChild("smallGameOther").asCom.GetChild("smallCount").asTextField;
             _bonusGameCountText.text = ContentModel.Instance.smallGameSpinCount.ToString();
 
-            _jackpotScoreDic = new Dictionary<BonusResultType, int>()
-            {
-                { BonusResultType.Mini, (int)_uiJpMiniCtrl.nowData },
-                { BonusResultType.Minor, (int)_uiJpMinorCtrl.nowData },
-                { BonusResultType.Major, (int)_uiJpMajorCtrl.nowData }
-            };
             //---------- 7.Clone预制体到UI锚点上 --------
             GComponent currentCom = contentPane.GetChild("normalOther").asCom.GetChild("anchorNpc").asCom;
             if (currentCom != _compareNormalNpc)
@@ -639,19 +621,6 @@ namespace FeiZhouHeiXingXing_3994
             InitParam();
         }
 
-        private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
-        {
-            e.Result = MachineDataController3994.ParseCoinPushSpinPayload(e.Data, e.StartPos);
-        }
-
-        /// <summary>底部 Panel 与对象池均就绪后，才通知 Loading 本页预加载完成。</summary>
-        private void TryNotifyPagePreloaded()
-        {
-            if (!_isBottomPanelReady || !_isPoolPreloadDone) return;
-            if (_hasNotifiedPagePreloaded) return;
-            _hasNotifiedPagePreloaded = true;
-            preLoadedCallback?.Invoke();
-        }
 
         #region 资源加载
 
@@ -686,9 +655,24 @@ namespace FeiZhouHeiXingXing_3994
                 new EventData<GComponent>(PanelEvent.AnchorPanelChange, _gOwnerPanel));
         }
 
+        /// <summary>底部 Panel 与对象池均就绪后，才通知 Loading 本页预加载完成。</summary>
+        private void TryNotifyPagePreloaded()
+        {
+            if (!_isBottomPanelReady || !_isPoolPreloadDone) return;
+            if (_hasNotifiedPagePreloaded) return;
+            _hasNotifiedPagePreloaded = true;
+            preLoadedCallback?.Invoke();
+        }
+
+        /// <summary> 获取算法卡解析的游戏数据 </summary>
+        private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
+        {
+            e.Result = MachineDataController3994.ParseCoinPushSpinPayload(e.Data, e.StartPos);
+        }
+
         #endregion
 
-        #region 普通游戏
+        #region 按钮相关
 
         private void OnClickSpinButton(EventData eventData)
         {
@@ -779,6 +763,23 @@ namespace FeiZhouHeiXingXing_3994
                 panelBaseController.SetSpinButtonLocked(false);
         }
 
+        /// <summary> 滚轮开始转：解锁并显示 Spin 或 Auto。 </summary>
+        private void SetSpinButtonRolling()
+        {
+            ContentModel.Instance.btnSpinState = ContentModel.Instance.isAuto
+                ? SpinButtonState.Auto
+                : SpinButtonState.Spin;
+            UnlockStopButton();
+        }
+
+        /// <summary> 滚轮停稳后到 Idle 前：保持 Spin 外观并置灰，押注保持锁定。 </summary>
+        private void SetSpinButtonSpinGray()
+        {
+            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            LockStopButton();
+            _panelController?.ChangButtonNo(true);
+        }
+
         /// <summary> 旋转成功，重置状态 </summary>
         private void ContinueGameWhenCompleted()
         {
@@ -788,6 +789,10 @@ namespace FeiZhouHeiXingXing_3994
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             ContentModel.Instance.gameState = GameState.Idle;
         }
+
+        #endregion
+
+        #region 普通游戏
 
         /// <summary> 旋转失败，抛出错误 </summary>
         private void StopGameWhenError(string msg)
@@ -860,10 +865,13 @@ namespace FeiZhouHeiXingXing_3994
 
         private void OnGameReset()
         {
+            _allWinCredit = 0;
             _isStoppedSlotMachine = false;
             _freeSpeedUpCom.visible = false;
             _bonusSpeedUpCom.visible = false;
             _slotMachineController.CloseSlotCover();
+            ContentModel.Instance.smallGameWinCredit = 0;
+            _slotMachineController.isStopImmediately = false;
             _slotMachineController.SkipWinLine(true);
             if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
             if (_corEffectSlowMotion != null) _monoHelper.StopCoroutine(_corEffectSlowMotion);
@@ -876,7 +884,7 @@ namespace FeiZhouHeiXingXing_3994
                 case SlotMachineEvent.StoppedSlotMachine:
                     {
                         _isStoppedSlotMachine = true;
-                        UnlockStopButton();
+                        // UnlockStopButton();
                     }
                     break;
             }
@@ -1084,11 +1092,12 @@ namespace FeiZhouHeiXingXing_3994
             }
 
             List<SymbolWin> winList = ContentModel.Instance.winList;
+            long totalWinLineCredit = 0;
             // ----------------- normal win ---------------
             if (winList.Count > 0)
             {
                 _notHitSpinCount = 0;
-                long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList);
+                totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList);
                 _slotMachineController.SendTotalWinCreditEvent(totalWinLineCredit); // 积分同步和退币处理
                 MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true); // 加钱动画
                 MainBlackboardController.Instance.SyncMyTempCreditToReal(true); // 同步玩家真实金币
@@ -1137,6 +1146,8 @@ namespace FeiZhouHeiXingXing_3994
             }
 
             DebugUtils.Log("进入空闲模式！！！");
+            long score = ContentModel.Instance.smallGameWinCredit + _allWinCredit; // 如果中彩金或者免费的时候，同时中普通奖，同步UI显示分数
+            _slotMachineController.SendTotalWinCreditEvent(score + totalWinLineCredit);
             // 本剧同步玩家金钱
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             ContentModel.Instance.gameState = GameState.Idle;
@@ -1146,7 +1157,6 @@ namespace FeiZhouHeiXingXing_3994
                 _corGameIdle = _monoHelper.StartCoroutine(GameIdle(winList));
             }
 
-            _slotMachineController.isStopImmediately = false;
             successCallback?.Invoke();
         }
 
@@ -1363,11 +1373,7 @@ namespace FeiZhouHeiXingXing_3994
             });
             PageManager.Instance.OpenPageAsync(PageName.FeiZhouHeiXingXingPopupFreeSpinTrigger,
                 new EventData<Dictionary<string, object>>("",
-                    new Dictionary<string, object>()
-                    {
-                        { "freeSpinCount", ContentModel.Instance.FreeSpinTotalTimes },
-                        { "changeFreePage", new Action(() => _pageController.selectedPage = "free") },
-                    }),
+                    new Dictionary<string, object>() { { "freeSpinCount", ContentModel.Instance.FreeSpinTotalTimes }, { "changeFreePage", new Action(() => _pageController.selectedPage = "free") }, }),
                 (ed) =>
                 {
                     _slotMachineController.SendTotalWinCreditEvent(0);
@@ -1388,11 +1394,7 @@ namespace FeiZhouHeiXingXing_3994
             });
             PageManager.Instance.OpenPageAsync(PageName.FeiZhouHeiXingXingPopupFreeSpinResult,
                 new EventData<Dictionary<string, object>>("",
-                    new Dictionary<string, object>()
-                    {
-                        { "freeTotalScore", ContentModel.Instance.freeSpinTotalWinCoins },
-                        { "changeNormalPage", new Action(() => _pageController.selectedPage = "normal") },
-                    }),
+                    new Dictionary<string, object>() { { "freeTotalScore", ContentModel.Instance.freeSpinTotalWinCoins }, { "changeNormalPage", new Action(() => _pageController.selectedPage = "normal") }, }),
                 (ed) =>
                 {
                     ContentModel.Instance.FreeSpinTotalTimes = 0;
@@ -1407,6 +1409,9 @@ namespace FeiZhouHeiXingXing_3994
         private IEnumerator FreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
             OnGameReset();
+            PushIsUsedComToPool();
+            ContentModel.Instance.isSpin = true;
+            LockStopButton();
             ContentModel.Instance.gameState = GameState.FreeSpin;
 
             bool isNext = false;
@@ -1437,11 +1442,15 @@ namespace FeiZhouHeiXingXing_3994
 
             if (isBreak)
             {
+                UnlockStopButton();
+                ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                 errorCallback?.Invoke(errMsg);
                 yield break;
             }
 
             _slotMachineController.BeginSpin();
+            SetSpinButtonRolling();
+
             if (_slotMachineController.isStopImmediately)
             {
                 if (_corReelsTurn != null) _monoHelper.StopCoroutine(_corReelsTurn);
@@ -1471,6 +1480,8 @@ namespace FeiZhouHeiXingXing_3994
                     isNext = false;
                 }
             }
+
+            SetSpinButtonSpinGray();
 
             // ----------------- icon change ----------------
             if (_corChangeIcon != null) _monoHelper.StopCoroutine(_corChangeIcon);
@@ -1524,6 +1535,7 @@ namespace FeiZhouHeiXingXing_3994
                 yield return _slotMachineController.SlotWaitForSeconds(1);
             }
 
+            PushIsUsedComToPool();
             successCallback?.Invoke();
         }
 
@@ -1719,14 +1731,10 @@ namespace FeiZhouHeiXingXing_3994
 
             PageManager.Instance.OpenPageAsync(PageName.FeiZhouHeiXingXingPopupFreeSpinResult,
                 new EventData<Dictionary<string, object>>("",
-                    new Dictionary<string, object>()
-                    {
-                        { "freeTotalScore", ContentModel.Instance.freeSpinTotalWinCoins },
-                        { "changeNormalPage", new Action(() => { _pageController.selectedPage = "normal"; }) },
-                    }),
+                    new Dictionary<string, object>() { { "freeTotalScore", ContentModel.Instance.freeSpinTotalWinCoins }, { "changeNormalPage", new Action(() => { _pageController.selectedPage = "normal"; }) }, }),
                 (ed) =>
                 {
-                    _allWinCredit = 0;
+                    // _allWinCredit = 0;
                     ContentModel.Instance.freeSpinTotalWinCoins = 0;
                     ContentModel.Instance.FreeSpinTotalTimes = 0;
                     ContentModel.Instance.FreeSpinPlayTimes = 0;
@@ -1888,13 +1896,16 @@ namespace FeiZhouHeiXingXing_3994
                 new EventData<Dictionary<string, object>>("",
                     new Dictionary<string, object>()
                     {
-                        { "changeSmallGamePage", new Action(() =>
                         {
-                            _pageController.selectedPage = "small";
-                           
-                        }) },
+                            "changeSmallGamePage", new Action(() =>
+                            {
+                                _pageController.selectedPage = "small";
+                            })
+                        },
                     }), (ed) =>
                 {
+                    _slotMachineController.SendTotalWinCreditEvent(0);
+                    SetSpinButtonRolling();
                     ContentModel.Instance.btnSpinState = SpinButtonState.Stop; // 需要先重置按钮的状态，否则会置灰其他按钮失败
                     _panelController.ChangButtonNo(true);
                     EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
@@ -1910,11 +1921,7 @@ namespace FeiZhouHeiXingXing_3994
             // 打开彩金结算界面
             PageManager.Instance.OpenPageAsync(PageName.FeiZhouHeiXingXingPopupSmallGameResult,
                 new EventData<Dictionary<string, object>>("",
-                    new Dictionary<string, object>()
-                    {
-                        { "changeNormalPage", new Action(() => _pageController.selectedPage = "normal") },
-                        { "smallTotalScore", _currentBonusScore }
-                    }), (ed) =>
+                    new Dictionary<string, object>() { { "changeNormalPage", new Action(() => _pageController.selectedPage = "normal") }, { "smallTotalScore", _currentBonusScore } }), (ed) =>
                 {
                     _panelController.ChangButtonNo(false);
                     ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
@@ -1936,8 +1943,7 @@ namespace FeiZhouHeiXingXing_3994
                 --ContentModel.Instance.smallGameSpinCount;
                 yield return BonusGameController.Instance.BonusGameOnce(_currentBonusReelList, () =>
                 {
-                    BonusGameController.Instance.UpdateUIShow(_bonusCountText,
-                        ContentModel.Instance.smallGameSpinCount);
+                    BonusGameController.Instance.UpdateUIShow(_bonusCountText, ContentModel.Instance.smallGameSpinCount);
                 });
                 yield return SmallGameResult(GetOnceBonusData);
             }
@@ -1995,24 +2001,21 @@ namespace FeiZhouHeiXingXing_3994
                                     _miniLoader.url = "";
                                     PlayAnimationByName(_smallNpcAnimator, "2win2");
                                     yield return new WaitForSeconds(2.7f);
-                                    yield return GetJackpotScore(BonusResultType.Mini,
-                                        _jackpotScoreDic[BonusResultType.Mini]);
+                                    yield return GetJackpotScore(BonusResultType.Mini, (int)_uiJpMiniCtrl.nowData);
                                     break;
                                 case 10:
                                     _cloneMinorBoxObj.SetActive(true);
                                     _minorLoader.url = "";
                                     PlayAnimationByName(_smallNpcAnimator, "2win2");
                                     yield return new WaitForSeconds(2.7f);
-                                    yield return GetJackpotScore(BonusResultType.Minor,
-                                        _jackpotScoreDic[BonusResultType.Minor]);
+                                    yield return GetJackpotScore(BonusResultType.Minor, (int)_uiJpMinorCtrl.nowData);
                                     break;
                                 case 15:
                                     _cloneMajorBoxObj.SetActive(true);
                                     _majorLoader.url = "";
                                     PlayAnimationByName(_smallNpcAnimator, "2win2");
                                     yield return new WaitForSeconds(2.7f);
-                                    yield return GetJackpotScore(BonusResultType.Major,
-                                        _jackpotScoreDic[BonusResultType.Major]);
+                                    yield return GetJackpotScore(BonusResultType.Major, (int)_uiJpMajorCtrl.nowData);
                                     break;
                             }
                         }

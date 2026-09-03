@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="214,173" opaque="false" extention="Button">
-  <controller name="button" pages="0,spin,1,stop,2,auto,3,hui" selected="1">
+  <controller name="button" pages="0,spin,1,stop,2,auto,3,hui" selected="0">
     <action type="play_transition" fromPage="" toPage="0" transition="stop"/>
     <action type="play_transition" fromPage="" toPage="1" transition="spin"/>
     <action type="play_transition" fromPage="" toPage="2" transition="auto"/>
@@ -26,6 +26,7 @@
   <transition name="stop">
     <item time="0" type="Icon" target="n1_u8to" value="ui://9igt9u8mhm6e4k"/>
     <item time="0" type="Icon" target="n4_u8to" value="ui://9igt9u8mj05156"/>
+    <item time="0" type="Visible" target="n5_u8to" value="false"/>
   </transition>
   <transition name="auto">
     <item time="0" type="Icon" target="n1_u8to" value="ui://9igt9u8mhm6e4h"/>

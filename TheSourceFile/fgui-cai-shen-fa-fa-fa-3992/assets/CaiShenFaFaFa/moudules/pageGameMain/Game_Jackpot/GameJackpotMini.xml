@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="405,155">
+  <displayList>
+    <image id="n0_ud6t" name="n0" src="n2khl" fileName="images/common/Game_Jackpot/ng_bor_mini.png" xy="0,64" group="n2_ud6t"/>
+    <image id="n1_ud6t" name="n1" src="n2kho" fileName="images/common/Game_Jackpot/ng_txt_mini.png" xy="76,0" group="n2_ud6t"/>
+    <group id="n2_ud6t" name="n2" xy="0,0" size="405,154"/>
+  </displayList>
+</component>

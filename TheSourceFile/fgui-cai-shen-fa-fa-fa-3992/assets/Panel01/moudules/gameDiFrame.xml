@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,209">
+  <displayList>
+    <image id="n0_ud6t" name="n0" src="ud6tm" fileName="images/gameDiFrame/ng_img_bottom.png" xy="0,0"/>
+    <image id="n1_ud6t" name="n1" src="ud6tq" fileName="images/gameDiFrame/ng_txt_bet.png" xy="694,174" pivot="0.5,0.5" anchor="true"/>
+    <image id="n2_ud6t" name="n2" src="ud6tn" fileName="images/gameDiFrame/ng_txt_credits.png" xy="371,174" pivot="0.5,0.5" anchor="true"/>
+    <image id="n3_ud6t" name="n3" src="ud6to" fileName="images/gameDiFrame/ng_txt_ts.png" xy="537,203" pivot="0.5,0.5" anchor="true"/>
+    <image id="n4_ud6t" name="n4" src="ud6tl" fileName="images/gameDiFrame/ng_icon_tb.png" xy="235,141"/>
+    <image id="n5_ud6t" name="n5" src="ud6tp" fileName="images/gameDiFrame/ng_txt_win.png" xy="537,101" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>

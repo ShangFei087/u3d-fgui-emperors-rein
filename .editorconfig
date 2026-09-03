@@ -1,5 +1,5 @@
-# 如果要从更高级别的目录继承 .editorconfig 设置，请删除以下行
 root = true
+# 如果要从更高级别的目录继承 .editorconfig 设置，请删除以下行
 
 # c# 文件
 [*.cs]
@@ -22,7 +22,7 @@ insert_final_newline = false
 # 组织 Using
 dotnet_separate_import_directive_groups = false
 dotnet_sort_system_directives_first = false
-file_header_template = unset
+file_header_template = 
 
 # this. 和 Me. 首选项
 dotnet_style_qualification_for_event = false
@@ -231,3 +231,6 @@ dotnet_naming_style.begins_with_i.required_prefix = I
 dotnet_naming_style.begins_with_i.required_suffix = 
 dotnet_naming_style.begins_with_i.word_separator = 
 dotnet_naming_style.begins_with_i.capitalization = pascal_case
+
+# ReSharper properties
+resharper_csharp_max_line_length = 300

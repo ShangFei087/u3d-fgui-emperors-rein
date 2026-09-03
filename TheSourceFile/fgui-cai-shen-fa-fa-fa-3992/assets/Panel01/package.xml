@@ -1,5 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="bce0n1qv">
-  <resources/>
+  <resources>
+    <image id="ud6t0" name="ng_num_0.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6t1" name="ng_num_mil.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6t2" name="ng_num_kil.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6t3" name="ng_num_dot.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6t4" name="ng_num_dollar.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6t5" name="ng_num_com.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6t6" name="ng_num_bil.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6t7" name="ng_num_8-2.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6t8" name="ng_num_8.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6t9" name="ng_num_7.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6ta" name="ng_num_6.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6tb" name="ng_num_5.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6tc" name="ng_num_4.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6td" name="ng_num_3.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6te" name="ng_num_2.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6tf" name="ng_num_1.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6tg" name="ng_num_s.png" path="/images/bottomFont/" exported="true"/>
+    <image id="ud6th" name="ng_num_tril.png" path="/images/bottomFont/" exported="true"/>
+    <font id="ud6ti" name="bottomFont.fnt" path="/fonts/" exported="true"/>
+    <image id="ud6tj" name="ng_btn_add.png" path="/images/bet/" exported="true"/>
+    <image id="ud6tk" name="ng_btn_subtrac.png" path="/images/bet/" exported="true"/>
+    <image id="ud6tl" name="ng_icon_tb.png" path="/images/gameDiFrame/" exported="true"/>
+    <image id="ud6tm" name="ng_img_bottom.png" path="/images/gameDiFrame/" exported="true"/>
+    <image id="ud6tn" name="ng_txt_credits.png" path="/images/gameDiFrame/" exported="true"/>
+    <image id="ud6to" name="ng_txt_ts.png" path="/images/gameDiFrame/" exported="true"/>
+    <image id="ud6tp" name="ng_txt_win.png" path="/images/gameDiFrame/" exported="true"/>
+    <image id="ud6tq" name="ng_txt_bet.png" path="/images/gameDiFrame/" exported="true"/>
+    <image id="ud6tv" name="ng_btn_function.png" path="/images/help/" exported="true"/>
+    <image id="ud6tw" name="ng_btn_back.png" path="/images/setPanel/" exported="true"/>
+    <image id="ud6tx" name="ng_btn_help.png" path="/images/setPanel/" exported="true"/>
+    <image id="ud6ty" name="ng_btn_jy.png" path="/images/setPanel/" exported="true"/>
+    <image id="ud6tz" name="ng_btn_ylt.png" path="/images/setPanel/" exported="true" scale="9grid" scale9grid="4,2,181,7"/>
+    <image id="ud6t10" name="ng_btn_yltnk.png" path="/images/setPanel/" exported="true"/>
+    <image id="ud6t11" name="ng_btn_yltwk.png" path="/images/setPanel/" exported="true"/>
+    <image id="ud6t12" name="ng_btn_ys.png" path="/images/setPanel/" exported="true"/>
+    <image id="ud6t13" name="ng_num_gnjm.png" path="/images/setPanel/" exported="true"/>
+    <image id="ud6t15" name="ng_btn_auto.png" path="/images/spin/" exported="true"/>
+    <image id="ud6t16" name="ng_btn_spin.png" path="/images/spin/" exported="true"/>
+    <image id="ud6t17" name="ng_btn_stop.png" path="/images/spin/" exported="true"/>
+    <component id="ud6t1b" name="Panel.xml" path="/" exported="true"/>
+    <component id="ud6t1c" name="gameDiFrame.xml" path="/moudules/" exported="true"/>
+    <component id="ud6t1d" name="setPanel.xml" path="/moudules/" exported="true"/>
+    <image id="ud6t1e" name="ng_btn_hdan.png" path="/images/setPanel/" exported="true"/>
+    <component id="ud6t1f" name="silderSound_grip.xml" path="/components/GameSetPanel/" exported="true"/>
+    <component id="ud6t1g" name="silderSound.xml" path="/components/GameSetPanel/" exported="true"/>
+    <component id="ud6t1h" name="ButtonHelp.xml" path="/components/GamePanel/" exported="true"/>
+    <component id="ud6t1i" name="ButtonBetDown.xml" path="/components/GamePanel/" exported="true"/>
+    <component id="ud6t1j" name="ButtonBetUp.xml" path="/components/GamePanel/" exported="true"/>
+    <component id="ud6t1k" name="ButtonSpin.xml" path="/components/GamePanel/" exported="true"/>
+    <component id="ud6t1l" name="anchorSpin.xml" path="/components/GameAnchor/" exported="true"/>
+    <component id="p6cc1m" name="btnHome.xml" path="/components/GameSetPanel/" exported="true"/>
+    <component id="p6cc1n" name="btnPayTable.xml" path="/components/GameSetPanel/" exported="true"/>
+    <component id="p6cc1p" name="btnSound.xml" path="/components/GameSetPanel/" exported="true"/>
+    <image id="p6cc1q" name="ng_bor_smsk.png" path="/images/introduce/" exported="true"/>
+    <image id="p6cc1r" name="ng_btn_back to game.png" path="/images/introduce/" exported="true"/>
+    <image id="p6cc1s" name="ng_btn_left_right.png" path="/images/introduce/" exported="true"/>
+    <image id="p6cc1t" name="ng_img_wxz.png" path="/images/introduce/" exported="true"/>
+    <image id="p6cc1u" name="ng_img_xz.png" path="/images/introduce/" exported="true"/>
+    <component id="p6cc1w" name="introducePanel.xml" path="/moudules/" exported="true"/>
+    <component id="p6cc1x" name="payTable.xml" path="/components/GameIntroduce/" exported="true"/>
+    <component id="p6cc1y" name="ButtonL.xml" path="/components/GameIntroduce/" exported="true"/>
+    <component id="p6cc1z" name="btnBackGame.xml" path="/components/GameIntroduce/" exported="true"/>
+  </resources>
   <publish name="" path="../../Assets/GameRes/Panel/Panel3992/FGUIs" packageCount="2"/>
 </packageDescription>

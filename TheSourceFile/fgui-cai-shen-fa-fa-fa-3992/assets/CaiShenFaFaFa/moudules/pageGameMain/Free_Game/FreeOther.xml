@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" overflow="hidden" opaque="false" designImage="ui://baedj8ikp6cc35">
+  <displayList>
+    <component id="n13_p6cc" name="anchorNpc" src="n2khi" fileName="moudules/pageGameMain/Normal_Game/GameAnchor/anchorNpc.xml" xy="540,960"/>
+    <image id="n5_p6cc" name="n5" src="p6cc30" fileName="images/pageGameMain/Free_Game/fg_bor_nk.png" xy="22,1082"/>
+    <image id="n6_p6cc" name="n6" src="p6cc2y" fileName="images/pageGameMain/Free_Game/fg_bor_fgx.png" xy="227,1080"/>
+    <image id="n7_p6cc" name="n7" src="p6cc2y" fileName="images/pageGameMain/Free_Game/fg_bor_fgx.png" xy="429,1080"/>
+    <image id="n8_p6cc" name="n8" src="p6cc2y" fileName="images/pageGameMain/Free_Game/fg_bor_fgx.png" xy="632,1080"/>
+    <image id="n9_p6cc" name="n9" src="p6cc2y" fileName="images/pageGameMain/Free_Game/fg_bor_fgx.png" xy="834,1080"/>
+    <image id="n1_p6cc" name="n1" src="p6cc31" fileName="images/pageGameMain/Free_Game/fg_bor_up.png" xy="41,1054"/>
+    <image id="n0_p6cc" name="n0" src="p6cc2w" fileName="images/pageGameMain/Free_Game/fg_bor_csk.png" xy="268,1010"/>
+    <image id="n4_p6cc" name="n4" src="p6cc2x" fileName="images/pageGameMain/Free_Game/fg_bor_down.png" xy="-10,1699"/>
+    <image id="n2_p6cc" name="n2" src="p6cc2z" fileName="images/pageGameMain/Free_Game/fg_bor_left、right.png" xy="-9,1050"/>
+    <image id="n3_p6cc" name="n3" src="p6cc2z" fileName="images/pageGameMain/Free_Game/fg_bor_left、right.png" xy="988,1050" flip="hz"/>
+    <image id="n10_p6cc" name="n10" src="p6cc32" fileName="images/pageGameMain/Free_Game/fg_txt_9.png" xy="0,1382"/>
+    <image id="n11_p6cc" name="n11" src="p6cc32" fileName="images/pageGameMain/Free_Game/fg_txt_9.png" xy="1050,1382"/>
+    <image id="n12_p6cc" name="n12" src="p6cc2v" fileName="images/pageGameMain/Free_Game/fg_txt_free spins.png" xy="514,1052" pivot="0.5,0.5" anchor="true"/>
+    <text id="n14_p6cc" name="freeRemainCount" xy="648,1010" size="93,78" font="ui://baedj8ikp6cc3g" fontSize="10" align="center" vAlign="middle" letterSpacing="-10" autoSize="shrink" text="15"/>
+  </displayList>
+</component>

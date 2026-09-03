@@ -480,7 +480,7 @@ namespace FeiZhouHeiXingXing_3994
             //赢分
             long creditAfter = 0, creditBefore = MainBlackboardController.Instance.myRealCredit;
             if (ContentModel.Instance.isSmallGameTrigger)
-                creditAfter = creditBefore + bonusBet - totalBet + totalJackpotBet;
+                creditAfter = creditBefore + ContentModel.Instance.smallGameWinCredit - totalBet;
             else if (ContentModel.Instance.isFreeSpinTrigger || ContentModel.Instance.isFreeSpin)
             {
                 // 免费游戏只有第一次需要扣积分

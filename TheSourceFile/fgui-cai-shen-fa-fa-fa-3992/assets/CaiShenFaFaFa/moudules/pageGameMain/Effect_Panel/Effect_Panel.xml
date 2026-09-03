@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n0_p6cc" name="anchorFrame" src="p6cc61" fileName="components/common/anchorFrame.xml" xy="539,960"/>
+  </displayList>
+</component>

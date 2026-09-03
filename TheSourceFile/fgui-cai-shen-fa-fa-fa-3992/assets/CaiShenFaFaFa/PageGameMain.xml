@@ -1,8 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920" designImage="ui://baedj8ikn2khg">
-  <controller name="gameController" pages="0,normal,1,free,5,bonus" selected="0"/>
+  <controller name="gameController" pages="0,normal,1,free,2,bonus" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="normal"/>
+    <action type="play_transition" fromPage="" toPage="1" transition="free"/>
+    <action type="play_transition" fromPage="" toPage="2" transition="bonus"/>
+  </controller>
   <displayList>
     <loader id="n0_n2kh" name="GameBgLoader" xy="0,0" size="1080,1920" url="ui://baedj8ikn2kh9"/>
     <loader id="n1_n2kh" name="GameBorderLoader" xy="0,0" size="1080,1920" url="ui://baedj8ikn2khh" autoSize="true"/>
+    <component id="n2_ud6t" name="Game_Major" src="ud6t2e" fileName="moudules/pageGameMain/Game_Jackpot/GameJackpotMajor.xml" xy="236,0" group="n5_ud6t"/>
+    <component id="n3_ud6t" name="Game_Minor" src="ud6t2f" fileName="moudules/pageGameMain/Game_Jackpot/GameJackpotMinor.xml" xy="0,159" group="n5_ud6t"/>
+    <component id="n4_ud6t" name="Game_Mini" src="ud6t2g" fileName="moudules/pageGameMain/Game_Jackpot/GameJackpotMini.xml" xy="676,160" group="n5_ud6t"/>
+    <group id="n5_ud6t" name="GameJackpots" xy="0,0" size="1081,315"/>
+    <loader id="n8_p6cc" name="GameSlotMachineLoader" xy="34,1086" size="1015,609" url="ui://baedj8ikp6cc5z" autoSize="true"/>
+    <component id="n9_p6cc" name="EffectPanel" src="p6cc60" fileName="moudules/pageGameMain/Effect_Panel/Effect_Panel.xml" xy="0,0"/>
+    <component id="n6_p6cc" name="panel" src="p6cc2i" fileName="components/pageGameMain/anchorPanel.xml" xy="540,1815"/>
   </displayList>
+  <transition name="normal">
+    <item time="0" type="Icon" target="n0_n2kh" value="ui://baedj8ikn2kh9"/>
+    <item time="0" type="Icon" target="n1_n2kh" value="ui://baedj8ikn2khh"/>
+  </transition>
+  <transition name="free">
+    <item time="0" type="Icon" target="n0_n2kh" value="ui://baedj8ikp6cc33"/>
+    <item time="0" type="Icon" target="n1_n2kh" value="ui://baedj8ikp6cc34"/>
+  </transition>
+  <transition name="bonus">
+    <item time="0" type="Icon" target="n0_n2kh" value="ui://baedj8ikp6cc49"/>
+    <item time="0" type="Icon" target="n1_n2kh" value="ui://baedj8ikp6cc4a"/>
+  </transition>
 </component>

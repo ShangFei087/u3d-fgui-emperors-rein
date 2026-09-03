@@ -37,6 +37,9 @@ namespace CaiFuZhiJia_3997
         private bool _isClicked = false;
         private Action _changeNormalPage, _changeNpcAnimationClip;
 
+        /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
+        private I18nLang _boundLang;
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -93,24 +96,27 @@ namespace CaiFuZhiJia_3997
 
             // -------------------------- 绑定Prefab到UI上 -----------------------
             GComponent currentGCom = _freeResultTipWindow.GetChild("freeResult").asCom;
-            if (currentGCom != _freeResultCom)
+            if (currentGCom != _freeResultCom || _boundLang != PopupSpineLang3997.CurrentLang)
             {
                 GameCommon.FguiUtils.DeleteWrapper(_freeResultCom);
                 _freeResultCom = currentGCom;
                 _cloneFreeResultObj = Object.Instantiate(_freeResultObj);
+                PopupSpineLang3997.Apply(_cloneFreeResultObj);
+                _boundLang = PopupSpineLang3997.CurrentLang;
                 GameCommon.FguiUtils.AddWrapper(_freeResultCom, _cloneFreeResultObj);
             } // Spine
+
             _freeResultAni = _cloneFreeResultObj.GetComponentInChildren<Animator>();
 
 
             // --------------------- 将UI组件挂点到对应的Spine节点上 ---------------------
-            string rootPath =
-                "Anchor/Spine Mecanim GameObject (fg_pop_settlement)/SkeletonUtility-SkeletonRoot/root/all/";
-            Transform btnTran = _cloneFreeResultObj.transform.Find(rootPath + "btn");
+            GameObject fatherObj = _cloneFreeResultObj.transform.GetChild(0).GetChild(0).gameObject;
+            string rootPath = "Spine Mecanim GameObject (fg_pop_settlement)/SkeletonUtility-SkeletonRoot/root/all/";
+            Transform btnTran = fatherObj.transform.Find(rootPath + "btn");
             collectBtnTran.SetParent(btnTran, false);
             collectBtnTran.localPosition = new Vector3(-1.92f, 0.84f, 0);
             collectBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-            Transform numTran = _cloneFreeResultObj.transform.Find(rootPath + "sx_1/num");
+            Transform numTran = fatherObj.transform.Find(rootPath + "sx_1/num");
             roundTran.SetParent(numTran, false);
             roundTran.localPosition = new Vector3(-5.31f, 1.53f, 0);
             roundTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);

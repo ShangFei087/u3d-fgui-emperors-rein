@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" opaque="false" designImage="ui://baedj8ikn2khg">
+  <displayList>
+    <component id="n0_n2kh" name="anchorNpc" src="n2khi" fileName="moudules/pageGameMain/Normal_Game/GameAnchor/anchorNpc.xml" xy="540,960"/>
+    <image id="n9_n2kh" name="n9" src="n2khe" fileName="images/pageGameMain/Normal_Game/ng_bor_zs.png" xy="12,948"/>
+    <image id="n12_n2kh" name="n12" src="n2khc" fileName="images/pageGameMain/Normal_Game/ng_bor_nk.png" xy="33,1087"/>
+    <image id="n2_n2kh" name="n2" src="n2kha" fileName="images/pageGameMain/Normal_Game/ng_bor_fgx.png" xy="225,1078"/>
+    <image id="n3_n2kh" name="n3" src="n2kha" fileName="images/pageGameMain/Normal_Game/ng_bor_fgx.png" xy="427,1078"/>
+    <image id="n4_n2kh" name="n4" src="n2kha" fileName="images/pageGameMain/Normal_Game/ng_bor_fgx.png" xy="630,1078"/>
+    <image id="n5_n2kh" name="n5" src="n2kha" fileName="images/pageGameMain/Normal_Game/ng_bor_fgx.png" xy="833,1078"/>
+    <image id="n1_n2kh" name="n1" src="n2khf" fileName="images/pageGameMain/Normal_Game/ng_bor_down.png" xy="169,1694"/>
+    <image id="n6_n2kh" name="n6" src="n2khd" fileName="images/pageGameMain/Normal_Game/ng_bor_up.png" xy="151,1059"/>
+    <image id="n7_n2kh" name="n7" src="n2khb" fileName="images/pageGameMain/Normal_Game/ng_bor_left、right.png" xy="0,1057"/>
+    <image id="n8_n2kh" name="n8" src="n2khb" fileName="images/pageGameMain/Normal_Game/ng_bor_left、right.png" xy="907,1057" flip="hz"/>
+    <image id="n10_n2kh" name="n10" src="n2khj" fileName="images/pageGameMain/Normal_Game/ng_txt_9.png" xy="7,1378"/>
+    <image id="n11_n2kh" name="n11" src="n2khj" fileName="images/pageGameMain/Normal_Game/ng_txt_9.png" xy="1048,1378"/>
+  </displayList>
+</component>
