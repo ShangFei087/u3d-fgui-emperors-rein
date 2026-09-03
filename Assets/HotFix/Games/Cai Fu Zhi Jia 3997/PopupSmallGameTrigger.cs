@@ -37,6 +37,9 @@ namespace CaiFuZhiJia_3997
 
         /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
         private I18nLang _boundLang;
+        
+        /// <summary>入场后延迟点亮开始按钮。</summary>
+        private TimerCallback _enableBtnCallback;
 
         protected override void OnInit()
         {
@@ -123,6 +126,7 @@ namespace CaiFuZhiJia_3997
             if (!isOpen) return;
             _isClicked = false;
             RemoveTimer(ref _autoClickCallback);
+            RemoveTimer(ref _enableBtnCallback);
 
             // -------------------------- 添加UI点击事件 --------------------------
             if (eventData is { value: Dictionary<string, object> args })
@@ -131,6 +135,12 @@ namespace CaiFuZhiJia_3997
                 _changeNpcAnimationClip = args["changeNpcAnimationClip"] as Action;
             }
 
+            _startBtn.touchable = false;
+            _enableBtnCallback = obj =>
+            {
+                if (_startBtn != null) _startBtn.touchable = true;
+            };
+            Timers.inst.Add(0.5f, 1, _enableBtnCallback);
             _startBtn.onClick.Clear();
             _startBtn.onClick.Add(() => OnClickSpinButton(null));
 

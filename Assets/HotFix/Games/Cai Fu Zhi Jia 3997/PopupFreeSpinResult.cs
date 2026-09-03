@@ -39,6 +39,9 @@ namespace CaiFuZhiJia_3997
 
         /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
         private I18nLang _boundLang;
+        
+        /// <summary>入场后延迟点亮开始按钮。</summary>
+        private TimerCallback _enableBtnCallback;
 
         protected override void OnInit()
         {
@@ -77,6 +80,7 @@ namespace CaiFuZhiJia_3997
             if (!isOpen) return;
             _isClicked = false;
             RemoveTimer(ref _autoClickCallback);
+            RemoveTimer(ref _enableBtnCallback);
 
             // -------------------------- 获取UI组件 -----------------------
             _freeResultTipWindow = contentPane.GetChild("freeResultTipWindow").asCom;
@@ -121,7 +125,12 @@ namespace CaiFuZhiJia_3997
             roundTran.localPosition = new Vector3(-5.31f, 1.53f, 0);
             roundTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
 
-
+            _freeCollectBtn.touchable = false;
+            _enableBtnCallback = obj =>
+            {
+                if (_freeCollectBtn != null) _freeCollectBtn.touchable = true;
+            };
+            Timers.inst.Add(0.5f, 1, _enableBtnCallback);
             _freeCollectBtn.onClick.Clear();
             _freeCollectBtn.onClick.Add(() => OnClickSpinButton(null));
 

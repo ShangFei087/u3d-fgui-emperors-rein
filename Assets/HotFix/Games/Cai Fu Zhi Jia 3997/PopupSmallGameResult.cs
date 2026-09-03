@@ -36,6 +36,9 @@ namespace CaiFuZhiJia_3997
         private TimerCallback _delayPlayEndCallback;
         private TimerCallback _autoClickCallback;
         private Action _changeNormalPage, _changeNpcAnimationClip;
+        
+        /// <summary>入场后延迟点亮开始按钮。</summary>
+        private TimerCallback _enableBtnCallback;
 
         /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
         private I18nLang _boundLang;
@@ -82,6 +85,7 @@ namespace CaiFuZhiJia_3997
             if (!isOpen) return;
             _isClicked = false;
             RemoveTimer(ref _autoClickCallback);
+            RemoveTimer(ref _enableBtnCallback);
 
             // --------------------- 获取UI组件 ------------------------
             _jackpotResultTipWindow = contentPane.GetChild("jackpotResultTipWindow").asCom;
@@ -140,6 +144,13 @@ namespace CaiFuZhiJia_3997
                 _changeNormalPage = args["changeNormalPage"] as Action;
                 _changeNpcAnimationClip = args["changeNpcAnimationClip"] as Action;
             }
+            
+            _collectBtn.touchable = false;
+            _enableBtnCallback = obj =>
+            {
+                if (_collectBtn != null) _collectBtn.touchable = true;
+            };
+            Timers.inst.Add(0.5f, 1, _enableBtnCallback);
 
             _collectBtn.onClick.Clear();
             _collectBtn.onClick.Add(() => OnClickSpinButton(null));
