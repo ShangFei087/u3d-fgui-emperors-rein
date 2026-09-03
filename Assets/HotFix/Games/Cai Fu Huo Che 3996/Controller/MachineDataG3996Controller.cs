@@ -1391,6 +1391,9 @@ namespace CaiFuHuoChe_3996
                     "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin_free_8.json",
                     "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin_free_9.json",
                     "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin_free_10.json",
+                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__free_11.json",
+                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__free_12.json",
+                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__free_13.json",
                 },
             },
             [SpinDataType.Normal] = new List<string[]>()
