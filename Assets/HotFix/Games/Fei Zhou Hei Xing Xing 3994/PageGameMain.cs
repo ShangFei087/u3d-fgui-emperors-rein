@@ -575,7 +575,7 @@ namespace FeiZhouHeiXingXing_3994
             _bonusResultCom = contentPane.GetChild("anchorCollectEffectParent").asCom;
             _bonusCountText = contentPane.GetChild("smallGameOther").asCom.GetChild("smallCount").asTextField;
 
-            TryRestoreFreeSpinSession();
+            // TryRestoreFreeSpinSession();
             isReady = true;
         }
 
@@ -865,7 +865,6 @@ namespace FeiZhouHeiXingXing_3994
 
         private void OnGameReset()
         {
-            _allWinCredit = 0;
             _isStoppedSlotMachine = false;
             _freeSpeedUpCom.visible = false;
             _bonusSpeedUpCom.visible = false;
@@ -983,12 +982,12 @@ namespace FeiZhouHeiXingXing_3994
                 yield break;
             }
 
-            if (ContentModel.Instance.FreeSpinTotalTimes > 0 &&
-                ContentModel.Instance.nextReelStripsIndex == "FS") // 断电重连判断
-            {
-                yield return GameFreeSpinFromReconnect(successCallback, errorCallback);
-                yield break;
-            }
+            // if (ContentModel.Instance.FreeSpinTotalTimes > 0 &&
+            //     ContentModel.Instance.nextReelStripsIndex == "FS") // 断电重连判断
+            // {
+            //     yield return GameFreeSpinFromReconnect(successCallback, errorCallback);
+            //     yield break;
+            // }
 
             if (SBoxModel.Instance.myCredit < TotalBet) // 检测玩家积分是否足够
             {
@@ -1157,6 +1156,7 @@ namespace FeiZhouHeiXingXing_3994
                 _corGameIdle = _monoHelper.StartCoroutine(GameIdle(winList));
             }
 
+            _allWinCredit = 0;
             successCallback?.Invoke();
         }
 
@@ -1400,7 +1400,6 @@ namespace FeiZhouHeiXingXing_3994
                     ContentModel.Instance.FreeSpinTotalTimes = 0;
                     isNext = true;
                 });
-
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
             yield return _slotMachineController.SlotWaitForSeconds(1.5f);
@@ -1497,7 +1496,7 @@ namespace FeiZhouHeiXingXing_3994
 
             // ----------------- normal win ----------------
             List<SymbolWin> winList = ContentModel.Instance.winList;
-            if (winList.Count > 0 || ContentModel.Instance.BonusResult != null)
+            if (winList.Count > 0 /* || ContentModel.Instance.BonusResult != null*/)
             {
                 PlayAnimationByName(_freeNpcAnimator, "win");
                 long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList);
@@ -1558,7 +1557,6 @@ namespace FeiZhouHeiXingXing_3994
             for (int i = 5; i < 10; i++)
             {
                 currentMiddleData.Add(currentFreeData[i]);
-                // Debug.LogError($"currentFreeData[{i}]的值是：{currentFreeData[i]}");
             }
 
             return currentMiddleData;

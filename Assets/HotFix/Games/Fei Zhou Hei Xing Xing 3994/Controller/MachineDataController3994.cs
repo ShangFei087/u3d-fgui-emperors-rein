@@ -48,40 +48,41 @@ namespace FeiZhouHeiXingXing_3994
         private readonly Dictionary<SpinDataType, List<string>> _spinDataDic =
             new Dictionary<SpinDataType, List<string>>()
             {
-                [SpinDataType.AlwaysWin] = new List<string>()
-                {
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_0.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_1.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_2.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_3.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_4.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_5.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_6.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_7.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_8.json",
-                },
-                [SpinDataType.Normal] = new List<string>()
-                {
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_0.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_1.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_2.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_3.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_4.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_5.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_6.json",
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_7.json",
-                },
+                [SpinDataType.AlwaysWin] =
+                    new List<string>()
+                    {
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_0.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_1.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_2.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_3.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_4.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_5.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_6.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_7.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__win_8.json",
+                    },
+                [SpinDataType.Normal] =
+                    new List<string>()
+                    {
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_0.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_1.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_2.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_3.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_4.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_5.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__notWin.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_6.json",
+                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__normal_7.json",
+                    },
                 [SpinDataType.FreeSpin] = new List<string>()
                 {
-                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
-                    "__slot_spin__freeTrigger.json",
+                    "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__freeTrigger.json",
                     "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_0.json",
                     "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_1.json",
                     "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_2.json",
@@ -93,19 +94,9 @@ namespace FeiZhouHeiXingXing_3994
                     "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__free_8.json",
                 },
                 [SpinDataType.BonusSpin] =
-                    new List<string>()
-                    {
-                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
-                        "__slot_spin__bonusTrigger.json",
-                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
-                        "__slot_spin__jackpotTrigger.json",
-                    },
+                    new List<string>() { "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__bonusTrigger.json", "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__jackpotTrigger.json", },
                 [SpinDataType.Jackpot] =
-                    new List<string>()
-                    {
-                        "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
-                        "__slot_spin__jackpotTrigger.json",
-                    },
+                    new List<string>() { "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId + "__slot_spin__jackpotTrigger.json", },
                 [SpinDataType.BigWin] = new List<string>()
                 {
                     "Assets/HotFix/Games/Mock/Resources/g" + GameId + "_real/g" + GameId +
@@ -199,20 +190,20 @@ namespace FeiZhouHeiXingXing_3994
 
             int openType = (int)res["OpenType"];
 
-            if (ContentModel.Instance.PendingFreeSpinReconnectValidation)
-            {
-                ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
-                bool expectGiveSpin = ContentModel.Instance.FreeSpinTotalTimes > 0 &&
-                                      ContentModel.Instance.FreeSpinPlayTimes <
-                                      ContentModel.Instance.FreeSpinTotalTimes;
-                if (expectGiveSpin && openType != (int)OpenType.OT_Give)
-                {
-                    DebugUtils.LogError(
-                        $"[G3994] 免费局重连校验失败：预期赠送局 OpenType={(int)OpenType.OT_Give}，实际={openType}。已清除本地快照并回退主游戏。");
-                    FreeSpinSessionStoreG3994.Clear(SBoxModel.Instance.pid);
-                    FreeSpinSessionStoreG3994.ResetContentModelFreeStateToBaseGame();
-                }
-            }
+            // if (ContentModel.Instance.PendingFreeSpinReconnectValidation)
+            // {
+            //     ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
+            //     bool expectGiveSpin = ContentModel.Instance.FreeSpinTotalTimes > 0 &&
+            //                           ContentModel.Instance.FreeSpinPlayTimes <
+            //                           ContentModel.Instance.FreeSpinTotalTimes;
+            //     if (expectGiveSpin && openType != (int)OpenType.OT_Give)
+            //     {
+            //         DebugUtils.LogError(
+            //             $"[G3994] 免费局重连校验失败：预期赠送局 OpenType={(int)OpenType.OT_Give}，实际={openType}。已清除本地快照并回退主游戏。");
+            //         FreeSpinSessionStoreG3994.Clear(SBoxModel.Instance.pid);
+            //         FreeSpinSessionStoreG3994.ResetContentModelFreeStateToBaseGame();
+            //     }
+            // }
 
             int resultType = (int)res["ResultType"];
             int lineNum = (int)res["lineNum"];
@@ -275,14 +266,7 @@ namespace FeiZhouHeiXingXing_3994
 
                 int lineWin = GetLineOdds(symbolNumber, hitCount) * MainModel.Instance.contentMD.betmultiple;
 
-                SymbolWin sw = new SymbolWin()
-                {
-                    earnCredit = lineWin,
-                    multiplier = MainModel.Instance.contentMD.betmultiple,
-                    lineNumber = lineNumber,
-                    symbolNumber = symbolNumber,
-                    cells = cells,
-                };
+                SymbolWin sw = new SymbolWin() { earnCredit = lineWin, multiplier = MainModel.Instance.contentMD.betmultiple, lineNumber = lineNumber, symbolNumber = symbolNumber, cells = cells, };
                 winList.Add(sw);
                 totalLineWin += lineWin;
             }
@@ -323,40 +307,19 @@ namespace FeiZhouHeiXingXing_3994
             if (isJackpotMajor)
             {
                 int winCredit = (int)res["num"];
-                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
-                {
-                    name = "major",
-                    id = 1,
-                    winCredit = sBoxJackpotData.Jackpotlottery[1],
-                    whenCredit = sBoxJackpotData.JackpotOld[1],
-                    curCredit = sBoxJackpotData.JackpotOut[1],
-                });
+                jpGameRes.jpWinLst.Add(new JackpotWinInfo() { name = "major", id = 1, winCredit = sBoxJackpotData.Jackpotlottery[1], whenCredit = sBoxJackpotData.JackpotOld[1], curCredit = sBoxJackpotData.JackpotOut[1], });
             }
 
             if (isJackpotMinor)
             {
                 int winCredit = (int)res["num"];
-                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
-                {
-                    name = "minor",
-                    id = 1,
-                    winCredit = sBoxJackpotData.Jackpotlottery[1],
-                    whenCredit = sBoxJackpotData.JackpotOld[1],
-                    curCredit = sBoxJackpotData.JackpotOut[1],
-                });
+                jpGameRes.jpWinLst.Add(new JackpotWinInfo() { name = "minor", id = 1, winCredit = sBoxJackpotData.Jackpotlottery[1], whenCredit = sBoxJackpotData.JackpotOld[1], curCredit = sBoxJackpotData.JackpotOut[1], });
             }
 
             if (isJackpotMini)
             {
                 int winCredit = (int)res["num"];
-                jpGameRes.jpWinLst.Add(new JackpotWinInfo()
-                {
-                    name = "mini",
-                    id = 1,
-                    winCredit = sBoxJackpotData.Jackpotlottery[2],
-                    whenCredit = sBoxJackpotData.JackpotOld[2],
-                    curCredit = sBoxJackpotData.JackpotOut[2],
-                });
+                jpGameRes.jpWinLst.Add(new JackpotWinInfo() { name = "mini", id = 1, winCredit = sBoxJackpotData.Jackpotlottery[2], whenCredit = sBoxJackpotData.JackpotOld[2], curCredit = sBoxJackpotData.JackpotOut[2], });
             }
 
             List<int> deckRowCol = SlotTool.GetDeckRowCol(strDeckRowCol);
@@ -507,7 +470,9 @@ namespace FeiZhouHeiXingXing_3994
         private void CheckGameResult(string strDeckRowCol, int totalWin, bool isInFreeSpin)
         {
             // 解析本局游戏
-            List<List<int>> deckColRow = SlotTool.GetDeckColRow03(strDeckRowCol);
+            strDeckRowCol = isInFreeSpin ? ChangeIcon(strDeckRowCol) : strDeckRowCol;
+            List<List<int>> deckColRow = isInFreeSpin ? GetDeckColRow(strDeckRowCol) : SlotTool.GetDeckColRow03(strDeckRowCol);
+
             // 获取特殊图标
             const int bonus = 11;
             int wild = CustomModel.Instance.symbolNumber[9];
@@ -829,6 +794,144 @@ namespace FeiZhouHeiXingXing_3994
 
             return result;
         }
+
+        #region 免费数据校验方法
+
+        private string ChangeIcon(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3")
+        {
+            // 1. 解析 strDeckRowCol 为 3行×5列 的二维数组
+            string[] rows = strDeckRowCol.Split('#');
+            int rowCount = rows.Length;
+            int colCount = rows[0].Split(',').Length;
+
+            int[,] grid = new int[rowCount, colCount];
+            for (int r = 0; r < rowCount; r++)
+            {
+                string[] cols = rows[r].Split(',');
+                for (int c = 0; c < colCount; c++)
+                {
+                    grid[r, c] = int.Parse(cols[c]);
+                }
+            }
+
+            // 2. 找出所有需要被转换的位置（暂不修改 grid），从8向下逐级传播
+            // 到4为止，4不将3转为4
+            List<(int r, int c)> allChangedPositions = new List<(int, int)>();
+
+            for (int sourceValue = 8; sourceValue >= 5; sourceValue--)
+            {
+                int targetValue = sourceValue - 1;
+                HashSet<(int, int)> toUpgrade = new HashSet<(int, int)>();
+
+                for (int r = 0; r < rowCount; r++)
+                {
+                    for (int c = 0; c < colCount; c++)
+                    {
+                        if (grid[r, c] != sourceValue) continue;
+
+                        // 上
+                        if (r > 0 && grid[r - 1, c] == targetValue)
+                            toUpgrade.Add((r - 1, c));
+                        // 下
+                        if (r < rowCount - 1 && grid[r + 1, c] == targetValue)
+                            toUpgrade.Add((r + 1, c));
+                        // 左
+                        if (c > 0 && grid[r, c - 1] == targetValue)
+                            toUpgrade.Add((r, c - 1));
+                        // 右
+                        if (c < colCount - 1 && grid[r, c + 1] == targetValue)
+                            toUpgrade.Add((r, c + 1));
+                    }
+                }
+
+                // 标记升级（此时仅记录位置，不立即修改 grid，以免影响同级传播）
+                foreach (var pos in toUpgrade)
+                {
+                    if (!allChangedPositions.Contains(pos))
+                        allChangedPositions.Add(pos);
+                    grid[pos.Item1, pos.Item2] = sourceValue;
+                }
+            }
+
+            // 3. 先在转换位置播放特效，再切换图标
+            if (allChangedPositions.Count <= 0)
+            {
+                return strDeckRowCol;
+            }
+
+            List<string> rowStrings = new List<string>();
+            for (int r = 0; r < rowCount; r++)
+            {
+                List<string> colStrings = new List<string>();
+                for (int c = 0; c < colCount; c++)
+                {
+                    colStrings.Add(grid[r, c].ToString());
+                }
+
+                rowStrings.Add(string.Join(",", colStrings));
+            }
+
+            strDeckRowCol = string.Join("#", rowStrings);
+            return strDeckRowCol;
+        }
+
+        private List<List<int>> GetDeckColRow(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3")
+        {
+            string[] rows = strDeckRowCol.Split('#');
+            int rowNum = rows.Length;
+            int colNum = rows[0].Split(',').Length;
+
+            // 1. 先解析成二维数组，方便整列修改
+            int[,] matrix = new int[rowNum, colNum];
+            for (int rowIndex = 0; rowIndex < rowNum; rowIndex++)
+            {
+                string[] cols = rows[rowIndex].Split(',');
+                for (int colIndex = 0; colIndex < colNum; colIndex++)
+                {
+                    matrix[rowIndex, colIndex] = int.Parse(cols[colIndex]);
+                }
+            }
+
+            // 2. 扫描每行：跳过每行第1个元素（colIndex = 0），如果其他位置有9，标记该列
+            bool[] colToNine = new bool[colNum];
+            for (int colIndex = 1; colIndex < colNum; colIndex++) // 从1开始，跳过每行第一个
+            {
+                if (matrix[1, colIndex] == 9)
+                {
+                    colToNine[colIndex] = true;
+                }
+            }
+
+            // 3. 将标记的列全部改成9
+            for (int colIndex = 0; colIndex < colNum; colIndex++)
+            {
+                if (colToNine[colIndex])
+                {
+                    for (int rowIndex = 0; rowIndex < rowNum; rowIndex++)
+                    {
+                        matrix[rowIndex, colIndex] = 9;
+                    }
+                }
+            }
+
+
+            // 4. 按列存入 List<List<int>>（保持和你原方法一致的返回结构）
+            List<List<int>> colrowLst = new List<List<int>>();
+            for (int colIndex = 0; colIndex < colNum; colIndex++)
+            {
+                List<int> _col = new List<int>();
+                for (int rowIndex = 0; rowIndex < rowNum; rowIndex++)
+                {
+                    _col.Add(matrix[rowIndex, colIndex]);
+                }
+
+                colrowLst.Add(_col);
+            }
+
+            return colrowLst;
+        }
+
+        #endregion
 
         #region 彩金数据解析
 

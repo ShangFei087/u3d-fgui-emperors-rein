@@ -25,7 +25,7 @@ namespace FeiZhouHeiXingXing_3994
         private readonly string[] _winTypeString = { "BIG", "HUGE", "MASSIVE" };
 
         /// <summary> 每个级别Pag视频的时长 </summary>
-        private readonly float[] _pagTimes = { 3.53f, 7.1f, 11.47f };
+        private readonly float[] _pagTimes = { 3.43f, 7f, 11.37f };
 
         private long _score; // BigWin中奖得分
         private int _winIndex; // 当前中大奖索引
@@ -40,17 +40,17 @@ namespace FeiZhouHeiXingXing_3994
             base.OnInit();
 
             InitParam(null); // 因为BigWin不需要加载预制体，所以需要将InitParam在OnInit里直接调用，否则无法触发Loading中的回调，导致无法正常进入游戏
-            machineBtnClickHelper = new MachineButtonClickHelper()
-            {
-                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
-                {
-                    [MachineButtonKey.BtnSpin] = (info) =>
-                    {
-                        Debug.LogError("游戏接受到机台短按的数据：Spin");
-                        OnAniEnd(null);
-                    }
-                },
-            };
+            // machineBtnClickHelper = new MachineButtonClickHelper()
+            // {
+            //     shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+            //     {
+            //         [MachineButtonKey.BtnSpin] = (info) =>
+            //         {
+            //             Debug.LogError("游戏接受到机台短按的数据：Spin");
+            //             OnAniEnd(null);
+            //         }
+            //     },
+            // };
         }
 
         protected override void OnLanguageChange(I18nLang lang)

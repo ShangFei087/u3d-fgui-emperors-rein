@@ -38,6 +38,8 @@ namespace FeiZhouHeiXingXing_3994
         /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
         private I18nLang _boundLang;
 
+        private TimerCallback _autoClickCallback, _btnDelayCallback;
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -85,14 +87,9 @@ namespace FeiZhouHeiXingXing_3994
             if (!isInit) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-            _isClicked = false; // 重置按钮点击状态
+            _isClicked = true; // 重置按钮点击状态
 
-            _jackpotResultDic = new Dictionary<BonusResultType, GameObject>()
-            {
-                [BonusResultType.Mini] = _miniWinObj,
-                [BonusResultType.Minor] = _minorWinObj,
-                [BonusResultType.Major] = _majorWinObj,
-            };
+            _jackpotResultDic = new Dictionary<BonusResultType, GameObject>() { [BonusResultType.Mini] = _miniWinObj, [BonusResultType.Minor] = _minorWinObj, [BonusResultType.Major] = _majorWinObj, };
 
             // 获取UI组件
             _collectBtn = contentPane.GetChild("collectBtn").asButton;
@@ -138,8 +135,31 @@ namespace FeiZhouHeiXingXing_3994
             _scoreTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             _scoreTran.localRotation = Quaternion.Euler(0, 0, 0);
 
+            // 按钮延时点击
+            _collectBtn.touchable = false;
+            _btnDelayCallback = (obj) =>
+            {
+                _collectBtn.touchable = true;
+                _isClicked = false;
+                _btnDelayCallback = null;
+            };
+            Timers.inst.Add(1.333f, 1, _btnDelayCallback);
+
             _collectBtn.onClick.Clear();
             _collectBtn.onClick.Add(() => OnCollectBtnClick(null));
+
+            // 自动模式定时器
+            if (!TestManager.Instance.IsAutoModeRunning) return;
+            _autoClickCallback = (obj) =>
+            {
+                if (_collectBtn != null && isOpen)
+                {
+                    _collectBtn.onClick.Call();
+                }
+
+                _autoClickCallback = null;
+            };
+            Timers.inst.Add(3.0f, 1, _autoClickCallback);
         }
 
 

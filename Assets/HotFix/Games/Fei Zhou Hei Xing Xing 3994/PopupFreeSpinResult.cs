@@ -41,7 +41,7 @@ namespace FeiZhouHeiXingXing_3994
         private TimerCallback
             _delayCloseCallback, _delayChangePageCallback, _delayPlayFadeCallback; // 延时关闭回调 延时切换界面 延时播放过渡动画回调
 
-        private TimerCallback _autoClickCallback;
+        private TimerCallback _autoClickCallback, _btnDelayCallback;
 
         /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
         private I18nLang _boundLang;
@@ -87,7 +87,7 @@ namespace FeiZhouHeiXingXing_3994
             if (!isInit) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-            _isClicked = false;
+            _isClicked = true;
 
             // 获取UI组件
             _collectBtn = contentPane.GetChild("collectBtn").asButton;
@@ -142,6 +142,16 @@ namespace FeiZhouHeiXingXing_3994
             _scoreTran.localPosition = new Vector3(0.58f, 4.17f, 0f);
             _scoreTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             _scoreTran.localRotation = Quaternion.Euler(0, 0, 270);
+            
+            // 按钮延时点击
+            _collectBtn.touchable = false;
+            _btnDelayCallback = (obj) =>
+            {
+                _collectBtn.touchable = true;
+                _isClicked = false;
+                _btnDelayCallback = null;
+            };
+            Timers.inst.Add(1.333f, 1, _btnDelayCallback);
 
             // 按钮点击事件
             _collectBtn.onClick.Clear();
