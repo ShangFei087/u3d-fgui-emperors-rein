@@ -27,6 +27,7 @@
     <component id="n7_e3wa" name="panel" src="z14g7x" fileName="components/gameMain/AnchorPanelPush.xml" xy="0,0"/>
     <component id="n90_g9kd" name="anchorFadePag" src="g9kd9r" fileName="components/anchorPag.xml" xy="539,959" touchable="false"/>
     <component id="n100_ko7z" name="anchorZhuaZi" src="g9kd9s" fileName="components/anchorCom.xml" xy="534,676"/>
+    <component id="n101_nzt4" name="anchorRoar" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,959"/>
     <component id="n98_ko7z" name="anchorFadeFreeGame" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,959"/>
     <component id="n99_ko7z" name="anchorFadeSmallGame" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,959"/>
   </displayList>

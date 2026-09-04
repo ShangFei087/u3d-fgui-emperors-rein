@@ -50,8 +50,6 @@ namespace MeiZhouHeiBao_3993
         public new const string pkgName = "MeiZhouHeiBao";
         /// <summary>主界面组件名。</summary>
         public new const string resName = "PageGameMain";
-        /// <summary>PAG 资源目录（相对 Streaming/AB）。</summary>
-        private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
         /// <summary>预制体根路径。</summary>
         private const string PrefabPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs";
 
@@ -157,16 +155,14 @@ namespace MeiZhouHeiBao_3993
         private int _speedUpTargetCol = -1;
         /// <summary>加速框跟随协程。</summary>
         private Coroutine _corEffectSlowMotion;
-        /// <summary>全屏 PAG：爪子、咆哮共用（过场已改 Spine）。</summary>
-        private PagSlotBinding pagFade;
-        /// <summary>全屏 PAG 挂点。</summary>
-        GComponent anchorNormalFadeFree;
-        /// <summary>进局假播 PAG，把 GPU 纹理建在 pagFade 槽上。</summary>
-        private Coroutine _corWarmupPagFade;
-        /// <summary>pagFade 槽已完成一次 GPU 建纹理。</summary>
-        private bool _pagFadeGpuWarmed;
-        /// <summary>假播进行中；正式 Play 会清掉，避免假播结束时停掉真咆哮。</summary>
-        private bool _pagFadeWarming;
+        /// <summary>咆哮 Spine 预制体。</summary>
+        private GameObject goRoar;
+        /// <summary>咆哮挂点。</summary>
+        private GComponent anchorRoar;
+        /// <summary>咆哮实例。</summary>
+        private GameObject clonegoRoar;
+        /// <summary>咆哮播放器。</summary>
+        private AnimPlayer _animRoar;
         /// <summary>免费过场 Spine 预制体。</summary>
         private GameObject goFadeFreeGame;
         /// <summary>大奖过场 Spine 预制体。</summary>
@@ -255,12 +251,6 @@ namespace MeiZhouHeiBao_3993
         private GComponent anchorZhuaZi;
         /// <summary>大奖爪子实例。</summary>
         private GameObject clonegoZhuazi;
-        /// <summary>中爪 PAG。</summary>
-        private const string PagZhuaziZhong = "eff_zhuazi_bmp/eff_zhuazi_zhong";
-        /// <summary>咆哮 PAG，进局假播用（与大奖收集同一文件）。</summary>
-        private const string PagRoar = "ng_Roar/ng_Roar";
-        /// <summary>假播等到 GPU 就绪的超时。</summary>
-        private const float PagFadeGpuWarmupTimeout = 3f;
 
         protected override void OnInit()
         {
@@ -268,7 +258,7 @@ namespace MeiZhouHeiBao_3993
             base.OnInit();
 
             // ---------- 1. 加载common,普通游戏,免费游戏,彩金游戏预制体到内存 ----------
-            _totalCount = 14;
+            _totalCount = 15;
             if (UIPackage.GetByName("Common") == null)
             {
                 ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/Common/FGUIs", (bundle) =>
@@ -374,6 +364,12 @@ namespace MeiZhouHeiBao_3993
               (GameObject clone) =>
               {
                   goZhuazi = clone;
+                  ResLoadedCallback();
+              });
+            ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath + "/Effect/Eff_Roar.prefab",
+              (GameObject clone) =>
+              {
+                  goRoar = clone;
                   ResLoadedCallback();
               });
 
@@ -588,13 +584,20 @@ namespace MeiZhouHeiBao_3993
             }
 
             //---------- 8.特效功能制作 -----------------
-            //免费游戏
-            anchorNormalFadeFree = contentPane.GetChild("anchorFadePag").asCom;
-            if (pagFade == null)
-                pagFade = new PagSlotBinding("3993PagFade", PagPath);
-            pagFade.EnsureSlot(anchorNormalFadeFree);
-            _rewardMgr?.SetRoarPag(pagFade, ReleasePagFadeGpuWarmup);
-            StartPagFadeGpuWarmup();
+            GComponent localRoar = contentPane.GetChild("anchorRoar") as GComponent;
+            if (localRoar != null && goRoar != null
+                && (anchorRoar != localRoar || _animRoar == null))
+            {
+                _animRoar?.DetachAll();
+                GameCommon.FguiUtils.DeleteWrapper(anchorRoar);
+                clonegoRoar = Object.Instantiate(goRoar);
+                clonegoRoar.SetActive(false);
+                anchorRoar = localRoar;
+                GameCommon.FguiUtils.AddWrapper(anchorRoar, clonegoRoar);
+                _animRoar = new AnimPlayer(clonegoRoar);
+                SetAnchorSpineVisible(anchorRoar, false);
+            }
+            _rewardMgr?.SetRoarSpine(anchorRoar, _animRoar);
 
             GComponent localFadeFreeGame = contentPane.GetChild("anchorFadeFreeGame") as GComponent;
             if (localFadeFreeGame != null && goFadeFreeGame != null
@@ -694,10 +697,7 @@ namespace MeiZhouHeiBao_3993
             StopHideFade();
             HideFadeSpines();
             SetAnchorSpineVisible(anchorZhuaZi, false);
-            StopPagFadeGpuWarmup();
-            pagFade?.Dispose();
-            pagFade = null;
-            _pagFadeGpuWarmed = false;
+            SetAnchorSpineVisible(anchorRoar, false);
             _animNormalNpc?.DetachAll();
             _animNormalNpc = null;
             if (_monoHelper != null)
@@ -710,11 +710,10 @@ namespace MeiZhouHeiBao_3993
 
         protected override void OnLanguageChange(I18nLang lang)
         {
-            StopPagFadeGpuWarmup();
-            pagFade?.StopWithDefaults();
             StopHideFade();
             HideFadeSpines();
             SetAnchorSpineVisible(anchorZhuaZi, false);
+            SetAnchorSpineVisible(anchorRoar, false);
             // PageBase.OnChangeLanguageBase 已 Dispose 并重建 contentPane，这里不要再拆一次。
             // 关着页时不 Init：底部 Panel 当时 inactive，绑不上新 gOwnerPanel。
             if (!isOpen)
@@ -1504,12 +1503,10 @@ namespace MeiZhouHeiBao_3993
         private IEnumerator PlayPantherWin()
         {
             _notHitSpinCount = 0;
-            //npc,中奖图标,pag一起播
-            //yield return PlayPantherZhuaziPag();
-            // GameSoundHelper3993.Instance.PlaySoundEff(SoundKey.BonusWin);
-            //播放图标特效
+            yield return _slotMachineController.SlotWaitForSeconds(0.7f);
             _slotMachineController.ShowPantherWinHit();
-            yield return _slotMachineController.SlotWaitForSeconds(1.0f);
+            yield return _rewardMgr.PlayZhuaziZhong();
+           
 
             //创建并且移动拖尾
             List<Cell> bonusCells = _slotMachineController.GetVisibleCellsBySymbol(NpcBonusSymbolId);
@@ -1601,93 +1598,6 @@ namespace MeiZhouHeiBao_3993
                 if (renderers[i] != null)
                     renderers[i].enabled = visible;
             }
-        }
-
-        /// <summary>进局对 pagFade 假播咆哮，建好 GPU 纹理；Stop 不拆纹理，正式咆哮可复用。</summary>
-        private void StartPagFadeGpuWarmup()
-        {
-            if (_pagFadeGpuWarmed || _pagFadeWarming || pagFade == null || _monoHelper == null)
-                return;
-            if (!PagUnityGlBridge.IsSupported)
-                return;
-            if (_corWarmupPagFade != null)
-                return;
-
-            _corWarmupPagFade = _monoHelper.StartCoroutine(WarmupPagFadeGpu());
-        }
-
-        /// <summary>假播：藏挂点、等 GPU 就绪、停播。正式咆哮会 Release，避免这里把真片停掉。</summary>
-        private IEnumerator WarmupPagFadeGpu()
-        {
-            _pagFadeWarming = true;
-            if (anchorNormalFadeFree != null)
-                anchorNormalFadeFree.visible = false;
-
-            bool started = pagFade != null && pagFade.Play(new PagSequencePlay(
-                new[] { new PagSegment(PagRoar, 1) },
-                PagPlayLayout.Center,
-                PagPresentationDefaults.DisplayScale,
-                useGpuSyncGroup: false));
-
-            if (started && pagFade?.Controller != null)
-                yield return pagFade.Controller.WaitForGpuDisplayReady(PagFadeGpuWarmupTimeout);
-
-            if (_pagFadeWarming)
-            {
-                pagFade?.StopWithDefaults();
-                _pagFadeGpuWarmed = true;
-            }
-
-            if (anchorNormalFadeFree != null)
-                anchorNormalFadeFree.visible = true;
-
-            _pagFadeWarming = false;
-            _corWarmupPagFade = null;
-        }
-
-        /// <summary>正式 Play 抢槽：假播不再 Stop。</summary>
-        private void ReleasePagFadeGpuWarmup()
-        {
-            _pagFadeWarming = false;
-            _pagFadeGpuWarmed = true;
-        }
-
-        /// <summary>关页/切语言打断假播，并恢复挂点显隐。</summary>
-        private void StopPagFadeGpuWarmup()
-        {
-            _pagFadeWarming = false;
-            if (_monoHelper != null && _corWarmupPagFade != null)
-                _monoHelper.StopCoroutine(_corWarmupPagFade);
-            _corWarmupPagFade = null;
-            if (anchorNormalFadeFree != null)
-                anchorNormalFadeFree.visible = true;
-        }
-
-        /// <summary>爪子 PAG</summary>
-        private IEnumerator PlayPantherZhuaziPag()
-        {
-            if (pagFade == null) yield break;
-
-            bool finished = false;
-            pagFade.StopWithDefaults();
-            bool started = pagFade.Play(new PagSequencePlay(
-                new[]
-                {
-                    new PagSegment(PagZhuaziZhong, 1),
-                },
-                PagPlayLayout.Center,
-                PagPresentationDefaults.DisplayScale,
-                useGpuSyncGroup: false,
-                callbacks: new PagPlayCallbacks(
-                onFinished: () =>
-                {
-                    pagFade?.StopWithDefaults();
-                },
-                onFailed: () => finished = true,
-                stopAfterFinished: true)));
-            finished = true;
-            if (!started) yield break;
-            yield return new WaitUntil(() => finished);
         }
         #endregion
 

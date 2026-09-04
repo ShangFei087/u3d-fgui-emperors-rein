@@ -17,12 +17,12 @@ namespace MeiZhouHeiBao_3993
         public new const string resName = "PopupGameLoading";
         /// <summary>PAG 资源目录。</summary>
         private const string GamePagFolder = "Games/Mei Zhou Hei Bao 3993/Pag";
-        /// <summary>Loading 预热： Pag </summary>
+        /// <summary>Loading 预热： Pag（中爪/咆哮已改 Spine，无剩余 PAG）。</summary>
         private static readonly string[] PagPreloadFiles =
         {
             // 大奖收集左右爪 PAG 已关
             // "eff_zhuazi_bmp/eff_zhuazi_you.pag",
-            "eff_zhuazi_bmp/eff_zhuazi_zhong.pag",
+            // "eff_zhuazi_bmp/eff_zhuazi_zhong.pag",
             // "eff_zhuazi_bmp/eff_zhuazi_zuo.pag",
 
             // 免费/大奖/彩金弹窗 PAG 已删，只留 Spine
@@ -54,7 +54,7 @@ namespace MeiZhouHeiBao_3993
             // "ng_pop_bigwin/SuperWin_bmp.pag",
             // "ng_pop_bigwin/MegaWin_bmp.pag",
 
-            "ng_Roar/ng_Roar.pag",
+            // "ng_Roar/ng_Roar.pag",
 
             // "Transition_JPTONG-out_bmp/Transition_JPTONG-out_bmp.pag",
         };
@@ -176,10 +176,19 @@ namespace MeiZhouHeiBao_3993
 
             RefreshLoadingProgressVisual();
 
-            _pagPreloadTotal = PagPreloadFiles.Length;
-            _pagPreloadCompleted = 0;
-            _pagPreloadFinished = false;
-            StartPagPreloadInBackground();  // 与 PageManager.PreloadPage 并行：利用 Loading 窗口预热 PAG 磁盘缓存与 composition
+            if (PagPreloadFiles.Length == 0)
+            {
+                _pagPreloadTotal = 1;
+                _pagPreloadCompleted = 1;
+                _pagPreloadFinished = true;
+            }
+            else
+            {
+                _pagPreloadTotal = PagPreloadFiles.Length;
+                _pagPreloadCompleted = 0;
+                _pagPreloadFinished = false;
+                StartPagPreloadInBackground();
+            }
 
             _preloadCompleted = 0;
             _preloadTotal = PagesPreload.Length;
