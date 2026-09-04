@@ -95,17 +95,26 @@ namespace HuoYanGongNiu_3995
             if(resultType == (int)ResultType.RT_FreeWin)
             {
                 result["TotalFreeTime"] = data[pos++];
+                int totalFreeTime = int.Parse(result["TotalFreeTime"]);
                 result["TotalFreeBet"] = data[pos++];
 
                 int wheelLength = data[pos++];
                 result["WheelTimes"] = wheelLength;
                 Debug.LogError(wheelLength);
+
+                for (int i = 0; i < totalFreeTime; i++)
+                {
+                    int id = data[pos++];
+                    result["FreeBetArray"].Add(id);
+                }
+
                 result["WheelData"] = new JSONArray();
                 for(int i = 0; i < wheelLength; i++)
                 {
                     int id = data[pos++];
                     result["WheelData"].Add(id);
                 }
+
             }
 
             if(resultType == (int)ResultType.RT_BonusWin || resultType == (int)ResultType.RT_Jackpot)

@@ -3,6 +3,8 @@
   <displayList>
     <graph id="n0_10wif" name="mask" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#cc333333"/>
     <component id="n2_10wif" name="anchorPag" src="10wifbi" fileName="component/gameNormal/AnchorPag.xml" xy="540,960" pivot="0.5,0.5" anchor="true"/>
+    <component id="n4_jrsi" name="anchorEff" src="jrsifcd" fileName="component/gameBigWin/Anchor.xml" xy="540,960"/>
+    <component id="n3_jrsi" name="anchorSpine" src="jrsifcd" fileName="component/gameBigWin/Anchor.xml" xy="540,960"/>
     <text id="n1_10wif" name="score" xy="540,1330" pivot="0.5,0.5" anchor="true" size="1079,164" font="ui://x2aorbwjxrp24h" fontSize="25" align="center" vAlign="middle" letterSpacing="-35" autoSize="none" text="99999"/>
   </displayList>
 </component>

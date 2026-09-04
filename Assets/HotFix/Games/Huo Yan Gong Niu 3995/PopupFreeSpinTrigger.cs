@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using SlotMaker;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,6 +26,9 @@ namespace HuoYanGongNiu_3995
         private GComponent anchorBg, anchorEff;
         private GButton btnStart;
         private GTextField timeImage;
+
+        private const float AutoModeSimulateClickDelaySeconds = 3f;
+        private TimerCallback _autoModeSimulatedClick;
 
         ////Pag播放
         private const string GamePagFolder = "Games/Huo Yan Gong Niu 3995/Pag/fg_pup_Collect_bmp";
@@ -62,6 +66,24 @@ namespace HuoYanGongNiu_3995
                     anchorEffPre = clone;
                     callback();
                 });
+
+            machineBtnClickHelper = new MachineButtonClickHelper()
+            {
+                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+                {
+                    [MachineButtonKey.BtnSpin] = (info) =>
+                    {
+                        if (PanelBaseController.ShouldBlockPhysicalSpinInput)
+                        {
+                            return;
+                        }
+
+                        Debug.LogError("游戏接受到机台短按的数据：Spin");
+                        EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false); // isLongClick
+                        OnBtnStartClick();
+                    },
+                }
+            };
         }
 
 
@@ -86,6 +108,7 @@ namespace HuoYanGongNiu_3995
             if (data != null) _data = data;
 
             if (!isInit) return;
+            CancelAutoModeSimulatedClick();
 
             btnStart = this.contentPane.GetChild("startBtn").asButton;
             timeImage = contentPane.GetChild("times").asTextField;
@@ -134,6 +157,12 @@ namespace HuoYanGongNiu_3995
             {
                 btnStart.touchable = true;
             });
+
+            AddTimer(1.5f, (object obj) =>
+            {
+                ScheduleAutoModeSimulatedClick(btnStart, () => isClose);
+            });
+
         }
 
         private void EnsureMainPagSlot()
@@ -222,6 +251,7 @@ namespace HuoYanGongNiu_3995
         // 终止所有后续步骤（条件不满足时调用）
         private void StopAll()
         {
+            CancelAutoModeSimulatedClick();
             // 移除所有未执行的定时器
             foreach (var timer in _activeTimers)
             {
@@ -241,6 +271,44 @@ namespace HuoYanGongNiu_3995
                 t.localPosition = new Vector3(xDistance, yDistance, 0);
                 t.localScale = new Vector3(0.01f, 0.01f, 1);
             }
+        }
+
+        private void ScheduleAutoModeSimulatedClick(GButton target, Func<bool> skipWhenTrue)
+        {
+            CancelAutoModeSimulatedClick();
+            if (!TestManager.Instance.IsAutoModeRunning || target == null)
+                return;
+
+            _autoModeSimulatedClick = (obj) =>
+            {
+                try
+                {
+                    if (skipWhenTrue != null && skipWhenTrue())
+                        return;
+                    if (target != null && contentPane != null && contentPane.visible)
+                        target.onClick.Call();
+                }
+                finally
+                {
+                    var cb = _autoModeSimulatedClick;
+                    if (cb != null)
+                    {
+                        Timers.inst.Remove(cb);
+                        _activeTimers.Remove(cb);
+                        _autoModeSimulatedClick = null;
+                    }
+                }
+            };
+            _activeTimers.Add(_autoModeSimulatedClick);
+            Timers.inst.Add(AutoModeSimulateClickDelaySeconds, 1, _autoModeSimulatedClick);
+        }
+
+        private void CancelAutoModeSimulatedClick()
+        {
+            if (_autoModeSimulatedClick == null) return;
+            Timers.inst.Remove(_autoModeSimulatedClick);
+            _activeTimers.Remove(_autoModeSimulatedClick);
+            _autoModeSimulatedClick = null;
         }
     }
 }

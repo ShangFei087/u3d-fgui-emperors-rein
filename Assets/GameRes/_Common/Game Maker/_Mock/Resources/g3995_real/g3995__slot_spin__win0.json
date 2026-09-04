@@ -1,13 +1,13 @@
 {
 	"OpenType":0,
 	
-	"ResultType":0,
+	"ResultType":1,
 	
-	"lineNum":0,
+	"lineNum":1,
 	
-	"TotalBet":0,
+	"TotalBet":1000,
 	
-	"IDVec":[],
+	"IDVec":[1309],
 	
 	"Matrix":[2,1,5,0,6,12,2,3,3,4,5,7,3,5,3],
 	
