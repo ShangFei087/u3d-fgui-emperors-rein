@@ -42,7 +42,7 @@ namespace FeiZhouHeiXingXing_3994
 
         private Action _changePage; // 切换游戏界面的回调
 
-        private TimerCallback _autoClickCallback;
+        private TimerCallback _autoClickCallback, _btnDelayCallback;
 
         /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
         private I18nLang _boundLang;
@@ -83,7 +83,7 @@ namespace FeiZhouHeiXingXing_3994
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
 
-            _isClicked = false;
+            _isClicked = true;
 
             // 获取UI组件
             _startBtn = contentPane.GetChild("startBtn").asButton;
@@ -122,6 +122,16 @@ namespace FeiZhouHeiXingXing_3994
             _startBtnTran.localPosition = new Vector3(0.98f, 2.03f, 0.01f);
             _startBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             _startBtnTran.localRotation = Quaternion.Euler(0, 0, -92);
+            
+            // 按钮延时点击
+            _startBtn.touchable = false;
+            _btnDelayCallback = (obj) =>
+            {
+                _startBtn.touchable = true;
+                _isClicked = false;
+                _btnDelayCallback = null;
+            };
+            Timers.inst.Add(1.333f, 1, _btnDelayCallback);
 
             // 按钮点击事件
             _startBtn.onClick.Clear();
