@@ -161,13 +161,15 @@ namespace HuoYanGongNiu_3995
             if (!isOpen) return;
             ExecuteNextStep();
 
-            if (ContentModel.Instance.isAuto)
-            {
-                AddTimer(1f, (object obj) =>
-                {
-                    SpinDown();
-                });
-            }
+            //if (ContentModel.Instance.isAuto)
+            //{
+            //    AddTimer(1f, (object obj) =>
+            //    {
+            //        SpinDown();
+            //    });
+            //}
+
+
         }
 
         private void EnsureMainPagSlot()

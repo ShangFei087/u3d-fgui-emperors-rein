@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: NPC_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: ea38c24b679806b49a47d85c874e4447, type: 2}
+  - {fileID: 11400000, guid: 07baf36df17881049be1cd7ff71af5e3, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: 24e6f7798fc7172469acbc32db19810a, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: 81b581a60981a644496e0e2c370758b7, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 9100000, guid: 51ea2a5001bf80a488fbbb88f678ee45, type: 2}
+  controller: {fileID: 9100000, guid: a7b100655b3efc141bde795dd3ee8747, type: 2}

@@ -22,7 +22,6 @@
     <image id="s82ql" name="db_txt_SPIN .png" path="/images/panel/SpinBtn/" exported="true"/>
     <component id="s82qm" name="ButtonSpin.xml" path="/modules/panel/" exported="true"/>
     <component id="s82q9s" name="AnchorSpin.xml" path="/modules/panel/" exported="true"/>
-    <image id="s82qn" name="circle_24.png" path="/images/panel/SpinBtn/" exported="true"/>
     <component id="s82qo" name="UntouchCircle24.xml" path="/modules/panel/" exported="true"/>
     <image id="s82qq" name="ng_btn_Down_arrow.png" path="/images/panel/ExhibitionPanel/" exported="true"/>
     <image id="s82qr" name="ng_Exhibition _Mode_Off.png" path="/images/panel/ExhibitionPanel/" exported="true"/>
@@ -56,6 +55,7 @@
     <component id="s82q1n" name="BtnBackGame.xml" path="/modules/panel/Instructions/" exported="true"/>
     <component id="s82q1o" name="Introduce.xml" path="/modules/panel/Instructions/" exported="true"/>
     <component id="lkob9t" name="ButtonCol.xml" path="/modules/panel/Exhibition/" exported="true"/>
+    <image id="jrsi9u" name="circle_24.png" path="/images/panel/SpinBtn/" exported="true"/>
   </resources>
   <publish name="" path="E:\GitHub\u3d-fgui-emperors-rein\Assets\GameRes\Panel\Panel3995\FGUIs" packageCount="2"/>
 </packageDescription>

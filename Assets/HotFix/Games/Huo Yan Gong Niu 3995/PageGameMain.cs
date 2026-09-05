@@ -158,6 +158,8 @@ namespace HuoYanGongNiu_3995
         /// <summary>是否已向 PageManager 派发过 preLoadedCallback。</summary>
         private bool _hasNotifiedPagePreloaded;
 
+        private bool _isStopButtonLocked;
+
         ////Pag播放
         //private const string GamePagFolder = "Games/Huo Yan Gong Niu 3995/Pag/jp_huoshan_bmp";
         //private PagSlotBinding effectPag;
@@ -418,11 +420,13 @@ namespace HuoYanGongNiu_3995
                 case SpinButtonState.Stop:
                     {
                         if (ContentModel.Instance.isSpin) return; // 已经开始玩直接退出
+                        UnlockStopButton();
 
                         ContentModel.Instance.isSpin = true;
 
                         Action successCallback = () =>
                         {
+                            UnlockStopButton();
                             DebugUtils.Log("游戏结束");
                             ContentModel.Instance.isSpin = false;
                             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
@@ -445,7 +449,7 @@ namespace HuoYanGongNiu_3995
 
                             ContentModel.Instance.isAuto = true;
                             ContentModel.Instance.btnSpinState = SpinButtonState.Auto;
-
+                            LockStopButton();
                             StartGameAuto(successCallback, StopGameWhenError); //自动玩
                         }
                         else
@@ -1031,6 +1035,7 @@ namespace HuoYanGongNiu_3995
             bool isNext = false;
             bool isBreak = false;
             string errMsg = "";
+            tempWin = 0;
 
             //模拟结果
             if (ApplicationSettings.Instance.isMock)
@@ -2431,7 +2436,7 @@ namespace HuoYanGongNiu_3995
             // ================================
             // 阶段3：匀减速 → 但最后自动对齐
             // ================================
-            float remainingRotation = totalRotation - rotated;
+            float remainingRotation = Math.Abs(totalRotation - rotated);
             float startSpeed = speed;
             float deceleration = (startSpeed * startSpeed) / (2 * remainingRotation);
 
@@ -3015,6 +3020,34 @@ namespace HuoYanGongNiu_3995
             yield return new WaitUntil(() => isFinish);
             yield return new WaitForSeconds(0.5f);
 
+        }
+
+        private void LockStopButton()
+        {
+            if (_isStopButtonLocked)
+            {
+                return;
+            }
+
+            _isStopButtonLocked = true;
+            if (MainModel.Instance.panel is PanelBaseController panelBaseController)
+            {
+                panelBaseController.SetSpinButtonLocked(true);
+            }
+        }
+
+        private void UnlockStopButton()
+        {
+            if (!_isStopButtonLocked)
+            {
+                return;
+            }
+
+            _isStopButtonLocked = false;
+            if (MainModel.Instance.panel is PanelBaseController panelBaseController)
+            {
+                panelBaseController.SetSpinButtonLocked(false);
+            }
         }
     }
 }
