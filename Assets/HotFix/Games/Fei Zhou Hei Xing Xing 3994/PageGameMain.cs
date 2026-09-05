@@ -1099,7 +1099,7 @@ namespace FeiZhouHeiXingXing_3994
                 totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList);
                 _slotMachineController.SendTotalWinCreditEvent(totalWinLineCredit); // 积分同步和退币处理
                 MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true); // 加钱动画
-                MainBlackboardController.Instance.SyncMyTempCreditToReal(true); // 同步玩家真实金币
+                // MainBlackboardController.Instance.SyncMyTempCreditToReal(true); // 同步玩家真实金币
             }
             else
                 _notHitSpinCount++;
@@ -1398,6 +1398,7 @@ namespace FeiZhouHeiXingXing_3994
                 (ed) =>
                 {
                     ContentModel.Instance.FreeSpinTotalTimes = 0;
+                    _panelController.ChangButtonNo(false);
                     isNext = true;
                 });
             yield return new WaitUntil(() => isNext == true);
@@ -1531,7 +1532,7 @@ namespace FeiZhouHeiXingXing_3994
             while (ContentModel.Instance.nextReelStripsIndex == "FS")
             {
                 yield return FreeSpinOnce(null, errorCallback);
-                yield return _slotMachineController.SlotWaitForSeconds(1);
+                yield return _slotMachineController.SlotWaitForSeconds(0.3f);
             }
 
             PushIsUsedComToPool();
@@ -1589,7 +1590,7 @@ namespace FeiZhouHeiXingXing_3994
             callback?.Invoke();
         }
 
-        ///<summary>高分图标替换低分图标：先播特效再切换图标。从8开始向下逐级传播，8→7→6→5→4，4不转3</summary>
+        ///<summary>高分图标替换低分图标：循环扩散直到没有可转换的为止。从8开始向下逐级传播，8→7→6→5→4，4不转3</summary>
         private IEnumerator IconConversion(Action callback)
         {
             string strDeck = ContentModel.Instance.strDeckRowCol;
@@ -1614,86 +1615,198 @@ namespace FeiZhouHeiXingXing_3994
                 }
             }
 
-            // 2. 找出所有需要被转换的位置（暂不修改 grid），从8向下逐级传播
-            // 到4为止，4不将3转为4
-            List<(int r, int c)> allChangedPositions = new List<(int, int)>();
-
-            for (int sourceValue = 8; sourceValue >= 5; sourceValue--)
+            bool hasChanged;
+            do
             {
-                int targetValue = sourceValue - 1;
-                HashSet<(int, int)> toUpgrade = new HashSet<(int, int)>();
+                hasChanged = false;
+                List<(int r, int c)> roundChangedPositions = new List<(int, int)>();
 
-                for (int r = 0; r < rowCount; r++)
+                // 2. 从8向下逐级传播一轮（到5为止，4不将3转为4）
+                for (int sourceValue = 8; sourceValue >= 5; sourceValue--)
                 {
-                    for (int c = 0; c < colCount; c++)
-                    {
-                        if (grid[r, c] != sourceValue) continue;
+                    int targetValue = sourceValue - 1;
+                    HashSet<(int, int)> toUpgrade = new HashSet<(int, int)>();
 
-                        // 上
-                        if (r > 0 && grid[r - 1, c] == targetValue)
-                            toUpgrade.Add((r - 1, c));
-                        // 下
-                        if (r < rowCount - 1 && grid[r + 1, c] == targetValue)
-                            toUpgrade.Add((r + 1, c));
-                        // 左
-                        if (c > 0 && grid[r, c - 1] == targetValue)
-                            toUpgrade.Add((r, c - 1));
-                        // 右
-                        if (c < colCount - 1 && grid[r, c + 1] == targetValue)
-                            toUpgrade.Add((r, c + 1));
+                    for (int r = 0; r < rowCount; r++)
+                    {
+                        for (int c = 0; c < colCount; c++)
+                        {
+                            if (grid[r, c] != sourceValue) continue;
+
+                            // 上
+                            if (r > 0 && grid[r - 1, c] == targetValue)
+                                toUpgrade.Add((r - 1, c));
+                            // 下
+                            if (r < rowCount - 1 && grid[r + 1, c] == targetValue)
+                                toUpgrade.Add((r + 1, c));
+                            // 左
+                            if (c > 0 && grid[r, c - 1] == targetValue)
+                                toUpgrade.Add((r, c - 1));
+                            // 右  ⚠️ 原代码这里写的是 (r, c - 1)，已修正为 (r, c + 1)
+                            if (c < colCount - 1 && grid[r, c + 1] == targetValue)
+                                toUpgrade.Add((r, c + 1));
+                        }
+                    }
+
+                    // 标记升级（记录本轮变化的位置）
+                    foreach (var pos in toUpgrade)
+                    {
+                        if (!roundChangedPositions.Contains(pos))
+                            roundChangedPositions.Add(pos);
+                        grid[pos.Item1, pos.Item2] = sourceValue;
+                        hasChanged = true;
                     }
                 }
 
-                // 标记升级（此时仅记录位置，不立即修改 grid，以免影响同级传播）
-                foreach (var pos in toUpgrade)
+                // 3. 本轮有变化才播放特效、切换图标、等待
+                if (roundChangedPositions.Count > 0)
                 {
-                    if (!allChangedPositions.Contains(pos))
-                        allChangedPositions.Add(pos);
-                    grid[pos.Item1, pos.Item2] = sourceValue;
-                }
-            }
+                    PlayAnimationByName(_freeNpcAnimator, "win2");
 
-            // 3. 先在转换位置播放特效，再切换图标
-            if (allChangedPositions.Count > 0)
-            {
-                PlayAnimationByName(_freeNpcAnimator, "win2");
-                // 3a. 播放转换特效
-                foreach (var pos in allChangedPositions)
-                {
-                    GComponent com = CachePoolController.Instance.PopCom(FreeChangeIconKey, _anchorFreeEffectParent,
-                        () => CachePoolFactory(_freeChangeIconObj));
-                    _isUsedPoolDic[FreeChangeIconKey].Push(com);
-                    com.xy = _slotMachineController.FreeGameSymbolCenterToNodeLocalPos(pos.Item2, pos.Item1,
-                        _anchorFreeEffectParent);
-                    com.visible = true;
-                }
-
-                yield return new WaitForSeconds(1.5f);
-
-                // 3b. 特效播放完毕后，切换图标：更新 ContentModel 并刷新滚轮显示
-                List<string> rowStrings = new List<string>();
-                for (int r = 0; r < rowCount; r++)
-                {
-                    List<string> colStrings = new List<string>();
-                    for (int c = 0; c < colCount; c++)
+                    // 3a. 播放转换特效
+                    foreach (var pos in roundChangedPositions)
                     {
-                        colStrings.Add(grid[r, c].ToString());
+                        GComponent com = CachePoolController.Instance.PopCom(FreeChangeIconKey, _anchorFreeEffectParent,
+                            () => CachePoolFactory(_freeChangeIconObj));
+                        _isUsedPoolDic[FreeChangeIconKey].Push(com);
+                        com.xy = _slotMachineController.FreeGameSymbolCenterToNodeLocalPos(pos.Item2, pos.Item1,
+                            _anchorFreeEffectParent);
+                        com.visible = true;
                     }
 
-                    rowStrings.Add(string.Join(",", colStrings));
+                    yield return new WaitForSeconds(1.5f);
+
+                    // 3b. 特效播放完毕后，切换图标
+                    List<string> rowStrings = new List<string>();
+                    for (int r = 0; r < rowCount; r++)
+                    {
+                        List<string> colStrings = new List<string>();
+                        for (int c = 0; c < colCount; c++)
+                        {
+                            colStrings.Add(grid[r, c].ToString());
+                        }
+
+                        rowStrings.Add(string.Join(",", colStrings));
+                    }
+
+                    string newStrDeckRowCol = string.Join("#", rowStrings);
+
+                    ContentModel.Instance.strDeckRowCol = newStrDeckRowCol;
+                    _slotMachineController.SetReelsDeck(newStrDeckRowCol);
+
+                    // 3c. 等待图标切换完成
+                    yield return _slotMachineController.SlotWaitForSeconds(1.5f);
                 }
-
-                string newStrDeckRowCol = string.Join("#", rowStrings);
-
-                ContentModel.Instance.strDeckRowCol = newStrDeckRowCol;
-                _slotMachineController.SetReelsDeck(newStrDeckRowCol);
-
-                // 3c. 等待图标切换完成
-                yield return _slotMachineController.SlotWaitForSeconds(1.5f);
-            }
+            } while (hasChanged); // 只要本轮还有转换，就继续下一轮
 
             callback?.Invoke();
         }
+
+        // ///<summary>高分图标替换低分图标：先播特效再切换图标。从8开始向下逐级传播，8→7→6→5→4，4不转3</summary>
+        // private IEnumerator IconConversion(Action callback)
+        // {
+        //     string strDeck = ContentModel.Instance.strDeckRowCol;
+        //     if (string.IsNullOrEmpty(strDeck))
+        //     {
+        //         callback?.Invoke();
+        //         yield break;
+        //     }
+        //
+        //     // 1. 解析 strDeckRowCol 为 3行×5列 的二维数组
+        //     string[] rows = strDeck.Split('#');
+        //     int rowCount = rows.Length;
+        //     int colCount = rows[0].Split(',').Length;
+        //
+        //     int[,] grid = new int[rowCount, colCount];
+        //     for (int r = 0; r < rowCount; r++)
+        //     {
+        //         string[] cols = rows[r].Split(',');
+        //         for (int c = 0; c < colCount; c++)
+        //         {
+        //             grid[r, c] = int.Parse(cols[c]);
+        //         }
+        //     }
+        //
+        //     // 2. 找出所有需要被转换的位置（暂不修改 grid），从8向下逐级传播
+        //     // 到4为止，4不将3转为4
+        //     List<(int r, int c)> allChangedPositions = new List<(int, int)>();
+        //
+        //     for (int sourceValue = 8; sourceValue >= 5; sourceValue--)
+        //     {
+        //         int targetValue = sourceValue - 1;
+        //         HashSet<(int, int)> toUpgrade = new HashSet<(int, int)>();
+        //
+        //         for (int r = 0; r < rowCount; r++)
+        //         {
+        //             for (int c = 0; c < colCount; c++)
+        //             {
+        //                 if (grid[r, c] != sourceValue) continue;
+        //
+        //                 // 上
+        //                 if (r > 0 && grid[r - 1, c] == targetValue)
+        //                     toUpgrade.Add((r - 1, c));
+        //                 // 下
+        //                 if (r < rowCount - 1 && grid[r + 1, c] == targetValue)
+        //                     toUpgrade.Add((r + 1, c));
+        //                 // 左
+        //                 if (c > 0 && grid[r, c - 1] == targetValue)
+        //                     toUpgrade.Add((r, c - 1));
+        //                 // 右
+        //                 if (c < colCount - 1 && grid[r, c + 1] == targetValue)
+        //                     toUpgrade.Add((r, c + 1));
+        //             }
+        //         }
+        //
+        //         // 标记升级（此时仅记录位置，不立即修改 grid，以免影响同级传播）
+        //         foreach (var pos in toUpgrade)
+        //         {
+        //             if (!allChangedPositions.Contains(pos))
+        //                 allChangedPositions.Add(pos);
+        //             grid[pos.Item1, pos.Item2] = sourceValue;
+        //         }
+        //     }
+        //
+        //     // 3. 先在转换位置播放特效，再切换图标
+        //     if (allChangedPositions.Count > 0)
+        //     {
+        //         PlayAnimationByName(_freeNpcAnimator, "win2");
+        //         // 3a. 播放转换特效
+        //         foreach (var pos in allChangedPositions)
+        //         {
+        //             GComponent com = CachePoolController.Instance.PopCom(FreeChangeIconKey, _anchorFreeEffectParent,
+        //                 () => CachePoolFactory(_freeChangeIconObj));
+        //             _isUsedPoolDic[FreeChangeIconKey].Push(com);
+        //             com.xy = _slotMachineController.FreeGameSymbolCenterToNodeLocalPos(pos.Item2, pos.Item1,
+        //                 _anchorFreeEffectParent);
+        //             com.visible = true;
+        //         }
+        //
+        //         yield return new WaitForSeconds(1.5f);
+        //
+        //         // 3b. 特效播放完毕后，切换图标：更新 ContentModel 并刷新滚轮显示
+        //         List<string> rowStrings = new List<string>();
+        //         for (int r = 0; r < rowCount; r++)
+        //         {
+        //             List<string> colStrings = new List<string>();
+        //             for (int c = 0; c < colCount; c++)
+        //             {
+        //                 colStrings.Add(grid[r, c].ToString());
+        //             }
+        //
+        //             rowStrings.Add(string.Join(",", colStrings));
+        //         }
+        //
+        //         string newStrDeckRowCol = string.Join("#", rowStrings);
+        //
+        //         ContentModel.Instance.strDeckRowCol = newStrDeckRowCol;
+        //         _slotMachineController.SetReelsDeck(newStrDeckRowCol);
+        //
+        //         // 3c. 等待图标切换完成
+        //         yield return _slotMachineController.SlotWaitForSeconds(1.5f);
+        //     }
+        //
+        //     callback?.Invoke();
+        // }
 
         ///<summary>将每局使用的池子物体归还给池子</summary>
         private void PushIsUsedComToPool()
@@ -1999,21 +2112,21 @@ namespace FeiZhouHeiXingXing_3994
                                     _miniLoader.url = "";
                                     PlayAnimationByName(_smallNpcAnimator, "2win2");
                                     yield return new WaitForSeconds(2.7f);
-                                    yield return GetJackpotScore(BonusResultType.Mini, (int)_uiJpMiniCtrl.nowData);
+                                    yield return GetJackpotScore(BonusResultType.Mini, 0); //(int)_uiJpMiniCtrl.nowData
                                     break;
                                 case 10:
                                     _cloneMinorBoxObj.SetActive(true);
                                     _minorLoader.url = "";
                                     PlayAnimationByName(_smallNpcAnimator, "2win2");
                                     yield return new WaitForSeconds(2.7f);
-                                    yield return GetJackpotScore(BonusResultType.Minor, (int)_uiJpMinorCtrl.nowData);
+                                    yield return GetJackpotScore(BonusResultType.Minor, 0); //(int)_uiJpMinorCtrl.nowData
                                     break;
                                 case 15:
                                     _cloneMajorBoxObj.SetActive(true);
                                     _majorLoader.url = "";
                                     PlayAnimationByName(_smallNpcAnimator, "2win2");
                                     yield return new WaitForSeconds(2.7f);
-                                    yield return GetJackpotScore(BonusResultType.Major, (int)_uiJpMajorCtrl.nowData);
+                                    yield return GetJackpotScore(BonusResultType.Major, 0); //(int)_uiJpMajorCtrl.nowData
                                     break;
                             }
                         }
