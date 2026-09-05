@@ -799,7 +799,7 @@ namespace FeiZhouHeiXingXing_3994
 
         private string ChangeIcon(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3")
         {
-            // 1. 解析 strDeckRowCol 为 3行×5列 的二维数组
+            // 1. 解析
             string[] rows = strDeckRowCol.Split('#');
             int rowCount = rows.Length;
             int colCount = rows[0].Split(',').Length;
@@ -814,49 +814,57 @@ namespace FeiZhouHeiXingXing_3994
                 }
             }
 
-            // 2. 找出所有需要被转换的位置（暂不修改 grid），从8向下逐级传播
-            // 到4为止，4不将3转为4
-            List<(int r, int c)> allChangedPositions = new List<(int, int)>();
-
-            for (int sourceValue = 8; sourceValue >= 5; sourceValue--)
+            bool hasChanged;
+            do
             {
-                int targetValue = sourceValue - 1;
-                HashSet<(int, int)> toUpgrade = new HashSet<(int, int)>();
+                hasChanged = false;
+                List<(int r, int c)> allChangedPositions = new List<(int, int)>();
 
-                for (int r = 0; r < rowCount; r++)
+                // 2. 从8向下逐级传播（到5为止，4不将3转为4）
+                for (int sourceValue = 8; sourceValue >= 5; sourceValue--)
                 {
-                    for (int c = 0; c < colCount; c++)
-                    {
-                        if (grid[r, c] != sourceValue) continue;
+                    int targetValue = sourceValue - 1;
+                    HashSet<(int, int)> toUpgrade = new HashSet<(int, int)>();
 
-                        // 上
-                        if (r > 0 && grid[r - 1, c] == targetValue)
-                            toUpgrade.Add((r - 1, c));
-                        // 下
-                        if (r < rowCount - 1 && grid[r + 1, c] == targetValue)
-                            toUpgrade.Add((r + 1, c));
-                        // 左
-                        if (c > 0 && grid[r, c - 1] == targetValue)
-                            toUpgrade.Add((r, c - 1));
-                        // 右
-                        if (c < colCount - 1 && grid[r, c + 1] == targetValue)
-                            toUpgrade.Add((r, c + 1));
+                    for (int r = 0; r < rowCount; r++)
+                    {
+                        for (int c = 0; c < colCount; c++)
+                        {
+                            if (grid[r, c] != sourceValue) continue;
+
+                            // 上
+                            if (r > 0 && grid[r - 1, c] == targetValue)
+                                toUpgrade.Add((r - 1, c));
+                            // 下
+                            if (r < rowCount - 1 && grid[r + 1, c] == targetValue)
+                                toUpgrade.Add((r + 1, c));
+                            // 左
+                            if (c > 0 && grid[r, c - 1] == targetValue)
+                                toUpgrade.Add((r, c - 1));
+                            // 右
+                            if (c < colCount - 1 && grid[r, c + 1] == targetValue)
+                                toUpgrade.Add((r, c + 1));
+                        }
+                    }
+
+                    foreach (var pos in toUpgrade)
+                    {
+                        if (!allChangedPositions.Contains(pos))
+                            allChangedPositions.Add(pos);
+                        grid[pos.Item1, pos.Item2] = sourceValue;
+                        hasChanged = true; // 标记本轮有变化
                     }
                 }
 
-                // 标记升级（此时仅记录位置，不立即修改 grid，以免影响同级传播）
-                foreach (var pos in toUpgrade)
-                {
-                    if (!allChangedPositions.Contains(pos))
-                        allChangedPositions.Add(pos);
-                    grid[pos.Item1, pos.Item2] = sourceValue;
-                }
-            }
+                // 3. 每轮结束后可以在这里播放特效（allChangedPositions 就是本轮所有变化的位置）
+                // PlayEffects(allChangedPositions);
+            } while (hasChanged); // 只要本轮有变化，就继续下一轮
 
-            // 3. 先在转换位置播放特效，再切换图标
-            if (allChangedPositions.Count <= 0)
+            // 4. 输出
+            if (strDeckRowCol == string.Join("#", Enumerable.Range(0, rowCount)
+                    .Select(r => string.Join(",", Enumerable.Range(0, colCount).Select(c => grid[r, c])))))
             {
-                return strDeckRowCol;
+                return strDeckRowCol; // 无变化时返回原字符串
             }
 
             List<string> rowStrings = new List<string>();
@@ -871,9 +879,86 @@ namespace FeiZhouHeiXingXing_3994
                 rowStrings.Add(string.Join(",", colStrings));
             }
 
-            strDeckRowCol = string.Join("#", rowStrings);
-            return strDeckRowCol;
+            return string.Join("#", rowStrings);
         }
+
+        // private string ChangeIcon(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3")
+        // {
+        //     // 1. 解析 strDeckRowCol 为 3行×5列 的二维数组
+        //     string[] rows = strDeckRowCol.Split('#');
+        //     int rowCount = rows.Length;
+        //     int colCount = rows[0].Split(',').Length;
+        //
+        //     int[,] grid = new int[rowCount, colCount];
+        //     for (int r = 0; r < rowCount; r++)
+        //     {
+        //         string[] cols = rows[r].Split(',');
+        //         for (int c = 0; c < colCount; c++)
+        //         {
+        //             grid[r, c] = int.Parse(cols[c]);
+        //         }
+        //     }
+        //
+        //     // 2. 找出所有需要被转换的位置（暂不修改 grid），从8向下逐级传播
+        //     // 到4为止，4不将3转为4
+        //     List<(int r, int c)> allChangedPositions = new List<(int, int)>();
+        //
+        //     for (int sourceValue = 8; sourceValue >= 5; sourceValue--)
+        //     {
+        //         int targetValue = sourceValue - 1;
+        //         HashSet<(int, int)> toUpgrade = new HashSet<(int, int)>();
+        //
+        //         for (int r = 0; r < rowCount; r++)
+        //         {
+        //             for (int c = 0; c < colCount; c++)
+        //             {
+        //                 if (grid[r, c] != sourceValue) continue;
+        //
+        //                 // 上
+        //                 if (r > 0 && grid[r - 1, c] == targetValue)
+        //                     toUpgrade.Add((r - 1, c));
+        //                 // 下
+        //                 if (r < rowCount - 1 && grid[r + 1, c] == targetValue)
+        //                     toUpgrade.Add((r + 1, c));
+        //                 // 左
+        //                 if (c > 0 && grid[r, c - 1] == targetValue)
+        //                     toUpgrade.Add((r, c - 1));
+        //                 // 右
+        //                 if (c < colCount - 1 && grid[r, c + 1] == targetValue)
+        //                     toUpgrade.Add((r, c + 1));
+        //             }
+        //         }
+        //
+        //         // 标记升级（此时仅记录位置，不立即修改 grid，以免影响同级传播）
+        //         foreach (var pos in toUpgrade)
+        //         {
+        //             if (!allChangedPositions.Contains(pos))
+        //                 allChangedPositions.Add(pos);
+        //             grid[pos.Item1, pos.Item2] = sourceValue;
+        //         }
+        //     }
+        //
+        //     // 3. 先在转换位置播放特效，再切换图标
+        //     if (allChangedPositions.Count <= 0)
+        //     {
+        //         return strDeckRowCol;
+        //     }
+        //
+        //     List<string> rowStrings = new List<string>();
+        //     for (int r = 0; r < rowCount; r++)
+        //     {
+        //         List<string> colStrings = new List<string>();
+        //         for (int c = 0; c < colCount; c++)
+        //         {
+        //             colStrings.Add(grid[r, c].ToString());
+        //         }
+        //
+        //         rowStrings.Add(string.Join(",", colStrings));
+        //     }
+        //
+        //     strDeckRowCol = string.Join("#", rowStrings);
+        //     return strDeckRowCol;
+        // }
 
         private List<List<int>> GetDeckColRow(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3")
         {

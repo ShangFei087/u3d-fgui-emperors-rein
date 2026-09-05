@@ -8,8 +8,8 @@ namespace CaiShenFaFaFa_3992
     {
         public int row => 3;
         public int column => 5;
-        public float symbolWidth => 192;
-        public float symbolHeight => 182;
+        public float symbolWidth => 203;
+        public float symbolHeight => 203;
         public int symbolCount => symbolNumber.Count;
         public float reelMaxOffsetY => symbolHeight * row;
 
