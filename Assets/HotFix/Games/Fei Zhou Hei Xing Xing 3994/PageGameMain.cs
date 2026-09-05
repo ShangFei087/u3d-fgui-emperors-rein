@@ -870,7 +870,7 @@ namespace FeiZhouHeiXingXing_3994
             _bonusSpeedUpCom.visible = false;
             _slotMachineController.CloseSlotCover();
             ContentModel.Instance.smallGameWinCredit = 0;
-            _slotMachineController.isStopImmediately = false;
+            // _slotMachineController.isStopImmediately = false;
             _slotMachineController.SkipWinLine(true);
             if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
             if (_corEffectSlowMotion != null) _monoHelper.StopCoroutine(_corEffectSlowMotion);
@@ -1092,26 +1092,6 @@ namespace FeiZhouHeiXingXing_3994
 
             List<SymbolWin> winList = ContentModel.Instance.winList;
             long totalWinLineCredit = 0;
-            // ----------------- normal win ---------------
-            if (winList.Count > 0)
-            {
-                _notHitSpinCount = 0;
-                totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList);
-                _slotMachineController.SendTotalWinCreditEvent(totalWinLineCredit); // 积分同步和退币处理
-                MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true); // 加钱动画
-                // MainBlackboardController.Instance.SyncMyTempCreditToReal(true); // 同步玩家真实金币
-            }
-            else
-                _notHitSpinCount++;
-
-            // ----------------- big win ---------------
-            WinLevelType winLevelType = GetBigWinType();
-            if (winLevelType != WinLevelType.None)
-            {
-                yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
-                _slotMachineController.CloseSlotCover();
-                _slotMachineController.SkipWinLine(false);
-            }
 
             // ----------------- free win ---------------
             if (ContentModel.Instance.isFreeSpinTrigger)
@@ -1136,6 +1116,27 @@ namespace FeiZhouHeiXingXing_3994
                 yield return SmallGameTrigger();
             }
 
+            // ----------------- normal win ---------------
+            if (winList.Count > 0)
+            {
+                _notHitSpinCount = 0;
+                totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList);
+                _slotMachineController.SendTotalWinCreditEvent(totalWinLineCredit); // 积分同步和退币处理
+                MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true); // 加钱动画
+                MainBlackboardController.Instance.SyncMyTempCreditToReal(true); // 同步玩家真实金币
+            }
+            else
+                _notHitSpinCount++;
+
+            // ----------------- big win ---------------
+            WinLevelType winLevelType = GetBigWinType();
+            if (winLevelType != WinLevelType.None)
+            {
+                yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
+                _slotMachineController.CloseSlotCover();
+                _slotMachineController.SkipWinLine(false);
+            }
+
             // 连续五次未中奖
             if (_notHitSpinCount >= 5)
             {
@@ -1155,8 +1156,8 @@ namespace FeiZhouHeiXingXing_3994
                 if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
                 _corGameIdle = _monoHelper.StartCoroutine(GameIdle(winList));
             }
-
             _allWinCredit = 0;
+            _slotMachineController.isStopImmediately = false;
             successCallback?.Invoke();
         }
 
@@ -1399,6 +1400,7 @@ namespace FeiZhouHeiXingXing_3994
                 {
                     ContentModel.Instance.FreeSpinTotalTimes = 0;
                     _panelController.ChangButtonNo(false);
+                    _slotMachineController.EndBonusFreeSpin();
                     isNext = true;
                 });
             yield return new WaitUntil(() => isNext == true);
@@ -1483,15 +1485,15 @@ namespace FeiZhouHeiXingXing_3994
 
             SetSpinButtonSpinGray();
 
-            // ----------------- icon change ----------------
-            if (_corChangeIcon != null) _monoHelper.StopCoroutine(_corChangeIcon);
-            _corChangeIcon = _monoHelper.StartCoroutine(IconConversion(() => isNext = true));
-            yield return new WaitUntil(() => isNext == true);
-            isNext = false;
-
             // ----------------- show wild ----------------
             if (_corFreeWild != null) _monoHelper.StopCoroutine(_corFreeWild);
             _corFreeWild = _monoHelper.StartCoroutine(ShowWildSpine(GetFreeMiddleData(), () => isNext = true));
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+            
+            // ----------------- icon change ----------------
+            if (_corChangeIcon != null) _monoHelper.StopCoroutine(_corChangeIcon);
+            _corChangeIcon = _monoHelper.StartCoroutine(IconConversion(() => isNext = true));
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
@@ -1563,6 +1565,50 @@ namespace FeiZhouHeiXingXing_3994
             return currentMiddleData;
         }
 
+        /// <summary>
+        /// 先将本局免费游戏数据的wild先转换了
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        private string ProcessMatrix(string input)
+        {
+            // 1. 按 # 分割成多行
+            string[] rows = input.Split('#');
+
+            // 2. 将每行按 , 分割，构建二维数组
+            string[][] matrix = new string[rows.Length][];
+            for (int i = 0; i < rows.Length; i++)
+            {
+                matrix[i] = rows[i].Split(',');
+            }
+
+            // 3. 找到第二行（索引为1）中值为"9"的列
+            if (matrix.Length > 1)
+            {
+                int colCount = matrix[1].Length;
+                for (int col = 0; col < colCount; col++)
+                {
+                    if (matrix[1][col] == "9")
+                    {
+                        // 4. 将该列所有元素改为"9"
+                        for (int row = 0; row < matrix.Length; row++)
+                        {
+                            matrix[row][col] = "9";
+                        }
+                    }
+                }
+            }
+
+            // 5. 拼接回字符串
+            string[] resultRows = new string[matrix.Length];
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                resultRows[i] = string.Join(",", matrix[i]);
+            }
+
+            return string.Join("#", resultRows);
+        }
+
         ///<summary>缓存池创建工厂，根据传入的预制体不同创建对应的UI物体</summary>
         private GComponent CachePoolFactory(GameObject cacheObj)
         {
@@ -1593,7 +1639,7 @@ namespace FeiZhouHeiXingXing_3994
         ///<summary>高分图标替换低分图标：循环扩散直到没有可转换的为止。从8开始向下逐级传播，8→7→6→5→4，4不转3</summary>
         private IEnumerator IconConversion(Action callback)
         {
-            string strDeck = ContentModel.Instance.strDeckRowCol;
+            string strDeck = ProcessMatrix(ContentModel.Instance.strDeckRowCol);
             if (string.IsNullOrEmpty(strDeck))
             {
                 callback?.Invoke();
@@ -1701,112 +1747,6 @@ namespace FeiZhouHeiXingXing_3994
 
             callback?.Invoke();
         }
-
-        // ///<summary>高分图标替换低分图标：先播特效再切换图标。从8开始向下逐级传播，8→7→6→5→4，4不转3</summary>
-        // private IEnumerator IconConversion(Action callback)
-        // {
-        //     string strDeck = ContentModel.Instance.strDeckRowCol;
-        //     if (string.IsNullOrEmpty(strDeck))
-        //     {
-        //         callback?.Invoke();
-        //         yield break;
-        //     }
-        //
-        //     // 1. 解析 strDeckRowCol 为 3行×5列 的二维数组
-        //     string[] rows = strDeck.Split('#');
-        //     int rowCount = rows.Length;
-        //     int colCount = rows[0].Split(',').Length;
-        //
-        //     int[,] grid = new int[rowCount, colCount];
-        //     for (int r = 0; r < rowCount; r++)
-        //     {
-        //         string[] cols = rows[r].Split(',');
-        //         for (int c = 0; c < colCount; c++)
-        //         {
-        //             grid[r, c] = int.Parse(cols[c]);
-        //         }
-        //     }
-        //
-        //     // 2. 找出所有需要被转换的位置（暂不修改 grid），从8向下逐级传播
-        //     // 到4为止，4不将3转为4
-        //     List<(int r, int c)> allChangedPositions = new List<(int, int)>();
-        //
-        //     for (int sourceValue = 8; sourceValue >= 5; sourceValue--)
-        //     {
-        //         int targetValue = sourceValue - 1;
-        //         HashSet<(int, int)> toUpgrade = new HashSet<(int, int)>();
-        //
-        //         for (int r = 0; r < rowCount; r++)
-        //         {
-        //             for (int c = 0; c < colCount; c++)
-        //             {
-        //                 if (grid[r, c] != sourceValue) continue;
-        //
-        //                 // 上
-        //                 if (r > 0 && grid[r - 1, c] == targetValue)
-        //                     toUpgrade.Add((r - 1, c));
-        //                 // 下
-        //                 if (r < rowCount - 1 && grid[r + 1, c] == targetValue)
-        //                     toUpgrade.Add((r + 1, c));
-        //                 // 左
-        //                 if (c > 0 && grid[r, c - 1] == targetValue)
-        //                     toUpgrade.Add((r, c - 1));
-        //                 // 右
-        //                 if (c < colCount - 1 && grid[r, c + 1] == targetValue)
-        //                     toUpgrade.Add((r, c + 1));
-        //             }
-        //         }
-        //
-        //         // 标记升级（此时仅记录位置，不立即修改 grid，以免影响同级传播）
-        //         foreach (var pos in toUpgrade)
-        //         {
-        //             if (!allChangedPositions.Contains(pos))
-        //                 allChangedPositions.Add(pos);
-        //             grid[pos.Item1, pos.Item2] = sourceValue;
-        //         }
-        //     }
-        //
-        //     // 3. 先在转换位置播放特效，再切换图标
-        //     if (allChangedPositions.Count > 0)
-        //     {
-        //         PlayAnimationByName(_freeNpcAnimator, "win2");
-        //         // 3a. 播放转换特效
-        //         foreach (var pos in allChangedPositions)
-        //         {
-        //             GComponent com = CachePoolController.Instance.PopCom(FreeChangeIconKey, _anchorFreeEffectParent,
-        //                 () => CachePoolFactory(_freeChangeIconObj));
-        //             _isUsedPoolDic[FreeChangeIconKey].Push(com);
-        //             com.xy = _slotMachineController.FreeGameSymbolCenterToNodeLocalPos(pos.Item2, pos.Item1,
-        //                 _anchorFreeEffectParent);
-        //             com.visible = true;
-        //         }
-        //
-        //         yield return new WaitForSeconds(1.5f);
-        //
-        //         // 3b. 特效播放完毕后，切换图标：更新 ContentModel 并刷新滚轮显示
-        //         List<string> rowStrings = new List<string>();
-        //         for (int r = 0; r < rowCount; r++)
-        //         {
-        //             List<string> colStrings = new List<string>();
-        //             for (int c = 0; c < colCount; c++)
-        //             {
-        //                 colStrings.Add(grid[r, c].ToString());
-        //             }
-        //
-        //             rowStrings.Add(string.Join(",", colStrings));
-        //         }
-        //
-        //         string newStrDeckRowCol = string.Join("#", rowStrings);
-        //
-        //         ContentModel.Instance.strDeckRowCol = newStrDeckRowCol;
-        //         _slotMachineController.SetReelsDeck(newStrDeckRowCol);
-        //
-        //         // 3c. 等待图标切换完成
-        //         yield return _slotMachineController.SlotWaitForSeconds(1.5f);
-        //     }
-        //
-        //     callback?.Invoke();
-        // }
 
         ///<summary>将每局使用的池子物体归还给池子</summary>
         private void PushIsUsedComToPool()
@@ -2039,7 +1979,7 @@ namespace FeiZhouHeiXingXing_3994
                     EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                         new EventData(Game3994AudioEvent.BgmRegularGame));
                     _isStartSmallGame = false;
-
+                    _slotMachineController.EndBonusFreeSpin();
                     ResetCollectProcessState();
                     isNext = true;
                 });

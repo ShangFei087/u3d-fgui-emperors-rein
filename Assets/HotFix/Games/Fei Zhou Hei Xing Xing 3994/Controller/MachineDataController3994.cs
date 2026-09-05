@@ -443,7 +443,7 @@ namespace FeiZhouHeiXingXing_3994
             //赢分
             long creditAfter = 0, creditBefore = MainBlackboardController.Instance.myRealCredit;
             if (ContentModel.Instance.isSmallGameTrigger)
-                creditAfter = creditBefore + ContentModel.Instance.smallGameWinCredit - totalBet;
+                creditAfter = creditBefore + ContentModel.Instance.smallGameWinCredit - totalBet + totalLineWin;
             else if (ContentModel.Instance.isFreeSpinTrigger || ContentModel.Instance.isFreeSpin)
             {
                 // 免费游戏只有第一次需要扣积分
@@ -470,7 +470,6 @@ namespace FeiZhouHeiXingXing_3994
         private void CheckGameResult(string strDeckRowCol, int totalWin, bool isInFreeSpin)
         {
             // 解析本局游戏
-            strDeckRowCol = isInFreeSpin ? ChangeIcon(strDeckRowCol) : strDeckRowCol;
             List<List<int>> deckColRow = isInFreeSpin ? GetDeckColRow(strDeckRowCol) : SlotTool.GetDeckColRow03(strDeckRowCol);
 
             // 获取特殊图标
@@ -882,91 +881,13 @@ namespace FeiZhouHeiXingXing_3994
             return string.Join("#", rowStrings);
         }
 
-        // private string ChangeIcon(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3")
-        // {
-        //     // 1. 解析 strDeckRowCol 为 3行×5列 的二维数组
-        //     string[] rows = strDeckRowCol.Split('#');
-        //     int rowCount = rows.Length;
-        //     int colCount = rows[0].Split(',').Length;
-        //
-        //     int[,] grid = new int[rowCount, colCount];
-        //     for (int r = 0; r < rowCount; r++)
-        //     {
-        //         string[] cols = rows[r].Split(',');
-        //         for (int c = 0; c < colCount; c++)
-        //         {
-        //             grid[r, c] = int.Parse(cols[c]);
-        //         }
-        //     }
-        //
-        //     // 2. 找出所有需要被转换的位置（暂不修改 grid），从8向下逐级传播
-        //     // 到4为止，4不将3转为4
-        //     List<(int r, int c)> allChangedPositions = new List<(int, int)>();
-        //
-        //     for (int sourceValue = 8; sourceValue >= 5; sourceValue--)
-        //     {
-        //         int targetValue = sourceValue - 1;
-        //         HashSet<(int, int)> toUpgrade = new HashSet<(int, int)>();
-        //
-        //         for (int r = 0; r < rowCount; r++)
-        //         {
-        //             for (int c = 0; c < colCount; c++)
-        //             {
-        //                 if (grid[r, c] != sourceValue) continue;
-        //
-        //                 // 上
-        //                 if (r > 0 && grid[r - 1, c] == targetValue)
-        //                     toUpgrade.Add((r - 1, c));
-        //                 // 下
-        //                 if (r < rowCount - 1 && grid[r + 1, c] == targetValue)
-        //                     toUpgrade.Add((r + 1, c));
-        //                 // 左
-        //                 if (c > 0 && grid[r, c - 1] == targetValue)
-        //                     toUpgrade.Add((r, c - 1));
-        //                 // 右
-        //                 if (c < colCount - 1 && grid[r, c + 1] == targetValue)
-        //                     toUpgrade.Add((r, c + 1));
-        //             }
-        //         }
-        //
-        //         // 标记升级（此时仅记录位置，不立即修改 grid，以免影响同级传播）
-        //         foreach (var pos in toUpgrade)
-        //         {
-        //             if (!allChangedPositions.Contains(pos))
-        //                 allChangedPositions.Add(pos);
-        //             grid[pos.Item1, pos.Item2] = sourceValue;
-        //         }
-        //     }
-        //
-        //     // 3. 先在转换位置播放特效，再切换图标
-        //     if (allChangedPositions.Count <= 0)
-        //     {
-        //         return strDeckRowCol;
-        //     }
-        //
-        //     List<string> rowStrings = new List<string>();
-        //     for (int r = 0; r < rowCount; r++)
-        //     {
-        //         List<string> colStrings = new List<string>();
-        //         for (int c = 0; c < colCount; c++)
-        //         {
-        //             colStrings.Add(grid[r, c].ToString());
-        //         }
-        //
-        //         rowStrings.Add(string.Join(",", colStrings));
-        //     }
-        //
-        //     strDeckRowCol = string.Join("#", rowStrings);
-        //     return strDeckRowCol;
-        // }
-
         private List<List<int>> GetDeckColRow(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3")
         {
             string[] rows = strDeckRowCol.Split('#');
             int rowNum = rows.Length;
             int colNum = rows[0].Split(',').Length;
 
-            // 1. 先解析成二维数组，方便整列修改
+            // 1. 先解析成二维数组
             int[,] matrix = new int[rowNum, colNum];
             for (int rowIndex = 0; rowIndex < rowNum; rowIndex++)
             {
@@ -977,7 +898,53 @@ namespace FeiZhouHeiXingXing_3994
                 }
             }
 
-            // 2. 扫描每行：跳过每行第1个元素（colIndex = 0），如果其他位置有9，标记该列
+            // 2. 【ChangeIcon 逻辑】从8向下逐级传播（到5为止，4不将3转为4）
+            bool hasChanged;
+            do
+            {
+                hasChanged = false;
+                List<(int r, int c)> allChangedPositions = new List<(int, int)>();
+
+                for (int sourceValue = 8; sourceValue >= 5; sourceValue--)
+                {
+                    int targetValue = sourceValue - 1;
+                    HashSet<(int, int)> toUpgrade = new HashSet<(int, int)>();
+
+                    for (int r = 0; r < rowNum; r++)
+                    {
+                        for (int c = 0; c < colNum; c++)
+                        {
+                            if (matrix[r, c] != sourceValue) continue;
+
+                            // 上
+                            if (r > 0 && matrix[r - 1, c] == targetValue)
+                                toUpgrade.Add((r - 1, c));
+                            // 下
+                            if (r < rowNum - 1 && matrix[r + 1, c] == targetValue)
+                                toUpgrade.Add((r + 1, c));
+                            // 左
+                            if (c > 0 && matrix[r, c - 1] == targetValue)
+                                toUpgrade.Add((r, c - 1));
+                            // 右
+                            if (c < colNum - 1 && matrix[r, c + 1] == targetValue)
+                                toUpgrade.Add((r, c + 1));
+                        }
+                    }
+
+                    foreach (var pos in toUpgrade)
+                    {
+                        if (!allChangedPositions.Contains(pos))
+                            allChangedPositions.Add(pos);
+                        matrix[pos.Item1, pos.Item2] = sourceValue;
+                        hasChanged = true; // 标记本轮有变化
+                    }
+                }
+
+                // 每轮结束后可以在这里播放特效（allChangedPositions 就是本轮所有变化的位置）
+                // PlayEffects(allChangedPositions);
+            } while (hasChanged);
+
+            // 3. 【原 GetDeckColRow 逻辑】扫描第2行（rowIndex = 1），跳过第1个元素，如果其他位置有9，标记该列
             bool[] colToNine = new bool[colNum];
             for (int colIndex = 1; colIndex < colNum; colIndex++) // 从1开始，跳过每行第一个
             {
@@ -987,7 +954,7 @@ namespace FeiZhouHeiXingXing_3994
                 }
             }
 
-            // 3. 将标记的列全部改成9
+            // 4. 将标记的列全部改成9
             for (int colIndex = 0; colIndex < colNum; colIndex++)
             {
                 if (colToNine[colIndex])
@@ -999,8 +966,7 @@ namespace FeiZhouHeiXingXing_3994
                 }
             }
 
-
-            // 4. 按列存入 List<List<int>>（保持和你原方法一致的返回结构）
+            // 5. 按列存入 List<List<int>>（保持和你原方法一致的返回结构）
             List<List<int>> colrowLst = new List<List<int>>();
             for (int colIndex = 0; colIndex < colNum; colIndex++)
             {
@@ -1015,6 +981,61 @@ namespace FeiZhouHeiXingXing_3994
 
             return colrowLst;
         }
+
+        // private List<List<int>> GetDeckColRow(string strDeckRowCol = "1,1,1,1,1#2,2,6,2,2#3,3,3,3,3")
+        // {
+        //     string[] rows = strDeckRowCol.Split('#');
+        //     int rowNum = rows.Length;
+        //     int colNum = rows[0].Split(',').Length;
+        //
+        //     // 1. 先解析成二维数组，方便整列修改
+        //     int[,] matrix = new int[rowNum, colNum];
+        //     for (int rowIndex = 0; rowIndex < rowNum; rowIndex++)
+        //     {
+        //         string[] cols = rows[rowIndex].Split(',');
+        //         for (int colIndex = 0; colIndex < colNum; colIndex++)
+        //         {
+        //             matrix[rowIndex, colIndex] = int.Parse(cols[colIndex]);
+        //         }
+        //     }
+        //
+        //     // 2. 扫描每行：跳过每行第1个元素（colIndex = 0），如果其他位置有9，标记该列
+        //     bool[] colToNine = new bool[colNum];
+        //     for (int colIndex = 1; colIndex < colNum; colIndex++) // 从1开始，跳过每行第一个
+        //     {
+        //         if (matrix[1, colIndex] == 9)
+        //         {
+        //             colToNine[colIndex] = true;
+        //         }
+        //     }
+        //
+        //     // 3. 将标记的列全部改成9
+        //     for (int colIndex = 0; colIndex < colNum; colIndex++)
+        //     {
+        //         if (colToNine[colIndex])
+        //         {
+        //             for (int rowIndex = 0; rowIndex < rowNum; rowIndex++)
+        //             {
+        //                 matrix[rowIndex, colIndex] = 9;
+        //             }
+        //         }
+        //     }
+        //     
+        //     // 4. 按列存入 List<List<int>>（保持和你原方法一致的返回结构）
+        //     List<List<int>> colrowLst = new List<List<int>>();
+        //     for (int colIndex = 0; colIndex < colNum; colIndex++)
+        //     {
+        //         List<int> _col = new List<int>();
+        //         for (int rowIndex = 0; rowIndex < rowNum; rowIndex++)
+        //         {
+        //             _col.Add(matrix[rowIndex, colIndex]);
+        //         }
+        //
+        //         colrowLst.Add(_col);
+        //     }
+        //
+        //     return colrowLst;
+        // }
 
         #endregion
 
