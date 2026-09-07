@@ -47,7 +47,8 @@ namespace FeiZhouHeiXingXing_3994
             _autoClickCallback,
             _delayCloseCallback,
             _delayPlayPagCallback,
-            _changePageCallback; // 延时关闭回调   延时播放Pag回调   切换界面回调
+            _changePageCallback,
+            _btnDelayCallback; // 延时关闭回调   延时播放Pag回调   切换界面回调
 
         /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
         private I18nLang _boundLang;
@@ -58,7 +59,7 @@ namespace FeiZhouHeiXingXing_3994
             // 绑定npc pag并默认播放idle动画
             _fadeCom = contentPane.GetChild("anchorFadePag").asCom;
             if (_fadeCom == null) return;
-            _fadePag = new PagSlotBinding("fade", PagPath);
+            _fadePag ??= new PagSlotBinding("fade", PagPath);
             _fadePag.EnsureSlot(_fadeCom);
         }
 
@@ -97,7 +98,7 @@ namespace FeiZhouHeiXingXing_3994
             if (!isInit) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-            _isClicked = false;
+            _isClicked = true;
 
             // 获取UI组件
             _startBtn = contentPane.GetChild("startBtn").asButton;
@@ -144,6 +145,16 @@ namespace FeiZhouHeiXingXing_3994
             _spinTextTran.localPosition = new Vector3(2.05f, 1.93f, 0f);
             _spinTextTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             _spinTextTran.localRotation = Quaternion.Euler(0, 0, 270);
+
+            // 按钮延时点击
+            _startBtn.touchable = false;
+            _btnDelayCallback = (obj) =>
+            {
+                _startBtn.touchable = true;
+                _isClicked = false;
+                _btnDelayCallback = null;
+            };
+            Timers.inst.Add(1.333f, 1, _btnDelayCallback);
 
             // 按钮点击事件
             _startBtn.onClick.Clear();
@@ -199,6 +210,18 @@ namespace FeiZhouHeiXingXing_3994
             _spinTextTran.localPosition = _numPos;
             _spinTextTran.localScale = _numScale;
             _spinTextTran.localRotation = _numQuaternion;
+            
+            // 清除回调
+            RemoveDesignCallBack(_autoClickCallback);
+            RemoveDesignCallBack(_delayCloseCallback);
+            RemoveDesignCallBack(_delayPlayPagCallback);
+            RemoveDesignCallBack(_changePageCallback);
+            RemoveDesignCallBack(_btnDelayCallback);
+            _delayCloseCallback = null;
+            _delayPlayPagCallback = null;
+            _changePageCallback = null;
+            _autoClickCallback = null;
+            _btnDelayCallback = null;
         }
 
         private void ResLoadCallback(EventData eventData = null)
@@ -245,7 +268,7 @@ namespace FeiZhouHeiXingXing_3994
                 if (isOpen) CloseSelf(null);
                 _startBtn.visible = true;
                 _changePage = null;
-            }, 5.067f);
+            }, 3.5f);
         }
 
         /// <summary>播放指定Pag文件</summary>

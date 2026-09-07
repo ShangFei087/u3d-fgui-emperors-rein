@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <component id="n4_g9kd" name="anchorFreeResultPag" src="g9kd9r" fileName="components/anchorPag.xml" xy="539,959"/>
+    <component id="n5_ko7z" name="anchorEff" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,959"/>
     <component id="n3_g9kd" name="anchorFreeResult" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,1000"/>
     <text id="n0_z2gw" name="txtScoreWin" xy="-33,729" size="1150,193" font="ui://tdk27maerghsby" fontSize="12" align="center" vAlign="middle" letterSpacing="-10" autoSize="none" text="r999,9999,99"/>
     <text id="n1_g9kd" name="txtTotalFreeTime" xy="313,968" size="151,106" font="ui://tdk27maerghsby" fontSize="8" align="center" vAlign="middle" letterSpacing="-10" autoSize="none" text="20"/>

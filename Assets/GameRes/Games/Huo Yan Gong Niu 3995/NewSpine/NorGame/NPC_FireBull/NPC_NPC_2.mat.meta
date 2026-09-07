@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Spines/EN/fg_pup_TipFrame/fg_pup_TipFrame_fg_pup_TipFrame.mat.meta
+guid: ffae95d7f58cdcb48a691332b79ea473
+========
 guid: 30f275525307da94bb6dbf61a48c906d
+>>>>>>>> ljz:Assets/GameRes/Games/Huo Yan Gong Niu 3995/NewSpine/NorGame/NPC_FireBull/NPC_NPC_2.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000

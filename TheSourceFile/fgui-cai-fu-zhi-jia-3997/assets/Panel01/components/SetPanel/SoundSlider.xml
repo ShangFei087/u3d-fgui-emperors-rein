@@ -5,7 +5,7 @@
       <relation target="" sidePair="width-width,height-height"/>
     </component>
     <image id="n1_u8to" name="bar" src="hm6e50" fileName="images/setPanel/pb_img_music04(1).png" xy="7,8" size="135,22"/>
-    <component id="n2_u8to" name="grip" src="u8to23" fileName="components/SetPanel/SoundSlider_grip.xml" xy="120,3">
+    <component id="n2_u8to" name="grip" src="u8to23" fileName="components/SetPanel/SoundSlider_grip.xml" xy="114,3">
       <relation target="n1_u8to" sidePair="right-right"/>
     </component>
   </displayList>

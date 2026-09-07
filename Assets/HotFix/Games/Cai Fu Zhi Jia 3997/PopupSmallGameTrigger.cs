@@ -35,6 +35,12 @@ namespace CaiFuZhiJia_3997
 
         private Action _changeSmallGamePage, _changeNpcAnimationClip;
 
+        /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
+        private I18nLang _boundLang;
+        
+        /// <summary>入场后延迟点亮开始按钮。</summary>
+        private TimerCallback _enableBtnCallback;
+
         protected override void OnInit()
         {
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
@@ -95,20 +101,23 @@ namespace CaiFuZhiJia_3997
             } // 过场动画
 
             currentGCom = _jackpotTriggerTipWindow.GetChild("smallTrigger").asCom;
-            if (currentGCom != _smallGameTriggerCom)
+            if (currentGCom != _smallGameTriggerCom || _boundLang != PopupSpineLang3997.CurrentLang)
             {
                 GameCommon.FguiUtils.DeleteWrapper(_smallGameTriggerCom);
                 _smallGameTriggerCom = currentGCom;
                 _cloneSmallGameTriggerObj = Object.Instantiate(_smallGameTriggerObj);
+                PopupSpineLang3997.Apply(_cloneSmallGameTriggerObj);
+                _boundLang = PopupSpineLang3997.CurrentLang;
                 GameCommon.FguiUtils.AddWrapper(_smallGameTriggerCom, _cloneSmallGameTriggerObj);
             } // 触发弹窗
+
             _smallGameTriggerAnimator = _cloneSmallGameTriggerObj.GetComponentInChildren<Animator>();
 
 
             // ------------------ 将UI组件挂点到对应的Spine节点上 -----------------------
-            string rootPath =
-                "Anchor/Spine Mecanim GameObject (sg_pop_frame)/SkeletonUtility-SkeletonRoot/root/zong/zi/";
-            Transform btnTran = _cloneSmallGameTriggerObj.transform.Find(rootPath + "btn01");
+            GameObject fatherObj = _cloneSmallGameTriggerObj.transform.GetChild(0).GetChild(0).gameObject;
+            string rootPath = "Spine Mecanim GameObject (sg_pop_frame)/SkeletonUtility-SkeletonRoot/root/zong/zi/";
+            Transform btnTran = fatherObj.transform.Find(rootPath + "btn01");
             startBtnTran.SetParent(btnTran, false);
             startBtnTran.localPosition = new Vector3(-1.89f, 2.82f, 0);
             startBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
@@ -117,6 +126,7 @@ namespace CaiFuZhiJia_3997
             if (!isOpen) return;
             _isClicked = false;
             RemoveTimer(ref _autoClickCallback);
+            RemoveTimer(ref _enableBtnCallback);
 
             // -------------------------- 添加UI点击事件 --------------------------
             if (eventData is { value: Dictionary<string, object> args })
@@ -125,6 +135,12 @@ namespace CaiFuZhiJia_3997
                 _changeNpcAnimationClip = args["changeNpcAnimationClip"] as Action;
             }
 
+            _startBtn.touchable = false;
+            _enableBtnCallback = obj =>
+            {
+                if (_startBtn != null) _startBtn.touchable = true;
+            };
+            Timers.inst.Add(1f, 1, _enableBtnCallback);
             _startBtn.onClick.Clear();
             _startBtn.onClick.Add(() => OnClickSpinButton(null));
 
@@ -230,7 +246,7 @@ namespace CaiFuZhiJia_3997
             Timers.inst.Remove(timerCallback);
             timerCallback = null;
         }
-        
+
         private void PlayAnimationByName(Animator animator, string aniName, Action callback = null)
         {
             animator.Rebind();

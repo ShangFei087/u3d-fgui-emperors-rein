@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="205,22" extention="Slider">
+  <displayList>
+    <image id="n0_ud6t" name="n0" src="ud6t10" fileName="images/setPanel/ng_btn_yltnk.png" xy="0,0" size="205,22">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_ud6t" name="bar" src="ud6tz" fileName="images/setPanel/ng_btn_ylt.png" xy="3,5" size="191,13"/>
+    <image id="n3_ud6t" name="n3" src="ud6t11" fileName="images/setPanel/ng_btn_yltwk.png" xy="3,3"/>
+    <component id="n2_ud6t" name="grip" src="ud6t1f" fileName="components/GameSetPanel/silderSound_grip.xml" xy="181,-1">
+      <relation target="n1_ud6t" sidePair="right-right"/>
+    </component>
+  </displayList>
+  <Slider/>
+</component>

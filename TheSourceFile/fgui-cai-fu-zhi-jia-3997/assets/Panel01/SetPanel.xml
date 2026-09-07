@@ -5,7 +5,7 @@
     <component id="n4_u8to" name="btnPayTable" src="u8to21" fileName="components/Panel/ButtonIntroduce.xml" xy="58,118"/>
     <component id="n2_u8to" name="btnHome" src="u8to1z" fileName="components/Panel/ButtonHome.xml" xy="15,159"/>
     <component id="n3_u8to" name="btnSound" src="u8to20" fileName="components/Panel/ButtonSound.xml" xy="55,47"/>
-    <component id="n5_u8to" name="silderSound" src="u8to24" fileName="components/SetPanel/SoundSlider.xml" xy="174,47" pivot="0.5,0.5" anchor="true">
+    <component id="n5_u8to" name="silderSound" src="u8to24" fileName="components/SetPanel/SoundSlider.xml" xy="186,47" pivot="0.5,0.5" anchor="true">
       <Slider value="50" max="100"/>
     </component>
   </displayList>

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Spines/EN/fg_pup_CollectFrame/fg_pup_CollectFrame_SkeletonData.asset.meta
+guid: b9b377ebcb1d4c94fa14a6d6659e4747
+========
 guid: 106f20510bf594243ad256d76162fe85
+>>>>>>>> ljz:Assets/GameRes/Games/Huo Yan Gong Niu 3995/NewSpine/NorGame/NPC_FireBull/NPC_SkeletonData.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

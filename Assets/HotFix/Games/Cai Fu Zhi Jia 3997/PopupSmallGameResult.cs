@@ -36,6 +36,12 @@ namespace CaiFuZhiJia_3997
         private TimerCallback _delayPlayEndCallback;
         private TimerCallback _autoClickCallback;
         private Action _changeNormalPage, _changeNpcAnimationClip;
+        
+        /// <summary>入场后延迟点亮开始按钮。</summary>
+        private TimerCallback _enableBtnCallback;
+
+        /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
+        private I18nLang _boundLang;
 
         protected override void OnInit()
         {
@@ -79,6 +85,7 @@ namespace CaiFuZhiJia_3997
             if (!isOpen) return;
             _isClicked = false;
             RemoveTimer(ref _autoClickCallback);
+            RemoveTimer(ref _enableBtnCallback);
 
             // --------------------- 获取UI组件 ------------------------
             _jackpotResultTipWindow = contentPane.GetChild("jackpotResultTipWindow").asCom;
@@ -96,13 +103,16 @@ namespace CaiFuZhiJia_3997
 
             // ----------------------- 绑定Prefab到UI -------------------------
             GComponent currentGCom = _jackpotResultTipWindow.GetChild("smallResult").asCom;
-            if (currentGCom != _smallGameResultCom)
+            if (currentGCom != _smallGameResultCom || _boundLang != PopupSpineLang3997.CurrentLang)
             {
                 GameCommon.FguiUtils.DeleteWrapper(_smallGameResultCom);
                 _smallGameResultCom = currentGCom;
                 _cloneSmallGameResultObj = Object.Instantiate(_smallGameResultObj);
+                PopupSpineLang3997.Apply(_cloneSmallGameResultObj);
+                _boundLang = PopupSpineLang3997.CurrentLang;
                 GameCommon.FguiUtils.AddWrapper(_smallGameResultCom, _cloneSmallGameResultObj);
             } // 结算弹窗
+
             _tipAni = _cloneSmallGameResultObj.GetComponentInChildren<Animator>();
 
 
@@ -117,13 +127,13 @@ namespace CaiFuZhiJia_3997
             } // 过场动画
 
             // ------------------ 将UI组件挂点到对应的Spine节点上 -----------------------
-            string rootPath =
-                "Anchor/Spine Mecanim GameObject (sg_pop_frame)/SkeletonUtility-SkeletonRoot/root/zong/zi/";
-            Transform btnTran = _cloneSmallGameResultObj.transform.Find(rootPath + "btn01");
+            GameObject fatherObj = _cloneSmallGameResultObj.transform.GetChild(0).GetChild(0).gameObject;
+            string rootPath = "Spine Mecanim GameObject (sg_pop_frame)/SkeletonUtility-SkeletonRoot/root/zong/zi/";
+            Transform btnTran = fatherObj.transform.Find(rootPath + "btn01");
             collectBtnTran.SetParent(btnTran, false);
             collectBtnTran.localPosition = new Vector3(-1.87f, 2.69f, 0);
             collectBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-            Transform numTran = _cloneSmallGameResultObj.transform.Find(rootPath + "num01");
+            Transform numTran = fatherObj.transform.Find(rootPath + "num01");
             numTxt.SetParent(numTran, false);
             numTxt.localPosition = new Vector3(-5.46f, 1.42f, 0);
             numTxt.localScale = new Vector3(0.01f, 0.01f, 0.01f);
@@ -134,6 +144,13 @@ namespace CaiFuZhiJia_3997
                 _changeNormalPage = args["changeNormalPage"] as Action;
                 _changeNpcAnimationClip = args["changeNpcAnimationClip"] as Action;
             }
+            
+            _collectBtn.touchable = false;
+            _enableBtnCallback = obj =>
+            {
+                if (_collectBtn != null) _collectBtn.touchable = true;
+            };
+            Timers.inst.Add(1f, 1, _enableBtnCallback);
 
             _collectBtn.onClick.Clear();
             _collectBtn.onClick.Add(() => OnClickSpinButton(null));

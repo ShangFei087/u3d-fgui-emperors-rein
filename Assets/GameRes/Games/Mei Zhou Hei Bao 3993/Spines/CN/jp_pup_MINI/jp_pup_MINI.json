@@ -1,6 +1,6 @@
 {
 "skeleton": {
-	"hash": "02jiKjSQGX4",
+	"hash": "VKwjPm2YEJM",
 	"spine": "4.1.24",
 	"x": -541.69,
 	"y": -416.15,
@@ -10,8 +10,8 @@
 	"audio": "E:/1.项目/3993_美洲黑豹/彩金奖项中奖框/新建文件夹 (2)/images"
 },
 "bones": [
-	{ "name": "root", "scaleX": 0.5, "scaleY": 0.5 },
-	{ "name": "All", "parent": "root" },
+	{ "name": "root" },
+	{ "name": "All", "parent": "root", "scaleX": 0.5, "scaleY": 0.5 },
 	{ "name": "snake", "parent": "All", "x": -0.47, "y": -1997.27 },
 	{ "name": "button", "parent": "snake", "length": 477.68, "rotation": -1.15, "x": 29.88, "y": 1363.37 },
 	{ "name": "snake2", "parent": "snake", "rotation": -1.15, "x": -0.87, "y": 1599.76 },
@@ -61,10 +61,15 @@
 	{ "name": "eye", "parent": "mouth", "x": 216.95, "y": 22.51 },
 	{ "name": "eff_MINI", "parent": "MINI", "x": -52.24, "y": 195.56, "scaleX": 4, "scaleY": 4 },
 	{ "name": "eff_glow", "parent": "MINI", "x": -31.05, "y": -22.08, "scaleX": 2, "scaleY": 2 },
-	{ "name": "eff_paoxiao", "parent": "mouth", "x": 474.25, "y": -191.56, "scaleX": 4, "scaleY": 4 }
+	{ "name": "eff_paoxiao", "parent": "mouth", "x": 474.25, "y": -191.56, "scaleX": 4, "scaleY": 4 },
+	{ "name": "eff_glow_all", "parent": "All" },
+	{ "name": "eff_glow_01", "parent": "eff_glow_all", "y": 396.65, "scaleX": 4, "scaleY": 4 },
+	{ "name": "eff_glow_01_01", "parent": "eff_glow_all", "y": 396.65, "scaleX": 4, "scaleY": 4 },
+	{ "name": "eff_glow_02", "parent": "eff_glow_all", "y": 396.65, "scaleX": 2, "scaleY": 2 }
 ],
 "slots": [
 	{ "name": "root2", "bone": "root", "attachment": "root2" },
+	{ "name": "eff/glow_04", "bone": "eff_glow_01_01" },
 	{ "name": "99", "bone": "snake", "attachment": "99" },
 	{ "name": "28", "bone": "leaf14", "attachment": "28" },
 	{ "name": "27", "bone": "leaf11", "attachment": "27" },
@@ -95,7 +100,9 @@
 	{ "name": "42", "bone": "button", "attachment": "42" },
 	{ "name": "41", "bone": "button", "attachment": "41" },
 	{ "name": "eff/eff_glow_00", "bone": "eff_glow", "blend": "additive" },
-	{ "name": "eff/eff_paoxiao/eff_paoxiao_03", "bone": "eff_paoxiao" }
+	{ "name": "eff/eff_paoxiao/eff_paoxiao_03", "bone": "eff_paoxiao" },
+	{ "name": "eff/glow_03", "bone": "eff_glow_01" },
+	{ "name": "eff/glow_02.", "bone": "eff_glow_02", "color": "83f6abff", "blend": "additive" }
 ],
 "ik": [
 	{
@@ -173,7 +180,7 @@
 					"type": "mesh",
 					"uvs": [ 0.78892, 0.01794, 0.96734, 0.0833, 0.97959, 0.11836, 1, 0.3006, 0.99284, 0.42476, 0.96418, 0.56665, 0.88559, 0.48145, 0.59827, 0.81399, 0.23735, 0.74511, 0.18004, 0.86179, 0.12909, 0.96554, 0.07408, 0.93704, 0.0241, 0.80406, 0.02412, 0.68674, 0.08597, 0.44578, 0.13165, 0.2678, 0.22194, 0.12475, 0.49831, 0 ],
 					"triangles": [ 9, 13, 14, 10, 11, 9, 9, 11, 13, 13, 11, 12, 8, 17, 7, 7, 0, 6, 7, 17, 0, 5, 6, 4, 4, 6, 3, 6, 1, 2, 6, 0, 1, 3, 6, 2, 14, 8, 9, 14, 15, 8, 15, 16, 8, 8, 16, 17 ],
-					"vertices": [ 1, 36, 567.31, 130.92, 1, 1, 36, 783.29, 78.72, 1, 1, 36, 796.78, 59.45, 1, 1, 36, 813.84, -36.2, 1, 1, 36, 799.62, -99.16, 1, 1, 36, 758.26, -168.97, 1, 1, 36, 665.6, -117.03, 1, 1, 36, 298.63, -257.62, 1, 3, 35, -5.68, -95.2, 0.6474, 36, -141.04, -184.51, 0.0526, 34, 272.45, -69.86, 0.3, 3, 35, -97.99, -86.97, 0.38585, 36, -216.44, -238.39, 0.01415, 34, 206.43, -4.82, 0.6, 1, 34, 147.73, 53, 1, 1, 34, 156.43, 121.74, 1, 1, 34, 219.29, 189, 1, 1, 34, 279.48, 194.25, 1, 2, 35, -26.29, 145.77, 0.57255, 34, 409.75, 129.24, 0.42745, 2, 35, 78.5, 169.89, 0.7, 34, 505.96, 81.23, 0.3, 1, 35, 208.95, 142.22, 1, 2, 35, 493.18, -55.47, 0.34415, 36, 211.64, 170.53, 0.65585 ],
+					"vertices": [ 1, 36, 538.62, 119.52, 1, 1, 36, 754.6, 67.32, 1, 1, 36, 768.09, 48.05, 1, 1, 36, 785.15, -47.6, 1, 1, 36, 770.93, -110.57, 1, 1, 36, 729.56, -180.38, 1, 1, 36, 636.91, -128.44, 1, 1, 36, 269.94, -269.02, 1, 3, 35, -34.89, -85.17, 0.6474, 36, -169.73, -195.92, 0.0526, 34, 256.29, -43.55, 0.3, 3, 35, -127.2, -76.94, 0.38585, 36, -245.13, -249.8, 0.01415, 34, 190.26, 21.48, 0.6, 1, 34, 131.56, 79.3, 1, 1, 34, 140.27, 148.04, 1, 1, 34, 203.12, 215.3, 1, 1, 34, 263.31, 220.55, 1, 2, 35, -55.5, 155.8, 0.57255, 34, 393.58, 155.55, 0.42745, 2, 35, 49.29, 179.92, 0.7, 34, 489.8, 107.53, 0.3, 1, 35, 179.74, 152.25, 1, 2, 35, 463.97, -45.44, 0.34415, 36, 182.95, 159.13, 0.65585 ],
 					"hull": 18,
 					"edges": [ 0, 2, 2, 4, 4, 6, 8, 10, 10, 12, 12, 14, 20, 22, 22, 24, 24, 26, 30, 32, 32, 34, 34, 0, 6, 8, 14, 16, 26, 28, 28, 30, 16, 18, 18, 20 ],
 					"width": 1231,
@@ -195,9 +202,9 @@
 			"12": {
 				"12": {
 					"type": "mesh",
-					"uvs": [ 0, 0, 1, 0, 1, 1, 0, 1 ],
-					"triangles": [ 3, 0, 1, 3, 1, 2 ],
-					"vertices": [ 49.01, 71.31, 808.25, 6.55, 780.38, -320.26, 21.13, -255.51 ],
+					"uvs": [ 1, 1, 0, 1, 0, 0, 1, 0 ],
+					"triangles": [ 1, 2, 3, 1, 3, 0 ],
+					"vertices": [ 1, 36, 745.15, -363.54, 1, 2, 36, -14.09, -298.78, 0.7, 37, 89.71, -10.32, 0.3, 1, 36, 13.78, 28.03, 1, 1, 36, 773.03, -36.73, 1 ],
 					"hull": 4,
 					"edges": [ 0, 2, 2, 4, 4, 6, 0, 6 ],
 					"width": 762,
@@ -515,6 +522,15 @@
 				"eff/eff_paoxiao/eff_paoxiao_20": { "rotation": -4.87, "width": 512, "height": 512 },
 				"eff/eff_paoxiao/eff_paoxiao_21": { "rotation": -4.87, "width": 512, "height": 512 }
 			},
+			"eff/glow_03": {
+				"eff/glow_01": { "scaleX": 2, "scaleY": 2, "width": 512, "height": 512 }
+			},
+			"eff/glow_04": {
+				"eff/glow_01": { "scaleX": 2, "scaleY": 2, "width": 512, "height": 512 }
+			},
+			"eff/glow_02.": {
+				"eff/ring_01": { "y": -198.33, "scaleX": 10, "scaleY": 10, "width": 512, "height": 512 }
+			},
 			"root2": {
 				"root2": {
 					"type": "boundingbox",
@@ -592,6 +608,11 @@
 					{ "time": 3.2667, "name": "eff/eff_MINI/eff_MINI_58" },
 					{ "time": 3.3, "name": "eff/eff_MINI/eff_MINI_59" },
 					{ "time": 3.3333 }
+				]
+			},
+			"eff/glow_04": {
+				"attachment": [
+					{ "name": "eff/glow_01" }
 				]
 			}
 		},
@@ -2481,6 +2502,12 @@
 					},
 					{ "time": 6, "value": 12.28 }
 				]
+			},
+			"eff_glow_01_01": {
+				"rotate": [
+					{ "value": 90 },
+					{ "time": 6, "value": 360 }
+				]
 			}
 		}
 	},
@@ -2699,6 +2726,34 @@
 					{ "time": 1.8667, "name": "eff/eff_paoxiao/eff_paoxiao_15" },
 					{ "time": 1.9, "name": "eff/eff_paoxiao/eff_paoxiao_16" },
 					{ "time": 1.9333, "name": "eff/eff_paoxiao/eff_paoxiao_17" }
+				]
+			},
+			"eff/glow_03": {
+				"rgba": [
+					{ "time": 0.4333, "color": "ffffffff" },
+					{ "time": 0.6667, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "time": 0.1333, "name": "eff/glow_01" }
+				]
+			},
+			"eff/glow_04": {
+				"rgba": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.3333, "color": "ffffff00" },
+					{ "time": 0.6667, "color": "ffffffff" }
+				],
+				"attachment": [
+					{ "name": "eff/glow_01" }
+				]
+			},
+			"eff/glow_02.": {
+				"rgba": [
+					{ "time": 0.4, "color": "4bff6aff" },
+					{ "time": 0.6, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "time": 0.1333, "name": "eff/ring_01" }
 				]
 			}
 		},
@@ -4934,28 +4989,30 @@
 					{ "time": 0.3333 },
 					{ "time": 0.5, "x": 1.2, "y": 1.2 }
 				]
+			},
+			"eff_glow_01": {
+				"scale": [
+					{ "time": 0.1333, "x": 0, "y": 0, "curve": "stepped" },
+					{ "time": 0.3333, "x": 0, "y": 0 },
+					{ "time": 0.5 }
+				]
+			},
+			"eff_glow_01_01": {
+				"rotate": [
+					{ "time": 0.3333 },
+					{ "time": 2, "value": 90 }
+				]
+			},
+			"eff_glow_02": {
+				"scale": [
+					{ "time": 0.1333, "x": 0, "y": 0, "curve": "stepped" },
+					{ "time": 0.3, "x": 0, "y": 0 },
+					{ "time": 0.5333, "x": 0.75, "y": 0.75 }
+				]
 			}
 		},
 		"attachments": {
 			"default": {
-				"10": {
-					"10": {
-						"deform": [
-							{ "time": 1 },
-							{
-								"time": 1.3333,
-								"offset": 34,
-								"vertices": [ 0.56296, -6.89514 ]
-							},
-							{
-								"time": 1.6667,
-								"offset": 32,
-								"vertices": [ -8.07764, -13.74359, -7.51468, -20.63873 ]
-							},
-							{ "time": 2 }
-						]
-					}
-				},
 				"20": {
 					"20": {
 						"deform": [
@@ -5129,6 +5186,11 @@
 				"rgba": [
 					{ "time": 0.3333, "color": "ffffffff" },
 					{ "time": 0.6, "color": "ffffff00" }
+				]
+			},
+			"eff/glow_04": {
+				"attachment": [
+					{ "name": "eff/glow_01" }
 				]
 			}
 		},
@@ -6175,23 +6237,19 @@
 					},
 					{ "time": 0.8333, "value": 12.28 }
 				]
-			}
-		},
-		"attachments": {
-			"default": {
-				"10": {
-					"10": {
-						"deform": [
-							{},
-							{
-								"time": 0.3333,
-								"offset": 34,
-								"vertices": [ -1.8064, -10.19131 ]
-							},
-							{ "time": 0.8333 }
-						]
-					}
-				}
+			},
+			"eff_glow_01_01": {
+				"rotate": [
+					{ "value": 360 },
+					{ "time": 0.8333, "value": 420 }
+				],
+				"translate": [
+					{ "x": -13.93 }
+				],
+				"scale": [
+					{ "time": 0.4 },
+					{ "time": 0.6667, "x": 0, "y": 0 }
+				]
 			}
 		}
 	}

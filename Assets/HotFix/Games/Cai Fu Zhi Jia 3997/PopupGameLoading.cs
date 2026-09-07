@@ -42,8 +42,7 @@ namespace CaiFuZhiJia_3997
             "normal_game/wealth_ng_npc_atmosphere.pag", "normal_game/wealth_ng_npc_not triggered.pag",
             "normal_game/wealth_ng_npc_atmosphere_idle.pag",
             // bigwin pag
-            "bigwin/ng_pop_border-bigwin.pag", "bigwin/ng_pop_border-megawin.pag",
-            "bigwin/ng_pop_border-supwin.pag",
+            "bigwin/ng_pop_border-bigwin.pag", "bigwin/ng_pop_border-megawin.pag", "bigwin/ng_pop_border-supwin.pag",
             // 免费游戏 pag
             "free_game/fg_img_bg_robot.pag", "free_game/wealth_fg_npc_upgrade1.pag",
             "free_game/wealth_fg_npc_upgrade2.pag", "free_game/wealth_fg_npc_settlement.pag",
@@ -65,6 +64,9 @@ namespace CaiFuZhiJia_3997
 
         /// <summary>Loading 阶段 PAG 预热协程；关页前须全部完成，异常关页时 Stop 清理。</summary>
         private Coroutine _pagPreloadCoroutine;
+
+        /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
+        private I18nLang _boundLang;
 
         /// <summary>创建 FGUI 界面并异步加载 Loading 背景/标题 Spine Prefab。</summary>
         protected override void OnInit()
@@ -113,9 +115,11 @@ namespace CaiFuZhiJia_3997
             }
 
             currentCom = contentPane.GetChild("anchorLoadingTitle").asCom;
-            if (currentCom != _compareTitle)
+            if (currentCom != _compareTitle || _boundLang != PopupSpineLang3997.CurrentLang)
             {
                 _cloneTitleObj = Object.Instantiate(_titleObj);
+                PopupSpineLang3997.Apply(_cloneTitleObj);
+                _boundLang = PopupSpineLang3997.CurrentLang;
                 GameCommon.FguiUtils.DeleteWrapper(_compareTitle);
                 _compareTitle = currentCom;
                 GameCommon.FguiUtils.AddWrapper(_compareTitle, _cloneTitleObj);

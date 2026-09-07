@@ -17,14 +17,16 @@ namespace MeiZhouHeiBao_3993
 
         /// <summary>弹窗 Spine 预制体路径。</summary>
         private const string PrefabPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupFreeSpinTrigger/PopupFreeSpinTrigger.prefab";
-        /// <summary>PAG 资源目录。</summary>
-        private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
-        /// <summary>免费弹窗 PAG 入场。</summary>
-        private const string PagFgPupIn = "fg_pup/fg_pup_in";
-        /// <summary>免费弹窗 PAG 循环待机。</summary>
-        private const string PagFgPupIdle = "fg_pup/fg_pup_idle";
-        /// <summary>免费弹窗 PAG 离场。</summary>
-        private const string PagFgPupOut = "fg_pup/fg_pup_out";
+        /// <summary>弹窗金币特效预制体路径。</summary>
+        private const string EffPrefabPath = PopupSpineWrap3993.EffPopPrefabPath;
+        // /// <summary>PAG 资源目录。</summary>
+        // private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
+        // /// <summary>免费弹窗 PAG 入场。</summary>
+        // private const string PagFgPupIn = "fg_pup/fg_pup_in";
+        // /// <summary>免费弹窗 PAG 循环待机。</summary>
+        // private const string PagFgPupIdle = "fg_pup/fg_pup_idle";
+        // /// <summary>免费弹窗 PAG 离场。</summary>
+        // private const string PagFgPupOut = "fg_pup/fg_pup_out";
 
         /// <summary>加载后的 Spine 预制体。</summary>
         private GameObject goFreeTrigger;
@@ -34,6 +36,14 @@ namespace MeiZhouHeiBao_3993
         private GameObject clonegoFreeTrigger;
         /// <summary>弹窗 Spine 播放器。</summary>
         private AnimPlayer _animFreeTrigger;
+        /// <summary>加载后的特效 Spine 预制体。</summary>
+        private GameObject goPopEff;
+        /// <summary>特效 Spine 挂点。</summary>
+        private GComponent anchorPopEff;
+        /// <summary>场景中的特效 Spine 实例。</summary>
+        private GameObject clonegoPopEff;
+        /// <summary>弹窗特效 Spine 播放器。</summary>
+        private AnimPlayer _animPopEff;
         /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
         private I18nLang _boundLang;
         /// <summary>播完 out 后延迟关页。</summary>
@@ -42,10 +52,10 @@ namespace MeiZhouHeiBao_3993
         private TimerCallback _autoClickCallback;
         /// <summary>入场后延迟点亮开始按钮。</summary>
         private TimerCallback _enableBtnCallback;
-        /// <summary>PAG 挂点。</summary>
-        private GComponent anchorPagFreeTrigger;
-        /// <summary>免费弹窗 PAG 槽。</summary>
-        private PagSlotBinding pagFreeTrigger;
+        // /// <summary>PAG 挂点。</summary>
+        // private GComponent anchorPagFreeTrigger;
+        // /// <summary>免费弹窗 PAG 槽。</summary>
+        // private PagSlotBinding pagFreeTrigger;
 
         /// <summary>开始按钮（挂到 Spine 骨骼）。</summary>
         private GButton btnStart;
@@ -62,7 +72,7 @@ namespace MeiZhouHeiBao_3993
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 1;
+            int count = 2;
             Action callback = () =>
             {
                 if (--count == 0)
@@ -79,6 +89,13 @@ namespace MeiZhouHeiBao_3993
                  goFreeTrigger = clone;
                  callback();
              });
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                EffPrefabPath,
+                (GameObject clone) =>
+                {
+                    goPopEff = clone;
+                    callback();
+                });
 
             machineBtnClickHelper = new MachineButtonClickHelper()
             {
@@ -97,6 +114,12 @@ namespace MeiZhouHeiBao_3993
             };
         }
 
+        /// <summary>Dispose contentPane 前先摘特效 wrapTarget，避免 GoWrapper 把实例一起毁掉。</summary>
+        protected override void OnBeforetLanguageChange(I18nLang lang)
+        {
+            PopupSpineWrap3993.PrepareLanguageChange(ref _animPopEff, ref anchorPopEff, clonegoPopEff);
+        }
+
         /// <summary>挂 Spine/PAG、绑定开始按钮与次数、延迟可点，自动化则定时点击。</summary>
         public override void InitParam()
         {
@@ -109,10 +132,10 @@ namespace MeiZhouHeiBao_3993
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _enableBtnCallback);
 
-            anchorPagFreeTrigger= contentPane.GetChild("anchorFreeTriggerPag").asCom;
-            if (pagFreeTrigger == null) pagFreeTrigger = new PagSlotBinding("3993pagFreeTrigger", PagPath);
-            pagFreeTrigger.EnsureSlot(anchorPagFreeTrigger);
-            PlayFgPupInIdle();
+            // anchorPagFreeTrigger= contentPane.GetChild("anchorFreeTriggerPag").asCom;
+            // if (pagFreeTrigger == null) pagFreeTrigger = new PagSlotBinding("3993pagFreeTrigger", PagPath);
+            // pagFreeTrigger.EnsureSlot(anchorPagFreeTrigger);
+            // PlayFgPupInIdle();
 
             GComponent localFreeTrigger = contentPane.GetChild("anchorFreeTrigger").asCom;
             if (anchorFreeTrigger != localFreeTrigger || _boundLang != PopupSpineLang3993.CurrentLang)
@@ -127,6 +150,8 @@ namespace MeiZhouHeiBao_3993
                 _animFreeTrigger = new AnimPlayer(clonegoFreeTrigger);
             }
             _animFreeTrigger.PlayThen("in", "idle", true);
+            PopupSpineWrap3993.BindAndPlay(contentPane, "anchorEff", goPopEff,
+                ref anchorPopEff, ref clonegoPopEff, ref _animPopEff, "idle");
 
             btnStart = contentPane.GetChild("BtnStart").asButton;
             txtFreeTime = contentPane.GetChild("FreeTimeText").asTextField;
@@ -175,7 +200,8 @@ namespace MeiZhouHeiBao_3993
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _enableBtnCallback);
             _animFreeTrigger.DetachAll();
-            pagFreeTrigger?.StopWithDefaults();
+            PopupSpineWrap3993.SetVisible(anchorPopEff, false);
+            // pagFreeTrigger?.StopWithDefaults();
 
             base.OnClose(eventData);
 
@@ -191,8 +217,8 @@ namespace MeiZhouHeiBao_3993
 
             btnStart.touchable = false;
             _animFreeTrigger.Play("out");
-            PlayFgPupOut();
-
+            // PlayFgPupOut();
+            PopupSpineWrap3993.SetVisible(anchorPopEff, false);
             RemoveTimer(ref _delayCloseCallback);
             _delayCloseCallback = obj =>
             {
@@ -202,32 +228,32 @@ namespace MeiZhouHeiBao_3993
             Timers.inst.Add(1.0f, 1, _delayCloseCallback);
         }
 
-        /// <summary>PAG：in 接 idle 循环。</summary>
-        private void PlayFgPupInIdle()
-        {
-            if (pagFreeTrigger == null) return;
-            pagFreeTrigger.StopWithDefaults();
-            pagFreeTrigger.Play(new PagSequencePlay(
-                PagPlaySpecs.IntroLoop(PagFgPupIn, PagFgPupIdle),
-                PagPlayLayout.Center,
-                PagPresentationDefaults.DisplayScale,
-                useGpuSyncGroup: false));
-        }
+        // /// <summary>PAG：in 接 idle 循环。</summary>
+        // private void PlayFgPupInIdle()
+        // {
+        //     if (pagFreeTrigger == null) return;
+        //     pagFreeTrigger.StopWithDefaults();
+        //     pagFreeTrigger.Play(new PagSequencePlay(
+        //         PagPlaySpecs.IntroLoop(PagFgPupIn, PagFgPupIdle),
+        //         PagPlayLayout.Center,
+        //         PagPresentationDefaults.DisplayScale,
+        //         useGpuSyncGroup: false));
+        // }
 
-        /// <summary>PAG：播一遍 out 后停止。</summary>
-        private void PlayFgPupOut()
-        {
-            if (pagFreeTrigger == null) return;
-            pagFreeTrigger.StopWithDefaults();
-            pagFreeTrigger.Play(new PagSequencePlay(
-                new[] { new PagSegment(PagFgPupOut, 1) },
-                PagPlayLayout.Center,
-                PagPresentationDefaults.DisplayScale,
-                useGpuSyncGroup: false,
-                callbacks: new PagPlayCallbacks(
-                    onFinished: () => pagFreeTrigger?.StopWithDefaults(),
-                    stopAfterFinished: true)));
-        }
+        // /// <summary>PAG：播一遍 out 后停止。</summary>
+        // private void PlayFgPupOut()
+        // {
+        //     if (pagFreeTrigger == null) return;
+        //     pagFreeTrigger.StopWithDefaults();
+        //     pagFreeTrigger.Play(new PagSequencePlay(
+        //         new[] { new PagSegment(PagFgPupOut, 1) },
+        //         PagPlayLayout.Center,
+        //         PagPresentationDefaults.DisplayScale,
+        //         useGpuSyncGroup: false,
+        //         callbacks: new PagPlayCallbacks(
+        //             onFinished: () => pagFreeTrigger?.StopWithDefaults(),
+        //             stopAfterFinished: true)));
+        // }
 
         /// <summary>自动化测试开启时，延迟后自动点开始。</summary>
         private void ScheduleAutoModeClick(float delaySeconds)

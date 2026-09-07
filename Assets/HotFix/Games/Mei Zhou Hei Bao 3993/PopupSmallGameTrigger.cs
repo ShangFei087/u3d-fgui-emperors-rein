@@ -16,14 +16,16 @@ namespace MeiZhouHeiBao_3993
         public new const string resName = "PopupSmallGameTrigger";
         /// <summary>弹窗 Spine 预制体路径。</summary>
         private const string PrefabPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupSmallGameTrigger/PopupSmallGameTrigger.prefab";
-        /// <summary>PAG 资源目录。</summary>
-        private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
-        /// <summary>大奖弹窗 PAG 入场。</summary>
-        private const string PagSmallPupIn = "small_pup/small_pup_in";
-        /// <summary>大奖弹窗 PAG 循环待机。</summary>
-        private const string PagSmallPupIdle = "small_pup/small_pup_idle";
-        /// <summary>大奖弹窗 PAG 离场。</summary>
-        private const string PagSmallPupOut = "small_pup/small_pup_out";
+        /// <summary>弹窗金币特效预制体路径。</summary>
+        private const string EffPrefabPath = PopupSpineWrap3993.EffPopPrefabPath;
+        // /// <summary>PAG 资源目录。</summary>
+        // private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
+        // /// <summary>大奖弹窗 PAG 入场。</summary>
+        // private const string PagSmallPupIn = "small_pup/small_pup_in";
+        // /// <summary>大奖弹窗 PAG 循环待机。</summary>
+        // private const string PagSmallPupIdle = "small_pup/small_pup_idle";
+        // /// <summary>大奖弹窗 PAG 离场。</summary>
+        // private const string PagSmallPupOut = "small_pup/small_pup_out";
         /// <summary>加载后的 Spine 预制体。</summary>
         private GameObject goBonusTrigger;
         /// <summary>Spine 挂点。</summary>
@@ -32,6 +34,14 @@ namespace MeiZhouHeiBao_3993
         private GameObject clonegoBonusTrigger;
         /// <summary>弹窗 Spine 播放器。</summary>
         private AnimPlayer _animBonusTrigger;
+        /// <summary>加载后的特效 Spine 预制体。</summary>
+        private GameObject goPopEff;
+        /// <summary>特效 Spine 挂点。</summary>
+        private GComponent anchorPopEff;
+        /// <summary>场景中的特效 Spine 实例。</summary>
+        private GameObject clonegoPopEff;
+        /// <summary>弹窗特效 Spine 播放器。</summary>
+        private AnimPlayer _animPopEff;
         /// <summary>当前实例绑定的语言，切语言时强制重绑。</summary>
         private I18nLang _boundLang;
         /// <summary>播完 out 后延迟关页。</summary>
@@ -40,10 +50,10 @@ namespace MeiZhouHeiBao_3993
         private TimerCallback _autoClickCallback;
         /// <summary>入场后延迟点亮开始按钮。</summary>
         private TimerCallback _enableBtnCallback;
-        /// <summary>PAG 挂点。</summary>
-        private GComponent anchorPagBonusTrigger;
-        /// <summary>大奖触发 PAG 槽。</summary>
-        private PagSlotBinding pagBonusTrigger;
+        // /// <summary>PAG 挂点。</summary>
+        // private GComponent anchorPagBonusTrigger;
+        // /// <summary>大奖触发 PAG 槽。</summary>
+        // private PagSlotBinding pagBonusTrigger;
 
         /// <summary>开始按钮（挂到 Spine 骨骼）。</summary>
         private GButton btnStart;
@@ -56,7 +66,7 @@ namespace MeiZhouHeiBao_3993
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 1;
+            int count = 2;
             Action callback = () =>
             {
                 if (--count == 0)
@@ -70,6 +80,12 @@ namespace MeiZhouHeiBao_3993
              (GameObject clone) =>
              {
                  goBonusTrigger = clone;
+                 callback();
+             });
+            ResourceManager02.Instance.LoadAsset<GameObject>(EffPrefabPath,
+             (GameObject clone) =>
+             {
+                 goPopEff = clone;
                  callback();
              });
 
@@ -90,6 +106,12 @@ namespace MeiZhouHeiBao_3993
             };
         }
 
+        /// <summary>Dispose contentPane 前先摘特效 wrapTarget，避免 GoWrapper 把实例一起毁掉。</summary>
+        protected override void OnBeforetLanguageChange(I18nLang lang)
+        {
+            PopupSpineWrap3993.PrepareLanguageChange(ref _animPopEff, ref anchorPopEff, clonegoPopEff);
+        }
+
         /// <summary>挂 Spine、绑定开始按钮、延迟可点，自动化则定时点击。</summary>
         public override void InitParam()
         {
@@ -101,15 +123,15 @@ namespace MeiZhouHeiBao_3993
             RemoveTimer(ref _delayCloseCallback);
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _enableBtnCallback);
-            anchorPagBonusTrigger = contentPane.GetChild("anchorBonusTriggerPag").asCom;
-            if (pagBonusTrigger == null) pagBonusTrigger = new PagSlotBinding("3993pagBonusTrigger", PagPath);
-            pagBonusTrigger.EnsureSlot(anchorPagBonusTrigger);
-            pagBonusTrigger.StopWithDefaults();
-            pagBonusTrigger.Play(new PagSequencePlay(
-                PagPlaySpecs.IntroLoop(PagSmallPupIn, PagSmallPupIdle),
-                PagPlayLayout.Center,
-                PagPresentationDefaults.DisplayScale,
-                useGpuSyncGroup: false));
+            // anchorPagBonusTrigger = contentPane.GetChild("anchorBonusTriggerPag").asCom;
+            // if (pagBonusTrigger == null) pagBonusTrigger = new PagSlotBinding("3993pagBonusTrigger", PagPath);
+            // pagBonusTrigger.EnsureSlot(anchorPagBonusTrigger);
+            // pagBonusTrigger.StopWithDefaults();
+            // pagBonusTrigger.Play(new PagSequencePlay(
+            //     PagPlaySpecs.IntroLoop(PagSmallPupIn, PagSmallPupIdle),
+            //     PagPlayLayout.Center,
+            //     PagPresentationDefaults.DisplayScale,
+            //     useGpuSyncGroup: false));
 
             GComponent localBonusTrigger = contentPane.GetChild("anchorBonusTrigger").asCom;
             if (anchorBonusTrigger != localBonusTrigger || _boundLang != PopupSpineLang3993.CurrentLang)
@@ -124,6 +146,8 @@ namespace MeiZhouHeiBao_3993
                 _animBonusTrigger = new AnimPlayer(clonegoBonusTrigger);
             }
             _animBonusTrigger.PlayThen("in", "idle", true);
+            PopupSpineWrap3993.BindAndPlay(contentPane, "anchorEff", goPopEff,
+                ref anchorPopEff, ref clonegoPopEff, ref _animPopEff, "MAJOR_idle");
 
             btnStart = contentPane.GetChild("btnStart").asButton;
 
@@ -165,7 +189,8 @@ namespace MeiZhouHeiBao_3993
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _enableBtnCallback);
             _animBonusTrigger.DetachAll();
-            pagBonusTrigger?.StopWithDefaults();
+           
+            // pagBonusTrigger?.StopWithDefaults();
 
             base.OnClose(eventData);
 
@@ -182,16 +207,16 @@ namespace MeiZhouHeiBao_3993
 
             btnStart.touchable = false;
             _animBonusTrigger.Play("out");
-
-            pagBonusTrigger.StopWithDefaults();
-            pagBonusTrigger.Play(new PagSequencePlay(
-                new[] { new PagSegment(PagSmallPupOut, 1) },
-                PagPlayLayout.Center,
-                PagPresentationDefaults.DisplayScale,
-                useGpuSyncGroup: false,
-                callbacks: new PagPlayCallbacks(
-                    onFinished: () => pagBonusTrigger?.StopWithDefaults(),
-                    stopAfterFinished: true)));
+            PopupSpineWrap3993.SetVisible(anchorPopEff, false);
+            // pagBonusTrigger.StopWithDefaults();
+            // pagBonusTrigger.Play(new PagSequencePlay(
+            //     new[] { new PagSegment(PagSmallPupOut, 1) },
+            //     PagPlayLayout.Center,
+            //     PagPresentationDefaults.DisplayScale,
+            //     useGpuSyncGroup: false,
+            //     callbacks: new PagPlayCallbacks(
+            //         onFinished: () => pagBonusTrigger?.StopWithDefaults(),
+            //         stopAfterFinished: true)));
 
             RemoveTimer(ref _delayCloseCallback);
             _delayCloseCallback = obj =>

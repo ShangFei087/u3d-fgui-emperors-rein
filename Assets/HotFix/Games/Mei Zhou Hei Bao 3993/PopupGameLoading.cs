@@ -17,42 +17,46 @@ namespace MeiZhouHeiBao_3993
         public new const string resName = "PopupGameLoading";
         /// <summary>PAG 资源目录。</summary>
         private const string GamePagFolder = "Games/Mei Zhou Hei Bao 3993/Pag";
-        /// <summary>Loading 预热： Pag </summary>
+        /// <summary>Loading 预热： Pag（中爪/咆哮已改 Spine，无剩余 PAG）。</summary>
         private static readonly string[] PagPreloadFiles =
         {
-            "eff_zhuazi_bmp/eff_zhuazi_you.pag",
-            "eff_zhuazi_bmp/eff_zhuazi_zhong.pag",
-            "eff_zhuazi_bmp/eff_zhuazi_zuo.pag",
+            // 大奖收集左右爪 PAG 已关
+            // "eff_zhuazi_bmp/eff_zhuazi_you.pag",
+            // "eff_zhuazi_bmp/eff_zhuazi_zhong.pag",
+            // "eff_zhuazi_bmp/eff_zhuazi_zuo.pag",
 
-            "fg_pup/fg_pup_idle.pag",
-            "fg_pup/fg_pup_in.pag",
-            "fg_pup/fg_pup_out.pag",
+            // 免费/大奖/彩金弹窗 PAG 已删，只留 Spine
+            // "fg_pup/fg_pup_idle.pag",
+            // "fg_pup/fg_pup_in.pag",
+            // "fg_pup/fg_pup_out.pag",
 
-            "small_pup/small_pup_idle.pag",
-            "small_pup/small_pup_in.pag",
-            "small_pup/small_pup_out.pag",
+            // "small_pup/small_pup_idle.pag",
+            // "small_pup/small_pup_in.pag",
+            // "small_pup/small_pup_out.pag",
 
-            "jp_pup/jp_pup_MAJOR_pag/jp_pup_MAJOR_idle.pag",
-            "jp_pup/jp_pup_MAJOR_pag/jp_pup_MAJOR_in.pag",
-            "jp_pup/jp_pup_MAJOR_pag/jp_pup_MAJOR_out.pag",
+            // "jp_pup/jp_pup_MAJOR_pag/jp_pup_MAJOR_idle.pag",
+            // "jp_pup/jp_pup_MAJOR_pag/jp_pup_MAJOR_in.pag",
+            // "jp_pup/jp_pup_MAJOR_pag/jp_pup_MAJOR_out.pag",
 
-            "jp_pup/jp_pup_MINI_pag/jp_pup_MINI_idle.pag",
-            "jp_pup/jp_pup_MINI_pag/jp_pup_MINI_in.pag",
-            "jp_pup/jp_pup_MINI_pag/jp_pup_MINI_out.pag",
+            // "jp_pup/jp_pup_MINI_pag/jp_pup_MINI_idle.pag",
+            // "jp_pup/jp_pup_MINI_pag/jp_pup_MINI_in.pag",
+            // "jp_pup/jp_pup_MINI_pag/jp_pup_MINI_out.pag",
 
-            "jp_pup/jp_pup_MINOR_pag/jp_pup_MINOR_idle.pag",
-            "jp_pup/jp_pup_MINOR_pag/jp_pup_MINOR_in.pag",
-            "jp_pup/jp_pup_MINOR_pag/jp_pup_MINOR_out.pag",
+            // "jp_pup/jp_pup_MINOR_pag/jp_pup_MINOR_idle.pag",
+            // "jp_pup/jp_pup_MINOR_pag/jp_pup_MINOR_in.pag",
+            // "jp_pup/jp_pup_MINOR_pag/jp_pup_MINOR_out.pag",
 
-            "jp_Transition2_NgToFg/NgToFg.pag",
+            // 过场已改 Spine
+            // "jp_Transition2_NgToFg/NgToFg.pag",
 
-            "ng_pop_bigwin/BigWin_bmp.pag",
-            "ng_pop_bigwin/SuperWin_bmp.pag",
-            "ng_pop_bigwin/MegaWin_bmp.pag",
+            // BigWin 已改 Spine
+            // "ng_pop_bigwin/BigWin_bmp.pag",
+            // "ng_pop_bigwin/SuperWin_bmp.pag",
+            // "ng_pop_bigwin/MegaWin_bmp.pag",
 
-            "ng_Roar/ng_Roar.pag",
+            // "ng_Roar/ng_Roar.pag",
 
-            "Transition_JPTONG-out_bmp/Transition_JPTONG-out_bmp.pag",
+            // "Transition_JPTONG-out_bmp/Transition_JPTONG-out_bmp.pag",
         };
         /// <summary>Loading 预热： Page </summary>
         private static readonly PageName[] PagesPreload =
@@ -172,10 +176,19 @@ namespace MeiZhouHeiBao_3993
 
             RefreshLoadingProgressVisual();
 
-            _pagPreloadTotal = PagPreloadFiles.Length;
-            _pagPreloadCompleted = 0;
-            _pagPreloadFinished = false;
-            StartPagPreloadInBackground();  // 与 PageManager.PreloadPage 并行：利用 Loading 窗口预热 PAG 磁盘缓存与 composition
+            if (PagPreloadFiles.Length == 0)
+            {
+                _pagPreloadTotal = 1;
+                _pagPreloadCompleted = 1;
+                _pagPreloadFinished = true;
+            }
+            else
+            {
+                _pagPreloadTotal = PagPreloadFiles.Length;
+                _pagPreloadCompleted = 0;
+                _pagPreloadFinished = false;
+                StartPagPreloadInBackground();
+            }
 
             _preloadCompleted = 0;
             _preloadTotal = PagesPreload.Length;

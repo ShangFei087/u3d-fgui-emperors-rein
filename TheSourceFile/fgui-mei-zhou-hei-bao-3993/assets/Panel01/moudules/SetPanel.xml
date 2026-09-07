@@ -5,7 +5,7 @@
     <component id="n2_z14g" name="btnSound" src="z14gq" fileName="components/button/ButtonSound.xml" xy="16,16"/>
     <component id="n1_z14g" name="btnPayTable" src="z14gp" fileName="components/button/ButtonIntroduce.xml" xy="15,113"/>
     <component id="n3_z14g" name="btnHome" src="z14gs" fileName="components/button/ButtonBack.xml" xy="17,205"/>
-    <component id="n4_z14g" name="silderSound" src="z14gu" fileName="components/button/SobudSlider.xml" xy="137,34">
+    <component id="n4_z14g" name="silderSound" src="z14gu" fileName="components/button/SobudSlider.xml" xy="154,34">
       <Slider value="50" max="100"/>
     </component>
   </displayList>

@@ -213,22 +213,28 @@ bounds:642,1857,201,55
 offsets:1,0,202,55
 
 fg_pup_TipFrame_2.png
-size:1458,1050
+size:1931,1050
 filter:Linear,Linear
 pma:true
 Base plate
 bounds:2,257,954,791
+eff/eff_glow2_01
+bounds:1431,578,498,470
+offsets:8,4,512,512
+eff/eff_glow2_02
+bounds:958,577,471,471
+offsets:20,20,512,512
 eff/eff_sg/eff_sg_26
-bounds:1087,67,367,243
+bounds:1562,87,367,243
 offsets:670,620,1758,1484
 eff/eff_sg/eff_sg_27
-bounds:1087,557,369,243
+bounds:1191,85,369,243
 offsets:678,621,1758,1484
 eff/eff_sg/eff_sg_28
-bounds:1087,312,369,243
+bounds:1328,332,369,243
 offsets:687,621,1758,1484
 eff/eff_sg/eff_sg_29
-bounds:717,10,368,245
+bounds:958,330,368,245
 offsets:695,618,1758,1484
 eff/eff_sg/eff_sg_30
 bounds:350,5,365,250
@@ -237,5 +243,5 @@ eff/eff_sg/eff_sg_33
 bounds:2,2,346,253
 offsets:735,615,1758,1484
 fg_img_CONGRATS
-bounds:958,802,472,246
+bounds:717,9,472,246
 offsets:5,4,482,254

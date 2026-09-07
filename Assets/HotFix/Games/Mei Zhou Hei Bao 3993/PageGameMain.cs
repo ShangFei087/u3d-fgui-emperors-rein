@@ -50,8 +50,6 @@ namespace MeiZhouHeiBao_3993
         public new const string pkgName = "MeiZhouHeiBao";
         /// <summary>主界面组件名。</summary>
         public new const string resName = "PageGameMain";
-        /// <summary>PAG 资源目录（相对 Streaming/AB）。</summary>
-        private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
         /// <summary>预制体根路径。</summary>
         private const string PrefabPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs";
 
@@ -157,10 +155,40 @@ namespace MeiZhouHeiBao_3993
         private int _speedUpTargetCol = -1;
         /// <summary>加速框跟随协程。</summary>
         private Coroutine _corEffectSlowMotion;
-        /// <summary>全屏 PAG：转场、爪子、咆哮共用。</summary>
-        private PagSlotBinding pagFade;
-        /// <summary>全屏 PAG 挂点。</summary>
-        GComponent anchorNormalFadeFree;
+        /// <summary>咆哮 Spine 预制体。</summary>
+        private GameObject goRoar;
+        /// <summary>咆哮挂点。</summary>
+        private GComponent anchorRoar;
+        /// <summary>咆哮实例。</summary>
+        private GameObject clonegoRoar;
+        /// <summary>咆哮播放器。</summary>
+        private AnimPlayer _animRoar;
+        /// <summary>免费过场 Spine 预制体。</summary>
+        private GameObject goFadeFreeGame;
+        /// <summary>大奖过场 Spine 预制体。</summary>
+        private GameObject goFadeSmallGame;
+        /// <summary>免费过场挂点。</summary>
+        private GComponent anchorFadeFreeGame;
+        /// <summary>大奖过场挂点。</summary>
+        private GComponent anchorFadeSmallGame;
+        /// <summary>免费过场实例。</summary>
+        private GameObject clonegoFadeFreeGame;
+        /// <summary>大奖过场实例。</summary>
+        private GameObject clonegoFadeSmallGame;
+        /// <summary>免费过场播放器。</summary>
+        private AnimPlayer _animFadeFreeGame;
+        /// <summary>大奖过场播放器。</summary>
+        private AnimPlayer _animFadeSmallGame;
+        /// <summary>过场播完后隐藏协程。</summary>
+        private Coroutine _corHideFade;
+        /// <summary>免费过场 Animator 状态名。</summary>
+        private const string AnimFadeFreeGame = "Transition_NGTOFG";
+        /// <summary>大奖过场入口状态，后续 in→idle→out 由 Controller 跳转。</summary>
+        private const string AnimFadeSmallGame = "in";
+        /// <summary>免费过场时长，播完隐藏。</summary>
+        private const float FadeFreeDuration = 2.7f;
+        /// <summary>大奖过场时长，播完隐藏。</summary>
+        private const float FadeSmallDuration = 6.2f;
 
         // --------------------------------------------- 免费游戏 -----------------------------------------------
         /// <summary>免费收集盒根节点。</summary>
@@ -217,8 +245,12 @@ namespace MeiZhouHeiBao_3993
         private const float PantherWinTrailDuration = 0.4f;
         /// <summary>普通局豹头拖尾间隔。</summary>
         private const float PantherWinTrailGap = 0.15f;
-        /// <summary>中爪 PAG。</summary>
-        private const string PagZhuaziZhong = "eff_zhuazi_bmp/eff_zhuazi_zhong";
+        /// <summary>大奖爪子 Spine 预制体。</summary>
+        private GameObject goZhuazi;
+        /// <summary>大奖爪子挂点。</summary>
+        private GComponent anchorZhuaZi;
+        /// <summary>大奖爪子实例。</summary>
+        private GameObject clonegoZhuazi;
 
         protected override void OnInit()
         {
@@ -226,7 +258,7 @@ namespace MeiZhouHeiBao_3993
             base.OnInit();
 
             // ---------- 1. 加载common,普通游戏,免费游戏,彩金游戏预制体到内存 ----------
-            _totalCount = 11;
+            _totalCount = 15;
             if (UIPackage.GetByName("Common") == null)
             {
                 ResourceManager02.Instance.LoadAssetBundleAsync("Assets/GameRes/Games/Common/FGUIs", (bundle) =>
@@ -316,6 +348,30 @@ namespace MeiZhouHeiBao_3993
                   _goEffNgTrails = clone;
                   ResLoadedCallback();
               });
+            ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath + "/PageGameMain/Transition_NGTOFG.prefab",
+              (GameObject clone) =>
+              {
+                  goFadeFreeGame = clone;
+                  ResLoadedCallback();
+              });
+            ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath + "/PageGameMain/Transition_JPTONG.prefab",
+              (GameObject clone) =>
+              {
+                  goFadeSmallGame = clone;
+                  ResLoadedCallback();
+              });
+            ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath + "/Effect/Eff_ng_zhuazi.prefab",
+              (GameObject clone) =>
+              {
+                  goZhuazi = clone;
+                  ResLoadedCallback();
+              });
+            ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath + "/Effect/Eff_Roar.prefab",
+              (GameObject clone) =>
+              {
+                  goRoar = clone;
+                  ResLoadedCallback();
+              });
 
             // ------------------------- 2. 接收硬件按钮点击 ----------------------------
             machineBtnClickHelper = new MachineButtonClickHelper()
@@ -398,17 +454,17 @@ namespace MeiZhouHeiBao_3993
             if (_fGuiPoolHelper != null && !_isInitPool)
             {
                 _isInitPool = true;
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolHit, CustomModel.Instance.symbolHitEffect.Values.ToList(), "symbol_hit#", 5);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolHit, CustomModel.Instance.symbolHitEffect.Values.ToList(), "symbol_hit#", 1);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolHit); // 中奖动画
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.borderEffect, "border#", 5);
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.pantherNormalBorderEffect, "border#", 5);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.borderEffect, "border#", 1);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.pantherNormalBorderEffect, "border#", 1);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolBorder); // 边框
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 3);
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardBonusEffect, "symbol_reward_bonus#", 6);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 1);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardBonusEffect, "symbol_reward_bonus#", 1);
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardJpMajorEffect, "symbol_reward_jp#", 1);
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardJpMinorEffect, "symbol_reward_jp#", 1);
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardJpMiniEffect, "symbol_reward_jp#", 1);
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolFreeConvertEffect.Values.ToList(), "symbol_free#", 3);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolFreeConvertEffect.Values.ToList(), "symbol_free#", 1);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear); // 落下后图标静止动画 / 免费转豹
                 _fGuiPoolHelper.WhenIdle(() =>
                 {
@@ -528,12 +584,60 @@ namespace MeiZhouHeiBao_3993
             }
 
             //---------- 8.特效功能制作 -----------------
-            //免费游戏
-            anchorNormalFadeFree = contentPane.GetChild("anchorFadePag").asCom;
-            if (pagFade == null)
-                pagFade = new PagSlotBinding("3993PagFade", PagPath);
-            pagFade.EnsureSlot(anchorNormalFadeFree);
-            _rewardMgr?.SetRoarPag(pagFade);
+            GComponent localRoar = contentPane.GetChild("anchorRoar") as GComponent;
+            if (localRoar != null && goRoar != null
+                && (anchorRoar != localRoar || _animRoar == null))
+            {
+                _animRoar?.DetachAll();
+                GameCommon.FguiUtils.DeleteWrapper(anchorRoar);
+                clonegoRoar = Object.Instantiate(goRoar);
+                clonegoRoar.SetActive(false);
+                anchorRoar = localRoar;
+                GameCommon.FguiUtils.AddWrapper(anchorRoar, clonegoRoar);
+                _animRoar = new AnimPlayer(clonegoRoar);
+                SetAnchorSpineVisible(anchorRoar, false);
+            }
+            _rewardMgr?.SetRoarSpine(anchorRoar, _animRoar);
+
+            GComponent localFadeFreeGame = contentPane.GetChild("anchorFadeFreeGame") as GComponent;
+            if (localFadeFreeGame != null && goFadeFreeGame != null
+                && (anchorFadeFreeGame != localFadeFreeGame || _animFadeFreeGame == null))
+            {
+                _animFadeFreeGame?.DetachAll();
+                GameCommon.FguiUtils.DeleteWrapper(anchorFadeFreeGame);
+                clonegoFadeFreeGame = Object.Instantiate(goFadeFreeGame);
+                clonegoFadeFreeGame.SetActive(false);
+                anchorFadeFreeGame = localFadeFreeGame;
+                GameCommon.FguiUtils.AddWrapper(anchorFadeFreeGame, clonegoFadeFreeGame);
+                _animFadeFreeGame = new AnimPlayer(clonegoFadeFreeGame);
+                SetAnchorSpineVisible(anchorFadeFreeGame, false);
+            }
+
+            GComponent localFadeSmallGame = contentPane.GetChild("anchorFadeSmallGame") as GComponent;
+            if (localFadeSmallGame != null && goFadeSmallGame != null
+                && (anchorFadeSmallGame != localFadeSmallGame || _animFadeSmallGame == null))
+            {
+                _animFadeSmallGame?.DetachAll();
+                GameCommon.FguiUtils.DeleteWrapper(anchorFadeSmallGame);
+                clonegoFadeSmallGame = Object.Instantiate(goFadeSmallGame);
+                clonegoFadeSmallGame.SetActive(false);
+                anchorFadeSmallGame = localFadeSmallGame;
+                GameCommon.FguiUtils.AddWrapper(anchorFadeSmallGame, clonegoFadeSmallGame);
+                _animFadeSmallGame = new AnimPlayer(clonegoFadeSmallGame);
+                SetAnchorSpineVisible(anchorFadeSmallGame, false);
+            }
+
+            GComponent localZhuaZi = contentPane.GetChild("anchorZhuaZi") as GComponent;
+            if (localZhuaZi != null && goZhuazi != null
+                && (anchorZhuaZi != localZhuaZi || clonegoZhuazi == null))
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorZhuaZi);
+                clonegoZhuazi = Object.Instantiate(goZhuazi);
+                anchorZhuaZi = localZhuaZi;
+                GameCommon.FguiUtils.AddWrapper(anchorZhuaZi, clonegoZhuazi);
+                SetAnchorSpineVisible(anchorZhuaZi, false);
+            }
+            _rewardMgr?.SetZhuaziSpine(anchorZhuaZi, clonegoZhuazi);
             cptBoxFreeCollet= localboxFreeCollect;
             cptBoxFreeCollet.GetTransition("exitFree").Play();
             //txtRemainFreeTime = contentPane.GetChild("freeOutFrame").asCom.GetChild("txtRemainFreeTime").asTextField;
@@ -580,20 +684,21 @@ namespace MeiZhouHeiBao_3993
             EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
-            if (_slotMachineController != null)
-                OnGameReset();
             StopAllGameCoroutines();
-            _slotMachineController?.ClearBonusScoreBinds();
+            if (_slotMachineController != null)
+            {
+                OnGameReset();
+                _slotMachineController.ClearBonusScoreBinds();
+            }
+           
             _speedUpTargetCol = -1;
-            if (anchorFreeSpeedBorder != null) anchorFreeSpeedBorder.visible = false;
-            if (anchorBonusSpeedBorder != null) anchorBonusSpeedBorder.visible = false;
+            //清除拖尾
             ClearPantherTrails();
             HideCollectStar();
             _rewardMgr?.Dispose();
-            pagFade?.Dispose();
-            pagFade = null;
-            _animNormalNpc?.DetachAll();
-            _animNormalNpc = null;
+            StopHideFade();
+            //删clone
+            ReleaseSceneWrappers();
             if (_monoHelper != null)
                 _monoHelper.updateHandle.RemoveAllListeners();
             if (_goGameCtrl != null && _goGameCtrl.activeSelf)
@@ -602,9 +707,66 @@ namespace MeiZhouHeiBao_3993
             base.OnClose(eventData);
         }
 
+        /// <summary>
+        /// 退大厅时删除clone（NPC/框/过场/爪子/咆哮/星光）。
+        /// </summary>
+        private void ReleaseSceneWrappers()
+        {
+            _animNormalNpc?.DetachAll();
+            _animNormalNpc = null;
+            _animRoar?.DetachAll();
+            _animRoar = null;
+            _animFadeFreeGame?.DetachAll();
+            _animFadeFreeGame = null;
+            _animFadeSmallGame?.DetachAll();
+            _animFadeSmallGame = null;
+
+            GameCommon.FguiUtils.DeleteWrapper(anchorNpc);
+            anchorNpc = null;
+            clonegoNormalNpc = null;
+            clonegoSmallGameNpc = null;
+
+            GameCommon.FguiUtils.DeleteWrapper(anchorFreeSpeedBorder);
+            anchorFreeSpeedBorder = null;
+            clonegoFreeSpeedBorder = null;
+
+            GameCommon.FguiUtils.DeleteWrapper(anchorBonusSpeedBorder);
+            anchorBonusSpeedBorder = null;
+            clonegoBonusSpeedBorder = null;
+
+            for (int i = 0; i < _anchorFreeCollectBorders.Length; i++)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_anchorFreeCollectBorders[i]);
+                _anchorFreeCollectBorders[i] = null;
+                _clonegoFreeCollectBorders[i] = null;
+            }
+
+            GameCommon.FguiUtils.DeleteWrapper(anchorRoar);
+            anchorRoar = null;
+            clonegoRoar = null;
+
+            GameCommon.FguiUtils.DeleteWrapper(anchorFadeFreeGame);
+            anchorFadeFreeGame = null;
+            clonegoFadeFreeGame = null;
+
+            GameCommon.FguiUtils.DeleteWrapper(anchorFadeSmallGame);
+            anchorFadeSmallGame = null;
+            clonegoFadeSmallGame = null;
+
+            GameCommon.FguiUtils.DeleteWrapper(anchorZhuaZi);
+            anchorZhuaZi = null;
+            clonegoZhuazi = null;
+
+            GameCommon.FguiUtils.DeleteWrapper(_anchorEffFgStar);
+            _anchorEffFgStar = null;
+        }
+
         protected override void OnLanguageChange(I18nLang lang)
         {
-            pagFade?.StopWithDefaults();
+            StopHideFade();
+            HideFadeSpines();
+            SetAnchorSpineVisible(anchorZhuaZi, false);
+            SetAnchorSpineVisible(anchorRoar, false);
             // PageBase.OnChangeLanguageBase 已 Dispose 并重建 contentPane，这里不要再拆一次。
             // 关着页时不 Init：底部 Panel 当时 inactive，绑不上新 gOwnerPanel。
             if (!isOpen)
@@ -888,6 +1050,7 @@ namespace MeiZhouHeiBao_3993
         /// <summary>重置本把滚轮状态：关盖、停 Idle/加速框。</summary>
         private void OnGameReset()
         {
+            SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.Default);
             _isStoppedSlotMachine = false;
             _slotMachineController.isStopImmediately = false;
             _slotMachineController.CloseSlotCover();
@@ -1031,10 +1194,7 @@ namespace MeiZhouHeiBao_3993
 
             _slotMachineController.BeginSpin();
             SetSpinButtonRolling();
-            if (ContentModel.Instance.isReelsSlowMotion)
-                _slotMachineController.ShowSymbolAppearEffectAfterReelStop(true);
-            else
-                _slotMachineController.ShowSymbolAppearEffectAfterReelStop(ContentModel.Instance.winList.Count == 0);
+            _slotMachineController.ShowSymbolAppearEffectAfterReelStop(true);
 
             if (_slotMachineController.isStopImmediately)
             {
@@ -1078,6 +1238,9 @@ namespace MeiZhouHeiBao_3993
             } 
 
             long allWinCredit = pantherWin;
+
+            if (winList.Count > 0 && HasLandAppearSymbol())
+                yield return _slotMachineController.SlotWaitForSeconds(0.7f);
             // ----------------- normal win ---------------
             if (winList.Count > 0 )
             {
@@ -1088,13 +1251,11 @@ namespace MeiZhouHeiBao_3993
                 _slotMachineController.SendTotalWinCreditEvent(allWinCredit); // 积分同步和退币处理
                 MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true); // 加钱动画
                 yield return _slotMachineController.ShowSymbolWinBySetting(_slotMachineController.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
-                MainBlackboardController.Instance.SyncMyTempCreditToReal(true); // 同步玩家真实金币
                 yield return _slotMachineController.SlotWaitForSeconds(0.5f);
             }
             else if (pantherWin > 0)
             {
                 _slotMachineController.SendTotalWinCreditEvent(allWinCredit);
-                MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             }
 
             // ----------------- big win ---------------
@@ -1214,6 +1375,21 @@ namespace MeiZhouHeiBao_3993
             box.visible = false;
             _speedUpTargetCol = -1;
             _corEffectSlowMotion = null;
+        }
+
+        private bool HasLandAppearSymbol()
+        {
+            var appear = CustomModel.Instance.symbolAppearEffect;
+            for (int col = 0; col < CustomModel.Instance.column; col++)
+            {
+                for (int row = 0; row < CustomModel.Instance.row; row++)
+                {
+                    SymbolBase symbol = _slotMachineController.GetVisibleSymbolFromDeck(col, row);
+                    if (symbol != null && appear.ContainsKey(symbol.number.ToString()))
+                        return true;
+                }
+            }
+            return false;
         }
 
         #endregion
@@ -1378,12 +1554,10 @@ namespace MeiZhouHeiBao_3993
         private IEnumerator PlayPantherWin()
         {
             _notHitSpinCount = 0;
-            //npc,中奖图标,pag一起播
-            yield return PlayPantherZhuaziPag();
-            // GameSoundHelper3993.Instance.PlaySoundEff(SoundKey.BonusWin);
-            //播放图标特效
+            yield return _slotMachineController.SlotWaitForSeconds(0.7f);
             _slotMachineController.ShowPantherWinHit();
-            yield return _slotMachineController.SlotWaitForSeconds(1.0f);
+            yield return _rewardMgr.PlayZhuaziZhong();
+           
 
             //创建并且移动拖尾
             List<Cell> bonusCells = _slotMachineController.GetVisibleCellsBySymbol(NpcBonusSymbolId);
@@ -1421,31 +1595,60 @@ namespace MeiZhouHeiBao_3993
             _panelController.HideWinBorders();
         }
 
-        /// <summary>爪子 PAG</summary>
-        private IEnumerator PlayPantherZhuaziPag()
+        /// <summary>播过场 Spine：用 holder 显隐，到时隐藏避免停在最后一帧。</summary>
+        private void PlayFadeSpine(GComponent anchor, AnimPlayer anim, string animName, float hideAfter)
         {
-            if (pagFade == null) yield break;
+            StopHideFade();
+            HideFadeSpines();
+            if (anchor == null || anim == null || string.IsNullOrEmpty(animName))
+                return;
+            SetAnchorSpineVisible(anchor, true);
+            anim.Play(animName);
+            if (_monoHelper != null)
+                _corHideFade = _monoHelper.StartCoroutine(HideFadeAfter(anchor, hideAfter));
+        }
 
-            bool finished = false;
-            pagFade.StopWithDefaults();
-            bool started = pagFade.Play(new PagSequencePlay(
-                new[]
-                {
-                    new PagSegment(PagZhuaziZhong, 1),
-                },
-                PagPlayLayout.Center,
-                PagPresentationDefaults.DisplayScale,
-                useGpuSyncGroup: false,
-                callbacks: new PagPlayCallbacks(
-                onFinished: () =>
-                {
-                    pagFade?.StopWithDefaults();
-                },
-                onFailed: () => finished = true,
-                stopAfterFinished: true)));
-            finished = true;
-            if (!started) yield break;
-            yield return new WaitUntil(() => finished);
+        /// <summary>等过场播完后隐藏。</summary>
+        private IEnumerator HideFadeAfter(GComponent anchor, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            SetAnchorSpineVisible(anchor, false);
+            _corHideFade = null;
+        }
+
+        /// <summary>停掉过场隐藏协程。</summary>
+        private void StopHideFade()
+        {
+            if (_monoHelper != null && _corHideFade != null)
+                _monoHelper.StopCoroutine(_corHideFade);
+            _corHideFade = null;
+        }
+
+        /// <summary>隐藏免费/大奖过场 Spine。</summary>
+        private void HideFadeSpines()
+        {
+            SetAnchorSpineVisible(anchorFadeFreeGame, false);
+            SetAnchorSpineVisible(anchorFadeSmallGame, false);
+        }
+
+        /// <summary>关 GoWrapper 根节点并关 MeshRenderer；只 SetActive clone 关不掉缓存网格。</summary>
+        private static void SetAnchorSpineVisible(GComponent anchor, bool visible)
+        {
+            if (anchor == null) return;
+            anchor.visible = visible;
+            GGraph holder = anchor.GetChild("holder") as GGraph;
+            if (holder != null)
+                holder.visible = visible;
+
+            GameObject target = GameCommon.FguiUtils.GetWrapperTarget(anchor);
+            if (target == null) return;
+            target.SetActive(visible);
+            Renderer[] renderers = target.GetComponentsInChildren<Renderer>(true);
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                if (renderers[i] != null)
+                    renderers[i].enabled = visible;
+            }
         }
         #endregion
 
@@ -1519,23 +1722,24 @@ namespace MeiZhouHeiBao_3993
                 new EventData<Dictionary<string, object>>("", new Dictionary<string, object>()),
                 (ed) =>
                 {
-                    pagFade.StopWithDefaults();
-                    pagFade.Play(new PagSequencePlay(
-                        new[] { new PagSegment("jp_Transition2_NgToFg/NgToFg", 1) },
-                        PagPlayLayout.Center,
-                        PagPresentationDefaults.DisplayScale,
-                        useGpuSyncGroup: false));
+                    PlayFadeSpine(anchorFadeFreeGame, _animFadeFreeGame, AnimFadeFreeGame, FadeFreeDuration);
+                    // pagFade.StopWithDefaults();
+                    // pagFade.Play(new PagSequencePlay(
+                    //     new[] { new PagSegment("jp_Transition2_NgToFg/NgToFg", 1) },
+                    //     PagPlayLayout.Center,
+                    //     PagPresentationDefaults.DisplayScale,
+                    //     useGpuSyncGroup: false));
                     isNext = true;
                 });
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
-            yield return _slotMachineController.SlotWaitForSeconds(0.5f*Time.timeScale);
+            yield return _slotMachineController.SlotWaitForSeconds(0.5f);
             //进入免费奖前准备
             EnterFreeSpit();
-            yield return _slotMachineController.SlotWaitForSeconds(3f * Time.timeScale);
+            yield return _slotMachineController.SlotWaitForSeconds(2.5f );
             cptBoxFreeCollet.GetTransition("enterFree").Play();
-            yield return _slotMachineController.SlotWaitForSeconds(1.0f * Time.timeScale);
+            yield return _slotMachineController.SlotWaitForSeconds(0.5f);
             //开始免费
             yield return FreeGameSpin(successCallback, errorCallback);
 
@@ -1552,21 +1756,21 @@ namespace MeiZhouHeiBao_3993
             PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupFreeSpinResult, null,
                 (ed) =>
                 {
-                    pagFade.StopWithDefaults();
-                    pagFade.Play(new PagSequencePlay(
-                        new[] { new PagSegment("jp_Transition2_NgToFg/NgToFg", 1) },
-                        PagPlayLayout.Center,
-                        PagPresentationDefaults.DisplayScale,
-                        useGpuSyncGroup: false));
-               
-                isNext = true;
+                    PlayFadeSpine(anchorFadeFreeGame, _animFadeFreeGame, AnimFadeFreeGame, FadeFreeDuration);
+                    // pagFade.StopWithDefaults();
+                    // pagFade.Play(new PagSequencePlay(
+                    //     new[] { new PagSegment("jp_Transition2_NgToFg/NgToFg", 1) },
+                    //     PagPlayLayout.Center,
+                    //     PagPresentationDefaults.DisplayScale,
+                    //     useGpuSyncGroup: false));
+                    isNext = true;
                 });
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
-            yield return _slotMachineController.SlotWaitForSeconds(0.5f * Time.timeScale);
+            yield return _slotMachineController.SlotWaitForSeconds(0.5f);
             //离开免费重置
             ExitFreeSpin();
-            yield return _slotMachineController.SlotWaitForSeconds(3.0f * Time.timeScale);
+            yield return _slotMachineController.SlotWaitForSeconds(3.0f);
         }
 
         /// <summary>免费局单次旋转：开转、请求、停轮、收集黑豹、可能变豹与加次数。</summary>
@@ -1615,6 +1819,7 @@ namespace MeiZhouHeiBao_3993
 
             _slotMachineController.BeginSpin();
             SetSpinButtonRolling();
+            _slotMachineController.ShowSymbolAppearEffectAfterReelStop(true);
             if (_slotMachineController.isStopImmediately)
             {
                 if (_corReelsTurn != null) _monoHelper.StopCoroutine(_corReelsTurn);
@@ -1646,14 +1851,16 @@ namespace MeiZhouHeiBao_3993
             }
 
             SetSpinButtonSpinGray();
+            List<SymbolWin> winList = ContentModel.Instance.winList;
+            if (winList.Count > 0 && HasLandAppearSymbol())
+                yield return _slotMachineController.SlotWaitForSeconds(0.7f);
 
             //转换黑豹
             yield return ConvertEligibleSymbolsToPanther();
             //收集黑豹图标（拖尾飞入后再刷新个数）
             yield return CollectPantherSymbols();
-
             // ----------------- normal win ----------------
-            List<SymbolWin> winList = ContentModel.Instance.winList;
+           
             if (winList.Count > 0 || ContentModel.Instance.bonusResult != null)
             {
                 long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList);
@@ -2089,9 +2296,7 @@ namespace MeiZhouHeiBao_3993
             if (score <= 0)
                 return;
 
-            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,
-                new EventData<long>(SlotMachineEvent.SingleWinBonus, score));
-            MainBlackboardController.Instance.AddMyTempCredit(score, true);
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,new EventData<long>(SlotMachineEvent.SingleWinBonus, score));
         }
 
         /// <summary>Panel 赢分框中心在拖尾父节点下的本地坐标。</summary>
@@ -2108,13 +2313,13 @@ namespace MeiZhouHeiBao_3993
             return _anchorEffectFrame.GlobalToLocal(global);
         }
 
-        /// <summary>按行列取 BonusData 上对应格子的豹头分值。</summary>
+        /// <summary>按行列取 BonusData 上对应格子的豹头分值（赔率 × betmultiple）。</summary>
         private static int GetPantherBonusScore(int row, int col)
         {
             int index = row * CustomModel.Instance.column + col;
             int[] data = ContentModel.Instance.BonusData;
             if (data != null && index >= 0 && index < data.Length)
-                return ContentModel.GetDisplayScore(data[index]);
+                return ContentModel.GetDisplayScore(data[index]) * MainModel.Instance.contentMD.betmultiple;
             return 0;
         }
 
@@ -2189,22 +2394,23 @@ namespace MeiZhouHeiBao_3993
             bool isNext = false;
             PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupSmallGameTrigger, null, (ed) =>
             {
-                pagFade.StopWithDefaults();
-                pagFade.Play(new PagSequencePlay(
-                    new[] { new PagSegment("Transition_JPTONG-out_bmp/Transition_JPTONG-out_bmp", 1) },
-                    PagPlayLayout.Center,
-                    PagPresentationDefaults.DisplayScale,
-                    useGpuSyncGroup: false,
-                    callbacks: new PagPlayCallbacks(
-                    onFinished: () => pagFade?.StopWithDefaults(),
-                    stopAfterFinished: true)));
+                PlayFadeSpine(anchorFadeSmallGame, _animFadeSmallGame, AnimFadeSmallGame, FadeSmallDuration);
+                // pagFade.StopWithDefaults();
+                // pagFade.Play(new PagSequencePlay(
+                //     new[] { new PagSegment("Transition_JPTONG-out_bmp/Transition_JPTONG-out_bmp", 1) },
+                //     PagPlayLayout.Center,
+                //     PagPresentationDefaults.DisplayScale,
+                //     useGpuSyncGroup: false,
+                //     callbacks: new PagPlayCallbacks(
+                //     onFinished: () => pagFade?.StopWithDefaults(),
+                //     stopAfterFinished: true)));
                
                 isNext = true;
             });
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
-            yield return _slotMachineController.SlotWaitForSeconds(1.5f * Time.timeScale);
+            yield return _slotMachineController.SlotWaitForSeconds(1.5f );
             _pageController.selectedPage = "bonusGame";
             SwitchNpc(true);
             _panelController.ChangButtonNo(true);
@@ -2216,7 +2422,7 @@ namespace MeiZhouHeiBao_3993
             _panelController.ChangButtonNo(true);  // 放在 btnSpinState 之后，避免 Stop 分支里的 ChangButtonNo(false) 把押注按钮又打开
             _slotMachineController.SkipWinLine(true);
 
-            yield return _slotMachineController.SlotWaitForSeconds(5.0f * Time.timeScale);
+            yield return _slotMachineController.SlotWaitForSeconds(3.0f );
             //EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3993AudioEvent.BgmBonusGame));
             List<int> matrix = SlotTool.GetDeckRowCol(ContentModel.Instance.strDeckRowCol);
             //大奖主逻辑
@@ -2231,21 +2437,22 @@ namespace MeiZhouHeiBao_3993
 
             PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupSmallGameResult, null, (ed) =>
             {
-                pagFade.StopWithDefaults();
-                pagFade.Play(new PagSequencePlay(
-                    new[] { new PagSegment("Transition_JPTONG-out_bmp/Transition_JPTONG-out_bmp", 1) },
-                    PagPlayLayout.Center,
-                    PagPresentationDefaults.DisplayScale,
-                    useGpuSyncGroup: false,
-                    callbacks: new PagPlayCallbacks(
-                    onFinished: () => pagFade?.StopWithDefaults(),
-                    stopAfterFinished: true)));
+                PlayFadeSpine(anchorFadeSmallGame, _animFadeSmallGame, AnimFadeSmallGame, FadeSmallDuration);
+                // pagFade.StopWithDefaults();
+                // pagFade.Play(new PagSequencePlay(
+                //     new[] { new PagSegment("Transition_JPTONG-out_bmp/Transition_JPTONG-out_bmp", 1) },
+                //     PagPlayLayout.Center,
+                //     PagPresentationDefaults.DisplayScale,
+                //     useGpuSyncGroup: false,
+                //     callbacks: new PagPlayCallbacks(
+                //     onFinished: () => pagFade?.StopWithDefaults(),
+                //     stopAfterFinished: true)));
 
                 isNext = true;
             });
 
             yield return new WaitUntil(() => isNext == true);
-            yield return _slotMachineController.SlotWaitForSeconds(1.5f * Time.timeScale);
+            yield return _slotMachineController.SlotWaitForSeconds(1.5f );
             _pageController.selectedPage = "normalGame";
             SwitchNpc(false);
             _slotMachineController.CloseSlotCover();
@@ -2265,7 +2472,7 @@ namespace MeiZhouHeiBao_3993
             ContentModel.Instance.JPBetArray = Array.Empty<int>();
             ContentModel.Instance.BonusRound?.Clear();
             if (ContentModel.Instance.BonusData != null) Array.Clear(ContentModel.Instance.BonusData, 0, ContentModel.Instance.BonusData.Length);
-            yield return _slotMachineController.SlotWaitForSeconds(6.0f * Time.timeScale);
+            yield return _slotMachineController.SlotWaitForSeconds(6.0f);
             //EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,new EventData(Game3993AudioEvent.BgmRegularGame));
         }
 

@@ -13,9 +13,9 @@
     <image id="hm6e8s" name="sg_txt_minor.png" path="/images/common/gameJackpots/" exported="true"/>
     <image id="hm6e8t" name="fg_txt_win_MULTIPLE.png" path="/images/pageGameMain/freeBg/" exported="true"/>
     <image id="hm6e99" name="fg_txt_free.png" path="/images/pageGameMain/freeBg/"/>
-    <image id="m9w1ac" name="ng_sym_14_minor.png" path="/images/common/smallGameSymbols/"/>
-    <image id="m9w1ad" name="ng_sym14_mini.png" path="/images/common/smallGameSymbols/"/>
-    <image id="m9w1ae" name="ng_sym_14_major.png" path="/images/common/smallGameSymbols/"/>
+    <image id="m9w1ac" name="ng_sym_14_minor1.png" path="/images/common/smallGameSymbols/" exported="true"/>
+    <image id="m9w1ad" name="ng_sym14_mini1.png" path="/images/common/smallGameSymbols/" exported="true"/>
+    <image id="m9w1ae" name="ng_sym_14_major1.png" path="/images/common/smallGameSymbols/" exported="true"/>
     <image id="k7p9b1" name="fg_txt_collect.png" path="/images/common/gameButton/" exported="true"/>
     <image id="k7p9b2" name="fg_txt_start.png" path="/images/common/gameButton/" exported="true"/>
   </resources>
