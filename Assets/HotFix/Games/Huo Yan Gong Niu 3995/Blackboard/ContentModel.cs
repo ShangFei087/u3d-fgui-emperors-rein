@@ -154,6 +154,8 @@ namespace HuoYanGongNiu_3995
         /// <summary> 基础游戏赢分（单局普通游戏 或 免费游戏） </summary>
         public long baseGameWinCredit;
 
+        /// <summary> 当前数据是否已经请求过且使用完毕 </summary>
+        public bool isUsedRes = false;
 
         /// <summary> 免费游戏总赢分  </summary>
         public long freeSpinTotalWinCredit;
@@ -212,6 +214,9 @@ namespace HuoYanGongNiu_3995
 
         /// <summary> 额外添加免费游戏 </summary>
         public bool isFreeSpinAdd;
+
+        /// <summary> 免费当前分数 </summary>
+        public int curFreeCredit = 0;
 
         public Dictionary<int, string> jackpotWin = new Dictionary<int, string>();    //第一个是中奖位置（row * 5 + col），第二个是中奖金额
 

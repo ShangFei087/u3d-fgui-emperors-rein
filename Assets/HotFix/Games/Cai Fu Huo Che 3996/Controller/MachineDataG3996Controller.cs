@@ -143,11 +143,6 @@ namespace CaiFuHuoChe_3996
                 result["JPBetArray"] = new JSONArray();
                 for(int i = 0; i < 3; i++)
                 {
-                    if (data[pos] == 0)
-                    {
-                        pos++;
-                        continue;
-                    }
                     result["JPBetArray"].Add(data[pos++]);
                 }
 
@@ -369,6 +364,7 @@ namespace CaiFuHuoChe_3996
                     betIndex = 0;
                     ContentModel.Instance.wildNums = 0;
                     ContentModel.Instance.curFreeCredit = 0;
+                    ContentModel.Instance.curFreeCredit += totalLineWin;
 
                     ContentModel.Instance.newFreeOnceCredit.Clear();
                     for (int i = 0; i < TotalFreeTime; i++)
@@ -410,7 +406,7 @@ namespace CaiFuHuoChe_3996
 
                 if (openType == (int)OpenType.OT_Give)
                 {
-                    totalLineWin = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1] * ContentModel.Instance.betmultiple;
+                    totalLineWin = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
                     ContentModel.Instance.curFreeCredit += totalLineWin;
                     ContentModel.Instance.baseGameWinCredit = totalLineWin;
                 }
@@ -1395,6 +1391,9 @@ namespace CaiFuHuoChe_3996
                     "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin_free_8.json",
                     "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin_free_9.json",
                     "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin_free_10.json",
+                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__free_11.json",
+                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__free_12.json",
+                    "Assets/HotFix/Games/Mock/Resources/g3996_real/g3996__slot_spin__free_13.json",
                 },
             },
             [SpinDataType.Normal] = new List<string[]>()

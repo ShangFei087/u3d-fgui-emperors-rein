@@ -24,7 +24,7 @@
     <component id="n8_o8uc" name="slotMachine" src="o8uco" fileName="moudules/slotMachine/SlotMachine.xml" xy="56,1036" size="970,600" group="n9_o8uc">
       <relation target="n10_o8uc" sidePair="center-center,middle-middle"/>
     </component>
-    <component id="n68_q30q" name="smallGameReels" src="q30qe2" fileName="moudules/slotMachine/smallGameReels.xml" xy="59,1036" size="970,600" group="n9_o8uc"/>
+    <component id="n68_q30q" name="smallGameReels" src="q30qe2" fileName="moudules/slotMachine/smallGameReels.xml" xy="59,1032" size="970,600" group="n9_o8uc"/>
     <component id="n3_pjjx" name="slotMachineBG" src="pjjxk" fileName="moudules/slotMachine/SlotMachineBG.xml" xy="-18,937" size="1118,770" group="n9_o8uc"/>
     <group id="n9_o8uc" name="slot" xy="-18,937" size="1118,770"/>
     <component id="n5_fkjs" name="anchorFrame" src="fkjsm" fileName="component/AnchorEffect.xml" xy="541,1319"/>
@@ -211,6 +211,10 @@
     <item time="0" type="Visible" target="n35_9mnq" value="true"/>
     <item time="0" type="Visible" target="n36_9mnq" value="true"/>
     <item time="0" type="Visible" target="n37_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n42_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n43_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n44_9mnq" value="true"/>
+    <item time="0" type="Visible" target="n45_9mnq" value="true"/>
     <item time="0" type="Visible" target="n49_iwtc" value="true"/>
     <item time="0" type="Visible" target="n50_iwtc" value="true"/>
     <item time="0" type="Visible" target="n51_iwtc" value="true"/>

@@ -1,1 +1,25 @@
-{"OpenType":0,"ResultType":2,"lineNum":1,"IDVec":[24304],"Matrix":[0,12,13,12,2,4,1,3,12,1,3,0,4,2,2],"TotalFreeBet":3286,"TotalFreeTime":8,"FreeBetArray":[220,0,0,0,8,100,18,340],"WheelTimes":5,"WheelData":[11,3,11,11,8],"WildData":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"TotalBet":10}
+{
+	"OpenType":0,
+	
+	"ResultType":2,
+	
+	"lineNum":0,
+	
+	"TotalBet":0,
+	
+	"IDVec":[],
+	
+	"Matrix":[4,3,12,4,5,0,8,12,12,12,6,7,12,9,13],
+	
+	"WildData":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	
+	"TotalFreeTime":20,
+	
+	"TotalFreeBet":17403,
+	
+	"WheelTimes":2,
+	
+	"WheelData":[0,0],
+	
+	"code":3995
+}

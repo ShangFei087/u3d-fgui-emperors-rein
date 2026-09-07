@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using PusherEmperorsRein;
 using SBoxApi;
 using SimpleJSON;
+using SlotEmperorsRein;
 using SlotMaker;
 using System;
 using System.Collections;
@@ -601,12 +602,12 @@ namespace CaiFuHuoChe_3996
             }
 
             ComReelEffect2 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            if (goFreeReelEffcetObj == null) goFreeReelEffcetObj = GameObject.Instantiate(goFreeReelEffcetPre);
+            goFreeReelEffcetObj = GameObject.Instantiate(goFreeReelEffcetPre);
             GameCommon.FguiUtils.AddWrapper(ComReelEffect2, goFreeReelEffcetObj);
             ComReelEffect2.visible = false;
 
             ComReelEffect3 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            if (goJackpotReelEffectObj == null) goJackpotReelEffectObj = GameObject.Instantiate(goJackpotReelEffectPre);
+            goJackpotReelEffectObj = GameObject.Instantiate(goJackpotReelEffectPre);
             GameCommon.FguiUtils.AddWrapper(ComReelEffect3, goJackpotReelEffectObj);
             ComReelEffect3.visible = false;
 
@@ -760,7 +761,6 @@ namespace CaiFuHuoChe_3996
                 case SlotMachineEvent.StoppedSlotMachine:
                     {
                         isStoppedSlotMachine = true;
-                        UnlockStopButton();
                     }
                     break;
             }
@@ -1158,7 +1158,8 @@ namespace CaiFuHuoChe_3996
                 }
 
                 long totalWinLineCredit = 0;
-                totalWinLineCredit = slotMachineCtrl.GetTotalWinCredit(winList);
+                //totalWinLineCredit = slotMachineCtrl.GetTotalWinCredit(winList);
+                totalWinLineCredit = ContentModel.Instance.baseGameWinCredit;
                 allWinCredit += totalWinLineCredit;
                 if (winList.Count > 0)
                 {
@@ -1669,6 +1670,8 @@ namespace CaiFuHuoChe_3996
         IEnumerator GameFreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
             OnGameReset();
+            ContentModel.Instance.isSpin = true;
+            LockStopButton();
             ContentModel.Instance.haveFreeSpecialIcon = false;
             freeTimes.text = (ContentModel.Instance.freeSpinPlayTimes + 1).ToString();
             ContentModel.Instance.gameState = GameState.FreeSpin;
@@ -1705,9 +1708,11 @@ namespace CaiFuHuoChe_3996
 
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
+
             if (isBreak)
             {
-
+                UnlockStopButton();
+                ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                 if (errorCallback != null)
                     errorCallback.Invoke(errMsg);
                 yield break;
@@ -1715,14 +1720,13 @@ namespace CaiFuHuoChe_3996
 
             //开始转动
             slotMachineCtrl.BeginSpin();
-
+            SetSpinButtonRolling();
             //停止特效显示
             slotMachineCtrl.SkipWinLine(true);
             slotMachineCtrl.CloseSlotCover();
 
             if (slotMachineCtrl.isStopImmediately)
             {
-                //reelsTurnType = ReelsTurnType.Once;
 
                 if (corReelsTurn != null) mono.StopCoroutine(corReelsTurn);
                 corReelsTurn = mono.StartCoroutine(slotMachineCtrl.TurnReelsOnce(ContentModel.Instance.strDeckRowCol,
@@ -1766,6 +1770,8 @@ namespace CaiFuHuoChe_3996
                 yield return new WaitForSeconds(1f);
             }
 
+            //SetSpinButtonSpinGray();
+
             List<SymbolWin> winList = ContentModel.Instance.winList;
             #region Win
 
@@ -1793,19 +1799,17 @@ namespace CaiFuHuoChe_3996
                     slotMachineCtrl.CloseSlotCover();
                     slotMachineCtrl.SkipWinLine(true);
                     StopAllFreeTrainIdleEffects();
-                    yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
+                    yield return BigWinPopup(winLevelType, totalWinLineCredit);
                     SetFreeTrainState();
                     slotMachineCtrl.ShowSymbolWinDeck(slotMachineCtrl.GetTotalSymbolWin(winList), true);
                 }
             }
             // 总线赢分事件
-            slotMachineCtrl.SendTotalWinCreditEvent(freeAllWin + tempCredit);
+            slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.curFreeCredit);
 
             #endregion
 
-
-
-            ContentModel.Instance.gameState = GameState.Idle;
+            //ContentModel.Instance.gameState = GameState.Idle;
             // 先结算主游戏，再进入“免费游戏”或“小游戏”，则每局都可以同步玩家真实金钱金额
 
             if (successCallback != null)
@@ -2145,6 +2149,15 @@ namespace CaiFuHuoChe_3996
                     ++idx;
                 }
             }
+        }
+
+        /// <summary> 滚轮开始转：解锁并显示 Spin 或 Auto。 </summary>
+        private void SetSpinButtonRolling()
+        {
+            ContentModel.Instance.btnSpinState = ContentModel.Instance.isAuto
+                ? SpinButtonState.Auto
+                : SpinButtonState.Spin;
+            UnlockStopButton();
         }
 
         private bool isGetCrediting = false;
@@ -2629,13 +2642,6 @@ namespace CaiFuHuoChe_3996
                 {
                     PlayAnim(freeTrainAnim, "idle4");
                 }
-
-                //StopAllFreeTrainIdleEffects();
-                //if (!TempDisableFreeTrainIdleParticles)
-                //{
-                //    PlayChildEffectAnim(idleEffect4);
-                //    PlayChildEffectAnim(idleEffect5);
-                //}
             }
             else if (fill2.fillAmount == 1)
             {
@@ -2728,6 +2734,13 @@ namespace CaiFuHuoChe_3996
             {
                 panelBaseController.SetSpinButtonLocked(false);
             }
+        }
+
+        /// <summary> 滚轮停稳后到 Idle 前：保持 Spin 外观并置灰，押注保持锁定。 </summary>
+        private void SetSpinButtonSpinGray()
+        {
+            ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            LockStopButton();
         }
 
         private void OnPlayGirlClaw(EventData res)
@@ -2846,12 +2859,13 @@ namespace CaiFuHuoChe_3996
 
             if (currentBet == 0) return info;
 
-            int type = currentBet / 1000;
-            int value = currentBet % 1000;
+            int type = currentBet / 10000;
+            int value = currentBet % 10000;
 
             if (type < 4)
             {
                 info.type = SmallResultType.Money;
+                value *= ContentModel.Instance.betmultiple;
                 info.rewardValue = value;
                 info.rewardText = value.ToString();
                 info.iconUrl = _moneyUrl;
@@ -2911,6 +2925,7 @@ namespace CaiFuHuoChe_3996
 
                         freeTotalTimes.text = ContentModel.Instance.jackpotSpinTotalTimes.ToString();
                         freeTimes.text = ContentModel.Instance.jackpotSpinTotalTimes.ToString();
+
                     })
                 }),
             (ed) =>
@@ -3168,12 +3183,15 @@ namespace CaiFuHuoChe_3996
             {
                 _remainingRolls--;
                 UpdateRollCountUI(_remainingRolls);
+
                 // 每轮开始前：重置未揭示的格子的滚动元素
+                bool isFull = true;
                 foreach (var box in _elementBoxes)
                 {
                     if (box.State != SmallReelState.Revealed)
                         box.PlayRollReset();
                 }
+
 
                 // 1. 分类reel：中奖的 vs 普通的
                 hitReelIndices.Clear();
@@ -3211,6 +3229,18 @@ namespace CaiFuHuoChe_3996
                     UpdateRollCountUI(_remainingRolls);
                 }
 
+                // 每轮结束后：检查是否已经全部中奖导致没有格子
+                foreach (var box in _elementBoxes)
+                {
+                    if (box.State == SmallReelState.Idle)
+                    {
+                        isFull = false;
+                        break;
+                    }
+                }
+
+                if (isFull) break;
+
                 yield return new WaitForSeconds(0.3f);
             }
         }
@@ -3242,9 +3272,11 @@ namespace CaiFuHuoChe_3996
         {
             int completedCount = 0;
             int totalCount = hitIndices.Count + normalIndices.Count;
-            bool isFinish = false;
+            bool isNorFinish = false;
+            bool ishitFinish = false;
 
             // 中奖reel：第一圈roll，第二圈result
+            if (hitIndices.Count == 0) ishitFinish = true;
             foreach (int idx in hitIndices)
             {
                 int captureIdx = idx;
@@ -3257,12 +3289,13 @@ namespace CaiFuHuoChe_3996
                 _elementBoxes[captureIdx].PlayHitRoll(1, 1, () =>
                 {
                     PlayAnim(girlAnim, "sg_appear");
-                    //if (!isFinish)
-                    //    isFinish = true;
+                    if (!ishitFinish)
+                        ishitFinish = true;
                 });
             }
 
             // 普通reel：两圈roll
+            if (normalIndices.Count == 0) isNorFinish = true;
             foreach (int idx in normalIndices)
             {
                 int captureIdx = idx;
@@ -3272,8 +3305,8 @@ namespace CaiFuHuoChe_3996
 
                 _elementBoxes[captureIdx].PlayNormalRoll(speed, () =>
                 {
-                    if (!isFinish)
-                        isFinish = true;
+                    if (!isNorFinish)
+                        isNorFinish = true;
                 });
 
                 //yield return DelayedAction(delay, () =>
@@ -3290,7 +3323,7 @@ namespace CaiFuHuoChe_3996
                 //});
             }
 
-            yield return new WaitUntil(() => isFinish);
+            yield return new WaitUntil(() => isNorFinish && ishitFinish);
             yield return new WaitForSeconds(0.5f);
 
         }

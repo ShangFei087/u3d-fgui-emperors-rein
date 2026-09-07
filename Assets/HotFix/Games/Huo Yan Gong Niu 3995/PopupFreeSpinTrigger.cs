@@ -1,5 +1,6 @@
 using FairyGUI;
 using GameMaker;
+using SlotMaker;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,15 +19,18 @@ namespace HuoYanGongNiu_3995
 
         private EventData _data;
 
-        private Animator animator;
-        private GameObject goAnchorSpineFg, go;
+        private Animator spineAnim, effAnim;
+        private GameObject goAnchorSpineObj, goAnchorSpine, anchorEffObj, anchorEffPre;
 
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
-        private GComponent anchorBg;
+        private GComponent anchorBg, anchorEff;
         private GButton btnStart;
         private GTextField timeImage;
 
-        //Pag播放
+        private const float AutoModeSimulateClickDelaySeconds = 3f;
+        private TimerCallback _autoModeSimulatedClick;
+
+        ////Pag播放
         private const string GamePagFolder = "Games/Huo Yan Gong Niu 3995/Pag/fg_pup_Collect_bmp";
         private PagSlotBinding effectPag;
         private string[] stageName = { "fg_pup_Collect_start_bmp.pag", "fg_pup_Collect_idle_bmp.pag", "fg_pup_Collect_out_bmp.pag", "fg_Collect_tran.pag" };
@@ -36,7 +40,7 @@ namespace HuoYanGongNiu_3995
             this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 
-            int count = 1;
+            int count = 2;
 
             Action callback = () =>
             {
@@ -51,20 +55,40 @@ namespace HuoYanGongNiu_3995
                 "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PopupFreeGame/FreeGameTrigger.prefab",
                 (GameObject clone) =>
                 {
-                    go = clone;
+                    goAnchorSpine = clone;
                     callback();
                 });
+
+            ResourceManager02.Instance.LoadAsset<GameObject>(
+                "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PopupFreeGame/FreeGameEff.prefab",
+                (GameObject clone) =>
+                {
+                    anchorEffPre = clone;
+                    callback();
+                });
+
+            machineBtnClickHelper = new MachineButtonClickHelper()
+            {
+                shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
+                {
+                    [MachineButtonKey.BtnSpin] = (info) =>
+                    {
+                        if (PanelBaseController.ShouldBlockPhysicalSpinInput)
+                        {
+                            return;
+                        }
+
+                        Debug.LogError("游戏接受到机台短按的数据：Spin");
+                        EventData<bool> res = new EventData<bool>(PanelEvent.SpinButtonClick, false); // isLongClick
+                        OnBtnStartClick();
+                    },
+                }
+            };
         }
 
 
         public override void OnOpen(PageName name, EventData data)
         {
-            //if (GameSoundHelper.Instance.IsPlaySound(SoundKey.RegularBG))
-            //{
-            //    GameSoundHelper.Instance.StopSound(SoundKey.RegularBG);
-            //}
-            //GameSoundHelper.Instance.PlayMusicSingle(SoundKey.FreeSpinTriggerBG);
-
             base.OnOpen(name, data);
             InitParam(data);
         }
@@ -72,7 +96,7 @@ namespace HuoYanGongNiu_3995
 
         public override void OnClose(EventData data = null)
         {
-            effectPag.StopWithDefaults();
+            //effectPag.StopWithDefaults();
 
             StopAll();
             base.OnClose(data);
@@ -84,6 +108,7 @@ namespace HuoYanGongNiu_3995
             if (data != null) _data = data;
 
             if (!isInit) return;
+            CancelAutoModeSimulatedClick();
 
             btnStart = this.contentPane.GetChild("startBtn").asButton;
             timeImage = contentPane.GetChild("times").asTextField;
@@ -93,11 +118,21 @@ namespace HuoYanGongNiu_3995
             {
                 GameCommon.FguiUtils.DeleteWrapper(anchorBg);
                 anchorBg = loadAnchor;
-                goAnchorSpineFg = GameObject.Instantiate(go);
-                animator = goAnchorSpineFg.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-                ChangeParent(timeImage, goAnchorSpineFg, "Anchor/Spine Mecanim GameObject (fg_pup_Start)/SkeletonUtility-SkeletonRoot/root/all/number", -1.58f, 1.5f);
-                ChangeParent(btnStart, goAnchorSpineFg, "Anchor/Spine Mecanim GameObject (fg_pup_Start)/SkeletonUtility-SkeletonRoot/root/all/START", -1.96f, 0.8f);
-                GameCommon.FguiUtils.AddWrapper(anchorBg, goAnchorSpineFg);
+                goAnchorSpineObj = GameObject.Instantiate(goAnchorSpine);
+                spineAnim = goAnchorSpineObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                ChangeParent(timeImage, goAnchorSpineObj, "Anchor/Spine Mecanim GameObject (fg_pup_Start)/SkeletonUtility-SkeletonRoot/root/all/number", -3.8f, 1.5f);
+                ChangeParent(btnStart, goAnchorSpineObj, "Anchor/Spine Mecanim GameObject (fg_pup_Start)/SkeletonUtility-SkeletonRoot/root/all/START", -1.96f, 0.8f);
+                GameCommon.FguiUtils.AddWrapper(anchorBg, goAnchorSpineObj);
+            }
+
+            GComponent loadAnchorEff = contentPane.GetChild("anchorEff").asCom;
+            if (anchorEff != loadAnchorEff)
+            {
+                GameCommon.FguiUtils.DeleteWrapper(anchorEff);
+                anchorEff = loadAnchorEff;
+                anchorEffObj = GameObject.Instantiate(anchorEffPre);
+                effAnim = anchorEffObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+                GameCommon.FguiUtils.AddWrapper(anchorEff, anchorEffObj);
             }
 
             EnsureMainPagSlot();
@@ -105,10 +140,21 @@ namespace HuoYanGongNiu_3995
             preLoadedCallback?.Invoke();
 
             if (!isOpen) return;
-            PlayAnim("in");
+            PlayAnim(spineAnim ,"in");
+            PlayAnim(effAnim, "all_idle");
 
-            effectPag.StopWithDefaults();
-            effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(stageName[0], stageName[1]), PagPlayLayout.Center,useGpuSyncGroup: false));
+            //打开时设置免费游戏的免费次数
+            if (_data != null)
+            {
+                Dictionary<string, object> args = _data.value as Dictionary<string, object>;
+                if (args != null)
+                {
+                    timeImage.text = args["freeSpinCount"].ToString();
+                }
+            }
+
+            //effectPag.StopWithDefaults();
+            //effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(stageName[0], stageName[1]), PagPlayLayout.Center,useGpuSyncGroup: false));
 
             btnStart.touchable = false;
             btnStart.onClick.Clear();
@@ -121,6 +167,12 @@ namespace HuoYanGongNiu_3995
             {
                 btnStart.touchable = true;
             });
+
+            AddTimer(1.5f, (object obj) =>
+            {
+                ScheduleAutoModeSimulatedClick(btnStart, () => isClose);
+            });
+
         }
 
         private void EnsureMainPagSlot()
@@ -132,6 +184,8 @@ namespace HuoYanGongNiu_3995
                 effectPag = new PagSlotBinding("NorToFree", GamePagFolder);
             effectPag.EnsureSlot(anchor, "pagEffect");
             GLoader anchorPag = anchor.GetChild("pagEffect").asLoader;
+
+            anchorPag.scale = new Vector2(1.1f, 1.1f);
         }
 
 
@@ -140,11 +194,14 @@ namespace HuoYanGongNiu_3995
             if (isClose) return;
             isClose = true;
 
-            PlayAnim("out");
+            PlayAnim(spineAnim, "out");
             timeImage.alpha = 0;
 
-            effectPag.StopWithDefaults();
-            effectPag.Play(stageName[2], 1, PagPlayLayout.Center, PagPresentationDefaults.DisplayScale,new PagPlayCallbacks(stopAfterFinished: true));
+            effAnim.Rebind();
+            effAnim.Update(0f);
+
+            //effectPag.StopWithDefaults();
+            //effectPag.Play(stageName[2], 1, PagPlayLayout.Center, PagPresentationDefaults.DisplayScale,new PagPlayCallbacks(stopAfterFinished: true));
 
             AddTimer(1.8f, (object obj) =>
             {
@@ -159,7 +216,7 @@ namespace HuoYanGongNiu_3995
         }
 
 
-        private void PlayAnim(string animName)
+        private void PlayAnim(Animator animator, string animName)
         {
             animator.Rebind();
             animator.Play(animName, -1, 0);
@@ -206,6 +263,7 @@ namespace HuoYanGongNiu_3995
         // 终止所有后续步骤（条件不满足时调用）
         private void StopAll()
         {
+            CancelAutoModeSimulatedClick();
             // 移除所有未执行的定时器
             foreach (var timer in _activeTimers)
             {
@@ -225,6 +283,44 @@ namespace HuoYanGongNiu_3995
                 t.localPosition = new Vector3(xDistance, yDistance, 0);
                 t.localScale = new Vector3(0.01f, 0.01f, 1);
             }
+        }
+
+        private void ScheduleAutoModeSimulatedClick(GButton target, Func<bool> skipWhenTrue)
+        {
+            CancelAutoModeSimulatedClick();
+            if (!TestManager.Instance.IsAutoModeRunning || target == null)
+                return;
+
+            _autoModeSimulatedClick = (obj) =>
+            {
+                try
+                {
+                    if (skipWhenTrue != null && skipWhenTrue())
+                        return;
+                    if (target != null && contentPane != null && contentPane.visible)
+                        target.onClick.Call();
+                }
+                finally
+                {
+                    var cb = _autoModeSimulatedClick;
+                    if (cb != null)
+                    {
+                        Timers.inst.Remove(cb);
+                        _activeTimers.Remove(cb);
+                        _autoModeSimulatedClick = null;
+                    }
+                }
+            };
+            _activeTimers.Add(_autoModeSimulatedClick);
+            Timers.inst.Add(AutoModeSimulateClickDelaySeconds, 1, _autoModeSimulatedClick);
+        }
+
+        private void CancelAutoModeSimulatedClick()
+        {
+            if (_autoModeSimulatedClick == null) return;
+            Timers.inst.Remove(_autoModeSimulatedClick);
+            _activeTimers.Remove(_autoModeSimulatedClick);
+            _autoModeSimulatedClick = null;
         }
     }
 }

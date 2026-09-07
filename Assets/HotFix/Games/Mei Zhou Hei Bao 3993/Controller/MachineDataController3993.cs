@@ -699,8 +699,10 @@ namespace MeiZhouHeiBao_3993
 
             CopyBonusData(res, wheelChessNum);
             ContentModel.Instance.isPantherWin = true;
-            ContentModel.Instance.pantherBonusWin = SumBonusData();
-            DebugUtils.Log($"[3993][PantherWin] panther={pantherCount} bonus={bonusCount} win={ContentModel.Instance.pantherBonusWin}");
+            // BonusData 与线赔率同单位；得分 = 赔率 * betmultiple（总投注 / line_num）
+            int pantherOdds = SumBonusData();
+            int betMul = MainModel.Instance.contentMD.betmultiple;
+            ContentModel.Instance.pantherBonusWin = pantherOdds * betMul;
         }
 
         private static void CopyBonusData(JSONNode res, int wheelChessNum)
@@ -830,7 +832,8 @@ namespace MeiZhouHeiBao_3993
                 }
             }
 
-            calcTotalWin += ContentModel.Instance.pantherBonusWin;
+            // 与算法 TotalBet（实为总赢赔率）比对，用未乘 betmultiple 的 BonusData 赔率
+            calcTotalWin += SumBonusData();
 
             int diff = Math.Abs(calcTotalWin - TotalWin); // 计算本地校验值与算法差值
             if (diff != 0)

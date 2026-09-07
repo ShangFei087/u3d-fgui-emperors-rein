@@ -1,4 +1,3 @@
-using CaiFuHuoChe_3996;
 using GameMaker;
 using GameUtil;
 using Newtonsoft.Json;
@@ -10,7 +9,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using XingYunZhiLun_3998;
 
 namespace HuoYanGongNiu_3995
 {
@@ -97,17 +95,26 @@ namespace HuoYanGongNiu_3995
             if(resultType == (int)ResultType.RT_FreeWin)
             {
                 result["TotalFreeTime"] = data[pos++];
+                int totalFreeTime = int.Parse(result["TotalFreeTime"]);
                 result["TotalFreeBet"] = data[pos++];
 
                 int wheelLength = data[pos++];
                 result["WheelTimes"] = wheelLength;
                 Debug.LogError(wheelLength);
+
+                for (int i = 0; i < totalFreeTime; i++)
+                {
+                    int id = data[pos++];
+                    result["FreeBetArray"].Add(id);
+                }
+
                 result["WheelData"] = new JSONArray();
                 for(int i = 0; i < wheelLength; i++)
                 {
                     int id = data[pos++];
                     result["WheelData"].Add(id);
                 }
+
             }
 
             if(resultType == (int)ResultType.RT_BonusWin || resultType == (int)ResultType.RT_Jackpot)
@@ -222,7 +229,8 @@ namespace HuoYanGongNiu_3995
                     }
                     else
                     {
-                        int target = int.Parse(res["Matrix"][index].Value) * res["WildData"][index];
+                        int wildMult = (int)res["WildData"][index] == 0 ? 1 : (int)res["WildData"][index];
+                        int target = int.Parse(res["Matrix"][index].Value) * wildMult;
                         strDeckRowCol += target.ToString();
                     }
                     if (col < cols - 1)
@@ -379,6 +387,9 @@ namespace HuoYanGongNiu_3995
                     ContentModel.Instance.freeSpinTotalTimes = freeTime;
                     ContentModel.Instance.freeSpinPlayTimes = 0;
 
+                    ContentModel.Instance.curFreeCredit = 0;
+                    ContentModel.Instance.curFreeCredit += totalLineWin;
+
                     ContentModel.Instance.freeSpinTotalWinCredit = (int)res["TotalFreeBet"] * MainModel.Instance.contentMD.betmultiple;
 
                     ContentModel.Instance.wheelSpinTimes = (int)res["WheelTimes"];
@@ -386,7 +397,12 @@ namespace HuoYanGongNiu_3995
 
                     for(int i = 0; i < ContentModel.Instance.wheelSpinTimes; i++)
                     {
-                        ContentModel.Instance.wheelData.Add((int)res["WheelData"][i]);
+                        int wheelIndex = (int)res["WheelData"][i];
+                        ContentModel.Instance.wheelData.Add(wheelIndex);
+                        if(wheelIndex % 2 == 1)
+                        {
+                            totalLineWin += CustomModel.Instance.wheelCredit[i][wheelIndex / 2] * ContentModel.Instance.betNum;
+                        }
                     }
 
                     ContentModel.Instance.newFreeOnceCredit.Clear();
@@ -421,7 +437,7 @@ namespace HuoYanGongNiu_3995
 
                 if (openType == (int)OpenType.OT_Give)
                 {
-                    totalLineWin = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1] * ContentModel.Instance.betmultiple;
+                    totalLineWin = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
                     ContentModel.Instance.baseGameWinCredit = totalLineWin;
                 }
             }
@@ -501,10 +517,14 @@ namespace HuoYanGongNiu_3995
             long creditAfter = creditBefore - totalBet + totalLineWin;
             if (ContentModel.Instance.gameState == GameState.FreeSpin) creditAfter += totalBet;
 
+            MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
+            ContentModel.Instance.realCredit = creditAfter;
+            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 当前押注倍率：{betMul} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin} bonusWin={bonusWin} jackpotWin={jackpotWin}");
+
             // 记录游戏数据到数据库
             Record(totalBet, res);
 
-            //FreeSpinSessionStoreG3995.TryPersistOrClearSession();
+            FreeSpinSessionStoreG3995.TryPersistOrClearSession();
         }
 
 
@@ -796,6 +816,7 @@ namespace HuoYanGongNiu_3995
 
             switch (hitCount)
             {
+                case 2: return info.x2;
                 case 3: return info.x3;
                 case 4: return info.x4;
                 case 5: return info.x5;
@@ -808,7 +829,6 @@ namespace HuoYanGongNiu_3995
         private void CheckGameResult(string strDeckRowCol, int TotalWin)
         {
             List<List<int>> deckColRow = SlotTool.GetDeckColRow03(strDeckRowCol);
-            int mult = 1;
             int scatter = CustomModel.Instance.symbolNumber[12];
             const int bonus = 13;
             int colCount = CustomModel.Instance.column;
@@ -827,6 +847,7 @@ namespace HuoYanGongNiu_3995
             {
                 // 取当前线的行索引规则
                 List<int> currentLineRule = winLinesRule[i];
+                int mult = 0;
 
                 // 第 1 列在线上的行索引
                 int firstRow = currentLineRule[0];
@@ -852,7 +873,10 @@ namespace HuoYanGongNiu_3995
                     {
                         if (wild.Contains(currentSymbolType))
                         {
-                            mult = mult > currentSymbolType / 11 ? mult : currentSymbolType / 11;
+                            if(currentSymbolType / 11 > 1)
+                            {
+                                mult += currentSymbolType / 11;
+                            }
                         }
                         
                         sameTypeCount += 1;
@@ -860,7 +884,10 @@ namespace HuoYanGongNiu_3995
                     // 第一个图标是 Wild，遇到可替代图标后以该图标作为基准
                     else if ((currentSymbolType != scatter && currentSymbolType != bonus) && wild.Contains(firstSymbolType))
                     {
-                        mult = mult > firstSymbolType / 11 ? mult : firstSymbolType / 11;
+                        if (firstSymbolType / 11 > 1)
+                        {
+                            mult += firstSymbolType / 11;
+                        }
                         firstSymbolType = currentSymbolType; // 把当前普通图标设为新的基准图标
                         sameTypeCount += 1;
                     }
@@ -873,8 +900,9 @@ namespace HuoYanGongNiu_3995
                 // 命中个数 = 连续计数 + 第 1 列自身
                 int hitCount = sameTypeCount + 1;
                 // 普通奖不统计 Scatter/Bonus
-                if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 3)
+                if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 2)
                 {
+                    if(mult == 0) mult = 1;
                     int lineOdds = GetLineOdds(firstSymbolType, hitCount) * mult;
                     if (lineOdds > 0)
                     {
@@ -970,7 +998,7 @@ namespace HuoYanGongNiu_3995
             {
                 open_type = OpenType,
                 result_type = ResultType,
-                game_id = 3998,
+                game_id = 3995,
                 game_uid = ContentModel.Instance.curGameGuid,
                 created_at = ContentModel.Instance.curGameCreatTimeMS,
                 total_bet = totalBet,

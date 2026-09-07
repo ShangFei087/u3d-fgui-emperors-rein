@@ -1,11 +1,11 @@
 {
 "skeleton": {
-	"hash": "cAcgzDS5Z3A",
+	"hash": "wsChsJk8W7U",
 	"spine": "4.1.24",
-	"x": -630.5,
-	"y": -373.1,
-	"width": 1269,
-	"height": 1027.6,
+	"x": -1031.23,
+	"y": -909.62,
+	"width": 2048,
+	"height": 2048,
 	"images": "./images/",
 	"audio": "E:/1、项目/2_单机/3993_美洲黑豹/115 spine文件/jp_pup_CollectFrame"
 },
@@ -91,9 +91,13 @@
 	{ "name": "blade_l_031", "parent": "blade_l_030", "length": 23.12, "rotation": -31.98, "x": 29.37, "y": 0.02 },
 	{ "name": "number", "parent": "base", "x": 2.43, "y": -44.88 },
 	{ "name": "stone carving", "parent": "base", "length": 223.58, "rotation": 1.1, "x": 4.48, "y": 340.6 },
-	{ "name": "eff_glow", "parent": "YOU WON", "x": -4.25, "y": -30.1 }
+	{ "name": "eff_glow", "parent": "YOU WON", "x": -4.25, "y": -30.1 },
+	{ "name": "eff_all", "parent": "all", "y": 114.38 },
+	{ "name": "eff_glow_02", "parent": "eff_all", "scaleX": 4, "scaleY": 4 },
+	{ "name": "eff_glow_01", "parent": "eff_all", "x": -7.23, "scaleX": 4, "scaleY": 4 }
 ],
 "slots": [
+	{ "name": "eff/eff_glow_01", "bone": "eff_glow_01", "attachment": "eff/eff_glow2_01" },
 	{ "name": "blade_r_04", "bone": "blade_r_019", "attachment": "blade_r_04" },
 	{ "name": "base", "bone": "base", "attachment": "base" },
 	{ "name": "blade_r_08", "bone": "blade_r_022", "attachment": "blade_r_08" },
@@ -120,14 +124,15 @@
 	{ "name": "number", "bone": "number", "attachment": "number" },
 	{ "name": "fg_img_Button2", "bone": "fg_img_Button", "attachment": "fg_img_Button" },
 	{ "name": "fg_START_01", "bone": "fg_img_Button", "attachment": "fg_START_01" },
-	{ "name": "eff/eff_sg/eff_sg_00", "bone": "eff_glow", "blend": "additive" }
+	{ "name": "eff/eff_sg/eff_sg_00", "bone": "eff_glow", "blend": "additive" },
+	{ "name": "eff/eff_glow_02", "bone": "eff_glow_02", "blend": "additive" }
 ],
 "skins": [
 	{
 		"name": "default",
 		"attachments": {
 			"base": {
-				"base": { "x": 7.1, "y": -22.91, "width": 1082, "height": 692 }
+				"base": { "x": -7.42, "y": 55.56, "width": 1080, "height": 882 }
 			},
 			"blade_l_01": {
 				"blade_l_01": {
@@ -347,6 +352,12 @@
 			},
 			"CONGRATS": {
 				"CONGRATS": { "x": -6.11, "y": -30.14, "width": 482, "height": 254 }
+			},
+			"eff/eff_glow_01": {
+				"eff/eff_glow2_01": { "width": 512, "height": 512 }
+			},
+			"eff/eff_glow_02": {
+				"eff/eff_glow2_02": { "width": 512, "height": 512 }
 			},
 			"eff/eff_sg/eff_sg_00": {
 				"eff/eff_sg/eff_sg_00": { "width": 1758, "height": 1484 },
@@ -9523,6 +9534,12 @@
 				"rotate": [
 					{ "time": 0.3, "value": 0.03 }
 				]
+			},
+			"eff_glow_01": {
+				"rotate": [
+					{},
+					{ "time": 6.6667, "value": 360 }
+				]
 			}
 		}
 	},
@@ -9657,6 +9674,24 @@
 						"curve": [ 0.178, 1, 0.222, 1, 0.178, 1, 0.222, 1, 0.178, 1, 0.222, 1, 0.158, 0.4, 0.188, 1 ]
 					},
 					{ "time": 0.2667, "color": "ffffffff" }
+				]
+			},
+			"eff/eff_glow_01": {
+				"rgba": [
+					{ "color": "ffffff00" },
+					{ "time": 0.5333, "color": "ffffffff" }
+				]
+			},
+			"eff/eff_glow_02": {
+				"rgba": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.0333, "color": "ffffff00" },
+					{ "time": 0.1333, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 0.3, "color": "ffffffff" },
+					{ "time": 0.4667, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "eff/eff_glow2_02" }
 				]
 			},
 			"fg_img_Button": {
@@ -14251,6 +14286,18 @@
 					},
 					{ "time": 0.5333 }
 				]
+			},
+			"eff_glow_01": {
+				"rotate": [
+					{ "value": -100.07 },
+					{ "time": 0.8333 }
+				]
+			},
+			"eff_glow_02": {
+				"scale": [
+					{ "x": 0, "y": 0 },
+					{ "time": 0.3, "x": 0.875, "y": 0.875 }
+				]
 			}
 		}
 	},
@@ -14378,6 +14425,12 @@
 				"rgba": [
 					{ "time": 0.3333, "color": "ffffffff" },
 					{ "time": 0.5333, "color": "ffffff00" }
+				]
+			},
+			"eff/eff_glow_01": {
+				"rgba": [
+					{ "color": "ffffffff" },
+					{ "time": 0.5667, "color": "ffffff00" }
 				]
 			},
 			"fg_img_Button": {
@@ -15834,6 +15887,12 @@
 				"scale": [
 					{ "time": 0.2667 },
 					{ "time": 0.4667, "x": 0, "y": 0 }
+				]
+			},
+			"eff_glow_01": {
+				"rotate": [
+					{ "value": 360 },
+					{ "time": 0.5667, "value": 395.07 }
 				]
 			}
 		}

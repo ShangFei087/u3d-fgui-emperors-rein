@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace HuoYanGongNiu_3995
 {
-    public static class FreeSpinSessionStoreG3996
+    public static class FreeSpinSessionStoreG3995
     {
         /// <summary>
         /// 当前游戏 ID（朱再金币 1700）。
@@ -85,6 +85,8 @@ namespace HuoYanGongNiu_3995
                 GameNumberFreeSpinTrigger = cm.gameNumberFreeSpinTrigger,
                 StrDeckRowCol = cm.strDeckRowCol,
                 realCredit = cm.realCredit,
+
+                curFreeCredit = cm.curFreeCredit,
 
                 //wildNum = cm.wildNums,
                 //curFreeCredit = cm.curFreeCredit,

@@ -10,8 +10,8 @@
       <gearDisplay controller="pageControl" pages="0,1,2"/>
     </loader>
     <component id="n8_e3wa" name="jpMajor" src="e3wa7y" fileName="moudules/gameJackpot/GameJackpotMajor.xml" xy="308,19" group="n12_e3wa"/>
-    <component id="n9_e3wa" name="jpMinor" src="e3wa82" fileName="moudules/gameJackpot/GameJackpotMini.xml" xy="-2,88" group="n12_e3wa"/>
-    <component id="n10_e3wa" name="jpMini" src="e3wa81" fileName="moudules/gameJackpot/GameJackpotMinor.xml" xy="745,82" group="n12_e3wa"/>
+    <component id="n9_e3wa" name="jpMini" src="e3wa82" fileName="moudules/gameJackpot/GameJackpotMini.xml" xy="-2,88" group="n12_e3wa"/>
+    <component id="n10_e3wa" name="jpMinor" src="e3wa81" fileName="moudules/gameJackpot/GameJackpotMinor.xml" xy="745,82" group="n12_e3wa"/>
     <group id="n12_e3wa" name="jackpots" xy="-2,19" size="1082,172"/>
     <component id="n87_g9kd" name="anchorNpc" src="g9kd9m" fileName="components/gameMain/AnchorNpc.xml" xy="539,955"/>
     <loader id="n94_g9kd" name="innerFrame" xy="15,943" size="1050,650" url="ui://tdk27maez14g6x" align="center" vAlign="middle" autoSize="true"/>
@@ -26,6 +26,10 @@
     <component id="n97_ni96" name="anchorEffectFrame" src="mxrk8h" fileName="components/gameMain/AnchorEffect.xml" xy="539,959"/>
     <component id="n7_e3wa" name="panel" src="z14g7x" fileName="components/gameMain/AnchorPanelPush.xml" xy="0,0"/>
     <component id="n90_g9kd" name="anchorFadePag" src="g9kd9r" fileName="components/anchorPag.xml" xy="539,959" touchable="false"/>
+    <component id="n100_ko7z" name="anchorZhuaZi" src="g9kd9s" fileName="components/anchorCom.xml" xy="534,676"/>
+    <component id="n101_nzt4" name="anchorRoar" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,959"/>
+    <component id="n98_ko7z" name="anchorFadeFreeGame" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,959"/>
+    <component id="n99_ko7z" name="anchorFadeSmallGame" src="g9kd9s" fileName="components/anchorCom.xml" xy="539,959"/>
   </displayList>
   <transition name="normal">
     <item time="0" type="Icon" target="n82_g9kd" value="ui://tdk27maez14g1b"/>
@@ -48,7 +52,7 @@
   <transition name="bonus">
     <item time="0" type="Icon" target="n82_g9kd" value="ui://tdk27maez14g6r"/>
     <item time="0" type="Icon" target="n94_g9kd" value="ui://tdk27maez14g6s"/>
-    <item time="0" type="Icon" target="n95_g9kd" value="ui://tdk27maeg9kda1"/>
+    <item time="0" type="Icon" target="n95_g9kd" value="ui://tdk27maerghscz"/>
     <item time="0" type="Visible" target="n6_z14g" value="false"/>
     <item time="0" type="Visible" target="n83_g9kd" value="false"/>
     <item time="0" type="Visible" target="n87_g9kd" value="true"/>

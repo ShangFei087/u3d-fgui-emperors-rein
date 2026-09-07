@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
+  m_Name: jp_Roar_Atlas
+  m_EditorClassIdentifier: 
+  atlasFile: {fileID: 4900000, guid: 1cf689a37174b264d8f5e2b78c540afc, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 7bb81566f0e9c4643b124161e6f456f9, type: 2}
+  - {fileID: 2100000, guid: caed076794e549543a02f5a7dece6b8d, type: 2}
+  - {fileID: 2100000, guid: 022abf7bb38513d4eae64de499cc3b1e, type: 2}
+  - {fileID: 2100000, guid: 519aea9ed3444914883414945207f30d, type: 2}
+  - {fileID: 2100000, guid: 1d3d3c4d9b11e1140ae752999f82a4a6, type: 2}
+  - {fileID: 2100000, guid: c614bdb349557e340ac71f9537a6c88e, type: 2}
+  - {fileID: 2100000, guid: 9551c3bf691738e4dbb32581f9ece3db, type: 2}
+  - {fileID: 2100000, guid: 6ba5bc947ad36554995c684499682b36, type: 2}
+  - {fileID: 2100000, guid: 8be004b6f4b70f640b681580b7fd50f0, type: 2}
+  - {fileID: 2100000, guid: 0380e1b635bfba24787f321c9011b99e, type: 2}
+  - {fileID: 2100000, guid: f3f75d6f0a4819c4ea15d370a75ba005, type: 2}
+  - {fileID: 2100000, guid: 4cac9f7055de9b04baab73797c5bd19e, type: 2}
+  - {fileID: 2100000, guid: 7f8121df5e5c8ca42878c63133e6b3bf, type: 2}
+  - {fileID: 2100000, guid: 78c7ac4bef7389240a1eedc48cd4478c, type: 2}
+  - {fileID: 2100000, guid: eec568f0df6be6942a10958c0eae6864, type: 2}
+  - {fileID: 2100000, guid: d02ba845a1539da4997ea8adee4700c6, type: 2}
+  - {fileID: 2100000, guid: d18acfbbb8f9d8f4f9783dbea075ccc2, type: 2}
+  - {fileID: 2100000, guid: ac2a737917de50346ad84daa6ad217b5, type: 2}
+  - {fileID: 2100000, guid: 0617a2dfe8db2af4bbac07ebba9db644, type: 2}
+  - {fileID: 2100000, guid: d5caf371617defe4798008935a43be0c, type: 2}
+  - {fileID: 2100000, guid: 37c611c31ac6aee4883ccba3a1f4d68a, type: 2}
+  - {fileID: 2100000, guid: 03cfb1ce4e64b0b4b98306a24bd830ea, type: 2}
+  - {fileID: 2100000, guid: f08df3021b7c5be4f910de28dfec2e9a, type: 2}
+  - {fileID: 2100000, guid: 32e457b80f2d56e479bb8aded706f401, type: 2}
+  - {fileID: 2100000, guid: cf3924b1c0f5d6149ac84d1e497f190b, type: 2}
+  - {fileID: 2100000, guid: 7a13b66fd654a9a49b955b8c3625c6cb, type: 2}

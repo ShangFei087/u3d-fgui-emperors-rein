@@ -81,7 +81,6 @@
     <image id="pr3e2b" name="3995_small.png" path="/images/card_projection/" exported="true"/>
     <image id="pr3e2c" name="3994_big.png" path="/images/card_projection/" exported="true"/>
     <image id="pr3e2d" name="3994_small.png" path="/images/card_projection/" exported="true"/>
-    <image id="pr3e2k" name="plat_bg.png" path="/images/"/>
   </resources>
   <publish name="SavageHall" path="../../Assets/GameRes/Halls/SavageHall/FGUIs" packageCount="2"/>
 </packageDescription>
