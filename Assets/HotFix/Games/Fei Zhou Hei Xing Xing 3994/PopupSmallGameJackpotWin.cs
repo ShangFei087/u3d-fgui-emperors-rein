@@ -190,6 +190,18 @@ namespace FeiZhouHeiXingXing_3994
             _scoreTran.localPosition = _scorePos;
             _scoreTran.localScale = _scoreScale;
             _scoreTran.localRotation = _scoreQuaternion;
+            
+            RemoveDesignCallBack(_btnDelayCallback);
+            RemoveDesignCallBack(_autoClickCallback);
+            _btnDelayCallback = null;
+            _autoClickCallback = null;
+        }
+        
+        /// <summary> 移除指定的回调 </summary>
+        private void RemoveDesignCallBack(TimerCallback designCallback)
+        {
+            if (designCallback == null) return;
+            Timers.inst.Remove(designCallback);
         }
 
         private void ResLoadCallback()

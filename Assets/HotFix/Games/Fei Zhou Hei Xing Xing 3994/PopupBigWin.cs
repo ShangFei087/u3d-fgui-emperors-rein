@@ -32,7 +32,7 @@ namespace FeiZhouHeiXingXing_3994
         private bool _isExiting; // 当前动画是否已经播放完成
         private GTextField _bigWinText; // 显示BigWin得分的组件
         private const float ExitDelay = 1.0f; // 每一级Pag的结束等待时间
-        private TimerCallback _aniEndCallback, _exitCallback,_numAniDelayCallback; // pag和数字滚动播放结束之后的回调函数 
+        private TimerCallback _aniEndCallback, _exitCallback, _numAniDelayCallback; // pag和数字滚动播放结束之后的回调函数 
 
         protected override void OnInit()
         {
@@ -40,17 +40,6 @@ namespace FeiZhouHeiXingXing_3994
             base.OnInit();
 
             InitParam(null); // 因为BigWin不需要加载预制体，所以需要将InitParam在OnInit里直接调用，否则无法触发Loading中的回调，导致无法正常进入游戏
-            // machineBtnClickHelper = new MachineButtonClickHelper()
-            // {
-            //     shortClickHandler = new Dictionary<MachineButtonKey, Action<MachineButtonInfo>>()
-            //     {
-            //         [MachineButtonKey.BtnSpin] = (info) =>
-            //         {
-            //             Debug.LogError("游戏接受到机台短按的数据：Spin");
-            //             OnAniEnd(null);
-            //         }
-            //     },
-            // };
         }
 
         protected override void OnLanguageChange(I18nLang lang)
@@ -72,7 +61,7 @@ namespace FeiZhouHeiXingXing_3994
             _bigWinText = contentPane.GetChild("scoreText").asTextField;
             // 绑定Pag视频
             _bigWinCom = contentPane.GetChild("anchorBigWin").asCom;
-            _bigWinPag = new PagSlotBinding("bigWin", PagPath);
+            _bigWinPag ??= new PagSlotBinding("bigWin", PagPath);
             _bigWinPag.EnsureSlot(_bigWinCom);
 
             _bigWinText.text = "";
@@ -182,6 +171,8 @@ namespace FeiZhouHeiXingXing_3994
                 Timers.inst.Remove(_aniEndCallback);
             if (_exitCallback != null && Timers.inst.Exists(_exitCallback))
                 Timers.inst.Remove(_exitCallback);
+            if (_numAniDelayCallback != null && Timers.inst.Exists(_numAniDelayCallback))
+                Timers.inst.Remove(_numAniDelayCallback);
         }
     }
 }

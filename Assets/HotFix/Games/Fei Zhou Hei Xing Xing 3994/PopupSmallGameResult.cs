@@ -208,6 +208,18 @@ namespace FeiZhouHeiXingXing_3994
             _scoreTran.localRotation = _scoreQuaternion;
 
             _cloneFadeObj.SetActive(false);
+            
+            
+            RemoveDesignCallBack(_delayCloseCallback);
+            RemoveDesignCallBack(_delayChangePageCallback);
+            RemoveDesignCallBack(_delayPlayFadeCallback);
+            RemoveDesignCallBack(_btnDelayCallback);
+            RemoveDesignCallBack(_autoClickCallback);
+            _delayCloseCallback = null;
+            _delayChangePageCallback = null;
+            _delayPlayFadeCallback = null;
+            _btnDelayCallback = null;
+            _autoClickCallback = null;
         }
 
         private void ResLoadCallback()

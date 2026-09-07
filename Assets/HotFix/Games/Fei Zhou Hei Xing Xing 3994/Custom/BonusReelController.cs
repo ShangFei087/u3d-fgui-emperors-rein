@@ -203,7 +203,7 @@ namespace HotFix.Games.Fei_Zhou_Hei_Xing_Xing_3994.Custom
         public void Reset()
         {
             _reelState = BonusReelState.Idle;
-            ResultInfo = null;
+            ResultInfo = new BonusReelResultInfo();
 
             _roll.Stop();
             _result.Stop();
