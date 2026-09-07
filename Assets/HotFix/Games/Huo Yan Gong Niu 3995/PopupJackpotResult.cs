@@ -36,6 +36,8 @@ namespace HuoYanGongNiu_3995
 
 
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
+        private TimerCallback _autoModeSimulatedClick; 
+        private const float AutoModeSimulateClickDelaySeconds = 3f;
 
         //Pag播放
         private const string GamePagFolder = "Games/Xing Yun Zhi Lun 3998/Pag";
@@ -108,6 +110,8 @@ namespace HuoYanGongNiu_3995
 
             if (!isInit) return;
 
+            CancelAutoModeSimulatedClick();
+
             GComponent lodAnchorBG = this.contentPane.GetChild("anchor").asCom;
             if (goAnchor != lodAnchorBG)
             {
@@ -161,14 +165,10 @@ namespace HuoYanGongNiu_3995
             if (!isOpen) return;
             ExecuteNextStep();
 
-            //if (ContentModel.Instance.isAuto)
-            //{
-            //    AddTimer(1f, (object obj) =>
-            //    {
-            //        SpinDown();
-            //    });
-            //}
-
+            AddTimer(0.96f, (object obj) =>
+            {
+                ScheduleAutoModeSimulatedClick(gbutton, () => isClose);
+            });
 
         }
 
@@ -219,7 +219,7 @@ namespace HuoYanGongNiu_3995
                 go = GameObject.Instantiate(goFgClone);
                 animator = go.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
                 goAnchor = lodAnchorBG;
-                ChangeParent(credit, go, "Anchor/Spine Mecanim GameObject/SkeletonUtility-SkeletonRoot/root/All/All2/bone6/MAJOR frame", -2.39f, 0.8f);
+                ChangeParent(credit, go, "Anchor/Spine Mecanim GameObject/SkeletonUtility-SkeletonRoot/root/All/All2/bone6/MAJOR frame", -3.44f, 0.8f);
                 GameCommon.FguiUtils.AddWrapper(goAnchor, go);
             }
         }
@@ -316,6 +316,44 @@ namespace HuoYanGongNiu_3995
             {
                 PlayEffectAnim(child);
             }
+        }
+
+        private void ScheduleAutoModeSimulatedClick(GButton target, Func<bool> skipWhenTrue)
+        {
+            CancelAutoModeSimulatedClick();
+            if (!TestManager.Instance.IsAutoModeRunning || target == null)
+                return;
+
+            _autoModeSimulatedClick = (obj) =>
+            {
+                try
+                {
+                    if (skipWhenTrue != null && skipWhenTrue())
+                        return;
+                    if (target != null && contentPane != null && contentPane.visible)
+                        target.onClick.Call();
+                }
+                finally
+                {
+                    var cb = _autoModeSimulatedClick;
+                    if (cb != null)
+                    {
+                        Timers.inst.Remove(cb);
+                        _activeTimers.Remove(cb);
+                        _autoModeSimulatedClick = null;
+                    }
+                }
+            };
+            _activeTimers.Add(_autoModeSimulatedClick);
+            Timers.inst.Add(AutoModeSimulateClickDelaySeconds, 1, _autoModeSimulatedClick);
+        }
+
+        private void CancelAutoModeSimulatedClick()
+        {
+            if (_autoModeSimulatedClick == null) return;
+            Timers.inst.Remove(_autoModeSimulatedClick);
+            _activeTimers.Remove(_autoModeSimulatedClick);
+            _autoModeSimulatedClick = null;
         }
 
         private void ChangeParent(GObject gComponent, GameObject go, string path, float xDistance, float yDistance)
