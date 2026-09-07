@@ -59,7 +59,7 @@ namespace FeiZhouHeiXingXing_3994
             // 绑定npc pag并默认播放idle动画
             _fadeCom = contentPane.GetChild("anchorFadePag").asCom;
             if (_fadeCom == null) return;
-            _fadePag = new PagSlotBinding("fade", PagPath);
+            _fadePag ??= new PagSlotBinding("fade", PagPath);
             _fadePag.EnsureSlot(_fadeCom);
         }
 
@@ -145,7 +145,7 @@ namespace FeiZhouHeiXingXing_3994
             _spinTextTran.localPosition = new Vector3(2.05f, 1.93f, 0f);
             _spinTextTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             _spinTextTran.localRotation = Quaternion.Euler(0, 0, 270);
-            
+
             // 按钮延时点击
             _startBtn.touchable = false;
             _btnDelayCallback = (obj) =>
@@ -210,6 +210,18 @@ namespace FeiZhouHeiXingXing_3994
             _spinTextTran.localPosition = _numPos;
             _spinTextTran.localScale = _numScale;
             _spinTextTran.localRotation = _numQuaternion;
+            
+            // 清除回调
+            RemoveDesignCallBack(_autoClickCallback);
+            RemoveDesignCallBack(_delayCloseCallback);
+            RemoveDesignCallBack(_delayPlayPagCallback);
+            RemoveDesignCallBack(_changePageCallback);
+            RemoveDesignCallBack(_btnDelayCallback);
+            _delayCloseCallback = null;
+            _delayPlayPagCallback = null;
+            _changePageCallback = null;
+            _autoClickCallback = null;
+            _btnDelayCallback = null;
         }
 
         private void ResLoadCallback(EventData eventData = null)

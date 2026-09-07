@@ -111,7 +111,7 @@ namespace FeiZhouHeiXingXing_3994
 
             // 绑定Pag
             if (_fadeCom == null) return;
-            _fadePag = new PagSlotBinding("fade", PagPath);
+            _fadePag ??= new PagSlotBinding("fade", PagPath);
             _fadePag.EnsureSlot(_fadeCom);
 
             // 将UI挂载在Spine动画上
@@ -122,7 +122,7 @@ namespace FeiZhouHeiXingXing_3994
             _startBtnTran.localPosition = new Vector3(0.98f, 2.03f, 0.01f);
             _startBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             _startBtnTran.localRotation = Quaternion.Euler(0, 0, -92);
-            
+
             // 按钮延时点击
             _startBtn.touchable = false;
             _btnDelayCallback = (obj) =>
@@ -187,6 +187,17 @@ namespace FeiZhouHeiXingXing_3994
             _startBtnTran.localPosition = _btnPos;
             _startBtnTran.localScale = _btnScale;
             _startBtnTran.localRotation = _startBtnQuaternion;
+
+            RemoveDesignCallBack(_delayCloseCallback);
+            RemoveDesignCallBack(_delayPlayPagCallback);
+            RemoveDesignCallBack(_changePageCallback);
+            RemoveDesignCallBack(_btnDelayCallback);
+            RemoveDesignCallBack(_autoClickCallback);
+            _delayCloseCallback = null;
+            _delayPlayPagCallback = null;
+            _changePageCallback = null;
+            _btnDelayCallback = null;
+            _autoClickCallback = null;
         }
 
         private void ResLoadCallback()

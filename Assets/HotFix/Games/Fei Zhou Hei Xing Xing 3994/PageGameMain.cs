@@ -1129,10 +1129,10 @@ namespace FeiZhouHeiXingXing_3994
                 _notHitSpinCount++;
 
             // ----------------- big win ---------------
-            WinLevelType winLevelType = GetBigWinType();
+            WinLevelType winLevelType = GetBigWinType(totalWinLineCredit);
             if (winLevelType != WinLevelType.None)
             {
-                yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
+                yield return BigWinPopup(winLevelType, totalWinLineCredit); //ContentModel.Instance.baseGameWinCredit
                 _slotMachineController.CloseSlotCover();
                 _slotMachineController.SkipWinLine(false);
             }
@@ -1156,6 +1156,7 @@ namespace FeiZhouHeiXingXing_3994
                 if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
                 _corGameIdle = _monoHelper.StartCoroutine(GameIdle(winList));
             }
+
             _allWinCredit = 0;
             _slotMachineController.isStopImmediately = false;
             successCallback?.Invoke();
@@ -1276,17 +1277,16 @@ namespace FeiZhouHeiXingXing_3994
 
         #region 大奖弹窗
 
-        private WinLevelType GetBigWinType()
+        private WinLevelType GetBigWinType(long baseGameWinCredit)
         {
-            long baseGameWinCredit = ContentModel.Instance.baseGameWinCredit;
             List<WinMultiple> winMultipleList = CustomModel.Instance.winLevelMultiple;
             long totalBet = ContentModel.Instance.totalBet;
             WinLevelType winLevelType = WinLevelType.None;
-            foreach (var t in winMultipleList)
+            for (int i = 0; i < winMultipleList.Count; i++)
             {
-                if (baseGameWinCredit > totalBet * t.multiple)
+                if (baseGameWinCredit > totalBet * winMultipleList[i].multiple)
                 {
-                    winLevelType = t.winLevelType;
+                    winLevelType = winMultipleList[i].winLevelType;
                 }
             }
 
@@ -1405,6 +1405,8 @@ namespace FeiZhouHeiXingXing_3994
                 });
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
+            EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(Game3994AudioEvent.BgmRegularGame));
             yield return _slotMachineController.SlotWaitForSeconds(1.5f);
         }
 
@@ -1490,7 +1492,7 @@ namespace FeiZhouHeiXingXing_3994
             _corFreeWild = _monoHelper.StartCoroutine(ShowWildSpine(GetFreeMiddleData(), () => isNext = true));
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
-            
+
             // ----------------- icon change ----------------
             if (_corChangeIcon != null) _monoHelper.StopCoroutine(_corChangeIcon);
             _corChangeIcon = _monoHelper.StartCoroutine(IconConversion(() => isNext = true));
@@ -1499,10 +1501,11 @@ namespace FeiZhouHeiXingXing_3994
 
             // ----------------- normal win ----------------
             List<SymbolWin> winList = ContentModel.Instance.winList;
+            long totalWinLineCredit = 0;
             if (winList.Count > 0 /* || ContentModel.Instance.BonusResult != null*/)
             {
                 PlayAnimationByName(_freeNpcAnimator, "win");
-                long totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList);
+                totalWinLineCredit = _slotMachineController.GetTotalWinCredit(winList);
                 _allWinCredit += totalWinLineCredit;
                 _slotMachineController.SendTotalWinCreditEvent(_allWinCredit); // 总线赢分事件
             }
@@ -1515,10 +1518,10 @@ namespace FeiZhouHeiXingXing_3994
             }
 
             // ----------------- big win ----------------
-            WinLevelType winLevelType = GetBigWinType();
+            WinLevelType winLevelType = GetBigWinType(totalWinLineCredit);
             if (winLevelType != WinLevelType.None)
             {
-                yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
+                yield return BigWinPopup(winLevelType, totalWinLineCredit); //ContentModel.Instance.baseGameWinCredit
                 _slotMachineController.CloseSlotCover();
                 _slotMachineController.SkipWinLine(false);
             }
@@ -1637,7 +1640,8 @@ namespace FeiZhouHeiXingXing_3994
             callback?.Invoke();
         }
 
-        ///<summary>高分图标替换低分图标：循环扩散直到没有可转换的为止。从8开始向下逐级传播，8→7→6→5→4，4不转3</summary>
+        ///<summary>高分图标替换低分图标：循环扩散直到没有可转换的为止。从8开始向下逐级传播，8→7→6→5→4，4不转3。
+        /// 规则：已被转换过的格子不再参与后续转换（不吃回头草）</summary>
         private IEnumerator IconConversion(Action callback)
         {
             string strDeck = ProcessMatrix(ContentModel.Instance.strDeckRowCol);
@@ -1653,6 +1657,9 @@ namespace FeiZhouHeiXingXing_3994
             int colCount = rows[0].Split(',').Length;
 
             int[,] grid = new int[rowCount, colCount];
+            // 【新增】记录每个位置是否已经被转换过，已转换的格子不再作为目标被转换
+            bool[,] converted = new bool[rowCount, colCount];
+
             for (int r = 0; r < rowCount; r++)
             {
                 string[] cols = rows[r].Split(',');
@@ -1681,16 +1688,16 @@ namespace FeiZhouHeiXingXing_3994
                             if (grid[r, c] != sourceValue) continue;
 
                             // 上
-                            if (r > 0 && grid[r - 1, c] == targetValue)
+                            if (r > 0 && grid[r - 1, c] == targetValue && !converted[r - 1, c])
                                 toUpgrade.Add((r - 1, c));
                             // 下
-                            if (r < rowCount - 1 && grid[r + 1, c] == targetValue)
+                            if (r < rowCount - 1 && grid[r + 1, c] == targetValue && !converted[r + 1, c])
                                 toUpgrade.Add((r + 1, c));
                             // 左
-                            if (c > 0 && grid[r, c - 1] == targetValue)
+                            if (c > 0 && grid[r, c - 1] == targetValue && !converted[r, c - 1])
                                 toUpgrade.Add((r, c - 1));
-                            // 右  ⚠️ 原代码这里写的是 (r, c - 1)，已修正为 (r, c + 1)
-                            if (c < colCount - 1 && grid[r, c + 1] == targetValue)
+                            // 右
+                            if (c < colCount - 1 && grid[r, c + 1] == targetValue && !converted[r, c + 1])
                                 toUpgrade.Add((r, c + 1));
                         }
                     }
@@ -1701,6 +1708,8 @@ namespace FeiZhouHeiXingXing_3994
                         if (!roundChangedPositions.Contains(pos))
                             roundChangedPositions.Add(pos);
                         grid[pos.Item1, pos.Item2] = sourceValue;
+                        // 【新增】标记该位置已转换，后续轮次中不会再被任何高分图标转掉
+                        converted[pos.Item1, pos.Item2] = true;
                         hasChanged = true;
                     }
                 }
