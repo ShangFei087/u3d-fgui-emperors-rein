@@ -829,7 +829,6 @@ namespace HuoYanGongNiu_3995
         private void CheckGameResult(string strDeckRowCol, int TotalWin)
         {
             List<List<int>> deckColRow = SlotTool.GetDeckColRow03(strDeckRowCol);
-            int mult = 1;
             int scatter = CustomModel.Instance.symbolNumber[12];
             const int bonus = 13;
             int colCount = CustomModel.Instance.column;
@@ -848,6 +847,7 @@ namespace HuoYanGongNiu_3995
             {
                 // 取当前线的行索引规则
                 List<int> currentLineRule = winLinesRule[i];
+                int mult = 0;
 
                 // 第 1 列在线上的行索引
                 int firstRow = currentLineRule[0];
@@ -873,7 +873,10 @@ namespace HuoYanGongNiu_3995
                     {
                         if (wild.Contains(currentSymbolType))
                         {
-                            mult = mult > currentSymbolType / 11 ? mult : currentSymbolType / 11;
+                            if(currentSymbolType / 11 > 1)
+                            {
+                                mult += currentSymbolType / 11;
+                            }
                         }
                         
                         sameTypeCount += 1;
@@ -881,7 +884,10 @@ namespace HuoYanGongNiu_3995
                     // 第一个图标是 Wild，遇到可替代图标后以该图标作为基准
                     else if ((currentSymbolType != scatter && currentSymbolType != bonus) && wild.Contains(firstSymbolType))
                     {
-                        mult = mult > firstSymbolType / 11 ? mult : firstSymbolType / 11;
+                        if (firstSymbolType / 11 > 1)
+                        {
+                            mult += firstSymbolType / 11;
+                        }
                         firstSymbolType = currentSymbolType; // 把当前普通图标设为新的基准图标
                         sameTypeCount += 1;
                     }
@@ -896,6 +902,7 @@ namespace HuoYanGongNiu_3995
                 // 普通奖不统计 Scatter/Bonus
                 if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 2)
                 {
+                    if(mult == 0) mult = 1;
                     int lineOdds = GetLineOdds(firstSymbolType, hitCount) * mult;
                     if (lineOdds > 0)
                     {

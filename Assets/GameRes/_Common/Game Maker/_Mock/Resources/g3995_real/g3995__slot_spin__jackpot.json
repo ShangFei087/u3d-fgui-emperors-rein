@@ -1,7 +1,7 @@
 {
 	"OpenType":0,
 	
-	"ResultType":3,
+	"ResultType":4,
 	
 	"lineNum":1,
 	
@@ -15,7 +15,13 @@
 	
 	"BonusBet":850,
 	
-	"BonusData":[0,0,0,0,0,0,0,0,0,0,0,0,0,850,0],
+	"BonusData":[0,0,0,0,0,40000,0,0,0,0,0,0,0,10850,0],
+	
+	"JPCount":1,
+	
+	"JPTypeArray":[0],
+	
+	"JPBetArray":[0],
 	
 	"code":3995
 }
