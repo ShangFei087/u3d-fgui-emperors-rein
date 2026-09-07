@@ -92,6 +92,8 @@ namespace HuoYanGongNiu_3995
         private bool isStartSpin, isEndSpin;
         private Transition freeTiggerInWheel;
 
+        private GameSoundController3995 _gameSoundController = null;
+
         //转盘上的特效组件
         private List<GLoader> gBulls = new List<GLoader>();
         private List<GTextField> gTexts = new List<GTextField>();
@@ -387,6 +389,8 @@ namespace HuoYanGongNiu_3995
             //EventCenter.Instance.AddEventListener<EventData>("JackpotWinCredit", OnJackpotWinEvent);
 
             InitParam(null);
+
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3995AudioEvent.BgmRegularGame));
         }
 
         public override void OnClose(EventData data = null)
@@ -592,7 +596,8 @@ namespace HuoYanGongNiu_3995
 
             // ---------- 5.音乐控制 ----------
 
-
+            if (_gameSoundController == null)
+                _gameSoundController = new GameSoundController3995();
 
 
             // ---------- 6.初始化FGUI组件 ----------
@@ -1481,6 +1486,8 @@ namespace HuoYanGongNiu_3995
             {
                 Debug.Log("回调执行！isNext = true"); // 加日志
                 isNext = true;
+
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3995AudioEvent.BgmFreeSpinGame));
             });
 
             yield return new WaitUntil(() => isNext == true);
@@ -1585,6 +1592,8 @@ namespace HuoYanGongNiu_3995
                 {
                     DebugUtils.Log("回调执行！isNext = true"); // 加日志
                     isNext = true;
+
+                    EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3995AudioEvent.BgmRegularGame));
                 });
 
             yield return new WaitUntil(() => isNext == true);
@@ -2755,6 +2764,8 @@ namespace HuoYanGongNiu_3995
                     {
                         ChangeBGPanel(2);
                         jackpotTimes.text = ContentModel.Instance.jackpotSpinTotalTimes.ToString();
+
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3995AudioEvent.BgmBonusGame));
                     })
                 }),
             (ed) =>
@@ -2794,6 +2805,8 @@ namespace HuoYanGongNiu_3995
             {
                 Debug.Log("回调执行！isNext = true"); // 加日志
                 isNext = true;
+
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3995AudioEvent.BgmRegularGame));
             });
 
             yield return new WaitUntil(() => isNext == true);

@@ -43,6 +43,74 @@ namespace HuoYanGongNiu_3995
         }
 
 
+        /// <summary>
+        /// 已滚动的滚轮立马停止、未滚动的滚轮滚动一次
+        /// </summary>
+        /// <param name="finishCallback"></param>
+        /// <returns></returns>
+        public override IEnumerator ReelsToStopOrTurnOnce(Action finishCallback)
+        {
+
+            // EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_EVENT,
+            //    new EventData(SlotMachineEvent.SpinSlotMachine));
+
+            int reelsCount = this.column;
+
+            bool isNext = false;
+
+            for (int reelIdx = 0; reelIdx < this.column; reelIdx++)
+            {
+                if (reels[reelIdx].state == ReelState.EndStop)
+                {
+                    reelsCount--;
+                    continue;
+                }
+
+                if (reels[reelIdx].state == ReelState.Idle)
+                {
+                    if (_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx) > 0)
+                    {
+                        //yield return new WaitForSeconds(_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx));
+                    }
+                }
+
+                int _reelIdx = reelIdx;
+
+                reels[reelIdx].ReelToStopOrTurnOnce(
+                    () =>
+                    {
+                        EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
+                            new EventData<int>(SlotMachineEvent.PrepareStoppedReel, _reelIdx));
+
+                        if (isSymbolAppearEffectWhenReelStop)
+                            ShowReelSymbolAppearEffect(_reelIdx);
+
+                        if (--reelsCount <= 0)
+                        {
+                            isNext = true;
+                        }
+
+                    }
+                );
+            }
+
+            yield return new WaitUntil(() => isNext == true);
+            isNext = false;
+
+
+            foreach (ReelBase reel in reels)
+            {
+                reel.SetReelState(ReelState.Idle);
+            }
+
+
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_EVENT,
+                new EventData(SlotMachineEvent.StoppedSlotMachine));
+
+            finishCallback?.Invoke();
+        }
+
+
 
         #region 开奖动画
 

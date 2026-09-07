@@ -103,97 +103,23 @@ namespace HuoYanGongNiu_3995
 
             [SoundKey.RegularBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Music/Music_Normal.mp3",
+                assetPath = "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Sounds/Music/NgBGM.ogg",
                 outputType = GSOutType.Music,
                 loop = true,
             },
             [SoundKey.FreeSpinBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Music/Music_Free.mp3",
+                assetPath = "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Sounds/Music/FgBGM.ogg",
                 outputType = GSOutType.Music,
                 loop = true,
             },
-            [SoundKey.SpinBGIdle] = new GSHandler()
+            [SoundKey.JackpotBG] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Effect/NormalGameEnvironment.mp3",
+                assetPath = "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Sounds/Music/JgBGM.ogg",
+                outputType = GSOutType.Music,
                 loop = true,
             },
-            [SoundKey.ReelStop1] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_Down_1.mp3",
-            },
-            [SoundKey.ReelStop2] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_Down_2.mp3",
-            },
-            [SoundKey.ReelStop3] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_Down_3.mp3",
-            },
-            [SoundKey.ReelStop4] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_Down_4.mp3",
-            },
-            [SoundKey.ReelStop5] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_Down_5.mp3",
-            },
-            [SoundKey.SlowBG] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_BGM.mp3",
-                //outputType = GSOutType.Music,
-                loop = true,
-            },
-            [SoundKey.MainWinAnim] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Effect/Flag.mp3",
-            },
-            [SoundKey.MainWinEffect] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Effect/Effect_Win.mp3",
-            },
-            [SoundKey.TotalWinLine] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_Win_1234.mp3",
-            },
-            [SoundKey.FreeSpinTriggerBG] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Effect/FreeNumberTipAppear.mp3",
-            },
-            [SoundKey.SlowMotionEffect] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Scroll/Scroll_Focus_On.mp3",
-            },
-            [SoundKey.FreeGameNpc] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Effect/FreeGameNPC.mp3",
-            },
-            [SoundKey.FreeGameEffect] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/Effect/FreeGameSmallOddSymbolWin.mp3",
-            },
-            [SoundKey.PopupWinBgNumberAdd] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/BigWin/BigWin_Number_On.mp3",
-                //outputType = GSOutType.Music,
-                loop = true,
-            },
-            [SoundKey.PopupWinOn] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/BigWin/BigWin_On.mp3",
-            },
-            [SoundKey.PopupWinCoin] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/BigWin/BigWin_coin.mp3",
-            },
-            [SoundKey.PopupWinEffect] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/BigWin/BigWin_chajian.mp3",
-            },
-            [SoundKey.PopupWinEnd] = new GSHandler()
-            {
-                assetPath = "Assets/GameRes/Games/Emperors Rein 200/Sounds/Effect/BigWin/BigWin_end.mp3",
-            },
+            
         };
 
         /*

@@ -227,6 +227,7 @@ namespace HuoYanGongNiu_3995
         // 终止所有后续步骤（条件不满足时调用）
         private void StopAll()
         {
+            CancelAutoModeSimulatedClick();
             // 移除所有未执行的定时器
             foreach (var timer in _activeTimers)
             {
