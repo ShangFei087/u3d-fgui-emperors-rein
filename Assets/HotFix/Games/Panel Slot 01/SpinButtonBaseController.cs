@@ -22,6 +22,12 @@ public class SpinButtonBaseController // : IContorller
     protected GameObject _goShortSpin;
     /// <summary> 长按粒子实例，循环播放，松手后必须关闭。 </summary>
     protected GameObject _goLongSpin;
+    /// <summary> 屏幕 Spin 是否处于按下中（用于移出/舞台抬起时关闭长按特效）。 </summary>
+    protected bool _isSpinPressed;
+    /// <summary> 按下是否来自屏幕 btnSpin（机台物理键按下不走 Stage 兜底，避免误关）。 </summary>
+    protected bool _pressFromOwnerTouch;
+    /// <summary> 短按特效固定隐藏时长（秒）。热更侧不读 ParticleSystem.startLifetime，避免实机 MissingMethodException。 </summary>
+    protected const float DefaultShortPressHideDelay = 0.6f;
 
     public virtual void InitParam(GComponent spin, string state, UnityAction<bool> onClick)
     {
@@ -53,21 +59,35 @@ public class SpinButtonBaseController // : IContorller
         BindTouch(true);
     }
 
-    /// <summary> 绑定屏幕 Spin 按钮的按下 / 抬起。 </summary>
+    /// <summary> 绑定屏幕 Spin 按钮的按下 / 抬起 / 移出。 </summary>
     protected virtual void BindTouch(bool playClickSound)
     {
         if (goOwnerSpin == null)
             return;
 
         goOwnerSpin.onTouchBegin.Clear();
-        goOwnerSpin.onTouchBegin.Add(OnPressBegin);
+        goOwnerSpin.onTouchBegin.Add(OnOwnerTouchBegin);
         goOwnerSpin.onTouchEnd.Clear();
         goOwnerSpin.onTouchEnd.Add(() => OnOwnerTouchEnd(playClickSound));
+        goOwnerSpin.onRollOut.Clear();
+        goOwnerSpin.onRollOut.Add(OnOwnerRollOut);
+
+        // 与音量按钮一致：在按钮外松手时也能关掉长按循环特效。
+        Stage.inst.onTouchEnd.Remove(OnStageTouchEnd);
+        Stage.inst.onTouchEnd.Add(OnStageTouchEnd);
+    }
+
+    /// <summary> 屏幕按钮按下：标记来源后走统一按下逻辑。 </summary>
+    protected virtual void OnOwnerTouchBegin()
+    {
+        _pressFromOwnerTouch = true;
+        OnPressBegin();
     }
 
     /// <summary> 按下：记录时间；Stop 态下 0.4s 后预览长按循环特效。 </summary>
     public virtual void OnPressBegin()
     {
+        _isSpinPressed = true;
         startTimeS = Time.unscaledTime;
         if (MainModel.Instance?.contentMD?.btnSpinState == SpinButtonState.Stop)
             Timers.inst.Add(0.4f, 1, OnHoldToAuto);
@@ -76,8 +96,26 @@ public class SpinButtonBaseController // : IContorller
     /// <summary> 抬起：取消长按预览并关闭循环特效。 </summary>
     public virtual void OnPressEnd()
     {
+        _isSpinPressed = false;
+        _pressFromOwnerTouch = false;
         Timers.inst.Remove(OnHoldToAuto);
         StopLongPressEffect();
+    }
+
+    /// <summary> 指针移出按钮范围：取消长按预览并关闭循环特效（不触发点击回调）。 </summary>
+    protected virtual void OnOwnerRollOut()
+    {
+        if (!_isSpinPressed || !_pressFromOwnerTouch)
+            return;
+        OnPressEnd();
+    }
+
+    /// <summary> 舞台抬起兜底：仅处理屏幕 btnSpin 按下，防止在按钮外松手时长按特效残留。 </summary>
+    protected virtual void OnStageTouchEnd()
+    {
+        if (!_isSpinPressed || !_pressFromOwnerTouch)
+            return;
+        OnPressEnd();
     }
 
     /// <summary> 屏幕按钮抬起：短按播一次性特效，长按只关预览并回调业务。 </summary>
@@ -105,10 +143,21 @@ public class SpinButtonBaseController // : IContorller
         GlobalSoundHelper.Instance.PlaySoundEff(SoundKey.SpinAutoClick);
     }
 
-    /// <summary> 播放短按一次性粒子。未配置预制体时为空操作。 </summary>
+    /// <summary> 播放短按一次性粒子。未配置预制体时为空操作；固定时长后自动隐藏（避免热更访问 startLifetime 实机 MissingMethodException）。 </summary>
     public virtual void PlayShortPressEffect()
     {
+        if (_goShortSpin == null)
+            return;
+
+        Timers.inst.Remove(OnShortPressEffectTimeout);
         ShowPressEffect(_anchorShortSpin, _goShortSpin);
+        Timers.inst.Add(DefaultShortPressHideDelay, 1, OnShortPressEffectTimeout);
+    }
+
+    /// <summary> 短按粒子播完后关闭，避免 active/holder 一直为 true。 </summary>
+    protected virtual void OnShortPressEffectTimeout(object param)
+    {
+        HidePressEffect(_anchorShortSpin, _goShortSpin);
     }
 
     /// <summary> 播放长按循环粒子。未配置预制体时为空操作。 </summary>
@@ -126,8 +175,29 @@ public class SpinButtonBaseController // : IContorller
     /// <summary> 进入游戏或面板关闭时，短按/长按特效都应处于关闭状态。 </summary>
     public virtual void HideAllPressEffects()
     {
+        Timers.inst.Remove(OnShortPressEffectTimeout);
+        Timers.inst.Remove(OnHoldToAuto);
+        _isSpinPressed = false;
+        _pressFromOwnerTouch = false;
         HidePressEffect(_anchorShortSpin, _goShortSpin);
         HidePressEffect(_anchorLongSpin, _goLongSpin);
+    }
+
+    /// <summary> 面板关闭时移除舞台/按钮监听，避免 Stage.onTouchEnd 残留。 </summary>
+    public virtual void UnbindTouch()
+    {
+        Timers.inst.Remove(OnShortPressEffectTimeout);
+        Timers.inst.Remove(OnHoldToAuto);
+        _isSpinPressed = false;
+        _pressFromOwnerTouch = false;
+        Stage.inst.onTouchEnd.Remove(OnStageTouchEnd);
+
+        if (goOwnerSpin == null)
+            return;
+
+        goOwnerSpin.onTouchBegin.Clear();
+        goOwnerSpin.onTouchEnd.Clear();
+        goOwnerSpin.onRollOut.Clear();
     }
 
     /// <summary> 将预制体挂到 FGUI 锚点。实例先设为隐藏，避免 playOnAwake 在进游戏时闪一下。 </summary>

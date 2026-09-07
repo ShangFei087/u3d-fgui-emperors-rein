@@ -722,7 +722,10 @@ namespace MeiZhouHeiBao_3993
             int index = row * this.column + col; // row*5 + col
             int[] data = ContentModel.Instance.BonusData;
             if (data != null && index >= 0 && index < data.Length && data[index] > 0)
-                return ContentModel.GetDisplayScore(data[index]);
+            {
+                // BonusData 为赔率单位，展示分需乘 betmultiple
+                return ContentModel.GetDisplayScore(data[index]) * MainModel.Instance.contentMD.betmultiple;
+            }
 
             // 普通局没有 BonusData：随机 10~40 倍
             int multiple = UnityEngine.Random.Range(10, 41);

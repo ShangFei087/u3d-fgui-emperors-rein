@@ -154,12 +154,6 @@ namespace MeiZhouHeiBao_3993
             string jpType = ResolveJackpotType();
             float winCredit = ResolveWinCredit();
 
-            // _anchorPagJackpot = contentPane.GetChild("anchorPopupJackPotPag")?.asCom;
-            // if (_pagJackpot == null) _pagJackpot = new PagSlotBinding("3993pagJackpotWin", PagPath);
-            // if (_anchorPagJackpot != null)
-            //     _pagJackpot.EnsureSlot(_anchorPagJackpot);
-            // PlayPagInIdle(jpType);
-
             BindSpine(jpType);
             _animJackpot?.PlayThen("In", "idle", true); // Controller 状态名是 In，不是 in
             PopupSpineWrap3993.BindAndPlay(contentPane, "anchorEff", _prefabPopEff,
@@ -168,7 +162,7 @@ namespace MeiZhouHeiBao_3993
             _btnCollect = contentPane.GetChild("btnCollect")?.asButton;
             _txtWin = contentPane.GetChild("txtWin")?.asTextField;
             if (_txtWin != null)
-                _txtWin.text = "0";
+                _txtWin.text = string.Empty;
 
             if (_btnCollect != null)
             {
@@ -226,7 +220,7 @@ namespace MeiZhouHeiBao_3993
                 _btnCollect.touchable = false;
             _animJackpot?.Play("Out"); // Controller 状态名是 Out，不是 out
             // PlayPagOut(ResolveJackpotType());
-
+            _txtWin.text = string.Empty;
             RemoveTimer(ref _delayCloseCallback);
             _delayCloseCallback = obj =>
             {

@@ -23,17 +23,10 @@ namespace MeiZhouHeiBao_3993
         /// <summary>特效三档：随主 Spine 升档切换。</summary>
         private static readonly string[] EffAnims = { "big_idle", "super_idle", "mega_idle" };
 
-        // /// <summary>PAG 资源目录。</summary>
-        // private const string PagPath = "Games/Mei Zhou Hei Bao 3993/Pag";
-        // /// <summary>Big / Super / Mega 三档 PAG 路径。</summary>
-        // private string[] PagPathBigWin = {
-        //     "ng_pop_bigwin/BigWin_bmp",
-        //     "ng_pop_bigwin/SuperWin_bmp",
-        //     "ng_pop_bigwin/MegaWin_bmp" };
         /// <summary>对应三档弹窗自动关闭时长（秒）。</summary>
         private float [] CloseBigWinTime = { 2.5f, 4.8f, 7.2f, };
-        /// <summary>对应三档数字滚动时长（秒）。</summary>
-        private float[] CloseScoreNumTime = { 2.0f, 2.5f, 7.0f, };
+        /// <summary>对应三档关闭数字（秒）。</summary>
+        private float[] CloseScoreNumTime = { 2.0f, 4.5f, 7.0f, };
         /// <summary>与 WinLevelType 对应的档位名。</summary>
         private readonly string[] winString = { "BIG", "HUGE", "MASSIVE" };
 
@@ -128,10 +121,6 @@ namespace MeiZhouHeiBao_3993
 
             textBigWin = contentPane.GetChild("txtWin").asTextField;
             textBigWin.text = string.Empty;
-            // comBigWin = contentPane.GetChild("anchorPagBigWin").asCom;
-            // if (pagBigWin == null)
-            //     pagBigWin = new PagSlotBinding("bigWin", PagPath);
-            // pagBigWin.EnsureSlot(comBigWin);
 
             GComponent localBigWin = contentPane.GetChild("anchorBigWin") as GComponent;
             if (localBigWin == null)
@@ -146,11 +135,6 @@ namespace MeiZhouHeiBao_3993
             if (!isOpen) return;
 
             ClearAllTimers();
-            // pagBigWin.Play(new PagSequencePlay(
-            //     new[] { new PagSegment(PagPathBigWin[_winIndex], 1) },
-            //     PagPlayLayout.Center,
-            //     PagPresentationDefaults.DisplayScale,
-            //     useGpuSyncGroup: false));
 
             SetAnchorSpineVisible(anchorBigWin, true);
             SetAnchorSpineVisible(anchorBigWinEff, true);
@@ -167,10 +151,10 @@ namespace MeiZhouHeiBao_3993
             {
                 textBigWin.text=string.Empty;
             };
-            Timers.inst.Add(CloseScoreNumTime[_winIndex], 1, _closeNumCallback);
+            Timers.inst.Add(CloseScoreNumTime[_winIndex]/Time.timeScale, 1, _closeNumCallback);
 
             _exitCallback = exit;
-            Timers.inst.Add(CloseBigWinTime[_winIndex], 1, _exitCallback);
+            Timers.inst.Add(CloseBigWinTime[_winIndex] / Time.timeScale, 1, _exitCallback);
         }
 
         /// <summary>解析赢分与档位后刷新界面。</summary>
@@ -305,11 +289,6 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
-        // /// <summary>停止大奖 PAG。</summary>
-        // private void ClearPag()
-        // {
-        //     pagBigWin?.StopWithDefaults();
-        // }
 
         /// <summary>移除滚分与关页定时器。</summary>
         private void ClearAllTimers()
