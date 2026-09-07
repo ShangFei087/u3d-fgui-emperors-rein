@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: fg_pup_eff_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: 3702b2b21b6c5704ca3e75b55f3048b2, type: 3}
+  atlasFile: {fileID: 4900000, guid: 5ba8b43a773c5c9409e97574305db4ab, type: 3}
   materials:
-  - {fileID: 2100000, guid: f2bdca07278401a44a4a68efabcfad35, type: 2}
-  - {fileID: 2100000, guid: 2637a8cbdba2869448e55287c0c8540d, type: 2}
+  - {fileID: 2100000, guid: 5bba8a13a0e0f3d4b94b0d35bd6115d4, type: 2}
+  - {fileID: 2100000, guid: 4fa5eac498762704f9fc9b72d6c51b75, type: 2}

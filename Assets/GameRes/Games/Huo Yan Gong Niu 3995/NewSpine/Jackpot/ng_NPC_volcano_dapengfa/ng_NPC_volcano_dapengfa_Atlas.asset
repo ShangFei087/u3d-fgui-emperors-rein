@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: ng_NPC_volcano_dapengfa_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: b12d2b9eefd30664a89be170bf5a983f, type: 3}
+  atlasFile: {fileID: 4900000, guid: d4f9e82214fc9ed418ba152dc66b68d2, type: 3}
   materials:
-  - {fileID: 2100000, guid: 762073a8372f00141a363c1b3ac60e2a, type: 2}
-  - {fileID: 2100000, guid: 3bc2560397c1a274980f6753deadd1cb, type: 2}
-  - {fileID: 2100000, guid: f4d3b14236d68d34ca7d8bfabc04fcd7, type: 2}
-  - {fileID: 2100000, guid: d354957ec212e4c498b093dcc10d58be, type: 2}
-  - {fileID: 2100000, guid: cca4402a437028046979c36d9ccd7da1, type: 2}
-  - {fileID: 2100000, guid: c397c2e029bcfd0408662865157b5bcc, type: 2}
-  - {fileID: 2100000, guid: 548b64d1228ffea468e18b12594ea526, type: 2}
-  - {fileID: 2100000, guid: 82108fbeef4c9844e8a758f573f05fd7, type: 2}
-  - {fileID: 2100000, guid: 9fe3054669af34c49b18a5ed209118e6, type: 2}
+  - {fileID: 2100000, guid: b902612a27376be4884d066f0680114a, type: 2}
+  - {fileID: 2100000, guid: 52165bc8c0ab4c14f9e97c7a6b0ae920, type: 2}
+  - {fileID: 2100000, guid: c866a0c8aa8f39b4cab7dec0dcdf49d4, type: 2}
+  - {fileID: 2100000, guid: e35f9c0247ecb67458e17c78b78d8812, type: 2}
+  - {fileID: 2100000, guid: f96a136a57c88484380480d1a6663dcb, type: 2}
+  - {fileID: 2100000, guid: 8b44d459c29119444bd354514385b9c8, type: 2}
+  - {fileID: 2100000, guid: e4b2fb615fa6710419b720f4cffdb27d, type: 2}
+  - {fileID: 2100000, guid: b3309490097368b418206ea363da3047, type: 2}
+  - {fileID: 2100000, guid: c2e6a1dbdf464f542aaaec4581312720, type: 2}

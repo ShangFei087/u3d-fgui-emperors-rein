@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: ng_NPC_volcano_pengfa_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: 81bbdb7f94845f2499a5fccafac3652e, type: 3}
+  atlasFile: {fileID: 4900000, guid: 0539ac73c4e9e364db1d76ec844eb6f9, type: 3}
   materials:
-  - {fileID: 2100000, guid: a0a1bc2174a7597459001b251c2cad2a, type: 2}
-  - {fileID: 2100000, guid: 7de11b6f6efbe2c45860baaeab447208, type: 2}
-  - {fileID: 2100000, guid: 2b47f176d9fc71147bcf229bdac827fd, type: 2}
-  - {fileID: 2100000, guid: ab3157e2cd6fd694a92ebe72951af02a, type: 2}
-  - {fileID: 2100000, guid: 6547d1b40bf60fc43bf4b57574b92943, type: 2}
+  - {fileID: 2100000, guid: 414c8ece6a0570a4ca1f87d06d648aa3, type: 2}
+  - {fileID: 2100000, guid: 2c693f8fb329b034bb825d95d3ef0790, type: 2}
+  - {fileID: 2100000, guid: df0ff40f25a64b54e92ab8c8f4cc973f, type: 2}
+  - {fileID: 2100000, guid: cc83fe229d8fa6c4d9ace26cce87019d, type: 2}
+  - {fileID: 2100000, guid: f75db80c94f10f14b8ec9a8d7989aa42, type: 2}
