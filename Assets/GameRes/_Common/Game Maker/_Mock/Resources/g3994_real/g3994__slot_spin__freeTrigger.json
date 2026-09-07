@@ -1,38 +1,38 @@
 {
   "OpenType": 0,
   "ResultType": 2,
-  "lineNum": 0,
-  "TotalFreeTime": 9,
-  "TotalBet": 0,
-  "MatrixLength": 15,
-  "TotalFreeBet": 208,
-  "FreeBetArray": [
-    5,
-    15,
-    20,
-    8,
-    10,
-    20,
-    20,
-    30,
-    80
+  "IDVec": [
+    21400
   ],
-  "IDVec": [],
   "Matrix": [
+    9,
+    1,
+    11,
+    3,
     10,
-    10,
-    5,
-    10,
+    2,
+    0,
     0,
     9,
-    7,
-    4,
-    2,
     0,
-    2,
     10,
     3,
+    10,
     4,
-    5
-  ]
+    10
+  ],
+  "TotalFreeBet": 1050,
+  "TotalFreeTime": 9,
+  "FreeBetArray": [
+    0,
+    60,
+    5,
+    610,
+    325,
+    10,
+    0,
+    5,
+    35
+  ],
+  "TotalBet": 10
 }

@@ -206,6 +206,11 @@
     <component id="p6cc5z" name="Game_SlotMachine.xml" path="/moudules/pageGameMain/Game_SlotMachine/" exported="true"/>
     <component id="p6cc60" name="Effect_Panel.xml" path="/moudules/pageGameMain/Effect_Panel/" exported="true"/>
     <component id="p6cc61" name="anchorFrame.xml" path="/components/common/" exported="true"/>
+    <component id="nczl62" name="anchorPayLines.xml" path="/moudules/pageGameMain/Game_SlotMachine/"/>
+    <component id="nczl63" name="slotCover.xml" path="/moudules/pageGameMain/Game_SlotMachine/"/>
+    <component id="nczl64" name="symbolAnimator.xml" path="/moudules/pageGameMain/Game_SlotMachine/"/>
+    <component id="nczl65" name="symbol.xml" path="/moudules/pageGameMain/Game_SlotMachine/"/>
+    <component id="nczl66" name="symbols.xml" path="/moudules/pageGameMain/Game_SlotMachine/"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Cai Shen Fa Fa Fa 3992\FGUIs" packageCount="2"/>
 </packageDescription>
