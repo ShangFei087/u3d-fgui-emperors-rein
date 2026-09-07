@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="142,142" extention="Button">
+<component size="142,142" overflow="hidden" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
     <image id="n0_s82q" name="n0" src="s82q1i" fileName="images/panel/Instructions/sm_ic_button_r.png" xy="-14,-14" size="171,170">
       <relation target="" sidePair="center-center,middle-middle"/>
     </image>
+    <graph id="n1_dgwi" name="untouch" xy="0,0" size="142,142" type="rect" lineSize="0" fillColor="#cc333333">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
   </displayList>
   <Button/>
 </component>

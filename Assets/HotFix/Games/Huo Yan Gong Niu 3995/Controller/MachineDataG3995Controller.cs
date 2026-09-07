@@ -229,7 +229,8 @@ namespace HuoYanGongNiu_3995
                     }
                     else
                     {
-                        int target = int.Parse(res["Matrix"][index].Value) * res["WildData"][index];
+                        int wildMult = (int)res["WildData"][index] == 0 ? 1 : (int)res["WildData"][index];
+                        int target = int.Parse(res["Matrix"][index].Value) * wildMult;
                         strDeckRowCol += target.ToString();
                     }
                     if (col < cols - 1)
@@ -396,7 +397,12 @@ namespace HuoYanGongNiu_3995
 
                     for(int i = 0; i < ContentModel.Instance.wheelSpinTimes; i++)
                     {
-                        ContentModel.Instance.wheelData.Add((int)res["WheelData"][i]);
+                        int wheelIndex = (int)res["WheelData"][i];
+                        ContentModel.Instance.wheelData.Add(wheelIndex);
+                        if(wheelIndex % 2 == 1)
+                        {
+                            totalLineWin += CustomModel.Instance.wheelCredit[i][wheelIndex / 2] * ContentModel.Instance.betNum;
+                        }
                     }
 
                     ContentModel.Instance.newFreeOnceCredit.Clear();
@@ -431,7 +437,7 @@ namespace HuoYanGongNiu_3995
 
                 if (openType == (int)OpenType.OT_Give)
                 {
-                    totalLineWin = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1] * ContentModel.Instance.betmultiple;
+                    totalLineWin = ContentModel.Instance.newFreeOnceCredit[ContentModel.Instance.freeSpinPlayTimes - 1];
                     ContentModel.Instance.baseGameWinCredit = totalLineWin;
                 }
             }
@@ -888,7 +894,7 @@ namespace HuoYanGongNiu_3995
                 // 命中个数 = 连续计数 + 第 1 列自身
                 int hitCount = sameTypeCount + 1;
                 // 普通奖不统计 Scatter/Bonus
-                if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 3)
+                if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 2)
                 {
                     int lineOdds = GetLineOdds(firstSymbolType, hitCount) * mult;
                     if (lineOdds > 0)

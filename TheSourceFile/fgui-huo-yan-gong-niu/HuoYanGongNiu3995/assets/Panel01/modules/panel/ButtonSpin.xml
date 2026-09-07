@@ -34,6 +34,7 @@
     <item time="0" type="Visible" target="n16_s82q" value="false"/>
     <item time="0" type="Visible" target="n17_s82q" value="false"/>
     <item time="0" type="Visible" target="n18_s82q" value="true"/>
+    <item time="0" type="Visible" target="n20_s82q" value="false"/>
   </transition>
   <transition name="auto">
     <item time="0" type="Visible" target="n13_s82q" value="false"/>
