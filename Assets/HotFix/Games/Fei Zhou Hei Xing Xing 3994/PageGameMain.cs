@@ -1523,6 +1523,7 @@ namespace FeiZhouHeiXingXing_3994
                 _slotMachineController.SkipWinLine(false);
             }
 
+            _slotMachineController.isStopImmediately = false;
             ContentModel.Instance.gameState = GameState.Idle;
             successCallback?.Invoke();
         }

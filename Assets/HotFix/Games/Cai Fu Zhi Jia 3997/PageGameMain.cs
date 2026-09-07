@@ -958,7 +958,7 @@ namespace CaiFuZhiJia_3997
         {
             _isTriggerFrame = false;
             _isStoppedSlotMachine = false;
-            _slotMachineCtrl.isStopImmediately = false;
+            // _slotMachineCtrl.isStopImmediately = false;
             _slotMachineCtrl.CloseSlotCover();
             _anchorFreeAccelerate.visible = false;
             _anchorBonusAccelerate.visible = false;
@@ -1492,6 +1492,7 @@ namespace CaiFuZhiJia_3997
 
             _allWinCredit = 0;
             ContentModel.Instance.totalBonusReward = 0;
+            _slotMachineCtrl.isStopImmediately = false;
             successCallback?.Invoke();
         }
 
@@ -2087,6 +2088,7 @@ namespace CaiFuZhiJia_3997
                 _slotMachineCtrl.SkipWinLine(false);
             }
 
+            _slotMachineCtrl.isStopImmediately = false;
             ContentModel.Instance.gameState = GameState.Idle;
             // SetSpinButtonSpinGray();
             successCallback?.Invoke();

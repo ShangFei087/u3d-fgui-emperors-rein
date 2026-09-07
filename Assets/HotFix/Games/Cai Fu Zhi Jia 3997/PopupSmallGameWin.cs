@@ -29,9 +29,9 @@ namespace CaiFuZhiJia_3997
 
         // 记录UI初始位置
         private Vector3 _collectBtnLocalScale, _numTextLocalScale, _collectBtnLocalPos, _numTextLocalPos;
-        
+
         /// <summary>入场后延迟点亮开始按钮。</summary>
-        private TimerCallback _enableBtnCallback;
+        private TimerCallback _enableBtnCallback, _autoClickCallback;
 
         protected override void OnInit()
         {
@@ -73,6 +73,7 @@ namespace CaiFuZhiJia_3997
             _isClicked = false;
             RemoveTimer(ref _delayVisibleCallback);
             RemoveTimer(ref _enableBtnCallback);
+            RemoveTimer(ref _autoClickCallback);
 
             // --------------------- 获取UI组件 ------------------------
             _collectBtn = contentPane.GetChild("winCollectBtn").asButton;
@@ -118,7 +119,7 @@ namespace CaiFuZhiJia_3997
             collectBtnTran.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             Transform numTran = parentObj.transform.Find(rootPath + "lankuang2/num");
             numTxt.SetParent(numTran, false);
-            numTxt.localPosition = new Vector3(-5.32f,1.26f, 0);
+            numTxt.localPosition = new Vector3(-5.32f, 1.26f, 0);
             numTxt.localScale = new Vector3(0.01f, 0.01f, 0.01f);
 
             // ----------------------- 按钮点击事件 -------------------------
@@ -140,6 +141,17 @@ namespace CaiFuZhiJia_3997
             Timers.inst.Add(1f, 1, _enableBtnCallback);
             _collectBtn.onClick.Clear();
             _collectBtn.onClick.Add(() => OnClickSpinButton(eventData));
+            // 自动模式定时器
+            if (!TestManager.Instance.IsAutoModeRunning) return;
+            _autoClickCallback = (obj) =>
+            {
+                if (_collectBtn != null && isOpen)
+                {
+                    _collectBtn.onClick.Call();
+                }
+
+                _autoClickCallback = null;
+            };
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
@@ -151,10 +163,10 @@ namespace CaiFuZhiJia_3997
         public override void OnClose(EventData eventData = null)
         {
             base.OnClose(eventData);
-            
+
             // 清除回调
             RemoveTimer(ref _delayVisibleCallback);
-            
+
             // 还原UI位置
             Transform startBtnTran = _collectBtn.displayObject.gameObject.transform;
             Transform numTxt = _winBetText.displayObject.gameObject.transform;
