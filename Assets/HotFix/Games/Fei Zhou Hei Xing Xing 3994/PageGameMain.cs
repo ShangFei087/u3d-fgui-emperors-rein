@@ -380,12 +380,15 @@ namespace FeiZhouHeiXingXing_3994
             if (_fGuiPoolHelper != null && _isInitPool == false)
             {
                 _isInitPool = true;
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolHit, CustomModel.Instance.symbolHitEffect.Values.ToList(), "symbol_hit#", 5);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolHit,
+                    CustomModel.Instance.symbolHitEffect.Values.ToList(), "symbol_hit#", 5);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolHit); // 中奖动画
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.borderEffect, "border#", 5);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder,
+                    CustomModel.Instance.borderEffect, "border#", 5);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolBorder); // 边框
-                // _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 10);
-                // _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear); // 落下后图标静止动画
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear,
+                    CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 10);
+                _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear); // 落下后图标静止动画
                 _fGuiPoolHelper.WhenIdle(() =>
                 {
                     _isPoolPreloadDone = true;
@@ -403,13 +406,15 @@ namespace FeiZhouHeiXingXing_3994
             GComponent gSlotCover = gSlotMachine.asCom.GetChild("slotCover").asCom;
             GComponent gPlayLines = gSlotMachine.asCom.GetChild("playLines").asCom;
             GComponent gFrame = contentPane.GetChild("anchorParent").asCom.GetChild("anchorFrame").asCom;
-            _slotMachineController.Init(gSlotCover, gPlayLines, gReels, gFrame, _fGuiPoolHelper, _fGuiGObjectPoolHelper);
+            _slotMachineController.Init(gSlotCover, gPlayLines, gReels, gFrame, _fGuiPoolHelper,
+                _fGuiGObjectPoolHelper);
 
             // ---------- 4. 底部菜单 Panel ----------
             _gOwnerPanel = contentPane.GetChild("panel").asCom;
             ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
             MainModel.Instance.contentMD.goAnthorPanel = _gOwnerPanel;
-            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT,
+                OnBottomPanelReadyForPreload);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
             TryTriggerAnchorPanelChange();
             if (!isOpen) return;
@@ -576,13 +581,18 @@ namespace FeiZhouHeiXingXing_3994
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
+            if (_goGameCtrl != null && !_goGameCtrl.activeSelf)
+                _goGameCtrl.SetActive(true);
+            SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.Default);
             base.OnOpen(currentPageName, eventData);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
-            EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
+            EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE,
+                OnCoinPushSpinResultParse);
             InitParam(eventData);
-            EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3994AudioEvent.BgmRegularGame));
+            EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
+                new EventData(Game3994AudioEvent.BgmRegularGame));
         }
 
         public override void OnClose(EventData eventData = null)
@@ -593,12 +603,15 @@ namespace FeiZhouHeiXingXing_3994
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
             EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             base.OnClose(eventData);
-            OnGameReset();
             _freeSpinTimeController.Dispose();
             _gameSoundController?.Dispose();
             _gameSoundController = null;
             _monoHelper.updateHandle.RemoveAllListeners();
             _lastAnchorPanelForDispatch = null;
+            OnGameReset();
+
+            if (_goGameCtrl != null && _goGameCtrl.activeSelf)
+                _goGameCtrl.SetActive(false);
         }
 
         protected override void OnLanguageChange(I18nLang lang)
@@ -627,7 +640,8 @@ namespace FeiZhouHeiXingXing_3994
             int gameId = Convert.ToInt32(res.value);
             if (gameId != 3994) return;
 
-            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT,
+                OnBottomPanelReadyForPreload);
             _isBottomPanelReady = true;
             TryNotifyPagePreloaded();
         }
@@ -772,9 +786,9 @@ namespace FeiZhouHeiXingXing_3994
         private void ContinueGameWhenCompleted()
         {
             DebugUtils.Log("游戏结束");
-            UnlockStopButton();
             ContentModel.Instance.isSpin = false;
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            UnlockStopButton();
             ContentModel.Instance.gameState = GameState.Idle;
         }
 
