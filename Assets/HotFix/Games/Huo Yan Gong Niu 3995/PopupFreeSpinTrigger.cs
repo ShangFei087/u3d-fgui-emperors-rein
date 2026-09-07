@@ -184,6 +184,8 @@ namespace HuoYanGongNiu_3995
                 effectPag = new PagSlotBinding("NorToFree", GamePagFolder);
             effectPag.EnsureSlot(anchor, "pagEffect");
             GLoader anchorPag = anchor.GetChild("pagEffect").asLoader;
+
+            anchorPag.scale = new Vector2(1.1f, 1.1f);
         }
 
 
