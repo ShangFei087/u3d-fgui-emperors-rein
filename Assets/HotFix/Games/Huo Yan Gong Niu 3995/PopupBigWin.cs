@@ -95,7 +95,6 @@ namespace HuoYanGongNiu_3995
             GComponent anchorEffLoad = contentPane.GetChild("anchorEff").asCom;
 
             anchorScore = contentPane.GetChild("score").asTextField;
-            anchorScore.visible = false;
 
             if (anchorBinWin != anchorLoad)
             {
@@ -123,6 +122,7 @@ namespace HuoYanGongNiu_3995
 
 
             if (!isOpen) return;
+            anchorScore.visible = false;
 
             bigWinAnim.Play(WinOpenString[0]);
             bigWinEffAnim.Play(WinEffectAnimName[0]);
@@ -132,7 +132,7 @@ namespace HuoYanGongNiu_3995
                 anchorScore.visible = true;
             };
 
-            Timers.inst.Add(1f / Time.timeScale, 1, showCallback);
+            Timers.inst.Add(2f / Time.timeScale, 1, showCallback);
 
             ShowAni();
         }

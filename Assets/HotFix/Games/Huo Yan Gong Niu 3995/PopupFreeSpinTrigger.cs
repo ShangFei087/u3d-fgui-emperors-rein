@@ -143,6 +143,16 @@ namespace HuoYanGongNiu_3995
             PlayAnim(spineAnim ,"in");
             PlayAnim(effAnim, "all_idle");
 
+            //打开时设置免费游戏的免费次数
+            if (_data != null)
+            {
+                Dictionary<string, object> args = _data.value as Dictionary<string, object>;
+                if (args != null)
+                {
+                    timeImage.text = args["freeSpinCount"].ToString();
+                }
+            }
+
             //effectPag.StopWithDefaults();
             //effectPag.Play(new PagSequencePlay(PagPlaySpecs.IntroLoop(stageName[0], stageName[1]), PagPlayLayout.Center,useGpuSyncGroup: false));
 

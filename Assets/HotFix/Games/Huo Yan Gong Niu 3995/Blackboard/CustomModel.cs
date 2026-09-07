@@ -335,7 +335,7 @@ namespace HuoYanGongNiu_3995
         public List<PayTableSymbolInfo> payTableSymbolWin
         {
             get => m_PayTableSymbolWin;
-            set => m_PayTableSymbolWin = value;
+            set => throw new System.NotImplementedException(); 
         }
 
         public List<List<int>> payLines
