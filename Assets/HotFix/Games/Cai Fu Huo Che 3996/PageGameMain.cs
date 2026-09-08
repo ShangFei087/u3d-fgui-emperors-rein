@@ -642,13 +642,9 @@ namespace CaiFuHuoChe_3996
             ComRewardEffect2 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
             ComRewardEffect3 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
 
-            if (goRewardEffectObj1 == null)
-            {
-                goRewardEffectObj1 = GameObject.Instantiate(goRewardEffectPre);
-                goRewardEffectObj2 = GameObject.Instantiate(goRewardEffectPre);
-                goRewardEffectObj3 = GameObject.Instantiate(goRewardEffectPre);
-            }
-
+            goRewardEffectObj1 = GameObject.Instantiate(goRewardEffectPre);
+            goRewardEffectObj2 = GameObject.Instantiate(goRewardEffectPre);
+            goRewardEffectObj3 = GameObject.Instantiate(goRewardEffectPre);
 
             GameCommon.FguiUtils.AddWrapper(ComRewardEffect1, goRewardEffectObj1);
             GameCommon.FguiUtils.AddWrapper(ComRewardEffect2, goRewardEffectObj2);
