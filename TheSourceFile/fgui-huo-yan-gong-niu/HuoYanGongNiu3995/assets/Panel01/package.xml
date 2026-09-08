@@ -6,8 +6,8 @@
     <image id="s82q2" name="db_ic_Insert_coin.png" path="/images/panel/" exported="true"/>
     <image id="s82q3" name="db_txt_WIN.png" path="/images/panel/" exported="true"/>
     <image id="s82q4" name="db_txt_BET.png" path="/images/panel/" exported="true"/>
-    <image id="s82q5" name="db_txt_CREDITS .png" path="/images/panel/" exported="true"/>
-    <image id="s82q7" name="db_txt_Start_automatic_mode..png" path="/images/panel/" exported="true"/>
+    <image id="s82q5" name="db_txt_CREDITS.png" path="/images/panel/" exported="true"/>
+    <image id="s82q7" name="db_txt_Start_automatic_mode.png" path="/images/panel/" exported="true"/>
     <component id="s82q9" name="ButtonFrame.xml" path="/modules/panel/" exported="true"/>
     <image id="s82qa" name="db_ic_Minus_key.png" path="/images/panel/BtnBet/" exported="true"/>
     <image id="s82qb" name="db_ic_Plus_button.png" path="/images/panel/BtnBet/" exported="true"/>

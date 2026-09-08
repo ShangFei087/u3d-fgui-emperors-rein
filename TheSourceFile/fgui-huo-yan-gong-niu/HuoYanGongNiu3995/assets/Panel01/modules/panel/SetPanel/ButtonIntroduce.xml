@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="122,91" extention="Button">
-  <Button/>
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n0_s82q" src="s82q12" name="n0" xy="0,0">
-      <relation target="" sidePair="width,height"/>
+    <image id="n0_s82q" name="n0" src="s82q12" fileName="images/panel/SetPanel/db_ic_Button_Functions.png" xy="60,48" pivot="0.5,0.5" anchor="true">
+      <relation target="" sidePair="width-width,height-height"/>
     </image>
   </displayList>
+  <Button/>
 </component>

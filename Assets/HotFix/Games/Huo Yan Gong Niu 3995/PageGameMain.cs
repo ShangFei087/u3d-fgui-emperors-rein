@@ -678,10 +678,8 @@ namespace HuoYanGongNiu_3995
                 ComReelEffect = null;
             }
             ComReelEffect = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            if(goFreeReelEffcetObj == null)
-            {
-                goFreeReelEffcetObj = GameObject.Instantiate(goFreeReelEffcetPre);
-            }
+
+            goFreeReelEffcetObj = GameObject.Instantiate(goFreeReelEffcetPre);
             GameCommon.FguiUtils.AddWrapper(ComReelEffect, goFreeReelEffcetObj);
             ComReelEffect.visible = false;
             anchorExpectation = this.contentPane.GetChild("anchorReelEffect").asCom;
@@ -1434,6 +1432,8 @@ namespace HuoYanGongNiu_3995
             slotMachineCtrl.SkipWinLine(false);
             slotMachineCtrl.CloseSlotCover();
 
+            slotMachineCtrl.BeginBonusFreeSpin();
+
             wheelTipObj.SetActive(true);
             PlayAnim(wheelTipAnim, "Wheel_in");
 
@@ -1601,8 +1601,6 @@ namespace HuoYanGongNiu_3995
             StopEffectAnim(Win);
             yield return new WaitForSeconds(0.85f);
             wheelTip3Obj.SetActive(false);
-
-            slotMachineCtrl.BeginBonusFreeSpin();
 
             yield return GameFreeSpin(null, errorCallback);
 
@@ -2781,7 +2779,7 @@ namespace HuoYanGongNiu_3995
 
             PlayEffectAnim(smokeTrans);
 
-            yield return new WaitForSeconds(6f);
+            yield return new WaitForSeconds(5.2f);
             StopEffectAnim(smokeTrans);
 
             PageManager.Instance.OpenPageAsync(PageName.HuoYanGongNiuPopupJackpotTrigger,

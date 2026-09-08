@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: ng_pup_BigWin_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: 23c6e4df86b961e47b4c1eaebc64df85, type: 3}
+  atlasFile: {fileID: 4900000, guid: f9dc1eb686112b04e9e0a5b667cb2500, type: 3}
   materials:
-  - {fileID: 2100000, guid: 1f99ec8dd06424042be4eb2e9a65c46d, type: 2}
-  - {fileID: 2100000, guid: 6f65fc684a668364cb7776dfa0134b9e, type: 2}
-  - {fileID: 2100000, guid: 9e4531ce772454b45bad675f71d57b4c, type: 2}
-  - {fileID: 2100000, guid: 4287d02e7c9b5ad4ea9c2811e4d3afa1, type: 2}
+  - {fileID: 2100000, guid: aba75cfb019ff4f41b17a1c202d09ee0, type: 2}
+  - {fileID: 2100000, guid: 40d02dfd7f78ce2458a605772a9ccd12, type: 2}
+  - {fileID: 2100000, guid: b043b0126bd57ea408a2782787bd27f7, type: 2}
+  - {fileID: 2100000, guid: f48a0d38a27cf644c982e62d21939e92, type: 2}

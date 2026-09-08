@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="mwe7fcf" name="1.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="mwe7fcg" name="2.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="mwe7fch" name="3.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="mwe7fci" name="4.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="mwe7fcj" name="5.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="mwe7fck" name="6.png" path="/images/Panel/payTable/" exported="true"/>
+    <image id="mwe7fcl" name="jp_txt_SPINS_REMAINING.png" path="/images/gameJackpot/"/>
+  </resources>
+</branchDescription>

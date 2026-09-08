@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<branchDescription/>
+<branchDescription>
+  <resources>
+    <image id="mwe79v" name="sm_ic_BACK_TO_GAME.png" path="/images/panel/Instructions/" exported="true"/>
+    <image id="mwe79w" name="db_ic_Button_Functions.png" path="/images/panel/SetPanel/" exported="true"/>
+    <image id="mwe79x" name="db_txt_BET.png" path="/images/panel/" exported="true"/>
+    <image id="mwe79z" name="db_txt_CREDITS.png" path="/images/panel/" exported="true"/>
+    <image id="mwe7a0" name="db_txt_Start_automatic_mode.png" path="/images/panel/"/>
+    <image id="mwe7a1" name="db_txt_SPIN.png" path="/images/panel/SpinBtn/" exported="true"/>
+    <image id="mwe7a2" name="db_txt_STOP.png" path="/images/panel/SpinBtn/" exported="true"/>
+    <image id="mwe7a3" name="db_txt_AUTO.png" path="/images/panel/SpinBtn/" exported="true"/>
+  </resources>
+</branchDescription>

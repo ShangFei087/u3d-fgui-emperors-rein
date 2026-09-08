@@ -102,7 +102,7 @@ namespace HuoYanGongNiu_3995
                 anchorBinWin = anchorLoad;
                 bigWinObj = GameObject.Instantiate(bigWinPref);
                 bigWinAnim = bigWinObj.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-                ChangeParent(anchorScore, bigWinObj, "Anchor/Spine Mecanim GameObject (ng_pup_BigWin)/SkeletonUtility-SkeletonRoot/root/all/frame", -5.4f, 0.71f);
+                ChangeParent(anchorScore, bigWinObj, "Anchor/Spine Mecanim GameObject/SkeletonUtility-SkeletonRoot/root/all/frame", -5.4f, 0.71f);
 
                 GameCommon.FguiUtils.AddWrapper(anchorBinWin, bigWinObj);
             }

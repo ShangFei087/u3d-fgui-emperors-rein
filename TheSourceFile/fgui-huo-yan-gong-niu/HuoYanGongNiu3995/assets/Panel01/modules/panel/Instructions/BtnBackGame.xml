@@ -2,7 +2,7 @@
 <component size="378,149" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n0_s82q" name="n0" src="s82q1j" fileName="images/panel/Instructions/sm_ic_BACK_TO_GAME.png" xy="-11,-11" size="401,171">
+    <image id="n0_s82q" name="n0" src="s82q1j" fileName="images/panel/Instructions/sm_ic_BACK_TO_GAME.png" xy="189,74" pivot="0.5,0.5" anchor="true">
       <relation target="" sidePair="center-center,middle-middle"/>
     </image>
   </displayList>
