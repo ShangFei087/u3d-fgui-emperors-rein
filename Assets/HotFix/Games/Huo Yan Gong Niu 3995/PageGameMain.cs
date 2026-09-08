@@ -1,4 +1,5 @@
 using CaiFuHuoChe_3996;
+using CaiFuZhiJia_3997;
 using FairyGUI;
 using GameMaker;
 using Newtonsoft.Json;
@@ -55,6 +56,7 @@ namespace HuoYanGongNiu_3995
         private MonoHelper mono;
         private FguiPoolHelper fguiPoolHelper;
         private FguiGObjectPoolHelper gObjectPoolHelper;
+        private PanelController3995 _panelCtrl;
 
         long TotalBet => (long)MainModel.Instance.contentMD.totalBet;
 
@@ -217,7 +219,8 @@ namespace HuoYanGongNiu_3995
                 mono = goGameCtrl.transform.GetComponent<MonoHelper>();
 
                 fguiPoolHelper = goGameCtrl.transform.Find("Pool").GetComponent<FguiPoolHelper>();
-                gObjectPoolHelper = goGameCtrl.transform.Find("GObject Pool").GetComponent<FguiGObjectPoolHelper>();
+                gObjectPoolHelper = goGameCtrl.transform.Find("GObject Pool").GetComponent<FguiGObjectPoolHelper>(); 
+                _panelCtrl = goGameCtrl.transform.Find("Panel").GetComponent<PanelController3995>();
                 callback();
             });
 
@@ -447,11 +450,11 @@ namespace HuoYanGongNiu_3995
 
                             if (isWheelSpin)
                             {
-                                LockStopButton(); 
                                 mono.updateHandle.RemoveListener(WheelTrun);
                                 StopEffectAnim(Win);
                                 ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
                                 ContentModel.Instance.curBtnSpinState = SpinButtonState.Spin;
+                                LockStopButton();
                                 StartWheelSpinOnce(ContentModel.Instance.wheelData[wheelSpinTimes]);
                                 return;
                             }
@@ -1433,8 +1436,7 @@ namespace HuoYanGongNiu_3995
             slotMachineCtrl.SkipWinLine(false);
             slotMachineCtrl.CloseSlotCover();
 
-            slotMachineCtrl.BeginBonusFreeSpin();
-
+            
             wheelTipObj.SetActive(true);
             PlayAnim(wheelTipAnim, "Wheel_in");
 
@@ -1474,9 +1476,7 @@ namespace HuoYanGongNiu_3995
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             ContentModel.Instance.gameState = GameState.Idle;
 
-
-            slotMachineCtrl.BeginBonusFreeSpin();
-
+            _panelCtrl.ChangButtonNo(true);
 
             yield return new WaitUntil(() => isStartSpin == true);
 
@@ -1499,14 +1499,13 @@ namespace HuoYanGongNiu_3995
             ContentModel.Instance.isSpin = true;
             LockStopButton();
 
-
-            yield return new WaitForSeconds(0.2f);
-
             bool isNext = false;
 
-            StopEffectAnim(Win);
             freeTotalTimes.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
             freeRemainTimes.text = ContentModel.Instance.freeSpinPlayTimes.ToString();
+
+            yield return new WaitForSeconds(1.5f);
+            StopEffectAnim(Win);
 
             PageManager.Instance.OpenPageAsync(PageName.HuoYanGongNiuPopupFreeSpinTrigger,
             new EventData<Dictionary<string, object>>("",
@@ -1598,6 +1597,8 @@ namespace HuoYanGongNiu_3995
             }
 
             #endregion
+
+            slotMachineCtrl.BeginBonusFreeSpin();
 
             collectedNums.alpha = 0;
             wheelWinCredit.alpha = 0;
@@ -2427,20 +2428,30 @@ namespace HuoYanGongNiu_3995
         {
             Action successCallback = () =>
             {
-                UnlockStopButton();
-                DebugUtils.Log("游戏结束");
-                ContentModel.Instance.isSpin = false;
-                ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
-                ContentModel.Instance.gameState = GameState.Idle;
-
-                slotMachineCtrl.BeginBonusFreeSpin();
-
 
                 StopEffectAnim(Idle);
                 StopEffectAnim(waitSpin);
                 PlayEffectAnim(Win);
 
                 isEndSpin = true;
+
+
+                if (wheelSpinTimes >= ContentModel.Instance.wheelData.Count)
+                {
+                    ContentModel.Instance.isSpin = true;
+                    ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
+                    isWheelSpin = false;
+                    return;
+                }
+
+                UnlockStopButton();
+                DebugUtils.Log("游戏结束");
+                ContentModel.Instance.isSpin = false;
+                ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+                ContentModel.Instance.gameState = GameState.Idle;
+
+                _panelCtrl.ChangButtonNo(true);
+
 
                 if (targetIndex % 2 == 1)
                 {
@@ -2451,12 +2462,6 @@ namespace HuoYanGongNiu_3995
                 {
                     wheelWinGoldBull += wheelSpinTimes;
                     collectedNums.text = wheelWinGoldBull.ToString();
-                }
-                if (wheelSpinTimes >= ContentModel.Instance.wheelData.Count)
-                {
-                    ContentModel.Instance.isSpin = true;
-                    ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
-                    isWheelSpin = false;
                 }
             };
 
