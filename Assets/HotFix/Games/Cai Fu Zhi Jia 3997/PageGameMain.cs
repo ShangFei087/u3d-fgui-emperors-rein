@@ -236,7 +236,7 @@ namespace CaiFuZhiJia_3997
             // 绑定npc pag并默认播放idle动画
             _npcCom = contentPane.GetChild("anchorNpc").asCom;
             if (_npcCom == null) return;
-            _pagNpc = new PagSlotBinding("npc", GamePagFolder);
+            _pagNpc ??= new PagSlotBinding("npc", GamePagFolder);
             _pagNpc.EnsureSlot(_npcCom);
             _pagNpc.Play(new PagSequencePlay(
                 new[] { new PagSegment(wealth_ng_npc_idle01, -1) }, PagPlayLayout.Center, useGpuSyncGroup: false));
@@ -244,7 +244,8 @@ namespace CaiFuZhiJia_3997
             // 绑定robot pag并默认播放idle动画
             _robotCom = contentPane.GetChild("anchorRobot").asCom;
             if (_robotCom == null) return;
-            _pagRobot = new PagSlotBinding("robot", GamePagFolder);
+            if (_pagRobot == null)
+                _pagRobot = new PagSlotBinding("robot", GamePagFolder);
             _pagRobot.EnsureSlot(_robotCom);
         }
 
@@ -506,19 +507,14 @@ namespace CaiFuZhiJia_3997
             _freeFrameCom = contentPane.GetChild("freeFrame").asCom;
             _freeSpinsNumber = _freeFrameCom.GetChild("FreeSpinsNumber").asTextField;
             _multipleNumber = contentPane.GetChild("freeOther").asCom.GetChild("multipleNumber").asTextField;
-            _freeParticleEffectParent =
-                contentPane.GetChild("effectParentPanel").asCom.GetChild("anchorWildParent").asCom;
-            _lightningParentCom =
-                contentPane.GetChild("effectParentPanel").asCom.GetChild("anchorLightningParent").asCom;
+            _freeParticleEffectParent = contentPane.GetChild("effectParentPanel").asCom.GetChild("anchorWildParent").asCom;
+            _lightningParentCom = contentPane.GetChild("effectParentPanel").asCom.GetChild("anchorLightningParent").asCom;
             _freeSpinTimeController.InitParam(_freeSpinsNumber);
 
             _smallGameReels = contentPane.GetChild("smallGameReels").asCom;
-            _rollCountText =
-                contentPane.GetChild("smallGameOther").asCom.GetChild("smallGameCount").asTextField;
-            _smallGameSettlement = contentPane.GetChild("effectParentPanel").asCom.GetChild("smallGameSettlementEffect")
-                .asCom;
-            _smallGameSettlementParent =
-                contentPane.GetChild("effectParentPanel").asCom.GetChild("anchorSmallGameResult").asCom;
+            _rollCountText = contentPane.GetChild("smallGameOther").asCom.GetChild("smallGameCount").asTextField;
+            _smallGameSettlement = contentPane.GetChild("effectParentPanel").asCom.GetChild("smallGameSettlementEffect").asCom;
+            _smallGameSettlementParent = contentPane.GetChild("effectParentPanel").asCom.GetChild("anchorSmallGameResult").asCom;
 
             //---------- 7.Clone预制体到UI锚点上 --------
             GComponent currentCom = contentPane.GetChild("freeOther").asCom.GetChild("anchorFire").asCom;
@@ -2253,7 +2249,7 @@ namespace CaiFuZhiJia_3997
                     isNext = true;
                 });
             yield return new WaitUntil(() => isNext == true);
-            
+
             _slotMachineCtrl.SendTotalWinCreditEvent(0);
             SetSpinButtonRolling();
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
@@ -2293,6 +2289,8 @@ namespace CaiFuZhiJia_3997
             ContentModel.Instance.IsBonusTrigger = false;
             ContentModel.Instance.IsJackpotTrigger = false;
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            _slotMachineCtrl.EndBonusFreeSpin();
+            contentPane.GetChild("effectParentPanel").asCom.AddChild(_smallGameSettlement);
         }
 
         private IEnumerator SmallGameSpin()
