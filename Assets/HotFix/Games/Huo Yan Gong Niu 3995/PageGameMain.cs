@@ -447,7 +447,7 @@ namespace HuoYanGongNiu_3995
 
                             if (isWheelSpin)
                             {
-                                LockStopButton();
+                                LockStopButton(); 
                                 mono.updateHandle.RemoveListener(WheelTrun);
                                 StopEffectAnim(Win);
                                 ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
@@ -1473,7 +1473,10 @@ namespace HuoYanGongNiu_3995
             ContentModel.Instance.isSpin = false;
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
             ContentModel.Instance.gameState = GameState.Idle;
-            
+
+
+            slotMachineCtrl.BeginBonusFreeSpin();
+
 
             yield return new WaitUntil(() => isStartSpin == true);
 
@@ -2429,6 +2432,8 @@ namespace HuoYanGongNiu_3995
                 ContentModel.Instance.isSpin = false;
                 ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                 ContentModel.Instance.gameState = GameState.Idle;
+
+                slotMachineCtrl.BeginBonusFreeSpin();
 
 
                 StopEffectAnim(Idle);
