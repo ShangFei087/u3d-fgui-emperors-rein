@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="36,52" overflow="hidden">
+  <displayList>
+    <text id="n72_k1q0" name="step1_0" xy="0,0" size="36,52" font="ui://x2aorbwjxrp24h" fontSize="7" align="center" vAlign="middle" leading="0" letterSpacing="-12" autoSize="none" text="1"/>
+    <text id="n75_mwe7" name="step2_0" xy="0,-28" size="36,52" visible="false" font="ui://x2aorbwjxrp24h" fontSize="7" align="center" vAlign="middle" leading="0" letterSpacing="-12" autoSize="none" text="1"/>
+    <text id="n79_mwe7" name="step2_1" xy="0,56" size="36,52" visible="false" font="ui://x2aorbwjxrp24h" fontSize="7" align="center" vAlign="middle" autoSize="none" text="2"/>
+    <text id="n78_mwe7" name="step3_0" xy="0,-56" size="36,52" visible="false" font="ui://x2aorbwjxrp24h" fontSize="7" align="center" vAlign="middle" leading="0" letterSpacing="-12" autoSize="none" text="1"/>
+    <text id="n80_mwe7" name="step3_1" xy="0,28" size="36,52" visible="false" font="ui://x2aorbwjxrp24h" fontSize="7" align="center" vAlign="middle" autoSize="none" text="2"/>
+    <text id="n77_mwe7" name="step4_0" xy="0,0" size="36,52" visible="false" font="ui://x2aorbwjxrp24h" fontSize="7" align="center" vAlign="middle" autoSize="none" text="2"/>
+  </displayList>
+  <transition name="animTurn">
+    <item time="0" type="Visible" target="n72_k1q0" value="true"/>
+    <item time="0" type="Visible" target="n75_mwe7" value="false"/>
+    <item time="0" type="Visible" target="n77_mwe7" value="false"/>
+    <item time="0" type="Visible" target="n78_mwe7" value="false"/>
+    <item time="0" type="Visible" target="n79_mwe7" value="false"/>
+    <item time="0" type="Visible" target="n80_mwe7" value="false"/>
+    <item time="3" type="Visible" target="n72_k1q0" value="false"/>
+    <item time="3" type="Visible" target="n75_mwe7" value="true"/>
+    <item time="3" type="Visible" target="n77_mwe7" value="false"/>
+    <item time="3" type="Visible" target="n78_mwe7" value="false"/>
+    <item time="3" type="Visible" target="n79_mwe7" value="true"/>
+    <item time="3" type="Visible" target="n80_mwe7" value="false"/>
+    <item time="6" type="Visible" target="n72_k1q0" value="false"/>
+    <item time="6" type="Visible" target="n75_mwe7" value="false"/>
+    <item time="6" type="Visible" target="n77_mwe7" value="false"/>
+    <item time="6" type="Visible" target="n78_mwe7" value="true"/>
+    <item time="6" type="Visible" target="n79_mwe7" value="false"/>
+    <item time="6" type="Visible" target="n80_mwe7" value="true"/>
+    <item time="9" type="Visible" target="n72_k1q0" value="true"/>
+    <item time="9" type="Visible" target="n75_mwe7" value="false"/>
+    <item time="9" type="Visible" target="n77_mwe7" value="true"/>
+    <item time="9" type="Visible" target="n78_mwe7" value="false"/>
+    <item time="9" type="Visible" target="n79_mwe7" value="false"/>
+    <item time="9" type="Visible" target="n80_mwe7" value="false"/>
+  </transition>
+</component>

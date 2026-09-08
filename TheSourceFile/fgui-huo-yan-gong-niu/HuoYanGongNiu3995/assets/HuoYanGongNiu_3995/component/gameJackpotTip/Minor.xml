@@ -4,6 +4,12 @@
     <image id="n73_k1q0" name="n73" src="k1q06c" fileName="images/gameJackpot/jpTip/jp_bottom_2.png" xy="19,48" size="314,67"/>
     <image id="n71_k1q0" name="n71" src="k1q06g" fileName="images/gameJackpot/jpTip/jp_frame_2.png" xy="0,23"/>
     <image id="n72_k1q0" name="n72" src="k1q06m" fileName="images/gameJackpot/jpTip/jp_minor.png" xy="102,-12"/>
-    <text id="n74_k1q0" name="score" xy="24,51" size="306,61" font="ui://x2aorbwjxrp24h" fontSize="7" align="center" vAlign="middle" leading="0" letterSpacing="-12" autoSize="none" text="9999999"/>
+    <list id="n75_mwe7" name="reels" xy="27,56" size="305,52" layout="row" overflow="hidden" scroll="horizontal" defaultItem="ui://x2aorbwjmwe7fce" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
   </displayList>
 </component>

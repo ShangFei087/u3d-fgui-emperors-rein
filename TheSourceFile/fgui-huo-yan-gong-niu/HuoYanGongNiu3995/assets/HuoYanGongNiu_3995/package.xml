@@ -283,6 +283,7 @@
     <image id="jn9ufcb" name="load_ic_bottom_surface.png" path="/images/gameLoading/"/>
     <component id="cmaffcc" name="AnchorEff.xml" path="/component/gameNormal/" exported="true"/>
     <component id="jrsifcd" name="Anchor.xml" path="/component/gameBigWin/" exported="true"/>
+    <component id="mwe7fce" name="reel.xml" path="/component/gameJackpotTip/"/>
   </resources>
   <publish name=""/>
 </packageDescription>

@@ -153,6 +153,8 @@ namespace HuoYanGongNiu_3995
         }
 
 
+        int curWildMult = 0;
+
         public void ParseSlotSpin(long totalBet, JSONNode res, SBoxJackpotData sboxJackpotData)
         {
             ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -178,6 +180,9 @@ namespace HuoYanGongNiu_3995
             int maxLink = 0;
             int lineWin = 0;
             int betMul = MainModel.Instance.contentMD.betmultiple;
+            curWildMult = 0;
+
+
             List<SymbolInclude> symbolInclude = new List<SymbolInclude>();
             List<SymbolWin> winList = new List<SymbolWin>();
             JackpotRes jpGameRes = new JackpotRes();
@@ -231,6 +236,8 @@ namespace HuoYanGongNiu_3995
                     {
                         int wildMult = (int)res["WildData"][index] == 0 ? 1 : (int)res["WildData"][index];
                         int target = int.Parse(res["Matrix"][index].Value) * wildMult;
+
+                        if (wildMult > 1) curWildMult += wildMult;
                         strDeckRowCol += target.ToString();
                     }
                     if (col < cols - 1)
@@ -847,7 +854,6 @@ namespace HuoYanGongNiu_3995
             {
                 // 取当前线的行索引规则
                 List<int> currentLineRule = winLinesRule[i];
-                int mult = 0;
 
                 // 第 1 列在线上的行索引
                 int firstRow = currentLineRule[0];
@@ -871,23 +877,11 @@ namespace HuoYanGongNiu_3995
                     else if ((firstSymbolType != scatter && firstSymbolType != bonus) &&
                              (currentSymbolType == firstSymbolType || wild.Contains(currentSymbolType)))
                     {
-                        if (wild.Contains(currentSymbolType))
-                        {
-                            if(currentSymbolType / 11 > 1)
-                            {
-                                mult += currentSymbolType / 11;
-                            }
-                        }
-                        
                         sameTypeCount += 1;
                     }
                     // 第一个图标是 Wild，遇到可替代图标后以该图标作为基准
                     else if ((currentSymbolType != scatter && currentSymbolType != bonus) && wild.Contains(firstSymbolType))
                     {
-                        if (firstSymbolType / 11 > 1)
-                        {
-                            mult += firstSymbolType / 11;
-                        }
                         firstSymbolType = currentSymbolType; // 把当前普通图标设为新的基准图标
                         sameTypeCount += 1;
                     }
@@ -902,13 +896,17 @@ namespace HuoYanGongNiu_3995
                 // 普通奖不统计 Scatter/Bonus
                 if (firstSymbolType != scatter && firstSymbolType != bonus && hitCount >= 2)
                 {
-                    if(mult == 0) mult = 1;
-                    int lineOdds = GetLineOdds(firstSymbolType, hitCount) * mult;
+                    int lineOdds = GetLineOdds(firstSymbolType, hitCount);
                     if (lineOdds > 0)
                     {
                         calcTotalWin += lineOdds; // 累加本地计算总赢分
                     }
                 }
+            }
+
+            if(curWildMult > 1)
+            {
+                calcTotalWin *= curWildMult;
             }
 
             int diff = Math.Abs(calcTotalWin - TotalWin); // 计算本地校验值与算法差值

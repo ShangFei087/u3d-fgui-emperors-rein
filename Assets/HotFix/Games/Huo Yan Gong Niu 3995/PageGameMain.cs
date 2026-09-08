@@ -167,6 +167,11 @@ namespace HuoYanGongNiu_3995
         //private PagSlotBinding effectPag;
         //private string[] stageName = { "jp_huoshan_dabaofa_start.pag", "jp_huoshan_dabaofa_idle.pag" };
 
+        //彩金
+        MiniReelGroup uiJPMajorCtrl = new MiniReelGroup();
+        MiniReelGroup uiJPMinorCtrl = new MiniReelGroup();
+        MiniReelGroup uiJPMiniCtrl = new MiniReelGroup();
+
 
         //测试按钮
         private GButton testBtn;
@@ -380,6 +385,7 @@ namespace HuoYanGongNiu_3995
             {
                 goGameCtrl.SetActive(true);
             }
+            SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.Default);
             base.OnOpen(name, data); 
             EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
@@ -601,6 +607,7 @@ namespace HuoYanGongNiu_3995
 
 
             // ---------- 6.初始化FGUI组件 ----------
+
             GComponent loadWheelTip = contentPane.GetChild("wheelTip").asCom.GetChild("wheelTip").asCom;
             GComponent loadWheelTip2 = contentPane.GetChild("wheelTip").asCom.GetChild("wheelTip2").asCom;
             GComponent loadWheelTip3 = contentPane.GetChild("wheelTip").asCom.GetChild("wheelTip3").asCom;
@@ -636,6 +643,28 @@ namespace HuoYanGongNiu_3995
             resetWheelTran.Play();
 
             GComponent loadAnchorJpBgEff = contentPane.GetChild("anchorJpEff").asCom;
+
+            //彩金
+            uiJPMajorCtrl.Init("Major", this.contentPane.GetChild("jackpotTip").asCom.GetChild("major").asCom.GetChild("reels").asList, "N0");
+            uiJPMinorCtrl.Init("Minor", this.contentPane.GetChild("jackpotTip").asCom.GetChild("minor").asCom.GetChild("reels").asList, "N0");
+            uiJPMiniCtrl.Init("Mini", this.contentPane.GetChild("jackpotTip").asCom.GetChild("mini").asCom.GetChild("reels").asList, "N0");
+
+            ERPushMachineDataManager02.Instance.RequestGetJpContribution((res) =>
+            {
+                JSONNode data = JSONNode.Parse((string)res);
+                Debug.Log(data);
+                int code = (int)data["code"];
+                if (0 != code)
+                {
+                    DebugUtils.LogError($"请求贡献值报错。 code: {code}");
+                    return;
+                }
+
+                uiJPMajorCtrl.SetData((int)data["major"]);
+                uiJPMinorCtrl.SetData((int)data["minor"]);
+                uiJPMiniCtrl.SetData((int)data["mini"]);
+
+            });
 
             if (!isOpen) return;
 
@@ -681,12 +710,11 @@ namespace HuoYanGongNiu_3995
             ComRewardEffect1 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
             ComRewardEffect2 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
             ComRewardEffect3 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            if(goRewardEffectObj1 == null && goRewardEffectObj2 == null && goRewardEffectObj3 == null)
-            {
-                goRewardEffectObj1 = GameObject.Instantiate(goRewardEffectPre);
-                goRewardEffectObj2 = GameObject.Instantiate(goRewardEffectPre);
-                goRewardEffectObj3 = GameObject.Instantiate(goRewardEffectPre);
-            }
+
+
+            goRewardEffectObj1 = GameObject.Instantiate(goRewardEffectPre);
+            goRewardEffectObj2 = GameObject.Instantiate(goRewardEffectPre);
+            goRewardEffectObj3 = GameObject.Instantiate(goRewardEffectPre);
             GameCommon.FguiUtils.AddWrapper(ComRewardEffect1, goRewardEffectObj1);
             GameCommon.FguiUtils.AddWrapper(ComRewardEffect2, goRewardEffectObj2);
             GameCommon.FguiUtils.AddWrapper(ComRewardEffect3, goRewardEffectObj3);

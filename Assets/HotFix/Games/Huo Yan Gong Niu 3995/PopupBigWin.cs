@@ -206,7 +206,6 @@ namespace HuoYanGongNiu_3995
 
         public void AniEnd()
         {
-            anchorScore.visible = false;
             bigWinAnim.Rebind();
             bigWinEffAnim.Rebind();
 
