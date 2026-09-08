@@ -481,6 +481,7 @@ namespace HuoYanGongNiu_3995
                     ContentModel.Instance.jackpotSpinTotalTimes = bonusCount;
                     ContentModel.Instance.jackpotSpinPlayTimes = 0;
                     ContentModel.Instance.jackpotSpinWinCredit = 0;
+
                     jackpotSymbolInclude.Clear();
                     ContentModel.Instance.jackpotWin.Clear();
 

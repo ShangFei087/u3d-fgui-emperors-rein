@@ -203,13 +203,13 @@ namespace HuoYanGongNiu_3995
             //effectPag.StopWithDefaults();
             //effectPag.Play(stageName[2], 1, PagPlayLayout.Center, PagPresentationDefaults.DisplayScale,new PagPlayCallbacks(stopAfterFinished: true));
 
-            AddTimer(0.8f, (object obj) =>
+            AddTimer(1.8f, (object obj) =>
             {
                 effectPag.StopWithDefaults();
                 effectPag.Play(stageName[3], 1, PagPlayLayout.Center, PagPresentationDefaults.DisplayScale, new PagPlayCallbacks(onFinished: () => effectPag?.StopWithDefaults(), stopAfterFinished: true));
             });
 
-            AddTimer(1.3f, (object obj) =>
+            AddTimer(2.8f, (object obj) =>
             {
                 CloseSelf(new EventData<string>("Result", "i am here 1"));
             });

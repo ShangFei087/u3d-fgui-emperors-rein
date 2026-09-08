@@ -1269,9 +1269,6 @@ namespace XingYunZhiLun_3998
 
                 yield return FreeSpinTrigger(() => isNext = true, errorCallback);
 
-                //积分同步和退币处理
-                //slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit);
-
 
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
@@ -1547,11 +1544,6 @@ namespace XingYunZhiLun_3998
                         isNext = true;
                         isMain = true;
 
-                        ContentModel.Instance.goAnthorPanel = gOwnerPanel;
-                        MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
-                        EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                            new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
-
                         ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
 
                         ContentModel.Instance.btnSpinState = SpinButtonState.Spin;
@@ -1624,11 +1616,6 @@ namespace XingYunZhiLun_3998
                 {
                     DebugUtils.Log("回调执行！isNext = true"); // 加日志
                     isNext = true;
-
-                    ContentModel.Instance.goAnthorPanel = gOwnerPanel;
-                    MainModel.Instance.contentMD.goAnthorPanel = gOwnerPanel;
-                    EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
-                        new EventData<GComponent>(PanelEvent.AnchorPanelChange, gOwnerPanel));
 
                     ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
 
@@ -1780,7 +1767,6 @@ namespace XingYunZhiLun_3998
         IEnumerator GameFreeSpinOnce(Action successCallback, Action<string> errorCallback)
         {
             OnGameReset();
-            //slotMachineCtrl.SendTotalWinCreditEvent(allFreeWinCredit);
             ContentModel.Instance.isSpin = true;
             LockStopButton();
 
