@@ -1474,7 +1474,8 @@ namespace CaiFuZhiJia_3997
 
                 _currentNotWinCount = 0;
             }
-
+            
+            _panelCtrl.ChangButtonNo(false);
             DebugUtils.Log("进入空闲模式！！！");
             // 本剧同步玩家金钱
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
@@ -1801,7 +1802,6 @@ namespace CaiFuZhiJia_3997
                     ContentModel.Instance.FreeSpinPlayTimes = 0;
                     _cloneRadioObj.transform.Find("Effect").transform.Find("eff_fg_img_multiple11").gameObject
                         .SetActive(false);
-                    _panelCtrl.ChangButtonNo(false);
 
                     // 重新注册
                     ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
@@ -2285,7 +2285,6 @@ namespace CaiFuZhiJia_3997
             _isSmallGameFinished = false;
             _isStartSmallGame = false;
             _slotMachineCtrl.CloseSlotCover();
-            _panelCtrl.ChangButtonNo(false);
             ContentModel.Instance.IsBonusTrigger = false;
             ContentModel.Instance.IsJackpotTrigger = false;
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;

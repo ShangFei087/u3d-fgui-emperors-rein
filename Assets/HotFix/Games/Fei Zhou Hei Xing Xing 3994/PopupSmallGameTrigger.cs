@@ -111,7 +111,7 @@ namespace FeiZhouHeiXingXing_3994
 
             // 绑定Pag
             if (_fadeCom == null) return;
-            _fadePag ??= new PagSlotBinding("fade", PagPath);
+            _fadePag ??= new PagSlotBinding("smallFade", PagPath);
             _fadePag.EnsureSlot(_fadeCom);
 
             // 将UI挂载在Spine动画上

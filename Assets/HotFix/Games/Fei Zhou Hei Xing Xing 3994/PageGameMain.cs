@@ -1147,6 +1147,7 @@ namespace FeiZhouHeiXingXing_3994
                 _notHitSpinCount = 0;
             }
 
+            _panelController.ChangButtonNo(false);
             DebugUtils.Log("进入空闲模式！！！");
             long score = ContentModel.Instance.smallGameWinCredit + _allWinCredit; // 如果中彩金或者免费的时候，同时中普通奖，同步UI显示分数
             _slotMachineController.SendTotalWinCreditEvent(score + totalWinLineCredit);
@@ -1161,6 +1162,8 @@ namespace FeiZhouHeiXingXing_3994
 
             _allWinCredit = 0;
             _slotMachineController.isStopImmediately = false;
+
+
             successCallback?.Invoke();
         }
 
@@ -1401,7 +1404,6 @@ namespace FeiZhouHeiXingXing_3994
                 (ed) =>
                 {
                     ContentModel.Instance.FreeSpinTotalTimes = 0;
-                    _panelController.ChangButtonNo(false);
                     _slotMachineController.EndBonusFreeSpin();
                     isNext = true;
                 });
@@ -1986,7 +1988,6 @@ namespace FeiZhouHeiXingXing_3994
                 new EventData<Dictionary<string, object>>("",
                     new Dictionary<string, object>() { { "changeNormalPage", new Action(() => _pageController.selectedPage = "normal") }, { "smallTotalScore", _currentBonusScore } }), (ed) =>
                 {
-                    _panelController.ChangButtonNo(false);
                     ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                     EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                         new EventData(Game3994AudioEvent.BgmRegularGame));
