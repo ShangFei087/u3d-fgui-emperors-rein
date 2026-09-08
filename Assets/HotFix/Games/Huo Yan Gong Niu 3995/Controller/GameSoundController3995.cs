@@ -7,19 +7,15 @@ namespace HuoYanGongNiu_3995
     public static class Game3995AudioEvent
     {
         /// <summary> 主游戏循环 BGM </summary>
-        public const string BgmRegularGame = "3996_BgmRegularGame";
+        public const string BgmRegularGame = "3995_BgmRegularGame";
         /// <summary> 免费局内循环 BGM </summary>
-        public const string BgmFreeSpinGame = "3996_BgmFreeSpinGame";
+        public const string BgmFreeSpinGame = "3995_BgmFreeSpinGame";
         /// <summary> 彩金小游戏局内循环 BGM </summary>
-        public const string BgmBonusGame = "3996_BgmBonusGame";
-        /// <summary> 免费触发弹窗 BGM </summary>
-        public const string BgmFreeSpinTrigger = "3996_BgmFreeSpinTrigger";
-        /// <summary> 免费结算弹窗 BGM </summary>
-        public const string BgmFreeSpinResult = "3996_BgmFreeSpinResult";
-        /// <summary> 彩金触发弹窗 BGM </summary>
-        public const string BgmBonusTrigger = "3996_BgmBonusTrigger";
-        /// <summary> 彩金结算弹窗 BGM </summary>
-        public const string BgmBonusResult = "3996_BgmBonusResult";
+        public const string BgmBonusGame = "3995_BgmBonusGame";
+        /// <summary> 免费触发和结算弹窗 BGM </summary>
+        public const string BgmFreeSpinTrigger = "3995_BgmFreeSpin";
+        /// <summary> 彩金触发和结算弹窗 BGM </summary>
+        public const string BgmBonusTrigger = "3996_BgmBonus";
     }
 
 
@@ -45,18 +41,18 @@ namespace HuoYanGongNiu_3995
 
         public void Init()
         {
-            EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnSlotEvent);
-            EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
-            EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnWinEvent);
+            //EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnSlotEvent);
+            //EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
+            //EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnWinEvent);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, OnAudioEvent);
         }
 
         /// <summary> 注销监听，避免泄漏与重复回调。 </summary>
         public void Dispose()
         {
-            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnSlotEvent);
-            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
-            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnWinEvent);
+            //EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnSlotEvent);
+            //EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
+            //EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_WIN_EVENT, OnWinEvent);
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, OnAudioEvent);
         }
 
@@ -131,10 +127,15 @@ namespace HuoYanGongNiu_3995
         {
             switch ((string)receivedEvent.name)
             {
-                case SlotMachineEvent.FreeGameFadeTransition:
-                    //GameSoundHelper.Instance.PlaySoundEff(SoundKey.FadeFree);
+                case Game3995AudioEvent.BgmRegularGame:
+                    GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
                     break;
-                
+                case Game3995AudioEvent.BgmFreeSpinGame:
+                    GameSoundHelper.Instance.PlayMusicSingle(SoundKey.FreeSpinBG);
+                    break;
+                case Game3995AudioEvent.BgmBonusGame:
+                    GameSoundHelper.Instance.PlayMusicSingle(SoundKey.JackpotBG);
+                    break;
             }
         }
 

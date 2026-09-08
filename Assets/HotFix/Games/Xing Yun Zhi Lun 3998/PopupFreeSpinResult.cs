@@ -31,6 +31,7 @@ namespace XingYunZhiLun_3998
         private bool isClose;
 
         private List<TimerCallback> _activeTimers = new List<TimerCallback>(); // 活跃定时器列表
+        private TimerCallback _autoModeSimulatedClick;
 
         protected override void OnInit()
         {
@@ -81,12 +82,6 @@ namespace XingYunZhiLun_3998
 
         public override void OnOpen(PageName name, EventData data)
         {
-            //if (GameSoundHelper.Instance.IsPlaySound(SoundKey.RegularBG))
-            //{
-            //    GameSoundHelper.Instance.StopSound(SoundKey.RegularBG);
-            //}
-            //GameSoundHelper.Instance.PlayMusicSingle(SoundKey.FreeSpinTriggerBG);
-
             base.OnOpen(name, data);
             InitParam(data);
         }
@@ -97,6 +92,7 @@ namespace XingYunZhiLun_3998
             if (data != null) _data = data;
 
             if (!isInit) return;
+            CancelAutoModeSimulatedClick();
 
             //if (isOpen)
             //{
@@ -181,14 +177,19 @@ namespace XingYunZhiLun_3998
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmFreeSpinTrigger));
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3998AudioEvent.BgmFreeSpinTriggerBGMStart));
 
-            if (ContentModel.Instance.isAuto)
-            {
-                AddTimer(2 / Time.timeScale, (object obj) =>
-                {
-                    OnBtnExit();
-                });
-            }
+            //if (ContentModel.Instance.isAuto)
+            //{
+            //    AddTimer(2 / Time.timeScale, (object obj) =>
+            //    {
+            //        OnBtnExit();
+            //    });
+            //}
 
+
+            AddTimer(2f, (object obj) =>
+            {
+                ScheduleAutoModeSimulatedClick(closeBtn, () => isClose);
+            });
 
         }
 
@@ -254,6 +255,7 @@ namespace XingYunZhiLun_3998
         // 终止所有后续步骤（条件不满足时调用）
         private void StopAll()
         {
+            CancelAutoModeSimulatedClick();
             // 移除所有未执行的定时器
             foreach (var timer in _activeTimers)
             {
@@ -261,6 +263,46 @@ namespace XingYunZhiLun_3998
             }
 
             _activeTimers.Clear();
+        }
+
+        private const float AutoModeSimulateClickDelaySeconds = 3f;
+
+        private void CancelAutoModeSimulatedClick()
+        {
+            if (_autoModeSimulatedClick == null) return;
+            Timers.inst.Remove(_autoModeSimulatedClick);
+            _activeTimers.Remove(_autoModeSimulatedClick);
+            _autoModeSimulatedClick = null;
+        }
+
+        private void ScheduleAutoModeSimulatedClick(GButton target, Func<bool> skipWhenTrue)
+        {
+            CancelAutoModeSimulatedClick();
+            if (!TestManager.Instance.IsAutoModeRunning || target == null)
+                return;
+
+            _autoModeSimulatedClick = (obj) =>
+            {
+                try
+                {
+                    if (skipWhenTrue != null && skipWhenTrue())
+                        return;
+                    if (target != null && contentPane != null && contentPane.visible)
+                        target.onClick.Call();
+                }
+                finally
+                {
+                    var cb = _autoModeSimulatedClick;
+                    if (cb != null)
+                    {
+                        Timers.inst.Remove(cb);
+                        _activeTimers.Remove(cb);
+                        _autoModeSimulatedClick = null;
+                    }
+                }
+            };
+            _activeTimers.Add(_autoModeSimulatedClick);
+            Timers.inst.Add(AutoModeSimulateClickDelaySeconds, 1, _autoModeSimulatedClick);
         }
     }
 }

@@ -100,6 +100,8 @@ namespace HuoYanGongNiu_3995
 
             if (!isInit) return;
 
+            CancelAutoModeSimulatedClick();
+
             closeBtn = contentPane.GetChild("startBtn").asButton;
             winCredit = contentPane.GetChild("win").asTextField;
 
