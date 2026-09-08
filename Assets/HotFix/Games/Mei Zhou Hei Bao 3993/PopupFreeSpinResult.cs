@@ -132,7 +132,7 @@ namespace MeiZhouHeiBao_3993
             if (!isInit) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-
+            _isClicked = true;
             RemoveTimer(ref _delayCloseCallback);
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _rollCallback);
@@ -177,6 +177,7 @@ namespace MeiZhouHeiBao_3993
             Timers.inst.Add(0.5f, 1, _rollCallback);
             _enableBtnCallback = obj =>
             {
+                _isClicked = false;
                 if (btnCollect != null) btnCollect.touchable = true;
             };
             Timers.inst.Add(3.5f, 1, _enableBtnCallback);
@@ -193,22 +194,21 @@ namespace MeiZhouHeiBao_3993
             if (I18nMgr.language == I18nLang.cn)
             {
                 _animFreeResult.Attach(
-        txtTotalFreeTime,
-        rootFreeResultPath + "/Base plate/fg_img_FREE GAMES",
-       localPos: new Vector3(-1.63f, 0.52f, 0.0f),
-        localScale: new Vector3(0.01f, 0.01f, 0.01f),
-        localRot: Quaternion.identity);
+                    txtTotalFreeTime,
+                    rootFreeResultPath + "/Base plate/fg_img_FREE GAMES",
+                    localPos: new Vector3(-1.63f, 0.52f, 0.0f),
+                    localScale: new Vector3(0.01f, 0.01f, 0.01f),
+                    localRot: Quaternion.identity);
             }
             else
             {
                 _animFreeResult.Attach(
-             txtTotalFreeTime,
-             rootFreeResultPath + "/Base plate/fg_img_FREE GAMES",
-             localPos: new Vector3(-2.27f, 0.52f, 0.0f),
-             localScale: new Vector3(0.01f, 0.01f, 0.01f),
-             localRot: Quaternion.identity);
+                    txtTotalFreeTime,
+                    rootFreeResultPath + "/Base plate/fg_img_FREE GAMES",
+                    localPos: new Vector3(-2.27f, 0.52f, 0.0f),
+                    localScale: new Vector3(0.01f, 0.01f, 0.01f),
+                    localRot: Quaternion.identity);
             }
-         
 
             _animFreeResult.Attach(
                 txtScoreWin,
@@ -235,16 +235,13 @@ namespace MeiZhouHeiBao_3993
         {
             NumberAnimation.Instance.StopAllAnimations();
             base.OnClose(eventData);
-            _isClicked = false;
+            _isClicked = true;
             RemoveTimer(ref _delayCloseCallback);
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _rollCallback);
             RemoveTimer(ref _enableBtnCallback);
             _animFreeResult.DetachAll();
             PopupSpineWrap3993.SetVisible(anchorPopEff, false);
-            // pagFreeResult?.StopWithDefaults();
-            //_gameSoundController?.Dispose();
-            //_gameSoundController = null;
         }
 
         /// <summary>点击收集：播 out，约 1 秒后关页。</summary>

@@ -668,6 +668,7 @@ namespace MeiZhouHeiBao_3993
         {
             if (_goGameCtrl != null && !_goGameCtrl.activeSelf)
                 _goGameCtrl.SetActive(true);
+            SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.Default);
             base.OnOpen(currentPageName, eventData);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
@@ -1249,7 +1250,7 @@ namespace MeiZhouHeiBao_3993
                 allWinCredit += totalWinLineCredit;
 
                 _slotMachineController.SendTotalWinCreditEvent(allWinCredit); // 积分同步和退币处理
-                MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true); // 加钱动画
+                //MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true); // 加钱动画
                 yield return _slotMachineController.ShowSymbolWinBySetting(_slotMachineController.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
                 yield return _slotMachineController.SlotWaitForSeconds(0.5f);
             }
@@ -1269,6 +1270,7 @@ namespace MeiZhouHeiBao_3993
             // ----------------- free win ---------------
             if (ContentModel.Instance.isFreeSpinTrigger)
             {
+                _allWinCredit += allWinCredit;
                 _slotMachineController.SkipWinLine(true);
                 _slotMachineController.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 11 }, true, 11,true);
                 yield return _slotMachineController.SlotWaitForSeconds(1.333f);
@@ -1278,6 +1280,7 @@ namespace MeiZhouHeiBao_3993
             // ----------------- small win ---------------
             if (ContentModel.Instance.isSmallGameTrigger)
             {
+                _allWinCredit += allWinCredit;
                 _slotMachineController.SkipWinLine(true);
                 _slotMachineController.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 12 }, true, 12,true);
                 yield return _slotMachineController.SlotWaitForSeconds(2.533f);

@@ -362,8 +362,8 @@ namespace MeiZhouHeiBao_3993
             _collectScores.Clear();
             _rewardRoll?.CollectLockedBonuses(_collectElements, _collectScores);
 
-            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,
-                new EventData<long>(SlotMachineEvent.TotalWinCredit, 0L));
+            //EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,
+            //    new EventData<long>(SlotMachineEvent.TotalWinCredit, 0L));
             _panelController?.HideWinBorders();
 
             if (_collectElements.Count == 0 || _effectFrame == null || _trailsPrefab == null)

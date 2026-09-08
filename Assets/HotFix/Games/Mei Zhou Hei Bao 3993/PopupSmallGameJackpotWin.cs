@@ -145,7 +145,7 @@ namespace MeiZhouHeiBao_3993
             if (!isInit) return;
             preLoadedCallback?.Invoke();
             if (!isOpen) return;
-            _isClicked = false;
+            _isClicked = true;
             RemoveTimer(ref _delayCloseCallback);
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _rollCallback);
@@ -179,6 +179,7 @@ namespace MeiZhouHeiBao_3993
             Timers.inst.Add(0.5f, 1, _rollCallback);
             _enableBtnCallback = obj =>
             {
+                _isClicked = false;
                 if (_btnCollect != null) _btnCollect.touchable = true;
             };
             Timers.inst.Add(3.5f, 1, _enableBtnCallback);
@@ -206,7 +207,7 @@ namespace MeiZhouHeiBao_3993
             _animJackpot?.DetachAll();
             PopupSpineWrap3993.SetVisible(_anchorPopEff, false);
             // _pagJackpot?.StopWithDefaults();
-            _isClicked = false;
+            _isClicked = true;
             base.OnClose(eventData);
         }
 

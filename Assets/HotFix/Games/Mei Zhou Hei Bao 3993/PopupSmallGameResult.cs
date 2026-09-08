@@ -133,7 +133,7 @@ namespace MeiZhouHeiBao_3993
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _rollCallback);
             RemoveTimer(ref _enableBtnCallback);
-
+            _isClicked = true;
             //pag
             // anchorPagSmallResult = contentPane.GetChild("anchorSmallResultPag").asCom;
             // if (pagSmallResult == null) pagSmallResult = new PagSlotBinding("3993pagSmallResult", PagPath);
@@ -178,6 +178,7 @@ namespace MeiZhouHeiBao_3993
             Timers.inst.Add(0.5f, 1, _rollCallback);
             _enableBtnCallback = obj =>
             {
+                _isClicked = false;
                 if (btnCollect != null) btnCollect.touchable = true;
             };
             Timers.inst.Add(3.5f, 1, _enableBtnCallback);
@@ -215,16 +216,14 @@ namespace MeiZhouHeiBao_3993
         {
             NumberAnimation.Instance.StopAllAnimations();
             base.OnClose(eventData);
-            _isClicked = false;
+            _isClicked = true;
             RemoveTimer(ref _delayCloseCallback);
             RemoveTimer(ref _autoClickCallback);
             RemoveTimer(ref _rollCallback);
             RemoveTimer(ref _enableBtnCallback);
             _animSmallResult.DetachAll();
             PopupSpineWrap3993.SetVisible(anchorPopEff, false);
-            // pagSmallResult?.StopWithDefaults();
-            //_gameSoundController?.Dispose();
-            //_gameSoundController = null;
+
         }
 
 
@@ -237,15 +236,7 @@ namespace MeiZhouHeiBao_3993
             btnCollect.touchable = false;
             _animSmallResult.Play("out");
             PopupSpineWrap3993.SetVisible(anchorPopEff, false);
-            // pagSmallResult.StopWithDefaults();
-            // pagSmallResult.Play(new PagSequencePlay(
-            //     new[] { new PagSegment(PagSmallPupOut, 1) },
-            //     PagPlayLayout.Center,
-            //     PagPresentationDefaults.DisplayScale,
-            //     useGpuSyncGroup: false,
-            //     callbacks: new PagPlayCallbacks(
-            //         onFinished: () => pagSmallResult?.StopWithDefaults(),
-            //         stopAfterFinished: true)));
+       
 
             RemoveTimer(ref _delayCloseCallback);
             _delayCloseCallback = obj =>

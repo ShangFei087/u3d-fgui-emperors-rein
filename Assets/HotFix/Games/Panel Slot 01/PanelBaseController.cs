@@ -154,7 +154,7 @@ namespace SlotMaker
             _initSequence++;
             // 面板关闭时关掉短按/长按特效，并解绑 Stage 触摸兜底监听。
             HideSpinPressEffects();
-            spinBtnCtrl?.UnbindTouch();
+            //spinBtnCtrl?.UnbindTouch();
 
             if (IsGObjectAlive(gOwnerPanel))
                 gOwnerPanel.visible = false;
