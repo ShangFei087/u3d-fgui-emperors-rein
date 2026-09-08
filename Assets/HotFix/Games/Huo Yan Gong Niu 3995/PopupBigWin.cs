@@ -51,7 +51,7 @@ namespace HuoYanGongNiu_3995
             };
             // 加载预制体
             ResourceManager02.Instance.LoadAsset<GameObject>(
-                "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PageGameMain/BigWin.prefab",
+                "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PageGameMain/bigWin.prefab",
                 (GameObject clone) =>
                 {
                     bigWinPref = clone;

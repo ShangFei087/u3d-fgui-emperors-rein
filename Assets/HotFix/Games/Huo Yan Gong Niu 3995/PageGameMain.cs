@@ -447,6 +447,7 @@ namespace HuoYanGongNiu_3995
 
                             if (isWheelSpin)
                             {
+                                LockStopButton();
                                 mono.updateHandle.RemoveListener(WheelTrun);
                                 StopEffectAnim(Win);
                                 ContentModel.Instance.btnSpinState = SpinButtonState.Spin;

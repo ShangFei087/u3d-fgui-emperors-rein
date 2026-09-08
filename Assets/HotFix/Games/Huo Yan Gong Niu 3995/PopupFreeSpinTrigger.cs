@@ -52,7 +52,7 @@ namespace HuoYanGongNiu_3995
             };
 
             ResourceManager02.Instance.LoadAsset<GameObject>(
-                "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PopupFreeGame/FreeGameTrigger.prefab",
+                "Assets/GameRes/Games/Huo Yan Gong Niu 3995/Prefabs/PopupFreeGame/FreeTrigger.prefab",
                 (GameObject clone) =>
                 {
                     goAnchorSpine = clone;
