@@ -38,6 +38,12 @@ namespace MeiZhouHeiBao_3993
         private GameObject _prefabMinor;
         /// <summary>Mini Spine 预制体。</summary>
         private GameObject _prefabMini;
+        /// <summary>Major 常驻实例（各类型最多 1 份）。</summary>
+        private GameObject _cloneMajor;
+        /// <summary>Minor 常驻实例。</summary>
+        private GameObject _cloneMinor;
+        /// <summary>Mini 常驻实例。</summary>
+        private GameObject _cloneMini;
         /// <summary>当前挂上的 Spine 实例。</summary>
         private GameObject _cloneJackpot;
         /// <summary>Spine 挂点。</summary>
@@ -137,6 +143,7 @@ namespace MeiZhouHeiBao_3993
         protected override void OnBeforetLanguageChange(I18nLang lang)
         {
             PopupSpineWrap3993.PrepareLanguageChange(ref _animPopEff, ref _anchorPopEff, _clonePopEff);
+            UnhookJackpotWrapper();
         }
 
         /// <summary>按 JP 类型挂 Spine、滚分、延迟可点，自动化则定时点击。</summary>
@@ -196,7 +203,7 @@ namespace MeiZhouHeiBao_3993
             InitParam();
         }
 
-        /// <summary>关页：停滚分、清定时器、卸骨骼挂点、停 PAG。</summary>
+        /// <summary>关页：停滚分、清定时器、卸骨骼挂点；摘下 Spine 避免 GoWrapper 销毁常驻实例。</summary>
         public override void OnClose(EventData eventData = null)
         {
             NumberAnimation.Instance.StopAllAnimations();
@@ -205,10 +212,24 @@ namespace MeiZhouHeiBao_3993
             RemoveTimer(ref _rollCallback);
             RemoveTimer(ref _enableBtnCallback);
             _animJackpot?.DetachAll();
+            UnhookJackpotWrapper();
             PopupSpineWrap3993.SetVisible(_anchorPopEff, false);
             // _pagJackpot?.StopWithDefaults();
             _isClicked = true;
             base.OnClose(eventData);
+        }
+
+        /// <summary>从 holder 摘掉 wrapTarget，不 Destroy 常驻 Major/Minor/Mini。</summary>
+        private void UnhookJackpotWrapper()
+        {
+            _animJackpot?.DetachAll();
+            PopupSpineWrap3993.DetachFromAnchor(_anchorJackpot);
+            PopupSpineWrap3993.HideUnwrappedClone(_cloneMajor);
+            PopupSpineWrap3993.HideUnwrappedClone(_cloneMinor);
+            PopupSpineWrap3993.HideUnwrappedClone(_cloneMini);
+            _animJackpot = null;
+            _cloneJackpot = null;
+            _boundType = null;
         }
 
         /// <summary>点击收集：播 Out，约 1 秒后关页。</summary>
@@ -231,30 +252,67 @@ namespace MeiZhouHeiBao_3993
             Timers.inst.Add(1.0f, 1, _delayCloseCallback);
         }
 
-        /// <summary>按类型把对应 Spine 预制体挂到 anchorPopupJackPot。</summary>
+        /// <summary>按类型把对应 Spine 挂到 anchorPopupJackPot（三种各常驻 1 份，切换不 Destroy）。</summary>
         private void BindSpine(string jpType)
         {
             GComponent local = contentPane.GetChild("anchorPopupJackPot")?.asCom;
             if (local == null)
                 return;
 
-            GameObject prefab = GetPrefab(jpType);
-            if (prefab == null)
+            GameObject clone = EnsureJackpotClone(jpType);
+            if (clone == null)
                 return;
 
             if (_anchorJackpot == local && _boundType == jpType
-                && _boundLang == PopupSpineLang3993.CurrentLang && _animJackpot != null)
+                && _boundLang == PopupSpineLang3993.CurrentLang && _animJackpot != null
+                && _cloneJackpot == clone)
                 return;
 
             _animJackpot?.DetachAll();
-            GameCommon.FguiUtils.DeleteWrapper(_anchorJackpot);
-            _cloneJackpot = UnityEngine.Object.Instantiate(prefab);
-            PopupSpineLang3993.Apply(_cloneJackpot);
+
+            GameObject current = GameCommon.FguiUtils.GetWrapperTarget(local);
+            if (current == null)
+                GameCommon.FguiUtils.AddWrapper(local, clone);
+            else if (current != clone)
+                GameCommon.FguiUtils.ChangeWrapperTarget(local, clone, true);
+
+            clone.SetActive(true);
+            Renderer[] renderers = clone.GetComponentsInChildren<Renderer>(true);
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                if (renderers[i] != null)
+                    renderers[i].enabled = true;
+            }
+
+            PopupSpineLang3993.Apply(clone);
+            GameCommon.FguiUtils.RefreshWrapper(local);
             _anchorJackpot = local;
+            _cloneJackpot = clone;
             _boundType = jpType;
             _boundLang = PopupSpineLang3993.CurrentLang;
-            GameCommon.FguiUtils.AddWrapper(_anchorJackpot, _cloneJackpot);
             _animJackpot = new AnimPlayer(_cloneJackpot);
+        }
+
+        /// <summary>确保该类型有常驻实例，没有则 Instantiate 一次。</summary>
+        private GameObject EnsureJackpotClone(string jpType)
+        {
+            if (jpType == "minor")
+            {
+                if (_cloneMinor == null && _prefabMinor != null)
+                    _cloneMinor = UnityEngine.Object.Instantiate(_prefabMinor);
+                return _cloneMinor;
+            }
+
+            if (jpType == "mini")
+            {
+                if (_cloneMini == null && _prefabMini != null)
+                    _cloneMini = UnityEngine.Object.Instantiate(_prefabMini);
+                return _cloneMini;
+            }
+
+            if (_cloneMajor == null && _prefabMajor != null)
+                _cloneMajor = UnityEngine.Object.Instantiate(_prefabMajor);
+            return _cloneMajor;
         }
 
         /// <summary>
@@ -362,14 +420,6 @@ namespace MeiZhouHeiBao_3993
             if (jpType == "minor") return "MINOR_idle";
             if (jpType == "mini") return "MINI_idle";
             return "MAJOR_idle";
-        }
-
-        /// <summary>按类型取对应 Spine 预制体，默认 Major。</summary>
-        private GameObject GetPrefab(string jpType)
-        {
-            if (jpType == "minor") return _prefabMinor;
-            if (jpType == "mini") return _prefabMini;
-            return _prefabMajor;
         }
 
         /// <summary>身体骨骼名：Panther / crocodile / snake。</summary>
