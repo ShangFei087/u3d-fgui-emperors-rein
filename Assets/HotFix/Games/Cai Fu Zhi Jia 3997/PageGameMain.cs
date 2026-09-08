@@ -442,9 +442,9 @@ namespace CaiFuZhiJia_3997
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder,
                     CustomModel.Instance.borderEffect, "border#", 5);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolBorder); // 边框
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear,
-                    CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 10);
-                _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear); // 落下后图标静止动画
+                // _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear,
+                //     CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 10);
+                // _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear); // 落下后图标静止动画
                 _fGuiPoolHelper.WhenIdle(() =>
                 {
                     _isPoolPreloadDone = true;

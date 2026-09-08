@@ -763,8 +763,13 @@ namespace FeiZhouHeiXingXing_3994
                             result["BonusData"].Add(data[pos++]);
                         }
 
+                        // ===== BonusPos 解析开始 =====
+                        result["BonusPos"] = ParseBonusPos(data, ref pos, matrixLength, totalBonusSpinTime);
+                        // ===== BonusPos 解析结束 =====
+
                         int jpCount = data[pos++];
                         result["JPCount"] = jpCount;
+                       
 
                         result["JPTypeArray"] = new JSONArray();
                         for (int i = 0; i < jpCount; i++) // 按实际写入个数读取
@@ -777,15 +782,9 @@ namespace FeiZhouHeiXingXing_3994
                         {
                             result["JPBetArray"].Add(data[pos++]);
                         }
-
-                        // ===== BonusPos 解析开始 =====
-                        result["BonusPos"] = ParseBonusPos(data, ref pos, matrixLength, totalBonusSpinTime);
-                        // ===== BonusPos 解析结束 =====
-
-                        if (pos < data.Length)
-                        {
-                            result["TotalJackpotBet"] = data[pos];
-                        }
+                        
+                        int totalJackpotBet = data[pos++];
+                        result["TotalJackpotBet"] = totalJackpotBet;
 
                         break;
                     }
@@ -1007,7 +1006,7 @@ namespace FeiZhouHeiXingXing_3994
         /// <param name="intList">int 类型的 List</param>
         /// <param name="intArrayList">int[] 类型的 List</param>
         /// <returns>Queue&lt;List&lt;int&gt;&gt; 队列</returns>
-        public Queue<List<int>> ValidateAndQueue(List<int> intList, List<int[]> intArrayList)
+        private Queue<List<int>> ValidateAndQueue(List<int> intList, List<int[]> intArrayList)
         {
             var resultQueue = new Queue<List<int>>();
 

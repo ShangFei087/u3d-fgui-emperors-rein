@@ -386,9 +386,9 @@ namespace FeiZhouHeiXingXing_3994
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder,
                     CustomModel.Instance.borderEffect, "border#", 5);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolBorder); // 边框
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear,
-                    CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 10);
-                _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear); // 落下后图标静止动画
+                // _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear,
+                //     CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 10);
+                // _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear); // 落下后图标静止动画
                 _fGuiPoolHelper.WhenIdle(() =>
                 {
                     _isPoolPreloadDone = true;
@@ -2064,21 +2064,21 @@ namespace FeiZhouHeiXingXing_3994
                                     _miniLoader.url = "";
                                     PlayAnimationByName(_smallNpcAnimator, "2win2");
                                     yield return new WaitForSeconds(2.7f);
-                                    yield return GetJackpotScore(BonusResultType.Mini, 0); //(int)_uiJpMiniCtrl.nowData
+                                    yield return GetJackpotScore(BonusResultType.Mini, (int)_uiJpMiniCtrl.nowData);
                                     break;
                                 case 10:
                                     _cloneMinorBoxObj.SetActive(true);
                                     _minorLoader.url = "";
                                     PlayAnimationByName(_smallNpcAnimator, "2win2");
                                     yield return new WaitForSeconds(2.7f);
-                                    yield return GetJackpotScore(BonusResultType.Minor, 0); //(int)_uiJpMinorCtrl.nowData
+                                    yield return GetJackpotScore(BonusResultType.Minor, (int)_uiJpMinorCtrl.nowData);
                                     break;
                                 case 15:
                                     _cloneMajorBoxObj.SetActive(true);
                                     _majorLoader.url = "";
                                     PlayAnimationByName(_smallNpcAnimator, "2win2");
                                     yield return new WaitForSeconds(2.7f);
-                                    yield return GetJackpotScore(BonusResultType.Major, 0); //(int)_uiJpMajorCtrl.nowData
+                                    yield return GetJackpotScore(BonusResultType.Major, (int)_uiJpMajorCtrl.nowData);
                                     break;
                             }
                         }
