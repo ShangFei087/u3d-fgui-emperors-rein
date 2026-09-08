@@ -581,6 +581,9 @@ namespace FeiZhouHeiXingXing_3994
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
         {
+            if (_goGameCtrl != null && !_goGameCtrl.activeSelf)
+                _goGameCtrl.SetActive(true);
+            SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.Default);
             base.OnOpen(currentPageName, eventData);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
@@ -596,13 +599,9 @@ namespace FeiZhouHeiXingXing_3994
         {
             EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
-            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT,
-                OnBottomPanelReadyForPreload);
-            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT,
-                OnSlotDetailEvent);
-            EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(
-                SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE,
-                OnCoinPushSpinResultParse);
+            EventCenter.Instance.RemoveEventListener<EventData>(PanelEvent.ON_PANEL_EVENT, OnBottomPanelReadyForPreload);
+            EventCenter.Instance.RemoveEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
+            EventCenter.Instance.RemoveEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
             base.OnClose(eventData);
             _freeSpinTimeController.Dispose();
             _gameSoundController?.Dispose();
@@ -610,6 +609,9 @@ namespace FeiZhouHeiXingXing_3994
             _monoHelper.updateHandle.RemoveAllListeners();
             _lastAnchorPanelForDispatch = null;
             OnGameReset();
+
+            if (_goGameCtrl != null && _goGameCtrl.activeSelf)
+                _goGameCtrl.SetActive(false);
         }
 
         protected override void OnLanguageChange(I18nLang lang)
@@ -784,9 +786,9 @@ namespace FeiZhouHeiXingXing_3994
         private void ContinueGameWhenCompleted()
         {
             DebugUtils.Log("游戏结束");
-            UnlockStopButton();
             ContentModel.Instance.isSpin = false;
             ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
+            UnlockStopButton();
             ContentModel.Instance.gameState = GameState.Idle;
         }
 
@@ -1808,7 +1810,7 @@ namespace FeiZhouHeiXingXing_3994
                     ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
                     MainBlackboardController.Instance.AddMyTempCredit(_allWinCredit, true, IsAddCreditAnim); //加钱动画
                     MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
-                    FreeSpinSessionStoreG3994.Clear(SBoxModel.Instance.pid);
+                    // FreeSpinSessionStoreG3994.Clear(SBoxModel.Instance.pid);
 
                     // 重新注册
                     ContentModel.Instance.goAnthorPanel = _gOwnerPanel;
@@ -1818,73 +1820,73 @@ namespace FeiZhouHeiXingXing_3994
             successCallback?.Invoke();
         }
 
-        /// <summary> 从本地快照恢复未完成的免费局（不自动请求 Spin，由玩家点转）。 </summary>
-        private void TryRestoreFreeSpinSession()
-        {
-            if (ApplicationSettings.Instance.isMock || _slotMachineController == null) return;
-            if (!SQLitePlayerPrefs03.Instance.isInit) return;
-            if (!isOpen) return;
-
-            int pid = SBoxModel.Instance.pid;
-            var snap = FreeSpinSessionStoreG3994.TryLoad(pid);
-            if (snap == null) return;
-
-            bool sessionStillValid = snap.FreeSpinTotalTimes > 0
-                                     && (snap.FreeSpinPlayTimes < snap.FreeSpinTotalTimes
-                                         || (snap.FreeSpinPlayTimes == 0 && snap.NextReelStripsIndex == "FS"));
-            if (!sessionStillValid)
-            {
-                FreeSpinSessionStoreG3994.Clear(pid);
-                return;
-            }
-
-            var cm = ContentModel.Instance;
-            cm.FreeSpinTotalTimes = snap.FreeSpinTotalTimes;
-            cm.FreeSpinPlayTimes = snap.FreeSpinPlayTimes;
-            cm.freeSpinTotalWinCoins = snap.FreeSpinTotalWinCredit;
-            cm.curReelStripsIndex = snap.CurReelStripsIndex;
-            cm.nextReelStripsIndex = snap.NextReelStripsIndex;
-            cm.gameNumberFreeSpinTrigger = snap.GameNumberFreeSpinTrigger;
-            cm.isFreeSpinTrigger = false;
-            cm.isFreeSpinFinish = false;
-            cm.isFreeGameAdd = false;
-            cm.freeSpinAddNum = 0;
-
-            if (snap.BetIndex >= 0 && SBoxModel.Instance.betList != null
-                                   && snap.BetIndex < SBoxModel.Instance.betList.Count)
-            {
-                cm.betIndex = snap.BetIndex;
-                cm.totalBet = SBoxModel.Instance.betList[cm.betIndex];
-            }
-            else
-            {
-                cm.totalBet = snap.TotalBet;
-            }
-
-            cm.betmultiple = snap.BetMultiple;
-            cm.ShowFreeSpinRemainTime = cm.FreeSpinTotalTimes - cm.FreeSpinPlayTimes;
-            cm.gameState = GameState.Idle;
-            cm.PendingFreeSpinReconnectValidation = true;
-
-            if (!string.IsNullOrEmpty(snap.StrDeckRowCol))
-            {
-                cm.strDeckRowCol = snap.StrDeckRowCol;
-                _slotMachineController.SetReelsDeck(snap.StrDeckRowCol);
-            }
-
-            if (cm.curReelStripsIndex == "FS" || cm.nextReelStripsIndex == "FS")
-            {
-                // Todo：免费游戏触发逻辑
-                _pageController.selectedPage = "free";
-                _freeSpinsNumber.text =
-                    (ContentModel.Instance.FreeSpinTotalTimes - ContentModel.Instance.FreeSpinPlayTimes).ToString();
-            }
-
-
-            _slotMachineController.SendTotalWinCreditEvent(cm.freeSpinTotalWinCoins);
-            DebugUtils.Log(
-                $"[G3994] 已恢复免费局快照：剩余 {cm.ShowFreeSpinRemainTime} / 总 {cm.FreeSpinTotalTimes}，待首局 Spin 与算法校验。");
-        }
+        // /// <summary> 从本地快照恢复未完成的免费局（不自动请求 Spin，由玩家点转）。 </summary>
+        // private void TryRestoreFreeSpinSession()
+        // {
+        //     if (ApplicationSettings.Instance.isMock || _slotMachineController == null) return;
+        //     if (!SQLitePlayerPrefs03.Instance.isInit) return;
+        //     if (!isOpen) return;
+        //
+        //     int pid = SBoxModel.Instance.pid;
+        //     var snap = FreeSpinSessionStoreG3994.TryLoad(pid);
+        //     if (snap == null) return;
+        //
+        //     bool sessionStillValid = snap.FreeSpinTotalTimes > 0
+        //                              && (snap.FreeSpinPlayTimes < snap.FreeSpinTotalTimes
+        //                                  || (snap.FreeSpinPlayTimes == 0 && snap.NextReelStripsIndex == "FS"));
+        //     if (!sessionStillValid)
+        //     {
+        //         FreeSpinSessionStoreG3994.Clear(pid);
+        //         return;
+        //     }
+        //
+        //     var cm = ContentModel.Instance;
+        //     cm.FreeSpinTotalTimes = snap.FreeSpinTotalTimes;
+        //     cm.FreeSpinPlayTimes = snap.FreeSpinPlayTimes;
+        //     cm.freeSpinTotalWinCoins = snap.FreeSpinTotalWinCredit;
+        //     cm.curReelStripsIndex = snap.CurReelStripsIndex;
+        //     cm.nextReelStripsIndex = snap.NextReelStripsIndex;
+        //     cm.gameNumberFreeSpinTrigger = snap.GameNumberFreeSpinTrigger;
+        //     cm.isFreeSpinTrigger = false;
+        //     cm.isFreeSpinFinish = false;
+        //     cm.isFreeGameAdd = false;
+        //     cm.freeSpinAddNum = 0;
+        //
+        //     if (snap.BetIndex >= 0 && SBoxModel.Instance.betList != null
+        //                            && snap.BetIndex < SBoxModel.Instance.betList.Count)
+        //     {
+        //         cm.betIndex = snap.BetIndex;
+        //         cm.totalBet = SBoxModel.Instance.betList[cm.betIndex];
+        //     }
+        //     else
+        //     {
+        //         cm.totalBet = snap.TotalBet;
+        //     }
+        //
+        //     cm.betmultiple = snap.BetMultiple;
+        //     cm.ShowFreeSpinRemainTime = cm.FreeSpinTotalTimes - cm.FreeSpinPlayTimes;
+        //     cm.gameState = GameState.Idle;
+        //     cm.PendingFreeSpinReconnectValidation = true;
+        //
+        //     if (!string.IsNullOrEmpty(snap.StrDeckRowCol))
+        //     {
+        //         cm.strDeckRowCol = snap.StrDeckRowCol;
+        //         _slotMachineController.SetReelsDeck(snap.StrDeckRowCol);
+        //     }
+        //
+        //     if (cm.curReelStripsIndex == "FS" || cm.nextReelStripsIndex == "FS")
+        //     {
+        //         // Todo：免费游戏触发逻辑
+        //         _pageController.selectedPage = "free";
+        //         _freeSpinsNumber.text =
+        //             (ContentModel.Instance.FreeSpinTotalTimes - ContentModel.Instance.FreeSpinPlayTimes).ToString();
+        //     }
+        //
+        //
+        //     _slotMachineController.SendTotalWinCreditEvent(cm.freeSpinTotalWinCoins);
+        //     DebugUtils.Log(
+        //         $"[G3994] 已恢复免费局快照：剩余 {cm.ShowFreeSpinRemainTime} / 总 {cm.FreeSpinTotalTimes}，待首局 Spin 与算法校验。");
+        // }
 
         #endregion
 

@@ -55,12 +55,19 @@ public class MonoWeakSelectSingleton<T> : MonoBehaviour where T : MonoBehaviour
     }
     protected virtual void OnDisable()
     {
-        _instance = null;
+        if (_instance == this)
+            _instance = null;
+    }
+    protected virtual void OnEnable()
+    {
+        if (_instance == null)
+            _instance = this as T;
     }
 
     protected virtual void OnDestroy()
     {
-        _instance = null;
+        if (_instance == this)
+            _instance = null;
     }
 
     [Button]

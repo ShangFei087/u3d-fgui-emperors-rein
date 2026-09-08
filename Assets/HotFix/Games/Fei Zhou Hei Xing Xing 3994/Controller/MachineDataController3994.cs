@@ -464,7 +464,7 @@ namespace FeiZhouHeiXingXing_3994
             DebugUtils.Log(
                 $"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple}    玩家真实金币={creditAfter}");
 
-            FreeSpinSessionStoreG3994.TryPersistOrClearSession();
+            // FreeSpinSessionStoreG3994.TryPersistOrClearSession();
         }
 
         private void CheckGameResult(string strDeckRowCol, int totalWin, bool isInFreeSpin)

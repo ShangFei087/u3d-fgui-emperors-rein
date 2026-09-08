@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="203,609">
+  <displayList>
+    <component id="n0_nczl" name="symbol0" src="nczl65" fileName="moudules/pageGameMain/Game_SlotMachine/symbol.xml" xy="0,-406"/>
+    <component id="n1_nczl" name="symbol1" src="nczl65" fileName="moudules/pageGameMain/Game_SlotMachine/symbol.xml" xy="0,-203"/>
+    <component id="n2_nczl" name="symbol2" src="nczl65" fileName="moudules/pageGameMain/Game_SlotMachine/symbol.xml" xy="0,0"/>
+    <component id="n3_nczl" name="symbol3" src="nczl65" fileName="moudules/pageGameMain/Game_SlotMachine/symbol.xml" xy="0,203"/>
+    <component id="n4_nczl" name="symbol4" src="nczl65" fileName="moudules/pageGameMain/Game_SlotMachine/symbol.xml" xy="0,406"/>
+    <component id="n5_nczl" name="symbol5" src="nczl65" fileName="moudules/pageGameMain/Game_SlotMachine/symbol.xml" xy="0,609"/>
+    <component id="n6_nczl" name="symbol6" src="nczl65" fileName="moudules/pageGameMain/Game_SlotMachine/symbol.xml" xy="0,812"/>
+    <component id="n7_nczl" name="symbol7" src="nczl65" fileName="moudules/pageGameMain/Game_SlotMachine/symbol.xml" xy="0,1015"/>
+  </displayList>
+</component>

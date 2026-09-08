@@ -207,8 +207,6 @@ namespace MeiZhouHeiBao_3993
         private GComponent _templateAnchorTrails;
         /// <summary>收集盒星光挂点。</summary>
         private GComponent _anchorEffFgStar;
-        /// <summary>免费收集拖尾预制体。</summary>
-        private GameObject _goEffFgTuowei;
         /// <summary>收集盒星光预制体。</summary>
         private GameObject _goEffFgStar;
         /// <summary>免费黑豹拖尾飞行时长。</summary>
@@ -235,10 +233,6 @@ namespace MeiZhouHeiBao_3993
         private RewardMgr3993 _rewardMgr;
         /// <summary>大奖收集光效预制体。</summary>
         private GameObject _goEffSgGlow;
-        /// <summary>大奖收集拖尾预制体。</summary>
-        private GameObject _goEffSgTrails;
-        /// <summary>普通局豹头收集拖尾预制体。</summary>
-        private GameObject _goEffNgTrails;
         /// <summary>豹头 Hit 停留时长。</summary>
         private const float PantherWinHitHold = 0.4f;
         /// <summary>普通局豹头拖尾飞行时长。</summary>
@@ -313,7 +307,6 @@ namespace MeiZhouHeiBao_3993
             ResourceManager02.Instance.LoadAsset<GameObject>("Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Effect/Eff_fg_tuowei.prefab",
               (GameObject clone) =>
               {
-                  _goEffFgTuowei = clone;
                   ResLoadedCallback();
               });
             ResourceManager02.Instance.LoadAsset<GameObject>("Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Effect/Eff_fg_star.prefab",
@@ -339,13 +332,11 @@ namespace MeiZhouHeiBao_3993
             ResourceManager02.Instance.LoadAsset<GameObject>("Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Effect/Effect_sg_trails.prefab",
               (GameObject clone) =>
               {
-                  _goEffSgTrails = clone;
                   ResLoadedCallback();
               });
             ResourceManager02.Instance.LoadAsset<GameObject>("Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Effect/Effect_ng_trails.prefab",
               (GameObject clone) =>
               {
-                  _goEffNgTrails = clone;
                   ResLoadedCallback();
               });
             ResourceManager02.Instance.LoadAsset<GameObject>(PrefabPath + "/PageGameMain/Transition_NGTOFG.prefab",
@@ -454,18 +445,26 @@ namespace MeiZhouHeiBao_3993
             if (_fGuiPoolHelper != null && !_isInitPool)
             {
                 _isInitPool = true;
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolHit, CustomModel.Instance.symbolHitEffect.Values.ToList(), "symbol_hit#", 1);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolHit, CustomModel.Instance.symbolHitEffect.Values.ToList(), "symbol_hit#", 5);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolHit); // 中奖动画
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.borderEffect, "border#", 1);
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.pantherNormalBorderEffect, "border#", 1);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.borderEffect, "border#", 15);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder, CustomModel.Instance.pantherNormalBorderEffect, "border#", 5);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolBorder); // 边框
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 1);
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardBonusEffect, "symbol_reward_bonus#", 1);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 5);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardBonusEffect, "symbol_reward_bonus#", 15);
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardJpMajorEffect, "symbol_reward_jp#", 1);
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardJpMinorEffect, "symbol_reward_jp#", 1);
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolRewardJpMiniEffect, "symbol_reward_jp#", 1);
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolFreeConvertEffect.Values.ToList(), "symbol_free#", 1);
+                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear, CustomModel.Instance.symbolFreeConvertEffect.Values.ToList(), "symbol_free#", 5);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear); // 落下后图标静止动画 / 免费转豹
+              
+                _fGuiPoolHelper.Add(TagPoolObject.EffectTrail, CustomModel.Instance.trailFgEffect, "trail_fg#", 10);
+                _fGuiPoolHelper.Add(TagPoolObject.EffectTrail, CustomModel.Instance.trailNgEffect, "trail_ng#", 3);
+                _fGuiPoolHelper.Add(TagPoolObject.EffectTrail, CustomModel.Instance.trailSgEffect, "trail_sg#", 3);
+                _fGuiPoolHelper.PreLoad(TagPoolObject.EffectTrail);
+                _fGuiPoolHelper.Add(TagPoolObject.EffectGlow, CustomModel.Instance.glowSgEffect, "glow_sg#", 4);
+                _fGuiPoolHelper.PreLoad(TagPoolObject.EffectGlow);
+                PrewarmSmallGameNumPool();
                 _fGuiPoolHelper.WhenIdle(() =>
                 {
                     _isPoolPreloadDone = true;
@@ -499,8 +498,7 @@ namespace MeiZhouHeiBao_3993
                                     ?? contentPane.GetChild("anchorTrails") as GComponent;
             if (_templateAnchorTrails != null)
                 _templateAnchorTrails.visible = false;
-            _rewardMgr?.SetCollectContext(_anchorEffectFrame, _templateAnchorTrails, _goEffSgGlow, _goEffSgTrails,
-                _panelController);
+            _rewardMgr?.SetCollectContext(_anchorEffectFrame, _templateAnchorTrails, _goEffSgGlow, _panelController);
 
             // ---------- 4. 底部菜单 Panel ----------
             _gOwnerPanel = contentPane.GetChild("panel").asCom;
@@ -658,8 +656,7 @@ namespace MeiZhouHeiBao_3993
             if (_templateAnchorTrails != null)
                 _templateAnchorTrails.visible = false;
 
-            _rewardMgr?.SetCollectContext(_anchorEffectFrame, _templateAnchorTrails, _goEffSgGlow, _goEffSgTrails,
-                _panelController);
+            _rewardMgr?.SetCollectContext(_anchorEffectFrame, _templateAnchorTrails, _goEffSgGlow, _panelController);
 
             isReady = true;
         }
@@ -668,6 +665,7 @@ namespace MeiZhouHeiBao_3993
         {
             if (_goGameCtrl != null && !_goGameCtrl.activeSelf)
                 _goGameCtrl.SetActive(true);
+            SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.Default);
             base.OnOpen(currentPageName, eventData);
             EventCenter.Instance.AddEventListener<EventData>(PanelEvent.ON_PANEL_INPUT_EVENT, OnClickSpinButton);
             EventCenter.Instance.AddEventListener<CoinPushSpinParseEventArgs>(SBoxEventHandle.SBOX_COIN_PUSH_SPIN_PARSE, OnCoinPushSpinResultParse);
@@ -823,6 +821,35 @@ namespace MeiZhouHeiBao_3993
             if (_hasNotifiedPagePreloaded) return;
             _hasNotifiedPagePreloaded = true;
             preLoadedCallback?.Invoke();
+        }
+
+        /// <summary>预热 SmallGameNum FGUI 对象池（对齐大奖 15 格峰值）。</summary>
+        private void PrewarmSmallGameNumPool()
+        {
+            if (_fGuiGObjectPoolHelper == null)
+                return;
+
+            const string url = "ui://MeiZhouHeiBao/SmallGameNum";
+            const int warmCount = 15;
+            List<GObject> warmed = new List<GObject>(warmCount);
+            for (int i = 0; i < warmCount; i++)
+            {
+                try
+                {
+                    GObject obj = _fGuiGObjectPoolHelper.GetObject(url);
+                    if (obj == null)
+                        break;
+                    obj.visible = false;
+                    warmed.Add(obj);
+                }
+                catch (Exception)
+                {
+                    break;
+                }
+            }
+
+            for (int i = 0; i < warmed.Count; i++)
+                _fGuiGObjectPoolHelper.ReturnObject(warmed[i]);
         }
 
         /// <summary>向 PageManager 派发当前底部 Panel 锚点变更（仅变化时）。</summary>
@@ -1249,7 +1276,7 @@ namespace MeiZhouHeiBao_3993
                 allWinCredit += totalWinLineCredit;
 
                 _slotMachineController.SendTotalWinCreditEvent(allWinCredit); // 积分同步和退币处理
-                MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true); // 加钱动画
+                //MainBlackboardController.Instance.AddMyTempCredit(totalWinLineCredit, true); // 加钱动画
                 yield return _slotMachineController.ShowSymbolWinBySetting(_slotMachineController.GetTotalSymbolWin(winList), true, PusherEmperorsRein.SpinWinEvent.TotalWinLine);
                 yield return _slotMachineController.SlotWaitForSeconds(0.5f);
             }
@@ -1269,6 +1296,7 @@ namespace MeiZhouHeiBao_3993
             // ----------------- free win ---------------
             if (ContentModel.Instance.isFreeSpinTrigger)
             {
+                _allWinCredit += allWinCredit;
                 _slotMachineController.SkipWinLine(true);
                 _slotMachineController.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 11 }, true, 11,true);
                 yield return _slotMachineController.SlotWaitForSeconds(1.333f);
@@ -1278,6 +1306,7 @@ namespace MeiZhouHeiBao_3993
             // ----------------- small win ---------------
             if (ContentModel.Instance.isSmallGameTrigger)
             {
+                _allWinCredit += allWinCredit;
                 _slotMachineController.SkipWinLine(true);
                 _slotMachineController.ShowSymbolEffect(TagPoolObject.SymbolHit, new List<int>() { 12 }, true, 12,true);
                 yield return _slotMachineController.SlotWaitForSeconds(2.533f);
@@ -1566,13 +1595,17 @@ namespace MeiZhouHeiBao_3993
             {
                 Cell cel = bonusCells[i];
                 int score = GetPantherBonusScore(cel.row, cel.column);
-                GComponent trail = CreateAnchorTrails();
+                GComponent trail = RentTrail(CustomModel.Instance.trailNgEffect);
+                if (trail == null)
+                {
+                    OnPantherBonusArrived(score, cel);
+                    yield return new WaitForSeconds(PantherWinTrailGap);
+                    continue;
+                }
 
                 _anchorEffectFrame.AddChild(trail);
                 trail.SetPivot(0.5f, 0.5f, true);
                 trail.xy = _slotMachineController.SymbolCenterToNodeLocalPos(cel.column, cel.row, _anchorEffectFrame);
-                if (_goEffNgTrails != null)
-                    GameCommon.FguiUtils.AddWrapper(trail, Object.Instantiate(_goEffNgTrails));
 
                 bool arrived = false;
                 GComponent captured = trail;
@@ -1580,8 +1613,7 @@ namespace MeiZhouHeiBao_3993
                 int capturedScore = score;
                 trail.TweenMove(to, 0.5f).OnComplete(() =>
                 {
-                    GameCommon.FguiUtils.DeleteWrapper(captured);
-                    captured.Dispose();
+                    ReturnTrail(CustomModel.Instance.trailNgEffect, captured);
                     OnPantherBonusArrived(capturedScore, capturedCell);
                     arrived = true;
                 });
@@ -1980,7 +2012,7 @@ namespace MeiZhouHeiBao_3993
             for (int i = 0; i < cells.Count; i++)
             {
                 Cell cel = cells[i];
-                GComponent trail = CreateAnchorTrails();
+                GComponent trail = RentTrail(CustomModel.Instance.trailFgEffect);
                 if (trail == null)
                 {
                     AddCollectCount(1);
@@ -1992,17 +2024,13 @@ namespace MeiZhouHeiBao_3993
                 trail.SetPivot(0.5f, 0.5f, true);
                 trail.xy = _slotMachineController.SymbolCenterToNodeLocalPos(cel.column, cel.row, _anchorEffectFrame);
 
-                if (_goEffFgTuowei != null)
-                    GameCommon.FguiUtils.AddWrapper(trail, Object.Instantiate(_goEffFgTuowei));
-
                 //GameSoundHelper3993.Instance.PlaySoundEff(SoundKey.WildTail);
 
                 GComponent captured = trail;
                 float delay = i * PantherTrailStagger;
                 trail.TweenMove(to, PantherTrailDuration).SetDelay(delay).OnComplete(() =>
                 {
-                    GameCommon.FguiUtils.DeleteWrapper(captured);
-                    captured.Dispose();
+                    ReturnTrail(CustomModel.Instance.trailFgEffect, captured);
                     ShowCollectStar();
                     AddCollectCount(1);
                     pending--;
@@ -2048,14 +2076,58 @@ namespace MeiZhouHeiBao_3993
             return _anchorEffectFrame.GlobalToLocal(global);
         }
 
-        /// <summary>从包内或模板复制一条拖尾节点。</summary>
-        private GComponent CreateAnchorTrails()
+        /// <summary>从对象池取出一条拖尾，并重置粒子/TrailRenderer。</summary>
+        private GComponent RentTrail(string prefabPath)
         {
-            GComponent trail = UIPackage.CreateObject(pkgName, "anchorTrails")?.asCom;
-            if (trail == null && _templateAnchorTrails != null && !string.IsNullOrEmpty(_templateAnchorTrails.resourceURL))
-                trail = UIPackage.CreateObjectFromURL(_templateAnchorTrails.resourceURL)?.asCom;
+            if (_fGuiPoolHelper == null || string.IsNullOrEmpty(prefabPath))
+                return null;
 
+            GComponent trail = _fGuiPoolHelper.GetObject(TagPoolObject.EffectTrail, prefabPath)?.asCom;
+            if (trail == null)
+                return null;
+
+            ResetTrailVfx(trail);
             return trail;
+        }
+
+        /// <summary>停 Tween 后将拖尾还回对象池。</summary>
+        private void ReturnTrail(string prefabPath, GComponent trail)
+        {
+            if (trail == null)
+                return;
+
+            GTween.Kill(trail);
+            if (_fGuiPoolHelper == null || string.IsNullOrEmpty(prefabPath))
+            {
+                GameCommon.FguiUtils.DeleteWrapper(trail);
+                trail.Dispose();
+                return;
+            }
+
+            // ReturnToPool 的 name 须与建池 key 一致（文件名，不含路径/后缀）
+            string poolName = System.IO.Path.GetFileNameWithoutExtension(prefabPath);
+            _fGuiPoolHelper.ReturnToPool(TagPoolObject.EffectTrail, poolName, trail);
+        }
+
+        /// <summary>复用前清粒子与拖尾残留。</summary>
+        private static void ResetTrailVfx(GComponent trail)
+        {
+            GameObject go = GameCommon.FguiUtils.GetWrapperTarget(trail);
+            if (go == null)
+                return;
+
+            ParticleSystem[] particles = go.GetComponentsInChildren<ParticleSystem>(true);
+            for (int i = 0; i < particles.Length; i++)
+            {
+                particles[i].Clear(true);
+                particles[i].Play(true);
+            }
+
+            TrailRenderer[] trailRenderers = go.GetComponentsInChildren<TrailRenderer>(true);
+            for (int i = 0; i < trailRenderers.Length; i++)
+                trailRenderers[i].Clear();
+
+            GameCommon.FguiUtils.RefreshWrapper(trail);
         }
 
         /// <summary>显示并重播收集盒星光粒子。</summary>
@@ -2082,11 +2154,26 @@ namespace MeiZhouHeiBao_3993
                 _anchorEffFgStar.visible = false;
         }
 
-        /// <summary>清除拖尾父节点下除模板外的所有子节点。</summary>
+        /// <summary>清除拖尾父节点下已池化的拖尾（模板保留）。</summary>
         private void ClearPantherTrails()
         {
             if (_anchorEffectFrame == null)
                 return;
+
+            if (_fGuiPoolHelper != null)
+            {
+                // 先停掉还在飞的 Tween，避免还池后回调再操作
+                for (int i = _anchorEffectFrame.numChildren - 1; i >= 0; i--)
+                {
+                    GObject child = _anchorEffectFrame.GetChildAt(i);
+                    if (_templateAnchorTrails != null && child == _templateAnchorTrails)
+                        continue;
+                    GTween.Kill(child);
+                }
+
+                _fGuiPoolHelper.ReturnToPool(TagPoolObject.EffectTrail, _anchorEffectFrame);
+                return;
+            }
 
             for (int i = _anchorEffectFrame.numChildren - 1; i >= 0; i--)
             {

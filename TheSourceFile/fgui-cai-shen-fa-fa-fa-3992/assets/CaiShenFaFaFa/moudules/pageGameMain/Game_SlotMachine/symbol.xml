@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="203,203">
+  <displayList>
+    <component id="n0_nczl" name="animator" src="nczl64" fileName="moudules/pageGameMain/Game_SlotMachine/symbolAnimator.xml" xy="0,0"/>
+  </displayList>
+</component>

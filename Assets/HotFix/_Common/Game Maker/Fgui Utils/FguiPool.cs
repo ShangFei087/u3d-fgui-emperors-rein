@@ -15,7 +15,10 @@ public enum TagPoolObject
     SymbolGoldEffect,
     SymbolBorder,
     SymbolText,
-
+    /// <summary>收集拖尾特效。</summary>
+    EffectTrail,
+    /// <summary>收集光效（Effect_sg_glow）。</summary>
+    EffectGlow,
 }
 
 [System.Serializable]  //Inspector窗口可见

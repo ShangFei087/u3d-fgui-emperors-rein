@@ -90,6 +90,34 @@ namespace MeiZhouHeiBao_3993
         public string pantherNormalBorderEffect =>
             "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/Border/PantherNormalBorder.prefab";
 
+        /// <summary>免费局黑豹收集拖尾。</summary>
+        public string trailFgEffect =>
+            "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Effect/Eff_fg_tuowei.prefab";
+
+        /// <summary>普通局豹头收集拖尾。</summary>
+        public string trailNgEffect =>
+            "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Effect/Effect_ng_trails.prefab";
+
+        /// <summary>大奖收集拖尾。</summary>
+        public string trailSgEffect =>
+            "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Effect/Effect_sg_trails.prefab";
+
+        /// <summary>大奖收集光效。</summary>
+        public string glowSgEffect =>
+            "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Effect/Effect_sg_glow.prefab";
+
+        /// <summary>彩金弹窗 Major Spine。</summary>
+        public string popupJackpotMajor =>
+            "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupSmallGameJackpotWin/Pup_MAJOR.prefab";
+
+        /// <summary>彩金弹窗 Minor Spine。</summary>
+        public string popupJackpotMinor =>
+            "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupSmallGameJackpotWin/Pop_Minor.prefab";
+
+        /// <summary>彩金弹窗 Mini Spine。</summary>
+        public string popupJackpotMini =>
+            "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/PopupSmallGameJackpotWin/Pop_Mini.prefab";
+
         /// <summary> 大奖滚轮 Bonus Spine（FguiPool AnchorRoot + Wrapper） </summary>
         public string symbolRewardBonusEffect =>
             "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Prefabs/Symbols/SymbolSmallGame/SymbolBonus.prefab";

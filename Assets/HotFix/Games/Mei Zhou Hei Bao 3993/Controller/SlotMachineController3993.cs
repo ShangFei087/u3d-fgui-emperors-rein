@@ -678,12 +678,13 @@ namespace MeiZhouHeiBao_3993
 
             RemoveBonusScoreBindAt(row, col);
 
-            GComponent numCom = UIPackage.CreateObject("MeiZhouHeiBao", "SmallGameNum")?.asCom;
+            GComponent numCom = RentSmallGameNum();
             if (numCom == null)
                 return;
 
             effectCom.AddChild(numCom);
             numCom.SetXY(0, 0);
+            numCom.visible = true;
 
             GTextField txt = numCom.GetChild("txtScore")?.asTextField;
             if (txt != null)
@@ -700,6 +701,39 @@ namespace MeiZhouHeiBao_3993
             if (ok)
                 _bonusScoreBinds.Add(new BonusScoreBind { Anim = anim, Num = numCom, Row = row, Col = col });
             else
+                ReturnSmallGameNum(numCom);
+        }
+
+        private const string SmallGameNumUrl = "ui://MeiZhouHeiBao/SmallGameNum";
+
+        private GComponent RentSmallGameNum()
+        {
+            if (fguiGObjectPoolHelper != null)
+            {
+                try
+                {
+                    return fguiGObjectPoolHelper.GetObject(SmallGameNumUrl)?.asCom;
+                }
+                catch (Exception)
+                {
+                    // pool 未就绪时回退 CreateObject
+                }
+            }
+
+            return UIPackage.CreateObject("MeiZhouHeiBao", "SmallGameNum")?.asCom;
+        }
+
+        private void ReturnSmallGameNum(GComponent numCom)
+        {
+            if (numCom == null)
+                return;
+
+            numCom.RemoveFromParent();
+            numCom.visible = false;
+            string dataStr = numCom.data as string;
+            if (fguiGObjectPoolHelper != null && !string.IsNullOrEmpty(dataStr) && dataStr.Contains("pool_gobj"))
+                fguiGObjectPoolHelper.ReturnObject(numCom);
+            else
                 numCom.Dispose();
         }
 
@@ -712,7 +746,7 @@ namespace MeiZhouHeiBao_3993
                     continue;
 
                 bind.Anim?.DetachAll();
-                bind.Num?.Dispose();
+                ReturnSmallGameNum(bind.Num);
                 _bonusScoreBinds.RemoveAt(i);
             }
         }
@@ -737,7 +771,7 @@ namespace MeiZhouHeiBao_3993
             for (int i = 0; i < _bonusScoreBinds.Count; i++)
             {
                 _bonusScoreBinds[i].Anim?.DetachAll();
-                _bonusScoreBinds[i].Num?.Dispose();
+                ReturnSmallGameNum(_bonusScoreBinds[i].Num);
             }
             _bonusScoreBinds.Clear();
         }

@@ -311,7 +311,7 @@ namespace MeiZhouHeiBao_3993
                 GameCommon.FguiUtils.RefreshWrapper(_effectCom);
                 _animPlayer = new AnimPlayer(goRoot);
                 PlayIdleFromStart();
-                _numCom = UIPackage.CreateObject("MeiZhouHeiBao", "SmallGameNum")?.asCom;
+                _numCom = RentSmallGameNum();
                 if (_numCom != null)
                 {
                     GTextField txt = _numCom.GetChild("txtScore")?.asTextField;
@@ -320,6 +320,7 @@ namespace MeiZhouHeiBao_3993
 
                     _effectCom.AddChild(_numCom);
                     _numCom.SetXY(0, 0);
+                    _numCom.visible = true;
 
                     if (!_animPlayer.Attach(
                             _numCom,
@@ -328,7 +329,7 @@ namespace MeiZhouHeiBao_3993
                             localScale: new Vector3(0.01f, 0.01f, 0.01f),
                             localRot: Quaternion.identity))
                     {
-                        _numCom.Dispose();
+                        ReturnSmallGameNum(_numCom);
                         _numCom = null;
                     }
                 }
@@ -439,17 +440,18 @@ namespace MeiZhouHeiBao_3993
         private void AttachGlow()
         {
             ClearGlow();
-            GameObject prefab = _rewardRoll.GlowPrefab;
-            if (prefab == null || _animator == null)
+            FguiPoolHelper pool = _rewardRoll.FguiPoolHelper;
+            if (pool == null || _animator == null)
                 return;
 
-            _glowCom = UIPackage.CreateObject("MeiZhouHeiBao", "anchorCom")?.asCom;
+            string prefabPath = CustomModel.Instance.glowSgEffect;
+            _glowCom = pool.GetObject(TagPoolObject.EffectGlow, prefabPath)?.asCom;
             if (_glowCom == null)
                 return;
 
             _animator.AddChild(_glowCom);
             _glowCom.SetXY(_animator.width * 0.5f, _animator.height * 0.5f);
-            GameCommon.FguiUtils.AddWrapper(_glowCom, UnityEngine.Object.Instantiate(prefab));
+            ResetGlowVfx(_glowCom);
             _glowCom.visible = false;
         }
 
@@ -461,14 +463,7 @@ namespace MeiZhouHeiBao_3993
 
             _glowCom.visible = false;
             _glowCom.visible = true;
-            GameCommon.FguiUtils.RefreshWrapper(_glowCom);
-            GameObject go = GameCommon.FguiUtils.GetWrapperTarget(_glowCom);
-            if (go == null)
-                return;
-
-            ParticleSystem[] particles = go.GetComponentsInChildren<ParticleSystem>(true);
-            for (int i = 0; i < particles.Length; i++)
-                particles[i].Play(true);
+            ResetGlowVfx(_glowCom);
         }
 
         /// <summary>恢复图标默认 sortingOrder。</summary>
@@ -495,15 +490,41 @@ namespace MeiZhouHeiBao_3993
                 _mask.visible = visible;
         }
 
-        /// <summary>卸掉收集光效。</summary>
+        /// <summary>卸掉收集光效并还池。</summary>
         private void ClearGlow()
         {
             if (_glowCom == null)
                 return;
 
-            GameCommon.FguiUtils.DeleteWrapper(_glowCom);
-            _glowCom.Dispose();
+            FguiPoolHelper pool = _rewardRoll.FguiPoolHelper;
+            if (pool != null)
+            {
+                string poolName = System.IO.Path.GetFileNameWithoutExtension(CustomModel.Instance.glowSgEffect);
+                pool.ReturnToPool(TagPoolObject.EffectGlow, poolName, _glowCom);
+            }
+            else
+            {
+                GameCommon.FguiUtils.DeleteWrapper(_glowCom);
+                _glowCom.Dispose();
+            }
+
             _glowCom = null;
+        }
+
+        /// <summary>复用前清粒子。</summary>
+        private static void ResetGlowVfx(GComponent glow)
+        {
+            GameCommon.FguiUtils.RefreshWrapper(glow);
+            GameObject go = GameCommon.FguiUtils.GetWrapperTarget(glow);
+            if (go == null)
+                return;
+
+            ParticleSystem[] particles = go.GetComponentsInChildren<ParticleSystem>(true);
+            for (int i = 0; i < particles.Length; i++)
+            {
+                particles[i].Clear(true);
+                particles[i].Play(true);
+            }
         }
 
         /// <summary>Spine 还池并清分数挂点。</summary>
@@ -530,7 +551,41 @@ namespace MeiZhouHeiBao_3993
             _effectPoolKey = null;
         }
 
-        /// <summary>卸骨骼挂点并销毁分数组件。</summary>
+        private const string SmallGameNumUrl = "ui://MeiZhouHeiBao/SmallGameNum";
+
+        private GComponent RentSmallGameNum()
+        {
+            FguiGObjectPoolHelper gPool = FguiGObjectPoolHelper.Instance;
+            if (gPool != null)
+            {
+                try
+                {
+                    return gPool.GetObject(SmallGameNumUrl)?.asCom;
+                }
+                catch (System.Exception)
+                {
+                }
+            }
+
+            return UIPackage.CreateObject("MeiZhouHeiBao", "SmallGameNum")?.asCom;
+        }
+
+        private void ReturnSmallGameNum(GComponent numCom)
+        {
+            if (numCom == null)
+                return;
+
+            numCom.RemoveFromParent();
+            numCom.visible = false;
+            string dataStr = numCom.data as string;
+            FguiGObjectPoolHelper gPool = FguiGObjectPoolHelper.Instance;
+            if (gPool != null && !string.IsNullOrEmpty(dataStr) && dataStr.Contains("pool_gobj"))
+                gPool.ReturnObject(numCom);
+            else
+                numCom.Dispose();
+        }
+
+        /// <summary>卸骨骼挂点并还回分数组件。</summary>
         private void ClearNumBind()
         {
             _animPlayer?.DetachAll();
@@ -538,7 +593,7 @@ namespace MeiZhouHeiBao_3993
 
             if (_numCom != null)
             {
-                _numCom.Dispose();
+                ReturnSmallGameNum(_numCom);
                 _numCom = null;
             }
         }

@@ -9,14 +9,17 @@ namespace MeiZhouHeiBao_3993
     public class PanelController3993 : PanelBaseController
     {
         protected override string PanelPackagePath => "Assets/GameRes/Panel/Panel3993/FGUIs";
-        protected override string ShortSpinPrefabPath => "Assets/GameRes/Panel/Panel3993/Prefabs/Eff_ShortSpin.prefab"; 
+        protected override string ShortSpinPrefabPath => "Assets/GameRes/Panel/Panel3993/Prefabs/Eff_ShortSpin.prefab";
         protected override string LongSpinPrefabPath => "Assets/GameRes/Panel/Panel3993/Prefabs/Eff_LongSpin.prefab";
 
         private const string NgWinBorderPath = "Assets/GameRes/Panel/Panel3993/Prefabs/Eff_ng_winborder.prefab";
         private const string SgWinBorderPath = "Assets/GameRes/Panel/Panel3993/Prefabs/Eff_sg_winborder.prefab";
 
         private GameObject _goNgWinBorder, _goSgWinBorder;
-        private GameObject _clonegoNgWinBorder, _clonegoSgWinBorder;
+        /// <summary>常驻普通赢分框实例，只显隐不销毁。</summary>
+        private GameObject _clonegoNgWinBorder;
+        /// <summary>常驻大奖赢分框实例，只显隐不销毁。</summary>
+        private GameObject _clonegoSgWinBorder;
         private GComponent _anchorWinBorder;
 
         public GComponent AnchorWinBorder => _anchorWinBorder;
@@ -33,9 +36,7 @@ namespace MeiZhouHeiBao_3993
             Action callback = () =>
             {
                 if (--count == 0)
-                {
-                    BindWinBorders();
-                }
+                    EnsureWinBorderClones();
             };
             ResourceManager02.Instance.LoadAsset<GameObject>(NgWinBorderPath, prefab =>
             {
@@ -49,59 +50,75 @@ namespace MeiZhouHeiBao_3993
             });
         }
 
-        /// <summary> 进入游戏只挂普通框，默认隐藏。 </summary>
-        private void BindWinBorders()
+        /// <summary>进页时各 Instantiate 一份并默认挂普通框（隐藏）。</summary>
+        private void EnsureWinBorderClones()
         {
-            if (_anchorWinBorder == null || _goNgWinBorder == null)
+            if (_anchorWinBorder == null)
                 return;
 
-            BindWinBorder(_goNgWinBorder, ref _clonegoNgWinBorder);
+            if (_clonegoNgWinBorder == null && _goNgWinBorder != null)
+                _clonegoNgWinBorder = GameObject.Instantiate(_goNgWinBorder);
+            if (_clonegoSgWinBorder == null && _goSgWinBorder != null)
+                _clonegoSgWinBorder = GameObject.Instantiate(_goSgWinBorder);
+
+            if (_clonegoNgWinBorder == null)
+                return;
+
+            // 初始只挂普通框；大奖框常驻在场景外，切换时用 ChangeWrapperTarget，不 Destroy
+            GameObject current = GameCommon.FguiUtils.GetWrapperTarget(_anchorWinBorder);
+            if (current == null)
+                GameCommon.FguiUtils.AddWrapper(_anchorWinBorder, _clonegoNgWinBorder);
+            else if (current != _clonegoNgWinBorder)
+                GameCommon.FguiUtils.ChangeWrapperTarget(_anchorWinBorder, _clonegoNgWinBorder, true);
+
             HideWinBorders();
         }
 
-        /// <summary>
-        /// 在 anchorWinBorder 上切换特效：卸掉当前框并销毁，再挂上指定实例。
-        /// </summary>
-        private void BindWinBorder(GameObject prefab, ref GameObject clone)
+        /// <summary>把指定常驻实例挂到 anchor（不销毁另一份）。</summary>
+        private void SwitchWinBorder(GameObject clone)
         {
-            if (_anchorWinBorder == null || prefab == null)
+            if (_anchorWinBorder == null || clone == null)
                 return;
+
+            EnsureWinBorderClones();
 
             GameObject current = GameCommon.FguiUtils.GetWrapperTarget(_anchorWinBorder);
-            if (current != null && current == clone)
+            if (current == clone)
                 return;
 
-            GameCommon.FguiUtils.DeleteWrapper(_anchorWinBorder);
-            if (current == _clonegoNgWinBorder)
-                _clonegoNgWinBorder = null;
-            if (current == _clonegoSgWinBorder)
-                _clonegoSgWinBorder = null;
+            if (current == null)
+                GameCommon.FguiUtils.AddWrapper(_anchorWinBorder, clone);
+            else
+                GameCommon.FguiUtils.ChangeWrapperTarget(_anchorWinBorder, clone, true);
 
-            clone = GameObject.Instantiate(prefab);
-            GameCommon.FguiUtils.AddWrapper(_anchorWinBorder, clone);
+            GameCommon.FguiUtils.RefreshWrapper(_anchorWinBorder);
         }
 
-        /// <summary> 普通游戏：挂普通框。 </summary>
+        /// <summary>普通游戏：显示常驻普通框。</summary>
         public void ShowNormalWinBorder()
         {
-            BindWinBorder(_goNgWinBorder, ref _clonegoNgWinBorder);
+            SwitchWinBorder(_clonegoNgWinBorder);
             SetWinBorderVisible(_clonegoNgWinBorder, true);
+            if (_clonegoSgWinBorder != null)
+                SetWinBorderVisible(_clonegoSgWinBorder, false);
             SetHolderVisible(true);
         }
 
-        /// <summary> 大奖：删掉普通框，改挂大奖框。 </summary>
+        /// <summary>大奖：显示常驻大奖框。</summary>
         public void ShowBigWinBorder()
         {
-            BindWinBorder(_goSgWinBorder, ref _clonegoSgWinBorder);
+            SwitchWinBorder(_clonegoSgWinBorder);
             SetWinBorderVisible(_clonegoSgWinBorder, true);
+            if (_clonegoNgWinBorder != null)
+                SetWinBorderVisible(_clonegoNgWinBorder, false);
             SetHolderVisible(true);
         }
 
-        /// <summary> 只隐藏，不卸载当前挂着的框。 </summary>
+        /// <summary>只隐藏，不卸载/销毁常驻框。</summary>
         public void HideWinBorders()
         {
-            GameObject current = GameCommon.FguiUtils.GetWrapperTarget(_anchorWinBorder);
-            SetWinBorderVisible(current, false);
+            SetWinBorderVisible(_clonegoNgWinBorder, false);
+            SetWinBorderVisible(_clonegoSgWinBorder, false);
             SetHolderVisible(false);
         }
 

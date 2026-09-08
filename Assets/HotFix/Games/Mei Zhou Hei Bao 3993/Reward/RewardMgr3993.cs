@@ -7,7 +7,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Object = UnityEngine.Object;
 
 namespace MeiZhouHeiBao_3993
 {
@@ -28,8 +27,6 @@ namespace MeiZhouHeiBao_3993
         private const float CollectAnimDuration = 1.0f;
         /// <summary>相邻两格收集之间的间隔。</summary>
         private const float CollectBetweenDelay = 0.15f;
-        /// <summary>FairyGUI 包名，用于创建拖尾节点。</summary>
-        private const string PkgName = "MeiZhouHeiBao";
         /// <summary>大奖 NPC 循环待机。</summary>
         private const string NpcIdle1 = "Idle1";
         /// <summary>本把未出图标时的 NPC 反应。</summary>
@@ -68,8 +65,8 @@ namespace MeiZhouHeiBao_3993
         private GComponent _templateTrails;
         /// <summary>收集光效预制体。</summary>
         private GameObject _glowPrefab;
-        /// <summary>收集拖尾预制体。</summary>
-        private GameObject _trailsPrefab;
+        /// <summary>符号/拖尾对象池。</summary>
+        private FguiPoolHelper _fguiPoolHelper;
         /// <summary>底部 Panel，用于赢分框与按钮锁定。</summary>
         private PanelController3993 _panelController;
         /// <summary>咆哮 Spine 挂点。</summary>
@@ -132,6 +129,7 @@ namespace MeiZhouHeiBao_3993
         {
             _pageRoot = pageRoot;
             _monoHelper = monoHelper;
+            _fguiPoolHelper = fguiPoolHelper;
             if (_root != rewardSlotMachine || _rewardRoll == null)
             {
                 _rewardRoll?.Dispose();
@@ -143,14 +141,13 @@ namespace MeiZhouHeiBao_3993
             _rewardRoll?.SetGlowPrefab(_glowPrefab);
         }
 
-        /// <summary>注入收集拖尾、光效与 Panel。</summary>
+        /// <summary>注入收集拖尾父节点、光效与 Panel。</summary>
         public void SetCollectContext(GComponent effectFrame, GComponent templateTrails, GameObject glowPrefab,
-            GameObject trailsPrefab, PanelController3993 panelController)
+            PanelController3993 panelController)
         {
             _effectFrame = effectFrame;
             _templateTrails = templateTrails;
             _glowPrefab = glowPrefab;
-            _trailsPrefab = trailsPrefab;
             _panelController = panelController;
             _rewardRoll?.SetGlowPrefab(_glowPrefab);
         }
@@ -362,17 +359,18 @@ namespace MeiZhouHeiBao_3993
             _collectScores.Clear();
             _rewardRoll?.CollectLockedBonuses(_collectElements, _collectScores);
 
-            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,
-                new EventData<long>(SlotMachineEvent.TotalWinCredit, 0L));
+            //EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,
+            //    new EventData<long>(SlotMachineEvent.TotalWinCredit, 0L));
             _panelController?.HideWinBorders();
 
-            if (_collectElements.Count == 0 || _effectFrame == null || _trailsPrefab == null)
+            if (_collectElements.Count == 0 || _effectFrame == null || _fguiPoolHelper == null)
             {
                 FinishGame();
                 yield break;
             }
 
             Vector2 to = GetWinBorderLocalPos();
+            string trailPath = CustomModel.Instance.trailSgEffect;
             for (int i = 0; i < _collectElements.Count; i++)
             {
                 RewardElement3993 element = _collectElements[i];
@@ -393,7 +391,7 @@ namespace MeiZhouHeiBao_3993
                 }
 
                 int displayScore = ContentModel.GetDisplayScore(score);
-                GComponent trail = CreateTrail();
+                GComponent trail = RentTrail(trailPath);
                 if (trail == null)
                 {
                     OnTrailArrived(displayScore);
@@ -407,15 +405,13 @@ namespace MeiZhouHeiBao_3993
                 trail.SetPivot(0.5f, 0.5f, true);
                 Vector2 from = _effectFrame.GlobalToLocal(element != null ? element.GetCenterGlobal() : Vector2.zero);
                 trail.xy = from;
-                GameCommon.FguiUtils.AddWrapper(trail, Object.Instantiate(_trailsPrefab));
 
                 bool arrived = false;
                 GComponent captured = trail;
                 int capturedScore = displayScore;
                 trail.TweenMove(to, CollectTrailDuration).OnComplete(() =>
                 {
-                    GameCommon.FguiUtils.DeleteWrapper(captured);
-                    captured.Dispose();
+                    ReturnTrail(trailPath, captured);
                     OnTrailArrived(capturedScore);
                     arrived = true;
                 });
@@ -601,20 +597,79 @@ namespace MeiZhouHeiBao_3993
             return _effectFrame.GlobalToLocal(global);
         }
 
-        /// <summary>从包内或模板复制一条拖尾节点。</summary>
-        private GComponent CreateTrail()
+        /// <summary>从对象池取出一条大奖拖尾，并重置粒子/TrailRenderer。</summary>
+        private GComponent RentTrail(string prefabPath)
         {
-            GComponent trail = UIPackage.CreateObject(PkgName, "anchorTrails")?.asCom;
-            if (trail == null && _templateTrails != null && !string.IsNullOrEmpty(_templateTrails.resourceURL))
-                trail = UIPackage.CreateObjectFromURL(_templateTrails.resourceURL)?.asCom;
+            if (_fguiPoolHelper == null || string.IsNullOrEmpty(prefabPath))
+                return null;
+
+            GComponent trail = _fguiPoolHelper.GetObject(TagPoolObject.EffectTrail, prefabPath)?.asCom;
+            if (trail == null)
+                return null;
+
+            ResetTrailVfx(trail);
             return trail;
         }
 
-        /// <summary>清除拖尾父节点下除模板外的子节点。</summary>
+        /// <summary>停 Tween 后将拖尾还回对象池。</summary>
+        private void ReturnTrail(string prefabPath, GComponent trail)
+        {
+            if (trail == null)
+                return;
+
+            GTween.Kill(trail);
+            if (_fguiPoolHelper == null || string.IsNullOrEmpty(prefabPath))
+            {
+                GameCommon.FguiUtils.DeleteWrapper(trail);
+                trail.Dispose();
+                return;
+            }
+
+            // ReturnToPool 的 name 须与建池 key 一致（文件名，不含路径/后缀）
+            string poolName = System.IO.Path.GetFileNameWithoutExtension(prefabPath);
+            _fguiPoolHelper.ReturnToPool(TagPoolObject.EffectTrail, poolName, trail);
+        }
+
+        /// <summary>复用前清粒子与拖尾残留。</summary>
+        private static void ResetTrailVfx(GComponent trail)
+        {
+            GameObject go = GameCommon.FguiUtils.GetWrapperTarget(trail);
+            if (go == null)
+                return;
+
+            ParticleSystem[] particles = go.GetComponentsInChildren<ParticleSystem>(true);
+            for (int i = 0; i < particles.Length; i++)
+            {
+                particles[i].Clear(true);
+                particles[i].Play(true);
+            }
+
+            TrailRenderer[] trailRenderers = go.GetComponentsInChildren<TrailRenderer>(true);
+            for (int i = 0; i < trailRenderers.Length; i++)
+                trailRenderers[i].Clear();
+
+            GameCommon.FguiUtils.RefreshWrapper(trail);
+        }
+
+        /// <summary>清除拖尾父节点下已池化的拖尾。</summary>
         private void ClearBonusTrails()
         {
             if (_effectFrame == null)
                 return;
+
+            if (_fguiPoolHelper != null)
+            {
+                for (int i = _effectFrame.numChildren - 1; i >= 0; i--)
+                {
+                    GObject child = _effectFrame.GetChildAt(i);
+                    if (_templateTrails != null && child == _templateTrails)
+                        continue;
+                    GTween.Kill(child);
+                }
+
+                _fguiPoolHelper.ReturnToPool(TagPoolObject.EffectTrail, _effectFrame);
+                return;
+            }
 
             for (int i = _effectFrame.numChildren - 1; i >= 0; i--)
             {
