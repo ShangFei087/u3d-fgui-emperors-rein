@@ -973,8 +973,6 @@ namespace XingYunZhiLun_3998
                         slotMachineCtrl.SkipWinLine(false);
                     }
                 }
-                ////加钱动画
-                //MainBlackboardController.Instance.AddMyTempCredit(allWinCredit, true, isAddCreditAnim);
             }
             #endregion
 
@@ -1234,10 +1232,6 @@ namespace XingYunZhiLun_3998
                 if (winList.Count > 0)
                 {
                     yield return new WaitForSeconds(0.7f);
-
-                    //slotMachineCtrl.SendTotalWinCreditEvent(0);
-                    // 本剧同步玩家金钱
-                    //MainBlackboardController.Instance.SyncMyTempCreditToReal(false);
                 }
 
                 //显示中奖动画
@@ -1279,11 +1273,12 @@ namespace XingYunZhiLun_3998
                 //slotMachineCtrl.SendTotalWinCreditEvent(ContentModel.Instance.freeSpinTotalWinCredit);
 
 
-                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,
-               new EventData<long>(SlotMachineEvent.SingleWinBonus, ContentModel.Instance.freeSpinTotalWinCredit));
-
                 yield return new WaitUntil(() => isNext == true);
                 isNext = false;
+
+
+                EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,
+               new EventData<long>(SlotMachineEvent.SingleWinBonus, ContentModel.Instance.freeSpinTotalWinCredit));
             }
             #endregion
 
