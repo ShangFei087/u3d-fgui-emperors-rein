@@ -226,7 +226,7 @@ namespace CaiFuHuoChe_3996
             FreeGameType = MakeFreeGameType.OnScatter,             //触发免费奖方式
             IsScatterInLine = false,                               //Scatter图标是否依赖中奖线
             Make2FreeGameCount = new int[] { 3, 4, 5 },            //触发免费奖所需数量(Scatter图标/充能)
-            FreeGameTime = new int[] { 8, 10, 12 },                  //免费次数
+            FreeGameTime = new int[] { 12, 14, 16 },                  //免费次数
         };
 
         public FreeGameConfig jackpotGameConfig
