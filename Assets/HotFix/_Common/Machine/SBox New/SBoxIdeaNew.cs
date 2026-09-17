@@ -23,6 +23,7 @@
 using Hal;
 using SimpleJSON;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SBoxApi
@@ -145,6 +146,19 @@ namespace SBoxApi
     {
         static string version = "1.0.0";
         public static SBoxIdeaInfo SBoxInfo => sBoxInfo;
+
+        static readonly Dictionary<int, Func<int, int>> LastAckProviders = new Dictionary<int, Func<int, int>>();
+
+        /// <summary>
+        /// 各机台初始化时注册断电续免费 lastAck：playerId => 已完整收到的赠送下标（-1 从未确认）。
+        /// </summary>
+        public static void RegisterFreeSpinLastAck(int gameId, Func<int, int> getLastAck)
+        {
+            if (getLastAck == null)
+                LastAckProviders.Remove(gameId);
+            else
+                LastAckProviders[gameId] = getLastAck;
+        }
 
         public static void CoinPushReset(int pid)
         {
@@ -614,11 +628,15 @@ namespace SBoxApi
         */
         public static void GameSwitch(int gameid)
         {
-            Debug.Log("SBoxIdea 20200:" + gameid);
-            SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20200, source: 1, target: 2, size: 2);
+            int lastAck = -1;
+            if (LastAckProviders.TryGetValue(gameid, out Func<int, int> getLastAck) && getLastAck != null)
+                lastAck = getLastAck(SBoxModel.Instance.pid);
 
+            Debug.Log($"SBoxIdea 20200:{gameid} lastAck={lastAck}");
+            SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20200, source: 1, target: 2, size: 3);
             sBoxPacket.data[0] = gameid;
-            sBoxPacket.data[1] = 0;
+            sBoxPacket.data[1] = lastAck;
+            sBoxPacket.data[2] = 0;
 
             SBoxIOEvent.AddListener(sBoxPacket.cmd, GameSwitchR);
             SBoxIOStream.Write(sBoxPacket);
@@ -626,8 +644,11 @@ namespace SBoxApi
 
         private static void GameSwitchR(SBoxPacket sBoxPacket)
         {
-            Debug.Log("算法切换游戏成功:" + sBoxPacket.data[0]);
-            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SWITCH_GAME, sBoxPacket.data[0]);
+            int[] data = sBoxPacket.data;
+            LastGameSwitchGameId = data != null && data.Length > 0 ? data[0] : 0;
+            LastGameSwitchSyncedFreeIdx = data != null && data.Length > 1 ? data[1] : -1;
+            Debug.Log($"算法切换游戏成功:{LastGameSwitchGameId} syncedFreeIdx={LastGameSwitchSyncedFreeIdx}");
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SWITCH_GAME, LastGameSwitchGameId);
         }
 
 

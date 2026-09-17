@@ -688,6 +688,75 @@ public partial class SQLitePlayerPrefs03 : MonoSingleton<SQLitePlayerPrefs03>
         }
     }
 
+    /// <summary>
+    /// 耐久写入字符串：在数据库线程执行本次 SQL，完成后回主线程回调。不要堵主线程。
+    /// </summary>
+    public void SetStringDurable(string key, string value, Action<bool> callback)
+    {
+        if (isInit == false)
+        {
+            Debug.LogError("db init has not finish!!");
+            callback?.Invoke(false);
+            return;
+        }
+
+        if (string.IsNullOrEmpty(key))
+        {
+            callback?.Invoke(false);
+            return;
+        }
+
+        value = value ?? "";
+        string ciphertext = GetCiphertext(key, value, "string");
+        string escapedKey = key.Replace("'", "''");
+        string escapedValue = value.Replace("'", "''");
+        string escapedCipher = (ciphertext ?? "").Replace("'", "''");
+
+        bool exists = tempKV.ContainsKey(key);
+        if (exists)
+            tempKV[key] = value;
+        else
+            tempKV.Add(key, value);
+
+        string sql = exists
+            ? $"UPDATE PlayerPrefs SET value='{escapedValue}', ciphertext='{escapedCipher}' WHERE key='{escapedKey}'"
+            : $"INSERT INTO PlayerPrefs VALUES('{escapedKey}','{escapedValue}','string','{escapedCipher}')";
+
+        lock (writeQueue)
+        {
+            writeQueue.Enqueue(() =>
+            {
+                bool ok = false;
+                try
+                {
+                    using (IDbCommand cmd = dbConnection.CreateCommand())
+                    {
+                        cmd.CommandText = sql;
+                        cmd.ExecuteNonQuery();
+                        ok = true;
+                        try
+                        {
+                            cmd.CommandText = "PRAGMA synchronous = FULL;";
+                            cmd.ExecuteNonQuery();
+                            cmd.CommandText = "PRAGMA wal_checkpoint(FULL);";
+                            cmd.ExecuteNonQuery();
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogWarning("[SQLite] 刷盘 pragma 失败（写入已成功）: " + e.Message);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("SetStringDurable 失败: " + e.Message + $"  sql = {sql}");
+                }
+
+                EnqueueToMainThread(() => callback?.Invoke(ok));
+            });
+        }
+    }
+
 
 
     /// <summary>

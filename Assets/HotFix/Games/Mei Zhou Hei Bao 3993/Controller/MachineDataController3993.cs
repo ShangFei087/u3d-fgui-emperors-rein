@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using SBoxApi;
 using SimpleJSON;
 using SlotMaker;
-using SlotZhuZaiJinBi1700;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -357,14 +356,13 @@ namespace MeiZhouHeiBao_3993
 
             if (ContentModel.Instance.PendingFreeSpinReconnectValidation)
             {
-                //ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
-                //bool expectGiveSpin = ContentModel.Instance.freeSpinTotalTimes > 0 && ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes;
-                //if (expectGiveSpin && openType != (int)OpenType.OT_Give)
-                //{
-                //    DebugUtils.LogError($"[G1700] 免费局重连校验失败：预期赠送局 OpenType={(int)OpenType.OT_Give}，实际={openType}。已清除本地快照并回退主游戏。");
-                //    FreeSpinSessionStoreG1700.Clear(SBoxModel.Instance.pid);
-                //    FreeSpinSessionStoreG1700.ResetContentModelFreeStateToBaseGame();
-                //}
+                ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
+                bool expectGiveSpin = ContentModel.Instance.freeSpinTotalTimes > 0 && ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes;
+                if (expectGiveSpin && openType != (int)OpenType.OT_Give)
+                {
+                    DebugUtils.LogError($"[G3993] 免费重连校验失败：预期赠送局 OpenType={(int)OpenType.OT_Give}，实际={openType}。已清除免费重连并回退主游戏。");
+                    FreeSpinSessionStoreG3993.FinishAndClearAll();
+                }
             }
 
             //判断普通奖
@@ -428,7 +426,18 @@ namespace MeiZhouHeiBao_3993
             ContentModel.Instance.winList = winList;
 
             List<int> deckRowCol = SlotTool.GetDeckRowCol(strDeckRowCol);
-            bool inFreeGive = ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes;
+            bool inFreeGive = openType == (int)OpenType.OT_Give;
+            bool localStillInFree = ContentModel.Instance.freeSpinTotalTimes > 0&& ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes;
+            if (localStillInFree && !inFreeGive)
+            {
+                DebugUtils.LogError($"[G3993] 算法已结束赠送 OpenType={openType}，本地剩余 {ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes}。按算法结束免费。");
+                ContentModel.Instance.curReelStripsIndex = "BS";
+                ContentModel.Instance.nextReelStripsIndex = "BS";
+                ContentModel.Instance.isFreeSpinFinish = true;
+                ContentModel.Instance.ShowFreeSpinRemainTime = 0;
+                ContentModel.Instance.PendingAlgoFreeSettle = false;
+            }
+
             if (!inFreeGive) TryApplyPantherWin(res, deckRowCol, wheelChessNum);
 
             ContentModel.Instance.baseGameWinCredit = totalLineWin + ContentModel.Instance.pantherBonusWin;
@@ -444,18 +453,20 @@ namespace MeiZhouHeiBao_3993
 
             long creditBefore = 0;
             long creditAfter = 0;
-            //判断赠送局(未完成免费序列的每一局，算法 OpenType 为赠送)
+            //判断赠送局：以算法 OpenType 为准，不以本地剩余次数为准。
             if (inFreeGive)
             {
-                if (openType != (int)OpenType.OT_Give)
-                {
-                    DebugUtils.LogError($"[G1700][CheckOpenType] 校验不一致，OpenType={(int)OpenType.OT_Give}");
-                }
+                int collectAdd = CustomModel.Instance.CountPanthersAfterUpgrade(
+                    strDeckRowCol, ContentModel.Instance.totalPantherSymbolCount);
+                if (collectAdd > 0)
+                    ContentModel.Instance.totalPantherSymbolCount += collectAdd;
 
                 ContentModel.Instance.curReelStripsIndex = "FS";
                 ContentModel.Instance.freeSpinPlayTimes += 1;
                 ContentModel.Instance.freeSpinTotalWinCredit += totalLineWin;
-
+                ContentModel.Instance.ShowFreeSpinRemainTime =
+                    ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes;
+                ContentModel.Instance.PendingAlgoFreeSettle = true;
 
                 if (ContentModel.Instance.freeSpinTotalTimes == ContentModel.Instance.freeSpinPlayTimes)
                 {
@@ -467,7 +478,6 @@ namespace MeiZhouHeiBao_3993
                 }
                 ContentModel.Instance.isFreeSpinFinish = ContentModel.Instance.curReelStripsIndex == "FS" && ContentModel.Instance.nextReelStripsIndex == "BS";
 
-                //赢分
                 creditBefore = MainBlackboardController.Instance.myRealCredit;
                 creditAfter = creditBefore + totalLineWin;
             }
@@ -511,8 +521,9 @@ namespace MeiZhouHeiBao_3993
                             ContentModel.Instance.gameNumberFreeSpinTrigger = MainModel.Instance.gameNumber;
                             ContentModel.Instance.freeSpinTotalTimes = TotalFreeTime;
                             ContentModel.Instance.freeSpinPlayTimes = 0;
-                            ContentModel.Instance.freeSpinTotalWinCredit = 0;
+                            ContentModel.Instance.freeSpinTotalWinCredit =0;
                             ContentModel.Instance.totalPantherSymbolCount = 0;
+                            ContentModel.Instance.ShowFreeSpinRemainTime = TotalFreeTime;
                         }
                         else
                         {
@@ -591,8 +602,19 @@ namespace MeiZhouHeiBao_3993
             Record(totalBet, res);
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
             DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple} ");
-            FreeSpinSessionStoreG3993.TryPersistOrClearSession();
             return isCheckGameResult;
+        }
+
+        public void ApplyJackpotContribution(SBoxJackpotData sboxJackpotData)
+        {
+            if (sboxJackpotData?.JackpotOut == null)
+                return;
+
+            JackpotRes jpGameRes = ContentModel.Instance.jpGameRes ?? new JackpotRes();
+            jpGameRes.curJackpotMajor = sboxJackpotData.JackpotOut.Length > 0 ? sboxJackpotData.JackpotOut[0] : 0;
+            jpGameRes.curJackpotMinior = sboxJackpotData.JackpotOut.Length > 1 ? sboxJackpotData.JackpotOut[1] : 0;
+            jpGameRes.curJackpotMini = sboxJackpotData.JackpotOut.Length > 2 ? sboxJackpotData.JackpotOut[2] : 0;
+            ContentModel.Instance.jpGameRes = jpGameRes;
         }
 
         private void ApplyBonusRoundPlan(JSONNode res, int wheelChessNum)
@@ -763,7 +785,7 @@ namespace MeiZhouHeiBao_3993
 
             if (deckColRow == null || deckColRow.Count == 0 || winLinesRule == null || payTable == null)
             {
-                DebugUtils.LogError("[G1700][CheckGameResult] 数据为空，无法校验中奖结果。");
+                DebugUtils.LogError("[G3993][CheckGameResult] 数据为空，无法校验中奖结果。");
                 return false;
             }
 
@@ -838,12 +860,12 @@ namespace MeiZhouHeiBao_3993
             int diff = Math.Abs(calcTotalWin - TotalWin); // 计算本地校验值与算法差值
             if (diff != 0)
             {
-                DebugUtils.LogError($"[G1700][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}");
+                DebugUtils.LogError($"[G3993][CheckGameResult] 中奖校验不一致，算法回包={TotalWin}，本地计算={calcTotalWin}");
                 return false;
             }
             else
             {
-                DebugUtils.Log($"[G1700][CheckGameResult] 校验通过，TotalWin={TotalWin}");
+                DebugUtils.Log($"[G3993][CheckGameResult] 校验通过，TotalWin={TotalWin}");
                 return true;
             }
         }
@@ -946,7 +968,7 @@ namespace MeiZhouHeiBao_3993
                 result_type = ResultType,
                 free_curtime= ContentModel.Instance.freeSpinPlayTimes,
                 free_totaltime= ContentModel.Instance.freeSpinTotalTimes,
-                game_id = 1700,
+                game_id = 3993,
                 game_uid = ContentModel.Instance.curGameGuid,
                 created_at = ContentModel.Instance.curGameCreatTimeMS,
                 total_bet = totalBet,
@@ -974,8 +996,6 @@ namespace MeiZhouHeiBao_3993
                 ConsoleTableName.TABLE_SLOT_GAME_RECORD,
                 slotGameRecordItem);
             SQLiteAsyncHelper.Instance.ExecuteNonQueryAsync(sql);
-
-            //DebugUtils.Log($"[G1700] 游戏记录已写入数据库: gameType={gameType}, game_uid={ContentModel.Instance.curGameGuid}");
         }
     }
 }

@@ -52,6 +52,8 @@ namespace SavageHall
         private int _cardEnterGameId;
         /// <summary> 当前点击的那张卡牌上的 Animator，用于 click 结束后在未打开 Loading 时切 idle。 </summary>
         private Animator _cardEnterAnimator;
+        /// <summary> 本轮大厅打开是否已按算法 20000 的免费 gameId 尝试自动进台。 </summary>
+        private bool _didAutoEnterFreeSpinReconnect;
 
         //彩金
         MiniReelGroup uiJPMajorCtrl = new MiniReelGroup();
@@ -123,142 +125,6 @@ namespace SavageHall
             };
         }
 
-        /// <summary>
-        /// 语言切换时重建页面，确保多语言文案与皮肤控制器状态同步刷新。
-        /// </summary>
-        protected override void OnLanguageChange(I18nLang lang)
-        {
-            FguiI18nTextAssistant.Instance.DisposeAllTranslate(this.contentPane);
-            this.contentPane.Dispose();
-            this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
-            InitParam();
-        }
-
-        public override void OnOpen(PageName name, EventData data)
-        {
-            base.OnOpen(name, data);
-            //GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
-            // 添加事件监听 - 彩金贡献值
-            EventCenter.Instance.AddEventListener<EventData>(MetaUIEvent.ON_CREDIT_EVENT, OnUpdateNaviCredit);
-            InitParam();
-        }
-
-        /// <summary>
-        /// 并行预载大厅自身资源（卡牌/Logo）与三张卡牌子游戏 PopupGameLoading，全部就绪后再打开动物大厅。
-        /// 启动、从子游戏返回等入口应调用本方法而非直接 OpenPage。
-        /// </summary>
-        public static void OpenTreasuryHallMainAfterCardGameLoadingPreloads()
-        {
-            const int total = 4;
-            int completed = 0;
-            void OnOneReady()
-            {
-                completed++;
-                if (completed < total)
-                {
-                    return;
-                }
-
-                PageManager.Instance.OpenPage(PageName.SavageHallMain);
-                PageLaunch.Instance.Close();
-            }
-
-            WhenHallAssetsReady(OnOneReady);
-            PageManager.Instance.PreloadPage(PageName.HuoYanGongNiuPopupGameLoading, OnOneReady);
-            PageManager.Instance.PreloadPage(PageName.FeiZhouHeiXingXingPopupGameLoading, OnOneReady);
-            PageManager.Instance.PreloadPage(PageName.MeiZhouHeiBaoPopupGameLoading, OnOneReady);
-        }
-
-        /// <summary>
-        /// PreloadPage 缓存命中会立刻回调，不代表卡牌预制体已加载完；再等 isInit。
-        /// </summary>
-        static void WhenHallAssetsReady(Action done)
-        {
-            PageManager.Instance.PreloadPage(PageName.SavageHallMain, () =>
-            {
-                if (PageManager.Instance.pageCacheDict.TryGetValue(PageName.SavageHallMain, out PageBase page)
-                    && page is SavageHallMain hall)
-                {
-                    hall.InvokeWhenInit(done);
-                    return;
-                }
-
-                done?.Invoke();
-            });
-        }
-
-        /// <summary>
-        /// isInit 已就绪则立刻执行；否则等五个预制体加载完成后的 preLoadedCallback。
-        /// </summary>
-        void InvokeWhenInit(Action done)
-        {
-            if (done == null)
-            {
-                return;
-            }
-
-            if (isInit)
-            {
-                done();
-                return;
-            }
-
-            UnityAction once = null;
-            once = () =>
-            {
-                preLoadedCallback.RemoveListener(once);
-                done();
-            };
-            preLoadedCallback.AddListener(once);
-        }
-
-        public override void OnClose(EventData data = null)
-        {
-            // 关闭宝库大厅前先中止「进游戏」过渡，避免卡在不可点状态或残留 Loading
-            AbortCardEnterTransitionIfAny();
-            EventCenter.Instance.RemoveEventListener<EventData>(MetaUIEvent.ON_CREDIT_EVENT, OnUpdateNaviCredit);
-            GameSoundHelper.Instance.StopMusic();
-            DisposeCardWrappers();
-            base.OnClose(data);
-        }
-
-        /// <summary>
-        /// 关闭时释放卡牌 Spine GoWrapper
-        /// </summary>
-        private void DisposeCardWrappers()
-        {
-            GameCommon.FguiUtils.DeleteWrapper(anchorCard3995);
-            GameCommon.FguiUtils.DeleteWrapper(anchorCard3993);
-            GameCommon.FguiUtils.DeleteWrapper(anchorCard3994);
-            GameCommon.FguiUtils.DeleteWrapper(anchorHallLogoTitle);
-            GameCommon.FguiUtils.DeleteWrapper(anchorHallLogoBG);
-
-            ClonegoCard3995 = null;
-            ClonegoCard3993 = null;
-            ClonegoCard3994 = null;
-            ClonegoHallLogoTitle = null;
-            ClonegoHallLogoBG = null;
-            animator3995 = null;
-            animator3993 = null;
-            animator3994 = null;
-            animatorChlick3995 = null;
-            animatorChlick3994 = null;
-            animatorChlick3993 = null;
-            _skeletonMecanim3993 = null;
-            _skeletonMecanim3994 = null;
-            _skeletonMecanim3995 = null;
-            anchorCard3995 = null;
-            anchorCard3993 = null;
-            anchorCard3994 = null;
-            anchorHallLogoTitle = null;
-            anchorHallLogoBG = null;
-            _reflectionRoot = null;
-            _loader3995 = null;
-            _loader3994 = null;
-            _loader3993 = null;
-        }
-
-
         public override void InitParam()
         {
             IsClickCard = true;
@@ -266,7 +132,7 @@ namespace SavageHall
 
             if (!isOpen) return;
 
-            GComponent LocalLogoTitle= this.contentPane.GetChild("anchorLogoTitle").asCom;
+            GComponent LocalLogoTitle = this.contentPane.GetChild("anchorLogoTitle").asCom;
             if (anchorHallLogoTitle != LocalLogoTitle)
             {
                 GameCommon.FguiUtils.DeleteWrapper(anchorHallLogoTitle);
@@ -330,7 +196,7 @@ namespace SavageHall
                 GameCommon.FguiUtils.AddWrapper(anchorCard3993, ClonegoCard3993);
             }
 
-     
+
             // 点击卡牌：先播 click；同时 StartCardGameEnter 内会 OpenPage(Loading)，与动画并行
             BindReflectionLoaders();
             ApplyCardIdleVisual();
@@ -405,6 +271,209 @@ namespace SavageHall
             InitJackpot();
             InitHallCredit();
             RefreshHallLogoByLanguage();
+            FreeSpinLastAckBootstrap.RegisterAll();
+            TryAutoEnterFreeSpinReconnect();
+        }
+
+        /// <summary>
+        /// 语言切换时重建页面，确保多语言文案与皮肤控制器状态同步刷新。
+        /// </summary>
+        protected override void OnLanguageChange(I18nLang lang)
+        {
+            FguiI18nTextAssistant.Instance.DisposeAllTranslate(this.contentPane);
+            this.contentPane.Dispose();
+            this.contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
+            InitParam();
+        }
+
+        public override void OnOpen(PageName name, EventData data)
+        {
+            base.OnOpen(name, data);
+            //GameSoundHelper.Instance.PlayMusicSingle(SoundKey.RegularBG);
+            // 添加事件监听 - 彩金贡献值
+            EventCenter.Instance.AddEventListener<EventData>(MetaUIEvent.ON_CREDIT_EVENT, OnUpdateNaviCredit);
+            InitParam();
+        }
+
+        public override void OnClose(EventData data = null)
+        {
+            AbortCardEnterTransitionIfAny();
+            _didAutoEnterFreeSpinReconnect = false;
+            EventCenter.Instance.RemoveEventListener<EventData>(MetaUIEvent.ON_CREDIT_EVENT, OnUpdateNaviCredit);
+            GameSoundHelper.Instance.StopMusic();
+            DisposeCardWrappers();
+            base.OnClose(data);
+        }
+
+        /// <summary>
+        /// 并行预载大厅自身资源（卡牌/Logo）与三张卡牌子游戏 PopupGameLoading，全部就绪后再打开动物大厅。
+        /// 启动、从子游戏返回等入口应调用本方法而非直接 OpenPage。
+        /// </summary>
+        public static void OpenHallMainAfterCardGameLoadingPreloads()
+        {
+            const int total = 4;
+            int completed = 0;
+            void OnOneReady()
+            {
+                completed++;
+                if (completed < total)
+                {
+                    return;
+                }
+
+                PageManager.Instance.OpenPage(PageName.SavageHallMain);
+                PageLaunch.Instance.Close();
+            }
+
+            WhenHallAssetsReady(OnOneReady);
+            PageManager.Instance.PreloadPage(PageName.HuoYanGongNiuPopupGameLoading, OnOneReady);
+            PageManager.Instance.PreloadPage(PageName.FeiZhouHeiXingXingPopupGameLoading, OnOneReady);
+            PageManager.Instance.PreloadPage(PageName.MeiZhouHeiBaoPopupGameLoading, OnOneReady);
+        }
+
+        /// <summary>
+        /// PreloadPage 缓存命中会立刻回调，不代表卡牌预制体已加载完；再等 isInit。
+        /// </summary>
+        static void WhenHallAssetsReady(Action done)
+        {
+            PageManager.Instance.PreloadPage(PageName.SavageHallMain, () =>
+            {
+                if (PageManager.Instance.pageCacheDict.TryGetValue(PageName.SavageHallMain, out PageBase page)
+                    && page is SavageHallMain hall)
+                {
+                    hall.InvokeWhenInit(done);
+                    return;
+                }
+
+                done?.Invoke();
+            });
+        }
+
+        /// <summary>
+        /// isInit 已就绪则立刻执行；否则等五个预制体加载完成后的 preLoadedCallback。
+        /// </summary>
+        void InvokeWhenInit(Action done)
+        {
+            if (done == null)
+            {
+                return;
+            }
+
+            if (isInit)
+            {
+                done();
+                return;
+            }
+
+            UnityAction once = null;
+            once = () =>
+            {
+                preLoadedCallback.RemoveListener(once);
+                done();
+            };
+            preLoadedCallback.AddListener(once);
+        }
+
+        /// <summary>
+        /// 关闭时释放卡牌 Spine GoWrapper
+        /// </summary>
+        private void DisposeCardWrappers()
+        {
+            GameCommon.FguiUtils.DeleteWrapper(anchorCard3995);
+            GameCommon.FguiUtils.DeleteWrapper(anchorCard3993);
+            GameCommon.FguiUtils.DeleteWrapper(anchorCard3994);
+            GameCommon.FguiUtils.DeleteWrapper(anchorHallLogoTitle);
+            GameCommon.FguiUtils.DeleteWrapper(anchorHallLogoBG);
+
+            ClonegoCard3995 = null;
+            ClonegoCard3993 = null;
+            ClonegoCard3994 = null;
+            ClonegoHallLogoTitle = null;
+            ClonegoHallLogoBG = null;
+            animator3995 = null;
+            animator3993 = null;
+            animator3994 = null;
+            animatorChlick3995 = null;
+            animatorChlick3994 = null;
+            animatorChlick3993 = null;
+            _skeletonMecanim3993 = null;
+            _skeletonMecanim3994 = null;
+            _skeletonMecanim3995 = null;
+            anchorCard3995 = null;
+            anchorCard3993 = null;
+            anchorCard3994 = null;
+            anchorHallLogoTitle = null;
+            anchorHallLogoBG = null;
+            _reflectionRoot = null;
+            _loader3995 = null;
+            _loader3994 = null;
+            _loader3993 = null;
+        }
+
+        /// <summary>
+        /// 开机进大厅后若算法 20000 带有免费数据：按 FreePersistGameId 遮罩并自动进对应机台。
+        /// </summary>
+        private void TryAutoEnterFreeSpinReconnect()
+        {
+            if (ApplicationSettings.Instance.isMock)
+                return;
+            if (_didAutoEnterFreeSpinReconnect || _cardEnterFlowActive)
+                return;
+
+            var reset = SBoxIdea.LastResetData;
+            if (reset == null || !reset.HasFreePersistSnapshot)
+                return;
+
+            int gameId = reset.FreePersistGameId;
+            if (!ThemeRuntime.Profile.TryGetLoadingPage(gameId, out PageName loading))
+                return;
+            if (!TryGetHallCard(gameId, out GComponent anchor, out GLoader loader, out Animator animator, out Animator clickFx))
+                return;
+
+            _didAutoEnterFreeSpinReconnect = true;
+            ReconnectMaskHandler.Open();
+            IsClickCard = false;
+            if (btnCollect != null)
+                btnCollect.touchable = false;
+
+            ApplyCardClickVisual(anchor, loader, gameId);
+            PlayCardClickEffect(clickFx);
+            float clickAnimDuration = PlayCardClickAnimation(animator);
+            StartCardGameEnter(animator, loading, gameId, clickAnimDuration);
+        }
+
+        /// <summary>本大厅卡牌：Savage 仅 3995/3994/3993。</summary>
+        private bool TryGetHallCard(int gameId, out GComponent anchor, out GLoader loader, out Animator animator, out Animator clickFx)
+        {
+            switch (gameId)
+            {
+                case 3993:
+                    anchor = anchorCard3993;
+                    loader = _loader3993;
+                    animator = animator3993;
+                    clickFx = animatorChlick3993;
+                    break;
+                case 3994:
+                    anchor = anchorCard3994;
+                    loader = _loader3994;
+                    animator = animator3994;
+                    clickFx = animatorChlick3994;
+                    break;
+                case 3995:
+                    anchor = anchorCard3995;
+                    loader = _loader3995;
+                    animator = animator3995;
+                    clickFx = animatorChlick3995;
+                    break;
+                default:
+                    anchor = null;
+                    loader = null;
+                    animator = null;
+                    clickFx = null;
+                    return false;
+            }
+
+            return animator != null;
         }
 
         /// <summary>
@@ -540,6 +609,7 @@ namespace SavageHall
         {
             if (!ApplicationSettings.Instance.isMock)
             {
+                FreeSpinLastAckBootstrap.RegisterAll();
                 SBoxIdea.GameSwitch(_cardEnterGameId);
             }
 
@@ -815,15 +885,9 @@ namespace SavageHall
             // hallCredit.text = MainBlackboardController.Instance.myRealCredit.ToString();
         }
 
-        public void GameSwitch(int gameid)
-        {
-
-        }
-
         private void OnClickBtnTicketOut()
         {
             MachineDeviceCommonBiz.Instance.TestTicketOut();
         }
     }
-
 }

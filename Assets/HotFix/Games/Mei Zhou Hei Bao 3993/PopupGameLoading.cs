@@ -78,7 +78,7 @@ namespace MeiZhouHeiBao_3993
         /// <summary>开始并行预加载的时间戳。</summary>
         private float _preloadStartRealtime;
         /// <summary>从进入并行预加载起算，界面至少展示此时长（秒）；预加载更久则按实际结束。</summary>
-        private const float MinLoadingDisplaySeconds = 10f;
+        private const float MinLoadingDisplaySeconds = 5.0f;
         //预加载Page
         /// <summary>需要预加载的页面总数。</summary>
         private int _preloadTotal;
@@ -337,10 +337,12 @@ namespace MeiZhouHeiBao_3993
         private float GetPreloadRatio()
         {
             int pageTotal = Mathf.Max(1, _preloadTotal);
-            int pagTotal = Mathf.Max(1, _pagPreloadTotal);
+            //int pagTotal = Mathf.Max(1, _pagPreloadTotal);
             float pageRatio = (float)_preloadCompleted / pageTotal;
-            float pagRatio = (float)_pagPreloadCompleted / pagTotal;
-            return (pageRatio + pagRatio) * 0.5f;
+            //float pagRatio = (float)_pagPreloadCompleted / pagTotal;
+            //return (pageRatio + pagRatio) * 0.5f;
+
+            return pageRatio;
         }
 
         /// <summary>按最短展示时间折算的进度上限比例（0~1）。</summary>

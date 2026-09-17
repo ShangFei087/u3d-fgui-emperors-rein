@@ -141,6 +141,7 @@
     <component id="vqlx6k" name="PopupConsoleCommon.xml" path="/" exported="true"/>
     <image id="vqlx6l" name="icon_i_120.png" path="/images/popup/" exported="true"/>
     <component id="vqlx6n" name="PopupConsoleMask.xml" path="/" exported="true"/>
+    <component id="rcnm01" name="PopupReconnectMask.xml" path="/" exported="true"/>
     <component id="vqlx6p" name="ItemPopupTip.xml" path="/moudules/" exported="true"/>
     <image id="vqlx6q" name="icon_mask.png" path="/images/popup/" exported="true"/>
     <component id="vqlx6r" name="PopupConsoleTip.xml" path="/" exported="true"/>

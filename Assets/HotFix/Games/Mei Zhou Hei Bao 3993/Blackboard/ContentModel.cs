@@ -64,7 +64,7 @@ namespace MeiZhouHeiBao_3993
         /// <summary> 算法卡数据 </summary>
         public string response;
 
-        /// <summary> 基础游戏赢分（单局普通游戏 或 免费游戏） </summary>
+        /// <summary> 基础游戏赢分（单局普通游戏） </summary>
         public long baseGameWinCredit;
 
         /// <summary> 单局结果界面 </summary>
@@ -142,11 +142,17 @@ namespace MeiZhouHeiBao_3993
         /// <summary> 免费游戏总赢分  </summary>
         public long freeSpinTotalWinCredit;
 
+        /// <summary> 触发免费那一句的线奖+豹奖，进免费后不再改。 </summary>
+        public long triggerWinCredit;
+
         /// <summary>  触发免费游戏的编号 </summary>
         public int gameNumberFreeSpinTrigger;
 
-        /// <summary> 是否等待下一局 Parse 校验（本地免费快照恢复后首局 Spin） </summary>
+        /// <summary> 是否等待下一局 Parse 校验（免费重连恢复后首局 Spin） </summary>
         public bool PendingFreeSpinReconnectValidation { get; set; }
+
+        /// <summary> 等到免费结算 </summary>
+        public bool PendingAlgoFreeSettle { get; set; }
 
         /// <summary> 触发免费游戏的线-（备份 winList 的数据） </summary>
         public SymbolWin winFreeSpinTriggerOrAddCopy;

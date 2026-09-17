@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ng_pup_BigWin_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: aaef17c75e1730549b8321146a5385e7, type: 2}
+  - {fileID: 11400000, guid: 19d95fb2525ae164fa5a8c0c65dd5088, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: 9d0ce160b8a51264ea3c36ce008148d5, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: b1547eee71b65004a9433a595b1139d3, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 9100000, guid: 549389149c7395a49b97ed50c470680c, type: 2}
+  controller: {fileID: 9100000, guid: 0edc471123ccf6348a6841dc38dfdccc, type: 2}

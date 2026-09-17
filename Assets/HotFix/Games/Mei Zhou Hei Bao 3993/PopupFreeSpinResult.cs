@@ -172,7 +172,7 @@ namespace MeiZhouHeiBao_3993
 
             _rollCallback = obj =>
             {
-                NumberAnimation.Instance.AnimateNumber(txtScoreWin, 0, ContentModel.Instance.freeSpinTotalWinCredit, 3.0f, EaseType.Linear, () => { });
+                NumberAnimation.Instance.AnimateNumber(txtScoreWin, 0, ContentModel.Instance.freeSpinTotalWinCredit+ ContentModel.Instance.triggerWinCredit, 3.0f, EaseType.Linear, () => { });
             };
             Timers.inst.Add(0.5f, 1, _rollCallback);
             _enableBtnCallback = obj =>

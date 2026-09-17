@@ -28,7 +28,7 @@ namespace TreasuryHall
         //特效
         private ParticleSystem goplat_card_cfzj, goplat_card_cfhc1, goplat_card_cfhc2, goplat_card_cfhc3;
 
-
+        //是否点击过了
         private bool IsClickCard;
 
         // ---------- 点击卡牌 → 子游戏 Loading 的并行过渡状态 ----------
@@ -467,6 +467,7 @@ namespace TreasuryHall
         {
             if (!ApplicationSettings.Instance.isMock)
             {
+                FreeSpinLastAckBootstrap.RegisterAll();
                 SBoxIdea.GameSwitch(_cardEnterGameId);
             }
 

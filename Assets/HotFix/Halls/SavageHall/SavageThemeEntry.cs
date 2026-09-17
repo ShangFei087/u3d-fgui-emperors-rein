@@ -31,12 +31,12 @@ namespace SavageHall
 
         public void OpenHall()
         {
-            SavageHallMain.OpenTreasuryHallMainAfterCardGameLoadingPreloads();
+            SavageHallMain.OpenHallMainAfterCardGameLoadingPreloads();
         }
 
         public void ReturnToHall()
         {
-            SavageHallMain.OpenTreasuryHallMainAfterCardGameLoadingPreloads();
+            SavageHallMain.OpenHallMainAfterCardGameLoadingPreloads();
         }
 
         public void CloseHall()

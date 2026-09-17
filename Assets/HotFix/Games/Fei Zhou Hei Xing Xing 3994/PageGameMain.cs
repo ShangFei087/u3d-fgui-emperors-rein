@@ -1317,7 +1317,7 @@ namespace FeiZhouHeiXingXing_3994
 
         #region 免费游戏
 
-        /// <summary>记录免费触发局信息，压栈</summary>
+        /// <summary>记录免费触发局信息</summary>
         private void InputStackContextFreeSpin(Action<Dictionary<string, object>> inputStackCallBack)
         {
             Dictionary<string, object> context = new Dictionary<string, object>()
@@ -1342,7 +1342,7 @@ namespace FeiZhouHeiXingXing_3994
             inputStackCallBack?.Invoke(context);
         }
 
-        /// <summary>恢复免费触发局信息，弹栈</summary>
+        /// <summary>恢复免费触发局信息</summary>
         private void OutputStackContextFreeSpin(Action<Dictionary<string, object>> outputStackCallBack)
         {
             if (_freeSaveStack.Count == 0)

@@ -191,7 +191,10 @@ namespace TestHall
         void EnterGame(int gameId, PageName loadingPage)
         {
             if (!ApplicationSettings.Instance.isMock)
+            {
+                FreeSpinLastAckBootstrap.RegisterAll();
                 SBoxIdea.GameSwitch(gameId);
+            }
 
             PageManager.Instance.OpenPage(loadingPage);
             CloseSelf(null);

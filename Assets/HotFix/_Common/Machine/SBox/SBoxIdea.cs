@@ -226,6 +226,27 @@ namespace SBoxApi
                                                     // [2]: 元宝数量（5分）
                                                     // [3]: 彩球数量（10分）
                                                     // [4]: 彩盘数量（20分）
+
+        /// <summary> 20000 断电续免费：有快照时的 gameId，0 表示无。 </summary>
+        public int FreePersistGameId;
+        /// <summary> 剩余免费次数 = nTotalFreeTime - nCurFreeIdx。 </summary>
+        public int FreePersistRemain;
+        /// <summary> 免费局总押注倍数。 </summary>
+        public int FreePersistBet;
+        /// <summary> 免费累计倍数 nFreeTotalWin（入账为押注×该值）。 </summary>
+        public int FreePersistTotalWin;
+        /// <summary> 基础游戏赢分（单局普通游戏） </summary>
+        public long BaseGameWinCredit;
+
+        /// <summary> 免费总局数 nTotalFreeTime。 </summary>
+        public int FreePersistTotalTimes;
+        /// <summary> 下一局下标 nCurFreeIdx。 </summary>
+        public int FreePersistCurIdx;
+
+        /// <summary> 算法侧仍有未结束的免费快照（含最后一手已发出、待 20102）。 </summary>
+        public bool HasFreePersistSnapshot =>
+            FreePersistGameId > 0 && FreePersistTotalTimes > 0
+            && (FreePersistRemain > 0 || FreePersistCurIdx > 0);
     }
 
     public partial class SBoxIdea
@@ -246,11 +267,35 @@ namespace SBoxApi
         private static SBoxIdeaInfo sBoxInfo = new SBoxIdeaInfo();
         private static SBoxAccount sBoxAccount = new SBoxAccount();
 
+        /// <summary> 最近一次 20000 回包（含断电续免费快照）。 </summary>
+        public static SBoxResetData LastResetData { get; private set; }
+
+        /// <summary> 最近一次 20200 切到的 gameId。 </summary>
+        public static int LastGameSwitchGameId { get; private set; }
+
+        /// <summary> 20200 同步后的 nCurFreeIdx；-1 表示本次未带回或旧算法。 </summary>
+        public static int LastGameSwitchSyncedFreeIdx { get; private set; } = -1;
+
         // --------------------------------------------------
         //
         //  init(); exit(); 两函数由本SDK调用，APP层禁止调用
         //
         // --------------------------------------------------
+
+        /// <summary> 免费已入账结束：清开机 20000 缓存，避免回大厅误判还有免费。 </summary>
+        public static void ClearFreePersistSnapshot()
+        {
+            if (LastResetData != null)
+            {
+                LastResetData.FreePersistGameId = 0;
+                LastResetData.FreePersistRemain = 0;
+                LastResetData.FreePersistBet = 0;
+                LastResetData.FreePersistTotalWin = 0;
+                LastResetData.FreePersistTotalTimes = 0;
+                LastResetData.FreePersistCurIdx = 0;
+            }
+            LastGameSwitchSyncedFreeIdx = -1;
+        }
         /**
           *  @brief          
           *  @param          无
@@ -503,14 +548,33 @@ namespace SBoxApi
         }
         private static void ResetR(SBoxPacket sBoxPacket)
         {
+            int[] data = sBoxPacket.data;
             int[] cointToTable = new int[5];
-            for (int i = 0; i < 5; i++)
-                cointToTable[i] = sBoxPacket.data[i + 1];
             SBoxResetData sBoxResetData = new SBoxResetData
             {
-                result = sBoxPacket.data[0],
+                result = data != null && data.Length > 0 ? data[0] : -1,
                 CoinToTable = cointToTable
             };
+
+            // 新协议 data[7]：ret, gameId, 剩余, 押注, 总分倍数, 总局数, nCurFreeIdx
+            if (data != null && data.Length >= 8)
+            {
+                sBoxResetData.FreePersistGameId = data[1];
+                sBoxResetData.FreePersistRemain = data[2];
+                sBoxResetData.FreePersistBet = data[3];
+                sBoxResetData.FreePersistTotalWin = data[4];
+                sBoxResetData.FreePersistTotalTimes = data[5];
+                sBoxResetData.FreePersistCurIdx = data[6];
+                sBoxResetData.BaseGameWinCredit = data[7];
+            }
+            else if (data != null)
+            {
+                int n = Math.Min(5, data.Length - 1);
+                for (int i = 0; i < n; i++)
+                    cointToTable[i] = data[i + 1];
+            }
+
+            LastResetData = sBoxResetData;
             EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_RESET, sBoxResetData);
         }
 

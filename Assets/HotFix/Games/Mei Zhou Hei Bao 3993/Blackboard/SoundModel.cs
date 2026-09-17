@@ -172,13 +172,13 @@ namespace MeiZhouHeiBao_3993
             [SoundKey.BonusSymbolCollect] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/BonusGame/BonusSymbolCollect.mp3", },
             [SoundKey.BonusRolling] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Effect/BonusGame/BonusRolling.mp3", },
             //----------------------------------------- BGM--------------------------------
-            [SoundKey.RegularBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/NormalBGM.mp3", outputType = GSOutType.Music, loop = true, },
-            [SoundKey.FreeSpinBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/FreeBGM.mp3", outputType = GSOutType.Music, loop = true, },
+            [SoundKey.RegularBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/NormalMusic.wav", outputType = GSOutType.Music, loop = true, },
+            [SoundKey.FreeSpinBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/FreeMusic.wav", outputType = GSOutType.Music, loop = true, },
             [SoundKey.BonusTriggerBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/BonusTriggerBGM.mp3", outputType = GSOutType.Music, loop = true, },
             [SoundKey.FreeSpinTriggerBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/FreeTriggerBGM.mp3", outputType = GSOutType.Music, loop = true, },
             [SoundKey.FreeSpinResultBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/FreeResultBGM.mp3", outputType = GSOutType.Music, loop = true, },
             [SoundKey.BonusResultBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/FreeResultBGM.mp3", outputType = GSOutType.Music, loop = true, },
-            [SoundKey.BonusBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/BonusBGM.mp3", outputType = GSOutType.Music, loop = true, },
+            [SoundKey.BonusBG] = new GSHandler() { assetPath = "Assets/GameRes/Games/Mei Zhou Hei Bao 3993/Sounds/Music/BonusBGM.wav", outputType = GSOutType.Music, loop = true, },
         };
     }
 }

@@ -571,6 +571,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Func<int,byte>
 	// System.Func<int,float>
 	// System.Func<int,int,object>
+	// System.Func<int,int>
 	// System.Func<int,object>
 	// System.Func<long,byte>
 	// System.Func<object,System.Nullable<byte>>
@@ -771,7 +772,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,PageManager.<OpenPageAsync>d__11>(System.Runtime.CompilerServices.TaskAwaiter<object>&,PageManager.<OpenPageAsync>d__11&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,ResourceManager02.<LoadAssetAsync>d__15<object>>(System.Runtime.CompilerServices.TaskAwaiter<object>&,ResourceManager02.<LoadAssetAsync>d__15<object>&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,ResourceManager02.<LoadAssetBundleAsync>d__16>(System.Runtime.CompilerServices.TaskAwaiter<object>&,ResourceManager02.<LoadAssetBundleAsync>d__16&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,SQLitePlayerPrefs03.<GetData>d__28>(System.Runtime.CompilerServices.TaskAwaiter<object>&,SQLitePlayerPrefs03.<GetData>d__28&)
+		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,SQLitePlayerPrefs03.<GetData>d__29>(System.Runtime.CompilerServices.TaskAwaiter<object>&,SQLitePlayerPrefs03.<GetData>d__29&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,StreamingAssetsBundleLoader.<LoadAssetAsync>d__12<object>>(System.Runtime.CompilerServices.TaskAwaiter<object>&,StreamingAssetsBundleLoader.<LoadAssetAsync>d__12<object>&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,TableBetItem.<DefaultTable>d__10>(System.Runtime.CompilerServices.TaskAwaiter<object>&,TableBetItem.<DefaultTable>d__10&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.YieldAwaitable.YieldAwaiter,StreamingAssetsBundleLoader.<LoadAssetBundleAsync>d__13>(System.Runtime.CompilerServices.YieldAwaitable.YieldAwaiter&,StreamingAssetsBundleLoader.<LoadAssetBundleAsync>d__13&)
@@ -784,7 +785,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.Start<PageManager.<OpenPageAsync>d__11>(PageManager.<OpenPageAsync>d__11&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.Start<ResourceManager02.<LoadAssetAsync>d__15<object>>(ResourceManager02.<LoadAssetAsync>d__15<object>&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.Start<ResourceManager02.<LoadAssetBundleAsync>d__16>(ResourceManager02.<LoadAssetBundleAsync>d__16&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.Start<SQLitePlayerPrefs03.<GetData>d__28>(SQLitePlayerPrefs03.<GetData>d__28&)
+		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.Start<SQLitePlayerPrefs03.<GetData>d__29>(SQLitePlayerPrefs03.<GetData>d__29&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.Start<StreamingAssetsBundleLoader.<LoadAssetAsync>d__12<object>>(StreamingAssetsBundleLoader.<LoadAssetAsync>d__12<object>&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.Start<StreamingAssetsBundleLoader.<LoadAssetBundleAsync>d__13>(StreamingAssetsBundleLoader.<LoadAssetBundleAsync>d__13&)
 		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.Start<TableBetItem.<DefaultTable>d__10>(TableBetItem.<DefaultTable>d__10&)

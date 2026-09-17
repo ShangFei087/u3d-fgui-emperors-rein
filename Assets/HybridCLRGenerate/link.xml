@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <linker>
   <assembly fullname="FairyGUI">
+    <type fullname="FairyGUI.AlignType" preserve="all" />
     <type fullname="FairyGUI.Container" preserve="all" />
     <type fullname="FairyGUI.Controller" preserve="all" />
     <type fullname="FairyGUI.DestroyMethod" preserve="all" />
@@ -40,6 +41,7 @@
     <type fullname="FairyGUI.NTexture" preserve="all" />
     <type fullname="FairyGUI.PackageItem" preserve="all" />
     <type fullname="FairyGUI.PlayCompleteCallback" preserve="all" />
+    <type fullname="FairyGUI.RelationType" preserve="all" />
     <type fullname="FairyGUI.ScrollPane" preserve="all" />
     <type fullname="FairyGUI.Shape" preserve="all" />
     <type fullname="FairyGUI.Stage" preserve="all" />
