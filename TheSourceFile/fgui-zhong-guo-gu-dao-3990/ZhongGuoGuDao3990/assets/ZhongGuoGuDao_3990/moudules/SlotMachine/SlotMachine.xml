@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1015,603">
+  <displayList>
+    <component id="n15_ki6n" name="reels" src="ki6n2g" fileName="component/Slot/Reels.xml" xy="0,0"/>
+    <component id="n14_ki6n" name="slotCover" src="ki6n2a" fileName="component/Slot/SlotCover.xml" xy="0,0" size="1015,603"/>
+    <component id="n16_ki6n" name="playLines" src="ki6n2h" fileName="component/Slot/AnchorPayLines.xml" xy="507,301" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>

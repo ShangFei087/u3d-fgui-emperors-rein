@@ -165,6 +165,9 @@ namespace XingYunZhiLun_3998
 
             if(resultType == (int)ResultType.RT_Jackpot)
             {
+                result["BonusBet"] = data[pos++];
+                result["BonusMultiply"] = data[pos++];
+
                 int jpCount = data[pos++];
                 result["JPCount"] = jpCount;
                 result["JPTypeArray"] = new JSONArray();
@@ -423,6 +426,7 @@ namespace XingYunZhiLun_3998
                 ContentModel.Instance.isFreeSpinResult = ContentModel.Instance.curReelStripsIndex == "FS" && ContentModel.Instance.nextReelStripsIndex == "BS";
             }
             //判断大奖（仅 ResultType=大奖）
+
             if (CustomModel.Instance.bonusGameconfig.IsHasBonusGame &&
                 !CustomModel.Instance.bonusGameconfig.IsBonusInLine &&
                 resultType == (int)ResultType.RT_BonusWin)
@@ -437,7 +441,7 @@ namespace XingYunZhiLun_3998
 
                 if (res.HasKey("BonusBet"))
                 {
-                    bonusWin = (int)res["BonusBet"] * betMul;
+                    bonusWin = (int)res["BonusBet"] * (int)res["BonusMultiply"];
                     ContentModel.Instance.bonusWinCredit = bonusWin;
                 }
 
@@ -502,8 +506,9 @@ namespace XingYunZhiLun_3998
                 ContentModel.Instance.isJackpotWin = true;
                 ContentModel.Instance.jackpotWinCredit = res["TotalJackpotBet"];
                 ContentModel.Instance.jackpotType = res["JPTypeArray"][0];
+                ContentModel.Instance.drawWinsCredits = bonusWin;
 
-                jackpotWin = ContentModel.Instance.jackpotWinCredit;
+                jackpotWin = ContentModel.Instance.jackpotWinCredit - bonusWin;
             }
 
             ContentModel.Instance.baseGameWinCredit = totalLineWin + bonusWin + jackpotWin;

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="192,192">
+  <controller name="button" pages="0,spin,2,stop,3,auto,4,hui" selected="0">
+    <action type="play_transition" fromPage="" toPage="0" transition="spin"/>
+    <action type="play_transition" fromPage="" toPage="2" transition="stop"/>
+    <action type="play_transition" fromPage="" toPage="3" transition="auto"/>
+    <action type="play_transition" fromPage="" toPage="4" transition="hui"/>
+  </controller>
+  <displayList>
+    <image id="n41_ki6n" name="n41" src="fw2c4" fileName="images/Panel/Spin/ng_btn_spin1.png" xy="91,91" pivot="0.5,0.5" anchor="true"/>
+    <image id="n43_ki6n" name="n43" src="fw2c6" fileName="images/Panel/Spin/ng_btn_stop1.png" xy="91,91" pivot="0.5,0.5" anchor="true"/>
+    <image id="n44_ki6n" name="n44" src="fw2c2" fileName="images/Panel/Spin/ng_btn_auto1.png" xy="91,91" pivot="0.5,0.5" anchor="true"/>
+    <component id="n42_ki6n" name="untouch" src="fw2cn" fileName="moudules/panel/UntouchCircle24.xml" xy="96,96" pivot="0.5,0.5" anchor="true" size="190,190"/>
+    <component id="n45_ki6n" name="anchorSpin" src="ki6n1v" fileName="moudules/panel/Spin/AnchorSpinEff.xml" xy="96,96"/>
+    <component id="n47_ki6n" name="anchorShortSpin" src="ki6n1v" fileName="moudules/panel/Spin/AnchorSpinEff.xml" xy="104,104"/>
+    <component id="n46_ki6n" name="anchorLongSpin" src="ki6n1v" fileName="moudules/panel/Spin/AnchorSpinEff.xml" xy="104,104"/>
+  </displayList>
+  <transition name="spin">
+    <item time="0" type="Visible" target="n41_ki6n" value="false"/>
+    <item time="0" type="Visible" target="n42_ki6n" value="false"/>
+    <item time="0" type="Visible" target="n43_ki6n" value="true"/>
+    <item time="0" type="Visible" target="n44_ki6n" value="false"/>
+  </transition>
+  <transition name="stop">
+    <item time="0" type="Visible" target="n41_ki6n" value="true"/>
+    <item time="0" type="Visible" target="n42_ki6n" value="false"/>
+    <item time="0" type="Visible" target="n43_ki6n" value="false"/>
+    <item time="0" type="Visible" target="n44_ki6n" value="false"/>
+  </transition>
+  <transition name="auto">
+    <item time="0" type="Visible" target="n41_ki6n" value="false"/>
+    <item time="0" type="Visible" target="n42_ki6n" value="false"/>
+    <item time="0" type="Visible" target="n43_ki6n" value="false"/>
+    <item time="0" type="Visible" target="n44_ki6n" value="true"/>
+  </transition>
+  <transition name="hui">
+    <item time="0" type="Visible" target="n42_ki6n" value="true"/>
+  </transition>
+</component>

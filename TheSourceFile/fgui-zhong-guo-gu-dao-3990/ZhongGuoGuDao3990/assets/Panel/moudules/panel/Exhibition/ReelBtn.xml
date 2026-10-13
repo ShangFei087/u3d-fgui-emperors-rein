@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="69,703">
+  <displayList>
+    <component id="n24_ki6n" name="n24" src="ki6n16" fileName="moudules/panel/Exhibition/ButtonColUp.xml" xy="0,0"/>
+    <component id="n29_ki6n" name="n29" src="ki6n15" fileName="moudules/panel/Exhibition/ButtonColDown.xml" xy="0,635"/>
+  </displayList>
+</component>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="2s540k1n">
+  <resources>
+    <component id="fw2c0" name="Panel.xml" path="/moudules/" exported="true"/>
+    <image id="fw2c1" name="ng_btn_stop1-1.png" path="/images/Panel/Spin/"/>
+    <image id="fw2c2" name="ng_btn_auto1.png" path="/images/Panel/Spin/"/>
+    <image id="fw2c3" name="ng_btn_auto1-1.png" path="/images/Panel/Spin/"/>
+    <image id="fw2c4" name="ng_btn_spin1.png" path="/images/Panel/Spin/"/>
+    <image id="fw2c5" name="ng_btn_spin1-1.png" path="/images/Panel/Spin/"/>
+    <image id="fw2c6" name="ng_btn_stop1.png" path="/images/Panel/Spin/"/>
+    <image id="fw2cd" name="ng_icon_tb.png" path="/images/Panel/Credit/"/>
+    <image id="fw2ce" name="ng_txt_credits.png" path="/images/Panel/Credit/"/>
+    <image id="fw2cf" name="ng_txt_bet.png" path="/images/Panel/Bet/"/>
+    <image id="fw2cg" name="ng_bor_bottom1.png" path="/images/Panel/"/>
+    <image id="fw2ch" name="ng_txt_win.png" path="/images/Panel/Win/"/>
+    <component id="fw2cj" name="BottomFrame.xml" path="/moudules/panel/"/>
+    <image id="fw2ck" name="ng_btn_function.png" path="/images/Panel/Setting/"/>
+    <component id="fw2cl" name="ButtonHelp.xml" path="/moudules/panel/"/>
+    <image id="fw2cm" name="circle_24.png" path="/images/Panel/Setting/"/>
+    <component id="fw2cn" name="UntouchCircle24.xml" path="/moudules/panel/"/>
+    <image id="ki6nr" name="ng_btn_add.png" path="/images/Panel/Bet/"/>
+    <image id="ki6ns" name="ng_btn_subtrac.png" path="/images/Panel/Bet/"/>
+    <component id="ki6nt" name="ButtonBetUp.xml" path="/moudules/panel/"/>
+    <component id="ki6nu" name="ButtonBetDown.xml" path="/moudules/panel/"/>
+    <image id="ki6nv" name="ng_txt_ts.png" path="/images/Panel/"/>
+    <component id="ki6ny" name="BottomText.xml" path="/moudules/panel/"/>
+    <image id="ki6nz" name="btn_exhibition_01.png" path="/images/Button/"/>
+    <image id="ki6n10" name="btn_exhibition_02.png" path="/images/Button/"/>
+    <image id="ki6n11" name="btn_respin_01.png" path="/images/Button/"/>
+    <image id="ki6n12" name="btn_respin_02.png" path="/images/Button/"/>
+    <image id="ki6n13" name="txt_close.png" path="/images/Button/"/>
+    <image id="ki6n14" name="txt_open.png" path="/images/Button/"/>
+    <component id="ki6n15" name="ButtonColDown.xml" path="/moudules/panel/Exhibition/"/>
+    <component id="ki6n16" name="ButtonColUp.xml" path="/moudules/panel/Exhibition/"/>
+    <component id="ki6n17" name="ButtonExhibition.xml" path="/moudules/panel/Exhibition/"/>
+    <component id="ki6n1a" name="ExhibitionPanel.xml" path="/moudules/panel/Exhibition/"/>
+    <image id="ki6n1b" name="ng_num_gnjm2.png" path="/images/Panel/Setting/"/>
+    <image id="ki6n1e" name="ng_btn_jy.png" path="/images/Panel/Setting/"/>
+    <image id="ki6n1f" name="ng_btn_ys.png" path="/images/Panel/Setting/"/>
+    <image id="ki6n1g" name="ng_btn_help.png" path="/images/Panel/Setting/"/>
+    <image id="ki6n1h" name="ng_btn_back.png" path="/images/Panel/Setting/"/>
+    <component id="ki6n1i" name="BtnBack.xml" path="/moudules/panel/Setting/"/>
+    <component id="ki6n1j" name="BtnHelp.xml" path="/moudules/panel/Setting/"/>
+    <component id="ki6n1k" name="ButtonSound.xml" path="/moudules/panel/Setting/"/>
+    <image id="ki6n1l" name="ng_btn_yltwk.png" path="/images/Panel/Setting/"/>
+    <image id="ki6n1m" name="ng_btn_yltnk.png" path="/images/Panel/Setting/"/>
+    <image id="ki6n1n" name="ng_btn_ylt.png" path="/images/Panel/Setting/"/>
+    <image id="ki6n1o" name="ng_btn_hdan.png" path="/images/Panel/Setting/"/>
+    <component id="ki6n1p" name="SoundSlider_grip.xml" path="/moudules/panel/Setting/"/>
+    <component id="ki6n1q" name="SoundSlider.xml" path="/moudules/panel/Setting/"/>
+    <component id="ki6n1r" name="SetPanel.xml" path="/moudules/panel/Setting/"/>
+    <component id="ki6n1s" name="BtnSpin.xml" path="/moudules/panel/Spin/"/>
+    <component id="ki6n1t" name="ReelBtn.xml" path="/moudules/panel/Exhibition/"/>
+    <component id="ki6n1v" name="AnchorSpinEff.xml" path="/moudules/panel/Spin/"/>
+    <image id="wehy1w" name="ng_bor_smsk.png" path="/images/Panel/Instructions/"/>
+    <image id="wehy1y" name="ng_btn_hdyx.png" path="/images/Panel/Instructions/"/>
+    <image id="wehy1z" name="ng_btn_left、right.png" path="/images/Panel/Instructions/"/>
+    <image id="wehy20" name="ng_img_wxz.png" path="/images/Panel/Instructions/"/>
+    <image id="wehy21" name="ng_img_xz.png" path="/images/Panel/Instructions/"/>
+    <component id="wehy23" name="BtnBack.xml" path="/moudules/panel/Instructions/"/>
+    <component id="wehy24" name="BtnNext.xml" path="/moudules/panel/Instructions/"/>
+    <component id="wehy25" name="BtnPrev.xml" path="/moudules/panel/Instructions/"/>
+    <component id="wehy26" name="PayTable.xml" path="/moudules/panel/Instructions/"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

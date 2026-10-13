@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="2lyry3xl">
+  <resources>
+    <image id="fw2c1" name="BIG WIN.png" path="/images/参考/"/>
+    <image id="fw2c3" name="MEGA WIN.png" path="/images/参考/"/>
+    <image id="fw2c5" name="SUPER WIN.png" path="/images/参考/"/>
+    <component id="fw2cb" name="PopupGameLoading.xml" path="/"/>
+    <image id="fw2cc" name="开机界面1.png" path="/images/参考/"/>
+    <image id="fw2cd" name="load_bg_01.png" path="/images/Loading/"/>
+    <image id="fw2ce" name="load_bg_02.png" path="/images/Loading/"/>
+    <image id="fw2cf" name="load_bg_03.png" path="/images/Loading/"/>
+    <image id="fw2cg" name="load_bg_04.png" path="/images/Loading/" scale9grid="148,0,611,49"/>
+    <image id="fw2ch" name="load_bg_05.png" path="/images/Loading/"/>
+    <image id="fw2cj" name="load_bg_logo.png" path="/images/Loading/"/>
+    <component id="fw2cl" name="Slider1_grip.xml" path="/component/Loading/"/>
+    <component id="fw2cm" name="Slider1.xml" path="/component/Loading/"/>
+    <image id="fw2cn" name="load_txt_loading.png" path="/images/Loading/"/>
+    <image id="fw2cp" name="load_bg_%.png" path="/Fonts/FontsImage/Loading/" exported="true"/>
+    <image id="fw2cq" name="load_bg_0.png" path="/Fonts/FontsImage/Loading/" exported="true"/>
+    <image id="fw2cr" name="load_bg_1.png" path="/Fonts/FontsImage/Loading/" exported="true"/>
+    <image id="fw2cs" name="load_bg_2.png" path="/Fonts/FontsImage/Loading/" exported="true"/>
+    <image id="fw2ct" name="load_bg_3.png" path="/Fonts/FontsImage/Loading/" exported="true"/>
+    <image id="fw2cu" name="load_bg_4.png" path="/Fonts/FontsImage/Loading/" exported="true"/>
+    <image id="fw2cv" name="load_bg_5.png" path="/Fonts/FontsImage/Loading/" exported="true"/>
+    <image id="fw2cw" name="load_bg_6.png" path="/Fonts/FontsImage/Loading/" exported="true"/>
+    <image id="fw2cx" name="load_bg_7.png" path="/Fonts/FontsImage/Loading/" exported="true"/>
+    <image id="fw2cy" name="load_bg_8.png" path="/Fonts/FontsImage/Loading/" exported="true"/>
+    <image id="fw2cz" name="load_bg_9.png" path="/Fonts/FontsImage/Loading/" exported="true"/>
+    <font id="fw2c10" name="LoadingFont.fnt" path="/Fonts/Font/" exported="true"/>
+    <component id="fw2c11" name="LoadNpc.xml" path="/moudules/Loading/"/>
+    <component id="fw2c12" name="PageGameMain.xml" path="/"/>
+    <image id="fw2c14" name="ng_bor_down.png" path="/images/GameNormal/Slot/" exported="true"/>
+    <image id="fw2c15" name="ng_bor_fgx.png" path="/images/GameNormal/Slot/" exported="true"/>
+    <image id="fw2c16" name="ng_bor_left.png" path="/images/GameNormal/Slot/" exported="true"/>
+    <image id="fw2c17" name="ng_bor_right.png" path="/images/GameNormal/Slot/" exported="true"/>
+    <image id="fw2c18" name="ng_bor_up.png" path="/images/GameNormal/Slot/" exported="true"/>
+    <image id="fw2c19" name="ng_bor_nk.png" path="/images/GameNormal/Slot/" exported="true"/>
+    <image id="fw2c1a" name="ng_bor_mini.png" path="/images/GameNormal/TopJackpot/" exported="true"/>
+    <image id="fw2c1b" name="ng_bor_minor.png" path="/images/GameNormal/TopJackpot/" exported="true"/>
+    <image id="fw2c1c" name="ng_txt_major.png" path="/images/GameNormal/TopJackpot/" exported="true"/>
+    <image id="fw2c1d" name="ng_txt_mini.png" path="/images/GameNormal/TopJackpot/" exported="true"/>
+    <image id="fw2c1e" name="ng_txt_minor.png" path="/images/GameNormal/TopJackpot/" exported="true"/>
+    <image id="fw2c1f" name="ng_bor_major.png" path="/images/GameNormal/TopJackpot/" exported="true"/>
+    <image id="fw2c1j" name="ng_img_bg_01.png" path="/images/GameNormal/"/>
+    <image id="fw2c1k" name="ng_num_0.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <image id="fw2c1l" name="ng_num_kil.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <image id="fw2c1m" name="ng_num_dot.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <image id="fw2c1n" name="ng_num_dollar.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <image id="fw2c1o" name="ng_num_com.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <image id="fw2c1p" name="ng_num_bil.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <image id="fw2c1q" name="ng_num_9.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <image id="fw2c1r" name="ng_num_mil.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <image id="fw2c1s" name="ng_num_8.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <image id="fw2c1t" name="ng_num_6.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <image id="fw2c1u" name="ng_num_5.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <image id="fw2c1v" name="ng_num_4.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <image id="fw2c1w" name="ng_num_3.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <image id="fw2c1x" name="ng_num_2.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <image id="fw2c1y" name="ng_num_1.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <image id="fw2c1z" name="ng_num_7.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <image id="fw2c20" name="ng_num_tril.png" path="/Fonts/FontsImage/Panel/" exported="true"/>
+    <font id="fw2c21" name="PanelFont.fnt" path="/Fonts/Font/" exported="true"/>
+    <image id="ki6n22" name="普通游戏3.png" path="/images/参考/"/>
+    <component id="ki6n24" name="AnchorPanelPush.xml" path="/images/popupNormalGame/"/>
+    <image id="ki6n25" name="ng_txt_50.png" path="/images/GameNormal/Slot/"/>
+    <component id="ki6n28" name="SlotFrame.xml" path="/moudules/SlotMachine/"/>
+    <component id="ki6n29" name="SlotMachine.xml" path="/moudules/SlotMachine/"/>
+    <component id="ki6n2a" name="SlotCover.xml" path="/moudules/SlotMachine/"/>
+    <component id="ki6n2b" name="SymbolAnimator.xml" path="/moudules/SlotMachine/"/>
+    <component id="ki6n2c" name="Symbol.xml" path="/moudules/SlotMachine/"/>
+    <component id="ki6n2e" name="Symbols.xml" path="/moudules/SlotMachine/"/>
+    <component id="ki6n2f" name="Reel.xml" path="/moudules/SlotMachine/"/>
+    <component id="ki6n2g" name="Reels.xml" path="/moudules/SlotMachine/"/>
+    <component id="ki6n2h" name="AnchorPayLines.xml" path="/moudules/SlotMachine/"/>
+    <component id="ki6n2i" name="TopMajor.xml" path="/moudules/TopJackpot/"/>
+    <component id="ki6n2j" name="TopMini.xml" path="/moudules/TopJackpot/"/>
+    <image id="ki6n2k" name="ng_num_0.png" path="/Fonts/FontsImage/TopJackpot/"/>
+    <image id="ki6n2l" name="ng_num_1.png" path="/Fonts/FontsImage/TopJackpot/"/>
+    <image id="ki6n2m" name="ng_num_2.png" path="/Fonts/FontsImage/TopJackpot/"/>
+    <image id="ki6n2n" name="ng_num_3.png" path="/Fonts/FontsImage/TopJackpot/"/>
+    <image id="ki6n2o" name="ng_num_4.png" path="/Fonts/FontsImage/TopJackpot/"/>
+    <image id="ki6n2p" name="ng_num_5.png" path="/Fonts/FontsImage/TopJackpot/"/>
+    <image id="ki6n2q" name="ng_num_6.png" path="/Fonts/FontsImage/TopJackpot/"/>
+    <image id="ki6n2r" name="ng_num_7.png" path="/Fonts/FontsImage/TopJackpot/"/>
+    <image id="ki6n2s" name="ng_num_8.png" path="/Fonts/FontsImage/TopJackpot/"/>
+    <image id="ki6n2t" name="ng_num_9.png" path="/Fonts/FontsImage/TopJackpot/"/>
+    <image id="ki6n2v" name="ng_num_com.png" path="/Fonts/FontsImage/TopJackpot/"/>
+    <image id="ki6n2w" name="ng_num_dollar.png" path="/Fonts/FontsImage/TopJackpot/"/>
+    <image id="ki6n2x" name="ng_num_dot.png" path="/Fonts/FontsImage/TopJackpot/"/>
+    <font id="ki6n2y" name="TopJackpotFont.fnt" path="/Fonts/Font/" exported="true"/>
+    <component id="ki6n2z" name="TopMinor.xml" path="/moudules/TopJackpot/"/>
+    <component id="wehy30" name="TopJackpot.xml" path="/moudules/TopJackpot/"/>
+    <component id="wehy31" name="AnchorNpc.xml" path="/moudules/NormalGame/" exported="true"/>
+    <component id="wehy32" name="Panel.xml" path="/moudules/NormalGame/" exported="true"/>
+    <image id="wehy22" name="1.png" path="/images/参考/"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

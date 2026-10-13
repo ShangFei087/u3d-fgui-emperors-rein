@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="226,81" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_ki6n" name="n0" src="ki6nz" fileName="images/Button/btn_exhibition_01.png" xy="0,0" group="n1_ki6n">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n2_ki6n" name="n2" src="ki6n13" fileName="images/Button/txt_close.png" xy="48,15" group="n1_ki6n"/>
+    <group id="n1_ki6n" name="closeGroup" xy="0,0" size="226,81" advanced="true"/>
+    <image id="n3_ki6n" name="n3" src="ki6n10" fileName="images/Button/btn_exhibition_02.png" xy="0,0" group="n4_ki6n"/>
+    <image id="n5_ki6n" name="n5" src="ki6n14" fileName="images/Button/txt_open.png" xy="47,15" group="n4_ki6n"/>
+    <group id="n4_ki6n" name="openGroup" xy="0,0" size="226,81" advanced="true"/>
+  </displayList>
+  <Button/>
+</component>

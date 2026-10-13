@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" designImage="ui://2lyry3xlki6n22">
+  <displayList>
+    <image id="n1_fw2c" name="n1" src="fw2c1j" fileName="images/GameNormal/ng_img_bg_01.png" xy="0,0"/>
+    <component id="n24_wehy" name="anchorNpc" src="wehy31" fileName="moudules/NormalGame/AnchorNpc.xml" xy="540,828"/>
+    <component id="n13_ki6n" name="slotFrame" src="ki6n28" fileName="moudules/SlotMachine/SlotFrame.xml" xy="-11,1026" group="n15_ki6n"/>
+    <component id="n14_ki6n" name="slotMachine" src="ki6n29" fileName="moudules/SlotMachine/SlotMachine.xml" xy="33,1099" size="1015,603" group="n15_ki6n"/>
+    <group id="n15_ki6n" name="slot" xy="-11,1026" size="1107,729"/>
+    <component id="n16_ki6n" name="topJackpot" src="wehy30" fileName="moudules/TopJackpot/TopJackpot.xml" xy="1,8"/>
+    <component id="n25_wehy" name="panel" src="wehy32" fileName="moudules/NormalGame/Panel.xml" xy="0,0"/>
+  </displayList>
+</component>

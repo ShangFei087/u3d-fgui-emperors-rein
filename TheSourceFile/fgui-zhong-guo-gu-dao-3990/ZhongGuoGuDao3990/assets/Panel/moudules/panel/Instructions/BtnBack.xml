@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="453,114" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_wehy" name="n0" src="wehy1y" fileName="images/Panel/Instructions/ng_btn_hdyx.png" xy="226,57" pivot="0.5,0.5" anchor="true">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+  </displayList>
+  <Button/>
+</component>

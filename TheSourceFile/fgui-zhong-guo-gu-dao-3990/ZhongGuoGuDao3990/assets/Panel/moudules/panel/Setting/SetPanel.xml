@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="364,341">
+  <displayList>
+    <image id="n36_ki6n" name="n36" src="ki6n1b" fileName="images/Panel/Setting/ng_num_gnjm2.png" xy="0,0"/>
+    <component id="n37_ki6n" name="btnHome" src="ki6n1i" fileName="moudules/panel/Setting/BtnBack.xml" xy="30,238"/>
+    <component id="n38_ki6n" name="btnPayTable" src="ki6n1j" fileName="moudules/panel/Setting/BtnHelp.xml" xy="30,134"/>
+    <component id="n39_ki6n" name="btnSound" src="ki6n1k" fileName="moudules/panel/Setting/ButtonSound.xml" xy="30,26"/>
+    <component id="n40_ki6n" name="silderSound" src="ki6n1q" fileName="moudules/panel/Setting/SoundSlider.xml" xy="109,61">
+      <Slider value="50" max="100"/>
+    </component>
+  </displayList>
+</component>

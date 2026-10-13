@@ -191,10 +191,11 @@ namespace XingYunZhiLun_3998
             {"1", "ui://XingYunZhiLun_3998/ListSymbol1"},
             {"2", "ui://XingYunZhiLun_3998/ListSymbol2"},
             {"3", "ui://XingYunZhiLun_3998/ListSymbol3"},
-            {"4", "ui://XingYunZhiLun_3998/ListSymbol4"},
-            {"5", "ui://XingYunZhiLun_3998/ListSymbol5"},
-            {"6", "ui://XingYunZhiLun_3998/ListSymbol6"},
 
+
+            //{"4", "ui://XingYunZhiLun_3998/ListSymbol4"},
+            //{"5", "ui://XingYunZhiLun_3998/ListSymbol5"},
+            //{"6", "ui://XingYunZhiLun_3998/ListSymbol6"},
             //{"8", "ui://XingYunZhiLun_3998/ListSymbol8"},
             //{"9", "ui://XingYunZhiLun_3998/ListSymbol9"},
         };

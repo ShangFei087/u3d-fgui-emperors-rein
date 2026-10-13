@@ -1,0 +1,55 @@
+sg_bor_host.png
+size:871,523
+filter:Linear,Linear
+pma:true
+scale:0.9
+L eye ball
+bounds:578,344,14,14
+L eye white
+bounds:834,2,25,24
+offsets:0,0,26,24
+R eye ball
+bounds:578,360,16,16
+offsets:0,0,17,17
+R eye white
+bounds:578,378,30,21
+offsets:0,0,30,22
+rotate:90
+beard
+bounds:797,67,72,24
+body
+bounds:467,16,280,299
+offsets:110,6,577,461
+rotate:90
+g0
+bounds:797,17,48,35
+offsets:0,2,48,37
+rotate:90
+head
+bounds:710,298,122,153
+offsets:2,0,140,153
+rotate:90
+mood
+bounds:768,8,83,27
+rotate:90
+new/01
+bounds:382,410,111,326
+rotate:90
+new/02
+bounds:710,422,99,155
+offsets:1,0,100,155
+rotate:90
+new/03
+bounds:382,308,100,194
+rotate:90
+nose
+bounds:834,28,32,37
+table
+bounds:2,3,518,378
+rotate:90
+xx01
+bounds:382,3,293,83
+rotate:90
+xx02
+bounds:768,93,203,99
+rotate:90

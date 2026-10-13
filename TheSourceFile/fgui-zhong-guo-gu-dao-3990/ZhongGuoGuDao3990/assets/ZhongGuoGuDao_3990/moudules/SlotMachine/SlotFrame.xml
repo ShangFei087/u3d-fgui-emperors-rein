@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1107,729">
+  <displayList>
+    <image id="n13_ki6n" name="n13" src="fw2c19" fileName="images/GameNormal/Slot/ng_bor_nk.png" xy="32,66"/>
+    <image id="n3_ki6n" name="n3" src="fw2c16" fileName="images/GameNormal/Slot/ng_bor_left.png" xy="11,43"/>
+    <image id="n6_ki6n" name="n6" src="fw2c17" fileName="images/GameNormal/Slot/ng_bor_right.png" xy="1051,59"/>
+    <image id="n7_ki6n" name="n7" src="ki6n25" fileName="images/GameNormal/Slot/ng_txt_50.png" xy="19,352"/>
+    <image id="n9_ki6n" name="n9" src="fw2c15" fileName="images/GameNormal/Slot/ng_bor_fgx.png" xy="239,71"/>
+    <image id="n10_ki6n" name="n10" src="fw2c15" fileName="images/GameNormal/Slot/ng_bor_fgx.png" xy="442,71"/>
+    <image id="n11_ki6n" name="n11" src="fw2c15" fileName="images/GameNormal/Slot/ng_bor_fgx.png" xy="645,71"/>
+    <image id="n12_ki6n" name="n12" src="fw2c15" fileName="images/GameNormal/Slot/ng_bor_fgx.png" xy="848,71"/>
+    <image id="n8_ki6n" name="n8" src="ki6n25" fileName="images/GameNormal/Slot/ng_txt_50.png" xy="1067,352"/>
+    <image id="n2_ki6n" name="n2" src="fw2c14" fileName="images/GameNormal/Slot/ng_bor_down.png" xy="0,602"/>
+    <image id="n4_ki6n" name="n4" src="fw2c18" fileName="images/GameNormal/Slot/ng_bor_up.png" xy="0,0"/>
+  </displayList>
+</component>

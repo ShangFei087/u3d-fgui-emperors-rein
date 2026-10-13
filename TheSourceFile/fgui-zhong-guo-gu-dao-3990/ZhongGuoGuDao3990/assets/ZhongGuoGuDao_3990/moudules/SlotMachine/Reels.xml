@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1015,603" overflow="hidden">
+  <displayList>
+    <component id="n0_ki6n" name="reel1" src="ki6n2f" fileName="component/Slot/Reel.xml" xy="0,0"/>
+    <component id="n1_ki6n" name="reel2" src="ki6n2f" fileName="component/Slot/Reel.xml" xy="203,0"/>
+    <component id="n2_ki6n" name="reel3" src="ki6n2f" fileName="component/Slot/Reel.xml" xy="406,0"/>
+    <component id="n3_ki6n" name="reel4" src="ki6n2f" fileName="component/Slot/Reel.xml" xy="609,0"/>
+    <component id="n4_ki6n" name="reel5" src="ki6n2f" fileName="component/Slot/Reel.xml" xy="812,0"/>
+  </displayList>
+</component>

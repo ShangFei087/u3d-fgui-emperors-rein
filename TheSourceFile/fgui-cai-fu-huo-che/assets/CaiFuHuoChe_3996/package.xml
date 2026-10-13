@@ -117,7 +117,7 @@
     <image id="baxv79" name="ng_num_kilo.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-19,-14"/>
     <image id="baxv7a" name="ng_num_million.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-12,-14"/>
     <image id="baxv7r" name="ng_num_trillion.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-21,-14"/>
-    <component id="baxv7z" name="AnchorJackpotBG.xml" path="/component/popupNormalGame/"/>
+    <component id="baxv7z" name="AnchorJackpotBG.xml" path="/component/popupNormalGame/" exported="true"/>
     <image id="baxv8x" name="fg_num_pop_0.png" path="/fonts/fontImage/freeSpinTrigger/"/>
     <image id="baxv8y" name="fg_num_pop_1.png" path="/fonts/fontImage/freeSpinTrigger/"/>
     <image id="baxv8z" name="fg_num_pop_2.png" path="/fonts/fontImage/freeSpinTrigger/"/>
@@ -140,8 +140,8 @@
     <component id="v2k7cc" name="Paytable3.xml" path="/moudules/payTable/" exported="true"/>
     <component id="v2k7cd" name="Paytable4.xml" path="/moudules/payTable/" exported="true"/>
     <component id="v2k7ce" name="Paytable5.xml" path="/moudules/payTable/" exported="true"/>
-    <component id="znm9cf" name="AnchorGirl.xml" path="/component/popupNormalGame/"/>
-    <component id="iilzcl" name="AnchorBox.xml" path="/component/popupNormalGame/"/>
+    <component id="znm9cf" name="AnchorGirl.xml" path="/component/popupNormalGame/" exported="true"/>
+    <component id="iilzcl" name="AnchorBox.xml" path="/component/popupNormalGame/" exported="true"/>
     <component id="drzncq" name="GameJackpotNumReel.xml" path="/moudules/JackpotTip/" exported="true"/>
     <image id="drzncr" name="ng_num_b.png" path="/fonts/fontImage/jackpotTip/" exported="true" scale9grid="0,0,-8,-30"/>
     <component id="drzncs" name="PopupJackpotResult.xml" path="/" exported="true"/>
@@ -302,6 +302,9 @@
     <component id="ycmnir" name="anchorPag.xml" path="/component/popupJackpotGame/" exported="true"/>
     <image id="uqrcis" name="sg_fs_txt_respin.png" path="/images/jackpotGame/" exported="true"/>
     <component id="lhdziu" name="AnchorNum.xml" path="/component/popupFreeGame/" exported="true"/>
+    <component id="fjqjiv" name="AnchorRewardEff.xml" path="/component/popupNormalGame/" exported="true"/>
+    <component id="fjqjiw" name="AnchorComReelEffect.xml" path="/component/popupNormalGame/" exported="true"/>
+    <component id="fjqjiy" name="ComReelEffect.xml" path="/component/popupNormalGame/" exported="true"/>
   </resources>
   <publish name="" path="../../Assets\GameRes\Games\Cai Fu Huo Che 3996\FGUIs" packageCount="2"/>
 </packageDescription>

@@ -96,6 +96,10 @@
     <component id="n18_o8uc" name="minor" src="o8uc1g" fileName="moudules/JackpotMinor.xml" xy="39,144" group="n13_o8uc"/>
     <component id="n16_o8uc" name="major" src="o8uc1f" fileName="moudules/JackpotMajor.xml" xy="340,15" group="n13_o8uc"/>
     <group id="n13_o8uc" name="jackpotTip" xy="39,15" size="1020,267"/>
+    <component id="n74_fjqj" name="ComReelEffect" src="fjqjiy" fileName="component/popupNormalGame/ComReelEffect.xml" xy="543,1332"/>
+    <component id="n71_fjqj" name="ComRewardEffect1" src="fjqjiv" fileName="component/popupNormalGame/AnchorRewardEff.xml" xy="543,1331"/>
+    <component id="n72_fjqj" name="ComRewardEffect2" src="fjqjiv" fileName="component/popupNormalGame/AnchorRewardEff.xml" xy="545,1331"/>
+    <component id="n73_fjqj" name="ComRewardEffect3" src="fjqjiv" fileName="component/popupNormalGame/AnchorRewardEff.xml" xy="545,1331"/>
     <component id="n55_ucv0" name="JpEffect" src="ucv05j" fileName="component/popupNormalGame/OpenDoor.xml" xy="540,960"/>
     <component id="n63_vxx6" name="panel" src="fkjsl" fileName="component/popupNormalGame/AnchorPanelPush.xml" xy="540,960"/>
     <graph id="n64_znm9" name="mask" xy="0,0" size="1080,1920" visible="false" touchable="false" type="rect" lineSize="0" fillColor="#ff000000">

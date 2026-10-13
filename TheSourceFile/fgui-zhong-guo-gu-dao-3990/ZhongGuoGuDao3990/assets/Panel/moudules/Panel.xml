@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" designImage="ui://2lyry3xlwehy22">
+  <displayList>
+    <graph id="n0_fw2c" name="mask" xy="0,0" size="1080,1920" visible="false" type="rect" lineSize="0" fillColor="#99333333"/>
+    <component id="n1_fw2c" name="frame" src="fw2cj" fileName="moudules/panel/BottomFrame.xml" xy="0,1725"/>
+    <component id="n7_ki6n" name="btnBetUp" src="ki6nt" fileName="moudules/panel/ButtonBetUp.xml" xy="565,1845"/>
+    <component id="n8_ki6n" name="btnBetDown" src="ki6nu" fileName="moudules/panel/ButtonBetDown.xml" xy="814,1845"/>
+    <text id="n9_ki6n" name="bet" xy="716,1862" pivot="0.5,0.5" anchor="true" size="197,33" font="ui://2lyry3xlfw2c21" fontSize="6" align="center" vAlign="middle" letterSpacing="-7" autoSize="none" text=" $99999900"/>
+    <text id="n10_ki6n" name="credit" xy="376,1863" pivot="0.5,0.5" anchor="true" size="192,37" font="ui://2lyry3xlfw2c21" fontSize="6" align="center" vAlign="middle" letterSpacing="-7" autoSize="none" text="$9999999900"/>
+    <text id="n11_ki6n" name="win" xy="544,1769" pivot="0.5,0.5" anchor="true" size="424,62" font="ui://2lyry3xlfw2c21" fontSize="12" align="center" vAlign="middle" letterSpacing="-13" autoSize="none" text="$9999999999"/>
+    <text id="n42_ki6n" name="singleLine" xy="534,1711" pivot="0.5,0.5" anchor="true" size="84,34" fontSize="24" color="#ffffff" align="center" vAlign="bottom" text="Line : 8"/>
+    <component id="n12_ki6n" name="n12" src="ki6ny" fileName="moudules/panel/BottomText.xml" xy="334,1904"/>
+    <component id="n24_ki6n" name="ExhibitionPanel" src="ki6n1a" fileName="moudules/panel/Exhibition/ExhibitionPanel.xml" xy="0,358"/>
+    <component id="n36_ki6n" name="setPanel" src="ki6n1r" fileName="moudules/panel/Setting/SetPanel.xml" xy="28,1394"/>
+    <component id="n6_fw2c" name="btnHelp" src="fw2cl" fileName="moudules/panel/ButtonHelp.xml" xy="-2,1720"/>
+    <component id="n41_ki6n" name="btnSpin" src="ki6n1s" fileName="moudules/panel/Spin/BtnSpin.xml" xy="889,1723"/>
+    <component id="n49_wehy" name="instructions" src="wehy26" fileName="moudules/PayTable.xml" xy="0,0"/>
+  </displayList>
+</component>

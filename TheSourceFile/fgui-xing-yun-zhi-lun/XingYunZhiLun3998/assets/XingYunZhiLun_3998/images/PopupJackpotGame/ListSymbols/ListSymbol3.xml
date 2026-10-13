@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="639,837">
+<component size="649,919">
   <displayList>
-    <image id="n1_12dua" name="n1" src="u2bkals" fileName="images/PopupJackpotGame/ListSymbolIcons/Lucky_ng_sym11_painting01.png" xy="1,1"/>
-    <text id="n2_12dua" name="Socre" xy="320,50" pivot="0.5,0.5" anchor="true" size="344,73" font="ui://5hielhj5a6ypacb" fontSize="6" align="center" vAlign="middle" leading="0" autoSize="shrink" text="123456789"/>
+    <image id="n1_12dua" name="n1" src="duhcapj" fileName="images/PopupJackpotGame/ListSymbolIcons/jp_img_icon_ordinary.png" xy="1,1"/>
+    <text id="n2_12dua" name="Socre" xy="328,824" pivot="0.5,0.5" anchor="true" size="416,82" font="ui://5hielhj5a6ypacb" fontSize="6" align="center" vAlign="middle" leading="0" autoSize="shrink" text="123456789"/>
   </displayList>
 </component>

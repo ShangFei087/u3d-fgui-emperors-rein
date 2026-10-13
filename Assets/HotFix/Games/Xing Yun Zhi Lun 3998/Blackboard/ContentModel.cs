@@ -557,7 +557,7 @@ namespace XingYunZhiLun_3998
         public Dictionary<int, List<int>> wildPos = new Dictionary<int, List<int>>();
 
         ///<summary> 临时存储倍率游戏里面的Canvas，方便菜单界面打开时调整Canvas层级 </summary>
-        public List<Canvas> tempCanvas = new List<Canvas>();
+        //public List<Canvas> tempCanvas = new List<Canvas>();
 
         #endregion
 

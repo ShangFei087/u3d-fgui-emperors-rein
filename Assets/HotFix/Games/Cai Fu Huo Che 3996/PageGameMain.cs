@@ -510,7 +510,6 @@ namespace CaiFuHuoChe_3996
             payTableController.Init(lstPayTable);
 
             // ---------- 2. FGUI 对象池（须先于滚轮 Init） ----------
-            // ---------- 2. FGUI 对象池（须先于滚轮 Init） ----------
             if (fguiPoolHelper != null && isInitPool == false)
             {
                 isInitPool = true;
@@ -587,80 +586,91 @@ namespace CaiFuHuoChe_3996
             });
 
             // ---------- 7.预制体挂到 FGUI 锚点 ----------
-            if (ComReelEffect2 != null)
+            
+
+            if(contentPane.GetChild("ComReelEffect").asCom.GetChild("ComReelEffect2") != null)
             {
-                GameCommon.FguiUtils.DeleteWrapper(ComReelEffect2);
-                ComReelEffect2.Dispose();
-                ComReelEffect2 = null;
+                GComponent loadComReelEffect2 = contentPane.GetChild("ComReelEffect").asCom.GetChild("ComReelEffect2").asCom;
+                if (loadComReelEffect2 != null && ComReelEffect2 != loadComReelEffect2)
+                {
+                    GameCommon.FguiUtils.DeleteWrapper(ComReelEffect2);
+                    ComReelEffect2 = loadComReelEffect2;
+                    goFreeReelEffcetObj = GameObject.Instantiate(goFreeReelEffcetPre);
+                    GameCommon.FguiUtils.AddWrapper(ComReelEffect2, goFreeReelEffcetObj);
+                    ComReelEffect2.visible = false;
+                }
             }
-
-            if (ComReelEffect3 != null)
+            
+            if(contentPane.GetChild("ComReelEffect").asCom.GetChild("ComReelEffect3") != null)
             {
-                GameCommon.FguiUtils.DeleteWrapper(ComReelEffect3);
-                ComReelEffect3.Dispose();
-                ComReelEffect3 = null;
-            }
+                GComponent loadComReelEffect3 = contentPane.GetChild("ComReelEffect").asCom.GetChild("ComReelEffect3").asCom;
+                if (loadComReelEffect3 != null && ComReelEffect3 != loadComReelEffect3)
+                {
+                    GameCommon.FguiUtils.DeleteWrapper(ComReelEffect3);
+                    ComReelEffect3 = loadComReelEffect3;
+                    goJackpotReelEffectObj = GameObject.Instantiate(goJackpotReelEffectPre);
+                    GameCommon.FguiUtils.AddWrapper(ComReelEffect3, goJackpotReelEffectObj);
+                    ComReelEffect3.visible = false;
+                }
+            } 
+            
 
-            ComReelEffect2 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            goFreeReelEffcetObj = GameObject.Instantiate(goFreeReelEffcetPre);
-            GameCommon.FguiUtils.AddWrapper(ComReelEffect2, goFreeReelEffcetObj);
-            ComReelEffect2.visible = false;
-
-            ComReelEffect3 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            goJackpotReelEffectObj = GameObject.Instantiate(goJackpotReelEffectPre);
-            GameCommon.FguiUtils.AddWrapper(ComReelEffect3, goJackpotReelEffectObj);
-            ComReelEffect3.visible = false;
-
+            anchorFreeAdd = contentPane.GetChild("freeAddPoint").asCom;
+            anchorJackpotAdd = contentPane.GetChild("jackpotAddPoint").asCom;
             anchorExpectation = this.contentPane.GetChild("anchorReelEffect").asCom;
             anchorExpectation.AddChild(ComReelEffect2);
             anchorExpectation.AddChild(ComReelEffect3);
             anchorExpectation.visible = true;
 
-
-            if (ComRewardEffect1 != null)
+            if(contentPane.GetChild("ComRewardEffect1") != null)
             {
-                GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect1);
-                ComRewardEffect1.Dispose();
-                ComRewardEffect1 = null;
+                GComponent loadComRewardEffect1 = contentPane.GetChild("ComRewardEffect1").asCom;
+                if (ComRewardEffect1 != loadComRewardEffect1)
+                {
+                    GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect1);
+                    ComRewardEffect1 = loadComRewardEffect1;
+                    goRewardEffectObj1 = GameObject.Instantiate(goRewardEffectPre);
+                    GameCommon.FguiUtils.AddWrapper(ComRewardEffect1, goRewardEffectObj1);
+                    ComRewardEffect1.visible = false;
+                    anchorFreeAdd.AddChild(ComRewardEffect1);
+                }
             }
-
-            if (ComRewardEffect2 != null)
+            
+            if(contentPane.GetChild("ComRewardEffect2") != null)
             {
-                GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect2);
-                ComRewardEffect2.Dispose();
-                ComRewardEffect2 = null;
+                GComponent loadComRewardEffect2 = contentPane.GetChild("ComRewardEffect2").asCom;
+                if (ComRewardEffect2 != loadComRewardEffect2)
+                {
+                    GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect2);
+                    ComRewardEffect2 = loadComRewardEffect2;
+                    goRewardEffectObj2 = GameObject.Instantiate(goRewardEffectPre);
+                    GameCommon.FguiUtils.AddWrapper(ComRewardEffect2, goRewardEffectObj2);
+                    ComRewardEffect2.visible = false;
+                    anchorFreeAdd.AddChild(ComRewardEffect2);
+                }
             }
-
-            if (ComRewardEffect3 != null)
+            
+            if(contentPane.GetChild("ComRewardEffect3") != null)
             {
-                GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect3);
-                ComRewardEffect3.Dispose();
-                ComRewardEffect3 = null;
+                GComponent loadComRewardEffect3 = contentPane.GetChild("ComRewardEffect3").asCom;
+                if (ComRewardEffect3 != loadComRewardEffect3)
+                {
+                    GameCommon.FguiUtils.DeleteWrapper(ComRewardEffect3);
+                    ComRewardEffect3 = loadComRewardEffect3;
+                    goRewardEffectObj3 = GameObject.Instantiate(goRewardEffectPre);
+                    GameCommon.FguiUtils.AddWrapper(ComRewardEffect3, goRewardEffectObj3);
+                    ComRewardEffect3.visible = false;
+                    anchorFreeAdd.AddChild(ComRewardEffect3);
+                }
             }
+            
 
-            ComRewardEffect1 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            ComRewardEffect2 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            ComRewardEffect3 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-
-            goRewardEffectObj1 = GameObject.Instantiate(goRewardEffectPre);
-            goRewardEffectObj2 = GameObject.Instantiate(goRewardEffectPre);
-            goRewardEffectObj3 = GameObject.Instantiate(goRewardEffectPre);
-
-            GameCommon.FguiUtils.AddWrapper(ComRewardEffect1, goRewardEffectObj1);
-            GameCommon.FguiUtils.AddWrapper(ComRewardEffect2, goRewardEffectObj2);
-            GameCommon.FguiUtils.AddWrapper(ComRewardEffect3, goRewardEffectObj3);
-            ComRewardEffect1.visible = false;
-            ComRewardEffect2.visible = false;
-            ComRewardEffect3.visible = false;
-            anchorFreeAdd = contentPane.GetChild("freeAddPoint").asCom;
-            anchorJackpotAdd = contentPane.GetChild("jackpotAddPoint").asCom;
             anchorFill1 = contentPane.GetChild("fill1Add").asCom;
             anchorFill2 = contentPane.GetChild("fill2Add").asCom;
             anchorFill3 = contentPane.GetChild("fill3Add").asCom;
             anchorFill4 = contentPane.GetChild("fill4Add").asCom;
-            anchorFreeAdd.AddChild(ComRewardEffect1);
-            anchorFreeAdd.AddChild(ComRewardEffect2);
-            anchorFreeAdd.AddChild(ComRewardEffect3);
+            
+            
             anchorFreeAdd.visible = true;
 
 

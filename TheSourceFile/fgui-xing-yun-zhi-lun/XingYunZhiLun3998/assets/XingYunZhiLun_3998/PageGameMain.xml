@@ -25,6 +25,7 @@
     <component id="n39_x7l3" name="FSFrame" src="x7l37w" fileName="freeGameFramePush.xml" xy="391,972"/>
     <component id="n28_l9vr" name="anchorFrame" src="lsvw1j" fileName="components/PopupZhuanPan/AnchorEffect.xml" xy="524,1406"/>
     <component id="n53_iihr" name="anchorEffect" src="iihrabs" fileName="components/AnchorTransEffect.xml" xy="540,550" touchable="false"/>
+    <component id="n65_9tu6" name="anchorReel" src="9tu6api" fileName="components/PopupGameNormalGame/AnchorReel.xml" xy="541,1318"/>
     <component id="n54_ixm6" name="anchorReelEffect" src="lsvw1j" fileName="components/PopupZhuanPan/AnchorEffect.xml" xy="540,1320" touchable="false"/>
     <component id="n26_lsvw" name="panel" src="l9vr1r" fileName="components/AnchorPanelPush.xml" xy="540,960"/>
   </displayList>

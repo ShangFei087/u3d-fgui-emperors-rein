@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,194">
+  <displayList>
+    <image id="n1_fw2c" name="n1" src="fw2cg" fileName="images/Panel/ng_bor_bottom1.png" xy="0,0"/>
+    <image id="n2_fw2c" name="n2" src="fw2cf" fileName="images/Panel/Bet/ng_txt_bet.png" xy="713,165" pivot="0.5,0.5" anchor="true"/>
+    <image id="n3_fw2c" name="n3" src="fw2cd" fileName="images/Panel/Credit/ng_icon_tb.png" xy="235,133"/>
+    <image id="n4_fw2c" name="n4" src="fw2ce" fileName="images/Panel/Credit/ng_txt_credits.png" xy="377,165" pivot="0.5,0.5" anchor="true"/>
+    <image id="n5_fw2c" name="n5" src="fw2ch" fileName="images/Panel/Win/ng_txt_win.png" xy="542,85" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>

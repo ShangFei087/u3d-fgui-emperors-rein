@@ -254,7 +254,7 @@ namespace XingYunZhiLun_3998
 
             [SoundKey.BonusWin] = new GSHandler()
             {
-                assetPath = "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Sounds/Effect/Normal/BonusWin.ogg",
+                assetPath = "Assets/GameRes/Games/Xing Yun Zhi Lun 3998/Sounds/Effect/Jackpot/BonusWin.ogg",
             },
 
             [SoundKey.ScatterWin] = new GSHandler()

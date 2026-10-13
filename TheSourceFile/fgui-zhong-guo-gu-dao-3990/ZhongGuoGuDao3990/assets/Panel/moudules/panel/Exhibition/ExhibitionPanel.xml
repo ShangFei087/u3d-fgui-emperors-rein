@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1391">
+  <displayList>
+    <component id="n24_ki6n" name="reel1" src="ki6n1t" fileName="moudules/panel/Exhibition/ReelBtn.xml" xy="102,688"/>
+    <component id="n25_ki6n" name="reel2" src="ki6n1t" fileName="moudules/panel/Exhibition/ReelBtn.xml" xy="304,688"/>
+    <component id="n26_ki6n" name="reel3" src="ki6n1t" fileName="moudules/panel/Exhibition/ReelBtn.xml" xy="501,688"/>
+    <component id="n27_ki6n" name="reel4" src="ki6n1t" fileName="moudules/panel/Exhibition/ReelBtn.xml" xy="708,688"/>
+    <component id="n28_ki6n" name="reel5" src="ki6n1t" fileName="moudules/panel/Exhibition/ReelBtn.xml" xy="908,688"/>
+    <component id="n23_ki6n" name="btnExhibition" src="ki6n17" fileName="moudules/panel/Exhibition/ButtonExhibition.xml" xy="854,0"/>
+  </displayList>
+</component>

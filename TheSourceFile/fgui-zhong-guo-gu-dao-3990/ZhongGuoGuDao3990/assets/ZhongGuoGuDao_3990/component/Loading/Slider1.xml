@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1003,92" extention="Slider">
+  <displayList>
+    <image id="n3_fw2c" name="n3" src="fw2ch" fileName="images/Loading/load_bg_05.png" xy="67,8"/>
+    <image id="n1_fw2c" name="bar" src="fw2cg" fileName="images/Loading/load_bg_04.png" xy="78,12"/>
+    <image id="n0_fw2c" name="n0" src="fw2cf" fileName="images/Loading/load_bg_03.png" xy="0,0" size="1003,92">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n2_fw2c" name="grip" src="fw2cl" fileName="component/Loading/Slider1_grip.xml" xy="937,36" visible="false" touchable="false">
+      <relation target="n1_fw2c" sidePair="right-right"/>
+    </component>
+  </displayList>
+  <Slider/>
+</component>

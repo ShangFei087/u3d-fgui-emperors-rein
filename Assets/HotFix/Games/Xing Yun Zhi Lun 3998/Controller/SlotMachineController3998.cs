@@ -608,7 +608,7 @@ namespace XingYunZhiLun_3998
     => ShowMultipleHit(GetSymbol(symbolNumbers), isAmin, symbolNumber, isUseMySelfSymbolNumber, finishCallback);
         public void ShowMultipleHit(List<SymbolBase> symbols, bool isAmin, int symbolNumber, bool isUseMySelfSymbolNumber, Action finishCallback = null)
         {
-            ContentModel.Instance.tempCanvas.Clear();
+            //ContentModel.Instance.tempCanvas.Clear();
             int maxSortingOrder = 0;
             foreach (SymbolBase symbol in symbols)
             {
@@ -633,16 +633,20 @@ namespace XingYunZhiLun_3998
                 GComponent goBorderMultEffect = fguiPoolHelper.GetObject(TagPoolObject.SymbolHit, multipleEffect).asCom;
                 GComponent gBorderMult = symbol.AddBorderEffect(goBorderMultEffect);
 
-                Canvas tempCan = goBorderMultEffect.displayObject.gameObject.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<Canvas>();
-                tempCan.overrideSorting = true;
-                ContentModel.Instance.tempCanvas.Add(tempCan);
+                //设置倍率字体到最上层
+                gBorderMult.parent.SetChildIndex(gBorderMult, gBorderMult.parent.GetChildren().Length - 1);
+
+                ////修改Canvas层级（已弃用）
+                //Canvas tempCan = goBorderMultEffect.displayObject.gameObject.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<Canvas>();
+                //tempCan.overrideSorting = true;
+                //ContentModel.Instance.tempCanvas.Add(tempCan);
             }
 
-            //将倍率的数字放在物体的上方，防止被遮挡，在外面赋值防止给数字的较低值碰到物体的较高值依旧产生遮挡效果
-            for(int i = 0; i < ContentModel.Instance.tempCanvas.Count; i++)
-            {
-                ContentModel.Instance.tempCanvas[i].sortingOrder = maxSortingOrder + 1;
-            }
+            ////将倍率的数字放在物体的上方，防止被遮挡，在外面赋值防止给数字的较低值碰到物体的较高值依旧产生遮挡效果
+            //for(int i = 0; i < ContentModel.Instance.tempCanvas.Count; i++)
+            //{
+            //    ContentModel.Instance.tempCanvas[i].sortingOrder = maxSortingOrder + 1;
+            //}
 
             finishCallback?.Invoke();
         }
@@ -873,7 +877,6 @@ namespace XingYunZhiLun_3998
             }
 
 
-            Debug.LogError("ReelsToStopOrTurnOnce");
             EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_SLOT_EVENT,
                 new EventData(SlotMachineEvent.StoppedSlotMachine));
 

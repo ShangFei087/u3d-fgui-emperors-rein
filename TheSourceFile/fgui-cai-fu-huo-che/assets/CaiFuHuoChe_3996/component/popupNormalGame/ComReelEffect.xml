@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <component id="n1_fjqj" name="ComReelEffect2" src="fjqjiw" fileName="component/popupNormalGame/AnchorComReelEffect.xml" xy="0,0"/>
+    <component id="n2_fjqj" name="ComReelEffect3" src="fjqjiw" fileName="component/popupNormalGame/AnchorComReelEffect.xml" xy="0,0"/>
+  </displayList>
+</component>

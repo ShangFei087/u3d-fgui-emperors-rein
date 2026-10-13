@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="639,837">
+<component size="645,1032">
   <displayList>
-    <image id="n1_12dua" name="n1" src="u2bkalu" fileName="images/PopupJackpotGame/ListSymbolIcons/Lucky_ng_sym11_painting03.png" xy="0,0"/>
-    <image id="n4_a6yp" name="n4" src="oebral5" fileName="images/PopupJackpotGame/ListSymbolIcons/ng_txt_mini.png" xy="316,47" pivot="0.5,0.5" anchor="true" aspect="true">
+    <image id="n1_12dua" name="n1" src="duhcapl" fileName="images/PopupJackpotGame/ListSymbolIcons/jp_img_icon_mini.png" xy="0,0"/>
+    <image id="n4_a6yp" name="n4" src="duhcapo" fileName="images/PopupJackpotGame/ListSymbolIcons/jp_txt_icon_mini.png" xy="321,128" pivot="0.5,0.5" anchor="true" aspect="true">
       <relation target="" sidePair="center-center,middle-middle"/>
     </image>
+    <text id="n5_duhc" name="Socre" xy="324,935" pivot="0.5,0.5" anchor="true" size="450,85" font="ui://5hielhj5a6ypacb" fontSize="6" align="center" vAlign="middle" autoSize="none" text="1234567"/>
   </displayList>
 </component>

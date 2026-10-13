@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,300">
+  <displayList>
+    <component id="n16_ki6n" name="Major" src="ki6n2i" fileName="moudules/TopJackpot/TopMajor.xml" xy="250,0"/>
+    <component id="n19_ki6n" name="Mini" src="ki6n2j" fileName="moudules/TopJackpot/TopMini.xml" xy="678,131"/>
+    <component id="n23_ki6n" name="Minor" src="ki6n2z" fileName="moudules/TopJackpot/TopMinor.xml" xy="0,132"/>
+  </displayList>
+</component>

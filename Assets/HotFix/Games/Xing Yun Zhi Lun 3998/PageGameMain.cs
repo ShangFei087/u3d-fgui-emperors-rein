@@ -521,19 +521,23 @@ namespace XingYunZhiLun_3998
             // GameCommon.FguiUtils.DeleteWrapper(ComReelEffect2);
             // GameCommon.FguiUtils.AddWrapper(ComReelEffect2, GameObject.Instantiate(goReelEffcet));
 
-            if (ComReelEffect2 != null)
-            {
-                GameCommon.FguiUtils.DeleteWrapper(ComReelEffect2);
-                ComReelEffect2.Dispose();
-                ComReelEffect2 = null;
-            }
 
-            ComReelEffect2 = UIPackage.CreateObject("Common", "AnchorRootDefault").asCom;
-            GameCommon.FguiUtils.AddWrapper(ComReelEffect2, GameObject.Instantiate(goReelEffcet));
-            ComReelEffect2.visible = false;
-            anchorExpectation = this.contentPane.GetChild("anchorReelEffect").asCom;
-            anchorExpectation.AddChild(ComReelEffect2);
-            anchorExpectation.visible = true;
+            if (contentPane.GetChild("anchorReel") != null)
+            {
+                GComponent loadComReelEffect = contentPane.GetChild("anchorReel").asCom;
+                if (loadComReelEffect != ComReelEffect2)
+                {
+                    GameCommon.FguiUtils.DeleteWrapper(ComReelEffect2);
+                    ComReelEffect2 = loadComReelEffect;
+                    GameCommon.FguiUtils.AddWrapper(ComReelEffect2, GameObject.Instantiate(goReelEffcet));
+                    ComReelEffect2.visible = false;
+
+                    anchorExpectation = this.contentPane.GetChild("anchorReelEffect").asCom;
+                    anchorExpectation.AddChild(ComReelEffect2);
+                    anchorExpectation.visible = true;
+                }
+            }
+            
 
             GComponent loadNorAnchor = contentPane.GetChild("anchorBG").asCom;
             if (anchorNor != loadNorAnchor)
@@ -3240,7 +3244,7 @@ namespace XingYunZhiLun_3998
             }
 
             // 其他索引随机
-            return Random.Range(0, 7).ToString();
+            return Random.Range(0, CustomModel.Instance.ListSymbolsIcon.Count).ToString();
         }
 
         // 放大效果
@@ -3340,7 +3344,7 @@ namespace XingYunZhiLun_3998
         private int GetJackpotId()
         {
             if (ContentModel.Instance.isJackpotWin) return ContentModel.Instance.jackpotType;
-            return UnityEngine.Random.Range(3, 7);
+            return CustomModel.Instance.ListSymbolsIcon.Count - 1;
         }
 
         //播放指定动画

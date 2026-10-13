@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="fw2ci" name="load_bg_logo.png" path="/images/Loading/"/>
+    <image id="fw2co" name="load_txt_loading.png" path="/images/Loading/"/>
+    <image id="fw2c1g" name="ng_txt_major.png" path="/images/GameNormal/TopJackpot/"/>
+    <image id="fw2c1h" name="ng_txt_mini.png" path="/images/GameNormal/TopJackpot/"/>
+    <image id="fw2c1i" name="ng_txt_minor.png" path="/images/GameNormal/TopJackpot/"/>
+  </resources>
+</branchDescription>

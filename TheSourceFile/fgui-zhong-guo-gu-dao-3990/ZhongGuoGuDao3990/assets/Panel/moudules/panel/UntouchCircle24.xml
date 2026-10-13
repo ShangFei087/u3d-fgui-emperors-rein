@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="24,24">
+  <displayList>
+    <image id="n7_fw2c" name="n7" src="fw2cm" fileName="images/Panel/Setting/circle_24.png" xy="0,0" alpha="0.6" color="#333333">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+  </displayList>
+</component>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="fw2c7" name="ng_btn_stop1.png" path="/images/Panel/Spin/"/>
+    <image id="fw2c8" name="ng_btn_stop1-1.png" path="/images/Panel/Spin/"/>
+    <image id="fw2c9" name="ng_btn_auto1.png" path="/images/Panel/Spin/"/>
+    <image id="fw2ca" name="ng_btn_auto1-1.png" path="/images/Panel/Spin/"/>
+    <image id="fw2cb" name="ng_btn_spin1.png" path="/images/Panel/Spin/"/>
+    <image id="fw2cc" name="ng_btn_spin1-1.png" path="/images/Panel/Spin/"/>
+    <image id="fw2ci" name="ng_txt_win.png" path="/images/Panel/Win/"/>
+    <image id="fw2cp" name="ng_txt_credits.png" path="/images/Panel/Credit/"/>
+    <image id="fw2cq" name="ng_txt_bet.png" path="/images/Panel/Bet/"/>
+    <image id="ki6nw" name="ng_txt_ts.png" path="/images/Panel/"/>
+    <image id="ki6n1d" name="ng_btn_help.png" path="/images/Panel/Setting/"/>
+    <image id="wehy1x" name="ng_btn_hdyx.png" path="/images/Panel/Instructions/"/>
+  </resources>
+</branchDescription>

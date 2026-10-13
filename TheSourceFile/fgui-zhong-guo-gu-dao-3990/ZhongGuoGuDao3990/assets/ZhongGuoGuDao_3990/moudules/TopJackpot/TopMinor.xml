@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="496,168">
+  <displayList>
+    <image id="n23_ki6n" name="n23" src="fw2c1b" fileName="images/GameNormal/TopJackpot/ng_bor_minor.png" xy="0,60"/>
+    <image id="n22_ki6n" name="n22" src="fw2c1e" fileName="images/GameNormal/TopJackpot/ng_txt_minor.png" xy="192,45" pivot="0.5,0.5" anchor="true"/>
+    <text id="n24_ki6n" name="sorce" xy="201,102" pivot="0.5,0.5" anchor="true" size="295,66" font="ui://2lyry3xlki6n2y" fontSize="8" align="center" vAlign="middle" letterSpacing="-10" autoSize="none" text="9999999"/>
+  </displayList>
+</component>

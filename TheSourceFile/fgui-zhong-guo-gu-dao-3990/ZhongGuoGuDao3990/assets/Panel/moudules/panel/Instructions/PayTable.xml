@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" designImage="ui://2lyry3xlwehy22">
+  <displayList>
+    <graph id="n49_wehy" name="mash" xy="0,0" size="1080,1920" type="rect" lineSize="0" fillColor="#99333333"/>
+    <image id="n43_wehy" name="n43" src="wehy1w" fileName="images/Panel/Instructions/ng_bor_smsk.png" xy="67,71"/>
+    <component id="n45_wehy" name="btnBackGame" src="wehy23" fileName="moudules/panel/Instructions/BtnBack.xml" xy="313,1741"/>
+    <component id="n46_wehy" name="btnNect" src="wehy24" fileName="moudules/panel/Instructions/BtnNext.xml" xy="793,1751"/>
+    <component id="n48_wehy" name="btnPrev" src="wehy25" fileName="moudules/panel/Instructions/BtnPrev.xml" xy="197,1751"/>
+  </displayList>
+</component>

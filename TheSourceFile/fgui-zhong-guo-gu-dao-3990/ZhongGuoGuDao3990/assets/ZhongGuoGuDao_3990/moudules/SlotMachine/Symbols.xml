@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="203,603">
+  <displayList>
+    <component id="n0_ki6n" name="symbol0" src="ki6n2c" fileName="component/Slot/Symbol.xml" xy="0,-402"/>
+    <component id="n1_ki6n" name="symbol1" src="ki6n2c" fileName="component/Slot/Symbol.xml" xy="0,-201"/>
+    <component id="n2_ki6n" name="symbol2" src="ki6n2c" fileName="component/Slot/Symbol.xml" xy="0,0"/>
+    <component id="n3_ki6n" name="symbol3" src="ki6n2c" fileName="component/Slot/Symbol.xml" xy="0,201"/>
+    <component id="n4_ki6n" name="symbol4" src="ki6n2c" fileName="component/Slot/Symbol.xml" xy="0,402"/>
+    <component id="n5_ki6n" name="symbol5" src="ki6n2c" fileName="component/Slot/Symbol.xml" xy="0,603"/>
+    <component id="n6_ki6n" name="symbol6" src="ki6n2c" fileName="component/Slot/Symbol.xml" xy="0,804"/>
+    <component id="n7_ki6n" name="symbol7" src="ki6n2c" fileName="component/Slot/Symbol.xml" xy="0,1005"/>
+    <component id="n8_ki6n" name="symbol8" src="ki6n2c" fileName="component/Slot/Symbol.xml" xy="0,1206"/>
+  </displayList>
+</component>

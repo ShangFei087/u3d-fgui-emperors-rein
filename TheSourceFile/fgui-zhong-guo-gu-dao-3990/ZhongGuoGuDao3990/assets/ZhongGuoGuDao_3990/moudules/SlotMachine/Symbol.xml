@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="203,201">
+  <displayList>
+    <component id="n0_ki6n" name="animator" src="ki6n2b" fileName="component/Slot/SymbolAnimator.xml" xy="0,0"/>
+  </displayList>
+  <transition name="animBigger"/>
+</component>
