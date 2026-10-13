@@ -101,7 +101,7 @@ static public class DefaultSettingsUtils
     #region 语言
     [Title("语言")]
 
-    static public string defLanguage = "cn";
+    static public string defLanguage = "en";
     #endregion
 
     #region 音乐

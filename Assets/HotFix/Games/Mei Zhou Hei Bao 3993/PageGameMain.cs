@@ -117,6 +117,8 @@ namespace MeiZhouHeiBao_3993
         private Coroutine _corReelsTurn;
         /// <summary>当前是否在断电重连续跑免费。</summary>
         private bool _isFreeSpinReconnect;
+        /// <summary>没有本地档时，等 20200 带回同步游标再开转。</summary>
+        private Coroutine _corWaitFreeSync;
 
         // --------------------------------------------- 普通游戏 -----------------------------------------------
         /// <summary>普通局 NPC 预制体。</summary>
@@ -640,6 +642,7 @@ namespace MeiZhouHeiBao_3993
             }
             _rewardMgr?.SetZhuaziSpine(anchorZhuaZi, clonegoZhuazi);
             cptBoxFreeCollet= localboxFreeCollect;
+           
             bool willRestoreFree = ShouldRestoreFreeSpinSession();
             if (!willRestoreFree)
                 cptBoxFreeCollet.GetTransition("exitFree").Play();
@@ -793,6 +796,7 @@ namespace MeiZhouHeiBao_3993
             if (_corGameOnce != null) { _monoHelper.StopCoroutine(_corGameOnce); _corGameOnce = null; }
             if (_corReelsTurn != null) { _monoHelper.StopCoroutine(_corReelsTurn); _corReelsTurn = null; }
             if (_corEffectSlowMotion != null) { _monoHelper.StopCoroutine(_corEffectSlowMotion); _corEffectSlowMotion = null; }
+            if (_corWaitFreeSync != null) { _monoHelper.StopCoroutine(_corWaitFreeSync); _corWaitFreeSync = null; }
         }
         #endregion
 
@@ -1087,7 +1091,7 @@ namespace MeiZhouHeiBao_3993
             }
          
 
-            if (SBoxModel.Instance.myCredit < TotalBet) // 检测玩家积分是否足够
+            if (SBoxModel.Instance.myCredit < TotalBet && !ContentModel.Instance.SuppressBetDeduct) // 检测玩家积分是否足够
             {
                 _tipCoinIn = true;
                 errorCallback?.Invoke(I18nMgr.language == I18nLang.cn
@@ -1559,11 +1563,16 @@ namespace MeiZhouHeiBao_3993
                 Lottery = new int[3], JackpotOut = new int[3], Jackpotlottery = new int[3], JackpotOld = new int[3]
             };
 
-            // 赠送局不用扣分
-            if (ContentModel.Instance.gameState != GameState.FreeSpin)
+            var cmBet = ContentModel.Instance;
+            bool skipBetDeduct = cmBet.SpinBetDeducted || cmBet.SuppressBetDeduct;
+            // 赠送局不用扣分。同一把只扣一次，重发和未确认重连都跳过。
+            if (!skipBetDeduct && cmBet.gameState != GameState.FreeSpin)
+            {
                 MainBlackboardController.Instance.MinusMyTempCredit(totalBet, true, false);
+                cmBet.SpinBetDeducted = true;
+            }
 
-            bool parsed = MachineDataController3993.Instance.ParseSlotSpin(totalBet, resNode, sBoxJackpotData);
+            bool parsed = MachineDataController3993.Instance.ParseSlotSpin(totalBet, resNode, sBoxJackpotData, skipBetDeduct);
             //普通局先保存免费数据
            yield return WaitFreeReconnectPersist();
             if (!parsed)
@@ -1607,50 +1616,73 @@ namespace MeiZhouHeiBao_3993
             Debug.Log("获取滚轮成功");
         }
 
-        /// <summary>Parse 后等待免费重连保存完成，不堵主线程。</summary>
+        /// <summary>Parse 后必须把免费档写进库，成功前不能发 20102，也不能请求下一把。</summary>
         private IEnumerator WaitFreeReconnectPersist()
         {
-            bool done = false;
-            FreeSpinSessionStoreG3993.TryPersistOrClearSession(() => done = true);
-            float deadline = Time.realtimeSinceStartup + 30f;
-            yield return new WaitUntil(() => done || Time.realtimeSinceStartup >= deadline);
-            if (!done) DebugUtils.LogError("[G3993] 免费重连保存等待超时");
+            if (ApplicationSettings.Instance.isMock)
+                yield break;
+
+            while (true)
+            {
+                bool done = false;
+                bool saved = false;
+                FreeSpinSessionStoreG3993.TryPersistOrClearSession(ok =>
+                {
+                    saved = ok;
+                    done = true;
+                });
+                float deadline = Time.realtimeSinceStartup + 30f;
+                yield return new WaitUntil(() => done || Time.realtimeSinceStartup >= deadline);
+                if (done && saved)
+                    yield break;
+
+                DebugUtils.LogError("[G3993] 免费重连保存未成功，暂不发 20102，重试");
+                yield return new WaitForSecondsRealtime(1f);
+            }
         }
 
-        /// <summary>滚轮停止后 </summary>
+        /// <summary>滚轮停止后发 20102。失败或超时则重发，成功前调用方不能发下一把。</summary>
         private IEnumerator WaitCoinPushSpinEnd()
         {
             if (ApplicationSettings.Instance.isMock)
                 yield break;
 
-            bool done = false;
-            int settledCredit = -1;
-            ERPushMachineDataManager02.Instance.RequestCoinPushSpinEnd(res1 =>
+            while (true)
             {
-                try
+                bool done = false;
+                bool ok = false;
+                ERPushMachineDataManager02.Instance.RequestCoinPushSpinEnd(res1 =>
                 {
-                    JSONNode data = JSONNode.Parse((string)res1);
-                    int code = (int)data["code"];
-                    if (code != 0)
-                        DebugUtils.LogError($"[G3993] CoinPushSpinEnd(20102) code={code}");
-                    else if (data["credit"] != null)
-                        settledCredit = (int)data["credit"];
-                }
-                catch (Exception e)
-                {
-                    DebugUtils.LogError($"[G3993] CoinPushSpinEnd(20102) 解析失败: {e.Message}");
-                }
-                finally
-                {
-                    done = true;
-                }
-            });
+                    try
+                    {
+                        JSONNode data = JSONNode.Parse((string)res1);
+                        int code = (int)data["code"];
+                        ok = code == 0;
+                        if (!ok)
+                            DebugUtils.LogError($"[G3993] CoinPushSpinEnd(20102) code={code}");
+                    }
+                    catch (Exception e)
+                    {
+                        ok = false;
+                        DebugUtils.LogError($"[G3993] CoinPushSpinEnd(20102) 解析失败: {e.Message}");
+                    }
+                    finally
+                    {
+                        done = true;
+                    }
+                });
 
-            float deadline = Time.realtimeSinceStartup + 30f;
-            yield return new WaitUntil(() => done || Time.realtimeSinceStartup >= deadline);
-            if (!done) DebugUtils.LogError("[G3993] CoinPushSpinEnd(20102) 等待超时");
+                float deadline = Time.realtimeSinceStartup + 30f;
+                yield return new WaitUntil(() => done || Time.realtimeSinceStartup >= deadline);
+                if (done && ok)
+                    break;
+
+                DebugUtils.LogError("[G3993] 20102 未成功，重发确认，暂不请求下一把");
+            }
 
             var cm = ContentModel.Instance;
+            cm.SpinBetDeducted = false;
+            cm.SuppressBetDeduct = false;
             if (cm.PendingAlgoFreeSettle && cm.freeSpinPlayTimes >= cm.freeSpinTotalTimes && cm.freeSpinTotalTimes > 0)
             {
                 cm.PendingAlgoFreeSettle = false;
@@ -1658,12 +1690,11 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
-        /// <summary>
-        /// 折中的办法暂时没想到更好的方案:重连免费结束：屏幕总分 = 当前 myTempCredit + 本地免费累计赢 + 触发赢。<
-        /// /summary>
+        /// <summary> 重连免费结束：屏幕分 = 进免费前的展示分 + 免费累计线奖 + 触发局线奖。 </summary>
         private void ApplyPendingAlgoFreeSettleCredit()
         {
-            long total = MainBlackboardController.Instance.myTempCredit + ContentModel.Instance.freeSpinTotalWinCredit+ ContentModel.Instance.triggerWinCredit;
+            var cm = ContentModel.Instance;
+            long total=MainBlackboardController.Instance.myTempCredit + cm.freeSpinTotalWinCredit + cm.triggerWinCredit;
             MainBlackboardController.Instance.SetMyRealCredit(total);
         }
         #endregion
@@ -1863,14 +1894,12 @@ namespace MeiZhouHeiBao_3993
             if (!SQLitePlayerPrefs03.Instance.isInit && !FreeSpinSessionStoreG3993.HasAlgoFreePersistSnapshot())
                 return false;
 
-            //算法带有重连,需要恢复重连
-            if (FreeSpinSessionStoreG3993.HasAlgoFreePersistSnapshot())
-            {
-                
-                return true;
-            }
+            // 触发未确认：停在普通局，不切免费界面。
+            if (FreeSpinSessionStoreG3993.IsAlgoTriggerUnacked())
+                return false;
 
-            return false;
+            //算法带有重连,需要恢复重连
+            return FreeSpinSessionStoreG3993.HasAlgoFreePersistSnapshot();
         }
 
         /// <summary> 从本地恢复未完成的免费重连 </summary>
@@ -1882,6 +1911,21 @@ namespace MeiZhouHeiBao_3993
                     return;
                 if (!isOpen)
                     return;
+                if (ContentModel.Instance.isSpin)
+                    return;
+
+                if (FreeSpinSessionStoreG3993.IsAlgoTriggerUnacked())
+                {
+                    FreeSpinSessionStoreG3993.PrepareUnackedTriggerReplay();
+                    var replay = ContentModel.Instance;
+                    replay.gameState = GameState.Idle;
+                    replay.btnSpinState = SpinButtonState.Stop;
+                    _panelController?.ReconnectionApplyBet();
+                    _panelController?.ChangButtonNo(true);
+                    DebugUtils.Log("[G3993] 触发局未确认，停在普通局并自动请求触发盘。");
+                    BeginAutoReconnectSpin();
+                    return;
+                }
 
                 bool algoOk = FreeSpinSessionStoreG3993.HasAlgoFreePersistSnapshot();
                 var snap = FreeSpinSessionStoreG3993.TryLoad();
@@ -1893,74 +1937,16 @@ namespace MeiZhouHeiBao_3993
                     return;
                 }
 
-                var cm = ContentModel.Instance;
-                if (localOk)
+                if (algoOk && SBoxIdea.LastGameSwitchSyncedFreeIdx < 0 && _monoHelper != null)
                 {
-                    cm.freeSpinTotalTimes = snap.FreeSpinTotalTimes;
-                    cm.freeSpinPlayTimes = snap.FreeSpinPlayTimes;
-                    cm.freeSpinTotalWinCredit = snap.FreeSpinTotalWinCredit;
-                    cm.triggerWinCredit = snap.TriggerWinCredit;
-                    cm.curReelStripsIndex = snap.CurReelStripsIndex;
-                    cm.nextReelStripsIndex = snap.NextReelStripsIndex;
-                    cm.gameNumberFreeSpinTrigger = snap.GameNumberFreeSpinTrigger;
-                    cm.totalPantherSymbolCount = snap.TotalPantherSymbolCount;
-                    cm.PendingAlgoFreeSettle = snap.PendingAlgoFreeSettle;
-                    cm.ShowFreeSpinRemainTime = cm.freeSpinTotalTimes - cm.freeSpinPlayTimes;
-
-                    if (snap.BetIndex >= 0 && SBoxModel.Instance.betList != null
-                        && snap.BetIndex < SBoxModel.Instance.betList.Count)
-                    {
-                        cm.betIndex = snap.BetIndex;
-                        cm.totalBet = SBoxModel.Instance.betList[cm.betIndex];
-                    }
-                    else
-                    {
-                        cm.totalBet = snap.TotalBet;
-                    }
-
-                    cm.betmultiple = snap.BetMultiple;
-                    cm.wildData = snap.WildData != null && snap.WildData.Length > 0
-                        ? (int[])snap.WildData.Clone()
-                        : Array.Empty<int>();
-
-                    if (!string.IsNullOrEmpty(snap.StrDeckRowCol))
-                    {
-                        cm.strDeckRowCol = snap.StrDeckRowCol;
-                        //恢复滚轮矩阵排列
-                        _slotMachineController.SetReelsDeck(snap.StrDeckRowCol);
-                        _slotMachineController.ApplyAllWildStaticIcons();
-                    }
-                }
-                else if (algoOk)
-                {
-                    //本地数据失效时,应用算法数据
-                    FreeSpinSessionStoreG3993.ApplyAlgoProgressToContentModel();
+                    DebugUtils.Log("[G3993] 等 20200 同步游标后再决定用本地档还是算法档");
+                    if (_corWaitFreeSync != null)
+                        _monoHelper.StopCoroutine(_corWaitFreeSync);
+                    _corWaitFreeSync = _monoHelper.StartCoroutine(WaitSyncedFreeIdxThenSpin());
+                    return;
                 }
 
-                cm.isFreeSpinTrigger = false;
-                cm.isFreeSpinFinish = false;
-                cm.isFreeGameAdd = false;
-                cm.freeSpinAddNum = 0;
-                cm.gameState = GameState.Idle;
-                cm.PendingFreeSpinReconnectValidation = cm.nextReelStripsIndex == "FS";
-
-                long winBox = cm.freeSpinTotalWinCredit + cm.triggerWinCredit;
-                _allWinCredit = winBox;
-                if (cm.curReelStripsIndex == "FS" || cm.nextReelStripsIndex == "FS" || cm.PendingAlgoFreeSettle)
-                {
-                    _slotMachineController.BeginBonusFreeSpin();
-                    EnterFreeSpit(false);
-                    cptBoxFreeCollet?.GetTransition("exitFree")?.Stop();
-                    Transition enterFree = cptBoxFreeCollet?.GetTransition("enterFree");
-                    enterFree.Play(() => RefreshFreeCollectUi());
-                }
-
-                _slotMachineController.SendTotalWinCreditEvent(winBox);
-                cm.btnSpinState = SpinButtonState.Stop;
-                UnlockStopButton();
-                _panelController.ReconnectionApplyBet();
-                _panelController.ChangButtonNo(true);
-                DebugUtils.Log($"[G3993] 已恢复免费重连：剩余 {cm.ShowFreeSpinRemainTime} / 总 {cm.freeSpinTotalTimes}，待首局 Spin 与算法校验。");
+                RestoreFreeSpinFromChosenSource();
             }
             finally
             {
@@ -1968,7 +1954,87 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
-        /// <summary>断电重连恢复免费局：点击一次开始后自动跑完整段免费，并统一结算与切回普通游戏。</summary>
+        /// <summary>20200 没回到就一直等，不用退回前的下标开转。</summary>
+        private IEnumerator WaitSyncedFreeIdxThenSpin()
+        {
+            while (SBoxIdea.LastGameSwitchSyncedFreeIdx < 0)
+                yield return null;
+
+            _corWaitFreeSync = null;
+            RestoreFreeSpinFromChosenSource();
+        }
+
+        /// <summary>
+        /// 同步游标已到：本地已玩次数没有超过游标就只用本地档；否则整份本地档不读，按算法从第一手重发。
+        /// </summary>
+        private void RestoreFreeSpinFromChosenSource()
+        {
+            bool algoOk = FreeSpinSessionStoreG3993.HasAlgoFreePersistSnapshot();
+            var snap = FreeSpinSessionStoreG3993.TryLoad();
+            bool localOk = FreeSpinSessionStoreG3993.IsSessionStillValid(snap);
+            int synced = SBoxIdea.LastGameSwitchSyncedFreeIdx;
+            bool useLocal = localOk && (!algoOk || snap.FreeSpinPlayTimes <= synced);
+            if (!useLocal && !algoOk)
+            {
+                if (snap != null)
+                    FreeSpinSessionStoreG3993.Clear();
+                return;
+            }
+
+            var cm = ContentModel.Instance;
+            if (useLocal)
+            {
+                FreeSpinSessionStoreG3993.ApplyLocalSnapshot(snap);
+                if (!string.IsNullOrEmpty(snap.StrDeckRowCol))
+                {
+                    _slotMachineController.SetReelsDeck(snap.StrDeckRowCol);
+                    _slotMachineController.ApplyAllWildStaticIcons();
+                }
+            }
+            else
+            {
+                DebugUtils.Log("[G3993] 本地档不可用或超前于同步游标，改用算法从第一手重发");
+                FreeSpinSessionStoreG3993.ApplyAlgoProgressToContentModel();
+            }
+
+            cm.isFreeSpinTrigger = false;
+            cm.isFreeSpinFinish = false;
+            cm.isFreeGameAdd = false;
+            cm.freeSpinAddNum = 0;
+            cm.gameState = GameState.Idle;
+            cm.PendingFreeSpinReconnectValidation = cm.nextReelStripsIndex == "FS";
+
+            long winBox = cm.freeSpinTotalWinCredit + cm.triggerWinCredit;
+            _allWinCredit = winBox;
+            if (cm.curReelStripsIndex == "FS" || cm.nextReelStripsIndex == "FS" || cm.PendingAlgoFreeSettle)
+            {
+                _slotMachineController.BeginBonusFreeSpin();
+                EnterFreeSpit(false);
+                cptBoxFreeCollet?.GetTransition("exitFree")?.Stop();
+                Transition enterFree = cptBoxFreeCollet?.GetTransition("enterFree");
+                enterFree.Play(() => RefreshFreeCollectUi());
+            }
+
+            _slotMachineController.SendTotalWinCreditEvent(winBox);
+            cm.btnSpinState = SpinButtonState.Stop;
+            _panelController.ReconnectionApplyBet();
+            _panelController.ChangButtonNo(true);
+            DebugUtils.Log($"[G3993] 已恢复免费重连：剩余 {cm.ShowFreeSpinRemainTime} / 总 {cm.freeSpinTotalTimes}，自动开始剩余赠送。");
+            BeginAutoReconnectSpin();
+        }
+
+        /// <summary>断电重连或未确认触发：进台后自动开转，不再等玩家点击。</summary>
+        private void BeginAutoReconnectSpin()
+        {
+            if (ContentModel.Instance.isSpin)
+                return;
+            ContentModel.Instance.isSpin = true;
+            ContentModel.Instance.isAuto = false;
+            LockStopButton();
+            StartGameOnce(ContinueGameWhenCompleted, StopGameWhenError);
+        }
+
+        /// <summary>断电重连恢复免费局：自动跑完整段免费，并统一结算与切回普通游戏。</summary>
         private IEnumerator GameFreeSpinFromReconnect(Action successCallback, Action<string> errorCallback)
         {
             _isFreeSpinReconnect = true;
@@ -2248,7 +2314,7 @@ namespace MeiZhouHeiBao_3993
                 if (txtRemainFreeTime != null)
                     txtRemainFreeTime.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
                 RefreshFreeCollectUi();
-                ContentModel.Instance.triggerWinCredit = ContentModel.Instance.baseGameWinCredit;
+                
                 FreeSpinSessionStoreG3993.TryPersistOrClearSession();
             }
             else

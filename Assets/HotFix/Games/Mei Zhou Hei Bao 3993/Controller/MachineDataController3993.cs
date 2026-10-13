@@ -253,8 +253,8 @@ namespace MeiZhouHeiBao_3993
 
             if (openType == (int)OpenType.OT_Give)
             {
-                int pantherCount = data[pos++];
-                result["Panther"] = pantherCount;
+                int goldBullCount = data[pos++];
+                result["GoldBullCount"] = goldBullCount;
                 result["WildData"] = new JSONArray();
                 for (int i = 0; i < matrixLength; i++)
                 {
@@ -313,7 +313,7 @@ namespace MeiZhouHeiBao_3993
             return result;
         }
 
-        public bool ParseSlotSpin(long totalBet, JSONNode res, SBoxJackpotData sboxJackpotData)
+        public bool ParseSlotSpin(long totalBet, JSONNode res, SBoxJackpotData sboxJackpotData, bool skipBetDeduct = false)
         {
             ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             if (++MainModel.Instance.gameNumber < 0) MainModel.Instance.gameNumber = 1;
@@ -331,6 +331,7 @@ namespace MeiZhouHeiBao_3993
 
             int openType = (int)res["OpenType"];
             int resultType = (int)res["ResultType"];
+            bool isTriggerResult = openType == (int)OpenType.OT_Normal && resultType == (int)ResultType.RT_FreeWin;
             int lineNum = (int)res["lineNum"];
             int totalwin = (int)res["TotalBet"];
             int matrixLength = (int)res["MatrixLength"];
@@ -358,7 +359,7 @@ namespace MeiZhouHeiBao_3993
             {
                 ContentModel.Instance.PendingFreeSpinReconnectValidation = false;
                 bool expectGiveSpin = ContentModel.Instance.freeSpinTotalTimes > 0 && ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes;
-                if (expectGiveSpin && openType != (int)OpenType.OT_Give)
+                if (expectGiveSpin && openType != (int)OpenType.OT_Give && !isTriggerResult)
                 {
                     DebugUtils.LogError($"[G3993] 免费重连校验失败：预期赠送局 OpenType={(int)OpenType.OT_Give}，实际={openType}。已清除免费重连并回退主游戏。");
                     FreeSpinSessionStoreG3993.FinishAndClearAll();
@@ -428,7 +429,7 @@ namespace MeiZhouHeiBao_3993
             List<int> deckRowCol = SlotTool.GetDeckRowCol(strDeckRowCol);
             bool inFreeGive = openType == (int)OpenType.OT_Give;
             bool localStillInFree = ContentModel.Instance.freeSpinTotalTimes > 0&& ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes;
-            if (localStillInFree && !inFreeGive)
+            if (localStillInFree && !inFreeGive && !isTriggerResult)
             {
                 DebugUtils.LogError($"[G3993] 算法已结束赠送 OpenType={openType}，本地剩余 {ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes}。按算法结束免费。");
                 ContentModel.Instance.curReelStripsIndex = "BS";
@@ -456,8 +457,7 @@ namespace MeiZhouHeiBao_3993
             //判断赠送局：以算法 OpenType 为准，不以本地剩余次数为准。
             if (inFreeGive)
             {
-                int collectAdd = CustomModel.Instance.CountPanthersAfterUpgrade(
-                    strDeckRowCol, ContentModel.Instance.totalPantherSymbolCount);
+                int collectAdd = CustomModel.Instance.CountPanthersAfterUpgrade(strDeckRowCol, ContentModel.Instance.totalPantherSymbolCount);
                 if (collectAdd > 0)
                     ContentModel.Instance.totalPantherSymbolCount += collectAdd;
 
@@ -478,6 +478,7 @@ namespace MeiZhouHeiBao_3993
                 }
                 ContentModel.Instance.isFreeSpinFinish = ContentModel.Instance.curReelStripsIndex == "FS" && ContentModel.Instance.nextReelStripsIndex == "BS";
 
+                // 赠送赢分只记入真实分。不要加进 myTempCredit，重连结束时再用本地累计一次性加上。
                 creditBefore = MainBlackboardController.Instance.myRealCredit;
                 creditAfter = creditBefore + totalLineWin;
             }
@@ -524,6 +525,7 @@ namespace MeiZhouHeiBao_3993
                             ContentModel.Instance.freeSpinTotalWinCredit =0;
                             ContentModel.Instance.totalPantherSymbolCount = 0;
                             ContentModel.Instance.ShowFreeSpinRemainTime = TotalFreeTime;
+                            ContentModel.Instance.triggerWinCredit = ContentModel.Instance.baseGameWinCredit;
                         }
                         else
                         {
@@ -588,10 +590,13 @@ namespace MeiZhouHeiBao_3993
                 }
                 //赢分
                 creditBefore = MainBlackboardController.Instance.myRealCredit;
+                // 未确认重连、本把已扣过，或免费流程里重发的触发盘，都不再减押注。
+                bool triggerAlreadyCharged = isTriggerResult && ContentModel.Instance.gameState == GameState.FreeSpin;
+                long betCost = (skipBetDeduct || triggerAlreadyCharged) ? 0 : totalBet;
                 if (ContentModel.Instance.isSmallGameTrigger)
-                    creditAfter = creditBefore - totalBet + ContentModel.Instance.BonusBet + ContentModel.Instance.TotalJackpotBet;
+                    creditAfter = creditBefore - betCost + ContentModel.Instance.BonusBet + ContentModel.Instance.TotalJackpotBet;
                 else
-                    creditAfter = creditBefore - totalBet + totalLineWin + ContentModel.Instance.pantherBonusWin;
+                    creditAfter = creditBefore - betCost + totalLineWin + ContentModel.Instance.pantherBonusWin;
             }
 
             string machineId = string.IsNullOrEmpty(SBoxModel.Instance.MachineId) ? "00000000" : SBoxModel.Instance.MachineId;

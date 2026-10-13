@@ -154,6 +154,12 @@ namespace MeiZhouHeiBao_3993
         /// <summary> 等到免费结算 </summary>
         public bool PendingAlgoFreeSettle { get; set; }
 
+        /// <summary> 本把展示押注已扣过。20102 成功后清除，同一把重发 20101 不再扣。 </summary>
+        public bool SpinBetDeducted { get; set; }
+
+        /// <summary> 未确认触发重连：算法已扣押注，本把不再减展示分，也不做积分不足判断。 </summary>
+        public bool SuppressBetDeduct { get; set; }
+
         /// <summary> 触发免费游戏的线-（备份 winList 的数据） </summary>
         public SymbolWin winFreeSpinTriggerOrAddCopy;
 

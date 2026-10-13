@@ -29,14 +29,28 @@ namespace MeiZhouHeiBao_3993
         static string BuildKey()=> $"SlotFreeSpinSession_v4_{GameId}";
 
         /// <summary>
-        ///  lastAck：已完整收到的赠送下标；从未确认过返回 -1。
+        /// 未确认触发、没有有效档，或本地进度超前于 20000 游标时回 -1，算法把赠送退回第一手。
+        /// 本地进度没有超前时，回最后一次 20101 的下标。
         /// </summary>
         public static int GetLastAckOrUnconfirmed(int playerId)
         {
-            var snap = TryLoad();
-            if (snap == null)
+            if (IsAlgoTriggerUnacked())
                 return -1;
-            return snap.LastAck;
+            var snap = TryLoad();
+            if (snap == null || !IsSessionStillValid(snap) || snap.FreeSpinPlayTimes <= 0)
+                return -1;
+            var reset = SBoxIdea.LastResetData;
+            if (reset != null && reset.HasFreePersistSnapshot && reset.FreePersistGameId == GameId
+                && snap.FreeSpinPlayTimes > reset.FreePersistCurIdx)
+                return -1;
+            return snap.LastAck > 0 ? snap.LastAck : snap.FreeSpinPlayTimes;
+        }
+
+        /// <summary> 20000 有免费快照，且触发局尚未被 20102 确认。 </summary>
+        public static bool IsAlgoTriggerUnacked()
+        {
+            var reset = SBoxIdea.LastResetData;
+            return reset != null && reset.FreePersistGameId == GameId && reset.IsTriggerUnacked;
         }
 
         /// <summary> 算法重启是否带有免费重连数据。 </summary>
@@ -97,21 +111,23 @@ namespace MeiZhouHeiBao_3993
         }
 
         /// <summary>
-        /// 保存或清除免费重连数据
+        /// 保存或清除免费重连数据。onComplete 的参数为是否可以继续发 20102。
+        /// 免费进行中且没写进库时为 false，调用方必须重试，不能确认这手。
         /// </summary>
-        public static void TryPersistOrClearSession(Action onComplete = null)
+        public static void TryPersistOrClearSession(Action<bool> onComplete = null)
         {
             if (ApplicationSettings.Instance.isMock)
             {
                 DebugUtils.Log("[G3993] 跳过免费重连：Mock");
-                onComplete?.Invoke();
+                onComplete?.Invoke(true);
                 return;
             }
 
             if (!SQLitePlayerPrefs03.Instance.isInit)
             {
+                bool mustSave = ShouldPersistSession();
                 DebugUtils.LogError("[G3993] 跳过免费重连：SQLite 未初始化");
-                onComplete?.Invoke();
+                onComplete?.Invoke(!mustSave);
                 return;
             }
 
@@ -124,12 +140,12 @@ namespace MeiZhouHeiBao_3993
                 //清除免费数据
                 SQLitePlayerPrefs03.Instance.DeleteKey(key);
                 DebugUtils.Log($"[G3993] 已清除免费重连 playTimes={cm.freeSpinPlayTimes}/{cm.freeSpinTotalTimes} next={cm.nextReelStripsIndex} pendingSettle={cm.PendingAlgoFreeSettle}");
-                onComplete?.Invoke();
+                onComplete?.Invoke(true);
                 return;
             }
 
-            //保存免费数据
-            int lastAck = cm.freeSpinPlayTimes;
+            // 赠送下标。触发局 playTimes 仍是 0，不能把 0 当成已确认的赠送。
+            int lastAck = cm.freeSpinPlayTimes > 0 ? cm.freeSpinPlayTimes : -1;
             var snap = new FreeSpinSessionSnapshotG3993
             {
                 FreeSpinTotalTimes = cm.freeSpinTotalTimes,//免费总次数
@@ -160,7 +176,7 @@ namespace MeiZhouHeiBao_3993
                     DebugUtils.LogError($"[G3993] 免费重连写入失败 playTimes={cm.freeSpinPlayTimes}/{cm.freeSpinTotalTimes} lastAck={lastAck} panther={cm.totalPantherSymbolCount}");
                 else
                     DebugUtils.Log($"[G3993] 免费重连已保存 playTimes={cm.freeSpinPlayTimes}/{cm.freeSpinTotalTimes} lastAck={lastAck} remain={cm.freeSpinTotalTimes - cm.freeSpinPlayTimes} panther={cm.totalPantherSymbolCount}");
-                onComplete?.Invoke();
+                onComplete?.Invoke(saved);
             });
         }
 
@@ -217,7 +233,45 @@ namespace MeiZhouHeiBao_3993
             return JsonConvert.DeserializeObject<FreeSpinSessionSnapshotG3993>(json);
         }
 
-        /// <summary> 应用算法免费数据(当本地数据失效时) </summary>
+        /// <summary> 正常重连：进度、赢分、押注、百搭和盘面字符串都用本地档。 </summary>
+        public static void ApplyLocalSnapshot(FreeSpinSessionSnapshotG3993 snap)
+        {
+            if (snap == null)
+                return;
+            var cm = ContentModel.Instance;
+            cm.freeSpinTotalTimes = snap.FreeSpinTotalTimes;
+            cm.freeSpinPlayTimes = snap.FreeSpinPlayTimes;
+            cm.freeSpinTotalWinCredit = snap.FreeSpinTotalWinCredit;
+            cm.triggerWinCredit = snap.TriggerWinCredit;
+            cm.curReelStripsIndex = snap.CurReelStripsIndex;
+            cm.nextReelStripsIndex = snap.NextReelStripsIndex;
+            cm.gameNumberFreeSpinTrigger = snap.GameNumberFreeSpinTrigger;
+            cm.totalPantherSymbolCount = snap.TotalPantherSymbolCount;
+            cm.PendingAlgoFreeSettle = snap.PendingAlgoFreeSettle;
+            cm.ShowFreeSpinRemainTime = cm.freeSpinTotalTimes - cm.freeSpinPlayTimes;
+
+            if (snap.BetIndex >= 0 && SBoxModel.Instance.betList != null
+                && snap.BetIndex < SBoxModel.Instance.betList.Count)
+            {
+                cm.betIndex = snap.BetIndex;
+                cm.totalBet = SBoxModel.Instance.betList[cm.betIndex];
+            }
+            else
+            {
+                cm.totalBet = snap.TotalBet;
+            }
+
+            cm.betmultiple = snap.BetMultiple;
+            cm.wildData = snap.WildData != null && snap.WildData.Length > 0
+                ? (int[])snap.WildData.Clone()
+                : Array.Empty<int>();
+            if (!string.IsNullOrEmpty(snap.StrDeckRowCol))
+                cm.strDeckRowCol = snap.StrDeckRowCol;
+        }
+
+        /// <summary>
+        /// 异常重连：只用 20200 同步后的游标。游标还没回到就直接返回，不用退回前的 20000 下标。
+        /// </summary>
         public static void ApplyAlgoProgressToContentModel()
         {
             var cm = ContentModel.Instance;
@@ -225,47 +279,62 @@ namespace MeiZhouHeiBao_3993
             if (reset == null || reset.FreePersistGameId != GameId || !reset.HasFreePersistSnapshot)
                 return;
 
-            //bug:一般来说本地数据失效都是触发局没有保存导致的,所以此函数暂时只针对触发局没有保存本地免费数据。
-            cm.freeSpinTotalTimes = reset.FreePersistTotalTimes;
-            cm.freeSpinPlayTimes = reset.FreePersistCurIdx;
-            cm.ShowFreeSpinRemainTime = reset.FreePersistRemain;
-            bool inFree = reset.FreePersistRemain > 0;
-            cm.PendingAlgoFreeSettle = !inFree && reset.FreePersistCurIdx > 0;
-            cm.nextReelStripsIndex = inFree ? "FS" : "BS";
-            // 一局免费都没触发：当前盘还是触发局 BS；打过免费：当前也是 FS
-            cm.curReelStripsIndex = (!inFree || reset.FreePersistCurIdx == 0) ? "BS" : "FS";
-            if (reset.FreePersistCurIdx == 0 && inFree)
-                cm.curReelStripsIndex = "BS";
-            else if (inFree)
-                cm.curReelStripsIndex = "FS";
-            else
-                cm.curReelStripsIndex = "BS";
+            int playTimes = SBoxIdea.LastGameSwitchSyncedFreeIdx;
+            if (playTimes < 0)
+                return;
+            if (reset.FreePersistTotalTimes > 0 && playTimes > reset.FreePersistTotalTimes)
+                playTimes = reset.FreePersistTotalTimes;
 
+            cm.freeSpinTotalTimes = reset.FreePersistTotalTimes;
+            cm.freeSpinPlayTimes = playTimes;
+            cm.ShowFreeSpinRemainTime = reset.FreePersistTotalTimes - playTimes;
+            bool inFree = playTimes < reset.FreePersistTotalTimes;
+            cm.PendingAlgoFreeSettle = !inFree && playTimes > 0;
+            cm.nextReelStripsIndex = inFree ? "FS" : "BS";
+            cm.curReelStripsIndex = inFree && playTimes > 0 ? "FS" : "BS";
+
+            ApplyAlgoBet(cm, reset);
+            cm.freeSpinTotalWinCredit = 0;
+            cm.totalPantherSymbolCount = 0;
+            cm.triggerWinCredit = (long)reset.FreePersistBet * reset.BaseGameWinCredit;
+
+            DebugUtils.Log($"[G3993] 按同步游标从算法恢复 playTimes={cm.freeSpinPlayTimes}/{cm.freeSpinTotalTimes} remain={cm.ShowFreeSpinRemainTime} pendingSettle={cm.PendingAlgoFreeSettle} triggerLine={cm.triggerWinCredit}");
+        }
+
+        /// <summary>
+        /// 触发局未确认：丢掉本地「已在免费中」的进度，停在普通局。
+        /// 押注沿用 20000，并标记本把不再扣展示分。
+        /// </summary>
+        public static void PrepareUnackedTriggerReplay()
+        {
+            var cm = ContentModel.Instance;
+            ResetContentModelFreeStateToBaseGame();
+            var reset = SBoxIdea.LastResetData;
+            if (reset != null)
+                ApplyAlgoBet(cm, reset);
+            cm.SuppressBetDeduct = true;
+            cm.SpinBetDeducted = true;
+        }
+
+        static void ApplyAlgoBet(ContentModel cm, SBoxResetData reset)
+        {
+            if (cm == null || reset == null || reset.FreePersistBet <= 0)
+                return;
             int lineNum = MainModel.Instance.lineNum;
-            if (reset.FreePersistBet > 0)
+            cm.betmultiple = reset.FreePersistBet;
+            long totalBet = (long)reset.FreePersistBet * lineNum;
+            cm.totalBet = totalBet;
+            var betList = SBoxModel.Instance.betList;
+            if (betList == null)
+                return;
+            for (int i = 0; i < betList.Count; i++)
             {
-                cm.betmultiple = reset.FreePersistBet;
-                long totalBet = (long)reset.FreePersistBet * lineNum;
-                cm.totalBet = totalBet;
-                var betList = SBoxModel.Instance.betList;
-                if (betList != null)
+                if (betList[i] == totalBet)
                 {
-                    for (int i = 0; i < betList.Count; i++)
-                    {
-                        if (betList[i] == totalBet)
-                        {
-                            cm.betIndex = i;
-                            break;
-                        }
-                    }
+                    cm.betIndex = i;
+                    break;
                 }
             }
-          
-            //--TotalPantherSymbolCount
-            //cm.triggerWinCredit 
-            //--DisplayCredit
-
-            DebugUtils.Log($"[G3993] 无本地免费数据，用 20000 补 playTimes={cm.freeSpinPlayTimes}/{cm.freeSpinTotalTimes} remain={cm.ShowFreeSpinRemainTime} pendingSettle={cm.PendingAlgoFreeSettle}");
         }
 
         /// <summary> 清空免费相关运行时状态，回到主游戏。 </summary>
@@ -288,6 +357,8 @@ namespace MeiZhouHeiBao_3993
             cm.PendingAlgoFreeSettle = false;
             cm.totalPantherSymbolCount = 0;
             cm.wildData = Array.Empty<int>();
+            cm.SpinBetDeducted = false;
+            cm.SuppressBetDeduct = false;
         }
 
         /// <summary>

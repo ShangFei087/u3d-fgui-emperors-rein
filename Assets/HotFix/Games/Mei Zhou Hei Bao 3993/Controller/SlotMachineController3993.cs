@@ -401,7 +401,8 @@ namespace MeiZhouHeiBao_3993
         public  override void ShowSymbolWinDeck(SymbolWin symbolWin, bool isUseMySelfSymbolNumber)
         {
             //停止特效显示
-            SkipWinLine(false);
+            SkipWinLine(true);
+            //设置wild
             ApplyAllWildStaticIcons();
 
             SetSlotCover(_spinWEMD.Instance.isShowCover);

@@ -243,10 +243,19 @@ namespace SBoxApi
         /// <summary> 下一局下标 nCurFreeIdx。 </summary>
         public int FreePersistCurIdx;
 
+        /// <summary>
+        /// 触发局是否已由 20102 确认。1 已确认，0 未确认。
+        /// 无快照、data[1] 为 0，或旧协议没有 data[8] 时为 1。
+        /// </summary>
+        public int FreePersistTriggerAcked = 1;
+
         /// <summary> 算法侧仍有未结束的免费快照（含最后一手已发出、待 20102）。 </summary>
         public bool HasFreePersistSnapshot =>
             FreePersistGameId > 0 && FreePersistTotalTimes > 0
             && (FreePersistRemain > 0 || FreePersistCurIdx > 0);
+
+        /// <summary> 有免费快照，但触发局的 20102 还没确认。 </summary>
+        public bool IsTriggerUnacked => HasFreePersistSnapshot && FreePersistTriggerAcked == 0;
     }
 
     public partial class SBoxIdea
@@ -293,6 +302,7 @@ namespace SBoxApi
                 LastResetData.FreePersistTotalWin = 0;
                 LastResetData.FreePersistTotalTimes = 0;
                 LastResetData.FreePersistCurIdx = 0;
+                LastResetData.FreePersistTriggerAcked = 1;
             }
             LastGameSwitchSyncedFreeIdx = -1;
         }
@@ -556,7 +566,7 @@ namespace SBoxApi
                 CoinToTable = cointToTable
             };
 
-            // 新协议 data[7]：ret, gameId, 剩余, 押注, 总分倍数, 总局数, nCurFreeIdx
+            // 免费快照：ret, gameId, 剩余, 押注, 总分倍数, 总局数, nCurFreeIdx, 触发局线奖倍数[, triggerAcked]
             if (data != null && data.Length >= 8)
             {
                 sBoxResetData.FreePersistGameId = data[1];
@@ -566,6 +576,10 @@ namespace SBoxApi
                 sBoxResetData.FreePersistTotalTimes = data[5];
                 sBoxResetData.FreePersistCurIdx = data[6];
                 sBoxResetData.BaseGameWinCredit = data[7];
+                // 旧包没有 data[8]，或没有有效 gameId：视为触发已确认。
+                sBoxResetData.FreePersistTriggerAcked = 1;
+                if (data[1] > 0 && data.Length >= 9)
+                    sBoxResetData.FreePersistTriggerAcked = data[8] == 0 ? 0 : 1;
             }
             else if (data != null)
             {

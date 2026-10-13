@@ -3558,5 +3558,13 @@
     "en": "JackpotOnline",
     "cn": "联网彩金",
     "tw": "聯網彩金"
+  },
+  {
+    "id": 1467,
+    "key": "CON1lang_hall_only",
+    "fgui": "",
+    "en": "Please return to the hall to change language",
+    "cn": "请返回大厅后再切换语言",
+    "tw": "請返回大廳後再切換語言"
   }
 ]

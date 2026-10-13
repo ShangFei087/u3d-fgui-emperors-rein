@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: fg_pup_CollectFrame_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: a3bd5374791a8584faff83e30c2d2047, type: 2}
+  - {fileID: 11400000, guid: 81aef55ebdd80874fb6dd5d15802135b, type: 2}
   scale: 0.01
   skeletonJSON: {fileID: 4900000, guid: 7d152a8021a8416428b685de7e7598b1, type: 3}
   isUpgradingBlendModeMaterials: 0
