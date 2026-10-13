@@ -623,7 +623,7 @@ public class TestManager : Singleton<TestManager>
     // 分析模式开关状态
     bool isAnalysis = false;
     AutoModeState autoModeState = AutoModeState.Idle;
-    const float AUTO_SPIN_INTERVAL_SECONDS = 1.0f;
+    const float AUTO_SPIN_INTERVAL_SECONDS = 0.25f;
     // 分析按钮点击：切换分析模式并广播事件
     private void OnClickAnalysis()
     {

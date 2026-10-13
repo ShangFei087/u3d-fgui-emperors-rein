@@ -320,9 +320,12 @@ namespace MeiZhouHeiBao_3993
                     continue;
                 }
 
-                if (reels[reelIdx].state == ReelState.Idle)
+                // 急停 / TurnReelsOnce：不要按列等启动延迟
+                if (!isStopImmediately
+                    && reels[reelIdx].state == ReelState.Idle
+                    && _reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx) > 0)
                 {
-                    if (_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx) > 0)
+                    //if (_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx) > 0)
                     {
                         yield return new WaitForSeconds(_reelSetMD.Instance.GetTimeTurnStartDelay(reelIdx));
                     }
@@ -398,7 +401,8 @@ namespace MeiZhouHeiBao_3993
         public  override void ShowSymbolWinDeck(SymbolWin symbolWin, bool isUseMySelfSymbolNumber)
         {
             //停止特效显示
-            SkipWinLine(false);
+            SkipWinLine(true);
+            //设置wild
             ApplyAllWildStaticIcons();
 
             SetSlotCover(_spinWEMD.Instance.isShowCover);
@@ -443,6 +447,7 @@ namespace MeiZhouHeiBao_3993
         public override void SkipWinLine(bool isIncludeTag)
         {
 
+            ClearBonusScoreBinds();
             List<SymbolBase> excludeSymbol = isIncludeTag ? new List<SymbolBase>()
                 : GetHasEffectSymbols(new string[] { "symbol_appear#" });
 

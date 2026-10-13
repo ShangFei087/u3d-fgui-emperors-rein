@@ -160,5 +160,20 @@ namespace MeiZhouHeiBao_3993
                 win.text = 0.ToString();
             ClearSingleLineText();
         }
+
+        /// <summary>免费断电重连刷新Bet。</summary>
+        public void ReconnectionApplyBet()
+        {
+            var betList = SBoxModel.Instance.betList;
+            if (betList == null || betList.Count == 0 || bet == null)
+                return;
+            int betIndex = MainModel.Instance.contentMD.betIndex;
+            if (betIndex < 0) betIndex = 0;
+            if (betIndex >= betList.Count) betIndex = betList.Count - 1;
+            MainModel.Instance.contentMD.betIndex = betIndex;
+            MainModel.Instance.contentMD.totalBet = betList[betIndex];
+            ChangeBetButtonInteractable(betIndex, betList.Count);
+            RequestSetBetWithDedup((int)MainModel.Instance.contentMD.totalBet);
+        }
     }
 }

@@ -23,6 +23,7 @@
 using Hal;
 using SimpleJSON;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SBoxApi
@@ -614,11 +615,16 @@ namespace SBoxApi
         */
         public static void GameSwitch(int gameid)
         {
-            Debug.Log("SBoxIdea 20200:" + gameid);
-            SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20200, source: 1, target: 2, size: 2);
+            int lastAck = -1;
+            SBoxResetData reset = LastResetData;
+            if (reset != null && reset.HasFreePersistSnapshot && reset.FreePersistGameId == gameid)
+                lastAck = FreeSpinLastAckBootstrap.GetLastAck(gameid, SBoxModel.Instance.pid);
 
+            Debug.Log($"SBoxIdea 20200:{gameid} lastAck={lastAck}");
+            SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20200, source: 1, target: 2, size: 3);
             sBoxPacket.data[0] = gameid;
-            sBoxPacket.data[1] = 0;
+            sBoxPacket.data[1] = lastAck;
+            sBoxPacket.data[2] = 0;
 
             SBoxIOEvent.AddListener(sBoxPacket.cmd, GameSwitchR);
             SBoxIOStream.Write(sBoxPacket);
@@ -626,8 +632,11 @@ namespace SBoxApi
 
         private static void GameSwitchR(SBoxPacket sBoxPacket)
         {
-            Debug.Log("算法切换游戏成功:" + sBoxPacket.data[0]);
-            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SWITCH_GAME, sBoxPacket.data[0]);
+            int[] data = sBoxPacket.data;
+            LastGameSwitchGameId = data != null && data.Length > 0 ? data[0] : 0;
+            LastGameSwitchSyncedFreeIdx = data != null && data.Length > 1 ? data[1] : -1;
+            Debug.Log($"算法切换游戏成功:{LastGameSwitchGameId} syncedFreeIdx={LastGameSwitchSyncedFreeIdx}");
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SWITCH_GAME, LastGameSwitchGameId);
         }
 
 

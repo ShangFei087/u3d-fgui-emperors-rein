@@ -139,6 +139,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 988460066552037551, guid: 00b207c241378a448bfcb1402854e9af,
+        type: 3}
+      propertyPath: TrailModule.lifetime.scalar
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 1262236797530676963, guid: 00b207c241378a448bfcb1402854e9af,
         type: 3}
       propertyPath: m_Layer
@@ -193,6 +198,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897450772436320269, guid: 00b207c241378a448bfcb1402854e9af,
+        type: 3}
+      propertyPath: TrailModule.lifetime.scalar
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 7052413238647305761, guid: 00b207c241378a448bfcb1402854e9af,
         type: 3}

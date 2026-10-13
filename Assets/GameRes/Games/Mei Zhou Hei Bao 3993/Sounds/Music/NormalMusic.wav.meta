@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 9b8df789492b27141aa31a5c487ff9b6
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: games/mei zhou hei bao 3993/sounds/music/normalmusic.unity3d
+  assetBundleVariant: 

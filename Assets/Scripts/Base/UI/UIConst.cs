@@ -30,6 +30,8 @@ public class UIConst
             // 通用
             [PageName.CommonPopupSystemTip] =
                 new object[] { "Assets/GameRes/Games/Common/FGUIs", "Common.PopupSystemTip" },
+            [PageName.CommonPopupReconnectMask] =
+                new object[] { "Assets/GameRes/Games/Console/FGUIs", "ConsoleSlot01.PopupReconnectMask" },
 
             // 拉霸机后台
             [PageName.ConsolePageConsoleMain] =
@@ -290,6 +292,7 @@ public enum PageName
 {
     // 通用
     CommonPopupSystemTip,
+    CommonPopupReconnectMask,
 
 
     // 拉霸机-管理后天

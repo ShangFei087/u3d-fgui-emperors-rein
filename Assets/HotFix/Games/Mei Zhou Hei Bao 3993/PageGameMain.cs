@@ -5,8 +5,6 @@ using PusherEmperorsRein;
 using SBoxApi;
 using SimpleJSON;
 using SlotMaker;
-using SlotZhuZaiJinBi1700;
-using Spine.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -117,6 +115,10 @@ namespace MeiZhouHeiBao_3993
         private Coroutine _corGameOnce;
         /// <summary>滚轮转动协程（预留）。</summary>
         private Coroutine _corReelsTurn;
+        /// <summary>当前是否在断电重连续跑免费。</summary>
+        private bool _isFreeSpinReconnect;
+        /// <summary>没有本地档时，等 20200 带回同步游标再开转。</summary>
+        private Coroutine _corWaitFreeSync;
 
         // --------------------------------------------- 普通游戏 -----------------------------------------------
         /// <summary>普通局 NPC 预制体。</summary>
@@ -201,6 +203,8 @@ namespace MeiZhouHeiBao_3993
         private GTextField txtFreeCollect;
         /// <summary>免费局累计赢分。</summary>
         private long _allWinCredit = 0;
+        /// <summary>本局变豹与收集 UI 用的已见数量。total 为 Parse 后含本局的保存值。</summary>
+        private int CurPantherSymbolCount;
         /// <summary>拖尾父节点。</summary>
         private GComponent _anchorEffectFrame;
         /// <summary>拖尾模板节点（池化复制用）。</summary>
@@ -637,7 +641,10 @@ namespace MeiZhouHeiBao_3993
             }
             _rewardMgr?.SetZhuaziSpine(anchorZhuaZi, clonegoZhuazi);
             cptBoxFreeCollet= localboxFreeCollect;
-            cptBoxFreeCollet.GetTransition("exitFree").Play();
+           
+            bool willRestoreFree = ShouldRestoreFreeSpinSession();
+            if (!willRestoreFree)
+                cptBoxFreeCollet.GetTransition("exitFree").Play();
             //txtRemainFreeTime = contentPane.GetChild("freeOutFrame").asCom.GetChild("txtRemainFreeTime").asTextField;
             //txtTotalFreeTime = contentPane.GetChild("freeOutFrame").asCom.GetChild("txtTotalFreeTime").asTextField;
             txtFreeCollect = cptBoxFreeCollet.GetChild("txtFreeCollect").asTextField;
@@ -659,6 +666,7 @@ namespace MeiZhouHeiBao_3993
             _rewardMgr?.SetCollectContext(_anchorEffectFrame, _templateAnchorTrails, _goEffSgGlow, _panelController);
 
             isReady = true;
+            TryRestoreFreeSpinSession();
         }
 
         public override void OnOpen(PageName currentPageName, EventData eventData)
@@ -672,7 +680,10 @@ namespace MeiZhouHeiBao_3993
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_EVENT, OnStopSlot);
             EventCenter.Instance.AddEventListener<EventData>(SlotMachineEvent.ON_SLOT_DETAIL_EVENT, OnSlotDetailEvent);
             InitParam();
-           // EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3993AudioEvent.BgmRegularGame));
+            if (ContentModel.Instance.nextReelStripsIndex == "FS")
+                EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3993AudioEvent.BgmFreeSpinGame));
+            else
+                EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3993AudioEvent.BgmRegularGame));
         }
 
         public override void OnClose(EventData eventData = null)
@@ -705,6 +716,21 @@ namespace MeiZhouHeiBao_3993
             base.OnClose(eventData);
         }
 
+        protected override void OnLanguageChange(I18nLang lang)
+        {
+            StopHideFade();
+            HideFadeSpines();
+            SetAnchorSpineVisible(anchorZhuaZi, false);
+            SetAnchorSpineVisible(anchorRoar, false);
+            // PageBase.OnChangeLanguageBase 已 Dispose 并重建 contentPane，这里不要再拆一次。
+            // 关着页时不 Init：底部 Panel 当时 inactive，绑不上新 gOwnerPanel。
+            if (!isOpen)
+                return;
+            InitParam();
+        }
+
+
+        #region 退出大厅
         /// <summary>
         /// 退大厅时删除clone（NPC/框/过场/爪子/咆哮/星光）。
         /// </summary>
@@ -759,18 +785,6 @@ namespace MeiZhouHeiBao_3993
             _anchorEffFgStar = null;
         }
 
-        protected override void OnLanguageChange(I18nLang lang)
-        {
-            StopHideFade();
-            HideFadeSpines();
-            SetAnchorSpineVisible(anchorZhuaZi, false);
-            SetAnchorSpineVisible(anchorRoar, false);
-            // PageBase.OnChangeLanguageBase 已 Dispose 并重建 contentPane，这里不要再拆一次。
-            // 关着页时不 Init：底部 Panel 当时 inactive，绑不上新 gOwnerPanel。
-            if (!isOpen)
-                return;
-            InitParam();
-        }
 
         /// <summary>停止 Idle / Auto / Once / 加速框等游戏协程。</summary>
         private void StopAllGameCoroutines()
@@ -781,16 +795,9 @@ namespace MeiZhouHeiBao_3993
             if (_corGameOnce != null) { _monoHelper.StopCoroutine(_corGameOnce); _corGameOnce = null; }
             if (_corReelsTurn != null) { _monoHelper.StopCoroutine(_corReelsTurn); _corReelsTurn = null; }
             if (_corEffectSlowMotion != null) { _monoHelper.StopCoroutine(_corEffectSlowMotion); _corEffectSlowMotion = null; }
+            if (_corWaitFreeSync != null) { _monoHelper.StopCoroutine(_corWaitFreeSync); _corWaitFreeSync = null; }
         }
-
-        /// <summary>
-        /// 解析 Spin 回包
-        /// </summary>
-        /// <param name="e"> Spin 解析事件参数</param>
-        private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
-        {
-            e.Result = MachineDataController3993.ParseCoinPushSpinPayload(e.Data, e.StartPos);
-        }
+        #endregion
 
         #region 资源加载
 
@@ -1035,64 +1042,6 @@ namespace MeiZhouHeiBao_3993
             _corGameOnce = _monoHelper.StartCoroutine(GameOnce(successCallback, errorCallback));
         }
 
-        /// <summary>把当前可视区符号拼成 row,col 字符串（# 分行）。</summary>
-        private string GetCurrentVisibleDeckRowCol()
-        {
-            if (_slotMachineController == null) return string.Empty;
-            List<string> rows = new List<string>(_slotMachineController.row);
-            for (int row = 0; row < _slotMachineController.row; row++)
-            {
-                List<string> cols = new List<string>(_slotMachineController.column);
-                for (int col = 0; col < _slotMachineController.column; col++)
-                {
-                    SymbolBase symbol = _slotMachineController.GetVisibleSymbolFromDeck(col, row);
-                    int symbolNumber = symbol?.GetSymbolNumber() ?? 0;
-                    cols.Add(symbolNumber.ToString());
-                }
-
-                rows.Add(string.Join(",", cols));
-            }
-
-            return string.Join("#", rows);
-        }
-
-        /// <summary>用服务器彩金值刷新顶部 Major/Minor/Mini 数字滚轮。</summary>
-        private void SetUIJackpotGameReel()
-        {
-            JackpotRes info = ContentModel.Instance.jpGameRes;
-
-            ContentModel.Instance.uiMajorJP.nowCredit = uiJpMajorCtrl.nowData;
-            ContentModel.Instance.uiMinorJP.nowCredit = uiJpMinorCtrl.nowData;
-            ContentModel.Instance.uiMiniJP.nowCredit = uiJpMiniCtrl.nowData;
-
-            ContentModel.Instance.uiMajorJP.curCredit = info.curJackpotMajor;
-            ContentModel.Instance.uiMinorJP.curCredit = info.curJackpotMinior;
-            ContentModel.Instance.uiMiniJP.curCredit = info.curJackpotMini;
-
-            uiJpMajorCtrl.SetData(info.curJackpotMajor);
-            uiJpMinorCtrl.SetData(info.curJackpotMinior);
-            uiJpMiniCtrl.SetData(info.curJackpotMini);
-        }
-
-        /// <summary>重置本把滚轮状态：关盖、停 Idle/加速框。</summary>
-        private void OnGameReset()
-        {
-            SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.Default);
-            _isStoppedSlotMachine = false;
-            _slotMachineController.isStopImmediately = false;
-            _slotMachineController.CloseSlotCover();
-            _slotMachineController.SkipWinLine(true);
-            if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
-            if (_corEffectSlowMotion != null)
-            {
-                _monoHelper.StopCoroutine(_corEffectSlowMotion);
-                _corEffectSlowMotion = null;
-            }
-            _speedUpTargetCol = -1;
-            if (anchorFreeSpeedBorder != null) anchorFreeSpeedBorder.visible = false;
-            if (anchorBonusSpeedBorder != null) anchorBonusSpeedBorder.visible = false;
-        }
-
         /// <summary>自动模式循环调用 GameOnce，直到取消自动或请求停止。</summary>
         private IEnumerator GameAuto(Action successCallback, Action<string> errorCallback)
         {
@@ -1133,14 +1082,15 @@ namespace MeiZhouHeiBao_3993
             }
 
             if (ContentModel.Instance.freeSpinTotalTimes > 0 &&
-                ContentModel.Instance.nextReelStripsIndex == "FS") // 断电重连判断
+                (ContentModel.Instance.nextReelStripsIndex == "FS" || ContentModel.Instance.PendingAlgoFreeSettle))
             {
                 Debug.LogError("进入断电重连");
                 yield return GameFreeSpinFromReconnect(successCallback, errorCallback);
                 yield break;
             }
+         
 
-            if (SBoxModel.Instance.myCredit < TotalBet) // 检测玩家积分是否足够
+            if (SBoxModel.Instance.myCredit < TotalBet && !ContentModel.Instance.SuppressBetDeduct) // 检测玩家积分是否足够
             {
                 _tipCoinIn = true;
                 errorCallback?.Invoke(I18nMgr.language == I18nLang.cn
@@ -1201,6 +1151,7 @@ namespace MeiZhouHeiBao_3993
                 {
                     errMsg = err;
                     isBreak = true;
+                    isNext = true;
                 });
             }
 
@@ -1255,19 +1206,20 @@ namespace MeiZhouHeiBao_3993
             UnlockStopButton();
             SetSpinButtonSpinGray();
 
+            yield return WaitCoinPushSpinEnd();
+
             List<SymbolWin> winList = ContentModel.Instance.winList;
             long pantherWin = ContentModel.Instance.isPantherWin ? ContentModel.Instance.pantherBonusWin : 0;
+            long allWinCredit = pantherWin;
             TryPlayNormalNpcAfterSpin(winList);
-
+            // -----------------sPantherWin---------------
             if (ContentModel.Instance.isPantherWin)
             {
                 yield return PlayPantherWin();
             } 
 
-            long allWinCredit = pantherWin;
-
-            if (winList.Count > 0 && HasLandAppearSymbol())
-                yield return _slotMachineController.SlotWaitForSeconds(0.7f);
+            //等待落地动画
+            if (winList.Count > 0 && HasLandAppearSymbol()) yield return _slotMachineController.SlotWaitForSeconds(0.7f);
             // ----------------- normal win ---------------
             if (winList.Count > 0 )
             {
@@ -1292,7 +1244,6 @@ namespace MeiZhouHeiBao_3993
                 yield return BigWinPopup(winLevelType, ContentModel.Instance.baseGameWinCredit);
                 if (winList.Count > 0) _slotMachineController.ShowSymbolWinDeck(_slotMachineController.GetTotalSymbolWin(winList), true);
             }
-
             // ----------------- free win ---------------
             if (ContentModel.Instance.isFreeSpinTrigger)
             {
@@ -1302,7 +1253,6 @@ namespace MeiZhouHeiBao_3993
                 yield return _slotMachineController.SlotWaitForSeconds(1.333f);
                 yield return FreeSpinTrigger(null, errorCallback);
             }
-
             // ----------------- small win ---------------
             if (ContentModel.Instance.isSmallGameTrigger)
             {
@@ -1314,8 +1264,9 @@ namespace MeiZhouHeiBao_3993
             }
             
             DebugUtils.Log("进入空闲模式！！！");
-            // 本剧同步玩家金钱
+          
             _panelController.ChangButtonNo(false);
+            // 本剧同步玩家金钱
             MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
             ContentModel.Instance.gameState = GameState.Idle;
             if ( !ContentModel.Instance.isAuto && !ContentModel.Instance.isFreeSpinTrigger)
@@ -1334,6 +1285,142 @@ namespace MeiZhouHeiBao_3993
 
             _slotMachineController.isStopImmediately = false;
             successCallback?.Invoke();
+        }
+        #endregion
+
+        #region Tool
+        /// <summary>用本地彩金值刷新顶部 Major/Minor/Mini 数字滚轮。</summary>
+        private void SetUIJackpotGameReel()
+        {
+            JackpotRes info = ContentModel.Instance.jpGameRes;
+
+            ContentModel.Instance.uiMajorJP.nowCredit = uiJpMajorCtrl.nowData;
+            ContentModel.Instance.uiMinorJP.nowCredit = uiJpMinorCtrl.nowData;
+            ContentModel.Instance.uiMiniJP.nowCredit = uiJpMiniCtrl.nowData;
+
+            ContentModel.Instance.uiMajorJP.curCredit = info.curJackpotMajor;
+            ContentModel.Instance.uiMinorJP.curCredit = info.curJackpotMinior;
+            ContentModel.Instance.uiMiniJP.curCredit = info.curJackpotMini;
+
+            uiJpMajorCtrl.SetData(info.curJackpotMajor);
+            uiJpMinorCtrl.SetData(info.curJackpotMinior);
+            uiJpMiniCtrl.SetData(info.curJackpotMini);
+        }
+
+        /// <summary>重置本把滚轮状态：关盖、停 Idle/加速框。</summary>
+        private void OnGameReset()
+        {
+            SlotGameEffectManager.Instance.SetEffect(SlotGameEffect.Default);
+            _isStoppedSlotMachine = false;
+            _slotMachineController.isStopImmediately = false;
+            _slotMachineController.CloseSlotCover();
+            _slotMachineController.SkipWinLine(true);
+            if (_corGameIdle != null) _monoHelper.StopCoroutine(_corGameIdle);
+            if (_corEffectSlowMotion != null)
+            {
+                _monoHelper.StopCoroutine(_corEffectSlowMotion);
+                _corEffectSlowMotion = null;
+            }
+            _speedUpTargetCol = -1;
+            if (anchorFreeSpeedBorder != null) anchorFreeSpeedBorder.visible = false;
+            if (anchorBonusSpeedBorder != null) anchorBonusSpeedBorder.visible = false;
+        }
+
+        /// <summary>关 GoWrapper 根节点并关 MeshRenderer；只 SetActive clone 关不掉缓存网格。</summary>
+        private static void SetAnchorSpineVisible(GComponent anchor, bool visible)
+        {
+            if (anchor == null) return;
+            anchor.visible = visible;
+            GGraph holder = anchor.GetChild("holder") as GGraph;
+            if (holder != null)
+                holder.visible = visible;
+
+            GameObject target = GameCommon.FguiUtils.GetWrapperTarget(anchor);
+            if (target == null) return;
+            target.SetActive(visible);
+            Renderer[] renderers = target.GetComponentsInChildren<Renderer>(true);
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                if (renderers[i] != null)
+                    renderers[i].enabled = visible;
+            }
+        }
+
+        /// <summary>滚轮停下是否有Appear图标。</summary>
+        private bool HasLandAppearSymbol()
+        {
+            var appear = CustomModel.Instance.symbolAppearEffect;
+            for (int col = 0; col < CustomModel.Instance.column; col++)
+            {
+                for (int row = 0; row < CustomModel.Instance.row; row++)
+                {
+                    SymbolBase symbol = _slotMachineController.GetVisibleSymbolFromDeck(col, row);
+                    if (symbol != null && appear.ContainsKey(symbol.number.ToString()))
+                        return true;
+                }
+            }
+            return false;
+        }
+        #endregion
+
+        #region 过场动画
+        /// <summary>停掉过场隐藏协程。</summary>
+        private void StopHideFade()
+        {
+            if (_monoHelper != null && _corHideFade != null)
+                _monoHelper.StopCoroutine(_corHideFade);
+            _corHideFade = null;
+        }
+
+        /// <summary>播过场 Spine：用 holder 显隐，到时隐藏避免停在最后一帧。</summary>
+        private void PlayFadeSpine(GComponent anchor, AnimPlayer anim, string animName, float hideAfter)
+        {
+            StopHideFade();
+            HideFadeSpines();
+            if (anchor == null || anim == null || string.IsNullOrEmpty(animName))
+                return;
+            SetAnchorSpineVisible(anchor, true);
+            anim.Play(animName);
+            if (_monoHelper != null)
+                _corHideFade = _monoHelper.StartCoroutine(HideFadeAfter(anchor, hideAfter));
+        }
+
+        /// <summary>等过场播完后隐藏spine。</summary>
+        private IEnumerator HideFadeAfter(GComponent anchor, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            SetAnchorSpineVisible(anchor, false);
+            _corHideFade = null;
+        }
+
+        /// <summary>隐藏免费/大奖过场 Spine。</summary>
+        private void HideFadeSpines()
+        {
+            SetAnchorSpineVisible(anchorFadeFreeGame, false);
+            SetAnchorSpineVisible(anchorFadeSmallGame, false);
+        }
+        #endregion 过场动画
+
+        #region  滚轮状态
+        /// <summary>把当前可视区符号拼成 row,col 字符串（# 分行）。</summary>
+        private string GetCurrentVisibleDeckRowCol()
+        {
+            if (_slotMachineController == null) return string.Empty;
+            List<string> rows = new List<string>(_slotMachineController.row);
+            for (int row = 0; row < _slotMachineController.row; row++)
+            {
+                List<string> cols = new List<string>(_slotMachineController.column);
+                for (int col = 0; col < _slotMachineController.column; col++)
+                {
+                    SymbolBase symbol = _slotMachineController.GetVisibleSymbolFromDeck(col, row);
+                    int symbolNumber = symbol?.GetSymbolNumber() ?? 0;
+                    cols.Add(symbolNumber.ToString());
+                }
+
+                rows.Add(string.Join(",", cols));
+            }
+
+            return string.Join("#", rows);
         }
 
         /// <summary>停轮后循环播放中奖线（无中奖则直接结束）。</summary>
@@ -1405,25 +1492,18 @@ namespace MeiZhouHeiBao_3993
             _speedUpTargetCol = -1;
             _corEffectSlowMotion = null;
         }
-
-        private bool HasLandAppearSymbol()
-        {
-            var appear = CustomModel.Instance.symbolAppearEffect;
-            for (int col = 0; col < CustomModel.Instance.column; col++)
-            {
-                for (int row = 0; row < CustomModel.Instance.row; row++)
-                {
-                    SymbolBase symbol = _slotMachineController.GetVisibleSymbolFromDeck(col, row);
-                    if (symbol != null && appear.ContainsKey(symbol.number.ToString()))
-                        return true;
-                }
-            }
-            return false;
-        }
-
         #endregion
 
         #region 游戏结果申请
+
+        /// <summary>
+        /// 解析 Spin 回包
+        /// </summary>
+        /// <param name="e"> Spin 解析事件参数</param>
+        private void OnCoinPushSpinResultParse(CoinPushSpinParseEventArgs e)
+        {
+            e.Result = MachineDataController3993.ParseCoinPushSpinPayload(e.Data, e.StartPos);
+        }
 
         /// <summary>Mock 模式请求一次 Spin 结果。</summary>
         private IEnumerator RequestSlotSpinFromMock(Action successCallback = null, Action<string> errorCallback = null)
@@ -1453,14 +1533,11 @@ namespace MeiZhouHeiBao_3993
             if (ContentModel.Instance.gameState != GameState.FreeSpin)
                 MainBlackboardController.Instance.MinusMyTempCredit(totalBet, true, false);
 
-            if (MachineDataController3993.Instance.ParseSlotSpin(totalBet, resNode, null))
-            {
+            bool parsed = MachineDataController3993.Instance.ParseSlotSpin(totalBet, resNode, null);
+            if (parsed)
                 successCallback?.Invoke();
-            }
             else
-            {
                 errorCallback?.Invoke(null);
-            }
                
         }
 
@@ -1482,11 +1559,27 @@ namespace MeiZhouHeiBao_3993
 
             SBoxJackpotData sBoxJackpotData = new SBoxJackpotData
             {
-                // 初始化数组
                 Lottery = new int[3], JackpotOut = new int[3], Jackpotlottery = new int[3], JackpotOld = new int[3]
             };
 
-            //获取彩金贡献值
+            var cmBet = ContentModel.Instance;
+            bool skipBetDeduct = cmBet.SpinBetDeducted || cmBet.SuppressBetDeduct;
+            // 赠送局不用扣分。同一把只扣一次，重发和未确认重连都跳过。
+            if (!skipBetDeduct && cmBet.gameState != GameState.FreeSpin)
+            {
+                MainBlackboardController.Instance.MinusMyTempCredit(totalBet, true, false);
+                cmBet.SpinBetDeducted = true;
+            }
+
+            bool parsed = MachineDataController3993.Instance.ParseSlotSpin(totalBet, resNode, sBoxJackpotData, skipBetDeduct);
+            //普通局先保存免费数据
+           yield return WaitFreeReconnectPersist();
+            if (!parsed)
+            {
+                errorCallback?.Invoke(null);
+                yield break;
+            }
+
             ERPushMachineDataManager02.Instance.RequestGetJpContribution((res) =>
             {
                 JSONNode data = JSONNode.Parse((string)res);
@@ -1495,6 +1588,7 @@ namespace MeiZhouHeiBao_3993
                 if (0 != code)
                 {
                     DebugUtils.LogError($"请求贡献值报错。 code: {code}");
+                    isNext = true;
                     return;
                 }
 
@@ -1515,19 +1609,92 @@ namespace MeiZhouHeiBao_3993
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
 
-            //赠送局不用扣分
-            if (ContentModel.Instance.gameState != GameState.FreeSpin)MainBlackboardController.Instance.MinusMyTempCredit(totalBet, true, false);
+            MachineDataController3993.Instance.ApplyJackpotContribution(sBoxJackpotData);
+            SetUIJackpotGameReel();
+            successCallback?.Invoke();
+            Debug.Log("获取滚轮成功");
+        }
 
-            if (MachineDataController3993.Instance.ParseSlotSpin(totalBet, resNode, sBoxJackpotData))
+        /// <summary>Parse 后必须把免费档写进库，成功前不能发 20102，也不能请求下一把。</summary>
+        private IEnumerator WaitFreeReconnectPersist()
+        {
+            if (ApplicationSettings.Instance.isMock)
+                yield break;
+
+            while (true)
             {
-                SetUIJackpotGameReel();
-                successCallback?.Invoke();
-                Debug.Log("获取滚轮成功");
+                bool done = false;
+                bool saved = false;
+                FreeSpinSessionStoreG3993.TryPersistOrClearSession(ok =>
+                {
+                    saved = ok;
+                    done = true;
+                });
+                float deadline = Time.realtimeSinceStartup + 30f;
+                yield return new WaitUntil(() => done || Time.realtimeSinceStartup >= deadline);
+                if (done && saved)
+                    yield break;
+
+                DebugUtils.LogError("[G3993] 免费重连保存未成功，暂不发 20102，重试");
+                yield return new WaitForSecondsRealtime(1f);
             }
-            else
+        }
+
+        /// <summary>滚轮停止后发 20102。失败或超时则重发，成功前调用方不能发下一把。</summary>
+        private IEnumerator WaitCoinPushSpinEnd()
+        {
+            if (ApplicationSettings.Instance.isMock)
+                yield break;
+
+            while (true)
             {
-                errorCallback.Invoke(null);
+                bool done = false;
+                bool ok = false;
+                ERPushMachineDataManager02.Instance.RequestCoinPushSpinEnd(res1 =>
+                {
+                    try
+                    {
+                        JSONNode data = JSONNode.Parse((string)res1);
+                        int code = (int)data["code"];
+                        ok = code == 0;
+                        if (!ok)
+                            DebugUtils.LogError($"[G3993] CoinPushSpinEnd(20102) code={code}");
+                    }
+                    catch (Exception e)
+                    {
+                        ok = false;
+                        DebugUtils.LogError($"[G3993] CoinPushSpinEnd(20102) 解析失败: {e.Message}");
+                    }
+                    finally
+                    {
+                        done = true;
+                    }
+                });
+
+                float deadline = Time.realtimeSinceStartup + 30f;
+                yield return new WaitUntil(() => done || Time.realtimeSinceStartup >= deadline);
+                if (done && ok)
+                    break;
+
+                DebugUtils.LogError("[G3993] 20102 未成功，重发确认，暂不请求下一把");
             }
+
+            var cm = ContentModel.Instance;
+            cm.SpinBetDeducted = false;
+            cm.SuppressBetDeduct = false;
+            if (cm.PendingAlgoFreeSettle && cm.freeSpinPlayTimes >= cm.freeSpinTotalTimes && cm.freeSpinTotalTimes > 0)
+            {
+                cm.PendingAlgoFreeSettle = false;
+                FreeSpinSessionStoreG3993.FinishAndClearAll(false);
+            }
+        }
+
+        /// <summary> 重连免费结束：屏幕分 = 进免费前的展示分 + 免费累计线奖 + 触发局线奖。 </summary>
+        private void ApplyPendingAlgoFreeSettleCredit()
+        {
+            var cm = ContentModel.Instance;
+            long total=MainBlackboardController.Instance.myTempCredit + cm.freeSpinTotalWinCredit + cm.triggerWinCredit;
+            MainBlackboardController.Instance.SetMyRealCredit(total);
         }
         #endregion
 
@@ -1577,7 +1744,7 @@ namespace MeiZhouHeiBao_3993
 
         #region Panther游戏
         /// <summary>
-        /// 普通局豹头收集：等 NPC win3 → 串播爪子 → 亮豹头/Bonus + PantherNormalBorder，再逐个飞 Effect_ng_trails 到 anchorWinBorder 加分。
+        ///  Panther游戏：等 NPC win3 → 串播爪子 → 亮豹头/Bonus + PantherNormalBorder，再逐个飞 Effect_ng_trails 到 anchorWinBorder 加分。
         /// 结束后只清拖尾和 Panel 赢分框；豹头 Hit/框保留，已收集 Bonus 保持 idle。
         /// </summary>
         private IEnumerator PlayPantherWin()
@@ -1627,66 +1794,48 @@ namespace MeiZhouHeiBao_3993
             _panelController.HideWinBorders();
         }
 
-        /// <summary>播过场 Spine：用 holder 显隐，到时隐藏避免停在最后一帧。</summary>
-        private void PlayFadeSpine(GComponent anchor, AnimPlayer anim, string animName, float hideAfter)
+        /// <summary>豹头拖尾到达赢分框：亮框、Bonus idle、加临时分。</summary>
+        private void OnPantherBonusArrived(int score, Cell cel)
         {
-            StopHideFade();
-            HideFadeSpines();
-            if (anchor == null || anim == null || string.IsNullOrEmpty(animName))
+            //win框特效
+            _panelController.ShowNormalWinBorder();
+            if (cel != null)
+                _slotMachineController.SetPantherBonusCollectedIdle(cel.row, cel.column);
+
+            if (score <= 0)
                 return;
-            SetAnchorSpineVisible(anchor, true);
-            anim.Play(animName);
-            if (_monoHelper != null)
-                _corHideFade = _monoHelper.StartCoroutine(HideFadeAfter(anchor, hideAfter));
+
+            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT, new EventData<long>(SlotMachineEvent.SingleWinBonus, score));
         }
 
-        /// <summary>等过场播完后隐藏。</summary>
-        private IEnumerator HideFadeAfter(GComponent anchor, float delay)
+        /// <summary>Panel 赢分框中心在拖尾父节点下的本地坐标。</summary>
+        private Vector2 GetWinBorderLocalPos()
         {
-            yield return new WaitForSeconds(delay);
-            SetAnchorSpineVisible(anchor, false);
-            _corHideFade = null;
+            if (_anchorEffectFrame == null)
+                return Vector2.zero;
+
+            GComponent target = _panelController?.AnchorWinBorder;
+            if (target == null)
+                return Vector2.zero;
+
+            Vector2 global = target.LocalToGlobal(new Vector2(target.width * 0.5f, target.height * 0.5f));
+            return _anchorEffectFrame.GlobalToLocal(global);
         }
 
-        /// <summary>停掉过场隐藏协程。</summary>
-        private void StopHideFade()
+        /// <summary>按行列取 BonusData 上对应格子的豹头分值（赔率 × betmultiple）。</summary>
+        private static int GetPantherBonusScore(int row, int col)
         {
-            if (_monoHelper != null && _corHideFade != null)
-                _monoHelper.StopCoroutine(_corHideFade);
-            _corHideFade = null;
-        }
-
-        /// <summary>隐藏免费/大奖过场 Spine。</summary>
-        private void HideFadeSpines()
-        {
-            SetAnchorSpineVisible(anchorFadeFreeGame, false);
-            SetAnchorSpineVisible(anchorFadeSmallGame, false);
-        }
-
-        /// <summary>关 GoWrapper 根节点并关 MeshRenderer；只 SetActive clone 关不掉缓存网格。</summary>
-        private static void SetAnchorSpineVisible(GComponent anchor, bool visible)
-        {
-            if (anchor == null) return;
-            anchor.visible = visible;
-            GGraph holder = anchor.GetChild("holder") as GGraph;
-            if (holder != null)
-                holder.visible = visible;
-
-            GameObject target = GameCommon.FguiUtils.GetWrapperTarget(anchor);
-            if (target == null) return;
-            target.SetActive(visible);
-            Renderer[] renderers = target.GetComponentsInChildren<Renderer>(true);
-            for (int i = 0; i < renderers.Length; i++)
-            {
-                if (renderers[i] != null)
-                    renderers[i].enabled = visible;
-            }
+            int index = row * CustomModel.Instance.column + col;
+            int[] data = ContentModel.Instance.BonusData;
+            if (data != null && index >= 0 && index < data.Length)
+                return ContentModel.GetDisplayScore(data[index]) * MainModel.Instance.contentMD.betmultiple;
+            return 0;
         }
         #endregion
 
         #region 免费游戏
 
-        /// <summary>记录免费触发局信息，压栈</summary>
+        /// <summary>记录免费触发局信息</summary>
         private void InputStackContextFreeSpin(Action<Dictionary<string, object>> inputStackCallBack)
         {
             Dictionary<string, object> context = new Dictionary<string, object>()
@@ -1711,7 +1860,7 @@ namespace MeiZhouHeiBao_3993
             inputStackCallBack?.Invoke(context);
         }
 
-        /// <summary>恢复免费触发局信息，弹栈</summary>
+        /// <summary>恢复免费触发局信息</summary>
         private void OutputStackContextFreeSpin(Action<Dictionary<string, object>> outputStackCallBack)
         {
             if (_freeSaveStack.Count == 0)
@@ -1736,10 +1885,197 @@ namespace MeiZhouHeiBao_3993
             outputStackCallBack?.Invoke(context);
         }
 
-        /// <summary>断电重连恢复免费局：点击一次开始后自动跑完整段免费，并统一结算与切回普通游戏。</summary>
+        /// <summary> 是否有可恢复的未完成免费局，最终以算法为准 </summary>
+        private static bool ShouldRestoreFreeSpinSession()
+        {
+            if (ApplicationSettings.Instance.isMock)
+                return false;
+            if (!SQLitePlayerPrefs03.Instance.isInit && !FreeSpinSessionStoreG3993.HasAlgoFreePersistSnapshot())
+                return false;
+
+            // 触发未确认：停在普通局，不切免费界面。
+            if (FreeSpinSessionStoreG3993.IsAlgoTriggerUnacked())
+                return false;
+
+            //算法带有重连,需要恢复重连
+            return FreeSpinSessionStoreG3993.HasAlgoFreePersistSnapshot();
+        }
+
+        /// <summary> 从本地恢复未完成的免费重连 </summary>
+        private void TryRestoreFreeSpinSession()
+        {
+            try
+            {
+                if (ApplicationSettings.Instance.isMock || _slotMachineController == null)
+                    return;
+                if (!isOpen)
+                    return;
+                if (ContentModel.Instance.isSpin)
+                    return;
+
+                if (FreeSpinSessionStoreG3993.IsAlgoTriggerUnacked())
+                {
+                    FreeSpinSessionStoreG3993.PrepareUnackedTriggerReplay();
+                    var replay = ContentModel.Instance;
+                    replay.gameState = GameState.Idle;
+                    replay.btnSpinState = SpinButtonState.Stop;
+                    _panelController?.ReconnectionApplyBet();
+                    _panelController?.ChangButtonNo(true);
+                    DebugUtils.Log("[G3993] 触发局未确认，停在普通局并自动请求触发盘。");
+                    BeginAutoReconnectSpin();
+                    return;
+                }
+
+                bool algoOk = FreeSpinSessionStoreG3993.HasAlgoFreePersistSnapshot();
+                var snap = FreeSpinSessionStoreG3993.TryLoad();
+                bool localOk = FreeSpinSessionStoreG3993.IsSessionStillValid(snap);
+                if (!localOk && !algoOk)
+                {
+                    if (snap != null)
+                        FreeSpinSessionStoreG3993.Clear();
+                    return;
+                }
+
+                if (algoOk && SBoxIdea.LastGameSwitchSyncedFreeIdx < 0 && _monoHelper != null)
+                {
+                    DebugUtils.Log("[G3993] 等 20200 同步游标后再决定用本地档还是算法档");
+                    if (_corWaitFreeSync != null)
+                        _monoHelper.StopCoroutine(_corWaitFreeSync);
+                    _corWaitFreeSync = _monoHelper.StartCoroutine(WaitSyncedFreeIdxThenSpin());
+                    return;
+                }
+
+                RestoreFreeSpinFromChosenSource();
+            }
+            finally
+            {
+                ReconnectMaskHandler.Close();
+            }
+        }
+
+        /// <summary>20200 没回到就一直等，不用退回前的下标开转。</summary>
+        private IEnumerator WaitSyncedFreeIdxThenSpin()
+        {
+            while (SBoxIdea.LastGameSwitchSyncedFreeIdx < 0)
+                yield return null;
+
+            _corWaitFreeSync = null;
+            RestoreFreeSpinFromChosenSource();
+        }
+
+        /// <summary>
+        /// 同步游标已到：本地已玩次数没有超过游标就只用本地档；否则整份本地档不读，按算法从第一手重发。
+        /// </summary>
+        private void RestoreFreeSpinFromChosenSource()
+        {
+            bool algoOk = FreeSpinSessionStoreG3993.HasAlgoFreePersistSnapshot();
+            var snap = FreeSpinSessionStoreG3993.TryLoad();
+            bool localOk = FreeSpinSessionStoreG3993.IsSessionStillValid(snap);
+            int synced = SBoxIdea.LastGameSwitchSyncedFreeIdx;
+            bool useLocal = localOk && (!algoOk || snap.FreeSpinPlayTimes <= synced);
+            if (!useLocal && !algoOk)
+            {
+                if (snap != null)
+                    FreeSpinSessionStoreG3993.Clear();
+                return;
+            }
+
+            var cm = ContentModel.Instance;
+            if (useLocal)
+            {
+                FreeSpinSessionStoreG3993.ApplyLocalSnapshot(snap);
+                if (!string.IsNullOrEmpty(snap.StrDeckRowCol))
+                {
+                    _slotMachineController.SetReelsDeck(snap.StrDeckRowCol);
+                    _slotMachineController.ApplyAllWildStaticIcons();
+                }
+            }
+            else
+            {
+                DebugUtils.Log("[G3993] 本地档不可用或超前于同步游标，改用算法从第一手重发");
+                FreeSpinSessionStoreG3993.ApplyAlgoProgressToContentModel();
+            }
+
+            cm.isFreeSpinTrigger = false;
+            cm.isFreeSpinFinish = false;
+            cm.isFreeGameAdd = false;
+            cm.freeSpinAddNum = 0;
+            cm.gameState = GameState.Idle;
+            cm.PendingFreeSpinReconnectValidation = cm.nextReelStripsIndex == "FS";
+
+            long winBox = cm.freeSpinTotalWinCredit + cm.triggerWinCredit;
+            _allWinCredit = winBox;
+            if (cm.curReelStripsIndex == "FS" || cm.nextReelStripsIndex == "FS" || cm.PendingAlgoFreeSettle)
+            {
+                _slotMachineController.BeginBonusFreeSpin();
+                EnterFreeSpit(false);
+                cptBoxFreeCollet?.GetTransition("exitFree")?.Stop();
+                Transition enterFree = cptBoxFreeCollet?.GetTransition("enterFree");
+                enterFree.Play(() => RefreshFreeCollectUi());
+            }
+
+            _slotMachineController.SendTotalWinCreditEvent(winBox);
+            cm.btnSpinState = SpinButtonState.Stop;
+            _panelController.ReconnectionApplyBet();
+            _panelController.ChangButtonNo(true);
+            DebugUtils.Log($"[G3993] 已恢复免费重连：剩余 {cm.ShowFreeSpinRemainTime} / 总 {cm.freeSpinTotalTimes}，自动开始剩余赠送。");
+            BeginAutoReconnectSpin();
+        }
+
+        /// <summary>断电重连或未确认触发：进台后自动开转，不再等玩家点击。</summary>
+        private void BeginAutoReconnectSpin()
+        {
+            if (ContentModel.Instance.isSpin)
+                return;
+            ContentModel.Instance.isSpin = true;
+            ContentModel.Instance.isAuto = false;
+            LockStopButton();
+            StartGameOnce(ContinueGameWhenCompleted, StopGameWhenError);
+        }
+
+        /// <summary>断电重连恢复免费局：自动跑完整段免费，并统一结算与切回普通游戏。</summary>
         private IEnumerator GameFreeSpinFromReconnect(Action successCallback, Action<string> errorCallback)
         {
-            yield break;
+            _isFreeSpinReconnect = true;
+            _slotMachineController.BeginBonusFreeSpin();
+            ContentModel.Instance.isFreeSpinTrigger = false;
+            if (_pageController != null && _pageController.selectedPage != "freeGame")
+                EnterFreeSpit(false);
+
+            //执行免费剩余次数
+            yield return FreeGameSpin(null, errorCallback);
+
+            if (ContentModel.Instance.PendingAlgoFreeSettle)
+                yield return WaitCoinPushSpinEnd();
+
+        
+            if (ContentModel.Instance.freeSpinTotalTimes <= 0)
+            {
+                ApplyPendingAlgoFreeSettleCredit();
+                ExitFreeSpin();
+                _panelController?.ChangButtonNo(false);
+                _isFreeSpinReconnect = false;
+                successCallback?.Invoke();
+                yield break;
+            }
+
+            bool isNext = false;
+            PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupFreeSpinResult, null,
+                (ed) =>
+                {
+                    PlayFadeSpine(anchorFadeFreeGame, _animFadeFreeGame, AnimFadeFreeGame, FadeFreeDuration);
+                    isNext = true;
+                });
+            yield return new WaitUntil(() => isNext == true);
+            yield return _slotMachineController.SlotWaitForSeconds(0.5f);
+            ApplyPendingAlgoFreeSettleCredit();
+            ExitFreeSpin();
+            yield return _slotMachineController.SlotWaitForSeconds(3.0f);
+            _panelController?.ChangButtonNo(false);
+            _isFreeSpinReconnect = false;
+            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+            ContentModel.Instance.gameState = GameState.Idle;
+            successCallback?.Invoke();
         }
 
         /// <summary>免费触发：弹窗、切免费 UI、跑完整段免费、结算弹窗后回到普通局。</summary>
@@ -1755,12 +2091,6 @@ namespace MeiZhouHeiBao_3993
                 (ed) =>
                 {
                     PlayFadeSpine(anchorFadeFreeGame, _animFadeFreeGame, AnimFadeFreeGame, FadeFreeDuration);
-                    // pagFade.StopWithDefaults();
-                    // pagFade.Play(new PagSequencePlay(
-                    //     new[] { new PagSegment("jp_Transition2_NgToFg/NgToFg", 1) },
-                    //     PagPlayLayout.Center,
-                    //     PagPresentationDefaults.DisplayScale,
-                    //     useGpuSyncGroup: false));
                     isNext = true;
                 });
             yield return new WaitUntil(() => isNext == true);
@@ -1789,14 +2119,9 @@ namespace MeiZhouHeiBao_3993
                 (ed) =>
                 {
                     PlayFadeSpine(anchorFadeFreeGame, _animFadeFreeGame, AnimFadeFreeGame, FadeFreeDuration);
-                    // pagFade.StopWithDefaults();
-                    // pagFade.Play(new PagSequencePlay(
-                    //     new[] { new PagSegment("jp_Transition2_NgToFg/NgToFg", 1) },
-                    //     PagPlayLayout.Center,
-                    //     PagPresentationDefaults.DisplayScale,
-                    //     useGpuSyncGroup: false));
                     isNext = true;
                 });
+
             yield return new WaitUntil(() => isNext == true);
             isNext = false;
             yield return _slotMachineController.SlotWaitForSeconds(0.5f);
@@ -1832,6 +2157,7 @@ namespace MeiZhouHeiBao_3993
                 {
                     errMsg = err;
                     isBreak = true;
+                    isNext = true;
                 });
             }
 
@@ -1845,6 +2171,8 @@ namespace MeiZhouHeiBao_3993
                 errorCallback?.Invoke(errMsg);
                 yield break;
             }
+
+            RefreshFreeProgressFromModel();
 
             if (TestManager.Instance.IsAutoModeRunning)
                 _slotMachineController.isStopImmediately = true;
@@ -1883,14 +2211,15 @@ namespace MeiZhouHeiBao_3993
             }
 
             SetSpinButtonSpinGray();
+            yield return WaitCoinPushSpinEnd();
             List<SymbolWin> winList = ContentModel.Instance.winList;
             if (winList.Count > 0 && HasLandAppearSymbol())
                 yield return _slotMachineController.SlotWaitForSeconds(0.7f);
 
             //转换黑豹
             yield return ConvertEligibleSymbolsToPanther();
-            //收集黑豹图标（拖尾飞入后再刷新个数）
             yield return CollectPantherSymbols();
+            SyncCurPantherToSaved();
             // ----------------- normal win ----------------
            
             if (winList.Count > 0 || ContentModel.Instance.bonusResult != null)
@@ -1916,32 +2245,34 @@ namespace MeiZhouHeiBao_3993
                 _slotMachineController.ShowSymbolWinDeck(_slotMachineController.GetTotalSymbolWin(winList), true);
             }
 
+            //保存免费数据
+            FreeSpinSessionStoreG3993.TryPersistOrClearSession();
+
             ContentModel.Instance.gameState = GameState.Idle;
             SetSpinButtonSpinGray();
             successCallback?.Invoke();
         }
 
-        /// <summary>循环执行剩余免费次数。</summary>
+        /// <summary>循环执行剩余免费次数。是否继续由 Parse 根据 OpenType 写入 nextReelStripsIndex。</summary>
         private IEnumerator FreeGameSpin(Action successCallback, Action<string> errorCallback)
         {
-            //EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,new EventData(Game3993AudioEvent.BgmFreeSpinGame));
+            EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,new EventData(Game3993AudioEvent.BgmFreeSpinGame));
             while (ContentModel.Instance.nextReelStripsIndex == "FS")
             {
                 yield return FreeSpinOnce(null, errorCallback);
-                txtRemainFreeTime.text = (ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes).ToString();
+                RefreshFreeProgressFromModel();
                 yield return _slotMachineController.SlotWaitForSeconds(1);
             }
 
             successCallback?.Invoke();
         }
 
-        /// <summary>展示中奖线后收盖、关盖，进入加分倒计时等待。</summary>
+        /// <summary>展示中奖线。</summary>
         private IEnumerator ShowWinListCoinCountDown(List<SymbolWin> winList, long totalWinLineCredit,bool isHitJackpot)
         {
-            if (!isHitJackpot)
-                _slotMachineController.ShowSymbolWinDeck(_slotMachineController.GetTotalSymbolWin(winList), true);
+            if (!isHitJackpot) _slotMachineController.ShowSymbolWinDeck(_slotMachineController.GetTotalSymbolWin(winList), true);
             yield return new WaitForSeconds(1.5f);
-            _slotMachineController.SkipWinLine(false);
+            _slotMachineController.SkipWinLine(true);
             _slotMachineController.CloseSlotCover();
         }
 
@@ -1952,21 +2283,51 @@ namespace MeiZhouHeiBao_3993
             PlayNormalNpc("Idle1", true);
             ContentModel.Instance.freeSpinTotalTimes = 0;
             ContentModel.Instance.freeSpinPlayTimes = 0;
+            ContentModel.Instance.PendingAlgoFreeSettle = false;
             cptBoxFreeCollet.GetTransition("exitFree").Play();
             _slotMachineController.EndBonusFreeSpin();
             OnGameReset();
             ClearPantherTrails();
             HideCollectStar();
             _allWinCredit = 0;
+            CurPantherSymbolCount = 0;
             SetSpinButtonSpinGray();
+            FreeSpinSessionStoreG3993.FinishAndClearAll();
         }
 
         /// <summary>进入免费：切页、绑定剩余/总次数与收集盒。</summary>
-        private void EnterFreeSpit()
+        /// <param name="resetCollect">true 为新触发免费，清收集；false 为断电恢复，保留收集进度。</param>
+        private void EnterFreeSpit(bool resetCollect = true)
         {
             _pageController.selectedPage = "freeGame";
             ClearPantherTrails();
             HideCollectStar();
+            BindFreeTimeTexts();
+            if (txtTotalFreeTime != null)
+                txtTotalFreeTime.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
+
+            if (resetCollect)
+            {
+                ContentModel.Instance.totalPantherSymbolCount = 0;
+                CurPantherSymbolCount = 0;
+                if (txtRemainFreeTime != null)
+                    txtRemainFreeTime.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
+                RefreshFreeCollectUi();
+                
+                FreeSpinSessionStoreG3993.TryPersistOrClearSession();
+            }
+            else
+            {
+                CurPantherSymbolCount = ContentModel.Instance.totalPantherSymbolCount;
+                if (txtRemainFreeTime != null)
+                    txtRemainFreeTime.text = (ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes).ToString();
+                RefreshFreeCollectUi();
+            }
+        }
+
+        /// <summary>绑定免费次数文本控件。</summary>
+        private void BindFreeTimeTexts()
+        {
             GObject outFrameObj = contentPane.GetChild("OutFrame");
             GLoader loader = outFrameObj as GLoader;
             GComponent frame = loader != null ? loader.component : outFrameObj as GComponent;
@@ -1975,17 +2336,35 @@ namespace MeiZhouHeiBao_3993
                 txtRemainFreeTime = frame.asCom.GetChild("txtRemainFreeTime").asTextField;
                 txtTotalFreeTime = frame.asCom.GetChild("txtTotalFreeTime").asTextField;
             }
+        }
 
-            txtRemainFreeTime.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
-            txtTotalFreeTime.text = ContentModel.Instance.freeSpinTotalTimes.ToString();
-            txtFreeCollect.text = "0";
-            ContentModel.Instance.totalPantherSymbolCount = 0;
-            if (txtFreeCollect != null) txtFreeCollect.text = "0";
+        /// <summary>按已见收集数量刷新文本与进度框。displayCount 为空则用 Cur。</summary>
+        private void RefreshFreeCollectUi(int? displayCount = null)
+        {
+            int count = displayCount ?? CurPantherSymbolCount;
+            if (txtFreeCollect != null)
+                txtFreeCollect.text = count.ToString();
+
+            int[] thresholds = { 4, 10, 18, 28 };
             for (int i = 0; i < _anchorFreeCollectBorders.Length; i++)
             {
                 if (_anchorFreeCollectBorders[i] != null)
-                    _anchorFreeCollectBorders[i].visible = false;
+                    _anchorFreeCollectBorders[i].visible = i < thresholds.Length && count >= thresholds[i];
             }
+        }
+
+        /// <summary>Parse 后立刻刷新剩余次数。收集数字等拖尾到点再涨，避免先跳数字再播特效。</summary>
+        private void RefreshFreeProgressFromModel()
+        {
+            if (txtRemainFreeTime != null)
+                txtRemainFreeTime.text = (ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes).ToString();
+        }
+
+        /// <summary>收集表现结束后，把已见数量对齐到已保存的 total。</summary>
+        private void SyncCurPantherToSaved()
+        {
+            CurPantherSymbolCount = ContentModel.Instance.totalPantherSymbolCount;
+            RefreshFreeCollectUi();
         }
 
         /// <summary>
@@ -2000,10 +2379,12 @@ namespace MeiZhouHeiBao_3993
 
             if (_anchorEffectFrame == null || _slotMachineController == null)
             {
-                AddCollectCount(cells.Count);
+                CurPantherSymbolCount = ContentModel.Instance.totalPantherSymbolCount;
+                RefreshFreeCollectUi();
                 yield break;
             }
 
+            RefreshFreeCollectUi();
             ClearPantherTrails();
             HideCollectStar();
             Vector2 to = GetCollectTargetLocalPos();
@@ -2015,7 +2396,8 @@ namespace MeiZhouHeiBao_3993
                 GComponent trail = RentTrail(CustomModel.Instance.trailFgEffect);
                 if (trail == null)
                 {
-                    AddCollectCount(1);
+                    CurPantherSymbolCount++;
+                    RefreshFreeCollectUi();
                     pending--;
                     continue;
                 }
@@ -2032,7 +2414,8 @@ namespace MeiZhouHeiBao_3993
                 {
                     ReturnTrail(CustomModel.Instance.trailFgEffect, captured);
                     ShowCollectStar();
-                    AddCollectCount(1);
+                    CurPantherSymbolCount++;
+                    RefreshFreeCollectUi();
                     pending--;
                 });
             }
@@ -2041,6 +2424,8 @@ namespace MeiZhouHeiBao_3993
             yield return _slotMachineController.SlotWaitForSeconds(PantherStarDuration);
             ClearPantherTrails();
             HideCollectStar();
+            CurPantherSymbolCount = ContentModel.Instance.totalPantherSymbolCount;
+            RefreshFreeCollectUi();
         }
 
         /// <summary>收集可视区内所有黑豹符号坐标。</summary>
@@ -2188,29 +2573,10 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
-        /// <summary>增加免费收集数量，跨档时点亮对应进度框。</summary>
-        private void AddCollectCount(int add)
-        {
-            if (add <= 0) return;
-            int oldCount = ContentModel.Instance.totalPantherSymbolCount;
-            int newCount = oldCount + add;
-            ContentModel.Instance.totalPantherSymbolCount = newCount;
-            if (txtFreeCollect != null)
-                txtFreeCollect.text = newCount.ToString();
-
-            int[] thresholds = { 4, 10, 18, 28 };
-            for (int i = 0; i < thresholds.Length; i++)
-            {
-                if (oldCount < thresholds[i] && newCount >= thresholds[i]
-                    && _anchorFreeCollectBorders[i] != null)
-                    _anchorFreeCollectBorders[i].visible = true;
-            }
-        }
-
-        /// <summary>按当前收集数量取可变成黑豹的符号 ID 集合。</summary>
+        /// <summary>按已见数量取可变成黑豹的符号 ID，不用 Parse 后已含本局的 total。</summary>
         private HashSet<int> GetReplaceableSymbolIds()
         {
-            return CustomModel.Instance.GetFreePantherReplaceIds(ContentModel.Instance.totalPantherSymbolCount);
+            return CustomModel.Instance.GetFreePantherReplaceIds(CurPantherSymbolCount);
         }
 
         /// <summary>符合档位的动物播 SymbolFree 转换，同时静态图切黑豹，播完再收集。</summary>
@@ -2372,50 +2738,13 @@ namespace MeiZhouHeiBao_3993
             _animNormalNpc.Play(animName, loop);
         }
 
-        /// <summary>豹头拖尾到达赢分框：亮框、Bonus idle、加临时分。</summary>
-        private void OnPantherBonusArrived(int score, Cell cel)
-        {
-            //win框特效
-            _panelController.ShowNormalWinBorder();
-            if (cel != null)
-                _slotMachineController.SetPantherBonusCollectedIdle(cel.row, cel.column);
-
-            if (score <= 0)
-                return;
-
-            EventCenter.Instance.EventTrigger<EventData>(SlotMachineEvent.ON_WIN_EVENT,new EventData<long>(SlotMachineEvent.SingleWinBonus, score));
-        }
-
-        /// <summary>Panel 赢分框中心在拖尾父节点下的本地坐标。</summary>
-        private Vector2 GetWinBorderLocalPos()
-        {
-            if (_anchorEffectFrame == null)
-                return Vector2.zero;
-
-            GComponent target = _panelController?.AnchorWinBorder;
-            if (target == null)
-                return Vector2.zero;
-
-            Vector2 global = target.LocalToGlobal(new Vector2(target.width * 0.5f, target.height * 0.5f));
-            return _anchorEffectFrame.GlobalToLocal(global);
-        }
-
-        /// <summary>按行列取 BonusData 上对应格子的豹头分值（赔率 × betmultiple）。</summary>
-        private static int GetPantherBonusScore(int row, int col)
-        {
-            int index = row * CustomModel.Instance.column + col;
-            int[] data = ContentModel.Instance.BonusData;
-            if (data != null && index >= 0 && index < data.Length)
-                return ContentModel.GetDisplayScore(data[index]) * MainModel.Instance.contentMD.betmultiple;
-            return 0;
-        }
-
         /// <summary>
-        /// 普通局停轮后播 NPC。优先级：trig（免费/Bonus）&gt; win3（黑豹+Bonus同屏）&gt; win2（动物线赢）&gt; win1（扑克牌线赢）&gt; Idle2（连续 5 局未中奖）。
-        /// Controller 播完会回到 Idle1。免费局由 FGUI 隐藏 NPC，不走这里。
+        /// 普通局停轮后播 NPC。
+        /// Controller 播完会回到 Idle1。
         /// </summary>
         private void TryPlayNormalNpcAfterSpin(List<SymbolWin> winList)
         {
+            //优先级：trig（免费 / Bonus）&gt; win3（黑豹奖）&gt; win2（动物线赢）&gt; win1（扑克牌线赢）&gt; Idle2（连续 5 局未中奖）。
             if (_animNormalNpc == null) return;
 
             bool isFeatureTrigger = ContentModel.Instance.isFreeSpinTrigger || ContentModel.Instance.isSmallGameTrigger;
@@ -2482,16 +2811,6 @@ namespace MeiZhouHeiBao_3993
             PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupSmallGameTrigger, null, (ed) =>
             {
                 PlayFadeSpine(anchorFadeSmallGame, _animFadeSmallGame, AnimFadeSmallGame, FadeSmallDuration);
-                // pagFade.StopWithDefaults();
-                // pagFade.Play(new PagSequencePlay(
-                //     new[] { new PagSegment("Transition_JPTONG-out_bmp/Transition_JPTONG-out_bmp", 1) },
-                //     PagPlayLayout.Center,
-                //     PagPresentationDefaults.DisplayScale,
-                //     useGpuSyncGroup: false,
-                //     callbacks: new PagPlayCallbacks(
-                //     onFinished: () => pagFade?.StopWithDefaults(),
-                //     stopAfterFinished: true)));
-               
                 isNext = true;
             });
             yield return new WaitUntil(() => isNext == true);
@@ -2510,7 +2829,7 @@ namespace MeiZhouHeiBao_3993
             _slotMachineController.SkipWinLine(true);
 
             yield return _slotMachineController.SlotWaitForSeconds(3.0f );
-            //EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3993AudioEvent.BgmBonusGame));
+            EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT, new EventData(Game3993AudioEvent.BgmBonusGame));
             List<int> matrix = SlotTool.GetDeckRowCol(ContentModel.Instance.strDeckRowCol);
             //大奖主逻辑
             _rewardMgr.Enter(matrix, ContentModel.Instance.BonusData);
@@ -2525,16 +2844,6 @@ namespace MeiZhouHeiBao_3993
             PageManager.Instance.OpenPageAsync(PageName.MeiZhouHeiBaoPopupSmallGameResult, null, (ed) =>
             {
                 PlayFadeSpine(anchorFadeSmallGame, _animFadeSmallGame, AnimFadeSmallGame, FadeSmallDuration);
-                // pagFade.StopWithDefaults();
-                // pagFade.Play(new PagSequencePlay(
-                //     new[] { new PagSegment("Transition_JPTONG-out_bmp/Transition_JPTONG-out_bmp", 1) },
-                //     PagPlayLayout.Center,
-                //     PagPresentationDefaults.DisplayScale,
-                //     useGpuSyncGroup: false,
-                //     callbacks: new PagPlayCallbacks(
-                //     onFinished: () => pagFade?.StopWithDefaults(),
-                //     stopAfterFinished: true)));
-
                 isNext = true;
             });
 
@@ -2560,7 +2869,7 @@ namespace MeiZhouHeiBao_3993
             ContentModel.Instance.BonusRound?.Clear();
             if (ContentModel.Instance.BonusData != null) Array.Clear(ContentModel.Instance.BonusData, 0, ContentModel.Instance.BonusData.Length);
             yield return _slotMachineController.SlotWaitForSeconds(6.0f);
-            //EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,new EventData(Game3993AudioEvent.BgmRegularGame));
+            EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,new EventData(Game3993AudioEvent.BgmRegularGame));
         }
 
         /// <summary>大奖旋转循环（逻辑已并入 RewardMgr，此处预留）。</summary>

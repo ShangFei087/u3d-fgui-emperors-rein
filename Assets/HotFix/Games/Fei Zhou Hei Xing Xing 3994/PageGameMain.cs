@@ -386,9 +386,9 @@ namespace FeiZhouHeiXingXing_3994
                 _fGuiPoolHelper.Add(TagPoolObject.SymbolBorder,
                     CustomModel.Instance.borderEffect, "border#", 5);
                 _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolBorder); // 边框
-                _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear,
-                    CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 10);
-                _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear); // 落下后图标静止动画
+                // _fGuiPoolHelper.Add(TagPoolObject.SymbolAppear,
+                //     CustomModel.Instance.symbolAppearEffect.Values.ToList(), "symbol_appear#", 10);
+                // _fGuiPoolHelper.PreLoad(TagPoolObject.SymbolAppear); // 落下后图标静止动画
                 _fGuiPoolHelper.WhenIdle(() =>
                 {
                     _isPoolPreloadDone = true;
@@ -1147,6 +1147,7 @@ namespace FeiZhouHeiXingXing_3994
                 _notHitSpinCount = 0;
             }
 
+            _panelController.ChangButtonNo(false);
             DebugUtils.Log("进入空闲模式！！！");
             long score = ContentModel.Instance.smallGameWinCredit + _allWinCredit; // 如果中彩金或者免费的时候，同时中普通奖，同步UI显示分数
             _slotMachineController.SendTotalWinCreditEvent(score + totalWinLineCredit);
@@ -1161,6 +1162,8 @@ namespace FeiZhouHeiXingXing_3994
 
             _allWinCredit = 0;
             _slotMachineController.isStopImmediately = false;
+
+
             successCallback?.Invoke();
         }
 
@@ -1314,7 +1317,7 @@ namespace FeiZhouHeiXingXing_3994
 
         #region 免费游戏
 
-        /// <summary>记录免费触发局信息，压栈</summary>
+        /// <summary>记录免费触发局信息</summary>
         private void InputStackContextFreeSpin(Action<Dictionary<string, object>> inputStackCallBack)
         {
             Dictionary<string, object> context = new Dictionary<string, object>()
@@ -1339,7 +1342,7 @@ namespace FeiZhouHeiXingXing_3994
             inputStackCallBack?.Invoke(context);
         }
 
-        /// <summary>恢复免费触发局信息，弹栈</summary>
+        /// <summary>恢复免费触发局信息</summary>
         private void OutputStackContextFreeSpin(Action<Dictionary<string, object>> outputStackCallBack)
         {
             if (_freeSaveStack.Count == 0)
@@ -1401,7 +1404,6 @@ namespace FeiZhouHeiXingXing_3994
                 (ed) =>
                 {
                     ContentModel.Instance.FreeSpinTotalTimes = 0;
-                    _panelController.ChangButtonNo(false);
                     _slotMachineController.EndBonusFreeSpin();
                     isNext = true;
                 });
@@ -1986,7 +1988,6 @@ namespace FeiZhouHeiXingXing_3994
                 new EventData<Dictionary<string, object>>("",
                     new Dictionary<string, object>() { { "changeNormalPage", new Action(() => _pageController.selectedPage = "normal") }, { "smallTotalScore", _currentBonusScore } }), (ed) =>
                 {
-                    _panelController.ChangButtonNo(false);
                     ContentModel.Instance.btnSpinState = SpinButtonState.Stop;
                     EventCenter.Instance.EventTrigger(SlotMachineEvent.ON_AUDIO_EVENT,
                         new EventData(Game3994AudioEvent.BgmRegularGame));
@@ -2064,21 +2065,21 @@ namespace FeiZhouHeiXingXing_3994
                                     _miniLoader.url = "";
                                     PlayAnimationByName(_smallNpcAnimator, "2win2");
                                     yield return new WaitForSeconds(2.7f);
-                                    yield return GetJackpotScore(BonusResultType.Mini, 0); //(int)_uiJpMiniCtrl.nowData
+                                    yield return GetJackpotScore(BonusResultType.Mini, (int)_uiJpMiniCtrl.nowData);
                                     break;
                                 case 10:
                                     _cloneMinorBoxObj.SetActive(true);
                                     _minorLoader.url = "";
                                     PlayAnimationByName(_smallNpcAnimator, "2win2");
                                     yield return new WaitForSeconds(2.7f);
-                                    yield return GetJackpotScore(BonusResultType.Minor, 0); //(int)_uiJpMinorCtrl.nowData
+                                    yield return GetJackpotScore(BonusResultType.Minor, (int)_uiJpMinorCtrl.nowData);
                                     break;
                                 case 15:
                                     _cloneMajorBoxObj.SetActive(true);
                                     _majorLoader.url = "";
                                     PlayAnimationByName(_smallNpcAnimator, "2win2");
                                     yield return new WaitForSeconds(2.7f);
-                                    yield return GetJackpotScore(BonusResultType.Major, 0); //(int)_uiJpMajorCtrl.nowData
+                                    yield return GetJackpotScore(BonusResultType.Major, (int)_uiJpMajorCtrl.nowData);
                                     break;
                             }
                         }

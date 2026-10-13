@@ -165,6 +165,7 @@ namespace ConsoleSlot01
             btnLanguage.onClick.Clear();
             btnLanguage.onClick.Add(OnClickLanguage);
             SetLanguageIcon();
+            RefreshLanguageButtonState();
 
 
 
@@ -293,6 +294,24 @@ namespace ConsoleSlot01
         }
 
         /// <summary>
+        /// 当前主题大厅页是否仍在显示（进子游戏后大厅会 CloseSelf）。
+        /// </summary>
+        bool IsHallPageOpen()
+        {
+            return PageManager.Instance.IndexOf(ThemeRuntime.Profile.HallPageName) != -1;
+        }
+
+        /// <summary>
+        /// 非大厅时语言按钮置灰，仍可点击以提示原因。
+        /// </summary>
+        void RefreshLanguageButtonState()
+        {
+            if (btnLanguage == null)
+                return;
+            btnLanguage.grayed = !IsHallPageOpen();
+        }
+
+        /// <summary>
         /// 根据当前语言设置语言按钮图标。
         /// </summary>
         void SetLanguageIcon()
@@ -416,10 +435,17 @@ namespace ConsoleSlot01
         void OnClickGameHistory() => PageManager.Instance.OpenPage(PageName.ConsolePageConsoleGameHistory);
 
         /// <summary>
-        /// 打开语言选择弹窗；切换语言后刷新权限菜单与语言图标。
+        /// 打开语言选择弹窗；仅大厅可切换，避免局内重建所有 Page。
+        /// 切换语言后刷新权限菜单与语言图标。
         /// </summary>
         async void OnClickLanguage()
         {
+            if (!IsHallPageOpen())
+            {
+                TipPopupHandler.Instance.OpenPopupOnce(
+                    I18nMgr.T("Please return to the hall to change language"));
+                return;
+            }
 
             Dictionary<string, string> selectLst = new Dictionary<string, string>();
             foreach(TableSupportLanguageItem item in SBoxModel.Instance.supportLanguage)

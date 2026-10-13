@@ -59,7 +59,7 @@ namespace FeiZhouHeiXingXing_3994
             // 绑定npc pag并默认播放idle动画
             _fadeCom = contentPane.GetChild("anchorFadePag").asCom;
             if (_fadeCom == null) return;
-            _fadePag ??= new PagSlotBinding("fade", PagPath);
+            _fadePag ??= new PagSlotBinding("freeFade", PagPath);
             _fadePag.EnsureSlot(_fadeCom);
         }
 

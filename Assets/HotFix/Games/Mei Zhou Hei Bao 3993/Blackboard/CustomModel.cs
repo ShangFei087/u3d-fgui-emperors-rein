@@ -439,5 +439,30 @@ namespace MeiZhouHeiBao_3993
                 }
             }
         }
+
+        /// <summary>按当前收集档位变豹后，统计盘面上的黑豹个数（本局应收数量）。</summary>
+        public int CountPanthersAfterUpgrade(string strDeckRowCol, int collectedCount)
+        {
+            List<List<int>> deckColRow = SlotTool.GetDeckColRow03(strDeckRowCol);
+            if (deckColRow == null || deckColRow.Count == 0)
+                return 0;
+
+            ApplyFreePantherUpgrade(deckColRow, collectedCount);
+            int pantherId = symbolNumber[9];
+            int count = 0;
+            for (int c = 0; c < deckColRow.Count; c++)
+            {
+                List<int> col = deckColRow[c];
+                if (col == null)
+                    continue;
+                for (int r = 0; r < col.Count; r++)
+                {
+                    if (col[r] == pantherId)
+                        count++;
+                }
+            }
+
+            return count;
+        }
     }
 }

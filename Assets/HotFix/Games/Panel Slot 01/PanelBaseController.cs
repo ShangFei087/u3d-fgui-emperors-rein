@@ -235,6 +235,8 @@ namespace SlotMaker
                 int readyGameId = MainModel.Instance != null ? MainModel.Instance.gameID : 0;
                 EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
                     new EventData<int>(PanelEvent.BottomPanelReady, readyGameId));
+                //刷新PanelUI
+                RefreshWhenReuseSameAnchor();
                 return;
             }
 
@@ -289,8 +291,6 @@ namespace SlotMaker
                         loadComplete();
                     });
             }
-
-
            
             if (_goAnchorPanel != null )
             {
@@ -515,6 +515,70 @@ namespace SlotMaker
 
             Debug.Log("初始化菜单Ui完成");
             EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,new EventData<int>(PanelEvent.BottomPanelReady, MainModel.Instance.gameID));
+        }
+
+
+        /// <summary>
+        /// 刷新UI:只同步积分/押注/赢分/Spin等。
+        /// </summary>
+        protected virtual void RefreshWhenReuseSameAnchor()
+        {
+            // 1. 关掉上一局可能留下的设置/说明书
+            if (setPanel != null)
+                setPanel.visible = false;
+            if (mash != null)
+                mash.visible = false;
+            if (gIntroducePanel != null)
+                gIntroducePanel.visible = false;
+            isSet = false;
+
+            // 2. OnDisable 清过 slider / Stage 监听，必须补回
+            if (silderSound != null)
+            {
+                silderSound.onChanged.Clear();
+                silderSound.onChanged.Add(OnSoundSliderChanged);
+            }
+            Stage.inst.onTouchEnd.Remove(OnStageTouchEndResetSoundButton);
+            Stage.inst.onTouchEnd.Add(OnStageTouchEndResetSoundButton);
+            SyncSoundUIFromCurrentState();
+
+            // 3. 赢分框、单线、Spin 特效回到进局初态
+            if (win != null)
+                win.text = "0";
+            ClearSingleLineText();
+            HideSpinPressEffects();
+            SetSpinButtonLocked(false);
+            OnPropertyChangeBtnSpinState(); // 无参时按 Stop，并 ChangButtonNo(false)
+
+            // 4. 积分：先跟机台真实分，再画 credit（监听已在 OnEnable 挂上）
+            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
+
+            // 5. 押注：按当前 ContentModel.betIndex 刷文案 + 下发机台
+            //    OnDisable 把 _lastRequestedBet 清成 MinValue，这里一定会发 RequestSetBet
+            var betList = SBoxModel.Instance.betList;
+            var content = MainModel.Instance?.contentMD;
+            if (betList != null && betList.Count > 0 && content != null)
+            {
+                int betIndex = content.betIndex;
+                if (betIndex < 0)
+                    betIndex = 0;
+                if (betIndex >= betList.Count)
+                    betIndex = betList.Count - 1;
+
+                content.betIndex = betIndex;
+                content.totalBet = betList[betIndex];
+                OnPropertyChangeBetList(); // 内部会 ChangeBetButtonInteractable + RequestSetBetWithDedup
+            }
+
+            // 6. 赔付表长度可能被 PageGameMain 重建过
+            if (content != null && content.goPayTableLst != null)
+                PayTableLength = content.goPayTableLst.Length;
+
+            OnPropertyIsConnectMoneyBox();
+
+            int readyGameId = MainModel.Instance != null ? MainModel.Instance.gameID : 0;
+            EventCenter.Instance.EventTrigger<EventData>(PanelEvent.ON_PANEL_EVENT,
+                new EventData<int>(PanelEvent.BottomPanelReady, readyGameId));
         }
 
         /// <summary>

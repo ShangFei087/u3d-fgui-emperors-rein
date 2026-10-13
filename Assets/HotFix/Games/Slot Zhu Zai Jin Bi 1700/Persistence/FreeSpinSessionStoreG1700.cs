@@ -7,7 +7,7 @@ namespace SlotZhuZaiJinBi1700
     public static class FreeSpinSessionStoreG1700
     {
         /// <summary>
-        /// 当前游戏 ID（朱再金币 1700）。
+        /// 当前游戏 ID。
         /// </summary>
         const int GameId = 1700;
 
