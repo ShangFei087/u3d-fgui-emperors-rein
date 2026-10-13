@@ -294,10 +294,7 @@ public class TestManager : Singleton<TestManager>
 
                 selectProjectMenu.visible = false;
                 if (!ApplicationSettings.Instance.isMock)
-                {
-                    FreeSpinLastAckBootstrap.RegisterAll();
                     SBoxIdea.GameSwitch(openPageId[index]);
-                }
                 PageManager.Instance.OpenPage(openPageNames[index]);
             }));
 

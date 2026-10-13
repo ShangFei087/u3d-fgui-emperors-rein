@@ -191,9 +191,7 @@ namespace MeiZhouHeiBao_3993
             });
         }
 
-        /// <summary>
-        ///解析为本游戏 JSON与 <"ParseSlotSpin"/> 使用的字段一致。
-        /// </summary>
+        /// <summary> 把 data的整数包拆成 JSON。 </summary>
         public static JSONNode ParseCoinPushSpinPayload(int[] data, int startPos)
         {
             JSONNode result = JSONNode.Parse("{}");
@@ -313,6 +311,9 @@ namespace MeiZhouHeiBao_3993
             return result;
         }
 
+        /// <summary>
+        /// 解析一局数据写入 ContentModel。
+        /// </summary>
         public bool ParseSlotSpin(long totalBet, JSONNode res, SBoxJackpotData sboxJackpotData, bool skipBetDeduct = false)
         {
             ContentModel.Instance.curGameCreatTimeMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -329,31 +330,30 @@ namespace MeiZhouHeiBao_3993
             ContentModel.Instance.JPTypeArray = Array.Empty<int>();
             ContentModel.Instance.JPBetArray = Array.Empty<int>();
 
+            int rows = CustomModel.Instance.row; // 3行
+            int cols = CustomModel.Instance.column; // 5列
+            int wheelChessNum = rows * cols; //矩阵数量
+            bool isCheckGameResult; //校验算法结果是否 前后端一致
+            ContentModel.Instance.BonusData = new int[wheelChessNum]; //大奖数据
+            int[] wildData = new int[wheelChessNum]; //wild数据
+            string strDeckRowCol = "";  //矩阵数据
+            int totalLineWin = 0; //线奖总赢
+            int lineWin = 0; //单线总赢
+            List<SymbolWin> winList = new List<SymbolWin>(); //单线赢分数据
+            JackpotRes jpGameRes = new JackpotRes(); //本地彩金数据
+
             int openType = (int)res["OpenType"];
             int resultType = (int)res["ResultType"];
             bool isTriggerResult = openType == (int)OpenType.OT_Normal && resultType == (int)ResultType.RT_FreeWin;
             int lineNum = (int)res["lineNum"];
             int totalwin = (int)res["TotalBet"];
             int matrixLength = (int)res["MatrixLength"];
-            int rows = CustomModel.Instance.row; // 3行
-            int cols = CustomModel.Instance.column; // 5列
-            int wheelChessNum = rows * cols;
-            bool isCheckGameResult;
-            ContentModel.Instance.BonusData = new int[wheelChessNum];
-            int[] wildData = new int[wheelChessNum];
             if (res["WildData"] != null)
             {
                 int n = Math.Min(wheelChessNum, res["WildData"].Count);
                 for (int i = 0; i < n; i++) wildData[i] = (int)res["WildData"][i];
             }
             ContentModel.Instance.wildData = wildData;
-
-            List<SymbolInclude> symbolInclude = new List<SymbolInclude>();
-            string strDeckRowCol = "";
-            int totalLineWin = 0;
-            int lineWin = 0;
-            List<SymbolWin> winList = new List<SymbolWin>();
-            JackpotRes jpGameRes = new JackpotRes();
 
             if (ContentModel.Instance.PendingFreeSpinReconnectValidation)
             {
@@ -427,8 +427,10 @@ namespace MeiZhouHeiBao_3993
             ContentModel.Instance.winList = winList;
 
             List<int> deckRowCol = SlotTool.GetDeckRowCol(strDeckRowCol);
-            bool inFreeGive = openType == (int)OpenType.OT_Give;
-            bool localStillInFree = ContentModel.Instance.freeSpinTotalTimes > 0&& ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes;
+            bool inFreeGive = openType == (int)OpenType.OT_Give; //算法赠送局
+            bool localStillInFree = ContentModel.Instance.freeSpinTotalTimes > 0&& ContentModel.Instance.freeSpinPlayTimes < ContentModel.Instance.freeSpinTotalTimes;//本地赠送局
+
+            //优先以算法是否为赠送局为主
             if (localStillInFree && !inFreeGive && !isTriggerResult)
             {
                 DebugUtils.LogError($"[G3993] 算法已结束赠送 OpenType={openType}，本地剩余 {ContentModel.Instance.freeSpinTotalTimes - ContentModel.Instance.freeSpinPlayTimes}。按算法结束免费。");
@@ -454,7 +456,7 @@ namespace MeiZhouHeiBao_3993
 
             long creditBefore = 0;
             long creditAfter = 0;
-            //判断赠送局：以算法 OpenType 为准，不以本地剩余次数为准。
+            //判断赠送局：以算法 为准，不以本地剩余次数为准。
             if (inFreeGive)
             {
                 int collectAdd = CustomModel.Instance.CountPanthersAfterUpgrade(strDeckRowCol, ContentModel.Instance.totalPantherSymbolCount);
@@ -478,7 +480,6 @@ namespace MeiZhouHeiBao_3993
                 }
                 ContentModel.Instance.isFreeSpinFinish = ContentModel.Instance.curReelStripsIndex == "FS" && ContentModel.Instance.nextReelStripsIndex == "BS";
 
-                // 赠送赢分只记入真实分。不要加进 myTempCredit，重连结束时再用本地累计一次性加上。
                 creditBefore = MainBlackboardController.Instance.myRealCredit;
                 creditAfter = creditBefore + totalLineWin;
             }
@@ -606,10 +607,11 @@ namespace MeiZhouHeiBao_3993
             // 记录游戏数据到数据库
             Record(totalBet, res);
             MainBlackboardController.Instance.SetMyRealCredit(creditAfter);
-            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple} ");
+            DebugUtils.Log($"押注前分数：creditBefore = {creditBefore} 押注分数：{totalBet} 押注后分数:  afterBetCredit = {creditAfter}  totalWin={totalLineWin * MainModel.Instance.contentMD.betmultiple}");
             return isCheckGameResult;
         }
 
+        /// <summary> 用彩金贡献回包刷新 Major、Minor、Mini 的当前池子。 </summary>
         public void ApplyJackpotContribution(SBoxJackpotData sboxJackpotData)
         {
             if (sboxJackpotData?.JackpotOut == null)
@@ -622,6 +624,7 @@ namespace MeiZhouHeiBao_3993
             ContentModel.Instance.jpGameRes = jpGameRes;
         }
 
+        /// <summary> 读取 Bonus 回合。协议没有或校验失败时，用盘面和 BonusData 在本地补一份。 </summary>
         private void ApplyBonusRoundPlan(JSONNode res, int wheelChessNum)
         {
             ContentModel.Instance.BonusRound = BonusRoundHelper3993.ParseFromJson(res["BonusRound"]);
@@ -646,6 +649,7 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
+        /// <summary> 把本局彩金档位和赢分写入 ContentModel，并放进彩金弹窗列表。 </summary>
         private static void ApplyJackpotResult(JSONNode res, JackpotRes jpGameRes)
         {
             int[] types = ParseIntArray(res["JPTypeArray"]);
@@ -691,7 +695,7 @@ namespace MeiZhouHeiBao_3993
                 $"[3993][Jackpot] types=[{string.Join(",", typeList)}] bets=[{string.Join(",", betList)}] total={totalJp}");
         }
 
-        //判断是否为特殊普通奖
+        /// <summary> 普通局黑豹奖。 </summary>
         private void TryApplyPantherWin(JSONNode res, List<int> deckRowCol, int wheelChessNum)
         {
             if (deckRowCol == null || deckRowCol.Count == 0)
@@ -732,6 +736,7 @@ namespace MeiZhouHeiBao_3993
             ContentModel.Instance.pantherBonusWin = pantherOdds * betMul;
         }
 
+        /// <summary> 把回包 BonusData 抄到 ContentModel，长度按盘面格子数截断。 </summary>
         private static void CopyBonusData(JSONNode res, int wheelChessNum)
         {
             ContentModel.Instance.BonusData = new int[wheelChessNum];
@@ -743,11 +748,13 @@ namespace MeiZhouHeiBao_3993
                 ContentModel.Instance.BonusData[i] = (int)res["BonusData"][i];
         }
 
+        /// <summary> 黑豹奖赔率合计，还没乘押注倍数。 </summary>
         private static int SumBonusData()
         {
             return ContentModel.SumBonusAmounts(ContentModel.Instance.BonusData);
         }
 
+        /// <summary> JSON 数组转 int 数组。不是数组时返回空数组。 </summary>
         private static int[] ParseIntArray(JSONNode node)
         {
             if (node == null || !node.IsArray)
@@ -759,6 +766,7 @@ namespace MeiZhouHeiBao_3993
             return arr;
         }
 
+        /// <summary> 这条中奖线上的百搭倍数相加。没有百搭时按 1 倍。 </summary>
         private int GetLineWildMul(List<Cell> cells, int[] wildData, int cols)
         {
             if (cells == null || wildData == null || wildData.Length == 0) return 1;
@@ -771,12 +779,15 @@ namespace MeiZhouHeiBao_3993
             }
             return sum > 0 ? sum : 1;
         }
+        /// <summary> 取一个格子上的百搭倍数，给盘面校验用。 </summary>
         private int GetCellWildMul(int col, int row)
         {
             return ContentModel.Instance.GetWildMul(col, row);
         }
 
+        /// <summary>
         //检查算法结果
+        /// </summary>
         private bool CheckGameResult(string strDeckRowCol, int TotalWin, bool inFreeGive)
         {
             List<List<int>> deckColRow = SlotTool.GetDeckColRow03(strDeckRowCol);
@@ -875,6 +886,7 @@ namespace MeiZhouHeiBao_3993
             }
         }
 
+        /// <summary> 按符号和连中个数查赔率表，返回未乘押注倍数的赔率。 </summary>
         private int GetLineOdds(int symbolType, int hitCount)
         {
             List<PayTableSymbolInfo> payTable = CustomModel.Instance.payTableSymbolWin;
@@ -901,9 +913,7 @@ namespace MeiZhouHeiBao_3993
             };
         }
 
-            /// <summary>
-        /// 记录游戏数据到数据库
-        /// </summary>
+        /// <summary>游戏记录。 </summary>
         private void Record(long totalBet, JSONNode res)
         {
             // 游戏场景记录

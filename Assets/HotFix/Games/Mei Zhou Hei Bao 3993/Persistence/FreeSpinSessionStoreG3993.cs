@@ -13,24 +13,13 @@ namespace MeiZhouHeiBao_3993
         /// 当前游戏 ID。
         /// </summary>
         public const int GameId = 3993;
-        //注册断电重连
-        static FreeSpinSessionStoreG3993()
-        {
-            EnsureRegistered();
-        }
-
-        /// <summary> 向 20200 注册本机台 lastAck，进台前调用一次即可。 </summary>
-        public static void EnsureRegistered()
-        {
-            SBoxIdea.RegisterFreeSpinLastAck(GameId, GetLastAckOrUnconfirmed);
-        }
 
         /// <summary> 免费重连存档：按游戏 ID 区分。 </summary>
         static string BuildKey()=> $"SlotFreeSpinSession_v4_{GameId}";
 
         /// <summary>
-        /// 未确认触发、没有有效档，或本地进度超前于 20000 游标时回 -1，算法把赠送退回第一手。
-        /// 本地进度没有超前时，回最后一次 20101 的下标。
+        /// 异常 1.未确认触发、2.没有有效档，3.或本地进度超前于 20000 游标时回 -1，算法把赠送退回第一手。
+        /// 正常 本地进度没有超前时，回最后一次 20101 的下标。
         /// </summary>
         public static int GetLastAckOrUnconfirmed(int playerId)
         {
@@ -46,7 +35,7 @@ namespace MeiZhouHeiBao_3993
             return snap.LastAck > 0 ? snap.LastAck : snap.FreeSpinPlayTimes;
         }
 
-        /// <summary> 20000 有免费快照，且触发局尚未被 20102 确认。 </summary>
+        /// <summary>算法有免费数据，且触发局尚未被确认。 </summary>
         public static bool IsAlgoTriggerUnacked()
         {
             var reset = SBoxIdea.LastResetData;
@@ -215,13 +204,6 @@ namespace MeiZhouHeiBao_3993
             if (!SQLitePlayerPrefs03.Instance.isInit)
                 return;
             SQLitePlayerPrefs03.Instance.DeleteKey(BuildKey());
-        }
-
-        /// <summary> 重连时用本地屏幕总积分覆盖展示（免费未结束前不跟算法分）。 </summary>
-        public static void ApplyDisplayCreditToUi(long displayCredit)
-        {
-            MainBlackboardController.Instance.SetMyRealCredit(displayCredit);
-            MainBlackboardController.Instance.SyncMyTempCreditToReal(true);
         }
 
         /// <summary> 读取数据库的免费重连数据 </summary>

@@ -252,7 +252,6 @@ namespace MeiZhouHeiBao_3993
 
         protected override void OnInit()
         {
-            FreeSpinSessionStoreG3993.EnsureRegistered();
             contentPane = UIPackage.CreateObject(pkgName, resName).asCom;
             base.OnInit();
 

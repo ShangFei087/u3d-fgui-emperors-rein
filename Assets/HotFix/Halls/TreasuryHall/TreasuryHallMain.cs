@@ -466,10 +466,7 @@ namespace TreasuryHall
         private void CommitAfterLoadingPageVisible()
         {
             if (!ApplicationSettings.Instance.isMock)
-            {
-                FreeSpinLastAckBootstrap.RegisterAll();
                 SBoxIdea.GameSwitch(_cardEnterGameId);
-            }
 
             CloseSelf(null);
         }

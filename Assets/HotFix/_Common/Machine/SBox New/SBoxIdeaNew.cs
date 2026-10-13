@@ -147,19 +147,6 @@ namespace SBoxApi
         static string version = "1.0.0";
         public static SBoxIdeaInfo SBoxInfo => sBoxInfo;
 
-        static readonly Dictionary<int, Func<int, int>> LastAckProviders = new Dictionary<int, Func<int, int>>();
-
-        /// <summary>
-        /// 各机台初始化时注册断电续免费 lastAck：playerId => 已完整收到的赠送下标（-1 从未确认）。
-        /// </summary>
-        public static void RegisterFreeSpinLastAck(int gameId, Func<int, int> getLastAck)
-        {
-            if (getLastAck == null)
-                LastAckProviders.Remove(gameId);
-            else
-                LastAckProviders[gameId] = getLastAck;
-        }
-
         public static void CoinPushReset(int pid)
         {
             // Debug.LogError($"调用 CoinPushReset pid={pid}");
@@ -629,8 +616,9 @@ namespace SBoxApi
         public static void GameSwitch(int gameid)
         {
             int lastAck = -1;
-            if (LastAckProviders.TryGetValue(gameid, out Func<int, int> getLastAck) && getLastAck != null)
-                lastAck = getLastAck(SBoxModel.Instance.pid);
+            SBoxResetData reset = LastResetData;
+            if (reset != null && reset.HasFreePersistSnapshot && reset.FreePersistGameId == gameid)
+                lastAck = FreeSpinLastAckBootstrap.GetLastAck(gameid, SBoxModel.Instance.pid);
 
             Debug.Log($"SBoxIdea 20200:{gameid} lastAck={lastAck}");
             SBoxPacket sBoxPacket = new SBoxPacket(cmd: 20200, source: 1, target: 2, size: 3);

@@ -250,11 +250,9 @@ namespace SBoxApi
         public int FreePersistTriggerAcked = 1;
 
         /// <summary> 算法侧仍有未结束的免费快照（含最后一手已发出、待 20102）。 </summary>
-        public bool HasFreePersistSnapshot =>
-            FreePersistGameId > 0 && FreePersistTotalTimes > 0
-            && (FreePersistRemain > 0 || FreePersistCurIdx > 0);
+        public bool HasFreePersistSnapshot =>FreePersistGameId > 0 && FreePersistTotalTimes > 0&& (FreePersistRemain > 0 || FreePersistCurIdx > 0);
 
-        /// <summary> 有免费快照，但触发局的 20102 还没确认。 </summary>
+        /// <summary> 有免费快照，触发局的 还没确认。 </summary>
         public bool IsTriggerUnacked => HasFreePersistSnapshot && FreePersistTriggerAcked == 0;
     }
 
@@ -569,17 +567,14 @@ namespace SBoxApi
             // 免费快照：ret, gameId, 剩余, 押注, 总分倍数, 总局数, nCurFreeIdx, 触发局线奖倍数[, triggerAcked]
             if (data != null && data.Length >= 8)
             {
-                sBoxResetData.FreePersistGameId = data[1];
-                sBoxResetData.FreePersistRemain = data[2];
-                sBoxResetData.FreePersistBet = data[3];
-                sBoxResetData.FreePersistTotalWin = data[4];
-                sBoxResetData.FreePersistTotalTimes = data[5];
-                sBoxResetData.FreePersistCurIdx = data[6];
-                sBoxResetData.BaseGameWinCredit = data[7];
-                // 旧包没有 data[8]，或没有有效 gameId：视为触发已确认。
-                sBoxResetData.FreePersistTriggerAcked = 1;
-                if (data[1] > 0 && data.Length >= 9)
-                    sBoxResetData.FreePersistTriggerAcked = data[8] == 0 ? 0 : 1;
+                sBoxResetData.FreePersistGameId = data[1]; //gameId
+                sBoxResetData.FreePersistRemain = data[2];//剩余次数
+                sBoxResetData.FreePersistBet = data[3];//押注倍数
+                sBoxResetData.FreePersistTotalWin = data[4];//免费奖总赢
+                sBoxResetData.FreePersistTotalTimes = data[5];//总局数
+                sBoxResetData.FreePersistCurIdx = data[6];//下一局下标 nCurFreeIdx
+                sBoxResetData.BaseGameWinCredit = data[7];//触发局线奖
+                sBoxResetData.FreePersistTriggerAcked = data[8] == 0 ? 0 : 1; //触发局是否已经展示
             }
             else if (data != null)
             {

@@ -1,13 +1,20 @@
 using MeiZhouHeiBao_3993;
-using SBoxApi;
 
 /// <summary>
-/// 各机台把 lastAck 注册到 20200。新增断电重连机台时在此加一行 EnsureRegistered。
+/// 20000 的游戏号和正在进入的游戏一致时，由 GameSwitch 取这一台的 lastAck。
+/// 新接断电重连的机台在此加一个 case。
 /// </summary>
 public static class FreeSpinLastAckBootstrap
 {
-    public static void RegisterAll()
+    public static int GetLastAck(int gameId, int playerId)
     {
-        FreeSpinSessionStoreG3993.EnsureRegistered();
+        switch (gameId)
+        {
+            case FreeSpinSessionStoreG3993.GameId:
+                return FreeSpinSessionStoreG3993.GetLastAckOrUnconfirmed(playerId);
+            default:
+                return -1;
+        }
     }
 }
+ 

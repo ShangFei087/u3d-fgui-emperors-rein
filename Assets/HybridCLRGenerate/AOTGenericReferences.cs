@@ -571,7 +571,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Func<int,byte>
 	// System.Func<int,float>
 	// System.Func<int,int,object>
-	// System.Func<int,int>
 	// System.Func<int,object>
 	// System.Func<long,byte>
 	// System.Func<object,System.Nullable<byte>>
